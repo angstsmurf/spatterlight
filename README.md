@@ -4,17 +4,17 @@
 
 Spatterlight is a native Cocoa application plays most kinds of interactive fiction game files: AGT, Adrift, AdvSys, Alan, Glulx, Hugo, Level 9, Magnetic Scrolls, TADS (text-only), Quill, and Z-code (except v6). See [Credits.rtf][credits] for more details.
 
-[credits]: https://github.com/juandesant/spatterlight/blob/master/resources/Credits.rtf
+[credits]: https://github.com/juandesant/spatterlight/blob/master/resources/Credits.rtf "Credits.rft: Credits for Spatterlitght libraries"
 
 Spatterlight supports the [Treaty of Babel][babel] standard for cataloguing bibliographic information about interactive fiction.
 
-[babel]: http://babel.ifarchive.org
+[babel]: http://babel.ifarchive.org "Interactive Fiction Archive: Treaty of Babel"
 
 The Spatterlight application is released under the GNU Public License; the interpreters and libraries it uses are freely redistributable and covered by their own specific licenses.
 
 Screenshots can be found at [ccxvii.net][screenshots].
 
-[screenshots]: http://ccxvii.net/spatterlight/screens.html
+[screenshots]: http://ccxvii.net/spatterlight/screens.html "ccxvii.net: Spatterlight screenshots"
 
 This is beta software! There is no warranty: use it at your own risk. It is a Universal application. You will need Mac OS X 10.3.9 or higher.
 
@@ -22,4 +22,4 @@ This is a Github mirror of the Spatterlight source code as published in [ccxvii]
 
 Please, provide bug reports as issues; the author, Tor Anderson (tor@ccxvii.net) will be notified.
 
-[ccxvii]: http://ccxvii.net/spatterlight/
+[ccxvii]: http://ccxvii.net/spatterlight/ "ccxvii.net: Spatterlight homepage"
