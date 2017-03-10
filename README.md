@@ -16,7 +16,7 @@ Screenshots can be found at [ccxvii.net][screenshots].
 
 This is beta software! There is no warranty: use it at your own risk. It is a Universal application. You will need Mac OS X 10.3.9 or higher.
 
-This is a Github mirror of the Spatterlight source code as published in [ccxvii][ccxvii]. First commit uploaded the 0.5 source.
+This is a Github mirror of the Spatterlight source code as published in [ccxvii][ccxvii]. First commit uploaded the 0.5 source. Copyright 2007-2008 by Tor Andersson.
 
 Please, provide bug reports as issues; the author, Tor Anderson (tor@ccxvii.net) will be notified.
 
