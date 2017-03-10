@@ -1,0 +1,18 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = GlkController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {contentView = GlkHelperView; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            CLASS = GlkHelperView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {delegate = GlkController; }; 
+            SUPERCLASS = NSView; 
+        }
+    ); 
+    IBVersion = 1; 
+}

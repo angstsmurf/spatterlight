@@ -1,0 +1,51 @@
+adrift.c                        Treaty of Babel module for Adrift
+advsys.c                        Treaty of Babel module for AdvSys
+alan.c                          Treaty of Babel module for Alan
+agt.c                           Treaty of Babel module for AGT
+babel.h                         babel program header
+md5.h                           L. Peter Deutsch's md5 header
+modules.h                       babel module registry
+treaty.h                        Treaty of Babel header
+treaty_builder.h                Macros to build treaty modules
+babel.c                         Babel main program
+babel_handler.h                 Babel handler header file
+babel_handler.c                 The babel handler api
+babel_ifiction_functions.c      Babel program-specific ifiction operations
+babel_multi_functions.c         Babel program-specific multi operations
+babel_story_functions.c         Babel program-specific story operations
+blorb.c                         babel handler blorb module
+executable.c                    Treaty of Bable module for executables 
+glulx.c                         Treaty of Babel module for glulx
+hugo.c                          Draft Treaty of Babel module for hugo
+ifiction.h                      babel ifiction header
+ifiction.c                      babel ifiction api
+level9.c                        Treaty of Babel module for level9
+magscrolls.c                    Magnetic Scrolls treaty module
+makefile                        Provisional makefile
+md5.c                           L. Peter Deutsch's md5 implementation
+misc.c                          babel memory allocator
+register.c                      babel module registry
+register_ifiction.c             babel module registry for ifiction API
+tads.h                          Prototypes for tads2.c and tads3.c
+tads.c                          Common functions for TADS modules
+tads2.c                         Treaty of Babel module for tads2
+tads3.c                         Treaty of Babel module for tads3
+zcode.c                         Treaty of Babel module for zcode
+README                          documentation
+MANIFEST                        this file
+extras/babel-cache.pl           Perl demo of babel interaction
+extras/babel-infocom.pl         Special bundler for the infocom corpus
+extras/babel-list.c             Babel API demo
+extras/babel-marry.pl           Perl simple blorb encapsulator
+extras/babel-wed.pl             Perl single file blorb encapsulator
+extras/hotload.c                Dynamic loader replacement for register.c
+extras/hotload.h                Header file for hotload.c
+extras/ifiction-aggregate.c     Utility to combine multiple ifiction files
+extras/ifiction-xtract.c        Ifiction API demo
+extras/simple-marry.c           Simplified C version of babel-marry
+babel-get/babel-get.c           The babel-get application
+babel-get/get_dir.c             Directory source
+babel-get/get_ifiction.c        ifiction source
+babel-get/get_story.c           story file source
+babel-get/get_url.c             URL source
+babel-get/makefile              Makefile for babel-get

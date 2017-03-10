@@ -1,0 +1,22 @@
+diff -urN origtads308/tads2/os.h tads-3.0.8/tads2/os.h
+--- origtads308/tads2/os.h	Sat May 15 11:25:00 2004
++++ tads/tads2/os.h	Thu Mar 17 20:31:04 2005
+@@ -105,6 +105,10 @@
+  *   system-specific definitions.  
+  */
+ 
++#ifdef CUGEL
++#include "osansi.h"
++#else
++
+ #ifdef _WIN32
+ # include "oswin.h"
+ #endif
+@@ -152,6 +156,7 @@
+ #include "osqt.h"
+ #endif
+ 
++#endif
+ 
+ /* **************** add other systems here **************** */
+ 

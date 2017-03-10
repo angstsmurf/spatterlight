@@ -1,0 +1,32 @@
+/* Factory defaults */
+{
+    DefaultWidth = 62;
+    DefaultHeight = 30;
+
+    GridForeground = <000000>;
+    GridBackground = <d8d8d8>;
+    GridFontName = "Monaco";
+    GridFontSize = 11;
+
+    BufferForeground = <000000>;
+    BufferBackground = <ffffff>;
+    BufferFontName = "Helvetica";
+    BufferFontSize = 13;
+
+    InputColor = <236e25>;
+    InputFontName = "Helvetica-Bold";
+    InputFontSize = 13;
+
+    GridMargin = 5;
+    BufferMargin = 15;
+    Leading = 0.0;
+
+    EnableStyles = 0;
+    SmartQuotes = 1;
+    SpaceFormat = 1;
+
+    EnableGraphics = 1;
+    EnableSound = 1;
+    EnableMusic = 0;
+    AntialiasFonts = 1;
+}
