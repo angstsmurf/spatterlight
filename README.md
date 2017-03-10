@@ -6,7 +6,9 @@ Spatterlight is a native Cocoa application plays most kinds of interactive ficti
 
 [credits]: https://github.com/juandesant/spatterlight/blob/master/resources/Credits.rtf
 
-Spatterlight supports the Treaty of Babel standard for cataloguing bibliographic information about interactive fiction.
+Spatterlight supports the [Treaty of Babel][babel] standard for cataloguing bibliographic information about interactive fiction.
+
+[babel]: http://babel.ifarchive.org
 
 The Spatterlight application is released under the GNU Public License; the interpreters and libraries it uses are freely redistributable and covered by their own specific licenses.
 
