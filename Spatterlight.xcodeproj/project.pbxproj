@@ -24,9 +24,9 @@
 		6D395C171EAD095E0070886C /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494351EAC1BC4003DA5C4 /* string.c */; };
 		6D395C181EAD095E0070886C /* unixstrt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494361EAC1BC4003DA5C4 /* unixstrt.c */; };
 		6D395C191EAD095E0070886C /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494371EAC1BC4003DA5C4 /* vm.c */; };
+		6D49B7A61EAD10BE00F7335E /* libfmodex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D49B7A51EAD10BE00F7335E /* libfmodex.dylib */; };
 		6D5494441EAC1BC4003DA5C4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494291EAC1BC4003DA5C4 /* LICENSE */; };
 		6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494321EAC1BC4003DA5C4 /* README.md */; };
-		6DE63DF21EABF6FC000217D6 /* libfmodex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE63DF11EABF6FC000217D6 /* libfmodex.dylib */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
 		961153670A4F365C00BB7FF2 /* htmldb3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152520A4F355800BB7FF2 /* htmldb3.cpp */; };
 		961153680A4F365C00BB7FF2 /* htmldbg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152530A4F355800BB7FF2 /* htmldbg.cpp */; };
@@ -784,6 +784,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6D49B7A51EAD10BE00F7335E /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmodex.dylib; path = fmod/api/lib/libfmodex.dylib; sourceTree = SOURCE_ROOT; };
 		6D54941B1EAC1BC4003DA5C4 /* accel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accel.c; sourceTree = "<group>"; };
 		6D54941C1EAC1BC4003DA5C4 /* debugger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debugger.c; sourceTree = "<group>"; };
 		6D54941D1EAC1BC4003DA5C4 /* exec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = exec.c; sourceTree = "<group>"; };
@@ -808,7 +809,6 @@
 		6D5494351EAC1BC4003DA5C4 /* string.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string.c; sourceTree = "<group>"; };
 		6D5494361EAC1BC4003DA5C4 /* unixstrt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixstrt.c; sourceTree = "<group>"; };
 		6D5494371EAC1BC4003DA5C4 /* vm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vm.c; sourceTree = "<group>"; };
-		6DE63DF11EABF6FC000217D6 /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmodex.dylib; path = "FMOD Programmers API Mac/api/lib/libfmodex.dylib"; sourceTree = DEVELOPER_DIR; };
 		9611524F0A4F355800BB7FF2 /* html_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html_os.h; sourceTree = "<group>"; };
 		961152500A4F355800BB7FF2 /* htmlattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = htmlattr.h; sourceTree = "<group>"; };
 		961152510A4F355800BB7FF2 /* htmldb2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = htmldb2.cpp; sourceTree = "<group>"; };
@@ -2041,7 +2041,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A9BBDA0A066F41001B5B9B /* libbabel.a in Frameworks */,
-				6DE63DF21EABF6FC000217D6 /* libfmodex.dylib in Frameworks */,
+				6D49B7A61EAD10BE00F7335E /* libfmodex.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2651,7 +2651,7 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6DE63DF11EABF6FC000217D6 /* libfmodex.dylib */,
+				6D49B7A51EAD10BE00F7335E /* libfmodex.dylib */,
 				961CCF6709F295E000528FF9 /* Foundation.framework */,
 				961CCF6809F295E000528FF9 /* AppKit.framework */,
 			);
@@ -4283,7 +4283,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -f \"/Developer/FMOD Programmers API Mac/api/lib/libfmodex.dylib\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/libfmodex.dylib\"  \n\ninstall_name_tool -change @rpath/libfmodex.dylib @executable_path/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\" ";
+			shellScript = "cp -f \"$PROJECT_DIR/fmod/api/lib/libfmodex.dylib\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/libfmodex.dylib\"  \n\ninstall_name_tool -change @rpath/libfmodex.dylib @executable_path/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\" ";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5104,22 +5104,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"/Developer/FMOD Programmers API Mac/api/plugins\"/**",
-					"\"/Developer/FMOD Programmers API Mac/api/lib\"/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = $PROJECT_DIR/fmod/api/lib;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION_i386 = 4.2;
 				GCC_VERSION_ppc = 3.3;
-				HEADER_SEARCH_PATHS = (
-					"\"/Developer/FMOD Programmers API Mac/api/inc\"/**",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "\"/Developer/FMOD Programmers API Mac/api\"";
-				LIBRARY_SEARCH_PATHS = (
-					"\"/Developer/FMOD Programmers API Mac/api/lib\"/**",
-					"\"/Developer/FMOD Programmers API Mac/api/plugins\"/**",
-				);
+				HEADER_SEARCH_PATHS = $PROJECT_DIR/fmod/api/inc;
+				LD_RUNPATH_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = $PROJECT_DIR/fmod/api/lib;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.6;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				SDKROOT = macosx;
@@ -5135,22 +5127,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"/Developer/FMOD Programmers API Mac/api/plugins\"/**",
-					"\"/Developer/FMOD Programmers API Mac/api/lib\"/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = $PROJECT_DIR/fmod/api/lib;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION_i386 = 4.2;
 				GCC_VERSION_ppc = 3.3;
-				HEADER_SEARCH_PATHS = (
-					"\"/Developer/FMOD Programmers API Mac/api/inc\"/**",
-				);
-				LD_RUNPATH_SEARCH_PATHS = "\"/Developer/FMOD Programmers API Mac/api\"";
-				LIBRARY_SEARCH_PATHS = (
-					"\"/Developer/FMOD Programmers API Mac/api/lib\"/**",
-					"\"/Developer/FMOD Programmers API Mac/api/plugins\"/**",
-				);
+				HEADER_SEARCH_PATHS = $PROJECT_DIR/fmod/api/inc;
+				LD_RUNPATH_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = $PROJECT_DIR/fmod/api/lib;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.6;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				SDKROOT = macosx;
@@ -5250,6 +5234,7 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"$(SYSTEM_DEVELOPER_DIR)/fmod/universal",
 					"\"$(DEVELOPER_DIR)/FMOD Programmers API Mac/api/lib\"",
+					"\"$(SRCROOT)/fmod/api/lib\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -5285,6 +5270,7 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"\"$(SYSTEM_DEVELOPER_DIR)/FMOD Programmers API/api/lib\"",
 					"\"$(DEVELOPER_DIR)/FMOD Programmers API Mac/api/lib\"",
+					"\"$(SRCROOT)/fmod/api/lib\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
