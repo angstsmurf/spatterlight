@@ -74,7 +74,7 @@ typedef long int32;
 typedef unsigned long uint32;
 
 /* unsigned byte */
-typedef unsigned char uchar;
+/*typedef unsigned char uchar;*/
 
 
 /* clear a struture */

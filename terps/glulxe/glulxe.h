@@ -6,7 +6,8 @@
 #ifndef _GLULXE_H
 #define _GLULXE_H
 
-#define OS_UNIX /* Spatterlight is close enough */
+/* Import definitions for glui32, glsi32, and other Glk types. */
+#include "glk.h"
 
 /* We define our own TRUE and FALSE and NULL, because ANSI
    is a strange world. */
@@ -20,17 +21,57 @@
 #define NULL 0
 #endif
 
-/* You may have to edit the definition of glui16 to make sure it's really a
-   16-bit unsigned integer type, and glsi16 to make sure it's really a
-   16-bit signed integer type. If they're not, horrible things will happen. */
-typedef unsigned short glui16; 
-typedef signed short glsi16; 
+/* If glk.h defined GLK_ATTRIBUTE_NORETURN, great, we'll use it.
+   (This is a function attribute for functions that never return, e.g
+   glk_exit().) If we have an older glk.h, that definition is missing,
+   so we define it as a blank stub. */
+#ifndef GLK_ATTRIBUTE_NORETURN
+#define GLK_ATTRIBUTE_NORETURN
+#endif /* GLK_ATTRIBUTE_NORETURN */
 
-/* Uncomment this definition to turn on memory-address checking. In
-   this mode, all reads and writes to main memory will be checked to
-   ensure they're in range. This is slower, but prevents malformed
+/* If your system does not have <stdint.h>, you'll have to remove this
+    include line. Then edit the definition of glui16 to make sure it's
+    really a 16-bit unsigned integer type, and glsi16 to make sure
+    it's really a 16-bit signed integer type. If they're not, horrible
+    things will happen. */
+#include <stdint.h>
+typedef uint16_t glui16;
+typedef int16_t glsi16;
+
+/* Comment this definition to turn off memory-address checking. With
+   verification on, all reads and writes to main memory will be checked
+   to ensure they're in range. This is slower, but prevents malformed
    game files from crashing the interpreter. */
-/* #define VERIFY_MEMORY_ACCESS (1) */
+#define VERIFY_MEMORY_ACCESS (1)
+
+/* Uncomment this definition to permit an exception for memory-address
+   checking for @glk and @copy opcodes that try to write to memory address 0.
+   This was a bug in old Superglus-built game files. */
+/* #define TOLERATE_SUPERGLUS_BUG (1) */
+
+/* Uncomment this definition to turn on Glulx VM profiling. In this
+   mode, all function calls are timed, and the timing information is
+   written to a data file called "profile-raw".
+   (Build note: on Linux, glibc may require you to also define
+   _BSD_SOURCE or _DEFAULT_SOURCE or both for the timeradd() macro.) */
+/* #define VM_PROFILING (1) */
+
+/* Uncomment this definition to turn on the Glulx debugger. You should
+   only do this when debugging facilities are desired; it slows down
+   the interpreter. If you do, you will need to build with libxml2;
+   see the Makefile. */
+/* #define VM_DEBUGGER (1) */
+
+/* Comment this definition to turn off floating-point support. You
+   might need to do this if you are building on a very limited platform
+   with no math library. */
+#define FLOAT_SUPPORT (1)
+
+/* Comment this definition to not cache the original state of RAM in
+   (real) memory. This saves some memory, but slows down save/restore/undo
+   operations, which will have to read the original state off disk
+   every time. */
+#define SERIALIZE_CACHE_RAM (1)
 
 /* Some macros to read and write integers to memory, always in big-endian
    format. */
@@ -58,16 +99,18 @@ typedef signed short glsi16;
 
 #if VERIFY_MEMORY_ACCESS
 #define Verify(adr, ln) verify_address(adr, ln)
+#define VerifyW(adr, ln) verify_address_write(adr, ln)
 #else
 #define Verify(adr, ln) (0)
+#define VerifyW(adr, ln) (0)
 #endif /* VERIFY_MEMORY_ACCESS */
 
 #define Mem1(adr)  (Verify(adr, 1), Read1(memmap+(adr)))
 #define Mem2(adr)  (Verify(adr, 2), Read2(memmap+(adr)))
 #define Mem4(adr)  (Verify(adr, 4), Read4(memmap+(adr)))
-#define MemW1(adr, vl)  (Verify(adr, 1), Write1(memmap+(adr), (vl)))
-#define MemW2(adr, vl)  (Verify(adr, 2), Write2(memmap+(adr), (vl)))
-#define MemW4(adr, vl)  (Verify(adr, 4), Write4(memmap+(adr), (vl)))
+#define MemW1(adr, vl)  (VerifyW(adr, 1), Write1(memmap+(adr), (vl)))
+#define MemW2(adr, vl)  (VerifyW(adr, 2), Write2(memmap+(adr), (vl)))
+#define MemW4(adr, vl)  (VerifyW(adr, 4), Write4(memmap+(adr), (vl)))
 
 /* Macros to access values on the stack. These *must* be used 
    with proper alignment! (That is, Stk4 and StkW4 must take 
@@ -91,16 +134,17 @@ typedef signed short glsi16;
 
 /* Some useful structures. */
 
-/* instruction_t:
-   Represents the list of operands to an instruction being executed.
-   (Yes, it's somewhat misnamed. Sorry.) We assume, for the indefinite
-   moment, that no opcode has more than 8 operands, and no opcode
-   has two "store" operands.
+/* oparg_t:
+   Represents one operand value to an instruction being executed. The
+   code in exec.c assumes that no instruction has more than MAX_OPERANDS
+   of these.
 */
-typedef struct instruction_struct {
+typedef struct oparg_struct {
   glui32 desttype;
-  glui32 value[8];
-} instruction_t;
+  glui32 value;
+} oparg_t;
+
+#define MAX_OPERANDS (8)
 
 /* operandlist_t:
    Represents the operand structure of an opcode.
@@ -115,6 +159,7 @@ typedef struct operandlist_struct {
 
 /* Some useful globals */
 
+extern int vm_exited_cleanly;
 extern strid_t gamefile;
 extern glui32 gamefile_start, gamefile_len;
 extern char *init_err, *init_err2;
@@ -137,12 +182,15 @@ extern glui32 valstackbase;
 extern glui32 localsbase;
 extern glui32 endmem;
 extern glui32 protectstart, protectend;
+extern glui32 prevpc;
 
 extern void (*stream_char_handler)(unsigned char ch);
 extern void (*stream_unichar_handler)(glui32 ch);
 
 /* main.c */
-extern void fatal_error_handler(char *str, char *arg, int useval, glsi32 val);
+extern void set_library_start_hook(void (*)(void));
+extern void set_library_autorestore_hook(void (*)(void));
+extern void fatal_error_handler(char *str, char *arg, int useval, glsi32 val) GLK_ATTRIBUTE_NORETURN;
 extern void nonfatal_warning_handler(char *str, char *arg, int useval, glsi32 val);
 #define fatal_error(s)  (fatal_error_handler((s), NULL, FALSE, 0))
 #define fatal_error_2(s1, s2)  (fatal_error_handler((s1), (s2), FALSE, 0))
@@ -162,6 +210,8 @@ extern void vm_restart(void);
 extern glui32 change_memsize(glui32 newlen, int internal);
 extern glui32 *pop_arguments(glui32 count, glui32 addr);
 extern void verify_address(glui32 addr, glui32 count);
+extern void verify_address_write(glui32 addr, glui32 count);
+extern void verify_array_addresses(glui32 addr, glui32 count, glui32 size);
 
 /* exec.c */
 extern void execute_loop(void);
@@ -170,7 +220,7 @@ extern void execute_loop(void);
 extern operandlist_t *fast_operandlist[0x80];
 extern void init_operands(void);
 extern operandlist_t *lookup_operandlist(glui32 opcode);
-extern void parse_operands(instruction_t *inst, operandlist_t *oplist);
+extern void parse_operands(oparg_t *opargs, operandlist_t *oplist);
 extern void store_operand(glui32 desttype, glui32 destaddr, glui32 storeval);
 extern void store_operand_s(glui32 desttype, glui32 destaddr, glui32 storeval);
 extern void store_operand_b(glui32 desttype, glui32 destaddr, glui32 storeval);
@@ -205,9 +255,11 @@ extern int heap_apply_summary(glui32 valcount, glui32 *summary);
 extern void heap_sanity_check(void);
 
 /* serial.c */
+extern int max_undo_level;
 extern int init_serial(void);
+extern void final_serial(void);
 extern glui32 perform_save(strid_t str);
-extern glui32 perform_restore(strid_t str);
+extern glui32 perform_restore(strid_t str, int fromshell);
 extern glui32 perform_saveundo(void);
 extern glui32 perform_restoreundo(void);
 extern glui32 perform_verify(void);
@@ -236,8 +288,98 @@ extern void glulx_sort(void *addr, int count, int size,
 extern glui32 do_gestalt(glui32 val, glui32 val2);
 
 /* glkop.c */
+extern void set_library_select_hook(void (*func)(glui32));
 extern int init_dispatch(void);
 extern glui32 perform_glk(glui32 funcnum, glui32 numargs, glui32 *arglist);
 extern strid_t find_stream_by_id(glui32 objid);
+extern glui32 find_id_for_window(winid_t win);
+extern glui32 find_id_for_stream(strid_t str);
+extern glui32 find_id_for_fileref(frefid_t fref);
+extern glui32 find_id_for_schannel(schanid_t schan);
+
+/* profile.c */
+extern void setup_profile(strid_t stream, char *filename);
+extern int init_profile(void);
+extern void profile_set_call_counts(int flag);
+#if VM_PROFILING
+extern glui32 profile_opcount;
+#define profile_tick() (profile_opcount++)
+extern int profile_profiling_active(void);
+extern void profile_in(glui32 addr, glui32 stackuse, int accel);
+extern void profile_out(glui32 stackuse);
+extern void profile_fail(char *reason);
+extern void profile_quit(void);
+#else /* VM_PROFILING */
+#define profile_tick()         (0)
+#define profile_profiling_active()         (0)
+#define profile_in(addr, stackuse, accel)  (0)
+#define profile_out(stackuse)  (0)
+#define profile_fail(reason)   (0)
+#define profile_quit()         (0)
+#endif /* VM_PROFILING */
+
+#if VM_DEBUGGER
+extern unsigned long debugger_opcount;
+#define debugger_tick() (debugger_opcount++)
+extern int debugger_load_info_stream(strid_t stream);
+extern int debugger_load_info_chunk(strid_t stream, glui32 pos, glui32 len);
+extern void debugger_track_cpu(int flag);
+extern void debugger_set_start_trap(int flag);
+extern void debugger_set_quit_trap(int flag);
+extern void debugger_set_crash_trap(int flag);
+extern void debugger_check_story_file(void);
+extern void debugger_setup_start_state(void);
+extern int debugger_ever_invoked(void);
+extern int debugger_cmd_handler(char *cmd);
+extern void debugger_cycle_handler(int cycle);
+extern void debugger_check_func_breakpoint(glui32 addr);
+extern void debugger_block_and_debug(char *msg);
+extern void debugger_handle_crash(char *msg);
+extern void debugger_handle_quit(void);
+#else /* VM_DEBUGGER */
+#define debugger_tick()              (0)
+#define debugger_check_story_file()  (0)
+#define debugger_setup_start_state() (0)
+#define debugger_check_func_breakpoint(addr)  (0)
+#define debugger_handle_crash(msg)   (0)
+#endif /* VM_DEBUGGER */
+
+/* accel.c */
+typedef glui32 (*acceleration_func)(glui32 argc, glui32 *argv);
+extern void init_accel(void);
+extern acceleration_func accel_find_func(glui32 index);
+extern acceleration_func accel_get_func(glui32 addr);
+extern void accel_set_func(glui32 index, glui32 addr);
+extern void accel_set_param(glui32 index, glui32 val);
+extern glui32 accel_get_param_count(void);
+extern glui32 accel_get_param(glui32 index);
+extern void accel_iterate_funcs(void (*func)(glui32 index, glui32 addr));
+
+#ifdef FLOAT_SUPPORT
+
+/* You may have to edit the definition of gfloat32 to make sure it's really
+   a 32-bit floating-point type. */
+typedef float gfloat32;
+
+/* Uncomment this definition if your gfloat32 type is not a standard
+   IEEE-754 single-precision (32-bit) format. Normally, Glulxe assumes
+   that it can reinterpret-cast IEEE-754 int values into gfloat32
+   values. If you uncomment this, Glulxe switches to lengthier
+   (but safer) encoding and decoding functions. */
+/* #define FLOAT_NOT_NATIVE (1) */
+
+/* float.c */
+extern int init_float(void);
+extern glui32 encode_float(gfloat32 val);
+extern gfloat32 decode_float(glui32 val);
+
+/* Uncomment this definition if your powf() function does not support
+   all the corner cases specified by C99. If you uncomment this,
+   osdepend.c will provide a safer implementation of glulx_powf(). */
+/* #define FLOAT_COMPILE_SAFER_POWF (1) */
+
+extern gfloat32 glulx_powf(gfloat32 val1, gfloat32 val2);
+
+#endif /* FLOAT_SUPPORT */
 
 #endif /* _GLULXE_H */

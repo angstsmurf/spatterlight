@@ -30,6 +30,10 @@ glui32 localsbase;
 glui32 endmem;
 glui32 protectstart, protectend;
 
+/* This is not needed for VM operation, but it may be needed for
+   autosave/autorestore. */
+glui32 prevpc;
+
 void (*stream_char_handler)(unsigned char ch);
 void (*stream_unichar_handler)(glui32 ch);
 
@@ -43,6 +47,7 @@ void setup_vm()
   int res;
 
   pc = 0; /* Clear this, so that error messages are cleaner. */
+  prevpc = 0;
 
   /* Read in all the size constants from the game file header. */
 
@@ -51,6 +56,9 @@ void setup_vm()
 
   glk_stream_set_position(gamefile, gamefile_start+8, seekmode_Start);
   res = glk_get_buffer_stream(gamefile, (char *)buf, 4 * 7);
+  if (res != 4 * 7) {
+    fatal_error("The game file header is too short.");
+  }
   
   ramstart = Read4(buf+0);
   endgamefile = Read4(buf+4);
@@ -72,6 +80,11 @@ void setup_vm()
     || (stacksize & 0xFF)) {
     nonfatal_warning("One of the segment boundaries in the header is not "
       "256-byte aligned.");
+  }
+
+  if (endgamefile != gamefile_len) {
+    nonfatal_warning("The gamefile length does not match the header "
+      "endgamefile length.");
   }
 
   if (ramstart < 0x100 || endgamefile < ramstart || origendmem < endgamefile) {
@@ -99,10 +112,18 @@ void setup_vm()
 
   /* Initialize various other things in the terp. */
   init_operands(); 
+  init_accel();
   init_serial();
 
   /* Set up the initial machine state. */
   vm_restart();
+
+  /* If the debugger is compiled in, check that the debug data matches
+     the game. (This only prints warnings for mismatch.) */
+  debugger_check_story_file();
+  /* Also, set up any start-time debugger state. This may do a block-
+     and-debug, if the user has requested that. */
+  debugger_setup_start_state();
 }
 
 /* finalize_vm():
@@ -110,6 +131,8 @@ void setup_vm()
 */
 void finalize_vm()
 {
+  stream_set_table(0);
+
   if (memmap) {
     glulx_free(memmap);
     memmap = NULL;
@@ -118,6 +141,8 @@ void finalize_vm()
     glulx_free(stack);
     stack = NULL;
   }
+
+  final_serial();
 }
 
 /* vm_restart(): 
@@ -129,6 +154,8 @@ void vm_restart()
 {
   glui32 lx;
   int res;
+  int bufpos;
+  char buf[0x100];
 
   /* Deactivate the heap (if it was active). */
   heap_clear();
@@ -138,13 +165,21 @@ void vm_restart()
   if (lx)
     fatal_error("Memory could not be reset to its original size.");
 
-  /* Load in all of main memory */
+  /* Load in all of main memory. We do this in 256-byte chunks, because
+     why rely on OS stream buffering? */
   glk_stream_set_position(gamefile, gamefile_start, seekmode_Start);
+  bufpos = 0x100;
+
   for (lx=0; lx<endgamefile; lx++) {
-    res = glk_get_char_stream(gamefile);
-    if (res == -1) {
-      fatal_error("The game file ended unexpectedly.");
+    if (bufpos >= 0x100) {
+      int count = glk_get_buffer_stream(gamefile, buf, 0x100);
+      if (count != 0x100) {
+        fatal_error("The game file ended unexpectedly.");
+      }
+      bufpos = 0;
     }
+
+    res = buf[bufpos++];
     if (lx >= protectstart && lx < protectend)
       continue;
     memmap[lx] = res;
@@ -157,6 +192,7 @@ void vm_restart()
   stackptr = 0;
   frameptr = 0;
   pc = 0;
+  prevpc = 0;
   stream_set_iosys(0, 0);
   stream_set_table(origstringtable);
   valstackbase = 0;
@@ -286,7 +322,7 @@ glui32 *pop_arguments(glui32 count, glui32 addr)
 
 /* verify_address():
    Make sure that count bytes beginning with addr all fall within the
-   current memory map. This is called at every memory access if
+   current memory map. This is called at every memory (read) access if
    VERIFY_MEMORY_ACCESS is defined in the header file.
 */
 void verify_address(glui32 addr, glui32 count)
@@ -298,5 +334,52 @@ void verify_address(glui32 addr, glui32 count)
     if (addr >= endmem)
       fatal_error_i("Memory access out of range", addr);
   }
+}
+
+/* verify_address_write():
+   Make sure that count bytes beginning with addr all fall within RAM.
+   This is called at every memory write if VERIFY_MEMORY_ACCESS is 
+   defined in the header file.
+*/
+void verify_address_write(glui32 addr, glui32 count)
+{
+  if (addr < ramstart)
+    fatal_error_i("Memory write to read-only address", addr);
+  if (addr >= endmem)
+    fatal_error_i("Memory access out of range", addr);
+  if (count > 1) {
+    addr += (count-1);
+    if (addr >= endmem)
+      fatal_error_i("Memory access out of range", addr);
+  }
+}
+
+/* verify_array_addresses():
+   Make sure that an array of count elements (size bytes each),
+   starting at addr, does not fall outside the memory map. This goes
+   to some trouble that verify_address() does not, because we need
+   to be wary of lengths near -- or beyond -- 0x7FFFFFFF.
+*/
+void verify_array_addresses(glui32 addr, glui32 count, glui32 size)
+{
+  glui32 bytecount;
+  if (addr >= endmem)
+    fatal_error_i("Memory access out of range", addr);
+
+  if (count == 0)
+    return;
+  bytecount = count*size;
+
+  /* If just multiplying by the element size overflows, we have trouble. */
+  if (bytecount < count)
+    fatal_error_i("Memory access way too long", addr);
+
+  /* If the byte length by itself is too long, or if its end overflows,
+     we have trouble. */
+  if (bytecount > endmem || addr+bytecount < addr)
+    fatal_error_i("Memory access much too long", addr);
+  /* The simple length test. */
+  if (addr+bytecount > endmem)
+    fatal_error_i("Memory access too long", addr);
 }
 

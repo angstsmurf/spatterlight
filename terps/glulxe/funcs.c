@@ -12,14 +12,27 @@
    argc and argv are an array of arguments. Note that if argc is zero,
    argv may be NULL.
 */
-void enter_function(glui32 addr, glui32 argc, glui32 *argv)
+void enter_function(glui32 funcaddr, glui32 argc, glui32 *argv)
 {
   int ix, jx;
+  acceleration_func accelfunc;
   int locallen;
   int functype;
   glui32 modeaddr, opaddr, val;
   int loctype, locnum;
+  glui32 addr = funcaddr;
+
+  accelfunc = accel_get_func(addr);
+  if (accelfunc) {
+    profile_in(addr, stackptr, TRUE);
+    val = accelfunc(argc, argv);
+    profile_out(stackptr);
+    pop_callstub(val);
+    return;
+  }
     
+  profile_in(addr, stackptr, FALSE);
+
   /* Check the Glulx type identifier byte. */
   functype = Mem1(addr);
   if (functype != 0xC0 && functype != 0xC1) {
@@ -171,6 +184,10 @@ void enter_function(glui32 addr, glui32 argc, glui32 *argv)
       }
     }
   }
+
+  /* If the debugger is compiled in, check for a breakpoint on this
+     function. (Checking the function address, not the starting PC.) */
+  debugger_check_func_breakpoint(funcaddr);
 }
 
 /* leave_function():
@@ -178,6 +195,7 @@ void enter_function(glui32 addr, glui32 argc, glui32 *argv)
 */
 void leave_function()
 {
+  profile_out(stackptr);
   stackptr = frameptr;
 }
 

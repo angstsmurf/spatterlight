@@ -3,10 +3,30 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D5494441EAC1BC4003DA5C4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494291EAC1BC4003DA5C4 /* LICENSE */; };
+		6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494321EAC1BC4003DA5C4 /* README.md */; };
+		6D5495A11EAC3902003DA5C4 /* accel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5495641EAC387C003DA5C4 /* accel.c */; };
+		6D5495A21EAC392C003DA5C4 /* exec.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5495661EAC387C003DA5C4 /* exec.c */; };
+		6D5495A31EAC393A003DA5C4 /* files.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5495671EAC387C003DA5C4 /* files.c */; };
+		6D5495A41EAC3943003DA5C4 /* float.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5495681EAC387C003DA5C4 /* float.c */; };
+		6D5495A51EAC394A003DA5C4 /* funcs.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5495691EAC387C003DA5C4 /* funcs.c */; };
+		6D5495A61EAC3952003DA5C4 /* gestalt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54956A1EAC387C003DA5C4 /* gestalt.c */; };
+		6D5495A71EAC3960003DA5C4 /* glkop.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54956C1EAC387C003DA5C4 /* glkop.c */; };
+		6D5495A81EAC3969003DA5C4 /* heap.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54956F1EAC387C003DA5C4 /* heap.c */; };
+		6D5495A91EAC3974003DA5C4 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5495741EAC387C003DA5C4 /* main.c */; };
+		6D5495AA1EAC3981003DA5C4 /* operand.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5495771EAC387C003DA5C4 /* operand.c */; };
+		6D5495AB1EAC3989003DA5C4 /* osdepend.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5495781EAC387C003DA5C4 /* osdepend.c */; };
+		6D5495AC1EAC3994003DA5C4 /* profile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54957A1EAC387C003DA5C4 /* profile.c */; };
+		6D5495AD1EAC399D003DA5C4 /* search.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54957C1EAC387C003DA5C4 /* search.c */; };
+		6D5495AE1EAC39A4003DA5C4 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54957D1EAC387C003DA5C4 /* serial.c */; };
+		6D5495AF1EAC39AC003DA5C4 /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54957E1EAC387C003DA5C4 /* string.c */; };
+		6D5495B01EAC39BB003DA5C4 /* unixstrt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54957F1EAC387C003DA5C4 /* unixstrt.c */; };
+		6D5495B11EAC39C2003DA5C4 /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5495801EAC387C003DA5C4 /* vm.c */; };
+		6DE63DF21EABF6FC000217D6 /* libfmodex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE63DF11EABF6FC000217D6 /* libfmodex.dylib */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
 		961153670A4F365C00BB7FF2 /* htmldb3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152520A4F355800BB7FF2 /* htmldb3.cpp */; };
 		961153680A4F365C00BB7FF2 /* htmldbg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152530A4F355800BB7FF2 /* htmldbg.cpp */; };
@@ -132,19 +152,6 @@
 		9650381C09F2A4AE0083E64E /* magnetic in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 965037EF09F2A41F0083E64E /* magnetic */; };
 		9650384F09F2AF280083E64E /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		9650385009F2AF280083E64E /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
-		9650385809F2AF930083E64E /* exec.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650329209F29EE20083E64E /* exec.c */; };
-		9650385909F2AF930083E64E /* files.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650329309F29EE20083E64E /* files.c */; };
-		9650385A09F2AF930083E64E /* funcs.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650329409F29EE20083E64E /* funcs.c */; };
-		9650385B09F2AF930083E64E /* gestalt.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650329509F29EE20083E64E /* gestalt.c */; };
-		9650385C09F2AF930083E64E /* glkop.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650329709F29EE20083E64E /* glkop.c */; };
-		9650385D09F2AF930083E64E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650329B09F29EE20083E64E /* main.c */; };
-		9650385E09F2AF930083E64E /* operand.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650329E09F29EE20083E64E /* operand.c */; };
-		9650385F09F2AF930083E64E /* osdepend.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650329F09F29EE20083E64E /* osdepend.c */; };
-		9650386009F2AF930083E64E /* search.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032A109F29EE20083E64E /* search.c */; };
-		9650386109F2AF930083E64E /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032A209F29EE20083E64E /* serial.c */; };
-		9650386209F2AF930083E64E /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032A309F29EE20083E64E /* string.c */; };
-		9650386309F2AF930083E64E /* unixstrt.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032A409F29EE20083E64E /* unixstrt.c */; };
-		9650386409F2AF930083E64E /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032A509F29EE20083E64E /* vm.c */; };
 		9650387609F2CC450083E64E /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		9650387709F2CC450083E64E /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		9650388409F2CC4E0083E64E /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
@@ -248,8 +255,6 @@
 		967C41D40B7A124B008A2D2F /* scmemos.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C41D20B7A124B008A2D2F /* scmemos.c */; };
 		967C41D50B7A124B008A2D2F /* scrunner.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C41D30B7A124B008A2D2F /* scrunner.c */; };
 		967C42000B7A155A008A2D2F /* GlkSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCED609F239E700528FF9 /* GlkSoundChannel.m */; };
-		967C42150B7A15B7008A2D2F /* libfmodex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCF6609F295E000528FF9 /* libfmodex.dylib */; };
-		967C42160B7A15BA008A2D2F /* libfmodex.dylib in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 961CCF6609F295E000528FF9 /* libfmodex.dylib */; };
 		96A80EFD09F5821400CC75F4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96A80EFC09F5821400CC75F4 /* InfoPlist.strings */; };
 		96A9BA080A064B32001B5B9B /* agtread.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031C109F29EE10083E64E /* agtread.c */; };
 		96A9BA090A064B32001B5B9B /* agxfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031C209F29EE10083E64E /* agxfile.c */; };
@@ -288,7 +293,6 @@
 		96B6FCA80A0D478400E62E4D /* IconApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2409F2940F00528FF9 /* IconApp.icns */; };
 		96B6FCA90A0D478400E62E4D /* IconGame.icns in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2509F2940F00528FF9 /* IconGame.icns */; };
 		96B6FE6F0A0E4E0200E62E4D /* Question.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B6FE6E0A0E4E0200E62E4D /* Question.png */; };
-		96BE63FC0E0AE0610050667D /* heap.c in Sources */ = {isa = PBXBuildFile; fileRef = 96BE63FB0E0AE0610050667D /* heap.c */; };
 		96BE643F0E0AEAA40050667D /* sclocale.c in Sources */ = {isa = PBXBuildFile; fileRef = 96BE643E0E0AEAA40050667D /* sclocale.c */; };
 		96CC05900A134D22004F30FA /* GlkStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CC04C90A133B93004F30FA /* GlkStyle.m */; };
 		96E6B9430AC4081600DCBE8B /* glulxe in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 9650385409F2AF280083E64E /* glulxe */; };
@@ -747,7 +751,6 @@
 			dstSubfolderSpec = 6;
 			files = (
 				9650315709F296F30083E64E /* libglkimp.dylib in Copy Interpreter Files */,
-				967C42160B7A15BA008A2D2F /* libfmodex.dylib in Copy Interpreter Files */,
 				9650397F09F2D7180083E64E /* advsys in Copy Interpreter Files */,
 				9650396009F2D64F0083E64E /* agility in Copy Interpreter Files */,
 				96A9BA220A064BCC001B5B9B /* agt2agx in Copy Interpreter Files */,
@@ -781,6 +784,53 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6D54941B1EAC1BC4003DA5C4 /* accel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accel.c; sourceTree = "<group>"; };
+		6D54941C1EAC1BC4003DA5C4 /* debugger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debugger.c; sourceTree = "<group>"; };
+		6D54941D1EAC1BC4003DA5C4 /* exec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = exec.c; sourceTree = "<group>"; };
+		6D54941E1EAC1BC4003DA5C4 /* files.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = files.c; sourceTree = "<group>"; };
+		6D54941F1EAC1BC4003DA5C4 /* float.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = float.c; sourceTree = "<group>"; };
+		6D5494201EAC1BC4003DA5C4 /* funcs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = funcs.c; sourceTree = "<group>"; };
+		6D5494211EAC1BC4003DA5C4 /* gestalt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gestalt.c; sourceTree = "<group>"; };
+		6D5494221EAC1BC4003DA5C4 /* gestalt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gestalt.h; sourceTree = "<group>"; };
+		6D5494231EAC1BC4003DA5C4 /* glkop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glkop.c; sourceTree = "<group>"; };
+		6D5494251EAC1BC4003DA5C4 /* glulxe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glulxe.h; sourceTree = "<group>"; };
+		6D5494261EAC1BC4003DA5C4 /* heap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = heap.c; sourceTree = "<group>"; };
+		6D5494291EAC1BC4003DA5C4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6D54942B1EAC1BC4003DA5C4 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		6D54942D1EAC1BC4003DA5C4 /* opcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opcodes.h; sourceTree = "<group>"; };
+		6D54942E1EAC1BC4003DA5C4 /* operand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = operand.c; sourceTree = "<group>"; };
+		6D54942F1EAC1BC4003DA5C4 /* osdepend.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osdepend.c; sourceTree = "<group>"; };
+		6D5494301EAC1BC4003DA5C4 /* profile-analyze.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = "profile-analyze.py"; sourceTree = "<group>"; };
+		6D5494311EAC1BC4003DA5C4 /* profile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = profile.c; sourceTree = "<group>"; };
+		6D5494321EAC1BC4003DA5C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		6D5494331EAC1BC4003DA5C4 /* search.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = search.c; sourceTree = "<group>"; };
+		6D5494341EAC1BC4003DA5C4 /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = serial.c; sourceTree = "<group>"; };
+		6D5494351EAC1BC4003DA5C4 /* string.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string.c; sourceTree = "<group>"; };
+		6D5494361EAC1BC4003DA5C4 /* unixstrt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixstrt.c; sourceTree = "<group>"; };
+		6D5494371EAC1BC4003DA5C4 /* vm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vm.c; sourceTree = "<group>"; };
+		6D5495641EAC387C003DA5C4 /* accel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accel.c; sourceTree = "<group>"; };
+		6D5495651EAC387C003DA5C4 /* debugger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debugger.c; sourceTree = "<group>"; };
+		6D5495661EAC387C003DA5C4 /* exec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = exec.c; sourceTree = "<group>"; };
+		6D5495671EAC387C003DA5C4 /* files.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = files.c; sourceTree = "<group>"; };
+		6D5495681EAC387C003DA5C4 /* float.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = float.c; sourceTree = "<group>"; };
+		6D5495691EAC387C003DA5C4 /* funcs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = funcs.c; sourceTree = "<group>"; };
+		6D54956A1EAC387C003DA5C4 /* gestalt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gestalt.c; sourceTree = "<group>"; };
+		6D54956B1EAC387C003DA5C4 /* gestalt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gestalt.h; sourceTree = "<group>"; };
+		6D54956C1EAC387C003DA5C4 /* glkop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glkop.c; sourceTree = "<group>"; };
+		6D54956D1EAC387C003DA5C4 /* glulxdump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glulxdump.c; sourceTree = "<group>"; };
+		6D54956E1EAC387C003DA5C4 /* glulxe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glulxe.h; sourceTree = "<group>"; };
+		6D54956F1EAC387C003DA5C4 /* heap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = heap.c; sourceTree = "<group>"; };
+		6D5495741EAC387C003DA5C4 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		6D5495761EAC387C003DA5C4 /* opcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opcodes.h; sourceTree = "<group>"; };
+		6D5495771EAC387C003DA5C4 /* operand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = operand.c; sourceTree = "<group>"; };
+		6D5495781EAC387C003DA5C4 /* osdepend.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osdepend.c; sourceTree = "<group>"; };
+		6D54957A1EAC387C003DA5C4 /* profile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = profile.c; sourceTree = "<group>"; };
+		6D54957C1EAC387C003DA5C4 /* search.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = search.c; sourceTree = "<group>"; };
+		6D54957D1EAC387C003DA5C4 /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = serial.c; sourceTree = "<group>"; };
+		6D54957E1EAC387C003DA5C4 /* string.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string.c; sourceTree = "<group>"; };
+		6D54957F1EAC387C003DA5C4 /* unixstrt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixstrt.c; sourceTree = "<group>"; };
+		6D5495801EAC387C003DA5C4 /* vm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vm.c; sourceTree = "<group>"; };
+		6DE63DF11EABF6FC000217D6 /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmodex.dylib; path = "FMOD Programmers API Mac/api/lib/libfmodex.dylib"; sourceTree = DEVELOPER_DIR; };
 		9611524F0A4F355800BB7FF2 /* html_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html_os.h; sourceTree = "<group>"; };
 		961152500A4F355800BB7FF2 /* htmlattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = htmlattr.h; sourceTree = "<group>"; };
 		961152510A4F355800BB7FF2 /* htmldb2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = htmldb2.cpp; sourceTree = "<group>"; };
@@ -1101,14 +1151,13 @@
 		961CCF2B09F2940F00528FF9 /* TADS License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "TADS License.rtf"; sourceTree = "<group>"; };
 		961CCF2C09F2940F00528FF9 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
 		961CCF2D09F2940F00528FF9 /* PrefsWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = PrefsWindow.nib; sourceTree = "<group>"; };
-		961CCF6609F295E000528FF9 /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmodex.dylib; path = "FMOD Programmers API/api/lib/libfmodex.dylib"; sourceTree = DEVELOPER_DIR; };
 		961CCF6709F295E000528FF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		961CCF6809F295E000528FF9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		961DC9360A108DE10044A0D4 /* quill.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quill.c; sourceTree = "<group>"; };
 		961DC9630A1093C90044A0D4 /* babel_rev7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = babel_rev7.txt; sourceTree = "<group>"; };
 		96264AC30A494A5D0093569C /* cgunicod.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cgunicod.c; sourceTree = "<group>"; };
 		96264AC40A494A5E0093569C /* cgunigen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cgunigen.c; sourceTree = "<group>"; };
-		9650319509F29D3E0083E64E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		9650319509F29D3E0083E64E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		965031AE09F29EE10083E64E /* advdbs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = advdbs.c; sourceTree = "<group>"; };
 		965031AF09F29EE10083E64E /* advdbs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = advdbs.h; sourceTree = "<group>"; };
 		965031B009F29EE10083E64E /* advexe.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = advexe.c; sourceTree = "<group>"; };
@@ -1317,27 +1366,6 @@
 		9650328E09F29EE20083E64E /* table.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = table.c; sourceTree = "<group>"; };
 		9650328F09F29EE20083E64E /* text.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = text.c; sourceTree = "<group>"; };
 		9650329009F29EE20083E64E /* variable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = variable.c; sourceTree = "<group>"; };
-		9650329209F29EE20083E64E /* exec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = exec.c; sourceTree = "<group>"; };
-		9650329309F29EE20083E64E /* files.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = files.c; sourceTree = "<group>"; };
-		9650329409F29EE20083E64E /* funcs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = funcs.c; sourceTree = "<group>"; };
-		9650329509F29EE20083E64E /* gestalt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gestalt.c; sourceTree = "<group>"; };
-		9650329609F29EE20083E64E /* gestalt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gestalt.h; sourceTree = "<group>"; };
-		9650329709F29EE20083E64E /* glkop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glkop.c; sourceTree = "<group>"; };
-		9650329809F29EE20083E64E /* glulxdump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glulxdump.c; sourceTree = "<group>"; };
-		9650329909F29EE20083E64E /* glulxe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glulxe.h; sourceTree = "<group>"; };
-		9650329A09F29EE20083E64E /* macstart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = macstart.c; sourceTree = "<group>"; };
-		9650329B09F29EE20083E64E /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		9650329C09F29EE20083E64E /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		9650329D09F29EE20083E64E /* opcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opcodes.h; sourceTree = "<group>"; };
-		9650329E09F29EE20083E64E /* operand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = operand.c; sourceTree = "<group>"; };
-		9650329F09F29EE20083E64E /* osdepend.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osdepend.c; sourceTree = "<group>"; };
-		965032A009F29EE20083E64E /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		965032A109F29EE20083E64E /* search.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = search.c; sourceTree = "<group>"; };
-		965032A209F29EE20083E64E /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = serial.c; sourceTree = "<group>"; };
-		965032A309F29EE20083E64E /* string.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string.c; sourceTree = "<group>"; };
-		965032A409F29EE20083E64E /* unixstrt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixstrt.c; sourceTree = "<group>"; };
-		965032A509F29EE20083E64E /* vm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vm.c; sourceTree = "<group>"; };
-		965032A609F29EE20083E64E /* winstart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = winstart.c; sourceTree = "<group>"; };
 		965032A809F29EE20083E64E /* he.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = he.c; sourceTree = "<group>"; };
 		965032A909F29EE20083E64E /* hebuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hebuffer.c; sourceTree = "<group>"; };
 		965032AA09F29EE20083E64E /* hecugel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hecugel.c; sourceTree = "<group>"; };
@@ -1986,7 +2014,6 @@
 		96A9C0EF0A07AE17001B5B9B /* LibController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibController.m; sourceTree = "<group>"; };
 		96A9C0F10A07AE31001B5B9B /* LibController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibController.h; sourceTree = "<group>"; };
 		96B6FE6E0A0E4E0200E62E4D /* Question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Question.png; sourceTree = "<group>"; };
-		96BE63FB0E0AE0610050667D /* heap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = heap.c; sourceTree = "<group>"; };
 		96BE643E0E0AEAA40050667D /* sclocale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sclocale.c; sourceTree = "<group>"; };
 		96CC04C80A133B93004F30FA /* GlkStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkStyle.h; sourceTree = "<group>"; };
 		96CC04C90A133B93004F30FA /* GlkStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkStyle.m; sourceTree = "<group>"; };
@@ -2036,7 +2063,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A9BBDA0A066F41001B5B9B /* libbabel.a in Frameworks */,
-				967C42150B7A15B7008A2D2F /* libfmodex.dylib in Frameworks */,
+				6DE63DF21EABF6FC000217D6 /* libfmodex.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2181,6 +2208,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D5495621EAC387C003DA5C4 /* glulxe-master */ = {
+			isa = PBXGroup;
+			children = (
+				6D5495641EAC387C003DA5C4 /* accel.c */,
+				6D5495651EAC387C003DA5C4 /* debugger.c */,
+				6D5495661EAC387C003DA5C4 /* exec.c */,
+				6D5495671EAC387C003DA5C4 /* files.c */,
+				6D5495681EAC387C003DA5C4 /* float.c */,
+				6D5495691EAC387C003DA5C4 /* funcs.c */,
+				6D54956A1EAC387C003DA5C4 /* gestalt.c */,
+				6D54956B1EAC387C003DA5C4 /* gestalt.h */,
+				6D54956C1EAC387C003DA5C4 /* glkop.c */,
+				6D54956D1EAC387C003DA5C4 /* glulxdump.c */,
+				6D54956E1EAC387C003DA5C4 /* glulxe.h */,
+				6D54956F1EAC387C003DA5C4 /* heap.c */,
+				6D5495741EAC387C003DA5C4 /* main.c */,
+				6D5495761EAC387C003DA5C4 /* opcodes.h */,
+				6D5495771EAC387C003DA5C4 /* operand.c */,
+				6D5495781EAC387C003DA5C4 /* osdepend.c */,
+				6D54957A1EAC387C003DA5C4 /* profile.c */,
+				6D54957C1EAC387C003DA5C4 /* search.c */,
+				6D54957D1EAC387C003DA5C4 /* serial.c */,
+				6D54957E1EAC387C003DA5C4 /* string.c */,
+				6D54957F1EAC387C003DA5C4 /* unixstrt.c */,
+				6D5495801EAC387C003DA5C4 /* vm.c */,
+			);
+			path = "glulxe-master";
+			sourceTree = "<group>";
+		};
 		9611524E0A4F355800BB7FF2 /* htmltads */ = {
 			isa = PBXGroup;
 			children = (
@@ -2646,7 +2702,7 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				961CCF6609F295E000528FF9 /* libfmodex.dylib */,
+				6DE63DF11EABF6FC000217D6 /* libfmodex.dylib */,
 				961CCF6709F295E000528FF9 /* Foundation.framework */,
 				961CCF6809F295E000528FF9 /* AppKit.framework */,
 			);
@@ -2656,6 +2712,7 @@
 		965031AC09F29EE10083E64E /* terps */ = {
 			isa = PBXGroup;
 			children = (
+				6D5495621EAC387C003DA5C4 /* glulxe-master */,
 				965031AD09F29EE10083E64E /* advsys */,
 				965031BA09F29EE10083E64E /* agility */,
 				965031E609F29EE10083E64E /* alan2 */,
@@ -2918,28 +2975,30 @@
 		9650329109F29EE20083E64E /* glulxe */ = {
 			isa = PBXGroup;
 			children = (
-				9650329C09F29EE20083E64E /* Makefile */,
-				965032A009F29EE20083E64E /* README */,
-				9650329609F29EE20083E64E /* gestalt.h */,
-				9650329909F29EE20083E64E /* glulxe.h */,
-				9650329D09F29EE20083E64E /* opcodes.h */,
-				9650329209F29EE20083E64E /* exec.c */,
-				9650329309F29EE20083E64E /* files.c */,
-				9650329409F29EE20083E64E /* funcs.c */,
-				9650329509F29EE20083E64E /* gestalt.c */,
-				9650329709F29EE20083E64E /* glkop.c */,
-				9650329809F29EE20083E64E /* glulxdump.c */,
-				96BE63FB0E0AE0610050667D /* heap.c */,
-				9650329A09F29EE20083E64E /* macstart.c */,
-				9650329B09F29EE20083E64E /* main.c */,
-				9650329E09F29EE20083E64E /* operand.c */,
-				9650329F09F29EE20083E64E /* osdepend.c */,
-				965032A109F29EE20083E64E /* search.c */,
-				965032A209F29EE20083E64E /* serial.c */,
-				965032A309F29EE20083E64E /* string.c */,
-				965032A409F29EE20083E64E /* unixstrt.c */,
-				965032A509F29EE20083E64E /* vm.c */,
-				965032A609F29EE20083E64E /* winstart.c */,
+				6D54941B1EAC1BC4003DA5C4 /* accel.c */,
+				6D54941C1EAC1BC4003DA5C4 /* debugger.c */,
+				6D54941D1EAC1BC4003DA5C4 /* exec.c */,
+				6D54941E1EAC1BC4003DA5C4 /* files.c */,
+				6D54941F1EAC1BC4003DA5C4 /* float.c */,
+				6D5494201EAC1BC4003DA5C4 /* funcs.c */,
+				6D5494211EAC1BC4003DA5C4 /* gestalt.c */,
+				6D5494221EAC1BC4003DA5C4 /* gestalt.h */,
+				6D5494231EAC1BC4003DA5C4 /* glkop.c */,
+				6D5494251EAC1BC4003DA5C4 /* glulxe.h */,
+				6D5494261EAC1BC4003DA5C4 /* heap.c */,
+				6D5494291EAC1BC4003DA5C4 /* LICENSE */,
+				6D54942B1EAC1BC4003DA5C4 /* main.c */,
+				6D54942D1EAC1BC4003DA5C4 /* opcodes.h */,
+				6D54942E1EAC1BC4003DA5C4 /* operand.c */,
+				6D54942F1EAC1BC4003DA5C4 /* osdepend.c */,
+				6D5494301EAC1BC4003DA5C4 /* profile-analyze.py */,
+				6D5494311EAC1BC4003DA5C4 /* profile.c */,
+				6D5494321EAC1BC4003DA5C4 /* README.md */,
+				6D5494331EAC1BC4003DA5C4 /* search.c */,
+				6D5494341EAC1BC4003DA5C4 /* serial.c */,
+				6D5494351EAC1BC4003DA5C4 /* string.c */,
+				6D5494361EAC1BC4003DA5C4 /* unixstrt.c */,
+				6D5494371EAC1BC4003DA5C4 /* vm.c */,
 			);
 			path = glulxe;
 			sourceTree = "<group>";
@@ -3883,6 +3942,7 @@
 				961CCEC109F239C100528FF9 /* Sources */,
 				961CCEC209F239C100528FF9 /* Frameworks */,
 				9650315509F296CF0083E64E /* Copy Interpreter Files */,
+				6DE63DFB1EABFAD1000217D6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -4201,8 +4261,15 @@
 		961CCE6009F2375A00528FF9 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 961CCE6109F2375A00528FF9 /* Build configuration list for PBXProject "Spatterlight" */;
-			compatibilityVersion = "Xcode 3.0";
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 961CCE5E09F2375A00528FF9;
 			productRefGroup = 961CCE7C09F237E700528FF9 /* Products */;
 			projectDirPath = "";
@@ -4249,10 +4316,28 @@
 				96A9BBA40A0668EB001B5B9B /* GameWindow.nib in Resources */,
 				96A9C0E50A07AD80001B5B9B /* LibraryWindow.nib in Resources */,
 				96FBD8F00A094E30002F6087 /* InfoPanel.nib in Resources */,
+				6D5494441EAC1BC4003DA5C4 /* LICENSE in Resources */,
+				6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6DE63DFB1EABFAD1000217D6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -f \"/Developer/FMOD Programmers API Mac/api/lib/libfmodex.dylib\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/libfmodex.dylib\"  \n\ninstall_name_tool -change @rpath/libfmodex.dylib @executable_path/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\" ";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9611535C0A4F35EE00BB7FF2 /* Sources */ = {
@@ -4433,20 +4518,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9650385809F2AF930083E64E /* exec.c in Sources */,
-				9650385909F2AF930083E64E /* files.c in Sources */,
-				9650385A09F2AF930083E64E /* funcs.c in Sources */,
-				9650385B09F2AF930083E64E /* gestalt.c in Sources */,
-				9650385C09F2AF930083E64E /* glkop.c in Sources */,
-				96BE63FC0E0AE0610050667D /* heap.c in Sources */,
-				9650385D09F2AF930083E64E /* main.c in Sources */,
-				9650385E09F2AF930083E64E /* operand.c in Sources */,
-				9650385F09F2AF930083E64E /* osdepend.c in Sources */,
-				9650386009F2AF930083E64E /* search.c in Sources */,
-				9650386109F2AF930083E64E /* serial.c in Sources */,
-				9650386209F2AF930083E64E /* string.c in Sources */,
-				9650386309F2AF930083E64E /* unixstrt.c in Sources */,
-				9650386409F2AF930083E64E /* vm.c in Sources */,
+				6D5495A11EAC3902003DA5C4 /* accel.c in Sources */,
+				6D5495A21EAC392C003DA5C4 /* exec.c in Sources */,
+				6D5495A31EAC393A003DA5C4 /* files.c in Sources */,
+				6D5495A41EAC3943003DA5C4 /* float.c in Sources */,
+				6D5495A51EAC394A003DA5C4 /* funcs.c in Sources */,
+				6D5495A61EAC3952003DA5C4 /* gestalt.c in Sources */,
+				6D5495A71EAC3960003DA5C4 /* glkop.c in Sources */,
+				6D5495A81EAC3969003DA5C4 /* heap.c in Sources */,
+				6D5495A91EAC3974003DA5C4 /* main.c in Sources */,
+				6D5495AA1EAC3981003DA5C4 /* operand.c in Sources */,
+				6D5495AB1EAC3989003DA5C4 /* osdepend.c in Sources */,
+				6D5495AC1EAC3994003DA5C4 /* profile.c in Sources */,
+				6D5495AD1EAC399D003DA5C4 /* search.c in Sources */,
+				6D5495AE1EAC39A4003DA5C4 /* serial.c in Sources */,
+				6D5495AF1EAC39AC003DA5C4 /* string.c in Sources */,
+				6D5495B01EAC39BB003DA5C4 /* unixstrt.c in Sources */,
+				6D5495B11EAC39C2003DA5C4 /* vm.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4986,6 +5074,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -5005,6 +5094,7 @@
 			buildSettings = {
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_MODEL_TUNING = G4;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					COCO,
@@ -5064,13 +5154,30 @@
 		961CCE6209F2375A00528FF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
-				GCC_VERSION_i386 = 4.0;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"/Developer/FMOD Programmers API Mac/api/plugins\"/**",
+					"\"/Developer/FMOD Programmers API Mac/api/lib\"/**",
+				);
+				GCC_INPUT_FILETYPE = automatic;
+				GCC_MODEL_TUNING = "";
+				GCC_VERSION_i386 = 4.2;
 				GCC_VERSION_ppc = 3.3;
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
+				HEADER_SEARCH_PATHS = (
+					"\"/Developer/FMOD Programmers API Mac/api/inc\"/**",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "\"/Developer/FMOD Programmers API Mac/api\"";
+				LIBRARY_SEARCH_PATHS = (
+					"\"/Developer/FMOD Programmers API Mac/api/lib\"/**",
+					"\"/Developer/FMOD Programmers API Mac/api/plugins\"/**",
+				);
+				MACOSX_DEPLOYMENT_TARGET_i386 = 10.6;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = macosx;
+				SDKROOT_i386 = /Developer/SDKs/MacOSX10.6.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
+				VALID_ARCHS = "i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Debug;
@@ -5078,13 +5185,30 @@
 		961CCE6309F2375A00528FF9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
-				GCC_VERSION_i386 = 4.0;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"/Developer/FMOD Programmers API Mac/api/plugins\"/**",
+					"\"/Developer/FMOD Programmers API Mac/api/lib\"/**",
+				);
+				GCC_INPUT_FILETYPE = automatic;
+				GCC_MODEL_TUNING = "";
+				GCC_VERSION_i386 = 4.2;
 				GCC_VERSION_ppc = 3.3;
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
+				HEADER_SEARCH_PATHS = (
+					"\"/Developer/FMOD Programmers API Mac/api/inc\"/**",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "\"/Developer/FMOD Programmers API Mac/api\"";
+				LIBRARY_SEARCH_PATHS = (
+					"\"/Developer/FMOD Programmers API Mac/api/lib\"/**",
+					"\"/Developer/FMOD Programmers API Mac/api/plugins\"/**",
+				);
+				MACOSX_DEPLOYMENT_TARGET_i386 = 10.6;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = macosx;
+				SDKROOT_i386 = /Developer/SDKs/MacOSX10.6.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
+				VALID_ARCHS = "i386 x86_64";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -5092,7 +5216,7 @@
 		961CCE7E09F237E700528FF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = ppc;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -5110,10 +5234,7 @@
 		961CCE7F09F237E700528FF9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -5129,7 +5250,7 @@
 		961CCEBE09F2398C00528FF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = ppc;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5146,10 +5267,7 @@
 		961CCEBF09F2398C00528FF9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5164,11 +5282,12 @@
 		961CCEC809F239C100528FF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = ppc;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G4;
+				GCC_INPUT_FILETYPE = sourcecode.c.objc;
+				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
@@ -5182,6 +5301,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
 					"$(SYSTEM_DEVELOPER_DIR)/fmod/universal",
+					"\"$(DEVELOPER_DIR)/FMOD Programmers API Mac/api/lib\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -5199,13 +5319,11 @@
 		961CCEC909F239C100528FF9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G4;
+				GCC_INPUT_FILETYPE = sourcecode.c.objc;
+				GCC_MODEL_TUNING = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
@@ -5218,6 +5336,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
 					"\"$(SYSTEM_DEVELOPER_DIR)/FMOD Programmers API/api/lib\"",
+					"\"$(DEVELOPER_DIR)/FMOD Programmers API Mac/api/lib\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -5434,6 +5553,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = "$(HOME)/bin";
@@ -5453,6 +5573,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				INSTALL_PATH = "$(HOME)/bin";
@@ -5509,6 +5630,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -5534,6 +5656,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_MODEL_TUNING = G4;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					GLK,
@@ -5629,7 +5752,7 @@
 		9650396F09F2D6C40083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = ppc;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5647,10 +5770,7 @@
 		9650397009F2D6C40083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5702,6 +5822,7 @@
 		96A9BA7D0A0655DC001B5B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -5718,10 +5839,7 @@
 		96A9BA7E0A0655DC001B5B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5784,6 +5902,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -5808,6 +5927,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_MODEL_TUNING = G4;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					COCO,
@@ -5831,6 +5951,7 @@
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
@@ -5857,6 +5978,7 @@
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
 				GCC_MODEL_TUNING = G4;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					COCO,

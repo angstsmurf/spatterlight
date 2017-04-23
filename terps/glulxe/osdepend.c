@@ -14,7 +14,7 @@
    symbol. Code contributions welcome. 
 */
 
-#ifdef OS_UNIX
+/*#ifdef OS_UNIX*/
 
 #include <time.h>
 #include <stdlib.h>
@@ -51,10 +51,10 @@ void glulx_setrandom(glui32 seed)
 /* Return a random number in the range 0 to 2^32-1. */
 glui32 glulx_random()
 {
-  return random();
+  return (random() << 16) ^ random();
 }
 
-#endif /* OS_UNIX */
+/*#endif*/ /* OS_UNIX */
 
 #ifdef OS_MAC
 
@@ -88,7 +88,7 @@ static void lo_seed_random(glui32 seed);
 /* Return a random number in the range 0 to 2^32-1. */
 glui32 glulx_random()
 {
-  return lo_random();
+  return (lo_random() << 16) ^ lo_random();
 }
 
 /* Set the random-number seed; zero means use as random a source as
@@ -139,7 +139,7 @@ void glulx_setrandom(glui32 seed)
 /* Return a random number in the range 0 to 2^32-1. */
 glui32 glulx_random()
 {
-  return rand();
+  return (rand() << 24) ^ (rand() << 12) ^ rand();
 }
 
 #endif /* WIN32 */
@@ -193,3 +193,33 @@ void glulx_sort(void *addr, int count, int size,
 {
   qsort(addr, count, size, (int (*)(const void *, const void *))comparefunc);
 }
+
+#ifdef FLOAT_SUPPORT
+#include <math.h>
+
+#ifdef FLOAT_COMPILE_SAFER_POWF
+
+/* This wrapper handles all special cases, even if the underlying
+   powf() function doesn't. */
+gfloat32 glulx_powf(gfloat32 val1, gfloat32 val2)
+{
+  if (val1 == 1.0f)
+    return 1.0f;
+  else if ((val2 == 0.0f) || (val2 == -0.0f))
+    return 1.0f;
+  else if ((val1 == -1.0f) && isinf(val2))
+    return 1.0f;
+  return powf(val1, val2);
+}
+
+#else /* FLOAT_COMPILE_SAFER_POWF */
+
+/* This is the standard powf() function, unaltered. */
+gfloat32 glulx_powf(gfloat32 val1, gfloat32 val2)
+{
+  return powf(val1, val2);
+}
+
+#endif /* FLOAT_COMPILE_SAFER_POWF */
+
+#endif /* FLOAT_SUPPORT */

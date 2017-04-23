@@ -33,10 +33,13 @@ int max_undo_level = 8;
 
 static int undo_chain_size = 0;
 static int undo_chain_num = 0;
-unsigned char **undo_chain = NULL;
+static unsigned char **undo_chain = NULL;
 
-static glui32 protect_pos = 0;
-static glui32 protect_len = 0;
+#ifdef SERIALIZE_CACHE_RAM
+/* This will contain a copy of RAM (ramstate to endmem) as it exists
+   in the game file. */
+static unsigned char *ramcache = NULL;
+#endif /* SERIALIZE_CACHE_RAM */
 
 static glui32 write_memstate(dest_t *dest);
 static glui32 write_heapstate(dest_t *dest, int portable);
@@ -65,7 +68,45 @@ int init_serial()
   if (!undo_chain)
     return FALSE;
 
+#ifdef SERIALIZE_CACHE_RAM
+  {
+    glui32 len = (endmem - ramstart);
+    glui32 res;
+    ramcache = (unsigned char *)glulx_malloc(sizeof(unsigned char *) * len);
+    if (!ramcache)
+      return FALSE;
+    glk_stream_set_position(gamefile, gamefile_start+ramstart, seekmode_Start);
+    res = glk_get_buffer_stream(gamefile, (char *)ramcache, len);
+    if (res != len)
+      return FALSE;
+  }
+#endif /* SERIALIZE_CACHE_RAM */
+
   return TRUE;
+}
+
+/* final_serial():
+   Clean up memory when the VM shuts down.
+*/
+void final_serial()
+{
+  if (undo_chain) {
+    int ix;
+    for (ix=0; ix<undo_chain_num; ix++) {
+      glulx_free(undo_chain[ix]);
+    }
+    glulx_free(undo_chain);
+  }
+  undo_chain = NULL;
+  undo_chain_size = 0;
+  undo_chain_num = 0;
+
+#ifdef SERIALIZE_CACHE_RAM
+  if (ramcache) {
+    glulx_free(ramcache);
+    ramcache = NULL;
+  }
+#endif /* SERIALIZE_CACHE_RAM */
 }
 
 /* perform_saveundo():
@@ -182,6 +223,12 @@ glui32 perform_restoreundo()
   glui32 heapsumlen = 0;
   glui32 *heapsumarr = NULL;
 
+  /* If profiling is enabled and active then fail. */
+  #if VM_PROFILING
+  if (profile_profiling_active())
+    return 1;
+  #endif /* VM_PROFILING */
+
   if (undo_chain_size == 0 || undo_chain_num == 0)
     return 1;
 
@@ -245,7 +292,7 @@ glui32 perform_save(strid_t str)
   int ix;
   glui32 res, lx, val;
   glui32 memstart, memlen, stackstart, stacklen, heapstart, heaplen;
-  glui32 filestart, filelen;
+  glui32 filestart=0, filelen;
 
   stream_get_iosys(&val, &lx);
   if (val != 2) {
@@ -374,8 +421,12 @@ glui32 perform_save(strid_t str)
    1 on failure. Note that if it succeeds, the frameptr, localsbase,
    and valstackbase registers are invalid; they must be rebuilt from
    the stack.
+ 
+   If fromshell is true, the restore is being invoked by the library
+   shell (an autorestore of some kind). This currently happens only in
+   iosglk.
 */
-glui32 perform_restore(strid_t str)
+glui32 perform_restore(strid_t str, int fromshell)
 {
   dest_t dest;
   int ix;
@@ -384,10 +435,17 @@ glui32 perform_restore(strid_t str)
   glui32 heapsumlen = 0;
   glui32 *heapsumarr = NULL;
 
+  /* If profiling is enabled and active then fail. */
+  #if VM_PROFILING
+  if (profile_profiling_active())
+    return 1;
+  #endif /* VM_PROFILING */
+
   stream_get_iosys(&val, &lx);
-  if (val != 2) {
+  if (val != 2 && !fromshell) {
     /* Not using the Glk I/O system, so bail. This function only
-       knows how to read from a Glk stream. */
+       knows how to read from a Glk stream. (But in the autorestore
+       case, iosys hasn't been set yet, so ignore this test.) */
     fatal_error("Streams are only available in Glk I/O system.");
   }
 
@@ -427,7 +485,7 @@ glui32 perform_restore(strid_t str)
 
   while (res == 0 && dest.pos < filestart+filelen) {
     /* Read a chunk and deal with it. */
-    glui32 chunktype, chunkstart, chunklen;
+    glui32 chunktype=0, chunkstart=0, chunklen=0;
     unsigned char dummy;
 
     if (res == 0) {
@@ -597,21 +655,34 @@ static glui32 write_memstate(dest_t *dest)
   int val;
   int runlen;
   unsigned char ch;
+#ifdef SERIALIZE_CACHE_RAM
+  glui32 cachepos;
+#endif /* SERIALIZE_CACHE_RAM */
 
   res = write_long(dest, endmem);
   if (res)
     return res;
 
   runlen = 0;
+
+#ifdef SERIALIZE_CACHE_RAM
+  cachepos = 0;
+#else /* SERIALIZE_CACHE_RAM */
   glk_stream_set_position(gamefile, gamefile_start+ramstart, seekmode_Start);
+#endif /* SERIALIZE_CACHE_RAM */
 
   for (pos=ramstart; pos<endmem; pos++) {
     ch = Mem1(pos);
     if (pos < endgamefile) {
+#ifdef SERIALIZE_CACHE_RAM
+      val = ramcache[cachepos];
+      cachepos++;
+#else /* SERIALIZE_CACHE_RAM */
       val = glk_get_char_stream(gamefile);
       if (val == -1) {
         fatal_error("The game file ended unexpectedly while saving.");
       }
+#endif /* SERIALIZE_CACHE_RAM */
       ch ^= (unsigned char)val;
     }
     if (ch == 0) {
@@ -651,6 +722,9 @@ static glui32 read_memstate(dest_t *dest, glui32 chunklen)
   int val;
   int runlen;
   unsigned char ch, ch2;
+#ifdef SERIALIZE_CACHE_RAM
+  glui32 cachepos;
+#endif /* SERIALIZE_CACHE_RAM */
 
   heap_clear();
 
@@ -663,14 +737,24 @@ static glui32 read_memstate(dest_t *dest, glui32 chunklen)
     return res;
 
   runlen = 0;
+
+#ifdef SERIALIZE_CACHE_RAM
+  cachepos = 0;
+#else /* SERIALIZE_CACHE_RAM */
   glk_stream_set_position(gamefile, gamefile_start+ramstart, seekmode_Start);
+#endif /* SERIALIZE_CACHE_RAM */
 
   for (pos=ramstart; pos<endmem; pos++) {
     if (pos < endgamefile) {
+#ifdef SERIALIZE_CACHE_RAM
+      val = ramcache[cachepos];
+      cachepos++;
+#else /* SERIALIZE_CACHE_RAM */
       val = glk_get_char_stream(gamefile);
       if (val == -1) {
         fatal_error("The game file ended unexpectedly while restoring.");
       }
+#endif /* SERIALIZE_CACHE_RAM */
       ch = (unsigned char)val;
     }
     else {
@@ -751,8 +835,8 @@ static glui32 write_heapstate_sub(glui32 sumlen, glui32 *sumarray,
 
 static int sort_heap_summary(void *p1, void *p2)
 {
-  glui32 *v1 = (glui32 *)p1;
-  glui32 *v2 = (glui32 *)p2;
+  glui32 v1 = *(glui32 *)p1;
+  glui32 v2 = *(glui32 *)p2;
 
   if (v1 < v2)
     return -1;
@@ -810,9 +894,8 @@ static glui32 read_heapstate(dest_t *dest, glui32 chunklen, int portable,
 
 static glui32 write_stackstate(dest_t *dest, int portable)
 {
-  glui32 res, pos;
-  glui32 val, lx;
-  unsigned char ch;
+  glui32 res;
+  glui32 lx;
   glui32 lastframe;
 
   /* If we're storing for the purpose of undo, we don't need to do any
@@ -970,8 +1053,7 @@ static glui32 write_stackstate(dest_t *dest, int portable)
 
 static glui32 read_stackstate(dest_t *dest, glui32 chunklen, int portable)
 {
-  glui32 res, pos;
-  unsigned char ch;
+  glui32 res;
   glui32 frameend, frm, frm2, frm3, locpos, frlen, numlocals;
 
   if (chunklen > stacksize)
@@ -1121,7 +1203,7 @@ glui32 perform_verify()
     if (newlen != 4)
       return 1;
     val = Read4(buf);
-    if (ix == 4) {
+    if (ix == 3) {
       if (len != val)
         return 1;
     }
