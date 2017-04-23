@@ -110,16 +110,6 @@
 		vrLen = 471;
 		vrLoc = 0;
 	};
-	6D395C4A1EAD0BF00070886C /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 965034AB09F29EE40083E64E /* t3std.h */;
-		name = "t3std.h: 77";
-		rLen = 0;
-		rLoc = 1524;
-		rType = 0;
-		vrLen = 247;
-		vrLoc = 1335;
-	};
 	6D49B7B81EAD136100F7335E /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 965034AB09F29EE40083E64E /* t3std.h */;
@@ -129,6 +119,16 @@
 		rType = 0;
 		vrLen = 223;
 		vrLoc = 1335;
+	};
+	6D49B7DD1EAD150200F7335E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 965034AB09F29EE40083E64E /* t3std.h */;
+		name = "t3std.h: 77";
+		rLen = 0;
+		rLoc = 1524;
+		rType = 0;
+		vrLen = 218;
+		vrLoc = 1340;
 	};
 	6D54941B1EAC1BC4003DA5C4 /* accel.c */ = {
 		uiCtxt = {
@@ -1083,8 +1083,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 514657841;
-			PBXWorkspaceStateSaveDate = 514657841;
+			PBXPerProjectTemplateStateSaveDate = 514659390;
+			PBXWorkspaceStateSaveDate = 514659390;
 		};
 		perUserProjectItems = {
 			6D395C3F1EAD0BF00070886C /* PBXTextBookmark */ = 6D395C3F1EAD0BF00070886C /* PBXTextBookmark */;
@@ -1098,8 +1098,8 @@
 			6D395C471EAD0BF00070886C /* PBXTextBookmark */ = 6D395C471EAD0BF00070886C /* PBXTextBookmark */;
 			6D395C481EAD0BF00070886C /* PBXTextBookmark */ = 6D395C481EAD0BF00070886C /* PBXTextBookmark */;
 			6D395C491EAD0BF00070886C /* PBXTextBookmark */ = 6D395C491EAD0BF00070886C /* PBXTextBookmark */;
-			6D395C4A1EAD0BF00070886C /* PBXTextBookmark */ = 6D395C4A1EAD0BF00070886C /* PBXTextBookmark */;
 			6D49B7B81EAD136100F7335E /* PBXTextBookmark */ = 6D49B7B81EAD136100F7335E /* PBXTextBookmark */;
+			6D49B7DD1EAD150200F7335E /* PBXTextBookmark */ = 6D49B7DD1EAD150200F7335E /* PBXTextBookmark */;
 			6D54950C1EAC2593003DA5C4 /* PBXTextBookmark */ = 6D54950C1EAC2593003DA5C4 /* PBXTextBookmark */;
 			6D54950D1EAC2593003DA5C4 /* PBXTextBookmark */ = 6D54950D1EAC2593003DA5C4 /* PBXTextBookmark */;
 			6D54950F1EAC2593003DA5C4 /* PBXTextBookmark */ = 6D54950F1EAC2593003DA5C4 /* PBXTextBookmark */;
@@ -1217,9 +1217,9 @@
 	};
 	965034AB09F29EE40083E64E /* t3std.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {495, 7215}}";
+			sepNavIntBoundsRect = "{{0, 0}, {495, 7176}}";
 			sepNavSelRange = "{1524, 0}";
-			sepNavVisRange = "{1335, 223}";
+			sepNavVisRange = "{1340, 218}";
 			sepNavWindowFrame = "{{38, 162}, {750, 558}}";
 		};
 	};

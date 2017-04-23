@@ -5115,8 +5115,8 @@
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.6;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				SDKROOT = macosx;
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.6.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SDKROOT_i386 = $DEVELOPER_SDK_DIR/MacOSX10.6.sdk;
+				SDKROOT_ppc = $DEVELOPER_SDK_DIR/MacOSX10.3.9.sdk;
 				VALID_ARCHS = "i386 x86_64";
 				ZERO_LINK = NO;
 			};
@@ -5138,8 +5138,8 @@
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.6;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				SDKROOT = macosx;
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.6.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SDKROOT_i386 = $DEVELOPER_SDK_DIR/MacOSX10.6.sdk;
+				SDKROOT_ppc = $DEVELOPER_SDK_DIR/MacOSX10.3.9.sdk;
 				VALID_ARCHS = "i386 x86_64";
 				ZERO_LINK = NO;
 			};
