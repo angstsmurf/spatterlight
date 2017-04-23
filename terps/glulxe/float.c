@@ -6,7 +6,7 @@
 #include "glk.h"
 #include "glulxe.h"
 
-/*#ifdef FLOAT_SUPPORT*/
+#ifdef FLOAT_SUPPORT
 
 #include <math.h>
 
@@ -163,4 +163,4 @@ gfloat32 decode_float(glui32 val)
 
 #endif /* FLOAT_NOT_NATIVE */
 
-/*#endif*/ /* FLOAT_SUPPORT */
+#endif /* FLOAT_SUPPORT */

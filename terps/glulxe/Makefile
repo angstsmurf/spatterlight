@@ -28,8 +28,8 @@ GLKMAKEFILE = Make.cheapglk
 #GLKMAKEFILE = ../Make.gtkglk
 
 # Pick a C compiler.
-#CC = cc
-CC = gcc
+CC = cc
+#CC = gcc
 
 OPTIONS = -g -Wall -Wmissing-prototypes -Wstrict-prototypes -Wno-unused -DOS_UNIX
 

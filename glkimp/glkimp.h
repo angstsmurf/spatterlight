@@ -16,8 +16,6 @@
 #define TRUE 1
 #define FALSE 0
 
-#define OS_UNIX
-
 extern int gli_enable_graphics;
 extern int gli_enable_sound;
 
