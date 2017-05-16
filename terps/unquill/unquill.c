@@ -107,6 +107,7 @@ in the snapshots I have examined.
 #include "unquill.h"    /* Function prototypes */
 
 #include <setjmp.h>
+#include <getopt.h>
 
 static ushort ucptr;
 
