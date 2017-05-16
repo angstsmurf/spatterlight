@@ -5240,14 +5240,11 @@
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(HEADER_SEARCH_PATHS)",
-					"$(SYSTEM_DEVELOPER_DIR)/fmod/universal",
 				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
-					"$(SYSTEM_DEVELOPER_DIR)/fmod/universal",
-					"\"$(DEVELOPER_DIR)/FMOD Programmers API Mac/api/lib\"",
 					"\"$(SRCROOT)/fmod/api/lib\"",
 				);
 				OTHER_LDFLAGS = (
@@ -5273,14 +5270,11 @@
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(HEADER_SEARCH_PATHS)",
-					"\"$(SYSTEM_DEVELOPER_DIR)/FMOD Programmers API/api/inc\"",
 				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
-					"\"$(SYSTEM_DEVELOPER_DIR)/FMOD Programmers API/api/lib\"",
-					"\"$(DEVELOPER_DIR)/FMOD Programmers API Mac/api/lib\"",
 					"\"$(SRCROOT)/fmod/api/lib\"",
 				);
 				OTHER_LDFLAGS = (
