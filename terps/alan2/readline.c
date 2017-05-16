@@ -127,6 +127,44 @@ static void newLine(char ch);
 static void delFwd(char ch);
 static void delBwd(char ch);
 
+
+// The OS X key codes below are completely untested and likely wrong.
+// They were only inserted here in order to make Spatterlight compile.
+
+#if defined(__APPLE__) && defined(__MACH__)
+static KeyMap keymap[] = {
+    {0x00, 0x07, NULL},
+    {0x08, 0x08, delBwd},
+    {0x09, 0x09, NULL},
+    {0x0a, 0x0a, newLine},
+    {0x1b, 0x1b, escHook},
+    {0x1c, 0x7e, insertCh},
+    {0x7f, 0x7f, delFwd},
+    {0x80, 0xff, insertCh},
+    {0x00, 0x00, NULL}
+};
+
+static KeyMap escmap[] = {
+    {0x00, 0x5a, NULL},
+    {0x5b, 0x5b, arrowHook},
+    {0x5c, 0xff, NULL},
+    {0x00, 0x00, NULL}
+};
+
+static KeyMap arrowmap[] = {
+    {0x00, 0x31, NULL},
+    {0x32, 0x32, insertToggle},
+    {0x33, 0x40, NULL},
+    {0x41, 0x41, upArrow},
+    {0x42, 0x42, downArrow},
+    {0x43, 0x43, rightArrow},
+    {0x44, 0x44, leftArrow},
+    {0x45, 0xff, NULL},
+    {0x00, 0x00, NULL}
+};
+
+#endif
+
 #ifdef __XXunix__
 static KeyMap keymap[] = {
   {0x00, 0x07, NULL},
