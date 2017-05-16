@@ -327,8 +327,8 @@
     [container setLayoutManager: layoutmanager];
     [layoutmanager addTextContainer: container];
     
-    textview = [[MyTextView alloc] initWithFrame: NSZeroRect];
-    [textview setTextContainer: container];
+    textview = [[MyTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 1000000) textContainer:container];
+
     [container setTextView: textview];
     
     [scrollview setDocumentView: textview];
