@@ -1,3 +1,9 @@
+#if 0
+// THIS FILE IS DEPRECATED.  The MSDOS-specific oss_get_rel_path() has
+// been promoted (as of TADS 3.1.1, March 2012) to a general-purpose
+// osifc routine, os_get_rel_path(), so the implementation has been moved
+// to tads2/osnoui.c.
+
 #ifdef RCSID
 static char RCSid[] =
 "$Header$";
@@ -73,11 +79,15 @@ void oss_get_rel_path(char *result, size_t result_len,
          *   track of the last separator in the common portion, since this
          *   is the end of the common path prefix 
          */
-        if (*fp == '\\' || *fp == '/')
+        if (*fp == '\\' || *fp == '/' || *fp == '\0')
         {
             fsep = fp;
             wsep = wp;
         }
+
+        /* stop at the end of the strings */
+        if (*fp == '\0' || *wp == '\0')
+            break;
     }
 
     /* if we didn't find any separators, we can't relativize the paths */
@@ -95,7 +105,7 @@ void oss_get_rel_path(char *result, size_t result_len,
      *   at a path separator in the filename string, then the entire
      *   working directory prefix is common 
      */
-    if (*wp == '\0' && (*fp == '/' || *fp == '\\'))
+    if (*wp == '\0' && (*fp == '/' || *fp == '\\' || *fp == '\0'))
     {
         fsep = fp;
         wsep = wp;
@@ -161,6 +171,10 @@ void oss_get_rel_path(char *result, size_t result_len,
      */
     strncpy(rp, fsep, rem);
     rp[rem] = '\0';
+
+    /* if the result is empty, return "." to represent the current dir */
+    if (result[0] == '\0')
+        strcpy(rp, ".");
 }
 
 /* ------------------------------------------------------------------------ */
@@ -194,3 +208,5 @@ int main(int argc, char **argv)
 }
 
 #endif
+
+#endif // #if 0 - FILE DEPRECATED

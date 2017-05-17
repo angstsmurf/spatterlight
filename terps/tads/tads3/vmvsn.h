@@ -29,7 +29,9 @@ Modified
  *   bits, and the patch release number in the low-order 8 bits.  So, the
  *   release 1.2.3 would be encoded as 0x00010203.  
  */
-#define T3VM_VSN_NUMBER  0x0003000B
+#define MAKE_VERSION_NUMBER(major,minor,maint) \
+    (((major) << 16) | ((minor) << 8) | (maint))
+#define T3VM_VSN_NUMBER  MAKE_VERSION_NUMBER(3,1,3)
 
 /*
  *   The VM identification string 
@@ -37,18 +39,18 @@ Modified
 #define T3VM_IDENTIFICATION "mjr-T3"
 
 /*
+ *   The VM short version string.  This contains merely the version number,
+ *   in display format.  
+ */
+#define T3VM_VSN_STRING "3.1.3"
+
+/*
  *   The VM banner string.  A VM program can obtain this value through the
  *   get_vm_banner() function in the T3VM intrinsic function set. 
  */
 /* copyright-date-string */
 #define T3VM_BANNER_STRING \
-    "T3 VM 3.0.11 - Copyright 1999, 2006 Michael J. Roberts"
-
-/*
- *   The VM short version string.  This contains merely the version
- *   number, in display format.  
- */
-#define T3VM_VSN_STRING "3.0.11"
+    "T3 VM " T3VM_VSN_STRING " - Copyright 1999, 2012 Michael J. Roberts"
 
 #endif /* VMVSN_H */
 

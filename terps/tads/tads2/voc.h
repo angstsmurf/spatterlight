@@ -179,6 +179,7 @@ struct vocoldef
     objnum  vocolobj;                           /* object matching the word */
     char   *vocolfst;         /* first word in cmd[] that identified object */
     char   *vocollst;          /* last word in cmd[] that identified object */
+    char   *vocolhlst;      /* hypothetical last word, if we trimmed a prep */
     int     vocolflg;                           /* special flags (ALL, etc) */
 };
 typedef struct vocoldef vocoldef;
@@ -459,6 +460,12 @@ int try_unknown_verb(voccxdef *ctx, objnum actor,
 int voctplfnd(voccxdef *ctx, objnum verb_in, objnum prep,
               uchar *tplout, int *newstyle);
 
+/* build a printable name for an object from the words in a command list */
+void voc_make_obj_name(voccxdef *ctx, char *namebuf, char *cmd[],
+                       int firstwrd, int lastwrd);
+void voc_make_obj_name_from_list(voccxdef *ctx, char *namebuf,
+                                 char *cmd[], char *firstwrd, char *lastwrd);
+
 /*
  *   check noun - determines whether the next set of words is a valid noun
  *   phrase.  No complaint is issued if not; this check is generally made
@@ -558,6 +565,7 @@ void vocsetobj(voccxdef *ctx, objnum obj, dattyp typ, void *val,
 #define VOCS_UNKNOWN 2048           /* noun phrase contains an unknown word */
 #define VOCS_ENDADJ  4096        /* word matched adjective at end of phrase */
 #define VOCS_TRUNC   8192    /* truncated match - word is leading substring */
+#define VOCS_TRIMPREP 16384 /* trimmed prep phrase: assumed it was for verb */
 
 /* special internally-defined one-character word flags */
 #define VOCW_AND     ','
@@ -604,8 +612,12 @@ void vocini(voccxdef *vocctx, errcxdef *errctx, mcmcxdef *memctx,
             runcxdef *runctx, objucxdef *undoctx, int fuses,
             int daemons, int notifiers);
 
-/* allocate fuse/daemon/notifier array for voc ctx initialization */
+/* clean up the voc context - frees memory allocated by vocini() */
+void vocterm(voccxdef *vocctx);
+
+/* allocate/free fuse/daemon/notifier array for voc ctx initialization */
 void vocinialo(voccxdef *ctx, vocddef **what, int cnt);
+void voctermfree(vocddef *what);
 
 /* get a vocidef given an object number */
 /* vocidef *vocinh(voccxdef *ctx, objnum obj); */

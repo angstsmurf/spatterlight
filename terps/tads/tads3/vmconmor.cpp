@@ -121,7 +121,10 @@ void CVmConsole::show_con_more_prompt(VMG0_)
         case OS_EVT_EOF:
             /* end of file - there's nothing to wait for now */
             done = TRUE;
-            next_page = FALSE;
+            next_page = TRUE;
+
+            /* stop showing [more] prompts, as the user can't respond */
+            G_os_moremode = FALSE;
             break;
 
         default:

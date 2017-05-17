@@ -103,6 +103,7 @@ static errmdef errlist[] =
     { ERR_NOLOAD, "mcm cannot find object to load (internal error)" },
     { ERR_LCKFRE, "attempting to free a locked object (internal error)" },
     { ERR_INVOBJ, "invalid object (object has been deleted)" },
+    { ERR_BIGOBJ, "object too big - exceeds maximum object allocation size" },
     { ERR_INVTOK, "invalid token" },
     { ERR_STREOF, "end of file while scanning string" },
     { ERR_TRUNC, "warning: symbol too long - truncated to \"%s\"" },
@@ -599,7 +600,7 @@ void errini(errcxdef *ctx, osfildef *fp)
     (void)osfrb(fp, buf, 2);
     ctx->errcxsksz = osrp2(buf);
     siz = ctx->errcxsksz * sizeof(errmdef);
-    ctx->errcxseek = (errmfdef *)mchalo(ctx, (ushort)siz, "error messages");
+    ctx->errcxseek = (errmfdef *)mchalo(ctx, siz, "error messages");
     for (i = 0; i < ctx->errcxsksz; ++i)
     {
         (void)osfrb(fp, buf, 6);

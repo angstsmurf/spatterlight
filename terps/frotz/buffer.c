@@ -1,6 +1,6 @@
 /* buffer.c - Text buffering and word wrapping
- *		Copyright (c) 2003 Tor Andersson -- zapped!
- *		Copyright (c) 1995-1997 Stefan Jokisch
+ *	Copyright (c) 2003 Tor Andersson -- zapped!
+ *	Copyright (c) 1995-1997 Stefan Jokisch
  *
  * This file is part of Frotz.
  *
@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
 #include "frotz.h"
@@ -27,6 +27,7 @@ extern void stream_new_line (void);
 
 static zchar buffer[TEXT_BUFFER_SIZE];
 static int bufpos = 0;
+static bool locked = FALSE;
 
 static zchar prev_c = 0;
 
@@ -39,7 +40,6 @@ static zchar prev_c = 0;
 
 void flush_buffer (void)
 {
-    static bool locked = FALSE;
 
     /* Make sure we stop when flush_buffer is called from flush_buffer.
        Note that this is difficult to avoid as we might print a newline
@@ -47,7 +47,7 @@ void flush_buffer (void)
        might execute any arbitrary opcode, which might flush the buffer. */
 
     if (locked || bufpos == 0)
-		return;
+	return;
 
     /* Send the buffer to the output streams */
 
@@ -84,39 +84,39 @@ void print_char (zchar c)
 
     if (message || ostream_memory || enable_buffering) {
 
-		if (!flag) {
+	if (!flag) {
 
-		    /* Characters 0 and ZC_RETURN are special cases */
+	    /* Characters 0 and ZC_RETURN are special cases */
 
-		    if (c == ZC_RETURN)
-				{ new_line (); return; }
-		    if (c == 0)
-				return;
+	    if (c == ZC_RETURN)
+		{ new_line (); return; }
+	    if (c == 0)
+		return;
 
-		    /* Flush the buffer before a whitespace or after a hyphen */
+	    /* Flush the buffer before a whitespace or after a hyphen */
 
-		    if (c == ' ' || c == ZC_INDENT || c == ZC_GAP || (prev_c == '-' && c != '-'))
+	    if (c == ' ' || c == ZC_INDENT || c == ZC_GAP || (prev_c == '-' && c != '-'))
 
 
-				flush_buffer ();
+		flush_buffer ();
 
-		    /* Set the flag if this is part one of a style or font change */
+	    /* Set the flag if this is part one of a style or font change */
 
-		    if (c == ZC_NEW_FONT || c == ZC_NEW_STYLE)
-				flag = TRUE;
+	    if (c == ZC_NEW_FONT || c == ZC_NEW_STYLE)
+		flag = TRUE;
 
-		    /* Remember the current character code */
+	    /* Remember the current character code */
 
-		    prev_c = c;
+	    prev_c = c;
 
-		} else flag = FALSE;
+	} else flag = FALSE;
 
-		/* Insert the character into the buffer */
+	/* Insert the character into the buffer */
 
-		buffer[bufpos++] = c;
+	buffer[bufpos++] = c;
 
-		if (bufpos == TEXT_BUFFER_SIZE)
-		    runtime_error (ERR_TEXT_BUF_OVF);
+	if (bufpos == TEXT_BUFFER_SIZE)
+	    runtime_error (ERR_TEXT_BUF_OVF);
 
     } else stream_char (c);
 
@@ -149,5 +149,6 @@ void init_buffer(void)
     memset(buffer, 0, sizeof (zchar) * TEXT_BUFFER_SIZE);
     bufpos = 0;
     prev_c = 0;
+    locked = FALSE;
 }
 

@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -30,11 +30,11 @@
  */
 
 #include <assert.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <ctype.h>
 #include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "scare.h"
 
@@ -375,8 +375,8 @@ os_display_hints (sc_game game_)
   assert (game_ == game);
 
   full_flush ();
-  for (hint = sc_iterate_game_hints (game, NULL);
-       hint; hint = sc_iterate_game_hints (game, hint))
+  for (hint = sc_get_first_game_hint (game);
+       hint; hint = sc_get_next_game_hint (game, hint))
     {
       const sc_char *hint_text;
 

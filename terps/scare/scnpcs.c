@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -24,6 +24,7 @@
  */
 
 #include <assert.h>
+#include <stdlib.h>
 #include <stddef.h>
 
 #include "scare.h"
@@ -593,6 +594,10 @@ npc_tick_npcs (sc_gameref_t game)
             {
               sc_vartype_t vt_key[5];
               sc_int chartask;
+
+              /* Ignore finished walks. */
+              if (gs_npc_walkstep (game, npc, walk) <= 0)
+                continue;
 
               /* Retrieve any character meeting task for the NPC. */
               vt_key[0].string = "NPCs";

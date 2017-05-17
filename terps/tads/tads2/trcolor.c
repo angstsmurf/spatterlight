@@ -111,7 +111,7 @@ int main(int argc, char **argv)
     /* set up the screen */
     ossclr(0, 0, 25, 80, 0);
     ossdsp(3, 8, TNORMAL,
-           "TADS Runtime Color Setup - Copyright (c) 1993, 2005 "
+           "TADS Runtime Color Setup - Copyright (c) 1993, 2007 "
            "Michael J. Roberts");                  /* copyright-date-string */
     for (i = 0 ; i < 128 ; ++i)
         ossdsp((i / 16) + CYOFS, (i % 16) + CXOFS, i, "+");

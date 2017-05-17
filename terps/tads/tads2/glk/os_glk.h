@@ -166,6 +166,9 @@ typedef struct glk_stream_struct osfildef;
 /* open text file for reading; returns NULL on error */
 osfildef *osfoprt(char *fname, glui32 typ);
 
+/* open text file for 'volatile' (deny none) reading; returns NULL on error */
+#define osfoprtv(fname, typ) osfoprt(fname, typ)
+
 /* open text file for writing; returns NULL on error */
 osfildef *osfopwt(char *fname, glui32 typ);
 
@@ -183,6 +186,9 @@ osfildef *osfoprs(char *fname, glui32 typ);
 
 /* open binary file for reading; returns NULL on erorr */
 osfildef *osfoprb(char *fname, glui32 typ);
+
+/* open binary file for 'volatile' reading; returns NULL on erorr */
+#define osfoprbv(fname, typ) osfoprb(fname, typ)
 
 /* get a line of text from a text file (fgets semantics) */
 /*char *osfgets(char *buf, size_t len, osfildef *fp);*/

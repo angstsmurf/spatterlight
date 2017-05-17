@@ -19,13 +19,34 @@
 *
 * You should have received a copy of the GNU General Public License
 * along with this program; if not, write to the Free Software
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111, USA.
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 *
 \***********************************************************************/
 
+#include <limits.h>
+
+#if UCHAR_MAX==0xff
 typedef unsigned char L9BYTE;
+#else
+#error "Can't find an 8-bit integer type"
+#endif
+
+#if SHRT_MAX==0x7fff
 typedef unsigned short L9UINT16;
+#elif INT_MAX==0x7fff
+typedef unsigned int   L9UINT16;
+#else
+#error "Can't find a 16-bit integer type"
+#endif
+
+#if INT_MAX==0x7fffffff
+typedef unsigned int L9UINT32;
+#elif LONG_MAX==0x7fffffff
 typedef unsigned long L9UINT32;
+#else
+#error "Can't find a 32-bit integer type"
+#endif
+
 typedef int L9BOOL;
 
 #ifndef FALSE
@@ -79,7 +100,7 @@ typedef struct
 } Bitmap;
 
 #define MAX_BITMAP_WIDTH 512
-#define MAX_BITMAP_HEIGHT 216
+#define MAX_BITMAP_HEIGHT 218
 
 #if defined(_Windows) || defined(__MSDOS__) || defined (_WIN32) || defined (__WIN32__)
 	#define L9WORD(x) (*(L9UINT16*)(x))
@@ -118,6 +139,7 @@ void os_setcolour(int colour, int index);
 void os_drawline(int x1, int y1, int x2, int y2, int colour1, int colour2);
 void os_fill(int x, int y, int colour1, int colour2);
 void os_show_bitmap(int pic, int x, int y);
+FILE* os_open_script_file(void);
 
 /* routines provided by level9 interpreter */
 L9BOOL LoadGame(char* filename, char* picname);
@@ -127,13 +149,10 @@ void RestoreGame(char* filename);
 void FreeMemory(void);
 void GetPictureSize(int* width, int* height);
 L9BOOL RunGraphics(void);
-void SetScaleGraphics(L9BOOL scale);
 
 /* bitmap routines provided by level9 interpreter */
-#ifdef BITMAP_DECODER
 BitmapType DetectBitmaps(char* dir);
 Bitmap* DecodeBitmap(char* dir, BitmapType type, int num, int x, int y);
-#endif
 
 #ifdef NEED_STRICMP_PROTOTYPE
 int stricmp(const char* str1, const char* str2);

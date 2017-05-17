@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -24,13 +24,11 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <errno.h>
 
 #include "scare.h"
 #include "scprotos.h"
@@ -87,22 +85,31 @@ sc_fatal (const sc_char *format, ...)
 }
 
 
+/* Unique non-heap address for zero size malloc() and realloc() requests. */
+static void *sc_zero_allocation = &sc_zero_allocation;
+ 
 /*
  * sc_malloc()
  * sc_realloc()
  * sc_free()
  *
  * Non-failing wrappers around malloc functions.  Newly allocated memory is
- * cleared to zero.
+ * cleared to zero.  In ANSI/ISO C, zero byte allocations are implementation-
+ * defined, so we have to take special care to get predictable behavior.
  */
 void *
 sc_malloc (size_t size)
 {
   void *allocated;
 
+  if (size == 0)
+    return sc_zero_allocation;
+
   allocated = malloc (size);
   if (!allocated)
     sc_fatal ("sc_malloc: requested %lu bytes\n", (sc_uint) size);
+  else if (allocated == sc_zero_allocation)
+    sc_fatal ("sc_malloc: zero-byte allocation address returned\n");
 
   memset (allocated, 0, size);
   return allocated;
@@ -113,9 +120,20 @@ sc_realloc (void *pointer, size_t size)
 {
   void *allocated;
 
+  if (size == 0)
+    {
+      sc_free (pointer);
+      return sc_zero_allocation;
+    }
+
+  if (pointer == sc_zero_allocation)
+    pointer = NULL;
+
   allocated = realloc (pointer, size);
   if (!allocated)
     sc_fatal ("sc_realloc: requested %lu bytes\n", (sc_uint) size);
+  else if (allocated == sc_zero_allocation)
+    sc_fatal ("sc_realloc: zero-byte allocation address returned\n");
 
   if (!pointer)
     memset (allocated, 0, size);
@@ -125,7 +143,11 @@ sc_realloc (void *pointer, size_t size)
 void
 sc_free (void *pointer)
 {
-  free (pointer);
+  if (sc_zero_allocation != &sc_zero_allocation)
+    sc_fatal ("sc_free: write to zero-byte allocation address detected\n");
+
+  if (pointer && pointer != sc_zero_allocation)
+    free (pointer);
 }
 
 
@@ -232,7 +254,7 @@ sc_congruential_rand (sc_uint new_seed)
         }
 
       /*
-       * Advance random state, using constants from Parks & Miller (1988).
+       * Advance random state, using constants from Park & Miller (1988).
        * To keep the values the same for both 32 and 64 bit longs, mask out
        * any bits above the bottom 32.
        */

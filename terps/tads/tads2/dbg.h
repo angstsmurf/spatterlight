@@ -539,7 +539,7 @@ void dbguterm(dbgcxdef *ctx);
  *   that the debugger can display an error using special output
  *   formatting if the error occurs while debugging. 
  */
-void dbguerr(dbgcxdef *ctx, int errno, char *msg);
+void dbguerr(dbgcxdef *ctx, int errnum, char *msg);
 
 /* turn hidden output tracing on/off */
 void trchid(void);

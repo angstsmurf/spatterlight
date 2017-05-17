@@ -10,6 +10,14 @@
 
 <h4>Index to Versions</h4>
 <ul>
+<!-- {$version-index} -->
+<li><a href='#tads2517'><b>Version 2.5.17</b></a><br>
+<li><a href='#tads2516'><b>Version 2.5.16</b></a><br>
+<li><a href='#tads2515'><b>Version 2.5.15</b></a><br>
+<li><a href='#tads2514'><b>Version 2.5.14</b></a><br>
+<li><a href='#tads2513'><b>Version 2.5.13</b></a><br>
+<li><a href='#tads2512'><b>Version 2.5.12</b></a><br>
+<li><a href='#tads2511'><b>Version 2.5.11</b></a><br>
 <li><a href='#tads2510'><b>Version 2.5.10</b></a><br>
 <li><a href='#tads259'><b>Version 2.5.9</b></a><br>
 <li><a href='#tads258'><b>Version 2.5.8</b></a><br>
@@ -86,6 +94,270 @@ href='ftp://ftp.ifarchive.org/if-archive/programming/tads2/manuals/'>
 ftp://ftp.ifarchive.org/if-archive/programming/tads2/manuals/</a>
 (note that ftp.ifarchive.org is the new home, effective August 2001,
 of the former ftp.gmd.de archive).
+
+<!-- {$new-version-insertion-point} -->
+
+<!------------------------------------------------------------------------>
+<br><br><hr>
+<h3><a name='tads2517'>Version 2.5.17</a></h3>
+<i>Released May 16, 2013</i>
+
+<ul>
+
+<li>In the past, HTML &lt;PRE&gt; blocks were problematic if you
+wanted to use &lt;PRE&gt; for precise indentation.  The complication
+was that the output formatter in the VM pre-filtered the text sent to
+the HTML parser to consolidate each run of whitespace into a single
+space.  If you wanted to use spaces in a &lt;PRE&gt; block for
+alignment purposes, you had to use quoted spaces (<tt>"\ "</tt> sequences)
+to make sure that all of the spaces were sent through to the HTML parser.
+
+<p>Now, the VM formatter layer watches for &lt;PRE&gt; tags.  Within
+a &lt;PRE&gt; block, the VM formatter passes spaces and
+newlines through to the HTML parser without any filtering.  This
+change addresses
+<a href="http://bugdb.tads.org/view.php?id=0000178">bug #0000178</a>
+(which was filed as a TADS 3 bug, but effectively applied to TADS 2 as
+well, because the output formatting and HTML handling are very similar
+in TADS 2 and TADS 3).
+
+<p>Note that there's another slight complication if you're writing
+multi-line preformatted blocks with spacing for indentation.  The
+compiler normally removes the spaces that follow a line break within a
+string.  To preserve spaces after a line break within a string, put an
+explicit <tt>\n</tt> sequence at the start of each line within a
+multi-line string.
+
+<li>On 64-bit Linux platforms, a bug in the compiler caused spurious
+errors ("invalid property value") when an object definition contained
+a property value set to a list containing constant values (e.g., <tt>p
+= [1]</tt>).  This has been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000106">bugdb.tads.org #0000106</a>)
+
+
+</ul>
+
+
+
+<!------------------------------------------------------------------------>
+<br><br><hr>
+<h3><a name='tads2516'>Version 2.5.16</a></h3>
+<i>Released on August 30, 2012</i>
+
+<ul>
+
+<li>A couple of bugs appeared in version 2.5.15 due to internal
+changes in the file safety mechanism.  In particular, stand-alone
+executable games on Windows could sometimes crash on start-up, and
+compiling a game that accessed files within its preinit function
+sometimes failed due to a spurious file error.  The second problem
+affected games using the gameinfo.t module to create a GameInfo file
+within preinit.  These are now fixed.
+   
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<br><br><hr>
+<h3><a name='tads2515'>Version 2.5.15</a></h3>
+<i>Released on December 21, 2011</i>
+
+<ul>
+
+<li>In past versions of the text-only interpreters, if an
+&lt;ABOUTBOX&gt; section contained an &lt;IMG&gt; tag with an ALT
+attribute, the ALT text was displayed.  It shouldn't have been,
+because the text-only systems aren't supposed to display
+<i>anything</i> that's within an &lt;ABOUTBOX&gt; section.  This has
+been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000063">bugdb.tads.org #0000063</a>)
+
+<li>The text-only interpreters now parse and translate HTML
+entity markups ("&amp" sequences) within &lt;TITLE&gt; tags when
+setting the window title.  (In past versions, the text-only
+interpreters simply displayed the literal text of the &amp;
+sequences.  The HTML interpreters didn't have this problem,
+so this change doesn't affect them.)
+
+(<a href="http://bugdb.tads.org/view.php?id=0000062">bugdb.tads.org #0000062</a>)
+
+<li>Some older games (specifically, compiled with a version before
+TADS 2.3.0, from 1999) use an old version of the file dialog functions
+that wasn't able to specify the file type.  For modern GUI operating
+systems, the file type is fairly important, because the file selection
+dialog usually uses this to filter the file list, and to set default
+file types or extensions for new files.  The interpreter now tries to
+infer when the interpreter is asking for the name of a transcript
+file, by looking at the prompt string.  If it sees the word "script"
+or "transcript" the prompt string, the interpreter now assumes that
+it's asking for a transcript file, and sets the appropriate default
+file type in the dialog.
+
+<li>The interpreter core engine is now more careful at game
+termination to release allocated memory.  This generally won't make
+any difference to players, as the operating system usually frees this
+memory anyway at program exit, but it should improve stability in
+interpreters that can run multiple games in series.
+
+<li>In the past, it was possible for a game to crash the interpreter
+by returning a fairly long (around 200-character) message from
+parseError or parseErrorParam.  This has been corrected.  (<a
+href="http://bugdb.tads.org/view.php?id=100">bugdb.tads.org
+#0000100</a>)
+
+<li>Some internal changes in the code address problems related to
+memory management on 64-bit processors.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000084">bugdb.tads.org #0000084</a>)
+
+
+</ul>
+
+
+
+<!------------------------------------------------------------------------>
+<br><br><hr>
+<h3><a name='tads2514'>Version 2.5.14</a></h3>
+<i>Released on May 5, 2009</i>
+
+<ul>
+
+<li>Objects created with 'new' during the preinit phase are now marked
+as ordinary objects in the .gam file, as though they'd been defined
+statically in the source code.  The same thing applies to the
+vocabulary words they use.  This change means that objects created
+dynamically during preinit are effectively permanent: they persist
+through RESTART, RESTORE, UNDO, and the like, and they can't be
+deleted with the 'delete' operator.
+(<a href="http://bugdb.tads.org/view.php?id=0000055">bugdb.tads.org #0000055</a>)
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<br><br><hr>
+<h3><a name='tads2513'>Version 2.5.13</a></h3>
+<i>Released on April 28, 2009</i>
+
+<ul>
+
+<li>The new systemInfo() codes __SYSINFO_AUDIO_FADE and
+__SYSINFO_AUDIO_CROSSFADE let you determine if the interpreter
+supports audio fades and audio cross-fades, respectively.  (Audio
+fades are accessed through the HTML TADS &lt;SOUND&gt; tag.)  These
+codes return nil or 0 if fades/cross-fades aren't supported at all, or
+an integer giving a combination of bit-flags indicating which audio
+formats support fades/cross-fades.  The bit flags are
+__SYSINFO_AUDIOFADE_WAV, __SYSINFO_AUDIOFADE_MPEG,
+__SYSINFO_AUDIOFADE_OGG, and __SYSINFO_AUDIOFADE_MIDI (for WAV, MP3,
+Ogg Vorbis, and MIDI files, respectively).  For example, if
+systemInfo(__SYSINFO_AUDIO_FADE) returns (__SYSINFO_AUDIOFADE_WAV |
+__SYSINFO_AUDIOFADE_OGG), it means that WAV and Ogg Vorbis files
+support fades, but other audio formats don't.
+
+<li>A bug in the compiler sometimes made the debugger show the wrong
+source location when single-stepping within a single-line expression
+property.  (That is, a property with an executable expression, but no
+curly braces, with the whole definition on a single line of text.)
+This bug was mostly cosmetic, but in rare cases triggered a separate
+bug in the debugger that could crash the debugger.  When a single-line
+expression property was immediately followed by a single-line method
+(with braces), and execution stopped in the method due to
+single-stepping or due to a run-time error, the debugger was unable to
+show the execution location, and sometimes even crashed.  Both of
+these bugs are now fixed.
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<br><br><hr>
+<h3><a name='tads2512'>Version 2.5.12</a></h3>
+<i>Released on September 28, 2008</i>
+
+<ul>
+
+<li>The cvtnum() built-in function returned the wrong result for
+negative values on occasion.  The problem was dependent on chance
+arrangements of the run-time string/list heap, so it occurred
+essentially at random.  This has been corrected - cvtnum() now
+correctly stops at the end of the string.  (<b>Workaround for
+older versions:</b> append a non-digit character to the cvtnum()
+argument - e.g., <tt>cvtnum(str + ';')</tt>.  The problem was that
+cvtnum() didn't properly detect the end of the input string, so it
+sometimes scanned into random bytes in memory following the string
+<i>if</i> those bytes happened to look like ASCII digits.  However,
+the function did always correctly stop upon reaching any non-digit
+character, so explicitly appending a non-digit was enough to make the
+function stop scanning, ensuring that it wouldn't stray past the end
+of the string.  This workaround isn't necessary with 2.5.12 and later,
+since the underlying problem in cvtnum() is now fixed, but you can use
+the workaround if you want to ensure compatibility with older
+interpreter versions that some players might still be using.)
+
+<li>In the past, run-time error messages (e.g., "[TADS-1010: object
+value required]") were omitted from the transcript.  This was
+particularly inconvenient for beta testing, since any errors
+encountered by testers were invisible in their session logs.  These
+messages are now included in the transcript.
+(<a href="http://bugdb.tads.org/view.php?id=0000032">bugdb.tads.org #0000032</a>)
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<br><br><hr>
+<h3><a name='tads2511'>Version 2.5.11</a></h3>
+<i>Released on August 9, 2008</i>
+
+<ul>
+
+<li>The parser now leaves the antecedent of "it" intact when a command
+involves a number or string.  That is, "it" will simply refer to the
+noun phrase from the second-most-recent command when the most recent
+command involves a number or string as its noun phrase: "x box; note
+5; x it" will now treat the "it" in the last command as referring to
+the box.  In the past, the parser simply forgot any antecedent in this
+type of situation.  That was intentional, to avoid any confusion over
+whether "it" should refer to the number or string, but in practice
+players don't seem to find this confusing at all and expect "it" to
+continue referring to the last real object.
+(<a href="http://bugdb.tads.org/view.php?id=0000014">bugdb.tads.org #0000014</a>)
+
+<li>The parser showed a somewhat confusing parser error message for
+player commands of the form "verb x OF y" in some cases.  If x and y
+were valid nouns or adjectives, but the combination "x OF y" didn't
+match any object's vocabulary (e.g., there's a BOX and some PAPER, but
+there's no such object as BOX OF PAPER), the parser treated this
+command as though it were a <i>two-object</i> verb, such as PUT IN or
+LOCK WITH - that is, the OF was treated as a verb-phrase preposition,
+and x and y were treated as (respectively) the direct and indirect
+objects.  This often resulted in the parser error "I don't recognize
+that sentence," since OF is a rare preposition in verb phrases.  For
+example, EXAMINE BOX OF PAPER would be treated as an EXAMINE OF
+command, which most games don't defined as a valid verb phrase.  In
+such cases, the parser now checks to see if it <i>could</i> have
+formed a syntactically valid noun phrase from the whole "x OF y"
+phrase, and if so, shows the more sensible error "I don't see any x of
+y here."
+(<a href="http://bugdb.tads.org/view.php?id=0000010">bugdb.tads.org #0000010</a>)
+
+<li>If the game executed parserReplaceCommand() from within certain of
+the "parser hook" functions, the interpreter displayed the run-time
+error "TADS-1024: 'abort' statement executed".  This happened because
+of the way parserReplaceCommand() works internally, but it obviously
+shouldn't result in an error message.  This is now fixed.
+(<a href="http://bugdb.tads.org/view.php?id=0000011">bugdb.tads.org #0000011</a>)
+
+<li>The compiler's -p option (to make the compiler pause before
+terminating, to give you a chance to read the output) didn't work
+in some cases where an error occurred during compilation.  This
+has been fixed.
+(<a href="http://bugdb.tads.org/view.php?id=0000015">bugdb.tads.org #0000015</a>)
+
+</ul>
 
 <!------------------------------------------------------------------------>
 <br><br><hr>

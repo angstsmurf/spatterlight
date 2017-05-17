@@ -140,7 +140,7 @@ inputManager: PostRestoreObject
              *   Read the input.  (Note that if our timeout is nil, this
              *   will simply act like the ordinary untimed inputLine.)  
              */
-            result = inputLineTimeout(timeout);
+            result = aioInputLineTimeout(timeout);
 
             /*
              *   If we're not allowing real-time event processing, freeze
@@ -175,16 +175,15 @@ inputManager: PostRestoreObject
             case InEvtTimeout:
                 /* 
                  *   We got a timeout without finishing the input line.
-                 *   This means that we have reached the time when the
-                 *   next real-time event is ready to execute.  Simply
-                 *   continue looping; we'll process all real-time events
-                 *   that are ready to go, then we'll resume reading the
-                 *   command.  
+                 *   This means that we've reached the time when the next
+                 *   real-time event is ready to execute.  Simply continue
+                 *   looping; we'll process all real-time events that are
+                 *   ready to go, then we'll resume reading the command.  
                  *   
                  *   Before we proceed, though, notify the command
                  *   sequencer (via the command-interrupt pseudo-tag) that
-                 *   we're at the start of output text after an
-                 *   interrupted command line input 
+                 *   we're at the start of output text after an interrupted
+                 *   command line input 
                  */
                 "<.commandint>";
                 break;
@@ -231,24 +230,59 @@ inputManager: PostRestoreObject
 
                 /* back for more */
                 break;
+
+            case 'newGuest':
+                /* 
+                 *   Synthetic "new guest" event from the Web UI.  This
+                 *   indicates that a new user has joined the session.  The
+                 *   parameter is the new user's screen name.  Announce the
+                 *   new user's arrival as a real-time event, and go back
+                 *   to reading input.  
+                 */
+                "<.commandint>";
+                libMessages.webNewUser(result[2]);
+                break;
+
+            case 'logError':
+                /*
+                 *   Synthetic "log error" event from the Web UI.  The UI
+                 *   posts this type of an event when an error occurs in an
+                 *   asynchronous task, where it's not possible to display
+                 *   an error message directly. 
+                 */
+                "<.commandint>\b<<result[2]>>\b";
+                break;
             }
         }
     }
 
     /*
      *   Pause for a MORE prompt.  If freezeRealTime is true, we'll stop
-     *   the real-time clock; otherwise we'll let it keep running.  Even
-     *   if we don't freeze the clock, we won't actually process any
-     *   real-time events while waiting: the point of the MORE prompt is
-     *   to allow the player to read and acknowledge the on-screen display
-     *   before showing anything new, so we don't want to allow any output
-     *   to result from real-time events that occur while waiting for user
+     *   the real-time clock; otherwise we'll let it keep running.  Even if
+     *   we don't freeze the clock, we won't actually process any real-time
+     *   events while waiting: the point of the MORE prompt is to allow the
+     *   player to read and acknowledge the on-screen display before
+     *   showing anything new, so we don't want to allow any output to
+     *   result from real-time events that occur while waiting for user
      *   input.  If any real-time events come due while we're waiting,
-     *   we'll process them when we're done.  
+     *   we'll process them when we're done.
+     *   
+     *   In order to ensure that the display makes sense to the user, we
+     *   flush any captured input in the transcript before pausing.  We
+     *   re-activate transcript capture after the pause if it was active
+     *   before.  Note that in some cases, this could affect the overall
+     *   output for the command, since some commands wait until the very
+     *   end of the command to go back and process the entire transcript
+     *   for the command.  Since we interrupt the transcript, flushing any
+     *   output that occurred before the pause, a command that goes back
+     *   over its entire output stream at the end of the turn won't be able
+     *   to see or modify any of the output that occurred prior to the
+     *   pause, since we will have flushed the output to that point.  
      */
     pauseForMore(freezeRealTime)
     {
         local t0;
+        local wasTranscriptActive = nil;
 
         /* 
          *   flush any command transcript and turn off transcript capture,
@@ -256,7 +290,7 @@ inputManager: PostRestoreObject
          *   MORE prompt 
          */
         if (gTranscript != nil)
-            gTranscript.flushForInput();
+            wasTranscriptActive = gTranscript.flushForInput();
         
         /* 
          *   cancel any pending input - we must be interrupting the
@@ -268,7 +302,11 @@ inputManager: PostRestoreObject
         t0 = realTimeManager.getElapsedTime();
 
         /* run the MORE prompt */
-        morePrompt();
+        aioMorePrompt();
+
+        /* if the transcript was previously active, re-activate it */
+        if (wasTranscriptActive)
+            gTranscript.activate();
 
         /* 
          *   if the caller wanted us to freeze the clock, restore the
@@ -292,6 +330,61 @@ inputManager: PostRestoreObject
             processRealTimeEvents(true);
         }
     }
+
+    /*
+     *   Ask for an input file.  Freezes the real-time event clock for the
+     *   duration of reading the event.  
+     */
+    getInputFile(prompt, dialogType, fileType, flags)
+    {
+        /* 
+         *   note the game elapsed time before we start - we want to
+         *   freeze the real-time clock while we're waiting for the user
+         *   to respond, since this system verb exists outside of the
+         *   usual time flow of the game 
+         */
+        local origElapsedTime = realTimeManager.getElapsedTime();
+        
+        /* ask for a file */
+        local result = aioInputFile(prompt, dialogType, fileType, flags);
+
+        /* 
+         *   restore the game real-time counter to what it was before we
+         *   started the interactive response 
+         */
+        realTimeManager.setElapsedTime(origElapsedTime);
+
+        /* return the result from inputFile */
+        return result;
+    }
+
+    /*
+     *   Ask for input through a dialog.  Freezes the real-time clock for
+     *   the duration of the dialog display.  The arguments are the same as
+     *   for the built-in inputDialog() function.  
+     */
+    getInputDialog(icon, prompt, buttons, defaultButton, cancelButton)
+    {
+        /* 
+         *   note the current elapsed game real time, so we can restore it
+         *   after the dialog is done
+         */
+        local origElapsedTime = realTimeManager.getElapsedTime();
+
+        /* show the dialog */
+        local result = aioInputDialog(icon, prompt, buttons,
+                                      defaultButton, cancelButton);
+
+        /* 
+         *   restore the real-time counter, so that the time spent in the
+         *   dialog doesn't count 
+         */
+        realTimeManager.setElapsedTime(origElapsedTime);
+
+        /* return the dialog result */
+        return result;
+    }
+    
 
     /*
      *   Read a keystroke, processing real-time events while waiting, if
@@ -367,7 +460,7 @@ inputManager: PostRestoreObject
              *   Read the input.  (Note that if our timeout is nil, this
              *   will simply act like the ordinary untimed inputLine.)  
              */
-            result = inputEvent(timeout);
+            result = aioInputEvent(timeout);
 
             /*
              *   If we're not allowing real-time event processing, freeze
@@ -395,11 +488,10 @@ inputManager: PostRestoreObject
             case InEvtTimeout:
                 /* 
                  *   We got a timeout without finishing the input line.
-                 *   This means that we have reached the time when the
-                 *   next real-time event is ready to execute.  Simply
-                 *   continue looping; we'll process all real-time events
-                 *   that are ready to go, then we'll resume reading the
-                 *   command.  
+                 *   This means that we've reached the time when the next
+                 *   real-time event is ready to execute.  Simply continue
+                 *   looping; we'll process all real-time events that are
+                 *   ready to go, then we'll restart the event wait.
                  */
                 break;
             
@@ -462,7 +554,7 @@ inputManager: PostRestoreObject
     cancelInputInProgress(reset)
     {
         /* cancel the interpreter's internal input state */
-        inputLineCancel(reset);
+        aioInputLineCancel(reset);
 
         /* if we were editing a command line, terminate the editing session */
         if (inputLineInProgress)
@@ -636,12 +728,12 @@ inputManager: PostRestoreObject
     {
         /* 
          *   Reset the inputLine state.  If we had any previously
-         *   interrupted input from the current interpreter session,
-         *   forget it by cancelling and resetting the input line.  If we
-         *   had an interrupted line in the session being restored, forget
-         *   about that, too.  
+         *   interrupted input from the current interpreter session, forget
+         *   it by canceling and resetting the input line.  If we had an
+         *   interrupted line in the session being restored, forget about
+         *   that, too.  
          */
-        inputLineCancel(true);
+        aioInputLineCancel(true);
         inputLineInProgress = nil;
         inputEventInProgress = nil;
 
@@ -926,6 +1018,20 @@ commentPreParser: StringPreParser
 
     /* warning count for entering comments without SCRIPT in effect */
     warningCount = 0
+
+    /*
+     *   Use a lower execution order than the default, so that we run
+     *   before most other pre-parsers.  Most other pre-parsers are written
+     *   to handle actual commands, so it's usually just a waste of time to
+     *   have them look at comments at all - and can occasionally be
+     *   problematic, since the free-form text of a comment could confuse a
+     *   pre-parser that's expecting a more conventional command format.
+     *   When the comment pre-parser detects a comment, it halts any
+     *   further processing of the command - so by running ahead of other
+     *   pre-parsers, we'll effectively bypass other pre-parsers when we
+     *   detect a comment.  
+     */
+    runOrder = 50
 ;
 
 

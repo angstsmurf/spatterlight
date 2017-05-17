@@ -184,8 +184,8 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
     bifcxdef   bifctx;
     voccxdef   vocctx;
     void     (*bif[100])(struct bifcxdef *, int);
-    mcmcxdef  *mctx;
-    mcmcx1def *globalctx;
+    mcmcxdef  *mctx = 0;
+    mcmcx1def *globalctx = 0;
     dbgcxdef   dbg;
     supcxdef   supctx;
     char      *swapname = 0;
@@ -193,6 +193,8 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
     char     **argp;
     char      *arg;
     char      *infile;
+    char       infile_abs[OSFNMAX];      /* fully-qualified input file name */
+    char       infile_path[OSFNMAX];         /* absolute path to input file */
     char      *exefile;            /* try with executable file if no infile */
     ulong      swapsize = 0xffffffffL;        /* allow unlimited swap space */
     int        swapena = OS_DEFAULT_SWAP_ENABLED;      /* swapping enabled? */
@@ -203,7 +205,7 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
     char       inbuf[OSFNMAX];
     ulong      cachelimit = 0xffffffff;
     ushort     undosiz = TRD_UNDOSIZ;      /* default undo context size 16k */
-    objucxdef *undoptr;
+    objucxdef *undoptr = 0;
     uint       flags;         /* flags used to write the file we're reading */
     objnum     preinit;         /* preinit object, if we need to execute it */
     uint       heapsiz = TRD_HEAPSIZ;
@@ -215,7 +217,7 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
     int        preload = FALSE;              /* TRUE => preload all objects */
     ulong      totsize;
     extern voccxdef *main_voc_ctx;
-    int        safety_level;                       /* file I/O safety level */
+    int        safety_read, safety_write;          /* file I/O safety level */
     char      *restore_file = 0;                    /* .SAV file to restore */
     char      *charmap = 0;                           /* character map file */
     int        charmap_none;       /* explicitly do not use a character set */
@@ -227,7 +229,7 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
     out_init();
 
     /* set safety level to 2 by default - read any/write current dir only */
-    safety_level = 2;
+    safety_read = safety_write = 2;
 
     /* no -ctab- yet */
     charmap_none = FALSE;
@@ -307,12 +309,20 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
                         trdusage_s(ec);
 
                     /* get the safety level from the argument */
-                    safety_level = atoi(p);
+                    safety_read = *p - '0';
+                    safety_write = (*(p+1) != '\0' ? *(p+1) - '0' :
+                                    safety_read);
+
+                    /* range-check the values */
+                    if (safety_read < 0 || safety_read > 4
+                        || safety_write < 0 || safety_write > 4)
+                        trdusage_s(ec);
 
                     /* tell the host system about the setting */
                     if (appctx != 0 && appctx->set_io_safety_level != 0)
                         (*appctx->set_io_safety_level)
-                            (appctx->io_safety_level_ctx, safety_level);
+                            (appctx->io_safety_level_ctx,
+                             safety_read, safety_write);
                 }
                 break;
                 
@@ -532,10 +542,19 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
     
     /* allocate stack and heap */
     totsize = (ulong)stksiz * (ulong)sizeof(runsdef);
-    if (totsize != (ushort)totsize)
+    if (totsize != (size_t)totsize)
         errsig1(ec, ERR_STKSIZE, ERRTINT, (uint)(65535/sizeof(runsdef)));
-    mystack = (runsdef *)mchalo(ec, (ushort)totsize, "runtime stack");
-    myheap = mchalo(ec, (ushort)heapsiz, "runtime heap");
+    mystack = (runsdef *)mchalo(ec, (size_t)totsize, "runtime stack");
+    myheap = mchalo(ec, heapsiz, "runtime heap");
+
+    /* get the absolute path for the input file */
+    if (infile != 0)
+        os_get_abs_filename(infile_abs, sizeof(infile_abs), infile);
+    else if (exefile != 0)
+        os_get_abs_filename(infile_abs, sizeof(infile_abs), exefile);
+    else
+        infile_abs[0] = '\0';
+    os_get_path_name(infile_path, sizeof(infile_path), infile_abs);
 
     /* set up execution context */
     runctx.runcxerr = ec;
@@ -557,6 +576,7 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
     runctx.runcxdmc = &supctx;
     runctx.runcxext = 0;
     runctx.runcxgamename = infile;
+    runctx.runcxgamepath = infile_path;
 
     /* set up setup context */
     supctx.supcxerr = ec;
@@ -585,7 +605,8 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
     bifctx.bifcxrnd = 0;
     bifctx.bifcxrndset = FALSE;
     bifctx.bifcxappctx = appctx;
-    bifctx.bifcxsafety = safety_level;
+    bifctx.bifcxsafetyr = safety_read;
+    bifctx.bifcxsafetyw = safety_write;
     bifctx.bifcxsavext = save_ext;
 
     /* initialize the regular expression parser context */
@@ -639,10 +660,34 @@ static void trdmain1(errcxdef *ec, int argc, char *argv[],
 
         /* vocctx is going out of scope - forget the global reference to it */
         main_voc_ctx = 0;
+
+        /* delete the voc context */
+        vocterm(&vocctx);
+
+        /* delete the undo context */
+        if (undoptr != 0)
+            objuterm(undoptr);
+
+        /* release the object cache structures */
+        if (mctx != 0)
+            mcmcterm(mctx);
+        if (globalctx != 0)
+            mcmterm(globalctx);
     ERRENDCLN(ec)
 
     /* vocctx is going out of scope - forget the global reference to it */
     main_voc_ctx = 0;
+
+    /* delete the voc contxt */
+    vocterm(&vocctx);
+
+    /* delete the undo context */
+    if (undoptr != 0)
+        objuterm(undoptr);
+
+    /* release the object cache structures */
+    mcmcterm(mctx);
+    mcmterm(globalctx);
 }
 
 /*
@@ -674,10 +719,17 @@ static void trdlogerr(void *ctx0, char *fac, int err,
     char      buf[256];
     char      msg[256];
 
-    trdptf(TRDLOGERR_PREFIX, fac, err);
+    /* display the prefix message to the console and log file */
+    sprintf(buf, TRDLOGERR_PREFIX, fac, err);
+    trdptf("%s", buf);
+    out_logfile_print(buf, FALSE);
+
+    /* display the error message text to the console and log file */
     errmsg(ctx, msg, (uint)sizeof(msg), err);
     errfmt(buf, (int)sizeof(buf), msg, argc, argv);
     trdptf("%s]\n", buf);
+    out_logfile_print(buf, FALSE);
+    out_logfile_print("]", TRUE);
 }
 
 
@@ -745,12 +797,14 @@ int trdmain(int argc, char *argv[], appctxdef *appctx, char *save_ext)
     errini(&errctx, fp);
     
     /* copyright-date-string */
+#ifndef NO_T2_COPYRIGHT_NOTICE
     trdptf("%s - A %s TADS %s Interpreter.\n",
            G_tads_oem_app_name, G_tads_oem_display_mode,
            TADS_RUNTIME_VERSION);
-    trdptf("%sopyright (c) 1993, 2005 by Michael J. Roberts.\n",
+    trdptf("%sopyright (c) 1993, 2012 by Michael J. Roberts.\n",
            G_tads_oem_copyright_prefix ? "TADS c" : "C");
     trdptf("%s\n", G_tads_oem_author);
+#endif
     
     ERRBEGIN(&errctx)
         trdmain1(&errctx, argc, argv, appctx, save_ext);

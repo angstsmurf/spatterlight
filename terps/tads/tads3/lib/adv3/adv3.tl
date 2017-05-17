@@ -4,6 +4,7 @@ source: action
 source: actions
 source: actor
 source: banner
+source: console
 source: disambig
 source: events
 source: exec
@@ -14,6 +15,7 @@ source: hintsys
 source: input
 source: lister
 source: menusys
+source: menucon
 source: misc
 source: modid
 source: numbers
@@ -28,6 +30,7 @@ source: score
 source: sense
 source: settings
 source: status
+source: tips
 source: thing
 source: travel
 source: verify

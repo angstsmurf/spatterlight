@@ -67,7 +67,7 @@ int vrbcode;			/* The code for that verb */
   unknown()
   lookup()
   token
-  alan_getline()
+  agetline()
   scan()
 
 \*----------------------------------------------------------------------*/
@@ -183,9 +183,9 @@ static char *gettoken(buf)
 
 
 #ifdef _PROTOTYPES_
-static void alan_getline(void)
+static void agetline(void)
 #else
-static void alan_getline()
+static void agetline()
 #endif
 {
   para();
@@ -242,7 +242,7 @@ static void scan()
   int w;
   char *str;
 
-  alan_getline();
+  agetline();
   wrds[0] = 0;
   for (i = 0; i < litCount; i++)
     if (litValues[i].type == TYPSTR && litValues[i].value != 0)
@@ -269,7 +269,7 @@ static void scan()
       /* Remove the string quotes while copying */
       str = strdup(&token[1]);
       str[strlen(token)-2] = '\0';
-      litValues[litCount++].value = (Aword) str;
+      litValues[litCount++].value = (Aptr) str;
     } else if (token[0] == ',') {
       wrds[i++] = conjWord;
     } else
@@ -438,7 +438,7 @@ static void unambig(plst)
     for (i=0; plst[i].code != EOF; i++)
       if (!isHere(plst[i].code))
 	plst[i].code = 0;
-    compress(plst);
+    compact(plst);
   }
     
   if (lstlen(plst) > 1 || (found && lstlen(plst) == 0)) {
@@ -481,7 +481,7 @@ static void simple(olst)
       for (i = 0; pmlst[i].code != EOF; i++)
 	if (!isHere(pmlst[i].code))
 	  pmlst[i].code = 0;
-      compress(pmlst);
+      compact(pmlst);
       if (lstlen(pmlst) == 0)
 	error(M_WHAT_THEM);
       lstcpy(olst, pmlst);
@@ -711,7 +711,7 @@ static void try(mlst)
 	       It wasn't ALL, we need to say something about it, so
 	       prepare a printout with $1/2/3
 	     */
-	    sprintf(marker, "($%ld)", cla->code); 
+	    sprintf(marker, "($%ld)", (unsigned long) cla->code); 
 	    output(marker);
 	    interpret(cla->stms);
 	    para();
@@ -755,13 +755,13 @@ static void try(mlst)
       }
     }
     params[p].code = 0;		/* Restore multiple marker */
-    compress(mlst);
+    compact(mlst);
     if (lstlen(mlst) == 0) {
       params[0].code = EOF;
       error(M_WHAT_ALL);
     }
   } else if (anyPlural) {
-    compress(mlst);
+    compact(mlst);
     if (lstlen(mlst) == 0)
       /* If there where multiple parameters but non left, exit without a */
       /* word, assuming we have already said enough */

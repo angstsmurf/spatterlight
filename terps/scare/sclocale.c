@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -28,6 +28,7 @@
 
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "scare.h"
@@ -148,8 +149,7 @@ typedef struct
  * Define a single static locale table set.  This set re-initializes if it
  * detects a locale change.
  */
-static sc_locale_table_t loc_locale_tables = { NULL, { 0 },
-                                               { 0 }, { 0 }, { 0 }, { 0 } };
+static sc_locale_table_t loc_locale_tables = {NULL, {0}, {0}, {0}, {0}, {0}};
 
 
 /*
@@ -191,15 +191,15 @@ loc_check_tables_synchronized (const sc_locale_t *locale)
  */
 static const sc_locale_t LATIN1_LOCALE = {
   "Latin1",
-  { 9,13,  32,32,  160,160,  -1 },
-  { 48,57,  -1 },
-  { 65,90,  97,122,  192,214,  216,246,  248,255,  138,138,  140,140,
-    142,142,  154,154,  156,156,  158,158,  159,159,  -1 },
-  { 0,TABLE_SIZE-1,0,  97,122,-32,  224,246,-32,  248,254,-32,  154,154,-16,
-    156,156,-16,  158,158,-16,  255,255,-96,  -1 },
-  { 0,TABLE_SIZE-1,0,  65,90,32,  192,214,32,  216,222,32,  138,138,16,
-    140,140,16,  142,142,16,  159,159,96,  -1 },
-  { { 0 } }
+  {9,13,  32,32,  160,160,  -1},
+  {48,57,  -1},
+  {65,90,  97,122,  192,214,  216,246,  248,255,  138,138,  140,140,
+   142,142,  154,154,  156,156,  158,158,  159,159,  -1},
+  {0,TABLE_SIZE-1,0,  97,122,-32,  224,246,-32,  248,254,-32,  154,154,-16,
+   156,156,-16,  158,158,-16,  255,255,-96,  -1},
+  {0,TABLE_SIZE-1,0,  65,90,32,  192,214,32,  216,222,32,  138,138,16,
+   140,140,16,  142,142,16,  159,159,96,  -1},
+  {{0}}
 };
 
 
@@ -209,22 +209,20 @@ static const sc_locale_t LATIN1_LOCALE = {
  */
 static const sc_locale_t CYRILLIC_LOCALE = {
   "Cyrillic",
-  { 9,13,  32,32,  160,160,  -1 },
-  { 48,57,  -1 },
-  { 65,90,  97,122,  168,168,  184,184,  175,175,  191,191,  178,179,
-    192,255,  -1 },
-  { 0,TABLE_SIZE-1,0,  97,122,-32,  184,184,-16,  191,191,-16,  179,179,-1,
-    224,255,-32,  -1 },
-  { 0,TABLE_SIZE-1,0,  65,90,32,  168,168,16,  175,175,16,  178,178,1,
-    192,223,32,  -1 },
-  { { 0xdf, 0xed, 0xe2 }, { 0xd4, 0xe5, 0xe2 }, { 0xcc, 0xe0, 0xf0 },
-    { 0xc0, 0xef, 0xf0 }, { 0xcc, 0xe0, 0xe9 }, { 0xc8, 0xfe, 0xed },
-    { 0xc8, 0xfe, 0xeb }, { 0xc0, 0xe2, 0xe3 }, { 0xd1, 0xe5, 0xed },
-    { 0xce, 0xea, 0xf2 }, { 0xcd, 0xee, 0xff }, { 0xc4, 0xe5, 0xea },
-    { 0xff, 0xed, 0xe2 }, { 0xf4, 0xe5, 0xe2 }, { 0xec, 0xe0, 0xf0 },
-    { 0xe0, 0xef, 0xf0 }, { 0xec, 0xe0, 0xe9 }, { 0xe8, 0xfe, 0xed },
-    { 0xe8, 0xfe, 0xeb }, { 0xe0, 0xe2, 0xe3 }, { 0xf1, 0xe5, 0xed },
-    { 0xee, 0xea, 0xf2 }, { 0xed, 0xee, 0xff }, { 0xe4, 0xe5, 0xea } }
+  {9,13,  32,32,  160,160,  -1},
+  {48,57,  -1},
+  {65,90,  97,122,  168,168,  184,184,  175,175,  191,191,  178,179,
+   192,255,  -1},
+  {0,TABLE_SIZE-1,0,  97,122,-32,  184,184,-16,  191,191,-16,  179,179,-1,
+   224,255,-32,  -1},
+  {0,TABLE_SIZE-1,0,  65,90,32,  168,168,16,  175,175,16,  178,178,1,
+   192,223,32,  -1},
+  {{223, 237, 226}, {212, 229, 226}, {204, 224, 240}, {192, 239, 240},
+   {204, 224, 233}, {200, 254, 237}, {200, 254, 235}, {192, 226, 227},
+   {209, 229, 237}, {206, 234, 242}, {205, 238, 255}, {196, 229, 234},
+   {255, 237, 226}, {244, 229, 226}, {236, 224, 240}, {224, 239, 240},
+   {236, 224, 233}, {232, 254, 237}, {232, 254, 235}, {224, 226, 227},
+   {241, 229, 237}, {238, 234, 242}, {237, 238, 255}, {228, 229, 234}}
 };
 
 
@@ -232,7 +230,8 @@ static const sc_locale_t CYRILLIC_LOCALE = {
 static const sc_locale_t *const AVAILABLE_LOCALES[] = {
   &LATIN1_LOCALE,
   &CYRILLIC_LOCALE,
-  NULL };
+  NULL
+};
 
 /*
  * The locale for the game, set below explicitly or on game startup, and
@@ -445,6 +444,67 @@ const sc_char *
 loc_get_locale (void)
 {
   return loc_locale->name;
+}
+
+
+/*
+ * loc_debug_dump_new_line()
+ * loc_debug_dump_bool_table()
+ * loc_debug_dump_char_table()
+ * loc_debug_dump()
+ *
+ * Print out locale tables.
+ */
+static int
+loc_debug_dump_new_line (sc_int index_, sc_int count)
+{
+  return index_ < TABLE_SIZE - 1 && index_ % count == count - 1;
+}
+
+static void
+loc_debug_dump_bool_table (const sc_char *label,
+                           sc_int count, const sc_bool table[])
+{
+  sc_int index_;
+
+  sc_trace ("loc_locale_tables.%s = {\n  ", label);
+  for (index_ = 0; index_ < TABLE_SIZE; index_++)
+    {
+      sc_trace ("%s%s", table[index_] ? "T" : "F",
+                loc_debug_dump_new_line (index_, count) ? "\n  " : "");
+    }
+  sc_trace ("\n}\n");
+}
+
+static void
+loc_debug_dump_char_table (const sc_char *label,
+                           sc_int count, const sc_char table[])
+{
+  sc_int index_;
+
+  sc_trace ("loc_locale_tables.%s = {\n  ", label);
+  for (index_ = 0; index_ < TABLE_SIZE; index_++)
+    {
+      sc_trace ("%02lx%s", (sc_int) (sc_byte) table[index_],
+                loc_debug_dump_new_line (index_, count) ? "\n  " : " ");
+    }
+  sc_trace ("\n}\n");
+}
+
+void
+loc_debug_dump (void)
+{
+  sc_trace ("Locale: debug dump follows...\n");
+
+  loc_check_tables_synchronized (loc_locale);
+  sc_trace ("loc_locale_tables"
+            ".locale->name = %s\n", loc_locale_tables.locale->name);
+
+  loc_debug_dump_bool_table ("isspace", 64, loc_locale_tables.isspace);
+  loc_debug_dump_bool_table ("isdigit", 64, loc_locale_tables.isdigit);
+  loc_debug_dump_bool_table ("isalpha", 64, loc_locale_tables.isalpha);
+  loc_debug_dump_char_table ("toupper", 16, loc_locale_tables.toupper);
+  loc_debug_dump_char_table ("tolower", 16, loc_locale_tables.tolower);
 }
 
 

@@ -47,3 +47,11 @@ int G_os_linewidth = 80;
  */
 int G_os_moremode = TRUE;
 
+/*
+ *   Name of the loaded game file, if applicable.  The application should set
+ *   this during start-up (or wherever else is appropriate).  For the
+ *   interpreter, this is the .gam or .t3 file being executed.  For
+ *   executables other than interpreters, this should simply be left empty.  
+ */
+char G_os_gamename[OSFNMAX];
+

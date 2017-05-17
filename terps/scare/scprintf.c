@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -27,9 +27,9 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "scare.h"
 #include "scprotos.h"
@@ -52,7 +52,7 @@ enum
 { ENTITY_LENGTH = 4,
   PERCENT_LENGTH = 9
 };
-static const sc_char *ESCAPES = "<>%&+";
+static const sc_char *const ESCAPES = "<>%&+";
 static const sc_char *const WHITESPACE = "\t\n\v\f\r ";
 
 /* Trace flag, set before running. */
@@ -137,8 +137,11 @@ pf_create (void)
       for (entry = HTML_TAGS_TABLE; entry->name; entry++)
         {
           if (entry->length != (sc_int) strlen (entry->name))
-            sc_fatal ("pf_create:"
-                " table string length is wrong for \"%s\"\n", entry->name);
+            {
+              sc_fatal ("pf_create:"
+                        " table string length is wrong for \"%s\"\n",
+                        entry->name);
+            }
         }
 
       initialized = TRUE;

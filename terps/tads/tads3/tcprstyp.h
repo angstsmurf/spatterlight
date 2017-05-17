@@ -37,6 +37,7 @@ enum tc_constval_type_t
     TC_CVT_TRUE,                                                    /* true */
     TC_CVT_INT,                                            /* integer value */
     TC_CVT_SSTR,                              /* single-quoted string value */
+    TC_CVT_RESTR,                  /* regex string value (R'...' or R"...") */
     TC_CVT_LIST,                                           /* list constant */
     TC_CVT_OBJ,                                         /* object reference */
     TC_CVT_PROP,                                        /* property pointer */
@@ -44,7 +45,8 @@ enum tc_constval_type_t
     TC_CVT_VOCAB_LIST,                       /* vocabulary list placeholder */
     TC_CVT_ANONFUNCPTR,                       /* anonymous function pointer */
     TC_CVT_ENUM,                                              /* enumerator */
-    TC_CVT_FLOAT                                   /* floating point number */
+    TC_CVT_FLOAT,                                  /* floating point number */
+    TC_CVT_BIFPTR                          /* pointer to built-in function  */
 };
 
 /* ------------------------------------------------------------------------ */
@@ -91,7 +93,10 @@ enum tc_symtype_t
     TC_SYM_ENUM,
 
     /* 'grammar token' */
-    TC_SYM_GRAMTOK
+    TC_SYM_GRAMTOK,
+
+    /* dynamic local (enclosing local for DynamicFunc compilation) */
+    TC_SYM_DYNLOCAL
 };
 
 /* ------------------------------------------------------------------------ */
@@ -127,6 +132,40 @@ enum tc_metaclass_t
 
     /* intrinsic class modifier */
     TC_META_ICMOD
+};
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   CTcPrsNode::adjust_for_dyn() information structure 
+ */
+struct tcpn_dyncomp_info
+{
+    tcpn_dyncomp_info()
+    {
+        debugger = FALSE;
+        speculative = FALSE;
+        stack_level = 0;
+    }
+
+    tcpn_dyncomp_info(int debugger, int speculative, int stack_level)
+    {
+        this->debugger = debugger;
+        this->speculative = speculative;
+        this->stack_level = stack_level;
+    }
+    
+    /* true -> debugger evaluation */
+    int debugger;
+
+    /* true -> speculative evaluation mode */
+    int speculative;
+
+    /* 
+     *   stack level - 0 is the active level, 1 is the first enclosing level,
+     *   and so on 
+     */
+    int stack_level;
 };
 
 

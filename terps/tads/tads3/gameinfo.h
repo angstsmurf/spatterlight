@@ -32,6 +32,8 @@ Modified
 #ifndef GAMEINFO_H
 #define GAMEINFO_H
 
+#include "os.h"
+
 /*
  *   Base game information parser.  This base version, when used directly,
  *   uses UTF-8 encoding for all value strings.  If values are desired in a

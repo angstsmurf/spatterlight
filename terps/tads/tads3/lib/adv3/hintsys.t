@@ -14,6 +14,15 @@
 /* include the library header */
 #include "adv3.h"
 
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   We refer to some properties defined primarily in score.t - that's an
+ *   optional module, though, so make sure the compiler has heard of these. 
+ */
+property scoreCount;
+
+
 /* ------------------------------------------------------------------------ */
 /*
  *   A basic hint menu object.  This is an abstract base class that
@@ -242,7 +251,25 @@ class Goal: MenuTopicItem, HintMenuObject
         || (closeWhenKnown != nil && gPlayerChar.knowsAbout(closeWhenKnown))
         || (closeWhenRevealed != nil && gRevealed(closeWhenRevealed))
         || closeWhenTrue)
-    
+
+    /*
+     *   Has this goal been fully displayed?  The hint system automatically
+     *   sets this to true when the last item in our hint list is
+     *   displayed.
+     *   
+     *   You can use this, for example, to automatically remove the hint
+     *   from the hint menu after it's been fully displayed.  (You might
+     *   want to do this with a hint for a red herring, for example.  After
+     *   the player has learned that the red herring is a red herring, they
+     *   probably won't need to see that particular line of hints again, so
+     *   you can remove the clutter in the menu by closing the hint after
+     *   it's been fully displayed.)  To do this, simply add this to the
+     *   Goal object:
+     *   
+     *.    closeWhenTrue = (goalFullyDisplayed)
+     */
+    goalFullyDisplayed = nil
+
     /*
      *   Check our menu state and update it if necessary.  Each time our
      *   parent menu is about to display, it'll call this on its sub-items
@@ -297,6 +324,17 @@ class Goal: MenuTopicItem, HintMenuObject
             /* the goal has been achieved, so close it */
             goalState = ClosedGoal;
         }
+    }
+
+    /* display a sub-item, keeping track of when we've shown them all */
+    displaySubItem(idx, lastBeforeInput, eol)
+    {
+        /* do the inherited work */
+        inherited(idx, lastBeforeInput, eol);
+
+        /* if we just displayed the last item, note it */
+        if (idx == menuContents.length())
+            goalFullyDisplayed = true;
     }
 
     /* we're active in our parent menu if our goal state is Open */

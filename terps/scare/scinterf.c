@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -24,7 +24,8 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "scare.h"
@@ -33,9 +34,9 @@
 
 
 /* Assorted definitions and constants. */
-static const sc_char NUL = '\0';
 static const sc_char NEWLINE = '\n';
 static const sc_char CARRIAGE_RETURN = '\r';
+static const sc_char NUL = '\0';
 
 /* Global tracing flags. */
 static sc_uint if_trace_flags = 0;
@@ -56,10 +57,9 @@ if_initialize (void)
   if (!initialized)
     {
       /* Make a few quick checks on types and type sizes. */
-      if (sizeof (sc_byte) != 1
-          || sizeof (sc_char) != 1 || sizeof (sc_bool) != 1)
+      if (sizeof (sc_byte) != 1 || sizeof (sc_char) != 1)
         {
-          sc_error ("if_initialize: sizeof sc_byte, sc_char, or sc_bool"
+          sc_error ("if_initialize: sizeof sc_byte or sc_char"
                     " is not 1, check compile options\n");
         }
       else if (sizeof (sc_uint) < 4 || sizeof (sc_int) < 4)
@@ -1014,7 +1014,8 @@ sc_does_game_use_graphics (sc_game game)
 
 
 /*
- * sc_iterate_game_hints()
+ * sc_get_first_game_hint()
+ * sc_get_next_game_hint()
  * sc_get_game_hint_question()
  * sc_get_game_subtle_hint()
  * sc_get_game_sledgehammer_hint()
@@ -1022,65 +1023,82 @@ sc_does_game_use_graphics (sc_game game)
  * Iterate currently available hints, and return strings for a hint.
  */
 sc_game_hint
-sc_iterate_game_hints (sc_game game, sc_game_hint hint)
+sc_get_first_game_hint (sc_game game)
 {
   const sc_gameref_t game_ = game;
 
-  if (if_game_error (game_, "sc_iterate_game_hints"))
+  if (if_game_error (game_, "sc_get_first_game_hint"))
     return NULL;
 
-  return run_hint_iterate (game_, hint);
+  return run_hint_iterate (game_, NULL);
+}
+
+sc_game_hint
+sc_get_next_game_hint (sc_game game, sc_game_hint hint)
+{
+  const sc_gameref_t game_ = game;
+  const sc_hintref_t hint_ = hint;
+
+  if (if_game_error (game_, "sc_get_next_game_hint"))
+    return NULL;
+  if (!hint_)
+    {
+      sc_error ("sc_get_next_game_hint: NULL hint\n");
+      return NULL;
+    }
+
+  return run_hint_iterate (game_, hint_);
 }
 
 const sc_char *
 sc_get_game_hint_question (sc_game game, sc_game_hint hint)
 {
   const sc_gameref_t game_ = game;
-  const sc_hintref_t hintref = hint;
+  const sc_hintref_t hint_ = hint;
 
   if (if_game_error (game_, "sc_get_game_hint_question"))
     return NULL;
-  if (!hintref)
+  if (!hint_)
     {
       sc_error ("sc_get_game_hint_question: NULL hint\n");
       return NULL;
     }
 
-  return run_get_hint_question (game_, hintref);
+  return run_get_hint_question (game_, hint_);
 }
 
 const sc_char *
 sc_get_game_subtle_hint (sc_game game, sc_game_hint hint)
 {
   const sc_gameref_t game_ = game;
-  const sc_hintref_t hintref = hint;
+  const sc_hintref_t hint_ = hint;
 
   if (if_game_error (game_, "sc_get_game_subtle_hint"))
     return NULL;
-  if (!hintref)
+  if (!hint_)
     {
       sc_error ("sc_get_game_subtle_hint: NULL hint\n");
       return NULL;
     }
 
-  return run_get_subtle_hint (game_, hintref);
+  return run_get_subtle_hint (game_, hint_);
 }
 
 const sc_char *
 sc_get_game_unsubtle_hint (sc_game game, sc_game_hint hint)
 {
   const sc_gameref_t game_ = game;
-  const sc_hintref_t hintref = hint;
+  const sc_hintref_t hint_ = hint;
 
   if (if_game_error (game_, "sc_get_game_unsubtle_hint"))
     return NULL;
-  if (!hintref)
+  if (!hint_)
     {
       sc_error ("sc_get_game_unsubtle_hint: NULL hint\n");
       return NULL;
     }
 
-  return run_get_unsubtle_hint (game_, hintref);
+  return run_get_unsubtle_hint (game_, hint_);
 }
 
 

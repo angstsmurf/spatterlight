@@ -53,6 +53,7 @@ Modified
 #define OSIFC_H
 
 #include <stdlib.h>
+#include <stdarg.h>
 #include "appctx.h"
 
 #ifdef __cplusplus
@@ -102,6 +103,483 @@ extern "C" {
  *   only to 16-bit implementations that must interact with other 16-bit
  *   programs via dynamic linking or other mechanisms.  
  */
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   ANSI C99 exact-size integer types.
+ *   
+ *   C99 defines a set of integer types with exact bit sizes, named intXX_t
+ *   for a signed integer with XX bits, and uintXX_t for unsigned.  XX can be
+ *   8, 16, 32, or 64.  TADS uses the 16- and 32-bit sizes, so each platform
+ *   is responsible for defining the following types:
+ *   
+ *.    int16_t   - a signed integer type storing EXACTLY 16 bits
+ *.    uint16_t  - an unsigned integer type storing EXACTLY 16 bits
+ *.    int32_t   - a signed integer type storing EXACTLY 32 bits
+ *.    uint32_t  - an unsigned integer type storing EXACTLY 32 bits
+ *   
+ *   Many modern compilers provide definitions for these types via the
+ *   standard header stdint.h.  Where stdint.h is provided, the platform code
+ *   can merely #include <stdint.h>.
+ *   
+ *   For compilers where stdint.h isn't available, you must provide suitable
+ *   typedefs.  Note that the types must be defined with the exact bit sizes
+ *   specified; it's not sufficient to use a bigger type, because we depend
+ *   in some cases on overflow and sign extension behavior at the specific
+ *   bit size.
+ */
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Thread-local storage (TLS).
+ *   
+ *   When TADS is compiled with threading support, it requires some variables
+ *   to be "thread-local".  This means that the variables have global scope
+ *   (so they're not stored in "auto" variables on the stack), but each
+ *   thread has a private copy of each such variable.
+ *   
+ *   Nearly all systems that support threads also support thread-local
+ *   storage.  Like threading support itself, though, TLS support is at
+ *   present implemented only in non-portable OS APIs rather than standard C
+ *   language features.  TLS is a requirement if TADS is compiled with
+ *   threading, but it's not needed for non-threaded builds.  TADS only
+ *   requires threading at present (version 3.1) for its network features;
+ *   since these features are optional, systems that don't have threading and
+ *   TLS support will simply need to disable the network features, which will
+ *   allow all of the threading and TLS definitions in osifc to be omitted.
+ *   
+ *   There appear to be two common styles of TLS programming models.  The
+ *   first provides non-standard compiler syntax for declarative creation of
+ *   thread-local variables.  The Microsoft (on Windows) and Gnu compilers
+ *   (on Linux and Unix) do this: they provide custom storage class modifiers
+ *   for declaring thread locals (__declspec(thread) for MSVC, __thread for
+ *   gcc).  Compilers that support declarative thread locals handle the
+ *   implementation details through code generation, so the program merely
+ *   needs to add the special TLS storage class qualifier to an otherwise
+ *   ordinary global variable declaration, and then can access the thread
+ *   local as though it were an ordinary global.
+ *   
+ *   The second programming model is via explicit OS API calls to create,
+ *   initialize, and access thread locals.  pthreads provides such an API, as
+ *   does Win32.  In fact, when you use the declarative syntax with MSVC or
+ *   gcc, the compiler generates the appropriate API calls, but the details
+ *   are transparent to the program; in contrast, when using pthreads
+ *   directly, the program must actively call the relevant APIs.
+ *   
+ *   It's probably the case that every system that has compiler-level support
+ *   for declarative thread local creation also has procedural APIs, so the
+ *   simplest way to abstract the platform differences would be to do
+ *   everything in terms of APIs.  However, it seems likely that compilers
+ *   with declarative syntax might be able to generate more efficient code,
+ *   since optimizers always benefit from declarative information.  So we'd
+ *   like to use declarative syntax whenever it's available, but fall back on
+ *   explicit API calls when it's not.  So our programming model is a union
+ *   of the two styles:
+ *   
+ *   1. For each thread local, declare the thread local:
+ *.      OS_DECL_TLS(char *, my_local);
+ *   
+ *   2. At main program startup (for the main thread only), initialize each
+ *   thread local:
+ *.      os_tls_create(my_local);
+ *   
+ *   3. Never get or set the value of a thread local directly; instead, use
+ *   the get/set functions:
+ *.      char *x = os_tls_get(char *, my_local);
+ *.      os_tls_set(my_local, "hello");
+ *   
+ *   One key feature of this implementation is that each thread local is
+ *   stored as a (void *) value.  We do it this way to allow a simple direct
+ *   mapping to the pthreads APIs, since that's going to be the most common
+ *   non-declarative implementation.  This means that a thread local variable
+ *   can contain any pointer type, but *only* a pointer type.  The standard
+ *   pattern for dealing with anything more ocmplex is the same as in
+ *   pthreads: gather up the data into a structure, malloc() an instance of
+ *   that structure at entry to each thread (including the main thread), and
+ *   os_tls_set() the variable to contain a pointer to that structure.  From
+ *   then on, use os_tls_set(my_struct *, my_local)->member to access the
+ *   member variables in the structure.  And finally, each thread must delete
+ *   the structure at thread exit.
+ */
+
+/*   
+ *   
+ *   Declare a thread local.
+ *   
+ *   - For compilers that support declarative TLS variables, the local OS
+ *   headers should use the compiler support by #defining OS_DECL_TLS to the
+ *   appropriate local declarative keyword.
+ *   
+ *   - For systems without declarative TLS support but with TLS APIs, the
+ *   global declared by this macro actually stores the slot ID (what pthreads
+ *   calls the "key") for the variable.  This macro should therefore expand
+ *   to a declaration of the appropriate API type for a slot ID; for example,
+ *   on pthreads, #define OS_DECL_TLS(t, v) pthread_key_t v.
+ *   
+ *   - For builds with no thread support, simply #define this to declare the
+ *   variable as an ordinary global: #define OS_DECL_TLS(t, v) t v.
+ */
+/* #define OS_DECL_TLS(typ, varname)  __thread typ varname */
+
+/*
+ *   For API-based systems without declarative support in the compiler, the
+ *   main program startup code must explicitly create a slot for each thread-
+ *   local variable by calling os_tls_create().  The API returns a slot ID,
+ *   which is shared among threads and therefore can be stored in an ordinary
+ *   global variable.  OS_DECL_TLS will have declared the global variable
+ *   name in this case as an ordinary global of the slot ID type.  The
+ *   os_tls_create() macro should therefore expand to a call to the slot
+ *   creation API, storing the new slot ID in the global.
+ *   
+ *   Correspondingly, before the main thread exits, it should delete each
+ *   slot it created, b calling os_tls_delete().
+ *   
+ *   For declarative systems, there's no action required here, so these
+ *   macros can be defined to empty.
+ */
+/* #define os_tls_create(varname)  pthread_key_create(&varname, NULL) */
+/* #define os_tls_delete(varname)  pthread_key_delete(varname) */
+
+
+/*
+ *   On API-based systems, each access to get or set the thread local
+ *   requires an API call, using the slot ID stored in the actual global to
+ *   get the per-thread instance of the variable's storage.
+ *.    #define os_tls_get(typ, varname) ((typ)pthread_getspecific(varname))
+ *.    #define os_tls_set(varname, val) pthread_setspecific(varname, val)
+ *   
+ *   On declarative systems, the global variable itself is the thread local,
+ *   so get/set can be implemented as direct access to the variable.
+ *.    #define os_tls_get(typ, varname) varname
+ *.    #define os_tls_set(varname, val) varname = (val)
+ */
+
+/*
+ *   Common TLS definitions - declarative thread locals
+ *   
+ *   For systems with declarative TLS support in the compiler, the OS header
+ *   can #define OS_DECLARATIVE_TLS to pick up suitable definitions for the
+ *   os_tls_xxx() macros.  The OS header must separately define OS_DECL_TLS
+ *   as appropriate for the local system.
+ */
+#ifdef OS_DECLARATIVE_TLS
+#define os_tls_create(varname)
+#define os_tls_delete(varname)
+#define os_tls_get(typ, varname) varname
+#define os_tls_set(varname, val) varname = (val)
+#endif
+
+/*
+ *   Common TLS definitions - pthreads
+ *   
+ *   For pthreads systems without declarative TLS support in the compiler,
+ *   the OS header can simply #define OS_PTHREAD_TLS to pick up the standard
+ *   definitions below. 
+ */
+#ifdef OS_PTHREAD_TLS
+#include <pthread.h>
+#define OS_DECL_TLS(typ, varname) pthread_key_t varname
+#define os_tls_create(varname) pthread_key_create(&varname, NULL)
+#define os_tls_delete(varname) pthread_key_delete(varname)
+#define os_tls_get(typ, varname) ((typ)pthread_getspecific(varname))
+#define os_tls_set(varname, val) pthread_setspecific(varname, val)
+#endif
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   <time.h> definitions.
+ *   
+ *   os_time() should act like Unix time(), returning the number of seconds
+ *   elapsed since January 1, 1970 at midnight UTC.
+ *   
+ *   The original Unix <time.h> package defined time_t as a 32-bit signed
+ *   int, and many subsequent C compilers on other platforms followed suit.
+ *   A signed 32-bit time_t has the well-known year-2038 problem; some later
+ *   C compilers tried to improve matters by using an unsigned 32-bit time_t
+ *   instead, but for many purposes this is even worse since it can't
+ *   represent any date before 1/1/1970.  *Most* modern compilers solve the
+ *   problem once and for all (for 300 billion years in either direction of
+ *   1/1/1970, anyway - enough to represent literally all of eternity in most
+ *   current cosmological models) by defining time_t as a signed 64-bit int.
+ *   But some compilers stubbornly stick to the old 32-bit time_t even in
+ *   newer versions, for the sake of compatibility with older code that might
+ *   be lax about mixing time_t's with ordinary int's.  E.g., MSVC2003 does
+ *   this.  Fortunately, some of these compilers (such as MSVC2003 again)
+ *   also define a parallel, transitional set of 64-bit time functions that
+ *   you can use by replacing all references to the standard time_t and
+ *   related names with the corresponding 64-bit names.
+ *   
+ *   We'd really like to use a 64-bit time_t wherever we can - the TADS
+ *   release cycle can be a bit slow, and we don't want 2038 to sneak up on
+ *   us and catch us unawares.  So for those compilers that offer a choice of
+ *   32 or 64 bits, we'd like to select the 64 bit version.  To facilitate
+ *   this, we define covers here for the time.h types and functions that we
+ *   use.  On platforms where the regular time_t is already 64 bits, or where
+ *   there's no 64-bit option at all, you can simply do nothing - the
+ *   defaults defined here use the standard time_t typedef and functions, so
+ *   that's what you'll get if you don't define these in the OS-specific
+ *   headers for your platform.  For compilers that provide both a 32-bit
+ *   time_t and a 64-bit other_time_t, the OS headers should #define these
+ *   macros in terms of those compiler-specific 64-bit names.
+ */
+#ifndef os_time_t
+# define os_time_t        time_t
+# define os_gmtime(t)     gmtime(t)
+# define os_localtime(t)  localtime(t)
+# define os_time(t)       time(t)
+#endif
+
+/*
+ *   Initialize the time zone.  This routine is meant to take care of any
+ *   work that needs to be done prior to calling localtime() and other
+ *   time-zone-dependent routines in the run-time library.  For DOS and
+ *   Windows, we need to call the run-time library routine tzset() to set up
+ *   the time zone from the environment; most systems shouldn't need to do
+ *   anything in this routine.  It's sufficient to call this once during the
+ *   process lifetime, since it's meant to perform static initialization that
+ *   lasts as long as the process is running.
+ */
+#ifndef os_tzset
+void os_tzset(void);
+#endif
+
+/*
+ *   Higher-precision time.  This retrieves the same time information as
+ *   os_time() (i.e., the elapsed time since the standard Unix Epoch, January
+ *   1, 1970 at midnight UTC), but retrieves it with the highest precision
+ *   available on the local system, up to nanosecond precision.  If less
+ *   precision is available, that's fine; just return the time to the best
+ *   precision available, but expressed in terms of the number of
+ *   nanoseconds.  For example, if you can retrieve milliseconds, you can
+ *   convert that to nanoseconds by multiplying by 1,000,000.
+ *   
+ *   On return, fills in '*seconds' with the number of whole seconds since
+ *   the Epoch, and fills in '*nanoseconds' with the fractional portion,
+ *   expressed in nanosceconds.  Note that '*nanoseconds' is merely the
+ *   fractional portion of the time, so 0 <= *nanoseconds < 1000000000.
+ */
+void os_time_ns(os_time_t *seconds, long *nanoseconds);
+
+/*
+ *   Get the local time zone name, as a location name in the IANA zoneinfo
+ *   database.  For example, locations using US Pacific Time should return
+ *   "America/Los_Angeles".
+ *   
+ *   Returns true if successful, false if not.  If the local operating system
+ *   doesn't have a way to obtain this information, or if it's not available
+ *   in the local machine's configuration, this returns false.
+ *   
+ *   The zoneinfo database is also known as the Olson or TZ (timezone)
+ *   database; it's widely used on Unix systems as the definitive source of
+ *   local time zone settings.  See http://www.iana.org/time-zones for more
+ *   information.
+ *   
+ *   On many Unix systems, the TZ environment variable contains the zoneinfo
+ *   zone name when its first character is ':'.  Windows uses a proprietary
+ *   list of time zone names that can be mapped to zoneinfo names via a
+ *   hand-coded list (such a list is maintained in the Unicode CLDR; our
+ *   Windows implementation uses the CLDR list to generate the mapping).
+ *   MacOS X uses zoneinfo keys directly; /etc/localtime is a link to the
+ *   zoneinfo file for the local zone as set via the system preferences.
+ *   
+ *   os_tzset() must be invoked at some point before this routine is called.
+ */
+int os_get_zoneinfo_key(char *buf, size_t buflen);
+
+/*
+ *   Get a description of the local time zone.  Fills in '*info' with the
+ *   available information.  Returns true on success, false on failure.
+ *   
+ *   See osstzprs.h/.c for a portable implementation of a parser for
+ *   POSIX-style TZ strings.  That can serve as a full implementation of this
+ *   function for systems that use the POSIX TZ environment variable syntax
+ *   to specify the timezone.  (That routine simply parses a string from any
+ *   source, so it can be used to parse the TZ syntax even on systems where
+ *   the string comes from somewhere other than the TZ environment variable.)
+ *   
+ *   os_tzset() must be invoked at some point before this routine is called.
+ *   
+ *   The following two structures are used for the return information:
+ *   
+ *   os_tzrule_t - Timezone Rule structure.  This describes a rule for an
+ *   annual transition between daylight savings time and standard time in a
+ *   time zone.  Most timezones that have recurring standard/daylight changes
+ *   require two of these rules, one for switching to daylight time in the
+ *   spring and one for switching to standard time in the fall.
+ *   
+ *   os_tzinfo_t - Timezone Information structure.  This describes a
+ *   timezone's clock settings, name(s), and rules for recurring annual
+ *   changes between standard time and daylight time, if applicable.
+ */
+struct os_tzrule_t
+{
+    /* 
+     *   Day of year, 1-365, NEVER counting Feb 29; set to 0 if not used.
+     *   Corresponds to the "J" format in Unix TZ strings.  (Called "Julian
+     *   day" in the POSIX docs, thus the "J", even though it's a bit of a
+     *   misnomer.)(Because of the invariance of the mapping from J-number to
+     *   date, this is just an obtuse way of specifying a month/day date.
+     *   But even so, we'll let the OS layer relay this back to us in
+     *   J-number format and count on the portable caller to work out the
+     *   date, rather than foisting that work on each platform
+     *   implementation.)
+     */
+    int jday;
+
+    /*
+     *   Day of year, 1-366, counting Feb 29 on leap years; set to 0 if not
+     *   used; ignored if 'jday' is nonzero.  This corresponds to the Julian
+     *   day sans "J" in TZ strings (almost - that TZ format uses 0-365 as
+     *   its range, so bump it up by one when parsing a TZ string).  This
+     *   format is even more obtuse than the J-day format, in that it doesn't
+     *   even have an invariant month/day mapping (not after day 59, anyway -
+     *   day 60 is either February 29 or March 1, depending on the leapness
+     *   of the year, and every day after that is similarly conditional).  As
+     *   far as I can tell, no one uses this option, so I'm not sure why it
+     *   exists.  The zoneinfo source format doesn't have a way to represent
+     *   it, which says to me that no one has ever used it in a statutory DST
+     *   start/end date definition in the whole history of time zones around
+     *   the world, since the whole history of time zones around the world is
+     *   exactly what the zoneinfo database captures in exhaustive and
+     *   painstaking detail.  If anyone had ever used it in defining a time
+     *   zone, zoneinfo would have an option for it.  My guess is that it's a
+     *   fossilized bug from some early C RTL that's been retained out of an
+     *   abundance of caution vis-a-vis compatibility, and was entirely
+     *   replaced in practice by the J-number format as soon as someone
+     *   noticed the fiddly leap year behavior.  But for the sake of
+     *   completeness...
+     */
+    int yday;
+    
+    /* 
+     *   The month (1-12), week of the month, and day of the week (1-7 for
+     *   Sunday to Saturday).  Week 1 is the first week in which 'day'
+     *   occurs, week 2 is the second, etc.; week 5 is the last occurrence of
+     *   'day' in the month.  These fields are used for "second Sunday in
+     *   March" types of rules.  Set these to zero if they're not used;
+     *   they're ignored in any case if 'jday' or 'yday' are non-zero.
+     */
+    int month;
+    int week;
+    int day;
+
+    /* time of day, in seconds after midnight (e.g., 2AM is 120 == 2*60*60) */
+    int time;
+};
+struct os_tzinfo_t
+{
+    /*
+     *   The local offset from GMT, in seconds, for standard time and
+     *   daylight time in this zone.  These values are positive for zones
+     *   east of GMT and negative for zones west: New York standard time
+     *   (EST) is 5 hours west of GMT, so its offset is -5*60*60.
+     *   
+     *   Set both of these fields (if possible) regardless of whether
+     *   standard or daylight time is currently in effect in the zone.  The
+     *   caller will select which offset to use based on the start/end rules,
+     *   or based on the 'is_dst' flag if no rules are available.
+     *   
+     *   If it's only possible to determine the current wall clock offset, be
+     *   it standard or daylight time, and it's not possible to determine the
+     *   time difference between the two, simply set both of these to the
+     *   current offset.  This information isn't available from the standard
+     *   C library, and many OS APIs also lack it.  
+     */
+    int32_t std_ofs;
+    int32_t dst_ofs;
+
+    /*
+     *   The abbreviations for the local zone's standard time and daylight
+     *   time, respectively, when displaying date/time values.  E.g., "EST"
+     *   and "EDT" for US Eastern Time.  If the zone doesn't observe daylight
+     *   time (it's on standard time year round), set dst_abbr to an empty
+     *   string.
+     *   
+     *   As with std_ofs and dst_ofs, you can set both of these to the same
+     *   string if it's only possible to determine the one that's currently
+     *   in effect.
+     */
+    char std_abbr[16];
+    char dst_abbr[16];
+
+    /*
+     *   The ongoing rules for switching between daylight and standard time
+     *   in this zone, if available.  'dst_start' is the date when daylight
+     *   savings starts, 'dst_end' is the date when standard time resumes.
+     *   Set all fields to 0 if the start/stop dates aren't available, or the
+     *   zone is on standard time year round.
+     */
+    struct os_tzrule_t dst_start;
+    struct os_tzrule_t dst_end;
+
+    /* 
+     *   True -> the zone is CURRENTLY on daylight savings time; false means
+     *   it's currently on standard time.
+     *   
+     *   This is only used if the start/end rules aren't specified.  In the
+     *   absence of start/end rules, there's no way to know when the current
+     *   standard/daylight phase ends, so we'll have to assume that the
+     *   current mode is in effect permanently.  In this case, the caller
+     *   will use only be able to use the offset and abbreviation for the
+     *   current mode and will have to ignore the other one.
+     */
+    int is_dst;
+};
+int os_get_timezone_info(struct os_tzinfo_t *info);
+
+
+/*
+ *   Get the current system high-precision timer.  This function returns a
+ *   value giving the wall-clock ("real") time in milliseconds, relative to
+ *   any arbitrary zero point.  It doesn't matter what this value is relative
+ *   to -- the only important thing is that the values returned by two
+ *   different calls should differ by the number of actual milliseconds that
+ *   have elapsed between the two calls.  This might be the number of
+ *   milliseconds since the computer was booted, since the current user
+ *   logged in, since midnight of the previous night, since the program
+ *   started running, since 1-1-1970, etc - it doesn't matter what the epoch
+ *   is, so the implementation can use whatever's convenient on the local
+ *   system.
+ *   
+ *   True millisecond precision isn't required.  Each implementation should
+ *   simply use the best precision available on the system.  If your system
+ *   doesn't have any kind of high-precision clock, you can simply use the
+ *   time() function and multiply the result by 1000 (but see the note below
+ *   about exceeding 32-bit precision).
+ *   
+ *   However, it *is* required that the return value be in *units* of
+ *   milliseconds, even if your system clock doesn't have that much
+ *   precision; so on a system that uses its own internal clock units, this
+ *   routine must multiply the clock units by the appropriate factor to yield
+ *   milliseconds for the return value.
+ *   
+ *   It is also required that the values returned by this function be
+ *   monotonically increasing.  In other words, each subsequent call must
+ *   return a value that is equal to or greater than the value returned from
+ *   the last call.  On some systems, you must be careful of two special
+ *   situations.
+ *   
+ *   First, the system clock may "roll over" to zero at some point; for
+ *   example, on some systems, the internal clock is reset to zero at
+ *   midnight every night.  If this happens, you should make sure that you
+ *   apply a bias after a roll-over to make sure that the value returned from
+ *   this return continues to increase despite the reset of the system clock.
+ *   
+ *   Second, a 32-bit signed number can only hold about twenty-three days
+ *   worth of milliseconds.  While it seems unlikely that a TADS game would
+ *   run for 23 days without a break, it's certainly reasonable to expect
+ *   that the computer itself may run this long without being rebooted.  So,
+ *   if your system uses some large type (a 64-bit number, for example) for
+ *   its high-precision timer, you may want to store a zero point the very
+ *   first time this function is called, and then always subtract this zero
+ *   point from the large value returned by the system clock.  If you're
+ *   using time(0)*1000, you should use this technique, since the result of
+ *   time(0)*1000 will almost certainly not fit in 32 bits in most cases.  
+ */
+long os_get_sys_clock_ms(void);
 
 
 /* ------------------------------------------------------------------------ */
@@ -156,29 +634,101 @@ extern "C" {
 /* int osrp2s(unsigned char *p); */
 
 /* 
- *   Write int to unaligned portable 2-byte value.  The portable
+ *   Write unsigned int to unaligned portable 2-byte value.  The portable
  *   representation stores the low-order byte first in memory, so
  *   oswp2(0x1234) should result in storing a byte value 0x34 in the first
- *   byte, and 0x12 in the second byte. 
+ *   byte, and 0x12 in the second byte.  
  */
-/* void oswp2(unsigned char *p, int i); */
+/* void oswp2(unsigned char *p, unsigned int i); */
+
+/*
+ *   Write signed int to unaligned portable 2-byte value.  Negative values
+ *   must be stored in two's complement notation.  E.g., -1 is stored as
+ *   FF.FF, -32768 is stored as 00.80 (little-endian).  
+ *   
+ *   Virtually all modern hardware uses two's complement notation as the
+ *   native representation, which makes this routine a trivial synonym of
+ *   osrp2() (i.e., #define oswp2s(p,i) oswp2(p,i)).  We distinguish the
+ *   signed version on the extremely off chance that TADS is ever ported to
+ *   wacky hardware with a different representation for negative integers
+ *   (one's complement, sign bit, etc).  
+ */
+/* void oswp2s(unsigned char *p, int i); */
 
 /* 
- *   Read an unaligned portable 4-byte value, returning long.  The
- *   underlying value should be considered signed, and the result is
- *   signed.  The portable representation stores the bytes starting with
- *   the least significant: the value 0x12345678 is stored with 0x78 in
- *   the first byte, 0x56 in the second byte, 0x34 in the third byte, and
- *   0x12 in the fourth byte.  
+ *   Read an unaligned unsigned portable 4-byte value, returning long.  The
+ *   underlying value should be considered signed, and the result is signed.
+ *   The portable representation stores the bytes starting with the least
+ *   significant: the value 0x12345678 is stored with 0x78 in the first byte,
+ *   0x56 in the second byte, 0x34 in the third byte, and 0x12 in the fourth
+ *   byte.
  */
-/* long osrp4(unsigned char *p); */
+/* unsigned long osrp4(unsigned char *p); */
+
+/*
+ *   Read an unaligned signed portable 4-byte value, returning long. 
+ */
+/* long osrp4s(unsigned char *p); */
 
 /* 
- *   Write a long to an unaligned portable 4-byte value.  The portable
- *   representation stores the low-order byte first in memory, so
+ *   Write an unsigned long to an unaligned portable 4-byte value.  The
+ *   portable representation stores the low-order byte first in memory, so
  *   0x12345678 is written to memory as 0x78, 0x56, 0x34, 0x12.  
  */
-/* void oswp4(unsigned char *p, long l); */
+/* void oswp4(unsigned char *p, unsigned long l); */
+
+/*
+ *   Write a signed long, using little-endian byte order and two's complement
+ *   notation for negative numbers.  This is a trivial synonym for oswp4()
+ *   for all platforms with native two's complement arithmetic (which is
+ *   virtually all modern platforms).  See oswp2s() for more discussion.
+ */
+/* void oswp4s(unsigned char *p, long l); */
+
+/*
+ *   For convenience and readability, the 1-byte integer (signed and
+ *   unsigned) equivalents of the above.
+ */
+#define osrp1(p) (*(unsigned char *)(p))
+#define osrp1s(p) (*(signed char *)(p))
+#define oswp1(p, b) (*(unsigned char *)(p) = (b))
+#define oswp1s(p, b) (*(signed char *)(p) = (b))
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   varargs va_copy() extension.
+ *   
+ *   On some compilers, va_list is a reference type.  This means that if a
+ *   va_list value is passed to a function that uses va_arg() to step through
+ *   the referenced arguments, the caller's copy of the va_list might be
+ *   updated on return.  This is problematic in cases where the caller needs
+ *   to use the va_list again in another function call, since the va_list is
+ *   no longer pointing to the first argument for the second call.  C99 has a
+ *   solution in the form of the va_copy() macro.  Unfortunately, this isn't
+ *   typically available in pre-C99 compilers, and isn't standard in *any*
+ *   C++ version.  We thus virtualize it here in a macro.
+ *   
+ *   os_va_copy() has identical semantics to C99 va_copy().  A matching call
+ *   to os_va_copy_end() must be made for each call to os_va_copy() before
+ *   the calling function returns; this has identical semantics to C99
+ *   va_end().
+ *   
+ *   Because our semantics are identical to the C99 version, we provide a
+ *   default definition here for compilers that define va_copy().  Platform
+ *   headers must provide suitable definitions only if their compilers don't
+ *   have va_copy().  We also provide a definition for GCC compilers that
+ *   define the private __va_copy macro, which also has the same semantics.
+ */
+#ifdef va_copy
+# define os_va_copy(dst, src) va_copy(dst, src)
+# define os_va_copy_end(dst)  va_end(dst)
+#else
+# if defined(__GNUC__) && defined(__va_copy)
+#  define os_va_copy(dst, src) __va_copy(dst, src)
+#  define os_va_copy_end(dst)  va_end(dst)
+# endif
+#endif
 
 
 
@@ -274,16 +824,45 @@ extern "C" {
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Basic file I/O interface.  These functions are merely documented
- *   here, but no prototypes are defined, because most platforms #define
- *   macros for these functions and types, mapping them to stdio or other
- *   system I/O interfaces.  
+ *   Basic file I/O interface.  These functions are merely documented here,
+ *   but no prototypes are defined, because most platforms #define macros for
+ *   these functions and types, mapping them to stdio or other system I/O
+ *   interfaces.  
+ *   
+ *   When writing a file, writes might or might not be buffered in
+ *   application memory; this is up to the OS implementation, which can
+ *   perform buffering according to local conventions and what's most
+ *   efficient.  However, it shouldn't make any difference to the caller
+ *   whether writes are buffered or not - the OS implementation must take
+ *   care that any buffering is invisible to the app.  (Porters: note that
+ *   the basic C stdio package has the proper behavior here, so you'll get
+ *   the correct semantics if you use a simple stdio implementation.)
+ *   
+ *   Write buffering might be visible to *other* apps, though.  In
+ *   particular, another process might not see data written to a file (with
+ *   osfwb(), os_fprint(), etc) immediately, since the write functions might
+ *   hold the written bytes in an internal memory buffer rather than sending
+ *   them to the OS.  Any internal buffers are guaranteed to be flushed to
+ *   the OS upon calling osfcls() or osfflush().  Note that it's never
+ *   *necessary* to call osfflush(), because buffered data will always be
+ *   flushed on closing the file with osfcls().  However, if you want other
+ *   apps to be able to see updates immediately, you can use osfflush() to
+ *   ensure that buffers are flushed to a file before you close it.
+ *   
+ *   You can also use osfflush() to check for buffered write errors.  When
+ *   you use osfwb() or other write functions to write data, they will return
+ *   a success indication even if the data was only copied into a buffer.
+ *   This means that a write that appeared to succeed might actually fail
+ *   later, when the buffer is flushed.  The only way to know for sure is to
+ *   explicitly flush buffers using osfflush(), and check the result code.
+ *   If the original write function and a subsequent osfflush() *both* return
+ *   success indications, then the write has definitely succeeded.  
  */
 
 
 /*
  *   Define the following values in your OS header to indicate local
- *   conventions:
+ *   file/path syntax conventions:
  *   
  *   OSFNMAX - integer indicating maximum length of a filename
  *   
@@ -291,10 +870,8 @@ extern "C" {
  *.  OSPATHALT - string giving other path separator characters
  *.  OSPATHURL - string giving path separator characters for URL conversions
  *.  OSPATHSEP - directory separator for PATH-style environment variables
- *   
- *   For example, on DOS, OSPATHCHAR is '\\', OSPATHALT is "/:", and
- *   OSPATHSEP is ';'.  On Unix, OSPATHCHAR is '\', OSPATHALT is "", and
- *   OSPATHSEP is ':'.
+ *.  OSPATHPWD - string giving the special path representing the current
+ *.              working directory; for Unix or Windows, this is "."
  *   
  *   OSPATHURL is a little different: this specifies the characters that
  *   should be converted to URL-style separators when converting a path from
@@ -318,24 +895,109 @@ extern "C" {
 
 
 /*
- *   File types - see osifctyp.h
+ *   File types.
+ *   
+ *   These are symbols of the form OSFTxxxx defining various content types,
+ *   somewhat aking to MIME types.  These were mainly designed for the old
+ *   Mac OS (versions up to OS 9), where the file system stored a type tag
+ *   with each file's metadata.  The type tags were used for things like
+ *   filtering file selector dialogs and setting file-to-app associations in
+ *   the desktop shell.
+ *   
+ *   Our OSFTxxx symbols are abstract file types that we define, for types
+ *   used within the TADS family of applications.  They give us a common,
+ *   cross-platform reference point for each type we use.  Each port where
+ *   file types are meaningful then maps our abstract type IDs to the
+ *   corresponding port-specific type IDs.  In practice, this has never been
+ *   used anywhere other than the old Mac OS ports; in fact, it's not even
+ *   used in the modern Mac OS (OS X and later), since Apple decided to stop
+ *   fighting the tide and start using filename suffixes for this sort of
+ *   tagging, like everyone else always has.
+ *   
+ *   For the list of file types, see osifctyp.h 
  */
 
 
+/*
+ *   Local newline convention.
+ *   
+ *   Because of the pernicious NIH ("Not Invented Here") cultures of the
+ *   major technology vendors, basically every platform out there has its own
+ *   unique way of expressing newlines in text files.  Unix uses LF (ASCII
+ *   10); Mac uses CR (ASCII 13); DOS and Windows use CR-LF pairs.  In the
+ *   past there were heaven-only-knows how many other conventions in use, but
+ *   fortunately these three have the market pretty well locked up at this
+ *   point.  But we do still have to worry about these three.
+ *   
+ *   Our strategy on input is to be open to just about anything whenever
+ *   possible.  So, when we're reading something that we believe to be a text
+ *   file, we'll treat all of these as line endings: CR, LF, CR-LF, and
+ *   LF-CR.  It's pretty safe to do this; if we have a CR and LF occurring
+ *   adjacently, it's almost certain that they're intended to be taken
+ *   together as a single newline sequence.  Likewise, if there's a lone CR
+ *   or LF, it's rare for it to mean anything other than a newline.
+ *   
+ *   On output, though, we can't be as loose.  The problem is that other
+ *   applications on our big three platforms *don't* tend to aim for the same
+ *   flexibility we do on input: other apps usually expect exactly the local
+ *   conventions on input, and don't always work well if they don't get it.
+ *   So it's important that when we're writing a text file, we write newlines
+ *   in the local convention.  This means that we sometimes need to know what
+ *   the local convention actually is.  That's where this definition comes
+ *   in.
+ *   
+ *   Each port must define OS_NEWLINE_SEQ as an ASCII string giving the local
+ *   newline sequence to write on output.  For example, DOS defines it as
+ *   "\r\n" (CR-LF).  Always define it as a STRING (not a character
+ *   constant), even if it's only one character long.
+ *   
+ *   (Note that some compilers use wacky mappings for \r and \n.  Some older
+ *   Mac compilers, for example, defined \n as CR and \r as LF, because of
+ *   the Mac convention where newline is represented as CR in a text file.
+ *   If there's any such variability on your platform, you can always use the
+ *   octal codes to be unambiguous: \012 for LF and \015 for CR.)  
+ */
+/* #define OS_NEWLINE_SEQ  "\r\n" */
+
+
+
 /* 
- *   Open text file for reading.  Returns NULL on error.
+ *   Open text file for reading.  This opens the file with read-only access;
+ *   we're not allowed to write to the file using this handle.  Returns NULL
+ *   on error.
  *   
  *   A text file differs from a binary file in that some systems perform
  *   translations to map between C conventions and local file system
- *   conventions; for example, on DOS, the stdio library maps the DOS
- *   CR-LF newline convention to the C-style '\n' newline format.  On many
- *   systems (Unix, for example), there is no distinction between text and
- *   binary files.  
+ *   conventions; for example, on DOS, the stdio library maps the DOS CR-LF
+ *   newline convention to the C-style '\n' newline format.  On many systems
+ *   (Unix, for example), there is no distinction between text and binary
+ *   files.
+ *   
+ *   On systems that support file sharing and locking, this should open the
+ *   file in "shared read" mode - this means that other processes are allowed
+ *   to simultaneously read from the file, but no other processs should be
+ *   allowed to write to the file as long as we have it open.  If another
+ *   process already has the file open with write access, this routine should
+ *   return failure, since we can't take away the write privileges the other
+ *   process already has and thus we can't guarantee that other processes
+ *   won't write to the file while we have it open.  
  */
 /* osfildef *osfoprt(const char *fname, os_filetype_t typ); */
 
+/*
+ *   Open a text file for "volatile" reading: we open the file with read-only
+ *   access, and we explicitly accept instability in the file's contents due
+ *   to other processes simultaneously writing to the file.  On systems that
+ *   support file sharing and locking, the file should be opened in "deny
+ *   none" mode, meaning that other processes can simultaneously open the
+ *   file for reading and/or writing even while have the file open.  
+ */
+/* osfildef *osfoprtv(const char *fname, os_filetype_t typ); */
+
 /* 
- *   Open text file for writing; returns NULL on error 
+ *   Open text file for writing; returns NULL on error.  If the file already
+ *   exists, this truncates the file to zero length, deleting any existing
+ *   contents.
  */
 /* osfildef *osfopwt(const char *fname, os_filetype_t typ); */
 
@@ -348,13 +1010,14 @@ extern "C" {
 
 /* 
  *   Open text file for reading/writing.  If the file already exists,
- *   truncate the existing contents.  Create a new file if it doesn't
- *   already exist.  Return null on error.  
+ *   truncate the existing contents to zero length.  Create a new file if it
+ *   doesn't already exist.  Return null on error.  
  */
 /* osfildef *osfoprwtt(const char *fname, os_filetype_t typ); */
 
 /* 
- *   Open binary file for writing; returns NULL on error.  
+ *   Open binary file for writing; returns NULL on error.  If the file
+ *   exists, this truncates the existing contents to zero length.
  */
 /* osfildef *osfopwb(const char *fname, os_filetype_t typ); */
 
@@ -369,19 +1032,106 @@ extern "C" {
  */
 /* osfildef *osfoprb(const char *fname, os_filetype_t typ); */
 
+/*
+ *   Open binary file for 'volatile' reading; returns NULL on error.
+ *   ("Volatile" means that we'll accept writes from other processes while
+ *   reading, so the file should be opened in "deny none" mode or the
+ *   equivalent, to the extent that the local system supports file sharing
+ *   modes.)  
+ */
+/* osfildef *osfoprbv(const char *fname, os_filetype_t typ); */
+
 /* 
- *   Open binary file for reading/writing.  If the file already exists, keep
- *   the existing contents.  Create a new file if it doesn't already exist.
+ *   Open binary file for random-access reading/writing.  If the file already
+ *   exists, keep the existing contents; if the file doesn't already exist,
+ *   create a new empty file.
+ *   
+ *   The caller is allowed to perform any mixture of read and write
+ *   operations on the returned file handle, and can seek around in the file
+ *   to read and write at random locations.
+ *   
+ *   If the local file system supports file sharing or locking controls, this
+ *   should generally open the file in something equivalent to "exclusive
+ *   write, shared read" mode ("deny write" in DENY terms), so that other
+ *   processes can't modify the file at the same time we're modifying it (but
+ *   it doesn't bother us to have other processes reading from the file while
+ *   we're working on it, as long as they don't mind that we could change
+ *   things on the fly).  It's not absolutely necessary to assert these
+ *   locking semantics, but if there's an option to do so this is preferred.
+ *   Stricter semantics (such as "exclusive" or "deny all" mode) are better
+ *   than less strict semantics.  Less strict semantics are dicey, because in
+ *   that case the caller has no way of knowing that another process could be
+ *   modifying the file at the same time, and no way (through osifc) of
+ *   coordinating that activity.  If less strict semantics are implemented,
+ *   the caller will basically be relying on luck to avoid corruptions due to
+ *   writing by other processes.
+ *   
  *   Return null on error.  
  */
 /* osfildef *osfoprwb(const char *fname, os_filetype_t typ); */
 
 /* 
- *   Open binary file for reading/writing.  If the file already exists,
- *   truncate the existing contents.  Create a new file if it doesn't
- *   already exist.  Return null on error.  
+ *   Open binary file for random-access reading/writing.  If the file already
+ *   exists, truncate the existing contents (i.e., delete the contents of the
+ *   file, resetting it to a zero-length file).  Create a new file if it
+ *   doesn't already exist.  The caller is allowed to perform any mixture of
+ *   read and write operations on the returned handle, and can seek around in
+ *   the file to read and write at random locations.
+ *   
+ *   The same comments regarding sharing/locking modes for osfoprwb() apply
+ *   here as well.
+ *   
+ *   Return null on error.  
  */
 /* osfildef *osfoprwtb(const char *fname, os_filetype_t typ); */
+
+/*
+ *   Duplicate a file handle.  Returns a new osfildef* handle that accesses
+ *   the same open file as an existing osfildef* handle.  The new handle is
+ *   independent of the original handle, with its own seek position,
+ *   buffering, etc.  The new handle and the original handle must each be
+ *   closed separately when the caller is done with them (closing one doesn't
+ *   close the other).  The effect should be roughly the same as the Unix
+ *   dup() function.
+ *   
+ *   On success, returns a new, non-null osfildef* handle duplicating the
+ *   original handle.  Returns null on failure.
+ *   
+ *   'mode' is a simplified stdio fopen() mode string.  The first
+ *   character(s) indicate the access type: "r" for read access, "w" for
+ *   write access, or "r+" for read/write access.  Note that "w+" mode is
+ *   specifically not defined, since the fopen() handling of "w+" is to
+ *   truncate any existing file contents, which is not desirable when
+ *   duplicating a handle.  The access type can optionally be followed by "t"
+ *   for text mode, "s" for source file mode, or "b" for binary mode, with
+ *   the same meanings as for the various osfop*() functions.  The default is
+ *   't' for text mode if none of these are specified.
+ *   
+ *   If the osfop*() functions are implemented in terms of stdio FILE*
+ *   objects, this can be implemented as fdopen(dup(fileno(orig)), mode), or
+ *   using equivalents if the local stdio library uses different names for
+ *   these functions.  Note that "s" (source file format) isn't a stdio mode,
+ *   so implementations must translate it to the appropriate "t" or "b" mode.
+ *   (For that matter, "t" and "b" modes aren't universally supported either,
+ *   so some implementations may have to translate these, or more likely
+ *   simply remove them, as most platforms don't distinguish text and binary
+ *   modes anyway.)
+ */
+osfildef *osfdup(osfildef *orig, const char *mode);
+
+/* 
+ *   Set a file's type information.  This is primarily for implementations on
+ *   Mac OS 9 and earlier, where the file system keeps file-type metadata
+ *   separate from the filename.  On such systems, this can be used to set
+ *   the type metadata after a file is created.  The system should map the
+ *   os_filetype_t values to the actual metadata values on the local system.
+ *   On most systems, there's no such thing as file-type metadata, in which
+ *   case this function should simply be stubbed out with an empty function.
+ */
+void os_settype(const char *f, os_filetype_t typ);
+
+/* open the error message file for reading */
+osfildef *oserrop(const char *arg0);
 
 /* 
  *   Get a line of text from a text file.  Uses fgets semantics.  
@@ -402,9 +1152,39 @@ void os_fprintz(osfildef *fp, const char *str);
 void os_fprint(osfildef *fp, const char *str, size_t len);
 
 /* 
- *   Write bytes to file.  Return 0 on success, non-zero on error.  
+ *   Write bytes to file.  Return 0 on success, non-zero on error.
  */
 /* int osfwb(osfildef *fp, const void *buf, int bufl); */
+
+/*
+ *   Flush buffered writes to a file.  This ensures that any bytes written to
+ *   the file (with osfwb(), os_fprint(), etc) are actually sent out to the
+ *   operating system, rather than being buffered in application memory for
+ *   later writing.
+ *   
+ *   Note that this routine only guarantees that we write through to the
+ *   operating system.  This does *not* guarantee that the data will actually
+ *   be committed to the underlying physical storage device.  Such a
+ *   guarantee is hard to come by in general, since most modern systems use
+ *   multiple levels of software and hardware buffering - the OS might buffer
+ *   some data in system memory, and the physical disk drive might itself
+ *   buffer data in its own internal cache.  This routine thus isn't good
+ *   enough, for example, to protect transactional data that needs to survive
+ *   a power failure or a serious system crash.  What this routine *does*
+ *   ensure is that buffered data are written through to the OS; in
+ *   particular, this ensures that another process that's reading from the
+ *   same file will see all updates we've made up to this point.
+ *   
+ *   Returns 0 on success, non-zero on error.  Errors can occur for any
+ *   reason that they'd occur on an ordinary write - a full disk, a hardware
+ *   failure, etc.  
+ */
+/* int osfflush(osfildef *fp); */
+
+/* 
+ *   Read a character from a file.  Provides the same semantics as fgetc().
+ */
+/* int osfgetc(osfildef *fp); */
 
 /* 
  *   Read bytes from file.  Return 0 on success, non-zero on error.  
@@ -438,7 +1218,13 @@ void os_fprint(osfildef *fp, const char *str, size_t len);
 /* int osfseek(osfildef *fp, long pos, int mode); */
 
 /* 
- *   Close a file.  
+ *   Close a file.
+ *   
+ *   If the OS implementation uses buffered writes, this routine guarantees
+ *   that any buffered data are flushed to the underlying file.  So, it's not
+ *   necessary to call osfflush() before calling this routine.  However,
+ *   since this function doesn't return any error indication, a caller could
+ *   use osfflush() first to check for errors on any final buffered writes.  
  */
 /* void osfcls(osfildef *fp); */
 
@@ -447,10 +1233,26 @@ void os_fprint(osfildef *fp, const char *str, size_t len);
  */
 /* int osfdel(const char *fname); */
 
+/*
+ *   Rename/move a file.  This should apply the usual C rename() behavior.
+ *   Renames the old file to the new name, which may be in a new directory
+ *   location if supported on the local system; moves across devices,
+ *   volumes, file systems, etc may or may not be supported according to the
+ *   local system's rules.  If the new file already exists, results are
+ *   undefined.  Returns true on success, false on failure.
+ */
+/* int os_rename_file(const char *oldname, const char *newname); */
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   File "stat()" information - mode, size, time stamps 
+ */
+
 /* 
- *   Access a file - determine if the file exists.  Returns zero if the
- *   file exists, non-zero if not.  (The semantics may seem a little
- *   weird, but this is consistent with the conventions used by most of
+ *   Test access to a file - i.e., determine if the file exists.  Returns
+ *   zero if the file exists, non-zero if not.  (The semantics may seem
+ *   backwards, but this is consistent with the conventions used by most of
  *   the other osfxxx calls: zero indicates success, non-zero indicates an
  *   error.  If the file exists, "accessing" it was successful, so osfacc
  *   returns zero; if the file doesn't exist, accessing it gets an error,
@@ -458,92 +1260,308 @@ void os_fprint(osfildef *fp, const char *str, size_t len);
  */
 /* int osfacc(const char *fname) */
 
-/* 
- *   Get a character from a file.  Provides the same semantics as fgetc().
- */
-/* int osfgetc(osfildef *fp); */
-
 /*
- *   Write a string to a file 
- */
-
-/* ------------------------------------------------------------------------ */
-/*
- *   File time stamps
- */
-
-/*
- *   File timestamp type.  This type must be defined by the
- *   system-specific header, and should map to a local type that can be
- *   used to obtain information on a file's creation, modification, or
- *   access time.  Generic code is not allowed to do anything with data of
- *   this type except pass them to the routines defined here that take
- *   values of this type as parameters.
+ *   Get a file's mode and attribute flags.  This retrieves information on
+ *   the given file equivalent to the st_mode member of the 'struct stat'
+ *   data returned by the Unix stat() family of functions, as well as some
+ *   extra system-specific attributes.  On success, fills in *mode (if mode
+ *   is non-null) with the mode information as a bitwise combination of
+ *   OSFMODE_xxx values, fills in *attr (if attr is non-null) with a
+ *   combination of OSFATTR_xxx attribute flags, and returns true; on
+ *   failure, simply returns false.  Failure can occur if the file doesn't
+ *   exist, can't be accessed due to permissions, etc.
  *   
- *   On Unix, for example, this structure can be defined as having a
- *   single member of type time_t.  (We define this as an incomplete
- *   structure type here so that we can refer to it in the prototypes
- *   below.)  
+ *   Note that 'mode' and/or 'attr' can be null if the caller doesn't need
+ *   that information.  Implementations must check these parameters for null
+ *   pointers and skip returning the corresponding information if null.
+ *   
+ *   If the file in 'fname' is a symbolic link, the behavior depends upon
+ *   'follow_links'.  If 'follow_links' is true, the function should resolve
+ *   the link reference (and if that points to another link, the function
+ *   resolves that link as well, and so on) and return information on the
+ *   object the link points to.  Otherwise, the function returns information
+ *   on the link itself.  This only applies for symbolic links (not for hard
+ *   links), and only if the underlying OS and file system support this
+ *   distinction; if the OS transparently resolves links and doesn't allow
+ *   retrieving information about the link itself, 'follow_links' can be
+ *   ignored.  Likewise, hard links (on systems that support them) are
+ *   generally indistinguishable from regular files, so this function isn't
+ *   expected to do anything special with them.
+ *   
+ *   The '*mode' value returned is a bitwise combination of OSFMODE_xxx flag.
+ *   Many of the flags are mutually exclusive; for example, "file" and
+ *   "directory" should never be combined.  It's also possible for '*mode' to
+ *   be zero for a valid file; this means that the file is of some special
+ *   type on the local system that doesn't fit any of the OSFMODE_xxx types.
+ *   (If any ports do encounter such cases, we can add OSFMODE_xxx types to
+ *   accommodate new types.  The list below isn't meant to be final; it's
+ *   just what we've encountered so far on the platforms where TADS has
+ *   already been ported.)
+ *   
+ *   The OSFMODE_xxx values are left for the OS to define so that they can be
+ *   mapped directly to the OS API's equivalent constants, if desired.  This
+ *   makes the routine easy to write, since you can simply set *mode directly
+ *   to the mode information the OS returns from its stat() or equivalent.
+ *   However, note that these MUST be defined as bit flags - that is, each
+ *   value must be exactly a power of 2.  Windows and Unix-like systems
+ *   follow this practice, as do most "stat()" functions in C run-time
+ *   libraries, so this usually works automatically if you map these
+ *   constants to OS or C library values.  However, if a port defines its own
+ *   values for these, take care that they're all powers of 2.
+ *   
+ *   Obviously, a given OS might not have all of the file types listed here.
+ *   If any OSFMODE_xxx values aren't applicable on the local OS, you can
+ *   simply define them as zero since they'll never be returned.
+ *   
+ *   Notes on attribute flags:
+ *   
+ *   OSFATTR_HIDDEN means that the file is conventionally hidden by default
+ *   in user interface views or listings, but is still fully accessible to
+ *   the user.  Hidden files are also usually excluded by default from
+ *   wildcard patterns in commands ("rm *.*").  On Unix, a hidden file is one
+ *   whose name starts with "."; on Windows, it's a file with the HIDDEN bit
+ *   in its file attributes.  On systems where this concept exists, the user
+ *   can still manipulate these files as normal by naming them explicitly,
+ *   and can typically make them appear in UI views or directory listings via
+ *   a preference setting or command flag (e.g., "ls -a" on Unix).  The
+ *   "hidden" flag is explicitly NOT a security or permissions mechanism, and
+ *   it doesn't protect the file against intentional access by a user; it's
+ *   merely a convenience designed to reduce clutter by excluding files
+ *   maintained by the OS or by an application (such as preference files,
+ *   indices, caches, etc) from casual folder browsing, where a user is
+ *   typically only concerned with her own document files.  On systems where
+ *   there's no such naming convention or attribute metadata, this flag will
+ *   never appear.
+ *   
+ *   OSFATTR_SYSTEM is similar to 'hidden', but means that the file is
+ *   specially marked as an operating system file.  This is mostly a
+ *   DOS/Windows concept, where it corresponds to the SYSTEM bit in the file
+ *   attributes; this flag will probably never appear on other systems.  The
+ *   distinction between 'system' and 'hidden' is somewhat murky even on
+ *   Windows; most 'system' file are also marked as 'hidden', and in
+ *   practical terms in the user interface, 'system' files are treated the
+ *   same as 'hidden'.
+ *   
+ *   OSFATTR_READ means that the file is readable by this process.
+ *   
+ *   OSFATTR_WRITE means that the file is writable by this process.
  */
-typedef struct os_file_time_t os_file_time_t;
+/* int osfmode(const char *fname, int follow_links, */
+/*             unsigned long *mode, unsigned long *attr); */
+
+/* file mode/type constants */
+/* #define OSFMODE_FILE    - regular file */
+/* #define OSFMODE_DIR     - directory */
+/* #define OSFMODE_BLK     - block-mode device */
+/* #define OSFMODE_CHAR    - character-mode device */
+/* #define OSFMODE_PIPE    - pipe/FIFO/other character-oriented IPC */
+/* #define OSFMODE_SOCKET  - network socket */
+/* #define OSFMODE_LINK    - symbolic link */
+
+/* file attribute constants */
+/* #define OSFATTR_HIDDEN  - hidden file */
+/* #define OSFATTR_SYSTEM  - system file */
+/* #define OSFATTR_READ    - the file is readable by this process */
+/* #define OSFATTR_WRITE   - the file is writable by this process */
 
 /*
- *   Get the creation/modification/access time for a file.  Fills in the
- *   os_file_time_t value with the time for the file.  Returns zero on
- *   success, non-zero on failure (the file doesn't exist, the program has
- *   insufficient privileges to access the file, etc).
+ *   Get stat() information.  This fills in the portable os_file_stat
+ *   structure with the requested file information.  Returns true on success,
+ *   false on failure (file not found, permissions error, etc).
+ *   
+ *   'follow_links' has the same meaning as for osfmode().
  */
-int os_get_file_cre_time(os_file_time_t *t, const char *fname);
-int os_get_file_mod_time(os_file_time_t *t, const char *fname);
-int os_get_file_acc_time(os_file_time_t *t, const char *fname);
+typedef struct os_file_stat_t os_file_stat_t;
+int os_file_stat(const char *fname, int follow_links, os_file_stat_t *s);
+
+struct os_file_stat_t
+{
+    /* 
+     *   Size of the file, in bytes.  For platforms lacking 64-bit types, we
+     *   split this into high and low 32-bit portions.  Platforms where the
+     *   native stat() or equivalent only returns a 32-bit file size can
+     *   simply set sizehi to zero, since sizelo can hold the entire size
+     *   value.
+     */
+    uint32_t sizelo;
+    uint32_t sizehi;
+
+    /* 
+     *   Creation time, modification time, and last access time.  If the file
+     *   system doesn't keep information on one or more of these, use
+     *   (os_time_t)0 to indicate that the timestamp isn't available.  It's
+     *   fine to return any subset of these.  Per the standard C stat(),
+     *   these should be expressed as seconds after the Unix Epoch.
+     */
+    os_time_t cre_time;
+    os_time_t mod_time;
+    os_time_t acc_time;
+
+    /* file mode, using the same flags as returned from osfmode() */
+    unsigned long mode;
+
+    /* file attributes, using the same flags as returned from osfmode() */
+    unsigned long attrs;
+};
 
 /*
- *   Compare two file time values.  These values must be obtained with one
- *   of the os_get_file_xxx_time() functions.  Returns 1 if the first time
- *   is later than the second time; 0 if the two times are the same; and
- *   -1 if the first time is earlier than the second time.  
+ *   Manually resolve a symbolic link.  If the local OS and file system
+ *   support symbolic links, and the given filename is a symbolic link (in
+ *   which case osfmode(fname, FALSE, &m, &a) will set OSFMODE_LINK in the
+ *   mode bits), this fills in 'target' with the name of the link target
+ *   (i.e., the object that the link in 'fname' points to).  This should
+ *   return a fully qualified file system path.  Returns true on success,
+ *   false on failure.
+ *   
+ *   This should only resolve a single level of indirection.  If the link
+ *   target of 'fname' is itself a link to a second target, this should only
+ *   resolve the single reference from 'fname' to its direct direct.  Callers
+ *   that wish to resolve the final target of a chain of link references must
+ *   iterate until the returned path doesn't refer to a link.
  */
-int os_cmp_file_times(const os_file_time_t *a, const os_file_time_t *b);
+int os_resolve_symlink(const char *fname, char *target, size_t target_size);
 
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Get a list of root directories.  If 'buf' is non-null, fills in 'buf'
+ *   with a list of strings giving the root directories for the local,
+ *   file-oriented devices on the system.  The strings are each null
+ *   terminated and are arranged consecutively in the buffer, with an extra
+ *   null terminator after the last string to mark the end of the list.
+ *   
+ *   The return value is the length of the buffer required to hold the
+ *   results.  If the caller's buffer is null or is too short, the routine
+ *   should return the full length required, and leaves the contents of the
+ *   buffer undefined; the caller shouldn't expect any contents to be filled
+ *   in if the return value is greater than buflen.  Both 'buflen' and the
+ *   return value include the null terminators, including the extra null
+ *   terminator at the end of the list.  If an error occurs, or the system
+ *   has no concept of a root directory, returns zero.
+ *   
+ *   Each result string should be expressed using the syntax for the root
+ *   directory on a device.  For example, on Windows, "C:\" represents the
+ *   root directory on the C: drive.
+ *   
+ *   "Local" means a device is mounted locally, as opposed to being merely
+ *   visible on the network via some remote node syntax; e.g., on Windows
+ *   this wouldn't include any UNC-style \\SERVER\SHARE names, and on VMS it
+ *   excludes any SERVER:: nodes.  It's up to each system how to treat
+ *   virtual local devices, i.e., those that look synctactically like local
+ *   devices but are actually mounted network devices, such as Windows mapped
+ *   network drives; we recommend including them if it would take extra work
+ *   to filter them out, and excluding them if it would take extra work to
+ *   include them.  "File-oriented" means that the returned devices are
+ *   accessed via file systems, not as character devices or raw block
+ *   devices; so this would exclude /dev/xxx devices on Unix and things like
+ *   CON: and LPT1: on Windows.
+ *   
+ *   Examples ("." represents a null byte):
+ *   
+ *   Windows: C:\.D:\.E:\..
+ *   
+ *   Unix example: /..
+ */
+size_t os_get_root_dirs(char *buf, size_t buflen);
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Open a directory.  This begins an enumeration of a directory's contents.
+ *   'dirname' is a relative or absolute path to a directory.  On success,
+ *   returns true, and 'handle' is set to a port-defined handle value that's
+ *   used in subsequent calls to os_read_dir() and os_close_dir().  Returns
+ *   false on failure.
+ *   
+ *   If the routine succeeds, the caller must eventually call os_close_dir()
+ *   to release the resources associated with the handle.
+ */
+/* typedef <local system type> osdirhdl_t; */
+int os_open_dir(const char *dirname, /*OUT*/osdirhdl_t *handle);
+
+/*
+ *   Read the next file in a directory.  'handle' is a handle value obtained
+ *   from a call to os_open_dir().  On success, returns true and fills in
+ *   'fname' with the next filename; the handle is also internally updated so
+ *   that the next call to this function will retrieve the next file, and so
+ *   on until all files have been retrieved.  If an error occurs, or there
+ *   are no more files in the directory, returns false.
+ *   
+ *   The filename returned is the root filename only, without the path.  The
+ *   caller can build the full path by calling os_build_full_path() or
+ *   os_combine_paths() with the original directory name and the returned
+ *   filename as parameters.
+ *   
+ *   This routine lists all objects in the directory that are visible to the
+ *   corresponding native API, and is non-recursive.  The listing should thus
+ *   include subdirectory objects, but not the contents of subdirectories.
+ *   Implementations are encouraged to simply return all objects returned
+ *   from the corresponding native directory scan API; there's no need to do
+ *   any filtering, except perhaps in cases where it's difficult or
+ *   impossible to represent an object in terms of the osifc APIs (e.g., it
+ *   might be reasonable to exclude files without names).  System relative
+ *   links, such as the Unix/DOS "." and "..", specifically should be
+ *   included in the listing.  For unusual objects that don't fit into the
+ *   os_file_stat() taxonomy or that otherwise might create confusion for a
+ *   caller, err on the side of full disclosure (i.e., just return everything
+ *   unfiltered); if necessary, we can extend the os_file_stat() taxonomy or
+ *   add new osifc APIs to create a portable abstraction to handle whatever
+ *   is unusual or potentially confusing about the native object.  For
+ *   example, Unix implementations should feel free to return symbolic link
+ *   objects, including dangling links, since we have the portable
+ *   os_resolve_symlink() that lets the caller examine the meaning of the
+ *   link object.
+ */
+int os_read_dir(osdirhdl_t handle, char *fname, size_t fname_size);
+
+/*
+ *   Close a directory handle.  This releases the resources associated with a
+ *   directory search started with os_open_dir().  Every successful call to
+ *   os_open_dir() must have a matching call to os_close_dir().  As usual for
+ *   open/close protocols, the handle is invalid after calling this function,
+ *   so no more calls to os_read_dir() may be made with the handle.
+ */
+void os_close_dir(osdirhdl_t handle);
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   NB - this routine is DEPRECATED as of TADS 2.5.16/3.1.1.  Callers should
+ *   use os_open_dir(), os_read_dir(), os_close_dir() instead.
+ *   
  *   Find the first file matching a given pattern.  The returned context
- *   pointer is a pointer to whatever system-dependent context structure
- *   is needed to continue the search with the next file, and is opaque to
- *   the caller.  The caller must pass the context pointer to the
- *   next-file routine.  The caller can optionally cancel a search by
- *   calling the close-search routine with the context pointer.  If the
- *   return value is null, it indicates that no matching files were found.
- *   If a file was found, outbuf will be filled in with its name, and
- *   isdir will be set to true if the match is a directory, false if it's
- *   a file.  If pattern is null, all files in the given directory should
- *   be returned; otherwise, pattern is a string containing '*' and '?' as
- *   wildcard characters, but not containing any directory separators, and
- *   all files in the given directory matching the pattern should be
- *   returned.
+ *   pointer is a pointer to whatever system-dependent context structure is
+ *   needed to continue the search with the next file, and is opaque to the
+ *   caller.  The caller must pass the context pointer to the next-file
+ *   routine.  The caller can optionally cancel a search by calling the
+ *   close-search routine with the context pointer.  If the return value is
+ *   null, it indicates that no matching files were found.  If a file was
+ *   found, outbuf will be filled in with its name, and isdir will be set to
+ *   true if the match is a directory, false if it's a file.  If pattern is
+ *   null, all files in the given directory should be returned; otherwise,
+ *   pattern is a string containing '*' and '?' as wildcard characters, but
+ *   not containing any directory separators, and all files in the given
+ *   directory matching the pattern should be returned.
  *   
  *   Important: because this routine may allocate memory for the returned
- *   context structure, the caller must either call os_find_next_file
- *   until that routine returns null, or call os_find_close() to cancel
- *   the search, to ensure that the os code has a chance to release the
- *   allocated memory.
+ *   context structure, the caller must either call os_find_next_file until
+ *   that routine returns null, or call os_find_close() to cancel the search,
+ *   to ensure that the os code has a chance to release the allocated memory.
  *   
  *   'outbuf' should be set on output to the name of the matching file,
  *   without any path information.
  *   
- *   'outpathbuf' should be set on output to full path of the matching
- *   file.  If possible, 'outpathbuf' should use the same relative or
- *   absolute notation that the search criteria used on input.  For
- *   example, if dir = "resfiles", and the file found is "MyPic.jpg",
- *   outpathbuf should be set to "resfiles/MyPic.jpg" (or appropriate
- *   syntax for the local platform).  Similarly, if dir =
- *   "/home/tads/resfiles", outpath buf should be
+ *   'outpathbuf' should be set on output to full path of the matching file.
+ *   If possible, 'outpathbuf' should use the same relative or absolute
+ *   notation that the search criteria used on input.  For example, if dir =
+ *   "resfiles", and the file found is "MyPic.jpg", outpathbuf should be set
+ *   to "resfiles/MyPic.jpg" (or appropriate syntax for the local platform).
+ *   Similarly, if dir = "/home/tads/resfiles", outpath buf should be
  *   "/home/tads/resfiles/MyPic.jpg".  The result should always conform to
- *   correct local conventions, which may require some amount of
- *   manipulation of the filename; for example, on the Mac, if dir =
- *   "resfiles", the result should be ":resfiles:MyPic.jpg" (note the
- *   added leading colon) to conform to Macintosh relative path notation.
+ *   correct local conventions, which may require some amount of manipulation
+ *   of the filename; for example, on the Mac, if dir = "resfiles", the
+ *   result should be ":resfiles:MyPic.jpg" (note the added leading colon) to
+ *   conform to Macintosh relative path notation.
  *   
  *   Note that 'outpathbuf' may be null, in which case the caller is not
  *   interested in the full path information.  
@@ -579,7 +1597,7 @@ int os_cmp_file_times(const os_file_time_t *a, const os_file_time_t *b);
  *   sources, such as from the user, and present them to this routine with
  *   minimal manipulation.  
  */
-void *os_find_first_file(const char *dir, const char *pattern,
+void *os_find_first_file(const char *dir,
                          char *outbuf, size_t outbufsiz, int *isdir,
                          char *outpathbuf, size_t outpathbufsiz);
 
@@ -676,11 +1694,12 @@ enum os_specfile_t
 };
 
 /*
- *   Determine if the given filename refers to a special file.  Returns
- *   the appropriate enum value if so, or OS_SPECFILE_NONE if not.  The
- *   given filename must be a root name - it must not contain a path
- *   prefix.  The primary purpose of this function is to classify the
- *   'outbuf' results from os_find_first/next_file().  
+ *   Determine if the given filename refers to a special file.  Returns the
+ *   appropriate enum value if so, or OS_SPECFILE_NONE if not.  The given
+ *   filename must be a root name - it must not contain a path prefix.  The
+ *   purpose here is to classify the results from os_find_first_file() and
+ *   os_find_next_file() to identify the special relative links, so callers
+ *   can avoid infinite recursion when traversing a directory tree.
  */
 enum os_specfile_t os_is_special_file(const char *fname);
 
@@ -730,7 +1749,7 @@ char *os_strlwr(char *s);
  *   fills in the buffer with a null-terminated string that can be used in
  *   osfoprb(), for example, to open the executable file.
  *   
- *   Returns non-zero on success.  If it is not possible to determine the
+ *   Returns non-zero on success.  If it's not possible to determine the
  *   name of the executable file, returns zero.
  *   
  *   Some operating systems might not provide access to the executable file
@@ -756,9 +1775,9 @@ int os_get_exe_filename(char *buf, size_t buflen, const char *argv0);
  *   is out of date with respect to the calling code.
  *   
  *   This routine can be implemented using one of the strategies below, or a
- *   combination of these.  These are merely suggestions, though, and
- *   systems are free to ignore these and implement this routine using
- *   whatever scheme is the best fit to local conventions.
+ *   combination of these.  These are merely suggestions, though, and systems
+ *   are free to ignore these and implement this routine using whatever
+ *   scheme is the best fit to local conventions.
  *   
  *   - Relative to argv[0].  Some systems use this approach because it keeps
  *   all of the TADS files together in a single install directory tree, and
@@ -775,15 +1794,14 @@ int os_get_exe_filename(char *buf, size_t buflen, const char *argv0);
  *   
  *   - Hard-coded paths.  Some systems have universal conventions for the
  *   installation configuration of compiler-like tools, so the paths to our
- *   component files can be hard-coded based on these conventions.  Note
- *   that it is common on some systems to use hard-coded paths by default
- *   but allow these to be overridden using environment variables or the
- *   like - this is often a good option because it makes life easy for most
- *   users, who use the default install configuration and thus do not need
- *   to set any environment variables, while still allowing for special
- *   cases where users cannot use the default configuration for some reason.
+ *   component files can be hard-coded based on these conventions.
  *   
- *   
+ *   - Hard-coded default paths with environment variable overrides.  Let the
+ *   user set environment variables if they want, but use the standard system
+ *   paths as hard-coded defaults if the variables aren't set.  This is often
+ *   the best choice; users who expect the standard system conventions won't
+ *   have to fuss with any manual settings or even be aware of them, while
+ *   users who need custom settings aren't stuck with the defaults.
  */
 void os_get_special_path(char *buf, size_t buflen,
                          const char *argv0, int id);
@@ -829,6 +1847,24 @@ void os_get_special_path(char *buf, size_t buflen,
  *   user-specific directory. 
  */
 #define OS_GSP_T3_APP_DATA 5
+
+/*
+ *   TADS 3 interpreter - system configuration files.  This is used for files
+ *   that affect all games, and generally all users on the system, so it
+ *   should be in a central location.  On Windows, for example, we simply
+ *   store these files in the install directory containing the intepreter
+ *   binary.  
+ */
+#define OS_GSP_T3_SYSCONFIG  6
+
+/*
+ *   System log files.  This is the directory for system-level status, debug,
+ *   and error logging files.  (Note that we're NOT talking about in-game
+ *   transcript logging per the SCRIPT command.  SCRIPT logs are usually sent
+ *   to files selected by the user via a save-file dialog, so these don't
+ *   need a special location.)
+ */
+#define OS_GSP_LOGFILE  7
 
 
 /* 
@@ -974,7 +2010,6 @@ osfildef *os_create_tempfile(const char *fname, char *buf);
  */
 int osfdel_temp(const char *fname);
 
-
 /*
  *   Get the temporary file path.  This should fill in the buffer with a
  *   path prefix (suitable for strcat'ing a filename onto) for a good
@@ -982,10 +2017,49 @@ int osfdel_temp(const char *fname);
  */
 void os_get_tmp_path(char *buf);
 
+/* 
+ *   Generate a name for a temporary file.  This constructs a random file
+ *   path in the system temp directory that isn't already used by an existing
+ *   file.
+ *   
+ *   On systems with long filenames, this can be implemented by selecting a
+ *   GUID-strength random name (such as 32 random hex digits) with a decent
+ *   random number generator.  That's long enough that the odds of a
+ *   collision are essentially zero.  On systems that only support short
+ *   filenames, the odds of a collision are non-zero, so the routine should
+ *   actually check that the chosen filename doesn't exist.
+ *   
+ *   Optionally, before returning, this routine *may* create (and close) an
+ *   empty placeholder file to "reserve" the chosen filename.  This isn't
+ *   required, and on systems with long filenames it's usually not necessary
+ *   because of the negligible chance of a collision.  On systems with short
+ *   filenames, a placeholder can be useful to prevent a subsequent call to
+ *   this routine, or a separate process, from using the same filename before
+ *   the caller has had a chance to use the returned name to create the
+ *   actual temp file.
+ *   
+ *   Returns true on success, false on failure.  This can fail if there's no
+ *   system temporary directory defined, or the temp directory is so full of
+ *   other files that we can't find an unused filename.  
+ */
+int os_gen_temp_filename(char *buf, size_t buflen);
+
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Switch to a new working directory.  
+ *   Basic directory/folder management routines
+ */
+
+/*
+ *   Switch to a new working directory.
+ *   
+ *   This is meant to behave similarly to the Unix concept of a working
+ *   directory, in that it sets the base directory assumed for subsequent
+ *   file operations (e.g., the osfopxx() functions, osfdel(), etc - anything
+ *   that takes a filename or directory name as an argument).  The working
+ *   directory applies to filenames specified with relative paths in the
+ *   local system notation.  File operations on filenames specified with
+ *   absolute paths, of course, ignore the working directory.
  */
 void os_set_pwd(const char *dir);
 
@@ -996,6 +2070,49 @@ void os_set_pwd(const char *dir);
  *   os_set_pwd() to switch to that directory.  
  */
 void os_set_pwd_file(const char *filename);
+
+/*
+ *   Create a directory.  This creates a new directory/folder with the given
+ *   name, which may be given as a relative or absolute path.  Returns true
+ *   on success, false on failure.
+ *   
+ *   If 'create_parents' is true, and the directory has mulitiple path
+ *   elements, this routine should create each enclosing parent that doesn't
+ *   already exist.  For example, if the path is specified as "a/b/c", and
+ *   there exists a folder "a" in the working directory, but "a" is empty,
+ *   this should first create "b" and then create "c".  If an error occurs
+ *   creating any parent, the routine should simply stop and return failure.
+ *   (Optionally, the routine may attempt to behave atomically by undoing any
+ *   parent folder creations it accomplished before failing on a nested
+ *   folder, but this isn't required.  To reduce the chances of a failure
+ *   midway through the operation, the routine might want to scan the
+ *   filename before starting to ensure that it contains only valid
+ *   characters, since an invalid character is the most likely reason for a
+ *   failure part of the way through.)
+ *   
+ *   We recommend making the routine flexible in terms of the notation it
+ *   accepts; e.g., on Unix, "/dir/sub/folder" and "/dir/sub/folder/" should
+ *   be considered equivalent.
+ */
+int os_mkdir(const char *dir, int create_parents);
+
+/*
+ *   Remove a directory.  Returns true on success, false on failure.
+ *   
+ *   If the directory isn't already empty, this routine fails.  That is, the
+ *   routine does NOT recursively delete the contents of a non-empty
+ *   directory.  It's up to the caller to delete any contents before removing
+ *   the directory, if that's the caller's intention.  (Note to implementors:
+ *   most native OS APIs to remove directories fail by default if the
+ *   directory isn't empty, so it's usually safe to implement this simply by
+ *   calling the native API.  However, if your system's version of this API
+ *   can remove a non-empty directory, you MUST add an extra test before
+ *   removing the directory to ensure it's empty, and return failure if it's
+ *   not.  For the purposes of this test, "empty" should of course ignore any
+ *   special objects that are automatically or implicitly present in all
+ *   directories, such as the Unix "." and ".." relative links.)
+ */
+int os_rmdir(const char *dir);
 
 
 /* ------------------------------------------------------------------------ */
@@ -1013,14 +2130,54 @@ void os_addext(char *fname, const char *ext);
 void os_remext(char *fname);
 
 /*
- *   Get a pointer to the root name portion of a filename.  This is the
- *   part of the filename after any path or directory prefix.  For
- *   example, on Unix, given the string "/home/mjr/deep.gam", this
- *   function should return a pointer to the 'd' in "deep.gam".  If the
- *   filename doesn't appear to have a path prefix, it should simply
- *   return the argument unchanged.  
+ *   Compare two file names/paths for syntactic equivalence.  Returns true if
+ *   the names are equivalent names according to the local file system's
+ *   syntax conventions, false if not.  This does a syntax-only comparison of
+ *   the paths, without looking anything up in the file system.  This means
+ *   that a false return doesn't guarantee that the paths don't point to the
+ *   same file.
+ *   
+ *   This routine DOES make the following equivalences:
+ *   
+ *   - if the local file system is insensitive to case, the names are
+ *   compared ignoring case
+ *   
+ *   - meaningless path separator difference are ignored: on Unix, "a/b" ==
+ *   "a//b" == "a/b/"; on Windows, "a/b" == "a\\b"
+ *   
+ *   - relative links that are strictly structural or syntactic are applied;
+ *   for example, on Unix or Windows, "a/./b" == "a/b" = "a/b/c/..".  This
+ *   only applies for special relative links that can be resolved without
+ *   looking anything up in the file system.
+ *   
+ *   This DOES NOT do the following:
+ *   
+ *   - it doesn't apply working directories/volums to relative paths
+ *   
+ *   - it doesn't follow symbolic links in the file system
  */
-char *os_get_root_name(char *buf);
+int os_file_names_equal(const char *a, const char *b);
+
+/*
+ *   Get a pointer to the root name portion of a filename.  This is the part
+ *   of the filename after any path or directory prefix.  For example, on
+ *   Unix, given the string "/home/mjr/deep.gam", this function should return
+ *   a pointer to the 'd' in "deep.gam".  If the filename doesn't appear to
+ *   have a path prefix, it should simply return the argument unchanged.
+ *   
+ *   IMPORTANT: the returned pointer MUST point into the original 'buf'
+ *   string, and the contents of that buffer must NOT be modified.  The
+ *   return value must point into the same buffer because there are no
+ *   allowances for the alternatives.  In particular, (a) you can't return a
+ *   pointer to newly allocated memory, because callers won't free it, so
+ *   doing so would cause a memory leak; and (b) you can't return a pointer
+ *   to an internal static buffer, because callers might call this function
+ *   more than once and still rely on a value returned on an older call,
+ *   which would be invalid if a static buffer could be overwritten on each
+ *   call.  For these reasons, it's required that the return value point to a
+ *   position within the original string passed in 'buf'.  
+ */
+char *os_get_root_name(const char *buf);
 
 /*
  *   Determine whether a filename specifies an absolute or relative path.
@@ -1040,46 +2197,63 @@ int os_is_file_absolute(const char *fname);
 /*
  *   Extract the path from a filename.  Fills in pathbuf with the path
  *   portion of the filename.  If the filename has no path, the pathbuf
- *   should be set appropriately for the current directory (on Unix or
- *   DOS, for example, it can be set to an empty string).
+ *   should be set appropriately for the current directory (on Unix or DOS,
+ *   for example, it can be set to an empty string).
  *   
- *   The result can end with a path separator character or not, depending
- *   on local OS conventions.  Paths extracted with this function can only
- *   be used with os_build_full_path(), so the conventions should match
- *   that function's.
+ *   The result can end with a path separator character or not, depending on
+ *   local OS conventions.  Paths extracted with this function can only be
+ *   used with os_build_full_path(), so the conventions should match that
+ *   function's.
  *   
  *   Unix examples:
  *   
- *   "/home/mjr/deep.gam" -> "/home/mjr"
- *.  "deep.gam" -> ""
- *.  "games/deep.gam" -> "games"
+ *.   /home/mjr/deep.gam -> /home/mjr
+ *.   games/deep.gam -> games
+ *.   deep.gam -> [empty string]
  *   
  *   Mac examples:
  *   
- *   ":home:mjr:deep.gam" -> ":home:mjr"
- *.  "Hard Disk:games:deep.gam" -> "Hard Disk:games"
- *.  "Hard Disk:deep.gam" -> "Hard Disk:"
+ *    :home:mjr:deep.gam -> :home:mjr
+ *.   Hard Disk:games:deep.gam -> Hard Disk:games
+ *.   Hard Disk:deep.gam -> Hard Disk:
+ *.   deep.gam -> [empty string]
  *   
- *   Note in the last example that we've retained the trailing colon in
- *   the path, whereas we didn't in the others; although the others could
- *   also retain the trailing colon, it's required only for the last case.
- *   The last case requires the colon because it would otherwise be
- *   impossible to determine whether "Hard Disk" was a local subdirectory
- *   or a volume name.  
+ *   VMS examples:
+ *
+ *.   SYS$DISK:[mjr.games]deep.gam -> SYS$DISK:[mjr.games]
+ *.   SYS$DISK:[mjr.games] -> SYS$DISK:[mjr]
+ *.   deep.gam -> [empty string]
+ *   
+ *   Note in the last example that we've retained the trailing colon in the
+ *   path, whereas we didn't in the others; although the others could also
+ *   retain the trailing colon, it's required only for the last case.  The
+ *   last case requires the colon because it would otherwise be impossible to
+ *   determine whether "Hard Disk" was a local subdirectory or a volume name.
+ *   
  */
 void os_get_path_name(char *pathbuf, size_t pathbuflen, const char *fname);
 
 /*
  *   Build a full path name, given a path and a filename.  The path may have
- *   been specified by the user, or may have been extracted from another
- *   file via os_get_path_name().  This routine must take care to add path
+ *   been specified by the user, or may have been extracted from another file
+ *   via os_get_path_name().  This routine must take care to add path
  *   separators as needed, but also must take care not to add too many path
  *   separators.
  *   
+ *   This routine should reformat the path into canonical format to the
+ *   extent possible purely through syntactic analysis.  For example, special
+ *   relative links, such as Unix "." and "..", should be resolved; for
+ *   example, combining "a/./b/c" with ".." on Unix should yield "a/b".
+ *   However, symbolic links that require looking up names in the file system
+ *   should NOT be resolved.  We don't want to perform any actual file system
+ *   lookups because might want to construct hypothetical paths that don't
+ *   necessarily relate to files on the local system.
+ *   
  *   Note that relative path names may require special care on some
- *   platforms.  For example, on the Macintosh, a path of "games" and a
- *   filename "deep.gam" should yield ":games:deep.gam" (note the addition
- *   of the leading colon).
+ *   platforms.  In particular, if the source path is relative, the result
+ *   should also be relative.  For example, on the Macintosh, a path of
+ *   "games" and a filename "deep.gam" should yield ":games:deep.gam" - note
+ *   the addition of the leading colon to make the result path relative.
  *   
  *   Note also that the 'filename' argument is not only allowed to be an
  *   ordinary file, possibly qualified with a relative path, but is also
@@ -1090,66 +2264,432 @@ void os_get_path_name(char *pathbuf, size_t pathbuflen, const char *fname);
  *   
  *   Unix examples:
  *   
- *   "/home/mjr", "deep.gam" -> "/home/mjr/deep.gam"
- *.  "/home/mjr/", "deep.gam" -> "/home/mjr/deep.gam"
- *.  "games", "deep.gam" -> "games/deep.gam"
- *.  "games/", "deep.gam" -> "games/deep.gam"
- *.  "/home/mjr", "games/deep.gam" -> "/home/mjr/games/deep.gam"
- *.  "games", "scifi/deep.gam" -> "games/scifi/deep.gam"
- *.  "/home/mjr", "games" -> "/home/mjr/games"
+ *.   /home/mjr + deep.gam -> /home/mjr/deep.gam"
+ *.   /home/mjr + .. -> /home
+ *.   /home/mjr + ../deep.gam -> /home/deep.gam
+ *.   /home/mjr/ + deep.gam -> /home/mjr/deep.gam"
+ *.   games + deep.gam -> games/deep.gam"
+ *.   games/ + deep.gam -> games/deep.gam"
+ *.   /home/mjr + games/deep.gam -> /home/mjr/games/deep.gam"
+ *.   games + scifi/deep.gam -> games/scifi/deep.gam"
+ *.   /home/mjr + games -> /home/mjr/games"
  *   
  *   Mac examples:
  *   
- *   "Hard Disk:", "deep.gam" -> "Hard Disk:deep.gam"
- *.  ":games:", "deep.gam" -> ":games:deep.gam"
- *.  "games", "deep.gam" -> ":games:deep.gam"
- *.  "Hard Disk:", ":games:deep.gam" -> "Hard Disk:games:deep.gam"
- *.  "games", ":scifi:deep.gam" -> ":games:scifi:deep.gam"
- *.  "Hard Disk:", "games" -> "Hard Disk:games"
- *.  "Hard Disk:games", "scifi" -> "Hard Disk:games:scifi"
- *.  "Hard Disk:games:scifi", "deep.gam" -> "Hard Disk:games:scifi:deep.gam"
- *.  "Hard Disk:games", ":scifi:deep.gam" -> "Hard Disk:games:scifi:deep.gam"
+ *.   Hard Disk: + deep.gam -> Hard Disk:deep.gam
+ *.   :games: + deep.gam -> :games:deep.gam
+ *.   :games:deep + ::test.gam -> :games:test.gam
+ *.   games + deep.gam -> :games:deep.gam
+ *.   Hard Disk: + :games:deep.gam -> Hard Disk:games:deep.gam
+ *.   games + :scifi:deep.gam -> :games:scifi:deep.gam
+ *.   Hard Disk: + games -> Hard Disk:games
+ *.   Hard Disk:games + scifi -> Hard Disk:games:scifi
+ *.   Hard Disk:games:scifi + deep.gam -> Hard Disk:games:scifi:deep.gam
+ *.   Hard Disk:games + :scifi:deep.gam -> Hard Disk:games:scifi:deep.gam
+ *   
+ *   VMS examples:
+ *   
+ *.   [home.mjr] + deep.gam -> [home.mjr]deep.gam
+ *.   [home.mjr] + [-]deep.gam -> [home]deep.gam
+ *.   mjr.dir + deep.gam -> [.mjr]deep.gam
+ *.   [home]mjr.dir + deep.gam -> [home.mjr]deep.gam
+ *.   [home] + [.mjr]deep.gam -> [home.mjr]deep.gam
  */
 void os_build_full_path(char *fullpathbuf, size_t fullpathbuflen,
                         const char *path, const char *filename);
 
 /*
- *   Convert an OS filename path to a relative URL.  Paths provided to
- *   this function should always be relative to the current directory, so
- *   the resulting URL should be relative.  If end_sep is true, it means
- *   that the last character of the result should be a '/', even if the
- *   input path doesn't end with a path separator character.
+ *   Combine a path and a filename to form a full path to the file.  This is
+ *   *almost* the same as os_build_full_path(), but if the 'filename' element
+ *   is a special relative link, such as Unix '.' or '..', this preserves
+ *   that special link in the final name.
  *   
- *   This routine should replace all system-specific path separator
- *   characters in the input name with forward slashes ('/').  In
- *   addition, if a relative path on the system starts with a path
- *   separator, that leading path separator should be removed; for
- *   example, on the Macintosh, a path of ":images:rooms:startroom.jpeg"
- *   should be converted to "images/rooms/startroom.jpeg".
+ *   Unix examples:
+ *   
+ *.    /home/mjr + deep.gam -> /home/mjr/deep.gam
+ *.    /home/mjr + . -> /home/mjr/.
+ *.    /home/mjr + .. -> /home/mjr/..
+ *   
+ *   Mac examples:
+ *   
+ *.    Hard Disk:games + deep.gam -> HardDisk:games:deep.gam
+ *.    Hard Disk:games + :: -> HardDisk:games::
+ *   
+ *   VMS exmaples:
+ *   
+ *.    [home.mjr] + deep.gam -> [home.mjr]deep.gam
+ *.    [home.mjr] + [-] -> [home.mjr.-]
  */
-void os_cvt_dir_url(char *result_buf, size_t result_buf_size,
-                    const char *src_path, int end_sep);
+void os_combine_paths(char *fullpathbuf, size_t pathbuflen,
+                      const char *path, const char *filename);
+
 
 /*
- *   Convert a relative URL into a relative filename path.  Paths provided
- *   to this function should always be relative, so the resulting path
- *   should be relative to the current directory.  This function
- *   essentially reverses the transformation done by os_cvt_dir_url().  If
- *   end_sep is true, the path should end with a path separator character,
- *   so that filenames can be strcat'ed onto the result to form a full
- *   filename.
+ *   Get the absolute, fully qualified filename for a file.  This fills in
+ *   'result_buf' with the absolute path to the given file, taking into
+ *   account the current working directory and any other implied environment
+ *   information that affects the way the file system would resolve the given
+ *   file name to a specific file on disk if we opened the file now using
+ *   this name.
+ *   
+ *   The returned path should be in absolute path form, meaning that it's
+ *   independent of the current working directory or any other environment
+ *   settings.  That is, this path should still refer to the same file even
+ *   if the working directory changes.
+ *   
+ *   Note that it's valid to get the absolute path for a file that doesn't
+ *   exist, or for a path with directory components that don't exist.  For
+ *   example, a caller might generate the absolute path for a file that it's
+ *   about to create, or a hypothetical filename for path comparison
+ *   purposes.  The function should succeed even if the file or any path
+ *   components don't exist.  If the file is in relative format, and any path
+ *   elements don't exist but are syntactically well-formed, the result
+ *   should be the path obtained from syntactically combining the working
+ *   directory with the relative path.
+ *   
+ *   On many systems, a given file might be reachable through more than one
+ *   absolute path.  For example, on Unix it might be possible to reach a
+ *   file through symbolic links to the file itself or to parent directories,
+ *   or hard links to the file.  It's up to the implementation to determine
+ *   which path to use in such cases.
+ *   
+ *   On success, returns true.  If it's not possible to resolve the file name
+ *   to an absolute path, the routine copies the original filename to the
+ *   result buffer exactly as given, and returns false.  
  */
-void os_cvt_url_dir(char *result_buf, size_t result_buf_size,
-                    const char *src_url, int end_sep);
+int os_get_abs_filename(char *result_buf, size_t result_buf_size,
+                        const char *filename);
+
+/*
+ *   Get the relative version of the given filename path 'filename', relative
+ *   to the given base directory 'basepath'.  Both paths must be given in
+ *   absolute format.
+ *   
+ *   Returns true on success, false if it's not possible to rewrite the path
+ *   in relative terms.  For example, on Windows, it's not possible to
+ *   express a path on the "D:" drive as relative to a base path on the "C:"
+ *   drive, since each drive letter has an independent root folder; there's
+ *   no namespace entity enclosing a drive letter's root folder.  On
+ *   Unix-like systems where the entire namespace has a single hierarchical
+ *   root, it should always be possible to express any path relative to any
+ *   other.
+ *   
+ *   The result should be a relative path that can be combined with
+ *   'basepath' using os_build_full_path() to reconstruct a path that
+ *   identifies the same file as the original 'filename' (it's not important
+ *   that this procedure would result in the identical string - it just has
+ *   to point to the same file).  If it's not possible to express the
+ *   filename relative to the base path, fill in 'result_buf' with the
+ *   original filename and return false.
+ *   
+ *   Windows examples:
+ *   
+ *.    c:\mjr\games | c:\mjr\games\deep.gam  -> deep.gam
+ *.    c:\mjr\games | c:\mjr\games\tads\deep.gam  -> tads\deep.gam
+ *.    c:\mjr\games | c:\mjr\tads\deep.gam  -> ..\tads\deep.gam
+ *.    c:\mjr\games | d:\deep.gam  ->  d:\deep.gam (and return false)
+ *   
+ *   Mac OS examples:
+ *   
+ *.    Mac HD:mjr:games | Mac HD:mjr:games:deep.gam -> deep.gam
+ *.    Mac HD:mjr:games | Mac HD:mjr:games:tads:deep.gam -> :tads:deep.gam
+ *.    Mac HD:mjr:games | Ext Disk:deep.gam -> Ext Disk:deep.gam (return false)
+ *   
+ *   VMS examples:
+ *   
+ *.    SYS$:[mjr.games] | SYS$:[mjr.games]deep.gam -> deep.gam
+ *.    SYS$:[mjr.games] | SYS$:[mjr.games.tads]deep.gam -> [.tads]deep.gam
+ *.    SYS$:[mjr.games] | SYS$:[mjr.tads]deep.gam -> [-.tads]deep.gam
+ *.    SYS$:[mjr.games] | DISK$:[mjr]deep.gam -> DISK$[mjr]deep.gam (ret false)
+ */
+int os_get_rel_path(char *result_buf, size_t result_buf_size,
+                    const char *basepath, const char *filename);
+
+/*
+ *   Determine if the given file is in the given directory.  Returns true if
+ *   so, false if not.  'filename' is a relative or absolute file name;
+ *   'path' is a relative or absolute directory path, such as one returned
+ *   from os_get_path_name().
+ *   
+ *   If 'include_subdirs' is true, the function returns true if the file is
+ *   either directly in the directory 'path', OR it's in any subdirectory of
+ *   'path'.  If 'include_subdirs' is false, the function returns true only
+ *   if the file is directly in the given directory.
+ *   
+ *   If 'match_self' is true, the function returns true if 'filename' and
+ *   'path' are the same directory; otherwise it returns false in this case.
+ *   
+ *   This routine is allowed to return "false negatives" - that is, it can
+ *   claim that the file isn't in the given directory even when it actually
+ *   is.  The reason is that it's not always possible to determine for sure
+ *   that there's not some way for a given file path to end up in the given
+ *   directory.  In contrast, a positive return must be reliable.
+ *   
+ *   If possible, this routine should fully resolve the names through the
+ *   file system to determine the path relationship, rather than merely
+ *   analyzing the text superficially.  This can be important because many
+ *   systems have multiple ways to reach a given file, such as via symbolic
+ *   links on Unix; analyzing the syntax alone wouldn't reveal these multiple
+ *   pathways.
+ *   
+ *   SECURITY NOTE: If possible, implementations should fully resolve all
+ *   symbolic links, relative paths (e.g., Unix ".."), etc, before rendering
+ *   judgment.  One important application for this routine is to determine if
+ *   a file is in a sandbox directory, to enforce security restrictions that
+ *   prevent a program from accessing files outside of a designated folder.
+ *   If the implementation fails to resolve symbolic links or relative paths,
+ *   a malicious program or user could bypass the security restriction by,
+ *   for example, creating a symbolic link within the sandbox directory that
+ *   points to the root folder.  Implementations can avoid this loophole by
+ *   converting the file and directory names to absolute paths and resolving
+ *   all symbolic links and relative notation before comparing the paths.
+ */
+int os_is_file_in_dir(const char *filename, const char *path,
+                      int include_subdirs, int match_self);
 
 
 /* ------------------------------------------------------------------------ */
 /*
- *   get a suitable seed for a random number generator; should use the
- *   system clock or some other source of an unpredictable and changing
- *   seed value 
+ *   Convert an OS filename path to URL-style format.  This isn't a true URL
+ *   conversion; rather, it simply expresses a filename in Unix-style
+ *   notation, as a series of path elements separated by '/' characters.
+ *   Unlike true URLs, we don't use % encoding or a scheme prefix (file://,
+ *   etc).
+ *   
+ *   The result path never ends in a trailing '/', unless the entire result
+ *   path is "/".  This is for consistency; even if the source path ends with
+ *   a local path separator, the result doesn't.
+ *   
+ *   If the local file system syntax uses '/' characters as ordinary filename
+ *   characters, these must be replaced with some other suitable character in
+ *   the result, since otherwise they'd be taken as path separators when the
+ *   URL is parsed.  If possible, the substitution should be reversible with
+ *   respect to os_cvt_dir_url(), so that the same URL read back in on this
+ *   same platform will produce the same original filename.  One particular
+ *   suggestion is that if the local system uses '/' to delimit what would be
+ *   a filename extension on other platforms, replace '/' with '.', since
+ *   this will provide reversibility as well as a good mapping if the URL is
+ *   read back in on another platform.
+ *   
+ *   The local equivalents of "." and "..", if they exist, are converted to
+ *   "." and ".." in the URL notation.
+ *   
+ *   Examples:
+ *   
+ *.   Windows: images\rooms\startroom.jpg -> images/rooms/startroom.jpg
+ *.   Windows: ..\startroom.jpg -> ../startroom.jpg
+ *.   Mac:     :images:rooms:startroom.jpg -> images/rooms/startroom.jpg
+ *.   Mac:     ::startroom.jpg -> ../startroom.jpg
+ *.   VMS:     [.images.rooms]startroom.jpg -> images/rooms/startroom.jpg
+ *.   VMS:     [-.images]startroom.jpg -> ../images/startroom.jpg
+ *.   Unix:    images/rooms/startroom.jpg -> images/rooms/startroom.jpg
+ *.   Unix:    ../images/startroom.jpg -> ../images/startroom.jpg
+ *   
+ *   If the local name is an absolute path in the local file system (e.g.,
+ *   Unix /file, Windows C:\file), translate as follows.  If the local
+ *   operating system uses a volume or device designator (Windows C:, VMS
+ *   SYS$DISK:, etc), make the first element of the path the exact local
+ *   syntax for the device designator: /C:/ on Windows, /SYS$DISK:/ on VMS,
+ *   etc.  Include the local syntax for the device prefix.  For a system like
+ *   Unix with a unified file system root ("/"), simply start with the root
+ *   directory.  Examples:
+ *   
+ *.    Windows:  C:\games\deep.gam         -> /C:/games/deep.gam
+ *.    Windows:  C:games\deep.gam          -> /C:./games/deep.gam
+ *.    Windows:  \\SERVER\DISK\games\deep.gam -> /\\SERVER/DISK/games/deep.gam
+ *.    Mac OS 9: Hard Disk:games:deep.gam  -> /Hard Disk:/games/deep.gam
+ *.    VMS:      SYS$DISK:[games]deep.gam  -> /SYS$DISK:/games/deep.gam
+ *.    Unix:     /games/deep.gam           -> /games/deep.gam
+ *   
+ *   Rationale: it's effectively impossible to create a truly portable
+ *   representation of an absolute path.  Operating systems are too different
+ *   in the way they represent root paths, and even if that were solvable, a
+ *   root path is essentially unusable across machines anyway because it
+ *   creates a dependency on the contents of a particular machine's disk.  So
+ *   if we're called upon to translate an absolute path, we can forget about
+ *   trying to be truly portable and instead focus on round-trip fidelity -
+ *   i.e., making sure that applying os_cvt_url_dir() to our result recovers
+ *   the exact original path, assuming it's done on the same operating
+ *   system.  The approach outlined above should achieve round-trip fidelity
+ *   when a local path is converted to a URL and back on the same machine,
+ *   since the local URL-to-path converter should recognize its own special
+ *   type of local absolute path prefix.  It also produces reasonable results
+ *   on other platforms - see the os_cvt_url_dir() comments below for
+ *   examples of the decoding results for absolute paths moved to new
+ *   platforms.  The result when a device-rooted absolute path is encoded on
+ *   one machine and then decoded on another will generally be a local path
+ *   with a root on the default device/volume and an outermost directory with
+ *   a name based on the original machine's device/volume name.  This
+ *   obviously won't reproduce the exact original path, but since that's
+ *   impossible anyway, this is probably as good an approximation as we can
+ *   create.
+ *   
+ *   Character sets: the input could be in local or UTF-8 character sets.
+ *   The implementation shouldn't care, though - just treat bytes in the
+ *   range 0-127 as plain ASCII, and everything else as opaque.  I.e., do not
+ *   quote or otherwise modify characters outside the 0-127 range.  
+ */
+void os_cvt_dir_url(char *result_buf, size_t result_buf_size,
+                    const char *src_path);
+
+/*
+ *   Convert a URL-style path into a filename path expressed in the local
+ *   file system's syntax.  Fills in result_buf with a file path, constructed
+ *   using the local file system syntax, that corresponds to the path in
+ *   src_url expressed in URL-style syntax.  Examples:
+ *   
+ *   images/rooms/startroom.jpg -> 
+ *.   Windows   -> images\rooms\startroom.jpg
+ *.   Mac OS 9  -> :images:rooms:startroom.jpg
+ *.   VMS       -> [.images.rooms]startroom.jpg
+ *   
+ *   The source format isn't a true URL; it's simply a series of path
+ *   elements separated by '/' characters.  Unlike true URLs, our input
+ *   format doesn't use % encoding and doesn't have a scheme (file://, etc).
+ *   (Any % in the source is treated as an ordinary character and left as-is,
+ *   even if it looks like a %XX sequence.  Anything that looks like a scheme
+ *   prefix is left as-is, with any // treated as path separators.
+ *   
+ *   images/file%20name.jpg ->
+ *.   Windows   -> images\file%20name.jpg
+ *   
+ *   file://images/file.jpg ->
+ *.   Windows   -> file_\\images\file.jpg
+ *   
+ *   Any characters in the path that are invalid in the local file system
+ *   naming rules are converted to "_", unless "_" is itself invalid, in
+ *   which case they're converted to "X".  One exception is that if '/' is a
+ *   valid local filename character (rather than a path separator as it is on
+ *   Unix and Windows), it can be used as the replacement for the character
+ *   that os_cvt_dir_url uses as its replacement for '/', so that this
+ *   substitution is reversible when a URL is generated and then read back in
+ *   on this same platform.
+ *   
+ *   images/file:name.jpg ->
+ *.   Windows   -> images\file_name.jpg
+ *.   Mac OS 9  -> :images:file_name.jpg
+ *.   Unix      -> images/file:name.jpg
+ *   
+ *   The path elements "." and ".." are specifically defined as having their
+ *   Unix meanings: "." is an alias for the preceding path element, or the
+ *   working directory if it's the first element, and ".." is an alias for
+ *   the parent of the preceding element.  When these appear as path
+ *   elements, this routine translates them to the appropriate local
+ *   conventions.  "." may be translated simply by removing it from the path,
+ *   since it reiterates the previous path element.  ".." may be translated
+ *   by removing the previous element - HOWEVER, if ".." appears as the first
+ *   element, it has to be retained and translated to the equivalent local
+ *   notation, since it will have to be applied later, when the result_buf
+ *   path is actually used to open a file, at which point it will combined
+ *   with the working directory or another base path.
+ *   
+ *.  /images/../file.jpg -> [Windows] file.jpg
+ *.  ../images/file.jpg ->
+ *.   Windows  -> ..\images\file.jpg
+ *.   Mac OS 9 -> ::images:file.jpg
+ *.   VMS      -> [-.images]file.jpg
+ *   
+ *   If the URL path is absolute (starts with a '/'), the routine inspects
+ *   the path to see if it was created by the same OS, according to the local
+ *   rules for converting absolute paths in os_cvt_dir_url() (see).  If so,
+ *   we reverse the encoding done there.  If it doesn't appear that the name
+ *   was created by the same operating system - that is, if reversing the
+ *   encoding doesn't produce a valid local filename - then we create a local
+ *   absolute path as follows.  If the local system uses device/volume
+ *   designators, we start with the current working device/volume or some
+ *   other suitable default volume.  We then add the first element of the
+ *   path, if any, as the root directory name, applying the usual "_" or "X"
+ *   substitution for any characters that aren't allowed in local names.  The
+ *   rest of the path is handled in the usual fashion.
+ *   
+ *.  /images/file.jpg ->
+ *.    Windows -> \images\file.jpg
+ *.    Unix    -> /images/file.jpg
+ *   
+ *.  /c:/images/file.jpg ->
+ *.    Windows -> c:\images\file.jpg
+ *.    Unix    -> /c:/images/file.jpg
+ *.    VMS     -> SYS$DISK:[c__.images]file.jpg
+ *   
+ *.  /Hard Disk:/images/file.jpg ->
+ *.    Windows -> \Hard Disk_\images\file.jpg
+ *.    Unix    -> SYS$DISK:[Hard_Disk_.images]file.jpg
+ *   
+ *   Note how the device/volume prefix becomes the top-level directory when
+ *   moving a path across machines.  It's simply not possible to reconstruct
+ *   the exact original path in such cases, since device/volume syntax rules
+ *   have little in common across systems.  But this seems like a good
+ *   approximation in that (a) it produces a valid local path, and (b) it
+ *   gives the user a reasonable basis for creating a set of folders to mimic
+ *   the original source system, if they want to use that approach to port
+ *   the data rather than just changing the paths internally in the source
+ *   material.
+ *   
+ *   Character sets: use the same rules as for os_cvt_dir_url().  
+ */
+void os_cvt_url_dir(char *result_buf, size_t result_buf_size,
+                    const char *src_url);
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Get a suitable seed for a random number generator; should use the system
+ *   clock or some other source of an unpredictable and changing seed value.
  */
 void os_rand(long *val);
+
+/*
+ *   Generate random bytes for use in seeding a PRNG (pseudo-random number
+ *   generator).  This is an extended version of os_rand() for PRNGs that use
+ *   large seed vectors containing many bytes, rather than the simple 32-bit
+ *   seed that os_rand() assumes.
+ *   
+ *   As with os_rand(), this function isn't meant to be used directly as a
+ *   random number source for ongoing use - instead, this is intended mostly
+ *   for seeding a PRNG, which will then be used as the primary source of
+ *   random numbers.  The big problem with using this routine directly as a
+ *   randomness source is that some implementations might rely heavily on
+ *   environmental randomness, such as the real-time clock or OS usage
+ *   statistics.  Such sources tend to provide reasonable entropy from one
+ *   run to the next, but not within a single session, as the underlying data
+ *   sources don't change rapidly enough.
+ *   
+ *   Ideally, this routine should generate *truly* random bytes obtained from
+ *   hardware sources.  Not all systems can provide that, though, so true
+ *   randomness isn't guaranteed.  Here are the suggested implementation
+ *   options, in descending order of desirability:
+ *   
+ *   1.  Use a hardware source of true randomness, such as a /dev/rand type
+ *   of device.  However, note that this call should return reasonably
+ *   quickly, so always use a non-blocking source.  Some Unix /dev/rand
+ *   devices, for example, can block indefinitely to allow sufficient entropy
+ *   to accumulate.
+ *   
+ *   2. Use a cryptographic random number source provided by the OS.  Some
+ *   systems provide this as an API service.  If going this route, be sure
+ *   that the OS generator is itself "seeded" with some kind of true
+ *   randomness source, as it defeats the whole purpose if you always return
+ *   a fixed pseudo-random sequence each time the program runs.
+ *   
+ *   3. Use whatever true random sources are available locally to seed a
+ *   software pseudo-random number generator, then generate bytes from your
+ *   PRNG.  Some commonly available sources of true randomness are a
+ *   high-resolution timer, the system clock, the current process ID,
+ *   logged-in user ID, environment variables, uninitialized pages of memory,
+ *   the IP address; each of these sources might give you a few bits of
+ *   entropy at best, so the best bet is to use an ensemble.  You could, for
+ *   example, concatenate a bunch of this type of information together and
+ *   calculate an MD5 or SHA1 hash to mix the bits more thoroughly.  For the
+ *   PRNG, use a cryptographic generator.  (You could use the ISAAC generator
+ *   from TADS 3, as that's a crypto PRNG, but it's probably better to use a
+ *   different generator here since TADS 3 is going to turn around and use
+ *   this function's output to seed ISAAC - seeding one ISAAC instance with
+ *   another ISAAC's output seems likely to magnify any weaknesses in the
+ *   ISAAC algorithm.)  Note that this option is basically the DIY version of
+ *   option 2.  Option 2 is better because the OS probably has access to
+ *   better sources of true randomness than an application does.  
+ */
+void os_gen_rand_bytes(unsigned char *buf, size_t len);
 
 
 /* ------------------------------------------------------------------------ */
@@ -1229,6 +2769,44 @@ void os_rand(long *val);
  */
 void os_printz(const char *str);
 void os_print(const char *str, size_t len);
+
+/*
+ *   Print to the debugger console.  These routines are for interactive
+ *   debugger builds only: they display the given text to a separate window
+ *   within the debugger UI (separate from the main game command window)
+ *   where the debugger displays status information specific to the debugging
+ *   session (such as compiler/build output, breakpoint status messages,
+ *   etc).  For example, TADS Workbench on Windows displays these messages in
+ *   its "Debug Log" window.
+ *   
+ *   These routines only need to be implemented for interactive debugger
+ *   builds, such as TADS Workbench on Windows.  These can be omitted for
+ *   regular interpreter builds.  
+ */
+void os_dbg_printf(const char *fmt, ...);
+void os_dbg_vprintf(const char *fmt, va_list args);
+
+/*
+ *   Allocating sprintf and vsprintf.  These work like the regular C library
+ *   sprintf and vsprintf funtions, but they allocate a return buffer that's
+ *   big enough to hold the result, rather than formatting into a caller's
+ *   buffer.  This protects against buffer overruns and ensures that the
+ *   result isn't truncated.
+ *   
+ *   On return, '*bufptr' is filled in with a pointer to a buffer allocated
+ *   with osmalloc().  This buffer contains the formatted string result.  The
+ *   caller is responsible for freeing the buffer by calling osfree().
+ *   *bufptr can be null on return if an error occurs.
+ *   
+ *   The return value is the number of bytes written to the allocated buffer,
+ *   not including the null terminator.  If an error occurs, the return value
+ *   is -1 and *bufptr is undefined.
+ *   
+ *   Many modern C libraries provide equivalents of these, usually called
+ *   asprintf() and vasprintf(), respectively.  
+ */
+/* int os_asprintf(char **bufptr, const char *fmt, ...); */
+int os_vasprintf(char **bufptr, const char *fmt, va_list ap);
 
 
 /* 
@@ -1512,6 +3090,27 @@ void os_set_title(const char *title);
  */
 void os_more_prompt();
 
+/*
+ *   Interpreter Class Configuration.
+ *   
+ *   If this is a TEXT-ONLY interpreter: DO NOT define USE_HTML.
+ *   
+ *   If this is a MULTIMEDIA (HTML TADS) intepreter: #define USE_HTML
+ *   
+ *   (This really should be called something like OS_USE_HTML - the USE_ name
+ *   is for historical reasons.  This purpose of this macro is to configure
+ *   the tads 2 VM-level output formatter's line breaking and MORE mode
+ *   behavior.  In HTML mode, the VM-level formatter knows that it's feeding
+ *   its output to a page layout engine, so the VM-level output is just a
+ *   text stream.  In plain-text mode, the VM formatter *is* the page layout
+ *   engine, so it needs to do all of the word wrapping and MORE prompting
+ *   itself.  The tads 3 output layer does NOT use this macro for its
+ *   equivalent configuration, but instead has different .cpp files for the
+ *   different modes, and you simply link in the one for the configuration
+ *   you want.)  
+ */
+/* #define USE_HTML */
+
 
 /*
  *   Enter HTML mode.  This is only used when the run-time is compiled
@@ -1570,6 +3169,16 @@ extern int G_os_linewidth;
  *   handling the MORE prompt.  
  */
 extern int G_os_moremode;
+
+/*
+ *   Global buffer containing the name of the byte-code file (the "game
+ *   file") loaded into the VM.  This is used only where applicable, which
+ *   generally means in TADS Interpreter builds.  In other application
+ *   builds, this is simply left empty.  The application is responsible for
+ *   setting this during start-up (or wherever else the byte-code filename
+ *   becomes known or changes).  
+ */
+extern char G_os_gamename[OSFNMAX];
 
 /*
  *   Set non-stop mode.  This tells the OS layer that it should disable any
@@ -1680,15 +3289,15 @@ unsigned char *os_gets(unsigned char *buf, size_t bufl);
  *   before the user presses Return (or the local equivalent).
  *   
  *   If the user presses Return before the timeout expires, we store the
- *   command line in the given buffer, just as os_gets() would, and we
- *   return OS_EVT_LINE.  We also update the display in the same manner that
+ *   command line in the given buffer, just as os_gets() would, and we return
+ *   OS_EVT_LINE.  We also update the display in the same manner that
  *   os_gets() would, by moving the cursor to a new line and scrolling the
  *   displayed text as needed.
  *   
- *   If a timeout occurs before the user presses Return, we store the
- *   command line so far in the given buffer, statically store the cursor
- *   position, insert mode, buffer text, and anything else relevant to the
- *   editing state, and we return OS_EVT_TIMEOUT.
+ *   If a timeout occurs before the user presses Return, we store the command
+ *   line so far in the given buffer, statically store the cursor position,
+ *   insert mode, buffer text, and anything else relevant to the editing
+ *   state, and we return OS_EVT_TIMEOUT.
  *   
  *   If the implementation does not support the timeout operation, this
  *   routine should simply return OS_EVT_NOTIMEOUT immediately when called;
@@ -1700,16 +3309,16 @@ unsigned char *os_gets(unsigned char *buf, size_t bufl);
  *   When we return OS_EVT_TIMEOUT, the caller is responsible for doing one
  *   of two things.
  *   
- *   The first possibility is that the caller performs some work that
- *   doesn't require any display operations (in other words, the caller
- *   doesn't invoke os_printf, os_getc, or anything else that would update
- *   the display), and then calls os_gets_timeout() again.  In this case, we
- *   will use the editing state that we statically stored before we returned
+ *   The first possibility is that the caller performs some work that doesn't
+ *   require any display operations (in other words, the caller doesn't
+ *   invoke os_printf, os_getc, or anything else that would update the
+ *   display), and then calls os_gets_timeout() again.  In this case, we will
+ *   use the editing state that we statically stored before we returned
  *   OS_EVT_TIMEOUT to continue editing where we left off.  This allows the
- *   caller to perform some computation in the middle of user command
- *   editing without interrupting the user - the extra computation is
- *   transparent to the user, because we act as though we were still in the
- *   midst of the original editing.
+ *   caller to perform some computation in the middle of user command editing
+ *   without interrupting the user - the extra computation is transparent to
+ *   the user, because we act as though we were still in the midst of the
+ *   original editing.
  *   
  *   The second possibility is that the caller wants to update the display.
  *   In this case, the caller must call os_gets_cancel() BEFORE making any
@@ -1724,8 +3333,8 @@ unsigned char *os_gets(unsigned char *buf, size_t bufl);
  *   that we'll restore the cursor position, insertion state, and anything
  *   else relevant.  Note that if os_gets_cancel(FALSE) was called, we must
  *   re-display the command line under construction, but if os_gets_cancel()
- *   was never called, we will not have to make any changes to the display
- *   at all.
+ *   was never called, we will not have to make any changes to the display at
+ *   all.
  *   
  *   Note that when resuming an interrupted editing session (interrupted via
  *   os_gets_cancel()), the caller must re-display the prompt prior to
@@ -1733,17 +3342,21 @@ unsigned char *os_gets(unsigned char *buf, size_t bufl);
  *   
  *   Note that we can return OS_EVT_EOF in addition to the other codes
  *   mentioned above.  OS_EVT_EOF indicates that an error occurred reading,
- *   which usually indicates that the application is being terminated or
- *   that some hardware error occurred reading the keyboard.  
+ *   which usually indicates that the application is being terminated or that
+ *   some hardware error occurred reading the keyboard.  
  *   
  *   If 'use_timeout' is false, the timeout should be ignored.  Without a
- *   timeout, the function behaves the same as os_gets(), except that it
- *   will resume editing of a previously-interrupted command line if
- *   appropriate.  (This difference is why the timeout is optional: a caller
- *   might not need a timeout, but might still want to resume a previous
- *   input that did time out, in which case the caller would invoke this
- *   routine with use_timeout==FALSE.  The regular os_gets() would not
- *   satisfy this need, because it cannot resume an interrupted input.)  
+ *   timeout, the function behaves the same as os_gets(), except that it will
+ *   resume editing of a previously-interrupted command line if appropriate.
+ *   (This difference is why the timeout is optional: a caller might not need
+ *   a timeout, but might still want to resume a previous input that did time
+ *   out, in which case the caller would invoke this routine with
+ *   use_timeout==FALSE.  The regular os_gets() would not satisfy this need,
+ *   because it cannot resume an interrupted input.)
+ *   
+ *   Note that a zero timeout has the same meaning as for os_get_event(): if
+ *   input is available IMMEDIATELY, return the input, otherwise return
+ *   immediately with the OS_EVT_TIMEOUT result code.  
  */
 int os_gets_timeout(unsigned char *buf, size_t bufl,
                     unsigned long timeout_in_milliseconds, int use_timeout);
@@ -1774,23 +3387,22 @@ void os_gets_cancel(int reset);
 /* 
  *   Read a character from the keyboard.  For extended keystrokes, this
  *   function returns zero, and then returns the CMD_xxx code for the
- *   extended keystroke on the next call.  For example, if the user
- *   presses the up-arrow key, the first call to os_getc() should return
- *   0, and the next call should return CMD_UP.  Refer to the CMD_xxx
- *   codes below.
+ *   extended keystroke on the next call.  For example, if the user presses
+ *   the up-arrow key, the first call to os_getc() should return 0, and the
+ *   next call should return CMD_UP.  Refer to the CMD_xxx codes below.
  *   
  *   os_getc() should return a high-level, translated command code for
- *   command editing.  This means that, where a functional interpretation
- *   of a key and the raw key-cap interpretation both exist as CMD_xxx
- *   codes, the functional interpretation should be returned.  For
- *   example, on Unix, Ctrl-E is conventionally used in command editing to
- *   move to the end of the line, following Emacs key bindings.  Hence,
- *   os_getc() should return CMD_END for this keystroke, rather than
- *   (CMD_CTRL + 'E' - 'A'), because CMD_END is the high-level command
- *   code for the operation.
+ *   command editing.  This means that, where a functional interpretation of
+ *   a key and the raw key-cap interpretation both exist as CMD_xxx codes,
+ *   the functional interpretation should be returned.  For example, on Unix,
+ *   Ctrl-E is conventionally used in command editing to move to the end of
+ *   the line, following Emacs key bindings.  Hence, os_getc() should return
+ *   CMD_END for this keystroke, rather than a single 0x05 character (ASCII
+ *   Ctrl-E), because CMD_END is the high-level command code for the
+ *   operation.
  *   
- *   The translation ability of this function allows for system-dependent
- *   key mappings to functional meanings.  
+ *   The translation ability of this function allows for system-dependent key
+ *   mappings to functional meanings.  
  */
 int os_getc(void);
 
@@ -1806,8 +3418,8 @@ int os_getc(void);
  *   interpretation both exist as CMD_xxx codes, this function returns the
  *   key-cap interpretation.  For the Unix Ctrl-E example in the comments
  *   describing os_getc() above, this function should return 5 (the ASCII
- *   code for Ctrl-E), because the CMD_CTRL interpretation is the low-level
- *   key code.
+ *   code for Ctrl-E), because the ASCII control character interpretation is
+ *   the low-level key code.
  *   
  *   This function should return all control keys using their ASCII control
  *   codes, whenever possible.  Similarly, this function should return ASCII
@@ -1818,8 +3430,8 @@ int os_getc(void);
  *   same as os_getc() for arrow keys, function keys, and other special keys
  *   that have no ASCII representation.  This function returns a
  *   non-translated version ONLY when an ASCII representation exists - in
- *   practice, this means that this function and os_getc() vary only for
- *   CTRL keys and Escape.
+ *   practice, this means that this function and os_getc() vary only for CTRL
+ *   keys and Escape.  
  */
 int os_getc_raw(void);
 
@@ -1865,7 +3477,7 @@ void os_waitc(void);
 #define CMD_F9    23                               /* function key F9 (raw) */
 #define CMD_F10   24                              /* function key F10 (raw) */
 #define CMD_CHOME 25                                  /* control-home (raw) */
-#define CMD_TAB   26                                           /* tab (raw) */
+#define CMD_TAB   26                                    /* tab (translated) */
 #define CMD_SF2   27                                      /* shift-F2 (raw) */
 /* not used (obsolete) - 28 */
 #define CMD_WORD_LEFT  29      /* word left (ctrl-left on dos) (translated) */
@@ -1873,6 +3485,7 @@ void os_waitc(void);
 #define CMD_WORDKILL 31                   /* delete word right (translated) */
 #define CMD_EOF   32                                   /* end-of-file (raw) */
 #define CMD_BREAK 33     /* break (Ctrl-C or local equivalent) (translated) */
+#define CMD_INS   34                                    /* insert key (raw) */
 
 
 /*
@@ -1934,6 +3547,9 @@ typedef union os_event_info_t os_event_info_t;
  *   Event types for os_get_event 
  */
 
+/* invalid/no event */
+#define OS_EVT_NONE      0x0000
+
 /* OS_EVT_KEY - user typed a key on the keyboard */
 #define OS_EVT_KEY       0x0001
 
@@ -1967,18 +3583,25 @@ typedef union os_event_info_t os_event_info_t;
 
 
 /*
- *   Get an input event.  The event types are shown above.  If use_timeout
- *   is false, this routine should simply wait until one of the events it
- *   recognizes occurs, then return the appropriate information on the
- *   event.  If use_timeout is true, this routine should return
- *   OS_EVT_TIMEOUT after the given number of milliseconds elapses if no
- *   event occurs first.
+ *   Get an input event.  The event types are shown above.  If use_timeout is
+ *   false, this routine should simply wait until one of the events it
+ *   recognizes occurs, then return the appropriate information on the event.
+ *   If use_timeout is true, this routine should return OS_EVT_TIMEOUT after
+ *   the given number of milliseconds elapses if no event occurs first.
  *   
  *   This function is not obligated to obey the timeout.  If a timeout is
  *   specified and it is not possible to obey the timeout, the function
- *   should simply return OS_EVT_NOTIMEOUT.  The trivial implementation
- *   thus checks for a timeout, returns an error if specified, and
- *   otherwise simply waits for the user to press a key.  
+ *   should simply return OS_EVT_NOTIMEOUT.  The trivial implementation thus
+ *   checks for a timeout, returns an error if specified, and otherwise
+ *   simply waits for the user to press a key.
+ *   
+ *   A timeout value of 0 does *not* mean that there's no timeout (i.e., it
+ *   doesn't mean we should wait indefinitely) - that's specified by passing
+ *   FALSE for use_timeout.  A zero timeout also doesn't meant that the
+ *   function should unconditionally return OS_EVT_TIMEOUT.  Instead, a zero
+ *   timeout specifically means that IF an event is available IMMEDIATELY,
+ *   without blocking the thread, we should return that event; otherwise we
+ *   should immediately return a timeout event.  
  */
 int os_get_event(unsigned long timeout_in_milliseconds, int use_timeout,
                  os_event_info_t *info);
@@ -2039,7 +3662,7 @@ int os_get_event(unsigned long timeout_in_milliseconds, int use_timeout,
  *   
  *   'buttons' is an array of strings to use as button labels.
  *   'button_count' gives the number of entries in the 'buttons' array.
- *   'buttons' and 'button_count' are ignored in 'standard_button_set' is
+ *   'buttons' and 'button_count' are ignored if 'standard_button_set' is
  *   non-zero, since a standard set of buttons is used instead.  If
  *   'buttons' and 'button_count' are to be used, each entry contains the
  *   label of a button to show.  
@@ -2125,71 +3748,6 @@ int os_input_dialog(int icon_id, const char *prompt, int standard_button_set,
 
 
 /* ------------------------------------------------------------------------ */
-/*
- *   Get the current system high-precision timer.  This function returns a
- *   value giving the wall-clock ("real") time in milliseconds, relative
- *   to any arbitrary zero point.  It doesn't matter what this value is
- *   relative to -- the only important thing is that the values returned
- *   by two different calls should differ by the number of actual
- *   milliseconds that have elapsed between the two calls.  On most
- *   single-user systems, for example, this will probably return the
- *   number of milliseconds since the user turned on the computer.
- *   
- *   True millisecond precision is NOT required.  Each implementation
- *   should simply use the best precision available on the system.  If
- *   your system doesn't have any kind of high-precision clock, you can
- *   simply use the time() function and multiply the result by 1000 (but
- *   see the note below about exceeding 32-bit precision).
- *   
- *   However, it *is* required that the return value be in *units* of
- *   milliseconds, even if your system clock doesn't have that much
- *   precision; so on a system that uses its own internal clock units,
- *   this routine must multiply the clock units by the appropriate factor
- *   to yield milliseconds for the return value.
- *   
- *   It is also required that the values returned by this function be
- *   monotonically increasing.  In other words, each subsequent call must
- *   return a value that is equal to or greater than the value returned
- *   from the last call.  On some systems, you must be careful of two
- *   special situations.
- *   
- *   First, the system clock may "roll over" to zero at some point; for
- *   example, on some systems, the internal clock is reset to zero at
- *   midnight every night.  If this happens, you should make sure that you
- *   apply a bias after a roll-over to make sure that the value returned
- *   from this return continues to increase despite the reset of the
- *   system clock.
- *   
- *   Second, a 32-bit signed number can only hold about twenty-three days
- *   worth of milliseconds.  While it seems unlikely that a TADS game
- *   would run for 23 days without a break, it's certainly reasonable to
- *   expect that the computer itself may run this long without being
- *   rebooted.  So, if your system uses some large type (a 64-bit number,
- *   for example) for its high-precision timer, you may want to store a
- *   zero point the very first time this function is called, and then
- *   always subtract this zero point from the large value returned by the
- *   system clock.  If you're using time(0)*1000, you should use this
- *   technique, since the result of time(0)*1000 will almost certainly not
- *   fit in 32 bits in most cases.
- */
-long os_get_sys_clock_ms(void);
-
-/*
- *   Sleep for a while.  This should simply pause for the given number of
- *   milliseconds, then return.  On multi-tasking systems, this should use
- *   a system API to unschedule the current process for the desired delay;
- *   on single-tasking systems, this can simply sit in a wait loop until
- *   the desired interval has elapsed.  
- */
-void os_sleep_ms(long delay_in_milliseconds);
-
-/* set a file's type information */
-void os_settype(const char *f, os_filetype_t typ);
-
-/* open the error message file for reading */
-osfildef *oserrop(const char *arg0);
-
-/* ------------------------------------------------------------------------ */
 /* 
  *   OS main entrypoint 
  */
@@ -2206,9 +3764,20 @@ int os0main2(int oargc, char **oargv,
              struct appctxdef *appctx);
 
 /*
- *   get filename from startup parameter, if possible; returns true and
- *   fills in the buffer with the parameter filename on success, false if
- *   no parameter file could be found 
+ *   OBSOLETE - Get filename from startup parameter, if possible; returns
+ *   true and fills in the buffer with the parameter filename on success,
+ *   false if no parameter file could be found.
+ *   
+ *   (This was used until TADS 2.2.5 for the benefit of the Mac interpreter,
+ *   and interpreters on systems with similar desktop shells, to allow the
+ *   user to launch the terp by double-clicking on a saved game file.  The
+ *   terp would read the launch parameters, discover that a saved game had
+ *   been used to invoke it, and would then stash away the saved game info
+ *   for later retrieval from this function.  This functionality was replaced
+ *   in 2.2.5 with a command-line parameter: the terp now uses the desktop
+ *   launch data to synthesize a suitable argv[] vectro to pass to os0main()
+ *   or os0main2().  This function should now simply be stubbed out - it
+ *   should simply return FALSE.)  
  */
 int os_paramfile(char *buf);
 
@@ -2345,6 +3914,15 @@ void os_instbrk(int install);
 int os_break(void);
 
 /*
+ *   Sleep for a given interval.  This should simply pause for the given
+ *   number of milliseconds, then return.  On multi-tasking systems, this
+ *   should use a system API to suspend the current process for the desired
+ *   delay; on single-tasking systems, this can simply sit in a wait loop
+ *   until the desired interval has elapsed.  
+ */
+void os_sleep_ms(long delay_in_milliseconds);
+
+/*
  *   Yield CPU; returns TRUE if user requested an interrupt (a "control-C"
  *   type of operation to abort the entire program), FALSE to continue.
  *   Portable code should call this routine from time to time during lengthy
@@ -2384,34 +3962,28 @@ int os_yield(void);
 #endif
 
 /*
- *   Initialize the time zone.  This routine is meant to take care of any
- *   work that needs to be done prior to calling localtime() and other
- *   time-zone-dependent routines in the run-time library.  For DOS and
- *   Windows, we need to call the run-time library routine tzset() to set
- *   up the time zone from the environment; most systems shouldn't need to
- *   do anything in this routine.  
- */
-#ifndef os_tzset
-void os_tzset(void);
-#endif
-
-/*
- *   Set the default saved-game extension.  This routine will NOT be
- *   called when we're using the standard saved game extension; this
- *   routine will be invoked only if we're running as a stand-alone game,
- *   and the game author specified a non-standard saved-game extension
- *   when creating the stand-alone game.
+ *   Set the default saved-game extension.  This routine will NOT be called
+ *   when we're using the standard saved game extension; this routine will be
+ *   invoked only if we're running as a stand-alone game, and the game author
+ *   specified a non-standard saved-game extension when creating the
+ *   stand-alone game.
  *   
  *   This routine is not required if the system does not use the standard,
  *   semi-portable os0.c implementation.  Even if the system uses the
- *   standard os0.c implementation, it can provide an empty routine here
- *   if the system code doesn't need to do anything special with this
+ *   standard os0.c implementation, it can provide an empty routine here if
+ *   the system code doesn't need to do anything special with this
  *   information.
  *   
- *   The extension is specified as a null-terminated string.  The
- *   extension does NOT include the leading period.  
+ *   The extension is specified as a null-terminated string.  The extension
+ *   does NOT include the leading period.  
  */
 void os_set_save_ext(const char *ext);
+
+/* 
+ *   Get the saved game extension previously set with os_set_save_ext().
+ *   Returns null if no custom extension has been set.
+ */
+const char *os_get_save_ext();
 
 
 /* ------------------------------------------------------------------------*/
@@ -2584,6 +4156,13 @@ void os_get_charmap(char *mapname, int charmap_id);
  *   guess that most files on this system are likely to use.  
  */
 #define OS_CHARMAP_FILECONTENTS  3
+
+/*
+ *   Default character map for the command line.  This is the maping we use
+ *   to interpret command line arguments passed to our main() or equivalent.
+ *   On most systems, this will be the same as the display character set.
+ */
+#define OS_CHARMAP_CMDLINE     4
 
 
 /* ------------------------------------------------------------------------ */
@@ -3224,36 +4803,82 @@ int os_get_sysinfo(int code, void *param, long *result);
 /* can the system play multiple WAV's simultaneously?  yes=1, no=0 */
 #define SYSINFO_WAV_OVL   10
 
+/*
+ *   GENERAL NOTES ON PREFERENCE SETTINGS:
+ *   
+ *   Several of the selectors below refer to the preference settings.  We're
+ *   talking about user-settable options to control various aspects of the
+ *   interpreter.  The conventional GUI for this kind of thing is a dialog
+ *   box reachable through a menu command named something like "Options" or
+ *   "Preferences".  A couple of general notes about these:
+ *   
+ *   1.  The entire existence of a preferences mechanism is optional -
+ *   interpreter writers aren't required to implement anything along these
+ *   lines.  In some cases the local platforms might not have any suitable
+ *   conventions for a preferences UI (e.g., character-mode console
+ *   applications), and in other cases the terp developer might just want to
+ *   omit a prefs mechanism because of the work involved to implement it, or
+ *   to keep the UI simpler.
+ *   
+ *   2.  If a given SYSINFO_PREF_xxx selector refers to a preference item
+ *   that's not implemented in the local interpreter, the terp should simply
+ *   return a suitable default result.  For example, if the interpreter
+ *   doesn't have a preference item to allow the user to turn sounds off, the
+ *   selector SYSINFO_PREF_SOUNDS should return 1 to indicate that the user
+ *   has not in fact turned off sounds (because there's no way to do so).
+ *   
+ *   3.  The various SYSINFO_PREF_xxx selectors are purely queries - they're
+ *   NOT a mechanism for enforcing the preferences.  For example, if the
+ *   interpreter provides a "Sounds On/Off" option, it's up to the terp to
+ *   enforce it the Off setting by ignoring any sound playback requests.  The
+ *   game isn't under any obligation to query any of the preferences or to
+ *   alter its behavior based on their settings - you should expect that the
+ *   game will go on trying to play sounds even when "Sounds Off" is selected
+ *   in the preferences.  The purpose of these SYSINFO selectors is to let
+ *   the game determine the current presentation status, but *only if it
+ *   cares*.  For example, the game might determine whether or not sounds are
+ *   actually being heard just before playing a sound effect that's important
+ *   to the progress of the game, so that it can provide a visual alternative
+ *   if the effect won't be heard.  
+ */
+
 /* 
- *   Get image preference setting - 1 = images can be displayed, 0 =
- *   images are not being displayed because the user turned off images in
- *   the preferences.  This is, of course, irrelevant if images can't be
+ *   Get image preference setting - 1 = images can be displayed, 0 = images
+ *   are not being displayed because the user turned off images in the
+ *   preferences.  This is, of course, irrelevant if images can't be
  *   displayed at all.
+ *   
+ *   See the general notes on preferences queries above.  
  */
 #define SYSINFO_PREF_IMAGES  11
 
 /*
- *   Get digitized sound effect (WAV) preference setting - 1 = sounds can
- *   be played, 0 = sounds are not being played because the user turned
- *   off sounds in the preferences. 
+ *   Get digitized sound effect (WAV) preference setting - 1 = sounds can be
+ *   played, 0 = sounds are not being played because the user turned off
+ *   sounds in the preferences.
+ *   
+ *   See the general notes on preferences queries above.  
  */
 #define SYSINFO_PREF_SOUNDS  12
 
 /*
- *   get music (MIDI) preference setting - 1 = music can be played, 0 =
- *   music is not being played because the user turned off music in the
- *   preferences 
+ *   Get music (MIDI) preference setting - 1 = music can be played, 0 = music
+ *   is not being played because the user turned off music in the
+ *   preferences.
+ *   
+ *   See the general notes on preferences queries above.  
  */
 #define SYSINFO_PREF_MUSIC   13
 
 /*
- *   get link display preference setting - 0 = links are not being
- *   displayed because the user set a preference item that suppresses all
- *   links (which doesn't actually hide them, but merely displays them and
- *   otherwise treats them as ordinary text).  1 = links are to be
- *   displayed normally.  2 = links can be displayed temporarily by the
- *   user by pressing a key or some similar action, but aren't being
- *   displayed at all times.  
+ *   Get link display preference setting - 0 = links are not being displayed
+ *   because the user set a preference item that suppresses all links (which
+ *   doesn't actually hide them, but merely displays them and otherwise
+ *   treats them as ordinary text).  1 = links are to be displayed normally.
+ *   2 = links can be displayed temporarily by the user by pressing a key or
+ *   some similar action, but aren't being displayed at all times.  
+ *   
+ *   See the general note on preferences queries above.  
  */
 #define SYSINFO_PREF_LINKS   14
 
@@ -3370,6 +4995,33 @@ int os_get_sysinfo(int code, void *param, long *result);
  *   formatting.  
  */
 #define SYSINFO_ICLASS_HTML    3
+
+/*
+ *   Audio fade information.
+ *   
+ *   SYSINFO_AUDIO_FADE: basic fade-in and fade-out support.  Interpreters
+ *   that don't support audio fade at all should return 0.  Interpreters that
+ *   support fades should return a bitwise OR'd combination of
+ *   SYSINFO_AUDIOFADE_xxx flags below indicating which formats can be used
+ *   with fades.
+ *   
+ *   SYSINFO_AUDIO_CROSSFADE: cross-fades are supported (i.e., simultaneous
+ *   play of overlapping tracks, one fading out while the other fades in).
+ *   If cross-fades aren't supported, return 0.  If they're supported, return
+ *   a combination of SYSINFO_AUDIOFADE_xxx flags indicating which formats
+ *   can be used with cross-fades.  
+ */
+#define SYSINFO_AUDIO_FADE       35
+#define SYSINFO_AUDIO_CROSSFADE  36
+
+/* 
+ *   Specific audio fading features.  These are bit flags that can be
+ *   combined to indicate the fading capabilities of the interpreter.  
+ */
+#define SYSINFO_AUDIOFADE_MPEG  0x0001          /* supported for MPEG audio */
+#define SYSINFO_AUDIOFADE_OGG   0x0002          /* supported for Ogg Vorbis */
+#define SYSINFO_AUDIOFADE_WAV   0x0004                 /* supported for WAV */
+#define SYSINFO_AUDIOFADE_MIDI  0x0008                /* supported for MIDI */
 
 
 /* ------------------------------------------------------------------------ */

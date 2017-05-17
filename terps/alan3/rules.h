@@ -8,14 +8,24 @@
 
 \*----------------------------------------------------------------------*/
 
+/* IMPORTS */
+#include "acode.h"
+
 /* TYPES */
 
-#ifdef _PROTOTYPES_
+typedef struct RuleEntry {   /* RULE TABLE */
+  Abool run;            /* Is rule already run? */
+  Aaddr exp;            /* Address to expression code */
+  Aaddr stms;           /* Address to run */
+} RuleEntry;
 
-extern void rules(void);
 
-#else
-extern void rules();
-#endif
+/* DATA */
+extern RuleEntry *rules;      /* Rule table pointer */
+
+
+/* FUNCTIONS */
+extern void initRules(void);
+extern void evaluateRules(void);
 
 #endif

@@ -1,12 +1,14 @@
-	Files to build: 79
+	Files to build: 87
 	symbol_export _main.t -> _main.t3s
 	symbol_export file.t -> file.t3s
 	symbol_export tok.t -> tok.t3s
 	symbol_export gramprod.t -> gramprod.t3s
+	symbol_export multmeth.t -> multmeth.t3s
 	symbol_export action.t -> action.t3s
 	symbol_export actions.t -> actions.t3s
 	symbol_export actor.t -> actor.t3s
 	symbol_export banner.t -> banner.t3s
+	symbol_export console.t -> console.t3s
 	symbol_export disambig.t -> disambig.t3s
 	symbol_export events.t -> events.t3s
 	symbol_export exec.t -> exec.t3s
@@ -17,6 +19,7 @@
 	symbol_export input.t -> input.t3s
 	symbol_export lister.t -> lister.t3s
 	symbol_export menusys.t -> menusys.t3s
+	symbol_export menucon.t -> menucon.t3s
 	symbol_export misc.t -> misc.t3s
 	symbol_export modid.t -> modid.t3s
 	symbol_export numbers.t -> numbers.t3s
@@ -31,6 +34,7 @@
 	symbol_export sense.t -> sense.t3s
 	symbol_export settings.t -> settings.t3s
 	symbol_export status.t -> status.t3s
+	symbol_export tips.t -> tips.t3s
 	symbol_export thing.t -> thing.t3s
 	symbol_export travel.t -> travel.t3s
 	symbol_export verify.t -> verify.t3s
@@ -42,10 +46,12 @@
 	compile file.t -> file.t3o
 	compile tok.t -> tok.t3o
 	compile gramprod.t -> gramprod.t3o
+	compile multmeth.t -> multmeth.t3o
 	compile action.t -> action.t3o
 	compile actions.t -> actions.t3o
 	compile actor.t -> actor.t3o
 	compile banner.t -> banner.t3o
+	compile console.t -> console.t3o
 	compile disambig.t -> disambig.t3o
 	compile events.t -> events.t3o
 	compile exec.t -> exec.t3o
@@ -56,6 +62,7 @@
 	compile input.t -> input.t3o
 	compile lister.t -> lister.t3o
 	compile menusys.t -> menusys.t3o
+	compile menucon.t -> menucon.t3o
 	compile misc.t -> misc.t3o
 	compile modid.t -> modid.t3o
 	compile numbers.t -> numbers.t3o
@@ -70,6 +77,7 @@
 	compile sense.t -> sense.t3o
 	compile settings.t -> settings.t3o
 	compile status.t -> status.t3o
+	compile tips.t -> tips.t3o
 	compile thing.t -> thing.t3o
 	compile travel.t -> travel.t3o
 	compile verify.t -> verify.t3o

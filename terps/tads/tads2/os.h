@@ -72,19 +72,30 @@ extern "C" {
  *   Include the appropriate hardware-specific header. 
  */
 
-#if (defined(__ppc__) || defined(__ppc64__))
+#ifdef __ppc__
 #define _M_PPC
-#elif defined(__i386__)
-#define _M_IX86
 #else
-#error "Unknown machine architecture!"
+#ifdef __x86_64__
+#define _M_IX86_64
+#else
+#ifndef _M_IX86
+#define _M_IX86
+#endif
+#endif
 #endif
 
 /*
- *   Intel x86 processors 
+ *   Intel x86 processors - 32-bit
  */
 #ifdef _M_IX86
 #include "h_ix86.h"
+#endif
+
+/*
+ *   Intel x86 processors - 64-bit 
+ */
+#ifdef _M_IX86_64
+#include "h_ix86_64.h"
 #endif
 
 /*
@@ -129,12 +140,20 @@ extern "C" {
 #ifdef COCO
 #include "oscoco.h"
 #else
+    
+#ifdef GARGOYLE
+#include "osgarglk.h"
+#else
 
+#ifdef SPATTERLIGHT
+#include "osspatter.h"
+#else
+    
 #ifdef _WIN32
 # include "oswin.h"
 #endif
 #ifdef __MSDOS__
-# ifdef __WIN32__
+# ifdef T_WIN32
 /* Windows-specific definitions are in oswin.h */
 #  include "oswin.h"
 # else
@@ -149,8 +168,13 @@ extern "C" {
 #endif
 
 #ifdef MAC_OS
-/* macintosh definitions are in osmac.h */
+/* macintosh definitions (Mac OS <=9) are in osmac.h */
 #include "osmac.h"
+#endif
+
+#ifdef MAC_OS_X
+/* macintosh OS X definitions are in osmacosx.h */
+#include "osmacosx.h"
 #endif
 
 #ifdef UNIX
@@ -188,8 +212,9 @@ extern "C" {
 #include "osfrobtads.h"
 #endif
 
-#endif
-
+#endif /* SPATTERLIGHT */
+#endif /* GARGOYLE */
+#endif /* COCO */
 /* **************** add other systems here **************** */
 
 
@@ -223,6 +248,5 @@ extern "C" {
 #ifndef OS_SYSTEM_LDESC
 # define OS_SYSTEM_LDESC  OS_SYSTEM_NAME
 #endif
-
 #endif /* OS_INCLUDED */
 

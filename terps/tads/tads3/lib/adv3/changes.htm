@@ -1,20 +1,54 @@
 <html>
 <title>Recent Changes to the TADS 3 Library</title>
 
-<style type="text/css"><!--
+<style type="text/css">
+<!--
+body {
+    font: 10pt/14pt Verdana, Arial, Helvetica, Sans-Serif;
+}
+h1 {
+    font: 18pt/24pt Georgia, Times New Roman, New York, Times, Serif;
+    color: #400060;
+}
+h2 {
+    font: 14pt/18pt Georgia, Times New Roman, New York, Times, Serif;
+    color: #600060;
+}
+h3 {
+    background: #f0f0f0;
+    border-top: 1px solid #d8d8d8;
+    margin-top: 2.5em;
+    padding: 1ex 1ex 1ex 1ex;
+    font: 12pt/14pt Georgia, Times New Roman, New York, Times, Serif;
+    color: #600060;
+}
+li {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+}
+li ul {
+    margin-top: 0.75em;
+}
+li li {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+li p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+ul.toc li {
+    margin: 0;
+}
 
 div.sepbar {
-   width: 100%;
-   padding-left: 5px;
-   padding-right: 5px;
-   padding-top: 3px;
-   padding-bottom: 3px;
-   margin-bottom: 1.5em;
-   margin-top: 1.5em;
-   background: #c0c0f0;
-   color: #000040;
-   font-size: 125%;
-   text-align: center;
+    width: 100%;
+    background: #f0f0f0;
+    border-top: 1px solid #d8d8d8;
+    margin-top: 2.5em;
+    padding: 1ex 1ex 1ex 1ex;
+    font: 12pt/14pt Georgia, Times New Roman, New York, Times, Serif;
+    color: #600060;
 }
 
 div.firstentry {
@@ -29,17 +63,61 @@ div.entry {
    border-top: 1px solid #c0c0c0;
 }
 
---></style>
+#versionIndex {
+   height: 0px;
+   overflow: hidden;
+   transition: height .5s;
+   -webkit-transition: height .5s;
+}
+#versionIndexBtn {
+   margin-top: 1em;
+}
+
+//-->
+</style>
 
 <body>
 
 <h1>Recent Changes to the TADS 3 Library</h1>
 
-<p>This is a list of changes to adv3, the TADS 3 library.
-Changes are listed in reverse chronological order (the most recent
-changes are first).
+<p>This is a history of changes to Adv3, the TADS 3 adventure game
+library.  Changes are listed in reverse chronological order (the most
+recent changes are first).
 
-<ul>
+<div id="versionIndexBtn">
+<a href="#" onclick="javascript:return toggleVersionIndex(this);">Show version index</a>
+</div>
+<script type="text/javascript">
+function toggleVersionIndex(a)
+{
+    var i = document.getElementById("versionIndex");
+    if (i.clientHeight > 0) {
+        i.style.height = "0px";
+        a.innerHTML = "Show version index";
+    } else {
+        i.style.height = i.querySelector("ul").clientHeight + "px";
+        a.innerHTML = "Hide version index";
+    }
+}
+</script>
+<div id="versionIndex">
+<ul class=toc>
+<li><a href='#313'>3.1.3</a>
+<li><a href='#312'>3.1.2</a>
+<li><a href='#311'>3.1.1</a>
+<li><a href='#310'>3.1.0</a>
+<li><a href='#3018a'>3.0.18.1</a>
+<li><a href='#3018'>3.0.18</a>
+<li><a href='#3017a'>3.0.17.1</a>
+<li><a href='#3017'>3.0.17</a>
+<li><a href='#3016'>3.0.16</a>
+<li><a href='#3015c'>3.0.15.3</a>
+<li><a href='#3015b'>3.0.15.2</a>
+<li><a href='#3015a'>3.0.15.1</a>
+<li><a href='#3015'>3.0.15</a>
+<li><a href='#3014'>3.0.14</a>
+<li><a href='#3013'>3.0.13</a>
+<li><a href='#3012'>3.0.12</a>
 <li><a href='#3011'>3.0.11</a>
 <li><a href='#3010'>3.0.10</a>
 <li><a href='#309'>3.0.9</a>
@@ -61,6 +139,2730 @@ changes are first).
 <li><a href='#305'>3.0.5</a>
 <li><a href='#304'>3.0.4 and earlier</a>
 </ul>
+</div>
+
+<!------------------------------- 3.1.3 --------------------------------->
+<div class="sepbar"><a name='313'></a>3.1.3</div>
+<p><b><i>Released May 16, 2013</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+A bug in the parser caused a run-time error when a player attempted to
+traverse an AskConnector.  This is now fixed.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000169">bugdb.tads.org #0000169</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+For conversational commands such as HELLO, GOODBYE, YES, and NO, the
+parser now sets the sense context to the issuing actor (that is, the
+actor who issued a command, which is usually the player character)
+rather than the target actor (the target in BOB, GOODBYE is Bob).  For
+most commands, the target actor is the one who's meant to carry out
+the command - BOB, GO NORTH asks Bob to go north - so it's appropriate
+to execute most actions in the sense context of the target actor.  In
+the past, the parser did just this, unconditionally for all types of
+actions.  However, this isn't appropriate for conversational commands,
+because the meaning of the target actor is different in these
+commands; the target specifies the person being addressed in the
+conversation rather than the actor carrying out the command.  BOB,
+HELLO doesn't tell Bob to say hello, but rather tells the player
+character to say hello to Bob.  In these types of commands, then, the
+actor actually carrying out the command is the issuer, not the target,
+so the sense context should remain with the issuer.  The parser now
+makes this distinction when setting the sense context.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000190">bugdb.tads.org #0000190</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+A parser bug caused the same object to be matched multiple times in a
+disambiguation query under certain circumstances.  If an object
+defined multiple 'noun' words that all had a common prefix up to the
+truncation limit, and there were two or more objects with the same
+list of similar nouns, and the player entered a noun phrase that
+matched the common leading substring, a normal disambiguation question
+would be triggered.  If the player then answered this question with
+ALL, the parser matched each object multiple times, equal to the
+number of matching (truncated) nouns per object.
+
+<p>The key element to triggering the bug is multiple noun synonyms
+that share a common prefix that's longer than the truncation limit.
+It's rare to find examples of this in English games, but it's common
+in inflected languages where nouns have multiple forms with different
+endings (the bug was discovered in a Czech translation).  Here's a
+somewhat contrived English example.  The kind of compass you use to
+inscribe circles can be called a COMPASS or COMPASSES - it's one of
+those odd English words like "scissors" or "pants" where the plural
+noun form can be used for the singular object, but (unlike scissors or pants)
+the singular form can be used interchangeably.  If you set the TADS
+truncation limit to 6 characters, and then create a red compass and a
+blue compass with COMPASS and COMPASSES as noun synonyms, the bug
+would have caused the following odd interaction:
+
+<pre>
+&gt;x compas
+Which compas do you mean, the red compass or the blue compass?
+
+&gt;all
+red compass: It's an ordinary red compass.
+blue compass: It's an ordinary blue compass.
+blue compass: It's an ordinary blue compass.
+red compass: It's an ordinary red compass.
+</pre>
+
+<p>This is now fixed.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000188">bugdb.tads.org #0000188</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The library showed the wrong default message for the THROW DOWN
+command (that is, the ThrowDir action, when the direction is Down).
+The message used to be the rather non sequitur "You're not carrying
+that"; the message now says "You should just put it down instead."
+
+</div>
+
+
+
+<!------------------------------- 3.1.2 --------------------------------->
+<div class="sepbar"><a name='312'></a>3.1.2</div>
+<p><b><i>Released August 20, 2012</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+In the past, atmosphere messages (via the Room atmosphereList
+property) didn't display a paragraph separator before the message, so
+if whatever item happened to be displayed just before an atmosphere
+message didn't add a paragraph separator at the end, the atmosphere
+message was shown as a continuation of the preceding paragraph.
+Room.roomDaemon() now explicitly adds a &lt;.commandsep&gt; before
+each atmosphere message to ensure that a paragraph break is displayed.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000161">bugdb.tads.org #0000161</a>)
+
+
+</div>
+
+
+<!------------------------------- 3.1.1 --------------------------------->
+<div class="sepbar"><a name='311'></a>3.1.1</div>
+<p><b><i>Released July 14, 2012</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+The "inventory tall" lister incorrectly listed the contents of
+contentsListedSeparately containers both in-line and separately.
+This has been fixed, so that only the separate contents list is shown.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000116">bugdb.tads.org #0000116</a>)
+
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The Thing methods for LOOK and EXAMINE that generate listings of contents
+now pass an additional named parameter, "examinee:", to the list methods.
+This is occasionally useful when one of the listing-related methods on
+one of the contents objects needs to know exactly what the context of
+the listing is.
+
+<p>The specific situation that motivated this change was a problem
+involving MultiLoc items with special descriptions, as described in
+the next item.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, a MultiLoc with a special description was incorrectly
+included in the miscellaneous object list portion of a LOOK
+description for its room, or an EXAMINE description of its container.
+A special description is supposed to supersede inclusion in the
+ordinary list, since it provides the same information.  This
+now works correctly.
+
+<p>The reason for the double listing was that the method that decides
+whether or not to include an object in the ordinary list,
+isListedInContents, didn't deal properly with MultiLoc objects.  In
+fact, it couldn't deal with them properly, because it didn't have
+enough information, namely the identity of the object being
+examined.
+
+<p>For an ordinary Thing, the examinee is implicit in the call to
+isListedInContents, because this method is called only on direct
+children of the examinee; a Thing has only one direct container, so
+the examinee is implicitly the Thing's location.  This logic doesn't
+work for a MultiLoc, though, because a MultiLoc can have multiple
+direct containers.  So, to work properly, this method needed to know
+the examinee.  This information is now available to the method via
+the new "examinee:" named parameter that the various Thing methods
+for LOOK and EXAMINE now supply.  A new BaseMultiLoc.isListedInContents
+method uses the "examinee:" parameter to get the correct listing
+information.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000119">bugdb.tads.org #0000119</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+openableContentsLister has been renamed to openableDescContentsLister,
+because the original name was inconsistent with the corresponding
+listers for other classes.  xxxContentsLister is supposed to be the
+lister assigned to the 'contentsLister' property for class xxx, and
+xxxDescContentsLister is the one for 'descContentsLister'.
+('contentsLister' is the lister used for descriptions of objects
+<i>containing</i> the xxx, such as the enclosing room description;
+'descContentsLister' is for EXAMINE descriptions of the xxx itself.)
+There isn't (and never was) a separate 'contentsLister' for Openable;
+the former openableContentsLister was always its 'descContentsLister',
+but unfortunately wasn't named accordingly.
+
+<p>To minimize the impact on existing code, adv3.h provides a #define
+that maps the old name to the new name.  In the case of Openable,
+there's no need for a specialized 'contentsLister' at all, so there's
+no practical need to distinguish the two names, allowing us to create
+the mapping for the sake of compatibility.  Existing code shouldn't
+notice the difference unless it defined an openableDescContentsLister
+object of its own, which seems unlikely given that
+openableContentsLister already filled the role implied by that name.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The dobjFor() and iobjFor() macros in adv3.h now have some special
+code that catches handler definitions for non-existent Actions.  If
+the Action named in the dobjFor() or iobjFor() doesn't exist, the
+compiler will report an "undefined symbol" error naming the Action
+object.  This only happens in debug builds (e.g., using the "-d"
+option for the command-line compiler), since it generates some extra
+code to create a reference to the action object.  The warning can be
+helpful for catching typos (misspelled action names) or references to
+actions you intended to define but never got around to.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000135">bugdb.tads.org #0000135</a>)
+
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The English parser is a little more nuanced about the way it handles
+queries for missing direct objects for verbs with prepositional phrasing
+for the direct object.  For example:
+
+<p>
+<pre>&gt;DIG
+What do you want to dig in?
+
+&gt;IN THE DIRT
+</pre>
+
+<p>In the past, the parser treated the reply "IN THE DIRT" as a new
+command meaning ENTER DIRT.  The assumption was that if the reply
+matched the phrasing of a new command, it must in fact be a new
+command rather than a reply to the missing object query.  In many
+cases where there's this kind of ambiguity, the parser would have to
+be able to read the user's mind to know what was intended, but in this
+particular case the parallel phrasing of the query ("...dig in?") and
+the reply ("in <i>noun</i>") suggests pretty strongly that the user
+did indeed intend the input as a reply to the query rather than as a
+new command.
+
+<p>To address this, the parser has a new method for production
+matches, isSpecialResponseMatch.  This new method returns true if the
+production matches special phrasing that makes it more likely to be a
+query response than a new command, otherwise nil.  The English parser
+uses this for the various prepositional response phrasings, such as
+inSingleNoun and forSingleNoun; these are all subclasses of
+PrepSingleNounProd.  When one of these productions matches input that
+starts with its preposition, it will return true from
+isSpecialResponseMatch, causing the missing object query processor to
+treat the match as a reply to the query rather than as a new command,
+even when the phrasing could also be interpreted as a new command.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000147">bugdb.tads.org #0000147</a>)
+
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+A bug in the parser caused the wrong message to be displayed when a
+command was directed to an actor, and the predicate portion of the
+command contained an unknown word, and the noun phrase wording for the
+actor portion matched at least one grammatical structure phrasing that
+could only refer to an out-of-scope object.  In such a case, the
+parser reported "You see no <i>actor</i> here" rather than "The word
+<i>word</i> is not necessary in this story".  This was obviously the
+wrong message when an actor matching the noun phrase actually was in
+scope, but was also inconsistent with the "unknown word" message shown
+in other similar cases that didn't meet all of the bug conditions.
+This has now been fixed so that the "unknown word" message is used.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000149">bugdb.tads.org #0000149</a>)
+
+</div>
+
+
+
+<!------------------->
+<div class=entry>
+
+In the past, the library incorrectly called breakTopicTie() on each
+matching topic with the topic object as the first argument, instead of
+passing the whole list of matching topics as advertised.  This has
+been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000138">bugdb.tads.org #0000138</a>)
+
+</div>
+
+<!------------------------------- 3.1.0 --------------------------------->
+<div class="sepbar"><a name='310'></a>3.1.0</div>
+<p><b><i>Released 12/21/2011</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+The on-again, off-again <a
+href='#getInScopeDistinguisher'>detailed-naming scheme</a> is now on
+again, this time with enhancements that will (hopefully) make it here
+to stay.  This feature was first introduced in version 3.0.10, then
+disabled by default in 3.0.11 due to rough edges in that first
+attempt.  It's reinstated in this release, with improvements.  This
+improved version has been separately available for some time in an
+extension called newNames.t, so it's seen some testing and we think
+it'll provide good results.
+
+<p>The problem with the 3.0.10 implementation was that it made the
+object-name announcements unnaturally verbose - it added an excess of
+qualifiers to object names compared to what a human speaker would use.
+The new version tries to be smarter about adding only useful detail,
+by using more contextual information.  For a multi-object
+announcement, for example, the new version only adds enough detail to
+distinguish the objects being announced from one another (rather than
+from everything else in scope), and also considers the context at a
+fixed point in time.  The new version also uses the ordinary name for
+an object whenever that's enough to distinguish it; it only uses the
+(usually more verbose) disambig name when it's needed.
+
+<p>If you find that the new version still produces awkward
+announcements, or if you just prefer the original style, you can
+disable this feature: just set
+gameMain.useDistinguishersInAnnouncements = nil.  This makes the
+parser revert to the basic object names in announcements.
+
+<p>Note that this change makes the newNames.t extension superfluous,
+since the library now incorporates it in its entirety.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+It's now possible for a game to provide custom code to break ties in
+topic matches, when more than one topic matches the player's input
+with the same score.  In the past, the parser just chose a matching
+topic entry arbitrarily.  In some cases, it's possible for the game to
+make a smarter choice based on the exact input text.  In addition, the
+parser now automatically filters tie lists by selecting exact text
+matches over truncated text matches.
+
+<p>To add a custom tie-breaker, you add the method breakTopicTie to
+one or more of your TopicEntry objects.  This method receives as
+arguments the list of tied TopicEntry objects, the original
+ResolvedTopic object from the parser, the atcor, and the original
+input token list.  When a topic tie occurs, the parser calls this
+method on each tied TopicEntry object in turn, in in arbitrary order.
+This method can either select the tie-breaker or do nothing.  If it
+selects the tie-breaker, the selection process ends immediately with
+the selected winner; otherwise, the parser continues calling
+breakTopicTie on the remaining TopicEntry objects in the list of ties.
+
+<p>This method was added to address a situation where two topics
+happened to match the same input due to vocabulary truncation.
+Suppose we have a game object that matches the vocabulary "elephant",
+and another that matches "elephants".  If the player enters ASK ABOUT
+ELEPHANT, the word ELEPHANT in the input will match both game objects,
+since the parser allows the user to abbreviate words by truncating to
+the first six characters only.  Now suppose we have separate topic
+entries for these two objects, and that both topics are active at the
+same time and have the same match score.  This results in a topic tie,
+triggering the new tie-breaking code.
+
+<p>For the sake of this example, let's suppose that you want to
+distinguish between ASK ABOUT ELEPHANT and ASK ABOUT ELEPHANTS (which
+stands to reason, as you probably wouldn't have created both topic
+entries otherwise).  In the past, since we have a tie between the two
+topic entries, the parser simply chose one arbitrarily.  You can now
+specifically select one or the other for a given entry, by writing a
+breakTopicTie method.  Since we want ASK ABOUT ELEPHANT to match the
+singular version of the topic, here's how the method would look:
+
+<p>
+<pre>
+    breakTopicTie(matches, topic, actor, toks)
+    {
+        if (toks[1].toLower() == 'elephant')
+            return self;
+        return nil;
+    }
+</pre>
+
+<p>You can add this method to either TopicEntry object, but it really
+belongs conceptually with the singular version of the topic.
+
+<p>The default handling for breakTopicTie() is simply to return nil,
+which defers to other objects in the list to make the selection.
+
+<p>For the specific case of truncation matching, you actually don't
+have to write a breakTopicTie() method after all, since the parser now
+<b>also</b> uses vocabulary truncation to break ties on its own.  It
+does this <b>after</b> applying any custom breakTopicTie() results.
+That is, if breakTopicTie() fails to break the tie, because none of
+the TopicEntry objects return a non-nil result for the method, the
+parser tries to break the tie on its own by comparing vocabulary
+truncation flags.  If one topic entry matched with truncation, and
+another didn't, the parser will select the one that matched without
+truncation.
+
+<p>The parser selects by truncation because this is probably the most
+common basis for selection.  But it's certainly not the only basis.
+Other selection criteria could include word order, and the presence or
+absence of certain words.  Those sorts of criteria would be very
+difficult to encode into a general framework, thus breakTopicTie()
+leaves it to the game to make the selection.
+
+<p>This feature addresses <a
+href="http://bugdb.tads.org/view.php?id=78">bugdb.tads.org #0000078</a>.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The scheme that selects which message to display for a reportFailure()
+or similar message call had a problem when a verb had both a direct
+and an indirect object, <i>and</i> both of those objects had overrides
+for the same message.  The message generator always gave priority to
+the direct object when both objects had overrides, which was wrong if
+the message was due to a condition relating to the indirect object.
+For example, given an Underside and a Container, both with limited
+bulk, "PUT Underside IN Container" showed the Underside's bulk error
+message ("The Container won't fit under the Underside"), since the
+Underside is the direct object.
+
+<p>The message generator now gives priority to the <i>calling</i>
+object.  The generator looks in the stack trace for a "self" object in
+the source list, and gives priority to the first source object it
+finds.  This is the source object whose method is actually generating
+the message; this will usually be a verify(), check(), or action()
+method to process a verb, so presumably it's the object to which the
+error condition applies.
+
+<p>(It's certainly valid to generate messages from other places than
+the verify(), check(), and action() methods, or indeed from an object
+that's not one of the message sources.  But the source priority
+shouldn't matter in those cases, because the message presumably has no
+particular object affiliation anyway if it's not being generated by
+code attached to one of the source objects.)
+
+<p>(<a href="http://bugdb.tads.org/view.php?id=61">bugdb.tads.org #0000061</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The new TAction methods getDobjTokens() and getDobjWords() make it easier
+to retrieve the original text entered by the player to refer to the current
+direct object.  These work only when there's an active direct object
+(a non-nil object in gDobj).
+
+<p>The corresponding new TIAction methods getIobjTokens() and getIobjWords()
+retrieve the original text of the current indirect object.
+
+<p>The token lists returned generally contain the full phrase that the
+player entered, including qualifiers like articles ("the") and possessives.
+When the player enters a list ("take book, bell, and candle"), the
+token list will only include the phrase for the current object, not
+the whole list. 
+
+<p>Original text isn't always available even when there's a valid
+direct/indirect object in play.  For example, text isn't generally
+available when the action is a nested or implied action, since these
+actions are synthesized internally within the game rather than being
+parsed from user input.  The new methods return nil when there's no
+original text available for the corresponding objects.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, the getOrigTokenList() method on a noun phrase that had
+been manually disambiguated ("which book do you mean...") returned
+only the tokens of the user's last answer.  For example, if the player
+typed "take book", and answered the "which book" question with "blue",
+then getOrigTokenList() on the resulting noun phrase returned just the
+"blue" token.
+
+<p>The parser now builds a token list that has the complete original
+noun phrase plus the disambiguation answer (or answers, if multiple
+questions were needed to narrow the list sufficiently).  The naive way
+to do this (at least in English) might be to simply prepend the
+disambiguation answer to the original noun phrase, on the assumption
+that the answer is simply an adjective modifying the original phrase;
+this would work for the "blue book" example above.  One problem with
+this is that some names include prepositional phrases, such as "stack
+of bills"; we'd want a "which one?" answer of "$20" to turn this into
+"stack of $20 bills" instead of "$20 stack of bills", since that would
+mean something rather different.  The bigger problem is that the
+parser accepts a number of answer formats that aren't mere adjectives,
+such as "the blue one", "both", "any of them", and "2" or "second" or
+"the second one" to pick the second item listed in the parser's "which
+book" question.  These obviously would produce nonsense using the
+naive algorithm.
+
+<p>The parser's solution is to append each new answer parenthetically
+to the end of the original phrase.  This produces a result that's at
+least comprehensible (and usually pretty good) for any answer format,
+because it parallels the way the phrase was actually built, as a
+series of post hoc clarifications: "book (the blue one)" or "tea (Earl
+Gray) (hot)".  Further, if there's a need to display the phrase to the
+player, it should make sense to the player because it parrots back
+what they just typed, retaining the same word order and grouping.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+SenseConnector now overrides checkThrowViaPath(), to handle throwing
+objects across the connector independently of "move" and "reach"
+operations.  In the past, throwing was handled as equivalent to
+moving, but this caused an unintended change of behavior when
+DistanceConnector was recently changed (in 3.0.16) to allow moving
+objects across a distance.
+
+<p>SenseConnector also defines a new method, checkThrowThrough().
+This method is the "throw" equivalent of the existing methods
+checkMoveThrough() and checkTouchThrough().  The default definition of
+the new method returns a failure indication, parallel to the
+corresponding existing methods for "move" and "reach".
+
+<p>Finally, DistanceConnector overrides checkThrowThrough() in
+parallel to its corresponding overrides for "move" and "reach".
+
+<p>This change (a) restores the pre-3.0.16 behavior for throwing
+across a distance, by disallowing it, and (b) makes it possible to
+define independent move, reach, and throw handling for sense
+connectors.
+
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The English parser now accepts "LOOK <i>thing</i>" and "L
+<i>think</i>" as synonyms for "LOOK AT <i>thing</i>", since it's been
+observed that many novice players use this syntax.
+
+<p>(<a href="http://bugdb.tads.org/view.php?id=91">bugdb.tads.org #0000091</a>)
+
+</div>
+
+
+<!------------------->
+<div class=entry>
+
+Thing.addToContents() now skips adding the child object to the
+'contents' list if it's already there.  In the past, it was possible
+to cause an item to added to its parent's contents list twice, by
+explicitly using moveInto() in an initializeThing() override; this
+caused strange behavior, such as listing the child item twice in
+contents list messages.  The extra check avoids this unintended
+duplication.
+
+<p>(<a href="http://bugdb.tads.org/view.php?id=67">bugdb.tads.org #0000067</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Using a RoomPart as a regular contents item in a room (rather than as
+an element of a roomParts list) caused a run-time error on LOOK AROUND
+in some cases.  This has been corrected.
+
+<p>(<a href="http://bugdb.tads.org/view.php?id=76">bugdb.tads.org #0000076</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, if you put one StretchyContainer inside another, the library
+didn't properly enforce the bulkCapacity of the outer container when adding
+new contents to the inner container.  (Since the inner container is itself
+a StretchyContainer, its bulk can increase when a new item is added, which
+can make it too large for the outer container.)  This has been corrected.
+
+<p>(<a href="http://bugdb.tads.org/view.php?id=68">bugdb.tads.org #0000068</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+ASK ABOUT and other topic verbs sometimes didn't work properly when
+plural words were used in the topic phrase.  This has been corrected.
+
+<p>(<a href="http://bugdb.tads.org/view.php?id=69">bugdb.tads.org #0000069</a>)
+
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The English command grammar now allows "the" as an article in
+possessive phrases, as in "the orc's axe".  In the past, possessive
+phrases didn't allow any article qualifier (the library took the
+overly narrow view that possessives are usually proper names, as in
+"Bob's book").
+
+<p>In addition, plural possessives, signified by an apostrophe at the
+end of a plural word, are now accepted.  For example, "the Smiths'
+house" would be accepted if "Smiths" is defined as a plural word.
+(<a href="http://bugdb.tads.org/view.php?id=77">bugdb.tads.org #0000077</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The Lister had a bug involving list groups with minimum group sizes.
+If there weren't enough candidate items to list with a group,
+according to the group's minGroupSize property, but there were more
+than one item, the list builder incorrectly included only one of the
+items in the final list, omitting the others.  This has been corrected
+- the list builder now includes moves all of the candidate items to
+the "singles" list, so they all show up in the final list.
+(<a href="http://bugdb.tads.org/view.php?id=83">bugdb.tads.org #0000083</a>)
+
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, if a command contained a noun phrase of the form THE ONE
+IN <i>CONTAINER</i>, and the phrase required interactive
+disambiguation, the parser incorrectly acted as though the player
+answered the "which one do you mean?" prompt with ALL.  This was due
+to a parser bug; it's now fixed.
+
+(<a href="http://bugdb.tads.org/view.php?id=95">bugdb.tads.org #0000095</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The parser now gives priority to a possessive-phrase interpretation of
+a noun phrase that doesn't match anything in scope, in cases where the
+same words could be interpreted as a plain noun phrase without any
+possessive qualifiers.  For example, in the library sample game, we
+have an object defined with vocabulary words including "Bob's fish
+cleaner", which means that "Bob's" is defined as an adjective in the
+dictionary.  "Bob" also is the name of an actor in the game, so the
+word "Bob's" in player input can be interpreted in two ways: as an
+adjective, or as a possessive qualifier.  If the player enters a noun
+phrase such as "Bob's desk", the same phrase can be interpreted with
+two very different grammatical structures: the possessive qualifier
+"Bob's" modifying an underlying noun phrase "desk", or the noun phrase
+"Bob's desk", where the first word is a simple adjective from the
+dictionary.  In the past, the parser considered the two phrasings be
+equally strong at the structural level.  If one phrasing has a valid
+resolution (i.e., it could be mapped to in-scope objects) and the
+other doesn't, the structural equivalence doesn't matter, because the
+parser always picks the phrase that has the best resolution to game
+objects.  However, in cases where neither phrasing has a resolution -
+because there's no desk in scope at all, say - the parser picks the
+interpretation based on structural strength.  Since the two phrasings
+were equally strong, the parser picked one arbitrarily.  If the winner
+happened to be the adjective interpretation, this produced the odd
+error message "You see no bob's desk here."  Now, with this change,
+the parser gives priority to the possessive interpretation in cases
+where other things are equal, so the error will be "You see no desk
+here."  This is a better message because the unmatched object really
+is simply "desk", regardless of whose desk it is; reporting that
+"bob's desk" is the missing object seems overly literal.
+
+(<a href="http://bugdb.tads.org/view.php?id=96">bugdb.tads.org #0000096</a>)
+
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Room now provides a suitable message for cases where objects are
+thrown within the room, but there's no floor object among the room
+part list for the room.  In the past, this caused a run-time error,
+because there was no message defined for this situation.
+
+<p>When an object is thrown, the library's default handling is simply
+to drop the object into the room, as though the player had typed DROP
+<i>PROJECTILE</i>.  The default message, though, describes the object
+as "falling <i>to the floor</i>", where <i>to the floor</i> is
+replaced by a message that depends on the "nominal drop destination"
+for the location - i.e., the object where things are <i>described</i>
+as landing when dropped in the room.  The standard nominal drop is the
+room's floor, which is to say the Floor object in the room's roomParts
+list.  If there's no floor object, though, the fallback is the Room
+itself.  The run-time error occurred because Room didn't have the
+associated message property for this situation.  The <i>to the
+floor</i> phrase in the message is obtained via the putDestMessage
+property, which Room didn't define.  Room now defines this property as
+the message property pointer &amp;putDestRoom.  libMessages in the
+English library in turn defines putDestRoom to display "into <i>the
+room</i>".  The result is that THROW PROJECTILE AT WALL in a room
+without a floor now properly replies "...and falls into <i>the
+room</i>", instead of causing a run-time error.
+
+<p>(<a href="http://bugdb.tads.org/view.php?id=78">bugdb.tads.org #0000078</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Using replaceAction with GiveTo sometimes caused a run-time error.
+(This was due a complex interaction with the giveMeToAskFor global
+remapping.  AskFor is a "topic" action, but GiveTo isn't; the remapping
+tried to resolve the GiveTo direct object as a topic for AskFor, but
+within the context of the GiveTo verb, which didn't provide one of
+the required resolver methods, createTopicQualifierResolver.  This
+method is now defined for the base Action class, since this situation
+creates a dependency on it even for ordinary non-topic action types.)
+
+<p>(<a href="http://bugdb.tads.org/view.php?id=103">bugdb.tads.org #0000103</a>)
+
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The English library message for an empty topic inventory has been reworded
+slightly for the past-tense version, replacing "right now" with "just then".
+
+</div>
+
+
+<!------------------------------- 3.0.18.1 --------------------------------->
+<div class="sepbar"><a name='3018a'></a>3.0.18.1</div>
+<p><b><i>Released 5/5/2009</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+A typo in the English message for refuseCommand has been fixed.
+   
+</div>
+
+
+<!------------------------------- 3.0.18 --------------------------------->
+<div class="sepbar"><a name='3018'></a>3.0.18</div>
+<p><b><i>Released 4/28/2009</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+More of the lister classes have been reorganized along the same lines
+as the BaseContentsLister refactoring in version 3.0.17.  In particular:
+
+<ul>
+   <li>surfaceLookInLister, undersideLookUnderLister, and rearLookBehindLister
+   are now trivial classes based on the new class LookWhereContentsLister.
+   For consistency, thingLookInLister is based on the new class as well,
+   but is non-trivial due to its different wording.
+
+   <li>surfaceInlineContentsLister, undersideInlineContentsLister, and
+   rearInlineContentsLister are now trivial classes based on the new class
+   BaseInlineContentsLister.  For consistency, inlineContentsLister
+   is also based on the new base class, but is non-trivial due to
+   its different wording.
+   
+</ul>
+   
+</div>
+
+<!------------------->
+<div class=entry>
+
+When an action remapping is inherited from a base class, a subclass or
+instance can now define a verify() method for the original action.  In
+the past, only the <b>new</b> action's verify() was called - the
+remapping bypassed any dobjFor() or iobjFor() definitions for the
+old action.  This made it impossible to tweak the subclass handling
+for verbs that were remapped in base classes.
+
+<p>With this change, the verify() for the <b>new and old</b> actions
+are <b>both</b> called, <b>if</b> there's a verify() for the old
+action defined on a subclass of the class where the remap() itself is
+defined.  In other words, if the verify() "overrides" the remap(), the
+subclassed verify() is invoked.
+
+<p>Because the verify() methods for both the old and new actions are
+called, you can't actually override the new action's verify() call.
+But verify() results are cumulative, so you <i>can</i> use it to
+adjust the logicalness of the action, or to make the action illogical.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The parser can now has an option to generate more descriptive messages
+when noun phrases are disambiguated using the logicalness rules.
+
+<p>Disambiguation occurs when the player uses a noun phrase that
+matches more than one in-scope object.  For example, if the current
+room contains a red door and a blue door, and the player types OPEN
+DOOR, the noun phrase DOOR could refer to either of the two door
+objects.  The parser must decide which of the two objects the player
+is referring to; this process is called disambiguation.  The parser
+does this by applying the various logical, logicalRank, illogicalNow,
+illogicalAlready, and related rules defined on the matching objects in
+the library and in your game code.
+
+<p>There are two kinds of disambiguation results: "clear" and
+"unclear".  When exactly one of the objects involved is logical, it's
+a clear disambiguation result: we consider it safe to assume that the
+player was referring to that exact object, since the other choices
+simply don't make sense.  When more than one object is logical,
+though, the parser can sometimes still pick one automatically (i.e.,
+without generating an extra question asking the player to specify
+which one she intended) based on the "likelihood" rankings given by
+logicalRank rules.  A pick based on likelihood rankings is an unclear
+result, because the player could plausibly have been referring to one
+of the other logical matches.
+
+<p>For unclear results, the parser has always generated a
+parenthetical announcement saying which object it chose.  This is to
+alert the player to the parser's choice, so that any misunderstanding
+is immediately apparent.
+
+<p>However, in past versions, the parser didn't say anything to
+explicate clear disambiguation results.  In practice, even clear
+results can sometimes disagree with the player's intentions, for the
+simple reason that the player sometimes misunderstands the current
+state of the objects.  So some authors have found that it's better to
+make some kind of object announcement in every case, regardless of how
+clear the parser thinks the resolution is.
+
+<p>The parser now provides two new modes, in addition to the
+traditional mode, for announcing clear disambiguation results.  These
+new modes are selected via the new gameMain property ambigAnnounceMode.
+You can set this in your gameMain object to select the behavior you
+prefer.  The settings are:
+
+<ul>
+
+   <li>AnnounceUnclear: The parser makes a parenthetical announcement
+   (such as "(the red door)") only when a disambiguation result is
+   unclear.  It doesn't make any announcements for clear disambiguation
+   results, or when only one in-scope object matches a noun phrase.
+   This is the traditional behavior that the library used before the
+   new options were added.
+
+   <li>AnnounceClear: The parser makes a parenthetical announcement
+   for <i>any</i> disambiguation result, whether clear or unclear.
+   No announcement is generated when there's no disambiguation, though
+   (that is, the noun phrase itself matches only one in-scope object).
+
+   <li>DescribeClear: For unclear disambiguation, the parser makes the
+   traditional parenthetical announcement.  For clear disambiguation,
+   the parser skips the parenthetical announcement, but it uses more
+   detailed default reply messages in lieu of the ultra-terse defaults,
+   such as "Taken" or "Dropped".  For example, instead of just "Taken",
+   the parser replies "You take the dusty old tome."  The longer messages
+   mention the objects involved by name, so they provide the same
+   information as the parenthetical announcements, but in a somewhat
+   less conspicuous and mechanistic way.
+
+</ul>
+
+<p>Note that the new default behavior differs from the old behavior
+from before this feature was added.  If you prefer the old behavior,
+you must explicitly set gameMain.ambigAnnounceMode to AnnounceUnclear.
+
+<p>The short-vs-long message selection for the DescribeClear option is
+done through a couple of new MessageHelper methods, shortTMsg() and
+shortTIMsg().  If you're adding new messages of your own, you can use
+these methods to do the same type of selection.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The parser can now accept short-hand replies to disambiguation queries
+involving a locational qualifier, using nothing more than an adjective
+or noun from one of the location names.  For example:
+
+<p><pre>
+&gt;take torch
+Which torch do you mean, the torch in the left sconce, or the torch in
+the right sconce?
+
+&gt;left
+Taken.
+</pre>
+
+<p>In the past, it was necessary for the response to be explicit about
+the location qualification: THE TORCH IN THE LEFT SCONCE, THE ONE IN
+THE LEFT, etc.  In particular, the response had to actually use the
+locational phrasing to refer to the distinguishing location.  This is
+no longer necessary; a player can now simply name one of the
+locations, and can even abbreviate to a single distinguishing word
+from the location name.
+
+<p>To support this change, the DisambigResolver now keeps track of the
+Distinguisher that was used to generate the question (the prompting
+message - "Which torch do you mean...?").  This lets the resolver look
+for qualifying phrases relevant to the distinguishing characteristic
+called out in the prompt.
+
+<p>The Distinguisher, meanwhile, has a couple of new methods that let
+it provide the added information: objInScope() lets the distinguisher
+add qualifying objects to the scope list, and matchName() lets the
+distinguisher recognize qualifying objects in addition to the original
+ambiguous objects.  The locational and ownership distinguishers
+defined in the library provide suitable definitions for these new
+methods.  Games that define their own custom Distinguisher subclasses
+might want to add these methods if they also make use of ancillary
+qualifier objects.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the English library, PathPassage adjusts the logicalness of
+the verbs Enter and Go Through downward (to logical rank 50).  These
+verbs aren't usually used with path-like objects in English;
+this logicalness adjustment tells the parser to pick other objects
+first in cases of ambiguity.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The new conversationManager method setRevealed(key) adds the given key
+to the revealed topic table.  The library now calls this method any
+time it needs to add a key to the table (whereas it used to manipulate
+the table directly).
+
+<p>These changes don't affect any existing behavior - existing code
+will continue to work unchanged.  The purpose of the changes is to
+provide a single point for overriding the default library behavior via
+'modify'.  In particular, you can override setRevealed() to store
+additional information about the revealed topic in its table entry,
+beyond the mere fact of the revelation.  You could, for example, store
+the location where the key was revealed, or a time stamp marking when
+it was revealed.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+A new ConvNode method, noteActiveReason(reason), extends the older
+noteActive() method by providing information on why the node is being
+activated.  The 'reason' parameter is a string indicating what
+triggered the node change:
+
+<ul>
+   <li>'convnode' - processing a &lt;.convnode&gt; tag
+   <li>'convend' - processing a &lt;.convend&gt; tag
+   <li>'initiateConversation' - a call to Actor.initiateConversation()
+   <li>'endConversation' - a call to Actor.endConversation()
+</ul>
+
+<p>By default, this new method simply ignores the reason code and
+calls the noteActive() method.  This ensures that existing code will
+work unchanged.
+
+<p>If you need the reason information when activating the node,
+override noteActiveReason().  Otherwise, you can override noteActive()
+as in the past.
+
+<p>The new reason code information is supplied when the caller changes
+the node by calling the new Actor method setConvNodeReason().  This is
+essentially an extended version of the existing setConvNode() method.
+The new method takes an additional argument giving the reason code,
+which it passes to noteActiveReason().
+
+<p>Note that the reason code will be nil if the node change is
+initiated by calling Actor.setConvNode() directly.  All of the library
+calls to setConvNode() have been replaced by calls to
+setConvNodeReason(), so unless your game code is calling setConvNode()
+directly, the reason code will always be set properly.  For
+compatibility with existing code, setConvNode() can still be called;
+it works as before, simply passing a nil reason code.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+<a name="3018-byetopic-convnode"></a>In the past, when an actor used
+conversational states (ConversationReadyState, InConversationState),
+terminating the conversation didn't take into account any ByeTopic
+objects in the current ConvNode within the conversation.  This was
+because the conversation states have some special transition handling
+that overrides the usual code where the ConvNode ByeTopic would be
+found.  The conversation states now take care to check the ConvNode
+in effect at the end of the conversation, so ByeTopic objects within
+a ConvNode should now interact properly with conversation states.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The transformation from "X, GIVE ME Y" to "ASK X FOR Y" that was
+introduced in 3.0.17 caused a run-time error if "Y" was a valid word
+but didn't resolve to an object.  This has been corrected.
+(<a href="http://bugdb.tads.org/view.php?id=0000021">bugdb.tads.org #0000021</a>)
+
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, when EXAMINE was used with ItemizingCollectiveGroup, the
+output omitted any object that wasn't listable through the room
+contents lister.  This was a problem for objects such as Fixtures,
+which normally aren't displayed in a room listing.
+
+<p>ItemizingCollectiveGroup now calls a new method on self,
+examineUnlisted(x), to list each object <i>x</i> that isn't listed
+via the room contents lister.  By default, this new method performs
+a nested EXAMINE command on the unlisted object to show its full
+description.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In Settable, the message routing properties have been changed
+slightly.  In the past, the message properties okaySetToMsg and
+setToInvalidMsg were doubly redirected: okaySetToMsg had the value
+&amp;okaySetToMsg, and setToInvalidMsg had the value
+&amp;setToInvalidMsg.  The TurnTo action handler that used these
+messages evaluated the properties directly, to get the property
+pointers, which the library then processed in the usual way.
+
+<p>The point of this arrangement was that subclasses of Settable (Dial
+in particular) could easily redirect these messages to different
+library messages, just by overriding the properties.  However, this
+was inconsistent with the message scheme most other objects use, in
+that you couldn't override okaySetToMsg(val) in the Settable itself to
+yield the message text, which is how the message scheme works for
+most other objects.
+
+<p>The new version keeps the redirection step, but renames it to allow
+the standard override scheme to be used.  The new property okaySetToMsgProp
+evaluates to &amp;okaySetToMsg, and setToInvalidMsgProp evaluates to
+&amp;setToInvalidMsg.  This means that you can override okaySetToMsg(val)
+and setToInvalidMsg(val) using the standard pattern.
+
+<p>(<a href="http://bugdb.tads.org/view.php?id=0000045">bugdb.tads.org #0000045</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Underside and RearContainer now provide tryMovingObjInto() method
+definitions.  The new methods try the obvious implied commands
+suitable for these objects: Underside tries an implied PutUnder, and
+RearContainer tries an implicit PutBehind.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The BannerWindow method updateForRestore() is now called during a
+Restore or Undo operation for every banner, even when the banner is
+already displayed.  In the past, this method wasn't called on banner
+windows that were already present; it was only called when the window
+had to be created in the course of the Restore/Undo.  It's now called
+uniformly for all banners.
+
+</div>
+
+<!------------------------------- 3.0.17.1 --------------------------------->
+<div class="sepbar"><a name='3017a'></a>3.0.17.1</div>
+<p><b><i>Released 8/12/2008</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+<i>This version has no library changes; this release is to correct
+a TADS 3 compiler problem introduced in 3.0.17.</i>
+   
+</div>
+
+
+<!------------------------------- 3.0.17 --------------------------------->
+<div class="sepbar"><a name='3017'></a>3.0.17</div>
+<p><b><i>Released 8/9/2008</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+<b>Risk of incompatibility:</b> The standard handling for the TakeFrom
+action has been changed slightly.  The changes generally make it
+easier to code objects by unifying the handling of Take and TakeFrom
+for most objects, but some slight adjustments to existing code might
+be required - see below.
+
+<p>First, Thing.dobjFor(TakeFrom)'s action() handler now actually
+replaces the TakeFrom with a Take action.  In the past, the handler
+merely invoked the Take action() handler.  For the most part, this had
+the same effect as replacing the action, but not always; some
+arrangements of subclasses and overrides caused subtle differences.
+Actually replacing the action ensures that a successful TakeFrom is
+handled <i>exactly</i> like a regular Take, which means that custom
+behavior for Take will automatically apply exactly the same way to
+TakeFrom without any explicit TakeFrom overrides.  Of course, you can
+still override dobjFor(TakeFrom) separately if you do want it to
+behave differently from Take.
+
+<p>Second, Immovable.dobjFor(Take) now fails the action in the check()
+handler rather than the action handler, which allows us to remove
+Immovable.dobjFor(TakeFrom) entirely.  In the past, TakeFrom was
+separately overridden to ensure that the indirect object wouldn't
+attempt to carry out the action, but this is no longer necessary,
+since the basic Take check() phase (which TakeFrom's check() phase
+invokes) will fail the command.
+
+<p>These two changes should essentially eliminate the need to override
+TakeFrom when all you want to do is make it behave the same as Take.
+TakeFrom should now always follow Take's lead, so if you simply want
+TakeFrom and Take to behave the same way, just override Take and
+you're set.
+
+<p>Some existing code might not work properly with the changes to
+Immovable.  In particular, you'll need to look at any objects of class
+Immovable (or any subclass of Immovable) where you've overridden the
+dobjFor(Take) action() handler.  In the past, overriding the action()
+handler for Take was enough to override Immovable's handling of the
+command, since Immovable failed the command in the action() handler
+and did nothing in the check() handler.  With the change, the check()
+handler cancels the action.  This means that your overridden action()
+handler might never be invoked.  The solution is simply to insert an
+empty dobjFor(Take) check() handler in your object:
+
+<p>
+<pre>
+   boulder: Immovable 'boulder' 'boulder' "It's a big boulder. "
+      dobjFor(Take)
+      {
+        verify()
+           { /* my original verify routine... */ }
+        check() { }   // THIS HAD TO BE ADDED DUE TO THE LIBRARY CHANGE !!!
+        action()
+           { /* my original action routine... */ }
+      }
+    ;
+</pre>
+
+<p>If you're not sure whether you have any objects needing this change,
+you can add this bit of code to your game, and then run the game and
+type IMMTEST to get a list of objects that you should inspect:
+
+<p>
+<pre>
+   VerbRule(immtest) 'immtest' : IAction
+     execAction()
+     {
+       "Immovables with dobjFor(Take) action() overrides:\n";
+       forEachInstance(Immovable, new function(x)
+       {
+         if (overrides(x, Immovable, &actionDobjTake))
+           "\t!!! <<x.name>>\n";
+       });
+     }
+   ;
+</div>
+
+<!------------------->
+<div class=entry>
+
+Krister Fundin's Tips extension has now been integrated into the
+library as a standard feature.  This system makes it easy to create
+custom one-time tips of the sort that the library has traditionally
+used for things like the explanation of the NOTIFY command the first
+time the game's score changes.  The library now uses the Tips system
+for its standard tips, and the system is readily extensible with
+custom, game-specific tips.  A new chapter in the <i>Technical
+Manual</i> describes the system.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+
+It's now possible to determine if a script file is currently being
+read, and if so, the modes being used to read it.  To get this
+information, call <tt>setScriptFile(ScriptReqGetStatus)</tt>.  If
+input is currently being read from a script, the function returns an
+integer value giving a combination of <tt>ScriptFileXxx</tt> flags
+describing the reading mode; for example, the return value will be
+<tt>(ScriptFileQuiet | ScriptFileNonstop)</tt> for a script being read
+in quiet, non-stop mode.  Note that a return value of 0 (zero)
+indicates that a script <b>is</b> being read, but that none of the
+mode flags are applicable - that is, the script is being read in the
+default modes, with output and "more" prompts displayed.  If a script
+is <b>not</b> currently being read, the return value is nil.
+
+<p>The new flag <tt>ScriptFileEvent</tt> will be included in the
+return value if applicable.  This lets you determine whether the
+script being read is an event script or a plain command-line script.
+Note that this new flag is "query only" - if you include it in the
+'flags' argument in a call to setScriptFile() to start reading a
+script, the function ignores it, since the script reader determines
+the type of the script to be read automatically by examining the
+file's contents.  The purpose of this flag is to let you find out how
+the script reader is treating the file, rather than letting you tell
+the script reader how to treat the file.
+
+<p>Note that this new form of setScriptFile() is only supported in VM
+versions 3.0.17 and higher.  If you call
+<tt>setScriptFile(ScriptReqGetStatus)</tt> on an earlier VM, a
+run-time error result, because older implementations of the function
+accept only a filename string or nil as the first argument.  You can
+use try-catch to handle this situation - a run-time error indicates
+that this form of the function isn't supported, in which case the
+script status information is not available.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Two new actions have been added: RecordEvents and RecordEventsString.
+These are variations on the Record and RecordString actions that
+record event scripts (rather than ordinary command scripts, as Record
+and RecordString do).  The English library defines verb syntax for
+these new actions ("record events", "record events on", and "record
+events '<i>filename</i>'").
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+A new parsing mechanism makes it possible to rewrite commands based on
+"global" conditions.  Unlike remapTo, which lets you associate
+remapping rules with the objects involved in the command, the new
+mechanism lets you rewrite a command even before the objects are
+resolved.  There are cases where it's important to be able to apply
+the rewrite before any object resolution has taken place, because the
+resolution process itself can vary substantially depending on the type
+of action being performed.  remapTo has to wait until after objects
+are resolved, which is sometimes too late.
+
+<p>This new mechanism is implemented via a new class, GlobalRemapping.
+To create a rewrite rule, you create a GlobalRemapping object, and
+define its getRemapping() method.  This method looks at the action to
+determine if it's of interest, using whatever criteria you want.  In
+most cases, this means checking the action type to see if it's an
+action you want to rewrite, and possibly checking to see if certain
+objects are involved as well.
+
+<p>The library defines one GlobalRemapping object, giveMeToAskFor,
+which rewrites commands of the form "X, GIVE ME Y" to the alternative
+format "ME, ASK X FOR Y".  The library formerly <i>tried</i> to
+perform this same rewriting via an iobjFor(GiveTo) check() method in
+Actor, but this approach didn't work in many cases due to interference
+from several other checks made earlier in the execution process.  The
+old check() scheme has been deleted in favor of the new mechanism.
+
+<p>For full details, see the new chapter on Global Command Remapping
+in the <i>Technical Manual</i>.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+A new set of Action methods makes it possible to temporarily override
+the meaning of a pronoun, for as long as the action is in effect.
+Action.setPronounOverride() creates an override, which associates an
+object with a particular pronoun type (PronounMe, PronounYou, etc).
+This new meaning overrides the usual meaning, but only for the
+duration of the action.  Action.getPronounOverride() looks for an
+override defined with setPronounOverride() for this action.
+
+<p>This new mechanism is designed mainly to support GlobalRemapping.
+In particular, a remapping that changes the target actor usually needs
+to override the meaning of "you" in the rewritten action, so that
+"you", "your", and "yours" are interpreted as referring to the
+<i>original</i> target actor rather than the target actor of the
+rewritten format.
+
+<p>For details, see the new chapter "Global Command Remapping" in
+the <i>Technical Manual</i>.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The classes BaseSurfaceContentsLister, BaseRearContentsLister, and
+BaseUndersideContentsLister are now all based on a new class,
+BaseContentsLister.  This new class unifies the code that was formerly
+defined separately in the three subclasses -
+BaseSurfaceContentsLister, BaseRearContentsLister, and
+BaseUndersideContentsLister are now trivial subclasses with no
+overrides of their own.  (They're still present as separate classes,
+(1) for the sake of compatibility with existing code, and (2) because
+the distinct classes could still be useful for other types of
+container-type-specific overrides beyond what the library defines.)
+
+<p>The three subclasses exist to provide customized wording in the
+contents listings generated for the corresponding specialized
+container types.  However, the variation in the wording provided by
+the library definitions was always very simple - the only thing that
+varies is the preposition used to describe the relationship between
+the container and its contents ("on" for a Surface, "under" for an
+Underside object, "behind" for a RearContainer or RearSurface).  As it
+turns out, the needed preposition is available as a property of the
+container object, namely objInPrep.  This makes it possible to unify
+the code for the three classes by referring to this property rather
+than hard-coding the preposition - by doing this, the code for the
+three subclasses becomes identical, which allows it to be consolidated
+in a common base class.
+
+<p>The advantage of this change is that it's no longer necessary to
+change a specialized container's contents-lister class simply because
+you want to change the preposition used to describe the relationship
+between contents and container.  In the past, you had to change
+<i>both</i> objInPrep and the contents lister.  Now, changing
+objInPrep is enough - since the default contents listers refer to
+objInPrep, changes to objInPrep will automatically flow through to the
+wording in contents listings.
+
+<p>Because the class structure is the same as before, existing code
+should work unchanged, and you can still use contents lister
+customizations to achieve effects beyond the simple wording changes
+that objInPrep provides, if needed.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+<p>The new class ActorHelloTopic makes it easier to
+create a greeting message for cases where the NPC initiates a
+conversation through a script.  Place an ActorHelloTopic object
+anywhere a HelloTopic would go to create a greeting specifically
+for the case of an NPC-initiated conversation.
+
+<p>[Update for 3.0.18: disregard the following.  These changes
+were not effected as described, and weren't quite what was intended.
+See <a href="#3018-byetopic-convnode">this entry</a> for an update.]
+
+<p><i>
+ByeTopic objects can now be used with actors who use conversational
+states (ConversationReadyState, InConversationState).  In the past,
+the conversational states largely bypassed the topic-based Goodbye
+processing, so goodbyes had to be written with the specialized goodbye
+methods on the state objects.  This made the conversation states
+harder to use, since it created special cases you had to be aware of.
+Now, you can set up a goodbye message by locating a ByeTopic within
+the InConversationState or within any ConvNode.
+</i>
+
+</div>
+
+
+<!------------------->
+<div class=entry>
+
+The class ComplexComponent now defines stagingLocations as the lexical
+parent's (which is normally the ComplexContainer's) location.  This
+makes it easier to embed a nested room (a platform, booth, etc) as a
+component of a complex container object, by allowing inbound travel
+into the nested room to bypass the complex container and move directly
+between the enclosing location and the component/nested room.  As with
+other aspects of complex containers, the container and component are
+meant to look and act like a single object, from the player's
+perspective, so it's not desirable to treat the container and
+component as separate objects for the purposes of nested room travel.
+
+<p>Along the same lines, ComplexContainer now tries to remap the
+actions StandOn, SitOn, LieOn, Board, and Enter to a suitable
+component.  These actions are now automatically remapped to the object
+returned from the new method getNestedRoomDest(), if any.  If that
+method returns nil, the actions are not remapped after all.
+
+<p>The new getNestedRoomDest() method of ComplexContainer looks for a
+suitable component to use as the destination of a nested room travel
+command.  By default, it first looks to see if the sub-surface
+component is a NestedRoom object, and if so, returns that; otherwise,
+it checks the sub-container component, and returns that if that's a
+NestedRoom; otherwise it returns nil.  This default behavior makes
+everything automatic for cases where you have exactly one component
+that's a nested room.  If you want to define more than one nested room
+within a complex container (for example, a large crate that you can
+STAND ON and also GET IN), you will need to override
+getNestedRoomDest() to return the appropriate destination by verb, or
+you can simply override the dobjFor(action) remapTo() definition to
+point remap to the correct component.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+A bug in the parser sometimes caused "truncated plurals" to be
+selected ahead of exact matches in a player's answer to a
+disambiguation question.  By design, the parser prefers an exact match
+to a singular noun ahead of a partial match to a plural (for example,
+with the default six-letter truncation, the word "object" in command
+input would match either the singular "object" or the plural
+"objects", but the parser assume the singular word was intended
+because it's an exact match for the input).  However, this principle
+was being ignored in this case due to the bug.  This has now been
+corrected.
+(<a href="http://bugdb.tads.org/view.php?id=0000006">bugdb.tads.org #0000006</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, if a ConvNode was activated via the &lt;.convnode&gt;
+tag, and the ConvNode's noteActive() method displayed any text, the
+text displayed within noteActive() appeared out of order in the final
+output relative to the text containing the &lt;.convnode&gt; tag.
+This happened because &lt;.convnode&gt; is processed within an output
+filter, so the entire string containing the &lt;.convnode&gt; had to
+be processed by the filter before any of it was actually displayed; if
+any text was displayed in the course of recursively called routines
+such as noteActive(), that text would as a result show up first in the
+final output.
+
+<p>The &lt;.convnode&gt; output filter now captures any text that's
+displayed in the course of activating a new ConvNode, and re-inserts
+the text into the stream at the proper point.  This ensures that the
+text appears in the correct sequence, so it's now safe to display text
+from within a noteActive() routine.
+(<a href="http://bugdb.tads.org/view.php?id=0000003">bugdb.tads.org #0000003</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, TIAction verbs (those taking a direct object and an
+indirect object, such as PUT IN or UNLOCK WITH) had the side effect of
+clearing the parser's memory of gender-specific pronoun antecedents.
+For example, after typing "LOOK AT BOB; UNLOCK THE DOOR WITH HIS KEY",
+the parser would forget that "him" refers to Bob, even though there
+wasn't anyone else mentioned in the second command to supersede the
+meaning of "him".  This has been fixed.
+(<a href="http://bugdb.tads.org/view.php?id=0000020">bugdb.tads.org #0000020</a>)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The Room class now applies a lower level of disambiguation
+"likelihood" for the Examine action to a remote room than for a room
+containing the actor.  In the past, the class applied a
+lower-than-default likelihood for a room containing the actor, on the
+assumption that a player who types EXAMINE FOO probably means to
+examine a nearby object rather than the enclosing room, when both are
+called FOO.  However, there's a third possibility, which is that
+there's a remote room (i.e., a separate top-level room that's
+connected to the current location by a sense connection) in scope
+that's <i>also</i> called FOO.  In these cases, we'd still want to
+select the nearby object over either room; but in cases where we only
+have the two rooms to decide between, it seems most likely that the
+player would want to refer to the enclosing room rather than the
+remote one.  This new distinction in the likelihood levels of
+enclosing and remote rooms accomplishes this: the most likely
+selection is still a nearby non-room object, the next most likely is
+the enclosing room, and the least likely is a remote room.
+
+
+</div>
+
+
+
+<!------------------------------- 3.0.16 --------------------------------->
+<div class="sepbar"><a name='3016'></a>3.0.16</div>
+<p><b><i>Released 4/10/2008</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+The new class SimpleLister provides simplified interfaces for creating
+formatted lists of items.  This class is useful when you just want to
+create a textual listing, using the standard serial-comma generation
+and so on, without all the hassle of specifying a sense environment,
+point of view, etc.  The class also has a method that creates a text
+string for a listing (rather than displaying the list directly, which
+is what the base Lister normally does).
+
+<p>Two concrete instances of SimpleLister are provided, to further
+simplify particular listings: objectLister, which can be used to
+format a list of simulation objects; and stringLister, which can be
+used to format a list of string values.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Commands of the form "X, Y", where both X and Y were words not in the
+game's dictionary, caused a run-time error ("nil object reference").
+This was due to a library bug in the code that resolves the actor
+object when giving orders to an actor ("BOB, GO EAST").  This has been
+corrected.
+   
+</div>
+
+<!------------------->
+<div class=entry>
+
+The Goal object has a new property, goalFullyDisplayed, that the hint
+system automatically sets to true upon displaying the last hint in the
+Goal's menu list.  This can be used, for example, to close a hint for
+a red herring after the player's seen the full list of hints; this
+might be desirable to remove clutter from the menu, since the player
+probably won't worry about an object again once it's been revealed
+that it's just a red herring.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The templates for TravelMessage, NoTravelMessage, and DeadEndConnector
+now accept an event list (given as a list in square brackets) in lieu
+of a double-quoted message string.  These classes were already mixable
+(via multiple inheritance) with EventList, so this change simply makes
+it more convenient to define instances when using this capability.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Top-level rooms (i.e., Room objects) didn't properly handle ENTER
+commands (e.g., ENTER HALLWAY) when attempted from a separate
+top-level room connected via a sense connector.  The ENTER handling
+for Room incorrectly assumed that only one top-level room was in scope
+at a time, which isn't true when rooms have sense connections.  The
+handler also failed to handle the simpler situation where the actor
+was in a nested room within the target room.
+
+<p>The Room dobjFor(Enter) handler has been improved to handle
+such situations.  The new handling is as follows:
+
+<ul>
+
+<li>If the actor is already <i>directly</i> in the target room (for
+example, the player types ENTER HALLWAY while already in the hall),
+the behavior is as before ("You're already in the hallway").
+
+<li>If the actor is <i>indirectly</i> in the target room (for example,
+the PC is sitting in a chair in the hall, and types ENTER HALLWAY),
+the command is replaced with GET OUT OF <i>outermost nested room
+containing actor within target room</i>.
+
+<li>If the actor is in a separate top-level room, <i>and</i> there's
+a travel connector from the actor's current location to the target
+room, the command is replaced with TRAVEL VIA <i>connector</i>.
+
+<li>Otherwise, the command fails with the message &amp;whereToGoMsg
+("You'll have to say which way to go").
+
+</ul>
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, when NestedRoom.checkMovingActorInto() decided it had to
+perform an implied action to move the actor into the nested room, the
+routine assumed that the action failed if the actor didn't end up in
+the nested room <i>and</i> in the room's default posture.  This
+condition does hold for the library NestedRoom subclasses when the
+defaults are inherited, but overriding either the default posture or
+the implied command for a particular instance can make the condition
+fail.  When the condition fails, the routine infers that the implied
+action failed, and terminates the whole command.
+
+<p>This condition - specifically, the test for posture - is overly
+strict.  The routine isn't documented as guaranteeing the default
+posture, and in fact it never did guarantee the default posture
+anyway, as the implied action was always bypassed if the actor's
+location was initially correct, regardless of posture.
+
+<p>So, the condition has now been changed to remove the default
+posture check.  The implied command (if any) is now considered
+successful if the actor is directly in the nested room afterward.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Two changes to BasicChair simplify the way the "get in" commands for
+the object and its subclasses are implemented.
+
+<p><b>First</b>, the tryMovingIntoNested() routines in BasicChair and
+its subclasses have been unified into a single base-class method.  In
+the past, each BasicChair subclass overrode tryMovingIntoNested() to
+perform the implied action matching the subclass type - SitOn for
+BasicChair, LieOn for BasicBed, StandOn for BasicPlatform.
+
+<p>Now, the overrides have been removed, and the functionality has
+been been unified into a single method on BasicChair that the
+subclasses all inherit.  The BasicChair version of the method handles
+all of the subclasses by deferring to the default posture object (as
+returned from the defaultPosture property).
+
+<p><b>Second</b>, the dobjFor(Board) definitions have been unified
+in a single BasicChair definition, rather than requiring overrides
+in each subclass as in the past.  As with tryMovingIntoNested(),
+the dobjFor(Board) definition in BasicChair now calls upon the
+default posture object to carry out the appropriate command.  This
+removes the need to override dobjFor(Board) in each subclass.
+
+<p>The benefit of these changes is that there's less to override when
+creating a custom type of BasicChair subclass.  Setting the
+defaultPosture also automatically takes care of setting the implied
+action for "get in" and the mapped action for "board", since
+tryMovingIntoNested() and dobjFor(Board) now choose the sub-action
+that matches the default posture.  Of course, if for some reason you
+want these actions to differ from what the default posture selects,
+you can still override tryMovingIntoNested() and/or dobjFor(Board) to
+achieve whatever special effects you want.  For typical objects where
+the two match, though, these changes means less work is needed to keep
+everything in sync.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The "standing" posture object's setActorToPosture() method has been
+changed slightly.  In the past, the routine performed an intransitive
+Stand action, which causes the actor to stand up in whatever location
+it's currently occupying.  This was at odds with the specification of
+the method: the routine should not only make the actor stand up, but
+make the actor stand in a given location; the old version ignored the
+target location.  The routine now does use the target location, and
+executes a transitive StandOn action with the target location as
+direct object.
+
+<p>The old implementation was the way it was because the transitive
+StandOn action didn't always work properly when applied to top-level
+rooms.  However, the handling of StandOn for top-level rooms has since
+been improved, so this is now a viable implementation.  This makes the
+method work consistently with its specification and with the
+corresponding methods in the other pre-defined posture objects.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The Decoration class now overrides the SEARCH action so that it uses
+the standard Thing handling, to be consistent with the way LOOK IN is
+handled.  In the past, SEARCH instead was handled by the Decoration
+catch-all verb handler, which shows the generic "that's not important"
+message.  This led to different default Decoration behavior for SEARCH
+vs LOOK IN, which was inconsistent with the library's usual default
+treatment of the two actions as synonymous.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The English library's typographical output filter object
+(typographicalOutputFilter) ordinarily adds an "en" space (a space
+that's slightly wider than a normal inter-word space) after any
+sentence-ending punctuation, such as a period or question mark.  This
+produces looser spacing between sentences, which some people find
+easier to read.  However, it had an undesirable side effect, which was
+to add the same spacing after honorific abbreviations like Mr. and
+Mrs. - these look exactly like sentence endings, as far as the simple
+substitution rule was concerned.
+
+<p>The filter now specifically looks for a pre-defined set of
+abbreviations, and suppresses the extra spacing when it finds one.
+The abbreviations are given by the property
+typographicalOutputFilter.abbreviations - to change or add to the set
+of abbreviations, modify typographicalOutputFilter to change this
+property.  (Note that this property is only evaluated once, at program
+start-up, so changing it on the fly won't have any effect.  If you do
+want to modify the set of abbreviations dynamically, you'll have to
+instead update typographicalOutputFilter.abbrevPat to use a new
+RexPattern object with the new set of abbreviations.)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+DistanceConnector now allows moving objects through the connector via
+moveInto - in particular, DistanceConnector now overrides
+checkMoveThrough() to return a "success" indication.
+In the past, DistanceConnector inherited checkMoveThrough() from
+SenseConnector, which disallowed a move via moveInto() if the distance
+connector was involved. 
+
+<p>In the abstract, there's usually no good reason that an object
+can't be moved through a distance connector.  The only reason to
+disallow it might be that the distance involved is so great that it
+would take an impractical amount of time to complete the move.
+
+<p>More to the point, though, player commands will generally disallow
+this kind of operation for reasons of reachability - a touchObj
+precondition is involved for any basic command that moves an object
+from one container to another (TAKE, DROP, PUT IN, PUT ON, etc), and
+that precondition will fail separately because the distance object is
+unreachable.  Because of this, a moveInto() involving a distance
+connector is almost certainly due to a programmatic (scripted)
+operation, rather than a basic player command.  In the past, you could
+work around this by calling moveIntoForTravel() instead of moveInto(),
+but this was a needless complication.  This change allows moveInto()
+to succeed even if a distance connector is involved.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The ShuffledEventList object has a new property, suppressRepeats, that
+lets you control whether or not a given event can occur twice in a
+row.  This property corresponds to the suppressRepeats property of
+the ShuffledList object.
+
+<p>By default, this is set to true, which yields the former behavior.
+You can set this to nil if you don't want to suppress repeats.  With
+very small lists (of three or four elements), the suppression of
+repeats sometimes makes the result sequence look fairly un-random,
+because the no-repeats constraint reduces the number of available
+permutations.  If you see output for a small event list that doesn't
+look random enough, you might try setting suppressRepeats to nil to
+see if that produces more pleasing results.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+ShuffledList now ignores suppressRepeats for a two-element list.  If
+the list has only two elements, and repeats aren't allowed, the list
+will necessarily yield the predictable sequence A-B-A-B..., which
+defeats the purpose of the shuffled list.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The Lockable class's dobjFor(Open) check() method now inherits the
+default handling.  Since Lockable is designed to be used as a mix-in
+class, this addition ensures that any additional Open checks inherited
+from other superclasses are properly invoked.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The comment pre-parser object (commentPreParser) now sets a runOrder
+value that's lower than the default, so that it runs before other
+pre-parsers that inherit the default runOrder.  In most cases, it's
+unnecessary (and even potentially problematic) to run comments through
+other pre-parsers, since most are designed to parse the usual sorts of
+command syntax, not the free-form text allowed in comments.  Running
+the comment pre-parser first effectively bypasses other pre-parsers
+when a comment is encountered, since the comment pre-parser halts
+further processing of the command when it detects that the command is
+actually a comment.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, if an actor returned nil from obeyCommand(), the parser
+ignored the command for the purposes of the AGAIN command.  A
+subsequent AGAIN command in this case simply repeated the
+<i>previous</i> command - the one just before the refused order.  This
+has been corrected; the parser now remembers a command for AGAIN even
+if the actor to whom the command is directed refuses it.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Thing.setGlobalParamName() didn't correctly delete any previous name
+from the global table.  (This would only have been a problem if you
+used the method more than once on a particular object, to change the
+object's global parameter name on the fly, which seems highly
+unlikely.)  This has been corrected.
+
+</div>
+
+
+<!------------------------------- 3.0.15.3 --------------------------------->
+<div class="sepbar"><a name='3015c'></a>3.0.15.3</div>
+<p><b><i>Released 11/2/2007</i></b>
+<p>
+<!------------------->
+<div class=firstentry>
+   <i>There are no library changes in this release.</i>
+</div>
+
+
+<!------------------------------- 3.0.15.2 --------------------------------->
+<div class="sepbar"><a name='3015b'></a>3.0.15.2</div>
+<p><b><i>Released 9/13/2007</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+NonObviousVerifyResult.resultRank is now defined as the same value as
+IllogicalVerifyResult.resultRank.  This makes the parser treat
+illogical and non-obvious objects as equivalent in cases of ambiguity,
+so that the parser won't choose one over the other.  In the past,
+non-obvious objects were ranked lower than illogical objects, which
+caused the parser to choose an illogical object over a non-obvious
+object in cases of ambiguity.  This didn't quite make sense; for the
+purposes of choosing among ambiguous objects, non-obvious objects
+really should be treated as equivalent to ordinarily illogical
+objects, since the point of the non-obvious designation is that the
+object appears at first glance to be illogical for a given verb.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The parser now incorporates Michel Nizette's vocabLikelihood
+extension.  This extension lets each object set an "intrinsic
+likelihood" value that affects how the parser chooses among ambiguous
+objects.  When the parser can't tell the difference between two
+objects using the normal 'verify' procedure, it compares the
+vocabLikelihood properties of the two objects, and chooses the one
+with the higher value if they differ.  This makes it easier to
+fine-tune the disambiguation process to reduce unnecessary prompting.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+SensoryEmanation.endEmanation() now resets displayCount to nil.
+displayCount was documented as being automatically reset when a period
+of continuous presence ended, but in the past no actual resetting was
+done.  We set the value to nil, rather than to 0 or 1, to make it more
+obvious (when debugging, for example) that the object is not currently
+in scope.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The English library now defines suitable custom objInPrep,
+actorInPrep, and actorOutOfPrep values for Surface, Underside, and
+RearContainer.  This ensures that the default messages produce
+reasonable relational descriptions when referring to the contents of
+these specialized container types.  (In the past, only
+Surface.objInPrep was suitably customized.)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+BasicOpenable.tryImplicitRemoveObstructor() now only attempts an
+implied Open if the object is closed.  When the object is already
+open, the routine now does nothing.  This change is necessary because
+objects can conceivably create an obstruction even if they're already
+open: once the object's open, if it's still creating an obstruction,
+another implied Open would be pointless (and, in fact, could cause
+an infinite loop).
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The new Thing method isOrIsIn(obj) returns true if 'self' is either
+inside 'obj' or equal to 'obj'.  This is useful for cases where you
+want to check if a given object is anywhere within another object's
+containment tree, <i>including</i> the other object itself.
+   
+</div>
+
+<!------------------->
+<div class=entry>
+
+When a MultiLoc object is the point-of-view object in a sense
+calculation, it now connects all of its multiple containers to the
+scope in addDirectConnections().  In the past, a MultiLoc's containers
+were only considered part of the scope when the point of view was
+<i>inside</i> the MultiLoc, but it makes sense for the MultiLoc itself
+to be the same way, since it inherently "sees" all of its containers.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+LocateInParent is now defined as a class.  (It was always meant to be,
+but the definition lacked an explicit 'class' keyword in past version.)
+
+</div>
+
+
+<!------------------------------- 3.0.15.1 --------------------------------->
+<div class="sepbar"><a name='3015a'></a>3.0.15.1</div>
+<p><b><i>Released 7/19/2007</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+<b>Compatibility warning:</b> The message property cannotTalkToSelf
+has been renamed to cannotTalkToSelfMsg, for consistency with other
+message property names.  (You should search your existing game code
+and update any references to the old name to use the new name
+instead.)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+<p>The new gameMain property beforeRunsBeforeCheck lets you control
+the relative ordering of the "check" phase and "before" notifiers.
+
+<p>In the past, the library always ran the "before" notifiers -
+beforeAction and roomBeforeAction - <i>before</i> running the check()
+handlers for the objects involved in the action.  To ensure
+compatibility, the default setting for the new property is
+beforeRunsBeforeCheck = true - this causes "before" to run before
+check(), as it always has.
+
+<p>However, in many ways, it's more logical and practical to run the
+check() phase first first, and <i>then</i> run the "before" notifiers.
+This ordering allows the "before" handlers to assume that the action
+is more or less committed to running to completion, since they know
+that the check() phase has already tested the action and allowed
+it to proceed.  The most common use of "before" handlers is to carry
+out side effects of an action, so by running all of the check() tests
+first, the "before" handlers can more confidently invoke their side
+effects, without worrying that the action will later fail due to a
+check() condition.
+
+<p>Now, you can never truly call an action "committed" until it's been
+fully carried out, since even a "before" handler can conceivably
+cancel a command (with "exit", for instance).  You could set up a
+situation where an action is affected by two "before" handlers, and
+the one that runs later cancels the command - thus invalidating any
+assumption in the first one that the command is committed.  However,
+this is relatively unusual, and in any case it's under your control:
+if you don't use "before" handlers to cancel commands, it won't occur.
+
+<p>If you want to use the new alternative ordering, where "check" runs
+before the "before" notifications, simply set beforeRunsBeforeCheck to
+nil in your gameMain object.  Some authors have tested this ordering
+with existing games and found it to work well with existing code, but
+be aware that you could trigger subtle changes - you might have
+unknowingly created dependencies on the relative ordering of check()
+and "before" that will only show up under certain conditions.  We
+therefore recommend using the new alternative ordering only for new
+code or for projects that are relatively early in their development
+cycle, to ensure thorough testing of the new ordering.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+ThingState now allows tokens to be shared among multiple states
+associated with the same object.  In the past, state words had to be
+unique among an object's states: it wasn't possible to have a set of
+states such as "unpainted", "painted red", and "painted blue", because
+it was invalid for "painted" to appear in two states.  This sort of
+sharing is now allowed.
+
+<p>The old rule was that a word could match an object only if the word
+didn't appear in any of the object's <b>other</b> (i.e., non-current)
+ThingState token lists.  The new rule is that a word can match an
+object if (a) the word appears in the object's <b>current</b>
+ThingState token list, <b>or</b> (b) the word <b>doesn't</b> appear in
+any of the object's <b>other</b> ThingState token lists.  Condition
+(a) is what's new; it allows words to be shared among states by
+allowing a word to match the current state as long as it's in the
+current state's list, regardless of whether it appears in other
+states' lists.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the English library, when a command triggers a chain of several
+implied actions, the announcement for the implied actions now adds
+the word "then" in each conjunction: "(first standing up, <b>then</b>
+taking the box, <b>then</b> opening it)".  In the past, "then"
+appeared only in the final conjunction; most people find it reads
+more naturally to use "then" in each conjunction.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The English library now uses the adjustDefaultObjectPrep() mechanism
+to generate implied action announcements.  This means that verbs like
+SitOn and GetOutOf will use object-specific prepositions when they're
+announced as implied actions: "(first sitting on the bench)" vs
+"(first sitting in the car)".
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The actions GetOutOf and GetOffOf now adjust the prepositions in their
+generated verb phrases according to the actorOutOfPrep definition for
+the direct object.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+AccompanyingInTravelState.initiateTopic() now defers to the next state
+object.  Since the in-travel state is designed to be ephemeral, it's
+unlikely that one of these would actually contain its own initiated
+topics, so in almost all cases the desired topic would come from the
+state that the actor will be in following the travel.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The library now defines a simple template for ShuffledList.  The new
+template takes a single list parameter giving the value list.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+ListGroupCustom now defines groupDisplaysSublist = nil by default.
+This type of group is intended mainly for cases where you want to
+display a collective message to describe the group, rather than
+listing its elements individually, so we usually don't want the
+inclusion of a ListGroupCustom message to trigger the "long list"
+format (i.e., with semicolons) in the overall list.  This change
+makes this behvior the default.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Non-physical CollectiveGroup objects (i.e., those with 'nil'
+locations) didn't work when the associated individuals were MultiLoc
+or SenseConnector objects. This has been corrected.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Actor.knowAbout() now considers an object to be known if it's
+<i>currently</i> in sight.  In the past, an object was known if it was
+specifically marked as known, or it was marked as having been
+previously seen.  For the most part, an object that's currently
+visible will also be marked as having been previously seen, since this
+marking occurs whenever a Look command or travel to a new location
+lists an object.  However, if an object comes into scope (via
+moveInto) while an actor is in a given location, the object won't be
+marked as having been seen until the next Look command or subsequent
+travel away from and then back to the location.
+
+<p>This change corrects a subtle problem that involved possessive
+phrases in commands.  In the past, an object that just came into scope
+was excluded from matching a possessive noun phrase under certain
+circumstances, such as in the response to a disambiguation question.
+This should no longer occur.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, the library <i>seemed</i> to allow commands like PUSH TV
+INTO BOX (i.e., commands to push a pushable object into a nested
+room), but on closer inspection it didn't really carry them out:
+instead, it carried out only the underlying basic travel command,
+without actually moving the object supposedly being pushed around.
+The library now rejects PUSH INTO <i>nested room</i> commands with a
+new message, &amp;cannotPushObjectNested ("You can't push the TV
+there").
+
+<p>The library rejects these commands by default because we think
+it'll be relatively rare that games will need to allow them.  Given
+that, it didn't seem worth complicating things by adding a bunch of
+new methods to provide generalized support, and we also didn't want to
+introduce that much new code at the current point in the release
+cycle.
+
+<p>However, the library does now provide a new hook that will make it
+easier for games to implement PUSH INTO <i>nested</i> commands if they
+need to.  The new hook will also make it possible to implement riding
+vehicles into nested rooms, which wasn't previously possible.  The new
+hook is a new Traveler method, travelerTravelWithin().
+
+<p>This new method is called on the Traveler object when a nested-room
+travel command (GET IN, STAND ON, SIT ON, LIE ON, PUSH X INTO, etc) is
+performed.  In simple cases, the Traveler is simply the Actor
+performing command.  However, if the actor is riding in a Vehicle, the
+Traveler is the Vehicle object; and if the command is a PUSH travel
+command, such as PUSH TV INTO BOX, the Traveler is a special ephemeral
+object, of class PushTraveler, created just for the command.
+
+<p>The library provides default implementations of the new hook method
+for Actor, Vehicles, and PushTraveler.  For Actor, the method simply
+does the same thing that travelWithin() used to do, so existing code
+will work as it did before.  For Vehicle, the method calls the same
+method on the Actor, so again it will work as it used to.  For
+PushTraveler, the method simply terminates the command with the new 
+message &amp;cannotPushObjectNested.
+
+<p>If you want to allow pushing objects into nested rooms, you'll need
+to modify PushTraveler.travelerTravelWithin() to do basically the same
+thing that PushTraveler.travelerTravelTo() does.  You'll probably want
+to set up a new set of notification methods parallel to
+beforeMovePushable() and movePushable() - you could just use those
+same routines, but you'll probably want to set up new custom
+nested-room versions instead, since the conditions and messages will
+probably need to be different for nested rooms from those used for
+room-to-room travel.
+
+<p>Note that you could also take advantage of the new method to allow
+an actor to ride a vehicle into a nested room.  The default handling
+in Vehicle defers to the underlying Actor, and the actor performs the
+travel as though the Vehicle were any other nested room - which means
+that the actor gets out of the vehicle, then gets into the new nested
+room.  If you instead wanted this type of command to mean "ride
+vehicle into nested room," you can override travelerTravelWithin() on
+the vehicle, so that the method moves the Vehicle itself into the new
+nested room.  (You'll also have to set up preconditions that move the
+vehicle to the proper staging locations using the same rules that are
+used for actors, which could take a little work - that's the main
+reason the library doesn't support it out of the box yet.)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, if an NPC was using AccompanyingState to follow around
+the player character, and the pair went through an AutoClosingDoor,
+the door was reported as having closed twice during the turn -
+once for each actor going through.  AutoClosingDoor now skips the
+auto-closing step if the actor going through is in an accompanying
+state.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The parser's "OOPS" mechanism had a problematic interaction with
+literal phrases that showed up under certain conditions.  In
+particular, if the player entered a command that caused some kind of
+follow-up question, such as a disambiguation query ("which book do you
+mean...") or missing-object prompt ("what do you want to unlock it
+with?"), <b>and</b> the player chose to ignore the follow-up question
+and instead just enter a new command, <b>and</b> the new command
+contained a literal phrase ("type asdf on keypad", say), the OOPS
+mechanism was overly aggressive in deciding the command contained a
+typo.
+
+<p>The root of the problem was that follow-up questions are parsed
+according to their own special grammars, which are much more limited
+than the full grammar used at the main command prompt.  Normally, when
+the player responds with something that doesn't match one of these
+special grammars, the parser assumes the player intended to bypass the
+follow-up question and just enter a new command.  However, if parser
+manages to find a non-dictionary word in the player's input, it
+invokes the OOPS mechanism to see if the player actually intended to
+answer the follow-up question but made a typographical error entering
+the response.  The problem is that if the player entered a
+literal-phrase verb, the presence of a non-dictionary word
+<i>doesn't</i> necessarily imply a typographical error.  For normal
+commands (as opposed to follow-up questions), this isn't an issue,
+because the parser finds the literal when matching against the full
+grammar.  For follow-up questions, though, the parser never noticed
+the literal-phrase interpretation of the input, since it wasn't
+matching against the full grammar, so it prematurely decided that the
+input as mis-typed.
+
+<p>The OOPS mechanism now makes an extra check when presented with a
+non-dictionary word in the response to a follow-up question.  Before
+deciding that the input really does contain a typo, the OOPS mechanism
+first checks the input to see if it matches anything in the full
+command-line grammar; if the parser finds a match, it assumes that the
+entry was meant as a brand new command, and so it bypasses the
+follow-up question and re-parses the input as a new command.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, calling getOrigTokenList() on an EventAction object
+caused a run-time error.  This was because EventActions don't have the
+token list data that the parser normally attaches when creating an
+Action to represent a parsed command line, which in turn is because
+these actions aren't created from command parsing but are instead
+"synthetic" actions, created internally by the library for bookkeeping
+purposes.  (This same problem might have affected other synthetic
+actions as well, but it's only known to have shown up with
+EventActions.)
+
+<p>This has been corrected.  Action.getOrigTokenList() now checks to
+make sure there's a parser token list attached to the action, and if
+not, the method return the parent action's token list; and if there's
+no parent action, the method simply returns an empty list.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+HermitActorState now sets its property limitSuggestsion to true by
+default, to prevent the TOPICS command from displaying any topic
+suggestions from the actor or conversation node.  This is desirable
+because the hermit state effectively blocks any topics defined outside
+the state: the whole point of the state is that it makes the actor
+essentially unresponsive to conversational overtures.  So there's
+generally no point in offering topic suggestions while the actor is in
+the state.
+
+<p>In some cases, you might want to override this for a particular
+hermit state object.  In particular, if it's not outwardly obvious
+that the actor will be unresponsive, you might still want to allow
+suggestions, since the player has no way of knowing that the actor
+won't respond to questions until she attempts asking them.  Similarly,
+if the hermit state is expected to persist for a short time only, you
+might want to continue to allow suggestions so that the player knows
+there are useful topics to explore when the actor becomes responsive
+again.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+ByeTopic now overrides impliesGreeting to suppress any implied HELLO
+greeting.  This means that if the player explicitly says GOODBYE to an
+NPC, and no conversation is in progress, the goodbye response will be
+displayed by itself, without an implied greeting exchange.  In the
+past, ByeTopic inherited the default 'true' value for impliesGreeting,
+so saying GOODBYE to an NPC outside of a conversation caused an
+implied greeting, followed immediately by the explicit goodbye
+response.  In most cases, this ended up looking pretty strange - not
+only was the self-canceling HELLO-GOODBYE exchange odd on its face,
+but in most cases the implied greeting also looked redundant from the
+player's perspective, because a player tended to say GOODBYE
+explicitly only when she was under the impression that some kind of
+conversational interaction was already under way.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, conversation-flow problems sometimes occurred if a topic
+changed its "isConversational" status as a side effect of showing the
+response for the topic.  This was because
+ActorTopicDatabase.showTopicResponse() waited until after invoking the
+response to determine whether the response should affect the
+conversation flow, so the status change side effect caused
+showTopicResponse() to use the new setting - meant for the next
+response - rather than the setting for the response it actually
+showed.  This has been corrected; showTopicResponse() now makes its
+determination based on the isConversational status as it stands just
+before invoking the response.
+   
+</div>
+
+<!------------------->
+<div class=entry>
+
+The finishGameMsg() function now explicitly runs the score notifier
+daemon before it displays the end-of-game message.  This ensures that
+the usual score-change message is displayed if any points were awarded
+in the course of the action that triggered the end of the game.
+Without the explicit invocation, the notifier daemon wouldn't
+typically get a chance to show a notification for the final point
+award: the notification is normally shown just before the next command
+prompt after points are awarded, and at the end of the game there's
+not usually another command prompt forthcoming.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the English library, inlineListingContentsLister didn't always
+generate correct verb agreement for its prefix message for a "wide"
+listing ("You are carrying tongs (which <b>contains</b> ...)").
+This has been corrected.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, searching a RoomPart nominally containing a RoomPartItem
+sometimes caused a "nil object reference" run-time error.  This was
+due to a missing point-of-view object setting; the code where the
+error occurred now applies a default POV of the command actor when
+no explicit POV is set.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+Container and Openable objects now apply a touchObj precondition to
+the Search action.  This requires that the actor be able to reach the
+object in order to search it.  This change is intended to better
+enforce the idea that searching a container involves some actual
+physical manipulation, such as shifting the contents around to look
+behind or under things, momentarily removing contents to see what's
+underneath, and so on.  The actor at least has to be able to reach the
+object to perform this kind of manipulation.
+   
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, AGAIN didn't work properly when used to repeat a FOLLOW
+command involving an NPC using the "guided tour" mechanism (the
+TourGuide and GuidedTourState classes).  This was due to a subtle
+turn-timer problem with AGAIN that affected commands like FOLLOW that
+use nested or replacement actions in the course of their execution.
+This problem was observed in the FOLLOW/AGAIN situation, but could
+also have affected other commands.  The root problem has been
+corrected.
+
+</div>
+
+
+
+<!------------------------------- 3.0.15 --------------------------------->
+<div class="sepbar"><a name='3015'></a>3.0.15</div>
+<p><b><i>Released 3/8/2007</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+The Follow action has always adjusted the scope list to include any
+NPCs that the target actor remembers having seen leave, whether or not
+they're still within sight.  This allows you to FOLLOW a character
+who's no longer present - the whole point of FOLLOW would be defeated
+if this weren't possible, after all.  However, in the past, this scope
+list expansion created duplicate entries in the scope list if an actor
+with a "follow memory" was also still physically present - the actor
+was added to the scope list once for ordinary visibility, then again
+for the "follow memory."  This duplication caused problems in some
+situations, since other parts of the library expect the scope list to
+contain only unique entries.  The Follow action now ensures that the
+list remains unique after its additions.
+
+</div>
+
+<!------------------------------- 3.0.14 --------------------------------->
+<div class="sepbar"><a name='3014'></a>3.0.14</div>
+<p><b><i>Released 2/9/2007</i></b>
+<p>
+There are no library changes in TADS 3.0.14.
+
+
+<!------------------------------- 3.0.13 --------------------------------->
+<div class="sepbar"><a name='3013'></a>3.0.13</div>
+<p><b><i>Released 1/19/2007</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+The adv3 English library has a new option setting for the parser's
+truncation length.  The truncation length has always been customizable
+in the low-level system objects that the parser uses to look up and
+match vocabulary words, but the library didn't formerly provide a good
+way for games to override <i>its</i> truncation length setting.  In
+effect, the truncation length was hard-coded into the English library,
+and the only way for authors to change it was to edit en_us.t; most
+authors would rather not do that because of the hassle of merging
+their own changes into future library updates.
+
+<p>The new setting is in gameMain.parserTruncLength.  The default
+setting is 6 characters - this is the same as the English parser's old
+hard-wired setting, so existing code will behave the same as it did in
+the past.
+
+<p>As part of this change, the new method
+languageGlobals.setStringComparator() lets you change the active
+string comparator dynamically.  You can use this method if you want to
+change the truncation length, or other comprator settings, on the fly
+during the game.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The English library now allows a TAction VerbRule to specify a custom
+preposition for a default object announcement, overriding the
+preposition coded in the verbPhrase.  This is useful for a few verbs
+where the preposition tends to vary according to the direct object.
+For example, SIT might use ON in some cases but IN for other cases:
+"on the stool" vs "in the car."
+
+<p>To accomplish this, TAction.announceDefaultObject() first parses
+the verbPhrase to get the standard preposition, then calls a new
+method on self, adjustDefaultObjectPrep(prep, obj).  'prep' is the
+default preposition from the verbPhrase, and 'obj' is the direct
+object of the command.  The routine returns the new preposition
+string.  The default implementation simply returns 'prep', but
+the StandOn, SitOn, and LieOn actions override this to return the
+direct object's actorInPrep.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+InitiateTopics can now be located within ActorState objects.  In the
+past, InitiateTopics were only found when they were directly within an
+Actor or a TopicGroup within an actor.  The library now looks for
+InitiateTopics in the current actor state object as well, which is
+more consistent with other topic types.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+inputManager.pauseForMore() now re-activates the transcript if it was
+active before the pause.  In the past, this function simply flushed
+output and left the transcript deactivated.  This was problematic for
+certain library subsystems that depend upon the transcript being
+active throughout a command.  Now, the function flushes the
+transcript's pending output up to the pause, then reactivates the
+transcript after the pause, so that transcript capture proceeds as
+normal throughout the rest of the command.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+In the past, the library generally assumed that NestedRoom objects
+would only be located inside either Rooms or other NestedRooms, but
+never inside ordinary Things.  However, in practice it's often useful
+to be able to put a nested room inside something that's not itself
+a nested room.
+
+<p>A number of small library changes should now make NestedRooms
+work properly when located inside ordinary Thing objects.  The
+changes are mostly internal and should have no impact on existing
+code, but for reference, here's what's changed:
+
+<ul>
+
+<li>The methods getRoomPartLocation(), getLocTraveler(),
+atmosphereList(), roomDaemon(), getDropDestination(), and
+effectiveFollowLocation() have been moved to Thing, with essentially
+no changes.  These are the methods the library calls on containers of
+nested rooms, so moving them to Thing allows any game object to
+contain a nested room.
+
+<li>The definitions of most of the above methods have been removed
+from BasicLocation, since BasicLocation now simply inherits the Thing
+definitions.  The definitions of roomDaemon() and atmosphereList()
+have been moved to Room instead, since those definitions were intended
+for top-level rooms.
+
+<li>Room now defines checkActorOutOfNested() to find and defer to
+the child object containing the actor.  This ensures that the check
+is forwarded to the nested room containing the actor.
+
+</ul>
+
+<p>In addition to the changes above, NestedRoom no longer assumes that
+its immediate location is the destination when an actor within the
+nested room leaves the nested room.  Instead, NestedRoom now
+consistently uses the value given by exitDestination.  Further,
+NestedRoom.exitDestination itself no longer uses the immediate
+container as its default setting, but instead uses the default staging
+location as given by the defaultStagingLocation method.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+A change in 3.0.10 introduced a parsing problem with distinguishing
+nouns from plurals when the words were right at the parser's
+truncation length.  To be more precise, if you defined a noun that was
+exactly the truncation length, <i>and</i> you also defined a plural
+for that noun as the noun plus "s" (or, actually, as the noun plus any
+other letters), then the parser would incorrectly interpret the noun
+word in player input as though it were plural.
+
+<p>For example, the default truncation length is 6 characters, so this
+problem occurred with "button" and "buttons" defined as a noun and
+plural, respectively.  In this case, if you had two or more objects in
+scope with vocabulary like 'red button*buttons', and the player typed
+something like "x button", the parser incorrectly treated the "button"
+in the player's input as though it were plural, so it applied the
+Examine command iteratively to all of the buttons in scope, rather
+than asking the player which singular button they intended to examine.
+
+<p>This problem has now been corrected.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The message definition for cannotSetToMsg was missing from the English
+message list (in en_us/msg_neu.t).  The message is now there.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+A command of the form PUSH <i>pushable</i> INTO <i>object</i>, where
+the second object was some random, non-enterable thing, yielded an
+unformatted message ("{that/he dobj} {is} not something you can
+enter").  The underlying problem was that the action remapping invoked
+by PushTravelViaIobjAction didn't properly set up the object
+parameters for the remapped verb, leaving the message system unable to
+find the direct object.  This has been corrected.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+The Attachable class had a problem that caused a run-time error when
+the player entered a command of the form DETACH <i>object</i>, where
+<i>object</i> was an Attachable and the command had no indirect
+object.  The problem came from a name conflict between an Attachable
+method called cannotDetachMsg(obj), which took one parameter, and a
+library messages property of the same name, which takes no parameters.
+When the message resolution system tried to retrieve the library
+message from the direct object, it invoked the zero-parameter version
+of the property, which caused the run-time error due to the parameter
+mismatch with the one-parameter version implemented in Attachable.
+
+<p>To fix this problem, the method in Attachable has been renamed to
+cannotDetachMsgFor(obj).  The library message has the same name as
+before.
+
+<p>Any existing code that overrode the Attachable method will have to
+adjust for the name change.  That said, it seems almost impossible for
+this change to affect existing code, since the very bug that we're
+talking about here would have prevented the override from working
+properly in the first place.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+A library bug caused a run-time error ("stack overflow") on commands
+like REMOVE ME or REMOVE <i>nested room containing me</i>.  This has
+been corrected.
+
+<p>(The specific problem is as follows.  The library assumes that a
+REMOVE X command will result in the actor taking X, and so as a sanity
+check calculates how much weight the actor would be holding if that
+were allowed.  When X is the actor or contains the actor, the
+hypothetical weight check created a circular containment situation;
+the stack overflow came from the library's attempt to recursively
+visit all of the hypothetical contents of the actor, which is of
+course an infinite loop in a circular containment situation.  To avoid
+this problem, the library now ignores hypotheticals that would create
+circular containment.  It's safe to ignore these hypothetical tests
+because commands that perform them should always be disallowed anyway,
+since actual circular containment is never allowed.)
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+A library bug caused a run-time error ("nil object reference") on
+entering a command of the form <i>object</i>, <i>unknown word</i>,
+where <i>object</i> was any in-scope non-Actor object.  This has
+been corrected.
+
+<p>(The problem came about because the parser attempted to treat such
+a command as though it were directed to an NPC.  This is some special
+handling that applies when the command has a syntax error; the point
+is to let the author customize the parsing error messages for orders
+given to particular actors.  However, when <i>object</i> isn't an
+actor, this is problematic, because the library assumes that it can
+call certain Actor methods on the object in question.  The fix is that
+the library will only apply this handling in cases where the object is
+actually an Actor; in other cases, it won't assume that the command
+was intended as an order to an NPC, so it will simply use the default
+parsing error messages.)
+
+</div>
+
+
+<!------------------------------- 3.0.12 --------------------------------->
+<div class="sepbar"><a name='3012'></a>3.0.12</div>
+<p><b><i>TADS 3.0 General Release version - Released 9/15/2006</i></b>
+<p>
+
+<!------------------->
+<div class=firstentry>
+
+The library didn't properly handle situations where an NPC order
+involved multiple objects and a failed implied sub-action.  If an
+implied action failed for one of the objects involved, the implied
+action was assumed to have failed for all <i>subsequent</i>
+objects in the multiple object list as well, even if the subsequent
+implied actions actually succeeded.  This resulted in self-contradictory
+transcripts, where an implied action was reported as successful, but
+then was followed by a message that the implied action had failed:
+
+<p><pre>
+  Bob takes the coin.
+  Bob must be holding the coin first.
+</pre>
+
+<p>The problem was that the implied action mechanism was incorrectly
+considering the failure status for the entire top-level command when
+determining if the subsequent implied actions failed.  Instead, it
+should have been checking the status of the implied actions
+themselves.  It now does this by looking for a failure report within
+the implied action's reports, rather than looking for a failure
+anywhere within the entire transcript.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+SpaceOverlay.getWeight() now omits the object's "contents" from the
+weight calculation if the contents are to be abandoned when the object
+is moved.  If the contents are to be abandoned, it means that they're
+not actually attached to or contained within the space overlay, but
+are simply colocated with it; they thus have no contribution to the
+overlay's total weight.  If the contents are <i>not</i> to be
+abandoned on moving the overlay object, they're effectively attached
+to it, so they do contribute to its weight as normal.
+
+</div>
+
+<!------------------->
+<div class=entry>
+
+CaptureFilter is now a subclass of OutputFilter (it was formerly just
+an 'object'); and SwitchableCaptureFilter is a subclass of
+CaptureFilter (it also was just an 'object').  This should make no
+difference functionally, as an output filter is only required to
+implement the filterText() method, but is desirable anyway in that it
+makes an ofKind(OutputFilter) test recognize these object types as
+output filter subclasses.
+
+</div>
+
 
 <!------------------------------- 3.0.11 --------------------------------->
 <div class="sepbar"><a name='3011'></a>3.0.11</div>
@@ -12565,7 +15367,7 @@ they obviously shouldn't be displayed in any NPC sense context.)
 <div class=entry>
 
 Thing now has a constructor, which calls initializeThing().  This ensures
-that any Thing objects that are created dyanmically (with 'new') are
+that any Thing objects that are created dynamically (with 'new') are
 initialized in the same manner as objects defined statically.
 
 </div>
@@ -20825,7 +23627,7 @@ provide .t3m, .tdc for sample game with proper directory set-up
 <!------------------->
 <div class=entry>
 
-accept 'all <adj>' and the like
+accept 'all &lt;adj&gt;' and the like
 
 </div>
 
@@ -22131,7 +24933,7 @@ asking for detail in this case.
 <!------------------->
 <div class=entry>
 
-Add TITLEs to <A HREF>'s in system messages.
+Add TITLEs to &lt;A HREF&gt;'s in system messages.
 
 </div>
 

@@ -88,7 +88,7 @@ static int read_header_file(int line_num, const char *fname,
          *   otherwise, ignore it 
          */
         if (searcher->compile_and_match(def_pat, def_pat_len,
-                                        buf, strlen(buf)) > 0)
+                                        buf, buf, strlen(buf)) > 0)
         {
             const re_group_register *sym_reg;
             const re_group_register *val_reg;
@@ -288,7 +288,7 @@ int main(int argc, char **argv)
     stat = OSEXFAIL;
 
     /* show the banner */
-    printf("T3 Message Compiler v1.0.0  Copyright 2000, 2005 "
+    printf("T3 Message Compiler v1.0.0  Copyright 2000, 2012 "
            "Michael J. Roberts\n");                /* copyright-date-string */
 
     /* check options */
@@ -385,7 +385,7 @@ int main(int argc, char **argv)
 
         /* check for a comment or a blank line */
         if (searcher->compile_and_match(comment_pat, comment_pat_len,
-                                        buf, len) >= 0)
+                                        buf, buf, len) >= 0)
         {
             /* 
              *   it's a comment, so no further processing is required -
@@ -396,7 +396,7 @@ int main(int argc, char **argv)
 
         /* check for a #charset directive */
         if (searcher->compile_and_match(charset_pat, charset_pat_len,
-                                        buf, len) > 0)
+                                        buf, buf, len) > 0)
         {
             char charset[128];
             const re_group_register *cs_reg;
@@ -457,7 +457,8 @@ int main(int argc, char **argv)
         }
 
         /* check for a #include directive */
-        if (searcher->compile_and_match(inc_pat, inc_pat_len, buf, len) > 0)
+        if (searcher->compile_and_match(
+            inc_pat, inc_pat_len, buf, buf, len) > 0)
         {
             const re_group_register *fname_reg;
             char fname[OSFNMAX];

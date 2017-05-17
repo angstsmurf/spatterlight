@@ -1,5 +1,5 @@
 /* redirect.c - Output redirection to Z-machine memory
- *		Copyright (c) 1995-1997 Stefan Jokisch
+ *	Copyright (c) 1995-1997 Stefan Jokisch
  *
  * This file is part of Frotz.
  *
@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
 #include "frotz.h"
@@ -46,19 +46,19 @@ void memory_open (zword table, zword xsize, bool buffering)
 
     if (++depth < MAX_NESTING) {
 
-		if (!buffering)
-		    xsize = 0xffff;
-		if (buffering && (short) xsize <= 0)
-		    xsize = get_max_width ((zword) (- (short) xsize));
+	if (!buffering)
+	    xsize = 0xffff;
+	if (buffering && (short) xsize <= 0)
+	    xsize = get_max_width ((zword) (- (short) xsize));
 
-		storew (table, 0);
+	storew (table, 0);
 
-		redirect[depth].table = table;
-		redirect[depth].width = 0;
-		redirect[depth].total = 0;
-		redirect[depth].xsize = xsize;
+	redirect[depth].table = table;
+	redirect[depth].width = 0;
+	redirect[depth].total = 0;
+	redirect[depth].xsize = xsize;
 
-		ostream_memory = TRUE;
+	ostream_memory = TRUE;
 
    } else runtime_error (ERR_STR3_NESTING);
 
@@ -86,8 +86,8 @@ void memory_new_line (void)
 
     if (redirect[depth].xsize != 0xffff) {
 
-		redirect[depth].table = addr + size;
-		size = 0;
+	redirect[depth].table = addr + size;
+	size = 0;
 
     } else storeb ((zword) (addr + (size++)), 13);
 
@@ -110,20 +110,20 @@ void memory_word (const zchar *s)
 
     if (h_version == V6) {
 
-		int width = os_string_width (s);
+	int width = os_string_width (s);
 
-		if (redirect[depth].xsize != 0xffff)
+	if (redirect[depth].xsize != 0xffff)
 
-		    if (redirect[depth].width + width > redirect[depth].xsize) {
+	    if (redirect[depth].width + width > redirect[depth].xsize) {
 
-				if (*s == ' ' || *s == ZC_INDENT || *s == ZC_GAP)
-				    width = os_string_width (++s);
+		if (*s == ' ' || *s == ZC_INDENT || *s == ZC_GAP)
+		    width = os_string_width (++s);
 
-				memory_new_line ();
+		memory_new_line ();
 
-		    }
+	    }
 
-		redirect[depth].width += width;
+	redirect[depth].width += width;
 
     }
 
@@ -133,7 +133,7 @@ void memory_word (const zchar *s)
     addr += 2;
 
     while ((c = *s++) != 0)
-		storeb ((zword) (addr + (size++)), translate_to_zscii (c));
+	storeb ((zword) (addr + (size++)), translate_to_zscii (c));
 
     storew (redirect[depth].table, size);
 
@@ -151,22 +151,22 @@ void memory_close (void)
 
     if (depth >= 0) {
 
-		if (redirect[depth].xsize != 0xffff)
-		    memory_new_line ();
+	if (redirect[depth].xsize != 0xffff)
+	    memory_new_line ();
 
-		if (h_version == V6) {
+	if (h_version == V6) {
 
-		    h_line_width = (redirect[depth].xsize != 0xffff) ?
-				redirect[depth].total : redirect[depth].width;
+	    h_line_width = (redirect[depth].xsize != 0xffff) ?
+		redirect[depth].total : redirect[depth].width;
 
-		    SET_WORD (H_LINE_WIDTH, h_line_width)
+	    SET_WORD (H_LINE_WIDTH, h_line_width)
 
-		}
+	}
 
-		if (depth == 0)
-		    ostream_memory = FALSE;
+	if (depth == 0)
+	    ostream_memory = FALSE;
 
-		depth--;
+	depth--;
 
     }
 

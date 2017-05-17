@@ -1,10 +1,3030 @@
 <html>
 <title>TADS 3 Change History</title>
 
+<style type="text/css">
+<!--
+body {
+    font: 10pt/14pt Verdana, Arial, Helvetica, Sans-Serif;
+}
+h1 {
+    font: 18pt/24pt Georgia, Times New Roman, New York, Times, Serif;
+    color: #400060;
+}
+h2 {
+    font: 14pt/18pt Georgia, Times New Roman, New York, Times, Serif;
+    color: #600060;
+}
+h3 {
+    background: #f0f0f0;
+    border-top: 1px solid #d8d8d8;
+    margin-top: 2.5em;
+    padding: 1ex 1ex 1ex 1ex;
+    font: 12pt/14pt Georgia, Times New Roman, New York, Times, Serif;
+    color: #600060;
+}
+ul {
+    margin-left: 0ex;
+    padding-left: 1ex;
+}
+li {
+    margin: 0.75em 0ex 0.75em 0em;
+    padding-bottom: 1em;
+    border-bottom: 1px dotted #606060;
+    list-style: none;
+}
+li.last, li:last-child {
+    border-bottom: none;
+}
+li ul {
+    padding-left: 2em;
+    margin-top: 0.75em;
+    margin-left: 0em;
+}
+li li {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+    border: none;
+    list-style: disc outside;
+}
+li p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+//-->
+</style>
+
+<body>
+
 <h1>TADS 3 Change History</h1>
 
-<p>For information on changes to the library (adv3), refer to the
-<a href="../lib/adv3/changes.htm">Recent Library Changes</a> list.
+<p>This is a list of changes to the TADS 3 core system: the language,
+the built-in classes and functions, the compiler and related build
+tools, the debugger, and the interpreter virtual machine.  The change
+history is organized by release, with the most recent release first.
+
+<p>(This page only covers changes to the core TADS language and
+Virtual Machine engine.  There are separate release notes for most
+operating system install packages - HTML TADS, FrobTADS, CocoaTADS,
+etc.  For changes to the Adv3 library, see
+<a href="../lib/adv3/changes.htm">Recent Library Changes</a>.)
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.1.3 (May 16, 2013)</h3>
+
+<ul>
+
+<li>The compiler now allows nested embedded "&lt;&lt; &gt;&gt;"
+expressions in strings.  Nesting wasn't allowed in the past; the
+compiler now allows nesting up to a depth limit (currently 10
+levels deep).  For example, this is now valid:
+
+<pre>
+   local x = 1;
+   "This is the main string. &lt;&lt;
+      "This is a nested string: x=&lt;&lt;x&gt;&gt."
+   &gt;&gt; Back to the main string.";
+</pre>
+
+<li>In the past, HTML &lt;PRE&gt; blocks were problematic if you
+wanted to use &lt;PRE&gt; for precise indentation.  The complication
+was that the output formatter in the VM pre-filtered the text sent to
+the HTML parser to consolidate each run of whitespace into a single
+space.  If you wanted to use spaces in a &lt;PRE&gt; block for
+alignment purposes, you had to use quoted spaces (<tt>"\ "</tt> sequences)
+to make sure that all of the spaces were sent through to the HTML parser.
+
+<p>Now, the VM formatter layer watches for &lt;PRE&gt; tags.  Within a
+&lt;PRE&gt; block, the VM formatter passes spaces and newlines through
+to the HTML parser without any filtering.  This change addresses
+<a href="http://bugdb.tads.org/view.php?id=0000178">bug #0000178</a>.
+
+<p>Note that there's another slight complication if you're writing
+multi-line preformatted blocks with spacing for indentation.  The
+compiler normally removes the spaces that follow a line break within
+a string.  The new compiler behavior described below gives you more
+precise control over this, as does the new
+<tt>#pragma newline_spacing(preserve)</tt> described later.
+
+<li>In the <tt>#pragma newline(collapse)</tt> and <tt>#pragma
+newline(delete)</tt> modes (see below), you can now override the default
+line break handling for a particular line in a string by writing an
+explicit <tt>\n</tt> sequence at the very end of the line.  When a
+line within a string ends in <tt>\n</tt>, followed by a line break and
+the continuation of the string on the next line, the compiler
+preserves the whitespace at the start of the next line exactly as
+written.  For example, consider the following string definitions,
+assuming that we're in the normal "collapse" mode for newline spacing:
+
+<pre>
+   f()
+   {
+     local a = 'a
+          b';
+     local x = 'x\n
+          y';
+   }
+</pre>
+
+<p>For the first string, the compiler converts the
+line break after the letter "a" and all of the whitespace at the
+start of the next line into a single space, so the string's actual
+contents end up as though you had written <tt>local a = 'a&nbsp;b';</tt>,
+with just one space between the two letters.  But in the second
+string, we've written an explicit <tt>\n</tt> at the end of the line,
+telling the compiler to put an explicit line break into the string
+and to preserve the subsequent whitespace.  This string is equivalent
+to writing <tt>local x = 'x\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y';</tt>,
+with the five spaces at the start of the second line kept intact.
+
+<li>The <tt>#pragma newline_spacing</tt> directive now has three modes:
+
+<ul>
+   <li><tt>collapse</tt> mode (equivalent to the old <tt>on</tt> mode)
+   collapses each line break within a string and any subsequent run
+   of whitespace (at the start of the next line) into a single space.
+
+   <li><tt>delete</tt> mode (equivalent to the old <tt>off</tt> mode)
+   removes each line break and any subsequent run of whitespace,
+   mashing the text of the two lines together without any spacing.
+
+   <li><tt>preserve</tt> mode (new in this version) preserves spacing
+   exactly as written in the source code, with the line break replaced
+   by a <tt>\n</tt> (newline) character, and subsequent whitespace
+   at the start of the next line kept intact.
+</ul>
+
+<p>Existing code that uses the pragma will continue to work without
+any changes, because the former "on" mode is equivalent to the new
+"collapse" mode, and the former "off" mode is equivalent to "delete"
+mode.  The compiler continues to accept the old names, although new
+code should use the new names for better clarity.
+
+<li>The Web UI library code had a bug that prevented dialogs (such
+as the display preferences dialog) from displaying properly on
+Internet Explorer 9 and later.  This has been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000194">bugdb.tads.org #0000194</a>)
+
+
+<li>The compiler error message for a symbol token containing an
+accented letter or other non-ASCII character has been improved.  In
+the past, the compiler treated a non-ASCII character as though it were
+a symbol delimiter; for example, this had the effect of splitting
+<tt>na&iuml;ve</tt> into three tokens: <tt>na</tt>, <tt>&iuml;</tt>,
+<tt>ve</tt>.  The compiler then reported an "invalid character" error
+for the <tt>&iuml;</tt> character.  The compiler now assumes that any
+non-ASCII character that's adjacent to a character that's valid in a
+symbol (i.e., not separated by any spaces or punctuation marks) is
+meant to be part of the symbol token, so rather than reporting the
+invalid character in isolation, the compiler now reports the error in
+terms of the entire token containing the non-ASCII character.  This
+should make it easier to pinpoint the source location of this type of
+error.  The compiler also displays the numeric Unicode value of the
+non-ASCII character, in case the character can't be displayed in the
+console character set (on many systems, the command line console uses
+a limited character set, such as Latin 1, that can't display the full
+range of Unicode characters that could occur in the source).
+
+(<a href="http://bugdb.tads.org/view.php?id=0000185">bugdb.tads.org #0000185</a>)
+
+
+<li>The IANA time zone database included in the base TADS release has
+been updated to version 2013c (2013-04-20).
+
+<li>On Windows, the interpreter behaved unpredictably (sometimes
+crashing) when certain Date or TimeZone operations were attempted and
+the Windows date/time locale was set to a time zone that uses standard
+time year round (i.e., the time zone doesn't currently make annual
+transitions between standard time and daylight time).  This is now
+fixed.  (There were actually two separate problems contributing to the
+bug, one specific to Windows and one in the portable code; both are
+fixed.)
+
+(<a href="http://bugdb.tads.org/view.php?id=0000171">bugdb.tads.org #0000171</a>)
+
+<li>In HTTPRequest.sendReply(), automatic content detection of the
+MIME type based on a file's contents didn't work properly for files
+shorter than 512 bytes.  This has been fixed.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000187">bugdb.tads.org #0000187</a>)
+
+<li>For Web UI mode, a bug in the HTTPServer class caused the whole
+server to shut down if any individual HTTPServer was terminated,
+either explicitly by calling its shutdown() method, or automatically
+when the object was deleted by the garbage collector.  This prevented
+any more messages from being delivered via getNetEvent(), even if
+other server objects were still listening for connections.  This
+didn't actually affect most games in practice, because most Web UI
+games create one HTTPServer object that listens for connections
+throughout the server lifetime, but it was still incorrect behavior.
+This has been corrected.
+
+<li>The compiler crashed when presented with a "try" statement with an
+empty "finally" block.  This is now fixed.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000176">bugdb.tads.org #0000176</a>)
+
+<li>Starting in version 3.1.0, TADS Workbench didn't run under
+Windows 2000 or earlier versions of Windows, due to a dependency
+on a newer Windows feature that didn't exist until Windows XP SP1.
+The dependency has been removed and replaced with code that should
+work on Win 2K as well as newer systems, so Workbench should once
+again be able to run on Win 2K.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000186">bugdb.tads.org #0000186</a>)
+
+<li>The macro preprocessor incorrectly expanded macros containing
+string embeddings in certain complex cases.  In particular, if the
+last macro argument was used within an embedded expression within a
+string within the macro expansion, and another separate embedding
+followed, any subsequent mentions of a macro argument were not
+expanded correctly.  The minimal case was something like this:
+
+<pre>
+#define M(a, b) '&lt;&lt;b&gt;&gt;&lt;&lt;&gt;&gt;' a
+</pre>
+
+<p>This has been corrected. 
+
+(<a href="http://bugdb.tads.org/view.php?id=0000180">bugdb.tads.org #0000180</a>)
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.1.2 (August 20, 2012)</h3>
+
+<ul>
+
+<li>New syntax allows defining an object within an expression.  This
+type of object is known as an inline object, and is essentially the
+object analog of an anonymous function.  Methods of inline objects
+behave like anonymous functions in that they can access locals from
+the enclosing scope.  Inline objects are useful for a lot of the same
+coding patterns where anonymous functions are useful, but allow for
+more flexible APIs, since an object is a more general way to express
+context information.  The new syntax also has the side benefit of
+letting you define new objects at run-time with the dynamic compiler:
+if you compile and evaluate an expression containing an inline object
+definition, the result will be an instance of the object defined in
+the expression.
+
+<p>For full details, see <a href="sysman/inlineobj.htm">inline objects</a>
+in the System Manual.
+
+<li>The new String method <a href="sysman/string.htm#match">match()</a>
+complements the <a href="sysman/string.htm#find">find()</a> method by
+checking for a match at a given position in the subject string rather
+than searching for a match.
+
+<li><a href="sysman/filename.htm#getFileInfo">FileName.getFileInfo()</a>
+now returns additional information on the file.  The new fileAttrs property
+of the FileInfo object provides information on file attributes used on
+some operating systems: the "hidden" and "system" attributes, and whether
+the program has read and/or write access to the file.
+
+<li>The documentation for
+<a
+href="sysman/filename.htm#removeDirectory">FileName.removeDirectory()</a>
+has been changed to specify that the method definitely fails if
+<i>deleteContents</i> is nil and the directory to be removed isn't
+already empty.  In the past, the documentation stated that the
+behavior for a non-empty directory varied by platform.  In fact, there
+was no variation in practice - all of the existing platforms already
+failed if a directory was non-empty and <i>deleteContents</i> was nil
+- so the warning about variable behavior was just hedging in case any
+future ports didn't work this way.  However, the internal porting
+interface that implements directory removal now specifies this exact
+behavior, so there's no longer any need for the hedge.
+
+<li>In the past, when <tt>#pragma once</tt> checked to see if the same
+file had been included previously, it was sensitive to case
+differences in the filenames as written in the #include directives.
+The comparison now uses the local file system conventions; on Windows,
+for example, the comparison ignores case differences.
+
+<li>The IANA time zone database included in the release has been updated
+to version 2012e (2012-08-03).
+
+<li>In 3.1.1, the debugger crashed if a run-time error was thrown by
+a non-Adv3 program.  This has been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000157">bugdb.tads.org #0000157</a>)
+ 
+<li>The UTF-8 character output mapper produced incorrect output when
+mapping a string that ended with a non-ASCII character.  This is
+now fixed.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000159">bugdb.tads.org #0000159</a>)
+
+</ul>
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.1.1 (July 14, 2012)</h3>
+
+<ul>
+
+<li>New syntax lets you create constant regular expression values:
+<tt>R"<i>pattern</i>"</tt> and <tt>R'<i>pattern</i>'</tt> are
+equivalent, and define static, pre-compiled RexPattern objects.  The
+compiler converts a string of the form <tt>R"..."</tt> or
+<tt>R'...'</tt> into a static RexPattern object, which you can
+then use in any context where a pattern is required.  For example:
+
+<pre>  local str = 'test string';
+  local title = str.findReplace(R'%&lt;%w', {x: x.toTitleCase()});
+</pre>
+
+<p>To define a regular expression literal, the R must be capitalized,
+and there must be no spaces between the R and the open quote.  "R"
+strings can't use embedded expressions (the &lt;&lt; &gt;&gt; syntax).
+The triple-quote syntax can be used with R strings, as in
+<tt>R"""..."""</tt>.
+
+<p>In the past, you could achieve a similar effect by defining a
+static property and setting it to a <tt>new RexPattern()</tt>
+expression.  You can still use that approach, of course, but the new
+syntax is more compact and eliminates the need to define an extra
+property just to cache the RexPattern object.  Using the new syntax
+also generates slightly more efficient code, since it doesn't require
+a property lookup to retrieve the RexPattern object.  (There might be
+other reasons to use the property approach in specific cases, though;
+for example, in a library or extension, defining the pattern via a
+property provides a clean way for users of the module to override the
+pattern if they need to replace it with a customized version.)
+
+<li>The basic integer arithmetic operators (+, -, *, /, and the
+corresponding combination operators such as ++ and +=) now check for
+overflow, and automatically promote the result to BigNumber when an
+overflow occurs.  In the past, overflows were simply truncated to fit
+the 32-bit integer type.  It was very difficult to detect such cases
+or to do anything sensible with the results; you really had to just be
+careful to avoid overflows, which isn't easy when working with
+external or user-entered data.  The new treatment ensures that the
+results of the arithmetic operators will always be arithmetically
+correct, even when they exceed the capacity of the basic integer type.
+This is more in keeping with the TADS philosophy of providing
+a high-level environment where you don't have to worry about
+hardware-level details such as how many bits can be stored in an
+integer.
+
+<p>This change should be transparent to existing programs, since (a)
+BigNumbers can for the most part be used interchangeably with
+integers, and (b) any program that encountered an integer overflow in
+the past probably misbehaved when it did, since there was no good way
+to detect or handle overflows.  The effect on most existing programs
+should thus be to allow them to correctly handle a wider range of
+inputs.  In some cases, the effect will be to flag a run-time error
+for a case where a value really does have to fit in an integer, where
+in the past the code would have failed somewhat more mysteriously due
+to the truncated arithmetic result.  The new handling should be an
+improvement even in error cases, since the source of the error will
+be more immediately apparent than in the past.
+
+<p>There's a slight impact on execution speed because of the extra
+checks required for arithmetic operations, although typical TADS
+programs aren't arithmetically intensive enough to notice any
+difference.  What's more, the VM-level checking eliminates the need
+for extra program code to do bounds checking, so this could end up
+being a performance enhancement in situations where overflows are a
+concern.
+
+<li>The compiler now automatically promotes any integer constant value
+that overflows the ordinary integer type to BigNumber.  This applies
+to values that are explicitly stated (e.g., "x = 3000000000;") as well
+as to constant expressions (e.g., "x = 1000000000 * 3;").  The
+compiler shows a warning message each time it applies such a
+promotion; BigNumber values aren't necessarily allowed in all contexts
+where integers are normally used, such as for some built-in function
+and method arguments, so the compiler wants you to be aware when it
+substitutes a BigNumber for a value you stated as an integer.  You can
+remove the warning on a case-by-case basis by explicitly stating the
+value as a BigNumber constant in the first place, by including a
+decimal point in the number (e.g., "x = 3000000000.;").
+
+<p>Integers specified in hex or octal notation (e.g., 0x80000000 or
+040000000000) aren't promoted if they can fit within a 32-bit
+<i>unsigned</i> integer.  Hex and octal are frequently used to enter
+numbers with specific bit patterns, so the compiler assumes that's
+your intention with these formats.  A hex or octal number that's over
+the 32-bit unsigned limit of 4294967295 will be promoted, though,
+since there's no way to store such a large value in a 32-bit integer
+regardless of its signedness.
+
+<li>The compiler now pre-calculates the results of arithmetic
+expressions involving BigNumber constant values.  (This is known
+as "constant folding".)  If an expression contains only constant
+numeric values, with any combination of integers and BigNumber values,
+the compiler will pre-calculate the results for the ordinary
+arithmetic operators (+ - * / %) and the comparison operators (== !=
+&lt; &gt; &lt;= &gt;=).  In the past, the compiler deferred
+calculations involving BigNumber values until run-time; constant
+folding improves the execution speed of affected expressions for
+obvious reasons.
+
+<li>You can now use <a href="sysman/tadsgen.htm#sprintf">sprintf</a>
+format codes directly within embedded expressions.  To do this, start
+the expression with a "%" code immediately after the angle brackets,
+with no intervening spaces.  For example, <tt>"x in octal is
+&lt;&lt;%o x&gt;&gt;"</tt> will display <i>x</i>'s contents in octal
+(base 8).  The compiler simply converts this sort of expression into a
+sprintf() call with the given format code, so you can use the entire
+range of format code syntax that sprintf() accepts.
+
+<li>The new <a href="sysman/tadsgen.htm#sprintf">sprintf</a> format
+codes %r and %R generate Roman numerals for integer values, in lower-
+and upper-case.
+
+<li>The String methods <a href="sysman/string.htm#find">find()</a> and
+<a href="sysman/string.htm#findReplace">findReplace()</a> now accept a
+RexPattern object as the search target.  An ordinary string can also
+still be used, of course.  This essentially makes String.find() and
+String.findReplace() replicate the functionality of
+<a href="sysman/tadsgen.htm#rexSearch">rexSearch()</a> and
+<a href="sysman/tadsgen.htm#rexReplace">rexReplace()</a>,
+respectively; the main benefit is that the syntax for the String
+methods is a little cleaner and more intuitive, since the subject
+string is moved out of the parameter list.
+
+<p>This is especially convenient with the new <tt>R'...'</tt> syntax
+for creating static RexPattern objects.  For example,
+<tt>str.find(R'%w+')</tt> finds the first word in a string.
+
+<li>The String method
+<a href="sysman/string.htm#findReplace">findReplace()</a> and the
+<a href="sysman/tadsgen.htm#rexReplace">rexReplace()</a> function each
+now take an optional additional argument, <i>limit</i>, specifying the
+maximum number of replacements to perform.  If the <i>limit</i>
+argument is omitted, the ReplaceOnce and ReplaceAll flags determine
+the limit; if <i>limit</i> is included in the arguments, the
+ReplaceOnce and ReplaceAll flags are ignored, and the <i>limit</i>
+value takes precedence.  <i>limit</i> can be nil to specify that all
+occurrences are to be replaced, or an integer to set a limit count.
+Zero means that no replacements are performed, in which case
+the original subject string is returned unchanged.
+
+<li>The new String function
+<a href="sysman/string.htm#findAll">findAll()</a> searches a string
+for all occurrences of a given substring or regular expression, and
+returns a list of the matches.
+
+<li>Two new functions implement reverse searches in strings:
+<a href="sysman/tadsgen.htm#rexSearchLast">rexSearchLast()</a> and
+<a href="sysman/string.htm#findLast">String.findLast()</a> These
+functions search a string from right to left, allowing you to find the
+last (rightmost) match for a substring or regular expression pattern.
+
+<li>The <a href="sysman/tadsgen.htm#rexGroup">rexGroup()</a> function
+can now be used to get information on the entire match, by passing 0
+for the group number.  rexGroup(0) returns the same format as the
+other groups, but contains the text and location of the entire match
+rather than of a parenthesized group within the match.
+
+<li>TADS now has more complete support for Unicode case conversions.
+Unicode defines two levels of case conversions; the older, simpler
+level provides one-to-one character mappings between upper- and
+lower-case letters, while the newer level allows for characters that
+expand into multiple replacement characters when converting case.  The
+canonical example is the German sharp S character, &#223;, which
+changes to "SS" when capitalized - there's no such thing as a capital
+sharp S in standard German typography.  For proper case conversion of
+a string containing an &#223;, then, each &#223; character expands to
+the two-character sequence "SS".  There are similar examples in other
+languages, some involving other ligatures and some involving accented
+characters that don't have upper-case equivalents.
+
+<p>In past versions of TADS, only the one-to-one conversions were
+supported.  Characters such as &#223; that required more complex
+handling were generally left unchanged in case conversions.  TADS now
+supports the full one-to-N mappings.  This won't affect most text,
+since most characters have simple single-character replacements when
+converting in upper or lower case.
+
+<p>TADS also now supports Unicode "case folding", which is a separate
+mapping for case-insensitive string comparisons.  In the past, TADS
+generally approached case-insensitive comparisons by converting each
+character to be compared to a common case (upper or lower), according
+to which character was the "reference" character in the comparison.
+Now, TADS uses the Unicode case folding tables instead, and converts
+each character to its "folded" form for comparison.  The folded form
+of each character is defined individually in the Unicode character
+database tables, but in nearly all cases it's the same as converting
+the character to upper case and then back to lower case.
+
+<p>The new case conversion and case-folding support affects several areas:
+
+<ul>
+
+   <li><a href="sysman/regex.htm">Regular expressions</a>: when the
+   &lt;nocase&gt; flag is specified, the matcher uses case folding to
+   match each contiguous string of literals.  (In past versions,
+   characters were compared by converting to the pattern character's
+   case using the one-to-one conversions only.)
+
+   <li>The String methods
+   <a href="sysman/string.htm#toUpper">toUpper()</a> and
+   <a href="sysman/string.htm#toLower">toLower()</a> use the new
+   case conversion tables.  In the past, these used the older
+   one-to-one case conversion tables.
+
+   <li>The new String methods
+   <a href="sysman/string.htm#toTitleCase">toTitleCase()</a> and
+   <a href="sysman/string.htm#toFoldedCase">toFoldedCase()</a>
+   use the new tables.
+
+   <li>The new String method
+   <a href="sysman/string.htm#compareIgnoreCase">compareIgnoreCase()</a>
+   uses the full case folding tables to perform a case-insensitive
+   comparison.
+
+   <li>The <a href="sysman/strcomp.htm">StringComparator</a> class
+   now uses full case folding when the comparator isn't case-sensitive.
+   In the past, caseless comparisons were done by converting each
+   input character to match the case of the corresponding dictionary
+   character, using the one-to-one conversions only.
+
+</ul>
+
+<p>The new support only includes the unconditional case mappings.  The
+Unicode tables define a number of case mappings that are conditional,
+some on the language in use and some on string context.  TADS doesn't
+currently support any of the conditional mappings.
+
+<li>The new String method
+<a href="sysman/string.htm#toTitleCase">toTitleCase()</a> converts
+each character in the string to "title case".  This is the same as
+upper case for most characters, but varies for some characters.  For
+example, a character representing a ligature (e.g., the 'ffi' ligature
+character, U+FB03) is converted to the corresponding series of
+separate letters with only the first letter capitalized (so U+FB03
+becomes the three separate letters F, f, i).
+
+<li>The new String method
+<a href="sysman/string.htm#toFoldedCase">toFoldedCase()</a> converts
+each character in the string to its case-folded equivalent, as defined
+in the Unicode standard.  The point of case folding is to erase case
+differences between strings, to allow for case-insensitive
+comparisons.  For most strings, the case-folded version is the same as
+the lower-case version, although not always; characters that don't
+have exact equivalents in the opposite case (e.g., the German sharp S,
+&#223;) are generally handled as though they were first mapped to upper
+case and then back to lower, so the result will sometimes expand one
+character to two or more characters in the folded version (e.g., &#223;
+turns into ss, so that 'WEISS' will match 'wei&#223;' in a case-insensitive
+comparison).
+
+<li>The new String method
+<a href="sysman/string.htm#compareTo">compareTo()</a> compares the
+target string to another string, returning a negative number if the
+target string sorts before the second string, 0 if they're identical,
+or a positive number i the target string sorts after the other string.
+C/C++ programmers will recognize this as the standard strcmp()
+behavior.  You can get the same information using comparison
+operators, but compareTo() is more efficient for things like sorting
+callbacks because it determines the relative order in one operation.
+For example:
+
+<p>
+<pre>
+   lst = lst.sort(SortAsc, {a, b: a &lt; b ? -1 : a &gt; b ? 1 : 0});
+   lst = lst.sort(SortAsc, {a, b: a.compareTo(b)});
+</pre>
+
+<p>The two callbacks have the same effect, but the second is a little
+more efficient, since it always does just one string comparison per
+callback invocation.
+
+<li>The new String method
+<a href="sysman/string.htm#compareIgnoreCase">compareIgnoreCase()</a>
+compares the target string to another string, using the case-folded
+version of each string.  It returns the same type of result as
+compareTo() - negative if the target string sorts before the other
+string, zero if they're equal, and positive if the target sorts after
+the other string, in all cases ignoring case differences.  This is
+equivalent to calling compareTo() using the results of calling
+toFoldedCase() on each string, but compareIgnoreCase() is more
+efficient since it never constructs the full case-folded versions of
+the two strings (it does the case folding character by character as it
+compares the strings).
+
+<li>The new function <a href="sysman/tadsgen.htm#concat">concat()</a>
+returns a string with the concatenation of the argument values.  This
+is essentially the same as using the "+" operator to concatenate a
+series of strings, but it's more efficient when combining three or
+more values, since the "+" operator is applied successively in
+pairs and so has to build and copy an intermediate result string at
+each step.
+
+<li>The new function <a href="sysman/tadsgen.htm#abs">abs()</a>
+returns the absolute value of an integer or BigNumber value.
+
+<li>The new function <a href="sysman/tadsgen.htm#sgn">sgn()</a> 
+returns the SGN (sign) of an integer or BigNumber value.  The SGN is 1
+for a positive argument, 0 for zero, and -1 for a negative argument.
+
+<li>The new t3make option -FC automatically creates the project's
+output directories.  If this option is specified, the compiler creates
+the directories specified in the -Fy, -Fs, and -o options, if they
+don't already exist.  This makes it simpler to move a project to a new
+directory or onto a new machine, since -FC makes it unnecessary to
+create the output directories manually.
+
+<li>HTTPRequest now recognizes GIF image files when sending a reply
+body.  When the caller lets HTTPRequest auto-detect the MIME type in
+sendReply() and related methods, the class will now use "image/gif"
+when it detects a GIF file.  As with other binary file types, the
+class recognizes GIF files by looking for the format's standard
+signature near the start of the reply body data.  
+
+(<a href="http://bugdb.tads.org/view.php?id=0000139">bugdb.tads.org #0000139</a>)
+
+<li>The new <a href="sysman/httpreq.htm">HTTPRequest</a> method
+<a href="sysman/httpreq.htm#sendReplyAsync">sendReplyAsync()</a> lets
+you send the reply to an HTTP request asynchronously, in a background
+thread, so that the main program thread can continue to service other
+requests while the reply is sent.  This is useful when the reply
+contains a large content body, such as a large image or audio file.
+Most browsers use background threads on the client side to download
+large media objects, so that the UI remains responsive to user input
+while the objects are downloaded; with the TADS Web UI, this means
+that the browser can generate new XML requests while image or audio
+downloads are still in progress.  The HTTPRequest sendReply() method
+is synchronous, meaning that it doesn't return until the entire data
+transfer has been completed.  This means that the program can't
+service any new XML requests that the browser sends during the
+download until after the download has completed and sendReply()
+returns, which makes the UI unresponsive for the duration of the
+download.  sendReplyAsync() addresses this by letting you initiate a
+reply and then immediately return to servicing other requests, without
+waiting for the reply data transfer to finish.
+
+<p>The Web UI library uses the new method to send replies to requests
+for resource files, since these files are often images, sounds, and
+other media objects that can be large enough to take noticeable time
+to transfer across a network.  Resource files are the mechanism that
+most games use to handle their HTML media objects, so most game
+authors shouldn't have to use sendReplyAsync() directly.
+
+<li>The new class <a href="sysman/filename.htm">FileName</a> provides
+a portable way to manipulate file names and directory paths, and
+methods to operate on the corresponding file system objects named.
+Each operating system has its own file path syntax, so it's always
+been difficult to use ordinary strings to construct and parse
+filenames that involve directory paths.  It's too easy to make
+assumptions that tie the program to a single operating system; the
+alternative has been to write a bunch of special-case code to handle
+the syntax for each OS that you want to support.  The FileName class
+helps by providing methods for common filename construction and
+parsing operations, which are implemented appropriately for each
+operating system where TADS runs.  TADS has always had many of these
+portability functions internally for its own use, mainly for the
+compiler and other tools; the FileName class makes them available to
+TADS programs.  These new features will probably be of little direct
+interest to game authors, but could be useful to library and tool
+developers.
+
+<p>In addition to building and parsing filenames, FileName
+provides access to a much more complete set of file system functions
+than was previously available.  The new class lets you create and
+delete directories, list directory contents, retrieve file system
+metadata (file sizes, types, modification dates), and move and
+rename files.  As with the previously existing file access functions,
+the new functions are subject to the file safety restrictions to
+reduce the risk of malicious use and give the user control over
+the scope of a program's file system access.
+
+<li>The <a href="sysman/tadsio.htm#inputFile">inputFile()</a> function
+now returns a <a href="sysman/filename.htm">FileName</a> object to
+represent the file chosen by the user, rather than a string.  Existing
+code shouldn't be affected unless it's unusually dependent upon the
+result being a string, since the FileName object can be passed to any
+of the functions that open files (including the File.openXxx methods,
+saveGame(), etc) in place of a string, and is automatically
+converted to a string containing the file name in most contexts
+where a string is required.
+
+<p>A FileName returned by inputFile() has an internal attribute that
+marks it as a user selection, which grants special permission to use
+the file even if it wouldn't normally be accessible under the file
+safety settings.  A manual selection via an inputFile() dialog
+overrides the safety settings because of the user's direct
+involvement; the user directly expresses an intention to use the file
+in the manner proposed by the dialog, which is an implicit grant of
+permission.
+
+<li>Several of the system-level functions that access files are now
+subject to file safety restrictions:
+<a href="sysman/tadsgen.htm#saveGame">saveGame()</a>,
+<a href="sysman/tadsgen.htm#restoreGame">restoreGame()</a>,
+<a href="sysman/tadsio.htm#setLogFile">setLogFile()</a>,
+<a href="sysman/tadsio.htm#setLogFile">setScriptFile()</a>, and
+<a href="sysman/tadsio.htm#logConsoleCreate">logConsoleCreate()</a>
+now enforce the appropriate read or write permissions according to the
+file safety settings.
+
+<p>In the past, these functions didn't enforce file safety settings,
+mostly for practical reasons: these functions are all used by the Adv3
+library to operate on files that are normally selected by the user, so
+it would have been confusing to deny access in cases where the user
+happened to choose a file outside the sandbox.  This was balanced
+against the lower inherent risk with these functions, as compared to
+the general-purpose File methods.  The game program can't use these
+functions for arbitrary read/write operations; the actual data content
+they read/write is largely under the control of the system, so there's
+probably no way to use them to do something like planting a virus or
+stealing private data.  However, since some of them create new files,
+they could still be used for certain types of mischief, such as
+overwriting system files or destroying user data.
+
+<p>The thing that's changed - that allows us to bring these functions
+into the file safety mechanism - is the new ability of
+<a href="sysman/tadsio.htm#inputFile">inputFile()</a> to mark its
+filename result as coming from a manual user selection, and the
+corresponding file safety enhancement that grants access permissions
+to such manually selected files.  This ensures that user file
+selections for Save, Restore, etc. will still work properly, even when
+they're outside the sandbox.
+
+<li>The new <a href="sysman/date.htm">Date</a> built-in class provides
+extensive functionality for parsing, formatting, and doing arithmetic
+with calendar dates and times; it works with the new
+<a href="sysman/timezone.htm">TimeZone</a> class to convert between
+universal time and local time anywhere in the world, correctly
+accounting for historical changes in time zone definitions and
+daylight savings time.  This should be especially useful to authors
+writing games involving time travel, or set during the early morning
+hours on certain Sundays in March or November.
+
+<li>The new function <a href="sysman/tadsgen.htm#makeList">makeList()</a>
+constructs a list consisting of a repeated value.
+
+<li>The system library's main startup code (in lib/_main.t) now allows
+the main() function to omit the argument list parameter.  The library
+now simply calls main() with as many arguments as it requires,
+providing the standard "args" parameter if needed and otherwise
+omitting it.  For little stand-alone programs that don't use the Adv3
+library, this simplifies the code a little by letting you omit the
+argument list parameter if you don't need it.
+
+<li>Lists and vectors can now be converted to strings, explicitly with
+<a href="sysman/tadsgen.htm#toString">toString()</a> as well as in
+contexts where non-string values are automatically coerced to strings,
+such as on the right-hand side of a "+" operator where the left-hand
+side is a string value.  The string representation of a list or vector
+is the concatenation of its elements, each first converted to a string
+itself if necessary, with commas separating elements.  For example,
+toString([1, 2, 3]) is the string '1,2,3'.
+
+<li>In implicit string conversions, the value <tt>true</tt> is now
+acceptable, and is converted to the string 'true'.  In the past,
+<tt>true</tt> worked this way with the
+<a href="sysman/tadsgen.htm#toString">toString</a> function, but not
+in implicit string conversions (such as when a value is used on the
+right-hand side of a "+" operator when the left-hand side is a
+string: <tt>'x=' + true</tt> caused a run-time error in the past,
+but now returns 'x=true').
+
+<li>The <a href="sysman/tadsgen.htm#toString">toString</a> function
+and implicit string conversions now accept properties, function
+pointers, pointers to built-in functions, and enum values.  If the
+reflection services module (reflect.t) is included in the build, these
+types will be passed to reflectionServices.valToSymbol() so that they
+can be translated to symbols when possible.  If reflect.t isn't
+included in the build, or if valToSymbol() doesn't return a string
+value, these types will be represented using a default format that
+indicates the value's type and an internal numeric identifier for the
+value, such as "property#23" or "enum#17".  Any object type that
+doesn't have a specialized string conversion defined by the built-in
+object type is now handled the same way, so an object without special
+formatting is represented either by its symbolic name (if it has one
+and reflect.t is included in the build) or a generic "object#" format.
+
+<li>The List method <a href="sysman/list.htm#sublist">sublist()</a>
+now accepts negative <i>length</i> values, for better consistency with
+similar methods (e.g., String.substr).  A negative length essentially
+states the length relative to the end of the list, in that it gives
+the number of elements to omit from the end of the result list.
+
+<li>The <a href="sysman/pack.htm">byte packing language</a> now lets
+you specify that a square-bracketed group is to be packed
+from/unpacked into subgroups per iteration for a repeated item, rather
+than using a single sublist for the whole group.  The "!"  modifier
+makes this change.  For example, <tt>fp.unpackBytes('[L S C]5!')</tt>
+returns (when successful) a list containing five sublists, each of
+which contains the three unpacked elements from one group iteration (a
+long int, a short int, and an 8-bit int).
+
+<li>The byte packer now allows up-to counts (e.g., 'a10*') for packing
+(not just unpacking).  When packing, for a group or a non-string item,
+an up-to count packs up to the numeric limit, or up to the actual
+number of arguments; for a string, an up-to count packs up to the
+actual string length or up to the limit, truncating the string at the
+limit if it's longer.
+
+<li>The regular expression language accepts several new shorthand
+character classes: %s for a space character, %S for a non-space
+character, %d for a digit, %D for a non-digit, %v for a vertical
+space, %V for a non vertical space.  (These correspond to backslash
+sequences - \s, \D, etc - that are fairly standard these days in other
+languages with regex parsers, such as Javascript and php.  There were
+already &lt;xxx&gt; character classes that do the same things as these
+new % codes, but these particular classes tend to be used often enough
+that it's nice to have shorthand versions.)
+
+<li>The new <a href="sysman/expr.htm#__objref">__objref()</a> operator
+lets you test for the existence of a particular object symbol,
+optionally generating a warning or error message if the symbol isn't
+defined or is defined as something other than an object.  This is
+similar to the <a href="sysman/expr.htm#defined">defined()</a>
+operator, but is specialized for object references.
+
+<li>The <a href="sysman/tadsgen.htm#randomize">randomize()</a>
+built-in function can do several new tricks.  First, it allows you to
+select from three different RNG algorithms to use in
+<a href="sysman/tadsgen.htm#rand">rand()</a>: the default ISAAC
+algorithm (the original TADS 3 RNG), a Linear Congruential Generator
+(or LCG, the long-time de facto standard for computer RNGs), and the
+Mersenne Twister (a newer algorithm that's become popular in other
+modern interpreted languages).  ISAAC is still a good general-purpose
+choice, but the new options are there in case you have some reason to
+prefer the properties of one of the other generators.  Second, you can
+now set a fixed seed value.  This allows you to override the automatic
+startup randomization that was added in TADS 3.1, and further lets you
+start a new fixed sequence at any time.  Third, you can now save and
+restore the state of the RNG, so that you can make the RNG repeat the
+same sequence of results it produced from the time of the saved state.
+
+<li>When the interpreter is launched, any command-line arguments that
+follow the .t3 file name are passed to the program as string arguments
+to the main() function.  In the past, these arguments were passed as-is,
+without any character set translation, which caused unpredictable
+results if they contained any non-ASCII characters.  The interpreter
+now translates these strings from the local character set to Unicode,
+ensuring that any accented letters or other non-ASCII characters are
+interpreted properly.
+
+(Related to <a href="http://bugdb.tads.org/view.php?id=0000109">bugdb.tads.org #0000109</a>)
+
+
+<li>The new interpreter command-line option
+<a href="sysman/terp.htm#-d-option">-d</a> specifies the default
+directory for file input/output.  This is the directory that the File
+object uses to open files whose names are specified with relative
+paths.  If -d isn't specified, the default is the folder containing
+the .t3 file.  (In past versions, there wasn't any way to set the
+working directory, which was always the .t3 file's folder.  This means
+the behavior in the absence of a -d option is the same as in the past.)
+
+<p>The new option <a href="sysman/terp.htm#-sd-option">-sd</a> lets
+you separately specify the "sandbox" directory for the file safety
+feature.  In the absence of an -sd setting, the sandbox directory is
+the same as -d setting, or simply the .t3 file's containing folder if
+there's no -d option.
+
+<p>(The -d option was added in part to address
+<a href="http://bugdb.tads.org/view.php?id=0000120">bugdb.tads.org #0000120</a>)
+
+
+<li>A bug in the dynamic compiler caused 'if' statements in
+dynamically compiled code (e.g., using <tt>new DynamicFunc()</tt>) to
+use the 'then' branch code for both true and false outcomes.  This has
+been fixed.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000117">bugdb.tads.org #0000117</a>)
+
+<li>A bug in the dynamic compiler sometimes caused a run-time error when
+accessing a local variable when the enclosing function also defined an
+anonymous function.  This is now fixed.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000118">bugdb.tads.org #0000118</a>)
+
+<li>A bug in the BigNumber class sporadically gave incorrect results
+for additions.  (Specifically, results were sporadically off by one in
+the last digit.)  This has been corrected.
+
+<li>toInteger() caused a crash when used with values below 0.1.  This
+has been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000127">bugdb.tads.org #0000127</a>)
+
+<li>The compiler reported an unhelpful internal error message
+("unsplicing invalid line") if a file ended in an unterminated string
+literal.  The message is now the more explanatory "unterminated string
+literal".
+
+<li>Consider this macro definition and usage:
+
+<p><pre>
+#define ERROR(msg) tadsSay(#@msg)
+ERROR({)
+</pre>
+
+<p>In the past, the compiler treated the ERROR({) line as have a
+missing close paren.  This is because the compiler previously tried to
+balance open and close curly braces and square brackets within macro
+arguments, and treated any parentheses found nested within
+braces or brackets as being part of the macro argument, rather than
+terminating the macro argument.  This no longer occurs; parentheses
+are now treated independently of braces and brackets within macro
+arguments, so a close paren within a macro argument that doesn't match
+an earlier open paren in the same argument now ends the argument.  The
+example above thus now compiles without error, and expands to
+<tt>tadsSay('{')</tt>.  The balancing act for braces and brackets does
+still apply to commas, though: a comma within a pair of braces or
+brackets is still considered part of the argument.  This is important
+for macro arguments that contain things like statement blocks or
+anonymous function definitions.
+
+<li>The File unpackBytes() method incorrectly threw an error if an
+"up-to" format was used (e.g., 'H20*') and the file had zero bytes
+left to read.  This has been corrected; unpackBytes() now succeeds
+and returns a zero-length result for the format item.
+
+<li>String.split() incorrectly returned a one-element list (consisting
+of an empty string) when used on an empty string.  This now correctly
+returns an empty list.
+
+<li>A bug in String.split() caused sporadic crashes when splitting
+at a delimiter and the result list had more than 10 elements.  The
+bug was related to garbage collection timing, so it was unpredictable.
+This is now fixed.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000156">bugdb.tads.org #0000156</a>)
+
+<li>A bug introduced in 3.1.0 caused exceptions to be caught in the
+wrong handlers under certain rare conditions.  The problem happened
+with exceptions thrown from within method calls when the caller had a
+new "try" block starting immediately after the expression containing
+the method call, with no other VM instructions between the call and
+the start of the "try" block (this means, for example, that the return
+value from the method call was discarded and no other computations
+were performed as part of the same expression after the method call).
+When all of these conditions were met, the exception was incorrectly
+handled by the "catch" part of the "try" block that started just after
+the call; this was incorrect because the "try" block didn't contain
+the call and so its "catch" block shouldn't have been involved in
+handling an exception that occurred within the call.  The correct
+behavior has been restored.
+
+<li>A bug in the regular expression parser randomly caused bad
+behavior, including crashes, if the last character of an expression
+string was outside of the ASCII range (Unicode code points 0 to 127).
+The bug was only triggered when certain byte values happened to follow
+the string in memory, so it only showed up rarely even for expression
+strings matching the description.  (It was also possible to trigger
+the same bug with a non-ASCII character within five characters of the
+last position if the string ended with an incomplete &lt;Xxx&gt;
+character class name, lacking the final "&gt;", but this might have
+been too improbable to have ever been observed in the wild.)  This has
+been fixed.
+
+<li>A compiler bug introduced in 3.1.0 made it impossible to assign
+to an indexed "self" element in a modifier method for an intrinsic
+class such as List or Vector.  This has been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000128">bugdb.tads.org #0000128</a>)
+
+<li>In the past, the compiler attempted to pre-evaluate any indexing
+expression it encountered ("a[b]") where the index value and the value
+being indexed were both constants.  In such cases, it only recognized
+list indexing, which was the only valid constant indexing expression
+before operator overloading made it possible to define indexing on
+custom object classes.  This made the compiler generate error messages
+for (potentially) valid code involving constant index values applied
+to object names.  This has been corrected; the compiler now treats
+such expressions as valid, and defers their evaluation until run-time,
+so that any operator overloading can be properly applied.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000142">bugdb.tads.org #0000142</a>)
+
+
+<li>The standard main window layout code in the Web UI library now
+loads its Flash helper object (TADS.SWF) dynamically rather than
+statically, and only does so when it detects that Flash support is
+already present in the browser.  In the past, the TADS.SWF object was
+embedded statically on the page, which means that the browser saw the
+object declaration whether or not Flash support was installed.  Some
+browsers attempt to be helpful in this situation by popping up a
+dialog or prompt pointing out that the page depends on Flash and
+offering to download and install a Flash plug-in.  For users who
+intentionally omit Flash from their browser configurations, though,
+this "helpful" prompt is an annoyance, since it comes up every time a
+page with a Flash embedding is loaded or reloaded and the answer is
+always No.  The library's new approach avoids the superfluous prompt
+by creating the TADS.SWF object embedding only after determining that
+Flash is already installed.
+
+<p>(There's a trade-off, of course, in that the browsers that display
+the prompt do so for good reason.  Without it, users who
+<i>un</i>intentionally omitted Flash from their configurations will
+never know the page makes use of it.  This seems like a small price to
+pay, though, in that (a) most modern browsers include Flash support
+out of the box anyway (excluding those on iOS, where Flash simply
+isn't available), so practically everyone who hasn't gone out of their
+way to remove Flash already has it (or is running on iOS, where
+there's no need for a prompt since there's no way to install Flash at
+all); and (b) even if there's anyone left over after considering (a)
+who could benefit from the prompt, the Web UI only uses Flash as a
+very minor enhancement (specifically, to obtain a list of installed
+fonts for the Preferences dialog), so these presumably rare users
+won't suffer any really significant loss of functionality from the
+lack of Flash that we're preventing the browser from alerting them
+to.)
+
+(<a href="http://bugdb.tads.org/view.php?id=0000145">bugdb.tads.org #0000145</a>)
+
+
+<li>The compiler didn't generate the full string list properly when
+the -Os option was used; only strings for the first source module in
+the build were included, rather than strings for all modules being
+compiled.  (What's more, when the build included many modules, the
+underlying bug sometimes caused internal memory corruptions within the
+compiler that generated spurious error messages or other unpredictable
+results.)  This has been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000150">bugdb.tads.org #0000150</a>)
+
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.1.0 (December 21, 2011)</h3>
+
+
+<p>This update has three main themes: dynamic coding, greater
+convenience, and network support.  On the dynamic code side, it's now
+possible to compile new code at run-time, and new reflection features
+provide more thorough run-time access to the program's own internal
+structure.  These dynamic features will be especially interesting to
+library and extension authors, as they open new opportunities for
+creating miniature languages within the language.  The convenience
+enhancements involve numerous, mostly small changes that make common
+tasks easier and frequent coding patterns more compact.  As for
+the new network features, the original motivation and initial
+application is to run TADS games in a client/server configuration,
+where the player uses an ordinary browser to access the game, with no
+need to install TADS or even download a game file.  This is just one
+application of the new technology, though; the network features are
+actually much more generalized and extensive than this first use might
+suggest.  In effect, TADS is now capable of acting as a fairly
+complete (if small scale) Web server programming environment.  This
+opens many new possibilities for networked user interfaces and
+multi-player games.  It also has an interesting bonus benefit, which
+is that it lets you tap into the full power of the browser to create
+your TADS user interfaces.  Modern browsers provide a vastly more
+powerful user interface platform than HTML TADS (or any other existing
+IF runtime), and all of that power is now directly available to TADS
+games.
+
+<p>Note that before this version was released, it was sometimes
+referred to as 3.0.19 (e.g., in the TADS bug database and the T3
+blog).  If you're looking for 3.0.19 based on something you read
+elsewhere, this is it.  We finally bumped the name up to 3.1 because
+of the substantial new functionality it contains.
+
+
+<ul>
+
+<li><b>Compatibility Alerts:</b> The following changes might affect
+existing code that was originally created with an earlier version of
+TADS 3.
+
+<ul>
+
+   <li><tt>operator</tt> is now a reserved word, due to the new operator
+   overloading feature.  This means that the word <tt>operator</tt> can't
+   used as a symbol name, such as for the name of an object, function, or
+   local variable.
+
+   <li><tt>method</tt> is now a reserved word, due to the new "floating"
+   method definition syntax.
+
+   <li><tt>invokee</tt> is now a reserved word.
+
+   <li><tt>defined</tt> is now a reserved word.
+
+   <li>&lt;&lt; &gt;&gt; sequences are now meaningful in single-quoted
+   strings, since these strings can now contain expression embeddings.
+   This means that formerly inert &lt;&lt; sequences in single-quoted
+   strings will now be interpreted as embeddings.  This <i>should</i>
+   be a compatibility issue, but as it happens a fortuitous
+   compiler bug in older versions made it virtually impossible to use
+   &lt;&lt; in single-quoted strings anyway, so this shouldn't affect
+   any existing code.
+
+   <li>Complex expressions involving compound assignment operators
+   with side effects in their lvalues are now compiled with different
+   (better)
+   behavior.  This probably won't affect any existing code,
+   because (a) it only applies to fairly unusual expressions, and (b) anyone
+   who encountered the old behavior probably would have thought it was
+   a bug and changed their code to avoid it.
+   The new behavior is much more predictable and much more what you'd
+   expect, but it's possible that there's existing code that accidentally
+   relies on the old behavior.
+   Details <a href="#compoundAsiSideEffects">below</a>.
+
+   <li>The regular expression character class &lt;space&gt; now
+   explicitly matches only <i>horizontal</i> whitespace characters,
+   <i>not</i> vertical separators (\n, \r, \b, and a few others).
+   This is actually more likely to fix problems than create new ones,
+   since the old behavior was inconsistent with what most people
+   expect from other regular expression implementations.
+
+   <li>The rand() function now evaluates only one of its arguments
+   when it's called with multiple arguments.  In the past, rand() 
+   evaluated all of its argument values first, then randomly selected
+   one of the values as the result.  Now, rand() makes the random selection
+   first, then evaluates only the selected item, and returns the result.
+   This means that side effects are only triggered for the selected
+   argument, not for all arguments as in the past.  This could conceivably
+   affect existing code that relied on all of the arguments' side effects
+   being executed, although such code tends to be tricky enough that
+   most people avoid it, so the practical impact should be minimal to
+   non-existent.  Also, importantly, this is a <b>compiler</b>
+   change only, so it only affects newly compiled code; existing .t3
+   files already in distribution won't be affected.
+
+</ul>
+
+<li>It's now possible for a TADS game to be a Web server.  This is
+accomplished with the new intrinsic classes <a
+href="sysman/httpsrv.htm">HTTPServer</a>, which handles the low-level
+networking required to receive and parse HTTP requests from Web
+clients, and <a href="sysman/httpreq.htm">HTTPRequest</a>, which
+represents an incoming HTTP request from a client; and the new
+intrinsic function set <a href="sysman/tadsnet.htm">tads-net</a>,
+which contains additional support functions for networking operations.
+
+<p>The new HTTP server support classes are designed to automatically
+handle all of the low-level necessities of a network service, while
+still giving the game program full control over how requests are
+actually processed.  This makes it possible to create a wide variety
+of effects with the network server.  Initially, it will be used to
+present the traditional single-player user interface in a networked
+configuration, where the game runs on a server and the client needs
+only an ordinary Web browser.  This eliminates the need for clients to
+install the TADS software, while also greatly expanding the UI
+capabilities of TADS games by letting you use the full power of HTML
+DOM and Javascript.  Over time, it opens up lots of other
+possibilities, such as collaborative gaming and multi-player games.
+
+<li>In addition to the new ability to act as a Web server, TADS games
+can now also make HTTP requests as clients, via the new function
+<a href="sysman/tadsnet.htm#sendNetRequest">sendNetRequest()</a>.
+This lets a game send information to and receive information from
+remote Internet servers during play.
+
+<li>The interpreter has a new command-line option, <tt>-ns##</tt>, for
+setting the "network safety level".  This is analogous to the file
+safety level, and controls the program's ability to access the network
+functions.  The "##" part is two digits, the first giving the safety
+level for <i>client</i> functions, and the second giving the level for
+<i>server</i> functions.  The client level controls outgoing
+connections from the program to external network services; the server
+level controls the program's ability to accept connections from
+external client programs (such as Web browsers).  There are three
+possible values for each component: 0 means "no safety", which allows
+all network access without restrictions; 1 sets local access only,
+which only allows connections to or from other applications running on
+the same computer; and 2 is "maximum safety", meaning no network
+access is allowed at all.  For example, <tt>-ns02</tt> gives the
+program full access as a client to any external network service
+anywhere on the network, but at the same time prohibits the program
+from setting up any network services of its own or accepting any
+connections from other processes or computers.  The default safety
+level is <tt>-ns11</tt>, which allows the program to connect to and
+accept connections from other programs on the same machine only.
+
+<li>The compiler now accepts "triple-quoted" strings.  This
+<i>isn't</i> a third type of string beyond single- and double-quoted;
+it's just a new way of writing those two existing string types.  A few
+other C-like languages have adopted this as a nicer syntax for writing
+strings that contain quote marks as part of their literal text.  This
+is a particularly common need in TADS, since so many strings are
+part of the story text.
+
+<p>A triple-quoted string starts and ends with <i>three copies</i> of
+the quote mark.  What you gain is that you can then freely use the
+quote mark character within the string <i>without</i> worrying about
+"escaping" it with a backslash.  The traditional C backslash syntax
+for embedded quotes is awkward to type and hard to read.  Triple
+quotes make strings more readable by letting you use quotes directly
+in a string without any escape characters.
+
+<p>
+<pre>
+   desc = """The sign reads "Beware of Backslash!""""
+</pre>
+
+<p>There are a couple of subtleties you should be aware of, so
+take a look at the <a href="sysman/strlit.htm#tripleQuotes">System
+Manual</a> for details.
+
+<li>Single-quoted strings can now use &lt;&lt; &gt;&gt; expression
+embeddings (including all of the new embedding features, such as
+&lt;&lt;if&gt;&gt;).  The single-quoted version produces a
+result that's equivalent to concatenating the embedded expressions
+to the surrounding string fragments.  For example, <tt>'one
+&lt;&lt;two&gt;&gt; three &lt;&lt;four&gt;&gt; five'</tt> is
+equivalent to <tt>'one ' + two + ' three ' + four + ' five'</tt>.  See
+<a href="sysman/strlit.htm#embedSgl">String Literals</a> in the System
+Manual for more details.
+
+<li>A new <a href="sysman/strlit.htm#strtpl">string embedding
+template</a> syntax lets you create custom keywords and phrases
+for use inside embedded
+expressions.  The compiler translates each custom template invocation
+into a function call, so this is merely a syntactic convenience, but
+it can make embeddings in strings more readable by avoiding
+expression-like syntax.  For example, you could create
+a template that lets you write a string like "You currently have
+&lt;&lt;score in words&gt;&gt;" points", rather than the
+more techy looking "You currently have &lt;&lt;spellNum(score)&gt;&gt;
+points".
+
+<li>There's a powerful new string embedding syntax for writing
+passages that vary according to run-time conditions.  Traditionally,
+conditions were embedded in strings using the <tt>?:</tt> operator, as in:
+
+<p><pre>
+   desc = "The door is &lt;&lt;isOpen ? 'open' : 'closed'&gt;&gt;."
+</pre>
+
+<p>That's fine for substituting a word or two based on a simple
+true/false condition, but for anything more complex it can be
+hard to read.  The new syntax improves the situation
+by making the varying text part
+of the string, rather than part of the expression.  The conditions
+become almost like markups interposed within the text:
+
+<p><pre>
+   desc = "The door is &lt;&lt;if isOpen&gt;&gt;open&lt;&lt;else&gt;&gt;closed&lt;&lt;end&gt;&gt;. "
+</pre>
+
+<p>The improved readability of the new syntax is more obvious with
+longer passages:
+
+<p><pre>
+   desc = "A massive iron door, bristling with rivets and bolts
+     across its surface. &lt;&lt;if isOpen&gt;&gt;It's open a crack, leaving
+     enough room for a mouse or perhaps a small hare to slip
+     through, but probably not quite enough for a burly
+     adventurer. "
+</pre>
+
+<p>Another benefit of the new syntax is that, because the varying text
+is part of the string rather than part of an embedding, you can freely
+use additional embeddings within the then/else parts.  (That's not
+possible with <tt>?:</tt> embeddings, since strings inside embedded
+expressions can't themselves contain any embeddings.)  You can even
+nest &lt;&lt;if&gt;&gt; structures for more complex conditions.
+
+<p>As with other embedding syntax, &lt;&lt;if&gt;&gt; can be used
+in single-quoted strings as well.
+
+<p>Full details are in the
+<a href="sysman/strlit.htm#embeddedIf">System Manual</a>.
+
+<li>Another new embedding syntax,
+<a href="sysman/strlit.htm#oneof">&lt;&lt;one of&gt;&gt;</a>, makes it
+easier to create lists of alternative messages to be chosen randomly
+or in a cycle (or a combination of the two).
+&lt;&lt;one of&gt;&gt; variations are defined
+for simple random selection, shuffling, cycling, "stop" lists,
+and for various combinations of these, such as going through a
+list once in sequence and then shuffling it.
+
+<p>The traditional way to create random or sequential messages
+was via the Adv3 EventList class, which of course
+still works.  &lt;&lt;one of&gt;&gt; is much
+more concise and readable for simple message variations, though, since
+it doesn't require a separate object declaration for the event list.
+The new syntax also has the advantage of being nestable inside
+other &lt;&lt;one of&gt;&gt; structures and &lt;&lt;if&gt;&gt
+structures.
+
+<li>One more new special embedding:
+<a href="sysman/strlit.htm#firstTimeOnly">&lt;&lt;first time&gt;&gt;</a>
+shows a message the first time the enclosing string is displayed,
+and omits it after that.  This is really just a special case of
+&lt;&lt;one of&gt;&gt; (and, in fact, the compiler actually
+rewrites it that way), but it's such a common motif in IF authoring
+that the custom syntax seems justified.
+
+<li>Speaking of string embedding, the compiler now respects
+parentheses (and square brackets and curly braces) within an embedded
+expression when determining where it ends.  The compiler previously
+assumed an embedding ended at the very first &gt;&gt;, regardless
+of context, but this
+was problematic if you wanted to use the &gt;&gt; bit-shift operator within an
+expression.  Now, the compiler counts parentheses, brackets, and
+braces, and treats &gt;&gt; as a bit-shift operator if it
+appears within a bracketed group.  This means you can use the &gt;&gt;
+operator in an embedded expression simply by parenthesizing the expression.
+
+<li>The new TadsObject methods getMethod() and setMethod() give you
+more dynamic control over objects and classes by letting you add new
+methods to an existing object.  This makes it possible to perform
+almost any sort of transformation on an object.  See the
+<a href="sysman/tadsobj.htm">TadsObject documentation</a> for details.
+
+<li>The new <tt>method</tt> keyword lets you define a "floating"
+method.  This is a routine that's not associated with an object, but
+which nonetheless has access to the method context variables
+(targetprop, targetobj, definingobj, and self), as well as
+<tt>inherited</tt>.  This is meant specifically for use with
+TadsObject.setMethod(): it lets you create a method that's not
+intially part of any object, and then plug it in as an actual method
+of selected objects at run-time.  Syntactically, a floating method
+definition looks just like an ordinary function definition, except
+that whole thing is preceded by the keyword <tt>method</tt> instead of
+the optional <tt>function</tt> keyword.  See the System Manual for <a
+href="sysman/proccode.htm#floatingMethods">more details</a>.
+
+<p>The <tt>method</tt> keyword can also be used to create anonymous
+methods.  These look and act almost the same as anonymous functions.
+The difference is that an anonymous method doesn't share its
+method context variables (self, definingobj, targetobj, targetprop)
+with its enclosing lexical scope.  Instead, an anonymous method takes
+on the "live" values for those variables each time it's called.
+As with named floating methods, anonymous methods are designed for
+attaching to objects via setMethod().
+<a href="sysman/anonfn.htm#anonMethods">Details</a> are in the
+System Manual.
+
+
+<li>The new intrinsic class <a
+href="sysman/dynfunc.htm">DynamicFunc</a> makes it possible for a
+running program to extend itself by creating new code on the fly.  New
+code is created by compiling a string that contains source code text,
+just as you'd use in the main program source code.  This type of
+facility is common in modern interpreted languages, especially
+scripting languages (e.g., Javascript, PHP), where people have found
+all sorts of uses for it.  It's especially interesting in TADS because
+it opens the door to new string and message processing capabilities.
+
+<p>DynamicFunc values behave very much like ordinary function pointers.
+You can call a DynamicFunc as though it were a function pointer, and
+you can use a DynamicFunc in TadsObject.setMethod() to create a new
+method for an object.
+
+<li><a href="sysman/gramprod.htm">GrammarProd</a> objects can now be
+dynamically created, and the grammar rules for an existing GrammarProd
+can be modified at run-time.  The new methods deleteAlt() and
+clearAlts() remove existing alternatives from a GrammarProd, and the
+new method addAlt() adds new alternatives.  New rules are specified
+using the same syntax as the regular "grammar" statement.
+
+<li>It's now possible to retrieve information on the preprocessor
+macros defined by the compiled program.  This is handled through the
+existing function <a
+href="sysman/t3vm.htm#t3GetGlobalSymbols">t3GetGlobalSymbols()</a>,
+which now takes an optional argument value that selects which type of
+symbol information to retrieve.  The argument is one of the following
+constant values: T3GlobalSymbols, to retrieve the global symbol table;
+or T3PreprocMacros, to retrieve the macro symbol table.  If you don't
+include an argument, the global symbol table is retrieved as in the
+past, so existing code will work unchanged.  As with the symbol table,
+the macro table is available only during preinit, or during normal
+run-time if the program is compiled with debugging information.
+
+<li>It's now possible to get a pointer to an intrinsic (built-in)
+function.  Use the "&amp;" operator, just like with a property name.
+For example, <tt>&amp;tadsSay</tt> yields a pointer to the tadsSay()
+intrinsic.  These pointers operate just like ordinary function
+pointers: you can use them to make calls, and you can even use them
+in TadsObject.setMethod().
+
+<li>For syntactic consistency, the "&amp;" operator can now be used to
+get a pointer to an ordinary function.
+
+<p>(In the past this wasn't allowed, but only for nit-picky
+reasons.  It was felt that, because there wasn't a <i>need</i>
+for an explicit "pointer-to" operator for functions, "&amp;" shouldn't
+even be allowed for functions, making its function clearer by virtue
+of being single-purpose.  This was seen as worthwhile because "pointer
+to property" seems to be a particularly subtle idea for new users, as
+it's rather abstract and not common in other languages.  However, now
+that we have pointers to built-in functions, we <i>do</i> need an
+explicit "pointer to" operator for those, and "&amp;" is certainly the
+right choice: it's the right parallel to C++, on which our syntax was
+originally modeled, and it's the right analogy to the existing TADS
+usage of "&amp;" with properties.  With the addition of the
+built-in function pointer type, given that "&amp;<i>property</i>" means
+"pointer to <i>property</i>", and "&amp;<i>built-in</i>" means
+"pointer to <i>built-in</i>," it would be confusing if
+"&amp;<i>function</i>" didn't mean "pointer to function" as well.  The
+only thing left out, really is "&amp;<i>object</i>", but that would be
+going too far.  The analogy with C++ would make "&amp;<i>object</i>"
+confusing for experienced C++ users because <i>object</i> and
+&amp;<i>object</i> have quite different meanings in that language.)
+
+<li>The new "defined" operator tests at compile time to determine
+whether a symbol is defined or not.  The syntax is
+<tt>defined(</tt><i>symbol</i><tt>)</tt>; this yields the constant
+value <tt>true</tt> if <i>symbol</i> is defined at the <b>global</b>
+level within the program (as a function, object, or property name),
+<tt>nil</tt> if not.  You can use <tt>defined()</tt> in any
+expression context, such as in the condition of an <tt>if</tt> statement.
+This operator is particularly useful in libraries, since it makes it
+possible to write code that conditionally references objects only
+when they're actually part of the program.  See the
+<a href="sysman/expr.htm#defined">System Manual</a> for details.
+
+<p>Note that "defined" still has its separate meaning within
+#if preprocessor expressions.  There, the operator determines if
+the symbol is defined as a <b>preprocessor</b> (#define) symbol.
+When used outside of #if expressions, "defined" has the
+new meaning of testing the symbol's presence in the compiler
+global symbols rather than the preprocessor macro symbols.
+
+<li>The "new" keyword is no longer required (although it's still
+allowed) in the definition of a long-form anonymous function.  For
+example, it's now valid to write code like <tt>lst.mapAll(function(x)
+{ return x+1; })</tt>.  The presence or absence of the "new" makes no
+difference to the meaning.
+
+<p>The original rationale for requiring "new" was that anonymous
+functions are actually objects that are newly created on each
+evaluation, so it was felt that this should be made explicit in the
+syntax.  The rationale for now relaxing the "new" requirement is that
+"closures" (as they're more technically known) have become common in
+other mainstream languages, and no one else seems to think the syntax
+should mimic object construction.  (For that matter, TADS's own
+short-form syntax never had the "new".)  There's also a good
+pragmatic reason: with the new Web UI, TADS programmers might find
+themselves switching back and forth between TADS and Javascript,
+since the Web UI incorporates a substantial Javascript front end.
+Javascript's anonymous function syntax is almost exactly like TADS's
+long-form syntax, except that Javascript doesn't have the "new".  Such
+close-but-not-perfect similarities are particularly vexing
+when switching between languages, so it seemed best to eliminate the
+unnecessary difference.
+
+<li>Short-form anonymous functions can now define their own local
+variables.  Use the <tt>local</tt> keyword as usual, at the beginning
+of the function's expression.  The syntax is analogous to defining
+locals within a <tt>for</tt> statement's initializer clause.  See <a
+href="sysman/anonfn.htm#shortFormLocals">Anonymous Functions</a> in
+the System Manual for details and examples.
+
+<p>This is convenient because it lets you use the short-form
+syntax even if the function requires a local variable or two.  In the
+past, you had to switch to the long-form syntax to define a local,
+even if the rest of the function simply returned an expression value.
+
+<li>The syntax of the <tt>for</tt> loop has been extended with
+three new features:
+
+<ul>
+   <li><b>for..in:</b>:
+   <tt>for (x in collection)</tt> is now synonymous with the
+   existing <tt>foreach</tt> syntax.  This makes the syntax more
+   uniform, which makes the language easier to use by eliminating
+   the need to remember to use distinct keywords for the two kinds
+   of loops.
+
+   <li><b>Hybrid for and for..in loops:</b> The "in" syntax newly
+   allowed in <tt>for</tt> loops can also be combined with the
+   conventional three-part init/condition/update syntax.  This
+   allows you to add other looping variables to an "in" iteration.
+   One of the drawbacks of the <tt>foreach</tt> syntax is that any
+   other looping variables have to be initialized before the <tt>foreach</tt>
+   and updated and/or tested within the loop body.  <tt>for</tt> loops,
+   in contrast, can manage multiple variables as part of explicit
+   loop structure within the <tt>for</tt> statement itself, which
+   is more compact and often clearer.  For example, to add a counter
+   to an "in" loop, and stop after 10 iterations even if more
+   elements are in the list, you could write
+   <tt>for (local i = 1, local ele in list ; i < 10 ; ++i) { }</tt>.
+
+   <li><b>for..in range loops:</b> By far the most common type of
+   <tt>for</tt> loop is a simple iteration over a range of integers,
+   such as over the index range for a list.  There's now a custom
+   syntax for this kind of loop: <tt>for (<i>var</i> in <i>from</i>
+   .. <i>to</i>)</tt>.  This syntax steps the variable <i>var</i>
+   from the <i>from</i> expression's value to the <i>to</i>
+   expression's value, inclusive of the limits.  For example, to
+   step through the index values for a list, you can write
+   <tt>for (local i in 1..list.length())</tt>.  This new syntax
+   makes simple integer loops easier to write and clearer.  It
+   also makes them more reliable, since a common coding error
+   is using <tt>&lt;</tt> instead of <tt>&lt;=</tt> (or vice
+   versa) for a loop condition.  The range syntax is more intuitive
+   because it explicitly states the endpoints rather than expressing
+   the loop condition as a value comparison.  The new syntax also
+   allows specifying the increment: <tt>for (i in 0..20 step 2)</tt>
+   steps through even numbers, and <tt>for (i in 10..1 step -1)</tt>
+   steps down from 10 to 1.  As with collection loops, you can mix
+   this syntax with the full three-part <tt>for</tt> syntax:
+   <tt>for (local i in 1..20, sum = 0 ; lst[i] != nil ; sum += lst[i])</tt>.
+
+</ul>
+
+<p>The new syntax is described in more detail in the <a
+href="sysman/proccode.htm#for">System Manual</a>.
+
+<li>A new language feature lets you pass argument values to functions
+and methods using explicit argument names.  This has several important
+benefits.  First, callees can retrieve argument values from callers
+without regard to the order of the values in the calling expression.
+Second, callees are free to ignore named parameters entirely, which
+allows a caller to pass extra, optional context information without
+burdening every callee's method definition syntax with unneeded extra
+parameter declarations.  Third, nested callees can retrieve named
+arguments passed indirectly from a caller several levels removed, so
+intermediate functions that don't care about context information can
+ignore it without preventing nested callees from accessing it.  This
+doesn't replace the traditional positional argument system, but rather
+extends it.  Some other languages use named arguments primarily for
+code clarity reasons, but the TADS version is designed to address a
+particular coding problem that comes up time and again in IF library
+design.  The details take a little work to explain; the new System
+Manual chapter on <a href="sysman/namedargs.htm">Named Arguments</a>
+has the full story.
+
+<li>New syntax makes it easier to define functions and methods that
+take optional arguments.  It's always been possible to do something
+similar using the "..." syntax, but "..." is really intended for cases
+where the number of additional arguments is unpredictable and has no
+fixed upper limit.  The new syntax, in contrast, is for cases where
+you have a specific number of arguments, but where you wish to make
+one or more of the arguments optional, so that callers can omit them
+for the most common case where a default value would apply.  This
+makes the calling syntax more convenient for the common case, while
+still letting callers specify the full details when needed.  "..."
+isn't ideal for this use because it doesn't provide error checking for
+<i>too many</i> parameters, and because it requires fairly tedious
+extra syntax in the callee to check for the presence of the extra
+arguments and retrieve their values.  The new syntax is described in
+detail in the new System Manual chapter on <a
+href="sysman/optparams.htm">optional parameters</a>.
+
+<li>The new <a href="sysman/expr.htm#invokee"><tt>invokee</tt></a>
+pseudo-variable retrieves a pointer to the function currently executing.
+This is most useful for anonymous functions, since it provides a way
+for an anonymous function to invoke itself recursively.
+
+<li>The t3GetStackTrace() function can now retrieve information on the
+local variables in effect at each stack level.  The locals are
+available via the locals_ property of the T3StackInfo object that
+represents a stack level.
+
+<p>By default, locals are omitted, since they take additional time to
+retrieve.  To include local variable information, supply the new
+<i>flags</i> argument with the value T3GetStackLocals.  (This is a bit
+value; it's possible that future bit values will be added, in which
+case this will be combinable with other bit flags via the '|'
+operator.)
+
+<p>The locals in each stack frame are provided as a LookupTable.  Each
+element of the table is keyed by a string giving the name of the
+variable, and each corresponding table value is the current value of
+the local.  The table is merely a copy of the locals in the stack,
+a value in the table won't have any effect on the local variables
+themselves.
+
+<li>The t3GetStackTrace() function now includes information on the
+named arguments passed to each stack frame.  This is available via
+the namedArgs_ property of the T3StackInfo object that represents
+each stack level.  This property is nil for a stack level that
+doesn't have named arguments.
+
+<p>Each named argument list is provided as a LookupTable.  Each element
+of the table is keyed by a string giving the name of the argument,
+and each corresponding table value is the argument's value.  
+
+<li>The t3GetStackTrace() function now includes full information on
+"native" calls in the stack - that is, intrinsic functions and
+intrinsic class methods.  In the past, native callers were recognizable
+by their complete lack of information, in that they had a nil value
+for both the calling function and object/property values.
+
+<p>This change comes into play when a native routine calls bytecode
+via a function pointer you passed into the native routine, such as
+when List.forEach() invokes its callback.  When the native caller is a
+built-in function, the function pointer element of the stack level
+object will contain a built-in function pointer value; when it's an
+intrinsic class method, it will contain suitable object and property
+values describing the native method.  For obvious reasons, there's no
+source file information for a native routine in the stack trace.
+
+<li>The new intrinsic class StackFrameDesc provides read and write
+access to the local variables in a stack frame.  You obtain a
+StackFrameDesc object via t3GetStackTrace() by including the
+T3GetStackDesc flag.  The object provides methods to get and set the
+values of local variables, and to retrieve the method context
+variables (self, targetobj, targetprop, definingobj).  See the System
+Manual chapter for <a href="sysman/framedesc.htm">more information</a>.
+
+<li>A new language and VM feature make it possible to "overload"
+operators.  This means that you can define a method on an object or
+class that's invoked using one of the algebraic operator symbols, such
+as "+" or "*", rather than via the normal method call syntax.
+Operator overloading has many potential uses, but the two main uses
+are (1) to create an especially compact syntax for common operations
+on specialized objects, and (2) to create a custom object that mimics
+the low-level interface of one of the built-in types or classes.  The
+details are described more fully in a <a
+href="sysman/opoverload.htm">new chapter</a> in the system manual.
+
+<p>Operator overloading has three significant limitations.  First, you
+can't <i>override</i> operators pre-defined by intrinsic classes.  For
+example, you can't redefine the indexing operator "[]" for a List, or
+the concatenation operator "+" for a String.  You can, however,
+<i>add</i> operators to intrinsic classes: it's legal to use "modify"
+to define an operator on an intrinsic class as long as that operator
+isn't already defined by the intrinsic class itself.  Second, there's
+no way to overload operators at all for a primitive type like integer,
+whether or not the type defines it: you can't change the meaning of
+"+" when applied to integers, or add a meaning for "true + nil".
+Third, not all operators are overloadable; notably, none of the
+comparison operators (==, !=, &lt;, &lt=, &gt;, &gt=) are
+overloadable.  All of these limitations are due to performance
+considerations; with these restrictions in place, this new feature has
+no performance cost to programs that don't use it.
+
+<li>Using operator overloading, it's now possible to create
+"list-like" objects.  An object is considered list-like if it has an
+overload for <tt>operator[]</tt> <i>and</i> it provides a
+<tt>length()</tt> method that takes zero arguments.  If the object
+provides this interface, the <tt>length()</tt> method <b>must</b>
+return an integer value.
+
+<p>The following built-in functions that formerly only accepted
+regular lists and/or vectors will now also accept list-like objects:
+inputDialog(), makeString(), rand(), Dictionary.addWord(),
+Dictionary.removeWord(), List.intersect(), List.appendUnique(), new
+LookupTable(), GrammarProd.parseTokens(), new StringComparator(),
+TadsObject.setSuperclassList(), new Vector(), Vector.appendAll(),
+Vector.appendUnique(), Vector.copyFrom().  Similarly, the "..."
+varying argument expansion operator can be applied to a list-like
+object as though it were a true list; and List and Vector comparisons
+with "==" and "!=" will compare element-by-element against a list-like
+value on the right-hand side; and the List and Vector "+" and "-"
+operators will treat right-hand operands as lists if they're list-like
+objects.
+
+<li>New syntax lets you create a LookupTable directly from a set of
+Key/Value pairs.  The syntax is similar to a list expression: write
+the list of Key-&gt;Value pairs in square brackets, with an arrow
+symbol '-&gt;' between each key and value.  For example, <tt>x =
+['one'-&gt;1, 'two'-&gt;2, 'three'-&gt;3]</tt> creates a LookupTable
+with keys 'one', 'two', and 'three', corresponding to values 1, 2, and
+3, so x['one'] yields 1, and so on.  This syntax is equivalent to
+calling <tt>new LookupTable()</tt> and then filling in the keyed
+values, so this kind of expression creates a new LookupTable object
+each time it's evaluated.
+
+<li>The LookupTable class now lets you specify the value to be returned
+when you index a table with a key that doesn't exist in the table.
+This is called the "default value" for the table; in the past, this
+was always nil.  The new <tt>setDefaultValue()</tt> method lets you
+set a different default.  You can retrieve the default value
+previously set for a table with the new <tt>getDefaultValue()</tt>
+method.  The initial default value for a new table is nil, so the
+behavior is the same as in prior versions if you don't use the new
+method.  You can also specify the default value when creating a table
+with the new shorthand syntax, by writing
+"<tt>*-&gt;<i>value</i></tt>" as the last element of the list.  (The
+asterisk is meant to suggest a "wildcard" matching any key not
+specifically entered in the table.)
+
+<li>The Dictionary class has new built-in infrastructure support for
+spelling correctors.  The new function correctSpelling() retrieves a
+list of words in the dictionary that are within a specified "edit
+distance" of a given string.  This new function isn't a full-fledged
+spelling corrector, but provides a very fast version of a key
+infrastructure element for building one.  Refer to the <a
+href="sysman/dict.htm#spellingCorrection">Dictionary class
+documentation</a> for details.
+
+<li>The new intrinsic class <a
+href="sysman/strbuf.htm">StringBuffer</a> is a mutable version of the
+character string object.  Unlike regular String objects, a
+StringBuffer's text contents can be modified in place, without
+creating new String objects.  StringBuffer is designed especially for
+situations where it takes many incremental steps to build a string.
+It's much more efficient to use StringBuffer for these cases than it
+is to use regular string concatenation, because the latter makes a new
+copy of each concatenated combination.  StringBuffer provides methods
+to edit the contents of the buffer: you can insert, append, delete,
+and replace parts of the text.  When you've finished the build steps
+for a string buffer, you can convert it to a regular string using
+toString().  You can also extract a substring of the buffer using the
+substr() method, just like for a regular string.
+
+<li>The <a href="sysman/tadsgen.htm#rexReplace">rexReplace()</a>
+function has several new features that make it more powerful
+and more convenient to use:
+
+<ul>
+
+   <li>You can now specify a function to determine the replacement
+text to use for each match.  If you supply a function (regular or
+anonymous) in place of the regular replacement text argument,
+rexReplace() calls the function for each match, passing as arguments
+the matched text, the index of the match within the overall subject
+string, and the original subject string.  Your callback function
+returns a string value giving the text to use as the replacement.
+This allows for much more complex string manipulations, since you can
+test conditions that are beyond what can be encoded in a regular
+expression, and you can apply arbitrary transformations to the match
+string to produce the replacement text.
+
+   <li>You can now specify a list of patterns to match, instead of
+just a single pattern, and each pattern can have a separate
+replacement value (which can be a string or a callback function, per
+the new callback feature above).  By default, when you supply a list
+of patterns, rexReplace() searches for all of the patterns at once.
+This is similar to combining the patterns with '|' to make a single
+pattern, but it's more powerful because it lets you specify a
+different replacement string for each pattern.  If you include
+ReplaceSerial in the flags, rexReplace() instead searches "serially"
+for the patterns: it replaces each occurrence of the first pattern
+throughout the entire string, and then re-scans the updated string to
+replace all occurrences of the second pattern, and so on.  The effect
+is the same as calling rexReplace() sequentially with each individual
+pattern, but it's more compact to write it this way.
+
+   <li>The "flags" argument is now optional.  If it's omitted,
+the default is ReplaceAll.  This makes the function more convenient
+to use for the most common case.  Note that if you need to specify
+the "index" argument, you must also include a "flags" value, since
+the arguments are positional.
+
+   <li>The new flag ReplaceIgnoreCase makes the search insensitive to
+case, by default.  A &lt;case&gt; or &lt;case&gt; directive in the
+regular expression overrides the ReplaceIgnoreCase setting.  The main
+reason this flag is provided at all (given that it's largely redundant
+with the &lt;case&gt; or &lt;case&gt; directives) is for uniformity
+with String.findReplace(), but it can occasionally be useful in that
+lets you reuse an expression for both case-sensitive and
+case-insensitive searches.
+
+   <li>The new flag ReplaceFollowCase makes the replacement follow the
+capitalization pattern of the matched text.  Lower-case letters in the
+replacement text are capitalized (or not) as follows: if all of the
+alphabetic characters in the matched text are capitals, the entire
+replacement text is capitalized; if all of the letters in the match
+are lower-case, the replacement text is left in lower-case; if the
+match has both capitals and lower-case letters, the first alphabetic
+character of the replacement text is capitalized.  This only applies
+to lower-case letters in a replacement string, and only to literal
+text: "%" group substitutions aren't affected, since they already copy
+text directly from the match anyway.  The flag also has no effect when
+the replacement is a callback function rather than a string; we have
+to assume the function returns exactly what it wants, since it can
+perform similar case manipulations of its own.
+
+</ul>
+
+<li>The String method <a
+href="sysman/string.htm#findReplace">findReplace()</a> has a few new
+features:
+
+<ul>
+
+   <li>You can now specify a list of search strings, and a list of
+corresponding replacements.  This makes it possible to perform a whole
+series of replacements with a single call.
+
+   <li>You can now pass a function in place of a string as the
+replacement argument.  For each match, findReplace() invokes the
+function, passing in the matched text and other information;
+the function returns a string giving the replacement text.  This
+makes it possible to vary the replacement according to the actual
+matched text, its position in the subject string, or other factors.
+
+   <li>The "flags" argument is now optional.  If it's omitted, the
+default is ReplaceAll.  This makes the most common usage more
+convenient.  Note that if you need to specify an "index" value
+(for the starting position), you'll need to include a "flags"
+value, since the arguments are positional.
+
+   <li>The new flag ReplaceIgnoreCase makes the search insensitive
+to capitalization.
+
+   <li>The new flag ReplaceFollowCase makes the replacement text
+follow the case of the matched text, mimicking its capitalization
+pattern.
+
+</ul>
+
+<li>The functions rexMatch(), rexSearch(), and rexReplace(), and the
+String methods toUnicode(), find(), and findReplace() now accept a
+negative values for the "index" argument.  This is taken as an index
+from the end of the string: -1 is the last character, -2 the second to
+last, and so on.  For the search and replace functions, a negative
+index doesn't change the left-to-right order of the search; it's
+simply a convenience for specifying the starting point.  Some other
+string methods already accepted this notation, so these additions make
+the API more consistent.
+
+<li>The regular expression matcher now matches &lt;space&gt; only to
+<i>horizontal</i> whitespace characters.  In the past, &lt;space&gt;
+matched some vertical whitespace characters as well, but this was
+inconsistent with the usual matching rules in most other regular
+expression implementations, and was usually undesirable.  The new
+character type &lt;vspace&gt; explicitly matches vertical whitespace:
+'\n', '\r', '\b', '\u2028', '\u2029', and a few ASCII control
+characters that the Unicode standard defines as line break characters
+('\u0085', '\u001C', '\u001D', '\u001E').  To create a character
+class matcher that matches all whitespace, the way &lt;space&gt;
+did in the past, use &lt;space|vspace&gt;.
+
+<li>Look-back <a href="sysman/regex.htm#assertions">assertions</a> are
+now supported in the regular expression language.  A look-back
+assertion tests a sub-pattern against the characters <i>preceding</i>
+the current match point, which makes it possible to apply conditions
+to the preceding context where a potential match appears.  TADS follows
+the widely-used Perl-style syntax for the new assertions.
+
+<li>In the past, the regular expression compiler explicitly ignored
+any closure operator (*, +, {}) applied to an assertion, because such
+constructs are essentially meaningless and are susceptible to infinite
+loops.  The compiler no longer takes this approach; instead, it does a
+thorough check for meaningless loops in the regular expression, and
+deletes them.  This is an improvement because it detects all loops, no
+matter how complex, whereas the old approach only caught this one
+superficial case.  This change creates one behavior difference, which
+is that it corrects the effect of the * operator applied to an
+assertion: in the past, the * was simply ignored, whereas it now
+correctly requires that the assertion is true zero or more times.
+This is the same as removing the assertion entirely, since a condition
+that has to be true zero or more times is really no condition at all.
+
+<li>The new function <a
+href="sysman/tadsgen.htm#sprintf">sprintf()</a> creates formatted text
+from data values according to a format template string.  This is
+similar to the sprintf() function in many C-like languages.  This
+style of string formatting is sometimes more compact and convenient
+than the alternatives.  sprintf() is also particularly useful for
+formatting numbers, since it has several style options for integers
+and floating-point values that are tedious to code by hand.
+
+<li>The new String method <a href="sysman/string.htm#splice">splice()</a>
+lets you delete a portion of a string, insert new text into a string,
+or both at the same time.  splice(idx, del, ins) deletes <i>del</i>
+characters starting at index <i>idx</i>, and then inserts the string
+<i>ins</i> in their place.  The <i>ins</i> string is optional, so you
+can omit it if you just want to delete a segment of the string.
+
+<li>The String method substr() now accepts a negative value for the
+length argument, which specifies a number of characters to discard
+from the end of the string.
+
+<li>The new String method <a href="sysman/string.htm#split">split()</a>
+divides a string into substrings at a given delimiter, which can be
+given as either a string or a RexPattern (regular expression pattern).
+It can alternatively split a string into substrings of a fixed length.
+This method comes in handy for surprisingly many simple string parsing jobs.
+
+<li>The new List method <a href="sysman/list.htm#join">join()</a>
+concatenates the elements of the list together into a string.
+<a href="sysman/vector.htm">Vector</a> has this same new method.
+
+<li>The new String method <a href="sysman/string.htm#specialsToHtml">
+specialsToHtml()</a> converts special TADS characters (such as \n
+and \b sequences) to standard HTML equivalents.  This is designed
+specifically for the Web UI, to make it easier to port games between
+the traditional console UI and the Web UI by providing support in
+the Web UI for the traditional (pre-HTML) TADS formatting codes.
+
+<li>Another new String method, <a
+href="sysman/string.htm#specialsToText"> specialsToText()</a>, is
+similar to specialsToHtml(), but converts the string to plain text.
+Special TADS characters are converted to their plain text equivalents,
+the basic HTML "&amp;" entities are converted to their character
+equivalents, a few basic tags (&lt;BR&gt;, &lt;P&gt;, and a few
+others) are converted to suitable plain-text equivalents, and most
+other tags are stripped out.  This is designed for situations where
+you need a plain-text rendering of the way a TADS string would look
+as displayed on the regular output console.
+
+<li>The new string methods <a href="sysman/string.htm#urlEncode">urlEncode()</a>
+and <a href="sysman/string.htm#urlDecode">urlDecode()</a> simplify
+encoding and decoding URL parameter strings, for use in HTTP network
+requests.  urlEncode() converts special characters to "%" encodings;
+urlDecode() reverses the effect, translating "%" encodings back to
+the character equivalents.
+
+<li>Two new String methods, <a href="sysman/string.htm#sha256">sha256()</a>
+and <a href="sysman/string.htm#digestMD5">digestMD5()</a>, calculate
+standard hash values for the string's contents.  sha256() calculates
+the 256-bit SHA-2 (Secure Hash Algorithm 2) hash, and digestMD5()
+calculates the MD5 message digest.  The same methods are available on
+ByteArray to hash the byte array's contents, and on File to hash
+bytes from the file.
+
+<li>It's now easier to convert between strings and ByteArray objects.
+First, a ByteArray can now be converted to a string via toString(), or
+via implicit conversions, such as a "&lt;&lt &gt;&gt;" embedding in a
+string.  The bytes in the array are simply treated as Unicode
+character codes.  Second, ByteArray.mapToString() can now be called
+without a character set argument, or with nil for the character set;
+this performs the same conversion as toString().  Third, the ByteArray
+constructor has two new formats: <tt>new ByteArray('string')</tt>
+creates an array containing the string, treating each character as a
+Latin-1 character; and <tt>new ByteArray('string',
+<i>charmap</i>)</tt> is equivalent to
+<tt>'string'.mapToByteArray(<i>charmap</i>)</tt>, but is a little more
+intuitive syntactically.  Similarly, String.mapToByteArray() can now
+be called without the character mapper argument, which is equivalent
+to <tt>new ByteArray('string')</tt>.
+
+<li>ByteArray.mapToString(), the ByteArray constructor, and
+String.mapToByteArray() now accept a string giving the name of a
+character set in place of a CharacterSet object.  The methods simply
+create a CharacterSet object for the given name automatically.  This
+is more convenient for one-off conversions, but if you're using a
+character set repeatedly keep in mind that it's more efficient for you
+to create the object once and reuse it.
+
+<li>Concatenating nil to a string with the "+" operator now simply
+yields the original string.  That is, nil is treated as equivalent to
+an empty string for this operator.  In the past, the literal string
+"nil" was appended instead.  This was almost never useful, whereas
+it's often a convenience to have nil treated as an empty string in
+this situation.
+
+<li>The compiler now recognizes the "\r" escape code in string
+literals.  \r represents a Carriage Return character, ASCII 13, which
+is the same meaning this code has in C, C++, Java, and Javascript.  \r
+wasn't part of the TADS escape set historically (although you could
+always code it numerically as \015 or \u000D), mostly because there
+was never much need for it in practice.  TADS tries to smooth out
+newline differences among platforms by representing all newline
+sequences as \n characters, so it's rare for a \r to find its way into
+a TADS string in the first place.  We've added \r mostly for the sake
+of completeness and familiarity for C/Java programmers.
+
+<li>The built-in function makeString() now returns an empty string if
+the repeat count argument is zero, and throws an error if the count is
+less than zero.  In the past, all repeat counts less than 1 were
+treated as though 1 were specified.
+
+<li>The new List method <a href="sysman/list.htm#splice">splice()</a>
+lets you delete a portion of a List, insert new elements into the
+list, or both at the same time.  splice(idx, del, ins1, ins2, ...)
+deletes <i>del</i> elements of the list starting at index <i>idx</i>,
+and then inserts the new elements <i>ins1</i>, <i>ins2</i>, etc., in
+their place.  The new elements are optional; if they're omitted, the
+method only does the deletion.  If <i>del</i> is 0, the method only
+does the insertion.  The equivalent method is also now available
+for <a href="sysman/vector.htm#splice">Vector</a>.
+
+<li>The new static List method <a
+href="sysman/list.htm#generate">generate()</a> creates a list with a
+given number of elements by invoking a callback function to generate
+each element's value.  This is similar to mapAll(), but rather than
+transforming an existing list, generate() constructs a new list from a
+formula.  For example, for a list of the first ten even integers, we
+can write <tt>List.generate({i: i*2}, 10)</tt>.
+
+<p>Vector.generate() works the same way to generate a new Vector.
+
+<li>The Vector constructor now allows you to omit the initial
+allocation argument in most cases.  You can call <tt>new Vector()</tt>
+without any arguments to use a default initial allocation (currently
+10 elements).  <tt>new Vector(<i>source</i>)</tt>, where <i>source</i>
+is a list or another Vector, creates a Vector copy of the source
+object using the source object's length as the initial allocation
+size.  (This change is meant to make the Vector programming interface
+more consistent with the spirit of the class as a high-level,
+automatic collection manager.  The old requirement to specify what
+amounts to an optimization parameter for every Vector was rather out
+of character with this spirit.)
+
+<li>Most of the List and Vector methods that take an index value
+arguments now accept negative index values to count backwards from the
+last element: -1 is the last element, -2 is the second to last, and so
+on.  For methods that insert elements, 0 generally counts as one past
+the last element, to insert after the last existing element.  See the
+individual List and Vector method descriptions for details.  Note that
+this works only with method calls, not with the <tt>[ ]</tt> subscript
+operator.
+
+<li>The built-in functions max() and min() now accept a single list,
+vector, or other list-like object value as the argument.  The result
+is the highest or lowest value in the list.
+
+<li>List has four new methods for finding minimum and maximum
+elements, optionally applying a mapping function to the element values
+to be minimized or maximized.  indexOfMin() returns the index of the
+element with the minimum value; minVal() returns the minimum element
+value; indexOfMax() returns the index of the element with the maximum
+value; maxVal() returns the maximum element value.  With no
+arguments, these methods all simply compare the element values
+directly, and minVal() and maxVal() return the lowest/highest
+element value.  These methods can all optionally take one argument
+giving a function pointer.  If the function argument is supplied, the
+methods call the function for each element in the list, passing the
+element's value as the argument to the callback function, and the
+methods all use the return value of the function in place of the
+element value.  For example, if lst is a list of string values,
+lst.maxVal({x: x.length()}) returns the length of the longest string
+in the list.
+
+<p>Vector has the same four new methods.
+
+<li>The File object has a new pair of methods, packBytes() and
+unpackBytes(), that make it much easier to work with raw binary files,
+especially files in third-party or standard formats such as JPEG or
+MP3.  The new methods convert between bytes in a file and TADS
+datatypes in your program, using a mini-language that can express
+complex data structures very compactly.  This is based on the similar
+facility in Perl and php, so if you're familiar with one of those
+you'll already know the basics.  ByteArray and String have their own
+versions of the methods as well, for times when you want to prepare
+byte structures in memory rather than in a file.  For details, see <a
+href="sysman/pack.htm">Byte Packing</a> in the System Manual.
+
+<li>A new static (class-level) File method, File.getRootName(),
+extracts the "root" portion of a filename string.  This is the portion
+of the filename that excludes any directory or folder path prefix.
+For example, given a string 'a/b/c.txt' while running on a Unix
+machine, the function returns 'c.txt'.  The function uses the correct
+local naming rules for the OS that the program is actually running on.
+
+<li>In File.openTextFile() and File.openTextResource(), if the
+character set isn't specified (because the parameter is missing or
+nil), the default is now the system's default local character set for
+file contents.  This is the same character that
+getLocalCharSet(CharsetFileCont) returns.  In the past, the default
+was always "us-ascii".  Another small enhancement is that the
+character set parameter can now be given as nil, which explicitly
+selects the default (in the past, if you wanted the default, you had
+to omit the parameter entirely).
+
+<li>A new static (class-level) File method, File.deleteFile(), lets
+you delete files.  The file safety level for write mode applies to
+deletions, so you can only delete a file that you could also
+overwrite.
+
+<li>File.writeBytes() now accepts a File object as the source of
+the data to write to the file.  This makes it easy to copy a portion
+of one file to another file.  When the source is a File object,
+the <i>start</i> parameter specifies a seek location in the source
+file; if <i>start</i> is omitted or nil, the default starting location
+is the current seek location in the file.
+
+<li>A new File method, setMode(), lets you change the data mode of an
+open file.
+
+<li>In the past, File.getPos() wasn't reliable when reading from text
+files.  The File object internally buffers text read from the file so
+that it can perform character set conversions, and getPos() was
+incorrectly returning the position of the last byte read into the
+internal buffer, rather than the read position within the buffer.
+This made it impossible to reliably seek back to a starting location
+in the middle of a series of text reads.  This is now fixed.
+
+<li>Reading from a file opened in one of the read/write access modes
+(FileAccessReadWriteKeep, FileAccessReadWriteTrunc) didn't work in
+past versions; it could cause a crash.  This has been corrected.
+
+<li>The File methods that open resource files are now affected by the
+file safety level.  If a resource isn't bundled into the .t3 file, the
+open-resource methods traditionally looked for the resource as a
+separate, unbundled file within the image file's folder.  They now do
+this <b>only if</b> the file safety level would allow access to the
+same file through a regular open-file method.  This makes it
+especially important for you to explicitly bundle any resources
+directly into the .t3 file, since bundled resources are always
+accessible, regardless of file safety settings.
+
+<li>The new intrinsic class <a
+href="sysman/tempfile.htm">TemporaryFile</a> provides support for
+temporary files in the local file system.  A temporary file is a file
+that only exists for the duration of the program's execution, and is
+automatically deleted when the program exits.  You can manipulate
+temporary files even when the file safety level prohibits access to
+the local file system, because their inherent limitations prevent
+misuse by malicious programs.
+
+<p>Use <tt>new TemporaryFile()</tt> to create a TemporaryFile object.
+The system automatically assigns the new object a unique filename in
+the local file system, typically in a special system directory
+designated by the operating system.  You don't specify the name of a
+temporary file, since the system chooses the name for you to ensure
+uniqueness.  Creating the TemporaryFile object doesn't actually create
+a file on disk; it merely generates a filename that you can use.  You
+can then create, read, write, and otherwise manipulate the actual file
+using the File object.  Pass the TemporaryFile object in place of the
+filename string to open the file.  You can also use TemporaryFile
+objects in most other system functions that operate on files
+(saveGame(), restoreGame(), setLogFile(), scriptScriptFile(), and
+logConsoleCreate()).
+
+
+<li>The file safety level is now separated into two components, one
+for reading files and the other for writing files.  The safety levels
+have the same meanings as in past versions, but you can now select the
+read and write levels separately by specifying two digits in the
+<tt>-s</tt> option.  The first digit is the read level, and the second
+is the write level.  For example, <tt>-s04</tt> allows all read
+access, but blocks all write access.  If you specify only one digit,
+the given level is applied to both read and write operations, so
+the option works the same way it used to if you use the old syntax.
+The default is still <tt>-s2</tt>, which allows read and write access
+to the directory containing the image file, and denies all other file
+access.
+
+<li>The file safety levels that restrict access to the image file
+directory now consider files within subdirectories of that directory
+to be within that directory.  In the past this was ambiguous, although
+most systems considered only allowed access to files directly in the
+image file directory.  It makes more sense to allow subdirectory
+access than to forbid it: subdirectories are conceptually contained
+within their parent directory, so access within subdirectories is
+still effectively sandboxed to the containing directory.
+
+<li>Saved game files can now include an optional "metadata" table,
+containing game-defined descriptive information about the state of the
+game at the time of creating the save file.  This can include any
+information the game wishes to include, such as the current room
+location, score, number of turns, chapter number, etc.  The
+interpreter and other tools can extract this information and display
+it to the user when browsing a collection of saved game files, to help
+jog the user's memory about the game position saved in the file.  See
+<a href="sysman/tadsgen.htm#saveGame">saveGame()</a> in the System
+Manual for details.
+
+<li>The setLogFile() and setScriptFile() built-in functions now return
+values, to indicate success or failure.  On success, the functions
+return true; on failure, they return nil.  A failure result from
+setLogFile() means that the specified file can't be created, and from
+setScriptFile() it means the file doesn't exist or can't be opened.
+
+<li>The new IntrinsicClass static method isIntrinsicClass() lets you
+determine if a given object is an IntrinsicClass instance.  This isn't
+possible using ofKind() or getSuperclassList(), because those methods
+work within the <i>inheritance</i> class tree for the intrinsic types.
+This new method is required to make this determination.
+IntrinsicClass is only used for the <i>representation</i> of an
+intrinsic class, and isn't involved in the inheritance structure.
+For more information, see the <a href="sysman/icic.htm">IntrinsicClass</a>
+documentation.
+
+<li>You can now enter expressions containing anonymous functions
+interactively in the debugger (such as in the "Watch" list, breakpoint
+conditions, or the expression evaluation dialog).  This wasn't
+allowed in the past.
+
+<li>The debugger now shows the contents of a Vector in-line when you
+inspect its value, just like a list.  This saves you the trouble of
+using the "+" box in the watch window every time you want to look at a
+small vector's contents.  You can still use the "+" box as usual, but
+when a vector only has a few elements, the in-line display is usually
+all you'll need.
+
+<li>The debugger now makes it easy to view the contents of a
+LookupTable.  First, when a LookupTable value is displayed in a
+tooltip or in a watch window, the list of keys and values is displayed
+using the new <tt>[key-&gt;value]</tt> list notation.  Second, when
+inspecting a lookup table object in a watch window, you can now click
+the "+" symbol to inspect the list of key/value pairs stored in the
+table.
+
+<li>The debugger now shows the original pattern string in-line
+when inspecting a variable containing a RexPattern object.
+
+<li>When rand() is used with multiple arguments, it now only evaluates
+the one randomly chosen argument value.  This means that side effects
+will only be triggered for the chosen argument, and not for any of the
+other arguments.  This is useful because it means that you can use
+rand() to intentionally trigger a randomly selected side effect.
+For example: <tt>rand("one", "two", "three", "four", "five")</tt> prints
+out a randomly selected number from one to five, and
+<tt>rand(f(x), g(x), h(x))</tt> randomly calls one of the functions
+f(), g(), or h().
+
+<li>The rand() function can now generate a random string based on a
+template string.  When rand() is called with a single string argument,
+the function returns a string of random characters chosen according to
+the template.  See the <a href="sysman/tadsgen.htm#rand">rand()</a>
+documentation for details.
+
+<li>The interpreter now automatically seeds the random number
+generator at the start of the run.  In the past, it was up to the
+program to do this by explicitly calling the randomize() function.
+The reason for changing the default is that defaults in general should
+be the settings most people would want most of the time, and in this
+case that's clearly automatic randomizing.  The only time you'd want
+<i>not</i> to randomize is during regression testing, when you want to
+verify that the program runs exactly the same way every time.  When
+you do want a repeatable random number sequence, specify the new
+<tt>-norand</tt> interpreter option: <tt>t3run -norand mygame.t3</tt>
+
+<li>A new BigNumber method, numType(), returns information on the type
+of value represented by the BigNumber.  This allows you to identify
+the special distinguished values "Not a Number" (NaN) and positive and
+negative infinity.
+
+<li>A few new BigNumber.formatString() flags have been added:
+BignumCompact (use the more compact of the regular format or
+scientific notation); BignumMaxSigDigits (count only significant
+digits against the maxDigits limit, not leading zeros);
+BignumKeepTrailingZeros (keep trailing zeros after the decimal point
+to fill out the result to maxDigits in length).
+
+<li>toString() now respects the radix argument for BigNumber values
+that are whole integers.
+
+<li>toString() accepts a new "isSigned" argument that lets you control
+whether a signed or unsigned interpretation should be used for integer
+values.  In the past, this was tied to radix - decimal treated values
+as signed, any other radix as unsigned.  The default is the same
+as before, but you can now override it to get an unsigned decimal
+representation, or a signed hex representation, for example.
+
+<li>toInteger() now accepts any radix from 2 to 36.  The letters A
+through Z represent digit values 10 through 35 for bases above 10, in
+analogy to hexadecimal notation.  For better consistency with its
+name, the function also now converts the strings "true" and "nil"
+respectively to 1 and 0 (instead of the boolean true and nil values
+that it formerly returned), and converts the boolean values true and
+nil to 1 and 0.  It's also a little more liberal about parsing strings
+containing the text "true" or "nil", in that it now ignores leading
+and trailing spaces.
+
+<li>The new function <a
+href="sysman/tadsgen.htm#toNumber">toNumber()</a> is similar to
+toInteger(), but also parses strings representing BigNumber values.
+If the input is a string representing a floating point value (i.e., it
+has a decimal point or uses the 'E' exponential format), or an
+integer that's too large for an ordinary 32-bit TADS integer, the
+value is returned as a BigNumber.  If it's a whole number that fits in
+a 32-bit integer, it's returned as an integer.  This routine can also
+be used to parse a BigNumber integer value in a non-decimal radix.
+
+<li>The compiler now pays attention to resource file timestamps in
+determining whether it needs to rebuild the image file.  In the past,
+merely updating a resource file didn't trigger a relink, so the image
+wouldn't be updated with a new resource until it was relinked for some
+other reason.
+
+<li>The new "if-nil" operator <a href="sysman/expr.htm#ifnil"><tt>??</tt></a>
+checks an expression to
+see if the value is nil, and if so yields a default value.
+<tt>a ?? b</tt> yields <i>a</i> if <i>a</i> is not nil, otherwise
+it yields <i>b</i>.  This is a concise and efficient (in terms
+of code size and execution time) way to write a default value
+substitution, which is a common situation when using argument
+values from callers, property values set elsewhere in the code,
+and function and method call results.
+
+<li>The new operator <tt>&gt;&gt;&gt;</tt> performs a logical right
+shift.  Furthermore, the existing <tt>&gt;&gt;</tt> operator is now
+explicitly defined as performing an arithmetic right shift.  In the
+past, it wasn't specified whether <tt>&gt;&gt;</tt> performed an
+arithmetic or logical shift, although in practice all existing
+implementations (as far as we know) performed an arithmetic shift, so
+existing programs shouldn't see any change.
+
+<p>The difference between the arithmetic and logical right shift is
+the treatment of the vacated high-order bits.  A logical right shift
+fills all vacated bits with zeros, whereas an arithmetic right shift
+fills the vacated bits with the original high-order bit of the left
+operand.  Arithmetic shifts are so named because copying the
+high-order bit preserves the sign of the original value.
+
+<p>The <tt>&gt;&gt;&gt;</tt> operator isn't purely a TADS invention.
+Java and Javascript define it the same way TADS does, and likewise
+specify that <tt>&gt;&gt;</tt> performs an arithmetic shift.
+
+<li>Many of the standard bundled character sets now recognize a number
+of name variations, based on naming conventions used in various other
+programming languages and applications.  They're meant to make the
+character mapper a little easier to use by letting you use names that
+you might be accustomed to using from other systems, rather than
+having to remember a separate naming scheme for TADS.  The new
+variations (which are all insensitive to upper/lower case) are:
+
+<ul>
+   <li>Latin-X: In the past, these had to be called "isoN",
+   as in "iso2" for Latin-2.  The mapper now also accepts
+   Latin2, Latin-2, ISO-2, 8859-2, ISO8859-2, ISO-8859-2, ISO_8859-2,
+   ISO_8859_2, and L2.  (Likewise for Latin-3, Latin-4, etc.)
+
+   <li>Windows and DOS code pages: The old name was "cpXXX", where
+   XXX is the code page number, as in "cp1252".  The mapper now also
+   accepts just plain 1252, as well as win1252, win-1252, windows1252,
+   windows-1252, dos1252, and dos-1252.
+
+   <li>UCS-2LE: The little-endian 16-bit Unicode character sets can also
+   be called UCS2LE, UTF-16LE, UTF16LE, UTF_16LE, UnicodeL, Unicode-L,
+   and Unicode-LE. 
+
+   <li>UCS-2BE:  The big-endian 16-bit Unicode character sets can also
+   be called UCS2BE, UTF-16BE, UTF16BE, UTF_16BE, UnicodeB, Unicode-B,
+   and Unicode-BE. 
+</ul>
+
+<li>BigNumber now uses the standard "round to nearest, ties to even"
+rule whenever rounding occurs, including calculation results and
+explicit rounding requests.  This is the rounding method that most
+computer floating point systems use, because it's considered the least
+statistically biased.
+
+<p>The new rule is to round to the nearest digit, or to round to the
+nearest <i>even</i> digit when exactly halfway between two digits.
+For example, rounding 104.5 to integer yields 104: the value is
+exactly halfway between 104 and 105, so we round to the nearest even
+digit for a result of 104.  Similarly, rounding 1.2345 to four digits
+yields 1.234, since 1.2345 is exactly halfway between 1.234 and 1.235,
+and the nearest even digit in last place is 4.
+
+<p>The <b>old</b> algorithm was <i>almost</i> identical: it was "round
+to nearest, ties away from zero", which rounded to the next higher
+absolute value when exactly halfway between digits.  For example,
+rounding 104.5 to integer formerly yielded 105, since we formerly
+always rounded up from the halfway point.  There's no change for
+values that aren't exactly halfway between digits: rounding 102.5001
+or 103.4999 to integer both yield 103 under both the new and old
+rules.
+
+<li>The console output formatter now renders embedded null characters
+(Unicode value U+0000) as spaces.  In the past, the formatter
+considered a null to be the end of a string, which isn't consistent
+with TADS string semantics.
+
+<li>The compiler is less conservative than it used to be about a
+certain optimization involving anonymous functions.  In the past,
+every anonymous function expression triggered the creation of an
+AnonFuncPtr object.  This object contains the anonymous function's
+context: the local variables and "self" from its enclosing code block.
+However, many anonymous functions are entirely self-contained, meaning
+they don't make any reference to their enclosing contexts.  These
+don't actually need a context object, since they have no dependency on
+anything that would go in it.  There's a slight performance cost to
+creating the context object, so the compiler now creates one only when
+it's actually needed.
+
+<p>This change should be <i>almost</i> invisible to game code.  It's
+possible to detect if you're looking for it by checking the dataType()
+of an anonymous function value: it was formerly always TypeObject, but
+now it can also be TypeFuncPtr, for cases where no context object is
+needed.  Other than this (and a slight speed improvement), the change
+should be transparent.
+
+<li>It's now possible to break out of an infinite loop if you should
+happen to get stuck in one evaluating an expression within the
+debugger.  The debugger already let you break into normal program
+execution that was stuck looping, using a platform-defined keystroke
+or other UI action (on Windows, for example, the Workbench debugger
+uses the key combination Ctrl+Break).  The same thing now works if you
+evaluate a debugger expression that gets stuck in a loop.  (In the
+past, the debugger ignored the "break" command while it already had
+control.  It now interrupts the expression by throwing an error.)
+
+(<a href="http://bugdb.tads.org/view.php?id=0000093">bugdb.tads.org #0000093</a>)
+
+<li>In past versions, the StringComparator object didn't save its list
+of character equivalence mappings properly to the image file or to
+saved game files.  This caused character mappings to be lost
+(corrupted, actually, but for practical purposes lost) when they were
+made during preinit, or when restoring a game where a StringComparator
+with mappings had been created dynamically.  This has been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000085">bugdb.tads.org #0000085</a>)
+
+
+<li>The multi-method inherited() operator didn't work properly if used
+within a function that was replaced by another function using the
+"modify" statement.  This is now fixed.
+
+<li>A bug in the compiler sometimes caused a crash in a rare situation
+involving a link-time symbol conflict (in particular, the same symbol
+defined as a <tt>grammar</tt> rule in one module and a different type
+in another module).  This has been corrected.
+
+<li>A bug in the regular expression search functions prevented
+matching zero-length expressions at the end of the subject string.
+For example, searching for <tt>'x*$'</tt> correctly matched 'uvwx'
+(with a match length of 1), but not 'uvw' (which <i>should</i> match
+with a length of 0).  This has been fixed.
+
+<li>A regular expression bug caused incorrect results to be returned
+for capturing groups for certain complex expression types.  This
+was triggered by an expression with two wildcard closures preceding
+a capturing group preceding some fixed text.  This is now fixed.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000088">bugdb.tads.org #0000088</a>)
+
+<li>In past versions of the text-only interpreters, if an
+&lt;ABOUTBOX&gt; section contained an &lt;IMG&gt; tag with an ALT
+attribute, the ALT text was displayed.  It shouldn't have been,
+because the text-only systems aren't supposed to display
+<i>anything</i> that's within an &lt;ABOUTBOX&gt; section.  This has
+been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000063">bugdb.tads.org #0000063</a>)
+
+<li>The text-only interpreters now parse and translate HTML
+entity markups ("&amp" sequences) within &lt;TITLE&gt; tags when
+setting the window title.  (In past versions, the text-only
+interpreters simply displayed the literal text of the &amp;
+sequences.  The HTML interpreters didn't have this problem,
+so this change doesn't affect them.)
+
+(<a href="http://bugdb.tads.org/view.php?id=0000062">bugdb.tads.org #0000062</a>)
+
+<li>The bug fix in 3.0.18 for newline translation in UTF-16 text files
+introduced another bug, which corrupted output text when calling
+writeFile() with a string containing embedded newline ('\n') characters.
+This has been corrected.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000065">bugdb.tads.org #0000065</a>)
+
+<li><a name="compoundAsiSideEffects"></a>The compiler formerly
+generated code that was arguably incorrect for a compound assignment
+expression containing side effects in the lvalue.  In the past,
+the compiler effectively expanded an expression of the form
+<i>lvalue op= rvalue</i> into <i>lvalue = lvalue op rvalue</i>.  For
+example, "a += b" became "a = a + b".  In most cases this is fine, but
+when the lvalue contains side effects, it results in two evaluations
+of the side effects.  For example, "lst[i++] += 1" incremented "i"
+twice.  For a really complex expression like "lst[i++][j++][k++] +=
+2", the "i++" side effect was triggered even more times, because
+it contains multiple implied lvalues.
+
+<p>The correct behavior is to evaluate each subexpression in the
+lvalue only once.  The compiler now generates code that does just this.
+
+<p>The old behavior was only <i>arguably</i> wrong, in that the
+correct behavior wasn't really specified anywhere.  But to the extent
+that TADS doesn't fully specify its expression behavior,
+it's reasonable to expect
+that TADS should behave like C++.  C++ does have well-defined
+semantics for this situation, which the new behavior matches.
+Plus, the new behavior is in line
+with the obvious reading of an <i>op</i>= expression: the lvalue is
+only mentioned once in such an expression, suggesting that it should
+only be evaluated once.
+
+<li>A bug in the debugger caused a crash under rare circumstances.
+The problem happened when a run-time error occurred within a callback
+function being invoked from certain built-in functions or methods, and
+you then terminated the program via the debugger UI while execution
+was still suspended at the error location.  This is now fixed.
+
+<li>A bug in the Vector intrinsic class caused rare, random crashes
+under certain conditions when calling mapAll().  The crashes were most
+likely with very large vectors, and only when the callback function
+could trigger garbage collection (such as by creating a new object).
+This has been fixed.
+
+<li>A bug in the BigNumber class caused inaccurate results for expE(),
+raiseToPower(), sinh(), cosh(), and tanh() for certain values.  The
+problem only affected a limited (but difficult to characterize) range
+of input values.  For affected values, the results were still correct
+to about 17 decimal places; the inaccuracy appeared starting at about
+the 18th decimal place, so it would only have been noticeable in
+applications requiring relatively high precisions.  For example, a
+program that would have been happy with the standard C "double" type
+wouldn't have noticed the bug, because the typical C double provides
+only about 15 decimal digits of precision.  The problem is now fixed.
+
+<li>In past versions, the ByteArray object didn't save undo
+information for File.readBytes() or ByteArray.writeInt() operations.
+It now saves the undo.
+
+<li class=last>The compiler incorrectly reported internal errors for assignments
+to objects, functions, and other global symbol names.  The compiler now
+shows a regular error message instead for this type of error.
+
+(<a href="http://bugdb.tads.org/view.php?id=0000071">bugdb.tads.org #0000071</a>)
+
+</ul>
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.18.1 (May 5, 2009)</h3>
+
+<ul>
+
+<li>The behavior of the multi-method inherited() operator has changed.
+The operator now chooses the inherited function to call based on the
+actual argument values, rather than the formal (declared) parameters
+to the current function.  This is more consistent with the inherited()
+operator for regular methods.
+
+<li class=last>A bug in the compiler, versions 3.0.17, 3.0.17.1, and 3.0.18,
+caused incorrect (too small) stack size requests to be generated for
+some functions and methods.  This generally had no noticeable effect
+on valid programs, but it made it possible for an errant program (with
+infinite recursion, for example) to cause a stack overflow that the
+interpreter doesn't detect immediately, which could conceivably crash
+the interpreter.  An actual crash would require an unlikely
+combination of factors, even with an errant program compiled with this
+bug, so you'll probably never notice it.  Even so, if you distributed
+any .t3 files compiled with t3make versions 3.0.17 through 3.0.18, we
+recommend recompiling with the current t3make version and replacing
+your previously distributed files, if it's easy for you to do so.
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.18 (April 28, 2009)</h3>
+
+<ul>
+
+<li>The <tt>inherited</tt> operator can now be used within a multi-method
+to inherit an overridden version of the method.  The new syntax
+<tt>inherited&lt;<i>type-list</i>&gt;(<i>arg-list</i>)</tt> lets you
+inherit a specific version of the multi-method, while the basic syntax
+<tt>inherited(<i>arg-list</i>)</tt> automatically selects the next
+more general version of the multi-method.  See the System Manual
+section on multi-methods for documentation.
+
+<li>The compiler pre-defines the new preprocessor symbol (i.e., macro)
+__TADS3, which expands simply to the number 1.  This provides an easy
+way to detect that the compiler is a TADS 3 compiler (as opposed to a
+TADS 2 compiler) for conditional compilation purposes.  (This might
+seem redundant with the existing symbol __TADS_SYSTEM_MAJOR, but
+__TADS3 can be used in one way that __TADS_SYSTEM_MAJOR can't.  If for
+some reason you wanted to create a single source file that could be
+compiled under TADS 2 or TADS 3, using conditional compilation to
+handle the syntax differences between the language versions, you
+couldn't do it with __TADS_SYSTEM_MAJOR.  This is because TADS 2
+doesn't support #if, which is the only way you could use
+__TADS_SYSTEM_MAJOR to conditionally compile based on compiler version
+(e.g., <tt>#if __TADS_SYSTEM_MAJOR == 3</tt>).  Since TADS 2 and 3
+both support #ifdef, though, you can use the presence or absence of
+the __TADS3 symbol to conditionally include or omit code based on
+language version.  Of course, since older versions of the TADS 3
+compiler also lack this symbol, this approach requires using 3.0.17.2
+or later on the TADS 3 side.)
+
+<li>In past versions, writing to text files with a UTF-16 encoding
+generated incorrect newline sequences when running on Windows.  The
+problem had to do with the two-character representation of a newline
+in Windows.  This has been corrected.
+
+<li class=last>In the past, multi-methods defined in one source file and called
+from another resulted in an "undefined symbol" error.  This has been
+corrected.
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.17.1 (8/12/2008)</h3>
+
+<ul>
+
+<li class=last><p>A compiler bug introduced in 3.0.17 caused Workbench (and the
+stand-alone interpreter) to crash when loading certain games when
+compiled for debugging.  The compiler was mis-calculating some
+internal data structure sizes, which effectively corrupted the .t3
+file; this happened when the byte code for a function plus its debug
+symbols was over a certain threshold size.  This has been corrected.
+
+</ul>
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.17 (8/9/2008)</h3>
+
+<ul>
+
+<li><p>The compiler has a new feature called "multi-methods."  This
+implements a relatively new object-oriented programming technique
+known as multiple dispatch, in which the types of <i>multiple</i>
+arguments can be used to determine which of several possible functions
+to call.  The traditional TADS method call uses a
+<i>single-dispatch</i> system: when you write "x.foo(3)", you're
+invoking the method foo as defined on the object x, or as inherited
+from the nearest superclass of x that defines that method.  This is
+known as single dispatch because a single value (x) controls the
+selection of which definition of foo will be invoked.  With multiple
+dispatch, this notion is extended so that multiple values can be
+considered when selecting which method to invoke.  For example, you
+could write one version of a function "putIn()" that operates on a
+Thing and a Container, and another version of the same function that
+operates on a Liquid and a Vessel, and the system will automatically
+choose the correct version at run-time based on the types of
+<i>both</i> arguments.  This new system is described more fully
+in the <i>System Manual</i>.
+</p>
+
+<li><p>The compiler can now generate information in each object about the
+source file where the object was defined.  This new information is
+stored in a new property, sourceTextGroup; this supplements the
+existing sourceTextOrder property.  Since the new information takes up
+extra space in the compiled file, it's not generated by default.  To
+generate it, include the new compiler option "-Gstg" in your makefile
+or command line, <i>or</i> place the directive <tt>#pragma
+sourceTextGroup(on)</tt> directive in each source module where you
+wish to generate the information.  The #pragma lets you selectively
+generate the information in specific source files, or even in specific
+portions of specific source files: the corresponding directive
+<tt>#pragma sourceTextGroup(off)</tt> lets you turn off the
+information in a section where you don't need it.</p>
+
+<p>When you turn on sourceTextGroup generation, the compiler
+automatically adds a sourceTextGroup property to each object, just as
+it automatically adds a sourceTextOrder value.  The sourceTextGroup
+value is a reference to an anonymous object that the compiler
+automatically creates.  One such object is generated per source module
+for which sourceTextGroup generation is activated.  This object
+contains two properties: sourceTextGroupName is a string giving the
+name of the module, as it appeared in the compiler command line,
+makefile (.t3m), or library (.tl) file; sourceTextGroupOrder is an
+integer giving the relative order of the module among the list of
+modules comprising the overall program.
+</p>
+
+<p>sourceTextGroup is useful in cases where you want to establish the
+order of appearance in source files among objects in multiple modules.
+For a given object <tt>x</tt>,
+<tt>x.sourceTextGroup.sourceTextGroupOrder</tt> gives you the relative
+order within the overall build of the module where <tt>x</tt> was
+defined, and <tt>x.sourceTextOrder</tt> gives you the relative order
+of <tt>x</tt> among the objects defined within that module.  Between
+the two values, you can establish a linear ordering for all of the
+statically defined objects in the entire program.</p>
+
+<li><p>The compiler now stores "links" to resource files in the .t3 file
+when compiling in Debug mode.  This makes it easier to test a game
+that uses multimedia resources, by making the Build environment match
+the Release environment more precisely.</p>
+
+<p>In the past, when building in Debug
+mode, the compiler completely ignored multimedia resource files listed
+in the "-res" section of the command line or makefile.  This was by
+design; the reasoning was that when you're compiling in Debug mode,
+you'll only be running that copy on your development machine, within
+your build environment, where all of the resource files are available
+as local files; and since the files are all available as separate
+local files anyway, we can make the compilation go faster by skipping
+the step where we copy those files into the .t3 file.</p>
+
+<p>This worked
+fine <i>most</i> of the time, but it didn't work in the occasional
+case where the resource name is different from the corresponding local
+file's name in the file system.  One example is the Cover Art file,
+which is always stored in the game under the resource name
+".system/CoverArt.jpg", which is usually <i>not</i> the same name the
+file has locally.  This meant that if you tried to refer to such a
+resource via HTML (such as with an &lt;IMG&gt; tag), the resource was
+reported as missing when running the debug build.</p>
+
+<p>The new arrangement
+fixes this problem without giving up the time savings.  With the new
+scheme, the compiler stores a <b>link</b> for each resource in the .t3
+file: this simply records the mapping from resource name to local
+file name.  The HTML renderer can then look up the appropriate local
+file for each resource, including any resources that have special
+names.  As before, the actual contents of the resources are not
+copied.
+</p>
+
+<p>Note that none of this affects Release builds.  The compiler has
+always copied the full contents of all resources into the .t3 file
+when doing a Release build, and continues to do so.  Release builds
+continue to be fully self-contained, so that you only have to
+distribute the .t3 file to players, <i>not</i> the individual
+graphics and sound files it refers to.</p>
+
+<li class=last><p>The compiler's status output didn't add a line break after each
+resource files being added to the project, resulting in poorly formatted
+displays.  This has been corrected.</p>
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.16 (4/10/2008)</h3>
+
+<ul>
+
+<li>The Author's Kit installer now gives you an option to skip
+creating the Windows file type associations for Workbench
+(specifically, project (.t3m) files).
+
+<li>The main startup routine in the library now performs an explicit
+garbage collection pass just before performing pre-initialization.  In
+most cases, this is unnecessary (and harmless, obviously, apart from
+the added execution time required to perform the GC pass).  However,
+under a certain combination of conditions, it can be important.  In
+particular, it's important when a program is compiled so that preinit
+is performed at run-time rather than compile-time (this is normally
+the case for a "debug mode" build, but can be explicitly selected for
+a release build as well), <i>and</i> the program has
+pre-initialization code that performs global object loops.  In such a
+program, a RESTART would re-run preinit, which could then encounter
+garbage objects still around from before the RESTART.  The explicit GC
+pass just before preinit ensures that preinit sees only reachable
+objects in any global object loops it performs.
+
+<li>A bug in the ByteArray intrinsic class caused an interpreter crash
+when copying exactly the full bounds of an array onto itself.  This has
+been corrected.
+
+<li>The rexReplace() intrinsic function got stuck in an infinite loop
+when the pattern to be replaced matched zero characters of the subject
+string.  For example, a match pattern of "x*" is able to match any
+number of "x" characters in a row, <i>including</i> zero of them.  The
+problem was that the function simply spun its wheels, repeatedly
+finding the same zero-character match and replacing it over and over.
+This no longer occurs: the function will apply each zero-character
+replacement once only, and then move on to the next character of the
+subject string before attempting a new match.
+
+<li>The rexSearch() and rexReplace() functions didn't properly take
+into account "^" (start-of-string) pattern specifiers when a starting
+offset for the search was explicitly specified.  The functions
+incorrectly considered "^" to match the start of the substring
+starting at the given starting offset, whereas it should have only
+matched the start of the entire string.  In other words, "^" should
+never match when the starting offset is greater than 1.  This has been
+corrected.
+
+<li>A bug in the t3DebugTrace() intrinsic function sometimes caused the
+debugger to stop execution at the second line after the t3DebugTrace()
+function, rather than at the next line.  This happened if you used the
+"Go" command to resume execution from the point where t3DebugTrace()
+stopped, then encountered the same t3DebugTrace() call without any
+intervening debugger activity.  This has been corrected.
+
+<li>Comparing another object value to "self" in a global breakpoint
+expression sometimes caused the debugger to crash in past versions.
+This has been corrected.
+
+<li>In the past, the compiler returned a "success" indication to the
+operating system shell as long as no error messages were displayed
+during the compilation.  This was incorrect in cases where the "treat
+warnings as errors" option was enabled and one or more warning
+messages were displayed; in these cases, the compiler should have
+returned a "failure" indication to reflect the fact that warnings
+count as full-fledged errors under this option setting.  This has
+been corrected.
+
+<li class=last>Applying toInteger() to BigNumber values near the
+capacity limits of the 32-bit integer type, but not exceeding them,
+sometimes produced spurious "numeric overflow" errors.  In particular,
+values over 2147483640 or under -2147483640 that needed to be rounded
+up in their fractional parts (e.g., 2147483640.9) produced this
+spurious error.  This has been corrected.
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.15.3 (11/2/2007)</h3>
+
+<ul>
+
+<li>A bug in the compiler made it impossible to refer to items in
+global scope (such as enum values or objects) in constant expressions
+within anonymous functions.  For example, it was impossible to use
+an enum value or object name as a 'case' label in a 'switch' statement
+within an anonymous function.  This has been corrected.
+
+<li class=last>A bug in the GrammarProd intrinsic class caused incorrect results
+in some cases for an empty production (i.e., a grammar rule consisting
+of no tokens).  The problem had to do with the way the empty
+production figured its position in the input token list; since
+enclosing levels in the match tree find their positions relative to
+child nodes, the problem typically manifested itself by giving
+incorrect token list positions for one or more match levels enclosing
+an empty match.  This is now fixed.
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.15.2 (9/13/2007)</h3>
+
+<ul>
+
+<li>The inputFile() function now makes some additional checks when the
+filename is supplied by an active event script file.  If the dialog
+type is InFileOpen, the function checks to make sure the filename read
+from the script refers to an existing file.  If the dialog type is
+InFileSave, and the named file doesn't already exist, the function
+tries to create a dummy copy of the file; if that succeeds, the
+function immediately deletes the dummy copy.  The function also still
+tests, as it did before, to make sure the file <i>doesn't</i> already
+exist for InFileSave dialogs.  If any of these tests fail, the
+function warns the user about the problem and offers the same options
+it did in the past for the save-overwrite case: use the filename as
+given in the script, choose a different file, or cancel the script
+playback.
+
+<li class=last>A bug in the VM caused sporadic, unpredictable errors when
+finalizers were used.  The problem affected one opcode (OPCGETPROPR0);
+if a finalizer invocation happened to interrupt this particular
+opcode, the result was unpredictable, but could include spurious
+run-time errors or corruptions of calculated results.  This has been
+corrected.
+
+</ul>
+
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.15.1 (7/19/2007)</h3>
+
+<ul>
+
+<li>The keyword <tt>replaced</tt> can now be used within anonymous
+functions that are nested in modifier functions (i.e., functions
+defined with <tt>modify <i>funcname</i> ...</tt>).  In the past, the
+compiler only allowed <tt>replaced</tt> to be used <b>directly</b>
+within a modifier function - not in nested anonymous functions defined
+within a modifier function.  There's no inherent reason for
+disallowing this construct; it was simply a limitation of the
+compiler, which has now been lifted.
+
+<li>In the system library, the several internal convenience macros
+defined with the Tokenizer class (tokRuleName, tokRulePat,
+tokRuleType, etc) have been moved from the tok.t class file to the
+tok.h header file.  The macros are unchanged, so this change won't
+affect existing code.  The macros were formerly defined in tok.t
+rather than in the header because they were meant as private macros
+for internal use within the Tokenizer class itself, not for client
+code that uses the Tokenizer class.  However, they're also useful in
+subclasses of Tokenizer, so it's desirable to have them defined in a
+header - that way, user code implementing Tokenizer subclasses can
+access the macros simply by #including tok.h.
+
+<li>The compiler is now stricter about interpreting tokens as
+BigNumber constants.  In the past, the compiler treated an "E"
+following a numeric constant as an exponent signifier, even if no
+digits followed.  For example, "3E-a" was taken to be the BigNumber
+constant "3E-0", followed by a separate token "a".  The compiler now
+treats an "E" as the start of a separate token if no digits follow it
+(or the optional + or - sign after the "E"), so "3E-a" would now be
+treated as four tokens: "3", "E", "-", and "a".
+
+<li>The compiler now displays a specific error if it finds a decimal
+digit within an octal constant value.  In the past, the compiler
+simply assumed that a decimal digit terminated the octal constant
+token and started a new token.  This typically led to a confusing
+parsing error, since the compiler saw two consecutive numeric constant
+tokens where the user almost always intended one.  The compiler now
+flags a specific error about the ill-formed octal value, and skips any
+decimal digits following the octal constant, which makes the error
+much easier to pinpoint.
+
+<li>The compiler is now strict about disallowing the old TADS 2
+"&lt;&gt;" (unequal-to) operator.  This variation was not documented,
+but has up to now been allowed.
+
+<li class=last>The compiler no longer treats <tt>delete</tt> as a reserved word.
+(It did so in the past as a hold-over from TADS 2, where
+<tt>delete</tt> is indeed reserved.)
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.15 (3/8/2007)</h3>
+
+<ul>
+
+<li>When an input event script is being played back, the inputFile()
+function now prompts the user if the result would likely overwrite an
+existing file.  inputFile() in this case prompts the user
+interactively, momentarily halting script playback until the user
+responds.  This is described more fully in the Input Scripts section
+of the System Manual.
+
+<li class=last>The compiler reported an internal error ("too much unsplicing") in
+certain complex expressions involving multi-line string literals as
+macro arguments in embedded &lt&lt; &gt;&gt; expressions.  This has
+been corrected.
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.14 (2/9/2007)</h3>
+
+<ul>
+
+<li class=last>The raiseToPower() method of the BigNumber class incorrectly
+returned 1 as the result of raising 0 to a non-zero exponent.  The
+correct result should, of course, be 0 for any positive exponent, and
+an exception for any non-positive exponent (as 0^0 is undefined, and
+0^n with n&lt;0 is effectively division by zero).  The method now
+yields these results.
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.13 (1/19/2007)</h3>
+
+<ul>
+
+<li>A new t3make option, -we, tells the compiler to treat warnings as
+though they were errors, for the purposes of determining whether or
+not to proceed with compilation after a warning occurs.  When the
+compiler finds an error within a source file, it stops the build
+process after finishing with that compilation unit, requiring you to
+fix the error before continuing.  In contrast, warnings do not, by
+default, interrupt the build.  This is because a warning message
+indicates a situation that's <i>technically</i> correct, but which
+contains a common pitfall.  Compiler warnings tend to be right often
+enough to warrant close inspection, so many programmers adhere to the
+discipline of insisting on "clean" builds every time - that is, with
+no warning messages.  The -we option is a convenient way of enforcing
+that discipline.  When you specify the -we option, the compiler will
+stop the build after finishing with any module that generates any
+warning messages, just as it does for error messages.  If you want
+to explicitly set the default mode, where warnings do not interrupt
+the build, use the -we- option.
+
+<li>A new interpreter (t3run) option, -I, runs a command script in
+"echo" mode.  This works almost the same as the existing -i option,
+but -I causes all output to be displayed to the console as the script
+is read; in contrast, -i reads the script in "quiet" mode, meaning
+that no output is displayed while the script is running.
+
+<li>The command script recorder and player can now handle virtually
+any input event type, not just command lines.  The script mechanism
+can now handle keyboard input, hyperlinks, ad hoc dialogs, and file
+dialogs; the functions inputKey(), inputEvent(), inputFile(), and
+inputDialog() can now take their input from a script.  (inputLine()
+and inputLineTimeout() have always been able to read from scripts.)
+To handle the greater range of event types, a new script file format
+has been added; files written in new format are called Event Scripts.
+Event scripts are identified by a special signature: the first line of
+the file must read <tt>&lt;eventscript&gt;</tt>, with nothing else on
+the line (not even spaces).  If a script doesn't start with this
+signature, the script reader will interpret it as the original script
+format, which is now called the Command-line Script.  This allows old
+scripts to work without changes; of course, Command-line Scripts can
+only contain line input events, as they always have.  When you create
+a script with RECORD or the with the Interpreter's -o option, the
+script is now recorded in the new Event Script format, and the
+recorder will automatically include all event types in the script.
+(There's no option with RECORD or -o to record an old-style
+Command-line Script instead - there wouldn't seem to be much call for
+this, as the functionality in Event Scripts is a superset of that of
+Command-line Scripts.)  The new scripting functionality is described
+in the "Input Scripts" chapter of the System Manual.
+
+<li>The setScriptFile() intrinsic function now accepts a new type
+code, LogTypeEvent.  This type signifies that a new-style Event Script
+should be created.  The code LogTypeCommand, which was present in
+previous versions, continues to signify that an old-style Command-line
+Script should be created.
+
+<li>Input scripts now nest during playback.  In the past, reading from
+a new input script terminated reading from any input script already in
+effect.  Now, the console suspends the original script, and resumes
+reading from it upon reaching the end of the new script.  Scripts can
+be nested to any depth.  This allows an input script to "include"
+another by using, for example, the REPLAY command within the script.
+
+<li>In the past, the getFuncParams() intrinsic function didn't accept
+an anonymous function as its argument.  Anonymous functions are now
+accepted.
+
+<li>The inputLine() intrinsic function (in the 'tads-io' function set)
+didn't correctly map non-ASCII characters (such as accented letters)
+from the user's input to Unicode.  This has been corrected.
+
+<li>A compiler bug caused a crash if a "modify" or "replace" statement
+in one source module referred to a symbol that was actually defined in
+a source module that was included in the build after the first source
+file.  This is an error condition anyway - a symbol has to be defined
+in the build before it can be modified or replaced, so the original
+definition has to occur in a source module listed earlier than the
+modifying module.  However, the compiler now handles such an error
+properly, by displaying the appropriate error message and halting the
+build.
+
+<li>A bug in File.writeBytes() caused unpredictable results, sometimes
+including an interpreter crash, if a zero or negative value was passed
+for the starting index.  The starting index is now checked for range.
+
+<li class=last>Some internal changes to the portable VM and compiler code have
+been made to improve portability to 64-bit architectures.
+
+</ul>
+
+
+<!------------------------------------------------------------------------>
+<h3>Changes for 3.0.12 (9/15/2006)</h3>
+
+<p><b>This is the TADS 3.0 General Release version.</b>
+
+<ul>
+
+<li class=last>A couple of compiler error messages were internally mis-numbered,
+which could have caused the compiler to report the wrong error message
+for the affected error codes.  These have been corrected.
+
+</ul>
+
 
 <!------------------------------------------------------------------------>
 <h3>Changes for 3.0.11 (9/8/2006)</h3>
@@ -35,7 +3055,7 @@ feature will definitely not appear in the official 3.0 release, and at
 this point it seems very unlikely to be in any future version, so
 there's no longer any good reason to reserve these names.)
 
-<li>A compiler bug caused invalid code to be generated in the following
+<li class=last>A compiler bug caused invalid code to be generated in the following
 situation:
 
 <p><pre>
@@ -219,7 +3239,7 @@ information into account.  This means that characters \u0009 (tab),
 \u001f (IS1) are now considered whitespace, and thus match the
 &lt;space&gt; character class pattern in regular expressions.
 
-<li>In the past, the compiler always assumed it was running under a
+<li class=last>In the past, the compiler always assumed it was running under a
 DOS box, so it used the DOS box code page for any messages it
 displayed.  On most systems, depending on localization, the DOS box
 uses a different code page from the Windows code page used by native
@@ -441,8 +3461,6 @@ integer value to a base 2 string representation.
 
 <li>The toInteger() function now accepts base 2 as the input format.
 
-</ul>
-
 <li>The compiler is now more tolerant of different newline formats in
 library (.tl) files.  In the past, the compiler generally expected .tl
 files to conform to local newline conventions; this made it more
@@ -456,12 +3474,14 @@ newlines, and simple LF newlines.  It doesn't matter what your
 computer's native newline conventions are - every port of the compiler
 will now accept any of these formats.
 
-<li>Due to a bug, the compiler's macro preprocessor didn't properly
+<li class=last>Due to a bug, the compiler's macro preprocessor didn't properly
 expand macros that included the #ifempty or #ifnempty operators.
 In particular, any text in the macro's definition prior to the
 #ifempty or #ifnempty was effectively discarded; the text wasn't
 included in the expansion.  This is now fixed.
 
+
+</ul>
 
 <!------------------------------------------------------------------------>
 <h3>Changes for 3.0.8 (9/12/2004)</h3>
@@ -533,7 +3553,7 @@ opposed to the <i>contents</i> of text files.
 option argument when a "-x" option (with a valid argument supplied)
 was used at the very end of a command line.  This has been corrected.
 
-<li>A bug in the compiler occasionally caused floating point constants
+<li class=last>A bug in the compiler occasionally caused floating point constants
 that included exponential ("E" suffixes) to be mis-parsed.  When this
 happened, one or more spurious, random extra digits of precision were
 added to the end of the number's mantissa.  This has been corrected.
@@ -630,7 +3650,7 @@ parameters.
 
 <ul>
 
-<li>The MIME type for saved position files has been changed to
+<li class=last>The MIME type for saved position files has been changed to
 "application/x-t3vm-state".  The Windows installers have been updated
 to reflect the new MIME type.
 
@@ -683,7 +3703,7 @@ the sample game (sample.t3m) included in the kit, so you had to
 manually create the directory before you could compile the game.
 The installer now automatically creates the directory.
 
-<li>The BigNumber class incorrectly returned a result of zero when
+<li class=last>The BigNumber class incorrectly returned a result of zero when
 dividing zero by zero.  (This only happened when the dividend was
 zero; for other dividend values, a divide-by-zero exception was
 correctly thrown.)  This now throws a divide-by-zero exception.
@@ -927,7 +3947,7 @@ manually moving the execution pointer to a 'return' statement (or the
 end of the method), breaking off the infinite recursion that caused
 the overflow.
 
-<li>The debugger now shows anonymous functions more descriptively in
+<li class=last>The debugger now shows anonymous functions more descriptively in
 stack traces.  In the past, these showed a string like
 "[1234].prop#0(5,6)"; now, the debugger shows "{anonfn:1234}(5,6)"
 instead.  The "1234" is an internal object identifier for the
@@ -1009,7 +4029,7 @@ there's no reason for the symbol table to include them.)
 certain very rare cases when evaluating properties of constant list or
 string values.  This has been corrected.
 
-<li>A bug in the Dictionary intrinsic class's findWord() method
+<li class=last>A bug in the Dictionary intrinsic class's findWord() method
 sometimes caused strange behavior, most noticeably as corruptions in
 the values of local variables in the invoking code.  The problem only
 occurred when the method was called in its single-argument form.  The
@@ -1196,7 +4216,7 @@ example), the interpreter now ignores morePrompt() calls.  This
 allows script replay to proceed unattended, without unnecessary
 interactive pauses.
 
-<li>In the debugger, if the game was interrupted by a real-time event
+<li class=last>In the debugger, if the game was interrupted by a real-time event
 while the player was editing a command line, and the debugger took
 control (via a breakpoint, for example) inside the real-time event,
 and the game was then terminated from within the debugger (while
@@ -1228,7 +4248,7 @@ format of the rule list entries - each rule list entry has the new
 name value as its first element.  Any subclasses or modifications
 of Tokenizer must use the new rule format.
 
-<li>The Tokenizer class has some new methods that allow rules to be
+<li class=last>The Tokenizer class has some new methods that allow rules to be
 added or removed.  insertRule(rule, curName, after) inserts the new
 rule given by 'rule' before or after the existing rule named
 'curName'; the new rule is inserted before the existing rule if
@@ -1485,7 +4505,7 @@ the overhead of expanding the permutations.
 identify the reflectionServices object itself.  (Due to a bug, this
 caused a run-time error in the past.)
 
-<li>In reflect.t, reflectionServices.valToSymbol(), looking up an unnamed
+<li class=last>In reflect.t, reflectionServices.valToSymbol(), looking up an unnamed
 object now returns a string giving the superclass list of the object,
 if the superclass names are available.  The format of the return value
 is now '(obj:sc1,sc2)', where 'sc1' and 'sc2' are the names of the
@@ -1563,7 +4583,7 @@ after the entity itself.  These problems have been corrected.
 <li>Fixed a couple of bugs that caused interpreter crashes when
 running with "unicodeb" or "unicodel" character set mappings.
 
-<li>The versions of the interpreters that run in a Windows command
+<li class=last>The versions of the interpreters that run in a Windows command
 prompt window now correctly remove the console window's scrollbars in
 all cases on Windows NT, 2000, and XP.  In the past, the interpreters
 <i>usually</i> did this, but in some cases missed the scrollbars and
@@ -1600,7 +4620,7 @@ depends on the operating system and installation configuration.  Note
 that this option doesn't set up a search list the way -I does; there's
 only a single system include directory in effect at any given time.
 
-  <li><tt>-FL <i>path</i></tt>: overrides the standard system library
+<li class=last>i><tt>-FL <i>path</i></tt>: overrides the standard system library
 source directory with the given path.  The standard library path depends
 on the operating system and installation configuration.  As with -FI,
 there's only a single system library directory in effect at one time.
@@ -1663,7 +4683,7 @@ actual terminating quote.  This resulted in spurious syntax errors,
 as the compiler thought some of the string's continuation lines were 
 non-string tokens.  This has been corrected.
 
-<li>Fixed a bug in the console output formatter that allowed too many
+<li class=last>Fixed a bug in the console output formatter that allowed too many
 lines to be displayed between "MORE" prompts in some cases, which
 caused text to scroll off the top of the screen before the player
 could read it.  (The problem was introduced with the typographical
@@ -1687,7 +4707,7 @@ square-bracket code for special keys (arrow keys, function keys, and
 so on) due to a bug introduced in an earlier patch release (3.0.6a).
 This is now fixed.
 
-<li>Fixed a problem in several methods of the Dictionary intrinsic
+<li class=last>Fixed a problem in several methods of the Dictionary intrinsic
 class (addWord, removeWord, forEachWord) that sometimes caused stack
 overflows when calling these methods.  Fixed the same problem in some
 File methods (setCharacterSet, closeFile, setPos, setPosEnd).
@@ -1777,7 +4797,7 @@ purely cosmetic, but was inconsistent, since the recent projects were
 always shown with paths relative to the active project after opening
 another project subsequently.)  This has been corrected.
 
-<li>A problem in the command-line option parser prevented some
+<li class=last>A problem in the command-line option parser prevented some
 combined TADS 2/3 interpreters from accepting the "-cs" (character
 set) option for TADS 3 games.  This is now fixed.
 
@@ -1836,7 +4856,7 @@ here's a summary of the changes:
 
 </ul>
 
-<li>Added the new "log file console."  This is a special kind of
+<li class=last>Added the new "log file console."  This is a special kind of
 console object that has no display, but simply captures all of its
 output to a log file.  This can be used to capture game output to a
 file, using the standard output formatting (including HTML
@@ -1860,7 +4880,7 @@ immediately follows to a single space character.  When newline spacing
 is set to "off", the compiler instead simply strips out the newline
 and any immediately following whitespace.  Setting newline spacing
 to "off" is desirable in some languages, such as Chinese, where
-whitespace is not conventionally used as a token separator in
+whitespace isn't conventionally used as a token separator in
 ordinary text; turning off newline spacing can make it easier to
 write code in these cases, because it allows strings to be split over
 several lines without introducing unwanted whitespace.
@@ -2004,7 +5024,7 @@ crash.  This has been corrected.
 show the image file name as part of the message.  This message incorrectly
 showed the filename as "s", regardless of the actual name of the image.
 
-<li>Fixed a problem in the DOS character-mode interpreters (t3run and
+<li class=last>Fixed a problem in the DOS character-mode interpreters (t3run and
 tr32) that caused start-up error messages (in particular, errors
 relating to loading the .t3 file, such as a "game file not found"
 error) to be cleared from the display before the user had a chance to
@@ -2045,7 +5065,7 @@ with "/", an MS-DOS path that starts with "\" or a drive letter, or a
 Macintosh path that starts with a volume name), since an absolute path
 is already independent of the working directory.
 
-<li>The compiler now keeps information on the compiler version that
+<li class=last>The compiler now keeps information on the compiler version that
 was used to compile a module.  The compiler checks this information
 and automatically rebuilds a module that was built by an older version
 of the compiler.  This ensures that all components of a program are
@@ -2077,7 +5097,7 @@ take control (i.e., pause the game program and enter the debugger UI)
 when a run-time error occurred under certain conditions when using
 the "Step Out" or "Step Over" commands.
 
-<li>Fixed a problem in the console-based text-only interpreters that
+<li class=last>Fixed a problem in the console-based text-only interpreters that
 caused the [More] prompt to be displayed at the wrong place (at the
 end of a line of text, rather than at the beginning) under certain
 rare conditions.
@@ -2112,7 +5132,7 @@ minimum length; and a set of equivalence mappings that allow
 alternative spellings on input, such as using unaccented equivalents
 of accented characters.
 
-<li>The <a href="sysman/gramprod.htm">GrammarProd</a> intrinsic class method
+<li class=last>The <a href="sysman/gramprod.htm">GrammarProd</a> intrinsic class method
 parseTokens() now uses the supplied Dictionary to perform comparisons
 to literal tokens.  Each input token is compared to literal tokens in
 the grammar rules using the Dictionary's current comparator.  Literal
@@ -2138,7 +5158,7 @@ expression pattern.  It's also slightly simpler to use, since it's not
 necessary to worry about any special regular expression interpretation
 of the search string.
 
-<li>Added the new intrinsic class <a
+<li class=last>Added the new intrinsic class <a
 href="sysman/rexpat.htm">RexPattern</a>.  This new class encapsulates a
 "compiled" regular expression pattern, which can be used in place of a
 pattern string in the regular expression functions.  Compiling an
@@ -2198,7 +5218,7 @@ in case of error, the compiler now shows a message explaining the
 specific problem, and shows the particular option causing the problem
 if appropriate.
 
-<li>In Workbench for Windows, the folder selector dialog was started
+<li class=last>In Workbench for Windows, the folder selector dialog was started
 with an empty current folder, which made the entire dialog appear
 empty, in some cases (such as when adding a directory to the "Include"
 list in the Build Settings dialog).  The dialog should now always
@@ -2250,7 +5270,7 @@ top of the main game window rather than taking over the status line,
 which is necessary because of the possibility the banner API creates
 of non-standard status line layouts.
 
-<li>Fixed a problem in the VM that could conceivably have caused
+<li class=last>Fixed a problem in the VM that could conceivably have caused
 crashes or other misbehavior under certain extremely improbable
 conditions involving stack overflows.
 
@@ -2273,7 +5293,7 @@ of the complete application window.  The percentage size is now based
 instead on the "remaining space" at the point at which a banner is
 laid out during the screen layout process.
 
-<li>The new banner function bannerSetSize() complements
+<li class=last>The new banner function bannerSetSize() complements
 bannerSizeToContents() by adding the ability to set a banner's
 size in terms of the natural sizing units of the window or a new
 percentage-based size.
@@ -2286,7 +5306,7 @@ percentage-based size.
 
 <ul>
 
-<li>Fixed a bug in the interpreter that caused sporadic crashes in
+<li class=last>Fixed a bug in the interpreter that caused sporadic crashes in
 situations involving adding lots of new properties to an object (of
 class TadsObject).
 
@@ -2337,7 +5357,7 @@ one of the following:
       These interpreters cannot show graphics using HTML, but they might
       use some graphics of their own for things like window borders.
       This type of interpreter recognizes the text-only HTML subset.
-      Note that this code is not indicative of the type of OS, but rather
+      Note that this code isn't indicative of the type of OS, but rather
       of the type of interpreter: MS-DOS TADS <b>always</b> returns
       SysInfoIClassText, even when it's running in a DOS box under
       Windows, because it still acts like a character-mode interpreter
@@ -2362,7 +5382,7 @@ details.
 <li>The compiler and VM support "transient" objects, which are objects
 that do not participate in any of the VM's built-in persistence
 mechanisms (save, restore, undo, restart).  A transient object is
-not saved to a saved state file, and is not affected by restore, undo,
+not saved to a saved state file, and isn't affected by restore, undo,
 or restart operations.  This is described more fully in the
 <a href="sysman/objdef.htm">Object Definitions</a> section of
 the documentation.
@@ -2430,7 +5450,7 @@ incorrect entries for Windows 95 and NT 4 (actually, this is more due
 to a bug in Windows 95 and NT 4, but Workbench didn't work around the
 bug, so in a sense it was a Workbench bug).  This has been corrected.
 
-<li>A compiler bug caused the compiler to crash (with an access
+<li class=last>A compiler bug caused the compiler to crash (with an access
 violation or equivalent) when given a source file whose very first
 object definition started with a template containing a double-quoted
 string with an embedded expression.  This problem is now fixed.
@@ -2455,7 +5475,7 @@ When displayed, the status line shows whether or not the program being
 debugged is running, and shows the line and column number of the current
 cursor position when a source file window is active.
 
-<li>Fixed a problem in Workbench that prevented parts of the window
+<li class=last>Fixed a problem in Workbench that prevented parts of the window
 layout from being saved in the project configuration file when the
 main Workbench application window was closed while the program being
 debugged was still running.
@@ -2513,7 +5533,7 @@ return value is a code indicating the level of support:
      code the Windows HTML interpreter returns)
 </ul>
 
-<li>The new system information code SysInfoTextHilite can be used to
+<li class=last>The new system information code SysInfoTextHilite can be used to
 determine whether or not text highlighting is available.  This returns
 true if a distinctive appearance for &lt;B&gt; text is available,
 nil if not.  The HTML interpreters return true for this; the text-only
@@ -2563,7 +5583,7 @@ to get stuck in an infinite loop if the data associated with a particular
 <li>Fixed a debugger bug that caused sporadic crashes when running
 games in Workbench.
 
-<li>Added new systemInfo() codes for MNG display:
+<li class=last>Added new systemInfo() codes for MNG display:
   <ul>
     <li>SysInfoMng - can the system display MNG images?
     <li>SysInfoMngTrans - can the system display MNG's with transparency?
@@ -2828,7 +5848,7 @@ Explorer will open the file in Workbench.  (The 4/7/2002 version still
 set the association for .t3c files instead, despite Workbench's switch
 to .t3c files for storing project configuration information.)
 
-<li>Fixed a problem that caused the compiler to display the incorrect
+<li class=last>Fixed a problem that caused the compiler to display the incorrect
 text for invalid tokens in certain error messages related to 'grammar'
 statement syntax.
 
@@ -2955,7 +5975,7 @@ longer occur.
 intrinsic classes to be lost in some cases.  This problem occurred
 rarely, and should no longer occur.
 
-<li>Changed the character mapping input file format slightly.  The
+<li class=last>Changed the character mapping input file format slightly.  The
 "unicode_to_local" keyword has been renamed to "display_mappings",
 and has a slightly different effect: in the "display_mappings"
 section, each character mapping gives the <b>Unicode</b> expansion
@@ -3008,7 +6028,7 @@ that caused incorrect mappings in some compiled mapping files having
 display (from_unicode_to_local) mappings that expanded to more than
 one byte.
 
-<li>Fixed a problem in the Windows interpreter that made it
+<li class=last>Fixed a problem in the Windows interpreter that made it
 incompatible with Windows 95.  The interpreter should once again be
 compatible with Windows 95.
 
@@ -3062,7 +6082,7 @@ ADS 3 Workbench versions are installed.
 dialogs to appear in Workbench for Windows when the user attempted
 to compile the game after the debugger intercepted a run-time error.
 
-<li>Fixed a problem in the character map compiler (mkchrtab) that
+<li class=last>Fixed a problem in the character map compiler (mkchrtab) that
 caused invalid map files to be generated if the source file had more
 than one symmetric (bidirectional) mapping assigned to the same
 Unicode code point.  The character map compiler now generates a
@@ -3139,7 +6159,7 @@ their elements from the left-hand side collection when used as the
 right-hand side of a '-' operator, also for consistency with the List
 type's behavior.
 
-<li>Fixed a problem in the VM that caused the VM to lose track of
+<li class=last>Fixed a problem in the VM that caused the VM to lose track of
 intrinsic class modifiers after a RESTORE operation.  Intrinsic
 class modifiers will now properly survive RESTORE operations.
 
@@ -3190,7 +6210,7 @@ generated list, the files are listed one file per line, and each line
 specifying a file consists of the characters "<tt>#include</tt>",
 followed by a single space, followed by the name of the included
 file, followed by a newline sequence.  The name of the included file
-is not enclosed in any quote marks or other delimiters.  This format
+isn't enclosed in any quote marks or other delimiters.  This format
 is intended to simplify automatic processing of the list by clearly
 marking each line in the output that names an included file.  Note
 that the list of included files might include a given file more than
@@ -3212,7 +6232,7 @@ spaces materially changes the meaning of the program, the compiler
 warns about them.  Note that the warning can be suppressed by adding
 a comment at the end of the line; this doesn't change the meaning
 of the program but does make the spaces visually evident in a text
-editor, so the compiler recognizes that the warning is not necessary
+editor, so the compiler recognizes that the warning isn't necessary
 in this case.
 
 <li>Fixed a VM problem that caused the garbage collector to
@@ -3241,7 +6261,7 @@ defined.  This makes <tt>inherited</tt> work roughly the same way as
 the <tt>inheritNext</tt> method that was formerly defined in the
 <tt>MixIn</tt> class in the adventure game library (adv3).
 
-<li>Added a new <tt>Object</tt> method, <tt>propInherited</tt>, which
+<li class=last>Added a new <tt>Object</tt> method, <tt>propInherited</tt>, which
 determines if a method is inherited, using the new rules of the
 <tt>inherited</tt> operator.  This provides functionality equivalent
 to the <tt>canInheritNext</tt> method formerly defined in the
@@ -3307,7 +6327,7 @@ other incorrect behavior when the user attempted to run the program,
 but the program had not been compiled (or had not been compiled with
 debugging information).
 
-<li>When Workbench needs to find a source file during program tracing
+<li class=last>When Workbench needs to find a source file during program tracing
 in the debugger, it now scans the project list to find the file.  In
 the past, the debugger used only the source path to find files,
 leading to annoying interactive requests to locate files that were in
@@ -3325,9 +6345,9 @@ plain view in the project window.
 which allows reading a line of text with an optional timeout.  This
 function can be used to combine command-line input with real-time
 effects, because it allows a command line to be interrupted if the
-command is not completed before a real-time interval elapses.
+command isn't completed before a real-time interval elapses.
 
-<li>Fixed a problem in the Dictionary class: the
+<li class=last>Fixed a problem in the Dictionary class: the
 <tt>isWordDefinedTrunc()</tt> method used the wrong truncation length
 in its comparison - it required the string to be matched to be at
 least one character longer than the dictionary's truncation length.
@@ -3364,7 +6384,7 @@ configurations more readily moveable from one system to another,
 because it eliminates any dependency in the project configuration
 on the particular directory in which Workbench is installed.
 
-<li>The compiler now treats the symbol and object path options as
+<li class=last>The compiler now treats the symbol and object path options as
 overriding all module source paths, even when the filenames are given
 with "absolute" (as opposed to relative) path names.
 
@@ -3386,7 +6406,7 @@ equivalent vectors from comparing equal.
 <li>Fixed a compiler problem that caused the compiler to crash in
 some cases when a symbol was redefined from function to another type.
 
-<li>Fixed a compiler problem that caused incorrect initialization
+<li class=last>Fixed a compiler problem that caused incorrect initialization
 of Dictionary objects in the image file in certain cases when
 preinitialization ran (i.e., when compiling with the -d option).
 
@@ -3401,7 +6421,7 @@ preinitialization ran (i.e., when compiling with the -d option).
 directives, and in fact prefers them.  Refer to the 
 <a href="sysman/preproc.htm">preprocessor chapter</a> for details.
 
-<li>Added a new method, <a href="sysman/tadsobj.htm">createClone</a>,
+<li class=last>Added a new method, <a href="sysman/tadsobj.htm">createClone</a>,
 to the TadsObject intrinsic class.  This method returns a newly-created
 object that is an identical copy of the original object.
 
@@ -3537,7 +6557,7 @@ where the error actually occurred.  This has been corrected.
 crash after attempting a link that involved unresolved external
 symbol references.
 
-<li>Fixed a GrammarProd parsing problem that caused incorrect token
+<li class=last>Fixed a GrammarProd parsing problem that caused incorrect token
 index information to be returned in certain cases involving productions
 with no tokens.
 
@@ -3594,7 +6614,7 @@ fewer argument than it should have.
 to be generated without proper line wrapping in the HTML version
 of the interpreter.
 
-<li>Changed the output formatter so that &lt;BANNER&gt; contents
+<li class=last>Changed the output formatter so that &lt;BANNER&gt; contents
 (everything from a &lt;BANNER&gt; tag to the corresponding
 &lt;/BANNER&gt; close tag) are not included in the output log.
 The contents of a banner are not logically part of the main text
@@ -3613,7 +6633,7 @@ effects do not interfere with the log file contents.
 that referenced "self" or properties of "self" within property values
 defined as simple value expressions (as opposed to methods).  
 
-<li>Changed the compiler to allow using short-form anonymous functions
+<li class=last>Changed the compiler to allow using short-form anonymous functions
 (i.e., using the "<tt>{args: }</tt>" notation, rather than the "<tt>new
 function</tt>" notation) as list elements without enclosing the
 functions in parentheses.  In the past, the compiler considered an
@@ -3680,7 +6700,7 @@ partially corrupted internal state.
 unpredictable behavior (including VM crashes) under some
 circumstances.
 
-<li>Fixed a problem in the debugger that caused, in some cases, the
+<li class=last>Fixed a problem in the debugger that caused, in some cases, the
 incorrect error code to be reported in the RuntimeError object
 representing a VM exception.  This only occurred when the program
 was being run in the debugger, and only then when certain types of
@@ -3694,7 +6714,7 @@ expressions were evaluated.  This has been corrected.
 
 <ul>
 
-<li>Changed the symbol file format to allow inclusion of intrinsic
+<li class=last>Changed the symbol file format to allow inclusion of intrinsic
 function and intrinsic class registration lists.  This is an internal
 change only; its purpose is to make the compiler more flexible in
 correlating the internal linkage identifiers of intrinsics across
@@ -3727,7 +6747,7 @@ This code generation error did not manifest itself frequently, but
 when it did show up caused problems ranging from data value corruption
 to interpreter crashes.
 
-<li>The debugger now includes an ampersand prefix when displaying
+<li class=last>The debugger now includes an ampersand prefix when displaying
 property pointer values.
 
 </ul>
@@ -3813,7 +6833,7 @@ when a variable argument list parameter variable was referenced from
 within an anonymous function within the function or method with the
 variable argumetn list parameter.
 
-<li>The compiler now specifially flags code using '=' to define a
+<li class=last>The compiler now specifially flags code using '=' to define a
 method.  Since this was valid TADS 2 syntax, and has been
 gratuitously changed in TADS 3, users are likely to use the old
 syntax accidentally, especially while transitioning to the new
@@ -3859,7 +6879,7 @@ definitively establish the symbol as a property.
 interpreter to hang (in an infinite loop internally) in response to
 certain "&amp;" entities in HTML mode.
 
-<li>Fixed a problem in the GrammarProd intrinsic class that caused
+<li class=last>Fixed a problem in the GrammarProd intrinsic class that caused
 productions that matched zero tokens to indicate invalid token index
 values for firstTokenIndex and lastTokenIndex.  These now always
 indicate zero in such case, to indicate that the production is
@@ -3880,7 +6900,7 @@ open-file operation is allowed by the user's safety level settings.
 On a safety level violation, the "open" functions throw the new
 exception FileSafetyException.
 
-<li>Text files can now be opened in FileAccessReadWriteKeep and
+<li class=last>Text files can now be opened in FileAccessReadWriteKeep and
 FileAccessReadWriteTrunc modes.  In the past, only "data" and "raw"
 files could be opened in read/write modes, which made it impossible
 to append to an existing text file.
@@ -3898,7 +6918,7 @@ past, if more than one 'modify' statement was applied to an intrinsic
 class, only the last of the 'modify' statements was actually taken into
 account at run-time.  This has been corrected.
 
-<li>Fixed a compiler bug: the compiler did not report an error if a
+<li class=last>Fixed a compiler bug: the compiler did not report an error if a
 'replace' statement replaced an object but did not specify a superclass
 list for the new object.  The compiler misinterpreted such a statement as
 a new anonymous object definition.  This has been corrected; the compiler
@@ -3968,7 +6988,7 @@ simply invokes each base class's constructor, in the same order
 in which the base classes are listed in the superclass list.
 
 <li>Added grouped sub-alternatives to rules in the 
-<a href="sysman/gramprod.htm"><tt>grammar</tt> statement</tt>.  This allows
+<a href="sysman/gramprod.htm"><tt>grammar</tt> statement</a>.  This allows
 portions of an alternative in a rule definition to be grouped for
 alternation; for example, a rule can be defined as
 "<tt>('take' | 'get' | 'pick' 'up') nounList-&gt;lst_</tt>", which
@@ -4100,7 +7120,7 @@ was involved).
 <li>Removed a spurious warning that was generated when a dictionary
 was imported from multiple symbol files.
 
-<li>Fixed a bug in the GrammarProd intrinsic class that caused "*"
+<li class=last>Fixed a bug in the GrammarProd intrinsic class that caused "*"
 tokens in subproductions to be misinterpreted.  In the past, the "*"
 token only worked properly in top-level productions (i.e., a production
 on which parseTokens() was called); this has been corrected so that "*"
@@ -4154,7 +7174,7 @@ which allows delegating a method call to an unrelated object.
 intrinsic function</a>, which returns the object that defines the currently
 executing method.
 
-<li>Changed the default name of the ASCII character set mapping to
+<li class=last>Changed the default name of the ASCII character set mapping to
 "us-ascii" for better readability.  The old name ("asc7dflt") is still
 accepted, but is now obsolescent and should not be used in new code.
 All of the #charset directives in the system headers provided with the
@@ -4256,7 +7276,7 @@ omitted or specified as nil, in which case all objects with vocabulary
 matching given text, for any part-of-speech property, will be
 returned.
 
-<li>Fixed a debugger problem that caused a crash in some obscure
+<li class=last>Fixed a debugger problem that caused a crash in some obscure
 cases involving opening a file during a debugger session when the
 debugger had never taken control since the beginning of program
 execution, and a similar problem that occurred when the VM threw
@@ -4290,7 +7310,7 @@ past.
        '|': &lt;upper|star&gt; matches any upper-case letter or an asterisk.
 </ul>
 
-<li>Renamed the t23run.exe executable to simply tr32.exe, so the
+<li class=last>Renamed the t23run.exe executable to simply tr32.exe, so the
 combined TADS 2+3 interpreter is now the default interpreter.  The
 separate interpreters are now called t2r32.exe (for TADS 2) and
 t3run.exe (for TADS 3).  For the most part, users will not need to
@@ -4373,7 +7393,7 @@ separator") as equivalent to a newline in source files that use of
 the Unicode encodings the compiler accepts (UCS-2 big-endian, UCS-2
 little-endian, or UTF-8).
 
-<li>In text mode, the <tt>fileRead()</tt> function now properly
+<li class=last>In text mode, the <tt>fileRead()</tt> function now properly
 translates input characters according to the character set selected
 when the file was opened.  (In the past, the character set was
 ignored, and the characters from the file were not properly
@@ -4402,7 +7422,7 @@ method, which returns a list of properties directly defined by an object.
 <tt>Object.getPropParams(<i>prop</i>)</tt></a> method, which returns
 information on the parameters taken by a property or method.
 
-<li>Added the <a href="sysman/tadsgen.htm">
+<li class=last>Added the <a href="sysman/tadsgen.htm">
 <tt>getFuncParams(<i>funcptr</i>)</tt></a> intrinsic function, which
 returns information ont he parameters taken by a function.
 
@@ -4555,7 +7575,7 @@ when using the operator with an otherwise undefined symbol name.
 "<tt>&amp;<i>symbol</i></tt>" now unambiguously defines the symbol
 as a property name.
 
-<li>Fixed a compiler bug that caused a spurious warning message when
+<li class=last>Fixed a compiler bug that caused a spurious warning message when
 compiling certain types of expressions involving property pointers.
 The warning did not affect code generation, but it was incorrect and
 has been removed.
@@ -4573,7 +7593,7 @@ statement containing code before the first 'case' or 'default' label.
 This has been corrected; the compiler now reports an error (such code
 is unreachable) and continues with the compilation.
 
-<li>Fixed a minor compiler problem that generated a spurious warning
+<li class=last>Fixed a minor compiler problem that generated a spurious warning
 message in a certain situation.  Specifically, if none of a 'switch'
 statement's 'case' labels led to code paths that could reach the next
 statement after the 'switch' (for example, if every code path
@@ -4596,7 +7616,7 @@ generation.
 
 <ul>
 
-<li>Fixed a compiler problem with try/catch statements.  The compiler
+<li class=last>Fixed a compiler problem with try/catch statements.  The compiler
 did not correctly generate handlers for any catch block past the
 first for a given try statement; this has been corrected.
 
@@ -4607,7 +7627,7 @@ first for a given try statement; this has been corrected.
 
 <ul>
 
-<li>The meaning of the syntax <tt>x.y</tt> and <tt>&amp;y</tt> have
+<li class=last>The meaning of the syntax <tt>x.y</tt> and <tt>&amp;y</tt> have
 changed slightly, in a way that will be transparent to most code.
 In the past, if <tt>y</tt> was a local variable, then <tt>x.y</tt>
 evaluated the local, then called the method on <tt>x</tt> specified
@@ -4667,7 +7687,7 @@ only an English set of messages actually comes with the system, but
 it is hoped that a few translated versions will be contributed so
 that more languages will be supported "out of the box" in the future.)
 
-<li>Fixed a bug that reversed the order of arguments in calls to
+<li class=last>Fixed a bug that reversed the order of arguments in calls to
 anonymous functions while running in the debugger.
 
 </ul>
@@ -4686,7 +7706,7 @@ rather than the low-level direct console output function, it is
 desirable to give the library version the shorter, more convenient
 name.
 
-<li>Added the <tt>appendUnique()</tt> method to the <a
+<li class=last>Added the <tt>appendUnique()</tt> method to the <a
 href="sysman/list.htm">List</a> and Array intrinsic classes.
 
 </ul>
@@ -4696,7 +7716,7 @@ href="sysman/list.htm">List</a> and Array intrinsic classes.
 
 <ul>
 
-<li>Fixed a bug in the compiler that caused lost properties on objects
+<li class=last>Fixed a bug in the compiler that caused lost properties on objects
 under certain very complicated circumstances (the problem occurred when
 dictionaries and other objects were defined in a particular order).
 
@@ -4715,7 +7735,7 @@ href="sysman/list.htm">List</a> and Array are now subclasses of
 Collection, so these classes can create Iterator objects to visit
 their elements.
 
-<li>The Windows HTML interpreter now supports PNG transparency (this is
+<li class=last>The Windows HTML interpreter now supports PNG transparency (this is
 a generic change to the Windows HTML renderer that will also be in
 HTML TADS 2.5.4).  Note that only simple transparency is supported;
 full alpha blending is still not supported.  PNG transparency now has
@@ -4731,7 +7751,7 @@ its own systemInfo() capability code, SYSINFO_PNG_TRANS.
 <li>Fixed a bug that caused a compiler crash when a source 
 file was completely empty (or contained only comments).
 
-<li>Fixed a bug that caused a compiler crash in certain situations
+<li class=last>Fixed a bug that caused a compiler crash in certain situations
 involving multiple initializers in a single 'local' statement.
 
 </ul>
@@ -4809,7 +7829,7 @@ bundling feature still allows users with localizations that aren't
 included in the standard character map set to add their own .tcm files,
 but it makes character mappings entirely invisible for most users.)
 
-<li>Added CP1250.TCM (a character set mapping for the Windows
+<li class=last>Added CP1250.TCM (a character set mapping for the Windows
 Eastern/Central European code page), CP850.TCM (DOS OEM Latin 1),
 and CP852.TCM (DOS OEM Latin 2) to the default character map set
 for Windows.
@@ -4845,7 +7865,7 @@ a game, you don't have to specify the image file; this particular feature
 also allows double-clicking on a saved state from the desktop to start
 the interpreter, load the image file, and restore the saved state.
 
-<li>The GrammarProd intrinsic class's parseTokens() method now
+<li class=last>The GrammarProd intrinsic class's parseTokens() method now
 includes truncated matches to dictionary words (according to the
 dictionary's truncation length setting) in its structural analysis.
 The method also includes truncated matches (again, using the dictionary
@@ -4866,7 +7886,7 @@ preinit() method.  This new mechanism should be especially useful for
 library developers, since new initialization objects can be plugged in
 without touching any library or user code
 
-<li>It is now possible to <a href='t3icext.htm'>extend
+<li class=last>It is now possible to <a href='t3icext.htm'>extend
 intrinsic classes</a> with user-defined methods.
 
 </ul>
@@ -4942,7 +7962,7 @@ kit) to work with _main.t, so you don't have to compile them with -nodef.
 Also updated them to use method calls rather than intrinsic function
 calls where appropriate.
 
-<li>Updated the sample files to use the standard _main.t startup and
+<li class=last>Updated the sample files to use the standard _main.t startup and
 new property functions.
 
 </ul>
@@ -5007,5 +8027,6 @@ cleaned up).
 </ul>
 
 <!------------------------------------------------------------------------>
+</body>
 </html>
 

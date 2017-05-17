@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -24,9 +24,11 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <string.h>
+#include <errno.h>
+#include <setjmp.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "zlib.h"
 #include "scare.h"
@@ -35,10 +37,11 @@
 
 
 /* Assorted definitions and constants. */
-enum { BUFFER_SIZE = 4096 };
 static const sc_char NEWLINE = '\n';
 static const sc_char CARRIAGE_RETURN = '\r';
 static const sc_char NUL = '\0';
+
+enum { BUFFER_SIZE = 4096 };
 
 /* Output buffer. */
 static sc_byte *ser_buffer = NULL;
@@ -85,7 +88,7 @@ ser_flush (sc_bool is_final)
       status = deflateInit (&stream, Z_DEFAULT_COMPRESSION);
       if (status != Z_OK)
         {
-          sc_error ("ser_flush: deflateInit() error %ld\n", status);
+          sc_error ("ser_flush: deflateInit: error %ld\n", status);
           ser_buffer_length = 0;
 
           sc_free (out_buffer);
@@ -102,20 +105,18 @@ ser_flush (sc_bool is_final)
   stream.avail_in = ser_buffer_length;
 
   /* Loop while deflate output is pending and buffer not emptied. */
-  for (;;)
+  while (TRUE)
     {
       sc_int in_bytes, out_bytes;
 
-      /*
-       * Compress stream data, requesting finish if this is the final flush.
-       */
+      /* Compress stream data, with finish if this is the final flush. */
       if (is_final)
         status = deflate (&stream, Z_FINISH);
       else
         status = deflate (&stream, Z_NO_FLUSH);
       if (status != Z_STREAM_END && status != Z_OK)
         {
-          sc_error ("ser_flush: deflate() error %ld\n", status);
+          sc_error ("ser_flush: deflate: error %ld\n", status);
           ser_buffer_length = 0;
 
           sc_free (out_buffer);
@@ -168,7 +169,7 @@ ser_flush (sc_bool is_final)
       /* Compression completed. */
       status = deflateEnd (&stream);
       if (status != Z_OK)
-        sc_error ("ser_flush: warning: deflateEnd() error %ld\n", status);
+        sc_error ("ser_flush: warning: deflateEnd: error %ld\n", status);
 
       if (ser_buffer_length != 0)
         {
@@ -209,24 +210,30 @@ ser_buffer_character (sc_char character)
 
 
 /*
+ * ser_buffer_buffer()
  * ser_buffer_string()
  * ser_buffer_int()
  * ser_buffer_int_special()
  * ser_buffer_uint()
  * ser_buffer_boolean()
  *
- * Buffer a string, an unsigned and signed integer, and a boolean.
+ * Buffer a buffer, a string, an unsigned and signed integer, and a boolean.
  */
 static void
-ser_buffer_string (const sc_char *string)
+ser_buffer_buffer (const sc_char *buffer, sc_int length)
 {
   sc_int index_;
 
-  /* Add each character to the buffer, flush if filled. */
-  for (index_ = 0; string[index_] != NUL; index_++)
-    ser_buffer_character (string[index_]);
+  /* Add each character to the buffer. */
+  for (index_ = 0; index_ < length; index_++)
+    ser_buffer_character (buffer[index_]);
+}
 
-  /* Add CR/LF, DOS-style, to output. */
+static void
+ser_buffer_string (const sc_char *string)
+{
+  /* Buffer string, followed by DOS style end-of-line. */
+  ser_buffer_buffer (string, strlen (string));
   ser_buffer_character (CARRIAGE_RETURN);
   ser_buffer_character (NEWLINE);
 }
@@ -580,7 +587,7 @@ ser_load_game (sc_gameref_t game,
   const sc_char *gamename;
 
   /* Create a TAF (TAS) reference from callbacks, for reader functions. */
-  ser_tas = taf_create (callback, opaque, FALSE);
+  ser_tas = taf_create_tas (callback, opaque);
   if (!ser_tas)
     return FALSE;
 
@@ -641,9 +648,7 @@ ser_load_game (sc_gameref_t game,
   /* Skip player gender. */
   (void) ser_get_int ();
 
-  /*
-   * Skip encumbrance details, not currently maintained by the game.
-   */
+  /* Skip encumbrance details, not currently maintained by the game. */
   (void) ser_get_int ();
   (void) ser_get_int ();
   (void) ser_get_int ();

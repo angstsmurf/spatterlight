@@ -36,6 +36,7 @@ Modified
 #include "tcmake.h"
 #include "vmimage.h"
 #include "vmrunsym.h"
+#include "vmmeta.h"
 #include "t3test.h"
 
 
@@ -52,7 +53,6 @@ int main(int argc, char **argv)
     int curarg;
     int fatal_error_count = 0;
     osfildef *fpout = 0;
-    int next_local = 0;
     CVmFile *imgfile = 0;
     CVmFile *objfile = 0;
     const char *imgfname;
@@ -184,11 +184,12 @@ int main(int argc, char **argv)
     fprintf(stderr,
             "Warnings: %d\n"
             "Errors:   %d\n"
-            "Longest string: %d, longest list: %d\n",
+            "Longest string: %lu, longest list: %lu\n",
             G_tcmain->get_warning_count(),
             G_tcmain->get_error_count() + fatal_error_count,
-            G_cg->get_max_str_len(), G_cg->get_max_list_cnt());
-
+            (unsigned long)G_cg->get_max_str_len(),
+            (unsigned long)G_cg->get_max_list_cnt());
+    
     /* 
      *   note whether or not the compilation was successful - it succeeded
      *   if we had no errors or fatal errors 
@@ -246,4 +247,10 @@ void CTcMake::write_build_config_to_sym_file(class CVmFile *)
 void CVmRuntimeSymbols::add_sym(const char *, size_t,
                                 const vm_val_t *)
 {
+}
+
+/* dummy implementation of runtime metaclass table */
+vm_meta_entry_t *CVmMetaTable::get_entry_by_id(const char *id) const
+{
+    return 0;
 }

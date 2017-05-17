@@ -1,5 +1,5 @@
 /* main.c - Frotz V2.40 main function
- *		Copyright (c) 1995-1997 Stefan Jokisch
+ *	Copyright (c) 1995-1997 Stefan Jokisch
  *
  * This file is part of Frotz.
  *
@@ -15,7 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
  */
 
 /*
@@ -33,7 +33,10 @@
 #endif
 
 extern void interpret (void);
-extern void init_memory (void *file);
+extern void init_memory (void);
+extern void init_proc (void);
+extern void init_sound (void);
+extern void init_text (void);
 extern void init_undo (void);
 extern void reset_memory (void);
 
@@ -75,7 +78,7 @@ zbyte h_default_foreground = 0;
 zword h_terminating_keys = 0;
 zword h_line_width = 0;
 zbyte h_standard_high = 1;
-zbyte h_standard_low = 0;
+zbyte h_standard_low = 1;
 zword h_alphabet = 0;
 zword h_extension_table = 0;
 zbyte h_user_name[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -84,6 +87,9 @@ zword hx_table_size = 0;
 zword hx_mouse_x = 0;
 zword hx_mouse_y = 0;
 zword hx_unicode_table = 0;
+zword hx_flags = 0;
+zword hx_fore_colour = 0;
+zword hx_back_colour = 0;
 
 /* Stack data */
 
@@ -108,6 +114,7 @@ int mwin = 0;
 
 int mouse_y = 0;
 int mouse_x = 0;
+int menu_selected = 0;
 
 /* Window attributes */
 
@@ -118,7 +125,6 @@ bool enable_buffering = FALSE;
 
 /* User options */
 
-/*
 int option_attribute_assignment = 0;
 int option_attribute_testing = 0;
 int option_context_lines = 0;
@@ -132,7 +138,7 @@ int option_undo_slots = MAX_UNDO_SLOTS;
 int option_expand_abbreviations = 0;
 int option_script_cols = 80;
 int option_save_quetzal = 1;
-*/
+int option_err_report_mode = ERR_DEFAULT_REPORT_MODE;
 
 int option_sound = 1;
 char *option_zcode_path;
@@ -145,14 +151,14 @@ long reserve_mem = 0;
 /*
  * z_piracy, branch if the story file is a legal copy.
  *
- *		no zargs used
+ *	no zargs used
  *
  */
 
 void z_piracy (void)
 {
 
-    branch (!f_setup.piracy);
+    branch (!option_piracy);
 
 }/* z_piracy */
 
@@ -166,7 +172,8 @@ void z_piracy (void)
 #include "glk.h"
 #include "glkstart.h"
 
-extern void init_restore(void);
+static int myargc;
+static char **myargv;
 
 glkunix_argumentlist_t glkunix_arguments[] =
 {
@@ -179,8 +186,6 @@ glkunix_argumentlist_t glkunix_arguments[] =
 { "-Q", glkunix_arg_NoValue, "-Q: use old-style save format" },
 { "-t", glkunix_arg_NoValue, "-t: set Tandy bit" },
 { "-x", glkunix_arg_NoValue, "-x: expand abbreviations g/x/z" },
-{ "-I", glkunix_arg_NumberValue, "-I: interpreter number" },
-{ "-r", glkunix_arg_ValueFollows, "-r: restore save state" },
 { "-s", glkunix_arg_NumberValue, "-s: random number seed value" },
 { "-S", glkunix_arg_NumberValue, "-S: transcript width" },
 { "-u", glkunix_arg_NumberValue, "-u: slots for multiple undo" },
@@ -189,32 +194,31 @@ glkunix_argumentlist_t glkunix_arguments[] =
 { NULL, glkunix_arg_End, NULL }
 };
 
-strid_t gli_file = NULL;
-
 int glkunix_startup_code(glkunix_startup_t *data)
 {
+    myargc = data->argc;
+    myargv = data->argv;
+
     os_init_setup ();
-    os_process_arguments (data->argc, data->argv);
+    os_process_arguments (myargc, myargv);
+
+    init_buffer ();
+    init_err ();
+    init_memory ();
+    init_proc ();
+    init_sound ();
+    init_text ();
+
+    os_init_screen ();
+
+    init_undo ();
+    z_restart ();
     return TRUE;
 }
 
 void glk_main (void)
 {
-    init_buffer ();
-    init_err ();
-    init_memory (gli_file);
-    init_process ();
-    init_sound ();
-    init_undo ();
-
-    os_init_screen ();
-
-    z_restart ();
-
-    /* if we opened a save-file in te startup code, load and close it now */
-    if (f_setup.restore_file)
-	init_restore ();
-    
     interpret ();
     reset_memory ();
 }
+

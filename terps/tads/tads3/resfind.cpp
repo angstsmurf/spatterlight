@@ -92,7 +92,7 @@ static int t2_find_res(osfildef *fp, const char *resname,
         }
 
         /* note the ending position of this section */
-        endofs = osrp4(buf + 1 + (unsigned char)buf[0]);
+        endofs = t3rp4u(buf + 1 + (unsigned char)buf[0]);
 
         /* check the type */
         if (buf[0] == 7 && memcmp(buf+1, "HTMLRES", 7) == 0)
@@ -109,7 +109,7 @@ static int t2_find_res(osfildef *fp, const char *resname,
                 return FALSE;
 
             /* get the number of entries from the header */
-            entry_cnt = osrp4(buf);
+            entry_cnt = t3rp4u(buf);
 
             /* read the entries */
             for (i = 0 ; i < entry_cnt ; ++i)
@@ -123,8 +123,8 @@ static int t2_find_res(osfildef *fp, const char *resname,
                     return FALSE;
 
                 /* parse the header */
-                res_ofs = osrp4(buf);
-                res_siz = osrp4(buf + 4);
+                res_ofs = t3rp4u(buf);
+                res_siz = t3rp4u(buf + 4);
                 name_len = osrp2(buf + 8);
 
                 /* read the entry's name */
@@ -216,7 +216,7 @@ static int t3_find_res(osfildef *fp, const char *resname,
             return FALSE;
 
         /* get the block size */
-        siz = osrp4(buf + 4);
+        siz = t3rp4u(buf + 4);
 
         /* check the type */
         if (memcmp(buf, "MRES", 4) == 0)
@@ -253,8 +253,8 @@ static int t3_find_res(osfildef *fp, const char *resname,
                     return FALSE;
 
                 /* parse the header */
-                entry_ofs = osrp4(buf);
-                entry_siz = osrp4(buf + 4);
+                entry_ofs = t3rp4u(buf);
+                entry_siz = t3rp4u(buf + 4);
                 entry_name_len = (unsigned char)buf[8];
 
                 /* read the entry's name */
@@ -442,7 +442,8 @@ int main(int argc, char **argv)
         /* read the chunk */
         if (osfrb(fp, buf, cur))
         {
-            fprintf(stderr, "error reading %u bytes from file\n", cur);
+            fprintf(stderr, "error reading %u bytes from file\n",
+                    (unsigned)cur);
             osfcls(fp);
             exit(2);
         }

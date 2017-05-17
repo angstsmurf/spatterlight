@@ -50,8 +50,8 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
         { return this; }
 };
 
@@ -69,8 +69,8 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
         { return this; }
 };
 
@@ -88,8 +88,8 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
         { return this; }
 };
 
@@ -108,8 +108,8 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
         { return this; }
 };
 
@@ -122,14 +122,29 @@ class CTPNDefiningobjBase: public CTcPrsNode
 {
 public:
     /* fold constants */
-    class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab)
+    class CTcPrsNode *fold_constants(class CTcPrsSymtab *)
     {
         /* simply return myself unchanged */
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
+        { return this; }
+};
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   "invokee" node 
+ */
+class CTPNInvokeeBase: public CTcPrsNode
+{
+public:
+    /* fold constants */
+    class CTcPrsNode *fold_constants(class CTcPrsSymtab *) { return this; }
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
         { return this; }
 };
 
@@ -141,6 +156,11 @@ public:
 class CTPNInhBase: public CTcPrsNode
 {
 public:
+    CTPNInhBase()
+    {
+        typelist_ = 0;
+    }
+
     /* fold constants */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab)
     {
@@ -148,9 +168,16 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
         { return this; }
+
+    /* get/set the formal type list */
+    class CTcFormalTypeList *get_typelist() const { return typelist_; }
+    void set_typelist(class CTcFormalTypeList *l) { typelist_ = l; }
+
+protected:
+    class CTcFormalTypeList *typelist_;
 };
 
 /*
@@ -172,8 +199,8 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
         { return this; }
 
 protected:
@@ -204,11 +231,11 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
     {
         /* adjust the delegatee subexpression */
-        delegatee_ = delegatee_->adjust_for_debug(info);
+        delegatee_ = delegatee_->adjust_for_dyn(info);
 
         /* return myself otherwise unchanged */
         return this;
@@ -232,8 +259,8 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
         { return this; }
 };
 
@@ -245,7 +272,7 @@ public:
 class CTPNConstBase: public CTcPrsNode
 {
 public:
-    CTPNConstBase(CTcConstVal *val) { val_ = *val; }
+    CTPNConstBase(const CTcConstVal *val) { val_ = *val; }
 
     /* get the constant value of the node */
     virtual class CTcConstVal *get_const_val() { return &val_; }
@@ -257,8 +284,11 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info);
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
+
+    /* check to see if this is a boolean value */
+    virtual int is_bool() const { return val_.is_bool(); }
 
 protected:
     CTcConstVal val_;
@@ -292,6 +322,10 @@ public:
      *   and must defer the comparison to run-time.  
      */
     int is_addr_eq(const class CTPNAddr *, int *comparable) const;
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
+        { return this; }
 
     /* fold constants */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
@@ -336,6 +370,8 @@ public:
     /* get my symbol information */
     const char *get_sym_text() const { return sym_; }
     size_t get_sym_text_len() const { return len_; }
+    int sym_text_matches(const char *sym, size_t len) const
+        { return (len_ == len && memcmp(sym, sym_, len) == 0); }
 
     /* fold constants */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
@@ -343,8 +379,8 @@ public:
     /* generate a constant node for my address value */
     class CTcPrsNode *fold_addr_const(class CTcPrsSymtab *symtab);
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *);
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *);
 
 protected:
     /* my symbol */
@@ -371,6 +407,11 @@ public:
     /* get my symbol information */
     const char *get_sym_text() const { return sym_->get_sym(); }
     size_t get_sym_text_len() const { return sym_->get_sym_len(); }
+    int sym_text_matches(const char *sym, size_t len) const
+    {
+        return (sym_->get_sym_len() == len
+                && memcmp(sym, sym_->get_sym(), len) == 0);
+    }
 
     /* determine if I can be an lvalue */
     virtual int check_lvalue() const { return sym_->check_lvalue(); }
@@ -396,8 +437,8 @@ public:
     /* generate a constant node for my address value */
     class CTcPrsNode *fold_addr_const(class CTcPrsSymtab *symtab);
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
         { return this; }
 
 protected:
@@ -422,14 +463,21 @@ public:
     /* determine if I have an address */
     virtual int has_addr() const { return FALSE; }
 
-    /* determine if I have a return value when called as a function */
-    virtual int has_return_value_on_call() const { return FALSE; }
+    /* 
+     *   Determine if I have a return value when called as a function.  We
+     *   have to assume that we do, since we can't know in advance what the
+     *   variable will hold at run-time.  If it holds a function with a
+     *   return value, we'll need to return the value; if it doesn't, the
+     *   function will effectively return nil, so returning the non-result
+     *   will do no harm.  
+     */
+    virtual int has_return_value_on_call() const { return TRUE; }
 
     /* fold constants */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *) { return this; }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
         { return this; }
 
 protected:
@@ -479,8 +527,8 @@ public:
     /* fold constants */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info);
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
 
 protected:
     /* 
@@ -512,7 +560,20 @@ public:
 
         /* assume it's not a list-to-varargs conversion */
         is_varargs_ = FALSE;
+
+        /* presume no argument name */
+        name_.settyp(TOKT_INVALID);
     }
+
+    /* set the parameter name, for a "name: value" argument */
+    void set_name(const class CTcToken *tok);
+
+    /* get the name and its length */
+    const char *get_name() const { return name_.get_text(); }
+    const size_t get_name_len() const { return name_.get_text_len(); }
+
+    /* is this a named parameter? */
+    int is_named_param() { return name_.gettyp() != TOKT_INVALID; }
 
     /* get the argument expression */
     CTcPrsNode *get_arg_expr() const { return arg_expr_; }
@@ -526,11 +587,11 @@ public:
     /* fold constants */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
     {
         /* adjust the expression */
-        arg_expr_ = arg_expr_->adjust_for_debug(info);
+        arg_expr_ = arg_expr_->adjust_for_dyn(info);
 
         /* return myself otherwise unchanged */
         return this;
@@ -546,6 +607,9 @@ protected:
 
     /* next argument in the list */
     class CTPNArg *next_arg_;
+
+    /* the parameter name, for a "name: expression" argument */
+    CTcToken name_;
 
     /* flag: this is a list-to-varargs parameter */
     unsigned int is_varargs_ : 1;
@@ -582,8 +646,8 @@ public:
     virtual int has_return_value() const
         { return func_->has_return_value_on_call(); }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info);
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
 
 protected:
     /* expression giving function or method to call */
@@ -609,6 +673,7 @@ public:
 
     /* I'm a double-quoted string node */
     virtual int is_dstring() const { return TRUE; }
+    virtual int is_dstring_expr() const { return TRUE; }
 
     /* fold constants - there's nothing extra to do here */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab)
@@ -617,8 +682,8 @@ public:
     /* double-quoted strings have no value */
     virtual int has_return_value() const { return FALSE; }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info);
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
 
 protected:
     /* my string */
@@ -643,20 +708,73 @@ public:
     CTPNDstrEmbedBase(CTcPrsNode *sub)
         : CTPNUnary(sub) { }
 
+    /* this is part of a dstring expression */
+    virtual int is_dstring_expr() const { return TRUE; }
+
     /* we have no return value */
     virtual int has_return_value() const { return FALSE; }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
     {
         /* don't allow in speculative mode due to side effects */
         if (info->speculative)
             err_throw(VMERR_BAD_SPEC_EVAL);
 
         /* inherit default unary operator handling */
-        return CTPNUnary::adjust_for_debug(info);
+        return CTPNUnary::adjust_for_dyn(info);
     }
 };
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   An embedded <<one of>> list in a string.
+ */
+class CTPNStrOneOfBase: public CTcPrsNode
+{
+public:
+    /*
+     *   Create from a list of values, and the attribute string for selecting
+     *   a value on each invocation.  The attributes string must be static
+     *   data, since we don't make a copy.  Currently we only allow built-in
+     *   attribute selections, which we define in a static structure.  
+     */
+    CTPNStrOneOfBase(int dstr, class CTPNList *lst, class CTcSymObj *state_obj)
+    {
+        dstr_ = dstr;
+        lst_ = lst;
+        state_obj_ = state_obj;
+    }
+
+    /* this is part of a dstring expression */
+    virtual int is_dstring_expr() const { return TRUE; }
+
+    /* adjust for dynamic compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
+    
+    /* folder constants */
+    class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
+
+    /* 
+     *   The overall "one of" list has a return value if it's in a
+     *   single-quoted string, since the individual elements will themselves
+     *   be represented as single-quoted strings.  If we're in a
+     *   double-quoted string, the individual elements are double-quoted
+     *   strings. 
+     */
+    int has_return_value() const { return !dstr_; }
+
+protected:
+    /* type of string - double quoted or single quoted */
+    int dstr_;
+
+    /* the underlying list of substrings to choose from */
+    class CTPNList *lst_;
+
+    /* the state object (an anonymous OneOfIndexGen instance) */
+    class CTcSymObj *state_obj_;
+};
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -679,6 +797,9 @@ public:
          */
         is_const_ = TRUE;
 
+        /* presume it's not a lookup table list */
+        is_lookup_table_ = FALSE;
+
         /* set my constant value to point to myself */
         const_val_.set_list((class CTPNList *)this);
     }
@@ -692,8 +813,13 @@ public:
     /* get the constant value of the list */
     CTcConstVal *get_const_val()
     {
-        /* return our constant value only if we have one */
-        return (is_const_ ? &const_val_ : 0);
+        /* 
+         *   return our constant value only if we have one AND we're not a
+         *   lookup table - a lookup table requires a NEW operation at
+         *   run-time, so even if the underlying list of source values is
+         *   constant, the overall list value isn't 
+         */
+        return (is_const_ && !is_lookup_table_ ? &const_val_ : 0);
     }
 
     /* 
@@ -713,8 +839,11 @@ public:
     /* fold constants */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info);
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
+
+    /* mark it as a lookup table list */
+    void set_lookup_table() { is_lookup_table_ = TRUE; }
 
 protected:
     /* number of elements in the list */
@@ -731,7 +860,10 @@ protected:
     CTcConstVal const_val_;
 
     /* flag: all elements of the list are constant */
-    int is_const_ : 1;
+    unsigned int is_const_ : 1;
+
+    /* flag: this is a LookupTable list */
+    unsigned int is_lookup_table_ : 1;
 };
 
 /*
@@ -772,11 +904,11 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
     {
         /* adjust my expression */
-        expr_ = expr_->adjust_for_debug(info);
+        expr_ = expr_->adjust_for_dyn(info);
 
         /* return myself otherwise unchanged */
         return this;
@@ -831,8 +963,8 @@ public:
         return this;
     }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info);
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
 
 protected:
     /* object expression (left of '.') */
@@ -880,8 +1012,8 @@ public:
     /* fold constants */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info);
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
 
 protected:
     /* object expression (left of '.') */
@@ -931,11 +1063,21 @@ public:
     class CTcPrsNode *fold_binop();
 
     /* 
+     *   a comma expression's value is the value of the right operand, so the
+     *   type is boolean if the right operand's type is boolean 
+     */
+    virtual int is_bool() const { return right_->is_bool(); }
+
+    /* 
      *   determine if I have a value - I have a value if my right
      *   subexpression has a value 
      */
     virtual int has_return_value() const
         { return right_->has_return_value(); }
+
+    /* this is part of a dstring expression if either side is */
+    virtual int is_dstring_expr() const
+        { return left_->is_dstring_expr() || right_->is_dstring_expr(); }
 };
 
 /* ------------------------------------------------------------------------ */
@@ -978,6 +1120,9 @@ public:
 
     /* fold constants */
     class CTcPrsNode *fold_binop();
+
+    /* comparison operators yield boolean results */
+    virtual int is_bool() const { return TRUE; }
 };
 
 /* ------------------------------------------------------------------------ */
@@ -992,6 +1137,9 @@ public:
 
     /* fold constants */
     class CTcPrsNode *fold_binop();
+
+    /* comparison operators yield boolean results */
+    virtual int is_bool() const { return TRUE; }
 };
 
 /* ------------------------------------------------------------------------ */
@@ -1005,6 +1153,9 @@ public:
 
     /* fold constants */
     class CTcPrsNode *fold_binop();
+
+    /* comparison operators yield boolean results */
+    virtual int is_bool() const { return TRUE; }
 
 protected:
     /* 
@@ -1027,6 +1178,9 @@ public:
     /* fold constants */
     class CTcPrsNode *fold_binop();
 
+    /* comparison operators yield boolean results */
+    virtual int is_bool() const { return TRUE; }
+
     /* 
      *   flag: if true, we have a constant true value (because the left
      *   side is a constant, and the right side list is entirely constants
@@ -1045,6 +1199,9 @@ public:
     CTPNAndBase(CTcPrsNode *lhs, CTcPrsNode *rhs)
         : CTPNBin(lhs, rhs) { }
 
+    /* a logical AND always yields a boolean */
+    virtual int is_bool() const { return TRUE; }
+
     /* fold constants */
     class CTcPrsNode *fold_binop();
 };
@@ -1058,6 +1215,9 @@ class CTPNOrBase: public CTPNBin
 public:
     CTPNOrBase(CTcPrsNode *lhs, CTcPrsNode *rhs)
         : CTPNBin(lhs, rhs) { }
+
+    /* a logical OR always yields a boolean value */
+    virtual int is_bool() const { return TRUE; }
 
     /* fold constants */
     class CTcPrsNode *fold_binop();
@@ -1076,15 +1236,15 @@ public:
     /* we're a simple assignment operator */
     virtual int is_simple_asi() const { return TRUE; }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
     {
         /* if it's speculative, don't allow it, because of side effects */
         if (info->speculative)
             err_throw(VMERR_BAD_SPEC_EVAL);
 
         /* inherit default processing */
-        return CTPNBin::adjust_for_debug(info);
+        return CTPNBin::adjust_for_dyn(info);
     }
 };
 
@@ -1097,8 +1257,45 @@ class CTPNNotBase: public CTPNUnary
 public:
     CTPNNotBase(CTcPrsNode *sub) : CTPNUnary(sub) { }
 
+    /* NOT always yields a boolean value */
+    virtual int is_bool() const { return TRUE; }
+
     /* fold constants */
     class CTcPrsNode *fold_unop();
+};
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   If-nil node - operator ??
+ */
+class CTPNIfnilBase: public CTcPrsNode
+{
+public:
+    CTPNIfnilBase(class CTcPrsNode *first, class CTcPrsNode *second)
+    {
+        first_ = first;
+        second_ = second;
+    }
+
+    /* fold constants */
+    class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
+
+    /* I have a return value if one or the other of my subnodes has a value */
+    virtual int has_return_value() const
+        { return first_->has_return_value() || second_->has_return_value(); }
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        /* adjust my subexpressions */
+        first_ = first_->adjust_for_dyn(info);
+        second_ = second_->adjust_for_dyn(info);
+        return this;
+    }
+
+protected:
+    class CTcPrsNode *first_;
+    class CTcPrsNode *second_;
 };
 
 /* ------------------------------------------------------------------------ */
@@ -1119,17 +1316,22 @@ public:
     /* fold constants */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
 
+    /* add the branches */
+    void set_cond(CTcPrsNode *e) { first_ = e; }
+    void set_then(CTcPrsNode *e) { second_ = e; }
+    void set_else(CTcPrsNode *e) { third_ = e; }
+
     /* I have a return value if one or the other of my subnodes has a value */
     virtual int has_return_value() const
         { return second_->has_return_value() || third_->has_return_value(); }
 
-    /* adjust for debugging */
-    class CTcPrsNode *adjust_for_debug(const tcpn_debug_info *info)
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
     {
         /* adjust my subexpressions */
-        first_ = first_->adjust_for_debug(info);
-        second_ = second_->adjust_for_debug(info);
-        third_ = third_->adjust_for_debug(info);
+        first_ = first_->adjust_for_dyn(info);
+        second_ = second_->adjust_for_dyn(info);
+        third_ = third_->adjust_for_dyn(info);
 
         /* return myself otherwise unchanged */
         return this;
@@ -1166,6 +1368,9 @@ public:
 
     /* do not write this to an object file */
     virtual int write_to_obj_file(class CVmFile *) { return FALSE; }
+
+    /* this can't be an lvalue */
+    virtual int check_lvalue() const { return FALSE; }
 };
 
 /*
@@ -1177,16 +1382,24 @@ class CTcSymFuncBase: public CTcSymbol
 {
 public:
     CTcSymFuncBase(const char *str, size_t len, int copy,
-                   int argc, int varargs, int has_retval, int is_extern)
+                   int argc, int opt_argc, int varargs, int has_retval,
+                   int is_multimethod, int is_multimethod_base,
+                   int is_extern, int has_proto)
         : CTcSymbol(str, len, copy, TC_SYM_FUNC)
     {
         /* remember the interface information */
         argc_ = argc;
+        opt_argc_ = opt_argc;
         varargs_ = varargs;
         has_retval_ = has_retval;
+        is_multimethod_ = is_multimethod;
+        is_multimethod_base_ = is_multimethod_base;
 
         /* note whether it's external */
         is_extern_ = is_extern;
+
+        /* note whether it has a prototype */
+        has_proto_ = has_proto;
 
         /* no code stream anchor yet */
         anchor_ = 0;
@@ -1202,10 +1415,19 @@ public:
 
         /* there's no base modified symbol */
         mod_base_ = 0;
+
+        /* we haven't been modified yet */
+        mod_global_ = 0;
+
+        /* assume it's not defined in this file */
+        mm_def_ = FALSE;
     }
 
     /* determine if I'm an unresolved external */
     virtual int is_unresolved_extern() const { return is_extern_; }
+
+    /* this can't be an lvalue */
+    virtual int check_lvalue() const { return FALSE; }
 
     /* 
      *   Get the argument count.  If is_varargs() returns true, this is a
@@ -1213,11 +1435,54 @@ public:
      *   arguments required. 
      */
     int get_argc() const { return argc_; }
+    int get_opt_argc() const { return opt_argc_; }
     int is_varargs() const { return varargs_; }
+
+    /* is the argument list within the correct range? */
+    int argc_ok(int n) const
+    {
+        /* 
+         *   the argument list is correct if it has at least the fixed
+         *   arguments, AND either we have varargs (in which case there's no
+         *   upper limit) or the argument count is less than the maximum
+         *   (which is the fixed plus optionals) 
+         */
+        return (n >= argc_
+                && (varargs_ || n <= argc_ + opt_argc_));
+    }
+
+    /* build a descriptive message about the argument list, for errors */
+    const char *get_argc_desc(char *buf)
+    {
+        if (varargs_)
+            sprintf(buf, "%d+", argc_);
+        else if (opt_argc_ != 0)
+            sprintf(buf, "%d-%d", argc_, argc_ + opt_argc_);
+        else
+            sprintf(buf, "%d", argc_);
+
+        return buf;
+    }
 
     /* get/set the 'extern' flag */
     int is_extern() const { return is_extern_; }
     void set_extern(int f) { is_extern_ = f; }
+
+    /* get/set the 'has prototype' flag */
+    int has_proto() const { return has_proto_; }
+    void set_has_proto(int f) { has_proto_ = f; }
+
+    /* get/set the multi-method flag */
+    int is_multimethod() const { return is_multimethod_; }
+    void set_multimethod(int f) { is_multimethod_ = f; }
+
+    /* get/set the multi-method base function flag */
+    int is_multimethod_base() const { return is_multimethod_base_; }
+    void set_multimethod_base(int f) { is_multimethod_base_ = f; }
+
+    /* is this multi-method defined in this file? */
+    int is_mm_def() const { return mm_def_; }
+    void set_mm_def(int f) { mm_def_ = f; }
 
     /* get/set the external 'replace' flag */
     int get_ext_replace() const { return ext_replace_; }
@@ -1226,6 +1491,14 @@ public:
     /* get/set the modified base symbol */
     class CTcSymFunc *get_mod_base() const { return mod_base_; }
     void set_mod_base(class CTcSymFunc *f) { mod_base_ = f; }
+
+    /* 
+     *   Get/set the global symbol.  For a function replaced with 'modify',
+     *   this is the original symbol for the function, which is still in the
+     *   global symbol table.  Otherwise, this is simply null.  
+     */
+    class CTcSymFunc *get_mod_global() const { return mod_global_; }
+    void set_mod_global(class CTcSymFunc *f) { mod_global_ = f; }
 
     /* get/set my code body */
     class CTPNCodeBody *get_code_body() const { return code_body_; }
@@ -1287,6 +1560,12 @@ public:
     /* clear the modified base offset list */
     void clear_mod_base_offsets() { mod_base_ofs_list_.clear(); }
 
+    /* 
+     *   Set the absolute address.  For debugger expressions, this sets the
+     *   code pool address specified in the debugger source expression. 
+     */
+    virtual void set_abs_addr(uint32_t addr) = 0;
+
 protected:
     /* head of the fixup list for our function's code */
     struct CTcAbsFixup *fixups_;
@@ -1303,8 +1582,14 @@ protected:
     /* argument count */
     int argc_;
 
+    /* number of additional optional arguments */
+    int opt_argc_;
+
     /* the original symbol we modified, if any */
     class CTcSymFunc *mod_base_;
+
+    /* global symbol, for a modified function */
+    class CTcSymFunc *mod_global_;
 
     /* array of modified base function code stream offsets */
     CPrsArrayList mod_base_ofs_list_;
@@ -1320,6 +1605,22 @@ protected:
 
     /* flag: this function replaces an external function */
     unsigned int ext_replace_ : 1;
+
+    /* flag: this is a multi-method */
+    unsigned int is_multimethod_ : 1;
+
+    /* flag: this is a multi-method base function */
+    unsigned int is_multimethod_base_ : 1;
+
+    /* flag: this multi-method is defined in this file */
+    unsigned int mm_def_ : 1;
+
+    /* 
+     *   Flag: this function has a known prototype.  An 'extern' function
+     *   declaration is allowed without a prototype, in which case the
+     *   function can be defined elsewhere with any prototype. 
+     */
+    unsigned int has_proto_ : 1;
 };
 
 /*
@@ -1351,7 +1652,13 @@ public:
 };
 
 /*
- *   Metaclass.  
+ *   Metaclass.
+ *   
+ *   Metaclasses must be declared per module.  However, we store "soft"
+ *   references in symbol files, purely so that the defined() operator knows
+ *   whether a metaclass is included in the build.  The soft references don't
+ *   contain any property table information, so we still need a full
+ *   'intrinsic class' definition in each module.
  */
 class CTcSymMetaclassBase: public CTcSymbol
 {
@@ -1376,7 +1683,16 @@ public:
 
         /* we don't have a superclass yet */
         super_meta_ = 0;
+
+        /* assume it's not an external symbol */
+        ext_ = FALSE;
+
+        /* not yet referenced */
+        ref_ = FALSE;
     }
+
+    /* this can't be an lvalue */
+    virtual int check_lvalue() const { return FALSE; }
 
     /* add a property to my list */
     void add_prop(const char *txt, size_t len, const char *obj_fname,
@@ -1386,15 +1702,18 @@ public:
     /* get the head of the property symbol list */
     CTcSymMetaProp *get_prop_head() const { return prop_head_; }
 
-    /* get the nth entry in the property symbol list */
+    /* get the nth property ID from the metaclass method table */
     CTcSymMetaProp *get_nth_prop(int n) const;
 
     /* get/set the metaclass dependency table index */
     int get_meta_idx() const { return meta_idx_; }
     void set_meta_idx(int idx) { meta_idx_ = idx; }
 
-    /* do not write metaclasses to symbol files */
-    virtual int write_to_sym_file(class CVmFile *) { return FALSE; }
+    /* write to a symbol file */
+    virtual int write_to_sym_file(class CVmFile *fp);
+
+    /* read from a symbol file */
+    static class CTcSymbol *read_from_sym_file(class CVmFile *fp);
 
     /* write some additional data to the object file */
     virtual int write_to_obj_file(class CVmFile *fp);
@@ -1414,6 +1733,19 @@ public:
     /* get/set my intrinsic superclass */
     class CTcSymMetaclass *get_super_meta() const { return super_meta_; }
     void set_super_meta(class CTcSymMetaclass *sc) { super_meta_ = sc; }
+
+    /*
+     *   Get/set the external reference status.  An external metaclass is one
+     *   that's defined in another module; we have visibility to it via a
+     *   reference in a symbol file.  This definition isn't sufficient to
+     *   actually use the metaclass; the metaclass must be declared per
+     *   module via an explicitly included 'intrinsic class' statment.  The
+     *   external reference is sufficient for the defined() operator, though,
+     *   so we can test whether a metaclass is part of the build within a
+     *   module that doesn't declare the metaclass.
+     */
+    int is_ext() const { return ext_; }
+    void set_ext(int f) { ext_ = f; }
 
 protected:
     /* our intrinsic superclass */
@@ -1437,6 +1769,12 @@ protected:
 
     /* the object that represents the class */
     tctarg_obj_id_t class_obj_;
+
+    /* is this an external metaclass symbol? */
+    uint ext_ : 1;
+
+    /* has our object been referenced in code generation? */
+    uint ref_ : 1;
 };
 
 /*
@@ -1531,6 +1869,9 @@ public:
         /* presume it's not transient */
         transient_ = FALSE;
     }
+
+    /* this can't be an lvalue */
+    virtual int check_lvalue() const { return FALSE; }
 
     /* get/set my metaclass */
     tc_metaclass_t get_metaclass() const { return metaclass_; }
@@ -1640,8 +1981,7 @@ public:
     virtual int write_to_obj_file(class CVmFile *fp);
 
     /* write myself as a modified base object to an object file */
-    virtual int write_to_obj_file_as_modified(class CVmFile *fp)
-        { return write_to_obj_file_main(fp); }
+    int write_to_obj_file_as_modified(class CVmFile *fp);
 
     /* write references to the object file */
     virtual int write_refs_to_obj_file(class CVmFile *fp);
@@ -1652,7 +1992,7 @@ public:
                                          tctarg_obj_id_t *obj_xlat,
                                          tctarg_prop_id_t *prop_xlat);
 
-    /* mark the ojbect as referenced */
+    /* mark the object as referenced */
     void mark_referenced() { ref_ = TRUE; }
 
     /* read from a symbol file */
@@ -1980,7 +2320,7 @@ protected:
      *   flag: we are explicitly defined with the root object ('object') as
      *   our superclass 
      */
-    int sc_is_root_ : 1;
+    uint sc_is_root_ : 1;
 
     /* flag: the object is transient */
     uint transient_ : 1;
@@ -2061,6 +2401,9 @@ public:
 
         /* presume it's not a vocabulary property */
         vocab_ = FALSE;
+
+        /* presume it's not a weak property assumption */
+        weak_ = FALSE;
     }
 
     /* get the property ID */
@@ -2082,8 +2425,13 @@ public:
     int is_vocab() const { return vocab_; }
     void set_vocab(int flag) { vocab_ = (flag != 0); }
 
-    /* read from a symbol file */
+    /* get/set the "weak" flag */
+    int is_weak() const { return weak_; }
+    void set_weak(int flag) { weak_ = (flag != 0); }
+
+    /* read/write symbol file */
     static class CTcSymbol *read_from_sym_file(class CVmFile *fp);
+    virtual int write_to_sym_file(class CVmFile *fp);
 
     /* write to an object file */
     int write_to_obj_file(class CVmFile *fp);
@@ -2101,6 +2449,17 @@ protected:
 
     /* flag: this is a vocabulary property */
     unsigned int vocab_ : 1;
+
+    /* 
+     *   Flag: this is a "weak" property definition.  A weak definition is
+     *   one that can be overridden by a conflicting definition for the same
+     *   symbol using another type.  Symbols used with "&" are assumed to be
+     *   properties, but only if we don't later find a conflicting
+     *   definition; the weak flag tells us that we can drop the property
+     *   assumption without complaint if we do find a different definition
+     *   for the symbol later.  
+     */
+    unsigned int weak_: 1;
 };
 
 /*
@@ -2122,6 +2481,9 @@ public:
         /* not yet referenced */
         ref_ = FALSE;
     }
+
+    /* this can't be an lvalue */
+    virtual int check_lvalue() const { return FALSE; }
 
     /* mark the symbol as referenced */
     void mark_referenced() { ref_ = TRUE; }
@@ -2175,6 +2537,27 @@ public:
 
     /* true -> parameter, false -> local variable */
     int is_param() const { return is_param_; }
+
+    /* get/set the parameter position (0 is the leftmost argument) */
+    int get_param_index() const { return param_index_; }
+    void set_param_index(int n) { param_index_ = n; }
+
+    /* true -> named parameter */
+    int is_named_param() const { return is_named_param_; }
+    void set_named_param(int f) { is_named_param_ = f; }
+
+    /* true -> optional parameter */
+    int is_opt_param() const { return is_opt_param_; }
+    void set_opt_param(int f) { is_opt_param_ = f; }
+
+    /* get/set the default value expression */
+    CTcPrsNode *get_defval_expr() const { return defval_expr_; }
+    int get_defval_seqno() const { return defval_seqno_; }
+    void set_defval_expr(CTcPrsNode *expr, int seqno)
+    {
+        defval_expr_ = expr;
+        defval_seqno_ = seqno;
+    }
 
     /* 
      *   get/set "list parameter" flag - a list parameter is still a local,
@@ -2280,6 +2663,19 @@ protected:
     int var_num_;
 
     /* 
+     *   Parameter index.  This is the index within the formal parameter list
+     *   of a positional parameter variable.  For regular positional
+     *   parameters, this is the same as var_num_.  However, it's different
+     *   for *optional* parameters, because optional parameters are actually
+     *   stored in local variables, meaning that var_num_ is a *local* number
+     *   rather than an argument number.  In order to generate the code that
+     *   loads the actual argument value into the local variable, we have to
+     *   keep track of both stack locations.  This is where we keep track of
+     *   the parameter index.  
+     */
+    int param_index_;
+
+    /* 
      *   context variable number - if this is a context variable, this is
      *   the stack frame index of the variable containing the object
      *   containing our value 
@@ -2306,9 +2702,25 @@ protected:
      *   refers 
      */
     class CTcSymLocal *ctx_orig_;
-    
+
+    /* 
+     *   For a formal parameter with a default value, the default value
+     *   expression, and the sequence number among the default expressions.
+     *   We process these expressions at function entry in left-to-right
+     *   order for the argument list, to ensure a predicatable order for
+     *   dependency resolution and side effects.
+     */
+    class CTcPrsNode *defval_expr_;
+    int defval_seqno_;
+
     /* true -> parameter, false -> local variable */
     unsigned int is_param_ : 1;
+
+    /* true -> named parameter */
+    unsigned int is_named_param_ : 1;
+
+    /* true -> optional parametre */
+    unsigned int is_opt_param_ : 1;
 
     /* 
      *   true -> not a real parameter, but a "parameter list" local - this is
@@ -2335,13 +2747,40 @@ protected:
 };
 
 /*
+ *   Dynamic local.  This is a symbol entry for a local variable accessed
+ *   through a StackFrameRef object, for dynamic compilation. 
+ */
+class CTcSymDynLocalBase: public CTcSymbol
+{
+public:
+    CTcSymDynLocalBase(const char *str, size_t len, int copy,
+                       tctarg_obj_id_t fref, int varnum, int ctxidx)
+        : CTcSymbol(str, len, copy, TC_SYM_DYNLOCAL)
+    {
+        fref_ = fref;
+        varnum_ = varnum;
+        ctxidx_ = ctxidx;
+    }
+
+protected:
+    /* the StackFrameRef object giving the frame containing the variable */
+    tctarg_obj_id_t fref_;
+
+    /* the variable number in the frame */
+    int varnum_;
+
+    /* the context index (0 if it's an ordinary frame variable) */
+    int ctxidx_;
+};
+
+/*
  *   Built-in function 
  */
 class CTcSymBifBase: public CTcSymbol
 {
 public:
     CTcSymBifBase(const char *str, size_t len, int copy,
-                  int func_set_id, int func_idx, int has_retval,
+                  ushort func_set_id, ushort func_idx, int has_retval,
                   int min_argc, int max_argc, int varargs)
         : CTcSymbol(str, len, copy, TC_SYM_BIF)
     {
@@ -2353,9 +2792,12 @@ public:
         varargs_ = varargs;
     }
 
+    /* this can't be an lvalue */
+    virtual int check_lvalue() const { return FALSE; }
+
     /* get the function set ID and index in the function set */
-    int get_func_set_id() const { return func_set_id_; }
-    int get_func_idx() const { return func_idx_; }
+    ushort get_func_set_id() const { return func_set_id_; }
+    ushort get_func_idx() const { return func_idx_; }
 
     /* 
      *   Get the minimum and maximum argument counts.  If is_varargs()
@@ -2384,10 +2826,10 @@ public:
 
 protected:
     /* function set ID */
-    int func_set_id_;
+    ushort func_set_id_;
 
     /* index within the function set */
-    int func_idx_;
+    ushort func_idx_;
 
     /* minimum and maximum argument count, and varargs flag */
     int min_argc_;
@@ -2414,6 +2856,9 @@ public:
         has_retval_ = has_retval;
     }
 
+    /* this can't be an lvalue */
+    virtual int check_lvalue() const { return FALSE; }
+
     /* 
      *   Get the argument count.  If is_varargs() returns true, this is a
      *   minimum argument count; otherwise, this is the exact number of
@@ -2430,10 +2875,10 @@ protected:
     int argc_;
 
     /* flag: variable arguments (in which case argc_ is only a minimum) */
-    int varargs_ : 1;
+    unsigned int varargs_ : 1;
 
     /* flag: function has a return value (false -> void function) */
-    int has_retval_ : 1;
+    unsigned int has_retval_ : 1;
 };
 
 /*
@@ -2452,6 +2897,9 @@ public:
         stm_ = 0;
     }
 
+    /* this can't be an lvalue */
+    virtual int check_lvalue() const { return FALSE; }
+
     /* get/set the defining statement node */
     class CTPNStmLabel *get_stm() const { return stm_; }
     void set_stm(class CTPNStmLabel *stm) { stm_ = stm; }
@@ -2468,7 +2916,7 @@ protected:
      *   track of this so that we warn when a label is defined but never
      *   used as a target) 
      */
-    int referenced_ : 1;
+    unsigned int referenced_ : 1;
 };
 
 
@@ -2551,7 +2999,24 @@ public:
      */
     virtual void check_locals() { }
 
+    /* get/set the dynamic compilation run-time object ID */
+    tctarg_obj_id_t get_dyn_obj_id() const { return dyn_obj_id_; }
+    void set_dyn_obj_id(tctarg_obj_id_t id) { dyn_obj_id_ = id; }
+
 protected:
+    /*
+     *   Dynamic code compilation object ID.  When we compile new source code
+     *   at run-time, the bytecode is stored in a DynamicFunc instance rather
+     *   than in the constant code pool, because the code pool is limited to
+     *   code loaded from the image file.  Before generating code, the
+     *   dynamic compiler assigns a new DynamicFunc ID to each top-level
+     *   statement in the nested statement list.  The DynamicFunc instances
+     *   aren't actually populated until the code is generated, but the
+     *   object numbers are assigned in advance to allow cross-references in
+     *   generated code.  
+     */
+    tctarg_obj_id_t dyn_obj_id_;
+
     /* next top-level statement in the top-level list */
     CTPNStmTop *next_stm_top_;
 };
@@ -2564,11 +3029,13 @@ protected:
 class CTPNAnonFuncBase: public CTcPrsNode
 {
 public:
-    CTPNAnonFuncBase(class CTPNCodeBody *code_body, int has_retval)
+    CTPNAnonFuncBase(class CTPNCodeBody *code_body, int has_retval,
+                     int is_method)
     {
         /* remember my code body and return value status */
         code_body_ = code_body;
         has_retval_ = has_retval;
+        is_method_ = is_method;
     }
 
     /* no constant value */
@@ -2585,12 +3052,22 @@ public:
     virtual class CTcPrsNode *fold_constants(class CTcPrsSymtab *)
         { return this; }
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
+        { return this; }
+
+    /* mark as replaced/obsolete */
+    void set_replaced(int flag);
+
 protected:
     /* code body of the function */
     class CTPNCodeBody *code_body_;
 
     /* true -> the underlying code body has a return value */
     unsigned int has_retval_ : 1;
+
+    /* true -> this is a method; false -> it's a function  */
+    unsigned int is_method_ : 1;
 };
 
 /* ------------------------------------------------------------------------ */
@@ -2602,7 +3079,7 @@ class CTPNCodeBodyBase: public CTPNStmTop
 {
 public:
     CTPNCodeBodyBase(class CTcPrsSymtab *lcltab, class CTcPrsSymtab *gototab,
-                     class CTPNStm *stm, int argc, int varargs,
+                     class CTPNStm *stm, int argc, int opt_argc, int varargs,
                      int varargs_list, class CTcSymLocal *varargs_list_local,
                      int local_cnt, int self_valid,
                      struct CTcCodeBodyRef *enclosing_code_body);
@@ -2660,6 +3137,13 @@ public:
     struct CTcAbsFixup **get_fixup_list_head() const
         { return fixup_list_anchor_; }
 
+    /* set the location of the opening brace */
+    void set_start_location(class CTcTokFileDesc *desc, long linenum)
+    {
+        start_desc_ = desc;
+        start_linenum_ = linenum;
+    }
+
     /* set the location of the closing brace */
     void set_end_location(class CTcTokFileDesc *desc, long linenum)
     {
@@ -2689,6 +3173,9 @@ public:
         local_ctx_arr_size_ = max_local_arr_idx;
     }
 
+    /* does this function have a local context? */
+    int has_local_ctx() const { return has_local_ctx_; }
+
     /* 
      *   Get the context variable for a given recursion level, creating
      *   the new variable if necessary.  Level 1 is the first enclosing
@@ -2705,6 +3192,16 @@ public:
     /* get the head of the local context list */
     struct CTcCodeBodyCtx *get_ctx_head() const { return ctx_head_; }
     struct CTcCodeBodyCtx *get_ctx_tail() const { return ctx_tail_; }
+
+    /* mark this as an anonymous method */
+    int is_anon_method() const { return is_anon_method_; }
+    void set_anon_method(int f) { is_anon_method_ = f; }
+
+    /* mark this as a dynamic function or method */
+    int is_dyn_func() const { return is_dyn_func_; }
+    int is_dyn_method() const { return is_dyn_method_; }
+    void set_dyn_func(int f) { is_dyn_func_ = f; }
+    void set_dyn_method(int f) { is_dyn_method_ = f; }
 
     /* get/set 'self' reference status */
     int self_referenced() const { return self_referenced_; }
@@ -2726,6 +3223,32 @@ public:
     void set_local_ctx_needs_full_method_ctx(int f)
         { local_ctx_needs_full_method_ctx_ = f; }
 
+    /* get/set the operator overload flag */
+    int is_operator_overload() const { return op_overload_; }
+    void set_operator_overload(int f) { op_overload_ = f; }
+
+    /*
+     *   Get the base function symbol for a code body defining a modified
+     *   function (i.e., 'modify <funcname>...').  This is the function to
+     *   which 'replaced' refers within this code body and within nested code
+     *   bodies.  
+     */
+    class CTcSymFunc *get_replaced_func() const;
+
+    /* get the immediately enclosing code body */
+    class CTPNCodeBody *get_enclosing() const;
+
+    /* get my argument count */
+    int get_argc() const { return argc_; }
+    int get_opt_argc() const { return opt_argc_; }
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        stm_ = (CTPNStm *)stm_->adjust_for_dyn(info);
+        return this;
+    }
+
 protected:
     /* enumerator callback for unreferenced label check */
     static void unref_label_cb(void *ctx, class CTcSymbol *sym);
@@ -2733,8 +3256,9 @@ protected:
     /* get the outermost enclosing code cody */
     class CTPNCodeBody *get_outermost_enclosing() const;
 
-    /* get the immediately enclosing code body */
-    class CTPNCodeBody *get_enclosing() const;
+    /* source location of opening brace */
+    class CTcTokFileDesc *start_desc_;
+    long start_linenum_;
 
     /* source location of the end of the code body (the closing '}') */
     class CTcTokFileDesc *end_desc_;
@@ -2779,6 +3303,9 @@ protected:
 
     /* number of arguments */
     int argc_;
+
+    /* number of additional optional arguments */
+    int opt_argc_;
 
     /* if function has a varargs-list local, this is the local ID */
     class CTcSymLocal *varargs_list_local_;
@@ -2826,6 +3353,16 @@ protected:
     /* flags: 'self' and full method context referenced in this code body */
     unsigned int self_referenced_ : 1;
     unsigned int full_method_ctx_referenced_ : 1;
+
+    /* flag: this is an operator overload method */
+    unsigned int op_overload_ : 1;
+
+    /* flag: this is an anonymous method */
+    unsigned int is_anon_method_ : 1;
+
+    /* flags: this is a dynamic function/method */
+    unsigned int is_dyn_func_ : 1;
+    unsigned int is_dyn_method_ : 1;
 };
 
 /*
@@ -2912,6 +3449,9 @@ public:
     class CTcTokFileDesc *get_end_desc() const { return end_desc_; }
     long get_end_linenum() const { return end_linenum_; }
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *);
+
 protected:
     /* source location of closing brace */
     class CTcTokFileDesc *end_desc_;
@@ -2932,7 +3472,7 @@ protected:
      *   flag: we have our own private symbol table (it's not the
      *   enclosing scope's symbol table) 
      */
-    int has_own_scope_ : 1;
+    unsigned int has_own_scope_ : 1;
 };
 
 /* ------------------------------------------------------------------------ */
@@ -2950,6 +3490,10 @@ public:
 
     /* generate code for the compound statement */
     virtual void gen_code(int, int) { }
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *)
+        { return this; }
 };
 
 /* ------------------------------------------------------------------------ */
@@ -2970,6 +3514,13 @@ public:
 
     /* generate code for the compound statement */
     virtual void gen_code(int discard, int for_condition);
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        expr_ = expr_->adjust_for_dyn(info);
+        return this;
+    }
 
 protected:
     /* our expression */
@@ -3031,6 +3582,16 @@ public:
     /* evaluate control flow for the conditional */
     virtual unsigned long get_control_flow(int warn) const;
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        if (then_part_ != 0)
+            then_part_ = (CTPNStm *)then_part_->adjust_for_dyn(info);
+        if (else_part_ != 0)
+            else_part_ = (CTPNStm *)else_part_->adjust_for_dyn(info);
+        return this;
+    }
+
 protected:
     /* condition expression */
     class CTcPrsNode *cond_expr_;
@@ -3050,6 +3611,7 @@ public:
     CTPNStmForBase(class CTcPrsNode *init_expr,
                    class CTcPrsNode *cond_expr,
                    class CTcPrsNode *reinit_expr,
+                   class CTPNForIn *in_exprs,
                    class CTcPrsSymtab *symtab,
                    class CTPNStmEnclosing *enclosing_stm)
         : CTPNStmEnclosing(enclosing_stm)
@@ -3058,6 +3620,7 @@ public:
         init_expr_ = init_expr;
         cond_expr_ = cond_expr;
         reinit_expr_ = reinit_expr;
+        in_exprs_ = in_exprs;
         symtab_ = symtab;
 
         /* no body yet */
@@ -3082,6 +3645,21 @@ public:
     /* set our own-scope flag */
     void set_has_own_scope(int f) { has_own_scope_ = f; }
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        if (init_expr_ != 0)
+            init_expr_ = init_expr_->adjust_for_dyn(info);
+        if (cond_expr_ != 0)
+            cond_expr_ = cond_expr_->adjust_for_dyn(info);
+        if (reinit_expr_ != 0)
+            reinit_expr_ = reinit_expr_->adjust_for_dyn(info);
+        if (body_stm_ != 0)
+            body_stm_ = (CTPNStm *)body_stm_->adjust_for_dyn(info);
+
+        return this;
+    }
+
 protected:
     /* initialization expression */
     class CTcPrsNode *init_expr_;
@@ -3092,6 +3670,14 @@ protected:
     /* reinitialization expression */
     class CTcPrsNode *reinit_expr_;
 
+    /* 
+     *   Head of list of "in" expressions (lval in collection, lval in
+     *   from..to).  These appear as ordinary expressions within the
+     *   init_expr_ comma list, but we track them separately here, since they
+     *   implicitly generate code in the condition and reinit phases as well.
+     */
+    class CTPNForIn *in_exprs_;
+    
     /* body of the loop */
     class CTPNStm *body_stm_;
 
@@ -3099,7 +3685,105 @@ protected:
     class CTcPrsSymtab *symtab_;
 
     /* flag: we have our own private symbol table (not our parent's) */
-    int has_own_scope_ : 1;
+    unsigned int has_own_scope_ : 1;
+};
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   '<variable> in <expression>' node, for 'for' statements.  Since 3.1,
+ *   regular 'for' statements can include 'in' clauses mixed in with other
+ *   initializer expressions.  
+ */
+class CTPNVarInBase: public CTPNForIn
+{
+public:
+    CTPNVarInBase(class CTcPrsNode *lval, class CTcPrsNode *expr,
+                  int iter_local_id)
+    {
+        lval_ = lval;
+        expr_ = expr;
+        iter_local_id_ = iter_local_id;
+    }
+
+    /* fold constants */
+    class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        lval_ = lval_->adjust_for_dyn(info);
+        expr_ = expr_->adjust_for_dyn(info);
+
+        return this;
+    }
+
+protected:
+    /* the lvalue for the control variable */
+    class CTcPrsNode *lval_;
+
+    /* the collection expression */
+    class CTcPrsNode *expr_;
+
+    /* private local variable for the iterator */
+    int iter_local_id_;
+};
+
+/*
+ *   '<variable> in <from> .. <to>' node, for 'for' statements.  Since 3.1,
+ *   'for' statements can include 'in' clauses with range expressions using
+ *   '..'.  
+ */
+class CTPNVarInRangeBase: public CTPNForIn
+{
+public:
+    CTPNVarInRangeBase(class CTcPrsNode *lval,
+                       class CTcPrsNode *from_expr,
+                       class CTcPrsNode *to_expr,
+                       class CTcPrsNode *step_expr,
+                       int to_local_id, int step_local_id)
+    {
+        lval_ = lval;
+        from_expr_ = from_expr;
+        to_expr_ = to_expr;
+        step_expr_ = step_expr;
+        to_local_id_ = to_local_id;
+        step_local_id_ = step_local_id;
+    }
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        lval_ = lval_->adjust_for_dyn(info);
+        from_expr_ = from_expr_->adjust_for_dyn(info);
+        to_expr_ = to_expr_->adjust_for_dyn(info);
+        if (step_expr_ != 0)
+            step_expr_ = step_expr_->adjust_for_dyn(info);
+
+        return this;
+    }
+
+    /* fold constants */
+    class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
+
+protected:
+    /* the lvalue for the control variable */
+    class CTcPrsNode *lval_;
+
+    /* the 'from' and 'to' expressions */
+    class CTcPrsNode *from_expr_;
+    class CTcPrsNode *to_expr_;
+
+    /* the optional 'step' expression */
+    class CTcPrsNode *step_expr_;
+
+    /* local variable number for the evaluated "to" expression */
+    int to_local_id_;
+
+    /* 
+     *   local variable number for the evaluated "step" expression - this is
+     *   used only if we have a non-constant step expression 
+     */
+    int step_local_id_;
 };
 
 /* ------------------------------------------------------------------------ */
@@ -3146,6 +3830,15 @@ public:
     /* set our own-scope flag */
     void set_has_own_scope(int f) { has_own_scope_ = f; }
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        iter_expr_ = iter_expr_->adjust_for_dyn(info);
+        coll_expr_ = coll_expr_->adjust_for_dyn(info);
+        body_stm_ = (CTPNStm *)body_stm_->adjust_for_dyn(info);
+        return this;
+    }
+    
 protected:
     /* iteration lvalue expression */
     class CTcPrsNode *iter_expr_;
@@ -3163,7 +3856,7 @@ protected:
     int iter_local_id_;
     
     /* flag: we have our own private symbol table (not our parent's) */
-    int has_own_scope_ : 1;
+    unsigned int has_own_scope_ : 1;
 };
 
 /* ------------------------------------------------------------------------ */
@@ -3195,6 +3888,14 @@ public:
     /* evaluate control flow for the loop */
     virtual unsigned long get_control_flow(int warn) const;
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        cond_expr_ = cond_expr_->adjust_for_dyn(info);
+        body_stm_ = (CTPNStm *)body_stm_->adjust_for_dyn(info);
+        return this;
+    }
+    
 protected:
     /* loop condition expression */
     class CTcPrsNode *cond_expr_;
@@ -3244,6 +3945,14 @@ public:
         while_linenum_ = linenum;
     }
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        cond_expr_ = cond_expr_->adjust_for_dyn(info);
+        body_stm_ = (CTPNStm *)body_stm_->adjust_for_dyn(info);
+        return this;
+    }
+    
 protected:
     /* source location of 'while' */
     class CTcTokFileDesc *while_desc_;
@@ -3283,6 +3992,10 @@ public:
     /* set my label */
     void set_label(const class CTcToken *tok);
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+        { return this; }
+
 protected:
     /* my break-to label, if specified */
     const textchar_t *lbl_;
@@ -3316,6 +4029,10 @@ public:
     /* set my label */
     void set_label(const class CTcToken *tok);
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+        { return this; }
+
 protected:
     /* my break-to label, if specified */
     const textchar_t *lbl_;
@@ -3347,6 +4064,13 @@ public:
          *   just a void return 
          */
         return (expr_ == 0 ? TCPRS_FLOW_RET_VOID : TCPRS_FLOW_RET_VAL);
+    }
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        expr_ = expr_->adjust_for_dyn(info);
+        return this;
     }
 
 protected:
@@ -3397,6 +4121,14 @@ public:
 
     /* mark that the body has a 'default' label */
     void set_has_default() { has_default_ = TRUE; }
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        expr_ = expr_->adjust_for_dyn(info);
+        body_ = (CTPNStm *)body_->adjust_for_dyn(info);
+        return this;
+    }
 
 protected:
     /* the controlling expression */
@@ -3458,6 +4190,13 @@ public:
     ulong get_explicit_control_flow_flags() const
         { return control_flow_flags_; }
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        stm_ = (CTPNStm *)adjust_for_dyn(info);
+        return this;
+    }
+
 protected:
     /* my label */
     class CTcSymLabel *lbl_;
@@ -3503,6 +4242,10 @@ public:
     /* evaluate control flow for the statement */
     virtual unsigned long get_control_flow(int warn) const;
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+        { return this; }
+
 protected:
     /* our code label text */
     const textchar_t *lbl_;
@@ -3539,6 +4282,14 @@ public:
     /* I am a code label, thus I have a code label */
     virtual int has_code_label() const { return TRUE; }
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        expr_ = expr_->adjust_for_dyn(info);
+        stm_ = (CTPNStm *)stm_->adjust_for_dyn(info);
+        return this;
+    }
+    
 protected:
     /* my expression */
     class CTcPrsNode *expr_;
@@ -3571,6 +4322,10 @@ public:
 
     /* I am a code label, thus I have a code label */
     virtual int has_code_label() const { return TRUE; }
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+        { return this; }
 
 protected:
     /* my enclosed statement */
@@ -3617,6 +4372,9 @@ public:
     /* evaluate control flow for the statement list */
     virtual unsigned long get_control_flow(int warn) const;
     
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
+
 protected:
     /* my enclosed statement */
     class CTPNStm *body_stm_;
@@ -3676,6 +4434,13 @@ public:
 
     /* set my local-scope symbol table */
     void set_symtab(class CTcPrsSymtab *symtab) { symtab_ = symtab; }
+
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        body_ = (CTPNStm *)body_->adjust_for_dyn(info);
+        return this;
+    }
 
 protected:
     /* the body of the 'catch' block */
@@ -3741,6 +4506,13 @@ public:
     /* evaluate control flow for the clause */
     virtual unsigned long get_control_flow(int warn) const;
 
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        body_ = (CTPNStm *)body_->adjust_for_dyn(info);
+        return this;
+    }
+
 protected:
     /* my body */
     class CTPNStm *body_;
@@ -3791,6 +4563,13 @@ public:
         return TCPRS_FLOW_THROW;
     }
     
+    /* adjust for dynamic (run-time) compilation */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info)
+    {
+        expr_ = expr_->adjust_for_dyn(info);
+        return this;
+    }
+
 protected:
     /* expression to throw */
     class CTcPrsNode *expr_;
@@ -3817,165 +4596,8 @@ protected:
     class CTcDictEntry *dict_;
 };
 
+
 /* ------------------------------------------------------------------------ */
-/*
- *   object definition statement base class
- */
-class CTPNStmObjectBase: public CTPNStmTop
-{
-public:
-    CTPNStmObjectBase(class CTcSymObj *obj_sym, int is_class)
-    {
-        /* remember our defining global symbol */
-        obj_sym_ = obj_sym;
-
-        /* we're not yet replaced by another object */
-        replaced_ = FALSE;
-
-        /* we're not yet modified */
-        modified_ = FALSE;
-
-        /* note whether I'm a class or an ordinary object instance */
-        is_class_ = is_class;
-
-        /* no superclasses yet */
-        first_sc_ = last_sc_ = 0;
-
-        /* no properties yet */
-        first_prop_ = last_prop_ = 0;
-        prop_cnt_ = 0;
-
-        /* presume it's not transient */
-        transient_ = FALSE;
-
-        /* presume we won't have a template usage error */
-        bad_template_ = FALSE;
-
-        /* presume we won't have an undescribed superclass */
-        undesc_sc_ = FALSE;
-    }
-
-    /* 
-     *   mark the object as replaced - this indicates that another object
-     *   in the same translation unit has replaced this object, hence we
-     *   should not generate any code for this object 
-     */
-    void set_replaced(int f) { replaced_ = f; }
-
-    /*
-     *   Mark the object as modified - this indicates that another object
-     *   in the same translation unit has modified this object.  We'll
-     *   store this information in the object stream header data for use
-     *   at link time.  
-     */
-    void set_modified(int f) { modified_ = f; }
-
-    /* 
-     *   set my object symbol - when an object is modified (via the
-     *   'modify' statement), the object tree can be moved to a new symbol 
-     */
-    void set_obj_sym(class CTcSymObj *obj_sym) { obj_sym_ = obj_sym; }
-
-    /* add a superclass with the given name or symbol */
-    void add_superclass(const class CTcToken *tok);
-    void add_superclass(class CTcSymbol *sym);
-
-    /* get the object symbol */
-    class CTcSymObj *get_obj_sym() const { return obj_sym_; }
-
-    /* get my first superclass */
-    class CTPNSuperclass *get_first_sc() const { return first_sc_; }
-
-    /* get my first property */
-    class CTPNObjProp *get_first_prop() const { return first_prop_; }
-
-    /* add a property value */
-    class CTPNObjProp *add_prop(class CTcSymProp *prop_sym,
-                                class CTcPrsNode *expr,
-                                int replace, int is_static);
-
-    /*
-     *   Delete a property value.  This is used when a 'modify' object
-     *   defines a property with 'replace', so that the property defined
-     *   in the modified original object is removed entirely rather than
-     *   left in as an inherited property.  
-     */
-    void delete_property(class CTcSymProp *prop_sym);
-
-    /* add a method */
-    void add_method(class CTcSymProp *prop_sym,
-                    class CTPNCodeBody *code_body, int replace);
-
-    /* fold constants */
-    class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
-
-    /* determine if I'm a class object */
-    int is_class() const { return (is_class_ != 0); }
-
-    /*
-     *   Add an implicit constructor.  This should be called just before
-     *   code generation; we'll check to see if the object requires an
-     *   implicit constructor, and add one to the object if so.  An object
-     *   provides an implicit constructor if it has multiple superclasses
-     *   and no explicit constructor.  
-     */
-    void add_implicit_constructor();
-
-    /* get/set the 'transient' status */
-    int is_transient() const { return transient_; }
-    void set_transient() { transient_ = TRUE; }
-
-    /* get/set the 'bad template' flag */
-    int has_bad_template() const { return bad_template_; }
-    void note_bad_template(int f) { bad_template_ = f; }
-
-    /* set the 'undescribed class' flag */
-    int has_undesc_sc() const { return undesc_sc_; }
-    void set_undesc_sc(int f) { undesc_sc_ = f; }
-
-protected:
-    /* add an entry to my property list */
-    void add_prop_entry(class CTPNObjProp *prop, int replace);
-
-    /* object name symbol */
-    class CTcSymObj *obj_sym_;
-
-    /* head and tail of our superclass list */
-    class CTPNSuperclass *first_sc_;
-    class CTPNSuperclass *last_sc_;
-
-    /* head and tail of our property list */
-    class CTPNObjProp *first_prop_;
-    class CTPNObjProp *last_prop_;
-
-    /* number of properties in my list */
-    int prop_cnt_;
-
-    /* flag: I'm a class */
-    int is_class_ : 1;
-
-    /* flag: I've been replaced by another object */
-    int replaced_ : 1;
-
-    /* flag: I've been modified by another object */
-    int modified_ : 1;
-
-    /* flag: the object is transient */
-    int transient_ : 1;
-
-    /* flag: this object definition used a template that wasn't matched */
-    int bad_template_ : 1;
-
-    /* 
-     *   Flag: this object definition includes an undescribed superclass.
-     *   This indicates that we're based on a class that was explicitly
-     *   defined as 'extern', in which case it can't be used as the source of
-     *   a template, since we know nothing about the class other than that it
-     *   is indeed a class.  
-     */
-    int undesc_sc_ : 1;
-};
-
 /*
  *   Parse node for object superclass list entries 
  */
@@ -3992,7 +4614,7 @@ public:
         sym_ = 0;
 
         /* I'm not in a list yet */
-        nxt_ = 0;
+        nxt_ = prv_ = 0;
     }
 
     CTPNSuperclass(class CTcSymbol *sym)
@@ -4025,18 +4647,328 @@ public:
     /* am I a subclass of the given class? */
     int is_subclass_of(const CTPNSuperclass *sc) const;
 
-    /* next entry in my list */
-    CTPNSuperclass *nxt_;
+    /* next/previous entry in my list */
+    CTPNSuperclass *nxt_, *prv_;
 
 protected:
     /* my symbol - if this isn't set, we'll use sym_txt_ instead */
     class CTcSymbol *sym_;
-    
+
     /* my name - we use this if sym_ is not set  */
     const textchar_t *sym_txt_;
     size_t sym_len_;
 };
 
+/*
+ *   Superclass list 
+ */
+class CTPNSuperclassList
+{
+public:
+    CTPNSuperclassList() { head_ = tail_ = 0; dst_ = &head_; }
+
+    void append(class CTPNSuperclass *sc)
+    {
+        /* set the 'next' pointer for the current tail */
+        *dst_ = sc;
+        *(dst_ = &sc->nxt_) = 0;
+
+        /* set the 'previous' pointer for the new entry */
+        sc->prv_ = tail_;
+        tail_ = sc;
+    }
+
+    /* head and tail of our list */
+    class CTPNSuperclass *head_;
+    class CTPNSuperclass *tail_;
+
+private:
+    class CTPNSuperclass **dst_;
+};
+
+
+/*
+ *   Property list 
+ */
+class CTPNPropList
+{
+public:
+    CTPNPropList() { first_ = last_ = 0; dst_ = &first_; cnt_ = 0; }
+
+    /* append a property to our list */
+    void append(class CTPNObjProp *prop);
+
+    /* delete a property from our list; returns true if found, false if not */
+    int del(class CTcSymProp *sym);
+
+    /* head/tail of our property list */
+    class CTPNObjProp *first_;
+    class CTPNObjProp *last_;
+
+    /* number of properties in the list */
+    int cnt_;
+
+private:
+    /* next destination for append() */
+    class CTPNObjProp **dst_;
+};
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Mix-in base for an object definer node.  This is instantiated in the
+ *   top-level object statement class (CTPNStmObject) and the in-line object
+ *   definition expression node (CTPNInlineObject). 
+ */
+class CTPNObjDef
+{
+public:
+    CTPNObjDef()
+    { 
+        /* presume there's no object symbol */
+        obj_sym_ = 0;
+
+        /* presume we won't have an undescribed superclass */
+        undesc_sc_ = FALSE;
+
+        /* presume we won't have a template usage error */
+        bad_template_ = FALSE;
+    }
+
+    /* is this a regular object or an inline object? */
+    virtual int is_inline_object() const = 0;
+
+    /* set the 'undescribed class' flag */
+    int has_undesc_sc() const { return undesc_sc_; }
+    void set_undesc_sc(int f) { undesc_sc_ = f; }
+
+    /* get/set the 'bad template' flag */
+    int has_bad_template() const { return bad_template_; }
+    void note_bad_template(int f) { bad_template_ = f; }
+
+    /* add a property value */
+    class CTPNObjProp *add_prop(
+        class CTcSymProp *prop_sym, class CTcPrsNode *expr,
+        int replace, int is_static);
+
+    /* 
+     *   Add a method.  'expr' is the original expression for cases where the
+     *   code body is derived from a simple expression in the source code
+     *   rather than an explicit code block.  Keeping the original expression
+     *   allows us to use a simple constant value if the expression ends up
+     *   folding to a constant. 
+     */
+    class CTPNObjProp *add_method(
+        class CTcSymProp *prop_sym, class CTPNCodeBody *code_body,
+        class CTcPrsNode *expr, int replace);
+
+    /* 
+     *   Add a method to an inline object.  The method in this case is
+     *   represented as an anonymous method object.  'expr' is the original
+     *   expression for cases where the anonymous function is derived from a
+     *   simple expression in the source code rather than an explicit code
+     *   block. 
+     */
+    class CTPNObjProp *add_inline_method(
+        class CTcSymProp *prop_sym, class CTPNAnonFunc *inline_method,
+        class CTcPrsNode *expr, int replace);
+
+    /* add a property as a nested object value */
+    virtual int parse_nested_obj_prop(
+        class CTPNObjProp* &new_prop, int *err,
+        struct tcprs_term_info *term_info,
+        const class CTcToken *prop_tok, int replace) = 0;
+
+    /* delete a property */
+    virtual void delete_property(class CTcSymProp *prop_sym)
+        { proplist_.del(prop_sym); }
+
+    /* get my superclass list */
+    CTPNSuperclassList &get_superclass_list() { return sclist_; }
+
+    /* get my first superclass */
+    class CTPNSuperclass *get_first_sc() const { return sclist_.head_; }
+
+    /* get my first property */
+    class CTPNObjProp *get_first_prop() const { return proplist_.first_; }
+
+    /* get the object symbol */
+    class CTcSymObj *get_obj_sym() const { return obj_sym_; }
+
+    /* 
+     *   set my object symbol - when an object is modified (via the 'modify'
+     *   statement), the object tree can be moved to a new symbol 
+     */
+    void set_obj_sym(class CTcSymObj *obj_sym) { obj_sym_ = obj_sym; }
+
+    /* fold constants in the property list */
+    void fold_proplist(class CTcPrsSymtab *symtab);
+
+protected:
+    /* add an entry to my property list */
+    virtual void add_prop_entry(class CTPNObjProp *prop, int /*replace*/)
+        { proplist_.append(prop); }
+
+    /* object name symbol */
+    class CTcSymObj *obj_sym_;
+
+    /* property list */
+    CTPNPropList proplist_;
+
+    /* superclass list */
+    CTPNSuperclassList sclist_;
+
+    /* 
+     *   Flag: this object definition includes an undescribed superclass.
+     *   This indicates that we're based on a class that was explicitly
+     *   defined as 'extern', in which case it can't be used as the source of
+     *   a template, since we know nothing about the class other than that it
+     *   is indeed a class.  
+     */
+    unsigned int undesc_sc_ : 1;
+
+    /* flag: this object definition used a template that wasn't matched */
+    unsigned int bad_template_ : 1;
+};
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   object definition statement base class
+ */
+class CTPNStmObjectBase: public CTPNStmTop, public CTPNObjDef
+{
+public:
+    CTPNStmObjectBase(class CTcSymObj *obj_sym, int is_class)
+    {
+        /* remember our defining global symbol */
+        obj_sym_ = obj_sym;
+
+        /* we're not yet replaced by another object */
+        replaced_ = FALSE;
+
+        /* we're not yet modified */
+        modified_ = FALSE;
+
+        /* note whether I'm a class or an ordinary object instance */
+        is_class_ = is_class;
+
+        /* presume it's not transient */
+        transient_ = FALSE;
+    }
+
+    /* this is a regular top-level object definition */
+    virtual int is_inline_object() const { return FALSE; }
+
+    /* 
+     *   mark the object as replaced - this indicates that another object
+     *   in the same translation unit has replaced this object, hence we
+     *   should not generate any code for this object 
+     */
+    void set_replaced(int f) { replaced_ = f; }
+
+    /*
+     *   Mark the object as modified - this indicates that another object
+     *   in the same translation unit has modified this object.  We'll
+     *   store this information in the object stream header data for use
+     *   at link time.  
+     */
+    void set_modified(int f) { modified_ = f; }
+
+    /* add a superclass with the given name or symbol */
+    void add_superclass(const class CTcToken *tok);
+    void add_superclass(class CTcSymbol *sym);
+
+    /* determine if I'm a class object */
+    int is_class() const { return (is_class_ != 0); }
+
+    /*
+     *   Delete a property value.  This is used when a 'modify' object
+     *   defines a property with 'replace', so that the property defined in
+     *   the modified original object is removed entirely rather than left in
+     *   as an inherited property.  
+     */
+    virtual void delete_property(class CTcSymProp *prop_sym);
+
+    /*
+     *   Add an implicit constructor.  This should be called just before
+     *   code generation; we'll check to see if the object requires an
+     *   implicit constructor, and add one to the object if so.  An object
+     *   provides an implicit constructor if it has multiple superclasses
+     *   and no explicit constructor.  
+     */
+    void add_implicit_constructor();
+
+    /* get/set the 'transient' status */
+    int is_transient() const { return transient_; }
+    void set_transient() { transient_ = TRUE; }
+
+    /* add a property as a nested object value */
+    virtual int parse_nested_obj_prop(
+        class CTPNObjProp* &new_prop, int *err,
+        struct tcprs_term_info *term_info,
+        const class CTcToken *prop_tok, int replace);
+
+    /* fold constants */
+    class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab)
+    {
+        CTPNObjDef::fold_proplist(symtab);
+        return this;
+    }
+    
+protected:
+    /* add an entry to my property list */
+    virtual void add_prop_entry(class CTPNObjProp *prop, int replace);
+
+    /* flag: I'm a class */
+    unsigned int is_class_ : 1;
+
+    /* flag: I've been replaced by another object */
+    unsigned int replaced_ : 1;
+
+    /* flag: I've been modified by another object */
+    unsigned int modified_ : 1;
+
+    /* flag: the object is transient */
+    unsigned int transient_ : 1;
+};
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   In-line object definition.  This represents an object defined in-line as
+ *   part of an expression.  This type of object definition creates a new
+ *   instance of the specified object when the expression is evaluated, using
+ *   anonymous methods for code properties.  (Anonymous methods are the same
+ *   as anonymous functions, aka closures, except that they bind only to the
+ *   local variables in the lexically enclosing frame but not to the 'self'
+ *   context.)  Using anonymous methods allows methods defined in the object
+ *   to read and write the lexically enclosing frame's local variables, so
+ *   that the entire object acts like a closure.
+ */
+class CTPNInlineObjectBase: public CTcPrsNode, public CTPNObjDef
+{
+public:
+    /* fold constants */
+    class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab)
+    {
+        CTPNObjDef::fold_proplist(symtab);
+        return this;
+    }
+
+    /* this is an inline object definition */
+    virtual int is_inline_object() const { return TRUE; }
+
+    /* parse a nested object property */
+    virtual int parse_nested_obj_prop(
+        class CTPNObjProp* &new_prop, int *err,
+        struct tcprs_term_info *term_info,
+        const class CTcToken *prop_tok, int replace);
+
+    /* adjust for dynamic execution */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
+};
+
+/* ------------------------------------------------------------------------ */
 /*
  *   Parse node entry for a property value or method entry in an object
  *   definition statement's property list.  We can have either an
@@ -4048,16 +4980,18 @@ protected:
  */
 class CTPNObjPropBase: public CTPNStm
 {
+    friend class CTPNObjDef;
     friend class CTPNStmObjectBase;
     friend class CTPNStmObject;
+    friend class CTPNPropList;
     
 public:
-    CTPNObjPropBase(class CTPNStmObject *obj_stm, class CTcSymProp *prop_sym,
+    CTPNObjPropBase(class CTPNObjDef *objdef, class CTcSymProp *prop_sym,
                     class CTcPrsNode *expr, class CTPNCodeBody *code_body,
-                    int is_static)
+                    class CTPNAnonFunc *inline_method, int is_static)
     {
         /* remember the object and property information */
-        obj_stm_ = obj_stm;
+        objdef_ = objdef;
         prop_sym_ = prop_sym;
 
         /* not in a property list yet */
@@ -4066,6 +5000,7 @@ public:
         /* remember our expression and code body values */
         expr_ = expr;
         code_body_ = code_body;
+        inline_method_ = inline_method;
 
         /* remember if it's static */
         is_static_ = is_static;
@@ -4079,6 +5014,9 @@ public:
 
     /* fold constants */
     class CTcPrsNode *fold_constants(class CTcPrsSymtab *symtab);
+
+    /* adjust for dynamic execution */
+    class CTcPrsNode *adjust_for_dyn(const tcpn_dyncomp_info *info);
 
     /* get the next property of this object */
     class CTPNObjProp *get_next_prop() const { return nxt_; }
@@ -4094,14 +5032,15 @@ public:
      *   defined with certain implicit notation can be overwritten with an
      *   explicit redefinition.  Specifically, a 'location' property added
      *   with the '+' notation can be overwritten, and the automatic
-     *   'sourceTextOrder' property can be overwritten.  
+     *   'sourceTextOrder' and 'sourceTextGroup' properties can be
+     *   overwritten.  
      */
     int is_overwritable() const { return is_overwritable_; }
     void set_overwritable() { is_overwritable_ = TRUE; }
 
 protected:
     /* my object statement */
-    class CTPNStmObject *obj_stm_;
+    class CTPNObjDef *objdef_;
 
     /* my property symbol */
     class CTcSymProp *prop_sym_;
@@ -4112,8 +5051,14 @@ protected:
     /* my value expression */
     class CTcPrsNode *expr_;
 
+    /* symbol table in effect for this expression */
+    class CTcPrsSymtab *symtab_;
+
     /* my code body node */
     class CTPNCodeBody *code_body_;
+
+    /* for in-line objects, code is represented as an anonymous method */
+    class CTPNAnonFunc *inline_method_;
 
     /* am I static? */
     unsigned int is_static_ : 1;

@@ -26,9 +26,6 @@ VM_GLOBALS_BEGIN
     /* variable-size block heap manager */
     VM_GLOBAL_OBJDEF(class CVmVarHeap, varheap)
 
-    /* object table */
-    VM_GLOBAL_PREOBJDEF(class CVmObjTable, obj_table)
-
     /* undo manager */
     VM_GLOBAL_OBJDEF(class CVmUndo, undo)
 
@@ -37,10 +34,6 @@ VM_GLOBALS_BEGIN
 
     /* code pool manager */
     VM_GLOBAL_PREOBJDEF(class CVmPool_CLASS, code_pool)
-
-    /* the stack */
-    VM_GLOBAL_PRECOBJDEF(class CVmStack, stk,
-                         (VM_STACK_SIZE, vm_init_stack_reserve()))
 
     /* metaclass dependency table for loaded image file */
     VM_GLOBAL_OBJDEF(class CVmMetaTable, meta_table)
@@ -55,25 +48,14 @@ VM_GLOBALS_BEGIN
     VM_GLOBAL_OBJDEF(class CTcPrsSymtab, sym_table)
 
     /* byte code interpreter */
-    VM_GLOBAL_PREOBJDEF(class CVmRun, interpreter)
+    VM_GLOBAL_PRECOBJDEF(class CVmRun, interpreter,
+                         (VM_STACK_SIZE, vm_init_stack_reserve()))
 
     /* size of each exception table entry in the image file */
     VM_GLOBAL_VARDEF(size_t, exc_entry_size)
 
     /* size of each debugger source line entry in the image file */
     VM_GLOBAL_VARDEF(size_t, line_entry_size)
-
-    /* size of header of each method's debug table */
-    VM_GLOBAL_VARDEF(size_t, dbg_hdr_size)
-
-    /* size of each debugger local symbol header */
-    VM_GLOBAL_VARDEF(size_t, dbg_lclsym_hdr_size)
-
-    /* debug record format version */
-    VM_GLOBAL_VARDEF(int, dbg_fmt_vsn)
-
-    /* debugger API */
-    VM_GLOBAL_OBJDEF(class CVmDebug, debugger)
 
     /* pre-defined objects and properties */
     VM_GLOBAL_PREOBJDEF(struct CVmPredef, predef)
@@ -83,9 +65,6 @@ VM_GLOBALS_BEGIN
 
     /* flag: error subsystem initialized outside of VM globals */
     VM_GLOBAL_VARDEF(int, err_pre_inited)
-
-    /* resource loader for program-loaded resources */
-    VM_GLOBAL_OBJDEF(class CResLoader, res_loader)
 
     /* TADS built-in function globals */
     VM_GLOBAL_OBJDEF(class CVmBifTADSGlobals, bif_tads_globals)
@@ -139,11 +118,67 @@ VM_GLOBALS_BEGIN
     /* user interface primary console */
     VM_GLOBAL_OBJDEF(class CVmConsoleMain, console)
 
-    /* BigNumber package temporary register cache */
-    VM_GLOBAL_OBJDEF(class CVmBigNumCache, bignum_cache)
-
     /* TadsObject inheritance path analysis queue */
-    VM_GLOBAL_OBJDEF(class CVmObjTadsInhQueue, tadsobj_queue)
+    VM_GLOBAL_PREOBJDEF(class CVmObjTadsInhQueue, tadsobj_queue)
+
+    /* dynamic compiler */
+    VM_GLOBAL_OBJDEF(class CVmDynamicCompiler, dyncomp)
+
+    /* web host configuration */
+    VM_GLOBAL_OBJDEF(class TadsNetConfig, net_config)
+
+    /* network I/O message queue */
+    VM_GLOBAL_OBJDEF(class TadsMessageQueue, net_queue)
+
+   /* 
+    *   The isNextAvailable() and getNext() properties from the Collection
+    *   entry in the metaclass table.  We initialize these after loading the
+    *   program so that CVmObject::iter_next() has quick access to these
+    *   properties for executing iterator loops.  
+    */
+   VM_GLOBAL_VARDEF(uint16_t, iter_get_next)
+   VM_GLOBAL_VARDEF(uint16_t, iter_next_avail)
+
+   /* system debug log file name */
+   VM_GLOBAL_ARRAYDEF(char, syslogfile, OSFNMAX)
+
+   /* 
+    *   Base path for file I/O operations on files with relative filenames.
+    *   This is used instead of the operating system's native notion of the
+    *   working directory to provide better consistency across platforms,
+    *   since some systems change the working directory after certain file
+    *   operations.
+    */
+   VM_GLOBAL_VARDEF(char *, file_path)
+
+   /*
+    *   Sandbox path for the file safety feature.  If the file safety
+    *   settings only allow access within the sandbox directory and its
+    *   children, this is the root path for the sandbox.
+    */
+   VM_GLOBAL_VARDEF(char *, sandbox_path)
+
+   /* time zone cache */
+   VM_GLOBAL_OBJDEF(class CVmTimeZoneCache, tzcache)
+
+    /* size of header of each method's debug table */
+   VM_GLOBAL_VARDEF(size_t, dbg_hdr_size)
+
+    /* size of each debugger local symbol header */
+   VM_GLOBAL_VARDEF(size_t, dbg_lclsym_hdr_size)
+
+    /* debug record format version */
+   VM_GLOBAL_VARDEF(int, dbg_fmt_vsn)
+
+    /* debug frame record size */
+   VM_GLOBAL_VARDEF(int, dbg_frame_size)
+
+    /* debugger API */
+   VM_GLOBAL_OBJDEF(class CVmDebug, debugger)
+
+    /* object table */
+   VM_GLOBAL_PREOBJDEF(class CVmObjTable, obj_table)
+
 
 VM_GLOBALS_END
 

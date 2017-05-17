@@ -10,9 +10,8 @@
 
 #include "types.h"
 
-#define LINELENGTH 80
 #define HISTORYLENGTH 20
 
-extern Bool readline(char usrbuf[]);
+extern bool readline(char usrbuf[]);
 
 #endif

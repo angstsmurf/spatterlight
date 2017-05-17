@@ -267,6 +267,7 @@ void statusline(void)
   glui32 glkWidth;
   char line[100];
   int pcol = col;
+  int i;
 
   if (NULL == glkStatusWin)
     return;
@@ -275,14 +276,19 @@ void statusline(void)
   glk_window_clear(glkStatusWin);
   glk_window_get_size(glkStatusWin, &glkWidth, NULL);
 
+  glk_set_style(style_User1);
+  for (i = 0; i < glkWidth; i++)
+    glk_put_char(' ');
+
   col = 1;
   glk_window_move_cursor(glkStatusWin, 1, 0);
+needsp = FALSE;
   say(where(HERO));
   if (header->maxscore > 0)
     sprintf(line, "Score %d(%d)/%d moves", cur.score, (int)header->maxscore, cur.tick);
   else
     sprintf(line, "%d moves", cur.tick);
-  glk_window_move_cursor(glkStatusWin, glkWidth - strlen(line) - 1, 0);
+  glk_window_move_cursor(glkStatusWin, glkWidth - col - strlen(line), 0);
   printf(line);
   needsp = FALSE;
 
@@ -328,7 +334,7 @@ void logprint(char str[])
 {
   printf(str);
   if (logflg)
-    fprintf(logfil, str);
+    fprintf(logfil, "%s", str);
 }
 
 
@@ -1462,10 +1468,10 @@ static void checkvers(header)
       if (errflg) {
 	char str[80];
 	sprintf(str, "Incompatible version of ACODE program. Game is %ld.%ld, interpreter %ld.%ld.",
-		(int)(header->vers[0]),
-		(int)(header->vers[1]),
-		alan.version.version,
-		alan.version.revision);
+		(long) (header->vers[0]),
+		(long) (header->vers[1]),
+		(long) alan.version.version,
+		(long) alan.version.revision);
 	syserr(str);
       } else
 	output("<WARNING! Incompatible version of ACODE program.>\n");
@@ -1486,11 +1492,11 @@ static void load()
 {
   AcdHdr tmphdr;
   Aword crc = 0;
-  int i;
+  int i,tmp;
   char err[100];
 
   rewind(codfil);
-  fread(&tmphdr, sizeof(tmphdr), 1, codfil);
+  tmp = fread(&tmphdr, sizeof(tmphdr), 1, codfil);
   rewind(codfil);
   checkvers(&tmphdr);
 
@@ -1528,7 +1534,7 @@ static void load()
   }
   if (crc != tmphdr.acdcrc) {
     sprintf(err, "Checksum error in .ACD file (0x%lx instead of 0x%lx).",
-	    crc, tmphdr.acdcrc);
+	    (unsigned long) crc, (unsigned long) tmphdr.acdcrc);
     if (errflg)
       syserr(err);
     else {
@@ -1826,6 +1832,14 @@ static void openFiles()
     strcat(str, "'.");
     syserr(str);
   }
+
+#ifdef GARGLK
+	{
+		char *s = strrchr(codfnm, '\\');
+		if (!s) s = strrchr(codfnm, '/');
+		garglk_set_story_name(s ? s + 1 : codfnm);
+	}
+#endif
 
   /* Open Text file */
   strcpy(txtfnm, advnam);

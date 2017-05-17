@@ -129,7 +129,7 @@ senseInfoTableSubset(senseTab, func)
     vec = new Vector(32);
 
     /* scan the table for objects matching criteria given by 'func' */
-    senseTab.forEachAssoc(new function(obj, info)
+    senseTab.forEachAssoc(function(obj, info)
     {
         /* if the function accepts this object, include it in the vector */
         if ((func)(obj, info))
@@ -777,6 +777,17 @@ class VocabObject: object
     disambigPromptOrder = (pluralOrder)
 
     /*
+     *   Intrinsic parsing likelihood.  During disambiguation, if the
+     *   parser finds two objects with equivalent logicalness (as
+     *   determined by the 'verify' process for the particular Action being
+     *   performed), it will pick the one with the higher intrinsic
+     *   likelihood value.  The default value is zero, which makes all
+     *   objects equivalent by default.  Set a higher value to make the
+     *   parser prefer this object in cases of ambiguity.  
+     */
+    vocabLikelihood = 0
+
+    /*
      *   Filter an ambiguous noun phrase resolution list.  The parser calls
      *   this method for each object that matches an ambiguous noun phrase
      *   or an ALL phrase, to allow the object to modify the resolution
@@ -1137,8 +1148,8 @@ class Thing: VocabObject
     {
         /* if we already had a name in the table, remove our old name */
         if (globalParamName != nil
-            && langMessageBuilder.nameTable_[name] == self)
-            langMessageBuilder.nameTable_.removeElement(name);
+            && langMessageBuilder.nameTable_[globalParamName] == self)
+            langMessageBuilder.nameTable_.removeElement(globalParamName);
 
         /* remember our name locally */
         globalParamName = name;
@@ -1250,7 +1261,7 @@ class Thing: VocabObject
      */
     showSpecialDescWithInfo(info, pov)
     {
-        local povActor = getPOVActor();
+        local povActor = getPOVActorDefault(gActor);
         
         /* 
          *   Determine what to show, based on the point-of-view location
@@ -1568,7 +1579,7 @@ class Thing: VocabObject
          *   run through the table of visible objects, and mark each one
          *   that's contained within 'self' as having been seen 
          */
-        infoTab.forEachAssoc(new function(obj, info)
+        infoTab.forEachAssoc(function(obj, info)
         {
             if (obj.isIn(self) && !obj.suppressAutoSeen)
                 actor.setHasSeen(obj);
@@ -1585,7 +1596,7 @@ class Thing: VocabObject
     setAllSeenBy(infoTab, actor)
     {
         /* mark everything as seen, except suppressAutoSeen items */
-        infoTab.forEachAssoc(new function(obj, info)
+        infoTab.forEachAssoc(function(obj, info)
         {
             if (!obj.suppressAutoSeen)
                 actor.setHasSeen(obj);
@@ -2340,44 +2351,72 @@ class Thing: VocabObject
      *   see if we should actually use distinguishers for this; if so, we
      *   call getInScopeDistinguisher() to find the correct distinguisher,
      *   otherwise we use the "null" distinguisher, which simply lists
-     *   objects by their base names.  
+     *   objects by their base names.
+     *   
+     *   'lst' is the list of other objects from which we're trying to
+     *   differentiate 'self'.  The reason 'lst' is given is that it lets
+     *   us choose the simplest name for each object that usefully
+     *   distinguishes it; to do this, we need to know exactly what we're
+     *   distinguishing it from.  
      */
-    getAnnouncementDistinguisher()
+    getAnnouncementDistinguisher(lst)
     {
         return (gameMain.useDistinguishersInAnnouncements
-                ? getInScopeDistinguisher()
+                ? getBestDistinguisher(lst)
                 : nullDistinguisher);
     }
 
     /*
      *   Get a distinguisher that differentiates me from all of the other
      *   objects in scope, if possible, or at least from some of the other
-     *   objects in scope.  We use this to generate object announcements,
-     *   since it will do the best job of distinguishing the object being
-     *   announced from other nearby objects.  
+     *   objects in scope.
      */
     getInScopeDistinguisher()
     {
+        /* return the best distinguisher for the objects in scope */
+        return getBestDistinguisher(gActor.scopeList());
+    }
+
+    /*
+     *   Get a distinguisher that differentiates me from all of the other
+     *   objects in the given list, if possible, or from as many of the
+     *   other objects as possible. 
+     */
+    getBestDistinguisher(lst)
+    {
         local bestDist, bestCnt;
 
-        /* get the list of objects in scope, excluding myself */
-        local s = gActor.scopeList() - self;
+        /* remove 'self' from the list */
+        lst -= self;
 
         /* 
-         *   now include only the objects that are basic equivalents -
-         *   these are the only ones we care about telling apart from us,
-         *   since all of the other objects can be distinguished by their
-         *   disambig name 
+         *   Try the "null" distinguisher, which distinguishes objects
+         *   simply by their base names - if that can tell us apart from
+         *   the other objects, there's no need for anything more
+         *   elaborate.  So, calculate the list of indistinguishable
+         *   objects using the null distinguisher, and if it's empty, we
+         *   can just use the null distinguisher as our result.  
          */
-        s = s.subset({obj: !basicDistinguisher.canDistinguish(self, obj)});
+        if (lst.subset({obj: !nullDistinguisher.canDistinguish(self, obj)})
+            .length() == 0)
+            return nullDistinguisher;
 
-        /* if we're unique by vocabulary, don't bother */
-        if (s.length() == 0)
+        /* 
+         *   Reduce the list to the set of objects that are basic
+         *   equivalents of mine - these are the only ones we care about
+         *   telling apart from us, since all of the other objects can be
+         *   distinguished by their disambig name.  
+         */
+        lst = lst.subset(
+            {obj: !basicDistinguisher.canDistinguish(self, obj)});
+
+        /* if the basic distinguisher can tell us apart, just use it */
+        if (lst.length() == 0)
             return basicDistinguisher;
 
         /* as a last resort, fall back on the basic distinguisher */
         bestDist = basicDistinguisher;
-        bestCnt = s.countWhich({obj: bestDist.canDistinguish(self, obj)});
+        bestCnt = lst.countWhich({obj: bestDist.canDistinguish(self, obj)});
 
         /* 
          *   run through my distinguisher list looking for the
@@ -2391,13 +2430,13 @@ class Thing: VocabObject
                 continue;
 
             /* check to see how many objects 'dist' can distinguish me from */
-            local cnt = s.countWhich({obj: dist.canDistinguish(self, obj)});
+            local cnt = lst.countWhich({obj: dist.canDistinguish(self, obj)});
 
             /* 
              *   if it can distinguish me from every other object, use this
              *   one - it uniquely identifies me 
              */
-            if (cnt == s.length())
+            if (cnt == lst.length())
                 return dist;
 
             /* 
@@ -2455,9 +2494,9 @@ class Thing: VocabObject
      *   command rather than running the command iteratively on each of the
      *   individual coins and bills present.
      *   
-     *   We can have be associated with more than one collective group.
-     *   For example, a diamond could be in a "treasure" group as well as a
-     *   "jewelry" group.  
+     *   The value is a list because this object can be associated with
+     *   more than one collective group.  For example, a diamond could be
+     *   in a "treasure" group as well as a "jewelry" group.  
      *   
      *   The associated collective objects are normally of class
      *   CollectiveGroup.  By default, if our 'collectiveGroup' property is
@@ -2540,7 +2579,7 @@ class Thing: VocabObject
      *   override this to customize the description with something more
      *   detailed, if desired.  
      */
-    roomDesc { gActor.listActorPosture(getPOVActor()); }
+    roomDesc { gActor.listActorPosture(getPOVActorDefault(gActor)); }
 
     /*
      *   Show our first-time room description.  This is the description we
@@ -3042,11 +3081,10 @@ class Thing: VocabObject
         local lst;
         local lister;
         local remoteLst;
-        local outer;
         local recurse;
 
         /* get our outermost enclosing room */
-        outer = getOutermostRoom();
+        local outer = getOutermostRoom();
 
         /* mark everything visible from the room as having been seen */
         setAllSeenBy(infoTab, actor);
@@ -3114,7 +3152,7 @@ class Thing: VocabObject
              *   information table.  
              */
             remoteLst = new Vector(5);
-            infoTab.forEachAssoc(new function(obj, info)
+            infoTab.forEachAssoc(function(obj, info)
             {
                 /* if this object isn't in our top-level room, note it */
                 if (obj != outer && !obj.isIn(outer))
@@ -3145,7 +3183,7 @@ class Thing: VocabObject
 
         /* show the contents */
         lister.showList(actor, self, lst, (recurse ? ListRecurse : 0),
-                        0, infoTab, nil);
+                        0, infoTab, nil, examinee: self);
 
         /* 
          *   if we can see anything in remote top-level rooms, show the
@@ -3181,7 +3219,8 @@ class Thing: VocabObject
                  *   lister for this remote room 
                  */
                 outer.remoteRoomContentsLister(cur).showList(
-                    actor, cur, cont, ListRecurse, 0, infoTab, nil);
+                    actor, cur, cont, ListRecurse, 0, infoTab, nil,
+                    examinee: self);
             }
         }
     }
@@ -3216,7 +3255,8 @@ class Thing: VocabObject
             actor.setKnowsAbout(cur);
 
         /* list the items */
-        lister.showList(pov, nil, presenceList, 0, 0, infoTab, nil);
+        lister.showList(pov, nil, presenceList, 0, 0, infoTab, nil,
+                        examinee: self);
     }
 
     /*
@@ -3306,10 +3346,18 @@ class Thing: VocabObject
     }
 
     /*
-     *   Get the *location* traveler - this is the object that's actually
+     *   Get the location traveler - this is the object that's actually
      *   going to change location when a traveler within this location
      *   performs a travel command to travel via the given connector.  By
-     *   default, we let our location handle it, if we have one.
+     *   default, we'll indicate what our containing room indicates.  (The
+     *   enclosing room might be a vehicle or an ordinary room; in any
+     *   case, it'll know what to do, so we merely have to ask it.)
+     *   
+     *   We defer to our enclosing room by default because this allows for
+     *   things like a seat in a car: the actor is sitting in the seat and
+     *   starts traveling in the car, so the seat calls the enclosing room,
+     *   which is the car, and the car returns itself, since it's the car
+     *   that will be traveling.  
      */
     getLocTraveler(trav, conn)
     {
@@ -3538,12 +3586,56 @@ class Thing: VocabObject
     }
 
     /*
+     *   Check, using pre-condition rules, that the actor is removed from
+     *   this nested location and moved to its exit destination.
+     *   
+     *   This is called when the actor is attempting to move to an object
+     *   outside of this object while the actor is within this object (for
+     *   example, if we have a platform containing a box containing a
+     *   chair, 'self' is the box, and the actor is in the chair, an
+     *   attempt to move to the platform will trigger a call to
+     *   box.checkActorOutOfNested).
+     *   
+     *   By default, we're not a nested location, but we could *contain*
+     *   nested locations.  So what we need to do is defer to the child
+     *   object that actually contains the actor, to let it figure out what
+     *   it means to move the actor out of itself.  
+     */
+    checkActorOutOfNested(allowImplicit)
+    {
+        /* find the child containing the actor, and ask it to do the work */
+        foreach (local cur in contents)
+        {
+            if (gActor.isIn(cur))
+                return cur.checkActorOutOfNested(allowImplicit);
+        }
+
+        /* didn't find a child containing the actor; just fail */
+        reportFailure(&cannotDoFromHereMsg);
+        exit;
+    }
+
+    /*
      *   Get my "room location."  If 'self' is capable of holding actors,
      *   this should return 'self'; otherwise, it should return the
      *   nearest enclosing container that's a room location.  By default,
      *   we simply return our location's room location.  
      */
     roomLocation = (location != nil ? location.roomLocation : nil)
+
+    /*
+     *   Get the apparent location of one of our room parts (the floor,
+     *   the ceiling, etc).  By default, we'll simply ask our container
+     *   about it, since a nested room by default doesn't have any of the
+     *   standard room parts.  
+     */
+    getRoomPartLocation(part)
+    {
+        if (location != nil)
+            return location.getRoomPartLocation(part);
+        else
+            return nil;
+    }
 
     /*
      *   By default, an object containing the player character will forward
@@ -3553,6 +3645,24 @@ class Thing: VocabObject
     {
         if (location != nil)
             location.roomDaemon();
+    }
+
+    /*
+     *   Our room atmospheric message list.  This can be set to an
+     *   EventList that provides messages to be displayed while the player
+     *   character is within this object.
+     *   
+     *   By default, if our container is visible to us, we'll use our
+     *   container's atmospheric messages.  This can be overridden to
+     *   provide our own atmosphere list when the player character is in
+     *   this object.  
+     */
+    atmosphereList()
+    {
+        if (location != nil && gPlayerChar.canSee(location))
+            return location.atmosphereList;
+        else
+            return nil;
     }
 
     /* 
@@ -3702,8 +3812,13 @@ class Thing: VocabObject
      */
     getDropDestination(obj, path)
     {
-        /* by default, the object lands in our container's drop destination */
-        return location.getDropDestination(obj, path);
+        /* 
+         *   by default, the object lands in our container's drop
+         *   destination; if we don't have a container, drop it here 
+         */
+        return location != nil
+            ? location.getDropDestination(obj, path)
+            : self;
     }
 
     /*
@@ -3956,13 +4071,16 @@ class Thing: VocabObject
             case &moveInto:
                 /*
                  *   It's the special moveInto property.  This indicates
-                 *   that we are to move self into the given new location.
-                 *   First save the current location, then use
-                 *   baseMoveInto to make the change without triggering
-                 *   any side effects. 
+                 *   that we are to move self into the given new 
+                 *   location.  First save the current location, then 
+                 *   use baseMoveInto to make the change without 
+                 *   triggering any side effects.  Note that if this 
+                 *   would create circular containment, we won't make 
+                 *   the move.
                  */
                 oldList.append(saveLocation());
-                baseMoveInto(newVal);
+                if (newVal != self && !newVal.isIn(self))
+                    baseMoveInto(newVal);
                 break;
 
             default:
@@ -3991,7 +4109,7 @@ class Thing: VocabObject
         }
         finally
         {
-            /* run through the change list and make each change */
+            /* run through the change list and undo each change */
             for (i = 1, local j = 1 ; i <= cnt ; i += 2, ++j)
             {
                 local curProp;
@@ -4488,13 +4606,11 @@ class Thing: VocabObject
      */
     getCommonDirectContainer(obj)
     {
-        local found;
-
         /* we haven't found one yet */
-        found = nil;
+        local found = nil;
         
         /* scan each of our containers for one in common with 'loc' */
-        forEachContainer(new function(loc) {
+        forEachContainer(function(loc) {
             /*
              *   If this location of ours is a direct container of the
              *   other object, it is a common location, so note it.  
@@ -4513,13 +4629,11 @@ class Thing: VocabObject
      */
     getCommonContainer(obj)
     {
-        local found;
-
         /* we haven't found one yet */
-        found = nil;
+        local found = nil;
         
         /* scan each of our containers for one in common with 'loc' */
-        forEachContainer(new function(loc) {
+        forEachContainer(function(loc) {
             /*
              *   If this location of ours is a direct container of the
              *   other object, it is a common location, so note it.  
@@ -4536,7 +4650,7 @@ class Thing: VocabObject
          *   we didn't find obj's container among our direct containers,
          *   so try our direct container's containers 
          */
-        forEachContainer(new function(loc) {
+        forEachContainer(function(loc) {
             local cur;
 
             /* try finding for a common container of this container */
@@ -4794,10 +4908,8 @@ class Thing: VocabObject
      */
     showObjectContents(pov, lister, options, indent, infoTab)
     {
-        local cont;
-
         /* get my listable contents */
-        cont = lister.getListedContents(self, infoTab);
+        local cont = lister.getListedContents(self, infoTab);
         
         /* if the surviving list isn't empty, show it */
         if (cont != [])
@@ -4990,6 +5102,9 @@ class Thing: VocabObject
         return location != nil && location.contentsInFixedIn(loc);
     }
 
+    /* Am I either inside 'obj', or equal to 'obj'?  */
+    isOrIsIn(obj) { return self == obj || isIn(obj); }
+
     /*
      *   Are my contents within a fixed item that is within the given
      *   location?  By default, we return nil because we are not ourselves
@@ -5125,7 +5240,7 @@ class Thing: VocabObject
                  *   we're indirectly in 'obj', so get the containment
                  *   branch on which we're contained by 'obj' 
                  */
-                forEachContainer(new function(x)
+                forEachContainer(function(x)
                 {
                     if (x == obj || x.isIn(obj))
                         cont = x;
@@ -5281,7 +5396,8 @@ class Thing: VocabObject
     addToContents(obj)
     {
         /* add the object to my contents list */
-        contents += obj;
+        if (contents.indexOf(obj) == nil)
+            contents += obj;
     }
 
     /*
@@ -5446,7 +5562,7 @@ class Thing: VocabObject
         }
 
         /* traverse the path, sending a notification to each element */
-        traversePath(path, new function(target, op) {
+        traversePath(path, function(target, op) {
             /* notify this path element */
             target.notifyMoveViaPath(self, newContainer, op);
 
@@ -6016,7 +6132,7 @@ class Thing: VocabObject
              *   point, so we can't use the path 
              */
             ok = true;
-            traversePath(path, new function(target, op) {
+            traversePath(path, function(target, op) {
                 /*
                  *   Invoke the check property on this target.  If it
                  *   doesn't allow the traversal, the path is unusable. 
@@ -6395,7 +6511,7 @@ class Thing: VocabObject
             return explicitVisualSenseInfo;
 
         /* calculate the sense information for the point of view */
-        infoTab = getPOV().visibleInfoTable();
+        infoTab = getPOVDefault(gActor).visibleInfoTable();
 
         /* return the information on myself from the table */
         return infoTab[self];
@@ -6729,7 +6845,7 @@ class Thing: VocabObject
         /* build a table of all of the objects we can reach */
         siz = objs.getEntryCount();
         tab = new LookupTable(32, siz == 0 ? 32 : siz);
-        objs.forEachAssoc(new function(cur, val)
+        objs.forEachAssoc(function(cur, val)
         {
             /* add this object's sense information to the table */
             cur.addToSenseInfoTable(sense, tab);
@@ -6908,7 +7024,7 @@ class Thing: VocabObject
              *   calculations, and note objects that have ambient energy to
              *   propagate.  
              */
-            objs.forEachAssoc(new function(cur, val)
+            objs.forEachAssoc(function(cur, val)
             {
                 /* clear old sensory information for this object */
                 cur.clearSenseInfo();
@@ -7635,7 +7751,7 @@ class Thing: VocabObject
     sendNotifyRemove(obj, newLoc, msg)
     {
         /* send notification to each container, as appropriate */
-        forEachContainer(new function(loc) {
+        forEachContainer(function(loc) {
             /*
              *   If this container contains the new location, don't send it
              *   (or its parents) notification, since we're not leaving it.
@@ -7968,12 +8084,9 @@ class Thing: VocabObject
      */
     basicExamine()
     {
-        local info;
-        local t;
-        
         /* check the transparency to viewing this object */
-        info = getVisualSenseInfo();
-        t = info.trans;
+        local info = getVisualSenseInfo();
+        local t = info.trans;
 
         /*
          *   If the viewing conditions are 'obscured' or 'distant', use
@@ -7984,11 +8097,11 @@ class Thing: VocabObject
          *   use an appropriate default description indicating that the
          *   object's details aren't visible.  
          */
-        if (getOutermostRoom() != getPOV().getOutermostRoom()
+        if (getOutermostRoom() != getPOVDefault(gActor).getOutermostRoom()
             && propDefined(&remoteDesc))
         {
             /* we're remote, so show our remote description */
-            remoteDesc(getPOV());
+            remoteDesc(getPOVDefault(gActor));
         }
         else if (t == obscured && propDefined(&obscuredDesc))
         {
@@ -8000,7 +8113,7 @@ class Thing: VocabObject
             /* we're distant, so show our special distant description */
             distantDesc;
         }
-        else if (canDetailsBeSensed(sight, info, getPOV()))
+        else if (canDetailsBeSensed(sight, info, getPOVDefault(gActor)))
         {
             /* 
              *   Viewing conditions and/or scale are suitable for showing
@@ -8073,11 +8186,8 @@ class Thing: VocabObject
     /* list my contents for an "examine", using the given lister */
     examineListContentsWith(lister)
     {
-        local tab;
-        local lst;
-
         /* get the actor's visual sense information */
-        tab = gActor.visibleInfoTable();
+        local tab = gActor.visibleInfoTable();
 
         /* mark my contents as having been seen */
         setContentsSeenBy(tab, gActor);
@@ -8087,10 +8197,11 @@ class Thing: VocabObject
             return;
 
         /* get my listed contents for 'examine' */
-        lst = getContentsForExamine(lister, tab);
+        local lst = getContentsForExamine(lister, tab);
         
         /* show my listable contents, if I have any */
-        lister.showList(gActor, self, lst, ListRecurse, 0, tab, nil);
+        lister.showList(gActor, self, lst, ListRecurse, 0, tab, nil,
+                        examinee: self);
     }
 
     /*
@@ -8103,12 +8214,8 @@ class Thing: VocabObject
      */
     basicExamineListen(explicit)
     {
-        local obj;
-        local info;
-        local t;
-
         /* get my associated Noise object, if we have one */
-        obj = getNoise();
+        local obj = getNoise();
 
         /* 
          *   If this is not an explicit LISTEN command, only add the sound
@@ -8119,15 +8226,15 @@ class Thing: VocabObject
             return;
 
         /* get our sensory information from the actor's point of view */
-        info = getPOV().senseObj(sound, self);
-        t = info.trans;
+        local info = getPOVDefault(gActor).senseObj(sound, self);
+        local t = info.trans;
 
         /*
          *   If we have a transparent path to the object, or we have
          *   'large' sound scale, show full details.  Otherwise, show the
          *   appropriate non-detailed message for the listening conditions.
          */
-        if (canDetailsBeSensed(sound, info, getPOV()))
+        if (canDetailsBeSensed(sound, info, getPOVDefault(gActor)))
         {
             /* 
              *   We can hear full details.  If we have a Noise object, show
@@ -8171,7 +8278,7 @@ class Thing: VocabObject
             local presenceList;
 
             /* get the set of objects we can hear */
-            senseTab = getPOV().senseInfoTable(sound);
+            senseTab = getPOVDefault(gActor).senseInfoTable(sound);
 
             /* get the subset with a sound presence that are inside me */
             presenceList = senseInfoTableSubset(
@@ -8206,7 +8313,7 @@ class Thing: VocabObject
             return;
         
         /* get our sensory information from the actor's point of view */
-        info = getPOV().senseObj(smell, self);
+        info = getPOVDefault(gActor).senseObj(smell, self);
         t = info.trans;
 
         /*
@@ -8214,7 +8321,7 @@ class Thing: VocabObject
          *   'large' sound scale, show full details.  Otherwise, show the
          *   appropriate non-detailed message for the listening conditions.
          */
-        if (canDetailsBeSensed(smell, info, getPOV()))
+        if (canDetailsBeSensed(smell, info, getPOVDefault(gActor)))
         {
             /* if we have a Noise object, show its "listen to source" */
             if (obj != nil)
@@ -8254,7 +8361,7 @@ class Thing: VocabObject
             local presenceList;
 
             /* get the set of objects we can smell */
-            senseTab = getPOV().senseInfoTable(smell);
+            senseTab = getPOVDefault(gActor).senseInfoTable(smell);
 
             /* get the subset with a smell presence that are inside me */
             presenceList = senseInfoTableSubset(
@@ -8301,18 +8408,15 @@ class Thing: VocabObject
      */
     examineSpecialContents()
     {
-        local lst;
-        local infoTab;
-        
         /* get the actor's table of visible items */
-        infoTab = gActor.visibleInfoTable();
+        local infoTab = gActor.visibleInfoTable();
 
         /* 
          *   get the objects using special descriptions and contained
          *   within this object 
          */
-        lst = specialDescList(infoTab,
-                              {obj: obj.useSpecialDescInContents(self)});
+        local lst = specialDescList(
+            infoTab, {obj: obj.useSpecialDescInContents(self)});
 
         /* show the special descriptions */
         (new SpecialDescContentsLister(self)).showList(
@@ -8345,7 +8449,7 @@ class Thing: VocabObject
          *   objects before their contents, except when the special desc
          *   list order specifically says otherwise.  
          */
-        return lst.sort(SortAsc, new function(a, b) {
+        return lst.sort(SortAsc, function(a, b) {
             /* if the list orders are different, go by list order */
             if (a.specialDescOrder != b.specialDescOrder)
                 return a.specialDescOrder - b.specialDescOrder;
@@ -8627,13 +8731,13 @@ class Thing: VocabObject
         }
         check()
         {
-            /* treat this like a regular "take" */
+            /* apply the same checks as for a regular "take" */
             checkDobjTake();
         }
         action()
         {
-            /* treat this like a regular "take" */
-            actionDobjTake();
+            /* we've passed our checks, so process it as a regular "take" */
+            replaceAction(Take, self);
         }
     }
     iobjFor(TakeFrom)
@@ -9080,7 +9184,7 @@ class Thing: VocabObject
         verify()
         {
             if (gAction.getDirection() == downDirection)
-                illogicalAlready(&notCarryingMsg);
+                illogicalAlready(&shouldNotThrowAtFloorMsg);
         }
         action()
         {

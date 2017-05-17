@@ -27,6 +27,7 @@ Modified
 
 #include <assert.h>
 
+#include "t3std.h"
 #include "vmobj.h"
 #include "vmglob.h"
 #include "vmdict.h"
@@ -43,8 +44,21 @@ Modified
 #include "vmbytarr.h"
 #include "vmcset.h"
 #include "vmfilobj.h"
+#include "vmtmpfil.h"
+#include "vmfilnam.h"
 #include "vmpat.h"
 #include "vmstrcmp.h"
+#include "vmstrbuf.h"
+#include "vmdynfunc.h"
+#include "vmfref.h"
+#include "vmdate.h"
+#include "vmtzobj.h"
+
+
+#ifdef TADSNET
+#include "vmhttpsrv.h"
+#include "vmhttpreq.h"
+#endif
 
 
 ulong CVmObjTads::rebuild_image(VMG_ char *, ulong)
@@ -175,6 +189,12 @@ ulong CVmObjLookupTable::rebuild_image(VMG_ char *, ulong)
     return 0;
 }
 
+ulong CVmObjStringBuffer::rebuild_image(VMG_ char *, ulong)
+{
+    assert(FALSE);
+    return 0;
+}
+
 void CVmObjLookupTable::convert_to_const_data(VMG_ CVmConstMapper *,
                                               vm_obj_id_t)
 {
@@ -211,6 +231,18 @@ ulong CVmObjFile::rebuild_image(VMG_ char *, ulong)
     return 0;
 }
 
+ulong CVmObjTemporaryFile::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    assert(FALSE);
+    return 0;
+}
+
+ulong CVmObjFileName::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    assert(FALSE);
+    return 0;
+}
+
 ulong CVmObjPattern::rebuild_image(VMG_ char *, ulong)
 {
     assert(FALSE);
@@ -227,3 +259,55 @@ ulong CVmObjStrComp::rebuild_image(VMG_ char *, ulong)
     assert(FALSE);
     return 0;
 }
+
+ulong CVmDynamicFunc::rebuild_image(VMG_ char *, ulong)
+{
+    assert(FALSE);
+    return 0;
+}
+
+ulong CVmObjFrameDesc::rebuild_image(VMG_ char *, ulong)
+{
+    assert(FALSE);
+    return 0;
+}
+
+ulong CVmObjFrameRef::rebuild_image(VMG_ char *, ulong)
+{
+    assert(FALSE);
+    return 0;
+}
+
+ulong CVmObjDate::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    assert(FALSE);
+    return 0;
+}
+
+ulong CVmObjTimeZone::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    assert(FALSE);
+    return 0;
+}
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   networking support, if present
+ */
+
+#ifdef TADSNET
+
+ulong CVmObjHTTPServer::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    assert(FALSE);
+    return 0;
+}
+
+ulong CVmObjHTTPRequest::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    assert(FALSE);
+    return 0;
+}
+
+#endif

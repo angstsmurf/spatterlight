@@ -347,5 +347,6 @@ extern void glk_cancel_hyperlink_event(winid_t win);
 
 /* Unofficial extension */
 char *glkext_fileref_get_name(frefid_t fref);
+char *garglk_fileref_get_name(frefid_t fref);
 
 #endif /* GLK_H */

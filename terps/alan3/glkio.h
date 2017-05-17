@@ -3,7 +3,7 @@
 
 /*----------------------------------------------------------------------*\
 
-  glkio.c
+  glkio.h
 
   Header file for Glk output for Alan interpreter
 
@@ -21,6 +21,7 @@ void glkio_printf(char *, ...);
 
 #ifdef MAP_STDIO_TO_GLK
 #define fgetc(stream) glk_get_char_stream(stream)
+#define rewind(stream) glk_stream_set_position(stream, 0, seekmode_Start);
 #define fwrite(buf, elementSize, count, stream) glk_put_buffer_stream(stream, buf, elementSize*count);
 #define fread(buf, elementSize, count, stream) glk_get_buffer_stream(stream, buf, elementSize*count);
 #define fclose(stream) glk_stream_close(stream, NULL)

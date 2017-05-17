@@ -1,4 +1,5 @@
 #charset "us-ascii"
+#pragma once
 
 /*
  *   Copyright 2000, 2006 Michael J. Roberts.
@@ -7,6 +8,7 @@
  *   
  *   This header defines the StringComparator intrinsic class.  
  */
+
 
 /* include our base class definition */
 #include "systype.h"
@@ -60,7 +62,7 @@ intrinsic class StringComparator 'string-comparator/030000': Object
      *   Unicode value is 0x00DF) to match "ss" sequences in input strings,
      *   with no result flag additions, would look like this:
      *   
-     *.    ['\x00DF', 'ss', 0, 0]
+     *.    ['\u00DF', 'ss', 0, 0]
      *   
      *   Only one mapping is allowed for each dictionary character.  If more
      *   than one mapping is given for a single dictionary character, only

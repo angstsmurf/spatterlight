@@ -199,7 +199,9 @@
 #endif
 
 #ifdef __win__
+#ifndef REVERSED
 #define REVERSED
+#endif
 #endif
 
 

@@ -27,7 +27,7 @@
  *   When this class is mixed with Thing or its subclasses, LocateInParent
  *   should go first, so that the location we define here takes precedence.
  */
-LocateInParent: object
+class LocateInParent: object
     location = (lexicalParent)
 ;
 
@@ -163,22 +163,24 @@ class SensoryEmanation: Intangible
     /* 
      *   Our "I am here" message, with and without being able to see the
      *   source.  These are displayed in room descriptions, inventory
-     *   descriptions, and by the daemon that schedules background
-     *   messages for sensory emanations.
+     *   descriptions, and by the daemon that schedules background messages
+     *   for sensory emanations.
      *   
      *   If different messages are desired as the emanation is mentioned
      *   repeatedly while the emanation remains continuously within sense
-     *   range of the player character ("A phone is ringing", "The phone
-     *   is still ringing", etc), you can do one of two things.  The
-     *   easier way is to use a Script object; each time we need to show a
+     *   range of the player character ("A phone is ringing", "The phone is
+     *   still ringing", etc), you can do one of two things.  The easier
+     *   way is to use a Script object; each time we need to show a
      *   message, we'll invoke the script.  The other way, which is more
      *   manual but gives you greater control, is to write a method that
      *   checks the displayCount property of self to determine which
-     *   iteration of the message is being shown.  displayCount is set to
-     *   1 the first time a message is displayed for the object when the
+     *   iteration of the message is being shown.  displayCount is set to 1
+     *   the first time a message is displayed for the object when the
      *   object can first be sensed, and is incremented each we invoke one
-     *   of these display routines.  Note that displayCount resets to 1
-     *   when the object comes back into sense range after leaving.
+     *   of these display routines.  Note that displayCount resets to nil
+     *   when the object leaves sense scope, so the sequence of messages
+     *   will automatically start over each time the object comes back into
+     *   scope.
      *   
      *   The manual way (writing a method that checks the displayCount)
      *   might be desirable if you want the emanation to fade into the
@@ -426,6 +428,9 @@ class SensoryEmanation: Intangible
         /* uninitialize the display scheduling */
         scheduleIndex = nil;
         nextDisplayTime = nil;
+
+        /* reset the display count */
+        displayCount = nil;
     }
 
     /*
@@ -525,7 +530,7 @@ class SensoryEmanation: Intangible
          *   interest.  
          */
         newInfo = gPlayerChar.senseInfoTable(sense);
-        newInfo.forEachAssoc(new function(obj, info)
+        newInfo.forEachAssoc(function(obj, info)
         {
             /* 
              *   remove this item if it's not of the subclass of interest,
@@ -536,7 +541,7 @@ class SensoryEmanation: Intangible
         });
 
         /* run through the new list and note each change */
-        newInfo.forEachAssoc(new function(obj, info)
+        newInfo.forEachAssoc(function(obj, info)
         {
             /* treat this as a new command visually */
             "<.commandsep>";
@@ -564,7 +569,7 @@ class SensoryEmanation: Intangible
         /* run through the old list and note each item no longer sensed */
         if (oldInfo != nil)
         {
-            oldInfo.forEachAssoc(new function(obj, info)
+            oldInfo.forEachAssoc(function(obj, info)
             {
                 /* if this item isn't in the new list, note its departure */
                 if (newInfo[obj] == nil)
@@ -780,7 +785,7 @@ class SensoryEvent: object
          *   limit the number of objects we have to test with a more
          *   expensive sense path calculation.  
          */
-        source.connectionTable().forEachAssoc(new function(cur, val)
+        source.connectionTable().forEachAssoc(function(cur, val)
         {
             /* 
              *   If this object defines the observer notification method,
@@ -1076,6 +1081,9 @@ class Collective: object
  *   In this set-up, you can easily let the group object handle many
  *   actions, since it won't have to do much apart from showing the default
  *   failure messages that a Fixed would generate in any other situation.
+ *   Note that if you use this approach, the CollectiveGroup should *also*
+ *   inherit from Fixture or the like, so that the group object is fixed in
+ *   place just like its corresponding individuals.
  *   
  *   The parser will substitute a CollectiveGroup object for its
  *   individuals when (1) any of the individuals are in scope, (2) the
@@ -1209,7 +1217,7 @@ class CollectiveGroup: Thing
     expandPronounList(typ, lst)
     {
         /* restore our individuals to the list */
-        forEachInstance(Thing, new function(obj) {
+        forEachInstance(Thing, function(obj) {
             if (obj.hasCollectiveGroup(self))
                 lst += obj;
         });
@@ -1258,7 +1266,7 @@ class CollectiveGroup: Thing
     getVisibleIndividuals(tab)
     {
         /* keep only those items that are individuals of this collective */
-        tab.forEachAssoc(new function(key, val)
+        tab.forEachAssoc(function(key, val)
         {
             /* remove this item if it's not an individual of mine */
             if (!key.hasCollectiveGroup(self))
@@ -1282,7 +1290,7 @@ class CollectiveGroup: Thing
         if (location == nil && !ofKind(BaseMultiLoc))
         {
             /* check everything in the connection table */
-            tab.forEachAssoc(new function(cur, val) {
+            tab.forEachAssoc(function(cur, val) {
                 /* if this is one of our individuals, check it */
                 if (cur.hasCollectiveGroup(self))
                 {
@@ -1322,7 +1330,7 @@ class CollectiveGroup: Thing
             inherited(src, vec);
 
         /* look for an individual among the source object's connections */
-        src.connectionTable().forEachAssoc(new function(cur, val) {
+        src.connectionTable().forEachAssoc(function(cur, val) {
             /* if this is one of our individuals, check it */
             if (cur.hasCollectiveGroup(self))
             {
@@ -1377,8 +1385,27 @@ class ItemizingCollectiveGroup: CollectiveGroup
 
             /* show the items that are here but not being carried, if any */
             if (here.length() != 0)
-                gActor.location.roomContentsLister.showList(
-                    gActor, nil, here, 0, 0, info, nil);
+            {
+                /* get the room contents lister */
+                local lister = gActor.location.roomContentsLister;
+                
+                /* get the subset that the room contents lister won't list */
+                local xlist = here.subset({x: !lister.isListed(x)});
+
+                /* show the list through the room contents lister */
+                lister.showList(gActor, nil, here, 0, 0, info, nil);
+
+                /* Examine any objects not part of the room description */
+                foreach (local x in xlist)
+                    examineUnlisted(x);
+
+                /* 
+                 *   if that showed anything, add a paragraph break before
+                 *   the carried list 
+                 */
+                if (xlist.length() != 0 && carried.length() != 0)
+                    "<.p>";
+            }
 
             /* separately, show the items being carried, if any */
             if (carried.length() != 0)
@@ -1396,6 +1423,17 @@ class ItemizingCollectiveGroup: CollectiveGroup
             else
                 reportFailure(&mustBeVisibleMsg, self);
         }
+    }
+
+    /*
+     *   Examine an unlisted individual object.  This will be called for
+     *   each object in the room that's not listable via the room contents
+     *   lister. 
+     */
+    examineUnlisted(x)
+    {
+        "<.p>";
+        nestedAction(Examine, x);
     }
 ;
 
@@ -1953,14 +1991,13 @@ class CustomFixture: Fixture
  *   considers these actions logical but simply doesn't allow them.  To be
  *   more specific, Fixture disallows taking and moving in the verify()
  *   methods for those actions, while Immovable disallows the actions in
- *   the action() methods.  This means, for example, that Fixture objects
+ *   the check() methods.  This means, for example, that Fixture objects
  *   will be removed from consideration during the noun resolution phase
  *   when there are more logical choices.
  */
 class Immovable: NonPortable
     /* an Immovable can't be taken */
-    dobjFor(Take) { action() { reportFailure(cannotTakeMsg); }}
-    dobjFor(TakeFrom) { check() { failCheck(cannotTakeMsg); }}
+    dobjFor(Take) { check() { failCheck(cannotTakeMsg); }}
 
     /* Immovables can't be put anywhere */
     dobjFor(PutIn) { check() { failCheck(cannotPutMsg); }}
@@ -2082,8 +2119,10 @@ class Decoration: Fixture
     dobjFor(Read)
         { verify() { inherited(); logicalRank(70, 'decoration'); } }
 
-    /* likewise for LOOK IN */
+    /* likewise for LOOK IN and SEARCH */
     dobjFor(LookIn)
+        { verify() { inherited(); logicalRank(70, 'decoration'); } }
+    dobjFor(Search)
         { verify() { inherited(); logicalRank(70, 'decoration'); } }
 
     /* the default LOOK IN response is our standard "that's not important" */
@@ -2431,8 +2470,6 @@ class BaseMultiLoc: object
      */
     buildLocationList()
     {
-        local lst;
-
         /*
          *   If the object doesn't define any of the standard rules, which
          *   it would do by overriding initialLocationClass and/or
@@ -2444,8 +2481,8 @@ class BaseMultiLoc: object
             && !overrides(self, BaseMultiLoc, &isInitiallyIn))
             return [];
 
-        /* we have nothing in our list yet */
-        lst = new Vector(16);
+        /* start with an empty list */
+        local lst = new Vector(16);
 
         /*
          *   if initialLocationClass is defined, loop over all objects of
@@ -2501,6 +2538,25 @@ class BaseMultiLoc: object
          */
         return (locationList.indexOf(obj) != nil);
     }
+
+    /* 
+     *   Determine if I'm to be listed within my immediate container.  As a
+     *   multi-location object, we have multiple immediate containers, so
+     *   we need to know which direct container we're talking about.
+     *   Thing.examineListContents() passes this down via "cont:", a named
+     *   parameter.  Other callers might not always provide this argument,
+     *   though, so if it's not present simply base this on whether we have
+     *   a special description in any context.
+     */
+    isListedInContents(examinee:?)
+    {
+        return (examinee != nil
+                ? !useSpecialDescInContents(examinee)
+                : !useSpecialDesc());
+    }
+
+    /* Am I either inside 'obj', or equal to 'obj'?  */
+    isOrIsIn(obj) { return self == obj || isIn(obj); }
 ;
 
 /* ------------------------------------------------------------------------ */
@@ -2812,6 +2868,10 @@ class MultiLoc: BaseMultiLoc
         /* add myself */
         tab[self] = true;
 
+        /* add my CollectiveGroup objects */
+        foreach (local cur in collectiveGroups)
+            tab[cur] = true;
+
         /* add my contents */
         foreach (local cur in contents)
         {
@@ -2821,11 +2881,11 @@ class MultiLoc: BaseMultiLoc
         
         /* 
          *   If we're traversing from the outside in, don't connect any of
-         *   our other containers.  However, if we're traversing from a
-         *   point of view inside us, we do get to see out to all of our
-         *   containers.
+         *   our other containers.  However, if we're traversing from our
+         *   own point of view, or from a point of view inside us, we do
+         *   get to see out to all of our containers.  
          */
-        if (senseTmp.pointOfView.isIn(self))
+        if (senseTmp.pointOfView == self || senseTmp.pointOfView.isIn(self))
         {
             /* add my locations */
             foreach (local cur in locationList)
@@ -3390,10 +3450,14 @@ class BasicOpenable: Linkable
     tryImplicitRemoveObstructor(sense, obj)
     {
         /* 
-         *   try opening me, returning true if we attempt the command, nil
-         *   if not 
+         *   If I'm not already open, try opening me.  As usual for 'try'
+         *   routines, we return true if we attempt a command, nil if not.
+         *   
+         *   Note that we might be creating an obstruction despite already
+         *   being open; in this case, we don't want to do anything, since
+         *   an implied 'open' won't help when we're already open.  
          */
-        return tryImplicitAction(Open, self);
+        return isOpen ? nil : tryImplicitAction(Open, self);
     }
 
     /* 
@@ -3425,7 +3489,7 @@ class Openable: BasicOpenable
      *   want to change is the "it's open" status message, you can just
      *   override openStatus rather than providing a whole new lister.  
      */
-    descContentsLister = openableContentsLister
+    descContentsLister = openableDescContentsLister
 
     /*
      *   Contents lister to use when we're opening the object.  This
@@ -3584,6 +3648,12 @@ class Openable: BasicOpenable
             if (!gActor.isIn(self))
                 lst += objOpen;
 
+            /* 
+             *   searching implies physically sifting through the contents,
+             *   so we need to be able to touch the object 
+             */
+            lst += touchObj;
+
             /* return the updated list */
             return lst;
         }
@@ -3696,7 +3766,7 @@ class Lockable: Linkable
             masterObject.makeLocked(stat);
 
         /* inherit the next superclass's handling */
-        inherited();
+        inherited(stat);
     }
 
     /* show our status */
@@ -3715,7 +3785,15 @@ class Lockable: Linkable
                          : gLibMessages.currentlyUnlocked);
     }
 
-    /* description of the object as locked or unlocked */
+    /* 
+     *   Description of the object's current locked state.  In English,
+     *   this simply returns one of 'locked' or 'unlocked'.  (Note that
+     *   this is provided as a convenience to games, for generating
+     *   messages about the object that include its state.  The library
+     *   doesn't use this message itself, so overriding this won't change
+     *   any library messages - in particular, it won't change the
+     *   examineStatus message.)  
+     */
     lockedDesc = (isLocked() ? gLibMessages.lockedMsg(self)
                              : gLibMessages.unlockedMsg(self))
 
@@ -3873,6 +3951,9 @@ class Lockable: Linkable
                 /* we cannot proceed */
                 exit;
             }
+
+            /* inherit the default handling */
+            inherited();
         }
     }
 ;
@@ -4419,7 +4500,7 @@ class BulkLimiter: Thing
         /* 
          *   Anything that the an overriding caller (a routine that called
          *   us with 'inherited') wants to add is an addendum to our
-         *   description, so add a transcript marker to indicate tht the
+         *   description, so add a transcript marker to indicate that the
          *   main description is now finished.
          *   
          *   The important thing about this is that any message that an
@@ -4431,10 +4512,10 @@ class BulkLimiter: Thing
          *   descriptive text following (for example, we suppress "It's an
          *   ordinary <thing>" if we also are going to say "it's open" or
          *   "it contains three coins").  If we have an overriding caller
-         *   who's going to add anything, then we must assume that what
-         *   the caller's adding is something about the act of examining
-         *   the object, rather than a description of the object, so we
-         *   don't want it to suppress a default description.  
+         *   who's going to add anything, then we must assume that what the
+         *   caller's adding is something about the act of examining the
+         *   object, rather than a description of the object, so we don't
+         *   want it to suppress a default description.  
          */
         gTranscript.endDescription();
     }
@@ -4777,6 +4858,8 @@ class BasicContainer: BulkLimiter
             gLibMessages.smellIsFromWithout(obj, self);
     }
 
+    /* message when an object is too large (all by itself) to fit in me */
+    tooLargeForContainerMsg = &tooLargeForContainerMsg
 ;
 
 /* ------------------------------------------------------------------------ */
@@ -4883,6 +4966,7 @@ class Container: BasicContainer
      */
     dobjFor(Search)
     {
+        preCond = (nilToList(inherited()) + [touchObj])
         check()
         {
             /* 
@@ -4961,7 +5045,7 @@ class RestrictedHolder: object
         /* validate the direct object */
         if (!canPutIn(gDobj))
         {
-            /* explalin the problem */
+            /* explain the problem */
             reportFailure(self.(msgProp)(gDobj));
 
             /* terminate the command */
@@ -5267,7 +5351,7 @@ class Settable: Thing
      *   in a specific primary format when there are superficially
      *   different ways of expressing the same value.  For example, if the
      *   setting is numeric, this could do things like trim off leading
-     *   zeroes; for a text value, it could ensure the value is in the
+     *   zeros; for a text value, it could ensure the value is in the
      *   proper case.  
      */
     canonicalizeSetting(val)
@@ -5344,7 +5428,7 @@ class Settable: Thing
             if (!isValidSetting(canonicalizeSetting(gAction.getLiteral())))
             {
                 /* there is no such setting */
-                reportFailure(setToInvalidMsg);
+                reportFailure(setToInvalidMsgProp);
                 exit;
             }
         }
@@ -5354,15 +5438,15 @@ class Settable: Thing
             makeSetting(canonicalizeSetting(gAction.getLiteral()));
 
             /* remark on the change */
-            defaultReport(okaySetToMsg, curSetting);
+            defaultReport(okaySetToMsgProp, curSetting);
         }
     }
 
     /* our message property for an invalid setting */
-    setToInvalidMsg = &setToInvalidMsg
+    setToInvalidMsgProp = &setToInvalidMsg
 
     /* our message property for acknowledging a new setting */
-    okaySetToMsg = &okaySetToMsg
+    okaySetToMsgProp = &okaySetToMsg
 ;
 
 /*
@@ -5387,8 +5471,8 @@ class Dial: Settable
     dobjFor(TurnTo) asDobjFor(SetTo)
 
     /* refer to setting the dial as turning it in our messages */
-    setToInvalidMsg = &turnToInvalidMsg
-    okaySetToMsg = &okayTurnToMsg
+    setToInvalidMsgProp = &turnToInvalidMsg
+    okaySetToMsgProp = &okayTurnToMsg
 ;
 
 /*
@@ -5404,7 +5488,7 @@ class NumberedDial: Dial
 
     /*
      *   Canonicalize a proposed setting value.  For numbers, strip off any
-     *   leading zeroes, since these don't change the meaning of the value.
+     *   leading zeros, since these don't change the meaning of the value.
      */
     canonicalizeSetting(val)
     {

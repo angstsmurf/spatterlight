@@ -1,3 +1,28 @@
+2008-05-01  Simon Baldwin <simon_baldwin@yahoo.com>
+
+	* Release 1.3.10.
+
+	* Fixed a CR/LF problem that prevents a game that contains rogue
+	newline or carriage return characters (ones that don't precede a
+	newline) from loading.
+	* Corrected a (probably rare to trigger) bug in TAF file decompression
+	related to leaving the decompression loop before the zlib inflation
+	output buffer had been completely consumed.
+	* Amended status line handling for better results with game room
+	names and status strings that are blank.
+	* Corrected two bugs in the Cyrillic codepage 866 to gost 16876-71
+	ascii conversion tables.
+	* Removed use of labs() on sc_int types, to better decouple sc_int
+	from intrinsic C long types.
+	* Cleaned up action on zero-byte allocations, undefined in ANSI/ISO C.
+	* Improved hints iterator functionality by splitting it into two
+	separate functions, one for the first hint, and one for the next; this
+	is a minor SCARE API change.
+	* Yet more "adjustments" to tasks triggered by NPC and/or player
+	movement.  These are still not right, but the change at least fixes
+	breakage in The PK Girl introduced with release 1.3.9.
+	* Minor code refactoring and formatting changes.
+
 2008-03-12  Simon Baldwin <simon_baldwin@yahoo.com>
 
 	* Release 1.3.9.

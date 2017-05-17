@@ -103,7 +103,7 @@ void vocinialo(voccxdef *ctx, vocddef **what, int cnt)
     vocddef *p;
     
     *what = (vocddef *)mchalo(ctx->voccxerr,
-                              (ushort)(cnt * sizeof(vocddef)), "vocinialo");
+                              (cnt * sizeof(vocddef)), "vocinialo");
 
     /* set all object/function entries to MCMONINV to indicate not-in-use */
     for (p = *what ; cnt ; ++p, --cnt)
@@ -1632,11 +1632,22 @@ static void exesaveit(voccxdef *ctx, vocoldef *dolist)
         if (dolist[0].vocolflg == VOCS_STR
             || dolist[0].vocolflg == VOCS_NUM)
         {
+            /* 
+             *   As of 2.5.11, don't clear 'it' on a number or string;
+             *   rather, just leave it as it was from the prior command.
+             *   Players will almost never expect a number or string to have
+             *   anything to do with pronoun antecedents, and in fact some
+             *   players reported finding it confusing to have the antecedant
+             *   implied by the second-most-recent command disappear when the
+             *   most recent command used a number of string.  
+             */
+#if 0
             /* save a nil 'it' */
             ctx->voccxit = MCMONINV;
             if (dbg)
                 tioputs(ctx->voccxtio,
                         ".. setting 'it' to nil (strObj/numObj)\\n");
+#endif
 
             /* we're done */
             return;
@@ -1848,7 +1859,7 @@ static int exeloop(voccxdef *ctx, objnum actor, objnum verb,
 
                 /* it's a number - set numObj.value */
                 v1 = atol(dolist[i].vocolfst);
-                oswp4(&v2, v1);
+                oswp4s(&v2, v1);
                 vocsetobj(ctx, ctx->voccxnum, DAT_NUMBER, &v2,
                           &dolist[i], &dolist[i]);
             }
@@ -2404,7 +2415,7 @@ static void voc_askobj_indirect(voccxdef *ctx, vocoldef *dolist,
         {
             /* write the flags */
             *lstp++ = DAT_NUMBER;
-            oswp4(lstp, dolist[j].vocolflg);
+            oswp4s(lstp, dolist[j].vocolflg);
             lstp += 4;
         }
 
@@ -2984,8 +2995,37 @@ int execmd(voccxdef *ctx, objnum actor, objnum prep,
             /* find the template for this verb/prep combination */
             if (!voctplfnd(ctx, verb, prep, tpl, &newstyle))
             {
-                /* call parseUnknownVerb to handle the error */
-                if (try_unknown_verb(ctx, actor, cmd, typelist,
+                vocoldef *np1;
+                
+                /* 
+                 *   If we could have used the preposition in the first noun
+                 *   phrase rather than in the verb, and this would have
+                 *   yielded a valid verb phrase, the error is "I don't see
+                 *   any <noun phrase> here".
+                 *   
+                 *   Otherwise, it's a verb phrasing error.  In this case,
+                 *   call parseUnknownVerb to handle the error; the default
+                 *   error is "I don't recognize that sentence".  
+                 */
+                np1 = dolist[0].vocolfst < iolist[0].vocolfst
+                      ? dolist : iolist;
+                if ((np1->vocolflg & VOCS_TRIMPREP) != 0)
+                {
+                    char namebuf[VOCBUFSIZ];
+                    
+                    /* 
+                     *   it's a trimmed prep phrase, so we actually have an
+                     *   unmatched object - report the error 
+                     */
+                    voc_make_obj_name_from_list(
+                        ctx, namebuf, cmd, np1->vocolfst, np1->vocolhlst);
+                    vocerr(ctx, VOCERR(9), "I don't see any %s here.",
+                           namebuf);
+
+                    /* terminate the command with an error */
+                    err = -1;
+                }
+                else if (try_unknown_verb(ctx, actor, cmd, typelist,
                                      wrdcnt, next_word, TRUE,
                                      VOCERR(24),
                                      "I don't recognize that sentence."))

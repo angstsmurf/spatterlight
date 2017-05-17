@@ -695,6 +695,9 @@ struct vocerr_va_info
      *   to point to user_msg[].  
      */
     char *outp;
+
+    /* size of the output buffer, in bytes */
+    size_t outsiz;
 };
 
 /*
@@ -713,6 +716,7 @@ static void vocerr_va_prep(voccxdef *ctx, struct vocerr_va_info *info,
 
     /* use the output buffer from the info structure */
     info->outp = info->user_msg;
+    info->outsiz = sizeof(info->user_msg);
 
     /* 
      *   if the user has a parseError or parseErrorParam function, see if it
@@ -868,6 +872,7 @@ static void vocerr_va_prep(voccxdef *ctx, struct vocerr_va_info *info,
 
             /* use the remainder of the buffer for the final formatting */
             info->outp = info->user_msg + len + 1;
+            info->outsiz = sizeof(info->user_msg) - len - 1;
         }
         else
         {
@@ -891,14 +896,20 @@ static void vocerr_va_prep(voccxdef *ctx, struct vocerr_va_info *info,
 static void vocerr_va(voccxdef *ctx, struct vocerr_va_info *info,
                       int err, char *f, va_list argptr)
 {
+    char *buf;
+    
     /* turn on output */
     (void)tioshow(ctx->voccxtio);
 
     /* build the string to display */
-    vsprintf(info->outp, info->fmt, argptr);
+    if (os_vasprintf(&buf, info->fmt, argptr) >= 0)
+    {
+        /* display it */
+        tioputs(ctx->voccxtio, buf);
 
-    /* display it */
-    tioputs(ctx->voccxtio, info->outp);
+        /* free the buffer */
+        osfree(buf);
+    }
 }
 
 /* ------------------------------------------------------------------------ */
@@ -2417,6 +2428,52 @@ static int voc_pnp_hook(voccxdef *ctx, char *cmd[], int typelist[],
     }
 }
 
+/* ------------------------------------------------------------------------ */
+/*
+ *   Build an object name from the words in a command 
+ */
+void voc_make_obj_name(voccxdef *ctx, char *namebuf, char *cmd[],
+                       int firstwrd, int lastwrd)
+{
+    int i;
+    
+    /* run through the range of words, and add them to the buffer */
+    for (i = firstwrd, namebuf[0] = '\0' ; i < lastwrd ; ++i)
+    {
+        if (voc_check_special(ctx, cmd[i], VOCW_OF))
+            vocaddof(ctx, namebuf);
+        else
+            strcat(namebuf, cmd[i]);
+        
+        if (cmd[i][strlen(cmd[i])-1] == '.' && i + 1 < lastwrd)
+            strcat(namebuf, "\\");
+
+        if (i + 1 < lastwrd)
+            strcat(namebuf, " ");
+    }
+}
+
+/*
+ *   Make an object name from a list entry 
+ */
+void voc_make_obj_name_from_list(voccxdef *ctx, char *namebuf,
+                                 char *cmd[], char *firstwrd, char *lastwrd)
+{
+    int i, i1, i2;
+    
+    /* find the cmd indices */
+    for (i = i1 = i2 = 0 ; cmd[i] != 0 && *cmd[i] != 0 ; ++i)
+    {
+        if (cmd[i] == firstwrd)
+            i1 = i;
+        if (cmd[i] == lastwrd)
+            i2 = i + 1;
+    }
+
+    /* build the name */
+    voc_make_obj_name(ctx, namebuf, cmd, i1, i2);
+}
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -2446,6 +2503,8 @@ static int vocg1o(voccxdef *ctx, char *cmd[], int typelist[],
     int     firstwrd;
     int     i;
     int     ofword = -1;
+    int     hypothetical_last = -1;
+    int     trim_flags = 0;
     int     outcnt = 0;
     objnum *list1;
     uint   *flags1;
@@ -2774,19 +2833,7 @@ try_again:
      *   build a printable string consisting of the words in the noun
      *   phrase, for displaying error messages 
      */
-    for (i = firstwrd, namebuf[0] = '\0' ; i < cur ; ++i)
-    {
-        if (voc_check_special(ctx, cmd[i], VOCW_OF))
-            vocaddof(ctx, namebuf);
-        else
-            strcat(namebuf, cmd[i]);
-
-        if (cmd[i][strlen(cmd[i])-1] == '.' && i + 1 < cur)
-            strcat(namebuf, "\\");
-
-        if (i + 1 < cur)
-            strcat(namebuf, " ");
-    }
+    voc_make_obj_name(ctx, namebuf, cmd, firstwrd, cur);
 
     /* remember the next word after this noun phrase */
     *next = cur;
@@ -2942,6 +2989,8 @@ retry_exclude_first:
                  *   drop the part from 'of' on - scan only from firstwrd
                  *   to the word before 'of' 
                  */
+                hypothetical_last = cur;
+                trim_flags |= VOCS_TRIMPREP;
                 cur = ofword;
 
                 /* forget that we have an 'of' phrase at all */
@@ -2981,6 +3030,9 @@ retry_exclude_first:
                     if (ctx->voccxflg & VOCCXFDBG)
                         tioputs(ctx->vocxtio,
                                 "... changing word to prep and retrying\\n");
+
+                    hypothetical_last = cur;
+                    trim_flags |= VOCS_TRIMPREP;
                     cur = i;
                     goto try_again;
                 }
@@ -3019,9 +3071,11 @@ retry_exclude_first:
         }
 
         nounlist[outcnt].vocolfst = cmd[firstwrd];
-        nounlist[outcnt].vocollst  = cmd[cur-1];
+        nounlist[outcnt].vocollst = cmd[cur-1];
         nounlist[outcnt].vocolflg =
-            flags1[i] + (trying_count ? VOCS_COUNT : 0);
+            flags1[i] | (trying_count ? VOCS_COUNT : 0) | trim_flags;
+        if (trim_flags)
+            nounlist[outcnt].vocolhlst = cmd[hypothetical_last - 1];
         if (has_any)
             nounlist[outcnt].vocolflg |= VOCS_ANY;
         nounlist[outcnt++].vocolobj = list1[i];
@@ -3286,7 +3340,7 @@ void voc_parse_types(voccxdef *ctx)
 
             /* add this type to the return list */
             *typp++ = DAT_NUMBER;
-            oswp4(typp, curtyp);
+            oswp4s(typp, curtyp);
             typp += 4;
         }
     }
@@ -3521,7 +3575,7 @@ void voc_parse_np(voccxdef *ctx)
          *   (adjusting to 1-based indexing) 
          */
         *lstp++ = DAT_NUMBER;
-        oswp4(lstp, next + 1);
+        oswp4s(lstp, next + 1);
         lstp += 4;
 
         /* build the list */
@@ -3566,10 +3620,10 @@ void voc_parse_np(voccxdef *ctx)
 
             /* add the first and last index, adjusting to 1-based indexing */
             *lstp++ = DAT_NUMBER;
-            oswp4(lstp, firstidx + 1);
+            oswp4s(lstp, firstidx + 1);
             lstp += 4;
             *lstp++ = DAT_NUMBER;
-            oswp4(lstp, lastidx + 1);
+            oswp4s(lstp, lastidx + 1);
             lstp += 4;
 
             /* add the objects */
@@ -3593,7 +3647,7 @@ void voc_parse_np(voccxdef *ctx)
 
                 /* add the flags */
                 *lstp++ = DAT_NUMBER;
-                oswp4(lstp, objlist[i].vocolflg);
+                oswp4s(lstp, objlist[i].vocolflg);
                 lstp += 4;
             }
 
@@ -4262,7 +4316,7 @@ void voc_parse_disambig(voccxdef *ctx)
                     }
 
                     /* add the open quote */
-                    *p++ = '"';
+                    *p++ = qu;
 
                     /* 
                      *   add the text, leaving out the first and last
@@ -4275,7 +4329,7 @@ void voc_parse_disambig(voccxdef *ctx)
                     }
 
                     /* add the closing quote */
-                    *p++ = '"';
+                    *p++ = qu;
 
                     /* null-terminate here so we don't skip any further */
                     *p = '\0';
@@ -4344,7 +4398,7 @@ void voc_parse_disambig(voccxdef *ctx)
 
     /* store the status code in the first element */
     *lstp++ = DAT_NUMBER;
-    oswp4(lstp, err);
+    oswp4s(lstp, err);
     lstp += 4;
 
     /* store the remainder of the list */
@@ -4899,7 +4953,7 @@ static int voc_disambig_hook(voccxdef *ctx, objnum verb, objnum actor,
         if (lstsiz > 0 && *lstp == DAT_NUMBER)
         {
             /* get the status code */
-            ret = osrp4(lstp+1);
+            ret = osrp4s(lstp+1);
 
             /* skip the element */
             lstadv(&lstp, &lstsiz);
@@ -5257,7 +5311,7 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
             char vbuf[4];
             
             v1 = atol(inlist[inpos].vocolfst);
-            oswp4(vbuf, v1);
+            oswp4s(vbuf, v1);
             vocsetobj(ctx, ctx->voccxnum, DAT_NUMBER, vbuf,
                       &inlist[inpos], &outlist[outpos]);
             ++outpos;
@@ -5990,7 +6044,7 @@ int vocdisambig(voccxdef *ctx, vocoldef *outlist, vocoldef *inlist,
                 char  vbuf[4];
 
                 v1 = atol(inlist[inpos].vocolfst);
-                oswp4(vbuf, v1);
+                oswp4s(vbuf, v1);
                 vocsetobj(ctx, ctx->voccxnum, DAT_NUMBER, vbuf,
                           &inlist[inpos], &outlist[outpos]);
                 outlist[outpos].vocolflg = VOCS_NUM;
@@ -7705,11 +7759,43 @@ static int voc1cmd(voccxdef *ctx, char *cmd[], char *cmdbuf,
                 }
                 else
                 {
-                    /* let parseUnknownVerb handle it */
-                    if (!try_unknown_verb(ctx, cmdActor, &cmd[first_word],
-                                          &typelist[first_word], 0,
-                                          &next_start, TRUE, VOCERR(19),
-                   "There are words after your command that I couldn't use."))
+                    /*
+                     *   If the latter object phrase is flagged with the
+                     *   "trimmed preposition" flag, meaning that we could
+                     *   have used the preposition in the noun phrase but
+                     *   assumed instead it was part of the verb, reverse
+                     *   this assumption now: add the preposition back to the
+                     *   noun phrase and explain that there's no such thing
+                     *   present.
+                     *   
+                     *   Otherwise, we simply have an unknown verb phrasing,
+                     *   so let parseUnknownVerb handle it.  
+                     */
+                    vocoldef *np1 =
+                        (dolist[0].vocolflg & VOCS_TRIMPREP) != 0
+                        ? &dolist[0]
+                        : (iolist[0].vocolflg & VOCS_TRIMPREP) != 0
+                        ? &iolist[0]
+                        : 0;
+                    if (np1 != 0)
+                    {
+                        char namebuf[VOCBUFSIZ];
+                        
+                        /* show the name, adding the prep back in */
+                        voc_make_obj_name_from_list(
+                            ctx, namebuf, cmd, np1->vocolfst, np1->vocolhlst);
+                        vocerr(ctx, VOCERR(9), "I don't see any %s here.",
+                               namebuf);
+
+                        /* error - abort */
+                        retval = 1;
+                        goto done;
+                    }
+                    else if (!try_unknown_verb(
+                        ctx, cmdActor,
+                        &cmd[first_word], &typelist[first_word],
+                        0, &next_start, TRUE, VOCERR(19),
+                  "There are words after your command that I couldn't use."))
                     {
                         /* error - abort */
                         retval = 1;
@@ -7780,9 +7866,6 @@ static int voc1cmd(voccxdef *ctx, char *cmd[], char *cmdbuf,
                     /* go on to the next command */
                     continue;
                 }
-
-                /* done with the command */
-                goto done;
             }
                 
             /*
@@ -8050,7 +8133,7 @@ void voc_stk_ini(voccxdef *ctx, uint siz)
     /* allocate it if it's not already allocated */
     if (ctx->voc_stk_ptr == 0)
     {
-        ctx->voc_stk_ptr = mchalo(ctx->voccxerr, (ushort)siz, "voc_stk_ini");
+        ctx->voc_stk_ptr = mchalo(ctx->voccxerr, siz, "voc_stk_ini");
         ctx->voc_stk_end = ctx->voc_stk_ptr + siz;
     }
     

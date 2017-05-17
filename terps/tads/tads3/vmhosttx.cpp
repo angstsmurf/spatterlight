@@ -37,6 +37,25 @@ public:
         fileno_ = fileno;
         ofs_ = ofs;
         siz_ = siz;
+        link_ = 0;
+    }
+
+    CResEntry(const char *resname, size_t resnamelen, int copy,
+              const char *fname, size_t fnamelen)
+        : CVmHashEntryCI(resname, resnamelen, copy)
+    {
+        /* save the local filename */
+        link_ = lib_copy_str(fname, fnamelen);
+
+        /* it's not in a resource file */
+        fileno_ = 0;
+        ofs_ = 0;
+        siz_ = 0;
+    }
+
+    ~CResEntry()
+    {
+        lib_free_str(link_);
     }
 
     /* file number (this is an index in the hostifc's ext_ array) */
@@ -47,6 +66,9 @@ public:
 
     /* byte size of the resource data */
     unsigned long siz_;
+
+    /* local filename, for a resource link (rather than a stored resource) */
+    char *link_;
 };
 
 /* ------------------------------------------------------------------------ */
@@ -75,13 +97,11 @@ CVmHostIfcText::CVmHostIfcText()
  */
 CVmHostIfcText::~CVmHostIfcText()
 {
-    size_t i;
-
     /* delete our hash table */
     delete restab_;
 
     /* delete our external filenames */
-    for (i = 0 ; i < ext_cnt_ ; ++i)
+    for (size_t i = 0 ; i < ext_cnt_ ; ++i)
         lib_free_str(ext_[i]);
 
     /* delete our array of external filename entries */
@@ -156,45 +176,82 @@ void CVmHostIfcText::add_resource(unsigned long ofs, unsigned long siz,
 }
 
 /* 
+ *   add a resource 
+ */
+void CVmHostIfcText::add_resource(const char *fname, size_t fnamelen,
+                                  const char *resname, size_t resnamelen)
+{
+    /* create a new entry desribing the resource */
+    CResEntry *entry = new CResEntry(
+        resname, resnamelen, TRUE, fname, fnamelen);
+
+    /* add it to the table */
+    restab_->add(entry);
+}
+
+/* 
  *   find a resource 
  */
 osfildef *CVmHostIfcText::find_resource(const char *resname,
                                         size_t resnamelen,
                                         unsigned long *res_size)
 {
-    CResEntry *entry;
     osfildef *fp;
+    char buf[OSFNMAX];
+    char *fname;
+    char fname_buf[OSFNMAX];
+    char res_dir[OSFNMAX] = "";
+
+    /* 
+     *   get the resource directory - if there's an explicit resource path
+     *   specified, use that, otherwise use the image file folder 
+     */
+    if (res_dir_ != 0)
+        lib_strcpy(res_dir, sizeof(res_dir), res_dir_);
+    else if (ext_[0] != 0)
+        os_get_path_name(res_dir, sizeof(res_dir), ext_[0]);
 
     /* try finding an entry in the resource map */
-    entry = (CResEntry *)restab_->find(resname, resnamelen);
+    CResEntry *entry = (CResEntry *)restab_->find(resname, resnamelen);
     if (entry != 0)
     {
-        /* found it - open the file */
-        fp = osfoprb(ext_[entry->fileno_], OSFTBIN);
-
-        /* if that succeeded, seek to the start of the resource */
-        if (fp != 0)
-            osfseek(fp, entry->ofs_, OSFSK_SET);
-
-        /* tell the caller the size of the resource */
-        *res_size = entry->siz_;
-
-        /* return the file handle */
-        return fp;
+        /* found it - check the type */
+        if (entry->link_ == 0)
+        {
+            /* it's a stored binary resource - load it */
+            fp = osfoprb(ext_[entry->fileno_], OSFTBIN);
+            
+            /* if that succeeded, seek to the start of the resource */
+            if (fp != 0)
+                osfseek(fp, entry->ofs_, OSFSK_SET);
+            
+            /* tell the caller the size of the resource */
+            *res_size = entry->siz_;
+            
+            /* return the file handle */
+            return fp;
+        }
+        else
+        {
+            /* it's a link to a local file */
+            fname = entry->link_;
+        }
     }
     else
     {
-        char buf[OSFNMAX];
-        char fname[OSFNMAX];
-        char path[OSFNMAX];
-        
         /* 
          *   There's no entry in the resource map, so convert the resource
-         *   name from the URL notation to local file system conventions,
-         *   and look for a file with the given name.
-         *   
-         *   First, make a null-terminated copy of the resource name,
-         *   limiting the copy to our buffer size.  
+         *   name from the URL notation to local file system conventions, and
+         *   look for a file with the given name.  This is allowed only if
+         *   the file safety level setting is 3 (read only local directory
+         *   access) or lower.  
+         */
+        if (get_io_safety_read() > 3)
+            return 0;
+        
+        /*   
+         *   Make a null-terminated copy of the resource name, limiting the
+         *   copy to our buffer size.  
          */
         if (resnamelen > sizeof(buf) - 1)
             resnamelen = sizeof(buf) - 1;
@@ -202,50 +259,76 @@ osfildef *CVmHostIfcText::find_resource(const char *resname,
         buf[resnamelen] = '\0';
 
         /* convert the resource name to a URL */
-        os_cvt_url_dir(fname, sizeof(fname), buf, FALSE);
+        os_cvt_url_dir(fname_buf, sizeof(fname_buf), buf);
+        fname = fname_buf;
 
-        /* if there's no image file, we can't proceed */
-        if (ext_[0] == 0)
+        /* if that yields an absolute path, it's an error */
+        if (os_is_file_absolute(fname))
             return 0;
 
         /* 
-         *   get the path to the image file, since external resources are
-         *   always relative to the image file 
+         *   If it's not in the resource file folder, it's also an error - we
+         *   don't allow paths to parent folders via "..", for example.  If
+         *   we don't have an resource file folder to compare it to, fail,
+         *   since we can't properly sandbox it.  Resource files are always
+         *   sandboxed to the resource directory, even if the file safety
+         *   settings are less restrictive.
          */
-        os_get_path_name(path, sizeof(path), ext_[0]);
+        if (res_dir[0] == 0
+            || !os_is_file_in_dir(fname, res_dir, TRUE, FALSE))
+            return 0;
+    }
+
+    /* 
+     *   If we get this far, it's because we have a local file name in
+     *   'fname' that we need to look up.  
+     */
+
+    /* check the path for relativity */
+    if (os_is_file_absolute(fname))
+    {
+        /* it's already an absolute, fully-qualified path - use it as-is */
+        lib_strcpy(buf, sizeof(buf), fname);
+    }
+    else
+    {
+        /* 
+         *   it's a relative path - make sure we have a resource directory
+         *   for it to be relative to 
+         */
+        if (res_dir[0] == 0)
+            return 0;
 
         /* 
          *   build the full path name by combining the image file path with
          *   the relative path we got from the resource name URL, as
          *   converted local file system conventions 
          */
-        os_build_full_path(buf, sizeof(buf), path, fname);
-
-        /* try opening the file */
-        fp = osfoprb(buf, OSFTBIN);
-
-        /* return failure if we couldn't find the file */
-        if (fp == 0)
-            return 0;
-
-        /* 
-         *   the entire file is the resource data, so figure out how big the
-         *   file is, and tell the caller that the resource size is the file
-         *   size 
-         */
-        osfseek(fp, 0, OSFSK_END);
-        *res_size = osfpos(fp);
-
-        /* 
-         *   seek back to the start of the resource data (which is simply
-         *   the start of the file, since the entire file is the resource
-         *   data) 
-         */
-        osfseek(fp, 0, OSFSK_SET);
-
-        /* return the file handle */
-        return fp;
+        os_build_full_path(buf, sizeof(buf), res_dir, fname);
     }
+
+    /* try opening the file */
+    fp = osfoprb(buf, OSFTBIN);
+
+    /* return failure if we couldn't find the file */
+    if (fp == 0)
+        return 0;
+
+    /* 
+     *   the entire file is the resource data, so figure out how big the file
+     *   is, and tell the caller that the resource size is the file size 
+     */
+    osfseek(fp, 0, OSFSK_END);
+    *res_size = osfpos(fp);
+
+    /* 
+     *   seek back to the start of the resource data (which is simply the
+     *   start of the file, since the entire file is the resource data) 
+     */
+    osfseek(fp, 0, OSFSK_SET);
+        
+    /* return the file handle */
+    return fp;
 }
 
 /* 
@@ -253,11 +336,9 @@ osfildef *CVmHostIfcText::find_resource(const char *resname,
  */
 int CVmHostIfcText::resfile_exists(const char *resname, size_t resnamelen)
 {
-    osfildef *fp;
-    unsigned long res_size;
-
     /* try opening the resource file */
-    fp = find_resource(resname, resnamelen, &res_size);
+    unsigned long res_size;
+    osfildef *fp = find_resource(resname, resnamelen, &res_size);
 
     /* check to see if we successfully opened the resource */
     if (fp != 0)

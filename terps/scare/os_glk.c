@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -25,15 +25,19 @@
  */
 
 #include <assert.h>
-#include <stdio.h>
-#include <string.h>
 #include <ctype.h>
-#include <stdlib.h>
-#include <limits.h>
 #include <errno.h>
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "scare.h"
 #include "glk.h"
+
+#include "scprotos.h" /* for SCARE_VERSION */
+
+#undef _WIN32   /* Gargoyle */
 
 /*
  * True and false definitions -- usually defined in glkstart.h, but we need
@@ -53,7 +57,7 @@
 /*---------------------------------------------------------------------*/
 
 /* Glk SCARE interface version number. */
-static const glui32 GSC_PORT_VERSION = 0x00010309;
+static const glui32 GSC_PORT_VERSION = 0x00010310;
 
 /* Two windows, one for the main text, and one for a status line. */
 static winid_t gsc_main_window = NULL,
@@ -71,7 +75,7 @@ static strid_t gsc_readlog_stream = NULL;
 
 /* Options that may be turned off or set by command line flags. */
 static int gsc_commands_enabled = TRUE,
-           gsc_abbreviations_enabled = FALSE,
+           gsc_abbreviations_enabled = TRUE,
            gsc_unicode_enabled = TRUE;
 
 /* Adrift game to interpret. */
@@ -142,7 +146,7 @@ gsc_malloc (size_t size)
 {
   void *pointer;
 
-  pointer = malloc (size);
+  pointer = malloc (size > 0 ? size : 1);
   if (!pointer)
     {
       gsc_fatal ("GLK: Out of system memory");
@@ -244,7 +248,7 @@ static const gsc_locale_t GSC_LATIN1_LOCALE = {
     "[TM]","s",   ">",   "oe",  NULL,  "z",   "Y",   " ",   "!",   "c",   "GBP",
     "*",   "Y",   "|",   "S",   "\"",  "(C)", "a",   "<<",  "-",   "-",   "(R)",
     "-",   "o",   "+/-", "2",   "3",   "'",   "u",   "P",   "*",   ",",   "1",
-    "o",   ">>",  "1/4", "1/2" ,"3/4", "?",   "A",   "A",   "A",   "A",   "A",
+    "o",   ">>",  "1/4", "1/2", "3/4", "?",   "A",   "A",   "A",   "A",   "A",
     "A",   "AE",  "C",   "E",   "E",   "E",   "E",   "I",   "I",   "I",   "I",
     "D",   "N",   "O",   "O",   "O",   "O",   "O",   "x",   "O",   "U",   "U",
     "U",   "U",   "Y",   "p",   "ss",  "a",   "a",   "a",   "a",   "a",   "a",
@@ -422,14 +426,14 @@ static const gsc_locale_t GSC_CYRILLIC_LOCALE = {
     "x",   "y",   "z",   "{",   "|",   "}",   "~",   NULL,  "A",   "B",   "V",
     "G",   "D",   "E",   "Zh",  "Z",   "I",   "Jj",  "K",   "L",   "M",   "N",
     "O",   "P",   "R",   "S",   "T",   "U",   "F",   "Kh",  "C",   "Ch",  "Sh",
-    "Shh", "\"",  "Y",   "'",   "EH",  "JU",  "JA",  "a",   "b",   "v",   "g",
+    "Shh", "\"",  "Y",   "'",   "Eh",  "Ju",  "Ja",  "a",   "b",   "v",   "g",
     "d",   "e",   "zh",  "z",   "i",   "jj",  "k",   "l",   "m",   "n",   "o",
     "p",   "#",   "#",   "#",   "|",   "+",   "+",   "+",   "+",   "+",   "+",
     "|",   "+",   "+",   "+",   "+",   "+",   "+",   "+",   "+",   "+",   "-",
     "+",   "+",   "+",   "+",   "+",   "+",   "+",   "+",   "|",   "+",   "+",
     "+",   "+",   "+",   "+",   "+",   "+",   "+",   "+",   "+",   "+",   "+",
     "+",   ".",   ".",   ".",   ".",   "r",   "s",   "t",   "u",   "f",   "kh",
-    "c",   "ch",  "sh",  "shh", "\"",  "y",   "'",   "eh",  "ju",  "ja"   "Jo",
+    "c",   "ch",  "sh",  "shh", "\"",  "y",   "'",   "eh",  "ju",  "ja",  "Jo",
     "jo",  "Je",  "je",  "Ji",  "ji",  NULL,  NULL,  "deg", "*",    "*",  NULL,
     NULL,  "*",   ".",   " " } }
 };
@@ -484,7 +488,8 @@ static const glui32 GSC_MIN_PRINTABLE = ' ',
 static const gsc_locale_t *const GSC_AVAILABLE_LOCALES[] = {
   &GSC_LATIN1_LOCALE,
   &GSC_CYRILLIC_LOCALE,
-  NULL };
+  NULL
+};
 
 /*
  * The locale for the game, set below explicitly or on game startup, and
@@ -497,10 +502,9 @@ static const gsc_locale_t *const gsc_fallback_locale = &GSC_LATIN1_LOCALE;
 /*
  * gsc_set_locale()
  *
- * Set a locale explicitly from the name passed in.  Returns the full name
- * of the locale, NULL if none.
+ * Set a locale explicitly from the name passed in.
  */
-static const sc_char *
+static void
 gsc_set_locale (const sc_char *name)
 {
   const gsc_locale_t *matched = NULL;
@@ -514,10 +518,8 @@ gsc_set_locale (const sc_char *name)
   for (iterator = GSC_AVAILABLE_LOCALES; *iterator; iterator++)
     {
       const gsc_locale_t *const locale = *iterator;
-      const sc_char *locale_name;
 
-      locale_name = (const sc_char *) locale->name;
-      if (sc_strncasecmp (name, locale_name, strlen (name)) == 0)
+      if (sc_strncasecmp (name, locale->name, strlen (name)) == 0)
         {
           matched = locale;
           break;
@@ -527,8 +529,6 @@ gsc_set_locale (const sc_char *name)
   /* If matched, set the global locale. */
   if (matched)
     gsc_locale = matched;
-
-  return matched ? matched->name : NULL;
 }
 
 
@@ -829,6 +829,35 @@ static const sc_int GSC_STATUS_SLOP = 10;
 /* Size of saved status buffer used for non-windowing Glk status lines. */
 enum { GSC_STATUS_BUFFER_LENGTH = 74 };
 
+/* Whitespace characters, used to detect empty status elements. */
+static const sc_char *const GSC_WHITESPACE = "\t\n\v\f\r ";
+
+
+/*
+ * gsc_is_string_usable()
+ *
+ * Return TRUE if string is non-null, not zero-length or contains characters
+ * other than whitespace.
+ */
+static sc_bool
+gsc_is_string_usable (const sc_char *string)
+{
+  /* If non-null, scan for any non-space character. */
+  if (string)
+    {
+      sc_int index_;
+
+      for (index_ = 0; string[index_] != '\0'; index_++)
+        {
+          if (!strchr (GSC_WHITESPACE, string[index_]))
+            return TRUE;
+        }
+    }
+
+  /* NULL, or no characters other than whitespace. */
+  return FALSE;
+}
+
 
 /*
  * gsc_status_update()
@@ -840,17 +869,26 @@ static void
 gsc_status_update (void)
 {
   glui32 width, height;
+  int index;
   assert (gsc_status_window);
 
   glk_window_get_size (gsc_status_window, &width, &height);
   if (height > 0)
     {
+      const sc_char *room;
+
       glk_window_clear (gsc_status_window);
       glk_window_move_cursor (gsc_status_window, 0, 0);
       glk_set_window (gsc_status_window);
 
+      glk_set_style(style_User1);
+      for (index = 0; index < width; index++)
+        glk_put_char (' ');
+      glk_window_move_cursor (gsc_status_window, 0, 0);
+
       /* See if the game is indicating any current player room. */
-      if (!sc_get_game_room (gsc_game))
+      room = sc_get_game_room (gsc_game);
+      if (!gsc_is_string_usable (room))
         {
           /*
            * Player location is indeterminate, so print out a generic status,
@@ -868,11 +906,11 @@ gsc_status_update (void)
 
           /* Print the player location. */
           glk_window_move_cursor (gsc_status_window, 1, 0);
-          gsc_put_string (sc_get_game_room (gsc_game));
+          gsc_put_string (room);
 
           /* Get the game's status line, or if none, format score. */
           status = sc_get_game_status_line (gsc_game);
-          if (!status)
+          if (!gsc_is_string_usable (status))
             {
               sprintf (score, "Score: %ld", sc_get_game_score (gsc_game));
               status = score;
@@ -925,8 +963,11 @@ gsc_status_print (void)
 {
   static char current_status[GSC_STATUS_BUFFER_LENGTH + 1];
 
+  const sc_char *room;
+
   /* Do nothing if the game isn't indicating any current player room. */
-  if (sc_get_game_room (gsc_game))
+  room = sc_get_game_room (gsc_game);
+  if (gsc_is_string_usable (room))
     {
       char buffer[GSC_STATUS_BUFFER_LENGTH + 1];
       const sc_char *status;
@@ -934,12 +975,11 @@ gsc_status_print (void)
 
       /* Make an attempt at a status line, starting with player location. */
       strcpy (buffer, "");
-      gsc_status_safe_strcat (buffer,
-                              sizeof (buffer), sc_get_game_room (gsc_game));
+      gsc_status_safe_strcat (buffer, sizeof (buffer), room);
 
       /* Get the game's status line, or if none, format score. */
       status = sc_get_game_status_line (gsc_game);
-      if (!status)
+      if (!gsc_is_string_usable (status))
         {
           sprintf (score, "Score: %ld", sc_get_game_score (gsc_game));
           status = score;
@@ -1618,8 +1658,8 @@ os_display_hints (sc_game game)
 
   /* For each hint, print the question, and confirm hint display. */
   refused = 0;
-  for (hint = sc_iterate_game_hints (game, NULL);
-       hint; hint = sc_iterate_game_hints (game, hint))
+  for (hint = sc_get_first_game_hint (game);
+       hint; hint = sc_get_next_game_hint (game, hint))
     {
       const sc_char *hint_question, *hint_text;
 
@@ -2050,7 +2090,9 @@ gsc_command_print_version_number (glui32 version)
   char buffer[64];
 
   sprintf (buffer, "%lu.%lu.%lu",
-           version >> 16, (version >> 8) & 0xff, version & 0xff);
+          (unsigned long) version >> 16,
+          (unsigned long) (version >> 8) & 0xff,
+          (unsigned long) version & 0xff);
   gsc_normal_string (buffer);
 }
 
@@ -2138,8 +2180,8 @@ gsc_command_license (const char *argument)
 
   gsc_normal_string ("You should have received a copy of the GNU General"
                      " Public License along with this program; if not, write"
-                     " to the Free Software Foundation, Inc., 59 Temple"
-                     " Place, Suite 330, Boston, MA  02111-1307 USA\n\n");
+                     " to the Free Software Foundation, Inc., 51 Franklin"
+                     " Street, Fifth Floor, Boston, MA 02110-1301 USA\n\n");
 
   gsc_normal_string ("Please report any bugs, omissions, or misfeatures to ");
   gsc_standout_string ("simon_baldwin@yahoo.com");
@@ -3128,6 +3170,11 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
   if (window)
     glk_window_close (window, NULL);
 
+  /* Set title of game */
+#ifdef GARGLK
+    garglk_set_story_name(sc_get_game_name(gsc_game));
+#endif
+
   /* Game set up, perhaps successfully. */
   return TRUE;
 }
@@ -3138,7 +3185,7 @@ gsc_main (void)
   sc_bool is_running;
 
   /* Ensure SCARE internal types have the right sizes. */
-  if (!(sizeof (sc_byte) == 1 && sizeof (sc_char) == 1 && sizeof (sc_bool) == 1
+  if (!(sizeof (sc_byte) == 1 && sizeof (sc_char) == 1
         && sizeof (sc_uint) >= 4 && sizeof (sc_int) >= 4
         && sizeof (sc_uint) <= 8 && sizeof (sc_int) <= 8))
     {
@@ -3168,6 +3215,7 @@ gsc_main (void)
     }
 
   /* Try to create a one-line status window.  We can live without it. */
+  glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
   gsc_status_window = glk_window_open (gsc_main_window,
                                        winmethod_Above | winmethod_Fixed,
                                        1, wintype_TextGrid, 0);
@@ -3286,7 +3334,7 @@ glk_main (void)
 /*---------------------------------------------------------------------*/
 /*  Glk linkage relevant only to the UNIX platform                     */
 /*---------------------------------------------------------------------*/
-#if 1 // Spatterlight is also a ...def __unix
+#ifdef TRUE
 
 #include "glkstart.h"
 
@@ -3334,6 +3382,12 @@ glkunix_startup_code (glkunix_startup_t * data)
   sc_bool enable_debugger, stable_random;
   assert (!gsc_startup_called);
   gsc_startup_called = TRUE;
+
+#ifdef GARGLK
+  garglk_set_program_name("SCARE " SCARE_VERSION);
+  garglk_set_program_info("SCARE " SCARE_VERSION
+      " by Simon Baldwin and Mark J. Tilford");
+#endif
 
   /* Handle command line arguments. */
   restore_from = NULL;
@@ -3488,9 +3542,8 @@ winglk_startup_code (const char *cmdline)
   winglk_app_set_name ("Scare");
   winglk_set_menu_name ("&Scare");
   winglk_window_set_title ("Scare Adrift Interpreter");
-  winglk_set_about_text ("Windows Scare 1.3.9");
+  winglk_set_about_text ("Windows Scare 1.3.10");
   winglk_set_gui (IDI_SCARE);
-  glk_stylehint_set (wintype_TextGrid, style_Normal, stylehint_ReverseColor, 1);
 
   /* Open a stream to the game. */
   filename = winglk_get_initial_filename (cmdline,

@@ -2,6 +2,77 @@
 
 ================================ VERSION 3.1 =================================
 
+**** COMMITTED CHANGES - the following are changes that we've
+definitely decided to make, but which we've deferred until after the
+next general release because it's too late in the current release
+cycle to make changes that could be potentially destabilizing.
+
+1. In DefineTAction(TravelVia), remove the override for
+getCurrentObjects.  This override was originally put in place because
+the direct object of a TravelVia is a TravelConnector, which was at
+one time based on 'object' rather than on Thing.  TravelConnector is
+now a Thing subclass, so the direct object of a TravelVia will always
+be a simulation object, hence it's fine to return it as an action
+object.
+
+2. In RestrictedUnderside, RestrictedRearContainer, and
+RestrictedRearSurface, the iobjFor(PutXxx) check() routine should call
+"inherited Xxx()" (where Xxx is the unrestricted base class - the
+*second* base class in the RestrictedXxx superclass list) to enforce
+the inherited allowPutXxx restriction.  However, we can't just add the
+'inherited' call: each of the base container check() methods does a
+simple reportFailure(&cannotPutXxxMsg), whereas the Restricted classes
+invoke self.cannotPutXxxMsg(dobj) - same method, different argument
+list.  We either need to rename the cannotPutXxxMsg(dobj) version of
+the method, OR add the dobj parameter to the parameter-less form of
+the method.  In either case, we could break some existing code.  I
+think the renaming approach is probably better, because there really
+are two failure conditions here.
+
+The lowest impact approach is probably to change cannotPutXxxMsg(obj)
+to something like cannotPutObjXxxMsg(obj) for all of the various
+RestrictedXxx containers.  This will necessitate a little global
+search and replace for existing code, but the alternative is to change
+some much lower level code: the no-parameter cannotPutXxxMsg messages
+are used in Thing, for instance.
+
+
+
+**** REQUESTED CHANGES - the following are changes that have been
+suggested and possibly discussed to some extent on the tads3 mailing
+list, but whose final disposition is yet to be determined.  We might
+or might not ultimately decide to add any of these features.
+Priorities, feasibility, and full design details are yet to be
+determined for many of these.
+
+
+---------
+
+From Eric Eve <eric.eve@harris-manchester.oxford.ac.uk>: In the adv3
+command execution sequence, the relative ordering of the "check" phase
+and the various "before" notifications seems wrong as it currently
+stands.  Currently, "before" happens before "check" - this means that
+the command can fail in the "check" after the "before" notifications
+have occurred.  Conceptually, it seems like "before" notifications
+should only occur after the action is committed.  Now, this isn't
+truly possible in practice, because any individual "before" handler
+could still cancel the whole command - the relative ordering of
+"before" handlers is arbitrary, so a "before" handler could cancel the
+action after other "before" handlers already ran.  Nonetheless, it
+probably makes sense to consider "check" as a stronger sort of test
+than "before"; it's relatively rare for "before" handlers to cancel a
+command, while testing for cancel-worthy conditions is the whole point
+of "check."
+
+Implementing this change is trivial.  The only reason for putting this
+off until 3.1 is that it seems likely to break a small amount of
+existing code - most code won't be affected at all, but there will
+probably be a few existing cases that depend subtly on the existing
+ordering due to interactions among multiple objects and/or handlers.
+People are more likely to expect and accept this sort of compatibility
+risk in a major update.
+
+
 ---------
 
 From Michel Nizette <mnizette@ulb.ac.be> [9/1/06]:
@@ -145,6 +216,23 @@ one of those.
 
 ---------
 
+From Krister Fundin <fundin@yahoo.com> [9/13/06]:
+
+   > push television into white box
+   (first standing on the main platform)
+   Okay, you're now standing in the white box.
+
+Perhaps it's not serious enough that it needs to be fixed now. In the
+long run, one could imagine a "first trying to push the television
+onto the main platform" type of implicit action here, but that would
+take some work.
+
+[I'm not even sure what would be right here.  I guess some
+fine-grained variation of PushTravel for pushing into nested rooms or
+something.]
+
+---------
+
 The ThingState mechanism should be extended to allow a single object
 to have multiple current, active states.  For example, it should be
 possible for an object to be simultaneously worn, lit, and open.  As
@@ -252,13 +340,6 @@ introduce a ton of new virtual calls, because all of the CVmStream
 methods are virtual while the corresponding CVmFile methods are
 non-virtual.  It'd also be worth measuring any degradation in
 save/restore performance from all the new virtual calls.)
-
----------
-
-Workbench: add a "ZIP source files" command that creates a .zip file
-containing all project source files and all necessary directories to
-compile.  The idea is that this file can be unzipped on another machine,
-and the project can then be built there without any further fuss.
 
 ---------
 
@@ -711,4 +792,156 @@ that the empty case really needs to be inherited in the first place,
 but Andreas's point is that it *could* be there to ensure backwards
 compatibility with the existing template structure, which implicitly
 does inherit the empty case.]
+
+---------
+
+From <2003-10-01.as.int-fiction@web.de>: add a way of naming
+anonymous functions (which would make the name an oxymoron, so
+I suppose we'd have to rename them to "in-line" functions
+or similar).  Something like this:
+
+ local f = new function factorial(n) { return n > 1 ? n*factorial(n-1) : 1; };
+
+---------
+
+From Krister Fundin <fundin@yahoo.com>: add
+TadsObject.forEachSuperclass(); takes a callback function pointer as
+its argument.  This would iterate through all of the direct and
+indirect superclasses of an object.  (This is readily implementable in
+byte code, but the VM might have the class hierarchy cached, so it
+could iterate through them more efficiently than byte code could.)
+
+---------
+
+From Robey Holderith <robey@flaminglunchbox.net>: add a new
+Python-style string notation: use three single quotes in a row as
+an alternative single-quoted string delimiter.  For example:
+
+   '''Sorry, she's not here right now.'''
+
+would be treated as equivalent to
+
+   'Sorry, she\'s not here right now.'
+
+Many people find the Python notation more readable than the present
+backslash notation.  The backslash notation would be retained as well;
+this would just be a new, optional variation.  (There's some
+compatibility risk, but it's probably negligible - it's hard to come
+up with any example of where a tripled quote like this would be useful
+in the present notation.)
+
+---------
+
+From steve breslin <steve.breslin@gmail.com>: Add auto-completion
+popup lists and parameter-list tooltips to the editor, a la
+"intellisense" in msft dev env's.  Scintilla has native support for
+both of these (the "autocomplete" and "call tips" features), so
+there'd be no UI work; it's just a matter of monitoring keystrokes,
+generating the popup/tip data, and making the appropriate SCI_xxx
+calls to activate the features.
+
+The main difficulty is that TADS is not a statically typed language,
+so it's not possible in principal to generate the popup data that you
+can in a language like C++, where you can determine the type of any
+expression at compile time (and thus at editing time).  You could find
+the popup information only when referring directly to an object by
+name.  I'm not sure if the result would be useful enough to justify
+the work.
+
+The other complication is that I don't think the compiler currently
+provides any sort of convenient packaging for the sort of information
+you'd need to generate the popups; it would probably require some
+compiler work to generate a little database giving the method list for
+each object.  This wouldn't be a ton of work but wouldn't be free.
+
+---------
+
+From Knight Errant <sigmundvondanzig@gmail.com>: add a spell-checker
+to Workbench.  (Could be an on-the-fly spell checker a la Word's
+squiggly underlines, or could be an explicit separate step.  I think
+Scintilla has some built-in support for the display part of on-the-fly
+spell checking, so that would probably be the way to go.  Spell
+checking would be most useful if it were mode-sensitive, so that, for
+example, the tads3 mode would only check text within strings, and
+exclude HTML substrings.  Presumably we could use the style
+information to do this.)
+
+---------
+
+From Eric Eve <eric.eve@hmc.ox.ac.uk>: It would be quite nice if
+TravelBarrier objects had some easy way to refer to the connector
+through which they're blocking travel in their explainTravelBarrier()
+method. One way to do this might be to add a second parameter to
+TravelBarrier.explainTravelBarrier and then have
+TravelConnector.checkTravelBarriers() call
+explainTravelBarrier(traveler, self) instead of
+explainTravelBarrier(traveler); but this could break a lot of existing
+code. The slightly messier alternative, which might nevertheless
+better preserve backward compatibility would be to add a connector
+property to TravelBarrier and then add cur.connector = self just
+before cur.explainTravelBarrier(traveler) in the foreach(cur in lst)
+loop in TravelConnector.checkTravelBarriers().
+
+---------
+
+From Eric Eve <eric.eve@hmc.ox.ac.uk>: At present attempting to travel
+via an AskConnector will always prefer an open door to a closed one
+(without prompting the player to specify which door s/he wants to go
+through). This may be fine as default behaviour but sometimes in might
+be nice to allow the option of always prompting the player to specify
+which door is meant. (I can see that this might be quite fiddly to
+achieve, and if it's too fiddly then by all means don't pursue it;
+it's hardly high priority).
+
+---------
+
+From Eric Eve <eric.eve@hmc.ox.ac.uk>: IIRC this came up before, but I
+can't remember that it was ever pursued. It would be quite nice if
+ThingMatchTopic could match on a class as well as an object, e.g.:
+
+ThingMatchTopic.matchTopic(fromActor, obj)
+{
+        /*
+         *   if matchObj is a collection, check each element, otherwise
+         *   just match the single object
+         */
+        if (matchObj.ofKind(Collection))
+        {
+            /* try matching each object in the list */
+            if (matchObj.indexWhich({cur: obj.ofKind(cur)}) != nil)
+                return matchScore;
+        }
+        else
+        {
+            /* match the single object */
+            if (obj.ofKind(matchObj))
+                return matchScore;
+        }
+
+        /* didn't find a match - indicate this by returning a nil score */
+        return nil;
+    }
+
+With corresponding changes to ThingMatchTopic.isMatchPossible().
+
+So far as I can see this shouldn't break any existing code (if
+obj==matchObj then obj.ofKind(matchObj)), but would allow for greater
+flexibility, making it easier to write responses such as:
+
++ GiveShowTopic @Food
+  topicResponse()
+  {
+     gDobj.moveInto(nil);
+     "Bob snatches {the dobj/him} from you and wolfs it down.\b
+      <q>Thanks,</q> he says, <q>I needed that -- I waa starving!</q>";
+  }
+;
+---------
+
+From Eric Eve <eric.eve@hmc.ox.ac.uk>: Some time ago Michel sent me
+some very nice code to add a vocabLikehihood property to VocabObject,
+which allows authors to nudge the parser to prefering some objects to
+others when all other distinguishers fail. I've found it pretty useful
+ever since and I think it would make a nice addition to the standard
+library if Michel were willing to contribute it.
 

@@ -300,7 +300,9 @@ startover:
     end_loop:
         ERRCATCH(ec, err)
         {
-            if (err != ERR_RUNQUIT && err != ERR_RUNRESTART)
+            if (err != ERR_RUNQUIT
+                && err != ERR_RUNRESTART
+                && !(err == ERR_RUNABRT && voc->voccxredo))
                 errclog(ec);
         }
         ERREND(ec);

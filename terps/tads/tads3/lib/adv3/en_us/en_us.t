@@ -94,12 +94,9 @@ yesOrNo()
 PreinitObject
     execute()
     {
-        /* create the main dictionary's comparator */
-        local d = new StringComparator(6, nil, []);
-
-        /* remember it globally, and set it in the main dictionary */
-        languageGlobals.dictComparator = d;
-        cmdDict.setComparator(languageGlobals.dictComparator);
+        /* set up the main dictionary's comparator */
+        languageGlobals.setStringComparator(
+            new StringComparator(gameMain.parserTruncLength, nil, []));
     }
 
     /*
@@ -119,6 +116,17 @@ PreinitObject
  *   Language-specific globals
  */
 languageGlobals: object
+    /*
+     *   Set the StringComparator object for the parser.  This sets the
+     *   comparator that's used in the main command parser dictionary. 
+     */
+    setStringComparator(sc)
+    {
+        /* remember it globally, and set it in the main dictionary */
+        dictComparator = sc;
+        cmdDict.setComparator(sc);
+    }
+
     /*
      *   The character to use to separate groups of digits in large
      *   numbers.  US English uses commas; most Europeans use periods.
@@ -150,6 +158,37 @@ languageGlobals: object
  *   implementation.
  */
 modify GameMainDef
+    /*
+     *   Option setting: the parser's truncation length for player input.
+     *   As a convenience to the player, we can allow the player to
+     *   truncate long words, entering only the first, say, 6 characters.
+     *   For example, rather than typing "x flashlight", we could allow the
+     *   player to simply type "x flashl" - truncating "flashlight" to six
+     *   letters.
+     *   
+     *   We use a default truncation length of 6, but games can change this
+     *   by overriding this property in gameMain.  We use a default of 6
+     *   mostly because that's what the old Infocom games did - many
+     *   long-time IF players are accustomed to six-letter truncation from
+     *   those games.  Shorter lengths are superficially more convenient
+     *   for the player, obviously, but there's a trade-off, which is that
+     *   shorter truncation lengths create more potential for ambiguity.
+     *   For some games, a longer length might actually be better for the
+     *   player, because it would reduce spurious ambiguity due to the
+     *   parser matching short input against long vocabulary words.
+     *   
+     *   If you don't want to allow the player to truncate long words at
+     *   all, set this to nil.  This will require the player to type every
+     *   word in its entirety.
+     *   
+     *   Note that changing this property dynamicaly will have no effect.
+     *   The library only looks at it once, during library initialization
+     *   at the very start of the game.  If you want to change the
+     *   truncation length dynamically, you must instead create a new
+     *   StringComparator object with the new truncation setting, and call
+     *   languageGlobals.setStringComparator() to select the new object.  
+     */
+    parserTruncLength = 6
 
     /*
      *   Option: are we currently using a past tense narrative?  By
@@ -174,16 +213,31 @@ modify GameMainDef
  */
 modify ThingState
     /*
-     *   Our state-specific tokens.  This is a list of words that can be
-     *   used in noun phrases in parsed input to refer to this state, and
-     *   ONLY to this state - that it, these words must not refer to any
-     *   other states among the possible states for an object that can
-     *   take on this state.
-     *
-     *   If a noun phrase contains a word from this list, it means that
-     *   the noun phrase CAN refer to an object in this state, and that
-     *   the noun phrase CANNOT refer to an object in any other state that
-     *   is possible for objects that can assume this state.
+     *   Our state-specific tokens.  This is a list of vocabulary words
+     *   that are state-specific: that is, if a word is in this list, the
+     *   word can ONLY refer to this object if the object is in a state
+     *   with that word in its list.
+     *   
+     *   The idea is that you set up the object's "static" vocabulary with
+     *   the *complete* list of words for all of its possible states.  For
+     *   example:
+     *   
+     *.     + Matchstick 'lit unlit match';
+     *   
+     *   Then, you define the states: in the "lit" state, the word 'lit' is
+     *   in the stateTokens list; in the "unlit" state, the word 'unlit' is
+     *   in the list.  By putting the words in the state lists, you
+     *   "reserve" the words to their respective states.  When the player
+     *   enters a command, the parser will limit object matches so that the
+     *   reserved state-specific words can only refer to objects in the
+     *   corresponding states.  Hence, if the player refers to a "lit
+     *   match", the word 'lit' will only match an object in the "lit"
+     *   state, because 'lit' is a reserved state-specific word associated
+     *   with the "lit" state.
+     *   
+     *   You can re-use a word in multiple states.  For example, you could
+     *   have a "red painted" state and a "blue painted" state, along with
+     *   an "unpainted" state.
      */
     stateTokens = []
 
@@ -195,33 +249,37 @@ modify ThingState
      */
     matchName(obj, origTokens, adjustedTokens, states)
     {
-        /*
-         *   scan our state list, looking for tokens that belong to other
-         *   states
-         */
-        foreach (local st in states)
+        /* scan each word in our adjusted token list */
+        for (local i = 1, local len = adjustedTokens.length() ;
+             i <= len ; i += 2)
         {
+            /* get the current token */
+            local cur = adjustedTokens[i];
+
             /*
-             *   if this is our own state, skip it - we obviously want to
-             *   allow words associated with our own state
+             *   If this token is in our own state-specific token list,
+             *   it's acceptable as a match to this object.  (It doesn't
+             *   matter whether or not it's in any other state's token list
+             *   if it's in our own, because its presence in our own makes
+             *   it an acceptable matching word when we're in this state.) 
              */
-            if (st == self)
+            if (stateTokens.indexWhich({t: t == cur}) != nil)
                 continue;
 
             /*
-             *   if we can find any tokens associated with this other
-             *   state, then the noun phrase must be referring to some
-             *   other object, because we're not in the state they're
-             *   talking about
+             *   It's not in our own state-specific token list.  Check to
+             *   see if the word appears in ANOTHER state's token list: if
+             *   it does, then this word CAN'T match an object in this
+             *   state, because the token is special to that other state
+             *   and thus can't refer to an object in a state without the
+             *   token. 
              */
-            if (st.findStateToken(adjustedTokens))
+            if (states.indexWhich(
+                {s: s.stateTokens.indexOf(cur) != nil}) != nil)
                 return nil;
         }
 
-        /*
-         *   we didn't find any words from other states, so we have no
-         *   objection to matching this object
-         */
+        /* we didn't find any objection, so we can match this phrase */
         return obj;
     }
 
@@ -896,9 +954,13 @@ modify Thing
     listName = (aName)
 
     /*
-     *   Return a string giving a count of the object ("five coins").
-     *   'info' is a SenseInfo object giving the sense conditions under
-     *   which the object is being described.  By default, we
+     *   Return a string giving the "counted name" of the object - that is,
+     *   a phrase describing the given number of the object.  For example,
+     *   for a red book, and a count of 5, we might return "five red
+     *   books".  By default, we use countNameFrom() to construct a phrase
+     *   from the count and either our regular (singular) 'name' property
+     *   or our 'pluralName' property, according to whether count is 1 or
+     *   more than 1.  
      */
     countName(count) { return countNameFrom(count, name, pluralName); }
 
@@ -1443,10 +1505,6 @@ modify Thing
      *   unimportant word", or "a unanimous decision" and "an unassuming
      *   man").  We simply always use 'an' for a word starting with 'u',
      *   but this will have to be overridden when the 'u' sounds like 'y'.
-     *
-     *   Note that this routine can be overridden entirely, but in most
-     *   cases, an object can simply override the 'article' property to
-     *   specify the article to use.
      */
     aNameFrom(str)
     {
@@ -2034,7 +2092,7 @@ class ChildNameAsOther: object
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Language modifications for Surface
+ *   Language modifications for the specialized container types
  */
 modify Surface
     /*
@@ -2042,6 +2100,20 @@ modify Surface
      *   Surface
      */
     objInPrep = 'on'
+    actorInPrep = 'on'
+    actorOutOfPrep = 'off of'
+;
+
+modify Underside
+    objInPrep = 'under'
+    actorInPrep = 'under'
+    actorOutOfPrep = 'from under'
+;
+
+modify RearContainer
+    objInPrep = 'behind'
+    actorInPrep = 'behind'
+    actorOutOfPrep = 'from behind'
 ;
 
 /* ------------------------------------------------------------------------ */
@@ -2390,7 +2462,7 @@ modify Actor
      */
     setPronounMulti([args])
     {
-        local lst;
+        local lst, subLst;
         local gotThem;
 
         /*
@@ -2413,19 +2485,24 @@ modify Actor
         lst = args.mapAll({x: x[1].obj_});
 
         /*
-         *   set 'it' to all of the items that can match 'it'; do likewise
-         *   with 'him' and 'her'
+         *   Set 'it' to all of the items that can match 'it'; do likewise
+         *   with 'him' and 'her'.  If there are no objects that can match
+         *   a given pronoun, leave that pronoun unchanged.  
          */
-        setIt(lst.subset({x: x.canMatchIt}));
-        setHim(lst.subset({x: x.canMatchHim}));
-        setHer(lst.subset({x: x.canMatchHer}));
+        if ((subLst = lst.subset({x: x.canMatchIt})).length() > 0)
+            setIt(subLst);
+        if ((subLst = lst.subset({x: x.canMatchHim})).length() > 0)
+            setHim(subLst);
+        if ((subLst = lst.subset({x: x.canMatchHer})).length() > 0)
+            setHer(subLst);
 
         /*
          *   set 'them' to the potential 'them' matches, if we didn't
          *   already find a clear plural list
          */
-        if (!gotThem)
-            setThem(lst.subset({x: x.canMatchThem}));
+        if (!gotThem
+            && (subLst = lst.subset({x: x.canMatchThem})).length() > 0)
+            setThem(subLst);
     }
 
     /*
@@ -2785,6 +2862,15 @@ modify PathPassage
     /* treat "take path" the same as "enter path" or "go through path" */
     dobjFor(Take) maybeRemapTo(
         gAction.getEnteredVerbPhrase() == 'take (dobj)', TravelVia, self)
+
+    dobjFor(Enter)
+    {
+        verify() { logicalRank(50, 'enter path'); }
+    }
+    dobjFor(GoThrough)
+    {
+        verify() { logicalRank(50, 'enter path'); }
+    }
 ;
 
 modify AskConnector
@@ -3135,6 +3221,72 @@ class MessageHelper: object
             }
         }
     }
+
+    /*
+     *   For a TAction result, select the short-form or long-form message,
+     *   according to the disambiguation status of the action.  This is for
+     *   the ultra-terse default messages, such as "Taken" or "Dropped",
+     *   that sometimes need more descriptive variations.
+     *   
+     *   If there was no disambiguation involved, we'll use the short
+     *   version of the message.
+     *   
+     *   If there was unclear disambiguation involved (meaning that there
+     *   was more than one logical object matching a noun phrase, but the
+     *   parser was able to decide based on likelihood rankings), we'll
+     *   still use the short version, because we assume that the parser
+     *   will have generated a parenthetical announcement to point out its
+     *   choice.
+     *   
+     *   If there was clear disambiguation involved (meaning that more than
+     *   one in-scope object matched a noun phrase, but there was only one
+     *   choice that passed the logicalness tests), AND the announcement
+     *   mode (in gameMain.ambigAnnounceMode) is DescribeClear, we'll
+     *   choose the long-form message.  
+     */
+    shortTMsg(short, long)
+    {
+        /* check the disambiguation flags and the announcement mode */
+        if ((gAction.getDobjFlags() & (ClearDisambig | AlwaysAnnounce))
+            == ClearDisambig
+            && gAction.getDobjCount() == 1
+            && gameMain.ambigAnnounceMode == DescribeClear)
+        {
+            /* clear disambig and DescribeClear mode - use the long message */
+            return long;
+        }
+        else
+        {
+            /* in other cases, use the short message */
+            return short;
+        }
+    }
+
+    /*
+     *   For a TIAction result, select the short-form or long-form message.
+     *   This works just like shortTIMsg(), but takes into account both the
+     *   direct and indirect objects. 
+     */
+    shortTIMsg(short, long)
+    {
+        /* check the disambiguation flags and the announcement mode */
+        if (((gAction.getDobjFlags() & (ClearDisambig | AlwaysAnnounce))
+             == ClearDisambig
+             || (gAction.getIobjFlags() & (ClearDisambig | AlwaysAnnounce))
+             == ClearDisambig)
+            && gAction.getDobjCount() == 1
+            && gAction.getIobjCount() == 1
+            && gameMain.ambigAnnounceMode == DescribeClear)
+        {
+            /* clear disambig and DescribeClear mode - use the long message */
+            return long;
+        }
+        else
+        {
+            /* in other cases, use the short message */
+            return short;
+        }
+    }
 ;
 
 /* ------------------------------------------------------------------------ */
@@ -3269,7 +3421,7 @@ modify InteractiveResolver
         if (actor_.canMatchPronounType(typ) && !actor_.isPlayerChar())
         {
             /* the match is the target actor */
-            return [new ResolveInfo(actor_, 0)];
+            return [new ResolveInfo(actor_, 0, nil)];
         }
 
         /* we didn't match it */
@@ -3500,8 +3652,8 @@ unwornState: ThingState;
  *
  *   We perform the following conversions:
  *
- *   '---' -> &zwnbsp;&emdash;
- *.  '--' -> &zwnbsp;&endash;
+ *   '---' -> &zwnbsp;&mdash;
+ *.  '--' -> &zwnbsp;&ndash;
  *.  sentence-ending punctuation -> same + &ensp;
  *
  *   Since this routine is called so frequently, we hard-code the
@@ -3527,21 +3679,25 @@ typographicalOutputFilter: OutputFilter
          */
         val = rexReplace(eosPattern, val, '%1\u2002', ReplaceAll);
 
+        /* undo any abbreviations we mistook for sentence endings */
+        val = rexReplace(abbrevPat, val, '%1. ', ReplaceAll);
+
         /*
-         *   Replace dashes with typographical hyphens.  Note that we check
-         *   for the three-hyphen sequence first, because if we did it the
-         *   other way around, we'd incorrectly find the first two hyphens
-         *   of each '---' sequence and replace them with an en-dash,
-         *   causing us to miss the '---' sequences entirely.
-         *
+         *   Replace dashes with typographical hyphens.  Three hyphens in a
+         *   row become an em-dash, and two in a row become an en-dash.
+         *   Note that we look for the three-hyphen sequence first, because
+         *   if we did it the other way around, we'd incorrectly find the
+         *   first two hyphens of each '---' sequence and replace them with
+         *   an en-dash, causing us to miss the '---' sequences entirely.
+         *   
          *   We put a no-break marker (\uFEFF) just before each hyphen, and
          *   an okay-to-break marker (\u200B) just after, to ensure that we
          *   won't have a line break between the preceding text and the
          *   hyphen, and to indicate that a line break is specifically
-         *   allowed if needed to the right of the hyphen.
+         *   allowed if needed to the right of the hyphen.  
          */
-        val = val.findReplace('---', '\uFEFF&mdash;\u200B', ReplaceAll);
-        val = val.findReplace('--',  '\uFEFF&ndash;\u200B', ReplaceAll);
+        val = val.findReplace(['---', '--'],
+                              ['\uFEFF&mdash;\u200B', '\uFEFF&ndash;\u200B']);
 
         /* return the result */
         return val;
@@ -3578,6 +3734,21 @@ typographicalOutputFilter: OutputFilter
         + ')'
         + ' +(?![-a-z])'
         )
+
+    /* pattern for abbreviations that were mistaken for sentence endings */
+    abbrevPat = static new RexPattern(
+        '<nocase>%<(' + abbreviations + ')<dot>\u2002')
+
+    /* 
+     *   Common abbreviations.  These are excluded from being treated as
+     *   sentence endings when they appear with a trailing period.
+     *   
+     *   Note that abbrevPat must be rebuilt manually if you change this on
+     *   the fly - abbrevPat is static, so it picks up the initial value of
+     *   this property at start-up, and doesn't re-evaluate it while the
+     *   game is running.  
+     */
+    abbreviations = 'mr|mrs|ms|dr|prof'
 ;
 
 /* ------------------------------------------------------------------------ */
@@ -3803,7 +3974,7 @@ langMessageBuilder: MessageBuilder
              *   Check if this special sequence matches our tense-switching
              *   syntax.
              */
-            if (nil == rexMatch(patTenseSwitching, str, idx))
+            if (rexMatch(patTenseSwitching, str, idx) == nil)
             {
                 /*
                  *   It doesn't, so forget about it and continue searching
@@ -4575,6 +4746,9 @@ parseIntTokens(toks)
 /* special "apostrophe-s" token */
 enum token tokApostropheS;
 
+/* special apostrophe token for plural possessives ("the smiths' house") */
+enum token tokPluralApostrophe;
+
 /* special abbreviation-period token */
 enum token tokAbbrPeriod;
 
@@ -4654,6 +4828,15 @@ cmdTokenizer: Tokenizer
          tokWord, &tokCvtApostropheS, nil],
 
         /*
+         *   A plural word ending in an apostrophe.  We parse this as two
+         *   separate tokens: one for the word and one for the apostrophe. 
+         */
+        ['plural possessive word',
+         new RexPattern('<Alpha|-|&><AlphaNum|-|&|squote>*<squote>'
+                        + '(?!<AlphaNum>)'),
+         tokWord, &tokCvtPluralApostrophe, nil],
+
+        /*
          *   Words - note that we convert everything to lower-case.  A word
          *   must start with an alphabetic character, a hyphen, or an
          *   ampersand; after the initial character, a word can contain
@@ -4724,13 +4907,37 @@ cmdTokenizer: Tokenizer
          *   pull out the apostrophe-s part
          */
         w = txt.substr(1, txt.length() - 2);
-        s = txt.substr(txt.length() - 1);
+        s = txt.substr(-2);
 
         /* add the part before the apostrophe as the main token type */
         toks.append([w, typ, w]);
 
         /* add the apostrophe-s as a separate special token */
         toks.append([s, tokApostropheS, s]);
+    }
+
+    /*
+     *   Handle a plural apostrophe word ("the smiths' house").  We'll
+     *   return this as two tokens: one for the plural word, and one for
+     *   the apostrophe. 
+     */
+    tokCvtPluralApostrophe(txt, typ, toks)
+    {
+        local w;
+        local s;
+
+        /*
+         *   pull out the part up to but not including the apostrophe, and
+         *   separately pull out the apostrophe 
+         */
+        w = txt.substr(1, txt.length() - 1);
+        s = txt.substr(-1);
+
+        /* add the part before the apostrophe as the main token type */
+        toks.append([w, typ, w]);
+
+        /* add the apostrophe-s as a separate special token */
+        toks.append([s, tokPluralApostrophe, s]);
     }
 
     /*
@@ -4838,7 +5045,8 @@ cmdTokenizer: Tokenizer
             }
             else if (i + 1 <= len
                      && getTokType(toks[i]) == tokWord
-                     && getTokType(toks[i+1]) == tokApostropheS)
+                     && getTokType(toks[i+1]) is in
+                        (tokApostropheS, tokPluralApostrophe))
             {
                 /*
                  *   it's a word followed by an apostrophe-s token - these
@@ -4851,10 +5059,13 @@ cmdTokenizer: Tokenizer
             }
 
             /*
-             *   if another token follows, and the next token isn't a
-             *   punctuation mark, add a space before the next token
+             *   If another token follows, and the next token isn't a
+             *   punctuation mark, and the previous token wasn't an open
+             *   paren, add a space before the next token.
              */
-            if (i != len && rexMatch(patPunct, getTokVal(toks[i+1])) == nil)
+            if (i != len
+                && rexMatch(patPunct, getTokVal(toks[i+1])) == nil
+                && getTokVal(toks[i]) != '(')
                 str += ' ';
         }
 
@@ -4867,7 +5078,7 @@ cmdTokenizer: Tokenizer
         '<nocase>twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety')
     patSpelledUnits = static new RexPattern(
         '<nocase>one|two|three|four|five|six|seven|eight|nine')
-    patPunct = static new RexPattern('[.,;:?!]')
+    patPunct = static new RexPattern('[.,;:?!)]')
 ;
 
 
@@ -5202,7 +5413,11 @@ grammar singleNoun(normal): singleNounOnly->np_ : LayeredNounPhraseProd
  *   when we have no choice.
  */
 grammar singleNoun(empty): [badness 500] : EmptyNounPhraseProd
-    responseProd = singleNoun
+    /* use a nil responseProd, so that we get the phrasing from the action */
+    responseProd = nil
+
+    /* the fallback responseProd, if we can't get one from the action */
+    fallbackResponseProd = singleNoun
 ;
 
 /*
@@ -5249,6 +5464,15 @@ class PrepSingleNounProd: SingleNounProd
     resolveNouns(resolver, results)
     {
         return np_.resolveNouns(resolver, results);
+    }
+
+    /* 
+     *   If the response starts with a preposition, it's pretty clearly a
+     *   response to the special query rather than a new command. 
+     */
+    isSpecialResponseMatch()
+    {
+        return (np_ != nil && np_.firstTokenIndex > 1);
     }
 ;
 
@@ -6039,7 +6263,15 @@ grammar simpleNounPhrase(number): literalAdjPhrase->adj_
         results.noteAdjEnding();
 
         /* pass through to the underlying literal adjective phrase */
-        return adj_.getVocabMatchList(resolver, results, extraFlags);
+        local lst = adj_.getVocabMatchList(resolver, results,
+                                           extraFlags | EndsWithAdj);
+
+        /* if in global scope, also try a noun interpretation */
+        if (resolver.isGlobalScope)
+            lst = adj_.addNounMatchList(lst, resolver, results, extraFlags);
+
+        /* return the result */
+        return lst;
     }
     getAdjustedTokens()
     {
@@ -6127,8 +6359,15 @@ grammar simpleNounPhrase(adj): adjWord->adj_ : NounPhraseWithVocab
         results.noteAdjEnding();
 
         /* generate a list of objects matching the adjective */
-        return adj_.getVocabMatchList(resolver, results,
-                                      extraFlags | EndsWithAdj);
+        local lst = adj_.getVocabMatchList(
+            resolver, results, extraFlags | EndsWithAdj);
+
+        /* if in global scope, also try a noun interpretation */
+        if (resolver.isGlobalScope)
+            lst = adj_.addNounMatchList(lst, resolver, results, extraFlags);
+
+        /* return the result */
+        return lst;
     }
     getAdjustedTokens()
     {
@@ -6211,12 +6450,40 @@ grammar simpleNounPhrase(empty): [badness 600] : NounPhraseWithVocab
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   An AdjPhraseWithVocab is an English-specific subclass of
+ *   NounPhraseWithVocab, specifically for noun phrases that contain
+ *   entirely adjectives.  
+ */
+class AdjPhraseWithVocab: NounPhraseWithVocab
+    /* the property for the adjective literal - this is usually adj_ */
+    adjVocabProp = &adj_
+
+    /* 
+     *   Add the vocabulary matches that we'd get if we were treating our
+     *   adjective as a noun.  This combines the noun interpretation with a
+     *   list of matches we got for the adjective version.  
+     */
+    addNounMatchList(lst, resolver, results, extraFlags)
+    {
+        /* get the word matches with a noun interpretation of our adjective */
+        local nLst = getWordMatches(
+            self.(adjVocabProp), &noun, resolver, extraFlags, VocabTruncated);
+
+        /* combine the lists and return the result */
+        return combineWordMatches(lst, nLst);
+    }
+;
+
+/* ------------------------------------------------------------------------ */
+/*
  *   A "literal adjective" phrase is a number or string used as an
  *   adjective.
  */
 grammar literalAdjPhrase(number):
     numberPhrase->num_ | poundNumberPhrase->num_
-    : NounPhraseWithVocab
+    : AdjPhraseWithVocab
+
+    adj_ = (num_.getStrVal())
     getVocabMatchList(resolver, results, extraFlags)
     {
         local numList;
@@ -6242,7 +6509,9 @@ grammar literalAdjPhrase(number):
 ;
 
 grammar literalAdjPhrase(string): quotedStringPhrase->str_
-    : NounPhraseWithVocab
+    : AdjPhraseWithVocab
+
+    adj_ = (str_.getStringText().toLower())
     getVocabMatchList(resolver, results, extraFlags)
     {
         local strList;
@@ -6279,7 +6548,7 @@ grammar literalAdjPhrase(string): quotedStringPhrase->str_
  *   of speech the same way we'd match them if they were quoted.
  */
 grammar literalAdjPhrase(literalAdj): literalAdjective->adj_
-    : NounPhraseWithVocab
+    : AdjPhraseWithVocab
     getVocabMatchList(resolver, results, extraFlags)
     {
         local lst;
@@ -6293,7 +6562,7 @@ grammar literalAdjPhrase(literalAdj): literalAdjective->adj_
         {
             /* get the ordinary adjective bindings */
             local aLst = getWordMatches(adj_, &adjective, resolver,
-                                    extraFlags, VocabTruncated);
+                                        extraFlags, VocabTruncated);
 
             /* global scope - combine the lists */
             lst = combineWordMatches(lst, aLst);
@@ -6392,7 +6661,7 @@ grammar nounWord(nounAbbr): noun->noun_ tokAbbrPeriod->period_
  *   An adjective word.  This can be either a simple 'adjective' vocabulary
  *   word, or it can be an 'adjApostS' vocabulary word plus a 's token.  
  */
-grammar adjWord(adj): adjective->adj_ : NounPhraseWithVocab
+grammar adjWord(adj): adjective->adj_ : AdjPhraseWithVocab
     /* generate a list of resolved objects */
     getVocabMatchList(resolver, results, extraFlags)
     {
@@ -6407,7 +6676,7 @@ grammar adjWord(adj): adjective->adj_ : NounPhraseWithVocab
 ;
 
 grammar adjWord(adjApostS): adjApostS->adj_ tokApostropheS->apost_
-    : NounPhraseWithVocab
+    : AdjPhraseWithVocab
     /* generate a list of resolved objects */
     getVocabMatchList(resolver, results, extraFlags)
     {
@@ -6422,7 +6691,7 @@ grammar adjWord(adjApostS): adjApostS->adj_ tokApostropheS->apost_
 ;
 
 grammar adjWord(adjAbbr): adjective->adj_ tokAbbrPeriod->period_
-    : NounPhraseWithVocab
+    : AdjPhraseWithVocab
     getVocabMatchList(resolver, results, extraFlags)
     {
         /*
@@ -6481,7 +6750,7 @@ grammar possessiveAdjPhrase(my): 'my' : MyAdjProd
 ;
 
 grammar possessiveAdjPhrase(npApostropheS):
-    nounPhrase->np_ tokApostropheS->apost_ : LayeredNounPhraseProd
+    ('the' | ) nounPhrase->np_ tokApostropheS->apost_ : LayeredNounPhraseProd
 
     /* get the original text without the "'s" suffix */
     getOrigMainText()
@@ -6492,7 +6761,9 @@ grammar possessiveAdjPhrase(npApostropheS):
 ;
 
 grammar possessiveAdjPhrase(ppApostropheS):
-    pluralPhrase->np_ tokApostropheS->apost_ : LayeredNounPhraseProd
+    ('the' | ) pluralPhrase->np_
+       (tokApostropheS->apost_ | tokPluralApostrophe->apost_)
+    : LayeredNounPhraseProd
 
     /* get the original text without the "'s" suffix */
     getOrigMainText()
@@ -6535,7 +6806,9 @@ grammar possessiveNounPhrase(yours): 'yours' : YoursNounProd;
 grammar possessiveNounPhrase(mine): 'mine' : MineNounProd;
 
 grammar possessiveNounPhrase(npApostropheS):
-    (nounPhrase->np_ | pluralPhrase->np_) tokApostropheS->apost_
+    ('the' | )
+    (nounPhrase->np_ tokApostropheS->apost_
+     | pluralPhrase->np (tokApostropheS->apost_ | tokPluralApostrophe->apost_))
     : LayeredNounPhraseProd
 
     /* get the original text without the "'s" suffix */
@@ -6722,15 +6995,22 @@ grammar simplePluralPhrase(misc):
 /*
  *   An "adjective phrase" is a phrase made entirely of adjectives.
  */
-grammar adjPhrase(adj): adjective->adj_ : NounPhraseWithVocab
+grammar adjPhrase(adj): adjective->adj_ : AdjPhraseWithVocab
     getVocabMatchList(resolver, results, extraFlags)
     {
         /* note the adjective ending */
         results.noteAdjEnding();
 
         /* return the match list */
-        return getWordMatches(adj_, &adjective, resolver,
-                              extraFlags | EndsWithAdj, VocabTruncated);
+        local lst = getWordMatches(adj_, &adjective, resolver,
+                                   extraFlags | EndsWithAdj, VocabTruncated);
+
+        /* if in global scope, also try a noun interpretation */
+        if (resolver.isGlobalScope)
+            lst = addNounMatchList(lst, resolver, results, extraFlags);
+
+        /* return the result */
+        return lst;
     }
 
     getAdjustedTokens()
@@ -6965,6 +7245,7 @@ grammar literalPhrase(empty): [badness 400]: EmptyLiteralPhraseProd
  */
 grammar miscWordList(wordOrNumber):
     tokWord->txt_ | tokInt->txt_ | tokApostropheS->txt_
+    | tokPluralApostrophe->txt_
     | tokPoundInt->txt_ | tokString->txt_ | tokAbbrPeriod->txt_
     : NounPhraseWithVocab
     getVocabMatchList(resolver, results, extraFlags)
@@ -6980,7 +7261,8 @@ grammar miscWordList(wordOrNumber):
 ;
 
 grammar miscWordList(list):
-    (tokWord->txt_ | tokInt->txt_ | tokApostropheS->tok_ | tokAbbrPeriod->txt_
+    (tokWord->txt_ | tokInt->txt_ | tokApostropheS->txt_
+     | tokPluralApostrophe->txt_ | tokAbbrPeriod->txt_
      | tokPoundInt->txt_ | tokString->txt_) miscWordList->lst_
     : NounPhraseWithVocab
     getVocabMatchList(resolver, results, extraFlags)
@@ -7215,7 +7497,13 @@ grammar disambigListItem(noun):
     resolveNouns(resolver, results)
     {
         /* get the matches for the underlying noun phrase */
-        return np_.resolveNouns(resolver, results);
+        local lst = np_.resolveNouns(resolver, results);
+
+        /* note the matches */
+        results.noteMatches(lst);
+
+        /* return the match list */
+        return lst;
     }
 ;
 
@@ -7239,6 +7527,8 @@ grammar disambigListItem(plural):
          */
         if (lst.length() == 0)
             results.noMatch(resolver.getAction(), np_.getOrigText());
+        else
+            results.noteMatches(lst);
 
         /* return the list */
         return lst;
@@ -8143,19 +8433,37 @@ modify TAction
     /* announce a default object used with this action */
     announceDefaultObject(obj, whichObj, resolvedAllObjects)
     {
-        local prep;
-        local nm = obj.getAnnouncementDistinguisher().theName(obj);
-
         /*
          *   get any direct object preposition - this is the part inside
          *   the "(what)" specifier parens, excluding the last word
          */
         rexSearch('<lparen>(.*<space>+)?<alpha>+<rparen>', verbPhrase);
-        prep = (rexGroup(1) == nil ? '' : rexGroup(1)[3]);
+        local prep = (rexGroup(1) == nil ? '' : rexGroup(1)[3]);
+
+        /* do any verb-specific adjustment of the preposition */
+        if (prep != nil)
+            prep = adjustDefaultObjectPrep(prep, obj);
+
+        /* 
+         *   get the object name - we need to distinguish from everything
+         *   else in scope, since we considered everything in scope when
+         *   making our pick 
+         */
+        local nm = obj.getAnnouncementDistinguisher(
+            gActor.scopeList()).theName(obj);
 
         /* show the preposition (if any) and the object */
         return (prep == '' ? nm : prep + nm);
     }
+
+    /*
+     *   Adjust the preposition.  In some cases, the verb will want to vary
+     *   the preposition according to the object.  This method can return a
+     *   custom preposition in place of the one in the verbPhrase.  By
+     *   default, we just use the fixed preposition from the verbPhrase,
+     *   which is passed in to us in 'prep'.  
+     */
+    adjustDefaultObjectPrep(prep, obj) { return prep; }
 
     /* announce all defaulted objects */
     announceAllDefaultObjects(allResolved)
@@ -8250,6 +8558,10 @@ modify TAction
 
         /* get the direct object preposition */
         dprep = rexGroup(4)[3];
+
+        /* do any verb-specific adjustment of the preposition */
+        if (dprep != nil)
+            dprep = adjustDefaultObjectPrep(dprep, getDobj());
 
         /*
          *   if the direct object is not a pronoun, put the complementizer
@@ -8398,12 +8710,9 @@ modify TIAction
     /* announce a default object used with this action */
     announceDefaultObject(obj, whichObj, resolvedAllObjects)
     {
-        local verb;
-        local prep;
-
         /* presume we won't have a verb or preposition */
-        verb = '';
-        prep = '';
+        local verb = '';
+        local prep = '';
 
         /*
          *   Check the full phrasing - if we're showing the direct object,
@@ -8442,9 +8751,16 @@ modify TIAction
             break;
         }
 
+        /* 
+         *   get the object name - we need to distinguish from everything
+         *   else in scope, since we considered everything in scope when
+         *   making our pick 
+         */
+        local nm = obj.getAnnouncementDistinguisher(
+            gActor.scopeList()).theName(obj);
+
         /* build and return the complete phrase */
-        return spSuffix(verb) + spSuffix(prep)
-            + obj.getAnnouncementDistinguisher().theName(obj);
+        return spSuffix(verb) + spSuffix(prep) + nm;
     }
 
     /* announce all defaulted objects */
@@ -8958,7 +9274,8 @@ VerbRule(Drop)
 ;
 
 VerbRule(Examine)
-    ('examine' | 'inspect' | 'x' | 'look' 'at' | 'l' 'at') dobjList
+    ('examine' | 'inspect' | 'x'
+     | 'look' 'at' | 'l' 'at' | 'look' | 'l') dobjList
     : ExamineAction
     verbPhrase = 'examine/examining (what)'
 ;
@@ -9033,7 +9350,7 @@ VerbRule(SmellImplicit)
 VerbRule(ListenTo)
     ('hear' | 'listen' 'to' ) dobjList
     : ListenToAction
-    verbPhrase = 'listen/listing (to what)'
+    verbPhrase = 'listen/listening (to what)'
 
     /*
      *   use the "not aware" version of the no-match message - the object
@@ -9213,7 +9530,7 @@ VerbRule(AskVague)
 VerbRule(TellVague)
     [badness 500] 'tell' singleDobj singleTopic
     : AskVagueAction
-    verbPhrase = 'ask/asking (whom)'
+    verbPhrase = 'tell/telling (whom)'
 ;
 
 VerbRule(TalkTo)
@@ -9473,6 +9790,24 @@ VerbRule(FootnotesStatus)
     verbPhrase = 'show/showing footnote status'
 ;
 
+VerbRule(TipsOn)
+    ('tips' | 'tip') 'on'
+    : TipModeAction
+
+    stat_ = true
+
+    verbPhrase = 'turn/turning tips on'
+;
+
+VerbRule(TipsOff)
+    ('tips' | 'tip') 'off'
+    : TipModeAction
+
+    stat_ = nil
+
+    verbPhrase = 'turn/turning tips off'
+;
+
 VerbRule(Verbose)
     'verbose'
     : VerboseAction
@@ -9617,6 +9952,18 @@ VerbRule(RecordString)
     verbPhrase = 'start/starting command recording'
 ;
 
+VerbRule(RecordEvents)
+    'record' 'events' | 'record' 'events' 'on'
+    : RecordEventsAction
+    verbPhrase = 'start/starting event recording'
+;
+
+VerbRule(RecordEventsString)
+    'record' 'events' quotedStringPhrase->fname_
+    : RecordEventsStringAction
+    verbPhrase = 'start/starting command recording'
+;
+
 VerbRule(RecordOff)
     'record' 'off'
     : RecordOffAction
@@ -9641,7 +9988,7 @@ VerbRule(ReplayQuiet)
 ;
 
 VerbRule(VagueTravel) 'go' | 'walk' : VagueTravelAction
-    verbPhrase = 'go'
+    verbPhrase = 'go/going'
 ;
 
 VerbRule(Travel)
@@ -10206,6 +10553,10 @@ VerbRule(SitOn)
     : SitOnAction
     verbPhrase = 'sit/sitting (on what)'
     askDobjResponseProd = singleNoun
+
+    /* use the actorInPrep, if there's a direct object available */
+    adjustDefaultObjectPrep(prep, obj)
+        { return (obj != nil ? obj.actorInPrep + ' ' : prep); }
 ;
 
 VerbRule(Sit)
@@ -10219,6 +10570,10 @@ VerbRule(LieOn)
     : LieOnAction
     verbPhrase = 'lie/lying (on what)'
     askDobjResponseProd = singleNoun
+
+    /* use the actorInPrep, if there's a direct object available */
+    adjustDefaultObjectPrep(prep, obj)
+        { return (obj != nil ? obj.actorInPrep + ' ' : prep); }
 ;
 
 VerbRule(Lie)
@@ -10233,6 +10588,10 @@ VerbRule(StandOn)
     : StandOnAction
     verbPhrase = 'stand/standing (on what)'
     askDobjResponseProd = singleNoun
+
+    /* use the actorInPrep, if there's a direct object available */
+    adjustDefaultObjectPrep(prep, obj)
+        { return (obj != nil ? obj.actorInPrep + ' ' : prep); }
 ;
 
 VerbRule(Stand)
@@ -10247,6 +10606,10 @@ VerbRule(GetOutOf)
     : GetOutOfAction
     verbPhrase = 'get/getting (out of what)'
     askDobjResponseProd = singleNoun
+
+    /* use the actorOutOfPrep, if there's a direct object available */
+    adjustDefaultObjectPrep(prep, obj)
+        { return (obj != nil ? obj.actorOutOfPrep + ' ' : prep); }
 ;
 
 VerbRule(GetOffOf)
@@ -10254,6 +10617,10 @@ VerbRule(GetOffOf)
     : GetOffOfAction
     verbPhrase = 'get/getting (off of what)'
     askDobjResponseProd = singleNoun
+
+    /* use the actorOutOfPrep, if there's a direct object available */
+    adjustDefaultObjectPrep(prep, obj)
+        { return (obj != nil ? obj.actorOutOfPrep + ' ' : prep); }
 ;
 
 VerbRule(GetOut)

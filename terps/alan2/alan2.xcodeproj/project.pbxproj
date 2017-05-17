@@ -1,0 +1,240 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		C3BAC3A91EAA05E100336685 /* .cvsignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .cvsignore; sourceTree = "<group>"; };
+		C3BAC3AA1EAA05E100336685 /* acode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = acode.h; sourceTree = "<group>"; };
+		C3BAC3AB1EAA05E100336685 /* alan.version.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = alan.version.c; sourceTree = "<group>"; };
+		C3BAC3AC1EAA05E100336685 /* alan.version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = alan.version.h; sourceTree = "<group>"; };
+		C3BAC3AD1EAA05E100336685 /* args.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = args.c; sourceTree = "<group>"; };
+		C3BAC3AE1EAA05E100336685 /* args.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = args.h; sourceTree = "<group>"; };
+		C3BAC3AF1EAA05E100336685 /* arun.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = arun.c; sourceTree = "<group>"; };
+		C3BAC3B01EAA05E100336685 /* arun.make */ = {isa = PBXFileReference; lastKnownFileType = text; path = arun.make; sourceTree = "<group>"; };
+		C3BAC3B11EAA05E100336685 /* chartest.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = chartest.c; sourceTree = "<group>"; };
+		C3BAC3B21EAA05E100336685 /* debug.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
+		C3BAC3B31EAA05E100336685 /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
+		C3BAC3B41EAA05E100336685 /* decode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = decode.c; sourceTree = "<group>"; };
+		C3BAC3B51EAA05E100336685 /* decode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = decode.h; sourceTree = "<group>"; };
+		C3BAC3B61EAA05E100336685 /* dependencies.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = dependencies.mk; sourceTree = "<group>"; };
+		C3BAC3B71EAA05E100336685 /* dumpacd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dumpacd.c; sourceTree = "<group>"; };
+		C3BAC3B81EAA05E100336685 /* exe.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = exe.c; sourceTree = "<group>"; };
+		C3BAC3B91EAA05E100336685 /* exe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = exe.h; sourceTree = "<group>"; };
+		C3BAC3BA1EAA05E500336685 /* genalan.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = genalan.c; sourceTree = "<group>"; };
+		C3BAC3BB1EAA05E500336685 /* glkio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = glkio.c; sourceTree = "<group>"; };
+		C3BAC3BC1EAA05E500336685 /* glkio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glkio.h; sourceTree = "<group>"; };
+		C3BAC3BD1EAA05E500336685 /* glkstart.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = glkstart.c; sourceTree = "<group>"; };
+		C3BAC3BE1EAA05E500336685 /* glkstart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glkstart.h; sourceTree = "<group>"; };
+		C3BAC3BF1EAA05E500336685 /* inter.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = inter.c; sourceTree = "<group>"; };
+		C3BAC3C01EAA05E500336685 /* inter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inter.h; sourceTree = "<group>"; };
+		C3BAC3C11EAA05E500336685 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		C3BAC3C21EAA05E500336685 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		C3BAC3C31EAA05E500336685 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		C3BAC3C41EAA05E500336685 /* Makefile.amiga */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.amiga; sourceTree = "<group>"; };
+		C3BAC3C51EAA05E500336685 /* Makefile.cygwin */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.cygwin; sourceTree = "<group>"; };
+		C3BAC3C61EAA05E500336685 /* Makefile.gg */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.gg; sourceTree = "<group>"; };
+		C3BAC3C71EAA05E500336685 /* Makefile.glk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.glk; sourceTree = "<group>"; };
+		C3BAC3C81EAA05E500336685 /* Makefile.gpp */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.gpp; sourceTree = "<group>"; };
+		C3BAC3C91EAA05E500336685 /* Makefile.mgw */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.mgw; sourceTree = "<group>"; };
+		C3BAC3CA1EAA05E500336685 /* params.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = params.c; sourceTree = "<group>"; };
+		C3BAC3CB1EAA05E500336685 /* params.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = params.h; sourceTree = "<group>"; };
+		C3BAC3CC1EAA05E500336685 /* parse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = parse.c; sourceTree = "<group>"; };
+		C3BAC3CD1EAA05E500336685 /* parse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parse.h; sourceTree = "<group>"; };
+		C3BAC3CE1EAA05E500336685 /* readline.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = readline.c; sourceTree = "<group>"; };
+		C3BAC3CF1EAA05E500336685 /* readline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = readline.h; sourceTree = "<group>"; };
+		C3BAC3D01EAA05E500336685 /* README.SRC */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.SRC; sourceTree = "<group>"; };
+		C3BAC3D11EAA05E500336685 /* readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		C3BAC3D21EAA05E500336685 /* reverse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = reverse.c; sourceTree = "<group>"; };
+		C3BAC3D31EAA05E500336685 /* reverse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = reverse.h; sourceTree = "<group>"; };
+		C3BAC3D41EAA05E500336685 /* rules.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rules.c; sourceTree = "<group>"; };
+		C3BAC3D51EAA05E500336685 /* rules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rules.h; sourceTree = "<group>"; };
+		C3BAC3D61EAA05E500336685 /* stack.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
+		C3BAC3D71EAA05E500336685 /* stack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		C3BAC3D81EAA05E500336685 /* sysdep.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sysdep.c; sourceTree = "<group>"; };
+		C3BAC3D91EAA05E500336685 /* sysdep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sysdep.h; sourceTree = "<group>"; };
+		C3BAC3DA1EAA05E500336685 /* term.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = term.c; sourceTree = "<group>"; };
+		C3BAC3DB1EAA05E500336685 /* term.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = term.h; sourceTree = "<group>"; };
+		C3BAC3DC1EAA05E500336685 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		C3BAC3DD1EAA05E500336685 /* version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		C3BAC3A31EAA05E100336685 = {
+			isa = PBXGroup;
+			children = (
+				C3BAC3A91EAA05E100336685 /* .cvsignore */,
+				C3BAC3AA1EAA05E100336685 /* acode.h */,
+				C3BAC3AB1EAA05E100336685 /* alan.version.c */,
+				C3BAC3AC1EAA05E100336685 /* alan.version.h */,
+				C3BAC3AD1EAA05E100336685 /* args.c */,
+				C3BAC3AE1EAA05E100336685 /* args.h */,
+				C3BAC3AF1EAA05E100336685 /* arun.c */,
+				C3BAC3B01EAA05E100336685 /* arun.make */,
+				C3BAC3B11EAA05E100336685 /* chartest.c */,
+				C3BAC3B21EAA05E100336685 /* debug.c */,
+				C3BAC3B31EAA05E100336685 /* debug.h */,
+				C3BAC3B41EAA05E100336685 /* decode.c */,
+				C3BAC3B51EAA05E100336685 /* decode.h */,
+				C3BAC3B61EAA05E100336685 /* dependencies.mk */,
+				C3BAC3B71EAA05E100336685 /* dumpacd.c */,
+				C3BAC3B81EAA05E100336685 /* exe.c */,
+				C3BAC3B91EAA05E100336685 /* exe.h */,
+				C3BAC3BA1EAA05E500336685 /* genalan.c */,
+				C3BAC3BB1EAA05E500336685 /* glkio.c */,
+				C3BAC3BC1EAA05E500336685 /* glkio.h */,
+				C3BAC3BD1EAA05E500336685 /* glkstart.c */,
+				C3BAC3BE1EAA05E500336685 /* glkstart.h */,
+				C3BAC3BF1EAA05E500336685 /* inter.c */,
+				C3BAC3C01EAA05E500336685 /* inter.h */,
+				C3BAC3C11EAA05E500336685 /* main.c */,
+				C3BAC3C21EAA05E500336685 /* main.h */,
+				C3BAC3C31EAA05E500336685 /* Makefile */,
+				C3BAC3C41EAA05E500336685 /* Makefile.amiga */,
+				C3BAC3C51EAA05E500336685 /* Makefile.cygwin */,
+				C3BAC3C61EAA05E500336685 /* Makefile.gg */,
+				C3BAC3C71EAA05E500336685 /* Makefile.glk */,
+				C3BAC3C81EAA05E500336685 /* Makefile.gpp */,
+				C3BAC3C91EAA05E500336685 /* Makefile.mgw */,
+				C3BAC3CA1EAA05E500336685 /* params.c */,
+				C3BAC3CB1EAA05E500336685 /* params.h */,
+				C3BAC3CC1EAA05E500336685 /* parse.c */,
+				C3BAC3CD1EAA05E500336685 /* parse.h */,
+				C3BAC3CE1EAA05E500336685 /* readline.c */,
+				C3BAC3CF1EAA05E500336685 /* readline.h */,
+				C3BAC3D01EAA05E500336685 /* README.SRC */,
+				C3BAC3D11EAA05E500336685 /* readme.txt */,
+				C3BAC3D21EAA05E500336685 /* reverse.c */,
+				C3BAC3D31EAA05E500336685 /* reverse.h */,
+				C3BAC3D41EAA05E500336685 /* rules.c */,
+				C3BAC3D51EAA05E500336685 /* rules.h */,
+				C3BAC3D61EAA05E500336685 /* stack.c */,
+				C3BAC3D71EAA05E500336685 /* stack.h */,
+				C3BAC3D81EAA05E500336685 /* sysdep.c */,
+				C3BAC3D91EAA05E500336685 /* sysdep.h */,
+				C3BAC3DA1EAA05E500336685 /* term.c */,
+				C3BAC3DB1EAA05E500336685 /* term.h */,
+				C3BAC3DC1EAA05E500336685 /* types.h */,
+				C3BAC3DD1EAA05E500336685 /* version.h */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		C3BAC3A81EAA05E100336685 /* alan2 */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = C3BAC3DE1EAA05E500336685 /* Build configuration list for PBXLegacyTarget "alan2" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "/Users/administrator/Downloads/garglk-zarf-mac-20170418/terps/alan2";
+			dependencies = (
+			);
+			name = alan2;
+			passBuildSettingsInEnvironment = 1;
+			productName = alan2;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		C3BAC3A41EAA05E100336685 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = C3BAC3A71EAA05E100336685 /* Build configuration list for PBXProject "alan2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C3BAC3A31EAA05E100336685;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C3BAC3A81EAA05E100336685 /* alan2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		C3BAC3A51EAA05E100336685 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		C3BAC3A61EAA05E100336685 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		C3BAC3DF1EAA05E500336685 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = alan2;
+			};
+			name = Debug;
+		};
+		C3BAC3E01EAA05E500336685 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = alan2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C3BAC3A71EAA05E100336685 /* Build configuration list for PBXProject "alan2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3BAC3A51EAA05E100336685 /* Debug */,
+				C3BAC3A61EAA05E100336685 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3BAC3DE1EAA05E500336685 /* Build configuration list for PBXLegacyTarget "alan2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3BAC3DF1EAA05E500336685 /* Debug */,
+				C3BAC3E01EAA05E500336685 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C3BAC3A41EAA05E100336685 /* Project object */;
+}

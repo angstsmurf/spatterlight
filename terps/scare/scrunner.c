@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -24,10 +24,10 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <string.h>
 #include <setjmp.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "scare.h"
 #include "scprotos.h"
@@ -1499,18 +1499,13 @@ run_create (sc_read_callbackref_t callback, void *opaque)
   assert (callback);
 
   /* Create a new TAF using the callback; return NULL if this fails. */
-  taf = taf_create (callback, opaque, TRUE);
+  taf = taf_create (callback, opaque);
   if (!taf)
     return NULL;
-
-  /* Dump out the TAF if requested. */
-  if (if_get_trace_flag (SC_DUMP_TAF))
+  else if (if_get_trace_flag (SC_DUMP_TAF))
     taf_debug_dump (taf);
 
-  /*
-   * Create a properties bundle, and parse the TAF data into it.  If requested,
-   * dump out the bundle.
-   */
+  /* Create a properties bundle, and parse the TAF data into it. */
   bundle = prop_create (taf);
   if (!bundle)
     {
@@ -1518,15 +1513,15 @@ run_create (sc_read_callbackref_t callback, void *opaque)
       taf_destroy (taf);
       return NULL;
     }
-  if (if_get_trace_flag (SC_DUMP_PROPERTIES))
+  else if (if_get_trace_flag (SC_DUMP_PROPERTIES))
     prop_debug_dump (bundle);
 
   /* Try to set an interpreter locale from the properties bundle. */
   loc_detect_game_locale (bundle);
+  if (if_get_trace_flag (SC_DUMP_LOCALE_TABLES))
+    loc_debug_dump ();
 
-  /*
-   * Create a set of variables from the bundle, and dump them too if requested.
-   */
+  /* Create a set of variables from the bundle. */
   vars = var_create (bundle);
   if (if_get_trace_flag (SC_DUMP_VARIABLES))
     var_debug_dump (vars);
@@ -2180,10 +2175,7 @@ run_hint_iterate (sc_gameref_t game, sc_hintref_t hint)
     }
 
   /* Return a pointer to the state of the task identified, or NULL. */
-  if (task < gs_task_count (game))
-    return game->tasks + task;
-  else
-    return NULL;
+  return task < gs_task_count (game) ? game->tasks + task : NULL;
 }
 
 
@@ -2208,7 +2200,6 @@ run_get_hint_common (sc_gameref_t game, sc_hintref_t hint,
   const sc_var_setref_t vars = gs_get_vars (game);
   sc_int task;
   const sc_char *string;
-  sc_char *filtered;
   assert (gs_is_game_valid (game));
 
   /* Verify the caller passed in a valid hint. */
@@ -2226,16 +2217,24 @@ run_get_hint_common (sc_gameref_t game, sc_hintref_t hint,
 
   /* Get the required game text by calling the given handler function. */
   string = handler (game, task);
-  if (sc_strempty (string))
-    return NULL;
+  if (!sc_strempty (string))
+    {
+      sc_char *filtered;
 
-  /* Filter and strip tags, note in game. */
-  filtered = pf_filter (string, vars, bundle);
-  pf_strip_tags_for_hints (filtered);
-  sc_free (game->hint_text);
-  game->hint_text = filtered;
+      /* Filter and strip tags, note in game. */
+      filtered = pf_filter (string, vars, bundle);
+      pf_strip_tags_for_hints (filtered);
+      sc_free (game->hint_text);
+      game->hint_text = filtered;
+    }
+  else
+    {
+      /* Hint text is empty; drop any text noted in game. */
+      sc_free (game->hint_text);
+      game->hint_text = NULL;
+    }
 
-  return filtered;
+  return game->hint_text;
 }
 
 const sc_char *

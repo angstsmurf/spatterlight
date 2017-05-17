@@ -6,115 +6,173 @@
 
 \*----------------------------------------------------------------------*/
 
+#include "stack.h"
 
 #include "types.h"
-#include "main.h"
 #include "syserr.h"
-#include "stack.h"
+#include "memory.h"
+
+
+/* ABSTRACT TYPE */
+typedef struct StackStructure {
+  Aint *stack;
+  int stackSize;
+  int stackp;
+  int framePointer;
+} StackStructure;
 
 
 /* PRIVATE DATA */
 
-#define STACKSIZE 100
 
-/* The AMACHINE STACK */
-static Aword stack[STACKSIZE];
-static int stackp = 0;
 
 /*======================================================================*/
-void resetStack(void)
+Stack createStack(int size)
 {
-  stackp = 0;
+  StackStructure *theStack = NEW(StackStructure);
+
+  theStack->stack = allocate(size*sizeof(Aptr));
+  theStack->stackSize = size;
+  theStack->framePointer = -1;
+
+  return theStack;
 }
 
 
 /*======================================================================*/
-void dumpStack(void)
+void deleteStack(Stack theStack)
+{
+  if (theStack == NULL)
+    syserr("deleting a NULL stack");
+
+  free(theStack->stack);
+  free(theStack);
+}
+
+
+/*======================================================================*/
+int stackDepth(Stack theStack) {
+  return theStack->stackp;
+}
+
+
+/*======================================================================*/
+void dumpStack(Stack theStack)
 {
   int i;
 
+  if (theStack == NULL)
+    syserr("NULL stack not supported anymore");
+
   printf("[");
-  for (i = 0; i < stackp; i++)
-    printf("%ld ", stack[i]);
+  for (i = 0; i < theStack->stackp; i++)
+    printf("%ld ", (unsigned long) theStack->stack[i]);
   printf("]");
 }
 
 
 /*======================================================================*/
-void push(Aword i)
+void push(Stack theStack, Aptr i)
 {
-  if (stackp == STACKSIZE)
+  if (theStack == NULL)
+    syserr("NULL stack not supported anymore");
+
+  if (theStack->stackp == theStack->stackSize)
     syserr("Out of stack space.");
-  stack[stackp++] = i;
+  theStack->stack[(theStack->stackp)++] = i;
 }
 
 
 /*======================================================================*/
-Aword pop(void)
+Aptr pop(Stack theStack)
 {
-  if (stackp == 0)
+  if (theStack == NULL)
+    syserr("NULL stack not supported anymore");
+
+  if (theStack->stackp == 0)
     syserr("Stack underflow.");
-  return(stack[--stackp]);
+  return theStack->stack[--(theStack->stackp)];
 }
 
 
 /*======================================================================*/
-Aword top(void)
+Aptr top(Stack theStack)
 {
-  return(stack[stackp-1]);
+  if (theStack == NULL)
+    syserr("NULL stack not supported anymore");
+
+  return(theStack->stack[theStack->stackp-1]);
 }
 
 
 /* The AMACHINE Block Frames */
-static int framePointer = -1;
 
 /*======================================================================*/
-void newFrame(Aint noOfLocals)
+void newFrame(Stack theStack, Aint noOfLocals)
 {
-  push(framePointer);
-  framePointer = stackp;
-  for (;noOfLocals > 0; noOfLocals--) push(0);
+  int n;
+
+  if (theStack == NULL)
+    syserr("NULL stack not supported anymore");
+
+  push(theStack, theStack->framePointer);
+  theStack->framePointer = theStack->stackp;
+  for (n = 0; n < noOfLocals; n++)
+    push(theStack, 0);
 }
 
 
 /*======================================================================*/
 /* Local variables are numbered 1 and up and stored on their index-1 */
-Aword getLocal(Aint framesBelow, Aint variableNumber)
+Aptr getLocal(Stack theStack, Aint framesBelow, Aint variableNumber)
 {
-  int frame = framePointer;
+  int frame;
   int frameCount;
-
-  if (framesBelow != 0)
-    for (frameCount = framesBelow; frameCount != 0; frameCount--)
-      frame = stack[frame-1];
 
   if (variableNumber < 1)
     syserr("Reading a non-existing block-local variable.");
 
-  return stack[frame + variableNumber-1];
-}
+  if (theStack == NULL)
+    syserr("NULL stack not supported anymore");
 
-/*======================================================================*/
-void setLocal(Aint framesBelow, Aint variableNumber, Aword value)
-{
-  int frame = framePointer;
-  int frameCount;
+  frame = theStack->framePointer;
 
   if (framesBelow != 0)
     for (frameCount = framesBelow; frameCount != 0; frameCount--)
-      frame = stack[frame-1];
+      frame = theStack->stack[frame-1];
+
+  return theStack->stack[frame + variableNumber-1];
+}
+
+
+/*======================================================================*/
+void setLocal(Stack theStack, Aint framesBelow, Aint variableNumber, Aptr value)
+{
+  int frame;
+  int frameCount;
 
   if (variableNumber < 1)
     syserr("Writing a non-existing block-local variable.");
 
-  stack[frame + variableNumber-1] = value;
+  if (theStack == NULL)
+    syserr("NULL stack not supported anymore");
+
+  frame = theStack->framePointer;
+  if (framesBelow != 0)
+    for (frameCount = framesBelow; frameCount != 0; frameCount--)
+      frame = theStack->stack[frame-1];
+
+  theStack->stack[frame + variableNumber-1] = value;
 }
 
 /*======================================================================*/
-void endFrame(void)
+void endFrame(Stack theStack)
 {
-  stackp = framePointer;
-  framePointer = pop();
+  if (theStack == NULL)
+    syserr("NULL stack not supported anymore");
+
+  theStack->stackp = theStack->framePointer;
+  theStack->framePointer = pop(theStack);
 }
 
 

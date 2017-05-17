@@ -65,7 +65,7 @@ int main()
 
             /* match it */
             idx = searcher.compile_and_search(pat, strlen(pat),
-                                              str, strlen(str), &reslen);
+                                              str, str, strlen(str), &reslen);
 
             /* report the results */
             if (idx == -1)

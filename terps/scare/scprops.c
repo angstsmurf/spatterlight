@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -24,11 +24,8 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
-#include <errno.h>
 
 #include "scare.h"
 #include "scprotos.h"
@@ -103,8 +100,10 @@ prop_is_valid (sc_prop_setref_t bundle)
 static sc_int
 prop_round_up (sc_int elements)
 {
-  return ((elements + PROP_GROW_INCREMENT - 1) / PROP_GROW_INCREMENT)
-         * PROP_GROW_INCREMENT;
+  sc_int extended;
+
+  extended = elements + PROP_GROW_INCREMENT - 1;
+  return (extended / PROP_GROW_INCREMENT) * PROP_GROW_INCREMENT;
 }
 
 
@@ -277,7 +276,7 @@ prop_new_node (sc_prop_setref_t bundle)
  * Find a child node of the given parent whose name matches that passed in.
  */
 static sc_prop_noderef_t
-prop_find_child (sc_prop_noderef_t parent, sc_char type, sc_vartype_t name)
+prop_find_child (sc_prop_noderef_t parent, sc_int type, sc_vartype_t name)
 {
   /* See if this node has any children. */
   if (parent->child_list)
@@ -355,7 +354,7 @@ prop_find_child (sc_prop_noderef_t parent, sc_char type, sc_vartype_t name)
  */
 static sc_prop_noderef_t
 prop_add_child (sc_prop_noderef_t parent,
-                sc_char type, sc_vartype_t name, sc_prop_setref_t bundle)
+                sc_int type, sc_vartype_t name, sc_prop_setref_t bundle)
 {
   sc_prop_noderef_t child;
 
@@ -510,20 +509,19 @@ prop_put (sc_prop_setref_t bundle, const sc_char *format,
   for (index_ = 0; format[index_ + 3] != NUL; index_++)
     {
       sc_prop_noderef_t child;
+      sc_int type;
 
       /*
        * Search this level for a name matching the key.  If found, advance
        * to that child node.  Otherwise, add the node to the tree, including
        * the set so that the dictionary can be extended.
        */
-      child = prop_find_child (node, format[index_ + 3], vt_key[index_]);
+      type = format[index_ + 3];
+      child = prop_find_child (node, type, vt_key[index_]);
       if (child)
         node = child;
       else
-        {
-          node = prop_add_child (node,
-                                 format[index_ + 3], vt_key[index_], bundle);
-        }
+        node = prop_add_child (node, type, vt_key[index_], bundle);
     }
 
   /*
@@ -601,8 +599,11 @@ prop_get (sc_prop_setref_t bundle, const sc_char *format,
   node = bundle->root_node;
   for (index_ = 0; format[index_ + 3] != NUL; index_++)
     {
+      sc_int type;
+
       /* Move node down to the matching child, NULL if no match. */
-      node = prop_find_child (node, format[index_ + 3], vt_key[index_]);
+      type = format[index_ + 3 ];
+      node = prop_find_child (node, type, vt_key[index_]);
       if (!node)
         break;
     }
@@ -612,6 +613,7 @@ prop_get (sc_prop_setref_t bundle, const sc_char *format,
     {
       if (prop_trace)
         sc_trace ("Property: ...get FAILED\n");
+
       return FALSE;
     }
 
@@ -675,23 +677,19 @@ prop_get (sc_prop_setref_t bundle, const sc_char *format,
 static void
 prop_trim_node (sc_prop_noderef_t node)
 {
-  /* End recursion on null node. */
-  if (node)
+  /* End recursion on null or childless node. */
+  if (node && node->child_list)
     {
-      /* Do nothing if not an internal node. */
-      if (node->child_list)
-        {
-          sc_int index_;
+      sc_int index_;
 
-          /* Recursively trim allocation on children. */
-          for (index_ = 0; index_ < node->property.integer; index_++)
-            prop_trim_node (node->child_list[index_]);
+      /* Recursively trim allocation on children. */
+      for (index_ = 0; index_ < node->property.integer; index_++)
+        prop_trim_node (node->child_list[index_]);
 
-          /* Trim allocation on this node. */
-          node->child_list = prop_trim_capacity (node->child_list,
-                                                 node->property.integer,
-                                                 sizeof (*node->child_list));
-        }
+      /* Trim allocation on this node. */
+      node->child_list = prop_trim_capacity (node->child_list,
+                                             node->property.integer,
+                                             sizeof (*node->child_list));
     }
 }
 
@@ -847,21 +845,17 @@ prop_create_empty (void)
 static void
 prop_destroy_child_list (sc_prop_noderef_t node)
 {
-  /* End recursion on null node. */
-  if (node)
+  /* End recursion on null or childless node. */
+  if (node && node->child_list)
     {
-      /* If an internal node, handle children. */
-      if (node->child_list)
-        {
-          sc_int index_;
+      sc_int index_;
 
-          /* Recursively destroy the children's child lists. */
-          for (index_ = 0; index_ < node->property.integer; index_++)
-            prop_destroy_child_list (node->child_list[index_]);
+      /* Recursively destroy the children's child lists. */
+      for (index_ = 0; index_ < node->property.integer; index_++)
+        prop_destroy_child_list (node->child_list[index_]);
 
-          /* Free our own child list. */
-          sc_free (node->child_list);
-        }
+      /* Free our own child list. */
+      sc_free (node->child_list);
     }
 }
 
@@ -961,8 +955,7 @@ prop_adopt (sc_prop_setref_t bundle, void *addr)
  * Print out a complete properties set.
  */
 static sc_bool
-prop_debug_is_dictionary_string (sc_prop_setref_t bundle,
-                                 const void *pointer)
+prop_debug_is_dictionary_string (sc_prop_setref_t bundle, const void *pointer)
 {
   const sc_char *const pointer_ = pointer;
   sc_int index_;
@@ -992,7 +985,7 @@ prop_debug_dump_node (sc_prop_setref_t bundle,
   if (node)
     {
       /* Print out the node's key, as hex and either string or decimal. */
-      sc_trace (", name %p", (const void *) node->name.string);
+      sc_trace (", name %p", node->name.voidp);
       if (node != bundle->root_node)
         {
           if (prop_debug_is_dictionary_string (bundle, node->name.string))
@@ -1006,13 +999,15 @@ prop_debug_dump_node (sc_prop_setref_t bundle,
           /* Recursively dump children. */
           sc_trace (", child count %ld\n", node->property.integer);
           for (index_ = 0; index_ < node->property.integer; index_++)
-            prop_debug_dump_node (bundle,
-                                  depth + 1, index_, node->child_list[index_]);
+            {
+              prop_debug_dump_node (bundle, depth + 1,
+                                    index_, node->child_list[index_]);
+            }
         }
       else
         {
           /* Print out the node's property, again hex and string or decimal. */
-          sc_trace (", property %p", (const void *) node->property.string);
+          sc_trace (", property %p", node->property.voidp);
           if (taf_debug_is_taf_string (bundle->taf, node->property.string))
             sc_trace (" \"%s\"\n", node->property.string);
           else

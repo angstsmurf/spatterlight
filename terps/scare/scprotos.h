@@ -13,9 +13,11 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
+
+#include <stddef.h>
 
 #include "scare.h"
 
@@ -24,7 +26,7 @@
 
 /* Runtime version and emulated version, for %version% variable and so on. */
 #ifndef SCARE_VERSION
-# define SCARE_VERSION "1.3.9"
+# define SCARE_VERSION "1.3.10"
 #endif
 #ifndef SCARE_PATCH_LEVEL
 # define SCARE_PATCH_LEVEL ""
@@ -98,8 +100,9 @@ enum
 
 typedef struct sc_taf_s *sc_tafref_t;
 extern void taf_destroy (sc_tafref_t taf);
-extern sc_tafref_t taf_create (sc_read_callbackref_t callback,
-                               void *opaque, sc_bool is_gamefile);
+extern sc_tafref_t taf_create (sc_read_callbackref_t callback, void *opaque);
+extern sc_tafref_t taf_create_tas (sc_read_callbackref_t callback,
+                                   void *opaque);
 extern void taf_first_line (sc_tafref_t taf);
 extern const sc_char *taf_next_line (sc_tafref_t taf);
 extern sc_bool taf_more_lines (sc_tafref_t taf);
@@ -749,6 +752,7 @@ extern sc_bool sc_isdigit (sc_char character);
 extern sc_bool sc_isalpha (sc_char character);
 extern sc_char sc_toupper (sc_char character);
 extern sc_char sc_tolower (sc_char character);
+extern void loc_debug_dump (void);
 
 /* Debugger interface. */
 typedef struct sc_debugger_s *sc_debuggerref_t;

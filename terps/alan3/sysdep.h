@@ -2,7 +2,7 @@
 
   sysdep.h
 
-  System dependencies file for Alan Adventure Language system 
+  System dependencies file for Alan Adventure Language system
 
   N.B. The test for symbols used here should really be of three types
   - processor name (like PC, x86, ...)
@@ -18,17 +18,8 @@
 #ifndef _SYSDEP_H_
 #define _SYSDEP_H_
 
-// XXX
-#define COMPILER "[glk]"
-#define PROGNAME "alan3"
-#define HAVE_GLK 1
-// YYY
 
 /* Place definitions of OS and compiler here if necessary */
-#ifdef AZTEC_C
-#define __amiga__
-#endif
-
 #ifndef __sun__
 #ifdef sun
 #define __sun__
@@ -53,12 +44,10 @@
 #define __mac__
 #endif
 
-#ifdef __MWERKS__
-#ifdef macintosh
-#define __mac__
-#else
-#define __dos__
-#endif
+#ifdef __APPLE__
+// At least GCC 3.x does define this for Darwin
+#define __macosx__
+#define __unix__
 #endif
 
 #ifdef DOS
@@ -70,7 +59,7 @@
 #endif
 
 #ifdef __MINGW32__
-#define __windows__ 
+#define __windows__
 #endif
 
 #ifdef __CYGWIN32__
@@ -84,6 +73,10 @@
 
 
 #ifdef HAVE_WINGLK
+#define HAVE_GLK
+#endif
+
+#ifdef HAVE_GARGLK
 #define HAVE_GLK
 #endif
 
@@ -104,14 +97,8 @@
 #include <ctype.h>
 #include <unistd.h>
 
-#ifdef __STDC__
-#define _PROTOTYPES_
-#include <stdlib.h>
-#include <string.h>
-#endif
 
-#ifdef __vms__
-/* Our VAXC doesn't define __STDC__ */
+#ifdef __STDC__
 #define _PROTOTYPES_
 #include <stdlib.h>
 #include <string.h>
@@ -122,11 +109,6 @@
 #define _PROTOTYPES_
 #include <stdlib.h>
 #include <string.h>
-#include <unix.h>
-#endif
-
-#ifdef __MWERKS__
-#define strdup _strdup
 #endif
 
 /***********************/
@@ -158,7 +140,7 @@
 #define NATIVECHARSET 2
 #endif
 
-/* Old Macs uses other CHARSER, Mac OS X uses ISO */
+/* Old Macs uses other CHARSET, Mac OS X uses ISO */
 #ifdef __mac__
 #undef ISO
 #define ISO 0
@@ -197,17 +179,14 @@
 /****************/
 
 #ifdef HAVE_GLK
-/* don't need TERMIO */
+#  undef HAVE_TERMIO   /* don't need TERMIO */
 #else
-
-#ifdef __CYGWIN__
-#define HAVE_TERMIO
-#endif
-
-#ifdef __unix__
-#define HAVE_TERMIO
-#endif
-
+#  ifdef __CYGWIN__
+#    define HAVE_TERMIO
+#  endif
+#  ifdef __unix__
+#    define HAVE_TERMIO
+#  endif
 #endif
 
 /*******************************/
@@ -215,58 +194,24 @@
 /*******************************/
 
 #ifdef HAVE_GLK
-/* don't need ANSI */
+#  undef HAVE_ANSI /* don't need ANSI */
 #else
-
-#ifdef __CYGWIN__
-#define HAVE_ANSI
-#endif
-
+#  ifdef __CYGWIN__
+#    define HAVE_ANSI
+#  endif
 #endif
 
 /******************************/
 /* Use the READLINE function? */
 /******************************/
-#ifdef HAVE_GLK
-/* Glk always uses readline(), no matter what the OS */
 #define USE_READLINE
-#else
-
-#ifdef __unix__
-#define USE_READLINE
-#endif
-
-#ifdef x__dos__
-#define USE_READLINE
-#endif
-
-#ifdef __win__
-#define USE_READLINE
-#endif
-
+#ifdef SOME_PLATFORM_WHICH_CANT_USE_READLINE
+#  undef USE_READLINE
 #endif
 
 /* Special cases and definition overrides */
 #ifdef __unix__
 #define MULTI
-#endif
-
-
-#ifdef __vms__
-
-#define MULTI
-
-extern char *strdup(char str[]);
-
-/* Cheat implementation of strftime */
-extern size_t strftime (char *, size_t, const char *, const struct tm *);
-
-#endif
-
-#ifdef __mac__
-
-extern char *strdup(char *str);
-
 #endif
 
 
@@ -276,12 +221,6 @@ extern char *strdup(char *str);
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE  1
 
-#endif
-
-
-/* Some have stricmp() others strcasecmp() */
-#ifdef __macosx__
-#define stricmp(s1, s2) strcasecmp(s1, s2)
 #endif
 
 

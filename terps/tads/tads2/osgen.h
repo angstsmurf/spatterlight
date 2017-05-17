@@ -96,6 +96,19 @@ void osssb_redraw_if_needed(void);
  */
 void osssb_cursor_to_default_pos(void);
 
+/*
+ *   Determine if stdin is at end-of-file.  If possible, this should return
+ *   the stdin status even if we've never attempted to read stdin.
+ *   
+ *   For most Unix systems, this can return feof(stdin).  With some C
+ *   libraries, however, this doesn't work until after an attempt has already
+ *   been made to read from stdin, so we provide this cover to allow flexible
+ *   implementation on different systems.  On Windows, for example, it's
+ *   necessary to use _feof(_fileno(stdin)), because the higher-level feof()
+ *   doesn't recognize EOF until the handle has been read from.  
+ */
+int oss_eof_on_stdin(void);
+
 #else /* RUNTIME */
 
 /* in non-RUNTIME mode, we don't use osssb_redraw_if_needed at all */

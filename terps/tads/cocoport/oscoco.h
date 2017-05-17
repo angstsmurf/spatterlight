@@ -16,6 +16,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+    
+#include "../osfrobtads.h"
 
 /* Let the OS do the paging .. the worst named #define ever? */
 #define MAC_OS
@@ -103,9 +105,16 @@ wchar_t* wcscpy( wchar_t* dest, const wchar_t* src );
 /* Directory separator for PATH-style environment variables. */
 #define OSPATHSEP ':'
 
+#define OS_NEWLINE_SEQ "\n"
+
+#define OSPATHPWD "."
+
 /* File handle structure for osfxxx functions. */
 typedef FILE osfildef;
 
+/* Directory handle for searches via os_open_dir() et al. */
+typedef DIR* osdirhdl_t;
+    
 /* The maximum width of a line of text.
  *
  * We ignore this, but the base code needs it defined.  If the
@@ -254,6 +263,9 @@ osfoprwb( const char* fname, os_filetype_t typ );
 #define OS_ATTR_EM      OS_ATTR_ITALIC
 #define OS_ATTR_STRONG  OS_ATTR_BOLD
 
+#define OS_DECLARATIVE_TLS
+#define OS_DECL_TLS(t, v) t v
+    
 #define OS_DEFAULT_SWAP_ENABLED   0
 
 #ifdef __cplusplus

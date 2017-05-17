@@ -5,7 +5,7 @@
 	All rights reserved
 */
 
-#include "advheader.h"
+#include "header.h"
 
 #include "advint.h"
 #include "advdbs.h"
@@ -17,13 +17,13 @@ jmp_buf restart;
 /* CHANGED TO WORK WITH GLK */
 /* Modernize it */
 void play(void);
-int single(void);
+int single_action(void);
 
 /* GLK Specifics */
 winid_t window;
 strid_t screen;
 
-extern strid_t *gas_file;
+extern char *gas_filename;
 
 /* main - the main routine */
 void glk_main()
@@ -31,13 +31,12 @@ void glk_main()
     char *fname,*lname;
     int rows,cols;
 
-	frefid_t file;
+	strid_t file;
 
 	window = glk_window_open(0, 0, 0, wintype_TextBuffer, WINDOW);
 	screen = glk_window_get_stream(window);
 	glk_stream_set_current(screen);
 
-#if 0
 #ifdef GARGLK
 	garglk_set_program_name("AdvSys 1.2");
 	garglk_set_program_info(
@@ -55,7 +54,6 @@ void glk_main()
                    "GLK Build v0.1 - Copyright(c) 2000 by Zenki\n\n");
 #endif
 #endif
-#endif
 
     fname = NULL;
     lname = NULL;
@@ -66,10 +64,10 @@ void glk_main()
     trm_init(rows,cols,lname);
 
 	/* Get the file reference. */
-	if (!gas_file)
+	if (!gas_filename)
 		error("AdvSys: No file given");
 
-	file = gas_file;
+	file = glkunix_stream_open_pathname(gas_filename, 0, SOURCEFILE);
 
 /* END OF CHANGES FOR GLK */
 
@@ -97,8 +95,8 @@ void play()
 
 	/* parse the next input command */
 	if (parse()) {
-	    if (single())
-		while (next() && single())
+	    if (single_action())
+		while (next() && single_action())
 		    ;
 	}
 
@@ -108,8 +106,8 @@ void play()
     }
 }
 
-/* single - handle a single action */
-int single()
+/* single_action - handle a single action */
+int single_action()
 {
     /* execute the before code */
     switch (execute(h_before)) {

@@ -17,7 +17,7 @@
     in interface.c or the memory-allocation code in util.c.  If you
     find yourself needing to do more than that, get in touch with me.)  */
 
-
+#undef _WIN32 /* GARGLK */
 
 
 /* Default to PLAIN platform */
@@ -306,6 +306,12 @@
 #define REPLACE_MAIN			/* Override main. */
 #define fnamecmp	strcasecmp	/* Case insensitive filename compare. */
 #undef PLAIN
+
+#ifdef __APPLE__
+#undef NEED_STR_CMP
+#undef NEED_STRN_CMP
+#endif /* __APPLE__ */
+
 #endif
 
 
@@ -317,7 +323,8 @@
 #define BUFF_SIZE 0    
 #define CBUF_SIZE (5000L)
 #define INBUFF_SIZE (1024)     /* Used by Magx */
-#define MAXSTRUC (1024L*1024L)
+#define MAXSTRUC (32L*1024L) /* IIRC, 32K is the minimum required by
+				the ANSI standard */
 #define PORTSTR "Pure ANSI C version"
 #endif
 

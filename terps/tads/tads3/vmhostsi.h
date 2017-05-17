@@ -36,13 +36,32 @@ public:
     virtual ~CVmHostIfcStdio();
     
     /* get the I/O safety level */
-    virtual int get_io_safety() { return io_safety_; }
+    virtual int get_io_safety_read() { return io_safety_read_; }
+    virtual int get_io_safety_write() { return io_safety_write_; }
 
     /* set I/O safety level */
-    virtual void set_io_safety(int level) { io_safety_ = level; }
+    virtual void set_io_safety(int read_level, int write_level)
+    {
+        io_safety_read_ = read_level;
+        io_safety_write_ = write_level;
+    }
 
-    /* get the resource loader */
-    virtual class CResLoader *get_cmap_res_loader() { return cmap_loader_; }
+    /* get the network safety level */
+    virtual void get_net_safety(int *client_level, int *server_level)
+    {
+        *client_level = net_client_safety_;
+        *server_level = net_server_safety_;
+    }
+
+    /* set the network safety level */
+    virtual void set_net_safety(int client_level, int server_level)
+    {
+        net_client_safety_ = client_level;
+        net_server_safety_ = server_level;
+    }
+
+    /* get the system resource loader */
+    virtual class CResLoader *get_sys_res_loader() { return sys_res_loader_; }
 
     /* get the resource path */
     virtual const char *get_res_path() { return 0; }
@@ -53,7 +72,7 @@ public:
 
     /* get a special file system path */
     virtual void get_special_file_path(char *buf, size_t buflen, int id)
-        { return os_get_special_path(buf, buflen, argv0_, id); }
+        { os_get_special_path(buf, buflen, argv0_, id); }
 
 protected:
     /* 
@@ -63,11 +82,16 @@ protected:
      */
     char *argv0_;
 
-    /* character mapping file resource loader */
-    class CResLoader *cmap_loader_;
+    /* system resource loader (character maps, etc) */
+    class CResLoader *sys_res_loader_;
 
-    /* current I/O safety level */
-    int io_safety_;
+    /* current I/O safety levels */
+    int io_safety_read_;
+    int io_safety_write_;
+
+    /* current network safety levels */
+    int net_client_safety_;
+    int net_server_safety_;
 };
 
 #endif /* VMHOSTSI_H */

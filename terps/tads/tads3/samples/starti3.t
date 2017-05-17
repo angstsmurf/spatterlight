@@ -63,7 +63,7 @@ versionInfo: GameID
      *
      *.    headline = 'An Interactive Sample'
      *.    seriesName = 'The Sample Trilogy'
-     *.    seriesNumber = 1
+     *.    seriesNumber = '1'
      *.    genreName = 'Sample Games'
      *.    forgivenessLevel = 'Polite'
      *.    gameUrl = 'http://mysite.com/mygame.htm'

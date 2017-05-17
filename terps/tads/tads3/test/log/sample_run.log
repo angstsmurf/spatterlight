@@ -67,7 +67,7 @@ Bill stands in the white box.
 Bill sits in the white box.
 
 >close box
-Closed.
+You close the white box.
 
 It is now pitch black.
 
@@ -89,7 +89,7 @@ You can hear a high-pitched beeping noise.
 It's too dark; you can't see where you're going.
 
 >open box
-Opened.
+You open the white box.
 
 Platform Room (sitting in the white box)
 This room is obviously highly contrived.  Filling one end of the room is a
@@ -121,8 +121,8 @@ Bill gets out of the white box.
 Bill stands on the red platform.
 
 >sit on blue chair
-(first standing up, getting off of the red platform, then standing on the blue
-platform)
+(first standing up, then getting off of the red platform, then standing on the
+blue platform)
 Okay, you're now sitting on the blue chair.
 
 Bill gets off of the red platform.
@@ -130,7 +130,7 @@ Bill gets off of the red platform.
 Bill stands on the blue platform.
 
 >sit on stool
-(first standing up, getting off of the blue platform, then standing on the
+(first standing up, then getting off of the blue platform, then standing on the
 dais)
 Okay, you're now sitting on the stool.
 
@@ -145,7 +145,7 @@ The beeper is making a piercing beeping noise.
 Okay, you're now sitting in the armchair.
 
 >e
-(first standing up, getting off of the dais, then getting off of the main
+(first standing up, then getting off of the dais, then getting off of the main
 platform)
 
 Living Room
@@ -309,7 +309,7 @@ back door of the house: It leads south, into the house.  It's open.
 door of the shed: It leads into the shed.  It's closed.
 
 >close door
-Closed.
+You close the back door of the house.
 
 >open door
 Which door do you mean, the door of the shed, or the back door of the house?
@@ -397,7 +397,7 @@ book of matches: It's open, and contains three matches.
 
 >get match
 (first putting the flashlight in the duffel bag to make room)
-Taken.
+You take the match.
 
 >light match
 You strike the match, igniting a small flame.
@@ -465,7 +465,7 @@ You see a match here.  On the shelf is a box of rat poison.
 Bob and Bill are standing here.
 
 >get match
-Taken.
+You take the match.
 
 >x door
 It leads out of the shed.  It's open.
@@ -531,7 +531,7 @@ You cannot do that because it would make the stretchy bag too large for the
 cookie tin.
 
 >get bag
-Taken.
+You take the stretchy bag.
 
 >inflate raft
 You cannot do that because the stretchy bag would become too large for you to
@@ -611,7 +611,7 @@ Bob and Bill are standing here.
 The flowers have a pleasant fragrance.
 
 >light white candle
-(with the match)
+(with your match)
 (first lighting the match)
 You light the white candle.
 
@@ -718,7 +718,7 @@ The beeper is making a piercing beeping noise.
 Okay, you're now sitting in the white box.
 
 >close box
-Closed.
+You close the white box.
 
 It is now pitch black.
 
@@ -745,7 +745,7 @@ You can hear a high-pitched beeping noise.
 It's too dark to do that.
 
 >open box
-Opened.
+You open the white box.
 
 Platform Room (sitting in the white box)
 This room is obviously highly contrived.  Filling one end of the room is a
@@ -773,7 +773,7 @@ flashlight.
 The beeper is making a piercing beeping noise.
 
 >close box
-Closed.
+You close the white box.
 
 It is now pitch black.
 
@@ -795,11 +795,11 @@ A small trap door is set into the floor of the box.
 You can't go that way.  Obvious exits lead down and out.
 
 >open box
-Opened.
+You open the white box.
 
 >e
-(first standing up, getting out of the white box, then getting off of the main
-platform)
+(first standing up, then getting out of the white box, then getting off of the
+main platform)
 
 Living Room
 It's a nice, big room.  A potted plant is the only attempt at decoration.
@@ -816,9 +816,9 @@ ball, eight coins (five gold and three silver), and a phone book here.
 The beeper is making a piercing beeping noise.
 
 >put copper coin in jar
-(first putting the match in the duffel bag to make room, opening the green jar,
-then taking the copper coin)
-Done.
+(first putting the match in the duffel bag to make room, then opening the green
+jar, then taking the copper coin)
+You put the copper coin in the clear jar.
 
 >x jra
 The word "jra" is not necessary in this story.
@@ -932,7 +932,7 @@ and a bottle (which contains a model ship).  The pen cup contains four pens.
 
 Bill and Bob are standing here.
 
-The phone is still ringing.
+The phone is ringing.
 
 >bob, get bob's fish cleaner
 Bob takes the jar of Bob's Brand Premium Fish Cleaner.
@@ -1046,7 +1046,7 @@ The pen cup contains four pens.
 
 Bill and Bob are standing here.
 
-The phone is still ringing.
+The phone is ringing.
 
 The beeper is making a piercing beeping noise.
 
@@ -1134,7 +1134,7 @@ The pen cup contains four pens.
 
 Bill and Bob are standing here.
 
-The phone is still ringing.
+The phone is ringing.
 
 The beeper is making a piercing beeping noise.
 
@@ -1176,7 +1176,7 @@ The pen cup contains four pens.
 
 Bill and Bob are standing here.
 
-The phone is still ringing.
+The phone is ringing.
 
 >n
 Top of Stairs
@@ -1229,15 +1229,15 @@ You see a washing machine, a brass key, a rusty key, and an iron key here.
 What do you want to lock it with?
 
 >iron key
-(first closing the iron door, putting the cookie tin in the duffel bag to make
-room, then taking the iron key)
+(first closing the iron door, then putting the cookie tin in the duffel bag to
+make room, then taking the iron key)
 Locked.
 
 >dorp key
 The word "dorp" is not necessary in this story.
 
 >drop key
-Dropped.
+You drop the iron key.
 
 The beeper is making a piercing beeping noise.
 
@@ -1329,7 +1329,7 @@ The pen cup contains four pens.
 
 Bill and Bob are standing here.
 
-The phone is still ringing.
+The phone is ringing.
 
 The beeper is making a piercing beeping noise.
 

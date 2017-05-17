@@ -1,4 +1,5 @@
 #charset "us-ascii"
+#pragma once
 
 /* 
  *   Copyright (c) 2000, 2006 Michael J. Roberts
@@ -10,8 +11,6 @@
  *   these classes.  
  */
 
-#ifndef _LOOKUP_H_
-#define _LOOKUP_H_
 
 /* include our base class definitions */
 #include "systype.h"
@@ -22,7 +21,7 @@
  *   a list, but the index values are arbitrary hash key values rather than
  *   being limited to sequential integers.  
  */
-intrinsic class LookupTable 'lookuptable/030002': Collection
+intrinsic class LookupTable 'lookuptable/030003': Collection
 {
     /* 
      *   Determine if a given key is present in the table.  Returns true if
@@ -81,11 +80,43 @@ intrinsic class LookupTable 'lookuptable/030002': Collection
     forEachAssoc(func);
 
     /*
-     *   Make a list of all of my keys or values.  The return value is a
-     *   list, in arbitrary order, of all of the keys or values in the table.
+     *   Make a list of all of my keys.  The return value is a list, in
+     *   arbitrary order, of all of the keys in the table.  
      */
     keysToList();
+
+    /*
+     *   Make a list of all of my values.  The return value is a list, in
+     *   arbitrary order, of all of the values in the table. 
+     */
     valsToList();
+
+    /*
+     *   Get the default value.  This returns the value previously set with
+     *   setDefaultValue(), or nil if no explicit default has been set on
+     *   this table.  
+     */
+    getDefaultValue();
+
+    /*
+     *   Set the default value.  This changes the value returned by the index
+     *   operator (self[key]) for a key that doesn't exist in the table.  The
+     *   default value is initially nil, but you can change this to a
+     *   different value of any type if desired.  
+     */
+    setDefaultValue(val);
+
+    /*
+     *   Get the nth key.  This returns the key that would appear at the
+     *   given index in the keysToList() result.  
+     */
+    nthKey(n);
+
+    /*
+     *   Get the enth value.  This returns the value that would appear at the
+     *   given index in the valsToList() result. 
+     */
+    nthVal(n);
 }
 
 /*
@@ -101,7 +132,7 @@ intrinsic class LookupTable 'lookuptable/030002': Collection
  *   values, the key/value pair for the value is automatically deleted from
  *   the table.  
  */
-intrinsic class WeakRefLookupTable 'weakreflookuptable/030000': LookupTable
+intrinsic class WeakRefLookupTable 'weakreflookuptable/030001': LookupTable
 {
 }
 
@@ -113,4 +144,3 @@ intrinsic class LookupTableIterator 'lookuptable-iterator/030000': Iterator
 {
 }
 
-#endif /* _LOOKUP_H_ */

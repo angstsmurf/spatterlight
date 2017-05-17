@@ -4,10 +4,11 @@
 	All rights reserved
 */
 
-#include "advheader.h"
+#include "header.h"
 #include "advint.h"
 #include "advdbs.h"
 #include <setjmp.h>
+#include <string.h>
 
 #define RMODE	0x8001
 
@@ -50,102 +51,102 @@ static glui32 slen;	/* save area length */
 void db_init(strid_t realfd)
 {
     int woff,ooff,aoff,voff,n;
-    
+
     /* open the data file */
-    datafd = realfd; // glk_stream_open_file(name, filemode_Read, 0);
+	datafd = realfd; // glk_stream_open_file(name, filemode_Read, 0);
     
-    // if (datafd == NULL)
-    //	error("can't open data file");
-    
-    /* read the header */
+	// if (datafd == NULL)
+	//	error("can't open data file");
+
+	/* read the header */
     if (glk_get_buffer_stream(datafd,hdr,HDR_SIZE) != HDR_SIZE)
-	error("bad data file");
+		error("bad data file");
     
-    complement(hdr,HDR_SIZE);
+	complement(hdr,HDR_SIZE);
     base = hdr;
-    
+
     /* check the magic information */
     if (strncmp(&hdr[HDR_MAGIC],"ADVSYS",6) != 0)
 	error("not an adventure data file");
-    
+
     /* check the version number */
     if ((n = getword(HDR_VERSION)) < 101 || n > VERSION)
 	error("wrong version number");
-    
+
     /* decode the resident data length header field */
     length = getword(HDR_LENGTH);
-    
+
     /* allocate space for the resident data structure */
     if ((data = malloc(length)) == 0)
-	error("insufficient memory");
-    
+		error("insufficient memory");
+
     /* compute the offset to the data */
     saveoff = (long)getword(HDR_DATBLK) * 512L;	
-    
+
     /* read the resident data structure */
     glk_stream_set_position(datafd,saveoff,seekmode_Start);
     if (glk_get_buffer_stream(datafd,data,length) != length)
-	error("bad data file");
+		error("bad data file");
     complement(data,length);
-    
+
     /* get the table base addresses */
     wtable = data + (woff = getword(HDR_WTABLE));
     wtypes = data + getword(HDR_WTYPES) - 1;
     otable = data + (ooff = getword(HDR_OTABLE));
     atable = data + (aoff = getword(HDR_ATABLE));
     vtable = data + (voff = getword(HDR_VTABLE));
-    
+
     /* get the save data area */
     saveoff += (long)getword(HDR_SAVE);
     save = data + getword(HDR_SAVE);
     slen = getword(HDR_SLEN);
-    
+
     /* get the base of the data and code spaces */
     dbase = data + getword(HDR_DBASE);
     cbase = data + getword(HDR_CBASE);
-    
+
     /* initialize the message routines */
     msg_init(datafd,getword(HDR_MSGBLK));
-    
+
     /* get the code pointers */
     h_init = getword(HDR_INIT);
     h_update = getword(HDR_UPDATE);
     h_before = getword(HDR_BEFORE);
     h_after = getword(HDR_AFTER);
     h_error = getword(HDR_ERROR);
-    
+
     /* get the table lengths */
     base = data;
     wcount = getword(woff); 
     ocount = getword(ooff);
     acount = getword(aoff);
     vcount = getword(voff);
-    
+
     /* setup the base of the resident data */
     base = dbase;
-    
+
     /* set the object count */
     setvalue(V_OCOUNT,ocount);
-    
-    /* CHANGED FOR GLK */
-    
+
+	/* CHANGED FOR GLK */
+
 #ifdef GARGLK
-    garglk_set_story_name(&hdr[HDR_ANAME]);
+	garglk_set_story_name(&hdr[HDR_ANAME]);
 #endif
-    
+
 #ifdef WINDOWS
-    {
-	int i;
-	char *buf;
-	
-	i = strlen(&hdr[HDR_ANAME]);
-	i += 1;
-	i += strlen("GLK AdvSys - ");
-	
-	buf = malloc( sizeof(char) * i );
-	wsprintf(buf, "GLK AdvSys - %s", &hdr[HDR_ANAME]);
-	winglk_window_set_title(buf);
-    }
+	{
+		int i;
+		char *buf;
+
+		i = strlen(&hdr[HDR_ANAME]);
+		i += 1;
+		i += strlen("GLK AdvSys - ");
+
+		buf = malloc( sizeof(char) * i );
+		wsprintf(buf, "GLK AdvSys - %s", &hdr[HDR_ANAME]);
+		winglk_window_set_title(buf);
+	}
 #endif
 }
 
@@ -394,8 +395,7 @@ int getvalue(int n)
 }
 
 /* setvalue - set the value of a variable in the variable table */
-int setvalue(n,v)
-  int n,v;
+int setvalue(int n, int v)
 {
     if (n < 1 || n > vcount)
 	nerror("variable number out of range: %d",n);

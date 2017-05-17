@@ -59,8 +59,47 @@ Modified
 #include "vmbytarr.h"
 #include "vmcset.h"
 #include "vmfilobj.h"
+#include "vmtmpfil.h"
+#include "vmfilnam.h"
 #include "vmpat.h"
 #include "vmstrcmp.h"
+#include "vmstrbuf.h"
+#include "vmdynfunc.h"
+#include "vmfref.h"
+#include "vmdate.h"
+#include "vmtzobj.h"
+#include "vmtz.h"
+
+#ifdef TADSNET
+#include "vmhttpsrv.h"
+#include "vmhttpreq.h"
+#endif
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Write a string to a buffer with a one-byte prefix 
+ */
+static char *write_str_byte_prefix(char *ptr, const char *str, size_t len)
+{
+    /* make sure it fits the byte prefix */
+    if (len > 255)
+        err_throw(VMERR_STR_TOO_LONG);
+
+    /* write the prefix and the string */
+    oswp1(ptr, (char)len);
+    memcpy(ptr + 1, str, len);
+
+    /* return the pointer to the next byte after the copied data */
+    return ptr + len + 1;
+}
+
+#if 0 // not currently needed
+static char *write_str_byte_prefix(char *ptr, const char *str)
+{
+    return write_str_byte_prefix(ptr, str, strlen(str));
+}
+#endif
 
 
 /* ------------------------------------------------------------------------ */
@@ -146,7 +185,7 @@ void vm_rewrite_image(VMG_ CVmFile *origfp, CVmFile *newfp,
         origfp->read_bytes(buf, 10);
 
         /* get the size */
-        siz = osrp4(buf + 4);
+        siz = t3rp4u(buf + 4);
 
         /* check the block type */
         if (CVmImageLoader::block_type_is(buf, "OBJS")
@@ -176,8 +215,8 @@ void vm_rewrite_image(VMG_ CVmFile *origfp, CVmFile *newfp,
 
             /* get the ID, page count, and page size from the definition */
             pool_id = osrp2(cpdf_buf);
-            pgcnt = osrp4(cpdf_buf + 2);
-            pgsiz = osrp4(cpdf_buf + 6);
+            pgcnt = t3rp4u(cpdf_buf + 2);
+            pgsiz = t3rp4u(cpdf_buf + 6);
 
             /* 
              *   if this is the constant pool (pool ID = 2), increase the
@@ -248,7 +287,7 @@ void vm_rewrite_image(VMG_ CVmFile *origfp, CVmFile *newfp,
 
             /* get the pool ID and the page's index */
             pool_id = osrp2(cppg_buf);
-            page_idx = osrp4(cppg_buf + 2);
+            page_idx = t3rp4u(cppg_buf + 2);
 
             /* if it's pool 2 (constants), read its XOR mask byte */
             if (pool_id == 2)
@@ -476,11 +515,17 @@ void CVmObjTable::rebuild_image(VMG_ int meta_dep_idx, CVmImageWriter *writer,
                     }
                     
                     /* 
-                     *   if this object plus its prefix would push this
-                     *   OBJS block over 64k, close it off and start a new
-                     *   block 
+                     *   If this object plus its prefix would push this OBJS
+                     *   block over 64k, and we have a small-object block
+                     *   open, close it off and start a new block.  Don't do
+                     *   this if we're already in a large-objects block,
+                     *   since that means we have a single object that we
+                     *   can't fit in 64k, meaning that it would be
+                     *   impossible to keep the block itself to within 64k.  
                      */
-                    if (block_size + objsiz + 6 > 64000L && block_cnt != 0)
+                    if (block_size + objsiz + 6 > 64000L
+                        && block_cnt != 0
+                        && !large_objects)
                     {
                         /* close this block */
                         writer->end_objs_block(block_cnt);
@@ -490,8 +535,9 @@ void CVmObjTable::rebuild_image(VMG_ int meta_dep_idx, CVmImageWriter *writer,
                         block_size = 0;
 
                         /* 
-                         *   use small size fields if this block isn't
-                         *   itself large 
+                         *   go bak to the small-object block format if this
+                         *   object doesn't itself require a large-objects
+                         *   block 
                          */
                         if (objsiz <= 65535)
                             large_objects = FALSE;
@@ -803,32 +849,26 @@ void CVmObjString::convert_to_const_data(VMG_ CVmConstMapper *mapper,
 
 
 /* property comparison callback for qsort() */
-static int prop_compare(const void *p1, const void *p2)
+extern "C"
 {
-    uint id1, id2;
+    static int prop_compare(const void *p1, const void *p2)
+    {
+        uint id1, id2;
 
-    /* get the ID's */
-    id1 = osrp2(p1);
-    id2 = osrp2(p2);
+        /* get the ID's */
+        id1 = osrp2(p1);
+        id2 = osrp2(p2);
 
-    /* compare them and return the result */
-    return (id1 < id2 ? -1 : id1 == id2 ? 0 : 1);
+        /* compare them and return the result */
+        return (id1 < id2 ? -1 : id1 == id2 ? 0 : 1);
+    }
 }
-
 
 /*
  *   build an image file record for the object 
  */
 ulong CVmObjTads::rebuild_image(VMG_ char *buf, ulong buflen)
 {
-    size_t max_size;
-    char *p;
-    char *props;
-    char *props_end;
-    size_t prop_cnt;
-    size_t i;
-    vm_tadsobj_prop *entry;
-    
     /* 
      *   Make sure the buffer is big enough.  Start out with worst-case
      *   assumption that we'll need every allocated property slot; we might
@@ -837,9 +877,9 @@ ulong CVmObjTads::rebuild_image(VMG_ char *buf, ulong buflen)
      *   (UINT2 superclass count, UINT2 property count, UINT2 flags), plus a
      *   UINT4 per superclass, plus a (UINT2 + DATAHOLDER) per property.  
      */
-    max_size = (2 + 2 + 2)
-               + get_sc_count() * 4
-               + (get_hdr()->prop_entry_free * 7);
+    size_t max_size = (2 + 2 + 2)
+                      + get_sc_count() * 4
+                      + (get_hdr()->prop_entry_free * 7);
 
     /* if it's more than we have available, ask for more space */
     if (max_size > buflen)
@@ -852,20 +892,19 @@ ulong CVmObjTads::rebuild_image(VMG_ char *buf, ulong buflen)
     oswp2(buf, get_sc_count());
     oswp2(buf+2, 0);
     oswp2(buf+4, get_li_obj_flags());
-    p = buf + 6;
+    char *p = buf + 6;
 
     /* copy the superclass list */
-    for (i = 0 ; i < get_sc_count() ; ++i, p += 4)
+    for (size_t i = 0 ; i < get_sc_count() ; ++i, p += 4)
         oswp4(p, get_sc(i));
 
     /* remember where the properties start */
-    props = p;
+    char *props = p;
 
     /* copy the non-empty property slots */
-    for (i = get_hdr()->prop_entry_free, entry = get_hdr()->prop_entry_arr,
-         prop_cnt = 0 ;
-         i != 0 ;
-         --i, ++entry)
+    vm_tadsobj_prop *entry = get_hdr()->prop_entry_arr;
+    size_t prop_cnt = 0;
+    for (size_t i = get_hdr()->prop_entry_free ; i != 0 ; --i, ++entry)
     {
         /* if this slot is non-empty, store it */
         if (entry->val.typ != VM_EMPTY)
@@ -881,9 +920,6 @@ ulong CVmObjTads::rebuild_image(VMG_ char *buf, ulong buflen)
             p += 7;
         }
     }
-
-    /* remember where the properties end */
-    props_end = p;
 
     /* fill in actual the property count now that we know it */
     oswp2(buf+2, prop_cnt);
@@ -1114,20 +1150,48 @@ void CVmObjDict::cvt_const_cb(void *ctx0, class CVmHashEntry *entry0)
  */
 
 /* 
- *   rebuild for image file - we can't change at run-time, so we must
- *   simply copy our image file data back out unchanged 
+ *   rebuild for image file 
  */
 ulong CVmObjGramProd::rebuild_image(VMG_ char *buf, ulong buflen)
 {
-    /* make sure we have room */
-    if (get_ext()->image_data_size_ > buflen)
+    if (get_ext()->modified_)
+    {
+        /* 
+         *   We've been modified at run-time, so we need to rebuild the image
+         *   data from the current alt list.  First, save to a counting
+         *   stream just to determine how much space we need.  
+         */
+        CVmCountingStream cstr;
+        save_to_stream(vmg_ &cstr);
+
+        /* make sure we have enough space */
+        if ((ulong)cstr.get_len() > buflen)
+            return cstr.get_len();
+
+        /* save to the buffer */
+        CVmMemoryStream mstr(buf, buflen);
+        save_to_stream(vmg_ &mstr);
+
+        /* return the stream length */
+        return cstr.get_len();
+    }
+    else
+    {
+        /* 
+         *   We weren't modified, so simply copy back our original image data
+         *   unchanged. 
+         */
+
+        /* make sure we have room */
+        if (get_ext()->image_data_size_ > buflen)
+            return get_ext()->image_data_size_;
+        
+        /* copy the data */
+        memcpy(buf, get_ext()->image_data_, get_ext()->image_data_size_);
+
+        /* return the size */
         return get_ext()->image_data_size_;
-
-    /* copy the data */
-    memcpy(buf, get_ext()->image_data_, get_ext()->image_data_size_);
-
-    /* return the size */
-    return get_ext()->image_data_size_;
+    }
 }
 
 /* ------------------------------------------------------------------------ */
@@ -1479,11 +1543,12 @@ ulong CVmObjLookupTable::rebuild_image(VMG_ char *buf, ulong buflen)
 
     /* 
      *   we need space for the fixed header (6 bytes), 2 bytes per bucket,
-     *   and the entries themselves 
+     *   the entries themselves, and the default value 
      */
     copy_size = 6
                 + (ext->bucket_cnt * 2)
-                + (ext->value_cnt * VMLOOKUP_VALUE_SIZE);
+                + (ext->value_cnt * VMLOOKUP_VALUE_SIZE)
+                + VMB_DATAHOLDER;
 
     /* make sure we have room for our data */
     if (copy_size > buflen)
@@ -1518,6 +1583,10 @@ ulong CVmObjLookupTable::rebuild_image(VMG_ char *buf, ulong buflen)
         dst += VMLOOKUP_VALUE_SIZE;
     }
 
+    /* write the default value */
+    vmb_put_dh(dst, &ext->default_value);
+    dst += VMB_DATAHOLDER;
+
     /* return the size */
     return copy_size;
 }
@@ -1546,6 +1615,35 @@ void CVmObjLookupTable::convert_to_const_data(VMG_ CVmConstMapper *mapper,
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   StringBuffer metaclass - image rebuilding 
+ */
+ulong CVmObjStringBuffer::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    size_t copy_size;
+    vm_strbuf_ext *ext = get_ext();
+
+    /* get our size */
+    copy_size = 12 + ext->len*2;
+
+    /* make sure we have room for our data */
+    if (copy_size > buflen)
+        return copy_size;
+
+    /* write the header data */
+    oswp4(buf, ext->alo);
+    oswp4(buf+4, ext->inc);
+    oswp4(buf+8, ext->len);
+
+    /* write the string */
+    memcpy(buf+12, ext->buf, ext->len*2);
+
+    /* return the size */
+    return copy_size;
+}
+
+
+/* ------------------------------------------------------------------------ */
+/*
  *   IntrinsicClass Metaclass implementation - image rebuilding 
  */
 
@@ -1554,17 +1652,19 @@ void CVmObjLookupTable::convert_to_const_data(VMG_ CVmConstMapper *mapper,
  */
 ulong CVmObjClass::rebuild_image(VMG_ char *buf, ulong buflen)
 {
-    size_t copy_size;
-
-    /* get our size */
-    copy_size = osrp2(ext_);
+    /* figure our size requirement: meta idx, mod id, state value */
+    size_t copy_size = 2 + 2 + 4 + VMB_DATAHOLDER;
 
     /* make sure we have room for our data */
     if (copy_size > buflen)
         return copy_size;
 
     /* copy the data */
-    memcpy(buf, ext_, copy_size);
+    vm_intcls_ext *ext = get_ext();
+    oswp2(buf, (short)copy_size);
+    oswp2(buf + 2, ext->meta_idx);
+    oswp4(buf + 4, ext->mod_obj);
+    vmb_put_dh(buf + 8, &ext->class_state);
 
     /* return the size */
     return copy_size;
@@ -1580,10 +1680,8 @@ ulong CVmObjClass::rebuild_image(VMG_ char *buf, ulong buflen)
  */
 ulong CVmObjIterIdx::rebuild_image(VMG_ char *buf, ulong buflen)
 {
-    size_t copy_size;
-
     /* calculate our data size - just store our entire extension */
-    copy_size = VMOBJITERIDX_EXT_SIZE;
+    size_t copy_size = VMOBJITERIDX_EXT_SIZE;
 
     /* make sure we have room for our data */
     if (copy_size > buflen)
@@ -1835,6 +1933,71 @@ ulong CVmObjFile::rebuild_image(VMG_ char *buf, ulong buflen)
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   CVmObjTemporaryFile intrinsic object 
+ */
+ulong CVmObjTemporaryFile::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    /* we don't store any extra data */
+    return 0;
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   CVmObjFileName intrinsic object 
+ */
+ulong CVmObjFileName::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    /* get my extension */
+    vm_filnam_ext *ext = get_ext();
+
+    /* 
+     *   if we're going to store the filename, we'll store it in universal
+     *   notation; do the conversion first so we can figure the length
+     */
+    char *uni = 0;
+    ulong needlen;
+    size_t unilen = 0;
+    err_try
+    {
+        if (ext->sfid == 0)
+        {
+            uni = to_universal(vmg0_);
+            unilen = strlen(uni);
+        }
+        
+        /* 
+         *   figure the required size: special file ID, plus the universal
+         *   name with length prefix if the sfid is zero 
+         */
+        needlen = 4 + (ext->sfid != 0 ? 0 : VMB_LEN + unilen);
+
+        /* if we have room, store the data */
+        if (buflen >= needlen)
+        {
+            /* write the special file ID first */
+            oswp4s(buf, ext->sfid);
+            buf += 4;
+
+            /* if it's not a special file, store the universal name */
+            if (ext->sfid == 0)
+            {
+                vmb_put_len(buf, unilen);
+                memcpy(buf + VMB_LEN, uni, unilen);
+            }
+        }
+    }
+    err_finally
+    {
+        lib_free_str(uni);
+    }
+    err_end;
+
+    /* return the length */
+    return needlen;
+}
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Pattern metaclass 
  */
 
@@ -1883,4 +2046,243 @@ ulong CVmObjStrComp::rebuild_image(VMG_ char *buf, ulong buflen)
     CVmMemoryStream str(buf, buflen);
     return write_to_stream(vmg_ &str, &buflen);
 }
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   DynamicFunc intrinsic class 
+ */
+
+/*
+ *   build the image data 
+ */
+ulong CVmDynamicFunc::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    /* get my extension */
+    vm_dynfunc_ext *ext = get_ext();
+
+    /* figure the required size */
+    ulong needlen = 2 + 2 + VMB_DATAHOLDER + VMB_DATAHOLDER
+                    + (ext->obj_ref_cnt * 2)
+                    + ext->bytecode_len;
+
+    /* make sure there's room */
+    if (needlen > buflen)
+        return needlen;
+    
+    /* save the sizes: bytecode length, object reference count */
+    oswp2(buf, ext->bytecode_len);
+    oswp2(buf, ext->obj_ref_cnt);
+    buf += 4;
+
+    /* save the method context object */
+    vmb_put_dh(buf, &ext->method_ctx);
+    buf += VMB_DATAHOLDER;
+
+    /* save the source object value */
+    vmb_put_dh(buf, &ext->src);
+    buf += VMB_DATAHOLDER;
+
+    /* save the byte code */
+    memcpy(buf, ext->get_bytecode_ptr(), ext->bytecode_len);
+    buf += ext->bytecode_len;
+
+    /* save the object reference list */
+    for (int i = 0 ; i < ext->obj_ref_cnt ; ++i, buf += 2)
+        oswp2(buf, ext->obj_refs[i]);
+
+    /* return the length */
+    return needlen;
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Stack Frame Descriptor intrinsic object 
+ */
+ulong CVmObjFrameDesc::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    /* get my extension */
+    vm_framedesc_ext *ext = get_ext();
+
+    /* figure the required size */
+    ulong needlen = VMB_OBJECT_ID + 2 + 2;
+
+    /* make sure there's room */
+    if (needlen > buflen)
+        return needlen;
+
+    /* save the underlying StackFrameRef reference */
+    vmb_put_objid(buf, ext->fref);
+    buf += VMB_OBJECT_ID;
+
+    /* save the frame index and return address */
+    oswp2(buf, ext->frame_idx);
+    oswp2(buf + 2, ext->ret_ofs);
+    buf += 4;
+
+    /* return the length */
+    return needlen;
+}
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Stack Frame Reference intrinsic object 
+ */
+ulong CVmObjFrameRef::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    /* get my extension */
+    vm_frameref_ext *ext = get_ext();
+
+    /* figure the required size */
+    ulong needlen = 2 + 2 + VMB_DATAHOLDER
+                    + VMB_DATAHOLDER
+                    + VMB_OBJECT_ID
+                    + VMB_OBJECT_ID
+                    + VMB_PROP_ID
+                    + (ext->nlocals + ext->nparams)*VMB_DATAHOLDER;
+
+    /* make sure there's room */
+    if (needlen > buflen)
+        return needlen;
+
+    /* if our frame is still active, build the local snapshot */
+    if (ext->fp != 0)
+        make_snapshot(vmg0_);
+
+    /* save the variable counts */
+    oswp2(buf, ext->nlocals);
+    oswp2(buf+2, ext->nparams);
+    buf += 4;
+
+    /* write the entry pointer */
+    vmb_put_dh(buf, &ext->entry);
+    buf += VMB_DATAHOLDER;
+
+    /* write the method context variables */
+    vmb_put_dh(buf, &ext->self);
+    buf += VMB_DATAHOLDER;
+
+    vmb_put_objid(buf, ext->defobj);
+    buf += VMB_OBJECT_ID;
+
+    vmb_put_objid(buf, ext->targobj);
+    buf += VMB_OBJECT_ID;
+
+    vmb_put_propid(buf, ext->targprop);
+    buf += VMB_PROP_ID;
+
+    /* write the variable snapshot values */
+    int i;
+    const vm_val_t *v;
+    for (i = ext->nlocals + ext->nparams, v = ext->vars ; i > 0 ; --i, ++v)
+    {
+        vmb_put_dh(buf, v);
+        buf += VMB_DATAHOLDER;
+    }
+
+    /* return the length */
+    return needlen;
+}
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   CVmObjDate intrinsic object 
+ */
+ulong CVmObjDate::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    /* get my extension */
+    vm_date_ext *ext = get_ext();
+
+    /* figure the required size */
+    ulong needlen = 8;
+
+    /* make sure there's room */
+    if (needlen > buflen)
+        return needlen;
+
+    /* write our data */
+    oswp4s(buf, ext->dayno);
+    oswp4(buf+4, ext->daytime);
+
+    /* return the length */
+    return needlen;
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   CVmObjTimeZone intrinsic object 
+ */
+ulong CVmObjTimeZone::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    /* get my timezone object and query its default settings */
+    CVmTimeZone *tz = get_ext()->tz;
+    vmtzquery q;
+    tz->query(&q);
+
+    /* get the zone name */
+    size_t namelen;
+    const char *name = tz->get_name(namelen);
+
+    /* if this is the special local zone object, use ":local" instead */
+    if (G_tzcache->is_local_zone(tz))
+        name = ":local", namelen = 6;
+
+    /* 
+     *   figure the required size - int32 gmt offset, int32 dst offset,
+     *   abbreviation (with one-byte prefix), name (with one-byte prefix)
+     */
+    size_t abbrlen = strlen(q.abbr);
+    ulong needlen = 4 + 4 + 1 + namelen + 1 + abbrlen;
+
+    /* make sure there's room */
+    if (needlen > buflen)
+        return needlen;
+
+    /* copy the data */
+    oswp4s(buf, q.gmtofs);
+    oswp4s(buf+4, q.save);
+    char *p = write_str_byte_prefix(buf+8, name, namelen);
+    write_str_byte_prefix(p, q.abbr, abbrlen);
+
+    /* return the length */
+    return needlen;
+}
+
+#ifdef TADSNET
+/* ------------------------------------------------------------------------ */
+/*
+ *   HTTP Server intrinsic object
+ */
+ulong CVmObjHTTPServer::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    /* we don't store anything in the image file */
+    ulong needlen = 0;
+
+    /* make sure there's room */
+    if (needlen > buflen)
+        return needlen;
+
+    /* return the length */
+    return needlen;
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   CVmObjHTTPRequest intrinsic object 
+ */
+ulong CVmObjHTTPRequest::rebuild_image(VMG_ char *buf, ulong buflen)
+{
+    /* we don't store anything in the image file */
+    ulong needlen = 0;
+
+    /* make sure there's room */
+    if (needlen > buflen)
+        return needlen;
+
+    /* return the length */
+    return needlen;
+}
+
+#endif /* TADSNET */
 

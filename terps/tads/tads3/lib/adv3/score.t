@@ -364,6 +364,15 @@ libScore: PreinitObject
     }
 
     /*
+     *   Explicitly run the score notification daemon. 
+     */
+    runScoreNotifier()
+    {
+        /* explicitly run the notification */
+        scoreNotifier.checkNotification();
+    }
+
+    /*
      *   Show the simple score 
      */
     showScore()
@@ -466,7 +475,7 @@ libScore: PreinitObject
          *   Run through all of the Achievement objects to see if we can
          *   derive a maximum score for the game. 
          */
-        forEachInstance(Achievement, new function(obj) {
+        forEachInstance(Achievement, function(obj) {
             local m;
             
             /*

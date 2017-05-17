@@ -74,23 +74,6 @@ class Resolver: object
     }
     
     /*
-     *   Cache the scope list for this object.  By default, we cache the
-     *   standard scope list for our target actor.
-     *   
-     *   Note that if a subclass uses completely different rules for
-     *   determining scope, it need actually store a scope_ list at all.
-     *   The scope_ list is purely an implementation detail of the base
-     *   Resolver class.  A subclass can use whatever internal
-     *   implementation it wants, as long as it overrides objInScope() and
-     *   getScopeList() to return consistent results.  
-     */
-    cacheScopeList()
-    {
-        /* cache our actor's default scope list */
-        scope_ = actor_.scopeList();
-    }
-
-    /*
      *   Get the resolver for qualifier phrases.  By default, this simply
      *   returns myself, since the resolver for qualifiers is in most
      *   contexts the same as the main resolver.
@@ -112,25 +95,75 @@ class Resolver: object
     getPossessiveResolver() { return new PossessiveResolver(self); }
 
     /*
-     *   Determine if an object is in scope for the purposes of object
-     *   resolution.  By default, we'll simply check to see if the object
-     *   is in our cached scope list.
+     *   Cache the scope list for this object.  By default, we cache the
+     *   standard physical scope list for our target actor.
      *   
-     *   Some subclasses might want to override this to provide alternative
-     *   behavior; for example, for a command whose scope is the set of all
-     *   objects, it would be much more efficient to dispense with caching
-     *   a scope list entirely and simply return true here.  Note that if a
-     *   subclass overrides this using some mechanism other than a cached
-     *   scope list, the subclass must also override getScopeList() to
-     *   return results consistent with this method.  
+     *   Note that if a subclass uses completely different rules for
+     *   determining scope, it need not store a scope_ list at all.  The
+     *   scope_ list is purely an implementation detail of the base
+     *   Resolver class.  A subclass can use whatever internal
+     *   implementation it wants, as long as it overrides objInScope() and
+     *   getScopeList() to return consistent results.
+     */
+    cacheScopeList()
+    {
+        /* cache our actor's default scope list */
+        scope_ = actor_.scopeList();
+    }
+
+    /*
+     *   Determine if an object is in scope for the purposes of object
+     *   resolution.  By default, we'll return true if the object is in our
+     *   cached scope list - this ensures that we produce results that are
+     *   consistent with getScopeList().
+     *   
+     *   Some subclasses might want to override this method to decide on
+     *   scope without reference to a cached scope list, for efficiency
+     *   reasons.  For example, if a command's scope is the set of all
+     *   objects, caching the full list would take a lot of memory; to save
+     *   the memory, you could override cacheScopeList() to do nothing at
+     *   all, and then override objInScope() to return true - this will
+     *   report that every object is in scope without bothering to store a
+     *   list of every object.
+     *   
+     *   Be aware that if you override objInScope(), you should ensure that
+     *   getScopeList() yields consistent results.  In particular,
+     *   objInScope() should return true for every object in the list
+     *   returned by getScopeList() (although getScopeList() doesn't
+     *   necessarily have to return every object for which objInScope() is
+     *   true).  
      */
     objInScope(obj) { return scope_.indexOf(obj) != nil; }
 
     /*
      *   Get the full list of objects in scope.  By default, this simply
-     *   returns our cached scope list.  If a subclass doesn't use a cached
-     *   scope list, it must override objInScope() and getScopeList() to
-     *   return consistent results. 
+     *   returns our cached scope list.
+     *   
+     *   For every object in the list that getScopeList() returns,
+     *   objInScope() must return true.  However, getScopeList() need not
+     *   return *all* objects that are in scope as far as objInScope() is
+     *   concerned - it can, but a subset of in-scope objects is
+     *   sufficient.
+     *   
+     *   The default implementation returns the complete set of in-scope
+     *   objects by simply returning the cached scope list.  This is the
+     *   same scope list that the default objInScope() checks, which
+     *   ensures that the two methods produce consistent results.
+     *   
+     *   The reason that it's okay for this method to return a subset of
+     *   in-scope objects is that the result is only used to resolve
+     *   "wildcard" phrases in input, and such phrases don't have to expand
+     *   to every possible object.  Examples of wildcard phrases include
+     *   ALL, missing phrases that need default objects, and locational
+     *   phrases ("the vase on the table" - which isn't superficially a
+     *   wildcard, but implicitly contains one in the form of "considering
+     *   only everything on the table").  It's perfectly reasonable for the
+     *   parser to expand a wildcard based on what's actually in sight, in
+     *   mind, or whatever's appropriate.  So, in cases where you define an
+     *   especially expansive objInScope() - for example, a universal scope
+     *   like the one TopicResolver uses - it's usually fine to use the
+     *   default definition of getScopeList(), which returns only the
+     *   objects that are in the smaller physical scope.  
      */
     getScopeList() { return scope_; }
 
@@ -174,8 +207,12 @@ class Resolver: object
         local lst;
         local scopeLst;
 
-        /* get the raw antecedent list */
-        lst = getRawPronounAntecedent(typ);
+        /* check the Action for a special override for the pronoun */
+        lst = getAction().getPronounOverride(typ);
+
+        /* if there's no override, get the standard raw antecedent list */
+        if (lst == nil)
+            lst = getRawPronounAntecedent(typ);
 
         /* if there is no antecedent, return an empty list */
         if (lst != nil && lst != [])
@@ -237,7 +274,7 @@ class Resolver: object
             }
 
             /* create a list of ResolveInfo objects from the antecedents */
-            lst = scopeLst.toList().mapAll({x: new ResolveInfo(x, 0)});
+            lst = scopeLst.toList().mapAll({x: new ResolveInfo(x, 0, np)});
         }
 
         /* 
@@ -268,13 +305,16 @@ class Resolver: object
         {
         case PronounMe:
             /*
-             *   It's a first-person construction.  If the issuing actor
-             *   is the player character, this refers to the player
-             *   character only if the game refers to the player character
-             *   in the second person (so, if the game calls the PC "you",
-             *   the player calls the PC "me").  If the issuing actor
-             *   isn't the player character, then a first-person pronoun
-             *   refers to the command's issuer.  
+             *   It's a first-person construction.  If the issuing actor is
+             *   the player character, and we don't treat you/me as
+             *   interchangeable, this refers to the player character only
+             *   if the game refers to the player character in the second
+             *   person (so, if the game calls the PC "you", the player
+             *   calls the PC "me").  If the issuing actor isn't the player
+             *   character, then a first-person pronoun refers to the
+             *   command's issuer.  If we allow you/me mixing, then "me"
+             *   always means the PC in input, no matter how the game
+             *   refers to the PC in output.
              */
             if (issuer_.isPlayerChar
                 && issuer_.referralPerson != SecondPerson
@@ -295,10 +335,13 @@ class Resolver: object
         case PronounYou:
             /*
              *   It's a second-person construction.  If the target actor is
-             *   the player character, this refers to the player character
-             *   only if the game refers to the player character in the
-             *   first person (so, if the game calls the PC "me", then the
-             *   player calls the PC "you").
+             *   the player character, and we don't treat you/me as
+             *   interchangeable, this refers to the player character only
+             *   if the game refers to the player character in the first
+             *   person (so, if the game calls the PC "me", then the player
+             *   calls the PC "you").  If we allow you/me mixing, "you" is
+             *   always the PC in input, no matter how the game refers to
+             *   the PC in output.
              *   
              *   If the target actor isn't the player character, then a
              *   second-person pronoun refers to either the target actor or
@@ -406,7 +449,7 @@ class Resolver: object
          *   create a ResolveInfo for each object, with the 'MatchedAll'
          *   flag set for each object 
          */
-        result.applyAll({x: new ResolveInfo(x, MatchedAll)});
+        result.applyAll({x: new ResolveInfo(x, MatchedAll, np)});
 
         /* run through the list and apply each object's own filtering */
         result = getAction().finishResolveList(result, whichObject, np, nil);
@@ -421,13 +464,11 @@ class Resolver: object
      */
     getAllDefaults()
     {
-        local lst;
-        
         /* ask the action to resolve 'all' for the direct object */
-        lst = action_.getAllDobj(actor_, getScopeList());
+        local lst = action_.getAllDobj(actor_, getScopeList());
 
         /* return the results as ResolveInfo objects */
-        return lst.mapAll({x: new ResolveInfo(x, 0)});
+        return lst.mapAll({x: new ResolveInfo(x, 0, nil)});
     }
 
     /*
@@ -465,6 +506,31 @@ class Resolver: object
     {
         return withGlobals(
             {:action_.filterAmbiguousDobj(lst, requiredNum, np)});
+    }
+
+    /*
+     *   Filter an ambiguous noun phrase list using the strength of
+     *   possessive qualification, if any.  If we have subsets at
+     *   different possessive strengths, choose the strongest subset that
+     *   has at least the required number of objects. 
+     */
+    filterPossRank(lst, num)
+    {
+        local sub1 = lst.subset({x: x.possRank_ >= 1});
+        local sub2 = lst.subset({x: x.possRank_ >= 2});
+
+        /* 
+         *   sub2 is the subset with rank 2; if this meets our needs,
+         *   return it.  If sub2 doesn't meet our needs, then check to see
+         *   if sub1 does; sub1 is the subset with rank 1 or higher.  If
+         *   neither subset meets our needs, use the original list.  
+         */
+        if (sub2.length() >= num)
+            return sub2;
+        else if (sub1.length() >= num)
+            return sub1;
+        else
+            return lst;
     }
 
     /*
@@ -661,6 +727,12 @@ class Resolver: object
      *   internal implementation detail of the base class; subclasses can
      *   dispense with the cached scope list if they define their own
      *   objInScope() and getScopeList() overrides.
+     *   
+     *   Note that any subclasses (including Actions) that make changes to
+     *   this list MUST ensure that the result only contains unique
+     *   entries.  The library assumes in several places that there are no
+     *   duplicate entries in the list; subtle problems can occur if the
+     *   list contains any duplicates.  
      */
     scope_ = []
 
@@ -729,13 +801,11 @@ class IobjResolver: Resolver
     /* get all possible default objects */
     getAllDefaults()
     {
-        local lst;
-        
         /* ask the action to resolve 'all' for the indirect object */
-        lst = action_.getAllIobj(actor_, getScopeList());
+        local lst = action_.getAllIobj(actor_, getScopeList());
 
         /* return the results as ResolveInfo objects */
-        return lst.mapAll({x: new ResolveInfo(x, 0)});
+        return lst.mapAll({x: new ResolveInfo(x, 0, nil)});
     }
 
     /* filter an ambiguous noun phrase */

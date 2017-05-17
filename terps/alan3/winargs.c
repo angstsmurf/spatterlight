@@ -59,14 +59,17 @@ void args(int argc, char * argv[])
   }
 #endif
 
+  // TODO This is the same as in unixargs.c
   if (adventureFileName == NULL) {
     /* No game given, try program name */
-    if (!matchInterpreterName(programName)) {
+    if (differentInterpreterName(programName)) {
+      // TODO break out as a function
       FILE *adventureFile;
       adventureFileName = duplicate(programName,
 				    strlen(programName)
 				    +strlen(ACODEEXTENSION)+1);
       strcat(adventureFileName, ACODEEXTENSION);
+      // TODO break out as utils::fileExists()
       if ((adventureFile = fopen(adventureFileName, "r")) == NULL) {
 	free(adventureFileName);
 	adventureFileName = NULL;
@@ -75,4 +78,5 @@ void args(int argc, char * argv[])
     }
   }
   adventureName = gameName(adventureFileName);
+  free(programName);
 }

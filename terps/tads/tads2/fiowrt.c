@@ -404,6 +404,30 @@ static void fiowrt1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tokctx,
 
     /* go through symbol table, and write each object */
     toktheach((toktdef *)tab, fiowrtobj, &cbctx);
+
+    /* also write all objects created with 'new' */
+    for (vpg = vctx->voccxinh, i = 0 ; i < VOCINHMAX ; ++vpg, ++i)
+    {
+        objnum obj;
+
+        if (!*vpg) continue;
+        for (v = *vpg, obj = (i << 8), j = 0 ; j < 256 ; ++v, ++obj, ++j)
+        {
+            /* if the object was dynamically allocated, write it out */
+            if (*v && (*v)->vociflg & VOCIFNEW)
+            {
+                toksdef t;
+
+                /* clear the 'new' flag, as this is a static object now */
+                (*v)->vociflg &= ~VOCIFNEW;
+
+                /* set up a toksdef, and write it out */
+                t.tokstyp = TOKSTOBJ;
+                t.toksval = obj;
+                fiowrtobj(&cbctx, &t);
+            }
+        }
+    }
                     
     /* close the resource */
     fiowcls(fp, ec, fpos);
@@ -568,6 +592,10 @@ static void fiowrt1(mcmcxdef *mctx, voccxdef *vctx, tokcxdef *tokctx,
             for (vw = vocwget(vctx, voc->vocwlst) ; vw ;
                  vw = vocwget(vctx, vw->vocwnxt))
             {
+                /* clear the 'new' flag, as this is a static object now */
+                vw->vocwflg &= ~VOCFNEW;
+
+                /* write out this object relation */
                 oswp2(buf, voc->voclen);
                 oswp2(buf+2, voc->vocln2);
                 oswp2(buf+4, vw->vocwtyp);

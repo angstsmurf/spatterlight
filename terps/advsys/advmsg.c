@@ -4,7 +4,7 @@
 	Copyright (c) 1986, by David Michael Betz
 	All rights reserved
 */
-#include "advheader.h"
+#include "header.h"
 
 /* cache size */
 #define CSIZE	8

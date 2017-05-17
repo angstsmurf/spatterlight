@@ -50,6 +50,10 @@ public:
                               const char *resname, size_t resnamelen,
                               int fileno);
 
+    /* add a resource file link */
+    virtual void add_resource(const char *fname, size_t fnamelen,
+                              const char *resname, size_t resnamelen);
+
     /* find a resource */
     virtual osfildef *find_resource(const char *resname, size_t resname_len,
                                     unsigned long *res_size);

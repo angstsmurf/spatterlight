@@ -38,6 +38,7 @@ Modified
 #include "tcmake.h"
 #include "vmimage.h"
 #include "vmrunsym.h"
+#include "vmmeta.h"
 #include "t3test.h"
 
 
@@ -158,7 +159,6 @@ int main(int argc, char **argv)
     osfildef *fpout = 0;
     CVmFile *imgfile = 0;
     ulong next_obj_id = 1;
-    uint next_prop_id = 1;
     int next_local = 0;
     CTcTokFileDesc *desc;
     long linenum;
@@ -290,7 +290,8 @@ int main(int argc, char **argv)
                 G_tok->next();
                 entry = new CTcSymFunc(G_tok->getcur()->get_text(),
                                        G_tok->getcur()->get_text_len(),
-                                       FALSE, 0, FALSE, TRUE, FALSE);
+                                       FALSE, 0, 0, FALSE, TRUE,
+                                       FALSE, FALSE, FALSE, TRUE);
                 G_prs->get_global_symtab()->add_entry(entry);
 
                 /* skip the function name */
@@ -409,11 +410,12 @@ int main(int argc, char **argv)
     fprintf(stderr,
             "Warnings: %d\n"
             "Errors:   %d\n"
-            "Longest string: %d, longest list: %d\n",
+            "Longest string: %lu, longest list: %lu\n",
             G_tcmain->get_warning_count(),
             G_tcmain->get_error_count() + fatal_error_count,
-            G_cg->get_max_str_len(), G_cg->get_max_list_cnt());
-
+            (unsigned long)G_cg->get_max_str_len(),
+            (unsigned long)G_cg->get_max_list_cnt());
+    
     /* delete the disassembler input object */
     delete unas_in;
 
@@ -454,3 +456,8 @@ void CVmRuntimeSymbols::add_sym(const char *, size_t,
 {
 }
 
+/* dummy implementation of runtime metaclass table */
+vm_meta_entry_t *CVmMetaTable::get_entry_by_id(const char *id) const
+{
+    return 0;
+}

@@ -23,6 +23,7 @@ Modified
 #include "t3std.h"
 #include "vmfile.h"
 #include "vmerr.h"
+#include "vmdatasrc.h"
 
 
 /*
@@ -60,4 +61,3 @@ void CVmFile::open_write(const char *fname, os_filetype_t typ)
     if (fp_ == 0)
         err_throw(VMERR_CREATE_FILE);
 }
-

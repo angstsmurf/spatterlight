@@ -320,7 +320,7 @@ static int replace_icon(FILE *fpexe, int icon_idx, FILE *fpico)
     if (err != 0)
         goto done;
 
-    /* look up the icon group rsource by index */
+    /* look up the icon group resource by index */
     group_pos = find_resource(fpexe, &group_size, &res_info,
                               RT_GROUP_ICON, icon_idx, TRUE);
 
@@ -802,6 +802,8 @@ int main(int argc, char **argv)
      */
     if (curarg + 2 >= argc)
     {
+        size_t len;
+        
         /* 
          *   the run-time executable was not specified - get the implicit
          *   TR.EXE location from argv[0] if possible 
@@ -816,6 +818,14 @@ int main(int argc, char **argv)
                     "\nfor the usage message)\n");
             exit(1);
         }
+
+        /* use first argument as the game */
+        strcpy(gamnam, argv[curarg]);
+
+        /* if there's a .t3 suffix on the input file, assume -t3 mode */
+        if ((len = strlen(gamnam)) > 3
+            && stricmp(gamnam + len - 3, ".t3") == 0)
+            use_t3_exe = TRUE;
 
         /* find the end of the path prefix */
         for (p += strlen(p) - 1 ; p > trxnam
@@ -912,9 +922,6 @@ int main(int argc, char **argv)
                     path = 0;
             }
         }
-
-        /* use first argument as the game */
-        strcpy(gamnam, argv[curarg]);
 
         /* if no destination is specified, use game (but strip extension) */
         if (curarg + 1 >= argc)

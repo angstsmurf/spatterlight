@@ -40,9 +40,12 @@ Modified
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Object file signature 
+ *   Object file signature.  The numerical suffix in the first part is the
+ *   format version number: whenever we make an incompatible change to the
+ *   format, we'll increment this number so that the linker will recognize an
+ *   incompatible file format and require a full rebuild.  
  */
-static const char obj_file_sig[] = "TADS3.Object.000D\n\r\032";
+static const char obj_file_sig[] = "TADS3.Object.0011\n\r\032";
 
 
 /* ------------------------------------------------------------------------ */
@@ -64,12 +67,12 @@ void CTcGenTarg::write_to_object_file(CVmFile *fp, CTcMake *)
         flags |= TCT3_OBJHDR_DEBUG;
 
     /* write the flags */
-    fp->write_int4(flags);
+    fp->write_uint4(flags);
 
     /* write the constant and code pool indivisible object maxima */
-    fp->write_int4(max_str_len_);
-    fp->write_int4(max_list_cnt_);
-    fp->write_int4(max_bytecode_len_);
+    fp->write_uint4(max_str_len_);
+    fp->write_uint4(max_list_cnt_);
+    fp->write_uint4(max_bytecode_len_);
 
     /* 
      *   Write the maximum object and property ID's.  When we load this
@@ -79,9 +82,9 @@ void CTcGenTarg::write_to_object_file(CVmFile *fp, CTcMake *)
      *   numbering system.  It is helpful if we know early on how many of
      *   each there are, so that we can allocate table space accordingly.  
      */
-    fp->write_int4(next_obj_);
-    fp->write_int4(next_prop_);
-    fp->write_int4(G_prs->get_enum_count());
+    fp->write_uint4(next_obj_);
+    fp->write_uint4(next_prop_);
+    fp->write_uint4(G_prs->get_enum_count());
     
     /* write the function set dependency table */
     write_funcdep_to_object_file(fp);
@@ -116,8 +119,14 @@ void CTcGenTarg::write_to_object_file(CVmFile *fp, CTcMake *)
     /* write the BigNumber stream and its fixup list */
     G_bignum_stream->write_to_object_file(fp);
 
+    /* write the RexPattern stream and its fixup list */
+    G_rexpat_stream->write_to_object_file(fp);
+
     /* write the static initializer ID stream */
     G_static_init_id_stream->write_to_object_file(fp);
+
+    /* write the local variable symbol stream */
+    G_lcl_stream->write_to_object_file(fp);
 
     /* write the object ID fixup list */
     CTcIdFixup::write_to_object_file(fp, G_objfixup);
@@ -143,7 +152,7 @@ void CTcGenTarg::write_to_object_file(CVmFile *fp, CTcMake *)
          *   numbering system for the source file descriptors).  First,
          *   write the total number of pointers.  
          */
-        fp->write_int4(debug_line_cnt_);
+        fp->write_uint4(debug_line_cnt_);
 
         /* now write the pointers, one page at a time */
         for (pg = debug_line_head_ ; pg != 0 ; pg = pg->nxt)
@@ -168,10 +177,10 @@ void CTcGenTarg::write_to_object_file(CVmFile *fp, CTcMake *)
             fp->write_bytes((char *)pg->line_ofs,
                             pgcnt * TCT3_DEBUG_LINE_REC_SIZE);
         }
-
-        /* write the #define symbols */
-        G_tok->write_macros_to_file_for_debug(fp);
     }
+
+    /* write the #define symbols */
+    G_tok->write_macros_to_file_for_debug(fp);
 }
 
 /* ------------------------------------------------------------------------ */
@@ -183,7 +192,7 @@ void CTcGenTarg::write_funcdep_to_object_file(CVmFile *fp)
     tc_fnset_entry *cur;
 
     /* write the count */
-    fp->write_int2(fnset_cnt_);
+    fp->write_uint2(fnset_cnt_);
 
     /* write the entries */
     for (cur = fnset_head_ ; cur != 0 ; cur = cur->nxt)
@@ -191,7 +200,7 @@ void CTcGenTarg::write_funcdep_to_object_file(CVmFile *fp)
         size_t len;
 
         len = strlen(cur->nm);
-        fp->write_int2(len);
+        fp->write_uint2(len);
         fp->write_bytes(cur->nm, len);
     }
 }
@@ -204,7 +213,7 @@ void CTcGenTarg::write_metadep_to_object_file(CVmFile *fp)
     tc_meta_entry *cur;
 
     /* write the count */
-    fp->write_int2(meta_cnt_);
+    fp->write_uint2(meta_cnt_);
 
     /* write the entries */
     for (cur = meta_head_ ; cur != 0 ; cur = cur->nxt)
@@ -212,11 +221,39 @@ void CTcGenTarg::write_metadep_to_object_file(CVmFile *fp)
         size_t len;
 
         len = strlen(cur->nm);
-        fp->write_int2(len);
+        fp->write_uint2(len);
         fp->write_bytes(cur->nm, len);
     }
 }
 
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Error handler for CTcTokenizer::load_macros_from_file() 
+ */
+class MyLoadMacErr: public CTcTokLoadMacErr
+{
+public:
+    MyLoadMacErr(const char *fname) { fname_ = fname; }
+
+    /* log an error */
+    virtual void log_error(int err)
+    {
+        /* check the error code */
+        switch(err)
+        {
+        case 1:
+        case 2:
+            G_tcmain->log_error(0, 0, TC_SEV_ERROR,
+                                TCERR_OBJFILE_MACRO_SYM_TOO_LONG, fname_);
+            break;
+        }
+    }
+
+private:
+    /* the name of the object file we're loading */
+    const char *fname_;
+};
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -258,7 +295,9 @@ int CTcGenTarg::load_object_file(CVmFile *fp, const textchar_t *fname)
     G_os->set_object_file_start_ofs();
     G_icmod_stream->set_object_file_start_ofs();
     G_bignum_stream->set_object_file_start_ofs();
+    G_rexpat_stream->set_object_file_start_ofs();
     G_static_init_id_stream->set_object_file_start_ofs();
+    G_lcl_stream->set_object_file_start_ofs();
 
     /* 
      *   note the main code stream's start offset, since we'll need this
@@ -277,7 +316,7 @@ int CTcGenTarg::load_object_file(CVmFile *fp, const textchar_t *fname)
     }
 
     /* read the file header flags */
-    hdr_flags = (ulong)fp->read_int4();
+    hdr_flags = fp->read_uint4();
 
     /*
      *   If we're linking with debugging information, but this object file
@@ -297,17 +336,17 @@ int CTcGenTarg::load_object_file(CVmFile *fp, const textchar_t *fname)
      */
 
     /* read and note the maximum string constant length */
-    siz = (ulong)fp->read_int4();
+    siz = fp->read_uint4();
     if (siz > max_str_len_)
         max_str_len_ = siz;
 
     /* read and note the maximum list size */
-    siz = (ulong)fp->read_int4();
+    siz = fp->read_uint4();
     if (siz > max_list_cnt_)
         max_list_cnt_ = siz;
     
     /* read and note the maximum code pool object size */
-    siz = (ulong)fp->read_int4();
+    siz = fp->read_uint4();
     if (siz > max_bytecode_len_)
         max_bytecode_len_ = siz;
 
@@ -316,9 +355,9 @@ int CTcGenTarg::load_object_file(CVmFile *fp, const textchar_t *fname)
      *   - these give the highest ID values that are assigned anywhere in
      *   the object file's numbering system 
      */
-    obj_cnt = (ulong)fp->read_int4();
-    prop_cnt = (ulong)fp->read_int4();
-    enum_cnt = (ulong)fp->read_int4();
+    obj_cnt = fp->read_uint4();
+    prop_cnt = fp->read_uint4();
+    enum_cnt = fp->read_uint4();
 
     /*
      *   Allocate object and property ID translation tables.  These are
@@ -355,97 +394,119 @@ int CTcGenTarg::load_object_file(CVmFile *fp, const textchar_t *fname)
     enum_xlat = (ulong *)
                 t3malloc((size_t)(enum_cnt * sizeof(enum_xlat[0])));
 
-    /* check to make sure we got the memory */
-    if (obj_xlat == 0 || prop_xlat == 0 || enum_xlat == 0)
+    err_try
     {
-        /* log an error and return failure */
-        G_tcmain->log_error(0, 0, TC_SEV_ERROR, TCERR_OBJFILE_OUT_OF_MEM);
-        err = 3;
-        goto done;
+        /* check to make sure we got the memory */
+        if (obj_xlat == 0 || prop_xlat == 0 || enum_xlat == 0)
+        {
+            /* log an error and return failure */
+            G_tcmain->log_error(0, 0, TC_SEV_ERROR, TCERR_OBJFILE_OUT_OF_MEM);
+            err = 3;
+            goto done;
+        }
+
+        /* 
+         *   Clear out the translation arrays initially.  We should, in the
+         *   course of loading the symbol table, assign a translation value
+         *   for every entry.  If anything is left at zero (which is invalid
+         *   as an object or property ID), something must be wrong.  
+         */
+        memset(obj_xlat, 0, (size_t)(obj_cnt * sizeof(obj_xlat[0])));
+        memset(prop_xlat, 0, (size_t)(prop_cnt * sizeof(prop_xlat[0])));
+        memset(enum_xlat, 0, (size_t)(enum_cnt * sizeof(enum_xlat[0])));
+        
+        /* read the function set dependency table */
+        load_funcdep_from_object_file(fp, fname);
+        
+        /* read the metaclass dependency table */
+        load_metadep_from_object_file(fp, fname);
+        
+        /* 
+         *   Read the symbol table.  This will create translation entries for
+         *   the object and property names found in the symbol table.  
+         */
+        if ((err = G_prs->load_object_file(fp, fname, obj_xlat, prop_xlat,
+                                           enum_xlat)) != 0)
+        {
+            /* that failed - abort the load */
+            goto done;
+        }
+        
+        /* read the main code stream and its fixup list */
+        G_cs_main->load_object_file(fp, fname);
+        
+        /* read the static code stream and its fixup list */
+        G_cs_static->load_object_file(fp, fname);
+        
+        /* read the data stream and its fixup list */
+        G_ds->load_object_file(fp, fname);
+        
+        /* read the object data stream and its fixup list */
+        G_os->load_object_file(fp, fname);
+        
+        /* read the intrinsic class modifier stream */
+        G_icmod_stream->load_object_file(fp, fname);
+        
+        /* read the BigNumber stream and its fixup list */
+        G_bignum_stream->load_object_file(fp, fname);
+
+        /* read the RexPattern stream and its fixup list */
+        G_rexpat_stream->load_object_file(fp, fname);
+        
+        /* read the static initializer ID stream */
+        G_static_init_id_stream->load_object_file(fp, fname);
+        
+        /* read the local variable symbol stream */
+        G_lcl_stream->load_object_file(fp, fname);
+        
+        /* read the object ID fixup list */
+        CTcIdFixup::load_object_file(
+            fp, obj_xlat, obj_cnt, TCGEN_XLAT_OBJ, 4,
+            fname, G_keep_objfixups ? &G_objfixup : 0);
+
+        /* read the property ID fixup list */
+        CTcIdFixup::load_object_file(
+            fp, prop_xlat, prop_cnt, TCGEN_XLAT_PROP, 2,
+            fname, G_keep_propfixups ? &G_propfixup : 0);
+
+        /* read the enum ID fixup list */
+        CTcIdFixup::load_object_file(
+            fp, enum_xlat, enum_cnt, TCGEN_XLAT_ENUM, 2,
+            fname, G_keep_enumfixups ? &G_enumfixup : 0);
+
+        /* if the object file contains debugging information, read that */
+        if ((hdr_flags & TCT3_OBJHDR_DEBUG) != 0)
+        {
+            /* load the debug records */
+            load_debug_records_from_object_file(
+                fp, fname, main_cs_start_ofs, static_cs_start_ofs);
+        }
+        
+        /* read the macro definitions */
+        {
+            CVmFileStream str(fp);
+            MyLoadMacErr err_handler(fname);
+            G_tok->load_macros_from_file(&str, &err_handler);
+        }
+
+done: ;
     }
-
-    /* 
-     *   Clear out the translation arrays initially.  We should, in the
-     *   course of loading the symbol table, assign a translation value
-     *   for every entry.  If anything is left at zero (which is invalid
-     *   as an object or property ID), something must be wrong.
-     */
-    memset(obj_xlat, 0, (size_t)(obj_cnt * sizeof(obj_xlat[0])));
-    memset(prop_xlat, 0, (size_t)(prop_cnt * sizeof(prop_xlat[0])));
-    memset(enum_xlat, 0, (size_t)(enum_cnt * sizeof(enum_xlat[0])));
-
-    /* read the function set dependency table */
-    load_funcdep_from_object_file(fp, fname);
-
-    /* read the metaclass dependency table */
-    load_metadep_from_object_file(fp, fname);
-
-    /* 
-     *   Read the symbol table.  This will create translation entries for
-     *   the object and property names found in the symbol table. 
-     */
-    if ((err = G_prs->load_object_file(fp, fname, obj_xlat, prop_xlat,
-                                       enum_xlat)) != 0)
+    err_finally
     {
-        /* that failed - abort the load */
-        goto done;
+        /* 
+         *   free the ID translation arrays - we no longer need them after
+         *   loading the object file, because we translate everything in the
+         *   course of loading, so what's left in memory when we're done uses
+         *   the new global numbering system 
+         */
+        if (obj_xlat != 0)
+            t3free(obj_xlat);
+        if (prop_xlat != 0)
+            t3free(prop_xlat);
+        if (enum_xlat != 0)
+            t3free(enum_xlat);
     }
-
-    /* read the main code stream and its fixup list */
-    G_cs_main->load_object_file(fp, fname);
-
-    /* read the static code stream and its fixup list */
-    G_cs_static->load_object_file(fp, fname);
-
-    /* read the data stream and its fixup list */
-    G_ds->load_object_file(fp, fname);
-
-    /* read the object data stream and its fixup list */
-    G_os->load_object_file(fp, fname);
-
-    /* read the intrinsic class modifier stream */
-    G_icmod_stream->load_object_file(fp, fname);
-
-    /* read the BigNumber stream and its fixup list */
-    G_bignum_stream->load_object_file(fp, fname);
-
-    /* read the static initializer ID stream */
-    G_static_init_id_stream->load_object_file(fp, fname);
-
-    /* read the object ID fixup list */
-    CTcIdFixup::load_object_file(fp, obj_xlat, obj_cnt, TCGEN_XLAT_OBJ, 4,
-                                 fname, G_keep_objfixups ? &G_objfixup : 0);
-
-    /* read the property ID fixup list */
-    CTcIdFixup::load_object_file(fp, prop_xlat, prop_cnt, TCGEN_XLAT_PROP, 2,
-                                 fname, G_keep_propfixups ? &G_propfixup : 0);
-
-    /* read the enum ID fixup list */
-    CTcIdFixup::load_object_file(fp, enum_xlat, enum_cnt, TCGEN_XLAT_ENUM, 2,
-                                 fname, G_keep_enumfixups ? &G_enumfixup : 0);
-
-    /* if the object file contains debugging information, read that */
-    if ((hdr_flags & TCT3_OBJHDR_DEBUG) != 0)
-    {
-        /* load the debug records */
-        load_debug_records_from_object_file(fp, fname,
-                                            main_cs_start_ofs,
-                                            static_cs_start_ofs);
-    }
-
-done:
-    /* 
-     *   free the ID translation arrays - we no longer need them after
-     *   loading the object file, because we translate everything in the
-     *   course of loading, so what's left in memory when we're done uses
-     *   the new global numbering system 
-     */
-    if (obj_xlat != 0)
-        t3free(obj_xlat);
-    if (prop_xlat != 0)
-        t3free(prop_xlat);
-    if (enum_xlat != 0)
-        t3free(enum_xlat);
+    err_end;
 
     /* return the result */
     return err;
@@ -454,33 +515,51 @@ done:
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Error handler for CTcTokenizer::load_macros_from_file() 
+ *   Add a debug line table to our list 
  */
-class MyLoadMacErr: public CTcTokLoadMacErr
+void CTcGenTarg::add_debug_line_table(ulong ofs)
 {
-public:
-    MyLoadMacErr(const char *fname) { fname_ = fname; }
+    size_t idx;
+    uchar *p;
 
-    /* log an error */
-    virtual void log_error(int err)
+    /* calculate the index of the next free entry on its page */
+    idx = (size_t)(debug_line_cnt_ % TCT3_DEBUG_LINE_PAGE_SIZE);
+
+    /* 
+     *   if we've completely filled the last page, allocate a new one - we
+     *   know we've exhausted the page if we're at the start of a new page
+     *   (i.e., the index is zero) 
+     */
+    if (idx == 0)
     {
-        /* check the error code */
-        switch(err)
-        {
-        case 1:
-        case 2:
-            G_tcmain->log_error(0, 0, TC_SEV_ERROR,
-                                TCERR_OBJFILE_MACRO_SYM_TOO_LONG, fname_);
-            break;
-        }
+        tct3_debug_line_page *pg;
+
+        /* allocate the new page */
+        pg = (tct3_debug_line_page *)t3malloc(sizeof(*pg));
+
+        /* link it in at the end of the list */
+        pg->nxt = 0;
+        if (debug_line_tail_ == 0)
+            debug_line_head_ = pg;
+        else
+            debug_line_tail_->nxt = pg;
+        debug_line_tail_ = pg;
     }
 
-private:
-    /* the name of the object file we're loading */
-    const char *fname_;
-};
+    /* get a pointer to the entry */
+    p = debug_line_tail_->line_ofs + (idx * TCT3_DEBUG_LINE_REC_SIZE);
 
-/* ------------------------------------------------------------------------ */
+    /* 
+     *   set this entry - one byte for the code stream ID, then a UINT4 with
+     *   the offset in the stream 
+     */
+    *p = G_cs->get_stream_id();
+    oswp4(p + 1, ofs);
+
+    /* count it */
+    ++debug_line_cnt_;
+}
+
 /*
  *   Load the debug records from an object file 
  */
@@ -508,7 +587,7 @@ void CTcGenTarg::load_debug_records_from_object_file(
      *   must fix up the line records to reflect the file descriptor
      *   numbering system.  
      */
-    for (line_table_cnt = (ulong)fp->read_int4() ; line_table_cnt != 0 ;
+    for (line_table_cnt = fp->read_uint4() ; line_table_cnt != 0 ;
          --line_table_cnt)
     {
         uchar stream_id;
@@ -532,16 +611,11 @@ void CTcGenTarg::load_debug_records_from_object_file(
          *   code stream of the next debug line table.  Add our starting
          *   offset to get the true offset.  
          */
-        ofs = (ulong)fp->read_int4() + start_ofs;
+        ofs = fp->read_uint4() + start_ofs;
         
         /* update this table */
         fix_up_debug_line_table(cs, ofs, first_filedesc);
     }
-
-    /* read the macro definitions */
-    CVmFileStream str(fp);
-    MyLoadMacErr err_handler(fname);
-    G_tok->load_macros_from_file(&str, &err_handler);
 }
 
 /*
@@ -558,8 +632,7 @@ void CTcGenTarg::fix_up_debug_line_table(CTcCodeStream *cs,
     cnt = cs->readu2_at(line_table_ofs);
 
     /* adjust each entry */
-    for (ofs = line_table_ofs + 2 ; cnt != 0 ;
-         --cnt, ofs += TCT3_LINE_ENTRY_SIZE)
+    for (ofs = line_table_ofs + 2 ; cnt != 0 ; --cnt, ofs += G_sizes.dbg_line)
     {
         uint filedesc;
         
@@ -763,7 +836,7 @@ void CTcGenTarg::write_sources_to_object_file(CVmFile *fp)
     CTcTokFileDesc *desc;
 
     /* write the number of entries */
-    fp->write_int2(G_tok->get_filedesc_count());
+    fp->write_uint2(G_tok->get_filedesc_count());
 
     /* write the entries */
     for (desc = G_tok->get_first_filedesc() ; desc != 0 ;
@@ -777,7 +850,7 @@ void CTcGenTarg::write_sources_to_object_file(CVmFile *fp)
 
         /* write the length of the filename */
         len = strlen(fname);
-        fp->write_int2(len);
+        fp->write_uint2(len);
 
         /* write the filename */
         fp->write_bytes(fname, len);
@@ -928,10 +1001,13 @@ void CTcGenTarg::write_to_image(CVmFile *fp, uchar data_xor_mask,
     unsigned long main_ofs;
     vm_prop_id_t construct_prop = VM_INVALID_PROP;
     vm_prop_id_t finalize_prop = VM_INVALID_PROP;
-    vm_prop_id_t objcall_prop = VM_INVALID_PROP;
+    vm_prop_id_t graminfo_prop = VM_INVALID_PROP;
+    vm_prop_id_t gramtag_prop = VM_INVALID_PROP;
+    vm_prop_id_t miscvocab_prop = VM_INVALID_PROP;
     tc_fnset_entry *fnset;
     CVmImageWriter *image_writer;
     int bignum_idx;
+    int rexpat_idx;
     int int_class_idx;
     CTcPrsExport *exp;
     CTcDataStream *cs_list[2];
@@ -943,6 +1019,10 @@ void CTcGenTarg::write_to_image(CVmFile *fp, uchar data_xor_mask,
      */
     if (G_bignum_stream->get_ofs() != 0)
         bignum_idx = find_or_add_meta("bignumber", 9, 0);
+
+    /* if we have any RexPattern data, get the RexPattern metaclass index */
+    if (G_rexpat_stream->get_ofs() != 0)
+        rexpat_idx = find_or_add_meta("regex-pattern", 13, 0);
 
     /* apply internal object/property ID fixups in the symbol table */
     G_prs->apply_internal_fixups();
@@ -960,11 +1040,41 @@ void CTcGenTarg::write_to_image(CVmFile *fp, uchar data_xor_mask,
      */
     G_prs->build_dictionaries();
 
+    /* 
+     *   Build the multi-method static initializers.  Note: this must be done
+     *   before we generate the intrinsic class objects, because we might add
+     *   intrinsic class modifiers in the course of building the mm
+     *   initializers. 
+     */
+    build_multimethod_initializers();
+
     /* make sure the the IntrinsicClass intrinsic class is itself defined */
     int_class_idx = find_or_add_meta("intrinsic-class", 15, 0);
 
     /* build the IntrinsicClass objects */
     build_intrinsic_class_objs(G_int_class_stream);
+
+    /* 
+     *   Apply fixups for the local variable stream.  This stream isn't
+     *   written to the image file, but we need to do the layout in order to
+     *   apply its fixups. 
+     */
+    CTcStreamLayout vpl;
+    vpl.calc_layout(G_lcl_stream, 65535, TRUE);
+
+    /* 
+     *   Build the local symbol records.  We need to do this before
+     *   calculating the code pool layout, because this writes more data to
+     *   the constant pool.  We need to build the symbol records separately
+     *   for the regular and static code pools, since they haven't been
+     *   merged yet.
+     */
+    CVmHashTable *lcltab = new CVmHashTable(1024, new CVmHashFuncCS(), TRUE);
+    build_local_symbol_records(G_cs_main, lcltab);
+    build_local_symbol_records(G_cs_static, lcltab);
+
+    /* we're done with the local symbol hash table */
+    delete lcltab;
 
     /* calculate the final pool layouts */
     calc_pool_layouts(&first_static_code_page);
@@ -1007,7 +1117,11 @@ void CTcGenTarg::write_to_image(CVmFile *fp, uchar data_xor_mask,
     /* get the constructor and finalizer property ID's */
     construct_prop = (tctarg_prop_id_t)G_prs->get_constructor_prop();
     finalize_prop = (tctarg_prop_id_t)G_prs->get_finalize_prop();
-    objcall_prop = (tctarg_prop_id_t)G_prs->get_objcall_prop();
+
+    /* get the special generated GrammarProd property IDs */
+    graminfo_prop = (tctarg_prop_id_t)G_prs->get_grammarInfo_prop();
+    gramtag_prop = (tctarg_prop_id_t)G_prs->get_grammarTag_prop();
+    miscvocab_prop = (tctarg_prop_id_t)G_prs->get_miscvocab_prop();
 
     /* create our image writer */
     image_writer = new CVmImageWriter(fp);
@@ -1016,10 +1130,11 @@ void CTcGenTarg::write_to_image(CVmFile *fp, uchar data_xor_mask,
     image_writer->prepare(1, tool_data);
 
     /* write the entrypoint offset and data structure parameters */
-    image_writer->write_entrypt(main_ofs, TCT3_METHOD_HDR_SIZE,
-                                TCT3_EXC_ENTRY_SIZE, TCT3_LINE_ENTRY_SIZE,
-                                TCT3_DBG_HDR_SIZE, TCT3_DBG_LCLSYM_HDR_SIZE,
-                                TCT3_DBG_FMT_VSN);
+    image_writer->write_entrypt(main_ofs, G_sizes.mhdr,
+                                G_sizes.exc_entry, G_sizes.dbg_line,
+                                G_sizes.dbg_hdr, G_sizes.lcl_hdr,
+                                G_sizes.dbg_frame,
+                                G_sizes.dbg_fmt_vsn);
 
     /* begin writing the symbolic items */
     image_writer->begin_sym_block();
@@ -1042,7 +1157,7 @@ void CTcGenTarg::write_to_image(CVmFile *fp, uchar data_xor_mask,
         if (exp->ext_name_matches("LastProp")
             || exp->ext_name_matches("Constructor")
             || exp->ext_name_matches("Destructor")
-            || exp->ext_name_matches("ObjectCallProp"))
+            || exp->ext_name_starts_with("operator "))
         {
             /* it's a reserved export - flag an error */
             G_tcmain->log_error(0, 0, TC_SEV_ERROR,
@@ -1165,12 +1280,35 @@ void CTcGenTarg::write_to_image(CVmFile *fp, uchar data_xor_mask,
     if (finalize_prop != VM_INVALID_PROP)
         image_writer->write_sym_item_propid("Destructor", finalize_prop);
 
-    /* 
-     *   write the special property ID for calling properties of anonymous
-     *   function objects 
-     */
-    if (objcall_prop != VM_INVALID_PROP)
-        image_writer->write_sym_item_propid("ObjectCallProp", objcall_prop);
+    /* the compiler generates grammarTag and grammarInfo properties */
+    if (graminfo_prop != VM_INVALID_PROP)
+        image_writer->write_sym_item_propid(
+            "GrammarProd.grammarInfo", graminfo_prop);
+    if (gramtag_prop != VM_INVALID_PROP)
+        image_writer->write_sym_item_propid(
+            "GrammarProd.grammarTag", gramtag_prop);
+
+    /* likewise miscVocab */
+    if (miscvocab_prop != VM_INVALID_PROP)
+        image_writer->write_sym_item_propid(
+            "GrammarProd.miscVocab", miscvocab_prop);
+
+    /* write the operator properties */
+    write_op_export(image_writer, G_prs->ov_op_add_);
+    write_op_export(image_writer, G_prs->ov_op_sub_);
+    write_op_export(image_writer, G_prs->ov_op_mul_);
+    write_op_export(image_writer, G_prs->ov_op_div_);
+    write_op_export(image_writer, G_prs->ov_op_mod_);
+    write_op_export(image_writer, G_prs->ov_op_xor_);
+    write_op_export(image_writer, G_prs->ov_op_shl_);
+    write_op_export(image_writer, G_prs->ov_op_ashr_);
+    write_op_export(image_writer, G_prs->ov_op_lshr_);
+    write_op_export(image_writer, G_prs->ov_op_bnot_);
+    write_op_export(image_writer, G_prs->ov_op_bor_);
+    write_op_export(image_writer, G_prs->ov_op_band_);
+    write_op_export(image_writer, G_prs->ov_op_neg_);
+    write_op_export(image_writer, G_prs->ov_op_idx_);
+    write_op_export(image_writer, G_prs->ov_op_setidx_);
 
     /* done with the symbolic names */
     image_writer->end_sym_block();
@@ -1239,6 +1377,11 @@ void CTcGenTarg::write_to_image(CVmFile *fp, uchar data_xor_mask,
         write_nontads_objs_to_image(G_bignum_stream,
                                     image_writer, bignum_idx, FALSE);
 
+    /* if we have any RexPattern data, write it out */
+    if (G_rexpat_stream->get_ofs() != 0)
+        write_nontads_objs_to_image(G_rexpat_stream,
+                                    image_writer, rexpat_idx, FALSE);
+
     /* if we have any IntrinsicClass data, write it out */
     if (G_int_class_stream->get_ofs() != 0)
         write_nontads_objs_to_image(G_int_class_stream, image_writer,
@@ -1274,6 +1417,20 @@ void CTcGenTarg::write_to_image(CVmFile *fp, uchar data_xor_mask,
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Write an export record for an operator overload property 
+ */
+void CTcGenTarg::write_op_export(CVmImageWriter *image_writer,
+                                 CTcSymProp *prop)
+{
+    if (prop != 0 && prop->get_prop() != VM_INVALID_PROP)
+    {
+        image_writer->write_sym_item_propid(
+            prop->get_sym(), prop->get_sym_len(), prop->get_prop());
+    }
+}
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Write the static initializer ID list 
  */
 void CTcGenTarg::write_static_init_list(CVmImageWriter *image_writer,
@@ -1289,9 +1446,23 @@ void CTcGenTarg::write_static_init_list(CVmImageWriter *image_writer,
      *   ID, 2 bytes for property ID) 
      */
     init_cnt = G_static_init_id_stream->get_ofs() / 6;
+
+    /* add the multi-method initializer object, if there is one */
+    if (mminit_obj_ != VM_INVALID_OBJ)
+        init_cnt += 1;
     
     /* start the block */
     image_writer->begin_sini_block(main_cs_size, init_cnt);
+
+    /* write the multi-method initializer object, if applicable */
+    if (mminit_obj_ != VM_INVALID_OBJ)
+    {
+        /* write the object data */
+        char buf[6];
+        oswp4(buf, mminit_obj_);                           /* the object ID */
+        oswp2(buf+4, 1);           /* our arbitrary initializer property ID */
+        image_writer->write_bytes(buf, 6);
+    }
 
     /* write the bytes */
     for (ofs = 0, rem = G_static_init_id_stream->get_ofs() ; rem != 0 ; )
@@ -1312,6 +1483,577 @@ void CTcGenTarg::write_static_init_list(CVmImageWriter *image_writer,
 
     /* end the block */
     image_writer->end_sini_block();
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Build synthesized code.  This is called after all of the object files
+ *   are loaded and before we generate the final image file, to give the
+ *   linker a chance to generate any automatically generated code.  We use
+ *   this to generate the stub base functions for multi-methods.  
+ */
+struct mmstub_ctx
+{
+    mmstub_ctx()
+    {
+        mmc = 0;
+        cnt = 0;
+    }
+    
+    /* _multiMethodCall function symbol */
+    CTcSymFunc *mmc;
+
+    /* number of multi-method stubs we generated */
+    int cnt;
+};
+
+void CTcGenTarg::build_synthesized_code()
+{
+    mmstub_ctx ctx;
+    
+    /* look up the _multiMethodCall function */
+    ctx.mmc = (CTcSymFunc *)G_prs->get_global_symtab()->find(
+        "_multiMethodCall", 16);
+
+    /* 
+     *   our generated code isn't part of any object file - flag a new object
+     *   file so that we don't get confused into thinking this came from the
+     *   last object file loaded 
+     */
+    G_cs_static->set_object_file_start_ofs();
+    G_os->set_object_file_start_ofs();
+
+    /* build out the stubs for the multi-method base functions */
+    G_prs->get_global_symtab()->enum_entries(&multimethod_stub_cb, &ctx);
+
+    /* 
+     *   if we generated any stubs, we definitely need _multiMethodCall to be
+     *   defined - if it's not, it's an error 
+     */
+    if (ctx.cnt != 0 && (ctx.mmc == 0 || ctx.mmc->get_type() != TC_SYM_FUNC))
+    {
+        G_tcmain->log_error(0, 0, TC_SEV_ERROR, TCERR_MISSING_MMREG,
+                            "_multiMethodCall");
+    }
+}
+
+/* callback context - build multi-method base function stubs */
+void CTcGenTarg::multimethod_stub_cb(void *ctx0, CTcSymbol *sym)
+{
+    mmstub_ctx *ctx = (mmstub_ctx *)ctx0;
+
+    /* if this is a function, check to see if it's a multi-method stub */
+    if (sym->get_type() == TC_SYM_FUNC)
+    {
+        CTcSymFunc *fsym = (CTcSymFunc *)sym;
+
+        /* 
+         *   It's a base function if it's marked as a multi-method and it
+         *   doesn't have a '*' in its name.  (If there's a '*', it's a
+         *   concrete multi-method rather than a base function.)  
+         */
+        if (fsym->is_multimethod())
+        {
+            /* it's marked as a multi-method - check for a decorated name */
+            const char *p = sym->getstr();
+            size_t rem = sym->getlen();
+            for ( ; rem != 0 && *p != '*' ; ++p, --rem) ;
+            if (rem == 0)
+            {
+                tct3_method_gen_ctx gen_ctx;
+
+                /* 
+                 *   It's a multi-method base function - build out its stub.
+                 *   The stub function is a varargs function with no fixed
+                 *   parameters - i.e., funcName(...).  Its body simply calls
+                 *   _multiMethodCall with a pointer to itself as the base
+                 *   function.  
+                 */
+                G_cg->open_method(G_cs_main,
+                                  fsym, fsym->get_fixup_list_anchor(),
+                                  0, 0, 0, 0, TRUE, FALSE, FALSE, FALSE,
+                                  &gen_ctx);
+
+                /* set the anchor in the function symbol */
+                fsym->set_anchor(gen_ctx.anchor);
+
+                /* 
+                 *   turn the arguments into a list, leaving this on the
+                 *   stack as the second argument for _multiMethodCall 
+                 */
+                G_cg->write_op(OPC_PUSHPARLST);
+                G_cs->write(0);
+                G_cg->note_push();
+
+                /* push the function address argument */
+                CTcConstVal funcval;
+                funcval.set_funcptr(fsym);
+                CTPNConst cfunc(&funcval);
+                cfunc.gen_code(FALSE, FALSE);
+                G_cg->note_push();
+
+                /* 
+                 *   call _multiMethodCall, if it's defined (if not, the
+                 *   caller will flag it as an error, so we don't need to
+                 *   worry about that here - just skip generating the call) 
+                 */
+                if (ctx->mmc != 0)
+                    ctx->mmc->gen_code_call(FALSE, 2, FALSE, FALSE);
+
+                /* return the result */
+                G_cg->write_op(OPC_RETVAL);
+                G_cg->note_pop();
+
+                /* finish the method */
+                G_cg->close_method(0, 0, 0, 0, &gen_ctx, 0);
+                G_cg->close_method_cleanup(&gen_ctx);
+
+                /* the stub symbol now has a definition */
+                fsym->set_extern(FALSE);
+
+                /* count it */
+                ctx->cnt += 1;
+            }
+        }
+    }
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Start a OBJS header for a TadsObject to a given stream.  This only
+ *   writes the fixed part; the caller must then write the superclass list
+ *   and the property table.  After the contents have been written, call
+ *   close_tadsobj() to finalize the header data.  
+ */
+void CTcGenTarg::open_tadsobj(tct3_tadsobj_ctx *ctx,
+                              CTcDataStream *stream,
+                              vm_obj_id_t obj_id,
+                              int sc_cnt, int prop_cnt,
+                              unsigned int internal_flags,
+                              unsigned int vm_flags)
+{
+    /* remember the stream in the context */
+    ctx->stream = stream;
+
+    /* write the internal header */
+    stream->write2(internal_flags);
+    
+    /* note the start of the VM object data */
+    ctx->obj_ofs = stream->get_ofs();
+
+    /* write the fixed header data */
+    stream->write_obj_id(obj_id);                              /* object ID */
+    stream->write2(0);   /* byte size placeholder - we'll fix up at "close" */
+    stream->write2(sc_cnt);                             /* superclass count */
+    stream->write2(prop_cnt);                             /* property count */
+    stream->write2(vm_flags);                               /* object flags */
+}
+
+/*
+ *   Close a TadsObject header.  This must be called after the object's
+ *   contents have been written so that we can fix up the header with the
+ *   actual data size. 
+ */
+void CTcGenTarg::close_tadsobj(tct3_tadsobj_ctx *ctx)
+{
+    /* fix up the object size data */
+    ctx->stream->write2_at(ctx->obj_ofs + 4,
+                           ctx->stream->get_ofs() - ctx->obj_ofs - 6);
+}
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Linker support: ensure that the given intrinsic class has a modifier
+ *   object.  If there's no modifier, we'll create one and add the code for
+ *   it to the object stream.
+ *   
+ *   This should only be called during the linking phase, after code
+ *   generation is completed.  If you want to create a modifier during
+ *   compilation, you should instead use CTcParser::find_or_def_obj(), since
+ *   that creates the necessary structures for object file generation and
+ *   later linking.  
+ */
+void CTcGenTarg::linker_ensure_mod_obj(CTcSymMetaclass *mc)
+{
+    /* if there's no modifier object, create one */
+    if (mc->get_mod_obj() == 0)
+    {
+        /* create a modifier object */
+        CTcSymObj *mod_sym = CTcSymObj::synthesize_modified_obj_sym(FALSE);
+
+        /* set it to be an IntrinsicClassModifier object */
+        mod_sym->set_metaclass(TC_META_ICMOD);
+
+        /* link the modifier to the metaclass */
+        mc->set_mod_obj(mod_sym);
+        
+        /* 
+         *   generate the object data - this is simply an empty object with
+         *   no superclasses, and it goes in the intrinsic class modifier
+         *   stream 
+         */
+        tct3_tadsobj_ctx obj_ctx;
+        G_cg->open_tadsobj(
+            &obj_ctx, G_icmod_stream,
+            mod_sym->get_obj_id(), 0, 0, 0, 0);
+        G_cg->close_tadsobj(&obj_ctx);
+    }
+}
+
+/*
+ *   Ensure that the given intrinsic class has a modifier object, by name. 
+ */
+void CTcGenTarg::linker_ensure_mod_obj(const char *name, size_t len)
+{
+    /* look up the symbol */
+    CTcSymMetaclass *mc = (CTcSymMetaclass *)G_prs->get_global_symtab()
+                          ->find(name, len);
+
+    /* if we found the metaclass symbol, add a modifier if needed */
+    if (mc != 0 && mc->get_type() == TC_SYM_METACLASS)
+        linker_ensure_mod_obj(mc);
+}
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Build the multi-method initializers 
+ */
+
+/* enumerator callback context */
+struct mminit_ctx
+{
+    mminit_ctx()
+    {
+        mmr = 0;
+        cnt = 0;
+    }
+    
+    /* _multiMethodRegister function symbol */
+    CTcSymFunc *mmr;
+
+    /* number of multi-method registrations we generated */
+    int cnt;
+};
+
+/* main initializer builder */
+void CTcGenTarg::build_multimethod_initializers()
+{
+    tct3_method_gen_ctx genctx;
+    mminit_ctx ctx;
+
+    /* look up the _multiMethodRegister function */
+    ctx.mmr = (CTcSymFunc *)G_prs->get_global_symtab()->find(
+        "_multiMethodRegister", 20);
+
+    /* 
+     *   open the method - it's a static initializer, so write it to the
+     *   static stream 
+     */
+    G_cg->open_method(G_cs_static, 0, 0, 0, 0, 0, 0, FALSE,
+                      FALSE, FALSE, FALSE, &genctx);
+
+    /* scan the symbol table for multimethods and generate initializers */
+    G_prs->get_global_symtab()->enum_entries(&multimethod_init_cb, &ctx);
+
+    /* 
+     *   if we found any multi-methods, generate a call to
+     *   _multiMethodBuildBindings 
+     */
+    if (ctx.cnt != 0)
+    {
+        /* look up the function - it's an error if it's not defined */
+        CTcSymFunc *mmb = (CTcSymFunc *)G_prs->get_global_symtab()->find(
+            "_multiMethodBuildBindings", 25);
+        if (mmb == 0 || mmb->get_type() != TC_SYM_FUNC)
+        {
+            G_tcmain->log_error(0, 0, TC_SEV_ERROR, TCERR_MISSING_MMREG,
+                                "_multiMethodBuildBindings");
+            return;
+        }
+
+        /* write the call instruction */
+        G_cg->write_op(OPC_CALL);
+        G_cs->write(0);                                   /* argument count */
+        mmb->add_abs_fixup(G_cs);                 /* function address fixup */
+        G_cs->write4(0);                               /* fixup placeholder */
+    }
+
+    /* close the method and clean up */
+    G_cg->close_method(0, 0, 0, 0, &genctx, 0);
+    G_cg->close_method_cleanup(&genctx);
+
+    /* 
+     *   if we generated any registrations, create the initializer object -
+     *   this will go in the static initializer block to trigger invocation
+     *   of the registration routine at load time 
+     */
+    if (ctx.cnt != 0)
+    {
+        /* we have multi-methods, so we definitely need _multiMethodRegister */
+        if (ctx.mmr == 0 || ctx.mmr->get_type() != TC_SYM_FUNC)
+        {
+            G_tcmain->log_error(0, 0, TC_SEV_ERROR, TCERR_MISSING_MMREG,
+                                "_multiMethodRegister");
+            return;
+        }
+
+        /* create an anonymous object to hold the initializer code */
+        mminit_obj_ = G_cg->new_obj_id();
+
+        /* add a debugging symbol for it */
+        G_prs->get_global_symtab()->add_entry(new CTcSymObj(
+            "<multiMethodInit>", 17, FALSE, mminit_obj_, TRUE,
+            TC_META_TADSOBJ, 0));
+
+        /* write the object header: no superclasses, 1 property */
+        tct3_tadsobj_ctx obj_ctx;
+        open_tadsobj(&obj_ctx, G_os, mminit_obj_, 0, 1, 0, 0);
+        
+        /* write the static initializer property */
+        G_os->write2(1);                           /* arbitrary property ID */
+        G_os->write(VM_CODEOFS);    /* offset of the code we just generated */
+        CTcAbsFixup::add_abs_fixup(
+            &genctx.anchor->fixup_info_.internal_fixup_head_,
+            G_os, G_os->get_ofs());
+        G_os->write4(0);                                     /* placeholder */
+        
+        /* fix up the object size data */
+        close_tadsobj(&obj_ctx);
+    }
+
+    /* switch back to the main stream */
+    G_cs = G_cs_main;
+}
+
+/* callback context - build multi-method registration calls */
+void CTcGenTarg::multimethod_init_cb(void *ctx0, CTcSymbol *sym)
+{
+    mminit_ctx *ctx = (mminit_ctx *)ctx0;
+    
+    /* if this is a function, check to see if it's a multi-method instance */
+    if (sym->get_type() == TC_SYM_FUNC)
+    {
+        CTcSymFunc *fsym = (CTcSymFunc *)sym;
+
+        /* 
+         *   multi-method instances have names of the form
+         *   "name*type1,type2", so check the name to see if it fits the
+         *   pattern 
+         */
+        const char *p = sym->getstr();
+        size_t rem = sym->getlen();
+        int is_mm = FALSE;
+        for ( ; rem != 0 ; ++p, --rem)
+        {
+            /* 
+             *   if we found a '*', it's a multimethod; otherwise, if it's
+             *   anything other than a symbol character, it's not a
+             *   multimethod 
+             */
+            if (*p == '*')
+            {
+                is_mm = TRUE;
+                break;
+            }
+            else if (!is_sym(*p))
+                break;
+        }
+
+        /* 
+         *   If it's a multi-method symbol, build the initializer.  If it's
+         *   the base function for a multi-method, build out the stub
+         *   function. 
+         */
+        if (is_mm)
+        {
+            int argc;
+            
+            /* note the function base name - it's the part up to the '*' */
+            const char *funcname = sym->getstr();
+            size_t funclen = (size_t)(p - funcname);
+
+            /* look up the base function symbol */
+            CTcSymFunc *base_sym = (CTcSymFunc *)G_prs->get_global_symtab()
+                                   ->find(funcname, funclen);
+
+            /* if it's not defined as a function, ignore it */
+            if (base_sym == 0 || base_sym->get_type() != TC_SYM_FUNC)
+                return;
+
+            /* 
+             *   skip to the end of the string, and remove the '*' from the
+             *   length count 
+             */
+            p += rem;
+            --rem;
+
+            /* 
+             *   Run through the decorated name and look up each mentioned
+             *   class.  We need to push the parameters onto the stack in
+             *   reverse order to match the VM calling conventions.  
+             */
+            for (argc = 0 ; rem != 0 ; ++argc)
+            {
+                /* remember where the current name starts */
+                size_t plen;
+
+                /* skip the terminator for this item */
+                --p, --rem;
+
+                /* scan backwards to the previous delimiter */
+                for (plen = 0 ; rem != 0 && *(p-1) != ';' ;
+                     --p, --rem, ++plen) ;
+
+                /* look up this name */
+                if (plen == 0)
+                {
+                    /* 
+                     *   empty name - this slot accepts any type; represent
+                     *   this in the run-time formal list with 'nil' 
+                     */
+                    G_cg->write_op(OPC_PUSHNIL);
+
+                    /* 
+                     *   An untyped slot is implicitly an Object slot, so we
+                     *   need to make sure that Object can participate in the
+                     *   binding property system by ensuring that it has a
+                     *   modifier object. 
+                     */
+                    G_cg->linker_ensure_mod_obj("Object", 6);
+                }
+                else if (plen == 3 && memcmp(p, "...", 3) == 0)
+                {
+                    /* 
+                     *   varargs indicator - represent this in the list with
+                     *   the literal string '...' 
+                     */
+                    CTcConstVal val;
+                    val.set_sstr("...", 3);
+                    CTPNConst cval(&val);
+                    cval.gen_code(FALSE, FALSE);
+
+                    /* 
+                     *   a varargs slot is implicitly an Object slot, so make
+                     *   sure Object has a modifier object
+                     */
+                    G_cg->linker_ensure_mod_obj("Object", 6);
+                }
+                else
+                {
+                    /* class name - look it up */
+                    CTcSymbol *cl = G_prs->get_global_symtab()->find(p, plen);
+                    CTcConstVal val;
+
+                    /* 
+                     *   if it's missing, unresolved, or not an object, flag
+                     *   an error 
+                     */
+                    if (cl == 0
+                        || (cl->get_type() == TC_SYM_OBJ
+                            && ((CTcSymObj *)cl)->is_extern()))
+                    {
+                        G_tcmain->log_error(
+                            0, 0, TC_SEV_ERROR, TCERR_UNDEF_SYM,
+                            (int)plen, p);
+                        return;
+                    }
+                    else if (cl->get_type() == TC_SYM_OBJ)
+                    {
+                        /* get the object information */
+                        CTcSymObj *co = (CTcSymObj *)cl;
+                        val.set_obj(co->get_obj_id(), co->get_metaclass());
+                    }
+                    else if (cl->get_type() == TC_SYM_METACLASS)
+                    {
+                        /* get the metaclass information */
+                        CTcSymMetaclass *cm = (CTcSymMetaclass *)cl;
+                        val.set_obj(cm->get_class_obj(), TC_META_UNKNOWN);
+
+                        /*
+                         *   If this metaclass doesn't have a modifier
+                         *   object, create one for it.  This is needed
+                         *   because the run-time library's multi-method
+                         *   implementation stores the method binding
+                         *   information in properties of the parameter
+                         *   objects.  Since we're using this metaclass as a
+                         *   parameter type, we'll need to write at least one
+                         *   property to it.  We can only write properties to
+                         *   intrinsic class objects when they're equipped
+                         *   with modifier objects.
+                         *   
+                         *   The presence of a modifier object has no effect
+                         *   at all on performance for ordinary method call
+                         *   operations on the intrinsic class, and the
+                         *   modifier itself is just a bare object, so the
+                         *   cost of creating this extra object is trivial.  
+                         */
+                        G_cg->linker_ensure_mod_obj(cm);
+                    }
+                    else
+                    {
+                        /* it's not a valid object type */
+                        G_tcmain->log_error(
+                            0, 0, TC_SEV_ERROR, TCERR_MMPARAM_NOT_OBJECT,
+                            (int)plen, p, (int)funclen, funcname);
+                        return;
+                    }
+
+                    /* 
+                     *   represent the object or class in the parameter list
+                     *   with the object reference
+                     */
+                    CTPNConst cval(&val);
+                    cval.gen_code(FALSE, FALSE);
+                }
+
+                /* note the value we pushed */
+                G_cg->note_push();
+            }
+
+            /* build and push the list from the parameters */
+            if (argc <= 255)
+            {
+                G_cg->write_op(OPC_NEW1);
+                G_cs->write((char)argc);
+            }
+            else
+            {
+                G_cg->write_op(OPC_NEW2);
+                G_cs->write2(argc);
+            }
+            G_cs->write((char)G_cg->get_predef_meta_idx(TCT3_METAID_LIST));
+            G_cg->write_op(OPC_GETR0);
+            G_cg->note_pop(argc);
+            G_cg->note_push();
+
+            /* push the function pointer argument */
+            fsym->gen_code(FALSE);
+
+            /* push the base function pointer argument */
+            base_sym->gen_code(FALSE);
+
+            /* 
+             *   call _multiMethodRegister, if it's available (if it's not,
+             *   our caller will flag this as an error, so just skip the code
+             *   generation here) 
+             */
+            if (ctx->mmr != 0)
+            {
+                G_cg->write_op(OPC_CALL);
+                G_cs->write(3);                           /* argument count */
+                ctx->mmr->add_abs_fixup(G_cs);    /* function address fixup */
+                G_cs->write4(0);                       /* fixup placeholder */
+            }
+
+            /* the 3 arguments will be gone on return */
+            G_cg->note_pop(3);
+
+            /* count the registration */
+            ctx->cnt += 1;
+        }
+    }
 }
 
 /* ------------------------------------------------------------------------ */
@@ -1361,6 +2103,161 @@ void CTcGenTarg::build_intrinsic_class_objs(CTcDataStream *str)
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   symbol table entry for a local variable debug entry 
+ */
+class dbglcl: public CVmHashEntryCS
+{
+public:
+    dbglcl(const char *str, size_t len, CTcStreamAnchor *anchor, ulong ofs)
+        : CVmHashEntryCS(str, len, TRUE)
+    {
+        this->anchor = anchor;
+        this->ofs = ofs;
+    }
+
+    CTcStreamAnchor *anchor;
+    ulong ofs;
+};
+
+/*
+ *   Build the local symbol records.
+ */
+void CTcGenTarg::build_local_symbol_records(CTcCodeStream *cs,
+                                            CVmHashTable *tab)
+{
+    CTcStreamAnchor *anchor;
+
+    /* this only applies for debug format 2+ */
+    if (G_sizes.dbg_fmt_vsn < 2)
+        return;
+
+    /* go through the list of anchors in the code stream */
+    for (anchor = cs->get_first_anchor() ; anchor != 0 ;
+         anchor = anchor->nxt_)
+    {
+        ulong start_ofs;
+        ulong dbg_ofs;
+        uint cnt;
+        ulong ofs;
+
+        /* get the anchor's stream offset */
+        start_ofs = anchor->get_ofs();
+
+        /* read the debug table offset from the method header */
+        dbg_ofs = start_ofs + cs->readu2_at(start_ofs + 8);
+
+        /* if there's no debug table for this method, go on to the next */
+        if (dbg_ofs == start_ofs)
+            continue;
+
+        /* read the number of line entries */
+        ofs = dbg_ofs + G_sizes.dbg_hdr;
+        cnt = cs->readu2_at(ofs);
+        ofs += 2;
+
+        /* skip past the line entries */
+        ofs += cnt * G_sizes.dbg_line;
+
+        /* skip the end offset */
+        ofs += 2;
+
+        /* read the frame count */
+        uint frame_cnt = cs->readu2_at(ofs);
+        ofs += 2;
+
+        /* skip the frame index */
+        ofs += 2 * frame_cnt;
+
+        /* go through the individual frames */
+        for (uint fi = 0 ; fi < frame_cnt ; ++fi)
+        {
+            /* get the number of entries */
+            cnt = cs->readu2_at(ofs + 2);
+
+            /* skip to the first entry */
+            ofs += G_sizes.dbg_frame;
+
+            /* parse each entry */
+            for (uint i = 0 ; i < cnt ; ++i)
+            {
+                /* read the flags */
+                uint flags = cs->readu2_at(ofs + 2);
+                ofs += G_sizes.lcl_hdr;
+
+                /* 
+                 *   If this is an out-of-line entry, we currently have a
+                 *   pointer to the local variable stream, and we need to
+                 *   move it to the constant pool instead.  If it's in-line,
+                 *   there's nothing to do - we just skip the record. 
+                 */
+                if (flags & 0x0004)
+                {
+                    /* 
+                     *   It's a constant pool entry.  Read the name from the
+                     *   local variable pool.  
+                     */
+                    ulong lofs = cs->readu4_at(ofs);
+                    size_t nlen = G_lcl_stream->readu2_at(lofs);
+                    if (nlen <= TOK_SYM_MAX_LEN)
+                    {
+                        /* read the name */
+                        char nbuf[TOK_SYM_MAX_LEN + 1];
+                        G_lcl_stream->copy_to_buf(nbuf, lofs + 2, nlen);
+
+                        /* 
+                         *   Look up the name in our symbol table, to see if
+                         *   we've already defined it.  If so, re-use the
+                         *   same name.  A few local variable names tend to
+                         *   be used over and over, so it saves a lot of
+                         *   space to share one copy for each instance of a
+                         *   reused name. 
+                         */
+                        dbglcl *l = (dbglcl *)tab->find(nbuf, nlen);
+                        if (l == 0)
+                        {
+                            /* add an anchor for the constant pool entry */
+                            CTcStreamAnchor *anchor = G_ds->add_anchor(0, 0);
+
+                            /* 
+                             *   It's not already defined.  Add a new symbol
+                             *   table entry for it.  The entry will go at
+                             *   the current constant pool stream offset.  
+                             */
+                            l = new dbglcl(nbuf, nlen, anchor,
+                                           G_ds->get_ofs());
+                            tab->add(l);
+
+                            /* copy the name to the constant pool stream */
+                            G_ds->write2(nlen);
+                            G_ds->write(nbuf, nlen);
+                        }
+
+                        /* add a fixup for this pointer in the code stream */
+                        CTcAbsFixup::add_abs_fixup(
+                            l->anchor->fixup_list_head_, cs, ofs);
+
+                        /* 
+                         *   Overwrite the local stream offset with the
+                         *   constant pool offset of the symbol. 
+                         */
+                        cs->write4_at(ofs, l->ofs);
+                    }
+
+                    /* skip the record */
+                    ofs += 4;
+                }
+                else
+                {
+                    /* it's in-line - just skip to the next record */
+                    ofs += cs->readu2_at(ofs) + 2;
+                }
+            }
+        }
+    }
+}
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Build the source file line maps.  These maps provide listings from
  *   the source location to the executable location, so the debugger can
  *   do things such as set a breakpoint at a given source file location.  
@@ -1393,11 +2290,11 @@ void CTcGenTarg::build_source_line_maps()
             continue;
 
         /* read the number of line entries */
-        cnt = G_cs->readu2_at(dbg_ofs + TCT3_DBG_HDR_SIZE);
+        cnt = G_cs->readu2_at(dbg_ofs + G_sizes.dbg_hdr);
 
         /* go through the individual line entries */
-        for (ofs = dbg_ofs + TCT3_DBG_HDR_SIZE + 2 ; cnt != 0 ;
-             --cnt, ofs += TCT3_LINE_ENTRY_SIZE)
+        for (ofs = dbg_ofs + G_sizes.dbg_hdr + 2 ; cnt != 0 ;
+             --cnt, ofs += G_sizes.dbg_line)
         {
             uint file_id;
             ulong linenum;
@@ -1411,7 +2308,7 @@ void CTcGenTarg::build_source_line_maps()
              */
             method_ofs = G_cs->readu2_at(ofs);
             file_id = G_cs->readu2_at(ofs + 2);
-            linenum = G_cs->read4_at(ofs + 4);
+            linenum = G_cs->readu4_at(ofs + 4);
 
             /* calculate the absolute address of the line in the image file */
             line_addr = start_addr + method_ofs;
@@ -1609,10 +2506,8 @@ void CTcGenTarg::write_global_symbols_to_image(CVmImageWriter *image_writer)
 vm_prop_id_t CTcGenTarg::look_up_prop(const char *propname, int required,
                                       int err_if_undef, int err_if_not_prop)
 {
-    CTcSymbol *sym;
-    
     /* look up the symbol */
-    sym = G_prs->get_global_symtab()->find(propname);
+    CTcSymbol *sym = G_prs->get_global_symtab()->find(propname);
 
     /* check to see if it's defined and of the proper type */
     if (sym == 0)
@@ -1830,10 +2725,8 @@ void CTcGenTarg::write_nontads_objs_to_image(CTcDataStream *os,
                                              CVmImageWriter *image_writer,
                                              int meta_idx, int large_objs)
 {
-    ulong start_ofs;
-
     /* keep going until we've written the whole file */
-    for (start_ofs = 0 ; start_ofs < os->get_ofs() ; )
+    for (ulong start_ofs = 0 ; start_ofs < os->get_ofs() ; )
     {
         ulong ofs;
         uint siz;
@@ -1842,10 +2735,10 @@ void CTcGenTarg::write_nontads_objs_to_image(CTcDataStream *os,
 
         /* 
          *   Scan the stream.  Each entry in the stream is either a small or
-         *   large object record,, which means that it starts with the
-         *   object ID (UINT4) and the length (UINT2 for small, UINT4 for
-         *   large) of the metaclass-specific data, which is then followed
-         *   by the metaclass data.
+         *   large object record, which means that it starts with the object
+         *   ID (UINT4) and the length (UINT2 for small, UINT4 for large) of
+         *   the metaclass-specific data, which is then followed by the
+         *   metaclass data.
          *   
          *   Include as many objects as we can while staying within our
          *   approximately 64k limit, if this is a small-format block; fill
@@ -1873,7 +2766,7 @@ void CTcGenTarg::write_nontads_objs_to_image(CTcDataStream *os,
                  *   about limiting the overall block size to 64k when we're
                  *   writing a "large" object block.  
                  */
-                siz = (ulong)os->read4_at(ofs + 4)
+                siz = (ulong)os->readu4_at(ofs + 4)
                       + TCT3_LARGE_META_HEADER_SIZE;
             }
             else
@@ -1942,16 +2835,19 @@ void CTcGenTarg::write_nontads_objs_to_image(CTcDataStream *os,
  *   Property comparison callback function for qsort() when invoked from
  *   sort_object_prop_table() 
  */
-static int prop_compare(const void *p1, const void *p2)
-{
-    uint id1, id2;
+//extern "C" int prop_compare(const void *p1, const void *p2);
+extern "C" {
+    static int prop_compare(const void *p1, const void *p2)
+    {
+        uint id1, id2;
 
-    /* get the ID's */
-    id1 = osrp2(p1);
-    id2 = osrp2(p2);
+        /* get the ID's */
+        id1 = osrp2(p1);
+        id2 = osrp2(p2);
 
-    /* compare them and return the result */
-    return (id1 < id2 ? -1 : id1 == id2 ? 0 : 1);
+        /* compare them and return the result */
+        return (id1 < id2 ? -1 : id1 == id2 ? 0 : 1);
+    }
 }
 
 /*
@@ -1965,23 +2861,14 @@ static int prop_compare(const void *p1, const void *p2)
  */
 size_t CTcGenTarg::sort_object_prop_table(CTcDataStream *os, ulong start_ofs)
 {
-    uint prop_table_size;
-    ulong orig_prop_cnt;
-    uint prop_cnt;
-    ulong prop_ofs;
-    size_t src, dst;
-
     /* read the number of properties from the header */
-    prop_cnt = CTPNStmObject::get_stream_prop_cnt(os, start_ofs);
-
-    /* remember the original property count, in case we delete unused slots */
-    orig_prop_cnt = prop_cnt;
+    uint prop_cnt = CTPNStmObject::get_stream_prop_cnt(os, start_ofs);
 
     /* calculate the property table size */
-    prop_table_size = prop_cnt * TCT3_TADSOBJ_PROP_SIZE;
+    uint prop_table_size = prop_cnt * TCT3_TADSOBJ_PROP_SIZE;
 
     /* get the offset of the first property */
-    prop_ofs = CTPNStmObject::get_stream_first_prop_ofs(os, start_ofs);
+    ulong prop_ofs = CTPNStmObject::get_stream_first_prop_ofs(os, start_ofs);
 
     /* reallocate the sort buffer if necessary */
     if (prop_table_size > sort_buf_size_)
@@ -2006,6 +2893,7 @@ size_t CTcGenTarg::sort_object_prop_table(CTcDataStream *os, ulong start_ofs)
      *   the table.  Scan the table for any such properties and remove
      *   them now.  
      */
+    size_t src, dst;
     for (src = dst = 0, prop_cnt = 0 ; src < prop_table_size ;
          src += TCT3_TADSOBJ_PROP_SIZE)
     {
@@ -2725,10 +3613,11 @@ int CTcSymFunc::write_to_image_file_global(class CVmImageWriter *image_writer)
     oswp2(buf + 4, get_argc());
     buf[6] = (is_varargs() != 0);
     buf[7] = (has_retval() != 0);
+    oswp2(buf + 8, get_opt_argc());
     
     /* write the data */
     image_writer->write_gsym_entry(get_sym(), get_sym_len(),
-                                   (int)TC_SYM_FUNC, buf, 8);
+                                   (int)TC_SYM_FUNC, buf, 10);
 
     /* we wrote the symbol */
     return TRUE;
@@ -2768,9 +3657,14 @@ int CTcSymProp::write_to_image_file_global(class CVmImageWriter *image_writer)
     /* build our extra data buffer */
     oswp2(buf, (uint)get_prop());
 
+    /* build our flags byte */
+    buf[2] = 0;
+    if (vocab_)
+        buf[2] |= 0x01;
+
     /* write the data */
     image_writer->write_gsym_entry(get_sym(), get_sym_len(),
-                                   (int)TC_SYM_PROP, buf, 2);
+                                   (int)TC_SYM_PROP, buf, 3);
 
     /* we wrote the symbol */
     return TRUE;
@@ -2789,7 +3683,7 @@ int CTcSymEnum::write_to_image_file_global(class CVmImageWriter *image_writer)
     /* build our flags */
     buf[4] = 0;
     if (is_token_)
-        buf[4] |= 1;
+        buf[4] |= 0x01;
 
     /* write the data */
     image_writer->write_gsym_entry(get_sym(), get_sym_len(),
@@ -2890,3 +3784,17 @@ int CTcSymExtfn::write_to_image_file_global(class CVmImageWriter *iw)
     return FALSE;
 }
 
+/* ------------------------------------------------------------------------ */
+/*
+ *   Object properties 
+ */
+
+/*
+ *   Check locals 
+ */
+void CTPNObjProp::check_locals()
+{
+    /* check locals in our code body */
+    if (code_body_ != 0)
+        code_body_->check_locals();
+}

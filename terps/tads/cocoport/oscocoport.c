@@ -352,7 +352,7 @@ os_xlat_html4( unsigned int html4_char, char* result, size_t result_buf_len )
 
 /* =====================================================================
 
-/* Yield CPU.
+ Yield CPU.
  *
  * I don't think that we need this.  It's only useful for Windows 3.x
  * and maybe pre-X Mac OS and other systems with brain damaged

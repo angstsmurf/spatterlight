@@ -25,16 +25,11 @@ Modified
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Random number generator configuration.  Define one of the following
- *   configuration variables to select a random number generation
- *   algorithm:
- *   
- *   VMBIFTADS_RNG_LCG - linear congruential generator
- *.  VMBIFTADS_RNG_ISAAC - ISAAC (cryptographic hash generator) 
+ *   Include headers for our selectable Random Number Generator algorithms.
  */
+#include "vmisaac.h"
+#include "vmmersenne.h"
 
-/* use ISAAC */
-#define VMBIFTADS_RNG_ISAAC
 
 
 /* ------------------------------------------------------------------------ */
@@ -44,6 +39,9 @@ Modified
 class CVmBifTADS: public CVmBif
 {
 public:
+    /* function vector */
+    static vm_bif_desc bif_table[];
+
     /*
      *   General functions 
      */
@@ -53,8 +51,9 @@ public:
     static void nextobj(VMG_ uint argc);
     static void randomize(VMG_ uint argc);
     static void rand(VMG_ uint argc);
-    static void cvtstr(VMG_ uint argc);
-    static void cvtnum(VMG_ uint argc);
+    static void toString(VMG_ uint argc);
+    static void toInteger(VMG_ uint argc);
+    static void toNumber(VMG_ uint argc);
     static void gettime(VMG_ uint argc);
     static void re_match(VMG_ uint argc);
     static void re_search(VMG_ uint argc);
@@ -69,11 +68,40 @@ public:
     static void get_min(VMG_ uint argc);
     static void make_string(VMG_ uint argc);
     static void get_func_params(VMG_ uint argc);
+    static void sprintf(VMG_ uint argc);
+    static void make_list(VMG_ uint argc);
+    static void get_abs(VMG_ uint argc);
+    static void get_sgn(VMG_ uint argc);
+    static void concat(VMG_ uint argc);
+    static void re_search_back(VMG_ uint argc);
+
+    /* internal toString interface */
+    static void toString(VMG_ vm_val_t *retval, const vm_val_t *srcval,
+                         int radix, int flags);
+
+    /* format a date-and-time list per getTime(GetDateAndTime) */
+    static vm_obj_id_t format_datetime_list(VMG_ os_time_t timer);
 
 protected:
+    /* common handler for re_search() and re_search_back() */
+    template<int dir> inline static void re_search_common(VMG_ uint argc);
+
     /* enumerate objects (common handler for firstobj and nextobj) */
     static void enum_objects(VMG_ uint argc, vm_obj_id_t start_obj);
+
+    /* common handler for toInteger and toNumber */
+    static void toIntOrNum(VMG_ uint argc, int int_only);
 };
+
+
+/* ------------------------------------------------------------------------ */
+/* 
+ *   Random Number Generator ID values for randomize(id, ...) 
+ */
+#define VMBT_RNGID_ISAAC     1
+#define VMBT_RNGID_LCG       2
+#define VMBT_RNGID_MT19937   3
+#define VMBT_RNGID_BITSHIFT  4
 
 
 /* ------------------------------------------------------------------------ */
@@ -102,51 +130,40 @@ public:
      */
     struct vm_globalvar_t *last_rex_str;
 
-    /* byte index in last_rex_str of the start of the search */
-    int last_rex_start_ofs;
+    /* the currently active RNG ID (VMBT_RNGID_xxx) */
+    int rng_id;
 
     /* -------------------------------------------------------------------- */
     /*
-     *   Linear Congruential Random Number Generator state 
+     *   Linear Congruential Random Number Generator state - this is just a
+     *   32-bit seed value.
      */
-#ifdef VMBIFTADS_RNG_LCG
+    int32_t lcg_rand_seed;
 
-    /* linear congruential generator seed value */
-    long rand_seed;
+    /* -------------------------------------------------------------------- */
+    /*
+     *   Bit-Shift Random Number Generator state 
+     */
+#ifdef VMBIFTADS_RNG_BITSHIFT
 
-#endif /* VMBIFTADS_RNG_LCG */
+    /* bit-shift generator seed value */
+    int32_t bits_rand_seed;
+
+#endif /* VMBIFTADS_RNG_BITSHIFT */
 
     /* -------------------------------------------------------------------- */
     /*
      *   ISAAC Random Number Generator state
      */
-#ifdef VMBIFTADS_RNG_ISAAC
-
-    /* ISAAC state structure */
     struct isaacctx *isaac_ctx;
     
-#endif /* VMBIFTADS_RNG_ISAAC */
+
+    /* -------------------------------------------------------------------- */
+    /*
+     *   Mersenne Twister MT19937 Random Number Generator state 
+     */
+    class CVmMT19937 *mt_ctx;
 };
-
-/* ------------------------------------------------------------------------ */
-/*
- *   ISAAC Random Number Generator definitions
- */
-#ifdef VMBIFTADS_RNG_ISAAC
-
-#define ISAAC_RANDSIZL   (8)
-#define ISAAC_RANDSIZ    (1<<ISAAC_RANDSIZL)
-
-struct isaacctx
-{
-    ulong cnt;
-    ulong rsl[ISAAC_RANDSIZ];
-    ulong mem[ISAAC_RANDSIZ];
-    ulong a;
-    ulong b;
-    ulong c;
-};
-#endif /* VMBIFTADS_RNG_ISAAC */
 
 /* end of section protected against multiple inclusion */
 #endif /* VMBIFTAD_H */
@@ -164,30 +181,37 @@ struct isaacctx
 #ifdef VMBIF_DEFINE_VECTOR
 
 /* TADS general data manipulation functions */
-void (*G_bif_tadsgen[])(VMG_ uint) =
+vm_bif_desc CVmBifTADS::bif_table[] =
 {
-    &CVmBifTADS::datatype,
-    &CVmBifTADS::getarg,
-    &CVmBifTADS::firstobj,
-    &CVmBifTADS::nextobj,
-    &CVmBifTADS::randomize,
-    &CVmBifTADS::rand,
-    &CVmBifTADS::cvtstr,
-    &CVmBifTADS::cvtnum,
-    &CVmBifTADS::gettime,
-    &CVmBifTADS::re_match,
-    &CVmBifTADS::re_search,
-    &CVmBifTADS::re_group,
-    &CVmBifTADS::re_replace,
-    &CVmBifTADS::savepoint,
-    &CVmBifTADS::undo,
-    &CVmBifTADS::save,
-    &CVmBifTADS::restore,
-    &CVmBifTADS::restart,
-    &CVmBifTADS::get_max,
-    &CVmBifTADS::get_min,
-    &CVmBifTADS::make_string,
-    &CVmBifTADS::get_func_params
+    { &CVmBifTADS::datatype, 1, 0, FALSE },                            /* 0 */
+    { &CVmBifTADS::getarg, 1, 0, FALSE },                              /* 1 */
+    { &CVmBifTADS::firstobj, 0, 2, FALSE },                            /* 2 */
+    { &CVmBifTADS::nextobj, 1, 2, FALSE },                             /* 3 */
+    { &CVmBifTADS::randomize, 0, 0, FALSE },                           /* 4 */
+    { &CVmBifTADS::rand, 0, 0, TRUE },                                 /* 5 */
+    { &CVmBifTADS::toString, 1, 2, FALSE },                            /* 6 */
+    { &CVmBifTADS::toInteger, 1, 1, FALSE },                           /* 7 */
+    { &CVmBifTADS::gettime, 0, 1, FALSE },                             /* 8 */
+    { &CVmBifTADS::re_match, 2, 1, FALSE },                            /* 9 */
+    { &CVmBifTADS::re_search, 2, 1, FALSE },                          /* 10 */
+    { &CVmBifTADS::re_group, 1, 0, FALSE },                           /* 11 */
+    { &CVmBifTADS::re_replace, 3, 2, FALSE },                         /* 12 */
+    { &CVmBifTADS::savepoint, 0, 0, FALSE },                          /* 13 */
+    { &CVmBifTADS::undo, 0, 0, FALSE },                               /* 14 */
+    { &CVmBifTADS::save, 1, 0, FALSE },                               /* 15 */
+    { &CVmBifTADS::restore, 1, 0, FALSE },                            /* 16 */
+    { &CVmBifTADS::restart, 0, 0, FALSE },                            /* 17 */
+    { &CVmBifTADS::get_max, 1, 0, TRUE },                             /* 18 */
+    { &CVmBifTADS::get_min, 1, 0, TRUE },                             /* 19 */
+    { &CVmBifTADS::make_string, 1, 1, FALSE },                        /* 20 */
+    { &CVmBifTADS::get_func_params, 1, 0, FALSE },                    /* 21 */
+    { &CVmBifTADS::toNumber, 1, 1, FALSE },                           /* 23 */
+    { &CVmBifTADS::sprintf, 1, 0, TRUE },                             /* 24 */
+    { &CVmBifTADS::make_list, 1, 1, FALSE },                          /* 25 */
+    { &CVmBifTADS::get_abs, 1, 0, FALSE },                            /* 26 */
+    { &CVmBifTADS::get_sgn, 1, 0, FALSE },                            /* 27 */
+    { &CVmBifTADS::concat, 0, 0, TRUE },                              /* 28 */
+    { &CVmBifTADS::re_search_back, 2, 1, FALSE }                      /* 29 */
 };
 
 #endif /* VMBIF_DEFINE_VECTOR */

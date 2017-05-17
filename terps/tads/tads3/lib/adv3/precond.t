@@ -274,7 +274,7 @@ actorTravelReady: PreCondition
  *   the travel, the connector being traversed, and the room we need to be
  *   directly in.  
  */
-TravelerDirectlyInRoom: PreCondition
+class TravelerDirectlyInRoom: PreCondition
     construct(actor, conn, loc)
     {
         /* remember the actor, connector, and room */
@@ -302,7 +302,7 @@ TravelerDirectlyInRoom: PreCondition
 
 /*
  *   Pre-condition: the actor is directly in the given room.  This differs
- *   from travelerDirectlyInRoom in that this operates directly on the
+ *   from TravelerDirectlyInRoom in that this operates directly on the
  *   actor, regardless of whether the actor is in a vehicle.  
  */
 actorDirectlyInRoom: PreCondition
@@ -461,7 +461,7 @@ class TouchObjCondition: PreCondition
             if (path != nil)
             {
                 /* traverse the path to find what blocks our touch */
-                stat = sourceObj.traversePath(path, new function(ele, op)
+                stat = sourceObj.traversePath(path, function(ele, op)
                 {
                     /*
                      *   If we can continue the reach via this path element,
@@ -542,7 +542,7 @@ class TouchObjCondition: PreCondition
              *   there's no need to go on, since the implied command will
              *   have already explained why it failed 
              */
-            if (gTranscript.isFailure)
+            if (gTranscript.currentActionHasReport({x: x.isFailure}))
                 exit;
 
             /* 

@@ -1,4 +1,5 @@
 #charset "us-ascii"
+#pragma once
 
 /* 
  *   Copyright (c) 1999, 2006 Michael J. Roberts
@@ -16,9 +17,6 @@
  *   dividing up the character-mode screen into rectangular regions).  
  */
 
-
-#ifndef TADSIO_H
-#define TADSIO_H
 
 /*
  *   tads-io - the TADS Input/Output intrinsic function set 
@@ -146,7 +144,41 @@ intrinsic 'tads-io/030007'
      *   selected a file, whose name is given as a string in the second
      *   element of the result list; InFileFailure indicates a system error
      *   of some kind showing the dialog; and InFileCancel indicates that the
-     *   user explicitly canceled the dialog.  
+     *   user explicitly canceled the dialog.
+     *   
+     *   On success (return list[1] == InFileSuccess), the list contains the
+     *   following additional elements:
+     *   
+     *.     [2] = the selected filename
+     *.     [3] = nil (reserved for future use)
+     *.     [4] = script warning message, or nil if no warning
+     *   
+     *   The warning message is a string to be displayed to the user to warn
+     *   about a possible error condition in the script input.  The script
+     *   reader checks the file specified in the script to see if it's valid;
+     *   if the dialog type is Open, the script reader verifies that the file
+     *   exists, and for a Save dialog the reader warns if the file *does*
+     *   already exist or is not writable.  In the conventional UI, the
+     *   script reader displays these warnings directly to the user through
+     *   the console UI, but this isn't possible in the Web UI since the user
+     *   might be running on a remote browser.  Instead, the script reader
+     *   still checks for the possible errors, but rather than displaying any
+     *   warnings, it returns them here.  The caller is responsible for
+     *   displaying the warning and asking the user for confirmation.
+     *   
+     *   For localization purposes, the warning message starts with a
+     *   two-letter code indicating the specific error, followed by a space,
+     *   followed by the English text of the warning.  The codes are:
+     *   
+     *.   OV - the script might overwrite an existing file (Save dialog)
+     *.   WR - the file can't be created/written (Save dialog)
+     *.   RD - the file doesn't exist/can't be read (Open dialog)
+     *   
+     *   Note that the warning message will always be nil if the script
+     *   reader displayed the warning message itself.  This means that your
+     *   program can unconditionally display this message if it's non-nil -
+     *   there's no danger that the script reader will have redundantly
+     *   displayed the message.  
      */
     inputFile(prompt, dialogType, fileType, flags);
 
@@ -189,10 +221,32 @@ intrinsic 'tads-io/030007'
 
     /* 
      *   Set the script input file.  This opens the given file as the script
-     *   input file.  'flags' is a combination of ScriptFileXxx bit flags
-     *   giving the mode to use to read the file.  When a script file is
-     *   open, the system reads command-line input from the file rather than
-     *   from the keyboard.  This lets the program replay an input script.  
+     *   input file.  'filename' is a string giving the name of the file to
+     *   open, and 'flags' is a combination of ScriptFileXxx bit flags giving
+     *   the mode to use to read the file.  When a script file is active, the
+     *   system reads command-line input from the file rather than from the
+     *   keyboard.  This lets the program replay an input script.
+     *   
+     *   Note that the ScriptFileEvent flag is ignored if included in the
+     *   'flags' parameter.  The script reader automatically determines the
+     *   script type by examining the file's contents, so you can't set the
+     *   type using flags.  This flag is used only in "get status" requests
+     *   (ScriptReqGetStatus) - it's included in the returned flags if
+     *   applicable.  The purpose of this flag is to let you determine what
+     *   the script reader decided about the script, rather than telling the
+     *   script reader how to interpret the script.
+     *   
+     *   If 'filename' is nil, this cancels the current script.  If the
+     *   script was invoked from an enclosing script, this resumes the
+     *   enclosing script, otherwise it resumes reading input from the
+     *   keyboard.  The 'flags' argument is ignored in this case.
+     *   
+     *   New in 3.0.17: if 'filename' is one of the ScriptReqXxx constants,
+     *   this performs a special script request.  See the ScriptReqXxx
+     *   constants for details.  Note that calling this function with a
+     *   ScriptReqXxx constant on an VM prior to 3.0.17 will result in a
+     *   run-time error, so you can use try-catch to detect whether the
+     *   request is supported.  
      */
     setScriptFile(filename, flags?);
 
@@ -400,11 +454,35 @@ intrinsic 'tads-io/030007'
      *   output window.  
      */
     logConsoleSay(handle, ...);
+
+    /*
+     *   Log an input event that's obtained externally - i.e., from a source
+     *   other than the system input APIs (inputLine, inputKey, inputEvent,
+     *   etc).  This adds the event to any command or event log that the
+     *   system is currently writing, as set with setLogFile().
+     *   
+     *   It's only necessary to call this function when obtaining user input
+     *   from custom code that bypasses the system input APIs.  The system
+     *   input functions all log events automatically, so you must not call
+     *   this for input obtained from them (doing so would write each input
+     *   twice, since it's already being written once by the input
+     *   functions).  For example, this is useful for the Web UI, since it
+     *   obtains input via network transactions with the javascript client.
+     *   
+     *   'evt' is a list describing the event, using the same format that
+     *   inputEvent() returns.  Note one special extension: if the first
+     *   element of the list is a string, the string is used as the tag name
+     *   if we're writing an event script.  This can be used to write custom
+     *   events or events with no InEvtXxx type code, such as <dialog> input
+     *   events.
+     */
+    logInputEvent(evt);
 }
 
 /* log file types */
 #define LogTypeTranscript 1     /* log all input and output to a transcript */
-#define LogTypeCommand    2                       /* log only command input */
+#define LogTypeCommand    2                  /* log only command-line input */
+#define LogTypeScript     3                         /* log all input events */
 
 /* 
  *   The special log console handle for the main console window's transcript.
@@ -427,6 +505,7 @@ intrinsic 'tads-io/030007'
 #define InEvtLine        6
 #define InEvtSysCommand  0x100
 #define InEvtEndQuietScript  10000
+#define InEvtEndScript       10003
 
 /*
  *   Command codes for InEvtSysCommand 
@@ -518,6 +597,8 @@ intrinsic 'tads-io/030007'
 #define SysInfoTextColors    32
 #define SysInfoBanners       33
 #define SysInfoInterpClass   34
+#define SysInfoAudioFade     35
+#define SysInfoAudioCrossfade 36
 
 /* SysInfoTextColors support level codes */
 #define SysInfoTxcNone       0
@@ -531,6 +612,12 @@ intrinsic 'tads-io/030007'
 #define SysInfoIClassTextGUI 2
 #define SysInfoIClassHTML    3
 
+/* SysInfoAudioFade and SysInfoAudioCrossfade result codes */
+#define SysInfoFadeMPEG      0x0001
+#define SysInfoFadeOGG       0x0002
+#define SysInfoFadeWAV       0x0004
+#define SysInfoFadeMIDI      0x0008
+
 /*
  *   constants for statusMode 
  */
@@ -542,6 +629,19 @@ intrinsic 'tads-io/030007'
  */
 #define ScriptFileQuiet    1  /* do not display output while reading script */
 #define ScriptFileNonstop  2   /* turn off MORE prompt while reading script */
+#define ScriptFileEvent    4        /* this is an event script (query only) */
+
+/*
+ *   Script Request - get current script status.  In 3.0.17+, passing this
+ *   constant as the 'filename' argument to getScriptFile() will perform a
+ *   "get script status" request.  If there's no script file in progress, the
+ *   function returns nil.  If a script file is being read, the function
+ *   returns an integer value giving a combination of ScriptFileXxx flag
+ *   values indicating the current script status.  Note that a return value
+ *   of 0 (zero) means that a script is running but none of the ScriptFileXxx
+ *   flags are applicable.  
+ */
+#define ScriptReqGetStatus   0x7000
 
 /*
  *   selectors for getLocalCharSet
@@ -645,5 +745,3 @@ intrinsic 'tads-io/030007'
 #define ColorNavy     ColorRGB(0x00, 0x00, 0x80)
 #define ColorTeal     ColorRGB(0x00, 0x80, 0x80)
 
-
-#endif /* TADSIO_H */

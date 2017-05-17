@@ -24,6 +24,7 @@ Modified
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "t3std.h"
 #include "vmglob.h"
 #include "vmtype.h"
 #include "vmobj.h"
@@ -84,8 +85,8 @@ int main(int argc, char **argv)
 
     /* initialize the VM */
     hostifc = new CVmHostIfcStdio(argv[0]);
-    vm_initialize(&vmg__, &vm_init_options(hostifc, &clientifc,
-                                           "us-ascii", "us_ascii"));
+    vm_init_options iniopts(hostifc, &clientifc, "us-ascii", "us_ascii");
+    vm_initialize(&vmg__, &iniopts);
 
     /* create a fake host file object */
     imagefp = new CImageFile();
@@ -191,5 +192,10 @@ void CVmImageLoader::discard_synth_exports()
 vm_prop_id_t CVmImageLoader::alloc_new_prop(VMG0_)
 {
     return VM_INVALID_PROP;
+}
+
+vm_prop_id_t CVmImageLoader::get_last_prop(VMG0_)
+{
+    return (vm_prop_id_t)0;
 }
 

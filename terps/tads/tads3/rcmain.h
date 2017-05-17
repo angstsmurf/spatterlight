@@ -37,7 +37,8 @@ public:
     static int add_resources(const char *image_fname,
                              const class CRcResList *reslist,
                              class CRcHostIfc *hostifc,
-                             int create_new, os_filetype_t file_type);
+                             int create_new, os_filetype_t file_type,
+                             int link_mode);
 
 private:
     /* format an error message and display it via the host interface */

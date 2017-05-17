@@ -6,7 +6,7 @@
  */
 /*
 Name
-  vmconnoh.cpp - T3 VM Console - HTML mini-parser
+  vmconhmp.cpp - T3 VM Console - HTML mini-parser
 Function
   This is the console HTML "mini-parser," which provides some minimal
   interpretation of HTML markups for text-only underlying output streams.
@@ -53,7 +53,7 @@ Modified
  *   counted-length strings, so it doesn't care about embedded null bytes.
  *   We therefore can pass a wchar_t buffer to the underlying hash table,
  *   even though the underlying hash table uses char's, because we multiply
- *   out length by the size of a wchar_t to get the byte length.  
+ *   our length by the size of a wchar_t to get the byte length.  
  */
 class CVmFmtTabStop: public CVmHashEntryCS
 {
@@ -72,80 +72,89 @@ public:
      *   Find a tabstop object with a given ID, optionally creating a new
      *   object if an existing one isn't found.  
      */
-    static CVmFmtTabStop *find(CVmHashTable *hashtab, wchar_t *id,
-                               int create)
+    static CVmFmtTabStop *find(CVmHashTable *hashtab, wchar_t *id, int create)
     {
-        CVmFmtTabStop *entry;
-        size_t id_chars;
-        size_t id_bytes;
-        size_t i;
-
         /* 
          *   Get the length - in characters AND in bytes - of the new ID.
          *   We mostly work with the new ID in bytes rather than wchar_t's,
          *   because the underlying hash table does everything in bytes.  
          */
-        id_chars = wcslen(id);
-        id_bytes = id_chars * sizeof(wchar_t);
         
         /* 
-         *   Convert the new ID to lower-case.  The hash table doesn't deal
+         *   Convert the new ID to folded case.  The hash table doesn't deal
          *   with unicode case conversions, so we use a case-sensitive hash
          *   table and simply make sure we only give it lower-case
          *   characters.  
          */
-        for (i = 0 ; i < id_chars ; ++i)
-            id[i] = t3_to_lower(id[i]);
-        
-        /* look for an existing tab with the same ID */
-        entry = (CVmFmtTabStop *)hashtab->find((char *)id, id_bytes);
+        size_t flen = fold_case(0, id);
+        wchar_t *fid = 0;
+        if (flen != 0)
+            fid = new wchar_t[flen+1];
 
-        /* if we didn't find it, and they want to create it, do so */
-        if (entry == 0 && create)
+        CVmFmtTabStop *entry = 0;
+        err_try
         {
-            /* create the new entry */
-            entry = new CVmFmtTabStop((char *)id, id_bytes);
+            /* do the folding if applicable */
+            if (fid != 0)
+            {
+                fold_case(fid, id);
+                id = fid;
+            }
 
-            /* add it to the table */
-            hashtab->add(entry);
+            /* get the folded ID length in characters and bytes */
+            size_t id_chars = wcslen(id);
+            size_t id_bytes = id_chars * sizeof(wchar_t);
+            
+            /* look for an existing tab-stop entry with the same ID */
+            entry = (CVmFmtTabStop *)hashtab->find((char *)id, id_bytes);
+            
+            /* if we didn't find it, and they want to create it, do so */
+            if (entry == 0 && create)
+                hashtab->add(entry = new CVmFmtTabStop((char *)id, id_bytes));
         }
+        err_finally
+        {
+            /* if we allocated the ID string, release it */
+            if (fid != 0)
+                delete [] fid;
+        }
+        err_end;
 
         /* return what we found */
         return entry;
     }
-};
 
-
-/* ------------------------------------------------------------------------ */
-/*
- *   Case-insensitive wide-string comparison routine.  strcmp() semantics.
- */
-static int w_stricmp(const wchar_t *a, const wchar_t *b)
-{
-    /* loop over characters until we find a mismatch */
-    for ( ; ; ++a, ++b)
+    /* get the case folding of a string */
+    static size_t fold_case(wchar_t *dst, const wchar_t *str)
     {
-        wchar_t ua, ub;
+        size_t dstlen = 0;
+        for ( ; *str != 0 ; ++str)
+        {
+            /* 
+             *   get the case folding of the current character, defaulting to
+             *   an identity mapping if there's no folding defined 
+             */
+            const wchar_t *f = t3_to_fold(*str);
+            wchar_t fi[2] = { *str, 0 };
+            if (f == 0)
+                f = fi;
 
-        /* get both characters converted to upper-case */
-        ua = t3_to_upper(*a);
-        ub = t3_to_upper(*b);
+            /* copy it to the output if there's an output buffer */
+            for ( ; *f != 0 ; ++f, ++dstlen)
+            {
+                if (dst != 0)
+                    *dst++ = *f;
+            }
+        }
 
-        /* if they're different, return the appropriate sense indicator */
-        if (ua > ub)
-            return 1;
-        else if (ua < ub)
-            return -1;
-
-        /* 
-         *   if they both ended here, the strings are equal (if one ended,
-         *   the other must have as well, since we only made it this far
-         *   if the two characters were equal) 
-         */
-        if (*a == L'\0')
-            return 0;
+        /* add the null */
+        if (dst != 0)
+            *dst = 0;
+        
+        /* return the length (excluding the null) */
+        return dstlen;
     }
-}
+};
 
 
 /* ------------------------------------------------------------------------ */
@@ -533,6 +542,7 @@ static const color_tbl_t color_tbl[] =
     { L"bgcolor",    OS_COLOR_P_TEXTBG },
     { L"statustext", OS_COLOR_P_STATUSLINE },
     { L"statusbg",   OS_COLOR_P_STATUSBG },
+    { L"input",      OS_COLOR_P_INPUT },
 
     /* end-of-table marker */
     { 0,          0 }
@@ -584,7 +594,7 @@ int CVmFormatter::parse_color_attr(VMG_ const wchar_t *val,
         for (p = color_tbl ; p->name != 0 ; ++p)
         {
             /* if the name matches, use it */
-            if (w_stricmp(val, p->name) == 0)
+            if (CVmCaseFoldStr::wstreq(val, p->name))
             {
                 /* this is the color - make it the current buffer color */
                 *result = p->color_code;
@@ -998,7 +1008,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                     break;
                 
                 /* skip any whitespace */
-                while (t3_is_space(c))
+                while (t3_is_whitespace(c))
                     c = next_wchar(sp, slenp);
                 
                 /* if we found an '=', switch to parsing the value */
@@ -1036,7 +1046,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                 /* if we haven't started the name yet, skip whitespace */
                 if (attr_qu_ == 0 && attrval_[0] == L'\0')
                 {
-                    while (t3_is_space(c))
+                    while (t3_is_whitespace(c))
                         c = next_wchar(sp, slenp);
                 }
 
@@ -1076,7 +1086,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                      *   if it's a space or a '>', and the attribute isn't
                      *   quoted, this marks the end of the attribute 
                      */
-                    if (attr_qu_ == 0 && (t3_is_space(c) || c == '>'))
+                    if (attr_qu_ == 0 && (t3_is_whitespace(c) || c == '>'))
                     {
                         /* return to tag mode */
                         html_parse_state_ = VMCON_HPS_TAG;
@@ -1110,7 +1120,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                  *   and it's meaningful in the context of the current tag.  
                  */
                 if (html_defer_br_ != HTML_DEFER_BR_NONE
-                    && w_stricmp(attrname_, L"height") == 0)
+                    && CVmCaseFoldStr::wstreq(attrname_, L"height"))
                 {
                     int ht;
                     
@@ -1140,13 +1150,14 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                     }
                 }
                 else if (html_allow_alt_
-                         && w_stricmp(attrname_, L"alt") == 0)
+                         && !html_in_ignore_
+                         && CVmCaseFoldStr::wstreq(attrname_, L"alt"))
                 {
                     /* write out the ALT string */
                     buffer_wstring(vmg_ attrval_);
                 }
                 else if (html_allow_color_
-                         && w_stricmp(attrname_, L"color") == 0)
+                         && CVmCaseFoldStr::wstreq(attrname_, L"color"))
                 {
                     os_color_t new_color;
                     
@@ -1155,7 +1166,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                         cur_color_.fg = new_color;
                 }
                 else if (html_allow_color_
-                         && w_stricmp(attrname_, L"bgcolor") == 0)
+                         && CVmCaseFoldStr::wstreq(attrname_, L"bgcolor"))
                 {
                     os_color_t new_color;
 
@@ -1164,7 +1175,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                         cur_color_.bg = new_color;
                 }
                 else if (html_in_body_
-                         && w_stricmp(attrname_, L"text") == 0)
+                         && CVmCaseFoldStr::wstreq(attrname_, L"text"))
                 {
                     os_color_t new_color;
 
@@ -1173,7 +1184,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                         cur_color_.fg = new_color;
                 }
                 else if (html_in_body_
-                         && w_stricmp(attrname_, L"bgcolor") == 0)
+                         && CVmCaseFoldStr::wstreq(attrname_, L"bgcolor"))
                 {
                     os_color_t new_color;
 
@@ -1183,10 +1194,8 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                 }
                 else if (html_in_tab_)
                 {
-                    CVmFmtTabStop *entry;
-
                     /* check the attribute name */
-                    if (w_stricmp(attrname_, L"id") == 0)
+                    if (CVmCaseFoldStr::wstreq(attrname_, L"id"))
                     {
                         /*
                          *   We're defining a new tab at the current output
@@ -1197,7 +1206,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                          *   the old definition, so just change the existing
                          *   entry.)  
                          */
-                        entry = find_tab(attrval_, TRUE);
+                        CVmFmtTabStop *entry = find_tab(attrval_, TRUE);
 
                         /* define the entry in the current column */
                         entry->column_ = linecol_;
@@ -1205,7 +1214,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                         /* this finishes the <TAB> */
                         html_in_tab_ = FALSE;
                     }
-                    else if (w_stricmp(attrname_, L"to") == 0)
+                    else if (CVmCaseFoldStr::wstreq(attrname_, L"to"))
                     {
                         /* 
                          *   find the tab object with the given ID, and
@@ -1218,7 +1227,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                         if (new_tab_entry_ == 0)
                             html_in_tab_ = FALSE;
                     }
-                    else if (w_stricmp(attrname_, L"indent") == 0)
+                    else if (CVmCaseFoldStr::wstreq(attrname_, L"indent"))
                     {
                         /* 
                          *   it's a simple <TAB INDENT=n> - this simply
@@ -1229,7 +1238,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                         /* this finishes the <TAB> */
                         html_in_tab_ = FALSE;
                     }
-                    else if (w_stricmp(attrname_, L"multiple") == 0)
+                    else if (CVmCaseFoldStr::wstreq(attrname_, L"multiple"))
                     {
                         /* 
                          *   it's a simple <TAB MULTIPLE=n> - this simply
@@ -1240,16 +1249,16 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                         /* this finishes the <TAB> */
                         html_in_tab_ = FALSE;
                     }
-                    else if (w_stricmp(attrname_, L"align") == 0)
+                    else if (CVmCaseFoldStr::wstreq(attrname_, L"align"))
                     {
                         /* note the alignment */
-                        if (w_stricmp(attrval_, L"left") == 0)
+                        if (CVmCaseFoldStr::wstreq(attrval_, L"left"))
                             new_tab_align_ = VMFMT_TAB_LEFT;
-                        else if (w_stricmp(attrval_, L"right") == 0)
+                        else if (CVmCaseFoldStr::wstreq(attrval_, L"right"))
                             new_tab_align_ = VMFMT_TAB_RIGHT;
-                        else if (w_stricmp(attrval_, L"center") == 0)
+                        else if (CVmCaseFoldStr::wstreq(attrval_, L"center"))
                             new_tab_align_ = VMFMT_TAB_CENTER;
-                        else if (w_stricmp(attrval_, L"decimal") == 0)
+                        else if (CVmCaseFoldStr::wstreq(attrval_, L"decimal"))
                             new_tab_align_ = VMFMT_TAB_DECIMAL;
                         else
                         {
@@ -1257,7 +1266,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                             html_in_tab_ = FALSE;
                         }
                     }
-                    else if (w_stricmp(attrname_, L"dp") == 0)
+                    else if (CVmCaseFoldStr::wstreq(attrname_, L"dp"))
                     {
                         /* note the decimal point character */
                         new_tab_dp_ = attrval_[0];
@@ -1266,12 +1275,12 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                 else if (html_in_wrap_)
                 {
                     /* it's a WRAP tag - check the attribute */
-                    if (w_stricmp(attrname_, L"word") == 0)
+                    if (CVmCaseFoldStr::wstreq(attrname_, L"word"))
                     {
                         /* word wrap mode - clear the 'any' wrap flag */
                         cur_flags_ &= ~VMCON_OBF_BREAK_ANY;
                     }
-                    else if (w_stricmp(attrname_, L"char") == 0)
+                    else if (CVmCaseFoldStr::wstreq(attrname_, L"char"))
                     {
                         /* character wrap mode - set the 'any' flag */
                         cur_flags_ |= VMCON_OBF_BREAK_ANY;
@@ -1312,6 +1321,23 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
             }
             else
             {
+                wchar_t curCh;
+                
+                /* check for entities */
+                if (c == '&')
+                {
+                    /* parse the entity (fetches the next character) */
+                    c = parse_entity(vmg_ &curCh, sp, slenp);
+                }
+                else
+                {
+                    /* use this character literally */
+                    curCh = c;
+
+                    /* get the next character */
+                    c = next_wchar(sp, slenp);
+                }
+                
                 /* 
                  *   if we're gathering a title, and there's room in the
                  *   title buffer for more (always leaving room for a null
@@ -1331,7 +1357,7 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                      *   map this character into the local character set and
                      *   add it to the buffer 
                      */
-                    if (G_cmap_to_ui->map(c, &html_title_ptr_, &rem)
+                    if (G_cmap_to_ui->map(curCh, &html_title_ptr_, &rem)
                         > orig_rem)
                     {
                         /* 
@@ -1350,9 +1376,6 @@ wchar_t CVmFormatter::resume_html_parsing(VMG_ wchar_t c,
                     }
                 }
             }
-                
-            /* get the next character */
-            c = next_wchar(sp, slenp);
 
             /* don't display anything in an ignore section */
             continue;
@@ -1419,7 +1442,7 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
          *   Check to see if we recognize the tag.  We only recognize a few
          *   simple tags that map easily to character mode.  
          */
-        if (w_stricmp(tagbuf, L"br") == 0)
+        if (CVmCaseFoldStr::wstreq(tagbuf, L"br"))
         {
             /* 
              *   line break - if there's anything buffered up, just flush the
@@ -1432,10 +1455,10 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
             else
                 html_defer_br_ = HTML_DEFER_BR_BLANK;
         }
-        else if (w_stricmp(tagbuf, L"b") == 0
-                 || w_stricmp(tagbuf, L"i") == 0
-                 || w_stricmp(tagbuf, L"em") == 0
-                 || w_stricmp(tagbuf, L"strong") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"b")
+                 || CVmCaseFoldStr::wstreq(tagbuf, L"i")
+                 || CVmCaseFoldStr::wstreq(tagbuf, L"em")
+                 || CVmCaseFoldStr::wstreq(tagbuf, L"strong"))
         {
             /* suppress in ignore mode */
             if (!html_in_ignore_)
@@ -1482,13 +1505,13 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
                 }
             }
         }
-        else if (w_stricmp(tagbuf, L"p") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"p"))
         {
             /* paragraph - send out a blank line */
             if (!html_in_ignore_)
                 write_blank_line(vmg0_);
         }
-        else if (w_stricmp(tagbuf, L"tab") == 0 && !html_in_ignore_)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"tab") && !html_in_ignore_)
         {
             if (!html_in_ignore_)
             {
@@ -1504,13 +1527,13 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
                 new_tab_dp_ = L'\0';
             }
         }
-        else if (w_stricmp(tagbuf, L"img") == 0
-                 || w_stricmp(tagbuf, L"sound") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"img")
+                 || CVmCaseFoldStr::wstreq(tagbuf, L"sound"))
         {
             /* IMG and SOUND - allow ALT attributes */
             html_allow_alt_ = TRUE;
         }
-        else if (w_stricmp(tagbuf, L"font") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"font"))
         {
             /* FONT - look for COLOR attribute */
             if (html_in_ignore_)
@@ -1531,7 +1554,7 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
                 pop_color();
             }
         }
-        else if (w_stricmp(tagbuf, L"body") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"body"))
         {
             /* BODY - look for BGCOLOR and TEXT attributes */
             if (!html_in_ignore_ && !is_end_tag)
@@ -1540,7 +1563,7 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
                 html_in_body_ = TRUE;
             }
         }
-        else if (w_stricmp(tagbuf, L"hr") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"hr"))
         {
             int rem;
 
@@ -1578,7 +1601,7 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
                 write_blank_line(vmg0_);
             }
         }
-        else if (w_stricmp(tagbuf, L"q") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"q"))
         {
             wchar_t htmlchar;
 
@@ -1604,7 +1627,7 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
                     --html_quote_level_;
             }
         }
-        else if (w_stricmp(tagbuf, L"title") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"title"))
         {
             /* 
              *   Turn ignore mode on or off as appropriate, and turn on or
@@ -1655,8 +1678,8 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
                 ++html_in_title_;
             }
         }
-        else if (w_stricmp(tagbuf, L"aboutbox") == 0
-                 || w_stricmp(tagbuf, L"banner") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"aboutbox")
+                 || CVmCaseFoldStr::wstreq(tagbuf, L"banner"))
         {
             /* turn ignore mode on or off as appropriate */
             if (is_end_tag)
@@ -1664,21 +1687,34 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
             else
                 ++html_in_ignore_;
         }
-        else if (w_stricmp(tagbuf, L"log") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"log"))
         {
             /* handle the <log> tag according to our stream subclass */
             process_log_tag(is_end_tag);
         }
-        else if (w_stricmp(tagbuf, L"nolog") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"nolog"))
         {
             /* handle the <nolog> tag according to our stream subclass */
             process_nolog_tag(is_end_tag);
         }
-        else if (w_stricmp(tagbuf, L"wrap") == 0)
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"wrap"))
         {
             /* note that we have a 'wrap' tag to process */
             if (!html_in_ignore_)
                 html_in_wrap_ = TRUE;
+        }
+        else if (CVmCaseFoldStr::wstreq(tagbuf, L"pre"))
+        {
+            /* count the nesting level if starting PRE mode */
+            if (!is_end_tag)
+                ++html_pre_level_;
+
+            /* surround the PRE block with blank lines */
+            write_blank_line(vmg0_);
+
+            /* count the nesting level if ending PRE mode */
+            if (is_end_tag && html_pre_level_ != 0)
+                --html_pre_level_;
         }
 
         /* suppress everything up to the next '>' */
@@ -1692,181 +1728,12 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
     }
     else if (c == '&')
     {
-        const size_t MAXAMPLEN = 10;
-        char ampbuf[MAXAMPLEN];
-        char *dst;
-        const char *orig_s;
-        size_t orig_slen;
-        const struct amp_tbl_t *ampptr;
-        size_t lo, hi, cur;
+        /* parse the HTML markup */
+        wchar_t ent;
+        c = parse_entity(vmg_ &ent, sp, slenp);
 
-        /* 
-         *   remember where the part after the '&' begins, so we can come
-         *   back here later if necessary 
-         */
-        orig_s = *sp;
-        orig_slen = *slenp;
-
-        /* get the character after the ampersand */
-        c = next_wchar(sp, slenp);
-
-        /* if it's numeric, parse the number */
-        if (c == '#')
-        {
-            uint val;
-
-            /* skip the '#' */
-            c = next_wchar(sp, slenp);
-
-            /* check for hex */
-            if (c == 'x' || c == 'X')
-            {
-                /* skip the 'x' */
-                c = next_wchar(sp, slenp);
-
-                /* read the hex number */
-                for (val = 0 ; is_xdigit(c) ;
-                     c = next_wchar(sp, slenp))
-                {
-                    /* accumulate this digit into the value */
-                    val *= 16;
-                    if (is_digit(c))
-                        val += c - '0';
-                    else if (c >= 'a' && c <= 'f')
-                        val += c - 'a' + 10;
-                    else
-                        val += c - 'A' + 10;
-                }
-            }
-            else
-            {
-                /* read the number */
-                for (val = 0 ; is_digit(c) ;
-                     c = next_wchar(sp, slenp))
-                {
-                    /* accumulate this digit into the value */
-                    val *= 10;
-                    val += c - '0';
-                }
-            }
-
-            /* if we found a ';' at the end, skip it */
-            if (c == ';')
-                c = next_wchar(sp, slenp);
-
-            /* translate and write the character */
-            buffer_char(vmg_ (wchar_t)val);
-
-            /* we're done with this character */
-            return c;
-        }
-
-        /*
-         *   Parse the sequence after the '&'.  Parse up to the closing
-         *   semicolon, or any non-alphanumeric, or until we fill up the
-         *   buffer.  
-         */
-        for (dst = ampbuf ;
-             c != '\0' && (is_digit(c) || is_alpha(c))
-                 && dst < ampbuf + MAXAMPLEN - 1 ;
-             c = next_wchar(sp, slenp))
-        {
-            /* copy this character to the name buffer */
-            *dst++ = (char)c;
-        }
-
-        /* null-terminate the name */
-        *dst = '\0';
-
-        /* do a binary search for the name */
-        lo = 0;
-        hi = sizeof(amp_tbl)/sizeof(amp_tbl[0]) - 1;
-        for (;;)
-        {
-            int diff;
-
-            /* if we've converged, look no further */
-            if (lo > hi
-                || lo >= sizeof(amp_tbl)/sizeof(amp_tbl[0]))
-            {
-                ampptr = 0;
-                break;
-            }
-
-            /* split the difference */
-            cur = lo + (hi - lo)/2;
-            ampptr = &amp_tbl[cur];
-
-            /* see where we are relative to the target item */
-            diff = strcmp(ampptr->cname, ampbuf);
-            if (diff == 0)
-            {
-                /* this is it */
-                break;
-            }
-            else if (lo >= hi)
-            {
-                /* failed to find it */
-                ampptr = 0;
-                break;
-            }
-            else if (diff > 0)
-            {
-                /* this one is too high - check the lower half */
-                hi = (cur == hi ? hi - 1 : cur);
-            }
-            else
-            {
-                /* this one is too low - check the upper half */
-                lo = (cur == lo ? lo + 1 : cur);
-            }
-        }
-
-        /* skip to the appropriate next character */
-        if (c == ';')
-        {
-            /* name ended with semicolon - skip the semicolon */
-            c = next_wchar(sp, slenp);
-        }
-        else if (ampptr != 0)
-        {
-            int skipcnt;
-
-            /* found the name - skip its exact length */
-            skipcnt = strlen(ampptr->cname);
-            for (*sp = orig_s, *slenp = orig_slen ; skipcnt != 0 ;
-                 c = next_wchar(sp, slenp), --skipcnt) ;
-
-            /* 
-             *   that positions us on the last character of the entity name;
-             *   skip one more, so that we're on the character after the
-             *   entity name 
-             */
-            c = next_wchar(sp, slenp);
-        }
-
-        /* if we found the entry, write out the character */
-        if (ampptr != 0)
-        {
-            /* we found it - write it out */
-            buffer_char(vmg_ ampptr->html_cval);
-        }
-        else
-        {
-            /* 
-             *   we didn't find it - ignore the entire sequence, and just
-             *   write it out verbatim; start by writing out the ampersand 
-             */
-            buffer_char(vmg_ '&');
-
-            /* 
-             *   now go back and scan from the next character after the
-             *   ampersand 
-             */
-            *sp = orig_s;
-            *slenp = orig_slen;
-            c = next_wchar(sp, slenp);
-        }
+        /* translate it and write it out */
+        buffer_char(vmg_ ent);
 
         /* proceed with the next character */
         return c;
@@ -1884,6 +1751,191 @@ wchar_t CVmFormatter::parse_html_markup(VMG_ wchar_t c,
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Parse an HTML entity markup.  Call this with the current character
+ *   pointer at the '&'.  We'll parse the entity name and return it in *ent.
+ *   The return value is the next character to be parsed after the entity.  
+ */
+wchar_t CVmFormatter::parse_entity(VMG_ wchar_t *ent, const char **sp,
+                                   size_t *slenp)
+{
+    const size_t MAXAMPLEN = 10;
+    char ampbuf[MAXAMPLEN];
+    char *dst;
+    const char *orig_s;
+    size_t orig_slen;
+    const struct amp_tbl_t *ampptr;
+    size_t lo, hi, cur;
+    wchar_t c;
+
+    /* 
+     *   remember where the part after the '&' begins, so we can come back
+     *   here later if necessary 
+     */
+    orig_s = *sp;
+    orig_slen = *slenp;
+    
+    /* get the character after the ampersand */
+    c = next_wchar(sp, slenp);
+
+    /* if it's numeric, parse the number */
+    if (c == '#')
+    {
+        uint val;
+        
+        /* skip the '#' */
+        c = next_wchar(sp, slenp);
+        
+        /* check for hex */
+        if (c == 'x' || c == 'X')
+        {
+            /* skip the 'x' */
+            c = next_wchar(sp, slenp);
+            
+            /* read the hex number */
+            for (val = 0 ; is_xdigit(c) ; c = next_wchar(sp, slenp))
+            {
+                /* accumulate this digit into the value */
+                val *= 16;
+                if (is_digit(c))
+                    val += c - '0';
+                else if (c >= 'a' && c <= 'f')
+                    val += c - 'a' + 10;
+                else
+                    val += c - 'A' + 10;
+            }
+        }
+        else
+        {
+            /* read the number */
+            for (val = 0 ; is_digit(c) ; c = next_wchar(sp, slenp))
+            {
+                /* accumulate this digit into the value */
+                val *= 10;
+                val += c - '0';
+            }
+        }
+        
+        /* if we found a ';' at the end, skip it */
+        if (c == ';')
+            c = next_wchar(sp, slenp);
+
+        /* return the entity from the numeric character value */
+        *ent = (wchar_t)val;
+        
+        /* we're done with this character */
+        return c;
+    }
+    
+    /*
+     *   Parse the sequence after the '&'.  Parse up to the closing
+     *   semicolon, or any non-alphanumeric, or until we fill up the buffer.
+     */
+    for (dst = ampbuf ;
+         c != '\0' && (is_digit(c) || is_alpha(c))
+             && dst < ampbuf + MAXAMPLEN - 1 ;
+         c = next_wchar(sp, slenp))
+    {
+        /* copy this character to the name buffer */
+        *dst++ = (char)c;
+    }
+    
+    /* null-terminate the name */
+    *dst = '\0';
+    
+    /* do a binary search for the name */
+    lo = 0;
+    hi = sizeof(amp_tbl)/sizeof(amp_tbl[0]) - 1;
+    for (;;)
+    {
+        int diff;
+        
+        /* if we've converged, look no further */
+        if (lo > hi
+            || lo >= sizeof(amp_tbl)/sizeof(amp_tbl[0]))
+        {
+            ampptr = 0;
+            break;
+        }
+
+        /* split the difference */
+        cur = lo + (hi - lo)/2;
+        ampptr = &amp_tbl[cur];
+        
+        /* see where we are relative to the target item */
+        diff = strcmp(ampptr->cname, ampbuf);
+        if (diff == 0)
+        {
+            /* this is it */
+            break;
+        }
+        else if (lo >= hi)
+        {
+            /* failed to find it */
+            ampptr = 0;
+            break;
+        }
+        else if (diff > 0)
+        {
+            /* this one is too high - check the lower half */
+            hi = (cur == hi ? hi - 1 : cur);
+        }
+        else
+        {
+            /* this one is too low - check the upper half */
+            lo = (cur == lo ? lo + 1 : cur);
+        }
+    }
+
+    /* skip to the appropriate next character */
+    if (c == ';')
+    {
+        /* name ended with semicolon - skip the semicolon */
+        c = next_wchar(sp, slenp);
+    }
+    else if (ampptr != 0)
+    {
+        int skipcnt;
+
+        /* found the name - skip its exact length */
+        skipcnt = strlen(ampptr->cname);
+        for (*sp = orig_s, *slenp = orig_slen ; skipcnt != 0 ;
+             c = next_wchar(sp, slenp), --skipcnt) ;
+
+        /* 
+         *   that positions us on the last character of the entity name; skip
+         *   one more, so that we're on the character after the entity name 
+         */
+        c = next_wchar(sp, slenp);
+    }
+    
+    /* if we found the entry, write out the character */
+    if (ampptr != 0)
+    {
+        /* we found it - return the character value */
+        *ent = ampptr->html_cval;
+    }
+    else
+    {
+        /* 
+         *   we didn't find it - ignore the entire sequence, and just write
+         *   it out verbatim; for our caller's purposes, the result of the
+         *   parse is just the '&' itself 
+         */
+        *ent = '&';
+        
+        /* now go back and scan from the next character after the ampersand */
+        *sp = orig_s;
+        *slenp = orig_slen;
+        c = next_wchar(sp, slenp);
+    }
+
+    /* return the next character */
+    return c;
+}
+
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Service routine - read a number represented as a base-10 string of wide
  *   characters 
  */
@@ -1893,7 +1945,7 @@ int CVmFormatter::wtoi(const wchar_t *p)
     int neg = FALSE;
 
     /* skip any leading whitespace */
-    while (is_space(*p))
+    while (t3_is_whitespace(*p))
         ++p;
 
     /* check for a leading sign */

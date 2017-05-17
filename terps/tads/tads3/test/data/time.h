@@ -16,7 +16,8 @@
 #define tzset   _tzset
 #endif /* _POSIX_ */
 
-#else   /* ndef _NTSDK */
+//#else   /* ndef _NTSDK */
+#ifndef  _NTSDK
 
 #if     defined(_DLL) && defined(_M_IX86)
 
@@ -33,3 +34,6 @@ _CRTIMP extern long timezone;
 _CRTIMP extern char * tzname[2];
 
 #endif  /* !(defined(_DLL) && defined(_M_IX86)) */
+#endif
+#endif
+#endif

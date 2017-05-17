@@ -59,6 +59,8 @@ Modified
 #include "vmhostsi.h"
 #include "tcvsn.h"
 #include "vmmaincn.h"
+#include "vmrunsym.h"
+#include "vmbignum.h"
 #include "tcunas.h"
 #include "vmcrc.h"
 #include "rcmain.h"
@@ -78,8 +80,10 @@ public:
      *   map the rcmain host interface methods to the equivalents in the
      *   tcmain host interface 
      */
-    virtual void display_error(const char *msg) { ifc_->print_err(msg); }
-    virtual void display_status(const char *msg) { ifc_->print_step(msg); }
+    virtual void display_error(const char *msg)
+        { ifc_->print_err("%s\n", msg); }
+    virtual void display_status(const char *msg)
+        { ifc_->print_step("%s\n", msg); }
 
 private:
     /* our underlying tcmain host interface */
@@ -117,6 +121,7 @@ CTcMake::CTcMake()
     /* assume we'll show standard but not pedantic warnings */
     show_warnings_ = TRUE;
     pedantic_ = FALSE;
+    warnings_as_errors_ = FALSE;
 
     /* we don't have a list of warnings to suppress yet */
     suppress_list_ = 0;
@@ -135,6 +140,9 @@ CTcMake::CTcMake()
 
     /* assume we're not in test reporting mode */
     test_report_mode_ = FALSE;
+
+    /* assume we're not in status percentage mode */
+    status_pct_mode_ = FALSE;
 
     /* assume we won't want quoted filenames */
     quoted_fname_mode_ = FALSE;
@@ -156,6 +164,15 @@ CTcMake::CTcMake()
 
     /* presume we won't be generating an assembly listing */
     assembly_listing_fp_ = 0;
+
+    /* assume we won't generate sourceTextGroup properties */
+    src_group_mode_ = FALSE;
+
+    /* presume we won't create output directories */
+    create_dirs_ = FALSE;
+
+    /* initialize the BigNumber internal cache */
+    CVmObjBigNum::init_cache();
 }
 
 /*
@@ -225,6 +242,9 @@ CTcMake::~CTcMake()
 
     /* delete the source character set name */
     lib_free_str(source_charset_);
+
+    /* delete the BigNumber cache */
+    CVmObjBigNum::term_cache();
 }
 
 /*
@@ -331,10 +351,8 @@ CTcMakeModule *CTcMake::add_module(const char *src_name,
                                    const char *obj_name,
                                    int first)
 {
-    CTcMakeModule *mod;
-
     /* create a module object */
-    mod = new CTcMakeModule();
+    CTcMakeModule *mod = new CTcMakeModule();
 
     /* set the module name */
     mod->set_module_name(src_name);
@@ -629,11 +647,13 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
     CResLoader *res_loader;
     int fatal_error_count = 0;
     CTcMakeModule *mod;
-    os_file_time_t imgmod;
+    os_file_stat_t imgstat;
     int build_image;
     int run_preinit;
     char exe_path[OSFNMAX];
     CVmRuntimeSymbols *volatile runtime_symtab = 0;
+    CVmRuntimeSymbols *volatile runtime_macros = 0;
+    int seqno;
     
     /* no warnings or errors so far */
     *errcnt = 0;
@@ -659,13 +679,13 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
     err_try
     {
         textchar_t qu_buf[OSFNMAX*2 + 2], qu_buf_out[OSFNMAX*2 + 2];
-        int step_cnt;
+        int step_cnt, step_cur = 0;
         char img_tool_data[4];
         CVmCRC32 mod_crc;
 
         /* check for module name collisions - give up if we find an error */
         check_all_module_collisions(hostifc, res_loader, errcnt, warncnt);
-        if (*errcnt != 0)
+        if (*errcnt != 0 || (warnings_as_errors_ && *warncnt != 0))
             goto done;
 
         /*
@@ -759,6 +779,37 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
         }
 
         /*
+         *   If desired, create the output directories.
+         */
+        if (create_dirs_)
+        {
+            /* initialize the error subsystem for this work */
+            CTcMain::init(hostifc, res_loader, source_charset_);
+            
+            /* create the symbol file directory */
+            if (symdir_.is_set())
+                create_dir(hostifc, symdir_.get(), FALSE,
+                           &fatal_error_count);
+
+            /* create the object file directory */
+            if (objdir_.is_set())
+                create_dir(hostifc, objdir_.get(),
+                           FALSE, &fatal_error_count);
+
+            /* create the image file directory */
+            if (image_fname_.is_set())
+                create_dir(hostifc, image_fname_.get(), TRUE,
+                           &fatal_error_count);
+
+            /* done with the error subsystem for now */
+            CTcMain::terminate();
+
+            /* if any of those failed, give up */
+            if (fatal_error_count != 0)
+                goto done;
+        }
+
+        /*
          *   First, run through the files and determine what work we'll need
          *   to do. 
          */
@@ -767,9 +818,7 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
             textchar_t srcfile[OSFNMAX];
             textchar_t symfile[OSFNMAX];
             textchar_t objfile[OSFNMAX];
-            os_file_time_t srcmod;
-            os_file_time_t symmod;
-            os_file_time_t objmod;
+            os_file_stat_t srcstat, symstat, objstat;
             int sym_recomp;
             int obj_recomp;
 
@@ -803,9 +852,9 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
              *   we'll need to build the symbol file.  
              */
             if (force_build
-                || os_get_file_mod_time(&srcmod, srcfile)
-                || os_get_file_mod_time(&symmod, symfile)
-                || os_cmp_file_times(&srcmod, &symmod) > 0)
+                || !os_file_stat(srcfile, TRUE, &srcstat)
+                || !os_file_stat(symfile, TRUE, &symstat)
+                || srcstat.mod_time > symstat.mod_time)
             {
                 /* this symbol file requires recompilation */
                 sym_recomp = TRUE;
@@ -831,26 +880,26 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
                 }
                 else
                 {
-                    CVmFile *sym_file;
-                    ulong siz;
-                    int same_config;
 
                     /* set up the symbol file descriptor */
-                    sym_file = new CVmFile();
+                    CVmFile *sym_file = new CVmFile();
                     sym_file->set_file(fp, 0);
 
                     /* seek to the start of our config data */
-                    siz = CTcParser::
-                          seek_sym_file_build_config_info(sym_file);
+                    ulong siz =
+                        CTcParser::seek_sym_file_build_config_info(sym_file);
 
                     /* compare the configuration */
+                    int same_config;
                     err_try
                     {
                         /* compare the configuration */
-                        same_config = compare_build_config_from_sym_file(
-                            sym_fname, sym_file);
+                        same_config =
+                            (siz != 0
+                             && compare_build_config_from_sym_file(
+                                 sym_fname, sym_file));
                     }
-                    err_catch(exc)
+                    err_catch_disc
                     {
                         /* 
                          *   the configuration information is invalid -
@@ -912,11 +961,11 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
              */
             if (force_build
                 || sym_recomp
-                || os_get_file_mod_time(&srcmod, srcfile)
-                || os_get_file_mod_time(&objmod, objfile)
-                || os_get_file_mod_time(&symmod, symfile)
-                || os_cmp_file_times(&srcmod, &objmod) > 0
-                || os_cmp_file_times(&symmod, &objmod) > 0)
+                || !os_file_stat(srcfile, TRUE, &srcstat)
+                || !os_file_stat(objfile, TRUE, &objstat)
+                || !os_file_stat(symfile, TRUE, &symstat)
+                || srcstat.mod_time > objstat.mod_time
+                || symstat.mod_time > objstat.mod_time)
             {
                 /* we do have to rebuild the object file */
                 obj_recomp = TRUE;
@@ -968,7 +1017,7 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
             build_image = FALSE;
         }
         else if (force_build || force_link
-                 || os_get_file_mod_time(&imgmod, image_fname_.get()))
+                 || !os_file_stat(image_fname_.get(), TRUE, &imgstat))
         {
             /* we definitely need to build the image file */
             build_image = TRUE;
@@ -1000,7 +1049,7 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
                 unsigned long old_crc;
                 
                 /* read the CRC value from the image file */
-                old_crc = osrp4(sig_buf + 41);
+                old_crc = t3rp4u(sig_buf + 41);
 
                 /* rebuild if it doesn't match the current signature */
                 if (old_crc != mod_crc.get_crc_val())
@@ -1018,7 +1067,7 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
                 for (mod = mod_head_ ; mod != 0 ; mod = mod->get_next())
                 {
                     textchar_t objfile[OSFNMAX];
-                    os_file_time_t objmod;
+                    os_file_stat_t objstat;
                     
                     /* if this module is excluded, skip it */
                     if (mod->is_excluded())
@@ -1042,13 +1091,36 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
                     get_objfile(objfile, mod);
                     
                     /* if it's more recent, we need to build the image */
-                    if (os_get_file_mod_time(&objmod, objfile)
-                        || os_cmp_file_times(&objmod, &imgmod) > 0)
+                    if (!os_file_stat(objfile, TRUE, &objstat)
+                        || objstat.mod_time > imgstat.mod_time)
                     {
                         /* we need to build the image */
                         build_image = TRUE;
 
                         /* no need to continue scanning object files */
+                        break;
+                    }
+                }
+            }
+
+            /* 
+             *   if we're still not building the image file, check to see if
+             *   any resource files are newer - if so, we'll need to relink
+             *   to get a clean slate for refreshing the resources 
+             */
+            if  (!build_image && res_list != 0 && res_list->get_count() != 0)
+            {
+                /* scan each resource file */
+                for (CRcResEntry *r = res_list->get_head() ; r != 0 ;
+                     r = r->get_next())
+                {
+                    /* check this timestamp */
+                    os_file_stat_t resstat;
+                    if (!os_file_stat(r->get_fname(), TRUE, &resstat)
+                        || resstat.mod_time > imgstat.mod_time)
+                    {
+                        /* we need to rebuild the image */
+                        build_image = TRUE;
                         break;
                     }
                 }
@@ -1064,11 +1136,21 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
             /* count the preinit step if necessary */
             if (run_preinit)
                 ++step_cnt;
+
+            /* count the resource bundler step if necessary */
+            if (res_list != 0 && res_list->get_count() != 0)
+                ++step_cnt;
         }
         
         /* display the initial estimate of the number of build steps */
+        if (status_pct_mode_)
+            hostifc->print_step("%%PCT:0/%d\n", step_cnt);
         if (step_cnt != 0)
             hostifc->print_step("Files to build: %d\n", step_cnt);
+
+        /* assign sequence numbers to the modules */
+        for (mod = mod_head_, seqno = 1 ; mod != 0 ; mod = mod->get_next())
+            mod->set_seqno(seqno++);
 
         /*
          *   Build the symbol files.  Go through our list of source files.
@@ -1091,13 +1173,18 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
                 hostifc->print_step("symbol_export %s -> %s\n",
                                     get_step_fname(qu_buf, srcfile),
                                     get_step_fname(qu_buf_out, symfile));
+
+                /* add the percentage display, if desired */
+                if (status_pct_mode_)
+                    hostifc->print_step("%%PCT:%d/%d\n", step_cur, step_cnt);
+                ++step_cur;
                 
                 /* we need to build the symbol file */
                 build_symbol_file(hostifc, res_loader, srcfile, symfile,
                                   mod, errcnt, warncnt);
 
                 /* if any errors occurred, stop now */
-                if (*errcnt != 0)
+                if (*errcnt != 0 || (warnings_as_errors_ && *warncnt != 0))
                     goto done;
             }
         }
@@ -1125,12 +1212,17 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
                                     get_step_fname(qu_buf, srcfile),
                                     get_step_fname(qu_buf_out, objfile));
                 
+                /* add the percentage display, if desired */
+                if (status_pct_mode_)
+                    hostifc->print_step("%%PCT:%d/%d\n", step_cur, step_cnt);
+                ++step_cur;
+
                 /* we need to build the object file */
                 build_object_file(hostifc, res_loader, srcfile, objfile,
                                   mod, errcnt, warncnt);
                 
                 /* if any errors occurred, stop now */
-                if (*errcnt != 0)
+                if (*errcnt != 0 || (warnings_as_errors_ && *warncnt != 0))
                     goto done;
             }
         }
@@ -1139,7 +1231,7 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
         if (build_image)
         {
             const char *link_output;
-            char inter_file[OSFNMAX];
+            char inter_file[OSFNMAX + 10];
 
             /* 
              *   if we're running preinit, link to an intermediate file,
@@ -1150,7 +1242,7 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
             if (run_preinit)
             {
                 /* we'll run preinit - link to an intermediate file */
-                strcpy(inter_file, image_fname_.get());
+                lib_strcpy(inter_file, OSFNMAX, image_fname_.get());
                 os_remext(inter_file);
                 os_addext(inter_file, "t3p");
 
@@ -1158,10 +1250,11 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
                 link_output = inter_file;
 
                 /* 
-                 *   we're running preinit, so we need to build a symbol
-                 *   table to send it 
+                 *   we're running preinit, so we need to build a global
+                 *   symbol table and a macro table to pass to preinit 
                  */
                 runtime_symtab = new CVmRuntimeSymbols();
+                runtime_macros = new CVmRuntimeSymbols();
             }
             else
             {
@@ -1173,12 +1266,18 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
             hostifc->print_step("link -> %s\n",
                                 get_step_fname(qu_buf, link_output));
 
+            /* add the percentage display, if desired */
+            if (status_pct_mode_)
+                hostifc->print_step("%%PCT:%d/%d\n", step_cur, step_cnt);
+            ++step_cur;
+
             /* build it */
             build_image_file(hostifc, res_loader, link_output,
-                             errcnt, warncnt, runtime_symtab, img_tool_data);
+                             errcnt, warncnt, runtime_symtab, runtime_macros,
+                             img_tool_data);
 
             /* if an error occurred, don't bother with preinit */
-            if (*errcnt != 0)
+            if (*errcnt != 0 || (warnings_as_errors_ && *warncnt != 0))
                 goto done;
 
             /* run preinit if desired */
@@ -1191,6 +1290,11 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
                 CVmHostIfc *vmhostifc;
                 CVmMainClientConsole clientifc;
                 
+                /* add the percentage display, if desired */
+                if (status_pct_mode_)
+                    hostifc->print_step("%%PCT:%d/%d\n", step_cur, step_cnt);
+                ++step_cur;
+
                 /* note what we're doing */
                 hostifc->print_step(
                     "preinit -> %s\n",
@@ -1232,7 +1336,7 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
                     /* run preinit to build the image file */
                     vm_run_preinit(file_in, link_output,
                                    file_out, vmhostifc, &clientifc, 0, 0,
-                                   runtime_symtab);
+                                   runtime_symtab, runtime_macros);
                 }
                 err_finally
                 {
@@ -1250,22 +1354,32 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
             }
 
             /* 
-             *   if we have any resources to add, and we're not compiling for
-             *   debugging, add the resources 
+             *   if we have any resources, add them to the image (or just add
+             *   links to them, if compiling for debugging) 
              */
-            if (res_list != 0 && res_list->get_count() != 0 && !debug_)
+            if (res_list != 0 && res_list->get_count() != 0)
             {
                 CRcHostIfcTcmake rc_hostifc(hostifc);
 
+                /* add the percentage display, if desired */
+                if (status_pct_mode_)
+                    hostifc->print_step("%%PCT:%d/%d\n", step_cur, step_cnt);
+                ++step_cur;
+
                 /* mention what we're doing */
                 hostifc->print_step(
-                    "add_resources -> %s\n",
+                    "add_resource%ss -> %s\n",
+                    debug_ ? " link" : "",
                     get_step_fname(qu_buf, image_fname_.get()));
 
-                /* add the resources */
+                /* 
+                 *   Add the resources.  If we're in debug mode, add them in
+                 *   "link mode," meaning that we merely add links from the
+                 *   resources to the equivalent local filenames. 
+                 */
                 if (CResCompMain::add_resources(
                     image_fname_.get(), res_list, &rc_hostifc,
-                    FALSE, OSFTT3IMG))
+                    FALSE, OSFTT3IMG, debug_))
                 {
                     /* failed - delete the image file */
                     osfdel(image_fname_.get());
@@ -1309,12 +1423,59 @@ void CTcMake::build(CTcHostIfc *hostifc, int *errcnt, int *warncnt,
     if (runtime_symtab != 0)
         delete runtime_symtab;
 
+    /* likewise the macro table */
+    if (runtime_macros != 0)
+        delete runtime_macros;
+
     /* done with the resource loader */
     delete res_loader;
 
     /* if any fatal errors occurred, include them in the error count */
     *errcnt += fatal_error_count;
 }
+
+/*
+ *   Create a directory 
+ */
+void CTcMake::create_dir(CTcHostIfc *hostifc,
+                         const char *path, int is_file, int *errcnt)
+{
+    char dir[OSFNMAX];
+
+    /*
+     *   If the path includes a filename portion, remove it to get the parent
+     *   directory path.
+     */
+    if (is_file)
+    {
+        /* extract the directory path portion */
+        os_get_path_name(dir, sizeof(dir), path);
+        path = dir;
+
+        /* don't do anything if there's no path */
+        if (strlen(dir) == 0)
+            return;
+    }
+
+    /* if the directory doesn't already exist, create it */
+    if (osfacc(path))
+    {
+        /* mention it */
+        hostifc->print_step("creating output directory %s\n", path);
+        
+        /* try creating the folder */
+        if (!os_mkdir(path, TRUE))
+        {
+            /* failed - log the error */
+            G_tcmain->log_error(0, 0, TC_SEV_ERROR,
+                                TCERR_CANNOT_CREATE_DIR, path);
+            
+            /* count it */
+            *errcnt += 1;
+        }
+    }
+}
+
 
 /*
  *   Build the version of a filename to show in a progress report. 
@@ -1496,6 +1657,13 @@ void CTcMake::build_symbol_file(CTcHostIfc *hostifc,
         /* read the first token */
         G_tok->next();
 
+        /* give the parser the module information */
+        G_prs->set_module_info(
+            src_mod->get_orig_name(), src_mod->get_seqno());
+
+        /* set the sourceTextGroup mode */
+        G_prs->set_source_text_group_mode(src_group_mode_);
+
         /* parse at the top level */
         G_prs->parse_top();
 
@@ -1536,7 +1704,7 @@ void CTcMake::build_symbol_file(CTcHostIfc *hostifc,
          *   if we weren't successful, delete the symbol file, so that we
          *   don't leave around a partially-built file 
          */
-        if (*error_count != 0)
+        if (*error_count != 0 || (warnings_as_errors_ && *warning_count != 0))
             osfdel(sym_fname);
         
         /* terminate the compiler */
@@ -1651,6 +1819,13 @@ void CTcMake::build_object_file(CTcHostIfc *hostifc,
         /* read the first token */
         G_tok->next();
 
+        /* give the parser the module information */
+        G_prs->set_module_info(
+            src_mod->get_orig_name(), src_mod->get_seqno());
+
+        /* set the sourceTextGroup mode */
+        G_prs->set_source_text_group_mode(src_group_mode_);
+
         /* parse at the top level */
         node = G_prs->parse_top();
         if (G_tcmain->get_error_count() != 0)
@@ -1709,7 +1884,7 @@ void CTcMake::build_object_file(CTcHostIfc *hostifc,
          *   generate the object file target again on the next build, even
          *   if source file didn't change 
          */
-        if (*error_count != 0)
+        if (*error_count != 0 || (warnings_as_errors_ && *warning_count != 0))
             osfdel(obj_fname);
 
         /* terminate the compiler */
@@ -1727,14 +1902,14 @@ void CTcMake::build_object_file(CTcHostIfc *hostifc,
  *   so the file's seek offset might be left in the middle of the
  *   configuration data block on return.  
  */
-int CTcMake::compare_build_config_from_sym_file(const char *sym_fname,
-                                                CVmFile *fp)
+int CTcMake::compare_build_config_from_sym_file(
+    const char *sym_fname, CVmFile *fp)
 {
     CTcMakeDef *def;
     CTcMakePath *path;
     size_t cnt;
     char buf[OSFNMAX + 1];
-    os_file_time_t sym_time;
+    os_file_stat_t sym_stat;
 
     /* check the compiler version */
     fp->read_bytes(buf, 5);
@@ -1803,14 +1978,14 @@ int CTcMake::compare_build_config_from_sym_file(const char *sym_fname,
      *   mismatch, because we won't be able to compare the include file
      *   timestamps to the symbol file timestamp 
      */
-    if (os_get_file_mod_time(&sym_time, sym_fname))
+    if (!os_file_stat(sym_fname, TRUE, &sym_stat))
         return FALSE;
 
     /* read the #include file list */
     for (cnt = fp->read_int2() ; cnt != 0 ; --cnt)
     {
         size_t len;
-        os_file_time_t inc_time;
+        os_file_stat_t inc_stat;
         
         /* 
          *   read the next name's length - if it's longer than our buffer,
@@ -1829,14 +2004,14 @@ int CTcMake::compare_build_config_from_sym_file(const char *sym_fname,
          *   include file doesn't even seem to be accessible to us any
          *   more, so we have to try a recompile 
          */
-        if (os_get_file_mod_time(&inc_time, buf))
+        if (!os_file_stat(buf, TRUE, &inc_stat))
             return FALSE;
 
         /* 
          *   if the include file has been modified more recently than the
          *   symbol file, we must recompile the source 
          */
-        if (os_cmp_file_times(&inc_time, &sym_time) > 0)
+        if (inc_stat.mod_time > sym_stat.mod_time)
             return FALSE;
     }
 
@@ -1929,23 +2104,23 @@ void CTcMake::write_build_config_to_sym_file(CVmFile *fp)
          def = def->get_next(), ++cnt) ;
 
     /* write the count */
-    fp->write_int2(cnt);
+    fp->write_uint2(cnt);
 
     /* write each option */
     for (def = def_head_ ; def != 0 ; def = def->get_next())
     {
         /* write the symbol */
-        fp->write_int2(get_strlen(def->get_sym()));
+        fp->write_uint2(get_strlen(def->get_sym()));
         fp->write_bytes(def->get_sym(), get_strlen(def->get_sym()));
 
         /* write the expansion */
         if (def->get_expan() != 0)
         {
-            fp->write_int2(get_strlen(def->get_expan()));
+            fp->write_uint2(get_strlen(def->get_expan()));
             fp->write_bytes(def->get_expan(), get_strlen(def->get_expan()));
         }
         else
-            fp->write_int2(0);
+            fp->write_uint2(0);
 
         /* write the define/undefine flag */
         buf[0] = (char)def->is_def();
@@ -1964,13 +2139,13 @@ void CTcMake::write_build_config_to_sym_file(CVmFile *fp)
          inc = inc->get_next(), ++cnt) ;
 
     /* write the count */
-    fp->write_int2(cnt);
+    fp->write_uint2(cnt);
 
     /* write the list */
     for (inc = inc_head_ ; inc != 0 ; inc = inc->get_next())
     {
         /* write the entry */
-        fp->write_int2(get_strlen(inc->get_path()));
+        fp->write_uint2(get_strlen(inc->get_path()));
         fp->write_bytes(inc->get_path(), get_strlen(inc->get_path()));
     }
 
@@ -1998,7 +2173,7 @@ void CTcMake::write_build_config_to_sym_file(CVmFile *fp)
     }
 
     /* write the count, excluding the actual source file */
-    fp->write_int2(cnt);
+    fp->write_uint2(cnt);
 
     /* write the descriptors */
     for ( ; desc != 0 ; desc = desc->get_next())
@@ -2009,7 +2184,7 @@ void CTcMake::write_build_config_to_sym_file(CVmFile *fp)
          *   be able to detect a change in the configuration that points us
          *   to a different resolved local file.  
          */
-        fp->write_int2(get_strlen(desc->get_fname()));
+        fp->write_uint2(get_strlen(desc->get_fname()));
         fp->write_bytes(desc->get_fname(), get_strlen(desc->get_fname()));
     }
 }
@@ -2022,6 +2197,7 @@ void CTcMake::build_image_file(CTcHostIfc *hostifc,
                                const char *image_fname,
                                int *error_count, int *warning_count,
                                CVmRuntimeSymbols *runtime_symtab,
+                               CVmRuntimeSymbols *runtime_macros,
                                const char tool_data[4])
 {
     osfildef *fpout;
@@ -2127,13 +2303,25 @@ void CTcMake::build_image_file(CTcHostIfc *hostifc,
          *   the build, since we're not producing a valid image file in this
          *   case anyway.  
          */
-        if (runtime_symtab != 0 && *error_count == 0)
+        if (*error_count == 0)
         {
-            /* enumerate the global symbols into our builder callback */
-            G_prs->get_global_symtab()
-                ->enum_entries(&build_runtime_symtab_cb, runtime_symtab);
-        }
+            /* build the global symbol table if desired */
+            if (runtime_symtab != 0)
+            {
+                /* enumerate the global symbols into our builder callback */
+                G_prs->get_global_symtab()
+                    ->enum_entries(&build_runtime_symtab_cb, runtime_symtab);
+            }
 
+            /* build the macro table if desired */
+            if (runtime_macros != 0)
+            {
+                /* enumerate the macros into our builder callback */
+                G_tok->get_defines_table()
+                    ->enum_entries(&build_runtime_macro_cb, runtime_macros);
+            }
+        }
+            
         /* close our output file */
         if (fp != 0)
         {
@@ -2156,7 +2344,7 @@ void CTcMake::build_image_file(CTcHostIfc *hostifc,
          *   the image file target again on the next build, even if source
          *   files didn't change 
          */
-        if (*error_count != 0)
+        if (*error_count != 0 || (warnings_as_errors_ && *warning_count != 0))
             osfdel(image_fname);
 
         /* terminate the compiler */
@@ -2171,13 +2359,58 @@ void CTcMake::build_image_file(CTcHostIfc *hostifc,
  */
 void CTcMake::build_runtime_symtab_cb(void *ctx, class CTcSymbol *sym)
 {
-    CVmRuntimeSymbols *symtab;
-    
     /* get our runtime symbol table object (it's the context) */
-    symtab = (CVmRuntimeSymbols *)ctx;
+    CVmRuntimeSymbols *symtab = (CVmRuntimeSymbols *)ctx;
 
     /* build the value for this symbol according to its type */
     sym->add_runtime_symbol(symtab);
+}
+
+/*
+ *   Enumeration callback for building the runtime macro table from the
+ *   compiler macro table 
+ */
+void CTcMake::build_runtime_macro_cb(void *ctx, class CVmHashEntry *e)
+{
+    int i;
+    size_t arglen;
+    
+    /* cast the context and hash entry */
+    CVmRuntimeSymbols *symtab = (CVmRuntimeSymbols *)ctx;
+    CTcHashEntryPp *macro = (CTcHashEntryPp *)e;
+
+    /* figure the flags - these are the same as the image file MACR flags */
+    uint flags = 0;
+    if (macro->has_args())
+        flags |= 0x0001;
+    if (macro->has_varargs())
+        flags |= 0x0002;
+
+    /* compute the total string length of the argument names */
+    for (i = 0, arglen = 0 ; i < macro->get_argc() ; ++i)
+        arglen += strlen(macro->get_arg_name(i)) + 1;
+
+    /* add the macro entry to the table */
+    vm_runtime_sym *sym = symtab->add_macro(
+        macro->getstr(), macro->getlen(),
+        macro->get_orig_expan_len(), flags,
+        macro->get_argc(), arglen);
+
+    /* store the expansion */
+    memcpy(sym->macro_expansion, macro->get_orig_expansion(),
+           macro->get_orig_expan_len());
+
+    /* store the argument names */
+    for (i = 0 ; i < macro->get_argc() ; ++i)
+    {
+        /* copy the argument name */
+        const char *p = macro->get_arg_name(i);
+        size_t len = strlen(p) + 1;
+        memcpy(sym->macro_args[i], p, len);
+
+        /* commit the space */
+        sym->commit_macro_arg(i, len);
+    }
 }
 
 /*
@@ -2230,6 +2463,13 @@ void CTcMake::set_compiler_options()
     sprintf(buf, "%d", TC_VSN_MINOR);
     G_tok->add_define("__TADS_VERSION_MINOR", buf);
 
+    /* add the preprocess macro format version number */
+    sprintf(buf, "%d", TCTOK_MACRO_FORMAT_VERSION);
+    G_tok->add_define("__TADS_MACRO_FORMAT_VERSION", buf);
+
+    /* add a symbol for __TADS3 */
+    G_tok->add_define("__TADS3", "1");
+
     /* add the preprocessor symbol definitions */
     for (def = def_head_ ; def != 0 ; def = def->get_next())
     {
@@ -2255,7 +2495,7 @@ void CTcMake::get_srcfile(textchar_t *dst, CTcMakeModule *mod)
     if (os_is_file_absolute(mod->get_search_source_name()))
     {
         /* it's absolute - ignore the search path */
-        strcpy(dst, mod->get_source_name());
+        lib_strcpy(dst, OSFNMAX, mod->get_source_name());
         return;
     }
 
@@ -2266,7 +2506,7 @@ void CTcMake::get_srcfile(textchar_t *dst, CTcMakeModule *mod)
     if (!osfacc(mod->get_source_name()))
     {
         /* the file exists in the current directory - use the name as given */
-        strcpy(dst, mod->get_source_name());
+        lib_strcpy(dst, OSFNMAX, mod->get_source_name());
         return;
     }
 
@@ -2286,7 +2526,7 @@ void CTcMake::get_srcfile(textchar_t *dst, CTcMakeModule *mod)
      *   we failed to find the file anywhere - return the name as given,
      *   which will let the caller fail when it can't open the file 
      */
-    strcpy(dst, mod->get_source_name());
+    lib_strcpy(dst, OSFNMAX, mod->get_source_name());
 }
 
 /*
@@ -2304,7 +2544,7 @@ void CTcMake::get_symfile(textchar_t *dst, CTcMakeModule *mod)
         os_build_full_path(dst, OSFNMAX, symdir_.get(),
                            os_get_root_name((char *)mod->get_symbol_name()));
     else
-        strcpy(dst, mod->get_symbol_name());
+        lib_strcpy(dst, OSFNMAX, mod->get_symbol_name());
 }
 
 /*
@@ -2322,7 +2562,7 @@ void CTcMake::get_objfile(textchar_t *dst, CTcMakeModule *mod)
         os_build_full_path(dst, OSFNMAX, objdir_.get(),
                            os_get_root_name((char *)mod->get_object_name()));
     else
-        strcpy(dst, mod->get_object_name());
+        lib_strcpy(dst, OSFNMAX, mod->get_object_name());
 }
 
 
@@ -2343,7 +2583,7 @@ void CTcMakeModule::set_module_name(const textchar_t *modname)
     if (!src_.is_set())
     {
         /* add a default extension of ".t" to make the source name */
-        strcpy(buf, modname);
+        lib_strcpy(buf, sizeof(buf), modname);
         os_defext(buf, "t");
         src_.set(buf);
     }
@@ -2352,7 +2592,7 @@ void CTcMakeModule::set_module_name(const textchar_t *modname)
     if (!sym_.is_set())
     {
         /* add a default extension of ".t3s" to make the symbol file name */
-        strcpy(buf, modname);
+        lib_strcpy(buf, sizeof(buf), modname);
         os_remext(buf);
         os_addext(buf, "t3s");
         sym_.set(buf);
@@ -2362,7 +2602,7 @@ void CTcMakeModule::set_module_name(const textchar_t *modname)
     if (!obj_.is_set())
     {
         /* add a default extension of ".t3o" to make the object name */
-        strcpy(buf, modname);
+        lib_strcpy(buf, sizeof(buf), modname);
         os_remext(buf);
         os_addext(buf, "t3o");
         obj_.set(buf);

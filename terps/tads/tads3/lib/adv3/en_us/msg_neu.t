@@ -2,32 +2,30 @@
 
 /* 
  *   Copyright (c) 2000, 2006 Michael J. Roberts.  All Rights Reserved. 
- *   
+ *
  *   TADS 3 Library - "neutral" messages for US English
- *   
- *   This module provides standard library messages with a parser/narrator
- *   that's as invisible (neutral) as possible.  These messages are
- *   designed to reduce the presence of the computer as mediator in the
- *   story, to give the player the most direct contact that we can with the
- *   scenario.
- *   
- *   The parser almost always refers to itself in the third person (by
- *   calling itself something like "this story") rather than in the first
- *   person, and, whenever possible, avoids referring to itself in the
- *   first place.  Our ideal phrasing is either second-person, describing
- *   things directly in terms of the player character's experience, or
- *   "no-person," simply describing things without mentioning the speaker
- *   or listener at all.  For example, rather than saying "I don't see that
- *   here," we say "you don't see that here," or "that's not here."  We
- *   occasionally stray from this ideal where achieving it would be too
- *   awkward.
- *   
- *   In the earliest days of adventure games, the parser was usually a
- *   visible presence: the early parsers frequently reported things in the
- *   first person, and some even had specific personalities.  This
- *   conspicuous parser style has become less prevalent in modern games,
- *   though, and authors now usually prefer to treat the parser as just
- *   another part of the user interface, which like all good UI's is best
+ *
+ *   This module provides standard library messages with a parser/narrator 
+ *   that's as invisible (neutral) as possible.  These messages are designed 
+ *   to reduce the presence of the computer as mediator in the story, to 
+ *   give the player the most direct contact that we can with the scenario.
+ *
+ *   The parser almost always refers to itself in the third person (by 
+ *   calling itself something like "this story") rather than in the first 
+ *   person, and, whenever possible, avoids referring to itself in the first 
+ *   place.  Our ideal phrasing is either second-person, describing things 
+ *   directly in terms of the player character's experience, or "no-person," 
+ *   simply describing things without mentioning the speaker or listener at 
+ *   all.  For example, rather than saying "I don't see that here," we say 
+ *   "you don't see that here," or "that's not here."  We occasionally stray 
+ *   from this ideal where achieving it would be too awkward.
+ *
+ *   In the earliest days of adventure games, the parser was usually a 
+ *   visible presence: the early parsers frequently reported things in the 
+ *   first person, and some even had specific personalities.  This 
+ *   conspicuous parser style has become less prevalent in modern games, 
+ *   though, and authors now usually prefer to treat the parser as just 
+ *   another part of the user interface, which like all good UI's is best 
  *   when the user doesn't notice it.  
  */
 
@@ -255,6 +253,7 @@ libMessages: MessageHelper
     putDestUnder(obj) { return 'under ' + obj.theNameObj; }
     putDestBehind(obj) { return 'behind ' + obj.theNameObj; }
     putDestFloor(obj) { return 'to ' + obj.theNameObj; }
+    putDestRoom(obj) { return 'into ' + obj.theNameObj; }
 
     /* the list separator character in the middle of a list */
     listSepMiddle = ", "
@@ -315,12 +314,8 @@ libMessages: MessageHelper
     /* score change - first notification */
     firstScoreChange(delta)
     {
-        "<.commandsep><.notification><<
-            basicScoreChange(delta)>><./notification>
-        \n<.notification>If you&rsquo;d prefer not to be notified about
-        score changes in the future, type <<
-        aHref('notify off', 'NOTIFY OFF', 'Turn off score notifications')
-        >>.<./notification> ";
+        scoreChange(delta);
+        scoreChangeTip.showTip();
     }
 
     /* score change - notification other than the first time */
@@ -342,37 +337,29 @@ libMessages: MessageHelper
         point<<delta is in (1, -1) ? '' : 's'>>.";
     }
 
+    /* acknowledge turning tips on or off */
+    acknowledgeTipStatus(stat)
+    {
+        "<.parser>Tips are now turned <<stat ? 'on' : 'off'>>.<./parser> ";
+    }
+
+    /* describe the tip mode setting */
+    tipStatusShort(stat)
+    {
+        "TIPS <<stat ? 'ON' : 'OFF'>>";
+    }
+
     /* get the string to display for a footnote reference */
     footnoteRef(num)
     {
-        local str;
-
         /* set up a hyperlink for the note that enters the "note n" command */
-        str = '<sup>[<a href="footnote ' + num + '"><.a>';
-
-        /* show the footnote number in square brackets */
-        str += num;
-        
-        /* end the hyperlink */
-        str += '<./a></a>]</sup>';
-
-        /* return the text */
-        return str;
+        return '<sup>[<<aHref('footnote ' + num, toString(num))>>]</sup>';
     }
 
     /* first footnote notification */
     firstFootnote()
     {
-        "<.commandsep><.notification>A number in [square brackets] like
-        the one above refers to a footnote, which you can read by typing
-        FOOTNOTE followed by the number: 
-        <<aHref('footnote 1', 'FOOTNOTE 1', 'Show footnote [1]')>>,
-        for example.  Footnotes usually contain added background information
-        that might be interesting but isn&rsquo;t essential to the story.
-        If you&rsquo;d prefer not to see footnotes at all,
-        you can control their appearance by typing
-        <<aHref('footnotes', 'FOOTNOTES',
-                'Control footnote appearance')>>.<./notification> ";
+        footnotesTip.showTip();
     }
 
     /* there is no such footnote as the given number */
@@ -595,25 +582,7 @@ libMessages: MessageHelper
      */
     oopsNote()
     {
-        /* only offer this note if the note flag is set */
-        if (offerOopsNote)
-        {
-            /* show the note */
-            "<.commandsep><.notification>If this was an accidental
-            misspelling, you can correct it by typing OOPS followed by the
-            corrected word now.  Any time the story points out an unknown
-            word, you can correct a misspelling using OOPS as your next
-            command.<./notification> ";
-            
-            /*
-             *   Don't offer the note again.  Note that we explicitly set
-             *   this flag in the libMessages object, so that any
-             *   subclassed message objects (playerMessages, npcMessages)
-             *   all share the same class-level copy of this flag, so that
-             *   we only offer the message once in the entire game.  
-             */
-            libMessages.offerOopsNote = nil;
-        }
+        oopsTip.showTip();
     }
 
     /* can't use OOPS right now */
@@ -662,9 +631,15 @@ libMessages: MessageHelper
      */
     announceMultiActionObject(obj, whichObj, action)
     {
-        return '<./p0>\n<.announceObj>'
-            + obj.getAnnouncementDistinguisher().name(obj)
-            + ':<./announceObj> <.p0>';
+        /* 
+         *   get the display name - we only need to differentiate this
+         *   object from the other objects in the iteration 
+         */
+        local nm = obj.getAnnouncementDistinguisher(
+            action.getResolvedObjList(whichObj)).name(obj);
+
+        /* build the announcement */
+        return '<./p0>\n<.announceObj>' + nm + ':<./announceObj> <.p0>';
     }
 
     /*
@@ -679,10 +654,15 @@ libMessages: MessageHelper
      */
     announceAmbigActionObject(obj, whichObj, action)
     {
+        /* 
+         *   get the display name - distinguish the object from everything
+         *   else in scope, since we chose from a set of ambiguous options 
+         */
+        local nm = obj.getAnnouncementDistinguisher(gActor.scopeList())
+            .theName(obj);
+
         /* announce the object in "assume" style, ending with a newline */
-        return '<.assume>'
-            + obj.getAnnouncementDistinguisher().theName(obj)
-            + '<./assume>\n';
+        return '<.assume>' + nm + '<./assume>\n';
     }
 
     /*
@@ -795,11 +775,10 @@ libMessages: MessageHelper
      *   single-quoted string value, not display a value itself, because
      *   this prompt is passed to inputFile(). 
      */
-    getSavePrompt =
-        'Please select a file in which to save the current position'
+    getSavePrompt = 'Save game to file'
 
     /* get the restore-game prompt */
-    getRestorePrompt = 'Please select the saved position file to restore'
+    getRestorePrompt = 'Restore game from file'
 
     /* successfully saved */
     saveOkay() { "<.parser>Saved.<./parser> "; }
@@ -815,6 +794,25 @@ libMessages: MessageHelper
         to write this file.<./parser> ";
     }
 
+    /* save failed due to storage server request error */
+    saveFailedOnServer(exc)
+    {
+        "<.parser>Failed, because of a problem accessing the storage server:
+        <<makeSentence(exc.errMsg)>><./parser>";
+    }
+
+    /* 
+     *   make an error message into a sentence, by capitalizing the first
+     *   letter and adding a period at the end if it doesn't already have
+     *   one 
+     */
+    makeSentence(msg)
+    {
+        return rexReplace(
+            ['^<space>*[a-z]', '(?<=[^.?! ])<space>*$'], msg,
+            [{m: m.toUpper()}, '.']);
+    }
+
     /* note that we're restoring at startup via a saved-position launch */
     noteMainRestore() { "<.parser>Restoring saved game...<./parser>\n"; }
 
@@ -823,6 +821,13 @@ libMessages: MessageHelper
 
     /* restore canceled */
     restoreCanceled() { "<.parser>Canceled.<./parser> "; }
+
+    /* restore failed due to storage server request error */
+    restoreFailedOnServer(exc)
+    {
+        "<.parser>Failed, because of a problem accessing the storage server:
+        <<makeSentence(exc.errMsg)>><./parser>";
+    }
 
     /* restore failed because the file was not a valid saved game file */
     restoreInvalidFile()
@@ -856,13 +861,22 @@ libMessages: MessageHelper
         restored.<./parser> ";
     }
 
-    /* error showing the input file dialog (or whatever) */
+    /* error showing the input file dialog (or character-mode equivalent) */
     filePromptFailed()
     {
         "<.parser>A system error occurred asking for a filename.
         Your computer might be running low on memory, or might have a
         configuration problem.<./parser> ";
     }
+
+    /* error showing the input file dialog, with a system error message */
+    filePromptFailedMsg(msg)
+    {
+        "<.parser>Failed: <<makeSentence(msg)>><./parser> ";
+    }
+
+    /* Web UI inputFile error: uploaded file is too large */
+    webUploadTooBig = 'The file you selected is too large to upload.'
 
     /* PAUSE prompt */
     pausePrompt()
@@ -888,8 +902,18 @@ libMessages: MessageHelper
     /* acknowledge starting an input script */
     inputScriptOkay(fname)
     {
-        "<.parser>Reading commands from <q><<fname.htmlify()
-         >></q>...<./parser>\n ";
+        "<.parser>Reading commands from <q><<
+          File.getRootName(fname).htmlify()>></q>...<./parser>\n ";
+    }
+
+    /* error opening input script */
+    inputScriptFailed = "<.parser>Failed; the script input file could
+        not be opened.<./parser> "
+        
+    /* exception opening input script */
+    inputScriptFailedException(exc)
+    {
+        "<.parser>Failed; <<exc.displayException>><./parser> ";
     }
 
     /* get the scripting inputFile prompt message */
@@ -898,9 +922,27 @@ libMessages: MessageHelper
     /* acknowledge scripting on */
     scriptingOkay()
     {
-        "<.parser>Text will now be saved to the script file.
+        "<.parser>The transcript will be saved to the file.
         Type <<aHref('script off', 'SCRIPT OFF', 'Turn off scripting')>> to
         discontinue scripting.<./parser> ";
+    }
+
+    scriptingOkayWebTemp()
+    {
+        "<.parser>The transcript will be saved.
+        Type <<aHref('script off', 'SCRIPT OFF', 'Turn off scripting')>>
+        to discontinue scripting and download the saved
+        transcript.<./parser> ";
+    }
+
+    /* scripting failed */
+    scriptingFailed = "<.parser>Failed; an error occurred opening
+        the script file.<./parser> "
+
+    /* scripting failed with an exception */
+    scriptingFailedException(exc)
+    {
+        "<.parser>Failed; <<exc.displayException>><./parser>";
     }
 
     /* acknowledge cancellation of script file dialog */
@@ -921,6 +963,16 @@ libMessages: MessageHelper
                      <<aHref('record off', 'RECORD OFF',
                              'Turn off recording')>>
                      to stop recording commands.<.parser> "
+
+    /* recording failed */
+    recordingFailed = "<.parser>Failed; an error occurred opening
+        the command recording file.<./parser> "
+
+    /* recording failed with exception */
+    recordingFailedException(exc)
+    {
+        "<.parser>Failed; <<exc.displayException()>><./parser> ";
+    }
 
     /* acknowledge cancellation */
     recordingCanceled = "<.parser>Canceled.<./parser> "
@@ -989,19 +1041,10 @@ libMessages: MessageHelper
     }
 
     /* explain how to turn exit display on and off */
-    explainExitsOnOff =
-        "<.p><.notification>You can control the exit listings with the
-        EXITS command.
-        <<aHref('exits status', 'EXITS STATUS',
-                'Turn on status line exit listings')>> shows the exit
-        list in the status line,
-        <<aHref('exits look', 'EXITS LOOK',
-                'List exits in room descriptions')>>
-        shows a full exit list in each room description,
-        <<aHref('exits on', 'EXITS ON', 'Turn on all exit lists')>>
-        shows both, and
-        <<aHref('exits off', 'EXITS OFF', 'Turn off all exit lists')>>
-        turns off both kinds of exit lists.<./notification> "
+    explainExitsOnOff()
+    {
+        exitsTip.showTip();
+    }
 
     /* describe the current EXITS settings */
     currentExitsSettings(statusLine, roomDesc)
@@ -1056,9 +1099,10 @@ libMessages: MessageHelper
                        scoring.<./parser> "
 
     /* mention the FULL SCORE command */
-    mentionFullScore = "<.p><.notification>To see a detailed accounting
-        of your score, type <<
-          aHref('full score', 'FULL SCORE') >>.<./notification> "
+    mentionFullScore()
+    {
+        fullScoreTip.showTip();
+    }
 
     /* SAVE DEFAULTS successful */
     savedDefaults()
@@ -1094,6 +1138,13 @@ libMessages: MessageHelper
         TADS interpreter you&rsquo;re using doesn&rsquo;t support saving
         or restoring defaults.  You must install a more recent version
         in order to use this feature.<./parser> "
+
+    /* RESTORE DEFAULTS file open/read error */
+    defaultsFileReadError(exc)
+    {
+        "<.parser>An error occurred reading the default settings
+        file.  The global defaults can't be restored.<./parser> ";
+    }
 
     /* SAVE DEFAULTS file creation error */
     defaultsFileWriteError = "<.parser>An error occurred writing
@@ -1186,8 +1237,8 @@ libMessages: MessageHelper
     /* show a 'next chapter' link */
     menuNextChapter(keylist, title, hrefNext, hrefUp)
     {
-        "Next: <a href='<<hrefNext>>'><<title>></a>;
-        <b>\^<<keylist[M_PREV][1]>></b>=<a href='<<hrefUp>>'>Menu</a>";
+        "Next: <<aHref(hrefNext, title)>>;
+        <b>\^<<keylist[M_PREV][1]>></b>=<<aHref(hrefUp, 'Menu')>>";
     }
 
     /*
@@ -1653,6 +1704,49 @@ libMessages: MessageHelper
         gMessageParams(obj);
         "{The obj/he} {goes} out. ";
     }
+
+    /* 
+     *   Standard dialog titles, for the Web UI.  These are shown in the
+     *   title bar area of the Web UI dialog used for inputDialog() calls.
+     *   These correspond to the InDlgIconXxx icons.  The conventional
+     *   interpreters use built-in titles when titles are needed at all,
+     *   but in the Web UI we have to generate these ourselves. 
+     */
+    dlgTitleNone = 'Note'
+    dlgTitleWarning = 'Warning'
+    dlgTitleInfo = 'Note'
+    dlgTitleQuestion = 'Question'
+    dlgTitleError = 'Error'
+
+    /*
+     *   Standard dialog button labels, for the Web UI.  These are built in
+     *   to the conventional interpreters, but in the Web UI we have to
+     *   generate these ourselves.  
+     */
+    dlgButtonOk = 'OK'
+    dlgButtonCancel = 'Cancel'
+    dlgButtonYes = 'Yes'
+    dlgButtonNo = 'No'
+
+    /* web UI alert when a new user has joined a multi-user session */
+    webNewUser(name) { "\b[<<name>> has joined the session.]\n"; }
+
+    /*
+     *   Warning prompt for inputFile() warnings generated when reading a
+     *   script file, for the Web UI.  The interpreter normally displays
+     *   these warnings directly, but in Web UI mode, the program is
+     *   responsible, so we need localized messages.  
+     */
+    inputFileScriptWarning(warning, filename)
+    {
+        /* remove the two-letter error code at the start of the string */
+        warning = warning.substr(3);
+
+        /* build the message */
+        return warning + ' Do you wish to proceed?';
+    }
+    inputFileScriptWarningButtons = [
+        '&Yes, use this file', '&Choose another file', '&Stop the script']
 ;
 
 /* ------------------------------------------------------------------------ */
@@ -2761,12 +2855,16 @@ playerActionMessages: MessageHelper
     okayDoffMsg = 'Okay, {you\'re} no longer wearing {the dobj/him}. '
 
     /* default response to open/close */
-    okayOpenMsg = 'Opened. '
-    okayCloseMsg = 'Closed. '
+    okayOpenMsg = shortTMsg(
+        'Opened. ', '{You/he} open{s/ed} {the dobj/him}. ')
+    okayCloseMsg = shortTMsg(
+        'Closed. ', '{You/he} close{s/d} {the dobj/him}. ')
 
     /* default response to lock/unlock */
-    okayLockMsg = 'Locked. '
-    okayUnlockMsg = 'Unlocked. '
+    okayLockMsg = shortTMsg(
+        'Locked. ', '{You/he} lock{s/ed} {the dobj/him}. ')
+    okayUnlockMsg = shortTMsg(
+        'Unlocked. ', '{You/he} unlock{s/ed} {the dobj/him}. ')
 
     /* cannot dig here */
     cannotDigMsg = '{You/he} {have} no reason to dig in {that dobj/him}. '
@@ -2866,10 +2964,12 @@ playerActionMessages: MessageHelper
         {the dobj/him} from. '
 
     /* default 'take' response */
-    okayTakeMsg = 'Taken. '
+    okayTakeMsg = shortTMsg(
+        'Taken. ', '{You/he} {take[s]|took} {the dobj/him}. ')
 
     /* default 'drop' response */
-    okayDropMsg = 'Dropped. '
+    okayDropMsg = shortTMsg(
+        'Dropped. ', '{You/he} drop{s/ped} {the dobj/him}. ')
 
     /* dropping an object */
     droppingObjMsg(dropobj)
@@ -2886,16 +2986,20 @@ playerActionMessages: MessageHelper
     }
 
     /* default successful 'put in' response */
-    okayPutInMsg = 'Done. '
+    okayPutInMsg = shortTIMsg(
+        'Done. ', '{You/he} put{[s]|} {the dobj/him} in {the iobj/him}. ')
 
     /* default successful 'put on' response */
-    okayPutOnMsg = 'Done. '
+    okayPutOnMsg = shortTIMsg(
+        'Done. ', '{You/he} put{[s]|} {the dobj/him} on {the iobj/him}. ')
 
     /* default successful 'put under' response */
-    okayPutUnderMsg = 'Done. '
+    okayPutUnderMsg = shortTIMsg(
+        'Done. ', '{You/he} put{[s]|} {the dobj/him} under {the iobj/him}. ')
 
     /* default successful 'put behind' response */
-    okayPutBehindMsg = 'Done. '
+    okayPutBehindMsg = shortTIMsg(
+        'Done. ', '{You/he} put{[s]|} {the dobj/him} behind {the iobj/him}. ')
 
     /* try to take/move/put/taste an untakeable actor */
     cannotTakeActorMsg = '{The dobj/he} {won\'t} let {you/him} do that. '
@@ -3332,6 +3436,13 @@ playerActionMessages: MessageHelper
         return '{You/he} {can\'t} go that way pushing {the obj/him}. ';
     }
 
+    /* cannot push an object to a nested room */
+    cannotPushObjectNestedMsg(obj)
+    {
+        gMessageParams(obj);
+        return '{You/he} {can\'t} push {the obj/him} there. ';
+    }
+
     /* cannot enter an exit-only passage */
     cannotEnterExitOnlyMsg(obj)
     {
@@ -3404,7 +3515,7 @@ playerActionMessages: MessageHelper
     refuseCommand(targetActor, issuingActor)
     {
         gMessageParams(targetActor, issuingActor);
-        return '{The targetActor/he} refuse{s/ed} {your/his} request. ';
+        return '{The targetActor/he} refuse{s/d} {your/his} request. ';
     }
 
     /* cannot talk to an object (because it makes no sense to do so) */
@@ -3425,7 +3536,7 @@ playerActionMessages: MessageHelper
     giveAlreadyHasMsg = '{The iobj/he} already {has} {that/him dobj}. '
 
     /* can't talk to yourself */
-    cannotTalkToSelf = 'Talking to {yourself/himself}
+    cannotTalkToSelfMsg = 'Talking to {yourself/himself}
         {won&rsquo;t|wouldn&rsquo;t} accomplish anything. '
 
     /* can't ask yourself about anything */
@@ -3580,6 +3691,9 @@ playerActionMessages: MessageHelper
     /* cannot use object as an implement to move something */
     cannotMoveWithMsg =
         '{You/he} {cannot} move anything with {the iobj/him}. '
+
+    /* cannot set object to setting */
+    cannotSetToMsg = '{You/he} {cannot} set {that dobj/him} to anything. '
 
     /* invalid setting for generic Settable */
     setToInvalidMsg = '{The dobj/he} {has} no such setting. '
@@ -3939,6 +4053,13 @@ playerActionMessages: MessageHelper
     cannotThrowAtContentsMsg = '{You/he} {must} remove {the iobj/him}
         from {the dobj/him} before {it actor/he} {can} do that. '
 
+    /* can't throw through a sense connector */
+    cannotThrowThroughMsg(target, loc)
+    {
+        gMessageParams(target, loc);
+        return '{You/he} {cannot} throw anything through {the loc/him}. ';
+    }
+
     /* shouldn't throw something at the floor */
     shouldNotThrowAtFloorMsg =
         '{You/he} should just {|have} put {it dobj/him} down instead. '
@@ -4216,6 +4337,8 @@ npcActionMessages: playerActionMessages
      *   the PC's responses to conversational actions applied to oneself
      *   need some reworking for NPC's 
      */
+    cannotTalkToSelfMsg = '{You/he} {won\'t} accomplish anything talking
+        to {yourself/himself}. '
     cannotAskSelfMsg = '{You/he} {won\'t} accomplish anything talking
         to {yourself/himself}. '
     cannotAskSelfForMsg = '{You/he} {won\'t} accomplish anything talking
@@ -4227,6 +4350,61 @@ npcActionMessages: playerActionMessages
     cannotShowToSelfMsg = '{You/he} {won\'t} accomplish anything
         showing {the dobj/him} to {yourself/himself}. '
 ;
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Standard tips
+ */
+
+scoreChangeTip: Tip
+    "If you&rsquo;d prefer not to be notified about score changes in the
+    future, type <<aHref('notify off', 'NOTIFY OFF', 'Turn off score
+    notifications')>>."
+;
+
+footnotesTip: Tip
+    "A number in [square brackets] like the one above refers to a footnote,
+    which you can read by typing FOOTNOTE followed by the number:
+    <<aHref('footnote 1', 'FOOTNOTE 1', 'Show footnote [1]')>>, for example.
+    Footnotes usually contain added background information that might be
+    interesting but isn&rsquo;t essential to the story. If you&rsquo;d
+    prefer not to see footnotes at all, you can control their appearance by
+    typing <<aHref('footnotes', 'FOOTNOTES', 'Control footnote
+    appearance')>>."
+;
+
+oopsTip: Tip
+    "If this was an accidental misspelling, you can correct it by typing
+    OOPS followed by the corrected word now. Any time the story points out an
+    unknown word, you can correct a misspelling using OOPS as your next
+    command."
+;
+
+fullScoreTip: Tip
+    "To see a detailed accounting of your score, type
+    <<aHref('full score', 'FULL SCORE')>>."
+;
+
+exitsTip: Tip
+    "You can control the exit listings with the EXITS command.
+    <<aHref('exits status', 'EXITS STATUS',
+            'Turn on status line exit listings')>>
+    shows the exit list in the status line,
+    <<aHref('exits look', 'EXITS LOOK', 'List exits in room descriptions')>>
+    shows a full exit list in each room description,
+    <<aHref('exits on', 'EXITS ON', 'Turn on all exit lists')>>
+    shows both, and
+    <<aHref('exits off', 'EXITS OFF', 'Turn off all exit lists')>>
+    turns off both kinds of exit lists."
+;
+
+undoTip: Tip
+    "If this didn't turn out quite the way you expected, note that you
+    can always take back a turn by typing <<aHref('undo', 'UNDO',
+        'Take back the most recent command')>>.  You can even use
+    UNDO repeatedly to take back several turns in a row. "
+;
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -4267,7 +4445,7 @@ darkRoomLister: Lister
  *   this lister to describe the objects the actor can see through the
  *   window. 
  */
-RemoteRoomLister: Lister
+class RemoteRoomLister: Lister
     construct(room) { remoteRoom = room; }
     
     showListPrefixWide(itemCount, pov, parent)
@@ -4288,7 +4466,7 @@ RemoteRoomLister: Lister
  *   like any ordinary room lister, but we use custom prefix and suffix
  *   strings provided during construction.  
  */
-CustomRoomLister: Lister
+class CustomRoomLister: Lister
     construct(prefix, suffix)
     {
         prefixStr = prefix;
@@ -4579,20 +4757,6 @@ thingContentsLister: ContentsLister, BaseThingContentsLister
 ;
 
 /*
- *   Contents lister for openable things.
- */
-openableContentsLister: thingContentsLister
-    showListEmpty(pov, parent)
-    {
-        "\^<<parent.openStatus>>. ";
-    }
-    showListPrefixWide(itemCount, pov, parent)
-    {
-        "\^<<parent.openStatus>>, and contain<<parent.verbEndingSEd>> ";
-    }
-;
-
-/*
  *   Contents lister for descriptions of things - this is used to display
  *   the contents of a thing as part of the long description of the thing
  *   (in response to an "examine" command); it differs from a regular
@@ -4606,12 +4770,44 @@ thingDescContentsLister: DescContentsLister, BaseThingContentsLister
 ;
 
 /*
+ *   Contents lister for openable things.
+ */
+openableDescContentsLister: thingDescContentsLister
+    showListEmpty(pov, parent)
+    {
+        "\^<<parent.openStatus>>. ";
+    }
+    showListPrefixWide(itemCount, pov, parent)
+    {
+        "\^<<parent.openStatus>>, and contain<<parent.verbEndingSEd>> ";
+    }
+;
+
+/*
+ *   Base contents lister for "LOOK <PREP>" commands (LOOK IN, LOOK UNDER,
+ *   LOOK BEHIND, etc).  This can be subclasses for the appropriate LOOK
+ *   <PREP> command matching the container type - LOOK UNDER for
+ *   undersides, LOOK BEHIND for rear containers, etc.  To use this class,
+ *   combine it via multiple inheritance with the appropriate
+ *   Base<Prep>ContentsLister for the preposition type.  
+ */
+class LookWhereContentsLister: DescContentsLister
+    showListEmpty(pov, parent)
+    {
+        /* show a default message indicating the surface is empty */
+        gMessageParams(parent);
+        defaultDescReport('{You/he} {sees} nothing ' + parent.objInPrep
+                          + ' {the parent/him}. ');
+    }
+;
+
+/*
  *   Contents lister for descriptions of things whose contents are
  *   explicitly inspected ("look in").  This differs from a regular
  *   contents lister in that we explicitly say that the object is empty if
  *   it's empty.
  */
-thingLookInLister: DescContentsLister, BaseThingContentsLister
+thingLookInLister: LookWhereContentsLister, BaseThingContentsLister
     showListEmpty(pov, parent)
     {
         /*
@@ -4656,14 +4852,19 @@ openableOpeningLister: BaseThingContentsLister
 ;
 
 /*
- *   Base class for contents listers for a surface 
+ *   Base contents lister.  This class handles contents listings for most
+ *   kinds of specialized containers - Surfaces, RearConainers,
+ *   RearSurfaces, and Undersides.  The main variation in the contents
+ *   listings for these various types of containers is simply the
+ *   preposition that's used to describe the relationship between the
+ *   container and the contents, and for this we can look to the objInPrep
+ *   property of the container.  
  */
-class BaseSurfaceContentsLister: Lister
+class BaseContentsLister: Lister
     showListPrefixWide(itemCount, pov, parent)
     {
-        "On <<parent.theNameObj>>
-        <<itemCount == 1 ? tSel('is', 'was')
-                         : tSel('are', 'were')>> ";
+        "\^<<parent.objInPrep>> <<parent.theNameObj>>
+        <<itemCount == 1 ? tSel('is', 'was') : tSel('are', 'were')>> ";
     }
     showListSuffixWide(itemCount, pov, parent)
     {
@@ -4671,16 +4872,21 @@ class BaseSurfaceContentsLister: Lister
     }
     showListPrefixTall(itemCount, pov, parent)
     {
-        "On <<parent.theNameObj>>
-        <<itemCount == 1 ? tSel('is', 'was')
-                         : tSel('are', 'were')>>:";
+        "\^<<parent.objInPrep>> <<parent.theNameObj>>
+        <<itemCount == 1 ? tSel('is', 'was') : tSel('are', 'were')>>:";
     }
     showListContentsPrefixTall(itemCount, pov, parent)
     {
-        "<<parent.aName>>, on which
-        <<itemCount == 1 ? tSel('is', 'was')
-                         : tSel('are', 'were')>>:";
+        "<<parent.aName>>, <<parent.objInPrep>> which
+        <<itemCount == 1 ? tSel('is', 'was') : tSel('are', 'were')>>:";
     }
+;
+
+
+/*
+ *   Base class for contents listers for a surface 
+ */
+class BaseSurfaceContentsLister: BaseContentsLister
 ;
 
 /*
@@ -4692,13 +4898,7 @@ surfaceContentsLister: ContentsLister, BaseSurfaceContentsLister
 /*
  *   Contents lister for explicitly looking in a surface 
  */
-surfaceLookInLister: DescContentsLister, BaseSurfaceContentsLister
-    showListEmpty(pov, parent)
-    {
-        /* show a default message indicating the surface is empty */
-        gMessageParams(parent);
-        defaultDescReport('{You/he} {sees} nothing on {the parent/him}. ');
-    }
+surfaceLookInLister: LookWhereContentsLister, BaseSurfaceContentsLister
 ;
 
 /*
@@ -4751,29 +4951,7 @@ roomPartLookInLister: surfaceLookInLister
 /*
  *   Base class for contents listers for an Underside.  
  */
-class BaseUndersideContentsLister: Lister
-    showListPrefixWide(itemCount, pov, parent)
-    {
-        "Under <<parent.theNameObj>>
-        <<itemCount == 1 ? tSel('is', 'was')
-                         : tSel('are', 'were')>> ";
-    }
-    showListSuffixWide(itemCount, pov, parent)
-    {
-        ". ";
-    }
-    showListPrefixTall(itemCount, pov, parent)
-    {
-        "Under <<parent.theNameObj>>
-        <<itemCount == 1 ? tSel('is', 'was')
-                         : tSel('are', 'were')>>:";
-    }
-    showListContentsPrefixTall(itemCount, pov, parent)
-    {
-        "<<parent.aName>>, under which
-        <<itemCount == 1 ? tSel('is', 'was')
-                         : tSel('are', 'were')>>:";
-    }
+class BaseUndersideContentsLister: BaseContentsLister
 ;
 
 /* basic contents lister for an Underside */
@@ -4781,13 +4959,7 @@ undersideContentsLister: ContentsLister, BaseUndersideContentsLister
 ;
 
 /* contents lister for explicitly looking under an Underside */
-undersideLookUnderLister: DescContentsLister, BaseUndersideContentsLister
-    showListEmpty(pov, parent)
-    {
-        /* show a default message indicating the space underneath is empty */
-        gMessageParams(parent);
-        defaultDescReport('{You/he} {sees} nothing under {the parent/him}. ');
-    }
+undersideLookUnderLister: LookWhereContentsLister, BaseUndersideContentsLister
 ;
 
 /* contents lister for moving an Underside and abandoning its contents */
@@ -4814,29 +4986,7 @@ undersideDescContentsLister: DescContentsLister, BaseUndersideContentsLister
 /*
  *   Base class for contents listers for an RearContainer or RearSurface 
  */
-class BaseRearContentsLister: Lister
-    showListPrefixWide(itemCount, pov, parent)
-    {
-        "Behind <<parent.theNameObj>>
-        <<itemCount == 1 ? tSel('is', 'was')
-                         : tSel('are', 'were')>> ";
-    }
-    showListSuffixWide(itemCount, pov, parent)
-    {
-        ". ";
-    }
-    showListPrefixTall(itemCount, pov, parent)
-    {
-        "Behind <<parent.theNameObj>>
-        <<itemCount == 1 ? tSel('is', 'was')
-                         : tSel('are', 'were')>>:";
-    }
-    showListContentsPrefixTall(itemCount, pov, parent)
-    {
-        "<<parent.aName>>, behind which
-        <<itemCount == 1 ? tSel('is', 'was')
-                         : tSel('are', 'were')>>:";
-    }
+class BaseRearContentsLister: BaseContentsLister
 ;
 
 /* basic contents lister for a RearContainer or RearSurface */
@@ -4844,14 +4994,7 @@ rearContentsLister: ContentsLister, BaseRearContentsLister
 ;
 
 /* contents lister for explicitly looking behind a RearContainer/Surface */
-rearLookBehindLister: DescContentsLister, BaseRearContentsLister
-    showListEmpty(pov, parent)
-    {
-        /* show a default message indicating the surface is empty */
-        gMessageParams(parent);
-        defaultDescReport('{You/he} {sees} nothing behind
-            {the parent/him}. ');
-    }
+rearLookBehindLister: LookWhereContentsLister, BaseRearContentsLister
 ;
  
 /* lister for moving a RearContainer/Surface and abandoning its contents */
@@ -4877,26 +5020,41 @@ rearDescContentsLister: DescContentsLister, BaseRearContentsLister
 
 
 /*
- *   Contents lister for a generic in-line list entry. 
+ *   Base class for specialized in-line contents listers.  This shows the
+ *   list in the form "(<prep> which is...)", with the preposition obtained
+ *   from the container's objInPrep property.  
  */
-inlineListingContentsLister: ContentsLister
+class BaseInlineContentsLister: ContentsLister
     showListEmpty(pov, parent) { }
     showListPrefixWide(cnt, pov, parent)
-        { " (which contain<<tSel('s', 'ed')>> "; }
+    {
+        " (<<parent.objInPrep>> which <<
+          cnt == 1 ? tSel('is', 'was') : tSel('are', 'were')>> ";
+    }
     showListSuffixWide(itemCount, pov, parent)
         { ")"; }
 ;
 
 /*
- *   In-line contents lister for a surface.  This is similar to the
- *   regular in-line lister, but customizes the wording slightly.  
+ *   Contents lister for a generic in-line list entry.  We customize the
+ *   wording slightly here: rather than saying "(in which...)" as the base
+ *   class would, we use the slightly more readable "(which contains...)".
  */
-surfaceInlineContentsLister: inlineListingContentsLister
+inlineListingContentsLister: BaseInlineContentsLister
     showListPrefixWide(cnt, pov, parent)
-    {
-        " (on which <<cnt == 1 ? tSel('is', 'was')
-                               : tSel('are', 'were')>> ";
-    }
+        { " (which contain<<parent.verbEndingSEd>> "; }
+;
+
+/* in-line contents lister for a surface */
+surfaceInlineContentsLister: BaseInlineContentsLister
+;
+
+/* in-line contents lister for an Underside */
+undersideInlineContentsLister: BaseInlineContentsLister
+;
+
+/* in-line contents lister for a RearContainer/Surface */
+rearInlineContentsLister: BaseInlineContentsLister
 ;
 
 /*
@@ -4909,24 +5067,6 @@ keyringInlineContentsLister: inlineListingContentsLister
         { " (with "; }
     showListSuffixWide(cnt, pov, parent)
         { " attached)"; }
-;
-
-/* in-line contents lister for an Underside */
-undersideInlineContentsLister: inlineListingContentsLister
-    showListPrefixWide(cnt, pov, parent)
-    {
-        " (under which <<cnt == 1 ? tSel('is', 'was')
-                                  : tSel('are', 'were')>> ";
-    }
-;
-
-/* in-line contents lister for a RearContainer/Surface */
-rearInlineContentsLister: inlineListingContentsLister
-    showListPrefixWide(cnt, pov, parent)
-    {
-        " (behind which <<cnt == 1 ? tSel('is', 'was')
-                                   : tSel('are', 'were')>> ";
-    }
 ;
 
 
@@ -4970,7 +5110,7 @@ aboardVehicleLister: Lister
  *   attachment relationships to the given parent object, or which are
  *   "major" items to which the parent is attached.  
  */
-SimpleAttachmentLister: Lister
+class SimpleAttachmentLister: Lister
     construct(parent) { parent_ = parent; }
     
     showListEmpty(pov, parent)
@@ -4997,7 +5137,7 @@ SimpleAttachmentLister: Lister
  *   the "major" item in the relationship.  The items in the list are
  *   described as being attached to the parent.  
  */
-MajorAttachmentLister: SimpleAttachmentLister
+class MajorAttachmentLister: SimpleAttachmentLister
     showListPrefixWide(cnt, pov, parent) { "<.p>\^"; }
     showListSuffixWide(cnt, pov, parent)
     {
@@ -5291,19 +5431,20 @@ explicitExitLister: ExitLister
 statuslineExitLister: ExitLister
     showListEmpty(pov, parent)
     {
-        "<br><b>Exits:</b> <i>None</i><br>";
+        "<<statusHTML(3)>><b>Exits:</b> <i>None</i><<statusHTML(4)>>";
     }
     showListPrefixWide(cnt, pov, parent)
     {
-        "<br><b>Exits:</b> ";
+        "<<statusHTML(3)>><b>Exits:</b> ";
     }
     showListSuffixWide(cnt, pov, parent)
     {
-        "<br>";
+        "<<statusHTML(4)>>";
     }
     showListItem(obj, options, pov, infoTab)
     {
-        "<a plain href='<<obj.dir_.name>>'><<obj.dir_.name>></a>";
+        "<<aHref(obj.dir_.name, obj.dir_.name, 'Go ' + obj.dir_.name,
+                 AHREF_Plain)>>";
     }
     showListSeparator(options, curItemNum, totalItems)
     {
@@ -5431,16 +5572,7 @@ implicitAnnouncementGrouper: object
 
             /* add a separator before this item if it isn't the first */
             if (txt != '' && curTxt != '')
-            {
-                /*
-                 *   a comma and/or 'then', depending on whether we have
-                 *   more items that will follow this one 
-                 */
-                if (i + 1 <= len)
-                    txt += ', ';
-                else
-                    txt += ', then ';
-            }
+                txt += ', then ';
 
             /* add the current item's text */
             txt += curTxt;
@@ -5495,7 +5627,7 @@ class SuggestedTopicLister: Lister
         {
             gMessageParams(askingActor, targetActor);
             "<<isExplicit ? '' : '('>>{You askingActor/he} {have} nothing
-            specific in mind right now to discuss with
+            specific in mind {right now|just then} to discuss with
             {the targetActor/him}.<<isExplicit ? '' : ')'>> ";
         }
     }

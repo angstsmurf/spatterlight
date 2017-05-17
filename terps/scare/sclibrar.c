@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -28,10 +28,10 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <string.h>
 #include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "scare.h"
 #include "scprotos.h"
@@ -1333,9 +1333,6 @@ lib_cmd_undo (sc_gameref_t game)
 
       /* Undo can't properly unravel layered sounds... */
       game->stop_sound = TRUE;
-
-      game->is_admin = TRUE;
-      return TRUE;
     }
 
   /*
@@ -1343,7 +1340,7 @@ lib_cmd_undo (sc_gameref_t game)
    * memo.  If that works, treat as for restore from file, since that's
    * effectively what it is.
    */
-  if (memo_load_game (memento, game))
+  else if (memo_load_game (memento, game))
     {
       lib_print_room_name (game, gs_playerroom (game));
       pf_buffer_string (filter, "[The previous turn has been undone.]\n");
@@ -1352,6 +1349,7 @@ lib_cmd_undo (sc_gameref_t game)
       game->do_restore = TRUE;
     }
 
+  /* If no undo buffer and memo restore failed, there's no undo available. */
   else if (game->turns == 0)
     pf_buffer_string (filter, "You can't undo what hasn't been done.\n");
   else
@@ -1813,7 +1811,7 @@ lib_cmd_license (sc_gameref_t game)
   if_print_string (
     "You should have received a copy of the GNU General Public License"
     " along with this program; if not, write to the Free Software"
-    " Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307"
+    " Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301"
     " USA\n\n");
 
   if_print_string ("Please report any bugs, omissions, or misfeatures to ");
@@ -1914,7 +1912,7 @@ lib_cmd_statusline (sc_gameref_t game)
                       &score, NULL, &room, &status, NULL, NULL, NULL, NULL);
 
   /* If nothing is yet determined, print the game name and author. */
-  if (!room)
+  if (!room || sc_strempty (room))
     {
       if_print_string (name);
       if_print_string (" | ");
@@ -1927,7 +1925,7 @@ lib_cmd_statusline (sc_gameref_t game)
       if_print_string (" | ");
 
       /* If the game offers a status line, print it, otherwise the score. */
-      if (status)
+      if (status && !sc_strempty (status))
         if_print_string (status);
       else
         {

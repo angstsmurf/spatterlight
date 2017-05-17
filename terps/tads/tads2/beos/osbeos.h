@@ -183,6 +183,10 @@ struct os_file_time_t
 /* osfildef *osfoprt(char *fname, int typ); */
 #define osfoprt(fname, typ) fopen(fname, "r")
 
+/* open text file for reading in volatile ('deny none') mode */
+/* osfildef *osfoprtv(char *fname, int typ); */
+#define osfoprtv(fname, typ) osfoprt(fname, typ)
+
 /* open text file for writing; returns NULL on error */
 /* osfildef *osfopwt(char *fname, int typ); */
 #define osfopwt(fname, typ) fopen(fname, "w")
@@ -206,6 +210,10 @@ osfildef *osfoprwt(const char *fname, os_filetype_t typ);
 /* osfildef *osfoprb(char *fname, int typ); */
 #define osfoprb(fname, typ) fopen(fname, "rb")
 
+/* open binary file for 'volatile' reading; returns NULL on erorr */
+/* osfildef *osfoprbv(char *fname, int typ); */
+#define osfoprbv(fname, typ) osfoprb(fname, typ)
+
 /* get a line of text from a text file (fgets semantics) */
 /* char *osfgets(char *buf, size_t len, osfildef *fp); */
 #define osfgets(buf, len, fp) fgets(buf, len, fp)
@@ -220,6 +228,10 @@ osfildef *osfoprwb(const char *fname, os_filetype_t typ);
 /* write bytes to file; TRUE ==> error */
 /* int osfwb(osfildef *fp, uchar *buf, int bufl); */
 #define osfwb(fp, buf, bufl) (fwrite(buf, bufl, 1, fp) != 1)
+
+/* flush buffers; TRUE ==> error */
+/* void osfflush(osfildef *fp); */
+#define osfflush(fp) fflush(fp)
 
 /* read bytes from file; TRUE ==> error */
 /* int osfrb(osfildef *fp, uchar *buf, int bufl); */

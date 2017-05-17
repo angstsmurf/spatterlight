@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -70,9 +70,10 @@ extern sc_char *sx_normalize_string (sc_char *string);
 extern void stub_attach_handlers (sc_bool (*read_line) (sc_char *, sc_int),
                                   void (*print_string) (const sc_char *),
                                   void *(*open_file) (sc_bool),
-                                  sc_int (*read_file) (void*, sc_byte*, sc_int),
+                                  sc_int (*read_file)
+                                      (void*, sc_byte*, sc_int),
                                   void (*write_file)
-                                  (void*, const sc_byte*, sc_int),
+                                      (void*, const sc_byte*, sc_int),
                                   void (*close_file) (void*));
 extern void stub_detach_handlers (void);
 extern void stub_debug_trace (sc_bool flag);

@@ -40,6 +40,127 @@ Modified
 #include "vmpredef.h"
 #include "vmhash.h"
 #include "vmtobj.h"
+#include "vmanonfn.h"
+#include "vmdynfunc.h"
+
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Statistics gathering 
+ */
+#ifdef VMOBJ_GC_STATS
+# define IF_GC_STATS(x) x
+
+struct
+{
+    void gc_stats()
+    {
+        runs = 0;
+        tot_freed = 0;
+        cur_freed = 0;
+        max_freed = 0;
+        t = 0;
+    }
+
+    void begin_pass()
+    {
+        t0 = os_get_sys_clock_ms();
+        runs++;
+        pass_start_bytes = cur_bytes;
+        cur_freed = 0;
+    }
+
+    void end_pass()
+    {
+        t += os_get_sys_clock_ms() - t0;
+        if (cur_freed > max_freed)
+            max_freed = cur_freed;
+        long garbage_bytes = pass_start_bytes - cur_bytes;
+        if (garbage_bytes > max_garbage_bytes)
+            max_garbage_bytes = garbage_bytes;
+    }
+
+    void count_free()
+    {
+        ++cur_freed;
+        ++tot_freed;
+    }
+
+    void count_alloc_bytes(size_t siz)
+    {
+        cur_bytes += siz;
+        if (cur_bytes > max_bytes)
+            max_bytes = cur_bytes;
+    }
+
+    void count_realloc_bytes(size_t oldsiz, size_t newsiz)
+    {
+        count_alloc_bytes(newsiz);
+        count_free_bytes(oldsiz);
+    }
+
+    void count_free_bytes(size_t siz)
+    {
+        cur_bytes -= siz;
+    }
+
+    void display()
+    {
+        printf("Garbage collection statistics:\n"
+               "  collection runs:       %ld\n"
+               "  objects freed:         %ld\n"
+               "  average freed per run: %ld\n"
+               "  max freed in one run:  %ld\n"
+               "  peak heap bytes:       %ld\n"
+               "  peak garbage bytes:    %ld\n"
+               "  total gc time (ms):    %ld\n"
+               "  average gc time (ms):  %ld\n",
+               runs,
+               tot_freed,
+               runs != 0 ? tot_freed/runs : 0,
+               max_freed,
+               max_bytes,
+               max_garbage_bytes,
+               t,
+               runs != 0 ? t/runs : 0);
+    }
+
+    /* number of times the gc has run */
+    long runs;
+
+    /* total number of objects collected */
+    long tot_freed;
+
+    /* number of objects collected on this pass */
+    long cur_freed;
+
+    /* maximum number collected on any one pass */
+    long max_freed;
+
+    /* current total heap manager allocated bytes */
+    long cur_bytes;
+
+    /* allocated bytes at start of last gc pass */
+    long pass_start_bytes;
+
+    /* peak allocated bytes */
+    long max_bytes;
+
+    /* peak garbage bytes */
+    long max_garbage_bytes;
+
+    /* elapsed time in garbage collector */
+    long t;
+
+    /* starting time in ticks of current run */
+    long t0;
+
+} gc_stats;
+
+#else /* VMOBJ_GC_STATS */
+# define IF_GC_STATS(x)
+#endif /* VMOBJ_GC_STATS */
 
 
 /* ------------------------------------------------------------------------ */
@@ -228,6 +349,168 @@ int CVmObject::inh_prop(VMG_ vm_prop_id_t prop, vm_val_t *retval,
     return find_modifier_prop(vmg_ prop, retval, self, orig_target_obj,
                               defining_obj, source_obj, argc);
 }
+
+/*
+ *   Cast the object to a string.  If we got here, it means that there's no
+ *   metaclass override, so use reflection services if available, or the
+ *   basic "object#xxx" template.
+ */
+const char *CVmObject::cast_to_string(VMG_ vm_obj_id_t self,
+                                      vm_val_t *new_str) const
+{
+    /* set up a vm_val_t for 'self' */
+    vm_val_t val;
+    val.set_obj(self);
+
+    /* try calling self.objToString */
+    vm_prop_id_t objToString = G_predef->objToString;
+    if (objToString != VM_INVALID_PROP)
+    {
+        /* call self.objToString */
+        G_interpreter->get_prop(vmg_ 0, &val, objToString, &val, 0, 0);
+
+        /* if that yielded a string, return it */
+        const char *str = G_interpreter->get_r0()->get_as_string(vmg0_);
+        if (str != 0)
+        {
+            /* set the return value */
+            *new_str = *G_interpreter->get_r0();
+
+            /* return the string buffer */
+            return str;
+        }
+    }
+
+    /* try getting a symbolic name, otherwise use the object#xxx template */
+    return CVmObjString::reflect_to_str(
+        vmg_ new_str, 0, 0, &val, "object#%ld", (long)self);
+}
+
+
+/* 
+ *   Any object can be listlike, even if it doesn't natively implement
+ *   indexing, if it defines operator[] and 'length' as user-code methods.  
+ */
+int CVmObject::is_listlike(VMG_ vm_obj_id_t self)
+{
+    vm_val_t v;
+    vm_obj_id_t o;
+    int minargs, optargs, varargs;
+
+    /* check for the required imports */
+    if (G_predef->operator_idx == VM_INVALID_PROP
+        || G_predef->length_prop == VM_INVALID_PROP)
+        return FALSE;
+
+    /* check for operator [] */
+    if (!get_prop(vmg_ G_predef->operator_idx, &v, self, &o, 0))
+        return FALSE;
+
+    /* check for a 'length' method taking no arguments */
+    if (!get_prop_interface(vmg_ self, G_predef->length_prop,
+                            minargs, optargs, varargs)
+        || minargs > 0)
+        return FALSE;
+
+    /* it's list-like */
+    return TRUE;
+}
+
+/*
+ *   An object that doesn't have a native list-like interface can still
+ *   provide list-like operations by defining operator[] and 'length' in user
+ *   code.  
+ */
+int CVmObject::ll_length(VMG_ vm_obj_id_t self)
+{
+    /* make a recursive call to 'length' */
+    vm_val_t vself;
+    vself.set_obj(self);
+    vm_rcdesc rc("Object.ll_length");
+    G_interpreter->get_prop(vmg_ 0, &vself, G_predef->length_prop,
+                            &vself, 0, &rc);
+
+    /* the return value in R0 is the length */
+    vm_val_t *r0 = G_interpreter->get_r0();
+    if (r0->typ == VM_INT)
+        return r0->val.intval;
+    else
+        return -1;
+}
+
+/*
+ *   Index the object, with overloading if there's no native implementation. 
+ */
+void CVmObject::index_val_ov(VMG_ vm_val_t *result, vm_obj_id_t self,
+                             const vm_val_t *index_val)
+{
+    /* try the native operation first */
+    if (!index_val_q(vmg_ result, self, index_val))
+    {
+        /* no native indexing - try the operator[] overload */
+        vm_val_t vself;
+        vself.set_obj(self);
+        G_stk->push(index_val);
+        G_interpreter->op_overload(vmg_ 0, -1, &vself, G_predef->operator_idx,
+                                   1, VMERR_CANNOT_INDEX_TYPE);
+
+        /* return the result from R0 */
+        *result = *G_interpreter->get_r0();
+    }
+}
+
+/*
+ *   Index the object, with overloading if there's no native implementation. 
+ */
+void CVmObject::set_index_val_ov(VMG_ vm_val_t *new_container,
+                                 vm_obj_id_t self,
+                                 const vm_val_t *index_val,
+                                 const vm_val_t *new_val)
+{
+    /* try the native indexing first */
+    if (!set_index_val_q(vmg_ new_container, self, index_val, new_val))
+    {
+        /* no native indexing - try the operator[]= overload */
+        vm_val_t vself;
+        vself.set_obj(self);
+        G_stk->push(new_val);
+        G_stk->push(index_val);
+        G_interpreter->op_overload(vmg_ 0, -1,
+                                   &vself, G_predef->operator_setidx,
+                                   2, VMERR_CANNOT_INDEX_TYPE);
+
+        /* return the new container result from R0 */
+        *new_container = *G_interpreter->get_r0();
+    }
+}
+
+/*
+ *   Get the next value from an iteration 
+ */
+int CVmObject::iter_next(VMG_ vm_obj_id_t selfobj, vm_val_t *val)
+{
+    /* check that the iterator properties are defined by the program */
+    if (G_iter_next_avail == VM_INVALID_PROP
+        || G_iter_get_next == VM_INVALID_PROP)
+        return FALSE;
+
+    /* call isNextAvailable */
+    vm_rcdesc rc("for..in");
+    vm_val_t self;
+    self.set_obj(selfobj);
+    G_interpreter->get_prop(vmg_ 0, &self, G_iter_next_avail, &self, 0, &rc);
+
+    /* if that returned false (nil or 0), return false */
+    vm_val_t *ret = G_interpreter->get_r0();
+    if (ret->typ == VM_NIL || (ret->typ == VM_INT && ret->val.intval == 0))
+        return FALSE;
+
+    /* call getNext and return the result */
+    G_interpreter->get_prop(vmg_ 0, &self, G_iter_get_next, &self, 0, &rc);
+    *val = *G_interpreter->get_r0();
+    return TRUE;
+}
+
 
 /*
  *   Get a property that isn't defined in our property table 
@@ -605,10 +888,8 @@ int CVmObject::getp_propdef(VMG_ vm_obj_id_t self,
 vm_obj_id_t CVmObject::find_intcls_for_mod(VMG_ vm_obj_id_t self,
                                            vm_obj_id_t mod_obj)
 {
-    vm_meta_entry_t *entry;
-
     /* get my metaclass from the dependency table */
-    entry = (G_meta_table
+    vm_meta_entry_t *entry = (G_meta_table
              ->get_entry_from_reg(get_metaclass_reg()->get_reg_idx()));
 
     /* 
@@ -736,6 +1017,26 @@ int CVmObject::getp_proptype(VMG_ vm_obj_id_t self,
     }
     else
     {
+        /* 
+         *   Fix up OBJX (execute-on-eval object reference) and BIFPTRX
+         *   (execute-on-eval built-in function pointer) values to reflect
+         *   the underlying datatype.  Treat an anonymous function or dynamic
+         *   function as a CODEOFS value; treat a string object as a DSTRING
+         *   value.  
+         */
+        if (val.typ == VM_OBJX)
+        {
+            if (CVmObjAnonFn::is_anonfn_obj(vmg_ val.val.obj)
+                || CVmDynamicFunc::is_dynfunc_obj(vmg_ val.val.obj))
+                val.typ = VM_CODEOFS;
+            else if (CVmObjString::is_string_obj(vmg_ val.val.obj))
+                val.typ = VM_DSTRING;
+            else
+                val.typ = VM_OBJ;
+        }
+        else if (val.typ == VM_BIFPTRX)
+            val.typ = VM_BIFPTR;
+
         /* set the return value to the property's datatype value */
         retval->set_datatype(vmg_ &val);
     }
@@ -791,7 +1092,6 @@ int CVmObject::getp_get_prop_params(VMG_ vm_obj_id_t self,
 {
     vm_val_t val;
     vm_prop_id_t prop;
-    vm_obj_id_t source_obj;
     int min_args, opt_args, varargs;
     static CVmNativeCodeDesc desc(1);
     CVmObjList *lst;
@@ -807,54 +1107,8 @@ int CVmObject::getp_get_prop_params(VMG_ vm_obj_id_t self,
     /* push a self-reference while we're working */
     G_stk->push()->set_obj(self);
 
-    /* get the property value */
-    if (!get_prop(vmg_ prop, &val, self, &source_obj, 0))
-    {
-        /* no such method - no arguments */
-        min_args = opt_args = 0;
-        varargs = FALSE;
-    }
-    else if (val.typ == VM_CODEOFS)
-    {
-        CVmFuncPtr func;
-        
-        /* get the function header for the code offset */
-        func.set((const uchar *)G_code_pool->get_ptr(val.val.ofs));
-
-        /* 
-         *   Get the argument information from the function header.  Note
-         *   that p-code methods cannot have optional arguments.  
-         */
-        min_args = func.get_min_argc();
-        opt_args = 0;
-        varargs = func.is_varargs();
-
-        /* 
-         *   re-evaluate the currently executing method's entry pointer, to
-         *   ensure that the current code page is the most recently used
-         *   page, in case we're on a swapping system (note that we don't
-         *   attempt to retranslate the pointer, since we assume that we
-         *   didn't actually swap it out just now - we assume that we have
-         *   enough cache space to keep at least two pages in memory at
-         *   once, and since the currently-executing code page should have
-         *   been the most recently used page before our translation just
-         *   above, it should not have been swapped out) 
-         */
-        G_interpreter->touch_entry_ptr_page(vmg0_);
-    }
-    else if (val.typ == VM_NATIVE_CODE)
-    {
-        /* get the arguments from the native code descriptor */
-        min_args = val.val.native_desc->min_argc_;
-        opt_args = val.val.native_desc->opt_argc_;
-        varargs = val.val.native_desc->varargs_;
-    }
-    else
-    {
-        /* it's not a function - no arguments */
-        min_args = opt_args = 0;
-        varargs = FALSE;
-    }
+    /* get the property information */
+    get_prop_interface(vmg_ self, prop, min_args, opt_args, varargs);
 
     /* 
      *   Allocate our return list.  We need three elements: [minArgs,
@@ -885,6 +1139,73 @@ int CVmObject::getp_get_prop_params(VMG_ vm_obj_id_t self,
 }
 
 /*
+ *   Get the method interface to a given object property 
+ */
+int CVmObject::get_prop_interface(VMG_ vm_obj_id_t self, vm_prop_id_t prop,
+                                  int &min_args, int &opt_args, int &varargs)
+{
+    vm_val_t val;
+    vm_obj_id_t source_obj;
+
+    /* presume we won't find an argument interface */
+    min_args = opt_args = 0;
+    varargs = FALSE;
+
+    /* get the property value */
+    if (!get_prop(vmg_ prop, &val, self, &source_obj, 0))
+    {
+        /* we didn't find the property at all */
+        return FALSE;
+    }
+    else if (val.typ == VM_CODEOFS
+             || val.typ == VM_OBJX
+             || val.typ == VM_BIFPTRX)
+    {
+        /* 
+         *   It's a direct pointer to static code, an object that we execute
+         *   on evaluation, or a built-in function pointer.  Try getting a
+         *   pointer to the method header.  CODEOFS and BIFPTRX values always
+         *   have method headers; OBJX values do if the underlying object is
+         *   invokable.  If the object *isn't* invokable, it won't have a
+         *   method header; the only way this can happen is that we have a
+         *   String object as an OBJX property, which acts like a DSTRING
+         *   when evaluated.  That has the default zero-argument interface,
+         *   so we can simply leave the return value with the defaults we've
+         *   already set up in this case.  
+         */
+        CVmFuncPtr func;
+        if (func.set(vmg_ &val))
+        {
+            /* it's an invokable - get the interface info from the header */
+            min_args = func.get_min_argc();
+            opt_args = func.get_opt_argc();
+            varargs = func.is_varargs();
+        }
+
+        /* got it */
+        return TRUE;
+    }
+    else if (val.typ == VM_NATIVE_CODE)
+    {
+        /* get the arguments from the native code descriptor */
+        min_args = val.val.native_desc->min_argc_;
+        opt_args = val.val.native_desc->opt_argc_;
+        varargs = val.val.native_desc->varargs_;
+
+        /* we found the property */
+        return TRUE;
+    }
+    else
+    {
+        /* 
+         *   it's not a function, so there are no arguments, but we did find
+         *   the property 
+         */
+        return TRUE;
+    }
+}
+
+/*
  *   Call a static property 
  */
 int CVmObject::call_stat_prop(VMG_ vm_val_t *retval, const uchar **pc_ptr,
@@ -892,6 +1213,33 @@ int CVmObject::call_stat_prop(VMG_ vm_val_t *retval, const uchar **pc_ptr,
 {
     /* not handled */
     return FALSE;
+}
+
+/*
+ *   Get my image file version string 
+ */
+const char *CVmObject::get_image_file_version(VMG0_) const
+{
+    /* get the metaclass table entry */
+    vm_meta_entry_t *entry = G_meta_table->get_entry_from_reg(
+        get_metaclass_reg()->get_reg_idx());
+
+    /* if we found it, get the image metaclass string from the entry */
+    if (entry != 0)
+    {
+        /* get the image metaclass name - "name/version" */
+        const char *n = entry->image_meta_name_;
+
+        /* scan for the version slash */
+        n = strchr(n, '/');
+
+        /* if we found it, the version follows the slash */
+        if (n != 0)
+            return n + 1;
+    }
+
+    /* we couldn't find the version data, so return an empty string */
+    return "";
 }
 
 
@@ -932,14 +1280,13 @@ vm_obj_id_t CVmMetaclass::get_supermeta(VMG_ int idx) const
  */
 int CVmMetaclass::is_meta_instance_of(VMG_ vm_obj_id_t obj) const
 {
-    vm_meta_entry_t *entry;
-    CVmMetaclass *sc;
-
     /* iterate over my supermetaclasses */
-    for (sc = get_supermeta_reg() ; sc != 0 ; sc = sc->get_supermeta_reg())
+    for (CVmMetaclass *sc = get_supermeta_reg() ; sc != 0 ;
+         sc = sc->get_supermeta_reg())
     {
         /* look up the metaclass entry for this supermetaclass */
-        entry = (G_meta_table->get_entry_from_reg(sc->get_reg_idx()));
+        vm_meta_entry_t *entry =
+            (G_meta_table->get_entry_from_reg(sc->get_reg_idx()));
 
         /* 
          *   if the object matches the current superclass's IntrinsicClass
@@ -958,10 +1305,8 @@ int CVmMetaclass::is_meta_instance_of(VMG_ vm_obj_id_t obj) const
  */
 vm_obj_id_t CVmMetaclass::get_class_obj(VMG0_) const
 {
-    vm_meta_entry_t *entry;
-    
     /* get my metacalss entry */
-    entry = G_meta_table->get_entry_from_reg(get_reg_idx());
+    vm_meta_entry_t *entry = G_meta_table->get_entry_from_reg(get_reg_idx());
 
     /* if we found our entry, return the class from the entry */
     return (entry != 0 ? entry->class_obj_ : VM_INVALID_OBJ);
@@ -969,13 +1314,103 @@ vm_obj_id_t CVmMetaclass::get_class_obj(VMG0_) const
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   The nil object.  This is a special pseudo-object we create for object
+ *   #0, to provide graceful error handling if byte code tries to dereference
+ *   nil in any way.  
+ */
+class CVmObjNil: public CVmObject
+{
+public:
+    virtual class CVmMetaclass *get_metaclass_reg() const
+    {
+        err_throw(VMERR_NIL_DEREF);
+        AFTER_ERR_THROW(return 0;)
+    }
+
+    virtual void set_prop(VMG_ class CVmUndo *, vm_obj_id_t, vm_prop_id_t,
+                          const vm_val_t *)
+        { err_throw(VMERR_NIL_DEREF); }
+    virtual int get_prop(VMG_ vm_prop_id_t, vm_val_t *,
+                         vm_obj_id_t, vm_obj_id_t *, uint *)
+    {
+        err_throw(VMERR_NIL_DEREF);
+        AFTER_ERR_THROW(return FALSE;)
+    }
+    virtual int is_instance_of(VMG_ vm_obj_id_t)
+    {
+        err_throw(VMERR_NIL_DEREF);
+        AFTER_ERR_THROW(return FALSE;)
+    }
+    virtual int get_superclass_count(VMG_ vm_obj_id_t) const
+    {
+        err_throw(VMERR_NIL_DEREF);
+        AFTER_ERR_THROW(return 0;)
+    }
+    virtual vm_obj_id_t get_superclass(VMG_ vm_obj_id_t, int) const
+    {
+        err_throw(VMERR_NIL_DEREF);
+        AFTER_ERR_THROW(return VM_INVALID_OBJ;)
+    }
+    virtual void enum_props(VMG_ vm_obj_id_t,
+                            void (*cb)(VMG_ void *, vm_obj_id_t,
+                                       vm_prop_id_t, const vm_val_t *),
+                            void *)
+        { err_throw(VMERR_NIL_DEREF); }
+    virtual int get_prop_interface(VMG_ vm_obj_id_t, vm_prop_id_t,
+                                   int &, int &, int &)
+    {
+        err_throw(VMERR_NIL_DEREF);
+        AFTER_ERR_THROW(return FALSE;)
+    }
+    virtual int inh_prop(VMG_ vm_prop_id_t prop, vm_val_t *retval,
+                         vm_obj_id_t self, vm_obj_id_t orig_target_obj,
+                         vm_obj_id_t defining_obj, vm_obj_id_t *source_obj,
+                         uint *argc)
+    {
+        err_throw(VMERR_NIL_DEREF);
+        AFTER_ERR_THROW(return FALSE;)
+    }
+    virtual void build_prop_list(VMG_ vm_obj_id_t, vm_val_t *)
+        { err_throw(VMERR_NIL_DEREF); }
+
+    virtual void notify_delete(VMG_ int) { }
+    virtual void mark_refs(VMG_ uint) { }
+    virtual void remove_stale_weak_refs(VMG0_) { }
+    virtual void notify_new_savept() { }
+    virtual void apply_undo(VMG_ struct CVmUndoRecord *) { }
+    virtual void mark_undo_ref(VMG_ struct CVmUndoRecord *) { }
+    virtual void remove_stale_undo_weak_ref(VMG_ struct CVmUndoRecord *) { }
+    virtual void load_from_image(VMG_ vm_obj_id_t, const char *, size_t) { }
+    virtual void save_to_file(VMG_ class CVmFile *) { }
+    virtual void restore_from_file(VMG_ vm_obj_id_t, class CVmFile *,
+                                   class CVmObjFixup *) { }
+    
+};
+
+
+/* ------------------------------------------------------------------------ */
+/*
  *   object table implementation 
  */
 
 /*
+ *   construction - create an empty table 
+ */
+CVmObjTable::CVmObjTable()
+{
+    pages_ = 0;
+    page_slots_ = 0;
+    pages_used_ = 0;
+    image_ptr_head_ = 0;
+    globals_ = 0;
+    global_var_head_ = 0;
+    post_load_init_table_ = 0;
+}
+
+/*
  *   allocate object table 
  */
-void CVmObjTable::init()
+void CVmObjTable::init(VMG0_)
 {
     /* allocate the initial set of page slots */
     page_slots_ = 10;
@@ -999,14 +1434,63 @@ void CVmObjTable::init()
 
     /* we haven't allocated anything yet */
     allocs_since_gc_ = 0;
+    bytes_since_gc_ = 0;
 
     /* 
-     *   Set the upper limit for allocations between garbage collection.
-     *   We want to choose this number so that we balance the time it
-     *   takes to collect garbage against the memory it consumes to leave
-     *   it uncollected. 
+     *   Set the upper limit for new objects and allocated bytes between
+     *   garbage collection passes.
+     *   
+     *   In choosing these parameters, there's a trade-off.  Running more
+     *   frequently reduces GC "stall time" of each pass (the time that the
+     *   system is unresponsive while scanning for unreachable objects),
+     *   because the total scanning on each pass will be smaller.  More
+     *   frequent GC'ing also minimizes the working memory size by freeing
+     *   garbage objects sooner after they become unreachable.  But running
+     *   more frequently reduces *overall* program speed, since we spend more
+     *   time in the collector in aggregate.  We have to scan the reachable
+     *   objects on every pass, so the more frequently we run, the more
+     *   unproductive time we'll spend scanning the same reachable objects
+     *   over and over.
+     *   
+     *   TADS is specialized for highly interactive programs, so minimizing
+     *   stall time is the overriding priority.  In practical testing, the
+     *   stall time is imperceptible up to at least 30,000 objects between
+     *   passes.  (It stays below 5 ms per run on an average 2007 desktop.
+     *   The usual threshold of perceptibility is about 50-100 ms.)  Overall
+     *   throughput seems to level out at about 20,000 objects between
+     *   passes.  Beyond that, decreasing the frequency of gc runs yields
+     *   diminishing returns.  The knee is the point where we're waiting long
+     *   enough between passes that unreachable objects dominate.  Once
+     *   you're at that frequency, going longer between passes won't improve
+     *   speed much because you're typically just adding more garbage for the
+     *   next pass.  The time you save by not doing a pass now gets canceled
+     *   out by making the next pass longer by giving it more garbage to
+     *   collect.  This is in contrast to running too frequently, where
+     *   scanning reachable objects dominates: this time typically plateaus
+     *   the longer you go between passes, since the reachable set itself
+     *   tends to plateau in size over time, so while we're still in this
+     *   zone, the longer you go between passes the better.)
+     *   
+     *   Although 20,000 allocations seems to be the best frequency for
+     *   throughput for our test set, we currently set a somewhat more
+     *   conservative limit (i.e., collect garbage more frequently).  This is
+     *   because the assumptions in our test set don't apply to all programs.
+     *   Some programs might allocate larger objects more frequently than our
+     *   tests, and in those cases we don't want the working set to grow too
+     *   quickly.  More frequenty GC will help avoid this.  
+     *   
+     *   In addition to the simple object allocation count, we also count
+     *   bytes allocated between passes, and collect garbage if we go above a
+     *   byte threshold independently of the object count.  This is to ensure
+     *   that we collect garbage more frequently when very large objects are
+     *   being used, to keep the working set from growing too fast.  Very
+     *   large working sets can hurt performance by reducing locality of
+     *   reference (for CPU caching) and even triggering OS-level disk
+     *   swapping.
      */
-    max_allocs_between_gc_ = 1000;
+//    max_allocs_between_gc_ = 17500;
+    max_allocs_between_gc_ = 10000;
+    max_bytes_between_gc_ = 6*1024*1024;
 
     /* enable the garbage collector */
     gc_enabled_ = TRUE;
@@ -1024,6 +1508,26 @@ void CVmObjTable::init()
 
     /* create the post_load_init() request table */
     post_load_init_table_ = new CVmHashTable(128, new CVmHashFuncCS(), TRUE);
+
+    /* allocate the first object page */
+    alloc_new_page();
+
+    /* 
+     *   Initialize object #0 with the nil pseudo-object.  This isn't an
+     *   actual object, but it provides graceful error handling if the byte
+     *   code attempts to invoke any methods on nil. 
+     */
+    new (vmg_ VM_INVALID_OBJ) CVmObjNil;
+    CVmObjPageEntry *obj0 = get_entry(0);
+    obj0->free_ = TRUE;
+    obj0->in_root_set_ = TRUE;
+    obj0->reachable_ = VMOBJ_REACHABLE;
+    obj0->finalize_state_ = VMOBJ_UNFINALIZABLE;
+    obj0->in_undo_ = FALSE;
+    obj0->transient_ = FALSE;
+    obj0->requested_post_load_init_ = FALSE;
+    obj0->can_have_refs_ = FALSE;
+    obj0->can_have_weak_refs_ = FALSE;
 }
 
 /*
@@ -1031,6 +1535,33 @@ void CVmObjTable::init()
  */
 CVmObjTable::~CVmObjTable()
 {
+    /* show statistics if applicable */
+    IF_GC_STATS(gc_stats.display());
+}
+
+/*
+ *   Clear the object table.  This deletes all garbage-collected objects in
+ *   preparation for VM shutdown.
+ */
+void CVmObjTable::clear_obj_table(VMG0_)
+{
+    /* delete all entries in the post-load initialization table */
+    post_load_init_table_->delete_all_entries();
+
+    /* go through the pages and delete the entries */
+    for (size_t i = 0 ; i < pages_used_ ; ++i)
+    {
+        /* delete all of the objects on the page */
+        int j;
+        CVmObjPageEntry *entry;
+        for (j = 0, entry = pages_[i] ; j < VM_OBJ_PAGE_CNT ; ++j, ++entry)
+        {
+            /* if this entry is still in use, delete it */
+            if (!entry->free_)
+                entry->get_vm_obj()->notify_delete(vmg_ entry->in_root_set_);
+        }
+    }
+
 }
 
 /*
@@ -1039,34 +1570,9 @@ CVmObjTable::~CVmObjTable()
  */
 void CVmObjTable::delete_obj_table(VMG0_)
 {
-    size_t i;
-    vm_image_ptr_page *ip_page;
-    vm_image_ptr_page *ip_next;
-
-    /* delete all entries in the post-load initialization table */
-    post_load_init_table_->delete_all_entries();
-
-    /* go through the pages and delete the entries */
-    for (i = 0 ; i < pages_used_ ; ++i)
-    {
-        int j;
-        CVmObjPageEntry *entry;
-
-        /* delete all of the objects on the page */
-        for (j = 0, entry = pages_[i] ; j < VM_OBJ_PAGE_CNT ; ++j, ++entry)
-        {
-            /* if this entry is still in use, delete it */
-            if (!entry->free_)
-                entry->get_vm_obj()->notify_delete(vmg_ entry->in_root_set_);
-        }
-    }
-    
     /* delete each page we've allocated */
-    for (i = 0 ; i < pages_used_ ; ++i)
-    {
-        /* delete this page */
+    for (size_t i = 0 ; i < pages_used_ ; ++i)
         t3free(pages_[i]);
-    }
 
     /* free the master page table */
     t3free(pages_);
@@ -1076,8 +1582,18 @@ void CVmObjTable::delete_obj_table(VMG0_)
     page_slots_ = 0;
     pages_used_ = 0;
 
+    /* empty out the object lists */
+    first_free_ = VM_INVALID_OBJ;
+    gc_queue_head_ = VM_INVALID_OBJ;
+    finalize_queue_head_ = VM_INVALID_OBJ;
+
+    /* clear the gc statistics */
+    allocs_since_gc_ = 0;
+    bytes_since_gc_ = 0;
+
     /* delete each object image data pointer page */
-    for (ip_page = image_ptr_head_ ; ip_page != 0 ; ip_page = ip_next)
+    for (vm_image_ptr_page *ip_page = image_ptr_head_, *ip_next = 0 ;
+         ip_page != 0 ; ip_page = ip_next)
     {
         /* remember the next page (before we delete this one) */
         ip_next = ip_page->next_;
@@ -1085,6 +1601,9 @@ void CVmObjTable::delete_obj_table(VMG0_)
         /* delete this page */
         t3free(ip_page);
     }
+
+    /* there's nothing left in the image data list */
+    image_ptr_head_ = image_ptr_tail_ = 0;
 
     /* delete the linked list of globals */
     if (globals_ != 0)
@@ -1111,10 +1630,8 @@ void CVmObjTable::delete_obj_table(VMG0_)
  */
 int CVmObjTable::enable_gc(VMG_ int enable)
 {
-    int old_enable;
-    
     /* remember the old status for returning */
-    old_enable = gc_enabled_;
+    int old_enable = gc_enabled_;
 
     /* set the new status */
     gc_enabled_ = enable;
@@ -1137,9 +1654,6 @@ int CVmObjTable::enable_gc(VMG_ int enable)
 vm_obj_id_t CVmObjTable::alloc_obj(VMG_ int in_root_set,
                                    int can_have_refs, int can_have_weak_refs)
 {
-    vm_obj_id_t ret;
-    CVmObjPageEntry *entry;
-
     /* count the allocation and maybe perform garbage collection */
     alloc_check_gc(vmg_ TRUE);
 
@@ -1148,10 +1662,10 @@ vm_obj_id_t CVmObjTable::alloc_obj(VMG_ int in_root_set,
         alloc_new_page();
         
     /* remember the first item in the free list - this is our result */
-    ret = first_free_;
+    vm_obj_id_t ret = first_free_;
     
     /* get the object table entry for the ID */
-    entry = get_entry(ret);
+    CVmObjPageEntry *entry = get_entry(ret);
 
     /* unlink new entry from the free list */
     first_free_ = entry->next_obj_;
@@ -1171,9 +1685,15 @@ vm_obj_id_t CVmObjTable::alloc_obj(VMG_ int in_root_set,
  */
 void CVmObjTable::gc_before_alloc(VMG0_)
 {
+    /* count it if in statistics mode */
+    IF_GC_STATS(gc_stats.begin_pass());
+
     /* run a full garbage collection pass */
     gc_pass_init(vmg0_);
     gc_pass_finish(vmg0_);
+
+    /* count it if in statistics mode */
+    IF_GC_STATS(gc_stats.end_pass());
 }
 
 /*
@@ -1364,8 +1884,11 @@ void CVmObjTable::alloc_new_page()
     {
         /* mark the object as free so we don't try to free it later */
         entry->free_ = TRUE;
-        
-        /* don't put the invalid object in the free list */
+
+        /* ...and it's certainly not a collectable object */
+        entry->in_root_set_ = TRUE;
+
+        /* skip it for the impending free list construction */
         ++i;
         ++entry;
         ++id;
@@ -1451,12 +1974,18 @@ void CVmObjTable::add_to_globals(vm_obj_id_t obj)
  */
 void CVmObjTable::gc_full(VMG0_)
 {
+    /* count it if in statistics mode */
+    IF_GC_STATS(gc_stats.begin_pass());
+
     /* 
      *   run the initial pass to mark globally-reachable objects, then run
      *   the garbage collector to completion 
      */
     gc_pass_init(vmg0_);
     gc_pass_finish(vmg0_);
+
+    /* count it if in statistics mode */
+    IF_GC_STATS(gc_stats.end_pass());
 }
 
 /*
@@ -1477,6 +2006,7 @@ void CVmObjTable::gc_pass_init(VMG0_)
      *   since this gc pass yet 
      */
     allocs_since_gc_ = 0;
+    bytes_since_gc_ = 0;
 
     /* trace objects reachable from the stack */
     gc_trace_stack(vmg0_);
@@ -1634,6 +2164,9 @@ void CVmObjTable::gc_pass_finish(VMG0_)
                          */
                         entry->finalize_state_ = VMOBJ_FINALIZED;
                     }
+
+                    /* count it as a collected object */
+                    IF_GC_STATS(gc_stats.count_free());
                 }
 
                 /*
@@ -1942,6 +2475,33 @@ void CVmObjTable::notify_new_savept()
 }
 
 /*
+ *   Call a callback for each object in the table 
+ */
+void CVmObjTable::for_each(VMG_ void (*func)(VMG_ vm_obj_id_t, void *),
+                           void *ctx)
+{
+    CVmObjPageEntry **pg;
+    size_t i;
+    vm_obj_id_t id;
+
+    /* go through each page in the object table */
+    for (id = 0, i = pages_used_, pg = pages_ ; i > 0 ; ++pg, --i)
+    {
+        /* start at the start of the page */
+        size_t j = VM_OBJ_PAGE_CNT;
+        CVmObjPageEntry *entry = *pg;
+
+        /* go through each entry on this page */
+        for ( ; j > 0 ; --j, ++entry, ++id)
+        {
+            /* if this entry is in use, invoke the callback */
+            if (!entry->free_)
+                (*func)(vmg_ id, ctx);
+        }
+    }
+}
+
+/*
  *   Apply undo 
  */
 void CVmObjTable::apply_undo(VMG_ CVmUndoRecord *rec)
@@ -2071,8 +2631,6 @@ void CVmObjFixup::add_fixup(vm_obj_id_t old_id, vm_obj_id_t new_id)
  */
 vm_obj_id_t CVmObjFixup::get_new_id(VMG_ vm_obj_id_t old_id)
 {
-    obj_fixup_entry *entry;
-    
     /* 
      *   if it's a root-set object, don't bother even trying to translate
      *   it, because root-set objects have stable ID's that never change on
@@ -2083,7 +2641,7 @@ vm_obj_id_t CVmObjFixup::get_new_id(VMG_ vm_obj_id_t old_id)
         return old_id;
 
     /* find the entry by the object ID */
-    entry = find_entry(old_id);
+    obj_fixup_entry *entry = find_entry(old_id);
     
     /* 
      *   if we found it, return the new ID; otherwise, return the old ID
@@ -2097,20 +2655,15 @@ vm_obj_id_t CVmObjFixup::get_new_id(VMG_ vm_obj_id_t old_id)
  */
 obj_fixup_entry *CVmObjFixup::find_entry(vm_obj_id_t old_id)
 {
-    ulong lo;
-    ulong hi;
-    ulong cur;
-
     /* do a binary search for the entry */
-    lo = 0;
-    hi = cnt_ - 1;
+    ulong cur;
+    ulong lo = 0;
+    ulong hi = cnt_ - 1;
     while (lo <= hi)
     {
-        obj_fixup_entry *entry;
-
         /* split the difference */
         cur = lo + (hi - lo)/2;
-        entry = get_entry(cur);
+        obj_fixup_entry *entry = get_entry(cur);
         
         /* is it the one we're looking for? */
         if (entry->old_id == old_id)
@@ -2289,7 +2842,7 @@ void CVmObjTable::save(VMG_ CVmFile *fp)
     toc_cnt = 0;
     save_cnt = 0;
     toc_cnt_pos = fp->get_pos();
-    fp->write_int4(0);
+    fp->write_uint4(0);
 
     /* now scan the object pages and save the table of contents */
     for (id = 0, i = pages_used_, pg = pages_ ; i > 0 ; ++pg, --i)
@@ -2318,8 +2871,8 @@ void CVmObjTable::save(VMG_ CVmFile *fp)
                     flags |= VMOBJ_TOC_TRANSIENT;
 
                 /* write the object ID and flags */
-                fp->write_int4(id);
-                fp->write_int4(flags);
+                fp->write_uint4(id);
+                fp->write_uint4(flags);
 
                 /* count it */
                 ++toc_cnt;
@@ -2334,11 +2887,11 @@ void CVmObjTable::save(VMG_ CVmFile *fp)
     /* go back and fix up the size prefix for the table of contents */
     end_pos = fp->get_pos();
     fp->set_pos(toc_cnt_pos);
-    fp->write_int4(toc_cnt);
+    fp->write_uint4(toc_cnt);
     fp->set_pos(end_pos);
 
     /* write the saveable object count, which we calculated above */
-    fp->write_int4(save_cnt);
+    fp->write_uint4(save_cnt);
 
     /* scan all object pages, and save each reachable object */
     for (id = 0, i = pages_used_, pg = pages_ ; i > 0 ; ++pg, --i)
@@ -2353,7 +2906,7 @@ void CVmObjTable::save(VMG_ CVmFile *fp)
                 char buf[2];
                 
                 /* write the object ID */
-                fp->write_int4(id);
+                fp->write_uint4(id);
 
                 /* store the root-set flag */
                 buf[0] = (entry->in_root_set_ != 0);
@@ -2407,7 +2960,7 @@ int CVmObjTable::restore(VMG_ CVmFile *fp, CVmObjFixup **fixups)
     G_obj_table->reset_to_image(vmg0_);
 
     /* read the size of the table of contents */
-    cnt = (ulong)fp->read_int4();
+    cnt = fp->read_uint4();
 
     /* allocate the fixup table */
     *fixups = new CVmObjFixup(cnt);
@@ -2420,8 +2973,8 @@ int CVmObjTable::restore(VMG_ CVmFile *fp, CVmObjFixup **fixups)
         ulong flags;
         
         /* read the next entry */
-        old_id = (vm_obj_id_t)fp->read_int4();
-        flags = (ulong)fp->read_int4();
+        old_id = (vm_obj_id_t)fp->read_uint4();
+        flags = fp->read_uint4();
         
         /* 
          *   Allocate a new object ID for this entry.  If the object was
@@ -2444,7 +2997,7 @@ int CVmObjTable::restore(VMG_ CVmFile *fp, CVmObjFixup **fixups)
     }
     
     /* read the number of saved objects */
-    cnt = (ulong)fp->read_int4();
+    cnt = fp->read_uint4();
     
     /* read the objects */
     for ( ; cnt != 0 ; --cnt)
@@ -2456,7 +3009,7 @@ int CVmObjTable::restore(VMG_ CVmFile *fp, CVmObjFixup **fixups)
         CVmObject *obj;
         
         /* read the original object ID */
-        id = (vm_obj_id_t)fp->read_int4();
+        id = (vm_obj_id_t)fp->read_uint4();
 
         /* read the root-set flag and dependency table index */
         fp->read_bytes(buf, 2);
@@ -2878,9 +3431,8 @@ void CVmObjTable::pli_status_cb(void *ctx0, CVmHashEntry *entry0)
  */
 void CVmObjTable::pli_invoke_cb(void *ctx0, CVmHashEntry *entry0)
 {
-    pli_enum_ctx *ctx = (pli_enum_ctx *)ctx0;
     CVmHashEntryPLI *entry = (CVmHashEntryPLI *)entry0;
-    VMGLOB_PTR(ctx->globals);
+    VMGLOB_PTR(((pli_enum_ctx *)ctx0)->globals);
 
     /* invoke post-load initialization on the object */
     call_post_load_init(vmg_ entry);
@@ -2913,8 +3465,6 @@ CVmMemory::CVmMemory(VMG_ CVmVarHeap *varheap)
  */
 CVmVarHeapHybrid_hdr *CVmVarHeapHybrid_head::alloc(size_t)
 {
-    CVmVarHeapHybrid_hdr *ret;
-    
     /* if there isn't an entry, allocate another array */
     if (first_free_ == 0)
     {
@@ -2958,7 +3508,7 @@ CVmVarHeapHybrid_hdr *CVmVarHeapHybrid_head::alloc(size_t)
     }
     
     /* remember the return value */
-    ret = (CVmVarHeapHybrid_hdr *)first_free_;
+    CVmVarHeapHybrid_hdr *ret = (CVmVarHeapHybrid_hdr *)first_free_;
 
     /* 
      *   when we initialized or last freed this entry, we stored a pointer
@@ -2981,8 +3531,6 @@ CVmVarHeapHybrid_hdr *CVmVarHeapHybrid_head::alloc(size_t)
 void *CVmVarHeapHybrid_head::realloc(CVmVarHeapHybrid_hdr *mem, size_t siz,
                                      CVmObject *obj)
 {
-    void *new_mem;
-    
     /* 
      *   if the new block fits in our cell size, return the original
      *   memory unchanged; note that we must adjust the pointer so that we
@@ -2997,7 +3545,7 @@ void *CVmVarHeapHybrid_head::realloc(CVmVarHeapHybrid_hdr *mem, size_t siz,
      *   our own sub-block at all.  Allocate an entirely new block from
      *   the heap manager.
      */
-    new_mem = mem_mgr_->alloc_mem(siz, obj);
+    void *new_mem = mem_mgr_->alloc_mem(siz, obj);
 
     /* 
      *   Copy the old cell's contents to the new memory.  Note that the
@@ -3034,8 +3582,11 @@ void CVmVarHeapHybrid_head::free(CVmVarHeapHybrid_hdr *mem)
 /*
  *   construct
  */
-CVmVarHeapHybrid::CVmVarHeapHybrid()
+CVmVarHeapHybrid::CVmVarHeapHybrid(CVmObjTable *objtab)
 {
+    /* remember my object table */
+    objtab_ = objtab;
+
     /* set the cell heap count */
     cell_heap_cnt_ = 5;
 
@@ -3104,7 +3655,13 @@ void *CVmVarHeapHybrid::alloc_mem(size_t siz, CVmObject *)
 {
     CVmVarHeapHybrid_head **subheap;
     size_t i;
-    
+
+    /* count the gc statistics if desired */
+    IF_GC_STATS(gc_stats.count_alloc_bytes(siz));
+
+    /* count the allocation */
+    objtab_->count_alloc(siz);
+
     /* scan for a cell-based subheap that can handle the request */
     for (i = 0, subheap = cell_heaps_ ; i < cell_heap_cnt_ ; ++i, ++subheap)
     {
@@ -3116,7 +3673,11 @@ void *CVmVarHeapHybrid::alloc_mem(size_t siz, CVmObject *)
          *   header.  
          */
         if (siz <= (*subheap)->get_cell_size())
-            return (void *)((*subheap)->alloc(siz) + 1);
+        {
+            CVmVarHeapHybrid_hdr *hdr = (*subheap)->alloc(siz);
+            IF_GC_STATS(hdr->siz = siz);
+            return (void *)(hdr + 1);
+        }
     }
 
     /*
@@ -3126,7 +3687,9 @@ void *CVmVarHeapHybrid::alloc_mem(size_t siz, CVmObject *)
      *   follows our internal header, so we must adjust the return pointer
      *   accordingly.  
      */
-    return (void *)(malloc_heap_->alloc(siz) + 1);
+    CVmVarHeapHybrid_hdr *hdr = malloc_heap_->alloc(siz);
+    IF_GC_STATS(hdr->siz = siz);
+    return (void *)(hdr + 1);
 }
 
 /*
@@ -3138,10 +3701,23 @@ void *CVmVarHeapHybrid::realloc_mem(size_t siz, void *mem,
     CVmVarHeapHybrid_hdr *hdr;
 
     /* 
+     *   Count the allocation.  This isn't really a new allocation of 'siz'
+     *   bytes, since we're only expanding an object that already has a
+     *   non-zero size.  But in many cases this will simply allocate new
+     *   memory anyway, copying the old object into the new memory, so it
+     *   could actually count against our OS-level working set.  That makes
+     *   it worthwhile to count it against the GC quota.  
+     */
+    objtab_->count_alloc(siz);
+
+    /* 
      *   get the block header, which immediately precedes the
      *   caller-visible block 
      */
     hdr = ((CVmVarHeapHybrid_hdr *)mem) - 1;
+
+    /* count the gc statistics if desired */
+    IF_GC_STATS((gc_stats.count_realloc_bytes(hdr->siz, siz), hdr->siz = siz));
 
     /*
      *   read the header to get the block manager that originally
@@ -3162,6 +3738,9 @@ void CVmVarHeapHybrid::free_mem(void *mem)
      *   caller-visible block 
      */
     hdr = ((CVmVarHeapHybrid_hdr *)mem) - 1;
+
+    /* count the gc statistics if desired */
+    IF_GC_STATS(gc_stats.count_free_bytes(hdr->siz));
 
     /* 
      *   read the header to get the block manager that originally

@@ -253,10 +253,10 @@ int main(int argc,char *argv[])
 
   build_trans_ascii();
 
-//  printf("agt2agx: Convert AGT game files into AGX files\n");
-//  printf("%s\n",version_str);
-//  printf("  Copyright (C) 1996-1999,2001 Robert Masenten\n");
-//  printf("[%s]\n\n",portstr);
+  printf("agt2agx: Convert AGT game files into AGX files\n");
+  printf("%s\n",version_str);
+  printf("  Copyright (C) 1996-1999,2001 Robert Masenten\n");
+  printf("[%s]\n\n",portstr);
 
   outname=gamefile=NULL;
   for(i=1;i<argc;i++)

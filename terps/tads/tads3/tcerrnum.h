@@ -219,6 +219,24 @@ Modified
 /* unmappable character */
 #define TCERR_UNMAPPABLE_CHAR     10062
 
+/* decimal digit found in octal constant */
+#define TCERR_DECIMAL_IN_OCTAL    10063
+
+/* '<>' operator is obsolete */
+#define TCERR_LTGT_OBSOLETE       10064
+
+/* integer constant exceeds maximum value (promoting to BigNumber) */
+#define TCERR_INT_CONST_OV        10065
+
+/* unrecognized escape sequence \%c in string */
+#define TCERR_BACKSLASH_SEQ       10066
+
+/* non-ASCII character in symbol */
+#define TCERR_NON_ASCII_SYMBOL    10067
+
+/* embedded expressions in string nested too deeply */
+#define TCERR_EMBEDDING_TOO_DEEP  10068
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -279,6 +297,9 @@ Modified
 /* "source-file-name (from library library-name)" */
 #define TCERR_SOURCE_FROM_LIB      10609
 
+/* cannot create directory "%s" */
+#define TCERR_CANNOT_CREATE_DIR    10610
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -331,7 +352,7 @@ Modified
 #define TCERR_EXPECTED_SEMI       11015
 
 /* expected ">>" and the continuation of the string, found "%.*s" */
-#define TCERR_EXPECTED_DSTR_CONT  11016
+#define TCERR_EXPECTED_STR_CONT   11016
 
 /* expected ',' in argument list, found "%.*s" */
 #define TCERR_EXPECTED_ARG_COMMA  11017
@@ -413,9 +434,6 @@ Modified
 
 /* expected '(' after 'if', but found "%.*s" */
 #define TCERR_REQ_LPAR_IF         11043
-
-/* expected ')' after 'if' condition, but found "%.*s" */
-#define TCERR_REQ_RPAR_IF         11043
 
 /* misplaced 'else' */
 #define TCERR_MISPLACED_ELSE      11044
@@ -894,9 +912,6 @@ Modified
 /* intrinsic superclass "%.*s" undefined */
 #define TCERR_INTRINS_SUPERCLASS_UNDEF  11202
 
-/* intrinsic class superclass "%.*s" is not an intrinsic class */
-#define TCERR_INTRINS_SUPERCLASS_NOT_INTRINS  11202
-
 /* grammar rule ends with '|' */
 #define TCERR_GRAMMAR_ENDS_WITH_OR  11203
 
@@ -905,6 +920,105 @@ Modified
 
 /* empty template definition */
 #define TCERR_TEMPLATE_EMPTY        11205
+
+/* expected ')' after 'if' condition, but found "%.*s" */
+#define TCERR_REQ_RPAR_IF         11206
+
+/* intrinsic class superclass "%.*s" is not an intrinsic class */
+#define TCERR_INTRINS_SUPERCLASS_NOT_INTRINS  11207
+
+/* function redefined as multimethod */
+#define TCERR_FUNC_REDEF_AS_MULTIMETHOD   11208
+
+/* "multimethod" declaration not allowed in this context */
+#define TCERR_MULTIMETHOD_NOT_ALLOWED   11209
+
+/* multi-method parameter type %.*s is not an object */
+#define TCERR_MMPARAM_NOT_OBJECT   11210
+
+/* type name missing in inherited<> type list */
+#define TCERR_MMINH_MISSING_ARG_TYPE   11211
+
+/* comma is missing in inherited<> type list */
+#define TCERR_MMINH_MISSING_COMMA      11212
+
+/* '>' is missing at end of inherited<> type list */
+#define TCERR_MMINH_MISSING_GT         11213
+
+/* argument list is missing after inherited<> */
+#define TCERR_MMINH_MISSING_ARG_LIST   11214
+
+/* "..." cannot be used with a named argument value */
+#define TCERR_NAMED_ARG_NO_ELLIPSIS    11215
+
+/* argument %.*s must be optional */
+#define TCERR_ARG_MUST_BE_OPT          11216
+
+/* named argument '%.*s' has a type - named arguments can't be typed */
+#define TCERR_NAMED_ARG_NO_TYPE        11217
+
+/* expected -> instead of ',' after %dth element in LookupTable list */
+#define TCERR_LOOKUP_LIST_EXPECTED_ARROW   11218
+
+/* found -> in a list that appeared to be an ordinary list */
+#define TCERR_ARROW_IN_LIST            11219
+
+/* misplaced -> in a LookupTable list after %dth element */
+#define TCERR_MISPLACED_ARROW_IN_LIST  11220
+
+/* expected end of list after default value */
+#define TCERR_LOOKUP_LIST_EXPECTED_END_AT_DEF 11221
+
+/* 'operator' not valid within a 'propertyset' */
+#define TCERR_OPER_IN_PROPSET          11222
+
+/* expected ']' in 'operator []' */
+#define TCERR_EXPECTED_RBRACK_IN_OP    11223
+
+/* invalid operator overloading */
+#define TCERR_BAD_OP_OVERLOAD          11224
+
+/* wrong number of arguments for overloaded operator */
+#define TCERR_OP_OVERLOAD_WRONG_FORMALS  11225
+
+/* can't define new global symbols at run-time */
+#define TCERR_RT_CANNOT_DEFINE_GLOBALS 11226
+
+/* 'for..in' variable %.*s is not defined as a local variable */
+#define TCERR_FOR_IN_NOT_LOCAL         11227
+
+/* 
+ *   unexpected '%.*s' in << >> expression in string (mismatched 'end',
+ *   'else', 'default', etc) 
+ */
+#define TCERR_BAD_EMBED_END_TOK        11228
+
+/* expected << at start of string template found '%.*s' */
+#define TCERR_STRTPL_MISSING_LANGLE    11229
+
+/* expected >> at end of string template, found '%.*s' */
+#define TCERR_STRTPL_MISSING_RANGLE    11230
+
+/* only one '*' is allowed in a string template */
+#define TCERR_STRTPL_MULTI_STAR        11231
+
+/* 
+ *   wrong prototype for string template processor function %.*s - expected
+ *   %d parameters and a return value 
+ */
+#define TCERR_STRTPL_FUNC_MISMATCH     11232
+
+/* invalid defined() syntax */
+#define TCERR_DEFINED_SYNTAX           11233
+
+/* invalid __objref() syntax */
+#define TCERR___OBJREF_SYNTAX          11234
+
+/* invalid constant value type for operator */
+#define TCERR_BAD_OP_FOR_FLOAT         11235
+
+/* expected inline object property list starting with '{', found '%.*s' */
+#define TCERR_INLINE_OBJ_REQ_LBRACE    11236
 
 
 /* ------------------------------------------------------------------------ */
@@ -1029,7 +1143,7 @@ Modified
 /* expression on right of assignment operator has no value */
 #define TCERR_ASI_EXPR_HAS_NO_VAL 11538
 
-/* wrong number of arguments to function %.*s: %d required, %d actual */
+/* wrong number of arguments to function %.*s: %s required, %d actual */
 #define TCERR_WRONG_ARGC_FOR_FUNC 11539
 
 /* transfer into 'finally' block via 'goto' is not allowed */
@@ -1082,6 +1196,39 @@ Modified
 
 /* cannot apply 'new' to this symbol (not a TadsObject object) */
 #define TCERR_BAD_META_FOR_NEW    11556
+
+/* inherited<> type token is not an object name */
+#define TCERR_MMINH_TYPE_NOT_OBJ  11557
+
+/* inherited<> invalid in this context */
+#define TCERR_MMINH_BAD_CONTEXT   11558
+
+/* multi-method 'inherited' missing support function %.*s */
+#define TCERR_MMINH_MISSING_SUPPORT_FUNC    11559
+
+/* inherited<> function not found */
+#define TCERR_MMINH_UNDEF_FUNC    11560
+
+/* named parameter support function %.*s missing */
+#define TCERR_NAMED_PARAM_MISSING_FUNC  11561
+
+/* optional parameter support function %.*s missing */
+#define TCERR_OPT_PARAM_MISSING_FUNC  11562
+
+/* <<one of>> requires class OneOfIndexGen to be defined */
+#define TCERR_ONEOF_REQ_GENCLS     11563
+
+/* <<one of>> requires getNextIndex to be a property name */
+#define TCERR_ONEOF_REQ_GETNXT     11564
+
+/* metaclass %.*s is not defined in this module */
+#define TCERR_EXT_METACLASS        11565
+
+/* cannot call extern function without an argument list prototype */
+#define TCERR_FUNC_CALL_NO_PROTO   11566
+
+/* %.*s is not defined or is not a metaclass */
+#define TCERR_UNDEF_METACLASS      11567
 
 
 /* ------------------------------------------------------------------------ */
@@ -1188,6 +1335,15 @@ Modified
 /* macro name too long in object file debug records */
 #define TCERR_OBJFILE_MACRO_SYM_TOO_LONG  11823
 
+/* conflicting definitions of %.*s as ordinary function and as multi-method */
+#define TCERR_OBJFILE_MMFUNC_INCOMPAT  11824
+
+/* multi-method parameter type %.*s in function %.*s is not an object */
+#define TCERR_OBJFILE_MMPARAM_NOT_OBJECT  11825
+
+/* multi-method registration function %s is missing or invalid */
+#define TCERR_MISSING_MMREG  11826
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -1239,7 +1395,8 @@ Modified
 /* symbol "%.*s" cannot be exported - reserved for compiler use */
 #define TCERR_RESERVED_EXPORT     15015
 
-/* unused - 15016 */
+/* expression too complex */
+#define TCERR_EXPR_TOO_COMPLEX    15016
 
 /* property 'construct' is not defined */
 #define TCERR_CONSTRUCT_NOT_DEFINED 15017
@@ -1252,6 +1409,19 @@ Modified
 
 /* 'finalize' is not a property */
 #define TCERR_FINALIZE_NOT_PROP 15020
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Javascript code generator errors 
+ */
+
+/* invalid expression template */
+#define TCERR_BAD_JS_TPL   16000
+
+/* expression template expansion overflow */
+#define TCERR_JS_EXPR_EXPAN_OVF  16001
+
 
 #endif /* TCERRNUM_H */
 

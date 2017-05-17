@@ -6,14 +6,20 @@
 
 \*----------------------------------------------------------------------*/
 
-#include "sysdep.h"
-#include "types.h"
-#include "main.h"
-#include "exe.h"
-#include "set.h"
-#include "readline.h"
-#include "syserr.h"
+#include "save.h"
 
+#include "current.h"
+#include "lists.h"
+#include "readline.h"
+#include "options.h"
+#include "syserr.h"
+#include "instance.h"
+#include "memory.h"
+#include "output.h"
+#include "args.h"
+#include "score.h"
+#include "event.h"
+#include "msg.h"
 
 #ifndef HAVE_GLK
 static char saveFileName[256];
@@ -33,8 +39,8 @@ static void saveStrings(AFILE saveFile) {
 
   if (header->stringInitTable != 0)
     for (initEntry = (StringInitEntry *)pointerTo(header->stringInitTable);
-	 !endOfTable(initEntry); initEntry++) {
-      char *attr = (char *)getStringAttribute(initEntry->instanceCode, initEntry->attributeCode);
+	 !isEndOfArray(initEntry); initEntry++) {
+      char *attr = (char *)getInstanceStringAttribute(initEntry->instanceCode, initEntry->attributeCode);
       Aint length = strlen(attr) + 1;
       fwrite((void *)&length, sizeof(length), 1, saveFile);
       fwrite((void *)attr, 1, length, saveFile);
@@ -48,8 +54,8 @@ static void saveSets(AFILE saveFile) {
 
   if (header->setInitTable != 0)
     for (initEntry = (SetInitEntry *)pointerTo(header->setInitTable);
-	 !endOfTable(initEntry); initEntry++) {
-      Set *attr = (Set *)getSetAttribute(initEntry->instanceCode, initEntry->attributeCode);
+	 !isEndOfArray(initEntry); initEntry++) {
+      Set *attr = (Set *)getInstanceSetAttribute(initEntry->instanceCode, initEntry->attributeCode);
       fwrite((void *)&attr->size, sizeof(attr->size), 1, saveFile);
       fwrite((void *)attr->members, sizeof(attr->members[0]), attr->size, saveFile);
     }
@@ -116,7 +122,7 @@ static void saveGame(AFILE saveFile) {
 }
 
 
-/*----------------------------------------------------------------------*/
+/*======================================================================*/
 void save(void)
 {
 #ifdef HAVE_GLK
@@ -151,7 +157,7 @@ void save(void)
   if ((saveFile = fopen(str, READ_MODE)) != NULL)
     /* It already existed */
     if (!confirm(M_SAVEOVERWRITE))
-      error(MSGMAX);            /* Return to player without saying anything */
+      abortPlayerCommand();            /* Return to player without saying anything */
   if ((saveFile = fopen(str, WRITE_MODE)) == NULL)
     error(M_SAVEFAILED);
   strcpy(saveFileName, str);
@@ -169,13 +175,13 @@ static void restoreStrings(AFILE saveFile) {
 
   if (header->stringInitTable != 0)
     for (initEntry = (StringInitEntry *)pointerTo(header->stringInitTable);
-	 !endOfTable(initEntry); initEntry++) {
+	 !isEndOfArray(initEntry); initEntry++) {
       Aint length;
       char *string;
       fread((void *)&length, sizeof(Aint), 1, saveFile);
       string = allocate(length+1);
       fread((void *)string, 1, length, saveFile);
-      setValue(initEntry->instanceCode, initEntry->attributeCode, (Aword)string);
+      setInstanceAttribute(initEntry->instanceCode, initEntry->attributeCode, (Aptr)string);
     }
 }
 
@@ -186,7 +192,7 @@ static void restoreSets(AFILE saveFile) {
 
   if (header->setInitTable != 0)
     for (initEntry = (SetInitEntry *)pointerTo(header->setInitTable);
-	 !endOfTable(initEntry); initEntry++) {
+	 !isEndOfArray(initEntry); initEntry++) {
       Aint setSize;
       Set *set;
       int i;
@@ -198,7 +204,7 @@ static void restoreSets(AFILE saveFile) {
 	fread((void *)&member, sizeof(member), 1, saveFile);
 	addToSet(set, member);
       }
-      setValue(initEntry->instanceCode, initEntry->attributeCode, (Aword)set);
+      setInstanceAttribute(initEntry->instanceCode, initEntry->attributeCode, (Aptr)set);
     }
 }
 
@@ -216,7 +222,7 @@ static void restoreEventQueue(AFILE saveFile) {
     free(eventQueue);
     eventQueue = allocate(eventQueueTop*sizeof(eventQueue[0]));
   }
-  fread((void *)&eventQueue[eventQueueTop], sizeof(eventQueue[0]), eventQueueTop, saveFile);
+  fread((void *)&eventQueue[0], sizeof(eventQueue[0]), eventQueueTop, saveFile);
 }
 
 
@@ -312,7 +318,7 @@ static void restoreGame(AFILE saveFile)
 }
 
 
-/*----------------------------------------------------------------------*/
+/*======================================================================*/
 void restore(void)
 {
 #ifdef HAVE_GLK
@@ -321,6 +327,7 @@ void restore(void)
   saveFileRef = glk_fileref_create_by_prompt(fileusage_SavedGame, filemode_Read, 0);
   if (saveFileRef == NULL) return;
   saveFile = glk_stream_open_file(saveFileRef, filemode_Read, 0);
+  if (saveFile == NULL) return;
 
 #else
   char str[1000];
@@ -341,11 +348,10 @@ void restore(void)
   gets(str);
 #endif
 
-  if (str[0] == '\0')
-    strcpy(str, saveFileName);
   col = 1;
-  if (str[0] == '\0')
-    strcpy(str, saveFileName);        /* Use the name temporarily */
+  if (str[0] == '\0') {
+    strcpy(str, saveFileName);
+  }
   if ((saveFile = fopen(str, READ_MODE)) == NULL)
     error(M_SAVEMISSING);
   strcpy(saveFileName, str);          /* Save it for future use */

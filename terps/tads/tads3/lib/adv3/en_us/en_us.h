@@ -116,14 +116,14 @@ Exitable template ->connector inherited;
  *   For TravelMessage connectors, provide special syntax to specify the
  *   message and point to the destination. 
  */
-TravelMessage template ->destination "travelDesc";
+TravelMessage template ->destination "travelDesc" | [eventList];
 
 /*
  *   For connectors that don't go anywhere but do show a message on a travel
  *   attempt, we just need to specify the travel message. 
  */
-NoTravelMessage template "travelDesc";
-DeadEndConnector template 'apparentDestName'? "travelDesc";
+NoTravelMessage template "travelDesc" | [eventList];
+DeadEndConnector template 'apparentDestName'? "travelDesc" | [eventList];
 
 /* 
  *   Unthings are defined pretty much like Things, except they have no use

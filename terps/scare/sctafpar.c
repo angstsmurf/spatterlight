@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -32,11 +32,11 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <string.h>
-#include <stdio.h>
 #include <limits.h>
 #include <setjmp.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "scare.h"
 #include "scprotos.h"
@@ -51,9 +51,9 @@ enum
 
 /* Multiline separator sequences for the various versions supported. */
 enum { SEPARATOR_SIZE = 3 };
-static const sc_byte V400_SEPARATOR[SEPARATOR_SIZE] = { 0xbd, 0xd0, 0x00 };
-static const sc_byte V390_SEPARATOR[SEPARATOR_SIZE] = { 0x2a, 0x2a, 0x00 };
-static const sc_byte V380_SEPARATOR[SEPARATOR_SIZE] = { 0x2a, 0x2a, 0x00 };
+static const sc_byte V400_SEPARATOR[SEPARATOR_SIZE] = {0xbd, 0xd0, 0x00};
+static const sc_byte V390_SEPARATOR[SEPARATOR_SIZE] = {0x2a, 0x2a, 0x00};
+static const sc_byte V380_SEPARATOR[SEPARATOR_SIZE] = {0x2a, 0x2a, 0x00};
 
 
 /*
@@ -381,7 +381,6 @@ static sc_int parse_depth = 0;
 static void
 parse_push_key (sc_vartype_t vt_key, sc_char type)
 {
-
   if (parse_depth == PARSE_MAX_DEPTH)
     sc_fatal ("parse_push_key: stack overrun\n");
 
@@ -527,6 +526,25 @@ parse_get_property (sc_vartype_t *vt_rvalue, sc_char type)
   status = prop_get (parse_bundle, format, vt_rvalue, vt_key);
 
   return status;
+}
+
+
+/*
+ * parse_get_child_count()
+ *
+ * Convenience form of parse_get_property(), retrieve an integer property
+ * indicating the child count of the effectively stacked node, or zero if
+ * no such node exists.
+ */
+static sc_int
+parse_get_child_count (void)
+{
+  sc_vartype_t vt_rvalue;
+
+  if (!parse_get_property (&vt_rvalue, PROP_INTEGER))
+    vt_rvalue.integer = 0;
+
+  return vt_rvalue.integer;
 }
 
 
@@ -754,25 +772,16 @@ parse_array (const sc_char *array)
 
 
 /*
+ * parse_vector_common()
  * parse_vector()
+ * parse_vector_alternate()
  *
  * Parse a variable-length vector of properties.
  */
 static void
-parse_vector (const sc_char *vector, sc_bool is_offset)
+parse_vector_common (const sc_char *vector, sc_int count)
 {
-  sc_int count, index_;
-
-  if (parse_trace)
-    sc_trace ("Parse: entering vector %s\n", vector);
-
-  /*
-   * Find the count of elements in the vector, and adjust if this is a vector
-   * described by size - 1.
-   */
-  count = parse_get_taf_integer ();
-  if (is_offset)
-    count++;
+  sc_int index_;
 
   /* Parse the vector property count times, pushing a key on each. */
   for (index_ = 0; index_ < count; index_++)
@@ -786,9 +795,38 @@ parse_vector (const sc_char *vector, sc_bool is_offset)
 
       parse_pop_key ();
     }
+}
+
+static void
+parse_vector (const sc_char *vector)
+{
+  sc_int count;
+
+  if (parse_trace)
+    sc_trace ("Parse: entering vector %s\n", vector);
+
+  /* Find the count of elements in the vector, and parse. */
+  count = parse_get_taf_integer ();
+  parse_vector_common (vector, count);
 
   if (parse_trace)
     sc_trace ("Parse: leaving vector %s\n", vector);
+}
+
+static void
+parse_vector_alternate (const sc_char *vector)
+{
+  sc_int count;
+
+  if (parse_trace)
+    sc_trace ("Parse: entering alternate vector %s\n", vector);
+
+  /* Element count, this is a vector described by size - 1. */
+  count = parse_get_taf_integer () + 1;
+  parse_vector_common (vector, count);
+
+  if (parse_trace)
+    sc_trace ("Parse: leaving alternate vector %s\n", vector);
 }
 
 
@@ -1543,7 +1581,7 @@ parse_fixup_v390_v380_room_alt (const sc_char *m1, sc_int type,
                                 const sc_char *changed,
                                 sc_int var3, sc_int display_room)
 {
-  sc_vartype_t vt_key, vt_value, vt_rvalue, vt_gkey[2];
+  sc_vartype_t vt_key, vt_value, vt_gkey[2];
   sc_bool has_sound, has_graphics;
   sc_int alt_count;
   const sc_char *soundfile1, *graphicfile1;
@@ -1569,8 +1607,7 @@ parse_fixup_v390_v380_room_alt (const sc_char *m1, sc_int type,
   /* Get a count of alts so far defined for the room. */
   vt_key.string = "Alts";
   parse_push_key (vt_key, PROP_KEY_STRING);
-  alt_count =
-    (parse_get_property (&vt_rvalue, PROP_INTEGER)) ? vt_rvalue.integer : 0;
+  alt_count = parse_get_child_count ();
   parse_pop_key ();
 
   /*
@@ -1972,14 +2009,13 @@ parse_fixup_v390 (const sc_char *fixup)
   /* Create a RestrMask that 'and's all the restrictions together. */
   else if (strcmp (fixup, "|V390_TASK:$RestrMask|") == 0)
     {
-      sc_vartype_t vt_key, vt_value, vt_rvalue;
+      sc_vartype_t vt_key, vt_value;
       sc_int restriction_count;
 
       /* Get a count of restrictions. */
       vt_key.string = "Restrictions";
       parse_push_key (vt_key, PROP_KEY_STRING);
-      restriction_count =
-        (parse_get_property (&vt_rvalue, PROP_INTEGER)) ? vt_rvalue.integer : 0;
+      restriction_count = parse_get_child_count ();
       parse_pop_key ();
 
       /* Allocate and fill a new mask for these restrictions. */
@@ -2061,14 +2097,13 @@ static void
 parse_fixup_v380_action (sc_int type, sc_int var_count,
                          sc_int var1, sc_int var2, sc_int var3)
 {
-  sc_vartype_t vt_key, vt_value, vt_rvalue;
+  sc_vartype_t vt_key, vt_value;
   sc_int action_count;
 
   /* Get a count of actions so far defined for the task. */
   vt_key.string = "Actions";
   parse_push_key (vt_key, PROP_KEY_STRING);
-  action_count =
-    (parse_get_property (&vt_rvalue, PROP_INTEGER)) ? vt_rvalue.integer : 0;
+  action_count = parse_get_child_count ();
   parse_pop_key ();
 
   /* Write actions key, reversed to emulate parse actions. */
@@ -2209,14 +2244,13 @@ parse_fixup_v380_restr (sc_int type, sc_int var_count,
                         sc_int var1, sc_int var2, sc_int var3,
                         const sc_char *failmessage)
 {
-  sc_vartype_t vt_key, vt_value, vt_rvalue;
+  sc_vartype_t vt_key, vt_value;
   sc_int restriction_count;
 
   /* Get a count of restrictions so far defined for the task. */
   vt_key.string = "Restrictions";
   parse_push_key (vt_key, PROP_KEY_STRING);
-  restriction_count =
-    (parse_get_property (&vt_rvalue, PROP_INTEGER)) ? vt_rvalue.integer : 0;
+  restriction_count = parse_get_child_count ();
   parse_pop_key ();
 
   /* Write restrictions key, reversed to emulate parse actions. */
@@ -2278,8 +2312,8 @@ parse_fixup_v380_restr (sc_int type, sc_int var_count,
  * Helper handlers for parse_fixup_v380(); create task restrictions.
  */
 static void
-parse_fixup_v380_obj_restr (sc_bool holding, sc_int holdobj,
-                            const sc_char *failmessage)
+parse_fixup_v380_obj_restr (sc_bool holding,
+                            sc_int holdobj, const sc_char *failmessage)
 {
   /* Ignore if no object selected. */
   if (holdobj > 0)
@@ -2648,7 +2682,7 @@ parse_fixup_v380 (const sc_char *fixup)
   /* Create version 4.0 task restrictions from a version 3.8 task. */
   else if (strcmp (fixup, "|V380_TASK:_Restrictions_|") == 0)
     {
-      sc_vartype_t vt_key, vt_value, vt_rvalue;
+      sc_vartype_t vt_key, vt_value;
       sc_bool holding, tasknotdone, notinsameroom;
       sc_int holdobj1, holdobj2, holdobj3, task;
       sc_int wearobj1, wearobj2, npc, obj1, obj1room, obj2;
@@ -2791,8 +2825,7 @@ parse_fixup_v380 (const sc_char *fixup)
       /* Get a count of restrictions created. */
       vt_key.string = "Restrictions";
       parse_push_key (vt_key, PROP_KEY_STRING);
-      restriction_count =
-        (parse_get_property (&vt_rvalue, PROP_INTEGER)) ? vt_rvalue.integer : 0;
+      restriction_count = parse_get_child_count ();
       parse_pop_key ();
 
       /* Allocate and fill a new mask for these restrictions. */
@@ -3068,10 +3101,10 @@ parse_element (const sc_char *element)
       parse_array (element);
       break;
     case PARSE_VECTOR:
-      parse_vector (element, FALSE);
+      parse_vector (element);
       break;
     case PARSE_VECTOR_ALTERNATE:
-      parse_vector (element, TRUE);
+      parse_vector_alternate (element);
       break;
     case PARSE_CLASS:
       parse_class (element);

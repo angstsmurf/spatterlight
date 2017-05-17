@@ -1688,6 +1688,14 @@ void os_plain(void)
 {
     /* set the 'plain' mode flag */
     os_f_plain = 1;
+
+    /* 
+     *   if we're running without a stdin, turn off pagination - since the
+     *   user won't be able to respond to [more] prompts, there's no reason
+     *   to show them 
+     */
+    if (oss_eof_on_stdin())
+        G_os_moremode = FALSE;
 }
 
 void os_printz(const char *str)
@@ -1983,6 +1991,9 @@ static osfar_t char S_hist_sav_internal[256];
 static osfar_t char *S_hist_sav = S_hist_sav_internal;
 static osfar_t size_t S_hist_sav_siz = sizeof(S_hist_sav_internal);
 # endif /* USE_HISTORY */
+
+/* strcpy with destination buffer size limit */
+extern void safe_strcpy(char *dst, size_t dstlen, const char *src);
 
 /*
  *   Flag: input is already in progress.  When os_gets_timeout() returns
@@ -2701,7 +2712,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
                 if (c == CMD_UP && !ossnxtcmd(S_gets_curhist))
                 {
                     /* first Up arrow - save current buffer */
-                    strcpy(S_hist_sav, (char *)buf);
+                    safe_strcpy(S_hist_sav, S_hist_sav_siz, (char *)buf);
                 }
 # endif /* USE_HISTORY */
                 while(p > buf)
@@ -2754,7 +2765,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
                     else
                     {
                         /* no more history - restore original line */
-                        strcpy((char *)buf, S_hist_sav);
+                        safe_strcpy((char *)buf, bufl, S_hist_sav);
                     }
                 }
                 if ((c == CMD_UP || c == CMD_DOWN)
@@ -3161,6 +3172,12 @@ int os_get_sysinfo(int code, void *param, long *result)
 void os_set_save_ext(const char *ext)
 {
     /* ignore the setting */
+}
+
+const char *os_get_save_ext()
+{
+    /* we ignore the setting, so always return null */
+    return 0;
 }
 
 

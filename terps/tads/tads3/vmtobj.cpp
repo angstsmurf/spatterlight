@@ -22,6 +22,7 @@ Modified
 
 #include <stdlib.h>
 #include <assert.h>
+#include <stdarg.h>
 
 #include "t3std.h"
 #include "vmglob.h"
@@ -37,299 +38,9 @@ Modified
 #include "vmpredef.h"
 #include "vmmeta.h"
 #include "vmlst.h"
-
-
-/* ------------------------------------------------------------------------ */
-/*
- *   object ID + pointer structure 
- */
-struct tadsobj_objid_and_ptr
-{
-    vm_obj_id_t id;
-    CVmObjTads *objp;
-};
-
-/*
- *   Cached superclass inheritance path.  This is a linear list, in
- *   inheritance search order, of the superclasses of a given object.  
- */
-struct tadsobj_inh_path
-{
-    /* number of path elements */
-    ushort cnt;
-
-    /* path elements (we overallocate the structure to the actual size) */
-    tadsobj_objid_and_ptr sc[1];
-};
-
-
-/* ------------------------------------------------------------------------ */
-/*
- *   Queue element for the inheritance path search queue
- */
-struct pfq_ele
-{
-    /* object ID of this element */
-    vm_obj_id_t obj;
-
-    /* pointer to the object */
-    CVmObjTads *objp;
-
-    /* next queue element */
-    pfq_ele *nxt;
-};
-
-/* allocation page */
-struct pfq_page
-{
-    /* next page in the list */
-    pfq_page *nxt;
-
-    /* the elements for this page */
-    pfq_ele eles[50];
-};
-
-/*
- *   Queue for search_for_prop().  This implements a special-purpose work
- *   queue that we use to keep track of the objects yet to be processed in
- *   our depth-first search across the inheritance tree.  
- */
-class CVmObjTadsInhQueue
-{
-public:
-    CVmObjTadsInhQueue()
-    {
-        /* there's nothing in the free list or the queue yet */
-        head_ = 0;
-        free_ = 0;
-
-        /* we have no elements yet */
-        alloc_ = 0;
-    }
-
-    ~CVmObjTadsInhQueue()
-    {
-        pfq_page *cur;
-        pfq_page *nxt;
-        
-        /* delete all of the allocated pages */
-        for (cur = alloc_ ; cur != 0 ; cur = nxt)
-        {
-            /* remember the next page */
-            nxt = cur->nxt;
-
-            /* free this page */
-            t3free(cur);
-        }
-    }
-
-    /* get the head of the queue */
-    pfq_ele *get_head() const { return head_; }
-
-    /* remove the head of the queue and return the object ID */
-    vm_obj_id_t remove_head()
-    {
-        /* if there's a head element, remove it */
-        if (head_ != 0)
-        {
-            pfq_ele *ele;
-
-            /* note the element */
-            ele = head_;
-
-            /* unlink it from the list */
-            head_ = head_->nxt;
-
-            /* link the element into the free list */
-            ele->nxt = free_;
-            free_ = ele;
-
-            /* return the object ID from the element we removed */
-            return ele->obj;
-        }
-        else
-        {
-            /* there's nothing in the queue */
-            return VM_INVALID_OBJ;
-        }
-    }
-
-    /* clear the queue */
-    void clear()
-    {
-        /* move everything from the queue to the free list */
-        while (head_ != 0)
-        {
-            pfq_ele *cur;
-
-            /* unlink this element from the queue */
-            cur = head_;
-            head_ = cur->nxt;
-
-            /* link it into the free list */
-            cur->nxt = free_;
-            free_ = cur;
-        }
-    }
-
-    /* determine if the queue is empty */
-    int is_empty() const
-    {
-        /* we're empty if there's no head element in the list */
-        return (head_ == 0);
-    }
-
-    /* allocate a path from the contents of the queue */
-    tadsobj_inh_path *create_path() const
-    {
-        ushort cnt;
-        pfq_ele *cur;
-        tadsobj_inh_path *path;
-        tadsobj_objid_and_ptr *dst;
-
-        /* count the elements in the queue */
-        for (cnt = 0, cur = head_ ; cur != 0 ; cur = cur->nxt)
-        {
-            /* only non-nil elements count */
-            if (cur->obj != VM_INVALID_OBJ)
-                ++cnt;
-        }
-
-        /* allocate the path */
-        path = (tadsobj_inh_path *)t3malloc(
-            sizeof(tadsobj_inh_path) + (cnt-1)*sizeof(path->sc[0]));
-
-        /* initialize the path */
-        path->cnt = cnt;
-        for (dst = path->sc, cur = head_ ; cur != 0 ; cur = cur->nxt)
-        {
-            /* only store non-nil elements */
-            if (cur->obj != VM_INVALID_OBJ)
-            {
-                dst->id = cur->obj;
-                dst->objp = cur->objp;
-                ++dst;
-            }
-        }
-
-        /* return the new path */
-        return path;
-    }
-
-    /*
-     *   Insert an object into the queue.  We'll insert after the given
-     *   element (null indicates that we insert at the head of the queue).
-     *   Returns a pointer to the newly-inserted element.  
-     */
-    pfq_ele *insert_obj(VMG_ vm_obj_id_t obj, CVmObjTads *objp,
-                        pfq_ele *ins_pt)
-    {
-        pfq_ele *ele;
-
-        /*
-         *   If the exact same element is already in the queue, delete the
-         *   old copy.  This will happen in situations where we have
-         *   multiple superclasses that all inherit from a common base
-         *   class: we want the common base class to come in inheritance
-         *   order after the last superclass that inherits from the common
-         *   base.  By deleting previous queue entries that match new queue
-         *   entries, we ensure that the common class will move to follow
-         *   (in inheritance order) the last class that derives from it.  
-         */
-        for (ele = head_ ; ele != 0 ; ele = ele->nxt)
-        {
-            /* if this is the same thing we're inserting, remove it */
-            if (ele->obj == obj)
-            {
-                /* 
-                 *   clear the element (don't unlink it, as this could cause
-                 *   confusion for the caller, who's tracking an insertion
-                 *   point and traversal point) 
-                 */
-                ele->obj = VM_INVALID_OBJ;
-                ele->objp = 0;
-
-                /* 
-                 *   no need to look any further - we know we can never have
-                 *   the same element appear twice in the queue, thanks to
-                 *   this very code 
-                 */
-                break;
-            }
-        }
-
-        /* allocate our new element */
-        ele = alloc_ele();
-        ele->obj = obj;
-        ele->objp = objp;
-
-        /* insert it at the insertion point */
-        if (ins_pt == 0)
-        {
-            /* insert at the head */
-            ele->nxt = head_;
-            head_ = ele;
-        }
-        else
-        {
-            /* insert after the selected item */
-            ele->nxt = ins_pt->nxt;
-            ins_pt->nxt = ele;
-        }
-
-        /* return the new element */
-        return ele;
-    }
-
-protected:
-    /* allocate a new element */
-    pfq_ele *alloc_ele()
-    {
-        pfq_ele *ele;
-
-        /* if we have nothing in the free list, allocate more elements */
-        if (free_ == 0)
-        {
-            pfq_page *pg;
-            size_t i;
-
-            /* allocate another page */
-            pg = (pfq_page *)t3malloc(sizeof(pfq_page));
-
-            /* link it into our master page list */
-            pg->nxt = alloc_;
-            alloc_ = pg;
-
-            /* link all of its elements into the free list */
-            for (ele = pg->eles, i = sizeof(pg->eles)/sizeof(pg->eles[0]) ;
-                 i != 0 ; --i, ++ele)
-            {
-                /* link this one into the free list */
-                ele->nxt = free_;
-                free_ = ele;
-            }
-        }
-
-        /* take the next element off the free list */
-        ele = free_;
-        free_ = free_->nxt;
-        
-        /* return the element */
-        return ele;
-    }
-
-    /* head of the active queue */
-    pfq_ele *head_;
-
-    /* head of the free element list */
-    pfq_ele *free_;
-
-    /*
-     *   Linked list of element pages.  We allocate memory for elements in
-     *   blocks, to reduce allocation overhead.  
-     */
-    pfq_page *alloc_;
-};
+#include "vmintcls.h"
+#include "vmbif.h"
+#include "vmstr.h"
 
 
 /* ------------------------------------------------------------------------ */
@@ -348,14 +59,16 @@ vm_tadsobj_hdr *vm_tadsobj_hdr::alloc(VMG_ CVmObjTads *self,
     vm_tadsobj_prop **hashp;
     
     /* 
-     *   Figure the size of the hash table to allocate.
-     *   
-     *   IMPORTANT: The hash table size is REQUIRED to be a power of 2.  We
-     *   assume this in calculating hash table indices, so if this
-     *   constraint is changed, the calc_hash() function must be changed
-     *   accordingly.  
+     *   Figure the size of the hash table to allocate.  Empirically, a good
+     *   size seems to be about one hash slot per property. 
      */
-    if (prop_cnt <= 16)
+    if (prop_cnt <= 2)
+        hash_siz = 2;
+    else if (prop_cnt <= 4)
+        hash_siz = 4;
+    else if (prop_cnt <= 8)
+        hash_siz = 8;
+    else if (prop_cnt <= 16)
         hash_siz = 16;
     else if (prop_cnt <= 32)
         hash_siz = 32;
@@ -520,14 +233,11 @@ vm_tadsobj_hdr *vm_tadsobj_hdr::expand_to(VMG_ CVmObjTads *self,
 vm_tadsobj_prop *vm_tadsobj_hdr::alloc_prop_entry(
     vm_prop_id_t prop, const vm_val_t *val, unsigned int flags)
 {
-    vm_tadsobj_prop *entry;
-    unsigned int hash;
-
     /* get the hash code for the property */
-    hash = calc_hash(prop);
+    unsigned int hash = calc_hash(prop);
 
     /* use the next free entry */
-    entry = &prop_entry_arr[prop_entry_free];
+    vm_tadsobj_prop *entry = &prop_entry_arr[prop_entry_free];
 
     /* link this entry into the list for its hash bucket */
     entry->nxt = hash_arr[hash];
@@ -550,16 +260,11 @@ vm_tadsobj_prop *vm_tadsobj_hdr::alloc_prop_entry(
 /*
  *   Find an entry 
  */
-inline vm_tadsobj_prop *vm_tadsobj_hdr::find_prop_entry(uint prop)
+vm_tadsobj_prop *vm_tadsobj_hdr::find_prop_entry(uint prop)
 {
-    unsigned int hash;
-    vm_tadsobj_prop *entry;
-
-    /* get the hash code for the property */
-    hash = calc_hash(prop);
-
     /* scan the list of entries in this bucket */
-    for (entry = hash_arr[hash] ; entry != 0 ; entry = entry->nxt)
+    for (vm_tadsobj_prop *entry = hash_arr[calc_hash(prop)] ;
+         entry != 0 ; entry = entry->nxt)
     {
         /* if this entry matches, return it */
         if (entry->prop == prop)
@@ -569,7 +274,6 @@ inline vm_tadsobj_prop *vm_tadsobj_hdr::find_prop_entry(uint prop)
     /* didn't find it */
     return 0;
 }
-
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -592,7 +296,9 @@ int (CVmObjTads::
     &CVmObjTads::getp_create_trans_instance,
     &CVmObjTads::getp_create_instance_of,
     &CVmObjTads::getp_create_trans_instance_of,
-    &CVmObjTads::getp_set_sc_list
+    &CVmObjTads::getp_set_sc_list,
+    &CVmObjTads::getp_get_method,
+    &CVmObjTads::getp_set_method
 };
 
 /*
@@ -613,7 +319,9 @@ const int PROPIDX_CREATE_TRANS_INSTANCE_OF = 5;
 void CVmObjTads::class_init(VMG0_)
 {
     /* allocate the inheritance analysis object */
-    G_tadsobj_queue = new CVmObjTadsInhQueue();
+    VM_IFELSE_ALLOC_PRE_GLOBAL(
+        G_tadsobj_queue = new CVmObjTadsInhQueue(),
+        G_tadsobj_queue->init());
 }
 
 /*
@@ -622,8 +330,10 @@ void CVmObjTads::class_init(VMG0_)
 void CVmObjTads::class_term(VMG0_)
 {
     /* delete the inheritance analysis object */
-    delete G_tadsobj_queue;
-    G_tadsobj_queue = 0;
+    VM_IF_ALLOC_PRE_GLOBAL(
+        delete G_tadsobj_queue;
+        G_tadsobj_queue = 0;
+    )
 }
 
 /* ------------------------------------------------------------------------ */
@@ -704,6 +414,7 @@ vm_obj_id_t CVmObjTads::create_from_stack_intern(
         vm_val_t id_val;
         const uchar *dummy_pc_ptr;
         uint caller_ofs;
+        vm_rcdesc rc, *rcp;
         
         /* use the null PC pointer if the caller didn't supply one */
         if (pc_ptr == 0)
@@ -711,11 +422,16 @@ vm_obj_id_t CVmObjTads::create_from_stack_intern(
             /* there's no caller PC pointer - use a dummy value */
             pc_ptr = &dummy_pc_ptr;
             caller_ofs = 0;
+
+            /* set up the recursive context */
+            rcp = &rc;
+            rc.init_ret(vmg_ "TadsObject.construct");
         }
         else
         {
             /* get the caller's offset */
             caller_ofs = G_interpreter->pc_to_method_ofs(*pc_ptr);
+            rcp = 0;
         }
 
         /* 
@@ -729,7 +445,7 @@ vm_obj_id_t CVmObjTads::create_from_stack_intern(
         id_val.set_obj(id);
         *pc_ptr = G_interpreter->get_prop(vmg_ caller_ofs, &srcobj_val,
                                           G_predef->obj_construct,
-                                          &id_val, argc);
+                                          &id_val, argc, rcp);
     }
     else
     {
@@ -785,39 +501,34 @@ vm_obj_id_t CVmObjTads::create(VMG_ int in_root_set,
 vm_obj_id_t CVmObjTads::create_from_stack_multi(
     VMG_ uint argc, int is_transient)
 {
-    vm_obj_id_t id;
-    CVmObjTads *obj;
-    ushort i;
-
     /* allocate an object ID */
-    id = vm_new_id(vmg_ FALSE, TRUE, FALSE);
+    vm_obj_id_t id = vm_new_id(vmg_ FALSE, TRUE, FALSE);
     if (is_transient)
         G_obj_table->set_obj_transient(id);
 
     /* create the new object */
-    obj = new (vmg_ id) CVmObjTads(vmg_ (ushort)argc, VMTOBJ_PROP_INIT);
+    CVmObjTads *obj = new (vmg_ id) CVmObjTads(
+        vmg_ (ushort)argc, VMTOBJ_PROP_INIT);
 
     /* push the new object, for garbage collector protection */
     G_interpreter->push_obj(vmg_ id);
 
     /* set the superclasses */
-    for (i = 0 ; i < argc ; ++i)
+    for (ushort i = 0 ; i < argc ; ++i)
     {
-        vm_val_t *arg;
-        vm_val_t sc;
-        const char *lstp;
-        
         /* 
          *   get this argument (it's at i+1 because of the extra item we
          *   pushed for gc protection) 
          */
-        arg = G_stk->get(i + 1);
+        vm_val_t *arg = G_stk->get(i + 1);
 
         /* 
          *   if it's a list, the superclass is the first element; otherwise,
          *   the argument is the superclass 
          */
-        if ((lstp = arg->get_as_list(vmg0_)) != 0)
+        vm_val_t sc;
+        const char *lstp = arg->get_as_list(vmg0_);
+        if (lstp != 0)
         {
             /* it's a list - the first element is the superclass */
             CVmObjList::index_list(vmg_ &sc, lstp, 1);
@@ -840,6 +551,9 @@ vm_obj_id_t CVmObjTads::create_from_stack_multi(
         obj->set_sc(vmg_ i, sc.val.obj);
     }
 
+    /* set up the resursive invocation context */
+    vm_rcdesc rc("TadsObject.contructMulti");
+
     /*
      *   The new object is ready to go.  All that remains is invoking any
      *   inherited construtors that the caller wants us to invoked.
@@ -847,30 +561,25 @@ vm_obj_id_t CVmObjTads::create_from_stack_multi(
      *   the corresponding superclass, so run through the arguments and
      *   invoke each indicated constructor.  
      */
-    for (i = 0 ; i < argc ; ++i)
+    for (ushort i = 0 ; i < argc ; ++i)
     {    
-        vm_val_t *arg;
-        vm_val_t sc;
-        const char *lstp;
-        uint lst_cnt;
-        uint j;
-        vm_val_t new_obj_val;
-
         /* get the next argument */
-        arg = G_stk->get(i + 1);
+        vm_val_t *arg = G_stk->get(i + 1);
 
         /* if it's not a list, we don't want to invoke this constructor */
-        if ((lstp = arg->get_as_list(vmg0_)) == 0)
+        const char *lstp = arg->get_as_list(vmg0_);
+        if (lstp == 0)
         {
             /* no constructor call is wanted - just keep going */
             continue;
         }
 
         /* get the superclass from the list */
+        vm_val_t sc;
         CVmObjList::index_list(vmg_ &sc, lstp, 1);
 
         /* get the number of list elements */
-        lst_cnt = vmb_get_len(lstp);
+        uint lst_cnt = vmb_get_len(lstp);
 
         /* make sure we have room to push the arguments */
         if (!G_stk->check_space(lst_cnt - 1))
@@ -881,7 +590,7 @@ vm_obj_id_t CVmObjTads::create_from_stack_multi(
          *   element, since it's the superclass itself rather than an
          *   argument to the constructor 
          */
-        for (j = lst_cnt ; j > 1 ; --j)
+        for (uint j = lst_cnt ; j > 1 ; --j)
             CVmObjList::index_and_push(vmg_ lstp, j);
 
         /* 
@@ -890,9 +599,10 @@ vm_obj_id_t CVmObjTads::create_from_stack_multi(
          *   but the 'target' object is the superclass whose constructor
          *   we're invoking. 
          */
+        vm_val_t new_obj_val;
         new_obj_val.set_obj(id);
         G_interpreter->get_prop(vmg_ 0, &sc, G_predef->obj_construct,
-                                &new_obj_val, lst_cnt - 1);
+                                &new_obj_val, lst_cnt - 1, &rc);
     }
 
     /* discard the arguments plus our own gc protection */
@@ -970,7 +680,10 @@ int CVmObjTads::has_finalizer(VMG_ vm_obj_id_t self)
      */
     return (G_predef->obj_destruct != VM_INVALID_PROP
             && get_prop(vmg_ G_predef->obj_destruct, &val, self, &srcobj, 0)
-            && (val.typ == VM_CODEOFS || val.typ == VM_NATIVE_CODE));
+            && (val.typ == VM_CODEOFS
+                || val.typ == VM_NATIVE_CODE
+                || val.typ == VM_OBJX
+                || val.typ == VM_BIFPTRX));
 }
 
 /* ------------------------------------------------------------------------ */
@@ -988,7 +701,10 @@ void CVmObjTads::invoke_finalizer(VMG_ vm_obj_id_t self)
      */
     if (G_predef->obj_destruct != VM_INVALID_PROP
         && get_prop(vmg_ G_predef->obj_destruct, &val, self, &srcobj, 0)
-        && (val.typ == VM_CODEOFS || val.typ == VM_NATIVE_CODE))
+        && (val.typ == VM_CODEOFS
+            || val.typ == VM_NATIVE_CODE
+            || val.typ == VM_OBJX
+            || val.typ == VM_BIFPTRX))
     {
         /* 
          *   invoke the finalizer in a protected frame, to ensure that we
@@ -998,7 +714,7 @@ void CVmObjTads::invoke_finalizer(VMG_ vm_obj_id_t self)
         {
             vm_val_t srcobj_val;
             vm_val_t self_val;
-            
+
             /* 
              *   Invoke the finalizer.  Use a recursive VM invocation,
              *   since the VM must return to the garbage collector, not to
@@ -1006,10 +722,11 @@ void CVmObjTads::invoke_finalizer(VMG_ vm_obj_id_t self)
              */
             srcobj_val.set_obj(srcobj);
             self_val.set_obj(self);
+            vm_rcdesc rc("TadsObject.finalize");
             G_interpreter->get_prop(vmg_ 0, &srcobj_val,
-                                    G_predef->obj_destruct, &self_val, 0);
+                                    G_predef->obj_destruct, &self_val, 0, &rc);
         }
-        err_catch(exc)
+        err_catch_disc
         {
             /* silently ignore the error */
         }
@@ -1044,14 +761,14 @@ void CVmObjTads::clear_undo_flags()
 void CVmObjTads::set_prop(VMG_ CVmUndo *undo, vm_obj_id_t self,
                           vm_prop_id_t prop, const vm_val_t *val)
 {
-    vm_tadsobj_prop *entry;
-    vm_val_t oldval;
+    /* get my header */
     vm_tadsobj_hdr *hdr = get_hdr();
 
     /* look for an existing property entry */
-    entry = hdr->find_prop_entry(prop);
+    vm_tadsobj_prop *entry = hdr->find_prop_entry(prop);
 
     /* check for an existing entry for the property */
+    vm_val_t oldval;
     if (entry != 0)
     {
         /* found an existing entry - note the old value */
@@ -1079,8 +796,13 @@ void CVmObjTads::set_prop(VMG_ CVmUndo *undo, vm_obj_id_t self,
         /* allocate a new entry */
         entry = hdr->alloc_prop_entry(prop, val, 0);
 
-        /* the old value didn't exist, so mark it emtpy */
+        /* 
+         *   The old value didn't exist, so mark it emtpy, with an intval of
+         *   zero.  The zero indicates that this is a newly created property
+         *   entry, and thus should be deleted on undo.  
+         */
         oldval.set_empty();
+        oldval.val.intval = 0;
     }
 
     /*
@@ -1100,19 +822,19 @@ void CVmObjTads::set_prop(VMG_ CVmUndo *undo, vm_obj_id_t self,
 
         /* 
          *   If the entry wasn't previously marked as modified, remember this
-         *   by storing an extra 'empty' undo record after the record we just
-         *   saved.  We undo in reverse order, so the extra empty record
-         *   won't actually have any effect on the property value - we'll
-         *   immediately overwrite it with the actual value we just stored
-         *   above.  However, whenever we see an empty record, we remove the
-         *   'modified' flag from the property, so this will have the effect
-         *   of undoing the modified flag.  Note that we don't need to bother
-         *   if the record we just stored was itself empty.
+         *   by storing an extra 'empty' undo record with intval 1 after the
+         *   record we just saved.  When we see an 'empty' undo value with an
+         *   intval of 1, we recognize it as this special marker that tells
+         *   us to remove the 'modified' flag from the property.  Note that
+         *   we don't need to bother if the old value was already empty,
+         *   since that deletes the whole property on undo, making the
+         *   'modified' flag irrelevant.  
          */
         if ((entry->flags & VMTO_PROP_MOD) == 0 && oldval.typ != VM_EMPTY)
         {
-            /* store an empty record to undo the 'modify' flag */
+            /* store an empty undo record with intval 1 */
             oldval.set_empty();
+            oldval.val.intval = 1;
             undo->add_new_record_prop_key(vmg_ self, prop, &oldval);
         }
     }
@@ -1120,8 +842,37 @@ void CVmObjTads::set_prop(VMG_ CVmUndo *undo, vm_obj_id_t self,
     /* mark the property entry as modified */
     entry->flags |= VMTO_PROP_MOD;
 
-    /* mark the entire object as modified */
-    hdr->intern_obj_flags |= VMTO_OBJ_MOD;
+    /* mark the overall object as modified */
+    mark_modified(vmg_ undo, self);
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Mark the object as modified 
+ */
+void CVmObjTads::mark_modified(VMG_ CVmUndo *undo, vm_obj_id_t self)
+{
+    /* get my header */
+    vm_tadsobj_hdr *hdr = get_hdr();
+
+    /* if we're not already marked as modified, set the flag */
+    if ((hdr->intern_obj_flags & VMTO_OBJ_MOD) == 0)
+    {
+        /* add the modified flag */
+        hdr->intern_obj_flags |= VMTO_OBJ_MOD;
+
+        /* add an undo record for it */
+        if (undo != 0)
+        {
+            /* 
+             *   property == 'invalid' and value == int(1) is our special
+             *   record indicating an unmodified-to-modified transition 
+             */
+            vm_val_t v;
+            v.set_int(1);
+            undo->add_new_record_prop_key(vmg_ self, VM_INVALID_PROP, &v);
+        }
+    }
 }
 
 /* ------------------------------------------------------------------------ */
@@ -1149,24 +900,15 @@ void CVmObjTads::build_prop_list(VMG_ vm_obj_id_t self, vm_val_t *retval)
     for (idx = 0, entry = hdr->prop_entry_arr ; cnt != 0 ;
          --cnt, ++entry)
     {
-        /* if this entry isn't empty, store it */
-        if (entry->val.typ != VM_EMPTY)
-        {
-            vm_val_t val;
-            
-            /* make a value for this property ID */
-            val.set_propid(entry->prop);
+        /* make a value for this property ID */
+        vm_val_t val;
+        val.set_propid(entry->prop);
 
-            /* add it to the list */
-            lst->cons_set_element(idx++, &val);
-        }
+        /* add it to the list */
+        lst->cons_set_element(idx++, &val);
     }
 
-    /* 
-     *   set the final length, which might differ from the allocated length:
-     *   we might have had some slots that were empty and thus didn't
-     *   contribute to the list 
-     */
+    /* set the final length of the list */
     lst->cons_set_len(idx);
 }
 
@@ -1249,27 +991,21 @@ struct tadsobj_sc_search_ctx
     {
         /* start at the given object */
         cur = obj;
-        curp = objp;
+        curhdr = objp->get_hdr();
 
         /* we have no path yet */
-        path_rem = -1;
+        path_sc = 0;
     }
 
-    /* current object ID and pointer */
+    /* current object ID */
     vm_obj_id_t cur;
-    CVmObjTads *curp;
 
-    /* 
-     *   If we have a search path, the position in the path and the number of
-     *   elements remaining.  We use the special remaining path length of -1
-     *   to indicate that we're not looking at a path at all; this is useful
-     *   because it allows us to perform a single test to determine if we're
-     *   operating on a path with elements remaining, operating on an empty
-     *   path, or working without a path at all.  (This code gets hit *a
-     *   lot*, so we want it as fast as possible.)  
-     */
+    /* if we're using a multiple-inheritance search path, the path */
     tadsobj_objid_and_ptr *path_sc;
-    int path_rem;
+
+    /* current object header */
+    vm_tadsobj_hdr *curhdr;
+
 
     /*
      *   Find the given property, searching our superclass list until we find
@@ -1279,28 +1015,89 @@ struct tadsobj_sc_search_ctx
     int find_prop(VMG_ uint prop, vm_val_t *val, vm_obj_id_t *source)
     {
         /* keep going until we find the property */
-        for (;;)
+        do
         {
-            vm_tadsobj_prop *entry;
-
             /* look for this property in the current object */
-            entry = curp->get_hdr()->find_prop_entry(prop);
-
-            /* if we found a non-empty entry, return the value */
-            if (entry != 0 && entry->val.typ != VM_EMPTY)
+            vm_tadsobj_prop *entry = curhdr->find_prop_entry(prop);
+            if (entry != 0)
             {
                 /* we found the property - return it */
                 *val = entry->val;
                 *source = cur;
                 return TRUE;
             }
+        }
+        while (to_next(vmg0_));
 
-            /* didn't find it - move to the next search position */
-            if (!to_next(vmg0_))
+        /* we've exhausted the search path - return failure */
+        return FALSE;
+    }
+
+    /*  
+     *   Move to the next superclass.  This updates 'cur' to refer to the
+     *   next object in inheritance order.  Returns true if there is a next
+     *   element, false if not.
+     *   
+     *   It's legal to call this with 'cur' uninitialized, as we don't need
+     *   the old value of 'cur' to do our work.  This is important because it
+     *   allows a search position to be initialized knowing only an object's
+     *   'this' pointer, not its object ID.
+     */
+    int to_next(VMG0_)
+    {
+        /* check for a path */
+    try_again:
+        if (path_sc == 0)
+        {
+            /* 
+             *   we're not working on a path at all - this means we're
+             *   working directly on a (so far) single-inheritance superclass
+             *   chain, so simply follow the chain up to the next superclass 
+             */
+
+            /* we have no path, so look at our object's superclasses */
+            switch(curhdr->sc_cnt)
             {
-                /* there's nowhere else to search - we've failed to find it */
+            case 1:
+                /* we have exactly one superclass, so traverse to it */
+                {
+                    const vm_tadsobj_sc *sc = curhdr->sc;
+                    cur = sc->id;
+                    curhdr = sc->objp->get_hdr();
+                }
+                return TRUE;
+
+            case 0:
+                /* we have no superclasses, so there's nowhere to go */
                 return FALSE;
+
+            default:
+                /* we have multiple superclasses, so set up a search path */
+                path_sc = curhdr->get_inh_search_path(vmg0_);
+
+                /* start over with the search path */
+                goto try_again;
             }
+        }
+        else if ((cur = path_sc->id) != VM_INVALID_OBJ)
+        {
+            /*
+             *   we're working on a path, and we have elements remaining -
+             *   move on to the next element 
+             */
+            curhdr = path_sc->objp->get_hdr();
+            ++path_sc;
+
+            /* got it */
+            return TRUE;
+        }
+        else
+        {
+            /* 
+             *   we're working on a path, and we're out of elements - we have
+             *   nowhere else to go 
+             */
+            return FALSE;
         }
     }
 
@@ -1325,93 +1122,79 @@ struct tadsobj_sc_search_ctx
         /* found it */
         return TRUE;
     }
-
-    /*  
-     *   Move to the next superclass.  This updates 'cur' to refer to the
-     *   next object in inheritance order.  Returns true if there is a next
-     *   element, false if not.
-     *   
-     *   It is legal to call this with 'cur' set to an arbitrary object, as
-     *   we do not need the old value of 'cur' to do our work.  (This is
-     *   important because it allows a search position to be initialized
-     *   knowing only an object's 'this' pointer, not its object ID.)  
-     */
-    int to_next(VMG0_)
-    {
-        tadsobj_inh_path *path;
-        vm_tadsobj_hdr *hdr;
-
-        /* 
-         *   If we have a path, continue with it.  Note that the special
-         *   value -1 for the remaining length indicates that we're not
-         *   working on a path at all.  
-         */
-        switch(path_rem)
-        {
-        case 0:
-            /* 
-             *   we're working on a path, and we're out of elements - we have
-             *   nowhere else to go 
-             */
-            return FALSE;
-
-        default:
-            /*
-             *   we're working on a path, and we have elements remaining -
-             *   move on to the next element 
-             */
-            cur = path_sc->id;
-            curp = path_sc->objp;
-            ++path_sc;
-            --path_rem;
-
-            /* got it */
-            return TRUE;
-
-        case -1:
-            /* 
-             *   we're not working on a path at all - this means we're
-             *   working directly on a (so far) single-inheritance superclass
-             *   chain, so simply follow the chain up to the next superclass 
-             */
-
-            /* get this object's header */
-            hdr = curp->get_hdr();
-
-            /* we have no path, so look at our object's superclasses */
-            switch(hdr->sc_cnt)
-            {
-            case 1:
-                /* we have exactly one superclass, so traverse to it */
-                cur = hdr->sc[0].id;
-                if ((curp = hdr->sc[0].objp) == 0)
-                    curp = hdr->sc[0].objp = (CVmObjTads *)vm_objp(vmg_ cur);
-                return TRUE;
-
-            case 0:
-                /* we have no superclasses, so there's nowhere to go */
-                return FALSE;
-
-            default:
-                /* we have multiple superclasses, so set up the search path */
-                if ((path = hdr->inh_path) == 0
-                    && (path = curp->get_inh_search_path(vmg0_)) == 0)
-                {
-                    /* there's no path, so there's nowhere to go */
-                    return FALSE;
-                }
-
-                /* move to the first element of the path */
-                path_rem = path->cnt - 1;
-                path_sc = path->sc;
-                cur = path_sc->id;
-                curp = path_sc->objp;
-                ++path_sc;
-                return TRUE;
-            }
-        }
-    }
 };
+
+/*
+ *   Get the inheritance search path for this object 
+ */
+tadsobj_objid_and_ptr *vm_tadsobj_hdr::get_inh_search_path(VMG0_)
+{
+    /* if we have a cached path, return it */
+    if (inh_path != 0)
+        return inh_path;
+
+    /* get the queue builder global */
+    CVmObjTadsInhQueue *q = G_tadsobj_queue;
+
+    /*
+     *   We haven't already cached a search path for this object, so build
+     *   the search path now and save it for future searches.  Start by
+     *   clearing the work queue.  
+     */
+    q->clear();
+
+    /* we're not yet processing the first element */
+    pfq_ele *q_ele = 0;
+
+    /* start with self */
+    vm_tadsobj_hdr *curhdr = this;
+
+    /* keep going until we run out of queue elements */
+    for (;;)
+    {
+        /* get the superclass count for this object */
+        uint cnt = curhdr->sc_cnt;
+
+        /* insert my superclasses right after me */
+        pfq_ele *q_ins = q_ele;
+
+        /* enqueue the current object's superclasses */
+        uint i;
+        vm_tadsobj_sc *scp;
+        for (i = 0, scp = curhdr->sc ; i < cnt ; ++i, ++scp)
+        {
+            /* get the current superclass */
+            vm_obj_id_t sc = scp->id;
+            CVmObjTads *scobj = scp->objp;
+
+            /* if it's not a TadsObject, skip it */
+            if (scobj->get_metaclass_reg() != CVmObjTads::metaclass_reg_)
+                continue;
+
+            /* enqueue this superclass */
+            q_ins = q->insert_obj(vmg_ sc, scobj, q_ins);
+        }
+
+        /* move to the next valid element */
+        do
+        {
+            /* get the next queue element */
+            q_ele = (q_ele == 0 ? q->get_head() : q_ele->nxt);
+
+            /* if we're out of elements, we're done */
+            if (q_ele == 0)
+                goto done;
+        }
+        while (q_ele->obj == VM_INVALID_OBJ);
+
+        /* get the object header for the queue item */
+        curhdr = q_ele->objp->get_hdr();
+    }
+
+done:
+    /* create and cache a linearized path for the queue, and return it */
+    return inh_path = q->create_path();
+}
 
 /*
  *   Search for a property via inheritance, starting after the given defining
@@ -1453,10 +1236,8 @@ int CVmObjTads::get_prop(VMG_ vm_prop_id_t prop, vm_val_t *val,
                          uint *argc)
 {
     /* 
-     *   Try finding the property in our property list or a superclass
-     *   property list.  Since we're starting a new search, 'self' is the
-     *   original target object, and we do not have a previous defining
-     *   object.  
+     *   try finding the property in my own direct property list or a
+     *   superclass property list 
      */
     tadsobj_sc_search_ctx curpos(vmg_ self, this);
     if (curpos.find_prop(vmg_ prop, val, source_obj))
@@ -1486,15 +1267,17 @@ int CVmObjTads::inh_prop(VMG_ vm_prop_id_t prop, vm_val_t *val,
                          vm_obj_id_t *source_obj, uint *argc)
 {
     /* 
-     *   check to see if we're already inheriting from intrinsic class
-     *   modifiers 
+     *   check to see if we're already inheriting from an intrinsic class or
+     *   an intrinsic class modifier 
      */
     if (defining_obj == VM_INVALID_OBJ
-        || !CVmObjIntClsMod::is_intcls_mod_obj(vmg_ defining_obj))
+        || (!CVmObjIntClsMod::is_intcls_mod_obj(vmg_ defining_obj)
+            && !CVmObjClass::is_intcls_obj(vmg_ defining_obj)))
     {
         /* 
-         *   The previous defining object wasn't itself a modifier object, so
-         *   continue searching for TadsObject superclasses.  
+         *   The previous defining object wasn't itself an intrinsic class or
+         *   modifier object, so continue searching for TadsObject
+         *   superclasses.  
          */
         if (search_for_prop_from(vmg_ prop, val,
                                  orig_target_obj, source_obj, defining_obj))
@@ -1567,109 +1350,6 @@ int CVmObjTads::get_prop_intrinsic(VMG_ vm_prop_id_t prop, vm_val_t *val,
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Get the inheritance search path for this object 
- */
-tadsobj_inh_path *CVmObjTads::get_inh_search_path(VMG0_)
-{
-    CVmObjTads *curp;
-    CVmObjTadsInhQueue *q = G_tadsobj_queue;
-    pfq_ele *q_ele;
-    vm_tadsobj_hdr *hdr = get_hdr();
-    tadsobj_inh_path *path;
-
-    /*
-     *   There are multiple superclasses.  If we've already calculated a
-     *   path for this object, simply use the pre-calculated path: the
-     *   superclass relationships among objects never change, so the path is
-     *   good forever.  
-     */
-    if (hdr->inh_path != 0)
-        return hdr->inh_path;
-
-    /*
-     *   We haven't already cached a search path for this object, so build
-     *   the search path now and save it for future searches.  Start by
-     *   clearing the work queue.  
-     */
-    q->clear();
-        
-    /* we're not yet processing the first element */
-    q_ele = 0;
-
-    /* start with self */
-    curp = this;
-    
-    /* keep going until we run out of queue elements */
-    for (;;)
-    {
-        ushort i;
-        ushort cnt;
-        pfq_ele *q_ins;
-        vm_tadsobj_sc *scp;
-        vm_tadsobj_hdr *curhdr;
-        
-        /* get the superclass count for this object */
-        curhdr = curp->get_hdr();
-        cnt = curhdr->sc_cnt;
-        
-        /* insert my superclasses right after me */
-        q_ins = q_ele;
-        
-        /* enqueue the current object's superclasses */
-        for (i = 0, scp = curhdr->sc ; i < cnt ; ++i, ++scp)
-        {
-            vm_obj_id_t sc;
-            CVmObjTads *scobj;
-            
-            /* get the current superclass */
-            sc = scp->id;
-            if ((scobj = scp->objp) == 0)
-                scobj = scp->objp = (CVmObjTads *)vm_objp(vmg_ sc);
-            
-            /* if it's not a TadsObject, skip it */
-            if (scobj->get_metaclass_reg() != curp->get_metaclass_reg())
-                continue;
-            
-            /* enqueue this superclass */
-            q_ins = q->insert_obj(vmg_ sc, scobj, q_ins);
-        }
-        
-        /* move to the next valid element */
-        for (;;)
-        {
-            /* get the next queue element */
-            q_ele = (q_ele == 0 ? q->get_head() : q_ele->nxt);
-            
-            /* 
-             *   if it's valid, or we're out of elements, stop searching for
-             *   it 
-             */
-            if (q_ele == 0 || q_ele->obj != VM_INVALID_OBJ)
-                break;
-        }
-        
-        /* if we ran out of elements, we're done */
-        if (q_ele == 0)
-            break;
-        
-        /* get this item */
-        curp = q_ele->objp;
-    }
-
-    /* 
-     *   if the linearized path is empty, there's nowhere to go from here,
-     *   so we've failed to find the property 
-     */
-    if (q->is_empty())
-        return 0;
-        
-    /* create and cache a linearized path for the queue, and return it */
-    path = hdr->inh_path = q->create_path();
-    return path;
-}
-
-/* ------------------------------------------------------------------------ */
-/*
  *   Enumerate properties 
  */
 void CVmObjTads::enum_props(VMG_ vm_obj_id_t self,
@@ -1683,13 +1363,12 @@ void CVmObjTads::enum_props(VMG_ vm_obj_id_t self,
     vm_tadsobj_prop *entry;
     vm_tadsobj_hdr *hdr = get_hdr();
 
-    /* run through our non-empty properties */
+    /* run through our properties */
     for (i = hdr->prop_entry_free, entry = hdr->prop_entry_arr ;
          i != 0 ; --i, ++entry)
     {
-        /* if this one is non-empty, invoke the callback */
-        if (entry->val.typ != VM_EMPTY)
-            (*cb)(vmg_ cbctx, self, entry->prop, &entry->val);
+        /* invoke the callback */
+        (*cb)(vmg_ cbctx, self, entry->prop, &entry->val);
     }
 
     /* enumerate properties in each superclass */
@@ -1760,89 +1439,109 @@ int CVmObjTads::is_instance_of(VMG_ vm_obj_id_t obj)
  */
 void CVmObjTads::apply_undo(VMG_ CVmUndoRecord *rec)
 {
-    vm_tadsobj_prop *entry;
+    /* get my header */
     vm_tadsobj_hdr *hdr = get_hdr();
 
     /* 
-     *   if the property is 'invalid', this is an undo record for a
-     *   superclass list change rather than a property change 
+     *   if the property is valid, it's a simple property change record;
+     *   otherwise it's some other object-level change 
      */
     if (rec->id.prop == VM_INVALID_PROP)
     {
-        const char *lstp;
-
-        /* get the old list */
-        lstp = rec->oldval.get_as_list(vmg0_);
-
-        /* set the new superclass list */
-        change_superclass_list(vmg_ lstp, (ushort)vmb_get_len(lstp));
-
-        /* we're done with this undo record */
-        return;
-    }
-
-    /* find the property entry for the property being undone */
-    entry = hdr->find_prop_entry(rec->id.prop);
-    if (entry == 0)
-    {
-        /* can't find the property - something is out of whack */
-        assert(FALSE);
-        return;
-    }
-
-    /* 
-     *   Restore the value from the record.  Note that if the property
-     *   didn't previously exist, this will store 'empty' in the slot; we
-     *   don't actually delete the slot, but the 'empty' marker is
-     *   equivalent, in that we treat it as a property we don't define.  
-     */
-    entry->val = rec->oldval;
-
-    /*
-     *   If the old value was 'empty', mark the slot as unmodified.  Since
-     *   the property didn't exist previously, it can't have been modified
-     *   previously.  Note that we add an artifical extra 'empty' record the
-     *   first time an existing load image property is modified, so that this
-     *   un-setting of the 'modified' flag will happen even for properties
-     *   that existed before the first modification. 
-     */
-    if (rec->oldval.typ == VM_EMPTY)
-    {
-        size_t i;
-        int found_mod;
-
-        /* clear the 'modified' flag on the property */
-        entry->flags &= ~VMTO_PROP_MOD;
-
-        /* 
-         *   scan the properties to see if we still need the 'modified' flag
-         *   on the object itself - this might have been the only remaining
-         *   modified property, in which case we no longer have any modified
-         *   properties and thus no longer have a modified object
+        /*
+         *   Invalid property ID, so it's an object-level change:
+         *   
+         *   - int(1) -> object is newly modified (VMTO_OBJ_MOD flag was
+         *   newly set)
+         *   
+         *   - list -> superclass list change
          */
-        for (found_mod = FALSE, i = hdr->prop_entry_free,
-             entry = hdr->prop_entry_arr ; i != 0 ; --i, ++entry)
+        switch (rec->oldval.typ)
         {
-            /* 
-             *   if this is property is marked as modified, we still have a
-             *   modified object 
-             */
-            if ((entry->flags & VMTO_PROP_MOD) != 0)
+        case VM_INT:
+            switch (rec->oldval.val.intval)
             {
-                /* note that we found a modified property */
-                found_mod = TRUE;
+            case 1:
+                /* VMTO_OBJ_MOD flag newly set - clear the flag */
+                hdr->intern_obj_flags &= ~VMTO_OBJ_MOD;
+                break;
+            }
+            break;
 
-                /* no need to look any further */
+        default:
+            /* check for a list, which indicates a superclass change */
+            if (rec->oldval.is_listlike(vmg0_))
+            {
+                /* set the new superclass list */
+                change_superclass_list(
+                    vmg_ &rec->oldval, rec->oldval.ll_length(vmg0_));
+            }
+            break;
+        }
+    }
+    else
+    {
+        /* find the property entry for the property being undone */
+        vm_tadsobj_prop *entry = hdr->find_prop_entry(rec->id.prop);
+        if (entry == 0)
+        {
+            /* can't find the property - something is out of whack */
+            assert(FALSE);
+            return;
+        }
+        
+        /* restore the value from the record */
+        entry->val = rec->oldval;
+        
+        /* if the old value is 'empty', it requires special handling */
+        if (rec->oldval.typ == VM_EMPTY)
+        {
+            vm_tadsobj_prop *cur, **prv;
+            unsigned int hash = hdr->calc_hash(rec->id.prop);
+            
+            /* 
+             *   We use 'empty' records for multiple purposes, with the
+             *   specific one indicated by the intval field. 
+             */
+            switch (rec->oldval.val.intval)
+            {
+            case 0:
+                /*
+                 *   Empty with intval 0 indicates a property addition, which
+                 *   we undo by deleting the property.  First, find it in the
+                 *   hash chain.  
+                 */
+                for (prv = &hdr->hash_arr[hash] ;
+                     (cur = *prv) != 0 && cur != entry ;
+                     prv = &cur->nxt) ;
+                
+                /* make sure we found it */
+                if (cur == entry)
+                {
+                    /* unlink it */
+                    *prv = entry->nxt;
+                    
+                    /* return it to the free list */
+                    hdr->prop_entry_free -= 1;
+                    assert(entry == &hdr->prop_entry_arr[hdr->prop_entry_free]);
+                }
+                else
+                {
+                    /* this should be impossible */
+                    assert(FALSE);
+                }
+                break;
+                
+            case 1:
+                /*
+                 *   Empty with intval 1 indicates that we marked the slot as
+                 *   newly modified, which we undo by clearing the modified
+                 *   flag.
+                 */
+                entry->flags &= ~VMTO_PROP_MOD;
                 break;
             }
         }
-
-        /* 
-         *   if we found no modified properties, the object is no longer
-         *   modified, so clear its 'modified' flag 
-         */
-        if (!found_mod)
-            hdr->intern_obj_flags &= ~VMTO_OBJ_MOD;
     }
 }
 
@@ -1853,10 +1552,8 @@ void CVmObjTads::apply_undo(VMG_ CVmUndoRecord *rec)
  */
 void CVmObjTads::mark_refs(VMG_ uint state)
 {
-    size_t i;
+    /* get my header */
     vm_tadsobj_hdr *hdr = get_hdr();
-    vm_tadsobj_prop *entry;
-    vm_tadsobj_sc *scp;
     
     /* 
      *   Go through all of our property slots and mark each object value.
@@ -1866,16 +1563,16 @@ void CVmObjTads::mark_refs(VMG_ uint state)
      *   don't need to bother marking any of those objects, since they can
      *   never be deleted by virtue of being in the root set.  
      */
-    for (i = hdr->prop_entry_free, entry = hdr->prop_entry_arr ;
-         i != 0 ; --i, ++entry)
+    vm_tadsobj_prop *entry = hdr->prop_entry_arr;
+    vm_tadsobj_prop *first_free = entry + hdr->prop_entry_free;
+    for ( ; entry != first_free ; ++entry)
     {
         /* 
          *   if the slot is marked as modified and contains an object
          *   reference, mark the reference 
          */
-        if ((entry->flags & VMTO_PROP_MOD) != 0
-            && entry->val.typ == VM_OBJ
-            && entry->val.val.obj != VM_INVALID_OBJ)
+        if ((entry->val.typ == VM_OBJ || entry->val.typ == VM_OBJX)
+            && (entry->flags & VMTO_PROP_MOD) != 0)
         {
             /* mark the reference */
             G_obj_table->mark_all_refs(entry->val.val.obj, state);
@@ -1883,7 +1580,8 @@ void CVmObjTads::mark_refs(VMG_ uint state)
     }
 
     /* mark our superclasses as referenced */
-    for (i = hdr->sc_cnt, scp = hdr->sc ; i != 0 ; --i, ++scp)
+    vm_tadsobj_sc *scp = hdr->sc, *sclast = scp + hdr->sc_cnt;
+    for ( ; scp != sclast ; ++scp)
         G_obj_table->mark_all_refs(scp->id, state);
 }
 
@@ -1895,7 +1593,7 @@ void CVmObjTads::mark_refs(VMG_ uint state)
 void CVmObjTads::mark_undo_ref(VMG_ CVmUndoRecord *undo)
 {
     /* if the undo record refers to an object, mark the object */
-    if (undo->oldval.typ == VM_OBJ)
+    if (undo->oldval.typ == VM_OBJ || undo->oldval.typ == VM_OBJX)
         G_obj_table->mark_all_refs(undo->oldval.val.obj, VMOBJ_REACHABLE);
 }
 
@@ -1928,29 +1626,27 @@ void CVmObjTads::save_to_file(VMG_ CVmFile *fp)
     for (cnt = 0, i = hdr->prop_entry_free, entry = hdr->prop_entry_arr ;
          i != 0 ; --i, ++entry)
     {
-        /* if the slot is non-empty and modified, count it */
-        if ((entry->flags & VMTO_PROP_MOD) != 0
-            && entry->val.typ != VM_EMPTY)
+        /* if the slot is modified, count it */
+        if ((entry->flags & VMTO_PROP_MOD) != 0)
             ++cnt;
     }
 
     /* write the number of modified properties */
-    fp->write_int2(cnt);
+    fp->write_uint2(cnt);
 
     /* write the number of superclasses */
-    fp->write_int2(get_sc_count());
+    fp->write_uint2(get_sc_count());
 
     /* write the superclasses */
     for (i = 0 ; i < get_sc_count() ; ++i)
-        fp->write_int4(get_sc(i));
+        fp->write_uint4(get_sc(i));
 
     /* write each modified property */
     for (cnt = 0, i = hdr->prop_entry_free, entry = hdr->prop_entry_arr ;
          i != 0 ; --i, ++entry)
     {
-        /* if the slot is non-empty and modified, write it out */
-        if ((entry->flags & VMTO_PROP_MOD) != 0
-            && entry->val.typ != VM_EMPTY)
+        /* if the slot is modified, write it out */
+        if ((entry->flags & VMTO_PROP_MOD) != 0)
         {
             char slot[16];
 
@@ -1971,16 +1667,11 @@ void CVmObjTads::save_to_file(VMG_ CVmFile *fp)
 void CVmObjTads::restore_from_file(VMG_ vm_obj_id_t self,
                                    CVmFile *fp, CVmObjFixup *fixups)
 {
-    ushort mod_count;
-    ushort i;
-    ushort sc_cnt;
-    vm_tadsobj_hdr *hdr;
-    
     /* read number of modified properties */
-    mod_count = (ushort)fp->read_uint2();
+    ushort mod_count = (ushort)fp->read_uint2();
 
     /* read the number of superclasses */
-    sc_cnt = (ushort)fp->read_uint2();
+    ushort sc_cnt = (ushort)fp->read_uint2();
 
     /* 
      *   If we don't have an extension yet, allocate one.  The only way we
@@ -2000,7 +1691,7 @@ void CVmObjTads::restore_from_file(VMG_ vm_obj_id_t self,
          *   image file.  Make sure we have enough memory to hold this many
          *   properties, and make sure we have space for the superclasses.
          */
-        hdr = get_hdr();
+        vm_tadsobj_hdr *hdr = get_hdr();
         if (!hdr->has_free_entries(mod_count) || sc_cnt > hdr->sc_cnt)
         {
             /* 
@@ -2013,18 +1704,16 @@ void CVmObjTads::restore_from_file(VMG_ vm_obj_id_t self,
     }
 
     /* get the extension header */
-    hdr = get_hdr();
+    vm_tadsobj_hdr *hdr = get_hdr();
 
     /* read the superclass list */
     hdr->sc_cnt = sc_cnt;
-    for (i = 0 ; i < sc_cnt ; ++i)
+    for (ushort i = 0 ; i < sc_cnt ; ++i)
     {
-        vm_obj_id_t sc;
-
         /* read the next superclass */
-        sc = (vm_obj_id_t)fp->read_int4();
+        vm_obj_id_t sc = (vm_obj_id_t)fp->read_uint4();
 
-        /* fix it up to the memory numbering system */
+        /* fix it up to the new (post-restore) memory numbering system */
         sc = fixups->get_new_id(vmg_ sc);
 
         /* 
@@ -2036,6 +1725,9 @@ void CVmObjTads::restore_from_file(VMG_ vm_obj_id_t self,
         hdr->sc[i].objp = 0;
     }
 
+    /* request post-load initialization, to set up the superclass list */
+    G_obj_table->request_post_load_init(self);
+
     /* 
      *   invalidate any existing inheritance path, in case the superclass
      *   list changed 
@@ -2043,20 +1735,18 @@ void CVmObjTads::restore_from_file(VMG_ vm_obj_id_t self,
     hdr->inval_inh_path();
 
     /* read the modified properties */
-    for (i = 0 ; i < mod_count ; ++i)
+    for (ushort i = 0 ; i < mod_count ; ++i)
     {
-        char buf[32];
-        vm_prop_id_t prop;
-        vm_val_t val;
-
         /* read the next slot */
+        char buf[32];
         fp->read_bytes(buf, 2 + VMB_DATAHOLDER);
 
         /* fix up this entry */
         fixups->fix_dh(vmg_ buf + 2);
 
         /* decode the entry */
-        prop = (vm_prop_id_t)osrp2(buf);
+        vm_prop_id_t prop = (vm_prop_id_t)osrp2(buf);
+        vm_val_t val;
         vmb_get_dh(buf + 2, &val);
 
         /* 
@@ -2068,6 +1758,30 @@ void CVmObjTads::restore_from_file(VMG_ vm_obj_id_t self,
 
     /* clear all undo information */
     clear_undo_flags();
+
+    /*
+     *   If we were saved to a file in the first place, it's because we were
+     *   modified or newly created relative to the image file data.  So on
+     *   restore, we're necessarily a modified object that will need to be
+     *   saved again, even if we're not modified between now and the next
+     *   save.
+     */
+    get_hdr()->intern_obj_flags |= VMTO_OBJ_MOD;
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Post-load initialization: cache the object pointers for our
+ *   superclasses. 
+ */
+void CVmObjTads::post_load_init(VMG_ vm_obj_id_t self)
+{
+    /* get my header */
+    vm_tadsobj_hdr *hdr = get_hdr();
+
+    /* cache the superclass object pointers */
+    for (int i = 0 ; i < hdr->sc_cnt ; ++i)
+        hdr->sc[i].objp = (CVmObjTads *)vm_objp(vmg_ hdr->sc[i].id);
 }
 
 /* ------------------------------------------------------------------------ */
@@ -2077,10 +1791,6 @@ void CVmObjTads::restore_from_file(VMG_ vm_obj_id_t self,
 void CVmObjTads::load_from_image(VMG_ vm_obj_id_t self,
                                  const char *ptr, size_t siz)
 {
-    ushort sc_cnt;
-    ushort li_cnt;
-    vm_tadsobj_hdr *hdr;
-
     /* save our image data pointer for reloading */
     G_obj_table->save_image_pointer(self, ptr, siz);
 
@@ -2092,37 +1802,44 @@ void CVmObjTads::load_from_image(VMG_ vm_obj_id_t self,
     }
 
     /* get the number of superclasses */
-    sc_cnt = osrp2(ptr);
+    ushort sc_cnt = osrp2(ptr);
 
     /* get the number of load image properties */
-    li_cnt = osrp2(ptr + 2);
+    ushort li_cnt = osrp2(ptr + 2);
 
     /* allocate our header */
     ext_ = (char *)vm_tadsobj_hdr::alloc(vmg_ this, sc_cnt, li_cnt);
-    hdr = get_hdr();
+    vm_tadsobj_hdr *hdr = get_hdr();
 
     /* read the object flags from the image file and store them */
     hdr->li_obj_flags = osrp2(ptr + 4);
 
-    /* set our internal flags - we come from the load image file */
+    /* 
+     *   set our internal flags - we come from the load image file, and we're
+     *   not yet modified from the load image data
+     */
     hdr->intern_obj_flags |= VMTO_OBJ_IMAGE;
+    hdr->intern_obj_flags &= ~VMTO_OBJ_MOD;
 
     /* load the image file properties */
     load_image_props_and_scs(vmg_ ptr, siz);
+
+    /* request post-load initialization, to set up the superclass list */
+    G_obj_table->request_post_load_init(self);
 }
 
 /*
  *   Reset to image file state.  Discards all modified properties, so that
  *   we have only the image file properties.
  */
-void CVmObjTads::reload_from_image(VMG_ vm_obj_id_t /*self*/,
+void CVmObjTads::reload_from_image(VMG_ vm_obj_id_t self,
                                    const char *ptr, size_t siz)
 {
+    /* get my header */
     vm_tadsobj_hdr *hdr = get_hdr();
-    ushort sc_cnt;
 
     /* get the number of superclasses */
-    sc_cnt = osrp2(ptr);
+    ushort sc_cnt = osrp2(ptr);
 
     /* 
      *   Clear the property table.  We don't have to worry about the new
@@ -2142,8 +1859,14 @@ void CVmObjTads::reload_from_image(VMG_ vm_obj_id_t /*self*/,
             vmg_ this, hdr, sc_cnt, hdr->prop_entry_cnt);
     }
 
-    /* reload the image properties */
+    /* reload the image properties and superclasses */
     load_image_props_and_scs(vmg_ ptr, siz);
+
+    /* we're now unmodified from the image file state */
+    hdr->intern_obj_flags &= ~VMTO_OBJ_MOD;
+
+    /* request post-load initialization, to set up the superclass list */
+    G_obj_table->request_post_load_init(self);
 }
 
 /*
@@ -2151,27 +1874,28 @@ void CVmObjTads::reload_from_image(VMG_ vm_obj_id_t /*self*/,
  */
 void CVmObjTads::load_image_props_and_scs(VMG_ const char *ptr, size_t siz)
 {
+    /* get my header */
     vm_tadsobj_hdr *hdr = get_hdr();
-    ushort i;
-    ushort sc_cnt;
-    ushort li_cnt;
-    const char *p;
 
     /* get the number of superclasses */
-    sc_cnt = osrp2(ptr);
+    ushort sc_cnt = osrp2(ptr);
 
     /* get the number of load image properties */
-    li_cnt = osrp2(ptr + 2);
+    ushort li_cnt = osrp2(ptr + 2);
 
     /* read the superclasses from the load image and store them */
+    ushort i;
+    const char *p;
     for (i = 0, p = ptr + 6 ; i < sc_cnt ; ++i, p += 4)
     {
         /* store the object ID */
-        hdr->sc[i].id = (vm_obj_id_t)osrp4(p);
+        hdr->sc[i].id = (vm_obj_id_t)t3rp4u(p);
 
         /* 
-         *   we can't store the superclass pointer yet, as the superclass
-         *   object might not be loaded yet 
+         *   We can't store the superclass pointer yet, as the superclass
+         *   object might not be loaded yet.  Store null for now; we'll fix
+         *   this up in post_load_init() after all the other objects have
+         *   been loaded.  
          */
         hdr->sc[i].objp = 0;
     }
@@ -2179,11 +1903,9 @@ void CVmObjTads::load_image_props_and_scs(VMG_ const char *ptr, size_t siz)
     /* read the properties from the load image and store them */
     for (i = 0 ; i < li_cnt ; ++i, p += 2 + VMB_DATAHOLDER)
     {
-        vm_prop_id_t prop;
-        vm_val_t val;
-
         /* decode the property data */
-        prop = (vm_prop_id_t)osrp2(p);
+        vm_prop_id_t prop = (vm_prop_id_t)osrp2(p);
+        vm_val_t val;
         vmb_get_dh(p + 2, &val);
 
         /* store the property */
@@ -2280,13 +2002,12 @@ int CVmObjTads::getp_create_clone(VMG_ vm_obj_id_t self,
          i != 0 ; --i, ++entry)
     {
         /* 
-         *   If this entry is non-empty, store the property in the new
-         *   object.  We don't need to store undo for the property, as the
-         *   object is entirely new since the last savepoint (as there can't
-         *   have been a savepoint while we've been working, obviously) 
+         *   Store the property in the new object.  We don't need to store
+         *   undo for the property, as the object is entirely new since the
+         *   last savepoint (as there can't have been a savepoint while we've
+         *   been working, obviously).
          */
-        if (entry->val.typ != VM_EMPTY)
-            tobj->set_prop(vmg_ 0, self, entry->prop, &entry->val);
+        tobj->set_prop(vmg_ 0, self, entry->prop, &entry->val);
     }
 
     /* the return value is the new object ID */
@@ -2340,30 +2061,74 @@ int CVmObjTads::getp_create_multi_common(VMG_ vm_obj_id_t self,
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Iteration callback for getp_set_sc_list.  On changing an object's
+ *   superclass list, we have to rebuild the inheritance path cache for any
+ *   object that has the modified object anywhere in its path.  
+ */
+struct set_sc_cb_ctx
+{
+    set_sc_cb_ctx(vm_obj_id_t obj) { this->obj = obj; }
+    vm_obj_id_t obj;
+};
+
+void CVmObjTads::set_sc_cb(VMG_ vm_obj_id_t obj, void *ctx0)
+{
+    /* if this is a TadsObject instance, update it */
+    if (CVmObjTads::is_tadsobj_obj(vmg_ obj))
+    {
+        /* cast the context to our private structure */
+        set_sc_cb_ctx *ctx = (set_sc_cb_ctx *)ctx0;
+
+        /* get this object's header */
+        vm_tadsobj_hdr *hdr = ((CVmObjTads *)vm_objp(vmg_ obj))->get_hdr();
+        
+        /* 
+         *   if it has a cached inheritance path, check to see if it contains
+         *   the object being changed 
+         */
+        tadsobj_objid_and_ptr *path = hdr->inh_path;
+        if (path != 0)
+        {
+            /* scan the path for 'obj' */
+            for ( ; path->id != VM_INVALID_OBJ ; ++path)
+            {
+                /* if this superclass is 'obj', we must delete the path */
+                if (path->id == ctx->obj)
+                {
+                    /* we need to drop this path */
+                    hdr->inval_inh_path();
+                    
+                    /* no need to look any further */
+                    break;
+                }
+            }
+        }
+    }
+}
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Property evaluator - setSuperclassList 
  */
 int CVmObjTads::getp_set_sc_list(VMG_ vm_obj_id_t self,
                                  vm_val_t *retval, uint *in_argc)
 {
     static CVmNativeCodeDesc desc(1);
-    const char *lstp;
-    ushort cnt;
-    size_t i;
+    int cnt;
+    int i;
     vm_val_t ele;
-    ushort sc_cnt;
+    int sc_cnt;
     vm_tadsobj_hdr *hdr = get_hdr();
+    vm_val_t *lst;
 
     /* check arguments */
     if (get_prop_check_argc(retval, in_argc, &desc))
         return TRUE;
 
     /* get the list argument (but leave it on the stack for now) */
-    lstp = G_stk->get(0)->get_as_list(vmg0_);
-    if (lstp == 0)
+    lst = G_stk->get(0);
+    if (!lst->is_listlike(vmg0_) || (cnt = lst->ll_length(vmg0_)) < 0)
         err_throw(VMERR_BAD_TYPE_BIF);
-
-    /* get the number of superclasses for the new object */
-    cnt = (ushort)vmb_get_len(lstp);
 
     /* we need at least one argument - the minimal root is TadsObject */
     if (cnt < 1)
@@ -2374,7 +2139,7 @@ int CVmObjTads::getp_set_sc_list(VMG_ vm_obj_id_t self,
      *   [TadsObject].  In this case, we have nothing in our internal
      *   superclass list, since our only superclass is our metaclass.  
      */
-    CVmObjList::index_list(vmg_ &ele, lstp, 1);
+    lst->ll_index(vmg_ &ele, 1);
     if (cnt == 1
         && ele.typ == VM_OBJ
         && ele.val.obj == metaclass_reg_->get_class_obj(vmg0_))
@@ -2393,7 +2158,7 @@ int CVmObjTads::getp_set_sc_list(VMG_ vm_obj_id_t self,
         for (i = 1 ; i <= cnt ; ++i)
         {
             /* get this element from the list */
-            CVmObjList::index_list(vmg_ &ele, lstp, i);
+            lst->ll_index(vmg_ &ele, i);
 
             /* it has to be an object of type TadsObject */
             if (ele.typ != VM_OBJ || !is_tadsobj_obj(vmg_ ele.val.obj))
@@ -2412,15 +2177,16 @@ int CVmObjTads::getp_set_sc_list(VMG_ vm_obj_id_t self,
         sc_cnt = cnt;
     }
 
+    /* mark the overall object as modified if it's not already */
+    mark_modified(vmg_ G_undo, self);
+
     /* if there's a system undo object, add undo for the change */
     if (G_undo != 0)
     {
-        vm_val_t oldv;
-        CVmObjList *oldp;
-
         /* allocate a list for the results */
+        vm_val_t oldv;
         oldv.set_obj(CVmObjList::create(vmg_ FALSE, hdr->sc_cnt));
-        oldp = (CVmObjList *)vm_objp(vmg_ oldv.val.obj);
+        CVmObjList *oldp = (CVmObjList *)vm_objp(vmg_ oldv.val.obj);
 
         /* build the superclass list */
         for (i = 0 ; i < hdr->sc_cnt ; ++i)
@@ -2432,22 +2198,25 @@ int CVmObjTads::getp_set_sc_list(VMG_ vm_obj_id_t self,
 
         /* 
          *   Add an undo record with the original superclass list as the old
-         *   value.  Use the 'invalid' property as the proprety key - all of
-         *   our other undo records are associated with actual properties, so
-         *   this is how we know this is an undo record for the superclass
-         *   list.  
+         *   value.  Use the 'invalid' property as the property key; when
+         *   this property is used with a list value, it indicates a
+         *   superclass list change.
          */
         G_undo->add_new_record_prop_key(vmg_ self, VM_INVALID_PROP, &oldv);
     }
 
     /* update the superclass list with the given list */
-    change_superclass_list(vmg_ lstp, sc_cnt);
+    change_superclass_list(vmg_ lst, sc_cnt);
 
     /* discard arguments */
     G_stk->discard();
 
     /* no return value */
     retval->set_nil();
+
+    /* we need to clear all cached superclass path lists involving 'self' */
+    set_sc_cb_ctx ctx(self);
+    G_obj_table->for_each(vmg_ &set_sc_cb, &ctx);
 
     /* handled */
     return TRUE;
@@ -2458,16 +2227,19 @@ int CVmObjTads::getp_set_sc_list(VMG_ vm_obj_id_t self,
  *   superclass list, in constant list format (i.e., a packed array of
  *   dataholder values).  
  */
-void CVmObjTads::change_superclass_list(VMG_ const char *lstp, ushort cnt)
+void CVmObjTads::change_superclass_list(VMG_ const vm_val_t *lst, int cnt)
 {
     vm_tadsobj_hdr *hdr = get_hdr();
-    size_t i;
+    int i;
 
+    /* keep the count within range */
+    cnt = (cnt > UINT16MAXVAL ? UINT16MAXVAL : cnt < 0 ? 0 : cnt);
+    
     /* 
      *   if we're increasing the number of superclasses, expand our object
      *   header to make room 
      */
-    if (cnt > hdr->sc_cnt)
+    if (cnt > (int)hdr->sc_cnt)
     {
         /* expand the header to accomodate the new superclass list */
         ext_ = (char *)vm_tadsobj_hdr::expand_to(
@@ -2478,7 +2250,7 @@ void CVmObjTads::change_superclass_list(VMG_ const char *lstp, ushort cnt)
     }
 
     /* set the new superclass count */
-    hdr->sc_cnt = cnt;
+    hdr->sc_cnt = (ushort)cnt;
 
     /* set the new superclasses */
     for (i = 0 ; i < cnt ; ++i)
@@ -2486,7 +2258,7 @@ void CVmObjTads::change_superclass_list(VMG_ const char *lstp, ushort cnt)
         vm_val_t ele;
 
         /* get this element from the list */
-        CVmObjList::index_list(vmg_ &ele, lstp, i + 1);
+        lst->ll_index(vmg_ &ele, i+1);
 
         /* set this superclass in the header */
         hdr->sc[i].id = ele.val.obj;
@@ -2495,6 +2267,162 @@ void CVmObjTads::change_superclass_list(VMG_ const char *lstp, ushort cnt)
 
     /* invalidate the cached inheritance path */
     hdr->inval_inh_path();
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Get a method pointer.  This is almost like an ordinary getprop, but if
+ *   the property contains a method, returns a function pointer to the method
+ *   rather than evaluating it.  
+ */
+int CVmObjTads::getp_get_method(VMG_ vm_obj_id_t self,
+                                vm_val_t *retval, uint *argc)
+{
+    static CVmNativeCodeDesc desc(1);
+
+    /* check arguments: getMethod(&propid) */
+    if (get_prop_check_argc(retval, argc, &desc))
+        return TRUE;
+
+    /* retrieve the property ID */
+    vm_obj_id_t prop = CVmBif::pop_propid_val(vmg0_);
+
+    /* find the property */
+    vm_obj_id_t source_obj;
+    tadsobj_sc_search_ctx curpos(vmg_ self, this);
+    if (curpos.find_prop(vmg_ prop, retval, &source_obj))
+    {
+        /* the property is definfed - check its type */
+        switch (retval->typ)
+        {
+        case VM_CODEOFS:
+            /* it's a direct call to code - convert to a function pointer */
+            retval->typ = VM_FUNCPTR;
+            break;
+
+        case VM_DSTRING:
+            /* it's a self-printing constant string - convert to string */
+            retval->typ = VM_SSTRING;
+            break;
+
+        case VM_OBJX:
+            /* 
+             *   It's an executable object, which is either a self-printing
+             *   non-constant string or an execute-on-invoke anonymous
+             *   function.  In either case, simply convert it back to an
+             *   ordinary value. 
+             */
+            retval->typ = VM_OBJ;
+            break;
+
+        case VM_BIFPTRX:
+            /* 
+             *   executable built-in function pointer - convert back to a
+             *   regular bif pointer 
+             */
+            retval->typ = VM_BIFPTR;
+            break;
+
+        default:
+            /* other types aren't executable methods, so return nil */
+            retval->set_nil();
+            break;
+        }
+    }
+    else
+    {
+        /* this property isn't defined - return nil */
+        retval->set_nil();
+    }
+
+    /* handled */
+    return TRUE;
+}
+
+/*
+ *   Set a method pointer.  This is almost like an ordinary setprop, but if
+ *   the value to assign contains a function pointer, this sets the property
+ *   to a method rather than to a pointer-to-function value. 
+ */
+int CVmObjTads::getp_set_method(VMG_ vm_obj_id_t self,
+                                vm_val_t *retval, uint *argc)
+{
+    /* check arguments: setMethod(&propid, val) */
+    static CVmNativeCodeDesc desc(2);
+    if (get_prop_check_argc(retval, argc, &desc))
+        return TRUE;
+
+    /* 
+     *   retrieve the property ID and the method value to set (leave the
+     *   value on the stack as gc protection) 
+     */
+    vm_prop_id_t prop = CVmBif::pop_propid_val(vmg0_);
+    vm_val_t mval = *G_stk->get(0);
+
+    /* check the type */
+    switch (mval.typ)
+    {
+    case VM_FUNCPTR:
+        /* 
+         *   a function pointer translates directly to a regular method, by
+         *   directly calling the code body 
+         */
+        mval.typ = VM_CODEOFS;
+        break;
+
+    case VM_OBJ:
+        /*
+         *   We can accept string and invokable objects.  For either one of
+         *   these, we store the object reference and mark it as an
+         *   execute-on-eval object rather than an ordinary object value.  
+         */
+        if (CVmObjString::is_string_obj(vmg_ mval.val.obj)
+            || vm_objp(vmg_ mval.val.obj)->get_invoker(vmg_ 0))
+        {
+            /* 
+             *   We can handle this object by executing it on evaluation.
+             *   Mark it as a special execute-on-eval object rather than an
+             *   ordinary object. 
+             */
+            mval.typ = VM_OBJX;
+        }
+        else
+        {
+            /* it's not an acceptable type of object */
+            err_throw(VMERR_BAD_TYPE_BIF);
+        }
+        break;
+
+    case VM_BIFPTR:
+        /* built-in function pointer - mark it as an execute-on-eval bif */
+        mval.typ = VM_BIFPTRX;
+        break;
+
+    case VM_SSTRING:
+        /* 
+         *   A constant string translates into a self-printing string.
+         *   SSTRING and DSTRING have the same data representation, so we
+         *   merely need to switch the type to flag it as print-on-eval. 
+         */
+        mval.typ = VM_DSTRING;
+        break;
+
+    default:
+        /* other types are not acceptable */
+        err_throw(VMERR_BAD_TYPE_BIF);
+    }
+
+    /* set the property value */
+    set_prop(vmg_ G_undo, self, prop, &mval);
+
+    /* discard the method value */
+    G_stk->discard();
+
+    /* no return value */
+    retval->set_nil();
+
+    /* handled */
+    return TRUE;
 }
 
 /* ------------------------------------------------------------------------ */

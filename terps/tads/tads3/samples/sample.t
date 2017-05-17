@@ -237,7 +237,7 @@ coinCollective: ItemizingCollectiveGroup '*coins' 'coins'
 /*
  *   Balloons 
  */
-class Balloon: Thing
+class Balloon: Thing 'inflated uninflated popped balloon'
     /* balloons are by default equivalent to one another */
     isEquivalent = true
 
@@ -256,17 +256,23 @@ class Balloon: Thing
                  balloonStatePopped]
 ;
 
-class RedBalloon: Balloon 'red balloon' 'red balloon';
-class BlueBalloon: Balloon 'blue balloon' 'blue balloon';
-class GreenBalloon: Balloon 'green balloon' 'green balloon';
+class RedBalloon: Balloon 'red -' 'red balloon';
+class BlueBalloon: Balloon 'blue -' 'blue balloon';
+class GreenBalloon: Balloon 'green -' 'green balloon';
 
 /* use a simple unadorned grouper to keep all the balloons together */
 balloonGroup: ListGroupSorted;
 
 /* balloon state objects */
-balloonStateInflated: ThingState 'inflated' +1;
-balloonStateUninflated: ThingState 'uninflated' +2;
-balloonStatePopped: ThingState 'popped' +3;
+balloonStateInflated: ThingState 'inflated' +1
+    stateTokens = ['inflated']
+;
+balloonStateUninflated: ThingState 'uninflated' +2
+    stateTokens = ['uninflated']
+;
+balloonStatePopped: ThingState 'popped' +3
+    stateTokens = ['popped']
+;
 
 
 sun: MultiFaceted
@@ -331,9 +337,15 @@ goldCoinAchievement: Achievement
     maxPoints = 10
 ;
 
-ironKey: Key 'iron key*keys' 'iron key' @livingRoom;
-brassKey: Key 'brass key*keys' 'brass key' @livingRoom;
-rustyKey: Key 'rusty key*keys' 'rusty key' @livingRoom;
+ironKey: Key 'iron key*keys' 'iron key' @livingRoom
+    "It's an ordinary iron key. "
+;
+brassKey: Key 'brass key*keys' 'brass key' @livingRoom
+    "It's an ordinary brass key. "
+;
+rustyKey: Key 'rusty key*keys' 'rusty key' @livingRoom
+    "It's an ordinary rusty key. "
+;
 
 /*
  *   Note that we don't have to define any vocabulary for the player
@@ -417,6 +429,15 @@ bob: Person 'bob' 'Bob' @livingRoom
             {x: x.ofKind(AcceptCoinReport)},
             {vec: '\^' + getActor().theName + ' accepts the '
                   + spellInt(vec.length()) + ' coins. ' });
+    }
+;
+
++ AskForTopic [ironKey, brassKey, rustyKey]
+    handleTopic(fromActor, topic)
+    {
+        "<q>So, you want a key, do you? Let's see... ";
+        SimpleLister.showSimpleList(topic.inScopeList + topic.likelyList);
+        "...</q>";
     }
 ;
 
@@ -1236,6 +1257,7 @@ class pen: Thing 'pen*pens' 'pen'
     dobjFor(Take)
     {
         verify() { }
+        check() { }
         action()
         {
             "You pick up the handset, but there's nothing but static
@@ -2302,7 +2324,7 @@ gameMain: GameMainDef
 
 /* ------------------------------------------------------------------------ */
 /*
- *   random daemon/fuse tests
+ *   random test verbs
  */
 
 VerbRule(rtfuse) 'test-rtfuse' : IAction
@@ -2337,6 +2359,46 @@ VerbRule(morefreeze) 'morefreeze' : IAction
     }
 ;
 
+VerbRule(cls) 'cls' : IAction
+    execAction()
+    {
+        "Clearing the screen...";
+        cls();
+    }
+;
+
+VerbRule(dialog) 'dialog' : IAction
+    execAction()
+    {
+        local btn = inputManager.getInputDialog(
+            InDlgIconQuestion,
+            'What did you have for breakfast this morning?',
+            ['&Eggs', '&Cereal', '&Fruit', '&Other'],
+            1, 4);
+        "You selected button <<btn>>! ";
+    }
+;
+
+VerbRule(dialog2) 'ldialog' : IAction
+    execAction()
+    {
+        local btn = inputManager.getInputDialog(
+            InDlgIconQuestion,
+            'Here\'s a much taller dialog.  This one will go on for
+            several lines, to make sure that the layout looks right
+            with long text contents as well as a short one-liner.
+            \n\n
+            And this just goes on and on and on, doesn\'t it? Well,
+            that\'s the whole idea.  This dialog also uses standard
+            buttons instead of the explicitly labeled buttons of the
+            dialog you get with the "dialog" command, to test that
+            the standard button setup is working properly.  Well,
+            that should probably be long enough!!!',
+            InDlgOkCancel, 1, 2);
+        "You selected button <<btn>>! ";
+    }
+;
+
 VerbRule(fuse) 'test-fuse' : IAction
     execAction()
     {
@@ -2348,7 +2410,7 @@ VerbRule(fuse) 'test-fuse' : IAction
 testFuse: object
     execEvent()
     {
-        "<.commandsep>This is the test fuse!";
+        "<.commandsep>This is the test fuse!<.commandsep>";
     }
 ;
 
@@ -2381,13 +2443,13 @@ VerbRule(showlinks) 'showlinks': IAction
     {
         "Here are some links:
         <ul>
-        <li><font color=green>color <a href='outside'>outside</a>
-            the link</font>
-        <li><font color=purple>color <a href='inside'><font color=red>
-            inside</font></a> the link</font>
-        <li><font color=navy>a mix of <a href='mix'>outside
-            <font color=#ff8000>and inside</font> the link</a> for
-            extra completeness</font>
+        <li><font color=green>color <<
+          aHref('outside', 'outside')>> the link</font>
+        <li><font color=purple>color <<
+          aHref('inside', '<font color=red>inside</font>')>> the link</font>
+        <li><font color=navy>a mix of <<
+          aHref('mix', 'outside <font color=#ff8000>and inside</font> the link')
+          >> for extra completeness</font>
         </ul> ";
     }
 ;
@@ -2498,6 +2560,19 @@ of word-based wrapping.  The two columns should more or less balance
 out, although the word-based column will want a bigger share because
 of its larger minimum width.
 </table>\n";
+    }
+;
+
+VerbRule(EventTest) 'inputevent' : IAction
+    execAction()
+    {
+        local evt = inputManager.getEvent(true, {: "Waiting for event..." });
+
+        " Got it!\n";
+        local name = [InEvtKey -> 'key', InEvtHref -> 'href',
+                      InEvtEof -> 'eof'][evt[1]];
+        "Event type=<<name>> (<<evt[1]>>), param=<<
+          evt.length() > 1 ? evt[2] : ''>> ";
     }
 ;
 

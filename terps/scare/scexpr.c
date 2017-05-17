@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -28,13 +28,11 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <string.h>
-#include <stdlib.h>
-#include <time.h>
-#include <stdio.h>
 #include <limits.h>
 #include <setjmp.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 
 #include "scare.h"
 #include "scprotos.h"
@@ -152,15 +150,21 @@ expr_tokenize_start (const sc_char *expression)
       for (entry = FUNCTION_TOKENS; entry->name; entry++)
         {
           if (entry->length != (sc_int) strlen (entry->name))
-            sc_fatal ("expr_tokenize_start:"
-                " token string length is wrong for \"%s\"\n", entry->name);
+            {
+              sc_fatal ("expr_tokenize_start:"
+                        " token string length is wrong for \"%s\"\n",
+                        entry->name);
+            }
         }
 
       for (entry = OPERATOR_TOKENS; entry->name; entry++)
         {
           if (entry->length != (sc_int) strlen (entry->name))
-            sc_fatal ("expr_tokenize_start:"
-                " operator string length is wrong for \"%s\"\n", entry->name);
+            {
+              sc_fatal ("expr_tokenize_start:"
+                        " operator string length is wrong for \"%s\"\n",
+                        entry->name);
+            }
         }
 
       initialized = TRUE;
@@ -590,6 +594,19 @@ expr_eval_result (sc_vartype_t *vt_rvalue)
 }
 
 
+/*
+ * expr_eval_abs()
+ *
+ * Return the absolute value of the given sc_int.  Replacement for labs(),
+ * avoids tying sc_int to long types too closely.
+ */
+static sc_int
+expr_eval_abs (sc_int value)
+{
+  return value < 0 ? -value : value;
+}
+
+
 /* Parse error jump buffer. */
 static jmp_buf expr_parse_error;
 
@@ -664,6 +681,7 @@ expr_eval_action (sc_int token)
 
         /* Get argument count off the top of the stack. */
         argument_count = expr_eval_pop_integer ();
+        assert (argument_count > 0);
 
         /* Find the max or min of these stacked values. */
         result = expr_eval_pop_integer ();
@@ -781,7 +799,7 @@ expr_eval_action (sc_int token)
       break;
 
     case TOK_ABS:
-      expr_eval_push_integer (labs (expr_eval_pop_integer ()));
+      expr_eval_push_integer (expr_eval_abs (expr_eval_pop_integer ()));
       break;
 
       /* Handle tokens representing most binary numeric operations. */
@@ -874,8 +892,8 @@ expr_eval_action (sc_int token)
          * not guaranteed.  For maximum portability, then, here we'll work
          * carefully with positive integers only.
          */
-        x = labs (val1);
-        y = labs (val2);
+        x = expr_eval_abs (val1);
+        y = expr_eval_abs (val2);
 
         /* Generate the result value. */
         switch (token)
@@ -1149,15 +1167,15 @@ expr_parse_match (sc_int token)
 
 
 /*
- * Numeric operator precedence table.  Entries are in order of precedence,
+ * Numeric operator precedence table.  Operators are in order of precedence,
  * with the highest being a factor.  Each precedence entry permits several
  * listed tokens.  The end of the table (highest precedence) is marked by
- * a list with no entries (although in practice we need to put a TOK_NONE
+ * a list with no operators (although in practice we need to put a TOK_NONE
  * in here since some C compilers won't accept { } as an empty initializer).
  */
 typedef struct
 {
-  const sc_int entries;
+  const sc_int token_count;
   const sc_int tokens[6];
 } sc_precedence_entry_t;
 #if 0
@@ -1194,55 +1212,67 @@ static const sc_precedence_entry_t PRECEDENCE_TABLE[] = {
 
 
 /*
+ * expr_parse_contains_token()
+ *
+ * Helper for expr_parse_numeric_element().  Search the token list for the
+ * entry passed in, and return TRUE if it contains the given token.
+ */
+static int
+expr_parse_contains_token (const sc_precedence_entry_t *entry, sc_int token)
+{
+  sc_bool is_matched;
+  sc_int index_;
+
+  /* Search the entry's token list for the token passed in. */
+  is_matched = FALSE;
+  for (index_ = 0; index_ < entry->token_count; index_++)
+    {
+      if (entry->tokens[index_] == token)
+        {
+          is_matched = TRUE;
+          break;
+        }
+    }
+
+  return is_matched;
+}
+
+
+/*
  * expr_parse_numeric_element()
  *
- * Parse numeric expression elements.  This function uses the precedence
- * table to match tokens, then decide whether, and how, to recurse into
- * itself, or whether to parse a highest-precedence factor.
+ * Parse numeric expression elements.  This function uses the precedence table
+ * to match tokens, then decide whether, and how, to recurse into itself, or
+ * whether to parse a highest-precedence factor.
  */
 static void
 expr_parse_numeric_element (sc_int precedence)
 {
-  sc_int token;
-  const sc_precedence_entry_t *table_entry;
+  const sc_precedence_entry_t *entry;
 
   /* See if the level passed in has listed tokens. */
-  table_entry = PRECEDENCE_TABLE + precedence;
-  if (table_entry->entries > 0)
-    {
-      /*
-       * Parse initial higher-precedence factor, then others that associate
-       * with the given level.
-       */
-      expr_parse_numeric_element (precedence + 1);
-      while (TRUE)
-        {
-          sc_bool match;
-          sc_int index_;
-
-          /*
-           * Search the table list for tokens at this level.  Return if none.
-           */
-          match = FALSE;
-          for (index_ = 0; index_ < table_entry->entries && !match; index_++)
-            {
-              if (expr_parse_lookahead == table_entry->tokens[index_])
-                match = TRUE;
-            }
-          if (!match)
-            return;
-
-          /* Note token, match, parse next level, then action. */
-          token = expr_parse_lookahead;
-          expr_parse_match (token);
-          expr_parse_numeric_element (precedence + 1);
-          expr_eval_action (token);
-        }
-    }
-  else
+  entry = PRECEDENCE_TABLE + precedence;
+  if (entry->token_count == 0)
     {
       /* Precedence levels that hit the table end are factors. */
       expr_parse_numeric_factor ();
+      return;
+    }
+
+  /*
+   * Parse initial higher-precedence factor, then others that associate
+   * with the given level.
+   */
+  expr_parse_numeric_element (precedence + 1);
+  while (expr_parse_contains_token (entry, expr_parse_lookahead))
+    {
+      sc_int token;
+
+      /* Note token and match, parse next level, then action this token. */
+      token = expr_parse_lookahead;
+      expr_parse_match (token);
+      expr_parse_numeric_element (precedence + 1);
+      expr_eval_action (token);
     }
 }
 
@@ -1438,20 +1468,11 @@ expr_parse_string_expr (void)
    * otherwise unused TOK_CONCATENATE for evaluation.
    */
   expr_parse_string_factor ();
-  while (TRUE)
+  while (expr_parse_lookahead == TOK_AND || expr_parse_lookahead == TOK_ADD)
     {
-      switch (expr_parse_lookahead)
-        {
-        case TOK_AND:
-        case TOK_ADD:
-          expr_parse_match (expr_parse_lookahead);
-          expr_parse_string_factor ();
-          expr_eval_action (TOK_CONCATENATE);
-          continue;
-
-        default:
-          return;
-        }
+      expr_parse_match (expr_parse_lookahead);
+      expr_parse_string_factor ();
+      expr_eval_action (TOK_CONCATENATE);
     }
 }
 
@@ -1581,7 +1602,7 @@ expr_parse_string_factor (void)
  */
 static sc_bool
 expr_evaluate_expression (const sc_char *expression, sc_var_setref_t vars,
-                          sc_char assign_type, sc_vartype_t *vt_rvalue)
+                          sc_int assign_type, sc_vartype_t *vt_rvalue)
 {
   assert (assign_type == VAR_INTEGER || assign_type == VAR_STRING);
 

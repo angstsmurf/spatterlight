@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------*\
 
-  macargs - Argument handling for arun on mac
+  macargs - Argument handling for arun on mac pre-OSX
 
   This file is included in args.c when compiling for Mac
 

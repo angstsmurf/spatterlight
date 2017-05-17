@@ -31,6 +31,8 @@ Modified
 #include "vmtype.h"
 #include "vmglob.h"
 #include "vmobj.h"
+#include "tcprstyp.h"
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -211,6 +213,15 @@ public:
     void clear();
 
     /* 
+     *   Build a translation table from runtime metaclass index to the
+     *   compiler's internal TC_META_xxx scheme.  The table is simply an
+     *   array of TC_META_xxx values indexed by metaclass index number.  The
+     *   caller is responsible for freeing the returned memory via t3free()
+     *   when done with it.  
+     */
+    static tc_metaclass_t *build_runtime_to_compiler_id_table(VMG0_);
+    
+    /* 
      *   Add an entry to the table, given the metaclass identifier (a
      *   string giving the universally unique name for the metaclass).
      *   Fills in the next available slot.  Throws an error if the
@@ -243,16 +254,22 @@ public:
     int get_dependency_index(uint reg_table_idx) const
         { return reverse_map_[reg_table_idx]; }
 
+    /*
+     *   Get the entry for a given external metaclass ID.  This returns the
+     *   table entry if the metaclass is loaded, null if not.  If the name is
+     *   given with a "/version" suffix, we'll return null if the loaded
+     *   version is older than the specified version.  
+     */
+    vm_meta_entry_t *get_entry_by_id(const char *id) const;
+
     /* 
      *   get the depencency table entry for a metaclass, given the
      *   registration table index 
      */
     vm_meta_entry_t *get_entry_from_reg(int reg_idx)
     {
-        int dep_idx;
-
         /* translate the registration table index into a dependency index */
-        dep_idx = get_dependency_index(reg_idx);
+        int dep_idx = get_dependency_index(reg_idx);
 
         /* 
          *   if we have a valid dependency index, return it; otherwise,
@@ -279,10 +296,8 @@ public:
      */
     int prop_to_vector_idx(uint reg_table_idx, vm_prop_id_t prop)
     {
-        vm_meta_entry_t *entry;
-        
         /* get the entry for the registration table index */
-        entry = get_entry_from_reg(reg_table_idx);
+        vm_meta_entry_t *entry = get_entry_from_reg(reg_table_idx);
         
         /* 
          *   if there's no entry for this registration index, there's

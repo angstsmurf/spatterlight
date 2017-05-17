@@ -670,11 +670,27 @@ main(args)
     try { "x = <<x>>, toInteger(x) = <<toInteger(x)>>\n"; }
     catch (RuntimeError err) { "error: <<err.exceptionMessage>>\n"; }
 
+    x = 2147483646.299;
+    try { "x = <<x>>, toInteger(x) = <<toInteger(x)>>\n"; }
+    catch (RuntimeError err) { "error: <<err.exceptionMessage>>\n"; }
+
+    x = 2147483646.832;
+    try { "x = <<x>>, toInteger(x) = <<toInteger(x)>>\n"; }
+    catch (RuntimeError err) { "error: <<err.exceptionMessage>>\n"; }
+
     x = 2147483647.299;
     try { "x = <<x>>, toInteger(x) = <<toInteger(x)>>\n"; }
     catch (RuntimeError err) { "error: <<err.exceptionMessage>>\n"; }
 
     x = 2147483647.832;
+    try { "x = <<x>>, toInteger(x) = <<toInteger(x)>>\n"; }
+    catch (RuntimeError err) { "error: <<err.exceptionMessage>>\n"; }
+
+    x = -2147483647.200;
+    try { "x = <<x>>, toInteger(x) = <<toInteger(x)>>\n"; }
+    catch (RuntimeError err) { "error: <<err.exceptionMessage>>\n"; }
+
+    x = -2147483647.822;
     try { "x = <<x>>, toInteger(x) = <<toInteger(x)>>\n"; }
     catch (RuntimeError err) { "error: <<err.exceptionMessage>>\n"; }
 

@@ -52,7 +52,7 @@ struct CVmUndoRecord
         vm_prop_id_t prop;
 
         /* integer value key */
-        uint32 intval;
+        uint32_t intval;
 
         /* pointer value key */
         void *ptrval;
@@ -136,7 +136,7 @@ public:
      */
     void add_new_record_prop_key(VMG_ vm_obj_id_t obj, vm_prop_id_t key,
                                  const vm_val_t *val);
-    void add_new_record_int_key(VMG_ vm_obj_id_t obj, uint32 key,
+    void add_new_record_int_key(VMG_ vm_obj_id_t obj, uint32_t key,
                                 const vm_val_t *val);
 
     /* 
@@ -149,6 +149,17 @@ public:
      */
     int add_new_record_ptr_key(VMG_ vm_obj_id_t obj, void *key,
                                const vm_val_t *val);
+
+    /* add a new record with a pointer key and no separate value data */
+    int add_new_record_ptr_key(VMG_ vm_obj_id_t obj, void *key)
+    {
+        /* set up a nil value to fill the value slot in the record */
+        vm_val_t nilval;
+        nilval.set_nil();
+
+        /* save the record */
+        return add_new_record_ptr_key(vmg_ obj, key, &nilval);
+    }
 
     /*
      *   Apply undo to the latest savepoint.  After applying the undo

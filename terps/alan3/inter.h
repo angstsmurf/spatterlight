@@ -8,23 +8,27 @@
 
 \*----------------------------------------------------------------------*/
 
-/* Types: */
+#include "types.h"
+#include "stack.h"
 
-/* Data: */
+/* TYPES: */
 
-extern Bool stopAtNextLine;
+
+/* DATA: */
+
+extern bool stopAtNextLine;
 extern int currentLine;
-extern int depth;
+extern int recursionDepth;
+
+/* Global failure flag */
+extern bool fail;
 
 
-/* Functions: */
+/* FUNCTIONS: */
 
-#ifdef _PROTOTYPES_
-
+extern void setInterpreterMock(void (*mock)(Aaddr adr));
+extern void setInterpreterStack(Stack stack);
 extern void interpret(Aaddr adr);
-
-#else
-extern void interpret();
-#endif
+extern Aword evaluate(Aaddr adr);
 
 #endif

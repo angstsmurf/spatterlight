@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -30,9 +30,9 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 #include "scare.h"
@@ -346,8 +346,8 @@ var_put (sc_var_setref_t vars,
 
   if (var_trace)
     {
-      sc_trace ("Variable: %%%s%% %s = ",
-                name, is_modification ? "" : "[new]");
+      sc_trace ("Variable: %%%s%%%s = ",
+                name, is_modification ? "" : " [new]");
       switch (var->type)
         {
         case VAR_INTEGER:
@@ -1898,15 +1898,15 @@ var_debug_dump (sc_var_setref_t vars)
           switch (var->type)
             {
             case VAR_STRING:
-              sc_trace ("[S] %s = \"%s\"", var->name, var->value.string);
+              sc_trace ("[String ] %s = \"%s\"", var->name, var->value.string);
               break;
             case VAR_INTEGER:
-              sc_trace ("[I] %s = %ld", var->name, var->value.integer);
+              sc_trace ("[Integer] %s = %ld", var->name, var->value.integer);
               break;
 
             default:
-              sc_fatal ("var_debug_dump:"
-                        " invalid variable type, %ld\n", var->type);
+              sc_trace ("[Invalid] %s = %p", var->name, var->value.voidp);
+              break;
             }
           sc_trace ("\n");
         }

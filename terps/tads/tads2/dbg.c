@@ -206,7 +206,7 @@ static void dbgpbval(dbgcxdef *ctx, dattyp typ, uchar *val,
     switch(typ)
     {
     case DAT_NUMBER:
-        sprintf(buf, "%ld", osrp4(val));
+        sprintf(buf, "%ld", (long)osrp4s(val));
         len = strlen(buf);
         break;
         
@@ -496,6 +496,10 @@ int dbglgetlvl(dbgcxdef *ctx, uchar *buf, int level)
     /* if we're in an intrinsic, go to enclosing frame */
     if (fr->dbgftarg == MCMONINV) --fr;
     
+    /* make sure we've encountered an OPCLINE in this frame */
+    if (fr->dbgflin == 0)
+        return 1;
+
     /* we need to read from the target object - lock it */
     obj = mcmlck(ctx->dbgcxmem, (mcmon)fr->dbgftarg);
 

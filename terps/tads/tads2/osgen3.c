@@ -15,8 +15,20 @@ Name
             TADS 3 Version, with new "banner" interface
 Function
   This module contains certain OS-dependent functions that are common
-  between several systems.  Routines in this file are selectively enabled
-  according to macros defined in os.h:
+  to many character-mode platforms.  ("Character mode" means that the
+  display is organized as a rectangular grid of characters in a monospaced
+  font.  This module isn't usable for most GUI systems, because it doesn't
+  have any support for variable-pitch fonts - GUI ports generally need to
+  provide their own custom versions of the os_xxx() functions this module
+  module provides.  On GUI systems you should simply omit this entire
+  module from the build, and instead substitute a new module of your own
+  creation that defines your custom versions of the necessary os_xxx()
+  functions.)
+
+  Some routines in this file are selectively enabled according to macros
+  defined in os.h, since some ports that use this file will want to provide
+  their own custom versions of these routines instead of the ones defined
+  here.  The macros and associated functions are:
 
     USE_STDIO     - implement os_print, os_flush, os_gets with stdio functions
     USE_DOSEXT    - implement os_remext, os_defext using MSDOS-like filename
@@ -655,6 +667,9 @@ static osfar_t char S_hist_sav_internal[256];
 static osfar_t char *S_hist_sav = S_hist_sav_internal;
 static osfar_t size_t S_hist_sav_siz = sizeof(S_hist_sav_internal);
 # endif /* USE_HISTORY */
+
+/* strcpy with destination buffer size limit */
+extern void safe_strcpy(char *dst, size_t dstlen, const char *src);
 
 /*
  *   Flag: input is already in progress.  When os_gets_timeout() returns
@@ -2367,7 +2382,6 @@ static void osgen_gridwin_resize(osgen_gridwin_t *win,
     if (new_wid > win->grid_wid || new_ht > win->grid_ht)
     {
         char *new_txt;
-        size_t ofs;
         osgen_charcolor_t *new_color;
         char *tsrc, *tdst;
         osgen_charcolor_t *csrc, *cdst;
@@ -2393,7 +2407,7 @@ static void osgen_gridwin_resize(osgen_gridwin_t *win,
         csrc = win->grid_color;
         tdst = new_txt;
         cdst = new_color;
-        for (y = 0, ofs = 0 ; y < win->grid_ht ; ++y)
+        for (y = 0 ; y < win->grid_ht ; ++y)
         {
             /* copy the old text and color data */
             memcpy(tdst, tsrc, win->grid_wid);
@@ -2973,15 +2987,6 @@ void osssb_on_resize_screen()
 }
 
 # else /* USE_SCROLLBACK */
-/* 
- *   for the non-scrollback version, add-to-scrollback is just a dummy
- *   function: if we're not saving scrollback, we obviously have no need to
- *   save any information added to the buffer 
- */
-static void ossaddsb(struct osgen_win_t *win, char *p, size_t len, int draw)
-{
-    /* do nothing */
-}
 
 /* 
  *   for the non-scrollback version, there's nothing we need to do on
@@ -3251,6 +3256,14 @@ void os_plain(void)
 {
     /* set the 'plain' mode flag */
     os_f_plain = 1;
+
+    /* 
+     *   if we're running without a stdin, turn off pagination - since the
+     *   user won't be able to respond to [more] prompts, there's no reason
+     *   to show them 
+     */
+    if (oss_eof_on_stdin())
+        G_os_moremode = FALSE;
 }
 
 /*
@@ -3380,6 +3393,7 @@ void os_print(const char *str, size_t len)
     }
 }
 
+#ifndef FROBTADS          /* hack - should refactor to avoid need for ifdef */
 void os_flush(void)
 {
     /* 
@@ -3390,6 +3404,7 @@ void os_flush(void)
     if (os_f_plain)
         fflush(stdout);
 }
+#endif
 
 void os_update_display(void)
 {
@@ -3957,6 +3972,7 @@ int os_gets_process(int event_type, os_event_info_t *event_info)
     char *p;
     char *eol;
     char *buf;
+    size_t bufsiz;
     int x;
     int y;
     osgen_txtwin_t *win;
@@ -4001,6 +4017,7 @@ int os_gets_process(int event_type, os_event_info_t *event_info)
     /* set up our buffer pointers */
     p = S_gets_buf + S_gets_ofs;
     buf = S_gets_buf;
+    bufsiz = S_gets_buf_siz;
     eol = p + strlen(p);
 
     /* get the current color in the window */
@@ -4040,7 +4057,7 @@ int os_gets_process(int event_type, os_event_info_t *event_info)
             int advtail;
             int saveflag = 1;                /* assume we will be saving it */
             
-            if (q = ossprvcmd(histhead))
+            if ((q = ossprvcmd(histhead)) != 0)
             {
                 char *p = buf;
                 
@@ -4239,7 +4256,7 @@ int os_gets_process(int event_type, os_event_info_t *event_info)
              *   history-scrolling back down to it) 
              */
                 if (c == CMD_UP && !ossnxtcmd(S_gets_curhist))
-                    strcpy(S_hist_sav, buf);
+                    safe_strcpy(S_hist_sav, S_hist_sav_siz, buf);
 
 # endif /* USE_HISTORY */
 
@@ -4287,7 +4304,7 @@ int os_gets_process(int event_type, os_event_info_t *event_info)
                 else
                 {
                     /* no more history - restore original line */
-                    strcpy(buf, S_hist_sav);
+                    safe_strcpy(buf, bufsiz, S_hist_sav);
                 }
             }
             if ((c == CMD_UP || c == CMD_DOWN)
@@ -5420,6 +5437,11 @@ void os_set_save_ext(const char *ext)
     /* ignore the setting */
 }
 
+const char *os_get_save_ext()
+{
+    /* we ignore the setting, so always return null */
+    return 0;
+}
 
 /* ------------------------------------------------------------------------ */
 /*

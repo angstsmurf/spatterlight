@@ -44,7 +44,7 @@ Modified
 #define VMSTRCMP_H
 
 #include <stdlib.h>
-#include "os.h"
+#include <os.h>
 #include "vmtype.h"
 #include "vmobj.h"
 #include "vmglob.h"
@@ -232,6 +232,18 @@ public:
     /* match two strings */
     virtual unsigned long match_strings(const char *valstr, size_t vallen,
                                         const char *refstr, size_t reflen);
+
+    /* 
+     *   Check for an approximation match to a given character.  This checks
+     *   the given input string for a match to the approximation for a given
+     *   reference character.  Returns the number of characters in the match,
+     *   or zero if there's no match.  
+     */
+    virtual size_t match_chars(const wchar_t *valstr, size_t valcnt,
+                               wchar_t refchar);
+
+    /* truncation length, in characters; 0 means no truncation length */
+    virtual size_t trunc_len() const;
     
 protected:
     /* create with no extension */

@@ -129,7 +129,7 @@ public:
     vm_obj_id_t create_from_stack(VMG_ const uchar **pc_ptr, uint argc)
     {
         err_throw(VMERR_BAD_DYNAMIC_NEW);
-        return VM_INVALID_OBJ;
+        AFTER_ERR_THROW(return VM_INVALID_OBJ;)
     }
 
     /* call a static property */

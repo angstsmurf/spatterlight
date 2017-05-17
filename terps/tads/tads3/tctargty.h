@@ -44,6 +44,14 @@ Modified
 #define TCTARGTY_TARGET_DEFINED__
 #endif
 
+/*
+ *   Javascript Code Generator 
+ */
+#ifdef TC_TARGET_JS
+#include "tcjsty.h"
+#define TCTARGTY_TARGET_DEFINED__
+#endif
+
 
 /* ------------------------------------------------------------------------ */
 /*

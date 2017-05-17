@@ -26,6 +26,16 @@ say(val)
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Generate a string for showing quoted text.  We simply enclose the
+ *   text in a <Q>...</Q> tag sequence and return the result.  
+ */
+withQuotes(txt)
+{
+    return '<q><<txt>></q>';
+}
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Output Manager.  This object contains global code for displaying text
  *   on the console.
  *   
@@ -82,6 +92,23 @@ transient outputManager: object
 
     /* the current output stream - start with the main text stream */
     curOutputStream = mainOutputStream
+
+    /* 
+     *   Is the UI running in HTML mode?  This tells us if we have a full
+     *   HTML UI or a text-only UI.  Full HTML mode applies if we're
+     *   running on a Multimedia TADS interpreter, or we're using the Web
+     *   UI, which runs in a separate browser and is thus inherently
+     *   HTML-capable.
+     *   
+     *   (The result can't change during a session, since it's a function
+     *   of the game and interpreter capabilities, so we store the result
+     *   on the first evaluation to avoid having to recompute it on each
+     *   query.  Since 'self' is a static object, we'll recompute this each
+     *   time we run the program, which is important because we could save
+     *   the game on one interpreter and resume the session on a different
+     *   interpreter with different capabilities.)  
+     */
+    htmlMode = (self.htmlMode = checkHtmlMode())
 ;
 
 /* ------------------------------------------------------------------------ */
@@ -179,10 +206,9 @@ class OutputStream: PreinitObject
      */
     captureOutput(func, [args])
     {
-        local filter;
-
         /* install a string capture filter */
-        addOutputFilter(filter = new StringCaptureFilter());
+        local filter = new StringCaptureFilter();
+        addOutputFilter(filter);
 
         /* make sure we don't leave without removing our capturer */
         try
@@ -269,10 +295,8 @@ class OutputStream: PreinitObject
      */
     addOutputFilterBelow(newFilter, existingFilter)
     {
-        local idx;
-        
         /* find the existing filter in our list */
-        idx = filterList_.indexOf(existingFilter);
+        local idx = filterList_.indexOf(existingFilter);
 
         /* 
          *   If we found the old filter, add the new filter below the
@@ -292,7 +316,7 @@ class OutputStream: PreinitObject
 
     /*
      *   Remove an output filter.  Since filters are arranged in a stack,
-     *   only the LAST output filter added may be removed.  It is an error
+     *   only the LAST output filter added may be removed.  It's an error
      *   to remove a filter other than the last one.  
      */
     removeOutputFilter(filter)
@@ -317,19 +341,36 @@ class OutputStream: PreinitObject
          *   filter list is a stack: the last element added is the topmost
          *   element of the stack, so it must be called first.  
          */
-        for (local i = filterList_.length() ; i != 0 ; --i)
-        {
-            /* apply this filter */
+        for (local i in filterList_.length()..1 step -1 ; val != nil ; )
             val = filterList_[i].filterText(self, val);
-
-            /* if that filter left us with nothing, we're done */
-            if (val == nil)
-                break;
-        }
 
         /* return the result of all of the filters */
         return val;
     }
+
+    /* 
+     *   Apply the current set of text transformation filters to a string.
+     *   This applies only the non-capturing filters; we skip any capture
+     *   filters.  
+     */
+    applyTextFilters(val)
+    {
+        /* run through the filter stack from top to bottom */
+        for (local i in filterList_.length()..1 step -1 ; val != nil ; )
+        {
+            /* skip capturing filters */
+            local f = filterList_[i];
+            if (f.ofKind(CaptureFilter))
+                continue;
+
+            /* apply the filter */
+            val = f.filterText(self, val);
+        }
+
+        /* return the result */
+        return val;
+    }
+        
 
     /*
      *   Receive notification from the input manager that we have just
@@ -379,75 +420,13 @@ transient mainOutputStream: OutputStream
     /* we sit atop the system-level main console output stream */
     writeFromStream(txt)
     {
+        /* if an input event was interrupted, cancel the event */
+        inputManager.inputEventEnd();
+
         /* write the text to the console */
-        tadsSay(txt);
+        aioSay(txt);
     }
 ;
-
-/* ------------------------------------------------------------------------ */
-/* 
- *   Generate a string to show hyperlinked text.  If we're not in HTML
- *   mode, we'll simply return the text without the hyperlink; otherwise,
- *   we'll return the text with a hyperlink to the given HREF.  
- */
-aHref(href, txt, ...)
-{
-    /* check for HTML mode */
-    if (systemInfo(SysInfoInterpClass) == SysInfoIClassHTML)
-    {
-        local title;
-
-        /* if there's a title, retrieve it */
-        title = (argcount >= 3 ? getArg(3) : nil);
-
-        /* we're in HTML mode - generate a <a> tag enclosing the text */
-        return '<a href="' + href + '"'
-            + (title != nil ? ' title="' + title + '"' : '')
-            + '><.a>' + txt + '<./a></a>';
-    }
-    else
-    {
-        /* plain text mode - just return the text unchanged */
-        return txt;
-    }
-}
-
-/* 
- *   Generate a string to show hyperlinked text, with alternate text if
- *   we're not in HTML mode.  If we're in HTML mode, we'll return
- *   linkedTxt linked to the given HREF; if we're in plain text mode,
- *   we'll return the alternate text as-is.  
- */
-aHrefAlt(href, linkedText, altText, ...)
-{
-    /* check HTML mode */
-    if (systemInfo(SysInfoInterpClass) == SysInfoIClassHTML)
-    {
-        local title;
-
-        /* if there's a title, retrieve it */
-        title = (argcount >= 4 ? getArg(4) : nil);
-
-        /* we're in HTML mode - generate an <A> tag for the linked text */
-        return '<a href="' + href + '"'
-            + (title != nil ? ' title="' + title + '"' : '')
-            + '><.a>' + linkedText + '<./a></a>';
-    }
-    else
-    {
-        /* plain text mode - just return the alternate text */
-        return altText;
-    }
-}
-
-/*
- *   Generate a string for showing quoted text.  We simply enclose the
- *   text in a <Q>...</Q> tag sequence and return the result.  
- */
-withQuotes(txt)
-{
-    return '<q>' + txt + '</q>';
-}
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -708,7 +687,7 @@ class MonitorFilter: OutputFilter
  *   Subclasses can keep track of the text in memory, in a file, or
  *   wherever desired.  
  */
-class CaptureFilter: object
+class CaptureFilter: OutputFilter
     /*
      *   Filter the text.  We simply discard the text, passing nothing
      *   through to the underlying stream. 
@@ -726,7 +705,7 @@ class CaptureFilter: object
  *   everything, leaving nothing to the underlying stream; when disabled,
  *   we pass everything through to the underyling stream unchanged.  
  */
-class SwitchableCaptureFilter: object
+class SwitchableCaptureFilter: CaptureFilter
     /* filter the text */
     filterText(ostr, txt)
     {
@@ -808,11 +787,9 @@ class StyleTag: object
  *   in HTML mode, we display our plainOpenText and plainCloseText.
  */
 class HtmlStyleTag: StyleTag
-    openText = (systemInfo(SysInfoInterpClass) == SysInfoIClassHTML
-                ? htmlOpenText : plainOpenText)
+    openText = (outputManager.htmlMode ? htmlOpenText : plainOpenText)
 
-    closeText = (systemInfo(SysInfoInterpClass) == SysInfoIClassHTML
-                 ? htmlCloseText : plainCloseText)
+    closeText = (outputManager.htmlMode ? htmlCloseText : plainCloseText)
 
     /* our HTML-mode opening and closing text */
     htmlOpenText = ''
@@ -969,7 +946,7 @@ styleTagFilter: OutputFilter, PreinitObject
             /* get the part of the string that follows the tag */
             afterOfs = idx[1] + idx[2];
             afterStr = val.substr(idx[1] + idx[2]);
-                
+
             /* 
              *   if we got a translation, replace it; otherwise, leave the
              *   original text intact 
@@ -1090,7 +1067,7 @@ styleTagFilter: OutputFilter, PreinitObject
  *   One instance of this class, called langMessageBuilder, should be
  *   created by the language-specific library.  
  */
-class MessageBuilder: PreinitObject
+class MessageBuilder: OutputFilter, PreinitObject
     /* pre-compile some regular expressions we use a lot */
     patUpper = static new RexPattern('<upper>')
     patAllCaps = static new RexPattern('<upper><upper>')
@@ -1219,6 +1196,7 @@ class MessageBuilder: PreinitObject
             allCaps = (rexMatch(patAllCaps, paramStr) != nil);
 
             /* lower-case the entire parameter string for matching */
+            local origParamStr = paramStr;
             paramStr = paramStr.toLower();
 
             /* perform any language-specific rewriting on the string */
@@ -1282,7 +1260,10 @@ class MessageBuilder: PreinitObject
                  *   parameter object.  Try getting the string from the
                  *   action.  
                  */
-                newText = gAction.getMessageParam(paramName);
+                newText = (gAction != nil
+                           ? gAction.getMessageParam(paramName) : nil);
+
+                /* check what we found */
                 if (dataType(newText) == TypeSString)
                 {
                     /* 
@@ -1300,7 +1281,7 @@ class MessageBuilder: PreinitObject
                      *   the parameter is completely undefined; simply add
                      *   the original text, including the braces 
                      */
-                    result += processResult('{' + paramStr + '}');
+                    result += processResult('{<<origParamStr>>}');
                 }
                     
                 /* 
@@ -1461,18 +1442,18 @@ class MessageBuilder: PreinitObject
     processResult(txt) { return txt; }
 
     /*
-     *   "Quote" a message - double each open brace, so that braces in the
-     *   message will be taken literally when run through the substitution
-     *   replacer.  This can be used when a message is expanded prior to
-     *   being displayed to ensure that braces in the result won't be
-     *   mistaken as substitution parameters requiring further expansion.
-     *   
-     *   Note that only open braces need to be quoted, since lone close
-     *   braces are ignored in the substitution process.  
+     *   "Quote" a message - double each open or close brace, so that braces in
+     *   the message will be taken literally when run through the substitution
+     *   replacer.  This can be used when a message is expanded prior to being
+     *   displayed to ensure that braces in the result won't be mistaken as
+     *   substitution parameters requiring further expansion.
+     *
+     *   Note that only open braces need to be quoted, since lone close braces
+     *   are ignored in the substitution process.
      */
     quoteMessage(str)
     {
-        return str.findReplace('{', '{{', ReplaceAll);
+        return str.findReplace(['{', '}'], ['{{', '}}'], ReplaceAll);
     }
 
     /*
@@ -1953,5 +1934,84 @@ class LogConsole: OutputStream
 
     /* our system log console handle */
     handle_ = nil
+;
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Output stream window.
+ *   
+ *   This is an abstract base class for UI widgets that have output
+ *   streams, such as Banner Windows and Web UI windows.  This base class
+ *   essentially handles the interior of the window, and leaves the details
+ *   of the window's layout in the broader UI to subclasses.  
+ */
+class OutputStreamWindow: object
+    /* 
+     *   Invoke the given callback function, setting the default output
+     *   stream to the window's output stream for the duration of the call.
+     *   This allows invoking any code that writes to the current default
+     *   output stream and displaying the result in the window.  
+     */
+    captureOutput(func)
+    {
+        /* make my output stream the global default */
+        local oldStr = outputManager.setOutputStream(outputStream_);
+
+        /* make sure we restore the default output stream on the way out */
+        try
+        {
+            /* invoke the callback function */
+            (func)();
+        }
+        finally
+        {
+            /* restore the original default output stream */
+            outputManager.setOutputStream(oldStr);
+        }
+    }
+
+    /* 
+     *   Make my output stream the default in the output manager.  Returns
+     *   the previous default output stream; the caller can note the return
+     *   value and use it later to restore the original output stream via a
+     *   call to outputManager.setOutputStream(), if desired.  
+     */
+    setOutputStream()
+    {
+        /* set my stream as the default */
+        return outputManager.setOutputStream(outputStream_);
+    }
+
+    /*
+     *   Create our output stream.  We'll create the appropriate output
+     *   stream subclass and set it up with our default output filters.
+     *   Subclasses can override this as needed to customize the filters.  
+     */
+    createOutputStream()
+    {
+        /* create a banner output stream */
+        outputStream_ = createOutputStreamObj();
+
+        /* set up the default filters */
+        outputStream_.addOutputFilter(typographicalOutputFilter);
+        outputStream_.addOutputFilter(new transient ParagraphManager());
+        outputStream_.addOutputFilter(styleTagFilter);
+        outputStream_.addOutputFilter(langMessageBuilder);
+    }
+
+    /*
+     *   Create the output stream object.  Subclasses can override this to
+     *   create the appropriate stream subclass.  Note that the stream
+     *   should always be created as a transient object.  
+     */
+    createOutputStreamObj() { return new transient OutputStream(); }
+
+    /*
+     *   My output stream - this is a transient OutputStream instance.
+     *   Subclasses must create this explicitly by calling
+     *   createOutputStream() when the underlying UI window is first
+     *   created.  
+     */
+    outputStream_ = nil
 ;
 

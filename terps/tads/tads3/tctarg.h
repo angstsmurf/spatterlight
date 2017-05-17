@@ -92,6 +92,16 @@ Modified
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   JavaScript code generator
+ */
+#ifdef TC_TARGET_JS
+#include "tcjs.h"
+#define TCTARG_TARGET_DEFINED__
+#endif
+
+
+/* ------------------------------------------------------------------------ */
+/*
  *   ensure that a code generator was defined - if not, the compilation
  *   cannot proceed 
  */

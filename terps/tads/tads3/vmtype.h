@@ -33,7 +33,7 @@ Modified
  *   Constant pool/code offset.  This is an address of an object in the
  *   pool.  Pool offsets are 32-bit values.  
  */
-typedef uint32 pool_ofs_t;
+typedef uint32_t pool_ofs_t;
 
 /*
  *   Savepoint ID's are stored in a single byte; since we store many
@@ -51,7 +51,7 @@ const vm_savept_t VM_SAVEPT_MAX = 255;
  *   as an invalid object ID (a null pointer, effectively); no object can
  *   ever have this ID.  
  */
-typedef uint32 vm_obj_id_t;
+typedef uint32_t vm_obj_id_t;
 const vm_obj_id_t VM_INVALID_OBJ = 0;
 
 /*
@@ -59,7 +59,7 @@ const vm_obj_id_t VM_INVALID_OBJ = 0;
  *   distinguished value that serves as an invalid property ID, which can
  *   be used to indicate the absence of a property value.  
  */
-typedef uint16 vm_prop_id_t;
+typedef uint16_t vm_prop_id_t;
 const vm_prop_id_t VM_INVALID_PROP = 0;
 
 /*
@@ -171,6 +171,29 @@ enum vm_datatype_t
     VM_ENUM,
 
     /*
+     *   Built-in function pointer.  This is represented as an integer value
+     *   with the BIF table entry index (the function set ID) in the high 16
+     *   bits, and the function index (the index of the function within its
+     *   function set) in the low 16 bits.  
+     */
+    VM_BIFPTR,
+
+    /*
+     *   Special internal pseudo-type for execute-on-evaluation objects.
+     *   This is used when an anonymous object or dynamically created string
+     *   is stored in an object property *as a method*, meaning that the
+     *   object is executed upon evaluation rather than simply returned as an
+     *   object value.  This is never stored in an image file, but it can be
+     *   stored in a saved game file.  It's never used in a value that's
+     *   visible to user code; it's only for internal storage within
+     *   TadsObject property tables and the like.  
+     */
+    VM_OBJX,
+
+    /* the equivalent of VM_OBJX for built-in function pointers */
+    VM_BIFPTRX,
+
+    /*
      *   First invalid type ID.  Tools (such as compilers and debuggers)
      *   can use this ID and any higher ID values to flag their own
      *   internal types.  
@@ -178,7 +201,12 @@ enum vm_datatype_t
     VM_FIRST_INVALID_TYPE
 };
 
-/* macro to create a private type constant for internal use in a tool */
+/* 
+ *   Macro to create a private type constant for internal use in a tool.  The
+ *   compiler uses this to create special non-VM values for its own use
+ *   during compilation.  Types created with this macro must never appear in
+ *   an image file, and must never be exposed to user bytecode via any APIs.
+ */
 #define VM_MAKE_INTERNAL_TYPE(idx) \
     ((vm_datatype_t)(((int)VM_FIRST_INVALID_TYPE) + (idx)))
 
@@ -192,7 +220,7 @@ struct vm_val_t
     union
     {
         /* stack/code pointer */
-        void *ptr;
+        const void *ptr;
 
         /* object reference */
         vm_obj_id_t obj;
@@ -201,16 +229,23 @@ struct vm_val_t
         vm_prop_id_t prop;
 
         /* 32-bit integer */
-        int32 intval;
+        int32_t intval;
 
         /* enumerated constant */
-        uint32 enumval;
+        uint32_t enumval;
 
         /* sstring/dstring/list constant pool offset/pcode pool offset */
         pool_ofs_t ofs;
 
         /* native code descriptor */
         const class CVmNativeCodeDesc *native_desc;
+
+        /* pointer to built-in function */
+        struct
+        {
+            unsigned short set_idx;
+            unsigned short func_idx;
+        } bifptr;
     } val;
 
     /* set various types of values */
@@ -218,19 +253,33 @@ struct vm_val_t
     void set_nil() { typ = VM_NIL; }
     void set_true() { typ = VM_TRUE; }
     void set_stack(void *ptr) { typ = VM_STACK; val.ptr = ptr; }
-    void set_codeptr(void *ptr) { typ = VM_CODEPTR; val.ptr = ptr; }
+    void set_codeptr(const void *ptr) { typ = VM_CODEPTR; val.ptr = ptr; }
     void set_obj(vm_obj_id_t obj) { typ = VM_OBJ; val.obj = obj; }
-    void set_nil_obj() { typ = VM_NIL; val.obj = VM_INVALID_OBJ; }
     void set_propid(vm_prop_id_t prop) { typ = VM_PROP; val.prop = prop; }
-    void set_int(int32 intval) { typ = VM_INT; val.intval = intval; }
-    void set_enum(uint32 enumval) { typ = VM_ENUM; val.enumval = enumval; }
+    void set_int(int32_t intval) { typ = VM_INT; val.intval = intval; }
+    void set_enum(uint32_t enumval) { typ = VM_ENUM; val.enumval = enumval; }
     void set_sstring(pool_ofs_t ofs) { typ = VM_SSTRING; val.ofs = ofs; }
     void set_dstring(pool_ofs_t ofs) { typ = VM_DSTRING; val.ofs = ofs; }
     void set_list(pool_ofs_t ofs) { typ = VM_LIST; val.ofs = ofs; }
     void set_codeofs(pool_ofs_t ofs) { typ = VM_CODEOFS; val.ofs = ofs; }
     void set_fnptr(pool_ofs_t ofs) { typ = VM_FUNCPTR; val.ofs = ofs; }
+    void set_bifptr(ushort set_idx, ushort func_idx)
+    {
+        typ = VM_BIFPTR;
+        val.bifptr.set_idx = set_idx;
+        val.bifptr.func_idx = func_idx;
+    }
     void set_native(const class CVmNativeCodeDesc *desc)
         { typ = VM_NATIVE_CODE; val.native_desc = desc; }
+
+    /*
+     *   Set nil, specifically for a value that might be interpreted as an
+     *   object ID.  This sets the object ID field to invalid in addition to
+     *   setting the value type to nil, so that callers that just look at the
+     *   object ID will see an explicitly invalid object value rather than
+     *   something random.  
+     */
+    void set_nil_obj() { typ = VM_NIL; val.obj = VM_INVALID_OBJ; }
 
     /* 
      *   set an object or nil value: if the object ID is VM_INVALID_OBJ,
@@ -247,21 +296,41 @@ struct vm_val_t
             typ = VM_NIL;
     }
 
+    /* get an object, or a null pointer if it's not an object */
+    vm_obj_id_t get_as_obj() const { return typ == VM_OBJ ? val.obj : 0; }
+
+    /* is this an object of the given class? */
+    int is_instance_of(VMG_ vm_obj_id_t cls) const;
+
     /* set to an integer giving the datatype of the given value */
     void set_datatype(VMG_ const vm_val_t *val);
 
     /* set to nil if 'val' is zero, true if 'val' is non-zero */
-    void set_logical(int val) { typ = (val != 0 ? VM_TRUE : VM_NIL); }
+    void set_logical(int v) { typ = (v != 0 ? VM_TRUE : VM_NIL); }
 
     /* determine if the value is logical (nil or true) */
     int is_logical() const { return (typ == VM_NIL || typ == VM_TRUE); }
 
     /* 
-     *   Get a logical as numeric TRUE or FALSE.  This does not perform
+     *   Get a logical as numeric TRUE or FALSE.  This doesn't perform
      *   any type checking; the caller must ensure that the value is
      *   either true or nil, or this may return meaningless results.  
      */
     int get_logical() const { return (typ == VM_TRUE); }
+
+    /* get as logical, checking type */
+    int get_logical_only() const
+    {
+        if (typ == VM_TRUE)
+            return TRUE;
+        else if (typ == VM_NIL)
+            return FALSE;
+        else
+        {
+            err_throw(VMERR_BAD_TYPE_BIF);
+            AFTER_ERR_THROW(return FALSE;)
+        }
+    }
 
     /*
      *   Get the underlying string constant value.  If the value does not
@@ -271,6 +340,12 @@ struct vm_val_t
     const char *get_as_string(VMG0_) const;
 
     /*
+     *   Cast the value to a string.  This attempts to reinterpret the value
+     *   as a string.   
+     */
+    const char *cast_to_string(VMG_ vm_val_t *new_str) const;
+
+    /*
      *   Get the underlying list constant value.  If the value does not
      *   have an underlying list constant (because it is of a type that
      *   does not store list data), this returns null. 
@@ -278,19 +353,40 @@ struct vm_val_t
     const char *get_as_list(VMG0_) const;
 
     /*
-     *   Get the effective number of elements from this value when the
-     *   value is used as the right-hand side of a '+' or '-' operator
-     *   whose left-hand side implies that the operation involved is a set
-     *   operation (this is the case is the left-hand side is of certain
-     *   collection types, such as list, array, or vector); and get the
-     *   nth element in that context.  Most types of values contribute
-     *   only one element to these operations, but some collection types
-     *   supply their elements individually, rather than the collection
-     *   itself, for these operations.  'idx' is the 1-based index of the
-     *   element to retrieve.  
+     *   Is the value indexable as a list?  This returns true for types that
+     *   have contiguous integer indexes from 1..number of elements.  
      */
-    size_t get_coll_addsub_rhs_ele_cnt(VMG0_) const;
-    void get_coll_addsub_rhs_ele(VMG_ size_t idx, vm_val_t *result) const;
+    int is_listlike(VMG0_) const;
+
+    /* 
+     *   For a list-like object, get the number of elements.  If this isn't a
+     *   list-like object, returns -1. 
+     */
+    int ll_length(VMG0_) const;
+
+    /* 
+     *   For a list-like object, get an indexed element.  The index is
+     *   1-based, per our usual conventions.
+     */
+    void ll_index(VMG_ vm_val_t *ret, const vm_val_t *idx) const;
+
+    /* index with a 1-based integer */
+    void ll_index(VMG_ vm_val_t *ret, int idx) const
+    {
+        vm_val_t vidx;
+        vidx.set_int(idx);
+        ll_index(vmg_ ret, &vidx);
+    }
+
+    /* get as a native code pointer value */
+    const uchar *get_as_codeptr(VMG0_) const;
+
+    /* 
+     *   Is this a function pointer of some kind?  This returns true if it's
+     *   a plain function pointer, a built-in function pointer, or an object
+     *   with an invoker (which covers anonymous and dynamic functions). 
+     */
+    int is_func_ptr(VMG0_) const;
 
     /*
      *   Convert a numeric value to an integer value.  If the value isn't
@@ -311,14 +407,11 @@ struct vm_val_t
         }
     }
 
-    /* determine if the value is some kind of number */
-    int is_numeric() const { return (typ == VM_INT); }
+    /* determine if the value is an integer */
+    int is_int() const { return (typ == VM_INT); }
 
-    /*
-     *   Convert a numeric value to an integer.  If the value is not
-     *   numeric, we'll throw an error. 
-     */
-    int32 num_to_int() const
+    /* get the value as an integer, throwing an error if it's any other type */
+    int32_t get_as_int() const
     {
         /* check the type */
         if (typ == VM_INT)
@@ -328,16 +421,63 @@ struct vm_val_t
         }
         else
         {
-            /* 
-             *   other types are not numeric and can't be directly
-             *   converted to integer by arithmetic conversion
-             */
+            /* not an integer - throw an error */
             err_throw(VMERR_NUM_VAL_REQD);
-
-            /* the compiler doesn't know we'll never get here */
-            return 0;
+            AFTER_ERR_THROW(return 0;)
         }
     }
+
+    /* 
+     *   determine if the type is numeric - this returns true for integer and
+     *   BigNumber values, and could match future types that are numeric
+     */
+    int is_numeric(VMG0_) const
+        { return typ == VM_INT || nonint_is_numeric(vmg0_); }
+
+    /*
+     *   Promote an integer to this numeric type.  For example, if 'this' is
+     *   a BigNumber, this creates a BigNumber representation of val.  This
+     *   converts the value in place, replacing '*val' with the promoted
+     *   value.
+     */
+    void promote_int(VMG_ vm_val_t *val) const;
+
+    /* 
+     *   Convert a numeric value to an integer.  This converts any type for
+     *   which is_numeric() returns true, but doesn't convert non-numeric
+     *   types.
+     */
+    int32_t num_to_int(VMG0_) const
+        { return typ == VM_INT ? val.intval : nonint_num_to_int(vmg0_); }
+
+    /*
+     *   Convert a numeric value to a double.  This converts any type for
+     *   which is_numeric() returns true, but doesn't convert non-numeric
+     *   types.
+     */
+    double num_to_double(VMG0_) const
+    {
+        return typ == VM_INT
+            ? (double)val.intval
+            : nonint_num_to_double(vmg0_);
+    }
+
+    /* 
+     *   Cast to an integer.  This is more aggressive than num_to_int(), in
+     *   that we actively try to convert non-numeric types.
+     */
+    int32_t cast_to_int(VMG0_) const
+        { return typ == VM_INT ? val.intval : nonint_cast_to_int(vmg0_); }
+
+    /*
+     *   Cast to a numeric type - integer or BigNumber.  If the value is
+     *   already numeric, we'll return the value unchanged.  Otherwise, if an
+     *   automatic conversion to a numeric type is possible, we'll return the
+     *   converted value.  We'll return the "simplest" type that can
+     *   precisely represent the value, meaning the type that uses the least
+     *   memory and that's fastest for computations.  
+     */
+    void cast_to_num(VMG_ vm_val_t *val) const;
 
     /* 
      *   determine if the numeric value is zero; throws an error if the
@@ -356,8 +496,8 @@ struct vm_val_t
             /* it's not a number */
             err_throw(VMERR_NUM_VAL_REQD);
 
-            /* the compiler doesn't know we'll never get here */
-            return 0;
+            /* in case the compiler doesn't know we'll never get here */
+            AFTER_ERR_THROW(return 0;)
         }
     }
 
@@ -377,16 +517,14 @@ struct vm_val_t
      *   
      *   'depth' has the same meaning as in calc_hash().  
      */
-    int equals(VMG_ const vm_val_t *val) const { return equals(vmg_ val, 0); }
-    int equals(VMG_ const vm_val_t *val, int depth) const;
+    int equals(VMG_ const vm_val_t *val, int depth = 0) const;
 
     /*
      *   Calculate a hash for the value.  The meaning of the hash varies by
      *   type, but is stable for a given value.  'depth' is a recursion depth
      *   counter, with the same meaning as in CVmObject::calc_hash().  
      */
-    uint calc_hash(VMG0_) const { return calc_hash(vmg_ 0); }
-    uint calc_hash(VMG_ int depth) const;
+    uint calc_hash(VMG_ int depth = 0) const;
 
     /*
      *   Compare this value to the given value.  Returns a value greater than
@@ -452,6 +590,16 @@ struct vm_val_t
 private:
     /* out-of-line comparison, used when we don't have two integers */
     int gen_compare_to(VMG_ const vm_val_t *val) const;
+
+    /* 
+     *   internal int conversion and casting - we separate these from
+     *   num_to_int and cast_to_int so that cast_to_int can be inlined for
+     *   the common case where the value is already an int 
+     */
+    int nonint_is_numeric(VMG0_) const;
+    int32_t nonint_num_to_int(VMG0_) const;
+    double nonint_num_to_double(VMG0_) const;
+    int32_t nonint_cast_to_int(VMG0_) const;
 };
 
 /* ------------------------------------------------------------------------ */
@@ -518,12 +666,25 @@ public:
 /* ------------------------------------------------------------------------ */
 /*
  *   String handling - these routines are provided as covers to allow for
- *   easier adjustment for Unicode or other encodings.  Don't include
- *   these if we're compiling interface routines for the HTML TADS
- *   environment, since HTML TADS has its own similar definitions for
- *   these, and we don't need these for interface code.  
+ *   easier adjustment for Unicode or other encodings.  Don't include these
+ *   if we're compiling interface routines for the HTML TADS environment,
+ *   since HTML TADS has its own similar definitions for these, and we don't
+ *   need these for interface code.
+ *   
+ *   NOTE: The purpose of this macro is to indicate that we're being
+ *   #included by an HTML TADS source file - that is, the current compile run
+ *   is for an htmltads/xxx.cpp file.  Do NOT #define this macro when
+ *   compiling tads3/xxx.cpp files.  The tads3/xxx.cpp files have absolutely
+ *   no explicit dependencies on the htmltads subsystem and thus don't
+ *   #include the htmltads headers that would provide the conflicting
+ *   interface definitions for these functions.  The conflict is in the other
+ *   direction: some of the htmltads source files explicitly depend on tads3
+ *   headers, so they indirectly #include this header.  So, this macro needs
+ *   to be defined only when compiling htmltads/xxx.cpp files.  
  */
-#ifndef T3_COMPILING_FOR_HTML
+#ifdef T3_COMPILING_FOR_HTML
+#include "tadshtml.h"
+#else
 
 inline size_t get_strlen(const textchar_t *str) { return strlen(str); }
 inline void do_strcpy(textchar_t *dst, const textchar_t *src)
@@ -553,15 +714,29 @@ inline size_t vmb_get_len(const char *buf) { return osrp2(buf); }
  *   Portable binary unsigned 2-byte integer 
  */
 const size_t VMB_UINT2 = 2;
-inline void vmb_put_uint2(char *buf, uint16 i) { oswp2(buf, i); }
-inline uint16 vmb_get_uint2(const char *buf) { return osrp2(buf); }
+inline void vmb_put_uint2(char *buf, uint16_t i) { oswp2(buf, i); }
+inline uint16_t vmb_get_uint2(const char *buf) { return osrp2(buf); }
+
+/*
+ *   Portable binary unsigned 4-byte integer 
+ */
+const size_t VMB_UINT4 = 4;
+inline void vmb_put_uint4(char *buf, uint32_t i) { oswp4(buf, i); }
+inline uint32_t vmb_get_uint4(const char *buf) { return osrp4(buf); }
+
+/*
+ *   Portable binary signed 4-byte integer 
+ */
+const size_t VMB_INT4 = 4;
+inline void vmb_put_int4(char *buf, int32_t i) { oswp4s(buf, i); }
+inline int32_t vmb_get_int4(const char *buf) { return osrp4s(buf); }
 
 /*
  *   Portable binary object ID. 
  */
 const size_t VMB_OBJECT_ID = 4;
 inline void vmb_put_objid(char *buf, vm_obj_id_t obj) { oswp4(buf, obj); }
-inline vm_obj_id_t vmb_get_objid(const char *buf) { return osrp4(buf); }
+inline vm_obj_id_t vmb_get_objid(const char *buf) { return t3rp4u(buf); }
 
 /*
  *   Portable binary property ID 
@@ -610,11 +785,11 @@ inline void vmb_get_dh(const char *buf, vm_val_t *val)
 
 /* get an object value from a portable dataholder */
 inline vm_obj_id_t vmb_get_dh_obj(const char *buf)
-    { return (vm_obj_id_t)osrp4(buf+1); }
+    { return (vm_obj_id_t)t3rp4u(buf+1); }
 
 /* get an integer value from a portable dataholder */
-inline int32 vmb_get_dh_int(const char *buf)
-    { return (int32)osrp4(buf+1); }
+inline int32_t vmb_get_dh_int(const char *buf)
+    { return (int32_t)osrp4s(buf+1); }
 
 /* get a property ID value from a portable dataholder */
 inline vm_prop_id_t vmb_get_dh_prop(const char *buf)
@@ -622,7 +797,7 @@ inline vm_prop_id_t vmb_get_dh_prop(const char *buf)
 
 /* get a constant offset value from a portable dataholder */
 inline pool_ofs_t vmb_get_dh_ofs(const char *buf)
-    { return (pool_ofs_t)osrp4(buf+1); }
+    { return (pool_ofs_t)t3rp4u(buf+1); }
 
 
 #endif /* VMTYPE_H */

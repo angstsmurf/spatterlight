@@ -370,7 +370,13 @@ class IllogicalSelfVerifyResult: IllogicalVerifyResult
  *   non-obvious on this object.  This should be used when the command is
  *   logical, but should not be obvious to the player.  When this
  *   verification result is present, the command is allowed when performed
- *   explicitly but will never be taken as a default. 
+ *   explicitly but will never be taken as a default.
+ *   
+ *   In cases of ambiguity, a non-obvious object is equivalent to an
+ *   always-illogical object.  A non-obvious object *appears* to be
+ *   illogical at first glance, so we want to treat it the same as an
+ *   ordinarily illogical object if we're trying to choose among ambiguous
+ *   objects.  
  */
 class NonObviousVerifyResult: VerifyResult
     /* 
@@ -379,11 +385,11 @@ class NonObviousVerifyResult: VerifyResult
      */
     allowImplicit = nil
 
-    /*
-     *   Rank below even illogical items.  This will ensure we'll never
-     *   pick a non-obvious object ahead of anything else.  
+    /* 
+     *   non-obvious objects are illogical at first glance, so rank them
+     *   the same as objects that are actually illogical 
      */
-    resultRank = 20
+    resultRank = (IllogicalVerifyResult.resultRank)
 ;
 
 /*
@@ -602,9 +608,11 @@ class VerifyResultList: object
 
         /* 
          *   We've run out of items in both lists, so everything must have
-         *   been identical in both lists.
+         *   been identical in both lists.  Since we have no 'verify' basis
+         *   for preferring one object over the other, fall back on our
+         *   intrinsic vocabLikelihood values as a last resort.
          */
-        return 0;
+        return obj_.obj_.vocabLikelihood - other.obj_.obj_.vocabLikelihood;
     }
 
     /*

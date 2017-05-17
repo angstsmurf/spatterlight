@@ -40,10 +40,16 @@ public:
 
         /* we haven't found it yet */
         found_ = FALSE;
+        link_ = 0;
+    }
+
+    ~CVmImageLoaderMres_resload()
+    {
+        lib_free_str(link_);
     }
 
     /* add a resource */
-    void add_resource(uint32 seek_ofs, uint32 siz,
+    void add_resource(uint32_t seek_ofs, uint32_t siz,
                       const char *res_name, size_t res_name_len)
     {
         /* 
@@ -66,12 +72,38 @@ public:
         }
     }
 
+    /* add a resource link */
+    void add_resource(const char *fname, size_t fnamelen,
+                      const char *res_name, size_t res_name_len)
+    {
+        /* 
+         *   if we've already found a match, there's no need to consider
+         *   anything else 
+         */
+        if (found_)
+            return;
+
+        /* check to see if this is the one we're looking for */
+        if (res_name_len == respath_len_
+            && memicmp(respath_, res_name, res_name_len) == 0)
+        {
+            /* we found it */
+            found_ = TRUE;
+
+            /* remember the link */
+            link_ = lib_copy_str(fname, fnamelen);
+        }
+    }
+
     /* did we find the resource? */
     int found_resource() const { return found_; }
 
     /* get the seek location and size of the resource we found */
-    uint32 get_resource_seek() const { return res_seek_; }
-    uint32 get_resource_size() const { return res_size_; }
+    uint32_t get_resource_seek() const { return res_seek_; }
+    uint32_t get_resource_size() const { return res_size_; }
+
+    /* get the local filename link, if it's given as a link */
+    const char *get_link_fname() const { return link_; }
 
 private:
     /* name of the resource we're looking for */
@@ -82,8 +114,11 @@ private:
     int found_;
 
     /* seek location and size of the resource we found */
-    uint32 res_seek_;
-    uint32 res_size_;
+    uint32_t res_seek_;
+    uint32_t res_size_;
+
+    /* local filename link, if the resource is given as a link */
+    char *link_;
 };
 
 /* ------------------------------------------------------------------------ */
@@ -117,8 +152,21 @@ osfildef *CResLoader::open_exe_res(const char *respath,
         /* check to see if we found it */
         if (res_ifc.found_resource())
         {
-            /* we got it - seek to the start of the resource */
-            osfseek(exe_fp, res_ifc.get_resource_seek(), OSFSK_SET);
+            /* check the type */
+            if (res_ifc.get_link_fname() != 0)
+            {
+                /* 
+                 *   it's a linked local file - close the exe file and open
+                 *   the local file instead 
+                 */
+                osfcls(exe_fp);
+                exe_fp = osfoprb(res_ifc.get_link_fname(), OSFOPRB);
+            }
+            else
+            {
+                /* we got an exe resource - seek to the starting byte */
+                osfseek(exe_fp, res_ifc.get_resource_seek(), OSFSK_SET);
+            }
         }
         else
         {
@@ -157,8 +205,21 @@ osfildef *CResLoader::open_lib_res(const char *libfile,
     /* check to see if we found it */
     if (res_ifc.found_resource())
     {
-        /* we got it - seek to the start of the resource */
-        osfseek(fp, res_ifc.get_resource_seek(), OSFSK_SET);
+        /* we got it - check the type */
+        if (res_ifc.get_link_fname() != 0)
+        {
+            /* 
+             *   linked local file - close the library file and open the
+             *   local file instead 
+             */
+            osfcls(fp);
+            fp = osfoprb(res_ifc.get_link_fname(), OSFOPRB);
+        }
+        else
+        {
+            /* embedded resource - seek to the first byte */
+            osfseek(fp, res_ifc.get_resource_seek(), OSFSK_SET);
+        }
 
         /* return the library file handle */
         return fp;

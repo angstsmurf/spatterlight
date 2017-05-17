@@ -280,8 +280,6 @@ static char *make_opt_file_relative(char *buf, size_t buflen,
                                     const char *opt_file_path,
                                     char *fname)
 {
-    char lcl[OSFNMAX];
-    
     /* 
      *   if we haven't read an option file, we don't have an option file path
      *   to use as the relative root, so use the original filename unchanged 
@@ -290,8 +288,8 @@ static char *make_opt_file_relative(char *buf, size_t buflen,
         return fname;
 
     /* convert the name to local conventions */
-    os_cvt_url_dir(buf, buflen < sizeof(lcl) ? buflen : sizeof(lcl),
-                   fname, FALSE);
+    char lcl[OSFNMAX];
+    os_cvt_url_dir(buf, buflen < sizeof(lcl) ? buflen : sizeof(lcl), fname);
 
     /* if the filename is absolute, use it as given */
     if (os_is_file_absolute(buf))
@@ -302,7 +300,7 @@ static char *make_opt_file_relative(char *buf, size_t buflen,
      *   name relative to the option file path, using the version that we
      *   converted to local conventions 
      */
-    strcpy(lcl, buf);
+    lib_strcpy(lcl, sizeof(lcl), buf);
     os_build_full_path(buf, buflen, opt_file_path, lcl);
 
     /* return the caller's buffer where we built the full path */
@@ -327,7 +325,7 @@ int main(int argc, char **argv)
     int image_specified = FALSE;
     char dirbuf[OSFNMAX + 4096];
     int show_banner;
-    char *opt_file = 0;
+    const char *opt_file = 0;
     char opt_file_path[OSFNMAX];
     int read_opt_file = FALSE;
     int usage_err = FALSE;
@@ -351,6 +349,7 @@ int main(int argc, char **argv)
     int pedantic = FALSE;
     int res_recurse = TRUE;
     CRcResList *res_list;
+    int warnings_as_errors = FALSE;
 
     /* we don't have any warning codes to suppress yet */
     suppress_cnt = 0;
@@ -701,20 +700,28 @@ parse_options:
             /* note the sub-option letter */
             subopt = argv[curarg][2];
 
-            /* get the filename/path argument */
-            p = CTcCommandUtil::get_opt_arg(argc, argv, &curarg, 2);
-            if (p == 0)
-                goto missing_option_arg;
-
-            /* make it relative to the option file path */
-            p = make_opt_file_relative(relbuf, sizeof(relbuf),
-                                       read_opt_file, opt_file_path, p);
-
             /* 
-             *   if this is an absolute path, note it so we can warn about it
-             *   if this is in an option file 
+             *   If applicable, get the filename/path argument.  Most of the
+             *   -F suboptions take an argument, but some don't, so check for
+             *   the ones that don't. 
              */
-            need_opt_file_path_warning = os_is_file_absolute(p);
+            p = 0;
+            if (strchr("C", subopt) == 0)
+            {
+                p = CTcCommandUtil::get_opt_arg(argc, argv, &curarg, 2);
+                if (p == 0)
+                    goto missing_option_arg;
+
+                /* make it relative to the option file path */
+                p = make_opt_file_relative(relbuf, sizeof(relbuf),
+                                           read_opt_file, opt_file_path, p);
+
+                /* 
+                 *   if this is an absolute path, note it so we can warn
+                 *   about it if this is in an option file 
+                 */
+                need_opt_file_path_warning = os_is_file_absolute(p);
+            }
 
             /* check the suboption */
             switch(subopt)
@@ -748,6 +755,11 @@ parse_options:
 
                 /* remember that we've set this path */
                 obj_dir_set = TRUE;
+                break;
+
+            case 'C':
+                /* set the "create output directories" flag */
+                mk->set_create_dirs(TRUE);
                 break;
 
             case 'a':
@@ -796,6 +808,17 @@ parse_options:
                 opt_file_path_warning = TRUE;
 
             /* done */
+            break;
+
+        case 'G':
+            /* code generation options */
+            if (strcmp(argv[curarg], "-Gstg") == 0)
+            {
+                /* turn on sourceTextGroup mode */
+                mk->set_source_text_group_mode(TRUE);
+            }
+            else
+                goto bad_option;
             break;
 
         case 'n':
@@ -880,6 +903,11 @@ parse_options:
                 else
                     goto missing_option_arg;
             }
+            else if (strcmp(argv[curarg], "-statpct") == 0)
+            {
+                /* note that we want status percentage updates */
+                mk->set_status_pct_mode(TRUE);
+            }
             else
             {
                 /* unknown option - report usage error */
@@ -910,7 +938,7 @@ parse_options:
             break;
 
         case 'w':
-            /* warning level - see what level they're setting */
+            /* warning level/mode - see what level they're setting */
             switch(argv[curarg][2])
             {
                 int num;
@@ -999,6 +1027,26 @@ parse_options:
                 mk->set_suppress_list(suppress_list, suppress_cnt);
 
                 /* done */
+                break;
+
+            case 'e':
+                /* turn "warnings as errors" mode on or off */
+                switch (argv[curarg][3])
+                {
+                case '\0':
+                case '+':
+                    warnings_as_errors = TRUE;
+                    mk->set_warnings_as_errors(TRUE);
+                    break;
+
+                case '-':
+                    warnings_as_errors = FALSE;
+                    mk->set_warnings_as_errors(FALSE);
+                    break;
+
+                default:
+                    goto bad_option;
+                }
                 break;
 
             default:
@@ -1100,7 +1148,7 @@ parse_options:
         /* show the banner */
         /* copyright-date-string */
         printf("TADS Compiler %d.%d.%d%s  "
-               "Copyright 1999, 2005 Michael J. Roberts\n",
+               "Copyright 1999, 2012 Michael J. Roberts\n",
                TC_VSN_MAJOR, TC_VSN_MINOR, TC_VSN_REV, patch_id);
     }
 
@@ -1119,7 +1167,7 @@ parse_options:
             printf("It's better not to use absolute paths in the "
                    "options file, because this\n"
                    "ties the options file to the particular "
-                   "directory layout of your machine.  \n"
+                   "directory layout of your machine.\n"
                    "If possible, refer only to subfolders of the "
                    "folder containing the options\n"
                    "file, and refer to the subfolders using "
@@ -1144,11 +1192,14 @@ parse_options:
                "  -errnum - show numeric error codes with error messages\n"
                "  -f file - read command line options from 'file'\n"
                "  -I dir  - add 'dir' to #include search path\n"
+               "  -FC     - create output directories (for -Fy, -Fo) if they "
+               "don't exist\n"
                "  -Fs dir - add 'dir' to source file search path\n"
                "  -Fy dir - put symbol files in directory 'dir'\n"
                "  -Fo dir - put object files in directory 'dir'\n"
                "  -FI dir - override the standard system include path\n"
                "  -FL dir - override the standard system library path\n"
+               "  -Gstg   - generate sourceTextGroup properties\n"
                "  -nobanner - suppress version/copyright banner\n"
                "  -nodef  - do not include default library modules in build\n"
                "  -nopre  - do not run pre-initialization, regardless of "
@@ -1172,6 +1223,7 @@ parse_options:
                "(default), 2=pedantic\n"
                "  -w-#    - suppress the given warning number\n"
                "  -w+#    - enable the given warning number\n"
+               "  -we     - treat warnings as errors (-we- to disable)\n"
                "\n"
                "Modules: Each entry in the module list can have one "
                "of these forms:\n"
@@ -1319,13 +1371,22 @@ parse_options:
         /* process the file according to its type */
         if (is_source)
         {
-            CTcMakeModule *mod;
-
             /* add this file to the module list */
-            mod = mk->add_module(p, 0, 0);
+            CTcMakeModule *mod = mk->add_module(p, 0, 0);
 
             /* set the module's original name to the name as given */
             mod->set_orig_name(argv[curarg]);
+
+            /* 
+             *   Also use the original name (with a default .t suffix) as the
+             *   search name, in case it's a file we're going to search for
+             *   using the source search path.  When searching, we want to
+             *   search for the original name, not the project-relative name.
+             */
+            char sbuf[OSFNMAX];
+            lib_strcpy(sbuf, sizeof(sbuf), argv[curarg]);
+            os_defext(sbuf, "t");
+            mod->set_search_source_name(sbuf);
 
             /* 
              *   if no image has been specified yet already, use this
@@ -1397,8 +1458,6 @@ parse_options:
             /* process any exclusion options */
             while (curarg + 1 < argc && strcmp(argv[curarg+1], "-x") == 0)
             {
-                CTcMakeModule *mod;
-                const char *url;
 
                 /* skip to the "-x" */
                 ++curarg;
@@ -1407,8 +1466,8 @@ parse_options:
                 if (curarg + 1 >= argc)
                     goto missing_option_arg;
 
-                /* skip to the -x's argument and retrieve it */
-                url = argv[++curarg];
+                /* skip the -x and get its argument (the URL to exclude) */
+                const char *xurl = argv[++curarg];
 
                 /* 
                  *   Start with the next module after the last module before
@@ -1416,7 +1475,8 @@ parse_options:
                  *   then this library's first module is the first module in
                  *   the entire program,.  
                  */
-                if ((mod = last_pre_lib_mod) != 0)
+                CTcMakeModule *mod = last_pre_lib_mod;
+                if (mod != 0)
                     mod = mod->get_next();
                 else
                     mod = mk->get_first_module();
@@ -1425,7 +1485,7 @@ parse_options:
                 for ( ; mod != 0 ; mod = mod->get_next())
                 {
                     /* if this module has the excluded URL, exclude it */
-                    if (stricmp(mod->get_url(), argv[curarg]) == 0)
+                    if (stricmp(mod->get_url(), xurl) == 0)
                     {
                         /* mark this module as excluded */
                         mod->set_excluded(TRUE);
@@ -1587,20 +1647,18 @@ parse_options:
     }
 
     /* 
-     *   Add the default object modules, if appropriate.  Do not add the
+     *   Add the default object modules, if appropriate.  Don't add the
      *   default modules unless we're linking. 
      */
     if (add_def_mod && !compile_only && !pp_only)
     {
-        char srcname[OSFNMAX];
-        CTcMakeModule *mod;
-
         /* build the full path to the "_main" library module */
+        char srcname[OSFNMAX];
         os_build_full_path(srcname, sizeof(srcname),
                            sys_lib_entry->get_path(), "_main");
 
         /* add this as the first module of our compilation */
-        mod = mk->add_module_first(srcname, 0, 0);
+        CTcMakeModule *mod = mk->add_module_first(srcname, 0, 0);
 
         /* set its original name, and note it's from the system library */
         mod->set_orig_name("_main");
@@ -1677,6 +1735,7 @@ done:
      *   exit with an appropriate exit code, depending on whether we had
      *   any errors or not 
      */
-    return (err_cnt != 0 ? OSEXFAIL : OSEXSUCC);
+    return (err_cnt != 0 || (warnings_as_errors && warn_cnt != 0)
+            ? OSEXFAIL : OSEXSUCC);
 }
 

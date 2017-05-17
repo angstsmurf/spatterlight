@@ -30,9 +30,12 @@ Modified
 #include "tcmain.h"
 #include "tchostsi.h"
 #include "tcglob.h"
+#include "tcprs.h"
 #include "vmimage.h"
 #include "vmrunsym.h"
+#include "vmmeta.h"
 #include "t3test.h"
+#include "tct3drv.h"
 
 
 static void errexit(const char *msg)
@@ -224,3 +227,75 @@ void CVmRuntimeSymbols::add_sym(const char *, size_t,
 {
 }
 
+/* dummy implementation of runtime metaclass table */
+vm_meta_entry_t *CVmMetaTable::get_entry_by_id(const char *id) const
+{
+    return 0;
+}
+
+CTcSymObj *CTcParser::add_gen_obj_stat(CTcSymObj *)
+{
+    return 0;
+}
+
+void CTcParser::add_gen_obj_prop_stat(
+    CTcSymObj *, CTcSymProp *, const CTcConstVal *)
+{
+}
+
+void CTcParser::set_source_text_group_mode(int)
+{
+}
+
+class CTPNInlineObject *CTcPrsOpUnary::parse_inline_object(int)
+{
+    return 0;
+}
+
+CTPNAnonFunc *CTcPrsOpUnary::parse_anon_func(int, int)
+{
+    return 0;
+}
+
+void CTcPrsSymtab::add_to_global_symtab(CTcPrsSymtab *, CTcSymbol *)
+{
+}
+
+int CTcParser::alloc_ctx_arr_idx()
+{
+    return 0;
+}
+
+void CTcParser::init_local_ctx()
+{
+}
+
+void CTPNStmObjectBase::add_implicit_constructor()
+{
+}
+
+void CTPNObjDef::fold_proplist(CTcPrsSymtab *)
+{
+}
+
+void CTPNStmObjectBase::add_prop_entry(CTPNObjProp *prop, int replace)
+{
+}
+
+void CTPNStmObjectBase::delete_property(CTcSymProp *)
+{
+}
+
+int CTPNStmObjectBase::parse_nested_obj_prop(
+    CTPNObjProp* &, int *, tcprs_term_info *, CTcToken const *, int)
+{
+    return FALSE;
+}
+
+void CTPNStmBase::add_debug_line_rec()
+{
+}
+
+void CTPNStmBase::add_debug_line_rec(CTcTokFileDesc *, long)
+{
+}

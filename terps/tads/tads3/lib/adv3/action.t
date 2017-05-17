@@ -880,7 +880,7 @@ class Action: BasicProd
      *   looking for, and 'oldRole' is the role the object previously
      *   played in the action.  
      */
-    getResolveInfo(obj, oldRole) { return new ResolveInfo(obj, 0); }
+    getResolveInfo(obj, oldRole) { return new ResolveInfo(obj, 0, nil); }
 
     /*
      *   Explicitly set the resolved objects.  This should be overridden
@@ -960,6 +960,80 @@ class Action: BasicProd
     getAnaphoricBinding(typ) { return nil; }
 
     /*
+     *   Set a special pronoun override.  This creates a temporary pronoun
+     *   definition, which lasts as long as this action (and any nested
+     *   actions).  The temporary definition overrides the normal meaning
+     *   of the pronoun.
+     *   
+     *   One example of where this is useful is in global action remapping
+     *   cases where the target actor changes in the course of the
+     *   remapping.  For example, if we remap BOB, GIVE ME YOUR BOOK to ASK
+     *   BOB FOR YOUR BOOK, the YOUR qualifier should still refer to Bob
+     *   even though the command is no longer addressing Bob directly.
+     *   This routine can be used in this case to override the meaning of
+     *   'you' so that it refers to Bob.  
+     */
+    setPronounOverride(typ, val)
+    {
+        /* if we don't have an override table yet, create one */
+        if (pronounOverride == nil)
+            pronounOverride = new LookupTable(5, 10);
+
+        /* add it to the table */
+        pronounOverride[typ] = val;
+    }
+
+    /* 
+     *   Get any special pronoun override in effect for the action, as set
+     *   via setPronounOverride().  This looks in our own override table
+     *   for a definition; then, if we have no override of our own, we ask
+     *   our parent action if we have one, then our original action.  
+     */
+    getPronounOverride(typ)
+    {
+        local pro;
+
+        /* check our own table */
+        if (pronounOverride != nil
+            && (pro = pronounOverride[typ]) != nil)
+            return pro;
+
+        /* we don't have anything in our own table; check our parent */
+        if (parentAction != nil
+            && (pro = parentAction.getPronounOverride(typ)) != nil)
+            return pro;
+
+        /* if still nothing, check with the original action */
+        if (originalAction != nil
+            && originalAction != parentAction
+            && (pro = originalAction.getPronounOverride(typ)) != nil)
+            return pro;
+
+        /* we didn't find an override */
+        return nil;
+    }
+
+    /* 
+     *   the pronoun override table - this is nil by default, which means
+     *   that no overrides have been defined yet; we create a LookupTable
+     *   upon adding the first entry to the table 
+     */
+    pronounOverride = nil
+
+    /* wrap an object with a ResolveInfo */
+    makeResolveInfo(val)
+    {
+        /* 
+         *   if it's already a ResolveInfo object, return it as-is;
+         *   otherwise, create a new ResolveInfo wrapper for it
+         */
+        if (dataType(val) == TypeObject && val.ofKind(ResolveInfo))
+            return val;
+        else
+            return new ResolveInfo(val, 0, nil);
+    }
+
+    /*
      *   Convert an object or list of objects to a ResolveInfo list 
      */
     makeResolveInfoList(val)
@@ -976,13 +1050,43 @@ class Action: BasicProd
         if (dataType(val) == TypeList)
         {
             /* it's a list - make a ResolveInfo for each item */
-            return val.mapAll({x: new ResolveInfo(x, 0)});
+            return val.mapAll({x: makeResolveInfo(x)});
         }
         else 
         {
             /* it's not a list - return a one-element ResolveInfo list */
-            return [new ResolveInfo(val, 0)];
+            return [makeResolveInfo(val)];
         }
+    }
+
+    /* 
+     *   If the command is repeatable, save it for use by 'again'.
+     */ 
+    saveActionForAgain(issuingActor, countsAsIssuerTurn,
+                       targetActor, targetActorPhrase)
+    {
+        /*
+         *   Check to see if the command is repeatable.  It's repeatable if
+         *   the base action is marked as repeatable, AND it's not nested,
+         *   AND it's issued by the player character, AND it's either a PC
+         *   command or it counts as an issuer turn.
+         *   
+         *   Nested commands are never repeatable with 'again', since no
+         *   one ever typed them in.
+         *   
+         *   "Again" is strictly for the player's use, so it's repeatable
+         *   only if this is the player's turn, as opposed to a scripted
+         *   action by an NPC.  This is the player's turn only if the
+         *   command was issued by the player character (which means it
+         *   came from the player), and either it's directed to the player
+         *   character OR it counts as a turn for the player character.  
+         */
+        if (isRepeatable
+            && parentAction == nil
+            && (issuingActor.isPlayerChar()
+                && (targetActor.isPlayerChar() || countsAsIssuerTurn)))
+            AgainAction.saveForAgain(issuingActor, targetActor,
+                                     targetActorPhrase, self);
     }
 
     /*
@@ -1019,29 +1123,15 @@ class Action: BasicProd
         gAction = self;
         gVerifyResults = nil;
 
-        /* 
-         *   If the command is repeatable, save it for use by 'again'.
-         *   Note that nested commands are never repeatable with 'again',
-         *   since no one ever typed them in.
-         *   
-         *   "Again" is strictly for the player's use, so only save the
-         *   command if this is a player turn.  This is a player command
-         *   only if it is issued by the player character (which means it
-         *   came from the player), and either it's directed to the player
-         *   character or it counts as a turn for the player character.  
-         */
-        if (isRepeatable
-            && parentAction == nil
-            && (issuingActor.isPlayerChar()
-                && (targetActor.isPlayerChar() || countsAsIssuerTurn)))
-            AgainAction.saveForAgain(issuingActor, targetActor,
-                                     targetActorPhrase, self);
-
         /* make sure we restore globals on our way out */
         try
         {
             local pc;
             
+            /* if applicable, save the command for AGAIN */
+            saveActionForAgain(issuingActor, countsAsIssuerTurn,
+                               targetActor, targetActorPhrase);
+
             /* start a new command visually if this isn't a nested action */
             if (parentAction == nil)
                 gTranscript.addCommandSep();
@@ -1360,17 +1450,9 @@ class Action: BasicProd
              */
             libGlobal.disableSenseCache();
 
-            /* run the before-action processing */
-            beforeAction();
-                
-            /* 
-             *   notify the actor's containers that an action is about to
-             *   take place within them 
-             */
-            gActor.forEachContainer(callRoomBeforeAction);
-
-            /* call beforeAction for each object in the notify list */
-            notifyBeforeAfter(&beforeAction);
+            /* if desired, run the "before" notifications before "check" */
+            if (gameMain.beforeRunsBeforeCheck)
+                runBeforeNotifiers();
                 
             /* 
              *   Invoke the action's execution method.  Catch any "exit
@@ -1385,6 +1467,10 @@ class Action: BasicProd
 
                 /* check the action */
                 checkAction();
+
+                /* if desired, run the "before" notifications after "check" */
+                if (!gameMain.beforeRunsBeforeCheck)
+                    runBeforeNotifiers();
                 
                 /* execute the action */
                 execAction();
@@ -1412,6 +1498,25 @@ class Action: BasicProd
         {
             /* the execution sequence is finished - simply stop here */
         }
+    }
+
+    /*
+     *   Run the "before" notifiers: this calls beforeAction on everything
+     *   in scope, and calls roomBeforeAction on the actor's containers.  
+     */
+    runBeforeNotifiers()
+    {
+        /* run the before-action processing */
+        beforeAction();
+
+        /* 
+         *   notify the actor's containers that an action is about
+         *   to take place within them 
+         */
+        gActor.forEachContainer(callRoomBeforeAction);
+
+        /* call beforeAction for each object in the notify list */
+        notifyBeforeAfter(&beforeAction);
     }
 
     /*
@@ -1510,7 +1615,9 @@ class Action: BasicProd
             {
                 /* we've done a multi announcement, so we're now done */
             }
-            else if ((info.flags_ & UnclearDisambig) != 0)
+            else if ((info.flags_ & UnclearDisambig) != 0
+                     || ((info.flags_ & ClearDisambig) != 0
+                         && gameMain.ambigAnnounceMode == AnnounceClear))
             {
                 /* show the object, since we're not certain it's right */
                 gTranscript.announceAmbigActionObject(info.obj_, whichObj);
@@ -1542,7 +1649,8 @@ class Action: BasicProd
         if (numberInList > 1 || (info.flags_ & AlwaysAnnounce) != 0)
         {
             /* show the current object of a multi-object action */
-            gTranscript.announceMultiActionObject(info.obj_, whichObj);
+            gTranscript.announceMultiActionObject(
+                info.multiAnnounce, info.obj_, whichObj);
 
             /* tell the caller we made an announcement */
             return true;
@@ -1552,6 +1660,37 @@ class Action: BasicProd
         return nil;
     }
     
+    /*   
+     *   Pre-calculate the multi-object announcement text for each object.
+     *   This is important because these announcements might choose a form
+     *   for the name that distinguishes it from the other objects in the
+     *   iteration, and the basis for distinction might be state-dependent
+     *   (such as the object's current owner or location), and the relevant
+     *   state might change as we iterate over the objects.  From the
+     *   user's perspective, they're referring to the objects based on the
+     *   state at the start of the command, so the user will expect to see
+     *   names based on the that state.  
+     */
+    cacheMultiObjectAnnouncements(lst, whichObj)
+    {
+        /* run through the list and cache each object's announcement */
+        foreach (local cur in lst)
+        {
+            /* calculate and cache this object's multi-object announcement */
+            cur.multiAnnounce = libMessages.announceMultiActionObject(
+                cur.obj_, whichObj, self);
+        }
+    }
+
+    /* get the list of resolved objects in the given role */
+    getResolvedObjList(which)
+    {
+        /* 
+         *   the base action doesn't have any objects in any roles, so just
+         *   return nil; subclasses need to override this 
+         */
+        return nil;
+    }
 
     /*
      *   Announce a defaulted object list, if appropriate.  We'll announce
@@ -1849,7 +1988,27 @@ class Action: BasicProd
 
         /* check for remapping */
         if ((remapInfo = obj.(remapProp)()) != nil)
-            return remapVerify(whichObj, resultSoFar, remapInfo);
+        {
+            /* call the remapped verify */
+            resultSoFar = remapVerify(whichObj, resultSoFar, remapInfo);
+
+            /*
+             *   If the original object has a verify that effectively
+             *   "overrides" the remap - i.e., defined by an object that
+             *   inherits from the object where the remap is defined - then
+             *   run it by the overriding verify as well. 
+             */
+            local remapSrc = obj.propDefined(remapProp, PropDefGetClass);
+            if (obj.propDefined(verProp)
+                && overrides(obj, remapSrc, verProp))
+            {
+                resultSoFar = withVerifyResults(
+                    resultSoFar, obj, function() { obj.(verProp)(); });
+            }
+
+            /* return the results */
+            return resultSoFar;
+        }
 
         /* initialize tentative resolutions for other noun phrases */
         initTentative(gIssuingActor, gActor, whichObj);
@@ -1858,7 +2017,7 @@ class Action: BasicProd
          *   run the verifiers in the presence of a results list, and
          *   return the result list 
          */
-        return withVerifyResults(resultSoFar, obj, new function()
+        return withVerifyResults(resultSoFar, obj, function()
         {
             local lst;
             
@@ -2055,7 +2214,7 @@ class Action: BasicProd
          *   methods, so we don't want to send them generic notifiers as
          *   well. 
          */
-        tab.forEachAssoc(new function(obj, val)
+        tab.forEachAssoc(function(obj, val)
         {
             if (actor.isIn(obj))
                 tab.removeElement(obj);
@@ -2193,7 +2352,7 @@ class Action: BasicProd
         lst.forEach({x: x.index_ = i++});
 
         /* sort the precondition list by execution order */
-        lst = lst.sort(SortAsc, new function(a, b) {
+        lst = lst.sort(SortAsc, function(a, b) {
             local delta;
             
             /* if the execution orders differ, sort by execution order */
@@ -2326,7 +2485,7 @@ class Action: BasicProd
          *   return the sorted list.  When results are equivalently
          *   logical, keep the results in their existing order.  
          */
-        return results.toList().sort(SortDesc, new function(x, y)
+        return results.toList().sort(SortDesc, function(x, y)
         {
             /* compare the logicalness */
             local c = x.compareTo(y);
@@ -2754,6 +2913,47 @@ class Action: BasicProd
         return [bestResult.obj_];
     }
 
+    /*
+     *   A synthesized Action (one that's generated by something other than
+     *   parsing a command line, such as an event action or nested action)
+     *   won't have a parser token list attached to it.  If we're asked to
+     *   get the token list, we need to check for this possibility.  If we
+     *   don't have a token list, but we do have a parent action, we'll
+     *   defer to the parent action.  Otherwise, we'll simply return nil.
+     */
+    getOrigTokenList()
+    {
+        /* if we don't have a token list, look elsewhere */
+        if (tokenList == nil)
+        {
+            /* if we have a parent action, defer to it */
+            if (parentAction != nil)
+                return parentAction.getOrigTokenList();
+
+            /* we have nowhere else to look, so return an empty list */
+            return [];
+        }
+
+        /* inherit the standard handling from BasicProd */
+        return inherited();
+    }
+    
+    /* 
+     *   Create a topic qualifier resolver.  This type of resolver is used
+     *   for qualifier phrases (e.g., possessives) within topic phrases
+     *   within objects of this verb.  Topics *usually* only apply to
+     *   TopicActionBase subclasses, but not exclusively: action remappings
+     *   can sometimes require a topic phrase from one action to be
+     *   resolved in the context of another action that wouldn't normally
+     *   involve a topic phrase.  That's why this is needed on the base
+     *   Action class. 
+     */
+    createTopicQualifierResolver(issuingActor, targetActor)
+    {
+        /* create and return a topic qualifier object resolver */
+        return new TopicQualifierResolver(self, issuingActor, targetActor);
+    }
+
     /* 
      *   List of objects that verified okay on a prior pass.  This is a
      *   scratch-pad for use by verifier routines, to keep track of work
@@ -2766,6 +2966,13 @@ class Action: BasicProd
      *   should be allowed to proceed and do nothing.  
      */
     verifiedOkay = []
+
+    /*
+     *   Get the missing object response production for a given resolver
+     *   role.  (The base action doesn't have any objects, so there's no
+     *   such thing as a missing object query.)
+     */
+    getObjResponseProd(resolver) { return nil; }
 ;
 
 /*
@@ -2825,6 +3032,18 @@ class IAction: Action
          */
         doActionOnce();
     }
+;
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   "All" and "Default" are a pseudo-actions used for dobjFor(All),
+ *   iobjFor(Default), and similar catch-all handlers.  These are never
+ *   executed as actual actions, but we define them so that dobjFor(All)
+ *   and the like won't generate any warnings for undefined actions.
+ */
+class AllAction: object
+;
+class DefaultAction: object
 ;
 
 /* ------------------------------------------------------------------------ */
@@ -2944,14 +3163,11 @@ class TAction: Action, Resolver
      */
     testRetryDefaultDobj(orig)
     {
-        local action;
-        local def;
-        
         /* create the new action for checking for a direct object */
-        action = createForMissingDobj(orig, ResolveAsker);
+        local action = createForMissingDobj(orig, ResolveAsker);
 
         /* get the default dobj */
-        def = action.getDefaultDobj(
+        local def = action.getDefaultDobj(
             action.dobjMatch,
             action.getDobjResolver(gIssuingActor, gActor, nil));
 
@@ -2965,10 +3181,8 @@ class TAction: Action, Resolver
      */
     createForMissingDobj(orig, asker)
     {
-        local action;
-
         /* create the action for a retry */
-        action = createForRetry(orig);
+        local action = createForRetry(orig);
 
         /* use an empty noun phrase for the new action's direct object */
         action.dobjMatch = new EmptyNounPhraseProd();
@@ -3005,6 +3219,31 @@ class TAction: Action, Resolver
      *   the appropriate preposition in the response.  
      */
     askDobjResponseProd = nounList
+
+    /* get the missing object response production for a given role */
+    getObjResponseProd(resolver)
+    {
+        /* if it's the direct object, return the dobj response prod */
+        if (resolver.whichObject == DirectObject)
+            return askDobjResponseProd;
+
+        /* otherwise use the default handling */
+        return inherited(resolver);
+    }
+
+    /*
+     *   Can the direct object potentially resolve to the given simulation
+     *   object?  This only determines if the object is a *syntactic*
+     *   match, meaning that it can match at a vocabulary and grammar
+     *   level.  This doesn't test it for logicalness or check that it's an
+     *   otherwise valid resolution.  
+     */
+    canDobjResolveTo(obj)
+    {
+        /* check our dobj match tree to see if it can resolve to 'obj' */
+        return dobjMatch.canResolveTo(
+            obj, self, issuer_, actor_, DirectObject);
+    }
 
     /*
      *   Resolve objects.  This is called at the start of command
@@ -3071,7 +3310,7 @@ class TAction: Action, Resolver
     /* get the ResolveInfo for the given object */
     getResolveInfo(obj, oldRole)
     {
-        local info;
+        local info = nil;
         
         /* scan our resolved direct object list for the given object */
         if (dobjList_ != nil)
@@ -3080,17 +3319,34 @@ class TAction: Action, Resolver
         /* if we didn't find one, create one from scratch */
         if (info == nil)
         {
-            /* get the flags for the first object in the old role */
-            local flags = (dobjList_.length() > 0 ? dobjList_[1].flags_ : 0);
-
-            /* create a ResolveInfo to represent the object */
-            info = new ResolveInfo(obj, flags);
+            /* 
+             *   if there's anything in the old dobj role, copy the flags
+             *   and noun phrase to the new role
+             */
+            if (dobjList_.length() > 0)
+            {
+                /* get the flags and noun phrase from the old role */
+                info = new ResolveInfo(
+                    obj, dobjList_[1].flags_, dobjList_[1].np_);
+            }
+            else
+            {
+                /* there's no old role, so start from scratch */
+                info = new ResolveInfo(obj, 0, nil);
+            }
         }
 
         /* return what we found (or created) */
         return info;
     }
 
+    /* get the list of resolved objects in the given role */
+    getResolvedObjList(which)
+    {
+        return (which == DirectObject ? getResolvedDobjList()
+                : inherited(which));
+    }
+    
     /* get the list of resolved direct objects */
     getResolvedDobjList()
     {
@@ -3104,6 +3360,13 @@ class TAction: Action, Resolver
     /* manually set the resolved objects - we'll set the direct object */
     setResolvedObjects(dobj)
     {
+        /* set the resolved direct object */
+        setResolvedDobj(dobj);
+    }
+
+    /* set the resolved direct object */
+    setResolvedDobj(dobj)
+    {
         /* 
          *   set the direct object tree to a fake grammar tree that
          *   resolves to our single direct object, in case we're asked to
@@ -3116,17 +3379,23 @@ class TAction: Action, Resolver
          *   to the list of objects, depending on what we received.
          */
         dobjList_ = makeResolveInfoList(dobj);
+
+        /* set the current object as well */
+        dobjCur_ = (dobjList_.length() > 0 ? dobjList_[1].obj_ : nil);
+        dobjInfoCur_ = (dobjList_.length() > 0 ? dobjList_[1] : nil);
     }
 
     /* manually set the unresolved object noun phrase match trees */
     setObjectMatches(dobj)
     {
-        /* if it's a ResolveInfo, wrap it in a pre-resolved production */
+        /* 
+         *   if it's a ResolveInfo, handle it as a resolved object;
+         *   otherwise handle it as a match tree to be resolved 
+         */
         if (dobj.ofKind(ResolveInfo))
-            dobj = new PreResolvedProd(dobj);
-
-        /* note the new direct object match tree */
-        dobjMatch = dobj;
+            setResolvedDobj(dobj);
+        else
+            dobjMatch = dobj;
     }
 
     /* check that the resolved objects are in scope */
@@ -3172,6 +3441,9 @@ class TAction: Action, Resolver
 
         /* we haven't yet canceled the iteration */
         iterationCanceled = nil;
+
+        /* pre-calculate the multi-object announcement text for each dobj */
+        cacheMultiObjectAnnouncements(dobjList_, DirectObject);
 
         /* run through the sequence once for each direct object */
         for (local i = 1, local len = dobjList_.length() ;
@@ -3438,6 +3710,26 @@ class TAction: Action, Resolver
     /* get the full ResolveInfo associated with the current direct object */
     getDobjInfo() { return dobjInfoCur_; }
 
+    /* get the object resolution flags for the direct object */
+    getDobjFlags() { return dobjInfoCur_ != nil ? dobjInfoCur_.flags_ : 0; }
+
+    /* get the number of direct objects */
+    getDobjCount() { return dobjList_ != nil ? dobjList_.length() : 0; }
+
+    /* get the original token list of the current direct object phrase */
+    getDobjTokens()
+    {
+        return dobjInfoCur_ != nil && dobjInfoCur_.np_ != nil
+            ? dobjInfoCur_.np_.getOrigTokenList() : nil;
+    }
+
+    /* get the original words (as a list of strings) of the current dobj */
+    getDobjWords()
+    {
+        local l = getDobjTokens();
+        return l != nil ? l.mapAll({x: getTokOrig(x)}) : nil;
+    }
+
     /* the predicate must assign the direct object production tree here */
     dobjMatch = nil
 
@@ -3541,6 +3833,7 @@ class TentativeResolveResults: ResolveResults
      *   resolution pass 
      */
     noMatch(action, txt) { }
+    noMatchPoss(action, txt) { }
     noVocabMatch(action, txt) { }
     noMatchForAll() { }
     noteEmptyBut() { }
@@ -3672,14 +3965,11 @@ class TIAction: TAction
      */
     retryWithAmbiguousIobj(orig, objs, asker, objPhrase)
     {
-        local action;
-        local resolver;
-        
         /* create a missing-indirect-object replacement action */
-        action = createForMissingIobj(orig, asker);
+        local action = createForMissingIobj(orig, asker);
 
         /* reduce the object list to the objects in scope */
-        resolver = action.getIobjResolver(gIssuingActor, gActor, true);
+        local resolver = action.getIobjResolver(gIssuingActor, gActor, true);
         objs = objs.subset({x: resolver.objInScope(x)});
 
         /* plug in the ambiguous indirect object list */
@@ -3719,10 +4009,8 @@ class TIAction: TAction
      */
     createForMissingIobj(orig, asker)
     {
-        local action;
-        
         /* create the new action based on the original action */
-        action = createForRetry(orig);
+        local action = createForRetry(orig);
 
         /* use an empty noun phrase for the new action's indirect object */
         action.iobjMatch = new EmptyNounPhraseProd();
@@ -3798,6 +4086,17 @@ class TIAction: TAction
      */
     askIobjResponseProd = singleNoun
 
+    /* get the missing object response production for a given role */
+    getObjResponseProd(resolver)
+    {
+        /* if it's the indirect object, return the iobj response prod */
+        if (resolver.whichObject == IndirectObject)
+            return askIobjResponseProd;
+
+        /* otherwise use the default handling */
+        return inherited(resolver);
+    }
+
     /*
      *   Resolution order - returns DirectObject or IndirectObject to
      *   indicate which noun phrase to resolve first in resolveNouns().
@@ -3825,6 +4124,20 @@ class TIAction: TAction
      *   be overridden if necessary.  
      */
     execFirst = (resolveFirst)
+
+    /*
+     *   Can the indirect object potentially resolve to the given
+     *   simulation object?  This only determines if the object is a
+     *   *syntactic* match, meaning that it can match at a vocabulary and
+     *   grammar level.  This doesn't test it for logicalness or check that
+     *   it's an otherwise valid resolution.  
+     */
+    canIobjResolveTo(obj)
+    {
+        /* check our iobj match tree to see if it can resolve to 'obj' */
+        return iobjMatch.canResolveTo(
+            obj, self, issuer_, actor_, IndirectObject);
+    }
 
     /*
      *   resolve our noun phrases to objects 
@@ -3962,7 +4275,7 @@ class TIAction: TAction
             if (results.allowActionRemapping)
             {
                 withParserGlobals(issuingActor, targetActor, self,
-                                  new function()
+                                  function()
                 {
                     local remapInfo;
                     
@@ -4041,17 +4354,23 @@ class TIAction: TAction
         /* if we didn't find one, create one from scratch */
         if (info == nil)
         {
-            local lst;
-            local flags;
-
             /* get the list for the old role */
-            lst = (oldRole == DirectObject ? dobjList_ : iobjList_);
+            local lst = (oldRole == DirectObject ? dobjList_ : iobjList_);
 
-            /* get the flags from the first element of the old list */
-            flags = (lst.length() > 0 ? lst[1].flags_ : 0);
-
-            /* create a ResolveInfo to wrap the object */
-            info = new ResolveInfo(obj, flags);
+            /* 
+             *   if there's anything in the old role, copy its flags and
+             *   noun phrase to the new role 
+             */
+            if (lst.length() > 0)
+            {
+                /* copy the old role's attributes */
+                info = new ResolveInfo(obj, lst[1].flags_, lst[1].np_);
+            }
+            else
+            {
+                /* nothing in the old role - start from scratch */
+                info = new ResolveInfo(obj, 0, nil);
+            }
         }
 
         /* return what we found (or created) */
@@ -4090,6 +4409,13 @@ class TIAction: TAction
         return (role == IndirectObject ? remapIobjProp : inherited(role));
     }
 
+    /* get the list of resolved objects in the given role */
+    getResolvedObjList(which)
+    {
+        return (which == IndirectObject ? getResolvedIobjList()
+                : inherited(which));
+    }
+
     /* get the list of resolved indirect objects */
     getResolvedIobjList()
     {
@@ -4109,11 +4435,22 @@ class TIAction: TAction
         /* inherit the base class handling to set the direct object */
         inherited(dobj);
 
+        /* set the resolved iobj */
+        setResolvedIobj(iobj);
+    }
+
+    /* set a resolved iobj */
+    setResolvedIobj(iobj)
+    {
         /* build a pre-resolved production for the indirect object */
         iobjMatch = new PreResolvedProd(iobj);
 
         /* set the resolved indirect object */
         iobjList_ = makeResolveInfoList(iobj);
+
+        /* set the current indirect object as well */
+        iobjCur_ = (iobjList_.length() > 0 ? iobjList_[1].obj_ : nil);
+        iobjInfoCur_ = (iobjList_.length() > 0 ? iobjList_[1] : nil);
     }
 
     /* manually set the unresolved object noun phrase match trees */
@@ -4122,12 +4459,14 @@ class TIAction: TAction
         /* inherit default handling */
         inherited(dobj);
 
-        /* if the iobj is a ResolveInfo, wrap it in a PreResolvedProd */
+        /* 
+         *   if the iobj is a ResolveInfo, set it as a resolved object;
+         *   otherwise set it as an unresolved match tree 
+         */
         if (iobj.ofKind(ResolveInfo))
-            iobj = new PreResolvedProd(iobj);
-        
-        /* note the new indirect object match tree */
-        iobjMatch = iobj;
+            setResolvedIobj(iobj);
+        else
+            iobjMatch = iobj;
     }
 
     /*
@@ -4305,6 +4644,9 @@ class TIAction: TAction
 
             /* we haven't announced the direct object yet */
             preAnnouncedDobj = nil;
+
+            /* pre-calculate the multi-object announcements */
+            cacheMultiObjectAnnouncements(dobjList_, DirectObject);
         }
         else
         {
@@ -4314,6 +4656,9 @@ class TIAction: TAction
 
             /* we haven't announced the indirect object yet */
             preAnnouncedIobj = nil;
+
+            /* pre-calculate the multi-object announcements */
+            cacheMultiObjectAnnouncements(iobjList_, IndirectObject);
         }
 
         /* we haven't yet canceled the iteration */
@@ -4630,15 +4975,13 @@ class TIAction: TAction
      */
     checkAction()
     {
-        local defIo, defDo;
-                
         try
         {
             /* invoke the catch-all 'check' methods on each object */
-            defIo = callCatchAllProp(iobjCur_, checkIobjProp,
-                                     &checkIobjDefault, &checkIobjAll);
-            defDo = callCatchAllProp(dobjCur_, checkDobjProp,
-                                     &checkDobjDefault, &checkDobjAll);
+            local defIo = callCatchAllProp(
+                iobjCur_, checkIobjProp, &checkIobjDefault, &checkIobjAll);
+            local defDo = callCatchAllProp(
+                dobjCur_, checkDobjProp, &checkDobjDefault, &checkDobjAll);
 
             /* 
              *   invoke the 'check' method on each object, as long as it
@@ -4730,6 +5073,26 @@ class TIAction: TAction
     
     /* get the full ResolveInfo associated with the current indirect object */
     getIobjInfo() { return iobjInfoCur_; }
+
+    /* get the object resolution flags for the indirect object */
+    getIobjFlags() { return iobjInfoCur_ != nil ? iobjInfoCur_.flags_ : 0; }
+
+    /* get the number of direct objects */
+    getIobjCount() { return iobjList_ != nil ? iobjList_.length() : 0; }
+
+    /* get the original token list of the current indirect object phrase */
+    getIobjTokens()
+    {
+        return iobjInfoCur_ != nil && iobjInfoCur_.np_ != nil
+            ? iobjInfoCur_.np_.getOrigTokenList() : nil;
+    }
+
+    /* get the original words (as a list of strings) of the current iobj */
+    getIobjWords()
+    {
+        local l = getIobjTokens();
+        return l != nil ? l.mapAll({x: getTokOrig(x)}) : nil;
+    }
 
     /*
      *   Get the list of active objects.  We have a direct and indirect
@@ -4857,7 +5220,13 @@ class LiteralActionBase: object
     {
         /* if it's not already a PreResolvedLiteralProd, wrap it */
         if (!lit.ofKind(PreResolvedLiteralProd))
+        {
+            /* save the literal text */
+            text_ = lit;
+            
+            /* wrap it in a match tree */
             lit = new PreResolvedLiteralProd(lit);
+        }
         
         /* note the new literal match tree */
         literalMatch = lit;
@@ -5153,24 +5522,14 @@ class TopicActionBase: object
      */
     resolveTopic(issuingActor, targetActor, results)
     {
+        /* get the topic resolver */
+        local resolver = getTopicResolver(issuingActor, targetActor, true);
+        
         /* resolve the topic match tree */
-        topicList_ = topicMatch.resolveNouns(
-            getTopicResolver(issuingActor, targetActor, true), results);
+        topicList_ = topicMatch.resolveNouns(resolver, results);
 
-        /* 
-         *   if the topic is other than a single ResolvedTopic object, run
-         *   it through the topic resolver's ambiguous noun phrase filter
-         *   to get it into that canonical form 
-         */
-        if (topicList_.length() > 1
-            || (topicList_.length() == 1
-                && !topicList_[1].obj_.ofKind(ResolvedTopic)))
-        {
-            /* it's not in canonical form, so get it in canonical form now */
-            topicList_ = getTopicResolver(issuingActor, targetActor, true)
-                         .filterAmbiguousNounPhrase(
-                             topicList_, 1, topicMatch);
-        }
+        /* make sure it's properly packaged as a ResolvedTopic */
+        topicList_ = resolver.packageTopicList(topicList_, topicMatch);
     }
 
     /*
@@ -5195,12 +5554,72 @@ class TopicActionBase: object
      */
     setTopicMatch(topic)
     {
-        /* if it's given as a ResolveInfo, wrap it in a PreResolvedProd */
+        /* 
+         *   If it's given as a ResolveInfo, wrap it in a PreResolvedProd.
+         *   Otherwise, if it's not a topic match (a TopicProd object), and
+         *   it has tokens, re-parse it as a topic match to make sure we
+         *   get the grammar optimized for global scope.  
+         */
         if (topic.ofKind(ResolveInfo))
+        {
+            /* it's a resolved object, so wrap it in a fake match tree */
             topic = new PreResolvedProd(topic);
+        }
+        else if (!topic.ofKind(TopicProd))
+        {
+            /* 
+             *   Re-parse it as a topic phrase.  If our dobj resolver knows
+             *   the actors, use those; otherwise default to the player
+             *   character. 
+             */
+            local issuer = (issuer_ != nil ? issuer_ : gPlayerChar);
+            local target = (actor_ != nil ? actor_ : gPlayerChar);
+            topic = reparseMatchAsTopic(topic, issuer, target);
+        }
 
         /* save the topic match */
         topicMatch = topic;
+    }
+
+    /*
+     *   Re-parse a match tree as a topic phrase.  Returns a TopicProd
+     *   match tree, if possible.  
+     */
+    reparseMatchAsTopic(topic, issuingActor, targetActor)
+    {
+        local toks;
+        
+        /* we can only proceed if the match tree has a token list */
+        if ((toks = topic.getOrigTokenList()) != nil && toks.length() > 0)
+        {
+            /* parse it as a topic phrase */
+            local match = topicPhrase.parseTokens(toks, cmdDict);
+        
+            /* 
+             *   if we parsed it successfully, and we have more than one
+             *   match, get the best of the bunch 
+             */
+            if (match != nil && match.length() > 1)
+            {
+                /* set up a topic resolver for the match */
+                local resolver = getTopicResolver(
+                    issuingActor, targetActor, true);
+                
+                /* sort it and return the best match */
+                return CommandRanking.sortByRanking(match, resolver)[1].match;
+            }
+            else if (match != nil && match.length() > 0)
+            {
+                /* we found exactly one match, so use it */
+                return match[1];
+            }
+        }
+
+        /* 
+         *   if we make it this far, we couldn't parse it as a topic, so
+         *   just return the original 
+         */
+        return topic;
     }
 
     /*
@@ -5225,10 +5644,9 @@ class TopicActionBase: object
      */
     createTopicResolver(issuingActor, targetActor)
     {
-        return new TopicResolver(self, issuingActor, targetActor,
-                                 topicMatch, whichMessageTopic,
-                                 getTopicQualifierResolver(
-                                     issuingActor, targetActor, nil));
+        return new TopicResolver(
+            self, issuingActor, targetActor, topicMatch, whichMessageTopic,
+            getTopicQualifierResolver(issuingActor, targetActor, nil));
     }
 
     /*
@@ -5281,13 +5699,6 @@ class TopicActionBase: object
 
         /* return it */
         return topicQualResolver_;
-    }
-
-    /* create a topic qualifier resolver */
-    createTopicQualifierResolver(issuingActor, targetActor)
-    {
-        /* create and return a topic qualifier object resolver */
-        return new TopicQualifierResolver(self, issuingActor, targetActor);
     }
 
     /* the topic qualifier resolver */
@@ -5496,10 +5907,9 @@ class TopicTAction: TopicActionBase, TAction
     /* create our TAction topic resolver */
     createTopicResolver(issuingActor, targetActor)
     {
-        return new TActionTopicResolver(self, issuingActor, targetActor,
-                                        topicMatch, whichMessageTopic,
-                                        getTopicQualifierResolver(
-                                            issuingActor, targetActor, nil));
+        return new TActionTopicResolver(
+            self, issuingActor, targetActor, topicMatch, whichMessageTopic,
+            getTopicQualifierResolver(issuingActor, targetActor, nil));
     }
 
     /* 
@@ -5662,16 +6072,14 @@ class TopicTAction: TopicActionBase, TAction
 class ConvTopicTAction: TopicTAction
     getDefaultDobj(np, resolver)
     {
-        local obj;
-        
         /* 
          *   check to see if the actor has a default interlocutor; if so,
          *   use it as the default actor to be addressed here, otherwise
          *   use the default handling 
          */
-        obj = resolver.getTargetActor().getCurrentInterlocutor();
+        local obj = resolver.getTargetActor().getCurrentInterlocutor();
         if (obj != nil)
-            return [new ResolveInfo(obj, 0)];
+            return [new ResolveInfo(obj, 0, nil)];
         else
             return inherited(np, resolver);
     }
@@ -5682,10 +6090,9 @@ class ConvTopicTAction: TopicTAction
      */
     createTopicResolver(issuingActor, targetActor)
     {
-        return new ConvTopicResolver(self, issuingActor, targetActor,
-                                     topicMatch, whichMessageTopic,
-                                     getTopicQualifierResolver(
-                                         issuingActor, targetActor, nil));
+        return new ConvTopicResolver(
+            self, issuingActor, targetActor, topicMatch, whichMessageTopic,
+            getTopicQualifierResolver(issuingActor, targetActor, nil));
     }
 ;
 
@@ -5715,11 +6122,11 @@ class ResolvedTopic: object
          *   so that the action knows how we've classified the objects
          *   matching our phrase.  We keep a list of objects that are in
          *   scope; a list of objects that aren't in scope but which the
-         *   actor thinks are likely topics; and a list of all of the
-         *   other matches.
+         *   actor thinks are likely topics; and a list of all of the other
+         *   matches.
          *   
-         *   We keep only the simulation objects from the lists - we don't
-         *   keep the full ResolveInfo data.  
+         *   We keep only the simulation objects in these retained lists -
+         *   we don't keep the full ResolveInfo data here.  
          */
         inScopeList = inScope.mapAll({x: x.obj_});
         likelyList = likely.mapAll({x: x.obj_});
@@ -5727,6 +6134,20 @@ class ResolvedTopic: object
 
         /* keep the production match tree */
         topicProd = prod;
+
+        /*
+         *   But it might still be interesting to have the ResolveInfo
+         *   data, particularly for information on the vocabulary match
+         *   strength.  Keep that information in a separate lookup table
+         *   indexed by simulation object.  
+         */
+        local rt = new LookupTable();
+        others.forEach({x: rt[x.obj_] = x});
+        likely.forEach({x: rt[x.obj_] = x});
+        inScope.forEach({x: rt[x.obj_] = x});
+
+        /* save the ResolvedInfo lookup table */
+        resInfoTab = rt;
     }
 
     /* 
@@ -5801,6 +6222,16 @@ class ResolvedTopic: object
         return nil;
     }
 
+    /*
+     *   Is the given object among the possible matches for the topic? 
+     */
+    canMatchObject(obj)
+    {
+        return inScopeList.indexOf(obj) != nil
+            || likelyList.indexOf(obj) != nil
+            || otherList.indexOf(obj) != nil;
+    }
+
     /* get the original text of the topic phrase */
     getTopicText() { return topicProd.getOrigText(); }
 
@@ -5847,6 +6278,13 @@ class ResolvedTopic: object
     }
 
     /*
+     *   Get the parser ResolveInfo object for a given matched object.
+     *   This recovers the ResolveInfo describing the parsing result for
+     *   any object in the resolved object lists (inScopeList, etc). 
+     */
+    getResolveInfo(obj) { return resInfoTab[obj]; }
+
+    /*
      *   Our lists of resolved objects matching the topic phrase,
      *   separated by classification.  
      */
@@ -5860,6 +6298,16 @@ class ResolvedTopic: object
      *   the command or the original text of the phrase.  
      */
     topicProd = nil
+
+    /*
+     *   ResolveInfo table for the resolved objects.  This is a lookup
+     *   table indexed by simulation object.  Each entry in the resolved
+     *   object lists (inScopeList, etc) has have a key in this table, with
+     *   the ResolveInfo object as the value for the key.  This can be used
+     *   to recover the ResolveInfo object describing the parser results
+     *   for this object.  
+     */
+    resInfoTab = nil
 ;
 
 /*
@@ -5910,6 +6358,29 @@ class TopicResolver: Resolver
         qualifierResolver_.resetResolver();
     }
 
+    /* 
+     *   package a resolved topic list - if it's not already represented as
+     *   a ResolvedTopic object, we'll apply that wrapping
+     */
+    packageTopicList(lst, match)
+    {
+        /* 
+         *   if the topic is other than a single ResolvedTopic object, run
+         *   it through the topic resolver's ambiguous noun phrase filter
+         *   to get it into that canonical form 
+         */
+        if (lst != nil
+            && (lst.length() > 1
+                || (lst.length() == 1 && !lst[1].obj_.ofKind(ResolvedTopic))))
+        {
+            /* it's not in canonical form, so get it in canonical form now */
+            lst = filterAmbiguousNounPhrase(lst, 1, match);
+        }
+
+        /* return the result */
+        return lst;
+    }
+
     /* our qualifier resolver */
     qualifierResolver_ = nil
 
@@ -5923,7 +6394,7 @@ class TopicResolver: Resolver
      *   subject matter of topics is mere references to things, not the
      *   things themselves; we can, for example, ASK ABOUT things that
      *   aren't physically present, or even about completely abstract
-     *   ideas.  
+     *   ideas.
      */
     objInScope(obj) { return true; }
 
@@ -5953,6 +6424,16 @@ class TopicResolver: Resolver
     }
 
     /*
+     *   Filter an ambiguous noun phrase list using the strength of
+     *   possessive qualification, if any.  For a topic phrase, we want to
+     *   keep all of the possibilities.  
+     */
+    filterPossRank(lst, num)
+    {
+        return lst;
+    }
+
+    /*
      *   Filter an ambiguous noun list.
      *   
      *   It is almost always undesirable from a user interface perspective
@@ -5977,13 +6458,11 @@ class TopicResolver: Resolver
      */
     filterAmbiguousNounPhrase(lst, requiredNum, np)
     {
-        local rt;
-            
         /* ask the action to create the ResolvedTopic */
-        rt = resolveTopic(lst, requiredNum, np);
+        local rt = resolveTopic(lst, requiredNum, np);
 
         /* wrap the ResolvedTopic in the usual ResolveInfo list */
-        return [new ResolveInfo(rt, 0)];
+        return [new ResolveInfo(rt, 0, np)];
     }
         
     /*
@@ -6009,17 +6488,15 @@ class TopicResolver: Resolver
      */
     resolveUnknownNounPhrase(tokList)
     {
-        local rt;
-        
         /* 
          *   Create our ResolvedTopic object for the results.  We have
          *   words we don't know, so we're not referring to any objects,
          *   so our underlying simulation object list is empty.  
          */
-        rt = new ResolvedTopic([], [], [], topicProd);
+        local rt = new ResolvedTopic([], [], [], topicProd);
 
         /* return a resolved topic object with the empty list */
-        return [new ResolveInfo(rt, 0)];
+        return [new ResolveInfo(rt, 0, new TokenListProd(tokList))];
     }
 
     /* filter a plural */
@@ -6044,6 +6521,7 @@ class TopicResolver: Resolver
     /* it's fine not to match a topic phrase */
     noVocabMatch(action, txt) { }
     noMatch(action, txt) { }
+    noMatchPoss(action, txt) { }
 
     /* we don't allow ALL or provide defaults */
     getAll(np) { return []; }
@@ -6170,41 +6648,17 @@ class SystemAction: IAction
     execSystemAction() { }
 
     /*
-     *   Ask for an input file.  Freezes the real-time event clock for the
-     *   duration of reading the event, and sets our property
-     *   origElapsedTime to the elapsed time when we started processing
-     *   the interaction.  
+     *   Ask for an input file.  We call the input manager, which freezes
+     *   the real-time clock, displays the appropriate local file selector
+     *   dialog, and restarts the clock.  
      */
     getInputFile(prompt, dialogType, fileType, flags)
     {
-        local result;
-        
-        /* 
-         *   note the game elapsed time before we start - we want to
-         *   freeze the real-time clock while we're waiting for the user
-         *   to respond, since this system verb exists outside of the
-         *   usual time flow of the game 
-         */
-        origElapsedTime = realTimeManager.getElapsedTime();
-        
-        /* ask for a file */
-        result = inputFile(prompt, dialogType, fileType, flags);
-
-        /* 
-         *   restore the game real-time counter to what it was before we
-         *   started the interactive response 
-         */
-        realTimeManager.setElapsedTime(origElapsedTime);
-
-        /* return the result from inputFile */
-        return result;
+        return inputManager.getInputFile(prompt, dialogType, fileType, flags);
     }
 
     /* system actions consume no game time */
     actionTime = 0
-
-    /* real-time event clock at start of getInputFile() */
-    origElapsedTime = nil
 ;
 
 /* ------------------------------------------------------------------------ */

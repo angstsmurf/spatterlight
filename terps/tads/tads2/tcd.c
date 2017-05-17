@@ -360,7 +360,7 @@ typedef struct tcderrdef tcderrdef;
  */
 static char vsn_major[] = "2";
 static char vsn_minor[] = "5";
-static char vsn_maint[] = "10";
+static char vsn_maint[] = "17";
 
 
 /*
@@ -373,6 +373,9 @@ static char vsn_maint[] = "10";
 # define TCD_STKSIZ   50
 # define TCD_LABSIZ   1024
 #endif
+
+/* TRUE if pause after compile/run */
+static int ex_pause = FALSE;
 
 /* compiler main */
 static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
@@ -400,10 +403,11 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     char       swapbuf[OSFNMAX];
     char     **argp;
     char      *arg;
-    char      *outfile = (char *)0;
+    char      *outfile = (char *)0;                            /* .gam file */
+    char       outfile_abs[OSFNMAX];      /* fully-qualified .gam file name */
+    char       outfile_path[OSFNMAX];         /* absolute path to .gam file */
     char      *infile;
     ulong      swapsize = 0xffffffffL;        /* allow unlimited swap space */
-    int        pause = FALSE;            /* TRUE if pause after compile/run */
     int        swapena = OS_DEFAULT_SWAP_ENABLED;      /* swapping enabled? */
     linfdef   *noreg linf = 0;                    /* input file line source */
     int        i;
@@ -481,11 +485,17 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     static char si_ic_text[] = "__SYSINFO_ICLASS_TEXT";
     static char si_ic_textgui[] = "__SYSINFO_ICLASS_TEXTGUI";
     static char si_ic_html[] = "__SYSINFO_ICLASS_HTML";
+    static char si_audio_fade[] = "__SYSINFO_AUDIO_FADE";
+    static char si_audio_crossfade[] = "__SYSINFO_AUDIO_CROSSFADE";
+    static char si_af_wav[] = "__SYSINFO_AUDIOFADE_WAV";
+    static char si_af_mpeg[] = "__SYSINFO_AUDIOFADE_MPEG";
+    static char si_af_ogg[] = "__SYSINFO_AUDIOFADE_OGG";
+    static char si_af_midi[] = "__SYSINFO_AUDIOFADE_MIDI";
     time_t     timer;
     struct tm *tblock;
     char      *datetime;
     char       datebuf[15];
-    long       totsize;
+    ulong      totsize;
     uchar     *myheap;
     runsdef   *mystack;
     char      *strfile = 0;                  /* name of string capture file */
@@ -497,6 +507,9 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
 
     /* initialize the output formatter */
     out_init();
+
+    /* presume no exit pause */
+    ex_pause = FALSE;
 
     /* initialize lexical analysis context */
     tc = tokcxini(ec, (mcmcxdef *)0, supsctab);
@@ -679,7 +692,7 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
                 break;
                 
             case 'p':
-                pause = cmdtog(ec, pause, arg, 1, tcdusage);
+                ex_pause = cmdtog(ec, ex_pause, arg, 1, tcdusage);
                 break;
                 
             case 'w':
@@ -956,6 +969,20 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     tok_add_define_num_cvtcase(tc, si_ic_html,
                                (int)sizeof(si_ic_html) - 1,
                                SYSINFO_ICLASS_HTML);
+    tok_add_define_num_cvtcase(tc, si_audio_fade,
+                               (int)sizeof(si_audio_fade) - 1,
+                               SYSINFO_AUDIO_FADE);
+    tok_add_define_num_cvtcase(tc, si_audio_crossfade,
+                               (int)sizeof(si_audio_crossfade) - 1,
+                               SYSINFO_AUDIO_CROSSFADE);
+    tok_add_define_num_cvtcase(tc, si_af_wav, (int)sizeof(si_af_wav) - 1,
+                               SYSINFO_AUDIOFADE_WAV);
+    tok_add_define_num_cvtcase(tc, si_af_mpeg, (int)sizeof(si_af_mpeg) - 1,
+                               SYSINFO_AUDIOFADE_MPEG);
+    tok_add_define_num_cvtcase(tc, si_af_ogg, (int)sizeof(si_af_ogg) - 1,
+                               SYSINFO_AUDIOFADE_OGG);
+    tok_add_define_num_cvtcase(tc, si_af_midi, (int)sizeof(si_af_midi) - 1,
+                               SYSINFO_AUDIOFADE_MIDI);
 
     /* turn on the __DEBUG symbol if debugging is on */
     if (symdeb)
@@ -1032,9 +1059,9 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     /* allocate and initialize parsing context */
 
     totsize = sizeof(prscxdef) + (long)poolsiz + (long)lclsiz;
-    if (totsize != (ushort)totsize)
+    if (totsize != (size_t)totsize)
         errsig1(ec, ERR_PRSCXSIZ, ERRTINT, (int)(65535 - sizeof(prscxdef)));
-    pctx = (prscxdef *)mchalo(ec, (ushort)totsize, "tcdmain");
+    pctx = (prscxdef *)mchalo(ec, (size_t)totsize, "tcdmain");
     pctx->prscxerr = ec;
     pctx->prscxtok = tc;
     pctx->prscxmem = mctx;
@@ -1087,13 +1114,13 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
 
     /* allocate stack and heap */
     totsize = (ulong)stksiz * (ulong)sizeof(runsdef);
-    if (totsize != (ushort)totsize)
+    if (totsize != (size_t)totsize)
         errsig1(ec, ERR_STKSIZE, ERRTINT, (uint)(65535/sizeof(runsdef)));
-    mystack = (runsdef *)mchalo(ec, (ushort)totsize, "runtime stack");
-    myheap = mchalo(ec, (ushort)heapsiz, "runtime heap");
+    mystack = (runsdef *)mchalo(ec, (size_t)totsize, "runtime stack");
+    myheap = mchalo(ec, (size_t)heapsiz, "runtime heap");
 
     /* set up linear symbol table for 'goto' labels */
-    labmem = mchalo(ec, (ushort)labsiz, "main1");
+    labmem = mchalo(ec, (size_t)labsiz, "main1");
     toktlini(ec, &labtab, labmem, labsiz);
     labtab.toktlsc.toktnxt = (toktdef *)&symtab;       /* 2nd to last table */
 
@@ -1139,7 +1166,7 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     
     /* allocate a code generator context */
     ectx = (emtcxdef *)mchalo(ec,
-                             (ushort)(sizeof(emtcxdef) + 511*sizeof(emtldef)),
+                              (sizeof(emtcxdef) + 511*sizeof(emtldef)),
                               "tcdmain");
     ectx->emtcxerr = ec;
     ectx->emtcxmem = pctx->prscxmem;
@@ -1151,6 +1178,10 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     /* add code generator context to parser context */
     pctx->prscxemt = ectx;
     
+    /* get the absolute path for the .gam file */
+    os_get_abs_filename(outfile_abs, sizeof(outfile_abs), outfile);
+    os_get_path_name(outfile_path, sizeof(outfile_path), outfile_abs);
+
     /* set up execution context */
     runctx.runcxerr = ec;
     runctx.runcxmem = pctx->prscxmem;
@@ -1169,6 +1200,8 @@ static void tcdmain1(errcxdef *ec, int argc, char *argv[], tcderrdef *errcbcx,
     runctx.runcxvoc = &vocctx;
     runctx.runcxdmd = (void (*)(void *, objnum, prpnum))supcont;
     runctx.runcxdmc = &supctx;
+    runctx.runcxgamename = outfile;
+    runctx.runcxgamepath = outfile_path;
     
     /* set up setup context */
     supctx.supcxerr = ec;
@@ -1487,14 +1520,6 @@ parse_loop:
         tcdptf("Objects:                    %d\n", count);
     }
 
-    /* pause if desired */
-    if (pause)
-    {
-        tcdptf("[done with compilation - strike a key to continue]");
-        os_waitc();
-        tcdptf("\n");
-    }
-    
     /* close and delete swapfile, if one was opened */
     if (swapfp)
     {
@@ -1695,6 +1720,18 @@ static void tcdlogerr(void *ectx0, char *fac, int err, int argc,
 #endif /* OS_ERRLINE */
 }
 
+/* pause before exiting, if desired */
+static void maybe_pause(void)
+{
+    /* pause if desired */
+    if (ex_pause)
+    {
+        tcdptf("[done with compilation - press a key to continue]");
+        os_waitc();
+        tcdptf("\n");
+    }
+}
+
 /* main - called by os main after setting up arguments */
 int tcdmain(int argc, char **argv, char *save_ext)
 {
@@ -1720,7 +1757,7 @@ int tcdmain(int argc, char **argv, char *save_ext)
     /* copyright-date-string */
     sprintf(vsnbuf, "%s v%s.%s.%s  %s\n", tcgname,
             vsn_major, vsn_minor, vsn_maint,
-            "Copyright (c) 1993, 2005 Michael J. Roberts");
+            "Copyright (c) 1993, 2012 Michael J. Roberts");
     tcdptf(vsnbuf);
     sprintf(vsnbuf, "TADS for %s [%s] patchlevel %s.%s\n",
             OS_SYSTEM_LDESC, OS_SYSTEM_NAME,
@@ -1737,6 +1774,7 @@ int tcdmain(int argc, char **argv, char *save_ext)
         if (errctx.errcxfp) osfcls(errctx.errcxfp);
         if (errcbcx.tcderrfil) fclose(errcbcx.tcderrfil);
         /* os_expause(); */
+        maybe_pause();
         return(OSEXFAIL);
     ERREND(&errctx)
 
@@ -1747,6 +1785,7 @@ int tcdmain(int argc, char **argv, char *save_ext)
     if (errcbcx.tcderrfil) fclose(errcbcx.tcderrfil);
 
     /* os_expause(); */
+    maybe_pause();
     return(errcbcx.tcderrcnt == 0 ? OSEXSUCC : OSEXFAIL);
 }
 

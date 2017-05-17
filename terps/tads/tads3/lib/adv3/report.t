@@ -243,6 +243,14 @@ class FailCommandReport: FullCommandReport
 ;
 
 /*
+ *   failure marker - this is a silent report that marks an action as
+ *   having failed without actually generating any message text 
+ */
+class FailCommandMarker: MarkerReport
+    isFailure = true
+;
+
+/*
  *   "after" report - these come after the main report 
  */
 class AfterCommandReport: FullCommandReport
@@ -344,6 +352,20 @@ class CommandAnnouncement: CommandReport
  *   which objects.  
  */
 class MultiObjectAnnouncement: CommandAnnouncement
+    construct(preCalcMsg, obj, whichObj, action)
+    {
+        /* do the inherited work */
+        inherited(obj, whichObj, action);
+
+        /* 
+         *   if we have a pre-calculated message, use it instead of the
+         *   message we just generated - this lets the caller explicitly
+         *   set the message as desired 
+         */
+        if (preCalcMsg != nil)
+            messageText_ = preCalcMsg;
+    }
+
     /* show the announceMultiActionObject message */
     messageProp_ = &announceMultiActionObject
 ;
@@ -604,6 +626,21 @@ class CommandTranscript: OutputFilter
         reportFailure('');
     }
 
+    /*
+     *   Did the given action fail?  This scans the transcript to determine
+     *   if there are any failure messages associated with the given
+     *   action.   
+     */
+    actionFailed(action)
+    {
+        /* 
+         *   scan the transcript for failure messages that are associated
+         *   with the given action 
+         */
+        return reports_.indexWhich(
+            {x: x.isPartOf(action) && x.isFailure}) != nil;
+    }
+
     /* 
      *   flag: I'm active; when this is nil, we'll pass text through our
      *   filter routine unchanged 
@@ -822,22 +859,31 @@ class CommandTranscript: OutputFilter
     newIter() { ++iter_; }
 
     /* 
-     *   Flush the transcript in preparation for reading input.  This
-     *   shows all pending reports, clears the backlog of reports (so that
-     *   we don't show them again in the future), and deactivates the
+     *   Flush the transcript in preparation for reading input.  This shows
+     *   all pending reports, clears the backlog of reports (so that we
+     *   don't show them again in the future), and deactivates the
      *   transcript's capture feature so that subsequent output goes
-     *   directly to the output stream.  
+     *   directly to the output stream.
+     *   
+     *   We return the former activation status - that is, we return true
+     *   if the transcript was activated before the call, nil if not.  
      */
     flushForInput()
     {
         /* show our reports, and deactivate output capture */
-        showReports(true);
+        local wasActive = showReports(true);
 
         /* clear the reports, since we've now shown them all */
         clearReports();
+
+        /* return the previous activation status */
+        return wasActive;
     }
 
-    /* show our reports */
+    /* 
+     *   Show our reports.  Returns true if the transcript was previously
+     *   active, nil if not. 
+     */
     showReports(deact)
     {
         local wasActive;
@@ -860,7 +906,7 @@ class CommandTranscript: OutputFilter
          *   display each report that made it past that check without any
          *   further conditions.  
          */
-        callWithSenseContext(nil, nil, new function()
+        callWithSenseContext(nil, nil, function()
         {
             /* show the reports */            
             foreach (local cur in reports_)
@@ -877,6 +923,9 @@ class CommandTranscript: OutputFilter
          */
         if (wasActive && !deact)
             activate();
+
+        /* return the former activation status */
+        return wasActive;
     }
 
     /*
@@ -897,7 +946,13 @@ class CommandTranscript: OutputFilter
              *   action. 
              */
             if (gAction.isImplicit && gActor.impliedCommandMode() == ModeNPC)
+            {
+                /* add a failure marker, not the message report */
+                reports_.append(new FailCommandMarker());
+
+                /* that's all we need to add */
                 return;
+            }
         }
 
         /* 
@@ -1061,10 +1116,11 @@ class CommandTranscript: OutputFilter
      *   Announce one of a set of objects to a multi-object action.  We'll
      *   record this announcement for display with our report list.  
      */
-    announceMultiActionObject(obj, whichObj)
+    announceMultiActionObject(preCalcMsg, obj, whichObj)
     {
         /* save a multi-action object announcement */
-        addReport(new MultiObjectAnnouncement(obj, whichObj, gAction));
+        addReport(new MultiObjectAnnouncement(
+            preCalcMsg, obj, whichObj, gAction));
     }
 
     /*

@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -24,7 +24,7 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "scare.h"
@@ -43,7 +43,7 @@ typedef struct
   sc_bool is_open;
   sc_bool is_writable;
 } sx_scr_stream_t;
-static sx_scr_stream_t scr_serialization_stream = { NULL, 0, FALSE, FALSE };
+static sx_scr_stream_t scr_serialization_stream = {NULL, 0, FALSE, FALSE};
 
 
 /*

@@ -1,22 +1,22 @@
 /* files.c - Transscription, recording and playback
-*		Copyright (c) 1995-1997 Stefan Jokisch
-*
-* This file is part of Frotz.
-*
-* Frotz is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* Frotz is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
-*/
+ *	Copyright (c) 1995-1997 Stefan Jokisch
+ *
+ * This file is part of Frotz.
+ *
+ * Frotz is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Frotz is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
+ */
 
 #include "frotz.h"
 #include "glk.h"
@@ -46,50 +46,36 @@ static FILE *pfp = NULL;
  * the old transscription file in V1 to V4, and to ask for a new file
  * name in V5+.
  *
- * Alas, we cannot do this, since glk cannot give us the filename
- * to reopen it again, and I dont want to mess with filerefs here.
- *
  */
+
+static bool script_valid = FALSE;
 
 void script_open (void)
 {
-    static bool script_valid = FALSE;
-    
-    h_flags &= ~SCRIPTING_FLAG;
-    
-#if 0
-    if (h_version >= V5 || !script_valid) {
-	if (!os_read_file_name (new_name, script_name, FILE_SCRIPT))
-	    goto done;
-    }
-    
-    /* Opening in "at" mode doesn't work for script_erase_input... */
-    
-    if ((sfp = fopen (sfp = fopen (script_name, "r+t")) != NULL || (sfp = fopen (script_name, "w+t")) != NULL) {
-	
-#endif
-	
-	if (h_version >= V5 || !script_valid)
+
+	h_flags &= ~SCRIPTING_FLAG;
+
+	if (h_version < V5 && script_valid)
+		sfp = frotzreopen(FILE_SCRIPT);
+	else
+		sfp = frotzopenprompt(FILE_SCRIPT);
+
+	if (sfp != NULL)
 	{
-	    if ((sfp = frotzopenprompt(FILE_SCRIPT)) != NULL)
-	    {
 		fseek (sfp, 0, SEEK_END);
-		
+
 		h_flags |= SCRIPTING_FLAG;
-		
+
 		script_valid = TRUE;
 		ostream_script = TRUE;
-		
+
 		script_width = 0;
-		
-	    } else print_string ("Cannot open file\n");
-	}
-	
-	/* done: */
-	
+
+	} else print_string ("Cannot open file\n");
+
 	SET_WORD (H_FLAGS, h_flags)
-	
-    }/* script_open */
+
+}/* script_open */
 
 /*
  * script_close
@@ -100,12 +86,12 @@ void script_open (void)
 
 void script_close (void)
 {
-    
-    h_flags &= ~SCRIPTING_FLAG;
-    SET_WORD (H_FLAGS, h_flags)
-	
-	fclose (sfp); ostream_script = FALSE;
-	
+
+	h_flags &= ~SCRIPTING_FLAG;
+	SET_WORD (H_FLAGS, h_flags)
+
+		fclose (sfp); ostream_script = FALSE;
+
 }/* script_close */
 
 /*
@@ -117,12 +103,12 @@ void script_close (void)
 
 void script_new_line (void)
 {
-    
-    if (fputc ('\n', sfp) == EOF)
-	script_close ();
-    
-    script_width = 0;
-    
+
+	if (fputc ('\n', sfp) == EOF)
+		script_close ();
+
+	script_width = 0;
+
 }/* script_new_line */
 
 /*
@@ -134,16 +120,17 @@ void script_new_line (void)
 
 void script_char (zchar c)
 {
-    if (c == ZC_INDENT && script_width != 0)
-	c = ' ';
-    
-    if (c == ZC_INDENT)
-    { script_char (' '); script_char (' '); script_char (' '); return; }
-    if (c == ZC_GAP)
-    { script_char (' '); script_char (' '); return; }
-    
-    fputc (c, sfp); script_width++;
-    
+
+	if (c == ZC_INDENT && script_width != 0)
+		c = ' ';
+
+	if (c == ZC_INDENT)
+	{ script_char (' '); script_char (' '); script_char (' '); return; }
+	if (c == ZC_GAP)
+	{ script_char (' '); script_char (' '); return; }
+
+	fputwc (c, sfp); script_width++;
+
 }/* script_char */
 
 /*
@@ -155,39 +142,39 @@ void script_char (zchar c)
 
 void script_word (const zchar *s)
 {
-    int width;
-    int i;
-    
-    if (*s == ZC_INDENT && script_width != 0)
-	script_char (*s++);
-    
-    for (i = 0, width = 0; s[i] != 0; i++)
-	
-	if (s[i] == ZC_NEW_STYLE || s[i] == ZC_NEW_FONT)
-	    i++;
-	else if (s[i] == ZC_GAP)
-	    width += 3;
-	else if (s[i] == ZC_INDENT)
-	    width += 2;
-	else
-	    width += 1;
-    
-    if (f_setup.script_cols != 0 && script_width + width > f_setup.script_cols) {
-	
-	if (*s == ' ' || *s == ZC_INDENT || *s == ZC_GAP)
-	    s++;
-	
-	script_new_line ();
-	
-    }
-    
-    for (i = 0; s[i] != 0; i++)
-	
-	if (s[i] == ZC_NEW_FONT || s[i] == ZC_NEW_STYLE)
-	    i++;
-	else
-	    script_char (s[i]);
-    
+	int width;
+	int i;
+
+	if (*s == ZC_INDENT && script_width != 0)
+		script_char (*s++);
+
+	for (i = 0, width = 0; s[i] != 0; i++)
+
+		if (s[i] == ZC_NEW_STYLE || s[i] == ZC_NEW_FONT)
+			i++;
+		else if (s[i] == ZC_GAP)
+			width += 3;
+		else if (s[i] == ZC_INDENT)
+			width += 2;
+		else
+			width += 1;
+
+	if (option_script_cols != 0 && script_width + width > option_script_cols) {
+
+		if (*s == ' ' || *s == ZC_INDENT || *s == ZC_GAP)
+			s++;
+
+		script_new_line ();
+
+	}
+
+	for (i = 0; s[i] != 0; i++)
+
+		if (s[i] == ZC_NEW_FONT || s[i] == ZC_NEW_STYLE)
+			i++;
+		else
+			script_char (s[i]);
+
 }/* script_word */
 
 /*
@@ -199,21 +186,21 @@ void script_word (const zchar *s)
 
 void script_write_input (const zchar *buf, zchar key)
 {
-    int width;
-    int i;
-    
-    for (i = 0, width = 0; buf[i] != 0; i++)
-	width++;
-    
-    if (f_setup.script_cols != 0 && script_width + width > f_setup.script_cols)
-	script_new_line ();
-    
-    for (i = 0; buf[i] != 0; i++)
-	script_char (buf[i]);
-    
-    if (key == ZC_RETURN)
-	script_new_line ();
-    
+	int width;
+	int i;
+
+	for (i = 0, width = 0; buf[i] != 0; i++)
+		width++;
+
+	if (option_script_cols != 0 && script_width + width > option_script_cols)
+		script_new_line ();
+
+	for (i = 0; buf[i] != 0; i++)
+		script_char (buf[i]);
+
+	if (key == ZC_RETURN)
+		script_new_line ();
+
 }/* script_write_input */
 
 /*
@@ -225,14 +212,14 @@ void script_write_input (const zchar *buf, zchar key)
 
 void script_erase_input (const zchar *buf)
 {
-    int width;
-    int i;
-    
-    for (i = 0, width = 0; buf[i] != 0; i++)
-	width++;
-    
-    fseek (sfp, -width, SEEK_CUR); script_width -= width;
-    
+	int width;
+	int i;
+
+	for (i = 0, width = 0; buf[i] != 0; i++)
+		width++;
+
+	fseek (sfp, -width, SEEK_CUR); script_width -= width;
+
 }/* script_erase_input */
 
 /*
@@ -244,12 +231,12 @@ void script_erase_input (const zchar *buf)
 
 void script_mssg_on (void)
 {
-    
-    if (script_width != 0)
-	script_new_line ();
-    
-    script_char (ZC_INDENT);
-    
+
+	if (script_width != 0)
+		script_new_line ();
+
+	script_char (ZC_INDENT);
+
 }/* script_mssg_on */
 
 /*
@@ -261,9 +248,9 @@ void script_mssg_on (void)
 
 void script_mssg_off (void)
 {
-    
-    script_new_line ();
-    
+
+	script_new_line ();
+
 }/* script_mssg_off */
 
 /*
@@ -275,10 +262,10 @@ void script_mssg_off (void)
 
 void record_open (void)
 {
-    if ((rfp = frotzopenprompt(FILE_RECORD)) != NULL)
-	ostream_record = TRUE;
-    else
-	print_string ("Cannot open file\n");
+	if ((rfp = frotzopenprompt(FILE_RECORD)) != NULL)
+		ostream_record = TRUE;
+	else
+		print_string ("Cannot open file\n");
 }
 
 /*
@@ -290,9 +277,9 @@ void record_open (void)
 
 void record_close (void)
 {
-    
-    fclose (rfp); ostream_record = FALSE;
-    
+
+	fclose (rfp); ostream_record = FALSE;
+
 }/* record_close */
 
 /*
@@ -304,21 +291,21 @@ void record_close (void)
 
 static void record_code (int c, bool force_encoding)
 {
-    
-    if (force_encoding || c == '[' || c < 0x20 || c > 0x7e) {
-	
-	int i;
-	
-	fputc ('[', rfp);
-	
-	for (i = 10000; i != 0; i /= 10)
-	    if (c >= i || i == 1)
-		fputc ('0' + (c / i) % 10, rfp);
-	
-	fputc (']', rfp);
-	
-    } else fputc (c, rfp);
-    
+
+	if (force_encoding || c == '[' || c < 0x20 || c > 0x7e) {
+
+		int i;
+
+		fputc ('[', rfp);
+
+		for (i = 10000; i != 0; i /= 10)
+			if (c >= i || i == 1)
+				fputc ('0' + (c / i) % 10, rfp);
+
+		fputc (']', rfp);
+
+	} else fputc (c, rfp);
+
 }/* record_code */
 
 /*
@@ -330,17 +317,17 @@ static void record_code (int c, bool force_encoding)
 
 static void record_char (zchar c)
 {
-    
-    if (c != ZC_RETURN) {
-	if (c < ZC_HKEY_MIN || c > ZC_HKEY_MAX) {
-	    record_code (translate_to_zscii (c), FALSE);
-	    if (c == ZC_SINGLE_CLICK || c == ZC_DOUBLE_CLICK) {
-		record_code (mouse_x, TRUE);
-		record_code (mouse_y, TRUE);
-	    }
-	} else record_code (1000 + c - ZC_HKEY_MIN, TRUE);
-    }
-    
+
+	if (c != ZC_RETURN) {
+		if (c < ZC_HKEY_MIN || c > ZC_HKEY_MAX) {
+			record_code (translate_to_zscii (c), FALSE);
+			if (c == ZC_SINGLE_CLICK || c == ZC_DOUBLE_CLICK) {
+				record_code (mouse_x, TRUE);
+				record_code (mouse_y, TRUE);
+			}
+		} else record_code (1000 + c - ZC_HKEY_MIN, TRUE);
+	}
+
 }/* record_char */
 
 /*
@@ -352,12 +339,12 @@ static void record_char (zchar c)
 
 void record_write_key (zchar key)
 {
-    
-    record_char (key);
-    
-    if (fputc ('\n', rfp) == EOF)
-	record_close ();
-    
+
+	record_char (key);
+
+	if (fputc ('\n', rfp) == EOF)
+		record_close ();
+
 }/* record_write_key */
 
 /*
@@ -369,16 +356,16 @@ void record_write_key (zchar key)
 
 void record_write_input (const zchar *buf, zchar key)
 {
-    zchar c;
-    
-    while ((c = *buf++) != 0)
-	record_char (c);
-    
-    record_char (key);
-    
-    if (fputc ('\n', rfp) == EOF)
-	record_close ();
-    
+	zchar c;
+
+	while ((c = *buf++) != 0)
+		record_char (c);
+
+	record_char (key);
+
+	if (fputc ('\n', rfp) == EOF)
+		record_close ();
+
 }/* record_write_input */
 
 /*
@@ -390,10 +377,10 @@ void record_write_input (const zchar *buf, zchar key)
 
 void replay_open (void)
 {
-    if ((pfp = frotzopenprompt(FILE_PLAYBACK)) != NULL)
-	istream_replay = TRUE;
-    else
-	print_string ("Cannot open file\n");
+	if ((pfp = frotzopenprompt(FILE_PLAYBACK)) != NULL)
+		istream_replay = TRUE;
+	else
+		print_string ("Cannot open file\n");
 }
 
 /*
@@ -405,7 +392,7 @@ void replay_open (void)
 
 void replay_close (void)
 {
-    fclose (pfp); istream_replay = FALSE;
+	fclose (pfp); istream_replay = FALSE;
 }
 
 /*
@@ -417,21 +404,21 @@ void replay_close (void)
 
 static int replay_code (void)
 {
-    int c;
-    
-    if ((c = fgetc (pfp)) == '[') {
-	
-	int c2;
-	
-	c = 0;
-	
-	while ((c2 = fgetc (pfp)) != EOF && c2 >= '0' && c2 <= '9')
-	    c = 10 * c + c2 - '0';
-	
-	return (c2 == ']') ? c : EOF;
-	
-    } else return c;
-    
+	int c;
+
+	if ((c = fgetc (pfp)) == '[') {
+
+		int c2;
+
+		c = 0;
+
+		while ((c2 = fgetc (pfp)) != EOF && c2 >= '0' && c2 <= '9')
+			c = 10 * c + c2 - '0';
+
+		return (c2 == ']') ? c : EOF;
+
+	} else return c;
+
 }/* replay_code */
 
 /*
@@ -443,32 +430,32 @@ static int replay_code (void)
 
 static zchar replay_char (void)
 {
-    int c;
-    
-    if ((c = replay_code ()) != EOF) {
-	
-	if (c != '\n') {
-	    
-	    if (c < 1000) {
-		
-		c = translate_from_zscii (c);
-		
-		if (c == ZC_SINGLE_CLICK || c == ZC_DOUBLE_CLICK) {
-		    mouse_x = replay_code ();
-		    mouse_y = replay_code ();
+	int c;
+
+	if ((c = replay_code ()) != EOF) {
+
+		if (c != '\n') {
+
+			if (c < 1000) {
+
+				c = translate_from_zscii (c);
+
+				if (c == ZC_SINGLE_CLICK || c == ZC_DOUBLE_CLICK) {
+					mouse_x = replay_code ();
+					mouse_y = replay_code ();
+				}
+
+				return c;
+
+			} else return ZC_HKEY_MIN + c - 1000;
 		}
-		
-		return c;
-		
-	    } else return ZC_HKEY_MIN + c - 1000;
-	}
-	
-	ungetc ('\n', pfp);
-	
-	return ZC_RETURN;
-	
-    } else return ZC_BAD;
-    
+
+		ungetc ('\n', pfp);
+
+		return ZC_RETURN;
+
+	} else return ZC_BAD;
+
 }/* replay_char */
 
 /*
@@ -480,17 +467,17 @@ static zchar replay_char (void)
 
 zchar replay_read_key (void)
 {
-    zchar key;
-    
-    key = replay_char ();
-    
-    if (fgetc (pfp) != '\n') {
-	
-	replay_close ();
-	return ZC_BAD;
-	
-    } else return key;
-    
+	zchar key;
+
+	key = replay_char ();
+
+	if (fgetc (pfp) != '\n') {
+
+		replay_close ();
+		return ZC_BAD;
+
+	} else return key;
+
 }/* replay_read_key */
 
 /*
@@ -502,26 +489,26 @@ zchar replay_read_key (void)
 
 zchar replay_read_input (zchar *buf)
 {
-    zchar c;
-    
-    for (;;) {
-	
-	c = replay_char ();
-	
-	if (c == ZC_BAD || is_terminator (c))
-	    break;
-	
-	*buf++ = c;
-	
-    }
-    
-    *buf = 0;
-    
-    if (fgetc (pfp) != '\n') {
-	
-	replay_close ();
-	return ZC_BAD;
-	
-    } else return c;
-    
+	zchar c;
+
+	for (;;) {
+
+		c = replay_char ();
+
+		if (c == ZC_BAD || is_terminator (c))
+			break;
+
+		*buf++ = c;
+
+	}
+
+	*buf = 0;
+
+	if (fgetc (pfp) != '\n') {
+
+		replay_close ();
+		return ZC_BAD;
+
+	} else return c;
+
 }/* replay_read_input */

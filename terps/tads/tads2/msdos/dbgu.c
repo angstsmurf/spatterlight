@@ -351,7 +351,7 @@ static void dbgudisp(void *ctx, const char *str, int strl)
 }
 
 /* display an error message */
-void dbguerr(dbgcxdef *ctx, int errno, char *msg)
+void dbguerr(dbgcxdef *ctx, int errnum, char *msg)
 {
     int oldpg;
     
@@ -362,11 +362,11 @@ void dbguerr(dbgcxdef *ctx, int errno, char *msg)
     if (oldpg == 0)                         /* if we're on the game page... */
     {
         char buf[256];
-        sprintf(buf, "[TADS-%d: %s]\n", errno, msg);
+        sprintf(buf, "[TADS-%d: %s]\n", errnum, msg);
         os_printz(buf);
     }
     else
-        osdbgpt(&dbgtxtwin, "TADS-%d: %s\n", errno, msg);
+        osdbgpt(&dbgtxtwin, "TADS-%d: %s\n", errnum, msg);
 }
 
 /* show user screen, wait for key hit, then change back to dbg screen */

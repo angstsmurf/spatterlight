@@ -5,6 +5,12 @@ preinit() { }
 
 main(args)
 {
+    local alloc = (args.indexOf('-alloc') != nil);
+    if (alloc)
+        "(Allocating RexPattern objects.)\n";
+
+    "args = [<<args.join(', ')>>]\n";
+    
     for (;;)
     {
         local pat, str, match;
@@ -12,15 +18,18 @@ main(args)
         "regular expression: "; pat = inputLine();
         if (pat == '')
             break;
+
+        if (alloc)
+            pat = new RexPattern(pat);
         
         "string: "; str = inputLine();
 
-        match = rexMatch(pat, str);
+        match = rexSearch(pat, str);
         if (match == nil)
             "No match.\n";
         else
         {
-            "Match length = <<match>>\n";
+            "Match=[<<match[3]>>] (ofs <<match[1]>>, len <<match[2]>>)\n";
             for (local i = 1 ; i < 9 ; ++i)
             {
                 local g = rexGroup(i);

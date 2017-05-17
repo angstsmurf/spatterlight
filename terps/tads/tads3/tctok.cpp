@@ -42,7 +42,54 @@ Modified
 #include "tcprs.h"
 #include "tctarg.h"
 #include "charmap.h"
+#include "vmdatasrc.h"
 #include "vmfile.h"
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Standard macro table.  This implements the interface using a standard
+ *   hash table object.  
+ */
+class CTcBasicMacroTable: public CTcMacroTable
+{
+public:
+    CTcBasicMacroTable(int hash_table_size, CVmHashFunc *hash_function,
+                       int own_hash_func)
+        : tab(hash_table_size, hash_function, own_hash_func)
+    {
+    }
+
+    virtual void add(CVmHashEntry *entry) { tab.add(entry); }
+    virtual void remove(CVmHashEntry *entry) { tab.remove(entry); }
+    virtual CVmHashEntry *find(const char *str, size_t len)
+        { return tab.find(str, len); }
+    virtual void enum_entries(void (*func)(void *, CVmHashEntry *), void *ctx)
+        { tab.enum_entries(func, ctx); }
+    virtual void debug_dump() { tab.debug_dump(); }
+
+private:
+    /* our hash table */
+    CVmHashTable tab;
+};
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   string embedded expression context 
+ */
+void tok_embed_ctx::start_expr(wchar_t qu, int triple, int report)
+{
+    if (level < countof(stk))
+    {
+        s = stk + level;
+        s->enter(qu, triple);
+    }
+    else if (report)
+    {
+        G_tok->log_error(TCERR_EMBEDDING_TOO_DEEP);
+    }
+    ++level;
+}
 
 
 /* ------------------------------------------------------------------------ */
@@ -53,7 +100,7 @@ CTcTokenizer::CTcTokenizer(CResLoader *res_loader,
                            const char *default_charset)
 {
     int i;
-    time_t timer;
+    os_time_t timer;
     struct tm *tblk;
     const char *tstr;
     char timebuf[50];
@@ -99,7 +146,7 @@ CTcTokenizer::CTcTokenizer(CResLoader *res_loader,
         { "replace", TOKT_REPLACE },
         { "modify", TOKT_MODIFY },
         { "new", TOKT_NEW },
-        { "delete", TOKT_DELETE },
+//      { "delete", TOKT_DELETE },
         { "throw", TOKT_THROW },
         { "try", TOKT_TRY },
         { "catch", TOKT_CATCH },
@@ -116,6 +163,9 @@ CTcTokenizer::CTcTokenizer(CResLoader *res_loader,
         { "transient", TOKT_TRANSIENT },
         { "replaced", TOKT_REPLACED },
         { "property", TOKT_PROPERTY },
+        { "operator", TOKT_OPERATOR },
+        { "method", TOKT_METHOD },
+        { "invokee", TOKT_INVOKEE },
 
 //      { "void", TOKT_VOID },
 //      { "int", TOKT_INT },
@@ -190,8 +240,8 @@ CTcTokenizer::CTcTokenizer(CResLoader *res_loader,
     /* there are no previously-included files yet */
     prev_includes_ = 0;
 
-    /* presume we'll convert newlines in strings to whitespace */
-    string_newline_spacing_ = TRUE;
+    /* by default, use the "collapse" mode for newlines in strings */
+    string_newline_spacing_ = NEWLINE_SPACING_COLLAPSE;
 
     /* start out with ALL_ONCE mode off */
     all_once_ = FALSE;
@@ -204,11 +254,7 @@ CTcTokenizer::CTcTokenizer(CResLoader *res_loader,
 
     /* not in a quoted string yet */
     in_quote_ = '\0';
-
-    /* not in an embedded expression yet */
-    comment_in_embedding_ = FALSE;
-    macro_in_embedding_ = FALSE;
-    main_in_embedding_ = FALSE;
+    in_triple_ = FALSE;
 
     /* not in a #if block yet */
     if_sp_ = 0;
@@ -227,7 +273,7 @@ CTcTokenizer::CTcTokenizer(CResLoader *res_loader,
     init_src_block_list();
 
     /* create the #define and #undef symbol tables */
-    defines_ = new CVmHashTable(512, new CVmHashFuncCS(), TRUE);
+    defines_ = new CTcBasicMacroTable(512, new CVmHashFuncCS(), TRUE);
     undefs_ = new CVmHashTable(64, new CVmHashFuncCS(), TRUE);
 
     /* create the special __LINE__ and __FILE__ macros */
@@ -235,8 +281,8 @@ CTcTokenizer::CTcTokenizer(CResLoader *res_loader,
     defines_->add(new CTcHashEntryPpFILE(this));
 
     /* get the current time and date */
-    timer = time(0);
-    tblk = localtime(&timer);
+    timer = os_time(0);
+    tblk = os_localtime(&timer);
     tstr = asctime(tblk);
 
     /* 
@@ -283,12 +329,16 @@ CTcTokenizer::CTcTokenizer(CResLoader *res_loader,
     for (kwp = kwlist ; kwp->kw_text != 0 ; ++kwp)
         kw_->add(new CTcHashEntryKw(kwp->kw_text, kwp->kw_tok_id));
 
-    /* no ungot token yet */
-    nxttok_valid_ = FALSE;
+    /* no ungot tokens yet */
+    unget_head_ = unget_cur_ = 0;
 
     /* no string capture file */
     string_fp_ = 0;
     string_fp_map_ = 0;
+
+    /* there's no current token yet */
+    curtok_.settyp(TOKT_NULLTOK);
+    curtok_.set_text("<Start of Input>", 16);
 }
 
 /*
@@ -314,19 +364,35 @@ CTcTokenizer::~CTcTokenizer()
     /* delete all streams */
     delete_source();
 
+    /* delete the string capture file */
+    if (string_fp_ != 0)
+        delete string_fp_;
+
     /* delete all file descriptors */
     while (desc_head_ != 0)
     {
-        CTcTokFileDesc *nxt;
-
         /* remember the next descriptor */
-        nxt = desc_head_->get_next();
+        CTcTokFileDesc *nxt = desc_head_->get_next();
 
         /* delete this one */
         delete desc_head_;
 
         /* move on to the next one */
         desc_head_ = nxt;
+    }
+
+    /* delete the unget list */
+    unget_cur_ = 0;
+    while (unget_head_ != 0)
+    {
+        /* remember the next element */
+        CTcTokenEle *nxt = unget_head_->getnxt();
+
+        /* delete this element */
+        delete unget_head_;
+
+        /* advance to the next element */
+        unget_head_ = nxt;
     }
 
     /* delete the file descriptor index array */
@@ -433,6 +499,7 @@ const char *CTcTokenizer::get_op_text(tc_toktyp_t op)
         { TOKT_DSTR_START, "<double-quoted string>" },
         { TOKT_DSTR_MID, "<double-quoted string>" },
         { TOKT_DSTR_END, "<double-quoted string>" },
+        { TOKT_RESTR, "<regex string>" },
         { TOKT_LPAR, "(" },
         { TOKT_RPAR, ")" },
         { TOKT_COMMA, "," },
@@ -463,7 +530,8 @@ const char *CTcTokenizer::get_op_text(tc_toktyp_t op)
         { TOKT_OROR, "||" },
         { TOKT_XOR, "^" },
         { TOKT_SHL, "<<" },
-        { TOKT_SHR, ">>" },
+        { TOKT_ASHR, ">>" },
+        { TOKT_LSHR, ">>>" },
         { TOKT_INC, "++" },
         { TOKT_DEC, "--" },
         { TOKT_PLUSEQ, "+=" },
@@ -475,7 +543,8 @@ const char *CTcTokenizer::get_op_text(tc_toktyp_t op)
         { TOKT_OREQ, "|=" },
         { TOKT_XOREQ, "^=" },
         { TOKT_SHLEQ, "<<=" },
-        { TOKT_SHREQ, ">>=" },
+        { TOKT_ASHREQ, ">>=" },
+        { TOKT_LSHREQ, ">>>=" },
         { TOKT_NOT, "! (not)" },
         { TOKT_BNOT, "~" },
         { TOKT_POUND, "#" },
@@ -483,9 +552,12 @@ const char *CTcTokenizer::get_op_text(tc_toktyp_t op)
         { TOKT_POUNDAT, "#@" },
         { TOKT_ELLIPSIS, "..." },
         { TOKT_QUESTION, "?" },
+        { TOKT_QQ, "??" },
         { TOKT_COLONCOLON, "::" },
         { TOKT_FLOAT, "<float>" },
+        { TOKT_BIGINT, "<bigint>" },
         { TOKT_AT, "@" },
+        { TOKT_DOTDOT, ".." },
         { TOKT_SELF, "self" },
         { TOKT_TARGETPROP, "targetprop" },
         { TOKT_TARGETOBJ, "targetobj" },
@@ -517,7 +589,7 @@ const char *CTcTokenizer::get_op_text(tc_toktyp_t op)
         { TOKT_REPLACE, "replace" },
         { TOKT_MODIFY, "modify" },
         { TOKT_NEW, "new" },
-        { TOKT_DELETE, "delete" },
+//      { TOKT_DELETE, "delete" },
         { TOKT_THROW, "throw" },
         { TOKT_TRY, "try" },
         { TOKT_CATCH, "catch" },
@@ -534,6 +606,9 @@ const char *CTcTokenizer::get_op_text(tc_toktyp_t op)
         { TOKT_TRANSIENT, "transient" },
         { TOKT_REPLACED, "replaced" },
         { TOKT_PROPERTY, "property" },
+        { TOKT_OPERATOR, "operator" },
+        { TOKT_METHOD, "method" },
+        { TOKT_INVOKEE, "invokee" },
 
 //      { TOKT_VOID, "void" },
 //      { TOKT_INTKW, "int" },
@@ -657,7 +732,7 @@ int CTcTokenizer::set_source(const char *src_filename, const char *orig_name)
 /*
  *   Set up to read source code from a memory buffer 
  */
-void CTcTokenizer::set_source_buf(const char *buf)
+void CTcTokenizer::set_source_buf(const char *buf, size_t len)
 {
     CTcSrcMemory *src;
 
@@ -668,19 +743,20 @@ void CTcTokenizer::set_source_buf(const char *buf)
     in_pp_expr_ = FALSE;
     last_linenum_ = 0;
     unsplicebuf_.clear_text();
-    in_quote_ = 0;
-    comment_in_embedding_ = FALSE;
-    macro_in_embedding_ = FALSE;
-    main_in_embedding_ = FALSE;
+    in_quote_ = '\0';
+    in_triple_ = FALSE;
+    comment_in_embedding_.reset();
+    macro_in_embedding_.reset();
+    main_in_embedding_.reset();
     if_sp_ = 0;
     if_false_level_ = 0;
-    nxttok_valid_ = FALSE;
+    unget_cur_ = 0;
 
     /* set up at the beginning of the input line buffer */
     start_new_line(&linebuf_, 0);
 
     /* create a reader for the memory buffer */
-    src = new CTcSrcMemory(buf, default_mapper_);
+    src = new CTcSrcMemory(buf, len, default_mapper_);
 
     /* 
      *   Create a stream to read the source file.  The new stream has no
@@ -837,8 +913,16 @@ void CTcTokenizer::add_inc_path(const char *path)
  */
 void CTcTokenizer::set_string_capture(osfildef *fp)
 {
-    /* remember the capture file */
-    string_fp_ = fp;
+    /* delete any old capture file */
+    if (string_fp_ != 0)
+        delete string_fp_;
+
+    /* 
+     *   Remember the new capture file.  Use a duplicate handle, since we
+     *   pass ownership of the handle to the CVmFileSource object (i.e.,
+     *   it'll close the handle when done). 
+     */
+    string_fp_ = new CVmFileSource(osfdup(fp, "w"));
 
     /* 
      *   if we don't already have a character mapping to translate from
@@ -870,13 +954,13 @@ tc_toktyp_t CTcTokenizer::next()
     prvtok_ = curtok_;
     
     /* if there's an un-got token, return it */
-    if (nxttok_valid_)
+    if (unget_cur_ != 0)
     {
-        /* get the previously-saved token */
-        curtok_ = nxttok_;
+        /* get the current unget token */
+        curtok_ = *unget_cur_;
 
-        /* we've now consumed nxttok_ */
-        nxttok_valid_ = FALSE;
+        /* we've now consumed this ungotten token */
+        unget_cur_ = unget_cur_->getprv();
 
         /* return the new token's type */
         return curtok_.gettyp();
@@ -921,14 +1005,12 @@ tc_toktyp_t CTcTokenizer::next()
     /* keep going until we get a valid token */
     for (;;)
     {
-        tc_toktyp_t typ;
-        
         /* 
          *   read the next token from the current line, applying
          *   appropriate string translations and storing strings and
          *   symbols in the source block list 
          */
-        typ = next_on_line_xlat_keep();
+        tc_toktyp_t typ = next_on_line_xlat_keep();
 
         /* if it's the "null" token, skip it and read another token */
         if (typ == TOKT_NULLTOK)
@@ -990,8 +1072,8 @@ void CTcTokenizer::clear_external_sources()
  */
 const CTcToken *CTcTokenizer::copycur()
 {
-    /* if the current token is a symbol, it already has a safe copy */
-    if (curtok_.gettyp() == TOKT_SYM)
+    /* if it's already a type that we store safely, return the current token */
+    if (is_tok_safe(curtok_.gettyp()))
         return getcur();
 
     /* save the current token's text in permanent tokenizer memory */
@@ -1011,12 +1093,45 @@ void CTcTokenizer::copytok(CTcToken *dst, const CTcToken *src)
     *dst = *src;
 
     /* if the token is a symbol, it already has a safe copy */
-    if (src->gettyp() == TOKT_SYM)
+    if (is_tok_safe(src->gettyp()))
         return;
 
     /* save the token's text in permanent tokenizer memory */
     dst->set_text(store_source(dst->get_text(), dst->get_text_len()),
                   dst->get_text_len());
+}
+
+/*
+ *   Is the given token type "safe"?  A safe token is one whose text is
+ *   always saved in the tokenizer source list, which means that the text
+ *   pointer is safe as long as the tokenizer object exists.  A non-safe
+ *   token is one whose text pointer points directly into the current line
+ *   buffer, meaning that its text buffer is only guaranteed to last until
+ *   the next token fetch.  
+ */
+int CTcTokenizer::is_tok_safe(tc_toktyp_t typ)
+{
+    switch (typ)
+    {
+    case TOKT_SYM:
+    case TOKT_SSTR:
+    case TOKT_SSTR_START:
+    case TOKT_SSTR_MID:
+    case TOKT_SSTR_END:
+    case TOKT_DSTR:
+    case TOKT_DSTR_START:
+    case TOKT_DSTR_MID:
+    case TOKT_DSTR_END:
+    case TOKT_RESTR:
+    case TOKT_FLOAT:
+    case TOKT_BIGINT:
+        /* these types are always stored in the source list */
+        return TRUE;
+
+    default:
+        /* other types are not always safely stored */
+        return FALSE;
+    }
 }
 
 
@@ -1033,34 +1148,125 @@ int CTcTokenizer::cur_tok_matches(const char *txt, size_t len)
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Look ahead to see if we match a pair of symbol tokens 
+ */
+int CTcTokenizer::look_ahead(const char *s1, const char *s2)
+{
+    /* if the first token doesn't match, the sequence doesn't match */
+    if (cur() != TOKT_SYM || !cur_tok_matches(s1, strlen(s1)))
+        return FALSE;
+
+    /* check the next token - if it matches, we have a sequence match */
+    if (next() == TOKT_SYM && cur_tok_matches(s2, strlen(s2)))
+    {
+        /* got it - skip the second token and return success */
+        next();
+        return TRUE;
+    }
+
+    /* 
+     *   no match - but we've already read the next token, so put it back
+     *   before we return failure 
+     */
+    unget();
+    return FALSE;
+}
+
+/*
+ *   Peek ahead - same as look_ahead, but doesn't skip anything on a
+ *   successful match. 
+ */
+int CTcTokenizer::peek_ahead(const char *s1, const char *s2)
+{
+    /* if the first token doesn't match, the sequence doesn't match */
+    if (cur() != TOKT_SYM || !cur_tok_matches(s1, strlen(s1)))
+        return FALSE;
+
+    /* check the next token - if it matches, we have a sequence match */
+    int match = (next() == TOKT_SYM && cur_tok_matches(s2, strlen(s2)));
+
+    /* whatever happened, un-get the second token, since we're just peeking */
+    unget();
+
+    /* return the match indication */
+    return match;
+}
+
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Un-get the current token 
  */
 void CTcTokenizer::unget()
 {
-    /* 
-     *   remember the current token as the next one to fetch, and flag
-     *   that this is valid 
-     */
-    nxttok_ = curtok_;
-    nxttok_valid_ = TRUE;
+    /* unget, backing up to the internally saved previous token */
+    unget(&prvtok_);
+}
+
+/*
+ *   Un-get the current token and back up to the specified previous token. 
+ */
+void CTcTokenizer::unget(const CTcToken *prv)
+{
+    /* push the current token onto the unget stack */
+    push(&curtok_);
 
     /* go back to the previous token */
-    curtok_ = prvtok_;
+    curtok_ = *prv;
+
+    /* the internally saved previous token is no longer valid */
+    prvtok_.settyp(TOKT_INVALID);
+}
+
+/*
+ *   Push a token into the stream 
+ */
+void CTcTokenizer::push(const CTcToken *tok)
+{
+    /* if the unget list is empty, create the initial entry */
+    if (unget_head_ == 0)
+        unget_head_ = new CTcTokenEle();
+
+    /* advance to the next slot in the list */
+    if (unget_cur_ == 0)
+    {
+        /* no last ungot token - set up at the head of the list */
+        unget_cur_ = unget_head_;
+    }
+    else if (unget_cur_->getnxt() != 0)
+    {
+        /* there's another slot available - advance to it */
+        unget_cur_ = unget_cur_->getnxt();
+    }
+    else
+    {
+        /* the list is full - we need to allocate a new slot */
+        CTcTokenEle *newele = new CTcTokenEle();
+
+        /* link it at the end of the list */
+        unget_cur_->setnxt(newele);
+        newele->setprv(unget_cur_);
+
+        /* advance to it */
+        unget_cur_ = newele;
+    }
+
+    /* save the pushed token */
+    unget_cur_->set(*tok);
 }
 
 /* ------------------------------------------------------------------------ */
 /*
  *   Assume that we should have just found a '>>' terminating an embedded
- *   expression in a double-quoted string.  If possible, back out the
- *   previous token and re-scan it as though it had started with '>>'.
+ *   expression in a string.  If possible, back out the previous token and
+ *   re-scan it as though it had started with '>>'.
  *   
- *   This is to be called by a higher-level parser when it determines
- *   that, syntactically, we should have found the '>>' leaving an
- *   embedded expression.  
+ *   This is to be called by a higher-level parser when it determines that,
+ *   syntactically, we should have found the '>>' leaving an embedded
+ *   expression.  
  */
-void CTcTokenizer::assume_missing_dstr_cont()
+void CTcTokenizer::assume_missing_str_cont()
 {
-    /* act as though we had just seen '>>' */
     xlat_string_to_src(&main_in_embedding_, TRUE);
 }
 
@@ -1108,36 +1314,32 @@ void CTcTokenizer::skip_ws_and_markers(utf8_ptr *p)
  *   line only.  
  */
 tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
-                                       int *in_embedding)
+                                       tok_embed_ctx *ec, int expanding)
 {
-    wchar_t cur;
     tc_toktyp_t typ;
-    utf8_ptr start;
-    int num_minus;
-    
+
     /* skip whitespace */
     skip_ws_and_markers(p);
 
     /* remember where the token starts */
-    start = *p;
+    utf8_ptr start = *p;
+
+    /* get the initial character */
+    wchar_t cur = p->getch();
 
     /* if there's nothing left in the current line, return EOF */
-    if (p->getch() == '\0')
+    if (cur == '\0')
     {
         /* indicate end of file */
         typ = TOKT_EOF;
         goto done;
     }
 
-    /* get the initial character, and skip it */
-    cur = p->getch();
+    /* skip the initial character */
     p->inc();
 
     /* presume the token will not be marked as fully macro-expanded */
     tok->set_fully_expanded(FALSE);
-
-    /* presume it's not a number with a minus sign */
-    num_minus = FALSE;
 
     /* see what we have */
     switch(cur)
@@ -1222,13 +1424,24 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
     case '8':
     case '9':
         {
-            long acc;
-
             /* 
              *   Start out with the leading digit in the accumulator.  Note
              *   that the character set internally is always UTF-8.  
              */
-            acc = value_of_digit(cur);
+            ulong acc = value_of_digit(cur);
+
+            /*
+             *   The overflow limit differs for positive and negative values,
+             *   but we can't be sure at this point which we have, since even
+             *   if there's a '-' before the number, it could be a
+             *   subtraction operator rather than a negation operator.  We
+             *   can't know until we've folded constants whether the number
+             *   is positive or negative.  Use the lower limit for now; the
+             *   compiler will un-promote values after constant folding if
+             *   they end up fitting after all, which will handle the case of
+             *   INT32MINVAL, whose absolute value is higher than this limit.
+             */
+            const ulong ovlimit = 2147483647U;
 
             /* 
              *   If it's a leading zero, treat as octal or hex.  '0x' means
@@ -1255,6 +1468,10 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
                         if (!is_xdigit(cur))
                             break;
 
+                        /* check for 32-bit integer overflow */
+                        if ((acc & 0xF0000000) != 0)
+                            goto do_int_overflow;
+
                         /* 
                          *   Shift the accumulator and add this digit's value.
                          *   Note that we can save a test - if the character is
@@ -1280,26 +1497,80 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
                 {
                     /* scan octal digits */
                     for ( ; is_odigit(p->getch()) ; p->inc())
+                    {
+                        /* check for overflow */
+                        if ((acc & 0xE0000000) != 0)
+                            goto do_int_overflow;
+
+                        /* add the digit */
                         acc = 8*acc + value_of_odigit(p->getch());
+                    }
+
+                    /* 
+                     *   If we stopped on a digit outside of the octal range,
+                     *   consume any remaining digits, and flag it as an
+                     *   error.  Leaving subsequent decimal digits as a
+                     *   separate token tends to be confusing, since in most
+                     *   cases the inclusion of decimal digits means that the
+                     *   user didn't really intend this to be an octal number
+                     *   after all.  For instance, the leading zero might be
+                     *   there for formatting reasons, and the user simply
+                     *   forgot to take into account that it triggers octal
+                     *   interpretation.  
+                     */
+                    if (is_digit(p->getch()))
+                    {
+                        /* skip subsequent digits */
+                        for (p->inc() ; is_digit(p->getch()) ; p->inc()) ;
+
+                        /* flag the error */
+                        if (!expanding)
+                            log_error(TCERR_DECIMAL_IN_OCTAL,
+                                      p->getptr() - start.getptr(),
+                                      start.getptr());
+                    }
                 }
             }
             else
             {
                 /* scan decimal digits */
                 for ( ; is_digit(p->getch()) ; p->inc())
-                    acc = 10*acc + value_of_digit(p->getch());
+                {
+                    /* check for integer overflow in the shift */
+                    if (acc > 214748364)
+                        goto do_int_overflow;
+
+                    /* shift the accumulator */
+                    acc *= 10;
+
+                    /* get the digit */
+                    int d = value_of_digit(p->getch());
+
+                    /* check for overflow adding the digit */
+                    if ((unsigned)acc > ovlimit - d)
+                        goto do_int_overflow;
+
+                    /* add the digit */
+                    acc += d;
+                }
             }
 
-            /* negate the value if we had a minus sign */
-            if (num_minus)
-                acc = -acc;
-
             /* 
-             *   if we stopped at a decimal point or an exponent, it's a
-             *   floating point number 
+             *   If we stopped at a decimal point or an exponent, it's a
+             *   floating point number.  This doesn't count if we have two
+             *   periods in a row - ".." - because that's either a range
+             *   marker operator or an ellipsis operator.  
              */
-            if (p->getch() == '.' || p->getch() == 'e' || p->getch() == 'E')
+            if (p->getch() == '.' && p->getch_at(1) != '.')
+            {
+                typ = TOKT_FLOAT;
                 goto do_float;
+            }
+            else if (p->getch() == 'e' || p->getch() == 'E')
+            {
+                typ = TOKT_FLOAT;
+                goto do_float;
+            }
 
             /* it's an integer value */
             typ = TOKT_INT;
@@ -1309,12 +1580,36 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
         }
         break;
 
+    do_int_overflow:
+        /* mark it as an integer that overflowed into a float type */
+        typ = TOKT_BIGINT;
+        
     do_float:
         {
-            int found_decpt;
+            /* haven't found a decimal point yet */
+            int found_decpt = FALSE;
+            int is_hex = FALSE;
+
+            /* start over at the beginning of the number */
+            *p = start;
+
+            /* skip any leading sign */
+            if (p->getch() == '-')
+                p->inc();
+
+            /* skip any leading "0x" */
+            if (typ == TOKT_BIGINT && p->getch() == '0')
+            {
+                wchar_t c1 = p->getch_at(1);
+                if (c1 == 'x' || c1 == 'X')
+                {
+                    is_hex = TRUE;
+                    p->inc_by(2);
+                }
+            }
             
-            /* start over and parse the float */
-            for (*p = start, found_decpt = FALSE ; ; p->inc())
+            /* parse the rest of the float */
+            for ( ; ; p->inc())
             {
                 /* get this character and move on */
                 cur = p->getch();
@@ -1324,22 +1619,43 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
                 {
                     /* we have another digit; just keep going */
                 }
-                else if (!found_decpt && cur == '.')
+                else if (is_hex && is_xdigit(cur))
+                {
+                    /* we have another hex digit, so keep going */
+                }
+                else if (!found_decpt && !is_hex && cur == '.')
                 {
                     /* it's the decimal point - note it and keep going */
                     found_decpt = TRUE;
+
+                    /* if it started as a promoted int, it's really a float */
+                    if (typ == TOKT_BIGINT)
+                        typ = TOKT_FLOAT;
                 }
                 else if (cur == 'e' || cur == 'E')
                 {
-                    /* it's the exponent - if there's a sign, skip it */
-                    p->inc();
-                    cur = p->getch();
-                    if (cur == '+' || cur == '-')
-                        p->inc();
+                    /* it might not be an exponent - look ahead to find out */
+                    utf8_ptr p2 = *p;
+                    p2.inc();
 
-                    /* keep going until we find no more digits */
-                    while (is_digit(p->getch()))
-                        p->inc();
+                    /* if we have a sign, skip it */
+                    if ((cur = p2.getch()) == '-' || cur == '+')
+                        p2.inc();
+
+                    /* we need at least one digit to make an exponent */
+                    if (!is_digit(p2.getch()))
+                        break;
+
+                    /* skip digits */
+                    while (is_digit(p2.getch()))
+                        p2.inc();
+
+                    /* advance to the end of the exponent */
+                    *p = p2;
+
+                    /* if it started as a promoted int, it's now a float */
+                    if (typ == TOKT_BIGINT)
+                        typ = TOKT_FLOAT;
 
                     /* the end of the exponent is the end of the number */
                     break;
@@ -1351,22 +1667,23 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
                 }
             }
         }
-
-        /* it's a float */
-        typ = TOKT_FLOAT;
         break;
 
     case '"':
     case '\'':
         *p = start;
-        return tokenize_string(p, tok, in_embedding);
+        return tokenize_string(p, tok, ec, expanding);
 
     case '(':
         typ = TOKT_LPAR;
+        if (ec != 0)
+            ec->parens(1);
         break;
 
     case ')':
         typ = TOKT_RPAR;
+        if (ec != 0)
+            ec->parens(-1);
         break;
 
     case ',':
@@ -1374,33 +1691,50 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
         break;
 
     case '.':
-        /* check for '...' and floating-point numbers */
-        if (p->getch() == '.' && p->getch_at(1) == '.')
+        /* check for '..', '...', and floating-point numbers */
+        if (p->getch() == '.')
         {
+            /* it's either '..' or '...' */
             p->inc();
-            p->inc();
-            typ = TOKT_ELLIPSIS;
+            if (p->getch() == '.')
+            {
+                p->inc();
+                typ = TOKT_ELLIPSIS;
+            }
+            else
+                typ = TOKT_DOTDOT;
         }
         else if (is_digit(p->getch()))
+        {
+            typ = TOKT_FLOAT;
             goto do_float;
+        }
         else
             typ = TOKT_DOT;
         break;
 
     case '{':
         typ = TOKT_LBRACE;
+        if (ec != 0)
+            ec->parens(1);
         break;
 
     case '}':
         typ = TOKT_RBRACE;
+        if (ec != 0)
+            ec->parens(-1);
         break;
 
     case '[':
         typ = TOKT_LBRACK;
+        if (ec != 0)
+            ec->parens(1);
         break;
 
     case ']':
         typ = TOKT_RBRACK;
+        if (ec != 0)
+            ec->parens(-1);
         break;
 
     case '=':
@@ -1415,13 +1749,8 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
         break;
 
     case ':':
-        /* check for ':=' and '::' */
-        if (p->getch() == '=')
-        {
-            p->inc();
-            typ = TOKT_ASI;
-        }
-        else if (p->getch() == ':')
+        /* check for '::' */
+        if (p->getch() == ':')
         {
             p->inc();
             typ = TOKT_COLONCOLON;
@@ -1431,7 +1760,14 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
         break;
 
     case '?':
-        typ = TOKT_QUESTION;
+        /* check for '??' */
+        if (p->getch() == '?')
+        {
+            p->inc();
+            typ = TOKT_QQ;
+        }
+        else
+            typ = TOKT_QUESTION;
         break;
 
     case '+':
@@ -1514,21 +1850,33 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
         else if (p->getch() == '>')
         {
             /* check for the end of an embedded expression */
-            if (in_embedding != 0 && *in_embedding)
+            if (ec != 0 && ec->in_expr() && ec->parens() == 0)
             {
                 *p = start;
-                return tokenize_string(p, tok, in_embedding);
+                return tokenize_string(p, tok, ec, expanding);
             }
-            
-            /* check for '>>=' */
+
+            /* check for '>>>' and '>>=' */
             p->inc();
-            if (p->getch() == '=')
+            if (p->getch() == '>')
+            {
+                /* skip the '>' and check for '>>>=' */
+                p->inc();
+                if (p->getch() == '=')
+                {
+                    p->inc();
+                    typ = TOKT_LSHREQ;
+                }
+                else
+                    typ = TOKT_LSHR;
+            }
+            else if (p->getch() == '=')
             {
                 p->inc();
-                typ = TOKT_SHREQ;
+                typ = TOKT_ASHREQ;
             }
             else
-                typ = TOKT_SHR;
+                typ = TOKT_ASHR;
         }
         else
             typ = TOKT_GT;
@@ -1553,11 +1901,18 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
             else
                 typ = TOKT_SHL;
         }
+#if 0
         else if (p->getch() == '>')
         {
+            /* '<>' is obsolete */
+            if (!expanding)
+                log_error(TCERR_LTGT_OBSOLETE);
+
+            /* ... but for now proceed as though it's != */
             p->inc();
             typ = TOKT_NE;
         }
+#endif
         else
             typ = TOKT_LT;
         break;
@@ -1644,36 +1999,79 @@ tc_toktyp_t CTcTokenizer::next_on_line(utf8_ptr *p, CTcToken *tok,
             typ = TOKT_POUND;
         break;
 
+    case 'R':
+        /* check for regular expression string syntax */
+        if (p->getch() == '"' || p->getch() == '\'')
+        {
+            /* 
+             *   It's a regular expression string.  Tokenize the string
+             *   portion as normal, but mark it as a regex string rather than
+             *   a regular string. 
+             */
+            *p = start;
+            return tokenize_string(p, tok, ec, expanding);
+        }
+        /* not a regex string - fall through to default case */
+
     default:        
         /* check to see if it's a symbol */
-        if (is_syminit(cur))
+        if (is_syminit(cur) || !is_ascii(cur))
         {
-            size_t len, full_len;
+        tokenize_symbol:
+            wchar_t non_ascii = 0;
+            const char *stop = 0;
+
+            /* note if we're starting with a non-ASCII character */
+            if (!is_ascii(cur))
+                non_ascii = cur;
 
             /* 
              *   scan the identifier (note that we've already skipped the
              *   first character, so we start out at length = 1) 
              */
-        tokenize_symbol:
-            for (len = full_len = 1 ; is_sym(p->getch()) ; p->inc())
+            for (;;)
             {
-                /* count the full length */
-                ++full_len;
-
                 /* 
-                 *   count this character if we're not over the maximum
-                 *   length 
+                 *   If it's a non-ASCII character, assume it's an accented
+                 *   character that's meant (erroneously) to be part of the
+                 *   symbol name; note the error, but keep the character in
+                 *   the symbol even though it's illegal, since this is more
+                 *   likely to keep us synchronized with the intended token
+                 *   structure of the source.
+                 *   
+                 *   Otherwise, stop on any non-symbol character.
                  */
-                if (len < TOK_SYM_MAX_LEN)
-                    ++len;
+                wchar_t ch = p->getch();
+                if (!is_ascii(ch))
+                {
+                    if (non_ascii == 0)
+                        non_ascii = ch;
+                }
+                else if (!is_sym(ch))
+                    break;
+
+                /* skip this character */
+                const char *prv = p->getptr();
+                p->inc();
+
+                /* if this character would push us over the limit, end here */
+                if (stop == 0
+                    && p->getptr() - start.getptr() >= TOK_SYM_MAX_LEN)
+                    stop = prv;
             }
 
+            /* if we found any non-ASCII characters, flag an error */
+            if (non_ascii != 0)
+                log_error(TCERR_NON_ASCII_SYMBOL,
+                          (int)(p->getptr() - start.getptr()), start.getptr(),
+                          (int)non_ascii);
+            
             /* if we truncated the symbol, issue a warning */
-            if (full_len != len)
+            if (stop != 0 && !expanding)
                 log_warning(TCERR_SYMBOL_TRUNCATED,
-                            (int)full_len, start.getptr(),
-                            (int)len, start.getptr());
-
+                            (int)(p->getptr() - start.getptr()), start.getptr(),
+                            (int)(stop - start.getptr()), start.getptr());
+            
             /* it's a symbol */
             typ = TOKT_SYM;
         }
@@ -1701,10 +2099,16 @@ done:
  */
 tc_toktyp_t CTcTokenizer::next_on_line(const CTcTokString *srcbuf,
                                        utf8_ptr *p, CTcToken *tok,
-                                       int *in_embedding)
+                                       tok_embed_ctx *ec, int expanding)
 {
+    /* 
+     *   save the embedding context, in case the next token isn't part of the
+     *   narrowed section of the buffer we're scanning 
+     */
+    tok_embed_ctx oldec = *ec;
+
     /* get the next token */
-    next_on_line(p, tok, in_embedding);
+    next_on_line(p, tok, ec, expanding);
     
     /* if the token is past the end of the line, return EOF */
     if (tok->get_text() >= srcbuf->get_text_end())
@@ -1714,6 +2118,9 @@ tc_toktyp_t CTcTokenizer::next_on_line(const CTcTokString *srcbuf,
 
         /* set the token to point to the end of the buffer */
         tok->set_text(srcbuf->get_text_end(), 0);
+
+        /* restore the embedding context */
+        *ec = oldec;
     }
     
     /* return the token type */
@@ -1726,7 +2133,7 @@ tc_toktyp_t CTcTokenizer::next_on_line(const CTcTokString *srcbuf,
  *   text.  
  */
 tc_toktyp_t CTcTokenizer::next_on_line_xlat(utf8_ptr *p, CTcToken *tok,
-                                            int *in_embedding)
+                                            tok_embed_ctx *ec)
 {
     /* skip whitespace */
     skip_ws_and_markers(p);
@@ -1737,20 +2144,29 @@ tc_toktyp_t CTcTokenizer::next_on_line_xlat(utf8_ptr *p, CTcToken *tok,
     case '"':
     case '\'':
         /* translate the string */
-        return xlat_string(p, tok, in_embedding);
+        return xlat_string(p, tok, ec);
 
     case '>':
         /* if we're in an embedding, check for '>>' */
-        if (in_embedding != 0 && *in_embedding && p->getch_at(1) == '>')
-            return tokenize_string(p, tok, in_embedding);
+        if (ec != 0 && ec->in_expr()
+            && ec->parens() == 0
+            && p->getch_at(1) == '>')
+            return tokenize_string(p, tok, ec, FALSE);
 
         /* use the default case */
         goto do_normal;
+
+    case 'R':
+        /* check for a regex string */
+        if (p->getch_at(1) == '"' || p->getch_at(1) == '\'')
+            return tokenize_string(p, tok, ec, FALSE);
+
+        /* not a regex string - fall through to the default handling */
         
     default:
     do_normal:
         /* for anything else, use the default tokenizer */
-        return next_on_line(p, tok, in_embedding);
+        return next_on_line(p, tok, ec, FALSE);
     }
 }
 
@@ -1803,16 +2219,25 @@ tc_toktyp_t CTcTokenizer::next_on_line_xlat_keep()
 
         case '>':
             /* if we're in an embedding, this is the end of it */
-            if (main_in_embedding_ && p_.getch_at(1) == '>')
+            if (main_in_embedding_.in_expr()
+                && main_in_embedding_.parens() == 0
+                && p_.getch_at(1) == '>')
                 return xlat_string_to_src(&main_in_embedding_, FALSE);
 
             /* use the normal parsing */
             goto do_normal;
+
+        case 'R':
+            /* check for a regex string */
+            if (p_.getch_at(1) == '"' || p_.getch_at(1) == '\'')
+                return xlat_string_to_src(&main_in_embedding_, FALSE);
+
+            /* not a regex string - fall through to the default case */
             
         default:
         do_normal:
             /* for anything else, use the default tokenizer */
-            typ = next_on_line(&p_, &curtok_, &main_in_embedding_);
+            typ = next_on_line(&p_, &curtok_, &main_in_embedding_, FALSE);
             
             /* check the token type */
             switch(typ)
@@ -1854,7 +2279,8 @@ tc_toktyp_t CTcTokenizer::next_on_line_xlat_keep()
                 break;
 
             case TOKT_FLOAT:
-                /* floating-point number */
+            case TOKT_BIGINT:
+                /* floating-point number (or promoted large integer) */
                 {
                     const char *p;
 
@@ -1903,11 +2329,9 @@ tc_toktyp_t CTcTokenizer::next_on_line_xlat_keep()
  *   Translate the string at the current token position in the input
  *   stream to the source block list.  
  */
-tc_toktyp_t CTcTokenizer::xlat_string_to_src(int *in_embedding,
-                                             int force_embed_end)
+tc_toktyp_t CTcTokenizer::xlat_string_to_src(
+    tok_embed_ctx *ec, int force_embed_end)
 {
-    tc_toktyp_t typ;
-    
     /* 
      *   Reserve space for the entire rest of the line.  This is
      *   conservative, in that we will definitely need less space than
@@ -1920,8 +2344,8 @@ tc_toktyp_t CTcTokenizer::xlat_string_to_src(int *in_embedding,
                    (p_.getptr() - curbuf_->get_text()));
 
     /* translate into the source block */
-    typ = xlat_string_to(src_ptr_, &p_, &curtok_,
-                         in_embedding, force_embed_end);
+    tc_toktyp_t typ = xlat_string_to(
+        src_ptr_, &p_, &curtok_, ec, force_embed_end);
 
     /* commit the space in the source block */
     commit_source(curtok_.get_text_len() + 1);
@@ -1941,49 +2365,84 @@ tc_toktyp_t CTcTokenizer::xlat_string_to_src(int *in_embedding,
  *   source buffer, overwriting the original string as we go.  
  */
 tc_toktyp_t CTcTokenizer::xlat_string(utf8_ptr *p, CTcToken *tok,
-                                      int *in_embedding)
+                                      tok_embed_ctx *ec)
 {
-    char *dst;
-
     /* 
      *   write the translated string over the original string's text,
      *   starting at the character after the quote 
      */
-    dst = p->getptr() + 1;
+    char *dst = p->getptr() + 1;
 
     /* translate the string into our destination buffer */
-    return xlat_string_to(dst, p, tok, in_embedding, FALSE);
+    return xlat_string_to(dst, p, tok, ec, FALSE);
+}
+
+/*
+ *   Count a run of consecutive quotes 
+ */
+static int count_quotes(const utf8_ptr *p, wchar_t qu)
+{
+    /* count quotes */
+    int cnt = 0;
+    for (utf8_ptr qp((utf8_ptr *)p) ; qp.getch() == qu ; qp.inc(), ++cnt);
+
+    /* return the count */
+    return cnt;
 }
 
 /*
  *   Translate a string, setting up the token structure for the string.
- *   We will update the line buffer in-place to incorporate the translated
+ *   We'll update the line buffer in-place to incorporate the translated
  *   string text.
  */
-tc_toktyp_t CTcTokenizer::xlat_string_to(char *dstp, utf8_ptr *p,
-                                         CTcToken *tok, int *in_embedding,
-                                         int force_embed_end)
+tc_toktyp_t CTcTokenizer::xlat_string_to(
+    char *dstp, utf8_ptr *p, CTcToken *tok, tok_embed_ctx *ec,
+    int force_embed_end)
 {
-    utf8_ptr dst;
-    wchar_t qu;
-    utf8_ptr start, end;
-    int i;
-
     /* set up our output utf8 pointer */
-    dst.set(dstp);
+    utf8_ptr dst(dstp);
 
     /* note the open quote character */
-    qu = p->getch();
+    wchar_t qu = p->getch();
 
     /* set the appropriate string token type */
-    tok->settyp(qu == '"'
-                ? TOKT_DSTR
-                : (qu == '>' ? TOKT_DSTR_END : TOKT_SSTR));
+    tok->settyp(qu == '"' ? TOKT_DSTR :
+                qu == '\'' ? TOKT_SSTR :
+                qu == 'R' ? TOKT_RESTR :
+                ec != 0 ? ec->endtok() :
+                TOKT_INVALID);
+
+    /* if it's a regex string, skip the 'R' and note the actual quote type */
+    if (qu == 'R')
+    {
+        p->inc();
+        qu = p->getch();
+    }
+
+    /* 
+     *   If we're at a quote (rather than at '>>' for continuing from an
+     *   embedded expression), count consecutive open quotes, to determine if
+     *   we're in a triple-quoted string.  
+     */
+    int triple = FALSE;
+    if (qu == '"' || qu == '\'')
+    {
+        /* count the consecutive open quotes */
+        if (count_quotes(p, qu) >= 3)
+        {
+            /* skip past the additional two open quotes */
+            p->inc();
+            p->inc();
+
+            /* note that we're in a triple-quoted string */
+            triple = TRUE;
+        }
+    }
 
     /* skip the open quote */
     p->inc();
 
-    /* skip the second '>' if it's a '>>' */
+    /* check for the end of an embedded expression (forced or actual) */
     if (force_embed_end)
     {
         /* 
@@ -1995,41 +2454,70 @@ tc_toktyp_t CTcTokenizer::xlat_string_to(char *dstp, utf8_ptr *p,
          */
         p->dec();
 
+        /* restore the enclosing string context */
+        qu = ec->qu();
+        triple = ec->triple();
+        tok->settyp(ec->endtok());
+
         /* clear the caller's in-embedding status */
-        *in_embedding = FALSE;
-
-        /* close with a double quote */
-        qu = '"';
-
-        /* it's a double-quoted string continuation */
-        tok->settyp(TOKT_DSTR_END);
+        ec->end_expr();
     }
-    else if (qu == '>')
+    else if (qu == '>' && ec->parens() == 0)
     {
         /* skip the second '>' */
         p->inc();
 
-        /* clear the caller's in-embedding status */
-        *in_embedding = FALSE;
+        /* restore the enclosing string context */
+        qu = ec->qu();
+        triple = ec->triple();
 
-        /* close with a double quote */
-        qu = '"';
+        /* end the expression */
+        ec->end_expr();
     }
-
-    /* remember where the string's contents start */
-    start = *p;
 
     /* scan the string and translate quotes */
     for (;;)
     {
-        wchar_t cur;
-
         /* get this character */
-        cur = p->getch();
+        wchar_t cur = p->getch();
 
         /* if this is the matching quote, we're done */
         if (cur == qu)
-            break;
+        {
+            /* 
+             *   If we're in a triple-quote string, count consecutive quotes.
+             *   Triple quotes are greedy: if we have N>3 quotes in a row,
+             *   the first N-3 are inside the string, and the last 3 are the
+             *   terminating quotes. 
+             */
+            if (triple)
+            {
+                /* we need at least three quotes to end the string */
+                int qcnt = count_quotes(p, qu);
+                if (qcnt >= 3)
+                {
+                    /* copy all but the last three quotes to the output */
+                    for ( ; qcnt > 3 ; --qcnt, p->inc())
+                        dst.setch(qu);
+
+                    /* skip the three quotes */
+                    p->inc_by(3);
+
+                    /* done with the string */
+                    break;
+                }
+            }
+            else
+            {
+                /* 
+                 *   It's an ordinary string, which ends with just one
+                 *   matching quote, so we're done no matter what follows.
+                 *   Skip the quote and stop scanning.
+                 */
+                p->inc();
+                break;
+            }
+        }
 
         /* 
          *   if we find an end-of-line within the string, it's an error -
@@ -2038,14 +2526,9 @@ tc_toktyp_t CTcTokenizer::xlat_string_to(char *dstp, utf8_ptr *p,
          */
         if (cur == '\0')
         {
-            size_t len;
-            utf8_ptr p;
-
-            /* note where the string ends */
-            end = dst;
-
             /* set the token's text pointer */
-            tok->set_text(dstp, end.getptr() - dstp);
+            size_t bytelen = dst.getptr() - dstp;
+            tok->set_text(dstp, bytelen);
 
             /* null-terminate the result string */
             dst.setch('\0');
@@ -2057,11 +2540,11 @@ tc_toktyp_t CTcTokenizer::xlat_string_to(char *dstp, utf8_ptr *p,
              *   the string in error, without making the error message
              *   huge 
              */
-            p.set(dstp);
-            len = p.len(end.getptr() - dstp);
-            if (len > 20)
-                len = p.bytelen(20);
-            
+            utf8_ptr dp(dstp);
+            size_t charlen = dp.len(bytelen);
+            if (charlen > 20)
+                bytelen = dp.bytelen(20);
+
             /*
              *   Check for a special heuristic case.  If the string was of
              *   zero length, and we have something sitting in our
@@ -2078,8 +2561,6 @@ tc_toktyp_t CTcTokenizer::xlat_string_to(char *dstp, utf8_ptr *p,
                 && qu == '"'
                 && unsplicebuf_.get_text_len() != 0)
             {
-                char *buf;
-                
                 /* 
                  *   we must have spliced a line to finish a string -
                  *   insert the quote into the splice buffer, and ignore
@@ -2093,7 +2574,7 @@ tc_toktyp_t CTcTokenizer::xlat_string_to(char *dstp, utf8_ptr *p,
                 unsplicebuf_.ensure_space(unsplicebuf_.get_text_len() + 2);
 
                 /* get the buffer pointer */
-                buf = unsplicebuf_.get_buf();
+                char *buf = unsplicebuf_.get_buf();
 
                 /* make room for the '"' */
                 memmove(buf + 1, buf, unsplicebuf_.get_text_len());
@@ -2111,7 +2592,7 @@ tc_toktyp_t CTcTokenizer::xlat_string_to(char *dstp, utf8_ptr *p,
 
             /* log the error */
             log_error(TCERR_UNTERM_STRING,
-                      (char)qu, (int)len, dstp, (char)qu);
+                      (char)qu, (int)bytelen, dstp, (char)qu);
 
             /* return the string type */
             return tok->gettyp();
@@ -2120,169 +2601,61 @@ tc_toktyp_t CTcTokenizer::xlat_string_to(char *dstp, utf8_ptr *p,
         /* if this is an escape, translate it */
         if (cur == '\\')
         {
-            long acc;
-            
-            /* get the character after the escape */
-            p->inc();
-            cur = p->getch();
-
-            /* see what we have */
-            switch(cur)
-            {
-            case '^':
-                /* caps - 0x000F */
-                cur = 0x000F;
-                break;
-                
-            case 'v':
-                /* miniscules - 0x000E */
-                cur = 0x000E;
-                break;
-                
-            case 'b':
-                /* blank line - 0x000B */
-                cur = 0x000B;
-                break;
-                
-            case ' ':
-                /* quoted space - 0x0015 */
-                cur = 0x0015;
-                break;
-
-            case 'n':
-                /* newline - explicitly use Unicode 10 character */
-                cur = 10;
-                break;
-
-            case 't':
-                /* tab - explicitly use Unicode 9 character */
-                cur = 9;
-                break;
-
-            case 'u':
-                /* 
-                 *   Hex unicode character number.  Read up to 4 hex
-                 *   digits that follow the 'u', and use that as a Unicode
-                 *   character ID.  
-                 */
-                for (i = 0, acc = 0, p->inc() ; i < 4 ; ++i, p->inc())
-                {
-                    /* get the next character */
-                    cur = p->getch();
-
-                    /* 
-                     *   if it's another hex digit, add it into the
-                     *   accumulator; otherwise, we're done 
-                     */
-                    if (is_xdigit(cur))
-                        acc = 16*acc + value_of_xdigit(cur);
-                    else
-                        break;
-                }
-
-                /* use the accumulated value as the character number */
-                dst.setch((wchar_t)acc);
-
-                /* 
-                 *   continue with the current character, since we've
-                 *   already skipped ahead to the next one 
-                 */
-                continue;
-
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-                /* 
-                 *   Octal ASCII character number.  Accumulate up to three
-                 *   octal numbers, and use the result as a character ID. 
-                 */
-                for (i = 0, acc = 0 ; i < 3 ; ++i, p->inc())
-                {
-                    /* get the next character */
-                    cur = p->getch();
-
-                    /* 
-                     *   if it's another digit, and it would leave our
-                     *   result in the 0-255 range, count it; if not,
-                     *   we're done 
-                     */
-                    if (is_odigit(cur))
-                    {
-                        long new_acc;
-                        
-                        /* compute the new value */
-                        new_acc = 8*acc + value_of_odigit(cur);
-
-                        /* if this would be too high, don't count it */
-                        if (new_acc > 255)
-                            break;
-                        else
-                            acc = new_acc;
-                    }
-                    else
-                        break;
-                }
-
-                /* use the accumulated value as the character number */
-                dst.setch((wchar_t)acc);
-
-                /* 
-                 *   continue with the current character, since we've
-                 *   already skipped ahead to the next one 
-                 */
-                continue;
-
-            case 'x':
-                /* 
-                 *   Hex ASCII character number.  Read up to two hex
-                 *   digits as a character number.
-                 */
-                for (i = 0, acc = 0, p->inc() ; i < 2 ; ++i, p->inc())
-                {
-                    /* get the next character */
-                    cur = p->getch();
-
-                    /* 
-                     *   if it's another hex digit, add it into the
-                     *   accumulator; otherwise, we're done 
-                     */
-                    if (is_xdigit(cur))
-                        acc = 16*acc + value_of_xdigit(cur);
-                    else
-                        break;
-                }
-
-                /* use the accumulated value as the character number */
-                dst.setch((wchar_t)acc);
-
-                /* 
-                 *   continue with the current character, since we've
-                 *   already skipped ahead to the next one 
-                 */
-                continue;
-
-            default:
-                /* copy anything else as-is */
-                break;
-            }
+            /* translate the escape */
+            xlat_escape(&dst, p, qu, triple);
+            continue;
         }
-        else if (in_embedding != 0 && !*in_embedding
+        else if (ec != 0
+                 && tok->gettyp() != TOKT_RESTR
                  && cur == '<' && p->getch_at(1) == '<')
         {
             /* 
-             *   it's the start of an embedded expression - change the
-             *   type to so indicate 
+             *   It's the start of an embedded expression - change the type
+             *   to so indicate.  If we think we have a regular SSTR or DSTR,
+             *   switch to the appropriate START type, since the part up to
+             *   here is actually the starting fragment of a string with an
+             *   embedded expression.  If we think we're in an END section,
+             *   switch to the corresponding MID section, since we're parsing
+             *   a fragment that already followed an embedding.  The only
+             *   other possibility is that we're in a MID section, in which
+             *   case just stay in the same MID section.  
              */
-            tok->settyp(tok->gettyp() == TOKT_DSTR
-                        ? TOKT_DSTR_START : TOKT_DSTR_MID);
+            tc_toktyp_t tt = tok->gettyp();
+            tok->settyp(tt == TOKT_DSTR ? TOKT_DSTR_START :
+                        tt == TOKT_DSTR_END ? TOKT_DSTR_MID :
+                        tt == TOKT_SSTR ? TOKT_SSTR_START :
+                        tt == TOKT_SSTR_END ? TOKT_SSTR_MID :
+                        tt);
+
+            /* skip the << */
+            p->inc_by(2);
+
+            /*
+             *   Check for a '%' sprintf-style formatting sequence.  If we
+             *   have a '%' immediately after the second '<', it's a sprintf
+             *   format code. 
+             */
+            if (p->getch() == '%')
+            {
+                /* remember the starting point of the format string */
+                utf8_ptr fmt(p);
+
+                /* scan the format spec */
+                scan_sprintf_spec(p);
+
+                /* translate escapes */
+                utf8_ptr dst(&fmt);
+                xlat_escapes(&dst, &fmt, p);
+
+                /* push the format spec into the token stream */
+                CTcToken ftok;
+                ftok.set_text(fmt.getptr(), dst.getptr() - fmt.getptr());
+                ftok.settyp(TOKT_FMTSPEC);
+                push(&ftok);
+            }
 
             /* tell the caller we're in an embedding */
-            *in_embedding = TRUE;
+            ec->start_expr(qu, triple, TRUE);
 
             /* stop scanning */
             break;
@@ -2295,109 +2668,434 @@ tc_toktyp_t CTcTokenizer::xlat_string_to(char *dstp, utf8_ptr *p,
         p->inc();
     }
 
-    /* note where the string ends */
-    end = dst;
-    
     /* set the token's text pointer */
-    tok->set_text(dstp, end.getptr() - dstp);
+    tok->set_text(dstp, dst.getptr() - dstp);
 
     /* null-terminate the result string */
     dst.setch('\0');
 
-    /* skip an extra character if this is the start of an embedding */
-    if (p->getch() == '<')
-        p->inc();
-
-    /* skip the closing quote */
-    p->inc();
-
     /* return the string type */
     return tok->gettyp();
+}
+
+/*
+ *   Translate all escapes in a string 
+ */
+void CTcTokenizer::xlat_escapes(utf8_ptr *dst, const utf8_ptr *srcp,
+                                const utf8_ptr *endp)
+{
+    /* set up writable copy of the source */
+    utf8_ptr p(srcp);
+    
+    /* scan the string */
+    while (p.getptr() < endp->getptr())
+    {
+        /* check for an escape */
+        wchar_t ch = p.getch();
+        if (ch == '\\')
+        {
+            /* escape - translate it */
+            xlat_escape(dst, &p, 0, FALSE);
+        }
+        else
+        {
+            /* ordinary character - copy it as is */
+            dst->setch(ch);
+            p.inc();
+        }
+    }
+}
+
+/*
+ *   Skip a \ escape sequence 
+ */
+void CTcTokenizer::skip_escape(utf8_ptr *p)
+{
+    if (p->getch() == '\\')
+    {
+        /* translate an escape into an empty buffer */
+        char buf[10];
+        utf8_ptr dst(buf);
+        xlat_escape(&dst, p, 0, FALSE);
+    }
+    else
+    {
+        /* just skip the character */
+        p->inc();
+    }
+}
+
+/*
+ *   Translate a \ escape sequence 
+ */
+void CTcTokenizer::xlat_escape(utf8_ptr *dst, utf8_ptr *p,
+                               wchar_t qu, int triple)
+{
+    int i, acc;
+    
+    /* get the character after the escape */
+    p->inc();
+    wchar_t cur = p->getch();
+
+    /* see what we have */
+    switch(cur)
+    {
+    case '^':
+        /* caps - 0x000F */
+        cur = 0x000F;
+        break;
+        
+    case '"':
+    case '\'':
+        /* 
+         *   If we're in triple-quote mode, and this is the matching quote, a
+         *   single backslash escapes a whole run of consecutive quotes, so
+         *   skip the whole run.  
+         */
+        if (triple && cur == qu)
+        {
+            /* copy and skip all consecutive quotes */
+            for ( ; p->getch() == qu ; dst->setch(cur), p->inc()) ;
+            
+            /* we're done */
+            return;
+        }
+        break;
+        
+    case 'v':
+        /* miniscules - 0x000E */
+        cur = 0x000E;
+        break;
+        
+    case 'b':
+        /* blank line - 0x000B */
+        cur = 0x000B;
+        break;
+        
+    case ' ':
+        /* quoted space - 0x0015 */
+        cur = 0x0015;
+        break;
+
+    case 'n':
+        /* newline - explicitly use Unicode 10 character */
+        cur = 10;
+        break;
+
+    case 'r':
+        /* return - explicitly use Unicode 13 character */
+        cur = 13;
+        break;
+
+    case 't':
+        /* tab - explicitly use Unicode 9 character */
+        cur = 9;
+        break;
+
+    case 'u':
+        /* 
+         *   Hex unicode character number.  Read up to 4 hex digits that
+         *   follow the 'u', and use that as a Unicode character ID.  
+         */
+        for (i = 0, acc = 0, p->inc() ; i < 4 ; ++i, p->inc())
+        {
+            /* get the next character */
+            cur = p->getch();
+            
+            /* 
+             *   if it's another hex digit, add it into the accumulator;
+             *   otherwise, we're done 
+             */
+            if (is_xdigit(cur))
+                acc = 16*acc + value_of_xdigit(cur);
+            else
+                break;
+        }
+        
+        /* use the accumulated value as the character number */
+        dst->setch((wchar_t)acc);
+        
+        /* we've already skipped ahead to the next character, so we're done */
+        return;
+        
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+        /* 
+         *   Octal ASCII character number.  Accumulate up to three octal
+         *   numbers, and use the result as a character ID. 
+         */
+        for (i = 0, acc = 0 ; i < 3 ; ++i, p->inc())
+        {
+            /* get the next character */
+            cur = p->getch();
+            
+            /* 
+             *   if it's another digit, and it would leave our result in the
+             *   0-255 range, count it; if not, we're done 
+             */
+            if (is_odigit(cur))
+            {
+                /* compute the new value */
+                long new_acc = 8*acc + value_of_odigit(cur);
+                
+                /* if this would be too high, don't count it */
+                if (new_acc > 255)
+                    break;
+                else
+                    acc = new_acc;
+            }
+            else
+                break;
+        }
+        
+        /* use the accumulated value as the character number */
+        dst->setch((wchar_t)acc);
+        
+        /* 
+         *   continue with the current character, since we've already skipped
+         *   ahead to the next one 
+         */
+        return;
+
+    case 'x':
+        /* 
+         *   Hex ASCII character number.  Read up to two hex digits as a
+         *   character number.
+         */
+        for (i = 0, acc = 0, p->inc() ; i < 2 ; ++i, p->inc())
+        {
+            /* get the next character */
+            cur = p->getch();
+            
+            /* 
+             *   if it's another hex digit, add it into the accumulator;
+             *   otherwise, we're done 
+             */
+            if (is_xdigit(cur))
+                acc = 16*acc + value_of_xdigit(cur);
+            else
+                break;
+        }
+        
+        /* use the accumulated value as the character number */
+        dst->setch((wchar_t)acc);
+        
+        /* 
+         *   continue with the current character, since we've already skipped
+         *   ahead to the next one 
+         */
+        return;
+        
+    case '<':
+    case '>':
+    case '\\':
+        /* just copy these literally */
+        break;
+        
+    default:
+        /* log a pedantic error */
+        log_pedantic(TCERR_BACKSLASH_SEQ, cur);
+        
+        /* copy anything else as-is, including the backslash */
+        dst->setch('\\');
+        break;
+    }
+
+    /* set the output character */
+    dst->setch(cur);
+
+    /* skip the current character */
+    p->inc();
+}
+
+/*
+ *   Scan a sprintf format spec 
+ */
+void CTcTokenizer::scan_sprintf_spec(utf8_ptr *p)
+{
+    /* skip the '%' */
+    p->inc();
+
+    /* scan the flags section */
+    for (int done = FALSE ; !done ; )
+    {
+        switch (p->getch())
+        {
+        case '[':
+            /* skip digits and the closing ']' */
+            for (p->inc() ; is_digit(p->getch()) ; p->inc()) ;
+            if (p->getch() == ']')
+                p->inc();
+            break;
+            
+        case '_':
+            /* padding spec - skip this and the next character */
+            p->inc();
+            if (p->getch() != 0)
+                skip_escape(p);
+            break;
+            
+        case '-':
+        case '+':
+        case ' ':
+        case ',':
+        case '#':
+            /* format spec - just skip it */
+            p->inc();
+            break;
+            
+        default:
+            /* anything else means we're done with the flags */
+            done = TRUE;
+            break;
+        }
+    }
+    
+    /* scan the width */
+    for ( ; is_digit(p->getch()) ; p->inc()) ;
+    
+    /* scan the precision */
+    if (p->getch() == '.')
+        for (p->inc() ; is_digit(p->getch()) ; p->inc()) ;
+    
+    /* the next character is the format spec - skip it */
+    if (p->getch() != 0)
+        skip_escape(p);
 }
 
 
 /*
  *   Skip a string, setting up the token structure for the string.  This
  *   routine only parses to the end of the line; if the line ends with the
- *   string unterminated, we'll flag an error
+ *   string unterminated, we'll flag an error.
  */
-tc_toktyp_t CTcTokenizer::tokenize_string(utf8_ptr *p, CTcToken *tok,
-                                          int *in_embedding)
+tc_toktyp_t CTcTokenizer::tokenize_string(
+    utf8_ptr *p, CTcToken *tok, tok_embed_ctx *ec, int expanding)
 {
-    const char *start;
-    const char *contents_start;
-    const char *contents_end;
-    tc_toktyp_t typ;
-    wchar_t qu;
-    int allow_embedding;
-    
     /* remember where the text starts */
-    start = p->getptr();
+    const char *start = p->getptr();
 
-    /* note the quote type */
-    qu = p->getch();
+    /* check for a regex string - R'...' or R"..." */
+    int regex = (p->getch() == 'R');
+    if (regex)
+        p->inc();
+
+    /* note the quote type, for matching later */
+    wchar_t qu = p->getch();
 
     /* skip the quote in the input */
     p->inc();
 
+    /* check for triple quotes */
+    int triple = FALSE;
+    if ((qu == '"' || qu == '\'') && count_quotes(p, qu) >= 2)
+    {
+        /* note the triple quotes */
+        triple = TRUE;
+
+        /* skip the open quotes */
+        p->inc();
+        p->inc();
+    }
+
     /* determine the token type based on the quote type */
+    tc_toktyp_t typ;
+    int allow_embedding;
     switch(qu)
     {
     case '\'':
         /* single-quoted string */
         typ = TOKT_SSTR;
-        allow_embedding = FALSE;
-        break;
-
-    case '>':
-        /* 
-         *   this must be the next part of a string with embeddings; for now,
-         *   assume it's the end of the string, although it may just turn out
-         *   to be the middle 
-         */
-        typ = TOKT_DSTR_END;
-        allow_embedding = (in_embedding != 0);
-
-        /* skip the extra '>' character */
-        p->inc();
-
-        /* clear the embedding flag */
-        if (in_embedding != 0)
-            *in_embedding = FALSE;
-
-        /* look for a closing double quote */
-        qu = '"';
+        allow_embedding = (ec != 0);
         break;
 
     case '"':
         /* regular double-quoted string */
         typ = TOKT_DSTR;
-        allow_embedding = (in_embedding != 0);
+        allow_embedding = (ec != 0);
+        break;
+
+    case '>':
+        /* get the ending type for the embedding */
+        if (ec != 0)
+        {
+            /* return to the enclosing string context */
+            typ = ec->endtok();
+            qu = ec->qu();
+            triple = ec->triple();
+
+            /* allow more embeddings */
+            allow_embedding = TRUE;
+
+            /* exit the expression context */
+            ec->end_expr();
+        }
+        else
+        {
+            /* we can only finish an embedding if we were already in one */
+            typ = TOKT_INVALID;
+            qu = '"';
+            allow_embedding = FALSE;
+        }
+
+        /* skip the extra '>' character */
+        p->inc();
         break;
 
     default:
         /* anything else is invalid */
         typ = TOKT_INVALID;
+        qu = '"';
         allow_embedding = FALSE;
         break;
     }
 
+    /* if it's a regex string, it has special handling */
+    if (regex)
+    {
+        /* embeddings aren't allowed in regex strings */
+        allow_embedding = FALSE;
+
+        /* the token type is 'regex string' */
+        typ = TOKT_RESTR;
+    }
+
     /* this is where the string's contents start */
-    contents_start = p->getptr();
+    const char *contents_start = p->getptr();
+
+    /* we don't know where it ends yet */
+    const char *contents_end;
 
     /* scan the string */
     for (;;)
     {
-        wchar_t cur;
-
         /* get the current character */
-        cur = p->getch();
+        wchar_t cur = p->getch();
 
         /* see what we have */
         if (cur == '\\')
         {
             /* escape sequence - skip an extra character */
             p->inc();
+
+            /* 
+             *   if we're in a triple-quoted string, and this matches the
+             *   quote type, a single '\' escapes all consecutive quotes 
+             */
+            if (triple && p->getch() == qu)
+            {
+                /* skip the whole run of quotes */
+                for ( ; p->getch() == qu ; p->inc()) ;
+
+                /* take it from the top, as we've already skipped them all */
+                continue;
+            }
         }
         else if (cur == '<' && allow_embedding && p->getch_at(1) == '<')
         {
@@ -2405,13 +3103,14 @@ tc_toktyp_t CTcTokenizer::tokenize_string(utf8_ptr *p, CTcToken *tok,
              *   it's the start of an embedded expression - return the
              *   appropriate embedded string part type 
              */
-            if (typ == TOKT_DSTR)
-                typ = TOKT_DSTR_START;
-            else
-                typ = TOKT_DSTR_MID;
+            typ = (typ == TOKT_DSTR ? TOKT_DSTR_START :
+                   typ == TOKT_DSTR_END ? TOKT_DSTR_MID :
+                   typ == TOKT_SSTR ? TOKT_SSTR_START :
+                   typ == TOKT_SSTR_END ? TOKT_SSTR_MID :
+                   typ);
 
             /* remember that we're in an embedding in the token stream */
-            *in_embedding = TRUE;
+            ec->start_expr(qu, triple, !expanding);
 
             /* this is where the contents end */
             contents_end = p->getptr();
@@ -2428,11 +3127,39 @@ tc_toktyp_t CTcTokenizer::tokenize_string(utf8_ptr *p, CTcToken *tok,
         }
         else if (cur == qu)
         {
-            /* this is where the contents end */
-            contents_end = p->getptr();
+            /* 
+             *   if we're in a triple-quoted string, it ends at a triple
+             *   quote, except that any additional consecutive quotes go
+             *   inside the string rather than outside 
+             */
+            if (triple)
+            {
+                /* we need at least three quotes in a row to end the string */
+                int qcnt = count_quotes(p, qu);
+                if (qcnt >= 3)
+                {
+                    /* the contents include any quotes before the last 3 */
+                    p->inc_by(qcnt - 3);
+                    contents_end = p->getptr();
 
-            /* skip the closing quote */
-            p->inc();
+                    /* skip the three close quotes */
+                    p->inc_by(3);
+                }
+                else
+                {
+                    /* it's not ending; skip the quotes and carry on */
+                    p->inc_by(qcnt);
+                    continue;
+                }
+            }
+            else
+            {
+                /* note where the string ends */
+                contents_end = p->getptr();
+
+                /* skip the closing quote */
+                p->inc();
+            }
 
             /* we're done - set the text in the token */
             tok->set_text(start, p->getptr() - start);
@@ -2461,7 +3188,7 @@ tc_toktyp_t CTcTokenizer::tokenize_string(utf8_ptr *p, CTcToken *tok,
             break;
         }
 
-        /* skip this charater of input */
+        /* skip this character of input */
         p->inc();
     }
 
@@ -2478,7 +3205,7 @@ tc_toktyp_t CTcTokenizer::tokenize_string(utf8_ptr *p, CTcToken *tok,
                          (size_t)(contents_end - contents_start));
 
         /* add a newline */
-        osfwb(G_tok->string_fp_, "\n", 1);
+        G_tok->string_fp_->write("\n", 1);
     }
 
     /* set the type in the token */
@@ -2500,14 +3227,11 @@ tc_toktyp_t CTcTokenizer::tokenize_string(utf8_ptr *p, CTcToken *tok,
  */
 int CTcTokenizer::read_line_pp()
 {
-    int started_in_string;
-    int ofs;
-        
     /* 
      *   Read the next line from the input.  If that fails, return an end
      *   of file indication.  
      */
-    ofs = read_line(FALSE);
+    int ofs = read_line(FALSE);
     if (ofs == -1)
         return 1;
 
@@ -2515,7 +3239,7 @@ int CTcTokenizer::read_line_pp()
      *   before we process comments, note whether or not the line started
      *   out within a character string 
      */
-    started_in_string = (in_quote_ != '\0');
+    int started_in_string = (in_quote_ != '\0');
     
     /* set up our source pointer to the start of the new line */
     start_new_line(&linebuf_, ofs);
@@ -2752,9 +3476,6 @@ int CTcTokenizer::read_line_pp()
  */
 int CTcTokenizer::read_line(int append)
 {
-    size_t len;
-    size_t start_len;
-
     /* if there's no input stream, indicate end-of-file */
     if (str_ == 0)
         return -1;
@@ -2771,8 +3492,8 @@ int CTcTokenizer::read_line(int append)
     }
 
     /* note where the new data starts */
-    len = linebuf_.get_text_len();
-    start_len = len;
+    size_t len = linebuf_.get_text_len();
+    size_t start_len = len;
 
     /* 
      *   if there's anything in the unsplice buffer, use it as the new
@@ -2815,18 +3536,13 @@ int CTcTokenizer::read_line(int append)
     /* keep going until we finish reading the input line */
     for ( ;; )
     {
-        size_t curlen;
-
         /* read a line of text from the input file */
-        curlen = str_->get_src()->
-                 read_line(linebuf_.get_buf() + len,
-                           linebuf_.get_buf_size() - len);
+        size_t curlen = str_->get_src()->read_line(
+            linebuf_.get_buf() + len, linebuf_.get_buf_size() - len);
 
         /* check for end of file */
         if (curlen == 0)
         {
-            CTcTokStream *old_str;
-            
             /*
              *   We've reached the end of the current input stream.  If
              *   we've already read anything into the current line, it
@@ -2849,10 +3565,8 @@ int CTcTokenizer::read_line(int append)
              */
             while (if_sp_ > str_->get_init_if_level())
             {
-                const char *fname;
-
                 /* get the filename from the #if stack */
-                fname = if_stack_[if_sp_ - 1].desc->get_fname();
+                const char *fname = if_stack_[if_sp_ - 1].desc->get_fname();
 
                 /* if we're in test reporting mode, use the root name only */
                 if (test_report_mode_)
@@ -2868,7 +3582,7 @@ int CTcTokenizer::read_line(int append)
             }
 
             /* remember the old stream */
-            old_str = str_;
+            CTcTokStream *old_str = str_;
 
             /* return to the parent stream, if there is one */
             str_ = str_->get_parent();
@@ -2993,8 +3707,6 @@ int CTcTokenizer::read_line(int append)
  */
 void CTcTokenizer::unsplice_line(const char *new_line_start)
 {
-    size_t keep_len;
-    
     /* make sure the starting point is within the current line */
     if (!(new_line_start >= linebuf_.get_text()
           && new_line_start <= linebuf_.get_text() + linebuf_.get_text_len()))
@@ -3004,22 +3716,16 @@ void CTcTokenizer::unsplice_line(const char *new_line_start)
         return;
     }
 
-    /* 
-     *   make sure the unsplice buffer is empty - we should never have to
-     *   unsplice from a line more than once, because unsplicing should
-     *   terminate the current line at the current point 
-     */
-    if (unsplicebuf_.get_text_len() != 0)
-    {
-        throw_internal_error(TCERR_MULTI_UNSPLICE);
-        return;
-    }
-
     /* calculate the length of the part we're keeping */
-    keep_len = new_line_start - linebuf_.get_text();
+    size_t keep_len = new_line_start - linebuf_.get_text();
 
-    /* put the remainder of the current line in the unsplice buffer */
-    unsplicebuf_.append(new_line_start, linebuf_.get_text_len() - keep_len);
+    /* 
+     *   prepend the remainder of the current line into the unsplice buffer
+     *   (we prepend it because the unsplice line is text that comes after
+     *   the current line - so anything in the current line comes before
+     *   anything already in the unsplice buffer) 
+     */
+    unsplicebuf_.prepend(new_line_start, linebuf_.get_text_len() - keep_len);
 
     /* cut off the current line at the given point */
     linebuf_.set_text_len(keep_len);
@@ -3032,13 +3738,30 @@ void CTcTokenizer::unsplice_line(const char *new_line_start)
  */
 const char *CTcTokenizer::store_source(const char *txt, size_t len)
 {
-    const char *p;
-    
-    /* reserve space in the source array */
+    /* reserve space for the text */
     reserve_source(len);
 
+    /* store it */
+    const char *p = store_source_partial(txt, len);
+
+    /* add a null terminator */
+    static const char nt[1] = { '\0' };
+    store_source_partial(nt, 1);
+
+    /* return the pointer to the stored space */
+    return p;
+}
+
+/*
+ *   Store partial source; use this AFTER reserving the necessary space.  If
+ *   you want null-termination, be sure to reserve the extra byte for that
+ *   and include it in the string.  This can be used to build a string piece
+ *   by piece; we simply add the text without null-terminating it.  
+ */
+const char *CTcTokenizer::store_source_partial(const char *txt, size_t len)
+{
     /* remember where the string starts */
-    p = src_ptr_;
+    const char *p = src_ptr_;
 
     /* store the text */
     memcpy(src_ptr_, txt, len);
@@ -3047,16 +3770,13 @@ const char *CTcTokenizer::store_source(const char *txt, size_t len)
     src_ptr_ += len;
     src_rem_ -= len;
 
-    /* null-terminate the copied text */
-    *src_ptr_++ = '\0';
-    --src_rem_;
-
     /* return the storage pointer */
     return p;
 }
 
 /*
- *   Reserve space for text in the source array 
+ *   Reserve space for text in the source array.  This always reserves the
+ *   requested amount of space, plus an extra byte for null termination.  
  */
 void CTcTokenizer::reserve_source(size_t len)
 {
@@ -3250,7 +3970,7 @@ int CTcTokenizer::expand_macros(CTcTokString *srcbuf, utf8_ptr *src,
     startofs = src->getptr() - srcbuf->get_text();
 
     /* read the first token */
-    typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_);
+    typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_, TRUE);
 
     /* scan through the tokens on the line, looking for macros to expand */
     while (typ != TOKT_EOF)
@@ -3325,7 +4045,7 @@ int CTcTokenizer::expand_macros(CTcTokString *srcbuf, utf8_ptr *src,
                      *   macro 
                      */
                     typ = next_on_line(srcbuf, src, &tok,
-                                       &macro_in_embedding_);
+                                       &macro_in_embedding_, TRUE);
 
                     /* continue processing from this token */
                     continue;
@@ -3391,7 +4111,7 @@ int CTcTokenizer::expand_macros(CTcTokString *srcbuf, utf8_ptr *src,
 
                     /* get the next token */
                     typ = next_on_line(srcbuf, src, &tok,
-                                       &macro_in_embedding_);
+                                       &macro_in_embedding_, TRUE);
                     
                     /* continue processing from this token */
                     continue;
@@ -3419,7 +4139,7 @@ int CTcTokenizer::expand_macros(CTcTokString *srcbuf, utf8_ptr *src,
         }
 
         /* get the next token */
-        typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_);
+        typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_, TRUE);
     }
 
     /* add the remainder of the source to the output */
@@ -3539,7 +4259,7 @@ void CTcTokenizer::mark_full_exp_tokens(CTcTokString *dstbuf,
     utf8_ptr p;
     CTcToken tok;
     const char *start;
-    int in_embedding;
+    tok_embed_ctx ec;
 
     /* clear the output buffer if we're not appending to existing text */
     if (!append)
@@ -3547,9 +4267,6 @@ void CTcTokenizer::mark_full_exp_tokens(CTcTokString *dstbuf,
 
     /* remember the starting point */
     start = srcbuf->get_text();
-
-    /* not in an embedded expression within the expansion text yet */
-    in_embedding = FALSE;
 
     /* scan the source buffer */
     p.set((char *)start);
@@ -3560,7 +4277,7 @@ void CTcTokenizer::mark_full_exp_tokens(CTcTokString *dstbuf,
         char ch;
 
         /* get the next token; stop at the end of the line */
-        typ = next_on_line(srcbuf, &p, &tok, &in_embedding);
+        typ = next_on_line(srcbuf, &p, &tok, &ec, TRUE);
         if (typ == TOKT_EOF)
             break;
 
@@ -3798,7 +4515,7 @@ int CTcTokenizer::parse_macro_actuals(const CTcTokString *srcbuf,
     argc = 0;
 
     /* get the next token after the macro symbol */
-    typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_);
+    typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_, TRUE);
 
     /* splice another line if necessary */
     if (typ == TOKT_EOF && read_more)
@@ -3828,7 +4545,7 @@ int CTcTokenizer::parse_macro_actuals(const CTcTokString *srcbuf,
     argofs[argc] = tok.get_text() + tok.get_text_len() - srcbuf->get_text();
 
     /* skip the open paren */
-    typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_);
+    typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_, TRUE);
 
     /* read the arguments */
     while (typ != TOKT_RPAR)
@@ -3847,22 +4564,43 @@ int CTcTokenizer::parse_macro_actuals(const CTcTokString *srcbuf,
 
             /* scan ahead to to close paren or end of line */
             while (typ != TOKT_RPAR && typ != TOKT_EOF)
-                typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_);
+                typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_,
+                                   TRUE);
             
             /* done scanning arguments */
             break;
         }
         
         /* 
-         *   skip tokens until we find a comma outside of nested parens,
-         *   square brackets, or curly braces 
+         *   Skip tokens until we find the end of the argument.  An argument
+         *   ends at:
+         *   
+         *   - a comma outside of nested parens, square brackets, or curly
+         *   braces
+         *   
+         *   - a close paren that doesn't match an open paren found earlier
+         *   in the same argument
          */
         paren_depth = bracket_depth = brace_depth = 0;
-        while (paren_depth != 0
-               || bracket_depth != 0
-               || brace_depth != 0
-               || (typ != TOKT_COMMA && typ != TOKT_RPAR))
+        for (;;)
         {
+            /* 
+             *   If it's a comma, and we're not in any sort of nested
+             *   brackets (parens, square brackets, or curly braces), the
+             *   comma ends the argument.  A comma within any type of
+             *   brackets is part of the argument text.
+             */
+            if (typ == TOKT_COMMA
+                && paren_depth == 0 && brace_depth == 0 && bracket_depth == 0)
+                break;
+
+            /*
+             *   If it's a close paren, and it doesn't match an earlier open
+             *   paren in the same argument, it's the end of the argument. 
+             */
+            if (typ == TOKT_RPAR && paren_depth == 0)
+                break;
+
             /* 
              *   if it's an open or close paren, brace, or bracket, adjust
              *   the depth accordingly 
@@ -3898,7 +4636,8 @@ int CTcTokenizer::parse_macro_actuals(const CTcTokString *srcbuf,
             }
             
             /* get the next token */
-            typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_);
+            typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_,
+                               TRUE);
             
             /* 
              *   if we're at the end of the line, and we're allowed to
@@ -3974,7 +4713,8 @@ int CTcTokenizer::parse_macro_actuals(const CTcTokString *srcbuf,
                            - srcbuf->get_text();
 
             /* skip the comma and go back for another argument */
-            typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_);
+            typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_,
+                               TRUE);
         }
         else if (typ == TOKT_RPAR)
         {
@@ -4109,9 +4849,8 @@ int CTcTokenizer::parse_macro_actuals(const CTcTokString *srcbuf,
  *   end of the input.  If this returns EOF, it indicates that we've
  *   reached the end of the entire input.  
  */
-tc_toktyp_t CTcTokenizer::
-   actual_splice_next_line(const CTcTokString *srcbuf,
-                           utf8_ptr *src, CTcToken *tok)
+tc_toktyp_t CTcTokenizer::actual_splice_next_line(
+    const CTcTokString *srcbuf, utf8_ptr *src, CTcToken *tok)
 {
     /* add a space onto the end of the current line */
     linebuf_.append(" ", 1);
@@ -4140,7 +4879,7 @@ tc_toktyp_t CTcTokenizer::
         src->set((char *)linebuf_.get_text() + new_line_ofs);
 
         /* get the next token */
-        typ = next_on_line(srcbuf, src, tok, &macro_in_embedding_);
+        typ = next_on_line(srcbuf, src, tok, &macro_in_embedding_, TRUE);
 
         /* if we didn't get EOF, it means we found a non-empty line */
         if (typ != TOKT_EOF)
@@ -4151,13 +4890,10 @@ tc_toktyp_t CTcTokenizer::
 /*
  *   Substitute the actual parameters in a macro's expansion 
  */
-int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
-                                           CTcTokString *subexp,
-                                           CTcHashEntryPp *entry,
-                                           const CTcTokString *srcbuf,
-                                           const size_t *argofs,
-                                           const size_t *arglen,
-                                           int allow_defined)
+int CTcTokenizer::substitute_macro_actuals(
+    CTcMacroRsc *rsc, CTcTokString *subexp, CTcHashEntryPp *entry,
+    const CTcTokString *srcbuf, const size_t *argofs, const size_t *arglen,
+    int allow_defined)
 {
     const char *start;
     utf8_ptr expsrc;
@@ -4165,7 +4901,6 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
     CTcToken prvprvtok;
     CTcToken tok;
     tc_toktyp_t typ;
-    const CVmHashTable *actuals;
     CTcTokString *actual_exp_buf;
     const size_t expand_max = 10;
     static struct expand_info_t
@@ -4195,9 +4930,6 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
     }
     expand_stack[expand_max], *expand_sp;
 
-    /* get the actuals table */
-    actuals = entry->get_params_table();
-
     /* get the actual expansion buffer from the resource object */
     actual_exp_buf = &rsc->actual_exp_buf_;
 
@@ -4220,7 +4952,7 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
     expand_sp = expand_stack;
 
     /* scan the tokens in the expansion text */
-    for (typ = next_on_line(&expsrc, &tok, &macro_in_embedding_) ;
+    for (typ = next_on_line(&expsrc, &tok, &macro_in_embedding_, TRUE) ;
          typ != TOKT_EOF ; )
     {
         /* 
@@ -4341,7 +5073,7 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
                 start = expsrc.getptr();
 
                 /* get the next token */
-                typ = next_on_line(&expsrc, &tok, &macro_in_embedding_);
+                typ = next_on_line(&expsrc, &tok, &macro_in_embedding_, TRUE);
 
                 /* we have the next token, so back and process it */
                 continue;
@@ -4410,7 +5142,7 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
             start = expsrc.getptr();
 
             /* get the next token */
-            typ = next_on_line(&expsrc, &tok, &macro_in_embedding_);
+            typ = next_on_line(&expsrc, &tok, &macro_in_embedding_, TRUE);
 
             /* we have the next token, so back and process it */
             continue;
@@ -4488,7 +5220,7 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
             start = expsrc.getptr();
 
             /* get the next token */
-            typ = next_on_line(&expsrc, &tok, &macro_in_embedding_);
+            typ = next_on_line(&expsrc, &tok, &macro_in_embedding_, TRUE);
 
             /* we have the next token, so back and process it */
             continue;
@@ -4520,7 +5252,7 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
             start = expsrc.getptr();
 
             /* get the next token */
-            typ = next_on_line(&expsrc, &tok, &macro_in_embedding_);
+            typ = next_on_line(&expsrc, &tok, &macro_in_embedding_, TRUE);
 
             /* we have the next token, so back and process it */
             continue;
@@ -4704,7 +5436,7 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
             prvtok = tok;
             
             /* get the next token after the formal */
-            typ = next_on_line(&expsrc, &tok, &macro_in_embedding_);
+            typ = next_on_line(&expsrc, &tok, &macro_in_embedding_, TRUE);
             
             /* 
              *   If it's followed by a token-pasting operator, we need to
@@ -4729,7 +5461,7 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
                 old_tok = tok;
                 
                 /* skip to the next token after the ## */
-                typ = next_on_line(&expsrc, &tok, &macro_in_embedding_);
+                typ = next_on_line(&expsrc, &tok, &macro_in_embedding_, TRUE);
 
                 /* remember the token we're pasting to the right */
                 paste_at_right_tok = tok;
@@ -4833,7 +5565,8 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
                     /* move on to the next token */
                     prvprvtok = prvtok;
                     prvtok = tok;
-                    typ = next_on_line(&expsrc, &tok, &macro_in_embedding_);
+                    typ = next_on_line(&expsrc, &tok, &macro_in_embedding_,
+                                       TRUE);
 
                     /* start from the new token */
                     start = tok.get_text();
@@ -4912,7 +5645,8 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
                          *   get another token - stop at EOF or if we go
                          *   past the bounds of the expansion text 
                          */
-                        if (next_on_line(&p, &tok, &macro_in_embedding_)
+                        if (next_on_line(&p, &tok, &macro_in_embedding_,
+                                         TRUE)
                             == TOKT_EOF
                             || tok.get_text() >= argp + len)
                             break;
@@ -5028,7 +5762,7 @@ int CTcTokenizer::substitute_macro_actuals(CTcMacroRsc *rsc,
         prvtok = tok;
         
         /* get the next token of the expansion */
-        typ = next_on_line(&expsrc, &tok, &macro_in_embedding_);
+        typ = next_on_line(&expsrc, &tok, &macro_in_embedding_, TRUE);
     }
 
     /* copy the remaining replacement text */
@@ -5132,7 +5866,8 @@ void CTcTokenizer::stringize_macro_actual(CTcTokString *expbuf,
      *   add the characters of the actual parameter value, quoting any
      *   quotes or backslashes 
      */
-    for (src.set((char *)actual_val), in_inner_quote = FALSE, prvch = '\0' ;
+    for (src.set((char *)actual_val),
+         in_inner_quote = FALSE, inner_quote_char = '\0', prvch = '\0' ;
          src.getptr() < actual_val + actual_len ; )
     {
         wchar_t cur;
@@ -5247,12 +5982,12 @@ int CTcTokenizer::expand_defined(CTcTokString *subexp,
     int found;
 
     /* get the next token */
-    typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_);
+    typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_, FALSE);
 
     /* note whether we have an open paren; if we do, skip it */
     paren = (typ == TOKT_LPAR);
     if (paren)
-        typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_);
+        typ = next_on_line(srcbuf, src, &tok, &macro_in_embedding_, FALSE);
 
     /* get the symbol */
     if (typ != TOKT_SYM)
@@ -5272,7 +6007,7 @@ int CTcTokenizer::expand_defined(CTcTokString *subexp,
     if (paren)
     {
         /* require the closing paren */
-        if (next_on_line(srcbuf, src, &tok, &macro_in_embedding_)
+        if (next_on_line(srcbuf, src, &tok, &macro_in_embedding_, FALSE)
             != TOKT_RPAR)
         {
             /* generate an error if we don't find it */
@@ -5294,10 +6029,9 @@ void CTcTokenizer::process_comments(size_t start_ofs)
 {
     utf8_ptr src;
     utf8_ptr dst;
-    int trailing_sp_after_bs;
     
     /* we haven't found a backslash followed by trailing space yet */
-    trailing_sp_after_bs = FALSE;
+    int trailing_sp_after_bs = FALSE;
 
     /* 
      *   Scan the line.  When inside a comment, replace each character of
@@ -5315,10 +6049,8 @@ void CTcTokenizer::process_comments(size_t start_ofs)
          dst.set(linebuf_.get_buf() + start_ofs) ;
          src.getch() != '\0' ; src.inc())
     {
-        wchar_t cur;
-
         /* get the current character */
-        cur = src.getch();
+        wchar_t cur = src.getch();
 
         /* check to see if we're in a comment */
         if (str_->is_in_comment())
@@ -5366,17 +6098,43 @@ void CTcTokenizer::process_comments(size_t start_ofs)
 
                 /* get the next character, so we copy it directly */
                 cur = src.getch();
+
+                /* 
+                 *   if we're in a triple-quoted string, and this is an
+                 *   escaped quote, the backslash escapes a whole run of
+                 *   consecutive quotes that follow 
+                 */
+                if (in_triple_ && cur == in_quote_)
+                {
+                    /* copy and skip any run of quotes, minus the last one */
+                    for (int qcnt = count_quotes(&src, cur) ; qcnt > 1 ;
+                         dst.setch(cur), src.inc(), --qcnt) ;
+                }
             }
             else if (cur == in_quote_)
             {
-                /* 
-                 *   this is the closing quote character - simply note
-                 *   that we're no longer in a quoted string 
-                 */
-                in_quote_ = '\0';
+                /* This is the close quote.  Check for triple quotes. */
+                if (in_triple_)
+                {
+                    /* triple-quoted - we need three quotes in a row */
+                    int qcnt = count_quotes(&src, cur);
+                    if (qcnt >= 3)
+                    {
+                        /* copy and skip all but the last in the run */
+                        for (int i = 1 ; i < qcnt ; ++i, src.inc())
+                            dst.setch(cur);
+
+                        /* close the string */
+                        in_quote_ = '\0';
+                    }
+                }
+                else
+                {
+                    /* regular string, so it ends at the matching quote */
+                    in_quote_ = '\0';
+                }
             }
-            else if (in_quote_ == '"' && !comment_in_embedding_
-                     && cur == '<' && src.getch_at(1) == '<')
+            else if (cur == '<' && src.getch_at(1) == '<')
             {
                 /* 
                  *   it's an embedded expression starting point - skip the
@@ -5385,11 +6143,11 @@ void CTcTokenizer::process_comments(size_t start_ofs)
                  */
                 src.inc();
 
-                /* the string is done */
-                in_quote_ = '\0';
-
                 /* we're in an embedding now */
-                comment_in_embedding_ = TRUE;
+                comment_in_embedding_.start_expr(in_quote_, in_triple_, FALSE);
+
+                /* the string is done for now */
+                in_quote_ = '\0';
 
                 /* copy the extra '<' to the output */
                 dst.setch('<');
@@ -5447,6 +6205,17 @@ void CTcTokenizer::process_comments(size_t start_ofs)
             {
                 /* it's the start of a new string */
                 in_quote_ = cur;
+
+                /* check for triple quotes */
+                in_triple_ = (count_quotes(&src, cur) >= 3);
+
+                /* if in triple quotes, copy and skip the extra two qutoes */
+                if (in_triple_)
+                {
+                    src.inc_by(2);
+                    dst.setch(cur);
+                    dst.setch(cur);
+                }
             }
             else if (cur < 0x09)
             {
@@ -5458,16 +6227,20 @@ void CTcTokenizer::process_comments(size_t start_ofs)
                  */
                 cur = ' ';
             }
-            else if (comment_in_embedding_
+            else if (comment_in_embedding_.in_expr()
+                     && (cur == '(' || cur == ')'))
+            {
+                /* adjust the paren level in an embedded expression */
+                comment_in_embedding_.parens(cur == '(' ? 1 : -1);
+            }
+            else if (comment_in_embedding_.in_expr()
+                     && comment_in_embedding_.parens() == 0
                      && cur == '>' && src.getch_at(1) == '>')
             {
-                /* 
-                 *   it's the end of an embedded expression - we're back
-                 *   in a double-quoted string (only double-quoted strings
-                 *   can have embedded expressions) 
-                 */
-                in_quote_ = '"';
-                comment_in_embedding_ = FALSE;
+                /* it's the end of an embedded expression */
+                in_quote_ = comment_in_embedding_.qu();
+                in_triple_ = comment_in_embedding_.triple();
+                comment_in_embedding_.end_expr();
 
                 /* skip the extra '>' and copy it to the output */
                 src.inc();
@@ -5498,13 +6271,8 @@ void CTcTokenizer::process_comments(size_t start_ofs)
  */
 void CTcTokenizer::splice_string()
 {
-    utf8_ptr p;
-    int in_quote;
-    int in_embedding;
-    char unterm;
-
     /* presume we'll find proper termination */
-    unterm = '\0';
+    char unterm = '\0';
 
     /* 
      *   remember the current in-quote and in-embedding status, as of the
@@ -5512,47 +6280,81 @@ void CTcTokenizer::splice_string()
      *   update these to the status at the end of the newly-read material,
      *   but we want to scan from the beginning of the newly-read material 
      */
-    in_quote = in_quote_;
-    in_embedding = comment_in_embedding_;
+    wchar_t in_quote = in_quote_;
+    int in_triple = in_triple_;
+    tok_embed_ctx old_ec = comment_in_embedding_;
+
+    /* note if the previous line ended with an explicit \n sequence */
+    int explicit_nl = (linebuf_.get_text_len() >= 2
+                       && memcmp(linebuf_.get_text_end() - 2, "\\n", 2) == 0);
         
     /* keep going until we find the end of the string */
+    utf8_ptr p((char *)0);
     for (;;)
     {
-        int new_line_ofs;
-        char *new_line_p;
-        wchar_t cur;
+        /* apply the newline spacing mode */
+        switch (string_newline_spacing_)
+        {
+        case NEWLINE_SPACING_COLLAPSE:
+            /* 
+             *   Replace the newline and any subsequent run of whitespace
+             *   characters with a single space, unless the last line ended
+             *   with an explicit newline.
+             */
+            if (!explicit_nl)
+                linebuf_.append(" ", 1);
+            break;
 
-        /* 
-         *   append a space at the end of the line, to replace the newline
-         *   that we've eliminated
-         */
-        if (string_newline_spacing_)
-            linebuf_.append(" ", 1);
+        case NEWLINE_SPACING_DELETE:
+            /* delete the newline and subsequent whitespace */
+            break;
+
+        case NEWLINE_SPACING_PRESERVE:
+            /* 
+             *   preserve the newline and subsequent whitespace exactly as
+             *   written in the source code, so convert the newline to an
+             *   explicit \n sequence (in source form, since we're building a
+             *   source line at this point)
+             */
+            linebuf_.append("\\n", 2);
+            break;
+        }
 
         /* splice another line */
-        new_line_ofs = read_line(TRUE);
+        int new_line_ofs = read_line(TRUE);
 
         /* if we reached end of file, there's no more splicing we can do */
         if (new_line_ofs == -1)
             break;
 
         /* get a pointer to the new text */
-        new_line_p = (char *)linebuf_.get_text() + new_line_ofs;
+        char *new_line_p = (char *)linebuf_.get_text() + new_line_ofs;
+        p.set(new_line_p);
 
-        /* skip leading spaces in the new line */
-        for (p.set(new_line_p) ; is_space(p.getch()) ; p.inc()) ;
+        /* 
+         *   If we're in COLLAPSE or DELETE mode for newline spacing, skip
+         *   leading spaces in the new line.  However, override this if the
+         *   previous line ended with an explicit \n sequence; this tells us
+         *   that the line break is explicitly part of the string and that
+         *   the subsequent whitespace is to be preserved.
+         */
+        if (string_newline_spacing_ != NEWLINE_SPACING_PRESERVE
+            && !explicit_nl)
+            for ( ; is_space(p.getch()) ; p.inc()) ;
+
+        /* check to see if the newly spliced text ends in an explicit \n */
+        explicit_nl = (linebuf_.get_text_len() - new_line_ofs >= 2
+                       && memcmp(linebuf_.get_text_end() - 2, "\\n", 2) == 0);
 
         /* if we skipped any spaces, remove them from the text */
         if (p.getptr() > new_line_p)
         {
-            size_t rem;
-            size_t new_len;
-
             /* calculate the length of the rest of the line */
-            rem = linebuf_.get_text_len() - (p.getptr() - linebuf_.get_buf());
+            size_t rem = linebuf_.get_text_len()
+                         - (p.getptr() - linebuf_.get_buf());
 
             /* calculate the new length of the line */
-            new_len = (new_line_p - linebuf_.get_buf()) + rem;
+            size_t new_len = (new_line_p - linebuf_.get_buf()) + rem;
 
             /* move the rest of the line down over the spaces */
             memmove(new_line_p, p.getptr(), rem);
@@ -5605,25 +6407,55 @@ void CTcTokenizer::splice_string()
         }
 
         /* scan for the end of the string */
-        for (p.set(new_line_p) ;; p.inc())
+        for (p.set(new_line_p) ; ; p.inc())
         {
             /* get this character */
-            cur = p.getch();
+            wchar_t cur = p.getch();
 
             /* see what we have */
             if (cur == '\\')
             {
                 /* it's a backslash sequence - skip the extra character */
                 p.inc();
+
+                /* 
+                 *   in a triple-quoted string, a backslash escapes a whole
+                 *   run of consecutive quote characters 
+                 */
+                if (in_triple && p.getch() == in_quote)
+                {
+                    /* skip all but the last consecutive quote */
+                    int qcnt = count_quotes(&p, in_quote);
+                    p.inc_by(qcnt - 1);
+                }
+                else if (p.getch() == '<')
+                {
+                    /* skip a run of <'s */
+                    for ( ; p.getch() == '<' ; p.inc()) ;
+                }
             }
             else if (cur == in_quote)
             {
-                /* it's our quote character - skip it, and we're done */
-                p.inc();
-                goto done;
+                /* it's our quote character - check for triple quotes */
+                if (in_triple)
+                {
+                    /* in a triple-quoted string - we need 3+ to end it */
+                    int qcnt = count_quotes(&p, cur);
+                    if (qcnt >= 3)
+                    {
+                        /* we have at least 3 - skip them and exit */
+                        p.inc_by(qcnt);
+                        goto done;
+                    }
+                }
+                else
+                {
+                    /* regular string - skip it and exit the string */
+                    p.inc();
+                    goto done;
+                }
             }
-            else if (in_quote == '"' && !in_embedding
-                     && cur == '<' && p.getch_at(1) == '<')
+            else if (cur == '<' && p.getch_at(1) == '<')
             {
                 /* 
                  *   it's an embedded expression starter - skip the '<<'
@@ -5631,6 +6463,12 @@ void CTcTokenizer::splice_string()
                  */
                 p.inc();
                 p.inc();
+
+                /* check for a '%' sprintf code */
+                if (p.getch() == '%')
+                    scan_sprintf_spec(&p);
+
+                /* done */
                 goto done;
             }
             else if (cur == '\0')
@@ -5642,8 +6480,9 @@ void CTcTokenizer::splice_string()
     }
 
 done:
-    /* unsplice the line at the current point */
-    unsplice_line(p.getptr());
+    /* if we actually spliced anything, unsplice it at the current point */
+    if (p.getptr() != 0)
+        unsplice_line(p.getptr());
 
     /* if we found an unterminated string, supply implicit termination */
     if (unterm != '\0')
@@ -5669,6 +6508,7 @@ void CTcTokenizer::pp_pragma()
         { "all_once", &CTcTokenizer::pragma_all_once },
         { "message", &CTcTokenizer::pragma_message },
         { "newline_spacing", &CTcTokenizer::pragma_newline_spacing },
+        { "sourceTextGroup", &CTcTokenizer::pragma_source_text_group },
         { 0, 0 }
     };
     pp_kw_def *kwp;
@@ -5871,7 +6711,7 @@ void CTcTokenizer::pragma_message()
  */
 void CTcTokenizer::pragma_newline_spacing()
 {
-    int f;
+    newline_spacing_mode_t f;
 
     /* if we're in preprocess-only mode, just pass the pragma through */
     if (pp_only_mode_)
@@ -5888,14 +6728,29 @@ void CTcTokenizer::pragma_newline_spacing()
     if (curtok_.get_text_len() == 2
         && memcmp(curtok_.get_text(), "on", 2) == 0)
     {
-        /* it's 'on' */
-        f = TRUE;
+        /* 'on' - this is the old version of 'collapse' */
+        f = NEWLINE_SPACING_COLLAPSE;
+    }
+    else if (curtok_.get_text_len() == 8
+             && memcmp(curtok_.get_text(), "collapse", 8) == 0)
+    {
+        f = NEWLINE_SPACING_COLLAPSE;
     }
     else if (curtok_.get_text_len() == 3
              && memcmp(curtok_.get_text(), "off", 3) == 0)
     {
-        /* it's 'off' */
-        f = FALSE;
+        /* 'off' - the old version of 'delete' */
+        f = NEWLINE_SPACING_DELETE;
+    }
+    else if (curtok_.get_text_len() == 6
+             && memcmp(curtok_.get_text(), "delete", 6) == 0)
+    {
+        f = NEWLINE_SPACING_DELETE;
+    }
+    else if (curtok_.get_text_len() == 8
+             && memcmp(curtok_.get_text(), "preserve", 8) == 0)
+    {
+        f = NEWLINE_SPACING_PRESERVE;
     }
     else
     {
@@ -5919,6 +6774,68 @@ done:
 }
 
 
+/*
+ *   Process a #pragma sourceTextGroup(on/off) directive 
+ */
+void CTcTokenizer::pragma_source_text_group()
+{
+    tc_toktyp_t tok;
+    int f;
+
+    /* if we're in preprocess-only mode, just pass the pragma through */
+    if (pp_only_mode_)
+        return;
+
+    /* get the '(' token and the on/off token, if present */
+    if ((tok = next_on_line()) == TOKT_EOF)
+    {
+        /* no on/off - by default it's on */
+        f = TRUE;
+    }
+    else if (tok == TOKT_LPAR && next_on_line() == TOKT_SYM)
+    {
+        /* get the on/off mode */
+        if (curtok_.get_text_len() == 2
+            && memcmp(curtok_.get_text(), "on", 2) == 0)
+        {
+            /* it's 'on' */
+            f = TRUE;
+        }
+        else if (curtok_.get_text_len() == 3
+                 && memcmp(curtok_.get_text(), "off", 3) == 0)
+        {
+            /* it's 'off' */
+            f = FALSE;
+        }
+        else
+        {
+            log_warning(TCERR_BAD_PRAGMA_SYNTAX);
+            goto done;
+        }
+
+        /* make sure we have the ')' token */
+        if (next_on_line() != TOKT_RPAR)
+        {
+            log_warning(TCERR_BAD_PRAGMA_SYNTAX);
+            goto done;
+        }
+    }
+    else
+    {
+        /* anything else is invalid syntax */
+        log_warning(TCERR_BAD_PRAGMA_SYNTAX);
+        goto done;
+    }
+
+    /* set the new mode in the parser */
+    G_prs->set_source_text_group_mode(f);
+
+done:
+    /* done - discard this line buffer */
+    clear_linebuf();
+}
+
+
 /* ------------------------------------------------------------------------ */
 /*
  *   Process a #charset directive 
@@ -5935,7 +6852,7 @@ void CTcTokenizer::pp_charset()
      *   that the problem is that the character set given was unloadable;
      *   otherwise, the problem is that #charset is in the wrong place.  
      */
-    log_error(str_->get_charset_error()
+    log_error(str_ != 0 && str_->get_charset_error()
               ? TCERR_CANT_LOAD_CHARSET : TCERR_UNEXPECTED_CHARSET);
 
     /* don't retain this pragma in the result */
@@ -6112,7 +7029,7 @@ void CTcTokenizer::pp_include()
      *   first, and only if we can't find it in this form will we try
      *   treating the name as using local filename conventions 
      */
-    os_cvt_url_dir(lcl_name, sizeof(lcl_name), fname.getptr(), FALSE);
+    os_cvt_url_dir(lcl_name, sizeof(lcl_name), fname.getptr());
 
     /*
      *   Search for the included file.
@@ -6123,7 +7040,7 @@ void CTcTokenizer::pp_include()
      *   file, and so on.  If we fail to find it, proceed as for a
      *   non-local file.
      */
-    if (is_local)
+    if (is_local && last_desc_ != 0)
     {
         CTcTokStream *cur_str;
         char pathbuf[OSFNMAX];
@@ -6353,7 +7270,7 @@ int CTcTokenizer::find_include_once(const char *fname)
     for (prvinc = prev_includes_ ; prvinc != 0 ; prvinc = prvinc->nxt)
     {
         /* if this one matches, we found it, so return true */
-        if (strcmp(fname, prvinc->fname) == 0)
+        if (os_file_names_equal(fname, prvinc->fname))
             return TRUE;
     }
 
@@ -6375,7 +7292,7 @@ void CTcTokenizer::pp_define()
     int has_args;
     const char *expan;
     size_t expan_len;
-    CTcHashEntryPp *entry;
+    CTcHashEntryPp *entry, *old_entry;
     int has_varargs;
 
     /* get the macro name */
@@ -6544,239 +7461,52 @@ void CTcTokenizer::pp_define()
            && !(expan_len > 1 && expan[expan_len-2] == '\\'))
         --expan_len;
 
-    /*
-     *   If there are arguments, scan the expansion for formal parameter
-     *   names.  For each one we find, replace it with the special
-     *   TOK_MACRO_FORMAL_FLAG character followed by a one-byte value
-     *   giving the argument index.  This special sequence is less costly
-     *   to find when we're expanding the macros - by doing the search
-     *   here, we only need to do it once, rather than each time we expand
-     *   the macro.  
-     */
-    if (argc != 0)
-    {
-        utf8_ptr src;
-        size_t dstofs;
-        tc_toktyp_t typ;
-        CTcToken tok;
-        const char *start;
-        int in_embedding = FALSE;
+    /* create an entry for the new macro */
+    entry = new CTcHashEntryPpDefine(macro_name, macro_len, TRUE,
+                                     has_args, argc, has_varargs,
+                                     argv, argvlen, expan, expan_len);
 
-        /* 
-         *   Generate our modified expansion text in the macro expansion
-         *   buffer.  Initially, make sure we have room for a copy of the
-         *   text; we'll resize the buffer later if we find we need even
-         *   more.  
-         */
-        expbuf_.ensure_space(expan_len);
-
-        /* scan for argument names, and replace them */
-        for (start = expan, dstofs = 0, src.set((char *)expan) ;; )
-        {
-            /* get the next token */
-            typ = next_on_line(&src, &tok, &in_embedding);
-            
-            /* if we've reached the end of the expansion, we're done */
-            if (typ == TOKT_EOF)
-                break;
-            
-            /* 
-             *   If this is a formal parameter name, we'll replace it with
-             *   a special two-byte sequence; otherwise, we'll keep it
-             *   unchanged.  
-             */
-            if (typ == TOKT_SYM)
-            {
-                int i;
-                
-                /* find it in the table */
-                for (i = 0 ; i < argc ; ++i)
-                {
-                    /* does it match this argument name? */
-                    if (argvlen[i] == tok.get_text_len()
-                        && memcmp(argv[i], tok.get_text(),
-                                  tok.get_text_len()) == 0)
-                    {
-                        size_t new_len;
-                        size_t arg_len;
-                        size_t repl_len;
-                        char flag_byte;
-
-                        /* get the length of the formal name */
-                        arg_len = argvlen[i];
-
-                        /* 
-                         *   the normal replacement length for a formal
-                         *   parameter is two bytes - one byte for the flag,
-                         *   and one for the formal parameter index 
-                         */
-                        repl_len = 2;
-
-                        /* by default, the flag byte is the formal flag */
-                        flag_byte = TOK_MACRO_FORMAL_FLAG;
-
-                        /*
-                         *   Check for special varargs control suffixes.  If
-                         *   we matched the last argument name, and this is
-                         *   a varargs macro, we might have a suffix.  
-                         */
-                        if (has_varargs
-                            && i == argc - 1
-                            && src.getch() == '#')
-                        {
-                            /* check for the various suffixes */
-                            if (memcmp(src.getptr() + 1, "foreach", 7) == 0
-                                && !is_sym(src.getch_at(8)))
-                            {
-                                /* 
-                                 *   include the suffix length in the token
-                                 *   length 
-                                 */
-                                arg_len += 8;
-
-                                /* 
-                                 *   the flag byte is the #foreach flag,
-                                 *   which is a one-byte sequence 
-                                 */
-                                flag_byte = TOK_MACRO_FOREACH_FLAG;
-                                repl_len = 1;
-                            }
-                            else if (memcmp(src.getptr() + 1,
-                                            "argcount", 8) == 0
-                                     && !is_sym(src.getch_at(9)))
-                            {
-                                /* 
-                                 *   include the suffix length in the token
-                                 *   length 
-                                 */
-                                arg_len += 9;
-
-                                /* 
-                                 *   the flag byte is the #argcount flag,
-                                 *   which is a one-byte sequence 
-                                 */
-                                flag_byte = TOK_MACRO_ARGCOUNT_FLAG;
-                                repl_len = 1;
-                            }
-                            else if (memcmp(src.getptr() + 1,
-                                            "ifempty", 7) == 0
-                                     && !is_sym(src.getch_at(8)))
-                            {
-                                /* include the length */
-                                arg_len += 8;
-
-                                /* set the one-byte flag */
-                                flag_byte = TOK_MACRO_IFEMPTY_FLAG;
-                                repl_len = 1;
-                            }
-                            else if (memcmp(src.getptr() + 1,
-                                            "ifnempty", 8) == 0
-                                     && !is_sym(src.getch_at(9)))
-                            {
-                                /* include the length */
-                                arg_len += 9;
-
-                                /* set the one-byte flag */
-                                flag_byte = TOK_MACRO_IFNEMPTY_FLAG;
-                                repl_len = 1;
-                            }
-                        }
-
-                        /* 
-                         *   calculate the new length - we're removing the
-                         *   argument name and adding the replacement string
-                         *   in its place 
-                         */
-                        new_len = expan_len + repl_len - arg_len;
-                        
-                        /* 
-                         *   we need two bytes for the replacement - if
-                         *   this is more than we're replacing, make sure
-                         *   we have room for the extra 
-                         */
-                        if (new_len > expan_len)
-                            expbuf_.ensure_space(new_len);
-                        
-                        /* 
-                         *   copy everything up to but not including the
-                         *   formal name 
-                         */
-                        if (tok.get_text() > start)
-                        {
-                            /* store the text */
-                            memcpy(expbuf_.get_buf() + dstofs,
-                                   start, tok.get_text() - start);
-
-                            /* move past the stored text in the output */
-                            dstofs += tok.get_text() - start;
-                        }
-
-                        /* the next segment starts after this token */
-                        start = tok.get_text() + arg_len;
-
-                        /* store the flag byte */
-                        expbuf_.get_buf()[dstofs++] = flag_byte;
-
-                        /* 
-                         *   If appropriate, store the argument index - this
-                         *   always fits in one byte because our hard limit
-                         *   on formal parameters is less than 128 per
-                         *   macro.  Note that we add one to the index so
-                         *   that we never store a zero byte, to avoid any
-                         *   potential confusion with a null terminator
-                         *   byte.  
-                         */
-                        if (repl_len > 1)
-                            expbuf_.get_buf()[dstofs++] = (char)(i + 1);
-
-                        /* remember the new length */
-                        expan_len = new_len;
-
-                        /* no need to search further for it */
-                        break;
-                    }
-                }
-            }
-        }
-
-        /* copy the last segment */
-        if (tok.get_text() > start)
-        {
-            /* store the text */
-            memcpy(expbuf_.get_buf() + dstofs, start,
-                   tok.get_text() - start);
-        }
-
-        /* set the new length */
-        expbuf_.set_text_len(expan_len);
-        
-        /* use the modified expansion text instead of the original */
-        expan = expbuf_.get_text();
-    }
-        
     /* 
-     *   check the symbol table to see if this symbol is already defined -
-     *   if so, show a warning, but honor the new definition 
+     *   Check the symbol table to see if this symbol is already defined with
+     *   a different expansion.  If so, show a warning, but honor the new
+     *   definition.  
      */
-    entry = find_define(macro_name, macro_len);
-    if (entry != 0)
+    old_entry = find_define(macro_name, macro_len);
+    if (old_entry != 0)
     {
         /*
-         *   Check for a trivial redefinition - if the number of arguments
-         *   is the same, and the type (object-like or function-like) is
-         *   the same, and the expansion string is identical, there's no
-         *   need to warn, because the redefinition has no effect and can
-         *   thus be safely ignored.  Note that we must ignore any
-         *   differences in the whitespace in the expansions for this
-         *   comparision.  
+         *   Check for a trivial redefinition - if the number of arguments is
+         *   the same, and the type (object-like or function-like) is the
+         *   same, and the expansion string is identical, there's no need to
+         *   warn, because the redefinition has no effect and can thus be
+         *   safely ignored.  Note that we must ignore any differences in the
+         *   whitespace in the expansions for this comparision.
+         *   
+         *   Compare the *parsed* versions of the expansions.  This ensures
+         *   that we take into account changes to parameter names.  For
+         *   example, the following two macros are equivalent, even though
+         *   their unparsed source texts are different, because they'd still
+         *   have identical expansions for any given parameter value:
+         *   
+         *.    #define A(x) x
+         *.    #define A(y) y
+         *   
+         *   Likewise, the following two macros are NOT equivalent, even
+         *   though their unparsed source texts are identical, because they
+         *   could have different expansions for a given parameter value:
+         *   
+         *.    #define A(x) x
+         *.    #define A(y) x
          */
-        if ((entry->has_args() != 0) == (has_args != 0)
-            && entry->get_argc() == argc
-            && lib_strequal_collapse_spaces(expan, expan_len,
-                                            entry->get_expansion(),
-                                            entry->get_expan_len()))
+        if ((old_entry->has_args() != 0) == (has_args != 0)
+            && old_entry->get_argc() == argc
+            && lib_strequal_collapse_spaces(entry->get_expansion(),
+                                            entry->get_expan_len(),
+                                            old_entry->get_expansion(),
+                                            old_entry->get_expan_len()))
         {
             /* it's a non-trivial redefinition - ignore it */
+            delete entry;
             goto done;
         }
 
@@ -6784,7 +7514,7 @@ void CTcTokenizer::pp_define()
         log_warning(TCERR_MACRO_REDEF, (int)macro_len, macro_name);
 
         /* remove and delete the old entry */
-        defines_->remove(entry);
+        defines_->remove(old_entry);
 
         /* if the item isn't already in the #undef table, add it */
         if (find_undef(macro_name, macro_len) == 0)
@@ -6794,7 +7524,7 @@ void CTcTokenizer::pp_define()
              *   of the fact that this macro's definition has changed in the
              *   course of the compilation 
              */
-            undefs_->add(entry);
+            undefs_->add(old_entry);
         }
         else
         {
@@ -6802,14 +7532,9 @@ void CTcTokenizer::pp_define()
              *   the name is already in the #undef table, so we don't need
              *   another copy - just forget about the old entry entirely 
              */
-            delete entry;
+            delete old_entry;
         }
     }
-
-    /* create an entry for the new macro */
-    entry = new CTcHashEntryPpDefine(macro_name, macro_len, TRUE,
-                                     has_args, argc, has_varargs,
-                                     argv, argvlen, expan, expan_len);
 
     /* add it to the hash table */
     defines_->add(entry);
@@ -6818,6 +7543,7 @@ done:
     /* don't retain the directive in the preprocessed source */
     clear_linebuf();
 }
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -7611,6 +8337,11 @@ void CTcTokenizer::log_error_or_warning_with_tok(
         suffix = "\"";
         goto format_string;
 
+    case TOKT_RESTR:
+        prefix = "R'";
+        suffix = "'";
+        goto format_string;
+
     format_string:
         /* set the prefix */
         strcpy(buf, prefix);
@@ -7635,6 +8366,10 @@ void CTcTokenizer::log_error_or_warning_with_tok(
                     dst.setch('n');
                     break;
 
+                case 13:
+                    dst.setch('r');
+                    break;
+
                 case 0x000F:
                     dst.setch('^');
                     break;
@@ -7657,10 +8392,10 @@ void CTcTokenizer::log_error_or_warning_with_tok(
 
                 default:
                     dst.setch('x');
-                    dst.setch('0' + (src.getch() >> 12) & 0xf);
-                    dst.setch('0' + (src.getch() >> 8) & 0xf);
-                    dst.setch('0' + (src.getch() >> 4) & 0xf);
-                    dst.setch('0' + (src.getch()) & 0xf);
+                    dst.setch('0' + int_to_xdigit((src.getch() >> 12) & 0xf));
+                    dst.setch('0' + int_to_xdigit((src.getch() >> 8) & 0xf));
+                    dst.setch('0' + int_to_xdigit((src.getch() >> 4) & 0xf));
+                    dst.setch('0' + int_to_xdigit((src.getch()) & 0xf));
                     break;
                 }
             }
@@ -7716,6 +8451,20 @@ void CTcTokenizer::log_warning(int errnum, ...)
     va_start(marker, errnum);
     G_tcmain->v_log_error(G_tok->get_last_desc(), G_tok->get_last_linenum(),
                           TC_SEV_WARNING, errnum, marker);
+    va_end(marker);
+}
+
+/*
+ *   Log a pedantic warning 
+ */
+void CTcTokenizer::log_pedantic(int errnum, ...)
+{
+    va_list marker;
+
+    /* display the message */
+    va_start(marker, errnum);
+    G_tcmain->v_log_error(G_tok->get_last_desc(), G_tok->get_last_linenum(),
+                          TC_SEV_PEDANTIC, errnum, marker);
     va_end(marker);
 }
 
@@ -8179,9 +8928,226 @@ CTcHashEntryPpDefine::CTcHashEntryPpDefine(const textchar_t *str, size_t len,
         arg_entry_ = 0;
     }
 
-    /* save the expansion */
-    expan_ = lib_copy_str(expansion, expan_len);
-    expan_len_ = expan_len;
+    /* save the original version of the expansion */
+    orig_expan_ = lib_copy_str(expansion, expan_len);
+    orig_expan_len_ = expan_len;
+
+    /* parse the expansion, and save the parsed result */
+    parse_expansion(argvlen);
+}
+
+/*
+ *   Parse the expansion text.
+ */
+void CTcHashEntryPpDefine::parse_expansion(const size_t *argvlen)
+{
+    /*
+     *   If there are arguments, scan the expansion for formal parameter
+     *   names.  For each one we find, replace it with the special
+     *   TOK_MACRO_FORMAL_FLAG character followed by a one-byte value giving
+     *   the argument index.  This special sequence is less costly to find
+     *   when we're expanding the macros - by doing the search here, we only
+     *   need to do it once, rather than each time we expand the macro.  
+     */
+    if (argc_ != 0)
+    {
+        utf8_ptr src;
+        size_t dstofs;
+        tc_toktyp_t typ;
+        CTcToken tok;
+        const char *start;
+        tok_embed_ctx ec;
+        size_t expan_len = orig_expan_len_;
+
+        /* 
+         *   Generate our modified expansion text in the tokenizer's macro
+         *   definition scratch buffer.  Initially, make sure we have room
+         *   for a copy of the text; we'll resize the buffer later if we find
+         *   we need even more.  
+         */
+        CTcTokString *defbuf = &G_tok->defbuf_;
+        defbuf->ensure_space(expan_len);
+
+        /* scan for argument names, and replace them */
+        for (start = orig_expan_, dstofs = 0, src.set((char *)orig_expan_) ;; )
+        {
+            /* get the next token */
+            typ = CTcTokenizer::next_on_line(&src, &tok, &ec, FALSE);
+
+            /* if we've reached the end of the expansion, we're done */
+            if (typ == TOKT_EOF)
+                break;
+
+            /* 
+             *   If this is a formal parameter name, we'll replace it with a
+             *   special two-byte sequence; otherwise, we'll keep it
+             *   unchanged.  
+             */
+            if (typ == TOKT_SYM)
+            {
+                /* look up the symbol in our argument table */
+                CTcHashEntryPpArg *entry =
+                    (CTcHashEntryPpArg *)params_table_->find(
+                        tok.get_text(), tok.get_text_len());
+
+                /* check if we found it */
+                if (entry != 0)
+                {
+                    /* get the argument number from the entry */
+                    int i = entry->get_argnum();
+                    
+                    /* get the length of the formal name */
+                    size_t arg_len = argvlen[i];
+
+                    /* 
+                     *   the normal replacement length for a formal parameter
+                     *   is two bytes - one byte for the flag, and one for
+                     *   the formal parameter index 
+                     */
+                    size_t repl_len = 2;
+
+                    /* by default, the flag byte is the formal flag */
+                    char flag_byte = TOK_MACRO_FORMAL_FLAG;
+
+                    /*
+                     *   Check for special varargs control suffixes.  If we
+                     *   matched the last argument name, and this is a
+                     *   varargs macro, we might have a suffix.  
+                     */
+                    if (has_varargs_
+                        && i == argc_ - 1
+                        && src.getch() == '#')
+                    {
+                        /* check for the various suffixes */
+                        if (memcmp(src.getptr() + 1, "foreach", 7) == 0
+                            && !is_sym(src.getch_at(8)))
+                        {
+                            /* 
+                             *   include the suffix length in the token
+                             *   length 
+                             */
+                            arg_len += 8;
+                            
+                            /* 
+                             *   the flag byte is the #foreach flag, which is
+                             *   a one-byte sequence 
+                             */
+                            flag_byte = TOK_MACRO_FOREACH_FLAG;
+                            repl_len = 1;
+                        }
+                        else if (memcmp(src.getptr() + 1,
+                                        "argcount", 8) == 0
+                                 && !is_sym(src.getch_at(9)))
+                        {
+                            /* 
+                             *   include the suffix length in the token
+                             *   length 
+                             */
+                            arg_len += 9;
+                            
+                            /* 
+                             *   the flag byte is the #argcount flag, which
+                             *   is a one-byte sequence 
+                             */
+                            flag_byte = TOK_MACRO_ARGCOUNT_FLAG;
+                            repl_len = 1;
+                        }
+                        else if (memcmp(src.getptr() + 1,
+                                        "ifempty", 7) == 0
+                                 && !is_sym(src.getch_at(8)))
+                        {
+                            /* include the length */
+                            arg_len += 8;
+                            
+                            /* set the one-byte flag */
+                            flag_byte = TOK_MACRO_IFEMPTY_FLAG;
+                            repl_len = 1;
+                        }
+                        else if (memcmp(src.getptr() + 1,
+                                        "ifnempty", 8) == 0
+                                 && !is_sym(src.getch_at(9)))
+                        {
+                            /* include the length */
+                            arg_len += 9;
+                            
+                            /* set the one-byte flag */
+                            flag_byte = TOK_MACRO_IFNEMPTY_FLAG;
+                            repl_len = 1;
+                        }
+                    }
+                    
+                    /* 
+                     *   calculate the new length - we're removing the
+                     *   argument name and adding the replacement string in
+                     *   its place 
+                     */
+                    size_t new_len = expan_len + repl_len - arg_len;
+                    
+                    /* 
+                     *   we need two bytes for the replacement - if this is
+                     *   more than we're replacing, make sure we have room
+                     *   for the extra 
+                     */
+                    if (new_len > expan_len)
+                        defbuf->ensure_space(new_len);
+                    
+                    /* 
+                     *   copy everything up to but not including the formal
+                     *   name 
+                     */
+                    if (tok.get_text() > start)
+                    {
+                        /* store the text */
+                        memcpy(defbuf->get_buf() + dstofs,
+                               start, tok.get_text() - start);
+                        
+                        /* move past the stored text in the output */
+                        dstofs += tok.get_text() - start;
+                    }
+                    
+                    /* the next segment starts after this token */
+                    start = tok.get_text() + arg_len;
+                    
+                    /* store the flag byte */
+                    defbuf->get_buf()[dstofs++] = flag_byte;
+                    
+                    /* 
+                     *   If appropriate, store the argument index - this
+                     *   always fits in one byte because our hard limit on
+                     *   formal parameters is less than 128 per macro.  Note
+                     *   that we add one to the index so that we never store
+                     *   a zero byte, to avoid any potential confusion with a
+                     *   null terminator byte.  
+                     */
+                    if (repl_len > 1)
+                        defbuf->get_buf()[dstofs++] = (char)(i + 1);
+                    
+                    /* remember the new length */
+                    expan_len = new_len;
+                }
+            }
+        }
+
+        /* copy the last segment */
+        if (tok.get_text() > start)
+            memcpy(defbuf->get_buf() + dstofs, start, tok.get_text() - start);
+
+        /* set the new length */
+        defbuf->set_text_len(expan_len);
+
+        /* save the parsed expansion */
+        expan_ = lib_copy_str(defbuf->get_text());
+        expan_len_ = expan_len;
+    }
+    else
+    {
+        /* 
+         *   There are no arguments, so there's no parsing we need to do.
+         *   Just use the original as the parsed expansion.  
+         */
+        expan_ = orig_expan_;
+        expan_len_ = orig_expan_len_;
+    }
 }
 
 /*
@@ -8210,6 +9176,8 @@ CTcHashEntryPpDefine::~CTcHashEntryPpDefine()
 
     /* delete the expansion */
     lib_free_str(expan_);
+    if (orig_expan_ != expan_)
+        lib_free_str(orig_expan_);
 }
 
 /*
@@ -8246,7 +9214,7 @@ int CTcTokenizer::load_macros_from_file(CVmStream *fp,
     result = 0;
 
     /* read the number of macros */
-    cnt = fp->read_int4();
+    cnt = fp->read_uint4();
 
     /* read each macro */
     for (i = 0 ; i < cnt ; ++i)
@@ -8310,7 +9278,7 @@ int CTcTokenizer::load_macros_from_file(CVmStream *fp,
         }
 
         /* read the expansion size */
-        explen = (size_t)fp->read_int4();
+        explen = (size_t)fp->read_uint4();
 
         /* expand the expansion buffer if necessary */
         if (explen > expmaxlen)
@@ -8349,8 +9317,8 @@ int CTcTokenizer::load_macros_from_file(CVmStream *fp,
                 || entry->has_args() != has_args
                 || entry->has_varargs() != has_varargs
                 || entry->get_argc() != (int)argc
-                || entry->get_expan_len() != explen
-                || memcmp(entry->get_expansion(), expan, explen) != 0)
+                || entry->get_orig_expan_len() != explen
+                || memcmp(entry->get_orig_expansion(), expan, explen) != 0)
             {
                 /*
                  *   The existing entry is different from the new entry, so
@@ -8451,17 +9419,17 @@ static void write_macros_cb(void *ctx0, CTcHashEntryPp *entry)
     ctx->cnt++;
 
     /* write the macro's name */
-    fp->write_int2(entry->getlen());
+    fp->write_uint2(entry->getlen());
     fp->write_bytes(entry->getstr(), entry->getlen());
 
     /* write the flag bits */
     flags = 0;
     if (entry->has_args()) flags |= 1;
     if (entry->has_varargs()) flags |= 2;
-    fp->write_int2(flags);
+    fp->write_uint2(flags);
 
     /* write the number of arguments, and write each argument */
-    fp->write_int2(entry->get_argc());
+    fp->write_uint2(entry->get_argc());
     for (i = 0 ; i < entry->get_argc() ; ++i)
     {
         CTcHashEntryPpArg *arg;
@@ -8470,13 +9438,13 @@ static void write_macros_cb(void *ctx0, CTcHashEntryPp *entry)
         arg = entry->get_arg_entry(i);
 
         /* write the parameter name */
-        fp->write_int2(arg->getlen());
+        fp->write_uint2(arg->getlen());
         fp->write_bytes(arg->getstr(), arg->getlen());
     }
 
     /* write the expansion */
-    fp->write_int4(entry->get_expan_len());
-    fp->write_bytes(entry->get_expansion(), entry->get_expan_len());
+    fp->write_uint4(entry->get_orig_expan_len());
+    fp->write_bytes(entry->get_orig_expansion(), entry->get_orig_expan_len());
 }
 
 /*
@@ -8494,7 +9462,7 @@ void CTcTokenizer::write_macros_to_file_for_debug(CVmFile *fp)
 
     /* write a placeholder for the symbol count */
     pos = fp->get_pos();
-    fp->write_int4(0);
+    fp->write_uint4(0);
 
     /* write the symbols */
     ctx.fp = fp;
@@ -8504,7 +9472,7 @@ void CTcTokenizer::write_macros_to_file_for_debug(CVmFile *fp)
     /* go back and fix up the symbol count */
     endpos = fp->get_pos();
     fp->set_pos(pos);
-    fp->write_int4(ctx.cnt);
+    fp->write_uint4(ctx.cnt);
 
     /* seek back to where we left off */
     fp->set_pos(endpos);

@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -28,10 +28,10 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <string.h>
-#include <stdio.h>
 #include <setjmp.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "scare.h"
 #include "scprotos.h"
@@ -51,15 +51,16 @@ static sc_bool uip_trace = FALSE;
 /* Enumeration of tokens.  TOK_NONE represents a non-occurring token. */
 typedef enum
 {
-  TOK_NONE,
+  TOK_NONE = 0,
   TOK_CHOICE, TOK_CHOICE_END, TOK_OPTIONAL, TOK_OPTIONAL_END,
-  TOK_ALT_SEPARATOR, TOK_WILDCARD, TOK_WHITESPACE, TOK_WORD, TOK_VARIABLE,
-  TOK_CHARACTER_REF, TOK_OBJECT_REF, TOK_NUMBER_REF, TOK_TEXT_REF,
-  TOK_EOS
+  TOK_ALTERNATES_SEPARATOR,
+  TOK_WILDCARD, TOK_WHITESPACE, TOK_WORD, TOK_VARIABLE,
+  TOK_CHARACTER_REFERENCE, TOK_OBJECT_REFERENCE, TOK_NUMBER_REFERENCE,
+  TOK_TEXT_REFERENCE, TOK_EOS
 } sc_uip_tok_t;
 
 /*
- * Small table tying token strings to tokens.  Anything not whitespace, and
+ * Small table tying token strings to tokens.  Anything not whitespace and
  * not caught by the table is a plain TOK_WORD.
  */
 typedef struct
@@ -72,12 +73,12 @@ typedef struct
 static const sc_uip_token_entry_t UIP_TOKENS[] = {
   {"[", 1, TOK_CHOICE}, {"]", 1, TOK_CHOICE_END},
   {"{", 1, TOK_OPTIONAL}, {"}", 1, TOK_OPTIONAL_END},
-  {"/", 1, TOK_ALT_SEPARATOR},
+  {"/", 1, TOK_ALTERNATES_SEPARATOR},
   {"*", 1, TOK_WILDCARD},
-  {"%character%", 11, TOK_CHARACTER_REF},
-  {"%object%", 8, TOK_OBJECT_REF},
-  {"%number%", 8, TOK_NUMBER_REF},
-  {"%text%", 6, TOK_TEXT_REF},
+  {"%character%", 11, TOK_CHARACTER_REFERENCE},
+  {"%object%", 8, TOK_OBJECT_REFERENCE},
+  {"%number%", 8, TOK_NUMBER_REFERENCE},
+  {"%text%", 6, TOK_TEXT_REFERENCE},
   {NULL, 0, TOK_NONE}
 };
 
@@ -115,8 +116,11 @@ uip_tokenize_start (const sc_char *pattern)
       for (entry = UIP_TOKENS; entry->name; entry++)
         {
           if (entry->length != (sc_int) strlen (entry->name))
-            sc_fatal ("uip_tokenize_start:"
-                " table string length is wrong for \"%s\"\n", entry->name);
+            {
+              sc_fatal ("uip_tokenize_start:"
+                        " table string length is wrong for \"%s\"\n",
+                        entry->name);
+            }
         }
 
       initialized = TRUE;
@@ -246,8 +250,8 @@ typedef enum
 {
   NODE_UNUSED = 0,
   NODE_CHOICE, NODE_OPTIONAL, NODE_WILDCARD, NODE_WHITESPACE,
-  NODE_CHARACTER_REF, NODE_OBJECT_REF, NODE_TEXT_REF, NODE_NUMBER_REF,
-  NODE_WORD, NODE_VARIABLE, NODE_LIST, NODE_EOS
+  NODE_CHARACTER_REFERENCE, NODE_OBJECT_REFERENCE, NODE_TEXT_REFERENCE,
+  NODE_NUMBER_REFERENCE, NODE_WORD, NODE_VARIABLE, NODE_LIST, NODE_EOS
 } sc_pttype_t;
 typedef struct sc_ptnode_s
 {
@@ -268,7 +272,7 @@ static jmp_buf uip_parse_error;
 
 /* Parse tree for cleanup, and forward declaration of pattern list parser. */
 static sc_ptnoderef_t uip_parse_tree = NULL;
-static sc_ptnoderef_t uip_parse_list (sc_bool is_root);
+static void uip_parse_list (sc_ptnoderef_t list);
 
 /*
  * Pool of statically allocated nodes, for faster allocations.  Nodes are
@@ -382,29 +386,27 @@ uip_new_word (const sc_char *word)
 static void
 uip_free_word (sc_char *word)
 {
-  sc_bool is_from_pool;
+  const sc_char *first_in_pool, *last_in_pool;
 
-  /*
-   * Compare the word with the lowest and highest word address in the short
-   * word pool; if it's in range, the word was allocated from the pool,
-   * otherwise it was malloc'ed.
-   */
-  is_from_pool = (word >= uip_word_pool[0].word
-                  && word <= uip_word_pool[UIP_WORD_POOL_SIZE - 1].word);
+  /* Obtain the range of valid addresses for words from the word pool. */
+  first_in_pool = uip_word_pool[0].word;
+  last_in_pool = uip_word_pool[UIP_WORD_POOL_SIZE - 1].word;
 
   /* If from the pool, mark the entry as no longer in use, otherwise free. */
-  if (is_from_pool)
+  if (word >= first_in_pool && word <= last_in_pool)
     {
       sc_int index_;
+      sc_ptshortwordref_t shortword;
 
       /*
        * Calculate the index to the word pool entry from which this short
        * word was allocated.
        */
-      index_ = (word - uip_word_pool[0].word) / sizeof (uip_word_pool[0]);
-      assert (uip_word_pool[index_].word == word);
+      index_ = (word - first_in_pool) / sizeof (uip_word_pool[0]);
+      shortword = uip_word_pool + index_;
+      assert (shortword->word == word);
 
-      uip_word_pool[index_].is_in_use = FALSE;
+      shortword->is_in_use = FALSE;
       uip_word_pool_available++;
     }
   else
@@ -492,7 +494,6 @@ uip_destroy_node (sc_ptnoderef_t node)
     }
   else
     {
-      memset (node, 0xaa, sizeof (*node));
       node->type = NODE_UNUSED;
       uip_node_pool_available++;
     }
@@ -500,31 +501,36 @@ uip_destroy_node (sc_ptnoderef_t node)
 
 
 /*
+ * uip_parse_new_list()
  * uip_parse_alternatives()
  *
- * Parse a set of .../.../... alternatives for choices and optionals.
+ * Parse a set of .../.../... alternatives for choices and optionals.  The
+ * first function is a helper, returning a newly constructed parsed list.
  */
+static sc_ptnoderef_t
+uip_parse_new_list (void)
+{
+  sc_ptnoderef_t list;
+
+  /* Create a new list node, parse into it, and return it. */
+  list = uip_new_node (NODE_LIST);
+  uip_parse_list (list);
+  return list;
+}
+
 static void
 uip_parse_alternatives (sc_ptnoderef_t node)
 {
   sc_ptnoderef_t child;
 
   /* Parse initial alternative, then add other listed alternatives. */
-  node->left_child = uip_parse_list (FALSE);
+  node->left_child = uip_parse_new_list ();
   child = node->left_child;
-  while (TRUE)
+  while (uip_parse_lookahead == TOK_ALTERNATES_SEPARATOR)
     {
-      switch (uip_parse_lookahead)
-        {
-        case TOK_ALT_SEPARATOR:
-          uip_parse_match (TOK_ALT_SEPARATOR);
-          child->right_sibling = uip_parse_list (FALSE);
-          child = child->right_sibling;
-          continue;
-
-        default:
-          return;
-        }
+      uip_parse_match (TOK_ALTERNATES_SEPARATOR);
+      child->right_sibling = uip_parse_new_list ();
+      child = child->right_sibling;
     }
 }
 
@@ -565,10 +571,10 @@ uip_parse_element (void)
       break;
 
     case TOK_WILDCARD:
-    case TOK_CHARACTER_REF:
-    case TOK_OBJECT_REF:
-    case TOK_NUMBER_REF:
-    case TOK_TEXT_REF:
+    case TOK_CHARACTER_REFERENCE:
+    case TOK_OBJECT_REFERENCE:
+    case TOK_NUMBER_REFERENCE:
+    case TOK_TEXT_REFERENCE:
       /* Parse %mumble% references and * wildcards. */
       token = uip_parse_lookahead;
       uip_parse_match (token);
@@ -577,17 +583,17 @@ uip_parse_element (void)
         case TOK_WILDCARD:
           node = uip_new_node (NODE_WILDCARD);
           break;
-        case TOK_CHARACTER_REF:
-          node = uip_new_node (NODE_CHARACTER_REF);
+        case TOK_CHARACTER_REFERENCE:
+          node = uip_new_node (NODE_CHARACTER_REFERENCE);
           break;
-        case TOK_OBJECT_REF:
-          node = uip_new_node (NODE_OBJECT_REF);
+        case TOK_OBJECT_REFERENCE:
+          node = uip_new_node (NODE_OBJECT_REFERENCE);
           break;
-        case TOK_NUMBER_REF:
-          node = uip_new_node (NODE_NUMBER_REF);
+        case TOK_NUMBER_REFERENCE:
+          node = uip_new_node (NODE_NUMBER_REFERENCE);
           break;
-        case TOK_TEXT_REF:
-          node = uip_new_node (NODE_TEXT_REF);
+        case TOK_TEXT_REFERENCE:
+          node = uip_new_node (NODE_TEXT_REFERENCE);
           break;
         default:
           sc_fatal ("uip_parse_element: invalid token, %ld\n", (sc_int) token);
@@ -642,21 +648,12 @@ uip_parse_element (void)
 /*
  * uip_parse_list()
  *
- * Parse a list of pattern elements.  If creating the root element, writes
- * the node to the recorded tree root.
+ * Parse a list of pattern elements.
  */
-static sc_ptnoderef_t
-uip_parse_list (sc_bool is_root)
+static void
+uip_parse_list (sc_ptnoderef_t list)
 {
-  sc_ptnoderef_t list, child, node;
-
-  /*
-   * Create the new list node, and if this is going to form the tree root,
-   * retain it now, so it's usable for cleanup if we have a parse error.
-   */
-  list = uip_new_node (NODE_LIST);
-  if (is_root)
-    uip_parse_tree = list;
+  sc_ptnoderef_t child, node;
 
   /* Add elements until a list terminator token is encountered. */
   child = list;
@@ -666,9 +663,9 @@ uip_parse_list (sc_bool is_root)
         {
         case TOK_CHOICE_END:
         case TOK_OPTIONAL_END:
-        case TOK_ALT_SEPARATOR:
+        case TOK_ALTERNATES_SEPARATOR:
           /* Terminate list building and return. */
-          return list;
+          return;
 
         case TOK_EOS:
           /* Place EOS at the appropriate link and return. */
@@ -677,7 +674,7 @@ uip_parse_list (sc_bool is_root)
             child->left_child = node;
           else
             child->right_sibling = node;
-          return list;
+          return;
 
         default:
           /* Add the next node at the appropriate link. */
@@ -695,7 +692,7 @@ uip_parse_list (sc_bool is_root)
                * node, to ensure a match with suitable input.
                */
               if ((child->type == NODE_OPTIONAL || child->type == NODE_CHOICE)
-                && (node->type == NODE_OPTIONAL || node->type == NODE_CHOICE))
+                  && (node->type == NODE_OPTIONAL || node->type == NODE_CHOICE))
                 {
                   sc_ptnoderef_t whitespace;
 
@@ -767,16 +764,16 @@ uip_debug_dump_node (sc_ptnoderef_t node, sc_int depth)
         case NODE_WHITESPACE:
           sc_trace (", whitespace");
           break;
-        case NODE_CHARACTER_REF:
+        case NODE_CHARACTER_REFERENCE:
           sc_trace (", character");
           break;
-        case NODE_OBJECT_REF:
+        case NODE_OBJECT_REFERENCE:
           sc_trace (", object");
           break;
-        case NODE_TEXT_REF:
+        case NODE_TEXT_REFERENCE:
           sc_trace (", text");
           break;
-        case NODE_NUMBER_REF:
+        case NODE_NUMBER_REFERENCE:
           sc_trace (", number");
           break;
         case NODE_WORD:
@@ -857,8 +854,8 @@ uip_match_end (void)
 /*
  * uip_get_game()
  *
- * Safety wrapper to ensure module code sees a valid game when it
- * requires one.
+ * Safety wrapper to ensure module code sees a valid game when it requires
+ * one.
  */
 static sc_gameref_t
 uip_get_game (void)
@@ -1691,16 +1688,16 @@ uip_match_node (sc_ptnoderef_t node)
     case NODE_WILDCARD:
       match = uip_match_wildcard (node);
       break;
-    case NODE_CHARACTER_REF:
+    case NODE_CHARACTER_REFERENCE:
       match = uip_match_character (node);
       break;
-    case NODE_OBJECT_REF:
+    case NODE_OBJECT_REFERENCE:
       match = uip_match_object (node);
       break;
-    case NODE_NUMBER_REF:
+    case NODE_NUMBER_REFERENCE:
       match = uip_match_number ();
       break;
-    case NODE_TEXT_REF:
+    case NODE_TEXT_REFERENCE:
       match = uip_match_text (node);
       break;
     default:
@@ -1790,7 +1787,8 @@ uip_match (const sc_char *pattern, const sc_char *string, sc_gameref_t game)
     {
       /* Parse the pattern into a match tree. */
       uip_parse_lookahead = uip_next_token ();
-      uip_parse_list (TRUE);
+      uip_parse_tree = uip_new_node (NODE_LIST);
+      uip_parse_list (uip_parse_tree);
       uip_tokenize_end ();
       cleansed = uip_free_cleansed_string (cleansed, buffer);
     }

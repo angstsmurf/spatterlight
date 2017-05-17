@@ -26,12 +26,14 @@ Modified
 #include <stdlib.h>
 #include <stdio.h>
 #include <stddef.h>
+#include <sys/stat.h>
 #ifdef TURBO
 # include <conio.h>
 #endif
 #ifdef DJGPP
 # include <dir.h>
 # include <unistd.h>
+# include <sys/stat.h>
 #endif
 
 /* ------------------------------------------------------------------------ */
@@ -90,6 +92,41 @@ Modified
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Define the exact-size integer types.
+ */
+
+#if defined(MICROSOFT) || defined(_MSC_VER)
+/* 
+ *   Older Microsoft compilers don't provide <stdint.h> with the ANSI type
+ *   definitions, but they do have built-in equivalents of their own. 
+ */
+typedef __int16 int16_t;
+typedef unsigned __int16 uint16_t;
+typedef __int32 int32_t;
+typedef unsigned __int32 uint32_t;
+typedef __int64 int64_t;
+typedef unsigned __int64 uint64_t;
+#endif /* MICROSOFT */
+
+#if defined(TURBO) || defined(DJGPP)
+/*
+ *   Borland C doesn't have stdint.h equivalents, but since it only has a
+ *   32-bit configuration, we know that 'short' is 16 bits and 'long' is 32
+ *   bits.  The same goes for djgpp.
+ */
+typedef short int16_t;
+typedef unsigned short uint16_t;
+typedef long int32_t;
+typedef unsigned long uint32_t;
+#endif /* TURBO || DJGPP */
+
+#ifdef DJGPP
+typedef long long int64_t;
+typedef unsigned long long uint64_t;
+#endif
+
+/* ------------------------------------------------------------------------ */
+/*
  *   osgen configuration options for this operating system.  These
  *   determine which routines from osgen are included.  Routines from
  *   osgen can be omitted by turning off various of these symbols, if the
@@ -106,6 +143,22 @@ Modified
 #define USE_PATHSEARCH                  /* use search paths for tads files */
 #define USE_STDARG
 
+#if defined(TURBO) || defined(DJGPP)
+#define USE_GENRAND
+#endif
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   os_va_copy - on Intel platforms, va_list is a simple pointer type, so
+ *   this can be handled with a simple assignment.  Don't define this for
+ *   DJGPP, since we can use the compiler-provided va_copy instead (which
+ *   we'll do in osifc.h).  
+ */
+#ifndef DJGPP
+# define os_va_copy(dst, src) ((dst) = (src))
+# define os_va_copy_end(dst)
+#endif
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -175,11 +228,6 @@ void ossgmx(int *max_line, int *max_column);
 int ossmon(void);
 void oss_win_resize_event(void);
 
-/* generate a filename's path relative to a working directory */
-void oss_get_rel_path(char *result, size_t result_len,
-                      const char *filename, const char *working_dir);
-
-
 /* 
  *   low-level console character reader - DOS-specific interface 
  */
@@ -212,7 +260,7 @@ int oss_getc_timeout(unsigned char *ch, unsigned long timeout);
  *   on those platforms.  
  */
 
-#if defined(__DPMI32__) || defined(__WIN32__) || defined(WIN32) || defined(DJGPP)
+#if defined(__DPMI32__) || defined(T_WIN32) || defined(WIN32) || defined(DJGPP)
 #define __32BIT__
 #define osfar_t
 #endif
@@ -230,14 +278,29 @@ int oss_getc_timeout(unsigned char *ch, unsigned long timeout);
 
 /* define OS_LOADDS appropriately for the Microsoft compiler */
 #ifdef MICROSOFT
-# ifndef __WIN32__
+# ifndef T_WIN32
 #  define OS_LOADDS _loadds
-# endif /* __WIN32__ */
+# endif /* T_WIN32 */
 #endif /* MICROSOFT */
 
 /* if OS_LOADDS isn't defined, define it to nothing */
 #ifndef OS_LOADDS
 # define OS_LOADDS
+#endif
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   OS_DECL_TLS - special syntax for declaring a global variable using
+ *   thread-local storage.
+ */
+#if defined(MICROSOFT) || defined(TURBO) || defined(T_WIN32)
+# define OS_DECLARATIVE_TLS
+# define OS_DECL_TLS(typ, varname)  __declspec(thread) typ varname
+#endif
+#if defined(DJGPP)
+# define OS_DECLARATIVE_TLS
+# define OS_DECL_TLS(typ, varname)  __thread typ varname
 #endif
 
 
@@ -266,7 +329,7 @@ int oss_getc_timeout(unsigned char *ch, unsigned long timeout);
 /* void *osrealloc(void *block, size_t siz); */
 /* void osfree(void *block); */
 
-#if defined(_Windows) && !defined(__DPMI32__) && !defined(__WIN32__)
+#if defined(_Windows) && !defined(__DPMI32__) && !defined(T_WIN32)
 
 /*
  *   16-bit Windows - use our ltk_ routines 
@@ -281,7 +344,7 @@ void   ltk_free(void *blk);
 
 #else /* _Windows */
 
-# ifdef __WIN32__
+# ifdef T_WIN32
 /*
  *   Win32 - we'll define our own routines that implement the memory
  *   management functions 
@@ -298,7 +361,16 @@ void *oss_win_realloc(void *ptr, size_t siz);
 /* free all allocated memory blocks */
 void oss_win_free_all();
 
-# else /* __WIN32__ */
+/* 
+ *   notify oss_win that we've reached the program's main entrypoing; this
+ *   detaches any existing memory allocations from the master deletion list,
+ *   since anything allocated before 'main' must have been allocated by a C++
+ *   static object constructor, and thus must not be considered dynamic
+ *   memory to be deleted between interpreter invocations 
+ */
+void oss_win_static_init_done();
+
+# else /* T_WIN32 */
 
 /*
  *   For any other case, use the standard library malloc functions 
@@ -307,7 +379,7 @@ void oss_win_free_all();
 # define osfree(block) free(block)
 # define osrealloc(ptr, siz) realloc(ptr, siz)
 
-# endif /* __WIN32__ */
+# endif /* T_WIN32 */
 #endif /* _Windows */
 
 /* main program exit codes */
@@ -344,6 +416,9 @@ void oss_win_free_all();
 /* directory separator character for PATH-style environment variables */
 #define OSPATHSEP ';'                                        /* ':' on UNIX */
 
+/* current working directory */
+#define OSPATHPWD "."
+
 
 /* 
  *   OS file structure type.  All files are manipulated through pointers
@@ -351,14 +426,29 @@ void oss_win_free_all();
  */
 typedef FILE osfildef;
 
+/* 
+ *   Directory search handle, for os_open_dir() et al.  The file search
+ *   mechanism we use varies by compiler, so we'll define this as an opaque
+ *   pointer type; the concrete implementations for the different compilers
+ *   use this to point to appropriate structure types.
+ */
+typedef void *osdirhdl_t;
+
+
+#ifdef MICROSOFT
+# define os_time_t        __time64_t
+# define os_gmtime(t)     _gmtime64(t)
+# define os_localtime(t)  _localtime64(t)
+# define os_time(t)       _time64(t)
+#else
 /*
  *   OS file time structure 
  */
 struct os_file_time_t
 {
-    /* the file time */
     time_t t;
 };
+#endif
 
 
 /* get a line of text from a text file (fgets semantics) */
@@ -372,6 +462,10 @@ struct os_file_time_t
 /* write bytes to file; TRUE ==> error */
 /* int osfwb(osfildef *fp, const uchar *buf, int bufl); */
 #define osfwb(fp, buf, bufl) (fwrite(buf, bufl, 1, fp) != 1)
+
+/* flush buffers; TRUE ==> error */
+/* void osfflush(osfildef *fp); */
+#define osfflush(fp) fflush(fp)
 
 /* read bytes from file; TRUE ==> error */
 /* int osfrb(osfildef *fp, uchar *buf, int bufl); */
@@ -400,9 +494,48 @@ struct os_file_time_t
 /* int osfdel(const char *fname); */
 #define osfdel(fname) remove(fname)
 
+/* rename a file - true on success, false on failure */
+/* int os_rename_file(const char *oldname, const char *newname); */
+#define os_rename_file(oldname, newname) (rename(oldname, newname) == 0)
+
 /* access a file - 0 if file exists */
 /* int osfacc(const char *fname) */
 #define osfacc(fname) access(fname, 0)
+
+/* file mode */
+int osfmode(const char *fname, int follow_links,
+            unsigned long *mode, unsigned long *attrs);
+
+#ifdef MICROSOFT
+# define OSFMODE_FILE     _S_IFREG
+# define OSFMODE_DIR      _S_IFDIR
+# define OSFMODE_BLK      0
+# define OSFMODE_CHAR     _S_IFCHR
+# define OSFMODE_PIPE     _S_IFIFO
+# define OSFMODE_SOCKET   0
+# define OSFMODE_LINK     0
+#endif
+#if defined(DJGPP) || defined(TURBO)
+# define OSFMODE_FILE     S_IFREG
+# define OSFMODE_DIR      S_IFDIR
+# define OSFMODE_BLK      0
+# define OSFMODE_CHAR     S_IFCHR
+# define OSFMODE_PIPE     S_IFIFO
+# define OSFMODE_SOCKET   0
+# define OSFMODE_LINK     0
+#endif
+
+/* 
+ *   file attributes - we define our own bits for these, since the osifc set
+ *   doesn't correspond exactly to the DOS/Windows set (DOS/Win has a
+ *   READONLY flag, whereas osifc has separate READ and WRITE flags;
+ *   furthermore, WRITE isn't merely the inverse of READONLY, but also
+ *   conveys information on ACL permissions on NTFS volumes).
+ */
+# define OSFATTR_HIDDEN   0x0001
+# define OSFATTR_SYSTEM   0x0002
+# define OSFATTR_READ     0x0004
+# define OSFATTR_WRITE    0x0008
 
 /* get a character from a file */
 /* int osfgetc(osfildef *fp); */

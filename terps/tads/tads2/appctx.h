@@ -111,6 +111,25 @@ struct appctxdef
     void *add_resource_ctx;
 
     /*
+     *   Add a resource link entry.  'fname' and 'fnamelen' give the name of
+     *   a local file containing the resource data; 'resname' and
+     *   'resnamelen' give the name of the resource as it appears within the
+     *   compiled game file.  This creates a link from a .GAM resource name
+     *   to a local filename, where the actual binary resource data reside,
+     *   so that we can retrieve a resource by .GAM resource name without
+     *   actually copying the data into the .GAM file.  This is used mostly
+     *   for debugging purposes: it allows the compiler to skip the step of
+     *   copying the resource data into the .GAM file, but still allows the
+     *   game to load resources by .GAM resource name, to create a testing
+     *   environment that's consistent with the full build version (where the
+     *   resources would actually be copied).  
+     */
+    void (*add_resource_link)(void *appctxdat,
+                              const char *fname, size_t fnamelen,
+                              const char *resname, size_t resnamelen);
+    void *add_resource_link_ctx;
+
+    /*
      *   Add a resource path.  'path' is a string giving a directory prefix
      *   in local system notation.
      *   
@@ -172,23 +191,45 @@ struct appctxdef
 
     /*
      *   File safety level get/set.  During initialization, we'll call the
-     *   host system to tell it the file safety level selected by the user
-     *   on the command line; if the host system is saving preference
+     *   host system to tell it the file safety level selected by the user on
+     *   the command line; if the host system is saving preference
      *   information, it should temporarily override its saved preferences
-     *   and use the command line setting (and it may, if appropriate,
-     *   want to save the command line setting as the saved preference
-     *   setting, depending on how it handles preferences).  During
-     *   execution, any time the game tries to open a file (using the
-     *   fopen built-in function), we'll call the host system to ask it
-     *   for the current setting, and use this new setting rather than the
-     *   original command line setting.
+     *   and use the command line setting (and it may, if appropriate, want
+     *   to save the command line setting as the saved preference setting,
+     *   depending on how it handles preferences).  During execution, any
+     *   time the game tries to open a file (using the fopen built-in
+     *   function), we'll call the host system to ask it for the current
+     *   setting, and use this new setting rather than the original command
+     *   line setting.
      *   
      *   Refer to bif.c for information on the meanings of the file safety
      *   levels.  
      */
-    void (*set_io_safety_level)(void *ctx, int level);
-    int  (*get_io_safety_level)(void *ctx);
+    void (*set_io_safety_level)(void *ctx, int read, int write);
+    void (*get_io_safety_level)(void *ctx, int *read, int *write);
     void  *io_safety_level_ctx;
+
+    /*
+     *   Network safety level get/set.  This is analogous to the file safety
+     *   level scheme, but controls access to network resources.  There are
+     *   two components to the network safety setting: client and server.
+     *   The client component controls the game's ability to open network
+     *   connections to access information on remote machines, such as
+     *   opening http connections to access web sites.  The server component
+     *   controls the game's ability to create servers of its own and accept
+     *   incoming connections.  Each component can be set to one of the
+     *   following:
+     *   
+     *.     0 = no restrictions (least "safety"): all network access granted
+     *.     1 = 'localhost' access only
+     *.     2 = no network access
+     *   
+     *   This only applies to the TADS 3 VM.  TADS 2 doesn't support any
+     *   network features, so this doesn't apply.  
+     */
+    void (*set_net_safety_level)(void *ctx, int client_level, int srv_level);
+    void (*get_net_safety_level)(void *ctx, int *client_level, int *srv_level);
+    void *net_safety_level_ctx;
 
     /*
      *   Name of run-time application for usage messages.  If this is

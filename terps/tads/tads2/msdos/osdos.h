@@ -45,9 +45,16 @@ extern "C" {
  *   File Opening - use stdio
  */
 
+/* newline sequence - DOS/Windows use CR-LF */
+#define OS_NEWLINE_SEQ  "\r\n"
+
 /* open text file for reading; returns NULL on error */
 /* osfildef *osfoprt(const char *fname, os_filetype_t typ); */
 #define osfoprt(fname, typ) fopen(fname, "r")
+
+/* open text file for 'volatile' reading; returns NULL on error */
+/* osfildef *osfoprtv(const char *fname, os_filetype_t typ); */
+#define osfoprtv(fname, typ) osfoprt(fname, typ)
 
 /* open text file for writing; returns NULL on error */
 /* osfildef *osfopwt(const char *fname, os_filetype_t typ); */
@@ -72,12 +79,30 @@ osfildef *osfoprwt(const char *fname, os_filetype_t typ);
 /* osfildef *osfoprb(const char *fname, os_filetype_t typ); */
 #define osfoprb(fname, typ) fopen(fname, "rb")
 
+/* open binary file for 'volatile' reading; returns NULL on erorr */
+/* osfildef *osfoprbv(const char *fname, os_filetype_t typ); */
+#define osfoprbv(fname, typ) osfoprb(fname, typ)
+
 /* open binary file for reading/writing; don't truncate */
 osfildef *osfoprwb(const char *fname, os_filetype_t typ);
 
 /* open binary file for reading/writing; truncate; returns NULL on error */
 /* osfildef *osfoprwtb(const char *fname, os_filetype_t typ); */
 #define osfoprwtb(fname, typ) fopen(fname, "w+b")
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Duplicate a file handle
+ */
+osfildef *osfdup(osfildef *fp, const char *mode);
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   sprintf equivalents with buffer allocation 
+ */
+int os_asprintf(char **bufptr, const char *fmt, ...);
+int os_vasprintf(char **bufptr, const char *fmt, va_list ap);
 
 
 

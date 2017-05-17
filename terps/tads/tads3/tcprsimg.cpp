@@ -54,7 +54,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
     ulong exp_cnt;
 
     /* read the number of symbol index entries */
-    sym_cnt = (long)fp->read_int4();
+    sym_cnt = fp->read_uint4();
     if (sym_cnt != 0)
     {
         /* allocate space for the symbol index list */
@@ -66,7 +66,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
     }
 
     /* read the number of dictionary symbols */
-    dict_cnt = (ulong)fp->read_int4();
+    dict_cnt = fp->read_uint4();
 
     /* if there are any symbols, read them */
     if (dict_cnt != 0)
@@ -80,7 +80,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
     }
 
     /* read the number of symbols in the file */
-    sym_cnt = (ulong)fp->read_int4();
+    sym_cnt = fp->read_uint4();
 
     /* read the symbols */
     for (i = 0 ; i < sym_cnt ; ++i)
@@ -92,7 +92,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
     }
 
     /* read the number of anonymous object symbols */
-    anon_cnt = (ulong)fp->read_int4();
+    anon_cnt = fp->read_uint4();
 
     /* read the anonymous object symbols */
     for (i = 0 ; i < anon_cnt ; ++i)
@@ -103,13 +103,13 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
     }
 
     /* read the non-symbol object ID's */
-    nonsym_cnt = (ulong)fp->read_int4();
+    nonsym_cnt = fp->read_uint4();
     for (i = 0 ; i < nonsym_cnt ; ++i)
     {
         tctarg_obj_id_t id;
 
         /* read the next non-symbol object ID */
-        id = (tctarg_obj_id_t)fp->read_int4();
+        id = (tctarg_obj_id_t)fp->read_uint4();
 
         /* 
          *   allocate a new ID for the object, and set the translation
@@ -120,7 +120,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
     }
 
     /* read the number of symbol cross-reference sections in the file */
-    sym_cnt = (ulong)fp->read_int4();
+    sym_cnt = fp->read_uint4();
 
     /* read the symbol cross-references */
     for (i = 0 ; i < sym_cnt ; ++i)
@@ -129,7 +129,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
         CTcSymbol *sym;
 
         /* read the symbol index */
-        idx = (ulong)fp->read_int4();
+        idx = fp->read_uint4();
 
         /* get the symbol from the index list */
         sym = get_objfile_sym(idx);
@@ -139,7 +139,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
     }
 
     /* read the number of anonymous object cross-references */
-    anon_cnt = (ulong)fp->read_int4();
+    anon_cnt = fp->read_uint4();
 
     /* read the anonymous object cross-references */
     for (i = 0 ; i < anon_cnt ; ++i)
@@ -148,7 +148,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
         CTcSymbol *sym;
 
         /* read the symbol index */
-        idx = (ulong)fp->read_int4();
+        idx = fp->read_uint4();
 
         /* get the symbol from the index list */
         sym = get_objfile_sym(idx);
@@ -158,7 +158,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
     }
 
     /* read the master grammar rule count */
-    prod_cnt = (ulong)fp->read_int4();
+    prod_cnt = fp->read_uint4();
 
     /* read the master grammar rule list */
     for (i = 0 ; i < prod_cnt ; ++i)
@@ -168,7 +168,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
     }
 
     /* read the number of named grammar rules */
-    prod_cnt = (ulong)fp->read_int4();
+    prod_cnt = fp->read_uint4();
 
     /* read the private grammar rules */
     for (i = 0 ; i < prod_cnt ; ++i)
@@ -176,7 +176,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
         CTcSymObj *match_sym;
 
         /* read the match object defining the rule */
-        match_sym = get_objfile_objsym(fp->read_int4());
+        match_sym = get_objfile_objsym(fp->read_uint4());
 
         /* read the private rule list */
         CTcGramProdEntry::load_from_obj_file(
@@ -184,7 +184,7 @@ int CTcParser::load_object_file(class CVmFile *fp, const textchar_t *fname,
     }
 
     /* read the export symbol list */
-    exp_cnt = (ulong)fp->read_int4();
+    exp_cnt = fp->read_uint4();
     for (i = 0 ; i < exp_cnt ; ++i)
     {
         CTcPrsExport *exp;
@@ -302,6 +302,9 @@ int CTPNStmProg::gen_code_for_build()
 int CTcParser::check_unresolved_externs()
 {
     int errcnt;
+
+    /* generate any synthesized code */
+    G_cg->build_synthesized_code();
     
     /* note the previous error count */
     errcnt = G_tcmain->get_error_count();
@@ -536,31 +539,43 @@ void CTcSymbolBase::log_objfile_conflict(const textchar_t *fname,
 int CTcSymFuncBase::load_from_obj_file(CVmFile *fp,
                                        const textchar_t *fname)
 {
+    char txtbuf[4096];
     const char *txt;
     size_t len;
-    char buf[9];
+    char buf[12];
     int is_extern;
     int ext_replace;
     int ext_modify;
     int has_retval;
     int varargs;
     int argc;
+    int opt_argc;
+    int is_multimethod, is_multimethod_base;
     int mod_base_cnt;
     CTcSymFunc *sym;
 
-    /* read the symbol name information */
-    txt = base_read_from_sym_file(fp);
+    /* 
+     *   Read the symbol name.  Use a custom reader instead of the base
+     *   reader, because function symbols can be quite long, due to
+     *   multimethod name decoration.  
+     */
+    if ((txt = CTcParser::read_len_prefix_str(
+        fp, txtbuf, sizeof(txtbuf), 0, TCERR_SYMEXP_SYM_TOO_LONG)) == 0)
+        return 1;
     len = strlen(txt);
 
     /* read our extra data */
-    fp->read_bytes(buf, 9);
+    fp->read_bytes(buf, 12);
     argc = osrp2(buf);
-    varargs = buf[2];
-    has_retval = buf[3];
-    is_extern = buf[4];
-    ext_replace = buf[5];
-    ext_modify = buf[6];
-    mod_base_cnt = osrp2(buf + 7);
+    opt_argc = osrp2(buf + 2);
+    varargs = buf[4];
+    has_retval = buf[5];
+    is_extern = buf[6];
+    ext_replace = buf[7];
+    ext_modify = buf[8];
+    is_multimethod = (buf[9] & 1) != 0;
+    is_multimethod_base = (buf[9] & 2) != 0;
+    mod_base_cnt = osrp2(buf + 10);
 
     /* look up any existing symbol */
     sym = (CTcSymFunc *)G_prs->get_global_symtab()->find(txt, len);
@@ -577,8 +592,9 @@ int CTcSymFuncBase::load_from_obj_file(CVmFile *fp,
          *   It's not defined yet - create the new definition and add it
          *   to the symbol table.  
          */
-        sym = new CTcSymFunc(txt, len, FALSE, argc, varargs, has_retval,
-                             is_extern);
+        sym = new CTcSymFunc(txt, len, FALSE, argc, opt_argc, varargs,
+                             has_retval, is_multimethod, is_multimethod_base,
+                             is_extern, TRUE);
         G_prs->get_global_symtab()->add_entry(sym);
 
         /* it's an error if we're replacing a previously undefined function */
@@ -593,7 +609,7 @@ int CTcSymFuncBase::load_from_obj_file(CVmFile *fp,
     {
         /* 
          *   It's already defined, but it's not a function, or this is a
-         *   non-extern/replacd definition and the symbol is already
+         *   non-extern/replaced definition and the symbol is already
          *   defined non-extern - log a symbol type conflict error.  
          */
         sym->log_objfile_conflict(fname, TC_SYM_FUNC);
@@ -605,8 +621,9 @@ int CTcSymFuncBase::load_from_obj_file(CVmFile *fp,
          *   keep in sync with the file, but don't bother adding the fake
          *   symbol object to the symbol table 
          */
-        sym = new CTcSymFunc(txt, len, FALSE, argc, varargs, has_retval,
-                             is_extern);
+        sym = new CTcSymFunc(txt, len, FALSE, argc, opt_argc, varargs,
+                             has_retval, is_multimethod, is_multimethod_base,
+                             is_extern, TRUE);
     }
     else if (sym->get_argc() != argc
              || sym->is_varargs() != varargs
@@ -614,6 +631,13 @@ int CTcSymFuncBase::load_from_obj_file(CVmFile *fp,
     {
         /* the symbol has an incompatible definition - log the error */
         G_tcmain->log_error(0, 0, TC_SEV_ERROR, TCERR_OBJFILE_FUNC_INCOMPAT,
+                            (int)len, txt, fname);
+    }
+    else if (sym->is_multimethod() != is_multimethod
+             || sym->is_multimethod_base() != is_multimethod_base)
+    {
+        /* the multi-method status conflicts */
+        G_tcmain->log_error(0, 0, TC_SEV_ERROR, TCERR_OBJFILE_MMFUNC_INCOMPAT,
                             (int)len, txt, fname);
     }
 
@@ -722,7 +746,7 @@ int CTcSymFuncBase::load_from_obj_file(CVmFile *fp,
         for (i = 0 ; i < mod_base_cnt ; ++i)
         {
             /* read the offset, adjusting to the object file start position */
-            ulong ofs = fp->read_int4() + G_cs->get_object_file_start_ofs();
+            ulong ofs = fp->read_uint4() + G_cs->get_object_file_start_ofs();
 
             /* append this item */
             sym->add_mod_base_offset(ofs);
@@ -803,40 +827,19 @@ CTcSymObj *CTcSymObjBase::
                            const textchar_t *mod_name, size_t mod_name_len,
                            int anon)
 {
-    const char *txt;
-    size_t len;
-    char buf[32];
-    ulong id;
-    int is_extern;
-    int stream_ofs_valid;
-    ulong stream_ofs;
-    CTcSymObj *sym;
-    CTcSymObj *mod_base_sym;
-    int modify_flag;
-    int ext_modify_flag;
-    int ext_replace_flag;
-    int modified_flag;
-    int class_flag;
-    CTcIdFixup *fixups;
-    CTcObjPropDel *del_prop_head;
-    tc_metaclass_t meta;
-    uint dict_idx;
-    int use_fake_sym;
-    uint obj_file_idx;
-    int trans_flag;
-
     /* presume we won't have to use a fake symbol */
-    use_fake_sym = FALSE;
+    int use_fake_sym = FALSE;
 
     /* presume we won't be able to read a stream offset */
-    stream_ofs_valid = FALSE;
+    int stream_ofs_valid = FALSE;
+    ulong stream_ofs = 0;
     
     /* read the symbol name information if it's not anonymous */
+    const char *txt;
     if (!anon)
     {
         /* read the symbol name */
-        txt = base_read_from_sym_file(fp);
-        if (txt == 0)
+        if ((txt = base_read_from_sym_file(fp)) == 0)
             return 0;
     }
     else
@@ -846,21 +849,22 @@ CTcSymObj *CTcSymObjBase::
     }
 
     /* get the symbol len */
-    len = strlen(txt);
+    size_t len = strlen(txt);
 
     /* read our extra data */
+    char buf[32];
     fp->read_bytes(buf, 17);
-    id = osrp4(buf);
-    is_extern = buf[4];
-    ext_replace_flag = buf[5];
-    modified_flag = buf[6];
-    modify_flag = buf[7];
-    ext_modify_flag = buf[8];
-    class_flag = buf[9];
-    trans_flag = buf[10];
-    meta = (tc_metaclass_t)osrp2(buf + 11);
-    dict_idx = osrp2(buf + 13);
-    obj_file_idx = osrp2(buf + 15);
+    ulong id = t3rp4u(buf);
+    int is_extern = buf[4];
+    int ext_replace_flag = buf[5];
+    int modified_flag = buf[6];
+    int modify_flag = buf[7];
+    int ext_modify_flag = buf[8];
+    int class_flag = buf[9];
+    int trans_flag = buf[10];
+    tc_metaclass_t meta = (tc_metaclass_t)osrp2(buf + 11);
+    uint dict_idx = osrp2(buf + 13);
+    uint obj_file_idx = osrp2(buf + 15);
 
     /* 
      *   if we're not external, read our stream offset, and adjust for the
@@ -868,13 +872,11 @@ CTcSymObj *CTcSymObjBase::
      */
     if (!is_extern)
     {
-        CTcDataStream *stream;
-        
         /* get the appropriate stream */
-        stream = get_stream_from_meta(meta);
+        CTcDataStream *stream = get_stream_from_meta(meta);
 
         /* read the relative stream offset */
-        stream_ofs = fp->read_int4();
+        stream_ofs = fp->read_uint4();
 
         /* 
          *   Ensure the stream offset was actually valid.  It must be valid
@@ -902,7 +904,7 @@ CTcSymObj *CTcSymObjBase::
     }
 
     /* we have no deleted properties yet */
-    del_prop_head = 0;
+    CTcObjPropDel *del_prop_head = 0;
 
     /* if this is a 'modify' object, read some additional data */
     if (modify_flag)
@@ -943,7 +945,7 @@ CTcSymObj *CTcSymObjBase::
     }
 
     /* read the self-reference fixup list */
-    fixups = 0;
+    CTcIdFixup *fixups = 0;
     CTcIdFixup::load_object_file(fp, 0, 0, TCGEN_XLAT_OBJ,
                                  4, fname, &fixups);
 
@@ -951,6 +953,7 @@ CTcSymObj *CTcSymObjBase::
      *   if this is a 'modify' object, load the base object - this is the
      *   original version of the object, which this object modifies 
      */
+    CTcSymObj *mod_base_sym = 0;
     if (modify_flag)
     {
         /* 
@@ -974,21 +977,15 @@ CTcSymObj *CTcSymObjBase::
         if (mod_base_sym == 0)
             return 0;
     }
-    else
-    {
-        /* we have no 'modify' base symbol */
-        mod_base_sym = 0;
-    }
 
     /* 
      *   If this is a 'modifed extern' symbol, it's just a placeholder to
      *   connect the bottom object in the stack of modified objects in
      *   this file with the top object in another object file. 
      */
+    CTcSymObj *sym = 0;
     if (is_extern && modified_flag)
     {
-        CTcSymObj *mod_sym;
-
         /*
          *   We're modifying an external object.  This must be the bottom
          *   object in the stack for this object file, and serves as a
@@ -1022,7 +1019,7 @@ CTcSymObj *CTcSymObjBase::
         }
         
         /* create a synthesized object to hold the original definition */
-        mod_sym = synthesize_modified_obj_sym(FALSE);
+        CTcSymObj *mod_sym = synthesize_modified_obj_sym(FALSE);
 
         /* transfer data to the new fake symbol */
         if (sym != 0)
@@ -1220,6 +1217,9 @@ CTcSymObj *CTcSymObjBase::
 
         /* forget the symbol */
         sym = 0;
+
+        /* not replacing anything after all */
+        ext_replace_flag = ext_modify_flag = FALSE;
     }
     else if (sym != 0
              && !sym->is_extern()
@@ -1343,6 +1343,9 @@ CTcSymObj *CTcSymObjBase::
     if (meta == TC_META_DICT)
         G_prs->add_dict_from_obj_file(sym);
 
+    /* set the transient flag */
+    if (trans_flag)
+        sym->set_transient();
 
     /*
      *   Set the translation table entry for the symbol.  We know the
@@ -1360,12 +1363,8 @@ CTcSymObj *CTcSymObjBase::
  */
 void CTcSymObjBase::apply_internal_fixups()
 {
-    CTcIdFixup *fixup;
-    CTcObjPropDel *entry;
-    CTcSymObj *mod_base;
-    
     /* run through our list and apply each fixup */
-    for (fixup = fixups_ ; fixup != 0 ; fixup = fixup->nxt_)
+    for (CTcIdFixup *fixup = fixups_ ; fixup != 0 ; fixup = fixup->nxt_)
         fixup->apply_fixup(obj_id_, 4);
     
     /*
@@ -1377,11 +1376,12 @@ void CTcSymObjBase::apply_internal_fixups()
      *   classes.  Don't delete the properties in our own object,
      *   obviously - just in our modified base classes.  
      */
-    for (mod_base = mod_base_sym_ ; mod_base != 0 ;
+    for (CTcSymObj *mod_base = mod_base_sym_ ; mod_base != 0 ;
          mod_base = mod_base->get_mod_base_sym())
     {
         /* delete each property in our deletion list in this base class */
-        for (entry = first_del_prop_ ; entry != 0 ; entry = entry->nxt_)
+        for (CTcObjPropDel *entry = first_del_prop_ ; entry != 0 ;
+             entry = entry->nxt_)
         {
             /* delete this property from the base object */
             mod_base->delete_prop_from_mod_base(entry->prop_sym_->get_prop());
@@ -1398,18 +1398,15 @@ void CTcSymObjBase::apply_internal_fixups()
  */
 void CTcSymObjBase::merge_grammar_entry()
 {
-    CTcSymObj *prod_sym;
-    CTcGramProdEntry *master_entry;
-
     /* if I don't have a grammar list, there's nothing to do */
     if (grammar_entry_ == 0)
         return;
 
     /* get the grammar production object my rules are associated with */
-    prod_sym = grammar_entry_->get_prod_sym();
+    CTcSymObj *prod_sym = grammar_entry_->get_prod_sym();
 
     /* get the master list for the production */
-    master_entry = G_prs->get_gramprod_entry(prod_sym);
+    CTcGramProdEntry *master_entry = G_prs->get_gramprod_entry(prod_sym);
 
     /* move the alternatives from my private list to the master list */
     grammar_entry_->move_alts_to(master_entry);
@@ -1439,13 +1436,14 @@ int CTcSymMetaclassBase::
     tctarg_obj_id_t class_obj;
 
     /* read the symbol name */
-    txt = base_read_from_sym_file(fp);
+    if ((txt = base_read_from_sym_file(fp)) == 0)
+        return 1;
     len = strlen(txt);
 
     /* read the metaclass index, class object ID, and property count */
     fp->read_bytes(buf, 8);
     meta_idx = osrp2(buf);
-    class_obj = osrp4(buf + 2);
+    class_obj = t3rp4u(buf + 2);
     prop_cnt = osrp2(buf + 6);
 
     /* check for a previous definition */
@@ -1497,7 +1495,8 @@ int CTcSymMetaclassBase::
         int is_static;
         
         /* read the property symbol name */
-        txt = base_read_from_sym_file(fp);
+        if ((txt = base_read_from_sym_file(fp)) == 0)
+            return 1;
         len = strlen(txt);
 
         /* read the flags */
@@ -1619,23 +1618,20 @@ int CTcSymPropBase::load_from_obj_file(class CVmFile *fp,
                                        const textchar_t *fname,
                                        tctarg_prop_id_t *prop_xlat)
 {
-    const char *txt;
-    size_t len;
-    ulong id;
-    CTcSymProp *sym;
-
     /* read the symbol name information */
-    txt = base_read_from_sym_file(fp);
-    len = strlen(txt);
+    const char *txt;
+    if ((txt = base_read_from_sym_file(fp)) == 0)
+        return 1;
+    size_t len = strlen(txt);
 
     /* read our property ID */
-    id = (ulong)fp->read_int4();
+    ulong id = fp->read_uint4();
 
     /* 
      *   If this symbol is already defined, make sure the original
      *   definition is a property.  If it's not defined, define it anew.  
      */
-    sym = (CTcSymProp *)G_prs->get_global_symtab()->find(txt, len);
+    CTcSymProp *sym = (CTcSymProp *)G_prs->get_global_symtab()->find(txt, len);
     if (sym == 0)
     {
         /* 
@@ -1692,11 +1688,12 @@ int CTcSymEnumBase::load_from_obj_file(class CVmFile *fp,
     int is_token;
 
     /* read the symbol name information */
-    txt = base_read_from_sym_file(fp);
+    if ((txt = base_read_from_sym_file(fp)) == 0)
+        return 1;
     len = strlen(txt);
 
     /* read our enumerator ID */
-    id = (ulong)fp->read_int4();
+    id = fp->read_uint4();
 
     /* read our flags */
     fp->read_bytes(buf, 1);
@@ -1760,15 +1757,16 @@ int CTcSymBifBase::load_from_obj_file(class CVmFile *fp,
     size_t len;
     CTcSymBif *sym;
     char buf[10];
-    int func_set_id;
-    int func_idx;
+    ushort func_set_id;
+    ushort func_idx;
     int has_retval;
     int min_argc;
     int max_argc;
     int varargs;
 
     /* read the symbol name information */
-    txt = base_read_from_sym_file(fp);
+    if ((txt = base_read_from_sym_file(fp)) == 0)
+        return 1;
     len = strlen(txt);
 
     /* read our additional information */
@@ -1852,7 +1850,7 @@ void CTcGramProdEntry::load_from_obj_file(
      *   read the object file index of the production object, and get the
      *   production object 
      */
-    idx = (uint)fp->read_int4();
+    idx = fp->read_uint4();
     obj = G_prs->get_objfile_objsym(idx);
 
     /* declare the production object */
@@ -1864,14 +1862,14 @@ void CTcGramProdEntry::load_from_obj_file(
             obj->get_sym(), obj->get_sym_len());
 
     /* read the flags */
-    flags = (ulong)fp->read_int4();
+    flags = fp->read_uint4();
 
     /* set the explicitly-declared flag if appropriate */
     if (flags & 1)
         prod->set_declared(TRUE);
 
     /* read the alternative count */
-    cnt = (uint)fp->read_int4();
+    cnt = fp->read_uint4();
 
     /* read the alternatives */
     for ( ; cnt != 0 ; --cnt)
@@ -1913,11 +1911,11 @@ CTcGramProdAlt *CTcGramProdAlt::
     badness = fp->read_int2();
 
     /* read my processor object index, and get the associated object */
-    idx = (uint)fp->read_int4();
+    idx = fp->read_uint4();
     obj = G_prs->get_objfile_objsym(idx);
 
     /* read my dictionary object index, and get the associated entry */
-    idx = (uint)fp->read_int4();
+    idx = fp->read_uint4();
     dict = G_prs->get_obj_dict(idx);
 
     /* create the alternative object */
@@ -1928,7 +1926,7 @@ CTcGramProdAlt *CTcGramProdAlt::
     alt->set_badness(badness);
 
     /* read the number of tokens */
-    cnt = (ulong)fp->read_int4();
+    cnt = fp->read_uint4();
 
     /* read the tokens */
     for ( ; cnt != 0 ; --cnt)
@@ -1980,7 +1978,7 @@ CTcGramProdTok *CTcGramProdTok::
     {
     case TCGRAM_PROD:
         /* read the production object's object file index */
-        idx = (uint)fp->read_int4();
+        idx = fp->read_uint4();
 
         /* translate it to an object */
         obj = G_prs->get_objfile_objsym(idx);
@@ -1991,7 +1989,7 @@ CTcGramProdTok *CTcGramProdTok::
 
     case TCGRAM_TOKEN_TYPE:
         /* read the token ID, translating to the new enum numbering */
-        enum_id = enum_xlat[fp->read_int4()];
+        enum_id = enum_xlat[fp->read_uint4()];
 
         /* set the token-type match */
         tok->set_match_token_type(enum_id);

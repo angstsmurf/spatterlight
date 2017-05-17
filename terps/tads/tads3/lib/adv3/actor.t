@@ -102,9 +102,8 @@ class FollowInfo: object
  */
 class Posture: object
     /* 
-     *   Try getting the current actor into this posture within the
-     *   actor's current location, by running an appropriate implied
-     *   command.  
+     *   Try getting the current actor into this posture within the given
+     *   location, by running an appropriate implied command.  
      */
     tryMakingPosture(loc) { }
 
@@ -120,7 +119,7 @@ class Posture: object
  */
 standing: Posture
     tryMakingPosture(loc) { return tryImplicitAction(StandOn, loc); }
-    setActorToPosture(actor, loc) { nestedActorAction(actor, Stand); }
+    setActorToPosture(actor, loc) { nestedActorAction(actor, StandOn, loc); }
 ;
 
 /*
@@ -195,6 +194,7 @@ conversationManager: OutputFilter, PreinitObject
             local actor;
             local sp;
             local tag;
+            local nxtOfs;
             
             /* scan for the next tag */
             match = rexSearch(tagPat, txt, start);
@@ -202,6 +202,9 @@ conversationManager: OutputFilter, PreinitObject
             /* if we didn't find it, we're done */
             if (match == nil)
                 break;
+
+            /* note the next offset */
+            nxtOfs = match[1] + match[2];
 
             /* get the argument (the third group from the match) */
             arg = rexGroup(3);
@@ -216,7 +219,7 @@ conversationManager: OutputFilter, PreinitObject
             {
             case 'reveal':
                 /* reveal the key by adding it to our database */
-                revealedNameTab[arg] = true;
+                setRevealed(arg);
                 break;
 
             case 'convbegin':
@@ -261,7 +264,7 @@ conversationManager: OutputFilter, PreinitObject
                  *   course of this response, apply the default 
                  */
                 if (!actor.responseSetConvNode)
-                    actor.setConvNode(arg);
+                    actor.setConvNodeReason(arg, 'convend');
 
                 /*
                  *   Since we've just finished showing a message that
@@ -280,11 +283,27 @@ conversationManager: OutputFilter, PreinitObject
 
             case 'convnode':
                 /* 
-                 *   if there's a current responding actor, set its current
-                 *   conversation node 
+                 *   If there's a current responding actor, set its current
+                 *   conversation node.
                  */
                 if (respondingActor != nil)
-                    respondingActor.setConvNode(arg);
+                {
+                    /* 
+                     *   Set the new node.  While we're working, capture
+                     *   any output that occurs so that we can insert it
+                     *   into the output stream just after the <.convnode>
+                     *   tag, so that any text displayed within the
+                     *   ConvNode's activation method (noteActive) is
+                     *   displayed in the proper order.  
+                     */
+                    local ctxt = mainOutputStream.captureOutput(
+                        {: respondingActor.setConvNodeReason(arg, 'convnode') });
+
+                    /* re-insert any text we captured */
+                    txt = txt.substr(1, nxtOfs - 1)
+                        + ctxt
+                        + txt.substr(nxtOfs);
+                }
                 break;
 
             case 'convstay':
@@ -309,7 +328,7 @@ conversationManager: OutputFilter, PreinitObject
             }
 
             /* continue the search after this match */
-            start = match[1] + match[2];
+            start = nxtOfs;
         }
 
         /* 
@@ -446,6 +465,25 @@ conversationManager: OutputFilter, PreinitObject
      */
     respondingActor = nil
 
+    /*
+     *   Mark a tag as revealed.  This adds an entry for the tag to the
+     *   revealedNameTab table.  We simply set the table entry to 'true';
+     *   the presence of the tag in the table constitutes the indication
+     *   that the tag has been revealed.
+     *   
+     *   (Games and library extensions can use 'modify' to override this
+     *   and store more information in the table entry.  For example, you
+     *   could store the time when the information was first revealed, or
+     *   the location where it was learned.  If you do override this, just
+     *   be sure to set the revealedNameTab entry for the tag to a non-nil
+     *   and non-zero value, so that any code testing the presence of the
+     *   table entry will see that the slot is indeed set.)  
+     */
+    setRevealed(tag)
+    {
+        revealedNameTab[tag] = true;
+    }
+
     /* 
      *   The global lookup table of all revealed keys.  This table is keyed
      *   by the string naming the revelation; the value associated with
@@ -561,7 +599,10 @@ class TopicDatabase: object
         resp.handleTopic(fromActor, topic);
     }
 
-    /* find the best response (a TopicEntry object) for the given topic */
+    /* 
+     *   find the best response (a TopicEntry object) for the given topic
+     *   (a ResolvedTopic object) 
+     */
     findTopicResponse(fromActor, topic, convType, path)
     {
         local topicList;
@@ -578,8 +619,9 @@ class TopicDatabase: object
         if (topicList == nil)
             return nil;
 
-        /* scan our topic list for the best match */
-        best = nil;
+        /* scan our topic list for the best match(es) */
+        best = new Vector();
+        bestScore = nil;
         foreach (local cur in topicList)
         {
             /* get this item's score */
@@ -593,11 +635,133 @@ class TopicDatabase: object
              */
             if (score != nil
                 && cur.checkIsActive()
-                && (best == nil || score > bestScore))
+                && (bestScore == nil || score >= bestScore))
             {
-                best = cur;
+                /* clear the vector if we've found a better score */
+                if (bestScore != nil && score > bestScore)
+                    best = new Vector();
+
+                /* add this match to the list of ties for this score */
+                best.append(cur);
+
+                /* note the new best score */
                 bestScore = score;
             }
+        }
+
+        /*
+         *   If the best-match list is empty, we have no matches.  If
+         *   there's just one match, we have a winner.  If we found more
+         *   than one match tied for first place, we need to pick one
+         *   winner.  
+         */
+        if (best.length() == 0)
+        {
+            /* no matches at all */
+            best = nil;
+        }
+        else if (best.length() == 1)
+        {
+            /* exactly one match - it's easy to pick the winner */
+            best = best[1];
+        }
+        else
+        {
+            /* 
+             *   We have multiple topics tied for first place.  Run through
+             *   the topic list and ask each topic to propose the winner. 
+             */
+            local toks = topic.topicProd.getOrigTokenList().mapAll(
+                {x: getTokVal(x)});
+            local winner = nil;
+            foreach (local t in best)
+            {
+                /* ask this topic what it thinks the winner should be */
+                winner = t.breakTopicTie(best, topic, fromActor, toks);
+
+                /* if the topic had an opinion, we can stop searching */
+                if (winner != nil)
+                    break;
+            }
+
+            /* 
+             *   If no one had an opinion, run through the list again and
+             *   try to pick by vocabulary match strength.  This is only
+             *   possible when all of the topics are associated with
+             *   simulation objects; if any topics have pattern matches, we
+             *   can't use this method.  
+             */
+            if (winner == nil)
+            {
+                local rWinner = nil;
+                foreach (local t in best)
+                {
+                    /* get this topic's match object(s) */
+                    local m = t.matchObj;
+                    if (m == nil)
+                    {
+                        /* 
+                         *   there's no match object - it's not comparable
+                         *   to others in terms of match strength, so we
+                         *   can't use this method to break the tie 
+                         */
+                        winner = nil;
+                        break;
+                    }
+
+                    /* 
+                     *   If it's a list, search for an element with a
+                     *   ResolveInfo entry in the topic match, using the
+                     *   strongest match if we find more than one.
+                     *   Otherwise, just use the strength of this match.  
+                     */
+                    local ri;
+                    if (m.ofKind(Collection))
+                    {
+                        /* search for a ResolveInfo object */
+                        foreach (local mm in m)
+                        {
+                            /* get this topic */
+                            local riCur = topic.getResolveInfo(mm);
+
+                            /* if this is the best match so far, keep it */
+                            if (compareVocabMatch(riCur, ri) > 0)
+                                ri = riCur;
+                        }
+                    }
+                    else
+                    {
+                        /* get the ResolveInfo object */
+                        ri = topic.getResolveInfo(m);
+                    }
+
+                    /* 
+                     *   if we didn't find a match, we can't use this
+                     *   method to break the tie 
+                     */
+                    if (ri == nil)
+                    {
+                        winner = nil;
+                        break;
+                    }
+
+                    /* 
+                     *   if this is the best match so far, elect it as the
+                     *   tentative winner 
+                     */
+                    if (compareVocabMatch(ri, rWinner) > 0)
+                    {
+                        rWinner = ri;
+                        winner = t;
+                    }
+                }
+            }
+
+            /* 
+             *   if there's a tie-breaking winner, use it; otherwise just
+             *   arbitrarily pick the first item in the list of ties 
+             */
+            best = (winner != nil ? winner : best[1]);
         }
 
         /*
@@ -634,6 +798,48 @@ class TopicDatabase: object
 
         /* return the best matching response object, if any */
         return best;
+    }
+
+    /*
+     *   Compare the vocabulary match strengths of two ResolveInfo objects,
+     *   for the purposes of breaking ties in topic matching.  Uses the
+     *   usual comparison/sorting return value conventions: -1 means that a
+     *   is weaker than b, 0 means they're equivalent, 1 means a is
+     *   stronger than b.  
+     */
+    compareVocabMatch(a, b)
+    {
+        /* 
+         *   If both are nil, they're equivalent.  If one or the other is
+         *   nil, the non-nil item is stronger.  
+         */
+        if (a == nil && b == nil)
+            return 0;
+        if (a == nil)
+            return -1;
+        if (b == nil)
+            return 1;
+
+        /* 
+         *   Both are valid objects, so compare based on the vocabulary
+         *   match flags.
+         */
+        local fa = a.flags_, fb = b.flags_;
+
+        /* check plural truncations - no plural truncation is better */
+        if ((fa & PluralTruncated) && !(fb & PluralTruncated))
+            return -1;
+        if (!(fa & PluralTruncated) && (fb & PluralTruncated))
+            return 1;
+
+        /* check any truncation - no truncation is better */
+        if ((fa & VocabTruncated) && !(fb & VocabTruncated))
+            return -1;
+        if (!(fa & VocabTruncated) && (fb & VocabTruncated))
+            return 1;
+
+        /* we can't find any reason to prefer one over the other */
+        return 0;
     }
 
     /* show our suggested topic list */
@@ -799,7 +1005,8 @@ class ActorTopicDatabase: TopicDatabase
     /*
      *   Initiate conversation on the given simulation object.  If we can
      *   find an InitiateTopic matching the given object, we'll show its
-     *   topic response. 
+     *   topic response and return true; if we can't find a topic to
+     *   initiate, we'll simply return nil.  
      */
     initiateTopic(obj)
     {
@@ -811,7 +1018,13 @@ class ActorTopicDatabase: TopicDatabase
              *   with the player character now 
              */
             getTopicOwner().noteConversation(gPlayerChar);
+
+            /* indicate that we found a topic to initiate */
+            return true;
         }
+
+        /* we didn't find a topic to initiate */
+        return nil;
     }
 
     /* show a topic response */
@@ -819,6 +1032,13 @@ class ActorTopicDatabase: TopicDatabase
     {
         local actor = getTopicOwner();
         local newNode;
+
+        /* 
+         *   note whether the response is conversational - we need to do
+         *   this ahead of time, since invoking the response can sometimes
+         *   have the side effect of changing the response's status
+         */
+        local isConv = resp.isConversational;
         
         /* tell the conversation manager we're starting a response */
         conversationManager.beginResponse(actor);
@@ -834,7 +1054,7 @@ class ActorTopicDatabase: TopicDatabase
          *   non-conversational, it shouldn't affect the conversation
          *   thread at all, so leave the current node unchanged.  
          */
-        if (resp.isConversational)
+        if (isConv)
             newNode = nil;
         else
             newNode = actor.curConvNode;
@@ -1363,6 +1583,9 @@ class ConvNode: ActorTopicDatabase
         /* show our NPC greeting */
         npcGreetingMsg();
 
+        /* look for an ActorHelloTopic within the node */
+        handleTopic(gPlayerChar, actorHelloTopicObj, helloConvType, nil);
+
         /* end the response, staying in the current ConvNode by default */
         conversationManager.finishResponse(actor, self);
     }
@@ -1380,7 +1603,7 @@ class ConvNode: ActorTopicDatabase
         conversationManager.beginResponse(actor);
 
         /* show our text, watching to see if we generate any output */
-        disp = outputManager.curOutputStream.watchForOutput(new function()
+        disp = outputManager.curOutputStream.watchForOutput(function()
         {
             /* 
              *   if we have a continuation list, invoke it; otherwise if we
@@ -1619,8 +1842,40 @@ class ConvNode: ActorTopicDatabase
     activeSpecialTopic = nil
 
     /*
-     *   Note that we're becoming active.  Our actor will call this method
-     *   when we're becoming active, as long as we weren't already active. 
+     *   Note that we're becoming active, with a reason code.  Our actor
+     *   will call this method when we're becoming active, as long as we
+     *   weren't already active.
+     *   
+     *   'reason' is a string giving a reason code for why we're being
+     *   called.  For calls from the library, this will be one of these
+     *   codes:
+     *   
+     *    'convnode' - processing a <.convnode> tag
+     *   
+     *    'convend' - processing a <.convend> tag
+     *   
+     *    'initiateConversation' - a call to Actor.initiateConversation()
+     *   
+     *    'endConversation' - a call to Actor.endConversation()
+     *   
+     *   The reason code is provided so that the node can adapt its action
+     *   for different trigger conditions, if desired.  By default, we
+     *   ignore the reason code and just call the basic noteActive()
+     *   method.  
+     */
+    noteActiveReason(reason)
+    {
+        noteActive();
+    }
+    
+    /*
+     *   Note that we're becoming active, with a reason code.  Our actor
+     *   will call this method when we're becoming active, as long as we
+     *   weren't already active.
+     *   
+     *   Note that if you want to adapt the method's behavior according to
+     *   why the node was activated, you can override noteActiveReason()
+     *   instead of this method.  
      */
     noteActive()
     {
@@ -2118,16 +2373,16 @@ class TopicEntry: object
     altTopicList = []
 
     /* 
-     *   Match the topic.  This is abstract in this base class; it must be
-     *   defined by each concrete subclass.  This returns nil if there's
-     *   no match, or an integer value if there's a match.  The higher the
+     *   Match a topic.  This is abstract in this base class; it must be
+     *   defined by each concrete subclass.  This returns nil if there's no
+     *   match, or an integer value if there's a match.  The higher the
      *   number's value, the stronger the match.
      *   
      *   This is abstract in the base class because the meaning of 'topic'
      *   varies by subclass, according to which type of command it's used
      *   with.  For example, in ASK and TELL commands, 'topic' is a
      *   ResolvedTopic describing the topic in the player's command; for
-     *   GIVE and SHOW commands, it's the resolved simulation object.
+     *   GIVE and SHOW commands, it's the resolved simulation object.  
      */
     // matchTopic(fromActor, topic) { return nil; }
 
@@ -2151,6 +2406,48 @@ class TopicEntry: object
      *   some other reason.  
      */
     // isMatchPossible(actor, scopeList) { return true; }
+
+    /*
+     *   Break a tie among matching topics entries.  The topic database
+     *   searcher calls this on each matching topic entry when it finds
+     *   multiple entries tied for first place, based on their match
+     *   scores.  This gives the entries a chance to figure out which one
+     *   is actually the best match for the input, given the other entries
+     *   that also matched.
+     *   
+     *   This method returns a TopicEntry object - one of the objects from
+     *   the match list - if it has an opinion as to which one should take
+     *   precedence.  It returns nil if it doesn't know or doesn't care.
+     *   Returning nil gives the other topics in the match list a chance to
+     *   make the selection.  If all of the objects in the list return nil,
+     *   the topic database searcher simply picks one of the topic matches
+     *   arbitrarily.
+     *   
+     *   'matchList' is the list of tied TopicEntry objects.  'topic' is
+     *   the ResolvedTopic object from the parser, representing the
+     *   player's input phrase that we're matching.  'fromActor' is the
+     *   actor performing the command.  'toks' is a list of strings giving
+     *   the word tokens of the noun phrase.
+     *   
+     *   The topic database searcher calls this method for each matching
+     *   topic entry in the case of a tie, and simply accepts the opinion
+     *   of the first one that expresses an opinion by returning a non-nil
+     *   value.  There's no voting; whoever happens to get *and use* the
+     *   first say also gets the last word.  We expect that this won't be a
+     *   problem in practice: when this comes up at all, it's because there
+     *   are a couple of closely related topic entries that are active in a
+     *   particular context, and you need a special bit of tweaking to pick
+     *   the right one for a given input phrase.  Simply pick one of the
+     *   involved entries and define this method there.  
+     */
+    breakTopicTie(matchList, topic, fromActor, toks)
+    {
+        /* 
+         *   we don't have an opinion - defer to the next object in the
+         *   list, or allow an arbitrary selection 
+         */
+        return nil;
+    }
 
     /*
      *   Set pronouns for the topic, if possible.  If the topic corresponds
@@ -2188,7 +2485,7 @@ class TopicEntry: object
      *   way to define a topic with just one response.
      *   
      *   Note that 'topic' will vary by subclass, depending on the type of
-     *   o comamnd used with the topic type.  For example, for ASK and TELL
+     *   command used with the topic type.  For example, for ASK and TELL
      *   commands, 'topic' is a ResolvedTopic object; for GIVE and SHOW,
      *   it's a simulation object (i.e., generally a Thing subclass).  
      */
@@ -2507,6 +2804,9 @@ class TopicMatchTopic: TopicEntry
      *   object or objects in matchObj, or the pattern in matchPattern.
      *   Note that we always try both ways of matching, so a single
      *   AskTellTopic can define both a pattern and an object list.
+     *   
+     *   'topic' is a ResolvedTopic object describing the player's text
+     *   input and the list of objects that the parser matched to the text.
      *   
      *   Subclasses can override this as desired to use other ways of
      *   matching.  
@@ -2989,6 +3289,16 @@ class HelloTopic: MiscTopic
      *   an implied greeting, regardless of how conversational we are
      */
     impliesGreeting = nil
+
+    /* 
+     *   if we use this as a greeting upon entering a ConvNode, we'll want
+     *   to stay in the node afterward
+     */
+    noteInvocation(fromActor)
+    {
+        inherited(fromActor);
+        "<.convstay>";
+    }
 ;
 
 /*
@@ -3016,6 +3326,39 @@ class ImpHelloTopic: MiscTopic
      *   another greeting to greet the greeting
      */
     impliesGreeting = nil
+
+    /* 
+     *   if we use this as a greeting upon entering a ConvNode, we'll want
+     *   to stay in the node afterward
+     */
+    noteInvocation(fromActor)
+    {
+        inherited(fromActor);
+        "<.convstay>";
+    }
+;
+
+/*
+ *   Actor Hello topic - this handles greetings when an NPC initiates the
+ *   conversation. 
+ */
+class ActorHelloTopic: MiscTopic
+    includeInList = [&miscTopics]
+    matchList = [actorHelloTopicObj]
+    matchScore = 200
+
+    /* this is a greeting, so we don't want to trigger another greeting */
+    impliesGreeting = nil
+
+    /* 
+     *   if we use this as a greeting upon entering a ConvNode, we'll want
+     *   to stay in the node afterward
+     */
+    noteInvocation(fromActor)
+    {
+        inherited(fromActor);
+        "<.convstay>";
+    }
 ;
 
 /*
@@ -3029,6 +3372,17 @@ class ByeTopic: MiscTopic
     includeInList = [&miscTopics]
     matchList = [byeTopicObj,
                  leaveByeTopicObj, boredByeTopicObj, actorByeTopicObj]
+
+    /* 
+     *   If we're not already in a conversation when we say GOODBYE, don't
+     *   bother saying HELLO implicitly - if the player is saying GOODBYE
+     *   explicitly, she probably has the impression that there's some kind
+     *   of interaction already going on with the NPC.  If we didn't
+     *   override this, you'd get an automatic HELLO followed by the
+     *   explicit GOODBYE when not already in conversation, which is a
+     *   little weird. 
+     */
+    impliesGreeting = nil
 ;
 
 /* 
@@ -3095,8 +3449,9 @@ class ActorByeTopic: MiscTopic
 /* a topic for both HELLO and GOODBYE */
 class HelloGoodbyeTopic: MiscTopic
     includeInList = [&miscTopics]
-    matchList = [helloTopicObj, impHelloTopicObj, byeTopicObj,
-                 boredByeTopicObj, leaveByeTopicObj, actorByeTopicObj]
+    matchList = [helloTopicObj, impHelloTopicObj,
+                 byeTopicObj, boredByeTopicObj, leaveByeTopicObj,
+                 actorByeTopicObj]
 
     /* 
      *   since we handle greetings, we don't want to trigger a separate
@@ -3119,6 +3474,14 @@ byeTopicObj: object;
  *   ASK ABOUT or TELL ABOUT, rather than explicitly saying HELLO first) 
  */
 impHelloTopicObj: object;
+
+/*
+ *   a topic singleton for an NPC-initiated hello (this is the kind of
+ *   greeting that happens when the NPC is the one who initiates the
+ *   conversation, via actor.initiateConversation()) 
+ */
+actorHelloTopicObj: object;
+
 
 /* 
  *   topic singletons for the two kinds of automatic goodbyes (the kind of
@@ -3353,9 +3716,15 @@ class DefaultAskForTopic: DefaultTopic
     includeInList = [&askForTopics]
     matchScore = 3
 ;
-DefaultAnyTopic: DefaultTopic
+class DefaultAnyTopic: DefaultTopic
     includeInList = [&askTopics, &tellTopics, &showTopics, &giveTopics,
                      &askForTopics, &miscTopics, &commandTopics]
+
+    /* 
+     *   exclude these from actor-initiated hellos & goodbyes - those
+     *   should only match topics explicitly 
+     */
+    excludeMatch = [actorHelloTopicObj, actorByeTopicObj]
     matchScore = 1
 ;
 
@@ -4211,7 +4580,7 @@ class ActorState: TravelMessageHandler, ActorTopicDatabase
         }
 
         /* forget any conversation tree position */
-        ourActor.setConvNode(nil);
+        ourActor.setConvNodeReason(nil, 'endConversation');
 
         /* indicate that we are allowing the conversation to end */
         return true;
@@ -4424,7 +4793,11 @@ class ConversationReadyState: ActorState
      *   message we want to display when we're ending a conversation and
      *   switching from the conversation to this state.  'reason' is the
      *   endConvXxx enum indicating what triggered the termination of the
-     *   conversation.
+     *   conversation.  'oldNode' is the ConvNode we were in just before we
+     *   initiated the termination - we need this information because we
+     *   want to look in the ConvNode for a Bye topic message to display,
+     *   but we can't just look in the actor for the node because it will
+     *   already have been cleared out by the time we get here.
      *   
      *   Games shouldn't normally override this method.  Instead, simply
      *   create a ByeTopic entry and put it inside the state object; we'll
@@ -4439,7 +4812,7 @@ class ConversationReadyState: ActorState
      *   handle explicit GOODBYE commands, and the others (ImpByeTopic,
      *   BoredByeTopic, LeaveByeTopic) will handle the implied kinds.  
      */
-    enterFromConversation(actor, reason)
+    enterFromConversation(actor, reason, oldNode)
     {
         local topic;
         local reasonMap = [endConvBye, byeTopicObj,
@@ -4450,8 +4823,16 @@ class ConversationReadyState: ActorState
         /* figure out which topic object we need, based on the reason code */
         topic = reasonMap[reasonMap.indexOf(reason) + 1];
         
-        /* look for a ByeTopic in our database */
-        handleTopic(actor, topic, byeConvType, nil);
+        /* 
+         *   Look for a ByeTopic in the ConvNode; failing that, try our own
+         *   database. 
+         */
+        if (oldNode == nil
+            || !oldNode.handleConversation(actor, topic, byeConvType, nil))
+        {
+            /* there's no node handler; try our own database */
+            handleTopic(actor, topic, byeConvType, nil);
+        }
     }
 
     /* handle a conversational action directed to our actor */
@@ -4482,6 +4863,19 @@ class ConversationReadyState: ActorState
              */
             inConvState.handleConversation(otherActor, topic, convType);
         }
+    }
+
+    /*
+     *   Initiate conversation based on the given simulation object.  This
+     *   is an internal method that isn't usually called directly from game
+     *   code; game code usually calls the Actor's initiateTopic(), which
+     *   calls this routine to check for a topic that's part of the state
+     *   object. 
+     */
+    initiateTopic(obj)
+    {
+        /* defer to our in-conversation state */
+        return inConvState.initiateTopic(obj);
     }
 
     /*
@@ -4614,6 +5008,14 @@ class InConversationState: ActorState
         local myActor = getActor();
 
         /* 
+         *   note the current ConvNode for our actor - when we check with
+         *   the ConvNode to see about ending the conversation, this will
+         *   automatically exit the ConvNode, so we need to save this first
+         *   so that we can refer to it later to check for a Bye topic
+         */
+        local oldNode = myActor.curConvNode;
+
+        /* 
          *   Inherit the base behavior first - if it disallows the action,
          *   return failure.  The inherited version will check with the
          *   current ConvNode to see if has any objection.  
@@ -4631,10 +5033,12 @@ class InConversationState: ActorState
         /* 
          *   If the next state is a 'conversation ready' state, tell it
          *   we're entering from a conversation.  We're ending the
-         *   conversation explicitly only if 'reason' is endConvBye.  
+         *   conversation explicitly only if 'reason' is endConvBye.  Pass
+         *   along the ConvNode we just exited (if any), so that we can
+         *   look for a response in the node.  
          */
         if (nxt.ofKind(ConversationReadyState))
-            nxt.enterFromConversation(actor, reason);
+            nxt.enterFromConversation(actor, reason, oldNode);
 
         /* switch our actor to the next state */
         myActor.setCurState(nxt);
@@ -4649,12 +5053,32 @@ class InConversationState: ActorState
         /* handle goodbyes specially */
         if (convType == byeConvType)
         {
+            /*
+             *   If this is an implicit goodbye, run the normal
+             *   conversation handling in order to display any implied
+             *   ByeTopic message - but capture the output in case we
+             *   decide not to end the conversation after all.  Only do
+             *   this in the case of an implicit goodbye, though - for an
+             *   explicit goodbye, there's no need for this as the explicit
+             *   BYE will do the same thing on its own.  
+             */
+            local txt = nil;
+            if (topic != byeTopicObj)
+            {
+                txt = mainOutputStream.captureOutput(
+                    {: inherited(otherActor, topic, convType) });
+            }
+
             /* 
              *   try to end the conversation; if we won't allow it,
              *   terminate the action here 
              */
             if (!endConversation(otherActor, endConvBye))
                 exit;
+
+            /* show the captured ByeTopic output */
+            if (txt != nil)
+                say(txt);
         }
         else
         {
@@ -4829,6 +5253,29 @@ class HermitActorState: ActorState
         /* just show our standard default response */
         noResponse();
     }
+
+    /* 
+     *   Since the hermit state blocks topics from outside the state, don't
+     *   offer suggestions for other topics while in this state.
+     *   
+     *   Note that you might sometimes want to override this to allow the
+     *   usual topic suggestions (by setting this to nil).  In particular:
+     *   
+     *   - If it's not outwardly obvious that the actor is unresponsive,
+     *   you'll probably want to allow suggestions.  Remember, TOPICS
+     *   suggests topics that the *PC* wants to talk about, not things the
+     *   NPC is interested in.  If the PC doesn't necessarily know that the
+     *   NPC won't respond, the PC would still want to ask about those
+     *   topics.
+     *   
+     *   - If the hermit state is to be short-lived, you might want to show
+     *   the topic suggestions even in the hermit state, so that the player
+     *   is aware that there are still useful topics to explore with the
+     *   NPC.  The player might otherwise assume that the NPC is out of
+     *   useful topics, and not bother trying again later when the NPC
+     *   becomes more responsive.  
+     */
+    limitSuggestions = true
 ;
 
 /*
@@ -4961,6 +5408,9 @@ class AccompanyingInTravelState: ActorState
          */
         nextState.arrivingTurn();
     }
+
+    /* initiate a topic - defer to the next state */
+    initiateTopic(obj) { return nextState.initiateTopic(obj); }
 
     /* 
      *   Override our departure messages.  When we're accompanying another
@@ -5136,7 +5586,7 @@ class AgendaItem: object
 PreinitObject
     execute()
     {
-        forEachInstance(AgendaItem, new function(item) {
+        forEachInstance(AgendaItem, function(item) {
             /* 
              *   If this item is initially active, add the item to its
              *   actor's agenda. 
@@ -5276,8 +5726,12 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
     convNodeTab = perInstance(new LookupTable(32, 32))
 
     /* set the current conversation node */
-    setConvNode(node)
+    setConvNode(node) { setConvNodeReason(node, nil); }
+
+    /* set the current conversation node, with a reason code */
+    setConvNodeReason(node, reason)
     {
+        /* remember the old node */
         local oldNode = curConvNode;
         
         /* if the node was specified by name, look up the object */
@@ -5305,7 +5759,7 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
 
             /* let the node know that it's becoming active */
             if (node != nil)
-                node.noteActive();
+                node.noteActiveReason(reason);
         }
 
         /* 
@@ -5370,6 +5824,12 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
         if (state == nil)
             state = curState.getImpliedConvState;
 
+        /* 
+         *   if there's an ActorHelloTopic for the old state, invoke it to
+         *   show the greeting 
+         */
+        curState.handleTopic(self, actorHelloTopicObj, helloConvType, nil);
+
         /* switch to the new state, if it's not the current state */
         if (state != nil && state != curState)
             setCurState(state);
@@ -5378,11 +5838,26 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
         noteConversation(gPlayerChar);
 
         /* switch to the conversation node */
-        setConvNode(node);
+        setConvNodeReason(node, 'initiateConversation');
 
         /* tell the conversation node that the NPC is initiating it */
         if (node != nil)
             curConvNode.npcInitiateConversation();
+    }
+
+    /*
+     *   Initiate a conversation based on the given simulation object.
+     *   We'll look for an InitiateTopic matching the given object, and if
+     *   we can find one, we'll show its topic response.  
+     */
+    initiateTopic(obj)
+    {
+        /* try our current state first */
+        if (curState.initiateTopic(obj))
+            return true;
+
+        /* we didn't find a state object; use the default handling */
+        return inherited(obj);
     }
 
     /*
@@ -6024,11 +6499,24 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
      */
     travelWithin(dest)
     {
-        local origin;
-
         /* if I'm not going anywhere, ignore the operation */
         if (dest == location)
             return;
+
+        /* 
+         *   Notify the traveler.  Note that since this is local travel
+         *   within a single top-level location, there's no connector. 
+         */
+        getTraveler(nil).travelerTravelWithin(self, dest);
+    }
+
+    /*
+     *   Traveler interface: perform local travel, between nested rooms
+     *   within a single top-level location. 
+     */
+    travelerTravelWithin(actor, dest)
+    {
+        local origin;
 
         /* remember my origin */
         origin = location;
@@ -6307,12 +6795,9 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
          */
         if (actor == nil || !canTalkTo(actor))
         {
-            local tt;
-            local res;
-            
             /* set up a TALK TO command and a resolver */
-            tt = new TalkToAction();
-            res = new Resolver(tt, gIssuingActor, gActor);
+            local tt = new TalkToAction();
+            local res = new Resolver(tt, gIssuingActor, gActor);
             
             /* get the default direct object */
             actor = tt.getDefaultDobj(new EmptyNounPhraseProd(), res);
@@ -6936,6 +7421,19 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
 
         /* turn off the sense cache now that we're done */
         libGlobal.disableSenseCache();
+    }
+
+    /*
+     *   Get my "look around" location name as a string.  This returns a
+     *   string containing the location name that we display in the status
+     *   line or at the start of a "look around" description of my
+     *   location.  
+     */
+    getLookAroundName()
+    {
+        return mainOutputStream.captureOutput(
+            {: location.lookAroundWithinName(self, getVisualAmbient()) })
+            .specialsToText();
     }
 
     /*
@@ -7691,9 +8189,10 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
     /* 
      *   Determine if I know about the given object.  I know about an
      *   object if it's specifically marked as known to me; I also know
-     *   about the object if I've ever seen it. 
+     *   about the object if I can see it now, or if I've ever seen it in
+     *   the past.  
      */
-    knowsAbout(obj) { return hasSeen(obj) || obj.(knownProp); }
+    knowsAbout(obj) { return canSee(obj) || hasSeen(obj) || obj.(knownProp); }
 
     /* mark the object as known to me */
     setKnowsAbout(obj) { obj.(knownProp) = true; }
@@ -7750,7 +8249,7 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
     /*
      *   Determine if the given object is a likely topic for a
      *   conversational action performed by this actor.  By default, we'll
-     *   return true if the topic has ever been seen, nil if not.  
+     *   return true if the topic is known, nil if not.  
      */
     isLikelyTopic(obj)
     {
@@ -9360,7 +9859,7 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
          *   reporting a parser failure, we want the message to be
          *   displayed no matter what the scope situation is. 
          */
-        callWithSenseContext(nil, nil, new function()
+        callWithSenseContext(nil, nil, function()
         {
             /* check who's talking to whom */
             if (issuingActor.isPlayerChar())
@@ -9645,7 +10144,7 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
         verify()
         {
             /* it's generally illogical to talk to oneself */
-            verifyNotSelf(&cannotTalkToSelf);
+            verifyNotSelf(&cannotTalkToSelfMsg);
         }
         action()
         {
@@ -9667,33 +10166,6 @@ class Actor: Thing, Schedulable, Traveler, ActorTopicDatabase
             /* it also makes no sense to give something to itself */
             if (gDobj == gIobj)
                 illogicalSelf(&cannotGiveToItselfMsg);
-        }
-        check()
-        {
-            /* 
-             *   If the indirect object is the issuing actor, rephrase this
-             *   as "issuer, ask actor for dobj".
-             *   
-             *   Note that we do this in 'check' rather than 'action',
-             *   because this will ensure that we'll rephrase the command
-             *   properly even if the subclass overrides with its own
-             *   check, AS LONG AS the overriding method inherits this base
-             *   definition first.  If we did the rephrasing in the
-             *   'action', then an overriding 'check' might incorrectly
-             *   disqualify the operation on the assumption that it's an
-             *   ordinary GIVE TO rather than what it really is, which is a
-             *   rephrased ASK FOR.
-             *   
-             *   Note that ASK FOR takes a topic for the indirect object -
-             *   this corresponds to our direct object, which is a normal
-             *   game object resolved in the usual fashion.  This means we
-             *   have to wrap the game object in a ResolvedTopic object for
-             *   the new phrasing.  
-             */
-            if (gIssuingActor == self)
-                replaceActorAction(
-                    self, AskFor, gActor,
-                    ResolvedTopic.wrapActionObject(DirectObject));
         }
         action()
         {

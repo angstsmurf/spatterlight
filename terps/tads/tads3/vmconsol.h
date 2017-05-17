@@ -35,6 +35,8 @@ Modified
 #include "wchar.h"
 
 #include "os.h"
+#include "t3std.h"
+#include "vmtype.h"
 #include "vmglob.h"
 
 
@@ -44,7 +46,24 @@ Modified
  *   OS_EVT_xxx codes; we start these at 10000 to ensure that we don't
  *   overlap any current or future OS_EVT_xxx event codes.  
  */
-#define VMCON_EVT_END_SCRIPT   10000
+#define VMCON_EVT_END_QUIET_SCRIPT   10000     /* end quiet script playback */
+#define VMCON_EVT_DIALOG             10001            /* result from dialog */
+#define VMCON_EVT_FILE               10002       /* result from file dialog */
+
+
+/*
+ *   Event attributes.  Some scriptable events have extra attributes
+ *   associated with them in addition to the main payload.  These attributes
+ *   take the syntactic form of HTML tag attributes, so in principal we could
+ *   have arbitrarily many attributes, each of which have arbitrary string
+ *   values.  However, at the moment, we only have a small number of
+ *   attributes, and each attribute's value is merely a boolean, so it's
+ *   adequate to represent these in the call interface with bit flags.  
+ */
+
+/* OVERWRITE, as in <file overwrite> */
+#define VMCON_EVTATTR_OVERWRITE  0x00000001
+
 
 
 /* ------------------------------------------------------------------------ */
@@ -100,7 +119,7 @@ public:
      *   directly, since we need to call some virtuals in the course of
      *   preparing for deletion 
      */
-    void delete_obj();
+    void delete_obj(VMG0_);
 
 protected:
     /* delete */
@@ -145,7 +164,7 @@ protected:
      *   manager itself - each subclass must override this to do the
      *   appropriate work on termination.  
      */
-    virtual void delete_handle_object(int handle, void *obj) = 0;
+    virtual void delete_handle_object(VMG_ int handle, void *obj) = 0;
 
     /* array of window banners */
     void **handles_;
@@ -195,8 +214,8 @@ public:
                       unsigned long style);
 
     /* delete a banner */
-    void delete_banner(int banner)
-        { delete_or_orphan_banner(banner, FALSE); }
+    void delete_banner(VMG_ int banner)
+        { delete_or_orphan_banner(vmg_ banner, FALSE); }
 
     /* 
      *   Get the OS-level handle for the banner - this handle can be used to
@@ -216,7 +235,7 @@ public:
 
 protected:
     /* delete the object in a slot, in preparation for deleting the manager */
-    virtual void delete_handle_object(int handle, void *)
+    virtual void delete_handle_object(VMG_ int handle, void *)
     {
         /* 
          *   delete the banner object, but orphan the system-level banner -
@@ -224,11 +243,11 @@ protected:
          *   after VM termination, in case the host application continues
          *   running even after the VM exits 
          */
-        delete_or_orphan_banner(handle, TRUE);
+        delete_or_orphan_banner(vmg_ handle, TRUE);
     }
 
     /* delete or orphan a banner window */
-    void delete_or_orphan_banner(int banner, int orphan);
+    void delete_or_orphan_banner(VMG_ int banner, int orphan);
 };
 
 /* ------------------------------------------------------------------------ */
@@ -242,11 +261,11 @@ public:
     CVmLogConsoleManager() { }
 
     /* create a log console - returns the console handle */
-    int create_log_console(const char *fname, osfildef *fp,
+    int create_log_console(VMG_ class CVmNetFile *nf, osfildef *fp,
                            class CCharmapToLocal *cmap, int width);
 
     /* delete a log console */
-    void delete_log_console(int handle);
+    void delete_log_console(VMG_ int handle);
 
     /* get the log's console object */
     class CVmConsoleLog *get_console(int banner)
@@ -257,10 +276,10 @@ public:
 
 protected:
     /* delete the object associated with a handle */
-    virtual void delete_handle_object(int handle, void *)
+    virtual void delete_handle_object(VMG_ int handle, void *)
     {
         /* delete the console */
-        delete_log_console(handle);
+        delete_log_console(vmg_ handle);
     }
 };
 
@@ -285,6 +304,49 @@ protected:
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Script stack entry 
+ */
+struct script_stack_entry
+{
+    script_stack_entry(VMG_ script_stack_entry *encp, int old_more,
+                       class CVmNetFile *netfile, osfildef *outfp,
+                       const vm_val_t *filespec,
+                       int new_more, int is_quiet, int is_event_script);
+
+    void delobj(VMG0_);
+
+
+    /* the enclosing stack level */
+    script_stack_entry *enc;
+
+    /* network file descriptor for our script file */
+    class CVmNetFile *netfile;
+
+    /* the script file at this level */
+    osfildef *fp;
+
+    /* the MORE mode that was in effect before this script file */
+    int old_more_mode;
+
+    /* the MORE mode in effect during this script */
+    int more_mode;
+
+    /* are we reading quietly from this script? */
+    int quiet;
+
+    /* is this an event script? */
+    int event_script;
+
+    /* VM global variable, for gc protection for our file spec */
+    struct vm_globalvar_t *filespec;
+
+private:
+    ~script_stack_entry() { }
+};
+
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Console.  A console corresponds to device that shows information to
  *   and reads text from the user.  On a text system, the console is
  *   simply the terminal.  On a graphical system, the console is usually
@@ -294,7 +356,7 @@ class CVmConsole
 {
 public:
     CVmConsole();
-    virtual ~CVmConsole();
+    virtual void delete_obj(VMG0_);
 
     /* write out a null-terminated UTF-8 string */
     int format_text(VMG_ const char *p)
@@ -355,23 +417,27 @@ public:
      *   otherwise we'll create a new file.  Returns zero on success,
      *   non-zero on failure.  
      */
-    int open_log_file(const char *fname);
+    int open_log_file(VMG_ const char *fname);
+    int open_log_file(VMG_ const vm_val_t *filespec,
+                      const struct vm_rcdesc *rc);
 
     /* 
      *   close any existing log file - returns zero on success, non-zero
      *   on failure 
      */
-    int close_log_file();
+    int close_log_file(VMG0_);
 
     /*
      *   Open a new command log file.  We'll log commands (and only
      *   commands) to the command log file.  Returns zero on success,
      *   non-zero on failure.  
      */
-    int open_command_log(const char *fname);
+    int open_command_log(VMG_ const char *fname, int event_script);
+    int open_command_log(VMG_ const vm_val_t *filespec,
+                         const struct vm_rcdesc *rc, int event_script);
 
     /* close the command log file, if there is one */
-    int close_command_log();
+    int close_command_log(VMG0_);
 
     /*
      *   Set the current MORE mode.  Returns the old state.  The state is
@@ -415,31 +481,45 @@ public:
      *   true if so, false if reading from the user (via the keyboard or
      *   other input device) 
      */
-    int is_reading_script() const { return (script_fp_ != 0); }
+    int is_reading_script() const { return (script_sp_ != 0); }
 
     /* 
      *   check to see if we're reading quietly from a script - if we're
      *   reading from a script, and this flag is true, we suppress all
      *   output
      */
-    int is_quiet_script() const { return quiet_script_; }
+    int is_quiet_script() const
+        { return (script_sp_ != 0 && script_sp_->quiet); }
+
+    /* is the script in MORE mode? */
+    int is_moremode_script() const
+        { return (script_sp_ != 0 && script_sp_->more_mode); }
+
+    /* is the script an <eventscript> type? */
+    int is_event_script() const
+        { return (script_sp_ != 0 && script_sp_->event_script); }
 
     /* 
      *   Open a script file.  If 'quiet' is true, no output is displayed
-     *   while the script is being processed.  If 'script_more_mode' is
-     *   true, MORE mode is in effect while processing the script,
-     *   otherwise MORE mode is turned off while processing the script (to
-     *   leave things as they are, simply pass in is_more_mode() for this
-     *   argument).  
+     *   while the script is being processed.  If 'script_more_mode' is true,
+     *   MORE mode is in effect while processing the script, otherwise MORE
+     *   mode is turned off while processing the script (to leave things as
+     *   they are, simply pass in is_more_mode() for this argument).
+     *   
+     *   Returns 0 on success, non-zero on error.  
      */
-    void open_script_file(const char *fname, int quiet, int script_more_mode);
+    int open_script_file(VMG_ const char *fname,
+                         int quiet, int script_more_mode);
+    int open_script_file(VMG_ const vm_val_t *filespec,
+                         const struct vm_rcdesc *rc,
+                         int quiet, int script_more_mode);
 
     /* 
      *   Close the script file.  Returns the original MORE mode that was
      *   in effect before the script file was opened; this MORE mode
      *   should be restored.  
      */
-    int close_script_file();
+    int close_script_file(VMG0_);
 
     /* 
      *   Read a line of text from the keyboard.  Fills in the buffer with
@@ -450,7 +530,7 @@ public:
      *   user's terminal has been detached, in which case we also probably
      *   can't do much except terminate).  
      */
-    int read_line(VMG_ char *buf, size_t buflen);
+    int read_line(VMG_ char *buf, size_t buflen, int bypass_script = FALSE);
 
     /*
      *   Read a line of input with optional timeout.  Fills in the buffer
@@ -469,7 +549,8 @@ public:
      *   is always allowed.  
      */
     int read_line_timeout(VMG_ char *buf, size_t buflen,
-                          unsigned long timeout, int use_timeout);
+                          unsigned long timeout, int use_timeout,
+                          int bypass_script = FALSE);
 
     /*
      *   Cancel a line of input in progress, which was interrupted by a
@@ -485,7 +566,8 @@ public:
      */
     int askfile(VMG_ const char *prompt, size_t prompt_len,
                 char *reply, size_t replen,
-                int dialog_type, os_filetype_t file_type);
+                int dialog_type, os_filetype_t file_type,
+                int bypass_script = FALSE);
 
     /*
      *   Display a system dialog.  This routine works exactly the same way
@@ -495,12 +577,43 @@ public:
     int input_dialog(VMG_ int icon_id, const char *prompt,
                      int standard_button_set,
                      const char **buttons, int button_count,
-                     int default_index, int cancel_index);
+                     int default_index, int cancel_index,
+                     int bypass_script = FALSE);
 
     /* show the MORE prompt and wait for the user to acknowledge it */
     virtual void show_more_prompt(VMG0_) = 0;
 
+    /*
+     *   Log an event.  This saves the event to the current script log, if
+     *   there is one, in the proper format for the script.  We return the
+     *   event code.
+     *   
+     *   'evt' is the event type, as an OS_EVT_xxx or VMCON_EVT_xxx code.
+     *   
+     *   'param' can be given in the local UI character set or in UTF-8 -
+     *   specify which it is via 'param_is_utf8'.  We write the file in the
+     *   local UI character set, so if the parameter is given in UTF-8, we
+     *   have to translate it.  
+     */
+    int log_event(VMG_ int evt,
+                  const char *param, size_t paramlen, int param_is_utf8);
+    int log_event(VMG_ int evt)
+        { return log_event(vmg_ evt, 0, 0, FALSE); }
+
+    /* log an event with the given event type tag */
+    void log_event(VMG_ const char *tag, 
+                   const char *param, size_t paramlen,
+                   int param_is_utf8);
+
+    /* read an event from an event script */
+    int read_event_script(VMG_ int *evt, char *buf, size_t buflen,
+                          const int *filter, int filter_cnt,
+                          unsigned long *attrs);
+
 protected:
+    /* the destructor is protected - use delete_obj() to delete */
+    virtual ~CVmConsole() { }
+
     /* 
      *   Service routine - show MORE prompt on this console.  This can be
      *   called from show_more_prompt() when a MORE prompt is desired at all
@@ -509,10 +622,37 @@ protected:
     void show_con_more_prompt(VMG0_);
     
     /* read a line from the script file */
-    int read_line_from_script(char *buf, size_t buflen);
+    int read_line_from_script(char *buf, size_t buflen, int *evt);
+
+    /* read the type tag from the next script event */
+    int read_script_event_type(int *evt, unsigned long *attrs);
+
+    /* skip to the next line of the script */
+    void skip_script_line(osfildef *fp);
+
+    /* 
+     *   read a script parameter - this reads the rest of the line into the
+     *   given buffer, and skips to the start of the next line in the script;
+     *   returns true on success, false if we reach EOF before reading
+     *   anything 
+     */
+    int read_script_param(char *buf, size_t buflen, osfildef *fp);
 
     /* internal routine to terminate line reading */
     void read_line_done(VMG0_);
+
+    /* write utf-8 text to a file, mapping to the given file character set */
+    void write_to_file(osfildef *fp, const char *txt,
+                       class CCharmapToLocal *map);
+
+
+    /* open a comand log file - internal version */
+    int open_command_log(VMG_ class CVmNetFile *netfile, int event_script);
+
+    /* open a script file - internal version */
+    int open_script_file(VMG_ class CVmNetFile *netfile,
+                         const vm_val_t *filspec,
+                         int quiet, int script_more_mode);
 
     /* our current display stream */
     class CVmFormatter *disp_str_;
@@ -524,7 +664,7 @@ protected:
      *   Flag: the log stream is enabled.  We can temporarily disable the
      *   log stream, such as when writing to the statusline stream.  
      */
-    int log_enabled_ : 1;
+    unsigned int log_enabled_ : 1;
     
     /*
      *   Flag: display two spaces after a period-like punctuation mark.
@@ -537,25 +677,25 @@ protected:
     unsigned int doublespace_ : 1;
 
     /* 
-     *   input script file - this will be null if we're reading directly
-     *   from the keyboard, and will be a file pointer if we're reading
-     *   input from a script file 
+     *   flag: the command log is an event script; if this is set, we log all
+     *   input events in the tagged <eventscript> file format, otherwise we
+     *   log just command lines in the old-style ">line" format 
      */
-    osfildef *script_fp_;
+    unsigned int command_eventscript_ : 1;
 
-    /* flag: reading quietly from script input file */
-    unsigned int quiet_script_ : 1;
-
-    /* flag: MORE mode that was in effect before the current script file */
-    unsigned int pre_script_more_mode_ : 1;
-
+    /*
+     *   Script-input stack.  Each time we open a script, we create a new
+     *   stack entry object and link it at the head of the list.  So, the
+     *   head of the list is the current state, the next element is the
+     *   enclosing state, and so on.  
+     */
+    script_stack_entry *script_sp_;
+    
     /* command log file, if there is one */
-    osfildef *command_fp_;
-
-    /* name of the command log file */
-    char command_fname_[OSFNMAX];
+    class CVmDataSource *command_fp_;
+    class CVmNetFile *command_nf_;
+    struct vm_globalvar_t *command_glob_;
 };
-
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -566,7 +706,9 @@ class CVmConsoleMain: public CVmConsole
 {
 public:
     CVmConsoleMain(VMG0_);
-    ~CVmConsoleMain();
+
+    /* delete */
+    void delete_obj(VMG0_);
 
     /* get the system banner manager */
     class CVmBannerManager *get_banner_manager() const
@@ -654,7 +796,9 @@ class CVmConsoleBanner: public CVmConsole
 public:
     /* create */
     CVmConsoleBanner(void *banner_handle, int win_type, unsigned long style);
-    ~CVmConsoleBanner();
+
+    /* delete */
+    void delete_obj(VMG0_);
 
     /* retrieve our OS-level banner handle */
     void *get_os_handle() const { return banner_; }
@@ -739,20 +883,26 @@ class CVmConsoleLog: public CVmConsoleLogBase
 {
 public:
     /* create */
-    CVmConsoleLog(const char *fname, osfildef *fp,
+    CVmConsoleLog(VMG_ CVmNetFile *nf, osfildef *fp,
                   class CCharmapToLocal *cmap, int width);
-    ~CVmConsoleLog();
+
+    void delete_obj(VMG0_);
+
+protected:
 };
 
 /*
  *   A special console that sends output to the *main* console's log file.
+ *   This allows code to be written with a generic console pointer, rather
+ *   than a test checking for the main console or some other console; just
+ *   plug this in when there's not another console pointer and output will go
+ *   to the main console automatically.  
  */
 class CVmConsoleMainLog: public CVmConsoleLogBase
 {
 public:
     /* create */
     CVmConsoleMainLog() { }
-    ~CVmConsoleMainLog() { }
 
     /* we send text to the main console's log */
     int format_text(VMG_ const char *p, size_t len)
@@ -760,6 +910,9 @@ public:
         /* send the text to the main console's log file */
         return G_console->format_text_to_log(vmg_ p, len);
     }
+
+protected:
+    ~CVmConsoleMainLog() { }
 };
 
 
@@ -788,6 +941,8 @@ public:
 enum vmconsole_html_state
 {
     VMCON_HPS_NORMAL,                          /* normal text, not in a tag */
+    VMCON_HPS_TAG_START,                      /* parsing the start of a tag */
+    VMCON_HPS_TAG_NAME,                               /* parsing a tag name */
     VMCON_HPS_TAG,                                  /* parsing inside a tag */
     VMCON_HPS_ATTR_NAME,                       /* parsing an attribute name */
     VMCON_HPS_ATTR_VAL,                       /* parsing an attribute value */
@@ -957,8 +1112,12 @@ public:
         cmap_ = 0;
     }
 
-    virtual ~CVmFormatter();
-    
+    /* 
+     *   delete the object (call this instead of calling the destructor
+     *   directly, since some subclasses need global access)
+     */
+    virtual void delete_obj(VMG0_) { delete this; }
+
     /* initialize */
     virtual void init()
     {
@@ -1028,6 +1187,9 @@ public:
 
         /* not yet in quotes (-> nesting depth is zero) */
         html_quote_level_ = 0;
+
+        /* not in a PRE section */
+        html_pre_level_ = 0;
 
         /* we're not parsing inside any tags yet */
         html_allow_alt_ = FALSE;
@@ -1180,6 +1342,8 @@ public:
     void set_charmap(class CCharmapToLocal *cmap);
 
 protected:
+    virtual ~CVmFormatter();
+
     /*
      *   Write a line (or a partial line) of text to the stream, using the
      *   indicated line breaking.  The text is given as wide Unicode
@@ -1283,6 +1447,9 @@ protected:
      */
     wchar_t resume_html_parsing(VMG_ wchar_t c,
                                 const char **sp, size_t *slenp);
+
+    /* parse an HTML entity ('&') markup */
+    wchar_t parse_entity(VMG_ wchar_t *ent, const char **sp, size_t *slenp);
     
     /*
      *   Parse the beginning HTML markup.  This is called when we are
@@ -1508,6 +1675,10 @@ protected:
      */
     vmconsole_html_state html_passthru_state_;
 
+    /* last tag name */
+    char html_passthru_tag_[32];
+    char *html_passthru_tagp_;
+
     /* <BR> defer mode */
     vmconsole_html_br_mode html_defer_br_;
 
@@ -1540,6 +1711,9 @@ protected:
      *   depth of <Q> tags 
      */
     int html_quote_level_;
+
+    /* PRE nesting depth */
+    int html_pre_level_;
 
     /*
      *   Parsing mode flag for ALT attributes.  If we're parsing a tag
@@ -1650,13 +1824,6 @@ public:
             html_title_buf_ = (char *)t3malloc(html_title_buf_size_);
     }
     
-    ~CVmFormatterMain()
-    {
-        /* delete our title buffer */
-        if (html_title_buf_ != 0)
-            t3free(html_title_buf_);
-    }
-
     /* initialize */
     void init()
     {
@@ -1675,6 +1842,13 @@ public:
     }
 
 protected:
+    ~CVmFormatterMain()
+    {
+        /* delete our title buffer */
+        if (html_title_buf_ != 0)
+            t3free(html_title_buf_);
+    }
+
     /* 
      *   Determine if the main console uses OS-level line wrapping - if this
      *   is returns true, then an output formatter on this console will not
@@ -1915,15 +2089,23 @@ public:
         : CVmFormatter(console)
     {
         /* we have no log file yet */
-        logfname_ = 0;
+        lognf_ = 0;
         logfp_ = 0;
+        logglob_ = 0;
 
         /* remember our width */
         width_ = width;
     }
 
-    ~CVmFormatterLog();
-    
+    void delete_obj(VMG0_)
+    {
+        /* close the log file */
+        close_log_file(vmg0_);
+
+        /* do the basic deletion */
+        CVmFormatter::delete_obj(vmg0_);
+    }
+
     /* initialize */
     void init()
     {
@@ -1983,7 +2165,10 @@ protected:
     {
         /* display the text through the log file */
         if (logfp_ != 0)
+        {
             os_fprintz(logfp_, txt);
+            osfflush(logfp_);
+        }
     }
 
     /* flush the underlying OS-level rendere */
@@ -1993,13 +2178,16 @@ protected:
     virtual void set_title_in_os(const char *) { }
 
     /* open a log file */
-    int open_log_file(const char *fname);
+    int open_log_file(VMG_ const char *fname);
+    int open_log_file(VMG_ const vm_val_t *filespec,
+                      const struct vm_rcdesc *rc);
+    int open_log_file(VMG_ class CVmNetFile *netfile);
 
     /* set the log file to a file previously opened */
-    int set_log_file(const char *fname, osfildef *fp);
+    int set_log_file(VMG_ CVmNetFile *nf, osfildef *fp);
     
     /* close the log file */
-    int close_log_file();
+    int close_log_file(VMG0_);
     
     /* 
      *   Process a <nolog> tag.  Since we're a log stream, we hide the
@@ -2022,12 +2210,11 @@ protected:
     {
     }
 
-    /* my log file handle */
+    /* my log file handle and network file descriptor */
     osfildef *logfp_;
+    class CVmNetFile *lognf_;
+    struct vm_globalvar_t *logglob_;
     
-    /* log file name */
-    char *logfname_;
-
     /* the maximum width to use for our lines */
     int width_;
 };

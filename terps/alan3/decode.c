@@ -5,25 +5,27 @@
   Arithmetic decoding module in Arun
 
 \*----------------------------------------------------------------------*/
+#include "decode.h"
 
 #include <stdio.h>
 
-#include "main.h"
-#include "decode.h"
 #include "syserr.h"
+#include "exe.h"
+#include "memory.h"
 
 
+/* PUBLIC DATA */
+Aword *freq;            /* Cumulative character frequencies */
+
+
+/* PRIVATE DATA */
 /* Bit output */
 static int decodeBuffer;	/* Bits to be input */
 static int bitsToGo;		/* Bits still in buffer */
 static int garbageBits;		/* Bits past EOF */
 
 
-#ifdef _PROTOTYPES_
 static int inputBit(void)
-#else
-static int inputBit()
-#endif
 {
   int bit;
 
@@ -49,11 +51,7 @@ static CodeValue value;			/* Currently seen code value */
 static CodeValue low, high;		/* Current code region */
 
 
-#ifdef _PROTOTYPES_
 void startDecoding(void)
-#else
-void startDecoding()
-#endif
 {
   int i;
 
@@ -68,11 +66,7 @@ void startDecoding()
 }
 
 
-#ifdef _PROTOTYPES_
 int decodeChar(void)
-#else
-int decodeChar()
-#endif
 {
   long range;
   int f;
@@ -130,11 +124,7 @@ typedef struct DecodeInfo {
   restore and continue later.
 
  */
-#ifdef _PROTOTYPES_
 void *pushDecode(void)
-#else
-void *pushDecode()
-#endif
 {
   DecodeInfo *info;
 
@@ -157,12 +147,7 @@ void *pushDecode()
   continue after having decoded something else.
 
  */
-#ifdef _PROTOTYPES_
 void popDecode(void *i)
-#else
-void popDecode(i)
-    void *i;
-#endif
 {
   DecodeInfo *info = (DecodeInfo *) i;
 

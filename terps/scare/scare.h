@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -42,7 +42,7 @@ typedef char sc_char;
 typedef unsigned char sc_byte;
 typedef long sc_int;
 typedef unsigned long sc_uint;
-typedef unsigned char sc_bool;
+typedef int sc_bool;
 
 /* Enumerated confirmation types, passed to os_confirm(). */
 enum
@@ -94,7 +94,7 @@ enum
   SC_TRACE_PRINTFILTER = 512,
 
   SC_DUMP_TAF = 1024, SC_DUMP_PROPERTIES = 2048, SC_DUMP_VARIABLES = 4096,
-  SC_DUMP_PARSER_TREES = 8192
+  SC_DUMP_PARSER_TREES = 8192, SC_DUMP_LOCALE_TABLES = 16384
 };
 
 /* Module-wide trace control function prototype. */
@@ -149,7 +149,8 @@ extern sc_bool sc_does_game_use_sounds (sc_game);
 extern sc_bool sc_does_game_use_graphics (sc_game);
 
 typedef void *sc_game_hint;
-extern sc_game_hint sc_iterate_game_hints (sc_game game, sc_game_hint hint);
+extern sc_game_hint sc_get_first_game_hint (sc_game game);
+extern sc_game_hint sc_get_next_game_hint (sc_game game, sc_game_hint hint);
 extern const sc_char *sc_get_game_hint_question (sc_game game,
                                                  sc_game_hint hint);
 extern const sc_char *sc_get_game_subtle_hint (sc_game game,

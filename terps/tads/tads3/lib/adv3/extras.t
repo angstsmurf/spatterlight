@@ -117,6 +117,9 @@ class ComplexContainer: Thing
      */
     subRear = nil
 
+    /* a list of all of our component objects */
+    allSubLocations = [subContainer, subSurface, subUnderside, subRear]
+
     /* 
      *   Show our status.  We'll show the status for each of our
      *   sub-objects, so that we list any contents of our sub-container or
@@ -195,6 +198,81 @@ class ComplexContainer: Thing
     iobjFor(PutBehind) maybeRemapTo(subRear != nil,
                                     PutBehind, DirectObject, subRear)
     dobjFor(LookBehind) maybeRemapTo(subRear != nil, LookBehind, subRear)
+
+    /* route commands relevant to nested rooms to our components */
+    dobjFor(StandOn) maybeRemapTo(getNestedRoomDest(StandOnAction) != nil,
+                                  StandOn, getNestedRoomDest(StandOnAction))
+    dobjFor(SitOn) maybeRemapTo(getNestedRoomDest(SitOnAction) != nil,
+                                SitOn, getNestedRoomDest(SitOnAction))
+    dobjFor(LieOn) maybeRemapTo(getNestedRoomDest(LieOnAction) != nil,
+                                LieOn, getNestedRoomDest(LieOnAction))
+    dobjFor(Board) maybeRemapTo(getNestedRoomDest(BoardAction) != nil,
+                                Board, getNestedRoomDest(BoardAction))
+    dobjFor(Enter) maybeRemapTo(getNestedRoomDest(EnterAction) != nil,
+                                Enter, getNestedRoomDest(EnterAction))
+
+    /* map GET OUT/OFF to whichever complex component we're currently in */
+    dobjFor(GetOutOf) maybeRemapTo(getNestedRoomSource(gActor) != nil,
+                                   GetOutOf, getNestedRoomSource(gActor))
+    dobjFor(GetOffOf) maybeRemapTo(getNestedRoomSource(gActor) != nil,
+                                   GetOffOf, getNestedRoomSource(gActor))
+
+    /*
+     *   Get the destination for nested travel into this object.  By
+     *   default, we'll look at the sub-container and sub-surface
+     *   components to see if either is a nested room, and if so, we'll
+     *   return that.  The surface takes priority if both are nested rooms.
+     *   
+     *   You can override this to differentiate by verb, if desired; for
+     *   example, you could have SIT ON and LIE ON refer to the sub-surface
+     *   component, while ENTER and BOARD refer to the sub-container
+     *   component.
+     *   
+     *   Note that if you do need to override this method to distinguish
+     *   between a sub-container ("IN") and a sub-surface ("ON") for nested
+     *   room purposes, there's a subtlety to watch out for.  The English
+     *   library maps "sit on" and "sit in" to the single Action SitOn;
+     *   likewise with "lie in/on" for LieOn and "stand in/on" for StandOn.
+     *   If you're distinguishing the sub-container from the sub-surface,
+     *   you'll probably want to distinguish SIT IN from SIT ON (and
+     *   likewise for LIE and STAND).  Fortunately, even though the action
+     *   class is the same for both phrasings, you can still find out
+     *   exactly which preposition the player typed using
+     *   action.getEnteredVerbPhrase().  
+     */
+    getNestedRoomDest(action)
+    {
+        /* 
+         *   check the sub-surface first to see if it's a nested room;
+         *   failing that, check the sub-container; failing that, we don't
+         *   have a suitable component destination 
+         */
+        if (subSurface != nil && subSurface.ofKind(NestedRoom))
+            return subSurface;
+        else if (subContainer != nil && subContainer.ofKind(NestedRoom))
+            return subContainer;
+        else
+            return nil;
+    }
+
+    /*
+     *   Get the source for nested travel out of this object.  This is used
+     *   for GET OUT OF <self> - we figure out which nested room component
+     *   the actor is in, so that we can remap the command to GET OUT OF
+     *   <that component>. 
+     */
+    getNestedRoomSource(actor)
+    {
+        /* figure out which child the actor is in */
+        foreach (local chi in allSubLocations)
+        {
+            if (chi != nil && actor.isIn(chi))
+                return chi;
+        }
+
+        /* the actor doesn't appear to be in one of our component locations */
+        return nil;
+    }
 
     /*
      *   Get a list of objects suitable for matching ALL in TAKE ALL FROM
@@ -404,6 +482,18 @@ class ComplexComponent: Component, NameAsParent
 
     /* don't participate in 'all', since we're a secret internal object */
     hideFromAll(action) { return true; }
+
+    /* 
+     *   In case this component is being used to implement a nested room of
+     *   some kind (a platform, booth, etc), use the complex container's
+     *   location as the staging location.  Normally our staging location
+     *   would be our direct container, but as with other aspects of
+     *   complex containers, the container/component are meant to act as a
+     *   single combined object, so we'd want to bypass the complex
+     *   container and move directly between the enclosing location and
+     *   'self'.  
+     */
+    stagingLocations = [lexicalParent.location]
 ;
 
 /*
@@ -645,6 +735,35 @@ class SpaceOverlay: BulkLimiter
         }
     }
 
+    /*
+     *   My weight does NOT include my "contents" if we abandon our
+     *   contents on being moved.  Our contents are not attached to us as
+     *   they are in a normal sort of container; instead, they're merely
+     *   colocated, so when we're moved, that colocation relationship ends.
+     */
+    getWeight()
+    {
+        /* 
+         *   if we abandon our contents on being moved, our weight doesn't
+         *   include them, because they're not attached; otherwise, they do
+         *   act like they're attached, and hence must be included in our
+         *   weight as for any ordinary container 
+         */
+        if (abandonLocation != nil)
+        {
+            /* 
+             *   our contents are not included in our weight, so our total
+             *   weight is simply our own intrinsic weight 
+             */
+            return weight;
+        }
+        else
+        {
+            /* our contents are attached, so include their weight as normal */
+            return inherited();
+        }
+    }
+
     /* 
      *   List our contents for moving the object.  By default, we examine
      *   our interior using our abandonContentsLister.  
@@ -739,6 +858,8 @@ class Underside: SpaceOverlay
     /* can't put something under me when it's already under me */
     alreadyPutInMsg = &alreadyPutUnderMsg
 
+    /* our implied containment verb is PUT UNDER */
+    tryMovingObjInto(obj) { return tryImplicitAction(PutUnder, obj, self); }
 
     /* -------------------------------------------------------------------- */
     /*
@@ -842,6 +963,9 @@ class RearContainer: SpaceOverlay
     /* customize the verification messages */
     cannotPutInSelfMsg = &cannotPutBehindSelfMsg
     alreadyPutInMsg = &alreadyPutBehindMsg
+
+    /* our implied containment verb is PUT BEHIND */
+    tryMovingObjInto(obj) { return tryImplicitAction(PutBehind, obj, self); }
 
     /* -------------------------------------------------------------------- */
     /*
@@ -1006,6 +1130,12 @@ class StretchyContainer: Container
      */
     checkBulkChangeWithin(changingObj)
     {
+        /*
+         *   Do any inherited work, in case we have a limit on our own
+         *   internal bulk. 
+         */
+        inherited(changingObj);
+
         /* 
          *   This might cause a change in my own bulk, since my bulk
          *   depends on the bulks of my contents.  When this is called,
@@ -2615,7 +2745,7 @@ class Attachable: object
      *   Note that 'obj' can be nil, because we could be attempting a
      *   DETACH command with no indirect object.  
      */
-    cannotDetachMsg(obj)
+    cannotDetachMsgFor(obj)
     {
         /* 
          *   if we have an object, it must be the wrong one; otherwise, we
@@ -2935,7 +3065,7 @@ class Attachable: object
         {
             /* if I'm not attached to anything, this is illogical */
             if (attachedObjects.length() == 0)
-                illogicalAlready(cannotDetachMsg(nil));
+                illogicalAlready(cannotDetachMsgFor(nil));
         }
         action()
         {
@@ -2952,7 +3082,7 @@ class Attachable: object
                  *   from, so simply report that we can't detach
                  *   generically 
                  */
-                reportFailure(cannotDetachMsg(nil));
+                reportFailure(cannotDetachMsgFor(nil));
             }
             else if (lst.length() == 1)
             {
@@ -2988,7 +3118,7 @@ class Attachable: object
             /* make sure I'm allowed to detach from the given object */
             if (!canDetachFrom(gIobj))
             {
-                reportFailure(cannotDetachMsg(gIobj));
+                reportFailure(cannotDetachMsgFor(gIobj));
                 exit;
             }
         }
@@ -3029,7 +3159,7 @@ class Attachable: object
             /* make sure I'm allowed to detach from the given object */
             if (!canDetachFrom(gDobj))
             {
-                reportFailure(cannotDetachMsg(gDobj));
+                reportFailure(cannotDetachMsgFor(gDobj));
                 exit;
             }
         }
@@ -3289,7 +3419,7 @@ class NearbyAttachable: Attachable
  *   Precondition for nearby-attachables.  This ensures that the two
  *   objects being attached are in their negotiated locations.  
  */
-class nearbyAttachableCond: PreCondition
+nearbyAttachableCond: PreCondition
     /* carry out the precondition */
     checkPreCondition(obj, allowImplicit)
     {
@@ -3454,12 +3584,12 @@ class PermanentAttachment: Attachable
      *   the container isn't a PermanentAttachment, or we're not attached
      *   to it, we'll return our default library message.  
      */
-    cannotDetachMsg(obj)
+    cannotDetachMsgFor(obj)
     {
         if (location != nil
             && location.ofKind(PermanentAttachment)
             && isAttachedTo(location))
-            return location.cannotDetachMsg(obj);
+            return location.cannotDetachMsgFor(obj);
         else
             return baseCannotDetachMsg;
     }
@@ -3605,7 +3735,7 @@ class PresentLater: object
          *   scan every PresentLater object, and move each one with the
          *   given key into the game 
          */
-        forEachInstance(PresentLater, new function(obj) {
+        forEachInstance(PresentLater, function(obj) {
             if (obj.plKey == key)
                 obj.makePresent();
         });
@@ -3633,7 +3763,7 @@ class PresentLater: object
          *   scan every PresentLater object, check each one's key, and make
          *   each one with the given key present 
          */
-        forEachInstance(PresentLater, new function(obj) {
+        forEachInstance(PresentLater, function(obj) {
             /* consider this object if its key matches */
             if (obj.plKey == key)
             {

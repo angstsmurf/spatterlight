@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -24,9 +24,9 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <string.h>
 #include <setjmp.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "scare.h"
 #include "scprotos.h"
@@ -991,19 +991,11 @@ static void
 restr_andexpr (void)
 {
   restr_bexpr ();
-  while (TRUE)
+  while (restr_lookahead == TOK_AND)
     {
-      switch (restr_lookahead)
-        {
-        case TOK_AND:
-          restr_match (TOK_AND);
-          restr_bexpr ();
-          restr_eval_action (TOK_AND);
-          continue;
-
-        default:
-          return;
-        }
+      restr_match (TOK_AND);
+      restr_bexpr ();
+      restr_eval_action (TOK_AND);
     }
 }
 
@@ -1011,19 +1003,11 @@ static void
 restr_orexpr (void)
 {
   restr_andexpr ();
-  while (TRUE)
+  while (restr_lookahead == TOK_OR)
     {
-      switch (restr_lookahead)
-        {
-        case TOK_OR:
-          restr_match (TOK_OR);
-          restr_andexpr ();
-          restr_eval_action (TOK_OR);
-          continue;
-
-        default:
-          return;
-        }
+      restr_match (TOK_OR);
+      restr_andexpr ();
+      restr_eval_action (TOK_OR);
     }
 }
 

@@ -8,14 +8,19 @@
 
 \*----------------------------------------------------------------------*/
 
-/* Data: */
-extern Bool gameStateChanged;
+/* IMPORTS */
+#include "types.h"
 
-/* Functions: */
-extern void undo(void);
-extern void pushGameState(void);
+
+/* DATA */
+
+
+/* FUNCTIONS */
+extern bool anySavedState(void);
+extern void initStateStack(void);
+extern void rememberGameState(void);
 extern void forgetGameState(void);
 extern void rememberCommands(void);
-extern Bool popGameState(void);
-
+extern void recallGameState(void);
+extern char *recreatePlayerCommand(void);
 #endif

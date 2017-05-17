@@ -12,6 +12,10 @@
 /* include the library header */
 #include "adv3.h"
 
+infiniteLoop()
+{
+    for (local i = 1 ; i < 100 ; ) ;
+}
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -641,6 +645,16 @@ class Traveler: TravelMessageHandler
         /* notify objects now connected by containment of the arrival */
         getNotifyTable().forEachAssoc(
             {obj, val: obj.afterTravel(self, connector)});
+    }
+
+    /*
+     *   Perform "local" travel - that is, travel between nested rooms
+     *   within a single top-level location.  By default, we simply defer
+     *   to the actor to let it perform the local travel.  
+     */
+    travelerTravelWithin(actor, dest) 
+    {
+        actor.travelerTravelWithin(actor, dest);
     }
 
     /*
@@ -3015,11 +3029,21 @@ class AutoClosingDoor: Door
             /* inherit the default handling */
             inherited();
 
-            /* close the door */
-            makeOpen(nil);
+            /* 
+             *   Only close the door if the actor performing the travel
+             *   isn't accompanying another actor.  If the actor is
+             *   accompanying someone, we essentially want them to hold the
+             *   door for the other actor - at the very least, we don't
+             *   want to slam it in the other actor's face! 
+             */
+            if (!gActor.curState.ofKind(AccompanyingInTravelState))
+            {
+                /* close the door */
+                makeOpen(nil);
 
-            /* mention that the automatic closing */
-            reportAutoClose();
+                /* mention that the automatic closing */
+                reportAutoClose();
+            }
         }
     }
 
@@ -3107,13 +3131,11 @@ class Enterable: TravelConnectorLink, Fixture
  *   location as an enclosure (a jail cell), or an exit door. 
  */
 class Exitable: TravelConnectorLink, Fixture
-    /* 
-     *   "Exit" action - this simply maps to travel via the connector.  
-     */
+    /* Get Out Of/Exit action - this simply maps to travel via the connector */
     dobjFor(GetOutOf) remapTo(TravelVia, self)
 
     /* explicitly define the push-travel indirect object mapping */
-    mapPushTravelIobj(PushTravelExit, TravelVia)
+    mapPushTravelIobj(PushTravelGetOutOf, TravelVia)
 ;
 
 /*
@@ -3347,6 +3369,27 @@ class PushTraveler: object
          */
         if (traveler_.location != origin)
             obj_.movePushable(traveler_, connector);
+    }
+
+    /*
+     *   Perform local travel, between nested rooms within a top-level
+     *   location.  By default, we simply don't allow pushing objects
+     *   between nested rooms.
+     *   
+     *   To allow pushing an object between nested rooms, override this in
+     *   parallel with travelerTravelTo().  Note that you'll have to call
+     *   travelerTravelWithin() on the underlying traveler (which will
+     *   generally be the actor), and you'll probably want to set up a new
+     *   set of notifiers parallel to beforeMovePushable() and
+     *   movePushable().  You'll probably particularly need to customize
+     *   the report in your parallel for movePushable() - the default ("you
+     *   push x into the area") isn't very good when nested rooms are
+     *   involved, and you'll probably want something more specific.  
+     */
+    travelerTravelWithin(actor, dest)
+    {
+        reportFailure(&cannotPushObjectNestedMsg, obj_);
+        exit;
     }
 
     /*
@@ -3807,19 +3850,14 @@ class BasicLocation: Thing
     }
 
     /*
-     *   Get the apparent location of one of our room parts (the floor, the
-     *   ceiling, etc).  By default, we don't have any room parts, so we
-     *   return nil.  
-     */
-    getRoomPartLocation(part) { return nil; }
-
-    /*
      *   The destination for objects explicitly dropped by an actor within
      *   this room.  By default, we'll return self, because items dropped
      *   should simply go in the room itself.  Some types of rooms will
      *   want to override this; for example, a room that represents the
      *   middle of a tightrope would probably want to set the drop
-     *   destination to the location below the tightrope. 
+     *   destination to the location below the tightrope.  Likewise,
+     *   objects like chairs will usually prefer to have dropped items go
+     *   into the enclosing room.  
      */
     getDropDestination(objToDrop, path)
     {
@@ -3950,30 +3988,7 @@ class BasicLocation: Thing
     roomLocation = (self)
 
     /*
-     *   Get the *location* traveler - this is the object that's actually
-     *   going to change location when a traveler within this location
-     *   performs a travel command to travel via the given connector.  By
-     *   default, this is simply the contained traveler.  This can be
-     *   overridden when some other object is to be the traveler; for
-     *   example, vehicles override this to make the vehicle travel on
-     *   behalf of a traveler within.  
-     */
-    getLocTraveler(trav, conn) { return trav; }
-
-    /*
-     *   Get the "location push traveler" - this is the object that's going
-     *   to travel for a push-travel action performed by a traveler within
-     *   this location.  This is called by a traveler within this location
-     *   to find out if the location wants to be involved in the travel, as
-     *   a vehicle might be.
-     *   
-     *   By default, this is simply 'trav', the original traveler.  'obj'
-     *   is the object we're trying to push.  
-     */
-    getLocPushTraveler(trav, obj) { return trav; }
-
-    /*
-     *   Receive notifiation that a traveler is arriving.  This is a
+     *   Receive notification that a traveler is arriving.  This is a
      *   convenience method that rooms can override to carry out side
      *   effects of arrival.  This is called just before the room's
      *   arrival message (usually the location description) is displayed,
@@ -4253,29 +4268,6 @@ class BasicLocation: Thing
     effectiveFollowLocation = (self)
 
     /*
-     *   My "atmosphere" list.  This can be set to an EventList object to
-     *   provide atmosphere messages while the player character is within
-     *   this room.  The default roomDaemon will show one message from this
-     *   EventList (by calling the EventList's doScript() method) on each
-     *   turn the player character is in this location.  
-     */
-    atmosphereList = nil
-
-    /*
-     *   Room daemon - this is invoked on the player character's immediate
-     *   location once per turn in a daemon.
-     */
-    roomDaemon()
-    {
-        /* 
-         *   if we have an atmosphere message list, display the next
-         *   message 
-         */
-        if (atmosphereList != nil)
-            atmosphereList.doScript();
-    }
-
-    /*
      *   Dispatch the room daemon.  This is a daemon routine invoked once
      *   per turn; we in turn invoke roomDaemon on the current player
      *   character's current location.  
@@ -4393,6 +4385,33 @@ class Room: Fixture, BasicLocation, RoomAutoConnector
      */
     destName = nil
 
+    /*
+     *   My "atmosphere" list.  This can be set to an EventList object to
+     *   provide atmosphere messages while the player character is within
+     *   this room.  The default roomDaemon will show one message from this
+     *   EventList (by calling the EventList's doScript() method) on each
+     *   turn the player character is in this location.  
+     */
+    atmosphereList = nil
+
+    /*
+     *   Room daemon - this is invoked on the player character's immediate
+     *   location once per turn in a daemon.
+     */
+    roomDaemon()
+    {
+        /* 
+         *   if we have an atmosphere message list, display the next
+         *   message 
+         */
+        if (atmosphereList != nil)
+        {
+            /* show visual separation, then the current atmosphere message */
+            "<.commandsep>";
+            atmosphereList.doScript();
+        }
+    }
+
     /* 
      *   The nominal drop destination - this is the location where we
      *   describe objects as being when they're actually directly within
@@ -4411,6 +4430,12 @@ class Room: Fixture, BasicLocation, RoomAutoConnector
          */
         return ((floor = roomFloor) != nil ? floor : self);
     }
+
+    /*
+     *   Since we could be our own nominal drop destination, we need a
+     *   message to describe things being put here.
+     */
+    putDestMessage = &putDestRoom
 
     /*
      *   The nominal actor container.  By default, this is the room's
@@ -4476,7 +4501,9 @@ class Room: Fixture, BasicLocation, RoomAutoConnector
          *   location is either 'self' or is in 'self', return the
          *   location 
          */
-        if ((loc = part.location) != nil && (loc == self || loc.isIn(self)))
+        if (part != nil
+            && (loc = part.location) != nil
+            && (loc == self || loc.isIn(self)))
             return loc;
 
         /* we don't have the part */
@@ -4545,11 +4572,17 @@ class Room: Fixture, BasicLocation, RoomAutoConnector
         verify()
         {
             /* 
-             *   when we're in the room, downgrade the likelihood a bit, as
+             *   When we're in the room, downgrade the likelihood a bit, as
              *   we'd rather inspect an object within the room if there's
-             *   something with the same name 
+             *   something with the same name.  When we're *not* in the
+             *   room - meaning this is a remote room that's visible from
+             *   the player's location - downgrade the likelihood even
+             *   more, since we're more likely to want to examine the room
+             *   we're actually in than a remote room with the same name.  
              */
             if (gActor.isIn(self))
+                logicalRank(80, 'x room');
+            else
                 logicalRank(70, 'x room');
         }
 
@@ -4610,9 +4643,94 @@ class Room: Fixture, BasicLocation, RoomAutoConnector
         }
     }
 
-    /* for BOARD and ENTER, we're already here */
+    /* 
+     *   for BOARD and ENTER, there are three possibilities:
+     *   
+     *   - we're already directly in this room, in which case it's
+     *   illogical to travel here again
+     *   
+     *   - we're in a nested room within this room, in which case ENTER
+     *   <self> is the same as GET OUT OF <outermost nested room within
+     *   self>
+     *   
+     *   - we're in a separate top-level room that's connected by a sense
+     *   connector, in which case ENTER <self> should be handled as TRAVEL
+     *   VIA <connector from actor's current location to self> 
+     */
     dobjFor(Board) asDobjFor(Enter)
-    dobjFor(Enter) { verify() { illogicalAlready(&alreadyInLocMsg); } }
+    dobjFor(Enter)
+    {
+        verify()
+        {
+            /* 
+             *   if we're already here, entering the same location is
+             *   redundant; if we're not in a nested room, we need a travel
+             *   connector to get there from here 
+             */
+            if (gActor.isDirectlyIn(self))
+                illogicalAlready(&alreadyInLocMsg);
+            else if (!gActor.isIn(self)
+                     && gActor.location.getConnectorTo(gActor, self) == nil)
+                illogicalNow(&whereToGoMsg);
+        }
+        preCond()
+        {
+            /* 
+             *   if we're in a different top-level room, and there's a
+             *   travel connector, we'll simply travel via the connector,
+             *   so we don't need to impose any pre-conditions of our own 
+             */
+            if (!gActor.isIn(self)
+                && gActor.location.getConnectorTo(gActor, self) != nil)
+                return [];
+
+            /* 
+             *   if we're in a nested room within this object, we'll
+             *   replace the action with "get out of <outermost nested
+             *   room>", so there's no need for any extra preconditions
+             *   here 
+             */
+            if (gActor.isIn(self) && !gActor.isDirectlyIn(self))
+                return [];
+
+            /* otherwise, use the default conditions */
+            return inherited();
+        }
+        action()
+        {
+            /* 
+             *   if we're in a nested room, get out; otherwise travel via a
+             *   suitable travel connector 
+             */
+            if (gActor.isIn(self) && !gActor.isDirectlyIn(self))
+            {
+                /* 
+                 *   get out of the *outermost* nested room - that is, our
+                 *   direct child that contains the actor 
+                 */
+                local chi = contents.valWhich({x: gActor.isIn(x)});
+
+                /* if we found it, get out of it */
+                if (chi != nil)
+                    replaceAction(GetOutOf, chi);
+            }
+            else
+            {
+                /* get the connector from here to there */
+                local conn = gActor.location.getConnectorTo(gActor, self);
+
+                /* if we found it, go that way */
+                if (conn != nil)
+                    replaceAction(TravelVia, conn);
+            }
+
+            /* 
+             *   if we didn't replace the action yet, we can't figure out
+             *   how to get here from the actor's current location 
+             */
+            reportFailure(&whereToGoMsg);
+        }
+    }
 ;
 
 /*
@@ -4879,14 +4997,12 @@ class RoomPart: Fixture
     /* show our contents */
     examinePartContents(listerProp)
     {
-        local loc;
-        
         /* 
          *   Get my location, as perceived by the actor - this is the room
          *   that contains this part.  If I don't have a location as
          *   perceived by the actor, then we can't show any contents.  
          */
-        loc = gActor.location.getRoomPartLocation(self);
+        local loc = gActor.location.getRoomPartLocation(self);
         if (loc == nil)
             return;
 
@@ -5502,7 +5618,11 @@ class NestedRoom: BasicLocation
      *   override this to customize the description with something more
      *   detailed, if desired.  
      */
-    roomDesc { getPOVActor().listActorPosture(getPOVActor()); }
+    roomDesc
+    {
+        local pov = getPOVActorDefault(gActor);
+        pov.listActorPosture(pov);
+    }
 
     /*
      *   The maximum bulk the room can hold.  We'll define this to a large
@@ -5549,27 +5669,6 @@ class NestedRoom: BasicLocation
             return [];
     }
 
-    /* by default, let the containing room handle the room daemon */
-    roomDaemon()
-    {
-        if (location != nil)
-            location.roomDaemon();
-    }
-
-    /*
-     *   Our atmospheric message list.  By default, if our container is
-     *   visible to us, we'll use our container's atmospheric messages.
-     *   This can be overridden to provide our own atmosphere list when
-     *   the player character is in this nested room.  
-     */
-    atmosphereList()
-    {
-        if (location != nil && gPlayerChar.canSee(location))
-            return location.atmosphereList;
-        else
-            return nil;
-    }
-
     /* 
      *   By default, 'out' within a nested room should take us out of the
      *   nested room itself.  The easy way to accomplish this is to set up
@@ -5600,68 +5699,6 @@ class NestedRoom: BasicLocation
     }
 
     /*
-     *   Get the apparent location of one of our room parts (the floor,
-     *   the ceiling, etc).  By default, we'll simply ask our container
-     *   about it, since a nested room by default doesn't have any of the
-     *   standard room parts.  
-     */
-    getRoomPartLocation(part)
-    {
-        if (location != nil)
-            return location.getRoomPartLocation(part);
-        else
-            return nil;
-    }
-
-    /*
-     *   Get the drop destination - this is the location where an object
-     *   goes when an actor is in this room and drops the object.  By
-     *   default, objects dropped in a nested room land in the nested room.
-     *   Some types of nested rooms might want to override this; for
-     *   example, a nested room that doesn't enclose its actor, such as a
-     *   chair, might want to send dropped items to the enclosing room.  
-     */
-    getDropDestination(objToDrop, path)
-    {
-        return self;
-    }
-
-    /*
-     *   Get the location traveler - this is the object that's actually
-     *   going to change location when a traveler within this location
-     *   performs a travel command to travel via the given connector.  By
-     *   default, we'll indicate what our containing room indicates.  (The
-     *   enclosing room might be a vehicle or an ordinary room; in any
-     *   case, it'll know what to do, so we merely have to ask it.)
-     *   
-     *   We defer to our enclosing room by default because this allows for
-     *   things like a seat in a car: the actor is sitting in the seat and
-     *   starts traveling in the car, so the seat calls the enclosing room,
-     *   which is the car, and the car returns itself, since it's the car
-     *   that will be traveling.  
-     */
-    getLocTraveler(trav, conn)
-    {
-        /* 
-         *   ask our location if we have one; otherwise, it's the contained
-         *   traveler that moves by default 
-         */
-        return (location != nil ? location.getLocTraveler(trav, conn) : trav);
-    }
-
-    /* get the push-traveler */
-    getLocPushTraveler(trav, obj)
-    {
-        /* 
-         *   ask our location if we have one; otherwise, just use the
-         *   original contained traveler 
-         */
-        return (location != nil
-                ? location.getLocPushTraveler(trav, obj)
-                : trav);
-    }
-
-    /*
      *   Make the actor stand up from this location.  By default, we'll
      *   cause the actor to travel (using travelWithin) to our container,
      *   and assume the appropriate posture for the container.  
@@ -5670,22 +5707,30 @@ class NestedRoom: BasicLocation
     {
         /* remember the old posture, in case the travel fails */
         local oldPosture = gActor.posture;
+
+        /* get the exit destination; if there isn't one, we can't proceed */
+        local dest = exitDestination;
+        if (dest == nil)
+        {
+            reportFailure(&cannotDoFromHereMsg);
+            exit;
+        }
         
         /* 
-         *   Set the actor's posture to the default for the new location.
+         *   Set the actor's posture to the default for the destination.
          *   Do this before effecting the actual travel, so that the
-         *   destination can change this default if it wants. 
+         *   destination can change this default if it wants.  
          */
-        gActor.makePosture(location.defaultPosture);
+        gActor.makePosture(dest.defaultPosture);
 
         /* protect against 'exit' and the like during the travel attempt */
         try
         {
             /* 
-             *   move the actor to our container, traveling entirely within
-             *   nested locations 
+             *   move the actor to our exit destination, traveling entirely
+             *   within nested locations 
              */
-            gActor.travelWithin(location);
+            gActor.travelWithin(dest);
         }
         finally
         {
@@ -5776,8 +5821,7 @@ class NestedRoom: BasicLocation
         if (allowImplicit && tryMovingIntoNested())
         {
             /* if we didn't succeed, terminate the command */
-            if (!gActor.isDirectlyIn(self)
-                || gActor.posture != defaultPosture)
+            if (!gActor.isDirectlyIn(self))
                 exit;
 
             /* tell the caller we executed an implied command */
@@ -5821,10 +5865,10 @@ class NestedRoom: BasicLocation
         if (allowImplicit && tryRemovingFromNested())
         {
             /* 
-             *   make sure we managed to move the actor to the desired
-             *   location 
+             *   make sure we managed to move the actor to our exit
+             *   destination 
              */
-            if (!gActor.isDirectlyIn(location))
+            if (!gActor.isDirectlyIn(exitDestination))
                 exit;
 
             /* indicate that we carried out an implied command */
@@ -6080,10 +6124,12 @@ class NestedRoom: BasicLocation
     /*
      *   Our exit destination.  This is where an actor ends up when the
      *   actor is immediately inside this nested room and uses a "get out
-     *   of" or equivalent command to exit the nested room.  By default,
-     *   when we leave a nested room, we end up in the enclosing room.  
+     *   of" or equivalent command to exit the nested room.
+     *   
+     *   By default, we'll use the default staging location as the exit
+     *   destination.  
      */
-    exitDestination = (location)
+    exitDestination = (defaultStagingLocation())
 
     /*
      *   Is the given staging location "known"?  This returns true if the
@@ -6200,7 +6246,7 @@ class NestedRoom: BasicLocation
     }
 
     /* explicitly define the push-travel indirect object mappings */
-    mapPushTravelIobj(PushTravelOutOf, TravelVia)
+    mapPushTravelIobj(PushTravelGetOutOf, TravelVia)
 ;
 
 
@@ -6225,8 +6271,8 @@ class HighNestedRoom: NestedRoom
 
     /*
      *   Staging locations.  By default, we'll return an empty list,
-     *   because a high location is not usually reachable directly from
-     *   its containing location.
+     *   because a high location is not usually reachable directly from its
+     *   containing location.
      *   
      *   Note that puzzles involving moving platforms will have to manage
      *   this list dynamically, which could be done either by writing a
@@ -6236,15 +6282,13 @@ class HighNestedRoom: NestedRoom
      *   example, if we have an air vent in the ceiling that we can only
      *   reach when a chair is placed under the vent, this property could
      *   be implemented as a method that returns a list containing the
-     *   chair only when the chair is in the under-the-vent state.  
+     *   chair only when the chair is in the under-the-vent state.
+     *   
+     *   Note that this empty default setting will also give us no exit
+     *   destination, since the default exit location is the default
+     *   staging location.  
      */
     stagingLocations = []
-
-    /*
-     *   By default, we have no 'exit destination' - that is, it's not
-     *   possible to get out of the high nested room.  
-     */
-    exitDestination = nil
 ;
 
 
@@ -6291,12 +6335,19 @@ class BasicChair: NestedRoom
 
     /*
      *   Try an implied command to move the actor from outside of this
-     *   nested room into this nested room.
+     *   nested room into this nested room.  By default, we'll call upon
+     *   our default posture object to activate its command to move the
+     *   actor into this object in the default posture.  For a chair, the
+     *   default posture is typically sitting, so the 'sitting' posture
+     *   will perform a SIT ON <self> command.  
      */
     tryMovingIntoNested()
     {
-        /* try sitting on me */
-        return tryImplicitAction(SitOn, self);
+        /* 
+         *   ask our default posture object to carry out the appropriate
+         *   command to move the actor into 'self' in that posture 
+         */
+        return defaultPosture.tryMakingPosture(self);
     }
 
     /* tryMovingIntoNested failure message is "must sit on chair" */
@@ -6402,8 +6453,16 @@ class BasicChair: NestedRoom
         }
     }
 
-    /* "get on/in" is the same as "sit on" */
-    dobjFor(Board) asDobjFor(SitOn)
+    /* 
+     *   For "get on/in" / "board", let our default posture object handle
+     *   it, by running the appropriate nested action that moves the actor
+     *   into self in the default posture. 
+     */
+    dobjFor(Board)
+    {
+        verify() { }
+        action() { defaultPosture.setActorToPosture(gActor, self); }
+    }
 
     /* "get off of" is the same as "get out of" */
     dobjFor(GetOffOf) asDobjFor(GetOutOf)
@@ -6531,24 +6590,11 @@ class BasicBed: BasicChair
     allowedPostures = [sitting, lying, standing]
     obviousPostures = [sitting, lying]
 
-    /*
-     *   Try an implied command to move the actor from outside of this
-     *   nested room into this nested room.
-     */
-    tryMovingIntoNested()
-    {
-        /* try lying on me */
-        return tryImplicitAction(LieOn, self);
-    }
-
     /* tryMovingIntoNested failure message is "must sit on chair" */
     mustMoveIntoProp = &mustLieOnMsg
 
     /* default posture in this nested room is sitting */
     defaultPosture = lying
-
-    /* "get on/in" is the same as "lie on" */
-    dobjFor(Board) asDobjFor(LieOn)
 ;
 
 /*
@@ -6581,16 +6627,6 @@ class BasicPlatform: BasicBed
 
     /* an actor can follow another actor onto or off of a platform */
     effectiveFollowLocation = (self)
-
-    /*
-     *   Try an implied command to move the actor from outside of this
-     *   nested room into this nested room.
-     */
-    tryMovingIntoNested()
-    {
-        /* try standing on me */
-        return tryImplicitAction(StandOn, self);
-    }
 
     /* tryMovingIntoNested failure message is "must get on platform" */
     mustMoveIntoProp = &mustGetOnMsg
@@ -6649,9 +6685,6 @@ class BasicPlatform: BasicBed
             defaultReport(&roomOkayPostureChangeMsg, standing, self);
         }
     }
-
-    /* "get off of" is the same as "stand on" */
-    dobjFor(Board) asDobjFor(StandOn)
 
     /*
      *   Traveling 'down' from a platform should generally be taken to
@@ -6755,7 +6788,7 @@ class Booth: BasicPlatform, Container
     dobjFor(Enter) asDobjFor(Board)
 
     /* explicitly define the push-travel indirect object mapping */
-    mapPushTravelIobj(PushTravelEnter, TravelVia)
+    mapPushTravelIobj(PushTravelEnter, Board)
 ;
 
 /* ------------------------------------------------------------------------ */
@@ -6805,7 +6838,7 @@ class Vehicle: NestedRoom, Traveler
          *   object inside the vehicle as its staging location, the
          *   vehicle obviously isn't involved in the travel.  
          */
-        if ((conn.ofKind(Thing) && conn.isIn(self))
+        if ((conn != nil && conn.ofKind(Thing) && conn.isIn(self))
             || Direction.allDirections.indexWhich(
                 {dir: self.(dir.dirProp) == conn}) != nil
             || ((stage = conn.connectorStagingLocation) != nil
@@ -6911,7 +6944,7 @@ class Vehicle: NestedRoom, Traveler
     forEachTravelingActor(func)
     {
         /* invoke the callback on each actor in our contents */
-        allContents().forEach(new function(obj) {
+        allContents().forEach(function(obj) {
             if (obj.isActor)
                 (func)(obj);
         });

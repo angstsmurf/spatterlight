@@ -65,7 +65,7 @@ executeCommand(targetActor, issuingActor, toks, firstInSentence)
         targetActor = issuingActor;
 
         /* switch to the issuer's sense context */
-        senseContext.setSenseContext(targetActor, sight);
+        senseContext.setSenseContext(issuingActor, sight);
     }
 
     /*
@@ -132,23 +132,30 @@ parseTokenLoop:
                  */
                 if (firstInSentence)
                 {
+                    local i;
+                    
                     /* try parsing an "actor, <unknown>" phrase */
                     lst = actorBadCommandPhrase.parseTokens(toks, cmdDict);
 
                     /* if we got any matches, try to resolve actors */
                     lst = lst.mapAll({x: x.resolveNouns(
                         issuingActor, issuingActor,
-                        new ActorResolveResults())});
+                        new TryAsActorResolveResults())});
 
                     /* drop any that didn't yield any results */
                     lst = lst.subset({x: x != nil && x.length() != 0});
 
-                    /* 
-                     *   if anything's left, arbitrarily pick the first one
-                     *   and use that as the new target actor 
+                    /*
+                     *
+                     *   if anything's left, and one of the entries 
+                     *   resolves to an actor, arbitrarily pick the 
+                     *   first such entry use the resolved actor as the 
+                     *   new target actor 
                      */
-                    if (lst.length() != 0)
-                        targetActor = lst[1][1].obj_;
+                    if (lst.length() != 0
+                        && (i = lst.indexWhich(
+                            {x: x[1].obj_.ofKind(Actor)})) != nil)
+                        targetActor = lst[i][1].obj_;
                 }
 
                 /* 
@@ -414,12 +421,23 @@ parseTokenLoop:
             /* 
              *   If the command is directed to a different actor than the
              *   issuer, change to the target actor's sense context.  
+             *   
+             *   On the other hand, if this is a conversational command
+             *   (e.g., BOB, YES or BOB, GOODBYE), execute it within the
+             *   sense context of the issuer, even when a target is
+             *   specified.  Target actors in conversational commands
+             *   designate the interlocutor rather than the performing
+             *   actor: BOB, YES doesn't ask Bob to say "yes", but rather
+             *   means that the player character (the issuer) is saying
+             *   "yes" to Bob.
              */
-            if (actorSpecified && targetActor != issuingActor)
+            if (action != nil && action.isConversational(issuingActor))
+                senseContext.setSenseContext(issuingActor, sight);
+            else if (actorSpecified && targetActor != issuingActor)
                 senseContext.setSenseContext(targetActor, sight);
 
             /* set up a transcript to receive the command results */
-            withCommandTranscript(CommandTranscript, new function()
+            withCommandTranscript(CommandTranscript, function()
             {
                 /* 
                  *   Execute the action.
@@ -570,15 +588,215 @@ parseTokenLoop:
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   GlobalRemapping makes it possible to transform one action into another
+ *   globally - as opposed to the remapTo mechanism, which lets an object
+ *   involved in the command perform a remapping.  The key difference
+ *   between global remappings and remapTo is that the latter can't happen
+ *   until after the objects are resolved (for fairly obvious reasons: each
+ *   remapTo mapping is associated with an object, so you can't know which
+ *   mapping to apply until you know which object is involved).  In
+ *   contrast, global remappings are performed *before* object resolution -
+ *   this is possible because the mappings don't depend on the objects
+ *   involved in the action.
+ *   
+ *   Whenever an action is about to be executed, the parser runs through
+ *   all of the defined global remappings, and gives each one a chance to
+ *   remap the command.  If any remapping succeeds, we replace the original
+ *   command with the remapped version, then repeat the scan of the global
+ *   remapping list from the start - we do another complete scan of the
+ *   list in case there's another global mapping that applies to the
+ *   remapped version of the command.  We repeat this process until we make
+ *   it through the whole list without finding a remapping.
+ *   
+ *   GlobalRemapping instances are added to the master list of mappings
+ *   automatically at pre-init time, and any time you construct one
+ *   dynamically with 'new'.
+ */
+class GlobalRemapping: PreinitObject
+    /*
+     *   Check for and apply a remapping.  This method must be implemented
+     *   in each GlobalRemapping instance to perform the actual remapping
+     *   work.
+     *   
+     *   This routine should first check to see if the command is relevant
+     *   to this remapping.  In most cases, this means checking that the
+     *   command matches some template, such as having a particular action
+     *   (verb) and combination of potential objects.  Note that the
+     *   objects aren't fully resolved during global remapping - the whole
+     *   point of global remapping is to catch certain phrasings before we
+     *   get to the noun resolution phase - but the *phrases* involved will
+     *   be known, so the range of potential matches is knowable.
+     *   
+     *   If the routine decides that the action isn't relevant to this
+     *   remapping, it should simply return nil.
+     *   
+     *   If the action decides to remap the action, it must create a new
+     *   Action object representing the replacement version of the command.
+     *   Then, return a list, [targetActor, action], giving the new target
+     *   actor and the new action.  You don't have to change the target
+     *   actor, of course, but it's included in the result so that you can
+     *   change it if you want to.  For example, you could use this to
+     *   remap a command of the form "X, GIVE ME Y" to "ME, ASK X FOR Y" -
+     *   note that the target actor changes from X to ME.  
+     */
+    getRemapping(issuingActor, targetActor, action)
+    {
+        /* 
+         *   this must be overridden to perform the actual remapping; by
+         *   default, simply return nil to indicate that we don't want to
+         *   remap this action 
+         */
+        return nil;
+    }
+
+    /*
+     *   Remapping order - the parser applies global remappings in
+     *   ascending order of this value.  In most cases, the order shouldn't
+     *   matter, since most remappings should be narrow enough that a given
+     *   command will only be subject to one remapping rule.  However, in
+     *   some cases you might need to define rules that overlap, so the
+     *   ordering lets you specify which one goes first.  In most cases
+     *   you'll want to apply the more specific rule first. 
+     */
+    remappingOrder = 100
+
+    /* 
+     *   Static class method: look for a remapping.  This runs through the
+     *   master list of mappings, looking for a mapping that applies to the
+     *   given command.  If we find one, we'll replace the command with the
+     *   remapped version, then start over with a fresh scan of the entire
+     *   list to see if there's a remapping for the *new* version of the
+     *   command.  We repeat this until we get through the whole list
+     *   without finding a remapping.
+     *   
+     *   The return value is a list, [targetActor, action], giving the
+     *   resulting target actor and new action object.  If we don't find
+     *   any remapping, this will simply be the original values passed in
+     *   as our arguments; if we do find a remapping, this will be the new
+     *   version of the command.  
+     */
+    findGlobalRemapping(issuingActor, targetActor, action)
+    {
+        /* get the global remapping list */
+        local v = GlobalRemapping.allGlobalRemappings;
+        local cnt = v.length();
+
+        /* if necessary, sort the list */
+        if (GlobalRemapping.listNeedsSorting)
+        {
+            /* sort it by ascending remappingOrder value */
+            v.sort(SortAsc, {a, b: a.remappingOrder - b.remappingOrder});
+
+            /* note that it's now sorted */
+            GlobalRemapping.listNeedsSorting = nil;
+        }
+        
+        /* 
+         *   iterate through the list repeatedly, until we make it all the
+         *   way through without finding a mapping 
+         */
+        for (local done = nil ; !done ; )
+        {
+            /* presume we won't find a remapping on this iteration */
+            done = true;
+
+            /* run through the list, looking for a remapping */
+            for (local i = 1 ; i <= cnt ; ++i)
+            {
+                local rm;
+                
+                /* check for a remapping */
+                rm = v[i].getRemapping(issuingActor, targetActor, action);
+                if (rm != nil)
+                {
+                    /* found a remapping - apply it */
+                    targetActor = rm[1];
+                    action = rm[2];
+
+                    /* 
+                     *   we found a remapping, so we have to repeat the
+                     *   scan of the whole list - note that we're not done,
+                     *   and break out of the current scan so that we start
+                     *   over with a fresh scan 
+                     */
+                    done = nil;
+                    break;
+                }
+            }
+        }
+
+        /* return the final version of the command */
+        return [targetActor, action];
+    }
+
+    /* pre-initialization: add each instance to the master list */
+    execute()
+    {
+        /* add me to the master list */
+        registerGlobalRemapping();
+    }
+
+    /* construction: add myself to the master list */
+    construct()
+    {
+        /* add me to the master list */
+        registerGlobalRemapping();
+    }        
+
+    /* register myself with the global list, making this an active mapping */
+    registerGlobalRemapping()
+    {
+        /* add myself to the global list */
+        GlobalRemapping.allGlobalRemappings.append(self);
+
+        /* note that a sort is required the next time we run */
+        GlobalRemapping.listNeedsSorting = true;
+    }
+
+    /* 
+     *   unregister - this removes me from the global list, making this
+     *   mapping inactive: after being unregistered, the parser won't apply
+     *   this mapping to new commands 
+     */
+    unregisterGlobalRemapping()
+    {
+        GlobalRemapping.allGlobalRemappings.removeElement(self);
+    }
+
+    /* 
+     *   Static class property: the master list of remappings.  We build
+     *   this automatically at preinit time, and manipulate it via our
+     *   constructor.
+     */
+    allGlobalRemappings = static new Vector(10)
+
+    /* 
+     *   static class property: the master list needs to be sorted; this is
+     *   set to true each time we update the list, so that the list scanner
+     *   knows to sort it before doing its scan 
+     */
+    listNeedsSorting = nil
+;
+
+
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Execute an action, as specified by an Action object.  We'll resolve
  *   the nouns in the action, then perform the action.
  */
 executeAction(targetActor, targetActorPhrase,
               issuingActor, countsAsIssuerTurn, action)
 {
-    local results;
+    local rm, results;
 
 startOver:
+    /* check for a global remapping */
+    rm = GlobalRemapping.findGlobalRemapping(
+        issuingActor, targetActor, action);
+    targetActor = rm[1];
+    action = rm[2];
+
     /* create a basic results object to handle the resolution */
     results = new BasicResolveResults();
         
@@ -665,7 +883,7 @@ startOver:
         /* notify the target that this will be a non-idle turn */
         targetActor.nonIdleTurn();
     }
-            
+
     /*
      *   If the issuer is directing the command to a different actor, and
      *   it's not a conversational command, check with the target actor to
@@ -683,6 +901,14 @@ startOver:
          */
         if (issuingActor.orderingTime(targetActor) == 0)
             issuingActor.addBusyTime(nil, 1);
+
+        /*
+         *   Since we're aborting the command, we won't get into the normal
+         *   execution for it.  However, we might still want to save it for
+         *   an attempted re-issue with AGAIN, so do so explicitly now. 
+         */
+        action.saveActionForAgain(issuingActor, countsAsIssuerTurn,
+                                  targetActor, targetActorPhrase);
 
         /* 
          *   This command was rejected, so don't process it any further,
@@ -736,6 +962,10 @@ _tryImplicitAction(issuingActor, targetActor, msgProp, actionClass, [objs])
      */
     try
     {
+        /* in NPC mode, add a command separator before each implied action */
+        if (targetActor.impliedCommandMode() == ModeNPC)
+            gTranscript.addCommandSep();
+
         /* execute the action */
         action.doAction(issuingActor, targetActor, nil, nil);
         
@@ -749,7 +979,7 @@ _tryImplicitAction(issuingActor, targetActor, msgProp, actionClass, [objs])
              *   we're in NPC mode, so if the implied action failed, then
              *   act as though the command had never been attempted 
              */
-            if (gTranscript.isFailure)
+            if (gTranscript.actionFailed(action))
             {
                 /* the implied command failed - act like we didn't even try */
                 return nil;
@@ -869,7 +1099,7 @@ _newAction(transcriptClass, issuingActor, targetActor, actionClass, [objs])
 newActionObj(transcriptClass, issuingActor, targetActor, actionObj, [objs])
 {
     /* create the results object and install it as the global transcript */
-    return withCommandTranscript(transcriptClass, new function()
+    return withCommandTranscript(transcriptClass, function()
     {
         /* install the resolved objects in the action */
         actionObj.setResolvedObjects(objs...);
@@ -1389,6 +1619,43 @@ class MessageResult: object
      */
     resolveMessageText(sources, msg, params)
     {
+        /*
+         *   If we have more than one source object, it means that the
+         *   command has more than one object slot (such as a TIAction,
+         *   which has direct and indirect objects).  Rearrange the list so
+         *   that the nearest caller is the first object in the list.  If
+         *   one of these source objects provides an override, we generally
+         *   want to get the message from the immediate caller rather than
+         *   the other object.  Note that we only care about the *first*
+         *   source object we find in the stack trace, because we only care
+         *   about the actual message generator call; enclosing calls
+         *   aren't relevant to the message priority because they don't
+         *   necessarily have anything to do with the messaging.  
+         */
+        if (sources.length() > 1)
+        {
+            /* look through the stack trace for a 'self' in the source list */
+            local tr = t3GetStackTrace();
+            for (local i = 1, local trCnt = tr.length() ; i <= trCnt ; ++i)
+            {
+                /* check this 'self' */
+                local s = tr[i].self_;
+                local sIdx = sources.indexOf(s);
+                if (sIdx != nil)
+                {
+                    /* 
+                     *   it's a match - move this object to the head of the
+                     *   list so that we give its message bindings priority
+                     */
+                    if (sIdx != 1)
+                        sources = [s] + (sources - s);
+
+                    /* no need to look any further */
+                    break;
+                }
+            }
+        }
+
         /*
          *   The message can be given either as a string or as a property
          *   of the actor's verb message object.  If it's the latter, look

@@ -26,6 +26,7 @@
 #include <tok.h>
 #include <t3.h>
 #include <vector.h>
+#include <strbuf.h>
 #include <file.h>
 #include <dict.h>
 
@@ -293,7 +294,18 @@ enum rmcDisambig;
  *   Property set definitions 
  */
 
-#define objFor(which, action) propertyset '*' ## #@which ## #@action
+/* in debug mode, flag objFor definitions for non-existent actions */
+#ifdef __DEBUG
+# define objForCheck(which, action) \
+    sentinel##which##action = __objref(action##Action, warn)
+#else
+# define objForCheck(which, action)
+#endif
+
+#define objFor(which, action) \
+    objForCheck(which, action) \
+    propertyset '*' ## #@which ## #@action
+
 #define dobjFor(action) objFor(Dobj, action)
 #define iobjFor(action) objFor(Iobj, action)
 
@@ -802,6 +814,13 @@ enum PathTo;
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   aHref() flags 
+ */
+#define AHREF_Plain  0x0001    /* plain text hyperlink (no underline/color) */
+
+
+/* ------------------------------------------------------------------------ */
+/*
  *   ResolveInfo flags 
  */
 
@@ -900,6 +919,48 @@ enum PathTo;
  *   well as before execution.  
  */
 #define AnnouncedDefaultObject  0x0100
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Announcement styles for disambiguated objects.  These are used in the
+ *   gameMain object (see GameMainDef) to select which type of announcement
+ *   is used when the parser disambiguates a noun phrase using the
+ *   logicalness rules.  
+ */
+
+/* 
+ *   Announce unclear disambiguation results only.  When this setting is
+ *   selected, the parser makes a parenthetical announcement (e.g., "(the red
+ *   door)") when it selects an object based on likelihood rankings from
+ *   among more than one logical match.  The parser makes no announcement
+ *   when exactly one logical object is in scope, even if other objects match
+ *   the noun phrase by name. 
+ */
+enum AnnounceUnclear;
+
+/*
+ *   Announce clear and unclear disambiguation results, both using
+ *   parenthetical announcement ("(the red door)").  When this setting is
+ *   selected, the parser makes these announcements every time it applies the
+ *   logicalness rules or likelihood rankings to disambiguate a noun phrase.
+ *   There's no announcement when no disambiguation is needed (because the
+ *   noun phrase matches only one in-scope object).  
+ */
+enum AnnounceClear;
+
+/*
+ *   Describe clear disambiguation results, rather than announcing them.  The
+ *   parser makes the parenthetical announcement, as usual, for unclear
+ *   disambiguation picks, but not for clear picks (a clear pick is one where
+ *   there's only one logical object, even though the noun phrase matches
+ *   more than one object).  For clear picks, however, the parser uses a
+ *   verbose version of the action reply in lieu of one of the terse default
+ *   messages.  For example, rather than saying just "Taken", the parser
+ *   would reply "You take the red book."  The longer messages mention the
+ *   object by name, to make it clear exactly which one was chosen.  
+ */
+enum DescribeClear;
 
 
 /* ------------------------------------------------------------------------ */
@@ -1578,6 +1639,16 @@ ShuffledEventList template [firstEvents] [eventList];
 /* a synchronized event list takes its state from another list */
 SyncEventList template ->masterObject inherited;
 
+/* low-level shuffled list */
+ShuffledList template [valueList];
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Define a template for the Tip class.
+ */
+Tip template "desc";
+
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -1695,13 +1766,31 @@ enum blockEndConv;
  */
 
 /* has a topic key been revealed through <.reveal>? */
-#define gRevealed(key) (conversationManager.revealedNameTab[key])
+#define gRevealed(key) (conversationManager.revealedNameTab[key] != nil)
 
 /* reveal a topic key, as though through <.reveal> */
-#define gReveal(key) (conversationManager.revealedNameTab[key] = true)
+#define gReveal(key) (conversationManager.setRevealed(key))
 
 /* mark a Topic/Thing as known/seen by the player character */
 #define gSetKnown(obj) (gPlayerChar.setKnowsAbout(obj))
 #define gSetSeen(obj) (gPlayerChar.setHasSeen(obj))
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   For compatibility with versions before 3.1.1, define
+ *   openableContentsLister as a synonym for openableDescContentsLister.  The
+ *   former was renamed to the latter in 3.1.1 because the original name was
+ *   inconsistent with the corresponding listers for other classes.  In
+ *   principle, openableContentsLister is meant to be the 'contentsLister'
+ *   (for displaying the openable's contents in room descriptions, etc) for
+ *   an Openable, while openableDescContentsLister is its
+ *   'descContentsLister' (for displaying the openable's contents in its own
+ *   EXAMINE description).  Fortunately we don't have a need for a special
+ *   contentsLister for Openable, so we can avoid breaking existing code by
+ *   mapping the old name to the new name.
+ */
+#define openableContentsLister openableDescContentsLister
+
 
 #endif /* ADV3_H */

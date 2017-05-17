@@ -47,6 +47,10 @@ Modified
 #include "vmparam.h"
 #include "vmmain.h"
 #include "vmtobj.h"
+#include "osifcnet.h"
+#include "vmhash.h"
+#include "vmtz.h"
+
 
 
 /* ------------------------------------------------------------------------ */
@@ -57,37 +61,34 @@ Modified
  */
 void vm_init_base(vm_globals **vmg, const vm_init_options *opts)
 {
-    vm_globals *vmg__;
-    char disp_mapname[32];
-    char filename_mapname[32];
-    char filecont_mapname[32];
-    CResLoader *map_loader;
-    int disp_map_err;
-    const char *charset = opts->charset;
-    const char *log_charset = opts->log_charset;
-    
     /* 
      *   Allocate globals according to build-time configuration, then
      *   assign the global pointer to a local named vmg__.  This will
      *   ensure that the globals are accessible for all of the different
      *   build-time configurations.  
      */
-    vmg__ = *vmg = vmglob_alloc();
+    vm_globals *vmg__ = *vmg = vmglob_alloc();
+
+    /* 
+     *   in configurations where globals aren't passed as parameters, vmg__
+     *   will never be referenced; explicitly reference it so that the
+     *   compiler knows the assignment above is intentional even if it's not
+     *   ever used in this particular build configuration
+     */
+    (void)vmg__;
 
     /* initialize the error stack */
     err_init(VM_ERR_STACK_BYTES);
 
-    /* get the character map loader from the host interface */
-    map_loader = opts->hostifc->get_cmap_res_loader();
+    /* get the system resource loader from the host interface */
+    CResLoader *map_loader = opts->hostifc->get_sys_res_loader();
 
     /* if an external message set hasn't been loaded, try loading one */
     if (!err_is_message_file_loaded() && map_loader != 0)
     {
-        osfildef *fp;
-        
         /* try finding a message file */
-        fp = map_loader->open_res_file(VM_ERR_MSG_FNAME, 0,
-                                       VM_ERR_MSG_RESTYPE);
+        osfildef *fp = map_loader->open_res_file(
+            VM_ERR_MSG_FNAME, 0, VM_ERR_MSG_RESTYPE);
         if (fp != 0)
         {
             /* 
@@ -105,26 +106,24 @@ void vm_init_base(vm_globals **vmg, const vm_init_options *opts)
     /* remember the host interface */
     G_host_ifc = opts->hostifc;
 
-    /* we don't have a resource loader for program resources yet */
-    G_res_loader = 0;
+    /* initialize the system debug log file name */
+    char path[OSFNMAX];
+    opts->hostifc->get_special_file_path(path, sizeof(path), OS_GSP_LOGFILE);
+    os_build_full_path(G_syslogfile, sizeof(G_syslogfile),
+                       path, "tadslog.txt");
 
     /* create the object table */
-    VM_IFELSE_ALLOC_PRE_GLOBAL(G_obj_table = new CVmObjTable(),
-                               G_obj_table->init());
+    VM_IF_ALLOC_PRE_GLOBAL(G_obj_table = new CVmObjTable());
+    G_obj_table->init(vmg0_);
 
     /* 
      *   Create the memory manager.  Empirically, our hybrid heap allocator
      *   is faster than the standard C++ run-time library's allocator on many
      *   platforms, so use it instead of hte basic 'malloc' allocator. 
      */
-    G_varheap = new CVmVarHeapHybrid();
+    G_varheap = new CVmVarHeapHybrid(G_obj_table);
     // G_varheap = new CVmVarHeapMalloc(); to use the system 'malloc' instead
     G_mem = new CVmMemory(vmg_ G_varheap);
-
-    /* create a stack */
-    VM_IFELSE_ALLOC_PRE_GLOBAL(
-        G_stk = new CVmStack(VM_STACK_SIZE, vm_init_stack_reserve()),
-        G_stk->init());
 
     /* create the undo manager */
     G_undo = new CVmUndo(VM_UNDO_MAX_RECORDS, VM_UNDO_MAX_SAVEPTS);
@@ -133,6 +132,9 @@ void vm_init_base(vm_globals **vmg, const vm_init_options *opts)
     G_meta_table = new CVmMetaTable(5);
     G_bif_table = new CVmBifTable(5);
 
+    /* create the time zone cache */
+    G_tzcache = new CVmTimeZoneCache();
+
     /* initialize the metaclass registration tables */
     vm_register_metaclasses();
 
@@ -140,12 +142,16 @@ void vm_init_base(vm_globals **vmg, const vm_init_options *opts)
     CVmObjTads::class_init(vmg0_);
 
     /* create the byte-code interpreter */
-    VM_IFELSE_ALLOC_PRE_GLOBAL(G_interpreter = new CVmRun(),
-                               G_interpreter->init());
+    VM_IFELSE_ALLOC_PRE_GLOBAL(
+        G_interpreter = new CVmRun(VM_STACK_SIZE, vm_init_stack_reserve()),
+        G_interpreter->init());
 
     /* presume we won't create debugger information */
     G_debugger = 0;
     G_srcf_table = 0;
+
+    /* presume we don't have a network configuration */
+    G_net_config = 0;
 
     /* initialize the debugger if present */
     vm_init_debugger(vmg0_);
@@ -163,7 +169,7 @@ void vm_init_base(vm_globals **vmg, const vm_init_options *opts)
     G_bif_tads_globals = new CVmBifTADSGlobals(vmg0_);
 
     /* allocate the BigNumber register cache */
-    G_bignum_cache = new CVmBigNumCache(32);
+    CVmObjBigNum::init_cache();
 
     /* no image loader yet */
     G_image_loader = 0;
@@ -173,6 +179,8 @@ void vm_init_base(vm_globals **vmg, const vm_init_options *opts)
      *   Otherwise, ask the OS layer for the default character set we
      *   should use. 
      */
+    char disp_mapname[32];
+    const char *charset = opts->charset;
     if (charset == 0)
     {
         /* the user did not specify a mapping - ask the OS for the default */
@@ -195,11 +203,13 @@ void vm_init_base(vm_globals **vmg, const vm_init_options *opts)
     G_cmap_to_ui = CCharmapToLocal::load(map_loader, charset);
 
     /* create the filename character maps */
+    char filename_mapname[32];
     os_get_charmap(filename_mapname, OS_CHARMAP_FILENAME);
     G_cmap_from_fname = CCharmapToUni::load(map_loader, filename_mapname);
     G_cmap_to_fname = CCharmapToLocal::load(map_loader, filename_mapname);
 
     /* create the file-contents character maps */
+    char filecont_mapname[32];
     os_get_charmap(filecont_mapname, OS_CHARMAP_FILECONTENTS);
     G_cmap_from_file = CCharmapToUni::load(map_loader, filecont_mapname);
     G_cmap_to_file = CCharmapToLocal::load(map_loader, filecont_mapname);
@@ -221,7 +231,7 @@ void vm_init_base(vm_globals **vmg, const vm_init_options *opts)
     }
 
     /* make a note of whether we had any problems loading the maps */
-    disp_map_err = (G_cmap_from_ui == 0 || G_cmap_to_ui == 0);
+    int disp_map_err = (G_cmap_from_ui == 0 || G_cmap_to_ui == 0);
 
     /* if we failed to create any of the maps, load defaults */
     if (G_cmap_from_ui == 0)
@@ -259,7 +269,7 @@ void vm_init_base(vm_globals **vmg, const vm_init_options *opts)
         sprintf(buf, msg, charset);
 
         /* display it */
-        opts->clientifc->display_error(VMGLOB_ADDR, buf, TRUE);
+        opts->clientifc->display_error(VMGLOB_ADDR, 0, buf, TRUE);
     }
 }
 
@@ -291,7 +301,7 @@ void vm_terminate(vm_globals *vmg__, CVmMainClientIfc *clientifc)
     lib_free_str(G_disp_cset_name);
 
     /* delete the BigNumber register cache */
-    delete G_bignum_cache;
+    CVmObjBigNum::term_cache();
 
     /* delete the TADS intrinsic function set's globals */
     delete G_bif_tads_globals;
@@ -312,21 +322,37 @@ void vm_terminate(vm_globals *vmg__, CVmMainClientIfc *clientifc)
     /* delete debugger objects */
     vm_terminate_debug_delete(vmg0_);
 
+    /* delete dynamic compilation objects */
+    if (G_dyncomp != 0)
+    {
+        delete G_dyncomp;
+        G_dyncomp = 0;
+    }
+
     /* delete the constant pools */
     VM_IFELSE_ALLOC_PRE_GLOBAL(delete G_code_pool,
                                G_code_pool->terminate());
     VM_IFELSE_ALLOC_PRE_GLOBAL(delete G_const_pool,
                                G_const_pool->terminate());
 
+    /* 
+     *   Clear the object table.  This deletes garbage-collected objects but
+     *   doesn't delete the object table itself; we'll do that after we've
+     *   cleared out the metaclass and function-set tables.  We need to
+     *   remove the gc objects before the metaclasses and function tables
+     *   because the gc objects sometimes depend on their metaclasses.  But
+     *   the metaclasses and function sets sometimes keep VM globals, so we
+     *   need to keep the object table around until after they're cleaned up.
+     */
+    G_obj_table->clear_obj_table(vmg0_);
+
     /* delete the dependency tables */
+    G_bif_table->clear(vmg0_);
     delete G_meta_table;
     delete G_bif_table;
 
     /* delete the undo manager */
     delete G_undo;
-
-    /* delete the stack */
-    VM_IF_ALLOC_PRE_GLOBAL(delete G_stk);
 
     /* delete the object table */
     G_obj_table->delete_obj_table(vmg0_);
@@ -335,6 +361,9 @@ void vm_terminate(vm_globals *vmg__, CVmMainClientIfc *clientifc)
     /* delete the memory manager and heap manager */
     delete G_mem;
     delete G_varheap;
+
+    /* delete the time zone cache */
+    delete G_tzcache;
 
     /* delete the error context */
     err_terminate();

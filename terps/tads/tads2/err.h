@@ -93,6 +93,7 @@ Modified
 #define ERR_NOLOAD  15   /* mcm cannot find object to load (internal error) */
 #define ERR_LCKFRE  16     /* attempting to free a locked object (internal) */
 #define ERR_INVOBJ  17                                    /* invalid object */
+#define ERR_BIGOBJ  18  /* object too big - exceeds memory allocation limit */
 
 /* lexical analysis errors */
 #define ERR_INVTOK  100                                    /* invalid token */

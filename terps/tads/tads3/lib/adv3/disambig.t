@@ -40,6 +40,47 @@ class Distinguisher: object
      *   prompt.  
      */
     notePrompt(lst) { }
+
+    /*
+     *   Is the object in scope for the purposes of the disambiguation
+     *   reply from the player?  By default, any object in the full match
+     *   list is in scope.
+     *   
+     *   Distinguishers that can use related objects to qualify the name
+     *   should add those related objects to the scope by returning true
+     *   here.  For example, the locational distinguisher can use the
+     *   location name as a qualifying phrase, so the location name is in
+     *   scope.  
+     */
+    objInScope(obj, matchList, fullMatchList)
+    {
+        /* it's in scope if it's in the full match list */
+        return fullMatchList.indexWhich({x: x.obj_ == obj}) != nil;
+    }
+
+    /*
+     *   Try matching an object to a noun phrase in a disambiguation reply
+     *   from the player (that is, the player's response to a "Which foo
+     *   did you mean" question).  By default, we call the object's
+     *   matchNameDisambig() method to let it try to match its
+     *   disambiguation name.
+     *   
+     *   Subclasses can override this to check for additional phrasing
+     *   specific to the subclass.  For example, the locational
+     *   distinguisher checks for a match to the container or owner name,
+     *   so that the player can simply respond to the question with the
+     *   location name rather than typing in a whole locational phrase.
+     *   Note that subclasses will usually want to inherit the default
+     *   handling if they don't find a match to their own special phrasing,
+     *   because the player might respond with a simple adjective
+     *   pertaining to the base object even if there's some external
+     *   distinguishing characteristic handled by the subclass.
+     */
+    matchName(obj, origTokens, adjustedTokens, matchList, fullMatchList)
+    {
+        /* try matching the object's disambiguation name */
+        return obj.matchNameDisambig(origTokens, adjustedTokens);
+    }
 ;
 
 /*
@@ -54,8 +95,8 @@ nullDistinguisher: Distinguisher
  *   if one or the other object is not marked as isEquivalent, OR if the
  *   two objects don't have an identical superclass list.  This
  *   distinguisher thus can tell apart objects unless they're "basic
- *   equivalents," marked with isEquivalent and descended from the same
- *   base class or classes.  
+ *   equivalents," marked with isEquivalent and having the same equivalence
+ *   keys.  
  */
 basicDistinguisher: Distinguisher
     canDistinguish(a, b)
@@ -115,6 +156,59 @@ ownershipDistinguisher: Distinguisher
          */
         return aOwner != bOwner;
     }
+
+    objInScope(obj, matchList, fullMatchList)
+    {
+        /* it's in scope if it's an owner of an object in the base list */
+        if (matchList.indexWhich(function(m) {
+
+            /* get the owner, or the location if there's no owner */
+            m = m.obj_;
+            local l = m.getNominalOwner();
+            if (l == nil)
+                l = m.location;
+
+            /* if obj matches the owner/location, consider it in scope */
+            return obj == l;
+        }) != nil)
+            return true;
+        
+        /* otherwise, use the inherited handling */
+        return inherited(obj, matchList, fullMatchList);
+    }
+
+    matchName(obj, origTokens, adjustedTokens, matchList, fullMatchList)
+    {
+        /* if the name matches, consider ownership relationships */
+        if (obj.matchName(origTokens, adjustedTokens))
+        {
+            /* 
+             *   Look for objects in the original list owned by 'obj'.  We
+             *   might be matching an owner or location name rather than an
+             *   object from the original list, in which case we want to act
+             *   like we're matching the original list object(s) instead. 
+             */
+            local owned = matchList.mapAll({m: m.obj_})
+                .subset(function(m) {
+                
+                /* get the owner or location */
+                local o = m.getNominalOwner();
+                if (o == nil)
+                    o = m.location;
+                
+                /* if the owner/location is 'obj', keep it */
+                return o == obj;
+            });
+            
+            /* if we found any matches, return them all */
+            if (owned.length() > 0)
+                return owned;
+        }
+
+        /* no match to the owner; inherit the default handling */
+        return inherited(obj, origTokens, adjustedTokens, 
+                         matchList, fullMatchList);
+    }
 ;
 
 /*
@@ -126,6 +220,35 @@ locationDistinguisher: Distinguisher
     {
         /* we tell the objects apart by their immediate locations */
         return a.location != b.location;
+    }
+
+    objInScope(obj, matchList, fullMatchList)
+    {
+        /* it's in scope if it's a location of an object in the base list */
+        if (matchList.indexWhich({m: m.obj_.location == obj}) != nil)
+            return true;
+
+        /* otherwise, use the inherited handling */
+        return inherited(obj, matchList, fullMatchList);
+    }
+
+    matchName(obj, origTokens, adjustedTokens, matchList, fullMatchList)
+    {
+        /* if the name matches, consider location relationships */
+        if (obj.matchName(origTokens, adjustedTokens))
+        {
+            /* look for objects in the original list contained in 'obj' */
+            local cont = matchList.mapAll({m: m.obj_})
+                .subset({m: m.location == obj});
+            
+            /* if we found any matches, return them all */
+            if (cont.length() > 0)
+                return cont;
+        }
+
+        /* no match to the owner; inherit the default handling */
+        return inherited(obj, origTokens, adjustedTokens, 
+                         matchList, fullMatchList);
     }
 ;
 
@@ -218,7 +341,8 @@ class InteractiveResolver: ProxyResolver
  *   resolving disambiguation responses.  
  */
 class DisambigResolver: InteractiveResolver
-    construct(matchText, ordinalMatchList, matchList, fullMatchList, resolver)
+    construct(matchText, ordinalMatchList, matchList, fullMatchList, resolver,
+              dist)
     {
         /* inherit the base class constructor */
         inherited(resolver);
@@ -228,15 +352,17 @@ class DisambigResolver: InteractiveResolver
         self.ordinalMatchList = ordinalMatchList;
         self.matchList = matchList;
         self.fullMatchList = fullMatchList;
+        self.distinguisher = dist;
     }
 
     /*
-     *   Match an object's name - we'll use the disambiguation name
-     *   resolver.  
+     *   Match an object's name.  We'll send this to the distinguisher for
+     *   handling.  
      */
     matchName(obj, origTokens, adjustedTokens)
     {
-        return obj.matchNameDisambig(origTokens, adjustedTokens);
+        return distinguisher.matchName(obj, origTokens, adjustedTokens,
+                                       matchList, fullMatchList);
     }
 
     /*
@@ -247,12 +373,12 @@ class DisambigResolver: InteractiveResolver
     getQualifierResolver() { return origResolver; }
 
     /* 
-     *   determine if an object is in scope - it's in scope if it's in the
-     *   original full match list 
+     *   Determine if an object is in scope.  We pass this to the
+     *   distinguisher to decide.  
      */
     objInScope(obj)
     {
-        return fullMatchList.indexWhich({x: x.obj_ == obj}) != nil;
+        return distinguisher.objInScope(obj, matchList, fullMatchList);
     }
 
     /* 
@@ -326,6 +452,16 @@ class DisambigResolver: InteractiveResolver
      *   beyond those offered as interactive choices 
      */
     fullMatchList = []
+
+    /* 
+     *   The distinguisher that was used to generate the prompt.  Some
+     *   distinguishers can tell objects apart by other characteristics
+     *   than just their names, so when parsing we want to be able to give
+     *   the distinguisher a look at the input to see if the player is
+     *   referring to one of the distinguishing characteristics rather than
+     *   the object's own name.  
+     */
+    distinguisher = nil
 ;
 
 /* ------------------------------------------------------------------------ */
@@ -412,6 +548,12 @@ class DisambigResults: BasicResolveResults
                              matchList, fullMatchList, scopeList,
                              requiredNum, resolver);
 
+        /* 
+         *   Before giving up, try filtering by possessive rank, in case we
+         *   qualified by a possessive phrase. 
+         */
+        matchList = resolver.filterPossRank(matchList, requiredNum);
+
         /*
          *   Our disambiguation response itself requires further
          *   disambiguation.  Do not handle it recursively, since doing so
@@ -443,6 +585,11 @@ class DisambigResults: BasicResolveResults
     noMatch(action, txt)
     {
         /* throw an error indicating the problem */
+        throw new UnmatchedDisambigException(txt.toLower().htmlify());
+    }
+
+    noMatchPoss(action, txt)
+    {
         throw new UnmatchedDisambigException(txt.toLower().htmlify());
     }
 

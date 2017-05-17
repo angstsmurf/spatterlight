@@ -10,11 +10,13 @@
 	simply be done by setting the size to zero.
 
 \*----------------------------------------------------------------------*/
-
 #include "set.h"
-#include "main.h"
+
+/* Imports: */
+#include "lists.h"
 #include "syserr.h"
-#include "exe.h"
+#include "memory.h"
+#include "instance.h"
 
 #define EXTENT 5
 
@@ -37,13 +39,13 @@ void initSets(SetInitEntry *initTable)
 {
   SetInitEntry *init;
   int i;
-  
-  for (init = initTable; !endOfTable(init); init++) {
+
+  for (init = initTable; !isEndOfArray(init); init++) {
     Set *set = newSet(init->size);
     Aword *member = pointerTo(init->setAddress);
     for (i = 0; i < init->size; i++, member++)
       addToSet(set, *member);
-    setValue(init->instanceCode, init->attributeCode, (Aword)set);
+    setInstanceAttribute(init->instanceCode, init->attributeCode, (Aptr)set);
   }
 }
 
@@ -74,16 +76,16 @@ Set *copySet(Set *theSet) {
 /*======================================================================*/
 Aword getSetMember(Set *theSet, Aint theMember) {
   if (theMember > theSet->size || theMember < 1)
-    syserr("Accessing nonexisting member in a set");
+    apperr("Accessing nonexisting member in a set");
   return theSet->members[theMember-1];
 }
 
 
 /*======================================================================*/
-Bool inSet(Set *theSet, Aword member)
+bool inSet(Set *theSet, Aword member)
 {
   int i;
-	
+
   for (i = 1; i <= theSet->size; i++)
     if (getSetMember(theSet, i) == member)
       return TRUE;
@@ -96,7 +98,7 @@ Set *setUnion(Set *set1, Set *set2)
 {
   Set *theUnion = newSet(set1->size+set2->size);
   int i;
-	
+
   for (i = 0; i < set1->size; i++)
     addToSet(theUnion, set1->members[i]);
   for (i = 0; i < set2->size; i++)
@@ -137,7 +139,7 @@ void removeFromSet(Set *theSet, Aword member)
 
 
 /*=======================================================================*/
-Bool equalSets(Set *set1, Set *set2)
+bool equalSets(Set *set1, Set *set2)
 {
   int i;
 

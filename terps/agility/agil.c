@@ -153,11 +153,11 @@ static void print_title(fc_type fc)
     }
     writeln("");writeln("");
 
-//    if (aver<AGX00)
-//      writeln("This game was created with Malmberg and Welch's Adventure "
-//	      "Game Toolkit; it is being executed by");
-//    else writeln("This game is being executed by ");
-//    writeln("");
+    if (aver<AGX00)
+      writeln("This game was created with Malmberg and Welch's Adventure "
+	      "Game Toolkit; it is being executed by");
+    else writeln("This game is being executed by ");
+    writeln("");
     height=0;
   } else {
     if (buff[0]!=NULL && strncasecmp(buff[0],"COLORS",6)==0) {
@@ -192,30 +192,30 @@ static void print_title(fc_type fc)
   else 
     free_ttl(buff);
 
-//  agt_textcolor(7);
-//  agt_center(1);
-//  if (buff!=NULL) {
-//    if (aver<AGX00 && height<=screen_height-6) 
-//      writeln("[Created with Malmberg and Welch's Adventure Game Toolkit]");
-//    if (height<=screen_height-9) writeln("");
-//    if (height<=screen_height-5) writeln("This game is being executed by");
-//  }
-//  agt_textcolor(-1);
-//  s=rmalloc(80);
-//  if (height<=screen_height-5)
-//    sprintf(s,"AGiliTy: "
-//	    "The (Mostly) Universal AGT Interpreter  %s",version_str);
-//  else 
-//    sprintf(s,"Being run by AGiliTy  %s, "
-//	    "Copyright (C) 1996-99,2001 Robert Masenten",
-//	    version_str);
-//  writeln(s);
-//  rfree(s);
-//  agt_textcolor(-2);
-//  if (height<=screen_height-5)
-//    writeln("Copyright (C) 1996-99,2001 by Robert Masenten"); 
-//  if (height<=screen_height-3) writeln(portstr);
-//  if (height<=screen_height-10) writeln("");
+  agt_textcolor(7);
+  agt_center(1);
+  if (buff!=NULL) {
+    if (aver<AGX00 && height<=screen_height-6) 
+      writeln("[Created with Malmberg and Welch's Adventure Game Toolkit]");
+    if (height<=screen_height-9) writeln("");
+    if (height<=screen_height-5) writeln("This game is being executed by");
+  }
+  agt_textcolor(-1);
+  s=rmalloc(80);
+  if (height<=screen_height-5)
+    sprintf(s,"AGiliTy: "
+	    "The (Mostly) Universal AGT Interpreter  %s",version_str);
+  else 
+    sprintf(s,"Being run by AGiliTy  %s, "
+	    "Copyright (C) 1996-99,2001 Robert Masenten",
+	    version_str);
+  writeln(s);
+  rfree(s);
+  agt_textcolor(-2);
+  if (height<=screen_height-5)
+    writeln("Copyright (C) 1996-99,2001 by Robert Masenten"); 
+  if (height<=screen_height-3) writeln(portstr);
+  if (height<=screen_height-10) writeln("");
   agt_center(0);
 }
 
@@ -552,7 +552,7 @@ static int init(void)
 /*  lactor=lobj=lnoun=NULL;*/
   tscore=old_score=objscore=0;
   turncnt=0;
-  curr_time=start_time;
+  curr_time=startup_time;
   loc=start_room-first_room;
   cmd_saveable=0;
   first_visit_flag=newlife_flag=room_firstdesc=1;
@@ -696,8 +696,8 @@ static void print_license(void)
 	  "GNU General Public License for more details.");
   writeln("  You should have received a copy of the GNU General Public "
 	  "License along with this program; if not, write to the Free "
-	  "Software Foundation, Inc., 59 Temple Place, Suite 330, "
-	  "Boston, MA  02111-1307  USA");
+	  "Software Foundation, Inc., 51 Franklin Street, Fifth Floor, "
+	  "Boston, MA  02110-1301  USA");
   writeln("");
   writeln("  Send comments and bug reports to Robert Masenten at:");
   writeln("      rcm-math@pacbell.net");
@@ -856,10 +856,10 @@ static fc_type setup_game(fc_type fc)
   have_ins=open_ins_file(fc,0);
   do {
     if (have_ins) 
-      writestr("Choose [I]nstructions, [A]GiliTy Information, "
-	       "or [other] to start the game: ");
+      writestr("Choose <I>nstructions, <A>GiliTy Information, "
+	       "or <other> to start the game");
     else 
-	writestr("Choose [A]GiliTy Information or [other] to start the game: ");
+      writestr("Choose <A>GiliTy Information or <other> to start the game");
     choice=tolower(agt_getchar());  /* Wait for keypress */
     agt_clrscr();
     if (have_ins && choice=='i') print_instructions(fc);

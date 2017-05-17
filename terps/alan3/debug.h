@@ -8,22 +8,30 @@
 
 \*----------------------------------------------------------------------*/
 
-/* TYPES: */
+/* Imports: */
+#include "types.h"
 
 
-/* DATA: */
-#define BREAKPOINTMAX 50
+/* Types: */
+
+typedef struct Breakpoint {
+  int line;
+  int file;
+} Breakpoint;
+
+
+/* Data: */
 extern int breakpointCount;
-extern Breakpoint breakpoint[BREAKPOINTMAX];
+extern Breakpoint breakpoint[];
 
-/* FUNCTIONS: */
+/* Functions: */
 extern void saveInfo(void);
 extern void restoreInfo(void);
-extern Bool breakpointIndex(int file, int line);
+extern int breakpointIndex(int file, int line);
 extern char *sourceFileName(int file);
 extern char *readSourceLine(int file, int line);
 extern void showSourceLine(int fileNumber, int line);
-extern void debug(Bool calledFromBreakpoint, int line, int fileNumber);
+extern void debug(bool calledFromBreakpoint, int line, int fileNumber);
 extern void traceSay(int item);
 
 #endif

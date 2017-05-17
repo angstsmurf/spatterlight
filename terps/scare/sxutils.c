@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -24,10 +24,9 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "scare.h"
@@ -87,22 +86,31 @@ sx_fatal (const sc_char *format, ...)
 }
 
 
+/* Unique non-heap address for zero size malloc() and realloc() requests. */
+static void *sx_zero_allocation = &sx_zero_allocation;
+ 
 /*
  * sx_malloc()
  * sx_realloc()
  * sx_free()
  *
  * Non-failing wrappers around malloc functions.  Newly allocated memory is
- * cleared to zero.
+ * cleared to zero.  In ANSI/ISO C, zero byte allocations are implementation-
+ * defined, so we have to take special care to get predictable behavior.
  */
 void *
 sx_malloc (size_t size)
 {
   void *allocated;
 
+  if (size == 0)
+    return sx_zero_allocation;
+
   allocated = malloc (size);
   if (!allocated)
     sx_fatal ("sx_malloc: requested %lu bytes\n", (sc_uint) size);
+  else if (allocated == sx_zero_allocation)
+    sx_fatal ("sx_malloc: zero-byte allocation address returned\n");
 
   memset (allocated, 0, size);
   return allocated;
@@ -113,19 +121,34 @@ sx_realloc (void *pointer, size_t size)
 {
   void *allocated;
 
+  if (size == 0)
+    {
+      sx_free (pointer);
+      return sx_zero_allocation;
+    }
+
+  if (pointer == sx_zero_allocation)
+    pointer = NULL;
+
   allocated = realloc (pointer, size);
   if (!allocated)
     sx_fatal ("sx_realloc: requested %lu bytes\n", (sc_uint) size);
+  else if (allocated == sx_zero_allocation)
+    sx_fatal ("sx_realloc: zero-byte allocation address returned\n");
+
   if (!pointer)
     memset (allocated, 0, size);
-
   return allocated;
 }
 
 void
 sx_free (void *pointer)
 {
-  free (pointer);
+  if (sx_zero_allocation != &sx_zero_allocation)
+    sx_fatal ("sx_free: write to zero-byte allocation address detected\n");
+
+  if (pointer && pointer != sx_zero_allocation)
+    free (pointer);
 }
 
 

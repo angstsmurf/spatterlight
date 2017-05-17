@@ -22,11 +22,28 @@ Modified
 
 #include "vmglob.h"
 
+/*
+ *   Save/restore API.  (This class is all static methods, so it's never
+ *   instatiated; it's really just a namespace.)
+ */
 class CVmSaveFile
 {
 public:
-    /* save state to a file */
-    static void save(VMG_ class CVmFile *fp);
+    /* 
+     *   Save state to a file.  Writes the state information to the given
+     *   open file stream.
+     *   
+     *   'metadata' is an optional LookupTable object containing
+     *   string->string associations.  We'll write each key/value pair to the
+     *   save file in the metadata header section.  This section allows the
+     *   interpreter and external tools to display user-readable information
+     *   on the saved game.  For example, you could store things like the
+     *   current location, chapter number, score, etc - things that would
+     *   help the user identify the context of the saved game when looking
+     *   for the one he/she wishes to restore.  
+     */
+    static void save(VMG_ class CVmFile *fp,
+                     class CVmObjLookupTable *metadata);
 
     /* 
      *   given a saved state file, read the name of the image file that
@@ -43,6 +60,8 @@ public:
 
     /* reset the VM to the initial image file state */
     static void reset(VMG0_);
+
+protected:
 };
 
 #endif /* VMSAVE_H */

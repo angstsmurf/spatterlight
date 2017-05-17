@@ -131,6 +131,48 @@ const char TOK_MACRO_ARGCOUNT_FLAG = 0x06;
 const char TOK_MACRO_IFEMPTY_FLAG = 0x07;
 const char TOK_MACRO_IFNEMPTY_FLAG = 0x08;
 
+/*
+ *   Macro format version number.  The compiler sets up a predefined macro
+ *   (__TADS_MACRO_FORMAT_VERSION) with this information.  Since 3.1, the
+ *   macro table is visible to user code via t3GetGlobalSymbols() (using the
+ *   T3PreprocMacros selector), and this information includes the parsed
+ *   format with the embedded flag codes.  The macro information can be used
+ *   in DynamicFunc compilation at run-time.  If we ever make incompatible
+ *   changes to the internal format, future interpreters will have to
+ *   recognize older versions so that they can make the necessary
+ *   translations.  By embedding the version information in the table, we
+ *   make this recognition possible.  
+ */
+#define TCTOK_MACRO_FORMAT_VERSION   1
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Macro table.  This is a virtualized version of our basic hash table, to
+ *   allow specialized versions that provide views on top of other table
+ *   structures.  
+ */
+class CTcMacroTable
+{
+public:
+    virtual ~CTcMacroTable() { }
+    
+    /* add an entry */
+    virtual void add(CVmHashEntry *entry) = 0;
+
+    /* remove an entry */
+    virtual void remove(CVmHashEntry *entry) = 0;
+
+    /* find an entry */
+    virtual class CVmHashEntry *find(const char *str, size_t len) = 0;
+
+    /* enumerate entries */
+    virtual void enum_entries(
+        void (*func)(void *ctx, class CVmHashEntry *entry), void *ctx) = 0;
+
+    /* dump the hash table for debugging purposes */
+    virtual void debug_dump() = 0;
+};
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -177,10 +219,14 @@ enum tc_toktyp_t
     TOKT_SYM,                                              /* symbolic name */
     TOKT_INT,                                                    /* integer */
     TOKT_SSTR,                                      /* single-quoted string */
+    TOKT_SSTR_START,         /* start of an sstring with embedding - '...<< */
+    TOKT_SSTR_MID,         /* middle of an sstring with embedding - >>...<< */
+    TOKT_SSTR_END,             /* end of an sstring with embedding - >>...' */
     TOKT_DSTR,                                      /* double-quoted string */
     TOKT_DSTR_START,          /* start of a dstring with embedding - "...<< */
     TOKT_DSTR_MID,          /* middle of a dstring with embedding - >>...<< */
     TOKT_DSTR_END,              /* end of a dstring with embedding - >>..." */
+    TOKT_RESTR,             /* regular expression string - R'...' or R"..." */
     TOKT_LPAR,                                            /* left paren '(' */
     TOKT_RPAR,                                           /* right paren ')' */
     TOKT_COMMA,                                                /* comma ',' */
@@ -211,7 +257,8 @@ enum tc_toktyp_t
     TOKT_OROR,                                           /* logical OR '||' */
     TOKT_XOR,                                            /* bitwise XOR '^' */
     TOKT_SHL,                                            /* shift left '<<' */
-    TOKT_SHR,                                           /* shift right '>>' */
+    TOKT_ASHR,                               /* arithmetic shift right '>>' */
+    TOKT_LSHR,                                 /* logical shift right '>>>' */
     TOKT_INC,                                             /* increment '++' */
     TOKT_DEC,                                             /* decrement '--' */
     TOKT_PLUSEQ,                                        /* plus-equals '+=' */
@@ -223,7 +270,8 @@ enum tc_toktyp_t
     TOKT_OREQ,                                            /* or-equals '|=' */
     TOKT_XOREQ,                                          /* xor-equals '^=' */
     TOKT_SHLEQ,                              /* shift-left-and-assign '<<=' */
-    TOKT_SHREQ,                             /* shift-right-and-assign '>>=' */
+    TOKT_ASHREQ,                 /* arithmetic shift-right-and-assign '>>=' */
+    TOKT_LSHREQ,                   /* logical shift-right-and-assign '>>>=' */
     TOKT_NOT,                                            /* logical not '!' */
     TOKT_BNOT,                                           /* bitwise not '~' */
     TOKT_POUND,                                                /* pound '#' */
@@ -231,9 +279,13 @@ enum tc_toktyp_t
     TOKT_POUNDAT,                                          /* pound-at '#@' */
     TOKT_ELLIPSIS,                                        /* ellipsis '...' */
     TOKT_QUESTION,                                     /* question mark '?' */
+    TOKT_QQ,                                   /* double question mark '??' */
     TOKT_COLONCOLON,                                   /* double-colon '::' */
     TOKT_FLOAT,                                    /* floating-point number */
+    TOKT_BIGINT,          /* an integer promoted to a float due to overflow */
     TOKT_AT,                                                     /* at-sign */
+    TOKT_DOTDOT,                                       /* range marker '..' */
+    TOKT_FMTSPEC,                  /* sprintf format spec for <<%fmt expr>> */
 
     /* keywords */
     TOKT_SELF,
@@ -284,9 +336,12 @@ enum tc_toktyp_t
     TOKT_DEFININGOBJ,
     TOKT_TRANSIENT,
     TOKT_REPLACED,
-    TOKT_PROPERTY
+    TOKT_PROPERTY,
+    TOKT_OPERATOR,
+    TOKT_METHOD,
+    TOKT_INVOKEE
 
-    /* type names */
+    /* type names - formerly reserved but later withdrawn */
 //  TOKT_VOID,
 //  TOKT_INTKW,
 //  TOKT_STRING,
@@ -414,6 +469,26 @@ public:
 
         /* null-terminte it */
         buf_[buf_len_] = '\0';
+    }
+
+    /* prepend text */
+    virtual void prepend(const char *p) { prepend(p, strlen(p)); }
+    virtual void prepend(const char *p, size_t len)
+    {
+        /* make sure we have enough space */
+        ensure_space(buf_len_ + len);
+
+        /* 
+         *   move the existing text (including the null terminator) up in the
+         *   buffer to make room for the prepended text 
+         */
+        memmove(buf_ + len, buf_, buf_len_ + 1);
+
+        /* copy the new text to the start of the buffer */
+        memcpy(buf_, p, len);
+
+        /* count the new size */
+        buf_len_ += len;
     }
 
     /* 
@@ -578,7 +653,10 @@ public:
 
     /* we can't make any changes to the underlying buffer */
     void ensure_space(size_t) { }
+    void append(const char *) { assert(FALSE); }
     void append(const char *, size_t) { assert(FALSE); }
+    void prepend(const char *) { assert(FALSE); }
+    void prepend(const char *, size_t) { assert(FALSE); }
     void insert(int, const char *, size_t) { assert(FALSE); }
     void copy(const char *, size_t) { assert(FALSE); }
     void clear_text() { assert(FALSE); }
@@ -596,11 +674,98 @@ public:
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   String embedding context.  This keeps track of the token structure for
+ *   embedded expressions within strings using << >>. 
+ */
+struct tok_embed_level
+{
+    /* parenthesis depth within the expression */
+    int parens;
+
+    /* token type to switch back to on ending the string */
+    tc_toktyp_t endtok;
+
+    /* the quote character for the enclosing string */
+    wchar_t qu;
+
+    /* true -> the enclosing string is a triple-quoted string */
+    int triple;
+
+    void enter(wchar_t qu, int triple)
+    {
+        this->parens = 0;
+        this->endtok = (qu == '"' ? TOKT_DSTR_END : TOKT_SSTR_END);
+        this->qu = qu;
+        this->triple = triple;
+    }
+};
+struct tok_embed_ctx
+{
+    tok_embed_ctx() { reset(); }
+
+    void reset()
+    {
+        level = 0;
+        s = 0;
+    }
+    
+    void start_expr(wchar_t qu, int triple, int report);
+
+    void end_expr()
+    {
+        if (level > 0)
+            --level;
+        if (level == 0)
+            s = 0;
+        else if (level < countof(stk))
+            s = stk + level - 1;
+    }
+
+    /* are we in an embedded expression? */
+    int in_expr() const { return level != 0; }
+
+    /* paren nesting at current level */
+    int parens() const { return in_expr() ? s->parens : 0; }
+
+    /* inc/dec paren nesting level */
+    void parens(int inc)
+    {
+        if (in_expr())
+        {
+            if ((s->parens += inc) < 0)
+                s->parens = 0;
+        }
+    }
+
+    /* ending token type at current level */
+    tc_toktyp_t endtok() const { return in_expr() ? s->endtok : TOKT_INVALID; }
+
+    /* ending quote at current level */
+    wchar_t qu() const { return in_expr() ? s->qu : 0; }
+
+    /* ending quote is triple quote at current level */
+    int triple() const { return in_expr() ? s->triple : FALSE; }
+
+    /* nesting level */
+    int level;
+
+    /* stack pointer */
+    tok_embed_level *s;
+
+    /* stack */
+    tok_embed_level stk[10];
+};
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Token 
  */
 class CTcToken
 {
 public:
+    CTcToken() { }
+    CTcToken(tc_toktyp_t typ) : typ_(typ) { }
+    
     /* get/set the token type */
     tc_toktyp_t gettyp() const { return typ_; }
     void settyp(tc_toktyp_t typ) { typ_ = typ; }
@@ -619,8 +784,12 @@ public:
     }
 
     /* get/set the integer value */
-    long get_int_val() const { return int_val_; }
-    void set_int_val(long val) { typ_ = TOKT_INT; int_val_ = val; }
+    ulong get_int_val() const { return int_val_; }
+    void set_int_val(ulong val)
+    {
+        typ_ = TOKT_INT;
+        int_val_ = val;
+    }
 
     /* 
      *   compare the text to the given string - returns true if the text
@@ -628,8 +797,21 @@ public:
      */
     int text_matches(const char *txt, size_t len) const
     {
-        return (len == text_len_
-                && memcmp(txt, text_, len) == 0);
+        return (len == text_len_ && memcmp(txt, text_, len) == 0);
+    }
+    int text_matches(const char *txt) const
+    {
+        return text_matches(txt, txt != 0 ? strlen(txt) : 0);
+    }
+
+    /* copy from a another token */
+    void set(const CTcToken &tok)
+    {
+        typ_ = tok.typ_;
+        text_ = tok.text_;
+        text_len_ = tok.text_len_;
+        int_val_ = tok.int_val_;
+        fully_expanded_ = tok.fully_expanded_;
     }
 
 private:
@@ -646,7 +828,7 @@ private:
     size_t text_len_;
 
     /* integer value - valid when the token type is TOKT_INT */
-    long int_val_;
+    ulong int_val_;
 
     /* 
      *   flag: the token has been fully expanded, and should not be
@@ -655,6 +837,28 @@ private:
     uint fully_expanded_ : 1;
 };
 
+/* 
+ *   Token list entry.  This is a generic linked list element containing a
+ *   token.  
+ */
+class CTcTokenEle: public CTcToken
+{
+public:
+    CTcTokenEle() { nxt_ = prv_ = 0; }
+
+    /* get/set the next element */
+    CTcTokenEle *getnxt() const { return nxt_; }
+    void setnxt(CTcTokenEle *nxt) { nxt_ = nxt; }
+
+    /* get/set the previous element */
+    CTcTokenEle *getprv() const { return prv_; }
+    void setprv(CTcTokenEle *prv) { prv_ = prv; }
+
+protected:
+    /* next/previous token in list */
+    CTcTokenEle *nxt_;
+    CTcTokenEle *prv_;
+};
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -700,6 +904,8 @@ public:
 class CTcTokenSource
 {
 public:
+    virtual ~CTcTokenSource() { }
+
     /* 
      *   Get the next token from the source.  Returns null if there are no
      *   more tokens.  
@@ -739,12 +945,39 @@ protected:
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Newline spacing modes.  The newline spacing mode controls how line
+ *   breaks are handled within strings.
+ */
+
+enum newline_spacing_mode_t
+{
+    /* delete: a newline and immediately following whitespace are deleted */
+    NEWLINE_SPACING_DELETE = 0,
+
+    /* 
+     *   collapse: a newline and immediately following whitespace are
+     *   replaced with a single space character 
+     */
+    NEWLINE_SPACING_COLLAPSE = 1,
+
+    /* 
+     *   preserve: newlines and subsequent whitespace are preserved exactly
+     *   as written in the source code 
+     */
+    NEWLINE_SPACING_PRESERVE = 2
+};
+
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Tokenizer.  This object reads a file and constructs a representation
  *   of the file as a token list in memory.  The tokenizer interprets
  *   preprocessor directives and expands macros.  
  */
 class CTcTokenizer
 {
+    friend class CTcHashEntryPpDefine;
+    
 public:
     /*
      *   Create the tokenizer and start reading from the given file.  The
@@ -778,7 +1011,10 @@ public:
     int set_source(const char *src_filename, const char *orig_name);
 
     /* set the source to a memory buffer */
-    void set_source_buf(const char *buf);
+    void set_source_buf(const char *buf)
+        { set_source_buf(buf, buf != 0 ? strlen(buf) : 0); }
+
+    void set_source_buf(const char *buf, size_t len);
 
     /* 
      *   Add a #include directory to the include path.  We search the
@@ -819,14 +1055,32 @@ public:
 
     /* 
      *   Un-get the current token and back up to the previous token.  The
-     *   maximum un-get depth is one token - after un-getting one token,
-     *   another token must not be un-gotten until after reading another
+     *   previous token becomes the current token, and the current token is
+     *   saved on an internal stack to be fetched again after the returned
      *   token.
      *   
-     *   Tokens un-got with this routine are accessible only to next(),
-     *   not to any of the lower-level token readers.  
+     *   With no arguments, this backs up to the internally stored previous
+     *   token.  This allows callers to look ahead by one token without
+     *   making a list of saved tokens.
+     *   
+     *   With an argument, this backs up to a prior token saved by the
+     *   caller.  This can be used to back up arbitrarily many tokens - it's
+     *   up to the caller to save ungettable tokens and push them back into
+     *   the stream.  Tokens must be ungotten in reverse order (e.g., get A,
+     *   B, C, D, unget D, C, B, A).  Note that the argument is the PREVIOUS
+     *   token to restore, not the current token.
+     *   
+     *   Tokens un-got with this routine are accessible only to next(), not
+     *   to any of the lower-level token readers.  
      */
     void unget();
+    void unget(const CTcToken *prv);
+
+    /* 
+     *   Push a token into the token stream.  The given token becomes the
+     *   next token to be retrieved.  This doesn't affect the current token.
+     */
+    void push(const CTcToken *tok);
 
     /* get the current token */
     const class CTcToken *getcur() const { return &curtok_; }
@@ -843,6 +1097,23 @@ public:
 
     /* check to see if the current token matches the given text */
     int cur_tok_matches(const char *txt, size_t len);
+    int cur_tok_matches(const char *txt)
+        { return cur_tok_matches(txt, strlen(txt)); }
+
+    /* 
+     *   Try looking ahead to match a pair of symbols.  If the current token
+     *   is a TOKT_SYM token matching sym1, read the next token to see if
+     *   it's another TOKT_SYM matching sym2.  If so, skip the second token
+     *   and return true.  If not, unget tthe second (so the original token
+     *   is current again) and return false.  
+     */
+    int look_ahead(const char *sym1, const char *sym2);
+
+    /* 
+     *   peek ahead - same as look_ahead, but doesn't skip anything even on
+     *   successfully matching the token pair
+     */
+    int peek_ahead(const char *sym1, const char *sym2);
 
     /*
      *   Set an external token source.  We'll read tokens from this source
@@ -878,7 +1149,7 @@ public:
      *   expression in a string - used by parsers to resynchronize after
      *   an apparent syntax error 
      */
-    void assume_missing_dstr_cont();
+    void assume_missing_str_cont();
 
     /* define a macro */
     void add_define(const char *sym, size_t len, const char *expansion,
@@ -968,6 +1239,9 @@ public:
     /* log a warning, optionally with parameters */
     static void log_warning(int errnum, ...);
 
+    /* log a pedantic warning */
+    static void log_pedantic(int errnum, ...);
+
     /* log a warning with the current token as the parameter */
     void log_warning_curtok(int errnum);
 
@@ -1001,8 +1275,14 @@ public:
     const char *get_cur_line() const { return linebuf_.get_text(); }
     size_t get_cur_line_len() const { return linebuf_.get_text_len(); }
 
-    /* get the #define hash table */
-    class CVmHashTable *get_defines_table() const { return defines_; }
+    /* get/set the #define hash table */
+    class CTcMacroTable *get_defines_table() const { return defines_; }
+    class CTcMacroTable *set_defines_table(class CTcMacroTable *tab)
+    {
+        CTcMacroTable *old_tab = defines_;
+        defines_ = tab;
+        return old_tab;
+    }
 
     /* 
      *   look up a token as a keyword; returns true and fills in 'kw' with
@@ -1018,11 +1298,16 @@ public:
      *   
      *   If the token is a string, and the string contains backslash
      *   sequences, we'll modify the source string by translating each
-     *   backslash sequences; for example, a "\n" sequence is changed into
-     *   an ASCII 10.  
+     *   backslash sequences; for example, a "\n" sequence is changed into an
+     *   ASCII 10.
+     *   
+     *   'expanding' indicates whether or not we're in the initial macro
+     *   expansion pass.  If this is true, we'll suppress error messages
+     *   during this pass, as we'll encounter the same tokens again when we
+     *   parse the expanded form of the line.  
      */
     static tc_toktyp_t next_on_line(utf8_ptr *p, CTcToken *tok,
-                                    int *in_embedding);
+                                    tok_embed_ctx *ec, int expanding);
 
     /*
      *   Get the text of an operator token.  Returns a pointer to a
@@ -1033,9 +1318,23 @@ public:
 
     /* 
      *   Store text in the source list.  Text stored here is available
-     *   throughout compilation. 
+     *   throughout compilation.  This routine automatically reserves the
+     *   space needed, so do not call 'reserve' or 'commit' separately.  
      */
     const char *store_source(const char *txt, size_t len);
+
+    /* reserve space for text in the source list */
+    void reserve_source(size_t len);
+
+    /* 
+     *   Store a piece of text into pre-reserved space in the source list.
+     *   This can be used to build up a string from several pieces.  You must
+     *   call 'reserve' first to allocate the space, and you must explicitly
+     *   add a null terminator at the end of the string.  Do not call
+     *   'commit'; this automatically commits the space as each substring is
+     *   added. 
+     */
+    const char *store_source_partial(const char *txt, size_t len);
 
     /*
      *   Get the index of the next source file descriptor that will be
@@ -1109,18 +1408,20 @@ private:
      *   string buffer, we'll return EOF 
      */
     static tc_toktyp_t next_on_line(const CTcTokString *srcbuf, utf8_ptr *p,
-                                    CTcToken *tok, int *in_embedding);
+                                    CTcToken *tok, tok_embed_ctx *ec,
+                                    int expanding);
 
     /* 
      *   get the next token on the current line, updating the internal
      *   character position pointer to point just past the token, and filling
      *   in the internal current token object with the toen data 
      */
-    tc_toktyp_t next_on_line() { return next_on_line(&p_, &curtok_, 0); }
+    tc_toktyp_t next_on_line()
+        { return next_on_line(&p_, &curtok_, 0, FALSE); }
 
     /* get the next token on the line, with string translation */
-    tc_toktyp_t next_on_line_xlat(int *in_embedding)
-        { return next_on_line_xlat(&p_, &curtok_, in_embedding); }
+    tc_toktyp_t next_on_line_xlat(tok_embed_ctx *ec)
+        { return next_on_line_xlat(&p_, &curtok_, ec); }
 
     /* 
      *   get the next token, translating strings and storing string and
@@ -1133,14 +1434,13 @@ private:
      *   format 
      */
     tc_toktyp_t next_on_line_xlat(utf8_ptr *p, CTcToken *tok,
-                                  int *in_embedding);
+                                  tok_embed_ctx *ec);
 
     /* 
      *   translate a string to internal format by converting escape
      *   sequences; overwrites the original buffer 
      */
-    tc_toktyp_t xlat_string(utf8_ptr *p, CTcToken *tok,
-                            int *in_embedding);
+    tc_toktyp_t xlat_string(utf8_ptr *p, CTcToken *tok, tok_embed_ctx *ec);
 
     /* 
      *   translate a string into a given buffer; if 'force_embed_end' is
@@ -1149,7 +1449,7 @@ private:
      *   input looks like 
      */
     tc_toktyp_t xlat_string_to(char *dst, utf8_ptr *p, CTcToken *tok,
-                               int *in_embedding, int force_embed_end);
+                               tok_embed_ctx *ec, int force_embed_end);
 
     /* 
      *   Translate a string, saving the translated version in the source
@@ -1158,7 +1458,14 @@ private:
      *   '>>' immediately preceded the current input), regardless of what
      *   the actual input looks like.  
      */
-    tc_toktyp_t xlat_string_to_src(int *in_embedding, int force_end_embed);
+    tc_toktyp_t xlat_string_to_src(tok_embed_ctx *ec, int force_end_embed);
+
+    /* 
+     *   is the given token type "safe" (i.e., stored in the tokenizer source
+     *   list, so that its text pointer is permanently valid; non-safe tokens
+     *   have valid text pointers only until the next token fetch) 
+     */
+    int is_tok_safe(tc_toktyp_t typ);
 
     /* initialize the source block list */
     void init_src_block_list();
@@ -1188,30 +1495,39 @@ private:
         p_.set((char *)str->get_text() + ofs);
     }
 
-    /* reserve space for text in the source list */
-    void reserve_source(size_t len);
-
-    /* 
-     *   Commit space in the source list - this is used when text is
-     *   directly stored after reserving space.  The size reserved may be
-     *   greater than the size committed, because it is sometimes more
-     *   efficient to make a guess that may overestimate the amount we
-     *   actually end up needing.  
-     */
-    void commit_source(size_t len);
-
     /* unsplice text from the current line and make it the next line */
     void unsplice_line(const char *new_line_start);
 
+    /* 
+     *   Commit space in the source list - this is used when text is directly
+     *   stored after reserving space.  The size reserved may be greater than
+     *   the size committed, because it is sometimes more efficient to make a
+     *   guess that may overestimate the amount we actually end up needing.  
+     */
+    void commit_source(size_t len);
+
     /* parse a string */
-    static tc_toktyp_t tokenize_string(utf8_ptr *p, CTcToken *tok,
-                                       int *in_embedding);
+    static tc_toktyp_t tokenize_string(
+        utf8_ptr *p, CTcToken *tok, tok_embed_ctx *ec, int expanding_macros);
 
     /* process comments */
     void process_comments(size_t start_ofs);
 
     /* splice lines for a string that runs across multiple lines */
     void splice_string();
+
+    /* scan a sprintf format spec */
+    void scan_sprintf_spec(utf8_ptr *p);
+
+    /* translate a \ escape sequence */
+    void xlat_escape(utf8_ptr *dst, utf8_ptr *p, wchar_t qu, int triple);
+
+    /* skip an ordinary character or \ escape sequence */
+    void skip_escape(utf8_ptr *p);
+
+    /* translate escape sequences in a string segment */
+    void xlat_escapes(utf8_ptr *dstp, const utf8_ptr *srcp,
+                      const utf8_ptr *endp);
 
     /* expand macros in the current line */
     int expand_macros_curline(int read_more, int allow_defined,
@@ -1372,6 +1688,9 @@ private:
     /* process a #pragma newline_spacing(on/off) directive */
     void pragma_newline_spacing();
 
+    /* process a #pragma sourceTextGroup directive */
+    void pragma_source_text_group();
+
     /* 
      *   Determine if we're in a false #if branch.  If we're inside a #if
      *   block, and the state is either IF_NO, IF_DONE, or ELSE_NO, or
@@ -1427,10 +1746,10 @@ private:
     void clear_linebuf();
 
     /* flag: ALL_ONCE mode - we include each file only once */
-    int all_once_ : 1;
+    unsigned int all_once_ : 1;
 
     /* flag: warn on ignoring a redundant #include file */
-    int warn_on_ignore_incl_ : 1;
+    unsigned int warn_on_ignore_incl_ : 1;
 
     /*
      *   Flag: in preprocess-only mode.  In this mode, we'll leave certain
@@ -1439,13 +1758,13 @@ private:
      *   For example, we'll leave #line directives, #pragma C, #error, and
      *   #pragma message directives in the preprocessed result.  
      */
-    int pp_only_mode_ : 1;
+    unsigned int pp_only_mode_ : 1;
 
     /* 
      *   Flag: in test reporting mode.  In this mode, we'll expand __FILE__
      *   macros with the root name only. 
      */
-    int test_report_mode_ : 1;
+    unsigned int test_report_mode_ : 1;
 
     /*
      *   Flag: in preprocess-for-includes mode.  In this mode, we'll do
@@ -1453,25 +1772,16 @@ private:
      *   header files that are included, along with header files they
      *   include, and so on.  
      */
-    int list_includes_mode_ : 1;
-
-    /*
-     *   Flag: treat newlines in strings as whitespace.  When this is true,
-     *   whenever we find a newline character in a string, we'll convert the
-     *   newline and all leading whitespace on the next line to a single
-     *   space character.  When this is false, we'll entirely strip out each
-     *   newline in a string and all whitespace that immediately follows;
-     *   this mode is desirable for some languages, such as Chinese, where
-     *   whitespace is not conventionally used as a token separator in
-     *   ordinary text.  
-     */
-    int string_newline_spacing_ : 1;
+    unsigned int list_includes_mode_ : 1;
 
     /* 
      *   flag: we're parsing a preprocessor constant expression (for a
      *   #if, for example; this doesn't apply to simple macro expansion) 
      */
-    int in_pp_expr_ : 1;
+    unsigned int in_pp_expr_ : 1;
+
+    /* mode for handling newlines in strings */
+    newline_spacing_mode_t string_newline_spacing_;
 
     /* resource loader */
     class CResLoader *res_loader_;
@@ -1547,20 +1857,26 @@ private:
     /* macro expansion buffer */
     CTcTokString expbuf_;
 
+    /* macro definition parsing buffer */
+    CTcTokString defbuf_;
+
     /* 
      *   Flag: in a string.  If this is '\0', we're not in a string;
      *   otherwise, this is the quote character that ends the string.
      */
     wchar_t in_quote_;
 
-    /* flag: in an embedded expression during line processing */
-    uint comment_in_embedding_ : 1;
+    /* flag: the in_quote_ string we're in is triple quoted */
+    int in_triple_;
 
-    /* flag: macro processing token stream is in an embedded expression */
-    int macro_in_embedding_;
+    /* embedded expression context in comment */
+    tok_embed_ctx comment_in_embedding_;
 
-    /* flag: main token stream is in an embedded expression */
-    int main_in_embedding_;
+    /* embedded expression context within a macro expansion */
+    tok_embed_ctx macro_in_embedding_;
+
+    /* embedded expression context for the main token stream */
+    tok_embed_ctx main_in_embedding_;
 
     /* 
      *   #if state stack.  if_sp_ is the index of the next nesting slot;
@@ -1592,18 +1908,23 @@ private:
     /* previous token (for unget) */
     CTcToken prvtok_;
 
+    /* head of allocated list of unget token slots */
+    CTcTokenEle *unget_head_;
+
     /* 
-     *   next token, if a token has been un-gotten, and a flag indicating
-     *   that this is indeed the case. 
+     *   Last unget token.  This is a pointer into the unget list, to the
+     *   element containing the last ungotten token.  The next next() will
+     *   reinstate this token and move the pointer back into the list; the
+     *   next unget() will move the pointer forward and fill in the next
+     *   element.  This is null if there are no ungotten tokens.  
      */
-    CTcToken nxttok_;
-    unsigned int nxttok_valid_ : 1;
+    CTcTokenEle *unget_cur_;
 
     /* the external token source, if any */
     CTcTokenSource *ext_src_;
 
     /* symbol table for #define symbols */
-    class CVmHashTable *defines_;
+    class CTcMacroTable *defines_;
 
     /* 
      *   symbol table for symbols explicitly undefined; we keep track of
@@ -1626,7 +1947,7 @@ private:
      *   string capture file - if this is non-null, we'll capture all of
      *   the strings we read to this file, one string per line 
      */
-    osfildef *string_fp_;
+    class CVmDataSource *string_fp_;
 
     /* character mapper for writing to the string capture file */
     class CCharmapToLocal *string_fp_map_;
@@ -1831,8 +2152,10 @@ public:
     void set_init_if_level(int level) { init_if_level_ = level; }
 
     /* get/set the newline spacing mode */
-    int get_newline_spacing() const { return newline_spacing_; }
-    void set_newline_spacing(int f) { newline_spacing_ = f; }
+    newline_spacing_mode_t get_newline_spacing() const
+        { return newline_spacing_; }
+    void set_newline_spacing(newline_spacing_mode_t f)
+        { newline_spacing_ = f; }
 
 private:
     /* file descriptor associated with this file */
@@ -1853,14 +2176,14 @@ private:
     /* #if nesting level at the start of the file */
     int init_if_level_;
 
+    /* newline_spacing mode when the stream was stacked */
+    newline_spacing_mode_t newline_spacing_;
+
     /* flag: we were unable to load the map in the #charset directive */
     uint charset_error_ : 1;
 
     /* the stream is in a multi-line comment */
     uint in_comment_ : 1;
-
-    /* newline_spacing mode when the stream was stacked */
-    uint newline_spacing_ : 1;
 
     /* flag: we're in #pragma C+ mode */
     // uint pragma_c_ : 1; - #pragma C is not currently used
@@ -1909,6 +2232,10 @@ public:
     /* get the expansion text */
     virtual const char *get_expansion() const = 0;
     virtual size_t get_expan_len() const = 0;
+
+    /* get the original expansion text, before parsing */
+    virtual const char *get_orig_expansion() const { return get_expansion(); }
+    virtual size_t get_orig_expan_len() const { return get_expan_len(); }
 
     /* certain special macros (__LINE__, __FILE__) aren't undef'able */
     virtual int is_undefable() const { return TRUE; }
@@ -2004,14 +2331,30 @@ public:
 
     ~CTcHashEntryPpDefine();
 
-    /* get the expansion text and its length */
+    /* 
+     *   Get the expansion text and its length.  This is the parsed version
+     *   of the expansion, with occurrences of the formal parameters replaced
+     *   by TOK_MACRO_FORMAL_FLAG sequences, and the various '#' sequences
+     *   replaced by their corresponding flags. 
+     */
     const char *get_expansion() const { return expan_; }
     size_t get_expan_len() const { return expan_len_; }
 
+    /* get the original expansion - the original text before parsing */
+    const char *get_orig_expansion() const { return orig_expan_; }
+    size_t get_orig_expan_len() const { return orig_expan_len_; }
+
 private:
-    /* expansion */
+    /* parse the expansion */
+    void parse_expansion(const size_t *argvlen);
+
+    /* expansion (parsed version) */
     char *expan_;
     size_t expan_len_;
+
+    /* original expansion (before parsing) */
+    char *orig_expan_;
+    size_t orig_expan_len_;
 };
 
 
@@ -2057,7 +2400,9 @@ private:
          *   if we're in test-report mode, use the root name only;
          *   otherwise, use the full name with path 
          */
-        if (tok_->get_test_report_mode())
+        if (tok_->get_last_desc() == 0)
+            return "";
+        else if (tok_->get_test_report_mode())
             return tok_->get_last_desc()->get_squoted_rootname();
         else
             return tok_->get_last_desc()->get_squoted_fname();

@@ -23,7 +23,7 @@ Modified
 #define VMPAT_H
 
 #include <stdlib.h>
-#include "os.h"
+#include <os.h>
 #include "vmtype.h"
 #include "vmobj.h"
 #include "vmglob.h"
@@ -77,6 +77,10 @@ public:
                 || CVmObject::is_of_metaclass(meta));
     }
 
+    /* is this a pattern object? */
+    static int is_pattern_obj(VMG_ vm_obj_id_t obj)
+        { return vm_objp(vmg_ obj)->is_of_metaclass(metaclass_reg_); }
+
     /* create dynamically using stack arguments */
     static vm_obj_id_t create_from_stack(VMG_ const uchar **pc_ptr,
                                          uint argc);
@@ -103,6 +107,15 @@ public:
     /* get a property */
     int get_prop(VMG_ vm_prop_id_t prop, vm_val_t *val,
                  vm_obj_id_t self, vm_obj_id_t *source_obj, uint *argc);
+
+    /* cast to string - return the original pattern string */
+    const char *cast_to_string(VMG_ vm_obj_id_t self,
+                               vm_val_t *new_str) const
+    {
+        /* return the original string value */
+        *new_str = *get_orig_str();
+        return new_str->get_as_string(vmg0_);
+    }
 
     /* undo operations - we are immutable and hence keep no undo */
     void notify_new_savept() { }
@@ -139,9 +152,8 @@ public:
     /* get my compiled pattern */
     re_compiled_pattern *get_pattern(VMG0_) { return get_ext()->pat; }
 
-    /* am I a pattern object? */
-    static int is_pattern_obj(VMG_ vm_obj_id_t obj)
-        { return vm_objp(vmg_ obj)->is_of_metaclass(metaclass_reg_); }
+    /* get my string object */
+    const vm_val_t *get_orig_str() const { return &get_ext()->str; }
 
 protected:
     /* create with no extension */
@@ -153,8 +165,7 @@ protected:
     /* set my compiled pattern data structure */
     void set_pattern(re_compiled_pattern *pat) { get_ext()->pat = pat; }
 
-    /* get/set my original source string value */
-    const vm_val_t *get_orig_str() const { return &get_ext()->str; }
+    /* set my original source string value */
     void set_orig_str(const vm_val_t *val) { get_ext()->str = *val; }
 
     /* get my extension data */

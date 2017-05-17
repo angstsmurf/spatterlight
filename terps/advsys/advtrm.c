@@ -5,7 +5,7 @@
 	All rights reserved
 */
 
-#include "advheader.h"
+#include "header.h"
 
 /* useful definitions */
 #define TRUE	1

@@ -22,8 +22,11 @@ Modified
 */
 
 #include <string.h>
+#include <stdio.h>
+#include <stdarg.h>
 
 #include <windows.h>
+#include <Wincrypt.h>
 
 #include "std.h"
 #include "os.h"
@@ -43,25 +46,6 @@ static char S_open_file_dir[OSFNMAX];
  */
 extern HINSTANCE oss_G_hinstance;
 
-
-/* ------------------------------------------------------------------------ */
-/*
- *   initialize 
- */
-int os_init(int *argc, char *argv[], const char *prompt,
-            char *buf, int bufsiz)
-{
-    /* nothing to do - just return success */
-    return 0;
-}
-
-/*
- *   uninitialize 
- */
-void os_uninit()
-{
-    /* nothing tod o */
-}
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -129,9 +113,12 @@ int os_askfile(const char *prompt, char *fname_buf, int fname_buf_len,
     int ret;
     char filter[256];
     const char *def_ext;
+    const char *save_def_ext;
+    static char lastsave[OSFNMAX] = "";
 
     /* presume we won't need a default extension */
     def_ext = 0;
+    save_def_ext = 0;
 
     /* 
      *   Build the appropriate filter.  Most of the filters are boilerplate,
@@ -157,7 +144,6 @@ int os_askfile(const char *prompt, char *fname_buf, int fname_buf_len,
         size_t totlen;
         size_t extlen;
         const char *save_filter;
-        const char *save_def_ext;
 
         /* 
          *   Get the default saved game extension.  If the game program has
@@ -279,7 +265,7 @@ int os_askfile(const char *prompt, char *fname_buf, int fname_buf_len,
         memcpy(p, filter_end, sizeof(filter_end));
 
         /* remember the default extension */
-        def_ext = filters[file_type].def_ext;
+        save_def_ext = def_ext = filters[file_type].def_ext;
     }
 
     /* set up the open-file structure */
@@ -304,6 +290,45 @@ int os_askfile(const char *prompt, char *fname_buf, int fname_buf_len,
     info.Flags = OFN_ENABLEHOOK | OFN_EXPLORER | OFN_NOCHANGEDIR;
     info.lpTemplateName = 0;
 
+    /*
+     *   If we're asking for a saved game file, pick a default.  If we've
+     *   asked before, use the same default as last time; if not, use the
+     *   game name as the default.  If we're opening a saved game rather then
+     *   saving one, don't apply the default if the file we'd get by applying
+     *   the default doesn't exist.  
+     */
+    if (file_type == OSFTSAVE || file_type == OSFTT3SAV)
+    {
+        /* try using the last saved game name */
+        strncpy(fname_buf, lastsave, fname_buf_len);
+        fname_buf[fname_buf_len - 1] = '\0';
+
+        /* if that's empty, generate a default name based on the game name */
+        if (fname_buf[0] == '\0' && G_os_gamename[0] != '\0')
+        {
+            /* copy the game name as the base of the save-file name */
+            strncpy(fname_buf, G_os_gamename, fname_buf_len);
+            fname_buf[fname_buf_len - 1] = '\0';
+
+            /* remove the old extension */
+            os_remext(fname_buf);
+
+            /* ... and replace it with the saved-game extension */
+            if (save_def_ext != 0
+                && strlen(fname_buf) + strlen(save_def_ext) + 1
+                   < (size_t)fname_buf_len)
+                os_defext(fname_buf, save_def_ext);
+        }
+
+        /* 
+         *   if we're asking about a file to open, make sure our default
+         *   exists - if not, don't offer it as the default, since it's a
+         *   waste of time and attention for the user to have to change it 
+         */
+        if (prompt_type == OS_AFP_OPEN && osfacc(fname_buf))
+            fname_buf[0] = '\0';
+    }
+
     /* display the dialog */
     if (prompt_type == OS_AFP_SAVE)
     {
@@ -320,10 +345,9 @@ int os_askfile(const char *prompt, char *fname_buf, int fname_buf_len,
     if (ret == 0)
     {
         /* 
-         *   an error occurred - check to see what happened: if the
-         *   extended error is zero, it means that the user cancelled the
-         *   dialog, otherwise it means that an error occurred displaying
-         *   the dialog 
+         *   an error occurred - check to see what happened: if the extended
+         *   error is zero, it means that the user simply canceled the
+         *   dialog, otherwise it means that an error occurred 
          */
         ret = (CommDlgExtendedError() == 0 ? OS_AFE_CANCEL : OS_AFE_FAILURE);
     }
@@ -341,6 +365,13 @@ int os_askfile(const char *prompt, char *fname_buf, int fname_buf_len,
          */
         os_get_path_name(path, sizeof(path), fname_buf);
         oss_set_open_file_dir(path);
+
+        /* 
+         *   if this is a saved game prompt, remember the response as the
+         *   default for next time 
+         */
+        if (file_type == OSFTSAVE || file_type == OSFTT3SAV)
+            strcpy(lastsave, fname_buf);
     }
 
     /* return the result */
@@ -528,6 +559,11 @@ void os_set_save_ext(const char *ext)
         sprintf(keyname, "%s\\DefaultIcon", classname);
         set_reg_key(keyname, "", cmd);
     }
+}
+
+const char *os_get_save_ext()
+{
+    return (default_saved_game_ext[0] != '\0' ? default_saved_game_ext : 0);
 }
 
 
@@ -834,6 +870,8 @@ int os_input_dialog(int icon_id, const char *prompt, int standard_button_set,
     }
     else
     {
+#define MAX_BUTTONS  16
+#define MAX_LABEL_CHARS  1024
         struct
         {
             DLGTEMPLATE hdr;
@@ -844,14 +882,19 @@ int os_input_dialog(int icon_id, const char *prompt, int standard_button_set,
             wchar_t title_arr[128];
 
             /* 
-             *   space for at least 16 dialog item templates, and 1k of
-             *   button labels1 
+             *   Space for at least 16 dialog item templates, and 1k for the
+             *   prompt text and button label text.  Also leave space for
+             *   internal structure padding to 4-byte boundaries - we need
+             *   padding for each button.  
              */
-            WORD buf[sizeof(DLGITEMTEMPLATE) * 16 / 2 + 1024];
+            WORD buf[sizeof(DLGITEMTEMPLATE)*MAX_BUTTONS/2       /* buttons */
+                     + MAX_LABEL_CHARS            /* prompt & button labels */
+                     + 2*MAX_BUTTONS];                /* per-button padding */
         } tpl;
         DLGITEMTEMPLATE *itm;
+        int chrem = MAX_LABEL_CHARS;
+        int chcur;
         wchar_t *p;
-        const char *src;
         int i;
         HDC dc = GetDC(GetDesktopWindow());
         SIZE txtsiz;
@@ -860,6 +903,13 @@ int os_input_dialog(int icon_id, const char *prompt, int standard_button_set,
         int dlgx, dlgy;
         int btn_total_wid;
         int curx;
+
+        /* 
+         *   to ensure we don't overflow our dialog template memory, limit
+         *   the button count to the maximum 
+         */
+        if (button_count > MAX_BUTTONS)
+            button_count = MAX_BUTTONS;
 
         /* get the dialog-box-unit conversion factors */
         dlg_base_units = GetDialogBaseUnits();
@@ -981,9 +1031,10 @@ int os_input_dialog(int icon_id, const char *prompt, int standard_button_set,
         *p++ = 0xffff;
         *p++ = 0x0082;
 
-        /* copy the prompt text */
-        for (src = prompt ; *src != '\0' ; *p++ = *src++) ;
-        *p++ = 0;
+        /* copy the prompt text, translating to unicode */
+        chcur = MultiByteToWideChar(CP_ACP, 0, prompt, -1, p, chrem);
+        chrem -= chcur;
+        p += chcur;
 
         /* no creation data */
         *p++ = 0;
@@ -1070,9 +1121,10 @@ int os_input_dialog(int icon_id, const char *prompt, int standard_button_set,
             *p++ = 0xffff;
             *p++ = 0x0080;
 
-            /* copy the prompt text */
-            for (src = buttons[i] ; *src != '\0' ; *p++ = *src++) ;
-            *p++ = 0;
+            /* copy the button label text */
+            chcur = MultiByteToWideChar(CP_ACP, 0, buttons[i], -1, p, chrem);
+            chrem -= chcur;
+            p += chcur;
 
             /* no creation data */
             *p++ = 0;
@@ -1115,6 +1167,9 @@ int os_input_dialog(int icon_id, const char *prompt, int standard_button_set,
 
         /* return the result */
         return i;
+
+#undef MAX_LABEL_CHARS
+#undef MAX_BUTTONS
     }
 }
 
@@ -1141,3 +1196,4 @@ char *os_strlwr(char *s)
 {
     return strlwr(s);
 }
+

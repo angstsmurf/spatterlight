@@ -92,10 +92,11 @@ public:
      *   possibilities. 
      */
     void client_init(struct vm_globals *,
-                     const char * /*script_file*/,
+                     const char * /*script_file*/, int /*script_quiet*/,
                      const char * /*log_file*/,
                      const char * /*cmd_log_file*/,
-                     const char * /*banner_str*/)
+                     const char * /*banner_str*/,
+                     int /*more_mode*/)
     {
         /* do nothing */
     }
@@ -118,7 +119,7 @@ public:
      *   integrate this with their own user interface; on a GUI platform,
      *   for example, we might want to pop up an alert box with the mesage.  
      */
-    void display_error(struct vm_globals *,
+    void display_error(struct vm_globals *, const struct CVmException *exc,
                        const char *msg, int add_blank_line)
     {
         /* show the message */
@@ -311,8 +312,8 @@ int main(int argc, char **argv)
      *   recursive event loop notices this and returns to the intrinsic,
      *   which finds the keystroke it wanted stashed away, and returns.  
      */
-    stat = vm_run_image(&clientifc, image_file_name, hostifc, 0, 0,
-                        0, 0, 0, load_from_exe, FALSE, 0, 0, 0, 0);
+    vm_run_image_params params(&clientifc, hostifc, image_file_name);
+    stat = vm_run_image(&params);
 
     /* we're done with the host interface object, so delete it */
     delete hostifc;
@@ -491,3 +492,12 @@ void CVmBifSample::read_text(VMG_ uint argc)
     retval_obj(vmg_ str_id);
 }
 
+/* ------------------------------------------------------------------------ */
+/*
+ *   This demonstration program is designed for command-line UIs, so we don't
+ *   have any special UI initialization based on the loaded image file.  We
+ *   can therefore just stub out this routine.
+ */
+void os_init_ui_after_load(class CVmBifTable *, class CVmMetaTable *)
+{
+}

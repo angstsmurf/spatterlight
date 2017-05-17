@@ -76,16 +76,19 @@ VPATH=.;derived;wc_patch;msdos
 
 ifdef COMPILE_FOR_DEBUG
 CFLAGS_DEBUG = -gcoff
-OPTIMIZE = -m486
+#OPTIMIZE = -m486
+OPTIMIZE = 
 LDFLAGS_DEBUG = -gcoff
 else
 CFLAGS_DEBUG = 
-OPTIMIZE = -O2 -fomit-frame-pointer -m486
+#OPTIMIZE = -O2 -fomit-frame-pointer -m486
+OPTIMIZE = -O2 -fomit-frame-pointer
 LDFLAGS_DEBUG = -s 
 endif
 
 # compiler
 CC = gcc
+CCPP = gpp
 #DBGFLG = -g
 CFLAGS = -I$(WCHAR_PATCH_DIR) -I$(TESTDIR) \
          -I. -I$(DOSDIR) -I$(TADS2DIR) -I$(TADS2DIR)/msdos \
@@ -96,7 +99,7 @@ CFLAGS = -I$(WCHAR_PATCH_DIR) -I$(TESTDIR) \
          $(CFLAGS_DEBUG)
 
 # linker
-LD = gcc
+LD = gpp
 LDFLAGS = $(LDFLAGS_DEBUG)
 
 # exe header stripper - produces plain COFF format
@@ -150,10 +153,14 @@ $(EXEPREDIR)/t3make.exe: \
     $(OBJDIR)/tcprs.o \
     $(OBJDIR)/tcprsstm.o \
     $(OBJDIR)/tcprsimg.o \
+    $(OBJDIR)/tcprsprg.o \
+    $(OBJDIR)/tcprsfil.o \
     $(OBJDIR)/tcgen.o \
+    $(OBJDIR)/tcgenfil.o \
     $(OBJDIR)/tct3.o \
     $(OBJDIR)/tct3stm.o \
     $(OBJDIR)/tct3img.o \
+    $(OBJDIR)/tct3prg.o \
     $(OBJDIR)/tct3unas.o \
     $(OBJDIR)/vmhash.o \
     $(OBJDIR)/vmwrtimg.o \
@@ -171,25 +178,35 @@ $(EXEPREDIR)/t3make.exe: \
     $(OBJDIR)/vmdict.o \
     $(OBJDIR)/vmgram.o \
     $(OBJDIR)/vmstr.o \
+    $(OBJDIR)/vmstrbuf.o \
     $(OBJDIR)/vmcoll.o \
     $(OBJDIR)/vmiter.o \
     $(OBJDIR)/vmlst.o \
     $(OBJDIR)/vmsort.o \
     $(OBJDIR)/vmsortv.o \
     $(OBJDIR)/vmbignum.o \
+    $(OBJDIR)/vmbignumlib.o \
     $(OBJDIR)/vmvec.o \
     $(OBJDIR)/vmintcls.o \
     $(OBJDIR)/vmanonfn.o \
+    $(OBJDIR)/vmdynfunc.o \
+    $(OBJDIR)/vmfref.o \
+    $(OBJDIR)/vmtmpfil.o \
     $(OBJDIR)/vmlookup.o \
     $(OBJDIR)/vmbytarr.o \
+    $(OBJDIR)/vmdate.o \
+    $(OBJDIR)/vmtzobj.o \
+    $(OBJDIR)/vmtz.o \
     $(OBJDIR)/vmcset.o \
     $(OBJDIR)/vmfilobj.o \
+    $(OBJDIR)/vmfilnam.o \
     $(OBJDIR)/vmstack.o \
     $(OBJDIR)/vmpool.o \
     $(OBJDIR)/vmpoolim.o \
     $(OBJDIR)/vmtype.o \
     $(OBJDIR)/vmglob.o \
     $(OBJDIR)/vmrun.o \
+    $(OBJDIR)/vmop.o \
     $(OBJDIR)/vmfunc.o \
     $(OBJDIR)/vmmeta.o \
     $(OBJDIR)/vmpreini.o \
@@ -201,9 +218,10 @@ $(EXEPREDIR)/t3make.exe: \
     $(OBJDIR)/vmimg_nd.o \
     $(OBJDIR)/vmsrcf.o \
     $(OBJDIR)/vmbiftad.o \
+    $(OBJDIR)/vmisaac.o \
     $(OBJDIR)/vmbiftio.o \
-    $(OBJDIR)/askf_tx.o \
-    $(OBJDIR)/indlg_tx.o \
+    $(OBJDIR)/askf_tx3.o \
+    $(OBJDIR)/indlg_tx3.o \
     $(OBJDIR)/vmsave.o \
     $(OBJDIR)/vmcrc.o \
     $(OBJDIR)/vmbift3.o \
@@ -217,15 +235,23 @@ $(EXEPREDIR)/t3make.exe: \
     $(OBJDIR)/vmhostsi.o \
     $(OBJDIR)/$(REG_METACLASS).o \
     $(OBJDIR)/$(REG_BUILTIN).o \
+    $(OBJDIR)/vmpack.o \
     $(OBJDIR)/vmuni_cs.o \
+    $(OBJDIR)/vmnetfillcl.o \
+    $(OBJDIR)/osnetdum.o \
+    $(OBJDIR)/vmlog.o \
+    $(OBJDIR)/md5.o \
+    $(OBJDIR)/sha2.o \
     \
     $(OBJDIR)/wchar.o \
     \
     $(TADS2OBJDIR)/osifc.o \
     $(TADS2OBJDIR)/osnoui.o \
+    $(TADS2OBJDIR)/osstzprs.o \
     $(TADS2OBJDIR)/osdos.o \
     $(TADS2OBJDIR)/osdosnui.o \
     $(TADS2OBJDIR)/osdosex.o \
+    $(TADS2OBJDIR)/ostzdjgpp.o \
     $(TADS2OBJDIR)/osrestad.o
 	$(LD) $(LDFLAGS) $^ -o $@
 	$(EXE2COFF) $@
@@ -239,10 +265,12 @@ $(EXEPREDIR)/t3res.exe: \
     $(OBJDIR)/rcmaincl.o \
     $(OBJDIR)/rcmain.o \
     $(OBJDIR)/std.o \
+    $(OBJDIR)/vmuni_cs.o \
     \
     $(OBJDIR)/wchar.o \
     \
     $(TADS2OBJDIR)/osnoui.o \
+    $(TADS2OBJDIR)/osstzprs.o \
     $(TADS2OBJDIR)/osdosex.o \
     $(TADS2OBJDIR)/osdos.o \
     $(TADS2OBJDIR)/osdosnui.o
@@ -256,6 +284,7 @@ $(EXEPREDIR)/t3res.exe: \
 $(EXEPREDIR)/mkchrtab.exe: \
     $(OBJDIR)/mkchrtab.o \
     $(OBJDIR)/std.o \
+    $(OBJDIR)/vmuni_cs.o \
     $(OBJDIR)/std_dbg.o
 	$(LD) $(LDFLAGS) $^ -o $@
 
@@ -287,19 +316,28 @@ $(EXEPREDIR)/t3run.exe: \
     $(OBJDIR)/vmpat.o \
     $(OBJDIR)/vmgram.o \
     $(OBJDIR)/vmstr.o \
+    $(OBJDIR)/vmstrbuf.o \
     $(OBJDIR)/vmcoll.o \
     $(OBJDIR)/vmiter.o \
     $(OBJDIR)/vmlst.o \
     $(OBJDIR)/vmsort.o \
     $(OBJDIR)/vmsortv.o \
     $(OBJDIR)/vmbignum.o \
+    $(OBJDIR)/vmbignumlib.o \
     $(OBJDIR)/vmvec.o \
     $(OBJDIR)/vmintcls.o \
     $(OBJDIR)/vmanonfn.o \
+    $(OBJDIR)/vmdynfunc.o \
+    $(OBJDIR)/vmfref.o \
     $(OBJDIR)/vmlookup.o \
     $(OBJDIR)/vmbytarr.o \
+    $(OBJDIR)/vmdate.o \
+    $(OBJDIR)/vmtzobj.o \
+    $(OBJDIR)/vmtz.o \
     $(OBJDIR)/vmcset.o \
     $(OBJDIR)/vmfilobj.o \
+    $(OBJDIR)/vmfilnam.o \
+    $(OBJDIR)/vmtmpfil.o \
     $(OBJDIR)/vmstack.o \
     $(OBJDIR)/vmerr.o \
     $(OBJDIR)/vmerrmsg.o \
@@ -310,6 +348,7 @@ $(EXEPREDIR)/t3run.exe: \
     $(OBJDIR)/utf8.o \
     $(OBJDIR)/vmglob.o \
     $(OBJDIR)/vmrun.o \
+    $(OBJDIR)/vmop.o \
     $(OBJDIR)/vmfunc.o \
     $(OBJDIR)/vmmeta.o \
     $(OBJDIR)/vmsa.o \
@@ -321,9 +360,10 @@ $(EXEPREDIR)/t3run.exe: \
     $(OBJDIR)/vmsrcf.o \
     $(OBJDIR)/vmfile.o \
     $(OBJDIR)/vmbiftad.o \
+    $(OBJDIR)/vmisaac.o \
     $(OBJDIR)/vmbiftio.o \
-    $(OBJDIR)/askf_os.o \
-    $(OBJDIR)/indlg_tx.o \
+    $(OBJDIR)/askf_os3.o \
+    $(OBJDIR)/indlg_tx3.o \
     $(OBJDIR)/vmsave.o \
     $(OBJDIR)/vmcrc.o \
     $(OBJDIR)/vmbift3.o \
@@ -332,20 +372,49 @@ $(EXEPREDIR)/t3run.exe: \
     $(OBJDIR)/vmhostsi.o \
     $(OBJDIR)/vmhosttx.o \
     $(OBJDIR)/vmhash.o \
+    $(OBJDIR)/vmpack.o \
     $(OBJDIR)/$(REG_METACLASS).o \
     $(OBJDIR)/$(REG_BUILTIN).o \
     $(OBJDIR)/vmuni_cs.o \
+    $(OBJDIR)/osnetdum.o \
+    $(OBJDIR)/vmnetfillcl.o \
+    $(OBJDIR)/vmlog.o \
+    $(OBJDIR)/sha2.o \
+    $(OBJDIR)/md5.o \
+    \
+    $(OBJDIR)/tcprs.o \
+    $(OBJDIR)/tcprs_rt.o \
+    $(OBJDIR)/tcprsnf.o \
+    $(OBJDIR)/tcprsstm.o \
+    $(OBJDIR)/tcprsnl.o \
+    $(OBJDIR)/tcgen.o \
+    $(OBJDIR)/tcglob.o \
+    $(OBJDIR)/tcerr.o \
+    $(OBJDIR)/tcerrmsg.o \
+    $(OBJDIR)/tctok.o \
+    $(OBJDIR)/tcmain.o \
+    $(OBJDIR)/tcsrc.o \
+    $(OBJDIR)/tchostsi.o \
+    $(OBJDIR)/tclibprs.o \
+    $(OBJDIR)/tccmdutl.o \
+    $(OBJDIR)/tct3.o \
+    $(OBJDIR)/tct3stm.o \
+    $(OBJDIR)/tct3unas.o \
+    $(OBJDIR)/tct3nl.o \
+    $(OBJDIR)/tct3_d.o \
     \
     $(OBJDIR)/wchar.o \
     \
     $(TADS2OBJDIR)/osifc.o \
     $(TADS2OBJDIR)/osnoui.o \
+    $(TADS2OBJDIR)/osstzprs.o \
     $(TADS2OBJDIR)/osrestad.o \
     $(TADS2OBJDIR)/osdosnui.o \
     $(TADS2OBJDIR)/osr.o \
     $(TADS2OBJDIR)/osgen3r.o \
     $(TADS2OBJDIR)/osscolor.o \
     $(TADS2OBJDIR)/ossdosdj.o \
+    $(TADS2OBJDIR)/ostzdjgpp.o \
     $(TADS2OBJDIR)/osdosex.o
 	$(LD) $(LDFLAGS) $^ -o $@
 
@@ -377,19 +446,28 @@ $(EXEPREDIR)/tadsr.exe: \
     $(OBJDIR)/vmdict.o \
     $(OBJDIR)/vmgram.o \
     $(OBJDIR)/vmstr.o \
+    $(OBJDIR)/vmstrbuf.o \
+    $(OBJDIR)/vmtmpfil.o \
     $(OBJDIR)/vmcoll.o \
     $(OBJDIR)/vmiter.o \
     $(OBJDIR)/vmlst.o \
     $(OBJDIR)/vmsort.o \
     $(OBJDIR)/vmsortv.o \
     $(OBJDIR)/vmbignum.o \
+    $(OBJDIR)/vmbignumlib.o \
     $(OBJDIR)/vmvec.o \
     $(OBJDIR)/vmintcls.o \
     $(OBJDIR)/vmanonfn.o \
+    $(OBJDIR)/vmdynfunc.o \
+    $(OBJDIR)/vmfref.o \
     $(OBJDIR)/vmlookup.o \
     $(OBJDIR)/vmbytarr.o \
+    $(OBJDIR)/vmdate.o \
+    $(OBJDIR)/vmtzobj.o \
+    $(OBJDIR)/vmtz.o \
     $(OBJDIR)/vmcset.o \
     $(OBJDIR)/vmfilobj.o \
+    $(OBJDIR)/vmfilnam.o \
     $(OBJDIR)/vmstack.o \
     $(OBJDIR)/vmerr.o \
     $(OBJDIR)/vmerrmsg.o \
@@ -400,6 +478,7 @@ $(EXEPREDIR)/tadsr.exe: \
     $(OBJDIR)/utf8.o \
     $(OBJDIR)/vmglob.o \
     $(OBJDIR)/vmrun.o \
+    $(OBJDIR)/vmop.o \
     $(OBJDIR)/vmfunc.o \
     $(OBJDIR)/vmmeta.o \
     $(OBJDIR)/vmsa.o \
@@ -411,9 +490,10 @@ $(EXEPREDIR)/tadsr.exe: \
     $(OBJDIR)/vmsrcf.o \
     $(OBJDIR)/vmfile.o \
     $(OBJDIR)/vmbiftad.o \
+    $(OBJDIR)/vmisaac.o \
     $(OBJDIR)/vmbiftio.o \
-    $(OBJDIR)/askf_os.o \
-    $(OBJDIR)/indlg_tx.o \
+    $(OBJDIR)/askf_os3.o \
+    $(OBJDIR)/indlg_tx3.o \
     $(OBJDIR)/vmsave.o \
     $(OBJDIR)/vmcrc.o \
     $(OBJDIR)/vmbift3.o \
@@ -422,20 +502,49 @@ $(EXEPREDIR)/tadsr.exe: \
     $(OBJDIR)/vmhostsi.o \
     $(OBJDIR)/vmhosttx.o \
     $(OBJDIR)/vmhash.o \
+    $(OBJDIR)/vmpack.o \
     $(OBJDIR)/$(REG_METACLASS).o \
     $(OBJDIR)/$(REG_BUILTIN).o \
     $(OBJDIR)/vmuni_cs.o \
+    $(OBJDIR)/vmnetfillcl.o \
+    $(OBJDIR)/osnetdum.o \
+    $(OBJDIR)/vmlog.o \
+    $(OBJDIR)/md5.o \
+    $(OBJDIR)/sha2.o \
+    \
+    $(OBJDIR)/tcprs.o \
+    $(OBJDIR)/tcprs_rt.o \
+    $(OBJDIR)/tcprsnf.o \
+    $(OBJDIR)/tcprsstm.o \
+    $(OBJDIR)/tcprsnl.o \
+    $(OBJDIR)/tcgen.o \
+    $(OBJDIR)/tcglob.o \
+    $(OBJDIR)/tcerr.o \
+    $(OBJDIR)/tcerrmsg.o \
+    $(OBJDIR)/tctok.o \
+    $(OBJDIR)/tcmain.o \
+    $(OBJDIR)/tcsrc.o \
+    $(OBJDIR)/tchostsi.o \
+    $(OBJDIR)/tclibprs.o \
+    $(OBJDIR)/tccmdutl.o \
+    $(OBJDIR)/tct3.o \
+    $(OBJDIR)/tct3stm.o \
+    $(OBJDIR)/tct3unas.o \
+    $(OBJDIR)/tct3nl.o \
+    $(OBJDIR)/tct3_d.o \
     \
     $(OBJDIR)/wchar.o \
     \
     $(TADS2OBJDIR)/osifc.o \
     $(TADS2OBJDIR)/osnoui.o \
+    $(TADS2OBJDIR)/osstzprs.o \
     $(TADS2OBJDIR)/osrestad.o \
     $(TADS2OBJDIR)/osdosnui.o \
     $(TADS2OBJDIR)/osr.o \
     $(TADS2OBJDIR)/osgen3r.o \
     $(TADS2OBJDIR)/osscolor.o \
     $(TADS2OBJDIR)/ossdosdj.o \
+    $(TADS2OBJDIR)/ostzdjgpp.o \
     $(TADS2OBJDIR)/osdosex.o \
     \
     $(TADS2OBJDIR)/mcm.o \
@@ -464,13 +573,13 @@ $(EXEPREDIR)/tadsr.exe: \
     $(TADS2OBJDIR)/trd.o \
     $(TADS2OBJDIR)/linfdum.o \
     $(TADS2OBJDIR)/fio.o \
-    $(TADS2OBJDIR)/askf_os.o \
+    $(TADS2OBJDIR)/askf_tx.o \
+    $(TADS2OBJDIR)/indlg_tx.o \
     $(TADS2OBJDIR)/getstr.o \
     $(TADS2OBJDIR)/qas.o \
     $(TADS2OBJDIR)/dbgtr.o \
     $(TADS2OBJDIR)/ler.o \
     $(TADS2OBJDIR)/bifgdum.o \
-    $(TADS2OBJDIR)/indlg_tx.o \
     $(TADS2OBJDIR)/oem_dj.o \
     $(TADS2OBJDIR)/run_nd.o
 	$(LD) $(LDFLAGS) $^ -o $@
@@ -484,11 +593,14 @@ $(EXEPREDIR)/tadsr.exe: \
 $(OBJDIR)/%.o: %.c
 	$(CC) -c $(CFLAGS) $(OPTIMIZE) -o$@ $<
 
-$(OBJDIR)/%.o: %.cpp
+$(OBJDIR)/%.o: msdos/$.cpp
 	$(CC) -c $(CFLAGS) $(OPTIMIZE) -o$@ $<
+
+$(OBJDIR)/%.o: %.cpp
+	$(CCPP) -c $(CFLAGS) $(OPTIMIZE) -o$@ $<
 
 # stubify a linked executable
 $(EXEDIR)/%.exe: $(EXEPREDIR)/%.exe
 	$(EXE2COFF) $<
-	copy /b $(DJGPP_HOME)\bin\cwsdstub.exe+$(subst /,\,$(subst .exe,,$<)) \
+	copy /b $(CWSDPMI_BIN)\cwsdstub.exe+$(subst /,\,$(subst .exe,,$<)) \
           $(subst /,\,$@)

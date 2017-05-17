@@ -11,6 +11,7 @@ Modified
 #include <dpmi.h>
 #include <go32.h>
 #include <sys/farptr.h>
+#include <stdio.h>
 
 /*
  * BIOS video functions.
@@ -264,4 +265,12 @@ int ossvpg(char pg)
     else
         scrbase -= 0x1000;
     return(ret);
+}
+
+/*
+ *   is stdin at EOF? 
+ */
+int oss_eof_on_stdin()
+{
+    return feof(stdin);
 }

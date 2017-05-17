@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 {
     int curarg;
     int create;
-    int recurse;
+    int recurse = TRUE;
     const char *image_fname;
     CRcResList *res_list = 0;
     rcmain_res_op_mode_t op_mode;
@@ -186,7 +186,7 @@ int main(int argc, char **argv)
 
     /* we've parsed the arguments - go apply the operations list */
     err = CResCompMain::add_resources(image_fname, res_list,
-                                      &hostifc, create, OSFTT3IMG);
+                                      &hostifc, create, OSFTT3IMG, FALSE);
 
     /* set the appropriate exit status */
     exit_stat = (err ? OSEXFAIL : OSEXSUCC);

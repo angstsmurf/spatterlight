@@ -1,10 +1,32 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2006-2009 by Tor Andersson.                                  *
+ *                                                                            *
+ * This file is part of Gargoyle.                                             *
+ *                                                                            *
+ * Gargoyle is free software; you can redistribute it and/or modify           *
+ * it under the terms of the GNU General Public License as published by       *
+ * the Free Software Foundation; either version 2 of the License, or          *
+ * (at your option) any later version.                                        *
+ *                                                                            *
+ * Gargoyle is distributed in the hope that it will be useful,                *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of             *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              *
+ * GNU General Public License for more details.                               *
+ *                                                                            *
+ * You should have received a copy of the GNU General Public License          *
+ * along with Gargoyle; if not, write to the Free Software                    *
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA *
+ *                                                                            *
+ *****************************************************************************/
+
 /* glkio.h -- make stdio calls use glk i/o instead */
 
 #undef FILE
 typedef struct glk_stream_struct FILE;
 
 #undef EOF
-#define EOF								(-1)
+#define EOF				(-1)
 
 #undef ungetc
 #define ungetc(f,c)
@@ -25,6 +47,8 @@ typedef struct glk_stream_struct FILE;
 #define fprintf(f,s,a)  (glk_put_string_stream(f, a), 0)
 #undef fputc
 #define fputc(c, f)     (glk_put_char_stream(f, (unsigned char)(c)), 0)
+#undef fputwc
+#define fputwc(c, f)    (glk_put_char_stream_uni(f, (zchar)(c)), 0);
 #undef fputs
 #define fputs(s, f)     (glk_put_buffer_stream(f, s, strlen(s)), 0)
 #undef ftell
@@ -35,10 +59,10 @@ typedef struct glk_stream_struct FILE;
 #undef SEEK_SET
 #define SEEK_SET        seekmode_Start
 #undef SEEK_CUR
-#define SEEK_CUR				seekmode_Current
+#define SEEK_CUR		seekmode_Current
 #undef SEEK_END
 #define SEEK_END        seekmode_End
 
 FILE *frotzopenprompt(int flag);
+FILE *frotzreopen(int flag);
 FILE *frotzopen(char *filename, int flag);
-

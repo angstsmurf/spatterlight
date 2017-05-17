@@ -54,17 +54,13 @@ int CVmQSortVal::compare(VMG_ size_t a, size_t b)
         G_stk->push(&val_a);
 
         /* invoke the callback */
-        G_interpreter->call_func_ptr(vmg_ &compare_fn_, 2, "sort.compare", 0);
+        G_interpreter->call_func_ptr(vmg_ &compare_fn_, 2, &rc, 0);
 
         /* get the result */
         val = *G_interpreter->get_r0();
 
-        /* if it's not an integer, it's a problem */
-        if (val.typ != VM_INT)
-            err_throw(VMERR_INT_VAL_REQD);
-
         /* get the result value */
-        result = val.val.intval;
+        result = val.num_to_int(vmg0_);
     }
     else
     {

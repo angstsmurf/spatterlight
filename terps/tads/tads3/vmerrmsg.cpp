@@ -87,6 +87,47 @@ const err_msg_t vm_messages_english[] =
     VMsg("Error creating file.  You might not have sufficient privileges "
          "to open the file, or a sharing violation might have occurred.") },
 
+    { VMERR_CLOSE_FILE,
+    "error closing file",
+    VMsg("Error closing file.  Some or all changes made to the file might "
+         "not have been properly written to the physical disk/media.") },
+
+    { VMERR_DELETE_FILE,
+    "error deleting file",
+    VMsg("Error deleting file. This could because you don't have "
+         "sufficient privileges, the file is marked as read-only, another "
+         "program is using the file, or a physical media error occurred.") },
+
+    { VMERR_PACK_PARSE,
+    "data packer format string parsing error at character index %d",
+    VMsg("The format string for the data packing or unpacking has a syntax "
+         "error at character index %d.") },
+
+    { VMERR_PACK_ARG_MISMATCH,
+    "data packer argument type mismatch at format string index %d",
+    VMsg("Data packer argument type mismatch. The type of the argument "
+         "doesn't match the format code at character index %d in the "
+    "format string.") },
+
+    { VMERR_PACK_ARGC_MISMATCH,
+    "wrong number of data packer arguments at format string index %d",
+    VMsg("Wrong number of arguments to the data packer. The number of "
+         "argument values doesn't match the number of elements in the "
+         "format string.") },
+
+    { VMERR_NET_FILE_NOIMPL,
+    "this file operation isn't supported for storage server files",
+    VMsg("This file operation isn't supported for storage server files. "
+         "This operation can only be used with local disk files.") },
+
+    { VMERR_RENAME_FILE,
+    "error renaming file",
+    VMsg("An error occurred renaming the file. The new name might already "
+         "be used by an existing file, you might not have the necessary "
+         "permissions in the new or old directory locations, or the "
+         "new name might be in an incompatible location, such as on "
+         "a different device or volume." ) },
+
     { VMERR_OBJ_IN_USE,
     "object ID in use - the image/save file might be corrupted",
     VMsg("An object ID requested by the image/save file is already in use "
@@ -160,7 +201,7 @@ const err_msg_t vm_messages_english[] =
          "corrupted.") },
 
     { VMERR_IMAGE_POOL_BAD_PAGE,
-    "invalid image file: pool page our of range of definition",
+    "invalid image file: pool page out of range of definition",
     VMsg("This image file is invalid because it specifies a pool page "
          "outside of the range of the pool's definition.  The image file "
          "might be corrupted.") },
@@ -238,9 +279,11 @@ const err_msg_t vm_messages_english[] =
          "index %d in function set \"%s\").  This function is not available "
          "in this version of the interpreter and cannot be called when "
          "running the program with this version.  This normally indicates "
-         "that the \"preinit\" function, or code invoked by preinit, "
-         "called an intrinsic that is invalid during compile-time "
-         "pre-initialization.") },
+         "either (a) that the \"preinit\" function (or code invoked by "
+         "preinit) called an intrinsic that isn't available during "
+         "this phase, such as an advanced display function; or (b) that "
+         "the program used '&' to refer to a function address, and"
+         "the function isn't available in this interpreter version.") },
 
     { VMERR_UNKNOWN_METACLASS_INTERNAL,
     "unknown internal intrinsic class ID %x",
@@ -330,6 +373,14 @@ const err_msg_t vm_messages_english[] =
          "compiler is bundled, check the debugger release notes for "
          "information on which compiler to use. ") },
 
+    { VMERR_NETWORK_SAFETY,
+    "this operation is not allowed by the network safety level settings",
+    VMsg("This operation is not allowed by the current network safety level "
+         "settings. The program is attempting to access network features "
+         "that you have disabled with the network safety level options. "
+         "If you wish to allow this operation, you must restart the "
+         "program with new network safety settings.") },
+
     { VMERR_INVALID_SETPROP,
     "property cannot be set for object",
     VMsg("Invalid property change - this property cannot be set for this "
@@ -369,6 +420,17 @@ const err_msg_t vm_messages_english[] =
          "indicates that the file has been corrupted (which could be "
          "due to a media error, modification by another application, "
          "or a file transfer that lost or changed data).") },
+
+    { VMERR_STORAGE_SERVER_ERR,
+    "storage server error",
+    VMsg("An error occurred accessing the storage server. This could "
+         "be due to a network problem, invalid user credentials, or "
+         "a configuration problem on the game server.") },
+
+    { VMERR_DESC_TAB_OVERFLOW,
+    "saved file metadata table exceeds 64k bytes",
+    VMsg("The metadata table for the saved state file is too large. "
+         "This table is limited to 64k bytes in length.") },
 
     { VMERR_BAD_SAVED_META_DATA,
     "invalid intrinsic class data in saved state file",
@@ -522,6 +584,74 @@ const err_msg_t vm_messages_english[] =
          "reference to the first one.  This type of value cannot be "
          "compared for equality or used in a LookupTable.") },
 
+    { VMERR_NO_INT_CONV,
+    "cannot convert value to integer",
+    VMsg("This value cannot be converted to an integer.") },
+
+    { VMERR_BAD_TYPE_MOD,
+    "invalid datatype for modulo operator",
+    VMsg("Invalid datatype for the modulo operator.  These values can't be "
+         "combined with this operator.") },
+
+    { VMERR_BAD_TYPE_BIT_AND,
+    "invalid datatype for bitwise AND operator",
+    VMsg("Invalid datatype for the bitwise AND operator.  These values can't "
+         "be combined with this operator.") },
+
+    { VMERR_BAD_TYPE_BIT_OR,
+    "invalid datatype for bitwise OR operator",
+    VMsg("Invalid datatype for the bitwise OR operator.  These values can't "
+         "be combined with this operator.") },
+
+    { VMERR_BAD_TYPE_XOR,
+    "invalid datatype for XOR operator",
+    VMsg("Invalid datatype for the XOR operator.  These values can't "
+         "be combined with this operator.") },
+
+    { VMERR_BAD_TYPE_SHL,
+    "invalid datatype for left-shift operator '<<'",
+    VMsg("Invalid datatype for the left-shift operator '<<'.  These values "
+         "can't be combined with this operator.") },
+
+    { VMERR_BAD_TYPE_ASHR,
+    "invalid datatype for arithmetic right-shift operator '>>'",
+    VMsg("Invalid datatype for the arithmetic right-shift operator '>>'. "
+         "These values can't be combined with this operator.") },
+
+    { VMERR_BAD_TYPE_BIT_NOT,
+    "invalid datatype for bitwise NOT operator",
+    VMsg("Invalid datatype for the bitwise NOT operator.  These values can't "
+    "be combined with this operator.") },
+
+    { VMERR_CODEPTR_VAL_REQD,
+    "code pointer value required",
+    VMsg("Invalid type - code pointer value required. (This probably "
+         "indicates an internal problem in the interpreter.)") },
+
+    { VMERR_EXCEPTION_OBJ_REQD,
+    "exception object required, but 'new' did not yield an object",
+    VMsg("The VM tried to construct a new program-defined exception object "
+         "to represent a run-time error that occurred, but 'new' did not "
+         "yield an object. Note that another underlying run-time error "
+         "occurred that triggered the throw in the first place, but "
+         "information on that error is not available now because of the "
+         "problem creating the exception object to represent that error.") },
+
+    { VMERR_NO_DOUBLE_CONV,
+    "cannot convert value to native floating point",
+    VMsg("The value cannot be converted to a floating-point type.") },
+
+    { VMERR_NO_NUM_CONV,
+    "cannot convert value to a numeric type",
+    VMsg("The value cannot be converted to a numeric type. Only values "
+         "that can be converted to integer or BigNumber can be used in "
+         "this context.") },
+
+    { VMERR_BAD_TYPE_LSHR,
+    "invalid datatype for logical right-shift operator '>>>'",
+    VMsg("Invalid datatype for the logical right-shift operator '>>>'. "
+         "These values can't be combined with this operator.") },
+
     { VMERR_WRONG_NUM_OF_ARGS,
     "wrong number of arguments",
     VMsg("The wrong number of arguments was passed to a function or method "
@@ -535,8 +665,22 @@ const err_msg_t vm_messages_english[] =
 
     { VMERR_NIL_DEREF,
     "nil object reference",
-     VMsg("The value 'nil' was used to reference an object property.  Only "
-          "valid object references can be used in property evaluations.") },
+    VMsg("The value 'nil' was used to reference an object property.  Only "
+         "valid object references can be used in property evaluations.") },
+
+    { VMERR_MISSING_NAMED_ARG,
+    "missing named argument '%s'",
+    VMsg("The named argument '%s' was expected in a function or method "
+         "call, but it wasn't provided by the caller.") }, 
+
+    { VMERR_BAD_TYPE_CALL,
+    "invalid type for call",
+    VMsg("The value cannot be invoked as a method or function.") },
+
+    { VMERR_NIL_SELF,
+    "nil 'self' value is not allowed",
+    VMsg("'self' cannot be nil.  The function or method context has "
+         "a nil value for 'self', which is not allowed.") },
 
     { VMERR_CANNOT_CREATE_INST,
     "cannot create instance of object - object is not a class",
@@ -640,17 +784,41 @@ const err_msg_t vm_messages_english[] =
     "intrinsic class exception: %s",
     VMsg("Exception in intrinsic class method: %s") },
 
+    { VMERR_STACK_OUT_OF_BOUNDS,
+    "stack access is out of bounds",
+    VMsg("The program attempted to access a stack location that isn't "
+         "part of the current expression storage area.  This probably "
+         "indicates a problem with the compiler that was used to create "
+         "this program, or a corrupted program file.") },
+
     { VMERR_DBG_ABORT,
     "'abort' signal",
     VMsg("'abort' signal")
     VBook("This exception is used internally by the debugger to "
-    "signal program termination via the debugger UI.") },
+          "signal program termination via the debugger UI.") },
 
     { VMERR_DBG_RESTART,
     "'restart' signal",
     VMsg("'restart' signal")
     VBook("This exception is used internally by the debugger to "
-    "signal program restart via the debugger UI.") },
+          "signal program restart via the debugger UI.") },
+
+    { VMERR_DBG_HALT,
+    "debugger VM halt",
+    VMsg("debugger VM halt")
+    VBook("This exception is used internally by the debugger to "
+          "signal program termination via the debugger UI.") },
+
+    { VMERR_DBG_INTERRUPT,
+    "interrupted by user",
+    VMsg("The program was interrupted by a user interrupt key or "
+         "other action.") },
+
+    { VMERR_NO_DEBUGGER,
+    "no debugger available",
+    VMsg("An instruction was encountered that requires the debugger, "
+         "but this interpreter version doesn't include debugging "
+         "capaabilities.") },
 
     { VMERR_BAD_FRAME,
     "invalid frame in debugger local/parameter evaluation",
@@ -678,7 +846,11 @@ const err_msg_t vm_messages_english[] =
     "out of temporary floating point registers (calculation too complex)",
     VMsg("The interpreter is out of temporary floating point registers.  "
          "This probably indicates that an excessively complex calculation "
-         "has been attempted.") }
+         "has been attempted.") },
+
+    { VMERR_NO_BIGNUM_CONV,
+    "cannot convert value to BigNumber",
+    VMsg("This value cannot be converted to a BigNumber.") }
 
 #endif /* VMERR_OMIT_MESSAGES */
 };

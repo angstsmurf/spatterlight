@@ -40,7 +40,7 @@ Modified
 
 /* generate an OPCLINE instruction */
 static void prsclin(prscxdef *ctx, uint curfr, lindef *lin,
-                    int tellsrc);
+                    int tellsrc, const uchar *loc);
 
 /* parse an argument or local variable list */
 static toktldef *prsvlst(prscxdef *ctx, toktldef *lcltab, prsndef **inits,
@@ -100,7 +100,7 @@ static toktldef *prsvlst(prscxdef *ctx, toktldef *lcltab, prsndef **inits,
                 uint     siz;
 
                 /* gen the OPCLINE, and copy into temp storage in tree */
-                prsclin(ctx, curfr, ctx->prscxtok->tokcxlin, FALSE);
+                prsclin(ctx, curfr, ctx->prscxtok->tokcxlin, FALSE, 0);
                 siz = ctx->prscxemt->emtcxofs - oldofs;
                 linrec = prsbalo(ctx, siz);
                 memcpy(linrec, ctx->prscxemt->emtcxptr + oldofs,
@@ -186,11 +186,11 @@ static void prsvgfr(prscxdef *ctx, toktldef *lcltab, uint *encfr)
 }
 
 /* generate an OPCLINE instruction for the current line */
-static void prsclin(prscxdef *ctx, uint curfr, lindef *lin, int tellsrc)
+static void prsclin(prscxdef *ctx, uint curfr, lindef *lin, int tellsrc,
+                    const uchar *saved_loc)
 {
-    /* indicate in line source that we've generated a debug record */
-    ctx->prscxtok->tokcxlin->linflg |= LINFDBG;
-        
+    int diff = FALSE;
+
     /* tell the line source the location of the line */
     if (tellsrc)
     {
@@ -204,8 +204,36 @@ static void prsclin(prscxdef *ctx, uint curfr, lindef *lin, int tellsrc)
     emtint2(ctx->prscxemt, curfr);           /* store current frame pointer */
     emtbyte(ctx->prscxemt, lin->linid);              /* save line source ID */
     emtres(ctx->prscxemt, lin->linlln);        /* make room for source part */
-    linglop(lin, ctx->prscxemt->emtcxptr + ctx->prscxemt->emtcxofs);
+
+    /* use the saved location, or the current location if there isn't one */
+    if (saved_loc != 0)
+    {
+        uchar cur[LINLLNMAX];
+        
+        /* use the saved location */
+        memcpy(ctx->prscxemt->emtcxptr + ctx->prscxemt->emtcxofs,
+               saved_loc, lin->linlln);
+
+        /* check to see if it's different from the current location */
+        linglop(lin, cur);
+        diff = memcmp(cur, saved_loc, lin->linlln);
+    }
+    else
+    {
+        /* no saved location - use the current location from the lindef */
+        linglop(lin, ctx->prscxemt->emtcxptr + ctx->prscxemt->emtcxofs);
+    }
+
+    /* advance the output pointer */
     ctx->prscxemt->emtcxofs += lin->linlln;
+
+    /* 
+     *   indicate in line source that we've generated a debug record, as long
+     *   as the generated location isn't different from current location (if
+     *   it is, don't mark this line as used yet) 
+     */
+    if (!diff)
+        ctx->prscxtok->tokcxlin->linflg |= LINFDBG;
 }
 
 /* parse a statement (simple or compound) */
@@ -277,7 +305,7 @@ startover:
     /* generate a line record if debugging if we haven't already done so */
     if ((ctx->prscxflg & PRSCXFLIN)
         && !(ctx->prscxtok->tokcxlin->linflg & LINFDBG))
-        prsclin(ctx, curfr, lin, TRUE);
+        prsclin(ctx, curfr, lin, TRUE, 0);
 
     switch (ctx->prscxtok->tokcxcur.toktyp)
     {
@@ -510,7 +538,7 @@ startover:
                        ctx->prscxpool);
                 diff = (int)(curctab->prsctcase[i].prsctofs
                              - ctx->prscxemt->emtcxofs);
-                emtint2(ctx->prscxemt, diff);
+                emtint2s(ctx->prscxemt, diff);
             }
             
             /* done with this table - free it */
@@ -522,7 +550,7 @@ startover:
         if (myswctl.prscsdflt)
         {
             int diff = (int)(myswctl.prscsdflt - ctx->prscxemt->emtcxofs);
-            emtint2(ctx->prscxemt, diff);
+            emtint2s(ctx->prscxemt, diff);
         }
         else
             emtint2(ctx->prscxemt, 2);           /* no default - skip ahead */
@@ -1290,11 +1318,23 @@ static void prsobj(prscxdef *ctx, noreg tokdef *objtok, int numsc,
         else
         {
             prsndef *expr;
+            lindef *saved_lin;
+            uchar saved_loc[LINLLNMAX];
             
             /* allow vocabulary list to be enclosed in square brackets */
             if (prpisvoc(p) && ctx->prscxtok->tokcxcur.toktyp == TOKTLBRACK)
                 toknext(ctx->prscxtok);
-            
+
+            /* 
+             *   save the line position at the START of the expression - if
+             *   it's a one-liner, as most expression properties are, we want
+             *   to generate the debug record at the start rather than at the
+             *   next token, which will probably be on the next line 
+             */
+            saved_lin = ctx->prscxtok->tokcxlin;
+            linglop(saved_lin, saved_loc);
+
+            /* parse the expression */
             expr = prsexpr(ctx);
             if (expr->prsnnlf != 0)
             {
@@ -1324,7 +1364,7 @@ static void prsobj(prscxdef *ctx, noreg tokdef *objtok, int numsc,
 
                 /* generate an OPCLINE instruction if debugging */
                 if (ctx->prscxflg & PRSCXFLIN)
-                    prsclin(ctx, curfr, ctx->prscxtok->tokcxlin, TRUE);
+                    prsclin(ctx, curfr, saved_lin, TRUE, saved_loc);
 
                 /* generate code for the expression */
                 prsgexp(ctx, expr);
@@ -1441,7 +1481,7 @@ static void prsobj(prscxdef *ctx, noreg tokdef *objtok, int numsc,
                     case TOKTNUMBER:
                         typ = DAT_NUMBER;
                         val = valbuf;
-                        oswp4(valbuf, expr->prsnv.prsnvt.tokval);
+                        oswp4s(valbuf, expr->prsnv.prsnvt.tokval);
                         break;
                         
                     case TOKTNIL:
@@ -1637,7 +1677,7 @@ static void prsspec(prscxdef *ctx, int modflag)
                 uchar *newptr;
                 
                 newsiz = ctx->prscxsps + len + 128;
-                newptr = mchalo(ctx->prscxerr, (ushort)newsiz, "prsspec");
+                newptr = mchalo(ctx->prscxerr, newsiz, "prsspec");
                 
                 /* copy old area, if there was one */
                 if (ctx->prscxspp)
@@ -1729,7 +1769,7 @@ static void prsfmt(prscxdef *ctx)
         
         /* get more storage */
         newsiz = ctx->prscxfss + len + 256;
-        newptr = mchalo(ctx->prscxerr, (ushort)newsiz, "prsfmt");
+        newptr = mchalo(ctx->prscxerr, newsiz, "prsfmt");
         
         /* set up new storage */
         if (ctx->prscxfsp)
@@ -1786,7 +1826,7 @@ static void prscmpd(prscxdef *ctx)
         
         /* get more storage */
         newsiz = ctx->prscxcps + need + 256;
-        newptr = mchalo(ctx->prscxerr, (ushort)newsiz, "prscmpd");
+        newptr = mchalo(ctx->prscxerr, newsiz, "prscmpd");
 
         /* set up new storage */
         if (ctx->prscxcpp)

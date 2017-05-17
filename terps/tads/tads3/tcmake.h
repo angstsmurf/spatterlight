@@ -112,12 +112,19 @@ public:
 
         /* presume the module is from the ordinary search path */
         source_type_ = TCMOD_SOURCE_NORMAL;
+
+        /* we don't have a sequence number yet */
+        seqno_ = 0;
     }
     ~CTcMakeModule() { }
 
     /* get/set the next list entry */
     CTcMakeModule *get_next() const { return nxt_; }
     void set_next(CTcMakeModule *nxt) { nxt_ = nxt; }
+
+    /* get/set the sequence number */
+    int get_seqno() const { return seqno_; }
+    void set_seqno(int n) { seqno_ = n; }
 
     /* 
      *   Set the module name.  This will fill in the source, symbol, and
@@ -218,6 +225,12 @@ protected:
 
     /* source filename */
     CTcMakeStr src_;
+
+    /* 
+     *   sequence number - this is simply an ordinal giving our position in
+     *   the list of modules making up the build 
+     */
+    int seqno_;
 
     /* path-searching source filename */
     CTcMakeStr search_src_;
@@ -404,6 +417,13 @@ public:
      */
     void set_test_report_mode(int flag) { test_report_mode_ = flag; }
 
+    /* 
+     *   set status percentage mode - in this mode, we'll output special
+     *   status update lines with a percent-done indication, for use by
+     *   container environments such as Workbench 
+     */
+    void set_status_pct_mode(int flag) { status_pct_mode_ = flag; }
+
     /* set quoted filenames mode for error messages */
     void set_err_quoted_fnames(int flag) { quoted_fname_mode_ = flag; }
 
@@ -424,6 +444,9 @@ public:
         explicit_preinit_ = TRUE;
     }
 
+    /* turn sourceTextGroup property generation on or off */
+    void set_source_text_group_mode(int f) { src_group_mode_ = f; }
+
     /* turn verbose error messages on or off */
     void set_verbose(int verbose) { verbose_ = verbose; }
 
@@ -432,6 +455,9 @@ public:
 
     /* turn all warning messages on or off */
     void set_warnings(int show) { show_warnings_ = show; }
+
+    /* treat warnings as errors mode */
+    void set_warnings_as_errors(int f) { warnings_as_errors_ = f; }
 
     /* turn pedantic messages on or off */
     void set_pedantic(int show) { pedantic_ = show; }
@@ -469,6 +495,15 @@ public:
      */
     class CTcMakePath *add_sys_include_path(const textchar_t *dir);
     class CTcMakePath *add_sys_source_path(const textchar_t *dir);
+
+    /*
+     *   Set the "create directories" flag.  This is false by default.  If
+     *   set, we'll create the directories named in the various output
+     *   file/path options if they don't already exist.  Specifically, we'll
+     *   create the directories named in set_symbol_dir(), set_object_dir(),
+     *   and set_image_file() options.
+     */
+    void set_create_dirs(int flag) { create_dirs_ = flag; }
 
     /*
      *   Set the symbol file directory.  Any symbol file that doesn't have
@@ -626,6 +661,17 @@ public:
     void get_symfile(textchar_t *dst, CTcMakeModule *mod);
     void get_objfile(textchar_t *dst, CTcMakeModule *mod);
 
+    /*
+     *   Create a directory if it doesn't already exist.  If 'is_file' is
+     *   true, the path includes both a directory path and a filename, in
+     *   which case we'll create the directory containing the file as
+     *   specified in the path.  If 'is_file' is false, the path specifies a
+     *   directory name directly, with no filename attached.  If an error
+     *   occurs, we'll generate a message and count it in the error count.
+     */
+    void create_dir(class CTcHostIfc *hostifc,
+                    const char *path, int is_file, int *errcnt);
+
 private:
     /* scan all modules for name collisions with other modules */
     void check_all_module_collisions(class CTcHostIfc *hostifc,
@@ -670,10 +716,14 @@ private:
                           const textchar_t *image_fname,
                           int *error_count, int *warning_count,
                           class CVmRuntimeSymbols *runtime_symtab,
+                          class CVmRuntimeSymbols *runtime_macros,
                           const char tool_data[4]);
 
     /* symbol enumeration callback: build runtime symbol table */
     static void build_runtime_symtab_cb(void *ctx, class CTcSymbol *sym);
+
+    /* symbol enumeration callback: build runtime macro table */
+    static void build_runtime_macro_cb(void *ctx, class CVmHashEntry *e);
 
     /* set compiler options in the G_tcmain object */
     void set_compiler_options();
@@ -693,6 +743,9 @@ private:
 
     /* default source file character set */
     char *source_charset_;
+
+    /* flag: create output directories if they don't exist */
+    int create_dirs_;
 
     /* symbol file directory */
     CTcMakeStr symdir_;
@@ -734,6 +787,9 @@ private:
     /* string capture file */
     osfildef *string_fp_;
 
+    /* true -> generate sourceTextGroup properties */
+    int src_group_mode_;
+
     /* true -> show verbose error messages */
     int verbose_;
 
@@ -742,6 +798,9 @@ private:
 
     /* true -> show warnings, false -> suppress all warnings */
     int show_warnings_;
+
+    /* true -> treat warnings as errors */
+    int warnings_as_errors_;
 
     /* true -> show "pedantic" warning messages */
     int pedantic_;
@@ -787,6 +846,9 @@ private:
      *   independent of local path name conventions
      */
     int test_report_mode_;
+
+    /* true -> percent-done reporting mode */
+    int status_pct_mode_;
 
     /* true -> use quoted filenames in error messages */
     int quoted_fname_mode_;

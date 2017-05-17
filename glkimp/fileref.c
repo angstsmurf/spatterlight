@@ -10,6 +10,11 @@ char *glkext_fileref_get_name(fileref_t *fref)
 	return fref->filename;
 }
 
+char * garglk_fileref_get_name(frefid_t fref)
+{
+    return fref->filename;
+}
+
 /* This file implements filerefs as they work in a stdio system:
  * a fileref contains a pathname, a text/binary flag, and a file type.
  */

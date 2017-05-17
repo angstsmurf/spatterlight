@@ -47,7 +47,18 @@ main(args)
     "Press yet another key...\n";
     inputKey();
 
+    win2 = bannerCreate(win, BannerFirst, nil, BannerTypeText, BannerAlignTop,
+                        40, BannerSizePercent, BannerStyleBorder);
+    bannerSay(win2, '<body bgcolor=navy text=white>This is a banner that
+        should split off the top half of the left pane. This is to exercise
+        the parent/child parameters. [end of child banner text]');
+
+    "Press another key...\n";
+    inputKey();
+
     bannerDelete(win);
+    bannerDelete(win2);
+
     win = bannerCreate(nil, BannerLast, nil, BannerTypeText, BannerAlignRight,
                        15, BannerSizePercent,
                        BannerStyleVScroll | BannerStyleBorder);
@@ -60,7 +71,7 @@ main(args)
     "\bPress a key...\n";
     inputKey();
     
-    bannerSay(win, '\bHopefully we can overflow this one a bit more
+    bannerSay(win, '\bHopefully we can overflpow this one a bit more
         quickly because of its diminutive width.  When this one overflows,
         it should just sit at the top - it should not scroll down by itself.
         On interpreters that offer a scrollbar, of course, the user can
@@ -145,6 +156,27 @@ main(args)
     "\bRight banner: "; showBannerInfo(win);
     "\bBottom banner 1: "; showBannerInfo(win2);
     "\bBottom banner 2 (grid): "; showBannerInfo(win3);
+
+    "\bPress another key...\n";
+    inputKey();
+
+    win3 = bannerCreate(win2, BannerFirst, nil, BannerTypeText,
+                        BannerAlignLeft,
+                        33, BannerSizePercent, BannerStyleBorder);
+    bannerSay(win3, '<body bgcolor=#a000a0 text=black>This is a child
+        banner on the left side of the second-to-bottom banner.  It
+        should take up a third of the banner\'s width, on the left side.');
+
+    "Another key please...\n";
+    inputKey();
+
+    win3 = bannerCreate(win2, BannerAfter, win3, BannerTypeText,
+                        BannerAlignLeft,
+                        50, BannerSizePercent, BannerStyleBorder);
+    bannerSay(win3, '<body bgcolor=#505050 text=white>This is a second
+        child banner.  It should appear in the middle of the second-to-bottom
+        banner, and should take up half the remaining area (so, the bottom
+        banner should now be split into thirds).');
 
     "\bPress another key to exit...\n";
     inputKey();

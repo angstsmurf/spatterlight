@@ -14,9 +14,10 @@ directory containing the TADS 3 executables.  Note that cmaplib.t3r
 uses a binary-portable format, so the same cmaplib.t3r works on every
 platform - there's no need to recompile it locally for byte-order
 differences or anything else.  The source files for the mappings are
-not included with the source distribution because they're based on
-original mapping files available on the Unicode Consortium web site
-(www.unicode.org), but we can provide them to anyone who needs them.
+included with the source distribution; note that these are based on
+the mapping tables available at the Unicode website (www.unicode.org),
+but are extended beyond the basic Unicode tables with numerous
+approximation mappings.
 
 If you need a character set mapping that isn't in the set provided
 below, you can use the character map compiler tool (mkchrtab) to

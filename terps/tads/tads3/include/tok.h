@@ -1,4 +1,5 @@
 #charset "us-ascii"
+#pragma once
 
 /* 
  *   Copyright (c) 2000, 2006 Michael J. Roberts
@@ -37,3 +38,17 @@
  *   the tokenized string. 
  */
 #define getTokOrig(tok) ((tok)[3])
+
+/*
+ *   Some internal convenience macros.  (These are meant for internal use
+ *   within the tokenizer class, rather than for client code, but we define
+ *   them here because they're also useful for subclasses of the standard
+ *   tokenizer.)  
+ */
+#define tokRuleName(rule)   (rule[1])
+#define tokRulePat(rule)    (rule[2])
+#define tokRuleType(rule)   (rule[3])
+#define tokRuleVal(rule)    (rule[4])
+#define tokRuleTest(rule)   (rule[5])
+
+

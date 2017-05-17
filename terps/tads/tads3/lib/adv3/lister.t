@@ -37,10 +37,8 @@ class Lister: object
      */
     showListAll(lst, options, indent)
     {
-        local infoTab;
-    
         /* create a sense information table with each item in full view */
-        infoTab = new LookupTable(16, 32);
+        local infoTab = new LookupTable(16, 32);
         foreach (local cur in lst)
         {
             /* add a plain view sensory description to the info list */
@@ -96,28 +94,22 @@ class Lister: object
      */
     showList(pov, parent, lst, options, indent, infoTab, parentGroup)
     {
-        local groups;
-        local groupTab;
-        local singles;
-        local origLst;
-        local itemCount;
-
         /* remember the original list */
-        origLst = lst;
+        local origLst = lst;
 
         /* filter the list to get only the items we actually will list */
         lst = getFilteredList(lst, infoTab);
 
         /* create a lookup table to keep track of the groups we've seen */
-        groupTab = new LookupTable();
-        groups = new Vector(10);
+        local groupTab = new LookupTable();
+        local groups = new Vector(10);
         
         /* set up a vector to keep track of the singles */
-        singles = new Vector(10);
+        local singles = new Vector(10);
 
         /* figure the groupings */
-        itemCount = getListGrouping(groupTab, groups, singles,
-                                    lst, parentGroup);
+        local itemCount = getListGrouping(groupTab, groups, singles,
+                                          lst, parentGroup);
 
         /*
          *   Now that we've figured out what's in the list and how it's
@@ -515,9 +507,8 @@ class Lister: object
              */
             if (mem.length() < groups[i].minGroupSize)
             {
-                /* put the item into the singles list */
-                if (mem.length() > 0)
-                    singles.append(mem[1]);
+                /* put the item(s) into the singles list */
+                singles.appendAll(mem);
 
                 /* eliminate this item from the group list */
                 groups.removeElementAt(i);
@@ -619,7 +610,7 @@ class Lister: object
             else
             {
                 /* show the prefix */
-                showListPrefixWide(itemCount, pov, parent);
+                showListPrefixWide(itemCount, pov, parent, lst: lst);
             }
             
             /* 
@@ -683,6 +674,7 @@ class Lister: object
                     if ((options & ListTall) != 0
                         && (options & ListRecurse) != 0
                         && contentsListed(cur)
+                        && !contentsListedSeparately(cur)
                         && getListedContents(cur, infoTab) != [])
                     {
                         /* show the item with its contents */
@@ -936,6 +928,7 @@ class Lister: object
             if ((options & ListTall) != 0
                 && (options & ListRecurse) != 0
                 && contentsListed(cur)
+                && !contentsListedSeparately(cur)
                 && getListedContents(cur, infoTab) != [])
             {
                 /* show the item with its contents */
@@ -1035,10 +1028,14 @@ class Lister: object
      *   books" will have an itemCount of 5.  (The purpose of itemCount is
      *   to allow the message to have grammatical agreement in number.)
      *   
+     *   'lst' is the entire list, which some languages need for
+     *   grammatical agreement.  This is passed as a named argument, so an
+     *   overrider can omit it from the parameter list if it's not needed.
+     *   
      *   This will never be called with an itemCount of zero, because we
      *   will instead use showListEmpty() to display an empty list.  
      */
-    showListPrefixWide(itemCount, pov, parent) { }
+    showListPrefixWide(itemCount, pov, parent, lst:) { }
 
     /* 
      *   show the suffix for a 'wide' listing - this is a message that
@@ -1259,6 +1256,65 @@ class Lister: object
      *   so we simply use the fixed #define'd last flag value here.
      */
     nextCustomFlag = ListCustomFlag
+;
+
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   A SimpleLister provides simplified interfaces for creating formatted
+ *   lists.  
+ */
+class SimpleLister: Lister
+    /*
+     *   Show a formatted list given a list of items.  This lets you create
+     *   a formatted list from an item list without worrying about
+     *   visibility or other factors that affect the full Lister
+     *   interfaces. 
+     */
+    showSimpleList(lst)
+    {
+        showListAll(lst, 0, 0);
+    }
+
+    /* by default, everything given to a simple lister is listed */
+    isListed(obj) { return true; }
+
+    /*
+     *   Format a simple list, but rather than displaying the result,
+     *   return it as a string.  This simply displays the list as normal,
+     *   but captures the output as a string and returns it. 
+     */
+    makeSimpleList(lst)
+    {
+        return mainOutputStream.captureOutput({: showSimpleList(lst) });
+    }
+;
+
+/*
+ *   objectLister is a concrete SimpleLister for listing simulation
+ *   objects.
+ */
+objectLister: SimpleLister
+;
+
+/*
+ *   stringLister is a concrete SimpleLister for formatting lists of
+ *   strings.  To use this lister, pass lists of single-quoted strings
+ *   (instead of simulation objects) to showSimpleList(), etc.  
+ */
+stringLister: SimpleLister
+    /* show a list item - list items are strings, so simply 'say' them */
+    showListItem(str, options, pov, infoTab) { say(str); }
+
+    /* 
+     *   get the cardinality of an arranged list (we need to override this
+     *   because our items are strings, which don't have the normal object
+     *   properties that would let us count cardinality the usual way) 
+     */
+    getArrangedListCardinality(singles, groups, groupTab)
+    {
+        return singles.length();
+    }    
 ;
 
 
@@ -1950,12 +2006,25 @@ class ListGroup: object
 /*
  *   A "custom" List Group implementation.  This type of lister uses a
  *   completely custom message to show the group, without a need to
- *   recursively invoke a lister to list the individual elements.  The
- *   main difference between this and the base ListGroup is that the
- *   interface to the custom message generator is very simple - we can
- *   dispense with most of the numerous arguments that the base group
- *   message receives, since most of those arguments are there to allow
- *   recursive listing of the group list.  
+ *   recursively invoke a lister to list the individual elements.  The main
+ *   difference between this and the base ListGroup is that the interface
+ *   to the custom message generator is very simple - we can dispense with
+ *   most of the numerous arguments that the base group message receives,
+ *   since most of those arguments are there to allow recursive listing of
+ *   the group list.
+ *   
+ *   This group type is intended mainly for cases where you want to display
+ *   some sort of collective description of the group, rather than listing
+ *   its members individually.  The whole point of the simple interface is
+ *   that we don't pass the normal big pile of parameters because we won't
+ *   be invoking a full sublisting.  Since we assume that this group won't
+ *   itself look like a sublist, we set groupDisplaysSublist to nil by
+ *   default.  This means that our presence in the overall list won't
+ *   trigger the "long list" format (usually, this uses semicolons instead
+ *   of commas) in the enclosing list.  If your custom group message does
+ *   indeed look like a sublist (that is, it displays multiple items in a
+ *   comma-separated list), you might want to change groupDisplaysSublist
+ *   back to true so that the overall list is shown in the "long" format.  
  */
 class ListGroupCustom: ListGroup
     showGroupList(pov, lister, lst, options, indent, infoTab)
@@ -1966,6 +2035,9 @@ class ListGroupCustom: ListGroup
 
     /* show the custom group message - subclasses should override */
     showGroupMsg(lst) { }
+
+    /* assume our listing message doesn't look like a sublist */
+    groupDisplaysSublist = nil
 ;
 
 /*
@@ -2007,14 +2079,27 @@ class ListGroupSorted: ListGroup
     }
 
     /*
-     *   Compare a pair of items from the group to determine their sorting
-     *   order.  Returns 0 if the two items are at the same sorting order,
-     *   1 if the first item sorts after the second item, -1 if the first
-     *   item sorts before the second item.
+     *   Compare a pair of items from the group to determine their relative
+     *   sorting order.  This should return 0 if the two items are at the
+     *   same sorting order, a positive integer if the first item sorts
+     *   after the second item, or a negative integer if the first item
+     *   sorts before the second item.
      *   
-     *   We do not provide a default implementation of this method, so
-     *   that sortListGroup will know not to bother sorting the list at
-     *   all if the subclass doesn't provide a definition for this method.
+     *   Note that we don't care about the return value beyond whether it's
+     *   positive, negative, or zero.  This makes it especially easy to
+     *   implement this method if the sorting order is determined by a
+     *   property on each object that has an integer value: in this case
+     *   you simply return the difference of the two property values, as in
+     *   a.prop - b.prop.  This will have the effect of sorting the objects
+     *   in ascending order of their 'prop' property values.  To sort in
+     *   descending order of the same property, simply reverse the
+     *   subtraction: b.prop - a.prop.
+     *   
+     *   When no implementation of this method is defined in the group
+     *   object, sortListGroup won't bother sorting the list at all.
+     *   
+     *   By default, we don't implement this method.  Subclasses that want
+     *   to impose a sorting order must implement the method.  
      */
     // compareGroupItems(a, b) { return a > b ? 1 : a == b ? 0 : -1; }
 ;

@@ -224,6 +224,9 @@ public:
     virtual void convert_to_const_data(VMG_ class CVmConstMapper *mapper,
                                        vm_obj_id_t self);
 
+    /* get the next iteration item */
+    virtual int iter_next(VMG_ vm_obj_id_t self, vm_val_t *val);
+
 protected:
     /* create */
     CVmObjIterIdx() { ext_ = 0; }
@@ -260,7 +263,7 @@ protected:
 
     /* get/set the current index (without saving undo) */
     long get_cur_index() const
-        { return osrp4(ext_ + VMB_DATAHOLDER); }
+        { return t3rp4u(ext_ + VMB_DATAHOLDER); }
     void set_cur_index_no_undo(long idx)
         { oswp4(ext_ + VMB_DATAHOLDER, idx); }
 
@@ -269,9 +272,9 @@ protected:
 
     /* get my first/last valid index values */
     long get_first_valid() const
-        { return osrp4(ext_ + VMB_DATAHOLDER + 4); }
+        { return t3rp4u(ext_ + VMB_DATAHOLDER + 4); }
     long get_last_valid() const
-        { return osrp4(ext_ + VMB_DATAHOLDER + 8); }
+        { return t3rp4u(ext_ + VMB_DATAHOLDER + 8); }
 
     /* set my first/last valid index values - for construction only */
     void set_first_valid(long idx) const
@@ -281,7 +284,7 @@ protected:
 
     /* get/set the flags */
     unsigned long get_flags() const
-        { return osrp4(ext_ + VMB_DATAHOLDER + 12); }
+        { return t3rp4u(ext_ + VMB_DATAHOLDER + 12); }
     void set_flags(unsigned long flags) const
         { oswp4(ext_ + VMB_DATAHOLDER + 12, flags); }
 };
@@ -309,7 +312,7 @@ public:
     vm_obj_id_t create_from_stack(VMG_ const uchar **pc_ptr, uint argc)
     {
         err_throw(VMERR_BAD_DYNAMIC_NEW);
-        return VM_INVALID_OBJ;
+        AFTER_ERR_THROW(return VM_INVALID_OBJ;)
     }
 
     /* call a static property */
@@ -348,7 +351,7 @@ public:
     vm_obj_id_t create_from_stack(VMG_ const uchar **pc_ptr, uint argc)
     {
         err_throw(VMERR_BAD_DYNAMIC_NEW);
-        return VM_INVALID_OBJ;
+        AFTER_ERR_THROW(return VM_INVALID_OBJ;)
     }
 
     /* call a static property */

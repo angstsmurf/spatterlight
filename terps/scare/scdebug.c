@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
  * USA
  */
 
@@ -24,8 +24,8 @@
  */
 
 #include <assert.h>
-#include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "scare.h"
@@ -39,7 +39,7 @@ enum { DEBUG_BUFFER_SIZE = 256 };
 
 /* Debugging command and command argument type. */
 typedef enum
-{ DEBUG_NONE, DEBUG_CONTINUE, DEBUG_STEP, DEBUG_BUFFER, DEBUG_RESOURCES,
+{ DEBUG_NONE = 0, DEBUG_CONTINUE, DEBUG_STEP, DEBUG_BUFFER, DEBUG_RESOURCES,
   DEBUG_HELP, DEBUG_GAME,
   DEBUG_PLAYER, DEBUG_ROOMS, DEBUG_OBJECTS, DEBUG_NPCS, DEBUG_EVENTS,
   DEBUG_TASKS, DEBUG_VARIABLES,
@@ -55,7 +55,7 @@ typedef enum
 sc_command_t;
 
 typedef enum
-{ COMMAND_QUERY, COMMAND_RANGE, COMMAND_ONE, COMMAND_ALL }
+{ COMMAND_QUERY = 0, COMMAND_RANGE, COMMAND_ONE, COMMAND_ALL }
 sc_command_type_t;
 
 /* Table connecting debugging command strings to commands. */
