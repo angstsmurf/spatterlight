@@ -5464,6 +5464,7 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"\"$(SRCROOT)/fmod/api/lib\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -5492,6 +5493,7 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"\"$(SRCROOT)/fmod/api/lib\"",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
