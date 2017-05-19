@@ -966,6 +966,72 @@ void glk_request_line_event_uni(window_t *win, glui32 *buf, glui32 maxlen, glui3
     
 }
 
+void glk_set_echo_line_event(window_t *win, glui32 val)
+{
+    if (!win)
+    {
+        gli_strict_warning("set_echo_line_event: invalid ref");
+        return;
+    }
+    
+    switch (win->type)
+    {
+        case wintype_TextBuffer:
+            win->echo_line_input = (val != 0);
+            break;
+        default:
+            break;
+    }
+}
+
+void glk_set_terminators_line_event(winid_t win, glui32 *keycodes, glui32 count)
+{
+    if (!win)
+    {
+        gli_strict_warning("set_terminators_line_event: invalid ref");
+        return;
+    }
+    
+    switch (win->type)
+    {
+        case wintype_TextBuffer:
+        case wintype_TextGrid:
+            break;
+        default:
+            gli_strict_warning("set_terminators_line_event: window does not support keyboard input");
+            return;
+    }
+    
+    if (win->line_terminators)
+        free(win->line_terminators);
+    
+    if (!keycodes || count == 0)
+    {
+        win->line_terminators = NULL;
+        win->termct = 0;
+    }
+    else
+    {
+        win->line_terminators = malloc((count + 1) * sizeof(glui32));
+        if (win->line_terminators)
+        {
+            memcpy(win->line_terminators, keycodes, count * sizeof(glui32));
+            win->line_terminators[count] = 0;
+            win->termct = count;
+        }
+    }
+}
+
+int gli_window_check_terminator(glui32 ch)
+{
+    if (ch == keycode_Escape)
+        return TRUE;
+    else if (ch >= keycode_Func12 && ch <= keycode_Func1)
+        return TRUE;
+    else
+        return FALSE;
+}
+
 void glk_request_mouse_event(window_t *win)
 {
     if (!win)

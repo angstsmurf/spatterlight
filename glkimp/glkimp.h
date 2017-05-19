@@ -83,6 +83,10 @@ typedef glui32 gli_case_special_t[3]; /* upper, lower, title */
 (in cgunicode.c). In that subarray, element zero is the length,
 and that's followed by length unicode values. */
 
+typedef glui32 gli_decomp_block_t[2]; /* count, position */
+/* The position points to a subarray of the unigen_decomp_array.
+ If the count is zero, there is no decomposition. */
+
 void gli_putchar_utf8(glui32 val, FILE *fl);
 glui32 gli_getchar_utf8(FILE *fl);
 glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen, glui32 *out, glui32 outlen);
@@ -119,6 +123,10 @@ typedef struct grect_struct
     int x1, y1;
 } grect_t;
 
+
+extern char gli_workdir[];
+extern char gli_workfile[];
+
 /* Global but internal functions */
 stream_t *gli_stream_open_pathname(char *pathname, int textmode, glui32 rock);
 stream_t *gli_stream_open_window(window_t *win);
@@ -129,7 +137,10 @@ void gli_stream_echo_line_uni(stream_t *str, glui32 *buf, glui32 len);
 void gli_windows_unechostream(stream_t *str);
 void gli_window_put_char(window_t *win, unsigned ch);
 void gli_windows_rearrange(void);
+int gli_window_check_terminator(glui32 ch);
+
 window_t *gli_window_for_peer(int peer);
+
 
 /* to be used by hugo for its standalone windows, no parent/pair hierarchy */
 window_t *gli_new_window(glui32 type, glui32 rock); /* does not touch hierarchy */
@@ -137,6 +148,7 @@ void gli_delete_window(window_t *win);
 
 struct glk_fileref_struct
 {
+    glui32 magicnum;
     glui32 rock;
     char *filename;
     int filetype;
@@ -151,6 +163,7 @@ struct glk_fileref_struct
 
 struct glk_stream_struct
 {
+    glui32 magicnum;
     glui32 rock;
     
     int type; /* file, window, or memory stream */
@@ -218,6 +231,14 @@ struct glk_window_struct
     int char_request;
     int char_request_uni;
     int mouse_request;
+    int hyper_request;
+    int more_request;
+    int scroll_request;
+    int image_loaded;
+    
+    glui32 echo_line_input;
+    glui32 *line_terminators;
+    glui32 termct;
     
     glui32 style;
     
@@ -225,12 +246,32 @@ struct glk_window_struct
     window_t *next, *prev; /* in the big linked list of windows */
 };
 
+enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
+
 struct glk_schannel_struct
 {
     glui32 rock;
-    int peer;
+    
+    void *sample; /* Mix_Chunk (or FMOD Sound) */
+    void *music; /* Mix_Music (or FMOD Music) */
+    void *decode; /* Sound_Sample */
+    
+    void *sdl_rwops; /* SDL_RWops */
+    unsigned char *sdl_memory;
+    int sdl_channel;
+    
+    int resid; /* for notifies */
+    int status;
+    int channel;
+    int volume;
+    glui32 loop;
+    int notify;
+    int buffered;
+    
     gidispatch_rock_t disprock;
-    channel_t *next, *prev;
+    channel_t *chain_next, *chain_prev;
 };
+
+extern void gli_initialize_sound(void);
 
 #endif

@@ -4,6 +4,7 @@
 #include <sys/stat.h> /* for stat() */
 
 char gli_workdir[1024] = ".";
+char gli_workfile[1024] = "";
 
 char *glkext_fileref_get_name(fileref_t *fref)
 {
@@ -21,6 +22,9 @@ char * garglk_fileref_get_name(frefid_t fref)
 
 /* Linked list of all filerefs */
 static fileref_t *gli_filereflist = NULL; 
+
+#define BUFLEN (256)
+static char workingdir[BUFLEN] = ".";
 
 fileref_t *gli_new_fileref(char *filename, glui32 usage, glui32 rock)
 {
@@ -52,33 +56,33 @@ fileref_t *gli_new_fileref(char *filename, glui32 usage, glui32 rock)
 
 void gli_delete_fileref(fileref_t *fref)
 {
-	fileref_t *prev, *next;
+    fileref_t *prev, *next;
 
-	if (gli_unregister_obj)
-	{
-		(*gli_unregister_obj)(fref, gidisp_Class_Fileref, fref->disprock);
-		fref->disprock.ptr = NULL;
-	}
+    if (gli_unregister_obj) {
+        (*gli_unregister_obj)(fref, gidisp_Class_Fileref, fref->disprock);
+        fref->disprock.ptr = NULL;
+    }
 
-	if (fref->filename)
-	{
-		free(fref->filename);
-		fref->filename = NULL;
-	}
+    fref->magicnum = 0;
 
-	prev = fref->prev;
-	next = fref->next;
-	fref->prev = NULL;
-	fref->next = NULL;
+    if (fref->filename) {
+        free(fref->filename);
+        fref->filename = NULL;
+    }
 
-	if (prev)
-		prev->next = next;
-	else
-		gli_filereflist = next;
-	if (next)
-		next->prev = prev;
+    prev = fref->prev;
+    next = fref->next;
+    fref->prev = NULL;
+    fref->next = NULL;
 
-	free(fref);
+    if (prev)
+        prev->next = next;
+    else
+        gli_filereflist = next;
+    if (next)
+        next->prev = prev;
+
+    free(fref);
 }
 
 void glk_fileref_destroy(fileref_t *fref)
@@ -91,13 +95,28 @@ void glk_fileref_destroy(fileref_t *fref)
 	gli_delete_fileref(fref);
 }
 
+static char *gli_suffix_for_usage(glui32 usage)
+{
+    switch (usage & fileusage_TypeMask) {
+        case fileusage_Data:
+            return ".glkdata";
+        case fileusage_SavedGame:
+            return ".glksave";
+        case fileusage_Transcript:
+        case fileusage_InputRecord:
+            return ".txt";
+        default:
+            return "";
+    }
+}
+
 frefid_t glk_fileref_create_temp(glui32 usage, glui32 rock)
 {
-	char *filename;
+	char filename[BUFLEN];
 	fileref_t *fref;
 
-	filename = tmpnam(NULL);
-
+    sprintf(filename, "/tmp/glktempfref-XXXXXX");
+    mktemp(filename);
 	fref = gli_new_fileref(filename, usage, rock);
 	if (!fref)
 	{
@@ -128,56 +147,57 @@ frefid_t glk_fileref_create_from_fileref(glui32 usage, frefid_t oldfref, glui32 
 	return fref;
 }
 
-frefid_t glk_fileref_create_by_name(glui32 usage, char *name, glui32 rock)
+frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
+                                    glui32 rock)
 {
-	fileref_t *fref;
-	char buf[256];
-	char buf2[256];
-	int len;
-	char *cx;
+    fileref_t *fref;
+    char buf[BUFLEN];
+    char buf2[2*BUFLEN+10];
+    int len;
+    char *cx;
+    char *suffix;
 
-	len = strlen(name);
-	if (len > 255)
-		len = 255;
+    /* The new spec recommendations: delete all characters in the
+     string "/\<>:|?*" (including quotes). Truncate at the first
+     period. Change to "null" if there's nothing left. Then append
+     an appropriate suffix: ".glkdata", ".glksave", ".txt".
+     */
 
-	/* Take out all dangerous characters, and make sure the length is greater 
-	 * than zero. The overall goal is to make a legal 
-	 * platform-native filename, without any extra directory 
-	 * components.
-	 *
-	 * Suffixes are another sore point. Really, the game program 
-	 * shouldn't have a suffix on the name passed to this function. So
-	 * in DOS/Windows, this function should chop off dot-and-suffix,
-	 * if there is one, and then add a dot and a three-letter suffix
-	 * appropriate to the file type (as gleaned from the usage 
-	 * argument.)
-	 */
+    for (cx=name, len=0; (*cx && *cx!='.' && len<BUFLEN-1); cx++) {
+        switch (*cx) {
+            case '"':
+            case '\\':
+            case '/':
+            case '>':
+            case '<':
+            case ':':
+            case '|':
+            case '?':
+            case '*':
+                break;
+            default:
+                buf[len++] = *cx;
+        }
+    }
+    buf[len] = '\0';
 
-	memcpy(buf, name, len);
-	if (len == 0)
-	{
-		buf[0] = 'X';
-		len++;
-	}
-	buf[len] = '\0';
+    if (len == 0) {
+        strcpy(buf, "null");
+        len = strlen(buf);
+    }
 
-	for (cx=buf; *cx; cx++)
-	{
-		if (*cx == '/' || *cx == '\\' || *cx == ':')
-			*cx = '-';
-	}
+    suffix = gli_suffix_for_usage(usage);
+    sprintf(buf2, "%s/%s%s", workingdir, buf, suffix);
 
-	sprintf(buf2, "%s/%s", gli_workdir, buf);
+    fref = gli_new_fileref(buf2, usage, rock);
+    if (!fref) {
+        gli_strict_warning("fileref_create_by_name: unable to create fileref.");
+        return NULL;
+    }
 
-	fref = gli_new_fileref(buf2, usage, rock);
-	if (!fref)
-	{
-		gli_strict_warning("fileref_create_by_name: unable to create fileref.");
-		return NULL;
-	}
-
-	return fref;
+    return fref;
 }
+
 
 frefid_t glk_fileref_create_by_prompt(glui32 usage, glui32 fmode, glui32 rock)
 {
@@ -281,10 +301,21 @@ void glk_fileref_delete_file(fileref_t *fref)
 /* This should only be called from startup code. */
 void glkunix_set_base_file(char *filename)
 {
-	strcpy(gli_workdir, filename);
-	if (strrchr(gli_workdir, '/'))
-		strrchr(gli_workdir, '/')[1] = 0;
-	if (strrchr(gli_workdir, '\\'))
-		strrchr(gli_workdir, '\\')[1] = 0;
+    int ix;
+    
+    for (ix=strlen(filename)-1; ix >= 0; ix--)
+        if (filename[ix] == '/')
+            break;
+    
+    if (ix >= 0) {
+        /* There is a slash. */
+        strncpy(workingdir, filename, ix);
+        workingdir[ix] = '\0';
+        ix++;
+    }
+    else {
+        /* No slash, just a filename. */
+        ix = 0;
+    }
 }
 
