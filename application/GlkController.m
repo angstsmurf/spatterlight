@@ -533,7 +533,7 @@ static const char *msgnames[] =
     if (i == MAXSND)
 	return -1;
     
-    gchannels[i] = [[GlkSoundChannel alloc] initWithGlkController: self name: i];
+    //gchannels[i] = [[GlkSoundChannel alloc] initWithGlkController: self name: i];
     
     return i;
 }

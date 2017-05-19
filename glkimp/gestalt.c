@@ -65,23 +65,23 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr, glui32 arrlen)
             return TRUE;
 	    	    
 #if 0 /* NSSound */
-	case gestalt_Sound:
-	    return gli_enable_sound;
-	case gestalt_SoundVolume:
-	    return FALSE;
-	case gestalt_SoundMusic:
-	    return FALSE;
-	case gestalt_SoundNotify: 
-	    return FALSE;
+        case gestalt_Sound:
+            return gli_enable_sound;
+        case gestalt_SoundVolume:
+            return FALSE;
+        case gestalt_SoundMusic:
+            return FALSE;
+        case gestalt_SoundNotify:
+            return FALSE;
 #else /* FMOD */
-	case gestalt_Sound:
-	    return gli_enable_sound;
-	case gestalt_SoundVolume:
-	    return gli_enable_sound;
-	case gestalt_SoundMusic:
-	    return gli_enable_sound;
-	case gestalt_SoundNotify: 
-	    return FALSE;
+        case gestalt_Sound:
+            return gli_enable_sound;
+        case gestalt_SoundVolume:
+            return gli_enable_sound;
+        case gestalt_SoundMusic:
+            return gli_enable_sound;
+        case gestalt_SoundNotify: 
+            return gli_enable_sound;
 #endif
 	    
 	default:
