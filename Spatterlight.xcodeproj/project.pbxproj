@@ -384,6 +384,8 @@
 		96FE87D309F3A19D00D41D78 /* vmundo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036D909F29EE60083E64E /* vmundo.cpp */; };
 		96FE87DA09F3A1D100D41D78 /* libtads2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876009F3A11900D41D78 /* libtads2.a */; };
 		96FE87DB09F3A1D100D41D78 /* libtads3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876509F3A12B00D41D78 /* libtads3.a */; };
+		C33BFA121ECF4639004C106B /* vmvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036DC09F29EE60083E64E /* vmvec.cpp */; };
+		C33BFA151ECF468C004C106B /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C343E4841ECC5D09000F15B6 /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E4831ECC5D09000F15B6 /* vmuni_cs.cpp */; };
 		C343E4861ECC5E81000F15B6 /* osportable.cc in Sources */ = {isa = PBXBuildFile; fileRef = C343E4851ECC5E81000F15B6 /* osportable.cc */; };
 		C343E4881ECC6744000F15B6 /* memicmp.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E4871ECC6744000F15B6 /* memicmp.c */; };
@@ -789,6 +791,13 @@
 			remoteGlobalIDString = 96FE875F09F3A11900D41D78;
 			remoteInfo = tads2;
 		};
+		C33BFA131ECF467A004C106B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96FE866509F38BF600D41D78;
+			remoteInfo = tadsr;
+		};
 		C3B61C4F1ECCDB4600607CE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
@@ -805,6 +814,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				C33BFA151ECF468C004C106B /* tadsr in Copy Interpreter Files */,
 				9650315709F296F30083E64E /* libglkimp.dylib in Copy Interpreter Files */,
 				9650397F09F2D7180083E64E /* advsys in Copy Interpreter Files */,
 				9650396009F2D64F0083E64E /* agility in Copy Interpreter Files */,
@@ -4122,6 +4132,7 @@
 				9650381809F2A4A00083E64E /* PBXTargetDependency */,
 				9650379F09F2A2FA0083E64E /* PBXTargetDependency */,
 				966EFA4309F62D4C00FA7F19 /* PBXTargetDependency */,
+				C33BFA141ECF467A004C106B /* PBXTargetDependency */,
 			);
 			name = Spatterlight;
 			productName = Spatterlight;
@@ -5047,6 +5058,7 @@
 				C3B3779F1ECBA3DD006432BE /* vmtz.cpp in Sources */,
 				C3B377A11ECBA3E8006432BE /* vmtzobj.cpp in Sources */,
 				96FE87D309F3A19D00D41D78 /* vmundo.cpp in Sources */,
+				C33BFA121ECF4639004C106B /* vmvec.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5277,6 +5289,11 @@
 			isa = PBXTargetDependency;
 			target = 96FE875F09F3A11900D41D78 /* tads2 */;
 			targetProxy = 96FE87D809F3A1BC00D41D78 /* PBXContainerItemProxy */;
+		};
+		C33BFA141ECF467A004C106B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96FE866509F38BF600D41D78 /* tadsr */;
+			targetProxy = C33BFA131ECF467A004C106B /* PBXContainerItemProxy */;
 		};
 		C3B61C501ECCDB4600607CE7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6036,6 +6053,7 @@
 					SPATTERLIGHT,
 					RUNTIME,
 					GLK_UNICODE,
+					OSNOUI_OMIT_IS_FILE_ABSOLUTE,
 				);
 				HEADER_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/inc,
@@ -6068,6 +6086,7 @@
 					SPATTERLIGHT,
 					RUNTIME,
 					GLK_UNICODE,
+					OSNOUI_OMIT_IS_FILE_ABSOLUTE,
 				);
 				HEADER_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/inc,
