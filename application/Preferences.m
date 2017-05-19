@@ -45,16 +45,16 @@ static NSDictionary *gridatts[style_NUMSTYLES];
 NSData *colorToData(NSColor *color)
 {
     NSData *data;
-    float r, g, b, a;
+    CGFloat r, g, b, a;
     unsigned char buf[3];
     
     color = [color colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
     
     [color getRed:&r green:&g blue:&b alpha:&a];
     
-    buf[0] = r * 255;
-    buf[1] = g * 255;
-    buf[2] = b * 255;
+    buf[0] = (int)r * 255;
+    buf[1] = (int)g * 255;
+    buf[2] = (int)b * 255;
     
     data = [NSData dataWithBytes: buf length: 3];
     
@@ -432,8 +432,11 @@ static NSColor *makehsb(float h, float s, float b)
 	font = [gridroman printerFont];
     
     cellw = [font maximumAdvancement].width;
-    cellh = [font defaultLineHeightForFont] + leading;
-    // cellh = [font ascender] + [font descender] + [font leading] + leading;
+
+    CGRect rect = font.boundingRectForFont;
+    cellh = rect.size.height; // + leading;
+    //cellh = [font defaultLineHeightForFont:font] + leading;
+    //cellh = [font ascender] + [font descender] + [font leading] + leading;
     
     /* send notification that prefs have changed -- trigger configure events */
     [[NSNotificationCenter defaultCenter]

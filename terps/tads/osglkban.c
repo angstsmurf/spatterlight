@@ -26,9 +26,9 @@
 #include "os.h"
 #include "glk.h"
 
-#ifdef GARGLK
-#include "garglk.h"                 /* for-size to-contents hack */
-#endif /* GARGLK */
+#ifdef SPATTERLIGHT
+#include "glkimp.h"                 /* for-size to-contents hack */
+#endif /* SPATTERLIGHT */
 
 typedef struct os_banner_s *osbanid_t;
 typedef struct banner_contents_s *contentid_t;
@@ -282,11 +282,11 @@ void os_banner_styles_reset (void)
     glk_stylehint_clear(wintype_AllTypes, style_User1, stylehint_BackColor);
     glk_stylehint_clear(wintype_AllTypes, style_User2, stylehint_BackColor);
 
-#ifdef GARGLK
+#ifdef SPATTERLIGHT
     /* reset our default colors with a superfluous hint */
     glk_stylehint_set(wintype_AllTypes, style_Normal, stylehint_TextColor, mainfg);
     glk_stylehint_set(wintype_AllTypes, style_Normal, stylehint_BackColor, mainbg);
-#endif /* GARGLK */
+#endif /* SPATTERLIGHT */
 }
 
 void os_banners_close(osbanid_t banner)
@@ -531,18 +531,18 @@ void os_banner_size_to_contents(void *banner_handle)
 
     if (!banner || !banner->valid || !banner->win)
         return;
-
-#ifdef GARGLK
-    if (banner->type == wintype_TextBuffer)
-    {
-        winid_t win = banner->win;
-        window_textbuffer_t *dwin = win->data;
-        int size = dwin->scrollmax;
-        if (dwin->numchars)
-            size ++;
-        os_banner_set_size(banner, size, OS_BANNER_SIZE_ABS, 0);
-    }
-#endif /* GARGLK */
+#if 0
+//#ifdef SPATTERLIGHT
+   // if (banner->type == wintype_TextBuffer)
+    //{
+      //  winid_t win = banner->win;
+       // window_textbuffer_t *dwin = win->data;
+        //int size = dwin->scrollmax;
+        //if (dwin->numchars)
+          //  size ++;
+        //os_banner_set_size(banner, size, OS_BANNER_SIZE_ABS, 0);
+    //}
+#endif /* SPATTERLIGHT */
 }
 
 void os_banner_delete(void *banner_handle)

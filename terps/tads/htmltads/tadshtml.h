@@ -27,7 +27,7 @@ Modified
 #define TADSHTML_H
 
 /* include the TADS OS header, to allow for global OS-specific definitions */
-#include <os.h>
+#include "os.h"
 
 
 /*

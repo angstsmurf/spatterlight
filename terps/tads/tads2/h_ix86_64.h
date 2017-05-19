@@ -52,10 +52,21 @@ Modified
  *   maps from C to native.
  */
 
-#ifdef GARGOYLE
+#ifdef GARGLK
 #define SIZEOF_INT 4
 #define SIZEOF_SHORT 2
 #endif
+
+#ifdef SPATTERLIGHT
+#define SIZEOF_INT 4
+#define SIZEOF_SHORT 2
+#endif
+
+#ifdef COCO
+#define SIZEOF_INT 4
+#define SIZEOF_SHORT 2
+#endif
+
 
 #if SIZEOF_INT == 4
 typedef int hix_int32;
