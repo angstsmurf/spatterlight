@@ -24,7 +24,6 @@
 		6D395C171EAD095E0070886C /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494351EAC1BC4003DA5C4 /* string.c */; };
 		6D395C181EAD095E0070886C /* unixstrt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494361EAC1BC4003DA5C4 /* unixstrt.c */; };
 		6D395C191EAD095E0070886C /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494371EAC1BC4003DA5C4 /* vm.c */; };
-		6D49B7A61EAD10BE00F7335E /* libfmodex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D49B7A51EAD10BE00F7335E /* libfmodex.dylib */; };
 		6D5494441EAC1BC4003DA5C4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494291EAC1BC4003DA5C4 /* LICENSE */; };
 		6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494321EAC1BC4003DA5C4 /* README.md */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
@@ -67,7 +66,6 @@
 		961CCE9E09F2383F00528FF9 /* hyperlinks.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8E09F2381B00528FF9 /* hyperlinks.c */; };
 		961CCE9F09F2383F00528FF9 /* image.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8F09F2381B00528FF9 /* image.c */; };
 		961CCEA109F2383F00528FF9 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9109F2381B00528FF9 /* misc.c */; };
-		961CCEA209F2383F00528FF9 /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9309F2381B00528FF9 /* sound.c */; };
 		961CCEA309F2383F00528FF9 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9409F2381B00528FF9 /* stream.c */; };
 		961CCEA409F2383F00528FF9 /* stylehint.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9509F2381B00528FF9 /* stylehint.c */; };
 		961CCEA509F2383F00528FF9 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9609F2381B00528FF9 /* window.c */; };
@@ -238,7 +236,6 @@
 		966EFA7809F635D400FA7F19 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 966EFA7709F635D400FA7F19 /* Defaults.plist */; };
 		967C41D40B7A124B008A2D2F /* scmemos.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C41D20B7A124B008A2D2F /* scmemos.c */; };
 		967C41D50B7A124B008A2D2F /* scrunner.c in Sources */ = {isa = PBXBuildFile; fileRef = 967C41D30B7A124B008A2D2F /* scrunner.c */; };
-		967C42000B7A155A008A2D2F /* GlkSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCED609F239E700528FF9 /* GlkSoundChannel.m */; };
 		96A80EFD09F5821400CC75F4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96A80EFC09F5821400CC75F4 /* InfoPlist.strings */; };
 		96A9BA080A064B32001B5B9B /* agtread.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031C109F29EE10083E64E /* agtread.c */; };
 		96A9BA090A064B32001B5B9B /* agxfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 965031C209F29EE10083E64E /* agxfile.c */; };
@@ -384,9 +381,6 @@
 		96FE87D309F3A19D00D41D78 /* vmundo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036D909F29EE60083E64E /* vmundo.cpp */; };
 		96FE87DA09F3A1D100D41D78 /* libtads2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876009F3A11900D41D78 /* libtads2.a */; };
 		96FE87DB09F3A1D100D41D78 /* libtads3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876509F3A12B00D41D78 /* libtads3.a */; };
-		C33BFA121ECF4639004C106B /* vmvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036DC09F29EE60083E64E /* vmvec.cpp */; };
-		C33BFA151ECF468C004C106B /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		C343E4841ECC5D09000F15B6 /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E4831ECC5D09000F15B6 /* vmuni_cs.cpp */; };
 		C343E4861ECC5E81000F15B6 /* osportable.cc in Sources */ = {isa = PBXBuildFile; fileRef = C343E4851ECC5E81000F15B6 /* osportable.cc */; };
 		C343E4881ECC6744000F15B6 /* memicmp.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E4871ECC6744000F15B6 /* memicmp.c */; };
 		C343E48A1ECC674D000F15B6 /* osbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E4891ECC674D000F15B6 /* osbuffer.c */; };
@@ -400,6 +394,7 @@
 		C343E49B1ECC6796000F15B6 /* t3askf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49A1ECC6796000F15B6 /* t3askf.cpp */; };
 		C343E49D1ECC679D000F15B6 /* t3indlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49C1ECC679D000F15B6 /* t3indlg.cpp */; };
 		C343E4A01ECC67C8000F15B6 /* t2askf.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E49F1ECC67C8000F15B6 /* t2askf.c */; };
+		C37671111ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C37671101ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib */; };
 		C392312D1ECB7F9200536504 /* save.c in Sources */ = {isa = PBXBuildFile; fileRef = C392312C1ECB7F9200536504 /* save.c */; };
 		C392312F1ECB7FA900536504 /* sysdep.c in Sources */ = {isa = PBXBuildFile; fileRef = C392312E1ECB7FA900536504 /* sysdep.c */; };
 		C39231311ECB7FB900536504 /* syserr.c in Sources */ = {isa = PBXBuildFile; fileRef = C39231301ECB7FB900536504 /* syserr.c */; };
@@ -432,6 +427,15 @@
 		C39DE29D1ECB7C6000CE5B70 /* syntax.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE28D1ECB7C6000CE5B70 /* syntax.c */; };
 		C39DE2A11ECB7C6000CE5B70 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2911ECB7C6000CE5B70 /* utils.c */; };
 		C39DE2A21ECB7C6000CE5B70 /* word.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2921ECB7C6000CE5B70 /* word.c */; };
+		C3AAD0431ECF0919007B6698 /* libFLAC.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AAD0351ECF0919007B6698 /* libFLAC.8.dylib */; };
+		C3AAD0471ECF0919007B6698 /* libmikmod.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AAD0391ECF0919007B6698 /* libmikmod.3.dylib */; };
+		C3AAD0481ECF0919007B6698 /* libogg.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AAD03A1ECF0919007B6698 /* libogg.0.dylib */; };
+		C3AAD04A1ECF0919007B6698 /* libSDL_mixer-1.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AAD03C1ECF0919007B6698 /* libSDL_mixer-1.2.0.dylib */; };
+		C3AAD04B1ECF0919007B6698 /* libSDL-1.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AAD03D1ECF0919007B6698 /* libSDL-1.2.0.dylib */; };
+		C3AAD04C1ECF0919007B6698 /* libsmpeg-0.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AAD03E1ECF0919007B6698 /* libsmpeg-0.4.0.dylib */; };
+		C3AAD04D1ECF0919007B6698 /* libvorbis.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AAD03F1ECF0919007B6698 /* libvorbis.0.dylib */; };
+		C3AAD04E1ECF0919007B6698 /* libvorbisfile.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AAD0401ECF0919007B6698 /* libvorbisfile.3.dylib */; };
+		C3B2FB141ECEE4B700826C9D /* sndsdl.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B2FB131ECEE4B700826C9D /* sndsdl.c */; settings = {COMPILER_FLAGS = "-I/usr/local/include"; }; };
 		C3B3773E1ECB99C0006432BE /* osstzprs.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773D1ECB99BF006432BE /* osstzprs.c */; };
 		C3B377401ECB99D6006432BE /* ostzposix.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773F1ECB99D6006432BE /* ostzposix.c */; };
 		C3B3775C1ECBA060006432BE /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3775B1ECBA060006432BE /* md5.cpp */; };
@@ -471,6 +475,19 @@
 		C3C4F2331ECB7CF20067476B /* alan.version.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C4F2321ECB7CF20067476B /* alan.version.c */; };
 		C3C4F2361ECB7D2F0067476B /* act.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C4F2341ECB7D2F0067476B /* act.c */; };
 		C3C4F2371ECB7D2F0067476B /* actor.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C4F2351ECB7D2F0067476B /* actor.c */; };
+		C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; };
+		C3D6AD721ECF381A00ADB69C /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */; };
+		C3D6AD741ECF397A00ADB69C /* libFLAC.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD0351ECF0919007B6698 /* libFLAC.8.dylib */; };
+		C3D6AD751ECF397A00ADB69C /* libmikmod.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD0391ECF0919007B6698 /* libmikmod.3.dylib */; };
+		C3D6AD761ECF397A00ADB69C /* libogg.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD03A1ECF0919007B6698 /* libogg.0.dylib */; };
+		C3D6AD771ECF397A00ADB69C /* libSDL_mixer-1.2.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD03C1ECF0919007B6698 /* libSDL_mixer-1.2.0.dylib */; };
+		C3D6AD781ECF397A00ADB69C /* libSDL-1.2.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD03D1ECF0919007B6698 /* libSDL-1.2.0.dylib */; };
+		C3D6AD791ECF397A00ADB69C /* libSDL_sound-1.0.1.0.2.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C37671101ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib */; };
+		C3D6AD7A1ECF397A00ADB69C /* libsmpeg-0.4.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD03E1ECF0919007B6698 /* libsmpeg-0.4.0.dylib */; };
+		C3D6AD7B1ECF397A00ADB69C /* libvorbis.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD03F1ECF0919007B6698 /* libvorbis.0.dylib */; };
+		C3D6AD7C1ECF397A00ADB69C /* libvorbisfile.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD0401ECF0919007B6698 /* libvorbisfile.3.dylib */; };
+		C3EF065D1ECE5FF2008EED04 /* vmvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036DC09F29EE60083E64E /* vmvec.cpp */; };
+		C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EF065E1ECE60D0008EED04 /* cgdate.c */; };
 		C3FC70FD1ECB7DD400DC8AD8 /* set.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650325B09F29EE20083E64E /* set.c */; };
 		C3FC70FF1ECB7E6000DC8AD8 /* AltInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FC70FE1ECB7E6000DC8AD8 /* AltInfo.c */; };
 /* End PBXBuildFile section */
@@ -791,19 +808,19 @@
 			remoteGlobalIDString = 96FE875F09F3A11900D41D78;
 			remoteInfo = tads2;
 		};
-		C33BFA131ECF467A004C106B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 96FE866509F38BF600D41D78;
-			remoteInfo = tadsr;
-		};
 		C3B61C4F1ECCDB4600607CE7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 96FE876409F3A12B00D41D78;
 			remoteInfo = tads3;
+		};
+		C3D6AD6F1ECF372000ADB69C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96FE866509F38BF600D41D78;
+			remoteInfo = tadsr;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -814,7 +831,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				C33BFA151ECF468C004C106B /* tadsr in Copy Interpreter Files */,
+				C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */,
 				9650315709F296F30083E64E /* libglkimp.dylib in Copy Interpreter Files */,
 				9650397F09F2D7180083E64E /* advsys in Copy Interpreter Files */,
 				9650396009F2D64F0083E64E /* agility in Copy Interpreter Files */,
@@ -845,10 +862,27 @@
 			name = "Copy Documentation Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C3D6AD731ECF394600ADB69C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C3D6AD741ECF397A00ADB69C /* libFLAC.8.dylib in CopyFiles */,
+				C3D6AD751ECF397A00ADB69C /* libmikmod.3.dylib in CopyFiles */,
+				C3D6AD761ECF397A00ADB69C /* libogg.0.dylib in CopyFiles */,
+				C3D6AD771ECF397A00ADB69C /* libSDL_mixer-1.2.0.dylib in CopyFiles */,
+				C3D6AD781ECF397A00ADB69C /* libSDL-1.2.0.dylib in CopyFiles */,
+				C3D6AD791ECF397A00ADB69C /* libSDL_sound-1.0.1.0.2.dylib in CopyFiles */,
+				C3D6AD7A1ECF397A00ADB69C /* libsmpeg-0.4.0.dylib in CopyFiles */,
+				C3D6AD7B1ECF397A00ADB69C /* libvorbis.0.dylib in CopyFiles */,
+				C3D6AD7C1ECF397A00ADB69C /* libvorbisfile.3.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6D49B7A51EAD10BE00F7335E /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmodex.dylib; path = fmod/api/lib/libfmodex.dylib; sourceTree = SOURCE_ROOT; };
 		6D54941B1EAC1BC4003DA5C4 /* accel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accel.c; sourceTree = "<group>"; };
 		6D54941C1EAC1BC4003DA5C4 /* debugger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debugger.c; sourceTree = "<group>"; };
 		6D54941D1EAC1BC4003DA5C4 /* exec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = exec.c; sourceTree = "<group>"; };
@@ -2028,7 +2062,6 @@
 		96FE867109F38BF600D41D78 /* tadsr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tadsr; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FE876009F3A11900D41D78 /* libtads2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FE876509F3A12B00D41D78 /* libtads3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads3.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C343E4831ECC5D09000F15B6 /* vmuni_cs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vmuni_cs.cpp; path = terps/tads/vmuni_cs.cpp; sourceTree = "<group>"; };
 		C343E4851ECC5E81000F15B6 /* osportable.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = osportable.cc; sourceTree = "<group>"; };
 		C343E4871ECC6744000F15B6 /* memicmp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = memicmp.c; sourceTree = "<group>"; };
 		C343E4891ECC674D000F15B6 /* osbuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = osbuffer.c; sourceTree = "<group>"; };
@@ -2037,13 +2070,13 @@
 		C343E48D1ECC6776000F15B6 /* osglkban.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = osglkban.c; sourceTree = "<group>"; };
 		C343E48E1ECC6776000F15B6 /* osmisc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = osmisc.c; sourceTree = "<group>"; };
 		C343E48F1ECC6776000F15B6 /* osparse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = osparse.c; sourceTree = "<group>"; };
-		C343E4901ECC6776000F15B6 /* osportable.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = osportable.cc; sourceTree = "<group>"; };
 		C343E4911ECC6776000F15B6 /* t23run.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = t23run.cpp; sourceTree = "<group>"; };
 		C343E4981ECC678E000F15B6 /* t2indlg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = t2indlg.c; sourceTree = "<group>"; };
 		C343E49A1ECC6796000F15B6 /* t3askf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = t3askf.cpp; sourceTree = "<group>"; };
 		C343E49C1ECC679D000F15B6 /* t3indlg.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = t3indlg.cpp; sourceTree = "<group>"; };
 		C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmuni_cs.cpp; sourceTree = "<group>"; };
 		C343E49F1ECC67C8000F15B6 /* t2askf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = t2askf.c; sourceTree = "<group>"; };
+		C37671101ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL_sound-1.0.1.0.2.dylib"; path = "Frameworks/libSDL_sound-1.0.1.0.2.dylib"; sourceTree = "<group>"; };
 		C392312C1ECB7F9200536504 /* save.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = save.c; sourceTree = "<group>"; };
 		C392312E1ECB7FA900536504 /* sysdep.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sysdep.c; sourceTree = "<group>"; };
 		C39231301ECB7FB900536504 /* syserr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = syserr.c; sourceTree = "<group>"; };
@@ -2085,21 +2118,17 @@
 		C39DE2901ECB7C6000CE5B70 /* term.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = term.c; sourceTree = "<group>"; };
 		C39DE2911ECB7C6000CE5B70 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
 		C39DE2921ECB7C6000CE5B70 /* word.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = word.c; sourceTree = "<group>"; };
+		C3AAD0351ECF0919007B6698 /* libFLAC.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libFLAC.8.dylib; path = Frameworks/libFLAC.8.dylib; sourceTree = "<group>"; };
+		C3AAD0391ECF0919007B6698 /* libmikmod.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmikmod.3.dylib; path = Frameworks/libmikmod.3.dylib; sourceTree = "<group>"; };
+		C3AAD03A1ECF0919007B6698 /* libogg.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libogg.0.dylib; path = Frameworks/libogg.0.dylib; sourceTree = "<group>"; };
+		C3AAD03C1ECF0919007B6698 /* libSDL_mixer-1.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL_mixer-1.2.0.dylib"; path = "Frameworks/libSDL_mixer-1.2.0.dylib"; sourceTree = "<group>"; };
+		C3AAD03D1ECF0919007B6698 /* libSDL-1.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL-1.2.0.dylib"; path = "Frameworks/libSDL-1.2.0.dylib"; sourceTree = "<group>"; };
+		C3AAD03E1ECF0919007B6698 /* libsmpeg-0.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsmpeg-0.4.0.dylib"; path = "Frameworks/libsmpeg-0.4.0.dylib"; sourceTree = "<group>"; };
+		C3AAD03F1ECF0919007B6698 /* libvorbis.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvorbis.0.dylib; path = Frameworks/libvorbis.0.dylib; sourceTree = "<group>"; };
+		C3AAD0401ECF0919007B6698 /* libvorbisfile.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvorbisfile.3.dylib; path = Frameworks/libvorbisfile.3.dylib; sourceTree = "<group>"; };
+		C3B2FB131ECEE4B700826C9D /* sndsdl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sndsdl.c; sourceTree = "<group>"; };
 		C3B3773D1ECB99BF006432BE /* osstzprs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstzprs.c; path = tads2/osstzprs.c; sourceTree = "<group>"; };
 		C3B3773F1ECB99D6006432BE /* ostzposix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ostzposix.c; path = tads2/ostzposix.c; sourceTree = "<group>"; };
-		C3B377411ECB9C0C006432BE /* memicmp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = memicmp.c; path = ../../memicmp.c; sourceTree = "<group>"; };
-		C3B377431ECB9C17006432BE /* osbuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osbuffer.c; path = ../../osbuffer.c; sourceTree = "<group>"; };
-		C3B377451ECB9C20006432BE /* osextra.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osextra.c; path = ../../osextra.c; sourceTree = "<group>"; };
-		C3B377471ECB9C2B006432BE /* osglk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osglk.c; path = ../../osglk.c; sourceTree = "<group>"; };
-		C3B377491ECB9C35006432BE /* osglkban.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osglkban.c; path = ../../osglkban.c; sourceTree = "<group>"; };
-		C3B3774B1ECB9C3B006432BE /* osmisc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osmisc.c; path = ../../osmisc.c; sourceTree = "<group>"; };
-		C3B3774D1ECB9C44006432BE /* osparse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osparse.c; path = ../../osparse.c; sourceTree = "<group>"; };
-		C3B3774F1ECB9C50006432BE /* t23run.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = t23run.cpp; path = ../../t23run.cpp; sourceTree = "<group>"; };
-		C3B377511ECB9C56006432BE /* t3askf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = t3askf.cpp; path = ../../t3askf.cpp; sourceTree = "<group>"; };
-		C3B377531ECB9C60006432BE /* t2indlg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = t2indlg.c; path = ../../t2indlg.c; sourceTree = "<group>"; };
-		C3B377551ECB9C82006432BE /* t3indlg.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = t3indlg.cpp; path = ../../t3indlg.cpp; sourceTree = "<group>"; };
-		C3B377571ECB9C93006432BE /* t2askf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = t2askf.c; path = ../../t2askf.c; sourceTree = "<group>"; };
-		C3B377591ECB9CB3006432BE /* vmuni_cs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vmuni_cs.cpp; path = ../../vmuni_cs.cpp; sourceTree = "<group>"; };
 		C3B3775B1ECBA060006432BE /* md5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = md5.cpp; path = tads3/md5.cpp; sourceTree = "<group>"; };
 		C3B3775D1ECBA06E006432BE /* resload.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = resload.cpp; path = tads3/resload.cpp; sourceTree = "<group>"; };
 		C3B3775E1ECBA082006432BE /* sha2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = sha2.cpp; path = tads3/sha2.cpp; sourceTree = "<group>"; };
@@ -2137,11 +2166,11 @@
 		C3B3779E1ECBA3DD006432BE /* vmtz.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vmtz.cpp; path = tads3/vmtz.cpp; sourceTree = "<group>"; };
 		C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vmtzobj.cpp; path = tads3/vmtzobj.cpp; sourceTree = "<group>"; };
 		C3B377A21ECBA41B006432BE /* vmconhtm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vmconhtm.cpp; path = tads3/vmconhtm.cpp; sourceTree = "<group>"; };
-		C3B377A41ECBA4A5006432BE /* osportable.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = osportable.cc; sourceTree = "<group>"; };
 		C3B377A61ECBA4D5006432BE /* vmconnom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vmconnom.cpp; path = tads3/vmconnom.cpp; sourceTree = "<group>"; };
 		C3C4F2321ECB7CF20067476B /* alan.version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = alan.version.c; sourceTree = "<group>"; };
 		C3C4F2341ECB7D2F0067476B /* act.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = act.c; sourceTree = "<group>"; };
 		C3C4F2351ECB7D2F0067476B /* actor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = actor.c; sourceTree = "<group>"; };
+		C3EF065E1ECE60D0008EED04 /* cgdate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cgdate.c; sourceTree = "<group>"; };
 		C3FC70FE1ECB7E6000DC8AD8 /* AltInfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = AltInfo.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2168,6 +2197,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3AAD04E1ECF0919007B6698 /* libvorbisfile.3.dylib in Frameworks */,
+				C3AAD04D1ECF0919007B6698 /* libvorbis.0.dylib in Frameworks */,
+				C3AAD0471ECF0919007B6698 /* libmikmod.3.dylib in Frameworks */,
+				C3AAD04A1ECF0919007B6698 /* libSDL_mixer-1.2.0.dylib in Frameworks */,
+				C3AAD04B1ECF0919007B6698 /* libSDL-1.2.0.dylib in Frameworks */,
+				C3AAD0481ECF0919007B6698 /* libogg.0.dylib in Frameworks */,
+				C37671111ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib in Frameworks */,
+				C3AAD04C1ECF0919007B6698 /* libsmpeg-0.4.0.dylib in Frameworks */,
+				C3AAD0431ECF0919007B6698 /* libFLAC.8.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2183,7 +2221,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A9BBDA0A066F41001B5B9B /* libbabel.a in Frameworks */,
-				6D49B7A61EAD10BE00F7335E /* libfmodex.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2716,11 +2753,13 @@
 				961CCE9009F2381B00528FF9 /* main.c */,
 				961CCE9109F2381B00528FF9 /* misc.c */,
 				961CCE9309F2381B00528FF9 /* sound.c */,
+				C3B2FB131ECEE4B700826C9D /* sndsdl.c */,
 				961CCE9409F2381B00528FF9 /* stream.c */,
 				961CCE9509F2381B00528FF9 /* stylehint.c */,
 				961CCE9609F2381B00528FF9 /* window.c */,
 				96264AC30A494A5D0093569C /* cgunicod.c */,
 				96264AC40A494A5E0093569C /* cgunigen.c */,
+				C3EF065E1ECE60D0008EED04 /* cgdate.c */,
 			);
 			path = glkimp;
 			sourceTree = "<group>";
@@ -2793,8 +2832,15 @@
 		961CCF6509F295CA00528FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C343E4831ECC5D09000F15B6 /* vmuni_cs.cpp */,
-				6D49B7A51EAD10BE00F7335E /* libfmodex.dylib */,
+				C3AAD0351ECF0919007B6698 /* libFLAC.8.dylib */,
+				C3AAD0391ECF0919007B6698 /* libmikmod.3.dylib */,
+				C3AAD03A1ECF0919007B6698 /* libogg.0.dylib */,
+				C3AAD03C1ECF0919007B6698 /* libSDL_mixer-1.2.0.dylib */,
+				C3AAD03D1ECF0919007B6698 /* libSDL-1.2.0.dylib */,
+				C37671101ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib */,
+				C3AAD03E1ECF0919007B6698 /* libsmpeg-0.4.0.dylib */,
+				C3AAD03F1ECF0919007B6698 /* libvorbis.0.dylib */,
+				C3AAD0401ECF0919007B6698 /* libvorbisfile.3.dylib */,
 				961CCF6709F295E000528FF9 /* Foundation.framework */,
 				961CCF6809F295E000528FF9 /* AppKit.framework */,
 			);
@@ -3197,82 +3243,67 @@
 		965032E809F29EE20083E64E /* tads */ = {
 			isa = PBXGroup;
 			children = (
-				C343E49F1ECC67C8000F15B6 /* t2askf.c */,
-				C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */,
-				C343E49C1ECC679D000F15B6 /* t3indlg.cpp */,
-				C343E49A1ECC6796000F15B6 /* t3askf.cpp */,
-				C343E4981ECC678E000F15B6 /* t2indlg.c */,
+				9611539E0A4F389600BB7FF2 /* cocohtml */,
+				961153A50A4F389700BB7FF2 /* cocoport */,
+				961153AA0A4F389700BB7FF2 /* cocotext */,
+				9611524E0A4F355800BB7FF2 /* htmltads */,
+				C3B3775B1ECBA060006432BE /* md5.cpp */,
+				C343E4871ECC6744000F15B6 /* memicmp.c */,
+				C343E4891ECC674D000F15B6 /* osbuffer.c */,
 				C343E48B1ECC6776000F15B6 /* osextra.c */,
 				C343E48C1ECC6776000F15B6 /* osglk.c */,
 				C343E48D1ECC6776000F15B6 /* osglkban.c */,
 				C343E48E1ECC6776000F15B6 /* osmisc.c */,
 				C343E48F1ECC6776000F15B6 /* osparse.c */,
-				C343E4901ECC6776000F15B6 /* osportable.cc */,
+				C3B3773D1ECB99BF006432BE /* osstzprs.c */,
+				C3B3773F1ECB99D6006432BE /* ostzposix.c */,
+				C3B3775D1ECBA06E006432BE /* resload.cpp */,
+				C3B3775E1ECBA082006432BE /* sha2.cpp */,
+				C343E49F1ECC67C8000F15B6 /* t2askf.c */,
+				C343E4981ECC678E000F15B6 /* t2indlg.c */,
+				C343E49A1ECC6796000F15B6 /* t3askf.cpp */,
+				C343E49C1ECC679D000F15B6 /* t3indlg.cpp */,
 				C343E4911ECC6776000F15B6 /* t23run.cpp */,
-				C343E4891ECC674D000F15B6 /* osbuffer.c */,
-				C343E4871ECC6744000F15B6 /* memicmp.c */,
-				C343E4851ECC5E81000F15B6 /* osportable.cc */,
-				C3B377A61ECBA4D5006432BE /* vmconnom.cpp */,
-				C3B377A41ECBA4A5006432BE /* osportable.cc */,
-				C3B377A21ECBA41B006432BE /* vmconhtm.cpp */,
-				C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */,
-				C3B3779E1ECBA3DD006432BE /* vmtz.cpp */,
-				C3B3779C1ECBA3CA006432BE /* vmtmpfil.cpp */,
-				C3B3779A1ECBA3B9006432BE /* vmstrbuf.cpp */,
-				C3B377981ECBA38E006432BE /* vmpack.cpp */,
-				C3B377961ECBA383006432BE /* vmop.cpp */,
-				C3B377941ECBA36C006432BE /* vmnetfillcl.cpp */,
-				C3B377921ECBA330006432BE /* vmlog.cpp */,
-				C3B377901ECBA316006432BE /* vmisaac.cpp */,
-				C3B3778E1ECBA2D7006432BE /* vmfref.cpp */,
-				C3B3778C1ECBA2C1006432BE /* vmfilnam.cpp */,
-				C3B3778A1ECBA2A1006432BE /* vmdynfunc.cpp */,
-				C3B377881ECBA291006432BE /* vmdate.cpp */,
-				C3B377861ECBA23C006432BE /* vmbignumlib.cpp */,
-				C3B377841ECBA192006432BE /* tct3unas.cpp */,
-				C3B377821ECBA16D006432BE /* tctok.cpp */,
-				C3B377801ECBA156006432BE /* tct3unas.h */,
-				C3B3777E1ECBA146006432BE /* tcunas.h */,
-				C3B3777C1ECBA13B006432BE /* tct3stm.cpp */,
-				C3B3777A1ECBA134006432BE /* tct3nl.cpp */,
-				C3B377781ECBA126006432BE /* tct3_d.cpp */,
+				965032F409F29EE20083E64E /* TADS License.txt */,
+				965032F509F29EE20083E64E /* tads2 */,
+				965033CE09F29EE20083E64E /* tads3 */,
+				C3B377601ECBA0B6006432BE /* tcerr.cpp */,
+				C3B377611ECBA0B6006432BE /* tcerrmsg.cpp */,
+				C3B377621ECBA0B6006432BE /* tcgen.cpp */,
+				C3B377661ECBA0D6006432BE /* tcglob.cpp */,
+				C3B377671ECBA0D6006432BE /* tcmain.cpp */,
+				C3B3776C1ECBA0F6006432BE /* tcprs_rt.cpp */,
+				C3B3776A1ECBA0E3006432BE /* tcprs.cpp */,
 				C3B3776E1ECBA115006432BE /* tcprsnf.cpp */,
 				C3B3776F1ECBA115006432BE /* tcprsnl.cpp */,
 				C3B377701ECBA115006432BE /* tcprsstm.cpp */,
 				C3B377711ECBA115006432BE /* tcsrc.cpp */,
+				C3B377781ECBA126006432BE /* tct3_d.cpp */,
 				C3B377721ECBA115006432BE /* tct3.cpp */,
-				C3B3776C1ECBA0F6006432BE /* tcprs_rt.cpp */,
-				C3B3776A1ECBA0E3006432BE /* tcprs.cpp */,
-				C3B377661ECBA0D6006432BE /* tcglob.cpp */,
-				C3B377671ECBA0D6006432BE /* tcmain.cpp */,
-				C3B377601ECBA0B6006432BE /* tcerr.cpp */,
-				C3B377611ECBA0B6006432BE /* tcerrmsg.cpp */,
-				C3B377621ECBA0B6006432BE /* tcgen.cpp */,
-				C3B3775E1ECBA082006432BE /* sha2.cpp */,
-				C3B3775D1ECBA06E006432BE /* resload.cpp */,
-				C3B3775B1ECBA060006432BE /* md5.cpp */,
-				C3B377591ECB9CB3006432BE /* vmuni_cs.cpp */,
-				C3B377571ECB9C93006432BE /* t2askf.c */,
-				C3B377551ECB9C82006432BE /* t3indlg.cpp */,
-				C3B377531ECB9C60006432BE /* t2indlg.c */,
-				C3B377511ECB9C56006432BE /* t3askf.cpp */,
-				C3B3774F1ECB9C50006432BE /* t23run.cpp */,
-				C3B3774D1ECB9C44006432BE /* osparse.c */,
-				C3B3774B1ECB9C3B006432BE /* osmisc.c */,
-				C3B377491ECB9C35006432BE /* osglkban.c */,
-				C3B377471ECB9C2B006432BE /* osglk.c */,
-				C3B377451ECB9C20006432BE /* osextra.c */,
-				C3B377431ECB9C17006432BE /* osbuffer.c */,
-				C3B377411ECB9C0C006432BE /* memicmp.c */,
-				C3B3773F1ECB99D6006432BE /* ostzposix.c */,
-				C3B3773D1ECB99BF006432BE /* osstzprs.c */,
-				965032F409F29EE20083E64E /* TADS License.txt */,
-				965032F509F29EE20083E64E /* tads2 */,
-				965033CE09F29EE20083E64E /* tads3 */,
-				9611524E0A4F355800BB7FF2 /* htmltads */,
-				961153A50A4F389700BB7FF2 /* cocoport */,
-				961153AA0A4F389700BB7FF2 /* cocotext */,
-				9611539E0A4F389600BB7FF2 /* cocohtml */,
+				C3B3777A1ECBA134006432BE /* tct3nl.cpp */,
+				C3B3777C1ECBA13B006432BE /* tct3stm.cpp */,
+				C3B377841ECBA192006432BE /* tct3unas.cpp */,
+				C3B377801ECBA156006432BE /* tct3unas.h */,
+				C3B377821ECBA16D006432BE /* tctok.cpp */,
+				C3B3777E1ECBA146006432BE /* tcunas.h */,
+				C3B377861ECBA23C006432BE /* vmbignumlib.cpp */,
+				C3B377A21ECBA41B006432BE /* vmconhtm.cpp */,
+				C3B377A61ECBA4D5006432BE /* vmconnom.cpp */,
+				C3B377881ECBA291006432BE /* vmdate.cpp */,
+				C3B3778A1ECBA2A1006432BE /* vmdynfunc.cpp */,
+				C3B3778C1ECBA2C1006432BE /* vmfilnam.cpp */,
+				C3B3778E1ECBA2D7006432BE /* vmfref.cpp */,
+				C3B377901ECBA316006432BE /* vmisaac.cpp */,
+				C3B377921ECBA330006432BE /* vmlog.cpp */,
+				C3B377941ECBA36C006432BE /* vmnetfillcl.cpp */,
+				C3B377961ECBA383006432BE /* vmop.cpp */,
+				C3B377981ECBA38E006432BE /* vmpack.cpp */,
+				C3B3779A1ECBA3B9006432BE /* vmstrbuf.cpp */,
+				C3B3779C1ECBA3CA006432BE /* vmtmpfil.cpp */,
+				C3B3779E1ECBA3DD006432BE /* vmtz.cpp */,
+				C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */,
+				C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */,
+				C343E4851ECC5E81000F15B6 /* osportable.cc */,
 			);
 			path = tads;
 			sourceTree = "<group>";
@@ -4111,7 +4142,7 @@
 				961CCEC109F239C100528FF9 /* Sources */,
 				961CCEC209F239C100528FF9 /* Frameworks */,
 				9650315509F296CF0083E64E /* Copy Interpreter Files */,
-				6DE63DFB1EABFAD1000217D6 /* ShellScript */,
+				C3D6AD731ECF394600ADB69C /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -4132,7 +4163,7 @@
 				9650381809F2A4A00083E64E /* PBXTargetDependency */,
 				9650379F09F2A2FA0083E64E /* PBXTargetDependency */,
 				966EFA4309F62D4C00FA7F19 /* PBXTargetDependency */,
-				C33BFA141ECF467A004C106B /* PBXTargetDependency */,
+				C3D6AD701ECF372000ADB69C /* PBXTargetDependency */,
 			);
 			name = Spatterlight;
 			productName = Spatterlight;
@@ -4430,6 +4461,7 @@
 		961CCE6009F2375A00528FF9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0830;
 			};
 			buildConfigurationList = 961CCE6109F2375A00528FF9 /* Build configuration list for PBXProject "Spatterlight" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -4494,22 +4526,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		6DE63DFB1EABFAD1000217D6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cp -f \"$PROJECT_DIR/fmod/api/lib/libfmodex.dylib\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/libfmodex.dylib\"  \n\ninstall_name_tool -change @rpath/libfmodex.dylib @executable_path/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\" ";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		9611535C0A4F35EE00BB7FF2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -4564,11 +4580,12 @@
 				961CCE9E09F2383F00528FF9 /* hyperlinks.c in Sources */,
 				961CCE9F09F2383F00528FF9 /* image.c in Sources */,
 				961CCEA109F2383F00528FF9 /* misc.c in Sources */,
-				961CCEA209F2383F00528FF9 /* sound.c in Sources */,
 				961CCEA309F2383F00528FF9 /* stream.c in Sources */,
 				961CCEA409F2383F00528FF9 /* stylehint.c in Sources */,
 				961CCEA509F2383F00528FF9 /* window.c in Sources */,
 				96264AC50A494A5E0093569C /* cgunicod.c in Sources */,
+				C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */,
+				C3B2FB141ECEE4B700826C9D /* sndsdl.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4584,7 +4601,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				967C42000B7A155A008A2D2F /* GlkSoundChannel.m in Sources */,
 				961CCEF209F23A0000528FF9 /* main.m in Sources */,
 				961CCEF409F23A0000528FF9 /* Preferences.m in Sources */,
 				961CCEF109F23A0000528FF9 /* AppDelegate.m in Sources */,
@@ -4908,7 +4924,7 @@
 				C343E4991ECC678E000F15B6 /* t2indlg.c in Sources */,
 				C343E49B1ECC6796000F15B6 /* t3askf.cpp in Sources */,
 				C343E49D1ECC679D000F15B6 /* t3indlg.cpp in Sources */,
-				C343E4841ECC5D09000F15B6 /* vmuni_cs.cpp in Sources */,
+				C3D6AD721ECF381A00ADB69C /* vmuni_cs.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5058,7 +5074,7 @@
 				C3B3779F1ECBA3DD006432BE /* vmtz.cpp in Sources */,
 				C3B377A11ECBA3E8006432BE /* vmtzobj.cpp in Sources */,
 				96FE87D309F3A19D00D41D78 /* vmundo.cpp in Sources */,
-				C33BFA121ECF4639004C106B /* vmvec.cpp in Sources */,
+				C3EF065D1ECE5FF2008EED04 /* vmvec.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5290,15 +5306,15 @@
 			target = 96FE875F09F3A11900D41D78 /* tads2 */;
 			targetProxy = 96FE87D809F3A1BC00D41D78 /* PBXContainerItemProxy */;
 		};
-		C33BFA141ECF467A004C106B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 96FE866509F38BF600D41D78 /* tadsr */;
-			targetProxy = C33BFA131ECF467A004C106B /* PBXContainerItemProxy */;
-		};
 		C3B61C501ECCDB4600607CE7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 96FE876409F3A12B00D41D78 /* tads3 */;
 			targetProxy = C3B61C4F1ECCDB4600607CE7 /* PBXContainerItemProxy */;
+		};
+		C3D6AD701ECF372000ADB69C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96FE866509F38BF600D41D78 /* tadsr */;
+			targetProxy = C3D6AD6F1ECF372000ADB69C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -5340,7 +5356,6 @@
 		961154320A4F3F8B00BB7FF2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -5358,7 +5373,6 @@
 		961154330A4F3F8B00BB7FF2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5375,14 +5389,33 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = $PROJECT_DIR/fmod/api/lib;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
 				GCC_INPUT_FILETYPE = automatic;
-				HEADER_SEARCH_PATHS = $PROJECT_DIR/fmod/api/inc;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
-				LIBRARY_SEARCH_PATHS = $PROJECT_DIR/fmod/api/lib;
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
@@ -5392,14 +5425,31 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = $PROJECT_DIR/fmod/api/lib;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
 				GCC_INPUT_FILETYPE = automatic;
-				HEADER_SEARCH_PATHS = $PROJECT_DIR/fmod/api/inc;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
-				LIBRARY_SEARCH_PATHS = $PROJECT_DIR/fmod/api/lib;
+				LIBRARY_SEARCH_PATHS = "";
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
@@ -5408,14 +5458,29 @@
 		961CCE7E09F237E700528FF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "C_INCLUDE_PATH=/usr/local/include";
+				HEADER_SEARCH_PATHS = (
+					$PROJECT_DIR/fmod/api/inc,
+					/usr/local/include/SLD,
+					/usr/local/include,
+				);
 				INSTALL_PATH = "@executable_path";
+				LIBRARY_SEARCH_PATHS = (
+					$PROJECT_DIR/fmod/api/lib,
+					/usr/local/lib,
+					"/usr/local/opt/**",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = glkimp;
 			};
 			name = Debug;
@@ -5423,12 +5488,27 @@
 		961CCE7F09F237E700528FF9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "C_INCLUDE_PATH=/usr/local/include";
+				HEADER_SEARCH_PATHS = (
+					$PROJECT_DIR/fmod/api/inc,
+					/usr/local/include/SLD,
+					/usr/local/include,
+				);
 				INSTALL_PATH = "@executable_path";
+				LIBRARY_SEARCH_PATHS = (
+					$PROJECT_DIR/fmod/api/lib,
+					/usr/local/lib,
+					"/usr/local/opt/**",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = glkimp;
 			};
 			name = Release;
@@ -5436,7 +5516,6 @@
 		961CCEBE09F2398C00528FF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5450,7 +5529,6 @@
 		961CCEBF09F2398C00528FF9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5462,7 +5540,6 @@
 		961CCEC809F239C100528FF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -5480,6 +5557,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
 					"\"$(SRCROOT)/fmod/api/lib\"",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
@@ -5488,6 +5566,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight;
 				PRODUCT_NAME = Spatterlight;
 				WRAPPER_EXTENSION = app;
 			};
@@ -5496,7 +5575,6 @@
 		961CCEC909F239C100528FF9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
@@ -5509,6 +5587,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
 					"\"$(SRCROOT)/fmod/api/lib\"",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
@@ -5517,6 +5596,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight;
 				PRODUCT_NAME = Spatterlight;
 				WRAPPER_EXTENSION = app;
 			};
@@ -5525,7 +5605,6 @@
 		9650370709F29F330083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5539,7 +5618,6 @@
 		9650370809F29F330083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5552,7 +5630,6 @@
 		9650378309F2A2CE0083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -5568,7 +5645,6 @@
 		9650378409F2A2CE0083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5582,7 +5658,6 @@
 		965037CC09F2A4120083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5602,7 +5677,6 @@
 		965037CD09F2A4120083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5620,7 +5694,6 @@
 		965037ED09F2A41F0083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5635,7 +5708,6 @@
 		965037EE09F2A41F0083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5648,7 +5720,6 @@
 		9650380E09F2A4430083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -5662,7 +5733,6 @@
 		9650380F09F2A4430083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5674,7 +5744,6 @@
 		9650385209F2AF280083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -5689,7 +5758,6 @@
 		9650385309F2AF280083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5703,7 +5771,6 @@
 		9650387909F2CC450083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5723,7 +5790,6 @@
 		9650387A09F2CC450083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5741,7 +5807,6 @@
 		9650388709F2CC4E0083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5768,7 +5833,6 @@
 		9650388809F2CC4E0083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5793,12 +5857,12 @@
 		965038F209F2D3DC0083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
 				INSTALL_PATH = "$(HOME)/bin";
@@ -5815,11 +5879,11 @@
 		965038F309F2D3DC0083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = (
@@ -5835,12 +5899,12 @@
 		9650392E09F2D4A10083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
 				INSTALL_PATH = "$(HOME)/bin";
@@ -5855,11 +5919,11 @@
 		9650392F09F2D4A10083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = (
@@ -5873,7 +5937,6 @@
 		9650396F09F2D6C40083E64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5889,7 +5952,6 @@
 		9650397009F2D6C40083E64E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5903,7 +5965,6 @@
 		96A9B9F80A064A9C001B5B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5918,7 +5979,6 @@
 		96A9B9F90A064A9C001B5B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5931,7 +5991,6 @@
 		96A9BA7D0A0655DC001B5B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -5945,7 +6004,6 @@
 		96A9BA7E0A0655DC001B5B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5958,7 +6016,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
@@ -5968,7 +6025,7 @@
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
-					VMGLOB_VARS,
+					VMGLOB_STRUCT,
 					OSNOUI_OMIT_IS_FILE_ABSOLUTE,
 					TC_TARGET_T3,
 					SPATTERLIGHT,
@@ -6001,7 +6058,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
@@ -6009,7 +6065,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
-					VMGLOB_VARS,
+					VMGLOB_STRUCT,
 					OSNOUI_OMIT_IS_FILE_ABSOLUTE,
 					TC_TARGET_T3,
 					SPATTERLIGHT,
@@ -6042,7 +6098,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -6054,6 +6109,9 @@
 					RUNTIME,
 					GLK_UNICODE,
 					OSNOUI_OMIT_IS_FILE_ABSOLUTE,
+					VMGLOB_STRUCT,
+					GLK_TIMER,
+					TC_TARGET_T3,
 				);
 				HEADER_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/inc,
@@ -6077,7 +6135,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -6087,6 +6144,9 @@
 					RUNTIME,
 					GLK_UNICODE,
 					OSNOUI_OMIT_IS_FILE_ABSOLUTE,
+					VMGLOB_STRUCT,
+					GLK_TIMER,
+					TC_TARGET_T3,
 				);
 				HEADER_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/inc,
@@ -6110,7 +6170,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -6120,10 +6179,11 @@
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
-					VMGLOB_VARS,
+					VMGLOB_STRUCT,
 					TC_TARGET_T3,
 					GLK_UNICODE,
 					OSNOUI_OMIT_IS_FILE_ABSOLUTE,
+					GLK_TIMERS,
 					SPATTERLIGHT,
 				);
 				GCC_THREADSAFE_STATICS = NO;
@@ -6150,7 +6210,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -6158,10 +6217,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
-					VMGLOB_VARS,
+					VMGLOB_STRUCT,
 					TC_TARGET_T3,
 					GLK_UNICODE,
 					OSNOUI_OMIT_IS_FILE_ABSOLUTE,
+					GLK_TIMERS,
 					SPATTERLIGHT,
 				);
 				GCC_THREADSAFE_STATICS = NO;
