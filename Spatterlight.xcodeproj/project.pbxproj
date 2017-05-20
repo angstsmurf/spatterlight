@@ -381,6 +381,12 @@
 		96FE87D309F3A19D00D41D78 /* vmundo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036D909F29EE60083E64E /* vmundo.cpp */; };
 		96FE87DA09F3A1D100D41D78 /* libtads2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876009F3A11900D41D78 /* libtads2.a */; };
 		96FE87DB09F3A1D100D41D78 /* libtads3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876509F3A12B00D41D78 /* libtads3.a */; };
+		C322FB9E1ECF9B3D0032078C /* libSDL_sound_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3378A1A1ECF95CB00BCEAE5 /* libSDL_sound_static.a */; };
+		C3378A1F1ECF960C00BCEAE5 /* SDL_sound.c in Sources */ = {isa = PBXBuildFile; fileRef = C3378A1E1ECF960C00BCEAE5 /* SDL_sound.c */; };
+		C3378A211ECF962700BCEAE5 /* smpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = C3378A201ECF962700BCEAE5 /* smpeg.c */; };
+		C3378A231ECF963C00BCEAE5 /* audio_convert.c in Sources */ = {isa = PBXBuildFile; fileRef = C3378A221ECF963C00BCEAE5 /* audio_convert.c */; };
+		C3378A251ECF964800BCEAE5 /* extra_rwops.c in Sources */ = {isa = PBXBuildFile; fileRef = C3378A241ECF964800BCEAE5 /* extra_rwops.c */; };
+		C3378A291ECF966300BCEAE5 /* ogg.c in Sources */ = {isa = PBXBuildFile; fileRef = C3378A281ECF966300BCEAE5 /* ogg.c */; };
 		C343E4861ECC5E81000F15B6 /* osportable.cc in Sources */ = {isa = PBXBuildFile; fileRef = C343E4851ECC5E81000F15B6 /* osportable.cc */; };
 		C343E4881ECC6744000F15B6 /* memicmp.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E4871ECC6744000F15B6 /* memicmp.c */; };
 		C343E48A1ECC674D000F15B6 /* osbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E4891ECC674D000F15B6 /* osbuffer.c */; };
@@ -394,7 +400,6 @@
 		C343E49B1ECC6796000F15B6 /* t3askf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49A1ECC6796000F15B6 /* t3askf.cpp */; };
 		C343E49D1ECC679D000F15B6 /* t3indlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49C1ECC679D000F15B6 /* t3indlg.cpp */; };
 		C343E4A01ECC67C8000F15B6 /* t2askf.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E49F1ECC67C8000F15B6 /* t2askf.c */; };
-		C37671111ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C37671101ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib */; };
 		C392312D1ECB7F9200536504 /* save.c in Sources */ = {isa = PBXBuildFile; fileRef = C392312C1ECB7F9200536504 /* save.c */; };
 		C392312F1ECB7FA900536504 /* sysdep.c in Sources */ = {isa = PBXBuildFile; fileRef = C392312E1ECB7FA900536504 /* sysdep.c */; };
 		C39231311ECB7FB900536504 /* syserr.c in Sources */ = {isa = PBXBuildFile; fileRef = C39231301ECB7FB900536504 /* syserr.c */; };
@@ -482,7 +487,6 @@
 		C3D6AD761ECF397A00ADB69C /* libogg.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD03A1ECF0919007B6698 /* libogg.0.dylib */; };
 		C3D6AD771ECF397A00ADB69C /* libSDL_mixer-1.2.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD03C1ECF0919007B6698 /* libSDL_mixer-1.2.0.dylib */; };
 		C3D6AD781ECF397A00ADB69C /* libSDL-1.2.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD03D1ECF0919007B6698 /* libSDL-1.2.0.dylib */; };
-		C3D6AD791ECF397A00ADB69C /* libSDL_sound-1.0.1.0.2.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C37671101ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib */; };
 		C3D6AD7A1ECF397A00ADB69C /* libsmpeg-0.4.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD03E1ECF0919007B6698 /* libsmpeg-0.4.0.dylib */; };
 		C3D6AD7B1ECF397A00ADB69C /* libvorbis.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD03F1ECF0919007B6698 /* libvorbis.0.dylib */; };
 		C3D6AD7C1ECF397A00ADB69C /* libvorbisfile.3.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3AAD0401ECF0919007B6698 /* libvorbisfile.3.dylib */; };
@@ -873,7 +877,6 @@
 				C3D6AD761ECF397A00ADB69C /* libogg.0.dylib in CopyFiles */,
 				C3D6AD771ECF397A00ADB69C /* libSDL_mixer-1.2.0.dylib in CopyFiles */,
 				C3D6AD781ECF397A00ADB69C /* libSDL-1.2.0.dylib in CopyFiles */,
-				C3D6AD791ECF397A00ADB69C /* libSDL_sound-1.0.1.0.2.dylib in CopyFiles */,
 				C3D6AD7A1ECF397A00ADB69C /* libsmpeg-0.4.0.dylib in CopyFiles */,
 				C3D6AD7B1ECF397A00ADB69C /* libvorbis.0.dylib in CopyFiles */,
 				C3D6AD7C1ECF397A00ADB69C /* libvorbisfile.3.dylib in CopyFiles */,
@@ -1193,16 +1196,11 @@
 		961CCE9009F2381B00528FF9 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		961CCE9109F2381B00528FF9 /* misc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = misc.c; sourceTree = "<group>"; };
 		961CCE9209F2381B00528FF9 /* protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = protocol.h; sourceTree = "<group>"; };
-		961CCE9309F2381B00528FF9 /* sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
 		961CCE9409F2381B00528FF9 /* stream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream.c; sourceTree = "<group>"; };
 		961CCE9509F2381B00528FF9 /* stylehint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stylehint.c; sourceTree = "<group>"; };
 		961CCE9609F2381B00528FF9 /* window.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		961CCEB709F2396500528FF9 /* libglkmain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libglkmain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		961CCEC409F239C100528FF9 /* Spatterlight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spatterlight.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		961CCECF09F239E700528FF9 /* Channel-Cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Channel-Cocoa.h"; sourceTree = "<group>"; };
-		961CCED009F239E700528FF9 /* Channel-Cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Channel-Cocoa.m"; sourceTree = "<group>"; };
-		961CCED509F239E700528FF9 /* GlkSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkSoundChannel.h; sourceTree = "<group>"; };
-		961CCED609F239E700528FF9 /* GlkSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkSoundChannel.m; sourceTree = "<group>"; };
 		961CCED909F239E700528FF9 /* GlkEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkEvent.h; sourceTree = "<group>"; };
 		961CCEDA09F239E700528FF9 /* GlkEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkEvent.m; sourceTree = "<group>"; };
 		961CCEDB09F239E700528FF9 /* GlkGraphicsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkGraphicsWindow.h; sourceTree = "<group>"; };
@@ -2062,6 +2060,23 @@
 		96FE867109F38BF600D41D78 /* tadsr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tadsr; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FE876009F3A11900D41D78 /* libtads2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FE876509F3A12B00D41D78 /* libtads3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads3.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C322FB8B1ECF99410032078C /* SDL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDL.h; path = support/sdl/SDL.h; sourceTree = "<group>"; };
+		C322FB8D1ECF995A0032078C /* SDL_sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDL_sound.h; path = support/sdl_sound/SDL_sound.h; sourceTree = "<group>"; };
+		C322FB8F1ECF997B0032078C /* SDL_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDL_endian.h; path = support/sdl/SDL_endian.h; sourceTree = "<group>"; };
+		C322FB911ECF998C0032078C /* SDL_sound_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDL_sound_internal.h; path = support/sdl_sound/SDL_sound_internal.h; sourceTree = "<group>"; };
+		C322FB931ECF99A50032078C /* SDL_mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDL_mutex.h; path = support/sdl/SDL_mutex.h; sourceTree = "<group>"; };
+		C322FB941ECF99A50032078C /* SDL_thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDL_thread.h; path = support/sdl/SDL_thread.h; sourceTree = "<group>"; };
+		C322FB971ECF99B50032078C /* SDL_audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDL_audio.h; path = support/sdl/SDL_audio.h; sourceTree = "<group>"; };
+		C322FB991ECF99E60032078C /* extra_rwops.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = extra_rwops.h; path = support/sdl_sound/extra_rwops.h; sourceTree = "<group>"; };
+		C322FB9B1ECF9A040032078C /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ogg.h; path = support/sdl_sound/decoders/ogg/ogg.h; sourceTree = "<group>"; };
+		C322FB9D1ECF9A7D0032078C /* os_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = os_types.h; path = support/sdl_sound/decoders/ogg/os_types.h; sourceTree = "<group>"; };
+		C3378A1A1ECF95CB00BCEAE5 /* libSDL_sound_static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSDL_sound_static.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3378A1E1ECF960C00BCEAE5 /* SDL_sound.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = SDL_sound.c; path = support/sdl_sound/SDL_sound.c; sourceTree = "<group>"; };
+		C3378A201ECF962700BCEAE5 /* smpeg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = smpeg.c; path = support/sdl_sound/decoders/smpeg.c; sourceTree = "<group>"; };
+		C3378A221ECF963C00BCEAE5 /* audio_convert.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = audio_convert.c; path = support/sdl_sound/audio_convert.c; sourceTree = "<group>"; };
+		C3378A241ECF964800BCEAE5 /* extra_rwops.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = extra_rwops.c; path = support/sdl_sound/extra_rwops.c; sourceTree = "<group>"; };
+		C3378A261ECF965B00BCEAE5 /* alt_audio_convert.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = alt_audio_convert.c; path = support/sdl_sound/alt_audio_convert.c; sourceTree = "<group>"; };
+		C3378A281ECF966300BCEAE5 /* ogg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ogg.c; path = support/sdl_sound/decoders/ogg.c; sourceTree = "<group>"; };
 		C343E4851ECC5E81000F15B6 /* osportable.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = osportable.cc; sourceTree = "<group>"; };
 		C343E4871ECC6744000F15B6 /* memicmp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = memicmp.c; sourceTree = "<group>"; };
 		C343E4891ECC674D000F15B6 /* osbuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = osbuffer.c; sourceTree = "<group>"; };
@@ -2076,7 +2091,6 @@
 		C343E49C1ECC679D000F15B6 /* t3indlg.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = t3indlg.cpp; sourceTree = "<group>"; };
 		C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmuni_cs.cpp; sourceTree = "<group>"; };
 		C343E49F1ECC67C8000F15B6 /* t2askf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = t2askf.c; sourceTree = "<group>"; };
-		C37671101ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL_sound-1.0.1.0.2.dylib"; path = "Frameworks/libSDL_sound-1.0.1.0.2.dylib"; sourceTree = "<group>"; };
 		C392312C1ECB7F9200536504 /* save.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = save.c; sourceTree = "<group>"; };
 		C392312E1ECB7FA900536504 /* sysdep.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sysdep.c; sourceTree = "<group>"; };
 		C39231301ECB7FB900536504 /* syserr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = syserr.c; sourceTree = "<group>"; };
@@ -2197,13 +2211,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C322FB9E1ECF9B3D0032078C /* libSDL_sound_static.a in Frameworks */,
 				C3AAD04E1ECF0919007B6698 /* libvorbisfile.3.dylib in Frameworks */,
 				C3AAD04D1ECF0919007B6698 /* libvorbis.0.dylib in Frameworks */,
 				C3AAD0471ECF0919007B6698 /* libmikmod.3.dylib in Frameworks */,
 				C3AAD04A1ECF0919007B6698 /* libSDL_mixer-1.2.0.dylib in Frameworks */,
 				C3AAD04B1ECF0919007B6698 /* libSDL-1.2.0.dylib in Frameworks */,
 				C3AAD0481ECF0919007B6698 /* libogg.0.dylib in Frameworks */,
-				C37671111ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib in Frameworks */,
 				C3AAD04C1ECF0919007B6698 /* libsmpeg-0.4.0.dylib in Frameworks */,
 				C3AAD0431ECF0919007B6698 /* libFLAC.8.dylib in Frameworks */,
 			);
@@ -2356,6 +2370,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		96FE876309F3A12B00D41D78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3378A171ECF95CB00BCEAE5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2694,6 +2715,7 @@
 		961CCE5E09F2375A00528FF9 = {
 			isa = PBXGroup;
 			children = (
+				C3378A151ECF94A900BCEAE5 /* sdl_sound */,
 				961CCF2109F2940F00528FF9 /* resources */,
 				961CCECA09F239E700528FF9 /* application */,
 				961CCE8109F2381B00528FF9 /* glkimp */,
@@ -2728,6 +2750,7 @@
 				96FE867109F38BF600D41D78 /* tadsr */,
 				961154340A4F3F8B00BB7FF2 /* htmltadsr */,
 				9650381009F2A4430083E64E /* unquill */,
+				C3378A1A1ECF95CB00BCEAE5 /* libSDL_sound_static.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2752,7 +2775,6 @@
 				961CCE8F09F2381B00528FF9 /* image.c */,
 				961CCE9009F2381B00528FF9 /* main.c */,
 				961CCE9109F2381B00528FF9 /* misc.c */,
-				961CCE9309F2381B00528FF9 /* sound.c */,
 				C3B2FB131ECEE4B700826C9D /* sndsdl.c */,
 				961CCE9409F2381B00528FF9 /* stream.c */,
 				961CCE9509F2381B00528FF9 /* stylehint.c */,
@@ -2783,10 +2805,6 @@
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
 				96CC04C80A133B93004F30FA /* GlkStyle.h */,
 				96CC04C90A133B93004F30FA /* GlkStyle.m */,
-				961CCECF09F239E700528FF9 /* Channel-Cocoa.h */,
-				961CCED009F239E700528FF9 /* Channel-Cocoa.m */,
-				961CCED509F239E700528FF9 /* GlkSoundChannel.h */,
-				961CCED609F239E700528FF9 /* GlkSoundChannel.m */,
 				961CCEE909F239E700528FF9 /* GlkWindow.h */,
 				961CCEEA09F239E700528FF9 /* GlkWindow.m */,
 				961CCEE509F239E700528FF9 /* GlkTextBufferWindow.h */,
@@ -2837,7 +2855,6 @@
 				C3AAD03A1ECF0919007B6698 /* libogg.0.dylib */,
 				C3AAD03C1ECF0919007B6698 /* libSDL_mixer-1.2.0.dylib */,
 				C3AAD03D1ECF0919007B6698 /* libSDL-1.2.0.dylib */,
-				C37671101ECF227900E8E052 /* libSDL_sound-1.0.1.0.2.dylib */,
 				C3AAD03E1ECF0919007B6698 /* libsmpeg-0.4.0.dylib */,
 				C3AAD03F1ECF0919007B6698 /* libvorbis.0.dylib */,
 				C3AAD0401ECF0919007B6698 /* libvorbisfile.3.dylib */,
@@ -4013,6 +4030,29 @@
 			path = extras;
 			sourceTree = "<group>";
 		};
+		C3378A151ECF94A900BCEAE5 /* sdl_sound */ = {
+			isa = PBXGroup;
+			children = (
+				C322FB971ECF99B50032078C /* SDL_audio.h */,
+				C322FB931ECF99A50032078C /* SDL_mutex.h */,
+				C322FB941ECF99A50032078C /* SDL_thread.h */,
+				C322FB911ECF998C0032078C /* SDL_sound_internal.h */,
+				C322FB8F1ECF997B0032078C /* SDL_endian.h */,
+				C322FB8D1ECF995A0032078C /* SDL_sound.h */,
+				C322FB8B1ECF99410032078C /* SDL.h */,
+				C322FB9B1ECF9A040032078C /* ogg.h */,
+				C322FB9D1ECF9A7D0032078C /* os_types.h */,
+				C3378A281ECF966300BCEAE5 /* ogg.c */,
+				C3378A261ECF965B00BCEAE5 /* alt_audio_convert.c */,
+				C322FB991ECF99E60032078C /* extra_rwops.h */,
+				C3378A241ECF964800BCEAE5 /* extra_rwops.c */,
+				C3378A221ECF963C00BCEAE5 /* audio_convert.c */,
+				C3378A201ECF962700BCEAE5 /* smpeg.c */,
+				C3378A1E1ECF960C00BCEAE5 /* SDL_sound.c */,
+			);
+			name = sdl_sound;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -4052,6 +4092,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		96FE876109F3A12B00D41D78 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3378A181ECF95CB00BCEAE5 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4455,6 +4502,23 @@
 			productReference = 96FE876509F3A12B00D41D78 /* libtads3.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		C3378A191ECF95CB00BCEAE5 /* SDL_sound_static */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3378A1B1ECF95CB00BCEAE5 /* Build configuration list for PBXNativeTarget "SDL_sound_static" */;
+			buildPhases = (
+				C3378A161ECF95CB00BCEAE5 /* Sources */,
+				C3378A171ECF95CB00BCEAE5 /* Frameworks */,
+				C3378A181ECF95CB00BCEAE5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SDL_sound_static;
+			productName = SDL_sound_static;
+			productReference = C3378A1A1ECF95CB00BCEAE5 /* libSDL_sound_static.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -4462,6 +4526,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0830;
+				TargetAttributes = {
+					C3378A191ECF95CB00BCEAE5 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 961CCE6109F2375A00528FF9 /* Build configuration list for PBXProject "Spatterlight" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -4499,6 +4569,7 @@
 				96FE866509F38BF600D41D78 /* tadsr */,
 				9611541F0A4F3F8B00BB7FF2 /* htmltadsr */,
 				965037F109F2A4430083E64E /* unquill */,
+				C3378A191ECF95CB00BCEAE5 /* SDL_sound_static */,
 			);
 		};
 /* End PBXProject section */
@@ -5075,6 +5146,18 @@
 				C3B377A11ECBA3E8006432BE /* vmtzobj.cpp in Sources */,
 				96FE87D309F3A19D00D41D78 /* vmundo.cpp in Sources */,
 				C3EF065D1ECE5FF2008EED04 /* vmvec.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3378A161ECF95CB00BCEAE5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3378A291ECF966300BCEAE5 /* ogg.c in Sources */,
+				C3378A211ECF962700BCEAE5 /* smpeg.c in Sources */,
+				C3378A231ECF963C00BCEAE5 /* audio_convert.c in Sources */,
+				C3378A251ECF964800BCEAE5 /* extra_rwops.c in Sources */,
+				C3378A1F1ECF960C00BCEAE5 /* SDL_sound.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6244,6 +6327,80 @@
 			};
 			name = Release;
 		};
+		C3378A1C1ECF95CB00BCEAE5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					SOUND_SUPPORTS_SMPEG,
+					"SOUND_SUPPORTS_OGG\n",
+					SOUND_SUPPORTS_SMPEG,
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"($PROJECT_DIR)/support/sdl_sound/**",
+					"($PROJECT_DIR)/support/sdl",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C3378A1D1ECF95CB00BCEAE5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					SOUND_SUPPORTS_SMPEG,
+					"SOUND_SUPPORTS_OGG\n",
+					SOUND_SUPPORTS_SMPEG,
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"($PROJECT_DIR)/support/sdl_sound/**",
+					"($PROJECT_DIR)/support/sdl",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -6441,6 +6598,15 @@
 			buildConfigurations = (
 				96FE876A09F3A18700D41D78 /* Debug */,
 				96FE876B09F3A18700D41D78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3378A1B1ECF95CB00BCEAE5 /* Build configuration list for PBXNativeTarget "SDL_sound_static" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3378A1C1ECF95CB00BCEAE5 /* Debug */,
+				C3378A1D1ECF95CB00BCEAE5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

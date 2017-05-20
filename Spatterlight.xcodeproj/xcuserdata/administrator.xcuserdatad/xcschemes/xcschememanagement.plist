@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>SDL_sound_static.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
+		</dict>
 		<key>Spatterlight.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -213,6 +218,11 @@
 			<true/>
 		</dict>
 		<key>96FE876409F3A12B00D41D78</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C3378A191ECF95CB00BCEAE5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
