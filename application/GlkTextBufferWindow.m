@@ -745,42 +745,44 @@
 		break;
 	}
     }
-    
+
     if (char_request && ch != keycode_Unknown)
     {
 	NSLog(@"char event from %d", name);
 	
+    //[textview setInsertionPointColor:[Preferences bufferForeground]];
+
 	[glkctl markLastSeen];
-	
+
 	gev = [[GlkEvent alloc] initCharEvent: ch forWindow: name];
 	[glkctl queueEvent: gev];
 	[gev release];
-	
+
 	char_request = NO;
 	[textview setEditable: NO];
     }
-    
+
     else if (line_request && ch == keycode_Return)
     {
 	NSLog(@"line event from %d", name);
-	
+
     [textview setInsertionPointColor: [Preferences bufferBackground]];
-        
+
 	[glkctl markLastSeen];
 
 	NSString *line = [[textstorage string] substringWithRange: NSMakeRange(fence, [textstorage length] - fence)];
 	[self putString: @"\n" style: style_Input]; // XXX arranger lastchar needs to be set
 	lastchar = '\n';
-	
+
 	if ([line length] > 0)
 	{
 	    [self saveHistory: line];
 	}
-	
+
 	gev = [[GlkEvent alloc] initLineEvent: line forWindow: name];
 	[glkctl queueEvent: gev];
 	[gev release];
-	
+
 	fence = [textstorage length];
 	line_request = NO;
 	[textview setEditable: NO];
