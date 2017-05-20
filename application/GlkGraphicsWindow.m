@@ -206,7 +206,7 @@
 
 - (void) mouseDown: (NSEvent*)theEvent
 {
-    if (mouse_request && [theEvent clickCount] == 2)
+    if (mouse_request && [theEvent clickCount] == 1)
     {
 	[glkctl markLastSeen];
 
