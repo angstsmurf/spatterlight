@@ -718,8 +718,27 @@
     NSString *str = [evt characters];
     unsigned ch = keycode_Unknown;
     if ([str length])
-	ch = chartokeycode([str characterAtIndex: 0]);
-    
+        ch = chartokeycode([str characterAtIndex: 0]);
+
+    GlkWindow *win;
+
+    // pass on this key press to another GlkWindow if we are not expecting one
+    if (![self wantsFocus])
+        for (int i = 0; i < MAXWIN; i++)
+        {
+            win = [glkctl windowWithNum:i];
+            if (i != self->name && win && [win wantsFocus])
+            {
+                NSLog(@"Passing on keypress");
+                if ([win isKindOfClass: [GlkTextBufferWindow class]])
+                    [win onKeyDown:evt];
+                else
+                    [win keyDown:evt];
+                [win grabFocus];
+                return;
+            }
+        }
+
     // if not scrolled to the bottom, pagedown or navigate scrolling on each key instead
     if (NSMaxY([textview visibleRect]) < NSMaxY([textview bounds]) - 5)
     {

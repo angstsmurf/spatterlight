@@ -68,5 +68,6 @@
 - (BOOL) isAlive;
 - (void) markLastSeen;
 - (void) performScroll;
+- (id) windowWithNum: (int)index;
 
 @end

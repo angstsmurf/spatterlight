@@ -234,6 +234,14 @@ static const char *msgnames[] =
     return !dead;
 }
 
+- (id) windowWithNum: (int)index
+{
+    if (gwindows[index])
+       return gwindows[index];
+    else
+        return nil;
+}
+
 - (NSRect) windowWillUseStandardFrame: (NSWindow*)window defaultFrame:(NSRect)defaultFrame
 {
     NSLog(@"glkctl: windowWillUseStandardFrame");
