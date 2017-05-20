@@ -514,15 +514,18 @@ static glui32 play_compressed(schanid_t chan, char *ext)
 static glui32 play_mod(schanid_t chan, long len)
 {
     FILE *file;
-    char *tn;
+    char tn[256];
     char *tempdir;
     int music_busy;
 
+    if (chan == NULL)
+        gli_strict_warning("MOD player called with an invalid channel!");
     chan->status = CHANNEL_MUSIC;
     /* The fscking mikmod lib want to read the mod only from disk! */
     tempdir = getenv("TEMP");
     if (tempdir == NULL) tempdir = ".";
-    tn = tempnam(tempdir, "gargtmp");
+    sprintf(tn, "%s/gargtmp", tempdir);
+    mktemp(tn);
     file = fopen(tn, "wb");
     fwrite(chan->sdl_memory, 1, len, file);
     fclose(file);
