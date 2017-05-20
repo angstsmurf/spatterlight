@@ -764,8 +764,10 @@
     {
 	NSLog(@"line event from %d", name);
 	
+    [textview setInsertionPointColor: [Preferences bufferBackground]];
+        
 	[glkctl markLastSeen];
-	
+
 	NSString *line = [[textstorage string] substringWithRange: NSMakeRange(fence, [textstorage length] - fence)];
 	[self putString: @"\n" style: style_Input]; // XXX arranger lastchar needs to be set
 	lastchar = '\n';
@@ -905,7 +907,9 @@
     
     fence = [textstorage length];
     
+    
     char_request = YES;
+    [textview setInsertionPointColor:[Preferences bufferBackground]];
     [textview setEditable: YES];
     
     [textview setSelectedRange: NSMakeRange(fence, 0)];
@@ -938,7 +942,9 @@
 					     attributes: [styles[style_Input] attributes]];	
     [textstorage appendAttributedString: att];
     [att release];
-    
+
+    [textview setInsertionPointColor: [Preferences bufferForeground]];
+
     [textview setEditable: YES];
     line_request = YES;	
     
@@ -947,6 +953,7 @@
 
 - (NSString*) cancelLine
 {
+    [textview setInsertionPointColor: [Preferences bufferBackground]];
     NSString *str = [textstorage string];
     str = [str substringWithRange: NSMakeRange(fence, [str length] - fence)];
     [textview setEditable: NO];
