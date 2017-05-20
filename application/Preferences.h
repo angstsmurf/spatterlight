@@ -43,6 +43,8 @@
 + (NSColor*) gridForeground;
 + (NSColor*) bufferBackground;
 + (NSColor*) bufferForeground;
++ (NSColor*) inputColor;
+
 
 + (NSColor*) foregroundColor: (int)number;
 + (NSColor*) backgroundColor: (int)number;

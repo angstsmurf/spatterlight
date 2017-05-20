@@ -308,6 +308,12 @@ static NSColor *makehsb(float h, float s, float b)
     return bufferfg;
 }
 
++ (NSColor*) inputColor;
+{
+    return inputfg;
+}
+
+
 /*
  * Style and attributed-string magic
  */

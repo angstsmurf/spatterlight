@@ -832,6 +832,7 @@
 - (BOOL) textView: (NSTextView*)textview_ clickedOnLink: (id)link atIndex: (unsigned)charIndex
 {
     NSLog(@"txtbuf: clicked on link: %@", link);
+    return YES;
 }
 
 - (void) grabFocus
