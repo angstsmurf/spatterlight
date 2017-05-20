@@ -433,9 +433,9 @@ static NSColor *makehsb(float h, float s, float b)
     
     cellw = [font maximumAdvancement].width;
 
-    CGRect rect = font.boundingRectForFont;
-    cellh = rect.size.height; // + leading;
-    //cellh = [font defaultLineHeightForFont:font] + leading;
+    NSTextView *textview = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 1000000)];
+    cellh = [[textview layoutManager] defaultLineHeightForFont:font] + leading;
+    [textview release];
     //cellh = [font ascender] + [font descender] + [font leading] + leading;
     
     /* send notification that prefs have changed -- trigger configure events */
