@@ -196,6 +196,7 @@
 	[textLayout drawGlyphsForGlyphRange: glyphRange
 				    atPoint: NSMakePoint(x0 - layoutLocation.x, y0 + y * lineHeight)];
 	
+#if 0
 	if (ypos == y && char_request && [[self window] firstResponder] == self)
 	{
 	    NSRect caret;
@@ -207,6 +208,7 @@
 	    [[Preferences gridForeground] set];
 	    NSRectFill(caret);
 	}
+#endif
     }
     
     [textContainer release];
