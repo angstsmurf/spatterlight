@@ -1,5 +1,11 @@
 #import "main.h"
 
+#ifdef DEBUG
+#define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(...)
+#endif
+
 @implementation GlkGraphicsWindow
 
 - (id) initWithGlkController: (GlkController*)glkctl_ name: (int)name_
