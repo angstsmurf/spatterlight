@@ -59,7 +59,7 @@ static const int BUSY = 2;
 
 void gli_initialize_sound(void)
 {
-    if (1) //(gli_enable_sound == 1)
+    if (gli_enable_sound == 1)
     {
         if (SDL_Init(SDL_INIT_AUDIO) == -1)
         {
