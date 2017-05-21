@@ -21,6 +21,9 @@ int bufferwin = -1;
 int bufferatt = -1;
 int bufferlen = 0;
 
+int gli_utf8output = TRUE;
+int gli_utf8input = TRUE;
+
 int gli_enable_graphics = 0;
 int gli_enable_sound = 0;
 

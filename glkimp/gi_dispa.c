@@ -1,13 +1,13 @@
 /* gi_dispa.c: Dispatch layer for Glk API, version 0.7.5.
- Designed by Andrew Plotkin <erkyrath@eblong.com>
- http://eblong.com/zarf/glk/
- 
- This file is copyright 1998-2017 by Andrew Plotkin. It is
- distributed under the MIT license; see the "LICENSE" file.
- */
+    Designed by Andrew Plotkin <erkyrath@eblong.com>
+    http://eblong.com/zarf/glk/
 
-/* This code should be linked into every Glk library, without change.
- Get the latest version from the URL above. */
+    This file is copyright 1998-2017 by Andrew Plotkin. It is
+    distributed under the MIT license; see the "LICENSE" file.
+*/
+
+/* This code should be linked into every Glk library, without change. 
+    Get the latest version from the URL above. */
 
 #include "glk.h"
 #include "gi_dispa.h"
@@ -17,13 +17,13 @@
 #endif
 
 #define NUMCLASSES   \
-(sizeof(class_table) / sizeof(gidispatch_intconst_t))
+    (sizeof(class_table) / sizeof(gidispatch_intconst_t))
 
 #define NUMINTCONSTANTS   \
-(sizeof(intconstant_table) / sizeof(gidispatch_intconst_t))
+    (sizeof(intconstant_table) / sizeof(gidispatch_intconst_t))
 
 #define NUMFUNCTIONS   \
-(sizeof(function_table) / sizeof(gidispatch_function_t))
+    (sizeof(function_table) / sizeof(gidispatch_function_t))
 
 /* The constants in this table must be ordered alphabetically. */
 static gidispatch_intconst_t class_table[] = {
@@ -45,12 +45,12 @@ static gidispatch_intconst_t intconstant_table[] = {
     { "evtype_SoundNotify", (7) },
     { "evtype_Timer", (1) },
     { "evtype_VolumeNotify", (9) },
-    
+
     { "filemode_Read", (0x02) },
     { "filemode_ReadWrite", (0x03) },
     { "filemode_Write", (0x01) },
     { "filemode_WriteAppend", (0x05) },
-    
+
     { "fileusage_BinaryMode", (0x000) },
     { "fileusage_Data", (0x00) },
     { "fileusage_InputRecord", (0x03) },
@@ -58,7 +58,7 @@ static gidispatch_intconst_t intconstant_table[] = {
     { "fileusage_TextMode",   (0x100) },
     { "fileusage_Transcript", (0x02) },
     { "fileusage_TypeMask", (0x0f) },
-    
+
     { "gestalt_CharInput", (1) },
     { "gestalt_CharOutput", (3) },
     { "gestalt_CharOutput_ApproxPrint", (1) },
@@ -86,13 +86,13 @@ static gidispatch_intconst_t intconstant_table[] = {
     { "gestalt_Unicode", (15) },
     { "gestalt_UnicodeNorm", (16) },
     { "gestalt_Version", (0) },
-    
+
     { "imagealign_InlineCenter",  (0x03) },
     { "imagealign_InlineDown",  (0x02) },
     { "imagealign_MarginLeft",  (0x04) },
     { "imagealign_MarginRight",  (0x05) },
     { "imagealign_InlineUp",  (0x01) },
-    
+
     { "keycode_Delete",   (0xfffffff9) },
     { "keycode_Down",     (0xfffffffb) },
     { "keycode_End",      (0xfffffff3) },
@@ -119,11 +119,11 @@ static gidispatch_intconst_t intconstant_table[] = {
     { "keycode_Tab",      (0xfffffff7) },
     { "keycode_Unknown",  (0xffffffff) },
     { "keycode_Up",       (0xfffffffc) },
-    
+
     { "seekmode_Current", (1) },
     { "seekmode_End", (2) },
     { "seekmode_Start", (0) },
-    
+
     { "style_Alert", (5) },
     { "style_BlockQuote", (7) },
     { "style_Emphasized", (1) },
@@ -151,7 +151,7 @@ static gidispatch_intconst_t intconstant_table[] = {
     { "stylehint_just_LeftFlush", (0) },
     { "stylehint_just_LeftRight", (1) },
     { "stylehint_just_RightFlush", (3) },
-    
+
     { "winmethod_Above", (0x02)  },
     { "winmethod_Below", (0x03)  },
     { "winmethod_Border", (0x000)  },
@@ -163,7 +163,7 @@ static gidispatch_intconst_t intconstant_table[] = {
     { "winmethod_NoBorder", (0x100)  },
     { "winmethod_Proportional", (0x20) },
     { "winmethod_Right", (0x01)  },
-    
+
     { "wintype_AllTypes", (0)  },
     { "wintype_Blank", (2)  },
     { "wintype_Graphics", (5)  },
@@ -476,7 +476,7 @@ char *gidispatch_prototype(glui32 funcnum)
         case 0x0084: /* put_buffer */
             return "1>+#Cn:";
         case 0x0085: /* put_buffer_stream */
-            return "2Qb>+#Cn:";
+            return "2Qb>+#Cn:"; 
         case 0x0086: /* set_style */
             return "1Iu:";
         case 0x0087: /* set_style_stream */
@@ -484,9 +484,9 @@ char *gidispatch_prototype(glui32 funcnum)
         case 0x0090: /* get_char_stream */
             return "2Qb:Is";
         case 0x0091: /* get_line_stream */
-            return "3Qb<+#Cn:Iu";
+            return "3Qb<+#Cn:Iu"; 
         case 0x0092: /* get_buffer_stream */
-            return "3Qb<+#Cn:Iu";
+            return "3Qb<+#Cn:Iu"; 
         case 0x00A0: /* char_to_lower */
             return "2Cu:Cu";
         case 0x00A1: /* char_to_upper */
@@ -517,7 +517,7 @@ char *gidispatch_prototype(glui32 funcnum)
             return "1Qa:";
         case 0x00D6: /* request_timer_events */
             return "1Iu:";
-            
+
 #ifdef GLK_MODULE_IMAGE
         case 0x00E0: /* image_get_info */
             return "4Iu<Iu<Iu:Iu";
@@ -534,7 +534,7 @@ char *gidispatch_prototype(glui32 funcnum)
         case 0x00EB: /* window_set_background_color */
             return "2QaIu:";
 #endif /* GLK_MODULE_IMAGE */
-            
+
 #ifdef GLK_MODULE_SOUND
         case 0x00F0: /* schannel_iterate */
             return "3Qd<Iu:Qd";
@@ -554,7 +554,7 @@ char *gidispatch_prototype(glui32 funcnum)
             return "2QdIu:";
         case 0x00FC: /* sound_load_hint */
             return "2IuIu:";
-            
+
 #ifdef GLK_MODULE_SOUND2
         case 0x00F4: /* schannel_create_ext */
             return "3IuIu:Qd";
@@ -568,7 +568,7 @@ char *gidispatch_prototype(glui32 funcnum)
             return "1Qd:";
 #endif /* GLK_MODULE_SOUND2 */
 #endif /* GLK_MODULE_SOUND */
-            
+
 #ifdef GLK_MODULE_HYPERLINKS
         case 0x0100: /* set_hyperlink */
             return "1Iu:";
@@ -579,7 +579,7 @@ char *gidispatch_prototype(glui32 funcnum)
         case 0x0103: /* cancel_hyperlink_event */
             return "1Qa:";
 #endif /* GLK_MODULE_HYPERLINKS */
-            
+
 #ifdef GLK_MODULE_UNICODE
         case 0x0120: /* buffer_to_lower_case_uni */
             return "3&+#IuIu:Iu";
@@ -598,13 +598,13 @@ char *gidispatch_prototype(glui32 funcnum)
         case 0x012C: /* put_string_stream_uni */
             return "2QbU:";
         case 0x012D: /* put_buffer_stream_uni */
-            return "2Qb>+#Iu:";
+            return "2Qb>+#Iu:"; 
         case 0x0130: /* get_char_stream_uni */
             return "2Qb:Is";
         case 0x0131: /* get_buffer_stream_uni */
-            return "3Qb<+#Iu:Iu";
+            return "3Qb<+#Iu:Iu"; 
         case 0x0132: /* get_line_stream_uni */
-            return "3Qb<+#Iu:Iu";
+            return "3Qb<+#Iu:Iu"; 
         case 0x0138: /* stream_open_file_uni */
             return "4QcIuIu:Qb";
         case 0x0139: /* stream_open_memory_uni */
@@ -621,12 +621,12 @@ char *gidispatch_prototype(glui32 funcnum)
         case 0x0124: /* buffer_canon_normalize_uni */
             return "3&+#IuIu:Iu";
 #endif /* GLK_MODULE_UNICODE_NORM */
-            
+
 #ifdef GLK_MODULE_LINE_ECHO
         case 0x0150: /* set_echo_line_event */
             return "2QaIu:";
 #endif /* GLK_MODULE_LINE_ECHO */
-            
+
 #ifdef GLK_MODULE_LINE_TERMINATORS
         case 0x0151: /* set_terminators_line_event */
             return "2Qa>#Iu:";
@@ -654,18 +654,18 @@ char *gidispatch_prototype(glui32 funcnum)
         case 0x016F: /* date_to_simple_time_local */
             return "3>+[8IsIsIsIsIsIsIsIs]Iu:Is";
 #endif /* GLK_MODULE_DATETIME */
-            
+
 #ifdef GLK_MODULE_RESOURCE_STREAM
         case 0x0049: /* stream_open_resource */
             return "3IuIu:Qb";
         case 0x013A: /* stream_open_resource_uni */
             return "3IuIu:Qb";
 #endif /* GLK_MODULE_RESOURCE_STREAM */
-            
+
 #ifdef GLK_EXTEND_PROTOTYPE
-            GLK_EXTEND_PROTOTYPE
+        GLK_EXTEND_PROTOTYPE
 #endif /* GLK_EXTEND_PROTOTYPE */
-            
+
         default:
             return NULL;
     }
@@ -689,15 +689,15 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
         case 0x0005: /* gestalt_ext */
             if (arglist[2].ptrflag) {
                 arglist[6].uint = glk_gestalt_ext(arglist[0].uint, arglist[1].uint,
-                                                  arglist[3].array, arglist[4].uint);
+                    arglist[3].array, arglist[4].uint);
             }
             else {
                 arglist[4].uint = glk_gestalt_ext(arglist[0].uint, arglist[1].uint,
-                                                  NULL, 0);
+                    NULL, 0);
             }
             break;
         case 0x0020: /* window_iterate */
-            if (arglist[1].ptrflag)
+            if (arglist[1].ptrflag) 
                 arglist[4].opaqueref = glk_window_iterate(arglist[0].opaqueref, &arglist[2].uint);
             else
                 arglist[3].opaqueref = glk_window_iterate(arglist[0].opaqueref, NULL);
@@ -709,8 +709,8 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             arglist[1].opaqueref = glk_window_get_root();
             break;
         case 0x0023: /* window_open */
-            arglist[6].opaqueref = glk_window_open(arglist[0].opaqueref, arglist[1].uint,
-                                                   arglist[2].uint, arglist[3].uint, arglist[4].uint);
+            arglist[6].opaqueref = glk_window_open(arglist[0].opaqueref, arglist[1].uint, 
+                arglist[2].uint, arglist[3].uint, arglist[4].uint);
             break;
         case 0x0024: /* window_close */
             if (arglist[1].ptrflag) {
@@ -724,63 +724,63 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             }
             break;
         case 0x0025: /* window_get_size */
-        {
-            int ix = 1;
-            glui32 *ptr1, *ptr2;
-            if (!arglist[ix].ptrflag) {
-                ptr1 = NULL;
-            }
-            else {
+            {
+                int ix = 1;
+                glui32 *ptr1, *ptr2;
+                if (!arglist[ix].ptrflag) {
+                    ptr1 = NULL;
+                }
+                else {
+                    ix++;
+                    ptr1 = &(arglist[ix].uint);
+                }
                 ix++;
-                ptr1 = &(arglist[ix].uint);
-            }
-            ix++;
-            if (!arglist[ix].ptrflag) {
-                ptr2 = NULL;
-            }
-            else {
+                if (!arglist[ix].ptrflag) {
+                    ptr2 = NULL;
+                }
+                else {
+                    ix++;
+                    ptr2 = &(arglist[ix].uint);
+                }
                 ix++;
-                ptr2 = &(arglist[ix].uint);
+                glk_window_get_size(arglist[0].opaqueref, ptr1, ptr2);
             }
-            ix++;
-            glk_window_get_size(arglist[0].opaqueref, ptr1, ptr2);
-        }
             break;
         case 0x0026: /* window_set_arrangement */
-            glk_window_set_arrangement(arglist[0].opaqueref, arglist[1].uint,
-                                       arglist[2].uint, arglist[3].opaqueref);
+            glk_window_set_arrangement(arglist[0].opaqueref, arglist[1].uint, 
+                arglist[2].uint, arglist[3].opaqueref);
             break;
         case 0x0027: /* window_get_arrangement */
-        {
-            int ix = 1;
-            glui32 *ptr1, *ptr2;
-            winid_t *ptr3;
-            if (!arglist[ix].ptrflag) {
-                ptr1 = NULL;
-            }
-            else {
+            {
+                int ix = 1;
+                glui32 *ptr1, *ptr2;
+                winid_t *ptr3;
+                if (!arglist[ix].ptrflag) {
+                    ptr1 = NULL;
+                }
+                else {
+                    ix++;
+                    ptr1 = &(arglist[ix].uint);
+                }
                 ix++;
-                ptr1 = &(arglist[ix].uint);
-            }
-            ix++;
-            if (!arglist[ix].ptrflag) {
-                ptr2 = NULL;
-            }
-            else {
+                if (!arglist[ix].ptrflag) {
+                    ptr2 = NULL;
+                }
+                else {
+                    ix++;
+                    ptr2 = &(arglist[ix].uint);
+                }
                 ix++;
-                ptr2 = &(arglist[ix].uint);
-            }
-            ix++;
-            if (!arglist[ix].ptrflag) {
-                ptr3 = NULL;
-            }
-            else {
+                if (!arglist[ix].ptrflag) {
+                    ptr3 = NULL;
+                }
+                else {
+                    ix++;
+                    ptr3 = (winid_t *)(&(arglist[ix].opaqueref));
+                }
                 ix++;
-                ptr3 = (winid_t *)(&(arglist[ix].opaqueref));
+                glk_window_get_arrangement(arglist[0].opaqueref, ptr1, ptr2, ptr3);
             }
-            ix++;
-            glk_window_get_arrangement(arglist[0].opaqueref, ptr1, ptr2, ptr3);
-        }
             break;
         case 0x0028: /* window_get_type */
             arglist[2].uint = glk_window_get_type(arglist[0].opaqueref);
@@ -792,8 +792,8 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             glk_window_clear(arglist[0].opaqueref);
             break;
         case 0x002B: /* window_move_cursor */
-            glk_window_move_cursor(arglist[0].opaqueref, arglist[1].uint,
-                                   arglist[2].uint);
+            glk_window_move_cursor(arglist[0].opaqueref, arglist[1].uint, 
+                arglist[2].uint);
             break;
         case 0x002C: /* window_get_stream */
             arglist[2].opaqueref = glk_window_get_stream(arglist[0].opaqueref);
@@ -811,7 +811,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             arglist[2].opaqueref = glk_window_get_sibling(arglist[0].opaqueref);
             break;
         case 0x0040: /* stream_iterate */
-            if (arglist[1].ptrflag)
+            if (arglist[1].ptrflag) 
                 arglist[4].opaqueref = glk_stream_iterate(arglist[0].opaqueref, &arglist[2].uint);
             else
                 arglist[3].opaqueref = glk_stream_iterate(arglist[0].opaqueref, NULL);
@@ -820,16 +820,16 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             arglist[2].uint = glk_stream_get_rock(arglist[0].opaqueref);
             break;
         case 0x0042: /* stream_open_file */
-            arglist[4].opaqueref = glk_stream_open_file(arglist[0].opaqueref, arglist[1].uint,
-                                                        arglist[2].uint);
+            arglist[4].opaqueref = glk_stream_open_file(arglist[0].opaqueref, arglist[1].uint, 
+                arglist[2].uint);
             break;
         case 0x0043: /* stream_open_memory */
-            if (arglist[0].ptrflag)
-                arglist[6].opaqueref = glk_stream_open_memory(arglist[1].array,
-                                                              arglist[2].uint, arglist[3].uint, arglist[4].uint);
+            if (arglist[0].ptrflag) 
+                arglist[6].opaqueref = glk_stream_open_memory(arglist[1].array, 
+                    arglist[2].uint, arglist[3].uint, arglist[4].uint);
             else
-                arglist[4].opaqueref = glk_stream_open_memory(NULL,
-                                                              0, arglist[1].uint, arglist[2].uint);
+                arglist[4].opaqueref = glk_stream_open_memory(NULL, 
+                    0, arglist[1].uint, arglist[2].uint);
             break;
         case 0x0044: /* stream_close */
             if (arglist[1].ptrflag) {
@@ -844,7 +844,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             break;
         case 0x0045: /* stream_set_position */
             glk_stream_set_position(arglist[0].opaqueref, arglist[1].sint,
-                                    arglist[2].uint);
+                arglist[2].uint);
             break;
         case 0x0046: /* stream_get_position */
             arglist[2].uint = glk_stream_get_position(arglist[0].opaqueref);
@@ -856,22 +856,22 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             arglist[1].opaqueref = glk_stream_get_current();
             break;
         case 0x0060: /* fileref_create_temp */
-            arglist[3].opaqueref = glk_fileref_create_temp(arglist[0].uint,
-                                                           arglist[1].uint);
+            arglist[3].opaqueref = glk_fileref_create_temp(arglist[0].uint, 
+                arglist[1].uint);
             break;
         case 0x0061: /* fileref_create_by_name */
-            arglist[4].opaqueref = glk_fileref_create_by_name(arglist[0].uint,
-                                                              arglist[1].charstr, arglist[2].uint);
+            arglist[4].opaqueref = glk_fileref_create_by_name(arglist[0].uint, 
+                arglist[1].charstr, arglist[2].uint);
             break;
         case 0x0062: /* fileref_create_by_prompt */
-            arglist[4].opaqueref = glk_fileref_create_by_prompt(arglist[0].uint,
-                                                                arglist[1].uint, arglist[2].uint);
+            arglist[4].opaqueref = glk_fileref_create_by_prompt(arglist[0].uint, 
+                arglist[1].uint, arglist[2].uint);
             break;
         case 0x0063: /* fileref_destroy */
             glk_fileref_destroy(arglist[0].opaqueref);
             break;
         case 0x0064: /* fileref_iterate */
-            if (arglist[1].ptrflag)
+            if (arglist[1].ptrflag) 
                 arglist[4].opaqueref = glk_fileref_iterate(arglist[0].opaqueref, &arglist[2].uint);
             else
                 arglist[3].opaqueref = glk_fileref_iterate(arglist[0].opaqueref, NULL);
@@ -886,8 +886,8 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             arglist[2].uint = glk_fileref_does_file_exist(arglist[0].opaqueref);
             break;
         case 0x0068: /* fileref_create_from_fileref */
-            arglist[4].opaqueref = glk_fileref_create_from_fileref(arglist[0].uint,
-                                                                   arglist[1].opaqueref, arglist[2].uint);
+            arglist[4].opaqueref = glk_fileref_create_from_fileref(arglist[0].uint, 
+                arglist[1].opaqueref, arglist[2].uint);
             break;
         case 0x0080: /* put_char */
             glk_put_char(arglist[0].uch);
@@ -902,18 +902,18 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             glk_put_string_stream(arglist[0].opaqueref, arglist[1].charstr);
             break;
         case 0x0084: /* put_buffer */
-            if (arglist[0].ptrflag)
+            if (arglist[0].ptrflag) 
                 glk_put_buffer(arglist[1].array, arglist[2].uint);
             else
                 glk_put_buffer(NULL, 0);
             break;
         case 0x0085: /* put_buffer_stream */
-            if (arglist[1].ptrflag)
-                glk_put_buffer_stream(arglist[0].opaqueref,
-                                      arglist[2].array, arglist[3].uint);
+            if (arglist[1].ptrflag) 
+                glk_put_buffer_stream(arglist[0].opaqueref, 
+                    arglist[2].array, arglist[3].uint);
             else
-                glk_put_buffer_stream(arglist[0].opaqueref,
-                                      NULL, 0);
+                glk_put_buffer_stream(arglist[0].opaqueref, 
+                    NULL, 0);
             break;
         case 0x0086: /* set_style */
             glk_set_style(arglist[0].uint);
@@ -925,20 +925,20 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             arglist[2].sint = glk_get_char_stream(arglist[0].opaqueref);
             break;
         case 0x0091: /* get_line_stream */
-            if (arglist[1].ptrflag)
-                arglist[5].uint = glk_get_line_stream(arglist[0].opaqueref,
-                                                      arglist[2].array, arglist[3].uint);
+            if (arglist[1].ptrflag) 
+                arglist[5].uint = glk_get_line_stream(arglist[0].opaqueref, 
+                    arglist[2].array, arglist[3].uint);
             else
-                arglist[3].uint = glk_get_line_stream(arglist[0].opaqueref,
-                                                      NULL, 0);
+                arglist[3].uint = glk_get_line_stream(arglist[0].opaqueref, 
+                    NULL, 0);
             break;
         case 0x0092: /* get_buffer_stream */
-            if (arglist[1].ptrflag)
-                arglist[5].uint = glk_get_buffer_stream(arglist[0].opaqueref,
-                                                        arglist[2].array, arglist[3].uint);
+            if (arglist[1].ptrflag) 
+                arglist[5].uint = glk_get_buffer_stream(arglist[0].opaqueref, 
+                    arglist[2].array, arglist[3].uint);
             else
-                arglist[3].uint = glk_get_buffer_stream(arglist[0].opaqueref,
-                                                        NULL, 0);
+                arglist[3].uint = glk_get_buffer_stream(arglist[0].opaqueref, 
+                    NULL, 0);
             break;
         case 0x00A0: /* char_to_lower */
             arglist[2].uch = glk_char_to_lower(arglist[0].uch);
@@ -948,23 +948,23 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             break;
         case 0x00B0: /* stylehint_set */
             glk_stylehint_set(arglist[0].uint, arglist[1].uint,
-                              arglist[2].uint, arglist[3].sint);
+                arglist[2].uint, arglist[3].sint);
             break;
         case 0x00B1: /* stylehint_clear */
             glk_stylehint_clear(arglist[0].uint, arglist[1].uint,
-                                arglist[2].uint);
+                arglist[2].uint);
             break;
         case 0x00B2: /* style_distinguish */
             arglist[4].uint = glk_style_distinguish(arglist[0].opaqueref, arglist[1].uint,
-                                                    arglist[2].uint);
+                arglist[2].uint);
             break;
         case 0x00B3: /* style_measure */
             if (arglist[3].ptrflag)
                 arglist[6].uint = glk_style_measure(arglist[0].opaqueref, arglist[1].uint,
-                                                    arglist[2].uint, &(arglist[4].uint));
+                    arglist[2].uint, &(arglist[4].uint));
             else
                 arglist[5].uint = glk_style_measure(arglist[0].opaqueref, arglist[1].uint,
-                                                    arglist[2].uint, NULL);
+                    arglist[2].uint, NULL);
             break;
         case 0x00C0: /* select */
             if (arglist[0].ptrflag) {
@@ -995,10 +995,10 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
         case 0x00D0: /* request_line_event */
             if (arglist[1].ptrflag)
                 glk_request_line_event(arglist[0].opaqueref, arglist[2].array,
-                                       arglist[3].uint, arglist[4].uint);
+                    arglist[3].uint, arglist[4].uint);
             else
                 glk_request_line_event(arglist[0].opaqueref, NULL,
-                                       0, arglist[2].uint);
+                    0, arglist[2].uint);
             break;
         case 0x00D1: /* cancel_line_event */
             if (arglist[1].ptrflag) {
@@ -1028,64 +1028,64 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
         case 0x00D6: /* request_timer_events */
             glk_request_timer_events(arglist[0].uint);
             break;
-            
+
 #ifdef GLK_MODULE_IMAGE
         case 0x00E0: /* image_get_info */
-        {
-            int ix = 1;
-            glui32 *ptr1, *ptr2;
-            if (!arglist[ix].ptrflag) {
-                ptr1 = NULL;
-            }
-            else {
+            {
+                int ix = 1;
+                glui32 *ptr1, *ptr2;
+                if (!arglist[ix].ptrflag) {
+                    ptr1 = NULL;
+                }
+                else {
+                    ix++;
+                    ptr1 = &(arglist[ix].uint);
+                }
                 ix++;
-                ptr1 = &(arglist[ix].uint);
-            }
-            ix++;
-            if (!arglist[ix].ptrflag) {
-                ptr2 = NULL;
-            }
-            else {
+                if (!arglist[ix].ptrflag) {
+                    ptr2 = NULL;
+                }
+                else {
+                    ix++;
+                    ptr2 = &(arglist[ix].uint);
+                }
                 ix++;
-                ptr2 = &(arglist[ix].uint);
+                ix++;
+                arglist[ix].uint = glk_image_get_info(arglist[0].uint, ptr1, ptr2);
             }
-            ix++;
-            ix++;
-            arglist[ix].uint = glk_image_get_info(arglist[0].uint, ptr1, ptr2);
-        }
             break;
         case 0x00E1: /* image_draw */
-            arglist[5].uint = glk_image_draw(arglist[0].opaqueref,
-                                             arglist[1].uint,
-                                             arglist[2].sint, arglist[3].sint);
+            arglist[5].uint = glk_image_draw(arglist[0].opaqueref, 
+                arglist[1].uint,
+                arglist[2].sint, arglist[3].sint);
             break;
         case 0x00E2: /* image_draw_scaled */
-            arglist[7].uint = glk_image_draw_scaled(arglist[0].opaqueref,
-                                                    arglist[1].uint,
-                                                    arglist[2].sint, arglist[3].sint,
-                                                    arglist[4].uint, arglist[5].uint);
+            arglist[7].uint = glk_image_draw_scaled(arglist[0].opaqueref, 
+                arglist[1].uint,
+                arglist[2].sint, arglist[3].sint,
+                arglist[4].uint, arglist[5].uint);
             break;
         case 0x00E8: /* window_flow_break */
             glk_window_flow_break(arglist[0].opaqueref);
             break;
         case 0x00E9: /* window_erase_rect */
             glk_window_erase_rect(arglist[0].opaqueref,
-                                  arglist[1].sint, arglist[2].sint,
-                                  arglist[3].uint, arglist[4].uint);
+                arglist[1].sint, arglist[2].sint,
+                arglist[3].uint, arglist[4].uint);
             break;
         case 0x00EA: /* window_fill_rect */
             glk_window_fill_rect(arglist[0].opaqueref, arglist[1].uint,
-                                 arglist[2].sint, arglist[3].sint,
-                                 arglist[4].uint, arglist[5].uint);
+                arglist[2].sint, arglist[3].sint,
+                arglist[4].uint, arglist[5].uint);
             break;
         case 0x00EB: /* window_set_background_color */
             glk_window_set_background_color(arglist[0].opaqueref, arglist[1].uint);
             break;
 #endif /* GLK_MODULE_IMAGE */
-            
+
 #ifdef GLK_MODULE_SOUND
         case 0x00F0: /* schannel_iterate */
-            if (arglist[1].ptrflag)
+            if (arglist[1].ptrflag) 
                 arglist[4].opaqueref = glk_schannel_iterate(arglist[0].opaqueref, &arglist[2].uint);
             else
                 arglist[3].opaqueref = glk_schannel_iterate(arglist[0].opaqueref, NULL);
@@ -1103,8 +1103,8 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             arglist[3].uint = glk_schannel_play(arglist[0].opaqueref, arglist[1].uint);
             break;
         case 0x00F9: /* schannel_play_ext */
-            arglist[5].uint = glk_schannel_play_ext(arglist[0].opaqueref,
-                                                    arglist[1].uint, arglist[2].uint, arglist[3].uint);
+            arglist[5].uint = glk_schannel_play_ext(arglist[0].opaqueref, 
+                arglist[1].uint, arglist[2].uint, arglist[3].uint);
             break;
         case 0x00FA: /* schannel_stop */
             glk_schannel_stop(arglist[0].opaqueref);
@@ -1115,7 +1115,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
         case 0x00FC: /* sound_load_hint */
             glk_sound_load_hint(arglist[0].uint, arglist[1].uint);
             break;
-            
+
 #ifdef GLK_MODULE_SOUND2
         case 0x00F4: /* schannel_create_ext */
             arglist[3].opaqueref = glk_schannel_create_ext(arglist[0].uint, arglist[1].uint);
@@ -1141,7 +1141,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             break;
 #endif /* GLK_MODULE_SOUND2 */
 #endif /* GLK_MODULE_SOUND */
-            
+
 #ifdef GLK_MODULE_HYPERLINKS
         case 0x0100: /* set_hyperlink */
             glk_set_hyperlink(arglist[0].uint);
@@ -1159,19 +1159,19 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             
 #ifdef GLK_MODULE_UNICODE
         case 0x0120: /* buffer_to_lower_case_uni */
-            if (arglist[0].ptrflag)
+            if (arglist[0].ptrflag) 
                 arglist[5].uint = glk_buffer_to_lower_case_uni(arglist[1].array, arglist[2].uint, arglist[3].uint);
             else
                 arglist[3].uint = glk_buffer_to_lower_case_uni(NULL, 0, arglist[1].uint);
             break;
         case 0x0121: /* buffer_to_upper_case_uni */
-            if (arglist[0].ptrflag)
+            if (arglist[0].ptrflag) 
                 arglist[5].uint = glk_buffer_to_upper_case_uni(arglist[1].array, arglist[2].uint, arglist[3].uint);
             else
                 arglist[3].uint = glk_buffer_to_upper_case_uni(NULL, 0, arglist[1].uint);
             break;
         case 0x0122: /* buffer_to_title_case_uni */
-            if (arglist[0].ptrflag)
+            if (arglist[0].ptrflag) 
                 arglist[6].uint = glk_buffer_to_title_case_uni(arglist[1].array, arglist[2].uint, arglist[3].uint, arglist[4].uint);
             else
                 arglist[4].uint = glk_buffer_to_title_case_uni(NULL, 0, arglist[1].uint, arglist[2].uint);
@@ -1183,7 +1183,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             glk_put_string_uni(arglist[0].unicharstr);
             break;
         case 0x012A: /* put_buffer_uni */
-            if (arglist[0].ptrflag)
+            if (arglist[0].ptrflag) 
                 glk_put_buffer_uni(arglist[1].array, arglist[2].uint);
             else
                 glk_put_buffer_uni(NULL, 0);
@@ -1195,43 +1195,43 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             glk_put_string_stream_uni(arglist[0].opaqueref, arglist[1].unicharstr);
             break;
         case 0x012D: /* put_buffer_stream_uni */
-            if (arglist[1].ptrflag)
-                glk_put_buffer_stream_uni(arglist[0].opaqueref,
-                                          arglist[2].array, arglist[3].uint);
+            if (arglist[1].ptrflag) 
+                glk_put_buffer_stream_uni(arglist[0].opaqueref, 
+                    arglist[2].array, arglist[3].uint);
             else
-                glk_put_buffer_stream_uni(arglist[0].opaqueref,
-                                          NULL, 0);
+                glk_put_buffer_stream_uni(arglist[0].opaqueref, 
+                    NULL, 0);
             break;
         case 0x0130: /* get_char_stream_uni */
             arglist[2].sint = glk_get_char_stream_uni(arglist[0].opaqueref);
             break;
         case 0x0131: /* get_buffer_stream_uni */
-            if (arglist[1].ptrflag)
-                arglist[5].uint = glk_get_buffer_stream_uni(arglist[0].opaqueref,
-                                                            arglist[2].array, arglist[3].uint);
+            if (arglist[1].ptrflag) 
+                arglist[5].uint = glk_get_buffer_stream_uni(arglist[0].opaqueref, 
+                    arglist[2].array, arglist[3].uint);
             else
-                arglist[3].uint = glk_get_buffer_stream_uni(arglist[0].opaqueref,
-                                                            NULL, 0);
+                arglist[3].uint = glk_get_buffer_stream_uni(arglist[0].opaqueref, 
+                    NULL, 0);
             break;
         case 0x0132: /* get_line_stream_uni */
-            if (arglist[1].ptrflag)
-                arglist[5].uint = glk_get_line_stream_uni(arglist[0].opaqueref,
-                                                          arglist[2].array, arglist[3].uint);
+            if (arglist[1].ptrflag) 
+                arglist[5].uint = glk_get_line_stream_uni(arglist[0].opaqueref, 
+                    arglist[2].array, arglist[3].uint);
             else
-                arglist[3].uint = glk_get_line_stream_uni(arglist[0].opaqueref,
-                                                          NULL, 0);
+                arglist[3].uint = glk_get_line_stream_uni(arglist[0].opaqueref, 
+                    NULL, 0);
             break;
         case 0x0138: /* stream_open_file_uni */
-            arglist[4].opaqueref = glk_stream_open_file_uni(arglist[0].opaqueref, arglist[1].uint,
-                                                            arglist[2].uint);
+            arglist[4].opaqueref = glk_stream_open_file_uni(arglist[0].opaqueref, arglist[1].uint, 
+                arglist[2].uint);
             break;
         case 0x0139: /* stream_open_memory_uni */
-            if (arglist[0].ptrflag)
-                arglist[6].opaqueref = glk_stream_open_memory_uni(arglist[1].array,
-                                                                  arglist[2].uint, arglist[3].uint, arglist[4].uint);
+            if (arglist[0].ptrflag) 
+                arglist[6].opaqueref = glk_stream_open_memory_uni(arglist[1].array, 
+                    arglist[2].uint, arglist[3].uint, arglist[4].uint);
             else
-                arglist[4].opaqueref = glk_stream_open_memory_uni(NULL,
-                                                                  0, arglist[1].uint, arglist[2].uint);
+                arglist[4].opaqueref = glk_stream_open_memory_uni(NULL, 
+                    0, arglist[1].uint, arglist[2].uint);
             break;
         case 0x0140: /* request_char_event_uni */
             glk_request_char_event_uni(arglist[0].opaqueref);
@@ -1239,22 +1239,22 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
         case 0x0141: /* request_line_event_uni */
             if (arglist[1].ptrflag)
                 glk_request_line_event_uni(arglist[0].opaqueref, arglist[2].array,
-                                           arglist[3].uint, arglist[4].uint);
+                    arglist[3].uint, arglist[4].uint);
             else
                 glk_request_line_event_uni(arglist[0].opaqueref, NULL,
-                                           0, arglist[2].uint);
+                    0, arglist[2].uint);
             break;
 #endif /* GLK_MODULE_UNICODE */
-            
+
 #ifdef GLK_MODULE_UNICODE_NORM
         case 0x0123: /* buffer_canon_decompose_uni */
-            if (arglist[0].ptrflag)
+            if (arglist[0].ptrflag) 
                 arglist[5].uint = glk_buffer_canon_decompose_uni(arglist[1].array, arglist[2].uint, arglist[3].uint);
             else
                 arglist[3].uint = glk_buffer_canon_decompose_uni(NULL, 0, arglist[1].uint);
             break;
         case 0x0124: /* buffer_canon_normalize_uni */
-            if (arglist[0].ptrflag)
+            if (arglist[0].ptrflag) 
                 arglist[5].uint = glk_buffer_canon_normalize_uni(arglist[1].array, arglist[2].uint, arglist[3].uint);
             else
                 arglist[3].uint = glk_buffer_canon_normalize_uni(NULL, 0, arglist[1].uint);
@@ -1266,15 +1266,15 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             glk_set_echo_line_event(arglist[0].opaqueref, arglist[1].uint);
             break;
 #endif /* GLK_MODULE_LINE_ECHO */
-            
+
 #ifdef GLK_MODULE_LINE_TERMINATORS
         case 0x0151: /* set_terminators_line_event */
-            if (arglist[1].ptrflag)
-                glk_set_terminators_line_event(arglist[0].opaqueref,
-                                               arglist[2].array, arglist[3].uint);
+            if (arglist[1].ptrflag) 
+                glk_set_terminators_line_event(arglist[0].opaqueref, 
+                    arglist[2].array, arglist[3].uint);
             else
-                glk_set_terminators_line_event(arglist[0].opaqueref,
-                                               NULL, 0);
+                glk_set_terminators_line_event(arglist[0].opaqueref, 
+                    NULL, 0);
             break;
 #endif /* GLK_MODULE_LINE_TERMINATORS */
             
@@ -1320,7 +1320,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
                 arglist[ix++].sint = date.second;
                 arglist[ix++].sint = date.microsec;
             }
-        }
+            }
             break;
         case 0x0169: /* time_to_date_local */ {
             glktimeval_t timeval;
@@ -1348,7 +1348,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
                 arglist[ix++].sint = date.second;
                 arglist[ix++].sint = date.microsec;
             }
-        }
+            }
             break;
         case 0x016A: /* simple_time_to_date_utc */ {
             glkdate_t date;
@@ -1368,7 +1368,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
                 arglist[ix++].sint = date.second;
                 arglist[ix++].sint = date.microsec;
             }
-        }
+            }
             break;
         case 0x016B: /* simple_time_to_date_local */ {
             glkdate_t date;
@@ -1388,7 +1388,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
                 arglist[ix++].sint = date.second;
                 arglist[ix++].sint = date.microsec;
             }
-        }
+            }
             break;
         case 0x016C: /* date_to_time_utc */ {
             glkdate_t date;
@@ -1416,7 +1416,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
                 arglist[ix++].uint = timeval.low_sec;
                 arglist[ix++].sint = timeval.microsec;
             }
-        }
+            }
             break;
         case 0x016D: /* date_to_time_local */ {
             glkdate_t date;
@@ -1444,7 +1444,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
                 arglist[ix++].uint = timeval.low_sec;
                 arglist[ix++].sint = timeval.microsec;
             }
-        }
+            }
             break;
         case 0x016E: /* date_to_simple_time_utc */ {
             glkdate_t date;
@@ -1462,7 +1462,7 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
                 date.microsec = arglist[ix++].sint;
             }
             arglist[ix+2].sint = glk_date_to_simple_time_utc(dateptr, arglist[ix].uint);
-        }
+            }
             break;
         case 0x016F: /* date_to_simple_time_local */ {
             glkdate_t date;
@@ -1480,10 +1480,10 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
                 date.microsec = arglist[ix++].sint;
             }
             arglist[ix+2].sint = glk_date_to_simple_time_local(dateptr, arglist[ix].uint);
-        }
+            }
             break;
 #endif /* GLK_MODULE_DATETIME */
-            
+
 #ifdef GLK_MODULE_RESOURCE_STREAM
         case 0x0049: /* stream_open_resource */
             arglist[3].opaqueref = glk_stream_open_resource(arglist[0].uint, arglist[1].uint);
@@ -1492,11 +1492,11 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             arglist[3].opaqueref = glk_stream_open_resource_uni(arglist[0].uint, arglist[1].uint);
             break;
 #endif /* GLK_MODULE_RESOURCE_STREAM */
-            
+
 #ifdef GLK_EXTEND_CALL
-            GLK_EXTEND_CALL
+        GLK_EXTEND_CALL
 #endif /* GLK_EXTEND_CALL */
-            
+
         default:
             /* do nothing */
             break;
@@ -1508,24 +1508,24 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
 static char *(*game_id_hook)(void) = NULL;
 
 /* Set a function for getting a game ID string. The Glk library may
- call the supplied function when creating files, so that the files
- can be put in a game-specific location.
- 
- The function must have the form: char *func(void);
- 
- It should return NULL or a pointer to a (null-terminated) string.
- (The string will be copied, so it may be in a temporary buffer.)
- */
+   call the supplied function when creating files, so that the files
+   can be put in a game-specific location.
+
+   The function must have the form: char *func(void);
+
+   It should return NULL or a pointer to a (null-terminated) string.
+   (The string will be copied, so it may be in a temporary buffer.)
+*/
 void gidispatch_set_game_id_hook(char *(*hook)(void))
 {
     game_id_hook = hook;
 }
 
 /* Retrieve a game ID string for the current game. 
- 
- If not NULL, this string may be in a temporary buffer, so the caller
- must copy it!
- */
+
+   If not NULL, this string may be in a temporary buffer, so the caller
+   must copy it!
+*/
 char *gidispatch_get_game_id(void)
 {
     if (!game_id_hook)

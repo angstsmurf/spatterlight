@@ -20,7 +20,7 @@ void gli_windows_rearrange(void);
 
 window_t *gli_new_window(glui32 type, glui32 rock)
 {
-    window_t *win = malloc(sizeof(window_t));
+    window_t *win = (window_t *)malloc(sizeof(window_t));
     if (!win)
 	return NULL;
     
@@ -67,8 +67,13 @@ window_t *gli_new_window(glui32 type, glui32 rock)
 	    return 0;
     }
     
+    win->magicnum = MAGIC_WINDOW_NUM;
     win->rock = rock;
     win->type = type;
+    
+    win->str = gli_new_stream(strtype_Window, FALSE, TRUE, 0);
+    win->str->win = win;
+    win->echostr = NULL;
     
     win->parent = NULL; /* for now */    
     memset(&win->pair, 0, sizeof(win->pair));
@@ -79,6 +84,8 @@ window_t *gli_new_window(glui32 type, glui32 rock)
     win->line_request = FALSE;
     win->line_request_uni = FALSE;
     win->mouse_request = FALSE;
+    win->line.buf = NULL;
+    win->line.len = 0;
     
     win->style = style_Normal;
     
@@ -92,7 +99,9 @@ window_t *gli_new_window(glui32 type, glui32 rock)
 	win->next->prev = win;
     
     if (gli_register_obj)
-	win->disprock = (*gli_register_obj)(win, gidisp_Class_Window);
+		win->disprock = (*gli_register_obj)(win, gidisp_Class_Window);
+	else
+        win->disprock.ptr = NULL;
     
     return win;
 }
@@ -125,15 +134,20 @@ void gli_delete_window(window_t *win)
 	    break;
     }
     
-    if (gli_unregister_obj)
-	(*gli_unregister_obj)(win, gidisp_Class_Window, win->disprock);
-    
-    win->echostr = NULL;
-    if (win->str)
-    {
-	gli_delete_stream(win->str);
-	win->str = NULL;
+    if (gli_unregister_obj) {
+        (*gli_unregister_obj)(win, gidisp_Class_Window, win->disprock);
+        win->disprock.ptr = NULL;
     }
+    
+    win->magicnum = 0;
+    
+    /* Close window's stream. */
+    gli_delete_stream(win->str);
+    win->str = NULL;
+
+    /* The window doesn't own its echostr; closing the window doesn't close
+        the echostr. */
+    win->echostr = NULL;
     
     prev = win->prev;
     next = win->next;
@@ -543,6 +557,11 @@ glui32 glk_window_get_rock(window_t *win)
 	return 0;
     }
     return win->rock;
+}
+
+window_t *gli_window_get()
+{
+    return gli_rootwin;
 }
 
 winid_t glk_window_get_root()

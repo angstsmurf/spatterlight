@@ -1,5 +1,13 @@
 #include "glkimp.h"
 
+
+int gli_screenwidth = 80;
+int gli_screenheight = 24;
+
+#if GIDEBUG_LIBRARY_SUPPORT
+int gli_debugger = FALSE;
+#endif /* GIDEBUG_LIBRARY_SUPPORT */
+
 static int inittime = FALSE;
 
 int main(int argc, char **argv)
@@ -46,10 +54,29 @@ int main(int argc, char **argv)
     return 0;
 }
 
-strid_t glkunix_stream_open_pathname(char *pathname, glui32 textmode, glui32 rock)
+/* This opens a file for reading or writing. (You cannot open a file
+ for appending using this call.)
+ 
+ This should be used only by glkunix_startup_code().
+ */
+strid_t glkunix_stream_open_pathname_gen(char *pathname, glui32 writemode,
+                                         glui32 textmode, glui32 rock)
 {
     if (!inittime)
-	return 0;
-    glkunix_set_base_file(pathname);
-    return gli_stream_open_pathname(pathname, (textmode != 0), rock);
+        return 0;
+    return gli_stream_open_pathname(pathname, (writemode != 0), (textmode != 0), rock);
+}
+
+/* This opens a file for reading. It is a less-general form of
+ glkunix_stream_open_pathname_gen(), preserved for backwards
+ compatibility.
+ 
+ This should be used only by glkunix_startup_code().
+ */
+strid_t glkunix_stream_open_pathname(char *pathname, glui32 textmode,
+                                     glui32 rock)
+{
+    if (!inittime)
+        return 0;
+    return gli_stream_open_pathname(pathname, FALSE, (textmode != 0), rock);
 }
