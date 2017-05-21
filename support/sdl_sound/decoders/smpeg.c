@@ -152,7 +152,7 @@ static int _SMPEG_open(Sound_Sample *sample, const char *ext)
             BAIL_MACRO("SMPEG: Not an MP3 stream.", 0);
 
             /* If the seek fails, we'll probably miss a frame, but oh well */
-        SDL_RWseek(internal->rw, -sizeof (mp3_magic), SEEK_CUR);
+        SDL_RWseek(internal->rw, -(int)sizeof (mp3_magic), SEEK_CUR);
     } /* if */
 
     refCounter = RWops_RWRefCounter_new(internal->rw);
