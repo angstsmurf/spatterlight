@@ -994,8 +994,8 @@
 {
     [textview setEditable: NO];
 
-    //This allows us to scroll to the bottom for some reason. I bet it has to do with the margins.
-    for (NSInteger i=0; i<=7; i++)
+    // This allows us to scroll to the bottom for some reason. I bet it has to do with the margins.
+    for (NSInteger i=0; i<=14; i++)
           [self putString:@"\n" style:0];
 }
 
