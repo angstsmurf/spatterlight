@@ -5492,12 +5492,13 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
@@ -5527,12 +5528,13 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
@@ -5553,13 +5555,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "C_INCLUDE_PATH=/usr/local/include";
 				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/inc,
 					/usr/local/include/SLD,
 					/usr/local/include,
 				);
 				INSTALL_PATH = "@executable_path";
 				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/lib,
 					/usr/local/lib,
 					"/usr/local/opt/**",
 					"$(PROJECT_DIR)/Frameworks",
@@ -5581,13 +5581,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "C_INCLUDE_PATH=/usr/local/include";
 				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/inc,
 					/usr/local/include/SLD,
 					/usr/local/include,
 				);
 				INSTALL_PATH = "@executable_path";
 				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/lib,
 					/usr/local/lib,
 					"/usr/local/opt/**",
 					"$(PROJECT_DIR)/Frameworks",
@@ -5630,19 +5628,16 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = DEBUG;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(HEADER_SEARCH_PATHS)",
-					"$(SYSTEM_DEVELOPER_DIR)/fmod/universal",
-				);
+				HEADER_SEARCH_PATHS = "$(HEADER_SEARCH_PATHS)";
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
-					"\"$(SRCROOT)/fmod/api/lib\"",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -5669,10 +5664,9 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
-					"\"$(SRCROOT)/fmod/api/lib\"",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -5859,13 +5853,13 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					GLK,
+					__unix,
+				);
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				INSTALL_PATH = "$(HOME)/bin";
-				OTHER_CFLAGS = (
-					"-D__unix",
-					"-DGLK",
-				);
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = agility;
 			};
 			name = Debug;
@@ -5876,13 +5870,13 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					GLK,
+					__unix,
+				);
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				INSTALL_PATH = "$(HOME)/bin";
-				OTHER_CFLAGS = (
-					"-D__unix",
-					"-DGLK",
-				);
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = agility;
 			};
 			name = Release;
@@ -5897,17 +5891,13 @@
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					"HUGO_INLINE=static\\ inline",
 					GLK,
-					"$(GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS_QUOTED_1)",
+					COMPILE_V25,
+					NO_KEYPRESS_CURSOR,
 				);
-				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS_QUOTED_1 = "HUGO_INLINE=static\\ inline";
 				INSTALL_PATH = "$(HOME)/bin";
-				OTHER_CFLAGS = (
-					"-DGLK",
-					"-DCOMPILE_V25",
-					"-DNO_KEYPRESS_CURSOR",
-					"\"-DHUGO_INLINE=\\\"static inline\\\"\"",
-				);
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
 				WARNING_CFLAGS = "-Wmost";
 			};
@@ -5921,17 +5911,13 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					"HUGO_INLINE=static\\ inline",
 					GLK,
-					"$(GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS_QUOTED_1)",
+					COMPILE_V25,
+					NO_KEYPRESS_CURSOR,
 				);
-				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS_QUOTED_1 = "HUGO_INLINE=static\\ inline";
 				INSTALL_PATH = "$(HOME)/bin";
-				OTHER_CFLAGS = (
-					"-DGLK",
-					"-DCOMPILE_V25",
-					"-DNO_KEYPRESS_CURSOR",
-					"\"-DHUGO_INLINE=\\\"static inline\\\"\"",
-				);
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
 				WARNING_CFLAGS = "-Wmost";
 			};
@@ -6117,14 +6103,12 @@
 					GLK_UNICODE,
 				);
 				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/inc,
 					"$PROJECT_DIR/terps/tads/**",
 					"$PROJECT_DIR/terps/tads/tads2/**",
 					"$PROJECT_DIR/terps/tads/tads3/**",
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/lib,
 					"$PROJECT_DIR/terps/tads/**",
 					$PROJECT_DIR/terps/tads/tads2,
 					$PROJECT_DIR/terps/tads/tads3,
@@ -6157,14 +6141,12 @@
 					GLK_UNICODE,
 				);
 				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/inc,
 					"$PROJECT_DIR/terps/tads/**",
 					"$PROJECT_DIR/terps/tads/tads2/**",
 					"$PROJECT_DIR/terps/tads/tads3/**",
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				LIBRARY_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/lib,
 					"$PROJECT_DIR/terps/tads/**",
 					$PROJECT_DIR/terps/tads/tads2,
 					$PROJECT_DIR/terps/tads/tads3,
@@ -6197,7 +6179,6 @@
 					TC_TARGET_T3,
 				);
 				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/inc,
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads2,
 				);
@@ -6232,7 +6213,6 @@
 					TC_TARGET_T3,
 				);
 				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/inc,
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads2,
 				);
@@ -6271,7 +6251,6 @@
 				);
 				GCC_THREADSAFE_STATICS = NO;
 				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/inc,
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads3,
 				);
@@ -6309,7 +6288,6 @@
 				);
 				GCC_THREADSAFE_STATICS = NO;
 				HEADER_SEARCH_PATHS = (
-					$PROJECT_DIR/fmod/api/inc,
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads3,
 				);
@@ -6351,16 +6329,15 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					SOUND_SUPPORTS_SMPEG,
-					"SOUND_SUPPORTS_OGG\n",
-					SOUND_SUPPORTS_SMPEG,
+					SOUND_SUPPORTS_OGG,
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"($PROJECT_DIR)/support/sdl_sound/**",
-					"($PROJECT_DIR)/support/sdl",
+					"$PROJECT_DIR/support/sdl_sound/**",
+					$PROJECT_DIR/support/sdl,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -6386,16 +6363,15 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					SOUND_SUPPORTS_SMPEG,
-					"SOUND_SUPPORTS_OGG\n",
-					SOUND_SUPPORTS_SMPEG,
+					SOUND_SUPPORTS_OGG,
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"($PROJECT_DIR)/support/sdl_sound/**",
-					"($PROJECT_DIR)/support/sdl",
+					"$PROJECT_DIR/support/sdl_sound/**",
+					$PROJECT_DIR/support/sdl,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
