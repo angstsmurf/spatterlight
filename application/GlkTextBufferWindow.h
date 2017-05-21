@@ -24,7 +24,7 @@
 
 #define HISTORYLEN 50
 
-@interface GlkTextBufferWindow : GlkWindow
+@interface GlkTextBufferWindow : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate>
 {
     NSScrollView *scrollview;
     NSTextStorage *textstorage;
