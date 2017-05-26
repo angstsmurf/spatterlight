@@ -784,14 +784,29 @@ static const char *msgnames[] =
 	    {
 		GlkEvent *gevent;
 		gevent = [queue objectAtIndex: 0];
+        //NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
+
 		[gevent writeEvent: [sendfh fileDescriptor]];
 		[queue removeObjectAtIndex: 0];
 		return NO; /* keep reading ... we sent the reply */
 	    }
+        else
+        {
+            //No queued events.
+
+            if (!req->a1)
+            {
+                //Argument 1 is FALSE. No waiting for more events. Send a dummy reply to hand over to the interpreter immediately.
+                ans->cmd = OKAY;
+                break;
+
+            }
+        }
 
 	    [self guessFocus];
-	    waitforevent = YES;
-	    return YES; /* stop reading ... terp is waiting for reply */
+
+        waitforevent = YES;
+        return YES; /* stop reading ... terp is waiting for reply */
 	
 	case PROMPTOPEN:
 	    [self handleOpenPrompt: req->a1];
