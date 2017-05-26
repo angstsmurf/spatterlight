@@ -14,14 +14,14 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
  * Internal function/structure declaration. Do NOT include in your
  *  application.
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Ryan C. Gordon. (icculus@icculus.org)
  */
@@ -63,6 +63,14 @@
 #if (!defined assert)  /* if all else fails. */
 #  define assert(x)
 #endif
+
+
+/*
+ * SDL itself only supports mono and stereo output, but hopefully we can
+ *  raise this value someday...there's probably a lot of assumptions in
+ *  SDL_sound that rely on it, though.
+ */
+#define MAX_CHANNELS 2
 
 
 typedef struct __SOUND_DECODERFUNCTIONS__
@@ -217,9 +225,6 @@ typedef struct __SOUND_DECODERFUNCTIONS__
 
 
 /* A structure to hold a set of audio conversion filters and buffers */
-#if (defined SOUND_USE_ALTCVT)
-#include "alt_audio_convert.h"
-#else
 typedef struct Sound_AudioCVT
 {
     int    needed;                  /* Set to 1 if conversion possible */
@@ -234,7 +239,6 @@ typedef struct Sound_AudioCVT
     void   (*filters[20])(struct Sound_AudioCVT *cvt, Uint16 *format);
     int    filter_index;            /* Current audio conversion function */
 } Sound_AudioCVT;
-#endif
 
 extern SNDDECLSPEC int Sound_BuildAudioCVT(Sound_AudioCVT *cvt,
                         Uint16 src_format, Uint8 src_channels, Uint32 src_rate,
@@ -244,6 +248,7 @@ extern SNDDECLSPEC int Sound_BuildAudioCVT(Sound_AudioCVT *cvt,
 extern SNDDECLSPEC int Sound_ConvertAudio(Sound_AudioCVT *cvt);
 
 
+typedef void (*MixFunc)(float *dst, void *src, Uint32 frames, float *gains);
 
 typedef struct __SOUND_SAMPLEINTERNAL__
 {
@@ -255,6 +260,9 @@ typedef struct __SOUND_SAMPLEINTERNAL__
     void *buffer;
     Uint32 buffer_size;
     void *decoder_private;
+    Sint32 total_time;
+    Uint32 mix_position;
+    MixFunc mix;
 } Sound_SampleInternal;
 
 

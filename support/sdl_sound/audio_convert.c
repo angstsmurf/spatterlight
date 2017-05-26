@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU Library General Public
     License along with this library; if not, write to the Free
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
     Sam Lantinga
     slouken@devolution.com
@@ -30,8 +30,6 @@
 #if HAVE_CONFIG_H
 #  include <config.h>
 #endif
-
-#if !SOUND_USE_ALTCVT
 
 #include "SDL.h"
 #include "SDL_sound.h"
@@ -732,8 +730,6 @@ int Sound_BuildAudioCVT(Sound_AudioCVT *cvt,
 
     return(cvt->needed);
 } /* Sound_BuildAudioCVT */
-
-#endif  /* !SOUND_USE_ALTCVT */
 
 /* end of audio_convert.c ... */
 

@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -27,7 +27,7 @@
  *   Ogg Vorbis: http://www.xiph.org/ogg/vorbis/
  *   vorbisfile documentation: http://www.xiph.org/ogg/vorbis/doc/vorbisfile/
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Ryan C. Gordon. (icculus@icculus.org)
  */
@@ -48,8 +48,8 @@
 #define __SDL_SOUND_INTERNAL__
 #include "SDL_sound_internal.h"
 
-#include "vorbis/codec.h"
-#include "vorbis/vorbisfile.h"
+#include <vorbis/codec.h>
+#include <vorbis/vorbisfile.h>
 
 
 static int OGG_init(void);
@@ -171,6 +171,7 @@ static __inline__ void output_ogg_comments(OggVorbis_File *vf)
 static int OGG_open(Sound_Sample *sample, const char *ext)
 {
     int rc;
+    double total_time;
     OggVorbis_File *vf;
     vorbis_info *info;
     Sound_SampleInternal *internal = (Sound_SampleInternal *) sample->opaque;
@@ -209,6 +210,12 @@ static int OGG_open(Sound_Sample *sample, const char *ext)
     sample->flags = SOUND_SAMPLEFLAG_CANSEEK;
     sample->actual.rate = (Uint32) info->rate;
     sample->actual.channels = (Uint8) info->channels;
+    total_time = ov_time_total(vf, -1);
+    if (OV_EINVAL == total_time)
+      internal->total_time = -1;
+    else
+      internal->total_time = (Sint32)(total_time * 1000.0 + 0.5);
+
 
     /*
      * Since we might have more than one logical bitstream in the OGG file,
@@ -225,7 +232,7 @@ static int OGG_open(Sound_Sample *sample, const char *ext)
      *  OGG files are apparently commonly encoded in.
      */
     sample->actual.format = (sample->desired.format == 0) ?
-                             AUDIO_S16LSB : sample->desired.format;
+                             AUDIO_S16SYS : sample->desired.format;
     return(1);
 } /* OGG_open */
 

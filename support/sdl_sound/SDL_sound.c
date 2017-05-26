@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /**
@@ -23,7 +23,7 @@
  *
  * Documentation is in SDL_sound.h ... It's verbose, honest.  :)
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Ryan C. Gordon. (icculus@icculus.org)
  */
@@ -47,65 +47,22 @@
 
 /* The various decoder drivers... */
 
-#if (defined SOUND_SUPPORTS_SMPEG)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_SMPEG;
-#endif
-
-#if (defined SOUND_SUPPORTS_MPGLIB)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_MPGLIB;
-#endif
-
-#if (defined SOUND_SUPPORTS_MIKMOD)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_MIKMOD;
-#endif
-
-#if (defined SOUND_SUPPORTS_MODPLUG)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_MODPLUG;
-#endif
-
-#if (defined SOUND_SUPPORTS_WAV)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_WAV;
-#endif
-
-#if (defined SOUND_SUPPORTS_AIFF)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_AIFF;
-#endif
-
-#if (defined SOUND_SUPPORTS_AU)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_AU;
-#endif
-
-#if (defined SOUND_SUPPORTS_OGG)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_OGG;
-#endif
-
-#if (defined SOUND_SUPPORTS_VOC)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_VOC;
-#endif
-
-#if (defined SOUND_SUPPORTS_RAW)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_RAW;
-#endif
-
-#if (defined SOUND_SUPPORTS_SHN)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_SHN;
-#endif
-
-#if (defined SOUND_SUPPORTS_MIDI)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_MIDI;
-#endif
-
-#if (defined SOUND_SUPPORTS_FLAC)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_FLAC;
-#endif
-
-#if (defined SOUND_SUPPORTS_QUICKTIME)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_QuickTime;
-#endif
-
-#if (defined SOUND_SUPPORTS_SPEEX)
-extern const Sound_DecoderFunctions  __Sound_DecoderFunctions_SPEEX;
-#endif
+/* All these externs may be missing; we check SOUND_SUPPORTS_xxx before use. */
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_MPG123;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_MIKMOD;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_MODPLUG;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_WAV;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_AIFF;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_AU;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_OGG;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_VOC;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_RAW;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_SHN;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_MIDI;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_FLAC;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_QuickTime;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_SPEEX;
+extern const Sound_DecoderFunctions __Sound_DecoderFunctions_CoreAudio;
 
 typedef struct
 {
@@ -115,12 +72,8 @@ typedef struct
 
 static decoder_element decoders[] =
 {
-#if (defined SOUND_SUPPORTS_SMPEG)
-    { 0, &__Sound_DecoderFunctions_SMPEG },
-#endif
-
-#if (defined SOUND_SUPPORTS_MPGLIB)
-    { 0, &__Sound_DecoderFunctions_MPGLIB },
+#if (defined SOUND_SUPPORTS_MPG123)
+    { 0, &__Sound_DecoderFunctions_MPG123 },
 #endif
 
 #if (defined SOUND_SUPPORTS_MODPLUG)
@@ -173,6 +126,10 @@ static decoder_element decoders[] =
 
 #if (defined SOUND_SUPPORTS_SPEEX)
     { 0, &__Sound_DecoderFunctions_SPEEX },
+#endif
+
+#if (defined SOUND_SUPPORTS_COREAUDIO)
+    { 0, &__Sound_DecoderFunctions_CoreAudio },
 #endif
 
     { 0, NULL }
@@ -450,6 +407,10 @@ int __Sound_strcasecmp(const char *x, const char *y)
 static Sound_Sample *alloc_sample(SDL_RWops *rw, Sound_AudioInfo *desired,
                                     Uint32 bufferSize)
 {
+    /*
+     * !!! FIXME: We're going to need to pool samples, since the mixer
+     * !!! FIXME:  might be allocating tons of these on a regular basis.
+     */
     Sound_Sample *retval = malloc(sizeof (Sound_Sample));
     Sound_SampleInternal *internal = malloc(sizeof (Sound_SampleInternal));
     if ((retval == NULL) || (internal == NULL))
@@ -693,6 +654,7 @@ Sound_Sample *Sound_NewSampleFromFile(const char *filename,
 
     ext = strrchr(filename, '.');
     rw = SDL_RWFromFile(filename, "rb");
+    /* !!! FIXME: rw = RWops_FromFile(filename, "rb");*/
     BAIL_IF_MACRO(rw == NULL, SDL_GetError(), NULL);
 
     if (ext != NULL)
@@ -700,6 +662,26 @@ Sound_Sample *Sound_NewSampleFromFile(const char *filename,
 
     return(Sound_NewSample(rw, ext, desired, bufferSize));
 } /* Sound_NewSampleFromFile */
+
+
+Sound_Sample *Sound_NewSampleFromMem(const Uint8 *data,
+                                     Uint32 size,
+                                     const char *ext,
+                                     Sound_AudioInfo *desired,
+                                     Uint32 bufferSize)
+{
+    SDL_RWops *rw;
+
+    BAIL_IF_MACRO(!initialized, ERR_NOT_INITIALIZED, NULL);
+    BAIL_IF_MACRO(data == NULL, ERR_INVALID_ARGUMENT, NULL);
+    BAIL_IF_MACRO(size == 0, ERR_INVALID_ARGUMENT, NULL);
+
+    rw = SDL_RWFromConstMem(data, size);
+    /* !!! FIXME: rw = RWops_FromMem(data, size);*/
+    BAIL_IF_MACRO(rw == NULL, SDL_GetError(), NULL);
+
+    return(Sound_NewSample(rw, ext, desired, bufferSize));
+} /* Sound_NewSampleFromMem */
 
 
 void Sound_FreeSample(Sound_Sample *sample)
@@ -900,6 +882,14 @@ int Sound_Seek(Sound_Sample *sample, Uint32 ms)
     return(1);
 } /* Sound_Rewind */
 
+
+Sint32 Sound_GetDuration(Sound_Sample *sample)
+{
+    Sound_SampleInternal *internal;
+    BAIL_IF_MACRO(!initialized, ERR_NOT_INITIALIZED, -1);
+    internal = (Sound_SampleInternal *) sample->opaque;
+    return(internal->total_time);
+} /* Sound_GetDuration */
 
 /* end of SDL_sound.c ... */
 

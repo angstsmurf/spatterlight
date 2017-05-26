@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -23,7 +23,7 @@
  * This driver handles MIDI data through a stripped-down version of TiMidity.
  *  See the documentation in the timidity subdirectory.
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Torbjörn Andersson. (d91tan@Update.UU.SE)
  */
@@ -107,12 +107,13 @@ static int MIDI_open(Sound_Sample *sample, const char *ext)
     SNDDBG(("MIDI: Accepting data stream.\n"));
 
     internal->decoder_private = (void *) song;
+    internal->total_time = Timidity_GetSongLength(song);
 
     sample->actual.channels = 2;
     sample->actual.rate = 44100;
     sample->actual.format = AUDIO_S16SYS;
-    
     sample->flags = SOUND_SAMPLEFLAG_CANSEEK;
+    
     return(1); /* we'll handle this data. */
 } /* MIDI_open */
 

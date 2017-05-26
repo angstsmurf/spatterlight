@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -33,7 +33,7 @@
  *  there will be no conversion overhead, but these routines need to know how
  *  to treat the bits, since it's all random garbage otherwise.
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Ryan C. Gordon. (icculus@icculus.org)
  */
@@ -95,6 +95,10 @@ static void RAW_quit(void)
 
 static int RAW_open(Sound_Sample *sample, const char *ext)
 {
+    Sound_SampleInternal *internal = sample->opaque;
+    SDL_RWops *rw = internal->rw;
+    Uint32 pos, sample_rate;
+  
         /*
          * We check this explicitly, since we have no other way to
          *  determine whether we should handle this data or not.
@@ -121,6 +125,18 @@ static int RAW_open(Sound_Sample *sample, const char *ext)
          */
     memcpy(&sample->actual, &sample->desired, sizeof (Sound_AudioInfo));
     sample->flags = SOUND_SAMPLEFLAG_CANSEEK;
+
+    if ( (pos = SDL_RWseek(internal->rw, 0, SEEK_END) ) <= 0) {
+        BAIL_MACRO("RAW: cannot seek the end of the file \"RAW\".", 0);
+    }
+    if ( SDL_RWseek(internal->rw, 0, SEEK_SET) ) {
+        BAIL_MACRO("RAW: cannot reset file \"RAW\".", 0);
+    }
+
+    sample_rate =  (sample->actual.rate * sample->actual.channels
+      * ( (sample->actual.format & 0x0018) >> 3) );
+    internal->total_time = ( pos ) / sample_rate * 1000;
+    internal->total_time += (pos % sample_rate) * 1000 / sample_rate;
 
     return(1); /* we'll handle this data. */
 } /* RAW_open */

@@ -17,7 +17,7 @@
  *
  *  You should have received a copy of the GNU Library General Public
  *  License along with this library; if not, write to the Free
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  *  Frank Ranostaj
  *  ranostaj@stud.uni-frankfurt.de
@@ -27,11 +27,8 @@
 
 #ifndef Suffix
 #error include filter_template.h with defined Suffix macro!
-#endif /* Suffix */
-
-#ifndef CH
-#error include filter_template.h with defined CH macro!
-#endif /* CH */
+#else
+#define CH(x) (Suffix((x)*))
 
 /*-------------------------------------------------------------------------*/
 /* this filter (Kaiser-window beta=6.8) gives a decent -80dB attentuation  */
@@ -197,4 +194,6 @@ static Sint16* Suffix(decreaseRate)( Sint16 *outp, Sint16 *inp, int length,
 }
 
 /*-------------------------------------------------------------------------*/
+#undef CH
+#endif /* Suffix */
 

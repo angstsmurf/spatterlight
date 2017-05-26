@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -22,7 +22,7 @@
  * Formats supported: 8 and 16 bit linear PCM, 8 bit µ-law.
  * Files without valid header are assumed to be 8 bit µ-law, 8kHz, mono.
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Mattias Engdegård. (f91-men@nada.kth.se)
  */
@@ -166,7 +166,7 @@ static int AU_open(Sound_Sample *sample, const char *ext)
 {
     Sound_SampleInternal *internal = sample->opaque;
     SDL_RWops *rw = internal->rw;
-    int skip, hsize, i;
+    int skip, hsize, i, bytes_per_second;
     struct au_file_hdr hdr;
     struct audec *dec;
     char c;
@@ -242,7 +242,14 @@ static int AU_open(Sound_Sample *sample, const char *ext)
     {
         free(dec);
         BAIL_MACRO("AU: Not an .AU stream.", 0);
-    } /* else */
+    } /* else */    
+
+    bytes_per_second = ( ( dec->encoding == AU_ENC_LINEAR_16 ) ? 2 : 1 )
+        * sample->actual.rate * sample->actual.channels ;
+    internal->total_time = ((dec->remaining == -1) ? (-1) :
+                            ( ( dec->remaining / bytes_per_second ) * 1000 ) +
+                            ( ( dec->remaining % bytes_per_second ) * 1000 /
+                              bytes_per_second ) );
 
     sample->flags = SOUND_SAMPLEFLAG_CANSEEK;
     dec->total = dec->remaining;

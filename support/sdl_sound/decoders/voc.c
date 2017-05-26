@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -32,7 +32,7 @@
  *    SDL_mixer: http://www.libsdl.org/projects/SDL_mixer/
  *    sox: http://www.freshmeat.net/projects/sox/
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Ryan C. Gordon. (icculus@icculus.org)
  */
@@ -196,6 +196,7 @@ static int voc_get_block(Sound_Sample *sample, vs_t *v)
     Uint32 new_rate_long;
     Uint8 trash[6];
     Uint16 period;
+    Uint32 bytes_per_second;
     int i;
 
     v->silent = 0;
@@ -229,9 +230,9 @@ static int voc_get_block(Sound_Sample *sample, vs_t *v)
                         BAIL_MACRO("VOC sample rate codes differ", 0);
 
                     v->rate = uc;
-                    v->channels = 1;
                     sample->actual.rate = 1000000.0/(256 - v->rate);
                     sample->actual.channels = 1;
+                    v->channels = 1;
                 } /* if */
 
                 if (!voc_readbytes(src, v, &uc, sizeof (uc)))
@@ -242,6 +243,12 @@ static int voc_get_block(Sound_Sample *sample, vs_t *v)
                 v->extended = 0;
                 v->rest = sblen - 2;
                 v->size = ST_SIZE_BYTE;
+
+                bytes_per_second = sample->actual.rate
+                    * sample->actual.channels;
+                internal->total_time += ( v->rest ) / bytes_per_second * 1000;
+                internal->total_time += (v->rest % bytes_per_second) * 1000
+                                            / bytes_per_second;
                 return 1;
 
             case VOC_DATA_16:
@@ -273,8 +280,13 @@ static int voc_get_block(Sound_Sample *sample, vs_t *v)
 
                 if (!voc_readbytes(src, v, trash, sizeof (Uint8) * 6))
                     return 0;
-
                 v->rest = sblen - 12;
+
+                bytes_per_second = ((v->size == ST_SIZE_WORD) ? (2) : (1)) *
+                                    sample->actual.rate * v->channels;
+                internal->total_time += v->rest / bytes_per_second * 1000;
+                internal->total_time += ( v->rest % bytes_per_second ) * 1000
+                                            / bytes_per_second;
                 return 1;
 
             case VOC_CONT:
@@ -303,6 +315,9 @@ static int voc_get_block(Sound_Sample *sample, vs_t *v)
                     v->rate = uc;
                 v->rest = period;
                 v->silent = 1;
+
+                internal->total_time += (period) / (v->rate) * 1000;
+                internal->total_time += (period % v->rate) * 1000 / v->rate;
                 return 1;
 
             case VOC_LOOP:

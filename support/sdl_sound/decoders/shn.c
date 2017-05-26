@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -36,7 +36,7 @@
  * The Shorten format was gleaned from the shorten codebase, by Tony
  *  Robinson and SoftSound Limited.
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Ryan C. Gordon. (icculus@icculus.org)
  */
@@ -552,6 +552,7 @@ static __inline__ int parse_riff_header(shn_t *shn, Sound_Sample *sample)
     Uint16 u16;
     Uint32 u32;
     Sint32 cklen;
+    Uint32 bytes_per_second;
 
     BAIL_IF_MACRO(!uvar_get(SHN_VERBATIM_CKSIZE_SIZE, shn, rw, &cklen), NULL, 0);
 
@@ -573,13 +574,15 @@ static __inline__ int parse_riff_header(shn_t *shn, Sound_Sample *sample)
     sample->actual.rate = u32;
 
     BAIL_IF_MACRO(!verb_ReadLE32(shn, rw, &u32), NULL, 0); /* bytespersec */
+    bytes_per_second = u32;
     BAIL_IF_MACRO(!verb_ReadLE16(shn, rw, &u16), NULL, 0); /* blockalign */
     BAIL_IF_MACRO(!verb_ReadLE16(shn, rw, &u16), NULL, 0); /* bitspersample */
 
     BAIL_IF_MACRO(!verb_ReadLE32(shn, rw, &u32), NULL, 0); /* 'data' header */
     BAIL_IF_MACRO(u32 != dataID,  "SHN: No 'data' header.", 0);
     BAIL_IF_MACRO(!verb_ReadLE32(shn, rw, &u32), NULL, 0); /* chunksize */
-
+    internal->total_time = u32 / bytes_per_second * 1000;
+    internal->total_time += (u32 % bytes_per_second) * 1000 / bytes_per_second;
     return(1);
 } /* parse_riff_header */
 

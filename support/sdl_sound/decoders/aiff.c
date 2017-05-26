@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -36,7 +36,7 @@
  * standard; basically the parts of it that I can easily understand and test.
  * It's a start, though.
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file was written by Torbjörn Andersson. (d91tan@Update.UU.SE)
  */
@@ -475,6 +475,11 @@ static int AIFF_open(Sound_Sample *sample, const char *ext)
 
     sample->actual.channels = (Uint8) c.numChannels;
     sample->actual.rate = c.sampleRate;
+
+    /* Really, sample->total_time = (c.numSampleFrames*1000) c.sampleRate */
+    internal->total_time = (c.numSampleFrames / c.sampleRate) * 1000;
+    internal->total_time += (c.numSampleFrames % c.sampleRate)
+                             *  1000 / c.sampleRate;
 
     if (c.sampleSize <= 8)
     {

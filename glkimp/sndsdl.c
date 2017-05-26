@@ -525,7 +525,7 @@ static glui32 play_mod(schanid_t chan, long len)
 {
     fprintf(stderr, "MOD player!\n");
     FILE *file;
-    char *tn;
+    char tn[256];
     char *tempdir;
     int music_busy;
 
@@ -535,20 +535,26 @@ static glui32 play_mod(schanid_t chan, long len)
     /* The fscking mikmod lib want to read the mod only from disk! */
     tempdir = getenv("TMPDIR");
     if (tempdir == NULL) tempdir = ".";
-    fprintf(stderr, "tempdir = %s\n", tempdir);
+	//fprintf(stderr, "tempdir = %s\n", tempdir);
 
-    sprintf(tn, "%sgargtmp", tempdir);
+    sprintf(tn, "%stemp", tempdir);
     mktemp(tn);
-    //tn = tempnam(tempdir, "gargtmp");
+	sprintf(tn, "%s.mod", tn);
 
-    fprintf(stderr, "tn = %s\n", tn);
+    //fprintf(stderr, "tn = %s\n", tn);
 
     file = fopen(tn, "wb");
     fwrite(chan->sdl_memory, 1, len, file);
-    fclose(file);
+
+    Mix_SetMusicCMD(NULL);
     chan->music = Mix_LoadMUS(tn);
+    
+    if(!chan->music)
+        fprintf(stderr, "Mix_LoadMUS(\"%s\"): %s\n", tn, Mix_GetError());
+    // this might be a critical error...
+
+    fclose(file);
     remove(tn);
-    //free(tn);
 
     music_busy = Mix_PlayingMusic();
 

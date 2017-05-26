@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
    instrum.h
 
@@ -51,9 +51,9 @@ typedef struct _RIFF_Chunk {
     struct _RIFF_Chunk *next;
 } RIFF_Chunk;
 
-extern DECLSPEC RIFF_Chunk* SDLCALL LoadRIFF(SDL_RWops *src);
-extern DECLSPEC void SDLCALL FreeRIFF(RIFF_Chunk *chunk);
-extern DECLSPEC void SDLCALL PrintRIFF(RIFF_Chunk *chunk, int level);
+extern RIFF_Chunk* LoadRIFF(SDL_RWops *src);
+extern void FreeRIFF(RIFF_Chunk *chunk);
+extern void PrintRIFF(RIFF_Chunk *chunk, int level);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /*-------------------------------------------------------------------------*/
@@ -353,8 +353,8 @@ typedef struct _DLS_Data {
     const char *comments;
 } DLS_Data;
 
-extern DECLSPEC DLS_Data* SDLCALL LoadDLS(SDL_RWops *src);
-extern DECLSPEC void SDLCALL FreeDLS(DLS_Data *chunk);
+extern DLS_Data* LoadDLS(SDL_RWops *src);
+extern void FreeDLS(DLS_Data *chunk);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /*-------------------------------------------------------------------------*/

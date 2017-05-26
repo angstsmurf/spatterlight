@@ -14,13 +14,13 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
  * Some extra RWops that are needed or are just handy to have.
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Ryan C. Gordon. (icculus@icculus.org)
  */
@@ -60,6 +60,24 @@ SDL_RWops *RWops_RWRefCounter_new(SDL_RWops *rw);
 
 /* Increment a reference counting RWops's refcount by one. */
 void RWops_RWRefCounter_addRef(SDL_RWops *rw);
+
+
+/*
+ * RWops pooling. This is to reduce malloc() pressure for audio that is
+ *  placed into Sound_Samples over and over again.
+ */
+
+/* Call this first. */
+int RWops_pooled_init(void);
+
+/* Call this last. */
+int RWops_pooled_deinit(void);
+
+/* Get a new RWops, allocating if needed. */
+SDL_RWops *RWops_pooled_alloc(void);
+
+/* Return a RWops to the pool for reuse. */
+void RWops_pooled_free(SDL_RWops *rw);
 
 #ifdef __cplusplus
 }

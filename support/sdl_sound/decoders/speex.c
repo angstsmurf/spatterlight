@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -34,7 +34,7 @@
  *
  * This code is based on speexdec.c (see the Speex website).
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Ryan C. Gordon. (icculus@icculus.org)
  */
@@ -67,7 +67,7 @@ static Uint32 SPEEX_read(Sound_Sample *sample);
 static int SPEEX_rewind(Sound_Sample *sample);
 static int SPEEX_seek(Sound_Sample *sample, Uint32 ms);
 
-static const char *extensions_speex[] = { "spx", NULL };
+static const char *extensions_speex[] = { "SPX", NULL };
 const Sound_DecoderFunctions __Sound_DecoderFunctions_SPEEX =
 {
     {
@@ -420,7 +420,16 @@ speex_read_failed:
 
 static int SPEEX_rewind(Sound_Sample *sample)
 {
-    /* !!! FIXME */ return(0);
+    Sound_SampleInternal *internal = (Sound_SampleInternal *) sample->opaque;
+    /*
+     * !!! FIXME: This is really unacceptable; state should be reset and
+     * !!! FIXME:  the RWops should be pointed to the start of the data
+     * !!! FIXME:  to decode. The below kludge adds unneeded overhead and
+     * !!! FIXME:  risk of failure.
+     */
+    BAIL_IF_MACRO(SDL_RWseek(internal->rw, 0, SEEK_SET) != 0, ERR_IO_ERROR, 0);
+    SPEEX_close(sample);
+    return(SPEEX_open(sample, "SPX"));
 } /* SPEEX_rewind */
 
 

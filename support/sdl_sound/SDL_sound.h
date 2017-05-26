@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /**
@@ -42,7 +42,7 @@
  * Support is in place or planned for the following sound formats:
  *   - .WAV  (Microsoft WAVfile RIFF data, internal.)
  *   - .VOC  (Creative Labs' Voice format, internal.)
- *   - .MP3  (MPEG-1 Layer 3 support, via the SMPEG and mpglib libraries.)
+ *   - .MP3  (MPEG-1 Layer 3 support, via libmpg123.)
  *   - .MID  (MIDI music converted to Waveform data, internal.)
  *   - .MOD  (MOD files, via MikMod and ModPlug.)
  *   - .OGG  (Ogg files, via Ogg Vorbis libraries.)
@@ -55,7 +55,7 @@
  *
  *   (...and more to come...)
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  * \author Ryan C. Gordon (icculus@icculus.org)
  * \author many others, please see CREDITS in the source's root directory.
@@ -79,13 +79,15 @@ extern "C" {
 
 #ifdef SDL_SOUND_DLL_EXPORTS
 #  define SNDDECLSPEC __declspec(dllexport)
+#elif (__GNUC__ >= 3)
+#  define SNDDECLSPEC __attribute__((visibility("default")))
 #else
 #  define SNDDECLSPEC
 #endif
 
 #define SOUND_VER_MAJOR 1
 #define SOUND_VER_MINOR 0
-#define SOUND_VER_PATCH 3
+#define SOUND_VER_PATCH 1
 #endif
 
 
@@ -452,6 +454,39 @@ SNDDECLSPEC Sound_Sample * SDLCALL Sound_NewSample(SDL_RWops *rw,
                                                    Uint32 bufferSize);
 
 /**
+ * \fn Sound_Sample *Sound_NewSampleFromMem(const Uint8 *data, Sound_AudioInfo *desired, Uint32 bufferSize)
+ * \brief Start decoding a new sound sample from a file on disk.
+ *
+ * This is identical to Sound_NewSample(), but it creates an SDL_RWops for you
+ *  from the (size) bytes of memory referenced by (data).
+ *
+ * This can pool RWops structures, so it may fragment the heap less over time
+ *  than using SDL_RWFromMem().
+ *
+ *    \param filename file containing sound data.
+ *    \param desired Format to convert sound data into. Can usually be NULL,
+ *                   if you don't need conversion.
+ *    \param bufferSize size, in bytes, of initial read buffer.
+ *   \return Sound_Sample pointer, which is used as a handle to several other
+ *           SDL_sound APIs. NULL on error. If error, use
+ *           Sound_GetError() to see what went wrong.
+ *
+ * \sa Sound_NewSample
+ * \sa Sound_SetBufferSize
+ * \sa Sound_Decode
+ * \sa Sound_DecodeAll
+ * \sa Sound_Seek
+ * \sa Sound_Rewind
+ * \sa Sound_FreeSample
+ */
+SNDDECLSPEC Sound_Sample * SDLCALL Sound_NewSampleFromMem(const Uint8 *data,
+                                                      Uint32 size,
+                                                      const char *ext,
+                                                      Sound_AudioInfo *desired,
+                                                      Uint32 bufferSize);
+
+
+/**
  * \fn Sound_Sample *Sound_NewSampleFromFile(const char *filename, Sound_AudioInfo *desired, Uint32 bufferSize)
  * \brief Start decoding a new sound sample from a file on disk.
  *
@@ -461,6 +496,9 @@ SNDDECLSPEC Sound_Sample * SDLCALL Sound_NewSample(SDL_RWops *rw,
  *  "/home/icculus/music/mysong.mp3" or whatever on Unix, etc.)
  * Sound_NewSample()'s "ext" parameter is gleaned from the contents of
  *  (filename).
+ *
+ * This can pool RWops structures, so it may fragment the heap less over time
+ *  than using SDL_RWFromFile().
  *
  *    \param filename file containing sound data.
  *    \param desired Format to convert sound data into. Can usually be NULL,
@@ -497,6 +535,31 @@ SNDDECLSPEC Sound_Sample * SDLCALL Sound_NewSampleFromFile(const char *fname,
  * \sa Sound_NewSampleFromFile
  */
 SNDDECLSPEC void SDLCALL Sound_FreeSample(Sound_Sample *sample);
+
+
+/**
+ * \fn Sint32 Sound_GetDuration(Sound_Sample *sample)
+ * \brief Retrieve total play time of sample, in milliseconds.
+ *
+ * Report total time length of sample, in milliseconds. This is a fast
+ *  call. Duration is calculated during Sound_NewSample*, so this is just
+ *  an accessor into otherwise opaque data.
+ *
+ * Please note that not all formats can determine a total time, some can't
+ *  be exact without fully decoding the data, and thus will estimate the
+ *  duration. Many decoders will require the ability to seek in the data
+ *  stream to calculate this, so even if we can tell you how long an .ogg
+ *  file will be, the same data set may fail if it's, say, streamed over an
+ *  HTTP connection. Plan accordingly.
+ *
+ * Most people won't need this function to just decode and playback, but it
+ *  can be useful for informational purposes in, say, a music player's UI.
+ *
+ *    \param sample Sound_Sample from which to retrieve duration information.
+ *   \return Sample length in milliseconds, or -1 if duration can't be
+ *           determined for any reason.
+ */
+SNDDECLSPEC Sint32 SDLCALL Sound_GetDuration(Sound_Sample *sample);
 
 
 /**

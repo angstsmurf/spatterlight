@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 /*
@@ -24,7 +24,7 @@
  *  Codec. It depends on libFLAC for decoding, which can be grabbed from:
  *  http://flac.sourceforge.net
  *
- * Please see the file COPYING in the source's root directory.
+ * Please see the file LICENSE.txt in the source's root directory.
  *
  *  This file written by Torbjörn Andersson. (d91tan@Update.UU.SE)
  */
@@ -277,6 +277,8 @@ static void metadata_callback(
     void *client_data)
 {
     flac_t *f = (flac_t *) client_data;
+    Sound_Sample *sample = f->sample;
+    Sound_SampleInternal *internal = (Sound_SampleInternal *) sample->opaque;
 
     SNDDBG(("FLAC: Metadata callback.\n"));
 
@@ -288,13 +290,27 @@ static void metadata_callback(
         SNDDBG(("FLAC: Metadata is streaminfo.\n"));
 
         f->is_flac = 1;
-        f->sample->actual.channels = metadata->data.stream_info.channels;
-        f->sample->actual.rate = metadata->data.stream_info.sample_rate;
+        sample->actual.channels = metadata->data.stream_info.channels;
+        sample->actual.rate = metadata->data.stream_info.sample_rate;
+
+        if (metadata->data.stream_info.sample_rate == 0 ||
+            metadata->data.stream_info.total_samples == 0)
+        {
+            internal->total_time = -1;
+        } /* if */
+        else
+        {
+            internal->total_time = (metadata->data.stream_info.total_samples)
+                / metadata->data.stream_info.sample_rate * 1000;
+            internal->total_time += (metadata->data.stream_info.total_samples
+                % metadata->data.stream_info.sample_rate) * 1000
+                / metadata->data.stream_info.sample_rate;
+        } /* else */
 
         if (metadata->data.stream_info.bits_per_sample > 8)
-            f->sample->actual.format = AUDIO_S16MSB;
+            sample->actual.format = AUDIO_S16MSB;
         else
-            f->sample->actual.format = AUDIO_S8;
+            sample->actual.format = AUDIO_S8;
     } /* if */
 } /* metadata_callback */
 
