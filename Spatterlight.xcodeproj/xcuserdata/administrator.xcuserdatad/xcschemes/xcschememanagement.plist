@@ -7,112 +7,112 @@
 		<key>SDL_sound_static.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>21</integer>
+			<integer>34</integer>
 		</dict>
 		<key>Spatterlight.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>11</integer>
 		</dict>
 		<key>advsys.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>17</integer>
 		</dict>
 		<key>agility.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>18</integer>
 		</dict>
 		<key>agt2agx.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>19</integer>
 		</dict>
 		<key>alan2.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>20</integer>
 		</dict>
 		<key>alan3.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>21</integer>
 		</dict>
 		<key>babel.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>12</integer>
 		</dict>
 		<key>frotz.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>22</integer>
 		</dict>
 		<key>glkimp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>15</integer>
 		</dict>
 		<key>glkmain.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>16</integer>
 		</dict>
 		<key>glulxe.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>23</integer>
 		</dict>
 		<key>htmltads.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>17</integer>
+			<integer>30</integer>
 		</dict>
 		<key>htmltadsr.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>32</integer>
 		</dict>
 		<key>hugo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>24</integer>
 		</dict>
 		<key>level9.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>25</integer>
 		</dict>
 		<key>magnetic.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>26</integer>
 		</dict>
 		<key>scare.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>27</integer>
 		</dict>
 		<key>tads2.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>28</integer>
 		</dict>
 		<key>tads3.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>29</integer>
 		</dict>
 		<key>tadsr.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>31</integer>
 		</dict>
 		<key>unquill.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>33</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -223,6 +223,11 @@
 			<true/>
 		</dict>
 		<key>C3378A191ECF95CB00BCEAE5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C3AD43971ED6F7D2007C47BA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

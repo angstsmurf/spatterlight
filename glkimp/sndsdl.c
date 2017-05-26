@@ -295,6 +295,8 @@ static void music_completion_callback()
     {
         gli_event_store(evtype_SoundNotify, 0,
                         music_channel->resid, music_channel->notify);
+        fprintf(stderr, "Pointless call to gli_event_store for music channel completion.\n");
+
     }
     cleanup_channel(music_channel);
 }
@@ -306,14 +308,22 @@ static void sound_completion_callback(int chan)
     if (!sound_channel || Mix_Playing(chan))
     {
         gli_strict_warning("sound callback failed");
+        if (!sound_channel)
+            fprintf(stderr, "sound_channel %d is NULL\n", chan);
+        if (Mix_Playing(chan))
+            fprintf(stderr, "Mix_Playing(%d) is TRUE\n", chan);
         return;
     }
+    //else fprintf (stderr, "sound callback worked?\n");
+
     if (!sound_channel->buffered || !sound_channel->decode)
     {
         if (sound_channel->notify)
         {
             gli_event_store(evtype_SoundNotify, 0,
                             sound_channel->resid, sound_channel->notify);
+            fprintf(stderr, "Pointless call to gli_event_store for sound channel completion.\n");
+
         }
         cleanup_channel(sound_channel);
         sound_channels[chan] = 0;
@@ -513,8 +523,9 @@ static glui32 play_compressed(schanid_t chan, char *ext)
 /** Start a mod music channel */
 static glui32 play_mod(schanid_t chan, long len)
 {
+    fprintf(stderr, "MOD player!\n");
     FILE *file;
-    char tn[256];
+    char *tn;
     char *tempdir;
     int music_busy;
 
@@ -522,17 +533,25 @@ static glui32 play_mod(schanid_t chan, long len)
         gli_strict_warning("MOD player called with an invalid channel!");
     chan->status = CHANNEL_MUSIC;
     /* The fscking mikmod lib want to read the mod only from disk! */
-    tempdir = getenv("TEMP");
+    tempdir = getenv("TMPDIR");
     if (tempdir == NULL) tempdir = ".";
-    sprintf(tn, "%s/gargtmp", tempdir);
+    fprintf(stderr, "tempdir = %s\n", tempdir);
+
+    sprintf(tn, "%sgargtmp", tempdir);
     mktemp(tn);
+    //tn = tempnam(tempdir, "gargtmp");
+
+    fprintf(stderr, "tn = %s\n", tn);
+
     file = fopen(tn, "wb");
     fwrite(chan->sdl_memory, 1, len, file);
     fclose(file);
     chan->music = Mix_LoadMUS(tn);
     remove(tn);
-    free(tn);
+    //free(tn);
+
     music_busy = Mix_PlayingMusic();
+
     if (music_busy)
         gli_strict_warning("MOD player already in use");
     if (!music_busy && chan->music)
@@ -575,7 +594,7 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
     type = load_sound_resource(snd, &len, &buf);
 
     chan->sdl_memory = (unsigned char*)buf;
-    chan->sdl_rwops = SDL_RWFromConstMem(buf, len);
+    chan->sdl_rwops = SDL_RWFromConstMem(buf, (int)len);
     chan->notify = notify;
     chan->resid = snd;
     chan->loop = repeats;
