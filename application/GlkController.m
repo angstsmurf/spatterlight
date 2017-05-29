@@ -1032,7 +1032,7 @@ static const char *msgnames[] =
 		[self handlePrintOnWindow: gwindows[req->a1] 
 				    style: req->a2
 				   buffer: (unichar*)buf 
-				   length: req->len / sizeof(unichar)];
+                   length: req->len / sizeof(unichar)];
 	    }
 	    break;
 	    
