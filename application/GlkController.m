@@ -47,7 +47,7 @@ static const char *msgnames[] =
 {
     [super setFrame: frame];
     if (![self inLiveResize])
-	[delegate contentDidResize: frame];
+        [delegate contentDidResize: frame];
 }
 
 - (void) viewDidEndLiveResize
@@ -954,16 +954,19 @@ static const char *msgnames[] =
 	    NSLog(@"glkctl sizwin %d: %d x %d", req->a1, req->a4-req->a2, req->a5-req->a3);
 	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
 	    {
-		int x0, y0, x1, y1;
-		NSRect rect;
-		x0 = req->a2;
-		y0 = req->a3;
-		x1 = req->a4;
-		y1 = req->a5;
-		rect = NSMakeRect(x0, y0, x1 - x0, y1 - y0);
-		[gwindows[req->a1] setFrame: rect];
-		windowdirty = YES;
+            int x0, y0, x1, y1;
+            NSRect rect;
+            x0 = req->a2;
+            y0 = req->a3;
+            x1 = req->a4;
+            y1 = req->a5;
+            rect = NSMakeRect(x0, y0, x1 - x0, y1 - y0);
+            [gwindows[req->a1] setFrame: rect];
+            windowdirty = YES;
 	    }
+        else
+            NSLog(@"sizwin: something went wrong.");
+
 	    break;
 	
 	case CLRWIN:
@@ -976,7 +979,7 @@ static const char *msgnames[] =
 	case SETBGND:
 	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
 	    {
-		[gwindows[req->a1] setBgColor: req->a2];
+            [gwindows[req->a1] setBgColor: req->a2];
 	    }
 	    break;
 	    
@@ -1039,37 +1042,44 @@ static const char *msgnames[] =
 	 */
 	    
 	case INITLINE:
+        NSLog(@"glkctl INITLINE %d", req->a1);
 	    [self performScroll];
 	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
 	    {
-		[gwindows[req->a1] initLine: stringWithLatin1String(buf, req->len)];
+            [gwindows[req->a1] initLine: [[[NSString alloc]
+                                                  initWithData: [NSData dataWithBytes: buf
+                                                                               length: req->len]
+                                                                             encoding: NSUTF8StringEncoding] autorelease]];
+
 	    }
 	    break;
 	    
 	case CANCELLINE:
+        NSLog(@"glkctl CANCELLINE %d", req->a1);
 	    ans->cmd = OKAY;
 	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
 	    {
-		const char *str = latin1String([gwindows[req->a1] cancelLine]);
-		strlcpy(buf, str, GLKBUFSIZE);
-		ans->len = strlen(buf);
+            const char *str = [[gwindows[req->a1] cancelLine] UTF8String];
+            strlcpy(buf, str, GLKBUFSIZE);
+            ans->len = (int)strlen(buf);
 	    }
 	    break;
 	    
 	case INITCHAR:
 	    [self performScroll];
-            NSLog(@"glkctl initchar %d", req->a1);
+        NSLog(@"glkctl initchar %d", req->a1);
 	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-		[gwindows[req->a1] initChar];
+            [gwindows[req->a1] initChar];
 	    break;
 	    
 	case CANCELCHAR:
+        NSLog(@"glkctl CANCELCHAR %d", req->a1);
 	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-		[gwindows[req->a1] cancelChar];
+            [gwindows[req->a1] cancelChar];
 	    break;
 	    
 	case INITMOUSE:
-            NSLog(@"glkctl initmouse %d", req->a1);
+        NSLog(@"glkctl initmouse %d", req->a1);
 	    [self performScroll];
 	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
 		[gwindows[req->a1] initMouse];
@@ -1151,8 +1161,8 @@ static BOOL pollMoreData(int fd)
     
     if (timer)
     {
-	[timer invalidate];
-	timer = nil;
+        [timer invalidate];
+        timer = nil;
     }
     
     if (task && [task terminationStatus] != 0)
@@ -1175,7 +1185,7 @@ static BOOL pollMoreData(int fd)
     
     for (i = 0; i < MAXWIN; i++)
 	if (gwindows[i])
-	    [gwindows[i] terpDidStop];
+	  [gwindows[i] terpDidStop];
     
     for (i = 0; i < MAXSND; i++)
 	if (gchannels[i])
@@ -1183,7 +1193,7 @@ static BOOL pollMoreData(int fd)
     
     [[self window] setTitle:
 	[[[self window] title] stringByAppendingString: @" (finished)"]];
-    
+
     [task release];
     task = nil;
     
@@ -1214,23 +1224,21 @@ static BOOL pollMoreData(int fd)
     
     struct message request;
     struct message reply;
-    const char *s;
     char minibuf[GLKBUFSIZE + 1];
     char *maxibuf;
     char *buf;
-    NSSize size;
-    int n, t;
+    NSInteger n, t;
     BOOL stop;
     
-    int readfd = [readfh fileDescriptor];
-    int sendfd = [sendfh fileDescriptor];
+    NSInteger readfd = [readfh fileDescriptor];
+    NSInteger sendfd = [sendfh fileDescriptor];
     
 again:
     
     buf = minibuf;
     maxibuf = NULL;
     
-    n = read(readfd, &request, sizeof(struct message));
+    n = read((int)readfd, &request, sizeof(struct message));
     if (n < sizeof(struct message))
     {
 	if (n < 0)

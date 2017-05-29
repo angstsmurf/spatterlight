@@ -79,9 +79,9 @@
 }
 
 - (NSImage*) image { return image; }
-- (int) position { return pos; }
-- (int) alignment { return align; }
-- (int) flowBreakAt { return brk; }
+- (NSInteger) position { return pos; }
+- (NSInteger) alignment { return align; }
+- (NSInteger) flowBreakAt { return brk; }
 - (void) setFlowBreakAt: (int)fb { brk = fb; }
 
 - (NSRect) boundsWithLayout: (NSLayoutManager*)layout
@@ -164,7 +164,7 @@
 
 - (void) invalidateLayout
 {
-    int count, i;
+    NSInteger count, i;
     
     count = [margins count];
     for (i = 0; i < count; i++)
@@ -173,7 +173,7 @@
     [[self layoutManager] textContainerChangedGeometry: self];
 }
 
-- (void) addImage: (NSImage*)image align: (int)align at: (int)top size: (NSSize)size
+- (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top size: (NSSize)size
 {
     MarginImage *mi = [[MarginImage alloc] initWithImage: image align: align at: top size: size];
     [margins addObject: mi];
@@ -181,15 +181,15 @@
     [[self layoutManager] textContainerChangedGeometry: self];
 }
 
-- (void) flowBreakAt: (int)pos
+- (void) flowBreakAt: (NSInteger)pos
 {
-    int count = [margins count];
+    NSInteger count = [margins count];
     if (count)
     {
         MarginImage *mi = [margins objectAtIndex: count - 1];
         if ([mi flowBreakAt] < 0)
         {
-            [mi setFlowBreakAt: pos];
+            [mi setFlowBreakAt: (int)pos];
             [[self layoutManager] textContainerChangedGeometry: self];
         }
     }
@@ -208,10 +208,10 @@
     MarginImage *image;
     NSRect bounds;
     NSRect rect;
-    NSPoint point;
-    int brk;
-    int count;
-    int i;
+    //NSPoint point;
+    //NSInteger brk;
+    NSInteger count;
+    NSInteger i;
     
     rect = [super lineFragmentRectForProposedRect: proposed
 				   sweepDirection: sweepdir
@@ -242,8 +242,8 @@
     NSSize size;
     NSRect bounds;
     
-    int count;
-    int i;
+    NSInteger count;
+    NSInteger i;
     
     count = [margins count];
     for (i = 0; i < count; i++)
@@ -312,83 +312,94 @@
 
 @implementation GlkTextBufferWindow
 
-- (id) initWithGlkController: (GlkController*)glkctl_ name: (int)name_
+- (id) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
 {
-    int margin = [Preferences bufferMargins];
-    int i;
-    
-    [super initWithGlkController: glkctl_ name: name_];
-    
-    char_request = NO;
-    line_request = NO;
-    
-    fence = 0;
-    lastseen = 0;
-    lastchar = '\n';
-    
-    for (i = 0; i < HISTORYLEN; i++)
-	history[i] = nil;
-    historypos = 0;
-    historyfirst = 0;
-    historypresent = 0;
-    
-    scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
-    [scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
-    [scrollview setHasHorizontalScroller: NO];
-    [scrollview setHasVerticalScroller: YES];
-    [scrollview setBorderType: NSNoBorder];
-    
-    /* construct text system manually */
-    
-    textstorage = [[NSTextStorage alloc] init];
-    
-    layoutmanager = [[NSLayoutManager alloc] init];
-    [textstorage addLayoutManager: layoutmanager];
-    
-    container = [[MarginContainer alloc] initWithContainerSize: NSMakeSize(FLT_MAX, FLT_MAX)];
-    [container setLayoutManager: layoutmanager];
-    [layoutmanager addTextContainer: container];
-    
-    textview = [[MyTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, FLT_MAX) textContainer:container];
 
-    [container setTextView: textview];
+    self = [super initWithGlkController: glkctl_ name: name_];
     
-    [scrollview setDocumentView: textview];
-    
-    /* now configure the text stuff */
-    
-    [container setWidthTracksTextView: YES];
-    [container setHeightTracksTextView: NO];
-    
-    [textview setHorizontallyResizable: NO];
-    [textview setVerticallyResizable: YES];
-    [textview setAutoresizingMask: NSViewWidthSizable];
-    
-    [textview setEditable: YES];
-    [textview setAllowsUndo: NO];
-    [textview setUsesFontPanel: NO];
-    [textview setSmartInsertDeleteEnabled: NO];
-    
-    [textview setDelegate: self];
-    [textstorage setDelegate: self];
-    
-    [textview setTextContainerInset: NSMakeSize(margin - 3, margin)];
-    [textview setBackgroundColor: [Preferences bufferBackground]];
-    [textview setInsertionPointColor: [Preferences bufferForeground]];
-    
-    // disabling screen fonts will force font smoothing and kerning.
-    // using screen fonts will render ugly and uneven text and sometimes
-    // even bitmapped fonts.
-    [layoutmanager setUsesScreenFonts: [Preferences useScreenFonts]];
-    
-    [self addSubview: scrollview];
-    
+    if (self)
+    {
+        NSInteger margin = [Preferences bufferMargins];
+        NSInteger i;
+
+        char_request = NO;
+        line_request = NO;
+
+        fence = 0;
+        lastseen = 0;
+        lastchar = '\n';
+
+        for (i = 0; i < HISTORYLEN; i++)
+        history[i] = nil;
+        historypos = 0;
+        historyfirst = 0;
+        historypresent = 0;
+
+        scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
+        [scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+        [scrollview setHasHorizontalScroller: NO];
+        [scrollview setHasVerticalScroller: YES];
+        [scrollview setBorderType: NSNoBorder];
+
+        /* construct text system manually */
+
+        textstorage = [[NSTextStorage alloc] init];
+
+        layoutmanager = [[NSLayoutManager alloc] init];
+        [textstorage addLayoutManager: layoutmanager];
+
+        container = [[MarginContainer alloc] initWithContainerSize: NSMakeSize(0, 10000000)];
+
+        [container setLayoutManager: layoutmanager];
+        [layoutmanager addTextContainer: container];
+
+        textview = [[MyTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000) textContainer:container];
+
+        [textview setMinSize:NSMakeSize(1, 10000000)];
+        [textview setMaxSize:NSMakeSize(10000000, 10000000)];
+
+        [container setTextView: textview];
+
+        [scrollview setDocumentView: textview];
+
+        /* now configure the text stuff */
+
+
+        [container setWidthTracksTextView: YES];
+        [container setHeightTracksTextView: NO];
+
+        [textview setHorizontallyResizable: NO];
+        [textview setVerticallyResizable: YES];
+
+        [textview setAutoresizingMask: NSViewWidthSizable];
+
+        [textview setAllowsImageEditing: NO];
+        [textview setAllowsUndo: NO];
+        [textview setUsesFontPanel: NO];
+        [textview setSmartInsertDeleteEnabled: NO];
+
+        [textview setDelegate: self];
+        [textstorage setDelegate: self];
+
+        [textview setTextContainerInset: NSMakeSize(margin - 3, margin)];
+        [textview setBackgroundColor: [Preferences bufferBackground]];
+        [textview setInsertionPointColor: [Preferences bufferForeground]];
+
+
+        // disabling screen fonts will force font smoothing and kerning.
+        // using screen fonts will render ugly and uneven text and sometimes
+        // even bitmapped fonts.
+        [layoutmanager setUsesScreenFonts: [Preferences useScreenFonts]];
+
+        [self addSubview: scrollview];
+    }
+
     return self;
 }
 
 - (void) dealloc
 {
-    int i;
+    NSInteger i;
     
     for (i = 0; i < HISTORYLEN; i++)
 	[history[i] release];
@@ -401,7 +412,7 @@
     [super dealloc];
 }
 
-- (void) setBgColor: (int)bg
+- (void) setBgColor: (NSInteger)bg
 {
     [super setBgColor: bg];
     [self recalcBackground];
@@ -421,7 +432,7 @@
 	
 	if (bgnd != 0)
 	{
-	    bgcolor = [Preferences backgroundColor: bgnd - 1];
+	    bgcolor = [Preferences backgroundColor: (int)(bgnd - 1)];
 	    if (bgnd == 1) // black
 		fgcolor = [Preferences foregroundColor: 7];
 	    else
@@ -438,7 +449,7 @@
     [textview setInsertionPointColor: fgcolor];
 }
 
-- (void) setStyle: (int)style windowType: (int)wintype enable: (int*)enable value:(int*)value
+- (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value
 {
     [super setStyle:style windowType:wintype enable:enable value:value];
     [self recalcBackground];
@@ -446,12 +457,13 @@
 
 - (void) prefsDidChange
 {
-    NSRange range, attrange;
-    int x;
+    NSRange range;
+    //NSRange attrange;
+    NSInteger x;
     
     [super prefsDidChange];
     
-    int margin = [Preferences bufferMargins];
+    NSInteger margin = [Preferences bufferMargins];
     [textview setTextContainerInset: NSMakeSize(margin - 3, margin)];
     [self recalcBackground];
     
@@ -463,10 +475,10 @@
     while (x < [textstorage length])
     {
 	id styleobject = [textstorage attribute:@"GlkStyle" atIndex:x effectiveRange:&range];
-	int stylevalue = [styleobject intValue];
-	int style = stylevalue & 0xff;
-	int fg = (stylevalue >> 8) & 0xff;
-	int bg = (stylevalue >> 16) & 0xff;
+	NSInteger stylevalue = [styleobject intValue];
+	NSInteger style = stylevalue & 0xff;
+	NSInteger fg = (stylevalue >> 8) & 0xff;
+	NSInteger bg = (stylevalue >> 16) & 0xff;
 	
 	id image = [textstorage attribute: @"NSAttachment" atIndex:x effectiveRange:NULL];
 	if (image)
@@ -476,16 +488,16 @@
 	
 	if (fg || bg)
 	{
-	    [textstorage addAttribute: @"GlkStyle" value: [NSNumber numberWithInt: stylevalue] range: range];
+	    [textstorage addAttribute: @"GlkStyle" value: [NSNumber numberWithInt: (int)stylevalue] range: range];
 	    if ([Preferences stylesEnabled])
 	    {
 		if (fg)
 		    [textstorage addAttribute: NSForegroundColorAttributeName
-					value: [Preferences foregroundColor: fg - 1]
+					value: [Preferences foregroundColor: (int)(fg - 1)]
 					range: range];
 		if (bg)
 		    [textstorage addAttribute: NSBackgroundColorAttributeName
-					value: [Preferences backgroundColor: bg - 1]
+					value: [Preferences backgroundColor: (int)(bg - 1)]
 					range: range];
 	    }
 	}
@@ -562,35 +574,31 @@
 
     [[NSGraphicsContext currentContext] setImageInterpolation: NSImageInterpolationHigh];
 
-    [src setFlipped: NO];
-    
     [src drawInRect: NSMakeRect(0, 0, dstsize.width, dstsize.height)
 	   fromRect: NSMakeRect(0, 0, srcsize.width, srcsize.height)
 	  operation: NSCompositeSourceOver
-	   fraction: 1.0];		
-
-    [src setFlipped: YES];
-
+	   fraction: 1.0 respectFlipped:YES hints:nil];
+    
     [dst unlockFocus];
     
     return [dst autorelease];
 }
 
-- (void) drawImage: (NSImage*)image val1: (int)align val2: (int)unused width: (int)w height: (int)h
+- (void) drawImage: (NSImage*)image val1: (NSInteger)align val2: (NSInteger)unused width: (NSInteger)w height: (NSInteger)h
 {
     NSTextAttachment *att;
     NSFileWrapper *wrapper;
     NSData *tiffdata;
-    NSAttributedString *attstr;
+    //NSAttributedString *attstr;
     
     if (w == 0)
-	w = [image size].width;
+        w = [image size].width;
     if (h == 0)
-	h = [image size].height;
+        h = [image size].height;
     
     if (align == imagealign_MarginLeft || align == imagealign_MarginRight)
     {
-	//NSLog(@"adding image to margins");
+	NSLog(@"adding image to margins");
 	unichar uc[1];
 	uc[0] = NSAttachmentCharacter;
 	[[textstorage mutableString] appendString: [NSString stringWithCharacters: uc length: 1]];
@@ -649,7 +657,6 @@
 - (void) performScroll
 {
     int bottom;
-    
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer: container];
     
@@ -760,7 +767,7 @@
             {
                 NSLog(@"Passing on keypress");
                 if ([win isKindOfClass: [GlkTextBufferWindow class]])
-                    [win onKeyDown:evt];
+                    [(GlkTextBufferWindow *)win onKeyDown:evt];
                 else
                     [win keyDown:evt];
                 [win grabFocus];
@@ -789,14 +796,14 @@
 		[textview scrollLineDown: nil];
 		return;
 	    default:
-		[textview scrollRangeToVisible: NSMakeRange([textstorage length], 0)];
+		[self scrollToBottom];
 		break;
 	}
     }
 
     if (char_request && ch != keycode_Unknown)
     {
-	NSLog(@"char event from %d", name);
+	NSLog(@"char event from %ld", (long)name);
 	
     //[textview setInsertionPointColor:[Preferences bufferForeground]];
 
@@ -808,11 +815,12 @@
 
 	char_request = NO;
 	[textview setEditable: NO];
+
     }
 
     else if (line_request && ch == keycode_Return)
     {
-	NSLog(@"line event from %d", name);
+	NSLog(@"line event from %ld", (long)name);
 
     [textview setInsertionPointColor: [Preferences bufferBackground]];
 
@@ -877,8 +885,8 @@
 - (void) clearScrollback: (id)sender
 {
     NSString *string = [textstorage string];
-    int length = [string length];
-    int save_request = line_request;
+    NSInteger length = [string length];
+    NSInteger save_request = line_request;
     int prompt;
     int i;
     
@@ -908,28 +916,32 @@
     [container clearImages];
 }
 
-- (void) putString:(NSString*)str style:(int)stylevalue
+- (void) putString:(NSString*)str style:(NSInteger)stylevalue
 {
     NSAttributedString *attstr;
     NSDictionary *att;
-    NSColor *col;
+    //NSColor *col;
 
-    int style = stylevalue & 0xff;
-    int fg = (stylevalue >> 8) & 0xff;
-    int bg = (stylevalue >> 16) & 0xff;
+    NSInteger style = stylevalue & 0xff;
+    NSInteger fg = (stylevalue >> 8) & 0xff;
+    NSInteger bg = (stylevalue >> 16) & 0xff;
     
     if (fg || bg)
     {
 	NSMutableDictionary *mutatt = [[[styles[style] attributes] mutableCopy] autorelease];
-	//if (linkid)
-	//    [mutatt setObject: [NSNumber numberWithInt: linkid] forKey: @"GlkLink"];
-	[mutatt setObject: [NSNumber numberWithInt: stylevalue] forKey: @"GlkStyle"];
+
+#ifdef GLK_MODULE_HYPERLINKS
+
+	if (linkid)
+	    [mutatt setObject: [NSNumber numberWithInt: linkid] forKey: @"GlkLink"];
+#endif
+	[mutatt setObject: [NSNumber numberWithInt: (int)stylevalue] forKey: @"GlkStyle"];
 	if ([Preferences stylesEnabled])
 	{
 	    if (fg)
-		[mutatt setObject: [Preferences foregroundColor: fg - 1] forKey: NSForegroundColorAttributeName];
+		[mutatt setObject: [Preferences foregroundColor: (int)(fg - 1)] forKey: NSForegroundColorAttributeName];
 	    if (bg)
-		[mutatt setObject: [Preferences backgroundColor: bg - 1] forKey: NSBackgroundColorAttributeName];
+		[mutatt setObject: [Preferences backgroundColor: (int)(bg - 1)] forKey: NSBackgroundColorAttributeName];
 	}
 	att = mutatt;
     }
@@ -945,7 +957,7 @@
     lastchar = [str characterAtIndex: [str length] - 1];
 }
 
-- (int) lastchar
+- (NSInteger) lastchar
 {
     return lastchar;
 }
@@ -997,7 +1009,8 @@
     [textview setInsertionPointColor: [Preferences bufferForeground]];
 
     [textview setEditable: YES];
-    line_request = YES;	
+
+    line_request = YES;
     
     [textview setSelectedRange: NSMakeRange([textstorage length], 0)];
 }
@@ -1016,10 +1029,6 @@
 - (void) terpDidStop
 {
     [textview setEditable: NO];
-
-    // This allows us to scroll to the bottom for some reason. I bet it has to do with the margins.
-    for (NSInteger i=0; i<=14; i++)
-          [self putString:@"\n" style:0];
 }
 
 - (BOOL) wantsFocus
