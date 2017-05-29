@@ -21,6 +21,9 @@ static const char *msgnames[] =
     "FILLRECT", "FINDIMAGE", "LOADIMAGE", "SIZEIMAGE",
     "DRAWIMAGE", "FLOWBREAK", "NEWCHAN", "DELCHAN",
     "FINDSOUND", "LOADSOUND", "SETVOLUME", "PLAYSOUND", "STOPSOUND",
+#ifdef GLK_MODULE_HYPERLINKS
+    "SETLINK", "INITLINK", "CANCELLINK",
+#endif
     "NEXTEVENT", "EVTARRANGE", "EVTLINE", "EVTKEY",
     "EVTMOUSE", "EVTTIMER", "EVTSOUND", "EVTHYPER", "EVTPREFS"
 };
@@ -977,7 +980,35 @@ static const char *msgnames[] =
 		[gchannels[req->a1] stop];
 	    }
 	    break;
-	    
+
+#ifdef GLK_MODULE_HYPERLINKS
+
+    case SETLINK:
+        NSLog(@"glkctl SETLINK %d", req->a1);
+        if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+        {
+            [gwindows[req->a1] setHyperlink];
+        }
+        break;
+
+    case INITLINK:
+        NSLog(@"glkctl INITLINK %d", req->a1);
+        if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+        {
+            [gwindows[req->a1] initHyperlink];
+        }
+        break;
+
+    case CANCELLINK:
+        NSLog(@"glkctl CANCELLINK %d", req->a1);
+        if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+        {
+            [gwindows[req->a1] cancelHyperlink];
+        }
+        break;
+
+#endif
+            
 	/*
 	 * Window sizing, printing, drawing, etc...
 	 */

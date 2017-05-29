@@ -887,11 +887,15 @@
     }
 }
 
-- (BOOL) textView: (NSTextView*)textview_ clickedOnLink: (id)link atIndex: (unsigned)charIndex
+#ifdef GLK_MODULE_HYPERLINKS
+
+- (BOOL) textView: (NSTextView*)textview_ clickedOnLink: (id)link atIndex: (NSUInteger)charIndex
 {
     NSLog(@"txtbuf: clicked on link: %@", link);
     return YES;
 }
+
+#endif
 
 - (void) grabFocus
 {
