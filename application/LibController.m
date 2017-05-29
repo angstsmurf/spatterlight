@@ -119,11 +119,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     [metadata release];
     [games release];
     
-    homepath = [[@"~/Library/Application Support/Spatterlight" stringByStandardizingPath] retain];
-    [[NSFileManager defaultManager] createDirectoryAtPath: homepath attributes: nil];
+    homepath = [[NSURL fileURLWithPath:[@"~/Library/Application Support/Spatterlight" stringByExpandingTildeInPath]  isDirectory:YES]retain];
+    [[NSFileManager defaultManager] createDirectoryAtURL:homepath withIntermediateDirectories:YES attributes:NULL error:NULL];
     
-    metadata = load_mutable_plist([homepath stringByAppendingPathComponent: @"Metadata.plist"]);
-    games = load_mutable_plist([homepath stringByAppendingPathComponent: @"Games.plist"]);
+    metadata = load_mutable_plist([[homepath path] stringByAppendingPathComponent: @"Metadata.plist"]);
+    games = load_mutable_plist([[homepath path] stringByAppendingPathComponent: @"Games.plist"]);
 }
 
 - (IBAction) saveLibrary: (id)sender
@@ -132,11 +132,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     
     int code;
     
-    code = save_plist([homepath stringByAppendingPathComponent: @"Metadata.plist"], metadata);
+    code = save_plist([[homepath path] stringByAppendingPathComponent: @"Metadata.plist"], metadata);
     if (!code)
 	NSLog(@"libctl: cannot write metadata!");
     
-    code = save_plist([homepath stringByAppendingPathComponent: @"Games.plist"], games);
+    code = save_plist([[homepath path] stringByAppendingPathComponent: @"Games.plist"], games);
     if (!code)
 	NSLog(@"libctl: cannot write game list!");
 }
@@ -208,62 +208,44 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     [importProgressPanel orderOut: self];
 }
 
-- (void) importPanelDidEnd: (NSOpenPanel*)panel returnCode: (int)code contextInfo: (void*)ctx
-{
-    if (code == NSOKButton)
-    {
-	[self beginImporting];
-	[self importMetadataFromFile: [panel filename]];
-	[self updateTableViews];
-	[self endImporting];
-    }
-    [panel release];
-}
-
-- (void) exportPanelDidEnd: (NSOpenPanel*)panel returnCode: (int)code contextInfo: (void*)ctx
-{
-    if (code == NSOKButton)
-	[self exportMetadataToFile: [panel filename] what: [exportTypeControl indexOfSelectedItem]];
-    [panel release];
-}
 
 - (IBAction) importMetadata: (id)sender
 {
     NSOpenPanel *panel = [[NSOpenPanel openPanel] retain];
     [panel setPrompt: @"Import"];
-    [panel beginSheetForDirectory: nil
-			     file: nil
-			    types: [NSArray arrayWithObject: @"iFiction"]
-		   modalForWindow: [self window]
-		    modalDelegate: self
-		   didEndSelector: @selector(importPanelDidEnd:returnCode:contextInfo:)
-		      contextInfo: nil];
+
+    panel.allowedFileTypes = @[@"iFiction"];
+
+    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL* url = [panel URL];
+
+            [self beginImporting];
+            [self importMetadataFromFile: [url path]];
+            [self updateTableViews];
+            [self endImporting];
+        }
+
+     }];
 }
 
 - (IBAction) exportMetadata: (id)sender
 {
     NSSavePanel *panel = [[NSSavePanel savePanel] retain];
     [panel setAccessoryView: exportTypeView];
-    [panel setRequiredFileType: @"iFiction"];
+    panel.allowedFileTypes=@[@"iFiction"];
     [panel setPrompt: @"Export"];
-    [panel beginSheetForDirectory: nil
-			     file: @"Interactive Fiction Metadata.iFiction"
-		   modalForWindow: [self window]
-		    modalDelegate: self
-		   didEndSelector: @selector(exportPanelDidEnd:returnCode:contextInfo:)
-		      contextInfo: nil];    
-}
+    [panel setNameFieldStringValue:@"Interactive Fiction Metadata.iFiction"];
 
-- (void) addGamesPanelDidEnd: (NSOpenPanel*)panel returnCode: (int)code contextInfo: (void*)ctx
-{
-    if (code == NSOKButton)
-    {
-	NSArray *filenames = [panel filenames];
-	[self beginImporting];
-	[self addFiles: filenames];
-	[self endImporting];
-    }
-    [panel release];
+    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelOKButton)
+        {
+            NSURL* url = [panel URL];
+
+            [self exportMetadataToFile: [url path] what: [exportTypeControl indexOfSelectedItem]];
+            [panel release];
+        }
+    }];
 }
 
 - (IBAction) addGamesToLibrary: (id)sender
@@ -272,22 +254,29 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     [panel setAllowsMultipleSelection: YES];
     [panel setCanChooseDirectories: YES];
     [panel setPrompt: @"Add"];
-    [panel beginSheetForDirectory: nil
-			     file: nil
-			    types: gGameFileTypes
-		   modalForWindow: [self window]
-		    modalDelegate: self
-		   didEndSelector: @selector(addGamesPanelDidEnd:returnCode:contextInfo:)
-		      contextInfo: NULL];
+
+    panel.allowedFileTypes=gGameFileTypes;
+
+    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
+        if (result == NSFileHandlingPanelOKButton)
+        {
+            NSArray* urls = [panel URLs];
+
+            [self beginImporting];
+            [self addFiles: urls];
+            [self endImporting];
+        }
+     }];
 }
+
 
 - (IBAction) playGame: (id)sender
 {
     NSInteger rowidx = [gameTableView selectedRow];
     if (rowidx >= 0)
     {
-	NSString *ifid = [gameTableModel objectAtIndex: rowidx];
-	[self playGameWithIFID: ifid];
+        NSString *ifid = [gameTableModel objectAtIndex: rowidx];
+        [self playGameWithIFID: ifid];
     }
 }
 
@@ -332,14 +321,14 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     {
 	NSString *ifid;
 	NSInteger i;
-	
+
 	for (i = [rows firstIndex]; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
 	{
 	    ifid = [gameTableModel objectAtIndex: i];
 	    NSLog(@"libctl: delete game %@", ifid);
 	    [games removeObjectForKey: ifid];
 	}
-	
+
 	gameTableDirty = YES;
 	[self updateTableViews];
     }
@@ -380,11 +369,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (unsigned int) draggingEntered:sender
 {
     extern NSString *terp_for_filename(NSString *path);
-    
+
     NSFileManager *mgr = [NSFileManager defaultManager];
     BOOL isdir;
     NSInteger i;
-    
+
     NSPasteboard *pboard = [sender draggingPasteboard];
     if ([[pboard types] containsObject: NSFilenamesPboardType])
     {
@@ -442,10 +431,10 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 {
     NSInteger count = [list count];
     NSInteger i;
-    
+
     if (cursrc == 0)
 	NSLog(@"libctl: current metadata source failed...");
-    
+
     for (i = 0; i < count; i++)
     {
 	NSString *ifid = [list objectAtIndex: i];
@@ -1254,48 +1243,50 @@ static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
     
     if (status != 0)
     {
-	NSLog(@"libctl: agt2agx failed");
-	return nil;
+        NSLog(@"libctl: agt2agx failed");
+        return nil;
     }
     
     format = babel_init(rapeme);
     if (!strcmp(format, "agt"))
     {
-	char buf[TREATY_MINIMUM_EXTENT];
-	int rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
-	if (rv == 1)
-	{
-	    dirpath = [homepath stringByAppendingPathComponent: @"Converted"];
-	    
-	    [[NSFileManager defaultManager] createDirectoryAtPath: dirpath attributes: nil];
-	    
-	    cvtpath =
-		[dirpath stringByAppendingPathComponent:
-		    [[NSString stringWithUTF8String: buf]
-			stringByAppendingPathExtension: @"agx"]];
-	    
-	    babel_release();
-	    
-	    [[NSFileManager defaultManager] removeFileAtPath: cvtpath handler: nil];
-	    
-	    status = [[NSFileManager defaultManager] movePath: @"/tmp/cugelcvtout.agx"
-						       toPath: cvtpath
-						      handler: nil];
-	    if (!status)
-	    {
-		NSLog(@"libctl: could not move converted file");
-		return nil;
-	    }
-	    
-	    return cvtpath;
-	}
+        char buf[TREATY_MINIMUM_EXTENT];
+        int rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
+        if (rv == 1)
+        {
+            dirpath = [[homepath path] stringByAppendingPathComponent: @"Converted"];
+
+            [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:dirpath isDirectory:YES] withIntermediateDirectories:YES attributes:nil error:NULL];
+
+            cvtpath =
+            [dirpath stringByAppendingPathComponent:
+                [[NSString stringWithUTF8String: buf]
+                stringByAppendingPathExtension: @"agx"]];
+
+            babel_release();
+
+            NSURL *url = [NSURL fileURLWithPath:cvtpath];
+
+            [[NSFileManager defaultManager]  removeItemAtURL: url error: nil];
+
+            status = [[NSFileManager defaultManager] moveItemAtPath: @"/tmp/cugelcvtout.agx"
+                                   toPath: cvtpath
+                                  error: nil];
+
+            if (!status)
+            {
+                NSLog(@"libctl: could not move converted file");
+                return nil;
+            }
+            return cvtpath;
+        }
     }
     else
     {
-	NSLog(@"libctl: babel did not like the converted file");
+        NSLog(@"libctl: babel did not like the converted file");
     }
     babel_release();
-    
+
     return nil;
 }
 

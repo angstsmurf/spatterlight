@@ -25,7 +25,7 @@
 
 @interface LibController : NSWindowController
 {
-    NSString *homepath;
+    NSURL *homepath;
     
     IBOutlet NSButton *infoButton;
     IBOutlet NSButton *playButton;
