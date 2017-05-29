@@ -1,3 +1,11 @@
+// I suppose this is necessary to get rid of that ugly Markup menu on attached images.
+
+@interface MyAttachmentCell : NSTextAttachmentCell
+
+- (BOOL) wantsToTrackMouse;
+
+@end
+
 /*
  * Extend NSTextContainer to have images in the margins with
  * the text flowing around them.

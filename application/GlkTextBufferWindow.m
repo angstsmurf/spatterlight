@@ -5,10 +5,23 @@
 #import "main.h"
 
 #ifdef DEBUG
-#define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
 #else
 #define NSLog(...)
 #endif
+
+
+
+
+@implementation MyAttachmentCell
+
+- (BOOL) wantsToTrackMouse
+{
+    return NO;
+}
+
+@end
+
 
 /* ------------------------------------------------------------ */
 
@@ -584,17 +597,24 @@
     
     else
     {
-	//NSLog(@"adding image to text");
-	
-	image = [self scaleImage: image size: NSMakeSize(w, h)];
-	
-	tiffdata = [image TIFFRepresentation];
-	wrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: tiffdata] autorelease];
-	[wrapper setPreferredFilename: @"image.tiff"];
-	att = [[[NSTextAttachment alloc] initWithFileWrapper: wrapper] autorelease];
-	attstr = [NSAttributedString attributedStringWithAttachment: att];
-	[textstorage appendAttributedString: attstr];
+        NSLog(@"adding image to text");
+        
+        image = [self scaleImage: image size: NSMakeSize(w, h)];
+
+        tiffdata = [image TIFFRepresentation];
+        
+        wrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: tiffdata] autorelease];
+        [wrapper setPreferredFilename: @"image.tiff"];
+        att = [[[NSTextAttachment alloc] initWithFileWrapper: wrapper] autorelease];
+        MyAttachmentCell *cell = [[MyAttachmentCell alloc] initImageCell:image];
+        [att setAttachmentCell:cell];
+        NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
+        
+        
+        [textstorage appendAttributedString: attstr];
+
     }
+
 }
 
 - (void) flowBreak
