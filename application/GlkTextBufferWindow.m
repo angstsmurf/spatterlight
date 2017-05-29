@@ -259,7 +259,9 @@
 	    [[image image] drawInRect: bounds
 			     fromRect: NSMakeRect(0, 0, size.width, size.height)
 			    operation: NSCompositeSourceOver
-			     fraction: 1.0];		
+			     fraction: 1.0
+           respectFlipped:YES
+                    hints:nil];
 	}
     }
 }
