@@ -177,18 +177,18 @@ finish:
 
 - (void) saveImage: sender
 {
-    NSString *dirpath, *imgpath;
+    NSURL *dirURL, *imgURL;
     NSData *imgdata;
-    
-    dirpath = [@"~/Library/Application Support/Spatterlight/Cover Art" stringByStandardizingPath];
-    imgpath = [[dirpath stringByAppendingPathComponent: ifid] stringByAppendingPathExtension: @"tiff"];
-    
-    [[NSFileManager defaultManager] createDirectoryAtPath: dirpath attributes: nil];
-    
-    NSLog(@"infoctl: save image %@", imgpath);
-    
+
+    dirURL = [NSURL fileURLWithPath:[@"~/Library/Application Support/Spatterlight/Cover Art" stringByExpandingTildeInPath] isDirectory:YES];
+    imgURL = [NSURL fileURLWithPath: [ [[dirURL path] stringByAppendingPathComponent: ifid] stringByAppendingPathExtension: @"tiff"] isDirectory:NO];
+
+    [[NSFileManager defaultManager] createDirectoryAtURL:dirURL withIntermediateDirectories:YES attributes:nil error:NULL];
+
+    NSLog(@"infoctl: save image %@", imgURL);
+
     imgdata = [[imageView image] TIFFRepresentationUsingCompression: NSTIFFCompressionLZW factor: 0];
-    [imgdata writeToFile: imgpath atomically: YES];
+    [imgdata writeToURL: imgURL atomically: YES];
 
     [self sizeToFitImageAnimate: YES];
 }
