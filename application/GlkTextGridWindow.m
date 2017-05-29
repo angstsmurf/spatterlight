@@ -14,24 +14,26 @@
 
 @implementation GlkTextGridWindow
 
-- (id) initWithGlkController: (GlkController*)glkctl_ name: (int)name_
+- (id) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
 {
-    [super initWithGlkController: glkctl_ name: name_];
+    self = [super initWithGlkController: glkctl_ name: name_];
 
-    lines = [[NSMutableArray alloc] init];
-    input = nil;
-    
-    rows = 0;
-    cols = 0;
-    xpos = 0;
-    ypos = 0;
-    
-    line_request = NO;
-    char_request = NO;
-    mouse_request = NO;
-    
-    transparent = NO;
-    
+    if (self)
+    {
+        lines = [[NSMutableArray alloc] init];
+        input = nil;
+
+        rows = 0;
+        cols = 0;
+        xpos = 0;
+        ypos = 0;
+
+        line_request = NO;
+        char_request = NO;
+        mouse_request = NO;
+
+        transparent = NO;
+    }
     return self;
 }
 
