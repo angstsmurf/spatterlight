@@ -580,7 +580,7 @@ static glui32 play_mod(schanid_t chan, long len)
 
 glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 notify)
 {
-    long len;
+    long len = 0;
     glui32 type;
     char *buf = 0;
 

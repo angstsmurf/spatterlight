@@ -153,7 +153,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
     fileref_t *fref;
     char buf[BUFLEN];
     char buf2[2*BUFLEN+10];
-    int len;
+    unsigned long len;
     char *cx;
     char *suffix;
 
@@ -203,7 +203,7 @@ frefid_t glk_fileref_create_by_prompt(glui32 usage, glui32 fmode, glui32 rock)
 {
 	fileref_t *fref;
 	char *buf;
-	int val;
+	unsigned long val;
 
 	if (fmode == filemode_Read)
 		buf = win_promptopen(usage & fileusage_TypeMask);
@@ -303,7 +303,7 @@ void glkunix_set_base_file(char *filename)
 {
     int ix;
     
-    for (ix=strlen(filename)-1; ix >= 0; ix--)
+    for (ix=(int)(strlen(filename)-1); ix >= 0; ix--)
         if (filename[ix] == '/')
             break;
     

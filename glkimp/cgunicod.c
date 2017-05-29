@@ -302,6 +302,9 @@ static glui32 gli_buffer_change_case(glui32 *buf, glui32 len,
                 dest_spec_rest = CASE_IDENT;
             dest_spec_first = destcase;
             break;
+        default: //This should never happen?
+            gli_strict_warning("gli_buffer_change_case() called with an invalid condition.");
+            dest_spec_rest = destcase;
     }
     
     dest_block_rest = dest_spec_rest;

@@ -2,6 +2,7 @@
 
 extern char gli_workdir[];
 
+
 static int loadimage(int image)
 {
     glui32 chunktype;

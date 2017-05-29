@@ -20,6 +20,7 @@ void glk_request_timer_events(glui32 millisecs)
 
 void gli_select(event_t *event, int block)
 {
+
     gli_curevent = event;
     
     gli_event_clearevent(gli_curevent);

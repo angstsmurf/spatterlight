@@ -219,10 +219,10 @@ static glsi32 gli_simplify_time(time_t timestamp, glui32 factor)
     /* We want to round towards negative infinity, which takes a little
        bit of fussing. */
     if (timestamp >= 0) {
-        return timestamp / (time_t)factor;
+        return (glsi32)(timestamp / (time_t)factor);
     }
     else {
-        return -1 - (((time_t)-1 - timestamp) / (time_t)factor);
+        return (glsi32)(-1 - (((time_t)-1 - timestamp) / (time_t)factor));
     }
 }
 

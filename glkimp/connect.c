@@ -38,7 +38,7 @@ float gcellh = 12;
 
 void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf)
 {
-    int n;
+    ssize_t n;
     struct message msgbuf;
     
     msgbuf.cmd = cmd;
