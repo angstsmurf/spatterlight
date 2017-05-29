@@ -21,6 +21,3 @@
 extern NSArray *gGameFileTypes;
 extern NSDictionary *gExtMap;
 extern NSDictionary *gFormatMap;
-
-NSString *stringWithLatin1String(const char *cString, int len);
-const char *latin1String(NSString *self);
