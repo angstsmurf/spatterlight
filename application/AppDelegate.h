@@ -15,6 +15,4 @@
 - (IBAction) showLibrary: (id)sender;
 - (IBAction) showHelpFile: (id)sender;
 
-- (void) openPanelDidEnd: (NSOpenPanel*)panel returnCode: (int)code contextInfo: (void*)ctx;
-
 @end

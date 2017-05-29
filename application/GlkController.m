@@ -403,26 +403,53 @@ static const char *msgnames[] =
 
 - (void) handleOpenPrompt: (int)fileusage
 {
-    NSString *directory = [[NSUserDefaults standardUserDefaults] objectForKey: @"SaveDirectory"];
-    NSOpenPanel *panel = [[NSOpenPanel openPanel] retain];
-    
+    NSURL *directory = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] objectForKey: @"SaveDirectory"] isDirectory:YES];
+
+    NSInteger sendfd = [sendfh fileDescriptor];
+
+    // Create and configure the panel.
+    NSOpenPanel* panel = [NSOpenPanel openPanel];
+
     waitforfilename = YES; /* don't interrupt */
-    
+
     if (fileusage == fileusage_SavedGame)
-	[panel setPrompt: @"Restore"];
-    
-    [panel beginSheetForDirectory: nil
-			     file: directory
-		   modalForWindow: [self window]
-		    modalDelegate: self
-		   didEndSelector: @selector(didEndFilePanel:ret:ctx:)
-		      contextInfo: nil];
+        [panel setPrompt: @"Restore"];
+    panel.directoryURL = directory;
+
+    // Display the panel attached to the document's window.
+    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
+
+        const char *s;
+        struct message reply;
+
+        if (result == NSFileHandlingPanelOKButton)
+        {
+            NSURL*  theDoc = [[panel URLs] objectAtIndex:0];
+            
+            [[NSUserDefaults standardUserDefaults] setObject: [[theDoc path] stringByDeletingLastPathComponent] forKey: @"SaveDirectory"];
+            s = [[theDoc lastPathComponent] UTF8String];
+        }
+        else
+            s = "";
+
+        reply.cmd = OKAY;
+        reply.len = (int)strlen(s);
+            
+        write((int)sendfd, &reply, sizeof(struct message));
+        if (reply.len)
+            write((int)sendfd, s, reply.len);
+    }];
+
+    waitforfilename = NO; /* we're all done, resume normal processing */
+
+    [readfh waitForDataInBackgroundAndNotify];
+
 }
 
 - (void) handleSavePrompt: (int)fileusage
 {
-    NSString *directory = [[NSUserDefaults standardUserDefaults] objectForKey: @"SaveDirectory"];
-    NSSavePanel *panel = [[NSSavePanel savePanel] retain];
+    NSURL *directory = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] objectForKey: @"SaveDirectory"] isDirectory:YES];
+    NSSavePanel *panel = [NSSavePanel savePanel];
     NSString *prompt;
     NSString *ext;
     NSString *filename;
@@ -432,59 +459,61 @@ static const char *msgnames[] =
     
     switch (fileusage)
     {
-	case fileusage_Data: prompt = @"Save data file: "; ext = @"dat"; break;
-	case fileusage_SavedGame: prompt = @"Save game: "; ext = @"sav"; break;
-	case fileusage_Transcript: prompt = @"Save transcript: "; ext = @"txt"; break;
-	case fileusage_InputRecord: prompt = @"Save recording: "; ext = @"rec"; break;
-	default: prompt = @"Save: "; ext = nil; break;
+        case fileusage_Data: prompt = @"Save data file: "; ext = @"dat"; filename = @"Data"; break;
+        case fileusage_SavedGame: prompt = @"Save game: "; ext = @"sav"; break;
+        case fileusage_Transcript: prompt = @"Save transcript: "; ext = @"txt"; filename = @"Transcript"; break;
+        case fileusage_InputRecord: prompt = @"Save recording: "; ext = @"rec"; filename = @"Recordning"; break;
+        default: prompt = @"Save: "; ext = nil; break;
     }
-    
-    [panel setNameFieldLabel: prompt];
-    [panel setRequiredFileType: ext];
-    
+
+    //[panel setNameFieldLabel: prompt];
+    if (ext)
+        panel.allowedFileTypes=@[ext];
+    panel.directoryURL = directory;
+
+    panel.extensionHidden=NO;
+    [panel setCanCreateDirectories:YES];
+
     if (fileusage == fileusage_SavedGame)
     {
-	date = [[NSDate date] descriptionWithCalendarFormat: @"%Y-%m-%d %H.%M "
-						   timeZone: nil
-						     locale: nil];
-	filename = [[date stringByAppendingString: [gameinfo objectForKey: @"title"]] stringByAppendingPathExtension: ext];
-    }
-    else
-	filename = nil;
-    
-    [panel beginSheetForDirectory: directory
-			     file: filename
-		   modalForWindow: [self window]
-		    modalDelegate: self
-		   didEndSelector: @selector(didEndFilePanel:ret:ctx:)
-		      contextInfo: nil];
-}
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH.mm "];
+        date = [formatter stringFromDate:[NSDate date]];
 
-- (void) didEndFilePanel: (id)panel ret: (int)ret ctx: (void*)ctx
-{
-    struct message reply;
-    int sendfd = [sendfh fileDescriptor];
-    const char *s;
-    
-    if (ret == NSOKButton)
-    {
-	[[NSUserDefaults standardUserDefaults] setObject: [panel directory] forKey: @"SaveDirectory"];
-	s = [[panel filename] UTF8String];
+        [formatter release];
+
+        filename = [date stringByAppendingString: [gameinfo objectForKey: @"title"]];
     }
-    else
-	s = "";
+
+    filename = [filename stringByAppendingPathExtension: ext];
+
+    if (filename)
+        [panel setNameFieldStringValue:filename];
+
+    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
+        struct message reply;
+        NSInteger sendfd = [sendfh fileDescriptor];
+        const char *s;
+
+        if (result == NSFileHandlingPanelOKButton)
+        {
+            NSURL*  theFile = [panel URL];
+            [[NSUserDefaults standardUserDefaults] setObject: [[theFile path] stringByDeletingLastPathComponent] forKey: @"SaveDirectory"];
+                s = [[theFile lastPathComponent] UTF8String];
+        }
+        else
+            s = "";
+
+        reply.cmd = OKAY;
+        reply.len = (int)strlen(s);
     
-    reply.cmd = OKAY;
-    reply.len = strlen(s);
-    
-    write(sendfd, &reply, sizeof(struct message));
-    if (reply.len)
-	write(sendfd, s, reply.len);
-    
-    [panel release];
-    
+        write((int)sendfd, &reply, sizeof(struct message));
+        if (reply.len)
+            write((int)sendfd, s, reply.len);
+    }];
+
     waitforfilename = NO; /* we're all done, resume normal processing */
-    
+
     [readfh waitForDataInBackgroundAndNotify];
 }
 

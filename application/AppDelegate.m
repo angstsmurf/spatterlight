@@ -117,38 +117,36 @@ NSDictionary *gFormatMap;
 {
     NSLog(@"appdel: openDocument");
     
-    NSString *directory = [[NSUserDefaults standardUserDefaults] objectForKey: @"GameDirectory"];
+    NSURL *directory = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] objectForKey: @"GameDirectory"] isDirectory:YES];
     NSOpenPanel *panel;
+
     if (filePanel)
     {
 	[filePanel makeKeyAndOrderFront: nil];
     }
     else
     {
-	panel = [[NSOpenPanel openPanel] retain];
-	[panel beginForDirectory: nil
-			    file: directory
-			   types: gGameFileTypes
-		modelessDelegate: self
-		  didEndSelector: @selector(openPanelDidEnd:returnCode:contextInfo:)
-		     contextInfo: NULL];
-	filePanel = panel;
-    }
-}
+        panel = [[NSOpenPanel openPanel] retain];
 
-- (void) openPanelDidEnd: (NSOpenPanel*)panel returnCode: (int)code contextInfo: (void*)ctx
-{
-    if (code == NSOKButton)
-    {
-	if ([[[panel filename] pathExtension] isEqualToString: @"sav"])
-	    [[NSUserDefaults standardUserDefaults] setObject: [panel directory] forKey: @"SaveDirectory"];
-	else
-	    [[NSUserDefaults standardUserDefaults] setObject: [panel directory] forKey: @"GameDirectory"];
-	
-	[self application: NSApp openFile: [panel filename]];
+        panel.allowedFileTypes = gGameFileTypes;
+        panel.directoryURL = directory;
+        NSLog(@"directory = %@", directory);
+        [panel beginWithCompletionHandler:^(NSInteger result){
+            if (result == NSFileHandlingPanelOKButton) {
+                NSURL*  theDoc = [[panel URLs] objectAtIndex:0];
+                {
+                    NSString *pathString = [[theDoc path] stringByDeletingLastPathComponent];
+                    NSLog(@"directory = %@", directory);
+                    if ([[[theDoc path] pathExtension] isEqualToString: @"sav"])
+                        [[NSUserDefaults standardUserDefaults] setObject: pathString forKey: @"SaveDirectory"];
+                    else
+                        [[NSUserDefaults standardUserDefaults] setObject: pathString forKey: @"GameDirectory"];
+
+                    [self application: NSApp openFile: [theDoc path]];
+                }
+            }
+        }];
     }
-    
-    [panel release];
     filePanel = nil;
 }
 
