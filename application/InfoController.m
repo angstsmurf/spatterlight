@@ -52,30 +52,41 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     NSSize setsize;
     NSSize maxsize;
     float scale;
-    
+
     maxsize = [[[self window] screen] frame].size;
     wellsize = [imageView frame].size;
     cursize = [[self window] frame].size;
 
     maxsize.width = maxsize.width * 0.75 - (cursize.width - wellsize.width);
     maxsize.height = maxsize.height * 0.75 - (cursize.height - wellsize.height);
-    
-    imgsize.width = [[[imageView image] bestRepresentationForDevice:nil] pixelsWide];
-    imgsize.height = [[[imageView image] bestRepresentationForDevice:nil] pixelsHigh];
+
+    NSArray * imageReps = [[imageView image] representations];
+
+    NSInteger width = 0;
+    NSInteger height = 0;
+
+    for (NSImageRep * imageRep in imageReps) {
+        if ([imageRep pixelsWide] > width) width = [imageRep pixelsWide];
+        if ([imageRep pixelsHigh] > height) height = [imageRep pixelsHigh];
+    }
+
+    imgsize.width = width;
+    imgsize.height = height;
+
     [[imageView image] setSize: imgsize]; /* no steenkin' dpi here */
-    
+
     if (imgsize.width > maxsize.width)
     {
-	scale = maxsize.width / imgsize.width;
-	imgsize.width *= scale;
-	imgsize.height *= scale;
+        scale = maxsize.width / imgsize.width;
+        imgsize.width *= scale;
+        imgsize.height *= scale;
     }
-    
+
     if (imgsize.height > maxsize.height)
     {
-	scale = maxsize.height / imgsize.height;
-	imgsize.width *= scale;
-	imgsize.height *= scale;
+        scale = maxsize.height / imgsize.height;
+        imgsize.width *= scale;
+        imgsize.height *= scale;
     }
     
     if (imgsize.width < 100) imgsize.width = 100;
