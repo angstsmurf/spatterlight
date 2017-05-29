@@ -1257,7 +1257,7 @@ again:
 	n = 0;
 	while (n < request.len)
 	{
-	    t = read(readfd, buf + n, request.len - n);
+	    t = read((int)readfd, buf + n, request.len - n);
 	    if (t <= 0)
 	    {
 		NSLog(@"glkctl: could not read message body");
@@ -1275,9 +1275,9 @@ again:
  	
     if (reply.cmd > NOREPLY)
     {
-	write(sendfd, &reply, sizeof(struct message));
+	write((int)sendfd, &reply, sizeof(struct message));
 	if (reply.len)
-	    write(sendfd, buf, reply.len);
+	    write((int)sendfd, buf, reply.len);
     }
     
     if (maxibuf)
@@ -1287,7 +1287,7 @@ again:
     if (stop)
 	return;
     
-    if (pollMoreData(readfd))
+    if (pollMoreData((int)readfd))
 	goto again;
     else
 	[readfh waitForDataInBackgroundAndNotify];

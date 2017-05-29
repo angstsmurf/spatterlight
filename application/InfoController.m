@@ -17,8 +17,8 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     NSWindow *window;
     NSWindowController *winctl;
     InfoController *infoctl;
-    int count;
-    int i;
+    NSInteger count;
+    NSInteger i;
     
     count = [windows count];
     for (i = 0; i < count; i++)

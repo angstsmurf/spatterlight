@@ -4,13 +4,13 @@
 {
     NSMutableArray *lines;
     NSTextField *input;
-    int rows, cols;
-    int xpos, ypos;
-    int line_request;
-    int char_request;
-    int mouse_request;
+    NSInteger rows, cols;
+    NSInteger xpos, ypos;
+    NSInteger line_request;
+    NSInteger char_request;
+    NSInteger mouse_request;
     BOOL dirty;
-    int transparent;
+    NSInteger transparent;
 }
 
 @end

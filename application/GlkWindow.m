@@ -47,9 +47,9 @@
 - (void) setFrame: (NSRect)thisframe
 {
     NSRect mainframe = [[self superview] frame];
-    int hmask, vmask;
-    int rgt = 0;
-    int bot = 0;
+    NSInteger hmask, vmask;
+    NSInteger rgt = 0;
+    NSInteger bot = 0;
     
     [super setFrame: thisframe];
     
@@ -80,7 +80,7 @@
 
 - (void) prefsDidChange
 {
-    int i;
+    NSInteger i;
     for (i = 0; i < style_NUMSTYLES; i++)
 	[styles[i] prefsDidChange];
 }
@@ -104,17 +104,17 @@
 {
 }
 
-- (void) setBgColor: (int)bc
+- (void) setBgColor: (NSInteger)bc
 {
     bgnd = bc;
 }
 
-- (void) fillRects: (struct fillrect *)rects count: (int)n
+- (void) fillRects: (struct fillrect *)rects count: (NSInteger)n
 {
     NSLog(@"fillrect in %@ not implemented", [self class]);
 }
 
-- (void) drawImage: (NSImage*)buf val1: (int)v1 val2: (int)v2 width: (int)w height: (int)h
+- (void) drawImage: (NSImage*)buf val1: (NSInteger)v1 val2: (NSInteger)v2 width: (NSInteger)w height: (NSInteger)h
 {
     NSLog(@"drawimage in %@ not implemented", [self class]);
 }
@@ -137,12 +137,12 @@
     NSLog(@"clear in %@ not implemented", [self class]);
 }
 
-- (void) putString:(NSString*)buf style:(int)style
+- (void) putString:(NSString*)buf style:(NSInteger)style
 {
     NSLog(@"print in %@ not implemented", [self class]);
 }
 
-- (void) moveToColumn:(int)x row:(int)y
+- (void) moveToColumn:(NSInteger)x row:(NSInteger)y
 {
     NSLog(@"move cursor in %@ not implemented", [self class]);
 }

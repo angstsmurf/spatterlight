@@ -51,17 +51,17 @@
 
 + (float) lineHeight;
 + (float) charWidth;
-+ (int) gridMargins;
-+ (int) bufferMargins;
++ (NSInteger) gridMargins;
++ (NSInteger) bufferMargins;
 + (float) leading;
 
-+ (int) stylesEnabled;
-+ (int) smartQuotes;
-+ (int) spaceFormat;
++ (NSInteger) stylesEnabled;
++ (NSInteger) smartQuotes;
++ (NSInteger) spaceFormat;
 
-+ (int) graphicsEnabled;
-+ (int) soundEnabled;
-+ (int) useScreenFonts;
++ (NSInteger) graphicsEnabled;
++ (NSInteger) soundEnabled;
++ (NSInteger) useScreenFonts;
 
 + (NSDictionary*) attributesForGridStyle: (int)style;
 + (NSDictionary*) attributesForBufferStyle: (int)style;

@@ -70,19 +70,19 @@
     
     if (w == 0 || h == 0)
 	return;
-    
+
     [image setSize: NSMakeSize(w, h)];
     [image recache];
     
     dirty = YES;
 }
 
-- (void) fillRects: (struct fillrect *)rects count: (int)count
+- (void) fillRects: (struct fillrect *)rects count: (NSInteger)count
 {
     NSBitmapImageRep *bitmap;
     NSSize size;
-    int x, y;
-    int i;
+    NSInteger x, y;
+    NSInteger i;
     
     size = [image size];
     
@@ -104,9 +104,9 @@
     [bitmap setSize: size];
     
     unsigned char *pd = [bitmap bitmapData];
-    int ps = [bitmap bytesPerRow];
-    int pw = [bitmap pixelsWide];
-    int ph = [bitmap pixelsHigh];
+    NSInteger ps = [bitmap bytesPerRow];
+    NSInteger pw = [bitmap pixelsWide];
+    NSInteger ph = [bitmap pixelsHigh];
     
     memset(pd, 0x00, ps * ph);
     
@@ -117,10 +117,10 @@
 	unsigned char cg = ((rects[i].color >> 8) & 0xff);
 	unsigned char cb = ((rects[i].color >> 0) & 0xff);
 	
-	int rx0 = rects[i].x;
-	int ry0 = rects[i].y;
-	int rx1 = rx0 + rects[i].w;
-	int ry1 = ry0 + rects[i].h;
+	NSInteger rx0 = rects[i].x;
+	NSInteger ry0 = rects[i].y;
+	NSInteger rx1 = rx0 + rects[i].w;
+	NSInteger ry1 = ry0 + rects[i].h;
 	
 	if (ry0 < 0) ry0 = 0;
 	if (ry1 < 0) ry1 = 0;
@@ -170,7 +170,7 @@
     return res;
 }
 
-- (void) drawImage: (NSImage*)src val1: (int)x val2: (int)y width: (int)w height: (int)h
+- (void) drawImage: (NSImage*)src val1: (NSInteger)x val2: (NSInteger)y width: (NSInteger)w height: (NSInteger)h
 {
     NSSize srcsize = [src size];
     

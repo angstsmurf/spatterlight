@@ -26,7 +26,7 @@ enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
 #include "babel_handler.h"
 
 @implementation LibHelperWindow
-- (unsigned int) draggingEntered:sender { return [[self delegate] draggingEntered:sender]; }
+- (NSUInteger) draggingEntered:sender { return [[self delegate] draggingEntered:sender]; }
 - (void) draggingExited:sender { [[self delegate] draggingEntered:sender]; }
 - (BOOL) prepareForDragOperation:sender { return [[self delegate] prepareForDragOperation:sender]; }
 - (BOOL) performDragOperation:sender { return [[self delegate] performDragOperation:sender]; }
@@ -103,7 +103,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     }
     else
     {
-	NSLog(error);
+	NSLog(@"%@", error);
 	[error release];
 	return NO;
     }
@@ -164,7 +164,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (IBAction) deleteLibrary: (id)sender
 {
-    int choice =
+    NSInteger choice =
 	NSRunAlertPanel(@"Do you really want to delete the library?", 
 			@"All the information about your games will be lost. The original game files will not be harmed.",
 			@"Delete", NULL, @"Cancel");
@@ -179,7 +179,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (IBAction) purgeLibrary: (id)sender
 {
-    int choice =
+    NSInteger choice =
     NSRunAlertPanel(@"Do you really want to purge the library?", 
 		    @"Purging will delete the information about games that are not in the library at the moment.",
 		    @"Purge", NULL, @"Cancel");
@@ -283,7 +283,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (IBAction) playGame: (id)sender
 {
-    int rowidx = [gameTableView selectedRow];
+    NSInteger rowidx = [gameTableView selectedRow];
     if (rowidx >= 0)
     {
 	NSString *ifid = [gameTableModel objectAtIndex: rowidx];
@@ -294,7 +294,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (IBAction) showGameInfo: (id)sender
 {
     NSIndexSet *rows = [gameTableView selectedRowIndexes];
-    int i;
+    NSInteger i;
     for (i = [rows firstIndex]; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
     {
  	NSString *ifid = [gameTableModel objectAtIndex: i];
@@ -316,7 +316,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (IBAction) revealGameInFinder: (id)sender
 {
     NSIndexSet *rows = [gameTableView selectedRowIndexes];
-    int i;
+    NSInteger i;
     for (i = [rows firstIndex]; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
     {
 	NSString *ifid = [gameTableModel objectAtIndex: i];
@@ -331,7 +331,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     if ([rows count] > 0)
     {
 	NSString *ifid;
-	int i;
+	NSInteger i;
 	
 	for (i = [rows firstIndex]; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
 	{
@@ -353,7 +353,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (BOOL) validateMenuItem: (id<NSMenuItem>)menuItem
 {
     SEL action = [menuItem action];
-    int count = [gameTableView numberOfSelectedRows];
+    NSInteger count = [gameTableView numberOfSelectedRows];
     
     if (action == @selector(delete:))
 	return count > 0;
@@ -383,13 +383,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     
     NSFileManager *mgr = [NSFileManager defaultManager];
     BOOL isdir;
-    int i;
+    NSInteger i;
     
     NSPasteboard *pboard = [sender draggingPasteboard];
     if ([[pboard types] containsObject: NSFilenamesPboardType])
     {
 	NSArray *paths = [pboard propertyListForType: NSFilenamesPboardType];
-	int count = [paths count];
+	NSInteger count = [paths count];
 	for (i = 0; i < count; i++)
 	{
 	    NSString *path = [paths objectAtIndex: i];
@@ -440,8 +440,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (void) addMetadata: (NSMutableDictionary*)dict forIFIDs: (NSArray*)list
 {
-    int count = [list count];
-    int i;
+    NSInteger count = [list count];
+    NSInteger i;
     
     if (cursrc == 0)
 	NSLog(@"libctl: current metadata source failed...");
@@ -456,14 +456,14 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 	    int oldsrc = [oldsrcv intValue];
 	    if (cursrc >= oldsrc)
 	    {
-		[dict setObject: [NSNumber numberWithInt: cursrc] forKey: kSource];
+		[dict setObject: [NSNumber numberWithInt: (int)cursrc] forKey: kSource];
 		[metadata setObject: dict forKey: ifid];
 		gameTableDirty = YES;
 	    }
 	}
 	else
 	{
-	    [dict setObject: [NSNumber numberWithInt: cursrc] forKey: kSource];
+	    [dict setObject: [NSNumber numberWithInt: (int)cursrc] forKey: kSource];
 	    [metadata setObject: dict forKey: ifid];
 	    gameTableDirty = YES;
 	}
@@ -701,10 +701,11 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 /*
  * Export user-edited metadata (ie, with kSource == kUser)
  */
-- (BOOL) exportMetadataToFile: (NSString*)filename what: (int)what
+- (BOOL) exportMetadataToFile: (NSString*)filename what: (NSInteger)what
 {
     NSEnumerator *enumerator;
-    NSString *ifid, *key, *val;
+    NSString *ifid;
+    //NSString *key, *val;
     NSDictionary *info;
     int src;
     
@@ -808,6 +809,8 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     gctl = [[GlkController alloc] initWithWindowNibName: @"GameWindow"];
     [gctl runTerp:terp withGameFile:path IFID:ifid info:info];
     [gctl showWindow: self];
+    
+    // gctl releases itself when the game closes
 }
 
 - (void) importAndPlayGame: (NSString*)path
@@ -962,20 +965,20 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 {
     NSFileManager *filemgr = [NSFileManager defaultManager];
     BOOL isdir;
-    int count;
-    int i;
+    NSInteger count;
+    NSInteger i;
     
     count = [paths count];
     for (i = 0; i < count; i++)
     {
-	NSString *path = [root stringByAppendingPathComponent: [paths objectAtIndex: i]];
+	NSString *path = [root stringByAppendingPathComponent: [[paths objectAtIndex: i] path]];
 	
 	if (![filemgr fileExistsAtPath: path isDirectory: &isdir])
 	    continue;
 	
 	if (isdir)
 	{
-	    NSArray *contents = [filemgr directoryContentsAtPath: path];
+        NSArray *contents = [filemgr contentsOfDirectoryAtPath: path error:nil];
 	    [self addFiles: contents select: select root: path];
 	}
 	else
@@ -987,10 +990,10 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 
 - (void) addFiles: (NSArray*)paths
 {
-    int count;
-    int i;
+    NSInteger count;
+    NSInteger i;
     
-    NSLog(@"libctl: adding %d files", [paths count]);
+    NSLog(@"libctl: adding %lu files", (unsigned long)[paths count]);
     
     NSMutableArray *select = [NSMutableArray arrayWithCapacity: [paths count]];
     
@@ -1034,21 +1037,21 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 
 - (void) selectGameWithIFID: (NSString*)ifid
 {
-    int i, count;
+    NSInteger i, count;
     count = [gameTableModel count];
     for (i = 0; i < count; i++)
 	if ([[gameTableModel objectAtIndex: i] isEqualToString: ifid])
 	    [gameTableView selectRow: i byExtendingSelection: YES];
 }
 
-static int Strstr(NSString *haystack, NSString *needle)
+static NSInteger Strstr(NSString *haystack, NSString *needle)
 {
     if (haystack)
 	return [haystack rangeOfString: needle options: NSCaseInsensitiveSearch].length;
     return 0;
 }
 
-static int Strcmp(NSString *a, NSString *b)
+static NSInteger Strcmp(NSString *a, NSString *b)
 {
     if ([a hasPrefix: @"The "] || [a hasPrefix: @"the "])
 	a = [a substringFromIndex: 4];
@@ -1057,7 +1060,7 @@ static int Strcmp(NSString *a, NSString *b)
     return [a caseInsensitiveCompare: b];
 }
 
-static int compareDicts(NSDictionary * a, NSDictionary * b, id key)
+static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key)
 {
     NSString * ael = [[a objectForKey: key] description];
     NSString * bel = [[b objectForKey: key] description];
@@ -1068,12 +1071,12 @@ static int compareDicts(NSDictionary * a, NSDictionary * b, id key)
     return Strcmp(ael, bel);
 }
 
-static int compareGames(NSString *aid, NSString *bid, void *ctx)
+static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
 {
     LibController *self = ctx;
     NSDictionary *a = [self->metadata objectForKey: aid];
     NSDictionary *b = [self->metadata objectForKey: bid];
-    int cmp;
+    NSInteger cmp;
     if (self->gameSortColumn)
     {
 	cmp = compareDicts(a, b, self->gameSortColumn);
@@ -1097,11 +1100,11 @@ static int compareGames(NSString *aid, NSString *bid, void *ctx)
     NSString *selifid;
     NSString *needle;
     NSString *ifid;
-    int searchcount;
-    int selrow;
-    int count;
-    int found;
-    int i;
+    NSInteger searchcount;
+    NSInteger selrow;
+    NSInteger count;
+    NSInteger found;
+    NSInteger i;
     
     if (!gameTableDirty)
 	return;
@@ -1174,8 +1177,7 @@ static int compareGames(NSString *aid, NSString *bid, void *ctx)
 	[self updateTableViews];
     }
 }
-
-- (int) numberOfRowsInTableView: (NSTableView*)tableView
+- (NSInteger) numberOfRowsInTableView: (NSTableView*)tableView
 {
     if (tableView == gameTableView)
 	return [gameTableModel count];

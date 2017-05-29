@@ -44,10 +44,10 @@
     NSArray *searchStrings;
 
     /* for the importing */
-    int cursrc;
+    NSInteger cursrc;
     NSMutableArray *ifidbuf;
     NSMutableDictionary *metabuf;
-    int errorflag;
+    NSInteger errorflag;
 }
 
 - (void) loadLibrary; /* initializer */
@@ -71,7 +71,7 @@
 - (IBAction) importMetadata: (id)sender;
 - (IBAction) exportMetadata: (id)sender;
 - (BOOL) importMetadataFromFile: (NSString*)filename;
-- (BOOL) exportMetadataToFile: (NSString*)filename what: (int)what;
+- (BOOL) exportMetadataToFile: (NSString*)filename what: (NSInteger)what;
 
 - (IBAction) searchForGames: (id)sender;
 - (IBAction) playGame: (id)sender;

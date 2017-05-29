@@ -68,16 +68,16 @@ NSData *colorToData(NSColor *color)
 NSColor *dataToColor(NSData *data)
 {
     NSColor *color;
-    float r, g, b;
+    CGFloat r, g, b;
     const unsigned char *buf = [data bytes];
     
      if ([data length] < 3)
 	r = g = b = 0;
     else
     {
-	r = buf[0] / 255.0;
-	g = buf[1] / 255.0;
-	b = buf[2] / 255.0;
+        r = buf[0] / 255.0;
+        g = buf[1] / 255.0;
+        b = buf[2] / 255.0;
     }
     
     color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
@@ -85,7 +85,7 @@ NSColor *dataToColor(NSData *data)
     return color;
 }
 
-static NSColor *makehsb(float h, float s, float b)
+static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 {
     return [[NSColor colorWithCalibratedHue: h
 				 saturation: s
@@ -103,8 +103,8 @@ static NSColor *makehsb(float h, float s, float b)
     NSString *filename = [[NSBundle mainBundle] pathForResource: @"Defaults" ofType: @"plist"];
     NSMutableDictionary *defaults = [NSMutableDictionary dictionaryWithContentsOfFile: filename];
     
-    [defaults setObject: [@"~/Documents" stringByStandardizingPath] forKey: @"GameDirectory"];
-    [defaults setObject: [@"~/Documents" stringByStandardizingPath] forKey: @"SaveDirectory"];
+    [defaults setObject: [@"~/Documents" stringByExpandingTildeInPath] forKey: @"GameDirectory"];
+    [defaults setObject: [@"~/Documents" stringByExpandingTildeInPath] forKey: @"SaveDirectory"];
     
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
 }
@@ -167,7 +167,7 @@ static NSColor *makehsb(float h, float s, float b)
 
 + (void) initialize
 {
-    int i;
+    NSInteger i;
     
     [self initFactoryDefaults];
     [self readDefaults];
@@ -227,32 +227,32 @@ static NSColor *makehsb(float h, float s, float b)
     return bgcolor[number];
 }
 
-+ (int) graphicsEnabled
++ (NSInteger) graphicsEnabled
 {
     return dographics;
 }
 
-+ (int) soundEnabled
++ (NSInteger) soundEnabled
 {
     return dosound;
 }
 
-+ (int) stylesEnabled
++ (NSInteger) stylesEnabled
 {
     return dostyles;
 }
 
-+ (int) useScreenFonts
++ (NSInteger) useScreenFonts
 {
     return usescreenfonts;
 }
 
-+ (int) smartQuotes
++ (NSInteger) smartQuotes
 {
     return smartquotes;
 }
 
-+ (int) spaceFormat
++ (NSInteger) spaceFormat
 {
     return spaceformat;
 }
@@ -267,12 +267,12 @@ static NSColor *makehsb(float h, float s, float b)
     return cellw;
 }
 
-+ (int) gridMargins
++ (NSInteger) gridMargins
 {
     return gridmargin;
 }
 
-+ (int) bufferMargins
++ (NSInteger) bufferMargins
 {
     return buffermargin;
 }
