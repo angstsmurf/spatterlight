@@ -2,31 +2,30 @@
 
 @implementation GlkWindow
 
-- (id) initWithGlkController: (GlkController*)glkctl_ name: (int)name_
+- (id) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
 {
-    [super init];
-    
-    glkctl = glkctl_;
-    name = name_;
-    bgnd = 0;
-    
-    // NSLog(@"new window %d (%@)", name, [self class]);
+    self = [super init];
+    if (self)
+    {
+        glkctl = glkctl_;
+        name = name_;
+        bgnd = 0;
+        // NSLog(@"new window %d (%@)", name, [self class]);
+    }
     
     return self;
 }
 
 - (void) dealloc
 {
-    int i;
+    NSInteger i;
     for (i = 0; i < style_NUMSTYLES; i++)
  	[styles[i] release];
     [super dealloc];
 }
 
-- (void) setStyle: (int)style windowType: (int)wintype enable: (int*)enable value:(int*)value
+- (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value
 {
-    int i;
-
     if (styles[style])
     {
 	[styles[style] release];

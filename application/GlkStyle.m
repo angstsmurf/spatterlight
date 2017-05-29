@@ -2,12 +2,12 @@
 
 @implementation GlkStyle
 
-- initWithStyle: (int)stylenumber_
-     windowType: (int)windowtype_
-	 enable: (int*)enablearray
-	  value: (int*)valuearray
+- initWithStyle: (NSInteger)stylenumber_
+     windowType: (NSInteger)windowtype_
+	 enable: (NSInteger*)enablearray
+	  value: (NSInteger*)valuearray
 {
-    int i;
+    NSInteger i;
     
     self = [super init];
     
@@ -51,11 +51,11 @@
     
     if (windowtype == wintype_TextGrid)
     {
-	dict = [[Preferences attributesForGridStyle: stylenumber] mutableCopy];
+	dict = [[Preferences attributesForGridStyle: (int)stylenumber] mutableCopy];
     }
     else
     {
-	dict = [[Preferences attributesForBufferStyle: stylenumber] mutableCopy];
+	dict = [[Preferences attributesForBufferStyle: (int)stylenumber] mutableCopy];
     }
     
     if (![Preferences stylesEnabled])
@@ -70,8 +70,8 @@
 	NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
 	[para setParagraphStyle: [dict objectForKey: NSParagraphStyleAttributeName]];
 	
-	int indent = [para headIndent];
-	int paraindent = [para firstLineHeadIndent] - indent;
+	NSInteger indent = [para headIndent];
+	NSInteger paraindent = [para firstLineHeadIndent] - indent;
 	
 	if (enabled[stylehint_Indentation])
 	    indent = value[stylehint_Indentation] * 3;
@@ -153,10 +153,10 @@
     
     if (enabled[stylehint_TextColor])
     {
-	int val = value[stylehint_TextColor];
-	int r = (val >> 16) & 0xff;
-	int g = (val >> 8) & 0xff;
-	int b = (val >> 0) & 0xff;
+	NSInteger val = value[stylehint_TextColor];
+	NSInteger r = (val >> 16) & 0xff;
+	NSInteger g = (val >> 8) & 0xff;
+	NSInteger b = (val >> 0) & 0xff;
 	NSColor *color = [NSColor colorWithCalibratedRed: r / 255.0
 						   green: g / 255.0
 						    blue: b / 255.0
@@ -166,10 +166,10 @@
     
     if (enabled[stylehint_BackColor])
     {
-	int val = value[stylehint_BackColor];
-	int r = (val >> 16) & 0xff;
-	int g = (val >> 8) & 0xff;
-	int b = (val >> 0) & 0xff;
+	NSInteger val = value[stylehint_BackColor];
+	NSInteger r = (val >> 16) & 0xff;
+	NSInteger g = (val >> 8) & 0xff;
+	NSInteger b = (val >> 0) & 0xff;
 	NSColor *color = [NSColor colorWithCalibratedRed: r / 255.0
 						   green: g / 255.0
 						    blue: b / 255.0
@@ -179,16 +179,16 @@
     
     if (enabled[stylehint_ReverseColor] && !(enabled[stylehint_TextColor] || enabled[stylehint_BackColor]))
     {
-	if (windowtype == wintype_TextGrid)
-	{
-	    [dict setObject: [Preferences gridBackground] forKey: NSForegroundColorAttributeName];
-	    [dict setObject: [Preferences gridForeground] forKey: NSBackgroundColorAttributeName];
-	}
-	else
-	{
-	    [dict setObject: [Preferences bufferBackground] forKey: NSForegroundColorAttributeName];
-	    [dict setObject: [Preferences bufferForeground] forKey: NSBackgroundColorAttributeName];
-	}
+        if (windowtype == wintype_TextGrid)
+        {
+            [dict setObject: [Preferences gridBackground] forKey: NSForegroundColorAttributeName];
+            [dict setObject: [Preferences gridForeground] forKey: NSBackgroundColorAttributeName];
+        }
+        else
+        {
+            [dict setObject: [Preferences bufferBackground] forKey: NSForegroundColorAttributeName];
+            [dict setObject: [Preferences bufferForeground] forKey: NSBackgroundColorAttributeName];
+        }
     }
 }
 
