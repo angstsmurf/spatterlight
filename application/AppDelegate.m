@@ -109,6 +109,7 @@ NSDictionary *gFormatMap;
     [libctl deleteLibrary: sender];
 }
 
+
 /*
  * Open and play game directly.
  */
@@ -156,11 +157,11 @@ NSDictionary *gFormatMap;
     
     if ([[[path pathExtension] lowercaseString] isEqualToString: @"ifiction"])
     {
-	[libctl importMetadataFromFile: path];
+        [libctl importMetadataFromFile: path];
     }
     else
     {
-	[libctl importAndPlayGame: path];
+        [libctl importAndPlayGame: path];
     }
     
     return YES;
@@ -176,8 +177,8 @@ NSDictionary *gFormatMap;
 - (NSApplicationTerminateReply) applicationShouldTerminate: (NSApplication *)app
 {
     NSArray *windows = [app windows];
-    int count = [windows count];
-    int alive = 0;
+    NSInteger count = [windows count];
+    NSInteger alive = 0;
     
     NSLog(@"appdel: applicationShouldTerminate");
     
@@ -189,14 +190,14 @@ NSDictionary *gFormatMap;
 	    alive ++;
     }
     
-    NSLog(@"appdel: windows=%d alive=%d", [windows count], alive);
+    NSLog(@"appdel: windows=%lu alive=%ld", (unsigned long)[windows count], (long)alive);
     
     if (alive > 0)
     {
 	NSString *msg = @"You still have one game running.\nAny unsaved progress will be lost.";
 	if (alive > 1)
-	    msg = [NSString stringWithFormat: @"You have %d games running.\nAny unsaved progress will be lost.", alive];
-	int choice = NSRunAlertPanel(@"Do you really want to quit?", msg, @"Quit", NULL, @"Cancel");
+	    msg = [NSString stringWithFormat: @"You have %ld games running.\nAny unsaved progress will be lost.", (long)alive];
+	NSInteger choice = NSRunAlertPanel(@"Do you really want to quit?", @"%@", @"Quit", NULL, @"Cancel", msg);
 	if (choice == NSAlertOtherReturn)
 	    return NSTerminateCancel;
     }

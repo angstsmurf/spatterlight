@@ -170,7 +170,7 @@ static const char *msgnames[] =
 {
     NSLog(@"glkctl: dealloc");
     
-    int i, wintype, style;
+    NSInteger i;
     
     [[NSNotificationCenter defaultCenter] removeObserver: self];
     
@@ -334,7 +334,7 @@ static const char *msgnames[] =
     }
 
     if (focuswin)
-        NSLog(@"window %d has focus", ((GlkWindow*)focuswin)->name);
+        NSLog(@"window %ld has focus", (long)((GlkWindow*)focuswin)->name);
     
     if (focuswin && [focuswin wantsFocus])
 	return;
@@ -517,9 +517,9 @@ static const char *msgnames[] =
     [readfh waitForDataInBackgroundAndNotify];
 }
 
-- (int) handleNewWindowOfType: (int)wintype
+- (NSInteger) handleNewWindowOfType: (NSInteger)wintype
 {
-    int i, k;
+    NSInteger i, k;
 
     for (i = 0; i < MAXWIN; i++)
 	if (gwindows[i] == nil)
@@ -714,16 +714,15 @@ static const char *msgnames[] =
 - (void) handlePrintOnWindow: (GlkWindow*)gwindow style: (int)style buffer: (unichar*)buf length: (int)len
 {
     NSString *str;
-    int i;
     
     if ([gwindow isKindOfClass: [GlkTextBufferWindow class]] && (style & 0xff) != style_Preformatted)
     {
 	GlkTextBufferWindow *textwin = (GlkTextBufferWindow*) gwindow;
-	int smartquotes = [Preferences smartQuotes];
-	int spaceformat = [Preferences spaceFormat];
-	int lastchar = [textwin lastchar];
-	int spaced = 0;
-	int i;
+	NSInteger smartquotes = [Preferences smartQuotes];
+	NSInteger spaceformat = [Preferences spaceFormat];
+	NSInteger lastchar = [textwin lastchar];
+	NSInteger spaced = 0;
+	NSInteger i;
 	
 	for (i = 0; i < len; i++)
 	{
@@ -785,7 +784,7 @@ static const char *msgnames[] =
 	    lastchar = buf[i];
 	}
 	
-	len = i;
+	len = (int)i;
     }
     
     str = [NSString stringWithCharacters: buf length: len];
@@ -796,14 +795,13 @@ static const char *msgnames[] =
 - (BOOL) handleRequest: (struct message *)req reply: (struct message *)ans buffer: (char *)buf
 {
     NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
-    int i;
     
     switch (req->cmd)
     {	
 	case HELLO:
 	    ans->cmd = OKAY;
-	    ans->a1 = [Preferences graphicsEnabled];
-	    ans->a2 = [Preferences soundEnabled];
+	    ans->a1 = (int)[Preferences graphicsEnabled];
+	    ans->a2 = (int)[Preferences soundEnabled];
 	    break;
 	    
 	case NEXTEVENT:
@@ -859,7 +857,7 @@ static const char *msgnames[] =
 	    
 	case NEWWIN:
 	    ans->cmd = OKAY;
-	    ans->a1 = [self handleNewWindowOfType: req->a1];
+	    ans->a1 = (int)[self handleNewWindowOfType: req->a1];
 	    NSLog(@"glkctl newwin %d (type %d)", ans->a1, req->a1);
 	    break;
 	    
@@ -872,10 +870,13 @@ static const char *msgnames[] =
 	    NSLog(@"glkctl delwin %d", req->a1);
 	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
 	    {
-		[gwindows[req->a1] removeFromSuperview];
-		[gwindows[req->a1] release];
-		gwindows[req->a1] = nil;
+            [gwindows[req->a1] removeFromSuperview];
+            [gwindows[req->a1] release];
+            gwindows[req->a1] = nil;
 	    }
+        else
+            NSLog(@"delwin: something went wrong.");
+
 	    break;
 	    
 	case DELCHAN:

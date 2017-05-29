@@ -34,9 +34,9 @@
 
     /* current state of the protocol */
     NSTimer *timer;
-    int waitforevent; /* terp wants an event */
-    int waitforfilename; /* terp wants a filename from a file dialog */
-    int dead; /* le roi est mort! vive le roi! */
+    NSInteger waitforevent; /* terp wants an event */
+    NSInteger waitforfilename; /* terp wants a filename from a file dialog */
+    NSInteger dead; /* le roi est mort! vive le roi! */
     
     /* the glk objects */
     GlkWindow *gwindows[MAXWIN];
@@ -44,14 +44,14 @@
     int windowdirty; /* the contentView needs to repaint */
    
     /* image/sound resource uploading protocol */
-    int lastimageresno;
-    int lastsoundresno;
+    NSInteger lastimageresno;
+    NSInteger lastsoundresno;
     NSImage *lastimage;
     NSData *lastsound;
     
     /* stylehints need to be copied to new windows, so we keep the values around */
-    int styleuse[2][style_NUMSTYLES][stylehint_NUMHINTS];
-    int styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
+    NSInteger styleuse[2][style_NUMSTYLES][stylehint_NUMHINTS];
+    NSInteger styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
     
     /* keep some info around for the about-box */
     NSString *gamefile;
