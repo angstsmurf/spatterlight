@@ -9,17 +9,17 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr,
                        glui32 arrlen)
 {
     switch (id) {
-            
+
         case gestalt_Version:
             /* This implements Glk spec version 0.7.5. */
             return 0x00000705;
-            
+
         case gestalt_LineInput:
             if (val >= 32 && val < 127)
                 return TRUE;
             else
                 return FALSE;
-            
+
         case gestalt_CharInput:
             if (val >= 32 && val < 127)
                 return TRUE;
@@ -35,7 +35,7 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr,
                 /* If not, we can't accept anything non-ASCII */
                 return FALSE;
             }
-            
+
         case gestalt_CharOutput:
             if (val >= 32 && val < 127) {
                 if (arr && arrlen >= 1)
@@ -76,45 +76,38 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr,
                 return gli_enable_graphics;
             return FALSE;
             
-        case gestalt_Unicode:
-#ifdef GLK_MODULE_UNICODE
-            return TRUE;
-#else
-            return FALSE;
-#endif /* GLK_MODULE_UNICODE */
-            
-        case gestalt_UnicodeNorm:
-#ifdef GLK_MODULE_UNICODE_NORM
-            return TRUE;
-#else
-            return FALSE;
-#endif /* GLK_MODULE_UNICODE_NORM */
-            
         case gestalt_Sound:
         case gestalt_SoundVolume:
         case gestalt_SoundNotify:
         case gestalt_SoundMusic:
             return gli_enable_sound;
         case gestalt_Sound2:
-            /* Sound2 implies all the above sound options. But for
-             cheapglk, they're all false. */
             return FALSE;
             
+        case gestalt_Unicode:
+            return TRUE;
+        case gestalt_UnicodeNorm:
+            return TRUE;
+
+        case gestalt_Hyperlinks:
+            return FALSE;
+        case gestalt_HyperlinkInput:
+            return FALSE;
+
         case gestalt_LineInputEcho:
-            return FALSE;
-            
+            return TRUE;
         case gestalt_LineTerminators:
-        case gestalt_LineTerminatorKey:
             return FALSE;
-            
+        case gestalt_LineTerminatorKey:
+            return gli_window_check_terminator(val);
+
         case gestalt_DateTime:
             return TRUE;
-            
+
         case gestalt_ResourceStream:
             return TRUE;
-            
+
         default:
             return 0;
-            
     }
 }
