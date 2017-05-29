@@ -175,13 +175,13 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
  if (strcmp(required[i],parent->tag)==0 && strcmp(required[i+1],xtg->tag)==0)
   parent->rocurrences[i]=1;
  for(i=0;one_per[i];i++)
- if (strcmp(one_per[i],xtg->tag)==0)
+     if (strcmp(one_per[i],xtg->tag)==0){
   if (parent->occurences[i]) { 
                                sprintf(ebuf,"Error: (line %d) Found more than one <%s> within <%s>",xtg->beginl,xtg->tag,
                                         parent->tag);
                                err_h(ebuf,ectx);
                              }
-   else parent->occurences[i]=1;
+         else parent->occurences[i]=1;}
  }
  for(i=0;required[i];i+=2)
  if (strcmp(required[i],xtg->tag)==0 && !xtg->rocurrences[i])

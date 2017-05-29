@@ -159,9 +159,9 @@ static char *deeper_babel_init(char *story_name, void *bhp)
     else if (l==NO_REPLY_RV && best_candidate < 0) best_candidate=i;
     }
   }
-  if (!treaty_registry[i])
+    if (!treaty_registry[i]) {
    if (best_candidate>0) { i=best_candidate; bh->auth=0; }
-   else return NULL;
+        else return NULL;}
   bh->treaty_handler=treaty_registry[i];
 
   if (bh->treaty_handler(GET_FORMAT_NAME_SEL,NULL,0,buffer,TREATY_MINIMUM_EXTENT)>=0)

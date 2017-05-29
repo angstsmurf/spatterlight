@@ -630,9 +630,10 @@ static int get_l9_version(unsigned char *sf, int32 extent, char **ifid)
 static int32 claim_story_file(void *story, int32 extent)
 {
  char *ifid=NULL;
- if (get_l9_version((unsigned char *) story,extent, &ifid))
+    if (get_l9_version((unsigned char *) story,extent, &ifid)) {
   if (ifid) return VALID_STORY_FILE_RV;
-  else return NO_REPLY_RV;
+        else return NO_REPLY_RV;
+    }
  return INVALID_STORY_FILE_RV; 
 }
 
