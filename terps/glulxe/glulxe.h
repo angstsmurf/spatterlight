@@ -47,7 +47,7 @@ typedef int16_t glsi16;
 /* Uncomment this definition to permit an exception for memory-address
    checking for @glk and @copy opcodes that try to write to memory address 0.
    This was a bug in old Superglus-built game files. */
-#define TOLERATE_SUPERGLUS_BUG (1) */
+#define TOLERATE_SUPERGLUS_BUG (1)
 
 /* Uncomment this definition to turn on Glulx VM profiling. In this
    mode, all function calls are timed, and the timing information is
