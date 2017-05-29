@@ -132,14 +132,14 @@ unsigned chartokeycode(unsigned ch)
     [super dealloc];
 }
 
-- (void) writeEvent: (int)fd
+- (void) writeEvent: (NSInteger)fd
 {
     struct message reply;
     char buf[4096];
    
     if (ln)
     {
-	reply.len = [ln length] * 2;
+	reply.len = (int)([ln length] * 2);
 	if (reply.len > sizeof buf)
 	    reply.len = sizeof buf;
 	[ln getCharacters: (unsigned short*)buf range: NSMakeRange(0, reply.len/2)];
@@ -149,24 +149,29 @@ unsigned chartokeycode(unsigned ch)
 	reply.len = 0;
     }
     
-    reply.cmd = type;
-    reply.a1 = win;
-    reply.a2 = val1;
-    reply.a3 = val2;
+    reply.cmd = (int)type;
+    reply.a1 = (int)win;
+    reply.a2 = (int)val1;
+    reply.a3 = (int)val2;
     
     if (type == EVTARRANGE || type == EVTPREFS)
     {
-	reply.a1 = val1;
-	reply.a2 = val2;
-	reply.a3 = [Preferences bufferMargins];
-	reply.a4 = [Preferences gridMargins];
+	reply.a1 = (int)val1;
+	reply.a2 = (int)val2;
+	reply.a3 = (int)[Preferences bufferMargins];
+	reply.a4 = (int)[Preferences gridMargins];
 	reply.a5 = [Preferences charWidth] * 256.0;
 	reply.a6 = [Preferences lineHeight] * 256.0;
     }
     
-    write(fd, &reply, sizeof(struct message));
+    write((int)fd, &reply, sizeof(struct message));
     if (reply.len)
-	write(fd, buf, reply.len);
+	write((int)fd, buf, reply.len);
+}
+
+- (NSInteger) type
+{
+    return self->type;
 }
 
 @end

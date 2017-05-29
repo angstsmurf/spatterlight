@@ -4,18 +4,19 @@ unsigned chartokeycode(unsigned ch);
 
 @interface GlkEvent : NSObject
 {
-    int type;
-    int win;
-    unsigned int val1, val2;
+    NSInteger type;
+    NSInteger win;
+    NSUInteger val1, val2;
     NSString *ln;
 }
 
 - (id) initPrefsEvent;
-- (id) initCharEvent: (unsigned)v forWindow: (int)name;
-- (id) initLineEvent: (NSString*)v forWindow: (int)name;
-- (id) initMouseEvent: (NSPoint)v forWindow: (int)name;
+- (id) initCharEvent: (unsigned)v forWindow: (NSInteger)name;
+- (id) initLineEvent: (NSString*)v forWindow: (NSInteger)name;
+- (id) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name;
 - (id) initTimerEvent;
-- (id) initArrangeWidth: (int)aw height: (int)ah;
-- (void) writeEvent: (int)fd;
+- (id) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
+- (void) writeEvent: (NSInteger)fd;
+- (NSInteger) type;
 
 @end
