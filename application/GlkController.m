@@ -106,26 +106,54 @@ static const char *msgnames[] =
 		       name: @"PreferencesChanged"
 		     object: nil];
     }
-    
+
     /* Fork the interpreter process */
     {
 	NSString *terppath;
 	NSPipe *readpipe;
 	NSPipe *sendpipe;
-	
+
 	terppath = [[NSBundle mainBundle] pathForAuxiliaryExecutable: terpname];
 	readpipe = [NSPipe pipe];
 	sendpipe = [NSPipe pipe];
 	readfh = [[readpipe fileHandleForReading] retain];
 	sendfh = [[sendpipe fileHandleForWriting] retain];
-	
+
 	task = [[NSTask alloc] init];
 	[task setCurrentDirectoryPath: NSHomeDirectory()];
-	[task setLaunchPath: terppath];
+
+
 	[task setStandardOutput: readpipe];
 	[task setStandardInput: sendpipe];
-	[task setArguments: [NSArray arrayWithObjects: gamefile, NULL]];
-	
+
+#ifdef TEE_TERP_OUTPUT
+    [task setLaunchPath: @"/bin/bash"];
+
+    NSString *cmdline = @" "; //@"\"";
+    cmdline = [cmdline stringByAppendingString:terppath];
+    cmdline = [cmdline stringByAppendingString:@" \""];
+    cmdline = [cmdline stringByAppendingString:gamefile];
+
+    cmdline = [cmdline stringByAppendingString:@"\" | tee -a ~/Desktop/Spatterlight\\ "];
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH.mm"];
+    NSString *stringFromDate = [formatter stringFromDate:[NSDate date]];
+
+    [formatter release];
+
+    stringFromDate = [stringFromDate stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
+    cmdline = [cmdline stringByAppendingString:stringFromDate];
+    cmdline = [cmdline stringByAppendingString:@".txt"];
+
+	[task setArguments: @[ @"-c", cmdline ]];
+#else
+
+    [task setLaunchPath: terppath];
+    [task setArguments: [NSArray arrayWithObjects: gamefile, NULL]];
+
+#endif //TEE_TERP_OUTPUT
+
 	[[NSNotificationCenter defaultCenter]
                 addObserver: self
                    selector: @selector(noteTaskDidTerminate:)
