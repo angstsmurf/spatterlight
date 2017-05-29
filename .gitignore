@@ -150,7 +150,7 @@ xcuserdata/**/*
 #         xcschememanagement.plist
 #
 #
-Spatterlight.xcodeproj/project.xcworkspace/xcuserdata/administrator.xcuserdatad/UserInterfaceState.xcuserstate
+Spatterlight.xcodeproj/project.xcworkspace/xcuserdata/*
 
 ####
 # Xcode 4 - Deprecated classes
