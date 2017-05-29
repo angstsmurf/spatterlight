@@ -57,55 +57,72 @@ unsigned chartokeycode(unsigned ch)
 
 - (id) initPrefsEvent
 {
-    [super init];
-    type = EVTPREFS;
-    val1 = [Preferences graphicsEnabled];
-    val2 = [Preferences soundEnabled];
+    self = [super init];
+    if (self)
+    {
+        type = EVTPREFS;
+        val1 = [Preferences graphicsEnabled];
+        val2 = [Preferences soundEnabled];
+    }
     return self;
 }
 
-- (id) initCharEvent: (unsigned)v forWindow: (int)name
+- (id) initCharEvent: (unsigned)v forWindow: (NSInteger)name
 {
-    [super init];
-    type = EVTKEY;
-    win = name;
-    val1 = v;
+    self = [super init];
+    if (self)
+    {
+        type = EVTKEY;
+        win = name;
+        val1 = v;
+    }
     return self;
 }
 
-- (id) initMouseEvent: (NSPoint)v forWindow: (int)name
+- (id) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name
 {
-    [super init];
-    type = EVTMOUSE;
-    win = name;
-    val1 = v.x;
-    val2 = v.y;
+    self = [super init];
+    if (self)
+    {
+        type = EVTMOUSE;
+        win = name;
+        val1 = v.x;
+        val2 = v.y;
+    }
     return self;
 }
 
-- (id) initLineEvent: (NSString*)v forWindow: (int)name
+- (id) initLineEvent: (NSString*)v forWindow: (NSInteger)name
 {
-    [super init];
-    type = EVTLINE;
-    ln = [v copy];
-    win = name;
-    val1 = [ln length];
+    self = [super init];
+    if (self)
+    {
+
+        type = EVTLINE;
+        ln = [v copy];
+        win = name;
+        val1 = (unsigned int)[ln length];
+    }
     return self;
 }
 
 - (id) initTimerEvent
 {
-    [super init];
-    type = EVTTIMER;
+    self = [super init];
+    if (self)
+        type = EVTTIMER;
     return self;
 }
 
-- (id) initArrangeWidth: (int)aw height: (int)ah;
+- (id) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
 {
-    [super init];
-    type = EVTARRANGE;
-    val1 = aw;
-    val2 = ah;
+    self = [super init];
+    if (self)
+    {
+        type = EVTARRANGE;
+        val1 = aw;
+        val2 = ah;
+    }
     return self;
 }
 
