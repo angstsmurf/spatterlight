@@ -86,6 +86,13 @@ static int main_t2(int argc, char **argv)
     /* install the break handler */
     os_instbrk(1);
 
+#ifdef SPATTERLIGHT
+    // argv[0] is the path to the interpreter here, and argv[1] is the path to the game file,
+    // but os0main2 really wants the game file to be argv[0]???
+    argv[0] = argv[1];
+#endif
+
+
     /* invoke the tads 2 main entrypoint */
     stat = os0main2(argc, argv, trdmain, "", 0, 0);
 
