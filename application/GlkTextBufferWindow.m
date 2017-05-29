@@ -35,38 +35,40 @@
 @interface MarginImage : NSObject
 {
     NSImage *image;
-    int align;
-    int pos;
+    NSInteger align;
+    NSInteger pos;
     NSSize size;
-    int brk;
+    NSInteger brk;
     float brky;
     NSRect bounds;
-    int recalc;
+    NSInteger recalc;
 }
 
-- (id) initWithImage: (NSImage*)animage align: (int)analign at: (int)apos size: (NSSize)asize;
+- (id) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos size: (NSSize)asize;
 - (NSImage*) image;
-- (int) position;
-- (int) alignment;
+- (NSInteger) position;
+- (NSInteger) alignment;
 - (NSRect) boundsWithLayout: (NSLayoutManager*)layout;
-- (int) flowBreakAt;
+- (NSInteger) flowBreakAt;
 - (void) setFlowBreakAt: (int)fb;
 
 @end
 
 @implementation MarginImage
 
-- (id) initWithImage: (NSImage*)animage align: (int)analign at: (int)apos size: (NSSize)asize;
+- (id) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos size: (NSSize)asize
 {
-    [super init];
-    image = [animage retain];
-    [image setFlipped: YES];
-    align = analign;
-    pos = apos;
-    size = asize;
-    brk = -1;
-    bounds = NSZeroRect;
-    recalc = YES;
+    self = [super init];
+    if (self)
+    {
+        image = [animage retain];
+        align = analign;
+        pos = apos;
+        size = asize;
+        brk = -1;
+        bounds = NSZeroRect;
+        recalc = YES;
+    }
     return self;
 }
 
@@ -139,9 +141,10 @@
 
 - (id) initWithContainerSize: (NSSize)size
 {
-    [super initWithContainerSize: size];
+    self = [super initWithContainerSize: size];
     
-    margins = [[NSMutableArray alloc] init];
+    if (self)
+        margins = [[NSMutableArray alloc] init];
     
     return self;
 }
