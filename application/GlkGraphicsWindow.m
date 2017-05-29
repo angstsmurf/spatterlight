@@ -59,12 +59,14 @@
 - (void) setFrame: (NSRect)frame
 {
     int w, h;
-    
+
     if (NSEqualRects(frame, [self frame]))
 	return;
-    
+
     [super setFrame: frame];
-    
+
+    [self setAutoresizingMask: NSViewNotSizable];
+
     w = frame.size.width;
     h = frame.size.height;
     
@@ -73,7 +75,7 @@
 
     [image setSize: NSMakeSize(w, h)];
     [image recache];
-    
+
     dirty = YES;
 }
 
