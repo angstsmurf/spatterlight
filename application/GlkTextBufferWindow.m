@@ -678,8 +678,23 @@
     // scroll so rect from lastseen to bottom is visible
     //NSLog(@"scroll %d -> %d", lastseen, bottom);
     [textview scrollRectToVisible: NSMakeRect(0, lastseen, 0, bottom - lastseen)];
-    
+
+
     //NSLog(@"perform scroll bottom = %d lastseen = %d", bottom, lastseen);
+}
+
+- (void)scrollToBottom
+{
+    NSPoint newScrollOrigin;
+    if ([scrollview isFlipped]) {
+        newScrollOrigin=NSMakePoint(0.0,NSMaxY([[scrollview documentView] frame])
+                                    -NSHeight([[scrollview contentView] bounds]));
+    } else {
+        newScrollOrigin=NSMakePoint(0.0,0.0);
+    }
+
+    [[scrollview documentView] scrollPoint:newScrollOrigin];
+    NSLog(@"Scrolled to bottom of scrollview");
 }
 
 - (void) saveHistory: (NSString*)line
