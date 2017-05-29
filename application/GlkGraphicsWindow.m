@@ -8,15 +8,17 @@
 
 @implementation GlkGraphicsWindow
 
-- (id) initWithGlkController: (GlkController*)glkctl_ name: (int)name_
+- (id) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
 {
-    [super initWithGlkController: glkctl_ name: name_];
+    self = [super initWithGlkController: glkctl_ name: name_];
     
-    image = [[NSImage alloc] initWithSize: NSZeroSize];
+    if (self)
+    {
+        image = [[NSImage alloc] initWithSize: NSZeroSize];
 
-    mouse_request = NO;
-    
-    transparent = NO;
+        mouse_request = NO;
+        transparent = NO;
+    }
     
     return self;
 }
