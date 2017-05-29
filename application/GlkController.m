@@ -662,38 +662,42 @@ static const char *msgnames[] =
 
     if (lastimage)
     {
-	[lastimage release];
-	lastimage = nil;
+        [lastimage release];
+        lastimage = nil;
     }
-    
-    NSArray *reps;
+
     NSData *data;
-    NSSize size;
 
     data = [[NSData alloc] initWithBytesNoCopy: buffer length: length freeWhenDone: NO];
     if (!data)
-	return;
-    
-    lastimage = [[NSImage alloc] initWithData: data];
+        return;
+
+    NSArray * reps = [NSBitmapImageRep imageRepsWithData:data];
+
+    NSInteger width = 0;
+    NSInteger height = 0;
+
+    for (NSImageRep * imageRep in reps) {
+        if ([imageRep pixelsWide] > width) width = [imageRep pixelsWide];
+        if ([imageRep pixelsHigh] > height) height = [imageRep pixelsHigh];
+    }
+
+    lastimage = [[NSImage alloc] initWithSize:NSMakeSize((CGFloat)width, (CGFloat)height)];
+
     if (!lastimage)
     {
-	NSLog(@"glkctl: failed to decode image");
-	[data release];
-	return;
+        NSLog(@"glkctl: failed to decode image");
+        [data release];
+        return;
     }
-    
-    size = [lastimage size];
-    
-    /* set size to actual pixels; override dpi setting */
-    NSImageRep *rep = [lastimage bestRepresentationForDevice: nil];
-    size.width = [rep pixelsWide];
-    size.height = [rep pixelsHigh];
-    [lastimage setSize: size];
-    
+
+    [lastimage addRepresentations:reps];
+
     [data release];
-    
+
     lastimageresno = resno;
 }
+
 
 - (void) handleStyleHintOnWindowType: (int)wintype style: (int)style hint:(int)hint value:(int)value
 {
