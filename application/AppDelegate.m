@@ -21,37 +21,37 @@ NSDictionary *gFormatMap;
     NSLog(@"appdel: awakeFromNib");
     
     gGameFileTypes = [[NSArray alloc] initWithObjects:
-	@"d$$", @"dat", @"sna",
-	@"advsys", @"quill",
-	@"l9", @"mag", @"a3c", @"acd", @"agx", @"gam", @"t3", @"hex", @"taf",
-	@"z3", @"z4", @"z5", @"z7", @"z8", @"ulx",
-	@"blb", @"blorb", @"glb", @"gblorb", @"zlb", @"zblorb",
-	nil];
+                      @"d$$", @"dat", @"sna",
+                      @"advsys", @"quill",
+                      @"l9", @"mag", @"a3c", @"acd", @"agx", @"gam", @"t3", @"hex", @"taf",
+                      @"z3", @"z4", @"z5", @"z7", @"z8", @"ulx",
+                      @"blb", @"blorb", @"glb", @"gblorb", @"zlb", @"zblorb",
+                      nil];
     
     gExtMap = [[NSDictionary alloc] initWithObjectsAndKeys:
-	@"alan2", @"acd",
-	@"alan3", @"a3c",
-	@"agility", @"d$$",
-	NULL];
+               @"alan2", @"acd",
+               @"alan3", @"a3c",
+               @"agility", @"d$$",
+               NULL];
     
     gFormatMap = [[NSDictionary alloc] initWithObjectsAndKeys:
-	@"scare",	@"adrift",
-	@"advsys",	@"advsys",
-	@"agility",	@"agt",
-	@"glulxe",      @"glulx",
-	@"hugo",	@"hugo",
-	@"level9",	@"level9",
-	@"magnetic",	@"magscrolls",
-	@"unquill",     @"quill",
-	@"tadsr",	@"tads2",
-	@"tadsr",	@"tads3",
-	@"frotz",	@"zcode",
-	NULL];
+                  @"scare",	@"adrift",
+                  @"advsys",	@"advsys",
+                  @"agility",	@"agt",
+                  @"glulxe",      @"glulx",
+                  @"hugo",	@"hugo",
+                  @"level9",	@"level9",
+                  @"magnetic",	@"magscrolls",
+                  @"unquill",     @"quill",
+                  @"tadsr",	@"tads2",
+                  @"tadsr",	@"tads3",
+                  @"frotz",	@"zcode",
+                  NULL];
     
     prefctl = [[Preferences alloc] initWithWindowNibName: @"PrefsWindow"];
     libctl = [[LibController alloc] initWithWindowNibName: @"LibraryWindow"];
     [libctl loadLibrary];
- }
+}
 
 - (void) dealloc
 {
@@ -120,15 +120,15 @@ NSDictionary *gFormatMap;
     
     NSURL *directory = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] objectForKey: @"GameDirectory"] isDirectory:YES];
     NSOpenPanel *panel;
-
+    
     if (filePanel)
     {
-	[filePanel makeKeyAndOrderFront: nil];
+        [filePanel makeKeyAndOrderFront: nil];
     }
     else
     {
         panel = [[NSOpenPanel openPanel] retain];
-
+        
         panel.allowedFileTypes = gGameFileTypes;
         panel.directoryURL = directory;
         NSLog(@"directory = %@", directory);
@@ -142,7 +142,7 @@ NSDictionary *gFormatMap;
                         [[NSUserDefaults standardUserDefaults] setObject: pathString forKey: @"SaveDirectory"];
                     else
                         [[NSUserDefaults standardUserDefaults] setObject: pathString forKey: @"GameDirectory"];
-
+                    
                     [self application: NSApp openFile: [theDoc path]];
                 }
             }
@@ -185,21 +185,21 @@ NSDictionary *gFormatMap;
     while (count--)
     {
         NSWindow *window = [windows objectAtIndex: count];
-	id glkctl = [window delegate];
-	if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive])
-	    alive ++;
+        id glkctl = [window delegate];
+        if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive])
+            alive ++;
     }
     
     NSLog(@"appdel: windows=%lu alive=%ld", (unsigned long)[windows count], (long)alive);
     
     if (alive > 0)
     {
-	NSString *msg = @"You still have one game running.\nAny unsaved progress will be lost.";
-	if (alive > 1)
-	    msg = [NSString stringWithFormat: @"You have %ld games running.\nAny unsaved progress will be lost.", (long)alive];
-	NSInteger choice = NSRunAlertPanel(@"Do you really want to quit?", @"%@", @"Quit", NULL, @"Cancel", msg);
-	if (choice == NSAlertOtherReturn)
-	    return NSTerminateCancel;
+        NSString *msg = @"You still have one game running.\nAny unsaved progress will be lost.";
+        if (alive > 1)
+            msg = [NSString stringWithFormat: @"You have %ld games running.\nAny unsaved progress will be lost.", (long)alive];
+        NSInteger choice = NSRunAlertPanel(@"Do you really want to quit?", @"%@", @"Quit", NULL, @"Cancel", msg);
+        if (choice == NSAlertOtherReturn)
+            return NSTerminateCancel;
     }
     
     return NSTerminateNow;

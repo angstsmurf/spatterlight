@@ -19,8 +19,8 @@
 
 - initWithStyle: (NSInteger)stylenumber_
      windowType: (NSInteger)windowtype_
-	 enable: (NSInteger *)enablearray
-	  value: (NSInteger *)valuearray;
+         enable: (NSInteger *)enablearray
+          value: (NSInteger *)valuearray;
 - (void) prefsDidChange;
 - (NSDictionary*) attributes;
 

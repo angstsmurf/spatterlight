@@ -1,5 +1,5 @@
 /*
- * GlkController -- 
+ * GlkController --
  *
  * An NSWindowController that controls the game window,
  * talks with the interpreter process,
@@ -31,7 +31,7 @@
     NSFileHandle *readfh;
     NSFileHandle *sendfh;
     NSMutableArray *queue;
-
+    
     /* current state of the protocol */
     NSTimer *timer;
     NSInteger waitforevent; /* terp wants an event */
@@ -42,7 +42,7 @@
     GlkWindow *gwindows[MAXWIN];
     GlkSoundChannel *gchannels[MAXSND];
     int windowdirty; /* the contentView needs to repaint */
-   
+    
     /* image/sound resource uploading protocol */
     NSInteger lastimageresno;
     NSInteger lastsoundresno;
@@ -61,9 +61,9 @@
 
 - (void) runTerp: (NSString*)terpname
     withGameFile: (NSString*)gamefilename
-	    IFID: (NSString*)gameifid
-	    info: (NSDictionary*)gameinfo;
-- (void) queueEvent: (GlkEvent*)gevent; 
+            IFID: (NSString*)gameifid
+            info: (NSDictionary*)gameinfo;
+- (void) queueEvent: (GlkEvent*)gevent;
 - (void) contentDidResize: (NSRect)frame;
 - (BOOL) isAlive;
 - (void) markLastSeen;

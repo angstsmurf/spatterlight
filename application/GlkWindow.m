@@ -20,7 +20,7 @@
 {
     NSInteger i;
     for (i = 0; i < style_NUMSTYLES; i++)
- 	[styles[i] release];
+        [styles[i] release];
     [super dealloc];
 }
 
@@ -28,14 +28,14 @@
 {
     if (styles[style])
     {
-	[styles[style] release];
-	styles[style] = 0;
+        [styles[style] release];
+        styles[style] = 0;
     }
-
+    
     styles[style] = [[GlkStyle alloc] initWithStyle: style
-					 windowType: wintype
-					     enable: enable
-					      value: value];
+                                         windowType: wintype
+                                             enable: enable
+                                              value: value];
 }
 
 - (BOOL) isOpaque
@@ -59,20 +59,20 @@
     /* x and y separable */
     
     if (NSMaxX(thisframe) == NSMaxX(mainframe))
-	rgt = 1;
+        rgt = 1;
     
     if (NSMaxY(thisframe) == NSMaxY(mainframe))
-	bot = 1;
+        bot = 1;
     
     if (rgt)
-	hmask = NSViewWidthSizable;
+        hmask = NSViewWidthSizable;
     else
-	hmask = NSViewMaxXMargin;
+        hmask = NSViewMaxXMargin;
     
     if (bot)
-	vmask = NSViewHeightSizable;
+        vmask = NSViewHeightSizable;
     else
-	vmask = NSViewMaxYMargin;
+        vmask = NSViewMaxYMargin;
     
     [self setAutoresizingMask: hmask | vmask];
 }
@@ -81,7 +81,7 @@
 {
     NSInteger i;
     for (i = 0; i < style_NUMSTYLES; i++)
-	[styles[i] prefsDidChange];
+        [styles[i] prefsDidChange];
 }
 
 - (void) terpDidStop

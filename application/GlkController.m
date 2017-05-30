@@ -70,121 +70,121 @@ static const char *msgnames[] =
 
 - (void) runTerp: (NSString*)terpname
     withGameFile: (NSString*)gamefile_
-	    IFID: (NSString*)gameifid_
-	    info: (NSDictionary*)gameinfo_
+            IFID: (NSString*)gameifid_
+            info: (NSDictionary*)gameinfo_
 {
     NSLog(@"glkctl: runterp %@ %@", terpname, gamefile_);
-
+    
     NSSize defsize = [Preferences defaultWindowSize];
-
+    
     gamefile = [gamefile_ retain];
     gameifid = [gameifid_ retain];
     gameinfo = [gameinfo_ retain];
-
+    
     /* Setup our own stuff */
     {
-	queue = [[NSMutableArray alloc] init];
-	
-	waitforevent = NO;
-	waitforfilename = NO;
-	dead = NO;
-	
-	windowdirty = NO;
-	
-	lastimageresno = -1;
-	lastsoundresno = -1;
-	lastimage = nil;
-	lastsound = nil;
+        queue = [[NSMutableArray alloc] init];
+        
+        waitforevent = NO;
+        waitforfilename = NO;
+        dead = NO;
+        
+        windowdirty = NO;
+        
+        lastimageresno = -1;
+        lastsoundresno = -1;
+        lastimage = nil;
+        lastsound = nil;
     }
     
     /* Setup Cocoa stuff */
     {
-	// [[self window] setRepresentedFilename: gamefile];
-	[[self window] setTitle: [gameinfo objectForKey: @"title"]];
-	[[self window] setContentSize: defsize];
-	
-	[[NSNotificationCenter defaultCenter]
-		addObserver: self
-		   selector: @selector(notePreferencesChanged:)
+        // [[self window] setRepresentedFilename: gamefile];
+        [[self window] setTitle: [gameinfo objectForKey: @"title"]];
+        [[self window] setContentSize: defsize];
+        
+        [[NSNotificationCenter defaultCenter]
+         addObserver: self
+         selector: @selector(notePreferencesChanged:)
 		       name: @"PreferencesChanged"
-		     object: nil];
+         object: nil];
     }
-
+    
     /* Fork the interpreter process */
     {
-	NSString *terppath;
-	NSPipe *readpipe;
-	NSPipe *sendpipe;
-
-	terppath = [[NSBundle mainBundle] pathForAuxiliaryExecutable: terpname];
-	readpipe = [NSPipe pipe];
-	sendpipe = [NSPipe pipe];
-	readfh = [[readpipe fileHandleForReading] retain];
-	sendfh = [[sendpipe fileHandleForWriting] retain];
-
-	task = [[NSTask alloc] init];
-	[task setCurrentDirectoryPath: NSHomeDirectory()];
-
-
-	[task setStandardOutput: readpipe];
-	[task setStandardInput: sendpipe];
-
+        NSString *terppath;
+        NSPipe *readpipe;
+        NSPipe *sendpipe;
+        
+        terppath = [[NSBundle mainBundle] pathForAuxiliaryExecutable: terpname];
+        readpipe = [NSPipe pipe];
+        sendpipe = [NSPipe pipe];
+        readfh = [[readpipe fileHandleForReading] retain];
+        sendfh = [[sendpipe fileHandleForWriting] retain];
+        
+        task = [[NSTask alloc] init];
+        [task setCurrentDirectoryPath: NSHomeDirectory()];
+        
+        
+        [task setStandardOutput: readpipe];
+        [task setStandardInput: sendpipe];
+        
 #ifdef TEE_TERP_OUTPUT
-    [task setLaunchPath: @"/bin/bash"];
-
-    NSString *cmdline = @" "; //@"\"";
-    cmdline = [cmdline stringByAppendingString:terppath];
-    cmdline = [cmdline stringByAppendingString:@" \""];
-    cmdline = [cmdline stringByAppendingString:gamefile];
-
-    cmdline = [cmdline stringByAppendingString:@"\" | tee -a ~/Desktop/Spatterlight\\ "];
-
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH.mm"];
-    NSString *stringFromDate = [formatter stringFromDate:[NSDate date]];
-
-    [formatter release];
-
-    stringFromDate = [stringFromDate stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
-    cmdline = [cmdline stringByAppendingString:stringFromDate];
-    cmdline = [cmdline stringByAppendingString:@".txt"];
-
-	[task setArguments: @[ @"-c", cmdline ]];
+        [task setLaunchPath: @"/bin/bash"];
+        
+        NSString *cmdline = @" "; //@"\"";
+        cmdline = [cmdline stringByAppendingString:terppath];
+        cmdline = [cmdline stringByAppendingString:@" \""];
+        cmdline = [cmdline stringByAppendingString:gamefile];
+        
+        cmdline = [cmdline stringByAppendingString:@"\" | tee -a ~/Desktop/Spatterlight\\ "];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH.mm"];
+        NSString *stringFromDate = [formatter stringFromDate:[NSDate date]];
+        
+        [formatter release];
+        
+        stringFromDate = [stringFromDate stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
+        cmdline = [cmdline stringByAppendingString:stringFromDate];
+        cmdline = [cmdline stringByAppendingString:@".txt"];
+        
+        [task setArguments: @[ @"-c", cmdline ]];
 #else
-
-    [task setLaunchPath: terppath];
-    [task setArguments: [NSArray arrayWithObjects: gamefile, NULL]];
-
+        
+        [task setLaunchPath: terppath];
+        [task setArguments: [NSArray arrayWithObjects: gamefile, NULL]];
+        
 #endif //TEE_TERP_OUTPUT
-
-	[[NSNotificationCenter defaultCenter]
-                addObserver: self
-                   selector: @selector(noteTaskDidTerminate:)
+        
+        [[NSNotificationCenter defaultCenter]
+         addObserver: self
+         selector: @selector(noteTaskDidTerminate:)
 		       name: NSTaskDidTerminateNotification
-		     object: task];
-	
-	[[NSNotificationCenter defaultCenter]
-                addObserver: self
-                   selector: @selector(noteDataAvailable:)
+         object: task];
+        
+        [[NSNotificationCenter defaultCenter]
+         addObserver: self
+         selector: @selector(noteDataAvailable:)
 		       name: NSFileHandleDataAvailableNotification
-		     object: readfh];
-	
-	[task launch];
-	
-	[readfh waitForDataInBackgroundAndNotify];
+         object: readfh];
+        
+        [task launch];
+        
+        [readfh waitForDataInBackgroundAndNotify];
     }
     
     /* Send a prefs and an arrange event first thing */
     {
-	GlkEvent *gevent;
-
-	gevent = [[GlkEvent alloc] initPrefsEvent];
-	[self queueEvent: gevent];
-	[gevent release];
-	
-	gevent = [[GlkEvent alloc] initArrangeWidth: defsize.width height: defsize.height];
-	[self queueEvent: gevent];
-	[gevent release];
+        GlkEvent *gevent;
+        
+        gevent = [[GlkEvent alloc] initPrefsEvent];
+        [self queueEvent: gevent];
+        [gevent release];
+        
+        gevent = [[GlkEvent alloc] initArrangeWidth: defsize.width height: defsize.height];
+        [self queueEvent: gevent];
+        [gevent release];
     }
     
     // [self setDocumentEdited: YES];
@@ -207,35 +207,35 @@ static const char *msgnames[] =
     
     if (timer)
     {
-	NSLog(@"glkctl: force stop the timer");
-	[timer invalidate];
-	timer = nil;
+        NSLog(@"glkctl: force stop the timer");
+        [timer invalidate];
+        timer = nil;
     }
     
     if (task)
     {
-	NSLog(@"glkctl: force stop the interpreter");
-	[task terminate];
-	[task release];
-	task = nil;
+        NSLog(@"glkctl: force stop the interpreter");
+        [task terminate];
+        [task release];
+        task = nil;
     }
     
     [readfh release];
     [sendfh release];
     
     if (lastimage)
-	[lastimage release];
+        [lastimage release];
     
     if (lastsound)
-	[lastsound release];
+        [lastsound release];
     
     for (i = 0; i < MAXWIN; i++)
-	if (gwindows[i])
-	    [gwindows[i] release];
+        if (gwindows[i])
+            [gwindows[i] release];
     
     for (i = 0; i < MAXSND; i++)
-	if (gchannels[i])
-	    [gchannels[i] release];
+        if (gchannels[i])
+            [gchannels[i] release];
     
     [queue release];
     
@@ -272,7 +272,7 @@ static const char *msgnames[] =
 - (id) windowWithNum: (int)index
 {
     if (gwindows[index])
-       return gwindows[index];
+        return gwindows[index];
     else
         return nil;
 }
@@ -301,18 +301,18 @@ static const char *msgnames[] =
 {
     if (rc == NSAlertFirstButtonReturn)
     {
-	[self close];
+        [self close];
     }
 }
 
 - (BOOL) windowShouldClose: (id)sender
 {
     NSLog(@"glkctl: windowShouldClose");
-
+    
     NSAlert *alert;
     
     if (dead)
-	return YES;
+        return YES;
     
     alert = [[[NSAlert alloc] init] autorelease];
     [alert setMessageText: @"Do you want to abandon the game?"];
@@ -321,9 +321,9 @@ static const char *msgnames[] =
     [alert addButtonWithTitle: @"Cancel"];
     
     [alert beginSheetModalForWindow: [self window]
-		      modalDelegate: self
-		     didEndSelector: @selector(closeAlertDidFinish:rc:ctx:)
-			contextInfo: NULL];
+                      modalDelegate: self
+                     didEndSelector: @selector(closeAlertDidFinish:rc:ctx:)
+                        contextInfo: NULL];
     
     return NO;
 }
@@ -333,13 +333,13 @@ static const char *msgnames[] =
     int i;
     
     for (i = 0; i < MAXWIN; i++)
-	if (gwindows[i])
-	    [gwindows[i] flushDisplay];
+        if (gwindows[i])
+            [gwindows[i] flushDisplay];
     
     if (windowdirty)
     {
-	[contentView setNeedsDisplay: YES];
-	windowdirty = NO;
+        [contentView setNeedsDisplay: YES];
+        windowdirty = NO;
     }
 }
 
@@ -347,55 +347,55 @@ static const char *msgnames[] =
 {
     id focuswin;
     int i;
-
+    
     NSLog(@"glkctl guessFocus");
     
     focuswin = [[self window] firstResponder];
     while (focuswin)
     {
-	if ([focuswin isKindOfClass: [NSView class]])
-	{
-	    if ([focuswin isKindOfClass: [GlkWindow class]])
-		break;
-	    else
-		focuswin = [focuswin superview];
-	}
-	else
-	    focuswin = nil;
+        if ([focuswin isKindOfClass: [NSView class]])
+        {
+            if ([focuswin isKindOfClass: [GlkWindow class]])
+                break;
+            else
+                focuswin = [focuswin superview];
+        }
+        else
+            focuswin = nil;
     }
-
+    
     if (focuswin)
         NSLog(@"window %ld has focus", (long)((GlkWindow*)focuswin)->name);
     
     if (focuswin && [focuswin wantsFocus])
-	return;
-   
+        return;
+    
     NSLog(@"glkctl guessing new window to focus on");
-     
+    
     for (i = 0; i < MAXWIN; i++)
     {
-	if (gwindows[i] && [gwindows[i] wantsFocus])
-	{
-	    [gwindows[i] grabFocus];
-	    return;
-	}
-    }    
+        if (gwindows[i] && [gwindows[i] wantsFocus])
+        {
+            [gwindows[i] grabFocus];
+            return;
+        }
+    }
 }
 
 - (void) markLastSeen
 {
     int i;
     for (i = 0; i < MAXWIN; i++)
-	if (gwindows[i])
-	    [gwindows[i] markLastSeen];
+        if (gwindows[i])
+            [gwindows[i] markLastSeen];
 }
 
 - (void) performScroll
 {
     int i;
     for (i = 0; i < MAXWIN; i++)
-	if (gwindows[i])
-	    [gwindows[i] performScroll];
+        if (gwindows[i])
+            [gwindows[i] performScroll];
 }
 
 /*
@@ -419,11 +419,11 @@ static const char *msgnames[] =
     
     gevent = [[GlkEvent alloc] initPrefsEvent];
     [self queueEvent: gevent];
-    [gevent release];    
+    [gevent release];
     
     for (i = 0; i < MAXWIN; i++)
-	if (gwindows[i])
-	    [gwindows[i] prefsDidChange];
+        if (gwindows[i])
+            [gwindows[i] prefsDidChange];
 }
 
 /*
@@ -435,24 +435,24 @@ static const char *msgnames[] =
 - (void) handleOpenPrompt: (int)fileusage
 {
     NSURL *directory = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] objectForKey: @"SaveDirectory"] isDirectory:YES];
-
+    
     NSInteger sendfd = [sendfh fileDescriptor];
-
+    
     // Create and configure the panel.
     NSOpenPanel* panel = [NSOpenPanel openPanel];
-
+    
     waitforfilename = YES; /* don't interrupt */
-
+    
     if (fileusage == fileusage_SavedGame)
         [panel setPrompt: @"Restore"];
     panel.directoryURL = directory;
-
+    
     // Display the panel attached to the document's window.
     [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
-
+        
         const char *s;
         struct message reply;
-
+        
         if (result == NSFileHandlingPanelOKButton)
         {
             NSURL*  theDoc = [[panel URLs] objectAtIndex:0];
@@ -462,19 +462,19 @@ static const char *msgnames[] =
         }
         else
             s = "";
-
+        
         reply.cmd = OKAY;
         reply.len = (int)strlen(s);
-            
+        
         write((int)sendfd, &reply, sizeof(struct message));
         if (reply.len)
             write((int)sendfd, s, reply.len);
     }];
-
+    
     waitforfilename = NO; /* we're all done, resume normal processing */
-
+    
     [readfh waitForDataInBackgroundAndNotify];
-
+    
 }
 
 - (void) handleSavePrompt: (int)fileusage
@@ -496,99 +496,99 @@ static const char *msgnames[] =
         case fileusage_InputRecord: prompt = @"Save recording: "; ext = @"rec"; filename = @"Recordning"; break;
         default: prompt = @"Save: "; ext = nil; break;
     }
-
+    
     //[panel setNameFieldLabel: prompt];
     if (ext)
         panel.allowedFileTypes=@[ext];
     panel.directoryURL = directory;
-
+    
     panel.extensionHidden=NO;
     [panel setCanCreateDirectories:YES];
-
+    
     if (fileusage == fileusage_SavedGame)
     {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd HH.mm "];
         date = [formatter stringFromDate:[NSDate date]];
-
+        
         [formatter release];
-
+        
         filename = [date stringByAppendingString: [gameinfo objectForKey: @"title"]];
     }
-
+    
     filename = [filename stringByAppendingPathExtension: ext];
-
+    
     if (filename)
         [panel setNameFieldStringValue:filename];
-
+    
     [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
         struct message reply;
         NSInteger sendfd = [sendfh fileDescriptor];
         const char *s;
-
+        
         if (result == NSFileHandlingPanelOKButton)
         {
             NSURL*  theFile = [panel URL];
             [[NSUserDefaults standardUserDefaults] setObject: [[theFile path] stringByDeletingLastPathComponent] forKey: @"SaveDirectory"];
-                s = [[theFile lastPathComponent] UTF8String];
+            s = [[theFile lastPathComponent] UTF8String];
         }
         else
             s = "";
-
+        
         reply.cmd = OKAY;
         reply.len = (int)strlen(s);
-    
+        
         write((int)sendfd, &reply, sizeof(struct message));
         if (reply.len)
             write((int)sendfd, s, reply.len);
     }];
-
+    
     waitforfilename = NO; /* we're all done, resume normal processing */
-
+    
     [readfh waitForDataInBackgroundAndNotify];
 }
 
 - (NSInteger) handleNewWindowOfType: (NSInteger)wintype
 {
     NSInteger i, k;
-
+    
     for (i = 0; i < MAXWIN; i++)
-	if (gwindows[i] == nil)
-	    break;
+        if (gwindows[i] == nil)
+            break;
     
     if (i == MAXWIN)
-	return -1;
+        return -1;
     
     switch (wintype)
     {
-	case wintype_TextGrid:
-	    gwindows[i] = [[GlkTextGridWindow alloc] initWithGlkController: self name: i];
-	    [contentView addSubview: gwindows[i]];
-	    for (k = 0; k < style_NUMSTYLES; k++)
-	    {
-		[gwindows[i] setStyle: k
-			   windowType: wintype_TextGrid
-			       enable: styleuse[0][k]
-				value: styleval[0][k]];
-	    }
-	    return i;
-	    
-	case wintype_TextBuffer:
-	    gwindows[i] = [[GlkTextBufferWindow alloc] initWithGlkController: self name: i];
-	    [contentView addSubview: gwindows[i]];
-	    for (k = 0; k < style_NUMSTYLES; k++)
-	    {
-		[gwindows[i] setStyle: k
-			   windowType: wintype_TextBuffer
-			       enable: styleuse[1][k]
-				value: styleval[1][k]];
-	    }
-	    return i;
-	    
-	case wintype_Graphics:
-	    gwindows[i] = [[GlkGraphicsWindow alloc] initWithGlkController: self name: i];
-	    [contentView addSubview: gwindows[i]];
-	    return i;
+        case wintype_TextGrid:
+            gwindows[i] = [[GlkTextGridWindow alloc] initWithGlkController: self name: i];
+            [contentView addSubview: gwindows[i]];
+            for (k = 0; k < style_NUMSTYLES; k++)
+            {
+                [gwindows[i] setStyle: k
+                           windowType: wintype_TextGrid
+                               enable: styleuse[0][k]
+                                value: styleval[0][k]];
+            }
+            return i;
+            
+        case wintype_TextBuffer:
+            gwindows[i] = [[GlkTextBufferWindow alloc] initWithGlkController: self name: i];
+            [contentView addSubview: gwindows[i]];
+            for (k = 0; k < style_NUMSTYLES; k++)
+            {
+                [gwindows[i] setStyle: k
+                           windowType: wintype_TextBuffer
+                               enable: styleuse[1][k]
+                                value: styleval[1][k]];
+            }
+            return i;
+            
+        case wintype_Graphics:
+            gwindows[i] = [[GlkGraphicsWindow alloc] initWithGlkController: self name: i];
+            [contentView addSubview: gwindows[i]];
+            return i;
     }
     
     return -1;
@@ -599,11 +599,11 @@ static const char *msgnames[] =
     int i;
     
     for (i = 0; i < MAXSND; i++)
-	if (gchannels[i] == nil)
-	    break;
+        if (gchannels[i] == nil)
+            break;
     
     if (i == MAXSND)
-	return -1;
+        return -1;
     
     //gchannels[i] = [[GlkSoundChannel alloc] initWithGlkController: self name: i];
     
@@ -614,23 +614,23 @@ static const char *msgnames[] =
 {
     if (timer)
     {
-	[timer invalidate];
-	timer = nil;
+        [timer invalidate];
+        timer = nil;
     }
     
     if (millisecs > 0)
     {
-	if (millisecs < MINTIMER)
-	{
-	    NSLog(@"glkctl: too small timer interval (%d); increasing to %d", millisecs, MINTIMER);
-	    millisecs = MINTIMER;
-	}
-	
-	timer = [NSTimer scheduledTimerWithTimeInterval: millisecs/1000.0
-						 target: self
-					       selector: @selector(noteTimerTick:)
-					       userInfo: 0
-						repeats: YES];
+        if (millisecs < MINTIMER)
+        {
+            NSLog(@"glkctl: too small timer interval (%d); increasing to %d", millisecs, MINTIMER);
+            millisecs = MINTIMER;
+        }
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval: millisecs/1000.0
+                                                 target: self
+                                               selector: @selector(noteTimerTick:)
+                                               userInfo: 0
+                                                repeats: YES];
     }
 }
 
@@ -638,9 +638,9 @@ static const char *msgnames[] =
 {
     if (waitforevent)
     {
-	GlkEvent *gevent = [[GlkEvent alloc] initTimerEvent];
-	[self queueEvent: gevent];
-	[gevent release];
+        GlkEvent *gevent = [[GlkEvent alloc] initTimerEvent];
+        [self queueEvent: gevent];
+        [gevent release];
     }
 }
 
@@ -650,54 +650,54 @@ static const char *msgnames[] =
     
     if (lastsound)
     {
-	[lastsound release];
-	lastsound = nil;
+        [lastsound release];
+        lastsound = nil;
     }
-
+    
     lastsound = [[NSData alloc] initWithBytes: buffer length: length];
     if (lastsound)
-	lastsoundresno = resno;
+        lastsoundresno = resno;
 }
 
 - (void) handleLoadImageNumber: (int)resno from: (char*)buffer length: (int)length
 {
     lastimageresno = -1;
-
+    
     if (lastimage)
     {
         [lastimage release];
         lastimage = nil;
     }
-
+    
     NSData *data;
-
+    
     data = [[NSData alloc] initWithBytesNoCopy: buffer length: length freeWhenDone: NO];
     if (!data)
         return;
-
+    
     NSArray * reps = [NSBitmapImageRep imageRepsWithData:data];
-
+    
     NSInteger width = 0;
     NSInteger height = 0;
-
+    
     for (NSImageRep * imageRep in reps) {
         if ([imageRep pixelsWide] > width) width = [imageRep pixelsWide];
         if ([imageRep pixelsHigh] > height) height = [imageRep pixelsHigh];
     }
-
+    
     lastimage = [[NSImage alloc] initWithSize:NSMakeSize((CGFloat)width, (CGFloat)height)];
-
+    
     if (!lastimage)
     {
         NSLog(@"glkctl: failed to decode image");
         [data release];
         return;
     }
-
+    
     [lastimage addRepresentations:reps];
-
+    
     [data release];
-
+    
     lastimageresno = resno;
 }
 
@@ -705,45 +705,45 @@ static const char *msgnames[] =
 - (void) handleStyleHintOnWindowType: (int)wintype style: (int)style hint:(int)hint value:(int)value
 {
     if (style < 0 || style >= style_NUMSTYLES)
-	return;
+        return;
     
     if (wintype == wintype_AllTypes)
     {
-	styleuse[0][style][hint] = YES;
-	styleval[0][style][hint] = value;
-	styleuse[1][style][hint] = YES;
-	styleval[1][style][hint] = value;
+        styleuse[0][style][hint] = YES;
+        styleval[0][style][hint] = value;
+        styleuse[1][style][hint] = YES;
+        styleval[1][style][hint] = value;
     }
     else if (wintype == wintype_TextGrid)
     {
-	styleuse[0][style][hint] = YES;
-	styleval[0][style][hint] = value;
+        styleuse[0][style][hint] = YES;
+        styleval[0][style][hint] = value;
     }
     else if (wintype == wintype_TextBuffer)
     {
-	styleuse[1][style][hint] = YES;
-	styleval[1][style][hint] = value;
+        styleuse[1][style][hint] = YES;
+        styleval[1][style][hint] = value;
     }
 }
 
 - (void) handleClearHintOnWindowType: (int)wintype style: (int)style hint:(int)hint
 {
     if (style < 0 || style >= style_NUMSTYLES)
-	return;
+        return;
     
     if (wintype == wintype_AllTypes)
     {
-	styleuse[0][style][hint] = NO;
-	styleuse[1][style][hint] = NO;
+        styleuse[0][style][hint] = NO;
+        styleuse[1][style][hint] = NO;
     }
     else if (wintype == wintype_TextGrid)
     {
-	styleuse[0][style][hint] = NO;
+        styleuse[0][style][hint] = NO;
     }
     else if (wintype == wintype_TextBuffer)
     {
-	styleuse[1][style][hint] = NO;
-    }    
+        styleuse[1][style][hint] = NO;
+    }
 }
 
 - (void) handlePrintOnWindow: (GlkWindow*)gwindow style: (int)style buffer: (unichar*)buf length: (int)len
@@ -752,74 +752,74 @@ static const char *msgnames[] =
     
     if ([gwindow isKindOfClass: [GlkTextBufferWindow class]] && (style & 0xff) != style_Preformatted)
     {
-	GlkTextBufferWindow *textwin = (GlkTextBufferWindow*) gwindow;
-	NSInteger smartquotes = [Preferences smartQuotes];
-	NSInteger spaceformat = [Preferences spaceFormat];
-	NSInteger lastchar = [textwin lastchar];
-	NSInteger spaced = 0;
-	NSInteger i;
-	
-	for (i = 0; i < len; i++)
-	{
-	    /* turn (punct sp sp) into (punct sp) */
-	    if (spaceformat)
-	    {
-		if (buf[i] == '.' || buf[i] == '!' || buf[i] == '?')
-		    spaced = 1;
-		else if (buf[i] == ' ' && spaced == 1)
-		    spaced = 2;
-		else if (buf[i] == ' ' && spaced == 2)
-		{
-		    memmove(buf+i, buf+i+1, (len - (i + 1)) * sizeof(unichar));
-		    len --;
-		    i--;
-		    spaced = 0;
-		}
-		else
-		{
-		    spaced = 0;
-		}
-	    }
-
-	    if (smartquotes && buf[i] == '`')
-		buf[i] = 0x2018;
-	    
-	    else if (smartquotes && buf[i] == '\'')
-	    {
-		if (lastchar == ' ' || lastchar == '\n')
-		    buf[i] = 0x2018;
-		else
-		    buf[i] = 0x2019;
-	    }
-	    
-	    else if (smartquotes && buf[i] == '"')
-	    {
-		if (lastchar == ' ' || lastchar == '\n')
-		    buf[i] = 0x201c;
-		else
-		    buf[i] = 0x201d;
-	    }
-	    
-	    else if (smartquotes && i > 1 && buf[i-1] == '-' && buf[i] == '-')
-	    {
-		memmove(buf+i, buf+i+1, (len - (i + 1)) * sizeof(unichar));
-		len --;
-		i--;
-		buf[i] = 0x2013;
-	    }
-	    
-	    else if (smartquotes && i > 1 && buf[i-1] == 0x2013 && buf[i] == '-')
-	    {
-		memmove(buf+i, buf+i+1, (len - (i + 1)) * sizeof(unichar));
-		len --;
-		i--;
-		buf[i] = 0x2014;
-	    }
-	    
-	    lastchar = buf[i];
-	}
-	
-	len = (int)i;
+        GlkTextBufferWindow *textwin = (GlkTextBufferWindow*) gwindow;
+        NSInteger smartquotes = [Preferences smartQuotes];
+        NSInteger spaceformat = [Preferences spaceFormat];
+        NSInteger lastchar = [textwin lastchar];
+        NSInteger spaced = 0;
+        NSInteger i;
+        
+        for (i = 0; i < len; i++)
+        {
+            /* turn (punct sp sp) into (punct sp) */
+            if (spaceformat)
+            {
+                if (buf[i] == '.' || buf[i] == '!' || buf[i] == '?')
+                    spaced = 1;
+                else if (buf[i] == ' ' && spaced == 1)
+                    spaced = 2;
+                else if (buf[i] == ' ' && spaced == 2)
+                {
+                    memmove(buf+i, buf+i+1, (len - (i + 1)) * sizeof(unichar));
+                    len --;
+                    i--;
+                    spaced = 0;
+                }
+                else
+                {
+                    spaced = 0;
+                }
+            }
+            
+            if (smartquotes && buf[i] == '`')
+                buf[i] = 0x2018;
+            
+            else if (smartquotes && buf[i] == '\'')
+            {
+                if (lastchar == ' ' || lastchar == '\n')
+                    buf[i] = 0x2018;
+                else
+                    buf[i] = 0x2019;
+            }
+            
+            else if (smartquotes && buf[i] == '"')
+            {
+                if (lastchar == ' ' || lastchar == '\n')
+                    buf[i] = 0x201c;
+                else
+                    buf[i] = 0x201d;
+            }
+            
+            else if (smartquotes && i > 1 && buf[i-1] == '-' && buf[i] == '-')
+            {
+                memmove(buf+i, buf+i+1, (len - (i + 1)) * sizeof(unichar));
+                len --;
+                i--;
+                buf[i] = 0x2013;
+            }
+            
+            else if (smartquotes && i > 1 && buf[i-1] == 0x2013 && buf[i] == '-')
+            {
+                memmove(buf+i, buf+i+1, (len - (i + 1)) * sizeof(unichar));
+                len --;
+                i--;
+                buf[i] = 0x2014;
+            }
+            
+            lastchar = buf[i];
+        }
+        
+        len = (int)i;
     }
     
     str = [NSString stringWithCharacters: buf length: len];
@@ -832,346 +832,346 @@ static const char *msgnames[] =
     NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
     
     switch (req->cmd)
-    {	
-	case HELLO:
-	    ans->cmd = OKAY;
-	    ans->a1 = (int)[Preferences graphicsEnabled];
-	    ans->a2 = (int)[Preferences soundEnabled];
-	    break;
-	    
-	case NEXTEVENT:
-	    [self flushDisplay];
-	    
-	    if ([queue count])
-	    {
-		GlkEvent *gevent;
-		gevent = [queue objectAtIndex: 0];
-        //NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
-
-		[gevent writeEvent: [sendfh fileDescriptor]];
-		[queue removeObjectAtIndex: 0];
-		return NO; /* keep reading ... we sent the reply */
-	    }
-        else
-        {
-            //No queued events.
-
-            if (!req->a1)
+    {
+        case HELLO:
+            ans->cmd = OKAY;
+            ans->a1 = (int)[Preferences graphicsEnabled];
+            ans->a2 = (int)[Preferences soundEnabled];
+            break;
+            
+        case NEXTEVENT:
+            [self flushDisplay];
+            
+            if ([queue count])
             {
-                //Argument 1 is FALSE. No waiting for more events. Send a dummy reply to hand over to the interpreter immediately.
-                ans->cmd = OKAY;
-                break;
-
+                GlkEvent *gevent;
+                gevent = [queue objectAtIndex: 0];
+                //NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
+                
+                [gevent writeEvent: [sendfh fileDescriptor]];
+                [queue removeObjectAtIndex: 0];
+                return NO; /* keep reading ... we sent the reply */
             }
-        }
-
-	    [self guessFocus];
-
-        waitforevent = YES;
-        return YES; /* stop reading ... terp is waiting for reply */
-	
-	case PROMPTOPEN:
-	    [self handleOpenPrompt: req->a1];
-	    return YES; /* stop reading ... terp is waiting for reply */
-
-	case PROMPTSAVE:
-	    [self handleSavePrompt: req->a1];
-	    return YES; /* stop reading ... terp is waiting for reply */
-	  
-	case STYLEHINT:
-	    [self handleStyleHintOnWindowType:req->a1 style:req->a2 hint:req->a3 value:req->a4];
-	    break;
-	    
-	case CLEARHINT:
-	    [self handleClearHintOnWindowType:req->a1 style:req->a2 hint:req->a3];
-	    break;
-	    
-	/*
-	 * Create and destroy windows and channels
-	 */
-	    
-	case NEWWIN:
-	    ans->cmd = OKAY;
-	    ans->a1 = (int)[self handleNewWindowOfType: req->a1];
-	    NSLog(@"glkctl newwin %d (type %d)", ans->a1, req->a1);
-	    break;
-	    
-	case NEWCHAN:
-	    ans->cmd = OKAY;
-	    ans->a1 = [self handleNewSoundChannel];
-	    break;
-	    
-	case DELWIN:
-	    NSLog(@"glkctl delwin %d", req->a1);
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-            [gwindows[req->a1] removeFromSuperview];
-            [gwindows[req->a1] release];
-            gwindows[req->a1] = nil;
-	    }
-        else
-            NSLog(@"delwin: something went wrong.");
-
-	    break;
-	    
-	case DELCHAN:
-	    if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
-	    {
-		[gchannels[req->a1] release];
-		gchannels[req->a1] = nil;
-	    }
-	    break;
-	
-	/*
-	 * Load images; load and play sounds
-	 */
-	    
-	case FINDIMAGE:
-	    ans->cmd = OKAY;
-	    ans->a1 = lastimageresno == req->a1;
-	    break;
-
-	case FINDSOUND:
-	    ans->cmd = OKAY;
-	    ans->a1 = lastsoundresno == req->a1;
-	    break;
-	    
-	case LOADIMAGE:
-	    buf[req->len] = 0;
-	    [self handleLoadImageNumber: req->a1 from: buf length: req->len];
-	    break;
-	    
-	case SIZEIMAGE:
-	    ans->cmd = OKAY;
-	    ans->a1 = 0;
-	    ans->a2 = 0;
-	    if (lastimage)
-	    {
-		NSSize size;
-		size = [lastimage size];
-		ans->a1 = size.width;
-		ans->a2 = size.height;
-	    }
-	    break;
-	    
-	case LOADSOUND:
-	    buf[req->len] = 0;
-	    [self handleLoadSoundNumber: req->a1 from: buf length: req->len];
-	    break;
-	    
-	case SETVOLUME:
-	    if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
-	    {
-		[gchannels[req->a1] setVolume: req->a2];
-	    }
-	    break;
-
-	case PLAYSOUND:
-	    if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
-	    {
-		if (lastsound)
-		    [gchannels[req->a1] play: lastsound repeats: req->a2 notify: req->a3];
-	    }
-	    break;
-	    
-	case STOPSOUND:
-	    if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
-	    {
-		[gchannels[req->a1] stop];
-	    }
-	    break;
-
+            else
+            {
+                //No queued events.
+                
+                if (!req->a1)
+                {
+                    //Argument 1 is FALSE. No waiting for more events. Send a dummy reply to hand over to the interpreter immediately.
+                    ans->cmd = OKAY;
+                    break;
+                    
+                }
+            }
+            
+            [self guessFocus];
+            
+            waitforevent = YES;
+            return YES; /* stop reading ... terp is waiting for reply */
+            
+        case PROMPTOPEN:
+            [self handleOpenPrompt: req->a1];
+            return YES; /* stop reading ... terp is waiting for reply */
+            
+        case PROMPTSAVE:
+            [self handleSavePrompt: req->a1];
+            return YES; /* stop reading ... terp is waiting for reply */
+            
+        case STYLEHINT:
+            [self handleStyleHintOnWindowType:req->a1 style:req->a2 hint:req->a3 value:req->a4];
+            break;
+            
+        case CLEARHINT:
+            [self handleClearHintOnWindowType:req->a1 style:req->a2 hint:req->a3];
+            break;
+            
+            /*
+             * Create and destroy windows and channels
+             */
+            
+        case NEWWIN:
+            ans->cmd = OKAY;
+            ans->a1 = (int)[self handleNewWindowOfType: req->a1];
+            NSLog(@"glkctl newwin %d (type %d)", ans->a1, req->a1);
+            break;
+            
+        case NEWCHAN:
+            ans->cmd = OKAY;
+            ans->a1 = [self handleNewSoundChannel];
+            break;
+            
+        case DELWIN:
+            NSLog(@"glkctl delwin %d", req->a1);
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] removeFromSuperview];
+                [gwindows[req->a1] release];
+                gwindows[req->a1] = nil;
+            }
+            else
+                NSLog(@"delwin: something went wrong.");
+            
+            break;
+            
+        case DELCHAN:
+            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
+            {
+                [gchannels[req->a1] release];
+                gchannels[req->a1] = nil;
+            }
+            break;
+            
+            /*
+             * Load images; load and play sounds
+             */
+            
+        case FINDIMAGE:
+            ans->cmd = OKAY;
+            ans->a1 = lastimageresno == req->a1;
+            break;
+            
+        case FINDSOUND:
+            ans->cmd = OKAY;
+            ans->a1 = lastsoundresno == req->a1;
+            break;
+            
+        case LOADIMAGE:
+            buf[req->len] = 0;
+            [self handleLoadImageNumber: req->a1 from: buf length: req->len];
+            break;
+            
+        case SIZEIMAGE:
+            ans->cmd = OKAY;
+            ans->a1 = 0;
+            ans->a2 = 0;
+            if (lastimage)
+            {
+                NSSize size;
+                size = [lastimage size];
+                ans->a1 = size.width;
+                ans->a2 = size.height;
+            }
+            break;
+            
+        case LOADSOUND:
+            buf[req->len] = 0;
+            [self handleLoadSoundNumber: req->a1 from: buf length: req->len];
+            break;
+            
+        case SETVOLUME:
+            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
+            {
+                [gchannels[req->a1] setVolume: req->a2];
+            }
+            break;
+            
+        case PLAYSOUND:
+            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
+            {
+                if (lastsound)
+                    [gchannels[req->a1] play: lastsound repeats: req->a2 notify: req->a3];
+            }
+            break;
+            
+        case STOPSOUND:
+            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
+            {
+                [gchannels[req->a1] stop];
+            }
+            break;
+            
 #ifdef GLK_MODULE_HYPERLINKS
-
-    case SETLINK:
-        NSLog(@"glkctl SETLINK %d", req->a1);
-        if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-        {
-            [gwindows[req->a1] setHyperlink];
-        }
-        break;
-
-    case INITLINK:
-        NSLog(@"glkctl INITLINK %d", req->a1);
-        if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-        {
-            [gwindows[req->a1] initHyperlink];
-        }
-        break;
-
-    case CANCELLINK:
-        NSLog(@"glkctl CANCELLINK %d", req->a1);
-        if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-        {
-            [gwindows[req->a1] cancelHyperlink];
-        }
-        break;
-
+            
+        case SETLINK:
+            NSLog(@"glkctl SETLINK %d", req->a1);
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] setHyperlink];
+            }
+            break;
+            
+        case INITLINK:
+            NSLog(@"glkctl INITLINK %d", req->a1);
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] initHyperlink];
+            }
+            break;
+            
+        case CANCELLINK:
+            NSLog(@"glkctl CANCELLINK %d", req->a1);
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] cancelHyperlink];
+            }
+            break;
+            
 #endif
             
-	/*
-	 * Window sizing, printing, drawing, etc...
-	 */
-	    
-	case SIZWIN:
-	    NSLog(@"glkctl sizwin %d: %d x %d", req->a1, req->a4-req->a2, req->a5-req->a3);
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-            int x0, y0, x1, y1;
-            NSRect rect;
-            x0 = req->a2;
-            y0 = req->a3;
-            x1 = req->a4;
-            y1 = req->a5;
-            rect = NSMakeRect(x0, y0, x1 - x0, y1 - y0);
-            [gwindows[req->a1] setFrame: rect];
-            windowdirty = YES;
-	    }
-        else
-            NSLog(@"sizwin: something went wrong.");
-
-	    break;
-	
-	case CLRWIN:
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-		[gwindows[req->a1] clear];
-	    }
-	    break;
-	    
-	case SETBGND:
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-            [gwindows[req->a1] setBgColor: req->a2];
-	    }
-	    break;
-	    
-	case MOVETO:
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-		int x = req->a2;
-		int y = req->a3;
-		if (x < 0) x = 10000;
-		if (y < 0) y = 10000;
-		[gwindows[req->a1] moveToColumn: x row: y];		
-	    }
-	    break;
-	    
-	case PRINT:
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-		[self handlePrintOnWindow: gwindows[req->a1] 
-				    style: req->a2
-				   buffer: (unichar*)buf 
-                   length: req->len / sizeof(unichar)];
-	    }
-	    break;
-	    
-	case FLOWBREAK:
-	    NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-		[gwindows[req->a1] flowBreak];
-	    }
-	    break;
-
-	case FILLRECT:
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-		int realcount = req->len / sizeof (struct fillrect);
-		if (realcount == req->a2)
-		{
-		    [gwindows[req->a1] fillRects: (struct fillrect *)buf count: req->a2];
-		}
-	    }
-	    break;
-	
-	case DRAWIMAGE:
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-		if (lastimage)
-		{
-		    [gwindows[req->a1] drawImage: lastimage
-					    val1: req->a2
-					    val2: req->a3
-					   width: req->a4
-					  height: req->a5];
-		}
-	    }
-	    break;
-	    
-	/*
-	 * Request and cancel events
-	 */
-	    
-	case INITLINE:
-        NSLog(@"glkctl INITLINE %d", req->a1);
-	    [self performScroll];
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-            [gwindows[req->a1] initLine: [[[NSString alloc]
-                                                  initWithData: [NSData dataWithBytes: buf
-                                                                               length: req->len]
-                                                                             encoding: NSUTF8StringEncoding] autorelease]];
-
-	    }
-	    break;
-	    
-	case CANCELLINE:
-        NSLog(@"glkctl CANCELLINE %d", req->a1);
-	    ans->cmd = OKAY;
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-	    {
-            const char *str = [[gwindows[req->a1] cancelLine] UTF8String];
-            strlcpy(buf, str, GLKBUFSIZE);
-            ans->len = (int)strlen(buf);
-	    }
-	    break;
-	    
-	case INITCHAR:
-	    [self performScroll];
-        NSLog(@"glkctl initchar %d", req->a1);
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-            [gwindows[req->a1] initChar];
-	    break;
-	    
-	case CANCELCHAR:
-        NSLog(@"glkctl CANCELCHAR %d", req->a1);
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-            [gwindows[req->a1] cancelChar];
-	    break;
-	    
-	case INITMOUSE:
-        NSLog(@"glkctl initmouse %d", req->a1);
-	    [self performScroll];
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-		[gwindows[req->a1] initMouse];
-	    break;
-	    
-	case CANCELMOUSE:
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-		[gwindows[req->a1] cancelMouse];
-	    break;
-	    
-	case TIMER:
-	    [self handleSetTimer: req->a1];
-	    break;
-	    
-	/*
-	 * Hugo specifics (hugo doesn't use glk to arrange windows)
-	 */
-	    
-	case MAKETRANSPARENT:
-	    if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-		[gwindows[req->a1] makeTransparent];
-	    break;
-	
-	/*
-	 * HTML-TADS specifics will go here.
-	 */
-	    
-	default:
-	    NSLog(@"glkctl: unhandled request (%d)", req->cmd);
+            /*
+             * Window sizing, printing, drawing, etc...
+             */
+            
+        case SIZWIN:
+            NSLog(@"glkctl sizwin %d: %d x %d", req->a1, req->a4-req->a2, req->a5-req->a3);
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                int x0, y0, x1, y1;
+                NSRect rect;
+                x0 = req->a2;
+                y0 = req->a3;
+                x1 = req->a4;
+                y1 = req->a5;
+                rect = NSMakeRect(x0, y0, x1 - x0, y1 - y0);
+                [gwindows[req->a1] setFrame: rect];
+                windowdirty = YES;
+            }
+            else
+                NSLog(@"sizwin: something went wrong.");
+            
+            break;
+            
+        case CLRWIN:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] clear];
+            }
+            break;
+            
+        case SETBGND:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] setBgColor: req->a2];
+            }
+            break;
+            
+        case MOVETO:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                int x = req->a2;
+                int y = req->a3;
+                if (x < 0) x = 10000;
+                if (y < 0) y = 10000;
+                [gwindows[req->a1] moveToColumn: x row: y];
+            }
+            break;
+            
+        case PRINT:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [self handlePrintOnWindow: gwindows[req->a1]
+                                    style: req->a2
+                                   buffer: (unichar*)buf
+                                   length: req->len / sizeof(unichar)];
+            }
+            break;
+            
+        case FLOWBREAK:
+            NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] flowBreak];
+            }
+            break;
+            
+        case FILLRECT:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                int realcount = req->len / sizeof (struct fillrect);
+                if (realcount == req->a2)
+                {
+                    [gwindows[req->a1] fillRects: (struct fillrect *)buf count: req->a2];
+                }
+            }
+            break;
+            
+        case DRAWIMAGE:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                if (lastimage)
+                {
+                    [gwindows[req->a1] drawImage: lastimage
+                                            val1: req->a2
+                                            val2: req->a3
+                                           width: req->a4
+                                          height: req->a5];
+                }
+            }
+            break;
+            
+            /*
+             * Request and cancel events
+             */
+            
+        case INITLINE:
+            NSLog(@"glkctl INITLINE %d", req->a1);
+            [self performScroll];
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] initLine: [[[NSString alloc]
+                                               initWithData: [NSData dataWithBytes: buf
+                                                                            length: req->len]
+                                               encoding: NSUTF8StringEncoding] autorelease]];
+                
+            }
+            break;
+            
+        case CANCELLINE:
+            NSLog(@"glkctl CANCELLINE %d", req->a1);
+            ans->cmd = OKAY;
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                const char *str = [[gwindows[req->a1] cancelLine] UTF8String];
+                strlcpy(buf, str, GLKBUFSIZE);
+                ans->len = (int)strlen(buf);
+            }
+            break;
+            
+        case INITCHAR:
+            [self performScroll];
+            NSLog(@"glkctl initchar %d", req->a1);
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+                [gwindows[req->a1] initChar];
+            break;
+            
+        case CANCELCHAR:
+            NSLog(@"glkctl CANCELCHAR %d", req->a1);
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+                [gwindows[req->a1] cancelChar];
+            break;
+            
+        case INITMOUSE:
+            NSLog(@"glkctl initmouse %d", req->a1);
+            [self performScroll];
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+                [gwindows[req->a1] initMouse];
+            break;
+            
+        case CANCELMOUSE:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+                [gwindows[req->a1] cancelMouse];
+            break;
+            
+        case TIMER:
+            [self handleSetTimer: req->a1];
+            break;
+            
+            /*
+             * Hugo specifics (hugo doesn't use glk to arrange windows)
+             */
+            
+        case MAKETRANSPARENT:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+                [gwindows[req->a1] makeTransparent];
+            break;
+            
+            /*
+             * HTML-TADS specifics will go here.
+             */
+            
+        default:
+            NSLog(@"glkctl: unhandled request (%d)", req->cmd);
     }
     
     return NO; /* keep reading */
@@ -1187,19 +1187,19 @@ static NSString *signalToName(NSTask *task)
 {
     switch ([task terminationStatus])
     {
-	case 1: return @"sighup";
-	case 2: return @"sigint";
-	case 3: return @"sigquit";
-	case 4: return @"sigill";
-	case 6: return @"sigabrt";
-	case 8: return @"sigfpe";
-	case 9: return @"sigkill";
-	case 10: return @"sigbus";
-	case 11: return @"sigsegv";
-	case 13: return @"sigpipe";
-	case 15: return @"sigterm";
-	default:
-	    return [NSString stringWithFormat: @"%d", [task terminationStatus]];
+        case 1: return @"sighup";
+        case 2: return @"sigint";
+        case 3: return @"sigquit";
+        case 4: return @"sigill";
+        case 6: return @"sigabrt";
+        case 8: return @"sigfpe";
+        case 9: return @"sigkill";
+        case 10: return @"sigbus";
+        case 11: return @"sigsegv";
+        case 13: return @"sigpipe";
+        case 15: return @"sigterm";
+        default:
+            return [NSString stringWithFormat: @"%d", [task terminationStatus]];
     }
 }
 
@@ -1230,33 +1230,33 @@ static BOOL pollMoreData(int fd)
     
     if (task && [task terminationStatus] != 0)
     {
-	NSAlert *alert;
-	
-	alert = [NSAlert alertWithMessageText: @"The game has unexpectedly terminated."
-				defaultButton: @"Oops"
-			      alternateButton: nil
-				  otherButton: nil
-		    informativeTextWithFormat: @"Error code: %@.", signalToName(task)];
-	
-	[alert beginSheetModalForWindow: [self window]
-			  modalDelegate: nil
-			 didEndSelector: nil
-			    contextInfo: nil];
+        NSAlert *alert;
+        
+        alert = [NSAlert alertWithMessageText: @"The game has unexpectedly terminated."
+                                defaultButton: @"Oops"
+                              alternateButton: nil
+                                  otherButton: nil
+                    informativeTextWithFormat: @"Error code: %@.", signalToName(task)];
+        
+        [alert beginSheetModalForWindow: [self window]
+                          modalDelegate: nil
+                         didEndSelector: nil
+                            contextInfo: nil];
     }
     
     [self performScroll];
     
     for (i = 0; i < MAXWIN; i++)
-	if (gwindows[i])
-	  [gwindows[i] terpDidStop];
+        if (gwindows[i])
+            [gwindows[i] terpDidStop];
     
     for (i = 0; i < MAXSND; i++)
-	if (gchannels[i])
-	    [gchannels[i] stop];
+        if (gchannels[i])
+            [gchannels[i] stop];
     
     [[self window] setTitle:
-	[[[self window] title] stringByAppendingString: @" (finished)"]];
-
+     [[[self window] title] stringByAppendingString: @" (finished)"]];
+    
     [task release];
     task = nil;
     
@@ -1267,17 +1267,17 @@ static BOOL pollMoreData(int fd)
 {
     if (waitforfilename)
     {
-	[queue addObject: gevent];
+        [queue addObject: gevent];
     }
     else if (waitforevent)
     {
-	[gevent writeEvent: [sendfh fileDescriptor]];
-	waitforevent = NO;
-	[readfh waitForDataInBackgroundAndNotify];
+        [gevent writeEvent: [sendfh fileDescriptor]];
+        waitforevent = NO;
+        [readfh waitForDataInBackgroundAndNotify];
     }
     else
     {
-	[queue addObject: gevent];
+        [queue addObject: gevent];
     }    
 }
 
@@ -1304,64 +1304,64 @@ again:
     n = read((int)readfd, &request, sizeof(struct message));
     if (n < sizeof(struct message))
     {
-	if (n < 0)
-	    NSLog(@"glkctl: could not read message header");
-	else
-	    NSLog(@"glkctl: connection closed");
-	return;
+        if (n < 0)
+            NSLog(@"glkctl: could not read message header");
+        else
+            NSLog(@"glkctl: connection closed");
+        return;
     }
     
     /* this should only happen when sending resources */
     if (request.len > GLKBUFSIZE)
     {
-	maxibuf = malloc(request.len);
-	if (!maxibuf)
-	{
-	    NSLog(@"glkctl: out of memory for message (%d bytes)", request.len);
-	    return;
-	}
-	buf = maxibuf;
+        maxibuf = malloc(request.len);
+        if (!maxibuf)
+        {
+            NSLog(@"glkctl: out of memory for message (%d bytes)", request.len);
+            return;
+        }
+        buf = maxibuf;
     }
     
     if (request.len)
     {
-	n = 0;
-	while (n < request.len)
-	{
-	    t = read((int)readfd, buf + n, request.len - n);
-	    if (t <= 0)
-	    {
-		NSLog(@"glkctl: could not read message body");
-		if (maxibuf)
-		    free(maxibuf);
-		return;
-	    }
-	    n += t;
-	}
+        n = 0;
+        while (n < request.len)
+        {
+            t = read((int)readfd, buf + n, request.len - n);
+            if (t <= 0)
+            {
+                NSLog(@"glkctl: could not read message body");
+                if (maxibuf)
+                    free(maxibuf);
+                return;
+            }
+            n += t;
+        }
     }
     
     memset(&reply, 0, sizeof reply);
-
+    
     stop = [self handleRequest: &request reply: &reply buffer: buf];
- 	
+    
     if (reply.cmd > NOREPLY)
     {
-	write((int)sendfd, &reply, sizeof(struct message));
-	if (reply.len)
-	    write((int)sendfd, buf, reply.len);
+        write((int)sendfd, &reply, sizeof(struct message));
+        if (reply.len)
+            write((int)sendfd, buf, reply.len);
     }
     
     if (maxibuf)
-	free(maxibuf);
+        free(maxibuf);
     
     /* if stop, don't read or wait for more data */
     if (stop)
-	return;
+        return;
     
     if (pollMoreData((int)readfd))
-	goto again;
+        goto again;
     else
-	[readfh waitForDataInBackgroundAndNotify];
+        [readfh waitForDataInBackgroundAndNotify];
 }
 
 @end

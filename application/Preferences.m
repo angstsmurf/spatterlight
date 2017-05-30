@@ -71,8 +71,8 @@ NSColor *dataToColor(NSData *data)
     CGFloat r, g, b;
     const unsigned char *buf = [data bytes];
     
-     if ([data length] < 3)
-	r = g = b = 0;
+    if ([data length] < 3)
+        r = g = b = 0;
     else
     {
         r = buf[0] / 255.0;
@@ -88,10 +88,10 @@ NSColor *dataToColor(NSData *data)
 static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 {
     return [[NSColor colorWithCalibratedHue: h
-				 saturation: s
-				 brightness: b
-				      alpha: 1.0]
-	retain];
+                                 saturation: s
+                                 brightness: b
+                                      alpha: 1.0]
+            retain];
 }
 
 /*
@@ -125,7 +125,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     dosound = [[defaults objectForKey: @"EnableSound"] intValue];
     dostyles = [[defaults objectForKey: @"EnableStyles"] intValue];
     usescreenfonts = [[defaults objectForKey: @"ScreenFonts"] intValue];
- 
+    
     gridbg = [dataToColor([defaults objectForKey: @"GridBackground"]) retain];
     gridfg = [dataToColor([defaults objectForKey: @"GridForeground"]) retain];
     bufferbg = [dataToColor([defaults objectForKey: @"BufferBackground"]) retain];
@@ -142,8 +142,8 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     gridroman = [[NSFont fontWithName: name size: size] retain];
     if (!gridroman)
     {
-	NSLog(@"pref: failed to create grid font '%@'", name);
-	gridroman = [NSFont userFixedPitchFontOfSize: 0];
+        NSLog(@"pref: failed to create grid font '%@'", name);
+        gridroman = [NSFont userFixedPitchFontOfSize: 0];
     }
     
     name = [defaults objectForKey: @"BufferFontName"];
@@ -151,17 +151,17 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     bufroman = [[NSFont fontWithName: name size: size] retain];
     if (!bufroman)
     {
-	NSLog(@"pref: failed to create buffer font '%@'", name);
-	bufroman = [NSFont userFontOfSize: 0];
+        NSLog(@"pref: failed to create buffer font '%@'", name);
+        bufroman = [NSFont userFontOfSize: 0];
     }
     
     name = [defaults objectForKey: @"InputFontName"];
     size = [[defaults objectForKey: @"InputFontSize"] floatValue];
-    inputfont = [[NSFont fontWithName: name size: size] retain];	
+    inputfont = [[NSFont fontWithName: name size: size] retain];
     if (!inputfont)
     {
-	NSLog(@"pref: failed to create input font '%@'", name);
-	inputfont = [NSFont userFontOfSize: 0];
+        NSLog(@"pref: failed to create input font '%@'", name);
+        inputfont = [NSFont userFontOfSize: 0];
     }
 }
 
@@ -174,10 +174,10 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     
     for (i = 0; i < style_NUMSTYLES; i++)
     {
-	bufferatts[i] = nil;
-	gridatts[i] = nil;
+        bufferatts[i] = nil;
+        gridatts[i] = nil;
     }
-     
+    
     /* 0=black, 1=red, 2=green, 3=yellow, 4=blue, 5=magenta, 6=cyan, 7=white */
     
     /* black */
@@ -216,14 +216,14 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 + (NSColor*) foregroundColor: (int)number
 {
     if (number < 0 || number > 7)
-	return nil;
+        return nil;
     return fgcolor[number];
 }
 
 + (NSColor*) backgroundColor: (int)number
 {
     if (number < 0 || number > 7)
-	return nil;
+        return nil;
     return bgcolor[number];
 }
 
@@ -285,7 +285,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 + (NSSize) defaultWindowSize
 {
     return NSMakeSize(ceil([self charWidth] * defscreenw + gridmargin * 2.0),
-		      ceil([self lineHeight] * defscreenh + gridmargin * 2.0));
+                      ceil([self lineHeight] * defscreenh + gridmargin * 2.0));
 }
 
 + (NSColor*) gridBackground
@@ -321,14 +321,14 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 + (NSDictionary*) attributesForGridStyle: (int)style
 {
     if (style < 0 || style >= style_NUMSTYLES)
-	return nil;
+        return nil;
     return gridatts[style];
 }
 
 + (NSDictionary*) attributesForBufferStyle: (int)style
 {
     if (style < 0 || style >= style_NUMSTYLES)
-	return nil;
+        return nil;
     return bufferatts[style];
 }
 
@@ -360,89 +360,89 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     para = [[NSMutableParagraphStyle alloc] init];
     [para setParagraphStyle: [NSParagraphStyle defaultParagraphStyle]];
     [para setLineSpacing: leading];
-
+    
     for (style = 0; style < style_NUMSTYLES; style++)
     {
-	/*
-	 * Buffer windows
-	 */
-	
-	[bufferatts[style] release];
-	
-	dict = [[NSMutableDictionary alloc] init];
-	[dict setObject: [NSNumber numberWithInt: style] forKey: @"GlkStyle"];	
-	[dict setObject: para forKey: NSParagraphStyleAttributeName];
-	
+        /*
+         * Buffer windows
+         */
+        
+        [bufferatts[style] release];
+        
+        dict = [[NSMutableDictionary alloc] init];
+        [dict setObject: [NSNumber numberWithInt: style] forKey: @"GlkStyle"];
+        [dict setObject: para forKey: NSParagraphStyleAttributeName];
+        
 #if 0
-	if (style == style_BlockQuote)
-	{
-	    NSMutableParagraphStyle *mpara;
-	    float indent = [bufroman defaultLineHeightForFont] * 1.0;
-	    mpara = [[NSMutableParagraphStyle alloc] init];
-	    [mpara setParagraphStyle: para];
-	    [mpara setFirstLineHeadIndent: indent];
-	    [mpara setHeadIndent: indent];
-	    [mpara setTailIndent: -indent];
-	    [dict setObject: mpara forKey: NSParagraphStyleAttributeName];
-	    [mpara release];
-	}
+        if (style == style_BlockQuote)
+        {
+            NSMutableParagraphStyle *mpara;
+            float indent = [bufroman defaultLineHeightForFont] * 1.0;
+            mpara = [[NSMutableParagraphStyle alloc] init];
+            [mpara setParagraphStyle: para];
+            [mpara setFirstLineHeadIndent: indent];
+            [mpara setHeadIndent: indent];
+            [mpara setTailIndent: -indent];
+            [dict setObject: mpara forKey: NSParagraphStyleAttributeName];
+            [mpara release];
+        }
 #endif
-	
-	if (style == style_Input)
-	    [dict setObject: inputfg forKey: NSForegroundColorAttributeName];
-	else
-	    [dict setObject: bufferfg forKey: NSForegroundColorAttributeName];
-	
-	font = bufroman;
-	switch (style)
-	{
-	    case style_Emphasized: font = bufitalic; break;
-	    case style_Preformatted: font = gridroman; break;
-	    case style_Header: font = bufbold; break;
-	    case style_Subheader: font = bufbold; break;
-	    case style_Alert: font = bufbolditalic; break;
-	    case style_Input: font = inputfont; break;
-	}
-	[dict setObject: font forKey: NSFontAttributeName];
-	
-	bufferatts[style] = dict;
-	
-	/*
-	 * Grid windows
-	 */
-	
-	[gridatts[style] release];
-	
-	dict = [[NSMutableDictionary alloc] init];
-	[dict setObject: [NSNumber numberWithInt: style] forKey: @"GlkStyle"];
-	[dict setObject: para forKey: NSParagraphStyleAttributeName];
-	[dict setObject: gridfg forKey: NSForegroundColorAttributeName];
-	
-	/* for our frotz quote-box hack */
-	if (style == style_User1)
-	    [dict setObject: gridbg forKey: NSBackgroundColorAttributeName];
-
-	font = gridroman;
-	switch (style)
-	{
-	    case style_Emphasized: font = griditalic; break;
-	    case style_Preformatted: font = gridroman; break;
-	    case style_Header: font = gridbold; break;
-	    case style_Subheader: font = gridbold; break;
-	    case style_Alert: font = gridbolditalic; break;
-	}
-	[dict setObject: font forKey: NSFontAttributeName];	
-	
-	gridatts[style] = dict;
+        
+        if (style == style_Input)
+            [dict setObject: inputfg forKey: NSForegroundColorAttributeName];
+        else
+            [dict setObject: bufferfg forKey: NSForegroundColorAttributeName];
+        
+        font = bufroman;
+        switch (style)
+        {
+            case style_Emphasized: font = bufitalic; break;
+            case style_Preformatted: font = gridroman; break;
+            case style_Header: font = bufbold; break;
+            case style_Subheader: font = bufbold; break;
+            case style_Alert: font = bufbolditalic; break;
+            case style_Input: font = inputfont; break;
+        }
+        [dict setObject: font forKey: NSFontAttributeName];
+        
+        bufferatts[style] = dict;
+        
+        /*
+         * Grid windows
+         */
+        
+        [gridatts[style] release];
+        
+        dict = [[NSMutableDictionary alloc] init];
+        [dict setObject: [NSNumber numberWithInt: style] forKey: @"GlkStyle"];
+        [dict setObject: para forKey: NSParagraphStyleAttributeName];
+        [dict setObject: gridfg forKey: NSForegroundColorAttributeName];
+        
+        /* for our frotz quote-box hack */
+        if (style == style_User1)
+            [dict setObject: gridbg forKey: NSBackgroundColorAttributeName];
+        
+        font = gridroman;
+        switch (style)
+        {
+            case style_Emphasized: font = griditalic; break;
+            case style_Preformatted: font = gridroman; break;
+            case style_Header: font = gridbold; break;
+            case style_Subheader: font = gridbold; break;
+            case style_Alert: font = gridbolditalic; break;
+        }
+        [dict setObject: font forKey: NSFontAttributeName];
+        
+        gridatts[style] = dict;
     }
-
+    
     if (usescreenfonts)
-	font = [gridroman screenFont];
+        font = [gridroman screenFont];
     else
-	font = [gridroman printerFont];
+        font = [gridroman printerFont];
     
     cellw = [font maximumAdvancement].width;
-
+    
     NSTextView *textview = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 1000000)];
     cellh = [[textview layoutManager] defaultLineHeightForFont:font] + leading;
     [textview release];
@@ -450,7 +450,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     
     /* send notification that prefs have changed -- trigger configure events */
     [[NSNotificationCenter defaultCenter]
-		postNotificationName: @"PreferencesChanged" object: nil];
+     postNotificationName: @"PreferencesChanged" object: nil];
     
     [gridbold release];
     [griditalic release];
@@ -511,21 +511,21 @@ NSString* fontToString(NSFont *font)
 {
     if (sender == txtCols)
     {
-	defscreenw = [sender intValue];
-	if (defscreenw < 5 || defscreenw > 200)
-	    defscreenw = 60;
-	[[NSUserDefaults standardUserDefaults]
-			setObject: [NSNumber numberWithInt: defscreenw]
-			   forKey: @"DefaultWidth"];
+        defscreenw = [sender intValue];
+        if (defscreenw < 5 || defscreenw > 200)
+            defscreenw = 60;
+        [[NSUserDefaults standardUserDefaults]
+         setObject: [NSNumber numberWithInt: defscreenw]
+         forKey: @"DefaultWidth"];
     }
     if (sender == txtRows)
     {
-	defscreenh = [sender intValue];
-	if (defscreenh < 5 || defscreenh > 200)
-	    defscreenh = 24;
-	[[NSUserDefaults standardUserDefaults]
-			setObject: [NSNumber numberWithInt: defscreenh]
-			   forKey: @"DefaultHeight"];
+        defscreenh = [sender intValue];
+        if (defscreenh < 5 || defscreenh > 200)
+            defscreenh = 24;
+        [[NSUserDefaults standardUserDefaults]
+         setObject: [NSNumber numberWithInt: defscreenh]
+         forKey: @"DefaultHeight"];
     }
 }
 
@@ -542,12 +542,12 @@ NSString* fontToString(NSFont *font)
     
     if (colorp)
     {
-	[*colorp release]; *colorp = nil;
-	*colorp = [[sender color] retain];
-	
-	[[NSUserDefaults standardUserDefaults] setObject: colorToData(*colorp) forKey: key];
-	
-	[Preferences rebuildTextAttributes];
+        [*colorp release]; *colorp = nil;
+        *colorp = [[sender color] retain];
+        
+        [[NSUserDefaults standardUserDefaults] setObject: colorToData(*colorp) forKey: key];
+        
+        [Preferences rebuildTextAttributes];
     }
 }
 
@@ -563,8 +563,8 @@ NSString* fontToString(NSFont *font)
     
     if (key)
     {
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithFloat: val] forKey: key];
-	[Preferences rebuildTextAttributes];
+        [[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithFloat: val] forKey: key];
+        [Preferences rebuildTextAttributes];
     }
 }
 
@@ -585,9 +585,9 @@ NSString* fontToString(NSFont *font)
     
     if (selfontp)
     {
-	[[self window] makeFirstResponder: [self window]];
-	[[NSFontManager sharedFontManager] setSelectedFont: *selfontp isMultiple:NO];
-	[[NSFontManager sharedFontManager] orderFrontFontPanel: self];
+        [[self window] makeFirstResponder: [self window]];
+        [[NSFontManager sharedFontManager] setSelectedFont: *selfontp isMultiple:NO];
+        [[NSFontManager sharedFontManager] orderFrontFontPanel: self];
     }
 }
 
@@ -599,23 +599,23 @@ NSString* fontToString(NSFont *font)
     
     if (selfontp == &gridroman)
     {
-	[defaults setObject: [gridroman fontName] forKey: @"GridFontName"];
-	[defaults setObject: [NSNumber numberWithFloat: [gridroman pointSize]] forKey: @"GridFontSize"];
-	[btnGridFont setTitle: fontToString(gridroman)];
+        [defaults setObject: [gridroman fontName] forKey: @"GridFontName"];
+        [defaults setObject: [NSNumber numberWithFloat: [gridroman pointSize]] forKey: @"GridFontSize"];
+        [btnGridFont setTitle: fontToString(gridroman)];
     }
     
     if (selfontp == &bufroman)
     {
-	[defaults setObject: [bufroman fontName] forKey: @"BufferFontName"];
-	[defaults setObject: [NSNumber numberWithFloat: [bufroman pointSize]] forKey: @"BufferFontSize"];
-	[btnBufferFont setTitle: fontToString(bufroman)];
+        [defaults setObject: [bufroman fontName] forKey: @"BufferFontName"];
+        [defaults setObject: [NSNumber numberWithFloat: [bufroman pointSize]] forKey: @"BufferFontSize"];
+        [btnBufferFont setTitle: fontToString(bufroman)];
     }
     
     if (selfontp == &inputfont)
     {
-	[defaults setObject: [inputfont fontName] forKey: @"InputFontName"];
-	[defaults setObject: [NSNumber numberWithFloat: [inputfont pointSize]] forKey: @"InputFontSize"];
-	[btnInputFont setTitle: fontToString(inputfont)];
+        [defaults setObject: [inputfont fontName] forKey: @"InputFontName"];
+        [defaults setObject: [NSNumber numberWithFloat: [inputfont pointSize]] forKey: @"InputFontSize"];
+        [btnInputFont setTitle: fontToString(inputfont)];
     }
     
     [Preferences rebuildTextAttributes];
@@ -626,8 +626,8 @@ NSString* fontToString(NSFont *font)
     smartquotes = [sender state];
     NSLog(@"pref: smart quotes changed to %d", smartquotes);
     [[NSUserDefaults standardUserDefaults]
-			setObject: [NSNumber numberWithInt: smartquotes]
-			   forKey: @"SmartQuotes"];
+     setObject: [NSNumber numberWithInt: smartquotes]
+     forKey: @"SmartQuotes"];
 }
 
 - (IBAction) changeSpaceFormatting: (id)sender
@@ -635,8 +635,8 @@ NSString* fontToString(NSFont *font)
     spaceformat = [sender state];
     NSLog(@"pref: space format changed to %d", spaceformat);
     [[NSUserDefaults standardUserDefaults]
-			setObject: [NSNumber numberWithInt: spaceformat]
-			   forKey: @"SpaceFormat"];
+     setObject: [NSNumber numberWithInt: spaceformat]
+     forKey: @"SpaceFormat"];
 }
 
 - (IBAction) changeEnableGraphics: (id)sender
@@ -644,12 +644,12 @@ NSString* fontToString(NSFont *font)
     dographics = [sender state];
     NSLog(@"pref: dographics changed to %d", dographics);
     [[NSUserDefaults standardUserDefaults]
-			setObject: [NSNumber numberWithInt: dographics]
-			   forKey: @"EnableGraphics"];
-
+     setObject: [NSNumber numberWithInt: dographics]
+     forKey: @"EnableGraphics"];
+    
     /* send notification that prefs have changed -- tell clients that graphics are off limits */
     [[NSNotificationCenter defaultCenter]
-		postNotificationName: @"PreferencesChanged" object: nil];    
+     postNotificationName: @"PreferencesChanged" object: nil];
 }
 
 - (IBAction) changeEnableSound: (id)sender
@@ -657,12 +657,12 @@ NSString* fontToString(NSFont *font)
     dosound = [sender state];
     NSLog(@"pref: dosound changed to %d", dosound);
     [[NSUserDefaults standardUserDefaults]
-			setObject: [NSNumber numberWithInt: dosound]
-			   forKey: @"EnableSound"];
+     setObject: [NSNumber numberWithInt: dosound]
+     forKey: @"EnableSound"];
     
     /* send notification that prefs have changed -- tell clients that sound is off limits */
     [[NSNotificationCenter defaultCenter]
-		postNotificationName: @"PreferencesChanged" object: nil];    
+     postNotificationName: @"PreferencesChanged" object: nil];    
 }
 
 - (IBAction) changeEnableStyles: (id)sender
@@ -670,8 +670,8 @@ NSString* fontToString(NSFont *font)
     dostyles = [sender state];
     NSLog(@"pref: dostyles changed to %d", dostyles);
     [[NSUserDefaults standardUserDefaults]
-			setObject: [NSNumber numberWithInt: dostyles]
-			   forKey: @"EnableStyles"];
+     setObject: [NSNumber numberWithInt: dostyles]
+     forKey: @"EnableStyles"];
     [Preferences rebuildTextAttributes];
 }
 
@@ -680,8 +680,8 @@ NSString* fontToString(NSFont *font)
     usescreenfonts = [sender state];
     NSLog(@"pref: usescreenfonts changed to %d", usescreenfonts);
     [[NSUserDefaults standardUserDefaults]
-			setObject: [NSNumber numberWithInt: usescreenfonts]
-			   forKey: @"ScreenFonts"];
+     setObject: [NSNumber numberWithInt: usescreenfonts]
+     forKey: @"ScreenFonts"];
     [Preferences rebuildTextAttributes];
 }
 

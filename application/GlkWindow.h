@@ -6,7 +6,7 @@
     GlkController *glkctl;
     GlkStyle *styles[style_NUMSTYLES];
     NSInteger bgnd;
-    @public
+@public
     NSInteger name;
 }
 

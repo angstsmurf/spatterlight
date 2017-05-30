@@ -42,7 +42,7 @@
     BOOL gameTableDirty;
     
     NSArray *searchStrings;
-
+    
     /* for the importing */
     NSInteger cursrc;
     NSMutableArray *ifidbuf;

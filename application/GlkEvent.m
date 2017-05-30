@@ -8,49 +8,49 @@ unsigned chartokeycode(unsigned ch)
 {
     switch (ch)
     {
-	case '\n':
-	case '\r':
-	    return keycode_Return;
-	case '\t':
-	    return keycode_Tab;
-	case 8:
-	case 127:
-	case NSDeleteFunctionKey:
-	    return keycode_Delete;
-	case NSUpArrowFunctionKey:
-	    return keycode_Up;
-	case NSDownArrowFunctionKey:
-	    return keycode_Down;
-	case NSLeftArrowFunctionKey:
-	    return keycode_Left;
-	case NSRightArrowFunctionKey:
-	    return keycode_Right;
-	case NSPageDownFunctionKey:
-	    return keycode_PageDown;
-	case NSPageUpFunctionKey:
-	    return keycode_PageUp;	
-	case NSHomeFunctionKey:
-	    return keycode_Home;
-	case NSEndFunctionKey:
-	    return keycode_End;
-	case NSF1FunctionKey: return keycode_Func1;
-	case NSF2FunctionKey: return keycode_Func2;
-	case NSF3FunctionKey: return keycode_Func3;
-	case NSF4FunctionKey: return keycode_Func4;
-	case NSF5FunctionKey: return keycode_Func5;
-	case NSF6FunctionKey: return keycode_Func6;
-	case NSF7FunctionKey: return keycode_Func7;
-	case NSF8FunctionKey: return keycode_Func8;
-	case NSF9FunctionKey: return keycode_Func9;
-	case NSF10FunctionKey: return keycode_Func10;
-	case NSF11FunctionKey: return keycode_Func11;
-	case NSF12FunctionKey: return keycode_Func12;
-	case '\e':
-	    return keycode_Escape;
+        case '\n':
+        case '\r':
+            return keycode_Return;
+        case '\t':
+            return keycode_Tab;
+        case 8:
+        case 127:
+        case NSDeleteFunctionKey:
+            return keycode_Delete;
+        case NSUpArrowFunctionKey:
+            return keycode_Up;
+        case NSDownArrowFunctionKey:
+            return keycode_Down;
+        case NSLeftArrowFunctionKey:
+            return keycode_Left;
+        case NSRightArrowFunctionKey:
+            return keycode_Right;
+        case NSPageDownFunctionKey:
+            return keycode_PageDown;
+        case NSPageUpFunctionKey:
+            return keycode_PageUp;
+        case NSHomeFunctionKey:
+            return keycode_Home;
+        case NSEndFunctionKey:
+            return keycode_End;
+        case NSF1FunctionKey: return keycode_Func1;
+        case NSF2FunctionKey: return keycode_Func2;
+        case NSF3FunctionKey: return keycode_Func3;
+        case NSF4FunctionKey: return keycode_Func4;
+        case NSF5FunctionKey: return keycode_Func5;
+        case NSF6FunctionKey: return keycode_Func6;
+        case NSF7FunctionKey: return keycode_Func7;
+        case NSF8FunctionKey: return keycode_Func8;
+        case NSF9FunctionKey: return keycode_Func9;
+        case NSF10FunctionKey: return keycode_Func10;
+        case NSF11FunctionKey: return keycode_Func11;
+        case NSF12FunctionKey: return keycode_Func12;
+        case '\e':
+            return keycode_Escape;
     }
     
     if (ch < 256)
-	return ch;
+        return ch;
     
     return keycode_Unknown;
 }
@@ -97,7 +97,7 @@ unsigned chartokeycode(unsigned ch)
     self = [super init];
     if (self)
     {
-
+        
         type = EVTLINE;
         ln = [v copy];
         win = name;
@@ -136,17 +136,17 @@ unsigned chartokeycode(unsigned ch)
 {
     struct message reply;
     char buf[4096];
-   
+    
     if (ln)
     {
-	reply.len = (int)([ln length] * 2);
-	if (reply.len > sizeof buf)
-	    reply.len = sizeof buf;
-	[ln getCharacters: (unsigned short*)buf range: NSMakeRange(0, reply.len/2)];
+        reply.len = (int)([ln length] * 2);
+        if (reply.len > sizeof buf)
+            reply.len = sizeof buf;
+        [ln getCharacters: (unsigned short*)buf range: NSMakeRange(0, reply.len/2)];
     }
     else
     {
-	reply.len = 0;
+        reply.len = 0;
     }
     
     reply.cmd = (int)type;
@@ -156,17 +156,17 @@ unsigned chartokeycode(unsigned ch)
     
     if (type == EVTARRANGE || type == EVTPREFS)
     {
-	reply.a1 = (int)val1;
-	reply.a2 = (int)val2;
-	reply.a3 = (int)[Preferences bufferMargins];
-	reply.a4 = (int)[Preferences gridMargins];
-	reply.a5 = [Preferences charWidth] * 256.0;
-	reply.a6 = [Preferences lineHeight] * 256.0;
+        reply.a1 = (int)val1;
+        reply.a2 = (int)val2;
+        reply.a3 = (int)[Preferences bufferMargins];
+        reply.a4 = (int)[Preferences gridMargins];
+        reply.a5 = [Preferences charWidth] * 256.0;
+        reply.a6 = [Preferences lineHeight] * 256.0;
     }
     
     write((int)fd, &reply, sizeof(struct message));
     if (reply.len)
-	write((int)fd, buf, reply.len);
+        write((int)fd, buf, reply.len);
 }
 
 - (NSInteger) type
