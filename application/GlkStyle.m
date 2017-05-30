@@ -2,6 +2,19 @@
 
 @implementation GlkStyle
 
+- (instancetype) init
+{
+    NSInteger enablearray[stylehint_NUMHINTS], valuearray[stylehint_NUMHINTS];
+
+    for (NSInteger i = 0; i < stylehint_NUMHINTS; i++)
+    {
+        enablearray[i]=0;
+        valuearray[i]=0;
+    }
+
+    return [self initWithStyle:0 windowType:wintype_Blank enable:enablearray value:valuearray];
+}
+
 - (instancetype) initWithStyle: (NSInteger)stylenumber_
      windowType: (NSInteger)windowtype_
          enable: (NSInteger*)enablearray
