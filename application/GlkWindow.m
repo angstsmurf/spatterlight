@@ -2,9 +2,20 @@
 
 @implementation GlkWindow
 
+- (instancetype) initWithFrame:(NSRect)frameRect
+{
+    return [self initWithGlkController:[[GlkController alloc] init] name:0];
+}
+
+- (instancetype) initWithCoder:(NSCoder *)coder
+{
+    return [self initWithGlkController:[[GlkController alloc] init] name:0];
+}
+
 - (instancetype) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
 {
-    self = [super init];
+    self = [super initWithFrame:NSZeroRect];
+
     if (self)
     {
         glkctl = glkctl_;
