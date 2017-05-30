@@ -1027,9 +1027,13 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 {
     NSInteger i, count;
     count = gameTableModel.count;
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+
     for (i = 0; i < count; i++)
         if ([gameTableModel[i] isEqualToString: ifid])
-            [gameTableView selectRow: i byExtendingSelection: YES];
+            [indexSet addIndex:i];
+
+    [gameTableView selectRowIndexes:indexSet byExtendingSelection:YES];
 }
 
 static NSInteger Strstr(NSString *haystack, NSString *needle)
@@ -1146,10 +1150,15 @@ static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
     
     [gameTableView deselectAll: self];
     count = gameTableModel.count;
+
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+
     for (i = 0; i < count; i++)
         if (gameTableModel[i] == selifid)
-            [gameTableView selectRow: i byExtendingSelection: NO];
-    
+            [indexSet addIndex:i];
+
+    [gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+
     gameTableDirty = NO;
 }
 
