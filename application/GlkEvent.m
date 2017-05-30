@@ -4,6 +4,11 @@
 
 @implementation GlkEvent
 
+- (instancetype) init
+{
+    return [self initPrefsEvent];
+}
+
 unsigned chartokeycode(unsigned ch)
 {
     switch (ch)

@@ -56,6 +56,11 @@
 
 @implementation MarginImage
 
+- (instancetype) init
+{
+    return [self initWithImage:[[NSImage alloc] initWithContentsOfFile:@"../Resources/Question.png"] align:kAlignLeft at:0 size:NSZeroSize];
+}
+
 - (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos size: (NSSize)asize
 {
     self = [super init];
@@ -139,9 +144,19 @@
 
 @implementation MarginContainer
 
+- (instancetype) initWithSize:(NSSize)size
+{
+    return [self initWithContainerSize:size];
+}
+
+- (instancetype) initWithCoder:(NSCoder *)coder
+{
+    return [self initWithContainerSize:NSZeroSize];
+}
+
 - (instancetype) initWithContainerSize: (NSSize)size
 {
-    self = [super initWithContainerSize: size];
+    self = [super initWithSize: size];
     
     if (self)
         margins = [[NSMutableArray alloc] init];
