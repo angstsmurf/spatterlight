@@ -26,10 +26,10 @@ enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
 #include "babel_handler.h"
 
 @implementation LibHelperWindow
-- (NSUInteger) draggingEntered:sender { return [self.delegate draggingEntered:sender]; }
-- (void) draggingExited:sender { [self.delegate draggingEntered:sender]; }
-- (BOOL) prepareForDragOperation:sender { return [self.delegate prepareForDragOperation:sender]; }
-- (BOOL) performDragOperation:sender { return [self.delegate performDragOperation:sender]; }
+- (NSDragOperation) draggingEntered:sender { return [(LibController *)[self delegate] draggingEntered:sender]; }
+- (void) draggingExited:sender { [(LibController *)[self delegate] draggingEntered:sender]; }
+- (BOOL) prepareForDragOperation:sender { return [(LibController *)[self delegate] prepareForDragOperation:sender]; }
+- (BOOL) performDragOperation:sender { return [(LibController *)[self delegate] performDragOperation:sender]; }
 @end
 
 @implementation LibHelperTableView

@@ -13,7 +13,7 @@
  *
  */
 
-@interface LibHelperWindow : NSWindow
+@interface LibHelperWindow : NSWindow<NSDraggingDestination>
 {
 }
 @end
@@ -23,7 +23,7 @@
 }
 @end
 
-@interface LibController : NSWindowController
+@interface LibController : NSWindowController<NSDraggingDestination>
 {
     NSURL *homepath;
     
