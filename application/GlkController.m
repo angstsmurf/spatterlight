@@ -8,7 +8,7 @@
 #define NSLog(...)
 #endif
 
-#define MINTIMER 200 /* five times per sec should be plenty small enough */
+#define MINTIMER 50 /* twenty times per sec should be plenty small enough */
 
 static const char *msgnames[] =
 {
