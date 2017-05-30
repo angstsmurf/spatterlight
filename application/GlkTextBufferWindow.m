@@ -644,7 +644,7 @@
         wrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: tiffdata] autorelease];
         wrapper.preferredFilename = @"image.tiff";
         att = [[[NSTextAttachment alloc] initWithFileWrapper: wrapper] autorelease];
-        MyAttachmentCell *cell = [[MyAttachmentCell alloc] initImageCell:image];
+        MyAttachmentCell *cell = [[[MyAttachmentCell alloc] initImageCell:image] autorelease];
         att.attachmentCell = cell;
         NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
         
