@@ -365,7 +365,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
  * Drag-n-drop destination handler
  */
 
-- (unsigned int) draggingEntered:sender
+- (NSDragOperation) draggingEntered:sender
 {
     extern NSString *terp_for_filename(NSString *path);
     
