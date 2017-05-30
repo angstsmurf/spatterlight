@@ -58,7 +58,7 @@
 
 - (NSString*) importGame: (NSString*)path reportFailure: (BOOL)report;
 - (void) addFile: (NSString*)path select: (NSMutableArray*)select;
-- (void) addFiles: (NSArray*)paths select: (NSMutableArray*)select root: (NSString*)root;
+- (void) addFiles: (NSArray*)paths select: (NSMutableArray*)select;
 - (void) addFiles: (NSArray*)paths;
 - (void) addFile: (NSString*)path;
 

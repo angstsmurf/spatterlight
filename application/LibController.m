@@ -410,8 +410,12 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     if ([pboard.types containsObject: NSFilenamesPboardType])
     {
         NSArray *files = [pboard propertyListForType: NSFilenamesPboardType];
+        NSMutableArray *urls = [[[NSMutableArray alloc] initWithCapacity:files.count] autorelease];
+        for (id tempObject in files) {
+            [urls addObject:[NSURL fileURLWithPath:tempObject]];
+        }
         [self beginImporting];
-        [self addFiles: files];
+        [self addFiles: urls];
         [self endImporting];
         return YES;
     }
@@ -942,52 +946,53 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     return ifid;
 }
 
-- (void) addFile: (NSString*)path select: (NSMutableArray*)select
+- (void) addFile: (NSURL*)url select: (NSMutableArray*)select
 {
-    NSString *ifid = [self importGame: path reportFailure: NO];
+    NSString *ifid = [self importGame: [url path] reportFailure: NO];
     if (ifid)
         [select addObject: ifid];
 }
 
-- (void) addFiles: (NSArray*)paths select: (NSMutableArray*)select root: (NSString*)root
+- (void) addFiles: (NSArray*)urls select: (NSMutableArray*)select
 {
     NSFileManager *filemgr = [NSFileManager defaultManager];
     BOOL isdir;
     NSInteger count;
     NSInteger i;
     
-    count = paths.count;
+    count = urls.count;
     for (i = 0; i < count; i++)
     {
-        NSString *path = [root stringByAppendingPathComponent: paths[i]];
+        NSString *path = [urls[i] path];
         
         if (![filemgr fileExistsAtPath: path isDirectory: &isdir])
             continue;
         
         if (isdir)
         {
-            NSArray *contents = [filemgr contentsOfDirectoryAtPath: path error:nil];
-            [self addFiles: contents select: select root: path];
+            NSArray *contents = [filemgr contentsOfDirectoryAtURL:urls[i] includingPropertiesForKeys:[NSArray arrayWithObject:NSURLNameKey] options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                            error:nil];
+            [self addFiles: contents select: select];
         }
         else
         {
-            [self addFile: path select: select];
+            [self addFile: urls[i] select: select];
         }
     }
 }
 
-- (void) addFiles: (NSArray*)paths
+- (void) addFiles: (NSArray*)urls
 {
     NSInteger count;
     NSInteger i;
     
-    NSLog(@"libctl: adding %lu files", (unsigned long)[paths count]);
+    NSLog(@"libctl: adding %lu files", (unsigned long)urls.count);
     
-    NSMutableArray *select = [NSMutableArray arrayWithCapacity: paths.count];
+    NSMutableArray *select = [NSMutableArray arrayWithCapacity: urls.count];
     
     [self deselectGames];
     
-    [self addFiles: paths select: select root: @""];
+    [self addFiles: urls select: select];
     
     [self updateTableViews];
     
@@ -996,9 +1001,9 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         [self selectGameWithIFID: select[i]];
 }
 
-- (void) addFile: (NSString*)path
+- (void) addFile: (NSURL*)url
 {
-    [self addFiles: @[path]];
+    [self addFiles: @[url]];
 }
 
 /*
