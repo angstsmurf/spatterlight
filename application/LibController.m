@@ -338,9 +338,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     [self deleteGame: sender];
 }
 
-- (BOOL) validateMenuItem: (id<NSMenuItem>)menuItem
+- (BOOL) validateMenuItem: (NSMenuItem *)menuItem
 {
-    SEL action = [menuItem action];
+    SEL action = menuItem.action;
     NSInteger count = gameTableView.numberOfSelectedRows;
     
     if (action == @selector(delete:))
