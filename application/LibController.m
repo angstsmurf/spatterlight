@@ -959,7 +959,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     count = paths.count;
     for (i = 0; i < count; i++)
     {
-        NSString *path = [root stringByAppendingPathComponent: [paths[i] path]];
+        NSString *path = [root stringByAppendingPathComponent: paths[i]];
         
         if (![filemgr fileExistsAtPath: path isDirectory: &isdir])
             continue;
