@@ -17,11 +17,11 @@
     NSInteger value[stylehint_NUMHINTS];
 }
 
-- initWithStyle: (NSInteger)stylenumber_
+- (instancetype) initWithStyle: (NSInteger)stylenumber_
      windowType: (NSInteger)windowtype_
          enable: (NSInteger *)enablearray
-          value: (NSInteger *)valuearray;
+          value: (NSInteger *)valuearray NS_DESIGNATED_INITIALIZER;
 - (void) prefsDidChange;
-- (NSDictionary*) attributes;
+@property (readonly, copy) NSDictionary *attributes;
 
 @end

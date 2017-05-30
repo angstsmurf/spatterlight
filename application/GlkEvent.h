@@ -10,13 +10,13 @@ unsigned chartokeycode(unsigned ch);
     NSString *ln;
 }
 
-- (id) initPrefsEvent;
-- (id) initCharEvent: (unsigned)v forWindow: (NSInteger)name;
-- (id) initLineEvent: (NSString*)v forWindow: (NSInteger)name;
-- (id) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name;
-- (id) initTimerEvent;
-- (id) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
+- (instancetype) initPrefsEvent NS_DESIGNATED_INITIALIZER;
+- (instancetype) initCharEvent: (unsigned)v forWindow: (NSInteger)name NS_DESIGNATED_INITIALIZER;
+- (instancetype) initLineEvent: (NSString*)v forWindow: (NSInteger)name NS_DESIGNATED_INITIALIZER;
+- (instancetype) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name NS_DESIGNATED_INITIALIZER;
+- (instancetype) initTimerEvent NS_DESIGNATED_INITIALIZER;
+- (instancetype) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah NS_DESIGNATED_INITIALIZER;
 - (void) writeEvent: (NSInteger)fd;
-- (NSInteger) type;
+@property (readonly) NSInteger type;
 
 @end

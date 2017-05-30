@@ -55,7 +55,7 @@ unsigned chartokeycode(unsigned ch)
     return keycode_Unknown;
 }
 
-- (id) initPrefsEvent
+- (instancetype) initPrefsEvent
 {
     self = [super init];
     if (self)
@@ -67,7 +67,7 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (id) initCharEvent: (unsigned)v forWindow: (NSInteger)name
+- (instancetype) initCharEvent: (unsigned)v forWindow: (NSInteger)name
 {
     self = [super init];
     if (self)
@@ -79,7 +79,7 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (id) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name
+- (instancetype) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name
 {
     self = [super init];
     if (self)
@@ -92,7 +92,7 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (id) initLineEvent: (NSString*)v forWindow: (NSInteger)name
+- (instancetype) initLineEvent: (NSString*)v forWindow: (NSInteger)name
 {
     self = [super init];
     if (self)
@@ -101,12 +101,12 @@ unsigned chartokeycode(unsigned ch)
         type = EVTLINE;
         ln = [v copy];
         win = name;
-        val1 = (unsigned int)[ln length];
+        val1 = (unsigned int)ln.length;
     }
     return self;
 }
 
-- (id) initTimerEvent
+- (instancetype) initTimerEvent
 {
     self = [super init];
     if (self)
@@ -114,7 +114,7 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (id) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
+- (instancetype) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
 {
     self = [super init];
     if (self)
@@ -139,7 +139,7 @@ unsigned chartokeycode(unsigned ch)
     
     if (ln)
     {
-        reply.len = (int)([ln length] * 2);
+        reply.len = (int)(ln.length * 2);
         if (reply.len > sizeof buf)
             reply.len = sizeof buf;
         [ln getCharacters: (unsigned short*)buf range: NSMakeRange(0, reply.len/2)];

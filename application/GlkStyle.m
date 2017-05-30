@@ -2,7 +2,7 @@
 
 @implementation GlkStyle
 
-- initWithStyle: (NSInteger)stylenumber_
+- (instancetype) initWithStyle: (NSInteger)stylenumber_
      windowType: (NSInteger)windowtype_
          enable: (NSInteger*)enablearray
           value: (NSInteger*)valuearray
@@ -68,39 +68,39 @@
     // if (windowtype == wintype_TextBuffer)
     {
         NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
-        [para setParagraphStyle: [dict objectForKey: NSParagraphStyleAttributeName]];
+        [para setParagraphStyle: dict[NSParagraphStyleAttributeName]];
         
-        NSInteger indent = [para headIndent];
-        NSInteger paraindent = [para firstLineHeadIndent] - indent;
+        NSInteger indent = para.headIndent;
+        NSInteger paraindent = para.firstLineHeadIndent - indent;
         
         if (enabled[stylehint_Indentation])
             indent = value[stylehint_Indentation] * 3;
         if (enabled[stylehint_ParaIndentation])
             paraindent = value[stylehint_ParaIndentation] * 3;
         
-        [para setHeadIndent: indent];
-        [para setFirstLineHeadIndent: (indent + paraindent)];
+        para.headIndent = indent;
+        para.firstLineHeadIndent = (indent + paraindent);
         
         if (enabled[stylehint_Justification])
         {
             switch (value[stylehint_Justification])
             {
                 case stylehint_just_LeftFlush:
-                    [para setAlignment: NSLeftTextAlignment];
+                    para.alignment = NSLeftTextAlignment;
                     break;
                 case stylehint_just_LeftRight:
-                    [para setAlignment: NSJustifiedTextAlignment];
+                    para.alignment = NSJustifiedTextAlignment;
                     break;
                 case stylehint_just_Centered:
-                    [para setAlignment: NSCenterTextAlignment];
+                    para.alignment = NSCenterTextAlignment;
                     break;
                 case stylehint_just_RightFlush:
-                    [para setAlignment: NSRightTextAlignment];
+                    para.alignment = NSRightTextAlignment;
                     break;
             }
         }
         
-        [dict setObject: para forKey: NSParagraphStyleAttributeName];
+        dict[NSParagraphStyleAttributeName] = para;
         [para release];
     }
     
@@ -110,11 +110,11 @@
     
     {
         NSFontManager *fontmgr = [NSFontManager sharedFontManager];
-        NSFont *font = [dict objectForKey: NSFontAttributeName];
+        NSFont *font = dict[NSFontAttributeName];
         
         if (enabled[stylehint_Size] && windowtype == wintype_TextBuffer)
         {
-            float size = [font matrix][0] + value[stylehint_Size] * 2;
+            float size = font.matrix[0] + value[stylehint_Size] * 2;
             font = [fontmgr convertFont: font toSize: size];
         }
         
@@ -144,7 +144,7 @@
                 font = [fontmgr convertFont: font toHaveTrait: NSFixedPitchFontMask];
         }
         
-        [dict setObject: font forKey: NSFontAttributeName];
+        dict[NSFontAttributeName] = font;
     }
     
     /*
@@ -161,7 +161,7 @@
                                                    green: g / 255.0
                                                     blue: b / 255.0
                                                    alpha: 1.0];
-        [dict setObject: color forKey: NSForegroundColorAttributeName];
+        dict[NSForegroundColorAttributeName] = color;
     }
     
     if (enabled[stylehint_BackColor])
@@ -174,20 +174,20 @@
                                                    green: g / 255.0
                                                     blue: b / 255.0
                                                    alpha: 1.0];
-        [dict setObject: color forKey: NSBackgroundColorAttributeName];
+        dict[NSBackgroundColorAttributeName] = color;
     }
     
     if (enabled[stylehint_ReverseColor] && !(enabled[stylehint_TextColor] || enabled[stylehint_BackColor]))
     {
         if (windowtype == wintype_TextGrid)
         {
-            [dict setObject: [Preferences gridBackground] forKey: NSForegroundColorAttributeName];
-            [dict setObject: [Preferences gridForeground] forKey: NSBackgroundColorAttributeName];
+            dict[NSForegroundColorAttributeName] = [Preferences gridBackground];
+            dict[NSBackgroundColorAttributeName] = [Preferences gridForeground];
         }
         else
         {
-            [dict setObject: [Preferences bufferBackground] forKey: NSForegroundColorAttributeName];
-            [dict setObject: [Preferences bufferForeground] forKey: NSBackgroundColorAttributeName];
+            dict[NSForegroundColorAttributeName] = [Preferences bufferBackground];
+            dict[NSBackgroundColorAttributeName] = [Preferences bufferForeground];
         }
     }
 }

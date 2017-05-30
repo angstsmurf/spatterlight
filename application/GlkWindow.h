@@ -10,9 +10,9 @@
     NSInteger name;
 }
 
-- (id) initWithGlkController: (GlkController*)glkctl name: (NSInteger)name;
+- (instancetype) initWithGlkController: (GlkController*)glkctl name: (NSInteger)name NS_DESIGNATED_INITIALIZER;
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value;
-- (BOOL) wantsFocus;
+@property (readonly) BOOL wantsFocus;
 - (void) grabFocus;
 - (void) flushDisplay;
 - (void) markLastSeen;
@@ -24,7 +24,7 @@
 - (void) putString:(NSString*)buf style:(NSInteger)style;
 - (void) moveToColumn:(NSInteger)x row:(NSInteger)y;
 - (void) initLine: (NSString*)buf;
-- (NSString*) cancelLine;
+@property (readonly, copy) NSString *cancelLine;
 - (void) initChar;
 - (void) cancelChar;
 - (void) initMouse;

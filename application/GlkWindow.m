@@ -2,7 +2,7 @@
 
 @implementation GlkWindow
 
-- (id) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
+- (instancetype) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
 {
     self = [super init];
     if (self)
@@ -45,12 +45,12 @@
 
 - (void) setFrame: (NSRect)thisframe
 {
-    NSRect mainframe = [[self superview] frame];
+    NSRect mainframe = self.superview.frame;
     NSInteger hmask, vmask;
     NSInteger rgt = 0;
     NSInteger bot = 0;
     
-    [super setFrame: thisframe];
+    super.frame = thisframe;
     
     /* set autoresizing for live resize. */
     /* the client should rearrange after it's finished. */
@@ -74,7 +74,7 @@
     else
         vmask = NSViewMaxYMargin;
     
-    [self setAutoresizingMask: hmask | vmask];
+    self.autoresizingMask = hmask | vmask;
 }
 
 - (void) prefsDidChange
@@ -96,7 +96,7 @@
 - (void) grabFocus
 {
     // NSLog(@"grab focus in window %d", name);
-    [[self window] makeFirstResponder: self];
+    [self.window makeFirstResponder: self];
 }
 
 - (void) flushDisplay
