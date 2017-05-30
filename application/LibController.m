@@ -147,8 +147,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     self.windowFrameAutosaveName = @"LibraryWindow";
     gameTableView.autosaveName = @"GameTable";
     [gameTableView setAutosaveTableColumns: YES];
-    // [gameTableView setDoubleAction: @selector(playGame:)];
-    
+    gameTableView.doubleAction = @selector(playGame:);
+
     [self.window setExcludedFromWindowsMenu: YES];
     [self.window registerForDraggedTypes:
      @[NSFilenamesPboardType]];
