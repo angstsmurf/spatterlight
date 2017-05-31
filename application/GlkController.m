@@ -515,8 +515,9 @@ static const char *msgnames[] =
         
         filename = [date stringByAppendingString: gameinfo[@"title"]];
     }
-    
-    filename = [filename stringByAppendingPathExtension: ext];
+
+    if (ext)
+        filename = [filename stringByAppendingPathExtension: ext];
     
     if (filename)
         panel.nameFieldStringValue = filename;
