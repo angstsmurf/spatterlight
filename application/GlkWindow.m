@@ -4,12 +4,12 @@
 
 - (instancetype) initWithFrame:(NSRect)frameRect
 {
-    return [self initWithGlkController:[[GlkController alloc] init] name:0];
+    return [[self initWithGlkController:[[GlkController alloc] init] name:0] autorelease];
 }
 
 - (instancetype) initWithCoder:(NSCoder *)coder
 {
-    return [self initWithGlkController:[[GlkController alloc] init] name:0];
+    return [[self initWithGlkController:[[GlkController alloc] init] name:0] autorelease];
 }
 
 - (instancetype) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
