@@ -1016,7 +1016,7 @@ NSInteger colorToInteger(NSColor *color)
             NSLog(@"glkctl SETLINK %d", req->a1);
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
-                [gwindows[req->a1] setHyperlink];
+              //  [gwindows[req->a1] setHyperlink];
             }
             break;
             
@@ -1024,7 +1024,7 @@ NSInteger colorToInteger(NSColor *color)
             NSLog(@"glkctl INITLINK %d", req->a1);
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
-                [gwindows[req->a1] initHyperlink];
+             //   [gwindows[req->a1] initHyperlink];
             }
             break;
             
@@ -1032,7 +1032,7 @@ NSInteger colorToInteger(NSColor *color)
             NSLog(@"glkctl CANCELLINK %d", req->a1);
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
-                [gwindows[req->a1] cancelHyperlink];
+               // [gwindows[req->a1] cancelHyperlink];
             }
             break;
             

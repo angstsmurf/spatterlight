@@ -504,7 +504,6 @@
             [textstorage addAttribute: @"NSAttachment"
                                 value: image
                                 range: NSMakeRange(x, 1)];
-            [image release];
         }
         
         x = range.location + range.length;
@@ -952,12 +951,12 @@
     
     if (fg || bg)
     {
-        NSMutableDictionary *mutatt = [[[styles[style] attributes] mutableCopy] autorelease];
+        NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
         
 #ifdef GLK_MODULE_HYPERLINKS
         
-        if (linkid)
-            [mutatt setObject: [NSNumber numberWithInt: linkid] forKey: @"GlkLink"];
+       // if (linkid)
+         //   [mutatt setObject: [NSNumber numberWithInt: linkid] forKey: @"GlkLink"];
 #endif
         mutatt[@"GlkStyle"] = @((int)stylevalue);
         if ([Preferences stylesEnabled])
