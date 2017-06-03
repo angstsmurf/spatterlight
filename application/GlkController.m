@@ -1156,25 +1156,30 @@ NSInteger colorToInteger(NSColor *color)
             ans->cmd = OKAY;
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
-                const char *str = [gwindows[req->a1] cancelLine].UTF8String;
+                const char *str = gwindows[req->a1].cancelLine.UTF8String;
                 strlcpy(buf, str, GLKBUFSIZE);
                 ans->len = (int)strlen(buf);
             }
             break;
-            
+
+        case SETECHO:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1] && [gwindows[req->a1] isKindOfClass: [GlkTextBufferWindow class]])
+                [(GlkTextBufferWindow *)gwindows[req->a1] echo:(req->a2 != 0)];
+            break;
+
         case INITCHAR:
             [self performScroll];
             NSLog(@"glkctl initchar %d", req->a1);
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
                 [gwindows[req->a1] initChar];
             break;
-            
+
         case CANCELCHAR:
             NSLog(@"glkctl CANCELCHAR %d", req->a1);
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
                 [gwindows[req->a1] cancelChar];
             break;
-            
+
         case INITMOUSE:
             NSLog(@"glkctl initmouse %d", req->a1);
             [self performScroll];
