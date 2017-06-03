@@ -165,6 +165,27 @@ void win_print(int name, int ch, int at)
     pbuf[bufferlen++] = ch;
 }
 
+/* Gargoyle glue */
+
+void wintitle(void)
+{
+    char buf[256];
+    
+    if (strlen(gli_story_title))
+        sprintf(buf, "%s", gli_story_title);
+    else if (strlen(gli_story_name))
+        sprintf(buf, "%s - %s", gli_story_name, gli_program_name);
+    else
+        sprintf(buf, "%s", gli_program_name);
+    if (strlen(buf))
+        sendmsg(SETTITLE, 0, 0, 0, 0, 0,
+            (int)(strlen(buf)), // * sizeof(unsigned short)
+            (char*)buf);
+    fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
+}
+
+/* End of Gargoyle glue */
+
 void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
 {
     if (buffering == BUFPRINT)
@@ -276,6 +297,12 @@ void win_cancelline(int name, int cap, int *len, char *buf)
     sendmsg(CANCELLINE, name, cap, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, buf);
     *len = wmsg.len;
+}
+
+void win_set_echo(int name, int val)
+{
+    win_flush();
+    sendmsg(SETECHO, name, val, 0, 0, 0, 0, NULL);
 }
 
 void win_initmouse(int name)
@@ -399,6 +426,20 @@ void win_clearhint(int wintype, int styl, int hint)
 {
     win_flush();
     sendmsg(CLEARHINT, wintype, styl, hint, 0, 0, 0, NULL);
+    fprintf(stderr, "sent CLEARHINT type:%d styl:%d hint:%d\n",wintype, styl, hint);
+
+}
+
+int win_style_measure(int name, int styl, int hint, glui32 *result)
+{
+    win_flush();
+    sendmsg(STYLEMEASURE, name, styl, hint, 0, 0, 0, NULL);
+
+    fprintf(stderr, "sent STYLEMEASURE name:%d styl:%d hint:%d\n",name, styl, hint);
+
+    readmsg(&wmsg, wbuf);
+    *result = wmsg.a2;
+    return wmsg.a1;  /* TRUE or FALSE */
 }
 
 void win_setbgnd(int name, int color)

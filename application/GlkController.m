@@ -841,6 +841,15 @@ NSInteger colorToInteger(NSColor *color)
     [gwindow putString: str style: style];
 }
 
+- (void) handleChangeTitle:(char*)buf length: (int)len
+{
+    NSString *str;
+
+    str = [[NSString stringWithCString: buf encoding: NSISOLatin1StringEncoding] substringToIndex: len];
+
+    self.window.title = str;
+}
+
 - (BOOL) handleRequest: (struct message *)req reply: (struct message *)ans buffer: (char *)buf
 {
     NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
@@ -1085,6 +1094,11 @@ NSInteger colorToInteger(NSColor *color)
                                    buffer: (unichar*)buf
                                    length: req->len / sizeof(unichar)];
             }
+            break;
+        
+        case SETTITLE:
+            [self handleChangeTitle: (char*)buf
+                               length: req->len];
             break;
             
         case FLOWBREAK:
