@@ -20,33 +20,27 @@ NSDictionary *gFormatMap;
 {
     NSLog(@"appdel: awakeFromNib");
     
-    gGameFileTypes = [[NSArray alloc] initWithObjects:
-                      @"d$$", @"dat", @"sna",
+    gGameFileTypes = @[@"d$$", @"dat", @"sna",
                       @"advsys", @"quill",
                       @"l9", @"mag", @"a3c", @"acd", @"agx", @"gam", @"t3", @"hex", @"taf",
                       @"z3", @"z4", @"z5", @"z7", @"z8", @"ulx",
-                      @"blb", @"blorb", @"glb", @"gblorb", @"zlb", @"zblorb",
-                      nil];
+                      @"blb", @"blorb", @"glb", @"gblorb", @"zlb", @"zblorb"];
     
-    gExtMap = [[NSDictionary alloc] initWithObjectsAndKeys:
-               @"alan2", @"acd",
-               @"alan3", @"a3c",
-               @"agility", @"d$$",
-               NULL];
+    gExtMap = @{@"acd": @"alan2",
+               @"a3c": @"alan3",
+               @"d$$": @"agility"};
     
-    gFormatMap = [[NSDictionary alloc] initWithObjectsAndKeys:
-                  @"scare",	@"adrift",
-                  @"advsys",	@"advsys",
-                  @"agility",	@"agt",
-                  @"glulxe",      @"glulx",
-                  @"hugo",	@"hugo",
-                  @"level9",	@"level9",
-                  @"magnetic",	@"magscrolls",
-                  @"unquill",     @"quill",
-                  @"tadsr",	@"tads2",
-                  @"tadsr",	@"tads3",
-                  @"frotz",	@"zcode",
-                  NULL];
+    gFormatMap = @{@"adrift": @"scare",
+                  @"advsys": @"advsys",
+                  @"agt": @"agility",
+                  @"glulx": @"glulxe",
+                  @"hugo": @"hugo",
+                  @"level9": @"level9",
+                  @"magscrolls": @"magnetic",
+                  @"quill": @"unquill",
+                  @"tads2": @"tadsr",
+                  @"tads3": @"tadsr",
+                  @"zcode": @"frotz"};
     
     prefctl = [[Preferences alloc] initWithWindowNibName: @"PrefsWindow"];
     libctl = [[LibController alloc] initWithWindowNibName: @"LibraryWindow"];
