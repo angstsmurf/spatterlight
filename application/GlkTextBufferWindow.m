@@ -66,7 +66,7 @@
     self = [super init];
     if (self)
     {
-        image = [animage retain];
+        image = animage;
         align = analign;
         pos = apos;
         size = asize;
@@ -77,11 +77,6 @@
     return self;
 }
 
-- (void) dealloc
-{
-    [image release];
-    [super dealloc];
-}
 
 - (NSImage*) image { return image; }
 - (NSInteger) position { return pos; }
@@ -164,15 +159,9 @@
     return self;
 }
 
-- (void) dealloc
-{
-    [margins release];
-    [super dealloc];
-}
 
 - (void) clearImages
 {
-    [margins release];
     margins = [[NSMutableArray alloc] init];
     [self.layoutManager textContainerChangedGeometry: self];
 }
@@ -192,7 +181,6 @@
 {
     MarginImage *mi = [[MarginImage alloc] initWithImage: image align: align at: top size: size];
     [margins addObject: mi];
-    [mi release];
     [self.layoutManager textContainerChangedGeometry: self];
 }
 
@@ -241,7 +229,7 @@
         
         if (NSIntersectsRect(bounds, rect))
         {
-            if ([image alignment] == imagealign_MarginLeft)
+            if (image.alignment == imagealign_MarginLeft)
                 rect.origin.x += bounds.size.width;
             rect.size.width -= bounds.size.width;
         }
@@ -270,8 +258,8 @@
         
         if (NSIntersectsRect(bounds, rect))
         {
-            size = [image image].size;
-            [[image image] drawInRect: bounds
+            size = image.image.size;
+            [image.image drawInRect: bounds
                              fromRect: NSMakeRect(0, 0, size.width, size.height)
                             operation: NSCompositeSourceOver
                              fraction: 1.0
@@ -419,14 +407,8 @@
     NSInteger i;
     
     for (i = 0; i < HISTORYLEN; i++)
-        [history[i] release];
+        ;
     
-    [textview release];
-    [container release];
-    [layoutmanager release];
-    [textstorage release];
-    [scrollview release];
-    [super dealloc];
 }
 
 - (void) setBgColor: (NSInteger)bg
@@ -444,8 +426,8 @@
     
     if ([Preferences stylesEnabled])
     {
-        bgcolor = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
-        fgcolor = [styles[style_Normal] attributes][NSForegroundColorAttributeName];
+        bgcolor = styles[style_Normal].attributes[NSBackgroundColorAttributeName];
+        fgcolor = styles[style_Normal].attributes[NSForegroundColorAttributeName];
         
         if (bgnd != 0)
         {
@@ -498,10 +480,8 @@
         NSInteger bg = (stylevalue >> 16) & 0xff;
         
         id image = [textstorage attribute: @"NSAttachment" atIndex:x effectiveRange:NULL];
-        if (image)
-            [image retain];
         
-        [textstorage setAttributes: [styles[style] attributes] range: range];
+        [textstorage setAttributes: styles[style].attributes range: range];
         
         if (fg || bg)
         {
@@ -608,7 +588,7 @@
     
     [dst unlockFocus];
     
-    return [dst autorelease];
+    return dst;
 }
 
 - (void) drawImage: (NSImage*)image val1: (NSInteger)align val2: (NSInteger)unused width: (NSInteger)w height: (NSInteger)h
@@ -641,10 +621,10 @@
         
         tiffdata = image.TIFFRepresentation;
         
-        wrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: tiffdata] autorelease];
+        wrapper = [[NSFileWrapper alloc] initRegularFileWithContents: tiffdata];
         wrapper.preferredFilename = @"image.tiff";
-        att = [[[NSTextAttachment alloc] initWithFileWrapper: wrapper] autorelease];
-        MyAttachmentCell *cell = [[[MyAttachmentCell alloc] initImageCell:image] autorelease];
+        att = [[NSTextAttachment alloc] initWithFileWrapper: wrapper];
+        MyAttachmentCell *cell = [[MyAttachmentCell alloc] initImageCell:image];
         att.attachmentCell = cell;
         NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
         
@@ -716,11 +696,10 @@
 {
     if (history[historypresent])
     {
-        [history[historypresent] release];
         history[historypresent] = nil;
     }
     
-    history[historypresent] = [line retain];
+    history[historypresent] = line;
     
     historypresent ++;
     if (historypresent >= HISTORYLEN)
@@ -735,7 +714,6 @@
     
     if (history[historypresent])
     {
-        [history[historypresent] release];
         history[historypresent] = nil;
     }
 }
@@ -754,9 +732,7 @@
             cx = [textstorage.string substringWithRange: NSMakeRange(fence, textstorage.length - fence)];
         else
             cx = nil;
-        if (history[historypos])
-            [history[historypos] release];
-        history[historypos] = [cx retain];
+        history[historypos] = cx;
     }
     
     historypos--;
@@ -801,11 +777,11 @@
     GlkWindow *win;
     
     // pass on this key press to another GlkWindow if we are not expecting one
-    if (![self wantsFocus])
+    if (!self.wantsFocus)
         for (int i = 0; i < MAXWIN; i++)
         {
             win = [glkctl windowWithNum:i];
-            if (i != self->name && win && [win wantsFocus])
+            if (i != self.name && win && win.wantsFocus)
             {
                 NSLog(@"Passing on keypress");
                 if ([win isKindOfClass: [GlkTextBufferWindow class]])
@@ -845,15 +821,14 @@
     
     if (char_request && ch != keycode_Unknown)
     {
-        NSLog(@"char event from %ld", (long)name);
+        NSLog(@"char event from %ld", (long)self.name);
         
         //[textview setInsertionPointColor:[Preferences bufferForeground]];
         
         [glkctl markLastSeen];
         
-        gev = [[GlkEvent alloc] initCharEvent: ch forWindow: name];
+        gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
         [glkctl queueEvent: gev];
-        [gev release];
         
         char_request = NO;
         [textview setEditable: NO];
@@ -862,24 +837,28 @@
     
     else if (line_request && ch == keycode_Return)
     {
-        NSLog(@"line event from %ld", (long)name);
+        NSLog(@"line event from %ld", (long)self.name);
         
         textview.insertionPointColor = [Preferences bufferBackground];
         
         [glkctl markLastSeen];
         
         NSString *line = [textstorage.string substringWithRange: NSMakeRange(fence, textstorage.length - fence)];
-        [self putString: @"\n" style: style_Input]; // XXX arranger lastchar needs to be set
-        lastchar = '\n';
+        if (echo)
+        {
+            [self putString: @"\n" style: style_Input]; // XXX arranger lastchar needs to be set
+            lastchar = '\n';
+        }
+        else
+            [textstorage deleteCharactersInRange: NSMakeRange(fence, textstorage.length - fence)]; // Don't echo input line
         
         if (line.length > 0)
         {
             [self saveHistory: line];
         }
         
-        gev = [[GlkEvent alloc] initLineEvent: line forWindow: name];
+        gev = [[GlkEvent alloc] initLineEvent: line forWindow: self.name];
         [glkctl queueEvent: gev];
-        [gev release];
         
         fence = textstorage.length;
         line_request = NO;
@@ -921,7 +900,6 @@
 {
     id att = [[NSAttributedString alloc] initWithString: @""];
     [textstorage setAttributedString: att];
-    [att release];
     fence = 0;
     lastseen = 0;
     lastchar = '\n';
@@ -993,12 +971,11 @@
     }
     else
     {
-        att = [styles[style] attributes];
+        att = styles[style].attributes;
     }
     
     attstr = [[NSAttributedString alloc] initWithString: str attributes: att];
     [textstorage appendAttributedString: attstr];
-    [attstr release];
     
     lastchar = [str characterAtIndex: str.length - 1];
 }
@@ -1048,9 +1025,8 @@
     fence = textstorage.length;
     
     id att = [[NSAttributedString alloc] initWithString: str
-                                             attributes: [styles[style_Input] attributes]];	
+                                             attributes: styles[style_Input].attributes];	
     [textstorage appendAttributedString: att];
-    [att release];
     
     textview.insertionPointColor = [Preferences bufferForeground];
     
@@ -1099,7 +1075,7 @@ replacementString: (id)repl
     if (textstorage.editedRange.location < fence)
         return;
     
-    [textstorage setAttributes: [styles[style_Input] attributes]
+    [textstorage setAttributes: styles[style_Input].attributes
                          range: textstorage.editedRange];
 }
 

@@ -38,12 +38,6 @@
     return self;
 }
 
-- (void) dealloc
-{
-    if (dict)
-        [dict release];
-    [super dealloc];
-}
 
 - (NSDictionary*) attributes
 {
@@ -54,7 +48,6 @@
 {
     if (dict)
     {
-        [dict release];
         dict = nil;
     }
     
@@ -114,7 +107,6 @@
         }
         
         dict[NSParagraphStyleAttributeName] = para;
-        [para release];
     }
     
     /*

@@ -131,11 +131,6 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (void) dealloc
-{
-    [ln release];
-    [super dealloc];
-}
 
 - (void) writeEvent: (NSInteger)fd
 {

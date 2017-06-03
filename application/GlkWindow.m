@@ -4,22 +4,22 @@
 
 - (instancetype) initWithFrame:(NSRect)frameRect
 {
-    return [[self initWithGlkController:[[GlkController alloc] init] name:0] autorelease];
+    return [self initWithGlkController:[[GlkController alloc] init] name:0];
 }
 
 - (instancetype) initWithCoder:(NSCoder *)coder
 {
-    return [[self initWithGlkController:[[GlkController alloc] init] name:0] autorelease];
+    return [self initWithGlkController:[[GlkController alloc] init] name:0];
 }
 
-- (instancetype) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
+- (instancetype) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name
 {
     self = [super initWithFrame:NSZeroRect];
 
     if (self)
     {
         glkctl = glkctl_;
-        name = name_;
+        _name = name;
         bgnd = 0;
         // NSLog(@"new window %d (%@)", name, [self class]);
     }
@@ -27,19 +27,10 @@
     return self;
 }
 
-- (void) dealloc
-{
-    NSInteger i;
-    for (i = 0; i < style_NUMSTYLES; i++)
-        [styles[i] release];
-    [super dealloc];
-}
-
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value
 {
     if (styles[style])
     {
-        [styles[style] release];
         styles[style] = 0;
     }
     

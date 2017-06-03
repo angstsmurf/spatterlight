@@ -1,3 +1,4 @@
+
 /*
  * GlkTextGridWindow --
  * We keep an array of attributed strings
@@ -37,13 +38,6 @@
     return self;
 }
 
-- (void) dealloc
-{
-    if (input)
-        [input release];
-    [lines release];
-    [super dealloc];
-}
 
 - (BOOL) isFlipped
 {
@@ -70,7 +64,7 @@
             int fg = (stylevalue >> 8) & 0xff;
             int bg = (stylevalue >> 16) & 0xff;
             
-            [line setAttributes: [styles[style] attributes] range: range];
+            [line setAttributes: styles[style].attributes range: range];
             if (fg || bg)
             {
                 [line addAttribute: @"GlkStyle" value: @(stylevalue) range: range];
@@ -165,7 +159,7 @@
         
         if ([Preferences stylesEnabled])
         {
-            color = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
+            color = styles[style_Normal].attributes[NSBackgroundColorAttributeName];
             if (bgnd != 0)
                 color = [Preferences backgroundColor: (int)(bgnd - 1)];
         }
@@ -219,9 +213,6 @@
 #endif
     }
     
-    [textContainer release];
-    [textLayout release];
-    [textStorage release];
 }
 
 - (void) setFrame: (NSRect)frame
@@ -241,7 +232,7 @@
     
     for (r = lines.count; r < rows; r++)
     {
-        [lines addObject: [[[NSMutableAttributedString alloc] init] autorelease]];
+        [lines addObject: [[NSMutableAttributedString alloc] init]];
     }
     
     // Remove old lines
@@ -269,10 +260,9 @@
             
             NSAttributedString* string = [[NSAttributedString alloc]
                                           initWithString: [NSString stringWithCharacters: spaces length: amountToAdd]
-                                          attributes: [styles[style_Normal] attributes]];
+                                          attributes: styles[style_Normal].attributes];
             
             [line appendAttributedString: string];
-            [string release];
             free(spaces);
         }
         else if (line.length > cols)
@@ -292,7 +282,6 @@
 
 - (void) clear
 {
-    [lines release];
     lines = nil;
     lines = [[NSMutableArray alloc] init];
     
@@ -332,7 +321,7 @@
     
     if (fg || bg)
     {
-        NSMutableDictionary *mutatt = [[[styles[style] attributes] mutableCopy] autorelease];
+        NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
         mutatt[@"GlkStyle"] = @((int)stylevalue);
         if ([Preferences stylesEnabled])
         {
@@ -345,7 +334,7 @@
     }
     else
     {
-        att = [styles[style] attributes];
+        att = styles[style].attributes;
     }
     
     // Write this string
@@ -374,7 +363,6 @@
                                           attributes: att];
         [lines[ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw)
                                          withAttributedString: partString];
-        [partString release];
         
         dirty = YES;
         
@@ -417,9 +405,8 @@
         if (p.x >= 0 && p.y >= 0 && p.x < cols && p.y < rows)
         {
             // NSLog(@"mousedown in buf at %g,%g", p.x, p.y);
-            gev = [[GlkEvent alloc] initMouseEvent: p forWindow: name];
+            gev = [[GlkEvent alloc] initMouseEvent: p forWindow: self.name];
             [glkctl queueEvent: gev];
-            [gev release];
             mouse_request = NO;
         }
     }
@@ -448,11 +435,11 @@
     
     GlkWindow *win;
     // pass on this key press to another GlkWindow if we are not expecting one
-    if (![self wantsFocus])
+    if (!self.wantsFocus)
         for (int i = 0; i < MAXWIN; i++)
         {
             win = [glkctl windowWithNum:i];
-            if (i != self->name && win && [win wantsFocus])
+            if (i != self.name && win && win.wantsFocus)
             {
                 NSLog(@"Passing on keypress");
                 if ([win isKindOfClass: [GlkTextBufferWindow class]])
@@ -469,9 +456,8 @@
         [glkctl markLastSeen];
         
         //NSLog(@"char event from %d", name);
-        GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: name];
+        GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
         [glkctl queueEvent: gev];
-        [gev release];
         char_request = NO;
         dirty = YES;
         return;
@@ -519,12 +505,11 @@
     line_request = NO;
     if (input)
     {
-        NSString *str = [input.stringValue retain];
+        NSString *str = input.stringValue;
         [self putString: str style: style_Input];
         [input removeFromSuperview];
-        [input release];
         input = nil;
-        return [str autorelease];
+        return str;
     }
     return @"";
 }
@@ -538,11 +523,9 @@
         
         NSString *str = input.stringValue;
         [self putString: str style: style_Input];
-        GlkEvent *gev = [[GlkEvent alloc] initLineEvent: str forWindow: name];
+        GlkEvent *gev = [[GlkEvent alloc] initLineEvent: str forWindow: self.name];
         [glkctl queueEvent: gev];
-        [gev release];
         [input removeFromSuperview];
-        [input release];
         input = nil;
     }    
 }

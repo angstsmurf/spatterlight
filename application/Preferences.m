@@ -87,11 +87,10 @@ NSColor *dataToColor(NSData *data)
 
 static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 {
-    return [[NSColor colorWithCalibratedHue: h
+    return [NSColor colorWithCalibratedHue: h
                                  saturation: s
                                  brightness: b
-                                      alpha: 1.0]
-            retain];
+                                      alpha: 1.0];
 }
 
 /*
@@ -126,11 +125,11 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     dostyles = [[defaults objectForKey: @"EnableStyles"] intValue];
     usescreenfonts = [[defaults objectForKey: @"ScreenFonts"] intValue];
     
-    gridbg = [dataToColor([defaults objectForKey: @"GridBackground"]) retain];
-    gridfg = [dataToColor([defaults objectForKey: @"GridForeground"]) retain];
-    bufferbg = [dataToColor([defaults objectForKey: @"BufferBackground"]) retain];
-    bufferfg = [dataToColor([defaults objectForKey: @"BufferForeground"]) retain];
-    inputfg = [dataToColor([defaults objectForKey: @"InputColor"]) retain];
+    gridbg = dataToColor([defaults objectForKey: @"GridBackground"]);
+    gridfg = dataToColor([defaults objectForKey: @"GridForeground"]);
+    bufferbg = dataToColor([defaults objectForKey: @"BufferBackground"]);
+    bufferfg = dataToColor([defaults objectForKey: @"BufferForeground"]);
+    inputfg = dataToColor([defaults objectForKey: @"InputColor"]);
     
     gridmargin = [[defaults objectForKey: @"GridMargin"] floatValue];
     buffermargin = [[defaults objectForKey: @"BufferMargin"] floatValue];
@@ -139,7 +138,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     
     name = [defaults objectForKey: @"GridFontName"];
     size = [[defaults objectForKey: @"GridFontSize"] floatValue];
-    gridroman = [[NSFont fontWithName: name size: size] retain];
+    gridroman = [NSFont fontWithName: name size: size];
     if (!gridroman)
     {
         NSLog(@"pref: failed to create grid font '%@'", name);
@@ -148,7 +147,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     
     name = [defaults objectForKey: @"BufferFontName"];
     size = [[defaults objectForKey: @"BufferFontSize"] floatValue];
-    bufroman = [[NSFont fontWithName: name size: size] retain];
+    bufroman = [NSFont fontWithName: name size: size];
     if (!bufroman)
     {
         NSLog(@"pref: failed to create buffer font '%@'", name);
@@ -157,7 +156,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     
     name = [defaults objectForKey: @"InputFontName"];
     size = [[defaults objectForKey: @"InputFontSize"] floatValue];
-    inputfont = [[NSFont fontWithName: name size: size] retain];
+    inputfont = [NSFont fontWithName: name size: size];
     if (!inputfont)
     {
         NSLog(@"pref: failed to create input font '%@'", name);
@@ -347,13 +346,13 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     NSFont *bufbold, *bufitalic, *bufbolditalic;
     NSFont *gridbold, *griditalic, *gridbolditalic;
     
-    gridbold = [[mgr convertWeight: YES ofFont: gridroman] retain];
-    griditalic = [[mgr convertFont: gridroman toHaveTrait: NSItalicFontMask] retain];
-    gridbolditalic = [[mgr convertFont: gridbold toHaveTrait: NSItalicFontMask] retain];
+    gridbold = [mgr convertWeight: YES ofFont: gridroman];
+    griditalic = [mgr convertFont: gridroman toHaveTrait: NSItalicFontMask];
+    gridbolditalic = [mgr convertFont: gridbold toHaveTrait: NSItalicFontMask];
     
-    bufbold = [[mgr convertWeight: YES ofFont: bufroman] retain];
-    bufitalic = [[mgr convertFont: bufroman toHaveTrait: NSItalicFontMask] retain];
-    bufbolditalic = [[mgr convertFont: bufbold toHaveTrait: NSItalicFontMask] retain];
+    bufbold = [mgr convertWeight: YES ofFont: bufroman];
+    bufitalic = [mgr convertFont: bufroman toHaveTrait: NSItalicFontMask];
+    bufbolditalic = [mgr convertFont: bufbold toHaveTrait: NSItalicFontMask];
     
     /* update style attribute dictionaries */
     
@@ -367,7 +366,6 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
          * Buffer windows
          */
         
-        [bufferatts[style] release];
         
         dict = [[NSMutableDictionary alloc] init];
         dict[@"GlkStyle"] = @(style);
@@ -411,7 +409,6 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
          * Grid windows
          */
         
-        [gridatts[style] release];
         
         dict = [[NSMutableDictionary alloc] init];
         dict[@"GlkStyle"] = @(style);
@@ -446,20 +443,13 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     
     NSTextView *textview = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 1000000)];
     cellh = [textview.layoutManager defaultLineHeightForFont:font] + leading;
-    [textview release];
     //cellh = [font ascender] + [font descender] + [font leading] + leading;
     
     /* send notification that prefs have changed -- trigger configure events */
     [[NSNotificationCenter defaultCenter]
      postNotificationName: @"PreferencesChanged" object: nil];
     
-    [gridbold release];
-    [griditalic release];
-    [gridbolditalic release];
     
-    [bufbold release];
-    [bufitalic release];
-    [bufbolditalic release];
 }
 
 /* ---------------------------------------------------------------------- */
@@ -533,7 +523,7 @@ NSString* fontToString(NSFont *font)
 - (IBAction) changeColor: (id)sender
 {
     NSString *key = nil;
-    NSColor **colorp = NULL;
+    colorp = nil;
     
     if (sender == clrGridFg) { key = @"GridForeground"; colorp = &gridfg; }
     if (sender == clrGridBg) { key = @"GridBackground"; colorp = &gridbg; }
@@ -543,8 +533,8 @@ NSString* fontToString(NSFont *font)
     
     if (colorp)
     {
-        [*colorp release]; *colorp = nil;
-        *colorp = [[sender color] retain];
+         *colorp = nil;
+        *colorp = [sender color];
         
         [[NSUserDefaults standardUserDefaults] setObject: colorToData(*colorp) forKey: key];
         
@@ -601,21 +591,21 @@ NSString* fontToString(NSFont *font)
     if (selfontp == &gridroman)
     {
         [defaults setObject: gridroman.fontName forKey: @"GridFontName"];
-        [defaults setObject: [NSNumber numberWithFloat: gridroman.pointSize] forKey: @"GridFontSize"];
+        [defaults setObject: @(gridroman.pointSize) forKey: @"GridFontSize"];
         btnGridFont.title = fontToString(gridroman);
     }
     
     if (selfontp == &bufroman)
     {
         [defaults setObject: bufroman.fontName forKey: @"BufferFontName"];
-        [defaults setObject: [NSNumber numberWithFloat: bufroman.pointSize] forKey: @"BufferFontSize"];
+        [defaults setObject: @(bufroman.pointSize) forKey: @"BufferFontSize"];
         btnBufferFont.title = fontToString(bufroman);
     }
     
     if (selfontp == &inputfont)
     {
         [defaults setObject: inputfont.fontName forKey: @"InputFontName"];
-        [defaults setObject: [NSNumber numberWithFloat: inputfont.pointSize] forKey: @"InputFontSize"];
+        [defaults setObject: @(inputfont.pointSize) forKey: @"InputFontSize"];
         btnInputFont.title = fontToString(inputfont);
     }
     

@@ -47,14 +47,6 @@ NSDictionary *gFormatMap;
     [libctl loadLibrary];
 }
 
-- (void) dealloc
-{
-    NSLog(@"appdel: dealloc");
-    [libctl release];
-    [prefctl release];
-    [super dealloc];
-}
-
 - (IBAction) showPrefs: (id)sender
 {
     NSLog(@"appdel: showPrefs");
@@ -121,7 +113,7 @@ NSDictionary *gFormatMap;
     }
     else
     {
-        panel = [[NSOpenPanel openPanel] retain];
+        panel = [NSOpenPanel openPanel];
         
         panel.allowedFileTypes = gGameFileTypes;
         panel.directoryURL = directory;

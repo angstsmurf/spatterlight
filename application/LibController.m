@@ -26,10 +26,10 @@ enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
 #include "babel_handler.h"
 
 @implementation LibHelperWindow
-- (NSDragOperation) draggingEntered:sender { return [(LibController *)[self delegate] draggingEntered:sender]; }
-- (void) draggingExited:sender { [(LibController *)[self delegate] draggingEntered:sender]; }
-- (BOOL) prepareForDragOperation:sender { return [(LibController *)[self delegate] prepareForDragOperation:sender]; }
-- (BOOL) performDragOperation:sender { return [(LibController *)[self delegate] performDragOperation:sender]; }
+- (NSDragOperation) draggingEntered:sender { return [(LibController *)self.delegate draggingEntered:sender]; }
+- (void) draggingExited:sender { [(LibController *)self.delegate draggingEntered:sender]; }
+- (BOOL) prepareForDragOperation:sender { return [(LibController *)self.delegate prepareForDragOperation:sender]; }
+- (BOOL) performDragOperation:sender { return [(LibController *)self.delegate performDragOperation:sender]; }
 @end
 
 @implementation LibHelperTableView
@@ -73,11 +73,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
     NSMutableDictionary *dict;
     NSString *error;
     
-    dict = [[NSPropertyListSerialization
+    dict = [NSPropertyListSerialization
              propertyListFromData: [NSData dataWithContentsOfFile: path]
              mutabilityOption: NSPropertyListMutableContainersAndLeaves
              format: NULL
-             errorDescription: &error] retain];
+             errorDescription: &error];
     
     if (!dict)
     {
@@ -103,7 +103,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     else
     {
         NSLog(@"%@", error);
-        [error release];
         return NO;
     }
 }
@@ -113,12 +112,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     NSLog(@"libctl: loadLibrary");
     
     /* in case we are called more than once... */
-    [homepath release];
-    [gameTableModel release];
-    [metadata release];
-    [games release];
     
-    homepath = [[NSURL fileURLWithPath:(@"~/Library/Application Support/Spatterlight").stringByExpandingTildeInPath  isDirectory:YES]retain];
+    homepath = [NSURL fileURLWithPath:(@"~/Library/Application Support/Spatterlight").stringByExpandingTildeInPath  isDirectory:YES];
     [[NSFileManager defaultManager] createDirectoryAtURL:homepath withIntermediateDirectories:YES attributes:NULL error:NULL];
     
     metadata = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Metadata.plist"]);
@@ -210,7 +205,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (IBAction) importMetadata: (id)sender
 {
-    NSOpenPanel *panel = [[NSOpenPanel openPanel] retain];
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.prompt = @"Import";
     
     panel.allowedFileTypes = @[@"iFiction"];
@@ -230,7 +225,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (IBAction) exportMetadata: (id)sender
 {
-    NSSavePanel *panel = [[NSSavePanel savePanel] retain];
+    NSSavePanel *panel = [NSSavePanel savePanel];
     panel.accessoryView = exportTypeView;
     panel.allowedFileTypes=@[@"iFiction"];
     panel.prompt = @"Export";
@@ -242,14 +237,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
             NSURL* url = panel.URL;
             
             [self exportMetadataToFile: url.path what: exportTypeControl.indexOfSelectedItem];
-            [panel release];
         }
     }];
 }
 
 - (IBAction) addGamesToLibrary: (id)sender
 {
-    NSOpenPanel *panel = [[NSOpenPanel openPanel] retain];
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setAllowsMultipleSelection: YES];
     [panel setCanChooseDirectories: YES];
     panel.prompt = @"Add";
@@ -410,7 +404,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     if ([pboard.types containsObject: NSFilenamesPboardType])
     {
         NSArray *files = [pboard propertyListForType: NSFilenamesPboardType];
-        NSMutableArray *urls = [[[NSMutableArray alloc] initWithCapacity:files.count] autorelease];
+        NSMutableArray *urls = [[NSMutableArray alloc] initWithCapacity:files.count];
         for (id tempObject in files) {
             [urls addObject:[NSURL fileURLWithPath:tempObject]];
         }
@@ -547,8 +541,6 @@ static void read_xml_text(const char *rp, char *wp)
     {
         NSLog(@"libctl: import metadata for %@ by %@", metabuf[@"title"], metabuf[@"author"]);
         [self addMetadata: metabuf forIFIDs: ifidbuf];
-        [ifidbuf release];
-        [metabuf release];
         ifidbuf = nil;
         metabuf = nil;
     }
@@ -618,19 +610,17 @@ static void read_xml_text(const char *rp, char *wp)
 
 static void handleXMLCloseTag(struct XMLTag *tag, void *ctx)
 {
-    [(LibController*)ctx handleXMLCloseTag: tag];
+    [(__bridge LibController*)ctx handleXMLCloseTag: tag];
 }
 
 static void handleXMLError(char *msg, void *ctx)
 {
-    [(LibController*)ctx handleXMLError: msg];
+    [(__bridge LibController*)ctx handleXMLError: msg];
 }
 
 - (void) importMetadataFromXML: (char*)mdbuf
 {
-    ifiction_parse(mdbuf, handleXMLCloseTag, self, handleXMLError, self);
-    if (ifidbuf) [self->ifidbuf release];
-    if (metabuf) [self->metabuf release];
+    ifiction_parse(mdbuf, handleXMLCloseTag, (__bridge void *)(self), handleXMLError, (__bridge void *)(self));
     ifidbuf = nil;
     metabuf = nil;
 }
@@ -948,7 +938,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 
 - (void) addFile: (NSURL*)url select: (NSMutableArray*)select
 {
-    NSString *ifid = [self importGame: [url path] reportFailure: NO];
+    NSString *ifid = [self importGame: url.path reportFailure: NO];
     if (ifid)
         [select addObject: ifid];
 }
@@ -970,7 +960,9 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         
         if (isdir)
         {
-            NSArray *contents = [filemgr contentsOfDirectoryAtURL:urls[i] includingPropertiesForKeys:[NSArray arrayWithObject:NSURLNameKey] options:NSDirectoryEnumerationSkipsHiddenFiles
+            NSArray *contents = [filemgr contentsOfDirectoryAtURL:urls[i]
+                                       includingPropertiesForKeys:@[NSURLNameKey]
+                                                          options:NSDirectoryEnumerationSkipsHiddenFiles
                                                             error:nil];
             [self addFiles: contents select: select];
         }
@@ -1013,11 +1005,10 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 - (IBAction) searchForGames: (id)sender
 {
     NSString *value = [sender stringValue];
-    [searchStrings release];
     searchStrings = nil;
     
     if (value.length)
-        searchStrings = [[value componentsSeparatedByString: @" "] retain];
+        searchStrings = [value componentsSeparatedByString: @" "];
     
     gameTableDirty = YES;
     [self updateTableViews];
@@ -1070,7 +1061,7 @@ static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key)
 
 static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
 {
-    LibController *self = ctx;
+    LibController *self = (__bridge LibController *)(ctx);
     NSDictionary *a = self->metadata[aid];
     NSDictionary *b = self->metadata[bid];
     NSInteger cmp;
@@ -1150,7 +1141,7 @@ static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
         }
     }
     
-    [gameTableModel sortUsingFunction: compareGames context: self];
+    [gameTableModel sortUsingFunction: compareGames context: (__bridge void * _Nullable)(self)];
     [gameTableView reloadData];
     
     [gameTableView deselectAll: self];
@@ -1172,8 +1163,7 @@ didClickTableColumn: (NSTableColumn*)tableColumn
 {
     if (tableView == gameTableView)
     {
-        [gameSortColumn release];
-        gameSortColumn = [tableColumn.identifier retain];
+        gameSortColumn = tableColumn.identifier;
         gameTableView.highlightedTableColumn = tableColumn;
         gameTableDirty = YES;
         [self updateTableViews];
@@ -1252,7 +1242,6 @@ objectValueForTableColumn: (NSTableColumn*)column
     [task launch];
     [task waitUntilExit];
     status = task.terminationStatus;
-    [task release];
     
     if (status != 0)
     {

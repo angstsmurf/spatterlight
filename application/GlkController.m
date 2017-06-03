@@ -77,9 +77,9 @@ static const char *msgnames[] =
     
     NSSize defsize = [Preferences defaultWindowSize];
     
-    gamefile = [gamefile_ retain];
-    gameifid = [gameifid_ retain];
-    gameinfo = [gameinfo_ retain];
+    gamefile = gamefile_;
+    gameifid = gameifid_;
+    gameinfo = gameinfo_;
     
     /* Setup our own stuff */
     {
@@ -119,8 +119,8 @@ static const char *msgnames[] =
         terppath = [[NSBundle mainBundle] pathForAuxiliaryExecutable: terpname];
         readpipe = [NSPipe pipe];
         sendpipe = [NSPipe pipe];
-        readfh = [readpipe.fileHandleForReading retain];
-        sendfh = [sendpipe.fileHandleForWriting retain];
+        readfh = readpipe.fileHandleForReading;
+        sendfh = sendpipe.fileHandleForWriting;
         
         task = [[NSTask alloc] init];
         task.currentDirectoryPath = NSHomeDirectory();
@@ -180,11 +180,9 @@ static const char *msgnames[] =
         
         gevent = [[GlkEvent alloc] initPrefsEvent];
         [self queueEvent: gevent];
-        [gevent release];
         
         gevent = [[GlkEvent alloc] initArrangeWidth: defsize.width height: defsize.height];
         [self queueEvent: gevent];
-        [gevent release];
     }
     
     // [self setDocumentEdited: YES];
@@ -192,16 +190,11 @@ static const char *msgnames[] =
 
 - (void) windowWillClose: (id)sender
 {
+    NSInteger i;
+
     NSLog(@"glkctl: windowWillClose");
     [self.window setDelegate: nil];
-    [self autorelease];
-}
-
-- (void) dealloc
-{
-    NSLog(@"glkctl: dealloc");
     
-    NSInteger i;
     
     [[NSNotificationCenter defaultCenter] removeObserver: self];
     
@@ -216,34 +209,8 @@ static const char *msgnames[] =
     {
         NSLog(@"glkctl: force stop the interpreter");
         [task terminate];
-        [task release];
         task = nil;
     }
-    
-    [readfh release];
-    [sendfh release];
-    
-    if (lastimage)
-        [lastimage release];
-    
-    if (lastsound)
-        [lastsound release];
-    
-    for (i = 0; i < MAXWIN; i++)
-        if (gwindows[i])
-            [gwindows[i] release];
-    
-    for (i = 0; i < MAXSND; i++)
-        if (gchannels[i])
-            [gchannels[i] release];
-    
-    [queue release];
-    
-    [gamefile release];
-    [gameifid release];
-    [gameinfo release];
-    
-    [super dealloc];
 }
 
 /*
@@ -294,7 +261,6 @@ static const char *msgnames[] =
     GlkEvent *gevent;
     gevent = [[GlkEvent alloc] initArrangeWidth: frame.size.width height: frame.size.height];
     [self queueEvent: gevent];
-    [gevent release];
 }
 
 - (void) closeAlertDidFinish: (id)alert rc: (int)rc ctx: (void*)ctx
@@ -314,7 +280,7 @@ static const char *msgnames[] =
     if (dead)
         return YES;
     
-    alert = [[[NSAlert alloc] init] autorelease];
+    alert = [[NSAlert alloc] init];
     alert.messageText = @"Do you want to abandon the game?";
     alert.informativeText = @"Any unsaved progress will be lost.";
     [alert addButtonWithTitle: @"Close"];
@@ -374,7 +340,7 @@ static const char *msgnames[] =
     
     for (i = 0; i < MAXWIN; i++)
     {
-        if (gwindows[i] && [gwindows[i] wantsFocus])
+        if (gwindows[i] && gwindows[i].wantsFocus)
         {
             [gwindows[i] grabFocus];
             return;
@@ -415,11 +381,9 @@ static const char *msgnames[] =
     
     gevent = [[GlkEvent alloc] initArrangeWidth: frame.size.width height: frame.size.height];
     [self queueEvent: gevent];
-    [gevent release];
     
     gevent = [[GlkEvent alloc] initPrefsEvent];
     [self queueEvent: gevent];
-    [gevent release];
     
     for (i = 0; i < MAXWIN; i++)
         if (gwindows[i])
@@ -511,7 +475,6 @@ static const char *msgnames[] =
         formatter.dateFormat = @"yyyy-MM-dd HH.mm ";
         date = [formatter stringFromDate:[NSDate date]];
         
-        [formatter release];
         
         filename = [date stringByAppendingString: gameinfo[@"title"]];
     }
@@ -641,7 +604,6 @@ static const char *msgnames[] =
     {
         GlkEvent *gevent = [[GlkEvent alloc] initTimerEvent];
         [self queueEvent: gevent];
-        [gevent release];
     }
 }
 
@@ -651,7 +613,6 @@ static const char *msgnames[] =
     
     if (lastsound)
     {
-        [lastsound release];
         lastsound = nil;
     }
     
@@ -666,7 +627,6 @@ static const char *msgnames[] =
     
     if (lastimage)
     {
-        [lastimage release];
         lastimage = nil;
     }
     
@@ -691,13 +651,11 @@ static const char *msgnames[] =
     if (!lastimage)
     {
         NSLog(@"glkctl: failed to decode image");
-        [data release];
         return;
     }
     
     [lastimage addRepresentations:reps];
     
-    [data release];
     
     lastimageresno = resno;
 }
@@ -756,7 +714,7 @@ static const char *msgnames[] =
         GlkTextBufferWindow *textwin = (GlkTextBufferWindow*) gwindow;
         NSInteger smartquotes = [Preferences smartQuotes];
         NSInteger spaceformat = [Preferences spaceFormat];
-        NSInteger lastchar = [textwin lastchar];
+        NSInteger lastchar = textwin.lastchar;
         NSInteger spaced = 0;
         NSInteger i;
         
@@ -907,7 +865,6 @@ static const char *msgnames[] =
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
                 [gwindows[req->a1] removeFromSuperview];
-                [gwindows[req->a1] release];
                 gwindows[req->a1] = nil;
             }
             else
@@ -918,7 +875,6 @@ static const char *msgnames[] =
         case DELCHAN:
             if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
             {
-                [gchannels[req->a1] release];
                 gchannels[req->a1] = nil;
             }
             break;
@@ -1110,10 +1066,10 @@ static const char *msgnames[] =
             [self performScroll];
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
-                [gwindows[req->a1] initLine: [[[NSString alloc]
+                [gwindows[req->a1] initLine: [[NSString alloc]
                                                initWithData: [NSData dataWithBytes: buf
                                                                             length: req->len]
-                                               encoding: NSUTF8StringEncoding] autorelease]];
+                                               encoding: NSUTF8StringEncoding]];
                 
             }
             break;
@@ -1257,7 +1213,6 @@ static BOOL pollMoreData(int fd)
     
     self.window.title = [self.window.title stringByAppendingString: @" (finished)"];
     
-    [task release];
     task = nil;
     
     // [self setDocumentEdited: NO];
