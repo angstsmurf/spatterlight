@@ -449,4 +449,30 @@ extern strid_t glk_stream_open_resource_uni(glui32 filenum, glui32 rock);
 extern char* garglk_fileref_get_name(frefid_t fref);
 extern char* glkext_fileref_get_name(frefid_t fref);
 
+extern void garglk_set_program_name(const char *name);
+extern void garglk_set_program_info(const char *info);
+extern void garglk_set_story_name(const char *name);
+extern void garglk_set_story_title(const char *title);
+extern void garglk_set_config(const char *name);
+
+/* garglk_unput_string - removes the specified string from the end of the output buffer, if
+ * indeed it is there. */
+extern void garglk_unput_string(char *str);
+extern void garglk_unput_string_uni(glui32 *str);
+
+#define zcolor_Transparent   (-4)
+#define zcolor_Cursor        (-3)
+#define zcolor_Current       (-2)
+#define zcolor_Default       (-1)
+
+extern void garglk_set_zcolors(glui32 fg, glui32 bg);
+extern void garglk_set_zcolors_stream(strid_t str, glui32 fg, glui32 bg);
+extern void garglk_set_reversevideo(glui32 reverse);
+extern void garglk_set_reversevideo_stream(strid_t str, glui32 reverse);
+
+/* non standard keycodes */
+#define keycode_Erase               (0xffffef7f)
+#define keycode_MouseWheelUp        (0xffffeffe)
+#define keycode_MouseWheelDown      (0xffffefff)
+
 #endif /* GLK_H */
