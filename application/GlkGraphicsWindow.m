@@ -23,11 +23,6 @@
     return self;
 }
 
-- (void) dealloc
-{
-    [image release];
-    [super dealloc];
-}
 
 - (BOOL) isOpaque
 {
@@ -155,11 +150,9 @@
                 fromRect: NSMakeRect(0, 0, size.width, size.height)
                operation: NSCompositeSourceOver
                 fraction: 1.0];
-        [tmp release];
     }
     [image unlockFocus];
     
-    [bitmap release];
     
     dirty = YES;
 }
@@ -225,9 +218,8 @@
         p = [self convertPoint: p fromView: nil];
         p.y = self.frame.size.height - p.y;
         //NSLog(@"mousedown in gfx at %g,%g", p.x, p.y);
-        GlkEvent *gev = [[GlkEvent alloc] initMouseEvent: p forWindow: name];
+        GlkEvent *gev = [[GlkEvent alloc] initMouseEvent: p forWindow: self.name];
         [glkctl queueEvent: gev];
-        [gev release];
         mouse_request = NO;
     }
 }
@@ -266,9 +258,8 @@
         [glkctl markLastSeen];
         
         //NSLog(@"char event from %d", name);
-        GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: name];
+        GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
         [glkctl queueEvent: gev];
-        [gev release];
         char_request = NO;
         return;
     }
