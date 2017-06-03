@@ -6,9 +6,11 @@
     GlkController *glkctl;
     GlkStyle *styles[style_NUMSTYLES];
     NSInteger bgnd;
-@public
-    NSInteger name;
 }
+
+@property (readonly) NSInteger name;
+
+- (BOOL) getStyleVal: (NSInteger)style hint: (NSInteger)hint value: (NSInteger *) value;
 
 - (instancetype) initWithGlkController: (GlkController*)glkctl name: (NSInteger)name NS_DESIGNATED_INITIALIZER;
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value;
@@ -19,7 +21,6 @@
 - (void) performScroll;
 - (void) makeTransparent;
 - (void) setBgColor: (NSInteger)bc;
-
 - (void) clear;
 - (void) putString:(NSString*)buf style:(NSInteger)style;
 - (void) moveToColumn:(NSInteger)x row:(NSInteger)y;

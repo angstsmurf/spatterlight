@@ -40,6 +40,18 @@
                                               value: value];
 }
 
+- (BOOL) getStyleVal: (NSInteger)style hint: (NSInteger)hint value:(NSInteger *)value
+{
+    GlkStyle *checkedStyle = styles[style];
+    if(checkedStyle)
+    {
+        if ([checkedStyle valueForHint:hint value:value])
+            return YES;
+    }
+    
+    return NO;
+}
+
 - (BOOL) isOpaque
 {
     return YES;
