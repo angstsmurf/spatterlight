@@ -997,6 +997,7 @@ void glk_set_echo_line_event(window_t *win, glui32 val)
     {
         case wintype_TextBuffer:
             win->echo_line_input = (val != 0);
+            win_set_echo(win->peer, val);
             break;
         default:
             break;

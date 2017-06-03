@@ -28,6 +28,13 @@ extern int ggridmarginy;
 extern float gcellw;
 extern float gcellh;
 
+/* more Gargoyle glue */
+extern char gli_program_name[256];
+extern char gli_program_info[256];
+extern char gli_story_name[256];
+extern char gli_story_title[256];
+void wintitle(void);
+
 /* window server connection */
 
 void win_hello();
@@ -44,6 +51,7 @@ void win_initchar(int name);
 void win_cancelchar(int name);
 void win_initline(int name, int cap, int len, char *buf);
 void win_cancelline(int name, int cap, int *len, char *buf);
+void win_set_echo(int name, int val);
 void win_initmouse(int name);
 void win_cancelmouse(int name);
 
@@ -64,6 +72,7 @@ void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 heig
 
 void win_stylehint(int type, int styl, int hint, int val);
 void win_clearhint(int type, int styl, int hint);
+int win_style_measure(int name, int styl, int hint, glui32 *result);
 
 int win_newchan(void);
 void win_delchan(int chan);

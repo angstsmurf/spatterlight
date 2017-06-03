@@ -174,4 +174,5 @@ void glk_window_set_background_color(winid_t win, glui32 color)
     }
 
     win->background = color | 0xff000000u;
+    win_setbgnd(win->peer, color | 0xff000000u);
 }
