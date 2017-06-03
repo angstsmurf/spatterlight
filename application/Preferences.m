@@ -441,7 +441,8 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     else
         font = gridroman.printerFont;
     
-    cellw = font.maximumAdvancement.width;
+    cellw = [font advancementForGlyph:(NSGlyph) 'X'].width;
+
     
     NSTextView *textview = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 1000000)];
     cellh = [textview.layoutManager defaultLineHeightForFont:font] + leading;
