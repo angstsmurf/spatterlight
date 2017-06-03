@@ -39,13 +39,16 @@
     NSLayoutManager *layoutmanager;
     MarginContainer *container;
     NSTextView *textview;
-    
+
     NSInteger char_request;
     NSInteger line_request;
+    BOOL echo_toggle_pending; /* if YES, line echo behavior will be inverted, starting from the next line event*/
+    BOOL echo; /* if YES, current line input will be deleted from text view */
+
     NSInteger fence;		/* for input line editing */
     NSInteger lastseen;	/* for more paging */
     NSInteger lastchar;	/* for smart formatting */
-    
+
     NSString *history[HISTORYLEN];
     NSInteger historypos;
     NSInteger historyfirst, historypresent;
@@ -53,6 +56,8 @@
 
 - (void) recalcBackground;
 - (void) onKeyDown: (NSEvent*)evt;
+- (void) echo: (BOOL)val;
+
 @property (readonly) NSInteger lastchar;
 
 @end

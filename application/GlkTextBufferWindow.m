@@ -329,6 +329,8 @@
         
         char_request = NO;
         line_request = NO;
+        echo_toggle_pending = NO;
+        echo = YES;
         
         fence = 0;
         lastseen = 0;
@@ -880,6 +882,12 @@
     }
 }
 
+- (void) echo: (BOOL)val
+{
+    if ((!(val) && echo) || (val && !(echo))) // Do we need to toggle echo?
+        echo_toggle_pending = YES;
+}
+
 #ifdef GLK_MODULE_HYPERLINKS
 
 - (BOOL) textView: (NSTextView*)textview_ clickedOnLink: (id)link atIndex: (NSUInteger)charIndex
@@ -1016,6 +1024,12 @@
     
     // [glkctl performScroll];
     
+    if (echo_toggle_pending)
+    {
+        echo_toggle_pending = NO;
+        echo = !echo;
+    }
+    
     if (lastchar == '>' && [Preferences spaceFormat])
     {
         [self putString: @" " style: style_Normal];
@@ -1041,9 +1055,13 @@
     textview.insertionPointColor = [Preferences bufferBackground];
     NSString *str = textstorage.string;
     str = [str substringWithRange: NSMakeRange(fence, str.length - fence)];
+    if (echo)
+        lastchar = [str characterAtIndex: str.length - 1];
+    else
+        [textstorage deleteCharactersInRange: NSMakeRange(fence, textstorage.length - fence)]; // Don't echo input line
+
     [textview setEditable: NO];
     line_request = NO;
-    lastchar = [str characterAtIndex: str.length - 1];
     return str;
 }
 
