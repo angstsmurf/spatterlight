@@ -22,6 +22,8 @@
          enable: (NSInteger *)enablearray
           value: (NSInteger *)valuearray NS_DESIGNATED_INITIALIZER;
 - (void) prefsDidChange;
+- (BOOL) valueForHint: (NSInteger) hint value:(NSInteger *)val;
+
 @property (readonly, copy) NSDictionary *attributes;
 
 @end

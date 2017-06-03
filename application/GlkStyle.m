@@ -197,4 +197,14 @@
     }
 }
 
+- (BOOL) valueForHint: (NSInteger) hint value:(NSInteger *)val;
+{
+    if (enabled[hint])
+    {
+        *val = value[hint];
+        return YES;
+    }
+    else return NO;
+}
+
 @end

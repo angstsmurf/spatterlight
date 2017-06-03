@@ -16,8 +16,8 @@ static const char *msgnames[] =
     "OKAY", "ERROR", "HELLO", "PROMPTOPEN", "PROMPTSAVE",
     "NEWWIN", "DELWIN", "SIZWIN", "CLRWIN",
     "MOVETO", "PRINT",
-    "MAKETRANSPARENT", "STYLEHINT", "CLEARHINT", "SETBGND",
-    "TIMER", "INITCHAR", "CANCELCHAR", "INITLINE", "CANCELLINE", "INITMOUSE", "CANCELMOUSE",
+    "MAKETRANSPARENT", "STYLEHINT", "CLEARHINT", "STYLEMEASURE", "SETBGND", "SETTITLE",
+    "TIMER", "INITCHAR", "CANCELCHAR", "INITLINE", "CANCELLINE", "SETECHO", "INITMOUSE", "CANCELMOUSE",
     "FILLRECT", "FINDIMAGE", "LOADIMAGE", "SIZEIMAGE",
     "DRAWIMAGE", "FLOWBREAK", "NEWCHAN", "DELCHAN",
     "FINDSOUND", "LOADSOUND", "SETVOLUME", "PLAYSOUND", "STOPSOUND",
@@ -331,7 +331,7 @@ static const char *msgnames[] =
     }
     
     if (focuswin)
-        NSLog(@"window %ld has focus", (long)((GlkWindow*)focuswin)->name);
+        NSLog(@"window %ld has focus", (long)[(GlkWindow*)focuswin name]);
     
     if (focuswin && [focuswin wantsFocus])
         return;
@@ -528,18 +528,21 @@ static const char *msgnames[] =
         case wintype_TextGrid:
             gwindows[i] = [[GlkTextGridWindow alloc] initWithGlkController: self name: i];
             [contentView addSubview: gwindows[i]];
+
             for (k = 0; k < style_NUMSTYLES; k++)
             {
                 [gwindows[i] setStyle: k
                            windowType: wintype_TextGrid
                                enable: styleuse[0][k]
                                 value: styleval[0][k]];
+
             }
             return i;
-            
+
         case wintype_TextBuffer:
             gwindows[i] = [[GlkTextBufferWindow alloc] initWithGlkController: self name: i];
             [contentView addSubview: gwindows[i]];
+
             for (k = 0; k < style_NUMSTYLES; k++)
             {
                 [gwindows[i] setStyle: k
@@ -548,7 +551,7 @@ static const char *msgnames[] =
                                 value: styleval[1][k]];
             }
             return i;
-            
+
         case wintype_Graphics:
             gwindows[i] = [[GlkGraphicsWindow alloc] initWithGlkController: self name: i];
             [contentView addSubview: gwindows[i]];
@@ -561,16 +564,16 @@ static const char *msgnames[] =
 - (int) handleNewSoundChannel
 {
     int i;
-    
+
     for (i = 0; i < MAXSND; i++)
         if (gchannels[i] == nil)
             break;
-    
+
     if (i == MAXSND)
         return -1;
-    
+
     //gchannels[i] = [[GlkSoundChannel alloc] initWithGlkController: self name: i];
-    
+
     return i;
 }
 
@@ -581,7 +584,7 @@ static const char *msgnames[] =
         [timer invalidate];
         timer = nil;
     }
-    
+
     if (millisecs > 0)
     {
         if (millisecs < MINTIMER)
@@ -589,7 +592,7 @@ static const char *msgnames[] =
             NSLog(@"glkctl: too small timer interval (%d); increasing to %d", millisecs, MINTIMER);
             millisecs = MINTIMER;
         }
-        
+
         timer = [NSTimer scheduledTimerWithTimeInterval: millisecs/1000.0
                                                  target: self
                                                selector: @selector(noteTimerTick:)
@@ -683,13 +686,65 @@ static const char *msgnames[] =
         styleuse[1][style][hint] = YES;
         styleval[1][style][hint] = value;
     }
+
 }
+
+NSInteger colorToInteger(NSColor *color)
+{
+    CGFloat r, g, b, a;
+    uint32_t buf[3];
+    NSInteger i;
+    color = [color colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+
+    [color getRed:&r green:&g blue:&b alpha:&a];
+
+    buf[0] = (int)(r * 255);
+    buf[1] = (int)(g * 255);
+    buf[2] = (int)(b * 255);
+
+    i = buf[2] + (buf[1] << 8) + (buf[0] << 16);
+    return i;
+}
+
+
+- (BOOL) handleStyleMeasureOnWin: (GlkWindow*)gwindow style: (int)style hint:(int)hint result:(NSInteger *)result
+{
+    if (styleuse[1][style_Normal][stylehint_TextColor])
+        NSLog(@"styleuse[1][style_Normal][stylehint_TextColor] is true. Value:%ld", (long)styleval[1][style_Normal][stylehint_TextColor]);
+
+    if ([gwindow getStyleVal:style hint:hint value:result])
+        return YES;
+    else
+    {
+        if (hint == stylehint_TextColor)
+        {
+            if ([gwindow isKindOfClass: [GlkTextBufferWindow class]])
+                *result = colorToInteger([Preferences bufferForeground]);
+            else
+                *result = colorToInteger([Preferences gridForeground]);
+
+            return YES;
+        }
+        if (hint == stylehint_BackColor)
+        {
+            if ([gwindow isKindOfClass: [GlkTextBufferWindow class]])
+                *result = colorToInteger([Preferences bufferBackground]);
+            else
+                *result = colorToInteger([Preferences gridBackground]);
+
+            return YES;
+        }
+            
+    }
+    return NO;
+}
+
 
 - (void) handleClearHintOnWindowType: (int)wintype style: (int)style hint:(int)hint
 {
     if (style < 0 || style >= style_NUMSTYLES)
         return;
-    
+
     if (wintype == wintype_AllTypes)
     {
         styleuse[0][style][hint] = NO;
@@ -708,7 +763,7 @@ static const char *msgnames[] =
 - (void) handlePrintOnWindow: (GlkWindow*)gwindow style: (int)style buffer: (unichar*)buf length: (int)len
 {
     NSString *str;
-    
+
     if ([gwindow isKindOfClass: [GlkTextBufferWindow class]] && (style & 0xff) != style_Preformatted)
     {
         GlkTextBufferWindow *textwin = (GlkTextBufferWindow*) gwindow;
@@ -739,7 +794,7 @@ static const char *msgnames[] =
                     spaced = 0;
                 }
             }
-            
+
             if (smartquotes && buf[i] == '`')
                 buf[i] = 0x2018;
             
@@ -758,7 +813,7 @@ static const char *msgnames[] =
                 else
                     buf[i] = 0x201d;
             }
-            
+
             else if (smartquotes && i > 1 && buf[i-1] == '-' && buf[i] == '-')
             {
                 memmove(buf+i, buf+i+1, (len - (i + 1)) * sizeof(unichar));
@@ -766,7 +821,7 @@ static const char *msgnames[] =
                 i--;
                 buf[i] = 0x2013;
             }
-            
+
             else if (smartquotes && i > 1 && buf[i-1] == 0x2013 && buf[i] == '-')
             {
                 memmove(buf+i, buf+i+1, (len - (i + 1)) * sizeof(unichar));
@@ -774,22 +829,24 @@ static const char *msgnames[] =
                 i--;
                 buf[i] = 0x2014;
             }
-            
+
             lastchar = buf[i];
         }
-        
+
         len = (int)i;
     }
-    
+
     str = [NSString stringWithCharacters: buf length: len];
-    
+
     [gwindow putString: str style: style];
 }
 
 - (BOOL) handleRequest: (struct message *)req reply: (struct message *)ans buffer: (char *)buf
 {
     NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
-    
+
+    NSInteger result;
+
     switch (req->cmd)
     {
         case HELLO:
@@ -797,10 +854,10 @@ static const char *msgnames[] =
             ans->a1 = (int)[Preferences graphicsEnabled];
             ans->a2 = (int)[Preferences soundEnabled];
             break;
-            
+
         case NEXTEVENT:
             [self flushDisplay];
-            
+
             if (queue.count)
             {
                 GlkEvent *gevent;
@@ -820,15 +877,14 @@ static const char *msgnames[] =
                     //Argument 1 is FALSE. No waiting for more events. Send a dummy reply to hand over to the interpreter immediately.
                     ans->cmd = OKAY;
                     break;
-                    
                 }
             }
-            
+
             [self guessFocus];
-            
+
             waitforevent = YES;
             return YES; /* stop reading ... terp is waiting for reply */
-            
+
         case PROMPTOPEN:
             [self handleOpenPrompt: req->a1];
             return YES; /* stop reading ... terp is waiting for reply */
@@ -839,6 +895,13 @@ static const char *msgnames[] =
             
         case STYLEHINT:
             [self handleStyleHintOnWindowType:req->a1 style:req->a2 hint:req->a3 value:req->a4];
+            break;
+            
+        case STYLEMEASURE:
+            result = 0;
+            ans->cmd = OKAY;
+            ans->a1 = [self handleStyleMeasureOnWin:gwindows[req->a1] style:req->a2 hint:req->a3 result:&result];
+            ans->a2 = (int)result;
             break;
             
         case CLEARHINT:
