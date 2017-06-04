@@ -5924,7 +5924,7 @@ gms_startup_code (int argc, char *argv[])
     {
       gms_gamefile = argv[argv_index];
       gms_game_message = NULL;
-#ifdef GARGLK
+#if defined(GARGLK) || defined(SPATTERLIGHT)
     {
       char *s;
       s = strrchr(gms_gamefile, '\\');
@@ -6219,7 +6219,7 @@ glkunix_startup_code (glkunix_startup_t * data)
   assert (!gms_startup_called);
   gms_startup_called = TRUE;
 
-#ifdef GARGLK
+#if defined(GARGLK) || defined(SPATTERLIGHT)
   garglk_set_program_name("Magnetic 2.3");
   garglk_set_program_info(
       "Magnetic 2.3 by Niclas Karlsson, David Kinder,\n"
