@@ -444,10 +444,10 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
     return wmsg.a1;  /* TRUE or FALSE */
 }
 
-void win_setbgnd(int name, int color)
+void win_setbgnd(int name, glui32 color)
 {
     win_flush();
-    sendmsg(SETBGND, name, color, 0, 0, 0, 0, NULL);
+    sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
 
 void win_select(event_t *event, int block)

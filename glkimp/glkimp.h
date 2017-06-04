@@ -55,7 +55,7 @@ void win_set_echo(int name, int val);
 void win_initmouse(int name);
 void win_cancelmouse(int name);
 
-void win_setbgnd(int name, int color);
+void win_setbgnd(int name, glui32 color);
 void win_clear(int name);
 void win_moveto(int name, int x, int y);
 void win_timer(int millisecs);

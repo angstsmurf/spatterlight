@@ -20,8 +20,7 @@
     {
         glkctl = glkctl_;
         _name = name;
-        bgnd = 0;
-        // NSLog(@"new window %d (%@)", name, [self class]);
+        //bgnd = 0xFFFFFF; // White
     }
     
     return self;
@@ -119,7 +118,7 @@
 
 - (void) setBgColor: (NSInteger)bc
 {
-    bgnd = bc;
+    NSLog(@"set background color in %@ not allowed", [self class]);
 }
 
 - (void) fillRects: (struct fillrect *)rects count: (NSInteger)n

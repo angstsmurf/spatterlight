@@ -160,8 +160,8 @@
         if ([Preferences stylesEnabled])
         {
             color = styles[style_Normal].attributes[NSBackgroundColorAttributeName];
-            if (bgnd != 0)
-                color = [Preferences backgroundColor: (int)(bgnd - 1)];
+            //if (bgnd != 0)
+              //  color = [Preferences backgroundColor: (int)(bgnd - 1)];
         }
         
         if (!color)

@@ -35,6 +35,14 @@
     dirty = YES;
 }
 
+
+- (void) setBgColor: (NSInteger)bc
+{
+    bgnd = bc;
+    NSLog(@"Background in graphics window was set to bgnd(%ld)", (long)bgnd);
+
+}
+
 - (void) drawRect: (NSRect)rect
 {
     NSColor *color;
@@ -49,13 +57,14 @@
 
         if ([Preferences stylesEnabled])
         {
+            //color = [Preferences backgroundColor: (int)(bgnd - 1)];
+
             r = (bgnd >> 16) / 255.0;
-            g = (bgnd >> 8 & 0xFFFF) / 255.0;
-            b = (bgnd & 0xFFFF) / 255.0;
+            g = (bgnd >> 8 & 0xFF) / 255.0;
+            b = (bgnd & 0xFF) / 255.0;
 
             color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
-
-            //color = [Preferences backgroundColor: (int)(bgnd - 1)];
+            NSLog(@"Set color in graphics window to bgnd(%ld), %@", (long)bgnd, color);
         }
 
         if (!color)
@@ -130,7 +139,7 @@
     
     for (i = 0; i < count; i++)
     {
-        unsigned char ca = ((rects[i].color >> 24) & 0xff);
+        unsigned char ca = 0xff; //((rects[i].color >> 24) & 0xff);
         unsigned char cr = ((rects[i].color >> 16) & 0xff);
         unsigned char cg = ((rects[i].color >> 8) & 0xff);
         unsigned char cb = ((rects[i].color >> 0) & 0xff);

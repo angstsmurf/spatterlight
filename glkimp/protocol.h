@@ -9,7 +9,7 @@ struct message
 
 struct fillrect
 {
-    unsigned int color;
+    uint32_t color;
     short x, y, w, h;
 };
 

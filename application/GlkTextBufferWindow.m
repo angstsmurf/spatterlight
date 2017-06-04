@@ -430,7 +430,8 @@
     {
         bgcolor = styles[style_Normal].attributes[NSBackgroundColorAttributeName];
         fgcolor = styles[style_Normal].attributes[NSForegroundColorAttributeName];
-        
+
+#if 0
         if (bgnd != 0)
         {
             bgcolor = [Preferences backgroundColor: (int)(bgnd - 1)];
@@ -439,6 +440,8 @@
             else
                 fgcolor = [Preferences foregroundColor: 0];
         }
+#endif
+        
     }
     
     if (!bgcolor)
