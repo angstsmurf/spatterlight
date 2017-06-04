@@ -5,15 +5,6 @@
 #include "glkimp.h"
 #include "gi_blorb.h"
 
-/* This implements pretty much what any Glk implementation needs for 
-    stream stuff. Memory streams, file streams (using stdio functions), 
-    and window streams (which just print to stdout.) A fancier 
-    implementation would need to change the window stream stuff, but 
-    memory and file streams would stay the same. (Unless you're on a 
-    wacky platform like the Mac and want to change stdio to native file 
-    functions.) 
-*/
-
 static stream_t *gli_streamlist = NULL; /* linked list of all streams */
 static stream_t *gli_currentstr = NULL; /* the current output stream */
 
@@ -876,11 +867,15 @@ static void gli_set_style(stream_t *str, glui32 val)
 {
     if (!str || !str->writable)
         return;
-    
+
+    if (val >= style_NUMSTYLES)
+        val = 0;
+#if 0
     if ((val & 0xff) >= style_NUMSTYLES)
         val = val & 0xffff00;
     if ((val & 0xff) < 0)
         val = val & 0xffff00;
+#endif
     
     switch (str->type)
     {
