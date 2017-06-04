@@ -72,7 +72,7 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
 
 void readmsg(struct message *msgbuf, char *buf)
 {
-    int n;
+    ssize_t n;
     
     n = read(readfd, msgbuf, sizeof (struct message));
     if (msgbuf->cmd == ERROR || n != sizeof (struct message))
@@ -105,6 +105,8 @@ void win_hello(void)
     
     gli_enable_graphics = wmsg.a1;
     gli_enable_sound = wmsg.a2;
+    
+    event.type = 0;
     
     // get first event, which should always be Arrange
     win_select(&event, 1);
