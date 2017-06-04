@@ -35,114 +35,46 @@ void gli_putchar_utf8(glui32 val, FILE *fl)
     }
 }
 
-static inline glui32 read_byte(FILE *fl)
-{
-    int c;
-    
-    c = getc(fl);
-    
-    if(c == EOF) return -1;
-    
-    return c;
-}
+int gli_encode_utf8(glui32 val, char *buf, int len)
+        {
+    /* return the number of bytes (actually) generated */
+    char *ptr = buf;
+    char *end = buf+len;
 
-glui32 gli_getchar_utf8(FILE *fl)
-{
-    glui32 res;
-    glui32 val0, val1, val2, val3;
-    
-    val0 = read_byte(fl);
-    if (val0 == (glui32)-1)
-        return -1;
-    
-    if (val0 < 0x80)
-    {
-        res = val0;
-        return res;
+    if (val < 0x80) {
+        if (ptr < end)
+            *ptr++ = val;
+    }
+    else if (val < 0x800) {
+        if (ptr < end)
+            *ptr++ = (0xC0 | ((val & 0x7C0) >> 6));
+        if (ptr < end)
+            *ptr++ = (0x80 |  (val & 0x03F)     );
+    }
+    else if (val < 0x10000) {
+        if (ptr < end)
+            *ptr++ = (0xE0 | ((val & 0xF000) >> 12));
+        if (ptr < end)
+            *ptr++ = (0x80 | ((val & 0x0FC0) >>  6));
+        if (ptr < end)
+            *ptr++ = (0x80 |  (val & 0x003F)      );
+    }
+    else if (val < 0x200000) {
+        if (ptr < end)
+            *ptr++ = (0xF0 | ((val & 0x1C0000) >> 18));
+        if (ptr < end)
+            *ptr++ = (0x80 | ((val & 0x03F000) >> 12));
+        if (ptr < end)
+            *ptr++ = (0x80 | ((val & 0x000FC0) >>  6));
+        if (ptr < end)
+            *ptr++ = (0x80 |  (val & 0x00003F)      );
+    }
+    else {
+        if (ptr < end)
+            *ptr++ = '?';
     }
     
-    if ((val0 & 0xe0) == 0xc0)
-    {
-        val1 = read_byte(fl);
-        if (val1 == (glui32)-1)
-        {
-            gli_strict_warning("incomplete two-byte character");
-            return -1;
-        }
-        if ((val1 & 0xc0) != 0x80)
-        {
-            gli_strict_warning("malformed two-byte character");
-            return '?';
-        }
-        res = (val0 & 0x1f) << 6;
-        res |= (val1 & 0x3f);
-        return res;
-    }
-    
-    if ((val0 & 0xf0) == 0xe0)
-    {
-        val1 = read_byte(fl);
-        val2 = read_byte(fl);
-        if (val1 == (glui32)-1 || val2 == (glui32)-1)
-        {
-            gli_strict_warning("incomplete three-byte character");
-            return -1;
-        }
-        if ((val1 & 0xc0) != 0x80)
-        {
-            gli_strict_warning("malformed three-byte character");
-            return '?';
-        }
-        if ((val2 & 0xc0) != 0x80)
-        {
-            gli_strict_warning("malformed three-byte character");
-            return '?';
-        }
-        res = (((val0 & 0xf)<<12)  & 0x0000f000);
-        res |= (((val1 & 0x3f)<<6) & 0x00000fc0);
-        res |= (((val2 & 0x3f))    & 0x0000003f);
-        return res;
-    }
-    
-    if ((val0 & 0xf0) == 0xf0)
-    {
-        if ((val0 & 0xf8) != 0xf0)
-        {
-            gli_strict_warning("malformed four-byte character");
-            return '?';
-        }
-        val1 = read_byte(fl);
-        val2 = read_byte(fl);
-        val3 = read_byte(fl);
-        if (val1 == (glui32)-1 || val2 == (glui32)-1 || val3 == (glui32)-1)
-        {
-            gli_strict_warning("incomplete four-byte character");
-            return -1;
-        }
-        if ((val1 & 0xc0) != 0x80)
-        {
-            gli_strict_warning("malformed four-byte character");
-            return '?';
-        }
-        if ((val2 & 0xc0) != 0x80)
-        {
-            gli_strict_warning("malformed four-byte character");
-            return '?';
-        }
-        if ((val3 & 0xc0) != 0x80)
-        {
-            gli_strict_warning("malformed four-byte character");
-            return '?';
-        }
-        res = (((val0 & 0x7)<<18)   & 0x1c0000);
-        res |= (((val1 & 0x3f)<<12) & 0x03f000);
-        res |= (((val2 & 0x3f)<<6)  & 0x000fc0);
-        res |= (((val3 & 0x3f))     & 0x00003f);
-        return res;
-    }
-    
-    gli_strict_warning("malformed character");
-    return '?';
+    return (int)(ptr - buf);
 }
 
 glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen,
@@ -273,12 +205,11 @@ glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen,
 #define COND_LINESTART (1)
 
 /* Apply a case change to the buffer. The len is the length of the buffer
- array; numchars is the number of characters originally in it. (This
- may be less than len.) The result will be clipped to fit len, but
- the return value will be the full number of characters that the
- converted string should have contained.
- +*/
-
+   array; numchars is the number of characters originally in it. (This
+   may be less than len.) The result will be clipped to fit len, but
+   the return value will be the full number of characters that the
+   converted string should have contained.
+*/
 static glui32 gli_buffer_change_case(glui32 *buf, glui32 len,
                                      glui32 numchars, int destcase, int cond, int changerest)
 {
@@ -305,6 +236,7 @@ static glui32 gli_buffer_change_case(glui32 *buf, glui32 len,
         default: //This should never happen?
             gli_strict_warning("gli_buffer_change_case() called with an invalid condition.");
             dest_spec_rest = destcase;
+            dest_spec_first = destcase;
     }
     
     dest_block_rest = dest_spec_rest;
@@ -460,6 +392,7 @@ static glui32 *gli_buffer_canon_decompose_uni(glui32 *buf,
     glui32 numchars = *numcharsref;
     glui32 destsize = numchars * 2 + 16;
     glui32 *dest = (glui32 *)malloc(destsize * sizeof(glui32));
+    glui32 *olddest;
     glui32 destlen = 0;
     glui32 ix, jx;
     int anycombining = FALSE;
@@ -492,17 +425,14 @@ static glui32 *gli_buffer_canon_decompose_uni(glui32 *buf,
         {
             /* The simple case: this character doesn't decompose. Push
              it straight into the destination. */
-            if (destlen >= destsize)
-            {
-                glui32 *tmp;
-                
+            if (destlen >= destsize) {
                 destsize = destsize * 2;
-                tmp = realloc(dest, destsize * sizeof(glui32));
-                if (!tmp) {
-                    free(dest);
+                olddest = dest;
+                dest = (glui32 *)realloc(dest, destsize * sizeof(glui32));
+                if (!dest){
+                    free(olddest);
                     return NULL;
                 }
-                dest = tmp;
             }
             dest[destlen] = ch;
             destlen++;
@@ -522,18 +452,15 @@ static glui32 *gli_buffer_canon_decompose_uni(glui32 *buf,
         if (destlen+count >= destsize)
         {
             /* Okay, that wasn't enough. Expand more. */
-            glui32 *tmp;
-            
             destsize = destsize * 2 + count;
-            tmp = realloc(dest, destsize * sizeof(glui32));
-            if (!tmp) {
-                free(dest);
+            olddest = dest;
+            dest = (glui32 *)realloc(dest, destsize * sizeof(glui32));
+            if (!dest){
+                free (olddest);
                 return NULL;
             }
-            dest = tmp;
         }
-        for (jx=0; jx<count; jx++)
-        {
+        for (jx=0; jx<count; jx++) {
             dest[destlen] = unigen_decomp_data[pos+jx];
             destlen++;
         }
