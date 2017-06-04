@@ -37,11 +37,32 @@
 
 - (void) drawRect: (NSRect)rect
 {
+    NSColor *color;
+    CGFloat r, g, b;
+
     NSRect bounds = self.bounds;
-    
+
     if (!transparent)
     {
-        [[NSColor whiteColor] set];
+
+        color = nil;
+
+        if ([Preferences stylesEnabled])
+        {
+            r = (bgnd >> 16) / 255.0;
+            g = (bgnd >> 8 & 0xFFFF) / 255.0;
+            b = (bgnd & 0xFFFF) / 255.0;
+
+            color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
+
+            //color = [Preferences backgroundColor: (int)(bgnd - 1)];
+        }
+
+        if (!color)
+            color = [NSColor whiteColor];
+
+        [color set];
+
         NSRectFill(rect);
     }
     
