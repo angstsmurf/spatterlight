@@ -49,6 +49,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
   /* now process the command line arguments */
   args(data->argc, data->argv);
 
+  garglk_set_program_name(alan.shortHeader);
+  garglk_set_program_info("Alan Interpreter 2.8.6 by Thomas Nilsson\n");
+
   return TRUE;
 }
 
