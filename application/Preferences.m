@@ -56,9 +56,9 @@ NSData *colorToData(NSColor *color)
     
     [color getRed:&r green:&g blue:&b alpha:&a];
     
-    buf[0] = (int)r * 255;
-    buf[1] = (int)g * 255;
-    buf[2] = (int)b * 255;
+    buf[0] = (int)(r * 255);
+    buf[1] = (int)(g * 255);
+    buf[2] = (int)(b * 255);
     
     data = [NSData dataWithBytes: buf length: 3];
     

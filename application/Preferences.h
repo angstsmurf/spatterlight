@@ -19,7 +19,8 @@
     IBOutlet NSButton *btnEnableSound;
     IBOutlet NSButton *btnEnableStyles;
     IBOutlet NSButton *btnUseScreenFonts;
-    NSFont **selfontp;
+    NSFont * __strong *selfontp;
+    NSColor * __strong *colorp;
 }
 
 + (void) rebuildTextAttributes;
