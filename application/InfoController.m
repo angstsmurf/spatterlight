@@ -17,6 +17,7 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     NSWindow *window;
     NSWindowController *winctl;
     InfoController *infoctl;
+    LibController *libctl;
     NSInteger count;
     NSInteger i;
     
@@ -24,7 +25,7 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     for (i = 0; i < count; i++)
     {
         window = (NSWindow*) windows[i];
-        winctl = (NSWindowController*) window.delegate;
+        winctl = (NSWindowController*) [window delegate];
         if (winctl && [winctl isKindOfClass: [InfoController class]])
         {
             infoctl = (InfoController*) winctl;
@@ -34,13 +35,22 @@ void showInfoForFile(NSString *path, NSDictionary *info)
                 return;
             }
         }
+        else if (winctl && [winctl isKindOfClass: [LibController class]])
+        {
+            libctl = (LibController *) winctl;
+        }
     }
-    
-    infoctl = [[InfoController alloc] initWithWindowNibName: @"InfoPanel"];
-    [infoctl showForFile: path info: info];
-    [infoctl showWindow: nil];
-    
-    // infoctl releases itself when it closes
+
+    if (libctl)
+    {
+        infoctl = [libctl createInfoController];
+        //infoctl = [[InfoController alloc] initWithWindowNibName: @"InfoPanel"];
+        if (infoctl)
+        {
+            [infoctl showForFile: path info: info];
+            [infoctl showWindow: nil];
+        }
+    }
 }
 
 - (void) sizeToFitImageAnimate: (BOOL)animate
@@ -158,14 +168,12 @@ void showInfoForFile(NSString *path, NSDictionary *info)
                 rv = babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
                 imgdata = [[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES];
                 img = [[NSImage alloc] initWithData: imgdata];
-                [imgdata release];
             }
         }
         
         if (img)
         {
             imageView.image = img;
-            [img release];
         }
         
         [self sizeToFitImageAnimate: NO];
@@ -195,26 +203,13 @@ void showInfoForFile(NSString *path, NSDictionary *info)
 
 - (void) showForFile: (NSString*)path_ info: (NSDictionary*)meta_
 {
-    path = [path_ retain];
-    meta = [meta_ retain];
+    path = path_;
+    meta = meta_;
 }
 
 - (void) showWindow: sender
 {
     [super showWindow: sender];
-}
-
-- (void) windowWillClose: sender
-{
-    [self autorelease];
-}
-
-- (void) dealloc
-{
-    NSLog(@"infoctl: dealloc");
-    [path release];
-    [meta release];
-    [super dealloc];
 }
 
 @end

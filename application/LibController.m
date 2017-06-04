@@ -151,6 +151,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     [infoButton setEnabled: NO];
     [playButton setEnabled: NO];
     
+    infoWindowIndex = 0;
+    
     gameTableModel = [[NSMutableArray alloc] init];
     gameTableDirty = YES;
     [self updateTableViews];
@@ -290,10 +292,26 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
                             @"Okay", NULL, NULL);
             return;
         }
-        
+
         showInfoForFile(path, info);
     }
 }
+
+- (InfoController *) createInfoController {
+
+    infoWindowIndex = 0;
+
+    for (NSInteger i = 0 ; i < MAX_INFO_WINDOWS; i++)
+        if (![[infoWindows[i] window] isVisible])
+        {
+            infoWindows[i] = nil;
+            infoWindowIndex = i;
+        }
+
+    infoWindows[infoWindowIndex] = [[InfoController alloc]initWithWindowNibName: @"InfoPanel"];
+    return infoWindows[infoWindowIndex];
+}
+
 
 - (IBAction) revealGameInFinder: (id)sender
 {

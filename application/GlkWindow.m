@@ -48,7 +48,7 @@
         if ([checkedStyle valueForHint:hint value:value])
             return YES;
     }
-    
+
     return NO;
 }
 

@@ -13,6 +13,8 @@
  *
  */
 
+#define MAX_INFO_WINDOWS 10
+
 @interface LibHelperWindow : NSWindow<NSDraggingDestination>
 {
 }
@@ -35,7 +37,10 @@
     
     NSMutableDictionary *metadata; /* ifid -> metadata dict */
     NSMutableDictionary *games; /* ifid -> filename */
-    
+
+    InfoController *infoWindows[MAX_INFO_WINDOWS];
+    NSInteger infoWindowIndex;
+
     IBOutlet NSTableView *gameTableView;
     NSMutableArray *gameTableModel;
     NSString *gameSortColumn;
@@ -76,6 +81,7 @@
 - (IBAction) searchForGames: (id)sender;
 - (IBAction) playGame: (id)sender;
 - (IBAction) showGameInfo: (id)sender;
+- (InfoController *) createInfoController;
 - (IBAction) revealGameInFinder: (id)sender;
 - (IBAction) deleteGame: (id)sender;
 
