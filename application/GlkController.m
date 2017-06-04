@@ -102,7 +102,12 @@ static const char *msgnames[] =
         // [[self window] setRepresentedFilename: gamefile];
         self.window.title = gameinfo[@"title"];
         [self.window setContentSize: defsize];
-        
+
+        // Clamp to max screen size
+        defsize.height = self.window.frame.size.height;
+        defsize.width = self.window.frame.size.width;
+        [self.window setContentSize: defsize];
+
         [[NSNotificationCenter defaultCenter]
          addObserver: self
          selector: @selector(notePreferencesChanged:)
@@ -257,6 +262,11 @@ static const char *msgnames[] =
 - (void) contentDidResize: (NSRect)frame
 {
     NSLog(@"glkctl: contentDidResize");
+
+    if (dead)
+        for (NSInteger i = 0; i < MAXWIN; i++)
+            if (gwindows[i]) // && [gwindows[i] isKindOfClass:[GlkTextBufferWindow class]])
+                [gwindows[i] setFrame:frame];
     
     GlkEvent *gevent;
     gevent = [[GlkEvent alloc] initArrangeWidth: frame.size.width height: frame.size.height];

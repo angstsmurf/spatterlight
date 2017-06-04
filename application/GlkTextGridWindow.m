@@ -485,7 +485,7 @@
     caret.size.width = 20 * charWidth;
     caret.size.height = lineHeight;
     
-    NSLog(@"grid initLine: %@ in: %ld", str, (long)name);
+    NSLog(@"grid initLine: %@ in: %ld", str, (long)self.name);
     
     input = [[NSTextField alloc] initWithFrame: caret];
     [input setEditable: YES];
