@@ -195,21 +195,18 @@ static const char *msgnames[] =
 
 - (void) windowWillClose: (id)sender
 {
-    NSInteger i;
-
     NSLog(@"glkctl: windowWillClose");
     [self.window setDelegate: nil];
-    
-    
+
     [[NSNotificationCenter defaultCenter] removeObserver: self];
-    
+
     if (timer)
     {
         NSLog(@"glkctl: force stop the timer");
         [timer invalidate];
         timer = nil;
     }
-    
+
     if (task)
     {
         NSLog(@"glkctl: force stop the interpreter");
