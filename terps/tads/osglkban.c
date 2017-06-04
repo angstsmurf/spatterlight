@@ -376,7 +376,7 @@ void banner_contents_insert(contentid_t contents, const char *txt, size_t len)
     memcpy(contents->chars, txt, len);
 
     contents->chars[len] = '\0';
-    contents->len = len;
+    contents->len = (glui32)len;
 }
 
 void banner_contents_display(contentid_t contents)

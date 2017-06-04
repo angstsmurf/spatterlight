@@ -431,6 +431,9 @@ void os_set_text_attr(int attr)
  */
 void os_set_text_color(os_color_t fg, os_color_t bg)
 {
+    glk_window_set_background_color(mainwin, (glui32)bg);
+    if (statuswin)
+        glk_window_set_background_color(statuswin, (glui32)bg);
 }
 
 /*
@@ -463,7 +466,7 @@ void os_set_screen_color(os_color_t color)
  */
 void os_set_title(const char *title)
 {
-#ifdef GARGLK
+#if defined(GARGLK) || defined(SPATTERLIGHT)
     garglk_set_story_title(title);
 #endif
 }
