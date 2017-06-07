@@ -198,19 +198,17 @@
         [textLayout drawGlyphsForGlyphRange: glyphRange
                                     atPoint: NSMakePoint(x0 - layoutLocation.x, y0 + y * lineHeight)];
         
-#if 0
-        if (ypos == y && char_request && [[self window] firstResponder] == self)
-        {
-            NSRect caret;
-            NSPoint caretLocation = [textLayout locationForGlyphAtIndex: xpos];
-            caret.origin.x = (int)(x0 - layoutLocation.x + caretLocation.x + 0.5);
-            caret.origin.y = y0 + ypos * lineHeight;
-            caret.size.width = 1;
-            caret.size.height = lineHeight;
-            [[Preferences gridForeground] set];
-            NSRectFill(caret);
-        }
-#endif
+//        if (ypos == y && char_request && [[self window] firstResponder] == self)
+//        {
+//            NSRect caret;
+//            NSPoint caretLocation = [textLayout locationForGlyphAtIndex: xpos];
+//            caret.origin.x = (int)(x0 - layoutLocation.x + caretLocation.x + 0.5);
+//            caret.origin.y = y0 + ypos * lineHeight;
+//            caret.size.width = 1;
+//            caret.size.height = lineHeight;
+//            [[Preferences gridForeground] set];
+//            NSRectFill(caret);
+//        }
     }
     
 }

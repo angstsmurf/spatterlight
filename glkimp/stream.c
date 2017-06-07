@@ -870,12 +870,10 @@ static void gli_set_style(stream_t *str, glui32 val)
 
     if (val >= style_NUMSTYLES)
         val = 0;
-#if 0
-    if ((val & 0xff) >= style_NUMSTYLES)
-        val = val & 0xffff00;
-    if ((val & 0xff) < 0)
-        val = val & 0xffff00;
-#endif
+//    if ((val & 0xff) >= style_NUMSTYLES)
+//        val = val & 0xffff00;
+//    if ((val & 0xff) < 0)
+//        val = val & 0xffff00;
     
     switch (str->type)
     {
