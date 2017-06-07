@@ -50,8 +50,9 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
     msgbuf.a6 = 0;
     msgbuf.len = len;
     
-    //	fprintf(stderr, "SENDMSG %d len=%d\n", cmd, len);
-    
+#ifdef DEBUG
+    fprintf(stderr, "SENDMSG %d len=%d\n", cmd, len);
+#endif
     n = write(sendfd, &msgbuf, sizeof msgbuf);
     if (n != sizeof msgbuf)
     {
@@ -112,8 +113,8 @@ void win_hello(void)
     win_select(&event, 1);
     if (event.type != evtype_Arrange)
     {
-	fprintf(stderr, "protocol handshake error\n");
-	exit(1);
+        fprintf(stderr, "protocol handshake error\n");
+        exit(1);
     }
 }
 
@@ -121,8 +122,6 @@ void win_flush(void)
 {
     if (buffering == BUFNONE)
 	return;
-    
-    //	fprintf(stderr, "win_flush buf=%d len=%d win=%d\n", buffering, bufferlen, bufferwin);
     
     if (buffering == BUFPRINT)
     {
@@ -183,7 +182,9 @@ void wintitle(void)
         sendmsg(SETTITLE, 0, 0, 0, 0, 0,
             (int)(strlen(buf)), // * sizeof(unsigned short)
             (char*)buf);
+#ifdef DEBUG
     fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
+#endif
 }
 
 /* End of Gargoyle glue */
@@ -428,7 +429,9 @@ void win_clearhint(int wintype, int styl, int hint)
 {
     win_flush();
     sendmsg(CLEARHINT, wintype, styl, hint, 0, 0, 0, NULL);
+#ifdef DEBUG
     fprintf(stderr, "sent CLEARHINT type:%d styl:%d hint:%d\n",wintype, styl, hint);
+#endif
 
 }
 
@@ -436,9 +439,9 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
 {
     win_flush();
     sendmsg(STYLEMEASURE, name, styl, hint, 0, 0, 0, NULL);
-
+#ifdef DEBUG
     fprintf(stderr, "sent STYLEMEASURE name:%d styl:%d hint:%d\n",name, styl, hint);
-
+#endif
     readmsg(&wmsg, wbuf);
     *result = wmsg.a2;
     return wmsg.a1;  /* TRUE or FALSE */
@@ -464,7 +467,9 @@ again:
     switch (wmsg.cmd)
     {
 	case OKAY:
-	    // fprintf(stderr, "no event...?!\n");
+#ifdef DEBUG
+	     fprintf(stderr, "no event...?!\n");
+#endif
 	    break;
 	    
 	case EVTPREFS:
@@ -473,7 +478,9 @@ again:
 	    goto again;
 	    
 	case EVTARRANGE:
-	    // fprintf(stderr, "arrange event\n");
+#ifdef DEBUG
+	     fprintf(stderr, "arrange event\n");
+#endif
 	    if ( gscreenw == wmsg.a1 &&
 		 gscreenh == wmsg.a2 &&
 		 gbuffermarginx == wmsg.a3 &&
@@ -497,7 +504,9 @@ again:
 	    break;
 	    
 	case EVTLINE:
-	    // fprintf(stderr, "line input event\n");
+#ifdef DEBUG
+	     fprintf(stderr, "line input event\n");
+#endif
 	    
 	    event->type = evtype_LineInput;
 	    event->win = gli_window_for_peer(wmsg.a1);
@@ -540,7 +549,9 @@ again:
 	    break;
 
 	case EVTKEY:
-	    // fprintf(stderr, "key input event for %d\n", wmsg.a1);
+#ifdef DEBUG
+	     fprintf(stderr, "key input event for %d\n", wmsg.a1);
+#endif
 	    event->type = evtype_CharInput;
 	    event->win = gli_window_for_peer(wmsg.a1);
 	    event->val1 = wmsg.a2;
@@ -549,7 +560,9 @@ again:
 	    break;
 	    
 	case EVTMOUSE:
-	    // fprintf(stderr, "mouse input event\n");
+#ifdef DEBUG
+	     fprintf(stderr, "mouse input event\n");
+#endif
 	    event->type = evtype_MouseInput;
 	    event->win = gli_window_for_peer(wmsg.a1);
 	    event->val1 = wmsg.a2;
@@ -557,22 +570,30 @@ again:
 	    event->win->mouse_request = FALSE;
 	    break;
 	case EVTTIMER:
-	    // fprintf(stderr, "timer event\n");
+#ifdef DEBUG
+	     fprintf(stderr, "timer event\n");
+#endif
 	    event->type = evtype_Timer;
 	    break;
 	case EVTSOUND:
-	    // fprintf(stderr, "sound notification event\n");
+#ifdef DEBUG
+	     fprintf(stderr, "sound notification event\n");
+#endif
 	    event->type = evtype_SoundNotify;
 	    break;
 	case EVTHYPER:
-	    // fprintf(stderr, "hyperlink event\n");
+#ifdef DEBUG
+	     fprintf(stderr, "hyperlink event\n");
+#endif
 	    event->type = evtype_Hyperlink;
 	    event->win = gli_window_for_peer(wmsg.a1);
 	    event->val1 = wmsg.a2;
 	    // XXX
 	    break;
 	default:
-	    // fprintf(stderr, "unknown event type: %d\n", wmsg.cmd);
+#ifdef DEBUG
+	     fprintf(stderr, "unknown event type: %d\n", wmsg.cmd);
+#endif
 	    break;
     }
 }
