@@ -17,19 +17,19 @@
 #
 # Comment/uncomment the following lines to make the program work
 
-CC=bcc32
-OBJ=.obj
-BABEL_LIB=babel.lib
-IFICTION_LIB=ifiction.lib
-BABEL_FLIB=babel_functions.lib
-OUTPUT_BABEL=
+#CC=bcc32
+#OBJ=.obj
+#BABEL_LIB=babel.lib
+#IFICTION_LIB=ifiction.lib
+#BABEL_FLIB=babel_functions.lib
+#OUTPUT_BABEL=
 
-#CC=gcc -g
-#OBJ=.o
-#BABEL_LIB=babel.a
-#BABEL_FLIB=babel_functions.a
-#IFICTION_LIB=ifiction.a
-#OUTPUT_BABEL=-o babel
+CC=gcc -g
+OBJ=.o
+BABEL_LIB=babel.a
+BABEL_FLIB=babel_functions.a
+IFICTION_LIB=ifiction.a
+OUTPUT_BABEL=-o babel
 
 treaty_objs = zcode${OBJ} magscrolls${OBJ} blorb${OBJ} glulx${OBJ} hugo${OBJ} agt${OBJ} level9${OBJ} executable${OBJ} advsys${OBJ} tads${OBJ} tads2${OBJ} tads3${OBJ} adrift${OBJ} alan${OBJ}
 bh_objs = babel_handler${OBJ} register${OBJ} misc${OBJ} md5${OBJ} ${treaty_objs}
