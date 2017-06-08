@@ -81,7 +81,6 @@
 - (IBAction) searchForGames: (id)sender;
 - (IBAction) playGame: (id)sender;
 - (IBAction) showGameInfo: (id)sender;
-- (InfoController *) createInfoController;
 - (IBAction) revealGameInFinder: (id)sender;
 - (IBAction) deleteGame: (id)sender;
 
@@ -89,6 +88,7 @@
 - (void) selectGameWithIFID: (NSString*)ifid;
 - (void) updateTableViews; /* must call this after -importGame: */
 
+- (InfoController *) createInfoController;
 - (NSString*) convertAGTFile: (NSString*)origpath;
 
 @end
