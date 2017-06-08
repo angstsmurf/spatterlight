@@ -551,7 +551,7 @@ public:
         }
 
         /* get the mapping pointer */
-        map = get_exp_ptr(ofs);
+        map = get_exp_ptr((unsigned int)ofs);
 
         /* read the length and skip it */
         *len = (size_t)*map++;

@@ -427,7 +427,7 @@ inline void lib_strcpy(char *dst, size_t dstsiz, const char *src)
 inline int lib_strcmp(const char *str1, size_t len1,
                       const char *str2, size_t len2)
 {
-    int bylen = len1 - len2, bymem;
+    int bylen = (int)len1 - (int)len2, bymem;
     if (bylen == 0)
         return memcmp(str1, str2, len1);
     else if (bylen < 0)
@@ -439,13 +439,13 @@ inline int lib_strcmp(const char *str1, size_t len1,
 inline int lib_stricmp(const char *str1, size_t len1,
                        const char *str2, size_t len2)
 {
-    int bylen = len1 - len2, bymem;
+    int bylen = (int)len1 - (int)len2, bymem;
     if (bylen == 0)
-        return memicmp(str1, str2, len1);
+        return memicmp(str1, str2, (int)len1);
     else if (bylen < 0)
-        bymem = memicmp(str1, str2, len1);
+        bymem = memicmp(str1, str2, (int)len1);
     else
-        bymem = memicmp(str1, str2, len2);
+        bymem = memicmp(str1, str2, (int)len2);
     return (bymem != 0 ? bymem : bylen);
 }
 
