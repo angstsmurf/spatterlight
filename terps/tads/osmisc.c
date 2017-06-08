@@ -78,6 +78,9 @@ void os_gen_charmap_filename(char *filename, char *internal_id, char *argv0)
  *   system clock or some other source of an unpredictable and changing
  *   seed value 
  */
+
+time_t time(time_t *);
+
 void os_rand(long *seed)
 {
     time_t t;
@@ -103,7 +106,7 @@ static unsigned long xorshift(void)
 
 static void xorinit(void)
 {
-    seed[0] = time(NULL);
+    seed[0] = (uint32_t)time(NULL);
     seed[1] = seed[0] << 1;
     seed[2] = getpid();
     seed[3] = seed[1] & ~seed[2];
@@ -121,7 +124,7 @@ void os_gen_rand_bytes(unsigned char *buf, size_t len)
     int ct, val;
     for (ct = 0; ct < len; ct++)
     {
-        val = xorshift();
+        val = (int)xorshift();
         buf[ct] = (val - 1) & 0xFF;
     }
 }
@@ -201,7 +204,7 @@ void os_sleep_ms(long delay_in_milliseconds)
 #ifdef _WIN32
     Sleep(delay_in_milliseconds);
 #else
-    usleep(delay_in_milliseconds * 1000);
+    usleep((useconds_t)(delay_in_milliseconds * 1000));
 #endif
 }
 
