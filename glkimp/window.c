@@ -49,7 +49,7 @@ window_t *gli_new_window(glui32 type, glui32 rock)
 	    }
 	    break;
 	case wintype_Graphics:
-	    win->background = 0x00ffffff;
+	    win->background = 0x00ffffff; // White background
 	    win->peer = win_newwin(wintype_Graphics);
 	    if (win->peer == -1)
 	    {

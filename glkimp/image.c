@@ -102,7 +102,9 @@ glui32 glk_image_get_info(glui32 image, glui32 *width, glui32 *height)
     
     if (!loadimage(image))
     {
+#ifdef DEBUG
         fprintf(stderr, "glk_image_get_info: loadimage(%d) FAILED\n", image);
+#endif
         return FALSE;
     }
 
@@ -139,6 +141,7 @@ void glk_window_erase_rect(winid_t win,
         gli_strict_warning("window_erase_rect: not a graphics window");
         return;
     }
+
     win_fillrect(win->peer, win->background, left, top, width, height);
 }
 
@@ -155,7 +158,9 @@ void glk_window_fill_rect(winid_t win, glui32 color,
         gli_strict_warning("window_fill_rect: not a graphics window");
         return;
     }
-    
+#ifdef DEBUG
+    fprintf(stderr, "win_fillrect called with color %d\n", color);
+#endif
     win_fillrect(win->peer, color, left, top, width, height);
 }
 
@@ -173,6 +178,9 @@ void glk_window_set_background_color(winid_t win, glui32 color)
         return;
     }
 
+#ifdef DEBUG
+    fprintf (stderr, "glk_window_set_background_color called with color %d\n", color);
+#endif
     win->background = color;
     win_setbgnd(win->peer, color);
 }
