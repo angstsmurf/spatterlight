@@ -285,7 +285,7 @@
     {
         [glkctl markLastSeen];
         
-        //NSLog(@"char event from %d", name);
+        NSLog(@"char event from %@", self);
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
         [glkctl queueEvent: gev];
         char_request = NO;
