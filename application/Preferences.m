@@ -222,7 +222,10 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 + (NSColor*) backgroundColor: (int)number
 {
     if (number < 0 || number > 7)
+    {
+        NSLog(@"Preferences backgroundColor called with an illegal color number of %d", number);
         return nil;
+    }
     return bgcolor[number];
 }
 
@@ -370,21 +373,19 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
         dict = [[NSMutableDictionary alloc] init];
         dict[@"GlkStyle"] = @(style);
         dict[NSParagraphStyleAttributeName] = para;
-        
-#if 0
-        if (style == style_BlockQuote)
-        {
-            NSMutableParagraphStyle *mpara;
-            float indent = [bufroman defaultLineHeightForFont] * 1.0;
-            mpara = [[NSMutableParagraphStyle alloc] init];
-            [mpara setParagraphStyle: para];
-            [mpara setFirstLineHeadIndent: indent];
-            [mpara setHeadIndent: indent];
-            [mpara setTailIndent: -indent];
-            [dict setObject: mpara forKey: NSParagraphStyleAttributeName];
-            [mpara release];
-        }
-#endif
+
+//        if (style == style_BlockQuote)
+//        {
+//            NSMutableParagraphStyle *mpara;
+//            float indent = [bufroman defaultLineHeightForFont] * 1.0;
+//            mpara = [[NSMutableParagraphStyle alloc] init];
+//            [mpara setParagraphStyle: para];
+//            [mpara setFirstLineHeadIndent: indent];
+//            [mpara setHeadIndent: indent];
+//            [mpara setTailIndent: -indent];
+//            [dict setObject: mpara forKey: NSParagraphStyleAttributeName];
+//            [mpara release];
+//        }
         
         if (style == style_Input)
             dict[NSForegroundColorAttributeName] = inputfg;

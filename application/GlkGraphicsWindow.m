@@ -57,14 +57,12 @@
 
         if ([Preferences stylesEnabled])
         {
-            //color = [Preferences backgroundColor: (int)(bgnd - 1)];
-
             r = (bgnd >> 16) / 255.0;
-            g = (bgnd >> 8 & 0xFF) / 255.0;
+            g = (bgnd >> 8 & 0xff) / 255.0;
             b = (bgnd & 0xFF) / 255.0;
 
             color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
-            NSLog(@"Set color in graphics window to bgnd(%ld), %@", (long)bgnd, color);
+            NSLog(@"drawRect: Set color in graphics window to bgnd(%ld), %@", (long)bgnd, color);
         }
 
         if (!color)

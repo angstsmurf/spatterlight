@@ -413,11 +413,11 @@
     
 }
 
-- (void) setBgColor: (NSInteger)bg
-{
-    [super setBgColor: bg];
-    [self recalcBackground];
-}
+//- (void) setBgColor: (NSInteger)bg
+//{
+//    [super setBgColor: bg];
+//    [self recalcBackground];
+//}
 
 - (void) recalcBackground
 {
@@ -431,17 +431,14 @@
         bgcolor = styles[style_Normal].attributes[NSBackgroundColorAttributeName];
         fgcolor = styles[style_Normal].attributes[NSForegroundColorAttributeName];
 
-#if 0
-        if (bgnd != 0)
-        {
-            bgcolor = [Preferences backgroundColor: (int)(bgnd - 1)];
-            if (bgnd == 1) // black
-                fgcolor = [Preferences foregroundColor: 7];
-            else
-                fgcolor = [Preferences foregroundColor: 0];
-        }
-#endif
-        
+//        if (bgnd != 0)
+//        {
+//            bgcolor = [Preferences backgroundColor: (int)(bgnd - 1)];
+//            if (bgnd == 1) // black
+//                fgcolor = [Preferences foregroundColor: 7];
+//            else
+//                fgcolor = [Preferences foregroundColor: 0];
+//        }
     }
     
     if (!bgcolor)
