@@ -48,7 +48,7 @@ static const char *msgnames[] =
 
 - (void) setFrame: (NSRect)frame
 {
-    super.frame = frame;
+    [super setFrame: frame];
     if (!self.inLiveResize)
         [delegate contentDidResize: frame];
 }
@@ -1060,7 +1060,7 @@ NSInteger colorToInteger(NSColor *color)
                 x1 = req->a4;
                 y1 = req->a5;
                 rect = NSMakeRect(x0, y0, x1 - x0, y1 - y0);
-                gwindows[req->a1].frame = rect;
+                [gwindows[req->a1] setFrame: rect];
                 windowdirty = YES;
             }
             else

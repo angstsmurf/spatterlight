@@ -217,7 +217,7 @@
 {
     NSInteger r;
     
-    super.frame = frame;
+    [super setFrame: frame];
     
     NSInteger newcols = floor (frame.size.width / [Preferences charWidth]);
     NSInteger newrows = frame.size.height / [Preferences lineHeight];
@@ -286,7 +286,7 @@
     rows = cols = 0;
     xpos = ypos = 0;
     
-    self.frame = self.frame;
+    [self setFrame: self.frame];
 }
 
 - (void) putString: (NSString*)string style: (NSInteger)stylevalue

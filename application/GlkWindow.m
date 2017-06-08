@@ -63,7 +63,7 @@
     NSInteger rgt = 0;
     NSInteger bot = 0;
     
-    super.frame = thisframe;
+    [super setFrame: thisframe];
     
     /* set autoresizing for live resize. */
     /* the client should rearrange after it's finished. */

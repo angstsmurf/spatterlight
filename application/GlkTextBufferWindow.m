@@ -521,7 +521,7 @@
 {
     if (NSEqualRects(frame, self.frame))
         return;
-    super.frame = frame;
+    [super setFrame: frame];
     [container invalidateLayout];
 }
 

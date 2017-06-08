@@ -88,7 +88,7 @@
     if (NSEqualRects(frame, self.frame))
         return;
     
-    super.frame = frame;
+    [super setFrame: frame];
     
     self.autoresizingMask = NSViewNotSizable;
     
