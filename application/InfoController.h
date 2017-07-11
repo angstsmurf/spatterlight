@@ -4,7 +4,9 @@
  * Eventually, this might become the metadata editor.
  */
 
-void showInfoForFile(NSString *path, NSDictionary *info);
+#import <CoreData/CoreData.h>
+
+#import "Metadata+CoreDataProperties.h"
 
 @class LibController;
 
@@ -17,12 +19,11 @@ void showInfoForFile(NSString *path, NSDictionary *info);
     IBOutlet NSTextView *descriptionText;
     IBOutlet NSImageView *imageView;
     
-    NSString *path;
-    NSDictionary *meta;
     NSString *ifid;
 }
 
-- (void) showForFile: (NSString*)path info: (NSDictionary*)meta;
+@property (nonatomic, weak) Game *game;
+
 - (IBAction) saveImage: sender;
 
 @end

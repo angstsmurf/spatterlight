@@ -11,48 +11,6 @@
 
 @implementation InfoController
 
-void showInfoForFile(NSString *path, NSDictionary *info)
-{
-    NSArray *windows = NSApp.windows;
-    NSWindow *window;
-    NSWindowController *winctl;
-    InfoController *infoctl;
-    LibController *libctl;
-    NSInteger count;
-    NSInteger i;
-    
-    count = windows.count;
-    for (i = 0; i < count; i++)
-    {
-        window = (NSWindow*) windows[i];
-        winctl = (NSWindowController*) [window delegate];
-        if (winctl && [winctl isKindOfClass: [InfoController class]])
-        {
-            infoctl = (InfoController*) winctl;
-            if ([infoctl->path isEqualToString: path])
-            {
-                [infoctl showWindow: nil];
-                return;
-            }
-        }
-        else if (winctl && [winctl isKindOfClass: [LibController class]])
-        {
-            libctl = (LibController *) winctl;
-        }
-    }
-
-    if (libctl)
-    {
-        infoctl = [libctl createInfoController];
-        //infoctl = [[InfoController alloc] initWithWindowNibName: @"InfoPanel"];
-        if (infoctl)
-        {
-            [infoctl showForFile: path info: info];
-            [infoctl showWindow: nil];
-        }
-    }
-}
-
 - (void) sizeToFitImageAnimate: (BOOL)animate
 {
     NSRect frame;
@@ -122,19 +80,22 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     
     NSLog(@"infoctl: windowDidLoad");
     
+    NSString *path = [_game urlForBookmark].path;
     self.window.representedFilename = path;
-    self.window.title = [NSString stringWithFormat: @"%@ Info", path.lastPathComponent];
+
+    Metadata *meta = _game.metadata;
+    self.window.title = [NSString stringWithFormat: @"%@ Info", meta.title];
     
     [descriptionText setDrawsBackground: NO];
     [(NSScrollView *)descriptionText.superview setDrawsBackground:NO];
     
-    titleField.stringValue = meta[@"title"];
-    if (meta[@"author"])
-        authorField.stringValue = meta[@"author"];
-    if (meta[@"headline"])
-        headlineField.stringValue = meta[@"headline"];
-    if (meta[@"description"])
-        descriptionText.string = meta[@"description"];
+    titleField.stringValue = meta.title;
+    if (meta.author)
+        authorField.stringValue = meta.author;
+    if (meta.headline)
+        headlineField.stringValue = meta.headline;
+    if (meta.blurb)
+        descriptionText.string = meta.blurb;
     
     format = babel_init((char*)path.UTF8String);
     if (format)
@@ -169,8 +130,12 @@ void showInfoForFile(NSString *path, NSDictionary *info)
                 imgdata = [[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES];
                 img = [[NSImage alloc] initWithData: imgdata];
             }
+            else if (meta.cover)
+            {
+                img = [[NSImage alloc] initWithData: (NSData *)meta.cover.data];
+            }
         }
-        
+
         if (img)
         {
             imageView.image = img;
@@ -199,12 +164,6 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     [imgdata writeToURL: imgURL atomically: YES];
     
     [self sizeToFitImageAnimate: YES];
-}
-
-- (void) showForFile: (NSString*)path_ info: (NSDictionary*)meta_
-{
-    path = path_;
-    meta = meta_;
 }
 
 - (void) showWindow: sender

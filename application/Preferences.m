@@ -12,6 +12,8 @@
  * Preference variables, all unpacked
  */
 
+static Settings *currentSettings;
+
 static int defscreenw = 80;
 static int defscreenh = 24;
 static float cellw = 5;
@@ -113,13 +115,15 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *name;
     float size;
-    
+
     defscreenw = [[defaults objectForKey: @"DefaultWidth"] intValue];
     defscreenh = [[defaults objectForKey: @"DefaultHeight"] intValue];
     
     smartquotes = [[defaults objectForKey: @"SmartQuotes"] intValue];
     spaceformat = [[defaults objectForKey: @"SpaceFormat"] intValue];
-    
+    NSLog(@"readDefaults: space format changed to %d. Current game is %@" ,spaceformat, [currentSettings.games anyObject].metadata.title);
+
+
     dographics = [[defaults objectForKey: @"EnableGraphics"] intValue];
     dosound = [[defaults objectForKey: @"EnableSound"] intValue];
     dostyles = [[defaults objectForKey: @"EnableStyles"] intValue];
@@ -170,6 +174,9 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     
     [self initFactoryDefaults];
     [self readDefaults];
+
+    if (currentSettings)
+        [self changePreferences:currentSettings];
     
     for (i = 0; i < style_NUMSTYLES; i++)
     {
@@ -286,7 +293,9 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 
 + (NSSize) defaultWindowSize
 {
-    return NSMakeSize(ceil([self charWidth] * defscreenw + gridmargin * 2.0),
+    if (currentSettings.width && currentSettings.height)
+        return NSMakeSize(currentSettings.width, currentSettings.height);
+    else  return NSMakeSize (ceil([self charWidth] * defscreenw + gridmargin * 2.0),
                       ceil([self lineHeight] * defscreenh + gridmargin * 2.0));
 }
 
@@ -332,6 +341,11 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     if (style < 0 || style >= style_NUMSTYLES)
         return nil;
     return bufferatts[style];
+}
+
++ (Settings *) currentSettings
+{
+    return currentSettings;
 }
 
 + (void) rebuildTextAttributes
@@ -442,8 +456,9 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     cellw = [font advancementForGlyph:(NSGlyph) 'X'].width;
 
     
-    NSTextView *textview = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 1000000)];
-    cellh = [textview.layoutManager defaultLineHeightForFont:font] + leading;
+    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+    cellh = [layoutManager defaultLineHeightForFont:font] + leading;
+    layoutManager = nil;
     //cellh = [font ascender] + [font descender] + [font leading] + leading;
     
     /* send notification that prefs have changed -- trigger configure events */
@@ -452,6 +467,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     
     
 }
+
 
 /* ---------------------------------------------------------------------- */
 
@@ -472,73 +488,225 @@ NSString* fontToString(NSFont *font)
     [super windowDidLoad];
     
     self.windowFrameAutosaveName = @"PrefsWindow";
-    
+
+    if (currentSettings)
+    {
+        NSLog(@"windowDidLoad:Change current settings to those of %@", [currentSettings.games anyObject].metadata.title);
+        [Preferences changePreferences:currentSettings];
+        [Preferences rebuildTextAttributes];
+    }
+    else [self updatePreferencePanel];
+
+
+//    btnUseScreenFonts.state = usescreenfonts;
+}
+
+- (void) updatePreferencePanel
+{
     clrGridFg.color = gridfg;
     clrGridBg.color = gridbg;
     clrBufferFg.color = bufferfg;
     clrBufferBg.color = bufferbg;
     clrInputFg.color = inputfg;
-    
+
     txtGridMargin.floatValue = gridmargin;
     txtBufferMargin.floatValue = buffermargin;
     txtLeading.floatValue = leading;
-    
-    txtCols.intValue = defscreenw;
-    txtRows.intValue = defscreenh;
-    
+
+    txtCols.floatValue = defscreenw;
+    txtRows.floatValue = defscreenh;
+
     btnGridFont.title = fontToString(gridroman);
     btnBufferFont.title = fontToString(bufroman);
     btnInputFont.title = fontToString(inputfont);
-    
+
     btnSmartQuotes.state = smartquotes;
     btnSpaceFormat.state = spaceformat;
-    
+
     btnEnableGraphics.state = dographics;
     btnEnableSound.state = dosound;
     btnEnableStyles.state = dostyles;
-    btnUseScreenFonts.state = usescreenfonts;
 }
 
-- (IBAction) changeDefaultSize: (id)sender
++ (void) changePreferences: (Settings *)settings
 {
-    if (sender == txtCols)
+    NSLog(@"changePreferences for %@." , [settings.games anyObject].metadata.title);
+
+    if (settings != currentSettings)
     {
-        defscreenw = [sender intValue];
-        if (defscreenw < 5 || defscreenw > 200)
-            defscreenw = 60;
+        if (currentSettings)
+            [Preferences savePreferences];
+        currentSettings = settings;
+    }
+    if (settings.gridFont.color)
+        gridfg = dataToColor((NSData *)settings.gridFont.color);
+    if (settings.gridFont.bgcolor)
+        gridbg = dataToColor((NSData *)settings.gridFont.bgcolor);
+    if (settings.bufferFont.color)
+        bufferfg = dataToColor((NSData *)settings.bufferFont.color);
+
+    if (settings.bufferFont.bgcolor)
+        bufferbg = dataToColor((NSData *)settings.bufferFont.bgcolor);
+    if (settings.bufInput.color)
+        inputfg = dataToColor((NSData *)settings.bufInput.color);
+
+    if (settings.tmargin != -1)
+    {
+        //gridmargin = settings.tmargin;
+        buffermargin = settings.tmargin;
+        NSLog(@"changePreferences: Changed current text margins to %f", settings.tmargin);
+
+    }
+
+//    if (settings.bufferFont.leading)
+        leading = settings.bufferFont.leading;
+
+    if (settings.width)
+        defscreenw = settings.width;
+    if (settings.height)
+        defscreenh = settings.height;
+
+    if (settings.bufferFont.name && settings.bufferFont.size)
+    {
+        bufroman = [NSFont fontWithName:settings.bufferFont.name size:settings.bufferFont.size];
+        NSLog(@"changePreferences: Changed current buffer font to %f pt %@", currentSettings.bufferFont.size, currentSettings.bufferFont.name);
+    }
+    if (settings.gridFont.name && settings.gridFont.size)
+        gridroman = [NSFont fontWithName:settings.gridFont.name size:settings.gridFont.size];
+    if (settings.bufInput.name  && settings.bufInput.size)
+        inputfont = [NSFont fontWithName:settings.bufInput.name size:settings.bufInput.size];
+
+
+    if (settings.smartquotes != -1)
+        smartquotes = settings.smartquotes;
+    if (settings.spaceformat != -1)
+    {
+        spaceformat = settings.spaceformat;
+    }
+    if (settings.dographics != -1)
+        dographics = settings.dographics;
+    if (settings.dosound != -1)
+        dosound = settings.dosound;
+    if (settings.dostyles != -1)
+        dostyles = settings.dostyles;
+
+    [Preferences rebuildTextAttributes];
+    [(AppDelegate *)[[NSApplication sharedApplication] delegate] updatePreferencePanel];
+    [Preferences savePreferences];
+}
+
++ (void) savePreferences
+{
+    if (!currentSettings)
+        return;
+
+    NSLog(@"savePreferences for %@." , [currentSettings.games anyObject].metadata.title);
+
+    currentSettings.gridFont.color = colorToData(gridfg);
+    currentSettings.gridFont.bgcolor = colorToData(gridbg);
+    currentSettings.bufferFont.color = colorToData(bufferfg);
+    currentSettings.bufferFont.bgcolor = colorToData(bufferbg);
+    currentSettings.bufInput.color = colorToData(inputfg);
+
+    currentSettings.tmargin = buffermargin;
+
+    currentSettings.bufferFont.leading = leading;
+    currentSettings.width = defscreenw;
+    currentSettings.height = defscreenh;
+
+    currentSettings.bufferFont.name = bufroman.fontName;
+    currentSettings.bufferFont.size = bufroman.pointSize;
+
+    currentSettings.gridFont.name = gridroman.fontName;
+    currentSettings.gridFont.size = gridroman.pointSize;
+
+    currentSettings.bufInput.name = inputfont.fontName;
+    currentSettings.bufInput.size = inputfont.pointSize;
+
+    currentSettings.smartquotes = smartquotes;
+    currentSettings.spaceformat = spaceformat;
+    currentSettings.dographics = dographics;
+    currentSettings.dosound = dosound;
+    currentSettings.dostyles = dostyles;
+
+    NSError *error = nil;
+    if (![((AppDelegate*)[[NSApplication sharedApplication] delegate]).persistentContainer.viewContext save:&error]) {
+        NSLog(@"There's a problem: %@", error);
+    }
+
+}
+
++ (void) nilCurrentSettings
+{
+    currentSettings = nil;
+    [Preferences readDefaults];
+}
+
+
++ (void) changeDefaultSize: (NSSize)size forSettings: (Settings *)setting
+{
+    if (currentSettings != setting)
+    {
+        [Preferences changePreferences:setting];
+    }
+    currentSettings.width = size.width;
+    currentSettings.height = size.height;
+
+    defscreenw = size.width;
+    defscreenh = size.height;
+
+
+//    if (sender == txtCols)
+//    {
+//        defscreenw = [sender intValue];
+//        if (defscreenw < 5 || defscreenw > 200)
+//            defscreenw = 60;
         [[NSUserDefaults standardUserDefaults]
          setObject: @(defscreenw)
          forKey: @"DefaultWidth"];
-    }
-    if (sender == txtRows)
-    {
-        defscreenh = [sender intValue];
-        if (defscreenh < 5 || defscreenh > 200)
-            defscreenh = 24;
+//    }
+//    if (sender == txtRows)
+//    {
+//        defscreenh = [sender intValue];
+//        if (defscreenh < 5 || defscreenh > 200)
+//            defscreenh = 24;
         [[NSUserDefaults standardUserDefaults]
          setObject: @(defscreenh)
          forKey: @"DefaultHeight"];
-    }
+//    }
 }
 
 - (IBAction) changeColor: (id)sender
 {
     NSString *key = nil;
+    NSData *col = colorToData([sender color]);
+
     colorp = nil;
     
-    if (sender == clrGridFg) { key = @"GridForeground"; colorp = &gridfg; }
-    if (sender == clrGridBg) { key = @"GridBackground"; colorp = &gridbg; }
-    if (sender == clrBufferFg) { key = @"BufferForeground"; colorp = &bufferfg; }
-    if (sender == clrBufferBg) { key = @"BufferBackground"; colorp = &bufferbg; }
-    if (sender == clrInputFg) { key = @"InputColor"; colorp = &inputfg; }
-    
+    if (sender == clrGridFg)
+    {   currentSettings.gridFont.color = col; key = @"GridForeground"; colorp = &gridfg; }
+    if (sender == clrGridBg)
+    { currentSettings.gridFont.bgcolor = col; key = @"GridBackground"; colorp = &gridbg; }
+
+    if (sender == clrBufferFg)
+    { currentSettings.bufferFont.color = col; key = @"BufferForeground"; colorp = &bufferfg; }
+
+    if (sender == clrBufferBg)
+    {    currentSettings.bufferFont.bgcolor = col; key = @"BufferBackground"; colorp = &bufferbg; }
+
+    if (sender == clrInputFg)
+    {  currentSettings.bufInput.color = col; key = @"InputColor"; colorp = &inputfg; }
+
+    //[Preferences rebuildTextAttributes];
+
+
     if (colorp)
     {
-         *colorp = nil;
+        *colorp = nil;
         *colorp = [sender color];
-        
+//        
         [[NSUserDefaults standardUserDefaults] setObject: colorToData(*colorp) forKey: key];
-        
+//        
         [Preferences rebuildTextAttributes];
     }
 }
@@ -549,7 +717,11 @@ NSString* fontToString(NSFont *font)
     float val = 0.0;
     
     val = [sender floatValue];
-    
+
+    currentSettings.tmargin = val;
+//    [Preferences rebuildTextAttributes];
+
+
     if (sender == txtGridMargin) { key = @"GridMargin"; gridmargin = val; }
     if (sender == txtBufferMargin) { key = @"BufferMargin"; buffermargin = val; }
     
@@ -563,6 +735,9 @@ NSString* fontToString(NSFont *font)
 - (IBAction) changeLeading: (id)sender
 {
     leading = [sender floatValue];
+
+    currentSettings.bufferFont.leading = leading;
+
     [[NSUserDefaults standardUserDefaults] setObject: @(leading) forKey: @"Leading"];
     [Preferences rebuildTextAttributes];
 }
@@ -570,23 +745,34 @@ NSString* fontToString(NSFont *font)
 - (IBAction) showFontPanel: (id)sender
 {
     selfontp = nil;
+    colorp = nil;
     
-    if (sender == btnGridFont) selfontp = &gridroman;
-    if (sender == btnBufferFont) selfontp = &bufroman;
-    if (sender == btnInputFont) selfontp = &inputfont;
+    if (sender == btnGridFont) { selfontp = &gridroman; colorp = &gridfg; }
+    if (sender == btnBufferFont) { selfontp = &bufroman;  colorp = &bufferfg; }
+    if (sender == btnInputFont) { selfontp = &inputfont;  colorp = &inputfg; }
     
     if (selfontp)
     {
         [self.window makeFirstResponder: self.window];
+
+        //NSDictionary *attr = [NSDictionary dictionaryWithObject:bufferfg forKey:@"NSForegroundColorAttributeName"];
+        NSDictionary *attr = [NSDictionary dictionaryWithObject:*colorp forKey:@"NSColor"];
+
+
+        [NSFontManager sharedFontManager].target = self;
         [[NSFontManager sharedFontManager] setSelectedFont: *selfontp isMultiple:NO];
         [[NSFontManager sharedFontManager] orderFrontFontPanel: self];
+        [[NSFontManager sharedFontManager] setSelectedAttributes:attr isMultiple: NO];
+
     }
 }
 
 - (IBAction) changeFont: (id)fontManager
 {
+    NSLog(@"changeFont");
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
+
     *selfontp = [fontManager convertFont: *selfontp];
     
     if (selfontp == &gridroman)
@@ -594,23 +780,57 @@ NSString* fontToString(NSFont *font)
         [defaults setObject: gridroman.fontName forKey: @"GridFontName"];
         [defaults setObject: @(gridroman.pointSize) forKey: @"GridFontSize"];
         btnGridFont.title = fontToString(gridroman);
+
+        currentSettings.gridFont.name = gridroman.fontName;
+        currentSettings.gridFont.size = gridroman.pointSize;
+       // currentSettings.bufferFont.color = gridroman.fo
+
     }
-    
+
     if (selfontp == &bufroman)
     {
+        currentSettings.bufferFont.name = bufroman.fontName;
+        currentSettings.bufferFont.size = bufroman.pointSize;
+
+        NSLog(@"changeFont: Changed current buffer font to %f pt %@", currentSettings.bufferFont.size, currentSettings.bufferFont.name);
+
+
         [defaults setObject: bufroman.fontName forKey: @"BufferFontName"];
         [defaults setObject: @(bufroman.pointSize) forKey: @"BufferFontSize"];
+
         btnBufferFont.title = fontToString(bufroman);
     }
     
     if (selfontp == &inputfont)
     {
+        currentSettings.bufInput.name = inputfont.fontName;
+        currentSettings.bufInput.size = inputfont.pointSize;
+
         [defaults setObject: inputfont.fontName forKey: @"InputFontName"];
         [defaults setObject: @(inputfont.pointSize) forKey: @"InputFontSize"];
         btnInputFont.title = fontToString(inputfont);
     }
     
     [Preferences rebuildTextAttributes];
+}
+
+- (void)changeAttributes:(id)sender
+{
+    NSLog(@"changeAttributes:%@", sender);
+    NSDictionary * newAttributes = [sender convertAttributes:@{}];
+    if (newAttributes[@"NSColor"]) {
+        NSColorWell *colorWell = nil;
+        NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
+        if (currentFont == gridroman)
+            colorWell = clrGridFg;
+        else if (currentFont == bufroman)
+            colorWell = clrBufferFg;
+        else if (currentFont == inputfont)
+            colorWell = clrInputFg;
+        colorWell.color=newAttributes[@"NSColor"];
+        [self changeColor:colorWell];
+    }
+
 }
 
 - (IBAction) changeSmartQuotes: (id)sender
@@ -620,15 +840,25 @@ NSString* fontToString(NSFont *font)
     [[NSUserDefaults standardUserDefaults]
      setObject: @(smartquotes)
      forKey: @"SmartQuotes"];
+     currentSettings.smartquotes = smartquotes;
+//   [[NSNotificationCenter defaultCenter]
+//     postNotificationName: @"PreferencesChanged" object: nil];
 }
 
 - (IBAction) changeSpaceFormatting: (id)sender
 {
     spaceformat = [sender state];
-    NSLog(@"pref: space format changed to %d", spaceformat);
+
+
     [[NSUserDefaults standardUserDefaults]
      setObject: @(spaceformat)
      forKey: @"SpaceFormat"];
+    currentSettings.spaceformat = spaceformat;
+
+    NSLog(@"pref: IBAction: space format changed to %d. Current game is %@" ,currentSettings.spaceformat, [currentSettings.games anyObject].metadata.title);
+//    [[NSNotificationCenter defaultCenter]
+//     postNotificationName: @"PreferencesChanged" object: nil];
+
 }
 
 - (IBAction) changeEnableGraphics: (id)sender
@@ -638,7 +868,8 @@ NSString* fontToString(NSFont *font)
     [[NSUserDefaults standardUserDefaults]
      setObject: @(dographics)
      forKey: @"EnableGraphics"];
-    
+    currentSettings.dographics = dographics;
+
     /* send notification that prefs have changed -- tell clients that graphics are off limits */
     [[NSNotificationCenter defaultCenter]
      postNotificationName: @"PreferencesChanged" object: nil];
@@ -651,7 +882,9 @@ NSString* fontToString(NSFont *font)
     [[NSUserDefaults standardUserDefaults]
      setObject: @(dosound)
      forKey: @"EnableSound"];
-    
+    currentSettings.dosound = dosound;
+
+
     /* send notification that prefs have changed -- tell clients that sound is off limits */
     [[NSNotificationCenter defaultCenter]
      postNotificationName: @"PreferencesChanged" object: nil];    
@@ -660,21 +893,22 @@ NSString* fontToString(NSFont *font)
 - (IBAction) changeEnableStyles: (id)sender
 {
     dostyles = [sender state];
-    NSLog(@"pref: dostyles changed to %d", dostyles);
+        NSLog(@"pref: dostyles changed to %d", dostyles);
     [[NSUserDefaults standardUserDefaults]
      setObject: @(dostyles)
      forKey: @"EnableStyles"];
+    currentSettings.dostyles = dostyles;
     [Preferences rebuildTextAttributes];
 }
 
-- (IBAction) changeUseScreenFonts: (id)sender
-{
-    usescreenfonts = [sender state];
-    NSLog(@"pref: usescreenfonts changed to %d", usescreenfonts);
-    [[NSUserDefaults standardUserDefaults]
-     setObject: @(usescreenfonts)
-     forKey: @"ScreenFonts"];
-    [Preferences rebuildTextAttributes];
-}
+//- (IBAction) changeUseScreenFonts: (id)sender
+//{
+//    usescreenfonts = [sender state];
+//    NSLog(@"pref: usescreenfonts changed to %d", usescreenfonts);
+//    [[NSUserDefaults standardUserDefaults]
+//     setObject: @(usescreenfonts)
+//     forKey: @"ScreenFonts"];
+//    [Preferences rebuildTextAttributes];
+//}
 
 @end

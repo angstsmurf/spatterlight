@@ -135,6 +135,7 @@ char *assemble_filename(const char *path, const char *root,
   return name;
 }
 
+#if 0
 /* This works for binary files; we don't care about non-binary
    files since this only used to search for game files. */
 static rbool file_exist(const char *fname)
@@ -145,7 +146,7 @@ static rbool file_exist(const char *fname)
   fclose(f);
   return 1;
 }
-
+#endif
 
 
 /* This checks to see if c matches any of the characters in matchset */

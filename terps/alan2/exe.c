@@ -121,7 +121,7 @@ void sys(fpos, len)
 
   getstr(fpos, len);            /* Returns address to string on stack */
   command = (char *)pop();
-  int tmp = system(command);
+  system(command);
   free(command);
 }
 
@@ -213,7 +213,7 @@ void quit()
 #endif
 {
   char buf[80];
-  char choices[10];
+/*char choices[10];*/
 
   para();
   while (TRUE) {

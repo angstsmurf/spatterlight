@@ -1,0 +1,45 @@
+<!-- Core Data 1.0 definition for XML store content -->
+<!ELEMENT database (databaseInfo, object*)>
+
+<!ELEMENT databaseInfo (version, UUID, nextObjectID, metadata?)>
+
+<!ELEMENT version (#PCDATA)>
+<!ELEMENT UUID (#PCDATA)>
+<!ELEMENT nextObjectID (#PCDATA)>
+
+<!ELEMENT metadata (plist?)>
+
+<!ELEMENT object (attribute*, relationship*)>
+<!ATTLIST object id ID #REQUIRED>
+<!ATTLIST object type CDATA #REQUIRED>
+
+<!ELEMENT attribute (#PCDATA)>
+<!ATTLIST attribute name CDATA #REQUIRED>
+<!ATTLIST attribute type CDATA #REQUIRED>
+
+<!ELEMENT relationship EMPTY>
+<!ATTLIST relationship name CDATA #REQUIRED>
+<!ATTLIST relationship destination CDATA #REQUIRED>
+<!ATTLIST relationship type CDATA #REQUIRED>
+<!ATTLIST relationship idrefs IDREFS #IMPLIED>
+
+<!-- plist 1.0 definition for metadata -->
+<!ENTITY % plistObject "(array | data | date | dict | real | integer | string | true | false )" >
+<!ELEMENT plist %plistObject;>
+<!ATTLIST plist version CDATA "1.0" >
+
+<!-- Collections -->
+<!ELEMENT array (%plistObject;)*>
+<!ELEMENT dict (key, %plistObject;)*>
+<!ELEMENT key (#PCDATA)>
+
+<!--- Primitive types -->
+<!ELEMENT string (#PCDATA)>
+<!ELEMENT data (#PCDATA)> <!-- Contents interpreted as Base-64 encoded -->
+<!ELEMENT date (#PCDATA)> <!-- Contents should conform to a subset of ISO 8601 (in particular, YYYY '-' MM '-' DD 'T' HH ':' MM ':' SS 'Z'.  Smaller units may be omitted with a loss of precision) -->
+
+<!-- Numerical primitives -->
+<!ELEMENT true EMPTY>  <!-- Boolean constant true -->
+<!ELEMENT false EMPTY> <!-- Boolean constant false -->
+<!ELEMENT real (#PCDATA)> <!-- Contents should represent a floating point number matching ("+" | "-")? d+ ("."d*)? ("E" ("+" | "-") d+)? where d is a digit 0-9.  -->
+<!ELEMENT integer (#PCDATA)> <!-- Contents should represent a (possibly signed) integer number in base 10 -->

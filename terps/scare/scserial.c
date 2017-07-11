@@ -39,7 +39,7 @@
 /* Assorted definitions and constants. */
 static const sc_char NEWLINE = '\n';
 static const sc_char CARRIAGE_RETURN = '\r';
-static const sc_char NUL = '\0';
+/*static const sc_char NUL = '\0';*/
 
 enum { BUFFER_SIZE = 4096 };
 

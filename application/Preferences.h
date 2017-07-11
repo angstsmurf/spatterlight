@@ -6,6 +6,10 @@
 #define TAG_SPACES_ONE 1
 #define TAG_SPACES_TWO 2
 
+#import "Settings+CoreDataProperties.h"
+#import "Font+CoreDataProperties.h"
+
+
 @interface Preferences : NSWindowController
 {
     IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
@@ -24,8 +28,15 @@
 }
 
 + (void) rebuildTextAttributes;
-
 + (NSSize) defaultWindowSize;
+
++ (void) changePreferences: (Settings *)settings;
++ (void) savePreferences;
++ (void) nilCurrentSettings;
+- (void) updatePreferencePanel;
+
+
++ (void) changeDefaultSize: (NSSize)size forSettings: (Settings *)setting;
 
 - (IBAction) changeColor: (id)sender;
 - (IBAction) showFontPanel: (id)sender;
@@ -34,11 +45,15 @@
 - (IBAction) changeLeading: (id)sender;
 - (IBAction) changeSmartQuotes: (id)sender;
 - (IBAction) changeSpaceFormatting: (id)sender;
-- (IBAction) changeDefaultSize: (id)sender;
 - (IBAction) changeEnableGraphics: (id)sender;
 - (IBAction) changeEnableSound: (id)sender;
 - (IBAction) changeEnableStyles: (id)sender;
-- (IBAction) changeUseScreenFonts: (id)sender;
+
+- (void) setColor:(NSColor *)col forAttribute:(NSString *)attr;
+- (void)changeAttributes:(id)sender;
+
+
+//- (IBAction) changeUseScreenFonts: (id)sender;
 
 + (NSColor*) gridBackground;
 + (NSColor*) gridForeground;
@@ -66,5 +81,7 @@
 
 + (NSDictionary*) attributesForGridStyle: (int)style;
 + (NSDictionary*) attributesForBufferStyle: (int)style;
+
++ (Settings *) currentSettings;
 
 @end

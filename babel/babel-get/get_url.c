@@ -20,7 +20,8 @@ char *get_url(char *ifid, char *from)
 {
  char cmdbuf[1024];
 
- sprintf(cmdbuf, "curl --silent --fail %s/metadata/%s",from,ifid);
+printf("curl --silent --fail %s%s\n",from,ifid);
+ sprintf(cmdbuf, "curl --silent --fail %s%s",from,ifid);
 
  system(cmdbuf);
  return ifid;

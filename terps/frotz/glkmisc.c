@@ -554,7 +554,7 @@ strid_t frotzreopen(int flag)
 		return NULL;
 
 	strid_t stm;
-	glui32 gusage = flag2usage(flag);
+	/*glui32 gusage = flag2usage(flag);*/
 	glui32 gmode = flag2mode(flag);
 
 	stm = glk_stream_open_file(fref, gmode, 0);

@@ -13,8 +13,13 @@
 
 #import "main.h"
 
+#import "Game+CoreDataProperties.h"
+#import "Metadata+CoreDataProperties.h"
+
 #define MAXWIN 64
 #define MAXSND 32
+
+
 
 @interface GlkHelperView : NSView
 {
@@ -54,18 +59,17 @@
     NSInteger styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
     
     /* keep some info around for the about-box */
-    NSString *gamefile;
-    NSString *gameifid;
-    NSDictionary *gameinfo;
+//    NSString *gamefile;
+//    NSString *gameifid;
+//    NSDictionary *gameinfo;
 }
 
-- (void) runTerp: (NSString*)terpname
-    withGameFile: (NSString*)gamefilename
-            IFID: (NSString*)gameifid
-            info: (NSDictionary*)gameinfo;
+- (void) runTerp: (NSString*)terpname withGame: (Game *)game;
 - (void) queueEvent: (GlkEvent*)gevent;
 - (void) contentDidResize: (NSRect)frame;
 @property (getter=isAlive, readonly) BOOL alive;
+@property (strong, readonly) Game *game;
+
 - (void) markLastSeen;
 - (void) performScroll;
 - (id) windowWithNum: (int)index;

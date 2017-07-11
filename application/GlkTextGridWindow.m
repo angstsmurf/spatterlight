@@ -182,7 +182,7 @@
     
     [textLayout addTextContainer: textContainer];
     [textStorage addLayoutManager: textLayout];
-    textLayout.usesScreenFonts = [Preferences useScreenFonts];
+//    textLayout.usesScreenFonts = [Preferences useScreenFonts];
     
     /* draw from bottom up because solid backgrounds overdraw descenders... */
     for (y = lines.count - 1; y >= 0; y--)

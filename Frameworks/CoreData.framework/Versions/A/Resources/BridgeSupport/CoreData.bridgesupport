@@ -1,0 +1,571 @@
+<?xml version='1.0'?>
+<!DOCTYPE signatures SYSTEM "file://localhost/System/Library/DTDs/BridgeSupport.dtd">
+<signatures version='1.0'>
+<depends_on path='/System/Library/Frameworks/Security.framework'/>
+<depends_on path='/System/Library/Frameworks/Foundation.framework'/>
+<depends_on path='/System/Library/Frameworks/CoreFoundation.framework'/>
+<constant name='NSAddedPersistentStoresKey' type='@'/>
+<constant name='NSAffectedObjectsErrorKey' type='@'/>
+<constant name='NSAffectedStoresErrorKey' type='@'/>
+<constant name='NSBinaryExternalRecordType' type='@'/>
+<constant name='NSBinaryStoreType' type='@'/>
+<constant name='NSCoreDataVersionNumber' type='d'/>
+<constant name='NSDeletedObjectsKey' type='@'/>
+<constant name='NSDetailedErrorsKey' type='@'/>
+<constant name='NSEntityNameInPathKey' type='@'/>
+<constant name='NSErrorMergePolicy' type='@'/>
+<constant name='NSExternalRecordExtensionOption' type='@'/>
+<constant name='NSExternalRecordsDirectoryOption' type='@'/>
+<constant name='NSExternalRecordsFileFormatOption' type='@'/>
+<constant name='NSIgnorePersistentStoreVersioningOption' type='@'/>
+<constant name='NSInMemoryStoreType' type='@'/>
+<constant name='NSInferMappingModelAutomaticallyOption' type='@'/>
+<constant name='NSInsertedObjectsKey' type='@'/>
+<constant name='NSInvalidatedAllObjectsKey' type='@'/>
+<constant name='NSInvalidatedObjectsKey' type='@'/>
+<constant name='NSManagedObjectContextDidSaveNotification' type='@'/>
+<constant name='NSManagedObjectContextObjectsDidChangeNotification' type='@'/>
+<constant name='NSManagedObjectContextQueryGenerationKey' type='@'/>
+<constant name='NSManagedObjectContextWillSaveNotification' type='@'/>
+<constant name='NSMergeByPropertyObjectTrumpMergePolicy' type='@'/>
+<constant name='NSMergeByPropertyStoreTrumpMergePolicy' type='@'/>
+<constant name='NSMigratePersistentStoresAutomaticallyOption' type='@'/>
+<constant name='NSMigrationDestinationObjectKey' type='@'/>
+<constant name='NSMigrationEntityMappingKey' type='@'/>
+<constant name='NSMigrationEntityPolicyKey' type='@'/>
+<constant name='NSMigrationManagerKey' type='@'/>
+<constant name='NSMigrationPropertyMappingKey' type='@'/>
+<constant name='NSMigrationSourceObjectKey' type='@'/>
+<constant name='NSModelPathKey' type='@'/>
+<constant name='NSObjectURIKey' type='@'/>
+<constant name='NSOverwriteMergePolicy' type='@'/>
+<constant name='NSPersistentStoreConnectionPoolMaxSizeKey' type='@'/>
+<constant name='NSPersistentStoreCoordinatorStoresDidChangeNotification' type='@'/>
+<constant name='NSPersistentStoreCoordinatorStoresWillChangeNotification' type='@'/>
+<constant name='NSPersistentStoreCoordinatorWillRemoveStoreNotification' type='@'/>
+<constant name='NSPersistentStoreDidImportUbiquitousContentChangesNotification' type='@'/>
+<constant name='NSPersistentStoreForceDestroyOption' type='@'/>
+<constant name='NSPersistentStoreOSCompatibility' type='@'/>
+<constant name='NSPersistentStoreRebuildFromUbiquitousContentOption' type='@'/>
+<constant name='NSPersistentStoreRemoveUbiquitousMetadataOption' type='@'/>
+<constant name='NSPersistentStoreSaveConflictsErrorKey' type='@'/>
+<constant name='NSPersistentStoreTimeoutOption' type='@'/>
+<constant name='NSPersistentStoreUbiquitousContainerIdentifierKey' type='@'/>
+<constant name='NSPersistentStoreUbiquitousContentNameKey' type='@'/>
+<constant name='NSPersistentStoreUbiquitousContentURLKey' type='@'/>
+<constant name='NSPersistentStoreUbiquitousPeerTokenOption' type='@'/>
+<constant name='NSPersistentStoreUbiquitousTransitionTypeKey' type='@'/>
+<constant name='NSReadOnlyPersistentStoreOption' type='@'/>
+<constant name='NSRefreshedObjectsKey' type='@'/>
+<constant name='NSRemovedPersistentStoresKey' type='@'/>
+<constant name='NSRollbackMergePolicy' type='@'/>
+<constant name='NSSQLiteAnalyzeOption' type='@'/>
+<constant name='NSSQLiteErrorDomain' type='@'/>
+<constant name='NSSQLiteManualVacuumOption' type='@'/>
+<constant name='NSSQLitePragmasOption' type='@'/>
+<constant name='NSSQLiteStoreType' type='@'/>
+<constant name='NSStoreModelVersionHashesKey' type='@'/>
+<constant name='NSStoreModelVersionIdentifiersKey' type='@'/>
+<constant name='NSStorePathKey' type='@'/>
+<constant name='NSStoreTypeKey' type='@'/>
+<constant name='NSStoreUUIDInPathKey' type='@'/>
+<constant name='NSStoreUUIDKey' type='@'/>
+<constant name='NSUUIDChangedPersistentStoresKey' type='@'/>
+<constant name='NSUpdatedObjectsKey' type='@'/>
+<constant name='NSValidateXMLStoreOption' type='@'/>
+<constant name='NSValidationKeyErrorKey' type='@'/>
+<constant name='NSValidationObjectErrorKey' type='@'/>
+<constant name='NSValidationPredicateErrorKey' type='@'/>
+<constant name='NSValidationValueErrorKey' type='@'/>
+<constant name='NSXMLExternalRecordType' type='@'/>
+<constant name='NSXMLStoreType' type='@'/>
+<enum name='NSAddEntityMappingType' value='2'/>
+<enum name='NSBatchDeleteResultTypeCount' value='2'/>
+<enum name='NSBatchDeleteResultTypeObjectIDs' value='1'/>
+<enum name='NSBatchDeleteResultTypeStatusOnly' value='0'/>
+<enum name='NSBatchUpdateRequestType' value='3'/>
+<enum name='NSBinaryDataAttributeType' value='1000'/>
+<enum name='NSBooleanAttributeType' value='800'/>
+<enum name='NSCascadeDeleteRule' value='2'/>
+<enum name='NSConfinementConcurrencyType' value='0'/>
+<enum name='NSCopyEntityMappingType' value='4'/>
+<enum name='NSCoreDataVersionNumber10_10' value='526.0'/>
+<enum name='NSCoreDataVersionNumber10_10_2' value='526.1'/>
+<enum name='NSCoreDataVersionNumber10_10_3' value='526.2'/>
+<enum name='NSCoreDataVersionNumber10_11' value='640.0'/>
+<enum name='NSCoreDataVersionNumber10_11_3' value='641.3'/>
+<enum name='NSCoreDataVersionNumber10_4' value='46.0'/>
+<enum name='NSCoreDataVersionNumber10_4_3' value='77.0'/>
+<enum name='NSCoreDataVersionNumber10_5' value='185.0'/>
+<enum name='NSCoreDataVersionNumber10_5_3' value='186.0'/>
+<enum name='NSCoreDataVersionNumber10_6' value='246.0'/>
+<enum name='NSCoreDataVersionNumber10_6_2' value='250.0'/>
+<enum name='NSCoreDataVersionNumber10_6_3' value='251.0'/>
+<enum name='NSCoreDataVersionNumber10_7' value='358.4'/>
+<enum name='NSCoreDataVersionNumber10_7_2' value='358.12'/>
+<enum name='NSCoreDataVersionNumber10_7_3' value='358.13'/>
+<enum name='NSCoreDataVersionNumber10_7_4' value='358.14'/>
+<enum name='NSCoreDataVersionNumber10_8' value='407.5'/>
+<enum name='NSCoreDataVersionNumber10_8_2' value='407.7'/>
+<enum name='NSCoreDataVersionNumber10_9' value='481.0'/>
+<enum name='NSCoreDataVersionNumber10_9_2' value='481.1'/>
+<enum name='NSCoreDataVersionNumber10_9_3' value='481.3'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_3_0' value='241.0'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_3_1' value='248.0'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_3_2' value='310.2'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_4_0' value='320.5'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_4_1' value='320.11'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_4_2' value='320.15'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_4_3' value='320.17'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_5_0' value='386.1'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_5_1' value='386.5'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_6_0' value='419.0'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_6_1' value='419.1'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_7_0' value='479.1'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_7_1' value='479.3'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_8_0' value='519.0'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_8_3' value='519.15'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_9_0' value='640.0'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_9_2' value='641.4'/>
+<enum name='NSCoreDataVersionNumber_iPhoneOS_9_3' value='641.6'/>
+<enum name='NSCustomEntityMappingType' value='1'/>
+<enum name='NSDateAttributeType' value='900'/>
+<enum name='NSDecimalAttributeType' value='400'/>
+<enum name='NSDenyDeleteRule' value='3'/>
+<enum name='NSDictionaryResultType' value='2'/>
+<enum name='NSDoubleAttributeType' value='500'/>
+<enum name='NSErrorMergePolicyType' value='0'/>
+<enum name='NSFetchRequestType' value='1'/>
+<enum name='NSFetchedResultsChangeDelete' value='2'/>
+<enum name='NSFetchedResultsChangeInsert' value='1'/>
+<enum name='NSFetchedResultsChangeMove' value='3'/>
+<enum name='NSFetchedResultsChangeUpdate' value='4'/>
+<enum name='NSFloatAttributeType' value='600'/>
+<enum name='NSInteger16AttributeType' value='100'/>
+<enum name='NSInteger32AttributeType' value='200'/>
+<enum name='NSInteger64AttributeType' value='300'/>
+<enum name='NSManagedObjectIDResultType' value='1'/>
+<enum name='NSManagedObjectResultType' value='0'/>
+<enum name='NSMergeByPropertyObjectTrumpMergePolicyType' value='2'/>
+<enum name='NSMergeByPropertyStoreTrumpMergePolicyType' value='1'/>
+<enum name='NSNoActionDeleteRule' value='0'/>
+<enum name='NSNullifyDeleteRule' value='1'/>
+<enum name='NSOverwriteMergePolicyType' value='3'/>
+<enum name='NSPersistentStoreUbiquitousTransitionTypeAccountAdded' value='1'/>
+<enum name='NSPersistentStoreUbiquitousTransitionTypeAccountRemoved' value='2'/>
+<enum name='NSPersistentStoreUbiquitousTransitionTypeContentRemoved' value='3'/>
+<enum name='NSPersistentStoreUbiquitousTransitionTypeInitialImportCompleted' value='4'/>
+<enum name='NSRemoveEntityMappingType' value='3'/>
+<enum name='NSRollbackMergePolicyType' value='4'/>
+<enum name='NSSaveRequestType' value='2'/>
+<enum name='NSSnapshotEventMergePolicy' value='64'/>
+<enum name='NSSnapshotEventRefresh' value='32'/>
+<enum name='NSSnapshotEventRollback' value='16'/>
+<enum name='NSSnapshotEventUndoDeletion' value='4'/>
+<enum name='NSSnapshotEventUndoInsertion' value='2'/>
+<enum name='NSSnapshotEventUndoUpdate' value='8'/>
+<enum name='NSStatusOnlyResultType' value='0'/>
+<enum name='NSStringAttributeType' value='700'/>
+<enum name='NSTransformEntityMappingType' value='5'/>
+<enum name='NSTransformableAttributeType' value='1001'/>
+<enum name='NSUndefinedAttributeType' value='0'/>
+<enum name='NSUndefinedEntityMappingType' value='0'/>
+<enum name='NSUpdatedObjectIDsResultType' value='1'/>
+<enum name='NSUpdatedObjectsCountResultType' value='2'/>
+<class name='NSAtomicStore'>
+<method selector='load:'>
+<arg index='0' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='save:'>
+<arg index='0' type_modifier='o'/>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSAttributeDescription'>
+<method selector='allowsExternalBinaryDataStorage'>
+<retval type='B'/>
+</method>
+<method selector='setAllowsExternalBinaryDataStorage:'>
+<arg index='0' type='B'/>
+</method>
+</class>
+<class name='NSBatchUpdateRequest'>
+<method selector='includesSubentities'>
+<retval type='B'/>
+</method>
+<method selector='setIncludesSubentities:'>
+<arg index='0' type='B'/>
+</method>
+</class>
+<class name='NSEntityDescription'>
+<method selector='isAbstract'>
+<retval type='B'/>
+</method>
+<method selector='isKindOfEntity:'>
+<retval type='B'/>
+</method>
+<method selector='setAbstract:'>
+<arg index='0' type='B'/>
+</method>
+</class>
+<class name='NSEntityMigrationPolicy'>
+<method selector='beginEntityMapping:manager:error:'>
+<arg index='2' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='createDestinationInstancesForSourceInstance:entityMapping:manager:error:'>
+<arg index='3' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='createRelationshipsForDestinationInstance:entityMapping:manager:error:'>
+<arg index='3' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='endEntityMapping:manager:error:'>
+<arg index='2' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='endInstanceCreationForEntityMapping:manager:error:'>
+<arg index='2' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='endRelationshipCreationForEntityMapping:manager:error:'>
+<arg index='2' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='performCustomValidationForEntityMapping:manager:error:'>
+<arg index='2' type_modifier='o'/>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSFetchRequestExpression'>
+<method class_method='true' selector='expressionForFetch:context:countOnly:'>
+<arg index='2' type='B'/>
+</method>
+<method selector='isCountOnlyRequest'>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSIncrementalStore'>
+<method selector='loadMetadata:'>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSManagedObject'>
+<method selector='contextShouldIgnoreUnmodeledPropertyChanges'>
+<retval type='B'/>
+</method>
+<method selector='hasChanges'>
+<retval type='B'/>
+</method>
+<method selector='hasFaultForRelationshipNamed:'>
+<retval type='B'/>
+</method>
+<method selector='hasPersistentChangedValues'>
+<retval type='B'/>
+</method>
+<method selector='isDeleted'>
+<retval type='B'/>
+</method>
+<method selector='isFault'>
+<retval type='B'/>
+</method>
+<method selector='isInserted'>
+<retval type='B'/>
+</method>
+<method selector='isUpdated'>
+<retval type='B'/>
+</method>
+<method selector='setContextShouldIgnoreUnmodeledPropertyChanges:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setObservationInfo:'>
+<arg index='0' type_modifier='n'/>
+</method>
+<method selector='validateForDelete:'>
+<arg index='0' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='validateForInsert:'>
+<arg index='0' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='validateForUpdate:'>
+<arg index='0' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='validateValue:forKey:error:'>
+<arg index='0' type_modifier='o'/>
+<arg index='2' type_modifier='o'/>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSManagedObjectContext'>
+<method selector='automaticallyMergesChangesFromParent'>
+<retval type='B'/>
+</method>
+<method selector='countForFetchRequest:error:'>
+<arg index='1' type_modifier='o'/>
+</method>
+<method selector='executeFetchRequest:error:'>
+<arg index='1' type_modifier='o'/>
+</method>
+<method selector='hasChanges'>
+<retval type='B'/>
+</method>
+<method selector='observeValueForKeyPath:ofObject:change:context:'>
+<arg index='3' type_modifier='n'/>
+</method>
+<method selector='obtainPermanentIDsForObjects:error:'>
+<arg index='1' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='performBlock:'>
+<arg function_pointer='true' index='0' type='@?'>
+<retval type='v'/>
+</arg>
+</method>
+<method selector='performBlockAndWait:'>
+<arg function_pointer='true' index='0' type='@?'>
+<retval type='v'/>
+</arg>
+</method>
+<method selector='propagatesDeletesAtEndOfEvent'>
+<retval type='B'/>
+</method>
+<method selector='refreshObject:mergeChanges:'>
+<arg index='1' type='B'/>
+</method>
+<method selector='retainsRegisteredObjects'>
+<retval type='B'/>
+</method>
+<method selector='save:'>
+<arg index='0' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='setAutomaticallyMergesChangesFromParent:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setPropagatesDeletesAtEndOfEvent:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setQueryGenerationFromToken:error:'>
+<retval type='B'/>
+</method>
+<method selector='setRetainsRegisteredObjects:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setShouldDeleteInaccessibleFaults:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='shouldDeleteInaccessibleFaults'>
+<retval type='B'/>
+</method>
+<method selector='shouldHandleInaccessibleFault:forObjectID:triggeredByProperty:'>
+<retval type='B'/>
+</method>
+<method selector='tryLock'>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSManagedObjectID'>
+<method selector='isTemporaryID'>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSManagedObjectModel'>
+<method selector='isConfiguration:compatibleWithStoreMetadata:'>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSMergePolicy'>
+<method selector='resolveConflicts:error:'>
+<retval type='B'/>
+</method>
+<method selector='resolveConstraintConflicts:error:'>
+<retval type='B'/>
+</method>
+<method selector='resolveOptimisticLockingVersionConflicts:error:'>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSMigrationManager'>
+<method selector='migrateStoreFromURL:type:options:withMappingModel:toDestinationURL:destinationType:destinationOptions:error:'>
+<arg index='7' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='setUsesStoreSpecificMigrationManager:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='usesStoreSpecificMigrationManager'>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSPersistentContainer'>
+<method selector='loadPersistentStoresWithCompletionHandler:'>
+<arg function_pointer='true' index='0' type='@?'>
+<arg type='@'/>
+<arg type='@'/>
+<retval type='v'/>
+</arg>
+</method>
+<method selector='performBackgroundTask:'>
+<arg function_pointer='true' index='0' type='@?'>
+<arg type='@'/>
+<retval type='v'/>
+</arg>
+</method>
+</class>
+<class name='NSPersistentStore'>
+<method selector='isReadOnly'>
+<retval type='B'/>
+</method>
+<method selector='loadMetadata:'>
+<retval type='B'/>
+</method>
+<method class_method='true' selector='metadataForPersistentStoreWithURL:error:'>
+<arg index='1' type_modifier='o'/>
+</method>
+<method class_method='true' selector='setMetadata:forPersistentStoreWithURL:error:'>
+<arg index='2' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method selector='setReadOnly:'>
+<arg index='0' type='B'/>
+</method>
+</class>
+<class name='NSPersistentStoreCoordinator'>
+<method selector='addPersistentStoreWithDescription:completionHandler:'>
+<arg function_pointer='true' index='1' type='@?'>
+<arg type='@'/>
+<arg type='@'/>
+<retval type='v'/>
+</arg>
+</method>
+<method selector='addPersistentStoreWithType:configuration:URL:options:error:'>
+<arg index='4' type_modifier='o'/>
+</method>
+<method selector='destroyPersistentStoreAtURL:withType:options:error:'>
+<retval type='B'/>
+</method>
+<method class_method='true' selector='metadataForPersistentStoreOfType:URL:error:'>
+<arg index='2' type_modifier='o'/>
+</method>
+<method class_method='true' selector='metadataForPersistentStoreWithURL:error:'>
+<arg index='1' type_modifier='o'/>
+</method>
+<method selector='migratePersistentStore:toURL:options:withType:error:'>
+<arg index='4' type_modifier='o'/>
+</method>
+<method selector='performBlock:'>
+<arg function_pointer='true' index='0' type='@?'>
+<retval type='v'/>
+</arg>
+</method>
+<method selector='performBlockAndWait:'>
+<arg function_pointer='true' index='0' type='@?'>
+<retval type='v'/>
+</arg>
+</method>
+<method selector='removePersistentStore:error:'>
+<arg index='1' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method class_method='true' selector='removeUbiquitousContentAndPersistentStoreAtURL:options:error:'>
+<retval type='B'/>
+</method>
+<method selector='replacePersistentStoreAtURL:destinationOptions:withPersistentStoreFromURL:sourceOptions:storeType:error:'>
+<retval type='B'/>
+</method>
+<method class_method='true' selector='setMetadata:forPersistentStoreOfType:URL:error:'>
+<arg index='3' type_modifier='o'/>
+<retval type='B'/>
+</method>
+<method class_method='true' selector='setMetadata:forPersistentStoreOfType:URL:options:error:'>
+<retval type='B'/>
+</method>
+<method selector='setURL:forPersistentStore:'>
+<retval type='B'/>
+</method>
+<method selector='tryLock'>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSPersistentStoreDescription'>
+<method selector='isReadOnly'>
+<retval type='B'/>
+</method>
+<method selector='setReadOnly:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setShouldAddStoreAsynchronously:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setShouldInferMappingModelAutomatically:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setShouldMigrateStoreAutomatically:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='shouldAddStoreAsynchronously'>
+<retval type='B'/>
+</method>
+<method selector='shouldInferMappingModelAutomatically'>
+<retval type='B'/>
+</method>
+<method selector='shouldMigrateStoreAutomatically'>
+<retval type='B'/>
+</method>
+</class>
+<class name='NSPropertyDescription'>
+<method selector='isIndexed'>
+<retval type='B'/>
+</method>
+<method selector='isIndexedBySpotlight'>
+<retval type='B'/>
+</method>
+<method selector='isOptional'>
+<retval type='B'/>
+</method>
+<method selector='isStoredInExternalRecord'>
+<retval type='B'/>
+</method>
+<method selector='isTransient'>
+<retval type='B'/>
+</method>
+<method selector='setIndexed:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setIndexedBySpotlight:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setOptional:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setStoredInExternalRecord:'>
+<arg index='0' type='B'/>
+</method>
+<method selector='setTransient:'>
+<arg index='0' type='B'/>
+</method>
+</class>
+<class name='NSRelationshipDescription'>
+<method selector='isOrdered'>
+<retval type='B'/>
+</method>
+<method selector='isToMany'>
+<retval type='B'/>
+</method>
+<method selector='setOrdered:'>
+<arg index='0' type='B'/>
+</method>
+</class>
+<informal_protocol name='NSFetchedResultsControllerDelegate'>
+<method selector='controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:' type='v28@0:4@8@12@16I20@24' type64='v56@0:8@16@24@32Q40@48'/>
+<method selector='controller:didChangeSection:atIndex:forChangeType:' type='v24@0:4@8@12I16I20' type64='v48@0:8@16@24Q32Q40'/>
+<method selector='controller:sectionIndexTitleForSectionName:' type='@16@0:4@8@12' type64='@32@0:8@16@24'/>
+<method selector='controllerDidChangeContent:' type='v12@0:4@8' type64='v24@0:8@16'/>
+<method selector='controllerWillChangeContent:' type='v12@0:4@8' type64='v24@0:8@16'/>
+</informal_protocol>
+</signatures>

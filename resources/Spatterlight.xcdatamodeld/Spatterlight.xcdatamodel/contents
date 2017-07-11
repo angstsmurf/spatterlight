@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Game" representedClassName="Game" syncable="YES" codeGenerationType="class">
+        <attribute name="fileLocation" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="found" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="group" optional="YES" attributeType="String" defaultValueString="GROUP" syncable="YES"/>
+        <attribute name="row" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="interpreter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Interpreter" inverseName="games" inverseEntity="Interpreter" syncable="YES"/>
+        <relationship name="metadata" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="game" inverseEntity="Metadata" syncable="YES"/>
+        <relationship name="setting" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="games" inverseEntity="Settings" syncable="YES"/>
+    </entity>
+    <entity name="Image" representedClassName="Image" syncable="YES" codeGenerationType="class">
+        <attribute name="data" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="originalURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="metadata" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="cover" inverseEntity="Metadata" syncable="YES"/>
+    </entity>
+    <entity name="Interpreter" representedClassName="Interpreter" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="games" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Game" inverseName="interpreter" inverseEntity="Game" syncable="YES"/>
+    </entity>
+    <entity name="Metadata" representedClassName="Metadata" syncable="YES" codeGenerationType="class">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="averageRating" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="bafn" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="blurb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstpublished" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="forgiveness" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="format" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="headline" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ifid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ratingCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="series" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seriesNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="starRating" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tuid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="cover" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="metadata" inverseEntity="Image" syncable="YES"/>
+        <relationship name="game" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Game" inverseName="metadata" inverseEntity="Game" syncable="YES"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="metadata" inverseEntity="Tag" syncable="YES"/>
+    </entity>
+    <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
+        <attribute name="height" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="games" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Game" inverseName="setting" inverseEntity="Game" syncable="YES"/>
+    </entity>
+    <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="metadata" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="tags" inverseEntity="Metadata" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Game" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="Image" positionX="-18" positionY="90" width="128" height="105"/>
+        <element name="Interpreter" positionX="-9" positionY="99" width="128" height="75"/>
+        <element name="Metadata" positionX="-18" positionY="135" width="128" height="360"/>
+        <element name="Settings" positionX="18" positionY="144" width="128" height="90"/>
+        <element name="Tag" positionX="-18" positionY="135" width="128" height="75"/>
+    </elements>
+</model>

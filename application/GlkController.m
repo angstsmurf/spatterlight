@@ -69,17 +69,18 @@ static const char *msgnames[] =
 #pragma mark Initialization
 
 - (void) runTerp: (NSString*)terpname
-    withGameFile: (NSString*)gamefile_
-            IFID: (NSString*)gameifid_
-            info: (NSDictionary*)gameinfo_
+        withGame: (Game *)game
 {
-    NSLog(@"glkctl: runterp %@ %@", terpname, gamefile_);
+    NSLog(@"glkctl: runTerp %@", terpname);
+    [Preferences changePreferences: game.setting];
     
     NSSize defsize = [Preferences defaultWindowSize];
-    
-    gamefile = gamefile_;
-    gameifid = gameifid_;
-    gameinfo = gameinfo_;
+    _game = game;
+
+    NSString *gamefile = [game urlForBookmark].path;
+
+//    gameifid = gameifid_;
+//    gameinfo = gameinfo_;
     
     /* Setup our own stuff */
     {
@@ -99,8 +100,8 @@ static const char *msgnames[] =
     
     /* Setup Cocoa stuff */
     {
-        // [[self window] setRepresentedFilename: gamefile];
-        self.window.title = gameinfo[@"title"];
+        [[self window] setRepresentedFilename: gamefile];
+        self.window.title = game.metadata.title;
         [self.window setContentSize: defsize];
 
         // Clamp to max screen size
@@ -196,8 +197,10 @@ static const char *msgnames[] =
 - (void) windowWillClose: (id)sender
 {
     NSLog(@"glkctl: windowWillClose");
-    [self.window setDelegate: nil];
+    self.window.delegate=nil;
 
+    [Preferences savePreferences];
+    [Preferences nilCurrentSettings];
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 
     if (timer)
@@ -224,12 +227,13 @@ static const char *msgnames[] =
 
 - (IBAction) showGameInfo: (id)sender
 {
-    showInfoForFile(gamefile, gameinfo);
+    NSLog(@"showGameInfo for %@", _game.metadata.title);
+    [_game showInfoWindow];
 }
 
 - (IBAction) revealGameInFinder: (id)sender
 {
-    [[NSWorkspace sharedWorkspace] selectFile: gamefile inFileViewerRootedAtPath: @""];
+    [[NSWorkspace sharedWorkspace] selectFile: [_game urlForBookmark].path inFileViewerRootedAtPath: @""];
 }
 
 
@@ -269,6 +273,15 @@ static const char *msgnames[] =
     gevent = [[GlkEvent alloc] initArrangeWidth: frame.size.width height: frame.size.height];
     [self queueEvent: gevent];
 }
+
+- (void)windowDidResize:(NSNotification *)notification
+{
+    _game.setting.width = self.window.frame.size.width;
+    _game.setting.height = self.window.frame.size.height;
+    [Preferences changeDefaultSize:self.window.frame.size forSettings:_game.setting];
+    NSLog(@"Changed preferred window size to %f x %f", _game.setting.width, _game.setting.height);
+}
+
 
 - (void) closeAlertDidFinish: (id)alert rc: (int)rc ctx: (void*)ctx
 {
@@ -371,6 +384,13 @@ static const char *msgnames[] =
             [gwindows[i] performScroll];
 }
 
+- (void)windowDidBecomeKey:(NSNotification *)notification
+{
+    if ([Preferences currentSettings] != _game.setting)
+        [Preferences changePreferences:_game.setting];
+};
+
+
 /*
  *
  */
@@ -380,6 +400,8 @@ static const char *msgnames[] =
 - (void) notePreferencesChanged: (id)sender
 {
     NSLog(@"glkctl: notePreferencesChanged");
+    if ([Preferences currentSettings] != _game.setting)
+        return;
     int i;
     
     GlkEvent *gevent;
@@ -483,7 +505,7 @@ static const char *msgnames[] =
         date = [formatter stringFromDate:[NSDate date]];
         
         
-        filename = [date stringByAppendingString: gameinfo[@"title"]];
+        filename = [date stringByAppendingString: _game.metadata.title];
     }
 
     if (ext)
@@ -854,7 +876,9 @@ NSInteger colorToInteger(NSColor *color)
 
     str = [[NSString stringWithCString: buf encoding: NSISOLatin1StringEncoding] substringToIndex: len];
 
-    self.window.title = str;
+//    _game.metadata.title = str;
+//    self.window.title = str;
+    NSLog(@"Change title request: %@", str);
 }
 
 - (BOOL) handleRequest: (struct message *)req reply: (struct message *)ans buffer: (char *)buf

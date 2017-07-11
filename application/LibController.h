@@ -13,19 +13,20 @@
  *
  */
 
-#define MAX_INFO_WINDOWS 10
+#import <CoreData/CoreData.h>
+
+#import "Game+CoreDataProperties.h"
+#import "Image+CoreDataProperties.h"
+#import "Metadata+CoreDataProperties.h"
+#import "Settings+CoreDataProperties.h"
 
 @interface LibHelperWindow : NSWindow<NSDraggingDestination>
-{
-}
 @end
 
 @interface LibHelperTableView : NSTableView
-{
-}
 @end
 
-@interface LibController : NSWindowController<NSDraggingDestination>
+@interface LibController : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSControlTextEditingDelegate>
 {
     NSURL *homepath;
     
@@ -35,25 +36,34 @@
     IBOutlet NSView *exportTypeView;
     IBOutlet NSPopUpButton *exportTypeControl;
     
-    NSMutableDictionary *metadata; /* ifid -> metadata dict */
-    NSMutableDictionary *games; /* ifid -> filename */
-
-    InfoController *infoWindows[MAX_INFO_WINDOWS];
-    NSInteger infoWindowIndex;
+    //NSMutableDictionary *metadata; /* ifid -> metadata dict */
+    //NSMutableDictionary *games; /* ifid -> filename */
 
     IBOutlet NSTableView *gameTableView;
     NSMutableArray *gameTableModel;
     NSString *gameSortColumn;
+    BOOL sortAscending;
     BOOL gameTableDirty;
-    
+
+    BOOL canEdit;
+    NSTimer * timer;
+
     NSArray *searchStrings;
     
     /* for the importing */
     NSInteger cursrc;
+    NSString *currentIfid;
     NSMutableArray *ifidbuf;
     NSMutableDictionary *metabuf;
     NSInteger errorflag;
+
+    NSURLSession *defaultSession;
+
+    NSURLSessionDataTask *dataTask;
 }
+
+@property (nonatomic, strong) NSPersistentContainer *persistentContainer;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 - (void) loadLibrary; /* initializer */
 - (IBAction) saveLibrary: sender;
@@ -61,16 +71,18 @@
 - (void) beginImporting;
 - (void) endImporting;
 
-- (NSString*) importGame: (NSString*)path reportFailure: (BOOL)report;
+- (Game*) importGame: (NSString*)path reportFailure: (BOOL)report;
 - (void) addFile: (NSString*)path select: (NSMutableArray*)select;
 - (void) addFiles: (NSArray*)paths select: (NSMutableArray*)select;
 - (void) addFiles: (NSArray*)paths;
 - (void) addFile: (NSString*)path;
 
-- (void) playGameWithIFID: (NSString*)ifid;
+- (void) playGame: (Game *)game;
 - (void) importAndPlayGame: (NSString*)path;
 
 - (IBAction) addGamesToLibrary: (id)sender;
+- (IBAction) download: (id)sender;
+
 - (IBAction) deleteLibrary: (id)sender;
 
 - (IBAction) importMetadata: (id)sender;
@@ -79,16 +91,37 @@
 - (BOOL) exportMetadataToFile: (NSString*)filename what: (NSInteger)what;
 
 - (IBAction) searchForGames: (id)sender;
-- (IBAction) playGame: (id)sender;
+- (IBAction) play: (id)sender;
 - (IBAction) showGameInfo: (id)sender;
 - (IBAction) revealGameInFinder: (id)sender;
 - (IBAction) deleteGame: (id)sender;
+- (IBAction) openIfdb:(id)sender;
+
+@property (strong) IBOutlet NSMenu *headerMenu;
+- (IBAction)toggleColumn:(id)sender;
 
 - (void) deselectGames;
-- (void) selectGameWithIFID: (NSString*)ifid;
+- (void) selectGame: (Game *)game;
 - (void) updateTableViews; /* must call this after -importGame: */
+- (void) updateSideView;
 
-- (InfoController *) createInfoController;
+-(void)enableClickToRenameAfterDelay;
+
+@property (strong) IBOutlet NSView *leftView;
+@property (strong) IBOutlet NSSplitView *splitView;
+
+- (IBAction) toggleSidebar:(id)sender;
+
+@property (strong) IBOutlet NSImageView *sideImage;
+@property (strong) IBOutlet NSTextView *sideTitle;
+@property (strong) IBOutlet NSLayoutConstraint *titleheight;
+@property (strong) IBOutlet NSTextView *sideHeader;
+@property (strong) IBOutlet NSTextView *sideAuthor;
+@property (strong) IBOutlet NSTextView *sideBlurb;
+@property (strong) IBOutlet NSTextField *sideIfid;
+
 - (NSString*) convertAGTFile: (NSString*)origpath;
+
+
 
 @end

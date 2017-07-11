@@ -324,7 +324,8 @@
     
     if (self)
     {
-        NSInteger margin = [Preferences bufferMargins];
+        CGFloat margin = [Preferences bufferMargins];
+        NSLog(@"GlkTextBufferWindow: initWithGlkController: set margin to %f", margin);
         NSInteger i;
         
         char_request = NO;
@@ -384,6 +385,7 @@
         [textview setAllowsUndo: NO];
         [textview setUsesFontPanel: NO];
         [textview setSmartInsertDeleteEnabled: NO];
+        [textview setUsesFindBar: YES];
         
         textview.delegate = self;
         textstorage.delegate = self;
@@ -396,7 +398,7 @@
         // disabling screen fonts will force font smoothing and kerning.
         // using screen fonts will render ugly and uneven text and sometimes
         // even bitmapped fonts.
-        layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
+//        layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
         
         [self addSubview: scrollview];
     }
@@ -464,7 +466,8 @@
     
     [super prefsDidChange];
     
-    NSInteger margin = [Preferences bufferMargins];
+    CGFloat margin = [Preferences bufferMargins];
+    NSLog(@"GlkTextBufferWindow prefsDidChange margin: %f", margin);
     textview.textContainerInset = NSMakeSize(margin - 3, margin);
     [self recalcBackground];
     
@@ -511,7 +514,7 @@
         x = range.location + range.length;
     }
     
-    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
+//    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
 }
 
 - (void) setFrame: (NSRect)frame

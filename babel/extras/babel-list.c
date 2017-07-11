@@ -36,7 +36,7 @@
 extern "C" {
 #endif
 int chdir(const char *);
-char *getcwd(char *, int);
+char *getcwd(char *, size_t);
 #ifdef __cplusplus
 }
 #endif
