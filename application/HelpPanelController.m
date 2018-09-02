@@ -27,14 +27,12 @@
         [_textView setTextContainerInset:NSMakeSize(10, 0)];
         NSSize size = _textView.textContainer.size;
 
-        size.width = maxWidth;
+        size.width = maxWidth - 60;
 
-        CGFloat margin = maxWidth * 0.096;
-
-        [helpWindow.contentView setFrameSize: NSMakeSize(maxWidth + margin, helpWindow.contentView.frame.size.height)];
+        [helpWindow.contentView setFrameSize: NSMakeSize(maxWidth, helpWindow.contentView.frame.size.height)];
 
         NSRect winrect = helpWindow.frame;
-        winrect.size.width = maxWidth + margin;
+        winrect.size.width = maxWidth;
 
         if (winrect.size.height < 200)
             winrect.size.height = 300;
@@ -80,7 +78,7 @@
         }
     }
     
-    return maxWidth;
+    return maxWidth + 60;
 }
 
 
@@ -89,14 +87,11 @@
 {
     CGFloat oldheight = window.frame.size.height;
     CGFloat maxWidth = [self optimalWidthForText:_textView.string];
-    //I have no idea what I am doing
-    CGFloat margin = maxWidth * 0.096;
-    CGSize size = [self sizeForText:_textView.textStorage maxWidth:maxWidth+1];
+    CGSize size = [self sizeForText:_textView.textStorage maxWidth:maxWidth - 59];
 
     CGFloat newheight = size.height;
 
-    newFrame.size.width = maxWidth + margin;
-
+    newFrame.size.width = maxWidth;
     newFrame.size.height = newheight + 100;
 
     CGFloat offset = newFrame.size.height - oldheight;
@@ -129,7 +124,7 @@
         leading = roundf(leading);
 
         lineHeight = ascent + descent + leading;
-        lineHeight = lineHeight + ((leading > 0) ? 0 : roundf(0.2*lineHeight)); //add 20% space
+        lineHeight = lineHeight + ((leading > 0) ? 0 : roundf(0.2 * lineHeight)); //add 20% space
 
         y += lineHeight;
 
