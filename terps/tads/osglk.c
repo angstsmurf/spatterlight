@@ -361,7 +361,7 @@ static void os_status_redraw(void)
     char buf[256];
     glui32 wid;
     glui32 div;
-    int i;
+    /*int i;*/
 
     if (!statuswin)
         return;

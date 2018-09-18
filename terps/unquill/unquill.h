@@ -46,7 +46,7 @@ typedef unsigned short ushort;   /* -- ditto -- */
 
 void glk_printf(char *fmt, ...);
 void myreadline(char *buf, int cap);
-int getch();
+int getch(void);
 
 uchar zmem(ushort);
 ushort zword(ushort);

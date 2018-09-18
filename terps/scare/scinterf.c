@@ -72,7 +72,7 @@ if_initialize (void)
           sc_error ("if_initialize: sizeof sc_uint or sc_int"
                     " is more than 8, check compile options\n");
         }
-      else if (!((sc_uint) -1 > 0))
+	  else if (!((sc_uint) -1 > /* DISABLES CODE */ (0)))
         {
           sc_error ("if_initialize: sc_uint appears not to be unsigned,"
                     " check compile options\n");

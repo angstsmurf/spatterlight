@@ -105,7 +105,7 @@ void RunEvents(void)
 		eventaddr = (long)PeekWord(2 + i * 4 + 2)*address_scale;
 		var[self] = eventin;
 
-		domain = 0, flag = 0;
+		domain = 0; flag = 0;
 
 #if defined (DEBUGGER)
 		/* Prevent premature stopping */
@@ -1318,7 +1318,7 @@ int RestoreGameData(void)
 		if ((lbyte = fgetc(save))==EOF || (hbyte = fgetc(save))==EOF) goto RestoreError;
 		undoturn = lbyte + hbyte*256;
 		if ((lbyte = fgetc(save))==EOF || (hbyte = fgetc(save))==EOF) goto RestoreError;
-		undoinvalid = (unsigned char)lbyte, undorecord = (unsigned char)hbyte;
+		undoinvalid = (unsigned char)lbyte; undorecord = (unsigned char)hbyte;
 	}
 	else undoinvalid = true;
 

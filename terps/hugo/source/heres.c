@@ -111,7 +111,7 @@ void PlayMusic(void)
 	char loop_flag = 0;
 	long resstart, reslength;
 
-	if (MEM(codeptr+1)==REPEAT_T) loop_flag = true, codeptr++;
+	if (MEM(codeptr+1)==REPEAT_T) { loop_flag = true; codeptr++; }
 
 	hugo_stopmusic();
 
@@ -202,7 +202,7 @@ void PlaySample(void)
 	char loop_flag = 0;
 	long reslength;
 
-	if (MEM(codeptr+1)==REPEAT_T) loop_flag = true, codeptr++;
+	if (MEM(codeptr+1)==REPEAT_T) { loop_flag = true; codeptr++; }
 
 	hugo_stopsample();
 
@@ -247,7 +247,7 @@ void PlayVideo(void)
 #if defined (COMPILE_V25)
 	var[system_status] = STAT_UNAVAILABLE;
 #endif
-	if (MEM(codeptr+1)==REPEAT_T) loop_flag = true, codeptr++;
+	if (MEM(codeptr+1)==REPEAT_T) { loop_flag = true; codeptr++; }
 
 #if !defined (COMPILE_V25)
 	hugo_stopvideo();
