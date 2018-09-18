@@ -5875,8 +5875,8 @@ static genfile
 gagt_get_user_file (glui32 usage, glui32 fmode, const char *fdtype)
 {
   frefid_t fileref;
-  strid_t stream;
-  int tryfd, glkfd, dupfd, retfd;
+  /* strid_t stream;
+  int tryfd, glkfd, dupfd, retfd; */
   genfile retfile;
   assert (fdtype);
 

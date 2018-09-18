@@ -525,7 +525,7 @@ AddFontCode:
 #endif
 		if ((c==' ') || (c=='/' && a[i+1]!='/') || (c=='-' && a[i+1]!='-'))
 		{
-			linebreak = plen, linebreaklen = thisline;
+			linebreak = plen; linebreaklen = thisline;
 		}
 	}
 
