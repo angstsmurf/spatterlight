@@ -126,7 +126,8 @@
                 if (!imgbuf)
                     goto finish;
                 
-                rv = babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
+//                rv =
+				babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
                 imgdata = [[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES];
                 img = [[NSImage alloc] initWithData: imgdata];
             }

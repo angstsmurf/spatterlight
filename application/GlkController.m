@@ -194,7 +194,8 @@ static const char *msgnames[] =
 		// [self setDocumentEdited: YES];
 	}
 
-	NSTimer *mytimer  = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
+//	NSTimer *mytimer  =
+	[NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
 
 }
 

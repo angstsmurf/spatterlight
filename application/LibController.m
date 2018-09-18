@@ -1361,8 +1361,8 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
                 char *imgbuf = malloc(imglen);
                 if (imgbuf)
                 {
-
-                    rv = babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
+//                    rv =
+					babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
                     [self addImage:[[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES] toMetadata:metadata];
 
                 }
