@@ -435,7 +435,7 @@ void parse_operands(oparg_t *args, operandlist_t *oplist)
         break;
 
       default:
-        value = 0;
+        /* value = 0; */
         fatal_error("Unknown addressing mode in load operand.");
       }
 
