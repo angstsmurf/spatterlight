@@ -49,7 +49,7 @@ static NSDictionary *gridatts[style_NUMSTYLES];
 NSData *colorToData(NSColor *color)
 {
     NSData *data;
-    CGFloat r, g, b, a;
+    CGFloat r = 0, g = 0, b = 0, a = 0;
     unsigned char buf[3];
     
     color = [color colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
