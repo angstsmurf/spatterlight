@@ -3135,7 +3135,9 @@ CTcPrsNode *CTcPrsOpAdd::eval_constant(CTcPrsNode *left,
 
             /* treat nil as an empty string */
             if (typ2 == TC_CVT_NIL)
-                str1 = "", len2 = 0;
+			{
+				str1 = ""; len2 = 0;
+			}
 
             /* 
              *   if we couldn't convert one or the other, leave the result

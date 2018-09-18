@@ -191,7 +191,7 @@ void dbgclin(struct tokcxdef *tokctx, objnum objn, uint ofs);
 #ifdef DBG_OFF
 #define dbgpresent() (FALSE)
 #else
-int dbgpresent();
+	int dbgpresent(void);
 #endif
 
 

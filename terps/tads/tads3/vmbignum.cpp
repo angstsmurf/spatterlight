@@ -1796,8 +1796,9 @@ const char *CVmObjBigNum::cvt_to_string_in_radix(
              */
             char *p1, *p2, tmp;
             for (p1 = buf, p2 = p - 1 ; p2 > p1 ; --p2, ++p1)
-                tmp = *p1, *p1 = *p2, *p2 = tmp;
-
+			{
+				tmp = *p1; *p1 = *p2; *p2 = tmp;
+			}
             /* if we generated no digits, generate a zero */
             if (p == buf)
                 *p++ = '0';

@@ -178,7 +178,7 @@ uint tiocapturesize(tiocxdef *ctx);
 int setmore(int state);
 
 /* explicitly activate the "MORE" prompt */
-void out_more_prompt();
+void out_more_prompt(void);
 
 /*
  *   QA controller functions
@@ -199,7 +199,7 @@ void tio_set_html_expansion(unsigned int html_char_val,
                             const char *expansion, size_t expansion_len);
 
 /* check for HTML mode - returns true if an "\H+" sequence is active */
-int tio_is_html_mode();
+int tio_is_html_mode(void);
 
 /* set the user output filter function */
 void out_set_filter(objnum filter_fn);

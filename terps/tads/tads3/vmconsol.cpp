@@ -2659,7 +2659,9 @@ void CVmConsole::log_event(VMG_ const char *tag,
         /* if the tag has < > delimiters, remove them */
         size_t taglen = strlen(tag);
         if (tag[0] == '<')
-            ++tag, --taglen;
+		{
+			++tag; --taglen;
+		}
         if (taglen != 0 && tag[taglen-1] == '>')
             --taglen;
 

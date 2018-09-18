@@ -320,7 +320,7 @@ void errmsg(errcxdef *ctx, char *outbuf, uint outbufl, uint err);
 void errini(errcxdef *ctx, osfildef *fp);
 
 /* allocate and initialize error context, free error context */
-errcxdef *lerini();
+errcxdef *lerini(void);
 void      lerfre(errcxdef *ctx);
 
 /* error message structure - number + text */

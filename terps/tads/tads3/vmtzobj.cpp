@@ -311,7 +311,10 @@ void CVmObjTimeZone::save_to_file(VMG_ class CVmFile *fp)
 
     /* if this is the system's local zone, use ":local" as the name */
     if (G_tzcache->is_local_zone(tz))
-        name = ":local", namelen = 6;
+	{
+		name = ":local";
+		namelen = 6;
+	}
 
     /* query the zone data */
     vmtzquery q;

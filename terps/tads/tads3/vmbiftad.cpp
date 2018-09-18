@@ -1011,9 +1011,13 @@ public:
     RandStrRange(wchar_t c1, wchar_t c2)
     {
         if (c2 > c1)
-            this->c1 = c1, this->c2 = c2;
+		{
+			this->c1 = c1; this->c2 = c2;
+		}
         else
-            this->c1 = c2, this->c2 = c1;
+		{
+			this->c1 = c2; this->c2 = c1;
+		}
     }
 
     virtual int maxlen() { return 1; }
@@ -3840,7 +3844,9 @@ struct bpwriter
 
         /* if there's a '-' sign, write it */
         if (*p == '-')
-            putch(*p++), --len;
+		{
+			putch(*p++); --len;
+		}
 
         /* add the type prefix */
         if (opts.pound && type_prefix != 0 && !zero)

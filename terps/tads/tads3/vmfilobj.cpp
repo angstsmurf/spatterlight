@@ -2012,8 +2012,9 @@ void CVmObjFile::write_text_mode(VMG_ const vm_val_t *val)
 
         /* if we're at a newline, skip it */
         if (rem != 0)
-            ++p, --rem;
-
+		{
+			++p; --rem;
+		}
         /* note where the new chunk starts */
         startp = p;
     }

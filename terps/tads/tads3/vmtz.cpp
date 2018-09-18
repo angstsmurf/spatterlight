@@ -462,9 +462,16 @@ int CVmTimeZoneCache::parse_hhmmss(
     /* check for the sign */
     int s = 1;
     if (len > 0 && name[0] == '+')
-        ++name, --len;
+	{
+		++name;
+		--len;
+	}
     else if (len > 0 && name[0] == '-')
-        ++name, --len, s = -1;
+	{
+		++name;
+		--len;
+		s = -1;
+	}
     else if (sign_required)
         return FALSE;
 
@@ -491,14 +498,14 @@ int CVmTimeZoneCache::parse_hhmmss(
         if (len >= 3 && *name == ':' && isdigit(name[1]) && isdigit(name[2]))
         {
             /* parse the minutes */
-            ++name, --len;
+			++name; --len;
             mm = lib_atoi_adv(name, len);
             
             /* check for seconds */
             if (len >= 3 && *name == ':'
                 && isdigit(name[1]) && isdigit(name[2]))
             {
-                ++name, --len;
+				++name; --len;
                 ss = lib_atoi_adv(name, len);
             }
         }
@@ -533,7 +540,10 @@ static void gen_ofs_string(char *buf, size_t buflen,
     /* figure the sign */
     const char *signch = "";
     if (ofs < 0)
-        ofs = -ofs, signch = "-";
+	{
+		ofs = -ofs;
+		signch = "-";
+	}
     else if ((flags & F_PLUS_SIGN) != 0)
         signch = "+";
 
@@ -1984,7 +1994,7 @@ void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
              *   the transition in terms of the local time that was in effect
              *   up until that moment
              */
-            result->set(tcur > 0 ? tcur - 1 : tcur);
+            result->set(tcur > (void*)0 ? tcur - 1 : tcur);
             return;
         }
     }

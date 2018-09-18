@@ -1126,8 +1126,8 @@ size_t CVmObjStrComp::match_chars(const wchar_t *valstr, size_t vallen,
             if (refch == valch)
             {
                 /* matched exactly - skip this character and keep going */
-                ++valstr, --vallen;
-                ++vp, --vlen;
+				++valstr; --vallen;
+				++vp; --vlen;
                 continue;
             }
 

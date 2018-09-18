@@ -311,7 +311,11 @@ static void voc_parse_words(char **wrdtxt, int *len, char **wrd2, int *len2)
     if (*len2)
     {
         *len -= *len2;
-        while (*len2 && vocisspace(**wrd2)) ++*wrd2, --*len2;
+		while (*len2 && vocisspace(**wrd2))
+		{
+			++*wrd2;
+			--*len2;
+		}
     }
     else
     {

@@ -189,9 +189,15 @@ protected:
 
         /* get this unicode character, translating its endianness */
         if (big_endian)
-            hi = (uchar)*ustr, lo = (uchar)*(ustr + 1);
+		{
+			hi = (uchar)*ustr;
+			lo = (uchar)*(ustr + 1);
+		}
         else
-            lo = (uchar)*ustr, hi = (uchar)*(ustr + 1);
+		{
+			lo = (uchar)*ustr;
+			hi = (uchar)*(ustr + 1);
+		}
         uc = (hi << 8) + lo;
 
         /* if it's outside of ASCII range, we obviously can't match */
@@ -200,8 +206,10 @@ protected:
 
         /* if we're folding case, convert both to lower case */
         if (case_fold)
-            ac = (char)tolower(ac), uc = tolower((char)uc);
-
+		{
+			ac = (char)tolower(ac);
+			uc = tolower((char)uc);
+		}
         /* compare the characters */
         return (ac == (char)uc);
     }
