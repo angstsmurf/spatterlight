@@ -159,7 +159,7 @@ void glk_window_fill_rect(winid_t win, glui32 color,
         return;
     }
 #ifdef DEBUG
-    fprintf(stderr, "win_fillrect called with color %d\n", color);
+//    fprintf(stderr, "win_fillrect called with color %d\n", color);
 #endif
     win_fillrect(win->peer, color, left, top, width, height);
 }
@@ -179,7 +179,7 @@ void glk_window_set_background_color(winid_t win, glui32 color)
     }
 
 #ifdef DEBUG
-    fprintf (stderr, "glk_window_set_background_color called with color %d\n", color);
+//    fprintf (stderr, "glk_window_set_background_color called with color %d\n", color);
 #endif
     win->background = color;
     win_setbgnd(win->peer, color);

@@ -90,52 +90,52 @@ void gli_initialize_sound(void)
         }
         int channels = Mix_AllocateChannels(SDL_CHANNELS);
         Mix_GroupChannels(0, channels - 1 , FREE);
+
     }
 }
 
 schanid_t glk_schannel_create(glui32 rock)
 {
-    channel_t *chan;
-
-    if (!gli_enable_sound)
-        return NULL;
-    chan = malloc(sizeof(channel_t));
-
-    if (!chan)
-        return NULL;
-
-    chan->rock = rock;
-    chan->status = CHANNEL_IDLE;
-    chan->volume = MIX_MAX_VOLUME;
-    chan->resid = 0;
-    chan->loop = 0;
-    chan->notify = 0;
-    chan->sdl_memory = 0;
-    chan->sdl_rwops = 0;
-    chan->sample = 0;
-    chan->decode = 0;
-    chan->buffered = 0;
-    chan->sdl_channel = -1;
-    chan->music = 0;
-
-    chan->chain_prev = NULL;
-    chan->chain_next = gli_channellist;
-    gli_channellist = chan;
-    if (chan->chain_next)
-        chan->chain_next->chain_prev = chan;
-
-    if (gli_register_obj)
-        chan->disprock = (*gli_register_obj)(chan, gidisp_Class_Schannel);
-    else
-        chan->disprock.ptr = NULL;
-
-    return chan;
+	return  glk_schannel_create_ext(rock, MIX_MAX_VOLUME);
 }
 
 schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
 {
-    /* not implemented */
-    return NULL;
+	channel_t *chan;
+
+	if (!gli_enable_sound)
+		return NULL;
+	chan = malloc(sizeof(channel_t));
+
+	if (!chan)
+		return NULL;
+
+	chan->rock = rock;
+	chan->status = CHANNEL_IDLE;
+	chan->volume = MIX_MAX_VOLUME;
+	chan->resid = 0;
+	chan->loop = 0;
+	chan->notify = 0;
+	chan->sdl_memory = 0;
+	chan->sdl_rwops = 0;
+	chan->sample = 0;
+	chan->decode = 0;
+	chan->buffered = 0;
+	chan->sdl_channel = -1;
+	chan->music = 0;
+
+	chan->chain_prev = NULL;
+	chan->chain_next = gli_channellist;
+	gli_channellist = chan;
+	if (chan->chain_next)
+		chan->chain_next->chain_prev = chan;
+
+	if (gli_register_obj)
+		chan->disprock = (*gli_register_obj)(chan, gidisp_Class_Schannel);
+	else
+		chan->disprock.ptr = NULL;
+
+	return chan;
 }
 
 static void cleanup_channel(schanid_t chan)
@@ -280,7 +280,25 @@ void glk_schannel_set_volume(schanid_t chan, glui32 vol)
 void glk_schannel_set_volume_ext(schanid_t chan, glui32 vol,
         glui32 duration, glui32 notify)
 {
-    /* not implemented */
+	if (!chan)
+	{
+		gli_strict_warning("schannel_set_volume: invalid id.");
+		return;
+	}
+	chan->volume = vol > 0x10000 ? MIX_MAX_VOLUME : round(pow(((double) vol) / 0x10000, log(4)) * MIX_MAX_VOLUME);
+
+	switch (chan->status)
+	{
+		case CHANNEL_IDLE:
+			break;
+		case CHANNEL_SOUND:
+			Mix_Volume(chan->sdl_channel, chan->volume);
+			break;
+		case CHANNEL_MUSIC:
+			Mix_VolumeMusic(chan->volume);
+			break;
+	}
+	chan->notify = notify;
 }
 
 /* Notify the music channel completion */
@@ -291,12 +309,9 @@ static void music_completion_callback()
         gli_strict_warning("music callback failed");
         return;
     }
-    if (music_channel->notify)
+    if (music_channel->notify && music_channel->resid)
     {
-        gli_event_store(evtype_SoundNotify, 0,
-                        music_channel->resid, music_channel->notify);
-        fprintf(stderr, "Pointless call to gli_event_store for music channel completion.\n");
-
+		win_sound_notify(music_channel->resid, music_channel->notify);
     }
     cleanup_channel(music_channel);
 }
@@ -305,25 +320,27 @@ static void music_completion_callback()
 static void sound_completion_callback(int chan)
 {
     channel_t *sound_channel = sound_channels[chan];
-    if (!sound_channel || Mix_Playing(chan))
+	fprintf(stderr, "channel %d finished playback.\n",chan);
+    if (!sound_channel)  //|| Mix_Playing(chan))
     {
         gli_strict_warning("sound callback failed");
         if (!sound_channel)
             fprintf(stderr, "sound_channel %d is NULL\n", chan);
-        if (Mix_Playing(chan))
-            fprintf(stderr, "Mix_Playing(%d) is TRUE\n", chan);
+//        if (Mix_Playing(chan))
+//		{
+//            fprintf(stderr, "Mix_Playing(%d) is TRUE\n", chan);
+//		}
         return;
     }
-    //else fprintf (stderr, "sound callback worked?\n");
+
+	if (Mix_Playing(chan))
+		fprintf (stderr, "Channel %d reported as still playing. This seems to be a common bug with looping sounds.\n", chan);
 
     if (!sound_channel->buffered || !sound_channel->decode)
     {
         if (sound_channel->notify)
         {
-            gli_event_store(evtype_SoundNotify, 0,
-                            sound_channel->resid, sound_channel->notify);
-            fprintf(stderr, "Pointless call to gli_event_store for sound channel completion.\n");
-
+			win_sound_notify(sound_channel->resid, sound_channel->notify);
         }
         cleanup_channel(sound_channel);
         sound_channels[chan] = 0;
@@ -337,8 +354,7 @@ static void sound_completion_callback(int chan)
         {
             if (sound_channel->notify)
             {
-                gli_event_store(evtype_SoundNotify, 0,
-                                sound_channel->resid, sound_channel->notify);
+				win_sound_notify(sound_channel->resid, sound_channel->notify);
             }
             cleanup_channel(sound_channel);
             sound_channels[chan] = 0;
@@ -352,7 +368,8 @@ static void sound_completion_callback(int chan)
     }
     Sound_Sample *sample = sound_channel->decode;
     sound_channel->sample = Mix_QuickLoad_RAW(sample->buffer, soundbytes);
-    Mix_ChannelFinished(&sound_completion_callback);
+//    Mix_ChannelFinished(&sound_completion_callback);
+	Mix_ChannelFinished(sound_completion_callback);
     if (Mix_PlayChannel(sound_channel->sdl_channel,
                         sound_channel->sample,
                         FALSE) >= 0)
@@ -475,7 +492,8 @@ static glui32 play_sound(schanid_t chan)
         sound_channels[chan->sdl_channel] = chan;
         SDL_UnlockAudio();
         Mix_Volume(chan->sdl_channel, chan->volume);
-        Mix_ChannelFinished(&sound_completion_callback);
+        Mix_ChannelFinished(sound_completion_callback);
+//		Mix_ChannelFinished(&sound_completion_callback);
         if (Mix_PlayChannel(chan->sdl_channel, chan->sample, chan->loop-1) >= 0)
             return 1;
     }
@@ -508,7 +526,8 @@ static glui32 play_compressed(schanid_t chan, char *ext)
         sound_channels[chan->sdl_channel] = chan;
         SDL_UnlockAudio();
         Mix_Volume(chan->sdl_channel, chan->volume);
-        Mix_ChannelFinished(&sound_completion_callback);
+		Mix_ChannelFinished(sound_completion_callback);
+//        Mix_ChannelFinished(&sound_completion_callback);
         if (Mix_PlayChannel(chan->sdl_channel, chan->sample, 0) >= 0)
             return 1;
     }
@@ -634,12 +653,22 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
 
 void glk_schannel_pause(schanid_t chan)
 {
-    /* not implemented */
+	if (!chan)
+	{
+		gli_strict_warning("schannel_pause: invalid id.");
+		return;
+	}
+	Mix_Pause(chan->sdl_channel);
 }
 
 void glk_schannel_unpause(schanid_t chan)
 {
-    /* not implemented */
+	if (!chan)
+	{
+		gli_strict_warning("schannel_unpause: invalid id.");
+		return;
+	}
+	Mix_Resume(chan->sdl_channel);
 }
 
 void glk_schannel_stop(schanid_t chan)

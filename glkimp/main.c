@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 	fprintf(stderr, "Compile-time error: glui32 is not a 32-bit value. Please fix glk.h.\n");
 	return 1;
     }
-    if ((glui32)(-1) < 0)
+	if ((glui32)(-1) < /* DISABLES CODE */ (0))
     {
 	fprintf(stderr, "Compile-time error: glui32 is not unsigned. Please fix glk.h.\n");
 	return 1;

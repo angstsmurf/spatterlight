@@ -82,7 +82,7 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr,
         case gestalt_SoundMusic:
             return gli_enable_sound;
         case gestalt_Sound2:
-            return FALSE;
+            return TRUE;
             
         case gestalt_Unicode:
             return TRUE;
@@ -90,9 +90,9 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr,
             return TRUE;
 
         case gestalt_Hyperlinks:
-            return FALSE;
+            return TRUE;
         case gestalt_HyperlinkInput:
-            return FALSE;
+            return TRUE;
 
         case gestalt_LineInputEcho:
             return TRUE;

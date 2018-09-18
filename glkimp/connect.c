@@ -51,13 +51,13 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
     msgbuf.len = len;
     
 #ifdef DEBUG
-    fprintf(stderr, "SENDMSG %d len=%d\n", cmd, len);
+//    fprintf(stderr, "SENDMSG %d len=%d\n", cmd, len);
 #endif
     n = write(sendfd, &msgbuf, sizeof msgbuf);
     if (n != sizeof msgbuf)
     {
-	fprintf(stderr, "protocol error. exiting.\n");
-	exit(1);
+		fprintf(stderr, "protocol error. exiting.\n");
+		exit(1);
     }
     
     if (len)
@@ -78,8 +78,8 @@ void readmsg(struct message *msgbuf, char *buf)
     n = read(readfd, msgbuf, sizeof (struct message));
     if (msgbuf->cmd == ERROR || n != sizeof (struct message))
     {
-	fprintf(stderr, "protocol error. exiting.\n");
-	exit(1);
+		fprintf(stderr, "protocol error. exiting.\n");
+		exit(1);
     }
     
     if (msgbuf->len)
@@ -183,7 +183,7 @@ void wintitle(void)
             (int)(strlen(buf)), // * sizeof(unsigned short)
             (char*)buf);
 #ifdef DEBUG
-    fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
+    //fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
 #endif
 }
 
@@ -300,6 +300,24 @@ void win_cancelline(int name, int cap, int *len, char *buf)
     sendmsg(CANCELLINE, name, cap, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, buf);
     *len = wmsg.len;
+}
+
+void win_setlink(int name, int val)
+{
+	win_flush();
+	sendmsg(SETLINK, name, val, 0, 0, 0, 0, NULL);
+}
+
+void win_initlink(int name)
+{
+	win_flush();
+	sendmsg(INITLINK, name, 0, 0, 0, 0, 0, NULL);
+}
+
+void win_cancellink(int name)
+{
+	win_flush();
+	sendmsg(CANCELLINK, name, 0, 0, 0, 0, 0, NULL);
 }
 
 void win_set_echo(int name, int val)
@@ -430,7 +448,7 @@ void win_clearhint(int wintype, int styl, int hint)
     win_flush();
     sendmsg(CLEARHINT, wintype, styl, hint, 0, 0, 0, NULL);
 #ifdef DEBUG
-    fprintf(stderr, "sent CLEARHINT type:%d styl:%d hint:%d\n",wintype, styl, hint);
+    //fprintf(stderr, "sent CLEARHINT type:%d styl:%d hint:%d\n",wintype, styl, hint);
 #endif
 
 }
@@ -440,7 +458,7 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
     win_flush();
     sendmsg(STYLEMEASURE, name, styl, hint, 0, 0, 0, NULL);
 #ifdef DEBUG
-    fprintf(stderr, "sent STYLEMEASURE name:%d styl:%d hint:%d\n",name, styl, hint);
+    //fprintf(stderr, "sent STYLEMEASURE name:%d styl:%d hint:%d\n",name, styl, hint);
 #endif
     readmsg(&wmsg, wbuf);
     *result = wmsg.a2;
@@ -450,13 +468,28 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
 void win_setbgnd(int name, glui32 color)
 {
     win_flush();
-    sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
+    //sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
+}
+
+//void win_sound_notify(glui32 snd, glui32 notify)
+void win_sound_notify(int snd, int notify)
+{
+#ifdef DEBUG
+	fprintf(stderr, "sent EVTSOUND snd:%d notify:%d\n",snd, notify);
+#endif
+	win_flush();
+	sendmsg(EVTSOUND, 0, snd, notify, 0, 0, 0, NULL);
+}
+
+void win_volume_notify(int notify)
+{
+	win_flush();
+	sendmsg(EVTVOLUME, 0, 0, notify, 0, 0, 0, NULL);
 }
 
 void win_select(event_t *event, int block)
 {
     int i;
-    
     win_flush();
     
 again:
@@ -479,7 +512,7 @@ again:
 	    
 	case EVTARRANGE:
 #ifdef DEBUG
-	     fprintf(stderr, "arrange event\n");
+//	     fprintf(stderr, "arrange event\n");
 #endif
 	    if ( gscreenw == wmsg.a1 &&
 		 gscreenh == wmsg.a2 &&
@@ -505,7 +538,7 @@ again:
 	    
 	case EVTLINE:
 #ifdef DEBUG
-	     fprintf(stderr, "line input event\n");
+	     //fprintf(stderr, "line input event\n");
 #endif
 	    
 	    event->type = evtype_LineInput;
@@ -550,7 +583,7 @@ again:
 
 	case EVTKEY:
 #ifdef DEBUG
-	     fprintf(stderr, "key input event for %d\n", wmsg.a1);
+	     //fprintf(stderr, "key input event for %d\n", wmsg.a1);
 #endif
 	    event->type = evtype_CharInput;
 	    event->win = gli_window_for_peer(wmsg.a1);
@@ -561,7 +594,7 @@ again:
 	    
 	case EVTMOUSE:
 #ifdef DEBUG
-	     fprintf(stderr, "mouse input event\n");
+	     //fprintf(stderr, "mouse input event\n");
 #endif
 	    event->type = evtype_MouseInput;
 	    event->win = gli_window_for_peer(wmsg.a1);
@@ -580,16 +613,26 @@ again:
 	     fprintf(stderr, "sound notification event\n");
 #endif
 	    event->type = evtype_SoundNotify;
+		event->val1 = wmsg.a2;
+		event->val2 = wmsg.a3;
 	    break;
 	case EVTHYPER:
 #ifdef DEBUG
-	     fprintf(stderr, "hyperlink event\n");
+	     fprintf(stderr, "hyperlink event with val1 = %d\n",  wmsg.a2);
 #endif
 	    event->type = evtype_Hyperlink;
 	    event->win = gli_window_for_peer(wmsg.a1);
 	    event->val1 = wmsg.a2;
-	    // XXX
+		event->win->hyper_request = FALSE;
 	    break;
+		case EVTVOLUME:
+#ifdef DEBUG
+		fprintf(stderr, "volume notification event");
+#endif
+		event->type = evtype_VolumeNotify;
+		event->val2 = wmsg.a3;
+		break;
+
 	default:
 #ifdef DEBUG
 	     fprintf(stderr, "unknown event type: %d\n", wmsg.cmd);

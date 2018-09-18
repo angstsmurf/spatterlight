@@ -1690,6 +1690,7 @@ static void gli_set_hyperlink(stream_t *str, glui32 linkval)
     {
         case strtype_Window:
             str->win->attr.hyper = linkval;
+			win_setlink(str->win->peer, linkval);
             break;
     }
     
@@ -1725,7 +1726,8 @@ void glk_request_hyperlink_event(winid_t win)
         case wintype_TextBuffer:
         case wintype_TextGrid:
         case wintype_Graphics:
-            win->hyper_request = TRUE;
+			win->hyper_request = TRUE;
+            win_initlink(win->peer);
             break;
         default:
             /* do nothing */
@@ -1746,7 +1748,8 @@ void glk_cancel_hyperlink_event(winid_t win)
         case wintype_TextBuffer:
         case wintype_TextGrid:
         case wintype_Graphics:
-            win->hyper_request = FALSE;
+			win->hyper_request = FALSE;
+			win_cancellink(win->peer);
             break;
         default:
             /* do nothing */

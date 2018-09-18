@@ -37,7 +37,7 @@ void wintitle(void);
 
 /* window server connection */
 
-void win_hello();
+void win_hello(void);
 void win_bye(char *reason);
 char *win_promptopen(int type);
 char *win_promptsave(int type);
@@ -51,6 +51,9 @@ void win_initchar(int name);
 void win_cancelchar(int name);
 void win_initline(int name, int cap, int len, char *buf);
 void win_cancelline(int name, int cap, int *len, char *buf);
+void win_setlink(int name, int val);
+void win_initlink(int name);
+void win_cancellink(int name);
 void win_set_echo(int name, int val);
 void win_initmouse(int name);
 void win_cancelmouse(int name);
@@ -81,6 +84,8 @@ int  win_findsound(int resno);
 void win_loadsound(int resno, char *buf, int len);
 void win_playsound(int chan, int repeats, int notify);
 void win_stopsound(int chan);
+void win_sound_notify(int snd, int notify);
+void win_volume_notify(int notify);
 
 /* unicode case mapping */
 
@@ -102,7 +107,7 @@ glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen, glui32 *out, glui32 out
 
 /* blorb resources */
 
-int giblorb_is_resource_map();
+int giblorb_is_resource_map(void);
 void giblorb_get_resource(glui32 usage, glui32 resnum, FILE **file, long *pos, long *len, glui32 *type);
 
 /* Callbacks for the dispatch layer */

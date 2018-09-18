@@ -80,6 +80,7 @@ enum
     EVTTIMER,
     EVTSOUND,
     EVTHYPER,
+	EVTVOLUME,
     
     EVTPREFS
 };
