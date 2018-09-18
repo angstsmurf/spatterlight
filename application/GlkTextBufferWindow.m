@@ -10,58 +10,132 @@
 #define NSLog(...)
 #endif
 
-
-
-
 @implementation MyAttachmentCell
+
+- (instancetype) initImageCell:(NSImage *)image andAlignment:(NSInteger)analignment andAttStr:(NSAttributedString *)anattrstr at:(NSInteger)apos
+{
+	self = [super initImageCell:image];
+	if (self)
+	{
+		align = analignment;
+		attrstr = anattrstr;
+		pos = apos;
+	}
+	return self;
+}
 
 - (BOOL) wantsToTrackMouse
 {
     return NO;
 }
 
+- (NSPoint)cellBaselineOffset
+{
+	NSDictionary *attributes = [attrstr attributesAtIndex:pos effectiveRange:nil];
+	NSFont *font = attributes[NSFontAttributeName];
+
+	CGFloat xheight = font.ascender;
+//	NSLog(@"Xheight = %f", xheight);
+	//
+	//[@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height;
+
+	if (align == imagealign_InlineCenter)
+		return NSMakePoint(0, -(self.image.size.height / 2) + font.xHeight / 2);
+
+	if (align == imagealign_InlineDown || align == imagealign_MarginLeft)
+		return NSMakePoint(0, -self.image.size.height + xheight);
+
+	return [super cellBaselineOffset];
+}
+
 @end
 
+
+@interface FlowBreak : NSObject
+{
+	NSInteger pos;
+	NSRect bounds;
+	BOOL recalc;
+
+}
+
+- (instancetype) initWithPos: (NSInteger)pos NS_DESIGNATED_INITIALIZER;
+
+- (NSRect) boundsWithLayout: (NSLayoutManager*)layout;
+
+@end
+
+@implementation FlowBreak
+
+- (instancetype) init
+{
+	return [self initWithPos:0];
+}
+
+- (instancetype) initWithPos: (NSInteger)apos
+{
+	self = [super init];
+	if (self)
+	{
+		pos = apos;
+		bounds = NSZeroRect;
+		recalc = YES;
+	}
+	return self;
+}
+
+- (NSRect) boundsWithLayout: (NSLayoutManager*)layout
+{
+	NSRange ourglyph;
+	NSRange ourline;
+	NSRect theline;
+
+	if (recalc && pos != 0)
+	{
+		recalc = NO;	/* don't infiniloop in here, settle for the first result */
+
+		/* force layout and get position of anchor glyph */
+		ourglyph = [layout glyphRangeForCharacterRange: NSMakeRange(pos, 1)
+								  actualCharacterRange: &ourline];
+		theline = [layout lineFragmentRectForGlyphAtIndex: ourglyph.location
+										   effectiveRange: nil];
+
+		bounds = theline;
+
+		/* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
+		[layout invalidateLayoutForCharacterRange: ourline
+										   isSoft: NO
+							 actualCharacterRange: nil];
+	}
+
+	return NSMakeRect(0, bounds.origin.y, FLT_MAX, bounds.size.height);
+}
+
+- (void) uncacheBounds
+{
+	recalc = YES;
+	bounds = NSZeroRect;
+}
+
+@end
 
 /* ------------------------------------------------------------ */
 
 /*
  * Extend NSTextContainer to handle images in the margins,
  * with the text flowing around them like in HTML.
- *
- * TODO: flowbreaks
- */
+*/
 
-@interface MarginImage : NSObject
-{
-    NSImage *image;
-    NSInteger align;
-    NSInteger pos;
-    NSSize size;
-    NSInteger brk;
-    float brky;
-    NSRect bounds;
-    NSInteger recalc;
-}
 
-- (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos size: (NSSize)asize NS_DESIGNATED_INITIALIZER;
-@property (readonly, copy) NSImage *image;
-@property (readonly) NSInteger position;
-@property (readonly) NSInteger alignment;
-- (NSRect) boundsWithLayout: (NSLayoutManager*)layout;
-- (NSInteger) flowBreakAt;
-- (void) setFlowBreakAt: (int)fb;
-
-@end
 
 @implementation MarginImage
 
 - (instancetype) init
 {
-    return [self initWithImage:[[NSImage alloc] initWithContentsOfFile:@"../Resources/Question.png"] align:kAlignLeft at:0 size:NSZeroSize];
+	return [self initWithImage:[[NSImage alloc] initWithContentsOfFile:@"../Resources/Question.png"] align:kAlignLeft at:0 size:NSZeroSize sender:self];
 }
 
-- (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos size: (NSSize)asize
+- (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos size: (NSSize)asize sender:(id)sender
 {
     self = [super init];
     if (self)
@@ -70,67 +144,65 @@
         align = analign;
         pos = apos;
         size = asize;
-        brk = -1;
-        bounds = NSZeroRect;
+        _bounds = NSZeroRect;
+		_linkid = 0;
         recalc = YES;
+		container = sender;
     }
     return self;
 }
 
-
 - (NSImage*) image { return image; }
 - (NSInteger) position { return pos; }
 - (NSInteger) alignment { return align; }
-- (NSInteger) flowBreakAt { return brk; }
-- (void) setFlowBreakAt: (int)fb { brk = fb; }
 
 - (NSRect) boundsWithLayout: (NSLayoutManager*)layout
 {
     NSRange ourglyph;
     NSRange ourline;
     NSRect theline;
-    
+
     if (recalc)
     {
         recalc = NO;	/* don't infiniloop in here, settle for the first result */
         
-        bounds = NSZeroRect;
+        _bounds = NSZeroRect;
         
         /* force layout and get position of anchor glyph */
         ourglyph = [layout glyphRangeForCharacterRange: NSMakeRange(pos, 1)
                                   actualCharacterRange: &ourline];
         theline = [layout lineFragmentRectForGlyphAtIndex: ourglyph.location
                                            effectiveRange: nil];
-        
+
         /* set bounds to be at the same line as anchor but in left/right margin */
         if (align == imagealign_MarginRight)
         {
-            bounds = NSMakeRect(NSMaxX(theline) - size.width,
+            _bounds = NSMakeRect(NSMaxX(theline) - size.width,
                                 theline.origin.y,
                                 size.width,
                                 size.height);
         }
         else
         {
-            bounds = NSMakeRect(theline.origin.x,
+            _bounds = NSMakeRect(theline.origin.x,
                                 theline.origin.y,
                                 size.width,
                                 size.height);
         }
-        
+
         /* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
         [layout invalidateLayoutForCharacterRange: ourline
                                            isSoft: NO
                              actualCharacterRange: nil];
     }
-    
-    return bounds;
+	[(MarginContainer *)container unoverlap:self];
+    return _bounds;
 }
 
 - (void) uncacheBounds
 {
     recalc = YES;
-    bounds = NSZeroRect;
+    _bounds = NSZeroRect;
 }
 
 @end
@@ -154,15 +226,20 @@
     self = [super initWithSize: size];
     
     if (self)
+	{
         margins = [[NSMutableArray alloc] init];
+		flowbreaks = [[NSMutableArray alloc] init];
+		recalc = YES;
+//		self.lineFragmentPadding = 10;
+	}
     
     return self;
 }
 
-
 - (void) clearImages
 {
     margins = [[NSMutableArray alloc] init];
+	flowbreaks = [[NSMutableArray alloc] init];
     [self.layoutManager textContainerChangedGeometry: self];
 }
 
@@ -173,29 +250,30 @@
     count = margins.count;
     for (i = 0; i < count; i++)
         [margins[i] uncacheBounds];
+
+	count = flowbreaks.count;
+	for (i = 0; i < count; i++)
+		[flowbreaks[i] uncacheBounds];
     
     [self.layoutManager textContainerChangedGeometry: self];
 }
 
-- (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top size: (NSSize)size
+- (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top size: (NSSize)size linkid: (NSUInteger)linkid
 {
-    MarginImage *mi = [[MarginImage alloc] initWithImage: image align: align at: top size: size];
+	MarginImage *mi = [[MarginImage alloc] initWithImage: image align: align at: top size: size sender: self];
+	mi.linkid = linkid;
     [margins addObject: mi];
     [self.layoutManager textContainerChangedGeometry: self];
+	[self adjustTextviewHeightForLowImages];
 }
 
 - (void) flowBreakAt: (NSInteger)pos
 {
-    NSInteger count = margins.count;
-    if (count)
-    {
-        MarginImage *mi = margins[count - 1];
-        if ([mi flowBreakAt] < 0)
-        {
-            [mi setFlowBreakAt: (int)pos];
-            [self.layoutManager textContainerChangedGeometry: self];
-        }
-    }
+	FlowBreak *f = [[FlowBreak alloc] initWithPos: pos];
+	[flowbreaks addObject: f];
+	NSLog (@"MarginContainer: added flowbreak at pos %ldl", (long)pos);
+
+	[self.layoutManager textContainerChangedGeometry: self];
 }
 
 - (BOOL) isSimpleRectangularTextContainer
@@ -204,69 +282,250 @@
 }
 
 - (NSRect) lineFragmentRectForProposedRect: (NSRect) proposed
-                            sweepDirection: (NSLineSweepDirection) sweepdir
-                         movementDirection: (NSLineMovementDirection) movementdir
-                             remainingRect: (NSRect*) remaining
+							sweepDirection: (NSLineSweepDirection) sweepdir
+						 movementDirection: (NSLineMovementDirection) movementdir
+							 remainingRect: (NSRect*) remaining
 {
-    MarginImage *image;
-    NSRect bounds;
-    NSRect rect;
-    //NSPoint point;
-    //NSInteger brk;
-    NSInteger count;
-    NSInteger i;
-    
-    rect = [super lineFragmentRectForProposedRect: proposed
-                                   sweepDirection: sweepdir
-                                movementDirection: movementdir
-                                    remainingRect: remaining];
-    
-    count = margins.count;
-    for (i = 0; i < count; i++)
-    {
-        image = margins[i];
-        bounds = [image boundsWithLayout: self.layoutManager];
-        
-        if (NSIntersectsRect(bounds, rect))
-        {
-            if (image.alignment == imagealign_MarginLeft)
-                rect.origin.x += bounds.size.width;
-            rect.size.width -= bounds.size.width;
-        }
-    }
-    
-    return rect;
+	NSRect bounds;
+	NSRect rect, flowrect;
+	MarginImage *image;
+
+	rect = [super lineFragmentRectForProposedRect: proposed
+								   sweepDirection: sweepdir
+								movementDirection: movementdir
+									remainingRect: remaining];
+
+//	NSRange range = [[NSATSTypesetter sharedTypesetter] paragraphGlyphRange];
+
+	BOOL overlapped = YES;
+	while (overlapped && rect.size.width > 0)
+	{
+		overlapped = NO;
+
+		NSEnumerator *enumerator = [margins reverseObjectEnumerator];
+		while (image = [enumerator nextObject])
+		{
+			[image boundsWithLayout: self.layoutManager];
+
+
+//			if (NSLocationInRange(image.position, range) && !NSIntersectsRect(bounds, NSMakeRect(0, rect.origin.y, FLT_MAX, rect.size.height)))
+//			{
+//				if (!NSIntersectsRect(rect, NSMakeRect(0, bounds.origin.y, FLT_MAX, bounds.size.height)))
+//				{
+//					NSLog(@"The anchor for image %ld is above its image. Move it down.", [margins indexOfObjectIdenticalTo:image] );
+//					rect.origin.y = bounds.origin.y ;
+////					rect.origin.x = bounds.origin.x;
+////					rect.size.width = proposed.size.width - bounds.origin.x;
+//				}
+////				else
+////				{
+//////					NSLog(@"Image %ld is above its anchor. Move it down.", [margins indexOfObjectIdenticalTo:image] );
+//////					bounds.origin.y = rect.origin.y;
+//////					image.bounds = NSMakeRect(image.bounds.origin.x, rect.origin.y, image.bounds.size.width, image.bounds.size.height);
+//////					rect.origin.x = NSMaxX(bounds);
+//////					rect.size.width = proposed.size.width - NSMaxX(bounds);
+////				}
+//			}
+
+//			[self unoverlap:image];
+			bounds = image.bounds;
+
+
+			if (NSIntersectsRect(bounds, rect))
+			{
+
+//							NSLog(@"MarginContainer:The bounds of image at %@ intersect with the rect %@", NSStringFromRect(bounds),  NSStringFromRect(rect));
+				FlowBreak *f;
+				MarginImage *img2;
+				for (f in flowbreaks)
+				{
+					flowrect = [f boundsWithLayout:self.layoutManager];
+//					NSLog(@"MarginContainer: looking for an image that intersects flowbreak %ld (%@)", [flowbreaks indexOfObject:f], NSStringFromRect(flowrect));
+
+					if (NSIntersectsRect(flowrect, rect))
+					{
+						BOOL hit = NO;
+						MarginImage *flowbreakimage = image;
+//						NSLog(@"MarginContainer: hit flowbreak!");
+						for (img2 in margins)
+						{
+							if (NSIntersectsRect(flowrect, img2.bounds))
+							{
+								flowbreakimage = img2;
+//								NSLog(@"Hit flowbreak at image %ld.", [margins indexOfObject:flowbreakimage]);
+								hit = YES;
+
+							}
+//							else 	NSLog(@"Image %ld (%@) did not intersect flowrect %ld.", [margins indexOfObject:flowbreakimage],NSStringFromRect(img2.bounds),  [flowbreaks indexOfObject:f]);
+
+						}
+						if (hit)
+						{
+//							NSLog(@"Decided on image %ld for flowbreak. Moving below it.", [margins indexOfObjectIdenticalTo:flowbreakimage]);
+							if (NSMaxY(flowbreakimage.bounds) > rect.origin.y)
+								rect.origin.y = NSMaxY(flowbreakimage.bounds) + 1;
+						}
+//						else NSLog(@"Found no intersecting image.");
+					}
+				}
+
+				// We may have moved the rect down, so we need to check again
+				if (NSIntersectsRect(bounds, rect))
+				{
+					if (image.alignment == imagealign_MarginLeft)
+						rect.origin.x += bounds.size.width;
+					rect.size.width -= bounds.size.width;
+					overlapped = YES;
+				}
+
+			}
+		}
+	}
+
+	return rect;
+}
+
+- (void) unoverlap: (MarginImage *)image
+{
+	// Skip if we only have one image, or none, or bounds are empty
+	if (margins.count < 2 || NSIsEmptyRect(image.bounds))
+		return;
+
+	CGFloat leftMargin = self.textView.textContainerInset.width;
+	CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2;
+
+	NSRect adjustedBounds = image.bounds;
+
+	for (NSInteger i = [margins indexOfObject:image] - 1; i >= 0; i--)
+	{
+		MarginImage *img2 = margins[i];
+
+		// If overlapping, shift in opposite alignment direction
+		if (NSIntersectsRect(img2.bounds, adjustedBounds))
+		{
+			if (image.alignment == img2.alignment)
+			{
+				if (image.alignment == imagealign_MarginLeft)
+				{
+					adjustedBounds.origin.x += img2.bounds.size.width;
+					// Move it one image width the right
+				}
+				else
+				{
+					adjustedBounds.origin.x -= img2.bounds.size.width;
+					// Move it one image width the left
+				}
+			}
+		}
+
+		// If outside margins, move inside margins and down
+		if (image.alignment == imagealign_MarginLeft && NSMaxX(adjustedBounds) > rightMargin - 20)
+		{
+			adjustedBounds.origin.x = 0;
+			if (NSMaxY(img2.bounds) > adjustedBounds.origin.y)
+				adjustedBounds.origin.y = NSMaxY(img2.bounds) + 1;
+		}
+		else if (image.alignment == imagealign_MarginRight && adjustedBounds.origin.x < leftMargin + 20)
+		{
+			adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
+			if (NSMaxY(img2.bounds) > adjustedBounds.origin.y)
+				adjustedBounds.origin.y = NSMaxY(img2.bounds) + 1;
+		}
+		// If still overlapping, move to margins and down
+
+		if (NSIntersectsRect(img2.bounds, adjustedBounds))
+		{
+			if (image.alignment == imagealign_MarginLeft)
+			{
+				adjustedBounds.origin.x = 0;
+			}
+			else
+			{
+				adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
+			}
+			if (NSMaxY(img2.bounds) > adjustedBounds.origin.y)
+				adjustedBounds.origin.y = NSMaxY(img2.bounds) + 1;
+		}
+	}
+	image.bounds = adjustedBounds;
+}
+
+
+- (void) adjustTextviewHeightForLowImages
+{
+	for (MarginImage *image in margins)
+	{
+		if (self.textView.frame.size.height < NSMaxY(image.bounds))
+		{
+			[self.textView setFrameSize:NSMakeSize(self.textView.frame.size.width, NSMaxY(image.bounds) + self.textView.textContainerInset.height)];
+//			[self.textView setNeedsDisplay:YES];
+		}
+	}
 }
 
 - (void) drawRect: (NSRect)rect
 {
+//	NSLog(@"MarginContainer drawRect: %@", NSStringFromRect(rect));
+
     NSSize inset = self.textView.textContainerInset;
-    MarginImage *image;
     NSSize size;
     NSRect bounds;
-    
-    NSInteger count;
-    NSInteger i;
-    
-    count = margins.count;
-    for (i = 0; i < count; i++)
+
+	MarginImage *image;
+	NSEnumerator *enumerator = [margins reverseObjectEnumerator];
+	while (image = [enumerator nextObject])
     {
-        image = margins[i];
-        bounds = [image boundsWithLayout: self.layoutManager];
-        bounds.origin.x += inset.width;
-        bounds.origin.y += inset.height;
-        
-        if (NSIntersectsRect(bounds, rect))
-        {
-            size = image.image.size;
-            [image.image drawInRect: bounds
-                             fromRect: NSMakeRect(0, 0, size.width, size.height)
-                            operation: NSCompositeSourceOver
-                             fraction: 1.0
-                       respectFlipped:YES
-                                hints:nil];
-        }
+		[image boundsWithLayout: self.layoutManager];
+		[self unoverlap:image];
+		bounds = image.bounds;
+
+		if (!NSIsEmptyRect(bounds))
+		{
+			bounds.origin.x += inset.width;
+			bounds.origin.y += inset.height;
+
+			if (NSIntersectsRect(bounds, rect))
+			{
+				size = image.image.size;
+				if (self.textView.frame.size.height < NSMaxY(bounds))
+				{
+					[self.textView setFrameSize:NSMakeSize(self.textView.frame.size.width, NSMaxY(bounds) + inset.height)];
+					[(MyTextView *)self.textView scrollToBottom];
+					[self.textView setNeedsDisplay:YES];
+				}
+				[image.image drawInRect: bounds
+							   fromRect: NSMakeRect(0, 0, size.width, size.height)
+							  operation: NSCompositeSourceOver
+							   fraction: 1.0
+						 respectFlipped:YES
+								  hints:nil];
+			}
+		}
     }
+
+//	for (FlowBreak *flowbreak in flowbreaks)
+//	{
+//		bounds = [flowbreak boundsWithLayout:self.layoutManager];
+//
+//		NSLog (@"Drawing flowbreak bounds at %@", NSStringFromRect(bounds));
+//		NSColor * red = [NSColor redColor];
+//		[red set];
+//		NSFrameRectWithWidth ( bounds, 1 );
+//	}
+
+}
+
+- (NSUInteger) findHyperlinkAt: (NSPoint)p;
+{
+	for (MarginImage *image in margins)
+	{
+		if ([self.textView mouse:p inRect:image.bounds])
+		{
+			NSLog(@"Clicked on image %ld with linkid %ld", [margins indexOfObject:image], image.linkid);
+			return image.linkid;
+		}
+	}
+	return 0;
 }
 
 @end
@@ -278,12 +537,6 @@
  *   - call onKeyDown on our TextBuffer object
  *   - draw images with high quality interpolation
  */
-
-@interface MyTextView : NSTextView
-{
-}
-- (void) superKeyDown: (NSEvent*)evt;
-@end
 
 @implementation MyTextView
 
@@ -305,6 +558,33 @@
     [NSGraphicsContext currentContext].imageInterpolation = NSImageInterpolationHigh;
     [super drawRect: rect];
     [(MarginContainer*)self.textContainer drawRect: rect];
+}
+
+- (void)scrollToBottom
+{
+//	[(MarginContainer *)self.textContainer adjustTextviewHeightForLowImages];
+	id view = self.superview;
+	while (view && ![view isKindOfClass: [NSScrollView class]])
+		view = [view superview];
+
+	NSScrollView *scrollview = (NSScrollView *)view;
+
+	NSPoint newScrollOrigin = NSMakePoint(0.0,NSMaxY(scrollview.documentView.frame)
+									- NSHeight(scrollview.contentView.bounds));
+
+	[[scrollview contentView] scrollToPoint:newScrollOrigin];
+	[scrollview reflectScrolledClipView:[scrollview contentView]];
+//	NSLog(@"Scrolled to bottom of scrollview");
+}
+
+- (void) mouseDown: (NSEvent*)theEvent
+{
+	id view = self.superview;
+	while (view && ![view isKindOfClass: [GlkTextBufferWindow class]])
+		view = [view superview];
+
+	if (![(GlkTextBufferWindow *)view myMouseDown:theEvent])
+		[super mouseDown:theEvent];
 }
 
 @end
@@ -330,6 +610,7 @@
         
         char_request = NO;
         line_request = NO;
+		hyper_request = NO;
         echo_toggle_pending = NO;
         echo = YES;
         
@@ -342,11 +623,15 @@
         historypos = 0;
         historyfirst = 0;
         historypresent = 0;
+
+		hyperlinks = [[NSMutableArray alloc] init];
+		current_hyperlink = nil;
         
         scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
         scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        [scrollview setHasHorizontalScroller: NO];
-        [scrollview setHasVerticalScroller: YES];
+//        scrollview.hasHorizontalScroller = NO;
+//        scrollview.hasVerticalScroller = YES;
+		scrollview.autohidesScrollers = YES;
         scrollview.borderType = NSNoBorder;
         
         /* construct text system manually */
@@ -371,8 +656,7 @@
         scrollview.documentView = textview;
         
         /* now configure the text stuff */
-        
-        
+
         [container setWidthTracksTextView: YES];
         [container setHeightTracksTextView: NO];
         
@@ -381,11 +665,11 @@
         
         textview.autoresizingMask = NSViewWidthSizable;
         
-        [textview setAllowsImageEditing: NO];
-        [textview setAllowsUndo: NO];
-        [textview setUsesFontPanel: NO];
-        [textview setSmartInsertDeleteEnabled: NO];
-        [textview setUsesFindBar: YES];
+        textview.allowsImageEditing = NO;
+		textview.allowsUndo = NO;
+        textview.usesFontPanel = NO;
+        textview.smartInsertDeleteEnabled = NO;
+        textview.usesFindBar = YES;
         
         textview.delegate = self;
         textstorage.delegate = self;
@@ -406,19 +690,17 @@
     return self;
 }
 
-- (void) dealloc
-{
-    NSInteger i;
-    
-    for (i = 0; i < HISTORYLEN; i++)
-        ;
-    
-}
-
 //- (void) setBgColor: (NSInteger)bg
 //{
 //    [super setBgColor: bg];
 //    [self recalcBackground];
+//}
+
+//- (BOOL) allowsDocumentBackgroundColorChange { return YES; }
+//
+//- (void)changeDocumentBackgroundColor:(id)sender
+//{
+//	NSLog(@"changeDocumentBackgroundColor");
 //}
 
 - (void) recalcBackground
@@ -485,7 +767,9 @@
         NSInteger bg = (stylevalue >> 16) & 0xff;
         
         id image = [textstorage attribute: @"NSAttachment" atIndex:x effectiveRange:NULL];
-        
+
+		id hyperlink = [textstorage attribute: NSLinkAttributeName atIndex:x effectiveRange:&range];
+
         [textstorage setAttributes: styles[style].attributes range: range];
         
         if (fg || bg)
@@ -510,11 +794,19 @@
                                 value: image
                                 range: NSMakeRange(x, 1)];
         }
-        
+
+		if (hyperlink)
+		{
+			[textstorage addAttribute: NSLinkAttributeName
+								value: hyperlink
+								range: range];
+		}
+
         x = range.location + range.length;
     }
-    
-//    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
+
+	[container invalidateLayout];
+
 }
 
 - (void) setFrame: (NSRect)frame
@@ -597,54 +889,67 @@
 
 - (void) drawImage: (NSImage*)image val1: (NSInteger)align val2: (NSInteger)unused width: (NSInteger)w height: (NSInteger)h
 {
-    NSTextAttachment *att;
-    NSFileWrapper *wrapper;
-    NSData *tiffdata;
-    //NSAttributedString *attstr;
-    
-    if (w == 0)
-        w = image.size.width;
-    if (h == 0)
-        h = image.size.height;
-    
-    if (align == imagealign_MarginLeft || align == imagealign_MarginRight)
-    {
-        NSLog(@"adding image to margins");
-        unichar uc[1];
-        uc[0] = NSAttachmentCharacter;
-        [textstorage.mutableString appendString: [NSString stringWithCharacters: uc length: 1]];
-        [container addImage: image align: align at: textstorage.length - 1 size: NSMakeSize(w, h)];
-        [self setNeedsDisplay: YES];
-    }
-    
-    else
-    {
-        NSLog(@"adding image to text");
-        
-        image = [self scaleImage: image size: NSMakeSize(w, h)];
-        
-        tiffdata = image.TIFFRepresentation;
-        
-        wrapper = [[NSFileWrapper alloc] initRegularFileWithContents: tiffdata];
-        wrapper.preferredFilename = @"image.tiff";
-        att = [[NSTextAttachment alloc] initWithFileWrapper: wrapper];
-        MyAttachmentCell *cell = [[MyAttachmentCell alloc] initImageCell:image];
-        att.attachmentCell = cell;
-        NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
-        
-        
-        [textstorage appendAttributedString: attstr];
-        
-    }
-    
+	NSTextAttachment *att;
+	NSFileWrapper *wrapper;
+	NSData *tiffdata;
+	//NSAttributedString *attstr;
+
+	if (w == 0)
+		w = image.size.width;
+	if (h == 0)
+		h = image.size.height;
+
+	if (align == imagealign_MarginLeft || align == imagealign_MarginRight)
+	{
+
+		if (lastchar != '\n' && textstorage.length)
+		{
+			NSLog(@"lastchar is not line break. Do not add margin image.");
+			return;
+		}
+
+//		NSLog(@"adding image to margins");
+		unichar uc[1];
+		uc[0] = NSAttachmentCharacter;
+
+		[textstorage.mutableString appendString: [NSString stringWithCharacters: uc length: 1]];
+
+		NSUInteger linkid = 0;
+		if (current_hyperlink) linkid = current_hyperlink.index;
+
+		[container addImage: image align: align at: textstorage.length - 1 size: NSMakeSize(w, h) linkid:linkid];
+
+		[self setNeedsDisplay: YES];
+
+	}
+
+	else
+	{
+//		NSLog(@"adding image to text");
+
+		image = [self scaleImage: image size: NSMakeSize(w, h)];
+
+		tiffdata = image.TIFFRepresentation;
+
+		wrapper = [[NSFileWrapper alloc] initRegularFileWithContents: tiffdata];
+		wrapper.preferredFilename = @"image.tiff";
+		att = [[NSTextAttachment alloc] initWithFileWrapper: wrapper];
+		MyAttachmentCell *cell = [[MyAttachmentCell alloc] initImageCell:image andAlignment:align andAttStr:textstorage at:textstorage.length - 1];
+		att.attachmentCell = cell;
+		NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
+
+
+		[textstorage appendAttributedString: attstr];
+
+	}
+
 }
 
 - (void) flowBreak
 {
-    // NSLog(@"adding flowbreak");
+//	NSLog(@"GlkTextBufferWindow: adding flowbreak");
     unichar uc[1];
     uc[0] = NSAttachmentCharacter;
-    uc[0] = '\n';
     [textstorage.mutableString appendString: [NSString stringWithCharacters: uc length: 1]];
     [container flowBreakAt: textstorage.length - 1];
 }
@@ -668,8 +973,12 @@
 - (void) performScroll
 {
     int bottom;
+	NSRange range;
     // first, force a layout so we have the correct textview frame
-    [layoutmanager glyphRangeForTextContainer: container];
+//    [layoutmanager glyphRangeForTextContainer: container];
+	[layoutmanager textContainerForGlyphAtIndex:0 effectiveRange:&range];
+
+	[container adjustTextviewHeightForLowImages];
     
     // then, get the bottom
     bottom = textview.frame.size.height;
@@ -684,16 +993,7 @@
 
 - (void)scrollToBottom
 {
-    NSPoint newScrollOrigin;
-    if (scrollview.flipped) {
-        newScrollOrigin=NSMakePoint(0.0,NSMaxY(scrollview.documentView.frame)
-                                    -NSHeight(scrollview.contentView.bounds));
-    } else {
-        newScrollOrigin=NSMakePoint(0.0,0.0);
-    }
-    
-    [scrollview.documentView scrollPoint:newScrollOrigin];
-    NSLog(@"Scrolled to bottom of scrollview");
+	[(MyTextView *)textview scrollToBottom];
 }
 
 - (void) saveHistory: (NSString*)line
@@ -841,7 +1141,7 @@
     
     else if (line_request && ch == keycode_Return)
     {
-        NSLog(@"line event from %ld", (long)self.name);
+//        NSLog(@"line event from %ld", (long)self.name);
         
         textview.insertionPointColor = [Preferences bufferBackground];
         
@@ -896,7 +1196,48 @@
 - (BOOL) textView: (NSTextView*)textview_ clickedOnLink: (id)link atIndex: (NSUInteger)charIndex
 {
     NSLog(@"txtbuf: clicked on link: %@", link);
-    return YES;
+
+	if (!hyper_request)
+	{
+		NSLog(@"txtbuf: No hyperlink request in window.");
+		return NO;
+	}
+
+	GlkEvent *gev = [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue forWindow: self.name];
+	[glkctl queueEvent: gev];
+
+	hyper_request = NO;
+	[textview setEditable: YES];
+    return NO;
+}
+
+// Make margin image links clickable
+- (BOOL) myMouseDown: (NSEvent*)theEvent
+{
+	GlkEvent *gev;
+
+	NSLog(@"mouseDown in buffer window.");
+	if (hyper_request && theEvent.clickCount == 1)
+	{
+		[glkctl markLastSeen];
+
+		NSPoint p;
+		p = theEvent.locationInWindow;
+		p = [self convertPoint: p fromView: textview];
+		p.x -= textview.textContainerInset.width;
+		p.y -= textview.textContainerInset.height;
+
+		NSUInteger linkid = [container findHyperlinkAt:p];
+		if (linkid)
+		{
+			NSLog(@"Clicked margin image hyperlink in buf at %g,%g", p.x, p.y);
+			gev = [[GlkEvent alloc] initLinkEvent: linkid forWindow: self.name];
+			[glkctl queueEvent: gev];
+			hyper_request = NO;
+			return YES;
+		}
+	}
+	return NO;
 }
 
 #endif
@@ -914,6 +1255,7 @@
     lastseen = 0;
     lastchar = '\n';
     [container clearImages];
+	hyperlinks = nil;
 }
 
 - (void) clearScrollback: (id)sender
@@ -948,6 +1290,7 @@
     line_request = save_request;
     
     [container clearImages];
+	hyperlinks = nil;
 }
 
 - (void) putString:(NSString*)str style:(NSInteger)stylevalue
@@ -963,12 +1306,7 @@
     if (fg || bg)
     {
         NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
-        
-#ifdef GLK_MODULE_HYPERLINKS
-        
-       // if (linkid)
-         //   [mutatt setObject: [NSNumber numberWithInt: linkid] forKey: @"GlkLink"];
-#endif
+
         mutatt[@"GlkStyle"] = @((int)stylevalue);
         if ([Preferences stylesEnabled])
         {
@@ -1059,13 +1397,61 @@
     NSString *str = textstorage.string;
     str = [str substringWithRange: NSMakeRange(fence, str.length - fence)];
     if (echo)
-        lastchar = [str characterAtIndex: str.length - 1];
+	{
+		lastchar = '\n'; // [str characterAtIndex: str.length - 1];
+//
+//		if (![[str substringWithRange: NSMakeRange(str.length -1, 1)] isEqual:@'\n'])
+//			str = [str stringByAppendingString:@"\n"];
+	}
     else
         [textstorage deleteCharactersInRange: NSMakeRange(fence, textstorage.length - fence)]; // Don't echo input line
 
     [textview setEditable: NO];
     line_request = NO;
     return str;
+}
+
+- (void) setHyperlink:(NSInteger)linkid
+{
+	NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
+
+	if (current_hyperlink && current_hyperlink.index != linkid)
+	{
+		NSLog(@"There is a preliminary hyperlink, with index %ld", current_hyperlink.index);
+		if (current_hyperlink.startpos >= textstorage.length)
+		{
+			NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. current_hyperlink.startpos == %ld, textstorage.length == %ld", current_hyperlink.startpos, textstorage.length);
+			current_hyperlink = nil;
+		}
+		else
+		{
+			current_hyperlink.range = NSMakeRange(current_hyperlink.startpos, textstorage.length - current_hyperlink.startpos);
+			[textstorage addAttribute:NSLinkAttributeName value:[NSNumber numberWithInteger: current_hyperlink.index] range:current_hyperlink.range];
+			[hyperlinks addObject:current_hyperlink];
+			current_hyperlink = nil;
+		}
+	}
+	if (!current_hyperlink && linkid)
+	{
+		current_hyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:textstorage.length];
+		NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", current_hyperlink.startpos,linkid);
+
+	}
+}
+
+- (void) initHyperlink
+{
+	hyper_request = YES;
+	textview.editable = YES;
+	NSLog(@"txtbuf: hyperlink event requested");
+
+}
+
+- (void) cancelHyperlink
+{
+	hyper_request = NO;
+	textview.editable = NO;
+	NSLog(@"txtbuf: hyperlink event cancelled");
 }
 
 - (void) terpDidStop

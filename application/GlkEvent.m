@@ -131,6 +131,40 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
+- (instancetype) initSoundNotify: (NSInteger)notify withSound:(NSInteger)sound
+{
+	self = [super init];
+	if (self)
+	{
+		type = EVTSOUND;
+		val1 = sound;
+		val2 = notify;
+	}
+	return self;
+}
+
+- (instancetype) initVolumeNotify: (NSInteger)notify
+{
+	self = [super init];
+	if (self)
+	{
+		type = EVTVOLUME;
+		val2 = notify;
+	}
+	return self;
+}
+
+- (instancetype) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name
+{
+	self = [super init];
+	if (self)
+	{
+		type = EVTHYPER;
+		win = name;
+		val1 = linkid;
+	}
+	return self;
+}
 
 - (void) writeEvent: (NSInteger)fd
 {

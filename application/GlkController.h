@@ -13,7 +13,7 @@
 
 #import "main.h"
 
-#import "Game+CoreDataProperties.h"
+#import "Game.h"
 #import "Metadata+CoreDataProperties.h"
 
 #define MAXWIN 64
@@ -67,6 +67,7 @@
 - (void) runTerp: (NSString*)terpname withGame: (Game *)game;
 - (void) queueEvent: (GlkEvent*)gevent;
 - (void) contentDidResize: (NSRect)frame;
+
 @property (getter=isAlive, readonly) BOOL alive;
 @property (strong, readonly) Game *game;
 

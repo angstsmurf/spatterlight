@@ -18,7 +18,7 @@ NSDictionary *gFormatMap;
 
 - (void) awakeFromNib
 {
-    NSLog(@"appdel: awakeFromNib");
+//    NSLog(@"appdel: awakeFromNib");
     
     gGameFileTypes = @[@"d$$", @"dat", @"sna",
                       @"advsys", @"quill",
@@ -49,12 +49,21 @@ NSDictionary *gFormatMap;
 
     [libctl loadLibrary];
     [libctl showWindow: nil];
+
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
+	signal(SIGPIPE, SIG_IGN);
+
 }
 
 - (IBAction) showPrefs: (id)sender
 {
     NSLog(@"appdel: showPrefs");
     [prefctl showWindow: nil];
+	[prefctl updatePreferencePanel];
 }
 
 - (IBAction) showLibrary: (id)sender
@@ -187,10 +196,17 @@ NSDictionary *gFormatMap;
     [prefctl updatePreferencePanel];
 }
 
+- (NSWindow *) preferencePanel
+{
+	return [prefctl window];
+}
 
 - (void) applicationWillTerminate: (NSNotification*)notification
 {
     [libctl saveLibrary:self];
+	
+	if ([[NSFontPanel sharedFontPanel] isVisible])
+		[[NSFontPanel sharedFontPanel] orderOut:self];
 }
 
 -(void)addToRecents:(NSArray*)URLs
@@ -285,7 +301,7 @@ NSDictionary *gFormatMap;
     NSInteger count = windows.count;
     NSInteger alive = 0;
 
-    NSLog(@"appdel: applicationShouldTerminate");
+//    NSLog(@"appdel: applicationShouldTerminate");
 
     while (count--)
     {
@@ -295,7 +311,7 @@ NSDictionary *gFormatMap;
             alive ++;
     }
 
-    NSLog(@"appdel: windows=%lu alive=%ld", (unsigned long)[windows count], (long)alive);
+//    NSLog(@"appdel: windows=%lu alive=%ld", (unsigned long)[windows count], (long)alive);
 
     if (alive > 0)
     {

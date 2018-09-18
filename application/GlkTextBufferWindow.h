@@ -1,6 +1,13 @@
 // I suppose this is necessary to get rid of that ugly Markup menu on attached images.
 
 @interface MyAttachmentCell : NSTextAttachmentCell
+{
+	NSInteger align;
+	NSInteger pos;
+	NSAttributedString *attrstr;
+}
+
+- (instancetype) initImageCell:(NSImage *)image andAlignment:(NSInteger)analignment andAttStr:(NSAttributedString *)anattrstr at:(NSInteger)apos;
 
 @property (readonly) BOOL wantsToTrackMouse;
 
@@ -9,20 +16,50 @@
 /*
  * Extend NSTextContainer to have images in the margins with
  * the text flowing around them.
- * TODO: check for the flowbreak character.
  */
+
+@interface MyTextView : NSTextView
+- (void) superKeyDown: (NSEvent*)evt;
+- (void) scrollToBottom;
+@end
+
+@interface MarginImage : NSObject
+{
+	NSImage *image;
+	NSInteger align;
+	NSInteger pos;
+	NSSize size;
+	BOOL recalc;
+	NSTextContainer *container;
+}
+
+- (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos size: (NSSize)asize sender:(id)sender NS_DESIGNATED_INITIALIZER;
+@property (readonly, copy) NSImage *image;
+@property (readonly) NSInteger position;
+@property (readonly) NSInteger alignment;
+@property NSRect bounds;
+@property NSUInteger linkid;
+
+- (NSRect) boundsWithLayout: (NSLayoutManager*)layout;
+//- (void) moveBelow: (MarginImage *)image;
+
+@end
 
 @interface MarginContainer : NSTextContainer
 {
     NSMutableArray *margins;
+	NSMutableArray *flowbreaks;
+	NSInteger recalc;
 }
 
 - (instancetype) initWithContainerSize: (NSSize)size NS_DESIGNATED_INITIALIZER;
 - (void) clearImages;
-- (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top size: (NSSize)size;
-- (void) flowBreakAt: (NSInteger)pos;
+- (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top size: (NSSize)size linkid: (NSUInteger)linkid;
 - (void) drawRect: (NSRect)rect;
+- (void) adjustTextviewHeightForLowImages;
 - (void) invalidateLayout;
+- (void) unoverlap: (MarginImage *)image;
+- (NSUInteger) findHyperlinkAt: (NSPoint)p;
 
 @end
 
@@ -42,6 +79,8 @@
 
     NSInteger char_request;
     NSInteger line_request;
+	NSInteger hyper_request;
+
     BOOL echo_toggle_pending; /* if YES, line echo behavior will be inverted, starting from the next line event*/
     BOOL echo; /* if YES, current line input will be deleted from text view */
 
@@ -57,6 +96,7 @@
 - (void) recalcBackground;
 - (void) onKeyDown: (NSEvent*)evt;
 - (void) echo: (BOOL)val;
+- (BOOL) myMouseDown: (NSEvent*)theEvent;
 
 @property (readonly) NSInteger lastchar;
 

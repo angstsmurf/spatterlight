@@ -15,10 +15,14 @@
 
 #import <CoreData/CoreData.h>
 
-#import "Game+CoreDataProperties.h"
+#import "Game.h"
 #import "Image+CoreDataProperties.h"
 #import "Metadata+CoreDataProperties.h"
-#import "Settings+CoreDataProperties.h"
+#import "Settings.h"
+#import "MySideInfoView.h"
+#import "NSString+XML.h"
+#import "NSDate+relative.h"
+
 
 @interface LibHelperWindow : NSWindow<NSDraggingDestination>
 @end
@@ -26,7 +30,7 @@
 @interface LibHelperTableView : NSTableView
 @end
 
-@interface LibController : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSControlTextEditingDelegate>
+@interface LibController : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSControlTextEditingDelegate, NSSplitViewDelegate>
 {
     NSURL *homepath;
     
@@ -62,8 +66,17 @@
     NSURLSessionDataTask *dataTask;
 }
 
-@property (nonatomic, strong) NSPersistentContainer *persistentContainer;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (strong) NSPersistentContainer *persistentContainer;
+@property (strong) NSManagedObjectContext *managedObjectContext;
+
+@property (strong) NSImageView *imageView;
+@property (strong) NSTextField *titleField;
+@property (strong) NSBox *divider;
+@property (strong) NSTextField *headlineField;
+@property (strong) NSTextField *authorField;
+@property (strong) NSTextField *blurbField;
+@property (strong) MySideInfoView *infoView;
+
 
 - (void) loadLibrary; /* initializer */
 - (IBAction) saveLibrary: sender;
@@ -113,12 +126,15 @@
 - (IBAction) toggleSidebar:(id)sender;
 
 @property (strong) IBOutlet NSImageView *sideImage;
-@property (strong) IBOutlet NSTextView *sideTitle;
-@property (strong) IBOutlet NSLayoutConstraint *titleheight;
-@property (strong) IBOutlet NSTextView *sideHeader;
-@property (strong) IBOutlet NSTextView *sideAuthor;
-@property (strong) IBOutlet NSTextView *sideBlurb;
+@property (strong) IBOutlet NSTextField *sideTitle;
+@property (strong) IBOutlet NSBox *sideDivider;
+@property (strong) IBOutlet NSTextField *sideHeader;
+@property (strong) IBOutlet NSTextField *sideAuthor;
+@property (strong) IBOutlet NSTextField *sideBlurb;
+@property (strong) IBOutlet NSView *scrollCanvas;
 @property (strong) IBOutlet NSTextField *sideIfid;
+@property (strong) IBOutlet NSClipView *sideClipView;
+@property (strong) IBOutlet NSScrollView *leftScrollView;
 
 - (NSString*) convertAGTFile: (NSString*)origpath;
 

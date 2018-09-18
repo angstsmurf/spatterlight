@@ -12,7 +12,6 @@
     HelpPanelController *helpLicenseWindow;
     NSDocumentController *theDocCont;
     BOOL addToRecents;
-
 }
 
 - (IBAction) openDocument: (id)sender;
@@ -24,6 +23,7 @@
 - (void) addToRecents:(NSArray*)URLs;
 - (void) updatePreferencePanel;
 
+- (NSWindow *) preferencePanel;
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 

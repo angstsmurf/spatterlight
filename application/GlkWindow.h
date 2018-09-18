@@ -1,11 +1,13 @@
-
 @class GlkController;
+@class GlkHyperlink;
 
 @interface GlkWindow : NSView
 {
     GlkController *glkctl;
     GlkStyle *styles[style_NUMSTYLES];
     NSInteger bgnd;
+	NSMutableArray *hyperlinks;
+	GlkHyperlink *current_hyperlink;
 }
 
 @property (readonly) NSInteger name;
@@ -30,6 +32,9 @@
 - (void) cancelChar;
 - (void) initMouse;
 - (void) cancelMouse;
+- (void) setHyperlink: (NSInteger)linkid;
+- (void) initHyperlink;
+- (void) cancelHyperlink;
 
 - (void) fillRects: (struct fillrect *)rects count: (NSInteger)n;
 - (void) drawImage: (NSImage*)buf val1: (NSInteger)v1 val2: (NSInteger)v2 width: (NSInteger)w height: (NSInteger)h;

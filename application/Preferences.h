@@ -6,12 +6,14 @@
 #define TAG_SPACES_ONE 1
 #define TAG_SPACES_TWO 2
 
-#import "Settings+CoreDataProperties.h"
-#import "Font+CoreDataProperties.h"
+#import "Settings.h"
+#import "Game.h"
+#import "Font.h"
 
 
-@interface Preferences : NSWindowController
+@interface Preferences : NSWindowController <NSWindowDelegate>
 {
+
     IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
     IBOutlet NSColorWell *clrInputFg, *clrBufferFg, *clrGridFg;
     IBOutlet NSColorWell *clrBufferBg, *clrGridBg;
@@ -25,14 +27,17 @@
     IBOutlet NSButton *btnUseScreenFonts;
     NSFont * __strong *selfontp;
     NSColor * __strong *colorp;
+	NSColor * __strong *colorp2;
 }
 
 + (void) rebuildTextAttributes;
+
 + (NSSize) defaultWindowSize;
 
-+ (void) changePreferences: (Settings *)settings;
++ (void) changePreferences: (Settings *)settings forGame: (Game *)game;
 + (void) savePreferences;
 + (void) nilCurrentSettings;
+
 - (void) updatePreferencePanel;
 
 
@@ -49,8 +54,12 @@
 - (IBAction) changeEnableSound: (id)sender;
 - (IBAction) changeEnableStyles: (id)sender;
 
-- (void) setColor:(NSColor *)col forAttribute:(NSString *)attr;
++ (instancetype)sharedInstance;
+- (instancetype)init NS_UNAVAILABLE;
+
+//- (void) setColor:(NSColor *)col forAttribute:(NSString *)attr;
 - (void)changeAttributes:(id)sender;
+- (NSFontPanelModeMask)validModesForFontPanel:(NSFontPanel *)fontPanel;
 
 
 //- (IBAction) changeUseScreenFonts: (id)sender;
@@ -83,5 +92,10 @@
 + (NSDictionary*) attributesForBufferStyle: (int)style;
 
 + (Settings *) currentSettings;
++ (Settings *) defaultSettings;
+
++ (Game *) currentGame;
+
++ (NSManagedObjectContext*) managedObjectContext;
 
 @end

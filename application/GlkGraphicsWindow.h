@@ -3,9 +3,9 @@
 {
     NSImage *image;
     BOOL dirty;
-    int char_request;
-    int mouse_request;
-    int transparent;
+    NSInteger char_request;
+    NSInteger mouse_request;
+    NSInteger transparent;
 }
 
 @end

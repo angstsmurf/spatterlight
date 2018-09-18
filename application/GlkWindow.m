@@ -187,4 +187,19 @@
 {
 }
 
+- (void) setHyperlink: (NSInteger)linkid;
+{
+	NSLog(@"hyperlink input in %@ not implemented", [self class]);
+}
+
+- (void) initHyperlink
+{
+	NSLog(@"hyperlink input in %@ not implemented", [self class]);
+}
+
+- (void) cancelHyperlink
+{
+		NSLog(@"hyperlink input in %@ not implemented", [self class]);
+}
+
 @end

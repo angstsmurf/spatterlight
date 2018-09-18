@@ -3,8 +3,6 @@
  */
 
 #import "main.h"
-#import "NSString+XML.h"
-#import "NSDate+relative.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
@@ -28,7 +26,6 @@ enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
 #include "ifiction.h"
 #include "babel_handler.h"
 
-
 @implementation LibHelperWindow
 - (NSDragOperation) draggingEntered:sender { return [(LibController *)self.delegate draggingEntered:sender]; }
 - (void) draggingExited:sender { [(LibController *)self.delegate draggingEntered:sender]; }
@@ -40,7 +37,7 @@ enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
 
 // NSResponder (super)
 -(BOOL)becomeFirstResponder {
-    NSLog(@"becomeFirstResponder");
+//    NSLog(@"becomeFirstResponder");
     BOOL flag = [super becomeFirstResponder];
     if (flag) {
     [(LibController *)self.delegate enableClickToRenameAfterDelay];
@@ -129,8 +126,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
 
 - (void) loadLibrary
 {
-    NSLog(@"libctl: loadLibrary");
-    
+//    NSLog(@"libctl: loadLibrary");
+
     /* in case we are called more than once... */
     
     homepath = [NSURL fileURLWithPath:(@"~/Library/Application Support/Spatterlight").stringByExpandingTildeInPath  isDirectory:YES];
@@ -180,7 +177,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
                                                   inManagedObjectContext:self.managedObjectContext];
 
 
-                //NSLog(@"Creating new instance of Game %@ and giving it metadata of ifid %@", meta.title, ifid);
+                NSLog(@"Creating new instance of Game %@ and giving it metadata of ifid %@", meta.title, ifid);
                 game.metadata = meta;
                 game.added = [NSDate date];
                 [game bookmarkForPath:[games valueForKey:ifid]];
@@ -230,7 +227,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
     NSString *key;
     NSSortDescriptor *sortDescriptor;
 
-    NSLog(@"libctl: windowDidLoad");
+//    NSLog(@"libctl: windowDidLoad");
 
     defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
@@ -273,8 +270,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
     gameTableDirty = YES;
     [self updateTableViews];
 }
-
-
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
     NSLog(@"libctl: windowWillReturnUndoManager!")
@@ -517,13 +512,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
         }
     }
 }
-
-- (IBAction) toggleSidebar:(id)sender
-{
-    _leftView.hidden = (!_leftView.hidden);
-    [self updateSideView];
-}
-
 
 - (BOOL) validateMenuItem: (NSMenuItem *)menuItem
 {
@@ -1764,198 +1752,102 @@ objectValueForTableColumn: (NSTableColumn*)column
 - (void) updateSideView
 {
 
-    if (!_leftView.hidden)
-    {
-        NSMutableDictionary *attr = [[NSMutableDictionary alloc] init];
-        NSMutableAttributedString *mutAtt;
-        NSFont *font;
-        NSIndexSet *rows = gameTableView.selectedRowIndexes;
+	NSIndexSet *rows = gameTableView.selectedRowIndexes;
 
-        Game *game = gameTableModel[rows.firstIndex];
-        if (game.metadata.cover.data)
-        {
-            CGFloat superViewWidth = _leftView.frame.size.width;
-            CGFloat superViewHeight = _leftView.frame.size.height;
+	if (!rows.count)
+	{
+		NSLog(@"No game selected in table view, returning without updating side view");
+		return;
+	} else NSLog(@"%lu rows selected.", (unsigned long)rows.count);
 
-            NSImage *theImage = [[NSImage alloc] initWithData:(NSData *)game.metadata.cover.data];
+	Game *game = gameTableModel[rows.firstIndex];
 
-            CGFloat ratio = theImage.size.width / theImage.size.height;
-            if ((superViewWidth / ratio) < (superViewHeight / 2)) {
-                [theImage setSize:NSMakeSize(superViewWidth, superViewWidth / ratio)];
-            }
+	NSLog(@"\nUpdating info pane for %@", game.metadata.title);
 
-            _sideImage.image = theImage;
+	_infoView = [[MySideInfoView alloc] initWithFrame:[_leftScrollView frame]];
 
-            _sideImage.imageScaling = NSImageScaleProportionallyUpOrDown;
+	_leftScrollView.documentView = _infoView;
 
-        }
-        else _sideImage.image = nil;
+	[_infoView updateSideViewForGame:game];
 
-        NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
+	if (game.metadata.ifid)
+		_sideIfid.stringValue = game.metadata.ifid;
+	else
+		_sideIfid.stringValue = @"";
 
-        para.alignment = NSTextAlignmentCenter;
-        NSDictionary *attributes;
-
-        if (game.metadata.title.length < 10)
-        {
-            para.minimumLineHeight = 52.f;
-            para.maximumLineHeight = 52.f;
-
-            font = [NSFont fontWithName:@"IM FELL Double Pica PRO" size:50];
-            attributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:font,
-                          NSFontAttributeName,
-                          para,    NSParagraphStyleAttributeName, nil];
-        }
-        else
-        {
-            //para.paragraphSpacingBefore = 100;
-            //para.paragraphSpacing = 50;
-            para.minimumLineHeight = 32.f;
-            para.maximumLineHeight = 32.f;
-
-            font = [NSFont fontWithName:@"IM FELL Double Pica PRO" size:30];
-
-            attributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:font,
-                          NSFontAttributeName, [NSNumber numberWithFloat:-5], NSBaselineOffsetAttributeName,
-                          para,    NSParagraphStyleAttributeName, nil];
-        }
-        mutAtt = [[NSMutableAttributedString alloc] initWithString:game.metadata.title];
-        [mutAtt setAttributes:attributes range:NSMakeRange(0, mutAtt.length)];
-
-        [_sideTitle.textStorage setAttributedString:mutAtt];
-
-        CGRect contentRect = CGRectZero;
-
-        NSScrollView *theScroll = (NSScrollView *)_sideTitle.superview.superview;
-
-        for (NSView *view in theScroll.subviews) {
-            contentRect = CGRectUnion(contentRect, view.frame);
-        }
-        _titleheight = [NSLayoutConstraint constraintWithItem:_sideTitle
-                                                    attribute:NSLayoutAttributeHeight
-                                                    relatedBy:NSLayoutRelationEqual
-                                                       toItem:nil
-                                                    attribute:NSLayoutAttributeHeight
-                                                   multiplier:1.0
-                                                     constant:contentRect.size.height];
-        [NSLayoutConstraint activateConstraints:@[_titleheight]];
-        if (game.metadata.headline)
-        {
-            font = [NSFont fontWithName:@"IM FELL THREE LINE PICA PRO" size:10];
-
-            NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-
-            paraStyle.alignment = NSTextAlignmentCenter;
-
-
-            attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:font,
-                    NSFontAttributeName,
-                    paraStyle,    NSParagraphStyleAttributeName, nil];
-
-            mutAtt = [[NSMutableAttributedString alloc] initWithString:[game.metadata.headline uppercaseString]];
-            [mutAtt setAttributes:attr range:NSMakeRange(0, mutAtt.length)];
-
-            _sideHeader.translatesAutoresizingMaskIntoConstraints = true;
-            _sideHeader.textStorage.font = font;
-
-            [_sideHeader.textStorage setAttributedString:mutAtt];
-        }
-        else
-            [_sideHeader.textStorage setAttributedString:[[NSAttributedString alloc] initWithString:@""]];
-
-        if (game.metadata.author)
-        {
-            font = [NSFont fontWithName:@"IM FELL English PRO Italic" size:14];
-            NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-
-            paraStyle.alignment = NSTextAlignmentCenter;
-
-            attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:font,
-                    NSFontAttributeName,
-                    paraStyle,    NSParagraphStyleAttributeName, nil];
-
-            _sideAuthor.textStorage.font = font;
-
-            mutAtt = [[NSMutableAttributedString alloc] initWithString:game.metadata.author];
-            [mutAtt setAttributes:attr range:NSMakeRange(0, mutAtt.length)];
-
-            [_sideAuthor.textStorage setAttributedString:mutAtt];            }
-        else
-            [_sideAuthor.textStorage setAttributedString:[[NSAttributedString alloc] initWithString:@""]];
-
-        if (game.metadata.blurb)
-        {
-
-            font = [NSFont fontWithName:@"IM FELL DW Pica PRO" size:14.f];
-
-            // para.lineSpacing = 1;
-            para.minimumLineHeight = 17.f;
-            para.maximumLineHeight = 17.f;
-            para.alignment = NSTextAlignmentLeft;
-
-
-            NSDictionary *attributes = @{
-                                         NSParagraphStyleAttributeName : para,
-                                         NSFontAttributeName: font,
-                                         };
-            // _sideBlurb.textStorage.font = font;
-            [_sideBlurb.textStorage setAttributedString:[[NSAttributedString alloc] initWithString:game.metadata.blurb
-                                                                                        attributes:attributes]];
-            [_sideBlurb setContinuousSpellCheckingEnabled:NO];
-
-
-        }
-        else
-            [_sideBlurb.textStorage setAttributedString:[[NSAttributedString alloc] initWithString:@""]];
-        if (game.metadata.ifid)
-            _sideIfid.stringValue = game.metadata.ifid;
-        else
-            _sideIfid.stringValue = @"";
-
-        gameTableDirty = YES;
-    }
+	gameTableDirty = YES;
 
 }
 
+#pragma mark -
+#pragma mark SplitView stuff
 
 
-- (NSImage*) resizeImage:(NSImage*)sourceImage size:(NSSize)size{
+- (BOOL)splitView:(NSSplitView *)splitView
+canCollapseSubview:(NSView *)subview
+{
+	if (subview == _leftView) return YES;
+	return NO;
+}
 
-    NSRect targetFrame = NSMakeRect(0, 0, size.width, size.height);
-    NSImage*  targetImage = [[NSImage alloc] initWithSize:size];
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition ofSubviewAt:(NSInteger)dividerIndex
+{
+	return splitView.frame.size.width / 2;
+}
 
-    NSSize sourceSize = [sourceImage size];
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex
+{
+	return (CGFloat)200;
+}
 
-    float ratioH = size.height/ sourceSize.height;
-    float ratioW = size.width / sourceSize.width;
+-(IBAction)toggleSidebar:(id)sender;
+{
+	if ([_splitView isSubviewCollapsed:_leftView]) {
+		[self uncollapseLeftView];
+	} else {
+		[self collapseLeftView];
+	}
+}
 
-    NSRect cropRect = NSZeroRect;
-    if (ratioH >= ratioW) {
-        cropRect.size.width = floor (size.width / ratioH);
-        cropRect.size.height = sourceSize.height;
-    } else {
-        cropRect.size.width = sourceSize.width;
-        cropRect.size.height = floor(size.height / ratioW);
-    }
+-(void)collapseLeftView
+{
+	NSView *left  = [[_splitView subviews] objectAtIndex:0];
+	NSView *right = [[_splitView subviews] objectAtIndex:1];
+	NSRect rightFrame = [right frame];
+	NSRect overallFrame = [_splitView frame];
+	[left setHidden:YES];
+	[right setFrameSize:NSMakeSize(overallFrame.size.width,rightFrame.size.height)];
+	[_splitView display];
+}
 
-    cropRect.origin.x = floor( (sourceSize.width - cropRect.size.width)/2 );
-    cropRect.origin.y = floor( (sourceSize.height - cropRect.size.height)/2 );
+-(void)uncollapseLeftView
+{
+	NSView *left  = [[_splitView subviews] objectAtIndex:0];
+	NSView *right = [[_splitView subviews] objectAtIndex:1];
+	[left setHidden:NO];
 
+	CGFloat dividerThickness = [_splitView dividerThickness];
 
+	NSLog(@"dividerThickness = %f", dividerThickness);
 
-    [targetImage lockFocus];
+	// get the different frames
+	NSRect leftFrame = [left frame];
+	NSRect rightFrame = [right frame];
 
-    [sourceImage drawInRect:targetFrame
-                   fromRect:cropRect       //portion of source image to draw
-                  operation:NSCompositingOperationCopy  //compositing operation
-                   fraction:1.0              //alpha (transparency) value
-             respectFlipped:YES              //coordinate system
-                      hints:@{NSImageHintInterpolation:
-                                  [NSNumber numberWithInt:NSImageInterpolationLow]}];
-    
-    [targetImage unlockFocus];
-    
-    return targetImage;}
+	rightFrame.size.width = (rightFrame.size.width-leftFrame.size.width-dividerThickness);
+	leftFrame.origin.x = 0;
+	[left setFrameSize:leftFrame.size];
+	[right setFrame:rightFrame];
+	[_splitView display];
+}
+
+CGFloat lastsplitViewWidth = 0;
+
+//- (void)splitViewDidResizeSubviews:(NSNotification *)notification
+//{
+//	// TODO: This should call a faster update method rather than rebuilding the view from scratch every time, but everything I've tried makes word wrap wonky
+//	[self updateSideView];
+//}
 
 #pragma mark -
 #pragma mark Add to Open Recent menu stuff

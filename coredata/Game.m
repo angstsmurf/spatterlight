@@ -6,12 +6,12 @@
 //
 //
 
-#import "Game+CoreDataClass.h"
+#import "Game.h"
 #import "Interpreter+CoreDataClass.h"
 
 #import "Metadata+CoreDataClass.h"
 
-#import "Settings+CoreDataClass.h"
+#import "Settings.h"
 
 @implementation Game
 
@@ -74,7 +74,7 @@
 
 - (void) windowWillClose:(NSNotification *)notification
 {
-    NSLog(@"glkctl: windowWillClose");
+//    NSLog(@"glkctl: windowWillClose");
     InfoController * infoWindow = (InfoController *)self.infoWindow;
     infoWindow.window.delegate = nil;
     self.infoWindow = nil;
