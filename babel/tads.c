@@ -1,11 +1,11 @@
-/* 
+/*
  *   tads.c - Treaty of Babel common functions for tads2 and tads3 modules
- *   
+ *
  *   This file depends on treaty_builder.h
- *   
+ *
  *   This file is public domain, but note that any changes to this file may
  *   render it noncompliant with the Treaty of Babel
- *   
+ *
  *   Modified
  *.   04/08/2006 LRRaszewski - changed babel API calls to threadsafe versions
  *.   04/08/2006 MJRoberts  - initial implementation
@@ -35,12 +35,12 @@
 
 /* ------------------------------------------------------------------------ */
 /*
- *   private structures 
+ *   private structures
  */
 
 /*
  *   resource information structure - this encapsulates the location and size
- *   of a binary resource object embedded in a story file 
+ *   of a binary resource object embedded in a story file
  */
 typedef struct resinfo resinfo;
 struct resinfo
@@ -54,7 +54,7 @@ struct resinfo
 };
 
 /*
- *   Name/value pair list entry 
+ *   Name/value pair list entry
  */
 typedef struct valinfo valinfo;
 struct valinfo
@@ -73,7 +73,7 @@ struct valinfo
 
 /* ------------------------------------------------------------------------ */
 /*
- *   forward declarations 
+ *   forward declarations
  */
 static valinfo *parse_game_info(const void *story_file, int32 story_len,
                                 int *version);
@@ -102,32 +102,32 @@ static int get_jpeg_dim(const void *img, int32 extent,
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Get the IFID for a given story file.  
+ *   Get the IFID for a given story file.
  */
 int32 tads_get_story_file_IFID(void *story_file, int32 extent,
                                char *output, int32 output_extent)
 {
     valinfo *vals;
-    
+
     /* if we have GameInfo, try looking for an IFID there */
     if ((vals = parse_game_info(story_file, extent, 0)) != 0)
     {
         valinfo *val;
         int found = 0;
-        
+
         /* find the "IFID" key */
         if ((val = find_by_key(vals, "IFID")) != 0)
         {
             char *p;
-            
+
             /* copy the output as a null-terminated string */
             ASSERT_OUTPUT_SIZE((int32)val->val_len + 1);
             memcpy(output, val->val, val->val_len);
             output[val->val_len] = '\0';
 
-            /* 
+            /*
              *   count up the IFIDs in the buffer - there might be more than
-             *   one, separated by commas 
+             *   one, separated by commas
              */
             for (found = 1, p = output ; *p != '\0' ; ++p)
             {
@@ -145,32 +145,32 @@ int32 tads_get_story_file_IFID(void *story_file, int32 extent,
             return found;
     }
 
-    /* 
+    /*
      *   we didn't find an IFID in the GameInfo, so generate a default IFID
-     *   using the MD5 method 
+     *   using the MD5 method
      */
     return generate_md5_ifid(story_file, extent, output, output_extent);
 }
 
 /*
- *   Get the size of the ifiction metadata for the game 
+ *   Get the size of the ifiction metadata for the game
  */
 int32 tads_get_story_file_metadata_extent(void *story_file, int32 extent)
 {
     valinfo *vals;
     int32 ret;
     int ver;
-    
+
     /*
      *   First, make sure we have a GameInfo record.  If we don't, simply
-     *   indicate that there's no metadata to fetch.  
+     *   indicate that there's no metadata to fetch.
      */
     if ((vals = parse_game_info(story_file, extent, &ver)) == 0)
         return NO_REPLY_RV;
 
     /*
      *   Run the ifiction synthesizer with no output buffer, to calculate the
-     *   size we need. 
+     *   size we need.
      */
     ret = synth_ifiction(vals, ver, 0, 0, story_file, extent);
 
@@ -210,12 +210,12 @@ int32 tads_get_story_file_metadata(void *story_file, int32 extent,
 }
 
 /*
- *   Get the size of the cover art 
+ *   Get the size of the cover art
  */
 int32 tads_get_story_file_cover_extent(void *story_file, int32 story_len)
 {
     resinfo res;
-    
+
     /* look for the cover art resource */
     if (find_cover_art(story_file, story_len, &res, 0, 0, 0))
         return res.len;
@@ -224,7 +224,7 @@ int32 tads_get_story_file_cover_extent(void *story_file, int32 story_len)
 }
 
 /*
- *   Get the format of the cover art 
+ *   Get the format of the cover art
  */
 int32 tads_get_story_file_cover_format(void *story_file, int32 story_len)
 {
@@ -238,7 +238,7 @@ int32 tads_get_story_file_cover_format(void *story_file, int32 story_len)
 }
 
 /*
- *   Get the cover art data 
+ *   Get the cover art data
  */
 int32 tads_get_story_file_cover(void *story_file, int32 story_len,
                                 void *outbuf, int32 output_extent)
@@ -262,7 +262,7 @@ int32 tads_get_story_file_cover(void *story_file, int32 story_len,
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Generate a default IFID using the MD5 hash method 
+ *   Generate a default IFID using the MD5 hash method
  */
 static int32 generate_md5_ifid(void *story_file, int32 extent,
                                char *output, int32 output_extent)
@@ -297,7 +297,7 @@ static int32 generate_md5_ifid(void *story_file, int32 extent,
 /* ------------------------------------------------------------------------ */
 /*
  *   Some UTF-8 utility functions and macros.  We use our own rather than the
- *   ctype.h macros because we're parsing UTF-8 text.  
+ *   ctype.h macros because we're parsing UTF-8 text.
  */
 
 /* is c a space? */
@@ -309,7 +309,7 @@ static int32 generate_md5_ifid(void *story_file, int32 extent,
 /* is-newline - matches \n, \r, and \u2028 */
 static int u_isnl(const char *p, int32 len)
 {
-    return (*p == '\n' 
+    return (*p == '\n'
             || *p == '\r'
             || (len >= 3
                 && *(unsigned char *)p == 0xe2
@@ -339,7 +339,7 @@ static void prevc(const char **p, int32 *len)
     /* move back one byte */
 	--*p; ++*len;
 
-	/* keep skipping as long as we're looking at continuation cha(void)(ract)ers */
+    /* keep skipping as long as we're looking at continuation characters */
     while ((**p & 0xC0) == 0x80)
 	{
 		--*p; ++*len;
@@ -347,12 +347,12 @@ static void prevc(const char **p, int32 *len)
 }
 
 /*
- *   Skip a newline sequence.  Skip(void)(s al)l common conventions, including \n,
- *   \r, \n\r, \r\n, and \u2028.  
+ *   Skip a newline sequence.  Skips all common conventions, including \n,
+ *   \r, \n\r, \r\n, and \u2028.
  */
 static void skip_newline(const char **p, int32 *rem)
 {
-	/* make su(void)(re w)e have something to skip */
+    /* make sure we have something to skip */
     if (*rem == 0)
         return;
 
@@ -381,7 +381,7 @@ static void skip_newline(const char **p, int32 *rem)
 }
 
 /*
- *   Skip to the next line 
+ *   Skip to the next line
  */
 static void skip_to_next_line(const char **p, int32 *rem)
 {
@@ -401,7 +401,7 @@ static void skip_to_next_line(const char **p, int32 *rem)
 
 /* ------------------------------------------------------------------------ */
 /*
- *   ifiction synthesizer output context 
+ *   ifiction synthesizer output context
  */
 typedef struct synthctx synthctx;
 struct synthctx
@@ -412,10 +412,10 @@ struct synthctx
     /* the number of bytes remaining in the output buffer */
     int32 buf_size;
 
-    /* 
+    /*
      *   the total number of bytes needed for the output (this might be more
      *   than we've actually written, since we count up the bytes required
-     *   even if we need more space than the buffer provides) 
+     *   even if we need more space than the buffer provides)
      */
     int32 total_size;
 
@@ -438,10 +438,10 @@ static void init_synthctx(synthctx *ctx, char *buf, int32 bufsize,
     ctx->vals = vals;
 }
 
-/* 
+/*
  *   Write out a chunk to a synthesized ifiction record, updating pointers
  *   and counters.  We won't copy past the end of the buffer, but we'll
- *   continue counting the output length needed in any case.  
+ *   continue counting the output length needed in any case.
  */
 static void write_ifiction(synthctx *ctx, const char *src, size_t srclen)
 {
@@ -488,7 +488,7 @@ static void write_ifiction_pcdata(synthctx *ctx, const char *p, size_t len)
     for (;;)
     {
         const char *start;
-        
+
         /* scan to the next whitespace or markup-significant character */
         for (start = p ;
              len != 0 && !u_ishspace(*p)
@@ -521,17 +521,17 @@ static void write_ifiction_pcdata(synthctx *ctx, const char *p, size_t len)
             break;
 
         default:
-            /* 
+            /*
              *   The only other thing that could have stopped us is
-             *   whitespace.  Skip all consecutive whitespace. 
+             *   whitespace.  Skip all consecutive whitespace.
              */
             for ( ; len != 0 && u_ishspace(*p) ; ++p, --len);
 
-            /* 
-			 (void)(   )          *   if that's not the end of the string, replace the run of
+            /*
+             *   if that's not the end of the string, replace the run of
              *   whitespace with a single space character in the output; if
-			 *   we've reached the end of the string, we don't even want(void)( to)
-             *   do that, since we want to trim off trailing spaces 
+             *   we've reached the end of the string, we don't even want to
+             *   do that, since we want to trim off trailing spaces
              */
             if (len != 0)
                 write_ifiction_z(ctx, " ");
@@ -545,14 +545,14 @@ static void write_ifiction_pcdata(synthctx *ctx, const char *p, size_t len)
  *   value.  We find the GameInfo value keyed by 'gameinfo_key', and write
  *   out the same string under the ifiction XML tag 'ifiction_tag'.  We write
  *   a complete XML container sequence - <tag>value</tag>.
- *   
+ *
  *   If the given GameInfo key doesn't exist, we use the default value string
  *   'dflt', if given.  If the GameInfo key doesn't exist and 'dflt' is null,
  *   we don't write anything - we don't even write the open/close tags.
- *   
+ *
  *   If 'html' is true, we assume the value is in html format, and we write
  *   it untranslated.  Otherwise, we write it as PCDATA, translating markup
- *   characters into '&' entities and compressing whitespace.  
+ *   characters into '&' entities and compressing whitespace.
  */
 static void write_ifiction_xlat_base(synthctx *ctx, int indent,
                                      const char *gameinfo_key,
@@ -562,7 +562,7 @@ static void write_ifiction_xlat_base(synthctx *ctx, int indent,
     valinfo *val;
     const char *valstr;
     size_t vallen;
-    
+
     /* look up the GameInfo key */
     if ((val = find_by_key(ctx->vals, gameinfo_key)) != 0)
     {
@@ -627,12 +627,12 @@ static void write_ifiction_xlat_base(synthctx *ctx, int indent,
 /*
  *   Retrieve the next author name from the GameInfo "Author" format.  The
  *   format is as follows:
- *   
+ *
  *   name <email> <email>... ; ...
- *   
+ *
  *   That is, each author is listed with a name followed by one or more email
  *   addresses in angle brackets, and multiple authors are separated by
- *   semicolons.  
+ *   semicolons.
  */
 static int scan_author_name(const char **p, size_t *len,
                             const char **start, const char **end)
@@ -647,9 +647,9 @@ static int scan_author_name(const char **p, size_t *len,
         if (*len == 0)
             return FALSE;
 
-        /* 
+        /*
          *   Find the end of this author name.  The author name ends at the
-         *   next semicolon or angle bracket.  
+         *   next semicolon or angle bracket.
          */
         for (*start = *p ; *len != 0 && **p != ';' && **p != '<' ;
              ++*p, --*len) ;
@@ -672,9 +672,9 @@ static int scan_author_name(const char **p, size_t *len,
             /* skip whitespace */
             for ( ; *len != 0 && u_ishspace(**p) ; ++*p, --*len) ;
 
-            /* 
+            /*
              *   if we're not at a semicolon, another angle bracket, or the
-             *   end of the string, it's a syntax error 
+             *   end of the string, it's a syntax error
              */
             if (*len != 0 && **p != '<' && **p != ';')
             {
@@ -689,9 +689,9 @@ static int scan_author_name(const char **p, size_t *len,
 			++*p; --*len;
 		}
 
-        /* 
+        /*
          *   if we found a non-empty name, return it; otherwise, continue on
-         *   to the next semicolon section 
+         *   to the next semicolon section
          */
         if (*end != *start)
             return TRUE;
@@ -705,7 +705,7 @@ static int scan_author_name(const char **p, size_t *len,
  *   null termination.  We'll copy as much as we can to the output buffer, up
  *   to bufsize; if the buffer size is insufficient to hold the result, we'll
  *   still indicate the length needed for the full result, but we're careful
- *   not to actually copy anything past the end of the buffer.  
+ *   not to actually copy anything past the end of the buffer.
  */
 static int32 synth_ifiction(valinfo *vals, int tads_version,
                             char *buf, int32 bufsize,
@@ -730,10 +730,10 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
     if (tads_version != 2 && tads_version != 3)
         return NO_REPLY_RV;
 
-    /* 
+    /*
      *   The IFID is mandatory.  If there's not an IFID specifically listed
      *   in the GameInfo, we need to generate the default IFID based on the
-     *   MD5 hash of the game file. 
+     *   MD5 hash of the game file.
      */
     if (ifid != 0)
     {
@@ -775,7 +775,7 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
 
         /* skip leading spaces */
         for ( ; rem != 0 && u_ishspace(*p) ; ++p, --rem) ;
-        
+
         /* find the end of this IFID */
         for (start = p ; rem != 0 && *p != ',' ; ++p, --rem) ;
 
@@ -829,34 +829,34 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
 
         /* start the <author> tag */
         write_ifiction_z(&ctx, "      <author>");
-        
-        /* 
+
+        /*
          *   first, count up the number of authors - authors are separated by
          *   semicolons, so there's one more author than there are semicolons
          */
         for (p = author->val, rem = author->val_len, cnt = 1 ;
              scan_author_name(&p, &rem, &start, &end) ; ) ;
 
-        /* 
+        /*
          *   Now generate the list of authors.  If there are multiple
-         *   authors, use commas to separate them. 
+         *   authors, use commas to separate them.
          */
         for (p = author->val, rem = author->val_len, i = 0 ; ; ++i)
         {
             /* scan this author's name */
             if (!scan_author_name(&p, &rem, &start, &end))
                 break;
-            
+
             /* write out this author name */
             write_ifiction_pcdata(&ctx, start, end - start);
 
             /* if there's another name to come, write a separator */
             if (i + 1 < cnt)
             {
-                /* 
+                /*
                  *   write just "and" to separate two items; write ","
                  *   between items in lists of more than two, with ",and"
-                 *   between the last two items 
+                 *   between the last two items
                  */
                 write_ifiction_z(&ctx,
                                  cnt == 2 ? " and " :
@@ -876,7 +876,7 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
         && (art_fmt == PNG_COVER_FORMAT || art_fmt == JPEG_COVER_FORMAT))
     {
         char buf[200];
-        
+
         sprintf(buf,
                 "    <cover>\n"
                 "        <format>%s</format>\n"
@@ -895,7 +895,7 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
         const char *p;
         size_t rem;
         int i;
-        
+
         /* open the section */
         write_ifiction_z(&ctx, "    <contacts>\n");
 
@@ -906,33 +906,33 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
             for (i = 0, p = author->val, rem = author->val_len ; ; ++i)
             {
                 const char *start;
-                
+
                 /* skip to the next email address */
                 for ( ; rem != 0 && *p != '<' ; ++p, --rem) ;
-                
+
                 /* if we didn't find an email address, we're done */
                 if (rem == 0)
                     break;
-                
+
                 /* find the matching '>' */
                 for (++p, --rem, start = p ; rem != 0 && *p != '>' ;
                      ++p, --rem) ;
 
-                /* 
+                /*
                  *   if this is the first one, open the section; otherwise,
-                 *   add a comma 
+                 *   add a comma
                  */
                 if (i == 0)
                     write_ifiction_z(&ctx, "      <authoremail>");
                 else
                     write_ifiction_z(&ctx, ",");
-                
+
                 /* write this address */
                 write_ifiction(&ctx, start, p - start);
-                
-                /* 
+
+                /*
                  *   skip the closing bracket, if there is one; if we're out
-                 *   of string, we're done 
+                 *   of string, we're done
                  */
                 if (rem != 0)
 				{
@@ -961,7 +961,7 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
 
     /* add the tads-specific section */
     write_ifiction_z(&ctx, "    <tads>\n");
-    
+
     write_ifiction_xlat(&ctx, 6, "Version", "version", 0);
     write_ifiction_xlat(&ctx, 6, "ReleaseDate", "releasedate", 0);
     write_ifiction_xlat(&ctx, 6, "PresentationProfile",
@@ -972,7 +972,7 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
 
     /* close the story section and the main body */
     write_ifiction_z(&ctx, "  </story>\n</ifindex>\n");
-    
+
     /* add the null terminator */
     write_ifiction(&ctx, "", 1);
 
@@ -982,13 +982,13 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Check a data block to see if it starts with the given signature. 
+ *   Check a data block to see if it starts with the given signature.
  */
 int tads_match_sig(const void *buf, int32 len, const char *sig)
 {
     /* note the length of the signature string */
     size_t sig_len = strlen(sig);
-    
+
     /* if matches if the buffer starts with the signature string */
     return (len >= (int32)sig_len && memcmp(buf, sig, sig_len) == 0);
 }
@@ -996,7 +996,7 @@ int tads_match_sig(const void *buf, int32 len, const char *sig)
 
 /* ------------------------------------------------------------------------ */
 /*
- *   portable-to-native format conversions 
+ *   portable-to-native format conversions
  */
 #define osbyte(p, ofs) \
     (*(((unsigned char *)(p)) + (ofs)))
@@ -1028,9 +1028,9 @@ static valinfo *parse_game_info(const void *story_file, int32 story_len,
     int32 rem;
     valinfo *val_head = 0;
 
-    /* 
+    /*
      *   first, find the GameInfo resource - if it's not there, there's no
-     *   game information to parse 
+     *   game information to parse
      */
     if (!find_resource(story_file, story_len, "GameInfo.txt", &res))
         return 0;
@@ -1093,13 +1093,13 @@ static valinfo *parse_game_info(const void *story_file, int32 story_len,
 
         /*
          *   Scan the value to get its length.  The value runs from here to
-         *   the next newline that's not followed immediately by a space. 
+         *   the next newline that's not followed immediately by a space.
          */
         while (rem != 0)
         {
             const char *nl;
             int32 nlrem;
-            
+
             /* skip to the next line */
             skip_to_next_line(&p, &rem);
 
@@ -1111,31 +1111,31 @@ static valinfo *parse_game_info(const void *story_file, int32 story_len,
             nl = p;
             nlrem = rem;
 
-            /* 
+            /*
              *   if we're at a non-whitespace character, it's definitely not
-             *   a continuation line 
+             *   a continuation line
              */
             if (!u_ishspace(*p))
                 break;
 
-            /* 
+            /*
              *   check for spaces followed by a non-space character - this
              *   would signify a continuation line
              */
             for ( ; rem != 0 && u_ishspace(*p) ; nextc(&p, &rem)) ;
             if (rem == 0 || u_isnl(p, rem))
             {
-                /* 
+                /*
                  *   we're at end of file, we found a line with nothing but
                  *   whitespace, so this isn't a continuation line; go back
-                 *   to the start of this line and end the value here 
+                 *   to the start of this line and end the value here
                  */
                 p = nl;
                 rem = nlrem;
                 break;
             }
 
-            /* 
+            /*
              *   We found whitespace followed by non-whitespace, so this is a
              *   continuation line.  Keep going for now.
              */
@@ -1147,9 +1147,9 @@ static valinfo *parse_game_info(const void *story_file, int32 story_len,
             /* move back one character */
             prevc(&p, &rem);
 
-            /* 
+            /*
              *   if it's a newline, keep going; otherwise, keep this
-             *   character and stop trimming 
+             *   character and stop trimming
              */
             if (!u_isnl(p, rem))
             {
@@ -1158,13 +1158,13 @@ static valinfo *parse_game_info(const void *story_file, int32 story_len,
             }
         }
 
-        /* 
+        /*
          *   Allocate a new value entry.  Make room for the entry itself plus
          *   a copy of the value.  We don't need to make a copy of the name,
          *   since we can just use the original copy from the story file
          *   buffer.  We do need a copy of the value because we might need to
          *   transform it slightly, to remove newlines and leading spaces on
-         *   continuation lines. 
+         *   continuation lines.
          */
         val = (valinfo *)malloc(sizeof(valinfo) + (p - val_start));
 
@@ -1184,7 +1184,7 @@ static valinfo *parse_game_info(const void *story_file, int32 story_len,
              inlen != 0 ; )
         {
             const char *l;
-            
+
             /* find the next newline */
             for (l = inp ; inlen != 0 && !u_isnl(inp, inlen) ;
                  nextc(&inp, &inlen)) ;
@@ -1228,13 +1228,13 @@ static int my_memicmp(const void *aa, const void *bb, int l)
 /* ------------------------------------------------------------------------ */
 /*
  *   Given a valinfo list obtained from parse_game_info(), find the value for
- *   the given key 
+ *   the given key
  */
 static valinfo *find_by_key(valinfo *list_head, const char *key)
 {
     valinfo *p;
     size_t key_len = strlen(key);
-    
+
     /* scan the list for the given key */
     for (p = list_head ; p != 0 ; p = p->nxt)
     {
@@ -1249,7 +1249,7 @@ static valinfo *find_by_key(valinfo *list_head, const char *key)
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Delete a valinfo list obtained from parse_game_info() 
+ *   Delete a valinfo list obtained from parse_game_info()
  */
 static void delete_valinfo_list(valinfo *head)
 {
@@ -1270,7 +1270,7 @@ static void delete_valinfo_list(valinfo *head)
 /* ------------------------------------------------------------------------ */
 /*
  *   Find the cover art resource.  We'll look for CoverArt.jpg and
- *   CoverArt.png, in that order. 
+ *   CoverArt.png, in that order.
  */
 static int find_cover_art(const void *story_file, int32 story_len,
                           resinfo *resp, int32 *image_format,
@@ -1362,7 +1362,7 @@ static int find_resource(const void *story_file, int32 story_len,
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Find a resource in a tads 2 game file 
+ *   Find a resource in a tads 2 game file
  */
 static int t2_find_res(const void *story_file, int32 story_len,
                        const char *resname, resinfo *info)
@@ -1375,16 +1375,16 @@ static int t2_find_res(const void *story_file, int32 story_len,
     /* note the length of the name we're seeking */
     resname_len = strlen(resname);
 
-    /* 
+    /*
      *   skip past the tads 2 file header (13 bytes for the signature, 7
      *   bytes for the version header, 2 bytes for the flags, 26 bytes for
-     *   the timestamp) 
+     *   the timestamp)
      */
     p = basep + 13 + 7 + 2 + 26;
 
-    /* 
+    /*
      *   scan the sections in the file; stop on $EOF, and skip everything
-     *   else but HTMLRES, which is the section type that 
+     *   else but HTMLRES, which is the section type that
      */
     while (p < endp)
     {
@@ -1392,7 +1392,7 @@ static int t2_find_res(const void *story_file, int32 story_len,
 
         /*
          *   We're pointing to a section block header, which looks like this:
-         *   
+         *
          *.    <byte> type-length
          *.    <byte * type-length> type-name
          *.    <uint32> next-section-address
@@ -1411,11 +1411,11 @@ static int t2_find_res(const void *story_file, int32 story_len,
             /* we haven't found the resource yet */
             found = FALSE;
 
-            /* 
+            /*
              *   It's a multimedia resource block.  Skip the section block
              *   header and look at the index table - the index table
              *   consists of a uint32 giving the number of entries, followed
-             *   by a reserved uint32, followed by the entries.  
+             *   by a reserved uint32, followed by the entries.
              */
             p += 12;
             entry_cnt = osrp4(p);
@@ -1447,11 +1447,11 @@ static int t2_find_res(const void *story_file, int32 story_len,
                 if (name_len == resname_len
                     && my_memicmp(resname, p, name_len) == 0)
                 {
-                    /* 
+                    /*
                      *   it's the one we want - note its resource location
                      *   and size, but keep scanning for now, since we need
                      *   to find the end of the index before we'll know where
-                     *   the actual resources begin 
+                     *   the actual resources begin
                      */
                     found = TRUE;
                     found_ofs = res_ofs;
@@ -1462,11 +1462,11 @@ static int t2_find_res(const void *story_file, int32 story_len,
                 p += name_len;
             }
 
-            /* 
+            /*
              *   if we found our resource, the current seek position is the
              *   base of the offset we found in the directory; so we can
              *   finally fix up the offset to give the actual file location
-             *   and return the result 
+             *   and return the result
              */
             if (found)
             {
@@ -1479,9 +1479,9 @@ static int t2_find_res(const void *story_file, int32 story_len,
         }
         else if (p[0] == 4 && memcmp(p + 1, "$EOF", 4) == 0)
         {
-            /* 
+            /*
              *   that's the end of the file - we've finished without finding
-             *   the resource, so return failure 
+             *   the resource, so return failure
              */
             return FALSE;
         }
@@ -1490,16 +1490,16 @@ static int t2_find_res(const void *story_file, int32 story_len,
         p = basep + endofs;
     }
 
-    /* 
+    /*
      *   reached EOF without an $EOF marker - file must be corrupted; return
-     *   'not found' 
+     *   'not found'
      */
     return FALSE;
 }
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Find a resource in a T3 image file 
+ *   Find a resource in a T3 image file
  */
 static int t3_find_res(const void *story_file, int32 story_len,
                        const char *resname, resinfo *info)
@@ -1512,9 +1512,9 @@ static int t3_find_res(const void *story_file, int32 story_len,
     /* note the length of the name we're seeking */
     resname_len = strlen(resname);
 
-    /* 
+    /*
      *   skip the file header - 11 bytes for the signature, 2 bytes for the
-     *   format version, 32 reserved bytes, and 24 bytes for the timestamp 
+     *   format version, 32 reserved bytes, and 24 bytes for the timestamp
      */
     p = basep + 11 + 2 + 32 + 24;
 
@@ -1544,10 +1544,10 @@ static int t3_find_res(const void *story_file, int32 story_len,
             /* skip the header */
             p += 10;
 
-            /* 
+            /*
              *   remember the location of the base of the block - the data
              *   seek location for each index entry is given as an offset
-             *   from this location 
+             *   from this location
              */
             blockp = p;
 
@@ -1565,9 +1565,9 @@ static int t3_find_res(const void *story_file, int32 story_len,
                 char *xp;
                 size_t xi;
 
-                /* 
+                /*
                  *   Parse this index entry:
-                 *   
+                 *
                  *.    <uint32> address (as offset from the block base)
                  *.    <uint32> size (in bytes)
                  *.    <uint8> name-length
@@ -1586,11 +1586,11 @@ static int t3_find_res(const void *story_file, int32 story_len,
                 if (entry_name_len == resname_len
                     && my_memicmp(resname, namebuf, resname_len) == 0)
                 {
-                    /* 
+                    /*
                      *   fill in the return information - note that the entry
                      *   offset given in the header is an offset from data
                      *   block's starting location, so fix this up to an
-                     *   absolute seek location for the return value 
+                     *   absolute seek location for the return value
                      */
                     info->ptr = blockp + entry_ofs;
                     info->len = entry_siz;
@@ -1603,36 +1603,36 @@ static int t3_find_res(const void *story_file, int32 story_len,
                 p += 9 + entry_name_len;
             }
 
-            /* 
+            /*
              *   if we got this far, we didn't find the name; so skip past
              *   the MRES section by adding the section length to the base
-             *   pointer, and resume the main file scan 
+             *   pointer, and resume the main file scan
              */
             p = blockp + siz;
         }
         else if (memcmp(p, "EOF ", 4) == 0)
         {
-            /* 
+            /*
              *   end of file - we've finished without finding the resource,
-             *   so return failure 
+             *   so return failure
              */
             return FALSE;
         }
         else
         {
-            /* 
+            /*
              *   we don't care about anything else - just skip this block and
              *   keep going; to skip the block, simply seek ahead past the
              *   block header and then past the block's contents, using the
-             *   size given the in block header 
+             *   size given the in block header
              */
             p += siz + 10;
         }
     }
 
-    /* 
+    /*
      *   reached EOF without an EOF marker - file must be corrupted; return
-     *   'not found' 
+     *   'not found'
      */
     return FALSE;
 }
@@ -1640,7 +1640,7 @@ static int t3_find_res(const void *story_file, int32 story_len,
 /* ------------------------------------------------------------------------ */
 /*
  *   JPEG and PNG information extraction (based on the versions in
- *   babel_story_functions.c) 
+ *   babel_story_functions.c)
  */
 static int get_jpeg_dim(const void *img, int32 extent,
                         int32 *xout, int32 *yout)
@@ -1723,7 +1723,7 @@ static int get_png_dim(const void *img, int32 extent,
 /* ------------------------------------------------------------------------ */
 /*
  *   Testing main() - this implements a set of unit tests on the tads
- *   version.  
+ *   version.
  */
 
 #ifdef TADS_TEST
@@ -1832,7 +1832,7 @@ void main(int argc, char **argv)
     }
     else
         printf("tads_get_story_file_metadata_extent result code = %ld\n", rv);
-    
+
 
     /* free the loaded story file buffer */
     free(buf);
