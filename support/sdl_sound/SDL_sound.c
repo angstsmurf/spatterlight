@@ -813,7 +813,9 @@ Uint32 Sound_DecodeAll(Sound_Sample *sample)
             ((sample->flags & SOUND_SAMPLEFLAG_ERROR) == 0) )
     {
         Uint32 br = Sound_Decode(sample);
-        void *ptr = realloc(buf, newBufSize + br);
+		void *ptr = NULL;
+		if (newBufSize + br)
+			ptr = realloc(buf, newBufSize + br);
         if (ptr == NULL)
         {
             sample->flags |= SOUND_SAMPLEFLAG_ERROR;
