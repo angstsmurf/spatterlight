@@ -1178,7 +1178,7 @@ BitmapType bitmap_c64_type(char* file)
 L9BOOL bitmap_c64_decode(char* file, BitmapType type, int num)
 {
 	L9BYTE* data = NULL;
-	int i, xi, yi, max_x, max_y, cx, cy, px, py, p;
+	int i = 0, xi, yi, max_x = 0, max_y, cx, cy, px, py, p;
 	int off, off_scr, off_col, off_bg, col_comp;
 
 	L9UINT32 size;
