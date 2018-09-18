@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <entity name="Font" representedClassName="Font" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G1510" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Font" representedClassName="Font" syncable="YES" codeGenerationType="category">
         <attribute name="baseline" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="bgcolor" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -31,16 +31,18 @@
         <relationship name="gridUsr1" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridUsr1" inverseEntity="Settings" syncable="YES"/>
         <relationship name="gridUsr2" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridUsr2" inverseEntity="Settings" syncable="YES"/>
     </entity>
-    <entity name="Game" representedClassName="Game" syncable="YES">
+    <entity name="Game" representedClassName="Game" syncable="YES" codeGenerationType="category">
         <attribute name="added" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="fileLocation" attributeType="Transformable" syncable="YES"/>
         <attribute name="found" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="infoWindow" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="lastModified" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lastPlayed" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="row" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="interpreter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Interpreter" inverseName="games" inverseEntity="Interpreter" syncable="YES"/>
         <relationship name="metadata" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="game" inverseEntity="Metadata" syncable="YES"/>
         <relationship name="setting" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="games" inverseEntity="Settings" syncable="YES"/>
@@ -83,12 +85,14 @@
         <relationship name="game" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Game" inverseName="metadata" inverseEntity="Game" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="metadata" inverseEntity="Tag" syncable="YES"/>
     </entity>
-    <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
+    <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="category">
         <attribute name="dashes" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="defaultHeight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="defaultWidth" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dographics" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dosound" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dostyles" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="height" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isDefault" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="justify" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="linkstyle" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="minCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -100,7 +104,6 @@
         <attribute name="tmargin" attributeType="Float" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uppercaseInp" optional="YES" attributeType="Integer 32" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wborder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="width" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wmargin" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wpadding" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="bufAlert" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufAlert" inverseEntity="Font" syncable="YES"/>
@@ -132,12 +135,12 @@
         <relationship name="metadata" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="tags" inverseEntity="Metadata" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Font" positionX="-18" positionY="135" width="128" height="30"/>
-        <element name="Game" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="Font" positionX="-18" positionY="135" width="128" height="480"/>
+        <element name="Game" positionX="-63" positionY="-18" width="128" height="255"/>
         <element name="Image" positionX="-18" positionY="90" width="128" height="105"/>
         <element name="Interpreter" positionX="-9" positionY="99" width="128" height="75"/>
         <element name="Metadata" positionX="-18" positionY="135" width="128" height="435"/>
-        <element name="Settings" positionX="18" positionY="144" width="128" height="675"/>
+        <element name="Settings" positionX="18" positionY="144" width="128" height="690"/>
         <element name="Tag" positionX="-18" positionY="135" width="128" height="75"/>
     </elements>
 </model>
