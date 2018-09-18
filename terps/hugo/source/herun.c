@@ -2575,7 +2575,10 @@ int RunString()
 
 		a = line[i];
 		if (a=='\\')
-			++i, a = SpecialChar(line, &i);
+		{
+			++i;
+			a = SpecialChar(line, &i);
+		}
 		PokeWord(aaddr+pos*2, a);
 	}
 	PokeWord(aaddr+pos*2, 0);
@@ -2826,7 +2829,7 @@ void RunWindow(void)
 					    RuntimeWarning("Window size evaluates to zero");
 					}
 #endif
-					left = 1, top = 1;
+					left = 1; top = 1;
 					right = SCREENWIDTH/FIXEDCHARWIDTH;
 					bottom = SCREENHEIGHT/FIXEDLINEHEIGHT;
 					physical_lowest_windowbottom = lowest_windowbottom = 0;

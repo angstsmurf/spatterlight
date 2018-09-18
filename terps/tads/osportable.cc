@@ -349,7 +349,10 @@ osfdup(osfildef *orig, const char *mode)
 
     /* figure the read/write mode - translate r+ and w+ to r+ */
     if ((mode[0] == 'r' || mode[0] == 'w') && mode[1] == '+')
-        *p++ = 'r', *p++ = '+';
+	{
+		*p++ = 'r';
+		*p++ = '+';
+	}
     else if (mode[0] == 'r')
         *p++ = 'r';
     else if (mode[0] == 'w')

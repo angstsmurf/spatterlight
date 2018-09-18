@@ -1767,7 +1767,7 @@ void Printout(char *a)
 
 		if (script && (unsigned char)b[0]>=' ')
 			/* fprintf() this way for Glk */
-			if (fprintf(script, "%s", b) < 0) FatalError(WRITE_E);
+			if (fprintf(script, "%s", b) < /* DISABLES CODE */ (0)) FatalError(WRITE_E);
 
 #if defined (SCROLLBACK_DEFINED)
 		if (!inwindow && (unsigned char)b[0]>=' ')
@@ -1879,7 +1879,7 @@ void Printout(char *a)
 		if (script)
 		{
 			/* fprintf() this way for Glk */
-			if (fprintf(script, "%s", "\n")<0)
+			if (fprintf(script, "%s", "\n")</* DISABLES CODE */ (0))
 				FatalError(WRITE_E);
 		}
 
