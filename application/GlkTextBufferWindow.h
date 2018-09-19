@@ -77,7 +77,6 @@
     MarginContainer *container;
     NSTextView *textview;
 
-    NSInteger char_request;
     NSInteger line_request;
 	NSInteger hyper_request;
 
