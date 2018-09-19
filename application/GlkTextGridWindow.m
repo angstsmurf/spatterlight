@@ -627,12 +627,55 @@
     NSLog(@"grid initLine: %@ in: %ld", str, (long)self.name);
     
     input = [[NSTextField alloc] initWithFrame: caret];
-    [input setEditable: YES];
-    [input setBordered: NO];
-    input.stringValue = str;
+    input.editable = YES;
+    input.bordered = NO;
     input.action = @selector(typedEnter:);
     input.target = self;
-    
+	input.allowsEditingTextAttributes = YES;
+	input.bezeled = NO;
+	input.drawsBackground = NO;
+	input.selectable = YES;
+	input.usesSingleLineMode = NO;
+
+	input.cell.wraps = YES;
+	input.cell.scrollable = YES;
+
+	NSInteger style;
+	NSInteger fg;
+	NSInteger bg;
+	NSDictionary *att;
+
+	style = style_Input & 0xff;
+	fg = (style_Input >> 8) & 0xff;
+	bg = (style_Input >> 16) & 0xff;
+
+	if (fg || bg)
+	{
+		NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
+		mutatt[@"GlkStyle"] = @((int)style_Input);
+		if ([Preferences stylesEnabled])
+		{
+			if (fg)
+				mutatt[NSForegroundColorAttributeName] = [Preferences foregroundColor: (int)(fg - 1)];
+			if (bg)
+				mutatt[NSBackgroundColorAttributeName] = [Preferences backgroundColor: (int)(bg - 1)];
+		}
+		att = mutatt;
+	}
+	else
+	{
+		att = styles[style].attributes;
+	}
+
+	if (str.length == 0)
+		str = @" ";
+
+	NSMutableAttributedString* attString = [[NSMutableAttributedString alloc]
+									  initWithString: str
+									  attributes: att];
+
+	input.attributedStringValue = attString;
+
     [self addSubview: input];
     [self.window makeFirstResponder: input];
     
