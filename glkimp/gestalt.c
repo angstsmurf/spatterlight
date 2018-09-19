@@ -65,9 +65,8 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr,
             
         case gestalt_Graphics:
         case gestalt_GraphicsTransparency:
-            return gli_enable_graphics;;
         case gestalt_GraphicsCharInput:
-            return FALSE;
+            return gli_enable_graphics;
             
         case gestalt_DrawImage:
             if (val == wintype_Graphics)
