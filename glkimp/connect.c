@@ -157,10 +157,10 @@ void win_print(int name, int ch, int at)
     
     if (buffering == BUFNONE)
     {
-    buffering = BUFPRINT;
-    bufferwin = name;
-    bufferatt = at;
-    bufferlen = 0;
+		buffering = BUFPRINT;
+		bufferwin = name;
+		bufferatt = at;
+		bufferlen = 0;
     }
     
     pbuf[bufferlen++] = ch;
