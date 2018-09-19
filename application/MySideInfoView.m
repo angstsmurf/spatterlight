@@ -55,8 +55,7 @@
 								 NSParagraphStyleAttributeName,
 								 nil];
 
-	NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:text];
-	[attrString setAttributes:attr range:NSMakeRange(0, text.length)];
+	NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:text attributes:attr];
 
 
 	if (font.pointSize == 13.f)
