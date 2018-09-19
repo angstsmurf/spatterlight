@@ -32,6 +32,13 @@
         line_request = NO;
         char_request = NO;
         mouse_request = NO;
+<<<<<<< HEAD
+=======
+		hyper_request = NO;
+
+		hyperlinks = [[NSMutableArray alloc] init];
+        current_hyperlink = nil;
+>>>>>>> 49ed39f... Implement line terminator keys
         
         transparent = NO;
     }
@@ -389,6 +396,87 @@
     mouse_request = NO;
 }
 
+- (void) setHyperlink:(NSInteger)linkid
+{
+    NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
+
+	NSUInteger length = ypos * cols + xpos;
+
+    if (current_hyperlink && current_hyperlink.index != linkid)
+	{
+        NSLog(@"There is a preliminary hyperlink, with index %ld", current_hyperlink.index);
+        if (current_hyperlink.startpos >= length)
+		{
+            NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. current_hyperlink.startpos == %ld, length == %ld", current_hyperlink.startpos, length);
+            current_hyperlink = nil;
+		}
+		else
+		{
+            current_hyperlink.range = NSMakeRange(current_hyperlink.startpos, length - current_hyperlink.startpos);
+
+            [hyperlinks addObject:current_hyperlink];
+            current_hyperlink = nil;
+
+            NSNumber *link = [NSNumber numberWithInteger: current_hyperlink.index];
+
+            NSInteger pos = current_hyperlink.startpos;
+            NSInteger currentx = current_hyperlink.startpos % cols;
+            NSInteger currenty = current_hyperlink.startpos / cols;
+
+			while (pos < length)
+			{
+				// Can't write if we've fallen off the end of the window
+				if (currenty >= lines.count || currenty > rows)
+					break;
+
+				// Can only write a certain number of characters
+				if (currentx >= cols)
+				{
+					currentx = 0;
+					currenty ++;
+					continue;
+				}
+
+				// Get the number of characters to write
+				NSInteger amountToDraw = cols - currentx;
+				if (amountToDraw > length - pos)
+					amountToDraw = length - pos;
+
+				// Make characters hyperlink
+				[lines[currenty] addAttribute:NSLinkAttributeName value:link range:NSMakeRange(currentx, amountToDraw)];
+
+				dirty = YES;
+
+				// Update the x position (and the y position if necessary)
+				currentx += amountToDraw;
+				pos += amountToDraw;
+				if (currentx >= cols)
+				{
+					currentx = 0;
+					currenty++;
+				}
+			}
+		}
+
+	}
+    if (!current_hyperlink && linkid)
+	{
+        current_hyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:length];
+        NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", current_hyperlink.startpos,linkid);
+
+	}
+}
+
+- (void) initHyperlink:(NSInteger*)val
+{
+	hyper_request = YES;
+}
+
+- (void) cancelHyperlink
+{
+	hyper_request = NO;
+}
+
 - (void) mouseDown: (NSEvent*)theEvent
 {
     GlkEvent *gev;
@@ -462,10 +550,21 @@
         dirty = YES;
         return;
     }
+
+	NSNumber *key = [NSNumber numberWithUnsignedInt:ch];
+
+	if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @YES]))
+		[self typedEnter: nil];
 }
 
 - (void) initLine:(NSString*)str
 {
+	if (self.terminatorsPending)
+	{
+		currentTerminators = self.pendingTerminators;
+		self.terminatorsPending = NO;
+	}
+
     NSRect bounds = [self bounds];
     NSInteger m = [Preferences gridMargins];
     if (transparent)

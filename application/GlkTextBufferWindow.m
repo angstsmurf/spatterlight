@@ -331,6 +331,9 @@
         historypos = 0;
         historyfirst = 0;
         historypresent = 0;
+
+		hyperlinks = [[NSMutableArray alloc] init];
+        current_hyperlink = nil;
         
         scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
         [scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
@@ -578,46 +581,59 @@
 
 - (void) drawImage: (NSImage*)image val1: (NSInteger)align val2: (NSInteger)unused width: (NSInteger)w height: (NSInteger)h
 {
-    NSTextAttachment *att;
-    NSFileWrapper *wrapper;
-    NSData *tiffdata;
-    //NSAttributedString *attstr;
-    
-    if (w == 0)
-        w = [image size].width;
-    if (h == 0)
-        h = [image size].height;
-    
-    if (align == imagealign_MarginLeft || align == imagealign_MarginRight)
-    {
-        NSLog(@"adding image to margins");
-        unichar uc[1];
-        uc[0] = NSAttachmentCharacter;
-        [[textstorage mutableString] appendString: [NSString stringWithCharacters: uc length: 1]];
-        [container addImage: image align: align at: [textstorage length] - 1 size: NSMakeSize(w, h)];
-        [self setNeedsDisplay: YES];
-    }
-    
-    else
-    {
-        NSLog(@"adding image to text");
-        
-        image = [self scaleImage: image size: NSMakeSize(w, h)];
-        
-        tiffdata = [image TIFFRepresentation];
-        
-        wrapper = [[NSFileWrapper alloc] initRegularFileWithContents: tiffdata];
-        [wrapper setPreferredFilename: @"image.tiff"];
-        att = [[NSTextAttachment alloc] initWithFileWrapper: wrapper];
-        MyAttachmentCell *cell = [[MyAttachmentCell alloc] initImageCell:image];
-        [att setAttachmentCell:cell];
-        NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
-        
-        
-        [textstorage appendAttributedString: attstr];
-        
-    }
-    
+	NSTextAttachment *att;
+	NSFileWrapper *wrapper;
+	NSData *tiffdata;
+	//NSAttributedString *attstr;
+
+	if (w == 0)
+		w = image.size.width;
+	if (h == 0)
+		h = image.size.height;
+
+	if (align == imagealign_MarginLeft || align == imagealign_MarginRight)
+	{
+
+		if (lastchar != '\n' && textstorage.length)
+		{
+			NSLog(@"lastchar is not line break. Do not add margin image.");
+			return;
+		}
+
+//		NSLog(@"adding image to margins");
+		unichar uc[1];
+		uc[0] = NSAttachmentCharacter;
+
+		[textstorage.mutableString appendString: [NSString stringWithCharacters: uc length: 1]];
+
+		NSUInteger linkid = 0;
+        if (current_hyperlink) linkid = current_hyperlink.index;
+
+		[container addImage: image align: align at: textstorage.length - 1 size: NSMakeSize(w, h) linkid:linkid];
+
+		[self setNeedsDisplay: YES];
+
+	}
+
+	else
+	{
+//		NSLog(@"adding image to text");
+
+		image = [self scaleImage: image size: NSMakeSize(w, h)];
+
+		tiffdata = image.TIFFRepresentation;
+
+		wrapper = [[NSFileWrapper alloc] initRegularFileWithContents: tiffdata];
+		wrapper.preferredFilename = @"image.tiff";
+		att = [[NSTextAttachment alloc] initWithFileWrapper: wrapper];
+		MyAttachmentCell *cell = [[MyAttachmentCell alloc] initImageCell:image andAlignment:align andAttStr:textstorage at:textstorage.length - 1];
+		att.attachmentCell = cell;
+		NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
+
+
+		[textstorage appendAttributedString: attstr];
+
+	}
 }
 
 - (void) flowBreak
@@ -758,7 +774,9 @@
     unsigned ch = keycode_Unknown;
     if ([str length])
         ch = chartokeycode([str characterAtIndex: 0]);
-    
+
+	NSNumber *key = [NSNumber numberWithUnsignedInt:ch];
+
     GlkWindow *win;
     
     // pass on this key press to another GlkWindow if we are not expecting one
@@ -803,7 +821,7 @@
                 break;
         }
     }
-    
+
     if (char_request && ch != keycode_Unknown)
     {
         NSLog(@"char event from %ld", (long)self.name);
@@ -819,8 +837,7 @@
         [textview setEditable: NO];
         
     }
-    
-    else if (line_request && ch == keycode_Return)
+    else if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @YES]))
     {
         NSLog(@"line event from %ld", (long)self.name);
         
@@ -877,7 +894,48 @@
 - (BOOL) textView: (NSTextView*)textview_ clickedOnLink: (id)link atIndex: (NSUInteger)charIndex
 {
     NSLog(@"txtbuf: clicked on link: %@", link);
-    return YES;
+
+	if (!hyper_request)
+	{
+		NSLog(@"txtbuf: No hyperlink request in window.");
+		return NO;
+	}
+
+	GlkEvent *gev = [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue forWindow: self.name];
+	[glkctl queueEvent: gev];
+
+	hyper_request = NO;
+    [textview setEditable: YES];
+    return NO;
+}
+
+// Make margin image links clickable
+- (BOOL) myMouseDown: (NSEvent*)theEvent
+{
+	GlkEvent *gev;
+
+	NSLog(@"mouseDown in buffer window.");
+	if (hyper_request && theEvent.clickCount == 1)
+	{
+		[glkctl markLastSeen];
+
+		NSPoint p;
+		p = theEvent.locationInWindow;
+		p = [self convertPoint: p fromView: textview];
+		p.x -= textview.textContainerInset.width;
+		p.y -= textview.textContainerInset.height;
+
+		NSUInteger linkid = [container findHyperlinkAt:p];
+		if (linkid)
+		{
+			NSLog(@"Clicked margin image hyperlink in buf at %g,%g", p.x, p.y);
+			gev = [[GlkEvent alloc] initLinkEvent: linkid forWindow: self.name];
+			[glkctl queueEvent: gev];
+			hyper_request = NO;
+			return YES;
+		}
+	}
+	return NO;
 }
 
 #endif
@@ -895,6 +953,9 @@
     lastseen = 0;
     lastchar = '\n';
     [container clearImages];
+
+	hyperlinks = nil;
+	hyperlinks = [[NSMutableArray alloc] init];
 }
 
 - (void) clearScrollback: (id)sender
@@ -1007,7 +1068,13 @@
     historypos = historypresent;
     
     // [glkctl performScroll];
-    
+
+	if (self.terminatorsPending)
+	{
+		currentTerminators = self.pendingTerminators;
+		self.terminatorsPending = NO;
+	}
+
     if (echo_toggle_pending)
     {
         echo_toggle_pending = NO;
@@ -1040,7 +1107,13 @@
     NSString *str = [textstorage string];
     str = [str substringWithRange: NSMakeRange(fence, [str length] - fence)];
     if (echo)
-        lastchar = [str characterAtIndex: str.length - 1];
+	{
+		[self putString: @"\n" style: style_Input];
+		lastchar = '\n'; // [str characterAtIndex: str.length - 1];
+//
+//		if (![[str substringWithRange: NSMakeRange(str.length -1, 1)] isEqual:@'\n'])
+//			str = [str stringByAppendingString:@"\n"];
+	}
     else
         [textstorage deleteCharactersInRange: NSMakeRange(fence, textstorage.length - fence)]; // Don't echo input line
 
@@ -1048,6 +1121,49 @@
     line_request = NO;
     lastchar = [str characterAtIndex: [str length] - 1];
     return str;
+}
+
+- (void) setHyperlink:(NSInteger)linkid
+{
+	NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
+
+    if (current_hyperlink && current_hyperlink.index != linkid)
+	{
+        NSLog(@"There is a preliminary hyperlink, with index %ld", current_hyperlink.index);
+        if (current_hyperlink.startpos >= textstorage.length)
+		{
+            NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. current_hyperlink.startpos == %ld, textstorage.length == %ld", current_hyperlink.startpos, textstorage.length);
+            current_hyperlink = nil;
+		}
+		else
+		{
+            current_hyperlink.range = NSMakeRange(current_hyperlink.startpos, textstorage.length - current_hyperlink.startpos);
+            [textstorage addAttribute:NSLinkAttributeName value:[NSNumber numberWithInteger: current_hyperlink.index] range:current_hyperlink.range];
+            [hyperlinks addObject:current_hyperlink];
+            current_hyperlink = nil;
+		}
+	}
+    if (!current_hyperlink && linkid)
+	{
+        current_hyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:textstorage.length];
+        NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", current_hyperlink.startpos,linkid);
+
+	}
+}
+
+- (void) initHyperlink
+{
+	hyper_request = YES;
+	textview.editable = YES;
+	NSLog(@"txtbuf: hyperlink event requested");
+
+}
+
+- (void) cancelHyperlink
+{
+	hyper_request = NO;
+	textview.editable = NO;
+	NSLog(@"txtbuf: hyperlink event cancelled");
 }
 
 - (void) terpDidStop

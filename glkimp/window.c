@@ -1021,7 +1021,9 @@ void glk_set_terminators_line_event(winid_t win, glui32 *keycodes, glui32 count)
             gli_strict_warning("set_terminators_line_event: window does not support keyboard input");
             return;
     }
-    
+
+	win_set_terminators(win->peer, keycodes, count);
+
     if (win->line_terminators)
         free(win->line_terminators);
     

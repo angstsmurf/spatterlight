@@ -52,6 +52,7 @@ void win_cancelchar(int name);
 void win_initline(int name, int cap, int len, char *buf);
 void win_cancelline(int name, int cap, int *len, char *buf);
 void win_set_echo(int name, int val);
+void win_set_terminators(int name, glui32 *keycodes, int count);
 void win_initmouse(int name);
 void win_cancelmouse(int name);
 

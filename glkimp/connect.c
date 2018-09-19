@@ -158,10 +158,17 @@ void win_print(int name, int ch, int at)
     
     if (buffering == BUFNONE)
     {
+<<<<<<< HEAD
         buffering = BUFPRINT;
         bufferwin = name;
         bufferatt = at;
         bufferlen = 0;
+=======
+    buffering = BUFPRINT;
+    bufferwin = name;
+    bufferatt = at;
+    bufferlen = 0;
+>>>>>>> 49ed39f... Implement line terminator keys
     }
     
     pbuf[bufferlen++] = ch;
@@ -305,6 +312,17 @@ void win_set_echo(int name, int val)
 {
     win_flush();
     sendmsg(SETECHO, name, val, 0, 0, 0, 0, NULL);
+}
+
+void win_set_terminators(int name, glui32 *keycodes, int count)
+{
+#ifdef DEBUG
+//	fprintf(stderr, "sent TERMINATORS win: %u count:%u\n",name, count);
+//	for (int i=0; i < count; i++)
+//		fprintf(stderr, "keycode %d = %u\n", i, keycodes[i]);
+#endif
+	win_flush();
+	sendmsg(TERMINATORS, name, count, 0, 0, 0, sizeof(glui32) * count, (char *)keycodes);
 }
 
 void win_initmouse(int name)
