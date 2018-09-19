@@ -55,6 +55,7 @@ void win_setlink(int name, int val);
 void win_initlink(int name);
 void win_cancellink(int name);
 void win_set_echo(int name, int val);
+void win_set_terminators(int name, glui32 *keycodes, int count);
 void win_initmouse(int name);
 void win_cancelmouse(int name);
 

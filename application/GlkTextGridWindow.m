@@ -35,7 +35,7 @@
 		hyper_request = NO;
 
 		hyperlinks = [[NSMutableArray alloc] init];
-		current_hyperlink = nil;
+        current_hyperlink = nil;
         
         transparent = NO;
     }
@@ -393,30 +393,30 @@
 
 - (void) setHyperlink:(NSInteger)linkid
 {
-	NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
+    NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
 
 	NSUInteger length = ypos * cols + xpos;
 
-	if (current_hyperlink && current_hyperlink.index != linkid)
+    if (current_hyperlink && current_hyperlink.index != linkid)
 	{
-		NSLog(@"There is a preliminary hyperlink, with index %ld", current_hyperlink.index);
-		if (current_hyperlink.startpos >= length)
+        NSLog(@"There is a preliminary hyperlink, with index %ld", current_hyperlink.index);
+        if (current_hyperlink.startpos >= length)
 		{
-			NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. current_hyperlink.startpos == %ld, length == %ld", current_hyperlink.startpos, length);
-			current_hyperlink = nil;
+            NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. current_hyperlink.startpos == %ld, length == %ld", current_hyperlink.startpos, length);
+            current_hyperlink = nil;
 		}
 		else
 		{
-			current_hyperlink.range = NSMakeRange(current_hyperlink.startpos, length - current_hyperlink.startpos);
+            current_hyperlink.range = NSMakeRange(current_hyperlink.startpos, length - current_hyperlink.startpos);
 
-			[hyperlinks addObject:current_hyperlink];
-			current_hyperlink = nil;
+            [hyperlinks addObject:current_hyperlink];
+            current_hyperlink = nil;
 
-			NSNumber *link = [NSNumber numberWithInteger: current_hyperlink.index];
+            NSNumber *link = [NSNumber numberWithInteger: current_hyperlink.index];
 
-			NSInteger pos = current_hyperlink.startpos;
-			NSInteger currentx = current_hyperlink.startpos % cols;
-			NSInteger currenty = current_hyperlink.startpos / cols;
+            NSInteger pos = current_hyperlink.startpos;
+            NSInteger currentx = current_hyperlink.startpos % cols;
+            NSInteger currenty = current_hyperlink.startpos / cols;
 
 			while (pos < length)
 			{
@@ -454,10 +454,10 @@
 		}
 
 	}
-	if (!current_hyperlink && linkid)
+    if (!current_hyperlink && linkid)
 	{
-		current_hyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:length];
-		NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", current_hyperlink.startpos,linkid);
+        current_hyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:length];
+        NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", current_hyperlink.startpos,linkid);
 
 	}
 }
@@ -545,10 +545,21 @@
         dirty = YES;
         return;
     }
+
+	NSNumber *key = [NSNumber numberWithUnsignedInt:ch];
+
+	if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @YES]))
+		[self typedEnter: nil];
 }
 
 - (void) initLine:(NSString*)str
 {
+	if (self.terminatorsPending)
+	{
+		currentTerminators = self.pendingTerminators;
+		self.terminatorsPending = NO;
+	}
+
     NSRect bounds = self.bounds;
     NSInteger m = [Preferences gridMargins];
     if (transparent)

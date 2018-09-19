@@ -46,6 +46,7 @@ enum
     INITLINE,
     CANCELLINE,
     SETECHO,
+	TERMINATORS,
     INITMOUSE,
     CANCELMOUSE,
     

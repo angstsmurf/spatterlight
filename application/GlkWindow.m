@@ -21,6 +21,23 @@
         glkctl = glkctl_;
         _name = name;
         //bgnd = 0xFFFFFF; // White
+		_pendingTerminators = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+							   @NO, @keycode_Func1,
+							   @NO, @keycode_Func2,
+							   @NO, @keycode_Func3,
+							   @NO, @keycode_Func4,
+							   @NO, @keycode_Func5,
+							   @NO, @keycode_Func6,
+							   @NO, @keycode_Func7,
+							   @NO, @keycode_Func8,
+							   @NO, @keycode_Func9,
+							   @NO, @keycode_Func10,
+							   @NO, @keycode_Func11,
+							   @NO, @keycode_Func12,
+							   @NO, @keycode_Escape,
+							   nil];
+		currentTerminators = _pendingTerminators;
+		_terminatorsPending = NO;
     }
     
     return self;

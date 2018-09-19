@@ -625,7 +625,7 @@
         historypresent = 0;
 
 		hyperlinks = [[NSMutableArray alloc] init];
-		current_hyperlink = nil;
+        current_hyperlink = nil;
         
         scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
         scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -915,7 +915,7 @@
 		[textstorage.mutableString appendString: [NSString stringWithCharacters: uc length: 1]];
 
 		NSUInteger linkid = 0;
-		if (current_hyperlink) linkid = current_hyperlink.index;
+        if (current_hyperlink) linkid = current_hyperlink.index;
 
 		[container addImage: image align: align at: textstorage.length - 1 size: NSMakeSize(w, h) linkid:linkid];
 
@@ -1077,7 +1077,9 @@
     unsigned ch = keycode_Unknown;
     if (str.length)
         ch = chartokeycode([str characterAtIndex: 0]);
-    
+
+	NSNumber *key = [NSNumber numberWithUnsignedInt:ch];
+
     GlkWindow *win;
     
     // pass on this key press to another GlkWindow if we are not expecting one
@@ -1122,7 +1124,7 @@
                 break;
         }
     }
-    
+
     if (char_request && ch != keycode_Unknown)
     {
         NSLog(@"char event from %ld", (long)self.name);
@@ -1138,8 +1140,7 @@
         [textview setEditable: NO];
         
     }
-    
-    else if (line_request && ch == keycode_Return)
+    else if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @YES]))
     {
 //        NSLog(@"line event from %ld", (long)self.name);
         
@@ -1207,7 +1208,7 @@
 	[glkctl queueEvent: gev];
 
 	hyper_request = NO;
-	[textview setEditable: YES];
+    [textview setEditable: YES];
     return NO;
 }
 
@@ -1256,6 +1257,7 @@
     lastchar = '\n';
     [container clearImages];
 	hyperlinks = nil;
+	hyperlinks = [[NSMutableArray alloc] init];
 }
 
 - (void) clearScrollback: (id)sender
@@ -1364,7 +1366,13 @@
     historypos = historypresent;
     
     // [glkctl performScroll];
-    
+
+	if (self.terminatorsPending)
+	{
+		currentTerminators = self.pendingTerminators;
+		self.terminatorsPending = NO;
+	}
+
     if (echo_toggle_pending)
     {
         echo_toggle_pending = NO;
@@ -1398,6 +1406,7 @@
     str = [str substringWithRange: NSMakeRange(fence, str.length - fence)];
     if (echo)
 	{
+		[self putString: @"\n" style: style_Input];
 		lastchar = '\n'; // [str characterAtIndex: str.length - 1];
 //
 //		if (![[str substringWithRange: NSMakeRange(str.length -1, 1)] isEqual:@'\n'])
@@ -1415,26 +1424,26 @@
 {
 	NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
 
-	if (current_hyperlink && current_hyperlink.index != linkid)
+    if (current_hyperlink && current_hyperlink.index != linkid)
 	{
-		NSLog(@"There is a preliminary hyperlink, with index %ld", current_hyperlink.index);
-		if (current_hyperlink.startpos >= textstorage.length)
+        NSLog(@"There is a preliminary hyperlink, with index %ld", current_hyperlink.index);
+        if (current_hyperlink.startpos >= textstorage.length)
 		{
-			NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. current_hyperlink.startpos == %ld, textstorage.length == %ld", current_hyperlink.startpos, textstorage.length);
-			current_hyperlink = nil;
+            NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. current_hyperlink.startpos == %ld, textstorage.length == %ld", current_hyperlink.startpos, textstorage.length);
+            current_hyperlink = nil;
 		}
 		else
 		{
-			current_hyperlink.range = NSMakeRange(current_hyperlink.startpos, textstorage.length - current_hyperlink.startpos);
-			[textstorage addAttribute:NSLinkAttributeName value:[NSNumber numberWithInteger: current_hyperlink.index] range:current_hyperlink.range];
-			[hyperlinks addObject:current_hyperlink];
-			current_hyperlink = nil;
+            current_hyperlink.range = NSMakeRange(current_hyperlink.startpos, textstorage.length - current_hyperlink.startpos);
+            [textstorage addAttribute:NSLinkAttributeName value:[NSNumber numberWithInteger: current_hyperlink.index] range:current_hyperlink.range];
+            [hyperlinks addObject:current_hyperlink];
+            current_hyperlink = nil;
 		}
 	}
-	if (!current_hyperlink && linkid)
+    if (!current_hyperlink && linkid)
 	{
-		current_hyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:textstorage.length];
-		NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", current_hyperlink.startpos,linkid);
+        current_hyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:textstorage.length];
+        NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", current_hyperlink.startpos,linkid);
 
 	}
 }

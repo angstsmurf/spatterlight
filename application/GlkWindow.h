@@ -7,16 +7,19 @@
     GlkStyle *styles[style_NUMSTYLES];
     NSInteger bgnd;
 	NSMutableArray *hyperlinks;
-	GlkHyperlink *current_hyperlink;
+    GlkHyperlink *current_hyperlink;
 }
 
 @property (readonly) NSInteger name;
 
-- (BOOL) getStyleVal: (NSInteger)style hint: (NSInteger)hint value: (NSInteger *) value;
+@property NSMutableDictionary *pendingTerminators;
+@property BOOL terminatorsPending;
+@property (readonly, copy) NSString *cancelLine;
+@property (readonly) BOOL wantsFocus;
 
 - (instancetype) initWithGlkController: (GlkController*)glkctl name: (NSInteger)name NS_DESIGNATED_INITIALIZER;
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value;
-@property (readonly) BOOL wantsFocus;
+- (BOOL) getStyleVal: (NSInteger)style hint: (NSInteger)hint value: (NSInteger *) value;
 - (void) grabFocus;
 - (void) flushDisplay;
 - (void) markLastSeen;
@@ -27,7 +30,6 @@
 - (void) putString:(NSString*)buf style:(NSInteger)style;
 - (void) moveToColumn:(NSInteger)x row:(NSInteger)y;
 - (void) initLine: (NSString*)buf;
-@property (readonly, copy) NSString *cancelLine;
 - (void) initChar;
 - (void) cancelChar;
 - (void) initMouse;

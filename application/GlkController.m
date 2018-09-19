@@ -17,7 +17,7 @@ static const char *msgnames[] =
     "NEWWIN", "DELWIN", "SIZWIN", "CLRWIN",
     "MOVETO", "PRINT",
     "MAKETRANSPARENT", "STYLEHINT", "CLEARHINT", "STYLEMEASURE", "SETBGND", "SETTITLE",
-    "TIMER", "INITCHAR", "CANCELCHAR", "INITLINE", "CANCELLINE", "SETECHO", "INITMOUSE", "CANCELMOUSE",
+    "TIMER", "INITCHAR", "CANCELCHAR", "INITLINE", "CANCELLINE", "SETECHO", "TERMINATORS", "INITMOUSE", "CANCELMOUSE",
     "FILLRECT", "FINDIMAGE", "LOADIMAGE", "SIZEIMAGE",
     "DRAWIMAGE", "FLOWBREAK", "NEWCHAN", "DELCHAN",
     "FINDSOUND", "LOADSOUND", "SETVOLUME", "PLAYSOUND", "STOPSOUND",
@@ -428,6 +428,16 @@ static const char *msgnames[] =
             [gwindows[i] prefsDidChange];
 }
 
+
+- (void) handleChangeTitle:(char*)buf length: (int)len
+{
+	NSString *str = [[NSString stringWithCString: buf encoding: NSISOLatin1StringEncoding] substringToIndex: len];
+
+	//    _game.metadata.title = str;
+	self.window.title = str;
+	NSLog(@"Change title request: %@", str);
+}
+
 /*
  *
  */
@@ -671,9 +681,7 @@ static const char *msgnames[] =
         lastimage = nil;
     }
     
-    NSData *data;
-    
-    data = [[NSData alloc] initWithBytesNoCopy: buffer length: length freeWhenDone: NO];
+    NSData *data = [[NSData alloc] initWithBytesNoCopy: buffer length: length freeWhenDone: NO];
     if (!data)
         return;
     
@@ -879,21 +887,35 @@ NSInteger colorToInteger(NSColor *color)
     [gwindow putString: str style: style];
 }
 
-- (void) handleChangeTitle:(char*)buf length: (int)len
-{
-    NSString *str;
-
-    str = [[NSString stringWithCString: buf encoding: NSISOLatin1StringEncoding] substringToIndex: len];
-
-//    _game.metadata.title = str;
-    self.window.title = str;
-    NSLog(@"Change title request: %@", str);
-}
-
 - (void) handleSoundNotification: (NSInteger)notify withSound:(NSInteger)sound
 {
 	GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:sound withSound:notify];
 	[self queueEvent:gev];
+}
+
+- (void) handleSetTerminatorsOnWindow:(GlkWindow*)gwindow	buffer: (glui32 *)buf length: (glui32)len
+{
+	NSMutableDictionary *myDict = gwindow.pendingTerminators;
+	NSNumber *key;
+	NSArray *keys = [myDict allKeys];
+	
+	for (key in keys)	{
+		[myDict setObject:@NO forKey:key];
+	}
+
+//	NSLog(@"handleSetTerminatorsOnWindow: %ld length: %u", (long)gwindow.name, len );
+
+	for (NSInteger i = 0; i < len; i++)
+	{
+		key = [NSNumber numberWithUnsignedInteger:buf[i]];
+		id terminator_setting = [myDict objectForKey:key];
+		if (terminator_setting)
+		{
+			[myDict setObject:@YES forKey:key];
+		}
+		else NSLog(@"Illegal line terminator request: %u", buf[i]);
+	}
+	gwindow.terminatorsPending = YES;
 }
 
 
@@ -1145,8 +1167,14 @@ NSInteger colorToInteger(NSColor *color)
         
         case SETTITLE:
             [self handleChangeTitle: (char*)buf
-                               length: req->len];
+							 length: req->len];
             break;
+
+		case TERMINATORS:
+			[self handleSetTerminatorsOnWindow: gwindows[req->a1]
+										buffer: (glui32 *)buf
+										length: req->a2];
+			break;
             
         case FLOWBREAK:
             NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
