@@ -283,16 +283,23 @@
     if ([str length])
         ch = chartokeycode([str characterAtIndex: 0]);
     
-    if (char_request && ch != keycode_Unknown)
-    {
-        [glkctl markLastSeen];
-        
-        //NSLog(@"char event from %d", name);
-        GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
-        [glkctl queueEvent: gev];
-        char_request = NO;
-        return;
-    }
+	GlkWindow *win;
+	// pass on this key press to another GlkWindow if we are not expecting one
+	if (!self.wantsFocus)
+		for (int i = 0; i < MAXWIN; i++)
+		{
+			win = [glkctl windowWithNum:i];
+			if (i != self.name && win && win.wantsFocus)
+			{
+				NSLog(@"Passing on keypress");
+				if ([win isKindOfClass: [GlkTextBufferWindow class]])
+					[(GlkTextBufferWindow *)win onKeyDown:evt];
+				else
+					[win keyDown:evt];
+				[win grabFocus];
+				return;
+			}
+		}
 }
 
 @end

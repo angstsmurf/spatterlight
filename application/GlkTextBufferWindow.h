@@ -40,7 +40,6 @@
     MarginContainer *container;
     NSTextView *textview;
 
-    NSInteger char_request;
     NSInteger line_request;
     BOOL echo_toggle_pending; /* if YES, line echo behavior will be inverted, starting from the next line event*/
     BOOL echo; /* if YES, current line input will be deleted from text view */

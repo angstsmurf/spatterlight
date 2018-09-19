@@ -8,6 +8,9 @@
     NSInteger bgnd;
 	NSMutableArray *hyperlinks;
     GlkHyperlink *current_hyperlink;
+    NSMutableDictionary *currentTerminators;
+    
+    NSInteger char_request;
 }
 
 @property (readonly) NSInteger name;
