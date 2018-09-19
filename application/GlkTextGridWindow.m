@@ -35,7 +35,7 @@
 		hyper_request = NO;
 
 		hyperlinks = [[NSMutableArray alloc] init];
-        current_hyperlink = nil;
+		currentHyperlink = nil;
         
         transparent = NO;
     }
@@ -286,6 +286,9 @@
 {
     lines = nil;
     lines = [[NSMutableArray alloc] init];
+
+	hyperlinks = nil;
+	hyperlinks = [[NSMutableArray alloc] init];
     
     rows = cols = 0;
     xpos = ypos = 0;
@@ -393,30 +396,30 @@
 
 - (void) setHyperlink:(NSInteger)linkid
 {
-    NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
+	NSLog(@"txtgrid: hyperlink %ld set", (long)linkid);
 
 	NSUInteger length = ypos * cols + xpos;
 
-    if (current_hyperlink && current_hyperlink.index != linkid)
+	if (currentHyperlink && currentHyperlink.index != linkid)
 	{
-        NSLog(@"There is a preliminary hyperlink, with index %ld", current_hyperlink.index);
-        if (current_hyperlink.startpos >= length)
+//		NSLog(@"There is a preliminary hyperlink, with index %ld", currentHyperlink.index);
+		if (currentHyperlink.startpos >= length)
 		{
-            NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. current_hyperlink.startpos == %ld, length == %ld", current_hyperlink.startpos, length);
-            current_hyperlink = nil;
+//			NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. currentHyperlink.startpos == %ld, length == %ld", currentHyperlink.startpos, length);
+			currentHyperlink = nil;
 		}
 		else
 		{
-            current_hyperlink.range = NSMakeRange(current_hyperlink.startpos, length - current_hyperlink.startpos);
+			currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, length - currentHyperlink.startpos);
 
-            [hyperlinks addObject:current_hyperlink];
-            current_hyperlink = nil;
+			[hyperlinks addObject:currentHyperlink];
+			currentHyperlink = nil;
 
-            NSNumber *link = [NSNumber numberWithInteger: current_hyperlink.index];
+			NSNumber *link = [NSNumber numberWithInteger: currentHyperlink.index];
 
-            NSInteger pos = current_hyperlink.startpos;
-            NSInteger currentx = current_hyperlink.startpos % cols;
-            NSInteger currenty = current_hyperlink.startpos / cols;
+			NSInteger pos = currentHyperlink.startpos;
+			NSInteger currentx = currentHyperlink.startpos % cols;
+			NSInteger currenty = currentHyperlink.startpos / cols;
 
 			while (pos < length)
 			{
@@ -454,29 +457,53 @@
 		}
 
 	}
-    if (!current_hyperlink && linkid)
+	if (!currentHyperlink && linkid)
 	{
-        current_hyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:length];
-        NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", current_hyperlink.startpos,linkid);
+		currentHyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:length];
+//		NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", currentHyperlink.startpos,linkid);
 
 	}
 }
 
-- (void) initHyperlink:(NSInteger*)val
+- (void) initHyperlink
 {
 	hyper_request = YES;
+//	NSLog(@"txtgrid: hyperlink event requested");
+
 }
 
 - (void) cancelHyperlink
 {
 	hyper_request = NO;
+//	NSLog(@"txtgrid: hyperlink event cancelled");
+
 }
+
+//- (BOOL) textView: (NSTextView*)textview_ clickedOnLink: (id)link atIndex: (NSUInteger)charIndex
+//{
+//	NSLog(@"txtgrid: clicked on link: %@", link);
+//
+//	if (!hyper_request)
+//	{
+//		NSLog(@"txtgrid: No hyperlink request in window.");
+//		return NO;
+//	}
+//
+//	GlkEvent *gev = [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue forWindow: self.name];
+//	[glkctl queueEvent: gev];
+//
+//	hyper_request = NO;
+//	[textview_ setEditable: YES];
+//	return NO;
+//}
 
 - (void) mouseDown: (NSEvent*)theEvent
 {
     GlkEvent *gev;
-    
-    if (mouse_request && theEvent.clickCount == 2)
+	GlkHyperlink *hyp;
+	NSLog(@"mousedown in grid window");
+
+    if ((mouse_request || hyper_request)) // && theEvent.clickCount == 2)
     {
         [glkctl markLastSeen];
         
@@ -487,12 +514,30 @@
         p.y = (p.y - [Preferences gridMargins]) / [Preferences lineHeight];
         if (p.x >= 0 && p.y >= 0 && p.x < cols && p.y < rows)
         {
-            // NSLog(@"mousedown in buf at %g,%g", p.x, p.y);
-            gev = [[GlkEvent alloc] initMouseEvent: p forWindow: self.name];
-            [glkctl queueEvent: gev];
-            mouse_request = NO;
+			if (hyper_request)
+			{
+				for (hyp in hyperlinks)
+				{
+					if (NSLocationInRange((p.y * cols + p.x),hyp.range))
+					{
+						NSLog(@"Clicked hyperlink %ld in grid window at %g,%g",(long)hyp.index, p.x, p.y);
+						gev = [[GlkEvent alloc] initLinkEvent:hyp.index forWindow:self.name];
+						[glkctl queueEvent: gev];
+						hyper_request = NO;
+						break;
+					}
+				}
+			}
+
+			if (mouse_request) //&& theEvent.clickCount == 2)
+			{
+				gev = [[GlkEvent alloc] initMouseEvent: p forWindow: self.name];
+				[glkctl queueEvent: gev];
+				mouse_request = NO;
+			}
         }
-    }
+	} else { NSLog(@"No hyperlink request or mouse request in grid window");
+		[super mouseDown:theEvent]; }
 }
 
 - (void) initChar
