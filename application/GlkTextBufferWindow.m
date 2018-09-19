@@ -333,7 +333,7 @@
         historypresent = 0;
 
 		hyperlinks = [[NSMutableArray alloc] init];
-        current_hyperlink = nil;
+		currentHyperlink = nil;
         
         scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
         [scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
@@ -607,7 +607,7 @@
 		[textstorage.mutableString appendString: [NSString stringWithCharacters: uc length: 1]];
 
 		NSUInteger linkid = 0;
-        if (current_hyperlink) linkid = current_hyperlink.index;
+		if (currentHyperlink) linkid = currentHyperlink.index;
 
 		[container addImage: image align: align at: textstorage.length - 1 size: NSMakeSize(w, h) linkid:linkid];
 
@@ -905,7 +905,7 @@
 	[glkctl queueEvent: gev];
 
 	hyper_request = NO;
-    [textview setEditable: YES];
+	[textview setEditable: NO];
     return NO;
 }
 
@@ -1127,26 +1127,26 @@
 {
 	NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
 
-    if (current_hyperlink && current_hyperlink.index != linkid)
+	if (currentHyperlink && currentHyperlink.index != linkid)
 	{
-        NSLog(@"There is a preliminary hyperlink, with index %ld", current_hyperlink.index);
-        if (current_hyperlink.startpos >= textstorage.length)
+		NSLog(@"There is a preliminary hyperlink, with index %ld", currentHyperlink.index);
+		if (currentHyperlink.startpos >= textstorage.length)
 		{
-            NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. current_hyperlink.startpos == %ld, textstorage.length == %ld", current_hyperlink.startpos, textstorage.length);
-            current_hyperlink = nil;
+			NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. currentHyperlink.startpos == %ld, textstorage.length == %ld", currentHyperlink.startpos, textstorage.length);
+			currentHyperlink = nil;
 		}
 		else
 		{
-            current_hyperlink.range = NSMakeRange(current_hyperlink.startpos, textstorage.length - current_hyperlink.startpos);
-            [textstorage addAttribute:NSLinkAttributeName value:[NSNumber numberWithInteger: current_hyperlink.index] range:current_hyperlink.range];
-            [hyperlinks addObject:current_hyperlink];
-            current_hyperlink = nil;
+			currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, textstorage.length - currentHyperlink.startpos);
+			[textstorage addAttribute:NSLinkAttributeName value:[NSNumber numberWithInteger: currentHyperlink.index] range:currentHyperlink.range];
+			[hyperlinks addObject:currentHyperlink];
+			currentHyperlink = nil;
 		}
 	}
-    if (!current_hyperlink && linkid)
+	if (!currentHyperlink && linkid)
 	{
-        current_hyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:textstorage.length];
-        NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", current_hyperlink.startpos,linkid);
+		currentHyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:textstorage.length];
+		NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", currentHyperlink.startpos,linkid);
 
 	}
 }

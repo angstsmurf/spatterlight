@@ -7,9 +7,10 @@
     GlkStyle *styles[style_NUMSTYLES];
     NSInteger bgnd;
 	NSMutableArray *hyperlinks;
-    GlkHyperlink *current_hyperlink;
+
+    GlkHyperlink *currentHyperlink;
     NSMutableDictionary *currentTerminators;
-    
+
     NSInteger char_request;
 }
 
