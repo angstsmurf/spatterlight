@@ -396,7 +396,7 @@
 		C32036D41ED7640A00FF60DF /* speex.c in Sources */ = {isa = PBXBuildFile; fileRef = C32036C51ED7640A00FF60DF /* speex.c */; };
 		C32036D51ED7640A00FF60DF /* voc.c in Sources */ = {isa = PBXBuildFile; fileRef = C32036C61ED7640A00FF60DF /* voc.c */; };
 		C32036D61ED7640A00FF60DF /* wav.c in Sources */ = {isa = PBXBuildFile; fileRef = C32036C71ED7640A00FF60DF /* wav.c */; };
-		C32036E51ED7738700FF60DF /* libglkimp.dylib in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		C32036E51ED7738700FF60DF /* libglkimp.dylib in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C32036EE1ED77E5200FF60DF /* libSDL_sound_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3378A1A1ECF95CB00BCEAE5 /* libSDL_sound_static.a */; };
 		C326885B21493425007C0ACC /* Fonts License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C326885A21493424007C0ACC /* Fonts License.rtf */; };
 		C326885C21493772007C0ACC /* Fonts License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = C326885A21493424007C0ACC /* Fonts License.rtf */; };
@@ -459,8 +459,6 @@
 		C39DE2A11ECB7C6000CE5B70 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2911ECB7C6000CE5B70 /* utils.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39DE2A21ECB7C6000CE5B70 /* word.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2921ECB7C6000CE5B70 /* word.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39FEFE81EF343BE00A0500B /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = C39FEFE51EF343BE00A0500B /* Game.m */; };
-		C3A44D4D213D77040082AB41 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A44D4B213D77040082AB41 /* SDL2.framework */; };
-		C3A44D50213D77CB0082AB41 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A44D4F213D77CB0082AB41 /* SDL2_mixer.framework */; };
 		C3B1FE26213D7DDD0068DFD3 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A44D4F213D77CB0082AB41 /* SDL2_mixer.framework */; };
 		C3B1FE27213D7DE80068DFD3 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3A44D4B213D77040082AB41 /* SDL2.framework */; };
 		C3B1FE29213D95B20068DFD3 /* SDL2_mixer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3A44D4F213D77CB0082AB41 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -517,6 +515,7 @@
 		C3FC70FF1ECB7E6000DC8AD8 /* AltInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FC70FE1ECB7E6000DC8AD8 /* AltInfo.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3FCC9551EFD49C0000A288D /* HelpPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FCC9531EFD49C0000A288D /* HelpPanelController.m */; };
 		C3FCC9561EFD49C0000A288D /* HelpPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3FCC9541EFD49C0000A288D /* HelpPanelController.xib */; };
+		C3FF6471215446EE0014D7EA /* SoundFader.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FF6470215446EE0014D7EA /* SoundFader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2273,9 +2272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A9BBDA0A066F41001B5B9B /* libbabel.a in Frameworks */,
-				C3A44D50213D77CB0082AB41 /* SDL2_mixer.framework in Frameworks */,
 				C37A99321EEAD8E800A5C260 /* CoreData.framework in Frameworks */,
-				C3A44D4D213D77040082AB41 /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
