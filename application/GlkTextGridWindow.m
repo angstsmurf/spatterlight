@@ -302,11 +302,8 @@
 {
     NSInteger length = [string length];
     NSInteger pos = 0;
-    NSDictionary *att;
+    NSDictionary *att = [self attributesFromStylevalue:stylevalue];
     //NSColor *col;
-    NSInteger style;
-    NSInteger fg;
-    NSInteger bg;
     
     // Check for newlines
     int x;
@@ -320,28 +317,6 @@
             [self putString: [string substringFromIndex: x + 1] style: stylevalue];
             return;
         }
-    }
-    
-    style = stylevalue & 0xff;
-    fg = (stylevalue >> 8) & 0xff;
-    bg = (stylevalue >> 16) & 0xff;
-    
-    if (fg || bg)
-    {
-        NSMutableDictionary *mutatt = [[styles[style] attributes] mutableCopy];
-        [mutatt setObject: [NSNumber numberWithInt: (int)stylevalue] forKey: @"GlkStyle"];
-        if ([Preferences stylesEnabled])
-        {
-            if (fg)
-                [mutatt setObject: [Preferences foregroundColor: (int)(fg - 1)] forKey: NSForegroundColorAttributeName];
-            if (bg)
-                [mutatt setObject: [Preferences backgroundColor: (int)(bg - 1)] forKey: NSBackgroundColorAttributeName];
-        }
-        att = mutatt;
-    }
-    else
-    {
-        att = styles[style].attributes;
     }
     
     // Write this string
@@ -368,7 +343,8 @@
         NSAttributedString* partString = [[NSAttributedString alloc]
                                           initWithString: [string substringWithRange: NSMakeRange(pos, amountToDraw)]
                                           attributes: att];
-        [[lines objectAtIndex: ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw)
+	
+        [lines[ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw)
                                          withAttributedString: partString];
         
         dirty = YES;
@@ -520,13 +496,13 @@
 			{
 				for (hyp in hyperlinks)
 				{
-					if (NSLocationInRange((p.y * cols + p.x),hyp.range))
+                    if (NSLocationInRange((p.y * cols + p.x),hyp.range))
 					{
-						NSLog(@"Clicked hyperlink %ld in grid window at %g,%g",(long)hyp.index, p.x, p.y);
+                        NSLog(@"Clicked hyperlink %ld in grid window at %g,%g",(long)hyp.index, p.x, p.y);
 						gev = [[GlkEvent alloc] initLinkEvent:hyp.index forWindow:self.name];
 						[glkctl queueEvent: gev];
 						hyper_request = NO;
-						break;
+                        break;
 					}
 				}
 			}
@@ -641,39 +617,10 @@
 	[[input cell] setWraps:YES];
 	[[input cell] setScrollable:YES];
 
-	NSInteger style;
-	NSInteger fg;
-	NSInteger bg;
-	NSDictionary *att;
-
-	style = style_Input & 0xff;
-	fg = (style_Input >> 8) & 0xff;
-	bg = (style_Input >> 16) & 0xff;
-
-	if (fg || bg)
-	{
-		NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
-		mutatt[@"GlkStyle"] = @((int)style_Input);
-		if ([Preferences stylesEnabled])
-		{
-			if (fg)
-				mutatt[NSForegroundColorAttributeName] = [Preferences foregroundColor: (int)(fg - 1)];
-			if (bg)
-				mutatt[NSBackgroundColorAttributeName] = [Preferences backgroundColor: (int)(bg - 1)];
-		}
-		att = mutatt;
-	}
-	else
-	{
-		att = styles[style].attributes;
-	}
-
 	if (str.length == 0)
 		str = @" ";
 
-	NSMutableAttributedString* attString = [[NSMutableAttributedString alloc]
-									  initWithString: str
-									  attributes: att];
+	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:str attributes:[self attributesFromStylevalue:style_Input]];
 
 	input.attributedStringValue = attString;
 

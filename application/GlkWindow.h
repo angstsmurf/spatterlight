@@ -33,7 +33,8 @@
 - (void) setBgColor: (NSInteger)bc;
 - (void) clear;
 - (void) putString:(NSString*)buf style:(NSInteger)style;
-- (void) moveToColumn:(NSInteger)x row:(NSInteger)y;
+- (NSDictionary *) attributesFromStylevalue: (NSInteger)stylevalue;
+- (void) moveToColumn: (NSInteger)x row: (NSInteger)y;
 - (void) initLine: (NSString*)buf;
 
 - (NSString*) cancelLine;

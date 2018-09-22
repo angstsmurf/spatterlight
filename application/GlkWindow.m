@@ -171,6 +171,31 @@
     NSLog(@"print in %@ not implemented", [self class]);
 }
 
+- (NSDictionary *) attributesFromStylevalue: (NSInteger)stylevalue
+{
+	NSInteger style = stylevalue & 0xff;
+	NSInteger fg = (stylevalue >> 8) & 0xff;
+	NSInteger bg = (stylevalue >> 16) & 0xff;
+
+	if (fg || bg)
+	{
+		NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
+		mutatt[@"GlkStyle"] = @((int)stylevalue);
+		if ([Preferences stylesEnabled])
+		{
+			if (fg)
+				mutatt[NSForegroundColorAttributeName] = [Preferences foregroundColor: (int)(fg - 1)];
+			if (bg)
+				mutatt[NSBackgroundColorAttributeName] = [Preferences backgroundColor: (int)(bg - 1)];
+		}
+		return (NSDictionary *) mutatt;
+	}
+	else
+	{
+		return styles[style].attributes;
+	}
+}
+
 - (void) moveToColumn:(NSInteger)x row:(NSInteger)y
 {
     NSLog(@"move cursor in %@ not implemented", [self class]);
