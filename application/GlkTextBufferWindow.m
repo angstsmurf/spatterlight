@@ -761,32 +761,14 @@
     while (x < textstorage.length)
     {
         id styleobject = [textstorage attribute:@"GlkStyle" atIndex:x effectiveRange:&range];
-        NSInteger stylevalue = [styleobject intValue];
-        NSInteger style = stylevalue & 0xff;
-        NSInteger fg = (stylevalue >> 8) & 0xff;
-        NSInteger bg = (stylevalue >> 16) & 0xff;
+
+		NSDictionary * attributes = [self attributesFromStylevalue:[styleobject intValue]];
         
         id image = [textstorage attribute: @"NSAttachment" atIndex:x effectiveRange:NULL];
 
 		id hyperlink = [textstorage attribute: NSLinkAttributeName atIndex:x effectiveRange:&range];
 
-        [textstorage setAttributes: styles[style].attributes range: range];
-        
-        if (fg || bg)
-        {
-            [textstorage addAttribute: @"GlkStyle" value: @((int)stylevalue) range: range];
-            if ([Preferences stylesEnabled])
-            {
-                if (fg)
-                    [textstorage addAttribute: NSForegroundColorAttributeName
-                                        value: [Preferences foregroundColor: (int)(fg - 1)]
-                                        range: range];
-                if (bg)
-                    [textstorage addAttribute: NSBackgroundColorAttributeName
-                                        value: [Preferences backgroundColor: (int)(bg - 1)]
-                                        range: range];
-            }
-        }
+        [textstorage setAttributes: attributes range: range];
         
         if (image)
         {
@@ -1297,35 +1279,9 @@
 
 - (void) putString:(NSString*)str style:(NSInteger)stylevalue
 {
-    NSAttributedString *attstr;
-    NSDictionary *att;
-    //NSColor *col;
-    
-    NSInteger style = stylevalue & 0xff;
-    NSInteger fg = (stylevalue >> 8) & 0xff;
-    NSInteger bg = (stylevalue >> 16) & 0xff;
-    
-    if (fg || bg)
-    {
-        NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
+    NSAttributedString *attstr = [[NSAttributedString alloc] initWithString:str attributes:[self attributesFromStylevalue:stylevalue]];
 
-        mutatt[@"GlkStyle"] = @((int)stylevalue);
-        if ([Preferences stylesEnabled])
-        {
-            if (fg)
-                mutatt[NSForegroundColorAttributeName] = [Preferences foregroundColor: (int)(fg - 1)];
-            if (bg)
-                mutatt[NSBackgroundColorAttributeName] = [Preferences backgroundColor: (int)(bg - 1)];
-        }
-        att = mutatt;
-    }
-    else
-    {
-        att = styles[style].attributes;
-    }
-    
-    attstr = [[NSAttributedString alloc] initWithString: str attributes: att];
-    [textstorage appendAttributedString: attstr];
+	[textstorage appendAttributedString: attstr];
     
     lastchar = [str characterAtIndex: str.length - 1];
 }
