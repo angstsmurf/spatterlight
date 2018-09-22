@@ -1125,7 +1125,7 @@
     }
     else if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @YES]))
     {
-//        NSLog(@"line event from %ld", (long)self.name);
+        NSLog(@"line event from window %ld", (long)self.name);
         
         textview.insertionPointColor = [Preferences bufferBackground];
         
