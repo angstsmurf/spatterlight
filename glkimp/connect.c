@@ -555,33 +555,33 @@ again:
 	    event->type = evtype_LineInput;
 	    event->win = gli_window_for_peer(wmsg.a1);
 	    
-        if (event->win->line_request_uni)
-        {
-        event->val1 = MIN(wmsg.a2, event->win->line.cap / sizeof(glui32));
-        glui32 *obuf = event->win->line.buf;
-        unsigned short *ibuf = (unsigned short*)wbuf;
-        for (i = 0; i < event->val1; i++)
-            obuf[i] = ibuf[i];
-        if (event->win->echostr)
-            gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, event->val1);
-        }
-        else
-        {
-        event->val1 = MIN(wmsg.a2, event->win->line.cap);
-        unsigned char *obuf = event->win->line.buf;
-        unsigned short *ibuf = (unsigned short*)wbuf;
-        for (i = 0; i < event->val1; i++)
-            obuf[i] = ibuf[i] < 0x100 ? ibuf[i] : '?';
-        if (event->win->echostr)
-            gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
-        }
-        
-        if (gli_unregister_arr)
-        {
-        (*gli_unregister_arr)(event->win->line.buf, event->win->line.cap,
-                      event->win->line_request_uni ? "&+#!Iu" : "&+#!Cn",
-                      event->win->line.inarrayrock);
-        }
+		if (event->win->line_request_uni)
+		{
+			event->val1 = MIN(wmsg.a2, event->win->line.cap); /* / sizeof(glui32));*/
+			glui32 *obuf = event->win->line.buf;
+			unsigned short *ibuf = (unsigned short*)wbuf;
+			for (i = 0; i < event->val1; i++)
+				obuf[i] = ibuf[i];
+			if (event->win->echostr)
+				gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, event->val1);
+		}
+		else
+		{
+			event->val1 = MIN(wmsg.a2, event->win->line.cap);
+			unsigned char *obuf = event->win->line.buf;
+			unsigned short *ibuf = (unsigned short*)wbuf;
+			for (i = 0; i < event->val1; i++)
+				obuf[i] = ibuf[i] < 0x100 ? ibuf[i] : '?';
+			if (event->win->echostr)
+				gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
+		}
+
+		if (gli_unregister_arr)
+		{
+			(*gli_unregister_arr)(event->win->line.buf, event->win->line.cap,
+								  event->win->line_request_uni ? "&+#!Iu" : "&+#!Cn",
+								  event->win->line.inarrayrock);
+		}
 		
 	    event->win->line.buf = NULL;
 	    event->win->line.len = 0;
@@ -613,12 +613,14 @@ again:
 	    event->val2 = wmsg.a3;
 	    event->win->mouse_request = FALSE;
 	    break;
+
 	case EVTTIMER:
 #ifdef DEBUG
 	     fprintf(stderr, "timer event\n");
 #endif
 	    event->type = evtype_Timer;
 	    break;
+
 	case EVTSOUND:
 #ifdef DEBUG
 	     fprintf(stderr, "sound notification event\n");
@@ -627,6 +629,7 @@ again:
 		event->val1 = wmsg.a2;
 		event->val2 = wmsg.a3;
 	    break;
+
 	case EVTHYPER:
 #ifdef DEBUG
 	     fprintf(stderr, "hyperlink event with val1 = %d\n",  wmsg.a2);
