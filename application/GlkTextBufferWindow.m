@@ -583,7 +583,7 @@
 	while (view && ![view isKindOfClass: [GlkTextBufferWindow class]])
 		view = [view superview];
 
-	if (![(GlkTextBufferWindow *)view myMouseDown:theEvent])
+    if (![(GlkTextBufferWindow *)view myMouseDown:theEvent])
 		[super mouseDown:theEvent];
 }
 
@@ -696,12 +696,12 @@
 //    [self recalcBackground];
 //}
 
-//- (BOOL) allowsDocumentBackgroundColorChange { return YES; }
-//
-//- (void)changeDocumentBackgroundColor:(id)sender
-//{
-//	NSLog(@"changeDocumentBackgroundColor");
-//}
+- (BOOL) allowsDocumentBackgroundColorChange { return YES; }
+
+- (void)changeDocumentBackgroundColor:(id)sender
+{
+	NSLog(@"changeDocumentBackgroundColor");
+}
 
 - (void) recalcBackground
 {
@@ -1209,7 +1209,7 @@
 
 	hyper_request = NO;
 	[textview setEditable: NO];
-    return NO;
+    return YES;
 }
 
 // Make margin image links clickable
@@ -1408,9 +1408,6 @@
 	{
 		[self putString: @"\n" style: style_Input];
 		lastchar = '\n'; // [str characterAtIndex: str.length - 1];
-//
-//		if (![[str substringWithRange: NSMakeRange(str.length -1, 1)] isEqual:@'\n'])
-//			str = [str stringByAppendingString:@"\n"];
 	}
     else
         [textstorage deleteCharactersInRange: NSMakeRange(fence, textstorage.length - fence)]; // Don't echo input line

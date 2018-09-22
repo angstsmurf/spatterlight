@@ -39,7 +39,7 @@
 - (void) setBgColor: (NSInteger)bc
 {
     bgnd = bc;
-    NSLog(@"Background in graphics window was set to bgnd(%ld)", (long)bgnd);
+//    NSLog(@"Background in graphics window was set to bgnd(%ld)", (long)bgnd);
 
 }
 
