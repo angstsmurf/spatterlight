@@ -15,6 +15,7 @@
 
 #import "Game.h"
 #import "Metadata+CoreDataProperties.h"
+#import "SoundFader.h"
 
 #define MAXWIN 64
 #define MAXSND 32
@@ -46,6 +47,8 @@
     /* the glk objects */
     GlkWindow *gwindows[MAXWIN];
     GlkSoundChannel *gchannels[MAXSND];
+	NSMutableArray *soundFaders;
+
     int windowdirty; /* the contentView needs to repaint */
     
     /* image/sound resource uploading protocol */
@@ -57,7 +60,7 @@
     /* stylehints need to be copied to new windows, so we keep the values around */
     NSInteger styleuse[2][style_NUMSTYLES][stylehint_NUMHINTS];
     NSInteger styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
-    
+
     /* keep some info around for the about-box */
 //    NSString *gamefile;
 //    NSString *gameifid;

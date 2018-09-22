@@ -64,6 +64,7 @@ enum
     SETVOLUME,
     PLAYSOUND,
     STOPSOUND,
+	SETFADE,
 
 #ifdef GLK_MODULE_HYPERLINKS
 
@@ -82,6 +83,7 @@ enum
     EVTSOUND,
     EVTHYPER,
 	EVTVOLUME,
+	EVTFADE,
     
     EVTPREFS
 };

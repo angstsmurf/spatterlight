@@ -87,6 +87,7 @@ void win_playsound(int chan, int repeats, int notify);
 void win_stopsound(int chan);
 void win_sound_notify(int snd, int notify);
 void win_volume_notify(int notify);
+void win_init_fade(schanid_t channel, int volume, int duration);
 
 /* unicode case mapping */
 
@@ -385,6 +386,8 @@ struct glk_schannel_struct
 };
 
 extern void gli_initialize_sound(void);
+extern void gli_set_volume_by_rock(int rock, int volume);
+
 
 
 

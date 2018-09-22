@@ -498,6 +498,12 @@ void win_volume_notify(int notify)
 	sendmsg(EVTVOLUME, 0, 0, notify, 0, 0, 0, NULL);
 }
 
+void win_init_fade(schanid_t chan, int volume, int duration)
+{
+	win_flush();
+	sendmsg(SETFADE, chan->rock, chan->volume, volume, duration, chan->notify, 0, NULL);
+}
+
 void win_select(event_t *event, int block)
 {
     int i;
@@ -642,10 +648,18 @@ again:
 
 		case EVTVOLUME:
 #ifdef DEBUG
-        fprintf(stderr, "volume notification event");
+		fprintf(stderr, "volume notification event %d\n", wmsg.a3);
 #endif
 		event->type = evtype_VolumeNotify;
 		event->val2 = wmsg.a3;
+		break;
+
+		case EVTFADE:
+#ifdef DEBUG
+		fprintf(stderr, "fade volume adjust fake event\n");
+#endif
+		gli_set_volume_by_rock(wmsg.a2, wmsg.a3);
+		event->type = evtype_None;
 		break;
 
 	default:

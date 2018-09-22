@@ -102,7 +102,6 @@ unsigned chartokeycode(unsigned ch)
     self = [super init];
     if (self)
     {
-        
         type = EVTLINE;
         ln = [v copy];
         win = name;
@@ -162,6 +161,18 @@ unsigned chartokeycode(unsigned ch)
 		type = EVTHYPER;
 		win = name;
 		val1 = linkid;
+	}
+	return self;
+}
+
+- (instancetype) initFadeEvent: (NSUInteger)channel andVolume: (NSInteger)volume
+{
+	self = [super init];
+	if (self)
+	{
+		type = EVTFADE;
+		val1 = channel;
+		val2 = volume;
 	}
 	return self;
 }

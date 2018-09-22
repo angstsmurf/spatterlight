@@ -2227,6 +2227,8 @@
 		C3FCC9521EFD49C0000A288D /* HelpPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpPanelController.h; sourceTree = "<group>"; };
 		C3FCC9531EFD49C0000A288D /* HelpPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpPanelController.m; sourceTree = "<group>"; };
 		C3FCC9541EFD49C0000A288D /* HelpPanelController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpPanelController.xib; sourceTree = "<group>"; };
+		C3FF646F215446EE0014D7EA /* SoundFader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundFader.h; sourceTree = "<group>"; };
+		C3FF6470215446EE0014D7EA /* SoundFader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundFader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2849,6 +2851,8 @@
 				96FBD8F50A0950EA002F6087 /* InfoController.m */,
 				96A9BB7A0A0662FA001B5B9B /* GlkController.h */,
 				C38101291EDA297E00B87B68 /* GlkController.m */,
+				C3FF646F215446EE0014D7EA /* SoundFader.h */,
+				C3FF6470215446EE0014D7EA /* SoundFader.m */,
 				961CCED909F239E700528FF9 /* GlkEvent.h */,
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
 				96CC04C80A133B93004F30FA /* GlkStyle.h */,
@@ -4773,6 +4777,7 @@
 				961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */,
 				C381012A1EDA297E00B87B68 /* GlkController.m in Sources */,
 				961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */,
+				C3FF6471215446EE0014D7EA /* SoundFader.m in Sources */,
 				C3B9CF981EF4100000110B34 /* NSString+XML.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
 				961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */,

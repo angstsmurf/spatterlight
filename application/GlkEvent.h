@@ -19,6 +19,7 @@ unsigned chartokeycode(unsigned ch);
 - (instancetype) initSoundNotify: (NSInteger)notify withSound: (NSInteger)sound  NS_DESIGNATED_INITIALIZER;
 - (instancetype) initVolumeNotify: (NSInteger)notify NS_DESIGNATED_INITIALIZER;
 - (instancetype) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name NS_DESIGNATED_INITIALIZER;
+- (instancetype) initFadeEvent: (NSUInteger)channel andVolume: (NSInteger)volume NS_DESIGNATED_INITIALIZER;
 
 - (void) writeEvent: (NSInteger)fd;
 @property (readonly) NSInteger type;
