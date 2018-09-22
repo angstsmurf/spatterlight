@@ -1722,7 +1722,9 @@ objectValueForTableColumn: (NSTableColumn*)column
         Metadata *meta = game.metadata;
         NSString *key = tableColumn.identifier;
         NSString *oldval = [meta valueForKey:key];
-        if (oldval == nil && ((NSString*)value).length == 0)
+		if ([value isKindOfClass:[NSNumber class]])
+			value = [[NSString alloc] initWithFormat:@"%@", value];
+        if (oldval == nil && (value == nil || ((NSString*)value).length == 0))
             return;
         if ([value isEqualTo: oldval])
             return;
