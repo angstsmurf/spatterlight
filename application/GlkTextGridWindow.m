@@ -496,13 +496,12 @@
 			{
 				for (hyp in hyperlinks)
 				{
-                    if (NSLocationInRange((p.y * cols + p.x),hyp.range))
+					if (NSLocationInRange(round(p.y) * cols + round(p.x), hyp.range))
 					{
-                        NSLog(@"Clicked hyperlink %ld in grid window at %g,%g",(long)hyp.index, p.x, p.y);
 						gev = [[GlkEvent alloc] initLinkEvent:hyp.index forWindow:self.name];
 						[glkctl queueEvent: gev];
 						hyper_request = NO;
-                        break;
+						return;
 					}
 				}
 			}
