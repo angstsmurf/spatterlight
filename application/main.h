@@ -6,7 +6,6 @@
 #import "Preferences.h"
 
 #import "GlkEvent.h"
-#import "GlkSoundChannel.h"
 #import "GlkStyle.h"
 #import "GlkWindow.h"
 #import "GlkTextBufferWindow.h"
@@ -14,7 +13,6 @@
 #import "GlkGraphicsWindow.h"
 #import "GlkController.h"
 
-#import "InfoController.h"
 #import "LibController.h"
 #import "AppDelegate.h"
 
