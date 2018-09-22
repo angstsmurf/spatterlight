@@ -478,7 +478,7 @@
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </tableHeaderCell>
-                                                                    <levelIndicatorCell key="dataCell" controlSize="small" editable="YES" state="on" alignment="left" doubleValue="3" maxValue="3" levelIndicatorStyle="rating" id="L2n-bL-9Yj">
+                                                                    <levelIndicatorCell key="dataCell" controlSize="small" editable="YES" state="on" alignment="left" doubleValue="3" maxValue="5" levelIndicatorStyle="rating" id="L2n-bL-9Yj">
                                                                         <font key="font" metaFont="smallSystem"/>
                                                                     </levelIndicatorCell>
                                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
