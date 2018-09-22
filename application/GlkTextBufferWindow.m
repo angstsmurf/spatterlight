@@ -294,7 +294,34 @@
 {
     [[NSGraphicsContext currentContext] setImageInterpolation: NSImageInterpolationHigh];
     [super drawRect: rect];
-    [(MarginContainer*)[self textContainer] drawRect: rect];
+    [(MarginContainer*)self.textContainer drawRect: rect];
+}
+
+- (void)scrollToBottom
+{
+//	[(MarginContainer *)self.textContainer adjustTextviewHeightForLowImages];
+	id view = self.superview;
+	while (view && ![view isKindOfClass: [NSScrollView class]])
+		view = [view superview];
+
+	NSScrollView *scrollview = (NSScrollView *)view;
+
+	NSPoint newScrollOrigin = NSMakePoint(0.0,NSMaxY(scrollview.documentView.frame)
+									- NSHeight(scrollview.contentView.bounds));
+
+	[[scrollview contentView] scrollToPoint:newScrollOrigin];
+	[scrollview reflectScrolledClipView:[scrollview contentView]];
+//	NSLog(@"Scrolled to bottom of scrollview");
+}
+
+- (void) mouseDown: (NSEvent*)theEvent
+{
+	id view = self.superview;
+	while (view && ![view isKindOfClass: [GlkTextBufferWindow class]])
+		view = [view superview];
+
+    if (![(GlkTextBufferWindow *)view myMouseDown:theEvent])
+		[super mouseDown:theEvent];
 }
 
 @end
@@ -406,10 +433,11 @@
     
 }
 
-- (void) setBgColor: (NSInteger)bg
+- (BOOL) allowsDocumentBackgroundColorChange { return YES; }
+
+- (void)changeDocumentBackgroundColor:(id)sender
 {
-    [super setBgColor: bg];
-    [self recalcBackground];
+	NSLog(@"changeDocumentBackgroundColor");
 }
 
 - (void) recalcBackground
@@ -906,7 +934,7 @@
 
 	hyper_request = NO;
 	[textview setEditable: NO];
-    return NO;
+    return YES;
 }
 
 // Make margin image links clickable
@@ -1110,9 +1138,6 @@
 	{
 		[self putString: @"\n" style: style_Input];
 		lastchar = '\n'; // [str characterAtIndex: str.length - 1];
-//
-//		if (![[str substringWithRange: NSMakeRange(str.length -1, 1)] isEqual:@'\n'])
-//			str = [str stringByAppendingString:@"\n"];
 	}
     else
         [textstorage deleteCharactersInRange: NSMakeRange(fence, textstorage.length - fence)]; // Don't echo input line
