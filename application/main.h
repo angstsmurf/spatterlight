@@ -13,9 +13,6 @@
 #import "GlkTextGridWindow.h"
 #import "GlkGraphicsWindow.h"
 #import "GlkController.h"
-#import "GlkHyperlink.h"
-
-#import "InfoController.h"
 #import "LibController.h"
 #import "AppDelegate.h"
 
