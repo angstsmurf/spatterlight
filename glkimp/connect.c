@@ -479,7 +479,7 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
 void win_setbgnd(int name, glui32 color)
 {
     win_flush();
-    //sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
+    sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
 
 //void win_sound_notify(glui32 snd, glui32 notify)
@@ -549,39 +549,39 @@ again:
 	    
 	case EVTLINE:
 #ifdef DEBUG
-	     //fprintf(stderr, "line input event\n");
+//	     fprintf(stderr, "line input event\n");
 #endif
 	    
 	    event->type = evtype_LineInput;
 	    event->win = gli_window_for_peer(wmsg.a1);
 	    
-	    if (event->win->line_request_uni)
-	    {
-		event->val1 = MIN(wmsg.a2, event->win->line.cap / sizeof(glui32));
-		glui32 *obuf = event->win->line.buf;
-		unsigned short *ibuf = (unsigned short*)wbuf;
-		for (i = 0; i < event->val1; i++)
-		    obuf[i] = ibuf[i];
-		if (event->win->echostr)
-		    gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, event->val1);
-	    }
-	    else
-	    {
-		event->val1 = MIN(wmsg.a2, event->win->line.cap);
-		unsigned char *obuf = event->win->line.buf;
-		unsigned short *ibuf = (unsigned short*)wbuf;
-		for (i = 0; i < event->val1; i++)
-		    obuf[i] = ibuf[i] < 0x100 ? ibuf[i] : '?';
-		if (event->win->echostr)
-		    gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
-	    }
-	    
-	    if (gli_unregister_arr)
-	    {
-		(*gli_unregister_arr)(event->win->line.buf, event->win->line.cap,
-				      event->win->line_request_uni ? "&+#!Iu" : "&+#!Cn",
-				      event->win->line.inarrayrock);
-	    }
+        if (event->win->line_request_uni)
+        {
+        event->val1 = MIN(wmsg.a2, event->win->line.cap / sizeof(glui32));
+        glui32 *obuf = event->win->line.buf;
+        unsigned short *ibuf = (unsigned short*)wbuf;
+        for (i = 0; i < event->val1; i++)
+            obuf[i] = ibuf[i];
+        if (event->win->echostr)
+            gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, event->val1);
+        }
+        else
+        {
+        event->val1 = MIN(wmsg.a2, event->win->line.cap);
+        unsigned char *obuf = event->win->line.buf;
+        unsigned short *ibuf = (unsigned short*)wbuf;
+        for (i = 0; i < event->val1; i++)
+            obuf[i] = ibuf[i] < 0x100 ? ibuf[i] : '?';
+        if (event->win->echostr)
+            gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
+        }
+        
+        if (gli_unregister_arr)
+        {
+        (*gli_unregister_arr)(event->win->line.buf, event->win->line.cap,
+                      event->win->line_request_uni ? "&+#!Iu" : "&+#!Cn",
+                      event->win->line.inarrayrock);
+        }
 		
 	    event->win->line.buf = NULL;
 	    event->win->line.len = 0;
@@ -636,9 +636,10 @@ again:
 	    event->val1 = wmsg.a2;
 		event->win->hyper_request = FALSE;
 	    break;
+
 		case EVTVOLUME:
 #ifdef DEBUG
-		fprintf(stderr, "volume notification event");
+        fprintf(stderr, "volume notification event");
 #endif
 		event->type = evtype_VolumeNotify;
 		event->val2 = wmsg.a3;
