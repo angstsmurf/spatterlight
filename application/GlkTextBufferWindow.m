@@ -320,7 +320,7 @@
 	while (view && ![view isKindOfClass: [GlkTextBufferWindow class]])
 		view = [view superview];
 
-    if (![(GlkTextBufferWindow *)view myMouseDown:theEvent])
+//	if (![(GlkTextBufferWindow *)view myMouseDown:theEvent])
 		[super mouseDown:theEvent];
 }
 
