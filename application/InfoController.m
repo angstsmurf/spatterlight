@@ -81,7 +81,8 @@
     NSLog(@"infoctl: windowDidLoad");
     
     NSString *path = [_game urlForBookmark].path;
-    self.window.representedFilename = path;
+	if (path)
+    	self.window.representedFilename = path;
 
     Metadata *meta = _game.metadata;
     self.window.title = [NSString stringWithFormat: @"%@ Info", meta.title];
