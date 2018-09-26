@@ -510,9 +510,96 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
             game = gameTableModel[i];
             ifid = game.metadata.ifid;
             [self downloadMetadataForIFID: ifid];
+			[self extractMetadataFromFile:game];
         }
     }
 }
+
+- (void) extractMetadataFromFile:(Game *)game
+{
+	int mdlen;
+
+	BOOL report = YES;
+	currentIfid = nil;
+	cursrc = kInternal;
+
+	NSString *path = game.urlForBookmark.path;
+
+	char *format = babel_init((char*)[path UTF8String]);
+	if (format)
+	{
+
+		char buf[TREATY_MINIMUM_EXTENT];
+		char *s;
+		NSString *ifid;
+		int rv;
+
+		rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
+		if (rv > 0)
+		{
+			s = strchr(buf, ',');
+			if (s) *s = 0;
+			ifid = @(buf);
+
+			if (!ifid || [ifid isEqualToString:@""])
+				ifid = game.metadata.ifid;
+
+			mdlen = babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
+			if (mdlen > 0)
+			{
+				char *mdbuf = malloc(mdlen);
+				if (!mdbuf)
+				{
+					if (report)
+						NSRunAlertPanel(@"Out of memory.",
+										@"Can not allocate memory for the metadata text.",
+										@"Okay", NULL, NULL);
+					babel_release();
+					return;
+				}
+
+				rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
+				if (rv > 0)
+				{
+					cursrc = kInternal;
+					[self importMetadataFromXML: mdbuf];
+					cursrc = 0;
+				}
+
+				free(mdbuf);
+			}
+			NSString *dirpath = (@"~/Library/Application Support/Spatterlight/Cover Art").stringByStandardizingPath;
+			NSString *imgpath = [[dirpath stringByAppendingPathComponent: ifid] stringByAppendingPathExtension: @"tiff"];
+
+
+			NSData *img = [[NSData alloc] initWithContentsOfFile: imgpath];
+			if (!img)
+			{
+				int imglen = babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
+				if (imglen > 0)
+				{
+					char *imgbuf = malloc(imglen);
+					if (imgbuf)
+					{
+						babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
+						NSData *imgdata = [[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES];
+						img = [[NSData alloc] initWithData: imgdata];
+					}
+				}
+
+			}
+			if (img)
+			{
+				[self addImage: img toMetadata:game.metadata];
+				[self updateSideView];
+			}
+
+		}
+	}
+	babel_release();
+}
+
+
 
 - (BOOL) validateMenuItem: (NSMenuItem *)menuItem
 {
@@ -1334,6 +1421,19 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
                               insertNewObjectForEntityForName:@"Metadata"
                               inManagedObjectContext:self.managedObjectContext];
     }
+	else
+	{
+		if (metadata.game)
+		{
+			NSLog(@"Game %@ already exists in library!", metadata.title);
+			if (![path isEqualToString:[metadata.game urlForBookmark].path])
+			{
+				NSLog(@"File location did not match. Updating library with new file location.");
+				[metadata.game bookmarkForPath:path];
+			}
+			return metadata.game;
+		}
+	}
     
     if (!metadata.format)
         metadata.format = @(format);
