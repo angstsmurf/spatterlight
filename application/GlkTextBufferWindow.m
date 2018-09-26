@@ -743,8 +743,8 @@
 
 - (void) prefsDidChange
 {
-    NSRange range;
-    //NSRange attrange;
+    NSRange range = NSMakeRange(0, 0);
+    NSRange linkrange = NSMakeRange(0, 0);
     NSInteger x;
     
     [super prefsDidChange];
@@ -767,7 +767,7 @@
         
         id image = [textstorage attribute: @"NSAttachment" atIndex:x effectiveRange:NULL];
 
-        id hyperlink = [textstorage attribute: NSLinkAttributeName atIndex:x effectiveRange:&range];
+		id hyperlink = [textstorage attribute: NSLinkAttributeName atIndex:x effectiveRange:&linkrange];
 
         [textstorage setAttributes: attributes range: range];
         
@@ -782,7 +782,7 @@
 		{
 			[textstorage addAttribute: NSLinkAttributeName
 								value: hyperlink
-                                range: range];
+								range: linkrange];
 		}
 
         x = range.location + range.length;

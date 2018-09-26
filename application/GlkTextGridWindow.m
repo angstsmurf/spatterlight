@@ -51,47 +51,42 @@
 
 - (void) prefsDidChange
 {
-    NSRange range;
-    int i;
-    
-    [super prefsDidChange];
-    
-    /* reassign styles to attributedstrings */
-    for (i = 0; i < lines.count; i++)
-    {
-        NSMutableAttributedString *line = lines[i];
-        int x = 0;
-        while (x < line.length)
-        {
-            id styleobject = [line attribute:@"GlkStyle" atIndex:x effectiveRange:&range];
-            int stylevalue = [styleobject intValue];
-            int style = stylevalue & 0xff;
-            int fg = (stylevalue >> 8) & 0xff;
-            int bg = (stylevalue >> 16) & 0xff;
-            
-            [line setAttributes: styles[style].attributes range: range];
-            if (fg || bg)
-            {
-                [line addAttribute: @"GlkStyle" value: @(stylevalue) range: range];
-                if ([Preferences stylesEnabled])
-                {
-                    if (fg)
-                        [line addAttribute: NSForegroundColorAttributeName
-                                     value: [Preferences foregroundColor: fg - 1]
-                                     range: range];
-                    if (bg)
-                        [line addAttribute: NSBackgroundColorAttributeName
-                                     value: [Preferences backgroundColor: bg - 1]
-                                     range: range];
-                }
-            }
-            
-            x = (int)(range.location + range.length);
-        }
-    }
-    
-    [self setNeedsDisplay: YES];
-    dirty = NO;
+	NSRange range = NSMakeRange(0, 0);
+	NSRange linkrange= NSMakeRange(0, 0);
+
+	int i;
+
+	[super prefsDidChange];
+
+	/* reassign styles to attributedstrings */
+	for (i = 0; i < lines.count; i++)
+	{
+		NSMutableAttributedString *line = lines[i];
+		int x = 0;
+		while (x < line.length)
+		{
+			id styleobject = [line attribute:@"GlkStyle" atIndex:x effectiveRange:&range];
+
+			NSDictionary * attributes = [self attributesFromStylevalue:[styleobject intValue]];
+
+			id hyperlink = [line attribute: NSLinkAttributeName atIndex:x effectiveRange:&linkrange];
+
+			[line setAttributes: attributes range: range];
+
+			if (hyperlink)
+			{
+				[line addAttribute: NSLinkAttributeName
+							 value: hyperlink
+							 range: linkrange];
+			}
+
+			x = (int)(range.location + range.length);
+
+		}
+	}
+
+	[self setNeedsDisplay: YES];
+	dirty = NO;
 }
 
 - (BOOL) isOpaque
@@ -114,7 +109,7 @@
 
 - (BOOL) wantsFocus
 {
-    return char_request;
+    return (char_request | line_request);
 }
 
 - (BOOL) acceptsFirstResponder
@@ -390,7 +385,7 @@
 //		NSLog(@"There is a preliminary hyperlink, with index %ld", currentHyperlink.index);
 		if (currentHyperlink.startpos >= length)
 		{
-//            NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. currentHyperlink.startpos == %ld, length == %ld", currentHyperlink.startpos, length);
+//			NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted (so as to not create a 0 characters long hyperlink). currentHyperlink.startpos == %ld, length == %ld", currentHyperlink.startpos, length);
 			currentHyperlink = nil;
 		}
 		else
@@ -426,7 +421,6 @@
 
 				// Make characters hyperlink
 				[lines[currenty] addAttribute:NSLinkAttributeName value:link range:NSMakeRange(currentx, amountToDraw)];
-
 				dirty = YES;
 
 				// Update the x position (and the y position if necessary)
@@ -438,6 +432,7 @@
 					currenty++;
 				}
 			}
+			currentHyperlink = nil;
 		}
 
 	}
@@ -504,7 +499,7 @@
 			{
 				for (hyp in hyperlinks)
 				{
-                    if (NSLocationInRange(round(p.y) * cols + round(p.x), hyp.range))
+					if (NSLocationInRange(floor(p.y) * cols + floor(p.x), hyp.range))
 					{
 //						NSLog(@"Clicked hyperlink %ld in grid window", (long)hyp.index);
 
