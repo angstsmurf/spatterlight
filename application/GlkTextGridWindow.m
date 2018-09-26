@@ -119,6 +119,13 @@
 
 - (BOOL) acceptsFirstResponder
 {
+//	if ((hyper_request || mouse_request) && !line_request)
+//	{
+//		if ([[glkctl currentFocus] hasLineRequest])
+//			return NO;
+//	}
+// Fixes clicking on hyperlinks in City of Secrets. A grid view will refuse first responder when it has a hyperlink or a mouse event request and the current first responder has a line request.
+
     return YES;
 }
 
@@ -364,6 +371,7 @@
 - (void) initMouse
 {
     mouse_request = YES;
+//	NSLog(@"txtgrid: initMouse");
 }
 
 - (void) cancelMouse
@@ -373,7 +381,7 @@
 
 - (void) setHyperlink:(NSInteger)linkid
 {
-	NSLog(@"txtgrid: hyperlink %ld set", (long)linkid);
+//	NSLog(@"txtgrid: hyperlink %ld set", (long)linkid);
 
 	NSUInteger length = ypos * cols + xpos;
 
@@ -382,7 +390,7 @@
 //		NSLog(@"There is a preliminary hyperlink, with index %ld", currentHyperlink.index);
 		if (currentHyperlink.startpos >= length)
 		{
-//			NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. currentHyperlink.startpos == %ld, length == %ld", currentHyperlink.startpos, length);
+//            NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. currentHyperlink.startpos == %ld, length == %ld", currentHyperlink.startpos, length);
 			currentHyperlink = nil;
 		}
 		else
@@ -390,7 +398,6 @@
 			currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, length - currentHyperlink.startpos);
 
 			[hyperlinks addObject:currentHyperlink];
-			currentHyperlink = nil;
 
 			NSNumber *link = [NSNumber numberWithInteger: currentHyperlink.index];
 
@@ -438,7 +445,6 @@
 	{
 		currentHyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:length];
 //		NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", currentHyperlink.startpos,linkid);
-
 	}
 }
 
@@ -489,14 +495,19 @@
         p = [self convertPoint: p fromView: nil];
         p.x = (p.x - [Preferences gridMargins]) / [Preferences charWidth];
         p.y = (p.y - [Preferences gridMargins]) / [Preferences lineHeight];
+
+//		NSLog(@"Clicked at %f, %f. cols = %ld floor(p.y) * cols = %f round(p.x) = %f", p.x, p.y, cols, floor(p.y) * cols, round(p.x) );
+
         if (p.x >= 0 && p.y >= 0 && p.x < cols && p.y < rows)
         {
 			if (hyper_request)
 			{
 				for (hyp in hyperlinks)
 				{
-					if (NSLocationInRange(round(p.y) * cols + round(p.x), hyp.range))
+                    if (NSLocationInRange(round(p.y) * cols + round(p.x), hyp.range))
 					{
+//						NSLog(@"Clicked hyperlink %ld in grid window", (long)hyp.index);
+
 						gev = [[GlkEvent alloc] initLinkEvent:hyp.index forWindow:self.name];
 						[glkctl queueEvent: gev];
 						hyper_request = NO;
@@ -507,25 +518,32 @@
 
 			if (mouse_request) //&& theEvent.clickCount == 2)
 			{
+//				NSLog(@"Mouse event in grid window");
+
 				gev = [[GlkEvent alloc] initMouseEvent: p forWindow: self.name];
 				[glkctl queueEvent: gev];
 				mouse_request = NO;
 			}
         }
-	} else { NSLog(@"No hyperlink request or mouse request in grid window");
-		[super mouseDown:theEvent]; }
+	}
+	else
+	{
+//		NSLog(@"No hyperlink request or mouse request in grid window");
+		[super mouseDown:theEvent];
+	}
 }
 
 - (void) initChar
 {
-    //NSLog(@"init char in %d", name);
+//	NSLog(@"init char in %ld", (long)self.name);
     char_request = YES;
     dirty = YES;
+	[self grabFocus];
 }
 
 - (void) cancelChar
 {
-    //NSLog(@"cancel char in %d", name);
+//    NSLog(@"cancel char in %ld", (long)self.name);
     char_request = NO;
     dirty = YES;
 }

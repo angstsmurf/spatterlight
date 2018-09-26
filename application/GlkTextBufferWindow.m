@@ -767,7 +767,7 @@
         
         id image = [textstorage attribute: @"NSAttachment" atIndex:x effectiveRange:NULL];
 
-		id hyperlink = [textstorage attribute: NSLinkAttributeName atIndex:x effectiveRange:&range];
+        id hyperlink = [textstorage attribute: NSLinkAttributeName atIndex:x effectiveRange:&range];
 
         [textstorage setAttributes: attributes range: range];
         
@@ -782,14 +782,12 @@
 		{
 			[textstorage addAttribute: NSLinkAttributeName
 								value: hyperlink
-								range: range];
+                                range: range];
 		}
 
         x = range.location + range.length;
     }
-
 	[container invalidateLayout];
-
 }
 
 - (void) setFrame: (NSRect)frame
@@ -1406,7 +1404,7 @@
 {
 	hyper_request = YES;
 	textview.editable = YES;
-	NSLog(@"txtbuf: hyperlink event requested");
+//	NSLog(@"txtbuf: hyperlink event requested");
 
 }
 
@@ -1414,7 +1412,7 @@
 {
 	hyper_request = NO;
 	textview.editable = NO;
-	NSLog(@"txtbuf: hyperlink event cancelled");
+//	NSLog(@"txtbuf: hyperlink event cancelled");
 }
 
 - (void) terpDidStop
