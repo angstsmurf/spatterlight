@@ -40,6 +40,7 @@
     
     /* current state of the protocol */
     NSTimer *timer;
+	NSTimer *soundNotificationsTimer;
     NSInteger waitforevent; /* terp wants an event */
     NSInteger waitforfilename; /* terp wants a filename from a file dialog */
     NSInteger dead; /* le roi est mort! vive le roi! */
@@ -70,12 +71,12 @@
 - (void) runTerp: (NSString*)terpname withGame: (Game *)game;
 - (void) queueEvent: (GlkEvent*)gevent;
 - (void) contentDidResize: (NSRect)frame;
-
-@property (getter=isAlive, readonly) BOOL alive;
-@property (strong, readonly) Game *game;
-
 - (void) markLastSeen;
 - (void) performScroll;
 - (id) windowWithNum: (int)index;
+- (GlkWindow *) currentFocus;
+
+@property (getter=isAlive, readonly) BOOL alive;
+@property (strong, readonly) Game *game;
 
 @end

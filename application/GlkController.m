@@ -8,7 +8,7 @@
 #define NSLog(...)
 #endif
 
-#define MINTIMER 50 /* twenty times per sec should be plenty small enough */
+#define MINTIMER 5 /* Transparent wants this */
 
 static const char *msgnames[] =
 {
@@ -194,9 +194,7 @@ static const char *msgnames[] =
 		// [self setDocumentEdited: YES];
 	}
 
-//	NSTimer *mytimer  =
-	[NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
-
+	soundNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
 }
 
 - (void) keepAlive: (NSTimer *)timer
@@ -219,6 +217,13 @@ static const char *msgnames[] =
         [timer invalidate];
         timer = nil;
     }
+
+	if (soundNotificationsTimer)
+	{
+		NSLog(@"glkctl: force stop the sound notifications timer");
+		[soundNotificationsTimer invalidate];
+		soundNotificationsTimer = nil;
+	}
 
     if (task)
     {
@@ -1124,7 +1129,7 @@ NSInteger colorToInteger(NSColor *color)
         case CLRWIN:
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
-				NSLog(@"glkctl: CLRWIN %d.", req->a1);
+                NSLog(@"glkctl: CLRWIN %d.", req->a1);
                 [gwindows[req->a1] clear];
             }
             break;
