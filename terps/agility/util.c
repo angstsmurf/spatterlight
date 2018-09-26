@@ -198,7 +198,7 @@ char *rstrdup(const char *s)
 #else
   t=malloc((strlen(s)+1)*sizeof(char));
 #endif
-  if (t==NULL && rm_trap)
+  if (t==NULL /*&& rm_trap*/)
     {
       printf("Memory duplication error: Out of memory.\n");
       exit(EXIT_FAILURE);
@@ -499,7 +499,8 @@ static void buff_setrecsize(long recsize)
   char *errstr;
 
   record_size=recsize;
-  real_buff_fcnt=buff_fcnt=buffsize/record_size;
+  if (record_size)
+	  real_buff_fcnt=buff_fcnt=buffsize/record_size;
   buff_frame=0;
     
   /* Note that real_buff_cnt==buff_fcnt in this case because
@@ -734,7 +735,8 @@ static void bw_setblock(long fofs, long recnum, long rsize)
   buffsize=BUFF_SIZE;
   if (buffsize>block_size) buffsize=block_size;
   if (buffsize<rsize) buffsize=rsize;
-  buff_fcnt=buffsize/rsize;
+  if (rsize)
+	  buff_fcnt=buffsize/rsize;
   buffsize=buff_fcnt*rsize;
   buffer=rmalloc(buffsize);
 }

@@ -48,6 +48,7 @@
 #define giblorb_ID_WAVE (giblorb_make_id('W', 'A', 'V', 'E'))
 
 #define SDL_CHANNELS 64
+#define GLK_MAXVOLUME 65536
 
 static channel_t *gli_channellist = NULL;
 static channel_t *sound_channels[SDL_CHANNELS];
@@ -112,7 +113,7 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
 
 	chan->rock = rock;
 	chan->status = CHANNEL_IDLE;
-	chan->volume = volume >= 0x10000 ? MIX_MAX_VOLUME : round(pow(((double) volume) / 0x10000, log(4)) * MIX_MAX_VOLUME);
+    chan->volume = volume >= 0x10000 ? MIX_MAX_VOLUME : round(pow(((double) volume) / 0x10000, log(4)) * MIX_MAX_VOLUME);
 	chan->resid = 0;
 	chan->loop = 0;
 	chan->notify = 0;
@@ -290,7 +291,7 @@ void glk_schannel_set_volume_ext(schanid_t chan, glui32 vol,
 
 	if (!duration)
 	{
-		chan->volume = vol >= 0x10000 ? MIX_MAX_VOLUME : round(pow(((double) vol) / 0x10000, log(4)) * MIX_MAX_VOLUME);
+        chan->volume = vol >= 0x10000 ? MIX_MAX_VOLUME : round(pow(((double) vol) / 0x10000, log(4)) * MIX_MAX_VOLUME);
 
 		switch (chan->status)
 		{
@@ -335,7 +336,7 @@ static void music_completion_callback()
 static void sound_completion_callback(int chan)
 {
     channel_t *sound_channel = sound_channels[chan];
-	fprintf(stderr, "channel %d finished playback.\n",chan);
+    fprintf(stderr, "channel %d finished playback.\n",chan);
     if (!sound_channel)  //|| Mix_Playing(chan))
     {
         gli_strict_warning("sound callback failed");
@@ -572,7 +573,7 @@ static glui32 play_mod(schanid_t chan, long len)
 	//fprintf(stderr, "tempdir = %s\n", tempdir);
 
     sprintf(tn, "%sXXXXXX", tempdir);
-    mktemp(tn);
+    mkstemp(tn);
 	sprintf(tn, "%s.mod", tn);
 
     //fprintf(stderr, "tn = %s\n", tn);
