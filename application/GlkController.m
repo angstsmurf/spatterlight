@@ -1129,7 +1129,7 @@ NSInteger colorToInteger(NSColor *color)
         case CLRWIN:
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
-                NSLog(@"glkctl: CLRWIN %d.", req->a1);
+//				NSLog(@"glkctl: CLRWIN %d.", req->a1);
                 [gwindows[req->a1] clear];
             }
             break;
