@@ -113,7 +113,7 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
 
 	chan->rock = rock;
 	chan->status = CHANNEL_IDLE;
-    chan->volume = volume >= 0x10000 ? MIX_MAX_VOLUME : round(pow(((double) volume) / 0x10000, log(4)) * MIX_MAX_VOLUME);
+	chan->volume = volume >= GLK_MAXVOLUME ? MIX_MAX_VOLUME : round(pow(((double) volume) / GLK_MAXVOLUME, log(4)) * MIX_MAX_VOLUME);
 	chan->resid = 0;
 	chan->loop = 0;
 	chan->notify = 0;
@@ -291,7 +291,7 @@ void glk_schannel_set_volume_ext(schanid_t chan, glui32 vol,
 
 	if (!duration)
 	{
-        chan->volume = vol >= 0x10000 ? MIX_MAX_VOLUME : round(pow(((double) vol) / 0x10000, log(4)) * MIX_MAX_VOLUME);
+		chan->volume = vol >= GLK_MAXVOLUME ? MIX_MAX_VOLUME : round(pow(((double) vol) / GLK_MAXVOLUME, log(4)) * MIX_MAX_VOLUME);
 
 		switch (chan->status)
 		{
