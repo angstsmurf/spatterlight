@@ -10,14 +10,26 @@
 
 #import "Game.h"
 #import "Image+CoreDataProperties.h"
+#import "LibController.h"
 
-@interface MySideInfoView : NSView
+@interface MySideInfoView : NSView <NSTextFieldDelegate, NSControlTextEditingDelegate>
+{
+	Game *game;
+
+	LibController *libctl;
+
+	NSTextField *titleField;
+	NSTextField *headlineField;
+	NSTextField *authorField;
+	NSTextField *blurbField;
+	NSTextField *ifidField;
+
+}
+
+- (instancetype) initWithFrame:(NSRect)frameRect andIfid:(NSTextField *)ifid andController:(LibController *)sender;
 
 - (NSTextField *) addSubViewWithtext:(NSString *)text andFont:(NSFont *)font andSpaceBefore:(CGFloat)space andLastView:(id)lastView;
 
 - (void) updateSideViewForGame:(Game *)game;
-
-@property (strong) Game *game;
-
 
 @end

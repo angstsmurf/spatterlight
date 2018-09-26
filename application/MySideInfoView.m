@@ -9,6 +9,19 @@
 
 @implementation MySideInfoView
 
+- (instancetype) initWithFrame:(NSRect)frameRect andIfid:(NSTextField *)ifid andController:(LibController *)sender
+{
+	self = [self initWithFrame:frameRect];
+
+	if (self)
+	{
+		libctl = sender;
+		ifidField = ifid;
+	}
+	return self;
+}
+
+
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
     
@@ -17,16 +30,50 @@
 
 - (void)viewDidEndLiveResize
 {
-	if (_game)
+	if (game)
 	{
 		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self updateSideViewForGame:_game];
+		[self updateSideViewForGame:game];
 	}
 
 	[super viewDidEndLiveResize];
 };
 
 - (BOOL) isFlipped { return YES; }
+
+- (void)controlTextDidEndEditing:(NSNotification *)notification
+{
+	if ([notification.object isKindOfClass:[NSTextField class]])
+	{
+		NSTextField *textfield = notification.object;
+		NSLog(@"controlTextDidEndEditing");
+
+		if (textfield == titleField)
+		{
+			game.metadata.title = titleField.stringValue;
+		}
+		else if (textfield == headlineField)
+		{
+			game.metadata.headline = headlineField.stringValue;
+		}
+		else if (textfield == authorField)
+		{
+			game.metadata.author = authorField.stringValue;
+		}
+		else if (textfield == blurbField)
+		{
+			game.metadata.blurb = blurbField.stringValue;
+		}
+		else if (textfield == ifidField)
+		{
+			game.metadata.ifid = [ifidField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		}
+
+		dispatch_async(dispatch_get_main_queue(), ^{[textfield.window makeFirstResponder:nil];});
+	}
+	[self viewDidEndLiveResize];
+	[libctl updateTableViews];
+}
 
 - (NSTextField *) addSubViewWithtext:(NSString *)text andFont:(NSFont *)font andSpaceBefore:(CGFloat)space andLastView:(id)lastView
 {
@@ -70,13 +117,15 @@
 
 	textField.translatesAutoresizingMaskIntoConstraints = NO;
 
-	[textField setBezeled:NO];
-	[textField setDrawsBackground:NO];
-	[textField setEditable:YES];
-	[textField setSelectable:YES];
-	[textField setBordered:NO];
-	[textField setUsesSingleLineMode:NO];
-	[textField setAllowsEditingTextAttributes:YES];
+	textField.bezeled=NO;
+	textField.drawsBackground = NO;
+	textField.editable = YES;
+	textField.selectable = YES;
+	textField.bordered = NO;
+	textField.usesSingleLineMode = NO;
+	textField.allowsEditingTextAttributes = YES;
+
+	textField.delegate = self;
 
 	textField.cell.wraps = YES;
 	textField.cell.scrollable = NO;
@@ -153,7 +202,7 @@
 }
 
 
-- (void) updateSideViewForGame:(Game *)game
+- (void) updateSideViewForGame:(Game *)agame
 {
 	NSLayoutConstraint *xPosConstraint;
 	NSLayoutConstraint *yPosConstraint;
@@ -195,10 +244,10 @@
 														multiplier:1.0
 														  constant:0]];
 
-	if (game.metadata.cover.data)
+	if (agame.metadata.cover.data)
 	{
 
-		NSImage *theImage = [[NSImage alloc] initWithData:(NSData *)game.metadata.cover.data];
+		NSImage *theImage = [[NSImage alloc] initWithData:(NSData *)agame.metadata.cover.data];
 
 		CGFloat ratio = theImage.size.width / theImage.size.height;
 
@@ -270,7 +319,7 @@
 //		NSLog(@"No image");
 	}
 
-	if (game.metadata.title) // Every game will have a title unless something is broken
+	if (agame.metadata.title) // Every game will have a title unless something is broken
 	{
 
 		font = [NSFont fontWithName:@"Playfair Display Black" size:30];
@@ -281,10 +330,10 @@
 
 		descriptor = [descriptor fontDescriptorByAddingAttributes:@{NSFontFeatureSettingsAttribute : array}];
 
-		if (game.metadata.title.length > 9)
+		if (agame.metadata.title.length > 9)
 		{
 			font = [NSFont fontWithDescriptor:descriptor size:30];
-			//			NSLog(@"Long title (length = %lu), smaller text.", game.metadata.title.length);
+			//			NSLog(@"Long title (length = %lu), smaller text.", agame.metadata.title.length);
 		}
 		else
 		{
@@ -293,7 +342,7 @@
 
 		NSString *longestWord = @"";
 
-		for (NSString *word in [game.metadata.title componentsSeparatedByString:@" "])
+		for (NSString *word in [agame.metadata.title componentsSeparatedByString:@" "])
 		{
 			if (word.length > longestWord.length) longestWord = word;
 		}
@@ -310,11 +359,14 @@
 
 		spaceBefore = [@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height * 0.7;
 
-		lastView = [self addSubViewWithtext:game.metadata.title andFont:font andSpaceBefore:spaceBefore andLastView:lastView];
+		lastView = [self addSubViewWithtext:agame.metadata.title andFont:font andSpaceBefore:spaceBefore andLastView:lastView];
+
+		titleField = (NSTextField *)lastView;
 	}
 	else
 	{
 		NSLog(@"Error! No title!");
+		titleField = nil;
 		return;
 	}
 
@@ -365,7 +417,7 @@
 
 	lastView = divider;
 
-	if (game.metadata.headline)
+	if (agame.metadata.headline)
 	{
 		font = [NSFont fontWithName:@"Playfair Display Regular" size:13];
 
@@ -377,31 +429,41 @@
 		descriptor = [descriptor fontDescriptorByAddingAttributes:@{NSFontFeatureSettingsAttribute : array}];
 		font = [NSFont fontWithDescriptor:descriptor size:13.f];
 
-		lastView = [self addSubViewWithtext:[game.metadata.headline lowercaseString] andFont:font andSpaceBefore:4 andLastView:lastView];
+		lastView = [self addSubViewWithtext:[agame.metadata.headline lowercaseString] andFont:font andSpaceBefore:4 andLastView:lastView];
+
+		headlineField = (NSTextField *)lastView;
 	}
 	else
 	{
 //		NSLog(@"No headline");
+		headlineField = nil;
 	}
 
-	if (game.metadata.author)
+	if (agame.metadata.author)
 	{
 		font = [NSFont fontWithName:@"Gentium Plus Italic" size:14.f];
-		lastView = [self addSubViewWithtext:game.metadata.author andFont:font andSpaceBefore:25 andLastView:lastView];
+		lastView = [self addSubViewWithtext:agame.metadata.author andFont:font andSpaceBefore:25 andLastView:lastView];
+
+		authorField = (NSTextField *)lastView;
 	}
 	else
 	{
 //		NSLog(@"No author");
+		authorField = nil;
 	}
 
-	if (game.metadata.blurb)
+	if (agame.metadata.blurb)
 	{
 		font = [NSFont fontWithName:@"Gentium Plus" size:14.f];
-		lastView = [self addSubViewWithtext:game.metadata.blurb andFont:font andSpaceBefore:23 andLastView:lastView];
+		lastView = [self addSubViewWithtext:agame.metadata.blurb andFont:font andSpaceBefore:23 andLastView:lastView];
+
+		blurbField = (NSTextField *)lastView;
+
 	}
 	else
 	{
 //		NSLog(@"No blurb.");
+		blurbField = nil;
 	}
 
 	NSLayoutConstraint *bottomPinConstraint = [NSLayoutConstraint constraintWithItem:self
@@ -413,13 +475,13 @@
 																			constant:0];
 	[self addConstraint:bottomPinConstraint];
 
-	if (_game != game)
+	if (game != agame)
 	{
 		[clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
 		[scrollView reflectScrolledClipView:clipView];
 	}
 
-	_game = game;
+	game = agame;
 }
 
 @end
