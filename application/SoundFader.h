@@ -11,6 +11,7 @@
 #import "GlkController.h"
 
 #define SDL_MIX_MAXVOLUME 128
+#define GLK_MAXVOLUME 65536
 
 @interface SoundFader : NSObject
 {

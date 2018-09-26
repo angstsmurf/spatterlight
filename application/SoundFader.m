@@ -20,7 +20,8 @@
 		notify = anotify;
 		channel = achannel;
 		targetVolume = targetVol;
-		currentVolume = startVol >= SDL_MIX_MAXVOLUME ? 0x10000 : expf(logf((float)startVol/SDL_MIX_MAXVOLUME)/logf(4)) * 0x10000; // This ridiculous calculation seems to be necessary to get the correct Glk volume back
+		currentVolume = startVol >= SDL_MIX_MAXVOLUME ? GLK_MAXVOLUME : expf(logf((float)startVol/SDL_MIX_MAXVOLUME)/logf(4)) * GLK_MAXVOLUME;
+		// This ridiculous calculation seems to be necessary to convert the Sdl volume back to the correct Glk volume.
 
 //		NSLog(@"Start volume is %ld. Recalculated to the Glk volume scale with a max of 0x10000 (%d), this is %f", (long)startVol, 0x10000, currentVolume);
 
@@ -39,7 +40,7 @@
 {
 	GlkEvent *gev;
 
-	NSInteger realVolumeOld = currentVolume >= 0x10000 ? SDL_MIX_MAXVOLUME : round(pow(((double) currentVolume) / 0x10000, log(4)) * SDL_MIX_MAXVOLUME);
+	NSInteger realVolumeOld = currentVolume >= GLK_MAXVOLUME ? SDL_MIX_MAXVOLUME : round(pow(((double) currentVolume) / GLK_MAXVOLUME, log(4)) * SDL_MIX_MAXVOLUME);
 
 //	NSLog(@"On the Sdl audio scale, the previous volume (%f) was %ld.", currentVolume, realVolumeOld);
 
@@ -49,7 +50,7 @@
 
 //	NSLog(@"Incremented volume with %f to %f", increment, currentVolume);
 
-	NSInteger realVolumeNew = currentVolume >= 0x10000 ? SDL_MIX_MAXVOLUME : round(pow(((double) currentVolume) / 0x10000, log(4)) * SDL_MIX_MAXVOLUME);
+	NSInteger realVolumeNew = currentVolume >= GLK_MAXVOLUME ? SDL_MIX_MAXVOLUME : round(pow(((double) currentVolume) / GLK_MAXVOLUME, log(4)) * SDL_MIX_MAXVOLUME);
 
 //	NSLog(@"On the Sdl audio scale, the new volume (%f) is %ld.", currentVolume, (long)realVolumeNew);
 
