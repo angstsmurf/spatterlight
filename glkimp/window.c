@@ -728,7 +728,7 @@ void gli_window_rearrange(window_t *win, grect_t *box)
 				if (win->pair.size == 0)
 				    split = 0;
 				else if (win->pair.vertical)
-				    split = win->pair.size * gcellw + ggridmarginx * 2;
+				    split = win->pair.size * gcellw + ggridmarginx * 2 + 1;
 				else
 				    split = win->pair.size * gcellh + ggridmarginy * 2;
 				break;
