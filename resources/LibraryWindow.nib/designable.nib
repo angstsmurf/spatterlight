@@ -16,7 +16,6 @@
                 <outlet property="leftScrollView" destination="1BV-EX-kiv" id="0PA-4j-tOd"/>
                 <outlet property="leftView" destination="EYV-fP-ge6" id="6SS-Bk-T0l"/>
                 <outlet property="playButton" destination="Rjq-p4-LMg" id="YKH-Zc-T6Z"/>
-                <outlet property="scrollCanvas" destination="28r-xf-1EM" id="1LI-1S-IQW"/>
                 <outlet property="sideClipView" destination="1l7-W8-4xU" id="git-cx-Gyj"/>
                 <outlet property="sideIfid" destination="nKx-UB-CGg" id="cnz-p1-R0t"/>
                 <outlet property="splitView" destination="H2D-B2-6qr" id="2d5-ge-d2c"/>
@@ -36,7 +35,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="200" height="56"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="43">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="162" translatesAutoresizingMaskIntoConstraints="NO" id="43">
                         <rect key="frame" x="17" y="20" width="166" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please wait..." id="72">
@@ -68,7 +67,7 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="59" translatesAutoresizingMaskIntoConstraints="NO" id="48">
                     <rect key="frame" x="11" y="13" width="63" height="17"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Export:" id="73">
