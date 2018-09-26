@@ -622,7 +622,7 @@ again:
 
 	case EVTTIMER:
 #ifdef DEBUG
-	     fprintf(stderr, "timer event\n");
+//	     fprintf(stderr, "timer event\n");
 #endif
 	    event->type = evtype_Timer;
 	    break;

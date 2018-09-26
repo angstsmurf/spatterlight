@@ -336,7 +336,7 @@ static void music_completion_callback()
 static void sound_completion_callback(int chan)
 {
     channel_t *sound_channel = sound_channels[chan];
-    fprintf(stderr, "channel %d finished playback.\n",chan);
+//	fprintf(stderr, "channel %d finished playback.\n",chan);
     if (!sound_channel)  //|| Mix_Playing(chan))
     {
         gli_strict_warning("sound callback failed");
