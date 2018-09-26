@@ -910,7 +910,7 @@ void glk_request_line_event(window_t *win, char *buf, glui32 maxlen, glui32 init
 	gli_strict_warning("request_line_event: window already has keyboard request");
 	return;
     }
-    
+
     switch (win->type)
     {
 	case wintype_TextBuffer:
