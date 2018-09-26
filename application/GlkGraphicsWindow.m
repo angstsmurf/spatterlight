@@ -298,6 +298,17 @@
 				return;
 			}
 		}
+
+	if (char_request && ch != keycode_Unknown)
+	{
+		[glkctl markLastSeen];
+
+		//NSLog(@"char event from %d", name);
+		GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
+		[glkctl queueEvent: gev];
+		char_request = NO;
+		return;
+	}
 }
 
 @end
