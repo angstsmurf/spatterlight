@@ -988,7 +988,8 @@ unsigned long CVmObjStrComp::match_strings(const char *valstr, size_t vallen,
                 {
                     /* matched - skip this character in each string */
                     valp.inc(&vallen);
-                    ++vp, --vlen;
+					++vp;
+					--vlen;
 
                     /* keep going */
                     continue;

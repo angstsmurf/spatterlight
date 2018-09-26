@@ -3277,7 +3277,10 @@ size_t CVmObjDate::format_date(VMG_ char *buf, size_t buflen,
 
                     /* if the time is past noon, it's on the next day */
                     if (dt > 12*60*60*1000)
-                        dn += 1, dt -= 12*60*60*1000;
+					{
+						dn += 1;
+						dt -= 12*60*60*1000;
+					}
 
                     /* 
                      *   figure the combined date/time value, adjusting the

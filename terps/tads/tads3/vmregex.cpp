@@ -1224,7 +1224,10 @@ re_status_t CRegexParser::compile(const char *expr_str, size_t exprlen,
 
             /* skip everything up to the closing ">" */
             while (exprchars > 0 && expr.getch() != '>')
-                expr.inc(), --exprchars ;
+			{
+				expr.inc();
+				--exprchars ;
+			}
             break;
 
         case '%':

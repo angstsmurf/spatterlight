@@ -3428,7 +3428,8 @@ struct bpptr
         if (len != 0)
         {
             char ch = *p;
-            ++p, --len;
+			++p;
+			--len;
             return ch;
         }
         else
@@ -3454,7 +3455,10 @@ struct bpptr
     void inc()
     {
         if (len != 0)
-            ++p, --len;
+		{
+			++p;
+			--len;
+		}
     }
 
     /* get the next wide character */
@@ -3782,8 +3786,10 @@ struct bpwriter
     {
         /* if they're trying to pawn off an empty string on us, use "0" */
         if (p == 0 || len == 0)
-            p = "0", len = 1;
-
+		{
+			p = "0";
+			len = 1;
+		}
         /* note if the value is all zeros */
         int zero = TRUE;
         const char *p2 = p;
