@@ -22,7 +22,7 @@
     NSString *ifid;
 }
 
-@property (weak) Game *game;
+@property (strong) Game *game;
 
 - (IBAction) saveImage: sender;
 

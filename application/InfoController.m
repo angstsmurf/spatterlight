@@ -96,7 +96,10 @@
         headlineField.stringValue = meta.headline;
     if (meta.blurb)
         descriptionText.string = meta.blurb;
-    
+
+	dispatch_async(dispatch_get_main_queue(), ^{[self->ifidField
+.window makeFirstResponder:nil];});
+
     format = babel_init((char*)path.UTF8String);
     if (format)
     {
@@ -111,7 +114,10 @@
         s = strchr(buf, ',');
         if (s) *s = 0;
         ifid = @(buf);
-        
+
+		if (!ifid || [ifid isEqualToString:@""])
+			ifid = _game.metadata.ifid;
+
         ifidField.stringValue = ifid;
         
         dirpath = (@"~/Library/Application Support/Spatterlight/Cover Art").stringByStandardizingPath;
@@ -147,6 +153,8 @@
     finish:
         babel_release();
     }
+	if ([ifidField.stringValue isEqualToString:@""])
+		ifidField.stringValue = _game.metadata.ifid;
 }
 
 - (void) saveImage: sender
@@ -165,6 +173,54 @@
     [imgdata writeToURL: imgURL atomically: YES];
     
     [self sizeToFitImageAnimate: YES];
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)notification
+{
+
+	NSLog(@"InfoController: controlTextDidEndEditing: %@", notification.object);
+
+	if ([notification.object isKindOfClass:[NSTextField class]])
+	{
+		NSTextField *textfield = notification.object;
+		NSString *target = nil;
+
+		if (textfield == titleField)
+		{
+			target = @"title";
+			NSLog(@"InfoController: controlTextDidEndEditing: titleField");
+		}
+		else if (textfield == headlineField)
+		{
+			target = @"headline";
+			NSLog(@"InfoController: controlTextDidEndEditing: headlineField");
+		}
+		else if (textfield == authorField)
+		{
+			target = @"author";
+			NSLog(@"InfoController: controlTextDidEndEditing: authorField");
+		}
+		else if (textfield == ifidField)
+		{
+			NSLog(@"InfoController: controlTextDidEndEditing: ifidField");
+			ifidField.stringValue = [ifidField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			if ([ifidField.stringValue isEqualToString:@""])
+				_game.metadata.ifid = nil;
+			else _game.metadata.ifid = ifidField.stringValue;
+		}
+
+		if (target)
+		{
+			if ([[textfield.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""])
+			{
+				textfield.stringValue = @"";
+				[_game.metadata setValue:nil forKey:target];
+			}
+			else [_game.metadata setValue:textfield.stringValue forKey:target];
+
+		}
+		dispatch_async(dispatch_get_main_queue(), ^{[textfield.window makeFirstResponder:nil];});
+	}
 }
 
 - (void) showWindow: sender
