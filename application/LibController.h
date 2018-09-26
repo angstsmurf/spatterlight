@@ -23,6 +23,7 @@
 #import "NSString+XML.h"
 #import "NSDate+relative.h"
 
+@class MySideInfoView;
 
 @interface LibHelperWindow : NSWindow<NSDraggingDestination>
 @end
@@ -53,7 +54,7 @@
     NSTimer * timer;
 
     NSArray *searchStrings;
-    
+
     /* for the importing */
     NSInteger cursrc;
     NSString *currentIfid;
@@ -62,21 +63,11 @@
     NSInteger errorflag;
 
     NSURLSession *defaultSession;
-
     NSURLSessionDataTask *dataTask;
 }
 
 @property (strong) NSPersistentContainer *persistentContainer;
 @property (strong) NSManagedObjectContext *managedObjectContext;
-
-@property (strong) NSImageView *imageView;
-@property (strong) NSTextField *titleField;
-@property (strong) NSBox *divider;
-@property (strong) NSTextField *headlineField;
-@property (strong) NSTextField *authorField;
-@property (strong) NSTextField *blurbField;
-@property (strong) MySideInfoView *infoView;
-
 
 - (void) loadLibrary; /* initializer */
 - (IBAction) saveLibrary: sender;
@@ -125,13 +116,6 @@
 
 - (IBAction) toggleSidebar:(id)sender;
 
-@property (strong) IBOutlet NSImageView *sideImage;
-@property (strong) IBOutlet NSTextField *sideTitle;
-@property (strong) IBOutlet NSBox *sideDivider;
-@property (strong) IBOutlet NSTextField *sideHeader;
-@property (strong) IBOutlet NSTextField *sideAuthor;
-@property (strong) IBOutlet NSTextField *sideBlurb;
-@property (strong) IBOutlet NSView *scrollCanvas;
 @property (strong) IBOutlet NSTextField *sideIfid;
 @property (strong) IBOutlet NSClipView *sideClipView;
 @property (strong) IBOutlet NSScrollView *leftScrollView;

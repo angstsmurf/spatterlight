@@ -396,6 +396,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
     }];
 }
 
+#pragma mark Contextual menu
 
 - (IBAction) play: (id)sender
 {
@@ -1498,28 +1499,28 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     [self updateTableViews];
 }
 
-- (IBAction)toggleColumn:(id)sender {
-    NSMenuItem *item = (NSMenuItem *)sender;
-    NSTableColumn * column;
-    for (NSTableColumn *tableColumn in gameTableView.tableColumns ) {
-
-        if ([tableColumn.identifier isEqualToString:item.identifier])
-        {
-            column = tableColumn;
-            break;
-        }
-    }
-    if (item.state == YES)
-    {
-        column.hidden = YES;
-        item.state = NO;
-    }
-    else
-    {
-        column.hidden = NO;
-        item.state = YES;
-    }
-
+- (IBAction)toggleColumn:(id)sender
+{
+	NSMenuItem *item = (NSMenuItem *)sender;
+	NSTableColumn * column;
+	for (NSTableColumn *tableColumn in gameTableView.tableColumns)
+	{
+		if ([tableColumn.identifier isEqualToString:item.identifier])
+		{
+			column = tableColumn;
+			break;
+		}
+	}
+	if (item.state == YES)
+	{
+		column.hidden = YES;
+		item.state = NO;
+	}
+	else
+	{
+		column.hidden = NO;
+		item.state = YES;
+	}
 }
 
 - (void) deselectGames
@@ -1766,17 +1767,18 @@ objectValueForTableColumn: (NSTableColumn*)column
 
 	NSLog(@"\nUpdating info pane for %@", game.metadata.title);
 
-	_infoView = [[MySideInfoView alloc] initWithFrame:[_leftScrollView frame]];
+	MySideInfoView *infoView = [[MySideInfoView alloc] initWithFrame:[_leftScrollView frame] andIfid:_sideIfid andController:self];
 
-	_leftScrollView.documentView = _infoView;
+	_leftScrollView.documentView = infoView;
 
-	[_infoView updateSideViewForGame:game];
+	[infoView updateSideViewForGame:game];
 
 	if (game.metadata.ifid)
 		_sideIfid.stringValue = game.metadata.ifid;
 	else
 		_sideIfid.stringValue = @"";
 
+	_sideIfid.delegate = infoView;
 	gameTableDirty = YES;
 
 }
