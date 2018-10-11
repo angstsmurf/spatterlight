@@ -269,7 +269,7 @@ void gli_set_volume_by_rock(int rock, int vol)
 	schanid_t chan = NULL;
 	while (!chan || chan->rock != rock)
 		chan = glk_schannel_iterate(chan, 0);
-    fprintf(stderr, "gli_set_volume_by_rock: volume %d, rock %d\n", vol, chan->rock );
+	/* fprintf(stderr, "gli_set_volume_by_rock: volume %d, rock %d\n", vol, chan->rock ); */
 	glk_schannel_set_volume(chan, vol);
 }
 
