@@ -269,7 +269,7 @@ void gli_set_volume_by_rock(int rock, int vol)
 	schanid_t chan = NULL;
 	while (!chan || chan->rock != rock)
 		chan = glk_schannel_iterate(chan, 0);
-	fprintf(stderr, "gli_set_volume_by_rock: volume %d, rock %d\n", vol, chan->rock );
+    fprintf(stderr, "gli_set_volume_by_rock: volume %d, rock %d\n", vol, chan->rock );
 	glk_schannel_set_volume(chan, vol);
 }
 
@@ -337,20 +337,17 @@ static void sound_completion_callback(int chan)
 {
     channel_t *sound_channel = sound_channels[chan];
 //	fprintf(stderr, "channel %d finished playback.\n",chan);
-    if (!sound_channel)  //|| Mix_Playing(chan))
+    if (!sound_channel || Mix_Playing(chan))
     {
         gli_strict_warning("sound callback failed");
         if (!sound_channel)
             fprintf(stderr, "sound_channel %d is NULL\n", chan);
-//        if (Mix_Playing(chan))
-//		{
-//            fprintf(stderr, "Mix_Playing(%d) is TRUE\n", chan);
-//		}
+        if (Mix_Playing(chan))
+		{
+            fprintf(stderr, "Mix_Playing(%d) is TRUE\n", chan);
+		}
         return;
     }
-
-	if (Mix_Playing(chan))
-		fprintf (stderr, "Channel %d reported as still playing. This seems to be a common bug with looping sounds.\n", chan);
 
     if (!sound_channel->buffered || !sound_channel->decode)
     {
@@ -558,7 +555,6 @@ static glui32 play_compressed(schanid_t chan, char *ext)
 /** Start a mod music channel */
 static glui32 play_mod(schanid_t chan, long len)
 {
-    fprintf(stderr, "MOD player!\n");
     FILE *file;
     char tn[256];
     char *tempdir;
@@ -566,6 +562,16 @@ static glui32 play_mod(schanid_t chan, long len)
 
     if (chan == NULL)
         gli_strict_warning("MOD player called with an invalid channel!");
+
+	music_busy = Mix_PlayingMusic();
+
+	if (music_busy)
+	{
+		/* We already checked for music playing on *this* channel in glk_schannel_play_ext */
+		gli_strict_warning("MOD player already in use on another channel!");
+		return 0;
+	}
+
     chan->status = CHANNEL_MUSIC;
     /* The fscking mikmod lib want to read the mod only from disk! */
     tempdir = getenv("TMPDIR");
@@ -591,11 +597,7 @@ static glui32 play_mod(schanid_t chan, long len)
     fclose(file);
     remove(tn);
 
-    music_busy = Mix_PlayingMusic();
-
-    if (music_busy)
-        gli_strict_warning("MOD player already in use");
-    if (!music_busy && chan->music)
+    if (chan->music)
     {
         SDL_LockAudio();
         music_channel = chan;
@@ -624,6 +626,12 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
         gli_strict_warning("schannel_play_ext: invalid id.");
         return 0;
     }
+
+	/* If a MOD is already playing on this channel, we don't want a sound notification now */
+	if (music_channel == chan)
+	{
+		Mix_HookMusicFinished(NULL);
+	}
 
     /* stop previous noise */
     glk_schannel_stop(chan);
