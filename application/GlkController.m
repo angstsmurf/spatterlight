@@ -894,7 +894,7 @@ NSInteger colorToInteger(NSColor *color)
 
 - (void) handleSoundNotification: (NSInteger)notify withSound:(NSInteger)sound
 {
-	GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:sound withSound:notify];
+	GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:notify withSound:sound];
 	[self queueEvent:gev];
 }
 
