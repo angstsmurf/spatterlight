@@ -589,7 +589,7 @@ static glui32 play_mod(schanid_t chan, long len)
 
     Mix_SetMusicCMD(NULL);
     chan->music = Mix_LoadMUS(tn);
-    
+
     if(!chan->music)
         fprintf(stderr, "Mix_LoadMUS(\"%s\"): %s\n", tn, Mix_GetError());
     // this might be a critical error...
