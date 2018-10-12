@@ -627,12 +627,6 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
         return 0;
     }
 
-	/* If a MOD is already playing on this channel, we don't want a sound notification now */
-	if (music_channel == chan)
-	{
-		Mix_HookMusicFinished(NULL);
-	}
-
     /* stop previous noise */
     glk_schannel_stop(chan);
 
@@ -725,9 +719,14 @@ void glk_schannel_stop(schanid_t chan)
     switch (chan->status)
     {
         case CHANNEL_SOUND:
+			Mix_ChannelFinished(NULL);
             Mix_HaltChannel(chan->sdl_channel);
             break;
         case CHANNEL_MUSIC:
+			if (music_channel == chan)
+			{
+				Mix_HookMusicFinished(NULL);
+			}
             Mix_HaltMusic();
             break;
     }
