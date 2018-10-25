@@ -53,10 +53,10 @@ unsigned chartokeycode(unsigned ch)
         case '\e':
             return keycode_Escape;
     }
-    
+
     if (ch < 256)
         return ch;
-    
+
     return keycode_Unknown;
 }
 
@@ -102,7 +102,6 @@ unsigned chartokeycode(unsigned ch)
     self = [super init];
     if (self)
     {
-        
         type = EVTLINE;
         ln = [v copy];
         win = name;
@@ -147,7 +146,7 @@ unsigned chartokeycode(unsigned ch)
 {
     struct message reply;
     char buf[4096];
-    
+
     if (ln)
     {
         reply.len = (int)([ln length] * 2);
@@ -159,12 +158,12 @@ unsigned chartokeycode(unsigned ch)
     {
         reply.len = 0;
     }
-    
+
     reply.cmd = (int)type;
     reply.a1 = (int)win;
     reply.a2 = (int)val1;
     reply.a3 = (int)val2;
-    
+
     if (type == EVTARRANGE || type == EVTPREFS)
     {
         reply.a1 = (int)val1;
@@ -174,7 +173,7 @@ unsigned chartokeycode(unsigned ch)
         reply.a5 = [Preferences charWidth] * 256.0;
         reply.a6 = [Preferences lineHeight] * 256.0;
     }
-    
+
     write((int)fd, &reply, sizeof(struct message));
     if (reply.len)
         write((int)fd, buf, reply.len);
