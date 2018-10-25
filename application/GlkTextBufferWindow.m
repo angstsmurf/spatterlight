@@ -526,52 +526,42 @@
     [container invalidateLayout];
 }
 
+- (void) didEndSaveAsRTFPanel: (id)panel ret: (int)ret ctx: (void*)ctx
+{
+    if (ret == NSOKButton)
+    {
+        if ([textstorage containsAttachments])
+        {
+            NSFileWrapper *wrapper;
+            wrapper = [textstorage RTFDFileWrapperFromRange: NSMakeRange(0, [textstorage length])
+                                         documentAttributes: nil];
+            [wrapper writeToFile: [panel filename]
+                      atomically: NO
+                 updateFilenames: NO];
+        }
+        else
+        {
+            NSData *data;
+            data = [textstorage RTFFromRange: NSMakeRange(0, [textstorage length])
+                          documentAttributes: nil];
+            [data writeToFile: [panel filename] atomically: NO];
+        }
+    }
+}
 
 - (void) saveAsRTF: (id)sender
 {
-    NSWindow* window = [glkctl window];
-    BOOL isRtfd = NO;
-    NSString* newExtension = @"rtf";
-    if ([textstorage containsAttachmentsInRange:NSMakeRange(0, [textstorage length])])
-    {
-        newExtension = @"rtfd";
-        isRtfd = YES;
-    }
-    NSString* newName = [[[window title] stringByDeletingPathExtension] stringByAppendingPathExtension:newExtension];
-    
-    // Set the default name for the file and show the panel.
-    
-    NSSavePanel* panel = [NSSavePanel savePanel];
-    //[panel setNameFieldLabel: @"Save Scrollback: "];
+    NSSavePanel *panel = [[NSSavePanel savePanel] retain];
+    [panel setTitle: @"Save Scrollback"];
     [panel setNameFieldLabel: @"Save Text: "];
-    panel.allowedFileTypes=@[newExtension];
-    panel.extensionHidden=NO;
-    [panel setCanCreateDirectories:YES];
-    [panel setNameFieldStringValue:newName];
-    [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result){
-        if (result == NSFileHandlingPanelOKButton)
-        {
-            NSURL*  theFile = [panel URL];
-            if (isRtfd)
-            {
-                NSFileWrapper *wrapper;
-                wrapper = [textstorage RTFDFileWrapperFromRange: NSMakeRange(0, [textstorage length])
-                                             documentAttributes: [NSDictionary dictionaryWithObjectsAndKeys:NSRTFDTextDocumentType, NSDocumentTypeDocumentAttribute, nil]];
-                
-                [wrapper writeToURL:theFile options: NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating originalContentsURL:nil error:NULL];
-                
-            }
-            else
-            {
-                NSData *data;
-                data = [textstorage RTFFromRange: NSMakeRange(0, [textstorage length])
-                              documentAttributes:[NSDictionary dictionaryWithObjectsAndKeys:NSRTFTextDocumentType, NSDocumentTypeDocumentAttribute, nil]];
-                [data writeToURL: theFile atomically:NO];
-            }
-        }
-    }];
+    [panel setRequiredFileType: [textstorage containsAttachments] ? @"rtfd" : @"rtf"];
+    [panel beginSheetForDirectory: nil
+			     file: nil
+		   modalForWindow: [self window]
+		    modalDelegate: self
+		   didEndSelector: @selector(didEndSaveAsRTFPanel:ret:ctx:)
+		      contextInfo: nil];
 }
-
 
 - (NSImage*) scaleImage: (NSImage*)src size: (NSSize)dstsize
 {
