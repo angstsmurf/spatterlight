@@ -147,9 +147,7 @@ static const char *msgnames[] =
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd HH.mm"];
         NSString *stringFromDate = [formatter stringFromDate:[NSDate date]];
-        
-        [formatter release];
-        
+                
         stringFromDate = [stringFromDate stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
         cmdline = [cmdline stringByAppendingString:stringFromDate];
         cmdline = [cmdline stringByAppendingString:@".txt"];
