@@ -550,20 +550,20 @@ again:
             gcellh = wmsg.a6 / 256.0;
             gli_windows_rearrange();
             break;
-            
+
         case EVTLINE:
 #ifdef DEBUG
             //fprintf(stderr, "line input event\n");
-            
+
             //	     fprintf(stderr, "line input event\n");
 #endif
-            
+
             event->type = evtype_LineInput;
             event->win = gli_window_for_peer(wmsg.a1);
-            
+
             if (event->win->line_request_uni)
             {
-                event->val1 = MIN(wmsg.a2, event->win->line.cap / sizeof(glui32));
+                event->val1 = MIN(wmsg.a2, event->win->line.cap); /* / sizeof(glui32));*/
                 glui32 *obuf = event->win->line.buf;
                 unsigned short *ibuf = (unsigned short*)wbuf;
                 for (i = 0; i < event->val1; i++)
