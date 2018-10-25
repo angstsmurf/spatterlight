@@ -1,28 +1,38 @@
 // I suppose this is necessary to get rid of that ugly Markup menu on attached images.
 
 @interface MyAttachmentCell : NSTextAttachmentCell
+{
+	NSInteger align;
+	NSInteger pos;
+	NSAttributedString *attrstr;
+}
 
-- (BOOL) wantsToTrackMouse;
+- (instancetype) initImageCell:(NSImage *)image andAlignment:(NSInteger)analignment andAttStr:(NSAttributedString *)anattrstr at:(NSInteger)apos;
+
+@property (readonly) BOOL wantsToTrackMouse;
 
 @end
 
 /*
  * Extend NSTextContainer to have images in the margins with
  * the text flowing around them.
- * TODO: check for the flowbreak character.
  */
 
 @interface MarginContainer : NSTextContainer
 {
     NSMutableArray *margins;
+	NSMutableArray *flowbreaks;
+	NSInteger recalc;
 }
 
 - (id) initWithContainerSize: (NSSize)size;
 - (void) clearImages;
-- (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top size: (NSSize)size;
-- (void) flowBreakAt: (NSInteger)pos;
+- (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top size: (NSSize)size linkid: (NSUInteger)linkid;
 - (void) drawRect: (NSRect)rect;
+- (void) adjustTextviewHeightForLowImages;
 - (void) invalidateLayout;
+- (void) unoverlap: (MarginImage *)image;
+- (NSUInteger) findHyperlinkAt: (NSPoint)p;
 
 @end
 
@@ -40,7 +50,9 @@
     MarginContainer *container;
     NSTextView *textview;
 
-    NSInteger line_request;
+	NSInteger line_request;
+	NSInteger hyper_request;
+
     BOOL echo_toggle_pending; /* if YES, line echo behavior will be inverted, starting from the next line event*/
     BOOL echo; /* if YES, current line input will be deleted from text view */
 
@@ -56,6 +68,7 @@
 - (void) recalcBackground;
 - (void) onKeyDown: (NSEvent*)evt;
 - (void) echo: (BOOL)val;
+- (BOOL) myMouseDown: (NSEvent*)theEvent;
 
 @property (readonly) NSInteger lastchar;
 

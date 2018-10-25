@@ -344,8 +344,7 @@
                                           initWithString: [string substringWithRange: NSMakeRange(pos, amountToDraw)]
                                           attributes: att];
 	
-        [lines[ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw)
-                                         withAttributedString: partString];
+        [[lines objectAtIndex:ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw)withAttributedString: partString];
         
         dirty = YES;
         
@@ -419,7 +418,7 @@
 					amountToDraw = length - pos;
 
 				// Make characters hyperlink
-				[lines[currenty] addAttribute:NSLinkAttributeName value:link range:NSMakeRange(currentx, amountToDraw)];
+				[[lines objectAtIndex:currenty] addAttribute:NSLinkAttributeName value:link range:NSMakeRange(currentx, amountToDraw)];
 
 				dirty = YES;
 

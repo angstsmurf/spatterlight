@@ -306,7 +306,7 @@
 
 	NSScrollView *scrollview = (NSScrollView *)view;
 
-	NSPoint newScrollOrigin = NSMakePoint(0.0,NSMaxY(scrollview.documentView.frame)
+	NSPoint newScrollOrigin = NSMakePoint(0.0,NSMaxY([[scrollview documentView] frame])
 									- NSHeight(scrollview.contentView.bounds));
 
 	[[scrollview contentView] scrollToPoint:newScrollOrigin];
