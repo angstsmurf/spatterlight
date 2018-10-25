@@ -26,6 +26,7 @@
 		6D395C191EAD095E0070886C /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494371EAC1BC4003DA5C4 /* vm.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D5494441EAC1BC4003DA5C4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494291EAC1BC4003DA5C4 /* LICENSE */; };
 		6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494321EAC1BC4003DA5C4 /* README.md */; };
+		6DF87CDC218259DB0020E9A1 /* GlkHyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
 		961153670A4F365C00BB7FF2 /* htmldb3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152520A4F355800BB7FF2 /* htmldb3.cpp */; };
 		961153680A4F365C00BB7FF2 /* htmldbg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152530A4F355800BB7FF2 /* htmldbg.cpp */; };
@@ -906,6 +907,8 @@
 		6D5494351EAC1BC4003DA5C4 /* string.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string.c; sourceTree = "<group>"; };
 		6D5494361EAC1BC4003DA5C4 /* unixstrt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixstrt.c; sourceTree = "<group>"; };
 		6D5494371EAC1BC4003DA5C4 /* vm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vm.c; sourceTree = "<group>"; };
+		6DF87CDA218259DB0020E9A1 /* GlkHyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkHyperlink.h; sourceTree = "<group>"; };
+		6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkHyperlink.m; sourceTree = "<group>"; };
 		9611524F0A4F355800BB7FF2 /* html_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html_os.h; sourceTree = "<group>"; };
 		961152500A4F355800BB7FF2 /* htmlattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = htmlattr.h; sourceTree = "<group>"; };
 		961152510A4F355800BB7FF2 /* htmldb2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = htmldb2.cpp; sourceTree = "<group>"; };
@@ -2782,6 +2785,8 @@
 		961CCECA09F239E700528FF9 /* application */ = {
 			isa = PBXGroup;
 			children = (
+				6DF87CDA218259DB0020E9A1 /* GlkHyperlink.h */,
+				6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */,
 				961CCEDF09F239E700528FF9 /* main.h */,
 				961CCEE009F239E700528FF9 /* main.m */,
 				961CCEDD09F239E700528FF9 /* AppDelegate.h */,
@@ -4674,6 +4679,7 @@
 				961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
 				961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */,
+				6DF87CDC218259DB0020E9A1 /* GlkHyperlink.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
