@@ -65,7 +65,7 @@
             info: (NSDictionary*)gameinfo;
 - (void) queueEvent: (GlkEvent*)gevent;
 - (void) contentDidResize: (NSRect)frame;
-@property (getter=isAlive, readonly) BOOL alive;
+- (BOOL) isAlive;
 - (void) markLastSeen;
 - (void) performScroll;
 - (id) windowWithNum: (int)index;

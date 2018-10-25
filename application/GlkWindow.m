@@ -58,12 +58,12 @@
 
 - (void) setFrame: (NSRect)thisframe
 {
-    NSRect mainframe = self.superview.frame;
+    NSRect mainframe = [[self superview] frame];
     NSInteger hmask, vmask;
     NSInteger rgt = 0;
     NSInteger bot = 0;
     
-    super.frame = thisframe;
+    [super setFrame: thisframe];
     
     /* set autoresizing for live resize. */
     /* the client should rearrange after it's finished. */
@@ -87,7 +87,7 @@
     else
         vmask = NSViewMaxYMargin;
     
-    self.autoresizingMask = hmask | vmask;
+    [self setAutoresizingMask: hmask | vmask];
 }
 
 - (void) prefsDidChange
@@ -109,7 +109,7 @@
 - (void) grabFocus
 {
     // NSLog(@"grab focus in window %d", name);
-    [self.window makeFirstResponder: self];
+    [[self window] makeFirstResponder: self];
 }
 
 - (void) flushDisplay

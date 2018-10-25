@@ -63,7 +63,7 @@ NSDictionary *gFormatMap;
 {
     NSLog(@"appdel: showHelpFile('%@')", [sender title]);
     id title = [sender title];
-    id pathname = [NSBundle mainBundle].resourcePath;
+    id pathname = [[NSBundle mainBundle] resourcePath];
     id filename = [NSString stringWithFormat: @"%@/docs/%@.rtf", pathname, title];
     [[NSWorkspace sharedWorkspace] openFile: filename];
 }
@@ -120,16 +120,16 @@ NSDictionary *gFormatMap;
         NSLog(@"directory = %@", directory);
         [panel beginWithCompletionHandler:^(NSInteger result){
             if (result == NSFileHandlingPanelOKButton) {
-                NSURL*  theDoc = panel.URLs[0];
+                NSURL*  theDoc = [[panel URLs] objectAtIndex:0];
                 {
-                    NSString *pathString = theDoc.path.stringByDeletingLastPathComponent;
+                    NSString *pathString = [[theDoc path] stringByDeletingLastPathComponent];
                     NSLog(@"directory = %@", directory);
-                    if ([theDoc.path.pathExtension isEqualToString: @"sav"])
+                    if ([[[theDoc path] pathExtension] isEqualToString: @"sav"])
                         [[NSUserDefaults standardUserDefaults] setObject: pathString forKey: @"SaveDirectory"];
                     else
                         [[NSUserDefaults standardUserDefaults] setObject: pathString forKey: @"GameDirectory"];
                     
-                    [self application: NSApp openFile: theDoc.path];
+                    [self application: NSApp openFile: [theDoc path]];
                 }
             }
         }];
@@ -141,7 +141,7 @@ NSDictionary *gFormatMap;
 {
     NSLog(@"appdel: openFile '%@'", path);
     
-    if ([path.pathExtension.lowercaseString isEqualToString: @"ifiction"])
+    if ([[[path pathExtension] lowercaseString] isEqualToString: @"ifiction"])
     {
         [libctl importMetadataFromFile: path];
     }
@@ -162,16 +162,16 @@ NSDictionary *gFormatMap;
 
 - (NSApplicationTerminateReply) applicationShouldTerminate: (NSApplication *)app
 {
-    NSArray *windows = app.windows;
-    NSInteger count = windows.count;
+    NSArray *windows = [app windows];
+    NSInteger count = [windows count];
     NSInteger alive = 0;
     
     NSLog(@"appdel: applicationShouldTerminate");
     
     while (count--)
     {
-        NSWindow *window = windows[count];
-        id glkctl = window.delegate;
+        NSWindow *window = [windows objectAtIndex: count];
+        id glkctl = [window delegate];
         if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive])
             alive ++;
     }

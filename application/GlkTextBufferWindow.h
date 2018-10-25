@@ -2,7 +2,7 @@
 
 @interface MyAttachmentCell : NSTextAttachmentCell
 
-@property (readonly) BOOL wantsToTrackMouse;
+- (BOOL) wantsToTrackMouse;
 
 @end
 
@@ -17,7 +17,7 @@
     NSMutableArray *margins;
 }
 
-- (instancetype) initWithContainerSize: (NSSize)size NS_DESIGNATED_INITIALIZER;
+- (id) initWithContainerSize: (NSSize)size;
 - (void) clearImages;
 - (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top size: (NSSize)size;
 - (void) flowBreakAt: (NSInteger)pos;
@@ -59,6 +59,7 @@
 - (void) echo: (BOOL)val;
 
 @property (readonly) NSInteger lastchar;
+
 
 @end
 

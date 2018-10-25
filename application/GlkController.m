@@ -48,14 +48,14 @@ static const char *msgnames[] =
 
 - (void) setFrame: (NSRect)frame
 {
-    super.frame = frame;
-    if (!self.inLiveResize)
+    [super setFrame: frame];
+    if (![self inLiveResize])
         [delegate contentDidResize: frame];
 }
 
 - (void) viewDidEndLiveResize
 {
-    [delegate contentDidResize: self.frame];
+    [delegate contentDidResize: [self frame]];
 }
 
 @end
@@ -100,8 +100,8 @@ static const char *msgnames[] =
     /* Setup Cocoa stuff */
     {
         // [[self window] setRepresentedFilename: gamefile];
-        self.window.title = gameinfo[@"title"];
-        [self.window setContentSize: defsize];
+        [[self window] setTitle: [gameinfo objectForKey: @"title"]];
+        [[self window] setContentSize: defsize];
 
         // Clamp to max screen size
         defsize.height = self.window.frame.size.height;
@@ -124,15 +124,15 @@ static const char *msgnames[] =
         terppath = [[NSBundle mainBundle] pathForAuxiliaryExecutable: terpname];
         readpipe = [NSPipe pipe];
         sendpipe = [NSPipe pipe];
-        readfh = readpipe.fileHandleForReading;
-        sendfh = sendpipe.fileHandleForWriting;
+        readfh = [readpipe fileHandleForReading];
+        sendfh = [sendpipe fileHandleForWriting];
         
         task = [[NSTask alloc] init];
-        task.currentDirectoryPath = NSHomeDirectory();
+        [task setCurrentDirectoryPath: NSHomeDirectory()];
         
         
-        task.standardOutput = readpipe;
-        task.standardInput = sendpipe;
+        [task setStandardOutput: readpipe];
+        [task setStandardInput: sendpipe];
         
 #ifdef TEE_TERP_OUTPUT
         [task setLaunchPath: @"/bin/bash"];
@@ -157,8 +157,8 @@ static const char *msgnames[] =
         [task setArguments: @[ @"-c", cmdline ]];
 #else
         
-        task.launchPath = terppath;
-        task.arguments = @[gamefile];
+        [task setLaunchPath: terppath];
+        [task setArguments: [NSArray arrayWithObjects: gamefile, NULL]];
         
 #endif //TEE_TERP_OUTPUT
         
@@ -196,7 +196,8 @@ static const char *msgnames[] =
 - (void) windowWillClose: (id)sender
 {
     NSLog(@"glkctl: windowWillClose");
-    [self.window setDelegate: nil];
+
+    [[self window] setDelegate: nil];
 
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 
@@ -250,7 +251,7 @@ static const char *msgnames[] =
 {
     NSLog(@"glkctl: windowWillUseStandardFrame");
     
-    NSRect frame = window.frame;
+    NSRect frame = [window frame];
     defaultFrame.origin.x = frame.origin.x;
     defaultFrame.size.width = frame.size.width;
     return defaultFrame;
@@ -288,12 +289,12 @@ static const char *msgnames[] =
         return YES;
     
     alert = [[NSAlert alloc] init];
-    alert.messageText = @"Do you want to abandon the game?";
-    alert.informativeText = @"Any unsaved progress will be lost.";
+    [alert setMessageText: @"Do you want to abandon the game?"];
+    [alert setInformativeText: @"Any unsaved progress will be lost."];
     [alert addButtonWithTitle: @"Close"];
     [alert addButtonWithTitle: @"Cancel"];
     
-    [alert beginSheetModalForWindow: self.window
+    [alert beginSheetModalForWindow: [self window]
                       modalDelegate: self
                      didEndSelector: @selector(closeAlertDidFinish:rc:ctx:)
                         contextInfo: NULL];
@@ -323,7 +324,7 @@ static const char *msgnames[] =
     
     NSLog(@"glkctl guessFocus");
     
-    focuswin = self.window.firstResponder;
+    focuswin = [[self window] firstResponder];
     while (focuswin)
     {
         if ([focuswin isKindOfClass: [NSView class]])
@@ -384,7 +385,7 @@ static const char *msgnames[] =
     
     GlkEvent *gevent;
     
-    NSRect frame = contentView.frame;
+    NSRect frame = [contentView frame];
     
     gevent = [[GlkEvent alloc] initArrangeWidth: frame.size.width height: frame.size.height];
     [self queueEvent: gevent];
@@ -407,7 +408,7 @@ static const char *msgnames[] =
 {
     NSURL *directory = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] objectForKey: @"SaveDirectory"] isDirectory:YES];
     
-    NSInteger sendfd = sendfh.fileDescriptor;
+    NSInteger sendfd = [sendfh fileDescriptor];
     
     // Create and configure the panel.
     NSOpenPanel* panel = [NSOpenPanel openPanel];
@@ -415,21 +416,21 @@ static const char *msgnames[] =
     waitforfilename = YES; /* don't interrupt */
     
     if (fileusage == fileusage_SavedGame)
-        panel.prompt = @"Restore";
+        [panel setPrompt: @"Restore"];
     panel.directoryURL = directory;
     
     // Display the panel attached to the document's window.
-    [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
+    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
         
         const char *s;
         struct message reply;
         
         if (result == NSFileHandlingPanelOKButton)
         {
-            NSURL*  theDoc = panel.URLs[0];
+            NSURL*  theDoc = [[panel URLs] objectAtIndex:0];
             
-            [[NSUserDefaults standardUserDefaults] setObject: theDoc.path.stringByDeletingLastPathComponent forKey: @"SaveDirectory"];
-            s = theDoc.path.UTF8String;
+            [[NSUserDefaults standardUserDefaults] setObject: [[theDoc path] stringByDeletingLastPathComponent] forKey: @"SaveDirectory"];
+            s = [[theDoc lastPathComponent] UTF8String];
         }
         else
             s = "";
@@ -479,29 +480,29 @@ static const char *msgnames[] =
     if (fileusage == fileusage_SavedGame)
     {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyy-MM-dd HH.mm ";
+        [formatter setDateFormat:@"yyyy-MM-dd HH.mm "];
         date = [formatter stringFromDate:[NSDate date]];
         
         
-        filename = [date stringByAppendingString: gameinfo[@"title"]];
+        filename = [date stringByAppendingString: [gameinfo objectForKey: @"title"]];
     }
 
     if (ext)
         filename = [filename stringByAppendingPathExtension: ext];
     
     if (filename)
-        panel.nameFieldStringValue = filename;
+        [panel setNameFieldStringValue:filename];
     
-    [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
+    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
         struct message reply;
-        NSInteger sendfd = sendfh.fileDescriptor;
+        NSInteger sendfd = [sendfh fileDescriptor];
         const char *s;
         
         if (result == NSFileHandlingPanelOKButton)
         {
-            NSURL*  theFile = panel.URL;
-            [[NSUserDefaults standardUserDefaults] setObject: theFile.path.stringByDeletingLastPathComponent forKey: @"SaveDirectory"];
-            s = theFile.path.UTF8String;
+            NSURL*  theFile = [panel URL];
+            [[NSUserDefaults standardUserDefaults] setObject: [[theFile path] stringByDeletingLastPathComponent] forKey: @"SaveDirectory"];
+            s = [[theFile lastPathComponent] UTF8String];
         }
         else
             s = "";
@@ -652,8 +653,8 @@ static const char *msgnames[] =
     NSInteger height = 0;
     
     for (NSImageRep * imageRep in reps) {
-        if (imageRep.pixelsWide > width) width = imageRep.pixelsWide;
-        if (imageRep.pixelsHigh > height) height = imageRep.pixelsHigh;
+        if ([imageRep pixelsWide] > width) width = [imageRep pixelsWide];
+        if ([imageRep pixelsHigh] > height) height = [imageRep pixelsHigh];
     }
     
     lastimage = [[NSImage alloc] initWithSize:NSMakeSize((CGFloat)width, (CGFloat)height)];
@@ -873,14 +874,14 @@ NSInteger colorToInteger(NSColor *color)
 
         case NEXTEVENT:
             [self flushDisplay];
-
-            if (queue.count)
+            
+            if ([queue count])
             {
                 GlkEvent *gevent;
-                gevent = queue[0];
+                gevent = [queue objectAtIndex: 0];
                 //NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
                 
-                [gevent writeEvent: sendfh.fileDescriptor];
+                [gevent writeEvent: [sendfh fileDescriptor]];
                 [queue removeObjectAtIndex: 0];
                 return NO; /* keep reading ... we sent the reply */
             }
@@ -984,7 +985,7 @@ NSInteger colorToInteger(NSColor *color)
             if (lastimage)
             {
                 NSSize size;
-                size = lastimage.size;
+                size = [lastimage size];
                 ans->a1 = size.width;
                 ans->a2 = size.height;
             }
@@ -1060,7 +1061,7 @@ NSInteger colorToInteger(NSColor *color)
                 x1 = req->a4;
                 y1 = req->a5;
                 rect = NSMakeRect(x0, y0, x1 - x0, y1 - y0);
-                gwindows[req->a1].frame = rect;
+                [gwindows[req->a1] setFrame: rect];
                 windowdirty = YES;
             }
             else
@@ -1163,7 +1164,7 @@ NSInteger colorToInteger(NSColor *color)
             ans->cmd = OKAY;
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
-                const char *str = gwindows[req->a1].cancelLine.UTF8String;
+                const char *str = [[gwindows[req->a1] cancelLine] UTF8String];
                 strlcpy(buf, str, GLKBUFSIZE);
                 ans->len = (int)strlen(buf);
             }
@@ -1231,7 +1232,7 @@ NSInteger colorToInteger(NSColor *color)
 
 static NSString *signalToName(NSTask *task)
 {
-    switch (task.terminationStatus)
+    switch ([task terminationStatus])
     {
         case 1: return @"sighup";
         case 2: return @"sigint";
@@ -1245,7 +1246,7 @@ static NSString *signalToName(NSTask *task)
         case 13: return @"sigpipe";
         case 15: return @"sigterm";
         default:
-            return [NSString stringWithFormat: @"%d", task.terminationStatus];
+            return [NSString stringWithFormat: @"%d", [task terminationStatus]];
     }
 }
 
@@ -1274,7 +1275,7 @@ static BOOL pollMoreData(int fd)
         timer = nil;
     }
     
-    if (task && task.terminationStatus != 0)
+    if (task && [task terminationStatus] != 0)
     {
         NSAlert *alert;
         
@@ -1284,7 +1285,7 @@ static BOOL pollMoreData(int fd)
                                   otherButton: nil
                     informativeTextWithFormat: @"Error code: %@.", signalToName(task)];
         
-        [alert beginSheetModalForWindow: self.window
+        [alert beginSheetModalForWindow: [self window]
                           modalDelegate: nil
                          didEndSelector: nil
                             contextInfo: nil];
@@ -1300,7 +1301,8 @@ static BOOL pollMoreData(int fd)
         if (gchannels[i])
             [gchannels[i] stop];
     
-    self.window.title = [self.window.title stringByAppendingString: @" (finished)"];
+    [[self window] setTitle:
+     [[[self window] title] stringByAppendingString: @" (finished)"]];
     
     task = nil;
     
@@ -1315,7 +1317,7 @@ static BOOL pollMoreData(int fd)
     }
     else if (waitforevent)
     {
-        [gevent writeEvent: sendfh.fileDescriptor];
+        [gevent writeEvent: [sendfh fileDescriptor]];
         waitforevent = NO;
         [readfh waitForDataInBackgroundAndNotify];
     }
@@ -1337,8 +1339,8 @@ static BOOL pollMoreData(int fd)
     NSInteger n, t;
     BOOL stop;
     
-    NSInteger readfd = readfh.fileDescriptor;
-    NSInteger sendfd = sendfh.fileDescriptor;
+    NSInteger readfd = [readfh fileDescriptor];
+    NSInteger sendfd = [sendfh fileDescriptor];
     
 again:
     

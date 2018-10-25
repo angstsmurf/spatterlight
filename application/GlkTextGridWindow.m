@@ -15,7 +15,7 @@
 
 @implementation GlkTextGridWindow
 
-- (instancetype) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
+- (id) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
 {
     self = [super initWithGlkController: glkctl_ name: name_];
     
@@ -52,11 +52,11 @@
     [super prefsDidChange];
     
     /* reassign styles to attributedstrings */
-    for (i = 0; i < lines.count; i++)
+    for (i = 0; i < [lines count]; i++)
     {
-        NSMutableAttributedString *line = lines[i];
+        NSMutableAttributedString *line = [lines objectAtIndex: i];
         int x = 0;
-        while (x < line.length)
+        while (x < [line length])
         {
             id styleobject = [line attribute:@"GlkStyle" atIndex:x effectiveRange:&range];
             int stylevalue = [styleobject intValue];
@@ -67,7 +67,7 @@
             [line setAttributes: styles[style].attributes range: range];
             if (fg || bg)
             {
-                [line addAttribute: @"GlkStyle" value: @(stylevalue) range: range];
+                [line addAttribute: @"GlkStyle" value: [NSNumber numberWithInt: stylevalue] range: range];
                 if ([Preferences stylesEnabled])
                 {
                     if (fg)
@@ -139,7 +139,7 @@
 
 - (void) drawRect: (NSRect)rect
 {
-    NSRect bounds = self.bounds;
+    NSRect bounds = [self bounds];
     //NSRange glyphRange;
     //NSPoint layoutLocation;
     //NSRect textRect;
@@ -159,7 +159,7 @@
         
         if ([Preferences stylesEnabled])
         {
-            color = styles[style_Normal].attributes[NSBackgroundColorAttributeName];
+            color = [[styles[style_Normal] attributes] objectForKey: NSBackgroundColorAttributeName];
             //if (bgnd != 0)
               //  color = [Preferences backgroundColor: (int)(bgnd - 1)];
         }
@@ -182,14 +182,14 @@
     
     [textLayout addTextContainer: textContainer];
     [textStorage addLayoutManager: textLayout];
-    textLayout.usesScreenFonts = [Preferences useScreenFonts];
+    [textLayout setUsesScreenFonts: [Preferences useScreenFonts]];
     
     /* draw from bottom up because solid backgrounds overdraw descenders... */
-    for (y = lines.count - 1; y >= 0; y--)
+    for (y = [lines count] - 1; y >= 0; y--)
     {
         // [attstr drawAtPoint: NSMakePoint(x0, y0 + y * lineHeight)]; -- if it were only this simple.
         
-        [textStorage setAttributedString: lines[y]];
+        [textStorage setAttributedString: [lines objectAtIndex: y]];
         NSRange glyphRange = [textLayout glyphRangeForTextContainer: textContainer];
         NSPoint layoutLocation = [textLayout locationForGlyphAtIndex: 0];
         //NSRect	textRect = [textLayout boundingRectForGlyphRange: glyphRange inTextContainer: textContainer];
@@ -219,7 +219,7 @@
 {
     NSInteger r;
     
-    super.frame = frame;
+    [super setFrame: frame];
     
     NSInteger newcols = floor (frame.size.width / [Preferences charWidth]);
     NSInteger newrows = frame.size.height / [Preferences lineHeight];
@@ -230,26 +230,26 @@
     cols = newcols;
     rows = newrows;
     
-    for (r = lines.count; r < rows; r++)
+    for (r = [lines count]; r < rows; r++)
     {
         [lines addObject: [[NSMutableAttributedString alloc] init]];
     }
     
     // Remove old lines
-    if (lines.count > rows)
+    if ([lines count] > rows)
     {
-        [lines removeObjectsInRange: NSMakeRange(rows, lines.count - rows)];
+        [lines removeObjectsInRange: NSMakeRange(rows, [lines count] - rows)];
     }
     
     // Size lines
     for (r = 0; r < rows; r++)
     {
-        NSMutableAttributedString* line = lines[r];
+        NSMutableAttributedString* line = [lines objectAtIndex: r];
         
-        if (line.length < cols)
+        if ([line length] < cols)
         {
             // Add spaces to the end (not sure about the attributes to use)
-            NSInteger amountToAdd = cols - line.length;
+            NSInteger amountToAdd = cols - [line length];
             unichar* spaces = malloc(sizeof(unichar)*amountToAdd);
             NSInteger c;
             
@@ -265,9 +265,9 @@
             [line appendAttributedString: string];
             free(spaces);
         }
-        else if (line.length > cols)
+        else if ([line length] > cols)
         {
-            [line deleteCharactersInRange: NSMakeRange(cols, line.length - cols)];
+            [line deleteCharactersInRange: NSMakeRange(cols, [line length] - cols)];
         }
     }
     
@@ -288,12 +288,12 @@
     rows = cols = 0;
     xpos = ypos = 0;
     
-    self.frame = self.frame;
+    [self setFrame: [self frame]];
 }
 
 - (void) putString: (NSString*)string style: (NSInteger)stylevalue
 {
-    NSInteger length = string.length;
+    NSInteger length = [string length];
     NSInteger pos = 0;
     NSDictionary *att;
     //NSColor *col;
@@ -321,14 +321,14 @@
     
     if (fg || bg)
     {
-        NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
-        mutatt[@"GlkStyle"] = @((int)stylevalue);
+        NSMutableDictionary *mutatt = [[styles[style] attributes] mutableCopy];
+        [mutatt setObject: [NSNumber numberWithInt: (int)stylevalue] forKey: @"GlkStyle"];
         if ([Preferences stylesEnabled])
         {
             if (fg)
-                mutatt[NSForegroundColorAttributeName] = [Preferences foregroundColor: (int)(fg - 1)];
+                [mutatt setObject: [Preferences foregroundColor: (int)(fg - 1)] forKey: NSForegroundColorAttributeName];
             if (bg)
-                mutatt[NSBackgroundColorAttributeName] = [Preferences backgroundColor: (int)(bg - 1)];
+                [mutatt setObject: [Preferences backgroundColor: (int)(bg - 1)] forKey: NSBackgroundColorAttributeName];
         }
         att = mutatt;
     }
@@ -341,7 +341,7 @@
     while (pos < length)
     {
         // Can't write if we've fallen off the end of the window
-        if (ypos >= lines.count || ypos > rows)
+        if (ypos >= [lines count] || ypos > rows)
             break;
         
         // Can only write a certain number of characters
@@ -354,14 +354,14 @@
         
         // Get the number of characters to write
         NSInteger amountToDraw = cols - xpos;
-        if (amountToDraw > string.length - pos)
-            amountToDraw = string.length - pos;
+        if (amountToDraw > [string length] - pos)
+            amountToDraw = [string length] - pos;
         
         // "Draw" the characters
         NSAttributedString* partString = [[NSAttributedString alloc]
                                           initWithString: [string substringWithRange: NSMakeRange(pos, amountToDraw)]
                                           attributes: att];
-        [lines[ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw)
+        [[lines objectAtIndex: ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw)
                                          withAttributedString: partString];
         
         dirty = YES;
@@ -393,12 +393,12 @@
 {
     GlkEvent *gev;
     
-    if (mouse_request && theEvent.clickCount == 2)
+    if (mouse_request && [theEvent clickCount] == 2)
     {
         [glkctl markLastSeen];
         
         NSPoint p;
-        p = theEvent.locationInWindow;
+        p = [theEvent locationInWindow];
         p = [self convertPoint: p fromView: nil];
         p.x = (p.x - [Preferences gridMargins]) / [Preferences charWidth];
         p.y = (p.y - [Preferences gridMargins]) / [Preferences lineHeight];
@@ -428,9 +428,9 @@
 
 - (void) keyDown: (NSEvent*)evt
 {
-    NSString *str = evt.characters;
+    NSString *str = [evt characters];
     unsigned ch = keycode_Unknown;
-    if (str.length)
+    if ([str length])
         ch = chartokeycode([str characterAtIndex: 0]);
     
     GlkWindow *win;
@@ -466,7 +466,7 @@
 
 - (void) initLine:(NSString*)str
 {
-    NSRect bounds = self.bounds;
+    NSRect bounds = [self bounds];
     NSInteger m = [Preferences gridMargins];
     if (transparent)
         m = 0;
@@ -476,8 +476,8 @@
     NSInteger lineHeight = [Preferences lineHeight];
     float charWidth = [Preferences charWidth];
     
-    if (ypos >= lines.count)
-        ypos = lines.count - 1;
+    if (ypos >= [lines count])
+        ypos = [lines count] - 1;
     
     NSRect caret;
     caret.origin.x = x0 + xpos * charWidth;
@@ -490,12 +490,12 @@
     input = [[NSTextField alloc] initWithFrame: caret];
     [input setEditable: YES];
     [input setBordered: NO];
-    input.stringValue = str;
-    input.action = @selector(typedEnter:);
-    input.target = self;
+    [input setStringValue: str];
+    [input setAction: @selector(typedEnter:)];
+    [input setTarget: self];
     
     [self addSubview: input];
-    [self.window makeFirstResponder: input];
+    [[self window] makeFirstResponder: input];
     
     line_request = YES;	
 }
@@ -505,7 +505,7 @@
     line_request = NO;
     if (input)
     {
-        NSString *str = input.stringValue;
+        NSString *str = [[input stringValue] retain];
         [self putString: str style: style_Input];
         [input removeFromSuperview];
         input = nil;
@@ -521,7 +521,7 @@
     {
         [glkctl markLastSeen];
         
-        NSString *str = input.stringValue;
+        NSString *str = [input stringValue];
         [self putString: str style: style_Input];
         GlkEvent *gev = [[GlkEvent alloc] initLineEvent: str forWindow: self.name];
         [glkctl queueEvent: gev];

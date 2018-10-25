@@ -17,10 +17,10 @@
     NSInteger value[stylehint_NUMHINTS];
 }
 
-- (instancetype) initWithStyle: (NSInteger)stylenumber_
+- initWithStyle: (NSInteger)stylenumber_
      windowType: (NSInteger)windowtype_
          enable: (NSInteger *)enablearray
-          value: (NSInteger *)valuearray NS_DESIGNATED_INITIALIZER;
+          value: (NSInteger *)valuearray;
 - (void) prefsDidChange;
 - (BOOL) valueForHint: (NSInteger) hint value:(NSInteger *)val;
 
