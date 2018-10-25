@@ -367,7 +367,16 @@ struct glk_schannel_struct
     glui32 loop;
     int notify;
     int buffered;
-    
+    int paused;
+
+    /* for volume fades */
+    int volume_notify;
+    int volume_timeout;
+    int target_volume;
+    double float_volume;
+    double volume_delta;
+    void *timer;
+
     gidispatch_rock_t disprock;
     channel_t *chain_next, *chain_prev;
 };
