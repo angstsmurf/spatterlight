@@ -849,7 +849,7 @@
         [textview setEditable: NO];
         
     }
-    else if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @YES]))
+    else if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @1]))
     {
         NSLog(@"line event from %ld", (long)self.name);
         

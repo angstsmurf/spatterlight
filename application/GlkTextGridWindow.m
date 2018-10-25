@@ -570,7 +570,7 @@
 
 	NSNumber *key = [NSNumber numberWithUnsignedInt:ch];
 
-	if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @YES]))
+	if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @1]))
 		[self typedEnter: nil];
 }
 

@@ -22,19 +22,19 @@
         _name = name;
         //bgnd = 0xFFFFFF; // White
 		_pendingTerminators = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-							   @NO, @keycode_Func1,
-							   @NO, @keycode_Func2,
-							   @NO, @keycode_Func3,
-							   @NO, @keycode_Func4,
-							   @NO, @keycode_Func5,
-							   @NO, @keycode_Func6,
-							   @NO, @keycode_Func7,
-							   @NO, @keycode_Func8,
-							   @NO, @keycode_Func9,
-							   @NO, @keycode_Func10,
-							   @NO, @keycode_Func11,
-							   @NO, @keycode_Func12,
-							   @NO, @keycode_Escape,
+							   @0, @keycode_Func1,
+							   @0, @keycode_Func2,
+							   @0, @keycode_Func3,
+							   @0, @keycode_Func4,
+							   @0, @keycode_Func5,
+							   @0, @keycode_Func6,
+							   @0, @keycode_Func7,
+							   @0, @keycode_Func8,
+							   @0, @keycode_Func9,
+							   @0, @keycode_Func10,
+							   @0, @keycode_Func11,
+							   @0, @keycode_Func12,
+							   @0, @keycode_Escape,
 							   nil];
 		currentTerminators = _pendingTerminators;
 		_terminatorsPending = NO;
@@ -180,13 +180,13 @@
 	if (fg || bg)
 	{
 		NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
-		mutatt[@"GlkStyle"] = @((int)stylevalue);
+		[mutatt setObject:[NSNumber numberWithInt:stylevalue] forKey:@"GlkStyle"];
 		if ([Preferences stylesEnabled])
 		{
 			if (fg)
-				mutatt[NSForegroundColorAttributeName] = [Preferences foregroundColor: (int)(fg - 1)];
+				[mutatt setObject:[Preferences foregroundColor: (int)(fg - 1)] forKey:NSForegroundColorAttributeName];
 			if (bg)
-				mutatt[NSBackgroundColorAttributeName] = [Preferences backgroundColor: (int)(bg - 1)];
+                [mutatt setObject:[Preferences backgroundColor: (int)(bg - 1)] forKey:NSBackgroundColorAttributeName];
 		}
 		return (NSDictionary *) mutatt;
 	}

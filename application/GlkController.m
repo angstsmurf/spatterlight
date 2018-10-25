@@ -580,18 +580,18 @@ static const char *msgnames[] =
 
 - (int) handleNewSoundChannel
 {
-    int i;
-
-    for (i = 0; i < MAXSND; i++)
-        if (gchannels[i] == nil)
-            break;
-
-    if (i == MAXSND)
-        return -1;
-
-    //gchannels[i] = [[GlkSoundChannel alloc] initWithGlkController: self name: i];
-
-    return i;
+//    int i;
+//
+//    for (i = 0; i < MAXSND; i++)
+//        if (gchannels[i] == nil)
+//            break;
+//
+//    if (i == MAXSND)
+//        return -1;
+//
+//    //gchannels[i] = [[GlkSoundChannel alloc] initWithGlkController: self name: i];
+//
+    return MAXSND;
 }
 
 - (void) handleSetTimer: (int)millisecs
@@ -858,8 +858,8 @@ NSInteger colorToInteger(NSColor *color)
 
 - (void) handleSoundNotification: (NSInteger)notify withSound:(NSInteger)sound
 {
-	GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:sound withSound:notify];
-	[self queueEvent:gev];
+//	GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:sound withSound:notify];
+//	[self queueEvent:gev];
 }
 
 - (void) handleSetTerminatorsOnWindow:(GlkWindow*)gwindow	buffer: (glui32 *)buf length: (glui32)len
@@ -869,7 +869,7 @@ NSInteger colorToInteger(NSColor *color)
 	NSArray *keys = [myDict allKeys];
 	
 	for (key in keys)	{
-		[myDict setObject:@NO forKey:key];
+		[myDict setObject:@0 forKey:key];
 	}
 
 //	NSLog(@"handleSetTerminatorsOnWindow: %ld length: %u", (long)gwindow.name, len );
@@ -880,7 +880,7 @@ NSInteger colorToInteger(NSColor *color)
 		id terminator_setting = [myDict objectForKey:key];
 		if (terminator_setting)
 		{
-			[myDict setObject:@YES forKey:key];
+			[myDict setObject:@1 forKey:key];
 		}
 		else NSLog(@"Illegal line terminator request: %u", buf[i]);
 	}
@@ -982,10 +982,10 @@ NSInteger colorToInteger(NSColor *color)
             break;
             
         case DELCHAN:
-            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
-            {
-                gchannels[req->a1] = nil;
-            }
+//            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
+//            {
+//                gchannels[req->a1] = nil;
+//            }
             break;
             
             /*
@@ -1026,25 +1026,25 @@ NSInteger colorToInteger(NSColor *color)
             break;
             
         case SETVOLUME:
-            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
-            {
-                [gchannels[req->a1] setVolume: req->a2];
-            }
+//            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
+//            {
+//                [gchannels[req->a1] setVolume: req->a2];
+//            }
             break;
             
         case PLAYSOUND:
-            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
-            {
-                if (lastsound)
-                    [gchannels[req->a1] play: lastsound repeats: req->a2 notify: req->a3];
-            }
+//            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
+//            {
+//                if (lastsound)
+//                    [gchannels[req->a1] play: lastsound repeats: req->a2 notify: req->a3];
+//            }
             break;
             
         case STOPSOUND:
-            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
-            {
-                [gchannels[req->a1] stop];
-            }
+//            if (req->a1 >= 0 && req->a1 < MAXSND && gchannels[req->a1])
+//            {
+//                [gchannels[req->a1] stop];
+//            }
             break;
             
 #ifdef GLK_MODULE_HYPERLINKS
@@ -1332,9 +1332,9 @@ static BOOL pollMoreData(int fd)
         if (gwindows[i])
             [gwindows[i] terpDidStop];
     
-    for (i = 0; i < MAXSND; i++)
-        if (gchannels[i])
-            [gchannels[i] stop];
+//    for (i = 0; i < MAXSND; i++)
+//        if (gchannels[i])
+//            [gchannels[i] stop];
     
     [[self window] setTitle:
      [[[self window] title] stringByAppendingString: @" (finished)"]];
