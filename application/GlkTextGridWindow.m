@@ -505,7 +505,7 @@
     line_request = NO;
     if (input)
     {
-        NSString *str = [[input stringValue] retain];
+        NSString *str = [input stringValue];
         [self putString: str style: style_Input];
         [input removeFromSuperview];
         input = nil;

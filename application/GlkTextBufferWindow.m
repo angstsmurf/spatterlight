@@ -151,7 +151,7 @@
 
 - (instancetype) initWithContainerSize: (NSSize)size
 {
-    self = [super initWithSize: size];
+    self = [super initWithContainerSize: size];
     
     if (self)
         margins = [[NSMutableArray alloc] init];
@@ -551,7 +551,7 @@
 
 - (void) saveAsRTF: (id)sender
 {
-    NSSavePanel *panel = [[NSSavePanel savePanel] retain];
+    NSSavePanel *panel = [NSSavePanel savePanel];
     [panel setTitle: @"Save Scrollback"];
     [panel setNameFieldLabel: @"Save Text: "];
     [panel setRequiredFileType: [textstorage containsAttachments] ? @"rtfd" : @"rtf"];
