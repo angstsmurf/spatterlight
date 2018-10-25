@@ -55,18 +55,18 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
     n = write(sendfd, &msgbuf, sizeof msgbuf);
     if (n != sizeof msgbuf)
     {
-	fprintf(stderr, "protocol error. exiting.\n");
-	exit(1);
+        fprintf(stderr, "protocol error. exiting.\n");
+        exit(1);
     }
     
     if (len)
     {
-	n = write(sendfd, buf, len);
-	if (n != len)
-	{
-	    fprintf(stderr, "protocol error. exiting.\n");
-	    exit(1);
-	}
+        n = write(sendfd, buf, len);
+        if (n != len)
+        {
+            fprintf(stderr, "protocol error. exiting.\n");
+            exit(1);
+        }
     }
 }
 
@@ -77,18 +77,18 @@ void readmsg(struct message *msgbuf, char *buf)
     n = read(readfd, msgbuf, sizeof (struct message));
     if (msgbuf->cmd == ERROR || n != sizeof (struct message))
     {
-	fprintf(stderr, "protocol error. exiting.\n");
-	exit(1);
+        fprintf(stderr, "protocol error. exiting.\n");
+        exit(1);
     }
     
     if (msgbuf->len)
     {
-	n = read(readfd, buf, msgbuf->len);
-	if (n != msgbuf->len)
-	{
-	    fprintf(stderr, "protocol error. exiting.\n");
-	    exit(1);
-	}
+        n = read(readfd, buf, msgbuf->len);
+        if (n != msgbuf->len)
+        {
+            fprintf(stderr, "protocol error. exiting.\n");
+            exit(1);
+        }
     }
     
     buf[msgbuf->len] = 0;
@@ -112,30 +112,30 @@ void win_hello(void)
     win_select(&event, 1);
     if (event.type != evtype_Arrange)
     {
-	fprintf(stderr, "protocol handshake error\n");
-	exit(1);
+        fprintf(stderr, "protocol handshake error\n");
+        exit(1);
     }
 }
 
 void win_flush(void)
 {
     if (buffering == BUFNONE)
-	return;
+        return;
     
     //	fprintf(stderr, "win_flush buf=%d len=%d win=%d\n", buffering, bufferlen, bufferwin);
     
     if (buffering == BUFPRINT)
     {
-	sendmsg(PRINT, bufferwin, bufferatt, 0, 0, 0,
-		bufferlen * sizeof(unsigned short),
-		(char*)pbuf);
+        sendmsg(PRINT, bufferwin, bufferatt, 0, 0, 0,
+                bufferlen * sizeof(unsigned short),
+                (char*)pbuf);
     }
     
     if (buffering == BUFRECT)
     {
-	sendmsg(FILLRECT, bufferwin, bufferlen, 0, 0, 0,
-		bufferlen * sizeof(struct fillrect),
-		(char*)rbuf);
+        sendmsg(FILLRECT, bufferwin, bufferlen, 0, 0, 0,
+                bufferlen * sizeof(struct fillrect),
+                (char*)rbuf);
     }
     
     buffering = BUFNONE;
@@ -147,21 +147,21 @@ void win_flush(void)
 void win_print(int name, int ch, int at)
 {
     if (buffering == BUFRECT)
-	win_flush();
+        win_flush();
     
     if (buffering == BUFPRINT && bufferwin != name)
-	win_flush();
+        win_flush();
     if (buffering == BUFPRINT && bufferatt != at)
-	win_flush();
+        win_flush();
     if (buffering == BUFPRINT && bufferlen >= PBUFSIZE)
-	win_flush();
+        win_flush();
     
     if (buffering == BUFNONE)
     {
-	buffering = BUFPRINT;
-	bufferwin = name;
-	bufferatt = at;
-	bufferlen = 0;
+        buffering = BUFPRINT;
+        bufferwin = name;
+        bufferatt = at;
+        bufferlen = 0;
     }
     
     pbuf[bufferlen++] = ch;
@@ -181,8 +181,8 @@ void wintitle(void)
         sprintf(buf, "%s", gli_program_name);
     if (strlen(buf))
         sendmsg(SETTITLE, 0, 0, 0, 0, 0,
-            (int)(strlen(buf)), // * sizeof(unsigned short)
-            (char*)buf);
+                (int)(strlen(buf)), // * sizeof(unsigned short)
+                (char*)buf);
     fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
 }
 
@@ -191,18 +191,18 @@ void wintitle(void)
 void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
 {
     if (buffering == BUFPRINT)
-	win_flush();
+        win_flush();
     
     if (buffering == BUFRECT && bufferwin != name)
-	win_flush();
+        win_flush();
     if (buffering == BUFRECT && bufferlen >= RBUFSIZE)
-	win_flush();
+        win_flush();
     
     if (buffering == BUFNONE)
     {
-	buffering = BUFRECT;
-	bufferwin = name;
-	bufferlen = 0;
+        buffering = BUFRECT;
+        bufferwin = name;
+        bufferlen = 0;
     }
     
     rbuf[bufferlen].color = color;
@@ -233,7 +233,7 @@ int win_newwin(int type)
 {
     win_flush();
     if (type == wintype_Graphics && !gli_enable_graphics)
-	return -1;
+        return -1;
     sendmsg(NEWWIN, type, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
     return wmsg.a1;
@@ -329,7 +329,7 @@ int win_findimage(int resno)
 {
     win_flush();
     if (!gli_enable_graphics)
-	return 0;
+        return 0;
     sendmsg(FINDIMAGE, resno, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
     return wmsg.a1;
@@ -339,7 +339,7 @@ void win_loadimage(int resno, char *buf, int len)
 {
     win_flush();
     if (gli_enable_graphics)
-	sendmsg(LOADIMAGE, resno, 0, 0, 0, 0, len, buf);
+        sendmsg(LOADIMAGE, resno, 0, 0, 0, 0, len, buf);
 }
 
 void win_sizeimage(glui32 *width, glui32 *height)
@@ -347,15 +347,15 @@ void win_sizeimage(glui32 *width, glui32 *height)
     win_flush();
     if (gli_enable_graphics)
     {
-	sendmsg(SIZEIMAGE, 0, 0, 0, 0, 0, 0, NULL);
-	readmsg(&wmsg, wbuf);
-	if (width) *width = wmsg.a1;
-	if (height) *height = wmsg.a2;
+        sendmsg(SIZEIMAGE, 0, 0, 0, 0, 0, 0, NULL);
+        readmsg(&wmsg, wbuf);
+        if (width) *width = wmsg.a1;
+        if (height) *height = wmsg.a2;
     }
     else
     {
-	if (width) *width = 1;
-	if (height) *height = 1;
+        if (width) *width = 1;
+        if (height) *height = 1;
     }
 }
 
@@ -363,14 +363,14 @@ void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 heig
 {
     win_flush();
     if (gli_enable_graphics)
-	sendmsg(DRAWIMAGE, name, val1, val2, width, height, 0, NULL);
+        sendmsg(DRAWIMAGE, name, val1, val2, width, height, 0, NULL);
 }
 
 int win_newchan(void)
 {
     win_flush();
     if (!gli_enable_sound)
-	return 0;
+        return 0;
     sendmsg(NEWCHAN, 0, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
     return wmsg.a1;
@@ -386,7 +386,7 @@ int win_findsound(int resno)
 {
     win_flush();
     if (!gli_enable_sound)
-	return 0;
+        return 0;
     sendmsg(FINDSOUND, resno, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
     return wmsg.a1;
@@ -396,7 +396,7 @@ void win_loadsound(int resno, char *buf, int len)
 {
     win_flush();
     if (gli_enable_sound)
-	sendmsg(LOADSOUND, resno, 0, 0, 0, 0, len, buf);
+        sendmsg(LOADSOUND, resno, 0, 0, 0, 0, len, buf);
 }
 
 void win_setvolume(int chan, int volume)
@@ -409,7 +409,7 @@ void win_playsound(int chan, int repeats, int notify)
 {
     win_flush();
     if (gli_enable_sound)
-	sendmsg(PLAYSOUND, chan, repeats, notify, 0, 0, 0, NULL);
+        sendmsg(PLAYSOUND, chan, repeats, notify, 0, 0, 0, NULL);
 }
 
 void win_stopsound(int chan)
@@ -429,16 +429,16 @@ void win_clearhint(int wintype, int styl, int hint)
     win_flush();
     sendmsg(CLEARHINT, wintype, styl, hint, 0, 0, 0, NULL);
     fprintf(stderr, "sent CLEARHINT type:%d styl:%d hint:%d\n",wintype, styl, hint);
-
+    
 }
 
 int win_style_measure(int name, int styl, int hint, glui32 *result)
 {
     win_flush();
     sendmsg(STYLEMEASURE, name, styl, hint, 0, 0, 0, NULL);
-
+    
     fprintf(stderr, "sent STYLEMEASURE name:%d styl:%d hint:%d\n",name, styl, hint);
-
+    
     readmsg(&wmsg, wbuf);
     *result = wmsg.a2;
     return wmsg.a1;  /* TRUE or FALSE */
@@ -463,117 +463,117 @@ again:
     
     switch (wmsg.cmd)
     {
-	case OKAY:
-	    // fprintf(stderr, "no event...?!\n");
-	    break;
-	    
-	case EVTPREFS:
-	    gli_enable_graphics = wmsg.a1;
-	    gli_enable_sound = wmsg.a2;
-	    goto again;
-	    
-	case EVTARRANGE:
-	    // fprintf(stderr, "arrange event\n");
-	    if ( gscreenw == wmsg.a1 &&
-		 gscreenh == wmsg.a2 &&
-		 gbuffermarginx == wmsg.a3 &&
-		 gbuffermarginy == wmsg.a3 &&
-		 ggridmarginx == wmsg.a4 &&
-		 ggridmarginy == wmsg.a4 &&
-		 gcellw == wmsg.a5 / 256.0 &&
-		 gcellh == wmsg.a6 / 256.0 )
-		goto again;
-	    
-	    event->type = evtype_Arrange;
-	    gscreenw = wmsg.a1;
-	    gscreenh = wmsg.a2;
-	    gbuffermarginx = wmsg.a3;
-	    gbuffermarginy = wmsg.a3;
-	    ggridmarginx = wmsg.a4;
-	    ggridmarginy = wmsg.a4;
-	    gcellw = wmsg.a5 / 256.0;
-	    gcellh = wmsg.a6 / 256.0;
-	    gli_windows_rearrange();
-	    break;
-	    
-	case EVTLINE:
-	    // fprintf(stderr, "line input event\n");
-	    
-	    event->type = evtype_LineInput;
-	    event->win = gli_window_for_peer(wmsg.a1);
-	    
-	    if (event->win->line_request_uni)
-	    {
-		event->val1 = MIN(wmsg.a2, event->win->line.cap / sizeof(glui32));
-		glui32 *obuf = event->win->line.buf;
-		unsigned short *ibuf = (unsigned short*)wbuf;
-		for (i = 0; i < event->val1; i++)
-		    obuf[i] = ibuf[i];
-		if (event->win->echostr)
-		    gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, event->val1);
-	    }
-	    else
-	    {
-		event->val1 = MIN(wmsg.a2, event->win->line.cap);
-		unsigned char *obuf = event->win->line.buf;
-		unsigned short *ibuf = (unsigned short*)wbuf;
-		for (i = 0; i < event->val1; i++)
-		    obuf[i] = ibuf[i] < 0x100 ? ibuf[i] : '?';
-		if (event->win->echostr)
-		    gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
-	    }
-	    
-	    if (gli_unregister_arr)
-	    {
-		(*gli_unregister_arr)(event->win->line.buf, event->win->line.cap,
-				      event->win->line_request_uni ? "&+#!Iu" : "&+#!Cn",
-				      event->win->line.inarrayrock);
-	    }
-		
-	    event->win->line.buf = NULL;
-	    event->win->line.len = 0;
-	    event->win->line.cap = 0;
-	    
-	    event->win->line_request = FALSE;
-	    event->win->line_request_uni = FALSE;
-	    
-	    break;
-
-	case EVTKEY:
-	    // fprintf(stderr, "key input event for %d\n", wmsg.a1);
-	    event->type = evtype_CharInput;
-	    event->win = gli_window_for_peer(wmsg.a1);
-	    event->val1 = wmsg.a2;
-	    event->win->char_request = FALSE;
-	    event->win->char_request_uni = FALSE;
-	    break;
-	    
-	case EVTMOUSE:
-	    // fprintf(stderr, "mouse input event\n");
-	    event->type = evtype_MouseInput;
-	    event->win = gli_window_for_peer(wmsg.a1);
-	    event->val1 = wmsg.a2;
-	    event->val2 = wmsg.a3;
-	    event->win->mouse_request = FALSE;
-	    break;
-	case EVTTIMER:
-	    // fprintf(stderr, "timer event\n");
-	    event->type = evtype_Timer;
-	    break;
-	case EVTSOUND:
-	    // fprintf(stderr, "sound notification event\n");
-	    event->type = evtype_SoundNotify;
-	    break;
-	case EVTHYPER:
-	    // fprintf(stderr, "hyperlink event\n");
-	    event->type = evtype_Hyperlink;
-	    event->win = gli_window_for_peer(wmsg.a1);
-	    event->val1 = wmsg.a2;
-	    // XXX
-	    break;
-	default:
-	    // fprintf(stderr, "unknown event type: %d\n", wmsg.cmd);
-	    break;
+        case OKAY:
+            // fprintf(stderr, "no event...?!\n");
+            break;
+            
+        case EVTPREFS:
+            gli_enable_graphics = wmsg.a1;
+            gli_enable_sound = wmsg.a2;
+            goto again;
+            
+        case EVTARRANGE:
+            // fprintf(stderr, "arrange event\n");
+            if ( gscreenw == wmsg.a1 &&
+                gscreenh == wmsg.a2 &&
+                gbuffermarginx == wmsg.a3 &&
+                gbuffermarginy == wmsg.a3 &&
+                ggridmarginx == wmsg.a4 &&
+                ggridmarginy == wmsg.a4 &&
+                gcellw == wmsg.a5 / 256.0 &&
+                gcellh == wmsg.a6 / 256.0 )
+                goto again;
+            
+            event->type = evtype_Arrange;
+            gscreenw = wmsg.a1;
+            gscreenh = wmsg.a2;
+            gbuffermarginx = wmsg.a3;
+            gbuffermarginy = wmsg.a3;
+            ggridmarginx = wmsg.a4;
+            ggridmarginy = wmsg.a4;
+            gcellw = wmsg.a5 / 256.0;
+            gcellh = wmsg.a6 / 256.0;
+            gli_windows_rearrange();
+            break;
+            
+        case EVTLINE:
+            // fprintf(stderr, "line input event\n");
+            
+            event->type = evtype_LineInput;
+            event->win = gli_window_for_peer(wmsg.a1);
+            
+            if (event->win->line_request_uni)
+            {
+                event->val1 = MIN(wmsg.a2, event->win->line.cap / sizeof(glui32));
+                glui32 *obuf = event->win->line.buf;
+                unsigned short *ibuf = (unsigned short*)wbuf;
+                for (i = 0; i < event->val1; i++)
+                    obuf[i] = ibuf[i];
+                if (event->win->echostr)
+                    gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, event->val1);
+            }
+            else
+            {
+                event->val1 = MIN(wmsg.a2, event->win->line.cap);
+                unsigned char *obuf = event->win->line.buf;
+                unsigned short *ibuf = (unsigned short*)wbuf;
+                for (i = 0; i < event->val1; i++)
+                    obuf[i] = ibuf[i] < 0x100 ? ibuf[i] : '?';
+                if (event->win->echostr)
+                    gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
+            }
+            
+            if (gli_unregister_arr)
+            {
+                (*gli_unregister_arr)(event->win->line.buf, event->win->line.cap,
+                                      event->win->line_request_uni ? "&+#!Iu" : "&+#!Cn",
+                                      event->win->line.inarrayrock);
+            }
+            
+            event->win->line.buf = NULL;
+            event->win->line.len = 0;
+            event->win->line.cap = 0;
+            
+            event->win->line_request = FALSE;
+            event->win->line_request_uni = FALSE;
+            
+            break;
+            
+        case EVTKEY:
+            // fprintf(stderr, "key input event for %d\n", wmsg.a1);
+            event->type = evtype_CharInput;
+            event->win = gli_window_for_peer(wmsg.a1);
+            event->val1 = wmsg.a2;
+            event->win->char_request = FALSE;
+            event->win->char_request_uni = FALSE;
+            break;
+            
+        case EVTMOUSE:
+            // fprintf(stderr, "mouse input event\n");
+            event->type = evtype_MouseInput;
+            event->win = gli_window_for_peer(wmsg.a1);
+            event->val1 = wmsg.a2;
+            event->val2 = wmsg.a3;
+            event->win->mouse_request = FALSE;
+            break;
+        case EVTTIMER:
+            // fprintf(stderr, "timer event\n");
+            event->type = evtype_Timer;
+            break;
+        case EVTSOUND:
+            // fprintf(stderr, "sound notification event\n");
+            event->type = evtype_SoundNotify;
+            break;
+        case EVTHYPER:
+            // fprintf(stderr, "hyperlink event\n");
+            event->type = evtype_Hyperlink;
+            event->win = gli_window_for_peer(wmsg.a1);
+            event->val1 = wmsg.a2;
+            // XXX
+            break;
+        default:
+            // fprintf(stderr, "unknown event type: %d\n", wmsg.cmd);
+            break;
     }
 }
 
