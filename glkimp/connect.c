@@ -40,7 +40,7 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
 {
     ssize_t n;
     struct message msgbuf;
-    
+
     msgbuf.cmd = cmd;
     msgbuf.a1 = a1;
     msgbuf.a2 = a2;
@@ -49,7 +49,7 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
     msgbuf.a5 = a5;
     msgbuf.a6 = 0;
     msgbuf.len = len;
-    
+
 #ifdef DEBUG
     //    fprintf(stderr, "SENDMSG %d len=%d\n", cmd, len);
 #endif
@@ -59,7 +59,7 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
         fprintf(stderr, "protocol error. exiting.\n");
         exit(1);
     }
-    
+
     if (len)
     {
         n = write(sendfd, buf, len);
@@ -74,14 +74,14 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
 void readmsg(struct message *msgbuf, char *buf)
 {
     ssize_t n;
-    
+
     n = read(readfd, msgbuf, sizeof (struct message));
     if (msgbuf->cmd == ERROR || n != sizeof (struct message))
     {
         fprintf(stderr, "protocol error. exiting.\n");
         exit(1);
     }
-    
+
     if (msgbuf->len)
     {
         n = read(readfd, buf, msgbuf->len);
@@ -91,24 +91,24 @@ void readmsg(struct message *msgbuf, char *buf)
             exit(1);
         }
     }
-    
+
     buf[msgbuf->len] = 0;
 }
 
 void win_hello(void)
 {
     event_t event;
-    
+
     win_flush();
-    
+
     sendmsg(HELLO, 0, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
-    
+
     gli_enable_graphics = wmsg.a1;
     gli_enable_sound = wmsg.a2;
-    
+
     event.type = 0;
-    
+
     // get first event, which should always be Arrange
     win_select(&event, 1);
     if (event.type != evtype_Arrange)
@@ -122,23 +122,23 @@ void win_flush(void)
 {
     if (buffering == BUFNONE)
         return;
-    
+
     //	fprintf(stderr, "win_flush buf=%d len=%d win=%d\n", buffering, bufferlen, bufferwin);
-    
+
     if (buffering == BUFPRINT)
     {
         sendmsg(PRINT, bufferwin, bufferatt, 0, 0, 0,
                 bufferlen * sizeof(unsigned short),
                 (char*)pbuf);
     }
-    
+
     if (buffering == BUFRECT)
     {
         sendmsg(FILLRECT, bufferwin, bufferlen, 0, 0, 0,
                 bufferlen * sizeof(struct fillrect),
                 (char*)rbuf);
     }
-    
+
     buffering = BUFNONE;
     bufferlen = 0;
     bufferatt = -1;
@@ -149,14 +149,14 @@ void win_print(int name, int ch, int at)
 {
     if (buffering == BUFRECT)
         win_flush();
-    
+
     if (buffering == BUFPRINT && bufferwin != name)
         win_flush();
     if (buffering == BUFPRINT && bufferatt != at)
         win_flush();
     if (buffering == BUFPRINT && bufferlen >= PBUFSIZE)
         win_flush();
-    
+
     if (buffering == BUFNONE)
     {
         buffering = BUFPRINT;
@@ -164,7 +164,7 @@ void win_print(int name, int ch, int at)
         bufferatt = at;
         bufferlen = 0;
     }
-    
+
     pbuf[bufferlen++] = ch;
 }
 
@@ -173,7 +173,7 @@ void win_print(int name, int ch, int at)
 void wintitle(void)
 {
     char buf[256];
-    
+
     if (strlen(gli_story_title))
         sprintf(buf, "%s", gli_story_title);
     else if (strlen(gli_story_name))
@@ -195,19 +195,19 @@ void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
 {
     if (buffering == BUFPRINT)
         win_flush();
-    
+
     if (buffering == BUFRECT && bufferwin != name)
         win_flush();
     if (buffering == BUFRECT && bufferlen >= RBUFSIZE)
         win_flush();
-    
+
     if (buffering == BUFNONE)
     {
         buffering = BUFRECT;
         bufferwin = name;
         bufferlen = 0;
     }
-    
+
     rbuf[bufferlen].color = color;
     rbuf[bufferlen].x = x;
     rbuf[bufferlen].y = y;
@@ -506,12 +506,12 @@ void win_select(event_t *event, int block)
 {
     int i;
     win_flush();
-    
+
 again:
-    
+
     sendmsg(NEXTEVENT, block, 0, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
-    
+
     switch (wmsg.cmd)
     {
         case OKAY:
@@ -519,12 +519,12 @@ again:
             fprintf(stderr, "no event...?!\n");
 #endif
             break;
-            
+
         case EVTPREFS:
             gli_enable_graphics = wmsg.a1;
             gli_enable_sound = wmsg.a2;
             goto again;
-            
+
         case EVTARRANGE:
 #ifdef DEBUG
             //	     fprintf(stderr, "arrange event\n");
@@ -538,7 +538,7 @@ again:
                 gcellw == wmsg.a5 / 256.0 &&
                 gcellh == wmsg.a6 / 256.0 )
                 goto again;
-            
+
             event->type = evtype_Arrange;
             gscreenw = wmsg.a1;
             gscreenh = wmsg.a2;
@@ -581,23 +581,23 @@ again:
                 if (event->win->echostr)
                     gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
             }
-            
+
             if (gli_unregister_arr)
             {
                 (*gli_unregister_arr)(event->win->line.buf, event->win->line.cap,
                                       event->win->line_request_uni ? "&+#!Iu" : "&+#!Cn",
                                       event->win->line.inarrayrock);
             }
-            
+
             event->win->line.buf = NULL;
             event->win->line.len = 0;
             event->win->line.cap = 0;
-            
+
             event->win->line_request = FALSE;
             event->win->line_request_uni = FALSE;
-            
+
             break;
-            
+
         case EVTKEY:
 #ifdef DEBUG
             //fprintf(stderr, "key input event for %d\n", wmsg.a1);
@@ -608,7 +608,7 @@ again:
             event->win->char_request = FALSE;
             event->win->char_request_uni = FALSE;
             break;
-            
+
         case EVTMOUSE:
 #ifdef DEBUG
             //fprintf(stderr, "mouse input event\n");
@@ -642,7 +642,7 @@ again:
             event->val1 = wmsg.a2;
             event->win->hyper_request = FALSE;
             break;
-            
+
 		case EVTVOLUME:
 #ifdef DEBUG
             fprintf(stderr, "volume notification event");
@@ -650,7 +650,7 @@ again:
             event->type = evtype_VolumeNotify;
             event->val2 = wmsg.a3;
             break;
-            
+
         default:
 #ifdef DEBUG
             fprintf(stderr, "unknown event type: %d\n", wmsg.cmd);
