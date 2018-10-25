@@ -170,17 +170,17 @@ typedef struct attr_s
 } attr_t;
 
 struct glk_window_struct {
-    
+
     glui32 magicnum;
     glui32 rock;
     glui32 type;
-    
+
     window_t *parent;		/* pair window which contains this one */
     grect_t bbox;		/* content rectangle, excluding borders */
 
-    
+
     int peer;			/* GUI server peer window */
-    
+
     struct
     {
         window_t *child1, *child2;
@@ -190,7 +190,7 @@ struct glk_window_struct {
         window_t *key;			/* NULL or a leaf-descendant (not a Pair) */
         glui32 size;			/* size value */
     } pair;
-    
+
     struct
     {
         void *buf;
@@ -198,12 +198,12 @@ struct glk_window_struct {
         int cap;
         gidispatch_rock_t inarrayrock;
     } line;
-    
+
     glui32 background;	/* for graphics windows */
-    
+
     stream_t *str; /* the window stream. */
     stream_t *echostr; /* the window's echo stream, if any. */
-    
+
     int line_request;
     int line_request_uni;
     int char_request;
@@ -213,20 +213,20 @@ struct glk_window_struct {
     int more_request;
     int scroll_request;
     int image_loaded;
-    
+
     glui32 echo_line_input;
     glui32 *line_terminators;
     glui32 termct;
 
     glui32 style;
-    
+
     //void *linebuf;
     //glui32 linebuflen;
     //int linecap;
     //gidispatch_rock_t inarrayrock;
-    
+
     attr_t attr;
-    
+
     gidispatch_rock_t disprock;
     window_t *next, *prev; /* in the big linked list of windows */
 
@@ -265,25 +265,25 @@ void gli_delete_window(window_t *win);
 struct glk_stream_struct {
     glui32 magicnum;
     glui32 rock;
-    
+
     int type; /* file, window, or memory stream */
     int unicode; /* one-byte or four-byte chars? Not meaningful for windows */
-    
+
     glui32 readcount, writecount;
     int readable, writable;
-    
+
     /* for strtype_Window */
     window_t *win;
-    
+
     /* for strtype_File */
     FILE *file;
     glui32 lastop; /* 0, filemode_Write, or filemode_Read */
     //int textfile;
-    
+
     /* for strtype_Resource */
     int isbinary;
 
-    /* for strtype_Memory and strtype_Resource. Separate pointers for 
+    /* for strtype_Memory and strtype_Resource. Separate pointers for
        one-byte and four-byte streams */
     unsigned char *buf;
     unsigned char *bufptr;
@@ -351,15 +351,15 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
 struct glk_schannel_struct
 {
     glui32 rock;
-    
+
     void *sample; /* Mix_Chunk (or FMOD Sound) */
     void *music; /* Mix_Music (or FMOD Music) */
     void *decode; /* Sound_Sample */
-    
+
     void *sdl_rwops; /* SDL_RWops */
     unsigned char *sdl_memory;
     int sdl_channel;
-    
+
     int resid; /* for notifies */
     int status;
     int channel;
@@ -395,21 +395,21 @@ extern void gli_initialize_sound(void);
 
 /* A macro which reads and decodes one character of UTF-8. Needs no
  explanation, I'm sure.
- 
+
  Oh, okay. The character will be written to *chptr (so pass in "&ch",
  where ch is a glui32 variable). eofcond should be a condition to
  evaluate end-of-stream -- true if no more characters are readable.
  nextch is a function which reads the next character; this is invoked
  exactly as many times as necessary.
- 
+
  val0, val1, val2, val3 should be glui32 scratch variables. The macro
  needs these. Just define them, you don't need to pay attention to them
  otherwise.
- 
+
  The macro itself evaluates to true if ch was successfully set, or
  false if something went wrong. (Not enough characters, or an
  invalid byte sequence.)
- 
+
  This is not the worst macro I've ever written, but I forget what the
  other one was.
  */
