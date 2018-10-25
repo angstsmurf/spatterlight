@@ -1,5 +1,6 @@
 
 @class GlkController;
+@class GlkHyperlink;
 
 @interface GlkWindow : NSView
 {

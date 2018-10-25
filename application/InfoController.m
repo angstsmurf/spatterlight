@@ -1,4 +1,5 @@
 #import "main.h"
+#import "InfoController.h"
 
 #include "treaty.h"
 #include "babel_handler.h"
@@ -63,9 +64,9 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     NSSize maxsize;
     float scale;
     
-    maxsize = [[[self window] screen] frame].size;
-    wellsize = [imageView frame].size;
-    cursize = [[self window] frame].size;
+    maxsize = [[[[self window] screen] frame] size];
+    wellsize = [[imageView frame] size];
+    cursize = [[[self window] frame] size];
     
     maxsize.width = maxsize.width * 0.75 - (cursize.width - wellsize.width);
     maxsize.height = maxsize.height * 0.75 - (cursize.height - wellsize.height);

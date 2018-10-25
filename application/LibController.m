@@ -3,6 +3,8 @@
  */
 
 #import "main.h"
+#import "InfoController.h"
+
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);

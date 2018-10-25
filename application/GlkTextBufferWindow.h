@@ -18,6 +18,8 @@
  * the text flowing around them.
  */
 
+@class MarginImage;
+
 @interface MarginContainer : NSTextContainer
 {
     NSMutableArray *margins;

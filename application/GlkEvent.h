@@ -16,6 +16,8 @@ unsigned chartokeycode(unsigned ch);
 - (id) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name;
 - (id) initTimerEvent;
 - (id) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
+- (id) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name;
+
 - (void) writeEvent: (NSInteger)fd;
 - (NSInteger) type;
 

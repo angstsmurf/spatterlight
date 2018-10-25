@@ -40,7 +40,7 @@
     
     /* the glk objects */
     GlkWindow *gwindows[MAXWIN];
-    GlkSoundChannel *gchannels[MAXSND];
+    //GlkSoundChannel *gchannels[MAXSND];
     int windowdirty; /* the contentView needs to repaint */
     
     /* image/sound resource uploading protocol */

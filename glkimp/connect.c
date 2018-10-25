@@ -499,6 +499,9 @@ void win_volume_notify(int notify)
     sendmsg(EVTVOLUME, 0, 0, notify, 0, 0, 0, NULL);
 }
 
+void gli_notification_waiting()
+{}
+
 void win_select(event_t *event, int block)
 {
     int i;

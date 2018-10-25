@@ -382,8 +382,7 @@ struct glk_schannel_struct
 };
 
 extern void gli_initialize_sound(void);
-
-
+void gli_notification_waiting(void);
 
 /* A macro that I can't think of anywhere else to put it. */
 

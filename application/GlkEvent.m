@@ -131,6 +131,17 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
+- (id) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name
+{
+	self = [super init];
+	if (self)
+	{
+		type = EVTHYPER;
+		win = name;
+		val1 = linkid;
+	}
+	return self;
+}
 
 - (void) writeEvent: (NSInteger)fd
 {
