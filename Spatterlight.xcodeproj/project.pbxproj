@@ -2785,8 +2785,6 @@
 		961CCECA09F239E700528FF9 /* application */ = {
 			isa = PBXGroup;
 			children = (
-				6DF87CDA218259DB0020E9A1 /* GlkHyperlink.h */,
-				6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */,
 				961CCEDF09F239E700528FF9 /* main.h */,
 				961CCEE009F239E700528FF9 /* main.m */,
 				961CCEDD09F239E700528FF9 /* AppDelegate.h */,
@@ -2803,6 +2801,8 @@
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
 				96CC04C80A133B93004F30FA /* GlkStyle.h */,
 				96CC04C90A133B93004F30FA /* GlkStyle.m */,
+				6DF87CDA218259DB0020E9A1 /* GlkHyperlink.h */,
+				6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */,
 				961CCEE909F239E700528FF9 /* GlkWindow.h */,
 				961CCEEA09F239E700528FF9 /* GlkWindow.m */,
 				961CCEE509F239E700528FF9 /* GlkTextBufferWindow.h */,
