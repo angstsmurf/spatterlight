@@ -139,16 +139,6 @@
 
 @implementation MarginContainer
 
-- (instancetype) initWithSize:(NSSize)size
-{
-    return [self initWithContainerSize:size];
-}
-
-- (instancetype) initWithCoder:(NSCoder *)coder
-{
-    return [self initWithContainerSize:NSZeroSize];
-}
-
 - (instancetype) initWithContainerSize: (NSSize)size
 {
     self = [super initWithContainerSize: size];
