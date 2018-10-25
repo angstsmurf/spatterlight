@@ -306,18 +306,6 @@ struct glk_fileref_struct {
     fileref_t *next, *prev; /* in the big linked list of filerefs */
 };
 
-typedef glui32 gli_case_block_t[2]; /* upper, lower */
-/* If both are 0xFFFFFFFF, you have to look at the special-case table. */
-
-typedef glui32 gli_case_special_t[3]; /* upper, lower, title */
-/* Each of these points to a subarray of the unigen_special_array
- (in cgunicode.c). In that subarray, element zero is the length,
- and that's followed by length unicode values. */
-
-typedef glui32 gli_decomp_block_t[2]; /* count, position */
-/* The position points to a subarray of the unigen_decomp_array.
- If the count is zero, there is no decomposition. */
-
 /* Declarations of library internal functions. */
 
 extern void gli_initialize_misc(void);
