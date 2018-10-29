@@ -972,11 +972,13 @@ NSInteger colorToInteger(NSColor *color)
             /*
              * Create and destroy windows and channels
              */
-            
+
+#pragma mark Create and destroy windows and sound channels
+
         case NEWWIN:
             ans->cmd = OKAY;
             ans->a1 = (int)[self handleNewWindowOfType: req->a1];
-            NSLog(@"glkctl newwin %d (type %d)", ans->a1, req->a1);
+//            NSLog(@"glkctl newwin %d (type %d)", ans->a1, req->a1);
             break;
 
         case NEWCHAN:
@@ -1006,7 +1008,9 @@ NSInteger colorToInteger(NSColor *color)
             /*
              * Load images; load and play sounds
              */
-            
+
+#pragma mark Load images; load and play sounds
+
         case FINDIMAGE:
             ans->cmd = OKAY;
             ans->a1 = lastimageresno == req->a1;
@@ -1061,41 +1065,15 @@ NSInteger colorToInteger(NSColor *color)
 //                [gchannels[req->a1] stop];
 //            }
             break;
-            
-#ifdef GLK_MODULE_HYPERLINKS
-            
-        case SETLINK:
-            NSLog(@"glkctl SETLINK %d", req->a1);
-            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-            {
-              //  [gwindows[req->a1] setHyperlink];
-            }
-            break;
-            
-        case INITLINK:
-            NSLog(@"glkctl INITLINK %d", req->a1);
-            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-            {
-             //   [gwindows[req->a1] initHyperlink];
-            }
-            break;
-            
-        case CANCELLINK:
-            NSLog(@"glkctl CANCELLINK %d", req->a1);
-            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-            {
-               // [gwindows[req->a1] cancelHyperlink];
-            }
-            break;
-            
-#endif
-            
+
             /*
              * Window sizing, printing, drawing, etc...
              */
-            
+
+#pragma mark Window sizing, printing, drawing …
+
         case SIZWIN:
-            NSLog(@"glkctl sizwin %d: %d x %d", req->a1, req->a4-req->a2, req->a5-req->a3);
+//            NSLog(@"glkctl sizwin %d: %d x %d", req->a1, req->a4-req->a2, req->a5-req->a3);
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
                 int x0, y0, x1, y1;
@@ -1116,57 +1094,38 @@ NSInteger colorToInteger(NSColor *color)
         case CLRWIN:
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
+//				NSLog(@"glkctl: CLRWIN %d.", req->a1);
                 [gwindows[req->a1] clear];
             }
             break;
-            
-        case SETBGND:
-            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-            {
-                [gwindows[req->a1] setBgColor: req->a2];
-            }
-            break;
-            
-        case MOVETO:
-            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-            {
-                int x = req->a2;
-                int y = req->a3;
-                if (x < 0) x = 10000;
-                if (y < 0) y = 10000;
-                [gwindows[req->a1] moveToColumn: x row: y];
-            }
-            break;
-            
-        case PRINT:
-            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-            {
-                [self handlePrintOnWindow: gwindows[req->a1]
-                                    style: req->a2
-                                   buffer: (unichar*)buf
-                                   length: req->len / sizeof(unichar)];
-            }
-            break;
-        
-        case SETTITLE:
-            [self handleChangeTitle: (char*)buf
-							 length: req->len];
-            break;
 
-		case TERMINATORS:
-			[self handleSetTerminatorsOnWindow: gwindows[req->a1]
-										buffer: (glui32 *)buf
-										length: req->a2];
+		case SETBGND:
+			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+			{
+				if (![gwindows[req->a1] isKindOfClass:[GlkGraphicsWindow class]])
+				{
+					NSLog(@"glkctl: SETBGND: ERROR win %d is not a graphics window.", req->a1);
+					break;
+				}
+
+				[gwindows[req->a1] setBgColor: req->a2];
+			}
 			break;
-            
-        case FLOWBREAK:
-            NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
-            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-            {
-                [gwindows[req->a1] flowBreak];
-            }
-            break;
-            
+
+		case DRAWIMAGE:
+			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+			{
+				if (lastimage)
+				{
+					[gwindows[req->a1] drawImage: lastimage
+											val1: req->a2
+											val2: req->a3
+										   width: req->a4
+										  height: req->a5];
+				}
+			}
+			break;
+
         case FILLRECT:
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
@@ -1177,27 +1136,55 @@ NSInteger colorToInteger(NSColor *color)
                 }
             }
             break;
-            
-        case DRAWIMAGE:
-            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-            {
-                if (lastimage)
-                {
-                    [gwindows[req->a1] drawImage: lastimage
-                                            val1: req->a2
-                                            val2: req->a3
-                                           width: req->a4
-                                          height: req->a5];
-                }
-            }
-            break;
-            
+
+		case PRINT:
+			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+			{
+				[self handlePrintOnWindow: gwindows[req->a1]
+									style: req->a2
+								   buffer: (unichar*)buf
+								   length: req->len / sizeof(unichar)];
+			}
+			break;
+
+		case MOVETO:
+			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+			{
+				int x = req->a2;
+				int y = req->a3;
+				if (x < 0) x = 10000;
+				if (y < 0) y = 10000;
+				[gwindows[req->a1] moveToColumn: x row: y];
+			}
+			break;
+
+		case SETECHO:
+			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1] && [gwindows[req->a1] isKindOfClass: [GlkTextBufferWindow class]])
+				[(GlkTextBufferWindow *)gwindows[req->a1] echo:(req->a2 != 0)];
+			break;
+
             /*
              * Request and cancel events
              */
-            
+
+		case TERMINATORS:
+			[self handleSetTerminatorsOnWindow: gwindows[req->a1]
+										buffer: (glui32 *)buf
+										length: req->a2];
+			break;
+
+		case FLOWBREAK:
+			NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
+			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+			{
+				[gwindows[req->a1] flowBreak];
+			}
+			break;
+
+#pragma mark Request and cancel events
+
         case INITLINE:
-            NSLog(@"glkctl INITLINE %d", req->a1);
+//            NSLog(@"glkctl INITLINE %d", req->a1);
             [self performScroll];
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
@@ -1210,7 +1197,7 @@ NSInteger colorToInteger(NSColor *color)
             break;
 
         case CANCELLINE:
-            NSLog(@"glkctl CANCELLINE %d", req->a1);
+//            NSLog(@"glkctl CANCELLINE %d", req->a1);
             ans->cmd = OKAY;
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
@@ -1220,26 +1207,21 @@ NSInteger colorToInteger(NSColor *color)
             }
             break;
 
-        case SETECHO:
-            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1] && [gwindows[req->a1] isKindOfClass: [GlkTextBufferWindow class]])
-                [(GlkTextBufferWindow *)gwindows[req->a1] echo:(req->a2 != 0)];
-            break;
-
         case INITCHAR:
             [self performScroll];
-            NSLog(@"glkctl initchar %d", req->a1);
+//            NSLog(@"glkctl initchar %d", req->a1);
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
                 [gwindows[req->a1] initChar];
             break;
 
         case CANCELCHAR:
-            NSLog(@"glkctl CANCELCHAR %d", req->a1);
+//            NSLog(@"glkctl CANCELCHAR %d", req->a1);
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
                 [gwindows[req->a1] cancelChar];
             break;
 
         case INITMOUSE:
-            NSLog(@"glkctl initmouse %d", req->a1);
+//            NSLog(@"glkctl initmouse %d", req->a1);
             [self performScroll];
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
                 [gwindows[req->a1] initMouse];
@@ -1249,20 +1231,63 @@ NSInteger colorToInteger(NSColor *color)
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
                 [gwindows[req->a1] cancelMouse];
             break;
-            
+
+		case SETLINK:
+			//            NSLog(@"glkctl set hyperlink %d in window %d", req->a2, req->a1);
+			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+			{
+				[gwindows[req->a1] setHyperlink:req->a2];
+			}
+			break;
+
+		case INITLINK:
+			//            NSLog(@"glkctl request hyperlink event in window %d", req->a1);
+			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+			{
+				[gwindows[req->a1] initHyperlink];
+			}
+			break;
+
+		case CANCELLINK:
+			//            NSLog(@"glkctl cancel hyperlink event in window %d", req->a1);
+			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+			{
+				[gwindows[req->a1] cancelHyperlink];
+			}
+			break;
+
         case TIMER:
             [self handleSetTimer: req->a1];
             break;
-            
+
+		case EVTSOUND:
+			NSLog(@"glkctl EVTSOUND %d, %d. Send it back to where it came from.", req->a2, req->a3);
+			[self handleSoundNotification: req->a3 withSound:req->a2];
+			break;
+
+		case EVTVOLUME:
+			NSLog(@"glkctl EVTVOLUME %d. Send it back where it came.", req->a3);
+			[self handleVolumeNotification: req->a3];
+			break;
+
+
             /*
              * Hugo specifics (hugo doesn't use glk to arrange windows)
              */
-            
+
+#pragma mark Non-standard Glk extensions stuff
+
         case MAKETRANSPARENT:
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
                 [gwindows[req->a1] makeTransparent];
             break;
-            
+
+		case SETTITLE:
+			[self handleChangeTitle: (char*)buf
+							 length: req->len];
+			break;
+
+
             /*
              * HTML-TADS specifics will go here.
              */
