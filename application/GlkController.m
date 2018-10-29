@@ -884,7 +884,7 @@ NSInteger colorToInteger(NSColor *color)
 	NSArray *keys = [myDict allKeys];
 
 	for (key in keys)	{
-		[myDict setObject:@0 forKey:key];
+		[myDict setObject:@(NO) forKey:key];
 	}
 
 //	NSLog(@"handleSetTerminatorsOnWindow: %ld length: %u", (long)gwindow.name, len );
@@ -895,7 +895,7 @@ NSInteger colorToInteger(NSColor *color)
 		id terminator_setting = [myDict objectForKey:key];
 		if (terminator_setting)
 		{
-			[myDict setObject:@1 forKey:key];
+			[myDict setObject:@(YES) forKey:key];
 		}
 		else NSLog(@"Illegal line terminator request: %u", buf[i]);
 	}
