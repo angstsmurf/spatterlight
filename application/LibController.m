@@ -1065,7 +1065,7 @@ static NSInteger Strcmp(NSString *a, NSString *b)
         a = [a substringFromIndex: 4];
     if ([b hasPrefix: @"The "] || [b hasPrefix: @"the "])
         b = [b substringFromIndex: 4];
-    return [a caseInsensitiveCompare: b];
+    return [a localizedCaseInsensitiveCompare: b];
 }
 
 static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key)

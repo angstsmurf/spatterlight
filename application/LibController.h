@@ -27,7 +27,7 @@
 
 @class InfoController;
 
-@interface LibController : NSWindowController<NSDraggingDestination>
+@interface LibController : NSWindowController<NSDraggingDestination, NSWindowDelegate>
 {
     NSURL *homepath;
     
