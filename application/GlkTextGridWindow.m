@@ -16,7 +16,7 @@
 
 @implementation GlkTextGridWindow
 
-- (id) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
+- (instancetype) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
 {
     self = [super initWithGlkController: glkctl_ name: name_];
 
@@ -51,10 +51,12 @@
 
 - (void) prefsDidChange
 {
-    NSRange range;
-    int i;
+	NSRange range = NSMakeRange(0, 0);
+	NSRange linkrange= NSMakeRange(0, 0);
 
-    [super prefsDidChange];
+	int i;
+
+	[super prefsDidChange];
 
     /* reassign styles to attributedstrings */
     for (i = 0; i < [lines count]; i++)
@@ -64,31 +66,24 @@
         while (x < [line length])
         {
             id styleobject = [line attribute:@"GlkStyle" atIndex:x effectiveRange:&range];
-            int stylevalue = [styleobject intValue];
-            int style = stylevalue & 0xff;
-            int fg = (stylevalue >> 8) & 0xff;
-            int bg = (stylevalue >> 16) & 0xff;
 
-            [line setAttributes: styles[style].attributes range: range];
-            if (fg || bg)
-            {
-                [line addAttribute: @"GlkStyle" value: [NSNumber numberWithInt: stylevalue] range: range];
-                if ([Preferences stylesEnabled])
-                {
-                    if (fg)
-                        [line addAttribute: NSForegroundColorAttributeName
-                                     value: [Preferences foregroundColor: fg - 1]
-                                     range: range];
-                    if (bg)
-                        [line addAttribute: NSBackgroundColorAttributeName
-                                     value: [Preferences backgroundColor: bg - 1]
-                                     range: range];
-                }
-            }
+			NSDictionary * attributes = [self attributesFromStylevalue:[styleobject intValue]];
 
-            x = (int)(range.location + range.length);
-        }
-    }
+			id hyperlink = [line attribute: NSLinkAttributeName atIndex:x effectiveRange:&linkrange];
+
+			[line setAttributes: attributes range: range];
+
+			if (hyperlink)
+			{
+				[line addAttribute: NSLinkAttributeName
+							 value: hyperlink
+							 range: linkrange];
+			}
+
+			x = (int)(range.location + range.length);
+
+		}
+	}
 
     [self setNeedsDisplay: YES];
     dirty = NO;
@@ -345,7 +340,7 @@
                                           initWithString: [string substringWithRange: NSMakeRange(pos, amountToDraw)]
                                           attributes: att];
 
-        [[lines objectAtIndex:ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw)withAttributedString: partString];
+        [[lines objectAtIndex:ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw) withAttributedString: partString];
 
         dirty = YES;
 
@@ -549,10 +544,11 @@
                 [win grabFocus];
                 NSLog(@"Passing on keypress");
                 if ([win isKindOfClass: [GlkTextBufferWindow class]])
+                {
                     [(GlkTextBufferWindow *)win onKeyDown:evt];
+                }
                 else
                     [win keyDown:evt];
-                [win grabFocus];
                 return;
             }
         }
