@@ -480,16 +480,20 @@
 }
 
 
-- (void) adjustTextviewHeightForLowImages
+- (BOOL) adjustTextviewHeightForLowImages
 {
+    BOOL didAdjust = NO;
+    
 	for (MarginImage *image in margins)
 	{
 		if (self.textView.frame.size.height < NSMaxY(image.bounds))
 		{
 			[self.textView setFrameSize:NSMakeSize(self.textView.frame.size.width, NSMaxY(image.bounds) + self.textView.textContainerInset.height * 2)];
+            didAdjust = YES;
+
 		}
 	}
-
+    return didAdjust;
 }
 
 - (void) drawRect: (NSRect)rect
@@ -528,8 +532,6 @@
 
     }
 
-    [self adjustTextviewHeightForLowImages];
-    [(MyTextView *)self.textView scrollToBottom];
     [self.textView setNeedsDisplay:YES];
 
 //	for (FlowBreak *flowbreak in flowbreaks)
@@ -961,6 +963,9 @@
 		[textstorage appendAttributedString: attstr];
 
 	}
+    
+    if ([container adjustTextviewHeightForLowImages])
+        [self performScroll];
 }
 
 - (void) flowBreak
@@ -1142,7 +1147,7 @@
                 [textview scrollLineDown: nil];
                 return;
             default:
-                [self scrollToBottom];
+                [self performScroll];
                 break;
         }
     }
