@@ -546,6 +546,7 @@
             win = [glkctl windowWithNum:i];
             if (i != self.name && win && win.wantsFocus)
             {
+                [win grabFocus];
                 NSLog(@"Passing on keypress");
                 if ([win isKindOfClass: [GlkTextBufferWindow class]])
                     [(GlkTextBufferWindow *)win onKeyDown:evt];
@@ -588,7 +589,7 @@
         m = 0;
 
     NSInteger x0 = NSMinX(bounds) + m;
-    NSInteger y0 = NSMaxY(bounds) - m;
+    NSInteger y0 = NSMinY(bounds) + m;
     NSInteger lineHeight = [Preferences lineHeight];
     float charWidth = [Preferences charWidth];
 
@@ -597,7 +598,7 @@
 
     NSRect caret;
     caret.origin.x = x0 + xpos * charWidth;
-    caret.origin.y = y0 - (ypos + 1) * lineHeight;
+    caret.origin.y = y0 + ypos * lineHeight;
     caret.size.width = 20 * charWidth;
     caret.size.height = lineHeight;
 
