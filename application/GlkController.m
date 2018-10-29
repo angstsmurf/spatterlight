@@ -185,8 +185,13 @@ static const char *msgnames[] =
         gevent = [[GlkEvent alloc] initArrangeWidth: defsize.width height: defsize.height];
         [self queueEvent: gevent];
     }
-    
-    // [self setDocumentEdited: YES];
+
+	soundNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
+}
+
+- (void) keepAlive: (NSTimer *)timer
+{
+	[readfh waitForDataInBackgroundAndNotify];
 }
 
 - (void) windowWillClose: (id)sender
@@ -203,6 +208,13 @@ static const char *msgnames[] =
         [timer invalidate];
         timer = nil;
     }
+
+	if (soundNotificationsTimer)
+	{
+		NSLog(@"glkctl: force stop the sound notifications timer");
+		[soundNotificationsTimer invalidate];
+		soundNotificationsTimer = nil;
+	}
 
     if (task)
     {
@@ -855,8 +867,14 @@ NSInteger colorToInteger(NSColor *color)
 
 - (void) handleSoundNotification: (NSInteger)notify withSound:(NSInteger)sound
 {
-//	GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:sound withSound:notify];
-//	[self queueEvent:gev];
+	GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:notify withSound:sound];
+	[self queueEvent:gev];
+}
+
+- (void) handleVolumeNotification: (NSInteger)notify
+{
+	GlkEvent *gev = [[GlkEvent alloc] initVolumeNotify:notify];
+	[self queueEvent:gev];
 }
 
 - (void) handleSetTerminatorsOnWindow:(GlkWindow*)gwindow	buffer: (glui32 *)buf length: (glui32)len

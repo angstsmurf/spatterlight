@@ -311,9 +311,7 @@ Uint32 volume_timer_callback(Uint32 interval, void *param)
     {
         if (chan->volume_notify)
         {
-            gli_event_store(evtype_VolumeNotify, 0,
-                0, chan->volume_notify);
-            gli_notification_waiting();
+            win_volume_notify(chan->volume_notify);
         }
 
         if (!chan->timer)
@@ -407,17 +405,14 @@ void glk_schannel_set_volume_ext(schanid_t chan, glui32 vol,
 /* Notify the music channel completion */
 static void music_completion_callback()
 {
-    if (!music_channel)
+    if (!music_channel || !music_channel->resid)
     {
         gli_strict_warning("music callback failed");
         return;
     }
-
-    if (music_channel->notify && music_channel->resid)
+    else
     {
-        gli_event_store(evtype_SoundNotify, 0, music_channel->resid,
-            music_channel->notify);
-        gli_notification_waiting();
+        win_sound_notify(music_channel->resid, music_channel->notify);
     }
     cleanup_channel(music_channel);
 }
@@ -442,9 +437,7 @@ static void sound_completion_callback(int chan)
     {
         if (sound_channel->notify)
         {
-            gli_event_store(evtype_SoundNotify, 0,
-                sound_channel->resid, sound_channel->notify);
-            gli_notification_waiting();
+            win_sound_notify(sound_channel->resid, sound_channel->notify);
         }
         cleanup_channel(sound_channel);
         sound_channels[chan] = 0;
@@ -458,9 +451,7 @@ static void sound_completion_callback(int chan)
         {
             if (sound_channel->notify)
             {
-                gli_event_store(evtype_SoundNotify, 0,
-                    sound_channel->resid, sound_channel->notify);
-                gli_notification_waiting();
+                win_sound_notify(sound_channel->resid, sound_channel->notify);
             }
             cleanup_channel(sound_channel);
             sound_channels[chan] = 0;
@@ -681,7 +672,7 @@ static glui32 play_mod(schanid_t chan, long len)
     fclose(file);
     chan->music = Mix_LoadMUS(tn);
     remove(tn);
-    free(tn);
+//    free(tn);
     if (chan->music)
     {
         SDL_LockAudio();

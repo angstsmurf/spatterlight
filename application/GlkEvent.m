@@ -60,7 +60,7 @@ unsigned chartokeycode(unsigned ch)
     return keycode_Unknown;
 }
 
-- (id) initPrefsEvent
+- (instancetype) initPrefsEvent
 {
     self = [super init];
     if (self)
@@ -72,7 +72,7 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (id) initCharEvent: (unsigned)v forWindow: (NSInteger)name
+- (instancetype) initCharEvent: (unsigned)v forWindow: (NSInteger)name
 {
     self = [super init];
     if (self)
@@ -84,7 +84,7 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (id) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name
+- (instancetype) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name
 {
     self = [super init];
     if (self)
@@ -97,7 +97,7 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (id) initLineEvent: (NSString*)v forWindow: (NSInteger)name
+- (instancetype) initLineEvent: (NSString*)v forWindow: (NSInteger)name
 {
     self = [super init];
     if (self)
@@ -110,7 +110,7 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (id) initTimerEvent
+- (instancetype) initTimerEvent
 {
     self = [super init];
     if (self)
@@ -118,7 +118,7 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (id) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
+- (instancetype) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
 {
     self = [super init];
     if (self)
@@ -130,7 +130,30 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (id) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name
+- (instancetype) initSoundNotify: (NSInteger)notify withSound:(NSInteger)sound
+{
+	self = [super init];
+	if (self)
+	{
+		type = EVTSOUND;
+		val1 = sound;
+		val2 = notify;
+	}
+	return self;
+}
+
+- (instancetype) initVolumeNotify: (NSInteger)notify
+{
+	self = [super init];
+	if (self)
+	{
+		type = EVTVOLUME;
+		val2 = notify;
+	}
+	return self;
+}
+
+- (instancetype) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name
 {
 	self = [super init];
 	if (self)
