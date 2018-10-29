@@ -567,19 +567,32 @@ NSString* fontToString(NSFont *font)
     [Preferences rebuildTextAttributes];
 }
 
+#pragma mark - Font panel
+
 - (IBAction) showFontPanel: (id)sender
 {
     selfontp = nil;
-    
-    if (sender == btnGridFont) selfontp = &gridroman;
-    if (sender == btnBufferFont) selfontp = &bufroman;
-    if (sender == btnInputFont) selfontp = &inputfont;
-    
+    colorp = nil;
+	colorp2 = nil;
+
+
+    if (sender == btnGridFont) { selfontp = &gridroman; colorp = &gridfg; colorp2 = &gridbg; }
+	if (sender == btnBufferFont) { selfontp = &bufroman;  colorp = &bufferfg; colorp2 = &bufferbg;  }
+    if (sender == btnInputFont) { selfontp = &inputfont;  colorp = &inputfg; colorp2 = &bufferbg; }
+
     if (selfontp)
     {
-        [[self window] makeFirstResponder: [self window]];
-        [[NSFontManager sharedFontManager] setSelectedFont: *selfontp isMultiple:NO];
-        [[NSFontManager sharedFontManager] orderFrontFontPanel: self];
+        NSDictionary *attr = @{ @"NSColor" : *colorp, @"NSDocumentBackgroundColor" : *colorp2 };
+        
+        [self.window makeFirstResponder: self.window];
+
+        [NSFontManager sharedFontManager].target = self;
+		[[NSFontPanel sharedFontPanel] setDelegate:self];
+		[[NSFontPanel sharedFontPanel] makeKeyAndOrderFront:self];
+
+		[[NSFontManager sharedFontManager] setSelectedAttributes:attr isMultiple: NO];
+		[[NSFontManager sharedFontManager] setSelectedFont: *selfontp isMultiple:NO];
+
     }
 }
 
@@ -611,6 +624,71 @@ NSString* fontToString(NSFont *font)
     }
 
     [Preferences rebuildTextAttributes];
+}
+
+// This is sent from the font panel when changing font style there
+
+- (void) changeAttributes:(id)sender
+{
+    NSLog(@"changeAttributes:%@", sender);
+
+    NSDictionary * newAttributes = [sender convertAttributes:@{}];
+
+	NSLog(@"Keys in newAttributes:");
+	for(NSString *key in [newAttributes allKeys]) {
+		NSLog(@" %@ : %@",key, [newAttributes valueForKey: key]);
+	}
+
+//	"NSForegroundColorAttributeName"	"NSColor"
+//	"NSUnderlineStyleAttributeName"		"NSUnderline"
+//	"NSStrikethroughStyleAttributeName"	"NSStrikethrough"
+//	"NSUnderlineColorAttributeName"		"NSUnderlineColor"
+//	"NSStrikethroughColorAttributeName"	"NSStrikethroughColor"
+//										"NSShadow"
+
+    if ([newAttributes valueForKey: @"NSColor"])
+	{
+        NSColorWell *colorWell = nil;
+        NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
+        if (currentFont == gridroman)
+            colorWell = clrGridFg;
+        else if (currentFont == bufroman)
+            colorWell = clrBufferFg;
+        else if (currentFont == inputfont)
+            colorWell = clrInputFg;
+        colorWell.color=[newAttributes valueForKey: @"NSColor"];
+        [self changeColor:colorWell];
+    }
+}
+
+// This is sent from the font panel when changing background color there
+
+- (void)changeDocumentBackgroundColor:(id)sender
+{
+	NSLog(@"changeDocumentBackgroundColor");
+
+	NSColorWell *colorWell = nil;
+	NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
+	if (currentFont == gridroman)
+		colorWell = clrGridBg;
+	else if (currentFont == bufroman)
+		colorWell = clrBufferBg;
+	else if (currentFont == inputfont)
+		colorWell = clrBufferBg;
+	colorWell.color=[sender color];
+	[self changeColor:colorWell];
+}
+
+- (NSUInteger)validModesForFontPanel:(NSFontPanel *)fontPanel
+{
+//	NSLog(@"validModesForFontPanel");
+
+	return NSFontPanelFaceModeMask | NSFontPanelCollectionModeMask | NSFontPanelSizeModeMask | NSFontPanelTextColorEffectModeMask | NSFontPanelDocumentColorEffectModeMask;}
+
+- (void) windowWillClose: (id)sender
+{
+	if ([[NSFontPanel sharedFontPanel] isVisible])
+		[[NSFontPanel sharedFontPanel] orderOut:self];
 }
 
 - (IBAction) changeSmartQuotes: (id)sender

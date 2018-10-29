@@ -6,7 +6,7 @@
 #define TAG_SPACES_ONE 1
 #define TAG_SPACES_TWO 2
 
-@interface Preferences : NSWindowController
+@interface Preferences : NSWindowController <NSWindowDelegate>
 {
     IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
     IBOutlet NSColorWell *clrInputFg, *clrBufferFg, *clrGridFg;
@@ -21,6 +21,7 @@
     IBOutlet NSButton *btnUseScreenFonts;
     NSFont * __strong *selfontp;
     NSColor * __strong *colorp;
+    NSColor * __strong *colorp2;
 }
 
 + (void) rebuildTextAttributes;
