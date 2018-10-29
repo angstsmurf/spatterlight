@@ -1246,7 +1246,7 @@
 
     _shouldDrawCaret = NO;
     [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(enableCaret:) userInfo:nil repeats:NO];
-
+    
 	NSLog(@"mouseDown in buffer window.");
 	if (hyper_request)
 	{
