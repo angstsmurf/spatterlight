@@ -46,7 +46,6 @@
 - (void) fillRects: (struct fillrect *)rects count: (NSInteger)n;
 - (void) drawImage: (NSImage*)buf val1: (NSInteger)v1 val2: (NSInteger)v2 width: (NSInteger)w height: (NSInteger)h;
 - (void) flowBreak;
-- (BOOL) hasLineRequest;
 - (void) prefsDidChange;
 - (void) terpDidStop;
 
