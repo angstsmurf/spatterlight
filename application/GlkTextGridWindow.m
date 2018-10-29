@@ -114,7 +114,7 @@
 
 - (BOOL) wantsFocus
 {
-    return char_request;
+    return char_request || line_request;
 }
 
 - (BOOL) acceptsFirstResponder
