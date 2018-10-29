@@ -1116,12 +1116,12 @@
             win = [glkctl windowWithNum:i];
             if (i != self.name && win && win.wantsFocus)
             {
+                [win grabFocus];
                 NSLog(@"Passing on keypress");
                 if ([win isKindOfClass: [GlkTextBufferWindow class]])
                     [(GlkTextBufferWindow *)win onKeyDown:evt];
                 else
                     [win keyDown:evt];
-                [win grabFocus];
                 return;
             }
         }
@@ -1209,6 +1209,9 @@
 
     else
     {
+        if (line_request)
+            [self grabFocus];
+            
         [(MyTextView*)textview superKeyDown: evt];
     }
 }
@@ -1518,11 +1521,6 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
             newrange.location = [textstorage length];
     }
     return newrange;
-}
-
-- (BOOL) hasLineRequest
-{
-	return (line_request);
 }
 
 @end
