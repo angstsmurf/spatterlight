@@ -64,15 +64,10 @@ enum
     SETVOLUME,
     PLAYSOUND,
     STOPSOUND,
-
-#ifdef GLK_MODULE_HYPERLINKS
-
     SETLINK,
     INITLINK,
     CANCELLINK,
-
-#endif
-    
+    EVTHYPER,
     NEXTEVENT,
     EVTARRANGE,
     EVTLINE,
@@ -80,7 +75,6 @@ enum
     EVTMOUSE,
     EVTTIMER,
     EVTSOUND,
-    EVTHYPER,
 	EVTVOLUME,
 
     EVTPREFS
