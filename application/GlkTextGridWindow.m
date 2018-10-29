@@ -19,17 +19,17 @@
 - (id) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
 {
     self = [super initWithGlkController: glkctl_ name: name_];
-    
+
     if (self)
     {
         lines = [[NSMutableArray alloc] init];
         input = nil;
-        
+
         rows = 0;
         cols = 0;
         xpos = 0;
         ypos = 0;
-        
+
         line_request = NO;
         char_request = NO;
         mouse_request = NO;
@@ -37,7 +37,7 @@
 
         hyperlinks = [[NSMutableArray alloc] init];
         currentHyperlink = nil;
-        
+
         transparent = NO;
     }
     return self;
@@ -53,9 +53,9 @@
 {
     NSRange range;
     int i;
-    
+
     [super prefsDidChange];
-    
+
     /* reassign styles to attributedstrings */
     for (i = 0; i < [lines count]; i++)
     {
@@ -68,7 +68,7 @@
             int style = stylevalue & 0xff;
             int fg = (stylevalue >> 8) & 0xff;
             int bg = (stylevalue >> 16) & 0xff;
-            
+
             [line setAttributes: styles[style].attributes range: range];
             if (fg || bg)
             {
@@ -85,11 +85,11 @@
                                      range: range];
                 }
             }
-            
+
             x = (int)(range.location + range.length);
         }
     }
-    
+
     [self setNeedsDisplay: YES];
     dirty = NO;
 }
@@ -148,52 +148,52 @@
     //NSRange glyphRange;
     //NSPoint layoutLocation;
     //NSRect textRect;
-    
+
     NSInteger m = [Preferences gridMargins];
     if (transparent)
         m = 0;
-    
+
     float x0 = NSMinX(bounds) + m;
     float y0 = NSMinY(bounds) + m;
-    
+
     if (!transparent)
     {
         NSColor *color;
-        
+
         color = nil;
-        
+
         if ([Preferences stylesEnabled])
         {
             color = [[styles[style_Normal] attributes] objectForKey: NSBackgroundColorAttributeName];
             //if (bgnd != 0)
               //  color = [Preferences backgroundColor: (int)(bgnd - 1)];
         }
-        
+
         if (!color)
             color = [Preferences gridBackground];
-        
+
         [color set];
-        
+
         NSRectFill(rect);
     }
-    
+
     NSInteger y;
     NSInteger lineHeight = [Preferences lineHeight];
     //NSInteger charWidth = [Preferences charWidth];
-    
+
     NSTextStorage *textStorage = [[NSTextStorage alloc] init];
     NSLayoutManager *textLayout = [[NSLayoutManager alloc] init];
     NSTextContainer *textContainer = [[NSTextContainer alloc] init];
-    
+
     [textLayout addTextContainer: textContainer];
     [textStorage addLayoutManager: textLayout];
     [textLayout setUsesScreenFonts: [Preferences useScreenFonts]];
-    
+
     /* draw from bottom up because solid backgrounds overdraw descenders... */
     for (y = [lines count] - 1; y >= 0; y--)
     {
         // [attstr drawAtPoint: NSMakePoint(x0, y0 + y * lineHeight)]; -- if it were only this simple.
-        
+
         [textStorage setAttributedString: [lines objectAtIndex: y]];
         NSRange glyphRange = [textLayout glyphRangeForTextContainer: textContainer];
         NSPoint layoutLocation = [textLayout locationForGlyphAtIndex: 0];
@@ -202,7 +202,7 @@
                                         atPoint: NSMakePoint(x0 - layoutLocation.x, y0 + y * lineHeight)];
         [textLayout drawGlyphsForGlyphRange: glyphRange
                                     atPoint: NSMakePoint(x0 - layoutLocation.x, y0 + y * lineHeight)];
-        
+
 #if 0
         if (ypos == y && char_request && [[self window] firstResponder] == self)
         {
@@ -217,56 +217,56 @@
         }
 #endif
     }
-    
+
 }
 
 - (void) setFrame: (NSRect)frame
 {
     NSInteger r;
-    
+
     [super setFrame: frame];
-    
+
     NSInteger newcols = floor (frame.size.width / [Preferences charWidth]);
     NSInteger newrows = frame.size.height / [Preferences lineHeight];
-    
+
     if (newcols == cols && newrows == rows)
         return;
-    
+
     cols = newcols;
     rows = newrows;
-    
+
     for (r = [lines count]; r < rows; r++)
     {
         [lines addObject: [[NSMutableAttributedString alloc] init]];
     }
-    
+
     // Remove old lines
     if ([lines count] > rows)
     {
         [lines removeObjectsInRange: NSMakeRange(rows, [lines count] - rows)];
     }
-    
+
     // Size lines
     for (r = 0; r < rows; r++)
     {
         NSMutableAttributedString* line = [lines objectAtIndex: r];
-        
+
         if ([line length] < cols)
         {
             // Add spaces to the end (not sure about the attributes to use)
             NSInteger amountToAdd = cols - [line length];
             unichar* spaces = malloc(sizeof(unichar)*amountToAdd);
             NSInteger c;
-            
+
             for (c = 0; c < amountToAdd; c++)
             {
                 spaces[c] = ' ';
             }
-            
+
             NSAttributedString* string = [[NSAttributedString alloc]
                                           initWithString: [NSString stringWithCharacters: spaces length: amountToAdd]
                                           attributes: styles[style_Normal].attributes];
-            
+
             [line appendAttributedString: string];
             free(spaces);
         }
@@ -275,7 +275,7 @@
             [line deleteCharactersInRange: NSMakeRange(cols, [line length] - cols)];
         }
     }
-    
+
     dirty = YES;
 }
 
@@ -292,10 +292,10 @@
 
 	hyperlinks = nil;
 	hyperlinks = [[NSMutableArray alloc] init];
-    
+
     rows = cols = 0;
     xpos = ypos = 0;
-    
+
     [self setFrame: [self frame]];
 }
 
@@ -305,7 +305,7 @@
     NSInteger pos = 0;
     NSDictionary *att = [self attributesFromStylevalue:stylevalue];
     //NSColor *col;
-    
+
     // Check for newlines
     int x;
     for (x = 0; x < length; x++)
@@ -319,14 +319,14 @@
             return;
         }
     }
-    
+
     // Write this string
     while (pos < length)
     {
         // Can't write if we've fallen off the end of the window
         if (ypos >= [lines count] || ypos > rows)
             break;
-        
+
         // Can only write a certain number of characters
         if (xpos >= cols)
         {
@@ -334,21 +334,21 @@
             ypos ++;
             continue;
         }
-        
+
         // Get the number of characters to write
         NSInteger amountToDraw = cols - xpos;
         if (amountToDraw > [string length] - pos)
             amountToDraw = [string length] - pos;
-        
+
         // "Draw" the characters
         NSAttributedString* partString = [[NSAttributedString alloc]
                                           initWithString: [string substringWithRange: NSMakeRange(pos, amountToDraw)]
                                           attributes: att];
-	
+
         [[lines objectAtIndex:ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw)withAttributedString: partString];
-        
+
         dirty = YES;
-        
+
         // Update the x position (and the y position if necessary)
         xpos += amountToDraw;
         pos += amountToDraw;
@@ -358,7 +358,7 @@
             ypos++;
         }
     }
-    
+
     dirty = YES;
 }
 
@@ -391,7 +391,6 @@
 			currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, length - currentHyperlink.startpos);
 
 			[hyperlinks addObject:currentHyperlink];
-			currentHyperlink = nil;
 
 			NSNumber *link = [NSNumber numberWithInteger: currentHyperlink.index];
 
@@ -433,7 +432,6 @@
 				}
 			}
 		}
-
 	}
 	if (!currentHyperlink && linkid)
 	{
@@ -484,7 +482,7 @@
     if ((mouse_request || hyper_request)) // && theEvent.clickCount == 2)
     {
         [glkctl markLastSeen];
-        
+
         NSPoint p;
         p = [theEvent locationInWindow];
         p = [self convertPoint: p fromView: nil];
@@ -537,7 +535,7 @@
     unsigned ch = keycode_Unknown;
     if ([str length])
         ch = chartokeycode([str characterAtIndex: 0]);
-    
+
     GlkWindow *win;
     // pass on this key press to another GlkWindow if we are not expecting one
     if (!self.wantsFocus)
@@ -555,11 +553,11 @@
                 return;
             }
         }
-    
+
     if (char_request && ch != keycode_Unknown)
     {
         [glkctl markLastSeen];
-        
+
         //NSLog(@"char event from %d", name);
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
         [glkctl queueEvent: gev];
@@ -586,23 +584,23 @@
     NSInteger m = [Preferences gridMargins];
     if (transparent)
         m = 0;
-    
+
     NSInteger x0 = NSMinX(bounds) + m;
     NSInteger y0 = NSMaxY(bounds) - m;
     NSInteger lineHeight = [Preferences lineHeight];
     float charWidth = [Preferences charWidth];
-    
+
     if (ypos >= [lines count])
         ypos = [lines count] - 1;
-    
+
     NSRect caret;
     caret.origin.x = x0 + xpos * charWidth;
     caret.origin.y = y0 - (ypos + 1) * lineHeight;
     caret.size.width = 20 * charWidth;
     caret.size.height = lineHeight;
-    
+
     NSLog(@"grid initLine: %@ in: %ld", str, (long)self.name);
-    
+
     input = [[NSTextField alloc] initWithFrame: caret];
     input.editable = YES;
     input.bordered = NO;
@@ -625,8 +623,8 @@
 
     [self addSubview: input];
     [[self window] makeFirstResponder: input];
-    
-    line_request = YES;	
+
+    line_request = YES;
 }
 
 - (NSString*) cancelLine
@@ -649,14 +647,14 @@
     if (input)
     {
         [glkctl markLastSeen];
-        
+
         NSString *str = [input stringValue];
         [self putString: str style: style_Input];
         GlkEvent *gev = [[GlkEvent alloc] initLineEvent: str forWindow: self.name];
         [glkctl queueEvent: gev];
         [input removeFromSuperview];
         input = nil;
-    }    
+    }
 }
 
 @end

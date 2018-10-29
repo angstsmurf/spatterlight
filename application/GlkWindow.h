@@ -8,11 +8,10 @@
     GlkStyle *styles[style_NUMSTYLES];
     NSInteger bgnd;
 	NSMutableArray *hyperlinks;
+	GlkHyperlink *currentHyperlink;
+	NSMutableDictionary *currentTerminators;
 
-    GlkHyperlink *currentHyperlink;
-    NSMutableDictionary *currentTerminators;
-
-    NSInteger char_request;
+	NSInteger char_request;
 }
 
 @property (readonly) NSInteger name;
