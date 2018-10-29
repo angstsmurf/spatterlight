@@ -2022,7 +2022,7 @@ gms_graphics_timeout (void)
        * a count of pixels in each layer, useful for knowing when to stop
        * scanning for layers in the rendering loop.
        */
-#ifndef GARGLK
+#if !(defined(GARGLK))
       gms_graphics_assign_layers (off_screen, on_screen,
                                   gms_graphics_width, gms_graphics_height,
                                   layers, layer_usage);
@@ -2046,7 +2046,7 @@ gms_graphics_timeout (void)
       deferred_repaint = FALSE;
     }
 
-#ifndef GARGLK
+#if !(defined(GARGLK))
   /*
    * Make a portion of an image pass, from lower to higher image layers,
    * scanning for invalidated pixels that are in the current image layer we
@@ -2196,7 +2196,7 @@ gms_graphics_timeout (void)
        * Re-assign layers based on animation changes to the off-screen
        * buffer.
        */
-#ifndef GARGLK
+#if !(defined(GARGLK))
       gms_graphics_assign_layers (off_screen, on_screen,
                                   gms_graphics_width, gms_graphics_height,
                                   layers, layer_usage);
@@ -2345,7 +2345,7 @@ ms_showpic (type32 picture, type8 mode)
    */
   if (gms_graphics_enabled)
     {
-      /* 
+      /*
        * Ensure graphics on, then set the new picture flag and start the
        * updating "thread".
        */
