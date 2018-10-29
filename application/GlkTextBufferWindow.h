@@ -1,3 +1,6 @@
+@class MarginImage;
+@class GlkTextBufferWindow;
+
 // I suppose this is necessary to get rid of that ugly Markup menu on attached images.
 
 @interface MyAttachmentCell : NSTextAttachmentCell
@@ -18,7 +21,14 @@
  * the text flowing around them.
  */
 
-@class MarginImage;
+@interface MyTextView : NSTextView
+{
+    GlkTextBufferWindow * glkTextBuffer;
+}
+- (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textBuffer: (GlkTextBufferWindow *)textbuffer;
+- (void) superKeyDown: (NSEvent*)evt;
+- (void) scrollToBottom;
+@end
 
 @interface MarginContainer : NSTextContainer
 {
@@ -29,7 +39,7 @@
 
 - (id) initWithContainerSize: (NSSize)size;
 - (void) clearImages;
-- (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top size: (NSSize)size linkid: (NSUInteger)linkid;
+- (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top linkid: (NSUInteger)linkid;
 - (void) drawRect: (NSRect)rect;
 - (void) adjustTextviewHeightForLowImages;
 - (void) invalidateLayout;
@@ -73,7 +83,7 @@
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
 
 @property (readonly) NSInteger lastchar;
-
+@property BOOL shouldDrawCaret;
 
 @end
 

@@ -23,7 +23,6 @@
 
 - (instancetype) initWithGlkController: (GlkController*)glkctl name: (NSInteger)name;
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value;
-- (BOOL) wantsFocus;
 - (BOOL) getStyleVal: (NSInteger)style hint: (NSInteger)hint value: (NSInteger *) value;
 - (void) grabFocus;
 - (void) flushDisplay;
@@ -36,18 +35,18 @@
 - (NSDictionary *) attributesFromStylevalue: (NSInteger)stylevalue;
 - (void) moveToColumn: (NSInteger)x row: (NSInteger)y;
 - (void) initLine: (NSString*)buf;
-
-- (NSString*) cancelLine;
-
 - (void) initChar;
 - (void) cancelChar;
 - (void) initMouse;
 - (void) cancelMouse;
+- (void) setHyperlink: (NSInteger)linkid;
+- (void) initHyperlink;
+- (void) cancelHyperlink;
 
 - (void) fillRects: (struct fillrect *)rects count: (NSInteger)n;
 - (void) drawImage: (NSImage*)buf val1: (NSInteger)v1 val2: (NSInteger)v2 width: (NSInteger)w height: (NSInteger)h;
 - (void) flowBreak;
-
+- (BOOL) hasLineRequest;
 - (void) prefsDidChange;
 - (void) terpDidStop;
 

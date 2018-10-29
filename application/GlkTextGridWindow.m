@@ -419,6 +419,7 @@
 
 				// Make characters hyperlink
 				[[lines objectAtIndex:currenty] addAttribute:NSLinkAttributeName value:link range:NSMakeRange(currentx, amountToDraw)];
+                [[lines objectAtIndex:currenty] addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(currentx, amountToDraw)];
 
 				dirty = YES;
 
@@ -431,6 +432,7 @@
 					currenty++;
 				}
 			}
+			currentHyperlink = nil;
 		}
 	}
 	if (!currentHyperlink && linkid)
@@ -494,7 +496,7 @@
 			{
 				for (hyp in hyperlinks)
 				{
-					if (NSLocationInRange(round(p.y) * cols + round(p.x), hyp.range))
+					if (NSLocationInRange(floor(p.y) * cols + floor(p.x), hyp.range))
 					{
 						gev = [[GlkEvent alloc] initLinkEvent:hyp.index forWindow:self.name];
 						[glkctl queueEvent: gev];
@@ -568,7 +570,7 @@
 
 	NSNumber *key = [NSNumber numberWithUnsignedInt:ch];
 
-	if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @1]))
+	if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @(YES)]))
 		[self typedEnter: nil];
 }
 
