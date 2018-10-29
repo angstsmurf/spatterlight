@@ -440,10 +440,10 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 
     cellw = [font advancementForGlyph:(NSGlyph) 'X'].width;
 
-    
-    NSTextView *textview = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 1000000)];
-    cellh = [[textview layoutManager] defaultLineHeightForFont:font] + leading;
 
+    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+    cellh = [layoutManager defaultLineHeightForFont:font] + leading;
+    layoutManager = nil;
     //cellh = [font ascender] + [font descender] + [font leading] + leading;
 
     /* send notification that prefs have changed -- trigger configure events */
