@@ -487,7 +487,7 @@ void win_setbgnd(int name, glui32 color)
 void win_sound_notify(int snd, int notify)
 {
 #ifdef DEBUG
-    fprintf(stderr, "sent EVTSOUND snd:%d notify:%d\n",snd, notify);
+ //   fprintf(stderr, "sent EVTSOUND snd:%d notify:%d\n",snd, notify);
 #endif
     win_flush();
     sendmsg(EVTSOUND, 0, snd, notify, 0, 0, 0, NULL);
