@@ -84,7 +84,7 @@
 											<string key="NSFrameSize">{585, 224}</string>
 											<reference key="NSSuperview" ref="684439790"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="949713905"/>
+											<reference key="NSNextKeyView" ref="577505110"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="886630919">
 												<reference key="NSNextResponder" ref="577505110"/>
@@ -373,7 +373,7 @@
 							<string key="NSFrame">{{-1, 40}, {602, 257}}</string>
 							<reference key="NSSuperview" ref="980710898"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="577505110"/>
+							<reference key="NSNextKeyView" ref="684439790"/>
 							<int key="NSsFlags">133170</int>
 							<reference key="NSVScroller" ref="949713905"/>
 							<reference key="NSHScroller" ref="651603780"/>
@@ -388,7 +388,6 @@
 							<string key="NSFrame">{{329, 9}, {256, 22}}</string>
 							<reference key="NSSuperview" ref="980710898"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSSearchFieldCell" key="NSCell" id="176335602">
 								<int key="NSCellFlags">343014976</int>
@@ -564,8 +563,6 @@
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{17, 20}, {166, 17}}</string>
 							<reference key="NSSuperview" ref="978326571"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="1001904790">
 								<int key="NSCellFlags">67239424</int>
@@ -585,7 +582,6 @@
 					</object>
 					<string key="NSFrameSize">{200, 56}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="282882959"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1024, 746}}</string>
@@ -603,7 +599,6 @@
 						<int key="NSvFlags">256</int>
 						<string key="NSFrame">{{11, 13}, {63, 17}}</string>
 						<reference key="NSSuperview" ref="736319653"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="792120010"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="703512585">
@@ -621,8 +616,6 @@
 						<int key="NSvFlags">256</int>
 						<string key="NSFrame">{{74, 7}, {256, 26}}</string>
 						<reference key="NSSuperview" ref="736319653"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="555633122">
 							<int key="NSCellFlags">-2076049856</int>
@@ -703,7 +696,6 @@
 				</object>
 				<string key="NSFrameSize">{404, 42}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="518277753"/>
 				<object class="NSMutableString" key="NSClassName">
 					<characters key="NS.bytes">NSView</characters>
@@ -1533,14 +1525,11 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addGamesToLibrary:</string>
-							<string>delete:</string>
 							<string>deleteGame:</string>
 							<string>deleteLibrary:</string>
 							<string>exportMetadata:</string>
 							<string>importMetadata:</string>
-							<string>openIfdb:</string>
 							<string>playGame:</string>
-							<string>purgeLibrary:</string>
 							<string>revealGameInFinder:</string>
 							<string>saveLibrary:</string>
 							<string>searchForGames:</string>
@@ -1548,9 +1537,6 @@
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1568,14 +1554,11 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addGamesToLibrary:</string>
-							<string>delete:</string>
 							<string>deleteGame:</string>
 							<string>deleteLibrary:</string>
 							<string>exportMetadata:</string>
 							<string>importMetadata:</string>
-							<string>openIfdb:</string>
 							<string>playGame:</string>
-							<string>purgeLibrary:</string>
 							<string>revealGameInFinder:</string>
 							<string>saveLibrary:</string>
 							<string>searchForGames:</string>
@@ -1585,10 +1568,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">addGamesToLibrary:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">delete:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1608,15 +1587,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">openIfdb:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">playGame:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">purgeLibrary:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
