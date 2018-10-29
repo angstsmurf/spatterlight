@@ -42,11 +42,11 @@ enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
     NSDictionary *newUserInfo;
     NSNumber *textMovement;
     int movementCode;
-    
+
     userInfo = [notification userInfo];
     textMovement = [userInfo objectForKey: @"NSTextMovement"];
     movementCode = [textMovement intValue];
-    
+
     // see if this a 'pressed-return' instance
     if (movementCode == NSReturnTextMovement)
     {
@@ -58,7 +58,7 @@ enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
                                                      object: [notification object]
                                                    userInfo: newUserInfo];
     }
-    
+
     [super textDidEndEditing: notification];
 }
 
@@ -75,19 +75,19 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
 {
     NSMutableDictionary *dict;
     NSString *error;
-    
+
     dict = [NSPropertyListSerialization
              propertyListFromData: [NSData dataWithContentsOfFile: path]
              mutabilityOption: NSPropertyListMutableContainersAndLeaves
              format: NULL
              errorDescription: &error];
-    
+
     if (!dict)
     {
         NSLog(@"libctl: cannot load plist: %@", error);
         dict = [[NSMutableDictionary alloc] init];
     }
-    
+
     return dict;
 }
 
@@ -95,7 +95,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 {
     NSData *plistData;
     NSString *error;
-    
+
     plistData = [NSPropertyListSerialization dataFromPropertyList: plist
                                                            format: NSPropertyListBinaryFormat_v1_0
                                                  errorDescription: &error];
@@ -113,12 +113,12 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (void) loadLibrary
 {
     NSLog(@"libctl: loadLibrary");
-    
+
     /* in case we are called more than once... */
-    
+
     homepath = [NSURL fileURLWithPath:(@"~/Library/Application Support/Spatterlight").stringByExpandingTildeInPath  isDirectory:YES];
     [[NSFileManager defaultManager] createDirectoryAtURL:homepath withIntermediateDirectories:YES attributes:NULL error:NULL];
-    
+
     metadata = load_mutable_plist([[homepath path] stringByAppendingPathComponent: @"Metadata.plist"]);
     games = load_mutable_plist([[homepath path] stringByAppendingPathComponent: @"Games.plist"]);
 }
@@ -126,13 +126,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (IBAction) saveLibrary: (id)sender
 {
     NSLog(@"libctl: saveLibrary");
-    
+
     int code;
-    
+
     code = save_plist([[homepath path] stringByAppendingPathComponent: @"Metadata.plist"], metadata);
     if (!code)
         NSLog(@"libctl: cannot write metadata!");
-    
+
     code = save_plist([[homepath path] stringByAppendingPathComponent: @"Games.plist"], games);
     if (!code)
         NSLog(@"libctl: cannot write game list!");
@@ -141,23 +141,23 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (void) windowDidLoad
 {
     NSLog(@"libctl: windowDidLoad");
-    
+
     [self setWindowFrameAutosaveName: @"LibraryWindow"];
     [gameTableView setAutosaveName: @"GameTable"];
     [gameTableView setAutosaveTableColumns: YES];
-    
+
     [[self window] setExcludedFromWindowsMenu: YES];
     [[self window] registerForDraggedTypes:
      [NSArray arrayWithObject: NSFilenamesPboardType]];
-    
+
     [gameTableView setDoubleAction: @selector(playGame:)];
 
-    
+
     [infoButton setEnabled: NO];
     [playButton setEnabled: NO];
-    
+
     infoWindowIndex = 0;
-    
+
     gameTableModel = [[NSMutableArray alloc] init];
     gameTableDirty = YES;
     [self updateTableViews];
@@ -214,19 +214,19 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setPrompt: @"Import"];
-    
+
     panel.allowedFileTypes = @[@"iFiction"];
-    
+
     [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton) {
             NSURL* url = [panel URL];
-            
+
             [self beginImporting];
             [self importMetadataFromFile: [url path]];
             [self updateTableViews];
             [self endImporting];
         }
-        
+
     }];
 }
 
@@ -237,12 +237,12 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     panel.allowedFileTypes=@[@"iFiction"];
     [panel setPrompt: @"Export"];
     [panel setNameFieldStringValue:@"Interactive Fiction Metadata.iFiction"];
-    
+
     [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton)
         {
             NSURL* url = [panel URL];
-            
+
             [self exportMetadataToFile: [url path] what: [exportTypeControl indexOfSelectedItem]];
         }
     }];
@@ -254,14 +254,14 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     [panel setAllowsMultipleSelection: YES];
     [panel setCanChooseDirectories: YES];
     [panel setPrompt: @"Add"];
-    
+
     panel.allowedFileTypes=gGameFileTypes;
-    
+
     [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton)
         {
             NSArray* urls = [panel URLs];
-            
+
             [self beginImporting];
             [self addFiles: urls];
             [self endImporting];
@@ -269,6 +269,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     }];
 }
 
+#pragma mark Contextual menu
 
 - (IBAction) playGame: (id)sender
 {
@@ -289,7 +290,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
         NSString *ifid = [gameTableModel objectAtIndex: i];
         NSString *path = [games objectForKey: ifid];
         NSDictionary *info = [metadata objectForKey: ifid];
-        
+
         if (![[NSFileManager defaultManager] fileExistsAtPath: path])
         {
             NSRunAlertPanel(@"Cannot find the file.",
@@ -337,14 +338,14 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     {
         NSString *ifid;
         NSInteger i;
-        
+
         for (i = [rows firstIndex]; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
         {
             ifid = [gameTableModel objectAtIndex: i];
             NSLog(@"libctl: delete game %@", ifid);
             [games removeObjectForKey: ifid];
         }
-        
+
         gameTableDirty = YES;
         [self updateTableViews];
     }
@@ -359,22 +360,22 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 {
     SEL action = [menuItem action];
     NSInteger count = [gameTableView numberOfSelectedRows];
-    
+
     if (action == @selector(delete:))
         return count > 0;
-    
+
     if (action == @selector(deleteGame:))
         return count > 0;
-    
+
     if (action == @selector(revealGameInFinder:))
         return count > 0;
-    
+
     if (action == @selector(showGameInfo:))
         return count > 0;
-    
+
     if (action == @selector(playGame:))
         return count == 1;
-    
+
     return YES;
 }
 
@@ -385,11 +386,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (NSDragOperation) draggingEntered:sender
 {
     extern NSString *terp_for_filename(NSString *path);
-    
+
     NSFileManager *mgr = [NSFileManager defaultManager];
     BOOL isdir;
     NSInteger i;
-    
+
     NSPasteboard *pboard = [sender draggingPasteboard];
     if ([[pboard types] containsObject: NSFilenamesPboardType])
     {
@@ -407,7 +408,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
                     return NSDragOperationCopy;
         }
     }
-    
+
     return NSDragOperationNone;
 }
 
@@ -451,10 +452,10 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 {
     NSInteger count = [list count];
     NSInteger i;
-    
+
     if (cursrc == 0)
         NSLog(@"libctl: current metadata source failed...");
-    
+
     for (i = 0; i < count; i++)
     {
         NSString *ifid = [list objectAtIndex: i];
@@ -496,7 +497,7 @@ static void read_xml_text(const char *rp, char *wp)
     /* kill initial whitespace */
     while (*rp && isspace(*rp))
         rp++;
-    
+
     while (*rp)
     {
         if (*rp == '<')
@@ -508,7 +509,7 @@ static void read_xml_text(const char *rp, char *wp)
                 rp += 5;
                 if (*rp == '>')
                     rp ++;
-                
+
                 /* kill trailing whitespace */
                 while (*rp && isspace(*rp))
                     rp++;
@@ -551,14 +552,14 @@ static void read_xml_text(const char *rp, char *wp)
             *wp++ = *rp++;
         }
     }
-    
+
     *wp = 0;
 }
 
 - (void) handleXMLCloseTag: (struct XMLTag *)tag
 {
     char bigbuf[4096];
-    
+
     /* we don't parse tags after bibliographic until the next story begins... */
     if (!strcmp(tag->tag, "bibliographic"))
     {
@@ -567,7 +568,7 @@ static void read_xml_text(const char *rp, char *wp)
         ifidbuf = nil;
         metabuf = nil;
     }
-    
+
     /* we should only find ifid:s inside the <identification> tag, */
     /* which should be the first tag in a <story> */
     else if (!strcmp(tag->tag, "ifid"))
@@ -582,20 +583,20 @@ static void read_xml_text(const char *rp, char *wp)
         [ifidbuf addObject: [NSString stringWithUTF8String: tag->begin]];
         *tag->end = save;
     }
-    
+
     /* only extract text from within the indentification and bibliographic tags */
     else if (metabuf)
     {
         if (tag->end - tag->begin >= sizeof(bigbuf) - 1)
             return;
-        
+
         char save = *tag->end;
         *tag->end = 0;
         read_xml_text(tag->begin, bigbuf);
         *tag->end = save;
-        
+
         NSString *val = [NSString stringWithUTF8String: bigbuf];
-        
+
         if (!strcmp(tag->tag, "format"))
             [metabuf setObject: val forKey: @"format"];
         if (!strcmp(tag->tag, "bafn"))
@@ -651,18 +652,18 @@ static void handleXMLError(char *msg, void *ctx)
 - (BOOL) importMetadataFromFile: (NSString*)filename
 {
     NSLog(@"libctl: importMetadataFromFile %@", filename);
-    
+
     NSMutableData *data;
-    
+
     data = [NSMutableData dataWithContentsOfFile: filename];
     if (!data)
         return NO;
     [data appendBytes: "\0" length: 1];
-    
+
     cursrc = kExternal;
     [self importMetadataFromXML: [data mutableBytes]];
     cursrc = 0;
-    
+
     return YES;
 }
 
@@ -671,14 +672,14 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     NSString *val;
     const char *tagname;
     const char *s;
-    
+
     val = [info objectForKey: key];
     if (!val)
         return;
-    
+
     tagname = [key UTF8String];
     s = [val UTF8String];
-    
+
     fprintf(fp, "<%s>", tagname);
     while (*s)
     {
@@ -713,18 +714,18 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     //NSString *key, *val;
     NSDictionary *info;
     int src;
-    
+
     NSLog(@"libctl: exportMetadataToFile %@", filename);
-    
+
     FILE *fp;
-    
+
     fp = fopen([filename UTF8String], "w");
     if (!fp)
         return NO;
-    
+
     fprintf(fp, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     fprintf(fp, "<ifindex version=\"1.0\">\n\n");
-    
+
     if (what == X_EDITED || what == X_DATABASE)
         enumerator = [metadata keyEnumerator];
     else
@@ -736,15 +737,15 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         if ((what == X_EDITED && src >= kUser) || what != X_EDITED)
         {
             fprintf(fp, "<story>\n");
-            
+
             fprintf(fp, "<identification>\n");
             fprintf(fp, "<ifid>%s</ifid>\n", [ifid UTF8String]);
             write_xml_text(fp, info, @"format");
             write_xml_text(fp, info, @"bafn");
             fprintf(fp, "</identification>\n");
-            
+
             fprintf(fp, "<bibliographic>\n");
-            
+
             write_xml_text(fp, info, @"title");
             write_xml_text(fp, info, @"author");
             write_xml_text(fp, info, @"language");
@@ -756,14 +757,14 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
             write_xml_text(fp, info, @"seriesnumber");
             write_xml_text(fp, info, @"forgiveness");
             write_xml_text(fp, info, @"description");
-            
+
             fprintf(fp, "</bibliographic>\n");
             fprintf(fp, "</story>\n\n");
         }
     }
-    
+
     fprintf(fp, "</ifindex>\n");
-    
+
     fclose(fp);
     return YES;
 }
@@ -780,9 +781,9 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     NSDictionary *info = [metadata objectForKey: ifid];
     NSString *path = [games objectForKey: ifid];
     NSString *terp;
-    
+
     NSLog(@"playgame %@ %@", ifid, info);
-    
+
     if (![[NSFileManager defaultManager] fileExistsAtPath: path])
     {
         NSRunAlertPanel(@"Cannot find the file.",
@@ -790,7 +791,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
                         @"Okay", NULL, NULL);
         return;
     }
-    
+
     if (![[NSFileManager defaultManager] isReadableFileAtPath: path])
     {
         NSRunAlertPanel(@"Cannot read the file.",
@@ -798,11 +799,11 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
                         @"Okay", NULL, NULL);
         return;
     }
-    
+
     terp = [gExtMap objectForKey: [path pathExtension]];
     if (!terp)
         terp = [gFormatMap objectForKey: [info objectForKey: @"format"]];
-    
+
     if (!terp)
     {
         NSRunAlertPanel(@"Cannot play the file.",
@@ -810,11 +811,11 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
                         @"Okay", NULL, NULL);
         return;
     }
-    
+
     gctl = [[GlkController alloc] initWithWindowNibName: @"GameWindow"];
     [gctl runTerp:terp withGameFile:path IFID:ifid info:info];
     [gctl showWindow: self];
-    
+
     // gctl releases itself when the game closes
 }
 
@@ -822,7 +823,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 {
     NSEnumerator *enumerator;
     NSString *ifid;
-    
+
     enumerator = [games keyEnumerator];
     while ((ifid = [enumerator nextObject]))
     {
@@ -832,7 +833,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
             return;
         }
     }
-    
+
     ifid = [self importGame: path reportFailure: YES];
     if (ifid)
     {
@@ -852,13 +853,13 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     char *s;
     int mdlen;
     int rv;
-    
+
     if ([[[path pathExtension] lowercaseString] isEqualToString: @"ifiction"])
     {
         [self importMetadataFromFile: path];
         return nil;
     }
-    
+
     if ([[[path pathExtension] lowercaseString] isEqualToString: @"d$$"])
     {
         path = [self convertAGTFile: path];
@@ -871,7 +872,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
             return nil;
         }
     }
-    
+
     if (![gGameFileTypes containsObject: [[path pathExtension] lowercaseString]])
     {
         if (report)
@@ -880,7 +881,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
                             @"Okay", NULL, NULL);
         return nil;
     }
-    
+
     format = babel_init((char*)[path UTF8String]);
     if (!format || !babel_get_authoritative())
     {
@@ -891,10 +892,10 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         babel_release();
         return nil;
     }
-    
+
     s = strchr(format, ' ');
     if (s) format = s+1;
-    
+
     rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
     if (rv <= 0)
     {
@@ -905,13 +906,13 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         babel_release();
         return nil;
     }
-    
+
     s = strchr(buf, ',');
     if (s) *s = 0;
     ifid = [NSString stringWithUTF8String: buf];
-    
+
     NSLog(@"libctl: import game %@ (%s)", path, format);
-    
+
     mdlen = babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
     if (mdlen > 0)
     {
@@ -925,7 +926,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
             babel_release();
             return nil;
         }
-        
+
         rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
         if (rv > 0)
         {
@@ -933,10 +934,10 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
             [self importMetadataFromXML: mdbuf];
             cursrc = 0;
         }
-        
+
         free(mdbuf);
     }
-    
+
     dict = [metadata objectForKey: ifid];
     if (!dict)
     {
@@ -945,17 +946,17 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         [self addMetadata: dict forIFIDs: [NSArray arrayWithObject: ifid]];
         cursrc = 0;
     }
-    
+
     if (![dict objectForKey: @"format"])
         [dict setObject: [NSString stringWithUTF8String: format] forKey: @"format"];
     if (![dict objectForKey: @"title"])
         [dict setObject: [path lastPathComponent] forKey: @"title"];
-    
+
     babel_release();
-    
+
     [games setObject: path forKey: ifid];
     gameTableDirty = YES;
-    
+
     return ifid;
 }
 
@@ -972,15 +973,15 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     BOOL isdir;
     NSInteger count;
     NSInteger i;
-    
+
     count = [urls count];
     for (i = 0; i < count; i++)
     {
         NSString *path = [[urls objectAtIndex:i] path];
-        
+
         if (![filemgr fileExistsAtPath: path isDirectory: &isdir])
             continue;
-        
+
         if (isdir)
         {
             NSArray *contents = [filemgr contentsOfDirectoryAtURL:[urls objectAtIndex:i]
@@ -1000,17 +1001,17 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 {
     NSInteger count;
     NSInteger i;
-    
+
     NSLog(@"libctl: adding %lu files", (unsigned long)urls.count);
-    
+
     NSMutableArray *select = [NSMutableArray arrayWithCapacity: urls.count];
-    
+
     [self deselectGames];
-    
+
     [self addFiles: urls select: select];
-    
+
     [self updateTableViews];
-    
+
     count = [select count];
     for (i = 0; i < count; i++)
         [self selectGameWithIFID: [select objectAtIndex: i]];
@@ -1029,10 +1030,10 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 {
     NSString *value = [sender stringValue];
     searchStrings = nil;
-    
+
     if ([value length])
         searchStrings = [value componentsSeparatedByString: @" "];
-    
+
     gameTableDirty = YES;
     [self updateTableViews];
 }
@@ -1112,22 +1113,22 @@ static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
     NSInteger count;
     NSInteger found;
     NSInteger i;
-    
+
     if (!gameTableDirty)
         return;
-    
+
     selifid = nil;
     selrow = [gameTableView selectedRow];
     if (selrow >= 0)
         selifid = [gameTableModel objectAtIndex: selrow];
-    
+
     [gameTableModel removeAllObjects];
-    
+
     if (searchStrings)
         searchcount = [searchStrings count];
     else
         searchcount = 0;
-    
+
     enumerator = [games keyEnumerator];
     while ((ifid = [enumerator nextObject]))
     {
@@ -1159,10 +1160,10 @@ static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
             [gameTableModel addObject: ifid];
         }
     }
-    
+
     [gameTableModel sortUsingFunction: compareGames context: (__bridge void *)(self)];
     [gameTableView reloadData];
-    
+
     [gameTableView deselectAll: self];
     count = gameTableModel.count;
 
@@ -1173,7 +1174,7 @@ static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
             [indexSet addIndex:i];
 
     [gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
-    
+
     gameTableDirty = NO;
 }
 
@@ -1205,7 +1206,7 @@ objectValueForTableColumn: (NSTableColumn*)column
         NSDictionary *gamemeta = [metadata objectForKey: gameifid];
         return [gamemeta objectForKey: [column identifier]];
     }
-    
+
     return nil;
 }
 
@@ -1247,27 +1248,27 @@ objectValueForTableColumn: (NSTableColumn*)column
 {
     NSLog(@"libctl: converting agt to agx");
     char rapeme[] = "/tmp/cugelcvtout.agx"; /* babel will clobber this, so we can't send a const string */
-    
+
     NSString *exepath = [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"agt2agx"];
     NSString *dirpath;
     NSString *cvtpath;
     NSTask *task;
     char *format;
     int status;
-    
+
     task = [[NSTask alloc] init];
     [task setLaunchPath: exepath];
     [task setArguments: [NSArray arrayWithObjects: @"-o", @"/tmp/cugelcvtout.agx", origpath, NULL]];
     [task launch];
     [task waitUntilExit];
     status = [task terminationStatus];
-    
+
     if (status != 0)
     {
         NSLog(@"libctl: agt2agx failed");
         return nil;
     }
-    
+
     format = babel_init(rapeme);
     if (!strcmp(format, "agt"))
     {
@@ -1276,24 +1277,24 @@ objectValueForTableColumn: (NSTableColumn*)column
         if (rv == 1)
         {
             dirpath = [[homepath path] stringByAppendingPathComponent: @"Converted"];
-            
+
             [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:dirpath isDirectory:YES] withIntermediateDirectories:YES attributes:nil error:NULL];
-            
+
             cvtpath =
             [dirpath stringByAppendingPathComponent:
              [[NSString stringWithUTF8String: buf]
               stringByAppendingPathExtension: @"agx"]];
-            
+
             babel_release();
-            
+
             NSURL *url = [NSURL fileURLWithPath:cvtpath];
-            
+
             [[NSFileManager defaultManager]  removeItemAtURL: url error: nil];
-            
+
             status = [[NSFileManager defaultManager] moveItemAtPath: @"/tmp/cugelcvtout.agx"
                                                              toPath: cvtpath
                                                               error: nil];
-            
+
             if (!status)
             {
                 NSLog(@"libctl: could not move converted file");
@@ -1307,7 +1308,7 @@ objectValueForTableColumn: (NSTableColumn*)column
         NSLog(@"libctl: babel did not like the converted file");
     }
     babel_release();
-    
+
     return nil;
 }
 
