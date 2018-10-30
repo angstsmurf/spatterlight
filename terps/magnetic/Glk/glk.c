@@ -1846,7 +1846,7 @@ gms_graphics_paint_everything (winid_t glk_window,
 			palette[ pixel ],
 			x * GMS_GRAPHICS_PIXEL + x_offset,
 			y * GMS_GRAPHICS_PIXEL + y_offset,
-			GMS_GRAPHICS_PIXEL, GMS_GRAPHICS_PIXEL);
+			GMS_GRAPHICS_PIXEL, GMS_GRAPHICS_PIXEL + (y < height - 1)); /* Needed to avoid dark lines on Spatterlight */
 	    }
 	}
 }
