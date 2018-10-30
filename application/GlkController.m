@@ -1,4 +1,5 @@
 #import "main.h"
+#import "InfoController.h"
 
 #include <sys/time.h>
 
