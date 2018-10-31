@@ -146,12 +146,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     [gameTableView setAutosaveName: @"GameTable"];
     [gameTableView setAutosaveTableColumns: YES];
 
+    [gameTableView setAction:@selector(doClick:)];
+    [gameTableView setDoubleAction:@selector(doDoubleClick:)];
+    [gameTableView setTarget:self];
+
     [[self window] setExcludedFromWindowsMenu: YES];
     [[self window] registerForDraggedTypes:
      [NSArray arrayWithObject: NSFilenamesPboardType]];
-
-    [gameTableView setDoubleAction: @selector(playGame:)];
-
 
     [infoButton setEnabled: NO];
     [playButton setEnabled: NO];
