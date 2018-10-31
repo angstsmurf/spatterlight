@@ -76,10 +76,13 @@ static const char *parse_offset(int *secs, const char *p, size_t *len)
     
     /* check for a sign (which must be followed by a digit) */
     if (*len >= 2 && *p == '+' && isdigit(p[1]))
-        ++p, --*len;
+	{
+		++p; --*len;
+	}
     else if (*len >= 2 && *p == '-' && isdigit(p[1]))
-        sign = -1, ++p, --*len;
-
+	{
+		sign = -1; ++p; --*len;
+	}
     /* if we don't have a digit, it's not a number */
     if (*len == 0 || !isdigit(*p))
         return p;
@@ -91,13 +94,13 @@ static const char *parse_offset(int *secs, const char *p, size_t *len)
     if (*len >= 3 && *p == ':' && isdigit(p[1]) && isdigit(p[2]))
     {
         /* parse the minutes */
-        ++p, --*len;
+		++p; --*len;
         p = parse_digits(&mm, p, len);
 
         /* check for seconds */
         if (*len >= 3 && *p == ':' && isdigit(p[1]) && isdigit(p[2]))
         {
-            ++p, --*len;
+			++p; --*len;
             p = parse_digits(&ss, p, len);
         }
     }
@@ -122,7 +125,7 @@ static const char *parse_dst_rule(struct os_tzrule_t *rule,
     if (*len >= 2 && (*p == 'J' || *p == 'j') && isdigit(p[1]))
     {
         /* Julian day, not counting February 29 */
-        ++p, --*len;
+		++p; --*len;
         p = parse_digits(&rule->jday, p, len);
     }
     else if (*len >= 1 && isdigit(*p))
@@ -136,7 +139,7 @@ static const char *parse_dst_rule(struct os_tzrule_t *rule,
     else if (*len >= 2 && *p == 'M' && isdigit(p[1]))
     {
         /* month.week.day format - start with the month */
-        ++p, --*len;
+		++p; --*len;
         p = parse_digits(&rule->month, p, len);
         if (rule->month < 1 || rule->month > 12)
             return start;
@@ -146,7 +149,7 @@ static const char *parse_dst_rule(struct os_tzrule_t *rule,
             return start;
 
         /* parse the week */
-        ++p, --*len;
+		++p; --*len;
         p = parse_digits(&rule->week, p, len);
         if (rule->week < 1 || rule->week > 5)
             return start;
@@ -156,7 +159,7 @@ static const char *parse_dst_rule(struct os_tzrule_t *rule,
             return start;
         
         /* parse the day of the week; adjust from 0-6 to our 1-7 range */
-        ++p, --*len;
+		++p; --*len;
         p = parse_digits(&rule->day, p, len);
         rule->day += 1;
         if (rule->day < 1 || rule->day > 7)
@@ -172,7 +175,7 @@ static const char *parse_dst_rule(struct os_tzrule_t *rule,
     if (*len >= 2 && *p == '/' && isdigit(p[1]))
     {
         /* parse the time; this has the same parsing rules as an offset */
-        ++p, --*len;
+		++p; --*len;
         p = parse_offset(&rule->time, p, len);
     }
     else
