@@ -50,11 +50,11 @@ int countargs(const char *cmdline)
 
         case 2:                            /* collect chars for current arg */
             if (isspace((unsigned char)*p))
-                p++, state = 0;                       /* Terminate this arg */
+			{p++; state = 0;}                       /* Terminate this arg */
             else if (*p == '"')
-                p++, state = 3;                              /* Open quote. */
+			{p++; state = 3;}                            /* Open quote. */
             else if (*p == '\\')
-                p++, state = 4;                         /* Escape sequence. */
+			{p++; state = 4;}                      /* Escape sequence. */
             else
                 p++;                                    /* Just keep going. */
 
@@ -99,7 +99,7 @@ int argize(char *cmdline, int *const argc, char *argv[], const size_t argvlen)
     while (*p) {
         switch (state) {
         case 0:                                 /* skip leading white space */
-            while (isspace((unsigned char)*p)) p++, q++;
+				while (isspace((unsigned char)*p)) p++; q++;
             if (!*p) break;            /* If there's nothing left, get out. */
             state = 1;
             /* fall through */;
@@ -114,13 +114,13 @@ int argize(char *cmdline, int *const argc, char *argv[], const size_t argvlen)
 
         case 2:                            /* collect chars for current arg */
             if (isspace((unsigned char)*p))
-                *q++ = *p++ = '\0', state = 0;        /* Terminate this arg */
+			{ *q++ = *p++ = '\0'; state = 0; }       /* Terminate this arg */
             else if (*p == '"')
-                p++, state = 3;                              /* Open quote. */
+			{ p++; state = 3; }                            /* Open quote. */
             else if (*p == '\\')
-                p++, state = 4;                         /* Escape sequence. */
+			{ p++; state = 4; }                      /* Escape sequence. */
             else
-                *q++ = *p++;                            /* Just keep going. */
+			*q++ = *p++;                         /* Just keep going. */
 
             break;
 

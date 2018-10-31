@@ -1308,7 +1308,9 @@ static void bifstrupr(uchar *str, int len)
     for ( ; len ; --len, ++str)
     {
         if (*str == '\\' && len > 1)
-            --len, ++str;
+		{
+			--len; ++str;
+		}
         else if (islower(*str))
             *str = toupper(*str);
     }
@@ -1326,7 +1328,9 @@ static void bifstrlwr(uchar *str, int len)
     for ( ; len ; --len, ++str)
     {
         if (*str == '\\' && len > 1)
-            --len, ++str;
+		{
+			--len; ++str;
+		}
         else if (isupper(*str))
             *str = tolower(*str);
     }
@@ -1927,8 +1931,9 @@ void bifsct(bifcxdef *bifctx, int argc)
 
     /* make sure the first list is smaller - if not, switch them */
     if (siz1 > siz2)
-        l3 = l1, l1 = l2, l2 = l3, siz3 = siz1, siz1 = siz2, siz2 = siz3;
-    
+	{
+		l3 = l1; l1 = l2; l2 = l3; siz3 = siz1; siz1 = siz2; siz2 = siz3;
+	}
     /* size of result is at most size of smaller list (which is now siz1) */
     stk1.runstyp = stk2.runstyp = DAT_LIST;
     stk1.runsv.runsvstr = l1;
