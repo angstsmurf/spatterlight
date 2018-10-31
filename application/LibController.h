@@ -30,13 +30,13 @@
 @interface LibController : NSWindowController<NSDraggingDestination, NSWindowDelegate>
 {
     NSURL *homepath;
-    
+
     IBOutlet NSButton *infoButton;
     IBOutlet NSButton *playButton;
     IBOutlet NSPanel *importProgressPanel;
     IBOutlet NSView *exportTypeView;
     IBOutlet NSPopUpButton *exportTypeControl;
-    
+
     NSMutableDictionary *metadata; /* ifid -> metadata dict */
     NSMutableDictionary *games; /* ifid -> filename */
 
@@ -47,9 +47,12 @@
     NSMutableArray *gameTableModel;
     NSString *gameSortColumn;
     BOOL gameTableDirty;
-    
+
+    BOOL canEdit;
+    NSTimer * timer;
+
     NSArray *searchStrings;
-    
+
     /* for the importing */
     NSInteger cursrc;
     NSMutableArray *ifidbuf;
@@ -90,6 +93,8 @@
 - (void) deselectGames;
 - (void) selectGameWithIFID: (NSString*)ifid;
 - (void) updateTableViews; /* must call this after -importGame: */
+
+- (void)enableClickToRenameAfterDelay;
 
 - (NSString*) convertAGTFile: (NSString*)origpath;
 

@@ -816,6 +816,8 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     [gctl runTerp:terp withGameFile:path IFID:ifid info:info];
     [gctl showWindow: self];
 
+    [self addURLtoRecents: [NSURL fileURLWithPath:path]];
+
     // gctl releases itself when the game closes
 }
 
@@ -955,6 +957,9 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     babel_release();
 
     [games setObject: path forKey: ifid];
+
+    [self addURLtoRecents: [NSURL fileURLWithPath:path]];
+
     gameTableDirty = YES;
 
     return ifid;
@@ -1052,7 +1057,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     for (i = 0; i < count; i++)
         if ([[gameTableModel objectAtIndex: i] isEqualToString: ifid])
             [indexSet addIndex:i];
-    
+
     [gameTableView selectRowIndexes:indexSet byExtendingSelection:YES];
 }
 
@@ -1243,6 +1248,76 @@ objectValueForTableColumn: (NSTableColumn*)column
         [playButton setEnabled: [rows count] == 1];
     }
 }
+
+#pragma mark -
+#pragma mark Add to Open Recent menu stuff
+
+
+- (void) addURLtoRecents: (NSURL *) url
+{
+    [((AppDelegate*)[[NSApplication sharedApplication] delegate]) addToRecents:@[url]];
+
+}
+
+#pragma mark -
+#pragma mark Open game on double click, edit on click and wait
+
+-(void)doClick:(id)sender {
+//    NSLog(@"doClick:");
+    if (canEdit) {
+        NSInteger row = [gameTableView clickedRow];
+        if (row >= 0) {
+            [self startTimerWithTimeInterval:0.5 selector:@selector(renameByTimer:)];
+        }
+    }
+}
+
+// DoubleAction
+-(void)doDoubleClick:(id)sender {
+//    NSLog(@"doDoubleClick:");
+    [self enableClickToRenameAfterDelay];
+    [self playGame:sender];
+}
+
+-(void)enableClickToRenameAfterDelay {
+    canEdit = NO;
+    [self startTimerWithTimeInterval:0.2
+                            selector:@selector(enableClickToRenameByTimer:)];
+}
+
+-(void)enableClickToRenameByTimer:(id)sender {
+    //NSLog(@"enableClickToRenameByTimer:");
+    canEdit = YES;
+}
+
+-(void)renameByTimer:(id)sender {
+    if (canEdit) {
+        NSInteger row = [gameTableView selectedRow];
+        NSInteger column = [gameTableView selectedColumn];
+
+        if (row != -1 && column != -1) {
+            [gameTableView editColumn:column row:row withEvent:nil select:YES];
+        }
+    }
+}
+
+-(void)startTimerWithTimeInterval:(NSTimeInterval)seconds selector:(SEL)selector {
+    [self stopTimer];
+    timer = [NSTimer scheduledTimerWithTimeInterval:seconds
+                                             target:self
+                                           selector:selector
+                                           userInfo:nil
+                                            repeats:NO];
+}
+
+-(void)stopTimer {
+    if (timer != nil) {
+        if ([timer isValid]) {
+            [timer invalidate];
+        }
+    }
+}
+
 
 /*
  * Some stuff that doesn't really fit anywhere else.
