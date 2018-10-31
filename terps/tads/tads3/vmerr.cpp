@@ -740,7 +740,9 @@ size_t err_format_msg(char *outbuf, size_t outbuflen,
             {
                 ++need;
                 if (rem > 1)
-                    --rem, *dst++ = *p;
+				{
+					--rem; *dst++ = *p;
+				}
                 continue;
             }
 
@@ -851,7 +853,10 @@ size_t err_format_msg(char *outbuf, size_t outbuflen,
             /* just copy the current character as it is */
             ++need;
             if (rem > 1)
-                --rem, *dst++ = *p;
+			{
+				--rem;
+				*dst++ = *p;
+			}
         }
     }
 

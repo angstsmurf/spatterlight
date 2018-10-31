@@ -1011,9 +1011,13 @@ public:
     RandStrRange(wchar_t c1, wchar_t c2)
     {
         if (c2 > c1)
-            this->c1 = c1, this->c2 = c2;
+		{
+			this->c1 = c1; this->c2 = c2;
+		}
         else
-            this->c1 = c2, this->c2 = c1;
+		{
+			this->c1 = c2; this->c2 = c1;
+		}
     }
 
     virtual int maxlen() { return 1; }
@@ -3424,7 +3428,8 @@ struct bpptr
         if (len != 0)
         {
             char ch = *p;
-            ++p, --len;
+			++p;
+			--len;
             return ch;
         }
         else
@@ -3450,7 +3455,10 @@ struct bpptr
     void inc()
     {
         if (len != 0)
-            ++p, --len;
+		{
+			++p;
+			--len;
+		}
     }
 
     /* get the next wide character */
@@ -3778,8 +3786,10 @@ struct bpwriter
     {
         /* if they're trying to pawn off an empty string on us, use "0" */
         if (p == 0 || len == 0)
-            p = "0", len = 1;
-
+		{
+			p = "0";
+			len = 1;
+		}
         /* note if the value is all zeros */
         int zero = TRUE;
         const char *p2 = p;
@@ -3840,7 +3850,9 @@ struct bpwriter
 
         /* if there's a '-' sign, write it */
         if (*p == '-')
-            putch(*p++), --len;
+		{
+			putch(*p++); --len;
+		}
 
         /* add the type prefix */
         if (opts.pound && type_prefix != 0 && !zero)

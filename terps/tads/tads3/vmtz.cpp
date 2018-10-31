@@ -1,8 +1,8 @@
-/*
+/* 
  *   Copyright (c) 1991, 2002 Michael J. Roberts.  All Rights Reserved.
- *
+ *   
  *   Please see the accompanying license file, LICENSE.TXT, for information
- *   on using and copying this software.
+ *   on using and copying this software.  
  */
 /*
 Name
@@ -36,7 +36,7 @@ Modified
 
 /* ------------------------------------------------------------------------ */
 /*
- *   zone table hash entry
+ *   zone table hash entry 
  */
 
 /* hash table entry types */
@@ -89,7 +89,7 @@ public:
     /*
      *   In addition to the hash table, we keep a simple linked list of all
      *   of the loaded zone objects.  This lets us do iteraitons over the
-     *   loaded list more easily (and quickly) than using the hash table.
+     *   loaded list more easily (and quickly) than using the hash table. 
      */
     ZoneHashEntry *nxt;
 };
@@ -155,8 +155,8 @@ public:
 
 
 /* ------------------------------------------------------------------------ */
-/*
- *   zone search spec
+/* 
+ *   zone search spec 
  */
 struct ZoneSearchSpec
 {
@@ -209,7 +209,7 @@ struct AbbrToZone
     /* the GMT offset for this abbreviation in this zone, in milliseconds */
     int32_t gmtofs;
 
-    /*
+    /* 
      *   'D' if this is daylight savings time, 'S' for standard time, 'B' if
      *   it the abbreviation can refer to both types (Australian zones work
      *   this way: EST is Australian Eastern Standard Time AND Eastern Summer
@@ -272,7 +272,7 @@ public:
 
         return 0;
     }
-
+    
     int entry_cnt;
     AbbrToZone *entries;
 };
@@ -280,11 +280,11 @@ public:
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Time zone cache manager
+ *   Time zone cache manager 
  */
 
 /*
- *   construction
+ *   construction 
  */
 CVmTimeZoneCache::CVmTimeZoneCache()
 {
@@ -303,7 +303,7 @@ CVmTimeZoneCache::CVmTimeZoneCache()
 }
 
 /*
- *   destruction
+ *   destruction 
  */
 CVmTimeZoneCache::~CVmTimeZoneCache()
 {
@@ -330,7 +330,7 @@ CVmTimeZoneCache::~CVmTimeZoneCache()
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Translate a ZoneHashEntry to a CVmTimeZone object
+ *   Translate a ZoneHashEntry to a CVmTimeZone object 
  */
 CVmTimeZone *CVmTimeZoneCache::tz_from_hash(VMG_ ZoneHashEntry *entry)
 {
@@ -361,7 +361,7 @@ CVmTimeZone *CVmTimeZoneCache::tz_from_hash(VMG_ ZoneHashEntry *entry)
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Parse a zone name in various formats
+ *   Parse a zone name in various formats 
  */
 CVmTimeZone *CVmTimeZoneCache::parse_zone(VMG_ const char *name, size_t len)
 {
@@ -380,7 +380,7 @@ CVmTimeZone *CVmTimeZoneCache::parse_zone(VMG_ const char *name, size_t len)
     CVmTimeZone *tz;
     if ((tz = parse_zone_hhmmss(vmg_ "", name, len)) != 0)
         return tz;
-
+    
     /* try UTC+8, UTC-830, UTC+8:30, UTC-8:00:00 */
     if ((tz = parse_zone_hhmmss(vmg_ "utc", name, len)) != 0)
         return tz;
@@ -388,7 +388,7 @@ CVmTimeZone *CVmTimeZoneCache::parse_zone(VMG_ const char *name, size_t len)
     /* try parsing as a POSIX-style EST5EDT string */
     if ((tz = parse_zone_posixTZ(vmg_ name, len)) != 0)
         return tz;
-
+    
     /* it's not one of our special formats; look it up in the database */
     if ((tz = G_tzcache->get_db_zone(vmg_ name, len)) != 0)
         return tz;
@@ -404,10 +404,10 @@ CVmTimeZone *CVmTimeZoneCache::parse_zone(VMG_ const char *name, size_t len)
 CVmTimeZone *CVmTimeZoneCache::parse_zone_posixTZ(
     VMG_ const char *name, size_t len)
 {
-    /*
+    /* 
      *   Run it through the POSIX TZ parser.  Note that the zoneinfo format
      *   uses negative offsets going west (e.g., EST-5), in contrast to the
-     *   original TZ format.
+     *   original TZ format. 
      */
     os_tzinfo_t desc;
     if (oss_parse_posix_tz(&desc, name, len, FALSE))
@@ -429,8 +429,8 @@ CVmTimeZone *CVmTimeZoneCache::parse_zone_posixTZ(
     return 0;
 }
 
-/*
- *   get a zone specified in a +hh, +hmm, +hhmm, +hh:mm or +hh:mm:ss format
+/* 
+ *   get a zone specified in a +hh, +hmm, +hhmm, +hh:mm or +hh:mm:ss format 
  */
 CVmTimeZone *CVmTimeZoneCache::parse_zone_hhmmss(
     VMG_ const char *prefix, const char *name, size_t len)
@@ -454,7 +454,7 @@ CVmTimeZone *CVmTimeZoneCache::parse_zone_hhmmss(
 }
 
 /*
- *   parse a [+-]h[:mm[:ss]] time/offset value
+ *   parse a [+-]h[:mm[:ss]] time/offset value 
  */
 int CVmTimeZoneCache::parse_hhmmss(
     int32_t &ofs, const char *&name, size_t &len, int sign_required)
@@ -462,9 +462,16 @@ int CVmTimeZoneCache::parse_hhmmss(
     /* check for the sign */
     int s = 1;
     if (len > 0 && name[0] == '+')
-        ++name, --len;
+	{
+		++name;
+		--len;
+	}
     else if (len > 0 && name[0] == '-')
-        ++name, --len, s = -1;
+	{
+		++name;
+		--len;
+		s = -1;
+	}
     else if (sign_required)
         return FALSE;
 
@@ -491,14 +498,14 @@ int CVmTimeZoneCache::parse_hhmmss(
         if (len >= 3 && *name == ':' && isdigit(name[1]) && isdigit(name[2]))
         {
             /* parse the minutes */
-            ++name, --len;
+			++name; --len;
             mm = lib_atoi_adv(name, len);
-
+            
             /* check for seconds */
             if (len >= 3 && *name == ':'
                 && isdigit(name[1]) && isdigit(name[2]))
             {
-                ++name, --len;
+				++name; --len;
                 ss = lib_atoi_adv(name, len);
             }
         }
@@ -533,7 +540,10 @@ static void gen_ofs_string(char *buf, size_t buflen,
     /* figure the sign */
     const char *signch = "";
     if (ofs < 0)
-        ofs = -ofs, signch = "-";
+	{
+		ofs = -ofs;
+		signch = "-";
+	}
     else if ((flags & F_PLUS_SIGN) != 0)
         signch = "+";
 
@@ -542,11 +552,11 @@ static void gen_ofs_string(char *buf, size_t buflen,
     int mm = ofs/60 % 60;
     int ss = ofs % 60;
 
-    /*
+    /* 
      *   figure the format: prefix, sign character, then h:mm:ss if we have
      *   non-zero seconds, h:mm if we have non-zero minutes but no seconds,
-     *   or just the hours if the minutes and seconds are both zero
-     */
+     *   or just the hours if the minutes and seconds are both zero 
+     */ 
     const char *fmt = (ss != 0 ? "%s%s%d:%02d:%02d" :
                        mm != 0 ? "%s%s%d:%02d" :
                        hh != 0 || (flags & F_HIDE_ZERO) == 0 ? "%s%s%d" :
@@ -588,7 +598,7 @@ CVmTimeZone *CVmTimeZoneCache::get_gmtofs_zone(VMG_ int32_t gmtofs_secs)
 
 /*
  *   Look up a zone by abbreviation.
- *
+ *   
  *   Zone abbreviations are inherently ambiguous, and there's no reliable way
  *   to figure out which zone a user might mean.  The ideal solution would be
  *   for users to stop using zone abbreviations entirely and switch to
@@ -602,7 +612,7 @@ CVmTimeZone *CVmTimeZoneCache::get_gmtofs_zone(VMG_ int32_t gmtofs_secs)
  *   understanding zone abbreviations, but recognizing that it's ultimately a
  *   "best effort" sort of task, in that it's not something we can cleanly
  *   and definitively solve.
- *
+ *   
  *   We fill in *gmtofs_ms with the GMT offset implied by the zone
  *   abbreviation.  If this is one of the funny Australian zones that uses
  *   the same abbreviation for both standard and daylight time, we return
@@ -688,25 +698,25 @@ CVmTimeZone *CVmTimeZoneCache::get_zone_by_abbr(
         }
     }
 
-    /*
+    /* 
      *   If all else fails, match the first zone in the list.  Our zoneinfo
      *   compiler places a specially hand-chosen primary zone for each
      *   abbreviation at the head of the abbreviation's zone list.  The hand
      *   picks favor US and European zones, so this isn't the ideal way to
      *   handle this globally, but in the absence of any other selection
-     *   criteria there's not much else we can do.
+     *   criteria there's not much else we can do. 
      */
     atoz = &ah->entries[0];
 
 done:
-    /*
+    /* 
      *   Pass the abbreviation's offset back to the caller.  Most zone
      *   abbreviations refer to a fixed offset; e.g., PST is always -8, even
      *   in the summer when the US Pacific Time zone is observing daylight
      *   time for wall clock time.  Writing "PST" explicitly means that we're
      *   talking about the -8 setting, rather than the current wall clock
      *   setting.
-     *
+     *   
      *   However, some zones (all in Australia, in the current zoneinfo
      *   database) use a single abbreviation for both standard and daylight
      *   time, so these zones *don't* carry the special fixed offset
@@ -728,7 +738,7 @@ done:
 /* ------------------------------------------------------------------------ */
 /*
  *   Get the local system time zone.
- *
+ *   
  *   The local time zone is special, in that it's always represented as a
  *   distinct CVmTimeZone object (and a distinct entry in our hash table)
  *   from the object for the zone it represents.  This allows callers to
@@ -744,7 +754,7 @@ done:
  *   that the first date's CVmTimeZone object is the special "local" object,
  *   separate from the second date's CVmTimeZone object - even though both
  *   represent the same underlying database entry.
- *
+ *   
  *   To implement this, if we resolve the local zone to a database entry, we
  *   load a separate copy of the database entry so that the local zone is a
  *   distinct object.
@@ -776,7 +786,7 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
          *   If they were able to give us separate standard and daylight
          *   offsets and abbreviations, search for the pair.  Otherwise
          *   search for the current one.
-         *
+         *   
          *   Note that the os_tzinfo_t specifies offsets in seconds, whereas
          *   the ZoneSearchSpec uses milliseconds, so multiply accordingly.
          */
@@ -790,9 +800,9 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
         }
         else
         {
-            /*
+            /* 
              *   they couldn't distinguish standard and daylight, so just use
-             *   the one that's currently in effect
+             *   the one that's currently in effect 
              */
             ZoneSearchSpec spec;
             if (info.is_dst)
@@ -801,7 +811,7 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
                 spec.set(info.std_abbr, info.std_ofs*1000, 'S');
             entry = search(vmg_ &spec, 1);
         }
-
+        
         /* check to see if we found a matching entry in the database */
         if (entry != 0)
         {
@@ -810,15 +820,15 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
         }
         else
         {
-            /*
+            /* 
              *   we didn't find an entry, so synthesize a new one based on
-             *   the zone description we got from the OS
+             *   the zone description we got from the OS 
              */
             local_zone_ = new CVmTimeZone(&info);
         }
     }
-
-    /*
+    
+    /*   
      *   If we still don't have anything, try the the standard C++ library's
      *   time functions.  These won't give us as much information as we were
      *   hoping to get from the OS, and probably won't work at all given that
@@ -831,11 +841,11 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
         os_time_t t = os_time(0);
         struct tm *tm = os_localtime(&t);
         strftime(name, sizeof(name), "%Z", tm);
-
+        
         /* if we got a zone, look it up */
         if (name[0] != '\0')
         {
-            /*
+            /* 
              *   Get the current minutes in the day in local time, and the
              *   local time day number.  For the day number, use the year
              *   times 366 plus the day of the year; this doesn't correspond
@@ -843,24 +853,24 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
              *   other system, but it does produce monotonic values, which is
              *   all we need: our only use for this day number if to compare
              *   the UTC and local day numbers to see if the respective
-             *   clocks are on different days, and if so in which direction.
+             *   clocks are on different days, and if so in which direction. 
              */
             int ss_local = tm->tm_hour*60*60 + tm->tm_min*60 + tm->tm_sec;
             long dayno_local = tm->tm_year*366L + tm->tm_yday;
             char dst = tm->tm_isdst ? 'D' : 'S';
-
+            
             /* repeat the exercise in local time */
             tm = os_gmtime(&t);
             int ss_utc = tm->tm_hour*60*60 + tm->tm_min*60 + tm->tm_sec;
             long dayno_utc = tm->tm_year*366L + tm->tm_yday;
-
+            
             /* if the clocks are on different days, adjust accordingly */
             if (dayno_utc > dayno_local)
                 ss_utc += 24*60*60;
             else if (dayno_utc < dayno_local)
                 ss_utc -= 24*60*60;
-
-            /*
+            
+            /* 
              *   Search for the zone.  For the GMT offset, figure the
              *   difference in milliseconds between local and UTC.
              */
@@ -872,7 +882,7 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
             }
             else
             {
-                /*
+                /* 
                  *   no database match; synthesize an entry based on the time
                  *   zone info we got from the C time functions
                  */
@@ -886,7 +896,7 @@ CVmTimeZone *CVmTimeZoneCache::get_local_zone(VMG0_)
             }
         }
     }
-
+    
     /* if after all that we still have nothing, use UTC */
     if (local_zone_ == 0)
     {
@@ -921,8 +931,8 @@ CVmTimeZone *CVmTimeZoneCache::create_missing_zone(
 }
 
 /* ------------------------------------------------------------------------ */
-/*
- *   search for a zone that matches all of the given search specs
+/* 
+ *   search for a zone that matches all of the given search specs 
  */
 ZoneHashEntry *CVmTimeZoneCache::search(
     VMG_ const ZoneSearchSpec *specs, int cnt)
@@ -964,15 +974,15 @@ ZoneHashEntry *CVmTimeZoneCache::search(
             if (z0 == 0)
                 return 0;
 
-            /*
+            /* 
              *   look for a second-list element that matches the second spec
-             *   AND the first-list zone we just matched
+             *   AND the first-list zone we just matched 
              */
             ZoneHashEntry *z1 = e1->search(j, &specs[1], z0);
             if (z1 != 0)
                 return z1;
 
-            /*
+            /* 
              *   no luck; find the next second-list element matching just the
              *   second spec, then find a first-list item matching z1 and the
              *   first spec
@@ -986,14 +996,14 @@ ZoneHashEntry *CVmTimeZoneCache::search(
         return 0;
     }
 
-    /*
+    /* 
      *   we're really only used for STD+DST searches; if we're called upon
-     *   for anything else, it's unexpected
+     *   for anything else, it's unexpected 
      */
     return 0;
 }
 
-
+    
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -1025,7 +1035,7 @@ int CVmTimeZoneCache::load_db_index(VMG0_)
         /* decode the zone name table length */
         zone_table_len = osrp4(buf + 16) - 4;
         zone_cnt = osrp4(buf + 20);
-
+        
         /* allocate space to load the table */
         zone_bytes_ = new char[zone_table_len];
 
@@ -1096,7 +1106,7 @@ int CVmTimeZoneCache::load_db_index(VMG0_)
 
             /* read the TO index */
             unsigned int to = osrp4(p + len + 1);
-
+            
             /* look up the TO field */
             ZoneHashEntry *e_to = (to < zone_cnt ? zone_index[to] : 0);
 
@@ -1137,7 +1147,7 @@ int CVmTimeZoneCache::load_db_index(VMG0_)
                 /* look up the zone */
                 uint32_t zi = osrp4(p);
                 ZoneHashEntry *zone = (zi < zone_cnt ? zone_index[zi] : 0);
-
+                
                 /* add the entry */
                 e->set_zone(ei, zone, osrp4s(p+4), p[8]);
             }
@@ -1154,7 +1164,7 @@ int CVmTimeZoneCache::load_db_index(VMG0_)
 }
 
 /*
- *   Open the zoneinfo file
+ *   Open the zoneinfo file 
  */
 osfildef *CVmTimeZoneCache::open_zoneinfo_file(VMG0_)
 {
@@ -1165,7 +1175,7 @@ osfildef *CVmTimeZoneCache::open_zoneinfo_file(VMG0_)
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Time zone object
+ *   Time zone object 
  */
 
 /* file data block sizes */
@@ -1174,7 +1184,7 @@ const int TYPE_SIZE = 9;
 const int RULE_SIZE = 17;
 
 /*
- *   construction
+ *   construction 
  */
 CVmTimeZone::CVmTimeZone(ZoneHashEntryDb *entry, const char *file_data,
                          unsigned int trans_cnt, unsigned int type_cnt,
@@ -1297,19 +1307,19 @@ CVmTimeZone::CVmTimeZone(ZoneHashEntrySynth *entry)
 }
 
 /*
- *   Create a synthesized zone from an os descriptor
+ *   Create a synthesized zone from an os descriptor 
  */
 CVmTimeZone::CVmTimeZone(const os_tzinfo_t *desc)
 {
     /* no hash entry */
     hashentry_ = 0;
 
-    /*
+    /* 
      *   Synthesize a POSIX-style name from the abbreviation and offset.  If
      *   we have both standard and daylight abbreviations and distinct
      *   offsets, generate a POSIX-style "EST5DST" string.  Otherwise just
      *   use the active abbreviation and offset.
-     *
+     *   
      *   Note that the offset in POSIX strings uses the opposite sign from
      *   what we use - EST is +5 in POSIX strings vs -5 in the zoneinfo
      *   scheme (which is what we use).
@@ -1318,7 +1328,7 @@ CVmTimeZone::CVmTimeZone(const os_tzinfo_t *desc)
     if (desc->std_abbr[0] != 0 && desc->dst_abbr[0] != 0
         && desc->std_ofs != desc->dst_ofs)
     {
-        /*
+        /* 
          *   Use both abbreviations, as in EST5DST.  If the daylight offset
          *   is one hour higher than the standard offset, omit the offset
          *   from the daylight part, since that's the default; otherwise
@@ -1354,10 +1364,10 @@ CVmTimeZone::CVmTimeZone(const os_tzinfo_t *desc)
 }
 
 /*
- *   Initialize from an OS timezone descriptor
+ *   Initialize from an OS timezone descriptor 
  */
 void CVmTimeZone::init(const os_tzinfo_t *desc)
-{
+{    
     /* we don't have any transitions or rules */
     trans_ = 0;
     trans_cnt_ = 0;
@@ -1387,10 +1397,10 @@ void CVmTimeZone::init(const os_tzinfo_t *desc)
         rule_cnt_ = 2;
         rule_ = new vmtz_rule[2];
 
-        /*
+        /* 
          *   Set the rules from the OS description.  Note that the OS
          *   description gives offsets in seconds, whereas we store
-         *   everything in milliseconds.
+         *   everything in milliseconds. 
          */
         rule_[0].set(&desc->dst_start, dst_abbr, desc->std_ofs*1000,
                      (desc->dst_ofs - desc->std_ofs)*1000);
@@ -1402,12 +1412,12 @@ void CVmTimeZone::init(const os_tzinfo_t *desc)
          */
         ttype_ = new vmtz_ttype[2];
         ttype_cnt_ = 2;
-
+        
         /* set up the standard time information */
         ttype_[0].gmtofs = desc->std_ofs * 1000;
         ttype_[0].save = 0;
         ttype_[0].fmt = std_abbr;
-
+        
         /* set up the daylight time information */
         ttype_[1].gmtofs = desc->dst_ofs * 1000;
         ttype_[1].save = (desc->dst_ofs - desc->std_ofs) * 1000;
@@ -1417,7 +1427,7 @@ void CVmTimeZone::init(const os_tzinfo_t *desc)
     {
         /*
          *   There are no transition rules, so we only have use for whichever
-         *   setting is currently in effect.
+         *   setting is currently in effect. 
          */
         ttype_ = new vmtz_ttype[1];
         ttype_cnt_ = 1;
@@ -1443,7 +1453,7 @@ void CVmTimeZone::init(const os_tzinfo_t *desc)
 }
 
 /*
- *   destruction
+ *   destruction 
  */
 CVmTimeZone::~CVmTimeZone()
 {
@@ -1482,20 +1492,20 @@ CVmTimeZone *CVmTimeZone::load(VMG_ ZoneHashEntry *entry)
         /* read the length prefix */
         char pfx[2];
         int ok = !osfrb(fp, pfx, 2);
-
+        
         /* allocate space for the file data */
         unsigned int alo = osrp2(pfx);
         char *buf = ok ? new char[alo] : 0;
-
+        
         /* read the file data */
         ok = buf != 0 && !osfrb(fp, buf, alo);
-
+        
         /* decode the header */
         unsigned int trans_cnt = osrp2(buf);
         unsigned int type_cnt = osrp2(buf+2);
         unsigned int rule_cnt = osrp1(buf+4);
         unsigned int abbr_bytes = osrp1(buf+5);
-
+        
         /* create the time zone object */
         CVmTimeZone *tz = 0;
         if (ok)
@@ -1532,7 +1542,7 @@ CVmTimeZone *CVmTimeZone::load(VMG_ ZoneHashEntry *entry)
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Get the zone name
+ *   Get the zone name 
  */
 const char *CVmTimeZone::get_name(size_t &len) const
 {
@@ -1571,7 +1581,7 @@ vm_obj_id_t CVmTimeZone::get_name_list(VMG0_) const
     {
         /* the hash entry gives us our primary name */
         cnt += 1;
-
+        
         /* count incoming alias links */
         for (ZoneHashEntryLink *e = hashentry_->link_from ; e != 0 ;
              e = e->link_nxt, ++cnt) ;
@@ -1597,9 +1607,9 @@ vm_obj_id_t CVmTimeZone::get_name_list(VMG0_) const
     int idx = 0;
     vm_val_t ele;
 
-    /*
+    /* 
      *   add our primary name - this is our explicit name_ string, our hash
-     *   entry name, or our primary abbreviation (in order of priority)
+     *   entry name, or our primary abbreviation (in order of priority) 
      */
     if (hashentry_ != 0)
     {
@@ -1638,7 +1648,7 @@ vm_obj_id_t CVmTimeZone::get_name_list(VMG0_) const
 }
 
 /*
- *   Get a history item for a given date
+ *   Get a history item for a given date 
  */
 vm_obj_id_t CVmTimeZone::get_history_item(
     VMG_ int32_t dayno, int32_t daytime) const
@@ -1656,7 +1666,7 @@ vm_obj_id_t CVmTimeZone::get_history_item(
 }
 
 /*
- *   Get a list of history items
+ *   Get a list of history items 
  */
 vm_obj_id_t CVmTimeZone::get_history_list(VMG0_) const
 {
@@ -1680,14 +1690,14 @@ vm_obj_id_t CVmTimeZone::get_history_list(VMG0_) const
         ele.set_obj(t->get_as_list(vmg0_));
         lst->cons_set_element(i, &ele);
     }
-
+    
     /* discard the gc protection and return the result list */
     G_stk->discard(1);
     return lstid;
 }
 
 /*
- *   Get a list of the ongoing rules
+ *   Get a list of the ongoing rules 
  */
 vm_obj_id_t CVmTimeZone::get_rule_list(VMG0_) const
 {
@@ -1749,7 +1759,7 @@ vm_obj_id_t CVmTimeZone::get_rule_list(VMG0_) const
             t3sprintf(buf, sizeof(buf), "INVAL(when=%d, weekday=%d, dd=%d)",
                       r->when, r->weekday, r->dd);
         }
-
+            
         ele.set_obj(CVmObjString::create(vmg_ FALSE, buf, strlen(buf)));
         elst->cons_set_element(3, &ele);
 
@@ -1786,7 +1796,7 @@ vm_obj_id_t CVmTimeZone::get_rule_list(VMG0_) const
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Query the time zone information at the current moment
+ *   Query the time zone information at the current moment 
  */
 void CVmTimeZone::query(vmtzquery *result) const
 {
@@ -1805,28 +1815,28 @@ void CVmTimeZone::query(vmtzquery *result) const
 void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
                         int local) const
 {
-    /*
+    /* 
      *   if we're after the last transition, or we have no transitions, check
-     *   for ongoing rules
+     *   for ongoing rules 
      */
     if (trans_cnt_ == 0
         || trans_[trans_cnt_-1].compare_to(dayno, daytime, local) <= 0)
     {
         /*
          *   We won't find our answer in the transition list, so check for
-         *   ongoing rules that cover out-of-bounds dates.
+         *   ongoing rules that cover out-of-bounds dates. 
          */
         if (rule_cnt_ != 0)
-        {
+        {        
             /*
              *   We have ongoing rules.
-             *
+             *   
              *   Starting in the year AFTER the target date, search for the
              *   last (in time) rule that fires on or before the target date.
              *   This is the rule that defines the time zone for the target
              *   date.  If we don't find a rule on or before the target date,
              *   back up one year and repeat.
-             *
+             *   
              *   The reason we have to start next year is that there's a
              *   possibility that the target date will be in the following
              *   year in local time; rules are generally stated in local
@@ -1840,7 +1850,7 @@ void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
              *   rule that fires on Dec 31 the previous year; looping
              *   backwards on year until we find a rule that fires on or
              *   before the target will catch these cases.
-             *
+             *   
              *   Note that our zoneinfo compiler guarantees that it will
              *   produce at least one complete cycle fixed transitions (in
              *   our trans_ list) for the open-ended rules.  Since we're
@@ -1860,25 +1870,25 @@ void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
                 int32_t latest_rday = 0, latest_rtime = 0;
                 for (int i = 0 ; i < rule_cnt_ ; ++i)
                 {
-                    /*
+                    /* 
                      *   we might need the previous rule to resolve the
                      *   current rule; the list is circular because it forms
-                     *   an annual cycle
+                     *   an annual cycle 
                      */
                     int iprv = (i == 0 ? rule_cnt_ : i) - 1;
-
+                    
                     /* get the concrete date for this rule in this year */
                     int32_t rday, rtime;
                     rule_[i].resolve(rday, rtime, yy, &rule_[iprv]);
-
+                    
                     /* adjust to local time if that's what we're looking for */
                     if (local)
                     {
                         rtime += rule_[i].gmtofs + rule_[i].save;
                         caldate_t::normalize(rday, rtime);
                     }
-
-                    /*
+                    
+                    /* 
                      *   If the target date is after the resolved rule firing
                      *   time, and this rule is later than the last one we
                      *   matched, this is the best match so far.  (Assume
@@ -1896,7 +1906,7 @@ void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
                         latest_rtime = rtime;
                     }
                 }
-
+                
                 /* if we found a match, return its settings */
                 if (latest >= 0)
                 {
@@ -1904,8 +1914,8 @@ void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
                     return;
                 }
             }
-
-            /*
+            
+            /* 
              *   We should never get here - it should be *almost* impossible
              *   not to find a match in the prior year, but not quite
              *   impossible: if a zone only has rules that fire late on Dec
@@ -1920,9 +1930,9 @@ void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
         }
         else if (trans_cnt_ != 0)
         {
-            /*
+            /* 
              *   There are no rules, and we're after the last transition, so
-             *   the last transition is permanent.
+             *   the last transition is permanent. 
              */
             result->set(&trans_[trans_cnt_-1]);
         }
@@ -1930,7 +1940,7 @@ void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
         {
             /*
              *   There are no rules and no transitions.  This means that the
-             *   zone is defined entirely by its first time type entry.
+             *   zone is defined entirely by its first time type entry. 
              */
             result->set(&ttype_[0], INT32MINVAL, INT32MINVAL);
             return;
@@ -1955,7 +1965,7 @@ void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
      *   transition on or before the target date.  We're looking for a
      *   date/time after our first transition and before our last, so it's a
      *   date covered by a history item.  Search our transition list for the
-     *   target date/time.
+     *   target date/time. 
      */
     int lo = 0, hi = trans_cnt_ - 1, cur;
     while (lo < hi)
@@ -1978,13 +1988,13 @@ void CVmTimeZone::query(vmtzquery *result, int32_t dayno, int32_t daytime,
         }
         else
         {
-            /*
+            /* 
              *   exact match - treat the moment of the transition as being in
              *   the previous interval, since we usually define the moment of
              *   the transition in terms of the local time that was in effect
              *   up until that moment
              */
-            result->set(tcur > (void *)0 ? tcur - 1 : tcur);
+            result->set(tcur > (void*)0 ? tcur - 1 : tcur);
             return;
         }
     }
@@ -2012,13 +2022,13 @@ int vmtz_trans::compare_to(int32_t dayno, int32_t daytime, int local) const
         tt += ttype->gmtofs + ttype->save;
         caldate_t::normalize(dd, tt);
     }
-
+    
     /* compare by day, then by time if on the same day */
     return (dd != dayno ? dd - dayno : tt - daytime);
 }
 
 /*
- *   Create a List object representing the transition
+ *   Create a List object representing the transition 
  */
 vm_obj_id_t vmtz_trans::get_as_list(VMG0_) const
 {
@@ -2030,7 +2040,7 @@ vm_obj_id_t vmtz_trans::get_as_list(VMG0_) const
     CVmObjList *lst = (CVmObjList *)vm_objp(vmg_ lstid);
     lst->cons_clear();
 
-    /*
+    /* 
      *   Element [1] is the transition time as a Date object, or nil if the
      *   date is INT32MINVALs (which represents the beginning of time, for
      *   the pre-establishment settings).
@@ -2045,11 +2055,11 @@ vm_obj_id_t vmtz_trans::get_as_list(VMG0_) const
     /* element [2] is the UTC offset */
     ele.set_int(ttype->gmtofs);
     lst->cons_set_element(1, &ele);
-
+    
     /* element [3] is the daylight savings delta */
     ele.set_int(ttype->save);
     lst->cons_set_element(2, &ele);
-
+    
     /* element [4] is the abbreviation string */
     ele.set_obj(CVmObjString::create(
         vmg_ FALSE, ttype->fmt, strlen(ttype->fmt)));
@@ -2063,7 +2073,7 @@ vm_obj_id_t vmtz_trans::get_as_list(VMG0_) const
 
 /* ------------------------------------------------------------------------ */
 /*
- *   synthesize a ttype from a query result
+ *   synthesize a ttype from a query result 
  */
 vmtz_ttype::vmtz_ttype(const vmtzquery *query)
 {
@@ -2093,10 +2103,10 @@ void vmtz_rule::resolve(int32_t &dayno, int32_t &daytime, int year,
         break;
 
     case 1:
-        /*
+        /* 
          *   The rule takes effect on the last <weekday> of the month.  Get
          *   the weekday of the last day of this month (which we can figure
-         *   using day 0 of next month).
+         *   using day 0 of next month). 
          */
         cd.m += 1;
         w = cd.weekday() + 1;
@@ -2151,7 +2161,7 @@ void vmtz_rule::resolve(int32_t &dayno, int32_t &daytime, int year,
         break;
 
     case 0x00:
-        /*
+        /* 
          *   The rule was stated in local wall clock time, in the period in
          *   effect just before the rule.  That means we use the zone
          *   settings of the *previous* rule, which defines the period
@@ -2163,9 +2173,9 @@ void vmtz_rule::resolve(int32_t &dayno, int32_t &daytime, int year,
         break;
 
     case 0x40:
-        /*
+        /* 
          *   the rule was stated in local standard time, so subtract the
-         *   standard time offset for the prior period
+         *   standard time offset for the prior period 
          */
         daytime -= prev_rule->gmtofs;
         break;
@@ -2177,7 +2187,7 @@ void vmtz_rule::resolve(int32_t &dayno, int32_t &daytime, int year,
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Set from an OS descriptor
+ *   Set from an OS descriptor 
  */
 void vmtz_rule::set(const os_tzrule_t *desc, const char *abbr,
                     int32_t gmtofs, int32_t save)
@@ -2194,7 +2204,7 @@ void vmtz_rule::set(const os_tzrule_t *desc, const char *abbr,
     /* transcode the date to our format */
     if (desc->jday != 0)
     {
-        /*
+        /* 
          *   "Jn" = nth day of the year, NOT counting Feb 29.  Since the date
          *   mapping is the same for leap years and non-leap years, this is
          *   just an obtuse way of specifying a month and day.  So, figure
@@ -2212,11 +2222,11 @@ void vmtz_rule::set(const os_tzrule_t *desc, const char *abbr,
     }
     else if (desc->yday != 0)
     {
-        /*
+        /* 
          *   "n" = nth day of the year, counting Feb 29.  We can encode this
          *   as "January n", even if n > 31, since our calendar calculator
          *   handle overflows in the day of the month by carrying them into
-         *   subsequent months.
+         *   subsequent months. 
          */
         this->when = 0;
         this->mm = 1;
@@ -2234,7 +2244,7 @@ void vmtz_rule::set(const os_tzrule_t *desc, const char *abbr,
         }
         else
         {
-            /*
+            /* 
              *   week 1-4 means "nth <weekday>"; we can encode this as mode
              *   2, "weekday>=n", where n is 1 for the first week, 8 for the
              *   second week, 15 for the third week, 22 for the fourth week
@@ -2247,7 +2257,7 @@ void vmtz_rule::set(const os_tzrule_t *desc, const char *abbr,
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Convert a UTC time to local
+ *   Convert a UTC time to local 
  */
 const char *CVmTimeZone::utc_to_local(
     int32_t &dayno, int32_t &daytime, int32_t &tzofs)
@@ -2268,14 +2278,14 @@ const char *CVmTimeZone::utc_to_local(
 }
 
 /*
- *   Convert a local time to UTC
+ *   Convert a local time to UTC 
  */
 void CVmTimeZone::local_to_utc(int32_t &dayno, int32_t &daytime)
 {
     /* look up the time zone information at the given local time */
     vmtzquery result;
     query(&result, dayno, daytime, TRUE);
-
+    
     /* adjust the time to local by subtracting the GMT offset */
     daytime -= result.gmtofs + result.save;
     caldate_t::normalize(dayno, daytime);

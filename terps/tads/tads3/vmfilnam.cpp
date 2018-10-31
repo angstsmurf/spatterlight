@@ -166,7 +166,9 @@ static void nf_canonicalize(char *path)
              *   and it's not '..', otherwise keep it 
              */
             if (dst > 0 && strcmp(ele[dst-1], "..") != 0)
-                --dst, ++src;
+			{
+				--dst; ++src;
+			}
             else
                 ele[dst++] = ele[src++];
         }
@@ -193,7 +195,10 @@ static void nf_canonicalize(char *path)
 
     /* if it's complete empty, make it '.' */
     if (path[0] == '\0')
-        path[0] = '.', path[1] = '\0';
+	{
+		path[0] = '.';
+		path[1] = '\0';
+	}
 
     /* done with the path list */
     delete [] ele;

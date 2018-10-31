@@ -1224,7 +1224,10 @@ re_status_t CRegexParser::compile(const char *expr_str, size_t exprlen,
 
             /* skip everything up to the closing ">" */
             while (exprchars > 0 && expr.getch() != '>')
-                expr.inc(), --exprchars ;
+			{
+				expr.inc();
+				--exprchars ;
+			}
             break;
 
         case '%':
@@ -1527,7 +1530,10 @@ re_status_t CRegexParser::compile(const char *expr_str, size_t exprlen,
                         {
                             /* skip until we find the matching '}' */
                             while (exprchars > 1 && expr.getch_at(1) != '}')
-                                expr.inc(), --exprchars;
+							{
+								expr.inc();
+								--exprchars;
+							}
                             
                             /* go back for anything that follows */
                             continue;

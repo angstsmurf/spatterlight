@@ -793,7 +793,7 @@ static int match_digits(int &acc, const char *&str, size_t &len,
                 continue;
 
             /* it doesn't match; simply say on the same input character */
-            --p, ++rem;
+			--p; ++rem;
             continue;
         }
         
@@ -836,8 +836,9 @@ static int match_lit(const char *&str, size_t &len,
     /* if the template starts with "^", it means do not fold case */
     int fold_case = TRUE;
     if (litlen != 0 && *lit == '^')
-        fold_case = FALSE, ++lit, --litlen;
-
+	{
+		fold_case = FALSE; ++lit; --litlen;
+	}
     /* try matching the template text */
     size_t matchlen;
     if (fold_case)
@@ -957,7 +958,7 @@ static int match_list(int &acc, const char *&str, size_t &len,
         else if (*p == '=')
         {
             /* alias - just skip the '=' */
-            ++p, --rem;
+			++p; --rem;
         }
 
         /* on to the next item */
@@ -998,7 +999,7 @@ static int match_tzofs(VMG_ date_parse_result *res,
     int s = (*p == '+' ? 1 : -1);
 
     /* skip the sign */
-    ++p, --rem;
+	++p; --rem;
 
     /* 
      *   Get the "hh".  If the "GMT" literal was present, allow a single
@@ -1017,7 +1018,7 @@ static int match_tzofs(VMG_ date_parse_result *res,
     if (rem != 0 && *p == ':')
     {
         /* skip the ":", then require the minutes */
-        ++p, --rem;
+		++p; --rem;
         if (!match_digits(mi, p, rem, "0509", part))
             return FALSE;
     }
@@ -1031,7 +1032,7 @@ static int match_tzofs(VMG_ date_parse_result *res,
     int ss = 0;
     if (rem != 0 && *p == ':')
     {
-        ++p, --rem;
+		++p; --rem;
         if (!match_digits(ss, p, rem, "0509", part))
             return FALSE;
     }
@@ -1642,12 +1643,12 @@ int CVmObjDate::parse_string_fmt(VMG_ date_parse_result *res,
                 int s = 1;
                 if (len >= 2 && str[0] == '-' && is_digit(str[1]))
                 {
-                    res->punix.p = str, res->punix.len = 1;
-                    s = -1, ++str, --len;
+					res->punix.p = str; res->punix.len = 1;
+					s = -1; ++str; --len;
                 }
                 else if (len >= 1 && is_digit(str[0]))
                 {
-                    res->punix.p = str, res->punix.len = 0;
+					res->punix.p = str; res->punix.len = 0;
                 }
                 else
                     return FALSE;
@@ -3207,7 +3208,7 @@ size_t CVmObjDate::format_date(VMG_ char *buf, size_t buflen,
                 if (fmtlen >= 2 && *fmt == '#')
                 {
                     pound = found_flag = TRUE;
-                    ++fmt, --fmtlen;
+					++fmt; --fmtlen;
                 }
                 
                 /* ' ' and '\ ' (replace leading zeros with spaces) */
@@ -3215,21 +3216,21 @@ size_t CVmObjDate::format_date(VMG_ char *buf, size_t buflen,
                 {
                     leadsp = *fmt;
                     found_flag = TRUE;
-                    ++fmt, --fmtlen;
+					++fmt; --fmtlen;
                 }
 
                 /* check for '-' flag */
                 if (fmtlen >= 2 && *fmt == '-')
                 {
                     minus = found_flag = TRUE;
-                    ++fmt, --fmtlen;
+					++fmt; --fmtlen;
                 }
 
                 /* check for '&' flag */
                 if (fmtlen >= 2 && *fmt == '&')
                 {
                     roman = found_flag = TRUE;
-                    ++fmt, --fmtlen;
+					++fmt; --fmtlen;
                 }
             }
 
@@ -3276,7 +3277,10 @@ size_t CVmObjDate::format_date(VMG_ char *buf, size_t buflen,
 
                     /* if the time is past noon, it's on the next day */
                     if (dt > 12*60*60*1000)
-                        dn += 1, dt -= 12*60*60*1000;
+					{
+						dn += 1;
+						dt -= 12*60*60*1000;
+					}
 
                     /* 
                      *   figure the combined date/time value, adjusting the
@@ -3456,9 +3460,13 @@ size_t CVmObjDate::format_date(VMG_ char *buf, size_t buflen,
 
                     /* advance our buffer pointer past the copied text */
                     if (buflen >= l)
-                        buflen -= l, buf += l;
+					{
+						buflen -= l; buf += l;
+					}
                     else
-                        buf += buflen, buflen = 0;
+					{
+						buf += buflen; buflen = 0;
+					}
                 }
                 break;
 
@@ -3500,7 +3508,10 @@ size_t CVmObjDate::format_date(VMG_ char *buf, size_t buflen,
                 {
                     int32_t o = tzofs;
                     if (o < 0)
-                        wrtch('-'), o = -o;
+					{
+						wrtch('-');
+						o = -o;
+					}
                     else
                         wrtch('+');
 

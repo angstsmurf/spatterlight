@@ -988,7 +988,8 @@ unsigned long CVmObjStrComp::match_strings(const char *valstr, size_t vallen,
                 {
                     /* matched - skip this character in each string */
                     valp.inc(&vallen);
-                    ++vp, --vlen;
+					++vp;
+					--vlen;
 
                     /* keep going */
                     continue;
@@ -1126,8 +1127,8 @@ size_t CVmObjStrComp::match_chars(const wchar_t *valstr, size_t vallen,
             if (refch == valch)
             {
                 /* matched exactly - skip this character and keep going */
-                ++valstr, --vallen;
-                ++vp, --vlen;
+				++valstr; --vallen;
+				++vp; --vlen;
                 continue;
             }
 

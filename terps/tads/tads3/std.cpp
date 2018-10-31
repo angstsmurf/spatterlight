@@ -370,9 +370,16 @@ int lib_atoi(const char *str, size_t len)
     /* parse the sign, if present */
     int s = 1;
     if (len >= 1 && *str == '-')
-        s = -1, ++str, --len;
+	{
+		s = -1;
+		++str;
+		--len;
+	}
     else if (len >= 1 && *str == '+')
-        ++str, --len;
+	{
+		++str;
+		--len;
+	}
 
     /* scan digits */
     int acc;
@@ -391,9 +398,13 @@ int lib_atoi_adv(const char *&str, size_t &len)
     /* parse the sign, if present */
     int s = 1;
     if (len >= 1 && *str == '-')
-        s = -1, ++str, --len;
+	{
+		s = -1; ++str; --len;
+	}
     else if (len >= 1 && *str == '+')
-        ++str, --len;
+	{
+		++str; --len;
+	}
 
     /* scan digits */
     int acc;
@@ -722,7 +733,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                     {
                         ++need;
                         if (rem > 1)
-                            --rem, *dst++ = ' ';
+						{
+							--rem;
+							*dst++ = ' ';
+						}
                     }
                 }
                 break;
@@ -771,7 +785,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                         for (i = 0 ; i < 3 ; ++i)
                         {
                             if (rem > 1)
-                                *dst++ = buf[i], --rem;
+							{
+								*dst++ = buf[i];
+								--rem;
+							}
                         }
                         break;
 
@@ -779,7 +796,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                         /* copy anything else as-is */
                         need += 1;
                         if (rem > 1)
-                            *dst++ = *txt, --rem;
+						{
+							*dst++ = *txt;
+							--rem;
+						}
                         break;
                     }
                 }
@@ -824,7 +844,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                         /* add the '+' at the start of the output */
                         ++need;
                         if (rem > 1)
-                            --rem, *dst++ = '+';
+						{
+							--rem;
+							*dst++ = '+';
+						}
                     }
 
                     /* 
@@ -836,7 +859,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                         /* add the '-' at the start of the output */
                         ++need;
                         if (rem > 1)
-                            --rem, *dst++ = '-';
+						{
+							--rem;
+							*dst++ = '-';
+						}
                         
                         /* we've shown the '-', so skip it in the number */
                         ++txt;
@@ -848,7 +874,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                     {
                         ++need;
                         if (rem > 1)
-                            --rem, *dst++ = lead_char;
+						{
+							--rem;
+							*dst++ = lead_char;
+						}
                     }
                 }
 
@@ -916,7 +945,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
             {
                 ++need;
                 if (rem > 1)
-                    --rem, *dst++ = *txt;
+				{
+					--rem;
+					*dst++ = *txt;
+				}
             }
 
             /* add the 'nth' suffix, if applicable */
@@ -924,7 +956,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
             {
                 ++need;
                 if (rem > 1)
-                    --rem, *dst++ = *nth;
+				{
+					--rem;
+					*dst++ = *nth;
+				}
             }
 
             /* add an ellipsis if desired */
@@ -935,7 +970,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                 {
                     ++need;
                     if (rem > 1)
-                        --rem, *dst++ = '.';
+					{
+						--rem;
+						*dst++ = '.';
+					}
                 }
 
                 /* for padding purposes, count the ellipsis */
@@ -953,7 +991,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
                 {
                     ++need;
                     if (rem > 1)
-                        --rem, *dst++ = ' ';
+					{
+						--rem;
+						*dst++ = ' ';
+					}
                 }
             }
         }
@@ -962,7 +1003,10 @@ size_t t3vsprintf(char *buf, size_t buflen, const char *fmt, va_list args0)
             /* it's not a format specifier - just copy it literally */
             ++need;
             if (rem > 1)
-                --rem, *dst++ = *fmt;
+			{
+				--rem;
+				*dst++ = *fmt;
+			}
         }
     }
 
