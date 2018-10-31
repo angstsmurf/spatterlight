@@ -79,7 +79,10 @@ struct caldate_t
         /* adjust the month to 1-12 range */
         div_t mq = div(jm - 1, 12);
         if (mq.rem <= 0)
-            mq.rem += 12, mq.quot -= 1;
+		{
+			mq.rem += 12;
+			mq.quot -= 1;
+		}
         jm = mq.rem + 1;
         jy += mq.quot;
         
@@ -151,8 +154,9 @@ struct caldate_t
          */
         div_t mq = div(this->m - 3, 12);
         if (mq.rem < 0)
-            mq.rem += 12, mq.quot -= 1;
-
+		{
+			mq.rem += 12; mq.quot -= 1;
+		}
         int m = mq.rem;
         int y = this->y + mq.quot;
         return 365*y + divfl(y, 4) - divfl(y, 100) + divfl(y, 400)

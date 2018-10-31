@@ -1600,7 +1600,6 @@
 		9650338409F29EE20083E64E /* oem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oem.h; sourceTree = "<group>"; };
 		9650338509F29EE20083E64E /* opc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opc.h; sourceTree = "<group>"; };
 		9650338609F29EE20083E64E /* os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.h; sourceTree = "<group>"; };
-		9650338709F29EE20083E64E /* os.h.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = os.h.orig; sourceTree = "<group>"; };
 		9650338809F29EE20083E64E /* os0.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os0.c; sourceTree = "<group>"; };
 		9650338909F29EE20083E64E /* osbigmem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osbigmem.h; sourceTree = "<group>"; };
 		9650338A09F29EE20083E64E /* oserr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oserr.c; sourceTree = "<group>"; };
@@ -3200,8 +3199,7 @@
 				965032BC09F29EE20083E64E /* level9.c */,
 				965032BD09F29EE20083E64E /* level9.h */,
 			);
-			name = level9;
-			path = hugo/heglk/level9;
+			path = level9;
 			sourceTree = "<group>";
 		};
 		965032C009F29EE20083E64E /* magnetic */ = {
@@ -3376,7 +3374,6 @@
 				9650338109F29EE20083E64E /* objcomp.c */,
 				9650338409F29EE20083E64E /* oem.h */,
 				9650338509F29EE20083E64E /* opc.h */,
-				9650338709F29EE20083E64E /* os.h.orig */,
 				9650338909F29EE20083E64E /* osbigmem.h */,
 				9650338B09F29EE20083E64E /* osgen.c */,
 				9650338C09F29EE20083E64E /* osgen.h */,
@@ -6046,7 +6043,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					GLK,
 					"BUILD=0",
-					HAVE_GLK,
 					HAVE_GARGLK,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
@@ -6067,7 +6063,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					GLK,
 					"BUILD=0",
-					HAVE_GLK,
 					HAVE_GARGLK,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
