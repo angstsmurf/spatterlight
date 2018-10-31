@@ -187,6 +187,14 @@
     dirty = YES;
 }
 
+- (NSRect) florpCoords: (NSRect) r
+{
+    NSRect res = r;
+    NSSize size = image.size;
+    res.origin.y = size.height - res.origin.y - res.size.height;
+    return res;
+}
+
 - (void) drawImage: (NSImage*)src val1: (NSInteger)x val2: (NSInteger)y width: (NSInteger)w height: (NSInteger)h
 {
     NSSize srcsize = [src size];
@@ -202,12 +210,10 @@
 
     [[NSGraphicsContext currentContext] setImageInterpolation: NSImageInterpolationHigh];
 
-    [src drawInRect: NSMakeRect(x, y, w, h)
+    [src drawInRect: [self florpCoords: NSMakeRect(x, y, w, h)]
            fromRect: NSMakeRect(0, 0, srcsize.width, srcsize.height)
           operation: NSCompositeSourceOver
-           fraction: 1.0
-     respectFlipped:YES
-              hints:nil];
+           fraction: 1.0];
 
     [image unlockFocus];
 
