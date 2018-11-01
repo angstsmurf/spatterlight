@@ -409,7 +409,7 @@ static const char *msgnames[] =
 
 - (void) handleChangeTitle:(char*)buf length: (int)len
 {
-	NSString *str = [[NSString stringWithCString: buf encoding: NSISOLatin1StringEncoding] substringToIndex: len];
+	NSString *str = [[NSString stringWithCString: buf encoding: NSUTF8StringEncoding] substringToIndex: len];
 
 	//    _game.metadata.title = str;
 	self.window.title = str;
