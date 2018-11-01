@@ -360,7 +360,7 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
 
 void ifiction_parse(char *md, IFCloseTag close_tag, void *close_ctx, IFErrorHandler error_handler, void *error_ctx)
 {
-char *xml, buffer[2400], *aep, *mda=md, ebuffer[512];
+char *xml, buffer[2400], *aep=NULL, *mda=md, ebuffer[512];
 struct XMLTag *parse=NULL, *xtg;
 struct ifiction_info xti;
 char BOM[3]={ 0xEF, 0xBB, 0xBF};
