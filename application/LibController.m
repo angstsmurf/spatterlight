@@ -328,6 +328,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     {
         NSString *ifid = [gameTableModel objectAtIndex: i];
         NSString *path = [games objectForKey: ifid];
+        if (![[NSFileManager defaultManager] fileExistsAtPath: path])
+        {
+            NSRunAlertPanel(@"Cannot find the file.",
+                            @"The file could not be found at its original location. Maybe it has been moved since it was added to the library.",
+                            @"Okay", NULL, NULL);
+            return;
+        }
         [[NSWorkspace sharedWorkspace] selectFile: path inFileViewerRootedAtPath: @""];
     }
 }
