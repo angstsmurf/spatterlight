@@ -26,6 +26,8 @@
 		6D395C191EAD095E0070886C /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494371EAC1BC4003DA5C4 /* vm.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D5494441EAC1BC4003DA5C4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494291EAC1BC4003DA5C4 /* LICENSE */; };
 		6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494321EAC1BC4003DA5C4 /* README.md */; };
+		6D70DA80218B3F210022E13B /* Alan License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6D70DA7C218B3EFC0022E13B /* Alan License.rtf */; };
+		6D70DA81218B3F260022E13B /* BSD-2-Clause.txt in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6D70DA7D218B3EFC0022E13B /* BSD-2-Clause.txt */; };
 		6D73E55721873509009CD59A /* LibraryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D73E55621873509009CD59A /* LibraryWindow.xib */; };
 		6DF87CDC218259DB0020E9A1 /* GlkHyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
@@ -862,6 +864,8 @@
 			dstPath = docs;
 			dstSubfolderSpec = 7;
 			files = (
+				6D70DA80218B3F210022E13B /* Alan License.rtf in Copy Documentation Files */,
+				6D70DA81218B3F260022E13B /* BSD-2-Clause.txt in Copy Documentation Files */,
 				961CCF4509F2947700528FF9 /* GNU Public License.rtf in Copy Documentation Files */,
 				961CCF4609F2947700528FF9 /* HUGO License.rtf in Copy Documentation Files */,
 				961CCF4709F2947700528FF9 /* TADS License.rtf in Copy Documentation Files */,
@@ -907,6 +911,10 @@
 		6D5494351EAC1BC4003DA5C4 /* string.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string.c; sourceTree = "<group>"; };
 		6D5494361EAC1BC4003DA5C4 /* unixstrt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixstrt.c; sourceTree = "<group>"; };
 		6D5494371EAC1BC4003DA5C4 /* vm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vm.c; sourceTree = "<group>"; };
+		6D70DA7C218B3EFC0022E13B /* Alan License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Alan License.rtf"; sourceTree = "<group>"; };
+		6D70DA7D218B3EFC0022E13B /* BSD-2-Clause.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "BSD-2-Clause.txt"; sourceTree = "<group>"; };
+		6D70DA7E218B3EFC0022E13B /* Glulxe License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Glulxe License.rtf"; sourceTree = "<group>"; };
+		6D70DA7F218B3EFC0022E13B /* GNU General Public License.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "GNU General Public License.txt"; sourceTree = "<group>"; };
 		6D73E55621873509009CD59A /* LibraryWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LibraryWindow.xib; sourceTree = "<group>"; };
 		6DF87CDA218259DB0020E9A1 /* GlkHyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkHyperlink.h; sourceTree = "<group>"; };
 		6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkHyperlink.m; sourceTree = "<group>"; };
@@ -2837,6 +2845,10 @@
 		961CCF2809F2940F00528FF9 /* docs */ = {
 			isa = PBXGroup;
 			children = (
+				6D70DA7C218B3EFC0022E13B /* Alan License.rtf */,
+				6D70DA7D218B3EFC0022E13B /* BSD-2-Clause.txt */,
+				6D70DA7E218B3EFC0022E13B /* Glulxe License.rtf */,
+				6D70DA7F218B3EFC0022E13B /* GNU General Public License.txt */,
 				961CCF2909F2940F00528FF9 /* GNU Public License.rtf */,
 				961CCF2A09F2940F00528FF9 /* HUGO License.rtf */,
 				961CCF2B09F2940F00528FF9 /* TADS License.rtf */,
