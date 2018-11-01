@@ -98,7 +98,7 @@ static const char *msgnames[] =
 
     /* Setup Cocoa stuff */
     {
-        // [[self window] setRepresentedFilename: gamefile];
+        [[self window] setRepresentedFilename: gamefile];
         [[self window] setTitle: [gameinfo objectForKey: @"title"]];
         [[self window] setContentSize: defsize];
 
