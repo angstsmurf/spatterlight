@@ -549,6 +549,15 @@
 									<reference key="NSOnImage" ref="72442803"/>
 									<reference key="NSMixedImage" ref="165322861"/>
 								</object>
+								<object class="NSMenuItem" id="706834907">
+									<reference key="NSMenu" ref="281252344"/>
+									<string key="NSTitle">Glulxe License</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="72442803"/>
+									<reference key="NSMixedImage" ref="165322861"/>
+								</object>
 								<object class="NSMenuItem" id="843525256">
 									<reference key="NSMenu" ref="281252344"/>
 									<string key="NSTitle">Hugo License</string>
@@ -558,9 +567,18 @@
 									<reference key="NSOnImage" ref="72442803"/>
 									<reference key="NSMixedImage" ref="165322861"/>
 								</object>
+								<object class="NSMenuItem" id="163058921">
+									<reference key="NSMenu" ref="281252344"/>
+									<string key="NSTitle">Alan License</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="72442803"/>
+									<reference key="NSMixedImage" ref="165322861"/>
+								</object>
 								<object class="NSMenuItem" id="245175739">
 									<reference key="NSMenu" ref="281252344"/>
-									<string key="NSTitle">TADS License</string>
+									<string key="NSTitle">SDL License</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -769,22 +787,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showHelpFile:</string>
-						<reference key="source" ref="823233140"/>
-						<reference key="destination" ref="843525256"/>
-					</object>
-					<int key="connectionID">345</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">showHelpFile:</string>
-						<reference key="source" ref="823233140"/>
-						<reference key="destination" ref="245175739"/>
-					</object>
-					<int key="connectionID">347</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">clearScrollback:</string>
 						<reference key="source" ref="823233140"/>
 						<reference key="destination" ref="930490662"/>
@@ -862,6 +864,38 @@
 						<reference key="destination" ref="60747260"/>
 					</object>
 					<int key="connectionID">435</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showHelpFile:</string>
+						<reference key="source" ref="823233140"/>
+						<reference key="destination" ref="163058921"/>
+					</object>
+					<int key="connectionID">444</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showHelpFile:</string>
+						<reference key="source" ref="823233140"/>
+						<reference key="destination" ref="245175739"/>
+					</object>
+					<int key="connectionID">445</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showHelpFile:</string>
+						<reference key="source" ref="823233140"/>
+						<reference key="destination" ref="843525256"/>
+					</object>
+					<int key="connectionID">446</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showHelpFile:</string>
+						<reference key="source" ref="823233140"/>
+						<reference key="destination" ref="706834907"/>
+					</object>
+					<int key="connectionID">447</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1241,10 +1275,12 @@
 						<reference key="object" ref="281252344"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="765168801"/>
-							<reference ref="843525256"/>
-							<reference ref="245175739"/>
 							<reference ref="124118490"/>
 							<reference ref="662872909"/>
+							<reference ref="706834907"/>
+							<reference ref="843525256"/>
+							<reference ref="245175739"/>
+							<reference ref="163058921"/>
 						</array>
 						<reference key="parent" ref="440224247"/>
 					</object>
@@ -1305,6 +1341,16 @@
 						<int key="objectID">430</int>
 						<reference key="object" ref="60747260"/>
 						<reference key="parent" ref="780161859"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">440</int>
+						<reference key="object" ref="706834907"/>
+						<reference key="parent" ref="281252344"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">442</int>
+						<reference key="object" ref="163058921"/>
+						<reference key="parent" ref="281252344"/>
 					</object>
 				</array>
 			</object>
@@ -1369,6 +1415,8 @@
 				<string key="420.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="429.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="430.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="440.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="442.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1379,7 +1427,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">439</int>
+			<int key="maxID">447</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1387,32 +1435,12 @@
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="addGamesToLibrary:">id</string>
-						<string key="deleteLibrary:">id</string>
-						<string key="exportMetadata:">id</string>
-						<string key="importMetadata:">id</string>
 						<string key="openDocument:">id</string>
 						<string key="showHelpFile:">id</string>
 						<string key="showLibrary:">id</string>
 						<string key="showPrefs:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="addGamesToLibrary:">
-							<string key="name">addGamesToLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="deleteLibrary:">
-							<string key="name">deleteLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="exportMetadata:">
-							<string key="name">exportMetadata:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="importMetadata:">
-							<string key="name">importMetadata:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="openDocument:">
 							<string key="name">openDocument:</string>
 							<string key="candidateClassName">id</string>
@@ -1440,25 +1468,20 @@
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addGamesToLibrary:">id</string>
-						<string key="delete:">id</string>
 						<string key="deleteGame:">id</string>
 						<string key="deleteLibrary:">id</string>
 						<string key="exportMetadata:">id</string>
 						<string key="importMetadata:">id</string>
 						<string key="playGame:">id</string>
-						<string key="purgeLibrary:">id</string>
 						<string key="revealGameInFinder:">id</string>
 						<string key="saveLibrary:">id</string>
 						<string key="searchForGames:">id</string>
 						<string key="showGameInfo:">id</string>
+						<string key="toggleColumn:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="addGamesToLibrary:">
 							<string key="name">addGamesToLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="delete:">
-							<string key="name">delete:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="deleteGame:">
@@ -1481,10 +1504,6 @@
 							<string key="name">playGame:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="purgeLibrary:">
-							<string key="name">purgeLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="revealGameInFinder:">
 							<string key="name">revealGameInFinder:</string>
 							<string key="candidateClassName">id</string>
@@ -1501,11 +1520,16 @@
 							<string key="name">showGameInfo:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="toggleColumn:">
+							<string key="name">toggleColumn:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="exportTypeControl">NSPopUpButton</string>
 						<string key="exportTypeView">NSView</string>
 						<string key="gameTableView">NSTableView</string>
+						<string key="headerMenu">NSMenu</string>
 						<string key="importProgressPanel">NSPanel</string>
 						<string key="infoButton">NSButton</string>
 						<string key="playButton">NSButton</string>
@@ -1522,6 +1546,10 @@
 						<object class="IBToOneOutletInfo" key="gameTableView">
 							<string key="name">gameTableView</string>
 							<string key="candidateClassName">NSTableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="headerMenu">
+							<string key="name">headerMenu</string>
+							<string key="candidateClassName">NSMenu</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="importProgressPanel">
 							<string key="name">importProgressPanel</string>
