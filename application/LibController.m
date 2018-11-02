@@ -5,7 +5,6 @@
 #import "main.h"
 #import "InfoController.h"
 
-
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 #else
@@ -28,7 +27,7 @@ enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
 #include "babel_handler.h"
 
 @implementation LibHelperWindow
-- (NSDragOperation)draggingEntered:sender { return [(LibController *)self.delegate draggingEntered:sender]; }
+- (NSDragOperation) draggingEntered:sender { return [(LibController *)self.delegate draggingEntered:sender]; }
 - (void) draggingExited:sender { [(LibController *)self.delegate draggingEntered:sender]; }
 - (BOOL) prepareForDragOperation:sender { return [(LibController *)self.delegate prepareForDragOperation:sender]; }
 - (BOOL) performDragOperation:sender { return [(LibController *)self.delegate performDragOperation:sender]; }
@@ -160,6 +159,26 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     infoWindowIndex = 0;
 
     gameTableModel = [[NSMutableArray alloc] init];
+    
+    NSString *key;
+    NSSortDescriptor *sortDescriptor;
+    
+    for (NSTableColumn *tableColumn in gameTableView.tableColumns ) {
+        
+        key = tableColumn.identifier;
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES];
+        [tableColumn setSortDescriptorPrototype:sortDescriptor];
+        
+        for (NSMenuItem *menuitem in _headerMenu.itemArray)
+        {
+            if ([[menuitem valueForKey:@"identifier"] isEqualToString:key]) 		
+            {
+                menuitem.state = !([tableColumn isHidden]);
+                break;
+            }
+        }
+    }
+
     gameTableDirty = YES;
     [self updateTableViews];
 }
@@ -1035,9 +1054,9 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     [self addFiles: @[url]];
 }
 
-/*
- * Table magic
- */
+
+#pragma mark -
+#pragma mark Table magic
 
 - (IBAction) searchForGames: (id)sender
 {
@@ -1049,6 +1068,30 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 
     gameTableDirty = YES;
     [self updateTableViews];
+}
+
+- (IBAction)toggleColumn:(id)sender
+{
+	NSMenuItem *item = (NSMenuItem *)sender;
+	NSTableColumn * column;
+	for (NSTableColumn *tableColumn in gameTableView.tableColumns)
+	{
+		if ([tableColumn.identifier isEqualToString:[item valueForKey:@"identifier"]])
+		{
+			column = tableColumn;
+			break;
+		}
+	}
+	if (item.state == YES)
+	{
+		[column setHidden:YES];
+		item.state = NO;
+	}
+	else
+	{
+		[column setHidden:NO];
+		item.state = YES;
+	}
 }
 
 - (void) deselectGames
@@ -1085,37 +1128,16 @@ static NSInteger Strcmp(NSString *a, NSString *b)
     return [a localizedCaseInsensitiveCompare: b];
 }
 
-static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key)
+static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key, BOOL ascending)
 {
     NSString * ael = [[a objectForKey: key] description];
     NSString * bel = [[b objectForKey: key] description];
     if ((!ael || [ael length] == 0) && (!bel || [bel length] == 0))
-        return 0;
-    if (!ael || [ael length] == 0) return 1;
-    if (!bel || [bel length] == 0) return -1;
+        return NSOrderedSame;
+    if (!ael || [ael length] == 0) return ascending ? NSOrderedDescending :  NSOrderedAscending;;
+    if (!bel || [bel length] == 0) return ascending ? NSOrderedAscending : NSOrderedDescending;
+;
     return Strcmp(ael, bel);
-}
-
-static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
-{
-    LibController *self = (__bridge LibController *)(ctx);
-    NSDictionary *a = [self->metadata objectForKey: aid];
-    NSDictionary *b = [self->metadata objectForKey: bid];
-    NSInteger cmp;
-    if (self->gameSortColumn)
-    {
-        cmp = compareDicts(a, b, self->gameSortColumn);
-        if (cmp) return cmp;
-    }
-    cmp = compareDicts(a, b, @"title");
-    if (cmp) return cmp;
-    cmp = compareDicts(a, b, @"author");
-    if (cmp) return cmp;
-    cmp = compareDicts(a, b, @"seriesnumber");
-    if (cmp) return cmp;
-    cmp = compareDicts(a, b, @"firstpublished");
-    if (cmp) return cmp;
-    return compareDicts(a, b, @"format");
 }
 
 - (void) updateTableViews
@@ -1177,8 +1199,31 @@ static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
             [gameTableModel addObject: ifid];
         }
     }
+    
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:sortAscending comparator:^(NSString *aid, NSString *bid) {
+        
+        NSDictionary *a = [metadata objectForKey: aid];
+        NSDictionary *b = [metadata objectForKey: bid];
+        NSInteger cmp;
+       
+        if (gameSortColumn)
+        {
+            cmp = compareDicts(a, b, gameSortColumn, sortAscending);
+            if (cmp) return cmp;
+        }
+        cmp = compareDicts(a, b, @"title", sortAscending);
+        if (cmp) return cmp;
+        cmp = compareDicts(a, b, @"author", sortAscending);
+        if (cmp) return cmp;
+        cmp = compareDicts(a, b, @"seriesnumber",sortAscending);
+        if (cmp) return cmp;
+        cmp = compareDicts(a, b, @"firstpublished",sortAscending);
+        if (cmp) return cmp;
+        return compareDicts(a, b, @"format", sortAscending);
+    }];
+    
+    [gameTableModel sortUsingDescriptors:@[sort]];
 
-    [gameTableModel sortUsingFunction: compareGames context: (__bridge void *)(self)];
     [gameTableView reloadData];
 
     [gameTableView deselectAll: self];
@@ -1195,17 +1240,20 @@ static NSInteger compareGames(NSString *aid, NSString *bid, void *ctx)
     gameTableDirty = NO;
 }
 
-- (void) tableView: (NSTableView*)tableView
-didClickTableColumn: (NSTableColumn*)tableColumn
+- (void)tableView:(NSTableView *)tableView sortDescriptorsDidChange:(NSArray *)oldDescriptors
 {
     if (tableView == gameTableView)
     {
-        gameSortColumn = [tableColumn identifier];
-        [gameTableView setHighlightedTableColumn: tableColumn];
+        NSSortDescriptor *sortDescriptor = [tableView.sortDescriptors objectAtIndex:0];
+        if (!sortDescriptor)
+            return;
+        gameSortColumn = sortDescriptor.key;
+        sortAscending = sortDescriptor.ascending;
         gameTableDirty = YES;
         [self updateTableViews];
     }
 }
+
 - (NSInteger) numberOfRowsInTableView: (NSTableView*)tableView
 {
     if (tableView == gameTableView)

@@ -47,6 +47,7 @@
     NSMutableArray *gameTableModel;
     NSString *gameSortColumn;
     BOOL gameTableDirty;
+    BOOL sortAscending;
 
     BOOL canEdit;
     NSTimer * timer;
@@ -90,6 +91,8 @@
 - (IBAction) revealGameInFinder: (id)sender;
 - (IBAction) deleteGame: (id)sender;
 
+@property (strong) IBOutlet NSMenu *headerMenu;
+- (IBAction)toggleColumn:(id)sender;
 - (void) deselectGames;
 - (void) selectGameWithIFID: (NSString*)ifid;
 - (void) updateTableViews; /* must call this after -importGame: */
