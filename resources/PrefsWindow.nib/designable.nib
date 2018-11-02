@@ -42,8 +42,8 @@
 			<object class="NSWindowTemplate" id="162489296">
 				<int key="NSWindowStyleMask">3</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{167, 834}, {484, 221}}</string>
-				<int key="NSWTFlags">1886912512</int>
+				<string key="NSWindowRect">{{182, 372}, {484, 221}}</string>
+				<int key="NSWTFlags">1881669632</int>
 				<string key="NSWindowTitle">Preferences</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<object class="NSMutableString" key="NSViewClass">
@@ -140,7 +140,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="751207192">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">71303168</int>
-								<string type="base64-UTF8" key="NSContents">TW9ub3NwYWNlZDoKA</string>
+								<string key="NSContents">Monospaced:</string>
 								<reference key="NSSupport" ref="26"/>
 								<reference key="NSControlView" ref="133482010"/>
 								<reference key="NSBackgroundColor" ref="532176556"/>
@@ -535,14 +535,19 @@
 								<object class="NSNumberFormatter" key="NSFormatter" id="412105085">
 									<dictionary class="NSMutableDictionary" key="NS.attributes">
 										<boolean value="YES" key="allowsFloats"/>
+										<string key="decimalSeparator">,</string>
 										<integer value="1000" key="formatterBehavior"/>
+										<string type="base64-UTF8" key="groupingSeparator">wqA</string>
 										<boolean value="NO" key="lenient"/>
 										<real value="100" key="maximum"/>
 										<real value="-10" key="minimum"/>
+										<string key="negativeFormat">-#,##0.00</string>
 										<string key="negativeInfinitySymbol">-∞</string>
 										<string key="nilSymbol"/>
 										<integer value="0" key="numberStyle"/>
+										<string key="positiveFormat">#,##0.00</string>
 										<string key="positiveInfinitySymbol">+∞</string>
+										<boolean value="YES" key="usesGroupingSeparator"/>
 									</dictionary>
 									<string key="NS.positiveformat">#,##0.00</string>
 									<string key="NS.negativeformat">-#,##0.00</string>
@@ -562,8 +567,8 @@
 									<real value="-10" key="NS.min"/>
 									<real value="100" key="NS.max"/>
 									<nil key="NS.rounding"/>
-									<string key="NS.decimal">.</string>
-									<string key="NS.thousand">,</string>
+									<string key="NS.decimal">,</string>
+									<string type="base64-UTF8" key="NS.thousand">wqA</string>
 									<bool key="NS.hasthousands">YES</bool>
 									<bool key="NS.localized">YES</bool>
 									<bool key="NS.allowsfloats">YES</bool>
@@ -733,7 +738,7 @@
 													<bool key="NS.negative">NO</bool>
 													<bool key="NS.compact">YES</bool>
 													<int key="NS.mantissa.bo">1</int>
-													<bytes key="NS.mantissa">BgAAAAAAAAAAAAAAAAAAAA</bytes>
+													<bytes key="NS.mantissa">CAAAAAAAAAAAAAAAAAAAAA</bytes>
 												</object>
 												<reference key="NSSupport" ref="26"/>
 												<object class="NSNumberFormatter" key="NSFormatter" id="114019861">
@@ -1023,6 +1028,7 @@
 							<string key="NSFrame">{{198, 16}, {268, 18}}</string>
 							<reference key="NSSuperview" ref="294403239"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="571682833">
 								<int key="NSCellFlags">67239424</int>
@@ -1880,6 +1886,8 @@
 				<string key="294.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="295.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="298.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="34.IBNSWindowAutoPositionCentersHorizontal"/>
+				<boolean value="NO" key="34.IBNSWindowAutoPositionCentersVertical"/>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="346.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
