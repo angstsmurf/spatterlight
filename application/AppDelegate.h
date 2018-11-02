@@ -2,11 +2,14 @@
  * Launcher -- the main application controller
  */
 
+#import "HelpPanelController.h"
+
 @interface AppDelegate : NSObject < NSWindowDelegate >
 {
     Preferences *prefctl;
     LibController *libctl;
     NSPanel *filePanel;
+    HelpPanelController *helpLicenseWindow;
     NSDocumentController *theDocCont;
     BOOL addToRecents;
 }

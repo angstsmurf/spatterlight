@@ -65,9 +65,24 @@ NSDictionary *gFormatMap;
 {
     NSLog(@"appdel: showHelpFile('%@')", [sender title]);
     id title = [sender title];
-    id pathname = [[NSBundle mainBundle] resourcePath];
+    id pathname = [NSBundle mainBundle].resourcePath;
     id filename = [NSString stringWithFormat: @"%@/docs/%@.rtf", pathname, title];
-    [[NSWorkspace sharedWorkspace] openFile: filename];
+
+    NSURL *url = [NSURL fileURLWithPath:filename];
+    NSError *error;
+
+    if (!helpLicenseWindow)
+    {
+        helpLicenseWindow = [[HelpPanelController alloc] initWithWindowNibName:@"HelpPanelController"];
+        [[helpLicenseWindow window] setMinSize: NSMakeSize(290, 200)];
+    }
+
+    NSAttributedString *content = [[NSAttributedString alloc] initWithURL:url
+                                                                  options: @{NSDocumentTypeDocumentOption: NSRTFTextDocumentType}
+                                                       documentAttributes:nil
+                                                                    error:&error];
+
+    [helpLicenseWindow showHelpFile:content withTitle:title];
 }
 
 /*
