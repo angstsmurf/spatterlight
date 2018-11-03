@@ -63,7 +63,7 @@ NSDictionary *gFormatMap;
 
 - (IBAction) showHelpFile: (id)sender
 {
-    NSLog(@"appdel: showHelpFile('%@')", [sender title]);
+//    NSLog(@"appdel: showHelpFile('%@')", [sender title]);
     id title = [sender title];
     id pathname = [NSBundle mainBundle].resourcePath;
     id filename = [NSString stringWithFormat: @"%@/docs/%@.rtf", pathname, title];
