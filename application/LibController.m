@@ -159,12 +159,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     infoWindowIndex = 0;
 
     gameTableModel = [[NSMutableArray alloc] init];
-    
+
     NSString *key;
     NSSortDescriptor *sortDescriptor;
-    
-    for (NSTableColumn *tableColumn in gameTableView.tableColumns ) {
-        
+
+    for (NSTableColumn *tableColumn in gameTableView.tableColumns)
+    {
+
         key = tableColumn.identifier;
         sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES];
         [tableColumn setSortDescriptorPrototype:sortDescriptor];
