@@ -151,7 +151,7 @@ xcuserdata/**/*
 #
 #
 Spatterlight.xcodeproj/project.xcworkspace/xcuserdata/*
-Spatterlight.xcodeproj/xcuserdata/administrator.xcuserdatad/xcdebugger/*
+Spatterlight.xcodeproj/xcuserdata/*.xcuserdatad/xcdebugger/*
 
 ####
 # Xcode 4 - Deprecated classes
