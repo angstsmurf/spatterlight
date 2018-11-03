@@ -94,14 +94,6 @@
         
         [helpWindow setFrame:winrect display:YES animate:YES];
         [_textView scrollRectToVisible: NSMakeRect(0, 0, 0, 0)];
-
-        NSLog(@"((NSView *)helpWindow.contentView).frame.size.height = %f ", ((NSView *)helpWindow.contentView).frame.size.height);
-
-
-        NSLog(@"[helpWindow frameRectForContentRect:((NSView *)helpWindow.contentView).frame].size.height) = %f ", [helpWindow frameRectForContentRect:((NSView *)helpWindow.contentView).frame].size.height);
-
-        NSLog(@"proposedHeight = %f", proposedHeight);
-        
     }
 
     [helpWindow makeKeyAndOrderFront:nil];
@@ -167,8 +159,6 @@
     CGFloat windowWidth = [self longestLine:_textView.string] + 42;
         
     float width = _textView.frame.size.width - 2 * _textView.textContainerInset.width;
-
-    NSLog (@"newFrame.size.width = %f _textView.frame.size.width = %f _textView.textContainerInset.width = %f", newFrame.size.width, _textView.frame.size.width, _textView.textContainerInset.width);
 
     float proposedHeight = [self heightForString:_textView.string font:_textView.font andWidth:width
                                       andPadding:_textView.textContainer.lineFragmentPadding];
