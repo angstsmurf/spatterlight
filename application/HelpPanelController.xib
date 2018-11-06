@@ -41,7 +41,7 @@
 			<object class="NSWindowTemplate" id="1005">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{275, 433}, {490, 491}}</string>
+				<string key="NSWindowRect">{{286, 283}, {490, 491}}</string>
 				<int key="NSWTFlags">544735232</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -62,10 +62,10 @@
 										<object class="NSTextView" id="961425775">
 											<reference key="NSNextResponder" ref="384747385"/>
 											<int key="NSvFlags">2322</int>
-											<string key="NSFrameSize">{450, 15}</string>
+											<string key="NSFrameSize">{450, 14}</string>
 											<reference key="NSSuperview" ref="384747385"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="411403282"/>
+											<reference key="NSNextKeyView" ref="203273349"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<string key="NSHuggingPriority">{476, 250}</string>
 											<object class="NSTextContainer" key="NSTextContainer" id="778838230">
@@ -194,7 +194,7 @@
 							<string key="NSFrame">{{20, 60}, {450, 411}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="203273349"/>
+							<reference key="NSNextKeyView" ref="384747385"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">153600</int>
 							<reference key="NSVScroller" ref="203273349"/>
