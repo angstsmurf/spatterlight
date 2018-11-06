@@ -1036,7 +1036,7 @@ NSInteger colorToInteger(NSColor *color)
             if (lastimage)
             {
                 NSSize size;
-                size = [lastimage size];
+                size = lastimage.size;
                 ans->a1 = size.width;
                 ans->a2 = size.height;
             }

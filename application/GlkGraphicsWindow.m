@@ -48,7 +48,7 @@
     NSColor *color;
     CGFloat r, g, b;
 
-    NSRect bounds = [self bounds];
+    NSRect bounds = self.bounds;
 
     if (!transparent)
     {
@@ -85,12 +85,12 @@
 {
     int w, h;
 
-    if (NSEqualRects(frame, [self frame]))
+    if (NSEqualRects(frame, self.frame))
         return;
 
     [super setFrame: frame];
 
-    [self setAutoresizingMask: NSViewNotSizable];
+    self.autoresizingMask = NSViewNotSizable;
 
     w = frame.size.width;
     h = frame.size.height;
@@ -98,7 +98,7 @@
     if (w == 0 || h == 0)
         return;
 
-    [image setSize: NSMakeSize(w, h)];
+    image.size = NSMakeSize(w, h);
     [image recache];
 
     dirty = YES;
@@ -111,7 +111,7 @@
     NSInteger x, y;
     NSInteger i;
 
-    size = [image size];
+    size = image.size;
 
     if (size.width == 0 || size.height == 0)
         return;
@@ -128,12 +128,12 @@
               bytesPerRow: 0
               bitsPerPixel: 32];
 
-    [bitmap setSize: size];
+    bitmap.size = size;
 
-    unsigned char *pd = [bitmap bitmapData];
-    NSInteger ps = [bitmap bytesPerRow];
-    NSInteger pw = [bitmap pixelsWide];
-    NSInteger ph = [bitmap pixelsHigh];
+    unsigned char *pd = bitmap.bitmapData;
+    NSInteger ps = bitmap.bytesPerRow;
+    NSInteger pw = bitmap.pixelsWide;
+    NSInteger ph = bitmap.pixelsHigh;
 
     memset(pd, 0x00, ps * ph);
 
@@ -197,7 +197,7 @@
 
 - (void) drawImage: (NSImage*)src val1: (NSInteger)x val2: (NSInteger)y width: (NSInteger)w height: (NSInteger)h
 {
-    NSSize srcsize = [src size];
+    NSSize srcsize = src.size;
 
     if (w == 0)
         w = srcsize.width;
@@ -208,7 +208,7 @@
 
     [image lockFocus];
 
-    [[NSGraphicsContext currentContext] setImageInterpolation: NSImageInterpolationHigh];
+    [NSGraphicsContext currentContext].imageInterpolation = NSImageInterpolationHigh;
 
     [src drawInRect: [self florpCoords: NSMakeRect(x, y, w, h)]
            fromRect: NSMakeRect(0, 0, srcsize.width, srcsize.height)
@@ -239,14 +239,14 @@
 
 - (void) mouseDown: (NSEvent*)theEvent
 {
-    if (mouse_request && [theEvent clickCount] == 1)
+    if (mouse_request && theEvent.clickCount == 1)
     {
         [glkctl markLastSeen];
 
         NSPoint p;
-        p = [theEvent locationInWindow];
+        p = theEvent.locationInWindow;
         p = [self convertPoint: p fromView: nil];
-        p.y = [self frame].size.height - p.y;
+        p.y = self.frame.size.height - p.y;
         //NSLog(@"mousedown in gfx at %g,%g", p.x, p.y);
         GlkEvent *gev = [[GlkEvent alloc] initMouseEvent: p forWindow: self.name];
         [glkctl queueEvent: gev];
@@ -278,9 +278,9 @@
 
 - (void) keyDown: (NSEvent*)evt
 {
-    NSString *str = [evt characters];
+    NSString *str = evt.characters;
     unsigned ch = keycode_Unknown;
-    if ([str length])
+    if (str.length)
         ch = chartokeycode([str characterAtIndex: 0]);
 
 	GlkWindow *win;
