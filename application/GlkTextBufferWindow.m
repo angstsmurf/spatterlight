@@ -673,7 +673,9 @@
         scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
         [scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
         [scrollview setHasHorizontalScroller: NO];
-        [scrollview setHasVerticalScroller: NO];
+        [scrollview setHasVerticalScroller: YES];
+        [scrollview setAutohidesScrollers: YES];
+
         [scrollview setBorderType: NSNoBorder];
 
         /* construct text system manually */
