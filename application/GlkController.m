@@ -684,6 +684,8 @@ static const char *msgnames[] =
 
     [lastimage addRepresentations:reps];
 
+    NSData *tiffdata = lastimage.TIFFRepresentation;
+    lastimage = [[NSImage alloc] initWithData:tiffdata];
 
     lastimageresno = resno;
 }
