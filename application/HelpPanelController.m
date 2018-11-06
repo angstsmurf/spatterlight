@@ -68,13 +68,13 @@
 		[helpWindow setFrame:winrect display:YES animate:YES];
 		[_textView scrollRectToVisible: NSMakeRect(0, 0, 0, 0)];
 	}
-	[helpWindow makeKeyAndOrderFront:nil];
+
+    [helpWindow makeKeyAndOrderFront:nil];
 }
 
 
 - (CGRect)frameForString:(NSString *)string
 {
-
     NSString *proposedLine;
 
     CGFloat textWidth = 0;
@@ -102,23 +102,27 @@
 
     textWidth = ceil(textWidth);
 
+    CGFloat padding = _textView.textContainer.lineFragmentPadding;
+
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:string];
-	NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:NSMakeSize(textWidth + 10, FLT_MAX)];
+	NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:NSMakeSize(textWidth + padding * 2, FLT_MAX)];
 	NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
 	[layoutManager addTextContainer:textContainer];
 	[textStorage addLayoutManager:layoutManager];
 
     [textStorage addAttribute:NSFontAttributeName value:_textView.font
 						range:NSMakeRange(0, textStorage.length)];
-	textContainer.lineFragmentPadding = _textView.textContainer.lineFragmentPadding;
+	textContainer.lineFragmentPadding = padding;
 
 	[layoutManager glyphRangeForTextContainer:textContainer];
 
 	CGRect proposedRect = [layoutManager usedRectForTextContainer:textContainer];
     CGRect contentRect = ((NSView *)self.window.contentView).frame;
 
+    // These magic numbers are the required distance between the scrollview
+    // and the window content view edges. I wish a knew a way to calculate them.
     contentRect.size.width = proposedRect.size.width + 39;
-    contentRect.size.height = proposedRect.size.height + 80;
+    contentRect.size.height = proposedRect.size.height + 81;
 
     //Hopefully, by using frameRectForContentRect, this code will still work
     //on OS versions with a different window title bar height
