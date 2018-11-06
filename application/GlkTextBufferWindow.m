@@ -265,11 +265,11 @@
 
     count = [margins count];
     for (i = 0; i < count; i++)
-        [[margins objectAtIndex: i] uncacheBounds];
+        [margins[i] uncacheBounds];
 
 	count = flowbreaks.count;
 	for (i = 0; i < count; i++)
-		[[flowbreaks objectAtIndex: i] uncacheBounds];
+		[flowbreaks[i] uncacheBounds];
 
     [[self layoutManager] textContainerChangedGeometry: self];
 }
@@ -425,7 +425,7 @@
 
 	for (NSInteger i = [margins indexOfObject:image] - 1; i >= 0; i--)
 	{
-		MarginImage *img2 = [margins objectAtIndex:i];
+		MarginImage *img2 = margins[i];
 
 		// If overlapping, shift in opposite alignment direction
 		if (NSIntersectsRect(img2.bounds, adjustedBounds))
@@ -757,8 +757,8 @@
     if ([Preferences stylesEnabled])
     {
 
-        bgcolor = [[styles[style_Normal] attributes] objectForKey: NSBackgroundColorAttributeName];
-        fgcolor = [[styles[style_Normal] attributes] objectForKey: NSForegroundColorAttributeName];
+        bgcolor = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
+        fgcolor = [styles[style_Normal] attributes][NSForegroundColorAttributeName];
 
 //         if (bgnd != 0)
 //         {
@@ -1107,7 +1107,7 @@
     if ([str length])
         ch = chartokeycode([str characterAtIndex: 0]);
 
-	NSNumber *key = [NSNumber numberWithUnsignedInt:ch];
+	NSNumber *key = @(ch);
 
     GlkWindow *win;
 
@@ -1169,7 +1169,7 @@
         [textview setEditable: NO];
 
     }
-    else if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @(YES)]))
+    else if (line_request && (ch == keycode_Return || [currentTerminators[key] isEqual: @(YES)]))
     {
         NSLog(@"line event from %ld", (long)self.name);
 
@@ -1444,7 +1444,7 @@
 		else
 		{
 			currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, textstorage.length - currentHyperlink.startpos);
-			[textstorage addAttribute:NSLinkAttributeName value:[NSNumber numberWithInteger: currentHyperlink.index] range:currentHyperlink.range];
+			[textstorage addAttribute:NSLinkAttributeName value:@(currentHyperlink.index) range:currentHyperlink.range];
 			[hyperlinks addObject:currentHyperlink];
 			currentHyperlink = nil;
 		}

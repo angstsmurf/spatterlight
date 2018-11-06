@@ -137,7 +137,7 @@ NSDictionary *gFormatMap;
         NSLog(@"directory = %@", directory);
         [panel beginWithCompletionHandler:^(NSInteger result){
             if (result == NSFileHandlingPanelOKButton) {
-                NSURL*  theDoc = [[panel URLs] objectAtIndex:0];
+                NSURL*  theDoc = [panel URLs][0];
                 {
                     NSString *pathString = [[theDoc path] stringByDeletingLastPathComponent];
                     NSLog(@"directory = %@", directory);
@@ -222,7 +222,7 @@ NSDictionary *gFormatMap;
 
     while (count--)
     {
-        NSWindow *window = [windows objectAtIndex: count];
+        NSWindow *window = windows[count];
         id glkctl = [window delegate];
         if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive])
             alive ++;

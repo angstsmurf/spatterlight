@@ -99,7 +99,7 @@ static const char *msgnames[] =
     /* Setup Cocoa stuff */
     {
         [[self window] setRepresentedFilename: gamefile];
-        [[self window] setTitle: [gameinfo objectForKey: @"title"]];
+        [[self window] setTitle: gameinfo[@"title"]];
         [[self window] setContentSize: defsize];
 
         // Clamp to max screen size
@@ -155,7 +155,7 @@ static const char *msgnames[] =
 #else
 
         [task setLaunchPath: terppath];
-        [task setArguments: [NSArray arrayWithObjects: gamefile, NULL]];
+        [task setArguments: @[gamefile]];
 
 #endif //TEE_TERP_OUTPUT
 
@@ -409,7 +409,7 @@ static const char *msgnames[] =
 
 - (void) handleChangeTitle:(char*)buf length: (int)len
 {
-	NSString *str = [[NSString stringWithCString: buf encoding: NSUTF8StringEncoding] substringToIndex: len];
+	NSString *str = [@(buf) substringToIndex: len];
 
 	//    _game.metadata.title = str;
 	self.window.title = str;
@@ -446,7 +446,7 @@ static const char *msgnames[] =
 
         if (result == NSFileHandlingPanelOKButton)
         {
-            NSURL*  theDoc = [[panel URLs] objectAtIndex:0];
+            NSURL*  theDoc = [panel URLs][0];
 
             [[NSUserDefaults standardUserDefaults] setObject: [[theDoc path] stringByDeletingLastPathComponent] forKey: @"SaveDirectory"];
             s = [[theDoc lastPathComponent] UTF8String];
@@ -503,7 +503,7 @@ static const char *msgnames[] =
         date = [formatter stringFromDate:[NSDate date]];
 
 
-        filename = [date stringByAppendingString: [gameinfo objectForKey: @"title"]];
+        filename = [date stringByAppendingString: gameinfo[@"title"]];
     }
 
     if (ext)
@@ -885,18 +885,18 @@ NSInteger colorToInteger(NSColor *color)
 	NSArray *keys = [myDict allKeys];
 
 	for (key in keys)	{
-		[myDict setObject:@(NO) forKey:key];
+		myDict[key] = @(NO);
 	}
 
 //	NSLog(@"handleSetTerminatorsOnWindow: %ld length: %u", (long)gwindow.name, len );
 
 	for (NSInteger i = 0; i < len; i++)
 	{
-		key = [NSNumber numberWithUnsignedInteger:buf[i]];
-		id terminator_setting = [myDict objectForKey:key];
+		key = @(buf[i]);
+		id terminator_setting = myDict[key];
 		if (terminator_setting)
 		{
-			[myDict setObject:@(YES) forKey:key];
+			myDict[key] = @(YES);
 		}
 		else NSLog(@"Illegal line terminator request: %u", buf[i]);
 	}
@@ -923,7 +923,7 @@ NSInteger colorToInteger(NSColor *color)
             if ([queue count])
             {
                 GlkEvent *gevent;
-                gevent = [queue objectAtIndex: 0];
+                gevent = queue[0];
                 //NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
 
                 [gevent writeEvent: [sendfh fileDescriptor]];

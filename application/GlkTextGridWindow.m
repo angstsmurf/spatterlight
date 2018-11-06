@@ -61,7 +61,7 @@
     /* reassign styles to attributedstrings */
     for (i = 0; i < [lines count]; i++)
     {
-        NSMutableAttributedString *line = [lines objectAtIndex: i];
+        NSMutableAttributedString *line = lines[i];
         int x = 0;
         while (x < [line length])
         {
@@ -159,7 +159,7 @@
 
         if ([Preferences stylesEnabled])
         {
-            color = [[styles[style_Normal] attributes] objectForKey: NSBackgroundColorAttributeName];
+            color = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
             //if (bgnd != 0)
               //  color = [Preferences backgroundColor: (int)(bgnd - 1)];
         }
@@ -189,7 +189,7 @@
     {
         // [attstr drawAtPoint: NSMakePoint(x0, y0 + y * lineHeight)]; -- if it were only this simple.
 
-        [textStorage setAttributedString: [lines objectAtIndex: y]];
+        [textStorage setAttributedString: lines[y]];
         NSRange glyphRange = [textLayout glyphRangeForTextContainer: textContainer];
         NSPoint layoutLocation = [textLayout locationForGlyphAtIndex: 0];
         //NSRect	textRect = [textLayout boundingRectForGlyphRange: glyphRange inTextContainer: textContainer];
@@ -244,7 +244,7 @@
     // Size lines
     for (r = 0; r < rows; r++)
     {
-        NSMutableAttributedString* line = [lines objectAtIndex: r];
+        NSMutableAttributedString* line = lines[r];
 
         if ([line length] < cols)
         {
@@ -340,7 +340,7 @@
                                           initWithString: [string substringWithRange: NSMakeRange(pos, amountToDraw)]
                                           attributes: att];
 
-        [[lines objectAtIndex:ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw) withAttributedString: partString];
+        [lines[ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw) withAttributedString: partString];
 
         dirty = YES;
 
@@ -387,7 +387,7 @@
 
 			[hyperlinks addObject:currentHyperlink];
 
-			NSNumber *link = [NSNumber numberWithInteger: currentHyperlink.index];
+			NSNumber *link = @(currentHyperlink.index);
 
 			NSInteger pos = currentHyperlink.startpos;
 			NSInteger currentx = currentHyperlink.startpos % cols;
@@ -413,8 +413,8 @@
 					amountToDraw = length - pos;
 
 				// Make characters hyperlink
-				[[lines objectAtIndex:currenty] addAttribute:NSLinkAttributeName value:link range:NSMakeRange(currentx, amountToDraw)];
-                [[lines objectAtIndex:currenty] addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(currentx, amountToDraw)];
+				[lines[currenty] addAttribute:NSLinkAttributeName value:link range:NSMakeRange(currentx, amountToDraw)];
+                [lines[currenty] addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(currentx, amountToDraw)];
 
 				dirty = YES;
 
@@ -565,9 +565,9 @@
         return;
     }
 
-	NSNumber *key = [NSNumber numberWithUnsignedInt:ch];
+	NSNumber *key = @(ch);
 
-	if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @(YES)]))
+	if (line_request && (ch == keycode_Return || [currentTerminators[key] isEqual: @(YES)]))
 		[self typedEnter: nil];
 }
 

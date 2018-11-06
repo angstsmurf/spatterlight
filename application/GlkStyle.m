@@ -74,7 +74,7 @@
     // if (windowtype == wintype_TextBuffer)
     {
         NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
-        [para setParagraphStyle: [dict objectForKey: NSParagraphStyleAttributeName]];
+        [para setParagraphStyle: dict[NSParagraphStyleAttributeName]];
         
         NSInteger indent = [para headIndent];
         NSInteger paraindent = [para firstLineHeadIndent] - indent;
@@ -106,7 +106,7 @@
             }
         }
 
-        [dict setObject: para forKey: NSParagraphStyleAttributeName];
+        dict[NSParagraphStyleAttributeName] = para;
     }
     
     /*
@@ -115,7 +115,7 @@
     
     {
         NSFontManager *fontmgr = [NSFontManager sharedFontManager];
-        NSFont *font = [dict objectForKey: NSFontAttributeName];
+        NSFont *font = dict[NSFontAttributeName];
         
         if (enabled[stylehint_Size] && windowtype == wintype_TextBuffer)
         {
@@ -149,7 +149,7 @@
                 font = [fontmgr convertFont: font toHaveTrait: NSFixedPitchFontMask];
         }
         
-        [dict setObject: font forKey: NSFontAttributeName];
+        dict[NSFontAttributeName] = font;
     }
     
     /*
@@ -166,7 +166,7 @@
                                                    green: g / 255.0
                                                     blue: b / 255.0
                                                    alpha: 1.0];
-        [dict setObject: color forKey: NSForegroundColorAttributeName];
+        dict[NSForegroundColorAttributeName] = color;
     }
     
     if (enabled[stylehint_BackColor])
@@ -179,20 +179,20 @@
                                                    green: g / 255.0
                                                     blue: b / 255.0
                                                    alpha: 1.0];
-        [dict setObject: color forKey: NSBackgroundColorAttributeName];
+        dict[NSBackgroundColorAttributeName] = color;
     }
     
     if (enabled[stylehint_ReverseColor] && !(enabled[stylehint_TextColor] || enabled[stylehint_BackColor]))
     {
         if (windowtype == wintype_TextGrid)
         {
-            [dict setObject: [Preferences gridBackground] forKey: NSForegroundColorAttributeName];
-            [dict setObject: [Preferences gridForeground] forKey: NSBackgroundColorAttributeName];
+            dict[NSForegroundColorAttributeName] = [Preferences gridBackground];
+            dict[NSBackgroundColorAttributeName] = [Preferences gridForeground];
         }
         else
         {
-            [dict setObject: [Preferences bufferBackground] forKey: NSForegroundColorAttributeName];
-            [dict setObject: [Preferences bufferForeground] forKey: NSBackgroundColorAttributeName];
+            dict[NSForegroundColorAttributeName] = [Preferences bufferBackground];
+            dict[NSBackgroundColorAttributeName] = [Preferences bufferForeground];
         }
     }
 }

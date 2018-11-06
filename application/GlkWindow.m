@@ -180,13 +180,13 @@
 	if (fg || bg)
 	{
 		NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
-		[mutatt setObject:[NSNumber numberWithInt:stylevalue] forKey:@"GlkStyle"];
+		mutatt[@"GlkStyle"] = [NSNumber numberWithInt:stylevalue];
 		if ([Preferences stylesEnabled])
 		{
 			if (fg)
-				[mutatt setObject:[Preferences foregroundColor: (int)(fg - 1)] forKey:NSForegroundColorAttributeName];
+				mutatt[NSForegroundColorAttributeName] = [Preferences foregroundColor: (int)(fg - 1)];
 			if (bg)
-                [mutatt setObject:[Preferences backgroundColor: (int)(bg - 1)] forKey:NSBackgroundColorAttributeName];
+                mutatt[NSBackgroundColorAttributeName] = [Preferences backgroundColor: (int)(bg - 1)];
 		}
 		return (NSDictionary *) mutatt;
 	}

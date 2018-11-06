@@ -25,7 +25,7 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     count = [windows count];
     for (i = 0; i < count; i++)
     {
-        window = (NSWindow*) [windows objectAtIndex: i];
+        window = (NSWindow*) windows[i];
         winctl = (NSWindowController*) [window delegate];
         if (winctl && [winctl isKindOfClass: [InfoController class]])
         {
@@ -129,13 +129,13 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     [descriptionText setDrawsBackground: NO];
     [(NSScrollView *)[descriptionText superview] setDrawsBackground:NO];
     
-    [titleField setStringValue: [meta objectForKey: @"title"]];
-    if ([meta objectForKey: @"author"])
-        [authorField setStringValue: [meta objectForKey: @"author"]];
-    if ([meta objectForKey: @"headline"])
-        [headlineField setStringValue: [meta objectForKey: @"headline"]];
-    if ([meta objectForKey: @"description"])
-        [descriptionText setString: [meta objectForKey: @"description"]];
+    [titleField setStringValue: meta[@"title"]];
+    if (meta[@"author"])
+        [authorField setStringValue: meta[@"author"]];
+    if (meta[@"headline"])
+        [headlineField setStringValue: meta[@"headline"]];
+    if (meta[@"description"])
+        [descriptionText setString: meta[@"description"]];
     
     format = babel_init((char*)[path UTF8String]);
     if (format)
@@ -150,7 +150,7 @@ void showInfoForFile(NSString *path, NSDictionary *info)
             goto finish;
         s = strchr(buf, ',');
         if (s) *s = 0;
-        ifid = [NSString stringWithUTF8String: buf];
+        ifid = @(buf);
         
         [ifidField setStringValue: ifid];
         

@@ -5691,6 +5691,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight;
 				PRODUCT_NAME = Spatterlight;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -5725,6 +5726,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight;
 				PRODUCT_NAME = Spatterlight;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

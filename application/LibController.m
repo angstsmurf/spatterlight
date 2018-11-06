@@ -43,16 +43,15 @@ enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
     int movementCode;
 
     userInfo = [notification userInfo];
-    textMovement = [userInfo objectForKey: @"NSTextMovement"];
+    textMovement = userInfo[@"NSTextMovement"];
     movementCode = [textMovement intValue];
 
     // see if this a 'pressed-return' instance
     if (movementCode == NSReturnTextMovement)
     {
         // hijack the notification and pass a different textMovement value
-        textMovement = [NSNumber numberWithInt: NSIllegalTextMovement];
-        newUserInfo = [NSDictionary dictionaryWithObject: textMovement
-                                                  forKey: @"NSTextMovement"];
+        textMovement = @(NSIllegalTextMovement);
+        newUserInfo = @{@"NSTextMovement": textMovement};
         notification = [NSNotification notificationWithName: [notification name]
                                                      object: [notification object]
                                                    userInfo: newUserInfo];
@@ -151,7 +150,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
     [[self window] setExcludedFromWindowsMenu: YES];
     [[self window] registerForDraggedTypes:
-     [NSArray arrayWithObject: NSFilenamesPboardType]];
+     @[NSFilenamesPboardType]];
 
     [infoButton setEnabled: NO];
     [playButton setEnabled: NO];
@@ -212,7 +211,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
         enumerator = [metadata keyEnumerator];
         while ((ifid = [enumerator nextObject]))
         {
-            if (![games objectForKey: ifid])
+            if (!games[ifid])
             {
                 [metadata removeObjectForKey: ifid];
             }
@@ -297,7 +296,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     NSInteger rowidx = [gameTableView selectedRow];
     if (rowidx >= 0)
     {
-        NSString *ifid = [gameTableModel objectAtIndex: rowidx];
+        NSString *ifid = gameTableModel[rowidx];
         [self playGameWithIFID: ifid];
     }
 }
@@ -308,9 +307,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     NSInteger i;
     for (i = [rows firstIndex]; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
     {
-        NSString *ifid = [gameTableModel objectAtIndex: i];
-        NSString *path = [games objectForKey: ifid];
-        NSDictionary *info = [metadata objectForKey: ifid];
+        NSString *ifid = gameTableModel[i];
+        NSString *path = games[ifid];
+        NSDictionary *info = metadata[ifid];
 
         if (![[NSFileManager defaultManager] fileExistsAtPath: path])
         {
@@ -346,8 +345,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     NSInteger i;
     for (i = [rows firstIndex]; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
     {
-        NSString *ifid = [gameTableModel objectAtIndex: i];
-        NSString *path = [games objectForKey: ifid];
+        NSString *ifid = gameTableModel[i];
+        NSString *path = games[ifid];
         if (![[NSFileManager defaultManager] fileExistsAtPath: path])
         {
             NSRunAlertPanel(@"Cannot find the file.",
@@ -369,7 +368,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
         for (i = [rows firstIndex]; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
         {
-            ifid = [gameTableModel objectAtIndex: i];
+            ifid = gameTableModel[i];
             NSLog(@"libctl: delete game %@", ifid);
             [games removeObjectForKey: ifid];
         }
@@ -426,7 +425,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
         NSInteger count = [paths count];
         for (i = 0; i < count; i++)
         {
-            NSString *path = [paths objectAtIndex: i];
+            NSString *path = paths[i];
             if ([gGameFileTypes containsObject: [[path pathExtension] lowercaseString]])
                 return NSDragOperationCopy;
             if ([[path pathExtension] isEqualToString: @"iFiction"])
@@ -486,23 +485,23 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
     for (i = 0; i < count; i++)
     {
-        NSString *ifid = [list objectAtIndex: i];
-        NSDictionary *entry = [metadata objectForKey: ifid];
+        NSString *ifid = list[i];
+        NSDictionary *entry = metadata[ifid];
         if (entry)
         {
-            NSNumber *oldsrcv = [entry objectForKey: kSource];
+            NSNumber *oldsrcv = entry[kSource];
             int oldsrc = [oldsrcv intValue];
             if (cursrc >= oldsrc)
             {
-                [dict setObject: [NSNumber numberWithInt: (int)cursrc] forKey: kSource];
-                [metadata setObject: dict forKey: ifid];
+                dict[kSource] = @((int)cursrc);
+                metadata[ifid] = dict;
                 gameTableDirty = YES;
             }
         }
         else
         {
-            [dict setObject: [NSNumber numberWithInt: (int)cursrc] forKey: kSource];
-            [metadata setObject: dict forKey: ifid];
+            dict[kSource] = @((int)cursrc);
+            metadata[ifid] = dict;
             gameTableDirty = YES;
         }
     }
@@ -510,12 +509,12 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (void) setMetadataValue: (NSString*)val forKey: (NSString*)key forIFID: (NSString*)ifid
 {
-    NSMutableDictionary *dict = [metadata objectForKey: ifid];
+    NSMutableDictionary *dict = metadata[ifid];
     if (dict)
     {
         NSLog(@"libctl: user set value %@ = '%@' for %@", key, val, ifid);
-        [dict setObject: [NSNumber numberWithInt: kUser] forKey: kSource];
-        [dict setObject: val forKey: key];
+        dict[kSource] = @kUser;
+        dict[key] = val;
         gameTableDirty = YES;
     }
 }
@@ -591,7 +590,7 @@ static void read_xml_text(const char *rp, char *wp)
     /* we don't parse tags after bibliographic until the next story begins... */
     if (!strcmp(tag->tag, "bibliographic"))
     {
-        NSLog(@"libctl: import metadata for %@ by %@", [metabuf objectForKey: @"title"], [metabuf objectForKey: @"author"]);
+        NSLog(@"libctl: import metadata for %@ by %@", metabuf[@"title"], metabuf[@"author"]);
         [self addMetadata: metabuf forIFIDs: ifidbuf];
         ifidbuf = nil;
         metabuf = nil;
@@ -608,7 +607,7 @@ static void read_xml_text(const char *rp, char *wp)
         }
         char save = *tag->end;
         *tag->end = 0;
-        [ifidbuf addObject: [NSString stringWithUTF8String: tag->begin]];
+        [ifidbuf addObject: @(tag->begin)];
         *tag->end = save;
     }
 
@@ -623,34 +622,34 @@ static void read_xml_text(const char *rp, char *wp)
         read_xml_text(tag->begin, bigbuf);
         *tag->end = save;
 
-        NSString *val = [NSString stringWithUTF8String: bigbuf];
+        NSString *val = @(bigbuf);
 
         if (!strcmp(tag->tag, "format"))
-            [metabuf setObject: val forKey: @"format"];
+            metabuf[@"format"] = val;
         if (!strcmp(tag->tag, "bafn"))
-            [metabuf setObject: val forKey: @"bafn"];
+            metabuf[@"bafn"] = val;
         if (!strcmp(tag->tag, "title"))
-            [metabuf setObject: val forKey: @"title"];
+            metabuf[@"title"] = val;
         if (!strcmp(tag->tag, "author"))
-            [metabuf setObject: val forKey: @"author"];
+            metabuf[@"author"] = val;
         if (!strcmp(tag->tag, "language"))
-            [metabuf setObject: val forKey: @"language"];
+            metabuf[@"language"] = val;
         if (!strcmp(tag->tag, "headline"))
-            [metabuf setObject: val forKey: @"headline"];
+            metabuf[@"headline"] = val;
         if (!strcmp(tag->tag, "firstpublished"))
-            [metabuf setObject: val forKey: @"firstpublished"];
+            metabuf[@"firstpublished"] = val;
         if (!strcmp(tag->tag, "genre"))
-            [metabuf setObject: val forKey: @"genre"];
+            metabuf[@"genre"] = val;
         if (!strcmp(tag->tag, "group"))
-            [metabuf setObject: val forKey: @"group"];
+            metabuf[@"group"] = val;
         if (!strcmp(tag->tag, "description"))
-            [metabuf setObject: val forKey: @"description"];
+            metabuf[@"description"] = val;
         if (!strcmp(tag->tag, "series"))
-            [metabuf setObject: val forKey: @"series"];
+            metabuf[@"series"] = val;
         if (!strcmp(tag->tag, "seriesnumber"))
-            [metabuf setObject: val forKey: @"seriesnumber"];
+            metabuf[@"seriesnumber"] = val;
         if (!strcmp(tag->tag, "forgiveness"))
-            [metabuf setObject: val forKey: @"forgiveness"];
+            metabuf[@"forgiveness"] = val;
     }
 }
 
@@ -701,7 +700,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     const char *tagname;
     const char *s;
 
-    val = [info objectForKey: key];
+    val = info[key];
     if (!val)
         return;
 
@@ -760,8 +759,8 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         enumerator = [games keyEnumerator];
     while ((ifid = [enumerator nextObject]))
     {
-        info = [metadata objectForKey: ifid];
-        src = [[info objectForKey: kSource] intValue];
+        info = metadata[ifid];
+        src = [info[kSource] intValue];
         if ((what == X_EDITED && src >= kUser) || what != X_EDITED)
         {
             fprintf(fp, "<story>\n");
@@ -806,8 +805,8 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 - (void) playGameWithIFID: (NSString*)ifid
 {
     GlkController *gctl;
-    NSDictionary *info = [metadata objectForKey: ifid];
-    NSString *path = [games objectForKey: ifid];
+    NSDictionary *info = metadata[ifid];
+    NSString *path = games[ifid];
     NSString *terp;
 
     NSLog(@"playgame %@ %@", ifid, info);
@@ -828,9 +827,9 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         return;
     }
 
-    terp = [gExtMap objectForKey: [path pathExtension]];
+    terp = gExtMap[[path pathExtension]];
     if (!terp)
-        terp = [gFormatMap objectForKey: [info objectForKey: @"format"]];
+        terp = gFormatMap[info[@"format"]];
 
     if (!terp)
     {
@@ -857,7 +856,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     enumerator = [games keyEnumerator];
     while ((ifid = [enumerator nextObject]))
     {
-        if ([[games objectForKey: ifid] isEqualToString: path])
+        if ([games[ifid] isEqualToString: path])
         {
             [self playGameWithIFID: ifid];
             return;
@@ -939,7 +938,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 
     s = strchr(buf, ',');
     if (s) *s = 0;
-    ifid = [NSString stringWithUTF8String: buf];
+    ifid = @(buf);
 
     NSLog(@"libctl: import game %@ (%s)", path, format);
 
@@ -968,23 +967,23 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         free(mdbuf);
     }
 
-    dict = [metadata objectForKey: ifid];
+    dict = metadata[ifid];
     if (!dict)
     {
         dict = [NSMutableDictionary dictionary];
         cursrc = kDefault;
-        [self addMetadata: dict forIFIDs: [NSArray arrayWithObject: ifid]];
+        [self addMetadata: dict forIFIDs: @[ifid]];
         cursrc = 0;
     }
 
-    if (![dict objectForKey: @"format"])
-        [dict setObject: [NSString stringWithUTF8String: format] forKey: @"format"];
-    if (![dict objectForKey: @"title"])
-        [dict setObject: [path lastPathComponent] forKey: @"title"];
+    if (!dict[@"format"])
+        dict[@"format"] = @(format);
+    if (!dict[@"title"])
+        dict[@"title"] = [path lastPathComponent];
 
     babel_release();
 
-    [games setObject: path forKey: ifid];
+    games[ifid] = path;
 
     [self addURLtoRecents: [NSURL fileURLWithPath:path]];
 
@@ -1010,14 +1009,14 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     count = [urls count];
     for (i = 0; i < count; i++)
     {
-        NSString *path = [[urls objectAtIndex:i] path];
+        NSString *path = [urls[i] path];
 
         if (![filemgr fileExistsAtPath: path isDirectory: &isdir])
             continue;
 
         if (isdir)
         {
-            NSArray *contents = [filemgr contentsOfDirectoryAtURL:[urls objectAtIndex:i]
+            NSArray *contents = [filemgr contentsOfDirectoryAtURL:urls[i]
                                        includingPropertiesForKeys:@[NSURLNameKey]
                                                           options:NSDirectoryEnumerationSkipsHiddenFiles
                                                             error:nil];
@@ -1025,7 +1024,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         }
         else
         {
-            [self addFile: [urls objectAtIndex: i] select: select];
+            [self addFile: urls[i] select: select];
         }
     }
 }
@@ -1047,7 +1046,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 
     count = [select count];
     for (i = 0; i < count; i++)
-        [self selectGameWithIFID: [select objectAtIndex: i]];
+        [self selectGameWithIFID: select[i]];
 }
 
 - (void) addFile: (NSURL*)url
@@ -1107,7 +1106,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
 
     for (i = 0; i < count; i++)
-        if ([[gameTableModel objectAtIndex: i] isEqualToString: ifid])
+        if ([gameTableModel[i] isEqualToString: ifid])
             [indexSet addIndex:i];
 
     [gameTableView selectRowIndexes:indexSet byExtendingSelection:YES];
@@ -1131,8 +1130,8 @@ static NSInteger Strcmp(NSString *a, NSString *b)
 
 static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key, BOOL ascending)
 {
-    NSString * ael = [[a objectForKey: key] description];
-    NSString * bel = [[b objectForKey: key] description];
+    NSString * ael = [a[key] description];
+    NSString * bel = [b[key] description];
     if ((!ael || [ael length] == 0) && (!bel || [bel length] == 0))
         return NSOrderedSame;
     if (!ael || [ael length] == 0) return ascending ? NSOrderedDescending :  NSOrderedAscending;;
@@ -1160,7 +1159,7 @@ static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key, BOOL a
     selifid = nil;
     selrow = [gameTableView selectedRow];
     if (selrow >= 0)
-        selifid = [gameTableModel objectAtIndex: selrow];
+        selifid = gameTableModel[selrow];
 
     [gameTableModel removeAllObjects];
 
@@ -1172,23 +1171,23 @@ static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key, BOOL a
     enumerator = [games keyEnumerator];
     while ((ifid = [enumerator nextObject]))
     {
-        meta = [metadata objectForKey: ifid];
+        meta = metadata[ifid];
         if (searchcount > 0)
         {
             count = 0;
             for (i = 0; i < searchcount; i++)
             {
                 found = NO;
-                needle = [searchStrings objectAtIndex: i];
-                if (Strstr([meta objectForKey: @"format"], needle)) found++;
-                if (Strstr([meta objectForKey: @"title"], needle)) found++;
-                if (Strstr([meta objectForKey: @"author"], needle)) found++;
-                if (Strstr([meta objectForKey: @"firstpublished"], needle)) found++;
-                if (Strstr([meta objectForKey: @"group"], needle)) found++;
-                if (Strstr([meta objectForKey: @"genre"], needle)) found++;
-                if (Strstr([meta objectForKey: @"series"], needle)) found++;
-                if (Strstr([meta objectForKey: @"forgiveness"], needle)) found++;
-                if (Strstr([meta objectForKey: @"language"], needle)) found++;
+                needle = searchStrings[i];
+                if (Strstr(meta[@"format"], needle)) found++;
+                if (Strstr(meta[@"title"], needle)) found++;
+                if (Strstr(meta[@"author"], needle)) found++;
+                if (Strstr(meta[@"firstpublished"], needle)) found++;
+                if (Strstr(meta[@"group"], needle)) found++;
+                if (Strstr(meta[@"genre"], needle)) found++;
+                if (Strstr(meta[@"series"], needle)) found++;
+                if (Strstr(meta[@"forgiveness"], needle)) found++;
+                if (Strstr(meta[@"language"], needle)) found++;
                 if (found)
                     count ++;
             }
@@ -1203,8 +1202,8 @@ static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key, BOOL a
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:sortAscending comparator:^(NSString *aid, NSString *bid) {
         
-        NSDictionary *a = [metadata objectForKey: aid];
-        NSDictionary *b = [metadata objectForKey: bid];
+        NSDictionary *a = metadata[aid];
+        NSDictionary *b = metadata[bid];
         NSInteger cmp;
        
         if (gameSortColumn)
@@ -1245,7 +1244,7 @@ static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key, BOOL a
 {
     if (tableView == gameTableView)
     {
-        NSSortDescriptor *sortDescriptor = [tableView.sortDescriptors objectAtIndex:0];
+        NSSortDescriptor *sortDescriptor = (tableView.sortDescriptors)[0];
         if (!sortDescriptor)
             return;
         gameSortColumn = sortDescriptor.key;
@@ -1268,9 +1267,9 @@ objectValueForTableColumn: (NSTableColumn*)column
 {
     if (tableView == gameTableView)
     {
-        NSString *gameifid = [gameTableModel objectAtIndex: row];
-        NSDictionary *gamemeta = [metadata objectForKey: gameifid];
-        return [gamemeta objectForKey: [column identifier]];
+        NSString *gameifid = gameTableModel[row];
+        NSDictionary *gamemeta = metadata[gameifid];
+        return gamemeta[[column identifier]];
     }
 
     return nil;
@@ -1283,10 +1282,10 @@ objectValueForTableColumn: (NSTableColumn*)column
 {
     if (tableView == gameTableView)
     {
-        NSString *ifid = [gameTableModel objectAtIndex: row];
-        NSDictionary *info = [metadata objectForKey: ifid];
+        NSString *ifid = gameTableModel[row];
+        NSDictionary *info = metadata[ifid];
         NSString *key = [tableColumn identifier];
-        NSString *oldval = [info objectForKey: key];
+        NSString *oldval = info[key];
         if (oldval == nil && [(NSString*)value length] == 0)
             return;
         if ([value isEqualTo: oldval])
@@ -1394,7 +1393,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 
     task = [[NSTask alloc] init];
     [task setLaunchPath: exepath];
-    [task setArguments: [NSArray arrayWithObjects: @"-o", @"/tmp/cugelcvtout.agx", origpath, NULL]];
+    [task setArguments: @[@"-o", @"/tmp/cugelcvtout.agx", origpath]];
     [task launch];
     [task waitUntilExit];
     status = [task terminationStatus];
@@ -1418,7 +1417,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 
             cvtpath =
             [dirpath stringByAppendingPathComponent:
-             [[NSString stringWithUTF8String: buf]
+             [@(buf)
               stringByAppendingPathExtension: @"agx"]];
 
             babel_release();
