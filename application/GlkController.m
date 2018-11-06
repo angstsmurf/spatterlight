@@ -666,15 +666,14 @@ static const char *msgnames[] =
 
     NSArray * reps = [NSBitmapImageRep imageRepsWithData:data];
 
-    NSInteger width = 0;
-    NSInteger height = 0;
+    NSSize size = NSZeroSize;
 
     for (NSImageRep * imageRep in reps) {
-        if (imageRep.pixelsWide > width) width = imageRep.pixelsWide;
-        if (imageRep.pixelsHigh > height) height = imageRep.pixelsHigh;
+        if (imageRep.pixelsWide > size.width) size.width = imageRep.pixelsWide;
+        if (imageRep.pixelsHigh > size.height) size.height = imageRep.pixelsHigh;
     }
 
-    lastimage = [[NSImage alloc] initWithSize:NSMakeSize((CGFloat)width, (CGFloat)height)];
+    lastimage = [[NSImage alloc] initWithSize:size];
 
     if (!lastimage)
     {
@@ -685,7 +684,9 @@ static const char *msgnames[] =
     [lastimage addRepresentations:reps];
 
     NSData *tiffdata = lastimage.TIFFRepresentation;
+
     lastimage = [[NSImage alloc] initWithData:tiffdata];
+    lastimage.size = size;
 
     lastimageresno = resno;
 }
