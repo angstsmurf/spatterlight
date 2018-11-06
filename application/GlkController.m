@@ -330,7 +330,7 @@ static const char *msgnames[] =
     id focuswin;
     int i;
 
-    NSLog(@"glkctl guessFocus");
+//    NSLog(@"glkctl guessFocus");
 
     focuswin = [[self window] firstResponder];
     while (focuswin)
