@@ -29,42 +29,14 @@
 	if ((![helpWindow isVisible]) || (![text.string isEqualToString:_textView.string]))
 	{
 		CGRect screenframe = [[NSScreen mainScreen] visibleFrame];
-		CGRect contentrect = ((NSView *)helpWindow.contentView).frame;
 
 		NSString *string = text.string;
-
-		CGFloat textWidth = [self longestLine:string];
 
 		CGFloat oldheight = helpWindow.frame.size.height;
 
 		_textView.string = string;
 
-        NSSize containersize = _textView.textContainer.containerSize;
-
-        if (textWidth < screenframe.size.width)
-        {
-            containersize.width = textWidth;
-            [_textView.textContainer setContainerSize:containersize];
-        }
-        else
-        {
-            textWidth = containersize.width;
-        }
-
-        CGFloat windowWidth = textWidth + 19;
-
-        [helpWindow.contentView setFrameSize: NSMakeSize(windowWidth, contentrect.size.height)];
-
-		float proposedHeight = [self heightForString:_textView.string font:_textView.font andWidth:textWidth
-										  andPadding:_textView.textContainer.lineFragmentPadding];
-
-        contentrect = ((NSView *)helpWindow.contentView).frame;
-		contentrect.size.height = proposedHeight + 82; // 1 x standard 20pt margin above, 3 x below, 1pt border x 2
-
-		//Hopefully, by using frameRectForContentRect, this code will still work
-		//on OS versions with a different window title bar height
-		NSRect winrect = [helpWindow frameRectForContentRect:contentrect];
-
+        CGRect winrect = [self frameForString:string];
 		winrect.origin = helpWindow.frame.origin;
 
 		//If the entire text does not fit on screen, don't change height at all
@@ -75,9 +47,7 @@
 		// so we reset it here
 
         // Scroll the vertical scroller to top
-        if ([_scrollView hasVerticalScroller]) {
-            _scrollView.verticalScroller.floatValue = 0;
-        }
+        _scrollView.verticalScroller.floatValue = 0;
 
         // Scroll the contentView to top
         [_scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
@@ -90,7 +60,7 @@
 
 		//If window is partly off the screen, move it (just) inside
 		if (NSMaxX(winrect) > NSMaxX(screenframe))
-			winrect.origin.x = NSMaxX(screenframe) - windowWidth;
+			winrect.origin.x = NSMaxX(screenframe) - winrect.size.width;
 
 		if (NSMinY(winrect) < 0)
 			winrect.origin.y = NSMinY(screenframe);
@@ -101,21 +71,22 @@
 	[helpWindow makeKeyAndOrderFront:nil];
 }
 
-- (CGFloat)longestLine:(NSString *)string
+
+- (CGRect)frameForString:(NSString *)string
 {
-	NSString *proposedLine;
 
-	NSUInteger index, stringLength = [string length];
-	CGFloat textWidth = 0;
-	NSRange range;
-	NSFont *standardFont = [NSFont systemFontOfSize:[NSFont systemFontSize]];
+    NSString *proposedLine;
 
-	for (index = 0; index < stringLength;)
+    CGFloat textWidth = 0;
+    NSUInteger stringLength = string.length;
+    NSRange range;
+
+	for (NSUInteger index = 0; index < stringLength;)
 	{
 		range = [string lineRangeForRange:NSMakeRange(index, 0)];
 		index = NSMaxRange(range);
 		proposedLine = [string substringWithRange:range];
-		CGSize stringSize = [proposedLine sizeWithAttributes:@{NSFontAttributeName:standardFont}];
+		CGSize stringSize = [proposedLine sizeWithAttributes:@{NSFontAttributeName: _textView.font}];
 		CGFloat width = stringSize.width;
 
 		if (width > textWidth)
@@ -124,48 +95,49 @@
 		}
 	}
 
-	// Unless we add 2, the last word on the longest line will break. Some kind of 1-point border on each side, I guess. It is not the line fragment padding, that is 5.
+    CGRect screenframe = [[NSScreen mainScreen] visibleFrame];
 
-	textWidth += 2;
-	return textWidth;
-}
+    if (textWidth > screenframe.size.width)
+        textWidth = screenframe.size.width / 3;
 
-- (float)heightForString:(NSString *)myString font:(NSFont *)myFont andWidth:(float)myWidth andPadding:(float)padding
-{
-	NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:myString];
-	NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:NSMakeSize(myWidth, FLT_MAX)];
+    textWidth = ceil(textWidth);
+
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:string];
+	NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:NSMakeSize(textWidth + 10, FLT_MAX)];
 	NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
 	[layoutManager addTextContainer:textContainer];
 	[textStorage addLayoutManager:layoutManager];
-	[textStorage addAttribute:NSFontAttributeName value:myFont
-						range:NSMakeRange(0, textStorage.length)];
-	textContainer.lineFragmentPadding = padding;
 
-	(void) [layoutManager glyphRangeForTextContainer:textContainer];
-	return [layoutManager usedRectForTextContainer:textContainer].size.height + 2;
+    [textStorage addAttribute:NSFontAttributeName value:_textView.font
+						range:NSMakeRange(0, textStorage.length)];
+	textContainer.lineFragmentPadding = _textView.textContainer.lineFragmentPadding;
+
+	[layoutManager glyphRangeForTextContainer:textContainer];
+
+	CGRect proposedRect = [layoutManager usedRectForTextContainer:textContainer];
+    CGRect contentRect = ((NSView *)self.window.contentView).frame;
+
+    contentRect.size.width = proposedRect.size.width + 39;
+    contentRect.size.height = proposedRect.size.height + 80;
+
+    //Hopefully, by using frameRectForContentRect, this code will still work
+    //on OS versions with a different window title bar height
+    return [self.window frameRectForContentRect:contentRect];
 }
 
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window
 						defaultFrame:(NSRect)newFrame
 {
-	CGFloat oldheight = window.frame.size.height;
-	CGFloat windowWidth = [self longestLine:_textView.string];
-	float proposedHeight = [self heightForString:_textView.string font:_textView.font andWidth:windowWidth
-									  andPadding:_textView.textContainer.lineFragmentPadding];
+    CGRect screenframe = [[NSScreen mainScreen] visibleFrame];
 
-	CGRect dummyrect = ((NSView *)window.contentView).frame;
-	dummyrect.size.height = proposedHeight + 82; // 1 standard 20pt margin above, 3 below, 1pt border
+    CGFloat oldheight = window.frame.size.height;
 
-	CGRect winrect = [window frameRectForContentRect:dummyrect];
-	CGFloat newheight = winrect.size.height;
-
-	newFrame.size.width = windowWidth + 19;
-	newFrame.size.height = newheight;
+    newFrame = [self frameForString:_textView.string];
 
 	CGFloat offset = newFrame.size.height - oldheight;
 
 	newFrame.origin.y = window.frame.origin.y - offset;
-	newFrame.origin.x = ([[NSScreen mainScreen] visibleFrame].size.width - windowWidth) / 2;
+	newFrame.origin.x = (screenframe.size.width - newFrame.size.width) / 2;
 
 	return newFrame;
 };
