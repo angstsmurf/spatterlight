@@ -140,6 +140,8 @@
 - (void) drawRect: (NSRect)rect
 {
     NSRect bounds = [self bounds];
+    NSColor *color;
+
     //NSRange glyphRange;
     //NSPoint layoutLocation;
     //NSRect textRect;
@@ -153,15 +155,12 @@
 
     if (!transparent)
     {
-        NSColor *color;
 
         color = nil;
 
         if ([Preferences stylesEnabled])
         {
             color = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
-            //if (bgnd != 0)
-              //  color = [Preferences backgroundColor: (int)(bgnd - 1)];
         }
 
         if (!color)
@@ -169,7 +168,7 @@
 
         [color set];
 
-        NSRectFill(rect);
+        NSRectFill(bounds);
     }
 
     NSInteger y;
@@ -213,6 +212,16 @@
 #endif
     }
 
+    //Hack to cover stray characters that sometimes get
+    //stuck outside the window margin
+    NSRect frame = rect;
+    frame.size.width = [Preferences gridMargins];
+
+    frame.origin.x = NSMaxX(self.bounds) - [Preferences gridMargins];
+
+    [color set];
+
+    NSRectFill(frame);
 }
 
 - (void) setFrame: (NSRect)frame
@@ -221,7 +230,7 @@
 
     [super setFrame: frame];
 
-    NSInteger newcols = floor (frame.size.width / [Preferences charWidth]);
+    NSInteger newcols = floor (frame.size.width / [Preferences charWidth]) - 1;
     NSInteger newrows = frame.size.height / [Preferences lineHeight];
 
     if (newcols == cols && newrows == rows)
