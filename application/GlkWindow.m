@@ -20,7 +20,7 @@
     {
         glkctl = glkctl_;
         _name = name;
-        //bgnd = 0xFFFFFF; // White
+        bgnd = 0xFFFFFF; // White
 		_pendingTerminators = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
 							   @(NO), @keycode_Func1,
 							   @(NO), @keycode_Func2,

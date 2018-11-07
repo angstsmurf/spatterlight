@@ -18,6 +18,7 @@
 
         mouse_request = NO;
         transparent = NO;
+        background_color_unset = YES;
     }
 
     return self;
@@ -39,6 +40,8 @@
 - (void) setBgColor: (NSInteger)bc
 {
     bgnd = bc;
+    background_color_unset = NO;
+
 //    NSLog(@"Background in graphics window was set to bgnd(%ld)", (long)bgnd);
 
 }
@@ -83,7 +86,7 @@
 
 - (void) setFrame: (NSRect)frame
 {
-    int w, h;
+    int w, h, background_color;
 
     if (NSEqualRects(frame, self.frame))
         return;
@@ -98,7 +101,28 @@
     if (w == 0 || h == 0)
         return;
 
-    image.size = NSMakeSize(w, h);
+    // First we copy the current contents
+    NSImage *oldimage = [image copy];
+
+    // Then we set the graphics window contents to the new size
+	image.size = NSMakeSize(w, h);
+
+    // Then we clear the graphics window by filling it with background color
+
+    if ([Preferences stylesEnabled] && !background_color_unset)
+        background_color = bgnd;
+    else
+        background_color = 0xFFFFFF; //White
+
+    struct fillrect rect = { .color = (uint32_t)background_color, .w = w, .h = h };
+    struct fillrect rects[1];
+    rects[0] = rect;
+
+    [self fillRects:rects count:1];
+
+    // The we draw the old contents over it
+	[self drawImage:oldimage val1:0 val2:0 width:oldimage.size.width height:oldimage.size.height];
+    
     [image recache];
 
     dirty = YES;
