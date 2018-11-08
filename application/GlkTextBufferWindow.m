@@ -1565,4 +1565,93 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
     return newrange;
 }
 
+
+
+// = NSAccessibility =
+
+- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
+	return [super accessibilityIsAttributeSettable: attribute];;
+}
+
+/*
+ - (NSString *)accessibilityActionDescription: (NSString*) action {
+ if ([action isEqualToString: @"Repeat last command"])
+ return @"Read the output of the last command entered";
+
+ return [super accessibilityActionDescription: action];
+ }
+
+ - (NSArray *)accessibilityActionNames {
+ NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
+
+ [result addObjectsFromArray:[NSArray arrayWithObjects:
+ @"Read last command",
+ nil]];
+
+ return [result autorelease];
+ }
+
+ - (void)accessibilityPerformAction:(NSString *)action {
+ NSLog(@"action");
+ return [super accessibilityPerformAction: action];
+ }
+ */
+
+- (void)accessibilitySetValue: (id)value
+				 forAttribute: (NSString*) attribute {
+	// No settable attributes
+	return [super accessibilitySetValue: value
+						   forAttribute: attribute];
+}
+
+- (NSArray*) accessibilityAttributeNames {
+	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
+	if (!result) result = [[NSMutableArray alloc] init];
+
+	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
+     NSAccessibilityHelpAttribute]];
+
+	return [result autorelease];
+}
+
+- (id)accessibilityAttributeValue:(NSString *)attribute {
+	if ([attribute isEqualToString: NSAccessibilityContentsAttribute]) {
+		return textView;
+	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
+		//return parentWindow;
+	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
+		if (!lineInput && !charInput) return @"Text window";
+		return [NSString stringWithFormat: @"GLK text window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];;
+	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
+		return (id)NO;
+		/* return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
+         [[self window] firstResponder] == textView]; */
+	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
+		return [self accessibilityFocusedUIElement];
+	} else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
+		return @[textView];
+	}
+
+	return [super accessibilityAttributeValue: attribute];
+}
+
+- (id)accessibilityFocusedUIElement {
+	return textView;
+}
+
+- (BOOL)accessibilityIsIgnored {
+	return NO;
+}
+
+- (void) hideMoreWindow {
+    [[moreWindow parentWindow] removeChildWindow: moreWindow];
+    [moreWindow orderOut: self];
+}
+
+- (void) showMoreWindow {
+    [[self window] addChildWindow: moreWindow
+                          ordered: NSWindowAbove];
+    [moreWindow orderFront: self];
+}
+
 @end

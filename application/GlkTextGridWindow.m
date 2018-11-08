@@ -665,4 +665,20 @@
     }
 }
 
+
+// = NSAccessibility =
+
+- (id)accessibilityAttributeValue:(NSString *)attribute {
+	if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
+		if (!lineInput && !charInput) return @"Text grid";
+		return [NSString stringWithFormat: @"GLK text grid window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];;
+	}
+
+	return [super accessibilityAttributeValue: attribute];
+}
+
+- (id)accessibilityFocusedUIElement {
+	return textView;
+}
+
 @end
