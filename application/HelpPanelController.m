@@ -146,4 +146,9 @@
 	return newFrame;
 };
 
+
+- (id)accessibilityFocusedUIElement {
+	return _textView;
+}
+
 @end
