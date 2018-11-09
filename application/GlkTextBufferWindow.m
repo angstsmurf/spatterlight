@@ -280,7 +280,8 @@
 	mi.linkid = linkid;
     [margins addObject: mi];
     [self.layoutManager textContainerChangedGeometry: self];
-	[self adjustTextviewHeightForLowImages];
+    if ([self adjustTextviewHeightForLowImages])
+        [(MyTextView *)self.textView temporarilyHideCaret];
 }
 
 - (void) flowBreakAt: (NSInteger)pos
@@ -463,9 +464,16 @@
     
 	for (MarginImage *image in margins)
 	{
+        NSLog(@"Checking image height. self.textView.frame.size.height = %f, NSMaxY(image.bounds) = %f", self.textView.frame.size.height, NSMaxY(image.bounds));
 		if (self.textView.frame.size.height < NSMaxY(image.bounds))
 		{
-			[self.textView setFrameSize:NSMakeSize(self.textView.frame.size.width, NSMaxY(image.bounds) + self.textView.textContainerInset.height * 2)];
+            NSLog(@"Needed to increase text view height with %f points",NSMaxY(image.bounds) -  self.textView.frame.size.height);
+
+            NSLog(@"Old height = %f", self.textView.frame.size.height);
+
+			[self.textView setFrameSize:NSMakeSize(self.textView.frame.size.width, NSMaxY(image.bounds) + self.textView.textContainerInset.height)];
+
+            NSLog(@"New height = %f", self.textView.frame.size.height);
             didAdjust = YES;
 
 		}
@@ -601,7 +609,7 @@
 
 	[[scrollview contentView] scrollToPoint:newScrollOrigin];
 	[scrollview reflectScrolledClipView:[scrollview contentView]];
-//	NSLog(@"Scrolled to bottom of scrollview");
+	NSLog(@"Scrolled to bottom of scrollview");
 }
 
 - (void) mouseDown: (NSEvent*)theEvent
@@ -973,9 +981,7 @@
 		[textstorage appendAttributedString: attstr];
 
 	}
-    
-    if ([container adjustTextviewHeightForLowImages])
-        [self performScroll];
+    //[container adjustTextviewHeightForLowImages];
 }
 
 - (void) flowBreak
@@ -1157,7 +1163,7 @@
                 [textview scrollLineDown: nil];
                 return;
             default:
-                [self performScroll];
+                [self scrollToBottom];
                 break;
         }
     }
