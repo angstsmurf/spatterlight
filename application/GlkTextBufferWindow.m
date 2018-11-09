@@ -379,7 +379,7 @@
                     
                     rect.size.width -= bounds.size.width;
                     if (NSMaxX(rect) > rightMargin)
-                        rect.size.width = rect.size.width - (rightMargin - NSMaxX(rect));
+                        rect.size.width = rect.size.width - (NSMaxX(rect) - rightMargin);
                     
                     overlapped = YES;
 				}
