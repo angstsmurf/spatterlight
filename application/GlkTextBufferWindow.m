@@ -572,7 +572,6 @@
 
 - (void)scrollToBottom
 {
-//	[(MarginContainer *)self.textContainer adjustTextviewHeightForLowImages];
 	id view = self.superview;
 	while (view && ![view isKindOfClass: [NSScrollView class]])
 		view = [view superview];
@@ -598,10 +597,21 @@
     BOOL result = [super shouldDrawInsertionPoint];
     
     // Never draw a caret if the system doesn't want to. I.e. super overrides glkTextBuffer.
-    if (result && !glkTextBuffer.shouldDrawCaret)
-        result = glkTextBuffer.shouldDrawCaret;
+    if (result && !_shouldDrawCaret)
+        result = _shouldDrawCaret;
     
     return result;
+}
+
+- (void) enableCaret:(id)sender
+{
+    _shouldDrawCaret = YES;
+}
+
+- (void) temporarilyHideCaret
+{
+    _shouldDrawCaret = NO;
+    [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(enableCaret:) userInfo:nil repeats:NO];
 }
 
 @end
@@ -629,7 +639,6 @@
 		hyper_request = NO;
         echo_toggle_pending = NO;
         echo = YES;
-        _shouldDrawCaret = YES;
         
         fence = 0;
         lastseen = 0;
@@ -696,6 +705,7 @@
         [textview setBackgroundColor: [Preferences bufferBackground]];
         [textview setInsertionPointColor: [Preferences bufferForeground]];
 
+        [textview enableCaret:nil];
 
         // disabling screen fonts will force font smoothing and kerning.
         // using screen fonts will render ugly and uneven text and sometimes
@@ -1229,8 +1239,7 @@
 
     //Do't draw a caret right now, even if we clicked at the prompt
 
-    _shouldDrawCaret = NO;
-    [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(enableCaret:) userInfo:nil repeats:NO];
+    [textview temporarilyHideCaret];
     
 	NSLog(@"mouseDown in buffer window.");
 	if (hyper_request)
@@ -1254,11 +1263,6 @@
 		}
 	}
 	return NO;
-}
-
-- (void) enableCaret:(id)sender
-{
-    _shouldDrawCaret = YES;
 }
 
 - (void) grabFocus
@@ -1467,11 +1471,11 @@ shouldChangeTextInRange: (NSRange)range
 replacementString: (id)repl
 {
     if (line_request && range.location >= fence)
-    {   _shouldDrawCaret = YES;
+    {   textview.shouldDrawCaret = YES;
         return YES;
     }
     
-    _shouldDrawCaret = NO;
+    textview.shouldDrawCaret = NO;
     return NO;
 }
 

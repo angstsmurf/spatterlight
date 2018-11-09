@@ -28,6 +28,10 @@
 - (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textBuffer: (GlkTextBufferWindow *)textbuffer;
 - (void) superKeyDown: (NSEvent*)evt;
 - (void) scrollToBottom;
+- (void) temporarilyHideCaret;
+
+@property BOOL shouldDrawCaret;
+
 @end
 
 @interface MarginContainer : NSTextContainer
@@ -60,7 +64,7 @@
     NSTextStorage *textstorage;
     NSLayoutManager *layoutmanager;
     MarginContainer *container;
-    NSTextView *textview;
+    MyTextView *textview;
 
 	NSInteger line_request;
 	NSInteger hyper_request;
@@ -83,7 +87,6 @@
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
 
 @property (readonly) NSInteger lastchar;
-@property BOOL shouldDrawCaret;
 
 @end
 
