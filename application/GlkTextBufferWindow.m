@@ -1222,7 +1222,7 @@
         if (line_request)
             [self grabFocus];
             
-        [(MyTextView*)textview superKeyDown: evt];
+        [textview superKeyDown: evt];
     }
 }
 
