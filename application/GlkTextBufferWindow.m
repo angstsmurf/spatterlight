@@ -497,7 +497,25 @@
 			if (NSIntersectsRect(bounds, rect))
 			{
                 size = image.size;
-                [image.image drawInRect: bounds
+				if (self.textView.frame.size.height < NSMaxY(image.bounds))
+				{
+                    ((MyTextView *)self.textView).shouldDrawCaret = NO;
+                    NSLog(@"Old height of text view: %f", self.textView.frame.size.height);
+                    //[self setHeightTracksTextView:NO];
+					[(MyTextView *)self.textView setFrameSize:NSMakeSize(self.textView.frame.size.width, NSMaxY(image.bounds)+ inset.height)];
+
+
+                    //self.containerSize=NSMakeSize([self containerSize].width, NSMaxY(image.bounds) + 2 * inset.height);
+                    //[self adjustTextviewHeightForLowImages];
+                    NSLog(@"New height of text view: %f", self.textView.frame.size.height);
+
+
+					[(MyTextView *)self.textView scrollToBottom];
+					[self.textView setNeedsDisplay:YES];
+                    [(MyTextView *)self.textView temporarilyHideCaret];
+                    //[self setHeightTracksTextView:NO];
+				}
+				[image.image drawInRect: bounds
                                  fromRect: NSMakeRect(0, 0, size.width, size.height)
                                 operation: NSCompositeSourceOver
                                  fraction: 1.0
@@ -1000,7 +1018,7 @@
 	[container adjustTextviewHeightForLowImages];
 
     // then, get the bottom
-    bottom = [textview frame].size.height;
+    bottom = textview.frame.size.height;
 
     // scroll so rect from lastseen to bottom is visible
     //NSLog(@"scroll %d -> %d", lastseen, bottom);
