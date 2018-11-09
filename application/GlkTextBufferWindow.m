@@ -326,28 +326,7 @@
 		{
 			[image boundsWithLayout: self.layoutManager];
 
-
-//			if (NSLocationInRange(image.position, range) && !NSIntersectsRect(bounds, NSMakeRect(0, rect.origin.y, FLT_MAX, rect.size.height)))
-//			{
-//				if (!NSIntersectsRect(rect, NSMakeRect(0, bounds.origin.y, FLT_MAX, bounds.size.height)))
-//				{
-//					NSLog(@"The anchor for image %ld is above its image. Move it down.", [margins indexOfObjectIdenticalTo:image] );
-//					rect.origin.y = bounds.origin.y ;
-////					rect.origin.x = bounds.origin.x;
-////					rect.size.width = proposed.size.width - bounds.origin.x;
-//				}
-////				else
-////				{
-//////					NSLog(@"Image %ld is above its anchor. Move it down.", [margins indexOfObjectIdenticalTo:image] );
-//////					bounds.origin.y = rect.origin.y;
-//////					image.bounds = NSMakeRect(image.bounds.origin.x, rect.origin.y, image.bounds.size.width, image.bounds.size.height);
-//////					rect.origin.x = NSMaxX(bounds);
-//////					rect.size.width = proposed.size.width - NSMaxX(bounds);
-////				}
-//			}
-
 			bounds = image.bounds;
-//            [self unoverlap:image];
 
 			if (NSIntersectsRect(bounds, rect))
 			{
@@ -439,9 +418,7 @@
 				}
 				else
 				{
-//					adjustedBounds.origin.x = NSMinX(img2.bounds) - img2.bounds.size.width;
                     adjustedBounds.origin.x -= - img2.bounds.size.width;
-
 					// Move it one image width the left
 				}
 			}
@@ -525,11 +502,8 @@
                                 operation: NSCompositeSourceOver
                                  fraction: 1.0
                            respectFlipped:YES
-                                    hints:nil];
-            }
-            
+                                    hints:nil];            }
         }
-
     }
 
     [self.textView setNeedsDisplay:YES];
@@ -952,9 +926,7 @@
 //        [container addImage: image align: align at: textstorage.length - 1 linkid:linkid];
 
 		[self setNeedsDisplay: YES];
-
 	}
-
 	else
 	{
 //		NSLog(@"adding image to text");
