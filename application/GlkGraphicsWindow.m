@@ -18,7 +18,6 @@
 
         mouse_request = NO;
         transparent = NO;
-        background_color_unset = YES;
     }
 
     return self;
@@ -40,7 +39,6 @@
 - (void) setBgColor: (NSInteger)bc
 {
     bgnd = bc;
-    background_color_unset = NO;
 
 //    NSLog(@"Background in graphics window was set to bgnd(%ld)", (long)bgnd);
 
@@ -58,17 +56,11 @@
 
         color = nil;
 
-        if ([Preferences stylesEnabled])
-        {
-            //color = [Preferences backgroundColor: (int)(bgnd - 1)];
+        r = (bgnd >> 16) / 255.0;
+        g = (bgnd >> 8 & 0xFF) / 255.0;
+        b = (bgnd & 0xFF) / 255.0;
 
-            r = (bgnd >> 16) / 255.0;
-            g = (bgnd >> 8 & 0xFF) / 255.0;
-            b = (bgnd & 0xFF) / 255.0;
-
-            color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
-//            NSLog(@"drawRect: Set color in graphics window to bgnd(%ld), %@", (long)bgnd, color);
-        }
+        color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
 
         if (!color)
             color = [NSColor whiteColor];
@@ -86,44 +78,44 @@
 
 - (void) setFrame: (NSRect)frame
 {
-    int w, h, background_color;
 
     if (NSEqualRects(frame, self.frame))
         return;
 
     [super setFrame: frame];
 
-    self.autoresizingMask = NSViewNotSizable;
-
-    w = frame.size.width;
-    h = frame.size.height;
-
-    if (w == 0 || h == 0)
+    if (frame.size.width == 0 || frame.size.height == 0)
         return;
 
-    // First we copy the current contents
-    NSImage *oldimage = [image copy];
+    // First we store the current contents
+    NSImage *oldimage = image;
 
-    // Then we set the graphics window contents to the new size
-	image.size = NSMakeSize(w, h);
+    // Then we create a new image, filling it with background color
+    if (!transparent)
+    {
+        NSColor *color = nil;
+        CGFloat r, g, b;
 
-    // Then we clear the graphics window by filling it with background color
+        r = (bgnd >> 16) / 255.0;
+        g = (bgnd >> 8 & 0xFF) / 255.0;
+        b = (bgnd & 0xFF) / 255.0;
 
-    if ([Preferences stylesEnabled] && !background_color_unset)
-        background_color = bgnd;
-    else
-        background_color = 0xFFFFFF; //White
+        color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
+        // NSLog(@"drawRect: Set color in graphics window to bgnd(%ld), %@", (long)bgnd, color);
 
-    struct fillrect rect = { .color = (uint32_t)background_color, .w = w, .h = h };
-    struct fillrect rects[1];
-    rects[0] = rect;
+        if (!color)
+            color = [NSColor whiteColor];
 
-    [self fillRects:rects count:1];
+        image = [[NSImage alloc] initWithSize:frame.size];
+
+        [image lockFocus];
+        [color set];
+        NSRectFill(self.bounds);
+        [image unlockFocus];
+    }
 
     // The we draw the old contents over it
 	[self drawImage:oldimage val1:0 val2:0 width:oldimage.size.width height:oldimage.size.height];
-    
-    [image recache];
 
     dirty = YES;
 }
