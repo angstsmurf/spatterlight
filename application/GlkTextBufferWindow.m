@@ -504,31 +504,23 @@
             
 			if (NSIntersectsRect(bounds, rect))
 			{
+                if (self.textView.frame.size.height < NSMaxY(bounds))
+                {
+                    ((MyTextView *)self.textView).bottomPadding = NSMaxY(bounds) - self.textView.frame.size.height + inset.height;
+
+                    [self.textView setFrameSize:self.textView.frame.size];
+                    [(MyTextView *)self.textView scrollToBottom];
+                }
+                else ((MyTextView *)self.textView).bottomPadding = 0;
+                    
                 size = image.size;
-				if (self.textView.frame.size.height < NSMaxY(image.bounds))
-				{
-                    ((MyTextView *)self.textView).shouldDrawCaret = NO;
-                    NSLog(@"Old height of text view: %f", self.textView.frame.size.height);
-                    //[self setHeightTracksTextView:NO];
-					[(MyTextView *)self.textView setFrameSize:NSMakeSize(self.textView.frame.size.width, NSMaxY(image.bounds)+ inset.height)];
-
-
-                    //self.containerSize=NSMakeSize([self containerSize].width, NSMaxY(image.bounds) + 2 * inset.height);
-                    //[self adjustTextviewHeightForLowImages];
-                    NSLog(@"New height of text view: %f", self.textView.frame.size.height);
-
-
-					[(MyTextView *)self.textView scrollToBottom];
-					[self.textView setNeedsDisplay:YES];
-                    [(MyTextView *)self.textView temporarilyHideCaret];
-                    //[self setHeightTracksTextView:NO];
-				}
 				[image.image drawInRect: bounds
                                  fromRect: NSMakeRect(0, 0, size.width, size.height)
                                 operation: NSCompositeSourceOver
                                  fraction: 1.0
                            respectFlipped:YES
-                                    hints:nil];            }
+                                    hints:nil];
+            }
         }
     }
 
@@ -575,7 +567,10 @@
 {
     self = [super initWithFrame:rect textContainer:container];
     if (self)
+    {
         glkTextBuffer = textbuffer;
+        _bottomPadding = 0;
+    }
     return self;
 }
 
@@ -604,7 +599,7 @@
 
 	NSScrollView *scrollview = (NSScrollView *)view;
 
-	NSPoint newScrollOrigin = NSMakePoint(0.0,NSMaxY([[scrollview documentView] frame])
+	NSPoint newScrollOrigin = NSMakePoint(0.0,NSMaxY(self.frame)
 									- NSHeight(scrollview.contentView.bounds));
 
 	[[scrollview contentView] scrollToPoint:newScrollOrigin];
@@ -638,6 +633,16 @@
 {
     _shouldDrawCaret = NO;
     [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(enableCaret:) userInfo:nil repeats:NO];
+}
+
+- (void)setFrameSize:(NSSize)newSize {
+    newSize.height += _bottomPadding;
+    [super setFrameSize:newSize];
+}
+
+- (NSInteger) lastseen
+{
+    return [glkTextBuffer lastseen];
 }
 
 @end
@@ -694,15 +699,15 @@
         layoutmanager = [[NSLayoutManager alloc] init];
         [textstorage addLayoutManager: layoutmanager];
 
-        container = [[MarginContainer alloc] initWithContainerSize: NSMakeSize(0, 10000000)];
+        container = [[MarginContainer alloc] initWithContainerSize: NSMakeSize(0, FLT_MAX)];
 
         [container setLayoutManager: layoutmanager];
         [layoutmanager addTextContainer: container];
 
-        textview = [[MyTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000) textContainer:container textBuffer:self];
+        textview = [[MyTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, FLT_MAX) textContainer:container textBuffer:self];
 
-        [textview setMinSize:NSMakeSize(1, 10000000)];
-        [textview setMaxSize:NSMakeSize(10000000, 10000000)];
+        [textview setMinSize:NSMakeSize(0, 0)];
+        [textview setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
 
         [container setTextView: textview];
 

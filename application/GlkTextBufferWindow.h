@@ -31,6 +31,7 @@
 - (void) temporarilyHideCaret;
 
 @property BOOL shouldDrawCaret;
+@property CGFloat bottomPadding;
 
 @end
 
@@ -87,6 +88,7 @@
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
 
 @property (readonly) NSInteger lastchar;
+- (NSInteger) lastseen;
 
 @end
 
