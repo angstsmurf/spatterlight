@@ -629,12 +629,12 @@
     // scroll so rect from lastseen to bottom is visible
     //NSLog(@"scroll %d -> %d", lastseen, bottom);
     if (bottom - [glkTextBuffer lastseen] > NSHeight(scrollview.frame))
-        [self scrollRectToVisible: NSMakeRect(0, [glkTextBuffer lastseen], 0, NSHeight(scrollview.frame))];
+        [self scrollRectToVisible: NSMakeRect(0, glkTextBuffer.lastseen, 0, NSHeight(scrollview.frame))];
     else
-        [self scrollRectToVisible: NSMakeRect(0, [glkTextBuffer lastseen], 0, bottom - [glkTextBuffer lastseen])];
+        [self scrollRectToVisible: NSMakeRect(0, glkTextBuffer.lastseen, 0, bottom - glkTextBuffer.lastseen)];
 
 
-    NSLog(@"perform scroll bottom = %d lastseen = %ld", bottom, (long)[glkTextBuffer lastseen]);
+    NSLog(@"perform scroll bottom = %d lastseen = %ld", bottom, (long)glkTextBuffer.lastseen);
 }
 
 
@@ -703,8 +703,8 @@
         echo = YES;
         
         fence = 0;
-        lastseen = 0;
-        lastchar = '\n';
+        _lastseen = 0;
+        _lastchar = '\n';
 
         for (i = 0; i < HISTORYLEN; i++)
             history[i] = nil;
@@ -972,7 +972,7 @@
 
 	if (align == imagealign_MarginLeft || align == imagealign_MarginRight)
 	{
-		if (lastchar != '\n' && textstorage.length)
+		if (_lastchar != '\n' && textstorage.length)
 		{
 			NSLog(@"lastchar is not line break. Do not add margin image.");
 			return;
@@ -1037,7 +1037,7 @@
         line = [layoutmanager lineFragmentRectForGlyphAtIndex: glyphs.location + glyphs.length - 1
                                                effectiveRange: nil];
 
-        lastseen = line.origin.y + line.size.height; // bottom of the line
+        _lastseen = line.origin.y + line.size.height; // bottom of the line
     }
 }
 
@@ -1207,7 +1207,7 @@
         if (echo)
         {
             [self putString: @"\n" style: style_Input]; // XXX arranger lastchar needs to be set
-            lastchar = '\n';
+            _lastchar = '\n';
         }
         else
             [textstorage deleteCharactersInRange: NSMakeRange(fence, textstorage.length - fence)]; // Don't echo input line
@@ -1311,8 +1311,8 @@
     id att = [[NSAttributedString alloc] initWithString: @""];
     [textstorage setAttributedString: att];
     fence = 0;
-    lastseen = 0;
-    lastchar = '\n';
+    _lastseen = 0;
+    _lastchar = '\n';
     [container clearImages];
 	hyperlinks = nil;
 	hyperlinks = [[NSMutableArray alloc] init];
@@ -1344,8 +1344,8 @@
     line_request = NO;
 
     [textstorage replaceCharactersInRange: NSMakeRange(0, fence - prompt) withString: @""];
-    lastseen = 0;
-    lastchar = '\n';
+    _lastseen = 0;
+    _lastchar = '\n';
     fence = prompt;
 
     line_request = save_request;
@@ -1360,12 +1360,7 @@
 
 	[textstorage appendAttributedString: attstr];
 
-    lastchar = [str characterAtIndex: [str length] - 1];
-}
-
-- (NSInteger) lastchar
-{
-    return lastchar;
+    _lastchar = [str characterAtIndex: [str length] - 1];
 }
 
 - (void) initChar
@@ -1412,7 +1407,7 @@
         echo = !echo;
     }
 
-    if (lastchar == '>' && [Preferences spaceFormat])
+    if (_lastchar == '>' && [Preferences spaceFormat])
     {
         [self putString: @" " style: style_Normal];
     }
@@ -1440,7 +1435,7 @@
     if (echo)
 	{
 		[self putString: @"\n" style: style_Input];
-		lastchar = '\n'; // [str characterAtIndex: str.length - 1];
+		_lastchar = '\n'; // [str characterAtIndex: str.length - 1];
 	}
     else
         [textstorage deleteCharactersInRange: NSMakeRange(fence, textstorage.length - fence)]; // Don't echo input line

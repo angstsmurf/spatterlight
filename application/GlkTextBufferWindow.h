@@ -75,8 +75,6 @@
     BOOL echo; /* if YES, current line input will be deleted from text view */
 
     NSInteger fence;		/* for input line editing */
-    NSInteger lastseen;	/* for more paging */
-    NSInteger lastchar;	/* for smart formatting */
 
     NSString *history[HISTORYLEN];
     NSInteger historypos;
@@ -88,8 +86,8 @@
 - (void) echo: (BOOL)val;
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
 
-@property (readonly) NSInteger lastchar;
-- (NSInteger) lastseen;
+@property (readonly) NSInteger lastchar; /* for smart formatting */
+@property (readonly) NSInteger lastseen; /* for more paging */
 
 @end
 
