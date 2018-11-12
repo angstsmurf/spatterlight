@@ -607,6 +607,39 @@
 	NSLog(@"Scrolled to bottom of scrollview");
 }
 
+- (void) performScroll
+{
+    int bottom;
+	NSRange range;
+    // first, force a layout so we have the correct textview frame
+    [self.layoutManager glyphRangeForTextContainer: self.textContainer];
+
+    if (self.textStorage.length == 0)
+        return;
+
+	[self.layoutManager textContainerForGlyphAtIndex:0 effectiveRange:&range];
+
+    id view = self.superview;
+	while (view && ![view isKindOfClass: [NSScrollView class]])
+		view = [view superview];
+
+	NSScrollView *scrollview = (NSScrollView *)view;
+
+    // then, get the bottom
+    bottom = NSHeight(self.frame);
+
+    // scroll so rect from lastseen to bottom is visible
+    //NSLog(@"scroll %d -> %d", lastseen, bottom);
+    if (bottom - [glkTextBuffer lastseen] > NSHeight(scrollview.frame))
+        [self scrollRectToVisible: NSMakeRect(0, [glkTextBuffer lastseen], 0, NSHeight(scrollview.frame))];
+    else
+        [self scrollRectToVisible: NSMakeRect(0, [glkTextBuffer lastseen], 0, bottom - [glkTextBuffer lastseen])];
+
+
+    NSLog(@"perform scroll bottom = %d lastseen = %ld", bottom, (long)[glkTextBuffer lastseen]);
+}
+
+
 - (void) mouseDown: (NSEvent*)theEvent
 {
 	if (![glkTextBuffer myMouseDown:theEvent])
@@ -941,7 +974,6 @@
 
 	if (align == imagealign_MarginLeft || align == imagealign_MarginRight)
 	{
-
 		if (lastchar != '\n' && textstorage.length)
 		{
 			NSLog(@"lastchar is not line break. Do not add margin image.");
@@ -949,6 +981,7 @@
 		}
 
 //		NSLog(@"adding image to margins");
+
 		unichar uc[1];
 		uc[0] = NSAttachmentCharacter;
 
@@ -961,12 +994,10 @@
         
         tiffdata = image.TIFFRepresentation;
 
-
 		[container addImage: [[NSImage alloc] initWithData:tiffdata] align: align at: textstorage.length - 1 linkid:linkid];
 
 //        [container addImage: image align: align at: textstorage.length - 1 linkid:linkid];
 
-		[self setNeedsDisplay: YES];
 	}
 	else
 	{
@@ -984,9 +1015,7 @@
 		NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
 
 		[textstorage appendAttributedString: attstr];
-
 	}
-    //[container adjustTextviewHeightForLowImages];
 }
 
 - (void) flowBreak
@@ -1016,27 +1045,7 @@
 
 - (void) performScroll
 {    
-    int bottom;
-	NSRange range;
-    // first, force a layout so we have the correct textview frame
-//    [layoutmanager glyphRangeForTextContainer: container];
-
-    if (textstorage.length == 0)
-        return;
-    
-	[layoutmanager textContainerForGlyphAtIndex:0 effectiveRange:&range];
-
-	[container adjustTextviewHeightForLowImages];
-
-    // then, get the bottom
-    bottom = textview.frame.size.height;
-
-    // scroll so rect from lastseen to bottom is visible
-    //NSLog(@"scroll %d -> %d", lastseen, bottom);
-    [textview scrollRectToVisible: NSMakeRect(0, lastseen, 0, bottom - lastseen)];
-
-
-    //NSLog(@"perform scroll bottom = %d lastseen = %d", bottom, lastseen);
+	[(MyTextView *)textview performScroll];
 }
 
 - (void)scrollToBottom

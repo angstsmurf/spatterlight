@@ -28,6 +28,7 @@
 - (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textBuffer: (GlkTextBufferWindow *)textbuffer;
 - (void) superKeyDown: (NSEvent*)evt;
 - (void) scrollToBottom;
+- (void) performScroll;
 - (void) temporarilyHideCaret;
 
 @property BOOL shouldDrawCaret;
