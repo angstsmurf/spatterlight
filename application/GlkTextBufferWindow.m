@@ -522,7 +522,6 @@
         }
     }
 
-    [self.textView setNeedsDisplay:YES];
 
 //	for (FlowBreak *flowbreak in flowbreaks)
 //	{
@@ -600,7 +599,10 @@
 	NSPoint newScrollOrigin = NSMakePoint(0.0,NSMaxY(self.frame)
 									- NSHeight(scrollview.contentView.bounds));
 
-	[[scrollview contentView] scrollToPoint:newScrollOrigin];
+    if ([glkTextBuffer lastseen] < newScrollOrigin.y)
+       newScrollOrigin.y = glkTextBuffer.lastseen;
+
+    [[scrollview contentView] scrollToPoint:newScrollOrigin];
 	[scrollview reflectScrolledClipView:[scrollview contentView]];
 	NSLog(@"Scrolled to bottom of scrollview");
 }
@@ -1155,28 +1157,35 @@
         }
 
     // if not scrolled to the bottom, pagedown or navigate scrolling on each key instead
-    if (NSMaxY([textview visibleRect]) < NSMaxY([textview bounds]) - 5)
+    if (NSMaxY(textview.visibleRect) < NSMaxY(textview.bounds) - 5 - textview.bottomPadding)
     {
-        switch (ch)
+        NSRect promptrect = [layoutmanager lineFragmentRectForGlyphAtIndex: textstorage.length - 1
+                                                        effectiveRange: nil];
+
+        // Skip if we are scrolled to input prompt
+        if (!NSIntersectsRect(textview.visibleRect, promptrect))
         {
-            case keycode_PageUp:
-            case keycode_Delete:
-                [textview scrollPageUp: nil];
-                return;
-            case keycode_PageDown:
-            case ' ':
-                [textview scrollPageDown: nil];
-                return;
-            case keycode_Up:
-                [textview scrollLineUp: nil];
-                return;
-            case keycode_Down:
-            case keycode_Return:
-                [textview scrollLineDown: nil];
-                return;
-            default:
-                [self scrollToBottom];
-                break;
+            switch (ch)
+            {
+                case keycode_PageUp:
+                case keycode_Delete:
+                    [textview scrollPageUp: nil];
+                    return;
+                case keycode_PageDown:
+                case ' ':
+                    [textview scrollPageDown: nil];
+                    return;
+                case keycode_Up:
+                    [textview scrollLineUp: nil];
+                    return;
+                case keycode_Down:
+                case keycode_Return:
+                    [textview scrollLineDown: nil];
+                    return;
+                default:
+                    [self performScroll];
+                    break;
+            }
         }
     }
 
