@@ -129,10 +129,6 @@
 
 @interface MarginImage : NSObject
 {
-//	NSImage *image;
-	//	NSInteger align;
-	//	NSSize size;
-
 	NSInteger position;
 	BOOL recalc;
 	NSTextContainer *container;
@@ -147,7 +143,6 @@
 - (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos sender:(id)sender;
 
 - (NSRect) boundsWithLayout: (NSLayoutManager*)layout;
-//- (void) moveBelow: (MarginImage *)image;
 
 @end
 
@@ -174,10 +169,6 @@
     }
     return self;
 }
-
-//- (NSImage*) image { return image; }
-//- (NSInteger) position { return pos; }
-//- (NSInteger) alignment { return align; }
 
 - (NSRect) boundsWithLayout: (NSLayoutManager*)layout
 {
