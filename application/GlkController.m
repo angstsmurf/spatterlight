@@ -1246,6 +1246,7 @@ NSInteger colorToInteger(NSColor *color)
 
 		case INITLINK:
 			//            NSLog(@"glkctl request hyperlink event in window %d", req->a1);
+            [self performScroll];
 			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
 			{
 				[gwindows[req->a1] initHyperlink];
