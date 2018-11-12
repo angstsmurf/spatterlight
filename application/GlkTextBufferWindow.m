@@ -668,7 +668,8 @@
     [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(enableCaret:) userInfo:nil repeats:NO];
 }
 
-- (void)setFrameSize:(NSSize)newSize {
+- (void)setFrameSize:(NSSize)newSize
+{
     newSize.height += _bottomPadding;
     [super setFrameSize:newSize];
 }
