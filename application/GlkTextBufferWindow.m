@@ -191,20 +191,25 @@
         /* set bounds to be at the same line as anchor but in left/right margin */
         if (_alignment == imagealign_MarginRight)
         {
-            CGFloat rightMargin = container.textView.frame.size.width  - container.textView.textContainerInset.width * 2;
+            CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding;
 
-            _bounds = NSMakeRect(NSMaxX(theline) - _size.width ,
+            _bounds = NSMakeRect(rightMargin - _size.width,
                                 theline.origin.y,
                                 _size.width,
                                 _size.height);
-            
+
+            NSLog(@"rightMargin = %f, _bounds = %@", rightMargin, NSStringFromRect(_bounds));
+
             //If the above places the image outside margin, move it within
             if (NSMaxX(_bounds) > rightMargin)
+            {
                 _bounds.origin.x = rightMargin - _size.width;
+                NSLog(@"_bounds outside right margin. Moving it to %@", NSStringFromRect(_bounds));
+            }
         }
         else
         {
-            _bounds = NSMakeRect(theline.origin.x,
+            _bounds = NSMakeRect(theline.origin.x + container.lineFragmentPadding,
                                 theline.origin.y,
                                 _size.width,
                                 _size.height);
@@ -271,8 +276,6 @@
 	mi.linkid = linkid;
     [margins addObject: mi];
     [self.layoutManager textContainerChangedGeometry: self];
-    if ([self adjustTextviewHeightForLowImages])
-        [(MyTextView *)self.textView temporarilyHideCaret];
 }
 
 - (void) flowBreakAt: (NSInteger)pos
@@ -303,9 +306,7 @@
 								movementDirection: movementdir
 									remainingRect: remaining];
 
-//	NSRange range = [[NSATSTypesetter sharedTypesetter] paragraphGlyphRange];
-
-    CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2;
+    CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding;
 
 	BOOL overlapped = YES;
     
@@ -367,11 +368,15 @@
 				if (NSIntersectsRect(bounds, rect))
 				{
                     if (image.alignment == imagealign_MarginLeft)
+                    {
                         rect.origin.x = NSMaxX(bounds);
-                    
-                    rect.size.width -= bounds.size.width;
+                        rect.size.width -= bounds.size.width;
+                    }
+                    else
+                        rect.size.width = bounds.origin.x - rect.origin.x;
+
                     if (NSMaxX(rect) > rightMargin)
-                        rect.size.width = rect.size.width - (NSMaxX(rect) - rightMargin);
+                        rect.size.width = rightMargin - rect.origin.x;
                     
                     overlapped = YES;
 				}
@@ -389,8 +394,8 @@
 	if (margins.count < 2 || NSIsEmptyRect(image.bounds))
 		return;
 
-	CGFloat leftMargin = self.textView.textContainerInset.width;
-	CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2;
+	CGFloat leftMargin = self.textView.textContainerInset.width + self.lineFragmentPadding;
+	CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding;
 
 	NSRect adjustedBounds = image.bounds;
 
@@ -405,25 +410,25 @@
 			{
 				if (image.alignment == imagealign_MarginLeft)
 				{
-					adjustedBounds.origin.x = NSMaxX(img2.bounds);
+					adjustedBounds.origin.x = NSMaxX(img2.bounds) + 1;
 					// Move it one image width the right
 				}
 				else
 				{
-                    adjustedBounds.origin.x -= - img2.bounds.size.width;
+                    adjustedBounds.origin.x = img2.bounds.origin.x - adjustedBounds.size.width - 1;
 					// Move it one image width the left
 				}
 			}
 		}
 
 		// If outside margins, move inside margins and down
-		if (image.alignment == imagealign_MarginLeft && NSMaxX(adjustedBounds) > rightMargin - 20)
+		if (image.alignment == imagealign_MarginLeft && NSMaxX(adjustedBounds) > rightMargin + 1)
 		{
-			adjustedBounds.origin.x = 0;
+			adjustedBounds.origin.x = self.lineFragmentPadding;
 			if (NSMaxY(img2.bounds) > adjustedBounds.origin.y)
 				adjustedBounds.origin.y = NSMaxY(img2.bounds) + 1;
 		}
-		else if (image.alignment == imagealign_MarginRight && adjustedBounds.origin.x < leftMargin + 20)
+		else if (image.alignment == imagealign_MarginRight && adjustedBounds.origin.x < leftMargin - 1)
 		{
 			adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
 			if (NSMaxY(img2.bounds) > adjustedBounds.origin.y)
@@ -431,11 +436,11 @@
 		}
 		// If still overlapping, move to margins and down
 
-		if (NSIntersectsRect(img2.bounds, adjustedBounds))
+		while (NSIntersectsRect(img2.bounds, adjustedBounds))
 		{
 			if (image.alignment == imagealign_MarginLeft)
 			{
-				adjustedBounds.origin.x = 0;
+				adjustedBounds.origin.x = self.lineFragmentPadding;
 			}
 			else
 			{
@@ -495,14 +500,16 @@
             
 			if (NSIntersectsRect(bounds, rect))
 			{
-                if (self.textView.frame.size.height < NSMaxY(bounds))
+                if (self.textView.frame.size.height < NSMaxY(bounds) + inset.height)
                 {
                     ((MyTextView *)self.textView).bottomPadding = NSMaxY(bounds) - self.textView.frame.size.height + inset.height;
-
                     [self.textView setFrameSize:self.textView.frame.size];
                     [(MyTextView *)self.textView scrollToBottom];
                 }
-                else ((MyTextView *)self.textView).bottomPadding = 0;
+                else
+                {
+                    ((MyTextView *)self.textView).bottomPadding = 0;
+                }
                     
                 size = image.size;
 				[image.image drawInRect: bounds
@@ -1309,6 +1316,7 @@
     [container clearImages];
 	hyperlinks = nil;
 	hyperlinks = [[NSMutableArray alloc] init];
+    [container invalidateLayout];
 }
 
 - (void) clearScrollback: (id)sender
