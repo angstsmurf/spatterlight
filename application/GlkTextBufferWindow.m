@@ -306,85 +306,118 @@
 								movementDirection: movementdir
 									remainingRect: remaining];
 
-    CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding;
+	if (margins.count == 0)
+		return rect;
 
-	BOOL overlapped = YES;
-    
-	while (overlapped && rect.size.width > 0)
+	CGFloat rightMargin = self.textView.frame.size.width;
+	//NSRect original = rect;
+
+	//NSLog(@"MarginContainer: lineFragmentRectForProposedRect: %@", NSStringFromRect(rect));
+
+	BOOL overlaps = YES;
+	while (rect.size.width > 0 && overlaps == YES)
 	{
-		overlapped = NO;
-
 		NSEnumerator *enumerator = [margins reverseObjectEnumerator];
 		while (image = [enumerator nextObject])
 		{
 			[image boundsWithLayout: self.layoutManager];
 
 			bounds = image.bounds;
+			overlaps = NO;
 
 			if (NSIntersectsRect(bounds, rect))
 			{
-
-//							NSLog(@"MarginContainer:The bounds of image at %@ intersect with the rect %@", NSStringFromRect(bounds),  NSStringFromRect(rect));
+				//NSLog(@"MarginContainer:The bounds of image %ld at %@ intersect with the line fragment rect %@", [margins indexOfObject:image], NSStringFromRect(bounds),  NSStringFromRect(rect));
 				FlowBreak *f;
 				MarginImage *img2;
 				for (f in flowbreaks)
 				{
 					flowrect = [f boundsWithLayout:self.layoutManager];
-//					NSLog(@"MarginContainer: looking for an image that intersects flowbreak %ld (%@)", [flowbreaks indexOfObject:f], NSStringFromRect(flowrect));
+					//NSLog(@"MarginContainer: looking for an image that intersects flowbreak %ld (%@)", [flowbreaks indexOfObject:f], NSStringFromRect(flowrect));
 
 					if (NSIntersectsRect(flowrect, rect))
 					{
 						BOOL hit = NO;
 						MarginImage *flowbreakimage = image;
-//						NSLog(@"MarginContainer: hit flowbreak!");
+                        //NSLog(@"MarginContainer: hit flowbreak!");
 						for (img2 in margins)
 						{
 							if (NSIntersectsRect(flowrect, img2.bounds))
 							{
 								flowbreakimage = img2;
-//								NSLog(@"Hit flowbreak at image %ld.", [margins indexOfObject:flowbreakimage]);
+								//NSLog(@"Hit flowbreak at image %ld.", [margins indexOfObject:flowbreakimage]);
 								hit = YES;
 
 							}
-//							else 	NSLog(@"Image %ld (%@) did not intersect flowrect %ld.", [margins indexOfObject:flowbreakimage],NSStringFromRect(img2.bounds),  [flowbreaks indexOfObject:f]);
+							//else 	NSLog(@"Image %ld (%@) did not intersect flowrect %ld.", [margins indexOfObject:flowbreakimage],NSStringFromRect(img2.bounds),  [flowbreaks indexOfObject:f]);
 
 						}
 						if (hit)
 						{
-//							NSLog(@"Decided on image %ld for flowbreak. Moving below it.", [margins indexOfObjectIdenticalTo:flowbreakimage]);
+							//NSLog(@"Decided on image %ld for flowbreak. Moving below it.", [margins indexOfObjectIdenticalTo:flowbreakimage]);
 							if (NSMaxY(flowbreakimage.bounds) > rect.origin.y)
 								rect.origin.y = NSMaxY(flowbreakimage.bounds) + 1;
 						}
-//						else NSLog(@"Found no intersecting image.");
+						//else NSLog(@"Found no intersecting image.");
 					}
 				}
 
-                if (rect.size.width - bounds.size.width < 50)
-                {
-                    rect.origin.y = NSMaxY(image.bounds) + 1;
-                }
-                
-				// We may have moved the rect down, so we need to check again
+				// We may have moved the rect down, so we need to check if the image still intersects
 				if (NSIntersectsRect(bounds, rect))
 				{
-                    if (image.alignment == imagealign_MarginLeft)
-                    {
-                        rect.origin.x = NSMaxX(bounds);
-                        rect.size.width -= bounds.size.width;
-                    }
-                    else
-                        rect.size.width = bounds.origin.x - rect.origin.x;
+					if (image.alignment == imagealign_MarginLeft)
+					{
+						//NSLog(@"We have to adjust the line fragment rect for left-aligned image %ld", [margins indexOfObject:image]);
+						if ( rect.size.width - bounds.size.width < 50)
+						{
+							//NSLog(@"If we moved the line fragment rect to the right, it would become too narrow (%f points) so we move it down instead", rect.size.width - bounds.size.width);
+							rect.origin.y = NSMaxY(image.bounds) + 1;
+						}
+						else
+						{
+							//NSLog(@"We moved the line fragment rect to the right. Old x position = %f, old width = %f", rect.origin.x, rect.size.width);
+							//CGFloat oldx = rect.origin.x; CGFloat oldw = rect.size.width;
+							rect.size.width -= (NSMaxX(bounds) - rect.origin.x);
+							rect.origin.x = NSMaxX(bounds);
 
-                    if (NSMaxX(rect) > rightMargin)
-                        rect.size.width = rightMargin - rect.origin.x;
+							//NSLog(@"New x position = %f (%f), new width = %f (%f)", rect.origin.x, rect.origin.x - oldx, rect.size.width, rect.size.width - oldw);
+						}
+					}
+					else  // (image.alignment == imagealign_MarginLeft)
+					{
+						//NSLog(@"We have to adjust the line fragment rect for right-aligned image %ld", [margins indexOfObject:image]);
+						//NSLog(@"The difference is %f points", rect.size.width - (bounds.origin.x - rect.origin.x));
+						if ( bounds.origin.x - rect.origin.x < 50)
+						{
+							//NSLog(@"If we cut off the right end of the line fragment, it would become too narrow so we move it down instead");
+							rect.origin.y = NSMaxY(image.bounds) + 1;
+						}
+						else
+						{
+							//NSLog(@"We cut off %f points from the right end of the line fragment.", rect.size.width - (bounds.origin.x - rect.origin.x));
+							rect.size.width = bounds.origin.x - rect.origin.x;
+							//NSLog(@"New width = %f ", rect.size.width);
+						}
+					}
+
+					if (NSMaxX(rect) > rightMargin)
+					{
+						//NSLog(@"The line fragment rect sticks out over the right margin. NSMaxX(rect) = %f, right margin = %f", NSMaxX(rect), rightMargin);
+						rect.size.width -= (rightMargin - rect.origin.x);
+						//NSLog(@"So we shorten it by %f points. New NSMaxX(rect) = %f", rightMargin - rect.origin.x, NSMaxX(rect));
+					}
                     
-                    overlapped = YES;
 				}
-
+				overlaps = YES;
 			}
 		}
 	}
 
+	//if (!NSEqualRects(original, rect))
+	//{
+	//	NSLog(@"Original proposed rect: %@. Returning %@.", NSStringFromRect(original), NSStringFromRect(rect));
+	//	NSLog(@"Diff: {%f, %f, %f, %f}", rect.origin.x - original.origin.x, rect.origin.y - original.origin.y, rect.size.width - original.size.width, rect.size.height - original.size.height);
+	//}
 	return rect;
 }
 
@@ -415,7 +448,7 @@
 				}
 				else
 				{
-                    adjustedBounds.origin.x = img2.bounds.origin.x - adjustedBounds.size.width - 1;
+                    adjustedBounds.origin.x = img2.bounds.origin.x - adjustedBounds.size.width - self.lineFragmentPadding;
 					// Move it one image width the left
 				}
 			}
@@ -451,30 +484,6 @@
 		}
 	}
 	image.bounds = adjustedBounds;
-}
-
-
-- (BOOL) adjustTextviewHeightForLowImages
-{
-    BOOL didAdjust = NO;
-    
-	for (MarginImage *image in margins)
-	{
-        NSLog(@"Checking image height. self.textView.frame.size.height = %f, NSMaxY(image.bounds) = %f", self.textView.frame.size.height, NSMaxY(image.bounds));
-		if (self.textView.frame.size.height < NSMaxY(image.bounds))
-		{
-            NSLog(@"Needed to increase text view height with %f points",NSMaxY(image.bounds) -  self.textView.frame.size.height);
-
-            NSLog(@"Old height = %f", self.textView.frame.size.height);
-
-			[self.textView setFrameSize:NSMakeSize(self.textView.frame.size.width, NSMaxY(image.bounds) + self.textView.textContainerInset.height)];
-
-            NSLog(@"New height = %f", self.textView.frame.size.height);
-            didAdjust = YES;
-
-		}
-	}
-    return didAdjust;
 }
 
 - (void) drawRect: (NSRect)rect

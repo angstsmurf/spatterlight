@@ -47,7 +47,6 @@
 - (void) clearImages;
 - (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top linkid: (NSUInteger)linkid;
 - (void) drawRect: (NSRect)rect;
-- (BOOL) adjustTextviewHeightForLowImages;
 - (void) invalidateLayout;
 - (void) unoverlap: (MarginImage *)image;
 - (NSUInteger) findHyperlinkAt: (NSPoint)p;
