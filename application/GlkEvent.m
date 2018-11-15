@@ -54,7 +54,7 @@ unsigned chartokeycode(unsigned ch)
             return keycode_Escape;
     }
 
-    if (ch < 256)
+    if (ch >= 160 && ch < 0x200000)
         return ch;
 
     return keycode_Unknown;
