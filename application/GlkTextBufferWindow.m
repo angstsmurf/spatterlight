@@ -243,7 +243,7 @@
     
     margins = [[NSMutableArray alloc] init];
     flowbreaks = [[NSMutableArray alloc] init];
-    recalc = YES;
+    //recalc = YES;
 //		self.lineFragmentPadding = 10;
 
     return self;
@@ -623,7 +623,7 @@
 
     [[scrollview contentView] scrollToPoint:newScrollOrigin];
 	[scrollview reflectScrolledClipView:[scrollview contentView]];
-	NSLog(@"Scrolled to bottom of scrollview");
+	//NSLog(@"Scrolled to bottom of scrollview");
 }
 
 - (void) performScroll
