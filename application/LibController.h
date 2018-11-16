@@ -3,7 +3,7 @@
  *
  * Keep an archive of game metadata.
  * Import iFiction format from files or babel software.
- * Save the database in Library/Application Support/Cugel/Metadata.plist
+ * Save the database in Library/Application Support/Spatterlight/Metadata.plist
  * Tag user-edited entries for export.
  *
  * Keep a list of games with map filename -> ifid
