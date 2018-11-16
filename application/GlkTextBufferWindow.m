@@ -105,9 +105,8 @@
 		bounds = theline;
 
 		/* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
-		[layout invalidateLayoutForCharacterRange: ourline
-										   isSoft: NO
-							 actualCharacterRange: nil];
+        [layout invalidateLayoutForCharacterRange: ourline
+                             actualCharacterRange: nil];
 	}
 
 	return NSMakeRect(0, bounds.origin.y, FLT_MAX, bounds.size.height);
@@ -218,9 +217,9 @@
 
         /* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
         [layout invalidateLayoutForCharacterRange: ourline
-                                           isSoft: NO
                              actualCharacterRange: nil];
     }
+    
 	[(MarginContainer *)container unoverlap:self];
     return _bounds;
 }
