@@ -267,7 +267,7 @@ static const char *msgnames[] =
 
 - (void) contentDidResize: (NSRect)frame
 {
-    NSLog(@"glkctl: contentDidResize");
+    //NSLog(@"glkctl: contentDidResize");
 
     if (dead)
         for (NSInteger i = 0; i < MAXWIN; i++)
@@ -346,13 +346,13 @@ static const char *msgnames[] =
             focuswin = nil;
     }
 
-    if (focuswin)
-        NSLog(@"window %ld has focus", (long)[(GlkWindow*)focuswin name]);
+    //if (focuswin)
+      //  NSLog(@"window %ld has focus", (long)[(GlkWindow*)focuswin name]);
 
     if (focuswin && [focuswin wantsFocus])
         return;
 
-    NSLog(@"glkctl guessing new window to focus on");
+    //NSLog(@"glkctl guessing new window to focus on");
 
     for (i = 0; i < MAXWIN; i++)
     {
@@ -908,7 +908,7 @@ NSInteger colorToInteger(NSColor *color)
 
 - (BOOL) handleRequest: (struct message *)req reply: (struct message *)ans buffer: (char *)buf
 {
-    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+    //NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
 
