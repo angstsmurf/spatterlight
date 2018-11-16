@@ -90,6 +90,7 @@
 	NSRange ourglyph;
 	NSRange ourline;
 	NSRect theline;
+    NSPoint oldpoint = bounds.origin;
 
 	if (recalc && pos != 0)
 	{
@@ -368,7 +369,7 @@
 					if (image.alignment == imagealign_MarginLeft)
 					{
 						//NSLog(@"We have to adjust the line fragment rect for left-aligned image %ld", [margins indexOfObject:image]);
-						if ( rect.size.width - bounds.size.width < 50)
+						if ( rect.size.width - (NSMaxX(bounds) - rect.origin.x) < 50)
 						{
 							//NSLog(@"If we moved the line fragment rect to the right, it would become too narrow (%f points) so we move it down instead", rect.size.width - bounds.size.width);
 							rect.origin.y = NSMaxY(image.bounds) + 1;
@@ -432,57 +433,66 @@
 
 	NSRect adjustedBounds = image.bounds;
 
-	for (NSInteger i = [margins indexOfObject:image] - 1; i >= 0; i--)
-	{
-		MarginImage *img2 = margins[i];
+    // If outside margin, move to opposite margin
+    if (image.alignment == imagealign_MarginLeft && NSMaxX(adjustedBounds) > rightMargin + 1)
+    {
+        // NSLog(@"Left-aligned image outside right margin");
+        adjustedBounds.origin.x = self.lineFragmentPadding;
+    }
+    else if (image.alignment == imagealign_MarginRight && adjustedBounds.origin.x < leftMargin - 1)
+    {
+        //  NSLog(@"Right-aligned image outside left margin");
+        adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
+    }
 
-		// If overlapping, shift in opposite alignment direction
-		if (NSIntersectsRect(img2.bounds, adjustedBounds))
-		{
-			if (image.alignment == img2.alignment)
-			{
-				if (image.alignment == imagealign_MarginLeft)
-				{
-					adjustedBounds.origin.x = NSMaxX(img2.bounds) + 1;
-					// Move it one image width the right
-				}
-				else
-				{
+    for (NSInteger i = [margins indexOfObject:image] - 1; i >= 0; i--)
+    {
+        MarginImage *img2 = margins[i];
+        
+        // If overlapping, shift in opposite alignment direction
+        if (NSIntersectsRect(img2.bounds, adjustedBounds))
+        {
+            if (image.alignment == img2.alignment)
+            {
+                if (image.alignment == imagealign_MarginLeft)
+                {
+                    adjustedBounds.origin.x = NSMaxX(img2.bounds) + self.lineFragmentPadding;
+                    // Move to the right of image if both left-aligned,
+                    // or below and to left margin if we get too close to the right margin
+                    if (NSMaxX(adjustedBounds) > rightMargin + 1)
+                    {
+                        adjustedBounds.origin.x = self.lineFragmentPadding;
+                        adjustedBounds.origin.y = NSMaxY(img2.bounds) + 1;
+                    }
+                    else if (img2.bounds.origin.y > adjustedBounds.origin.y)
+                        adjustedBounds.origin.y = img2.bounds.origin.y;
+                }
+                else
+                {
                     adjustedBounds.origin.x = img2.bounds.origin.x - adjustedBounds.size.width - self.lineFragmentPadding;
-					// Move it one image width the left
-				}
-			}
-		}
-
-		// If outside margins, move inside margins and down
-		if (image.alignment == imagealign_MarginLeft && NSMaxX(adjustedBounds) > rightMargin + 1)
-		{
-			adjustedBounds.origin.x = self.lineFragmentPadding;
-			if (NSMaxY(img2.bounds) > adjustedBounds.origin.y)
-				adjustedBounds.origin.y = NSMaxY(img2.bounds) + 1;
-		}
-		else if (image.alignment == imagealign_MarginRight && adjustedBounds.origin.x < leftMargin - 1)
-		{
-			adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
-			if (NSMaxY(img2.bounds) > adjustedBounds.origin.y)
-				adjustedBounds.origin.y = NSMaxY(img2.bounds) + 1;
-		}
-		// If still overlapping, move to margins and down
-
-		while (NSIntersectsRect(img2.bounds, adjustedBounds))
-		{
-			if (image.alignment == imagealign_MarginLeft)
-			{
-				adjustedBounds.origin.x = self.lineFragmentPadding;
-			}
-			else
-			{
-				adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
-			}
-			if (NSMaxY(img2.bounds) > adjustedBounds.origin.y)
-				adjustedBounds.origin.y = NSMaxY(img2.bounds) + 1;
-		}
-	}
+                    // Move to the left of image if both right-aligned,
+                    // or below and to right margin if we get too close to the left margin
+                    if (adjustedBounds.origin.x < leftMargin - 1)
+                    {
+                        adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
+                        adjustedBounds.origin.y = NSMaxY(img2.bounds) + 1;
+                    }
+                    else if (img2.bounds.origin.y > adjustedBounds.origin.y)
+                        adjustedBounds.origin.y = img2.bounds.origin.y;
+                }
+            }
+            else
+            {
+                // If we have collided with an image of opposite alignment,
+                // move below it and back to margin
+                if (image.alignment == imagealign_MarginLeft)
+                    adjustedBounds.origin.x = self.lineFragmentPadding;
+                else
+                    adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
+                adjustedBounds.origin.y = NSMaxY(img2.bounds) + 1;
+            }
+        }
+    }
 	image.bounds = adjustedBounds;
 }
 
