@@ -199,13 +199,13 @@
                                 _size.width,
                                 _size.height);
 
-            NSLog(@"rightMargin = %f, _bounds = %@", rightMargin, NSStringFromRect(_bounds));
+            //NSLog(@"rightMargin = %f, _bounds = %@", rightMargin, NSStringFromRect(_bounds));
 
             //If the above places the image outside margin, move it within
             if (NSMaxX(_bounds) > rightMargin)
             {
                 _bounds.origin.x = rightMargin - _size.width;
-                NSLog(@"_bounds outside right margin. Moving it to %@", NSStringFromRect(_bounds));
+                //NSLog(@"_bounds outside right margin. Moving it to %@", NSStringFromRect(_bounds));
             }
         }
         else
@@ -655,7 +655,7 @@
         [self scrollRectToVisible: NSMakeRect(0, glkTextBuffer.lastseen, 0, bottom - glkTextBuffer.lastseen)];
 
 
-    NSLog(@"perform scroll bottom = %d lastseen = %ld", bottom, (long)glkTextBuffer.lastseen);
+    //NSLog(@"perform scroll bottom = %d lastseen = %ld", bottom, (long)glkTextBuffer.lastseen);
 }
 
 
@@ -1226,7 +1226,7 @@
     }
     else if (line_request && (ch == keycode_Return || [currentTerminators[key] isEqual: @(YES)]))
     {
-        NSLog(@"line event from %ld", (long)self.name);
+        //NSLog(@"line event from %ld", (long)self.name);
 
         [textview setInsertionPointColor: [Preferences bufferBackground]];
 
