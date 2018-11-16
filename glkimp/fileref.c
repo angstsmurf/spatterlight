@@ -1,10 +1,12 @@
-#include "glkimp.h"
+#include "fileref.h"
 
 #include <unistd.h> /* for unlink() */
 #include <sys/stat.h> /* for stat() */
 
 char gli_workdir[1024] = ".";
 char gli_workfile[1024] = "";
+
+char workingdir[256] = "";
 
 char *glkext_fileref_get_name(fileref_t *fref)
 {
@@ -22,9 +24,6 @@ char * garglk_fileref_get_name(frefid_t fref)
 
 /* Linked list of all filerefs */
 static fileref_t *gli_filereflist = NULL; 
-
-#define BUFLEN (256)
-static char workingdir[BUFLEN] = ".";
 
 fileref_t *gli_new_fileref(char *filename, glui32 usage, glui32 rock)
 {
@@ -186,6 +185,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
         len = strlen(buf);
     }
 
+    getworkdir();
     suffix = gli_suffix_for_usage(usage);
     sprintf(buf2, "%s/%s%s", workingdir, buf, suffix);
 
@@ -302,7 +302,9 @@ void glk_fileref_delete_file(fileref_t *fref)
 void glkunix_set_base_file(char *filename)
 {
     int ix;
-    
+
+    getworkdir();
+
     for (ix=(int)(strlen(filename)-1); ix >= 0; ix--)
         if (filename[ix] == '/')
             break;
