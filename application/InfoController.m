@@ -116,16 +116,21 @@ void showInfoForFile(NSString *path, NSDictionary *info)
 
 - (void) windowDidLoad
 {
-    NSString *dirpath, *imgpath;
+    NSURL *imgpath;
+    NSString *pathstring;
     NSImage *img;
     NSData *imgdata;
     const char *format;
+
+    // Get Application Support Directory URL
+    NSError *error;
+    imgpath = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
     
     NSLog(@"infoctl: windowDidLoad");
     
     [[self window] setRepresentedFilename: path];
     [[self window] setTitle: [NSString stringWithFormat: @"%@ Info", [path lastPathComponent]]];
-    
+
     [descriptionText setDrawsBackground: NO];
     [(NSScrollView *)[descriptionText superview] setDrawsBackground:NO];
     
@@ -153,10 +158,9 @@ void showInfoForFile(NSString *path, NSDictionary *info)
         ifid = @(buf);
         
         [ifidField setStringValue: ifid];
-        
-        dirpath = [@"~/Library/Application Support/Spatterlight/Cover Art" stringByStandardizingPath];
-        imgpath = [[dirpath stringByAppendingPathComponent: ifid] stringByAppendingPathExtension: @"tiff"];
-        img = [[NSImage alloc] initWithContentsOfFile: imgpath];
+        pathstring = [[@"Spatterlight/Cover%20Art" stringByAppendingPathComponent:ifid] stringByAppendingPathExtension: @"tiff"];
+        imgpath = [NSURL URLWithString: pathstring relativeToURL:imgpath];
+        img = [[NSImage alloc] initWithContentsOfURL: imgpath];
         if (!img)
         {
             imglen = babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
@@ -189,9 +193,13 @@ void showInfoForFile(NSString *path, NSDictionary *info)
 {
     NSURL *dirURL, *imgURL;
     NSData *imgdata;
+
+    NSError *error;
+    dirURL = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
     
-    dirURL = [NSURL fileURLWithPath:[@"~/Library/Application Support/Spatterlight/Cover Art" stringByExpandingTildeInPath] isDirectory:YES];
-    imgURL = [NSURL fileURLWithPath: [ [[dirURL path] stringByAppendingPathComponent: ifid] stringByAppendingPathExtension: @"tiff"] isDirectory:NO];
+    dirURL = [NSURL URLWithString: @"Spatterlight/Cover%20Art" relativeToURL:dirURL];
+
+    imgURL = [NSURL fileURLWithPath: [[[dirURL path] stringByAppendingPathComponent: ifid] stringByAppendingPathExtension: @"tiff"] isDirectory:NO];
     
     [[NSFileManager defaultManager] createDirectoryAtURL:dirURL withIntermediateDirectories:YES attributes:nil error:NULL];
     

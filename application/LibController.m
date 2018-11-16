@@ -114,7 +114,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
     /* in case we are called more than once... */
 
-    homepath = [NSURL fileURLWithPath:(@"~/Library/Application Support/Spatterlight").stringByExpandingTildeInPath  isDirectory:YES];
+    NSError *error;
+    homepath = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
+
+    homepath = [NSURL URLWithString: @"Spatterlight" relativeToURL:homepath];
+
     [[NSFileManager defaultManager] createDirectoryAtURL:homepath withIntermediateDirectories:YES attributes:NULL error:NULL];
 
     metadata = load_mutable_plist([[homepath path] stringByAppendingPathComponent: @"Metadata.plist"]);
