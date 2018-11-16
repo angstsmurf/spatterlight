@@ -141,7 +141,7 @@
 @property NSSize size;
 @property NSUInteger linkid;
 
-- (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos sender:(id)sender;
+- (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign linkid:(NSInteger)linkid at: (NSInteger)apos sender:(id)sender;
 
 - (NSRect) boundsWithLayout: (NSLayoutManager*)layout;
 
@@ -151,10 +151,10 @@
 
 - (instancetype) init
 {
-	return [self initWithImage:[[NSImage alloc] initWithContentsOfFile:@"../Resources/Question.png"] align:kAlignLeft at:0 sender:self];
+	return [self initWithImage:[[NSImage alloc] initWithContentsOfFile:@"../Resources/Question.png"] align:kAlignLeft linkid:0 at:0 sender:self];
 }
 
-- (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos sender:(id)sender
+- (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign linkid:(NSInteger)linkid at: (NSInteger)apos sender:(id)sender
 {
     self = [super init];
     if (self)
@@ -163,7 +163,7 @@
         _alignment = analign;
         _size = animage.size;
         _bounds = NSZeroRect;
-		_linkid = 0;
+		_linkid = linkid;
 		position = apos;
         recalc = YES;
 		container = sender;
@@ -273,8 +273,7 @@
 
 - (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top linkid: (NSUInteger)linkid
 {
-	MarginImage *mi = [[MarginImage alloc] initWithImage: image align: align at: top sender: self];
-	mi.linkid = linkid;
+	MarginImage *mi = [[MarginImage alloc] initWithImage: image align: align linkid:linkid at: top sender: self];
     [margins addObject: mi];
     [self.layoutManager textContainerChangedGeometry: self];
 }
