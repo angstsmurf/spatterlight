@@ -602,8 +602,12 @@ again:
             event->type = evtype_CharInput;
             event->win = gli_window_for_peer(wmsg.a1);
             event->val1 = wmsg.a2;
-            if (!event->win->char_request_uni && event->val1 > 0xFF)
-                event->val1 = '?';
+            if (!event->win->char_request_uni)
+            {
+                unsigned chr =  (unsigned)event->val1;
+                if (chr > 0xFF && !(chr <= keycode_Unknown && chr >= keycode_Func12))
+                    event->val1 = '?';
+            }
             event->win->char_request = FALSE;
             event->win->char_request_uni = FALSE;
             break;
