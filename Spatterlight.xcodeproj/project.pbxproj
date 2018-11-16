@@ -31,6 +31,7 @@
 		6D85C897218BD6E10088D849 /* HelpPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D85C895218BD6E00088D849 /* HelpPanelController.m */; };
 		6D85C898218BD6E10088D849 /* HelpPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D85C896218BD6E00088D849 /* HelpPanelController.xib */; };
 		6D85C899218BE4AC0088D849 /* Glulxe License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6D70DA7E218B3EFC0022E13B /* Glulxe License.rtf */; };
+		6DB6B51A219E31BF0039D2D7 /* fileref.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB6B519219E31BF0039D2D7 /* fileref.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6DF87CDC218259DB0020E9A1 /* GlkHyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
 		961153670A4F365C00BB7FF2 /* htmldb3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152520A4F355800BB7FF2 /* htmldb3.cpp */; };
@@ -919,6 +920,8 @@
 		6D85C894218BD6E00088D849 /* HelpPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpPanelController.h; sourceTree = "<group>"; };
 		6D85C895218BD6E00088D849 /* HelpPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpPanelController.m; sourceTree = "<group>"; };
 		6D85C896218BD6E00088D849 /* HelpPanelController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HelpPanelController.xib; path = ../application/HelpPanelController.xib; sourceTree = "<group>"; };
+		6DB6B519219E31BF0039D2D7 /* fileref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fileref.m; sourceTree = "<group>"; };
+		6DB6B51B219E38870039D2D7 /* fileref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileref.h; sourceTree = "<group>"; };
 		6DF87CDA218259DB0020E9A1 /* GlkHyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkHyperlink.h; sourceTree = "<group>"; };
 		6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkHyperlink.m; sourceTree = "<group>"; };
 		9611524F0A4F355800BB7FF2 /* html_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html_os.h; sourceTree = "<group>"; };
@@ -2777,6 +2780,8 @@
 				961CCE8209F2381B00528FF9 /* blorb.c */,
 				961CCE8409F2381B00528FF9 /* event.c */,
 				961CCE8509F2381B00528FF9 /* fileref.c */,
+				6DB6B51B219E38870039D2D7 /* fileref.h */,
+				6DB6B519219E31BF0039D2D7 /* fileref.m */,
 				961CCE8609F2381B00528FF9 /* gestalt.c */,
 				961CCE8F09F2381B00528FF9 /* image.c */,
 				961CCE9009F2381B00528FF9 /* main.c */,
@@ -4666,6 +4671,7 @@
 				96264AC50A494A5E0093569C /* cgunicod.c in Sources */,
 				C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */,
 				C3B2FB141ECEE4B700826C9D /* sndsdl.c in Sources */,
+				6DB6B51A219E31BF0039D2D7 /* fileref.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5740,6 +5746,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = frotz;
 			};
@@ -5753,6 +5760,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = frotz;
 			};
@@ -5869,6 +5877,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = unquill;
 			};
@@ -5881,6 +5890,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = unquill;
 			};
@@ -5896,6 +5906,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = glulxe;
 			};
@@ -5910,6 +5921,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = glulxe;
 			};
@@ -5970,6 +5982,7 @@
 					GLK,
 					COMPILE_V25,
 					NO_KEYPRESS_CURSOR,
+					SPATTERLIGHT,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = "";
@@ -5991,6 +6004,7 @@
 					GLK,
 					COMPILE_V25,
 					NO_KEYPRESS_CURSOR,
+					SPATTERLIGHT,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = "";
