@@ -449,7 +449,7 @@ static const char *msgnames[] =
             NSURL*  theDoc = [panel URLs][0];
 
             [[NSUserDefaults standardUserDefaults] setObject: [[theDoc path] stringByDeletingLastPathComponent] forKey: @"SaveDirectory"];
-            s = [[theDoc lastPathComponent] UTF8String];
+            s = [theDoc.path UTF8String];
         }
         else
             s = "";
@@ -521,7 +521,7 @@ static const char *msgnames[] =
         {
             NSURL*  theFile = [panel URL];
             [[NSUserDefaults standardUserDefaults] setObject: [[theFile path] stringByDeletingLastPathComponent] forKey: @"SaveDirectory"];
-            s = [[theFile lastPathComponent] UTF8String];
+            s = [theFile.path UTF8String];
         }
         else
             s = "";
