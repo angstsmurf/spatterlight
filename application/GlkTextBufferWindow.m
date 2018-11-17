@@ -257,17 +257,13 @@
 
 - (void) invalidateLayout
 {
-    NSInteger count, i;
+    for (MarginImage *i in margins)
+        [i uncacheBounds];
 
-    count = [margins count];
-    for (i = 0; i < count; i++)
-        [margins[i] uncacheBounds];
+    for (FlowBreak *f in flowbreaks)
+        [f uncacheBounds];
 
-	count = flowbreaks.count;
-	for (i = 0; i < count; i++)
-		[flowbreaks[i] uncacheBounds];
-
-    [[self layoutManager] textContainerChangedGeometry: self];
+    [self.layoutManager textContainerChangedGeometry: self];
 }
 
 - (void) addImage: (NSImage*)image align: (NSInteger)align at: (NSInteger)top linkid: (NSUInteger)linkid
