@@ -40,7 +40,6 @@
 {
     NSMutableArray *margins;
 	NSMutableArray *flowbreaks;
-	//NSInteger recalc;
 }
 
 - (id) initWithContainerSize: (NSSize)size;
