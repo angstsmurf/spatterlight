@@ -533,18 +533,6 @@
             }
         }
     }
-
-
-//	for (FlowBreak *flowbreak in flowbreaks)
-//	{
-//		bounds = [flowbreak boundsWithLayout:self.layoutManager];
-//
-//		NSLog (@"Drawing flowbreak bounds at %@", NSStringFromRect(bounds));
-//		NSColor * red = [NSColor redColor];
-//		[red set];
-//		NSFrameRectWithWidth ( bounds, 1 );
-//	}
-
 }
 
 - (NSUInteger) findHyperlinkAt: (NSPoint)p;
@@ -684,11 +672,6 @@
 {
     newSize.height += _bottomPadding;
     [super setFrameSize:newSize];
-}
-
-- (NSInteger) lastseen
-{
-    return [glkTextBuffer lastseen];
 }
 
 @end
