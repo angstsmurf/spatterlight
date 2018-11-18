@@ -128,6 +128,7 @@
 @interface MarginImage : NSObject
 {
 	BOOL recalc;
+	NSUInteger unoverlap_iterations;
 	NSTextContainer *container;
 }
 
@@ -163,6 +164,7 @@
 		_linkid = linkid;
 		_pos = apos;
         recalc = YES;
+		unoverlap_iterations = 0;
 		container = sender;
     }
     return self;
@@ -174,51 +176,59 @@
     NSRange ourline;
     NSRect theline;
 
-    if (recalc)
-    {
-        recalc = NO;	/* don't infiniloop in here, settle for the first result */
+	if (unoverlap_iterations <= 5000)
+	{
+		if (recalc)
+		{
+			recalc = NO;	/* don't infiniloop in here, settle for the first result */
 
-        _bounds = NSZeroRect;
+			_bounds = NSZeroRect;
 
-        /* force layout and get position of anchor glyph */
-        ourglyph = [layout glyphRangeForCharacterRange: NSMakeRange(_pos, 1)
-                                  actualCharacterRange: &ourline];
-        theline = [layout lineFragmentRectForGlyphAtIndex: ourglyph.location
-                                           effectiveRange: nil];
+			/* force layout and get position of anchor glyph */
+			ourglyph = [layout glyphRangeForCharacterRange: NSMakeRange(_pos, 1)
+									  actualCharacterRange: &ourline];
+			theline = [layout lineFragmentRectForGlyphAtIndex: ourglyph.location
+											   effectiveRange: nil];
 
-        /* set bounds to be at the same line as anchor but in left/right margin */
-        if (_alignment == imagealign_MarginRight)
-        {
-            CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding;
+			/* set bounds to be at the same line as anchor but in left/right margin */
+			if (_alignment == imagealign_MarginRight)
+			{
+				CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding;
 
-            _bounds = NSMakeRect(rightMargin - _size.width,
-                                theline.origin.y,
-                                _size.width,
-                                _size.height);
+				_bounds = NSMakeRect(rightMargin - _size.width,
+									 theline.origin.y,
+									 _size.width,
+									 _size.height);
 
-            //NSLog(@"rightMargin = %f, _bounds = %@", rightMargin, NSStringFromRect(_bounds));
+				//NSLog(@"rightMargin = %f, _bounds = %@", rightMargin, NSStringFromRect(_bounds));
 
-            //If the above places the image outside margin, move it within
-            if (NSMaxX(_bounds) > rightMargin)
-            {
-                _bounds.origin.x = rightMargin - _size.width;
-                //NSLog(@"_bounds outside right margin. Moving it to %@", NSStringFromRect(_bounds));
-            }
-        }
-        else
-        {
-            _bounds = NSMakeRect(theline.origin.x + container.lineFragmentPadding,
-                                theline.origin.y,
-                                _size.width,
-                                _size.height);
-        }
+				//If the above places the image outside margin, move it within
+				if (NSMaxX(_bounds) > rightMargin)
+				{
+					_bounds.origin.x = rightMargin - _size.width;
+					//NSLog(@"_bounds outside right margin. Moving it to %@", NSStringFromRect(_bounds));
+				}
+			}
+			else
+			{
+				_bounds = NSMakeRect(theline.origin.x + container.lineFragmentPadding,
+									 theline.origin.y,
+									 _size.width,
+									 _size.height);
+			}
 
-        /* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
-        [layout invalidateLayoutForCharacterRange: ourline
-                             actualCharacterRange: nil];
-    }
-    
-	[(MarginContainer *)container unoverlap:self];
+			/* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
+			[layout invalidateLayoutForCharacterRange: ourline
+								 actualCharacterRange: nil];
+
+			NSLog(@"Maximum unoverlap iterations reached: %ld", (long)unoverlap_iterations);
+			unoverlap_iterations = 0;
+		}
+
+		[(MarginContainer *)container unoverlap:self];
+		unoverlap_iterations++;
+	}
+	else NSLog(@"Error!: 5000 unoverlap iterations done for the same image! (%@) Skipping!", self);
     return _bounds;
 }
 
@@ -226,6 +236,8 @@
 {
     recalc = YES;
     _bounds = NSZeroRect;
+	NSLog(@"Maximum unoverlap iterations reached: %ld", (long)unoverlap_iterations);
+	unoverlap_iterations = 0;
 }
 
 @end
@@ -287,9 +299,9 @@
 							 remainingRect: (NSRect*) remaining
 {
 	NSRect bounds;
-	NSRect rect, flowrect;
-	MarginImage *image;
-    FlowBreak *f;
+	NSRect rect;
+	MarginImage *image, *lastleft, *lastright;
+	FlowBreak *f;
 
 	rect = [super lineFragmentRectForProposedRect: proposed
 								   sweepDirection: sweepdir
@@ -299,115 +311,128 @@
 	if (margins.count == 0)
 		return rect;
 
+	BOOL overlapped = YES;
+	NSUInteger repeats = 0;
 	CGFloat rightMargin = self.textView.frame.size.width;
 
-    if (rect.size.width > 0)
+	NSRect newrect = rect;
+
+	while (overlapped)
 	{
+		lastleft = lastright = nil;
+
 		NSEnumerator *enumerator = [margins reverseObjectEnumerator];
 		while (image = [enumerator nextObject])
 		{
-            // I'm not quite sure why, but this prevents the flowbreaks from jumping to incorrect
-            // positions when resizing the window
-            for (f in flowbreaks)
-                if (f.pos > image.pos)
-                    [f boundsWithLayout:self.layoutManager];
-            
-			[image boundsWithLayout: self.layoutManager];
+			// I'm not quite sure why, but this prevents the flowbreaks from jumping to incorrect
+			// positions when resizing the window
+			for (f in flowbreaks)
+				if (f.pos > image.pos)
+					[f boundsWithLayout:self.layoutManager];
 
-			bounds = image.bounds;
+			bounds = [image boundsWithLayout: self.layoutManager];
 
-			if (NSIntersectsRect(bounds, rect))
+			if (NSIntersectsRect(bounds, newrect))
 			{
-				//NSLog(@"MarginContainer:The bounds of image %ld at %@ intersect with the line fragment rect %@", [margins indexOfObject:image], NSStringFromRect(bounds),  NSStringFromRect(rect));
-				MarginImage *img2;
+				NSLog(@"MarginContainer:The bounds of image %ld at %@ intersect with the line fragment rect %@", [margins indexOfObject:image], NSStringFromRect(bounds),  NSStringFromRect(newrect));
 
-                NSEnumerator *breakenumerator = [flowbreaks reverseObjectEnumerator];
+				newrect = [self adjustForBreaks:newrect];
 
-                while (f = [breakenumerator nextObject])
-                {
-                        flowrect = [f boundsWithLayout:self.layoutManager];
-
-                        //NSLog(@"MarginContainer: looking for an image that intersects flowbreak %ld (%@)", [flowbreaks indexOfObject:f], NSStringFromRect(flowrect));
-
-                        if (NSIntersectsRect(flowrect, rect))
-                        {
-                            CGFloat lowest = 0;
-
-                            MarginImage *flowbreakimage = image;
-
-                            for (img2 in margins)
-                                if (NSMaxY (img2.bounds) > lowest && NSMaxY(img2.bounds) > rect.origin.y && NSIntersectsRect(flowrect, img2.bounds))
-                                {
-                                    flowbreakimage = img2;
-                                    //NSLog(@"Hit flowbreak at image %ld.", [margins indexOfObject:flowbreakimage]);
-                                    lowest = NSMaxY(img2.bounds) + 1;
-
-                                }
-                                //else NSLog(@"Image %ld (%@) did not intersect flowrect %ld.", [margins indexOfObject:flowbreakimage],NSStringFromRect(img2.bounds),  [flowbreaks indexOfObject:f]);
-                            
-                            if (lowest)
-                            {
-                                //NSLog(@"Decided on image %ld for flowbreak. Moving below it.", [margins indexOfObject:flowbreakimage]);
-                                rect.origin.y = lowest;
-                                
-                                // I'm not quite sure why, but this prevents the flowbreaks from jumping to incorrect
-                                // positions when resizing the window
-                                for (FlowBreak *g in flowbreaks)
-                                    if (NSIntersectsRect(g.bounds, flowbreakimage.bounds) && g != f)
-                                        [g uncacheBounds];
-                                break;
-                            }
-                        }
-                    //else NSLog(@"Found no intersecting image.");
-
-				}
-
-				// We may have moved the rect down, so we need to check if the image still intersects
-				if (NSIntersectsRect(bounds, rect))
+				// The call above may have moved the rect down, so we need to check if the image still intersects
+				if (NSIntersectsRect(bounds, newrect))
 				{
+					overlapped = YES;
+
 					if (image.alignment == imagealign_MarginLeft)
 					{
-						//NSLog(@"We have to adjust the line fragment rect for left-aligned image %ld", [margins indexOfObject:image]);
-						if ( rect.size.width - (NSMaxX(bounds) - rect.origin.x) < 50)
-						{
-							//NSLog(@"If we moved the line fragment rect to the right, it would become too narrow (%f points) so we move it down instead", rect.size.width - bounds.size.width);
-							rect.origin.y = NSMaxY(image.bounds) + 1;
-						}
-						else
-						{
-							//NSLog(@"We moved the line fragment rect to the right. Old x position = %f, old width = %f", rect.origin.x, rect.size.width);
-							//CGFloat oldx = rect.origin.x; CGFloat oldw = rect.size.width;
-							rect.size.width -= (NSMaxX(bounds) - rect.origin.x);
-							rect.origin.x = NSMaxX(bounds);
+						NSLog(@"We have to adjust the line fragment rect for left-aligned image %ld", [margins indexOfObject:image]);
+						NSLog(@"We moved the line fragment rect %f points to the right. Old x position = %f, old width = %f", NSMaxX(bounds) - newrect.origin.x, newrect.origin.x, newrect.size.width);
 
-							//NSLog(@"New x position = %f (%f), new width = %f (%f)", rect.origin.x, rect.origin.x - oldx, rect.size.width, rect.size.width - oldw);
-						}
+						CGFloat oldx = rect.origin.x; CGFloat oldw = newrect.size.width;
+                        newrect.size.width -= (NSMaxX(bounds) - newrect.origin.x);
+                        newrect.origin.x = NSMaxX(bounds);
+						lastleft = image;
+
+						NSLog(@"New x position = %f (%f), new width = %f (%f)", newrect.origin.x, newrect.origin.x - oldx, newrect.size.width, newrect.size.width - oldw);
 					}
 					else  // Image is right-aligned
 					{
-						//NSLog(@"We have to adjust the line fragment rect for right-aligned image %ld", [margins indexOfObject:image]);
-						//NSLog(@"The difference is %f points", rect.size.width - (bounds.origin.x - rect.origin.x));
-						if ( bounds.origin.x - rect.origin.x < 50)
+						NSLog(@"We have to adjust the line fragment rect for right-aligned image %ld", [margins indexOfObject:image]);
+						NSLog(@"We cut off %f points from the right end of the line fragment.", newrect.size.width - (bounds.origin.x - newrect.origin.x));
+
+						newrect.size.width = bounds.origin.x - newrect.origin.x;
+						lastright = image;
+
+						NSLog(@"New width = %f ", newrect.size.width);
+					}
+
+					if ( newrect.size.width <= 50)
+					{
+						NSLog(@"The rect has become too narrow, so we move it down instead and restore its original width.");
+
+						newrect.size.width = rect.size.width; // restore original width
+						newrect.origin.x = rect.origin.x;
+						if (lastleft && lastright)
 						{
-							//NSLog(@"If we cut off the right end of the line fragment, it would become too narrow so we move it down instead");
-							rect.origin.y = NSMaxY(image.bounds) + 1;
+							newrect.origin.y = MIN(NSMaxY(lastleft.bounds), NSMaxY(lastright.bounds));
 						}
 						else
 						{
-							//NSLog(@"We cut off %f points from the right end of the line fragment.", rect.size.width - (bounds.origin.x - rect.origin.x));
-							rect.size.width = bounds.origin.x - rect.origin.x;
-							//NSLog(@"New width = %f ", rect.size.width);
+							if (lastleft)
+								newrect.origin.y = NSMaxY(lastleft.bounds);
+							else
+								newrect.origin.y = NSMaxY(lastright.bounds);
 						}
+						lastleft = lastright = nil;
 					}
+				} else overlapped = NO;
 
-					if (NSMaxX(rect) > rightMargin)
-					{
-						//NSLog(@"The line fragment rect sticks out over the right margin. NSMaxX(rect) = %f, right margin = %f", NSMaxX(rect), rightMargin);
-						rect.size.width -= (rightMargin - rect.origin.x);
-						//NSLog(@"So we shorten it by %f points. New NSMaxX(rect) = %f", rightMargin - rect.origin.x, NSMaxX(rect));
-					}
-                    
+				if (NSMaxX(rect) > rightMargin)
+				{
+					NSLog(@"The line fragment rect sticks out over the right margin. NSMaxX(rect) = %f, right margin = %f", NSMaxX(rect), rightMargin);
+					rect.size.width -= (rightMargin - rect.origin.x);
+					NSLog(@"So we shorten it by %f points. New NSMaxX(rect) = %f", rightMargin - rect.origin.x, NSMaxX(rect));
 				}
+			} else overlapped = NO;
+		}
+
+		if (repeats++ > 1000)
+			NSLog(@"Error! More than 1000 repeats in lineFragmentRectForProposedRect loop!");
+	}
+	NSLog(@"Returning rect %@", NSStringFromRect(newrect));
+	return newrect;
+}
+
+- (NSRect) adjustForBreaks: (NSRect)rect
+{
+	FlowBreak *f;
+	NSRect flowrect;
+	MarginImage *img2, *flowbreakimage;
+
+	NSEnumerator *breakenumerator = [flowbreaks reverseObjectEnumerator];
+	while (f = [breakenumerator nextObject])
+	{
+		flowrect = [f boundsWithLayout:self.layoutManager];
+
+		if (NSIntersectsRect(flowrect, rect))
+		{
+			NSLog(@"MarginContainer: looking for an image that intersects flowbreak %ld (%@)", [flowbreaks indexOfObject:f], NSStringFromRect(flowrect));
+
+			CGFloat lowest = 0;
+
+			for (img2 in margins)
+				// Moving below the image before the flowbreak which goes lowest
+				if (img2.pos < f.pos && NSMaxY(img2.bounds) > lowest && NSMaxY(img2.bounds) > rect.origin.y)
+				{
+					flowbreakimage = img2;
+					lowest = NSMaxY(img2.bounds) + 1;
+
+				}
+
+			if (lowest)
+			{
+				NSLog(@"Decided on image %ld for flowbreak. Moving below it.", [margins indexOfObject:flowbreakimage]);
+				rect.origin.y = lowest;
 			}
 		}
 	}
@@ -500,8 +525,8 @@
 	MarginImage *image;
 	NSEnumerator *enumerator = [margins reverseObjectEnumerator];
 	while (image = [enumerator nextObject])
-    {
-		[image boundsWithLayout: self.layoutManager];
+	{
+		//[image boundsWithLayout: self.layoutManager];
 
 		bounds = image.bounds;
         
