@@ -5,28 +5,24 @@
 
 extern void getworkdir()
 {
-    @autoreleasepool
-    {
-        NSError *error;
-        NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
+	NSError *error;
+	NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
 
-        NSString *firstWord = [[[NSString stringWithUTF8String:gli_program_name] componentsSeparatedByString:@" "] objectAtIndex:0];        
+	NSString *firstWord = [[[NSString stringWithUTF8String:gli_program_name] componentsSeparatedByString:@" "] objectAtIndex:0];
 
-        NSString *dirstr = [[[NSString alloc] initWithFormat: @"Spatterlight/%@", firstWord] autorelease];
+	NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", firstWord];
 
-        if ([dirstr isEqualToString:@"Level"])
-            dirstr = @"Level 9";
+	if ([dirstr isEqualToString:@"Level"])
+		dirstr = @"Level 9";
 
-        dirstr = [dirstr stringByAppendingString:@" Files"];
-        dirstr = [dirstr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	dirstr = [dirstr stringByAppendingString:@" Files"];
+	dirstr = [dirstr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-        appSupportDir = [NSURL URLWithString: dirstr relativeToURL:appSupportDir];
+	appSupportDir = [NSURL URLWithString: dirstr relativeToURL:appSupportDir];
 
-        [[NSFileManager defaultManager] createDirectoryAtURL:appSupportDir withIntermediateDirectories:YES attributes:nil error:NULL];
+	[[NSFileManager defaultManager] createDirectoryAtURL:appSupportDir withIntermediateDirectories:YES attributes:nil error:NULL];
 
-        strncpy(workingdir, [appSupportDir.path UTF8String], sizeof workingdir);
-    }
+	strncpy(workingdir, [appSupportDir.path UTF8String], sizeof workingdir);
 
-    workingdir[sizeof workingdir-1] = 0;
-    
+	workingdir[sizeof workingdir-1] = 0;
 }
