@@ -427,7 +427,6 @@
 				{
 					flowbreakimage = img2;
 					lowest = NSMaxY(img2.bounds) + 1;
-
 				}
 
 			if (lowest)
