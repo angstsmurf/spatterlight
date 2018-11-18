@@ -12,7 +12,7 @@ extern void getworkdir()
 
         NSString *firstWord = [[[NSString stringWithUTF8String:gli_program_name] componentsSeparatedByString:@" "] objectAtIndex:0];        
 
-        NSString *dirstr = [[NSString alloc] initWithFormat: @"Spatterlight/%@", firstWord];
+        NSString *dirstr = [[[NSString alloc] initWithFormat: @"Spatterlight/%@", firstWord] autorelease];
 
         if ([dirstr isEqualToString:@"Level"])
             dirstr = @"Level 9";
