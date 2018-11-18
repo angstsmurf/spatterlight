@@ -319,6 +319,7 @@
 
 	while (overlapped)
 	{
+		overlapped = NO;
 		lastleft = lastright = nil;
 
 		NSEnumerator *enumerator = [margins reverseObjectEnumerator];
@@ -334,6 +335,7 @@
 
 			if (NSIntersectsRect(bounds, newrect))
 			{
+				overlapped = YES;
 				NSLog(@"MarginContainer:The bounds of image %ld at %@ intersect with the line fragment rect %@", [margins indexOfObject:image], NSStringFromRect(bounds),  NSStringFromRect(newrect));
 
 				newrect = [self adjustForBreaks:newrect];
@@ -341,8 +343,6 @@
 				// The call above may have moved the rect down, so we need to check if the image still intersects
 				if (NSIntersectsRect(bounds, newrect))
 				{
-					overlapped = YES;
-
 					if (image.alignment == imagealign_MarginLeft)
 					{
 						NSLog(@"We have to adjust the line fragment rect for left-aligned image %ld", [margins indexOfObject:image]);
@@ -374,7 +374,7 @@
 						newrect.origin.x = rect.origin.x;
 						if (lastleft && lastright)
 						{
-							newrect.origin.y = MIN(NSMaxY(lastleft.bounds), NSMaxY(lastright.bounds));
+							newrect.origin.y = MIN(NSMaxY(lastright.bounds), NSMaxY(lastleft.bounds));
 						}
 						else
 						{
@@ -385,15 +385,16 @@
 						}
 						lastleft = lastright = nil;
 					}
-				} else overlapped = NO;
+				}
 
 				if (NSMaxX(rect) > rightMargin)
 				{
 					NSLog(@"The line fragment rect sticks out over the right margin. NSMaxX(rect) = %f, right margin = %f", NSMaxX(rect), rightMargin);
 					rect.size.width -= (rightMargin - rect.origin.x);
 					NSLog(@"So we shorten it by %f points. New NSMaxX(rect) = %f", rightMargin - rect.origin.x, NSMaxX(rect));
+					overlapped = YES;
 				}
-			} else overlapped = NO;
+			}
 		}
 
 		if (repeats++ > 1000)
