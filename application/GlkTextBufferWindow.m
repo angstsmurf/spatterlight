@@ -753,15 +753,15 @@
         layoutmanager = [[NSLayoutManager alloc] init];
         [textstorage addLayoutManager: layoutmanager];
 
-        container = [[MarginContainer alloc] initWithContainerSize: NSMakeSize(0, FLT_MAX)];
+        container = [[MarginContainer alloc] initWithContainerSize: NSMakeSize(0, 10000000)];
 
         [container setLayoutManager: layoutmanager];
         [layoutmanager addTextContainer: container];
 
-        textview = [[MyTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, FLT_MAX) textContainer:container textBuffer:self];
+        textview = [[MyTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000) textContainer:container textBuffer:self];
 
-        [textview setMinSize:NSMakeSize(0, 0)];
-        [textview setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+        [textview setMinSize:NSMakeSize(1, 10000000)];
+        [textview setMaxSize:NSMakeSize(10000000, 10000000)];
 
         [container setTextView: textview];
 
