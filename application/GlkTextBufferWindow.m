@@ -193,7 +193,7 @@
 			/* set bounds to be at the same line as anchor but in left/right margin */
 			if (_alignment == imagealign_MarginRight)
 			{
-				CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding;
+				CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding - 10;
 
 				_bounds = NSMakeRect(rightMargin - _size.width,
 									 theline.origin.y,
@@ -447,7 +447,7 @@
 		return;
 
 	CGFloat leftMargin = self.textView.textContainerInset.width + self.lineFragmentPadding;
-	CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding;
+	CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding - 10;
 
 	NSRect adjustedBounds = image.bounds;
 
@@ -743,6 +743,7 @@
         [scrollview setHasHorizontalScroller: NO];
         [scrollview setHasVerticalScroller: YES];
         [scrollview setAutohidesScrollers: YES];
+        [[scrollview verticalScroller] setScrollerStyle:NSScrollerStyleOverlay];
 
         [scrollview setBorderType: NSNoBorder];
 
