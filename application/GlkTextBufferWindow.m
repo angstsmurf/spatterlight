@@ -164,7 +164,6 @@
 		_linkid = linkid;
 		_pos = apos;
         recalc = YES;
-		unoverlap_iterations = 0;
 		container = sender;
     }
     return self;
@@ -176,59 +175,56 @@
     NSRange ourline;
     NSRect theline;
 
-	if (unoverlap_iterations <= 5000)
-	{
-		if (recalc)
-		{
-			recalc = NO;	/* don't infiniloop in here, settle for the first result */
+    if (recalc)
+    {
+        recalc = NO;	/* don't infiniloop in here, settle for the first result */
 
-			_bounds = NSZeroRect;
+        _bounds = NSZeroRect;
 
-			/* force layout and get position of anchor glyph */
-			ourglyph = [layout glyphRangeForCharacterRange: NSMakeRange(_pos, 1)
-									  actualCharacterRange: &ourline];
-			theline = [layout lineFragmentRectForGlyphAtIndex: ourglyph.location
-											   effectiveRange: nil];
+        /* force layout and get position of anchor glyph */
+        ourglyph = [layout glyphRangeForCharacterRange: NSMakeRange(_pos, 1)
+                                  actualCharacterRange: &ourline];
+        theline = [layout lineFragmentRectForGlyphAtIndex: ourglyph.location
+                                           effectiveRange: nil];
 
-			/* set bounds to be at the same line as anchor but in left/right margin */
-			if (_alignment == imagealign_MarginRight)
-			{
-				CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding - 10;
+        /* set bounds to be at the same line as anchor but in left/right margin */
+        if (_alignment == imagealign_MarginRight)
+        {
+            CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding - 10;
+            // The extra last 10 points is to prevent the scrollbar from cutting off the right edge of right-aligned
+            // margin images on at least 10.7. It creates an ugly asymmetric right margin, so it would be nice to
+            // find another way.
 
-				_bounds = NSMakeRect(rightMargin - _size.width,
-									 theline.origin.y,
-									 _size.width,
-									 _size.height);
 
-				//NSLog(@"rightMargin = %f, _bounds = %@", rightMargin, NSStringFromRect(_bounds));
+            _bounds = NSMakeRect(rightMargin - _size.width,
+                                 theline.origin.y,
+                                 _size.width,
+                                 _size.height);
 
-				//If the above places the image outside margin, move it within
-				if (NSMaxX(_bounds) > rightMargin)
-				{
-					_bounds.origin.x = rightMargin - _size.width;
-					//NSLog(@"_bounds outside right margin. Moving it to %@", NSStringFromRect(_bounds));
-				}
-			}
-			else
-			{
-				_bounds = NSMakeRect(theline.origin.x + container.lineFragmentPadding,
-									 theline.origin.y,
-									 _size.width,
-									 _size.height);
-			}
+            //NSLog(@"rightMargin = %f, _bounds = %@", rightMargin, NSStringFromRect(_bounds));
 
-			/* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
-			[layout invalidateLayoutForCharacterRange: ourline
-								 actualCharacterRange: nil];
-
-			NSLog(@"Maximum unoverlap iterations reached: %ld", (long)unoverlap_iterations);
-			unoverlap_iterations = 0;
-		}
-
-		[(MarginContainer *)container unoverlap:self];
-		unoverlap_iterations++;
-	}
-	else NSLog(@"Error!: 5000 unoverlap iterations done for the same image! (%@) Skipping!", self);
+            // If the above places the image outside margin, move it within
+            if (NSMaxX(_bounds) > rightMargin)
+            {
+                _bounds.origin.x = rightMargin - _size.width;
+                //NSLog(@"_bounds outside right margin. Moving it to %@", NSStringFromRect(_bounds));
+            }
+        }
+        else
+        {
+            _bounds = NSMakeRect(theline.origin.x + container.lineFragmentPadding,
+                                 theline.origin.y,
+                                 _size.width,
+                                 _size.height);
+        }
+        
+        /* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
+        [layout invalidateLayoutForCharacterRange: ourline
+                             actualCharacterRange: nil];
+        
+    }
+    
+    [(MarginContainer *)container unoverlap:self];
     return _bounds;
 }
 
@@ -236,8 +232,6 @@
 {
     recalc = YES;
     _bounds = NSZeroRect;
-	NSLog(@"Maximum unoverlap iterations reached: %ld", (long)unoverlap_iterations);
-	unoverlap_iterations = 0;
 }
 
 @end
@@ -312,7 +306,6 @@
 		return rect;
 
 	BOOL overlapped = YES;
-	NSUInteger repeats = 0;
 	CGFloat rightMargin = self.textView.frame.size.width;
 
 	NSRect newrect = rect;
@@ -336,7 +329,6 @@
 			if (NSIntersectsRect(bounds, newrect))
 			{
 				overlapped = YES;
-				NSLog(@"MarginContainer:The bounds of image %ld at %@ intersect with the line fragment rect %@", [margins indexOfObject:image], NSStringFromRect(bounds),  NSStringFromRect(newrect));
 
 				newrect = [self adjustForBreaks:newrect];
 
@@ -345,36 +337,29 @@
 				{
 					if (image.alignment == imagealign_MarginLeft)
 					{
-						NSLog(@"We have to adjust the line fragment rect for left-aligned image %ld", [margins indexOfObject:image]);
-						NSLog(@"We moved the line fragment rect %f points to the right. Old x position = %f, old width = %f", NSMaxX(bounds) - newrect.origin.x, newrect.origin.x, newrect.size.width);
+						// If we intersect with a left-aligned image, cut off the left end of the rect
 
-						CGFloat oldx = rect.origin.x; CGFloat oldw = newrect.size.width;
                         newrect.size.width -= (NSMaxX(bounds) - newrect.origin.x);
                         newrect.origin.x = NSMaxX(bounds);
 						lastleft = image;
-
-						NSLog(@"New x position = %f (%f), new width = %f (%f)", newrect.origin.x, newrect.origin.x - oldx, newrect.size.width, newrect.size.width - oldw);
 					}
-					else  // Image is right-aligned
+					else  // If the image is right-aligned, cut off the right end of line fragment rect
 					{
-						NSLog(@"We have to adjust the line fragment rect for right-aligned image %ld", [margins indexOfObject:image]);
-						NSLog(@"We cut off %f points from the right end of the line fragment.", newrect.size.width - (bounds.origin.x - newrect.origin.x));
-
-						newrect.size.width = bounds.origin.x - newrect.origin.x;
+                        newrect.size.width = bounds.origin.x - newrect.origin.x;
 						lastright = image;
-
-						NSLog(@"New width = %f ", newrect.size.width);
 					}
 
 					if ( newrect.size.width <= 50)
 					{
-						NSLog(@"The rect has become too narrow, so we move it down instead and restore its original width.");
-
-						newrect.size.width = rect.size.width; // restore original width
+                        // If the rect has now become too narrow, push it down and restore original width
+                        // 50 is a slightly arbitrary cutoff width
+                        newrect.size.width = rect.size.width; // Original width
 						newrect.origin.x = rect.origin.x;
 						if (lastleft && lastright)
 						{
 							newrect.origin.y = MIN(NSMaxY(lastright.bounds), NSMaxY(lastleft.bounds));
+                            // If the rect is squeezed between a right-aligned and a left-aligned image,
+                            // push it down below the highest of the two
 						}
 						else
 						{
@@ -389,18 +374,13 @@
 
 				if (NSMaxX(rect) > rightMargin)
 				{
-					NSLog(@"The line fragment rect sticks out over the right margin. NSMaxX(rect) = %f, right margin = %f", NSMaxX(rect), rightMargin);
+					// If the line fragment rect sticks out over the right margin, cut it off
 					rect.size.width -= (rightMargin - rect.origin.x);
-					NSLog(@"So we shorten it by %f points. New NSMaxX(rect) = %f", rightMargin - rect.origin.x, NSMaxX(rect));
 					overlapped = YES;
 				}
 			}
 		}
-
-		if (repeats++ > 1000)
-			NSLog(@"Error! More than 1000 repeats in lineFragmentRectForProposedRect loop!");
-	}
-	NSLog(@"Returning rect %@", NSStringFromRect(newrect));
+    }
 	return newrect;
 }
 
@@ -408,7 +388,7 @@
 {
 	FlowBreak *f;
 	NSRect flowrect;
-	MarginImage *img2, *flowbreakimage;
+	MarginImage *img2;
 
 	NSEnumerator *breakenumerator = [flowbreaks reverseObjectEnumerator];
 	while (f = [breakenumerator nextObject])
@@ -422,18 +402,15 @@
 			CGFloat lowest = 0;
 
 			for (img2 in margins)
-				// Moving below the image before the flowbreak which goes lowest
+				// Moving below the lowest image drawn before the flowbreak
+                // Flowbreaks are not supposed to affect images drawn after it
 				if (img2.pos < f.pos && NSMaxY(img2.bounds) > lowest && NSMaxY(img2.bounds) > rect.origin.y)
 				{
-					flowbreakimage = img2;
 					lowest = NSMaxY(img2.bounds) + 1;
 				}
 
 			if (lowest)
-			{
-				NSLog(@"Decided on image %ld for flowbreak. Moving below it.", [margins indexOfObject:flowbreakimage]);
 				rect.origin.y = lowest;
-			}
 		}
 	}
 
@@ -448,6 +425,9 @@
 
 	CGFloat leftMargin = self.textView.textContainerInset.width + self.lineFragmentPadding;
 	CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding - 10;
+    // The extra last 10 points is to prevent the scrollbar from cutting off the right edge of right-aligned margin
+    // images, at least on 10.7. It creates an ugly asymmetric right margin, though, so it would be nice to find
+    // another way.
 
 	NSRect adjustedBounds = image.bounds;
 
@@ -484,6 +464,8 @@
                     }
                     else if (img2.bounds.origin.y > adjustedBounds.origin.y)
                         adjustedBounds.origin.y = img2.bounds.origin.y;
+                    // Try to keep an even upper edge on images pushed down.
+                    // This looks nicer and simplifies calculations
                 }
                 else
                 {
@@ -511,6 +493,7 @@
             }
         }
     }
+    
 	image.bounds = adjustedBounds;
 }
 
@@ -804,12 +787,6 @@
     return self;
 }
 
-//- (void) setBgColor: (NSInteger)bg
-//{
-//    [super setBgColor: bg];
-//    [self recalcBackground];
-//}
-
 - (BOOL) allowsDocumentBackgroundColorChange { return YES; }
 
 - (void)changeDocumentBackgroundColor:(id)sender
@@ -826,19 +803,8 @@
 
     if ([Preferences stylesEnabled])
     {
-
         bgcolor = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
         fgcolor = [styles[style_Normal] attributes][NSForegroundColorAttributeName];
-
-//         if (bgnd != 0)
-//         {
-//             bgcolor = [Preferences backgroundColor: (int)(bgnd - 1)];
-//             if (bgnd == 1) // black
-//                 fgcolor = [Preferences foregroundColor: 7];
-//             else
-//                 fgcolor = [Preferences foregroundColor: 0];
-//         }
-
     }
 
     if (!bgcolor)
@@ -880,9 +846,7 @@
 		NSDictionary * attributes = [self attributesFromStylevalue:[styleobject intValue]];
 
         id image = [textstorage attribute: @"NSAttachment" atIndex:x effectiveRange:NULL];
-
 		id hyperlink = [textstorage attribute: NSLinkAttributeName atIndex:x effectiveRange:&linkrange];
-
         [textstorage setAttributes: attributes range: range];
 
         if (image)
