@@ -270,6 +270,14 @@
 	MarginImage *mi = [[MarginImage alloc] initWithImage: image align: align linkid:linkid at: top sender: self];
     [margins addObject: mi];
     [self.layoutManager textContainerChangedGeometry: self];
+    [mi boundsWithLayout:self.layoutManager];
+    if (self.textView.frame.size.height <= NSMaxY(mi.bounds))
+    {
+        ((MyTextView *)self.textView).bottomPadding = NSMaxY(mi.bounds) - self.textView.frame.size.height + self.textView.textContainerInset.height;
+        [self.textView setFrameSize:self.textView.frame.size];
+        if ([(MyTextView *)self.textView scrolledToBottom])
+            [(MyTextView *)self.textView scrollToBottom];
+    }
 }
 
 - (void) flowBreakAt: (NSInteger)pos
@@ -434,7 +442,7 @@
 		return;
 
 	CGFloat leftMargin = self.textView.textContainerInset.width + self.lineFragmentPadding;
-	CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding - 10;
+	CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding - 10 * (NSAppKitVersionNumber <= 1139);
     // The extra last 10 points is to prevent the scrollbar from cutting off the right edge of right-aligned margin
     // images, at least on 10.7. It creates an ugly asymmetric right margin, though, so it would be nice to find
     // another way.
@@ -666,6 +674,29 @@
     //NSLog(@"perform scroll bottom = %d lastseen = %ld", bottom, (long)glkTextBuffer.lastseen);
 }
 
+- (BOOL) scrolledToBottom
+{
+	NSRange range;
+    // first, force a layout so we have the correct textview frame
+    [self.layoutManager glyphRangeForTextContainer: self.textContainer];
+
+    if (self.textStorage.length == 0)
+        return YES;
+
+	[self.layoutManager textContainerForGlyphAtIndex:0 effectiveRange:&range];
+
+    id view = self.superview;
+	while (view && ![view isKindOfClass: [NSScrollView class]])
+		view = [view superview];
+
+	NSScrollView *scrollview = (NSScrollView *)view;
+
+    CGFloat scrollViewBottomOffset = ((NSTextView *)scrollview.documentView).frame.size.height - scrollview.bounds.size.height;
+
+    NSLog(@"NSMaxY(scrollview.documentVisibleRect) = %f scrollViewBottomOffset = %f", NSMaxY(scrollview.documentVisibleRect), scrollViewBottomOffset);
+
+    return (NSMaxY(scrollview.documentVisibleRect) >= scrollViewBottomOffset);
+}
 
 - (void) mouseDown: (NSEvent*)theEvent
 {

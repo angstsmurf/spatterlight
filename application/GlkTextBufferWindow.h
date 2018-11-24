@@ -30,6 +30,7 @@
 - (void) scrollToBottom;
 - (void) performScroll;
 - (void) temporarilyHideCaret;
+- (BOOL) scrolledToBottom;
 
 @property BOOL shouldDrawCaret;
 @property CGFloat bottomPadding;
