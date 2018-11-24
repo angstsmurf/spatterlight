@@ -128,7 +128,6 @@
 @interface MarginImage : NSObject
 {
 	BOOL recalc;
-	NSUInteger unoverlap_iterations;
 	NSTextContainer *container;
 }
 
@@ -136,7 +135,6 @@
 @property (readonly) NSInteger alignment;
 @property NSInteger pos;
 @property NSRect bounds;
-@property NSSize size;
 @property NSUInteger linkid;
 
 - (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign linkid:(NSInteger)linkid at: (NSInteger)apos sender:(id)sender;
@@ -159,7 +157,6 @@
     {
 		_image = animage;
         _alignment = analign;
-        _size = animage.size;
         _bounds = NSZeroRect;
 		_linkid = linkid;
 		_pos = apos;
@@ -174,6 +171,7 @@
     NSRange ourglyph;
     NSRange ourline;
     NSRect theline;
+    NSSize size = _image.size;
 
     if (recalc)
     {
@@ -309,6 +307,9 @@
 
 	NSRect newrect = rect;
 
+    if (newrect.size.width < 50)
+        newrect.size.width = 50;
+
 	while (overlapped)
 	{
 		overlapped = NO;
@@ -331,25 +332,34 @@
 
 				newrect = [self adjustForBreaks:newrect];
 
+                BOOL overlapped2 = YES;
+
 				// The call above may have moved the rect down, so we need to check if the image still intersects
-				if (NSIntersectsRect(bounds, newrect))
+
+				while (overlapped2) // = while (NSIntersectsRect(bounds, newrect) || newrect.size.width < 50)
 				{
-					if (image.alignment == imagealign_MarginLeft)
-					{
-						// If we intersect with a left-aligned image, cut off the left end of the rect
+                    overlapped2 = NO;
 
-                        newrect.size.width -= (NSMaxX(bounds) - newrect.origin.x);
-                        newrect.origin.x = NSMaxX(bounds);
-						lastleft = image;
-					}
-					else  // If the image is right-aligned, cut off the right end of line fragment rect
-					{
-                        newrect.size.width = bounds.origin.x - newrect.origin.x;
-						lastright = image;
-					}
+                    if (NSIntersectsRect(bounds, newrect))
+                    {
+                        overlapped2 = YES;
+                        if (image.alignment == imagealign_MarginLeft)
+                        {
+                            // If we intersect with a left-aligned image, cut off the left end of the rect
 
-					if ( newrect.size.width <= 50)
+                            newrect.size.width -= (NSMaxX(bounds) - newrect.origin.x);
+                            newrect.origin.x = NSMaxX(bounds);
+                            lastleft = image;
+                        }
+                        else  // If the image is right-aligned, cut off the right end of line fragment rect
+                        {
+                            newrect.size.width = bounds.origin.x - newrect.origin.x;
+                            lastright = image;
+                        }
+                    }
+					if (newrect.size.width <= 50)
 					{
+                        overlapped2 = YES;
                         // If the rect has now become too narrow, push it down and restore original width
                         // 50 is a slightly arbitrary cutoff width
                         newrect.size.width = rect.size.width; // Original width
@@ -504,12 +514,14 @@
     NSSize inset = self.textView.textContainerInset;
     NSSize size;
     NSRect bounds;
-    
+    BOOL extendflag = NO;
+    CGFloat extendneeded = 0;
+
 	MarginImage *image;
 	NSEnumerator *enumerator = [margins reverseObjectEnumerator];
 	while (image = [enumerator nextObject])
 	{
-		//[image boundsWithLayout: self.layoutManager];
+		[image boundsWithLayout: self.layoutManager];
 
 		bounds = image.bounds;
 
@@ -517,21 +529,24 @@
 		{
 			bounds.origin.x += inset.width;
 			bounds.origin.y += inset.height;
+
+            if (self.textView.frame.size.height <= NSMaxY(bounds))
+            {
+                ((MyTextView *)self.textView).bottomPadding = NSMaxY(bounds) - self.textView.frame.size.height + inset.height;
+                [self.textView setFrameSize:self.textView.frame.size];
+                extendflag = YES;
+            }
+
+            if (self.textView.frame.size.height - ((MyTextView *)self.textView).bottomPadding <= NSMaxY(bounds))
+            {
+                if (extendneeded < NSMaxY(bounds) - self.textView.frame.size.height + inset.height)
+                    extendneeded = NSMaxY(bounds) - self.textView.frame.size.height + inset.height;
+            }
+
             
 			if (NSIntersectsRect(bounds, rect))
 			{
-                if (self.textView.frame.size.height < NSMaxY(bounds) + inset.height)
-                {
-                    ((MyTextView *)self.textView).bottomPadding = NSMaxY(bounds) - self.textView.frame.size.height + inset.height;
-                    [self.textView setFrameSize:self.textView.frame.size];
-                    [(MyTextView *)self.textView scrollToBottom];
-                }
-                else
-                {
-                    ((MyTextView *)self.textView).bottomPadding = 0;
-                }
-                    
-                size = image.size;
+                size = image.image.size;
 				[image.image drawInRect: bounds
                                  fromRect: NSMakeRect(0, 0, size.width, size.height)
                                 operation: NSCompositeSourceOver
@@ -541,6 +556,10 @@
             }
         }
     }
+    if (extendflag && [(MyTextView *)self.textView scrolledToBottom])
+        [(MyTextView *)self.textView scrollToBottom];
+    
+    ((MyTextView *)self.textView).bottomPadding = extendneeded;
 }
 
 - (NSUInteger) findHyperlinkAt: (NSPoint)p;
