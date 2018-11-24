@@ -58,8 +58,8 @@
 }
 
 - (instancetype) initWithPos: (NSInteger)pos;
-
 - (NSRect) boundsWithLayout: (NSLayoutManager*)layout;
+
 @property NSRect bounds;
 @property NSInteger pos;
 
@@ -190,23 +190,22 @@
         /* set bounds to be at the same line as anchor but in left/right margin */
         if (_alignment == imagealign_MarginRight)
         {
-            CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding - 10;
+            CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding - 10 * (NSAppKitVersionNumber <= 1139);
             // The extra last 10 points is to prevent the scrollbar from cutting off the right edge of right-aligned
             // margin images on at least 10.7. It creates an ugly asymmetric right margin, so it would be nice to
             // find another way.
 
-
-            _bounds = NSMakeRect(rightMargin - _size.width,
+            _bounds = NSMakeRect(rightMargin - size.width,
                                  theline.origin.y,
-                                 _size.width,
-                                 _size.height);
+                                 size.width,
+                                 size.height);
 
             //NSLog(@"rightMargin = %f, _bounds = %@", rightMargin, NSStringFromRect(_bounds));
 
             // If the above places the image outside margin, move it within
             if (NSMaxX(_bounds) > rightMargin)
             {
-                _bounds.origin.x = rightMargin - _size.width;
+                _bounds.origin.x = rightMargin - size.width;
                 //NSLog(@"_bounds outside right margin. Moving it to %@", NSStringFromRect(_bounds));
             }
         }
@@ -214,8 +213,8 @@
         {
             _bounds = NSMakeRect(theline.origin.x + container.lineFragmentPadding,
                                  theline.origin.y,
-                                 _size.width,
-                                 _size.height);
+                                 size.width,
+                                 size.height);
         }
         
         /* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
@@ -368,6 +367,7 @@
 							else
 								newrect.origin.y = NSMaxY(lastright.bounds);
 						}
+
 						lastleft = lastright = nil;
 					}
 				}
@@ -375,7 +375,7 @@
 				if (NSMaxX(rect) > rightMargin)
 				{
 					// If the line fragment rect sticks out over the right margin, cut it off
-					rect.size.width -= (rightMargin - rect.origin.x);
+					rect.size.width = rightMargin - rect.origin.x;
 					overlapped = YES;
 				}
 			}
@@ -512,7 +512,7 @@
 		//[image boundsWithLayout: self.layoutManager];
 
 		bounds = image.bounds;
-        
+
 		if (!NSIsEmptyRect(bounds))
 		{
 			bounds.origin.x += inset.width;
@@ -638,7 +638,7 @@
 
     // scroll so rect from lastseen to bottom is visible
     //NSLog(@"scroll %d -> %d", lastseen, bottom);
-    if (bottom - [glkTextBuffer lastseen] > NSHeight(scrollview.frame))
+    if (bottom - glkTextBuffer.lastseen > NSHeight(scrollview.frame))
         [self scrollRectToVisible: NSMakeRect(0, glkTextBuffer.lastseen, 0, NSHeight(scrollview.frame))];
     else
         [self scrollRectToVisible: NSMakeRect(0, glkTextBuffer.lastseen, 0, bottom - glkTextBuffer.lastseen)];
@@ -726,7 +726,6 @@
         [scrollview setHasHorizontalScroller: NO];
         [scrollview setHasVerticalScroller: YES];
         [scrollview setAutohidesScrollers: YES];
-        [[scrollview verticalScroller] setScrollerStyle:NSScrollerStyleOverlay];
 
         [scrollview setBorderType: NSNoBorder];
 
