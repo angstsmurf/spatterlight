@@ -311,12 +311,7 @@
 		return rect;
 
 	BOOL overlapped = YES;
-	CGFloat rightMargin = self.textView.frame.size.width;
-
 	NSRect newrect = rect;
-
-    if (newrect.size.width < 50)
-        newrect.size.width = 50;
 
 	while (overlapped)
 	{
@@ -388,13 +383,6 @@
 
 						lastleft = lastright = nil;
 					}
-				}
-
-				if (NSMaxX(rect) > rightMargin)
-				{
-					// If the line fragment rect sticks out over the right margin, cut it off
-					rect.size.width = rightMargin - rect.origin.x;
-					overlapped = YES;
 				}
 			}
 		}
