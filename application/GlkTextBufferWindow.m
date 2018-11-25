@@ -518,17 +518,21 @@
 			bounds.origin.x += inset.width;
 			bounds.origin.y += inset.height;
 
+            // Check if we need to add padding to increase textview height to accommodate for low image
             if (self.textView.frame.size.height <= NSMaxY(bounds))
             {
+
                 ((MyTextView *)self.textView).bottomPadding = NSMaxY(bounds) - self.textView.frame.size.height + inset.height;
+                extendneeded = ((MyTextView *)self.textView).bottomPadding;
                 [self.textView setFrameSize:self.textView.frame.size];
                 extendflag = YES;
             }
-
-            if (self.textView.frame.size.height - ((MyTextView *)self.textView).bottomPadding <= NSMaxY(bounds))
+            // Check if padding is still needed
+            else if (self.textView.frame.size.height - ((MyTextView *)self.textView).bottomPadding <= NSMaxY(bounds))
             {
-                if (extendneeded < NSMaxY(bounds) - self.textView.frame.size.height + inset.height)
-                    extendneeded = NSMaxY(bounds) - self.textView.frame.size.height + inset.height;
+                NSInteger bottom = NSMaxY(bounds) - self.textView.frame.size.height + inset.height;
+                if (extendneeded < bottom)
+                    extendneeded = bottom;
             }
 
             
@@ -544,9 +548,11 @@
             }
         }
     }
+    // If we were at the bottom before, scroll to bottom of extended area so that we are still at bottom
     if (extendflag && [(MyTextView *)self.textView scrolledToBottom])
         [(MyTextView *)self.textView scrollToBottom];
-    
+
+    // Remove bottom padding if it is not needed any more
     ((MyTextView *)self.textView).bottomPadding = extendneeded;
 }
 
