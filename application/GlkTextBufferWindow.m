@@ -270,14 +270,6 @@
 	MarginImage *mi = [[MarginImage alloc] initWithImage: image align: align linkid:linkid at: top sender: self];
     [margins addObject: mi];
     [self.layoutManager textContainerChangedGeometry: self];
-    [mi boundsWithLayout:self.layoutManager];
-    if (self.textView.frame.size.height <= NSMaxY(mi.bounds))
-    {
-        ((MyTextView *)self.textView).bottomPadding = NSMaxY(mi.bounds) - self.textView.frame.size.height + self.textView.textContainerInset.height;
-        [self.textView setFrameSize:self.textView.frame.size];
-        if ([(MyTextView *)self.textView scrolledToBottom])
-            [(MyTextView *)self.textView scrollToBottom];
-    }
 }
 
 - (void) flowBreakAt: (NSInteger)pos
