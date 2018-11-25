@@ -650,14 +650,10 @@
     bottom = NSHeight(self.frame);
 
     // scroll so rect from lastseen to bottom is visible
-    //NSLog(@"scroll %d -> %d", lastseen, bottom);
     if (bottom - glkTextBuffer.lastseen > NSHeight(scrollview.frame))
         [self scrollRectToVisible: NSMakeRect(0, glkTextBuffer.lastseen, 0, NSHeight(scrollview.frame))];
     else
         [self scrollRectToVisible: NSMakeRect(0, glkTextBuffer.lastseen, 0, bottom - glkTextBuffer.lastseen)];
-
-
-    //NSLog(@"perform scroll bottom = %d lastseen = %ld", bottom, (long)glkTextBuffer.lastseen);
 }
 
 - (BOOL) scrolledToBottom
@@ -678,8 +674,6 @@
 	NSScrollView *scrollview = (NSScrollView *)view;
 
     CGFloat scrollViewBottomOffset = ((NSTextView *)scrollview.documentView).frame.size.height - scrollview.bounds.size.height;
-
-    NSLog(@"NSMaxY(scrollview.documentVisibleRect) = %f scrollViewBottomOffset = %f", NSMaxY(scrollview.documentVisibleRect), scrollViewBottomOffset);
 
     return (NSMaxY(scrollview.documentVisibleRect) >= scrollViewBottomOffset);
 }
