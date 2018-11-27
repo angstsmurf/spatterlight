@@ -1611,17 +1611,17 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
      NSAccessibilityHelpAttribute]];
 
-	return [result autorelease];
+    return result;
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute {
 	if ([attribute isEqualToString: NSAccessibilityContentsAttribute]) {
-		return textView;
+		return textview;
 	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
 		//return parentWindow;
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		if (!lineInput && !charInput) return @"Text window";
-		return [NSString stringWithFormat: @"GLK text window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];;
+		if (!line_request && !char_request) return @"Text window";
+		return [NSString stringWithFormat: @"GLK text window%@%@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@""];
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
 		return (id)NO;
 		/* return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
@@ -1629,29 +1629,29 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
 		return [self accessibilityFocusedUIElement];
 	} else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
-		return @[textView];
+		return @[textview];
 	}
 
 	return [super accessibilityAttributeValue: attribute];
 }
 
 - (id)accessibilityFocusedUIElement {
-	return textView;
+	return textview;
 }
 
 - (BOOL)accessibilityIsIgnored {
 	return NO;
 }
 
-- (void) hideMoreWindow {
-    [[moreWindow parentWindow] removeChildWindow: moreWindow];
-    [moreWindow orderOut: self];
-}
-
-- (void) showMoreWindow {
-    [[self window] addChildWindow: moreWindow
-                          ordered: NSWindowAbove];
-    [moreWindow orderFront: self];
-}
+//- (void) hideMoreWindow {
+//    [[moreWindow parentWindow] removeChildWindow: moreWindow];
+//    [moreWindow orderOut: self];
+//}
+//
+//- (void) showMoreWindow {
+//    [[self window] addChildWindow: moreWindow
+//                          ordered: NSWindowAbove];
+//    [moreWindow orderFront: self];
+//}
 
 @end
