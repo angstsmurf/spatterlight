@@ -16,7 +16,7 @@ Screenshots can be found at [ccxvii.net][screenshots].
 
 [screenshots]: http://ccxvii.net/spatterlight/screens.html "ccxvii.net: Spatterlight screenshots"
 
-This is beta software! There is no warranty: use it at your own risk. It is a Universal application. You will need Mac OS X 10.7 or higher.
+This is beta software! There is no warranty: use it at your own risk. You will need Mac OS X 10.7 or higher.
 
 This is an updated fork of the Spatterlight source code as published in [ccxvii][ccxvii]. Copyright 2007-2018 by Tor Andersson.
 
