@@ -121,7 +121,7 @@
 
     // These magic numbers are the required distance between the scrollview
     // and the window content view edges. I wish a knew a way to calculate them.
-    contentRect.size.width = proposedRect.size.width + 39;
+    contentRect.size.width = proposedRect.size.width + 40;
     contentRect.size.height = proposedRect.size.height + 81;
 
     //Hopefully, by using frameRectForContentRect, this code will still work
