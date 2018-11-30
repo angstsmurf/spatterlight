@@ -16,26 +16,30 @@
 
 @end
 
-/*
- * Extend NSTextContainer to have images in the margins with
- * the text flowing around them.
- */
-
-@interface MyTextView : NSTextView
+@interface MyTextView : NSTextView <NSTextFinderClient>
 {
     GlkTextBufferWindow * glkTextBuffer;
+    NSTextFinder* _textFinder; // define your own text finder
 }
+
 - (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textBuffer: (GlkTextBufferWindow *)textbuffer;
 - (void) superKeyDown: (NSEvent*)evt;
 - (void) scrollToBottom;
 - (void) performScroll;
 - (void) temporarilyHideCaret;
 - (BOOL) scrolledToBottom;
+- (void) resetTextFinder; // A method to reset the view's text finder when you change the text storage
 
 @property BOOL shouldDrawCaret;
 @property CGFloat bottomPadding;
+@property (readonly) NSTextFinder* textFinder;
 
 @end
+
+/*
+ * Extend NSTextContainer to have images in the margins with
+ * the text flowing around them.
+ */
 
 @interface MarginContainer : NSTextContainer
 {

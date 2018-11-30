@@ -712,6 +712,66 @@
     [super setFrameSize:newSize];
 }
 
+// Text finder command validation (could also be done in method validateUserInterfaceItem: if you prefer)
+
+- (BOOL) validateMenuItem:(NSMenuItem *)menuItem
+{
+    BOOL isValidItem = NO;
+
+    if (menuItem.action == @selector(performTextFinderAction:)) {
+        isValidItem = [self.textFinder validateAction:menuItem.tag];
+    }
+    // validate other menu items if needed
+    // ...
+    // and don't forget to call the superclass
+    else {
+        isValidItem = [super validateMenuItem:menuItem];
+    }
+
+    return isValidItem;
+}
+
+// Text Finder
+
+- (NSTextFinder*) textFinder
+{
+    // Create the text finder on demand
+    if (_textFinder == nil) {
+        _textFinder = [[NSTextFinder alloc] init];
+        _textFinder.client = self;
+        _textFinder.findBarContainer = [self enclosingScrollView];
+        _textFinder.incrementalSearchingEnabled = YES;
+        _textFinder.incrementalSearchingShouldDimContentView = NO;
+    }
+
+    return _textFinder;
+}
+
+- (void) resetTextFinder
+{
+    if  (_textFinder != nil) {
+        // Hide the text finder
+        [_textFinder cancelFindIndicator];
+        [_textFinder performAction:NSTextFinderActionHideFindInterface];
+
+        // Clear its client and container properties
+        _textFinder.client = nil;
+        _textFinder.findBarContainer = nil;
+
+        // And delete it
+        _textFinder = nil;
+    }
+}
+
+// This is where the commands are actually sent to the text finder
+- (void) performTextFinderAction:(id<NSValidatedUserInterfaceItem>)sender
+{
+    BOOL waseditable = self.editable;
+    self.editable = NO;
+    [self.textFinder performAction:sender.tag];
+    self.editable = waseditable;
+}
+
 @end
 
 /* ------------------------------------------------------------ */
@@ -794,6 +854,9 @@
         [textview setAllowsImageEditing: NO];
         [textview setAllowsUndo: NO];
         [textview setUsesFontPanel: NO];
+        [textview setUsesFindBar:YES];
+        [textview setIncrementalSearchingEnabled:YES];
+
         [textview setSmartInsertDeleteEnabled: NO];
 
         [textview setDelegate: self];
@@ -896,6 +959,7 @@
     }
 
     [layoutmanager setUsesScreenFonts: [Preferences useScreenFonts]];
+    [textview resetTextFinder];
     [container invalidateLayout];
 }
 
@@ -982,6 +1046,8 @@
 	NSData *tiffdata;
 	//NSAttributedString *attstr;
 
+    [textview resetTextFinder];
+
 	if (w == 0)
 		w = image.size.width;
 	if (h == 0)
@@ -1035,6 +1101,8 @@
 
 - (void) flowBreak
 {
+    [textview resetTextFinder];
+
     // NSLog(@"adding flowbreak");
     unichar uc[1];
     uc[0] = NSAttachmentCharacter;
@@ -1096,6 +1164,8 @@
 
 - (void) travelBackwardInHistory
 {
+    [textview resetTextFinder];
+
     NSString *cx;
 
     if (historypos == historyfirst)
@@ -1125,6 +1195,8 @@
 
 - (void) travelForwardInHistory
 {
+    [textview resetTextFinder];
+    
     NSString *cx;
 
     if (historypos == historypresent)
@@ -1332,6 +1404,8 @@
 
 - (void) clear
 {
+    [textview resetTextFinder];
+
     id att = [[NSAttributedString alloc] initWithString: @""];
     [textstorage setAttributedString: att];
     fence = 0;
@@ -1348,6 +1422,9 @@
     NSString *string = [textstorage string];
     NSInteger length = [string length];
     NSInteger save_request = line_request;
+
+    [textview resetTextFinder];
+
     int prompt;
     int i;
 
@@ -1380,6 +1457,8 @@
 
 - (void) putString:(NSString*)str style:(NSInteger)stylevalue
 {
+    [textview resetTextFinder];
+
     NSAttributedString *attstr = [[NSAttributedString alloc] initWithString:str attributes:[self attributesFromStylevalue:stylevalue]];
 
 	[textstorage appendAttributedString: attstr];
@@ -1419,6 +1498,8 @@
 
     // [glkctl performScroll];
 
+    [textview resetTextFinder];
+
 	if (self.terminatorsPending)
 	{
 		currentTerminators = self.pendingTerminators;
@@ -1453,6 +1534,8 @@
 
 - (NSString*) cancelLine
 {
+    [textview resetTextFinder];
+
     [textview setInsertionPointColor: [Preferences bufferBackground]];
     NSString *str = [textstorage string];
     str = [str substringWithRange: NSMakeRange(fence, [str length] - fence)];
@@ -1483,6 +1566,8 @@
 		}
 		else
 		{
+            [textview resetTextFinder];
+
 			currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, textstorage.length - currentHyperlink.startpos);
 			[textstorage addAttribute:NSLinkAttributeName value:@(currentHyperlink.index) range:currentHyperlink.range];
 			[hyperlinks addObject:currentHyperlink];
