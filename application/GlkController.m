@@ -481,8 +481,8 @@ static const char *msgnames[] =
 
     switch (fileusage)
     {
-        case fileusage_Data: prompt = @"Save data file: "; ext = @"dat"; filename = @"Data"; break;
-        case fileusage_SavedGame: prompt = @"Save game: "; ext = @"sav"; break;
+        case fileusage_Data: prompt = @"Save data file: "; ext = @"glkdata"; filename = @"Data"; break;
+        case fileusage_SavedGame: prompt = @"Save game: "; ext = @"glksave"; break;
         case fileusage_Transcript: prompt = @"Save transcript: "; ext = @"txt"; filename = @"Transcript"; break;
         case fileusage_InputRecord: prompt = @"Save recording: "; ext = @"rec"; filename = @"Recordning"; break;
         default: prompt = @"Save: "; ext = nil; break;
