@@ -1222,7 +1222,7 @@
     if ([str length])
         ch = chartokeycode([str characterAtIndex: 0]);
 
-	NSNumber *key = @(ch);
+    NSUInteger flags = [evt modifierFlags];
 
     GlkWindow *win;
 
@@ -1243,6 +1243,26 @@
             }
         }
 
+    BOOL commandKeyOnly = ((flags & NSCommandKeyMask) && !(flags & (NSAlternateKeyMask | NSShiftKeyMask | NSControlKeyMask |NSHelpKeyMask)));
+    BOOL optionKeyOnly = ((flags & NSAlternateKeyMask) && !(flags & (NSCommandKeyMask | NSShiftKeyMask | NSControlKeyMask | NSHelpKeyMask)));
+
+    if (ch == keycode_Up)
+    {
+        if (optionKeyOnly)
+            ch = keycode_PageUp;
+        else if (commandKeyOnly)
+            ch = keycode_Home;
+    }
+    else if (ch == keycode_Down)
+    {
+        if (optionKeyOnly)
+            ch = keycode_PageDown;
+        else if (commandKeyOnly)
+            ch = keycode_End;
+    }
+
+	NSNumber *key = @(ch);
+
     // if not scrolled to the bottom, pagedown or navigate scrolling on each key instead
     if (NSMaxY(textview.visibleRect) < NSMaxY(textview.bounds) - 5 - textview.bottomPadding)
     {
@@ -1250,7 +1270,7 @@
                                                         effectiveRange: nil];
 
         // Skip if we are scrolled to input prompt
-        if (!NSIntersectsRect(textview.visibleRect, promptrect))
+        if (NSMaxY(textview.visibleRect) < NSMaxY(promptrect))
         {
             switch (ch)
             {
