@@ -5,24 +5,27 @@
 
 extern void getworkdir()
 {
-	NSError *error;
-	NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
+    @autoreleasepool {
 
-	NSString *firstWord = [[[NSString stringWithUTF8String:gli_program_name] componentsSeparatedByString:@" "] objectAtIndex:0];
+        NSError *error;
+        NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
 
-	NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", firstWord];
+        NSString *firstWord = [[[NSString stringWithUTF8String:gli_program_name] componentsSeparatedByString:@" "] objectAtIndex:0];
 
-	if ([dirstr isEqualToString:@"Level"])
-		dirstr = @"Level 9";
+        NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", firstWord];
 
-	dirstr = [dirstr stringByAppendingString:@" Files"];
-	dirstr = [dirstr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if ([dirstr isEqualToString:@"Level"])
+            dirstr = @"Level 9";
 
-	appSupportDir = [NSURL URLWithString: dirstr relativeToURL:appSupportDir];
+        dirstr = [dirstr stringByAppendingString:@" Files"];
+        dirstr = [dirstr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-	[[NSFileManager defaultManager] createDirectoryAtURL:appSupportDir withIntermediateDirectories:YES attributes:nil error:NULL];
+        appSupportDir = [NSURL URLWithString: dirstr relativeToURL:appSupportDir];
 
-	strncpy(workingdir, [appSupportDir.path UTF8String], sizeof workingdir);
-
+        [[NSFileManager defaultManager] createDirectoryAtURL:appSupportDir withIntermediateDirectories:YES attributes:nil error:NULL];
+        
+        strncpy(workingdir, [appSupportDir.path UTF8String], sizeof workingdir);
+    }
+    
 	workingdir[sizeof workingdir-1] = 0;
 }
