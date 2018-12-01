@@ -100,5 +100,6 @@
 - (void)enableClickToRenameAfterDelay;
 
 - (NSString*) convertAGTFile: (NSString*)origpath;
+@property (weak) IBOutlet NSSearchField *searchField;
 
 @end

@@ -392,6 +392,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     SEL action = [menuItem action];
     NSInteger count = [gameTableView numberOfSelectedRows];
 
+    if (action == @selector(performFindPanelAction:))
+    {
+        if (menuItem.tag == NSTextFinderActionShowFindInterface)
+            return YES;
+        else return NO;
+    }
+
     if (action == @selector(delete:))
         return count > 0;
 
@@ -469,6 +476,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
         return YES;
     }
     return NO;
+}
+
+- (void) performFindPanelAction:(id<NSValidatedUserInterfaceItem>)sender
+{
+    [_searchField becomeFirstResponder];
 }
 
 
