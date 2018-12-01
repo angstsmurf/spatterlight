@@ -13,8 +13,6 @@
     NSTextFinder* _textFinder; // define your own text finder
 }
 
-- (void) resetTextFinder; // A method to reset the view's text finder when you change the text storage
-
 @property (readonly) NSTextFinder* textFinder;
 
 @end
