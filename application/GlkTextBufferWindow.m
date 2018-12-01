@@ -750,16 +750,7 @@
 - (void) resetTextFinder
 {
     if  (_textFinder != nil) {
-        // Hide the text finder
-        [_textFinder cancelFindIndicator];
-        [_textFinder performAction:NSTextFinderActionHideFindInterface];
-
-        // Clear its client and container properties
-        _textFinder.client = nil;
-        _textFinder.findBarContainer = nil;
-
-        // And delete it
-        _textFinder = nil;
+        [_textFinder noteClientStringWillChange];
     }
 }
 
