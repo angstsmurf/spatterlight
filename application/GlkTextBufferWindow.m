@@ -905,6 +905,8 @@
     bgcolor = nil;
     fgcolor = nil;
 
+    [textview resetTextFinder];
+
     if ([Preferences stylesEnabled])
     {
         bgcolor = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
@@ -971,7 +973,6 @@
     }
 
     [layoutmanager setUsesScreenFonts: [Preferences useScreenFonts]];
-    [textview resetTextFinder];
     [container invalidateLayout];
 }
 
@@ -1326,6 +1327,8 @@
     else if (line_request && (ch == keycode_Return || [currentTerminators[key] isEqual: @(YES)]))
     {
         //NSLog(@"line event from %ld", (long)self.name);
+        
+        [textview resetTextFinder];
 
         [textview setInsertionPointColor: [Preferences bufferBackground]];
 
