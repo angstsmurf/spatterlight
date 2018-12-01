@@ -1366,6 +1366,12 @@
         [self travelForwardInHistory];
     }
 
+    else if (line_request && ch == keycode_PageUp && fence == textstorage.length)
+    {
+        [textview scrollPageUp: nil];
+        return;
+    }
+
     else
     {
         if (line_request)
