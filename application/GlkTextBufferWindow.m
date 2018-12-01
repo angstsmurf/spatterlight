@@ -712,21 +712,42 @@
     [super setFrameSize:newSize];
 }
 
-// Text finder command validation (could also be done in method validateUserInterfaceItem: if you prefer)
-
 - (BOOL) validateMenuItem:(NSMenuItem *)menuItem
 {
     BOOL isValidItem = NO;
+    BOOL waseditable = self.editable;
+    self.editable = NO;
 
-    if (menuItem.action == @selector(performTextFinderAction:)) {
+    if (menuItem.action == @selector(cut:))
+    {
+        if (self.selectedRange.length &&
+            [glkTextBuffer textView: self
+            shouldChangeTextInRange: self.selectedRange
+                  replacementString: nil])
+           self.editable = waseditable;
+    }
+
+    else if (menuItem.action == @selector(paste:))
+    {
+        if ([glkTextBuffer textView: self
+            shouldChangeTextInRange: self.selectedRange
+                  replacementString: nil])
+            self.editable = waseditable;
+    }
+
+    if (menuItem.action == @selector(performTextFinderAction:))
+    {
         isValidItem = [self.textFinder validateAction:menuItem.tag];
     }
+
     // validate other menu items if needed
     // ...
     // and don't forget to call the superclass
     else {
         isValidItem = [super validateMenuItem:menuItem];
     }
+
+    self.editable = waseditable;
 
     return isValidItem;
 }
