@@ -688,7 +688,7 @@
 {
     BOOL result = [super shouldDrawInsertionPoint];
     
-    // Never draw a caret if the system doesn't want to. I.e. super overrides glkTextBuffer.
+    // Never draw a caret if the system doesn't want to. Super overrides glkTextBuffer.
     if (result && !_shouldDrawCaret)
         result = _shouldDrawCaret;
     
