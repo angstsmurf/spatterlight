@@ -481,7 +481,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (void) performFindPanelAction:(id<NSValidatedUserInterfaceItem>)sender
 {
     [_searchField selectText:self];
-    [[_searchField currentEditor] setSelectedRange:NSMakeRange([[_searchField stringValue] length], 0)];
 }
 
 
