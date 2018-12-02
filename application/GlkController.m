@@ -481,10 +481,10 @@ static const char *msgnames[] =
 
     switch (fileusage)
     {
-        case fileusage_Data: prompt = @"Save data file: "; ext = @"dat"; filename = @"Data"; break;
-        case fileusage_SavedGame: prompt = @"Save game: "; ext = @"sav"; break;
-        case fileusage_Transcript: prompt = @"Save transcript: "; ext = @"txt"; filename = @"Transcript"; break;
-        case fileusage_InputRecord: prompt = @"Save recording: "; ext = @"rec"; filename = @"Recordning"; break;
+        case fileusage_Data: prompt = @"Save data file: "; ext = @"glkdata"; filename = @"Data"; break;
+        case fileusage_SavedGame: prompt = @"Save game: "; ext = @"glksave"; break;
+        case fileusage_Transcript: prompt = @"Save transcript: "; ext = @"txt"; filename = @"Transcript of "; break;
+        case fileusage_InputRecord: prompt = @"Save recording: "; ext = @"rec"; filename = @"Recordning of "; break;
         default: prompt = @"Save: "; ext = nil; break;
     }
 
@@ -496,14 +496,17 @@ static const char *msgnames[] =
     panel.extensionHidden=NO;
     [panel setCanCreateDirectories:YES];
 
+    if (fileusage == fileusage_Transcript || fileusage == fileusage_InputRecord)
+        filename = [filename stringByAppendingString:gameinfo[@"title"]];
+    
     if (fileusage == fileusage_SavedGame)
     {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd HH.mm "];
+        [formatter setDateFormat:@" yyyy-MM-dd HH.mm"];
         date = [formatter stringFromDate:[NSDate date]];
 
 
-        filename = [date stringByAppendingString: gameinfo[@"title"]];
+        filename = [gameinfo[@"title"] stringByAppendingString:date];
     }
 
     if (ext)

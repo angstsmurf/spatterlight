@@ -8,6 +8,61 @@
 
 #import "HelpPanelController.h"
 
+
+
+@implementation HelpTextView
+
+// Text finder command validation (could also be done in method validateUserInterfaceItem: if you prefer)
+
+- (BOOL) validateMenuItem:(NSMenuItem *)menuItem
+{
+    BOOL isValidItem = NO;
+
+    if (menuItem.action == @selector(performTextFinderAction:)) {
+        isValidItem = [self.textFinder validateAction:menuItem.tag];
+    }
+    // validate other menu items if needed
+    // ...
+    // and don't forget to call the superclass
+    else {
+        isValidItem = [super validateMenuItem:menuItem];
+    }
+
+    return isValidItem;
+}
+
+// Text Finder
+
+- (NSTextFinder*) textFinder
+{
+    // Create the text finder on demand
+    if (_textFinder == nil) {
+        _textFinder = [[NSTextFinder alloc] init];
+        _textFinder.client = self;
+        _textFinder.findBarContainer = [self enclosingScrollView];
+        _textFinder.incrementalSearchingEnabled = YES;
+        _textFinder.incrementalSearchingShouldDimContentView = NO;
+    }
+
+    return _textFinder;
+}
+
+- (void) resetTextFinder
+{
+    if  (_textFinder != nil) {
+        [_textFinder noteClientStringWillChange];
+    }
+}
+
+// This is where the commands are actually sent to the text finder
+- (void) performTextFinderAction:(id<NSValidatedUserInterfaceItem>)sender
+{
+    [self.textFinder performAction:sender.tag];
+}
+
+@end
+
+
 @implementation HelpPanelController
 
 - (IBAction)copyButton:(id)sender {
@@ -28,6 +83,8 @@
 	// Do nothing if we are already showing the text
 	if ((![helpWindow isVisible]) || (![text.string isEqualToString:_textView.string]))
 	{
+        [_textView resetTextFinder];
+
 		CGRect screenframe = [[NSScreen mainScreen] visibleFrame];
 
 		NSString *string = text.string;
@@ -121,7 +178,7 @@
 
     // These magic numbers are the required distance between the scrollview
     // and the window content view edges. I wish a knew a way to calculate them.
-    contentRect.size.width = proposedRect.size.width + 39;
+    contentRect.size.width = proposedRect.size.width + 40;
     contentRect.size.height = proposedRect.size.height + 81;
 
     //Hopefully, by using frameRectForContentRect, this code will still work

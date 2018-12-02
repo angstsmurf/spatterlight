@@ -688,7 +688,7 @@
 {
     BOOL result = [super shouldDrawInsertionPoint];
     
-    // Never draw a caret if the system doesn't want to. I.e. super overrides glkTextBuffer.
+    // Never draw a caret if the system doesn't want to. Super overrides glkTextBuffer.
     if (result && !_shouldDrawCaret)
         result = _shouldDrawCaret;
     
@@ -710,6 +710,78 @@
 {
     newSize.height += _bottomPadding;
     [super setFrameSize:newSize];
+}
+
+- (BOOL) validateMenuItem:(NSMenuItem *)menuItem
+{
+    BOOL isValidItem = NO;
+    BOOL waseditable = self.editable;
+    self.editable = NO;
+
+    if (menuItem.action == @selector(cut:))
+    {
+        if (self.selectedRange.length &&
+            [glkTextBuffer textView: self
+            shouldChangeTextInRange: self.selectedRange
+                  replacementString: nil])
+           self.editable = waseditable;
+    }
+
+    else if (menuItem.action == @selector(paste:))
+    {
+        if ([glkTextBuffer textView: self
+            shouldChangeTextInRange: self.selectedRange
+                  replacementString: nil])
+            self.editable = waseditable;
+    }
+
+    if (menuItem.action == @selector(performTextFinderAction:))
+    {
+        isValidItem = [self.textFinder validateAction:menuItem.tag];
+    }
+
+    // validate other menu items if needed
+    // ...
+    // and don't forget to call the superclass
+    else {
+        isValidItem = [super validateMenuItem:menuItem];
+    }
+
+    self.editable = waseditable;
+
+    return isValidItem;
+}
+
+// Text Finder
+
+- (NSTextFinder*) textFinder
+{
+    // Create the text finder on demand
+    if (_textFinder == nil) {
+        _textFinder = [[NSTextFinder alloc] init];
+        _textFinder.client = self;
+        _textFinder.findBarContainer = [self enclosingScrollView];
+        _textFinder.incrementalSearchingEnabled = YES;
+        _textFinder.incrementalSearchingShouldDimContentView = NO;
+    }
+
+    return _textFinder;
+}
+
+- (void) resetTextFinder
+{
+    if  (_textFinder != nil) {
+        [_textFinder noteClientStringWillChange];
+    }
+}
+
+// This is where the commands are actually sent to the text finder
+- (void) performTextFinderAction:(id<NSValidatedUserInterfaceItem>)sender
+{
+    BOOL waseditable = self.editable;
+    self.editable = NO;
+    [self.textFinder performAction:sender.tag];
+    self.editable = waseditable;
 }
 
 @end
@@ -794,6 +866,9 @@
         [textview setAllowsImageEditing: NO];
         [textview setAllowsUndo: NO];
         [textview setUsesFontPanel: NO];
+        [textview setUsesFindBar:YES];
+        [textview setIncrementalSearchingEnabled:YES];
+
         [textview setSmartInsertDeleteEnabled: NO];
 
         [textview setDelegate: self];
@@ -829,6 +904,8 @@
 
     bgcolor = nil;
     fgcolor = nil;
+
+    [textview resetTextFinder];
 
     if ([Preferences stylesEnabled])
     {
@@ -982,6 +1059,8 @@
 	NSData *tiffdata;
 	//NSAttributedString *attstr;
 
+    [textview resetTextFinder];
+
 	if (w == 0)
 		w = image.size.width;
 	if (h == 0)
@@ -1035,6 +1114,8 @@
 
 - (void) flowBreak
 {
+    [textview resetTextFinder];
+
     // NSLog(@"adding flowbreak");
     unichar uc[1];
     uc[0] = NSAttachmentCharacter;
@@ -1096,6 +1177,8 @@
 
 - (void) travelBackwardInHistory
 {
+    [textview resetTextFinder];
+
     NSString *cx;
 
     if (historypos == historyfirst)
@@ -1125,6 +1208,8 @@
 
 - (void) travelForwardInHistory
 {
+    [textview resetTextFinder];
+    
     NSString *cx;
 
     if (historypos == historypresent)
@@ -1150,7 +1235,7 @@
     if ([str length])
         ch = chartokeycode([str characterAtIndex: 0]);
 
-	NSNumber *key = @(ch);
+    NSUInteger flags = [evt modifierFlags];
 
     GlkWindow *win;
 
@@ -1171,6 +1256,26 @@
             }
         }
 
+    BOOL commandKeyOnly = ((flags & NSCommandKeyMask) && !(flags & (NSAlternateKeyMask | NSShiftKeyMask | NSControlKeyMask |NSHelpKeyMask)));
+    BOOL optionKeyOnly = ((flags & NSAlternateKeyMask) && !(flags & (NSCommandKeyMask | NSShiftKeyMask | NSControlKeyMask | NSHelpKeyMask)));
+
+    if (ch == keycode_Up)
+    {
+        if (optionKeyOnly)
+            ch = keycode_PageUp;
+        else if (commandKeyOnly)
+            ch = keycode_Home;
+    }
+    else if (ch == keycode_Down)
+    {
+        if (optionKeyOnly)
+            ch = keycode_PageDown;
+        else if (commandKeyOnly)
+            ch = keycode_End;
+    }
+
+	NSNumber *key = @(ch);
+
     // if not scrolled to the bottom, pagedown or navigate scrolling on each key instead
     if (NSMaxY(textview.visibleRect) < NSMaxY(textview.bounds) - 5 - textview.bottomPadding)
     {
@@ -1178,7 +1283,7 @@
                                                         effectiveRange: nil];
 
         // Skip if we are scrolled to input prompt
-        if (!NSIntersectsRect(textview.visibleRect, promptrect))
+        if (NSMaxY(textview.visibleRect) < NSMaxY(promptrect))
         {
             switch (ch)
             {
@@ -1222,6 +1327,8 @@
     else if (line_request && (ch == keycode_Return || [currentTerminators[key] isEqual: @(YES)]))
     {
         //NSLog(@"line event from %ld", (long)self.name);
+        
+        [textview resetTextFinder];
 
         [textview setInsertionPointColor: [Preferences bufferBackground]];
 
@@ -1257,6 +1364,12 @@
     else if (line_request && ch == keycode_Down)
     {
         [self travelForwardInHistory];
+    }
+
+    else if (line_request && ch == keycode_PageUp && fence == textstorage.length)
+    {
+        [textview scrollPageUp: nil];
+        return;
     }
 
     else
@@ -1301,7 +1414,7 @@
 
     [textview temporarilyHideCaret];
     
-	NSLog(@"mouseDown in buffer window.");
+	//NSLog(@"mouseDown in buffer window.");
 	if (hyper_request)
 	{
 		[glkctl markLastSeen];
@@ -1332,6 +1445,8 @@
 
 - (void) clear
 {
+    [textview resetTextFinder];
+
     id att = [[NSAttributedString alloc] initWithString: @""];
     [textstorage setAttributedString: att];
     fence = 0;
@@ -1348,6 +1463,9 @@
     NSString *string = [textstorage string];
     NSInteger length = [string length];
     NSInteger save_request = line_request;
+
+    [textview resetTextFinder];
+
     int prompt;
     int i;
 
@@ -1380,6 +1498,8 @@
 
 - (void) putString:(NSString*)str style:(NSInteger)stylevalue
 {
+    [textview resetTextFinder];
+
     NSAttributedString *attstr = [[NSAttributedString alloc] initWithString:str attributes:[self attributesFromStylevalue:stylevalue]];
 
 	[textstorage appendAttributedString: attstr];
@@ -1394,7 +1514,6 @@
     // [glkctl performScroll];
 
     fence = [textstorage length];
-
 
     char_request = YES;
     [textview setInsertionPointColor:[Preferences bufferBackground]];
@@ -1418,6 +1537,8 @@
     historypos = historypresent;
 
     // [glkctl performScroll];
+
+    [textview resetTextFinder];
 
 	if (self.terminatorsPending)
 	{
@@ -1453,6 +1574,8 @@
 
 - (NSString*) cancelLine
 {
+    [textview resetTextFinder];
+
     [textview setInsertionPointColor: [Preferences bufferBackground]];
     NSString *str = [textstorage string];
     str = [str substringWithRange: NSMakeRange(fence, [str length] - fence)];
@@ -1483,6 +1606,8 @@
 		}
 		else
 		{
+            [textview resetTextFinder];
+
 			currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, textstorage.length - currentHyperlink.startpos);
 			[textstorage addAttribute:NSLinkAttributeName value:@(currentHyperlink.index) range:currentHyperlink.range];
 			[hyperlinks addObject:currentHyperlink];

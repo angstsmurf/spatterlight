@@ -8,9 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 
+@interface HelpTextView : NSTextView <NSTextFinderClient>
+{
+    NSTextFinder* _textFinder; // define your own text finder
+}
+
+@property (readonly) NSTextFinder* textFinder;
+
+@end
+
 @interface HelpPanelController : NSWindowController
 
-@property (strong) IBOutlet NSTextView *textView;
+@property (strong) IBOutlet HelpTextView *textView;
 @property (strong) IBOutlet NSScrollView *scrollView;
 
 - (void) showHelpFile:(NSAttributedString *)text withTitle:(NSString *)title;

@@ -16,10 +16,10 @@ Screenshots can be found at [ccxvii.net][screenshots].
 
 [screenshots]: http://ccxvii.net/spatterlight/screens.html "ccxvii.net: Spatterlight screenshots"
 
-This is beta software! There is no warranty: use it at your own risk. It is a Universal application. You will need Mac OS X 10.3.9 or higher.
+This is beta software! There is no warranty: use it at your own risk. You will need Mac OS X 10.7 or higher.
 
-This is a Github mirror of the Spatterlight source code as published in [ccxvii][ccxvii]. First commit uploaded the 0.5 source. Copyright 2007-2008 by Tor Andersson.
+This is an updated fork of the Spatterlight source code as published in [ccxvii][ccxvii]. Copyright 2007-2018 by Tor Andersson.
 
-Please, provide bug reports as issues; the author, Tor Anderson (tor@ccxvii.net) will be notified.
+Please, provide bug reports as issues.
 
 [ccxvii]: http://ccxvii.net/spatterlight/ "ccxvii.net: Spatterlight homepage"
