@@ -110,7 +110,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (void) loadLibrary
 {
-    NSLog(@"libctl: loadLibrary");
+    //NSLog(@"libctl: loadLibrary");
 
     /* in case we are called more than once... */
 
