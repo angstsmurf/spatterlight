@@ -53,6 +53,8 @@
 - (void) drawRect: (NSRect)rect;
 - (void) invalidateLayout;
 - (void) unoverlap: (MarginImage *)image;
+- (BOOL) hasMarginImages;
+- (NSMutableAttributedString *) marginsToAttachmentsInString: (NSMutableAttributedString *)string;
 - (NSUInteger) findHyperlinkAt: (NSPoint)p;
 
 @end
