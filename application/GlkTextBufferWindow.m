@@ -1414,7 +1414,7 @@
 
     [textview temporarilyHideCaret];
     
-	NSLog(@"mouseDown in buffer window.");
+	//NSLog(@"mouseDown in buffer window.");
 	if (hyper_request)
 	{
 		[glkctl markLastSeen];
@@ -1514,7 +1514,6 @@
     // [glkctl performScroll];
 
     fence = [textstorage length];
-
 
     char_request = YES;
     [textview setInsertionPointColor:[Preferences bufferBackground]];
