@@ -932,8 +932,6 @@
     bgcolor = nil;
     fgcolor = nil;
 
-    [textview resetTextFinder];
-
     if ([Preferences stylesEnabled])
     {
         bgcolor = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
