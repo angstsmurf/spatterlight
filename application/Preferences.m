@@ -339,7 +339,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     NSMutableDictionary *dict;
     NSFont *font;
 
-    NSLog(@"pref: rebuildTextAttributes()");
+    //NSLog(@"pref: rebuildTextAttributes()");
 
     /* make italic, bold, bolditalic font variants */
 

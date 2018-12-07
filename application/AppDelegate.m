@@ -18,7 +18,7 @@ NSDictionary *gFormatMap;
 
 - (void) awakeFromNib
 {
-    NSLog(@"appdel: awakeFromNib");
+    //NSLog(@"appdel: awakeFromNib");
 
     gGameFileTypes = @[@"d$$", @"dat", @"sna",
                       @"advsys", @"quill",

@@ -569,6 +569,33 @@
 	return 0;
 }
 
+- (BOOL) hasMarginImages
+{
+    return (margins.count > 0);
+}
+
+- (NSMutableAttributedString *) marginsToAttachmentsInString: (NSMutableAttributedString *)string
+{
+    NSTextAttachment *att;
+	NSFileWrapper *wrapper;
+	NSData *tiffdata;
+    MarginImage *image;
+
+    NSEnumerator *enumerator = [margins reverseObjectEnumerator];
+    while (image = [enumerator nextObject])
+	{
+        tiffdata = image.image.TIFFRepresentation;
+
+		wrapper = [[NSFileWrapper alloc] initRegularFileWithContents: tiffdata];
+		wrapper.preferredFilename = @"image.tiff";
+		att = [[NSTextAttachment alloc] initWithFileWrapper: wrapper];
+		NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
+
+		[string insertAttributedString: attstr atIndex:image.pos];
+	}
+    return string;
+}
+
 @end
 
 /* ------------------------------------------------------------ */
@@ -905,8 +932,6 @@
     bgcolor = nil;
     fgcolor = nil;
 
-    [textview resetTextFinder];
-
     if ([Preferences stylesEnabled])
     {
         bgcolor = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
@@ -989,7 +1014,7 @@
     NSWindow* window = glkctl.window;
     BOOL isRtfd = NO;
     NSString* newExtension = @"rtf";
-    if ([textstorage containsAttachments])
+    if ([textstorage containsAttachments] || [container hasMarginImages])
     {
         newExtension = @"rtfd";
         isRtfd = YES;
@@ -1008,11 +1033,18 @@
     [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton)
         {
-            NSURL*  theFile = panel.URL;
+            NSURL* theFile = panel.URL;
+
+            NSMutableAttributedString *mutattstr = [textstorage mutableCopy];
+
+            mutattstr = [container marginsToAttachmentsInString:mutattstr];
+
+            [mutattstr addAttribute:NSBackgroundColorAttributeName value:textview.backgroundColor range:NSMakeRange(0, mutattstr.length)];
+            
             if (isRtfd)
             {
                 NSFileWrapper *wrapper;
-                wrapper = [textstorage RTFDFileWrapperFromRange: NSMakeRange(0, textstorage.length)
+                wrapper = [mutattstr RTFDFileWrapperFromRange: NSMakeRange(0, mutattstr.length)
                                              documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFDTextDocumentType}];
 
                 [wrapper writeToURL:theFile options: NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating originalContentsURL:nil error:NULL];
@@ -1021,7 +1053,7 @@
             else
             {
                 NSData *data;
-                data = [textstorage RTFFromRange: NSMakeRange(0, textstorage.length)
+                data = [mutattstr RTFFromRange: NSMakeRange(0, mutattstr.length)
                               documentAttributes:@{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
                 [data writeToURL: theFile atomically:NO];
             }
