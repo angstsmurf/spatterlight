@@ -619,7 +619,7 @@
 //    if (i == MAXSND)
 //        return -1;
 //
-//    //gchannels[i] = [[GlkSoundChannel alloc] initWithGlkController: self name: i];
+//    gchannels[i] = [[GlkSoundChannel alloc] initWithGlkController: self name: i];
 //
     return MAXSND;
 }
