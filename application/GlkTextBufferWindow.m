@@ -188,11 +188,7 @@
         /* set bounds to be at the same line as anchor but in left/right margin */
         if (_alignment == imagealign_MarginRight)
         {
-            CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding - 10 * (NSAppKitVersionNumber <= 1139);
-            // The extra last 10 points is to prevent the scrollbar from cutting off the right edge of right-aligned
-            // margin images on at least 10.7. It creates an ugly asymmetric right margin, so it would be nice to
-            // find another way.
-
+            CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding;
             _bounds = NSMakeRect(rightMargin - size.width,
                                  theline.origin.y,
                                  size.width,
@@ -422,11 +418,7 @@
 		return;
 
 	CGFloat leftMargin = self.textView.textContainerInset.width + self.lineFragmentPadding;
-	CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding - 10 * (NSAppKitVersionNumber <= 1139);
-    // The extra last 10 points is to prevent the scrollbar from cutting off the right edge of right-aligned margin
-    // images, at least on 10.7. It creates an ugly asymmetric right margin, though, so it would be nice to find
-    // another way.
-
+	CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding;
 	NSRect adjustedBounds = image.bounds;
 
     // If outside margin, move to opposite margin
