@@ -210,13 +210,13 @@
                                  size.width,
                                  size.height);
         }
-        
+
         /* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
         [layout invalidateLayoutForCharacterRange: ourline
                              actualCharacterRange: nil];
-        
+
     }
-    
+
     [(MarginContainer *)container unoverlap:self];
     return _bounds;
 }
@@ -236,7 +236,7 @@
 - (id) initWithContainerSize: (NSSize)size
 {
     self = [super initWithContainerSize:size];
-    
+
     margins = [[NSMutableArray alloc] init];
     flowbreaks = [[NSMutableArray alloc] init];
 
@@ -436,7 +436,7 @@
     for (NSInteger i = [margins indexOfObject:image] - 1; i >= 0; i--)
     {
         MarginImage *img2 = margins[i];
-        
+
         // If overlapping, shift in opposite alignment direction
         if (NSIntersectsRect(img2.bounds, adjustedBounds))
         {
@@ -483,7 +483,7 @@
             }
         }
     }
-    
+
 	image.bounds = adjustedBounds;
 }
 
@@ -527,16 +527,16 @@
                     extendneeded = bottom;
             }
 
-            
+
 			if (NSIntersectsRect(bounds, rect))
 			{
                 size = image.image.size;
 				[image.image drawInRect: bounds
-                                 fromRect: NSMakeRect(0, 0, size.width, size.height)
-                                operation: NSCompositeSourceOver
-                                 fraction: 1.0
-                           respectFlipped:YES
-                                    hints:nil];
+                               fromRect: NSMakeRect(0, 0, size.width, size.height)
+                              operation: NSCompositeSourceOver
+                               fraction: 1.0
+                         respectFlipped:YES
+                                  hints:nil];
             }
         }
     }
@@ -637,10 +637,10 @@
 	NSScrollView *scrollview = (NSScrollView *)view;
 
 	NSPoint newScrollOrigin = NSMakePoint(0.0,NSMaxY(self.frame)
-									- NSHeight(scrollview.contentView.bounds));
+                                          - NSHeight(scrollview.contentView.bounds));
 
     if ([glkTextBuffer lastseen] < newScrollOrigin.y)
-       newScrollOrigin.y = glkTextBuffer.lastseen;
+        newScrollOrigin.y = glkTextBuffer.lastseen;
 
     [[scrollview contentView] scrollToPoint:newScrollOrigin];
 	[scrollview reflectScrolledClipView:[scrollview contentView]];
@@ -706,11 +706,11 @@
 - (BOOL) shouldDrawInsertionPoint
 {
     BOOL result = [super shouldDrawInsertionPoint];
-    
+
     // Never draw a caret if the system doesn't want to. Super overrides glkTextBuffer.
     if (result && !_shouldDrawCaret)
         result = _shouldDrawCaret;
-    
+
     return result;
 }
 
@@ -743,7 +743,7 @@
             [glkTextBuffer textView: self
             shouldChangeTextInRange: self.selectedRange
                   replacementString: nil])
-           self.editable = waseditable;
+            self.editable = waseditable;
     }
 
     else if (menuItem.action == @selector(paste:))
@@ -828,7 +828,7 @@
 		hyper_request = NO;
         echo_toggle_pending = NO;
         echo = YES;
-        
+
         fence = 0;
         _lastseen = 0;
         _lastchar = '\n';
@@ -1098,7 +1098,7 @@
 			return;
 		}
 
-//		NSLog(@"adding image to margins");
+        //		NSLog(@"adding image to margins");
 
 		unichar uc[1];
 		uc[0] = NSAttachmentCharacter;
@@ -1109,17 +1109,17 @@
 		if (currentHyperlink) linkid = currentHyperlink.index;
 
 		image = [self scaleImage: image size: NSMakeSize(w, h)];
-        
+
         tiffdata = image.TIFFRepresentation;
 
 		[container addImage: [[NSImage alloc] initWithData:tiffdata] align: align at: textstorage.length - 1 linkid:linkid];
 
-//        [container addImage: image align: align at: textstorage.length - 1 linkid:linkid];
+        //        [container addImage: image align: align at: textstorage.length - 1 linkid:linkid];
 
 	}
 	else
 	{
-//		NSLog(@"adding image to text");
+        //		NSLog(@"adding image to text");
 
 		image = [self scaleImage: image size: NSMakeSize(w, h)];
 
@@ -1164,7 +1164,7 @@
 }
 
 - (void) performScroll
-{    
+{
 	[(MyTextView *)textview performScroll];
 }
 
@@ -1233,7 +1233,7 @@
 - (void) travelForwardInHistory
 {
     [textview resetTextFinder];
-    
+
     NSString *cx;
 
     if (historypos == historypresent)
@@ -1304,7 +1304,7 @@
     if (NSMaxY(textview.visibleRect) < NSMaxY(textview.bounds) - 5 - textview.bottomPadding)
     {
         NSRect promptrect = [layoutmanager lineFragmentRectForGlyphAtIndex: textstorage.length - 1
-                                                        effectiveRange: nil];
+                                                            effectiveRange: nil];
 
         // Skip if we are scrolled to input prompt
         if (NSMaxY(textview.visibleRect) < NSMaxY(promptrect))
@@ -1351,7 +1351,7 @@
     else if (line_request && (ch == keycode_Return || [currentTerminators[key] isEqual: @(YES)]))
     {
         //NSLog(@"line event from %ld", (long)self.name);
-        
+
         [textview resetTextFinder];
 
         [textview setInsertionPointColor: [Preferences bufferBackground]];
@@ -1400,7 +1400,7 @@
     {
         if (line_request)
             [self grabFocus];
-            
+
         [textview superKeyDown: evt];
     }
 }
@@ -1437,7 +1437,7 @@
     //Do't draw a caret right now, even if we clicked at the prompt
 
     [textview temporarilyHideCaret];
-    
+
 	//NSLog(@"mouseDown in buffer window.");
 	if (hyper_request)
 	{
@@ -1650,7 +1650,7 @@
 {
 	hyper_request = YES;
 	textview.editable = YES;
-//	NSLog(@"txtbuf: hyperlink event requested");
+    //	NSLog(@"txtbuf: hyperlink event requested");
 
 }
 
@@ -1658,7 +1658,7 @@
 {
 	hyper_request = NO;
 	textview.editable = NO;
-//	NSLog(@"txtbuf: hyperlink event cancelled");
+    //	NSLog(@"txtbuf: hyperlink event cancelled");
 }
 
 - (void) terpDidStop
@@ -1679,7 +1679,7 @@ replacementString: (id)repl
     {   textview.shouldDrawCaret = YES;
         return YES;
     }
-    
+
     textview.shouldDrawCaret = NO;
     return NO;
 }
@@ -1780,7 +1780,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 	} else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
 		return @[textview];
 	}
-
+    
 	return [super accessibilityAttributeValue: attribute];
 }
 
