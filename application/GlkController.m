@@ -56,8 +56,8 @@
 
 - (void) drawRect: (NSRect)rect
 {
-    [[NSColor whiteColor] set];
-    NSRectFill(rect);
+    //    [[NSColor whiteColor] set];
+    //    NSRectFill(rect);
 }
 
 - (void) setFrame: (NSRect)frame
