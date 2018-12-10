@@ -29,7 +29,7 @@
 		currentTerminators = _pendingTerminators;
 		_terminatorsPending = NO;
     }
-    
+
     return self;
 }
 
@@ -39,7 +39,7 @@
     {
         styles[style] = 0;
     }
-    
+
     styles[style] = [[GlkStyle alloc] initWithStyle: style
                                          windowType: wintype
                                              enable: enable
@@ -69,31 +69,31 @@
     NSInteger hmask, vmask;
     NSInteger rgt = 0;
     NSInteger bot = 0;
-    
+
     [super setFrame: thisframe];
-    
+
     /* set autoresizing for live resize. */
     /* the client should rearrange after it's finished. */
     /* flex the views connected to the right and bottom */
     /* keep the other views fixed in size */
     /* x and y separable */
-    
+
     if (NSMaxX(thisframe) == NSMaxX(mainframe))
         rgt = 1;
-    
+
     if (NSMaxY(thisframe) == NSMaxY(mainframe))
         bot = 1;
-    
+
     if (rgt)
         hmask = NSViewWidthSizable;
     else
         hmask = NSViewMaxXMargin;
-    
+
     if (bot)
         vmask = NSViewHeightSizable;
     else
         vmask = NSViewMaxYMargin;
-    
+
     [self setAutoresizingMask: hmask | vmask];
 }
 
@@ -234,7 +234,7 @@
     NSLog(@"hyperlink input in %@ not implemented", [self class]);
 }
 
-- (BOOL) hasLineReques
+- (BOOL) hasLineRequest
 {
     return NO;
 }
