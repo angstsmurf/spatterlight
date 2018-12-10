@@ -1513,4 +1513,92 @@ again:
         [readfh waitForDataInBackgroundAndNotify];
 }
 
+// = Accessibility =
+
+- (NSString *)accessibilityActionDescription: (NSString*) action {
+	return [self.window accessibilityActionDescription:  action];
+}
+
+- (NSArray *)accessibilityActionNames {
+	return [self.window  accessibilityActionNames];
+}
+
+- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
+	return [self.window  accessibilityIsAttributeSettable: attribute];;
+}
+
+- (void)accessibilityPerformAction:(NSString *)action {
+	[self.window  accessibilityPerformAction: action];
+}
+
+- (void)accessibilitySetValue: (id)value
+				 forAttribute: (NSString*) attribute {
+	[self.window  accessibilitySetValue: value
+                           forAttribute: attribute];
+}
+
+- (NSArray*) accessibilityAttributeNames {
+	NSMutableArray* result = [[self.window  accessibilityAttributeNames] mutableCopy];
+	if (!result) result = [[NSMutableArray alloc] init];
+    
+	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
+     NSAccessibilityChildrenAttribute,
+     NSAccessibilityHelpAttribute,
+     NSAccessibilityDescriptionAttribute,
+     NSAccessibilityTitleAttribute,
+     NSAccessibilityFocusedUIElementAttribute]];
+    
+	return result;
+}
+
+- (id) accessibilityFocusedUIElement {
+	NSResponder* firstResponder = [[self window] firstResponder];
+    
+	if (firstResponder == nil) return self;
+    
+	if ([firstResponder isKindOfClass: [NSView class]]) {
+		NSView* windowView = (NSView*) firstResponder;
+        
+		while (windowView != nil) {
+			if ([windowView isKindOfClass: [GlkWindow class]]) {
+				return windowView;
+			}
+            
+			windowView = [windowView superview];
+		}
+	}
+    
+	return [super accessibilityFocusedUIElement];
+}
+
+- (id)accessibilityAttributeValue:(NSString *)attribute {
+	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]
+		|| [attribute isEqualToString: NSAccessibilityContentsAttribute]) {
+		//return [NSArray arrayWithObjects: rootWindow, nil];
+	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
+		return [self accessibilityFocusedUIElement];
+	} else if ([attribute isEqualToString: NSAccessibilityHelpAttribute]
+			   || [attribute isEqualToString: NSAccessibilityDescriptionAttribute]) {
+		NSString* description = @"an interactive fiction game";
+        //		if (delegate && [delegate respondsToSelector: @selector(taskDescription)]) {
+        //			description = [delegate taskDescription];
+        //		}
+		return [NSString stringWithFormat: @"%@ %@",(!dead)?@"Running":@"Finished", description];
+	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
+		return @"GLK view";
+	} else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
+		return NSAccessibilityGroupRole;
+	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
+		return [self window];
+	}
+
+	NSLog(@"%@", attribute);
+    
+	return [super accessibilityAttributeValue: attribute];
+}
+
+- (BOOL)accessibilityIsIgnored {
+	return NO;
+}
+
 @end

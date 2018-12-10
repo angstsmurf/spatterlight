@@ -668,17 +668,46 @@
 
 // = NSAccessibility =
 
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		if (!lineInput && !charInput) return @"Text grid";
-		return [NSString stringWithFormat: @"GLK text grid window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];;
-	}
+- (NSArray*) accessibilityAttributeNames {
+	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
 
-	return [super accessibilityAttributeValue: attribute];
+	[result addObjectsFromArray:@[NSAccessibilityRoleDescriptionAttribute,
+     NSAccessibilityTitleAttribute]];
+
+	return result;
 }
 
-- (id)accessibilityFocusedUIElement {
-	return textView;
+- (id)accessibilityAttributeValue:(NSString *)attribute
+{
+	if ([attribute isEqualToString: NSAccessibilityTitleAttribute])
+	{
+		NSMutableString* status = [NSMutableString string];
+
+        NSEnumerator* linesEnum = [lines objectEnumerator];
+        NSMutableAttributedString* lineText;
+        while (lineText = [linesEnum nextObject])
+        {
+            [status appendString: [lineText string]];
+            [status appendString: @" "];
+        }
+        
+		return status;
+	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
+		NSMutableString* status = [NSMutableString string];
+        
+        NSEnumerator* linesEnum = [lines objectEnumerator];
+        NSMutableAttributedString* lineText;
+        while (lineText = [linesEnum nextObject]) {
+            [status appendString: [lineText string]];
+            [status appendString: @"%@"];
+        }
+        
+		return [NSString stringWithFormat: @"Status bar"];
+	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
+		return glkctl;
+	}
+    
+	return [super accessibilityAttributeValue: attribute];
 }
 
 @end

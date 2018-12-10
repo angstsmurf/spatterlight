@@ -334,9 +334,9 @@
 
 - (id)accessibilityAttributeValue:(NSString *)attribute {
 	if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		return [NSString stringWithFormat: @"GLK graphics window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];;
+		return [NSString stringWithFormat: @"Graphics window%@%@", mouse_request?@", waiting for mouse clicks":@"", char_request?@", waiting for a key press":@""];;
 	}
-
+    
 	return [super accessibilityAttributeValue: attribute];
 }
 

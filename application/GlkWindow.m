@@ -287,7 +287,7 @@
 	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
 		//return [NSArray array];
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		return [NSString stringWithFormat: @"GLK window%@%@", char_request?@", waiting for a key press":@""];
+		return [NSString stringWithFormat: @"GLK window%@", char_request?@", waiting for a key press":@""];
 	} else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
 		return NSAccessibilityUnknownRole;
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
