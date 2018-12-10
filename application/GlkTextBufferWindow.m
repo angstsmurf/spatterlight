@@ -1125,6 +1125,8 @@
     bgcolor = nil;
     fgcolor = nil;
 
+    [textview resetTextFinder];
+
     if ([Preferences stylesEnabled])
     {
         bgcolor = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
@@ -1207,7 +1209,7 @@
     NSWindow* window = glkctl.window;
     BOOL isRtfd = NO;
     NSString* newExtension = @"rtf";
-    if ([textstorage containsAttachments] || [container hasMarginImages])
+    if ([textstorage containsAttachments])
     {
         newExtension = @"rtfd";
         isRtfd = YES;
@@ -1226,18 +1228,11 @@
     [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton)
         {
-            NSURL* theFile = panel.URL;
-
-            NSMutableAttributedString *mutattstr = [textstorage mutableCopy];
-
-            mutattstr = [container marginsToAttachmentsInString:mutattstr];
-
-            [mutattstr addAttribute:NSBackgroundColorAttributeName value:textview.backgroundColor range:NSMakeRange(0, mutattstr.length)];
-            
+            NSURL*  theFile = panel.URL;
             if (isRtfd)
             {
                 NSFileWrapper *wrapper;
-                wrapper = [mutattstr RTFDFileWrapperFromRange: NSMakeRange(0, mutattstr.length)
+                wrapper = [textstorage RTFDFileWrapperFromRange: NSMakeRange(0, textstorage.length)
                                              documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFDTextDocumentType}];
 
                 [wrapper writeToURL:theFile options: NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating originalContentsURL:nil error:NULL];
@@ -1246,7 +1241,7 @@
             else
             {
                 NSData *data;
-                data = [mutattstr RTFFromRange: NSMakeRange(0, mutattstr.length)
+                data = [textstorage RTFFromRange: NSMakeRange(0, textstorage.length)
                               documentAttributes:@{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
                 [data writeToURL: theFile atomically:NO];
             }
