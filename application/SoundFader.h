@@ -26,5 +26,5 @@
 
 @property BOOL kill;
 
-- (instancetype) initWithSoundChannel: (NSInteger)achannel startVolume:(NSInteger)startVol targetVolume:(NSInteger)targetVol duration:(NSInteger)duration notify:(NSInteger)notify sender:(id)sender;
+- (instancetype) initWithSoundChannel: (NSInteger)achannel startVolume:(NSInteger)startVol targetVolume:(NSInteger)targetVol duration:(NSInteger)duration notify:(NSInteger)notify sender:(id)sender NS_DESIGNATED_INITIALIZER;
 @end

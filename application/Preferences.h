@@ -55,7 +55,7 @@
 - (IBAction) changeEnableStyles: (id)sender;
 
 + (instancetype)sharedInstance;
-- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
 
 //- (void) setColor:(NSColor *)col forAttribute:(NSString *)attr;
 - (void)changeAttributes:(id)sender;

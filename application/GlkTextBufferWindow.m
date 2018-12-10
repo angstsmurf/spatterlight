@@ -127,6 +127,25 @@
  * with the text flowing around them like in HTML.
 */
 
+@interface MarginImage : NSObject
+{
+	NSInteger position;
+	BOOL recalc;
+	NSTextContainer *container;
+}
+
+@property NSImage *image;
+@property NSInteger alignment;
+@property NSRect bounds;
+@property NSSize size;
+@property NSUInteger linkid;
+
+- (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos size: (NSSize)asize sender:(id)sender NS_DESIGNATED_INITIALIZER;
+
+- (NSRect) boundsWithLayout: (NSLayoutManager*)layout;
+//- (void) moveBelow: (MarginImage *)image;
+
+@end
 
 
 @implementation MarginImage
@@ -141,10 +160,10 @@
     self = [super init];
     if (self)
     {
-        image = animage;
-        align = analign;
-        pos = apos;
-        size = asize;
+        _image = animage;
+        _alignment = analign;
+        position = apos;
+        _size = asize;
         _bounds = NSZeroRect;
 		_linkid = 0;
         recalc = YES;
@@ -152,10 +171,6 @@
     }
     return self;
 }
-
-- (NSImage*) image { return image; }
-- (NSInteger) position { return pos; }
-- (NSInteger) alignment { return align; }
 
 - (NSRect) boundsWithLayout: (NSLayoutManager*)layout
 {
@@ -170,25 +185,25 @@
         _bounds = NSZeroRect;
         
         /* force layout and get position of anchor glyph */
-        ourglyph = [layout glyphRangeForCharacterRange: NSMakeRange(pos, 1)
+        ourglyph = [layout glyphRangeForCharacterRange: NSMakeRange(position, 1)
                                   actualCharacterRange: &ourline];
         theline = [layout lineFragmentRectForGlyphAtIndex: ourglyph.location
                                            effectiveRange: nil];
 
         /* set bounds to be at the same line as anchor but in left/right margin */
-        if (align == imagealign_MarginRight)
+        if (_alignment == imagealign_MarginRight)
         {
-            _bounds = NSMakeRect(NSMaxX(theline) - size.width,
+            _bounds = NSMakeRect(NSMaxX(theline) - _size.width,
                                 theline.origin.y,
-                                size.width,
-                                size.height);
+                                _size.width,
+                                _size.height);
         }
         else
         {
             _bounds = NSMakeRect(theline.origin.x,
                                 theline.origin.y,
-                                size.width,
-                                size.height);
+                                _size.width,
+                                _size.height);
         }
 
         /* invalidate our fake layout *after* we set the bounds ... to avoid infiniloop */
@@ -408,12 +423,14 @@
 			{
 				if (image.alignment == imagealign_MarginLeft)
 				{
-					adjustedBounds.origin.x += img2.bounds.size.width;
+					adjustedBounds.origin.x = NSMaxX(img2.bounds);
 					// Move it one image width the right
 				}
 				else
 				{
-					adjustedBounds.origin.x -= img2.bounds.size.width;
+					//					adjustedBounds.origin.x = NSMinX(img2.bounds) - img2.bounds.size.width;
+					adjustedBounds.origin.x -= - img2.bounds.size.width;
+
 					// Move it one image width the left
 				}
 			}
@@ -487,7 +504,7 @@
 
 			if (NSIntersectsRect(bounds, rect))
 			{
-				size = image.image.size;
+				size = image.size;
 				if (self.textView.frame.size.height < NSMaxY(bounds))
 				{
 					[self.textView setFrameSize:NSMakeSize(self.textView.frame.size.width, NSMaxY(bounds) + inset.height)];
@@ -573,8 +590,8 @@
 	NSPoint newScrollOrigin = NSMakePoint(0.0,NSMaxY(scrollview.documentView.frame)
 									- NSHeight(scrollview.contentView.bounds));
 
-	[[scrollview contentView] scrollToPoint:newScrollOrigin];
-	[scrollview reflectScrolledClipView:[scrollview contentView]];
+	[scrollview.contentView scrollToPoint:newScrollOrigin];
+	[scrollview reflectScrolledClipView:scrollview.contentView];
 //	NSLog(@"Scrolled to bottom of scrollview");
 }
 
@@ -794,7 +811,7 @@
 {
     if (NSEqualRects(frame, self.frame))
         return;
-    [super setFrame: frame];
+    super.frame = frame;
     [container invalidateLayout];
 }
 
@@ -959,7 +976,7 @@
 //    [layoutmanager glyphRangeForTextContainer: container];
 	[layoutmanager textContainerForGlyphAtIndex:0 effectiveRange:&range];
 
-	[container adjustTextviewHeightForLowImages];
+	//[container adjustTextviewHeightForLowImages];
     
     // then, get the bottom
     bottom = textview.frame.size.height;
@@ -1059,7 +1076,7 @@
     if (str.length)
         ch = chartokeycode([str characterAtIndex: 0]);
 
-	NSNumber *key = [NSNumber numberWithUnsignedInt:ch];
+	NSNumber *key = @(ch);
 
     GlkWindow *win;
     
@@ -1121,7 +1138,7 @@
         [textview setEditable: NO];
         
     }
-    else if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @YES]))
+    else if (line_request && (ch == keycode_Return || [currentTerminators[key] isEqual: @YES]))
     {
         NSLog(@"line event from window %ld", (long)self.name);
         
@@ -1387,7 +1404,7 @@
 		else
 		{
 			currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, textstorage.length - currentHyperlink.startpos);
-			[textstorage addAttribute:NSLinkAttributeName value:[NSNumber numberWithInteger: currentHyperlink.index] range:currentHyperlink.range];
+			[textstorage addAttribute:NSLinkAttributeName value:@(currentHyperlink.index) range:currentHyperlink.range];
 			[hyperlinks addObject:currentHyperlink];
 			currentHyperlink = nil;
 		}
@@ -1462,6 +1479,11 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
             newrange.location = textstorage.length;
     }
     return newrange;
+}
+
+- (BOOL) hasLineRequest
+{
+	return (line_request);
 }
 
 @end

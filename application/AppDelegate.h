@@ -23,7 +23,7 @@
 - (void) addToRecents:(NSArray*)URLs;
 - (void) updatePreferencePanel;
 
-- (NSWindow *) preferencePanel;
+@property (readonly, strong) NSWindow *preferencePanel;
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 

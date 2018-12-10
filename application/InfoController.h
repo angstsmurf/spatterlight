@@ -10,7 +10,7 @@
 
 @class LibController;
 
-@interface InfoController : NSWindowController
+@interface InfoController : NSWindowController <NSTextDelegate>
 {
     IBOutlet NSTextField *titleField;
     IBOutlet NSTextField *authorField;
@@ -23,6 +23,9 @@
 }
 
 @property (strong) Game *game;
+@property (strong) LibController *libctl;
+
+- (void)updateBlurb;
 
 - (IBAction) saveImage: sender;
 

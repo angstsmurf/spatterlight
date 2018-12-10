@@ -14,6 +14,6 @@
 @property NSRange range;
 @property NSRect bounds;
 
-- (instancetype) initWithIndex: (NSInteger)index andPos: (NSInteger)pos;
+- (instancetype) initWithIndex: (NSInteger)index andPos: (NSInteger)pos NS_DESIGNATED_INITIALIZER;
 //- (instancetype) initWithIndex: (NSInteger)index andPos: (NSInteger)pos andBounds: (NSRect)bounds;
 @end

@@ -133,7 +133,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
     homepath = [NSURL fileURLWithPath:(@"~/Library/Application Support/Spatterlight").stringByExpandingTildeInPath  isDirectory:YES];
     [[NSFileManager defaultManager] createDirectoryAtURL:homepath withIntermediateDirectories:YES attributes:NULL error:NULL];
 
-    if ([[self fetchObjects:@"Metadata"] count] == 0)
+    if ([self fetchObjects:@"Metadata"].count == 0)
     {
         NSMutableDictionary *metadata = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Metadata.plist"]);
         NSString *ifid;
@@ -147,7 +147,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
 
     gameTableModel = [[self fetchObjects:@"Game"] mutableCopy];
 
-    if ([gameTableModel count] == 0)
+    if (gameTableModel.count == 0)
     {
         NSMutableDictionary *games = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Games.plist"]);
         NSString *ifid;
@@ -195,15 +195,15 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
 
 - (NSArray *) fetchObjects:(NSString *)entityName
 {
-    self.persistentContainer = ((AppDelegate*)[[NSApplication sharedApplication] delegate]).persistentContainer;
+    self.persistentContainer = ((AppDelegate*)[NSApplication sharedApplication].delegate).persistentContainer;
     self.managedObjectContext = self.persistentContainer.viewContext;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
+    fetchRequest.entity = entity;
 
     NSError *error = nil;
-    NSArray *fetchedObjects = [[self managedObjectContext] executeFetchRequest:fetchRequest error:&error];
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
         NSLog(@"Problem! %@",error);
     }
@@ -231,7 +231,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
 
     defaultSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
-    self.persistentContainer = ((AppDelegate*)[[NSApplication sharedApplication] delegate]).persistentContainer;
+    self.persistentContainer = ((AppDelegate*)[NSApplication sharedApplication].delegate).persistentContainer;
     self.managedObjectContext = self.persistentContainer.viewContext;
 
     self.windowFrameAutosaveName = @"LibraryWindow";
@@ -239,9 +239,9 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
     gameTableView.autosaveName = @"GameTable";
     [gameTableView setAutosaveTableColumns: YES];
 
-    [gameTableView setAction:@selector(doClick:)];
-    [gameTableView setDoubleAction:@selector(doDoubleClick:)];
-    [gameTableView setTarget:self];
+    gameTableView.action = @selector(doClick:);
+    gameTableView.doubleAction = @selector(doDoubleClick:);
+    gameTableView.target = self;
 
     [self.window setExcludedFromWindowsMenu: YES];
     [self.window registerForDraggedTypes: @[NSFilenamesPboardType]];
@@ -255,7 +255,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
 
         key = tableColumn.identifier;
         sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES];
-        [tableColumn setSortDescriptorPrototype:sortDescriptor];
+        tableColumn.sortDescriptorPrototype = sortDescriptor;
 
         for (NSMenuItem *menuitem in _headerMenu.itemArray)
         {
@@ -273,7 +273,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
     NSLog(@"libctl: windowWillReturnUndoManager!")
-    return [self.managedObjectContext undoManager];
+    return (self.managedObjectContext).undoManager;
 }
 
 - (IBAction) deleteLibrary: (id)sender
@@ -314,7 +314,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
             NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Metadata"];
 
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"game != NIL"];
-            [request setPredicate:predicate];
+            request.predicate = predicate;
 
             NSBatchDeleteRequest *delete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:request];
 
@@ -420,6 +420,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
     {
         Game *game = gameTableModel[i];
         [game showInfoWindow];
+		InfoController *infoWindow = (InfoController *)game.infoWindow;
+		infoWindow.libctl = self;
     }
 }
 
@@ -525,7 +527,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
 
 	NSString *path = game.urlForBookmark.path;
 
-	char *format = babel_init((char*)[path UTF8String]);
+	char *format = babel_init((char*)path.UTF8String);
 	if (format)
 	{
 
@@ -630,7 +632,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
     if (action == @selector(toggleSidebar:))
     {
         NSString* title = _leftView.hidden ? @"Show Sidebar" : @"Hide Sidebar";
-        [(NSMenuItem*)menuItem setTitle:title];
+        ((NSMenuItem*)menuItem).title = title;
     }
 
     return YES;
@@ -755,10 +757,14 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
             keyVal = dict[key];
 
             if (cursrc == kIfdb)
+			{
                 keyVal = [keyVal stringByDecodingXMLEntities];
-
+				keyVal = [keyVal stringByReplacingOccurrencesOfString:@"'" withString:@"’"];
+			}
             if ([(NSString *)key isEqualToString:@"description"])
+			{
                 [entry setValue:keyVal forKey:@"blurb"];
+			}
             else if ([(NSString *)key isEqualToString:kSource])
             {
                 if ((int)dict[kSource] == kUser)
@@ -776,20 +782,20 @@ static NSMutableDictionary *load_mutable_plist(NSString *path)
                 if (dateFormatter == nil)
                     dateFormatter = [[NSDateFormatter alloc] init];
                 if (keyVal.length == 4)
-                    [dateFormatter setDateFormat:@"yyyy"];
+                    dateFormatter.dateFormat = @"yyyy";
                 else if (keyVal.length == 10)
-                    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                    dateFormatter.dateFormat = @"yyyy-MM-dd";
                 else NSLog(@"Illegal date format!");
 
                 entry.firstpublished = [dateFormatter dateFromString:keyVal];
-                [dateFormatter setDateFormat:@"yyyy"];
+                dateFormatter.dateFormat = @"yyyy";
                 entry.yearAsString = [dateFormatter stringFromDate:entry.firstpublished];
             }
             else if ([(NSString *)key isEqualToString:@"language"])
             {
 
                 sub = [keyVal substringWithRange:NSMakeRange(0, 2)];
-                sub = [sub lowercaseString];
+                sub = sub.lowercaseString;
                 if (language[sub])
                     entry.language = language[sub];
                 else
@@ -1214,8 +1220,8 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 //        enumerator = [games objectEnumerator];
     while ((ifid = [enumerator nextObject]))
     {
-        entity = [ifid entity];
-        info = [entity attributesByName];
+        entity = ifid.entity;
+        info = entity.attributesByName;
         src = [info[kSource] intValue];
         if ((what == X_EDITED && src >= kUser) || what != X_EDITED)
         {
@@ -1499,21 +1505,21 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:self.managedObjectContext];
 
-    [fetchRequest setEntity:entity];
+    fetchRequest.entity = entity;
 
     predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@",ifid];
-    [fetchRequest setPredicate:predicate];
+    fetchRequest.predicate = predicate;
 
     fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
         NSLog(@"Problem! %@",error);
     }
 
-    if ([fetchedObjects count] > 1)
+    if (fetchedObjects.count > 1)
     {
         NSLog(@"Found more than one entry with metadata %@",ifid);
     }
-    else if ([fetchedObjects count] == 0)
+    else if (fetchedObjects.count == 0)
     {
         NSLog(@"fetchMetadataForIFID: Found no Metadata entity with ifid %@",ifid);
         return nil;
@@ -1528,6 +1534,11 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     Game *game = [self importGame: url.path reportFailure: NO];
     if (game)
         [select addObject: game];
+	else
+	{
+		NSLog(@"libctl: addFile: Error: File not added!");
+		[self importGame: url.path reportFailure: YES];
+	}
 }
 
 - (void) addFiles: (NSArray*)urls select: (NSMutableArray*)select
@@ -1639,7 +1650,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
             [indexSet addIndex:i];
 
     [gameTableView selectRowIndexes:indexSet byExtendingSelection:YES];
-    [gameTableView scrollRowToVisible:[indexSet firstIndex]];
+    [gameTableView scrollRowToVisible:indexSet.firstIndex];
 
 }
 
@@ -1696,7 +1707,7 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
 
     fetchRequest = [[NSFetchRequest alloc] init];
     entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
+    fetchRequest.entity = entity;
 
     if (searchStrings)
     {
@@ -1713,11 +1724,11 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
 
         NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates: predicateArr];
 
-        [fetchRequest setPredicate:comp];
+        fetchRequest.predicate = comp;
     }
 
     NSError *error = nil;
-    gameTableModel = [[[self managedObjectContext] executeFetchRequest:fetchRequest error:&error] mutableCopy];
+    gameTableModel = [[self.managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
     if (gameTableModel == nil)
         NSLog(@"Problem! %@",error);
 
@@ -1765,7 +1776,7 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
             [indexSet addIndex:i];
 
     [gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
-    [gameTableView scrollRowToVisible:[indexSet firstIndex]];
+    [gameTableView scrollRowToVisible:indexSet.firstIndex];
 
     gameTableDirty = NO;
 }
@@ -1867,7 +1878,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 
 	NSLog(@"\nUpdating info pane for %@", game.metadata.title);
 
-	MySideInfoView *infoView = [[MySideInfoView alloc] initWithFrame:[_leftScrollView frame] andIfid:_sideIfid andController:self];
+	MySideInfoView *infoView = [[MySideInfoView alloc] initWithFrame:_leftScrollView.frame andIfid:_sideIfid andController:self];
 
 	_leftScrollView.documentView = infoView;
 
@@ -1915,10 +1926,10 @@ canCollapseSubview:(NSView *)subview
 
 -(void)collapseLeftView
 {
-	NSView *left  = [[_splitView subviews] objectAtIndex:0];
-	NSView *right = [[_splitView subviews] objectAtIndex:1];
-	NSRect rightFrame = [right frame];
-	NSRect overallFrame = [_splitView frame];
+	NSView *left  = _splitView.subviews[0];
+	NSView *right = _splitView.subviews[1];
+	NSRect rightFrame = right.frame;
+	NSRect overallFrame = _splitView.frame;
 	[left setHidden:YES];
 	[right setFrameSize:NSMakeSize(overallFrame.size.width,rightFrame.size.height)];
 	[_splitView display];
@@ -1926,22 +1937,22 @@ canCollapseSubview:(NSView *)subview
 
 -(void)uncollapseLeftView
 {
-	NSView *left  = [[_splitView subviews] objectAtIndex:0];
-	NSView *right = [[_splitView subviews] objectAtIndex:1];
+	NSView *left  = _splitView.subviews[0];
+	NSView *right = _splitView.subviews[1];
 	[left setHidden:NO];
 
-	CGFloat dividerThickness = [_splitView dividerThickness];
+	CGFloat dividerThickness = _splitView.dividerThickness;
 
 	NSLog(@"dividerThickness = %f", dividerThickness);
 
 	// get the different frames
-	NSRect leftFrame = [left frame];
-	NSRect rightFrame = [right frame];
+	NSRect leftFrame = left.frame;
+	NSRect rightFrame = right.frame;
 
 	rightFrame.size.width = (rightFrame.size.width-leftFrame.size.width-dividerThickness);
 	leftFrame.origin.x = 0;
 	[left setFrameSize:leftFrame.size];
-	[right setFrame:rightFrame];
+	right.frame = rightFrame;
 	[_splitView display];
 }
 
@@ -1959,7 +1970,7 @@ CGFloat lastsplitViewWidth = 0;
 
 - (void) addURLtoRecents: (NSURL *) url
 {
-    [((AppDelegate*)[[NSApplication sharedApplication] delegate]) addToRecents:@[url]];
+    [((AppDelegate*)[NSApplication sharedApplication].delegate) addToRecents:@[url]];
 
 }
 
@@ -1970,7 +1981,7 @@ CGFloat lastsplitViewWidth = 0;
 -(void)doClick:(id)sender {
 //    NSLog(@"doClick:");
     if (canEdit) {
-        NSInteger row = [gameTableView clickedRow];
+        NSInteger row = gameTableView.clickedRow;
         if (row >= 0) {
             [self startTimerWithTimeInterval:0.5 selector:@selector(renameByTimer:)];
         }
@@ -1997,8 +2008,8 @@ CGFloat lastsplitViewWidth = 0;
 
 -(void)renameByTimer:(id)sender {
     if (canEdit) {
-        NSInteger row = [gameTableView selectedRow];
-        NSInteger column = [gameTableView selectedColumn];
+        NSInteger row = gameTableView.selectedRow;
+        NSInteger column = gameTableView.selectedColumn;
 
         if (row != -1 && column != -1) {
             [gameTableView editColumn:column row:row withEvent:nil select:YES];
@@ -2017,7 +2028,7 @@ CGFloat lastsplitViewWidth = 0;
 
 -(void)stopTimer {
     if (timer != nil) {
-        if ([timer isValid]) {
+        if (timer.valid) {
             [timer invalidate];
         }
     }

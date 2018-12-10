@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Font : NSManagedObject
 
-- (Font *)clone;
+@property (readonly, strong) Font * _Nonnull clone;
 
 @end
 

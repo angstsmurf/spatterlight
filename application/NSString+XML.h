@@ -2,6 +2,6 @@
 
 @interface NSString (XML)
 
-- (NSString *)stringByDecodingXMLEntities;
+@property (readonly, copy) NSString *stringByDecodingXMLEntities;
 
 @end

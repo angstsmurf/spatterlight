@@ -21,14 +21,14 @@
 		channel = achannel;
 		targetVolume = targetVol;
 		currentVolume = startVol >= SDL_MIX_MAXVOLUME ? GLK_MAXVOLUME : expf(logf((float)startVol/SDL_MIX_MAXVOLUME)/logf(4)) * GLK_MAXVOLUME;
-		// This ridiculous calculation seems to be necessary to convert the Sdl volume back to the correct Glk volume.
+		// This ridiculous calculation seems to be necessary to convert the SDL volume back to the correct Glk volume.
 
 //		NSLog(@"Start volume is %ld. Recalculated to the Glk volume scale with a max of 0x10000 (%d), this is %f", (long)startVol, 0x10000, currentVolume);
 
-		increment = (targetVol - currentVolume) / duration * 10;
-		timer = [NSTimer scheduledTimerWithTimeInterval: 0.01 target: self selector: @selector(incrementFader:) userInfo: nil repeats: YES];
+		increment = (targetVol - currentVolume) * 300 / duration;
+		timer = [NSTimer scheduledTimerWithTimeInterval: (0.01 * 300 / duration) target: self selector: @selector(incrementFader:) userInfo: nil repeats: YES];
 
-		NSLog(@"Started a fader timer firing every decisecond with a delta of %f, changing the volume from %f to %ld in %ld milliseconds, firing a total of %ld times.", increment, currentVolume, (long)targetVolume, (long)duration, (long)(duration)/10);
+		NSLog(@"Started a fader timer firing every centisecond with a delta of %f, changing the volume from %f to %ld in %ld milliseconds, firing a total of %ld times.", increment, currentVolume, (long)targetVolume, (long)duration, (long)(duration)/10);
 
 		self.kill = NO;
 	}
@@ -65,7 +65,7 @@
 
 	if ((increment > 0 && currentVolume >= targetVolume) || (increment < 0 && currentVolume <= targetVolume))
 	{
-		NSLog(@"That conculudes the fade.");
+		NSLog(@"That concludes the fade.");
 
 		gev = [[GlkEvent alloc] initFadeEvent:channel andVolume:targetVolume];
 		[glkctl queueEvent: gev];

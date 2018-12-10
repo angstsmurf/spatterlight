@@ -34,13 +34,13 @@
 @interface LibController : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSControlTextEditingDelegate, NSSplitViewDelegate>
 {
     NSURL *homepath;
-    
+
     IBOutlet NSButton *infoButton;
     IBOutlet NSButton *playButton;
     IBOutlet NSPanel *importProgressPanel;
     IBOutlet NSView *exportTypeView;
     IBOutlet NSPopUpButton *exportTypeControl;
-    
+
     //NSMutableDictionary *metadata; /* ifid -> metadata dict */
     //NSMutableDictionary *games; /* ifid -> filename */
 
@@ -109,7 +109,7 @@
 - (void) updateTableViews; /* must call this after -importGame: */
 - (void) updateSideView;
 
--(void)enableClickToRenameAfterDelay;
+- (void)enableClickToRenameAfterDelay;
 
 @property (strong) IBOutlet NSView *leftView;
 @property (strong) IBOutlet NSSplitView *splitView;

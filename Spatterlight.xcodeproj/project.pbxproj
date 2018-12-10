@@ -1619,7 +1619,6 @@
 		9650338409F29EE20083E64E /* oem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oem.h; sourceTree = "<group>"; };
 		9650338509F29EE20083E64E /* opc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opc.h; sourceTree = "<group>"; };
 		9650338609F29EE20083E64E /* os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.h; sourceTree = "<group>"; };
-		9650338709F29EE20083E64E /* os.h.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = os.h.orig; sourceTree = "<group>"; };
 		9650338809F29EE20083E64E /* os0.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os0.c; sourceTree = "<group>"; };
 		9650338909F29EE20083E64E /* osbigmem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osbigmem.h; sourceTree = "<group>"; };
 		9650338A09F29EE20083E64E /* oserr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oserr.c; sourceTree = "<group>"; };
@@ -3388,14 +3387,10 @@
 				965033C909F29EE20083E64E /* vocab.c */,
 				965032FD09F29EE20083E64E /* atari */,
 				9650330309F29EE20083E64E /* beos */,
-				9650332009F29EE20083E64E /* exe */,
 				9650332809F29EE20083E64E /* glk */,
-				9650333909F29EE20083E64E /* lib */,
 				9650334C09F29EE20083E64E /* msdos */,
-				9650338209F29EE20083E64E /* objs */,
 				965033B409F29EE20083E64E /* tests */,
 				965033C509F29EE20083E64E /* unix */,
-				965033CD09F29EE20083E64E /* winobjs32 */,
 				965032F609F29EE20083E64E /* 437la1.tcs */,
 				965032F709F29EE20083E64E /* adv.t */,
 				965032F809F29EE20083E64E /* appctx.h */,
@@ -3438,7 +3433,6 @@
 				9650338109F29EE20083E64E /* objcomp.c */,
 				9650338409F29EE20083E64E /* oem.h */,
 				9650338509F29EE20083E64E /* opc.h */,
-				9650338709F29EE20083E64E /* os.h.orig */,
 				9650338909F29EE20083E64E /* osbigmem.h */,
 				9650338B09F29EE20083E64E /* osgen.c */,
 				9650338C09F29EE20083E64E /* osgen.h */,
@@ -3514,13 +3508,6 @@
 			path = beos;
 			sourceTree = "<group>";
 		};
-		9650332009F29EE20083E64E /* exe */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = exe;
-			sourceTree = "<group>";
-		};
 		9650332809F29EE20083E64E /* glk */ = {
 			isa = PBXGroup;
 			children = (
@@ -3535,13 +3522,6 @@
 				9650333109F29EE20083E64E /* oss_glk.h */,
 			);
 			path = glk;
-			sourceTree = "<group>";
-		};
-		9650333909F29EE20083E64E /* lib */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = lib;
 			sourceTree = "<group>";
 		};
 		9650334C09F29EE20083E64E /* msdos */ = {
@@ -3601,13 +3581,6 @@
 			path = msdos;
 			sourceTree = "<group>";
 		};
-		9650338209F29EE20083E64E /* objs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = objs;
-			sourceTree = "<group>";
-		};
 		965033B409F29EE20083E64E /* tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -3630,135 +3603,23 @@
 			path = unix;
 			sourceTree = "<group>";
 		};
-		965033CD09F29EE20083E64E /* winobjs32 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = winobjs32;
-			sourceTree = "<group>";
-		};
 		965033CE09F29EE20083E64E /* tads3 */ = {
 			isa = PBXGroup;
 			children = (
-				C3B3775B1ECBA060006432BE /* md5.cpp */,
-				C3B3775D1ECBA06E006432BE /* resload.cpp */,
-				C3B3775E1ECBA082006432BE /* sha2.cpp */,
-				C3B377861ECBA23C006432BE /* vmbignumlib.cpp */,
-				C3B377A21ECBA41B006432BE /* vmconhtm.cpp */,
-				C3B377A61ECBA4D5006432BE /* vmconnom.cpp */,
-				C3B377881ECBA291006432BE /* vmdate.cpp */,
-				C3B3778A1ECBA2A1006432BE /* vmdynfunc.cpp */,
-				C3B3778C1ECBA2C1006432BE /* vmfilnam.cpp */,
-				C3B3778E1ECBA2D7006432BE /* vmfref.cpp */,
-				C3B377901ECBA316006432BE /* vmisaac.cpp */,
-				C3B377921ECBA330006432BE /* vmlog.cpp */,
-				C3B377941ECBA36C006432BE /* vmnetfillcl.cpp */,
-				C3B377961ECBA383006432BE /* vmop.cpp */,
-				C3B377981ECBA38E006432BE /* vmpack.cpp */,
-				C3B3779A1ECBA3B9006432BE /* vmstrbuf.cpp */,
-				C3B3779C1ECBA3CA006432BE /* vmtmpfil.cpp */,
-				C3B3779E1ECBA3DD006432BE /* vmtz.cpp */,
-				C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */,
-				C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */,
-				C3B377601ECBA0B6006432BE /* tcerr.cpp */,
-				C3B377611ECBA0B6006432BE /* tcerrmsg.cpp */,
-				C3B377621ECBA0B6006432BE /* tcgen.cpp */,
-				C3B377661ECBA0D6006432BE /* tcglob.cpp */,
-				C3B377671ECBA0D6006432BE /* tcmain.cpp */,
-				C3B3776C1ECBA0F6006432BE /* tcprs_rt.cpp */,
-				C3B3776A1ECBA0E3006432BE /* tcprs.cpp */,
-				C3B3776E1ECBA115006432BE /* tcprsnf.cpp */,
-				C3B3776F1ECBA115006432BE /* tcprsnl.cpp */,
-				C3B377701ECBA115006432BE /* tcprsstm.cpp */,
-				C3B377711ECBA115006432BE /* tcsrc.cpp */,
-				C3B377781ECBA126006432BE /* tct3_d.cpp */,
-				C3B377721ECBA115006432BE /* tct3.cpp */,
-				C3B3777A1ECBA134006432BE /* tct3nl.cpp */,
-				C3B3777C1ECBA13B006432BE /* tct3stm.cpp */,
-				C3B377841ECBA192006432BE /* tct3unas.cpp */,
-				C3B377801ECBA156006432BE /* tct3unas.h */,
-				C3B377821ECBA16D006432BE /* tctok.cpp */,
-				C3B3777E1ECBA146006432BE /* tcunas.h */,
-				9650340309F29EE30083E64E /* derived */,
-				9650340509F29EE30083E64E /* doc */,
 				965033CF09F29EE20083E64E /* askf_os.cpp */,
-				9650340009F29EE30083E64E /* charmap.cpp */,
-				9650345C09F29EE40083E64E /* indlg_tx.cpp */,
-				9650349C09F29EE40083E64E /* resldexe.cpp */,
-				9650349D09F29EE40083E64E /* resload.cpp */,
-				965034A809F29EE40083E64E /* std.cpp */,
-				965034A909F29EE40083E64E /* std_dbg.cpp */,
-				9650364609F29EE60083E64E /* utf8.cpp */,
-				9650364809F29EE60083E64E /* vmanonfn.cpp */,
-				9650364A09F29EE60083E64E /* vmbif.cpp */,
-				9650364D09F29EE60083E64E /* vmbifl.cpp */,
-				9650364E09F29EE60083E64E /* vmbifreg.cpp */,
-				9650365209F29EE60083E64E /* vmbift3.cpp */,
-				9650365409F29EE60083E64E /* vmbiftad.cpp */,
-				9650365709F29EE60083E64E /* vmbiftio.cpp */,
-				9650365B09F29EE60083E64E /* vmbignum.cpp */,
-				9650365E09F29EE60083E64E /* vmbt3_nd.cpp */,
-				9650365F09F29EE60083E64E /* vmbytarr.cpp */,
-				9650366209F29EE60083E64E /* vmcfgmem.cpp */,
-				9650366509F29EE60083E64E /* vmcoll.cpp */,
-				9650366709F29EE60083E64E /* vmconhmp.cpp */,
-				9650366A09F29EE60083E64E /* vmconnom.cpp */,
-				9650366B09F29EE60083E64E /* vmconsol.cpp */,
-				9650366F09F29EE60083E64E /* vmcrc.cpp */,
-				9650367109F29EE60083E64E /* vmcset.cpp */,
-				9650367509F29EE60083E64E /* vmdict.cpp */,
-				9650367709F29EE60083E64E /* vmerr.cpp */,
-				9650367909F29EE60083E64E /* vmerrmsg.cpp */,
-				9650367B09F29EE60083E64E /* vmfile.cpp */,
-				9650367D09F29EE60083E64E /* vmfilobj.cpp */,
-				9650367F09F29EE60083E64E /* vmfunc.cpp */,
-				9650368109F29EE60083E64E /* vmglob.cpp */,
-				9650368409F29EE60083E64E /* vmgram.cpp */,
-				9650368609F29EE60083E64E /* vmhash.cpp */,
-				9650368909F29EE60083E64E /* vmhostsi.cpp */,
-				9650368B09F29EE60083E64E /* vmhosttx.cpp */,
-				9650368D09F29EE60083E64E /* vmimage.cpp */,
-				9650369009F29EE60083E64E /* vmimg_nd.cpp */,
-				9650369509F29EE60083E64E /* vmini_nd.cpp */,
-				9650369609F29EE60083E64E /* vminit.cpp */,
-				9650369909F29EE60083E64E /* vminitim.cpp */,
-				9650369B09F29EE60083E64E /* vmintcls.cpp */,
-				9650369D09F29EE60083E64E /* vmiter.cpp */,
-				9650369F09F29EE60083E64E /* vmlookup.cpp */,
-				965036A109F29EE60083E64E /* vmlst.cpp */,
-				965036A309F29EE60083E64E /* vmmain.cpp */,
-				965036A809F29EE60083E64E /* vmmcreg.cpp */,
-				965036AA09F29EE60083E64E /* vmmeta.cpp */,
-				965036AC09F29EE60083E64E /* vmobj.cpp */,
-				965036B109F29EE60083E64E /* vmpat.cpp */,
-				965036B309F29EE60083E64E /* vmpool.cpp */,
-				965036B609F29EE60083E64E /* vmpoolim.cpp */,
-				965036BD09F29EE60083E64E /* vmregex.cpp */,
-				965036C109F29EE60083E64E /* vmrun.cpp */,
-				965036C309F29EE60083E64E /* vmrunsym.cpp */,
-				965036C509F29EE60083E64E /* vmsa.cpp */,
-				965036C609F29EE60083E64E /* vmsave.cpp */,
-				965036C809F29EE60083E64E /* vmsort.cpp */,
-				965036CA09F29EE60083E64E /* vmsortv.cpp */,
-				965036CB09F29EE60083E64E /* vmsrcf.cpp */,
-				965036CD09F29EE60083E64E /* vmstack.cpp */,
-				965036CF09F29EE60083E64E /* vmstr.cpp */,
-				965036D109F29EE60083E64E /* vmstrcmp.cpp */,
-				965036D409F29EE60083E64E /* vmtobj.cpp */,
-				965036D609F29EE60083E64E /* vmtype.cpp */,
-				965036D809F29EE60083E64E /* vmtypedh.cpp */,
-				965036D909F29EE60083E64E /* vmundo.cpp */,
-				965036DC09F29EE60083E64E /* vmvec.cpp */,
-				9650348F09F29EE40083E64E /* LICENSE.TXT */,
-				9650349909F29EE40083E64E /* README.TXT */,
-				9650363809F29EE60083E64E /* unicode.txt */,
 				965033D009F29EE20083E64E /* askf_tx.cpp */,
+				9650340009F29EE30083E64E /* charmap.cpp */,
 				9650340109F29EE30083E64E /* charmap.h */,
 				9650340209F29EE30083E64E /* core.h */,
+				9650340309F29EE30083E64E /* derived */,
+				9650340509F29EE30083E64E /* doc */,
 				9650344509F29EE40083E64E /* gameinfl.cpp */,
 				9650344609F29EE40083E64E /* gameinfo.cpp */,
 				9650344709F29EE40083E64E /* gameinfo.h */,
 				9650345B09F29EE40083E64E /* indlg_os.cpp */,
+				9650345C09F29EE40083E64E /* indlg_tx.cpp */,
+				9650348F09F29EE40083E64E /* LICENSE.TXT */,
+				C3B3775B1ECBA060006432BE /* md5.cpp */,
 				9650349009F29EE40083E64E /* mkchrtab.cpp */,
 				9650349309F29EE40083E64E /* msgcomp.cpp */,
 				9650349409F29EE40083E64E /* os_stdio.cpp */,
@@ -3766,28 +3627,34 @@
 				9650349609F29EE40083E64E /* rcmain.cpp */,
 				9650349709F29EE40083E64E /* rcmain.h */,
 				9650349809F29EE40083E64E /* rcmaincl.cpp */,
+				9650349909F29EE40083E64E /* README.TXT */,
 				9650349A09F29EE40083E64E /* resfind.cpp */,
 				9650349B09F29EE40083E64E /* resfind.h */,
+				9650349C09F29EE40083E64E /* resldexe.cpp */,
+				C3B3775D1ECBA06E006432BE /* resload.cpp */,
 				9650349E09F29EE40083E64E /* resload.h */,
 				9650349F09F29EE40083E64E /* resnoexe.cpp */,
+				C3B3775E1ECBA082006432BE /* sha2.cpp */,
+				965034A909F29EE40083E64E /* std_dbg.cpp */,
+				965034A809F29EE40083E64E /* std.cpp */,
 				965034AA09F29EE40083E64E /* t3_os.h */,
 				965034AB09F29EE40083E64E /* t3std.h */,
 				965034AC09F29EE40083E64E /* tccmdutl.cpp */,
 				965034AD09F29EE40083E64E /* tccmdutl.h */,
-				965034AE09F29EE40083E64E /* tcerr.cpp */,
+				C3B377601ECBA0B6006432BE /* tcerr.cpp */,
 				965034AF09F29EE40083E64E /* tcerr.h */,
-				965034B009F29EE40083E64E /* tcerrmsg.cpp */,
+				C3B377611ECBA0B6006432BE /* tcerrmsg.cpp */,
 				965034B109F29EE40083E64E /* tcerrnum.h */,
-				965034B209F29EE40083E64E /* tcgen.cpp */,
+				C3B377621ECBA0B6006432BE /* tcgen.cpp */,
 				965034B309F29EE40083E64E /* tcgen.h */,
-				965034B409F29EE40083E64E /* tcglob.cpp */,
+				C3B377661ECBA0D6006432BE /* tcglob.cpp */,
 				965034B509F29EE40083E64E /* tcglob.h */,
 				965034B609F29EE40083E64E /* tchost.h */,
 				965034B709F29EE40083E64E /* tchostsi.cpp */,
 				965034B809F29EE40083E64E /* tchostsi.h */,
 				965034B909F29EE40083E64E /* tclibprs.cpp */,
 				965034BA09F29EE40083E64E /* tclibprs.h */,
-				965034BB09F29EE40083E64E /* tcmain.cpp */,
+				C3B377671ECBA0D6006432BE /* tcmain.cpp */,
 				965034BC09F29EE40083E64E /* tcmain.h */,
 				965034BD09F29EE40083E64E /* tcmake.cpp */,
 				965034BE09F29EE40083E64E /* tcmake.h */,
@@ -3795,127 +3662,226 @@
 				965034C009F29EE40083E64E /* tcpnbase.h */,
 				965034C109F29EE40083E64E /* tcpndrv.h */,
 				965034C209F29EE40083E64E /* tcpnint.h */,
-				965034C309F29EE40083E64E /* tcprs.cpp */,
-				965034C409F29EE40083E64E /* tcprs.h */,
 				965034C509F29EE40083E64E /* tcprs_d.cpp */,
+				C3B3776C1ECBA0F6006432BE /* tcprs_rt.cpp */,
+				C3B3776A1ECBA0E3006432BE /* tcprs.cpp */,
+				965034C409F29EE40083E64E /* tcprs.h */,
 				965034C609F29EE40083E64E /* tcprsimg.cpp */,
-				965034C709F29EE40083E64E /* tcprsnl.cpp */,
-				965034C809F29EE40083E64E /* tcprsstm.cpp */,
+				C3B3776E1ECBA115006432BE /* tcprsnf.cpp */,
+				C3B3776F1ECBA115006432BE /* tcprsnl.cpp */,
+				C3B377701ECBA115006432BE /* tcprsstm.cpp */,
 				965034C909F29EE40083E64E /* tcprstyp.h */,
-				965034CA09F29EE40083E64E /* tcsrc.cpp */,
+				C3B377711ECBA115006432BE /* tcsrc.cpp */,
 				965034CB09F29EE40083E64E /* tcsrc.h */,
-				965034CC09F29EE40083E64E /* tct3.cpp */,
+				C3B377781ECBA126006432BE /* tct3_d.cpp */,
+				C3B377721ECBA115006432BE /* tct3.cpp */,
 				965034CD09F29EE40083E64E /* tct3.h */,
-				965034CE09F29EE40083E64E /* tct3_d.cpp */,
 				965034CF09F29EE40083E64E /* tct3base.h */,
 				965034D009F29EE40083E64E /* tct3drv.h */,
 				965034D109F29EE40083E64E /* tct3img.cpp */,
 				965034D209F29EE40083E64E /* tct3int.h */,
-				965034D309F29EE40083E64E /* tct3nl.cpp */,
-				965034D409F29EE40083E64E /* tct3stm.cpp */,
+				C3B3777A1ECBA134006432BE /* tct3nl.cpp */,
+				C3B3777C1ECBA13B006432BE /* tct3stm.cpp */,
 				965034D509F29EE40083E64E /* tct3ty.h */,
-				965034D609F29EE40083E64E /* tct3unas.cpp */,
-				965034D709F29EE40083E64E /* tct3unas.h */,
+				C3B377841ECBA192006432BE /* tct3unas.cpp */,
+				C3B377801ECBA156006432BE /* tct3unas.h */,
 				965034D809F29EE40083E64E /* tctarg.h */,
 				965034D909F29EE40083E64E /* tctargty.h */,
-				965034DA09F29EE40083E64E /* tctok.cpp */,
+				C3B377821ECBA16D006432BE /* tctok.cpp */,
 				965034DB09F29EE40083E64E /* tctok.h */,
-				965034DC09F29EE40083E64E /* tcunas.h */,
+				C3B3777E1ECBA146006432BE /* tcunas.h */,
 				965034DD09F29EE40083E64E /* tcvsn.h */,
 				9650363709F29EE60083E64E /* uni_case.cpp */,
+				9650363809F29EE60083E64E /* unicode.txt */,
+				9650364609F29EE60083E64E /* utf8.cpp */,
 				9650364709F29EE60083E64E /* utf8.h */,
+				9650364809F29EE60083E64E /* vmanonfn.cpp */,
 				9650364909F29EE60083E64E /* vmanonfn.h */,
+				9650364A09F29EE60083E64E /* vmbif.cpp */,
 				9650364B09F29EE60083E64E /* vmbif.h */,
 				9650364C09F29EE60083E64E /* vmbifc.cpp */,
-				9650364F09F29EE60083E64E /* vmbifreg.h */,
+				9650364D09F29EE60083E64E /* vmbifl.cpp */,
 				9650365009F29EE60083E64E /* vmbifreg_core.cpp */,
+				9650364E09F29EE60083E64E /* vmbifreg.cpp */,
+				9650364F09F29EE60083E64E /* vmbifreg.h */,
 				9650365109F29EE60083E64E /* vmbifregx.cpp */,
+				9650365209F29EE60083E64E /* vmbift3.cpp */,
 				9650365309F29EE60083E64E /* vmbift3.h */,
+				9650365409F29EE60083E64E /* vmbiftad.cpp */,
 				9650365509F29EE60083E64E /* vmbiftad.h */,
+				9650365709F29EE60083E64E /* vmbiftio.cpp */,
 				9650365809F29EE60083E64E /* vmbiftio.h */,
 				9650365909F29EE60083E64E /* vmbiftix.cpp */,
 				9650365A09F29EE60083E64E /* vmbiftix.h */,
+				9650365B09F29EE60083E64E /* vmbignum.cpp */,
 				9650365C09F29EE60083E64E /* vmbignum.h */,
+				C3B377861ECBA23C006432BE /* vmbignumlib.cpp */,
 				9650365D09F29EE60083E64E /* vmbt3_d.cpp */,
+				9650365E09F29EE60083E64E /* vmbt3_nd.cpp */,
+				9650365F09F29EE60083E64E /* vmbytarr.cpp */,
 				9650366009F29EE60083E64E /* vmbytarr.h */,
 				9650366109F29EE60083E64E /* vmcfgfl.cpp */,
+				9650366209F29EE60083E64E /* vmcfgmem.cpp */,
 				9650366309F29EE60083E64E /* vmcfgsw.cpp */,
 				9650366409F29EE60083E64E /* vmcl23.cpp */,
+				9650366509F29EE60083E64E /* vmcoll.cpp */,
 				9650366609F29EE60083E64E /* vmcoll.h */,
-				9650366809F29EE60083E64E /* vmconhtm.cpp */,
+				9650366709F29EE60083E64E /* vmconhmp.cpp */,
+				C3B377A21ECBA41B006432BE /* vmconhtm.cpp */,
+				9650349D09F29EE40083E64E /* resload.cpp */,
 				9650366909F29EE60083E64E /* vmconmor.cpp */,
+				C3B377A61ECBA4D5006432BE /* vmconnom.cpp */,
+				9650366A09F29EE60083E64E /* vmconnom.cpp */,
+				9650366B09F29EE60083E64E /* vmconsol.cpp */,
 				9650366C09F29EE60083E64E /* vmconsol.h */,
 				9650366D09F29EE60083E64E /* vmcore.cpp */,
 				9650366E09F29EE60083E64E /* vmcore.h */,
+				9650366F09F29EE60083E64E /* vmcrc.cpp */,
 				9650367009F29EE60083E64E /* vmcrc.h */,
+				9650367109F29EE60083E64E /* vmcset.cpp */,
 				9650367209F29EE60083E64E /* vmcset.h */,
+				C3B377881ECBA291006432BE /* vmdate.cpp */,
 				9650367309F29EE60083E64E /* vmdbg.cpp */,
 				9650367409F29EE60083E64E /* vmdbg.h */,
+				9650367509F29EE60083E64E /* vmdict.cpp */,
 				9650367609F29EE60083E64E /* vmdict.h */,
+				C3B3778A1ECBA2A1006432BE /* vmdynfunc.cpp */,
+				9650367709F29EE60083E64E /* vmerr.cpp */,
 				9650367809F29EE60083E64E /* vmerr.h */,
+				9650367909F29EE60083E64E /* vmerrmsg.cpp */,
 				9650367A09F29EE60083E64E /* vmerrnum.h */,
+				9650367B09F29EE60083E64E /* vmfile.cpp */,
 				9650367C09F29EE60083E64E /* vmfile.h */,
+				C3B3778C1ECBA2C1006432BE /* vmfilnam.cpp */,
+				9650367D09F29EE60083E64E /* vmfilobj.cpp */,
 				9650367E09F29EE60083E64E /* vmfilobj.h */,
+				C3B3778E1ECBA2D7006432BE /* vmfref.cpp */,
+				9650367F09F29EE60083E64E /* vmfunc.cpp */,
 				9650368009F29EE60083E64E /* vmfunc.h */,
+				9650368109F29EE60083E64E /* vmglob.cpp */,
 				9650368209F29EE60083E64E /* vmglob.h */,
 				9650368309F29EE60083E64E /* vmglobv.h */,
+				9650368409F29EE60083E64E /* vmgram.cpp */,
 				9650368509F29EE60083E64E /* vmgram.h */,
+				9650368609F29EE60083E64E /* vmhash.cpp */,
 				9650368709F29EE60083E64E /* vmhash.h */,
 				9650368809F29EE60083E64E /* vmhost.h */,
+				9650368909F29EE60083E64E /* vmhostsi.cpp */,
 				9650368A09F29EE60083E64E /* vmhostsi.h */,
+				9650368B09F29EE60083E64E /* vmhosttx.cpp */,
 				9650368C09F29EE60083E64E /* vmhosttx.h */,
+				9650368D09F29EE60083E64E /* vmimage.cpp */,
 				9650368E09F29EE60083E64E /* vmimage.h */,
 				9650368F09F29EE60083E64E /* vmimg_d.cpp */,
+				9650369009F29EE60083E64E /* vmimg_nd.cpp */,
 				9650369109F29EE60083E64E /* vmimgrb.cpp */,
 				9650369209F29EE60083E64E /* vmimgrb.h */,
 				9650369309F29EE60083E64E /* vmimport.h */,
 				9650369409F29EE60083E64E /* vmini_d.cpp */,
+				9650369509F29EE60083E64E /* vmini_nd.cpp */,
+				9650369609F29EE60083E64E /* vminit.cpp */,
 				9650369709F29EE60083E64E /* vminit.h */,
 				9650369809F29EE60083E64E /* vminitfl.cpp */,
+				9650369909F29EE60083E64E /* vminitim.cpp */,
 				9650369A09F29EE60083E64E /* vminitsw.cpp */,
+				9650369B09F29EE60083E64E /* vmintcls.cpp */,
 				9650369C09F29EE60083E64E /* vmintcls.h */,
+				C3B377901ECBA316006432BE /* vmisaac.cpp */,
+				9650369D09F29EE60083E64E /* vmiter.cpp */,
 				9650369E09F29EE60083E64E /* vmiter.h */,
+				C3B377921ECBA330006432BE /* vmlog.cpp */,
+				9650369F09F29EE60083E64E /* vmlookup.cpp */,
 				965036A009F29EE60083E64E /* vmlookup.h */,
+				965036A109F29EE60083E64E /* vmlst.cpp */,
 				965036A209F29EE60083E64E /* vmlst.h */,
+				965036A309F29EE60083E64E /* vmmain.cpp */,
 				965036A409F29EE60083E64E /* vmmain.h */,
 				965036A509F29EE60083E64E /* vmmaincl.cpp */,
 				965036A609F29EE60083E64E /* vmmaincn.h */,
 				965036A709F29EE60083E64E /* vmmccore.h */,
+				965036A809F29EE60083E64E /* vmmcreg.cpp */,
 				965036A909F29EE60083E64E /* vmmcreg.h */,
+				965036AA09F29EE60083E64E /* vmmeta.cpp */,
 				965036AB09F29EE60083E64E /* vmmeta.h */,
+				C3B377941ECBA36C006432BE /* vmnetfillcl.cpp */,
+				965036AC09F29EE60083E64E /* vmobj.cpp */,
 				965036AD09F29EE60083E64E /* vmobj.h */,
+				C3B377961ECBA383006432BE /* vmop.cpp */,
 				965036AE09F29EE60083E64E /* vmop.h */,
 				965036AF09F29EE60083E64E /* vmosc.cpp */,
+				C3B377981ECBA38E006432BE /* vmpack.cpp */,
 				965036B009F29EE60083E64E /* vmparam.h */,
+				965036B109F29EE60083E64E /* vmpat.cpp */,
 				965036B209F29EE60083E64E /* vmpat.h */,
+				965036B309F29EE60083E64E /* vmpool.cpp */,
 				965036B409F29EE60083E64E /* vmpool.h */,
 				965036B509F29EE60083E64E /* vmpoolfl.cpp */,
+				965036B609F29EE60083E64E /* vmpoolim.cpp */,
 				965036B709F29EE60083E64E /* vmpoolsl.h */,
 				965036B809F29EE60083E64E /* vmpredef.h */,
 				965036B909F29EE60083E64E /* vmpreini.cpp */,
 				965036BA09F29EE60083E64E /* vmpreini.h */,
 				965036BB09F29EE60083E64E /* vmprof.h */,
 				965036BC09F29EE60083E64E /* vmprofty.h */,
+				965036BD09F29EE60083E64E /* vmregex.cpp */,
 				965036BE09F29EE60083E64E /* vmregex.h */,
 				965036BF09F29EE60083E64E /* vmres.cpp */,
 				965036C009F29EE60083E64E /* vmres.h */,
+				965036C109F29EE60083E64E /* vmrun.cpp */,
 				965036C209F29EE60083E64E /* vmrun.h */,
+				965036C309F29EE60083E64E /* vmrunsym.cpp */,
 				965036C409F29EE60083E64E /* vmrunsym.h */,
+				965036C509F29EE60083E64E /* vmsa.cpp */,
+				965036C609F29EE60083E64E /* vmsave.cpp */,
 				965036C709F29EE60083E64E /* vmsave.h */,
+				965036C809F29EE60083E64E /* vmsort.cpp */,
 				965036C909F29EE60083E64E /* vmsort.h */,
+				965036CA09F29EE60083E64E /* vmsortv.cpp */,
+				965036CB09F29EE60083E64E /* vmsrcf.cpp */,
 				965036CC09F29EE60083E64E /* vmsrcf.h */,
+				965036CD09F29EE60083E64E /* vmstack.cpp */,
 				965036CE09F29EE60083E64E /* vmstack.h */,
+				965036CF09F29EE60083E64E /* vmstr.cpp */,
 				965036D009F29EE60083E64E /* vmstr.h */,
+				C3B3779A1ECBA3B9006432BE /* vmstrbuf.cpp */,
+				965036D109F29EE60083E64E /* vmstrcmp.cpp */,
 				965036D209F29EE60083E64E /* vmstrcmp.h */,
 				965036D309F29EE60083E64E /* vmstrres.h */,
+				C3B3779C1ECBA3CA006432BE /* vmtmpfil.cpp */,
+				965036D409F29EE60083E64E /* vmtobj.cpp */,
 				965036D509F29EE60083E64E /* vmtobj.h */,
+				965036D609F29EE60083E64E /* vmtype.cpp */,
 				965036D709F29EE60083E64E /* vmtype.h */,
+				965036D809F29EE60083E64E /* vmtypedh.cpp */,
+				C3B3779E1ECBA3DD006432BE /* vmtz.cpp */,
+				C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */,
+				965036D909F29EE60083E64E /* vmundo.cpp */,
 				965036DA09F29EE60083E64E /* vmundo.h */,
+				C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */,
 				965036DB09F29EE60083E64E /* vmuni.h */,
+				965036DC09F29EE60083E64E /* vmvec.cpp */,
 				965036DD09F29EE60083E64E /* vmvec.h */,
 				965036DE09F29EE60083E64E /* vmvsn.h */,
 				965036DF09F29EE60083E64E /* vmwrtimg.cpp */,
 				965036E009F29EE60083E64E /* vmwrtimg.h */,
+				965034AE09F29EE40083E64E /* tcerr.cpp */,
+				965034B009F29EE40083E64E /* tcerrmsg.cpp */,
+				965034B209F29EE40083E64E /* tcgen.cpp */,
+				965034B409F29EE40083E64E /* tcglob.cpp */,
+				965034BB09F29EE40083E64E /* tcmain.cpp */,
+				965034C309F29EE40083E64E /* tcprs.cpp */,
+				965034C709F29EE40083E64E /* tcprsnl.cpp */,
+				965034C809F29EE40083E64E /* tcprsstm.cpp */,
+				965034CA09F29EE40083E64E /* tcsrc.cpp */,
+				965034CC09F29EE40083E64E /* tct3.cpp */,
+				965034CE09F29EE40083E64E /* tct3_d.cpp */,
+				965034D309F29EE40083E64E /* tct3nl.cpp */,
+				965034D409F29EE40083E64E /* tct3stm.cpp */,
+				965034D609F29EE40083E64E /* tct3unas.cpp */,
+				965034D709F29EE40083E64E /* tct3unas.h */,
+				965034DA09F29EE40083E64E /* tctok.cpp */,
+				965034DC09F29EE40083E64E /* tcunas.h */,
+				9650366809F29EE60083E64E /* vmconhtm.cpp */,
 			);
 			path = tads3;
 			sourceTree = "<group>";
@@ -5614,10 +5580,10 @@
 				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -5657,9 +5623,9 @@
 				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
@@ -5910,6 +5876,7 @@
 					"strnicmp=gln_strncasecmp",
 					BITMAP_DECODER,
 					SPATTERLIGHT,
+					GARGLK,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = level9;
@@ -5929,6 +5896,7 @@
 					"strnicmp=gln_strncasecmp",
 					BITMAP_DECODER,
 					SPATTERLIGHT,
+					GARGLK,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = level9;
@@ -5944,7 +5912,10 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					SPATTERLIGHT,
+					GARGLK,
+				);
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = magnetic;
@@ -5958,7 +5929,10 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					SPATTERLIGHT,
+					GARGLK,
+				);
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = magnetic;

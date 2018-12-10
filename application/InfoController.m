@@ -219,9 +219,27 @@
 			}
 			else [_game.metadata setValue:textfield.stringValue forKey:target];
 
+			[_libctl updateSideView];
+			[_libctl updateTableViews];
+
 		}
 		dispatch_async(dispatch_get_main_queue(), ^{[textfield.window makeFirstResponder:nil];});
 	}
+}
+
+- (void)textDidEndEditing:(NSNotification *)notification
+{
+	NSLog (@"Game description did end editing!");
+	if (notification.object == descriptionText)
+		[self updateBlurb];
+}
+
+- (void)updateBlurb
+{
+	_game.metadata.blurb = descriptionText.textStorage.string;
+
+	[_libctl updateSideView];
+	[_libctl updateTableViews];
 }
 
 - (void) showWindow: sender

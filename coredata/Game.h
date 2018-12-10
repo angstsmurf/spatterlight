@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Game : NSManagedObject <NSWindowDelegate>
 
-- (NSURL *) urlForBookmark;
+@property (readonly, copy) NSURL * _Nonnull urlForBookmark;
 - (void) bookmarkForPath: (NSString *)path;
 - (void) showInfoWindow;
 

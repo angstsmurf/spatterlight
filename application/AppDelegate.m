@@ -85,7 +85,7 @@ NSDictionary *gFormatMap;
     if (!helpLicenseWindow)
     {
         helpLicenseWindow = [[HelpPanelController alloc] initWithWindowNibName:@"HelpPanelController"];
-        [[helpLicenseWindow window] setMinSize: NSMakeSize(290, 200)];
+        helpLicenseWindow.window.minSize = NSMakeSize(290, 200);
     }
 
 
@@ -198,14 +198,14 @@ NSDictionary *gFormatMap;
 
 - (NSWindow *) preferencePanel
 {
-	return [prefctl window];
+	return prefctl.window;
 }
 
 - (void) applicationWillTerminate: (NSNotification*)notification
 {
     [libctl saveLibrary:self];
 	
-	if ([[NSFontPanel sharedFontPanel] isVisible])
+	if ([NSFontPanel sharedFontPanel].visible)
 		[[NSFontPanel sharedFontPanel] orderOut:self];
 }
 
@@ -223,8 +223,6 @@ NSDictionary *gFormatMap;
         [theDocCont noteNewRecentDocumentURL:obj];
     }];
 }
-
-
 
 -(void)application:(NSApplication *)sender openFiles:(NSArray *)filenames
 {
@@ -349,8 +347,8 @@ NSDictionary *gFormatMap;
         NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
         NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
         NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:question];
-        [alert setInformativeText:info];
+        alert.messageText = question;
+        alert.informativeText = info;
         [alert addButtonWithTitle:quitButton];
         [alert addButtonWithTitle:cancelButton];
 

@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Settings : NSManagedObject
 
-- (Settings *)clone;
+@property (readonly, strong) Settings * _Nonnull clone;
 
 @end
 

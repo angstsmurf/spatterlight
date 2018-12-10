@@ -32,7 +32,7 @@
 {
 	if (game)
 	{
-		[[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+		[self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 		[self updateSideViewForGame:game];
 	}
 
@@ -180,7 +180,7 @@
 																			multiplier:1.0
 																			  constant:-10];
 
-	[textField setAttributedStringValue:attrString];
+	textField.attributedStringValue = attrString;
 
 	[self addSubview:textField];
 
@@ -252,7 +252,7 @@
 		CGFloat ratio = theImage.size.width / theImage.size.height;
 
 		// We make the image double size to make enlarging when draggin divider to the right work
-		[theImage setSize:NSMakeSize(superViewWidth * 2, superViewWidth * 2 / ratio )];
+		theImage.size = NSMakeSize(superViewWidth * 2, superViewWidth * 2 / ratio );
 
 		NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0,0,theImage.size.width,theImage.size.height)];
 
@@ -323,7 +323,7 @@
 	{
 
 		font = [NSFont fontWithName:@"Playfair Display Black" size:30];
-		NSFontDescriptor *descriptor = [font fontDescriptor];
+		NSFontDescriptor *descriptor = font.fontDescriptor;
 
 		NSArray *array = @[@{NSFontFeatureTypeIdentifierKey : @(kNumberCaseType),
 							 NSFontFeatureSelectorIdentifierKey : @(kUpperCaseNumbersSelector)}];
@@ -353,7 +353,7 @@
 		{
 			//			NSLog(@"Font too large! Width %f, max allowed %f", [firstWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
 
-			font = [[NSFontManager sharedFontManager] convertFont:font toSize:[font pointSize] - 2];
+			font = [[NSFontManager sharedFontManager] convertFont:font toSize:font.pointSize - 2];
 		}
 		//		NSLog(@"Font not too large! Width %f, max allowed %f", [firstWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
 
@@ -421,7 +421,7 @@
 	{
 		font = [NSFont fontWithName:@"Playfair Display Regular" size:13];
 
-		NSFontDescriptor *descriptor = [font fontDescriptor];
+		NSFontDescriptor *descriptor = font.fontDescriptor;
 
 		NSArray *array = @[@{NSFontFeatureTypeIdentifierKey : @(kLowerCaseType),
 							 NSFontFeatureSelectorIdentifierKey : @(kLowerCaseSmallCapsSelector)}];
@@ -429,7 +429,7 @@
 		descriptor = [descriptor fontDescriptorByAddingAttributes:@{NSFontFeatureSettingsAttribute : array}];
 		font = [NSFont fontWithDescriptor:descriptor size:13.f];
 
-		lastView = [self addSubViewWithtext:[agame.metadata.headline lowercaseString] andFont:font andSpaceBefore:4 andLastView:lastView];
+		lastView = [self addSubViewWithtext:(agame.metadata.headline).lowercaseString andFont:font andSpaceBefore:4 andLastView:lastView];
 
 		headlineField = (NSTextField *)lastView;
 	}

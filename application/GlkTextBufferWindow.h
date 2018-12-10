@@ -1,3 +1,5 @@
+@class MarginImage;
+
 // I suppose this is necessary to get rid of that ugly Markup menu on attached images.
 
 @interface MyAttachmentCell : NSTextAttachmentCell
@@ -23,27 +25,6 @@
 - (void) scrollToBottom;
 @end
 
-@interface MarginImage : NSObject
-{
-	NSImage *image;
-	NSInteger align;
-	NSInteger pos;
-	NSSize size;
-	BOOL recalc;
-	NSTextContainer *container;
-}
-
-- (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign at: (NSInteger)apos size: (NSSize)asize sender:(id)sender NS_DESIGNATED_INITIALIZER;
-@property (readonly, copy) NSImage *image;
-@property (readonly) NSInteger position;
-@property (readonly) NSInteger alignment;
-@property NSRect bounds;
-@property NSUInteger linkid;
-
-- (NSRect) boundsWithLayout: (NSLayoutManager*)layout;
-//- (void) moveBelow: (MarginImage *)image;
-
-@end
 
 @interface MarginContainer : NSTextContainer
 {

@@ -213,7 +213,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-2149" y="-47"/>
+            <point key="canvasLocation" x="-2149" y="-47.5"/>
         </menu>
         <window title="Interactive Fiction" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" id="ycS-mA-h4o" userLabel="Library Window" customClass="LibHelperWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -279,11 +279,11 @@
                                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugu-5F-fDl">
                                                 <rect key="frame" x="0.0" y="38" width="906" height="453"/>
                                                 <clipView key="contentView" copiesOnScroll="NO" id="hXS-Ti-zdF">
-                                                    <rect key="frame" x="0.0" y="0.0" width="906" height="438"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="906" height="453"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" autosaveColumns="NO" rowHeight="14" headerView="chQ-nk-2nk" id="6QO-6R-kLu" userLabel="Game Table View" customClass="LibHelperTableView">
-                                                            <rect key="frame" x="0.0" y="8" width="956.5" height="415"/>
+                                                            <rect key="frame" x="0.0" y="8" width="956.5" height="430"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <size key="intercellSpacing" width="3" height="2"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -493,7 +493,7 @@
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </clipView>
                                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="C2X-GJ-raL">
-                                                    <rect key="frame" x="0.0" y="438" width="906" height="15"/>
+                                                    <rect key="frame" x="0.0" y="437" width="906" height="16"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </scroller>
                                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.34782608695652173" horizontal="NO" id="JqL-f1-5eh">

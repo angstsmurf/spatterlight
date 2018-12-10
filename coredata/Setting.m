@@ -18,9 +18,9 @@
 						inManagedObjectContext:self.managedObjectContext];
 
 	//loop through all attributes and assign then to the clone
-	NSDictionary *attributes = [[NSEntityDescription
+	NSDictionary *attributes = [NSEntityDescription
 								 entityForName:@"Settings"
-								 inManagedObjectContext:self.managedObjectContext] attributesByName];
+								 inManagedObjectContext:self.managedObjectContext].attributesByName;
 
 	for (NSString *attr in attributes)
 	{
@@ -56,9 +56,9 @@
 	}
 
 	//Loop through all relationships, and clone them if nil in target.
-	NSDictionary *relationships = [[NSEntityDescription
+	NSDictionary *relationships = [NSEntityDescription
 									entityForName:@"Settings"
-									inManagedObjectContext:self.managedObjectContext] relationshipsByName];
+									inManagedObjectContext:self.managedObjectContext].relationshipsByName;
 	for (NSRelationshipDescription *rel in relationships)
 	{
 		NSString *keyName = [NSString stringWithFormat:@"%@",rel];

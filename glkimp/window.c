@@ -400,6 +400,8 @@ void glk_window_get_arrangement(window_t *win, glui32 *method, glui32 *size, win
 
 void glk_window_set_arrangement(window_t *win, glui32 method, glui32 size, winid_t key)
 {
+	fprintf(stderr, "glk_window_set_arrangement called with window %d, size %d\n",win->peer,size);
+
     glui32 newdir;
     int newvertical, newbackward;
     
@@ -671,7 +673,9 @@ void gli_windows_unechostream(stream_t *str)
 void gli_window_rearrange(window_t *win, grect_t *box)
 {
     win->bbox = *box;
-    
+
+	fprintf(stderr, "gli_window_rearrange called with name=%d x0=%d, y0=%d, x1=%d, y1=%d\n",win->peer, win->bbox.x0,win->bbox.y0,win->bbox.x1,win->bbox.y1);
+
     switch (win->type)
     {
 	case wintype_Blank:

@@ -13,7 +13,6 @@
 @property (strong) IBOutlet NSTextView *textView;
 @property (strong) IBOutlet NSScrollView *scrollView;
 
-
 - (void) showHelpFile:(NSAttributedString *)text withTitle:(NSString *)title;
 
 - (IBAction)copyButton:(id)sender;

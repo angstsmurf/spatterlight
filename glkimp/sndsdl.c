@@ -122,6 +122,7 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
 	chan->sample = 0;
 	chan->decode = 0;
 	chan->buffered = 0;
+	chan->paused = 0;
 	chan->sdl_channel = -1;
 	chan->music = 0;
 
@@ -270,6 +271,11 @@ void gli_set_volume_by_rock(int rock, int vol)
 	while (!chan || chan->rock != rock)
 		chan = glk_schannel_iterate(chan, 0);
 	/* fprintf(stderr, "gli_set_volume_by_rock: volume %d, rock %d\n", vol, chan->rock ); */
+	if (!chan)
+	{
+		fprintf(stderr, "gli_set_volume_by_rock called with an invalid rock: %d!\n", rock );
+		return;
+	}
 	glk_schannel_set_volume(chan, vol);
 }
 
@@ -619,6 +625,8 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
 {
     long len = 0;
     glui32 type;
+	glui32 result = 0;
+	glui32 paused = 0;
     char *buf = 0;
 
     if (!chan)
@@ -626,6 +634,9 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
         gli_strict_warning("schannel_play_ext: invalid id.");
         return 0;
     }
+
+	/* store paused state of channel */
+	paused = chan->paused;
 
     /* stop previous noise */
     glk_schannel_stop(chan);
@@ -647,26 +658,34 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
         case giblorb_ID_FORM:
         case giblorb_ID_AIFF:
         case giblorb_ID_WAVE:
-            return play_sound(chan);
+            result = play_sound(chan);
             break;
 
         case giblorb_ID_OGG:
-            return play_compressed(chan, "OGG");
+           result = play_compressed(chan, "OGG");
             break;
 
         case giblorb_ID_MP3:
-            return play_compressed(chan, "MP3");
+            result = play_compressed(chan, "MP3");
             break;
 
         case giblorb_ID_MOD:
-            return play_mod(chan, len);
+            result = play_mod(chan, len);
             break;
 
         default:
             gli_strict_warning("schannel_play_ext: unknown resource type.");
     }
 
-    return 0;
+	/* if channel was paused it should be paused again */
+	if (result && paused)
+	{
+		if (paused)
+			fprintf(stderr, "glk_schannel_play_ext: pausing channel again\n");
+		glk_schannel_pause(chan);
+	}
+
+    return result;
 }
 
 void glk_schannel_pause(schanid_t chan)
@@ -686,6 +705,8 @@ void glk_schannel_pause(schanid_t chan)
 			Mix_PauseMusic();
 			break;
 	}
+
+	chan->paused = 1;
 }
 
 void glk_schannel_unpause(schanid_t chan)
@@ -704,6 +725,8 @@ void glk_schannel_unpause(schanid_t chan)
 			Mix_ResumeMusic();
 			break;
 	}
+
+	chan->paused = 0;
 }
 
 void glk_schannel_stop(schanid_t chan)
@@ -715,6 +738,8 @@ void glk_schannel_stop(schanid_t chan)
     }
     SDL_LockAudio();
     chan->buffered = 0;
+	chan->paused = 0;
+	glk_schannel_unpause(chan);
     SDL_UnlockAudio();
     switch (chan->status)
     {

@@ -74,7 +74,7 @@
 - (void) markLastSeen;
 - (void) performScroll;
 - (id) windowWithNum: (int)index;
-- (GlkWindow *) currentFocus;
+@property (readonly, strong) GlkWindow *currentFocus;
 
 @property (getter=isAlive, readonly) BOOL alive;
 @property (strong, readonly) Game *game;

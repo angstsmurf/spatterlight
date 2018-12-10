@@ -64,7 +64,7 @@
     if (self.infoWindow == nil)
         self.infoWindow = [[InfoController alloc]initWithWindowNibName: @"InfoPanel"];
 
-    InfoController * infoWindow = (InfoController *)self.infoWindow;
+    InfoController *infoWindow = (InfoController *)self.infoWindow;
     infoWindow.game = self;
 
     [infoWindow showWindow: nil];
@@ -76,6 +76,7 @@
 {
 //    NSLog(@"glkctl: windowWillClose");
     InfoController * infoWindow = (InfoController *)self.infoWindow;
+	[infoWindow updateBlurb];
     infoWindow.window.delegate = nil;
     self.infoWindow = nil;
 }

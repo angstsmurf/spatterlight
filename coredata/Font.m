@@ -18,9 +18,9 @@
 					inManagedObjectContext:self.managedObjectContext];
 
 	// Loop through all attributes and assign them to the clone
-	NSDictionary *attributes = [[NSEntityDescription
+	NSDictionary *attributes = [NSEntityDescription
 								 entityForName:@"Font"
-								 inManagedObjectContext:self.managedObjectContext] attributesByName];
+								 inManagedObjectContext:self.managedObjectContext].attributesByName;
 
 	for (NSString *attr in attributes) {
 		[cloned setValue:[self valueForKey:attr] forKey:attr];

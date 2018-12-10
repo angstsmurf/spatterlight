@@ -1,8 +1,6 @@
 // Code adapted from avf et al.
 // See replies to https://stackoverflow.com/questions/21241690/time-date-from-nsdate-to-show-just-like-message-and-mail-app-in-ios
 
-#define AWEEKAGO -518400
-
 @implementation NSDate (relative)
 
 
@@ -39,7 +37,7 @@ BOOL isThisWeek(NSDate *self)
 {
 
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    [offsetComponents setDay:-6];  // 6 days back from today
+    offsetComponents.day = -6;  // 6 days back from today
     NSDate *weekAgo = [[NSCalendar currentCalendar] dateByAddingComponents:offsetComponents toDate:[NSDate date] options:0];
 
     //Not future or more than a week ago

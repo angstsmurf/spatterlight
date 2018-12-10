@@ -613,14 +613,14 @@ NSString* fontToString(NSFont *font)
 			currentGame.setting = [defaultSettings clone];
 			currentSettings = currentGame.setting;
 		}
-		[[self window] setTitle:[NSString stringWithFormat: @"Preferences for %@", currentGame.metadata.title]];
+		self.window.title = [NSString stringWithFormat: @"Preferences for %@", currentGame.metadata.title];
 		[Preferences changePreferences:currentSettings forGame:currentGame];
 		[Preferences rebuildTextAttributes];
 	}
 	else
 	{
 		NSLog(@"updatePreferencePanel: Current settings set to default.");
-		[[self window] setTitle:@"Preferences for all games"];
+		self.window.title = @"Preferences for all games";
 		if (currentSettings != defaultSettings)
 		{
 			currentSettings = defaultSettings;
@@ -637,7 +637,7 @@ NSString* fontToString(NSFont *font)
 
 	if (currentSettings && currentSettings != defaultSettings)
 	{
-		[[self window] setTitle:[NSString stringWithFormat: @"Preferences for %@", [currentSettings.games anyObject].metadata.title]];
+		self.window.title = [NSString stringWithFormat: @"Preferences for %@", [currentSettings.games anyObject].metadata.title];
 	}
 	else
 	{
@@ -649,11 +649,11 @@ NSString* fontToString(NSFont *font)
 				currentGame.setting = [defaultSettings clone];
 			}
 			currentSettings = currentGame.setting;
-			[[self window] setTitle:[NSString stringWithFormat: @"Preferences for %@", currentGame.metadata.title]];
+			self.window.title = [NSString stringWithFormat: @"Preferences for %@", currentGame.metadata.title];
 		}
 		else
 		{
-			[[self window] setTitle:@"Preferences for all games"];
+			self.window.title = @"Preferences for all games";
 		}
 
 	}
@@ -695,14 +695,14 @@ NSString* fontToString(NSFont *font)
 
 	if (settings == nil || settings == defaultSettings)
 	{
-		NSWindow *prefWin = [(AppDelegate *)[[NSApplication sharedApplication] delegate] preferencePanel];
+		NSWindow *prefWin = [(AppDelegate *)[NSApplication sharedApplication].delegate preferencePanel];
 
-		if ([prefWin isVisible] )
+		if (prefWin.visible )
 		{
 			NSLog(@"changePreferences: Preferences window is open. Create new settings for %@", game.metadata.title);
 			currentGame.setting = [defaultSettings clone];
 			settings = currentGame.setting;
-			[prefWin setTitle:[NSString stringWithFormat: @"Preferences for %@", currentGame.metadata.title]];
+			prefWin.title = [NSString stringWithFormat: @"Preferences for %@", currentGame.metadata.title];
 		}
 		else
 		{
@@ -772,7 +772,7 @@ NSString* fontToString(NSFont *font)
         dostyles = settings.dostyles;
 
     [Preferences rebuildTextAttributes];
-    [(AppDelegate *)[[NSApplication sharedApplication] delegate] updatePreferencePanel];
+    [(AppDelegate *)[NSApplication sharedApplication].delegate updatePreferencePanel];
     [self savePreferences];
 }
 
@@ -812,7 +812,7 @@ NSString* fontToString(NSFont *font)
     currentSettings.dostyles = dostyles;
 
     NSError *error = nil;
-    if (![((AppDelegate*)[[NSApplication sharedApplication] delegate]).persistentContainer.viewContext save:&error]) {
+    if (![((AppDelegate*)[NSApplication sharedApplication].delegate).persistentContainer.viewContext save:&error]) {
         NSLog(@"There's a problem: %@", error);
     }
 
@@ -942,10 +942,10 @@ NSString* fontToString(NSFont *font)
         [self.window makeFirstResponder: self.window];
 
         [NSFontManager sharedFontManager].target = self;
-		[[NSFontPanel sharedFontPanel] setDelegate:self];
+		[NSFontPanel sharedFontPanel].delegate = self;
 		[[NSFontPanel sharedFontPanel] makeKeyAndOrderFront:self];
 
-		NSDictionary *attr = @{ @"NSColor" : *colorp, @"NSDocumentBackgroundColor" : *colorp2,};
+		NSDictionary *attr = @{ @"NSColor" : *colorp, @"NSDocumentBackgroundColor" : *colorp2 };
 
 		[[NSFontManager sharedFontManager] setSelectedAttributes:attr isMultiple: NO];
 		[[NSFontManager sharedFontManager] setSelectedFont: *selfontp isMultiple:NO];
@@ -1017,7 +1017,7 @@ NSString* fontToString(NSFont *font)
     NSDictionary * newAttributes = [sender convertAttributes:@{}];
 
 	NSLog(@"Keys in newAttributes:");
-	for(NSString *key in [newAttributes allKeys]) {
+	for(NSString *key in newAttributes.allKeys) {
 		NSLog(@" %@ : %@",key, newAttributes[key]);
 	}
 
@@ -1070,7 +1070,7 @@ NSString* fontToString(NSFont *font)
 
 - (void) windowWillClose: (id)sender
 {
-	if ([[NSFontPanel sharedFontPanel] isVisible])
+	if ([NSFontPanel sharedFontPanel].visible)
 		[[NSFontPanel sharedFontPanel] orderOut:self];
 }
 
@@ -1168,24 +1168,24 @@ NSString* fontToString(NSFont *font)
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
             NSEntityDescription *entity = [NSEntityDescription entityForName:@"Settings" inManagedObjectContext:managedObjectContext];
 
-            [fetchRequest setEntity:entity];
+            fetchRequest.entity = entity;
 
             predicate = [NSPredicate predicateWithFormat:@"isDefault == YES"];
-            [fetchRequest setPredicate:predicate];
+            fetchRequest.predicate = predicate;
 
             fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
             if (fetchedObjects == nil) {
                 NSLog(@"Problem! %@",error);
             }
 
-            if ([fetchedObjects count] > 1)
+            if (fetchedObjects.count > 1)
             {
                 NSLog(@"Found more than one entity with isDefault == YES. Deleting all but the first.");
-				for (int i = 1; i < [fetchedObjects count]; i++)
+				for (int i = 1; i < fetchedObjects.count; i++)
 					[self.managedObjectContext deleteObject:fetchedObjects[i]];
 				defaultSettings = fetchedObjects[0];
             }
-            else if ([fetchedObjects count] == 0)
+            else if (fetchedObjects.count == 0)
             {
                 NSLog(@"defaultSettings: Found no entity with isDefault == YES. Creating one.");
                 defaultSettings = [NSEntityDescription insertNewObjectForEntityForName:@"Settings" inManagedObjectContext:managedObjectContext];
@@ -1206,7 +1206,7 @@ NSString* fontToString(NSFont *font)
 
 + (NSManagedObjectContext *) managedObjectContext {
     if (managedObjectContext == nil) {
-        NSPersistentContainer *container = ((AppDelegate*)[[NSApplication sharedApplication] delegate]).persistentContainer;
+        NSPersistentContainer *container = ((AppDelegate*)[NSApplication sharedApplication].delegate).persistentContainer;
         managedObjectContext = container.viewContext;
     }
     return managedObjectContext;

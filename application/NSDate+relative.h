@@ -2,6 +2,6 @@
 
 @interface NSDate (relative)
 
-- (NSString *)formattedRelativeString;
+@property (readonly, copy) NSString *formattedRelativeString;
 
 @end

@@ -183,7 +183,7 @@ void wintitle(void)
             (int)(strlen(buf)), // * sizeof(unsigned short)
             (char*)buf);
 #ifdef DEBUG
-    //fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
+    fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
 #endif
 }
 
@@ -248,6 +248,7 @@ void win_delwin(int name)
 
 void win_sizewin(int name, int a, int b, int c, int d)
 {
+	fprintf(stderr, "win_sizewin called with name=%d a=%d, b=%d, c=%d, d=%d\n",name, a,b,c,d);
     win_flush();
     sendmsg(SIZWIN, name, a, b, c, d, 0, NULL);
 }

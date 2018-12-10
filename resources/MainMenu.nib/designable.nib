@@ -81,13 +81,13 @@
                                     <action selector="addGamesToLibrary:" target="-1" id="399"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Open Recent" id="z78-tk-dOW">
+                            <menuItem title="Open Recent" id="VLk-tA-nNg">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="C0T-Bp-576">
+                                <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="Sih-eR-9bE">
                                     <items>
-                                        <menuItem title="Clear Menu" id="bx5-7b-g7F">
+                                        <menuItem title="Clear Menu" id="e0B-3z-zI9">
                                             <connections>
-                                                <action selector="clearRecentDocuments:" target="-1" id="cZO-Cp-EXb"/>
+                                                <action selector="clearRecentDocuments:" target="-1" id="H5a-Ox-DNU"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -349,5 +349,17 @@ CA
             </items>
         </menu>
         <customObject id="248" userLabel="Delegate" customClass="AppDelegate"/>
+        <menuItem title="Open Recent" id="hXA-T1-aTB">
+            <modifierMask key="keyEquivalentModifierMask"/>
+            <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="oSO-hn-MPp">
+                <items>
+                    <menuItem title="Clear Menu" id="BSm-0S-DUv">
+                        <connections>
+                            <action selector="clearRecentDocuments:" target="-1" id="nk1-Nm-WVr"/>
+                        </connections>
+                    </menuItem>
+                </items>
+            </menu>
+        </menuItem>
     </objects>
 </document>

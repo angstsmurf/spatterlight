@@ -1,11 +1,11 @@
-// Code stolen from Daniel Dickison, Walty Yeung et al.
+// Code adapted from Daniel Dickison, Walty Yeung et al.
 // See replies to https://stackoverflow.com/questions/1105169/html-character-decoding-in-objective-c-cocoa-touch
 
 @implementation NSString (XML)
 
 
 - (NSString *)stringByDecodingXMLEntities {
-    NSUInteger myLength = [self length];
+    NSUInteger myLength = self.length;
     NSUInteger ampIndex = [self rangeOfString:@"&" options:NSLiteralSearch].location;
 
     // Short-circuit if there are no ampersands.
@@ -28,7 +28,7 @@
         if ([scanner scanUpToString:@"&" intoString:&nonEntityString]) {
             [result appendString:nonEntityString];
         }
-        if ([scanner isAtEnd]) {
+        if (scanner.atEnd) {
             goto finish;
         }
         // Scan either a HTML or numeric character entity reference.
@@ -92,7 +92,7 @@
         }
         
     }
-    while (![scanner isAtEnd]);
+    while (!scanner.atEnd);
     
 finish:
     return result;
