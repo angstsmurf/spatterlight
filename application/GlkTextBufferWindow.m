@@ -607,6 +607,10 @@
     {
         glkTextBuffer = textbuffer;
         _bottomPadding = 0;
+		_shouldReadText = NO;
+		_rangeToRead = NSMakeRange(0, 0);
+        _lastMovePosition = 0;
+        _thisMovePosition = 0;
     }
     return self;
 }
@@ -801,6 +805,203 @@
     self.editable = NO;
     [self.textFinder performAction:sender.tag];
     self.editable = waseditable;
+}
+
+- (id)accessibilityAttributeValue:(NSString *)attribute
+{
+
+	NSLog(@"MyTextView: accessibilityAttributeValue: %@",attribute);
+    NSLog(_shouldReadText?@"_shouldReadText is on":@"_shouldReadText is off");
+
+//	if ([attribute isEqualToString: NSAccessibilityRoleAttribute])
+//    {
+//        NSLog (@"Result: %@",_shouldReadText?NSAccessibilityValueIndicatorRole:NSAccessibilityTextAreaRole);
+//
+//        //return _shouldReadText?NSAccessibilityValueIndicatorRole:NSAccessibilityTextAreaRole;
+//
+//        return NSAccessibilityTextAreaRole;
+//        //return NSAccessibilityStaticTextRole;
+//
+//    }
+
+	if ([attribute isEqualToString:NSAccessibilityValueAttribute])
+	{
+		// Apple's SpeechSynthesisServer expects AXValue to return an AXStaticText
+		// object's AXSelectedText attribute. See bug 674612 for details.
+		// Also if there is no selected text, we return the full text.
+		// See bug 369710 for details.
+		NSString* selectedText = nil;
+
+        if (_shouldReadText)
+            return [self.textStorage.string substringWithRange: _rangeToRead];
+
+        if (self.selectedRanges)
+            selectedText = [self.textStorage.string substringWithRange: ((NSValue *)self.selectedRanges[0]).rangeValue];
+
+		return (selectedText && [selectedText length]) ? selectedText : [self.textStorage.string substringWithRange: ((NSValue *)[super accessibilityAttributeValue:NSAccessibilityVisibleCharacterRangeAttribute]).rangeValue];
+	}
+
+	if (_shouldReadText)
+	{
+		if ([attribute isEqualToString:NSAccessibilitySelectedTextRangeAttribute])
+		{
+            NSLog (@"Result: %@",[NSValue valueWithRange:_rangeToRead]);
+
+			return [NSValue valueWithRange:_rangeToRead];
+		}
+
+		if ([attribute isEqualToString:NSAccessibilitySelectedTextRangesAttribute])
+		{
+           // NSRange fakeRange = NSMakeRange(self.textStorage.length, 0);
+
+			NSArray *ranges = @[ [NSValue valueWithRange:_rangeToRead] ];
+            NSLog (@"Result: %@",ranges);
+
+			return ranges;
+           // return [super accessibilityAttributeValue:attribute];
+
+		}
+
+		if ([attribute isEqualToString:NSAccessibilityNumberOfCharactersAttribute])
+		{
+            NSUInteger fakelength = ((NSNumber *)[super accessibilityAttributeValue:attribute]).intValue - 1;
+            NSLog (@"Result: %@",[NSNumber numberWithInteger:fakelength]);
+
+			return [NSNumber numberWithInteger:fakelength];
+		}
+	}
+
+
+    if ([attribute isEqualToString:NSAccessibilitySelectedTextRangeAttribute])
+    {
+        NSRange fakeRange = NSMakeRange(self.textStorage.length, 0);
+        NSLog (@"Result: %@",[NSValue valueWithRange:fakeRange]);
+
+        return [NSValue valueWithRange:fakeRange];
+    }
+
+    if ([attribute isEqualToString:NSAccessibilitySelectedTextRangesAttribute])
+    {
+        NSRange fakeRange = NSMakeRange(self.textStorage.length, 0);
+
+        NSArray *ranges = @[ [NSValue valueWithRange:fakeRange] ];
+        NSLog (@"Result: %@", ranges);
+
+        return ranges;
+    }
+
+    
+	//The notification calls this method for attributes:
+	//AXRole: returns AXTextArea
+	//AXSharedCharacterRange: returns range of the text view
+
+	NSLog (@"Result: %@",[super accessibilityAttributeValue:attribute]);
+	return [super accessibilityAttributeValue:attribute];
+}
+
+-(id)accessibilityAttributeValue:(NSString *)attribute forParameter:(id)parameter
+{
+	NSLog(@"MyTextView: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);
+
+	NSRange visibleRange = ((NSValue *)[super accessibilityAttributeValue:NSAccessibilityVisibleCharacterRangeAttribute]).rangeValue;
+
+	if (_shouldReadText)
+	{
+
+        if ([attribute isEqualToString:NSAccessibilityLineForIndexParameterizedAttribute])
+        {
+            return nil;
+        }
+
+        if ([attribute isEqualToString:NSAccessibilityRangeForLineParameterizedAttribute])
+        {
+            return nil;
+        }
+//
+//		if ([attribute isEqualToString:NSAccessibilityStringForRangeParameterizedAttribute])
+//		{
+//            NSLog (@"_shouldReadText is on, so we return substring with range _rangeToRead. Length of textStorage = %ld, _range to read = %@", (unsigned long)self.textStorage.length, NSStringFromRange(_rangeToRead));
+//            NSLog (@"Result: %@",[self.textStorage.string substringWithRange:_rangeToRead]);
+//
+//			return [self.textStorage.string substringWithRange:_rangeToRead];
+//		}
+
+		if ([attribute isEqualToString:NSAccessibilityAttributedStringForRangeParameterizedAttribute])
+		{
+            NSLog (@"Result: %@",[self.textStorage attributedSubstringFromRange:_rangeToRead]);
+
+			return [self.textStorage attributedSubstringFromRange:_rangeToRead];
+		}
+	}
+
+    if ([attribute isEqualToString:NSAccessibilityRangeForLineParameterizedAttribute])
+    {
+        
+        unsigned numberOfLines, requested_line, index, numberOfGlyphs =
+
+        [self.layoutManager numberOfGlyphs];
+
+        requested_line = ((NSNumber *)parameter).intValue;
+
+        NSRange lineRange;
+
+        for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++){
+
+            (void) [self.layoutManager lineFragmentRectForGlyphAtIndex:index
+
+                                                   effectiveRange:&lineRange];
+            
+            index = NSMaxRange(lineRange);
+            if (numberOfLines == requested_line)
+                return [NSValue valueWithRange:lineRange];
+        }
+        return [NSValue valueWithRange:lineRange];
+
+    }
+//    if ([attribute isEqualToString:NSAccessibilityAttributedStringForRangeParameterizedAttribute])
+//    {
+//        NSRange range = ((NSValue *)parameter).rangeValue;
+//        NSLog(@"Result: %@",[self.textStorage attributedSubstringFromRange:NSMakeRange(range.location, self.textStorage.length - range.location)].string);
+//
+//        return [self.textStorage attributedSubstringFromRange:NSMakeRange(range.location, self.textStorage.length - range.location)];
+//    }
+
+   
+	NSLog(@"Result: %@",[super accessibilityAttributeValue:attribute forParameter:parameter]);
+	return [super accessibilityAttributeValue:attribute forParameter:parameter];
+}
+
+- (void)accessibilityPerformAction:(NSString *)action {
+	NSLog(@"MyTextView: accessibilityPerformAction. %@",action);
+	return [super accessibilityPerformAction: action];
+}
+
+- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
+
+	NSLog(@"MyTextView: accessibilityIsAttributeSettable: %@ : %@", attribute, [super accessibilityIsAttributeSettable: attribute]?@"YES":@"NO");
+
+	return [super accessibilityIsAttributeSettable: attribute];
+}
+
+- (void)accessibilitySetValue: (id)value
+				 forAttribute: (NSString*) attribute {
+
+	NSLog(@"MyTextView: accessibilitySetValue: %@ forAttribute: %@", value, attribute);
+
+	return [super accessibilitySetValue: value
+						   forAttribute: attribute];
+}
+
+- (NSArray*) accessibilityAttributeNames {
+	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
+	if (!result) result = [[NSMutableArray alloc] init];
+
+    //	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
+    //								  NSAccessibilityHelpAttribute]];
+
+    //	NSLog(@"MyTextView: accessibilityAttributeNames: %@ ", result);
+
+	return result;
 }
 
 @end
@@ -1531,6 +1732,11 @@
     _lastchar = [str characterAtIndex: [str length] - 1];
 }
 
+- (void) shouldNotReadText:(id)sender
+{
+    textview.shouldReadText = NO;
+}
+
 - (void) initChar
 {
     //NSLog(@"init char in %d", name);
@@ -1544,6 +1750,8 @@
     [textview setEditable: YES];
 
     [textview setSelectedRange: NSMakeRange(fence, 0)];
+
+    [self setLastMove];
 }
 
 - (void) cancelChar
@@ -1594,6 +1802,8 @@
     line_request = YES;
 
     [textview setSelectedRange: NSMakeRange([textstorage length], 0)];
+
+    [self setLastMove];
 }
 
 - (NSString*) cancelLine
@@ -1614,6 +1824,32 @@
     [textview setEditable: NO];
     line_request = NO;
     return str;
+}
+
+- (void) setLastMove
+{
+    if (textview.thisMovePosition && textview.thisMovePosition > textview.lastMovePosition)
+    {
+        textview.shouldReadText = YES;
+        textview.lastMovePosition = textview.thisMovePosition;
+        textview.thisMovePosition = textstorage.length;
+
+        textview.rangeToRead = NSMakeRange(textview.lastMovePosition + 1, textview.thisMovePosition - textview.lastMovePosition - 2);
+
+        NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
+        //[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(shouldNotReadText:) userInfo:nil repeats:NO];
+        
+    }
+    else textview.thisMovePosition = textstorage.length;
+}
+
+- (void) stopSpeakingText
+{
+    NSLog(@"onKeyDown: textview.shouldReadText = NO;");
+    textview.shouldReadText = NO;
+
+    NSAccessibilityPostNotification(textview, NSAccessibilitySelectedTextChangedNotification);
+    NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
 }
 
 - (void) setHyperlink:(NSInteger)linkid
@@ -1719,7 +1955,10 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 // = NSAccessibility =
 
 - (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
-	return [super accessibilityIsAttributeSettable: attribute];;
+
+	NSLog(@"GlkTextBufferWindow: accessibilityIsAttributeSettable: %@", attribute);
+
+	return [super accessibilityIsAttributeSettable: attribute];
 }
 
 /*
@@ -1739,15 +1978,19 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
  return [result autorelease];
  }
-
- - (void)accessibilityPerformAction:(NSString *)action {
- NSLog(@"action");
- return [super accessibilityPerformAction: action];
- }
  */
+
+- (void)accessibilityPerformAction:(NSString *)action {
+    NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
+    return [super accessibilityPerformAction: action];
+}
+
 
 - (void)accessibilitySetValue: (id)value
 				 forAttribute: (NSString*) attribute {
+
+	NSLog(@"GlkTextBufferWindow: accessibilitySetValue: %@ forAttribute: %@", value, attribute);
+
 	// No settable attributes
 	return [super accessibilitySetValue: value
 						   forAttribute: attribute];
@@ -1760,21 +2003,26 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
      NSAccessibilityHelpAttribute]];
 
+    //	NSLog(@"GlkTextBufferWindow: accessibilityAttributeNames: %@ ", result);
+
     return result;
 }
 
-- (id)accessibilityAttributeValue:(NSString *)attribute {
+- (id)accessibilityAttributeValue:(NSString *)attribute
+{
+    
+	NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@",attribute);
 	if ([attribute isEqualToString: NSAccessibilityContentsAttribute]) {
 		return textview;
-	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
+        //} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
 		//return parentWindow;
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
 		if (!line_request && !char_request) return @"Text window";
-		return [NSString stringWithFormat: @"GLK text window%@%@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@""];
+		return [NSString stringWithFormat: @"Text window%@%@%@. Window text:%@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
-		return (id)NO;
-		/* return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
-         [[self window] firstResponder] == textView]; */
+		//return (id)NO;
+        return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
+                [[self window] firstResponder] == textview];
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
 		return [self accessibilityFocusedUIElement];
 	} else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
@@ -1782,6 +2030,13 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 	}
     
 	return [super accessibilityAttributeValue: attribute];
+}
+
+-(id)accessibilityAttributeValue:(NSString *)attribute forParameter:(id)parameter
+{
+	NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);
+    
+	return [super accessibilityAttributeValue:attribute forParameter:parameter];
 }
 
 - (id)accessibilityFocusedUIElement {

@@ -34,6 +34,11 @@
 @property CGFloat bottomPadding;
 @property (readonly) NSTextFinder* textFinder;
 
+@property BOOL shouldReadText;
+@property NSRange rangeToRead;
+@property NSUInteger lastMovePosition;
+@property NSUInteger thisMovePosition;
+
 @end
 
 /*
@@ -90,6 +95,7 @@
 - (void) onKeyDown: (NSEvent*)evt;
 - (void) echo: (BOOL)val;
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
+- (void) stopSpeakingText;
 
 @property (readonly) NSInteger lastchar; /* for smart formatting */
 @property (readonly) NSInteger lastseen; /* for more paging */
