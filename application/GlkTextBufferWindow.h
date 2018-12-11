@@ -34,8 +34,7 @@
 @property CGFloat bottomPadding;
 @property (readonly) NSTextFinder* textFinder;
 
-@property BOOL shouldReadText;
-@property NSRange rangeToRead;
+@property NSRange rangeToRead_10_7;
 @property NSUInteger lastMovePosition;
 @property NSUInteger thisMovePosition;
 
