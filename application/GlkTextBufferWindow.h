@@ -19,7 +19,7 @@
 @interface MyTextView : NSTextView <NSTextFinderClient>
 {
     GlkTextBufferWindow * glkTextBuffer;
-    NSTextFinder* _textFinder; // define your own text finder
+    NSTextFinder* _textFinder;
 }
 
 - (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textBuffer: (GlkTextBufferWindow *)textbuffer;
@@ -28,7 +28,7 @@
 - (void) performScroll;
 - (void) temporarilyHideCaret;
 - (BOOL) scrolledToBottom;
-- (void) resetTextFinder; // A method to reset the view's text finder when you change the text storage
+- (void) resetTextFinder; // Call after changing the text storage, or search will break.
 
 @property BOOL shouldDrawCaret;
 @property CGFloat bottomPadding;
