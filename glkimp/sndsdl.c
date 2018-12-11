@@ -662,7 +662,7 @@ static glui32 play_mod(schanid_t chan, long len)
 	//fprintf(stderr, "tempdir = %s\n", tempdir);
 
     sprintf(tn, "%sXXXXXX", tempdir);
-    mktemp(tn);
+    mkstemp(tn);
 	sprintf(tn, "%s.mod", tn);
 
     //fprintf(stderr, "tn = %s\n", tn);
