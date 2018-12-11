@@ -68,7 +68,7 @@
  * TextBuffer window controller
  */
 
-#define HISTORYLEN 50
+#define HISTORYLEN 100
 
 @interface GlkTextBufferWindow : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate>
 {
