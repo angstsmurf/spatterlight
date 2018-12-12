@@ -9,7 +9,24 @@
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
 #else
 #define NSLog(...)
-#endif
+#endif // DEBUG
+
+
+#if !defined(MAC_OS_X_VERSION_10_9) || MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_9
+
+typedef NSString *NSAccessibilityNotificationUserInfoKey;
+
+APPKIT_EXTERN void NSAccessibilityPostNotificationWithUserInfo(id element, NSString *notification, NSDictionary *userInfo) NS_AVAILABLE_MAC(10_7);
+APPKIT_EXTERN NSString *const NSAccessibilityAnnouncementRequestedNotification NS_AVAILABLE_MAC(10_7);
+APPKIT_EXTERN NSString *const NSAccessibilityAnnouncementKey NS_AVAILABLE_MAC(10_7);
+
+const NSAccessibilityNotificationUserInfoKey NSAccessibilityPriorityKey = @"AXPriorityKey";
+enum { NSAccessibilityPriorityHigh = 90 };
+
+CGFloat NSAppKitVersionNumber10_9 = 1265.0;
+
+#endif  // MAC_OS_X_VERSION_10_9
+
 
 @implementation MyAttachmentCell
 
@@ -602,16 +619,17 @@
 
 - (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textBuffer: (GlkTextBufferWindow *)textbuffer
 {
-    self = [super initWithFrame:rect textContainer:container];
-    if (self)
-    {
-        glkTextBuffer = textbuffer;
-        _bottomPadding = 0;
-		_rangeToRead_10_7 = NSMakeRange(0, 0);
-        _lastMovePosition = 0;
-        _thisMovePosition = 0;
-    }
-    return self;
+	self = [super initWithFrame:rect textContainer:container];
+	if (self)
+	{
+		glkTextBuffer = textbuffer;
+		_bottomPadding = 0;
+		_shouldSpeak_10_7 = NO;
+		_rangeToSpeak_10_7 = NSMakeRange(0, 0);
+		_lastMovePosition = 0;
+		_thisMovePosition = 0;
+	}
+	return self;
 }
 
 - (void) superKeyDown: (NSEvent*)evt
@@ -811,12 +829,15 @@
 
 	NSLog(@"MyTextView: accessibilityAttributeValue: %@",attribute);
 
+
 	if ([attribute isEqualToString:NSAccessibilityValueAttribute])
 	{
 		NSString* selectedText = nil;
 
-        if (_rangeToRead_10_7.length)
-            return [self.textStorage.string substringWithRange: _rangeToRead_10_7];
+		if (_shouldSpeak_10_7)
+		{
+			return [self.textStorage.string substringWithRange: _rangeToSpeak_10_7];
+		}
 
         if (self.selectedRanges)
             selectedText = [self.textStorage.string substringWithRange: ((NSValue *)self.selectedRanges[0]).rangeValue];
@@ -824,35 +845,19 @@
 		return (selectedText && [selectedText length]) ? selectedText : [self.textStorage.string substringWithRange: ((NSValue *)[super accessibilityAttributeValue:NSAccessibilityVisibleCharacterRangeAttribute]).rangeValue];
 	}
 
-	if (_rangeToRead_10_7.length)
+	if (_shouldSpeak_10_7)
 	{
+
 		if ([attribute isEqualToString:NSAccessibilitySelectedTextRangeAttribute])
-			return [NSValue valueWithRange:_rangeToRead_10_7];
+			return [NSValue valueWithRange:_rangeToSpeak_10_7];
 
 		if ([attribute isEqualToString:NSAccessibilitySelectedTextRangesAttribute])
 		{
-			NSArray *ranges = @[ [NSValue valueWithRange:_rangeToRead_10_7] ];
+			NSArray *ranges = @[ [NSValue valueWithRange:_rangeToSpeak_10_7] ];
 			return ranges;
 		}
-	}
 
-//	if ([attribute isEqualToString:NSAccessibilitySelectedTextRangeAttribute])
-//	{
-//		NSRange fakeRange = NSMakeRange(self.textStorage.length, 0);
-//		NSLog (@"Result: %@",[NSValue valueWithRange:fakeRange]);
-//
-//		return [NSValue valueWithRange:fakeRange];
-//	}
-//
-//	if ([attribute isEqualToString:NSAccessibilitySelectedTextRangesAttribute])
-//	{
-//		NSRange fakeRange = NSMakeRange(self.textStorage.length, 0);
-//
-//		NSArray *ranges = @[ [NSValue valueWithRange:fakeRange] ];
-//		NSLog (@"Result: %@", ranges);
-//
-//		return ranges;
-//	}
+	}
 
 	NSLog (@"Result: %@",[super accessibilityAttributeValue:attribute]);
 	return [super accessibilityAttributeValue:attribute];
@@ -862,7 +867,7 @@
 {
 	NSLog(@"MyTextView: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);
 
-	if (_rangeToRead_10_7.length)
+	if (_shouldSpeak_10_7)
 	{
 
         if ([attribute isEqualToString:NSAccessibilityLineForIndexParameterizedAttribute])
@@ -873,44 +878,13 @@
 
 		if ([attribute isEqualToString:NSAccessibilityAttributedStringForRangeParameterizedAttribute])
 		{
-            NSLog (@"Result: %@",[self.textStorage attributedSubstringFromRange:_rangeToRead_10_7]);
+			if (!_rangeToSpeak_10_7.length)
+				return @"";
+			NSLog (@"Result: %@",[self.textStorage attributedSubstringFromRange:_rangeToSpeak_10_7]);
 
-			return [self.textStorage attributedSubstringFromRange:_rangeToRead_10_7];
+			return [self.textStorage attributedSubstringFromRange:_rangeToSpeak_10_7];
 		}
 	}
-
-//    if ([attribute isEqualToString:NSAccessibilityRangeForLineParameterizedAttribute])
-//    {
-//        
-//        unsigned numberOfLines, requested_line, index, numberOfGlyphs =
-//
-//        [self.layoutManager numberOfGlyphs];
-//
-//        requested_line = ((NSNumber *)parameter).intValue;
-//
-//        NSRange lineRange;
-//
-//        for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++){
-//
-//            (void) [self.layoutManager lineFragmentRectForGlyphAtIndex:index
-//
-//                                                   effectiveRange:&lineRange];
-//
-//            index = NSMaxRange(lineRange);
-//            if (numberOfLines == requested_line)
-//                return [NSValue valueWithRange:lineRange];
-//        }
-//        return [NSValue valueWithRange:lineRange];
-//
-//    }
-//    if ([attribute isEqualToString:NSAccessibilityAttributedStringForRangeParameterizedAttribute])
-//    {
-//        NSRange range = ((NSValue *)parameter).rangeValue;
-//        NSLog(@"Result: %@",[self.textStorage attributedSubstringFromRange:NSMakeRange(range.location, self.textStorage.length - range.location)].string);
-//
-//        return [self.textStorage attributedSubstringFromRange:NSMakeRange(range.location, self.textStorage.length - range.location)];
-//    }
-
 
 	NSLog(@"Result: %@",[super accessibilityAttributeValue:attribute forParameter:parameter]);
 	return [super accessibilityAttributeValue:attribute forParameter:parameter];
@@ -985,7 +959,6 @@
         [scrollview setDocumentView: textview];
 
         /* now configure the text stuff */
-
 
         [container setWidthTracksTextView: YES];
         [container setHeightTracksTextView: NO];
@@ -1509,6 +1482,7 @@
         if (line_request)
             [self grabFocus];
 
+		[self stopSpeakingText];
         [textview superKeyDown: evt];
     }
 }
@@ -1626,6 +1600,7 @@
 
     [container clearImages];
 	hyperlinks = nil;
+	hyperlinks = [[NSMutableArray alloc] init];
 }
 
 - (void) putString:(NSString*)str style:(NSInteger)stylevalue
@@ -1730,32 +1705,26 @@
 
 - (void) setLastMove
 {
-    if (textview.thisMovePosition && textview.thisMovePosition > textview.lastMovePosition)
-    {
-        textview.lastMovePosition = textview.thisMovePosition;
-        textview.thisMovePosition = textstorage.length;
+	if (textview.thisMovePosition && textview.thisMovePosition > textview.lastMovePosition)
+	{
+		textview.lastMovePosition = textview.thisMovePosition;
+		textview.thisMovePosition = textstorage.length;
 
-
-		NSString *str = [textstorage.string substringWithRange:NSMakeRange(textview.lastMovePosition, textview.thisMovePosition - textview.lastMovePosition)];
-
-		NSDictionary *announcementInfo;
-
-		if (&NSAccessibilityPriorityKey == NULL)
+		if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9)
 		{
-			textview.rangeToRead_10_7 = NSMakeRange(textview.lastMovePosition, textview.thisMovePosition - textview.lastMovePosition);
+			textview.rangeToSpeak_10_7 = NSMakeRange(textview.lastMovePosition, textview.thisMovePosition - textview.lastMovePosition);
 
+			textview.shouldSpeak_10_7 = YES;
 			NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
-			//[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(shouldNotReadText:) userInfo:nil repeats:NO];
 		}
 		else
 		{
-			announcementInfo = @{
-								 NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-								 NSAccessibilityAnnouncementKey : str
-								 };
-			NSAccessibilityPostNotification(textview, NSAccessibilitySelectedTextChangedNotification);
-			NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
-			NSAccessibilityPostNotificationWithUserInfo(textview, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+			NSString *str = [textstorage.string substringWithRange:NSMakeRange(textview.lastMovePosition, textview.thisMovePosition - textview.lastMovePosition)];
+
+			NSDictionary *announcementInfo = @{
+											   NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+											   NSAccessibilityAnnouncementKey : str
+											   };
 
 			NSWindow *mainWin = [NSApp mainWindow];
 
@@ -1768,12 +1737,13 @@
 
 - (void) stopSpeakingText
 {
-	textview.rangeToRead_10_7 = NSMakeRange(0,0);
+	if (textview.shouldSpeak_10_7)
+	{
+		textview.rangeToSpeak_10_7 = NSMakeRange(textstorage.string.length, 0);
 
-	NSAccessibilityPostNotification(self, NSAccessibilitySelectedTextChangedNotification);
+		textview.shouldSpeak_10_7 = NO;
 
-    NSAccessibilityPostNotification(textview, NSAccessibilitySelectedTextChangedNotification);
-    NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
+	}
 }
 
 - (void) setHyperlink:(NSInteger)linkid
@@ -1900,7 +1870,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
  @"Read last command",
  nil]];
 
- return [result autorelease];
+ return [result];
  }
  */
 
