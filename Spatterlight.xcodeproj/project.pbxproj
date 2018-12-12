@@ -2149,6 +2149,8 @@
 		C39DE2901ECB7C6000CE5B70 /* term.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = term.c; sourceTree = "<group>"; };
 		C39DE2911ECB7C6000CE5B70 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
 		C39DE2921ECB7C6000CE5B70 /* word.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = word.c; sourceTree = "<group>"; };
+		C3A2C66421C0D3F6003C4A15 /* SDL */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SDL; path = headers/SDL; sourceTree = SOURCE_ROOT; };
+		C3A2C66521C0D3F6003C4A15 /* vorbis */ = {isa = PBXFileReference; lastKnownFileType = folder; name = vorbis; path = headers/vorbis; sourceTree = SOURCE_ROOT; };
 		C3B2FB131ECEE4B700826C9D /* sndsdl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sndsdl.c; sourceTree = "<group>"; };
 		C3B3773D1ECB99BF006432BE /* osstzprs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstzprs.c; path = tads2/osstzprs.c; sourceTree = "<group>"; };
 		C3B3773F1ECB99D6006432BE /* ostzposix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ostzposix.c; path = tads2/ostzposix.c; sourceTree = "<group>"; };
@@ -2730,6 +2732,7 @@
 				C3378A151ECF94A900BCEAE5 /* sound */,
 				961CCF2109F2940F00528FF9 /* resources */,
 				961CCF6509F295CA00528FF9 /* Frameworks */,
+				C3A2C66321C0D3AA003C4A15 /* headers */,
 				961CCE7C09F237E700528FF9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -4064,6 +4067,16 @@
 				C32036B41ED763DB00FF60DF /* SDL_sound.c */,
 			);
 			name = sound;
+			sourceTree = "<group>";
+		};
+		C3A2C66321C0D3AA003C4A15 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				C3A2C66421C0D3F6003C4A15 /* SDL */,
+				C3A2C66521C0D3F6003C4A15 /* vorbis */,
+			);
+			name = headers;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -5528,11 +5541,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /opt/local/include;
+				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = "";
 				VALID_ARCHS = x86_64;
 			};
@@ -5572,7 +5585,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /opt/local/include;
+				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -5599,9 +5612,9 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				HEADER_SEARCH_PATHS = (
-					/usr/local/include/SDL,
 					/usr/local/include,
 					/opt/local/include,
+					"$(PROJECT_DIR)/headers",
 				);
 				INSTALL_PATH = "@executable_path";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
@@ -5632,9 +5645,9 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				HEADER_SEARCH_PATHS = (
-					/usr/local/include/SDL,
 					/usr/local/include,
 					/opt/local/include,
+					"$(PROJECT_DIR)/headers",
 				);
 				INSTALL_PATH = "@executable_path";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
@@ -6470,7 +6483,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					$PROJECT_DIR/support/sdl_sound,
-					/opt/local/include,
+					$PROJECT_DIR/headers,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/opt/local/lib,
@@ -6518,7 +6531,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					$PROJECT_DIR/support/sdl_sound,
-					/opt/local/include,
+					$PROJECT_DIR/headers,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/opt/local/lib,
