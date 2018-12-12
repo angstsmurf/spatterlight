@@ -1333,13 +1333,15 @@ int CVmObjDate::parse_string_fmt(VMG_ date_parse_result *res,
                         && strchr("1234567", str[1]) != 0)
                     {
                         d = value_of_digit(str[1]);
-                        str += 2, len -= 2;
+						str += 2;
+						len -= 2;
                         res->pw.len += 2;
                     }
                     else if (len >= 1 && strchr("1234567", str[0]) != 0)
                     {
                         d = value_of_digit(str[0]);
-                        str += 1, len -= 1;
+						str += 1;
+						len -= 1;
                         res->pw.len += 1;
                     }
                     
@@ -1598,7 +1600,10 @@ int CVmObjDate::parse_string_fmt(VMG_ date_parse_result *res,
                          *   otherwise note any non-zero trailing digits 
                          */
                         if (mul > 1)
-                            acc *= 10, acc += value_of_digit(*str);
+						{
+							acc *= 10;
+							acc += value_of_digit(*str);
+						}
                         else if (*str != '0')
                             trailing = 1;
                     }
@@ -3192,7 +3197,8 @@ size_t CVmObjDate::format_date(VMG_ char *buf, size_t buflen,
         if (*fmt == '%' && fmtlen >= 2)
         {
             /* skip the '%' */
-            ++fmt, --fmtlen;
+			++fmt;
+			--fmtlen;
 
             /* parse flags */
             int pound = FALSE;
