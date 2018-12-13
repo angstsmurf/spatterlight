@@ -1,1 +1,1 @@
-/Users/administrator/spatterlight/Frameworks/SDL2.framework/Versions/A/Headers/SDL_thread.h
+../../Frameworks/SDL2.framework/Versions/A/Headers/SDL_thread.h

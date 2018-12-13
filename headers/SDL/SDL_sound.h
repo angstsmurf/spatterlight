@@ -1,1 +1,1 @@
-/Users/administrator/spatterlight/support/sdl_sound/SDL_sound.h
+../../support/sdl_sound/SDL_sound.h

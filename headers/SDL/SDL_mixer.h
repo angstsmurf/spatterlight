@@ -1,1 +1,1 @@
-/Users/administrator/spatterlight/Frameworks/SDL2_mixer.framework/Versions/A/Headers/SDL_mixer.h
+../../Frameworks/SDL2_mixer.framework/Versions/A/Headers/SDL_mixer.h
