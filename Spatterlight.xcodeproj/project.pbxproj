@@ -5613,20 +5613,13 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					/opt/local/include,
-					"$(PROJECT_DIR)/headers",
-				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
 				INSTALL_PATH = "@executable_path";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
-				LIBRARY_SEARCH_PATHS = (
-					/usr/local/lib,
-					/usr/local/opt,
-					"$(PROJECT_DIR)/Frameworks",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				PRODUCT_NAME = glkimp;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -5646,20 +5639,13 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					/opt/local/include,
-					"$(PROJECT_DIR)/headers",
-				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
 				INSTALL_PATH = "@executable_path";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
-				LIBRARY_SEARCH_PATHS = (
-					/usr/local/lib,
-					/usr/local/opt,
-					"$(PROJECT_DIR)/Frameworks",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				PRODUCT_NAME = glkimp;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -6488,7 +6474,6 @@
 					$PROJECT_DIR/headers,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					/opt/local/lib,
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
@@ -6496,7 +6481,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/SDL2.framework/Versions/A/Headers/ $(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/Vorbis.framework/Headers $(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework/Headers";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/SDL2.framework/Headers $(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework/Versions/A/Headers/";
 			};
 			name = Debug;
 		};
@@ -6536,7 +6521,6 @@
 					$PROJECT_DIR/headers,
 				);
 				LIBRARY_SEARCH_PATHS = (
-					/opt/local/lib,
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
@@ -6544,7 +6528,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/SDL2.framework/Versions/A/Headers/ $(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework/Headers";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/SDL2.framework/Headers $(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework/Versions/A/Headers/";
 			};
 			name = Release;
 		};
