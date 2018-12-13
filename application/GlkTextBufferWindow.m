@@ -626,8 +626,6 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
 		_bottomPadding = 0;
 		_shouldSpeak_10_7 = NO;
 		_rangeToSpeak_10_7 = NSMakeRange(0, 0);
-		_lastMovePosition = 0;
-		_thisMovePosition = 0;
 	}
 	return self;
 }
@@ -928,6 +926,8 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
 
 		hyperlinks = [[NSMutableArray alloc] init];
 		currentHyperlink = nil;
+
+        moveRanges = [[NSMutableArray alloc] init];
 
         scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
         [scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
@@ -1482,7 +1482,7 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
         if (line_request)
             [self grabFocus];
 
-		[self stopSpeakingText];
+		[self stopSpeakingText_10_7];
         [textview superKeyDown: evt];
     }
 }
@@ -1561,6 +1561,10 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
     [container clearImages];
 	hyperlinks = nil;
 	hyperlinks = [[NSMutableArray alloc] init];
+
+    moveRanges = nil;
+    moveRanges = [[NSMutableArray alloc] init];
+
     [container invalidateLayout];
 }
 
@@ -1601,6 +1605,9 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
     [container clearImages];
 	hyperlinks = nil;
 	hyperlinks = [[NSMutableArray alloc] init];
+
+    moveRanges = nil;
+    moveRanges = [[NSMutableArray alloc] init];
 }
 
 - (void) putString:(NSString*)str style:(NSInteger)stylevalue
@@ -1705,41 +1712,51 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
 
 - (void) setLastMove
 {
-	if (textview.thisMovePosition && textview.thisMovePosition > textview.lastMovePosition)
-	{
-		textview.lastMovePosition = textview.thisMovePosition;
-		textview.thisMovePosition = textstorage.length;
+    if (moveRanges.lastObject)
+    {
+        NSRange lastMove = ((NSValue *)moveRanges.lastObject).rangeValue;
+        lastMove = NSMakeRange(lastMove.location, textstorage.length - lastMove.location);
+        NSRange thisMove = NSMakeRange(textstorage.length - 1, 0);
 
-		if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9)
-		{
-			textview.rangeToSpeak_10_7 = NSMakeRange(textview.lastMovePosition, textview.thisMovePosition - textview.lastMovePosition);
+        [moveRanges removeLastObject];
+        [moveRanges addObject:[NSValue valueWithRange:lastMove]];
+        [moveRanges addObject:[NSValue valueWithRange:thisMove]];
 
-			textview.shouldSpeak_10_7 = YES;
-			NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
-		}
-		else
-		{
-			NSString *str = [textstorage.string substringWithRange:NSMakeRange(textview.lastMovePosition, textview.thisMovePosition - textview.lastMovePosition)];
+        if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9)
+        {
+            textview.rangeToSpeak_10_7 = lastMove;
 
-			NSDictionary *announcementInfo = @{
-											   NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-											   NSAccessibilityAnnouncementKey : str
-											   };
+            textview.shouldSpeak_10_7 = YES;
+            NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
+        }
+        else
+        {
+            NSString *str = [textstorage.string substringWithRange:lastMove];
 
-			NSWindow *mainWin = [NSApp mainWindow];
+            NSDictionary *announcementInfo = @{
+                                               NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+                                               NSAccessibilityAnnouncementKey : str
+                                               };
 
-			if (mainWin)
-				NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-		}
+            NSWindow *mainWin = [NSApp mainWindow];
+
+            if (mainWin)
+                NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+        }
+
     }
-    else textview.thisMovePosition = textstorage.length;
+    else
+        [moveRanges addObject:[NSValue valueWithRange:NSMakeRange(0, textstorage.length)]];
+        if (textstorage.length)
+            [moveRanges addObject:[NSValue valueWithRange:NSMakeRange(textstorage.length, 0)]];
+
 }
 
-- (void) stopSpeakingText
+- (void) stopSpeakingText_10_7
 {
 	if (textview.shouldSpeak_10_7)
 	{
-		textview.rangeToSpeak_10_7 = NSMakeRange(textstorage.string.length, 0);
+		textview.rangeToSpeak_10_7 = NSMakeRange(textstorage.length, 0);
 
 		textview.shouldSpeak_10_7 = NO;
 
@@ -1912,7 +1929,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 		//return parentWindow;
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
 		if (!line_request && !char_request) return @"Text window";
-		return [NSString stringWithFormat: @"Text window%@%@%@. Window text:%@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
+		return [NSString stringWithFormat: @"Text window%@%@%@. • %@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
 		//return (id)NO;
         return [NSNumber numberWithBool: [[self window] firstResponder] == self ||

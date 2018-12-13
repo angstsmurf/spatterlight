@@ -36,8 +36,6 @@
 
 @property BOOL shouldSpeak_10_7;
 @property NSRange rangeToSpeak_10_7;
-@property NSUInteger lastMovePosition;
-@property NSUInteger thisMovePosition;
 
 @end
 
@@ -89,13 +87,15 @@
     NSString *history[HISTORYLEN];
     NSInteger historypos;
     NSInteger historyfirst, historypresent;
+
+    NSMutableArray *moveRanges;
 }
 
 - (void) recalcBackground;
 - (void) onKeyDown: (NSEvent*)evt;
 - (void) echo: (BOOL)val;
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
-- (void) stopSpeakingText;
+- (void) stopSpeakingText_10_7;
 
 @property (readonly) NSInteger lastchar; /* for smart formatting */
 @property (readonly) NSInteger lastseen; /* for more paging */
