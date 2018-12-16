@@ -117,6 +117,7 @@
 {
     // NSLog(@"grab focus in window %d", name);
     [[self window] makeFirstResponder: self];
+	NSAccessibilityPostNotification( self, NSAccessibilityFocusedUIElementChangedNotification );
 }
 
 - (void) flushDisplay
