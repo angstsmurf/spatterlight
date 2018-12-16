@@ -22,7 +22,7 @@
 
     if (self)
     {
-        lines = [[NSMutableArray alloc] init];
+        //lines = [[NSMutableArray alloc] init];
         input = nil;
 
         rows = 0;
@@ -39,14 +39,65 @@
         currentHyperlink = nil;
 
         transparent = NO;
+
+		/* construct text system manually */
+
+		NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
+		[scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+		[scrollview setHasHorizontalScroller: NO];
+		[scrollview setHasVerticalScroller: NO];
+		[scrollview setHorizontalScrollElasticity:NSScrollElasticityNone];
+		[scrollview setVerticalScrollElasticity:NSScrollElasticityNone];
+
+		[scrollview setBorderType: NSNoBorder];
+
+		textstorage = [[NSTextStorage alloc] init];
+
+		layoutmanager = [[NSLayoutManager alloc] init];
+		[textstorage addLayoutManager: layoutmanager];
+
+		container = [[NSTextContainer alloc] initWithContainerSize: NSMakeSize(10000000, 10000000)];
+
+		[container setLayoutManager: layoutmanager];
+		[layoutmanager addTextContainer: container];
+
+		textview = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0) textContainer:container];
+
+		[textview setMinSize:NSMakeSize(0, 0)];
+		[textview setMaxSize:NSMakeSize(10000000, 10000000)];
+
+		[container setTextView: textview];
+		[scrollview setDocumentView: textview];
+
+		/* now configure the text stuff */
+
+		//[container setWidthTracksTextView: NO];
+
+		[textview setHorizontallyResizable: YES];
+
+		[textview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+
+		[textview setDelegate: self];
+		[textstorage setDelegate: self];
+		[textview setTextContainerInset: NSMakeSize([Preferences gridMargins] - 3, [Preferences gridMargins])];
+
+		[self recalcBackground];
+		[textview setEditable:NO];
+		
+		[self addSubview: scrollview];
     }
     return self;
 }
 
-
 - (BOOL) isFlipped
 {
     return YES;
+}
+
+- (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value
+{
+	[super setStyle:style windowType:wintype enable:enable value:value];
+	[self recalcBackground];
 }
 
 - (void) prefsDidChange
@@ -58,10 +109,19 @@
 
 	[super prefsDidChange];
 
+	NSInteger margin = [Preferences gridMargins];
+	[textview setTextContainerInset: NSMakeSize(margin - 3, margin)];
+
+	[textstorage removeAttribute: NSBackgroundColorAttributeName
+						   range: NSMakeRange(0, [textstorage length])];
+
     /* reassign styles to attributedstrings */
-    for (i = 0; i < [lines count]; i++)
+    for (i = 0; i < rows; i++)
     {
-        NSMutableAttributedString *line = lines[i];
+		NSRange lineRange = NSMakeRange(i * cols, cols);
+		if (i * cols + cols > textstorage.length)
+			lineRange = NSMakeRange(i * cols, textstorage.length - i * cols);
+        NSMutableAttributedString *line = [[textstorage attributedSubstringFromRange:lineRange] mutableCopy];
         int x = 0;
         while (x < [line length])
         {
@@ -83,7 +143,11 @@
 			x = (int)(range.location + range.length);
 
 		}
+
+		[textstorage replaceCharactersInRange:lineRange withAttributedString:line];
 	}
+
+	[self setFrame: [self frame]];
 
     [self setNeedsDisplay: YES];
     dirty = NO;
@@ -105,6 +169,35 @@
     if (dirty)
         [self setNeedsDisplay: YES];
     dirty = NO;
+}
+
+- (BOOL) allowsDocumentBackgroundColorChange { return YES; }
+
+- (void)changeDocumentBackgroundColor:(id)sender
+{
+	NSLog(@"changeDocumentBackgroundColor");
+}
+
+- (void) recalcBackground
+{
+	NSColor *bgcolor, *fgcolor;
+
+	bgcolor = nil;
+	fgcolor = nil;
+
+	if ([Preferences stylesEnabled])
+	{
+		bgcolor = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
+		fgcolor = [styles[style_Normal] attributes][NSForegroundColorAttributeName];
+	}
+
+	if (!bgcolor)
+		bgcolor = [Preferences gridBackground];
+	if (!fgcolor)
+		fgcolor = [Preferences gridForeground];
+
+	[textview setBackgroundColor: bgcolor];
+	[textview setInsertionPointColor: fgcolor];
 }
 
 - (BOOL) wantsFocus
@@ -137,149 +230,83 @@
     return [super resignFirstResponder];
 }
 
-- (void) drawRect: (NSRect)rect
-{
-    NSRect bounds = [self bounds];
-    NSColor *color;
-
-    //NSRange glyphRange;
-    //NSPoint layoutLocation;
-    //NSRect textRect;
-
-    NSInteger m = [Preferences gridMargins];
-    if (transparent)
-        m = 0;
-
-    float x0 = NSMinX(bounds) + m;
-    float y0 = NSMinY(bounds) + m;
-
-    if (!transparent)
-    {
-
-        color = nil;
-
-        if ([Preferences stylesEnabled])
-        {
-            color = [styles[style_Normal] attributes][NSBackgroundColorAttributeName];
-        }
-
-        if (!color)
-            color = [Preferences gridBackground];
-
-        [color set];
-
-        NSRectFill(bounds);
-    }
-
-    NSInteger y;
-    NSInteger lineHeight = [Preferences lineHeight];
-    //NSInteger charWidth = [Preferences charWidth];
-
-    NSTextStorage *textStorage = [[NSTextStorage alloc] init];
-    NSLayoutManager *textLayout = [[NSLayoutManager alloc] init];
-    NSTextContainer *textContainer = [[NSTextContainer alloc] init];
-
-    [textLayout addTextContainer: textContainer];
-    [textStorage addLayoutManager: textLayout];
-    [textLayout setUsesScreenFonts: [Preferences useScreenFonts]];
-
-    /* draw from bottom up because solid backgrounds overdraw descenders... */
-    for (y = [lines count] - 1; y >= 0; y--)
-    {
-        // [attstr drawAtPoint: NSMakePoint(x0, y0 + y * lineHeight)]; -- if it were only this simple.
-
-        [textStorage setAttributedString: lines[y]];
-        NSRange glyphRange = [textLayout glyphRangeForTextContainer: textContainer];
-        NSPoint layoutLocation = [textLayout locationForGlyphAtIndex: 0];
-        //NSRect	textRect = [textLayout boundingRectForGlyphRange: glyphRange inTextContainer: textContainer];
-        [textLayout drawBackgroundForGlyphRange: glyphRange
-                                        atPoint: NSMakePoint(x0 - layoutLocation.x, y0 + y * lineHeight)];
-        [textLayout drawGlyphsForGlyphRange: glyphRange
-                                    atPoint: NSMakePoint(x0 - layoutLocation.x, y0 + y * lineHeight)];
-
-#if 0
-        if (ypos == y && char_request && [[self window] firstResponder] == self)
-        {
-            NSRect caret;
-            NSPoint caretLocation = [textLayout locationForGlyphAtIndex: xpos];
-            caret.origin.x = (int)(x0 - layoutLocation.x + caretLocation.x + 0.5);
-            caret.origin.y = y0 + ypos * lineHeight;
-            caret.size.width = 1;
-            caret.size.height = lineHeight;
-            [[Preferences gridForeground] set];
-            NSRectFill(caret);
-        }
-#endif
-    }
-
-    //Hack to cover stray characters that sometimes get
-    //stuck outside the window margin
-    NSRect frame = rect;
-    frame.size.width = [Preferences gridMargins];
-
-    frame.origin.x = NSMaxX(self.bounds) - [Preferences gridMargins];
-
-    [color set];
-
-    NSRectFill(frame);
-}
-
 - (void) setFrame: (NSRect)frame
 {
     NSInteger r;
 
     [super setFrame: frame];
 
-    NSInteger newcols = floor (frame.size.width / [Preferences charWidth]) - 1;
-    NSInteger newrows = frame.size.height / [Preferences lineHeight];
+	NSSize inset = textview.textContainerInset;
 
-    if (newcols == cols && newrows == rows)
+	NSInteger newcols = (frame.size.width - inset.width * 2) / [Preferences charWidth];
+    NSInteger newrows = (frame.size.height - inset.height * 2) / [Preferences lineHeight];
+
+    if (newcols == cols && newrows == rows && textstorage.length == cols * rows - 1)
         return;
 
+	NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
+	if (newcols < cols)
+	{
+		for (r = cols - 2 ; r < backingStorage.length; r += cols)
+		{
+			NSRange deleteRange = NSMakeRange(r - (cols - newcols), cols - newcols);
+			[backingStorage deleteCharactersInRange:deleteRange];
+			NSLog(@"Removed characters at range %@", NSStringFromRange(deleteRange));
+			r -= (cols - newcols);
+
+		}
+	}
+	else if (newcols > cols)
+	{
+		NSString *spaces = @" ";
+		spaces = [spaces stringByPaddingToLength: newcols - cols withString:@" " startingAtIndex:0];
+		NSAttributedString* string = [[NSAttributedString alloc]
+									  initWithString: spaces
+									  attributes: styles[style_Normal].attributes];
+
+		for (r = cols - 2 ; r < backingStorage.length; r += cols)
+		{
+			[backingStorage insertAttributedString:string atIndex:r];
+			NSLog(@"Inserted %ld spaces at position %ld", newcols - cols, r);
+			r += (newcols - cols);
+		}
+	}
     cols = newcols;
     rows = newrows;
 
-    for (r = [lines count]; r < rows; r++)
-    {
-        [lines addObject: [[NSMutableAttributedString alloc] init]];
-    }
+	NSInteger desiredLength = rows * cols - 1;
+	if (desiredLength < 1)
+		return;
+	if (backingStorage.length < desiredLength)
+	{
+		NSString *spaces = @" ";
+		spaces = [spaces stringByPaddingToLength: desiredLength - backingStorage.length withString:@" " startingAtIndex:0];
+		NSAttributedString* string = [[NSAttributedString alloc]
+								  initWithString: spaces
+								  attributes: styles[style_Normal].attributes];
+		[backingStorage appendAttributedString:string];
+	}
+	else if (backingStorage.length > desiredLength)
+		[backingStorage deleteCharactersInRange: NSMakeRange(desiredLength, backingStorage.length - desiredLength)];
 
-    // Remove old lines
-    if ([lines count] > rows)
-    {
-        [lines removeObjectsInRange: NSMakeRange(rows, [lines count] - rows)];
-    }
+	NSLog(@"Tried to make backingStorage %ld characters. Actual backingStorage length: %ld", desiredLength, backingStorage.length);
 
-    // Size lines
-    for (r = 0; r < rows; r++)
-    {
-        NSMutableAttributedString* line = lines[r];
+	NSAttributedString* newlinestring = [[NSAttributedString alloc]
+										 initWithString: @"\n"
+										 attributes: styles[style_Normal].attributes];
 
-        if ([line length] < cols)
-        {
-            // Add spaces to the end (not sure about the attributes to use)
-            NSInteger amountToAdd = cols - [line length];
-            unichar* spaces = malloc(sizeof(unichar)*amountToAdd);
-            NSInteger c;
+	for (r = cols - 1; r < backingStorage.length; r += cols)
+	{
+		if ([[backingStorage.string substringWithRange:NSMakeRange(r, 1)] isEqualToString:@"\n"])
+			NSLog(@"There was already a newline at position %ld", r);
 
-            for (c = 0; c < amountToAdd; c++)
-            {
-                spaces[c] = ' ';
-            }
+		[backingStorage replaceCharactersInRange:NSMakeRange(r, 1) withAttributedString: newlinestring];
+		NSLog(@"Inserted newline at position %ld", r);
+	}
 
-            NSAttributedString* string = [[NSAttributedString alloc]
-                                          initWithString: [NSString stringWithCharacters: spaces length: amountToAdd]
-                                          attributes: styles[style_Normal].attributes];
+	[self recalcBackground];
 
-            [line appendAttributedString: string];
-            free(spaces);
-        }
-        else if ([line length] > cols)
-        {
-            [line deleteCharactersInRange: NSMakeRange(cols, [line length] - cols)];
-        }
-    }
-
+	[textstorage setAttributedString:backingStorage];
     dirty = YES;
 }
 
@@ -291,9 +318,7 @@
 
 - (void) clear
 {
-    lines = nil;
-    lines = [[NSMutableArray alloc] init];
-
+    [textstorage setAttributedString:[[NSMutableAttributedString alloc] initWithString:@""]];
 	hyperlinks = nil;
 	hyperlinks = [[NSMutableArray alloc] init];
 
@@ -305,7 +330,7 @@
 
 - (void) putString: (NSString*)string style: (NSInteger)stylevalue
 {
-    NSInteger length = [string length];
+    NSInteger length = string.length;
     NSInteger pos = 0;
     NSDictionary *att = [self attributesFromStylevalue:stylevalue];
     //NSColor *col;
@@ -328,7 +353,7 @@
     while (pos < length)
     {
         // Can't write if we've fallen off the end of the window
-        if (ypos >= [lines count] || ypos > rows)
+        if (ypos > (int)(textstorage.length / cols) || ypos > rows)
             break;
 
         // Can only write a certain number of characters
@@ -340,7 +365,7 @@
         }
 
         // Get the number of characters to write
-        NSInteger amountToDraw = cols - xpos;
+        NSInteger amountToDraw = cols - xpos - 1;
         if (amountToDraw > [string length] - pos)
             amountToDraw = [string length] - pos;
 
@@ -349,14 +374,15 @@
                                           initWithString: [string substringWithRange: NSMakeRange(pos, amountToDraw)]
                                           attributes: att];
 
-        [lines[ypos] replaceCharactersInRange: NSMakeRange(xpos, amountToDraw) withAttributedString: partString];
+        [textstorage replaceCharactersInRange: NSMakeRange(cols * ypos + xpos, amountToDraw) withAttributedString: partString];
+		NSLog(@"Replaced characters in range %@ with %@", NSStringFromRange(NSMakeRange(cols * ypos + xpos, amountToDraw)), partString.string);
 
-        dirty = YES;
+       // dirty = YES;
 
         // Update the x position (and the y position if necessary)
         xpos += amountToDraw;
         pos += amountToDraw;
-        if (xpos >= cols)
+        if (xpos >= cols - 1)
         {
             xpos = 0;
             ypos++;
@@ -405,11 +431,11 @@
 			while (pos < length)
 			{
 				// Can't write if we've fallen off the end of the window
-				if (currenty >= lines.count || currenty > rows)
+				if (currenty >= textstorage.length / cols || currenty > rows)
 					break;
 
 				// Can only write a certain number of characters
-				if (currentx >= cols)
+				if (currentx >= cols - 1)
 				{
 					currentx = 0;
 					currenty ++;
@@ -417,20 +443,20 @@
 				}
 
 				// Get the number of characters to write
-				NSInteger amountToDraw = cols - currentx;
+				NSInteger amountToDraw = cols - currentx - 1;
 				if (amountToDraw > length - pos)
 					amountToDraw = length - pos;
 
 				// Make characters hyperlink
-				[lines[currenty] addAttribute:NSLinkAttributeName value:link range:NSMakeRange(currentx, amountToDraw)];
-                [lines[currenty] addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(currentx, amountToDraw)];
+				[textstorage addAttribute:NSLinkAttributeName value:link range:NSMakeRange(currenty * cols + currentx, amountToDraw)];
+                //[lines[currenty] addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(currentx, amountToDraw)];
 
 				dirty = YES;
 
 				// Update the x position (and the y position if necessary)
 				currentx += amountToDraw;
 				pos += amountToDraw;
-				if (currentx >= cols)
+				if (currentx >= cols - 1)
 				{
 					currentx = 0;
 					currenty++;
@@ -445,6 +471,7 @@
 //		NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", currentHyperlink.startpos,linkid);
 
 	}
+	//[self updateTextstorage];
 }
 
 - (void) initHyperlink
@@ -461,23 +488,22 @@
 
 }
 
-//- (BOOL) textView: (NSTextView*)textview_ clickedOnLink: (id)link atIndex: (NSUInteger)charIndex
-//{
-//	NSLog(@"txtgrid: clicked on link: %@", link);
-//
-//	if (!hyper_request)
-//	{
-//		NSLog(@"txtgrid: No hyperlink request in window.");
-//		return NO;
-//	}
-//
-//	GlkEvent *gev = [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue forWindow: self.name];
-//	[glkctl queueEvent: gev];
-//
-//	hyper_request = NO;
-//	[textview_ setEditable: YES];
-//	return NO;
-//}
+- (BOOL) textView: textview clickedOnLink: (id)link atIndex: (NSUInteger)charIndex
+{
+	NSLog(@"txtgrid: clicked on link: %@", link);
+
+	if (!hyper_request)
+	{
+		NSLog(@"txtgrid: No hyperlink request in window.");
+		return NO;
+	}
+
+	GlkEvent *gev = [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue forWindow: self.name];
+	[glkctl queueEvent: gev];
+
+	hyper_request = NO;
+	return NO;
+}
 
 - (void) mouseDown: (NSEvent*)theEvent
 {
@@ -598,13 +624,13 @@
     NSInteger lineHeight = [Preferences lineHeight];
     float charWidth = [Preferences charWidth];
 
-    if (ypos >= [lines count])
-        ypos = [lines count] - 1;
+    if (ypos >= textstorage.length / cols)
+        ypos = textstorage.length / cols - 1;
 
     NSRect caret;
     caret.origin.x = x0 + xpos * charWidth;
     caret.origin.y = y0 + ypos * lineHeight;
-    caret.size.width = 20 * charWidth;
+	caret.size.width = NSMaxX(bounds) - m * 2 - caret.origin.x; //20 * charWidth;
     caret.size.height = lineHeight;
 
     NSLog(@"grid initLine: %@ in: %ld", str, (long)self.name);
@@ -620,7 +646,6 @@
 	input.selectable = YES;
 
 	[[input cell] setWraps:YES];
-	[[input cell] setScrollable:YES];
 
 	if (str.length == 0)
 		str = @" ";
@@ -629,7 +654,7 @@
 
 	input.attributedStringValue = attString;
 
-    [self addSubview: input];
+    [textview addSubview: input];
     [[self window] makeFirstResponder: input];
 
     line_request = YES;
@@ -665,49 +690,111 @@
     }
 }
 
+//- (BOOL)textField:(NSTextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//	NSString *newString = [textField.stringValue stringByReplacingCharactersInRange:range withString:string];
+//	if (newString.length < 1) {
+//		// too short
+//	} else if (newString.length > 6) {
+//		// too long
+//	}
+//	return YES;
+//}
+
 
 // = NSAccessibility =
 
+- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
+
+	NSLog(@"GlkTextBufferWindow: accessibilityIsAttributeSettable: %@", attribute);
+
+	return [super accessibilityIsAttributeSettable: attribute];
+}
+
+/*
+ - (NSString *)accessibilityActionDescription: (NSString*) action {
+ if ([action isEqualToString: @"Repeat last command"])
+ return @"Read the output of the last command entered";
+
+ return [super accessibilityActionDescription: action];
+ }
+
+ - (NSArray *)accessibilityActionNames {
+ NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
+
+ [result addObjectsFromArray:[NSArray arrayWithObjects:
+ @"Read last command",
+ nil]];
+
+ return [result];
+ }
+ */
+
+- (void)accessibilityPerformAction:(NSString *)action {
+	NSLog(@"GlkTextGridWindow: accessibilityPerformAction. %@",action);
+	return [super accessibilityPerformAction: action];
+}
+
+
+- (void)accessibilitySetValue: (id)value
+				 forAttribute: (NSString*) attribute {
+
+	NSLog(@"GlkTextGridWindow: accessibilitySetValue: %@ forAttribute: %@", value, attribute);
+
+	// No settable attributes
+	return [super accessibilitySetValue: value
+						   forAttribute: attribute];
+}
+
 - (NSArray*) accessibilityAttributeNames {
 	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
+	if (!result) result = [[NSMutableArray alloc] init];
 
-	[result addObjectsFromArray:@[NSAccessibilityRoleDescriptionAttribute,
-     NSAccessibilityTitleAttribute]];
+	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
+								  NSAccessibilityHelpAttribute]];
+
+	//	NSLog(@"GlkTextGridWindow: accessibilityAttributeNames: %@ ", result);
 
 	return result;
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
-	if ([attribute isEqualToString: NSAccessibilityTitleAttribute])
-	{
-		NSMutableString* status = [NSMutableString string];
 
-        NSEnumerator* linesEnum = [lines objectEnumerator];
-        NSMutableAttributedString* lineText;
-        while (lineText = [linesEnum nextObject])
-        {
-            [status appendString: [lineText string]];
-            [status appendString: @" "];
-        }
-        
-		return status;
+	NSLog(@"GlkTextGridWindow: accessibilityAttributeValue: %@",attribute);
+	if ([attribute isEqualToString: NSAccessibilityContentsAttribute]) {
+		return textview;
+		//} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
+		//return parentWindow;
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		NSMutableString* status = [NSMutableString string];
-        
-        NSEnumerator* linesEnum = [lines objectEnumerator];
-        NSMutableAttributedString* lineText;
-        while (lineText = [linesEnum nextObject]) {
-            [status appendString: [lineText string]];
-            [status appendString: @"%@"];
-        }
-        
-		return [NSString stringWithFormat: @"Status bar"];
-	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		return glkctl;
+		if (!line_request && !char_request) return @"Status window";
+		return [NSString stringWithFormat: @"Text window%@%@%@. • %@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
+	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
+		//return (id)NO;
+		return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
+				[[self window] firstResponder] == textview];
+	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
+		return [self accessibilityFocusedUIElement];
+	} else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
+		return @[textview];
 	}
-    
+
 	return [super accessibilityAttributeValue: attribute];
+}
+
+-(id)accessibilityAttributeValue:(NSString *)attribute forParameter:(id)parameter
+{
+	NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);
+
+	return [super accessibilityAttributeValue:attribute forParameter:parameter];
+}
+
+- (id)accessibilityFocusedUIElement {
+	return textview;
+}
+
+- (BOOL)accessibilityIsIgnored {
+	return NO;
 }
 
 @end
