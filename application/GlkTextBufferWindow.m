@@ -888,6 +888,34 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
 	return [super accessibilityAttributeValue:attribute forParameter:parameter];
 }
 
+- (NSString *)accessibilityActionDescription: (NSString*) action {
+	if ([action isEqualToString: @"Repeat last move"])
+		return @"Read the output of the last command entered";
+
+	return [super accessibilityActionDescription: action];
+}
+
+- (NSArray *)accessibilityActionNames {
+	NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
+
+	[result addObjectsFromArray:[NSArray arrayWithObjects:
+								 @"Repeat last move",
+								 nil]];
+
+	return result;
+}
+
+- (void)accessibilityPerformAction:(NSString *)action {
+	NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
+
+	if ([action isEqualToString: @"Repeat last move"])
+	{
+		return [glkTextBuffer speakMostRecent];
+	}
+
+	return [super accessibilityPerformAction: action];
+}
+
 @end
 
 /* ------------------------------------------------------------ */
@@ -1009,8 +1037,6 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
 
     bgcolor = nil;
     fgcolor = nil;
-
-    [textview resetTextFinder];
 
     if ([Preferences stylesEnabled])
     {
@@ -1378,6 +1404,14 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
         else if (commandKeyOnly)
             ch = keycode_End;
     }
+//	else if (ch == keycode_Left)
+//	{
+//		if ((flags & (NSAlternateKeyMask | NSCommandKeyMask)) && !(flags & (NSShiftKeyMask | NSControlKeyMask | NSHelpKeyMask)))
+//		{
+//			NSLog(@"Pressed keyboard shortcut for speakMostRecent!");
+//			return [self speakMostRecent];
+//		}
+//	}
 
 	NSNumber *key = @(ch);
 
@@ -1722,27 +1756,7 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
         [moveRanges addObject:[NSValue valueWithRange:lastMove]];
         [moveRanges addObject:[NSValue valueWithRange:thisMove]];
 
-        if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9)
-        {
-            textview.rangeToSpeak_10_7 = lastMove;
-
-            textview.shouldSpeak_10_7 = YES;
-            NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
-        }
-        else
-        {
-            NSString *str = [textstorage.string substringWithRange:lastMove];
-
-            NSDictionary *announcementInfo = @{
-                                               NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-                                               NSAccessibilityAnnouncementKey : str
-                                               };
-
-            NSWindow *mainWin = [NSApp mainWindow];
-
-            if (mainWin)
-                NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-        }
+		[self speakMostRecent];
 
     }
     else
@@ -1750,6 +1764,59 @@ CGFloat NSAppKitVersionNumber10_9 = 1265.0;
         if (textstorage.length)
             [moveRanges addObject:[NSValue valueWithRange:NSMakeRange(textstorage.length, 0)]];
 
+}
+
+- (void) speakMostRecent
+{
+	NSEnumerator *movesenumerator = [moveRanges reverseObjectEnumerator];
+	NSValue *v;
+	NSRange lastMove;
+
+	while (v = [movesenumerator nextObject])
+	{
+		lastMove = v.rangeValue;
+		if (lastMove.length) break;
+	}
+
+	if (lastMove.length == 0)
+	{
+		NSDictionary *announcementInfo = @{
+										   NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+										   NSAccessibilityAnnouncementKey : @"No last move to speak"
+										   };
+
+		NSAccessibilityPostNotificationWithUserInfo([NSApp mainWindow], NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+
+		NSLog(@"No last move to speak");
+		return;
+	}
+
+	if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9)
+	{
+		textview.rangeToSpeak_10_7 = lastMove;
+
+		textview.shouldSpeak_10_7 = YES;
+		NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
+	}
+	else
+	{
+		NSString *str = [textstorage.string substringWithRange:lastMove];
+
+		NSDictionary *announcementInfo = @{
+										   NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+										   NSAccessibilityAnnouncementKey : str
+										   };
+
+		NSWindow *mainWin = [NSApp mainWindow];
+
+		if (mainWin)
+			NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+	}
+
+}
+
+- (IBAction) speakMostRecent: (id) sender {
+	[self speakMostRecent];
 }
 
 - (void) stopSpeakingText_10_7
@@ -1872,9 +1939,9 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 	return [super accessibilityIsAttributeSettable: attribute];
 }
 
-/*
+
  - (NSString *)accessibilityActionDescription: (NSString*) action {
- if ([action isEqualToString: @"Repeat last command"])
+ if ([action isEqualToString: @"Repeat last move"])
  return @"Read the output of the last command entered";
 
  return [super accessibilityActionDescription: action];
@@ -1884,16 +1951,22 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
  NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
 
  [result addObjectsFromArray:[NSArray arrayWithObjects:
- @"Read last command",
+ @"Read last move",
  nil]];
 
- return [result];
+ return result;
  }
- */
+
 
 - (void)accessibilityPerformAction:(NSString *)action {
     NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
-    return [super accessibilityPerformAction: action];
+
+	if ([action isEqualToString: @"Repeat last move"])
+	{
+		return [self speakMostRecent];
+	}
+
+	return [super accessibilityPerformAction: action];
 }
 
 
@@ -1912,34 +1985,34 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 	if (!result) result = [[NSMutableArray alloc] init];
 
 	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
-     NSAccessibilityHelpAttribute]];
+								  NSAccessibilityHelpAttribute]];
 
-    //	NSLog(@"GlkTextBufferWindow: accessibilityAttributeNames: %@ ", result);
+	//	NSLog(@"GlkTextBufferWindow: accessibilityAttributeNames: %@ ", result);
 
-    return result;
+	return result;
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
-    
+
 	NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@",attribute);
 	if ([attribute isEqualToString: NSAccessibilityContentsAttribute]) {
 		return textview;
-        //} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
+		//} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
 		//return parentWindow;
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
 		if (!line_request && !char_request) return @"Text window";
-		return [NSString stringWithFormat: @"Text window%@%@%@. • %@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
+		return [NSString stringWithFormat: @"Text window%@%@%@. %@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
 		//return (id)NO;
-        return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
-                [[self window] firstResponder] == textview];
+		return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
+				[[self window] firstResponder] == textview];
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
 		return [self accessibilityFocusedUIElement];
 	} else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
 		return @[textview];
 	}
-    
+
 	return [super accessibilityAttributeValue: attribute];
 }
 

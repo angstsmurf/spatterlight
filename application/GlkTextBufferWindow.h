@@ -96,6 +96,7 @@
 - (void) echo: (BOOL)val;
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
 - (void) stopSpeakingText_10_7;
+- (void) speakMostRecent;
 
 @property (readonly) NSInteger lastchar; /* for smart formatting */
 @property (readonly) NSInteger lastseen; /* for more paging */
