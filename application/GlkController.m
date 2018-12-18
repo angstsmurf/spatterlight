@@ -424,9 +424,9 @@
 
 - (void) handleChangeTitle:(char*)buf length: (int)len
 {
-	NSString *str = [@(buf) substringToIndex: len];
-
-	//    _game.metadata.title = str;
+	buf[len]='\0';
+	NSString *str = [NSString stringWithUTF8String:buf];
+	//[@(buf) substringToIndex: len];
 	self.window.title = str;
 	NSLog(@"Change title request: %@", str);
 }
