@@ -42,15 +42,6 @@
 
 		/* construct text system manually */
 
-		NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
-		[scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
-		[scrollview setHasHorizontalScroller: NO];
-		[scrollview setHasVerticalScroller: NO];
-		[scrollview setHorizontalScrollElasticity:NSScrollElasticityNone];
-		[scrollview setVerticalScrollElasticity:NSScrollElasticityNone];
-
-		[scrollview setBorderType: NSNoBorder];
-
 		textstorage = [[NSTextStorage alloc] init];
 
 		layoutmanager = [[NSLayoutManager alloc] init];
@@ -67,7 +58,6 @@
 		[textview setMaxSize:NSMakeSize(10000000, 10000000)];
 
 		[container setTextView: textview];
-		[scrollview setDocumentView: textview];
 
 		/* now configure the text stuff */
 
@@ -84,7 +74,7 @@
 		[self recalcBackground];
 		[textview setEditable:NO];
 		
-		[self addSubview: scrollview];
+        [self addSubview: textview];
     }
     return self;
 }
@@ -238,7 +228,7 @@
 
 	NSSize inset = textview.textContainerInset;
 
-	NSInteger newcols = (frame.size.width - inset.width * 2) / [Preferences charWidth];
+	NSInteger newcols = floor((frame.size.width) / [Preferences charWidth]) + 1;
     NSInteger newrows = (frame.size.height - inset.height * 2) / [Preferences lineHeight];
 
     if (newcols == cols && newrows == rows && textstorage.length == cols * rows - 1)
@@ -289,19 +279,13 @@
 	else if (backingStorage.length > desiredLength)
 		[backingStorage deleteCharactersInRange: NSMakeRange(desiredLength, backingStorage.length - desiredLength)];
 
-	NSLog(@"Tried to make backingStorage %ld characters. Actual backingStorage length: %ld", desiredLength, backingStorage.length);
-
 	NSAttributedString* newlinestring = [[NSAttributedString alloc]
 										 initWithString: @"\n"
 										 attributes: styles[style_Normal].attributes];
 
 	for (r = cols - 1; r < backingStorage.length; r += cols)
 	{
-		if ([[backingStorage.string substringWithRange:NSMakeRange(r, 1)] isEqualToString:@"\n"])
-			NSLog(@"There was already a newline at position %ld", r);
-
 		[backingStorage replaceCharactersInRange:NSMakeRange(r, 1) withAttributedString: newlinestring];
-		NSLog(@"Inserted newline at position %ld", r);
 	}
 
 	[self recalcBackground];

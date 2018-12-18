@@ -438,7 +438,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     else
         font = [gridroman printerFont];
 
-    cellw = [font advancementForGlyph:(NSGlyph) 'X'].width;
+    cellw = font.maximumAdvancement.width;
 
 
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
