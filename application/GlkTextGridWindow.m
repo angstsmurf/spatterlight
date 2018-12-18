@@ -264,7 +264,7 @@
 									  initWithString: spaces
 									  attributes: styles[style_Normal].attributes];
 
-		for (r = cols - 2 ; r < backingStorage.length; r += cols)
+		for (r = cols - 1 ; r < backingStorage.length; r += cols)
 		{
 			[backingStorage insertAttributedString:string atIndex:r];
 			NSLog(@"Inserted %ld spaces at position %ld", newcols - cols, r);
