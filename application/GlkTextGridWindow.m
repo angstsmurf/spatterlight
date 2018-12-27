@@ -633,7 +633,7 @@
     if (transparent)
         m = 0;
 
-    NSInteger x0 = NSMinX(bounds) + m;
+    NSInteger x0 = NSMinX(bounds) + m + container.lineFragmentPadding;
     NSInteger y0 = NSMinY(bounds) + m;
     NSInteger lineHeight = [Preferences lineHeight];
     float charWidth = [Preferences charWidth];
@@ -789,6 +789,19 @@
 
 - (BOOL)accessibilityIsIgnored {
 	return NO;
+}
+
+- (IBAction)speakStatus:(id)sender
+{
+
+    NSDictionary *announcementInfo = @{
+                                       NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+                                       NSAccessibilityAnnouncementKey : textstorage.string
+                                       };
+
+    NSAccessibilityPostNotificationWithUserInfo([NSApp mainWindow], NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+
+    return;
 }
 
 @end
