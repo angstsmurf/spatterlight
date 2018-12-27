@@ -1,4 +1,5 @@
 #import "main.h"
+#import "Compatibility.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
@@ -438,10 +439,13 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     else
         font = [gridroman printerFont];
 
-    NSLog(@"[font advancementForGlyph:(NSGlyph) 'X'].width:%f font.maximumAdvancement.width:%f [@\"X\" sizeWithAttributes:@{NSFontAttributeName: font}].width:%f", [font advancementForGlyph:(NSGlyph) 'X'].width, font.maximumAdvancement.width, [@"X" sizeWithAttributes:@{NSFontAttributeName: font}].width);
+    NSLog(@"[font advancementForGlyph:(NSGlyph)'X'].width:%f font.maximumAdvancement.width:%f [@\"X\" sizeWithAttributes:@{NSFontAttributeName: font}].width:%f", [font advancementForGlyph:(NSGlyph) 'X'].width, font.maximumAdvancement.width, [@"X" sizeWithAttributes:@{NSFontAttributeName: font}].width);
 
     //This is the only way I have found to get the correct width at all sizes
-    cellw = [font advancementForGlyph:(NSGlyph) 'X'].width;
+    if (NSAppKitVersionNumber < NSAppKitVersionNumber10_8)
+        cellw = [@"X" sizeWithAttributes:@{NSFontAttributeName: font}].width;
+    else
+        cellw = [font advancementForGlyph:(NSGlyph)'X'].width;
 
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
     cellh = [layoutManager defaultLineHeightForFont:font] + leading;

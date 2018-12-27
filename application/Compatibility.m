@@ -9,5 +9,6 @@
 
 const NSAccessibilityNotificationUserInfoKey NSAccessibilityPriorityKey = @"AXPriorityKey";
 const NSAppKitVersion NSAppKitVersionNumber10_9 = 1265.0;
+const NSAppKitVersion NSAppKitVersionNumber10_8 = 1187.0;
 
 #endif  // MAC_OS_X_VERSION_10_9
