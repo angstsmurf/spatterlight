@@ -276,6 +276,11 @@
     NSInteger newcols = ceil(((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding) * 2) / Preferences.charWidth));
     NSInteger newrows = (frame.size.height - (textview.textContainerInset.width) * 2) / Preferences.lineHeight;
 
+    if (newcols < 0)
+        newcols = 0;
+    if (newrows < 0)
+        newrows = 0;
+
 	NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
 	if (newcols < cols)
 	{
@@ -283,6 +288,11 @@
 		for (r = cols - 1; r < backingStorage.length; r += cols + 1)
 		{
 			NSRange deleteRange = NSMakeRange(r - (cols - newcols), cols - newcols);
+            if (r - (cols - newcols) < 0)
+                continue;
+            if (NSMaxRange(deleteRange) > backingStorage.length)
+                deleteRange = NSMakeRange(r - (cols - newcols), backingStorage.length - (r - (cols - newcols)));
+            
 			[backingStorage deleteCharactersInRange:deleteRange];
 			r -= (cols - newcols);
 		}
@@ -533,7 +543,7 @@
                                 characterIndexForPoint:p
                                 inTextContainer:container
                                 fractionOfDistanceBetweenInsertionPoints:nil];
-        NSLog(@"Clicked on char index %ld, which is '%@'.", charIndex, [textstorage.string substringWithRange:NSMakeRange(charIndex, 1)]);
+        //NSLog(@"Clicked on char index %ld, which is '%@'.", charIndex, [textstorage.string substringWithRange:NSMakeRange(charIndex, 1)]);
 
         p.y = charIndex / (cols + 1);
         p.x = charIndex % (cols + 1);
