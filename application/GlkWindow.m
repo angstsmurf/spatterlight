@@ -115,7 +115,7 @@
 
 - (void) grabFocus
 {
-    // NSLog(@"grab focus in window %d", name);
+    // NSLog(@"grab focus in window %ld", self.name);
     [[self window] makeFirstResponder: self];
 	NSAccessibilityPostNotification( self, NSAccessibilityFocusedUIElementChangedNotification );
 }

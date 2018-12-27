@@ -565,14 +565,14 @@
 
 - (void) initChar
 {
-    //NSLog(@"init char in %d", name);
+    //NSLog(@"init char in %ld", (long)self.name);
     char_request = YES;
     dirty = YES;
 }
 
 - (void) cancelChar
 {
-    //NSLog(@"cancel char in %d", name);
+    //NSLog(@"cancel char in %ld", self.name);
     char_request = NO;
     dirty = YES;
 }
@@ -608,7 +608,7 @@
     {
         [glkctl markLastSeen];
 
-        //NSLog(@"char event from %d", name);
+        NSLog(@"char event from %ld", self.name);
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
         [glkctl queueEvent: gev];
         char_request = NO;
