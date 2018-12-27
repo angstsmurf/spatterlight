@@ -1,3 +1,4 @@
+#include <math.h>
 #include "glkimp.h"
 
 /* yergh! the windows creation and arrangement with implicit
@@ -495,11 +496,11 @@ void glk_window_get_size(window_t *win, glui32 *width, glui32 *height)
 	    /* always zero */
 	    break;
 	case wintype_TextGrid:
-	    wid = ((win->bbox.x1 - win->bbox.x0) - ggridmarginx * 2) / gcellw;
+	    wid = ceil(((win->bbox.x1 - win->bbox.x0) - ggridmarginx * 2) / gcellw);
 	    hgt = ((win->bbox.y1 - win->bbox.y0) - ggridmarginy * 2) / gcellh;
 	    break;
 	case wintype_TextBuffer:
-	    wid = ((win->bbox.x1 - win->bbox.x0) - gbuffermarginx * 2) / gcellw;
+	    wid = ceil(((win->bbox.x1 - win->bbox.x0) - gbuffermarginx * 2) / gcellw);
 	    hgt = ((win->bbox.y1 - win->bbox.y0) - gbuffermarginy * 2) / gcellh;
 	    break;
 	case wintype_Graphics:

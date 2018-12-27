@@ -186,8 +186,6 @@
 		[textstorage replaceCharactersInRange:lineRange withAttributedString:line];
 	}
 
-	[self setFrame: [self frame]];
-
     [self setNeedsDisplay: YES];
     dirty = NO;
 }
@@ -275,7 +273,7 @@
 
     [super setFrame: frame];
 
-    NSInteger newcols = ((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding) * 2) / Preferences.charWidth);
+    NSInteger newcols = ceil(((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding) * 2) / Preferences.charWidth));
     NSInteger newrows = (frame.size.height - (textview.textContainerInset.width) * 2) / Preferences.lineHeight;
 
 	NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
