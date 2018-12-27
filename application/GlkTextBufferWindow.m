@@ -1423,14 +1423,15 @@
         else if (commandKeyOnly)
             ch = keycode_End;
     }
-//	else if (ch == keycode_Left)
-//	{
-//		if ((flags & (NSAlternateKeyMask | NSCommandKeyMask)) && !(flags & (NSShiftKeyMask | NSControlKeyMask | NSHelpKeyMask)))
-//		{
-//			NSLog(@"Pressed keyboard shortcut for speakMostRecent!");
-//			return [self speakMostRecent];
-//		}
-//	}
+	else if (ch == keycode_Left)
+	{
+		if ((flags & (NSAlternateKeyMask | NSCommandKeyMask)) && !(flags & (NSShiftKeyMask | NSControlKeyMask | NSHelpKeyMask)))
+		{
+			NSLog(@"Pressed keyboard shortcut for speakMostRecent!");
+            [self speakMostRecent:nil];
+            return;
+		}
+	}
 
 	NSNumber *key = @(ch);
 
