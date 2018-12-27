@@ -273,7 +273,7 @@
 
     [super setFrame: frame];
 
-    NSInteger newcols = ceil(((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding) * 2) / Preferences.charWidth));
+    NSInteger newcols = ceil((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding) * 2) / Preferences.charWidth);
     NSInteger newrows = (frame.size.height - (textview.textContainerInset.width) * 2) / Preferences.lineHeight;
 
     if (newcols < 0)
