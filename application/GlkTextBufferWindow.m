@@ -1119,7 +1119,7 @@
 								range: linkrange];
 		}
 
-        x = range.location + range.length;
+        x = NSMaxRange(range);
     }
 
     [layoutmanager setUsesScreenFonts: [Preferences useScreenFonts]];
@@ -1282,7 +1282,7 @@
 
     if (glyphs.length)
     {
-        line = [layoutmanager lineFragmentRectForGlyphAtIndex: glyphs.location + glyphs.length - 1
+        line = [layoutmanager lineFragmentRectForGlyphAtIndex: NSMaxRange(glyphs) - 1
                                                effectiveRange: nil];
 
         _lastseen = line.origin.y + line.size.height; // bottom of the line
@@ -1338,7 +1338,7 @@
     {
         /* save the edited line */
         if ([textstorage length] - fence > 0)
-            cx = [[textstorage string] substringWithRange: NSMakeRange(fence, [textstorage length] - fence)];
+            cx = [[textstorage string] substringFromIndex:fence];
         else
             cx = nil;
         history[historypos] = cx;
@@ -1492,7 +1492,7 @@
 
         [glkctl markLastSeen];
 
-        NSString *line = [textstorage.string substringWithRange: NSMakeRange(fence, textstorage.length - fence)];
+        NSString *line = [textstorage.string substringFromIndex:fence];
         if (echo)
         {
             [self putString: @"\n" style: style_Input]; // XXX arranger lastchar needs to be set
@@ -1749,7 +1749,7 @@
 
     [textview setInsertionPointColor: [Preferences bufferBackground]];
     NSString *str = [textstorage string];
-    str = [str substringWithRange: NSMakeRange(fence, [str length] - fence)];
+    str = [str substringFromIndex:fence];
     if (echo)
 	{
 		[self putString: @"\n" style: style_Input];
