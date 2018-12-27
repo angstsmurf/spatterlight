@@ -285,6 +285,8 @@
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute {
+
+    NSLog(@"GlkWindow accessibilityAttributeValue: %@", attribute);
 	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
 		//return [NSArray array];
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {

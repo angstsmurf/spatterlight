@@ -1574,15 +1574,13 @@ again:
 - (id)accessibilityAttributeValue:(NSString *)attribute {
 	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]
 		|| [attribute isEqualToString: NSAccessibilityContentsAttribute]) {
-		//return [NSArray arrayWithObjects: rootWindow, nil];
+        //return [NSArray arrayWithObjects:gwindows count:MAXWIN];
+           // return [NSArray arrayWithObjects: rootWindow, nil];
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
 		return [self accessibilityFocusedUIElement];
 	} else if ([attribute isEqualToString: NSAccessibilityHelpAttribute]
 			   || [attribute isEqualToString: NSAccessibilityDescriptionAttribute]) {
 		NSString* description = @"an interactive fiction game";
-        //		if (delegate && [delegate respondsToSelector: @selector(taskDescription)]) {
-        //			description = [delegate taskDescription];
-        //		}
 		return [NSString stringWithFormat: @"%@ %@",(!dead)?@"Running":@"Finished", description];
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
 		return @"GLK view";
