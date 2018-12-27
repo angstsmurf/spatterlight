@@ -813,13 +813,20 @@
 	NSLog(@"MyTextView: accessibilityAttributeValue: %@",attribute);
 
 
+    if (_shouldSpeak_10_7)
+    {
+        if (NSMaxRange(_rangeToSpeak_10_7) != self.textStorage.length)
+            _rangeToSpeak_10_7 = NSMakeRange(_rangeToSpeak_10_7.location, self.textStorage.length - _rangeToSpeak_10_7.location);
+    }
+    
 	if ([attribute isEqualToString:NSAccessibilityValueAttribute])
 	{
 		NSString* selectedText = nil;
 
 		if (_shouldSpeak_10_7)
 		{
-			return [self.textStorage.string substringWithRange: _rangeToSpeak_10_7];
+            if (NSMaxRange(_rangeToSpeak_10_7) <= self.textStorage.length)
+                return [self.textStorage.string substringWithRange: _rangeToSpeak_10_7];
 		}
 
         if (self.selectedRanges)
@@ -827,8 +834,11 @@
 
 		return (selectedText && [selectedText length]) ? selectedText : [self.textStorage.string substringWithRange: ((NSValue *)[super accessibilityAttributeValue:NSAccessibilityVisibleCharacterRangeAttribute]).rangeValue];
 	}
+    else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute])
+		return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
+				[[self window] firstResponder] == glkTextBuffer];
 
-	if (_shouldSpeak_10_7)
+	if (_shouldSpeak_10_7 && NSMaxRange(_rangeToSpeak_10_7) <= self.textStorage.length)
 	{
 
 		if ([attribute isEqualToString:NSAccessibilitySelectedTextRangeAttribute])
@@ -850,7 +860,7 @@
 {
 	NSLog(@"MyTextView: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);
 
-	if (_shouldSpeak_10_7)
+	if (_shouldSpeak_10_7 && NSMaxRange(_rangeToSpeak_10_7) <= self.textStorage.length)
 	{
 
         if ([attribute isEqualToString:NSAccessibilityLineForIndexParameterizedAttribute])
@@ -868,6 +878,29 @@
 			return [self.textStorage attributedSubstringFromRange:_rangeToSpeak_10_7];
 		}
 	}
+
+    if ([attribute isEqualToString:NSAccessibilityRangeForLineParameterizedAttribute])
+    {
+
+        NSLayoutManager *layoutManager = self.layoutManager;
+        unsigned numberOfLines, index;
+        unsigned numberOfGlyphs = [layoutManager numberOfGlyphs];
+        NSRange lineRange;
+
+        for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++)
+        {
+            (void) [layoutManager lineFragmentRectForGlyphAtIndex:index effectiveRange:&lineRange];
+
+            if (((NSNumber *)(parameter)).intValue == numberOfLines)
+            {
+                NSLog(@"Result: %@ (%@)",NSStringFromRange(lineRange), [self.textStorage.string substringWithRange:lineRange]);
+                return [NSValue valueWithRange:lineRange];
+            }
+            
+            index = NSMaxRange(lineRange);
+                    }
+        return nil;
+    }
 
 	NSLog(@"Result: %@",[super accessibilityAttributeValue:attribute forParameter:parameter]);
 	return [super accessibilityAttributeValue:attribute forParameter:parameter];
@@ -895,10 +928,10 @@
 
 	if ([action isEqualToString: @"Repeat last move"])
 	{
-		return [glkTextBuffer speakMostRecent];
+        [glkTextBuffer speakMostRecent:nil];
 	}
 
-	return [super accessibilityPerformAction: action];
+	else [super accessibilityPerformAction: action];
 }
 
 @end
@@ -941,6 +974,7 @@
 		currentHyperlink = nil;
 
         moveRanges = [[NSMutableArray alloc] init];
+        moveRangeIndex = 0;
 
         scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
         [scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
@@ -1741,7 +1775,7 @@
         [moveRanges addObject:[NSValue valueWithRange:lastMove]];
         [moveRanges addObject:[NSValue valueWithRange:thisMove]];
 
-		[self speakMostRecent];
+		[self speakMostRecent:nil];
 
     }
     else
@@ -1751,11 +1785,11 @@
 
 }
 
-- (void) speakMostRecent
+- (IBAction) speakMostRecent: (id) sender
 {
-	NSEnumerator *movesenumerator = [moveRanges reverseObjectEnumerator];
 	NSValue *v;
 	NSRange lastMove;
+    NSEnumerator *movesenumerator = [moveRanges reverseObjectEnumerator];
 
 	while (v = [movesenumerator nextObject])
 	{
@@ -1778,10 +1812,12 @@
 
 	if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9)
 	{
-		textview.rangeToSpeak_10_7 = lastMove;
+        textview.rangeToSpeak_10_7 = NSMakeRange(lastMove.location,0);
 
 		textview.shouldSpeak_10_7 = YES;
-		NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
+        NSAccessibilityPostNotification(textview, NSAccessibilitySelectedTextChangedNotification);
+
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(speakHack:) userInfo:nil repeats:NO];
 	}
 	else
 	{
@@ -1800,8 +1836,74 @@
 
 }
 
-- (IBAction) speakMostRecent: (id) sender {
-	[self speakMostRecent];
+- (void) speakHack:(id)sender
+{
+    NSValue *v;
+	NSRange lastMove;
+    NSEnumerator *movesenumerator = [moveRanges reverseObjectEnumerator];
+
+	while (v = [movesenumerator nextObject])
+	{
+		lastMove = v.rangeValue;
+		if (lastMove.length) break;
+	}
+
+	if (lastMove.length == 0)
+	{
+        NSLog(@"No last move to speak");
+		return;
+	}
+    textview.rangeToSpeak_10_7 = NSMakeRange(lastMove.location, textstorage.length - lastMove.location);
+    textview.shouldSpeak_10_7 = YES;
+    NSAccessibilityPostNotification(self, NSAccessibilityFocusedUIElementChangedNotification );
+    NSAccessibilityPostNotification(textview, NSAccessibilitySelectedTextChangedNotification);
+    NSAccessibilityPostNotification(textview, NSAccessibilityValueChangedNotification);
+}
+
+- (IBAction) speakPrevious: (id) sender {
+    if (moveRangeIndex > 0)
+        moveRangeIndex--;
+    [self speakRange: ((NSValue *)moveRanges[moveRangeIndex]).rangeValue];
+}
+
+- (IBAction) speakNext: (id) sender {
+    if (moveRangeIndex < moveRanges.count)
+        moveRangeIndex++;
+    [self speakRange: ((NSValue *)moveRanges[moveRangeIndex]).rangeValue];
+}
+
+- (IBAction) speakStatus:(id)sender
+{
+    GlkWindow *win;
+
+    // Try to find status window to pass this on to 
+    for (int i = 0; i < MAXWIN; i++)
+    {
+        win = [glkctl windowWithNum:i];
+        if ([win isKindOfClass: [GlkTextGridWindow class]])
+        {
+            [(GlkTextBufferWindow *)win speakStatus:sender];
+            return;
+        }
+    }
+    NSLog(@"No status window found");
+    return;
+}
+
+
+- (void) speakRange:(NSRange)aRange
+{
+    NSString *str = [textstorage.string substringWithRange:aRange];
+
+    NSDictionary *announcementInfo = @{
+                                       NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+                                       NSAccessibilityAnnouncementKey : str
+                                       };
+
+    NSWindow *mainWin = [NSApp mainWindow];
+
+    if (mainWin)
+        NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 }
 
 - (void) stopSpeakingText_10_7
@@ -1921,6 +2023,9 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 	NSLog(@"GlkTextBufferWindow: accessibilityIsAttributeSettable: %@", attribute);
 
+    if ([attribute isEqualToString:NSAccessibilityValueAttribute])
+        return NO;
+
 	return [super accessibilityIsAttributeSettable: attribute];
 }
 
@@ -1936,22 +2041,20 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
  NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
 
  [result addObjectsFromArray:[NSArray arrayWithObjects:
- @"Read last move",
+ @"Repeat last move",
  nil]];
 
  return result;
  }
-
 
 - (void)accessibilityPerformAction:(NSString *)action {
     NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
 
 	if ([action isEqualToString: @"Repeat last move"])
 	{
-		return [self speakMostRecent];
+        [self speakMostRecent:nil];
 	}
-
-	return [super accessibilityPerformAction: action];
+	else [super accessibilityPerformAction: action];
 }
 
 
@@ -1960,19 +2063,29 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 	NSLog(@"GlkTextBufferWindow: accessibilitySetValue: %@ forAttribute: %@", value, attribute);
 
+    if (textview.shouldSpeak_10_7)
+	{
+        return [textview accessibilitySetValue:value forAttribute:attribute];
+    }
 	// No settable attributes
 	return [super accessibilitySetValue: value
 						   forAttribute: attribute];
 }
 
 - (NSArray*) accessibilityAttributeNames {
+
+    if (textview.shouldSpeak_10_7)
+	{
+        return [textview accessibilityAttributeNames];
+    }
+    
 	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
 	if (!result) result = [[NSMutableArray alloc] init];
 
 	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
 								  NSAccessibilityHelpAttribute]];
 
-	//	NSLog(@"GlkTextBufferWindow: accessibilityAttributeNames: %@ ", result);
+    NSLog(@"GlkTextBufferWindow: accessibilityAttributeNames: %@ ", result);
 
 	return result;
 }
@@ -1981,12 +2094,23 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 {
 
 	NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@",attribute);
+    if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
+        return NSAccessibilityUnknownRole;
+    }
+
+    if (textview.shouldSpeak_10_7 && ![attribute isEqualToString:NSAccessibilityParentAttribute] && ![attribute isEqualToString:NSAccessibilityWindowAttribute]  && ![attribute isEqualToString:NSAccessibilityTopLevelUIElementAttribute])
+    {
+        //if ([attribute isEqualToString:NSAccessibilityFocusedUIElementAttribute])
+        return [textview accessibilityAttributeValue:attribute];
+    }
+
 	if ([attribute isEqualToString: NSAccessibilityContentsAttribute]) {
 		return textview;
 		//} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
 		//return parentWindow;
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		if (!line_request && !char_request) return @"Text window";
+		if (!line_request && !char_request) //return @"Text window";
+            return NSAccessibilityTextAreaRole;
 		return [NSString stringWithFormat: @"Text window%@%@%@. %@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
 		//return (id)NO;
@@ -2003,8 +2127,13 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 -(id)accessibilityAttributeValue:(NSString *)attribute forParameter:(id)parameter
 {
-	NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);
+    if (textview.shouldSpeak_10_7)
+	{
+        //if ([attribute isEqualToString:NSAccessibilityFocusedUIElementAttribute])
+        return [textview accessibilityAttributeValue:attribute forParameter:parameter];
+    }
     
+	NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);    
 	return [super accessibilityAttributeValue:attribute forParameter:parameter];
 }
 

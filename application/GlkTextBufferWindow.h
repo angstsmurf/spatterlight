@@ -89,6 +89,7 @@
     NSInteger historyfirst, historypresent;
 
     NSMutableArray *moveRanges;
+    NSInteger moveRangeIndex;
 }
 
 - (void) recalcBackground;
@@ -96,7 +97,7 @@
 - (void) echo: (BOOL)val;
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
 - (void) stopSpeakingText_10_7;
-- (void) speakMostRecent;
+- (IBAction) speakMostRecent: (id) sender;
 
 @property (readonly) NSInteger lastchar; /* for smart formatting */
 @property (readonly) NSInteger lastseen; /* for more paging */

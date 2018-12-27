@@ -567,6 +567,33 @@
 												<reference key="NSOnImage" ref="72442803"/>
 												<reference key="NSMixedImage" ref="165322861"/>
 											</object>
+											<object class="NSMenuItem" id="414205406">
+												<reference key="NSMenu" ref="537658624"/>
+												<string key="NSTitle">Speak Previous Move</string>
+												<string key="NSKeyEquiv"></string>
+												<int key="NSKeyEquivModMask">1572864</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="72442803"/>
+												<reference key="NSMixedImage" ref="165322861"/>
+											</object>
+											<object class="NSMenuItem" id="66360232">
+												<reference key="NSMenu" ref="537658624"/>
+												<string key="NSTitle">Speak Next Move</string>
+												<string key="NSKeyEquiv"></string>
+												<int key="NSKeyEquivModMask">1572864</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="72442803"/>
+												<reference key="NSMixedImage" ref="165322861"/>
+											</object>
+											<object class="NSMenuItem" id="341325455">
+												<reference key="NSMenu" ref="537658624"/>
+												<string key="NSTitle">Speak Status</string>
+												<string type="base64-UTF8" key="NSKeyEquiv">CA</string>
+												<int key="NSKeyEquivModMask">1572864</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="72442803"/>
+												<reference key="NSMixedImage" ref="165322861"/>
+											</object>
 										</array>
 									</object>
 								</object>
@@ -1082,6 +1109,30 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">speakPrevious:</string>
+						<reference key="source" ref="823233140"/>
+						<reference key="destination" ref="414205406"/>
+					</object>
+					<int key="connectionID">539</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">speakNext:</string>
+						<reference key="source" ref="823233140"/>
+						<reference key="destination" ref="66360232"/>
+					</object>
+					<int key="connectionID">540</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">speakStatus:</string>
+						<reference key="source" ref="823233140"/>
+						<reference key="destination" ref="341325455"/>
+					</object>
+					<int key="connectionID">541</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">showPrefs:</string>
 						<reference key="source" ref="514244795"/>
 						<reference key="destination" ref="393505480"/>
@@ -1567,6 +1618,9 @@
 							<reference ref="648735797"/>
 							<reference ref="10349152"/>
 							<reference ref="82935680"/>
+							<reference ref="414205406"/>
+							<reference ref="66360232"/>
+							<reference ref="341325455"/>
 						</array>
 						<reference key="parent" ref="527082850"/>
 					</object>
@@ -1625,6 +1679,21 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">529</int>
 						<reference key="object" ref="82935680"/>
+						<reference key="parent" ref="537658624"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">533</int>
+						<reference key="object" ref="414205406"/>
+						<reference key="parent" ref="537658624"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">535</int>
+						<reference key="object" ref="66360232"/>
+						<reference key="parent" ref="537658624"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">537</int>
+						<reference key="object" ref="341325455"/>
 						<reference key="parent" ref="537658624"/>
 					</object>
 				</array>
@@ -1707,6 +1776,9 @@
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="528.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="529.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="533.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="535.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="537.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1716,7 +1788,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">532</int>
+			<int key="maxID">541</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1750,6 +1822,33 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/AppDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GlkTextBufferWindow</string>
+					<string key="superclassName">GlkWindow</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">speakMostRecent:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">speakMostRecent:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">speakMostRecent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GlkTextBufferWindow.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GlkWindow</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GlkWindow.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

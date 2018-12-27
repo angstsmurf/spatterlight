@@ -17,5 +17,6 @@
 }
 
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
+- (IBAction)speakStatus:(id)sender;
 
 @end

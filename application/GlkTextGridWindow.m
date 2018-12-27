@@ -574,6 +574,7 @@
     //NSLog(@"init char in %ld", (long)self.name);
     char_request = YES;
     dirty = YES;
+    [self speakStatus:nil];
 }
 
 - (void) cancelChar
