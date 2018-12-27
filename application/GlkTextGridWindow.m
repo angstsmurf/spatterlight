@@ -275,7 +275,7 @@
 
     [super setFrame: frame];
 
-    NSInteger newcols = ((frame.size.width - (textview.textContainerInset.width + 5) * 2) / Preferences.charWidth);
+    NSInteger newcols = ((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding) * 2) / Preferences.charWidth);
     NSInteger newrows = (frame.size.height - (textview.textContainerInset.width) * 2) / Preferences.lineHeight;
 
 	NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
