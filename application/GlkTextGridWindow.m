@@ -455,88 +455,47 @@
 
 - (void) setHyperlink:(NSInteger)linkid
 {
-	NSLog(@"txtgrid: hyperlink %ld set", (long)linkid);
+	//NSLog(@"txtgrid: hyperlink %ld set", (long)linkid);
 
-	NSUInteger length = ypos * cols + xpos;
+	NSUInteger length = ypos * (cols + 1) + xpos;
 
 	if (currentHyperlink && currentHyperlink.index != linkid)
 	{
 //		NSLog(@"There is a preliminary hyperlink, with index %ld", currentHyperlink.index);
 		if (currentHyperlink.startpos >= length)
 		{
-//			NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. currentHyperlink.startpos == %ld, length == %ld", currentHyperlink.startpos, length);
+//			NSLog(@"The preliminary hyperlink started at the very end of grid window text, so it was deleted to avoid a zero-length link. currentHyperlink.startpos == %ld, length == %ld", currentHyperlink.startpos, length);
 			currentHyperlink = nil;
 		}
 		else
 		{
 			currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, length - currentHyperlink.startpos);
-
 			[hyperlinks addObject:currentHyperlink];
-
 			NSNumber *link = @(currentHyperlink.index);
 
-			NSInteger pos = currentHyperlink.startpos;
-			NSInteger currentx = currentHyperlink.startpos % cols;
-			NSInteger currenty = currentHyperlink.startpos / cols;
-
-			while (pos < length)
-			{
-				// Can't write if we've fallen off the end of the window
-				if (currenty >= textstorage.length / cols || currenty > rows)
-					break;
-
-				// Can only write a certain number of characters
-				if (currentx >= cols - 1)
-				{
-					currentx = 0;
-					currenty ++;
-					continue;
-				}
-
-				// Get the number of characters to write
-				NSInteger amountToDraw = cols - currentx - 1;
-				if (amountToDraw > length - pos)
-					amountToDraw = length - pos;
-
-				// Make characters hyperlink
-				[textstorage addAttribute:NSLinkAttributeName value:link range:NSMakeRange(currenty * cols + currentx, amountToDraw)];
-                //[lines[currenty] addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(currentx, amountToDraw)];
-
-				dirty = YES;
-
-				// Update the x position (and the y position if necessary)
-				currentx += amountToDraw;
-				pos += amountToDraw;
-				if (currentx >= cols - 1)
-				{
-					currentx = 0;
-					currenty++;
-				}
-			}
+            [textstorage addAttribute:NSLinkAttributeName value:link range:currentHyperlink.range];
+            
+            dirty = YES;
 			currentHyperlink = nil;
 		}
 	}
 	if (!currentHyperlink && linkid)
 	{
 		currentHyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:length];
-//		NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", currentHyperlink.startpos,linkid);
-
+		//NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", currentHyperlink.startpos,linkid);
 	}
-	//[self updateTextstorage];
 }
 
 - (void) initHyperlink
 {
 	hyper_request = YES;
-//	NSLog(@"txtgrid: hyperlink event requested");
-
+	NSLog(@"txtgrid: hyperlink event requested");
 }
 
 - (void) cancelHyperlink
 {
 	hyper_request = NO;
-//	NSLog(@"txtgrid: hyperlink event cancelled");
-
+	NSLog(@"txtgrid: hyperlink event cancelled");
 }
 
 - (BOOL) textView: textview clickedOnLink: (id)link atIndex: (NSUInteger)charIndex
@@ -553,49 +512,55 @@
 	[glkctl queueEvent: gev];
 
 	hyper_request = NO;
-	return NO;
+	return YES;
 }
 
-- (void) mouseDown: (NSEvent*)theEvent
+- (BOOL) myMouseDown: (NSEvent*)theEvent
 {
     GlkEvent *gev;
-	GlkHyperlink *hyp;
+	//GlkHyperlink *hyp;
 	NSLog(@"mousedown in grid window");
 
-    if ((mouse_request || hyper_request)) // && theEvent.clickCount == 2)
+    if (mouse_request)
     {
         [glkctl markLastSeen];
 
         NSPoint p;
         p = [theEvent locationInWindow];
-        p = [self convertPoint: p fromView: nil];
-        p.x = (p.x - [Preferences gridMargins]) / [Preferences charWidth];
-        p.y = (p.y - [Preferences gridMargins]) / [Preferences lineHeight];
+        
+        p = [textview convertPoint: p fromView: nil];
+
+        p.x -= textview.textContainerInset.width;
+        p.y -= textview.textContainerInset.height;
+
+        NSUInteger charIndex = [textview.layoutManager
+                                characterIndexForPoint:p
+                                inTextContainer:container
+                                fractionOfDistanceBetweenInsertionPoints:nil];
+        NSLog(@"Clicked on char index %ld, which is '%@'.", charIndex, [textstorage.string substringWithRange:NSMakeRange(charIndex, 1)]);
+
+        p.y = charIndex / (cols + 1);
+        p.x = charIndex % (cols + 1);
+
+        NSLog(@"p.x: %f p.y: %f", p.x, p.y);
+
         if (p.x >= 0 && p.y >= 0 && p.x < cols && p.y < rows)
         {
-			if (hyper_request)
-			{
-				for (hyp in hyperlinks)
-				{
-					if (NSLocationInRange(floor(p.y) * cols + floor(p.x), hyp.range))
-					{
-						gev = [[GlkEvent alloc] initLinkEvent:hyp.index forWindow:self.name];
-						[glkctl queueEvent: gev];
-						hyper_request = NO;
-						return;
-					}
-				}
-			}
-
-			if (mouse_request) //&& theEvent.clickCount == 2)
+			if (mouse_request)
 			{
 				gev = [[GlkEvent alloc] initMouseEvent: p forWindow: self.name];
 				[glkctl queueEvent: gev];
 				mouse_request = NO;
+                return YES;
 			}
         }
-	} else { NSLog(@"No hyperlink request or mouse request in grid window");
-		[super mouseDown:theEvent]; }
+	}
+    else
+    {
+        //NSLog(@"No hyperlink request or mouse request in grid window");
+		[super mouseDown:theEvent];
+    }
+    return NO;
 }
 
 - (void) initChar
