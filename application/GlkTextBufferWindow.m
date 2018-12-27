@@ -3,6 +3,7 @@
  */
 
 #import "main.h"
+#import "Compatibility.h"
 #import "GlkHyperlink.h"
 
 #ifdef DEBUG
@@ -10,22 +11,6 @@
 #else
 #define NSLog(...)
 #endif // DEBUG
-
-
-#if !defined(MAC_OS_X_VERSION_10_9) || MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_9
-
-typedef NSString *NSAccessibilityNotificationUserInfoKey;
-
-APPKIT_EXTERN void NSAccessibilityPostNotificationWithUserInfo(id element, NSString *notification, NSDictionary *userInfo) NS_AVAILABLE_MAC(10_7);
-APPKIT_EXTERN NSString *const NSAccessibilityAnnouncementRequestedNotification NS_AVAILABLE_MAC(10_7);
-APPKIT_EXTERN NSString *const NSAccessibilityAnnouncementKey NS_AVAILABLE_MAC(10_7);
-
-const NSAccessibilityNotificationUserInfoKey NSAccessibilityPriorityKey = @"AXPriorityKey";
-enum { NSAccessibilityPriorityHigh = 90 };
-
-CGFloat NSAppKitVersionNumber10_9 = 1265.0;
-
-#endif  // MAC_OS_X_VERSION_10_9
 
 
 @implementation MyAttachmentCell
