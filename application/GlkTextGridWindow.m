@@ -495,7 +495,7 @@
 - (void) initHyperlink
 {
 	hyper_request = YES;
-	NSLog(@"txtgrid: hyperlink event requested");
+	//NSLog(@"txtgrid: hyperlink event requested");
 }
 
 - (void) cancelHyperlink
@@ -548,7 +548,7 @@
         p.y = charIndex / (cols + 1);
         p.x = charIndex % (cols + 1);
 
-        NSLog(@"p.x: %f p.y: %f", p.x, p.y);
+        //NSLog(@"p.x: %f p.y: %f", p.x, p.y);
 
         if (p.x >= 0 && p.y >= 0 && p.x < cols && p.y < rows)
         {
