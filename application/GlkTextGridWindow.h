@@ -2,7 +2,6 @@
 
 @interface GlkTextGridWindow : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate>
 {
-    //NSMutableArray *lines;
     NSTextField *input;
 	NSTextView *textview;
 	NSTextStorage *textstorage;

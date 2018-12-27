@@ -1,8 +1,6 @@
 
 /*
- * GlkTextGridWindow --
- * We keep an array of attributed strings
- * as our text grid.
+ * GlkTextGridWindow
  */
 
 #import "main.h"
@@ -727,30 +725,10 @@
 	return [super accessibilityIsAttributeSettable: attribute];
 }
 
-/*
- - (NSString *)accessibilityActionDescription: (NSString*) action {
- if ([action isEqualToString: @"Repeat last command"])
- return @"Read the output of the last command entered";
-
- return [super accessibilityActionDescription: action];
- }
-
- - (NSArray *)accessibilityActionNames {
- NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
-
- [result addObjectsFromArray:[NSArray arrayWithObjects:
- @"Read last command",
- nil]];
-
- return [result];
- }
- */
-
 - (void)accessibilityPerformAction:(NSString *)action {
 	NSLog(@"GlkTextGridWindow: accessibilityPerformAction. %@",action);
 	return [super accessibilityPerformAction: action];
 }
-
 
 - (void)accessibilitySetValue: (id)value
 				 forAttribute: (NSString*) attribute {
