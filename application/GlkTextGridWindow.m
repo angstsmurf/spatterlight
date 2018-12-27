@@ -15,6 +15,52 @@
 #define NSLog(...)
 #endif
 
+@interface MyGridTextView : NSTextView
+{
+    GlkTextGridWindow * glkTextGrid;
+}
+
+- (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textGrid: (GlkTextGridWindow *)textbuffer;
+- (void) superKeyDown: (NSEvent*)evt;
+
+@end
+
+/*
+ * Extend NSTextView to ...
+ *   - call onKeyDown and mouseDown on our GlkTextGridWindow object
+ */
+
+@implementation MyGridTextView
+
+- (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textGrid: (GlkTextGridWindow *)textbuffer
+{
+	self = [super initWithFrame:rect textContainer:container];
+	if (self)
+	{
+		glkTextGrid = textbuffer;
+	}
+	return self;
+}
+
+- (void) superKeyDown: (NSEvent*)evt
+{
+    [super keyDown: evt];
+}
+
+- (void) keyDown: (NSEvent*)evt
+{
+    [glkTextGrid keyDown: evt];
+}
+
+- (void) mouseDown: (NSEvent*)theEvent
+{
+	if (![glkTextGrid myMouseDown:theEvent])
+		[super mouseDown:theEvent];
+}
+
+@end
+
+
 @implementation GlkTextGridWindow
 
 - (instancetype) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
@@ -43,6 +89,15 @@
 
 		/* construct text system manually */
 
+        NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
+        [scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+        [scrollview setHasHorizontalScroller: NO];
+        [scrollview setHasVerticalScroller: NO];
+        [scrollview setHorizontalScrollElasticity:NSScrollElasticityNone];
+        [scrollview setVerticalScrollElasticity:NSScrollElasticityNone];
+
+        [scrollview setBorderType: NSNoBorder];
+
 		textstorage = [[NSTextStorage alloc] init];
 
 		layoutmanager = [[NSLayoutManager alloc] init];
@@ -53,29 +108,24 @@
 		[container setLayoutManager: layoutmanager];
 		[layoutmanager addTextContainer: container];
 
-		textview = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0) textContainer:container];
+		textview = [[MyGridTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0) textContainer:container textGrid:self];
 
 		[textview setMinSize:NSMakeSize(0, 0)];
 		[textview setMaxSize:NSMakeSize(10000000, 10000000)];
 
 		[container setTextView: textview];
+        [scrollview setDocumentView: textview];
 
 		/* now configure the text stuff */
 
-		//[container setWidthTracksTextView: NO];
-
-		[textview setHorizontallyResizable: YES];
-
-		[textview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
-
 		[textview setDelegate: self];
 		[textstorage setDelegate: self];
-		[textview setTextContainerInset: NSMakeSize([Preferences gridMargins] - 3, [Preferences gridMargins])];
+        [textview setTextContainerInset: NSMakeSize([Preferences gridMargins], [Preferences gridMargins])];
 
-		[self recalcBackground];
 		[textview setEditable:NO];
 		
-        [self addSubview: textview];
+        [self addSubview: scrollview];
+        [self recalcBackground];
     }
     return self;
 }
@@ -101,7 +151,7 @@
 	[super prefsDidChange];
 
 	NSInteger margin = [Preferences gridMargins];
-	[textview setTextContainerInset: NSMakeSize(margin - 3, margin)];
+	[textview setTextContainerInset: NSMakeSize(margin, margin)];
 
 	[textstorage removeAttribute: NSBackgroundColorAttributeName
 						   range: NSMakeRange(0, [textstorage length])];
@@ -227,51 +277,46 @@
 
     [super setFrame: frame];
 
-	NSSize inset = textview.textContainerInset;
-
-	NSInteger newcols = floor((frame.size.width) / [Preferences charWidth]) + 1;
-    NSInteger newrows = (frame.size.height - inset.height * 2) / [Preferences lineHeight];
-
-    if (newcols == cols && newrows == rows && textstorage.length == cols * rows - 1)
-        return;
+    NSInteger newcols = ((frame.size.width - (textview.textContainerInset.width + 5) * 2) / Preferences.charWidth);
+    NSInteger newrows = (frame.size.height - (textview.textContainerInset.width) * 2) / Preferences.lineHeight;
 
 	NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
 	if (newcols < cols)
 	{
-		for (r = cols - 2 ; r < backingStorage.length; r += cols)
+        // Delete characters if the window has become narrower
+		for (r = cols - 1; r < backingStorage.length; r += cols + 1)
 		{
 			NSRange deleteRange = NSMakeRange(r - (cols - newcols), cols - newcols);
 			[backingStorage deleteCharactersInRange:deleteRange];
-			NSLog(@"Removed characters at range %@", NSStringFromRange(deleteRange));
 			r -= (cols - newcols);
-
 		}
+        // For some reason we must remove a couple of extra characters at the end to avoid strays
+        if (rows == 1 && backingStorage.length >= (cols - 2))
+            [backingStorage deleteCharactersInRange:NSMakeRange(cols - 2, backingStorage.length - (cols - 2))];
 	}
 	else if (newcols > cols)
 	{
-		NSString *spaces = @" ";
-		spaces = [spaces stringByPaddingToLength: newcols - cols withString:@" " startingAtIndex:0];
+        // Pad with spaces if the window has become wider
+		NSString *spaces = [[[NSString alloc] init] stringByPaddingToLength: newcols - cols withString:@" " startingAtIndex:0];
 		NSAttributedString* string = [[NSAttributedString alloc]
 									  initWithString: spaces
-									  attributes: styles[style_Normal].attributes];
+									  attributes: [self attributesFromStylevalue:style_Normal]];
 
-		for (r = cols - 1 ; r < backingStorage.length; r += cols)
+		for (r = cols ; r < backingStorage.length - 1; r += (cols + 1))
 		{
 			[backingStorage insertAttributedString:string atIndex:r];
-			NSLog(@"Inserted %ld spaces at position %ld", newcols - cols, r);
 			r += (newcols - cols);
 		}
 	}
     cols = newcols;
     rows = newrows;
 
-	NSInteger desiredLength = rows * cols - 1;
-	if (desiredLength < 1)
-		return;
+	NSInteger desiredLength = rows * (cols + 1) - 1; // -1 because we don't want a newline at the end
+	if (desiredLength < 1 || rows == 1)
+		desiredLength = cols;
 	if (backingStorage.length < desiredLength)
 	{
-		NSString *spaces = @" ";
-		spaces = [spaces stringByPaddingToLength: desiredLength - backingStorage.length withString:@" " startingAtIndex:0];
+		NSString *spaces = [[[NSString alloc] init] stringByPaddingToLength: desiredLength - backingStorage.length withString:@" " startingAtIndex:0];
 		NSAttributedString* string = [[NSAttributedString alloc]
 								  initWithString: spaces
 								  attributes: styles[style_Normal].attributes];
@@ -284,14 +329,14 @@
 										 initWithString: @"\n"
 										 attributes: styles[style_Normal].attributes];
 
-	for (r = cols - 1; r < backingStorage.length; r += cols)
-	{
+    // Instert a newline character at the end of each line to avoid reflow during live resize.
+    // (We carefully have to print around these in the putString method)
+	for (r = cols; r < backingStorage.length; r += cols + 1)
 		[backingStorage replaceCharactersInRange:NSMakeRange(r, 1) withAttributedString: newlinestring];
-	}
-
-	[self recalcBackground];
 
 	[textstorage setAttributedString:backingStorage];
+    [textview setFrame:frame];
+    [self recalcBackground];
     dirty = YES;
 }
 
@@ -315,10 +360,25 @@
 
 - (void) putString: (NSString*)string style: (NSInteger)stylevalue
 {
-    NSInteger length = string.length;
-    NSInteger pos = 0;
+    NSUInteger length = string.length;
+    NSUInteger pos = 0;
     NSDictionary *att = [self attributesFromStylevalue:stylevalue];
-    //NSColor *col;
+
+//    NSLog(@"textGrid putString: '%@' (style %ld)", string, stylevalue);
+//    NSLog(@"cols: %ld rows: %ld", cols, rows);
+//    NSLog(@"xpos: %ld ypos: %ld", xpos, ypos);
+//
+//    NSLog(@"self.frame.size.width: %f",self.frame.size.width);
+
+    NSString *firstline = [textstorage.string substringWithRange:NSMakeRange(0, cols)];
+    CGSize stringSize = [firstline sizeWithAttributes:[self attributesFromStylevalue:stylevalue]];
+
+    if (stringSize.width > self.frame.size.width)
+    {
+        NSLog(@"ERROR! First line has somehow become too wide!!!!");
+        NSLog(@"First line of text storage: '%@'", firstline);
+        NSLog(@"Width of first line: %f", stringSize.width);
+    }
 
     // Check for newlines
     int x;
@@ -338,31 +398,37 @@
     while (pos < length)
     {
         // Can't write if we've fallen off the end of the window
-        if (ypos > (int)(textstorage.length / cols) || ypos > rows)
+        if (ypos > textstorage.length / (cols + 1) || ypos > rows)
             break;
 
         // Can only write a certain number of characters
         if (xpos >= cols)
         {
             xpos = 0;
-            ypos ++;
+            ypos++;
             continue;
         }
 
         // Get the number of characters to write
-        NSInteger amountToDraw = cols - xpos - 1;
+        NSInteger amountToDraw = cols - xpos;
         if (amountToDraw > [string length] - pos)
+        {
             amountToDraw = [string length] - pos;
+        }
+
+        if (cols * ypos + xpos + amountToDraw > textstorage.length)
+            amountToDraw = textstorage.length - (cols * ypos + xpos) + 1;
+
+        if (amountToDraw < 1)
+            break;
 
         // "Draw" the characters
         NSAttributedString* partString = [[NSAttributedString alloc]
                                           initWithString: [string substringWithRange: NSMakeRange(pos, amountToDraw)]
                                           attributes: att];
 
-        [textstorage replaceCharactersInRange: NSMakeRange(cols * ypos + xpos, amountToDraw) withAttributedString: partString];
-		NSLog(@"Replaced characters in range %@ with %@", NSStringFromRange(NSMakeRange(cols * ypos + xpos, amountToDraw)), partString.string);
-
-       // dirty = YES;
+        [textstorage replaceCharactersInRange: NSMakeRange((cols + 1) * ypos + xpos, amountToDraw) withAttributedString: partString];
+//		NSLog(@"Replaced characters in range %@ with '%@'", NSStringFromRange(NSMakeRange((cols + 1) * ypos + xpos, amountToDraw)), partString.string);
 
         // Update the x position (and the y position if necessary)
         xpos += amountToDraw;

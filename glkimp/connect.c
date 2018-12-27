@@ -527,11 +527,12 @@ again:
 #ifdef DEBUG
             //	     fprintf(stderr, "arrange event\n");
 #endif
+            /* + 5 for default line fragment padding */
             if ( gscreenw == wmsg.a1 &&
                 gscreenh == wmsg.a2 &&
-                gbuffermarginx == wmsg.a3 &&
+                gbuffermarginx == wmsg.a3 + 5 &&
                 gbuffermarginy == wmsg.a3 &&
-                ggridmarginx == wmsg.a4 &&
+                ggridmarginx == wmsg.a4 + 5 &&
                 ggridmarginy == wmsg.a4 &&
                 gcellw == wmsg.a5 / 256.0 &&
                 gcellh == wmsg.a6 / 256.0 )
@@ -540,9 +541,9 @@ again:
             event->type = evtype_Arrange;
             gscreenw = wmsg.a1;
             gscreenh = wmsg.a2;
-            gbuffermarginx = wmsg.a3;
+            gbuffermarginx = wmsg.a3 + 5;
             gbuffermarginy = wmsg.a3;
-            ggridmarginx = wmsg.a4;
+            ggridmarginx = wmsg.a4 + 5;
             ggridmarginy = wmsg.a4;
             gcellw = wmsg.a5 / 256.0;
             gcellh = wmsg.a6 / 256.0;

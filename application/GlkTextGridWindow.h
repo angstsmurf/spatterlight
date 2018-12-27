@@ -17,4 +17,6 @@
     NSInteger transparent;
 }
 
+- (BOOL) myMouseDown: (NSEvent*)theEvent;
+
 @end
