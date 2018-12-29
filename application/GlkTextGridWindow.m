@@ -775,8 +775,7 @@
 		//} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
 		//return parentWindow;
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		if (!line_request && !char_request) return @"Status window";
-		return [NSString stringWithFormat: @"Text window%@%@%@. • %@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
+		return [NSString stringWithFormat: @"Status window%@%@%@. %@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
 		//return (id)NO;
 		return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
