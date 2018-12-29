@@ -1769,6 +1769,12 @@
 - (void) setLastMove
 {
 	NSUInteger maxlength = textstorage.length;
+
+    if (!maxlength)
+    {
+        moveRanges = [[NSMutableArray alloc] init];
+        return;
+    }
 	NSRange currentMove = NSMakeRange(0, maxlength);
 
     if (moveRanges.lastObject)
