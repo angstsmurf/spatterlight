@@ -2047,6 +2047,13 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 - (NSString *)accessibilityActionDescription: (NSString*) action {
     if ([action isEqualToString: @"Repeat last move"])
         return @"Read the output of the last command entered";
+    if ([action isEqualToString: @"Speak move before"])
+        return @"Read the output of the command before the last one read";
+    if ([action isEqualToString: @"Speak move after"])
+        return @"Read the output of the command after the last one read";
+    if ([action isEqualToString: @"Speak status bar"])
+        return @"Read the text of the status bar";
+
 
     return [super accessibilityActionDescription: action];
 }
@@ -2055,7 +2062,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
     NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
 
     [result addObjectsFromArray:[NSArray arrayWithObjects:
-                                 @"Repeat last move",
+                                 @"Repeat last move", @"Speak move before", @"Speak move after", @"Speak status bar",
                                  nil]];
 
     return result;
@@ -2065,9 +2072,13 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
     NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
 
 	if ([action isEqualToString: @"Repeat last move"])
-	{
         [self speakMostRecent:nil];
-	}
+    else if ([action isEqualToString: @"Speak move before"])
+        [self speakPrevious:nil];
+    else if ([action isEqualToString: @"Speak move after"])
+        [self speakNext:nil];
+    else if ([action isEqualToString: @"Speak status bar"])
+        [self speakStatus:nil];
 	else [super accessibilityPerformAction: action];
 }
 
@@ -2077,21 +2088,12 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 	NSLog(@"GlkTextBufferWindow: accessibilitySetValue: %@ forAttribute: %@", value, attribute);
 
-    if (textview.shouldSpeak_10_7)
-	{
-        return [textview accessibilitySetValue:value forAttribute:attribute];
-    }
 	// No settable attributes
 	return [super accessibilitySetValue: value
 						   forAttribute: attribute];
 }
 
 - (NSArray*) accessibilityAttributeNames {
-
-    if (textview.shouldSpeak_10_7)
-	{
-        return [textview accessibilityAttributeNames];
-    }
 
 	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
 	if (!result) result = [[NSMutableArray alloc] init];
