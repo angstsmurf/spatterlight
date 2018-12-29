@@ -187,6 +187,7 @@
 		[textstorage replaceCharactersInRange:lineRange withAttributedString:line];
 	}
 
+    [self recalcBackground];
     [self setNeedsDisplay: YES];
     dirty = NO;
 }
