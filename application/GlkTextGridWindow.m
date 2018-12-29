@@ -278,6 +278,9 @@
     NSInteger newcols = ceil((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding) * 2) / Preferences.charWidth);
     NSInteger newrows = (frame.size.height - (textview.textContainerInset.width) * 2) / Preferences.lineHeight;
 
+    if (newcols == cols && newrows == rows && NSEqualRects(textview.frame, frame))
+        return;
+
     if (newcols < 0)
         newcols = 0;
     if (newrows < 0)
