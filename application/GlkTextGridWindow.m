@@ -121,7 +121,8 @@
         [textview setTextContainerInset: NSMakeSize([Preferences gridMargins], [Preferences gridMargins])];
 
 		[textview setEditable:NO];
-		
+        [textview setUsesFontPanel: NO];
+
         [self addSubview: scrollview];
         [self recalcBackground];
     }
