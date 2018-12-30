@@ -1672,10 +1672,10 @@
 - (void) putString:(NSString*)str style:(NSInteger)stylevalue
 {
     if (line_request)
-        NSLog(@"Error! Printing to text buffer window during line request");
+        NSLog(@"Printing to text buffer window during line request");
 
     if (char_request)
-        NSLog(@"Error! Printing to text buffer window during character request");
+        NSLog(@"Printing to text buffer window during character request");
 
     [self printToWindow:str style:stylevalue];
 }

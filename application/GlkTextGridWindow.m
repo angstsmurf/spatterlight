@@ -469,10 +469,10 @@
 - (void) putString: (NSString*)string style: (NSInteger)stylevalue
 {
     if (line_request)
-        NSLog(@"Error! Printing to text grid window during line request");
+        NSLog(@"Printing to text grid window during line request");
 
     if (char_request)
-        NSLog(@"Error! Printing to text grid window during character request");
+        NSLog(@"Printing to text grid window during character request");
 
     [self printToWindow: string style: stylevalue];
 }
