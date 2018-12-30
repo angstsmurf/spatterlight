@@ -59,6 +59,103 @@
 @end
 
 
+//Custom formatter adapted from code by Jonathan Mitchell
+//See https://stackoverflow.com/questions/827014/how-to-limit-nstextfield-text-length-and-keep-it-always-upper-case
+//
+@interface MyTextFormatter : NSFormatter {}
+
+- (id)initWithMaxLength: (NSInteger)alength;
+
+@property NSInteger maxLength;
+
+@end
+
+@implementation MyTextFormatter
+
+- (id)init
+{
+    if(self = [super init]){
+        self.maxLength = INT_MAX;
+    }
+
+    return self;
+}
+
+- (id)initWithMaxLength: (NSInteger)alength
+{
+    if(self = [super init]){
+        self.maxLength = alength;
+    }
+
+    return self;
+}
+
+#pragma mark -
+#pragma mark Textual Representation of Cell Content
+
+- (NSString *)stringForObjectValue:(id)object
+{
+    NSString *stringValue = nil;
+    if ([object isKindOfClass:[NSString class]]) {
+
+        // A new NSString is perhaps not required here
+        // but generically a new object would be generated
+        stringValue = [NSString stringWithString:object];
+    }
+
+    return stringValue;
+}
+
+- (BOOL)getObjectValue:(id *)object forString:(NSString *)string errorDescription:(NSString **)error
+{
+    BOOL valid = YES;
+
+    *object = [NSString stringWithString:string];
+
+    return valid;
+}
+
+- (BOOL)isPartialStringValid:(NSString **)partialStringPtr
+       proposedSelectedRange:(NSRangePointer)proposedSelRangePtr
+              originalString:(NSString *)origString
+       originalSelectedRange:(NSRange)origSelRange
+            errorDescription:(NSString **)error
+{
+    BOOL valid = YES;
+
+    NSString *proposedString = *partialStringPtr;
+    if ([proposedString length] > self.maxLength) {
+
+        // The original string has been modified by one or more characters (via pasting).
+        // Either way compute how much of the proposed string can be accommodated.
+        NSInteger origLength = origString.length;
+        NSInteger insertLength = self.maxLength - origLength;
+
+        // If a range is selected then characters in that range will be removed
+        // so adjust the insert length accordingly
+        insertLength += origSelRange.length;
+
+        // Get the string components
+        NSString *prefix = [origString substringToIndex:origSelRange.location];
+        NSString *suffix = [origString substringFromIndex:origSelRange.location + origSelRange.length];
+        NSString *insert = [proposedString substringWithRange:NSMakeRange(origSelRange.location, insertLength)];
+
+        // Assemble the final string
+        *partialStringPtr = [NSString stringWithFormat:@"%@%@%@", prefix, insert, suffix];
+
+        // Fix-up the proposed selection range
+        proposedSelRangePtr->location = origSelRange.location + insertLength;
+        proposedSelRangePtr->length = 0;
+        
+        valid = NO;
+    }
+    
+    return valid;
+}
+
+@end
+
+
 @implementation GlkTextGridWindow
 
 - (instancetype) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name_
@@ -688,6 +785,9 @@
 
 	input.attributedStringValue = attString;
 
+    MyTextFormatter *inputFormatter = [[MyTextFormatter alloc] initWithMaxLength:cols - xpos];
+    input.formatter = inputFormatter;
+
     [textview addSubview: input];
     [[self window] makeFirstResponder: input];
 
@@ -723,17 +823,6 @@
         input = nil;
     }
 }
-
-//- (BOOL)textField:(NSTextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-//{
-//	NSString *newString = [textField.stringValue stringByReplacingCharactersInRange:range withString:string];
-//	if (newString.length < 1) {
-//		// too short
-//	} else if (newString.length > 6) {
-//		// too long
-//	}
-//	return YES;
-//}
 
 
 // = NSAccessibility =
