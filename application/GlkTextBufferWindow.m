@@ -1623,6 +1623,7 @@
 
     moveRanges = nil;
     moveRanges = [[NSMutableArray alloc] init];
+	moveRangeIndex = 0;
 
     [container invalidateLayout];
 }
@@ -1790,6 +1791,7 @@
     if (!maxlength)
     {
         moveRanges = [[NSMutableArray alloc] init];
+		moveRangeIndex = 0;
         return;
     }
 	NSRange currentMove = NSMakeRange(0, maxlength);
@@ -1799,10 +1801,14 @@
         NSRange lastMove = ((NSValue *)moveRanges.lastObject).rangeValue;
 		if (NSMaxRange(lastMove) > maxlength)
 			[moveRanges removeLastObject];
+		else if (lastMove.length == maxlength)
+			return;
 		else
 			currentMove = NSMakeRange(NSMaxRange(lastMove), maxlength - NSMaxRange(lastMove) - 1);
 	}
 
+	if (NSMaxRange(currentMove) > maxlength)
+		currentMove = NSMakeRange(currentMove.location, maxlength - currentMove.location);
 	moveRangeIndex = moveRanges.count;
 	[moveRanges addObject:[NSValue valueWithRange:currentMove]];
 }
@@ -1812,17 +1818,12 @@
 	if (!moveRanges.count)
 		return;
 	moveRangeIndex = moveRanges.count - 1;
-	NSValue *v;
-	NSRange lastMove;
-    NSEnumerator *movesenumerator = [moveRanges reverseObjectEnumerator];
+	NSRange lastMove = NSMakeRange(0, textstorage.length);
 
-	while (v = [movesenumerator nextObject])
-	{
-		lastMove = v.rangeValue;
-		if (lastMove.length) break;
-	}
+	lastMove = ((NSValue *)moveRanges.lastObject).rangeValue;
+	NSLog(@"Set lastMove to %@. MaxRange: %ld", NSStringFromRange(lastMove), NSMaxRange(lastMove));
 
-	if (lastMove.length == 0)
+	if (lastMove.length <= 0 || NSMaxRange(lastMove) > textstorage.length)
 	{
 		NSDictionary *announcementInfo = @{
 										   NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
