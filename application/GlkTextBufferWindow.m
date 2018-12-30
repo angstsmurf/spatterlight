@@ -807,6 +807,9 @@
     self.editable = waseditable;
 }
 
+
+// = NSAccessibility =
+
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
 
@@ -907,30 +910,39 @@
 }
 
 - (NSString *)accessibilityActionDescription: (NSString*) action {
-	if ([action isEqualToString: @"Repeat last move"])
-		return @"Read the output of the last command entered";
+    if ([action isEqualToString: @"Repeat last move"])
+        return @"Read the output of the last command entered";
+    if ([action isEqualToString: @"Speak move before"])
+        return @"Read the output of the command before the last one read";
+    if ([action isEqualToString: @"Speak move after"])
+        return @"Read the output of the command after the last one read";
+    if ([action isEqualToString: @"Speak status bar"])
+        return @"Read the text of the status bar";
 
-	return [super accessibilityActionDescription: action];
+    return [super accessibilityActionDescription: action];
 }
 
 - (NSArray *)accessibilityActionNames {
-	NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
+    NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
 
-	[result addObjectsFromArray:[NSArray arrayWithObjects:
-								 @"Repeat last move",
-								 nil]];
+    [result addObjectsFromArray:[NSArray arrayWithObjects:
+                                 @"Repeat last move", @"Speak move before", @"Speak move after", @"Speak status bar",
+                                 nil]];
 
-	return result;
+    return result;
 }
 
 - (void)accessibilityPerformAction:(NSString *)action {
-	NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
+    NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
 
 	if ([action isEqualToString: @"Repeat last move"])
-	{
         [glkTextBuffer speakMostRecent:nil];
-	}
-
+    else if ([action isEqualToString: @"Speak move before"])
+        [glkTextBuffer speakPrevious:nil];
+    else if ([action isEqualToString: @"Speak move after"])
+        [glkTextBuffer speakNext:nil];
+    else if ([action isEqualToString: @"Speak status bar"])
+        [glkTextBuffer speakStatus:nil];
 	else [super accessibilityPerformAction: action];
 }
 
@@ -2039,17 +2051,6 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 // = NSAccessibility =
 
-- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
-
-	NSLog(@"GlkTextBufferWindow: accessibilityIsAttributeSettable: %@", attribute);
-
-    if ([attribute isEqualToString:NSAccessibilityValueAttribute])
-        return NO;
-
-	return [super accessibilityIsAttributeSettable: attribute];
-}
-
-
 - (NSString *)accessibilityActionDescription: (NSString*) action {
     if ([action isEqualToString: @"Repeat last move"])
         return @"Read the output of the last command entered";
@@ -2088,24 +2089,12 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 	else [super accessibilityPerformAction: action];
 }
 
-
-- (void)accessibilitySetValue: (id)value
-				 forAttribute: (NSString*) attribute {
-
-	NSLog(@"GlkTextBufferWindow: accessibilitySetValue: %@ forAttribute: %@", value, attribute);
-
-	// No settable attributes
-	return [super accessibilitySetValue: value
-						   forAttribute: attribute];
-}
-
 - (NSArray*) accessibilityAttributeNames {
 
 	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
 	if (!result) result = [[NSMutableArray alloc] init];
 
-	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
-								  NSAccessibilityHelpAttribute]];
+	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute]];
 
     NSLog(@"GlkTextBufferWindow: accessibilityAttributeNames: %@ ", result);
 
@@ -2136,11 +2125,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 	return [super accessibilityAttributeValue: attribute];
 }
 
--(id)accessibilityAttributeValue:(NSString *)attribute forParameter:(id)parameter
-{
-	NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);    
-	return [super accessibilityAttributeValue:attribute forParameter:parameter];
-}
+
 
 - (id)accessibilityFocusedUIElement {
 	return textview;
@@ -2149,16 +2134,5 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 - (BOOL)accessibilityIsIgnored {
 	return NO;
 }
-
-//- (void) hideMoreWindow {
-//    [[moreWindow parentWindow] removeChildWindow: moreWindow];
-//    [moreWindow orderOut: self];
-//}
-//
-//- (void) showMoreWindow {
-//    [[self window] addChildWindow: moreWindow
-//                          ordered: NSWindowAbove];
-//    [moreWindow orderFront: self];
-//}
 
 @end

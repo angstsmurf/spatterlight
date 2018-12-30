@@ -97,7 +97,10 @@
 - (void) echo: (BOOL)val;
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
 - (void) stopSpeakingText_10_7;
-- (IBAction) speakMostRecent: (id) sender;
+- (IBAction) speakMostRecent: (id)sender;
+- (IBAction) speakPrevious: (id)sender;
+- (IBAction) speakNext: (id)sender;
+- (IBAction) speakStatus: (id)sender;
 
 @property (readonly) NSInteger lastchar; /* for smart formatting */
 @property (readonly) NSInteger lastseen; /* for more paging */
