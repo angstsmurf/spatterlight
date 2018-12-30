@@ -812,9 +812,7 @@
 
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
-
-	NSLog(@"MyTextView: accessibilityAttributeValue: %@",attribute);
-
+	//NSLog(@"MyTextView: accessibilityAttributeValue: %@",attribute);
 
     if (_shouldSpeak_10_7)
     {
@@ -843,7 +841,6 @@
 
 	if (_shouldSpeak_10_7 && NSMaxRange(_rangeToSpeak_10_7) <= self.textStorage.length)
 	{
-
 		if ([attribute isEqualToString:NSAccessibilitySelectedTextRangeAttribute])
 			return [NSValue valueWithRange:_rangeToSpeak_10_7];
 
@@ -852,20 +849,17 @@
 			NSArray *ranges = @[ [NSValue valueWithRange:_rangeToSpeak_10_7] ];
 			return ranges;
 		}
-
 	}
 
-	NSLog (@"Result: %@",[super accessibilityAttributeValue:attribute]);
+	//NSLog (@"Result: %@",[super accessibilityAttributeValue:attribute]);
 	return [super accessibilityAttributeValue:attribute];
 }
 
 -(id)accessibilityAttributeValue:(NSString *)attribute forParameter:(id)parameter
 {
-	NSLog(@"MyTextView: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);
-
+	//NSLog(@"MyTextView: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);
 	if (_shouldSpeak_10_7 && NSMaxRange(_rangeToSpeak_10_7) <= self.textStorage.length)
 	{
-
         if ([attribute isEqualToString:NSAccessibilityLineForIndexParameterizedAttribute])
             return nil;
 
@@ -884,7 +878,6 @@
 
     if ([attribute isEqualToString:NSAccessibilityRangeForLineParameterizedAttribute])
     {
-
         NSLayoutManager *layoutManager = self.layoutManager;
         unsigned numberOfLines, index;
         unsigned numberOfGlyphs = [layoutManager numberOfGlyphs];
@@ -905,7 +898,7 @@
         return nil;
     }
 
-	NSLog(@"Result: %@",[super accessibilityAttributeValue:attribute forParameter:parameter]);
+	//NSLog(@"Result: %@",[super accessibilityAttributeValue:attribute forParameter:parameter]);
 	return [super accessibilityAttributeValue:attribute forParameter:parameter];
 }
 
@@ -2082,7 +2075,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 }
 
 - (void)accessibilityPerformAction:(NSString *)action {
-    NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
+    //NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
 
 	if ([action isEqualToString: @"Repeat last move"])
         [self speakMostRecent:nil];
@@ -2102,15 +2095,14 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute]];
 
-    NSLog(@"GlkTextBufferWindow: accessibilityAttributeNames: %@ ", result);
-
+    //NSLog(@"GlkTextBufferWindow: accessibilityAttributeNames: %@ ", result);
 	return result;
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
 
-	NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@",attribute);
+	//NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@",attribute);
     if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
         return NSAccessibilityUnknownRole;
     }
@@ -2130,8 +2122,6 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 	return [super accessibilityAttributeValue: attribute];
 }
-
-
 
 - (id)accessibilityFocusedUIElement {
 	return textview;

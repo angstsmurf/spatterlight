@@ -738,7 +738,6 @@
 
 // = NSAccessibility =
 
-
 - (NSArray*) accessibilityAttributeNames {
 	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
 	if (!result) result = [[NSMutableArray alloc] init];
@@ -752,12 +751,9 @@
 
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
-
-	NSLog(@"GlkTextGridWindow: accessibilityAttributeValue: %@",attribute);
+	//NSLog(@"GlkTextGridWindow: accessibilityAttributeValue: %@",attribute);
 	if ([attribute isEqualToString: NSAccessibilityContentsAttribute]) {
 		return textview;
-		//} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		//return parentWindow;
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
 		return [NSString stringWithFormat: @"Status window%@%@%@. %@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
@@ -783,12 +779,10 @@
 
 - (IBAction)speakStatus:(id)sender
 {
-
     NSDictionary *announcementInfo = @{
                                        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
                                        NSAccessibilityAnnouncementKey : textstorage.string
                                        };
-
     NSAccessibilityPostNotificationWithUserInfo([NSApp mainWindow], NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 
     return;
