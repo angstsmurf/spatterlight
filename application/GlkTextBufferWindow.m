@@ -1802,7 +1802,6 @@
 		else
 			currentMove = NSMakeRange(NSMaxRange(lastMove), maxlength - NSMaxRange(lastMove) - 1);
 	}
-	NSLog(@"Set last move (%ld) to '%@'", moveRanges.count, [textstorage.string substringWithRange:currentMove]);
 
 	moveRangeIndex = moveRanges.count;
 	[moveRanges addObject:[NSValue valueWithRange:currentMove]];
