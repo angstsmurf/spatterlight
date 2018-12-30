@@ -732,34 +732,12 @@
 
 // = NSAccessibility =
 
-- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
-
-	NSLog(@"GlkTextBufferWindow: accessibilityIsAttributeSettable: %@", attribute);
-
-	return [super accessibilityIsAttributeSettable: attribute];
-}
-
-- (void)accessibilityPerformAction:(NSString *)action {
-	NSLog(@"GlkTextGridWindow: accessibilityPerformAction. %@",action);
-	return [super accessibilityPerformAction: action];
-}
-
-- (void)accessibilitySetValue: (id)value
-				 forAttribute: (NSString*) attribute {
-
-	NSLog(@"GlkTextGridWindow: accessibilitySetValue: %@ forAttribute: %@", value, attribute);
-
-	// No settable attributes
-	return [super accessibilitySetValue: value
-						   forAttribute: attribute];
-}
 
 - (NSArray*) accessibilityAttributeNames {
 	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
 	if (!result) result = [[NSMutableArray alloc] init];
 
-	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
-								  NSAccessibilityHelpAttribute]];
+	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute]];
 
 	//	NSLog(@"GlkTextGridWindow: accessibilityAttributeNames: %@ ", result);
 
@@ -787,13 +765,6 @@
 	}
 
 	return [super accessibilityAttributeValue: attribute];
-}
-
--(id)accessibilityAttributeValue:(NSString *)attribute forParameter:(id)parameter
-{
-	NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@ forParameter: %@",attribute, parameter);
-
-	return [super accessibilityAttributeValue:attribute forParameter:parameter];
 }
 
 - (id)accessibilityFocusedUIElement {
