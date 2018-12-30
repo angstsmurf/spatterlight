@@ -1501,7 +1501,7 @@
         NSString *line = [textstorage.string substringFromIndex:fence];
         if (echo)
         {
-            [self putString: @"\n" style: style_Input]; // XXX arranger lastchar needs to be set
+            [self printToWindow: @"\n" style: style_Input]; // XXX arranger lastchar needs to be set
             _lastchar = '\n';
         }
         else
@@ -1677,6 +1677,11 @@
     if (char_request)
         NSLog(@"Error! Printing to text buffer window during character request");
 
+    [self printToWindow:str style:stylevalue];
+}
+
+- (void) printToWindow:(NSString*)str style:(NSInteger)stylevalue
+{
     [textview resetTextFinder];
 
     NSAttributedString *attstr = [[NSAttributedString alloc] initWithString:str attributes:[self attributesFromStylevalue:stylevalue]];
@@ -1684,6 +1689,7 @@
 	[textstorage appendAttributedString: attstr];
 
     _lastchar = [str characterAtIndex: [str length] - 1];
+
 }
 
 - (void) initChar
@@ -1736,7 +1742,7 @@
 
     if (_lastchar == '>' && [Preferences spaceFormat])
     {
-        [self putString: @" " style: style_Normal];
+        [self printToWindow: @" " style: style_Normal];
     }
 
     fence = [textstorage length];
@@ -1766,7 +1772,7 @@
     str = [str substringFromIndex:fence];
     if (echo)
 	{
-		[self putString: @"\n" style: style_Input];
+		[self printToWindow: @"\n" style: style_Input];
 		_lastchar = '\n'; // [str characterAtIndex: str.length - 1];
 	}
     else
