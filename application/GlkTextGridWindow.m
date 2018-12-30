@@ -375,6 +375,12 @@
     NSUInteger pos = 0;
     NSDictionary *att = [self attributesFromStylevalue:stylevalue];
 
+    if (line_request)
+        NSLog(@"Error! Printing to text grid window during line request");
+
+    if (char_request)
+        NSLog(@"Error! Printing to text grid window during character request");
+
 //    NSLog(@"textGrid putString: '%@' (style %ld)", string, stylevalue);
 //    NSLog(@"cols: %ld rows: %ld", cols, rows);
 //    NSLog(@"xpos: %ld ypos: %ld", xpos, ypos);

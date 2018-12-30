@@ -1678,6 +1678,12 @@
 
 - (void) putString:(NSString*)str style:(NSInteger)stylevalue
 {
+    if (line_request)
+        NSLog(@"Error! Printing to text buffer window during line request");
+
+    if (char_request)
+        NSLog(@"Error! Printing to text buffer window during character request");
+
     [textview resetTextFinder];
 
     NSAttributedString *attstr = [[NSAttributedString alloc] initWithString:str attributes:[self attributesFromStylevalue:stylevalue]];
