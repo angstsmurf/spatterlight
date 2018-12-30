@@ -438,7 +438,7 @@
 										 attributes: styles[style_Normal].attributes];
 
     // Instert a newline character at the end of each line to avoid reflow during live resize.
-    // (We carefully have to print around these in the putString method)
+    // (We carefully have to print around these in the printToWindow method)
 	for (r = cols; r < backingStorage.length; r += cols + 1)
 		[backingStorage replaceCharactersInRange:NSMakeRange(r, 1) withAttributedString: newlinestring];
 
@@ -468,17 +468,22 @@
 
 - (void) putString: (NSString*)string style: (NSInteger)stylevalue
 {
-    NSUInteger length = string.length;
-    NSUInteger pos = 0;
-    NSDictionary *att = [self attributesFromStylevalue:stylevalue];
-
     if (line_request)
         NSLog(@"Error! Printing to text grid window during line request");
 
     if (char_request)
         NSLog(@"Error! Printing to text grid window during character request");
 
-//    NSLog(@"textGrid putString: '%@' (style %ld)", string, stylevalue);
+    [self printToWindow: string style: stylevalue];
+}
+
+- (void) printToWindow: (NSString*)string style: (NSInteger)stylevalue
+{
+    NSUInteger length = string.length;
+    NSUInteger pos = 0;
+    NSDictionary *att = [self attributesFromStylevalue:stylevalue];
+
+//    NSLog(@"textGrid printToWindow: '%@' (style %ld)", string, stylevalue);
 //    NSLog(@"cols: %ld rows: %ld", cols, rows);
 //    NSLog(@"xpos: %ld ypos: %ld", xpos, ypos);
 //
@@ -500,10 +505,10 @@
     {
         if ([string characterAtIndex: x] == '\n' || [string characterAtIndex: x] == '\r')
         {
-            [self putString: [string substringToIndex: x] style: stylevalue];
+            [self printToWindow: [string substringToIndex: x] style: stylevalue];
             xpos = 0;
             ypos++;
-            [self putString: [string substringFromIndex: x + 1] style: stylevalue];
+            [self printToWindow: [string substringFromIndex: x + 1] style: stylevalue];
             return;
         }
     }
@@ -800,7 +805,7 @@
     if (input)
     {
         NSString *str = [input stringValue];
-        [self putString: str style: style_Input];
+        [self printToWindow: str style: style_Input];
         [input removeFromSuperview];
         input = nil;
         return str;
@@ -816,7 +821,7 @@
         [glkctl markLastSeen];
 
         NSString *str = [input stringValue];
-        [self putString: str style: style_Input];
+        [self printToWindow: str style: style_Input];
         GlkEvent *gev = [[GlkEvent alloc] initLineEvent: str forWindow: self.name];
         [glkctl queueEvent: gev];
         [input removeFromSuperview];
