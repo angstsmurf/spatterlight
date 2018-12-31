@@ -569,7 +569,7 @@
 											</object>
 											<object class="NSMenuItem" id="414205406">
 												<reference key="NSMenu" ref="537658624"/>
-												<string key="NSTitle">Speak Previous Move</string>
+												<string key="NSTitle">Speak Previous</string>
 												<string key="NSKeyEquiv"></string>
 												<int key="NSKeyEquivModMask">1572864</int>
 												<int key="NSMnemonicLoc">2147483647</int>
@@ -578,7 +578,7 @@
 											</object>
 											<object class="NSMenuItem" id="66360232">
 												<reference key="NSMenu" ref="537658624"/>
-												<string key="NSTitle">Speak Next Move</string>
+												<string key="NSTitle">Speak Next</string>
 												<string key="NSKeyEquiv"></string>
 												<int key="NSKeyEquivModMask">1572864</int>
 												<int key="NSMnemonicLoc">2147483647</int>
