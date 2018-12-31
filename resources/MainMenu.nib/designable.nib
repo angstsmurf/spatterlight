@@ -639,6 +639,25 @@
 									<reference key="NSOnImage" ref="72442803"/>
 									<reference key="NSMixedImage" ref="165322861"/>
 								</object>
+								<object class="NSMenuItem" id="562402707">
+									<reference key="NSMenu" ref="560355318"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="72442803"/>
+									<reference key="NSMixedImage" ref="165322861"/>
+								</object>
+								<object class="NSMenuItem" id="765979378">
+									<reference key="NSMenu" ref="560355318"/>
+									<string key="NSTitle">Enter Full Screen</string>
+									<string key="NSKeyEquiv">f</string>
+									<int key="NSKeyEquivModMask">1310720</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="72442803"/>
+									<reference key="NSMixedImage" ref="165322861"/>
+								</object>
 							</array>
 						</object>
 					</object>
@@ -1172,6 +1191,14 @@
 						<reference key="destination" ref="341325455"/>
 					</object>
 					<int key="connectionID">541</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleFullScreen:</string>
+						<reference key="source" ref="823233140"/>
+						<reference key="destination" ref="765979378"/>
+					</object>
+					<int key="connectionID">688</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1751,11 +1778,23 @@
 						<int key="objectID">626</int>
 						<reference key="object" ref="560355318"/>
 						<array class="NSMutableArray" key="children">
+							<reference ref="765979378"/>
+							<reference ref="562402707"/>
 							<reference ref="479298322"/>
 							<reference ref="928736721"/>
 							<reference ref="998466407"/>
 						</array>
 						<reference key="parent" ref="817900163"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">687</int>
+						<reference key="object" ref="765979378"/>
+						<reference key="parent" ref="560355318"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">689</int>
+						<reference key="object" ref="562402707"/>
+						<reference key="parent" ref="560355318"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">868</int>
@@ -1860,6 +1899,8 @@
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="626.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="687.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="689.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="866.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="867.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="868.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
