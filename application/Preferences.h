@@ -40,6 +40,9 @@
 - (IBAction) changeEnableSound: (id)sender;
 - (IBAction) changeEnableStyles: (id)sender;
 - (IBAction) changeUseScreenFonts: (id)sender;
+- (IBAction) zoomToActualSize:(id)sender;
+- (IBAction) zoomIn:(id)sender;
+- (IBAction) zoomOut:(id)sender;
 
 + (NSColor*) gridBackground;
 + (NSColor*) gridForeground;
