@@ -1,4 +1,5 @@
 #import "main.h"
+#import "Compatibility.h"
 #import "InfoController.h"
 
 #include <sys/time.h>
@@ -116,6 +117,10 @@
         [[self window] setRepresentedFilename: gamefile];
         [[self window] setTitle: gameinfo[@"title"]];
         [[self window] setContentSize: defsize];
+
+        if (NSAppKitVersionNumber > NSAppKitVersionNumber10_12) {
+            [self.window setValue:[NSNumber numberWithInt:2] forKey:@"tabbingMode"];
+        }
 
         // Clamp to max screen size
         defsize.height = self.window.frame.size.height;

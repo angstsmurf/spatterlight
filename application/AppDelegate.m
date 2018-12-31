@@ -3,6 +3,7 @@
  */
 
 #import "main.h"
+#import "Compatibility.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
@@ -47,6 +48,9 @@ NSDictionary *gFormatMap;
     prefctl = [[Preferences alloc] initWithWindowNibName: @"PrefsWindow"];
     libctl = [[LibController alloc] initWithWindowNibName: @"LibraryWindow"];
     [libctl loadLibrary];
+    if (NSAppKitVersionNumber > NSAppKitVersionNumber10_12) {
+        [libctl.window setValue:[NSNumber numberWithInt:2] forKey:@"tabbingMode"];
+    }
 }
 
 - (IBAction) showPrefs: (id)sender
