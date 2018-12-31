@@ -1818,10 +1818,7 @@
 	if (!moveRanges.count)
 		return;
 	moveRangeIndex = moveRanges.count - 1;
-	NSRange lastMove = NSMakeRange(0, textstorage.length);
-
-	lastMove = ((NSValue *)moveRanges.lastObject).rangeValue;
-	NSLog(@"Set lastMove to %@. MaxRange: %ld", NSStringFromRange(lastMove), NSMaxRange(lastMove));
+	NSRange lastMove = ((NSValue *)moveRanges.lastObject).rangeValue;
 
 	if (lastMove.length <= 0 || NSMaxRange(lastMove) > textstorage.length)
 	{
