@@ -892,7 +892,7 @@
 //                //NSLog(@"Result: %@ (%@)",NSStringFromRange(lineRange), [self.textStorage.string substringWithRange:lineRange]);
 //                return [NSValue valueWithRange:lineRange];
 //            }
-//            
+//
 //            index = NSMaxRange(lineRange);
 //                    }
 //        return nil;
