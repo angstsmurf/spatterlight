@@ -118,7 +118,7 @@
         [[self window] setTitle: gameinfo[@"title"]];
         [[self window] setContentSize: defsize];
 
-        if (NSAppKitVersionNumber > NSAppKitVersionNumber10_12) {
+        if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
             [self.window setValue:[NSNumber numberWithInt:2] forKey:@"tabbingMode"];
         }
 

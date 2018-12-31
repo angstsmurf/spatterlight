@@ -48,7 +48,8 @@ NSDictionary *gFormatMap;
     prefctl = [[Preferences alloc] initWithWindowNibName: @"PrefsWindow"];
     libctl = [[LibController alloc] initWithWindowNibName: @"LibraryWindow"];
     [libctl loadLibrary];
-    if (NSAppKitVersionNumber > NSAppKitVersionNumber10_12) {
+    if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12)
+    {
         [libctl.window setValue:[NSNumber numberWithInt:2] forKey:@"tabbingMode"];
     }
 }
