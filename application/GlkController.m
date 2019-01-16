@@ -120,9 +120,8 @@
         
         NSInteger border = [Preferences border];
         [borderView setFrame:NSMakeRect(0, 0, defsize.width, defsize.height)];
+		[self setBorderColor:[Preferences bufferBackground]];
         [contentView setFrame:NSMakeRect(border, border, defsize.width - (border * 2), defsize.height - (border * 2))];
-
-        NSLog(@"glkctl: set contentView frame to %@", NSStringFromRect([contentView frame]));
 
         if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
             [self.window setValue:[NSNumber numberWithInt:2] forKey:@"tabbingMode"];
@@ -469,7 +468,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize
         [contentView setFrame:frame];
         [self contentDidResize:frame];
     }
-    else NSLog(@"No border change");
 
     frame = contentView.frame;
 
@@ -1574,6 +1572,13 @@ again:
         goto again;
     else
         [readfh waitForDataInBackgroundAndNotify];
+}
+
+- (void) setBorderColor: (NSColor *)color;
+{
+	[borderView setWantsLayer:YES];
+	borderView.layer.backgroundColor = color.CGColor;
+	self.window.backgroundColor = color;
 }
 
 // = Accessibility =

@@ -74,5 +74,6 @@
 - (void) markLastSeen;
 - (void) performScroll;
 - (id) windowWithNum: (int)index;
+- (void) setBorderColor: (NSColor *)color;
 
 @end

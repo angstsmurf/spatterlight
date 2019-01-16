@@ -1035,12 +1035,6 @@
         [textview setTextContainerInset: NSMakeSize(margin, margin)];
         [textview setBackgroundColor: [Preferences bufferBackground]];
 
-//        NSView *borderView = [[glkctl window] contentView];
-//        [borderView setWantsLayer:YES];
-//        borderView.layer.backgroundColor = [Preferences bufferBackground].CGColor;
-
-        glkctl.window.backgroundColor = [Preferences bufferBackground];
-
         [textview setInsertionPointColor: [Preferences bufferForeground]];
 
         [textview enableCaret:nil];
@@ -1084,10 +1078,7 @@
     [textview setBackgroundColor: bgcolor];
     [textview setInsertionPointColor: fgcolor];
     
-//    NSView *borderView = [[glkctl window] contentView];
-//    [borderView setWantsLayer:YES];
-//    borderView.layer.backgroundColor = bgcolor.CGColor;
-    glkctl.window.backgroundColor = bgcolor;
+    [glkctl setBorderColor:bgcolor];
 }
 
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value
