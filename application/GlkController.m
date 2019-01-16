@@ -55,11 +55,11 @@
     return YES;
 }
 
-- (void) drawRect: (NSRect)rect
-{
-    //    [[NSColor whiteColor] set];
-    //    NSRectFill(rect);
-}
+//- (void) drawRect: (NSRect)rect
+//{
+//    //    [[NSColor whiteColor] set];
+//    //    NSRectFill(rect);
+//}
 
 - (void) setFrame: (NSRect)frame
 {
@@ -289,6 +289,43 @@
     defaultFrame.origin.x = frame.origin.x;
     defaultFrame.size.width = frame.size.width;
     return defaultFrame;
+}
+
+- (NSSize)window:(NSWindow *)window
+willUseFullScreenContentSize:(NSSize)proposedSize
+{
+    fullScreenSize = proposedSize;
+    return proposedSize;
+}
+
+- (NSArray *)customWindowsToEnterFullScreenForWindow:(NSWindow *)window
+{
+    return [NSArray arrayWithObject: self.window];
+}
+
+- (void)window:(NSWindow *)_window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration
+{
+    [[NSAnimationContext currentContext] setDuration:duration];
+
+    NSRect fullscreenContent = NSMakeRect((fullScreenSize.width - windowedFrame.size.width) / 2, [Preferences border], windowedFrame.size.width / 2, fullScreenSize.height - [Preferences border] * 2);
+    
+    //[[borderView animator] setFrame: NSMakeRect(0, 0, fullScreenSize.width, fullScreenSize.height)];
+    [[contentView animator] setFrame: fullscreenContent];
+}
+
+- (void)windowWillEnterFullScreen:(NSNotification *)notification
+{
+    windowedFrame = contentView.frame;
+}
+
+- (void)windowDidEnterFullScreen:(NSNotification *)notification
+{
+    NSRect fullscreenContent = NSMakeRect((fullScreenSize.width - windowedFrame.size.width) / 2, [Preferences border], windowedFrame.size.width, fullScreenSize.height - [Preferences border] * 2);
+
+    //[borderView setFrame: NSMakeRect(0, 0, fullScreenSize.width, fullScreenSize.height)];
+    [contentView setFrame: fullscreenContent];
+    [self contentDidResize: fullscreenContent];
+
 }
 
 - (void) contentDidResize: (NSRect)frame

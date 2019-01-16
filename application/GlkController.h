@@ -59,6 +59,9 @@
     NSString *gamefile;
     NSString *gameifid;
     NSDictionary *gameinfo;
+
+    NSSize fullScreenSize;
+    NSRect windowedFrame;
 }
 
 - (void) runTerp: (NSString*)terpname
