@@ -70,7 +70,6 @@
     NSInteger rgt = 0;
     NSInteger bot = 0;
 
-    [super setFrame: thisframe];
 
     /* set autoresizing for live resize. */
     /* the client should rearrange after it's finished. */
@@ -78,10 +77,12 @@
     /* keep the other views fixed in size */
     /* x and y separable */
 
-    if (NSMaxX(thisframe) == NSMaxX(mainframe))
+    NSInteger border = [Preferences border];
+
+    if (NSMaxX(thisframe) == NSMaxX(mainframe) - border)
         rgt = 1;
 
-    if (NSMaxY(thisframe) == NSMaxY(mainframe))
+    if (NSMaxY(thisframe) == NSMaxY(mainframe) - border)
         bot = 1;
 
     if (rgt)
@@ -95,6 +96,7 @@
         vmask = NSViewMaxYMargin;
 
     [self setAutoresizingMask: hmask | vmask];
+    [super setFrame: thisframe];
 }
 
 - (void) prefsDidChange

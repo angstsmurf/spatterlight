@@ -983,6 +983,7 @@
 
         scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
         [scrollview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+        [scrollview setScrollerStyle:NSScrollerStyleOverlay];
         [scrollview setHasHorizontalScroller: NO];
         [scrollview setHasVerticalScroller: YES];
         [scrollview setAutohidesScrollers: YES];
@@ -1031,8 +1032,15 @@
         [textview setDelegate: self];
         [textstorage setDelegate: self];
 
-        [textview setTextContainerInset: NSMakeSize(margin - 3, margin)];
+        [textview setTextContainerInset: NSMakeSize(margin, margin)];
         [textview setBackgroundColor: [Preferences bufferBackground]];
+
+//        NSView *borderView = [[glkctl window] contentView];
+//        [borderView setWantsLayer:YES];
+//        borderView.layer.backgroundColor = [Preferences bufferBackground].CGColor;
+
+        glkctl.window.backgroundColor = [Preferences bufferBackground];
+
         [textview setInsertionPointColor: [Preferences bufferForeground]];
 
         [textview enableCaret:nil];
@@ -1075,6 +1083,11 @@
 
     [textview setBackgroundColor: bgcolor];
     [textview setInsertionPointColor: fgcolor];
+    
+//    NSView *borderView = [[glkctl window] contentView];
+//    [borderView setWantsLayer:YES];
+//    borderView.layer.backgroundColor = bgcolor.CGColor;
+    glkctl.window.backgroundColor = bgcolor;
 }
 
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value
@@ -1092,7 +1105,7 @@
     [super prefsDidChange];
 
     NSInteger margin = [Preferences bufferMargins];
-    [textview setTextContainerInset: NSMakeSize(margin - 3, margin)];
+    [textview setTextContainerInset: NSMakeSize(margin, margin)];
     [self recalcBackground];
 
     [textstorage removeAttribute: NSBackgroundColorAttributeName

@@ -25,6 +25,7 @@
 @interface GlkController : NSWindowController
 {
     IBOutlet GlkHelperView *contentView;
+    IBOutlet NSView *borderView;
 
     /* for talking to the interpreter */
     NSTask *task;

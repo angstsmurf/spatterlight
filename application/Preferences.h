@@ -13,6 +13,7 @@
     IBOutlet NSColorWell *clrBufferBg, *clrGridBg;
     IBOutlet NSTextField *txtBufferMargin, *txtGridMargin, *txtLeading;
     IBOutlet NSTextField *txtRows, *txtCols;
+    IBOutlet NSTextField *txtBorder;
     IBOutlet NSButton *btnSmartQuotes;
     IBOutlet NSButton *btnSpaceFormat;
     IBOutlet NSButton *btnEnableGraphics;
@@ -36,6 +37,7 @@
 - (IBAction) changeSmartQuotes: (id)sender;
 - (IBAction) changeSpaceFormatting: (id)sender;
 - (IBAction) changeDefaultSize: (id)sender;
+- (IBAction) changeBorderSize: (id)sender;
 - (IBAction) changeEnableGraphics: (id)sender;
 - (IBAction) changeEnableSound: (id)sender;
 - (IBAction) changeEnableStyles: (id)sender;
@@ -50,7 +52,6 @@
 + (NSColor*) bufferForeground;
 + (NSColor*) inputColor;
 
-
 + (NSColor*) foregroundColor: (int)number;
 + (NSColor*) backgroundColor: (int)number;
 
@@ -58,6 +59,7 @@
 + (float) charWidth;
 + (NSInteger) gridMargins;
 + (NSInteger) bufferMargins;
++ (NSInteger) border;
 + (float) leading;
 
 + (NSInteger) stylesEnabled;

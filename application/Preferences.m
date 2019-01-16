@@ -27,6 +27,8 @@ static int usescreenfonts = NO;
 
 static int gridmargin = 0;
 static int buffermargin = 0;
+static int border = 0;
+
 static float leading = 0;		/* added to lineHeight */
 
 static NSFont *bufroman;
@@ -134,6 +136,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 
     gridmargin = [[defaults objectForKey: @"GridMargin"] floatValue];
     buffermargin = [[defaults objectForKey: @"BufferMargin"] floatValue];
+    border = [[defaults objectForKey: @"Border"] floatValue];
 
     leading = [[defaults objectForKey: @"Leading"] floatValue];
 
@@ -277,6 +280,11 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     return buffermargin;
 }
 
++ (NSInteger) border
+{
+    return border;
+}
+
 + (float) leading
 {
     return leading;
@@ -284,8 +292,15 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 
 + (NSSize) defaultWindowSize
 {
-    return NSMakeSize(ceil([self charWidth] * defscreenw + gridmargin * 2.0),
-                      ceil([self lineHeight] * defscreenh + gridmargin * 2.0));
+    NSInteger width = ceil([self charWidth] * defscreenw + (gridmargin + border) * 2.0);
+    NSInteger height = ceil([self lineHeight] * defscreenh + (gridmargin + border) * 2.0);
+
+    CGRect screenframe = [[NSScreen mainScreen] visibleFrame];
+
+    if (width > screenframe.size.width) width = screenframe.size.width;
+    if (height > screenframe.size.height) height = screenframe.size.height;
+                           
+    return NSMakeSize(width, height);
 }
 
 + (NSColor*) gridBackground
@@ -491,6 +506,8 @@ NSString* fontToString(NSFont *font)
 
     [txtCols setIntValue: defscreenw];
     [txtRows setIntValue: defscreenh];
+
+    [txtBorder setIntValue: border];
 
     [btnGridFont setTitle: fontToString(gridroman)];
     [btnBufferFont setTitle: fontToString(bufroman)];
@@ -760,5 +777,20 @@ NSString* fontToString(NSFont *font)
      forKey: @"ScreenFonts"];
     [Preferences rebuildTextAttributes];
 }
+
+- (IBAction) changeBorderSize: (id)sender
+{
+    border = [sender floatValue];
+    NSLog(@"pref: border width changed to %d", border);
+    [[NSUserDefaults standardUserDefaults] setObject: @(border) forKey: @"Border"];
+
+    /* send notification that prefs have changed -- tell clients that border has changed */
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName: @"PreferencesChanged" object: nil];
+}
+
+- (IBAction) zoomToActualSize:(id)sender {}
+- (IBAction) zoomIn:(id)sender {}
+- (IBAction) zoomOut:(id)sender {}
 
 @end

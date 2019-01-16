@@ -117,15 +117,21 @@
         [[self window] setRepresentedFilename: gamefile];
         [[self window] setTitle: gameinfo[@"title"]];
         [[self window] setContentSize: defsize];
+        
+        NSInteger border = [Preferences border];
+        [borderView setFrame:NSMakeRect(0, 0, defsize.width, defsize.height)];
+        [contentView setFrame:NSMakeRect(border, border, defsize.width - (border * 2), defsize.height - (border * 2))];
+
+        NSLog(@"glkctl: set contentView frame to %@", NSStringFromRect([contentView frame]));
 
         if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
             [self.window setValue:[NSNumber numberWithInt:2] forKey:@"tabbingMode"];
         }
 
         // Clamp to max screen size
-        defsize.height = self.window.frame.size.height;
-        defsize.width = self.window.frame.size.width;
-        [self.window setContentSize: defsize];
+        //defsize.height = self.window.frame.size.height;
+        //defsize.width = self.window.frame.size.width;
+        //[self.window setContentSize: defsize];
 
         [[NSNotificationCenter defaultCenter]
          addObserver: self
@@ -413,7 +419,22 @@
 
     GlkEvent *gevent;
 
-    NSRect frame = [contentView frame];
+    NSRect frame;
+    NSInteger border = [Preferences border];
+
+    frame.origin.x = frame.origin.y = border;
+
+    frame.size.width = borderView.frame.size.width - (border * 2);
+    frame.size.height = borderView.frame.size.height - (border * 2);
+
+    if (!NSEqualRects(frame, contentView.frame))
+    {
+        [contentView setFrame:frame];
+        [self contentDidResize:frame];
+    }
+    else NSLog(@"No border change");
+
+    frame = contentView.frame;
 
     gevent = [[GlkEvent alloc] initArrangeWidth: frame.size.width height: frame.size.height];
     [self queueEvent: gevent];
