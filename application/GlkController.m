@@ -288,10 +288,11 @@
 {
     NSLog(@"glkctl: windowWillUseStandardFrame");
 
-    NSRect frame = [window frame];
-    defaultFrame.origin.x = frame.origin.x;
-    defaultFrame.size.width = frame.size.width;
-    return defaultFrame;
+	NSRect screenframe = [[NSScreen mainScreen] visibleFrame];
+
+	NSSize windowSize = [Preferences defaultWindowSize];
+	NSRect frame = NSMakeRect((NSWidth(screenframe) - windowSize.width) / 2, 0, windowSize.width, NSHeight(screenframe));
+	return frame;
 }
 
 - (NSSize)window:(NSWindow *)window
