@@ -16,6 +16,10 @@
 #define MAXWIN 64
 #define MAXSND 32
 
+// Define the number of custom animation steps
+#define DURATION_ADJUSTMENT 0.2
+#define ANIMATION_STEPS 2
+
 @interface GlkHelperView : NSView
 {
     IBOutlet GlkController *delegate;
@@ -60,8 +64,9 @@
     NSString *gameifid;
     NSDictionary *gameinfo;
 
-    NSSize fullScreenSize;
-    NSRect windowedFrame;
+    NSRect contentFullScreenFrame;
+    NSRect windowPreFullscreenFrame;
+	NSRect contentPreFullscreenFrame;
 }
 
 - (void) runTerp: (NSString*)terpname
