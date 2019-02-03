@@ -1590,7 +1590,7 @@
 
 		NSPoint p;
 		p = theEvent.locationInWindow;
-		p = [self convertPoint: p fromView: textview];
+		p = [textview convertPoint: p fromView: nil];
 		p.x -= textview.textContainerInset.width;
 		p.y -= textview.textContainerInset.height;
 
