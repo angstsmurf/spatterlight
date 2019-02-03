@@ -27,6 +27,7 @@ extern int ggridmarginx;
 extern int ggridmarginy;
 extern float gcellw;
 extern float gcellh;
+extern float gleading;
 
 /* more Gargoyle glue */
 extern char gli_program_name[256];

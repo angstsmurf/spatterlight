@@ -35,6 +35,7 @@ int ggridmarginx = 0;
 int ggridmarginy = 0;
 float gcellw = 8;
 float gcellh = 12;
+float gleading = 0;
 
 void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf)
 {
@@ -535,7 +536,8 @@ again:
                 ggridmarginx == wmsg.a4 + 5 &&
                 ggridmarginy == wmsg.a4 &&
                 gcellw == wmsg.a5 / 256.0 &&
-                gcellh == wmsg.a6 / 256.0 )
+                gcellh == wmsg.a6 / 256.0 &&
+				gleading == wmsg.a7 / 256.0 )
                 goto again;
 
             event->type = evtype_Arrange;
@@ -547,6 +549,7 @@ again:
             ggridmarginy = wmsg.a4;
             gcellw = wmsg.a5 / 256.0;
             gcellh = wmsg.a6 / 256.0;
+			gleading = wmsg.a7 / 256.0;
             gli_windows_rearrange();
             break;
 

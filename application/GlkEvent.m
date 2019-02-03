@@ -195,6 +195,7 @@ unsigned chartokeycode(unsigned ch)
         reply.a4 = (int)[Preferences gridMargins];
         reply.a5 = [Preferences charWidth] * 256.0;
         reply.a6 = [Preferences lineHeight] * 256.0;
+		reply.a7 = [Preferences leading] * 256.0;
     }
 
     write((int)fd, &reply, sizeof(struct message));
