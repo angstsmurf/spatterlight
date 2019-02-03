@@ -66,7 +66,6 @@
 
     NSRect contentFullScreenFrame;
     NSRect windowPreFullscreenFrame;
-	NSRect contentPreFullscreenFrame;
 }
 
 - (void) runTerp: (NSString*)terpname
