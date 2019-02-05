@@ -542,6 +542,10 @@ NSString* fontToString(NSFont *font)
          setObject: @(defscreenh)
          forKey: @"DefaultHeight"];
     }
+
+	/* send notification that default size has changed -- resize all windows */
+	[[NSNotificationCenter defaultCenter]
+	 postNotificationName: @"DefaultSizeChanged" object: nil];
 }
 
 - (IBAction) changeColor: (id)sender

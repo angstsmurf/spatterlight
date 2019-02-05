@@ -141,6 +141,12 @@
          selector: @selector(notePreferencesChanged:)
 		       name: @"PreferencesChanged"
          object: nil];
+
+		[[NSNotificationCenter defaultCenter]
+		 addObserver: self
+		 selector: @selector(noteDefaultSizeChanged:)
+		 name: @"DefaultSizeChanged"
+		 object: nil];
     }
 
     /* Fork the interpreter process */
@@ -427,7 +433,7 @@
     GlkEvent *gevent;
 
     NSRect frame = contentView.frame;
-    NSInteger border = [Preferences border];
+    NSInteger border = Preferences.border;
 
 	if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
 	{
@@ -460,6 +466,58 @@
             [gwindows[i] prefsDidChange];
 }
 
+- (void) noteDefaultSizeChanged: (id)sender
+{
+	NSSize defaultWindowSize = Preferences.defaultWindowSize;
+
+	if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
+	{
+	NSRect screenframe = [[NSScreen mainScreen] visibleFrame];
+
+	NSRect contentRect = NSMakeRect(0, 0, defaultWindowSize.width, defaultWindowSize.height);
+
+	NSRect winrect = [self.window frameRectForContentRect:contentRect];
+	winrect.origin = self.window.frame.origin;
+
+	//If the new size is too big to fit on screen, clip at screen size
+	if (winrect.size.height > screenframe.size.height - 1)
+		winrect.size.height = screenframe.size.height - 1;
+	if (winrect.size.width > screenframe.size.width)
+		winrect.size.width = screenframe.size.width;
+
+	CGFloat offset = winrect.size.height - self.window.frame.size.height;
+
+	winrect.origin.y -= offset;
+
+	//If window is partly off the screen, move it (just) inside
+	if (NSMaxX(winrect) > NSMaxX(screenframe))
+		winrect.origin.x = NSMaxX(screenframe) - winrect.size.width;
+
+	if (NSMinY(winrect) < 0)
+		winrect.origin.y = NSMinY(screenframe);
+
+	[self.window setFrame:winrect display:YES animate:YES];
+	}
+	else
+	{
+		NSRect oldframe = contentView.frame;
+		NSInteger borders = Preferences.border * 2;
+		NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y, defaultWindowSize.width - borders, defaultWindowSize.height - borders);
+
+		if (newframe.size.width > borderView.frame.size.width - borders)
+			newframe.size.width = borderView.frame.size.width - borders;
+		if (newframe.size.height > borderView.frame.size.height - borders)
+			newframe.size.height = borderView.frame.size.height - borders;
+
+		newframe.origin.x += (oldframe.size.width - newframe.size.width) / 2;
+
+		CGFloat offset = newframe.size.height - oldframe.size.height;
+		newframe.origin.y -= offset;
+
+		[[contentView animator] setFrame:newframe];
+		[self contentDidResize:newframe];
+	}
+}
 
 - (void) handleChangeTitle:(char*)buf length: (int)len
 {
@@ -1712,7 +1770,7 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 	NSLog(@"windowDidEnterFullScreen: contentview set to: %@", NSStringFromRect(contentFullScreenFrame));
 	NSLog(@"(border is %ld points)", (long)[Preferences border]);
 
-	[contentView setFrame: contentFullScreenFrame];
+	[[contentView animator] setFrame: contentFullScreenFrame];
 	[self contentDidResize: contentFullScreenFrame];
 }
 
