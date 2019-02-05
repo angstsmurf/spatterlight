@@ -611,6 +611,7 @@
 		_bottomPadding = 0;
 		_shouldSpeak_10_7 = NO;
 		_rangeToSpeak_10_7 = NSMakeRange(0, 0);
+		//NSLog(@"GlkTextBufferWindow: MyTextView initWithFrame: %@", NSStringFromRect(rect));
 	}
 	return self;
 }
@@ -1137,6 +1138,8 @@
 
 - (void) setFrame: (NSRect)frame
 {
+	NSLog(@"GlkTextBufferWindow: setFrame: %@", NSStringFromRect(frame));
+
     if (NSEqualRects(frame, [self frame]))
         return;
 
@@ -1299,6 +1302,7 @@
                                                effectiveRange: nil];
 
         _lastseen = line.origin.y + line.size.height; // bottom of the line
+		//NSLog(@"GlkTextBufferWindow: markLastSeen: %ld", (long)_lastseen);
     }
 }
 

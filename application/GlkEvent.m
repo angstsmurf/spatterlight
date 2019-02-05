@@ -120,6 +120,7 @@ unsigned chartokeycode(unsigned ch)
 
 - (instancetype) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
 {
+	//NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
     self = [super init];
     if (self)
     {
