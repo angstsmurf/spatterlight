@@ -309,10 +309,10 @@
 	NSInteger border = Preferences.border;
 	if ((NSWidth(frame) != NSWidth(borderView.frame) - border * 2) && ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask))
 		frame = NSMakeRect(border, border, NSWidth(borderView.frame) - (border * 2), NSHeight(borderView.frame) - (border * 2));
-    if (dead)
-        for (NSInteger i = 0; i < MAXWIN; i++)
-            if (gwindows[i]) // && [gwindows[i] isKindOfClass:[GlkTextBufferWindow class]])
-                [gwindows[i] setFrame:frame];
+//    if (dead)
+//        for (NSInteger i = 0; i < MAXWIN; i++)
+//            if (gwindows[i] && [gwindows[i] isKindOfClass:[GlkTextBufferWindow class]])
+//                [gwindows[i] setFrame:frame];
 
     GlkEvent *gevent;
     gevent = [[GlkEvent alloc] initArrangeWidth: frame.size.width height: frame.size.height];
