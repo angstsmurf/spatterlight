@@ -70,7 +70,6 @@
     NSInteger rgt = 0;
     NSInteger bot = 0;
 
-
     /* set autoresizing for live resize. */
     /* the client should rearrange after it's finished. */
     /* flex the views connected to the right and bottom */
