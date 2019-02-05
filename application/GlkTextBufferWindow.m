@@ -1138,7 +1138,7 @@
 
 - (void) setFrame: (NSRect)frame
 {
-	NSLog(@"GlkTextBufferWindow: setFrame: %@", NSStringFromRect(frame));
+	//NSLog(@"GlkTextBufferWindow: setFrame: %@", NSStringFromRect(frame));
 
     if (NSEqualRects(frame, [self frame]))
         return;

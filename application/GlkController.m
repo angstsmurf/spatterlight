@@ -1202,7 +1202,7 @@ NSInteger colorToInteger(NSColor *color)
 #pragma mark Window sizing, printing, drawing …
 
         case SIZWIN:
-            NSLog(@"glkctl sizwin %d: %d x %d", req->a1, req->a4-req->a2, req->a5-req->a3);
+            //NSLog(@"glkctl sizwin %d: %d x %d", req->a1, req->a4-req->a2, req->a5-req->a3);
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
                 int x0, y0, x1, y1;

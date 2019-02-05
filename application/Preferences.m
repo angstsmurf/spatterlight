@@ -470,8 +470,6 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     /* send notification that prefs have changed -- trigger configure events */
     [[NSNotificationCenter defaultCenter]
      postNotificationName: @"PreferencesChanged" object: nil];
-
-
 }
 
 /* ---------------------------------------------------------------------- */
@@ -792,9 +790,5 @@ NSString* fontToString(NSFont *font)
     [[NSNotificationCenter defaultCenter]
      postNotificationName: @"PreferencesChanged" object: nil];
 }
-
-- (IBAction) zoomToActualSize:(id)sender {}
-- (IBAction) zoomIn:(id)sender {}
-- (IBAction) zoomOut:(id)sender {}
 
 @end
