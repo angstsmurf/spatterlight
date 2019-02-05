@@ -306,9 +306,9 @@
 {
 	//NSLog(@"glkctl: contentDidResize: %@", NSStringFromRect(frame));
 
-	NSInteger border = Preferences.border;
-	if ((NSWidth(frame) != NSWidth(borderView.frame) - border * 2) && ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask))
-		frame = NSMakeRect(border, border, NSWidth(borderView.frame) - (border * 2), NSHeight(borderView.frame) - (border * 2));
+	NSInteger borders = Preferences.border * 2;
+	if ((NSWidth(frame) != NSWidth(borderView.frame) - borders) && ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask))
+		frame = NSMakeRect(Preferences.border, Preferences.border, NSWidth(borderView.frame) - borders, NSHeight(borderView.frame) - borders);
 //    if (dead)
 //        for (NSInteger i = 0; i < MAXWIN; i++)
 //            if (gwindows[i] && [gwindows[i] isKindOfClass:[GlkTextBufferWindow class]])
