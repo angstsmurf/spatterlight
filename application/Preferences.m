@@ -292,10 +292,10 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 
 + (NSSize) defaultWindowSize
 {
-    NSInteger width = ceil([self charWidth] * defscreenw + (gridmargin + border) * 2.0);
-    NSInteger height = ceil([self lineHeight] * defscreenh + (gridmargin + border) * 2.0);
+    NSInteger width = ceil(self.charWidth * defscreenw + (gridmargin + border + 4) * 2.0);
+    NSInteger height = ceil(self.lineHeight * defscreenh + (gridmargin + border + 4) * 2.0);
 
-    CGRect screenframe = [[NSScreen mainScreen] visibleFrame];
+    CGRect screenframe = [NSScreen.mainScreen visibleFrame];
 
     if (width > screenframe.size.width) width = screenframe.size.width;
     if (height > screenframe.size.height) height = screenframe.size.height;
