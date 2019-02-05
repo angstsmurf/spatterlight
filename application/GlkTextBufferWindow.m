@@ -1139,8 +1139,12 @@
 {
     if (NSEqualRects(frame, [self frame]))
         return;
+
+	BOOL atBottom = textview.scrolledToBottom;
     [super setFrame: frame];
     [container invalidateLayout];
+	if (atBottom)
+		[self scrollToBottom];
 }
 
 - (void) saveAsRTF: (id)sender
