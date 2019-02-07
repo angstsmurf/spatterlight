@@ -76,7 +76,7 @@
     /* keep the other views fixed in size */
     /* x and y separable */
 
-    NSInteger border = [Preferences border];
+    NSInteger border = Preferences.border;
 
     if (NSMaxX(thisframe) == NSMaxX(mainframe) - border)
         rgt = 1;

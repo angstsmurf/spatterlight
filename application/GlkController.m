@@ -420,10 +420,6 @@
             [gwindows[i] performScroll];
 }
 
-- (IBAction) zoomToActualSize:(id)sender {}
-- (IBAction) zoomIn:(id)sender {}
-- (IBAction) zoomOut:(id)sender {}
-
 /*
  *
  */
@@ -477,31 +473,32 @@
 
 	if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
 	{
-	NSRect screenframe = [[NSScreen mainScreen] visibleFrame];
+		NSRect screenframe = [[NSScreen mainScreen] visibleFrame];
 
-	NSRect contentRect = NSMakeRect(0, 0, defaultWindowSize.width, defaultWindowSize.height);
+		NSRect contentRect = NSMakeRect(0, 0, defaultWindowSize.width, defaultWindowSize.height);
 
-	NSRect winrect = [self.window frameRectForContentRect:contentRect];
-	winrect.origin = self.window.frame.origin;
+		NSRect winrect = [self.window frameRectForContentRect:contentRect];
+		winrect.origin = self.window.frame.origin;
 
-	//If the new size is too big to fit on screen, clip at screen size
-	if (winrect.size.height > screenframe.size.height - 1)
-		winrect.size.height = screenframe.size.height - 1;
-	if (winrect.size.width > screenframe.size.width)
-		winrect.size.width = screenframe.size.width;
+		//If the new size is too big to fit on screen, clip at screen size
+		if (winrect.size.height > screenframe.size.height - 1)
+			winrect.size.height = screenframe.size.height - 1;
+		if (winrect.size.width > screenframe.size.width)
+			winrect.size.width = screenframe.size.width;
 
-	CGFloat offset = winrect.size.height - self.window.frame.size.height;
+		CGFloat offset = winrect.size.height - self.window.frame.size.height;
 
-	winrect.origin.y -= offset;
+		winrect.origin.y -= offset;
 
-	//If window is partly off the screen, move it (just) inside
-	if (NSMaxX(winrect) > NSMaxX(screenframe))
-		winrect.origin.x = NSMaxX(screenframe) - winrect.size.width;
+		//If window is partly off the screen, move it (just) inside
+		if (NSMaxX(winrect) > NSMaxX(screenframe))
+			winrect.origin.x = NSMaxX(screenframe) - winrect.size.width;
 
-	if (NSMinY(winrect) < 0)
-		winrect.origin.y = NSMinY(screenframe);
+		if (NSMinY(winrect) < 0)
+			winrect.origin.y = NSMinY(screenframe);
 
-	[self.window setFrame:winrect display:YES animate:YES];
+		//[self.window setFrame:winrect display:YES animate:YES];
+		[self.window setFrame:winrect display:NO animate:NO];
 	}
 	else
 	{
@@ -519,7 +516,8 @@
 		CGFloat offset = newframe.size.height - oldframe.size.height;
 		newframe.origin.y -= offset;
 
-		[[contentView animator] setFrame:newframe];
+		//[[contentView animator] setFrame:newframe];
+		[contentView setFrame:newframe];
 		[self contentDidResize:newframe];
 	}
 }
@@ -1620,6 +1618,29 @@ again:
 	[borderView setWantsLayer:YES];
 	borderView.layer.backgroundColor = color.CGColor;
 	self.window.backgroundColor = color;
+}
+
+#pragma mark Zoom
+
+- (IBAction) zoomIn:(id)sender
+{
+	[Preferences zoomIn];
+	if (Preferences.instance)
+		[Preferences.instance updatePanelAfterZoom];
+}
+
+- (IBAction) zoomOut:(id)sender
+{
+	[Preferences zoomOut];
+	if (Preferences.instance)
+		[Preferences.instance updatePanelAfterZoom];
+}
+
+- (IBAction) zoomToActualSize:(id)sender
+{
+	[Preferences zoomToActualSize];
+	if (Preferences.instance)
+		[Preferences.instance updatePanelAfterZoom];
 }
 
 #pragma mark Full screen

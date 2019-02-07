@@ -45,6 +45,8 @@ static NSColor *bgcolor[8];
 static NSDictionary *bufferatts[style_NUMSTYLES];
 static NSDictionary *gridatts[style_NUMSTYLES];
 
+static Preferences *prefs = nil;
+
 /*
  * Some color utility functions
  */
@@ -328,6 +330,10 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     return inputfg;
 }
 
++ (Preferences *) instance;
+{
+	return prefs;
+}
 
 /*
  * Style and attributed-string magic
@@ -492,6 +498,8 @@ NSString* fontToString(NSFont *font)
 
     [self setWindowFrameAutosaveName: @"PrefsWindow"];
 
+	prefs = self;
+
     [clrGridFg setColor: gridfg];
     [clrGridBg setColor: gridbg];
     [clrBufferFg setColor: bufferfg];
@@ -592,130 +600,6 @@ NSString* fontToString(NSFont *font)
     [Preferences rebuildTextAttributes];
 }
 
-#pragma mark - Font panel
-
-- (IBAction) showFontPanel: (id)sender
-{
-    selfontp = nil;
-    colorp = nil;
-	colorp2 = nil;
-
-
-    if (sender == btnGridFont) { selfontp = &gridroman; colorp = &gridfg; colorp2 = &gridbg; }
-	if (sender == btnBufferFont) { selfontp = &bufroman;  colorp = &bufferfg; colorp2 = &bufferbg;  }
-    if (sender == btnInputFont) { selfontp = &inputfont;  colorp = &inputfg; colorp2 = &bufferbg; }
-
-    if (selfontp)
-    {
-        NSDictionary *attr = @{ @"NSColor" : *colorp, @"NSDocumentBackgroundColor" : *colorp2 };
-        
-        [self.window makeFirstResponder: self.window];
-
-        [NSFontManager sharedFontManager].target = self;
-		[[NSFontPanel sharedFontPanel] setDelegate:self];
-		[[NSFontPanel sharedFontPanel] makeKeyAndOrderFront:self];
-
-		[[NSFontManager sharedFontManager] setSelectedAttributes:attr isMultiple: NO];
-		[[NSFontManager sharedFontManager] setSelectedFont: *selfontp isMultiple:NO];
-
-    }
-}
-
-- (IBAction) changeFont: (id)fontManager
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    *selfontp = [fontManager convertFont: *selfontp];
-
-    if (selfontp == &gridroman)
-    {
-        [defaults setObject: [gridroman fontName] forKey: @"GridFontName"];
-        [defaults setObject: [NSNumber numberWithFloat: [gridroman pointSize]] forKey: @"GridFontSize"];
-        [btnGridFont setTitle: fontToString(gridroman)];
-    }
-
-    if (selfontp == &bufroman)
-    {
-        [defaults setObject: [bufroman fontName] forKey: @"BufferFontName"];
-        [defaults setObject: [NSNumber numberWithFloat: [bufroman pointSize]] forKey: @"BufferFontSize"];
-        [btnBufferFont setTitle: fontToString(bufroman)];
-    }
-
-    if (selfontp == &inputfont)
-    {
-        [defaults setObject: [inputfont fontName] forKey: @"InputFontName"];
-        [defaults setObject: [NSNumber numberWithFloat: [inputfont pointSize]] forKey: @"InputFontSize"];
-        [btnInputFont setTitle: fontToString(inputfont)];
-    }
-
-    [Preferences rebuildTextAttributes];
-}
-
-// This is sent from the font panel when changing font style there
-
-- (void) changeAttributes:(id)sender
-{
-    NSLog(@"changeAttributes:%@", sender);
-
-    NSDictionary * newAttributes = [sender convertAttributes:@{}];
-
-	NSLog(@"Keys in newAttributes:");
-	for(NSString *key in [newAttributes allKeys]) {
-		NSLog(@" %@ : %@",key, [newAttributes valueForKey: key]);
-	}
-
-//	"NSForegroundColorAttributeName"	"NSColor"
-//	"NSUnderlineStyleAttributeName"		"NSUnderline"
-//	"NSStrikethroughStyleAttributeName"	"NSStrikethrough"
-//	"NSUnderlineColorAttributeName"		"NSUnderlineColor"
-//	"NSStrikethroughColorAttributeName"	"NSStrikethroughColor"
-//										"NSShadow"
-
-    if ([newAttributes valueForKey: @"NSColor"])
-	{
-        NSColorWell *colorWell = nil;
-        NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
-        if (currentFont == gridroman)
-            colorWell = clrGridFg;
-        else if (currentFont == bufroman)
-            colorWell = clrBufferFg;
-        else if (currentFont == inputfont)
-            colorWell = clrInputFg;
-        colorWell.color=[newAttributes valueForKey: @"NSColor"];
-        [self changeColor:colorWell];
-    }
-}
-
-// This is sent from the font panel when changing background color there
-
-- (void)changeDocumentBackgroundColor:(id)sender
-{
-	NSLog(@"changeDocumentBackgroundColor");
-
-	NSColorWell *colorWell = nil;
-	NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
-	if (currentFont == gridroman)
-		colorWell = clrGridBg;
-	else if (currentFont == bufroman)
-		colorWell = clrBufferBg;
-	else if (currentFont == inputfont)
-		colorWell = clrBufferBg;
-	colorWell.color=[sender color];
-	[self changeColor:colorWell];
-}
-
-- (NSUInteger)validModesForFontPanel:(NSFontPanel *)fontPanel
-{
-//	NSLog(@"validModesForFontPanel");
-
-	return NSFontPanelFaceModeMask | NSFontPanelCollectionModeMask | NSFontPanelSizeModeMask | NSFontPanelTextColorEffectModeMask | NSFontPanelDocumentColorEffectModeMask;}
-
-- (void) windowWillClose: (id)sender
-{
-	if ([[NSFontPanel sharedFontPanel] isVisible])
-		[[NSFontPanel sharedFontPanel] orderOut:self];
-}
-
 - (IBAction) changeSmartQuotes: (id)sender
 {
     smartquotes = [sender state];
@@ -789,6 +673,241 @@ NSString* fontToString(NSFont *font)
     /* send notification that prefs have changed -- tell clients that border has changed */
     [[NSNotificationCenter defaultCenter]
      postNotificationName: @"PreferencesChanged" object: nil];
+}
+
+#pragma mark - Zoom
+
++ (void) zoomIn
+{
+	if (gridroman.pointSize < 100)
+	{
+		[self scale:[self widthAtPoint:gridroman.pointSize + 1] / cellw];
+	}
+}
+
++ (void) zoomOut
+{
+	if (gridroman.pointSize > 5)
+	{
+		[self scale:[self widthAtPoint:gridroman.pointSize - 1] / cellw];
+	}
+}
+
++ (void) zoomToActualSize
+{
+	[self scale:[self widthAtPoint:14] / cellw];
+}
+
++ (CGFloat) widthAtPoint: (CGFloat)pointSize
+{
+	CGFloat xwidth;
+	NSFont *dummyfont = [NSFont fontWithDescriptor:[gridroman fontDescriptor] size:pointSize];
+
+	//This is the only way I have found to get the correct width at all sizes
+	if (NSAppKitVersionNumber < NSAppKitVersionNumber10_8)
+		xwidth = [@"X" sizeWithAttributes:@{NSFontAttributeName: dummyfont}].width;
+	else
+		xwidth = [dummyfont advancementForGlyph:(NSGlyph)'X'].width;
+
+	return xwidth;
+}
+
++ (void)scale:(CGFloat)scalefactor
+{
+	NSLog(@"Preferences scale: %f", scalefactor);
+
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	CGFloat fontSize;
+
+	fontSize = [gridroman pointSize];
+	fontSize *= scalefactor;
+	gridroman = [NSFont fontWithDescriptor:[gridroman fontDescriptor] size:fontSize];
+	[defaults setObject: [NSNumber numberWithFloat: fontSize] forKey: @"GridFontSize"];
+	NSLog(@"gridroman pointSize set to: %f", fontSize);
+
+	fontSize = [bufroman pointSize];
+	fontSize *= scalefactor;
+	bufroman = [NSFont fontWithDescriptor:[bufroman fontDescriptor] size:fontSize];
+	[defaults setObject: [NSNumber numberWithFloat: fontSize] forKey: @"BufferFontSize"];
+	NSLog(@"bufroman pointSize set to: %f", fontSize);
+
+	fontSize = [inputfont pointSize];
+	fontSize *= scalefactor;
+	inputfont = [NSFont fontWithDescriptor:[inputfont fontDescriptor] size:fontSize];
+	[defaults setObject: [NSNumber numberWithFloat: fontSize] forKey: @"InputFontSize"];
+	NSLog(@"inputfont pointSize set to: %f", fontSize);
+
+	if (leading * scalefactor > 0)
+	{
+		leading *= scalefactor;
+		[[NSUserDefaults standardUserDefaults] setObject: @(leading) forKey: @"Leading"];
+	}
+	NSLog(@"leading set to: %f", leading);
+
+	if (gridmargin * scalefactor > 0)
+	{
+		gridmargin *= scalefactor;
+		[[NSUserDefaults standardUserDefaults] setObject: @(gridmargin) forKey: @"GridMargin"];
+	}
+	NSLog(@"gridmargin set to: %d", gridmargin);
+
+	if (buffermargin * scalefactor > 0)
+	{
+		buffermargin *= scalefactor;
+		[[NSUserDefaults standardUserDefaults] setObject: @(buffermargin) forKey: @"BufferMargin"];
+	}
+	NSLog(@"buffermargin set to: %d", buffermargin);
+
+
+	if (border * scalefactor > 0)
+	{
+		border *= scalefactor;
+		[[NSUserDefaults standardUserDefaults] setObject: @(border) forKey: @"Border"];
+	}
+	NSLog(@"border set to: %d", border);
+
+
+	[Preferences rebuildTextAttributes];
+
+	/* send notification that default size has changed -- resize all windows */
+	[[NSNotificationCenter defaultCenter]
+	 postNotificationName: @"DefaultSizeChanged" object: nil];
+}
+
+- (void) updatePanelAfterZoom
+{
+	[btnGridFont setTitle: fontToString(gridroman)];
+	[btnBufferFont setTitle: fontToString(bufroman)];
+	[btnInputFont setTitle: fontToString(inputfont)];
+	[txtLeading setFloatValue: leading];
+	[txtGridMargin setFloatValue: gridmargin];
+	[txtBufferMargin setFloatValue: buffermargin];
+	[txtBorder setIntValue: border];
+}
+
+#pragma mark - Font panel
+
+- (IBAction) showFontPanel: (id)sender
+{
+	selfontp = nil;
+	colorp = nil;
+	colorp2 = nil;
+
+
+	if (sender == btnGridFont) { selfontp = &gridroman; colorp = &gridfg; colorp2 = &gridbg; }
+	if (sender == btnBufferFont) { selfontp = &bufroman;  colorp = &bufferfg; colorp2 = &bufferbg;  }
+	if (sender == btnInputFont) { selfontp = &inputfont;  colorp = &inputfg; colorp2 = &bufferbg; }
+
+	if (selfontp)
+	{
+		NSDictionary *attr = @{ @"NSColor" : *colorp, @"NSDocumentBackgroundColor" : *colorp2 };
+
+		[self.window makeFirstResponder: self.window];
+
+		[NSFontManager sharedFontManager].target = self;
+		[[NSFontPanel sharedFontPanel] setDelegate:self];
+		[[NSFontPanel sharedFontPanel] makeKeyAndOrderFront:self];
+
+		[[NSFontManager sharedFontManager] setSelectedAttributes:attr isMultiple: NO];
+		[[NSFontManager sharedFontManager] setSelectedFont: *selfontp isMultiple:NO];
+
+	}
+}
+
+- (IBAction) changeFont: (id)fontManager
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+	*selfontp = [fontManager convertFont: *selfontp];
+
+	if (selfontp == &gridroman)
+	{
+		[defaults setObject: [gridroman fontName] forKey: @"GridFontName"];
+		[defaults setObject: [NSNumber numberWithFloat: [gridroman pointSize]] forKey: @"GridFontSize"];
+		[btnGridFont setTitle: fontToString(gridroman)];
+	}
+
+	if (selfontp == &bufroman)
+	{
+		[defaults setObject: [bufroman fontName] forKey: @"BufferFontName"];
+		[defaults setObject: [NSNumber numberWithFloat: [bufroman pointSize]] forKey: @"BufferFontSize"];
+		[btnBufferFont setTitle: fontToString(bufroman)];
+	}
+
+	if (selfontp == &inputfont)
+	{
+		[defaults setObject: [inputfont fontName] forKey: @"InputFontName"];
+		[defaults setObject: [NSNumber numberWithFloat: [inputfont pointSize]] forKey: @"InputFontSize"];
+		[btnInputFont setTitle: fontToString(inputfont)];
+	}
+
+	[Preferences rebuildTextAttributes];
+}
+
+// This is sent from the font panel when changing font style there
+
+- (void) changeAttributes:(id)sender
+{
+	NSLog(@"changeAttributes:%@", sender);
+
+	NSDictionary * newAttributes = [sender convertAttributes:@{}];
+
+	NSLog(@"Keys in newAttributes:");
+	for(NSString *key in [newAttributes allKeys]) {
+		NSLog(@" %@ : %@",key, [newAttributes valueForKey: key]);
+	}
+
+	//	"NSForegroundColorAttributeName"	"NSColor"
+	//	"NSUnderlineStyleAttributeName"		"NSUnderline"
+	//	"NSStrikethroughStyleAttributeName"	"NSStrikethrough"
+	//	"NSUnderlineColorAttributeName"		"NSUnderlineColor"
+	//	"NSStrikethroughColorAttributeName"	"NSStrikethroughColor"
+	//										"NSShadow"
+
+	if ([newAttributes valueForKey: @"NSColor"])
+	{
+		NSColorWell *colorWell = nil;
+		NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
+		if (currentFont == gridroman)
+			colorWell = clrGridFg;
+		else if (currentFont == bufroman)
+			colorWell = clrBufferFg;
+		else if (currentFont == inputfont)
+			colorWell = clrInputFg;
+		colorWell.color=[newAttributes valueForKey: @"NSColor"];
+		[self changeColor:colorWell];
+	}
+}
+
+// This is sent from the font panel when changing background color there
+
+- (void)changeDocumentBackgroundColor:(id)sender
+{
+	NSLog(@"changeDocumentBackgroundColor");
+
+	NSColorWell *colorWell = nil;
+	NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
+	if (currentFont == gridroman)
+		colorWell = clrGridBg;
+	else if (currentFont == bufroman)
+		colorWell = clrBufferBg;
+	else if (currentFont == inputfont)
+		colorWell = clrBufferBg;
+	colorWell.color=[sender color];
+	[self changeColor:colorWell];
+}
+
+- (NSUInteger)validModesForFontPanel:(NSFontPanel *)fontPanel
+{
+	//	NSLog(@"validModesForFontPanel");
+
+	return NSFontPanelFaceModeMask | NSFontPanelCollectionModeMask | NSFontPanelSizeModeMask | NSFontPanelTextColorEffectModeMask | NSFontPanelDocumentColorEffectModeMask;
+}
+
+- (void) windowWillClose: (id)sender
+{
+	if ([[NSFontPanel sharedFontPanel] isVisible])
+		[[NSFontPanel sharedFontPanel] orderOut:self];
 }
 
 @end

@@ -43,6 +43,11 @@
 - (IBAction) changeEnableStyles: (id)sender;
 - (IBAction) changeUseScreenFonts: (id)sender;
 
++ (void) zoomIn;
++ (void) zoomOut;
++ (void) zoomToActualSize;
+- (void) updatePanelAfterZoom;
+
 + (NSColor*) gridBackground;
 + (NSColor*) gridForeground;
 + (NSColor*) bufferBackground;
@@ -67,6 +72,7 @@
 + (NSInteger) soundEnabled;
 + (NSInteger) useScreenFonts;
 
++ (Preferences *) instance;
 + (NSDictionary*) attributesForGridStyle: (int)style;
 + (NSDictionary*) attributesForBufferStyle: (int)style;
 
