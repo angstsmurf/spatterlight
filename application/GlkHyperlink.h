@@ -15,5 +15,4 @@
 @property NSRect bounds;
 
 - (instancetype) initWithIndex: (NSInteger)index andPos: (NSInteger)pos;
-//- (instancetype) initWithIndex: (NSInteger)index andPos: (NSInteger)pos andBounds: (NSRect)bounds;
 @end
