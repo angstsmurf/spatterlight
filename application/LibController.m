@@ -297,7 +297,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (IBAction) playGame: (id)sender
 {
-    NSInteger rowidx = gameTableView.selectedRow;
+    NSInteger rowidx = gameTableView.clickedRow;
     if (rowidx >= 0)
     {
         NSString *ifid = gameTableModel[rowidx];
@@ -308,6 +308,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (IBAction) showGameInfo: (id)sender
 {
     NSIndexSet *rows = gameTableView.selectedRowIndexes;
+    
+    // If we clicked outside selected rows, only show info for clicked row
+    if (![rows containsIndex:gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:gameTableView.clickedRow];
+
     NSInteger i;
     for (i = rows.firstIndex; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
     {
@@ -327,8 +332,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     }
 }
 
-- (InfoController *) createInfoController {
-
+- (InfoController *) createInfoController
+{
     infoWindowIndex = 0;
 
     for (NSInteger i = 0 ; i < MAX_INFO_WINDOWS; i++)
@@ -346,6 +351,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (IBAction) revealGameInFinder: (id)sender
 {
     NSIndexSet *rows = gameTableView.selectedRowIndexes;
+
+    // If we clicked outside selected rows, only reveal game in clicked row
+    if (![rows containsIndex:gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:gameTableView.clickedRow];
+    
     NSInteger i;
     for (i = rows.firstIndex; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
     {
@@ -365,6 +375,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 - (IBAction) deleteGame: (id)sender
 {
     NSIndexSet *rows = gameTableView.selectedRowIndexes;
+
+    // If we clicked outside selected rows, only delete game in clicked row
+    if (![rows containsIndex:gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:gameTableView.clickedRow];
+    
     if (rows.count > 0)
     {
         NSString *ifid;
@@ -391,6 +406,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 {
     SEL action = menuItem.action;
     NSInteger count = gameTableView.numberOfSelectedRows;
+
+    NSIndexSet *rows = gameTableView.selectedRowIndexes;
+
+    if (gameTableView.clickedRow >= 0 && (![rows containsIndex:gameTableView.clickedRow]))
+        count = 1;
 
     if (action == @selector(performFindPanelAction:))
     {
