@@ -717,21 +717,21 @@ NSString* fontToString(NSFont *font)
 	if (leading * scalefactor > 0)
 	{
 		leading *= scalefactor;
-        [[NSUserDefaults standardUserDefaults] setObject: @(leading) forKey: @"Leading"];
+		[defaults setObject: @(leading) forKey: @"Leading"];
 	}
 	NSLog(@"leading set to: %f", leading);
 
 	if (gridmargin * scalefactor > 0)
 	{
 		gridmargin *= scalefactor;
-        [[NSUserDefaults standardUserDefaults] setObject: @(gridmargin) forKey: @"GridMargin"];
+		[defaults setObject: @(gridmargin) forKey: @"GridMargin"];
 	}
 	NSLog(@"gridmargin set to: %f", gridmargin);
 
 	if (buffermargin * scalefactor > 0)
 	{
 		buffermargin *= scalefactor;
-        [[NSUserDefaults standardUserDefaults] setObject: @(buffermargin) forKey: @"BufferMargin"];
+		[defaults setObject: @(buffermargin) forKey: @"BufferMargin"];
 	}
 	NSLog(@"buffermargin set to: %f", buffermargin);
 
@@ -739,7 +739,7 @@ NSString* fontToString(NSFont *font)
 	if (border * scalefactor > 0)
 	{
 		border *= scalefactor;
-        [[NSUserDefaults standardUserDefaults] setObject: @(border) forKey: @"Border"];
+		[defaults setObject: @(border) forKey: @"Border"];
 	}
 
 	NSLog(@"border set to: %f", border);
