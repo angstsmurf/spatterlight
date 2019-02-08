@@ -14,7 +14,7 @@
 
 void showInfoForFile(NSString *path, NSDictionary *info)
 {
-    NSArray *windows = NSApp.windows;
+    NSArray *windows = [NSApp windows];
     NSWindow *window;
     NSWindowController *winctl;
     InfoController *infoctl;

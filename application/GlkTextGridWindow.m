@@ -877,7 +877,7 @@
                                        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
                                        NSAccessibilityAnnouncementKey : textstorage.string
                                        };
-    NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+    NSAccessibilityPostNotificationWithUserInfo([NSApp mainWindow], NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 
     return;
 }

@@ -1834,7 +1834,7 @@
                                            NSAccessibilityAnnouncementKey : @"No last move to speak"
                                            };
 
-        NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+        NSAccessibilityPostNotificationWithUserInfo([NSApp mainWindow], NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 
         NSLog(@"No last move to speak");
         return;
@@ -1858,7 +1858,7 @@
                                            NSAccessibilityAnnouncementKey : str
                                            };
 
-        NSWindow *mainWin = NSApp.mainWindow;
+        NSWindow *mainWin = [NSApp mainWindow];
 
         if (mainWin)
             NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
@@ -1941,7 +1941,7 @@
                                        NSAccessibilityAnnouncementKey : str
                                        };
 
-    NSWindow *mainWin = NSApp.mainWindow;
+    NSWindow *mainWin = [NSApp mainWindow];
 
     if (mainWin)
         NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);

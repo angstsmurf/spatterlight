@@ -1795,7 +1795,7 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 
     //NSLog(@"windowDidEnterFullScreen: contentview set to: %@", NSStringFromRect(contentFullScreenFrame));
 
-    [contentView animator].frame = contentFullScreenFrame;
+    [[contentView animator] setFrame:contentFullScreenFrame];
     [self contentDidResize: contentFullScreenFrame];
 }
 

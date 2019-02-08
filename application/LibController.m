@@ -177,7 +177,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
         {
             if ([[menuitem valueForKey:@"identifier"] isEqualToString:key])         
             {
-                menuitem.state = !(tableColumn.hidden);
+                menuitem.state = ![tableColumn isHidden];
                 break;
             }
         }
@@ -332,7 +332,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     infoWindowIndex = 0;
 
     for (NSInteger i = 0 ; i < MAX_INFO_WINDOWS; i++)
-        if (!infoWindows[i].window.visible)
+        if (![[infoWindows[i] window] isVisible])
         {
             infoWindows[i] = nil;
             infoWindowIndex = i;
@@ -1384,7 +1384,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 
 -(void)stopTimer {
     if (timer != nil) {
-        if (timer.valid) {
+        if ([timer isValid]) {
             [timer invalidate];
         }
     }

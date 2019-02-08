@@ -81,7 +81,7 @@
     helpWindow.title = title;
 
     // Do nothing if we are already showing the text
-    if ((!helpWindow.visible) || (![text.string isEqualToString:_textView.string]))
+    if ((![helpWindow isVisible]) || (![text.string isEqualToString:_textView.string]))
     {
         [_textView resetTextFinder];
 

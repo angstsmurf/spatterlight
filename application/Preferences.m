@@ -902,8 +902,8 @@ NSString* fontToString(NSFont *font)
 
 - (void) windowWillClose: (id)sender
 {
-	if ([NSFontPanel sharedFontPanel].visible)
-		[[NSFontPanel sharedFontPanel] orderOut:self];
+	if ([NSFontPanel.sharedFontPanel isVisible])
+		[NSFontPanel.sharedFontPanel orderOut:self];
 }
 
 @end

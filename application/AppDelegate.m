@@ -251,8 +251,8 @@ NSDictionary *gFormatMap;
 - (void) applicationWillTerminate: (NSNotification*)notification
 {
     [libctl saveLibrary:self];
-    if ([NSFontPanel sharedFontPanel].visible)
-		[[NSFontPanel sharedFontPanel] orderOut:self];
+    if ([NSFontPanel.sharedFontPanel isVisible])
+		[NSFontPanel.sharedFontPanel orderOut:self];
 }
 
 @end
