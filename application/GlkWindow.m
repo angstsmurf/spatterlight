@@ -172,7 +172,7 @@
 	if (fg || bg)
 	{
 		NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
-		mutatt[@"GlkStyle"] = [NSNumber numberWithInt:stylevalue];
+		mutatt[@"GlkStyle"] = @(stylevalue);
 		if ([Preferences stylesEnabled])
 		{
 			if (fg)

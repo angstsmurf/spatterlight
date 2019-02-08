@@ -129,7 +129,7 @@
         [contentView setFrame:NSMakeRect(border, border, defsize.width - (border * 2), defsize.height - (border * 2))];
 
         if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
-            [self.window setValue:[NSNumber numberWithInt:2] forKey:@"tabbingMode"];
+            [self.window setValue:@2 forKey:@"tabbingMode"];
         }
 
         // Clamp to max screen size
@@ -525,7 +525,7 @@
 - (void) handleChangeTitle:(char*)buf length: (int)len
 {
 	buf[len]='\0';
-	NSString *str = [NSString stringWithUTF8String:buf];
+	NSString *str = @(buf);
 	//[@(buf) substringToIndex: len];
 	self.window.title = str;
 	NSLog(@"Change title request: %@", str);
@@ -1653,18 +1653,21 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 
 - (NSArray *)customWindowsToEnterFullScreenForWindow:(NSWindow *)window
 {
-	return [NSArray arrayWithObject:window];
+	return @[window];
 }
 
 - (NSArray *)customWindowsToExitFullScreenForWindow:(NSWindow *)window
 {
-	return [NSArray arrayWithObject:window];
+	return @[window];
 }
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification
 {
 	// Save the window frame so that it can be restored later
 	windowPreFullscreenFrame = self.window.frame;
+    NSDictionary *dict = [Preferences attributesForGridStyle: style_Normal];
+    NSFont *font = dict[NSFontAttributeName];
+    fontSizePreFullscreen = font.pointSize;
 }
 
 - (void)window:(NSWindow *)window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration

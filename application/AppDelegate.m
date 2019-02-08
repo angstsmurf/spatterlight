@@ -50,7 +50,7 @@ NSDictionary *gFormatMap;
     [libctl loadLibrary];
     if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12)
     {
-        [libctl.window setValue:[NSNumber numberWithInt:2] forKey:@"tabbingMode"];
+        [libctl.window setValue:@2 forKey:@"tabbingMode"];
     }
 }
 

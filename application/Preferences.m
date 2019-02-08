@@ -823,21 +823,21 @@ NSString* fontToString(NSFont *font)
 	if (selfontp == &gridroman)
 	{
 		[defaults setObject: [gridroman fontName] forKey: @"GridFontName"];
-		[defaults setObject: [NSNumber numberWithFloat: [gridroman pointSize]] forKey: @"GridFontSize"];
+		[defaults setObject: @([gridroman pointSize]) forKey: @"GridFontSize"];
 		[btnGridFont setTitle: fontToString(gridroman)];
 	}
 
 	if (selfontp == &bufroman)
 	{
 		[defaults setObject: [bufroman fontName] forKey: @"BufferFontName"];
-		[defaults setObject: [NSNumber numberWithFloat: [bufroman pointSize]] forKey: @"BufferFontSize"];
+		[defaults setObject: @([bufroman pointSize]) forKey: @"BufferFontSize"];
 		[btnBufferFont setTitle: fontToString(bufroman)];
 	}
 
 	if (selfontp == &inputfont)
 	{
 		[defaults setObject: [inputfont fontName] forKey: @"InputFontName"];
-		[defaults setObject: [NSNumber numberWithFloat: [inputfont pointSize]] forKey: @"InputFontSize"];
+		[defaults setObject: @([inputfont pointSize]) forKey: @"InputFontSize"];
 		[btnInputFont setTitle: fontToString(inputfont)];
 	}
 

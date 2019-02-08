@@ -919,9 +919,7 @@
 - (NSArray *)accessibilityActionNames {
     NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
 
-    [result addObjectsFromArray:[NSArray arrayWithObjects:
-                                 @"Repeat last move", @"Speak move before", @"Speak move after", @"Speak status bar",
-                                 nil]];
+    [result addObjectsFromArray:@[@"Repeat last move", @"Speak move before", @"Speak move after", @"Speak status bar"]];
 
     return result;
 }
@@ -2082,9 +2080,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 - (NSArray *)accessibilityActionNames {
     NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
 
-    [result addObjectsFromArray:[NSArray arrayWithObjects:
-                                 @"Repeat last move", @"Speak move before", @"Speak move after", @"Speak status bar",
-                                 nil]];
+    [result addObjectsFromArray:@[@"Repeat last move", @"Speak move before", @"Speak move after", @"Speak status bar"]];
 
     return result;
 }
