@@ -869,13 +869,15 @@
 
 - (IBAction)speakStatus:(id)sender
 {
-    NSDictionary *announcementInfo = @{
-                                       NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-                                       NSAccessibilityAnnouncementKey : textstorage.string
-                                       };
-    NSAccessibilityPostNotificationWithUserInfo([NSApp mainWindow], NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-
-    return;
+	if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9)
+	{
+		NSDictionary *announcementInfo = @{
+										   NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+										   NSAccessibilityAnnouncementKey : textstorage.string
+										   };
+		NSAccessibilityPostNotificationWithUserInfo([NSApp mainWindow], NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+	}
+	return;
 }
 
 @end
