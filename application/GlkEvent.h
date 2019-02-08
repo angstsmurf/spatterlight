@@ -21,6 +21,6 @@ unsigned chartokeycode(unsigned ch);
 - (instancetype) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name;
 
 - (void) writeEvent: (NSInteger)fd;
-- (NSInteger) type;
+@property (readonly) NSInteger type;
 
 @end

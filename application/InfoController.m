@@ -22,11 +22,11 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     NSInteger count;
     NSInteger i;
     
-    count = [windows count];
+    count = windows.count;
     for (i = 0; i < count; i++)
     {
         window = (NSWindow*) windows[i];
-        winctl = (NSWindowController*) [window delegate];
+        winctl = (NSWindowController*) window.delegate;
         if (winctl && [winctl isKindOfClass: [InfoController class]])
         {
             infoctl = (InfoController*) winctl;
@@ -64,27 +64,27 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     NSSize maxsize;
     float scale;
     
-    maxsize = [[[self window] screen] frame].size;
-    wellsize = [imageView frame].size;
-    cursize = [[self window] frame].size;
+    maxsize = self.window.screen.frame.size;
+    wellsize = imageView.frame.size;
+    cursize = self.window.frame.size;
     
     maxsize.width = maxsize.width * 0.75 - (cursize.width - wellsize.width);
     maxsize.height = maxsize.height * 0.75 - (cursize.height - wellsize.height);
     
-    NSArray * imageReps = [[imageView image] representations];
+    NSArray * imageReps = imageView.image.representations;
     
     NSInteger width = 0;
     NSInteger height = 0;
     
     for (NSImageRep * imageRep in imageReps) {
-        if ([imageRep pixelsWide] > width) width = [imageRep pixelsWide];
-        if ([imageRep pixelsHigh] > height) height = [imageRep pixelsHigh];
+        if (imageRep.pixelsWide > width) width = imageRep.pixelsWide;
+        if (imageRep.pixelsHigh > height) height = imageRep.pixelsHigh;
     }
     
     imgsize.width = width;
     imgsize.height = height;
     
-    [[imageView image] setSize: imgsize]; /* no steenkin' dpi here */
+    imageView.image.size = imgsize; /* no steenkin' dpi here */
     
     if (imgsize.width > maxsize.width)
     {
@@ -106,12 +106,12 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     setsize.width = cursize.width - wellsize.width + imgsize.width;
     setsize.height = cursize.height - wellsize.height + imgsize.height;
     
-    frame = [[self window] frame];
+    frame = self.window.frame;
     frame.origin.y += frame.size.height;
     frame.size.width = setsize.width;
     frame.size.height = setsize.height;
     frame.origin.y -= setsize.height;
-    [[self window] setFrame: frame display: YES animate: animate];
+    [self.window setFrame: frame display: YES animate: animate];
 }
 
 - (void) windowDidLoad
@@ -128,21 +128,21 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     
     NSLog(@"infoctl: windowDidLoad");
     
-    [[self window] setRepresentedFilename: path];
-    [[self window] setTitle: [NSString stringWithFormat: @"%@ Info", [path lastPathComponent]]];
+    self.window.representedFilename = path;
+    self.window.title = [NSString stringWithFormat: @"%@ Info", path.lastPathComponent];
 
     [descriptionText setDrawsBackground: NO];
-    [(NSScrollView *)[descriptionText superview] setDrawsBackground:NO];
+    [(NSScrollView *)descriptionText.superview setDrawsBackground:NO];
     
-    [titleField setStringValue: meta[@"title"]];
+    titleField.stringValue = meta[@"title"];
     if (meta[@"author"])
-        [authorField setStringValue: meta[@"author"]];
+        authorField.stringValue = meta[@"author"];
     if (meta[@"headline"])
-        [headlineField setStringValue: meta[@"headline"]];
+        headlineField.stringValue = meta[@"headline"];
     if (meta[@"description"])
-        [descriptionText setString: meta[@"description"]];
+        descriptionText.string = meta[@"description"];
     
-    format = babel_init((char*)[path UTF8String]);
+    format = babel_init((char*)path.UTF8String);
     if (format)
     {
         char buf[TREATY_MINIMUM_EXTENT];
@@ -157,7 +157,7 @@ void showInfoForFile(NSString *path, NSDictionary *info)
         if (s) *s = 0;
         ifid = @(buf);
         
-        [ifidField setStringValue: ifid];
+        ifidField.stringValue = ifid;
         pathstring = [[@"Spatterlight/Cover%20Art" stringByAppendingPathComponent:ifid] stringByAppendingPathExtension: @"tiff"];
         imgpath = [NSURL URLWithString: pathstring relativeToURL:imgpath];
         img = [[NSImage alloc] initWithContentsOfURL: imgpath];
@@ -171,7 +171,7 @@ void showInfoForFile(NSString *path, NSDictionary *info)
                     goto finish;
                 
 //                rv =
-				babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
+                babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
                 imgdata = [[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES];
                 img = [[NSImage alloc] initWithData: imgdata];
             }
@@ -179,7 +179,7 @@ void showInfoForFile(NSString *path, NSDictionary *info)
         
         if (img)
         {
-            [imageView setImage: img];
+            imageView.image = img;
         }
         
         [self sizeToFitImageAnimate: NO];
@@ -199,13 +199,13 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     
     dirURL = [NSURL URLWithString: @"Spatterlight/Cover%20Art" relativeToURL:dirURL];
 
-    imgURL = [NSURL fileURLWithPath: [[[dirURL path] stringByAppendingPathComponent: ifid] stringByAppendingPathExtension: @"tiff"] isDirectory:NO];
+    imgURL = [NSURL fileURLWithPath: [[dirURL.path stringByAppendingPathComponent: ifid] stringByAppendingPathExtension: @"tiff"] isDirectory:NO];
     
     [[NSFileManager defaultManager] createDirectoryAtURL:dirURL withIntermediateDirectories:YES attributes:nil error:NULL];
     
     NSLog(@"infoctl: save image %@", imgURL);
     
-    imgdata = [[imageView image] TIFFRepresentationUsingCompression: NSTIFFCompressionLZW factor: 0];
+    imgdata = [imageView.image TIFFRepresentationUsingCompression: NSTIFFCompressionLZW factor: 0];
     [imgdata writeToURL: imgURL atomically: YES];
     
     [self sizeToFitImageAnimate: YES];

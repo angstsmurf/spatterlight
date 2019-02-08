@@ -82,7 +82,7 @@
     if (NSEqualRects(frame, self.frame))
         return;
 
-    [super setFrame: frame];
+    super.frame = frame;
 
     if (frame.size.width == 0 || frame.size.height == 0)
         return;
@@ -115,7 +115,7 @@
     }
 
     // The we draw the old contents over it
-	[self drawImage:oldimage val1:0 val2:0 width:oldimage.size.width height:oldimage.size.height];
+    [self drawImage:oldimage val1:0 val2:0 width:oldimage.size.width height:oldimage.size.height];
 
     dirty = YES;
 }
@@ -299,45 +299,45 @@
     if (str.length)
         ch = chartokeycode([str characterAtIndex: 0]);
 
-	GlkWindow *win;
-	// pass on this key press to another GlkWindow if we are not expecting one
-	if (!self.wantsFocus)
-		for (int i = 0; i < MAXWIN; i++)
-		{
-			win = [glkctl windowWithNum:i];
-			if (i != self.name && win && win.wantsFocus)
-			{
-				NSLog(@"Passing on keypress");
-				if ([win isKindOfClass: [GlkTextBufferWindow class]])
-					[(GlkTextBufferWindow *)win onKeyDown:evt];
-				else
-					[win keyDown:evt];
-				[win grabFocus];
-				return;
-			}
-		}
+    GlkWindow *win;
+    // pass on this key press to another GlkWindow if we are not expecting one
+    if (!self.wantsFocus)
+        for (int i = 0; i < MAXWIN; i++)
+        {
+            win = [glkctl windowWithNum:i];
+            if (i != self.name && win && win.wantsFocus)
+            {
+                NSLog(@"Passing on keypress");
+                if ([win isKindOfClass: [GlkTextBufferWindow class]])
+                    [(GlkTextBufferWindow *)win onKeyDown:evt];
+                else
+                    [win keyDown:evt];
+                [win grabFocus];
+                return;
+            }
+        }
 
-	if (char_request && ch != keycode_Unknown)
-	{
-		[glkctl markLastSeen];
+    if (char_request && ch != keycode_Unknown)
+    {
+        [glkctl markLastSeen];
 
-		//NSLog(@"char event from %d", name);
-		GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
-		[glkctl queueEvent: gev];
-		char_request = NO;
-		return;
-	}
+        //NSLog(@"char event from %d", name);
+        GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
+        [glkctl queueEvent: gev];
+        char_request = NO;
+        return;
+    }
 }
 
 
 // = NSAccessibility =
 
 - (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		return [NSString stringWithFormat: @"Graphics window%@%@", mouse_request?@", waiting for mouse clicks":@"", char_request?@", waiting for a key press":@""];;
-	}
+    if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
+        return [NSString stringWithFormat: @"Graphics window%@%@", mouse_request?@", waiting for mouse clicks":@"", char_request?@", waiting for a key press":@""];;
+    }
     
-	return [super accessibilityAttributeValue: attribute];
+    return [super accessibilityAttributeValue: attribute];
 }
 
 

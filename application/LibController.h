@@ -91,7 +91,7 @@
 - (IBAction) searchForGames: (id)sender;
 - (IBAction) playGame: (id)sender;
 - (IBAction) showGameInfo: (id)sender;
-- (InfoController *) createInfoController;
+@property (readonly, strong) InfoController *createInfoController;
 - (IBAction) revealGameInFinder: (id)sender;
 - (IBAction) deleteGame: (id)sender;
 
