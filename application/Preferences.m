@@ -698,7 +698,7 @@ NSString* fontToString(NSFont *font)
 
 + (void) zoomToActualSize
 {
-    [self scale:11 / gridroman.pointSize];
+    [self scale:12 / gridroman.pointSize];
 }
 
 + (void)scale:(CGFloat)scalefactor
