@@ -32,7 +32,7 @@
 
 @property BOOL shouldDrawCaret;
 @property CGFloat bottomPadding;
-@property (readonly) NSTextFinder* textFinder;
+@property (weak, readonly) NSTextFinder* textFinder;
 
 @property BOOL shouldSpeak_10_7;
 @property NSRange rangeToSpeak_10_7;

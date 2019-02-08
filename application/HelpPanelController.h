@@ -13,7 +13,7 @@
     NSTextFinder* _textFinder; // define your own text finder
 }
 
-@property (readonly) NSTextFinder* textFinder;
+@property (weak, readonly) NSTextFinder* textFinder;
 
 @end
 
