@@ -233,7 +233,7 @@
 
 - (void) windowWillClose: (id)sender
 {
-    NSLog(@"glkctl: windowWillClose");
+    //NSLog(@"glkctl: windowWillClose");
 
     [self.window setDelegate: nil];
 
@@ -241,21 +241,21 @@
 
     if (timer)
     {
-        NSLog(@"glkctl: force stop the timer");
+        //NSLog(@"glkctl: force stop the timer");
         [timer invalidate];
         timer = nil;
     }
 
     if (soundNotificationsTimer)
     {
-        NSLog(@"glkctl: force stop the sound notifications timer");
+        //NSLog(@"glkctl: force stop the sound notifications timer");
         [soundNotificationsTimer invalidate];
         soundNotificationsTimer = nil;
     }
 
     if (task)
     {
-        NSLog(@"glkctl: force stop the interpreter");
+        //NSLog(@"glkctl: force stop the interpreter");
         [task terminate];
         task = nil;
     }
