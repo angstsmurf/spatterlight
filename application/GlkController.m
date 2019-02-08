@@ -451,7 +451,7 @@
 
     if (!NSEqualRects(frame, contentView.frame))
     {
-        NSLog(@"glkctl: notePreferencesChanged: contentView frame changed from %@ to %@", NSStringFromRect(contentView.frame), NSStringFromRect(frame));
+        //NSLog(@"glkctl: notePreferencesChanged: contentView frame changed from %@ to %@", NSStringFromRect(contentView.frame), NSStringFromRect(frame));
         contentView.frame = frame;
         [self contentDidResize:frame];
     }
