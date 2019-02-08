@@ -287,7 +287,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     return border;
 }
 
-+ (float) leading
++ (CGFloat) leading
 {
     return leading;
 }
