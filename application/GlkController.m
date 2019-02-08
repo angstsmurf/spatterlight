@@ -428,7 +428,7 @@
 
 - (void) notePreferencesChanged: (id)sender
 {
-    NSLog(@"glkctl: notePreferencesChanged");
+    //NSLog(@"glkctl: notePreferencesChanged");
     int i;
 
     GlkEvent *gevent;
@@ -451,9 +451,9 @@
 
     if (!NSEqualRects(frame, contentView.frame))
     {
+        NSLog(@"glkctl: notePreferencesChanged: contentView frame changed from %@ to %@", NSStringFromRect(contentView.frame), NSStringFromRect(frame));
         contentView.frame = frame;
         [self contentDidResize:frame];
-        NSLog(@"glkctl: notePreferencesChanged: contentView frame changed to %@", NSStringFromRect(frame));
     }
 
     gevent = [[GlkEvent alloc] initArrangeWidth: frame.size.width height: frame.size.height];

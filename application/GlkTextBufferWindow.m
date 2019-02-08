@@ -1482,7 +1482,7 @@
 
     if (char_request && ch != keycode_Unknown)
     {
-        NSLog(@"char event from %ld", (long)self.name);
+        //NSLog(@"char event from %ld", (long)self.name);
 
         //[textview setInsertionPointColor:[Preferences bufferForeground]];
 
