@@ -297,7 +297,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (IBAction) playGame: (id)sender
 {
-    NSInteger rowidx = gameTableView.clickedRow;
+    NSInteger rowidx;
+    
+    if (gameTableView.clickedRow != -1)
+        rowidx = gameTableView.clickedRow;
+    else
+        rowidx = gameTableView.selectedRow;
+
     if (rowidx >= 0)
     {
         NSString *ifid = gameTableModel[rowidx];
@@ -310,7 +316,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     NSIndexSet *rows = gameTableView.selectedRowIndexes;
     
     // If we clicked outside selected rows, only show info for clicked row
-    if (![rows containsIndex:gameTableView.clickedRow])
+    if (gameTableView.clickedRow != -1 && ![rows containsIndex:gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:gameTableView.clickedRow];
 
     NSInteger i;
@@ -353,7 +359,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     NSIndexSet *rows = gameTableView.selectedRowIndexes;
 
     // If we clicked outside selected rows, only reveal game in clicked row
-    if (![rows containsIndex:gameTableView.clickedRow])
+    if (gameTableView.clickedRow != -1 && ![rows containsIndex:gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:gameTableView.clickedRow];
     
     NSInteger i;
@@ -377,7 +383,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     NSIndexSet *rows = gameTableView.selectedRowIndexes;
 
     // If we clicked outside selected rows, only delete game in clicked row
-    if (![rows containsIndex:gameTableView.clickedRow])
+    if (gameTableView.clickedRow != -1 && ![rows containsIndex:gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:gameTableView.clickedRow];
     
     if (rows.count > 0)
@@ -409,7 +415,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
     NSIndexSet *rows = gameTableView.selectedRowIndexes;
 
-    if (gameTableView.clickedRow >= 0 && (![rows containsIndex:gameTableView.clickedRow]))
+    if (gameTableView.clickedRow != -1 && (![rows containsIndex:gameTableView.clickedRow]))
         count = 1;
 
     if (action == @selector(performFindPanelAction:))
@@ -418,6 +424,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
             return YES;
         else return NO;
     }
+
+    if (action == @selector(playGame:))
+        return count == 1;
 
    return count > 0;
 }
