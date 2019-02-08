@@ -497,6 +497,7 @@
         NSLog(@"ERROR! First line has somehow become too wide!!!!");
         NSLog(@"First line of text storage: '%@'", firstline);
         NSLog(@"Width of first line: %f", stringSize.width);
+        NSLog(@"Width of text grid window: %f", self.frame.size.width);
     }
 
     // Check for newlines
