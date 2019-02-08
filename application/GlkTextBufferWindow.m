@@ -874,27 +874,27 @@
         }
     }
 
-//    if ([attribute isEqualToString:NSAccessibilityRangeForLineParameterizedAttribute])
-//    {
-//        NSLayoutManager *layoutManager = self.layoutManager;
-//        unsigned numberOfLines, index;
-//        unsigned numberOfGlyphs = [layoutManager numberOfGlyphs];
-//        NSRange lineRange;
-//
-//        for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++)
-//        {
-//            (void) [layoutManager lineFragmentRectForGlyphAtIndex:index effectiveRange:&lineRange];
-//
-//            if (((NSNumber *)(parameter)).intValue == numberOfLines)
-//            {
-//                //NSLog(@"Result: %@ (%@)",NSStringFromRange(lineRange), [self.textStorage.string substringWithRange:lineRange]);
-//                return [NSValue valueWithRange:lineRange];
-//            }
-//
-//            index = NSMaxRange(lineRange);
-//                    }
-//        return nil;
-//    }
+    if ([attribute isEqualToString:NSAccessibilityRangeForLineParameterizedAttribute])
+    {
+        NSLayoutManager *layoutManager = self.layoutManager;
+        unsigned numberOfLines, index;
+        unsigned numberOfGlyphs = [layoutManager numberOfGlyphs];
+        NSRange lineRange;
+
+        for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++)
+        {
+            (void) [layoutManager lineFragmentRectForGlyphAtIndex:index effectiveRange:&lineRange];
+
+            if (((NSNumber *)(parameter)).intValue == numberOfLines)
+            {
+                //NSLog(@"Result: %@ (%@)",NSStringFromRange(lineRange), [self.textStorage.string substringWithRange:lineRange]);
+                return [NSValue valueWithRange:lineRange];
+            }
+
+            index = NSMaxRange(lineRange);
+                    }
+        return nil;
+    }
 
     //NSLog(@"Result: %@",[super accessibilityAttributeValue:attribute forParameter:parameter]);
     return [super accessibilityAttributeValue:attribute forParameter:parameter];
