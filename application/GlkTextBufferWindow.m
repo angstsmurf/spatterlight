@@ -38,9 +38,6 @@
 	NSFont *font = [attributes valueForKey:NSFontAttributeName];
 
 	CGFloat xheight = font.ascender;
-//	NSLog(@"Xheight = %f", xheight);
-	//
-	//[@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height;
 
 	if (align == imagealign_InlineCenter)
 		return NSMakePoint(0, -(self.image.size.height / 2) + font.xHeight / 2);
