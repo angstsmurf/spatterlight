@@ -792,7 +792,6 @@
 											<string key="NSFrame">{{67, 13}, {50, 19}}</string>
 											<reference key="NSSuperview" ref="77604598"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="1061820"/>
 											<int key="NSTag">13</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="337866706">
@@ -889,13 +888,13 @@
 											</object>
 										</object>
 									</array>
-									<string key="NSFrame">{{2, 2}, {140, 65}}</string>
+									<string key="NSFrame">{{2, 2}, {140, 62}}</string>
 									<reference key="NSSuperview" ref="225206732"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="690764462"/>
 								</object>
 							</array>
-							<string key="NSFrame">{{323, 14}, {144, 69}}</string>
+							<string key="NSFrame">{{323, 14}, {144, 66}}</string>
 							<reference key="NSSuperview" ref="294403239"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="77604598"/>
@@ -999,7 +998,7 @@
 											<string key="NSFrame">{{13, 11}, {120, 18}}</string>
 											<reference key="NSSuperview" ref="726915433"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="225206732"/>
+											<reference key="NSNextKeyView" ref="1061820"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="525146608">
 												<int key="NSCellFlags">67239424</int>
@@ -1052,6 +1051,7 @@
 							<string key="NSFrame">{{414, 86}, {50, 19}}</string>
 							<reference key="NSSuperview" ref="294403239"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="225206732"/>
 							<int key="NSTag">13</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="701654674">
@@ -2037,9 +2037,6 @@
 						<string key="changeSpaceFormatting:">id</string>
 						<string key="changeUseScreenFonts:">id</string>
 						<string key="showFontPanel:">id</string>
-						<string key="zoomIn:">id</string>
-						<string key="zoomOut:">id</string>
-						<string key="zoomToActualSize:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="changeBorderSize:">
@@ -2092,18 +2089,6 @@
 						</object>
 						<object class="IBActionInfo" key="showFontPanel:">
 							<string key="name">showFontPanel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="zoomIn:">
-							<string key="name">zoomIn:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="zoomOut:">
-							<string key="name">zoomOut:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="zoomToActualSize:">
-							<string key="name">zoomToActualSize:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
