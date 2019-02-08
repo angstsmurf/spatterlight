@@ -9,10 +9,10 @@
 	BufferForeground = <000000>;
 	BufferBackground = <ffffff>;
 	BufferFontName = Helvetica;
-	BufferFontSize = 14;
+	BufferFontSize = 13;
 	InputColor = <236e25>;
 	InputFontName = "Helvetica-Bold";
-	InputFontSize = 14;
+	InputFontSize = 13;
 	GridMargin = 5;
 	BufferMargin = 15;
 	Leading = "1.0";
