@@ -1900,7 +1900,7 @@
 }
 
 - (IBAction) speakNext: (id) sender {
-    NSLog(@"speakNext: moveRangeIndex; %ld", moveRangeIndex);
+    //NSLog(@"speakNext: moveRangeIndex; %ld", moveRangeIndex);
     if (!moveRanges.count)
         return;
     if (moveRangeIndex < moveRanges.count - 1)
@@ -1925,26 +1925,29 @@
         }
     }
     NSLog(@"No status window found");
-    return;
 }
 
 
 - (void) speakRange:(NSRange)aRange
 {
-    if (NSMaxRange(aRange) >= textstorage.length)
-        aRange = NSMakeRange(0, textstorage.length);
+	if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9)
+	{
 
-    NSString *str = [textstorage.string substringWithRange:aRange];
+		if (NSMaxRange(aRange) >= textstorage.length)
+			aRange = NSMakeRange(0, textstorage.length);
 
-    NSDictionary *announcementInfo = @{
-                                       NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-                                       NSAccessibilityAnnouncementKey : str
-                                       };
+		NSString *str = [textstorage.string substringWithRange:aRange];
 
-    NSWindow *mainWin = [NSApp mainWindow];
+		NSDictionary *announcementInfo = @{
+										   NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+										   NSAccessibilityAnnouncementKey : str
+										   };
 
-    if (mainWin)
-        NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+		NSWindow *mainWin = [NSApp mainWindow];
+
+		if (mainWin)
+			NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+	}
 }
 
 - (void) stopSpeakingText_10_7

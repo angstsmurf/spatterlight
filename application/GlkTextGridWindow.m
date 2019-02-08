@@ -877,7 +877,6 @@
 										   };
 		NSAccessibilityPostNotificationWithUserInfo([NSApp mainWindow], NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 	}
-	return;
 }
 
 @end
