@@ -329,16 +329,16 @@
     }
 }
 
+# pragma mark Accessibility
 
-// = NSAccessibility =
-
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-    if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
+- (id)accessibilityAttributeValue:(NSString *)attribute
+{
+    if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute])
+	{
         return [NSString stringWithFormat: @"Graphics window%@%@", mouse_request?@", waiting for mouse clicks":@"", char_request?@", waiting for a key press":@""];;
     }
     
     return [super accessibilityAttributeValue: attribute];
 }
-
 
 @end

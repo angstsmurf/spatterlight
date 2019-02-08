@@ -2058,7 +2058,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 
 
-// = NSAccessibility =
+# pragma mark Accessibility
 
 - (NSString *)accessibilityActionDescription: (NSString*) action {
     if ([action isEqualToString: @"Repeat last move"])
@@ -2133,10 +2133,6 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 - (id)accessibilityFocusedUIElement {
     return textview;
-}
-
-- (BOOL)accessibilityIsIgnored {
-    return NO;
 }
 
 @end

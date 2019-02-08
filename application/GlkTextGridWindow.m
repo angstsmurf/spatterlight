@@ -830,8 +830,7 @@
     }
 }
 
-
-// = NSAccessibility =
+# pragma mark Accessibility
 
 - (NSArray*) accessibilityAttributeNames {
     NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
@@ -866,10 +865,6 @@
 
 - (id)accessibilityFocusedUIElement {
     return textview;
-}
-
-- (BOOL)accessibilityIsIgnored {
-    return NO;
 }
 
 - (IBAction)speakStatus:(id)sender
