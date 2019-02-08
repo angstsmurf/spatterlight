@@ -37,7 +37,6 @@
     IBOutlet NSView *exportTypeView;
     IBOutlet NSPopUpButton *exportTypeControl;
 
-
     NSMutableDictionary *metadata; /* ifid -> metadata dict */
     NSMutableDictionary *games; /* ifid -> filename */
 
