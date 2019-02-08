@@ -1869,7 +1869,7 @@
 - (void) speakHack:(id)sender
 {
     NSValue *v;
-	NSRange lastMove;
+	NSRange lastMove = NSMakeRange(0, 0);
     NSEnumerator *movesenumerator = [moveRanges reverseObjectEnumerator];
 
 	while (v = [movesenumerator nextObject])
