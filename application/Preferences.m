@@ -703,7 +703,7 @@ NSString* fontToString(NSFont *font)
 
 + (void)scale:(CGFloat)scalefactor
 {
-	NSLog(@"Preferences scale: %f", scalefactor);
+	//NSLog(@"Preferences scale: %f", scalefactor);
 
     if (scalefactor < 0)
         scalefactor = fabs(scalefactor);
@@ -714,54 +714,53 @@ NSString* fontToString(NSFont *font)
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	CGFloat fontSize;
 
+    fontSize = gridroman.pointSize;
+	fontSize *= scalefactor;
+    if (fontSize > 0)
+	{
+        gridroman = [NSFont fontWithDescriptor:gridroman.fontDescriptor size:fontSize];
+        [defaults setObject: @(fontSize) forKey: @"GridFontSize"];
+    }
+
+	fontSize = bufroman.pointSize;
+    fontSize *= scalefactor;
+    if (fontSize > 0)
+	{
+        bufroman = [NSFont fontWithDescriptor:bufroman.fontDescriptor size:fontSize];
+        [defaults setObject: @(fontSize) forKey: @"BufferFontSize"];
+    }
+
+	fontSize = inputfont.pointSize;
+    fontSize *= scalefactor;
+    if (fontSize > 0)
+	{
+        inputfont = [NSFont fontWithDescriptor:inputfont.fontDescriptor size:fontSize];
+        [defaults setObject: @(fontSize) forKey: @"InputFontSize"];
+    }
+
 	if (leading * scalefactor > 0)
 	{
 		leading *= scalefactor;
 		[defaults setObject: @(leading) forKey: @"Leading"];
 	}
-	NSLog(@"leading set to: %f", leading);
 
 	if (gridmargin * scalefactor > 0)
 	{
 		gridmargin *= scalefactor;
 		[defaults setObject: @(gridmargin) forKey: @"GridMargin"];
 	}
-	NSLog(@"gridmargin set to: %f", gridmargin);
 
 	if (buffermargin * scalefactor > 0)
 	{
 		buffermargin *= scalefactor;
 		[defaults setObject: @(buffermargin) forKey: @"BufferMargin"];
 	}
-	NSLog(@"buffermargin set to: %f", buffermargin);
-
 
 	if (border * scalefactor > 0)
 	{
 		border *= scalefactor;
 		[defaults setObject: @(border) forKey: @"Border"];
 	}
-
-	NSLog(@"border set to: %f", border);
-
-    fontSize = gridroman.pointSize;
-	fontSize *= scalefactor;
-	gridroman = [NSFont fontWithDescriptor:gridroman.fontDescriptor size:fontSize];
-	[defaults setObject: @(fontSize) forKey: @"GridFontSize"];
-	NSLog(@"gridroman pointSize set to: %g", fontSize);
-
-	fontSize = bufroman.pointSize;
-	fontSize *= scalefactor;
-	bufroman = [NSFont fontWithDescriptor:bufroman.fontDescriptor size:fontSize];
-	[defaults setObject: @(fontSize) forKey: @"BufferFontSize"];
-	NSLog(@"bufroman pointSize set to: %f", fontSize);
-
-	fontSize = inputfont.pointSize;
-	fontSize *= scalefactor;
-	inputfont = [NSFont fontWithDescriptor:inputfont.fontDescriptor size:fontSize];
-	[defaults setObject: @(fontSize) forKey: @"InputFontSize"];
-	NSLog(@"inputfont pointSize set to: %f", fontSize);
-
 
 	[Preferences rebuildTextAttributes];
 
