@@ -79,7 +79,7 @@ NSDictionary *gFormatMap;
     if (!helpLicenseWindow)
     {
         helpLicenseWindow = [[HelpPanelController alloc] initWithWindowNibName:@"HelpPanelController"];
-        [[helpLicenseWindow window] setMinSize: NSMakeSize(290, 200)];
+        helpLicenseWindow.window.minSize = NSMakeSize(290, 200);
     }
 
     NSAttributedString *content = [[NSAttributedString alloc] initWithURL:url
@@ -142,16 +142,16 @@ NSDictionary *gFormatMap;
         NSLog(@"directory = %@", directory);
         [panel beginWithCompletionHandler:^(NSInteger result){
             if (result == NSFileHandlingPanelOKButton) {
-                NSURL*  theDoc = [panel URLs][0];
+                NSURL*  theDoc = panel.URLs[0];
                 {
-                    NSString *pathString = [[theDoc path] stringByDeletingLastPathComponent];
+                    NSString *pathString = theDoc.path.stringByDeletingLastPathComponent;
                     NSLog(@"directory = %@", directory);
-                    if ([[[theDoc path] pathExtension] isEqualToString: @"sav"])
+                    if ([theDoc.path.pathExtension isEqualToString: @"sav"])
                         [[NSUserDefaults standardUserDefaults] setObject: pathString forKey: @"SaveDirectory"];
                     else
                         [[NSUserDefaults standardUserDefaults] setObject: pathString forKey: @"GameDirectory"];
 
-                    [self application: NSApp openFile: [theDoc path]];
+                    [self application: NSApp openFile: theDoc.path];
                 }
             }
         }];
@@ -163,7 +163,7 @@ NSDictionary *gFormatMap;
 {
     NSLog(@"appdel: openFile '%@'", path);
 
-    if ([[[path pathExtension] lowercaseString] isEqualToString: @"ifiction"])
+    if ([path.pathExtension.lowercaseString isEqualToString: @"ifiction"])
     {
         [libctl importMetadataFromFile: path];
     }
@@ -184,7 +184,7 @@ NSDictionary *gFormatMap;
 
 - (NSWindow *) preferencePanel
 {
-	return [prefctl window];
+	return prefctl.window;
 }
 
 -(void)addToRecents:(NSArray*)URLs
@@ -219,8 +219,8 @@ NSDictionary *gFormatMap;
 
 - (NSApplicationTerminateReply) applicationShouldTerminate: (NSApplication *)app
 {
-    NSArray *windows = [app windows];
-    NSInteger count = [windows count];
+    NSArray *windows = app.windows;
+    NSInteger count = windows.count;
     NSInteger alive = 0;
 
     NSLog(@"appdel: applicationShouldTerminate");
@@ -228,7 +228,7 @@ NSDictionary *gFormatMap;
     while (count--)
     {
         NSWindow *window = windows[count];
-        id glkctl = [window delegate];
+        id glkctl = window.delegate;
         if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive])
             alive ++;
     }
@@ -251,7 +251,7 @@ NSDictionary *gFormatMap;
 - (void) applicationWillTerminate: (NSNotification*)notification
 {
     [libctl saveLibrary:self];
-    if ([[NSFontPanel sharedFontPanel] isVisible])
+    if ([NSFontPanel sharedFontPanel].visible)
 		[[NSFontPanel sharedFontPanel] orderOut:self];
 }
 

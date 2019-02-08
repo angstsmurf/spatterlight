@@ -74,9 +74,9 @@ NSColor *dataToColor(NSData *data)
 {
     NSColor *color;
     CGFloat r, g, b;
-    const unsigned char *buf = [data bytes];
+    const unsigned char *buf = data.bytes;
 
-    if ([data length] < 3)
+    if (data.length < 3)
         r = g = b = 0;
     else
     {
@@ -107,8 +107,8 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     NSString *filename = [[NSBundle mainBundle] pathForResource: @"Defaults" ofType: @"plist"];
     NSMutableDictionary *defaults = [NSMutableDictionary dictionaryWithContentsOfFile: filename];
 
-    defaults[@"GameDirectory"] = [@"~/Documents" stringByExpandingTildeInPath];
-    defaults[@"SaveDirectory"] = [@"~/Documents" stringByExpandingTildeInPath];
+    defaults[@"GameDirectory"] = (@"~/Documents").stringByExpandingTildeInPath;
+    defaults[@"SaveDirectory"] = (@"~/Documents").stringByExpandingTildeInPath;
 
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
 }
@@ -297,11 +297,11 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     NSInteger width = ceil(self.charWidth * defscreenw + (gridmargin + border + 4) * 2.0);
     NSInteger height = ceil(self.lineHeight * defscreenh + (gridmargin + border + 4) * 2.0);
 
-    CGRect screenframe = [NSScreen.mainScreen visibleFrame];
+    CGRect screenframe = (NSScreen.mainScreen).visibleFrame;
 
     if (width > screenframe.size.width) width = screenframe.size.width;
     if (height > screenframe.size.height) height = screenframe.size.height;
-                           
+
     return NSMakeSize(width, height);
 }
 
@@ -380,7 +380,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 
     para = [[NSMutableParagraphStyle alloc] init];
     [para setParagraphStyle: [NSParagraphStyle defaultParagraphStyle]];
-    [para setLineSpacing: leading];
+    para.lineSpacing = leading;
 
     for (style = 0; style < style_NUMSTYLES; style++)
     {
@@ -456,9 +456,9 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     }
 
     if (usescreenfonts)
-        font = [gridroman screenFont];
+        font = gridroman.screenFont;
     else
-        font = [gridroman printerFont];
+        font = gridroman.printerFont;
 
     NSLog(@"[font advancementForGlyph:(NSGlyph)'X'].width:%f font.maximumAdvancement.width:%f [@\"X\" sizeWithAttributes:@{NSFontAttributeName: font}].width:%f", [font advancementForGlyph:(NSGlyph) 'X'].width, font.maximumAdvancement.width, [@"X" sizeWithAttributes:@{NSFontAttributeName: font}].width);
 
@@ -488,9 +488,9 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 NSString* fontToString(NSFont *font)
 {
     if ((int)font.pointSize == font.pointSize)
-        return [NSString stringWithFormat: @"%@ %.f", [font displayName], (float)[font pointSize]];
+        return [NSString stringWithFormat: @"%@ %.f", font.displayName, (float)font.pointSize];
     else
-        return [NSString stringWithFormat: @"%@ %.1f", [font displayName], (float)[font pointSize]];
+        return [NSString stringWithFormat: @"%@ %.1f", font.displayName, (float)font.pointSize];
 }
 
 - (void) windowDidLoad
@@ -499,36 +499,36 @@ NSString* fontToString(NSFont *font)
 
     [super windowDidLoad];
 
-    [self setWindowFrameAutosaveName: @"PrefsWindow"];
+    self.windowFrameAutosaveName = @"PrefsWindow";
 
 	prefs = self;
 
-    [clrGridFg setColor: gridfg];
-    [clrGridBg setColor: gridbg];
-    [clrBufferFg setColor: bufferfg];
-    [clrBufferBg setColor: bufferbg];
-    [clrInputFg setColor: inputfg];
+    clrGridFg.color = gridfg;
+    clrGridBg.color = gridbg;
+    clrBufferFg.color = bufferfg;
+    clrBufferBg.color = bufferbg;
+    clrInputFg.color = inputfg;
 
-    [txtGridMargin setFloatValue: gridmargin];
-    [txtBufferMargin setFloatValue: buffermargin];
-    [txtLeading setFloatValue: leading];
+    txtGridMargin.floatValue = gridmargin;
+    txtBufferMargin.floatValue = buffermargin;
+    txtLeading.floatValue = leading;
 
-    [txtCols setIntValue: defscreenw];
-    [txtRows setIntValue: defscreenh];
+    txtCols.intValue = defscreenw;
+    txtRows.intValue = defscreenh;
 
-    [txtBorder setIntValue: border];
+    txtBorder.intValue = border;
 
-    [btnGridFont setTitle: fontToString(gridroman)];
-    [btnBufferFont setTitle: fontToString(bufroman)];
-    [btnInputFont setTitle: fontToString(inputfont)];
+    btnGridFont.title = fontToString(gridroman);
+    btnBufferFont.title = fontToString(bufroman);
+    btnInputFont.title = fontToString(inputfont);
 
-    [btnSmartQuotes setState: smartquotes];
-    [btnSpaceFormat setState: spaceformat];
+    btnSmartQuotes.state = smartquotes;
+    btnSpaceFormat.state = spaceformat;
 
-    [btnEnableGraphics setState: dographics];
-    [btnEnableSound setState: dosound];
-    [btnEnableStyles setState: dostyles];
-    [btnUseScreenFonts setState: usescreenfonts];
+    btnEnableGraphics.state = dographics;
+    btnEnableSound.state = dosound;
+    btnEnableStyles.state = dostyles;
+    btnUseScreenFonts.state = usescreenfonts;
 }
 
 - (IBAction) changeDefaultSize: (id)sender
@@ -744,21 +744,21 @@ NSString* fontToString(NSFont *font)
 
 	NSLog(@"border set to: %f", border);
 
-    fontSize = [gridroman pointSize];
+    fontSize = gridroman.pointSize;
 	fontSize *= scalefactor;
-	gridroman = [NSFont fontWithDescriptor:[gridroman fontDescriptor] size:fontSize];
+	gridroman = [NSFont fontWithDescriptor:gridroman.fontDescriptor size:fontSize];
 	[defaults setObject: @(fontSize) forKey: @"GridFontSize"];
 	NSLog(@"gridroman pointSize set to: %g", fontSize);
 
-	fontSize = [bufroman pointSize];
+	fontSize = bufroman.pointSize;
 	fontSize *= scalefactor;
-	bufroman = [NSFont fontWithDescriptor:[bufroman fontDescriptor] size:fontSize];
+	bufroman = [NSFont fontWithDescriptor:bufroman.fontDescriptor size:fontSize];
 	[defaults setObject: @(fontSize) forKey: @"BufferFontSize"];
 	NSLog(@"bufroman pointSize set to: %f", fontSize);
 
-	fontSize = [inputfont pointSize];
+	fontSize = inputfont.pointSize;
 	fontSize *= scalefactor;
-	inputfont = [NSFont fontWithDescriptor:[inputfont fontDescriptor] size:fontSize];
+	inputfont = [NSFont fontWithDescriptor:inputfont.fontDescriptor size:fontSize];
 	[defaults setObject: @(fontSize) forKey: @"InputFontSize"];
 	NSLog(@"inputfont pointSize set to: %f", fontSize);
 
@@ -772,13 +772,13 @@ NSString* fontToString(NSFont *font)
 
 - (void) updatePanelAfterZoom
 {
-	[btnGridFont setTitle: fontToString(gridroman)];
-	[btnBufferFont setTitle: fontToString(bufroman)];
-	[btnInputFont setTitle: fontToString(inputfont)];
-	[txtLeading setFloatValue: leading];
-	[txtGridMargin setFloatValue: gridmargin];
-	[txtBufferMargin setFloatValue: buffermargin];
-	[txtBorder setIntValue: border];
+	btnGridFont.title = fontToString(gridroman);
+	btnBufferFont.title = fontToString(bufroman);
+	btnInputFont.title = fontToString(inputfont);
+	txtLeading.floatValue = leading;
+	txtGridMargin.floatValue = gridmargin;
+	txtBufferMargin.floatValue = buffermargin;
+	txtBorder.intValue = border;
 }
 
 #pragma mark - Font panel
@@ -801,7 +801,7 @@ NSString* fontToString(NSFont *font)
 		[self.window makeFirstResponder: self.window];
 
 		[NSFontManager sharedFontManager].target = self;
-		[[NSFontPanel sharedFontPanel] setDelegate:self];
+		[NSFontPanel sharedFontPanel].delegate = self;
 		[[NSFontPanel sharedFontPanel] makeKeyAndOrderFront:self];
 
 		[[NSFontManager sharedFontManager] setSelectedAttributes:attr isMultiple: NO];
@@ -818,23 +818,23 @@ NSString* fontToString(NSFont *font)
 
 	if (selfontp == &gridroman)
 	{
-		[defaults setObject: [gridroman fontName] forKey: @"GridFontName"];
-		[defaults setObject: @([gridroman pointSize]) forKey: @"GridFontSize"];
-		[btnGridFont setTitle: fontToString(gridroman)];
+		[defaults setObject: gridroman.fontName forKey: @"GridFontName"];
+		[defaults setObject: @(gridroman.pointSize) forKey: @"GridFontSize"];
+		btnGridFont.title = fontToString(gridroman);
 	}
 
 	if (selfontp == &bufroman)
 	{
-		[defaults setObject: [bufroman fontName] forKey: @"BufferFontName"];
-		[defaults setObject: @([bufroman pointSize]) forKey: @"BufferFontSize"];
-		[btnBufferFont setTitle: fontToString(bufroman)];
+		[defaults setObject: bufroman.fontName forKey: @"BufferFontName"];
+		[defaults setObject: @(bufroman.pointSize) forKey: @"BufferFontSize"];
+		btnBufferFont.title = fontToString(bufroman);
 	}
 
 	if (selfontp == &inputfont)
 	{
-		[defaults setObject: [inputfont fontName] forKey: @"InputFontName"];
-		[defaults setObject: @([inputfont pointSize]) forKey: @"InputFontSize"];
-		[btnInputFont setTitle: fontToString(inputfont)];
+		[defaults setObject: inputfont.fontName forKey: @"InputFontName"];
+		[defaults setObject: @(inputfont.pointSize) forKey: @"InputFontSize"];
+		btnInputFont.title = fontToString(inputfont);
 	}
 
 	[Preferences rebuildTextAttributes];
@@ -849,7 +849,7 @@ NSString* fontToString(NSFont *font)
 	NSDictionary * newAttributes = [sender convertAttributes:@{}];
 
 	NSLog(@"Keys in newAttributes:");
-	for(NSString *key in [newAttributes allKeys]) {
+	for(NSString *key in newAttributes.allKeys) {
 		NSLog(@" %@ : %@",key, [newAttributes valueForKey: key]);
 	}
 
@@ -902,7 +902,7 @@ NSString* fontToString(NSFont *font)
 
 - (void) windowWillClose: (id)sender
 {
-	if ([[NSFontPanel sharedFontPanel] isVisible])
+	if ([NSFontPanel sharedFontPanel].visible)
 		[[NSFontPanel sharedFontPanel] orderOut:self];
 }
 

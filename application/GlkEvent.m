@@ -105,7 +105,7 @@ unsigned chartokeycode(unsigned ch)
         type = EVTLINE;
         ln = [v copy];
         win = name;
-        val1 = (unsigned int)[ln length];
+        val1 = (unsigned int)ln.length;
     }
     return self;
 }
@@ -120,7 +120,7 @@ unsigned chartokeycode(unsigned ch)
 
 - (instancetype) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
 {
-	//NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
+    //NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
     self = [super init];
     if (self)
     {
@@ -133,37 +133,37 @@ unsigned chartokeycode(unsigned ch)
 
 - (instancetype) initSoundNotify: (NSInteger)notify withSound:(NSInteger)sound
 {
-	self = [super init];
-	if (self)
-	{
-		type = EVTSOUND;
-		val1 = sound;
-		val2 = notify;
-	}
-	return self;
+    self = [super init];
+    if (self)
+    {
+        type = EVTSOUND;
+        val1 = sound;
+        val2 = notify;
+    }
+    return self;
 }
 
 - (instancetype) initVolumeNotify: (NSInteger)notify
 {
-	self = [super init];
-	if (self)
-	{
-		type = EVTVOLUME;
-		val2 = notify;
-	}
-	return self;
+    self = [super init];
+    if (self)
+    {
+        type = EVTVOLUME;
+        val2 = notify;
+    }
+    return self;
 }
 
 - (instancetype) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name
 {
-	self = [super init];
-	if (self)
-	{
-		type = EVTHYPER;
-		win = name;
-		val1 = linkid;
-	}
-	return self;
+    self = [super init];
+    if (self)
+    {
+        type = EVTHYPER;
+        win = name;
+        val1 = linkid;
+    }
+    return self;
 }
 
 - (void) writeEvent: (NSInteger)fd
@@ -173,7 +173,7 @@ unsigned chartokeycode(unsigned ch)
 
     if (ln)
     {
-        reply.len = (int)([ln length] * 2);
+        reply.len = (int)(ln.length * 2);
         if (reply.len > sizeof buf)
             reply.len = sizeof buf;
         [ln getCharacters: (unsigned short*)buf range: NSMakeRange(0, reply.len/2)];
@@ -196,7 +196,7 @@ unsigned chartokeycode(unsigned ch)
         reply.a4 = (int)[Preferences gridMargins];
         reply.a5 = [Preferences charWidth] * 256.0;
         reply.a6 = [Preferences lineHeight] * 256.0;
-		reply.a7 = [Preferences leading] * 256.0;
+        reply.a7 = [Preferences leading] * 256.0;
     }
 
     write((int)fd, &reply, sizeof(struct message));

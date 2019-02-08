@@ -5,9 +5,9 @@
 
 @interface MyAttachmentCell : NSTextAttachmentCell
 {
-	NSInteger align;
-	NSInteger pos;
-	NSAttributedString *attrstr;
+    NSInteger align;
+    NSInteger pos;
+    NSAttributedString *attrstr;
 }
 
 - (instancetype) initImageCell:(NSImage *)image andAlignment:(NSInteger)analignment andAttStr:(NSAttributedString *)anattrstr at:(NSInteger)apos;
@@ -27,7 +27,7 @@
 - (void) scrollToBottom;
 - (void) performScroll;
 - (void) temporarilyHideCaret;
-- (BOOL) scrolledToBottom;
+@property (readonly) BOOL scrolledToBottom;
 - (void) resetTextFinder; // Call after changing the text storage, or search will break.
 
 @property BOOL shouldDrawCaret;
@@ -47,7 +47,7 @@
 @interface MarginContainer : NSTextContainer
 {
     NSMutableArray *margins;
-	NSMutableArray *flowbreaks;
+    NSMutableArray *flowbreaks;
 }
 
 - (id) initWithContainerSize: (NSSize)size;
@@ -56,7 +56,7 @@
 - (void) drawRect: (NSRect)rect;
 - (void) invalidateLayout;
 - (void) unoverlap: (MarginImage *)image;
-- (BOOL) hasMarginImages;
+@property (readonly) BOOL hasMarginImages;
 - (NSMutableAttributedString *) marginsToAttachmentsInString: (NSMutableAttributedString *)string;
 - (NSUInteger) findHyperlinkAt: (NSPoint)p;
 
@@ -76,13 +76,13 @@
     MarginContainer *container;
     MyTextView *textview;
 
-	NSInteger line_request;
-	NSInteger hyper_request;
+    NSInteger line_request;
+    NSInteger hyper_request;
 
     BOOL echo_toggle_pending; /* if YES, line echo behavior will be inverted, starting from the next line event*/
     BOOL echo; /* if YES, current line input will be deleted from text view */
 
-    NSInteger fence;		/* for input line editing */
+    NSInteger fence;        /* for input line editing */
 
     NSString *history[HISTORYLEN];
     NSInteger historypos;

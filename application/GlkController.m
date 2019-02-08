@@ -63,19 +63,19 @@
 
 - (void) setFrame: (NSRect)frame
 {
-	//NSLog (@"GlkHelperView (contentView) setFrame: %@", NSStringFromRect(frame));
-    [super setFrame: frame];
-    if (![self inLiveResize])
+    //NSLog (@"GlkHelperView (contentView) setFrame: %@", NSStringFromRect(frame));
+    super.frame = frame;
+    if (!self.inLiveResize)
         [delegate contentDidResize: frame];
 }
 
 - (void) viewDidEndLiveResize
 {
-	NSLog (@"GlkHelperView (contentView) viewDidEndLiveResize self.frame: %@", NSStringFromRect(self.frame));
-	// We use a custom fullscreen width, so don't resize to full screen width when viewDidEndLiveResize
-	// is called because we just entered fullscreen
-	if ((delegate.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
-    	[delegate contentDidResize: self.frame];
+    NSLog (@"GlkHelperView (contentView) viewDidEndLiveResize self.frame: %@", NSStringFromRect(self.frame));
+    // We use a custom fullscreen width, so don't resize to full screen width when viewDidEndLiveResize
+    // is called because we just entered fullscreen
+    if ((delegate.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
+        [delegate contentDidResize: self.frame];
 }
 
 @end
@@ -119,14 +119,14 @@
 
     /* Setup Cocoa stuff */
     {
-        [[self window] setRepresentedFilename: gamefile];
-        [[self window] setTitle: gameinfo[@"title"]];
-        [[self window] setContentSize: defsize];
+        self.window.representedFilename = gamefile;
+        self.window.title = gameinfo[@"title"];
+        [self.window setContentSize: defsize];
         
         NSInteger border = [Preferences border];
-        [borderView setFrame:NSMakeRect(0, 0, defsize.width, defsize.height)];
-		[self setBorderColor:[Preferences bufferBackground]];
-        [contentView setFrame:NSMakeRect(border, border, defsize.width - (border * 2), defsize.height - (border * 2))];
+        borderView.frame = NSMakeRect(0, 0, defsize.width, defsize.height);
+        [self setBorderColor:[Preferences bufferBackground]];
+        contentView.frame = NSMakeRect(border, border, defsize.width - (border * 2), defsize.height - (border * 2));
 
         if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
             [self.window setValue:@2 forKey:@"tabbingMode"];
@@ -140,14 +140,14 @@
         [[NSNotificationCenter defaultCenter]
          addObserver: self
          selector: @selector(notePreferencesChanged:)
-		       name: @"PreferencesChanged"
+               name: @"PreferencesChanged"
          object: nil];
 
-		[[NSNotificationCenter defaultCenter]
-		 addObserver: self
-		 selector: @selector(noteDefaultSizeChanged:)
-		 name: @"DefaultSizeChanged"
-		 object: nil];
+        [[NSNotificationCenter defaultCenter]
+         addObserver: self
+         selector: @selector(noteDefaultSizeChanged:)
+         name: @"DefaultSizeChanged"
+         object: nil];
     }
 
     /* Fork the interpreter process */
@@ -159,15 +159,15 @@
         terppath = [[NSBundle mainBundle] pathForAuxiliaryExecutable: terpname];
         readpipe = [NSPipe pipe];
         sendpipe = [NSPipe pipe];
-        readfh = [readpipe fileHandleForReading];
-        sendfh = [sendpipe fileHandleForWriting];
+        readfh = readpipe.fileHandleForReading;
+        sendfh = sendpipe.fileHandleForWriting;
 
         task = [[NSTask alloc] init];
-        [task setCurrentDirectoryPath: NSHomeDirectory()];
+        task.currentDirectoryPath = NSHomeDirectory();
 
 
-        [task setStandardOutput: readpipe];
-        [task setStandardInput: sendpipe];
+        task.standardOutput = readpipe;
+        task.standardInput = sendpipe;
 
 #ifdef TEE_TERP_OUTPUT
         [task setLaunchPath: @"/bin/bash"];
@@ -190,21 +190,21 @@
         [task setArguments: @[ @"-c", cmdline ]];
 #else
 
-        [task setLaunchPath: terppath];
-        [task setArguments: @[gamefile]];
+        task.launchPath = terppath;
+        task.arguments = @[gamefile];
 
 #endif //TEE_TERP_OUTPUT
 
         [[NSNotificationCenter defaultCenter]
          addObserver: self
          selector: @selector(noteTaskDidTerminate:)
-		       name: NSTaskDidTerminateNotification
+               name: NSTaskDidTerminateNotification
          object: task];
 
         [[NSNotificationCenter defaultCenter]
          addObserver: self
          selector: @selector(noteDataAvailable:)
-		       name: NSFileHandleDataAvailableNotification
+               name: NSFileHandleDataAvailableNotification
          object: readfh];
 
         [task launch];
@@ -223,19 +223,19 @@
         [self queueEvent: gevent];
     }
 
-	soundNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
+    soundNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
 }
 
 - (void) keepAlive: (NSTimer *)timer
 {
-	[readfh waitForDataInBackgroundAndNotify];
+    [readfh waitForDataInBackgroundAndNotify];
 }
 
 - (void) windowWillClose: (id)sender
 {
     NSLog(@"glkctl: windowWillClose");
 
-    [[self window] setDelegate: nil];
+    [self.window setDelegate: nil];
 
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 
@@ -246,12 +246,12 @@
         timer = nil;
     }
 
-	if (soundNotificationsTimer)
-	{
-		NSLog(@"glkctl: force stop the sound notifications timer");
-		[soundNotificationsTimer invalidate];
-		soundNotificationsTimer = nil;
-	}
+    if (soundNotificationsTimer)
+    {
+        NSLog(@"glkctl: force stop the sound notifications timer");
+        [soundNotificationsTimer invalidate];
+        soundNotificationsTimer = nil;
+    }
 
     if (task)
     {
@@ -295,20 +295,20 @@
 {
     //NSLog(@"glkctl: windowWillUseStandardFrame");
 
-	NSRect screenframe = self.window.screen.frame;
+    NSRect screenframe = self.window.screen.frame;
 
-	NSSize windowSize = [Preferences defaultWindowSize];
-	NSRect frame = NSMakeRect((NSWidth(screenframe) - windowSize.width) / 2, 0, windowSize.width, NSHeight(screenframe));
-	return frame;
+    NSSize windowSize = [Preferences defaultWindowSize];
+    NSRect frame = NSMakeRect((NSWidth(screenframe) - windowSize.width) / 2, 0, windowSize.width, NSHeight(screenframe));
+    return frame;
 }
 
 - (void) contentDidResize: (NSRect)frame
 {
-	//NSLog(@"glkctl: contentDidResize: %@", NSStringFromRect(frame));
+    //NSLog(@"glkctl: contentDidResize: %@", NSStringFromRect(frame));
 
-	NSInteger borders = Preferences.border * 2;
-	if ((NSWidth(frame) != NSWidth(borderView.frame) - borders) && ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask))
-		frame = NSMakeRect(Preferences.border, Preferences.border, NSWidth(borderView.frame) - borders, NSHeight(borderView.frame) - borders);
+    NSInteger borders = Preferences.border * 2;
+    if ((NSWidth(frame) != NSWidth(borderView.frame) - borders) && ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask))
+        frame = NSMakeRect(Preferences.border, Preferences.border, NSWidth(borderView.frame) - borders, NSHeight(borderView.frame) - borders);
 //    if (dead)
 //        for (NSInteger i = 0; i < MAXWIN; i++)
 //            if (gwindows[i] && [gwindows[i] isKindOfClass:[GlkTextBufferWindow class]])
@@ -337,12 +337,12 @@
         return YES;
 
     alert = [[NSAlert alloc] init];
-    [alert setMessageText: @"Do you want to abandon the game?"];
-    [alert setInformativeText: @"Any unsaved progress will be lost."];
+    alert.messageText = @"Do you want to abandon the game?";
+    alert.informativeText = @"Any unsaved progress will be lost.";
     [alert addButtonWithTitle: @"Close"];
     [alert addButtonWithTitle: @"Cancel"];
 
-    [alert beginSheetModalForWindow: [self window]
+    [alert beginSheetModalForWindow: self.window
                       modalDelegate: self
                      didEndSelector: @selector(closeAlertDidFinish:rc:ctx:)
                         contextInfo: NULL];
@@ -372,7 +372,7 @@
 
 //    NSLog(@"glkctl guessFocus");
 
-    focuswin = [[self window] firstResponder];
+    focuswin = self.window.firstResponder;
     while (focuswin)
     {
         if ([focuswin isKindOfClass: [NSView class]])
@@ -436,24 +436,24 @@
     NSRect frame = contentView.frame;
     NSInteger border = Preferences.border;
 
-	if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
-	{
-    	frame.origin.x = frame.origin.y = border;
+    if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
+    {
+        frame.origin.x = frame.origin.y = border;
 
-    	frame.size.width = borderView.frame.size.width - (border * 2);
-    	frame.size.height = borderView.frame.size.height - (border * 2);
-	}
-	else // We are in fullscreen
-	{
-		frame.origin.y = border;
-		frame.size.height = borderView.frame.size.height - (border * 2);
-	}
+        frame.size.width = borderView.frame.size.width - (border * 2);
+        frame.size.height = borderView.frame.size.height - (border * 2);
+    }
+    else // We are in fullscreen
+    {
+        frame.origin.y = border;
+        frame.size.height = borderView.frame.size.height - (border * 2);
+    }
 
     if (!NSEqualRects(frame, contentView.frame))
     {
-        [contentView setFrame:frame];
+        contentView.frame = frame;
         [self contentDidResize:frame];
-		NSLog(@"glkctl: notePreferencesChanged: contentView frame changed to %@", NSStringFromRect(frame));
+        NSLog(@"glkctl: notePreferencesChanged: contentView frame changed to %@", NSStringFromRect(frame));
     }
 
     gevent = [[GlkEvent alloc] initArrangeWidth: frame.size.width height: frame.size.height];
@@ -469,66 +469,66 @@
 
 - (void) noteDefaultSizeChanged: (id)sender
 {
-	NSSize defaultWindowSize = Preferences.defaultWindowSize;
+    NSSize defaultWindowSize = Preferences.defaultWindowSize;
 
-	if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
-	{
-		NSRect screenframe = [[NSScreen mainScreen] visibleFrame];
+    if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
+    {
+        NSRect screenframe = [NSScreen mainScreen].visibleFrame;
 
-		NSRect contentRect = NSMakeRect(0, 0, defaultWindowSize.width, defaultWindowSize.height);
+        NSRect contentRect = NSMakeRect(0, 0, defaultWindowSize.width, defaultWindowSize.height);
 
-		NSRect winrect = [self.window frameRectForContentRect:contentRect];
-		winrect.origin = self.window.frame.origin;
+        NSRect winrect = [self.window frameRectForContentRect:contentRect];
+        winrect.origin = self.window.frame.origin;
 
-		//If the new size is too big to fit on screen, clip at screen size
-		if (winrect.size.height > screenframe.size.height - 1)
-			winrect.size.height = screenframe.size.height - 1;
-		if (winrect.size.width > screenframe.size.width)
-			winrect.size.width = screenframe.size.width;
+        //If the new size is too big to fit on screen, clip at screen size
+        if (winrect.size.height > screenframe.size.height - 1)
+            winrect.size.height = screenframe.size.height - 1;
+        if (winrect.size.width > screenframe.size.width)
+            winrect.size.width = screenframe.size.width;
 
-		CGFloat offset = winrect.size.height - self.window.frame.size.height;
+        CGFloat offset = winrect.size.height - self.window.frame.size.height;
 
-		winrect.origin.y -= offset;
+        winrect.origin.y -= offset;
 
-		//If window is partly off the screen, move it (just) inside
-		if (NSMaxX(winrect) > NSMaxX(screenframe))
-			winrect.origin.x = NSMaxX(screenframe) - winrect.size.width;
+        //If window is partly off the screen, move it (just) inside
+        if (NSMaxX(winrect) > NSMaxX(screenframe))
+            winrect.origin.x = NSMaxX(screenframe) - winrect.size.width;
 
-		if (NSMinY(winrect) < 0)
-			winrect.origin.y = NSMinY(screenframe);
+        if (NSMinY(winrect) < 0)
+            winrect.origin.y = NSMinY(screenframe);
 
-		//[self.window setFrame:winrect display:YES animate:YES];
-		[self.window setFrame:winrect display:NO animate:NO];
-	}
-	else
-	{
-		NSRect oldframe = contentView.frame;
-		NSInteger borders = Preferences.border * 2;
-		NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y, defaultWindowSize.width - borders, defaultWindowSize.height - borders);
+        //[self.window setFrame:winrect display:YES animate:YES];
+        [self.window setFrame:winrect display:NO animate:NO];
+    }
+    else
+    {
+        NSRect oldframe = contentView.frame;
+        NSInteger borders = Preferences.border * 2;
+        NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y, defaultWindowSize.width - borders, defaultWindowSize.height - borders);
 
-		if (newframe.size.width > borderView.frame.size.width - borders)
-			newframe.size.width = borderView.frame.size.width - borders;
-		if (newframe.size.height > borderView.frame.size.height - borders)
-			newframe.size.height = borderView.frame.size.height - borders;
+        if (newframe.size.width > borderView.frame.size.width - borders)
+            newframe.size.width = borderView.frame.size.width - borders;
+        if (newframe.size.height > borderView.frame.size.height - borders)
+            newframe.size.height = borderView.frame.size.height - borders;
 
-		newframe.origin.x += (oldframe.size.width - newframe.size.width) / 2;
+        newframe.origin.x += (oldframe.size.width - newframe.size.width) / 2;
 
-		CGFloat offset = newframe.size.height - oldframe.size.height;
-		newframe.origin.y -= offset;
+        CGFloat offset = newframe.size.height - oldframe.size.height;
+        newframe.origin.y -= offset;
 
-		//[[contentView animator] setFrame:newframe];
-		[contentView setFrame:newframe];
-		[self contentDidResize:newframe];
-	}
+        //[[contentView animator] setFrame:newframe];
+        contentView.frame = newframe;
+        [self contentDidResize:newframe];
+    }
 }
 
 - (void) handleChangeTitle:(char*)buf length: (int)len
 {
-	buf[len]='\0';
-	NSString *str = @(buf);
-	//[@(buf) substringToIndex: len];
-	self.window.title = str;
-	NSLog(@"Change title request: %@", str);
+    buf[len]='\0';
+    NSString *str = @(buf);
+    //[@(buf) substringToIndex: len];
+    self.window.title = str;
+    NSLog(@"Change title request: %@", str);
 }
 
 
@@ -542,7 +542,7 @@
 {
     NSURL *directory = [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults] objectForKey: @"SaveDirectory"] isDirectory:YES];
 
-    NSInteger sendfd = [sendfh fileDescriptor];
+    NSInteger sendfd = sendfh.fileDescriptor;
 
     // Create and configure the panel.
     NSOpenPanel* panel = [NSOpenPanel openPanel];
@@ -550,21 +550,21 @@
     waitforfilename = YES; /* don't interrupt */
 
     if (fileusage == fileusage_SavedGame)
-        [panel setPrompt: @"Restore"];
+        panel.prompt = @"Restore";
     panel.directoryURL = directory;
 
     // Display the panel attached to the document's window.
-    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
+    [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
 
         const char *s;
         struct message reply;
 
         if (result == NSFileHandlingPanelOKButton)
         {
-            NSURL*  theDoc = [panel URLs][0];
+            NSURL*  theDoc = panel.URLs[0];
 
-            [[NSUserDefaults standardUserDefaults] setObject: [[theDoc path] stringByDeletingLastPathComponent] forKey: @"SaveDirectory"];
-            s = [theDoc.path UTF8String];
+            [[NSUserDefaults standardUserDefaults] setObject: theDoc.path.stringByDeletingLastPathComponent forKey: @"SaveDirectory"];
+            s = (theDoc.path).UTF8String;
         }
         else
             s = "";
@@ -617,7 +617,7 @@
     if (fileusage == fileusage_SavedGame)
     {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@" yyyy-MM-dd HH.mm"];
+        formatter.dateFormat = @" yyyy-MM-dd HH.mm";
         date = [formatter stringFromDate:[NSDate date]];
 
 
@@ -628,18 +628,18 @@
         filename = [filename stringByAppendingPathExtension: ext];
 
     if (filename)
-        [panel setNameFieldStringValue:filename];
+        panel.nameFieldStringValue = filename;
 
-    [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
+    [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
         struct message reply;
-        NSInteger sendfd = [sendfh fileDescriptor];
+        NSInteger sendfd = sendfh.fileDescriptor;
         const char *s;
 
         if (result == NSFileHandlingPanelOKButton)
         {
-            NSURL*  theFile = [panel URL];
-            [[NSUserDefaults standardUserDefaults] setObject: [[theFile path] stringByDeletingLastPathComponent] forKey: @"SaveDirectory"];
-            s = [theFile.path UTF8String];
+            NSURL*  theFile = panel.URL;
+            [[NSUserDefaults standardUserDefaults] setObject: theFile.path.stringByDeletingLastPathComponent forKey: @"SaveDirectory"];
+            s = (theFile.path).UTF8String;
         }
         else
             s = "";
@@ -994,39 +994,39 @@ NSInteger colorToInteger(NSColor *color)
 
 - (void) handleSoundNotification: (NSInteger)notify withSound:(NSInteger)sound
 {
-	GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:notify withSound:sound];
-	[self queueEvent:gev];
+    GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:notify withSound:sound];
+    [self queueEvent:gev];
 }
 
 - (void) handleVolumeNotification: (NSInteger)notify
 {
-	GlkEvent *gev = [[GlkEvent alloc] initVolumeNotify:notify];
-	[self queueEvent:gev];
+    GlkEvent *gev = [[GlkEvent alloc] initVolumeNotify:notify];
+    [self queueEvent:gev];
 }
 
-- (void) handleSetTerminatorsOnWindow:(GlkWindow*)gwindow	buffer: (glui32 *)buf length: (glui32)len
+- (void) handleSetTerminatorsOnWindow:(GlkWindow*)gwindow    buffer: (glui32 *)buf length: (glui32)len
 {
-	NSMutableDictionary *myDict = gwindow.pendingTerminators;
-	NSNumber *key;
-	NSArray *keys = [myDict allKeys];
+    NSMutableDictionary *myDict = gwindow.pendingTerminators;
+    NSNumber *key;
+    NSArray *keys = myDict.allKeys;
 
-	for (key in keys)	{
-		myDict[key] = @(NO);
-	}
+    for (key in keys)    {
+        myDict[key] = @(NO);
+    }
 
-//	NSLog(@"handleSetTerminatorsOnWindow: %ld length: %u", (long)gwindow.name, len );
+//    NSLog(@"handleSetTerminatorsOnWindow: %ld length: %u", (long)gwindow.name, len );
 
-	for (NSInteger i = 0; i < len; i++)
-	{
-		key = @(buf[i]);
-		id terminator_setting = myDict[key];
-		if (terminator_setting)
-		{
-			myDict[key] = @(YES);
-		}
-		else NSLog(@"Illegal line terminator request: %u", buf[i]);
-	}
-	gwindow.terminatorsPending = YES;
+    for (NSInteger i = 0; i < len; i++)
+    {
+        key = @(buf[i]);
+        id terminator_setting = myDict[key];
+        if (terminator_setting)
+        {
+            myDict[key] = @(YES);
+        }
+        else NSLog(@"Illegal line terminator request: %u", buf[i]);
+    }
+    gwindow.terminatorsPending = YES;
 }
 
 - (BOOL) handleRequest: (struct message *)req reply: (struct message *)ans buffer: (char *)buf
@@ -1046,13 +1046,13 @@ NSInteger colorToInteger(NSColor *color)
         case NEXTEVENT:
             [self flushDisplay];
 
-            if ([queue count])
+            if (queue.count)
             {
                 GlkEvent *gevent;
                 gevent = queue[0];
                 //NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
 
-                [gevent writeEvent: [sendfh fileDescriptor]];
+                [gevent writeEvent: sendfh.fileDescriptor];
                 [queue removeObjectAtIndex: 0];
                 return NO; /* keep reading ... we sent the reply */
             }
@@ -1210,7 +1210,7 @@ NSInteger colorToInteger(NSColor *color)
                 x1 = req->a4;
                 y1 = req->a5;
                 rect = NSMakeRect(x0, y0, x1 - x0, y1 - y0);
-                [gwindows[req->a1] setFrame: rect];
+                gwindows[req->a1].frame = rect;
                 windowdirty = YES;
             }
             else
@@ -1221,37 +1221,37 @@ NSInteger colorToInteger(NSColor *color)
         case CLRWIN:
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
-//				NSLog(@"glkctl: CLRWIN %d.", req->a1);
+//                NSLog(@"glkctl: CLRWIN %d.", req->a1);
                 [gwindows[req->a1] clear];
             }
             break;
 
-		case SETBGND:
-			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-			{
-				if (![gwindows[req->a1] isKindOfClass:[GlkGraphicsWindow class]])
-				{
-					NSLog(@"glkctl: SETBGND: ERROR win %d is not a graphics window.", req->a1);
-					break;
-				}
+        case SETBGND:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                if (![gwindows[req->a1] isKindOfClass:[GlkGraphicsWindow class]])
+                {
+                    NSLog(@"glkctl: SETBGND: ERROR win %d is not a graphics window.", req->a1);
+                    break;
+                }
 
-				[gwindows[req->a1] setBgColor: req->a2];
-			}
-			break;
+                [gwindows[req->a1] setBgColor: req->a2];
+            }
+            break;
 
-		case DRAWIMAGE:
-			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-			{
-				if (lastimage)
-				{
-					[gwindows[req->a1] drawImage: lastimage
-											val1: req->a2
-											val2: req->a3
-										   width: req->a4
-										  height: req->a5];
-				}
-			}
-			break;
+        case DRAWIMAGE:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                if (lastimage)
+                {
+                    [gwindows[req->a1] drawImage: lastimage
+                                            val1: req->a2
+                                            val2: req->a3
+                                           width: req->a4
+                                          height: req->a5];
+                }
+            }
+            break;
 
         case FILLRECT:
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
@@ -1264,49 +1264,49 @@ NSInteger colorToInteger(NSColor *color)
             }
             break;
 
-		case PRINT:
-			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-			{
-				[self handlePrintOnWindow: gwindows[req->a1]
-									style: req->a2
-								   buffer: (unichar*)buf
-								   length: req->len / sizeof(unichar)];
-			}
-			break;
+        case PRINT:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [self handlePrintOnWindow: gwindows[req->a1]
+                                    style: req->a2
+                                   buffer: (unichar*)buf
+                                   length: req->len / sizeof(unichar)];
+            }
+            break;
 
-		case MOVETO:
-			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-			{
-				int x = req->a2;
-				int y = req->a3;
-				if (x < 0) x = 10000;
-				if (y < 0) y = 10000;
-				[gwindows[req->a1] moveToColumn: x row: y];
-			}
-			break;
+        case MOVETO:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                int x = req->a2;
+                int y = req->a3;
+                if (x < 0) x = 10000;
+                if (y < 0) y = 10000;
+                [gwindows[req->a1] moveToColumn: x row: y];
+            }
+            break;
 
-		case SETECHO:
-			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1] && [gwindows[req->a1] isKindOfClass: [GlkTextBufferWindow class]])
-				[(GlkTextBufferWindow *)gwindows[req->a1] echo:(req->a2 != 0)];
-			break;
+        case SETECHO:
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1] && [gwindows[req->a1] isKindOfClass: [GlkTextBufferWindow class]])
+                [(GlkTextBufferWindow *)gwindows[req->a1] echo:(req->a2 != 0)];
+            break;
 
             /*
              * Request and cancel events
              */
 
-		case TERMINATORS:
-			[self handleSetTerminatorsOnWindow: gwindows[req->a1]
-										buffer: (glui32 *)buf
-										length: req->a2];
-			break;
+        case TERMINATORS:
+            [self handleSetTerminatorsOnWindow: gwindows[req->a1]
+                                        buffer: (glui32 *)buf
+                                        length: req->a2];
+            break;
 
-		case FLOWBREAK:
-			NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
-			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-			{
-				[gwindows[req->a1] flowBreak];
-			}
-			break;
+        case FLOWBREAK:
+            NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] flowBreak];
+            }
+            break;
 
 #pragma mark Request and cancel events
 
@@ -1328,7 +1328,7 @@ NSInteger colorToInteger(NSColor *color)
             ans->cmd = OKAY;
             if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
             {
-                const char *str = [[gwindows[req->a1] cancelLine] UTF8String];
+                const char *str = gwindows[req->a1].cancelLine.UTF8String;
                 strlcpy(buf, str, GLKBUFSIZE);
                 ans->len = (int)strlen(buf);
             }
@@ -1359,44 +1359,44 @@ NSInteger colorToInteger(NSColor *color)
                 [gwindows[req->a1] cancelMouse];
             break;
 
-		case SETLINK:
-			//            NSLog(@"glkctl set hyperlink %d in window %d", req->a2, req->a1);
-			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-			{
-				[gwindows[req->a1] setHyperlink:req->a2];
-			}
-			break;
+        case SETLINK:
+            //            NSLog(@"glkctl set hyperlink %d in window %d", req->a2, req->a1);
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] setHyperlink:req->a2];
+            }
+            break;
 
-		case INITLINK:
-			//            NSLog(@"glkctl request hyperlink event in window %d", req->a1);
+        case INITLINK:
+            //            NSLog(@"glkctl request hyperlink event in window %d", req->a1);
             [self performScroll];
-			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-			{
-				[gwindows[req->a1] initHyperlink];
-			}
-			break;
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] initHyperlink];
+            }
+            break;
 
-		case CANCELLINK:
-			//            NSLog(@"glkctl cancel hyperlink event in window %d", req->a1);
-			if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
-			{
-				[gwindows[req->a1] cancelHyperlink];
-			}
-			break;
+        case CANCELLINK:
+            //            NSLog(@"glkctl cancel hyperlink event in window %d", req->a1);
+            if (req->a1 >= 0 && req->a1 < MAXWIN && gwindows[req->a1])
+            {
+                [gwindows[req->a1] cancelHyperlink];
+            }
+            break;
 
         case TIMER:
             [self handleSetTimer: req->a1];
             break;
 
-		case EVTSOUND:
-			NSLog(@"glkctl EVTSOUND %d, %d. Send it back to where it came from.", req->a2, req->a3);
-			[self handleSoundNotification: req->a3 withSound:req->a2];
-			break;
+        case EVTSOUND:
+            NSLog(@"glkctl EVTSOUND %d, %d. Send it back to where it came from.", req->a2, req->a3);
+            [self handleSoundNotification: req->a3 withSound:req->a2];
+            break;
 
-		case EVTVOLUME:
-			NSLog(@"glkctl EVTVOLUME %d. Send it back where it came.", req->a3);
-			[self handleVolumeNotification: req->a3];
-			break;
+        case EVTVOLUME:
+            NSLog(@"glkctl EVTVOLUME %d. Send it back where it came.", req->a3);
+            [self handleVolumeNotification: req->a3];
+            break;
 
 
             /*
@@ -1410,10 +1410,10 @@ NSInteger colorToInteger(NSColor *color)
                 [gwindows[req->a1] makeTransparent];
             break;
 
-		case SETTITLE:
-			[self handleChangeTitle: (char*)buf
-							 length: req->len];
-			break;
+        case SETTITLE:
+            [self handleChangeTitle: (char*)buf
+                             length: req->len];
+            break;
 
 
             /*
@@ -1435,7 +1435,7 @@ NSInteger colorToInteger(NSColor *color)
 
 static NSString *signalToName(NSTask *task)
 {
-    switch ([task terminationStatus])
+    switch (task.terminationStatus)
     {
         case 1: return @"sighup";
         case 2: return @"sigint";
@@ -1449,7 +1449,7 @@ static NSString *signalToName(NSTask *task)
         case 13: return @"sigpipe";
         case 15: return @"sigterm";
         default:
-            return [NSString stringWithFormat: @"%d", [task terminationStatus]];
+            return [NSString stringWithFormat: @"%d", task.terminationStatus];
     }
 }
 
@@ -1478,7 +1478,7 @@ static BOOL pollMoreData(int fd)
         timer = nil;
     }
 
-    if (task && [task terminationStatus] != 0)
+    if (task && task.terminationStatus != 0)
     {
         NSAlert *alert;
 
@@ -1488,7 +1488,7 @@ static BOOL pollMoreData(int fd)
                                   otherButton: nil
                     informativeTextWithFormat: @"Error code: %@.", signalToName(task)];
 
-        [alert beginSheetModalForWindow: [self window]
+        [alert beginSheetModalForWindow: self.window
                           modalDelegate: nil
                          didEndSelector: nil
                             contextInfo: nil];
@@ -1504,8 +1504,7 @@ static BOOL pollMoreData(int fd)
 //        if (gchannels[i])
 //            [gchannels[i] stop];
 
-    [[self window] setTitle:
-     [[[self window] title] stringByAppendingString: @" (finished)"]];
+    self.window.title = [self.window.title stringByAppendingString: @" (finished)"];
 
     task = nil;
 
@@ -1520,7 +1519,7 @@ static BOOL pollMoreData(int fd)
     }
     else if (waitforevent)
     {
-        [gevent writeEvent: [sendfh fileDescriptor]];
+        [gevent writeEvent: sendfh.fileDescriptor];
         waitforevent = NO;
         [readfh waitForDataInBackgroundAndNotify];
     }
@@ -1542,8 +1541,8 @@ static BOOL pollMoreData(int fd)
     NSInteger n, t;
     BOOL stop;
 
-    NSInteger readfd = [readfh fileDescriptor];
-    NSInteger sendfd = [sendfh fileDescriptor];
+    NSInteger readfd = readfh.fileDescriptor;
+    NSInteger sendfd = sendfh.fileDescriptor;
 
 again:
 
@@ -1615,32 +1614,32 @@ again:
 
 - (void) setBorderColor: (NSColor *)color;
 {
-	[borderView setWantsLayer:YES];
-	borderView.layer.backgroundColor = color.CGColor;
-	self.window.backgroundColor = color;
+    [borderView setWantsLayer:YES];
+    borderView.layer.backgroundColor = color.CGColor;
+    self.window.backgroundColor = color;
 }
 
 #pragma mark Zoom
 
 - (IBAction) zoomIn:(id)sender
 {
-	[Preferences zoomIn];
-	if (Preferences.instance)
-		[Preferences.instance updatePanelAfterZoom];
+    [Preferences zoomIn];
+    if (Preferences.instance)
+        [Preferences.instance updatePanelAfterZoom];
 }
 
 - (IBAction) zoomOut:(id)sender
 {
-	[Preferences zoomOut];
-	if (Preferences.instance)
-		[Preferences.instance updatePanelAfterZoom];
+    [Preferences zoomOut];
+    if (Preferences.instance)
+        [Preferences.instance updatePanelAfterZoom];
 }
 
 - (IBAction) zoomToActualSize:(id)sender
 {
-	[Preferences zoomToActualSize];
-	if (Preferences.instance)
-		[Preferences.instance updatePanelAfterZoom];
+    [Preferences zoomToActualSize];
+    if (Preferences.instance)
+        [Preferences.instance updatePanelAfterZoom];
 }
 
 #pragma mark Full screen
@@ -1648,23 +1647,23 @@ again:
 - (NSSize)window:(NSWindow *)window
 willUseFullScreenContentSize:(NSSize)proposedSize
 {
-	return proposedSize;
+    return proposedSize;
 }
 
 - (NSArray *)customWindowsToEnterFullScreenForWindow:(NSWindow *)window
 {
-	return @[window];
+    return @[window];
 }
 
 - (NSArray *)customWindowsToExitFullScreenForWindow:(NSWindow *)window
 {
-	return @[window];
+    return @[window];
 }
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification
 {
-	// Save the window frame so that it can be restored later
-	windowPreFullscreenFrame = self.window.frame;
+    // Save the window frame so that it can be restored later
+    windowPreFullscreenFrame = self.window.frame;
     NSDictionary *dict = [Preferences attributesForGridStyle: style_Normal];
     NSFont *font = dict[NSFontAttributeName];
     fontSizePreFullscreen = font.pointSize;
@@ -1672,243 +1671,243 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 
 - (void)window:(NSWindow *)window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration
 {
-	//NSLog(@"frame pre-fullscreen animation: %@", NSStringFromRect(self.window.frame));
+    //NSLog(@"frame pre-fullscreen animation: %@", NSStringFromRect(self.window.frame));
 
-	// Make sure the window style mask includes the
-	// full screen bit
-	[window setStyleMask:([window styleMask] | NSFullScreenWindowMask)];
-	NSScreen *screen = [window screen];
+    // Make sure the window style mask includes the
+    // full screen bit
+    window.styleMask = (window.styleMask | NSFullScreenWindowMask);
+    NSScreen *screen = window.screen;
 
-	// The final, full screen frame
-	NSRect border_finalFrame = NSZeroRect;
-	border_finalFrame.size = [self window:window
-			 willUseFullScreenContentSize:screen.frame.size];
+    // The final, full screen frame
+    NSRect border_finalFrame = NSZeroRect;
+    border_finalFrame.size = [self window:window
+             willUseFullScreenContentSize:screen.frame.size];
 
-	//NSLog(@"border_finalFrame: %@", NSStringFromRect(border_finalFrame));
+    //NSLog(@"border_finalFrame: %@", NSStringFromRect(border_finalFrame));
 
-	contentFullScreenFrame = contentView.frame;
+    contentFullScreenFrame = contentView.frame;
 
-	// Calculate the origin as half the difference between
-	// the window frame and the screen frame
-	contentFullScreenFrame.origin.x +=
-	ceil((NSWidth(screen.frame) -
-		   NSWidth(contentView.frame)) / 2 - [Preferences border]);
-	contentFullScreenFrame.origin.y = [Preferences border];
-	contentFullScreenFrame.size.height = NSHeight(screen.frame) - [Preferences border] * 2;
+    // Calculate the origin as half the difference between
+    // the window frame and the screen frame
+    contentFullScreenFrame.origin.x +=
+    ceil((NSWidth(screen.frame) -
+           NSWidth(contentView.frame)) / 2 - [Preferences border]);
+    contentFullScreenFrame.origin.y = [Preferences border];
+    contentFullScreenFrame.size.height = NSHeight(screen.frame) - [Preferences border] * 2;
 
-	//NSLog(@"contentFullScreenFrame: %@", NSStringFromRect(contentFullScreenFrame));
+    //NSLog(@"contentFullScreenFrame: %@", NSStringFromRect(contentFullScreenFrame));
 
-	// The center frame for the window is used during
-	// the 1st half of the fullscreen animation and is
-	// the window at its original size but moved to the
-	// center of its eventual full screen frame.
-	NSRect centerWindowFrame = [window frame];
-	centerWindowFrame.origin.x =
-	(border_finalFrame.size.width - centerWindowFrame.size.width ) / 2 - [Preferences border];
-	centerWindowFrame.origin.y =
-	NSHeight(screen.frame) - NSHeight(centerWindowFrame);
+    // The center frame for the window is used during
+    // the 1st half of the fullscreen animation and is
+    // the window at its original size but moved to the
+    // center of its eventual full screen frame.
+    NSRect centerWindowFrame = window.frame;
+    centerWindowFrame.origin.x =
+    (border_finalFrame.size.width - centerWindowFrame.size.width ) / 2 - [Preferences border];
+    centerWindowFrame.origin.y =
+    NSHeight(screen.frame) - NSHeight(centerWindowFrame);
 
-	//NSLog(@"centerWindowFrame: %@", NSStringFromRect(centerWindowFrame));
+    //NSLog(@"centerWindowFrame: %@", NSStringFromRect(centerWindowFrame));
 
 
-	// Our animation must be slightly shorter than
-	// the system animation to avoid a black flash
-	// at the end of the animation -- seems like a bug
-	//duration += DURATION_ADJUSTMENT;
-	//duration += DURATION_ADJUSTMENT;
+    // Our animation must be slightly shorter than
+    // the system animation to avoid a black flash
+    // at the end of the animation -- seems like a bug
+    //duration += DURATION_ADJUSTMENT;
+    //duration += DURATION_ADJUSTMENT;
 
-	// Our animation will be broken into two steps.
-	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context)
-	 {
-		 // First, we move the window to the center
-		 // of the screen
-		 [context setDuration:duration / ANIMATION_STEPS];
-		 [[window animator] setFrame:centerWindowFrame display:YES];
-	 }
-						completionHandler:^
-	 {
-		 [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context)
-		  {
-			  // and then we enlarge it its full size.
-			  [contentView setAutoresizingMask: NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin];
-			  [context setDuration: duration/ ANIMATION_STEPS];
-			  [[window animator] setFrame:border_finalFrame display:YES];
-			  //[[contentView animator] setFrame:contentFullScreenFrame];
-		  }
-							 completionHandler:^
-		  {
-		  }
-		  ];
-	 }
-	 ];
+    // Our animation will be broken into two steps.
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context)
+     {
+         // First, we move the window to the center
+         // of the screen
+         context.duration = duration / ANIMATION_STEPS;
+         [[window animator] setFrame:centerWindowFrame display:YES];
+     }
+                        completionHandler:^
+     {
+         [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context)
+          {
+              // and then we enlarge it its full size.
+              contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
+              context.duration = duration/ ANIMATION_STEPS;
+              [[window animator] setFrame:border_finalFrame display:YES];
+              //[[contentView animator] setFrame:contentFullScreenFrame];
+          }
+                             completionHandler:^
+          {
+          }
+          ];
+     }
+     ];
 }
 
 - (void)window:window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
 {
-	// Make sure the window style mask does not
-	// include full screen bit
-	[window setStyleMask:([window styleMask] &
-						  ~NSFullScreenWindowMask)];
+    // Make sure the window style mask does not
+    // include full screen bit
+    [window setStyleMask:([window styleMask] &
+                          ~NSFullScreenWindowMask)];
 
-	// The center frame for the window is used during
-	// the 1st half of the fullscreen animation and is
-	// the window at its original size but moved to the
-	// center of its eventual full screen frame.
-	NSRect centerWindowFrame = contentView.frame;
-	centerWindowFrame.origin.x -= [Preferences border];
-	centerWindowFrame.origin.y -= [Preferences border];
-	centerWindowFrame.size.width += [Preferences border] * 2;
-	centerWindowFrame.size.height += [Preferences border] * 2;
+    // The center frame for the window is used during
+    // the 1st half of the fullscreen animation and is
+    // the window at its original size but moved to the
+    // center of its eventual full screen frame.
+    NSRect centerWindowFrame = contentView.frame;
+    centerWindowFrame.origin.x -= [Preferences border];
+    centerWindowFrame.origin.y -= [Preferences border];
+    centerWindowFrame.size.width += [Preferences border] * 2;
+    centerWindowFrame.size.height += [Preferences border] * 2;
 
-	// Our animation will be broken into two stages.
-	[NSAnimationContext
-	 runAnimationGroup:^(NSAnimationContext *context)
-	 {
+    // Our animation will be broken into two stages.
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context)
+     {
 
-		 // First, we'll restore the window to its original size
-		 // while centering it
-		 [context setDuration:duration / ANIMATION_STEPS];
-		 [[window animator]
-		  setFrame:centerWindowFrame display:YES];
-	 }
-	 completionHandler:^
-	 {
-		 [NSAnimationContext
-		  runAnimationGroup:^(NSAnimationContext *context)
-		  {
+         // First, we'll restore the window to its original size
+         // while centering it
+         context.duration = duration / ANIMATION_STEPS;
+         [[window animator]
+          setFrame:centerWindowFrame display:YES];
+     }
+     completionHandler:^
+     {
+         [NSAnimationContext
+          runAnimationGroup:^(NSAnimationContext *context)
+          {
 
-			  // And then we'll move it back to its initial
-			  // position.
-			  [context setDuration:duration / ANIMATION_STEPS];
-			  [[window animator]
-			   setFrame:windowPreFullscreenFrame display:YES];
-		  }
-		  completionHandler:^
-		  {
-		  }
-		  ];
-	 } ];
+              // And then we'll move it back to its initial
+              // position.
+              context.duration = duration / ANIMATION_STEPS;
+              [[window animator]
+               setFrame:windowPreFullscreenFrame display:YES];
+          }
+          completionHandler:^
+          {
+          }
+          ];
+     } ];
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification
 {
-	//NSRect fullscreenContent = NSMakeRect((contentFullScreenFrame.size.width - preFullscreenFrame.size.width) / 2, [Preferences border], preFullscreenFrame.size.width, contentFullScreenFrame.size.height - [Preferences border] * 2);
+    //NSRect fullscreenContent = NSMakeRect((contentFullScreenFrame.size.width - preFullscreenFrame.size.width) / 2, [Preferences border], preFullscreenFrame.size.width, contentFullScreenFrame.size.height - [Preferences border] * 2);
 
-	//NSLog(@"windowDidEnterFullScreen: contentview set to: %@", NSStringFromRect(contentFullScreenFrame));
+    //NSLog(@"windowDidEnterFullScreen: contentview set to: %@", NSStringFromRect(contentFullScreenFrame));
 
-	[[contentView animator] setFrame: contentFullScreenFrame];
-	[self contentDidResize: contentFullScreenFrame];
+    [contentView animator].frame = contentFullScreenFrame;
+    [self contentDidResize: contentFullScreenFrame];
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification
 {
-	//NSLog(@"windowDidExitFullScreen: contentview was: %@", NSStringFromRect(contentView.frame));
-	//NSLog(@"windowDidExitFullScreen: borderview is: %@", NSStringFromRect(borderView.frame));
+    //NSLog(@"windowDidExitFullScreen: contentview was: %@", NSStringFromRect(contentView.frame));
+    //NSLog(@"windowDidExitFullScreen: borderview is: %@", NSStringFromRect(borderView.frame));
 
-	NSRect frame;
+    NSRect frame;
 
     NSDictionary *dict = [Preferences attributesForGridStyle: style_Normal];
     NSFont *font = dict[NSFontAttributeName];
     [Preferences scale:fontSizePreFullscreen / font.pointSize];
 
-	NSInteger border = Preferences.border;
+    NSInteger border = Preferences.border;
 
-	frame.origin.x = frame.origin.y = border;
+    frame.origin.x = frame.origin.y = border;
 
-	frame.size.width = borderView.frame.size.width - (border * 2);
-	frame.size.height = borderView.frame.size.height - (border * 2);
+    frame.size.width = borderView.frame.size.width - (border * 2);
+    frame.size.height = borderView.frame.size.height - (border * 2);
 
-	//NSLog(@"windowDidExitFullScreen: contentview is set to: %@", NSStringFromRect(frame));
+    //NSLog(@"windowDidExitFullScreen: contentview is set to: %@", NSStringFromRect(frame));
 
-	[contentView setFrame: frame];
-	[contentView setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
-	[self contentDidResize: frame];
+    contentView.frame = frame;
+    contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    [self contentDidResize: frame];
 }
 
 #pragma mark Accessibility
 
 - (NSString *)accessibilityActionDescription: (NSString*) action {
-	return [self.window accessibilityActionDescription:  action];
+    return [self.window accessibilityActionDescription:  action];
 }
 
 - (NSArray *)accessibilityActionNames {
-	return [self.window  accessibilityActionNames];
+    return [self.window  accessibilityActionNames];
 }
 
 - (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
-	return [self.window  accessibilityIsAttributeSettable: attribute];;
+    return [self.window  accessibilityIsAttributeSettable: attribute];;
 }
 
 - (void)accessibilityPerformAction:(NSString *)action {
-	[self.window  accessibilityPerformAction: action];
+    [self.window  accessibilityPerformAction: action];
 }
 
 - (void)accessibilitySetValue: (id)value
-				 forAttribute: (NSString*) attribute {
-	[self.window  accessibilitySetValue: value
+                 forAttribute: (NSString*) attribute {
+    [self.window  accessibilitySetValue: value
                            forAttribute: attribute];
 }
 
 - (NSArray*) accessibilityAttributeNames {
-	NSMutableArray* result = [[self.window  accessibilityAttributeNames] mutableCopy];
-	if (!result) result = [[NSMutableArray alloc] init];
+    NSMutableArray* result = [[self.window  accessibilityAttributeNames] mutableCopy];
+    if (!result) result = [[NSMutableArray alloc] init];
     
-	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
+    [result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
      NSAccessibilityChildrenAttribute,
      NSAccessibilityHelpAttribute,
      NSAccessibilityDescriptionAttribute,
      NSAccessibilityTitleAttribute,
      NSAccessibilityFocusedUIElementAttribute]];
     
-	return result;
+    return result;
 }
 
 - (id) accessibilityFocusedUIElement {
-	NSResponder* firstResponder = [[self window] firstResponder];
+    NSResponder* firstResponder = self.window.firstResponder;
     
-	if (firstResponder == nil) return self;
+    if (firstResponder == nil) return self;
     
-	if ([firstResponder isKindOfClass: [NSView class]]) {
-		NSView* windowView = (NSView*) firstResponder;
+    if ([firstResponder isKindOfClass: [NSView class]]) {
+        NSView* windowView = (NSView*) firstResponder;
         
-		while (windowView != nil) {
-			if ([windowView isKindOfClass: [GlkWindow class]]) {
-				return windowView;
-			}
+        while (windowView != nil) {
+            if ([windowView isKindOfClass: [GlkWindow class]]) {
+                return windowView;
+            }
             
-			windowView = [windowView superview];
-		}
-	}
+            windowView = windowView.superview;
+        }
+    }
     
-	return [super accessibilityFocusedUIElement];
+    return super.accessibilityFocusedUIElement;
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]
-		|| [attribute isEqualToString: NSAccessibilityContentsAttribute]) {
+    if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]
+        || [attribute isEqualToString: NSAccessibilityContentsAttribute]) {
         //return [NSArray arrayWithObjects:gwindows count:MAXWIN];
            // return [NSArray arrayWithObject: rootWindow];
-	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
-		return [self accessibilityFocusedUIElement];
-	} else if ([attribute isEqualToString: NSAccessibilityHelpAttribute]
-			   || [attribute isEqualToString: NSAccessibilityDescriptionAttribute]) {
-		NSString* description = @"an interactive fiction game";
-		return [NSString stringWithFormat: @"%@ %@",(!dead)?@"Running":@"Finished", description];
-	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		return @"GLK view";
-	} else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
-		return NSAccessibilityGroupRole;
-	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		return [self window];
-	}
+    } else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
+        return self.accessibilityFocusedUIElement;
+    } else if ([attribute isEqualToString: NSAccessibilityHelpAttribute]
+               || [attribute isEqualToString: NSAccessibilityDescriptionAttribute]) {
+        NSString* description = @"an interactive fiction game";
+        return [NSString stringWithFormat: @"%@ %@",(!dead)?@"Running":@"Finished", description];
+    } else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
+        return @"GLK view";
+    } else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
+        return NSAccessibilityGroupRole;
+    } else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
+        return self.window;
+    }
 
-	NSLog(@"%@", attribute);
+    NSLog(@"%@", attribute);
     
-	return [super accessibilityAttributeValue: attribute];
+    return [super accessibilityAttributeValue: attribute];
 }
 
 - (BOOL)accessibilityIsIgnored {
-	return NO;
+    return NO;
 }
 
 @end

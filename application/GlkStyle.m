@@ -76,32 +76,32 @@
         NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
         [para setParagraphStyle: dict[NSParagraphStyleAttributeName]];
         
-        NSInteger indent = [para headIndent];
-        NSInteger paraindent = [para firstLineHeadIndent] - indent;
+        NSInteger indent = para.headIndent;
+        NSInteger paraindent = para.firstLineHeadIndent - indent;
         
         if (enabled[stylehint_Indentation])
             indent = value[stylehint_Indentation] * 3;
         if (enabled[stylehint_ParaIndentation])
             paraindent = value[stylehint_ParaIndentation] * 3;
         
-        [para setHeadIndent: indent];
-        [para setFirstLineHeadIndent: (indent + paraindent)];
+        para.headIndent = indent;
+        para.firstLineHeadIndent = (indent + paraindent);
         
         if (enabled[stylehint_Justification])
         {
             switch (value[stylehint_Justification])
             {
                 case stylehint_just_LeftFlush:
-                    [para setAlignment: NSLeftTextAlignment];
+                    para.alignment = NSLeftTextAlignment;
                     break;
                 case stylehint_just_LeftRight:
-                    [para setAlignment: NSJustifiedTextAlignment];
+                    para.alignment = NSJustifiedTextAlignment;
                     break;
                 case stylehint_just_Centered:
-                    [para setAlignment: NSCenterTextAlignment];
+                    para.alignment = NSCenterTextAlignment;
                     break;
                 case stylehint_just_RightFlush:
-                    [para setAlignment: NSRightTextAlignment];
+                    para.alignment = NSRightTextAlignment;
                     break;
             }
         }
@@ -119,7 +119,7 @@
         
         if (enabled[stylehint_Size] && windowtype == wintype_TextBuffer)
         {
-            float size = [font matrix][0] + value[stylehint_Size] * 2;
+            float size = font.matrix[0] + value[stylehint_Size] * 2;
             font = [fontmgr convertFont: font toSize: size];
         }
         
