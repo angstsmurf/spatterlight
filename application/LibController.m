@@ -173,7 +173,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
         sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES];
         [tableColumn setSortDescriptorPrototype:sortDescriptor];
         
-        for (NSMenuItem *menuitem in _headerMenu.itemArray)
+        for (NSMenuItem *menuitem in headerMenu.itemArray)
         {
             if ([[menuitem valueForKey:@"identifier"] isEqualToString:key]) 		
             {
@@ -480,7 +480,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
 
 - (void) performFindPanelAction:(id<NSValidatedUserInterfaceItem>)sender
 {
-    [_searchField selectText:self];
+    [searchField selectText:self];
 }
 
 
