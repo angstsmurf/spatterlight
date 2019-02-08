@@ -203,8 +203,8 @@
     return newFrame;
 };
 
-
-- (id)accessibilityFocusedUIElement {
+- (id)accessibilityFocusedUIElement
+{
     return textView;
 }
 
