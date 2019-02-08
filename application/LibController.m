@@ -64,10 +64,7 @@ enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
 
 @implementation LibController
 
-/*
- * Window controller, menus and file dialogs.
- *
- */
+#pragma mark Window controller, menus and file dialogs.
 
 static NSMutableDictionary *load_mutable_plist(NSString *path)
 {
@@ -293,6 +290,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     }];
 }
 
+- (void) performFindPanelAction:(id<NSValidatedUserInterfaceItem>)sender
+{
+    [searchField selectText:self];
+}
+
 #pragma mark Contextual menu
 
 - (IBAction) playGame: (id)sender
@@ -431,9 +433,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
    return count > 0;
 }
 
-/*
- * Drag-n-drop destination handler
- */
+#pragma mark Drag-n-drop destination handler
 
 - (NSDragOperation) draggingEntered:sender
 {
@@ -492,11 +492,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     return NO;
 }
 
-- (void) performFindPanelAction:(id<NSValidatedUserInterfaceItem>)sender
-{
-    [searchField selectText:self];
-}
-
+#pragma mark Metadata
 
 /*
  * Metadata is not tied to games in the library.
@@ -875,7 +871,6 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
 
     [self addURLtoRecents: [NSURL fileURLWithPath:path]];
 
-    // gctl releases itself when the game closes
 }
 
 - (void) importAndPlayGame: (NSString*)path
