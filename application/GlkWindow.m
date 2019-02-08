@@ -241,4 +241,10 @@
     return NO;
 }
 
+#pragma mark Accessibility
+
+- (BOOL)accessibilityIsIgnored {
+	return NO;
+}
+
 @end
