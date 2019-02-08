@@ -76,12 +76,12 @@
     /* keep the other views fixed in size */
     /* x and y separable */
 
-    NSInteger border = Preferences.border;
+    CGFloat border = Preferences.border;
 
-    if (NSMaxX(thisframe) == NSMaxX(mainframe) - border)
+    if (NSMaxX(thisframe) == floor(NSMaxX(mainframe) - border))
         rgt = 1;
 
-    if (NSMaxY(thisframe) == NSMaxY(mainframe) - border)
+    if (NSMaxY(thisframe) == floor(NSMaxY(mainframe) - border))
         bot = 1;
 
     if (rgt)

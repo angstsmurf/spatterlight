@@ -25,11 +25,11 @@ static int dosound = NO;
 static int dostyles = NO;
 static int usescreenfonts = NO;
 
-static int gridmargin = 0;
-static int buffermargin = 0;
-static int border = 0;
+static CGFloat gridmargin = 0;
+static CGFloat buffermargin = 0;
+static CGFloat border = 0;
 
-static float leading = 0;		/* added to lineHeight */
+static CGFloat leading = 0;		/* added to lineHeight */
 
 static NSFont *bufroman;
 static NSFont *gridroman;
@@ -136,14 +136,14 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     bufferfg = dataToColor([defaults objectForKey: @"BufferForeground"]);
     inputfg = dataToColor([defaults objectForKey: @"InputColor"]);
 
-    gridmargin = [[defaults objectForKey: @"GridMargin"] floatValue];
-    buffermargin = [[defaults objectForKey: @"BufferMargin"] floatValue];
-    border = [[defaults objectForKey: @"Border"] floatValue];
+    gridmargin = [[defaults objectForKey: @"GridMargin"] doubleValue];
+    buffermargin = [[defaults objectForKey: @"BufferMargin"] doubleValue];
+    border = [[defaults objectForKey: @"Border"] doubleValue];
 
-    leading = [[defaults objectForKey: @"Leading"] floatValue];
+    leading = [[defaults objectForKey: @"Leading"] doubleValue];
 
     name = [defaults objectForKey: @"GridFontName"];
-    size = [[defaults objectForKey: @"GridFontSize"] floatValue];
+    size = [[defaults objectForKey: @"GridFontSize"] doubleValue];
     gridroman = [NSFont fontWithName: name size: size];
     if (!gridroman)
     {
@@ -152,7 +152,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     }
 
     name = [defaults objectForKey: @"BufferFontName"];
-    size = [[defaults objectForKey: @"BufferFontSize"] floatValue];
+    size = [[defaults objectForKey: @"BufferFontSize"] doubleValue];
     bufroman = [NSFont fontWithName: name size: size];
     if (!bufroman)
     {
@@ -161,7 +161,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     }
 
     name = [defaults objectForKey: @"InputFontName"];
-    size = [[defaults objectForKey: @"InputFontSize"] floatValue];
+    size = [[defaults objectForKey: @"InputFontSize"] doubleValue];
     inputfont = [NSFont fontWithName: name size: size];
     if (!inputfont)
     {
@@ -272,17 +272,17 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     return cellw;
 }
 
-+ (NSInteger) gridMargins
++ (CGFloat) gridMargins
 {
     return gridmargin;
 }
 
-+ (NSInteger) bufferMargins
++ (CGFloat) bufferMargins
 {
     return buffermargin;
 }
 
-+ (NSInteger) border
++ (CGFloat) border
 {
     return border;
 }
@@ -487,7 +487,10 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 
 NSString* fontToString(NSFont *font)
 {
-    return [NSString stringWithFormat: @"%@ %g", [font displayName], [font pointSize]];
+    if ((int)font.pointSize == font.pointSize)
+        return [NSString stringWithFormat: @"%@ %.f", [font displayName], (float)[font pointSize]];
+    else
+        return [NSString stringWithFormat: @"%@ %.1f", [font displayName], (float)[font pointSize]];
 }
 
 - (void) windowDidLoad
@@ -667,7 +670,7 @@ NSString* fontToString(NSFont *font)
 - (IBAction) changeBorderSize: (id)sender
 {
     border = [sender floatValue];
-    NSLog(@"pref: border width changed to %d", border);
+    NSLog(@"pref: border width changed to %f", border);
     [[NSUserDefaults standardUserDefaults] setObject: @(border) forKey: @"Border"];
 
     /* send notification that prefs have changed -- tell clients that border has changed */
@@ -681,7 +684,7 @@ NSString* fontToString(NSFont *font)
 {
 	if (gridroman.pointSize < 100)
 	{
-		[self scale:[self widthAtPoint:gridroman.pointSize + 1] / cellw];
+        [self scale:(gridroman.pointSize + 1) / gridroman.pointSize];
 	}
 }
 
@@ -689,53 +692,27 @@ NSString* fontToString(NSFont *font)
 {
 	if (gridroman.pointSize > 5)
 	{
-		[self scale:[self widthAtPoint:gridroman.pointSize - 1] / cellw];
+        [self scale:(gridroman.pointSize - 1)/ gridroman.pointSize];
 	}
 }
 
 + (void) zoomToActualSize
 {
-	[self scale:[self widthAtPoint:14] / cellw];
-}
-
-+ (CGFloat) widthAtPoint: (CGFloat)pointSize
-{
-	CGFloat xwidth;
-	NSFont *dummyfont = [NSFont fontWithDescriptor:[gridroman fontDescriptor] size:pointSize];
-
-	//This is the only way I have found to get the correct width at all sizes
-	if (NSAppKitVersionNumber < NSAppKitVersionNumber10_8)
-		xwidth = [@"X" sizeWithAttributes:@{NSFontAttributeName: dummyfont}].width;
-	else
-		xwidth = [dummyfont advancementForGlyph:(NSGlyph)'X'].width;
-
-	return xwidth;
+    [self scale:11 / gridroman.pointSize];
 }
 
 + (void)scale:(CGFloat)scalefactor
 {
 	NSLog(@"Preferences scale: %f", scalefactor);
 
+    if (scalefactor < 0)
+        scalefactor = abs(scalefactor);
+
+    if ((scalefactor < 1.01 && scalefactor > 0.99) || scalefactor == 0.0)
+        scalefactor = 1.0;
+
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	CGFloat fontSize;
-
-	fontSize = [gridroman pointSize];
-	fontSize *= scalefactor;
-	gridroman = [NSFont fontWithDescriptor:[gridroman fontDescriptor] size:fontSize];
-	[defaults setObject: [NSNumber numberWithFloat: fontSize] forKey: @"GridFontSize"];
-	NSLog(@"gridroman pointSize set to: %f", fontSize);
-
-	fontSize = [bufroman pointSize];
-	fontSize *= scalefactor;
-	bufroman = [NSFont fontWithDescriptor:[bufroman fontDescriptor] size:fontSize];
-	[defaults setObject: [NSNumber numberWithFloat: fontSize] forKey: @"BufferFontSize"];
-	NSLog(@"bufroman pointSize set to: %f", fontSize);
-
-	fontSize = [inputfont pointSize];
-	fontSize *= scalefactor;
-	inputfont = [NSFont fontWithDescriptor:[inputfont fontDescriptor] size:fontSize];
-	[defaults setObject: [NSNumber numberWithFloat: fontSize] forKey: @"InputFontSize"];
-	NSLog(@"inputfont pointSize set to: %f", fontSize);
 
 	if (leading * scalefactor > 0)
 	{
@@ -749,14 +726,14 @@ NSString* fontToString(NSFont *font)
 		gridmargin *= scalefactor;
 		[[NSUserDefaults standardUserDefaults] setObject: @(gridmargin) forKey: @"GridMargin"];
 	}
-	NSLog(@"gridmargin set to: %d", gridmargin);
+	NSLog(@"gridmargin set to: %f", gridmargin);
 
 	if (buffermargin * scalefactor > 0)
 	{
 		buffermargin *= scalefactor;
 		[[NSUserDefaults standardUserDefaults] setObject: @(buffermargin) forKey: @"BufferMargin"];
 	}
-	NSLog(@"buffermargin set to: %d", buffermargin);
+	NSLog(@"buffermargin set to: %f", buffermargin);
 
 
 	if (border * scalefactor > 0)
@@ -764,7 +741,26 @@ NSString* fontToString(NSFont *font)
 		border *= scalefactor;
 		[[NSUserDefaults standardUserDefaults] setObject: @(border) forKey: @"Border"];
 	}
-	NSLog(@"border set to: %d", border);
+
+	NSLog(@"border set to: %f", border);
+
+    fontSize = [gridroman pointSize];
+	fontSize *= scalefactor;
+	gridroman = [NSFont fontWithDescriptor:[gridroman fontDescriptor] size:fontSize];
+	[defaults setObject: @(fontSize) forKey: @"GridFontSize"];
+	NSLog(@"gridroman pointSize set to: %g", fontSize);
+
+	fontSize = [bufroman pointSize];
+	fontSize *= scalefactor;
+	bufroman = [NSFont fontWithDescriptor:[bufroman fontDescriptor] size:fontSize];
+	[defaults setObject: @(fontSize) forKey: @"BufferFontSize"];
+	NSLog(@"bufroman pointSize set to: %f", fontSize);
+
+	fontSize = [inputfont pointSize];
+	fontSize *= scalefactor;
+	inputfont = [NSFont fontWithDescriptor:[inputfont fontDescriptor] size:fontSize];
+	[defaults setObject: @(fontSize) forKey: @"InputFontSize"];
+	NSLog(@"inputfont pointSize set to: %f", fontSize);
 
 
 	[Preferences rebuildTextAttributes];

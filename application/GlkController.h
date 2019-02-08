@@ -66,6 +66,7 @@
 
     NSRect contentFullScreenFrame;
     NSRect windowPreFullscreenFrame;
+    CGFloat fontSizePreFullscreen;
 }
 
 - (void) runTerp: (NSString*)terpname

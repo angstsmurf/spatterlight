@@ -46,6 +46,7 @@
 + (void) zoomIn;
 + (void) zoomOut;
 + (void) zoomToActualSize;
++ (void) scale:(CGFloat)scalefactor;
 - (void) updatePanelAfterZoom;
 
 + (NSColor*) gridBackground;
@@ -59,10 +60,10 @@
 
 + (float) lineHeight;
 + (float) charWidth;
-+ (NSInteger) gridMargins;
-+ (NSInteger) bufferMargins;
-+ (NSInteger) border;
-+ (float) leading;
++ (CGFloat) gridMargins;
++ (CGFloat) bufferMargins;
++ (CGFloat) border;
++ (CGFloat) leading;
 
 + (NSInteger) stylesEnabled;
 + (NSInteger) smartQuotes;

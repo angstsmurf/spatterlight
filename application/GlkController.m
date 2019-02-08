@@ -1806,6 +1806,11 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 	//NSLog(@"windowDidExitFullScreen: borderview is: %@", NSStringFromRect(borderView.frame));
 
 	NSRect frame;
+
+    NSDictionary *dict = [Preferences attributesForGridStyle: style_Normal];
+    NSFont *font = dict[NSFontAttributeName];
+    [Preferences scale:fontSizePreFullscreen / font.pointSize];
+
 	NSInteger border = Preferences.border;
 
 	frame.origin.x = frame.origin.y = border;
