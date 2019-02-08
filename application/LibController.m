@@ -419,22 +419,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
         else return NO;
     }
 
-    if (action == @selector(delete:))
-        return count > 0;
-
-    if (action == @selector(deleteGame:))
-        return count > 0;
-
-    if (action == @selector(revealGameInFinder:))
-        return count > 0;
-
-    if (action == @selector(showGameInfo:))
-        return count > 0;
-
-    if (action == @selector(playGame:))
-        return count == 1;
-
-    return YES;
+   return count > 0;
 }
 
 /*
