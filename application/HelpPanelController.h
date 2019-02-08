@@ -18,9 +18,10 @@
 @end
 
 @interface HelpPanelController : NSWindowController
-
-@property (strong) IBOutlet HelpTextView *textView;
-@property (strong) IBOutlet NSScrollView *scrollView;
+{
+    IBOutlet HelpTextView *textView;
+    IBOutlet NSScrollView *scrollView;
+}
 
 - (void) showHelpFile:(NSAttributedString *)text withTitle:(NSString *)title;
 

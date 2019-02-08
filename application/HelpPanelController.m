@@ -68,10 +68,10 @@
 - (IBAction)copyButton:(id)sender {
 	NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
 	[pasteBoard clearContents];
-	[pasteBoard writeObjects:@[_textView.string]];
+	[pasteBoard writeObjects:@[textView.string]];
 
 	// Selecting all the text is pretty useless, but better than no feedback at all I guess
-	[_textView setSelectedRange:NSMakeRange(0, _textView.string.length)];
+	[textView setSelectedRange:NSMakeRange(0, textView.string.length)];
 }
 
 - (void) showHelpFile:(NSAttributedString *)text withTitle:(NSString *)title
@@ -81,9 +81,9 @@
 	helpWindow.title = title;
 
 	// Do nothing if we are already showing the text
-	if ((![helpWindow isVisible]) || (![text.string isEqualToString:_textView.string]))
+	if ((![helpWindow isVisible]) || (![text.string isEqualToString:textView.string]))
 	{
-        [_textView resetTextFinder];
+        [textView resetTextFinder];
 
 		CGRect screenframe = [[NSScreen mainScreen] visibleFrame];
 
@@ -91,7 +91,7 @@
 
 		CGFloat oldheight = helpWindow.frame.size.height;
 
-		_textView.string = string;
+		textView.string = string;
 
         CGRect winrect = [self frameForString:string];
 		winrect.origin = helpWindow.frame.origin;
@@ -104,10 +104,10 @@
 		// so we reset it here
 
         // Scroll the vertical scroller to top
-        _scrollView.verticalScroller.floatValue = 0;
+        scrollView.verticalScroller.floatValue = 0;
 
         // Scroll the contentView to top
-        [_scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
+        [scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
 
 		[self showWindow: helpWindow];
 
@@ -123,7 +123,7 @@
 			winrect.origin.y = NSMinY(screenframe);
 
 		[helpWindow setFrame:winrect display:YES animate:YES];
-		[_textView scrollRectToVisible: NSMakeRect(0, 0, 0, 0)];
+		[textView scrollRectToVisible: NSMakeRect(0, 0, 0, 0)];
 	}
 
     [helpWindow makeKeyAndOrderFront:nil];
@@ -143,7 +143,7 @@
 		range = [string lineRangeForRange:NSMakeRange(index, 0)];
 		index = NSMaxRange(range);
 		proposedLine = [string substringWithRange:range];
-		CGSize stringSize = [proposedLine sizeWithAttributes:@{NSFontAttributeName: _textView.font}];
+		CGSize stringSize = [proposedLine sizeWithAttributes:@{NSFontAttributeName: textView.font}];
 		CGFloat width = stringSize.width;
 
 		if (width > textWidth)
@@ -159,7 +159,7 @@
 
     textWidth = ceil(textWidth);
 
-    CGFloat padding = _textView.textContainer.lineFragmentPadding;
+    CGFloat padding = textView.textContainer.lineFragmentPadding;
 
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:string];
 	NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:NSMakeSize(textWidth + padding * 2, FLT_MAX)];
@@ -167,7 +167,7 @@
 	[layoutManager addTextContainer:textContainer];
 	[textStorage addLayoutManager:layoutManager];
 
-    [textStorage addAttribute:NSFontAttributeName value:_textView.font
+    [textStorage addAttribute:NSFontAttributeName value:textView.font
 						range:NSMakeRange(0, textStorage.length)];
 	textContainer.lineFragmentPadding = padding;
 
@@ -193,7 +193,7 @@
 
     CGFloat oldheight = window.frame.size.height;
 
-    newFrame = [self frameForString:_textView.string];
+    newFrame = [self frameForString:textView.string];
 
 	CGFloat offset = newFrame.size.height - oldheight;
 
@@ -205,7 +205,7 @@
 
 
 - (id)accessibilityFocusedUIElement {
-	return _textView;
+	return textView;
 }
 
 @end
