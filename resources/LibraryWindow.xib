@@ -1603,11 +1603,13 @@
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addGamesToLibrary:">id</string>
+						<string key="delete:">id</string>
 						<string key="deleteGame:">id</string>
 						<string key="deleteLibrary:">id</string>
 						<string key="exportMetadata:">id</string>
 						<string key="importMetadata:">id</string>
 						<string key="playGame:">id</string>
+						<string key="purgeLibrary:">id</string>
 						<string key="revealGameInFinder:">id</string>
 						<string key="saveLibrary:">id</string>
 						<string key="searchForGames:">id</string>
@@ -1617,6 +1619,10 @@
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="addGamesToLibrary:">
 							<string key="name">addGamesToLibrary:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="delete:">
+							<string key="name">delete:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="deleteGame:">
@@ -1637,6 +1643,10 @@
 						</object>
 						<object class="IBActionInfo" key="playGame:">
 							<string key="name">playGame:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="purgeLibrary:">
+							<string key="name">purgeLibrary:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="revealGameInFinder:">
@@ -1729,10 +1739,6 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<real value="1070" key="NS.object.0"/>
-		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
 			<real value="4000" key="NS.object.0"/>
