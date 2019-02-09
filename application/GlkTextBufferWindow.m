@@ -1166,6 +1166,7 @@
     panel.extensionHidden=NO;
     [panel setCanCreateDirectories:YES];
     panel.nameFieldStringValue = newName;
+	NSAttributedString *localTextStorage = textstorage;
     [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton)
         {
@@ -1173,7 +1174,7 @@
             if (isRtfd)
             {
                 NSFileWrapper *wrapper;
-                wrapper = [textstorage RTFDFileWrapperFromRange: NSMakeRange(0, textstorage.length)
+                wrapper = [localTextStorage RTFDFileWrapperFromRange: NSMakeRange(0, localTextStorage.length)
                                              documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFDTextDocumentType}];
 
                 [wrapper writeToURL:theFile options: NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating originalContentsURL:nil error:NULL];
@@ -1182,7 +1183,7 @@
             else
             {
                 NSData *data;
-                data = [textstorage RTFFromRange: NSMakeRange(0, textstorage.length)
+                data = [localTextStorage RTFFromRange: NSMakeRange(0, localTextStorage.length)
                               documentAttributes:@{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
                 [data writeToURL: theFile atomically:NO];
             }

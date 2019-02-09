@@ -259,12 +259,14 @@ static BOOL save_plist(NSString *path, NSDictionary *plist)
     panel.prompt = @"Export";
     panel.nameFieldStringValue = @"Interactive Fiction Metadata.iFiction";
 
+	NSPopUpButton *localExportTypeControl = exportTypeControl;
+
     [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton)
         {
             NSURL* url = panel.URL;
 
-            [self exportMetadataToFile: url.path what: exportTypeControl.indexOfSelectedItem];
+			[self exportMetadataToFile: url.path what: localExportTypeControl.indexOfSelectedItem];
         }
     }];
 }
@@ -1224,27 +1226,31 @@ static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key, BOOL a
             [gameTableModel addObject: ifid];
         }
     }
-    
+
+	BOOL localSortAscending = sortAscending;
+	NSString *localGameSortColumn = gameSortColumn;
+	NSDictionary *localMetadata = metadata;
+
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:sortAscending comparator:^(NSString *aid, NSString *bid) {
         
-        NSDictionary *a = metadata[aid];
-        NSDictionary *b = metadata[bid];
+        NSDictionary *a = localMetadata[aid];
+        NSDictionary *b = localMetadata[bid];
         NSInteger cmp;
        
-        if (gameSortColumn)
+        if (localGameSortColumn)
         {
-            cmp = compareDicts(a, b, gameSortColumn, sortAscending);
+            cmp = compareDicts(a, b, localGameSortColumn, localSortAscending);
             if (cmp) return cmp;
         }
-        cmp = compareDicts(a, b, @"title", sortAscending);
+        cmp = compareDicts(a, b, @"title", localSortAscending);
         if (cmp) return cmp;
-        cmp = compareDicts(a, b, @"author", sortAscending);
+        cmp = compareDicts(a, b, @"author", localSortAscending);
         if (cmp) return cmp;
-        cmp = compareDicts(a, b, @"seriesnumber",sortAscending);
+        cmp = compareDicts(a, b, @"seriesnumber",localSortAscending);
         if (cmp) return cmp;
-        cmp = compareDicts(a, b, @"firstpublished",sortAscending);
+        cmp = compareDicts(a, b, @"firstpublished",localSortAscending);
         if (cmp) return cmp;
-        return compareDicts(a, b, @"format", sortAscending);
+        return compareDicts(a, b, @"format", localSortAscending);
     }];
     
     [gameTableModel sortUsingDescriptors:@[sort]];

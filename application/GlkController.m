@@ -630,9 +630,10 @@
     if (filename)
         panel.nameFieldStringValue = filename;
 
+	NSInteger sendfd = sendfh.fileDescriptor;
+
     [panel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
         struct message reply;
-        NSInteger sendfd = sendfh.fileDescriptor;
         const char *s;
 
         if (result == NSFileHandlingPanelOKButton)
@@ -1716,6 +1717,8 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     //duration += DURATION_ADJUSTMENT;
     //duration += DURATION_ADJUSTMENT;
 
+	contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
+
     // Our animation will be broken into two steps.
     [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context)
      {
@@ -1729,7 +1732,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize
          [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context)
           {
               // and then we enlarge it its full size.
-              contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
               context.duration = duration/ ANIMATION_STEPS;
               [[window animator] setFrame:border_finalFrame display:YES];
               //[[contentView animator] setFrame:contentFullScreenFrame];
@@ -1759,6 +1761,8 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     centerWindowFrame.size.width += [Preferences border] * 2;
     centerWindowFrame.size.height += [Preferences border] * 2;
 
+	NSRect oldFrame = windowPreFullscreenFrame;
+
     // Our animation will be broken into two stages.
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context)
@@ -1780,7 +1784,7 @@ willUseFullScreenContentSize:(NSSize)proposedSize
               // position.
               context.duration = duration / ANIMATION_STEPS;
               [[window animator]
-               setFrame:windowPreFullscreenFrame display:YES];
+               setFrame:oldFrame display:YES];
           }
           completionHandler:^
           {

@@ -197,8 +197,11 @@ NSDictionary *gFormatMap;
     if (!theDocCont) {
         theDocCont = [NSDocumentController sharedDocumentController];
     }
+	
+	NSDocumentController *localDocCont = theDocCont;
+
     [URLs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [theDocCont noteNewRecentDocumentURL:obj];
+        [localDocCont noteNewRecentDocumentURL:obj];
     }];
 }
 
