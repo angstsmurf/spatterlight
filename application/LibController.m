@@ -1263,7 +1263,7 @@ static NSInteger compareDicts(NSDictionary * a, NSDictionary * b, id key, BOOL a
     NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
 
     for (i = 0; i < count; i++)
-		if ([gameTableModel objectAtIndex: i] == selifid)
+        if ([gameTableModel objectAtIndex: i] == selifid)
             [indexSet addIndex:i];
 
     [gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
