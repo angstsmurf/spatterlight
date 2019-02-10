@@ -690,7 +690,7 @@ NSString* fontToString(NSFont *font)
 
 + (void) zoomOut
 {
-	if (gridroman.pointSize > 5)
+	if (gridroman.pointSize > 6)
 	{
         [self scale:(gridroman.pointSize - 1)/ gridroman.pointSize];
 	}
