@@ -56,9 +56,9 @@ void print(fpos, len)
 #endif
 {
   char str[2*WIDTH];            /* String buffer */
-  int outlen = 0;               /* Current output length */
-  int ch;
-  int i;
+  unsigned int outlen = 0;               /* Current output length */
+  unsigned int ch;
+  unsigned int i;
   long savfp;                   /* Temporary saved text file position */
   static Boolean printFlag = FALSE; /* Printing already? */
   Boolean savedPrintFlag = printFlag;
@@ -264,7 +264,7 @@ void cancl(evt)
   int i;
 
   for(i = etop-1; i>=0; i--)
-    if (eventq[i].event == evt) {
+    if ((unsigned int)eventq[i].event == evt) {
       while (i < etop-1) {
 	eventq[i].event = eventq[i+1].event;
 	eventq[i].time = eventq[i+1].time;
@@ -762,7 +762,7 @@ Aint agrmax(atr, whr)
 #endif
 {
   Aword i;
-  Aint max = 0;
+  unsigned int max = 0;
 
   for (i = OBJMIN; i <= OBJMAX; i++) {
     if (isLoc(whr)) {
@@ -878,7 +878,7 @@ static void locact(act, whr)
     cur.act = prevact;
   }
 
-  if (cur.act != act)
+  if ((unsigned int)cur.act != act)
     cur.loc = prevloc;
 }
 
@@ -920,9 +920,9 @@ static Abool objhere(obj)
     if (isObj(objs[obj-OBJMIN].loc) || isAct(objs[obj-OBJMIN].loc))
       return(isHere(objs[obj-OBJMIN].loc));
     else /* If the container wasn't anywhere, assume where HERO is! */
-      return(where(HERO) == cur.loc);
+      return(where(HERO) == (unsigned int)cur.loc);
   } else
-    return(objs[obj-OBJMIN].loc == cur.loc);
+    return(objs[obj-OBJMIN].loc == (unsigned int)cur.loc);
 }
 
 
@@ -933,7 +933,7 @@ static Aword acthere(act)
      Aword act;
 #endif
 {
-  return(acts[act-ACTMIN].loc == cur.loc);
+  return(acts[act-ACTMIN].loc == (unsigned int)cur.loc);
 }
 
 
@@ -1300,7 +1300,7 @@ void list(cnt)
      Aword cnt;
 #endif
 {
-  int i;
+  unsigned int i;
   Aword props;
   Aword prevobj;
   Boolean found = FALSE;
@@ -1377,7 +1377,7 @@ void empty(cnt, whr)
      Aword whr;
 #endif
 {
-  int i;
+  unsigned int i;
 
   for (i = OBJMIN; i <= OBJMAX; i++)
     if (in(i, cnt))
@@ -1402,21 +1402,21 @@ void dscrobjs(void)
 void dscrobjs()
 #endif
 {
-  int i;
-  int prevobj;
+  unsigned int i;
+  unsigned int prevobj;
   Boolean found = FALSE;
   Boolean multiple = FALSE;
 
   /* First describe everything here with its own description */
   for (i = OBJMIN; i <= OBJMAX; i++)
-    if (objs[i-OBJMIN].loc == cur.loc &&
+    if (objs[i-OBJMIN].loc == (unsigned int)cur.loc &&
 	objs[i-OBJMIN].describe &&
 	objs[i-OBJMIN].dscr1)
       describe(i);
 
   /* Then list everything else here */
   for (i = OBJMIN; i <= OBJMAX; i++)
-    if (objs[i-OBJMIN].loc == cur.loc &&
+    if (objs[i-OBJMIN].loc == (unsigned int)cur.loc &&
 	objs[i-OBJMIN].describe) {
       if (!found) {
 	prmsg(M_SEEOBJ1);
@@ -1456,10 +1456,10 @@ void dscracts(void)
 void dscracts()
 #endif
 {
-  int i;
+  unsigned int i;
   
   for (i = HERO+1; i <= ACTMAX; i++)
-    if (acts[i-ACTMIN].loc == cur.loc &&
+    if (acts[i-ACTMIN].loc == (unsigned int)cur.loc &&
 	acts[i-ACTMIN].describe)
       describe(i);
 
@@ -1475,7 +1475,7 @@ void look(void)
 void look()
 #endif
 {
-  int i;
+  unsigned int i;
 
   if (looking)
     syserr("Recursive LOOK.");
@@ -1571,7 +1571,7 @@ glk_fileref_destroy(fref);
   /* Save current values */
   fwrite((void *)&cur, sizeof(cur), 1, savfil);
   /* Save actors */
-  for (i = ACTMIN; i <= ACTMAX; i++) {
+  for (unsigned int i = ACTMIN; i <= ACTMAX; i++) {
     fwrite((void *)&acts[i-ACTMIN].loc, sizeof(Aword), 1, savfil);
     fwrite((void *)&acts[i-ACTMIN].script, sizeof(Aword), 1, savfil);
     fwrite((void *)&acts[i-ACTMIN].step, sizeof(Aword), 1, savfil);
@@ -1582,7 +1582,7 @@ glk_fileref_destroy(fref);
   }
 
   /* Save locations */
-  for (i = LOCMIN; i <= LOCMAX; i++) {
+  for (unsigned int i = LOCMIN; i <= LOCMAX; i++) {
     fwrite((void *)&locs[i-LOCMIN].describe, sizeof(Aword), 1, savfil);
     if (locs[i-LOCMIN].atrs)
       for (atr = (AtrElem *) addrTo(locs[i-LOCMIN].atrs); !endOfTable(atr); atr++)
@@ -1590,7 +1590,7 @@ glk_fileref_destroy(fref);
   }
 
   /* Save objects */
-  for (i = OBJMIN; i <= OBJMAX; i++) {
+  for (unsigned int i = OBJMIN; i <= OBJMAX; i++) {
     fwrite((void *)&objs[i-OBJMIN].loc, sizeof(Aword), 1, savfil);
     if (objs[i-OBJMIN].atrs)
       for (atr = (AtrElem *) addrTo(objs[i-OBJMIN].atrs); !endOfTable(atr); atr++)
@@ -1602,7 +1602,7 @@ glk_fileref_destroy(fref);
   fwrite((void *)&eventq[0], sizeof(eventq[0]), etop+1, savfil);
 
   /* Save scores */
-  for (i = 0; scores[i] != EOF; i++)
+  for (i = 0; (int)scores[i] != EOF; i++)
     fwrite((void *)&scores[i], sizeof(Aword), 1, savfil);
 
   fclose(savfil);
@@ -1682,7 +1682,7 @@ glk_fileref_destroy(fref);
   /* Restore current values */
   tmp = fread((void *)&cur, sizeof(cur), 1, savfil);
   /* Restore actors */
-  for (i = ACTMIN; i <= ACTMAX; i++) {
+  for (unsigned int i = ACTMIN; i <= ACTMAX; i++) {
     tmp = fread((void *)&acts[i-ACTMIN].loc, sizeof(Aword), 1, savfil);
     tmp = fread((void *)&acts[i-ACTMIN].script, sizeof(Aword), 1, savfil);
     tmp = fread((void *)&acts[i-ACTMIN].step, sizeof(Aword), 1, savfil);
@@ -1693,7 +1693,7 @@ glk_fileref_destroy(fref);
   }
 
   /* Restore locations */
-  for (i = LOCMIN; i <= LOCMAX; i++) {
+  for (unsigned int i = LOCMIN; i <= LOCMAX; i++) {
     tmp = fread((void *)&locs[i-LOCMIN].describe, sizeof(Aword), 1, savfil);
     if (locs[i-LOCMIN].atrs)
       for (atr = (AtrElem *) addrTo(locs[i-LOCMIN].atrs); !endOfTable(atr); atr++)
@@ -1701,7 +1701,7 @@ glk_fileref_destroy(fref);
   }
 
   /* Restore objects */
-  for (i = OBJMIN; i <= OBJMAX; i++) {
+  for (unsigned int i = OBJMIN; i <= OBJMAX; i++) {
     tmp = fread((void *)&objs[i-OBJMIN].loc, sizeof(Aword), 1, savfil);
     if (objs[i-OBJMIN].atrs)
       for (atr = (AtrElem *) addrTo(objs[i-OBJMIN].atrs); !endOfTable(atr); atr++)
@@ -1717,7 +1717,7 @@ glk_fileref_destroy(fref);
   etop--;
 
   /* Restore scores */
-  for (i = 0; scores[i] != EOF; i++)
+  for (i = 0; (int)scores[i] != EOF; i++)
     tmp = fread((void *)&scores[i], sizeof(Aword), 1, savfil);
 
   fclose(savfil);

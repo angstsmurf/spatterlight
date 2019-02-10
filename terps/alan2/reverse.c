@@ -29,7 +29,7 @@ Aword reversed(w)
 {
   Aword s;                      /* The swapped ACODE word */
   char *wp, *sp;
-  int i;
+  unsigned int i;
   
   wp = (char *) &w;
   sp = (char *) &s;
@@ -61,7 +61,7 @@ static void reverseTable(adr, len)
 #endif
 {
   Aword *e = &memory[adr];
-  int i;
+  unsigned int i;
 
   if (adr != 0)
     while (!endOfTable(e)) {
@@ -368,7 +368,7 @@ static void reverseElms(adr)
   if (adr != 0 && !endOfTable(e)) {
     reverseTable(adr, sizeof(ElmElem));
     while (!endOfTable(e)) {
-      if (e->code == EOS) reverseClas(e->next);
+      if ((int)e->code == EOS) reverseClas(e->next);
       else reverseElms(e->next);
       e++;
     }
@@ -490,7 +490,7 @@ void reverseHdr(hdr)
      AcdHdr *hdr;
 #endif
 {
-  int i;
+  unsigned int i;
 
   /* Reverse all words in the header except the first (version marking) */
   for (i = 1; i < sizeof(AcdHdr)/sizeof(Aword); i++)

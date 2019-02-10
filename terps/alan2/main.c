@@ -267,7 +267,7 @@ void statusline(void)
   glui32 glkWidth;
   char line[100];
   int pcol = col;
-  int i;
+  unsigned int i;
 
   if (NULL == glkStatusWin)
     return;
@@ -528,19 +528,19 @@ static void space()
 
 */
 #ifdef _PROTOTYPES_
-static void sayparam(int p)
+static void sayparam(unsigned int p)
 #else
 static void sayparam(p)
-     int p;
+     unsigned int p;
 #endif
 {
-  int i;
+  unsigned int i;
 
   for (i = 0; i <= p; i++)
-    if (params[i].code == EOF)
+    if ((int)params[i].code == EOF)
       syserr("Nonexistent parameter referenced.");
 
-  if (params[p].firstWord == EOF) /* Any words he used? */
+  if ((int)params[p].firstWord == EOF) /* Any words he used? */
     say(params[p].code);
   else				/* Yes, so use them... */
     for (i = params[p].firstWord; i <= params[p].lastWord; i++) {
@@ -722,7 +722,7 @@ Boolean eot(adr)
      Aword *adr;
 #endif
 {
-  return *adr == EOF;
+  return (int)*adr == EOF;
 }
 
 
@@ -808,10 +808,10 @@ Boolean isLit(x)
 
   */
 #ifdef _PROTOTYPES_
-Boolean exitto(int to, int from)
+Boolean exitto(unsigned int to, unsigned int from)
 #else
 Boolean exitto(to, from)
-     int to, from;
+     unsigned int to, from;
 #endif
 {
   ExtElem *ext;
@@ -881,7 +881,7 @@ static int count(cnt)
      int cnt;			/* IN - the container to count */
 #endif
 {
-  int i, j = 0;
+  unsigned int i, j = 0;
   
   for (i = OBJMIN; i <= OBJMAX; i++)
     if (in(i, cnt))
@@ -909,7 +909,7 @@ static int sumatr(atr, cnt)
      Aword cnt;			/* IN - the container to sum */
 #endif
 {
-  int i;
+  unsigned int i;
   int sum = 0;
 
   for (i = OBJMIN; i <= OBJMAX; i++)
@@ -959,7 +959,7 @@ Boolean checklim(cnt, obj)
   if (cnts[props-CNTMIN].lims != 0) { /* Any limits at all? */
     for (lim = (LimElem *) addrTo(cnts[props-CNTMIN].lims); !endOfTable(lim); lim++)
       if (lim->atr == 0) {
-	if (count(cnt) >= lim->val) {
+	if (count(cnt) >= (int)lim->val) {
 	  interpret(lim->stms);
 	  return(TRUE);		/* Limit check failed */
 	}
@@ -1031,10 +1031,10 @@ static Boolean trycheck(adr, act)
 
   */
 #ifdef _PROTOTYPES_
-void go(int dir)
+void go(unsigned int dir)
 #else
 void go(dir)
-     int dir;
+     unsigned int dir;
 #endif
 {
   ExtElem *ext;
@@ -1112,7 +1112,7 @@ static AltElem *findalt(vrbsadr, param)
     return(NULL);
 
   for (vrb = (VrbElem *) addrTo(vrbsadr); !endOfTable(vrb); vrb++)
-    if (vrb->code == cur.vrb) {
+    if ((int)vrb->code == cur.vrb) {
       for (alt = (AltElem *) addrTo(vrb->alts); !endOfTable(alt); alt++)
 	if (alt->param == param || alt->param == 0)
 	  return alt;
@@ -1154,7 +1154,7 @@ Boolean possible()
     if (!trycheck(alt[1]->checks, FALSE))
       return FALSE;
   
-  for (i = 0; params[i].code != EOF; i++) {
+  for (i = 0; (int)params[i].code != EOF; i++) {
     alt[i+2] = findalt(objs[params[i].code-OBJMIN].vrbs, i+1);
     /* CHECKs in a possible parameter */
     if (alt[i+2] != 0 && alt[i+2]->checks != 0)
@@ -1162,10 +1162,10 @@ Boolean possible()
 	return FALSE;
   }
 
-  for (i = 0; i < 2 || params[i-2].code != EOF; i++)
+  for (i = 0; i < 2 || (int)params[i-2].code != EOF; i++)
     if (alt[i] != 0 && alt[i]->action != 0)
       break;
-  if (i >= 2 && params[i-2].code == EOF)
+  if (i >= 2 && (int)params[i-2].code == EOF)
     /* Didn't find any code for this verb/object combination */
     return FALSE;
   else
@@ -1211,7 +1211,7 @@ static void do_it()
     if (fail) return;
   }
   
-  for (i = 0; params[i].code != EOF; i++) {
+  for (i = 0; (int)params[i].code != EOF; i++) {
     if (isLit(params[i].code))
       alt[i+2] = 0;
     else {
@@ -1232,10 +1232,10 @@ static void do_it()
   }
 
   /* Check for anything to execute... */
-  for (i = 0; i < 2 || params[i-2].code != EOF; i++)
+  for (i = 0; i < 2 || (int)params[i-2].code != EOF; i++)
     if (alt[i] != 0 && alt[i]->action != 0)
       break;
-  if (i >= 2 && params[i-2].code == EOF)
+  if (i >= 2 && (int)params[i-2].code == EOF)
     /* Didn't find any code for this verb/object combination */
     error(M_CANT0);
   
@@ -1244,7 +1244,7 @@ static void do_it()
   /* First try any BEFORE or ONLY from outside in */
   done[0] = FALSE;
   done[1] = FALSE;
-  for (i = 2; params[i-2].code != EOF; i++)
+  for (i = 2; (int)params[i-2].code != EOF; i++)
     done[i] = FALSE;
   i--;
   while (i >= 0) {
@@ -1273,7 +1273,7 @@ static void do_it()
   }
   
   /* Then execute any not declared as AFTER, i.e. the default */
-  for (i = 0; i < 2 || params[i-2].code != EOF; i++) {
+  for (i = 0; i < 2 || (int)params[i-2].code != EOF; i++) {
     if (alt[i] != 0)
       if (alt[i]->qual != (Aword)Q_AFTER) {
 	if (!done[i] && alt[i]->action != 0) {
@@ -1343,11 +1343,11 @@ void action(plst)
      */
     for (mpos = 0; params[mpos].code != 0; mpos++); /* Find multiple position */
     sprintf(marker, "($%d)", mpos+1); /* Prepare a printout with $1/2/3 */
-    for (i = 0; plst[i].code != EOF; i++) {
+    for (i = 0; (int)plst[i].code != EOF; i++) {
       params[mpos] = plst[i];
       output(marker);
       do_it();
-      if (plst[i+1].code != EOF)
+      if ((int)plst[i+1].code != EOF)
         para();
     }
     params[mpos].code = 0;
@@ -1519,7 +1519,7 @@ static void load()
   header = (AcdHdr *) addrTo(0);
 
   memTop = fread(addrTo(0), sizeof(Aword), tmphdr.size, codfil);
-  if (memTop != tmphdr.size)
+  if (memTop != (int)tmphdr.size)
     syserr("Could not read all ACD code.");
 
   /* Calculate checksum */
@@ -1732,7 +1732,7 @@ static void movactor()
   ActElem *act = (ActElem *) &acts[cur.act-ACTMIN];
 
   cur.loc = where(cur.act);
-  if (cur.act == HERO) {
+  if (cur.act == (int)HERO) {
     parse();
     fail = FALSE;			/* fail only aborts one actor */
     rules();
@@ -1899,7 +1899,7 @@ void run(void)
     (void) setjmp(jmpbuf);
 
     /* Move all characters */
-    for (cur.act = ACTMIN; cur.act <= ACTMAX; cur.act++)
+    for (cur.act = ACTMIN; (unsigned int)cur.act <= ACTMAX; cur.act++)
       movactor();
   }
 }

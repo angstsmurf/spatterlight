@@ -221,7 +221,7 @@
 {
 }
 
-- (void) setHyperlink: (NSInteger)linkid;
+- (void) setHyperlink: (NSUInteger)linkid;
 {
     NSLog(@"hyperlink input in %@ not implemented", [self class]);
 }

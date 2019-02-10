@@ -9,10 +9,10 @@
 
 @interface GlkHyperlink : NSObject
 
-@property NSInteger index;
-@property NSInteger startpos;
+@property NSUInteger index;
+@property NSUInteger startpos;
 @property NSRange range;
 @property NSRect bounds;
 
-- (instancetype) initWithIndex: (NSInteger)index andPos: (NSInteger)pos;
+- (instancetype) initWithIndex: (NSUInteger)index andPos: (NSUInteger)pos;
 @end

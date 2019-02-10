@@ -174,7 +174,7 @@ unsigned chartokeycode(unsigned ch)
     if (ln)
     {
         reply.len = (int)(ln.length * 2);
-        if (reply.len > sizeof buf)
+        if (reply.len > (int)sizeof buf)
             reply.len = sizeof buf;
         [ln getCharacters: (unsigned short*)buf range: NSMakeRange(0, reply.len/2)];
     }

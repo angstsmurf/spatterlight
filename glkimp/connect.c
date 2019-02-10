@@ -155,7 +155,7 @@ void win_print(int name, int ch, int at)
         win_flush();
     if (buffering == BUFPRINT && bufferatt != at)
         win_flush();
-    if (buffering == BUFPRINT && bufferlen >= PBUFSIZE)
+    if (buffering == BUFPRINT && (unsigned long)bufferlen >= PBUFSIZE)
         win_flush();
 
     if (buffering == BUFNONE)
@@ -200,7 +200,7 @@ void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
 
     if (buffering == BUFRECT && bufferwin != name)
         win_flush();
-    if (buffering == BUFRECT && bufferlen >= RBUFSIZE)
+    if (buffering == BUFRECT && (unsigned long)bufferlen >= RBUFSIZE)
         win_flush();
 
     if (buffering == BUFNONE)
@@ -568,7 +568,7 @@ again:
                 event->val1 = MIN(wmsg.a2, event->win->line.cap); /* / sizeof(glui32));*/
                 glui32 *obuf = event->win->line.buf;
                 unsigned short *ibuf = (unsigned short*)wbuf;
-                for (i = 0; i < event->val1; i++)
+                for (i = 0; i < (int)event->val1; i++)
                     obuf[i] = ibuf[i];
                 if (event->win->echostr)
                     gli_stream_echo_line_uni(event->win->echostr, event->win->line.buf, event->val1);
@@ -578,7 +578,7 @@ again:
                 event->val1 = MIN(wmsg.a2, event->win->line.cap);
                 unsigned char *obuf = event->win->line.buf;
                 unsigned short *ibuf = (unsigned short*)wbuf;
-                for (i = 0; i < event->val1; i++)
+                for (i = 0; i < (int)event->val1; i++)
                     obuf[i] = ibuf[i] < 0x100 ? ibuf[i] : '?';
                 if (event->win->echostr)
                     gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);

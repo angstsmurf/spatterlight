@@ -1551,7 +1551,7 @@ again:
     maxibuf = NULL;
 
     n = read((int)readfd, &request, sizeof(struct message));
-    if (n < sizeof(struct message))
+    if (n < (NSInteger)sizeof(struct message))
     {
         if (n < 0)
             NSLog(@"glkctl: could not read message header");

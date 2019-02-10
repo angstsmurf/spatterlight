@@ -27,9 +27,9 @@ void compact(a)
      ParamElem a[];
 #endif
 {
-  int i, j;
+  unsigned int i, j;
   
-  for (i = 0, j = 0; a[j].code != EOF; j++)
+  for (i = 0, j = 0; (int)a[j].code != EOF; j++)
     if (a[j].code != 0)
       a[i++] = a[j];
   a[i].code = EOF;
@@ -43,9 +43,9 @@ int lstlen(a)
      ParamElem a[];
 #endif
 {
-  int i = 0;
+  unsigned int i = 0;
 
-  while (a[i].code != EOF)
+  while ((int)a[i].code != EOF)
     i++;
   return (i);
 }
@@ -59,9 +59,9 @@ Boolean inlst(l, e)
      Aword e;
 #endif
 {
-  int i;
+  unsigned int i;
 
-  for (i = 0; l[i].code != EOF && l[i].code != e; i++);
+  for (i = 0; (int)l[i].code != EOF && l[i].code != e; i++);
   return (l[i].code == e);
 }
 
@@ -75,7 +75,7 @@ void lstcpy(a, b)
 {
   int i;
 
-  for (i = 0; b[i].code != EOF; i++)
+  for (i = 0; (int)b[i].code != EOF; i++)
     a[i] = b[i];
   a[i].code = EOF;
 }
@@ -90,7 +90,7 @@ void sublst(a, b)
 {
   int i;
 
-  for (i = 0; a[i].code != EOF; i++)
+  for (i = 0; (int)a[i].code != EOF; i++)
     if (inlst(b, a[i].code))
       a[i].code = 0;		/* Mark empty */
   compact(a);
@@ -106,8 +106,8 @@ void mrglst(a, b)
 {
   int i,last;
 
-  for (last = 0; a[last].code != EOF; last++); /* Find end of list */
-  for (i = 0; b[i].code != EOF; i++)
+  for (last = 0; (int)a[last].code != EOF; last++); /* Find end of list */
+  for (i = 0; (int)b[i].code != EOF; i++)
     if (!inlst(a, b[i].code)) {
       a[last++] = b[i];
       a[last].code = EOF;
@@ -124,7 +124,7 @@ void isect(a, b)
 {
   int i, last = 0;
 
-  for (i = 0; a[i].code != EOF; i++)
+  for (i = 0; (int)a[i].code != EOF; i++)
     if (inlst(b, a[i].code))
       a[last++] = a[i];
   a[last].code = EOF;
@@ -141,7 +141,7 @@ void cpyrefs(p, r)
 {
   int i;
 
-  for (i = 0; r[i] != EOF; i++) {
+  for (i = 0; (int)r[i] != EOF; i++) {
     p[i].code = r[i];
     p[i].firstWord = EOF;
   }

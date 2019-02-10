@@ -79,9 +79,9 @@ extern void newline(void);
 
 extern Boolean checklim(Aword cnt, Aword obj);
 extern Boolean possible(void);
-extern Boolean exitto(int to, int from);
+extern Boolean exitto(unsigned int to, unsigned int from);
 extern void action(ParamElem *plst);
-extern void go(int dir);
+extern void go(unsigned int dir);
 
 extern Boolean eot(Aword *adr);
 extern Boolean isObj(Aword x);

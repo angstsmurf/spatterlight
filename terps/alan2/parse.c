@@ -328,7 +328,7 @@ static void buildall(list)
      ParamElem list[];
 #endif
 {
-  int o, i = 0;
+  unsigned int o, i = 0;
   Boolean found = FALSE;
   
   for (o = OBJMIN; o <= OBJMAX; o++)
@@ -424,7 +424,7 @@ static void unambig(plst)
       /* Perhaps the last word was also a noun? */
       lstcpy(plst, savlst);	/* Restore to before last adjective */
       cpyrefs(refs, (Aword *)addrTo(dict[wrds[wrdidx-1]].nounrefs));
-      if (plst[0].code == EOF)
+      if ((int)plst[0].code == EOF)
 	lstcpy(plst, refs);
       else
 	isect(plst, refs);
@@ -435,7 +435,7 @@ static void unambig(plst)
 
   /* Allow remote objects, but resolve ambiguities by presence */
   if (lstlen(plst) > 1) {
-    for (i=0; plst[i].code != EOF; i++)
+    for (i=0; (int)plst[i].code != EOF; i++)
       if (!isHere(plst[i].code))
 	plst[i].code = 0;
     compact(plst);
@@ -478,7 +478,7 @@ static void simple(olst)
   for (;;) {
     if (isThem(wrds[wrdidx])) {
       plural = TRUE;
-      for (i = 0; pmlst[i].code != EOF; i++)
+      for (i = 0; (int)pmlst[i].code != EOF; i++)
 	if (!isHere(pmlst[i].code))
 	  pmlst[i].code = 0;
       compact(pmlst);
@@ -595,12 +595,12 @@ static Boolean claCheck(cla)
 */
 static void resolve(ParamElem plst[])
 {
-  int i;
+  unsigned int i;
 
   if (allLength > 0) return;	/* ALL has already done this */
 
   /* Resolve ambiguities by presence */
-  for (i=0; plst[i].code != EOF; i++)
+  for (i=0; (int)plst[i].code != EOF; i++)
     if (plst[i].code < LITMIN)	/* Literals are always 'here' */
       if (!isHere(plst[i].code)) {
 	params[0] = plst[i];	/* Copy error param as first one for message */
@@ -633,7 +633,7 @@ static void try(mlst)
   }
 
   for (stx = stxs; !endOfTable(stx); stx++)
-    if (stx->code == vrbcode)
+    if ((int)stx->code == vrbcode)
       break;
   if (endOfTable(stx))
     error(M_WHAT);
@@ -643,7 +643,7 @@ static void try(mlst)
   while (TRUE) {
     /* End of input? */
     if (wrds[wrdidx] == EOF || isConj(wrds[wrdidx])) {
-	while (!endOfTable(elms) && elms->code != EOS)
+	while (!endOfTable(elms) && (int)elms->code != EOS)
 	  elms++;
 	if (endOfTable(elms))
 	  error(M_WHAT);
@@ -696,12 +696,12 @@ static void try(mlst)
   if (elms->next == 0)	/* No verb code, verb not declared! */
     error(M_CANT0);
 
-  for (p = 0; params[p].code != EOF; p++) /* Mark all parameters unchecked */
+  for (p = 0; (int)params[p].code != EOF; p++) /* Mark all parameters unchecked */
     checked[p] = FALSE;
   for (cla = (ClaElem *) addrTo(elms->next); !endOfTable(cla); cla++) {
     if (params[cla->code-1].code == 0) {
       /* This was a multiple parameter, so check all and remove failing */
-      for (i = 0; mlst[i].code != EOF; i++) {
+      for (i = 0; (int)mlst[i].code != EOF; i++) {
 	params[cla->code-1] = mlst[i];
 	if (!claCheck(cla)) {
 	  /* Multiple could be both an explicit list of params and an ALL */
@@ -729,11 +729,11 @@ static void try(mlst)
     checked[cla->code-1] = TRUE; /* Remember that it's already checked */
   }
   /* Now check the rest of the parameters, must be objects */
-  for (p = 0; params[p].code != EOF; p++)
+  for (p = 0; (int)params[p].code != EOF; p++)
     if (!checked[p]) {
       if (params[p].code == 0) {
 	/* This was a multiple parameter, check all and remove failing */
-	for (i = 0; mlst[i].code != EOF; i++)
+	for (i = 0; (int)mlst[i].code != EOF; i++)
 	  if (mlst[i].code != 0) /* Skip any empty slots */
 	    if (!isObj(mlst[i].code))
 	      mlst[i].code = 0;

@@ -50,7 +50,7 @@ static void switches(argc, argv)
      char *argv[];
 #endif
 {
-  int i;
+  unsigned int i;
   
   advnam = "";
   for (i = 1; i < argc; i++) {
