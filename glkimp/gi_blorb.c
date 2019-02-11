@@ -284,7 +284,7 @@ static giblorb_err_t giblorb_initialize_map(giblorb_map_t *map)
                     }
                     
                     ix2 = 0;
-                    for (jx=0; jx<numres; jx++) {
+                    for (jx=0; jx<(int)numres; jx++) {
                         giblorb_resdesc_t *res = &(resources[jx]);
                         glui32 respos;
                         
@@ -424,7 +424,7 @@ giblorb_err_t giblorb_load_chunk_by_number(giblorb_map_t *map,
 {
     giblorb_chunkdesc_t *chu;
     
-    if (chunknum >= map->numchunks)
+    if (chunknum >= (glui32)map->numchunks)
         return giblorb_err_NotFound;
     
     chu = &(map->chunks[chunknum]);
@@ -489,7 +489,7 @@ giblorb_err_t giblorb_unload_chunk(giblorb_map_t *map, glui32 chunknum)
 {
     giblorb_chunkdesc_t *chu;
     
-    if (chunknum >= map->numchunks)
+    if (chunknum >= (glui32)map->numchunks)
         return giblorb_err_NotFound;
     
     chu = &(map->chunks[chunknum]);
@@ -560,7 +560,7 @@ giblorb_err_t giblorb_load_image_info(giblorb_map_t *map,
         return giblorb_err_NotFound;
     
     chunknum = found->chunknum;
-    if (chunknum >= map->numchunks)
+    if (chunknum >= (glui32)map->numchunks)
         return giblorb_err_NotFound;
     
     chu = &(map->chunks[chunknum]);
@@ -598,7 +598,7 @@ giblorb_err_t giblorb_load_image_info(giblorb_map_t *map,
 
 static giblorb_err_t giblorb_image_get_size_jpeg(unsigned char *arr, glui32 length, giblorb_auxpict_t *auxpict)
 {
-    int pos = 0;
+    glui32 pos = 0;
     while (pos < length) {
         unsigned char marker;
         int chunklen;
@@ -633,7 +633,7 @@ static giblorb_err_t giblorb_image_get_size_jpeg(unsigned char *arr, glui32 leng
 
 static giblorb_err_t giblorb_image_get_size_png(unsigned char *arr, glui32 length, giblorb_auxpict_t *auxpict)
 {
-    int pos = 0;
+    glui32 pos = 0;
     if (length < 8)
         return giblorb_err_Format;
     if (arr[0] != 0x89 || arr[1] != 'P' || arr[2] != 'N' || arr[3] != 'G') {

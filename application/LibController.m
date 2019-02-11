@@ -654,7 +654,7 @@ static void read_xml_text(const char *rp, char *wp)
     /* only extract text from within the indentification and bibliographic tags */
     else if (metabuf)
     {
-        if (tag->end - tag->begin >= sizeof(bigbuf) - 1)
+        if (tag->end - tag->begin >= (long)sizeof(bigbuf) - 1)
             return;
 
         char save = *tag->end;

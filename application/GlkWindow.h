@@ -39,7 +39,7 @@
 - (void) cancelChar;
 - (void) initMouse;
 - (void) cancelMouse;
-- (void) setHyperlink: (NSInteger)linkid;
+- (void) setHyperlink: (NSUInteger)linkid;
 - (void) initHyperlink;
 - (void) cancelHyperlink;
 

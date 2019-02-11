@@ -9,7 +9,7 @@
 
 @implementation GlkHyperlink
 
-- (instancetype) initWithIndex: (NSInteger)index andPos: (NSInteger)pos
+- (instancetype) initWithIndex: (NSUInteger)index andPos: (NSUInteger)pos
 {
 	self = [super init];
 	if (self)

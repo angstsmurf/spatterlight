@@ -124,7 +124,7 @@
     BOOL valid = YES;
 
     NSString *proposedString = *partialStringPtr;
-    if (proposedString.length > self.maxLength) {
+    if ((NSInteger)proposedString.length > self.maxLength) {
 
         // The original string has been modified by one or more characters (via pasting).
         // Either way compute how much of the proposed string can be accommodated.
@@ -256,10 +256,10 @@
     for (i = 0; i < rows; i++)
     {
         NSRange lineRange = NSMakeRange(i * cols, cols);
-        if (i * cols + cols > textstorage.length)
+        if (i * cols + cols > (long)textstorage.length)
             lineRange = NSMakeRange(i * cols, textstorage.length - i * cols);
         NSMutableAttributedString *line = [[textstorage attributedSubstringFromRange:lineRange] mutableCopy];
-        int x = 0;
+        NSUInteger x = 0;
         while (x < line.length)
         {
             id styleobject = [line attribute:@"GlkStyle" atIndex:x effectiveRange:&range];
@@ -368,7 +368,7 @@
 
 - (void) setFrame: (NSRect)frame
 {
-    NSInteger r;
+    NSUInteger r;
 
     super.frame = frame;
 
@@ -399,7 +399,7 @@
             r -= (cols - newcols);
         }
         // For some reason we must remove a couple of extra characters at the end to avoid strays
-        if (rows == 1 && backingStorage.length >= (cols - 2))
+        if (rows == 1 && (NSInteger)backingStorage.length >= (cols - 2))
             [backingStorage deleteCharactersInRange:NSMakeRange(cols - 2, backingStorage.length - (cols - 2))];
     }
     else if (newcols > cols)
@@ -422,7 +422,7 @@
     NSInteger desiredLength = rows * (cols + 1) - 1; // -1 because we don't want a newline at the end
     if (desiredLength < 1 || rows == 1)
         desiredLength = cols;
-    if (backingStorage.length < desiredLength)
+    if ((NSInteger)backingStorage.length < desiredLength)
     {
         NSString *spaces = [[[NSString alloc] init] stringByPaddingToLength: desiredLength - backingStorage.length withString:@" " startingAtIndex:0];
         NSAttributedString* string = [[NSAttributedString alloc]
@@ -430,7 +430,7 @@
                                   attributes: styles[style_Normal].attributes];
         [backingStorage appendAttributedString:string];
     }
-    else if (backingStorage.length > desiredLength)
+    else if ((NSInteger)backingStorage.length > desiredLength)
         [backingStorage deleteCharactersInRange: NSMakeRange(desiredLength, backingStorage.length - desiredLength)];
 
     NSAttributedString* newlinestring = [[NSAttributedString alloc]
@@ -501,7 +501,7 @@
     }
 
     // Check for newlines
-    int x;
+    NSUInteger x;
     for (x = 0; x < length; x++)
     {
         if ([string characterAtIndex: x] == '\n' || [string characterAtIndex: x] == '\r')
@@ -518,7 +518,7 @@
     while (pos < length)
     {
         // Can't write if we've fallen off the end of the window
-        if (ypos > textstorage.length / (cols + 1) || ypos > rows)
+        if (ypos > (NSInteger)textstorage.length / (cols + 1) || ypos > rows)
             break;
 
         // Can only write a certain number of characters
@@ -531,12 +531,12 @@
 
         // Get the number of characters to write
         NSInteger amountToDraw = cols - xpos;
-        if (amountToDraw > string.length - pos)
+        if (amountToDraw > (NSInteger)(string.length - pos))
         {
             amountToDraw = string.length - pos;
         }
 
-        if (cols * ypos + xpos + amountToDraw > textstorage.length)
+        if (cols * ypos + xpos + amountToDraw > (NSInteger)textstorage.length)
             amountToDraw = textstorage.length - (cols * ypos + xpos) + 1;
 
         if (amountToDraw < 1)
@@ -573,16 +573,16 @@
     mouse_request = NO;
 }
 
-- (void) setHyperlink:(NSInteger)linkid
+- (void) setHyperlink:(NSUInteger)linkid
 {
     //NSLog(@"txtgrid: hyperlink %ld set", (long)linkid);
 
-    NSUInteger length = ypos * (cols + 1) + xpos;
+    NSInteger length = ypos * (cols + 1) + xpos;
 
     if (currentHyperlink && currentHyperlink.index != linkid)
     {
 //        NSLog(@"There is a preliminary hyperlink, with index %ld", currentHyperlink.index);
-        if (currentHyperlink.startpos >= length)
+        if ((NSInteger)currentHyperlink.startpos >= length)
         {
 //            NSLog(@"The preliminary hyperlink started at the very end of grid window text, so it was deleted to avoid a zero-length link. currentHyperlink.startpos == %ld, length == %ld", currentHyperlink.startpos, length);
             currentHyperlink = nil;
@@ -761,7 +761,7 @@
     NSInteger lineHeight = [Preferences lineHeight];
     float charWidth = [Preferences charWidth];
 
-    if (ypos >= textstorage.length / cols)
+    if (ypos >= (NSInteger)textstorage.length / cols)
         ypos = textstorage.length / cols - 1;
 
     NSRect caret;

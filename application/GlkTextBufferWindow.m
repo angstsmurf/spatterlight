@@ -885,7 +885,7 @@
         {
             (void) [layoutManager lineFragmentRectForGlyphAtIndex:index effectiveRange:&lineRange];
 
-            if (((NSNumber *)(parameter)).intValue == numberOfLines)
+            if (((NSNumber *)(parameter)).intValue == (NSInteger)numberOfLines)
             {
                 //NSLog(@"Result: %@ (%@)",NSStringFromRange(lineRange), [self.textStorage.string substringWithRange:lineRange]);
                 return [NSValue valueWithRange:lineRange];
@@ -1087,7 +1087,7 @@
 {
     NSRange range = NSMakeRange(0, 0);
     NSRange linkrange = NSMakeRange(0, 0);
-    NSInteger x;
+    NSUInteger x;
 
     [super prefsDidChange];
 
@@ -1538,7 +1538,7 @@
         [self travelForwardInHistory];
     }
 
-    else if (line_request && ch == keycode_PageUp && fence == textstorage.length)
+    else if (line_request && ch == keycode_PageUp && fence == (NSInteger)textstorage.length)
     {
         [textview scrollPageUp: nil];
         return;
@@ -1904,7 +1904,7 @@
     //NSLog(@"speakNext: moveRangeIndex; %ld", moveRangeIndex);
     if (!moveRanges.count)
         return;
-    if (moveRangeIndex < moveRanges.count - 1)
+    if (moveRangeIndex < (NSInteger)moveRanges.count - 1)
         moveRangeIndex++;
     else
         moveRangeIndex = moveRanges.count - 1;
@@ -1962,7 +1962,7 @@
     }
 }
 
-- (void) setHyperlink:(NSInteger)linkid
+- (void) setHyperlink:(NSUInteger)linkid
 {
     NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
 
@@ -2021,7 +2021,7 @@
 shouldChangeTextInRange: (NSRange)range
 replacementString: (id)repl
 {
-    if (line_request && range.location >= fence)
+    if (line_request && (NSInteger)range.location >= fence)
     {   textview.shouldDrawCaret = YES;
         return YES;
     }
@@ -2035,7 +2035,7 @@ replacementString: (id)repl
     if (!line_request)
         return;
 
-    if (textstorage.editedRange.location < fence)
+    if ((NSInteger)textstorage.editedRange.location < fence)
         return;
 
     [textstorage setAttributes: styles[style_Input].attributes
@@ -2049,7 +2049,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
     if (line_request)
     {
         if (newrange.length == 0)
-            if (newrange.location < fence)
+            if ((NSInteger)newrange.location < fence)
                 newrange.location = fence;
     }
     else

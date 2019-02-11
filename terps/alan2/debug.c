@@ -67,7 +67,7 @@ static void showobjs()
 #endif
 {
   char str[80];
-  int obj;
+  unsigned int obj;
 
   output("OBJECTS:");
   for (obj = OBJMIN; obj <= OBJMAX; obj++) {
@@ -134,7 +134,7 @@ static void showcnts()
 #endif
 {
   char str[80];
-  int cnt;
+  unsigned int cnt;
 #define  CNT (cnt-CNTMIN)
 
   output("CONTAINERS:");
@@ -153,15 +153,15 @@ static void showcnts()
 
 #ifdef _PROTOTYPES_
 static void showcnt(
-  int cnt
+  unsigned int cnt
 )
 #else
 static void showcnt(cnt)
-  int cnt;
+  unsigned int cnt;
 #endif
 {
   char str[80];
-  int i;
+  unsigned int i;
   Abool found = FALSE;
 #define  CNT (cnt-CNTMIN)
 
@@ -207,7 +207,7 @@ static void showlocs()
 #endif
 {
   char str[80];
-  int loc;
+  unsigned int loc;
 
   output("LOCATIONS:");
   for (loc = LOCMIN; loc <= LOCMAX; loc++) {
@@ -252,7 +252,7 @@ static void showacts()
 #endif
 {
   char str[80];
-  int act;
+  unsigned int act;
 
   output("ACTORS:");
   for (act = ACTMIN; act <= ACTMAX; act++) {
@@ -313,7 +313,7 @@ static void showevts(void)
 static void showevts()
 #endif
 {
-  int evt, i;
+  unsigned int evt, i;
   char str[80];
   Boolean scheduled;
 
@@ -325,8 +325,8 @@ static void showevts()
 #endif
     output(str);
     scheduled = FALSE;
-    for (i = 0; i < etop; i++)
-      if ((scheduled = (eventq[i].event == evt)))
+    for (i = 0; (int)i < etop; i++)
+      if ((scheduled = ((unsigned int)eventq[i].event == evt)))
 	break;
     if (scheduled) {
       sprintf(str, "Scheduled for +%d, at ", eventq[i].time-cur.tick);

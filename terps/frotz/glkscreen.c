@@ -137,7 +137,7 @@ void gos_update_width(void)
 		glk_window_get_size(gos_upper, &width, NULL);
 		h_screen_cols = width;
 		SET_BYTE(H_SCREEN_COLS, width);
-		if (curx > width)
+		if (curx > (int)width)
 		{
 			glk_window_move_cursor(gos_upper, 0, cury-1);
 			curx = 1;
@@ -164,7 +164,7 @@ void reset_status_ht(void)
 	if (gos_upper)
 	{
 		glk_window_get_size(gos_upper, NULL, &height);
-		if (mach_status_ht != height)
+		if ((unsigned int)mach_status_ht != height)
 		{
 			glk_window_set_arrangement(
 				glk_window_get_parent(gos_upper),
@@ -349,7 +349,7 @@ void screen_char (zchar c)
 		else {
 			if (cury == 1)
 			{
-				if (curx <= ((sizeof statusline / sizeof(zchar)) - 1))
+				if (curx <= (int)((sizeof statusline / sizeof(zchar)) - 1))
 				{
 					statusline[curx - 1] = c;
 					statusline[curx] = 0;
