@@ -365,7 +365,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 
     /* make italic, bold, bolditalic font variants */
 
-    NSFont *bufbold, *bufitalic, *bufbolditalic;
+    NSFont *bufbold, *bufitalic, *bufbolditalic, *bufheader;
     NSFont *gridbold, *griditalic, *gridbolditalic;
 
     gridbold = [mgr convertWeight: YES ofFont: gridroman];
@@ -375,6 +375,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     bufbold = [mgr convertWeight: YES ofFont: bufroman];
     bufitalic = [mgr convertFont: bufroman toHaveTrait: NSItalicFontMask];
     bufbolditalic = [mgr convertFont: bufbold toHaveTrait: NSItalicFontMask];
+    bufheader = [mgr convertFont: bufbold toSize: bufbold.pointSize + 2];
 
     /* update style attribute dictionaries */
 
@@ -418,7 +419,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
         {
             case style_Emphasized: font = bufitalic; break;
             case style_Preformatted: font = gridroman; break;
-            case style_Header: font = bufbold; break;
+            case style_Header: font = bufheader; break;
             case style_Subheader: font = bufbold; break;
             case style_Alert: font = bufbolditalic; break;
             case style_Input: font = inputfont; break;
