@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'IosFizmo' target in the 'IosFizmo' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+#else
+	#include "fizmo-config.h"
+#endif

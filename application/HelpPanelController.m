@@ -8,8 +8,6 @@
 
 #import "HelpPanelController.h"
 
-
-
 @implementation HelpTextView
 
 // Text finder command validation (could also be done in method validateUserInterfaceItem: if you prefer)
@@ -68,22 +66,21 @@
 - (IBAction)copyButton:(id)sender {
     NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
     [pasteBoard clearContents];
-    [pasteBoard writeObjects:@[textView.string]];
+    [pasteBoard writeObjects:@[_textView.string]];
 
     // Selecting all the text is pretty useless, but better than no feedback at all I guess
-    [textView setSelectedRange:NSMakeRange(0, textView.string.length)];
+    [_textView setSelectedRange:NSMakeRange(0, _textView.string.length)];
 }
 
 - (void) showHelpFile:(NSAttributedString *)text withTitle:(NSString *)title
 {
     NSWindow *helpWindow = self.window;
-
     helpWindow.title = title;
 
     // Do nothing if we are already showing the text
-    if ((![helpWindow isVisible]) || (![text.string isEqualToString:textView.string]))
+    if ((![helpWindow isVisible]) || (![text.string isEqualToString:_textView.string]))
     {
-        [textView resetTextFinder];
+        [_textView resetTextFinder];
 
         CGRect screenframe = [NSScreen mainScreen].visibleFrame;
 
@@ -91,7 +88,7 @@
 
         CGFloat oldheight = helpWindow.frame.size.height;
 
-        textView.string = string;
+        _textView.string = string;
 
         CGRect winrect = [self frameForString:string];
         winrect.origin = helpWindow.frame.origin;
@@ -104,10 +101,10 @@
         // so we reset it here
 
         // Scroll the vertical scroller to top
-        scrollView.verticalScroller.floatValue = 0;
+        _scrollView.verticalScroller.floatValue = 0;
 
         // Scroll the contentView to top
-        [scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
+        [_scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
 
         [self showWindow: helpWindow];
 
@@ -123,12 +120,11 @@
             winrect.origin.y = NSMinY(screenframe);
 
         [helpWindow setFrame:winrect display:YES animate:YES];
-        [textView scrollRectToVisible: NSMakeRect(0, 0, 0, 0)];
+        [_textView scrollRectToVisible: NSMakeRect(0, 0, 0, 0)];
     }
 
     [helpWindow makeKeyAndOrderFront:nil];
 }
-
 
 - (CGRect)frameForString:(NSString *)string
 {
@@ -143,7 +139,7 @@
         range = [string lineRangeForRange:NSMakeRange(index, 0)];
         index = NSMaxRange(range);
         proposedLine = [string substringWithRange:range];
-        CGSize stringSize = [proposedLine sizeWithAttributes:@{NSFontAttributeName: textView.font}];
+        CGSize stringSize = [proposedLine sizeWithAttributes:@{NSFontAttributeName: _textView.font}];
         CGFloat width = stringSize.width;
 
         if (width > textWidth)
@@ -159,7 +155,7 @@
 
     textWidth = ceil(textWidth);
 
-    CGFloat padding = textView.textContainer.lineFragmentPadding;
+    CGFloat padding = _textView.textContainer.lineFragmentPadding;
 
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:string];
     NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:NSMakeSize(textWidth + padding * 2, FLT_MAX)];
@@ -167,7 +163,7 @@
     [layoutManager addTextContainer:textContainer];
     [textStorage addLayoutManager:layoutManager];
 
-    [textStorage addAttribute:NSFontAttributeName value:textView.font
+    [textStorage addAttribute:NSFontAttributeName value:_textView.font
                         range:NSMakeRange(0, textStorage.length)];
     textContainer.lineFragmentPadding = padding;
 
@@ -193,7 +189,7 @@
 
     CGFloat oldheight = window.frame.size.height;
 
-    newFrame = [self frameForString:textView.string];
+    newFrame = [self frameForString:_textView.string];
 
     CGFloat offset = newFrame.size.height - oldheight;
 
@@ -205,7 +201,61 @@
 
 - (id)accessibilityFocusedUIElement
 {
-    return textView;
+    return _textView;
+}
+
+- (NSSearchField *) findSearchFieldIn: (NSView *)theView // search the subviews for a view of class NSSearchField
+{
+    __block __weak NSSearchField *(^weak_findSearchField)(NSView *);
+    NSSearchField *(^findSearchField)(NSView *);
+    weak_findSearchField = findSearchField = ^(NSView *view) {
+        if ([view isKindOfClass:[NSSearchField class]])
+            return (NSSearchField *)view;
+        __block NSSearchField *foundView = nil;
+        [view.subviews enumerateObjectsUsingBlock:^(NSView *subview, NSUInteger idx, BOOL *stop) {
+            foundView = weak_findSearchField(subview);
+            if (foundView)
+                *stop = YES;
+        }];
+        return foundView;
+    };
+
+    return findSearchField(theView);
+}
+
+#pragma mark -
+#pragma mark Windows restoration
+
++ (NSArray *)restorableStateKeyPaths
+{
+    return @[ @"textView.string"];
+}
+
+- (void)window:(NSWindow *)window
+willEncodeRestorableState:(NSCoder *)state {
+    NSSearchField *searchField = [self findSearchFieldIn:window.contentView];
+    if (searchField) {
+        [state encodeObject:searchField.stringValue forKey:@"searchString"];
+        NSLog(@"encoded search string %@",searchField.stringValue);
+    }
+    [state encodeObject:window.title forKey:@"title"];
+}
+
+- (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
+    [window setTitle:[state decodeObjectForKey:@"title"]];
+    NSString *searchString = [state decodeObjectForKey:@"searchString"];
+    NSLog(@"Decoded search string %@", searchString);
+    if (searchString) {
+        NSTextFinder *newFinder = _textView.textFinder;
+        [newFinder performAction:NSTextFinderActionShowFindInterface];
+        NSSearchField *searchField = [self findSearchFieldIn:window.contentView];
+        if (searchField) {
+            searchField.stringValue = searchString;
+            [newFinder cancelFindIndicator];
+            [window makeFirstResponder:_textView];
+            [searchField sendAction:searchField.action to:searchField.target];
+        }
+    }
 }
 
 @end

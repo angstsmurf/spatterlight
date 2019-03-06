@@ -28,26 +28,24 @@
 
 @interface GlkController : NSWindowController
 {
-    IBOutlet GlkHelperView *contentView;
-    IBOutlet NSView *borderView;
-
     /* for talking to the interpreter */
     NSTask *task;
     NSFileHandle *readfh;
     NSFileHandle *sendfh;
-    NSMutableArray *queue;
 
     /* current state of the protocol */
     NSTimer *timer;
     NSTimer *soundNotificationsTimer;
-    NSInteger waitforevent; /* terp wants an event */
-    NSInteger waitforfilename; /* terp wants a filename from a file dialog */
-    NSInteger dead; /* le roi est mort! vive le roi! */
+    BOOL waitforevent; /* terp wants an event */
+    BOOL waitforfilename; /* terp wants a filename from a file dialog */
+    BOOL dead; /* le roi est mort! vive le roi! */
+    BOOL autorestored;
+    BOOL crashed;
+    NSInteger turns;
 
     /* the glk objects */
-    GlkWindow *gwindows[MAXWIN];
     //GlkSoundChannel *gchannels[MAXSND];
-    int windowdirty; /* the contentView needs to repaint */
+    BOOL windowdirty; /* the contentView needs to repaint */
 
     /* image/sound resource uploading protocol */
     NSInteger lastimageresno;
@@ -62,23 +60,42 @@
     /* keep some info around for the about-box */
     NSString *gamefile;
     NSString *gameifid;
+
     NSDictionary *gameinfo;
 
     NSRect contentFullScreenFrame;
     NSRect windowPreFullscreenFrame;
+
     CGFloat fontSizePreFullscreen;
 }
+
+@property NSMutableDictionary *gwindows;
+@property IBOutlet NSView *borderView;
+@property IBOutlet GlkHelperView *contentView;
+
+@property (getter=isAlive, readonly) BOOL alive;
+@property NSTimeInterval timerLeft;
+@property NSTimeInterval timerInterval;
+@property NSRect storedWindowFrame;
+@property NSInteger firstResponderView;
+
+@property NSMutableArray *queue;
+
+@property (nonatomic) NSString *autosaveFile;
+@property (nonatomic) NSString *appSupportDir;
+@property BOOL autosaved;
 
 - (void) runTerp: (NSString*)terpname
     withGameFile: (NSString*)gamefilename
             IFID: (NSString*)gameifid
             info: (NSDictionary*)gameinfo;
+
 - (void) queueEvent: (GlkEvent*)gevent;
 - (void) contentDidResize: (NSRect)frame;
-@property (getter=isAlive, readonly) BOOL alive;
 - (void) markLastSeen;
 - (void) performScroll;
-- (id) windowWithNum: (int)index;
 - (void) setBorderColor: (NSColor *)color;
+- (void) restoreFocus: (id) sender;
+- (void) restoreUI: (GlkController *) controller;
 
 @end

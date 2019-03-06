@@ -65,13 +65,13 @@
 + (CGFloat) border;
 + (CGFloat) leading;
 
-+ (NSInteger) stylesEnabled;
-+ (NSInteger) smartQuotes;
++ (BOOL) stylesEnabled;
++ (BOOL) smartQuotes;
 + (NSInteger) spaceFormat;
 
-+ (NSInteger) graphicsEnabled;
-+ (NSInteger) soundEnabled;
-+ (NSInteger) useScreenFonts;
++ (BOOL) graphicsEnabled;
++ (BOOL) soundEnabled;
++ (BOOL) useScreenFonts;
 
 + (Preferences *) instance;
 + (NSDictionary*) attributesForGridStyle: (int)style;

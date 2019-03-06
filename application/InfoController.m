@@ -12,46 +12,22 @@
 
 @implementation InfoController
 
-void showInfoForFile(NSString *path, NSDictionary *info)
-{
-    NSArray *windows = [NSApp windows];
-    NSWindow *window;
-    NSWindowController *winctl;
-    InfoController *infoctl;
-    LibController *libctl;
-    NSInteger count;
-    NSInteger i;
-    
-    count = windows.count;
-    for (i = 0; i < count; i++)
-    {
-        window = (NSWindow*) windows[i];
-        winctl = (NSWindowController*) window.delegate;
-        if (winctl && [winctl isKindOfClass: [InfoController class]])
-        {
-            infoctl = (InfoController*) winctl;
-            if ([infoctl->path isEqualToString: path])
-            {
-                [infoctl showWindow: nil];
-                return;
-            }
-        }
-        else if (winctl && [winctl isKindOfClass: [LibController class]])
-        {
-            libctl = (LibController *) winctl;
-        }
+- (instancetype) initWithpath:(NSString*)path andInfo:(NSDictionary*)meta {
+    self = [super initWithWindowNibName:@"InfoPanel"];
+    if (self) {
+        _path = path;
+        _meta = meta;
     }
+    return self;
+}
 
-    if (libctl)
-    {
-        infoctl = [libctl createInfoController];
-        //infoctl = [[InfoController alloc] initWithWindowNibName: @"InfoPanel"];
-        if (infoctl)
-        {
-            [infoctl showForFile: path info: info];
-            [infoctl showWindow: nil];
-        }
+- (instancetype) initWithpath:(NSString*)path {
+    self = [super initWithWindowNibName:@"InfoPanel"];
+    if (self) {
+        _path = path;
+        _meta = nil;
     }
+    return self;
 }
 
 - (void) sizeToFitImageAnimate: (BOOL)animate
@@ -128,21 +104,23 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     
     NSLog(@"infoctl: windowDidLoad");
     
-    self.window.representedFilename = path;
-    self.window.title = [NSString stringWithFormat: @"%@ Info", path.lastPathComponent];
+    self.window.representedFilename = _path;
+    self.window.title = [NSString stringWithFormat: @"%@ Info", _path.lastPathComponent];
 
     [descriptionText setDrawsBackground: NO];
     [(NSScrollView *)descriptionText.superview setDrawsBackground:NO];
+
+    if (_meta) {
+        titleField.stringValue = [_meta objectForKey:@"title"];
+        if ([_meta valueForKey:@"author"])
+            authorField.stringValue = [_meta objectForKey:@"author"];
+        if ([_meta valueForKey:@"headline"])
+            headlineField.stringValue = [_meta objectForKey:@"headline"];
+        if ([_meta valueForKey:@"description"])
+            descriptionText.string = [_meta objectForKey:@"description"];
+    }
     
-    titleField.stringValue = meta[@"title"];
-    if (meta[@"author"])
-        authorField.stringValue = meta[@"author"];
-    if (meta[@"headline"])
-        headlineField.stringValue = meta[@"headline"];
-    if (meta[@"description"])
-        descriptionText.string = meta[@"description"];
-    
-    format = babel_init((char*)path.UTF8String);
+    format = babel_init((char*)_path.UTF8String);
     if (format)
     {
         char buf[TREATY_MINIMUM_EXTENT];
@@ -187,6 +165,13 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     finish:
         babel_release();
     }
+
+    self.window.delegate = self;
+}
+
++ (NSArray *)restorableStateKeyPaths
+{
+    return @[ @"path", @"titleField.stringValue", @"authorField.stringValue", @"headlineField.stringValue", @"descriptionText.string" ];
 }
 
 - (void) saveImage: sender
@@ -209,17 +194,6 @@ void showInfoForFile(NSString *path, NSDictionary *info)
     [imgdata writeToURL: imgURL atomically: YES];
     
     [self sizeToFitImageAnimate: YES];
-}
-
-- (void) showForFile: (NSString*)path_ info: (NSDictionary*)meta_
-{
-    path = path_;
-    meta = meta_;
-}
-
-- (void) showWindow: sender
-{
-    [super showWindow: sender];
 }
 
 @end

@@ -37,6 +37,8 @@ float gcellw = 8;
 float gcellh = 12;
 float gleading = 0;
 
+glui32 lasteventtype = -1;
+
 void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf)
 {
     ssize_t n;
@@ -52,7 +54,7 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
     msgbuf.len = len;
 
 #ifdef DEBUG
-    //    fprintf(stderr, "SENDMSG %d len=%d\n", cmd, len);
+        //fprintf(stderr, "SENDMSG %d len=%d\n", cmd, len);
 #endif
     n = write(sendfd, &msgbuf, sizeof msgbuf);
     if (n != sizeof msgbuf)
@@ -463,7 +465,7 @@ void win_clearhint(int wintype, int styl, int hint)
     win_flush();
     sendmsg(CLEARHINT, wintype, styl, hint, 0, 0, 0, NULL);
 #ifdef DEBUG
-    //fprintf(stderr, "sent CLEARHINT type:%d styl:%d hint:%d\n",wintype, styl, hint);
+    fprintf(stderr, "sent CLEARHINT type:%d styl:%d hint:%d\n",wintype, styl, hint);
 #endif
 }
 
@@ -472,7 +474,7 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
     win_flush();
     sendmsg(STYLEMEASURE, name, styl, hint, 0, 0, 0, NULL);
 #ifdef DEBUG
-    //fprintf(stderr, "sent STYLEMEASURE name:%d styl:%d hint:%d\n",name, styl, hint);
+    fprintf(stderr, "sent STYLEMEASURE name:%d styl:%d hint:%d\n",name, styl, hint);
 #endif
     readmsg(&wmsg, wbuf);
     *result = wmsg.a2;
@@ -489,7 +491,7 @@ void win_setbgnd(int name, glui32 color)
 void win_sound_notify(int snd, int notify)
 {
 #ifdef DEBUG
- //   fprintf(stderr, "sent EVTSOUND snd:%d notify:%d\n",snd, notify);
+    fprintf(stderr, "sent EVTSOUND snd:%d notify:%d\n",snd, notify);
 #endif
     win_flush();
     sendmsg(EVTSOUND, 0, snd, notify, 0, 0, 0, NULL);
@@ -499,6 +501,12 @@ void win_volume_notify(int notify)
 {
     win_flush();
     sendmsg(EVTVOLUME, 0, 0, notify, 0, 0, 0, NULL);
+}
+
+void win_autosave(int hash)
+{
+    win_flush();
+    sendmsg(AUTOSAVE, 0, hash, 0, 0, 0, 0, NULL);
 }
 
 void win_select(event_t *event, int block)
@@ -515,7 +523,7 @@ again:
     {
         case OKAY:
 #ifdef DEBUG
-            fprintf(stderr, "no event...?!\n");
+            fprintf(stderr, "win_select: no event...?!\n");
 #endif
             break;
 
@@ -526,7 +534,7 @@ again:
 
         case EVTARRANGE:
 #ifdef DEBUG
-            //	     fprintf(stderr, "arrange event\n");
+            fprintf(stderr, "win_select: arrange event\n");
 #endif
             /* + 5 for default line fragment padding */
             if ( gscreenw == wmsg.a1 &&
@@ -556,8 +564,6 @@ again:
         case EVTLINE:
 #ifdef DEBUG
             //fprintf(stderr, "line input event\n");
-
-            //	     fprintf(stderr, "line input event\n");
 #endif
 
             event->type = evtype_LineInput;
@@ -602,7 +608,7 @@ again:
 
         case EVTKEY:
 #ifdef DEBUG
-            //fprintf(stderr, "key input event for %d\n", wmsg.a1);
+            fprintf(stderr, "key input event for %d\n", wmsg.a1);
 #endif
             event->type = evtype_CharInput;
             event->win = gli_window_for_peer(wmsg.a1);
@@ -619,7 +625,7 @@ again:
 
         case EVTMOUSE:
 #ifdef DEBUG
-            //fprintf(stderr, "mouse input event\n");
+            fprintf(stderr, "mouse input event\n");
 #endif
             event->type = evtype_MouseInput;
             event->win = gli_window_for_peer(wmsg.a1);
@@ -665,5 +671,6 @@ again:
 #endif
             break;
     }
+    lasteventtype = (event ? event->type : evtype_None);
 }
 

@@ -1,9 +1,14 @@
 #include "glkimp.h"
 
+glui32 tagcounter = 0;
+
 gidispatch_rock_t (*gli_register_obj)(void *obj, glui32 objclass) = NULL;
 void (*gli_unregister_obj)(void *obj, glui32 objclass, gidispatch_rock_t objrock) = NULL;
 gidispatch_rock_t (*gli_register_arr)(void *array, glui32 len, char *typecode) = NULL;
 void (*gli_unregister_arr)(void *array, glui32 len, char *typecode, gidispatch_rock_t objrock) = NULL;
+
+long (*gli_locate_arr)(void *array, glui32 len, char *typecode, gidispatch_rock_t objrock, int *elemsizeref);
+gidispatch_rock_t (*gli_restore_arr)(long bufkey, glui32 len, char *typecode, void **arrayref);
 
 unsigned char glk_char_to_lower(unsigned char ch)
 {
@@ -76,21 +81,37 @@ gidispatch_rock_t gidispatch_get_objrock(void *obj, glui32 objclass)
 {
     switch (objclass)
     {
-	case gidisp_Class_Window:
-	    return ((window_t *)obj)->disprock;
-	case gidisp_Class_Stream:
-	    return ((stream_t *)obj)->disprock;
-	case gidisp_Class_Fileref:
-	    return ((fileref_t *)obj)->disprock;
-	case gidisp_Class_Schannel:
-            return ((channel_t *)obj)->disprock;
-	default:
-	{
-	    gidispatch_rock_t dummy;
-	    dummy.num = 0;
-	    return dummy;
-	}
+        case gidisp_Class_Window:
+            return ((window_t *)obj)->disprock;
+        case gidisp_Class_Stream:
+            return ((stream_t *)obj)->disprock;
+        case gidisp_Class_Fileref:
+            return ((fileref_t *)obj)->disprock;
+        case gidisp_Class_Schannel:
+                return ((channel_t *)obj)->disprock;
+        default:
+        {
+            gidispatch_rock_t dummy;
+            dummy.num = 0;
+            return dummy;
+        }
     }
+}
+
+void gidispatch_set_autorestore_registry(long (*locatearr)(void *array, glui32 len, char *typecode,
+                                                                  gidispatch_rock_t objrock, int *elemsizeref),
+                                                gidispatch_rock_t (*restorearr)(long bufkey, glui32 len,
+                                                                                char *typecode, void **arrayref))
+{
+    gli_locate_arr = locatearr;
+    gli_restore_arr = restorearr;
+}
+
+
+glui32 generate_tag(void)
+{
+    tagcounter++;
+    return tagcounter;
 }
 
 /* Some dirty fixes for Gargoyle compatibility */

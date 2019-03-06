@@ -13,16 +13,10 @@
  *
  */
 
-#define MAX_INFO_WINDOWS 10
-
 @interface LibHelperWindow : NSWindow<NSDraggingDestination>
-{
-}
 @end
 
 @interface LibHelperTableView : NSTableView
-{
-}
 @end
 
 @class InfoController;
@@ -40,12 +34,7 @@
     NSMutableDictionary *metadata; /* ifid -> metadata dict */
     NSMutableDictionary *games; /* ifid -> filename */
 
-    InfoController *infoWindows[MAX_INFO_WINDOWS];
-    NSInteger infoWindowIndex;
-
-    IBOutlet NSTableView *gameTableView;
     IBOutlet NSMenu *headerMenu;
-    IBOutlet NSSearchField *searchField;
     
     NSMutableArray *gameTableModel;
     NSString *gameSortColumn;
@@ -64,7 +53,12 @@
     NSInteger errorflag;
 }
 
-- (void) loadLibrary; /* initializer */
+@property NSMutableDictionary *infoWindows;
+@property NSMutableDictionary *gameSessions;
+
+@property IBOutlet NSTableView *gameTableView;
+@property IBOutlet NSSearchField *searchField;
+
 - (IBAction) saveLibrary: sender;
 
 - (void) beginImporting;
@@ -76,7 +70,8 @@
 - (void) addFiles: (NSArray*)paths;
 - (void) addFile: (NSString*)path;
 
-- (void) playGameWithIFID: (NSString*)ifid;
+- (NSWindow *) playGameWithIFID: (NSString*)ifid;
+
 - (void) importAndPlayGame: (NSString*)path;
 
 - (IBAction) addGamesToLibrary: (id)sender;
@@ -90,11 +85,12 @@
 - (IBAction) searchForGames: (id)sender;
 - (IBAction) playGame: (id)sender;
 - (IBAction) showGameInfo: (id)sender;
-@property (readonly, strong) InfoController *createInfoController;
 - (IBAction) revealGameInFinder: (id)sender;
 - (IBAction) deleteGame: (id)sender;
 
-- (IBAction)toggleColumn:(id)sender;
+- (void) showInfo: (NSDictionary *)info forFile:(NSString *)path;
+
+- (IBAction) toggleColumn: (id)sender;
 - (void) deselectGames;
 - (void) selectGameWithIFID: (NSString*)ifid;
 - (void) updateTableViews; /* must call this after -importGame: */

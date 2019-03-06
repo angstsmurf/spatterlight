@@ -7,28 +7,29 @@
 {
     NSInteger align;
     NSInteger pos;
-    NSAttributedString *attrstr;
 }
+
+@property NSAttributedString *attrstr;
 
 - (instancetype) initImageCell:(NSImage *)image andAlignment:(NSInteger)analignment andAttStr:(NSAttributedString *)anattrstr at:(NSInteger)apos;
 
-@property (readonly) BOOL wantsToTrackMouse;
+//@property (readonly) BOOL wantsToTrackMouse;
 
 @end
 
 @interface MyTextView : NSTextView <NSTextFinderClient>
 {
-    GlkTextBufferWindow * glkTextBuffer;
-    NSTextFinder* _textFinder;
+    NSTextFinder *_textFinder;
 }
 
-- (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textBuffer: (GlkTextBufferWindow *)textbuffer;
+- (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container;
 - (void) superKeyDown: (NSEvent*)evt;
 - (void) scrollToBottom;
 - (void) performScroll;
 - (void) temporarilyHideCaret;
-@property (readonly) BOOL scrolledToBottom;
 - (void) resetTextFinder; // Call after changing the text storage, or search will break.
+- (void) destroyTextFinder;
+- (BOOL) scrolledToBottom;
 
 @property BOOL shouldDrawCaret;
 @property CGFloat bottomPadding;
@@ -56,7 +57,7 @@
 - (void) drawRect: (NSRect)rect;
 - (void) invalidateLayout;
 - (void) unoverlap: (MarginImage *)image;
-@property (readonly) BOOL hasMarginImages;
+- (BOOL) hasMarginImages;
 - (NSMutableAttributedString *) marginsToAttachmentsInString: (NSMutableAttributedString *)string;
 - (NSUInteger) findHyperlinkAt: (NSPoint)p;
 
@@ -71,16 +72,15 @@
 @interface GlkTextBufferWindow : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate>
 {
     NSScrollView *scrollview;
-    NSTextStorage *textstorage;
     NSLayoutManager *layoutmanager;
     MarginContainer *container;
     MyTextView *textview;
 
-    NSInteger line_request;
-    NSInteger hyper_request;
+    BOOL line_request;
+    BOOL hyper_request;
 
     BOOL echo_toggle_pending; /* if YES, line echo behavior will be inverted, starting from the next line event*/
-    BOOL echo; /* if YES, current line input will be deleted from text view */
+    BOOL echo; /* if NO, line input text will be deleted when entered */
 
     NSInteger fence;        /* for input line editing */
 
@@ -92,18 +92,29 @@
     NSInteger moveRangeIndex;
 }
 
+@property NSTextStorage *textstorage;
+@property (readonly) NSInteger lastchar; /* for smart formatting */
+@property (readonly) NSInteger lastseen; /* for more paging */
+@property NSInteger lastVisible;
+@property CGFloat scrollOffset;
+@property NSRect restoredScroll;
+@property NSRange restoredSelection;
+@property NSString *restoredSearch;
+@property BOOL restoredAtBottom;
+
 - (void) recalcBackground;
 - (void) onKeyDown: (NSEvent*)evt;
 - (void) echo: (BOOL)val;
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
 - (void) stopSpeakingText_10_7;
+- (void) scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset;
+- (void) restoreScroll;
+- (void) restoreTextFinder;
+
 - (IBAction) speakMostRecent: (id)sender;
 - (IBAction) speakPrevious: (id)sender;
 - (IBAction) speakNext: (id)sender;
 - (IBAction) speakStatus: (id)sender;
-
-@property (readonly) NSInteger lastchar; /* for smart formatting */
-@property (readonly) NSInteger lastseen; /* for more paging */
 
 @end
 

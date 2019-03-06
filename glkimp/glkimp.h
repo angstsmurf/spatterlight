@@ -29,6 +29,10 @@ extern float gcellw;
 extern float gcellh;
 extern float gleading;
 
+extern glui32 tagcounter;
+extern glui32 lasteventtype;
+
+
 /* more Gargoyle glue */
 extern char gli_program_name[256];
 extern char gli_program_info[256];
@@ -88,6 +92,7 @@ void win_playsound(int chan, int repeats, int notify);
 void win_stopsound(int chan);
 void win_sound_notify(int snd, int notify);
 void win_volume_notify(int notify);
+void win_autosave(int hash);
 
 /* unicode case mapping */
 
@@ -119,6 +124,9 @@ extern void (*gli_unregister_obj)(void *obj, glui32 objclass, gidispatch_rock_t 
 extern gidispatch_rock_t (*gli_register_arr)(void *array, glui32 len, char *typecode);
 extern void (*gli_unregister_arr)(void *array, glui32 len, char *typecode, gidispatch_rock_t objrock);
 
+/* Callbacks for autorestore */
+extern long (*gli_locate_arr)(void *array, glui32 len, char *typecode, gidispatch_rock_t objrock, int *elemsizeref);
+extern gidispatch_rock_t (*gli_restore_arr)(long bufkey, glui32 len, char *typecode, void **arrayref);
 
 /* This macro is called whenever the library code catches an error
  or illegal operation from the game program. */
@@ -149,8 +157,8 @@ typedef struct glk_schannel_struct channel_t;
 
 typedef struct grect_struct
 {
-    int x0, y0;
-    int x1, y1;
+    glui32 x0, y0;
+    glui32 x1, y1;
 } grect_t;
 
 #define MAGIC_WINDOW_NUM (9876)
@@ -176,11 +184,12 @@ struct glk_window_struct {
     glui32 rock;
     glui32 type;
 
-    window_t *parent;		/* pair window which contains this one */
+    window_t *parent;	/* pair window which contains this one */
     grect_t bbox;		/* content rectangle, excluding borders */
 
 
     int peer;			/* GUI server peer window */
+    int tag;            /* for serialization */
 
     struct
     {
@@ -211,9 +220,9 @@ struct glk_window_struct {
     int char_request_uni;
     int mouse_request;
     int hyper_request;
-    int more_request;
-    int scroll_request;
-    int image_loaded;
+    //int more_request;
+    //int scroll_request;
+    //int image_loaded;
 
     glui32 echo_line_input;
     glui32 *line_terminators;
@@ -255,8 +264,6 @@ window_t *gli_window_for_peer(int peer);
 /* to be used by hugo for its standalone windows, no parent/pair hierarchy */
 void gli_delete_window(window_t *win);
 
-
-
 #define strtype_File (1)
 #define strtype_Window (2)
 #define strtype_Memory (3)
@@ -266,6 +273,8 @@ void gli_delete_window(window_t *win);
 struct glk_stream_struct {
     glui32 magicnum;
     glui32 rock;
+
+    int tag;			/* for serialization */
 
     int type; /* file, window, or memory stream */
     int unicode; /* one-byte or four-byte chars? Not meaningful for windows */
@@ -278,11 +287,13 @@ struct glk_stream_struct {
 
     /* for strtype_File */
     FILE *file;
+    char *filename; /* Only needed for serialization */
     glui32 lastop; /* 0, filemode_Write, or filemode_Read */
     //int textfile;
 
     /* for strtype_Resource */
     int isbinary;
+    glui32 resfilenum; /* Only needed for serialization */
 
     /* for strtype_Memory and strtype_Resource. Separate pointers for
        one-byte and four-byte streams */
@@ -305,6 +316,8 @@ struct glk_fileref_struct {
     glui32 magicnum;
     glui32 rock;
 
+    int tag;			/* for serialization */
+
     char *filename;
     int filetype;
     int textmode;
@@ -320,9 +333,29 @@ extern void gli_initialize_misc(void);
 extern window_t *gli_new_window(glui32 type, glui32 rock); /* does not touch hierarchy */
 //extern window_t *gli_new_window(glui32 rock);
 
-
 extern void gli_delete_window(window_t *win);
 extern window_t *gli_window_get(void);
+extern void gli_window_set_root(window_t *win);
+
+
+/* For autorestore */
+
+extern void gli_replace_window_list(window_t *win);
+window_t *gli_window_for_tag(int tag);
+
+extern void gli_replace_stream_list(stream_t *str);
+stream_t *gli_stream_for_tag(int tag);
+
+extern void gli_replace_fileref_list(fileref_t *fref);
+fileref_t *gli_fileref_for_tag(int tag);
+
+extern void gli_replace_schan_list(channel_t *chan);
+channel_t *gli_schan_for_tag(int tag);
+
+extern void gli_sanity_check_windows(void);
+extern void gli_sanity_check_streams(void);
+extern void gli_sanity_check_filerefs(void);
+
 
 extern stream_t *gli_new_stream(int type, int readable, int writable,
                                 glui32 rock);
@@ -345,12 +378,13 @@ extern int gli_encode_utf8(glui32 val, char *buf, int len);
 extern glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen,
                              glui32 *out, glui32 outlen);
 
-
+extern glui32 generate_tag(void);
 
 enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
 
 struct glk_schannel_struct
 {
+    glui32 magicnum;
     glui32 rock;
 
     void *sample; /* Mix_Chunk (or FMOD Sound) */
@@ -378,8 +412,10 @@ struct glk_schannel_struct
     double volume_delta;
     void *timer;
 
+    int tag; /* for serialization */
+    
     gidispatch_rock_t disprock;
-    channel_t *chain_next, *chain_prev;
+    channel_t *next, *prev;
 };
 
 extern void gli_initialize_sound(void);

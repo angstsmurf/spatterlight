@@ -39,6 +39,7 @@ enum
     STYLEMEASURE,
     SETBGND,
     SETTITLE,
+    AUTOSAVE,
 
     TIMER,
     INITCHAR,

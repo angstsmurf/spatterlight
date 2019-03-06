@@ -18,12 +18,12 @@ static int defscreenh = 24;
 static float cellw = 5;
 static float cellh = 5;
 
-static int smartquotes = YES;
+static BOOL smartquotes = YES;
 static int spaceformat = 0;
-static int dographics = YES;
-static int dosound = NO;
-static int dostyles = NO;
-static int usescreenfonts = NO;
+static BOOL dographics = YES;
+static BOOL dosound = NO;
+static BOOL dostyles = NO;
+static BOOL usescreenfonts = NO;
 
 static CGFloat gridmargin = 0;
 static CGFloat buffermargin = 0;
@@ -107,8 +107,8 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     NSString *filename = [[NSBundle mainBundle] pathForResource: @"Defaults" ofType: @"plist"];
     NSMutableDictionary *defaults = [NSMutableDictionary dictionaryWithContentsOfFile: filename];
 
-    defaults[@"GameDirectory"] = (@"~/Documents").stringByExpandingTildeInPath;
-    defaults[@"SaveDirectory"] = (@"~/Documents").stringByExpandingTildeInPath;
+    [defaults setObject:(@"~/Documents").stringByExpandingTildeInPath forKey:@"GameDirectory"];
+    [defaults setObject:(@"~/Documents").stringByExpandingTildeInPath forKey:@"SaveDirectory"];
 
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
 }
@@ -122,13 +122,13 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     defscreenw = [[defaults objectForKey: @"DefaultWidth"] intValue];
     defscreenh = [[defaults objectForKey: @"DefaultHeight"] intValue];
 
-    smartquotes = [[defaults objectForKey: @"SmartQuotes"] intValue];
+    smartquotes = [[defaults objectForKey: @"SmartQuotes"] boolValue];
     spaceformat = [[defaults objectForKey: @"SpaceFormat"] intValue];
 
-    dographics = [[defaults objectForKey: @"EnableGraphics"] intValue];
-    dosound = [[defaults objectForKey: @"EnableSound"] intValue];
-    dostyles = [[defaults objectForKey: @"EnableStyles"] intValue];
-    usescreenfonts = [[defaults objectForKey: @"ScreenFonts"] intValue];
+    dographics = [[defaults objectForKey: @"EnableGraphics"] boolValue];
+    dosound = [[defaults objectForKey: @"EnableSound"] boolValue];
+    dostyles = [[defaults objectForKey: @"EnableStyles"] boolValue];
+    usescreenfonts = [[defaults objectForKey: @"ScreenFonts"] boolValue];
 
     gridbg = dataToColor([defaults objectForKey: @"GridBackground"]);
     gridfg = dataToColor([defaults objectForKey: @"GridForeground"]);
@@ -232,27 +232,27 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
     return bgcolor[number];
 }
 
-+ (NSInteger) graphicsEnabled
++ (BOOL) graphicsEnabled
 {
     return dographics;
 }
 
-+ (NSInteger) soundEnabled
++ (BOOL) soundEnabled
 {
     return dosound;
 }
 
-+ (NSInteger) stylesEnabled
++ (BOOL) stylesEnabled
 {
     return dostyles;
 }
 
-+ (NSInteger) useScreenFonts
++ (BOOL) useScreenFonts
 {
     return usescreenfonts;
 }
 
-+ (NSInteger) smartQuotes
++ (BOOL) smartQuotes
 {
     return smartquotes;
 }
@@ -389,10 +389,9 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
          * Buffer windows
          */
 
-
         dict = [[NSMutableDictionary alloc] init];
-        dict[@"GlkStyle"] = @(style);
-        dict[NSParagraphStyleAttributeName] = para;
+        [dict setObject:@(style) forKey:@"GlkStyle"];
+        [dict setObject:para forKey:NSParagraphStyleAttributeName];
 
 #if 0
         if (style == style_BlockQuote)
@@ -410,9 +409,9 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 #endif
 
         if (style == style_Input)
-            dict[NSForegroundColorAttributeName] = inputfg;
+            [dict setObject:inputfg forKey:NSForegroundColorAttributeName];
         else
-            dict[NSForegroundColorAttributeName] = bufferfg;
+            [dict setObject:bufferfg forKey:NSForegroundColorAttributeName];
 
         font = bufroman;
         switch (style)
@@ -424,7 +423,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
             case style_Alert: font = bufbolditalic; break;
             case style_Input: font = inputfont; break;
         }
-        dict[NSFontAttributeName] = font;
+        [dict setObject:font forKey:NSFontAttributeName];
 
         bufferatts[style] = dict;
 
@@ -434,13 +433,13 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
 
 
         dict = [[NSMutableDictionary alloc] init];
-        dict[@"GlkStyle"] = @(style);
-        dict[NSParagraphStyleAttributeName] = para;
-        dict[NSForegroundColorAttributeName] = gridfg;
+        [dict setObject:@(style) forKey:@"GlkStyle"];
+        [dict setObject:para forKey:NSParagraphStyleAttributeName];
+        [dict setObject:gridfg forKey:NSForegroundColorAttributeName];
 
         /* for our frotz quote-box hack */
         if (style == style_User1)
-            dict[NSBackgroundColorAttributeName] = gridbg;
+            [dict setObject:gridbg forKey:NSBackgroundColorAttributeName];
 
         font = gridroman;
         switch (style)
@@ -451,7 +450,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b)
             case style_Subheader: font = gridbold; break;
             case style_Alert: font = gridbolditalic; break;
         }
-        dict[NSFontAttributeName] = font;
+        [dict setObject:font forKey: NSFontAttributeName];
 
         gridatts[style] = dict;
     }
@@ -501,6 +500,7 @@ NSString* fontToString(NSFont *font)
     [super windowDidLoad];
 
     self.windowFrameAutosaveName = @"PrefsWindow";
+    self.window.delegate = self;
 
 	prefs = self;
 
@@ -848,7 +848,7 @@ NSString* fontToString(NSFont *font)
 
 	NSLog(@"Keys in newAttributes:");
 	for(NSString *key in newAttributes.allKeys) {
-		NSLog(@" %@ : %@",key, [newAttributes valueForKey: key]);
+		NSLog(@" %@ : %@",key, [newAttributes objectForKey: key]);
 	}
 
 	//	"NSForegroundColorAttributeName"	"NSColor"
@@ -858,7 +858,7 @@ NSString* fontToString(NSFont *font)
 	//	"NSStrikethroughColorAttributeName"	"NSStrikethroughColor"
 	//	"NSShadowAttributeName"				"NSShadow"
 
-	if ([newAttributes valueForKey: @"NSColor"])
+	if ([newAttributes objectForKey: @"NSColor"])
 	{
 		NSColorWell *colorWell = nil;
 		NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
@@ -868,7 +868,7 @@ NSString* fontToString(NSFont *font)
 			colorWell = clrBufferFg;
 		else if (currentFont == inputfont)
 			colorWell = clrInputFg;
-		colorWell.color=[newAttributes valueForKey: @"NSColor"];
+		colorWell.color=[newAttributes objectForKey: @"NSColor"];
 		[self changeColor:colorWell];
 	}
 }
@@ -893,15 +893,13 @@ NSString* fontToString(NSFont *font)
 
 - (NSUInteger)validModesForFontPanel:(NSFontPanel *)fontPanel
 {
-	//	NSLog(@"validModesForFontPanel");
-
 	return NSFontPanelFaceModeMask | NSFontPanelCollectionModeMask | NSFontPanelSizeModeMask | NSFontPanelTextColorEffectModeMask | NSFontPanelDocumentColorEffectModeMask;
 }
 
 - (void) windowWillClose: (id)sender
 {
-	if ([NSFontPanel.sharedFontPanel isVisible])
-		[NSFontPanel.sharedFontPanel orderOut:self];
+    if ([[NSFontPanel sharedFontPanel] isVisible])
+        [[NSFontPanel sharedFontPanel] orderOut:self];
 }
 
 @end

@@ -3,8 +3,8 @@
 {
     NSImage *image;
     BOOL dirty;
-    NSInteger mouse_request;
-    NSInteger transparent;
+    BOOL mouse_request;
+    BOOL transparent;
 }
 
 @end

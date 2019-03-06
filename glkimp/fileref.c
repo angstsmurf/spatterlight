@@ -23,13 +23,15 @@ char * garglk_fileref_get_name(frefid_t fref)
  */
 
 /* Linked list of all filerefs */
-static fileref_t *gli_filereflist = NULL; 
+static fileref_t *gli_filereflist = NULL;
 
 fileref_t *gli_new_fileref(char *filename, glui32 usage, glui32 rock)
 {
 	fileref_t *fref = (fileref_t *)malloc(sizeof(fileref_t));
 	if (!fref)
 		return NULL;
+
+    fref->tag = generate_tag(); /* For serialization */
 
 	fref->rock = rock;
 
@@ -128,7 +130,7 @@ frefid_t glk_fileref_create_temp(glui32 usage, glui32 rock)
 
 frefid_t glk_fileref_create_from_fileref(glui32 usage, frefid_t oldfref, glui32 rock)
 {
-	fileref_t *fref; 
+	fileref_t *fref;
 
 	if (!oldfref)
 	{
@@ -195,6 +197,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
         return NULL;
     }
 
+    fprintf(stderr, "fileref_create_by_name: created fileref %d with name: %s\n", fref->tag, name);
     return fref;
 }
 
@@ -214,7 +217,7 @@ frefid_t glk_fileref_create_by_prompt(glui32 usage, glui32 fmode, glui32 rock)
 	if (!val)
 	{
 		/* The player just hit return. It would be nice to provide a
-		   default value, but this implementation is too cheap. */
+         default value, but this implementation is too cheap. */
 		return NULL;
 	}
 
@@ -273,7 +276,7 @@ glui32 glk_fileref_does_file_exist(fileref_t *fref)
 	}
 
 	/* This is sort of Unix-specific, but probably any stdio library
-	   will implement at least this much of stat(). */
+     will implement at least this much of stat(). */
 
 	if (stat(fref->filename, &buf))
 		return 0;
@@ -293,7 +296,7 @@ void glk_fileref_delete_file(fileref_t *fref)
 	}
 
 	/* If you don't have the unlink() function, obviously, change it
-	   to whatever file-deletion function you do have. */
+     to whatever file-deletion function you do have. */
 
 	unlink(fref->filename);
 }
@@ -308,7 +311,7 @@ void glkunix_set_base_file(char *filename)
     for (ix=(int)(strlen(filename)-1); ix >= 0; ix--)
         if (filename[ix] == '/')
             break;
-    
+
     if (ix >= 0) {
         /* There is a slash. */
         strncpy(workingdir, filename, ix);
@@ -321,3 +324,43 @@ void glkunix_set_base_file(char *filename)
     }
 }
 
+/* For autorestore */
+fileref_t *gli_fileref_for_tag(int tag)
+{
+    fileref_t *fref = gli_filereflist;
+    while (fref)
+    {
+        if (fref->tag == tag)
+            return fref;
+        fref = fref->next;
+    }
+    return NULL;
+}
+
+void gli_replace_fileref_list(fileref_t *newlist) /* Only used by autorestore */
+{
+    fileref_t *fref;
+
+    if (!newlist)
+    {
+        gli_strict_warning("gli_replace_fileref_list: invalid ref");
+        return;
+    }
+
+    /* At the time when this is called, the fileref list should be empty */
+    while (gli_filereflist)
+    {
+        fref = gli_filereflist;
+        glk_fileref_destroy(fref);
+    }
+
+    gli_filereflist = newlist;
+}
+
+void gli_sanity_check_filerefs()
+{
+    for (fileref_t *fref = glk_fileref_iterate(NULL, NULL); fref; fref = glk_fileref_iterate(fref, NULL)) {
+        if (!fref->filename)
+            fprintf(stderr, "gli_sanity_check_filerefs: fileref has no filename\n");
+    }
+}

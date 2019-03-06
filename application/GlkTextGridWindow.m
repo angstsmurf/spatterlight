@@ -6,6 +6,7 @@
 #import "main.h"
 #import "GlkHyperlink.h"
 #import "Compatibility.h"
+#import "NSString+Signature.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
@@ -14,11 +15,7 @@
 #endif
 
 @interface MyGridTextView : NSTextView
-{
-    GlkTextGridWindow * glkTextGrid;
-}
 
-- (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textGrid: (GlkTextGridWindow *)textbuffer;
 - (void) superKeyDown: (NSEvent*)evt;
 
 @end
@@ -30,16 +27,6 @@
 
 @implementation MyGridTextView
 
-- (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textGrid: (GlkTextGridWindow *)textbuffer
-{
-    self = [super initWithFrame:rect textContainer:container];
-    if (self)
-    {
-        glkTextGrid = textbuffer;
-    }
-    return self;
-}
-
 - (void) superKeyDown: (NSEvent*)evt
 {
     [super keyDown: evt];
@@ -47,12 +34,12 @@
 
 - (void) keyDown: (NSEvent*)evt
 {
-    [glkTextGrid keyDown: evt];
+    [(GlkTextGridWindow *)self.delegate keyDown: evt];
 }
 
 - (void) mouseDown: (NSEvent*)theEvent
 {
-    if (![glkTextGrid myMouseDown:theEvent])
+    if (![(GlkTextGridWindow *)self.delegate myMouseDown:theEvent])
         [super mouseDown:theEvent];
 }
 
@@ -89,6 +76,24 @@
 
     return self;
 }
+
+- (instancetype) initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self)
+    {
+        _maxLength = [decoder decodeIntegerForKey:@"maxLength"];
+    }
+    return self;
+
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];
+    [encoder encodeInteger:_maxLength forKey:@"maxLength"];
+}
+
 
 #pragma mark -
 #pragma mark Textual Representation of Cell Content
@@ -184,10 +189,10 @@
 
         /* construct text system manually */
 
-        NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
+        scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
         scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        [scrollview setHasHorizontalScroller: NO];
-        [scrollview setHasVerticalScroller: NO];
+        scrollview.hasHorizontalScroller = NO;
+        scrollview.hasVerticalScroller = NO;
         scrollview.horizontalScrollElasticity = NSScrollElasticityNone;
         scrollview.verticalScrollElasticity = NSScrollElasticityNone;
 
@@ -203,7 +208,7 @@
         container.layoutManager = layoutmanager;
         [layoutmanager addTextContainer: container];
 
-        textview = [[MyGridTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0) textContainer:container textGrid:self];
+        textview = [[MyGridTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0) textContainer:container];
 
         textview.minSize = NSMakeSize(0, 0);
         textview.maxSize = NSMakeSize(10000000, 10000000);
@@ -217,13 +222,82 @@
         textstorage.delegate = self;
         textview.textContainerInset = NSMakeSize([Preferences gridMargins], [Preferences gridMargins]);
 
-        [textview setEditable:NO];
-        [textview setUsesFontPanel: NO];
+        textview.editable = NO;
+        textview.usesFontPanel = NO;
+        _restoredSelection = NSMakeRange(0, 0);
 
         [self addSubview: scrollview];
         [self recalcBackground];
     }
     return self;
+}
+
+
+- (instancetype) initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self)
+    {
+        textstorage = [decoder decodeObjectForKey:@"textstorage"];
+        layoutmanager = [decoder decodeObjectForKey:@"layoutmanager"];
+        scrollview = [decoder decodeObjectForKey:@"scrollview"];
+        container = [decoder decodeObjectForKey:@"container"];
+        textview = [decoder decodeObjectForKey:@"textview"];
+
+        while (layoutmanager.textContainers.count)
+            [layoutmanager removeTextContainerAtIndex:0];
+        while (textstorage.layoutManagers.count)
+            [textstorage removeLayoutManager:[textstorage.layoutManagers objectAtIndex:0]];
+
+        [textstorage addLayoutManager:layoutmanager];
+        scrollview.documentView = textview;
+        container.layoutManager = layoutmanager;
+        [layoutmanager addTextContainer: container];
+        container.textView = textview;
+
+        scrollview.documentView = textview;
+
+        textview.delegate = self;
+        textview.insertionPointColor = [Preferences gridBackground];
+        textstorage.delegate =self;
+
+        line_request = [decoder decodeBoolForKey:@"line_request"];
+        hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
+        mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
+
+        rows = [decoder decodeIntegerForKey:@"rows"];
+        cols = [decoder decodeIntegerForKey:@"cols"];
+        xpos = [decoder decodeIntegerForKey:@"xpos"];
+        ypos = [decoder decodeIntegerForKey:@"ypos"];
+        
+        dirty  = YES;
+        transparent  = [decoder decodeBoolForKey:@"transparent"];
+        _restoredSelection = ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"]).rangeValue;
+        textview.selectedRange = _restoredSelection;
+        NSLog(@"Decoded range %@ for text grid window selected range", NSStringFromRange(_restoredSelection));
+        NSLog(@"textview.selectedRange = %@", NSStringFromRange(textview.selectedRange));
+    }
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];
+    [encoder encodeObject:scrollview forKey:@"scrollview"];
+    [encoder encodeObject:textstorage forKey:@"textstorage"];
+    [encoder encodeObject:layoutmanager forKey:@"layoutmanager"];
+    [encoder encodeObject:container forKey:@"container"];
+    [encoder encodeObject:textview forKey:@"textview"];
+    [encoder encodeBool:line_request forKey:@"line_request"];
+    [encoder encodeBool:hyper_request forKey:@"hyper_request"];
+    [encoder encodeInteger:rows forKey:@"rows"];
+    [encoder encodeInteger:cols forKey:@"cols"];
+    [encoder encodeInteger:xpos forKey:@"xpos"];
+    [encoder encodeInteger:ypos forKey:@"ypos"];
+    [encoder encodeBool:transparent forKey:@"transparent"];
+    NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
+    [encoder encodeObject:rangeVal forKey:@"selectedRange"];
+    NSLog(@"Encoded range %@ for text grid window selected range", NSStringFromRange(textview.selectedRange));
 }
 
 - (BOOL) isFlipped
@@ -241,6 +315,9 @@
 {
     NSRange range = NSMakeRange(0, 0);
     NSRange linkrange= NSMakeRange(0, 0);
+    NSRange selectedRange = textview.selectedRange;
+    NSLog(@"prefsDidChange: stored text grid window selected range %@", NSStringFromRange(selectedRange));
+
 
     int i;
 
@@ -285,6 +362,9 @@
     }
 
     [self recalcBackground];
+
+    NSLog(@"prefsDidChange: selected range was %@, restored to %@", NSStringFromRange(textview.selectedRange), NSStringFromRange(selectedRange));
+    textview.selectedRange = selectedRange;
     [self setNeedsDisplay: YES];
     dirty = NO;
 }
@@ -321,10 +401,10 @@
     bgcolor = nil;
     fgcolor = nil;
 
-    if ([Preferences stylesEnabled])
+    if ([Preferences stylesEnabled] && [styles objectAtIndex:style_Normal] != [NSNull null])
     {
-        bgcolor = styles[style_Normal].attributes[NSBackgroundColorAttributeName];
-        fgcolor = styles[style_Normal].attributes[NSForegroundColorAttributeName];
+        fgcolor = [[(GlkStyle *)[styles objectAtIndex:style_Normal] attributes] objectForKey:NSForegroundColorAttributeName];
+        bgcolor = [[(GlkStyle *)[styles objectAtIndex:style_Normal] attributes] objectForKey:NSBackgroundColorAttributeName];
     }
 
     if (!bgcolor)
@@ -333,7 +413,7 @@
         fgcolor = [Preferences gridForeground];
 
     textview.backgroundColor = bgcolor;
-    textview.insertionPointColor = fgcolor;
+    textview.insertionPointColor = bgcolor;
 }
 
 - (BOOL) wantsFocus
@@ -368,10 +448,14 @@
 
 - (void) setFrame: (NSRect)frame
 {
-    NSUInteger r;
-
+    NSInteger r;
+    NSRange selectedRange = textview.selectedRange;
+    if (self.inLiveResize)
+        _restoredSelection = NSMakeRange(0,0);
+    if (!NSEqualRanges(_restoredSelection, selectedRange))
+        selectedRange = _restoredSelection;
+    
     super.frame = frame;
-
     NSInteger newcols = ceil((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding) * 2) / Preferences.charWidth);
     NSInteger newrows = ceil((frame.size.height + Preferences.leading - (textview.textContainerInset.width) * 2) / Preferences.lineHeight);
 
@@ -427,7 +511,7 @@
         NSString *spaces = [[[NSString alloc] init] stringByPaddingToLength: desiredLength - backingStorage.length withString:@" " startingAtIndex:0];
         NSAttributedString* string = [[NSAttributedString alloc]
                                   initWithString: spaces
-                                  attributes: styles[style_Normal].attributes];
+                                      attributes: [(GlkStyle *)[styles objectAtIndex:style_Normal] attributes]];
         [backingStorage appendAttributedString:string];
     }
     else if ((NSInteger)backingStorage.length > desiredLength)
@@ -435,7 +519,7 @@
 
     NSAttributedString* newlinestring = [[NSAttributedString alloc]
                                          initWithString: @"\n"
-                                         attributes: styles[style_Normal].attributes];
+                                         attributes: [(GlkStyle *)[styles objectAtIndex:style_Normal] attributes]];
 
     // Instert a newline character at the end of each line to avoid reflow during live resize.
     // (We carefully have to print around these in the printToWindow method)
@@ -445,7 +529,16 @@
     [textstorage setAttributedString:backingStorage];
     textview.frame = frame;
     [self recalcBackground];
+    //NSLog(@"setFrame: selected range was %@, trying to restore to %@", NSStringFromRange(textview.selectedRange), NSStringFromRange(selectedRange));
+    textview.selectedRange = selectedRange;
+    //NSLog(@"Result: textview.selectedRange = %@", NSStringFromRange(textview.selectedRange));
+    _restoredSelection = selectedRange;
     dirty = YES;
+}
+
+- (void) restoreSelection {
+    //NSLog(@"restoreSelection: selected range was %@, restored to %@", NSStringFromRange(textview.selectedRange), NSStringFromRange(_restoredSelection));
+    textview.selectedRange = _restoredSelection;
 }
 
 - (void) moveToColumn:(NSInteger)c row:(NSInteger)r
@@ -456,6 +549,7 @@
 
 - (void) clear
 {
+    NSRange selectedRange = textview.selectedRange;
     [textstorage setAttributedString:[[NSMutableAttributedString alloc] initWithString:@""]];
     hyperlinks = nil;
     hyperlinks = [[NSMutableArray alloc] init];
@@ -463,7 +557,8 @@
     rows = cols = 0;
     xpos = ypos = 0;
 
-    self.frame = self.frame;
+    [self setFrame:self.frame];
+    textview.selectedRange = selectedRange;
 }
 
 - (void) putString: (NSString*)string style: (NSInteger)stylevalue
@@ -482,6 +577,7 @@
     NSUInteger length = string.length;
     NSUInteger pos = 0;
     NSDictionary *att = [self attributesFromStylevalue:stylevalue];
+    NSRange selectedRange = textview.selectedRange;
 
 //    NSLog(@"textGrid printToWindow: '%@' (style %ld)", string, stylevalue);
 //    NSLog(@"cols: %ld rows: %ld", cols, rows);
@@ -560,6 +656,8 @@
         }
     }
 
+    //NSLog(@"printToWindow: selected range was %@, restored to %@", NSStringFromRange(textview.selectedRange), NSStringFromRange(selectedRange));
+    textview.selectedRange = selectedRange;
     dirty = YES;
 }
 
@@ -629,7 +727,7 @@
     }
 
     GlkEvent *gev = [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue forWindow: self.name];
-    [glkctl queueEvent: gev];
+    [self.glkctl queueEvent: gev];
 
     hyper_request = NO;
     return YES;
@@ -643,7 +741,7 @@
 
     if (mouse_request)
     {
-        [glkctl markLastSeen];
+        [self.glkctl markLastSeen];
 
         NSPoint p;
         p = theEvent.locationInWindow;
@@ -669,7 +767,7 @@
             if (mouse_request)
             {
                 gev = [[GlkEvent alloc] initMouseEvent: p forWindow: self.name];
-                [glkctl queueEvent: gev];
+                [self.glkctl queueEvent: gev];
                 mouse_request = NO;
                 return YES;
             }
@@ -708,10 +806,9 @@
     GlkWindow *win;
     // pass on this key press to another GlkWindow if we are not expecting one
     if (!self.wantsFocus)
-        for (int i = 0; i < MAXWIN; i++)
+        for (win in [self.glkctl.gwindows allValues])
         {
-            win = [glkctl windowWithNum:i];
-            if (i != self.name && win && win.wantsFocus)
+            if (win != self && win.wantsFocus)
             {
                 [win grabFocus];
                 NSLog(@"Passing on keypress");
@@ -727,11 +824,11 @@
 
     if (char_request && ch != keycode_Unknown)
     {
-        [glkctl markLastSeen];
+        [self.glkctl markLastSeen];
 
         //NSLog(@"char event from %ld", self.name);
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
-        [glkctl queueEvent: gev];
+        [self.glkctl queueEvent: gev];
         char_request = NO;
         dirty = YES;
         return;
@@ -739,7 +836,7 @@
 
     NSNumber *key = @(ch);
 
-    if (line_request && (ch == keycode_Return || [currentTerminators[key] isEqual: @(YES)]))
+    if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @(YES)]))
         [self typedEnter: nil];
 }
 
@@ -819,15 +916,25 @@
     line_request = NO;
     if (input)
     {
-        [glkctl markLastSeen];
+        [self.glkctl markLastSeen];
 
         NSString *str = input.stringValue;
         [self printToWindow: str style: style_Input];
+        str = [str scrubInvalidCharacters];
         GlkEvent *gev = [[GlkEvent alloc] initLineEvent: str forWindow: self.name];
-        [glkctl queueEvent: gev];
+        [self.glkctl queueEvent: gev];
         [input removeFromSuperview];
         input = nil;
     }
+}
+
+- (NSRange) textView: (NSTextView *)aTextView
+willChangeSelectionFromCharacterRange: (NSRange)oldrange
+    toCharacterRange:(NSRange)newrange
+{
+    if (textstorage.length >= NSMaxRange(_restoredSelection))
+        _restoredSelection = newrange;
+    return newrange;
 }
 
 # pragma mark Accessibility

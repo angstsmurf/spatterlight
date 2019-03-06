@@ -5,6 +5,7 @@
 #import "main.h"
 #import "Compatibility.h"
 #import "GlkHyperlink.h"
+#import "NSString+Signature.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
@@ -21,10 +22,30 @@
     if (self)
     {
         align = analignment;
-        attrstr = anattrstr;
+        _attrstr = anattrstr;
         pos = apos;
     }
     return self;
+}
+
+- (instancetype) initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self)
+    {
+        align = [decoder decodeIntegerForKey:@"align"];
+        _attrstr = [decoder decodeObjectForKey:@"attstr"];
+        pos = [decoder decodeIntegerForKey:@"pos"];
+    }
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];
+    [encoder encodeInteger:align forKey:@"align"];
+    [encoder encodeObject:_attrstr forKey:@"attrstr"];
+    [encoder encodeInteger:pos forKey:@"pos"];
 }
 
 - (BOOL) wantsToTrackMouse
@@ -34,8 +55,8 @@
 
 - (NSPoint)cellBaselineOffset
 {
-    NSDictionary *attributes = [attrstr attributesAtIndex:pos effectiveRange:nil];
-    NSFont *font = [attributes valueForKey:NSFontAttributeName];
+    NSDictionary *attributes = [_attrstr attributesAtIndex:pos effectiveRange:nil];
+    NSFont *font = [attributes objectForKey:NSFontAttributeName];
 
     CGFloat xheight = font.ascender;
 
@@ -83,6 +104,22 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    _pos = [decoder decodeIntegerForKey:@"pos"];
+    _bounds = [decoder decodeRectForKey:@"bounds"];
+    recalc = [decoder decodeBoolForKey:@"recalc"];
+
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeInteger:_pos forKey:@"pos"];
+    [encoder encodeRect:_bounds forKey:@"bounds"];
+    [encoder encodeBool:recalc forKey:@"recalc"];
+}
+
 - (NSRect) boundsWithLayout: (NSLayoutManager*)layout
 {
     NSRange ourglyph;
@@ -127,7 +164,6 @@
 @interface MarginImage : NSObject
 {
     BOOL recalc;
-    NSTextContainer *container;
 }
 
 @property (strong) NSImage *image;
@@ -135,6 +171,8 @@
 @property NSInteger pos;
 @property NSRect bounds;
 @property NSUInteger linkid;
+@property MarginContainer *container;
+
 
 - (instancetype) initWithImage: (NSImage*)animage align: (NSInteger)analign linkid:(NSInteger)linkid at: (NSInteger)apos sender:(id)sender;
 
@@ -160,9 +198,31 @@
         _linkid = linkid;
         _pos = apos;
         recalc = YES;
-        container = sender;
+        _container = sender;
     }
     return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)decoder
+{
+    _image = [decoder decodeObjectForKey:@"image"];
+    _alignment = [decoder decodeIntegerForKey:@"alignment"];
+    _bounds = [decoder decodeRectForKey:@"bounds"];
+    _linkid = [decoder decodeIntegerForKey:@"linkid"];
+    _pos = [decoder decodeIntegerForKey:@"pos"];
+    recalc = [decoder decodeBoolForKey:@"recalc"];;
+
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:_image forKey:@"image"];
+    [encoder encodeInteger:_alignment forKey:@"alignment"];
+    [encoder encodeRect:_bounds forKey:@"bounds"];
+    [encoder encodeInteger:_linkid forKey:@"linkid"];
+    [encoder encodeInteger:_pos forKey:@"pos"];
+    [encoder encodeBool:recalc forKey:@"recalc"];
 }
 
 - (NSRect) boundsWithLayout: (NSLayoutManager*)layout
@@ -187,7 +247,7 @@
         /* set bounds to be at the same line as anchor but in left/right margin */
         if (_alignment == imagealign_MarginRight)
         {
-            CGFloat rightMargin = container.textView.frame.size.width - container.textView.textContainerInset.width * 2 - container.lineFragmentPadding;
+            CGFloat rightMargin = _container.textView.frame.size.width - _container.textView.textContainerInset.width * 2 - _container.lineFragmentPadding;
             _bounds = NSMakeRect(rightMargin - size.width,
                                  theline.origin.y,
                                  size.width,
@@ -204,7 +264,7 @@
         }
         else
         {
-            _bounds = NSMakeRect(theline.origin.x + container.lineFragmentPadding,
+            _bounds = NSMakeRect(theline.origin.x + _container.lineFragmentPadding,
                                  theline.origin.y,
                                  size.width,
                                  size.height);
@@ -216,7 +276,7 @@
 
     }
 
-    [(MarginContainer *)container unoverlap:self];
+    [_container unoverlap:self];
     return _bounds;
 }
 
@@ -240,6 +300,27 @@
     flowbreaks = [[NSMutableArray alloc] init];
 
     return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self)
+    {
+        margins = [decoder decodeObjectForKey:@"margins"];
+        for (MarginImage *img in margins)
+            img.container = self;
+        flowbreaks = [decoder decodeObjectForKey:@"flowbreaks"];
+    }
+
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];
+    [encoder encodeObject:margins forKey:@"margins"];
+    [encoder encodeObject:flowbreaks forKey:@"flowbreaks"];
 }
 
 - (void) clearImages
@@ -434,7 +515,7 @@
 
     for (NSInteger i = [margins indexOfObject:image] - 1; i >= 0; i--)
     {
-        MarginImage *img2 = margins[i];
+        MarginImage *img2 = [margins objectAtIndex:i];
 
         // If overlapping, shift in opposite alignment direction
         if (NSIntersectsRect(img2.bounds, adjustedBounds))
@@ -488,7 +569,7 @@
 
 - (void) drawRect: (NSRect)rect
 {
-//    NSLog(@"MarginContainer drawRect: %@", NSStringFromRect(rect));
+    //    NSLog(@"MarginContainer drawRect: %@", NSStringFromRect(rect));
 
     NSSize inset = self.textView.textContainerInset;
     NSSize size;
@@ -599,18 +680,40 @@
 
 @implementation MyTextView
 
-- (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container textBuffer: (GlkTextBufferWindow *)textbuffer
+- (instancetype) initWithFrame:(NSRect)rect textContainer:(NSTextContainer *)container
 {
     self = [super initWithFrame:rect textContainer:container];
     if (self)
     {
-        glkTextBuffer = textbuffer;
         _bottomPadding = 0;
         _shouldSpeak_10_7 = NO;
         _rangeToSpeak_10_7 = NSMakeRange(0, 0);
         //NSLog(@"GlkTextBufferWindow: MyTextView initWithFrame: %@", NSStringFromRect(rect));
     }
     return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self)
+    {
+        _bottomPadding = [decoder decodeFloatForKey:@"bottomPadding"];
+        _shouldSpeak_10_7 = [decoder decodeBoolForKey:@"shouldSpeak_10_7"];
+        NSValue *rangeVal = [decoder decodeObjectForKey:@"rangeToSpeak_10_7"];
+        _rangeToSpeak_10_7 = rangeVal.rangeValue;
+    }
+
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];
+    [encoder encodeFloat:_bottomPadding forKey:@"bottomPadding"];
+    [encoder encodeBool:_shouldSpeak_10_7 forKey:@"shouldSpeak_10_7"];
+    NSValue *rangeVal = [NSValue valueWithRange:_rangeToSpeak_10_7];
+    [encoder encodeObject:rangeVal forKey:@"rangeToSpeak_10_7"];
 }
 
 - (void) superKeyDown: (NSEvent*)evt
@@ -620,7 +723,7 @@
 
 - (void) keyDown: (NSEvent*)evt
 {
-    [glkTextBuffer onKeyDown: evt];
+    [(GlkTextBufferWindow *)self.delegate onKeyDown: evt];
 }
 
 - (void) drawRect: (NSRect)rect
@@ -632,6 +735,10 @@
 
 - (void)scrollToBottom
 {
+    // first, force a layout so we have the correct textview frame
+   // [self.layoutManager glyphRangeForTextContainer: self.textContainer];
+
+    GlkTextBufferWindow *glkTextBuffer = (GlkTextBufferWindow *)self.delegate;
     id view = self.superview;
     while (view && ![view isKindOfClass: [NSScrollView class]])
         view = [view superview];
@@ -646,11 +753,13 @@
 
     [scrollview.contentView scrollToPoint:newScrollOrigin];
     [scrollview reflectScrolledClipView:scrollview.contentView];
-    //NSLog(@"Scrolled to bottom of scrollview");
+    NSLog(@"scrollToBottom: Scrolled to bottom of scrollview");
 }
 
 - (void) performScroll
 {
+    NSLog(@"performScroll: scroll down from lastseen");
+
     int bottom;
     NSRange range;
     // first, force a layout so we have the correct textview frame
@@ -670,38 +779,31 @@
     // then, get the bottom
     bottom = NSHeight(self.frame);
 
+    GlkTextBufferWindow *glkTxtBuf = (GlkTextBufferWindow *)[self delegate];
+
     // scroll so rect from lastseen to bottom is visible
-    if (bottom - glkTextBuffer.lastseen > NSHeight(scrollview.frame))
-        [self scrollRectToVisible: NSMakeRect(0, glkTextBuffer.lastseen, 0, NSHeight(scrollview.frame))];
+    if (bottom - glkTxtBuf.lastseen > NSHeight(scrollview.frame))
+        [self scrollRectToVisible: NSMakeRect(0, glkTxtBuf.lastseen, 0, NSHeight(scrollview.frame))];
     else
-        [self scrollRectToVisible: NSMakeRect(0, glkTextBuffer.lastseen, 0, bottom - glkTextBuffer.lastseen)];
+        [self scrollRectToVisible: NSMakeRect(0, glkTxtBuf.lastseen, 0, bottom - glkTxtBuf.lastseen)];
 }
 
 - (BOOL) scrolledToBottom
 {
-    NSRange range;
-    // first, force a layout so we have the correct textview frame
-    [self.layoutManager glyphRangeForTextContainer: self.textContainer];
+    NSScrollView *scrollview = self.enclosingScrollView;
 
-    if (self.textStorage.length == 0)
-        return YES;
+    CGFloat scrollViewBottomOffset = self.frame.size.height - scrollview.bounds.size.height;
 
-    [self.layoutManager textContainerForGlyphAtIndex:0 effectiveRange:&range];
-
-    id view = self.superview;
-    while (view && ![view isKindOfClass: [NSScrollView class]])
-        view = [view superview];
-
-    NSScrollView *scrollview = (NSScrollView *)view;
-
-    CGFloat scrollViewBottomOffset = ((NSTextView *)scrollview.documentView).frame.size.height - scrollview.bounds.size.height;
+    if (NSMaxY(scrollview.documentVisibleRect) >= scrollViewBottomOffset) {
+        NSLog(@"NSMaxY(scrollview.documentVisibleRect) (%f) >= scrollViewBottomOffset (%f). Scrolled to bottom!", NSMaxY(scrollview.documentVisibleRect), scrollViewBottomOffset);
+    } else NSLog(@"NSMaxY(scrollview.documentVisibleRect) (%f) < scrollViewBottomOffset (%f). Not scrolled to bottom!", NSMaxY(scrollview.documentVisibleRect), scrollViewBottomOffset);
 
     return (NSMaxY(scrollview.documentVisibleRect) >= scrollViewBottomOffset);
 }
 
 - (void) mouseDown: (NSEvent*)theEvent
 {
-    if (![glkTextBuffer myMouseDown:theEvent])
+    if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
         [super mouseDown:theEvent];
 }
 
@@ -742,7 +844,7 @@
     if (menuItem.action == @selector(cut:))
     {
         if (self.selectedRange.length &&
-            [glkTextBuffer textView: self
+            [self.delegate textView: self
             shouldChangeTextInRange: self.selectedRange
                   replacementString: nil])
             self.editable = waseditable;
@@ -750,7 +852,7 @@
 
     else if (menuItem.action == @selector(paste:))
     {
-        if ([glkTextBuffer textView: self
+        if ([self.delegate textView: self
             shouldChangeTextInRange: self.selectedRange
                   replacementString: nil])
             self.editable = waseditable;
@@ -773,7 +875,7 @@
     return isValidItem;
 }
 
-// Text Finder
+# pragma mark Text Finder
 
 - (NSTextFinder*) textFinder
 {
@@ -796,6 +898,17 @@
     }
 }
 
+- (void) destroyTextFinder
+{
+    // Create the text finder on demand
+    if (_textFinder) {
+        _textFinder.findBarContainer.findBarVisible = NO;
+        _textFinder.client = nil;
+        _textFinder.findBarContainer = nil;
+        _textFinder = nil;
+    }
+}
+
 // This is where the commands are actually sent to the text finder
 - (void) performTextFinderAction:(id<NSValidatedUserInterfaceItem>)sender
 {
@@ -805,8 +918,7 @@
     self.editable = waseditable;
 }
 
-
-// = NSAccessibility =
+# pragma mark Accessibility
 
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
@@ -817,7 +929,7 @@
         if (NSMaxRange(_rangeToSpeak_10_7) != self.textStorage.length)
             _rangeToSpeak_10_7 = NSMakeRange(_rangeToSpeak_10_7.location, self.textStorage.length - _rangeToSpeak_10_7.location);
     }
-    
+
     if ([attribute isEqualToString:NSAccessibilityValueAttribute])
     {
         NSString* selectedText = nil;
@@ -829,13 +941,13 @@
         }
 
         if (self.selectedRanges)
-            selectedText = [self.textStorage.string substringWithRange: ((NSValue *)self.selectedRanges[0]).rangeValue];
+            selectedText = [self.textStorage.string substringWithRange:((NSValue *)[self.selectedRanges objectAtIndex:0]).rangeValue];
 
         return (selectedText && selectedText.length) ? selectedText : [self.textStorage.string substringWithRange: ((NSValue *)[super accessibilityAttributeValue:NSAccessibilityVisibleCharacterRangeAttribute]).rangeValue];
     }
     else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute])
         return [NSNumber numberWithBool: self.window.firstResponder == self ||
-                self.window.firstResponder == glkTextBuffer];
+                self.window.firstResponder == (GlkTextBufferWindow *)self.delegate];
 
     if (_shouldSpeak_10_7 && NSMaxRange(_rangeToSpeak_10_7) <= self.textStorage.length)
     {
@@ -892,7 +1004,7 @@
             }
 
             index = NSMaxRange(lineRange);
-                    }
+        }
         return nil;
     }
 
@@ -925,13 +1037,13 @@
     NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
 
     if ([action isEqualToString: @"Repeat last move"])
-        [glkTextBuffer speakMostRecent:nil];
+        [(GlkTextBufferWindow *)self.delegate speakMostRecent:nil];
     else if ([action isEqualToString: @"Speak move before"])
-        [glkTextBuffer speakPrevious:nil];
+        [(GlkTextBufferWindow *)self.delegate speakPrevious:nil];
     else if ([action isEqualToString: @"Speak move after"])
-        [glkTextBuffer speakNext:nil];
+        [(GlkTextBufferWindow *)self.delegate speakNext:nil];
     else if ([action isEqualToString: @"Speak status bar"])
-        [glkTextBuffer speakStatus:nil];
+        [(GlkTextBufferWindow *)self.delegate speakStatus:nil];
     else [super accessibilityPerformAction: action];
 }
 
@@ -977,28 +1089,36 @@
         moveRanges = [[NSMutableArray alloc] init];
         moveRangeIndex = 0;
 
+        _lastVisible = 0;
+        _scrollOffset = 0;
+
+        _restoredScroll = NSZeroRect;
+        _restoredSelection = NSMakeRange(0,0);
+
         scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
         scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         scrollview.scrollerStyle = NSScrollerStyleOverlay;
-        [scrollview setHasHorizontalScroller: NO];
-        [scrollview setHasVerticalScroller: YES];
-        [scrollview setAutohidesScrollers: YES];
+        scrollview.drawsBackground = YES;
+
+        scrollview.hasHorizontalScroller = NO;
+        scrollview.hasVerticalScroller = YES;
+        scrollview.autohidesScrollers = YES;
 
         scrollview.borderType = NSNoBorder;
 
         /* construct text system manually */
 
-        textstorage = [[NSTextStorage alloc] init];
+        _textstorage = [[NSTextStorage alloc] init];
 
         layoutmanager = [[NSLayoutManager alloc] init];
-        [textstorage addLayoutManager: layoutmanager];
+        [_textstorage addLayoutManager: layoutmanager];
 
         container = [[MarginContainer alloc] initWithContainerSize: NSMakeSize(0, 10000000)];
 
         container.layoutManager = layoutmanager;
         [layoutmanager addTextContainer: container];
 
-        textview = [[MyTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000) textContainer:container textBuffer:self];
+        textview = [[MyTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000) textContainer:container];
 
         textview.minSize = NSMakeSize(1, 10000000);
         textview.maxSize = NSMakeSize(10000000, 10000000);
@@ -1009,25 +1129,24 @@
 
         /* now configure the text stuff */
 
-        [container setWidthTracksTextView: YES];
-        [container setHeightTracksTextView: NO];
+        container.widthTracksTextView = YES;
+        container.heightTracksTextView = NO;
 
-        [textview setHorizontallyResizable: NO];
-        [textview setVerticallyResizable: YES];
+        textview.horizontallyResizable = NO;
+        textview.verticallyResizable = YES;
 
         textview.autoresizingMask = NSViewWidthSizable;
-        textview.automaticQuoteSubstitutionEnabled = NO;
 
-        [textview setAllowsImageEditing: NO];
-        [textview setAllowsUndo: NO];
-        [textview setUsesFontPanel: NO];
-        [textview setUsesFindBar:YES];
-        [textview setIncrementalSearchingEnabled:YES];
+        textview.allowsImageEditing = NO;
+        textview.allowsUndo = NO;
+        textview.usesFontPanel = NO;
+        textview.usesFindBar = YES;
+        textview.incrementalSearchingEnabled = YES;
 
-        [textview setSmartInsertDeleteEnabled: NO];
+        textview.smartInsertDeleteEnabled = NO;
 
         textview.delegate = self;
-        textstorage.delegate = self;
+        _textstorage.delegate = self;
 
         textview.textContainerInset = NSMakeSize(margin, margin);
         textview.backgroundColor = [Preferences bufferBackground];
@@ -1047,6 +1166,166 @@
     return self;
 }
 
+- (instancetype) initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self)
+    {
+        NSInteger i;
+        scrollview = [decoder decodeObjectForKey:@"scrollview"];
+        _textstorage = [decoder decodeObjectForKey:@"_textstorage"];
+        layoutmanager = [decoder decodeObjectForKey:@"layoutmanager"];
+        container = [decoder decodeObjectForKey:@"container"];
+        textview = [decoder decodeObjectForKey:@"textview"];
+
+        while (layoutmanager.textContainers.count)
+            [layoutmanager removeTextContainerAtIndex:0];
+        while (_textstorage.layoutManagers.count)
+            [_textstorage removeLayoutManager:[_textstorage.layoutManagers objectAtIndex:0]];
+        container.layoutManager = layoutmanager;
+        [_textstorage addLayoutManager:layoutmanager];
+        [layoutmanager addTextContainer: container];
+        container.textView = textview;
+
+        scrollview.documentView = textview;
+        textview.delegate = self;
+        _textstorage.delegate =self;
+
+        if (textview.textStorage != _textstorage)
+            NSLog(@"Error! textview.textStorage != _textstorage");
+
+        scrollview.drawsBackground = YES;
+        scrollview.backgroundColor = [Preferences bufferBackground];
+        [textview destroyTextFinder];
+        NSLog(@"textview.textFinder = %@", textview.textFinder);
+
+        scrollview.findBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
+
+        line_request = [decoder decodeBoolForKey:@"line_request"];
+        hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
+
+        echo_toggle_pending = [decoder decodeBoolForKey:@"echo_toggle_pending"];
+        echo = [decoder decodeBoolForKey:@"echo"];
+
+        fence = [decoder decodeIntegerForKey:@"fence"];
+
+        NSMutableArray *historyarray = [decoder decodeObjectForKey:@"history"];
+
+        for (i = 0 ; i < historyarray.count; i++ )
+        {
+            history[i] = [historyarray objectAtIndex:i];
+        }
+
+        while (++i<HISTORYLEN)
+        {
+            history[i]=nil;
+        }
+        historypos = [decoder decodeIntegerForKey:@"historypos"];
+        historyfirst = [decoder decodeIntegerForKey:@"historyfirst"];
+        historypresent = [decoder decodeIntegerForKey:@"historypresent"];
+        moveRanges = [decoder decodeObjectForKey:@"moveRanges"];
+        moveRangeIndex = [decoder decodeIntegerForKey:@"moveRangeIndex"];
+        _lastchar = [decoder decodeIntegerForKey:@"lastchar"];
+        _lastseen = [decoder decodeIntegerForKey:@"lastseen"];
+        _restoredSelection = ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"]).rangeValue;
+        textview.selectedRange = _restoredSelection;
+        _restoredScroll = [decoder decodeRectForKey:@"visibleRect"];
+        _restoredAtBottom = [decoder decodeBoolForKey:@"scrolledToBottom"];
+        if (!_restoredAtBottom) {
+            _lastVisible = [decoder decodeIntegerForKey:@"lastVisible"];
+            _scrollOffset = [decoder decodeDoubleForKey:@"lastVisibleOffset"];            
+        }
+        textview.insertionPointColor = [decoder decodeObjectForKey:@"insertionPointColor"];
+        textview.shouldDrawCaret = [decoder decodeBoolForKey:@"shouldDrawCaret"];
+        _restoredSearch = [decoder decodeObjectForKey:@"searchString"];
+    }
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder {
+    [super encodeWithCoder:encoder];
+    [encoder encodeObject:scrollview forKey:@"scrollview"];
+    [encoder encodeObject:_textstorage forKey:@"_textstorage"];
+    [encoder encodeObject:layoutmanager forKey:@"layoutmanager"];
+    [encoder encodeObject:container forKey:@"container"];
+    [encoder encodeObject:textview forKey:@"textview"];
+    NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
+    [encoder encodeObject:rangeVal forKey:@"selectedRange"];
+    [encoder encodeBool:line_request forKey:@"line_request"];
+    [encoder encodeBool:hyper_request forKey:@"hyper_request"];
+    [encoder encodeBool:echo_toggle_pending forKey:@"echo_toggle_pending"];
+    [encoder encodeBool:echo forKey:@"echo"];
+    [encoder encodeInteger:fence forKey:@"fence"];
+    NSMutableArray *historyarray = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0 ; i < HISTORYLEN; i++ ) {
+        if (history[i])
+            [historyarray addObject:history[i]];
+        else
+            break;
+    }
+    [encoder encodeObject:historyarray forKey:@"history"];
+    [encoder encodeInteger:historypos forKey:@"historypos"];
+    [encoder encodeInteger:historyfirst forKey:@"historyfirst"];
+    [encoder encodeInteger:historypresent forKey:@"historypresent"];
+    [encoder encodeObject:moveRanges forKey:@"moveRanges"];
+    [encoder encodeInteger:moveRangeIndex forKey:@"moveRangeIndex"];
+    [encoder encodeInteger:_lastchar forKey:@"lastchar"];
+    [encoder encodeInteger:_lastseen forKey:@"lastseen"];
+    [encoder encodeRect:scrollview.documentVisibleRect forKey:@"visibleRect"];
+    NSLog(@"Encoded visibleRect as %@", NSStringFromRect(scrollview.documentVisibleRect));
+    _restoredAtBottom = textview.scrolledToBottom;
+    [encoder encodeBool:_restoredAtBottom forKey:@"scrolledToBottom"];
+    if (!_restoredAtBottom) {
+        CGFloat offset;
+        [encoder encodeInteger:[self lastVisibleCharacter:&offset] forKey:@"lastVisible"];
+        [encoder encodeDouble:offset forKey:@"lastVisibleOffset"];
+     }
+
+    [encoder encodeObject:textview.insertionPointColor forKey:@"insertionPointColor"];
+    [encoder encodeBool:textview.shouldDrawCaret forKey:@"shouldDrawCaret"];
+        NSSearchField *searchField = [self findSearchFieldIn:self];
+    if (searchField) {
+        [encoder encodeObject:searchField.stringValue forKey:@"searchString"];
+        NSLog(@"encoded search string %@",searchField.stringValue);
+    }
+    [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
+}
+
+- (void) restoreTextFinder {
+    BOOL waseditable = textview.editable;
+    textview.editable = NO;
+    NSTextFinder *newFinder = textview.textFinder;
+    newFinder.client = textview;
+    [newFinder performAction:NSTextFinderActionShowFindInterface];
+    NSSearchField *searchField = [self findSearchFieldIn:self];
+    if (searchField) {
+        searchField.stringValue = _restoredSearch;
+        [newFinder cancelFindIndicator];
+        [_window makeFirstResponder:textview];
+        [searchField sendAction:searchField.action to:searchField.target];
+    }
+    textview.editable = waseditable;
+}
+
+- (NSSearchField *) findSearchFieldIn: (NSView *)theView // search the subviews for a view of class NSSearchField
+{
+    __block __weak NSSearchField *(^weak_findSearchField)(NSView *);
+    NSSearchField *(^findSearchField)(NSView *);
+    weak_findSearchField = findSearchField = ^(NSView *view) {
+        if ([view isKindOfClass:[NSSearchField class]])
+            return (NSSearchField *)view;
+        __block NSSearchField *foundView = nil;
+        [view.subviews enumerateObjectsUsingBlock:^(NSView *subview, NSUInteger idx, BOOL *stop) {
+            foundView = weak_findSearchField(subview);
+            if (foundView)
+                *stop = YES;
+        }];
+        return foundView;
+    };
+
+    return findSearchField(theView);
+}
+
 - (BOOL) allowsDocumentBackgroundColorChange { return YES; }
 
 - (void)changeDocumentBackgroundColor:(id)sender
@@ -1063,8 +1342,8 @@
 
     if ([Preferences stylesEnabled])
     {
-        bgcolor = styles[style_Normal].attributes[NSBackgroundColorAttributeName];
-        fgcolor = styles[style_Normal].attributes[NSForegroundColorAttributeName];
+        bgcolor = [((GlkStyle *)[styles objectAtIndex:style_Normal]).attributes objectForKey:NSBackgroundColorAttributeName];
+        fgcolor = [((GlkStyle *)[styles objectAtIndex:style_Normal]).attributes objectForKey:NSForegroundColorAttributeName];
     }
 
     if (!bgcolor)
@@ -1074,8 +1353,8 @@
 
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = fgcolor;
-    
-    [glkctl setBorderColor:bgcolor];
+
+    [self.glkctl setBorderColor:bgcolor];
 }
 
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value
@@ -1096,31 +1375,32 @@
     textview.textContainerInset = NSMakeSize(margin, margin);
     [self recalcBackground];
 
-    [textstorage removeAttribute: NSBackgroundColorAttributeName
-                           range: NSMakeRange(0, textstorage.length)];
+    [_textstorage removeAttribute: NSBackgroundColorAttributeName
+                           range: NSMakeRange(0, _textstorage.length)];
 
     /* reassign attribute dictionaries */
     x = 0;
-    while (x < textstorage.length)
+    while (x < _textstorage.length)
     {
-        id styleobject = [textstorage attribute:@"GlkStyle" atIndex:x effectiveRange:&range];
+        id styleobject = [_textstorage attribute:@"GlkStyle" atIndex:x effectiveRange:&range];
 
         NSDictionary * attributes = [self attributesFromStylevalue:[styleobject intValue]];
 
-        id image = [textstorage attribute: @"NSAttachment" atIndex:x effectiveRange:NULL];
-        id hyperlink = [textstorage attribute: NSLinkAttributeName atIndex:x effectiveRange:&linkrange];
-        [textstorage setAttributes: attributes range: range];
+        id image = [_textstorage attribute: @"NSAttachment" atIndex:x effectiveRange:NULL];
+        id hyperlink = [_textstorage attribute: NSLinkAttributeName atIndex:x effectiveRange:&linkrange];
+        [_textstorage setAttributes: attributes range: range];
 
         if (image)
         {
-            [textstorage addAttribute: @"NSAttachment"
+            ((MyAttachmentCell *)image).attrstr = _textstorage;
+            [_textstorage addAttribute: @"NSAttachment"
                                 value: image
                                 range: NSMakeRange(x, 1)];
         }
 
         if (hyperlink)
         {
-            [textstorage addAttribute: NSLinkAttributeName
+            [_textstorage addAttribute: NSLinkAttributeName
                                 value: hyperlink
                                 range: linkrange];
         }
@@ -1134,7 +1414,7 @@
 
 - (void) setFrame: (NSRect)frame
 {
-    //NSLog(@"GlkTextBufferWindow: setFrame: %@", NSStringFromRect(frame));
+    NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name, NSStringFromRect(frame));
 
     if (NSEqualRects(frame, self.frame))
         return;
@@ -1144,14 +1424,16 @@
     [container invalidateLayout];
     if (atBottom)
         [self scrollToBottom];
+  //  if (!textview.scrolledToBottom)
+    //    [self restoreScroll];
 }
 
 - (void) saveAsRTF: (id)sender
 {
-    NSWindow* window = glkctl.window;
+    NSWindow* window = self.glkctl.window;
     BOOL isRtfd = NO;
     NSString* newExtension = @"rtf";
-    if (textstorage.containsAttachments)
+    if (_textstorage.containsAttachments)
     {
         newExtension = @"rtfd";
         isRtfd = YES;
@@ -1167,7 +1449,7 @@
     panel.extensionHidden=NO;
     [panel setCanCreateDirectories:YES];
     panel.nameFieldStringValue = newName;
-	NSAttributedString *localTextStorage = textstorage;
+	NSAttributedString *localTextStorage = _textstorage;
     [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton)
         {
@@ -1176,7 +1458,7 @@
             {
                 NSFileWrapper *wrapper;
                 wrapper = [localTextStorage RTFDFileWrapperFromRange: NSMakeRange(0, localTextStorage.length)
-                                             documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFDTextDocumentType}];
+                                                  documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFDTextDocumentType}];
 
                 [wrapper writeToURL:theFile options: NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating originalContentsURL:nil error:NULL];
 
@@ -1185,133 +1467,13 @@
             {
                 NSData *data;
                 data = [localTextStorage RTFFromRange: NSMakeRange(0, localTextStorage.length)
-                              documentAttributes:@{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
+                                   documentAttributes:@{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
                 [data writeToURL: theFile atomically:NO];
             }
         }
     }];
 }
 
-- (NSImage*) scaleImage: (NSImage*)src size: (NSSize)dstsize
-{
-    NSSize srcsize = src.size;
-    NSImage *dst;
-
-    if (NSEqualSizes(srcsize, dstsize))
-        return src;
-
-    dst = [[NSImage alloc] initWithSize: dstsize];
-    [dst lockFocus];
-
-    [NSGraphicsContext currentContext].imageInterpolation = NSImageInterpolationHigh;
-
-    [src drawInRect: NSMakeRect(0, 0, dstsize.width, dstsize.height)
-           fromRect: NSMakeRect(0, 0, srcsize.width, srcsize.height)
-          operation: NSCompositeSourceOver
-           fraction: 1.0 respectFlipped:YES hints:nil];
-
-    [dst unlockFocus];
-
-    return dst;
-}
-
-- (void) drawImage: (NSImage*)image val1: (NSInteger)align val2: (NSInteger)unused width: (NSInteger)w height: (NSInteger)h
-{
-    NSTextAttachment *att;
-    NSFileWrapper *wrapper;
-    NSData *tiffdata;
-    //NSAttributedString *attstr;
-
-    [textview resetTextFinder];
-
-    if (w == 0)
-        w = image.size.width;
-    if (h == 0)
-        h = image.size.height;
-
-    if (align == imagealign_MarginLeft || align == imagealign_MarginRight)
-    {
-        if (_lastchar != '\n' && textstorage.length)
-        {
-            NSLog(@"lastchar is not line break. Do not add margin image.");
-            return;
-        }
-
-        //        NSLog(@"adding image to margins");
-
-        unichar uc[1];
-        uc[0] = NSAttachmentCharacter;
-
-        [textstorage.mutableString appendString: [NSString stringWithCharacters: uc length: 1]];
-
-        NSUInteger linkid = 0;
-        if (currentHyperlink) linkid = currentHyperlink.index;
-
-        image = [self scaleImage: image size: NSMakeSize(w, h)];
-
-        tiffdata = image.TIFFRepresentation;
-
-        [container addImage: [[NSImage alloc] initWithData:tiffdata] align: align at: textstorage.length - 1 linkid:linkid];
-
-        //        [container addImage: image align: align at: textstorage.length - 1 linkid:linkid];
-
-    }
-    else
-    {
-        //        NSLog(@"adding image to text");
-
-        image = [self scaleImage: image size: NSMakeSize(w, h)];
-
-        tiffdata = image.TIFFRepresentation;
-
-        wrapper = [[NSFileWrapper alloc] initRegularFileWithContents: tiffdata];
-        wrapper.preferredFilename = @"image.tiff";
-        att = [[NSTextAttachment alloc] initWithFileWrapper: wrapper];
-        MyAttachmentCell *cell = [[MyAttachmentCell alloc] initImageCell:image andAlignment:align andAttStr:textstorage at:textstorage.length - 1];
-        att.attachmentCell = cell;
-        NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
-
-        [textstorage appendAttributedString: attstr];
-    }
-}
-
-- (void) flowBreak
-{
-    [textview resetTextFinder];
-
-    // NSLog(@"adding flowbreak");
-    unichar uc[1];
-    uc[0] = NSAttachmentCharacter;
-    [textstorage.mutableString appendString: [NSString stringWithCharacters: uc length: 1]];
-    [container flowBreakAt: textstorage.length - 1];
-}
-
-- (void) markLastSeen
-{
-    NSRange glyphs;
-    NSRect line;
-
-    glyphs = [layoutmanager glyphRangeForTextContainer: container];
-
-    if (glyphs.length)
-    {
-        line = [layoutmanager lineFragmentRectForGlyphAtIndex: NSMaxRange(glyphs) - 1
-                                               effectiveRange: nil];
-
-        _lastseen = line.origin.y + line.size.height; // bottom of the line
-        //NSLog(@"GlkTextBufferWindow: markLastSeen: %ld", (long)_lastseen);
-    }
-}
-
-- (void) performScroll
-{
-    [(MyTextView *)textview performScroll];
-}
-
-- (void)scrollToBottom
-{
-    [(MyTextView *)textview scrollToBottom];
-}
 
 - (void) saveHistory: (NSString*)line
 {
@@ -1351,8 +1513,8 @@
     if (historypos == historypresent)
     {
         /* save the edited line */
-        if (textstorage.length - fence > 0)
-            cx = [textstorage.string substringFromIndex:fence];
+        if (_textstorage.length - fence > 0)
+            cx = [_textstorage.string substringFromIndex:fence];
         else
             cx = nil;
         history[historypos] = cx;
@@ -1366,7 +1528,7 @@
     if (!cx)
         cx = @"";
 
-    [textstorage replaceCharactersInRange: NSMakeRange(fence, textstorage.length - fence)
+    [_textstorage replaceCharactersInRange: NSMakeRange(fence, _textstorage.length - fence)
                                withString: cx];
 }
 
@@ -1387,7 +1549,7 @@
     if (!cx)
         cx = @"";
 
-    [textstorage replaceCharactersInRange: NSMakeRange(fence, textstorage.length - fence)
+    [_textstorage replaceCharactersInRange: NSMakeRange(fence, _textstorage.length - fence)
                                withString: cx];
 }
 
@@ -1405,10 +1567,9 @@
 
     // pass on this key press to another GlkWindow if we are not expecting one
     if (!self.wantsFocus)
-        for (int i = 0; i < MAXWIN; i++)
+        for (win in [self.glkctl.gwindows allValues])
         {
-            win = [glkctl windowWithNum:i];
-            if (i != self.name && win && win.wantsFocus)
+            if (win != self && win.wantsFocus)
             {
                 [win grabFocus];
                 NSLog(@"Passing on keypress");
@@ -1452,7 +1613,7 @@
     // if not scrolled to the bottom, pagedown or navigate scrolling on each key instead
     if (NSMaxY(textview.visibleRect) < NSMaxY(textview.bounds) - 5 - textview.bottomPadding)
     {
-        NSRect promptrect = [layoutmanager lineFragmentRectForGlyphAtIndex: textstorage.length - 1
+        NSRect promptrect = [layoutmanager lineFragmentRectForGlyphAtIndex: _textstorage.length - 1
                                                             effectiveRange: nil];
 
         // Skip if we are scrolled to input prompt
@@ -1484,20 +1645,20 @@
 
     if (char_request && ch != keycode_Unknown)
     {
-        //NSLog(@"char event from %ld", (long)self.name);
+        NSLog(@"char event from %ld", (long)self.name);
 
         //[textview setInsertionPointColor:[Preferences bufferForeground]];
 
-        [glkctl markLastSeen];
+        [self.glkctl markLastSeen];
 
         gev = [[GlkEvent alloc] initCharEvent: ch forWindow: self.name];
-        [glkctl queueEvent: gev];
+        [self.glkctl queueEvent: gev];
 
         char_request = NO;
         [textview setEditable: NO];
 
     }
-    else if (line_request && (ch == keycode_Return || [currentTerminators[key] isEqual: @(YES)]))
+    else if (line_request && (ch == keycode_Return || [[currentTerminators objectForKey:key] isEqual: @(YES)]))
     {
         //NSLog(@"line event from %ld", (long)self.name);
 
@@ -1505,26 +1666,28 @@
 
         textview.insertionPointColor = [Preferences bufferBackground];
 
-        [glkctl markLastSeen];
+        [self.glkctl markLastSeen];
 
-        NSString *line = [textstorage.string substringFromIndex:fence];
+        NSString *line = [_textstorage.string substringFromIndex:fence];
         if (echo)
         {
             [self printToWindow: @"\n" style: style_Input]; // XXX arranger lastchar needs to be set
             _lastchar = '\n';
         }
         else
-            [textstorage deleteCharactersInRange: NSMakeRange(fence, textstorage.length - fence)]; // Don't echo input line
+            [_textstorage deleteCharactersInRange: NSMakeRange(fence, _textstorage.length - fence)]; // Don't echo input line
 
         if (line.length > 0)
         {
             [self saveHistory: line];
         }
 
-        gev = [[GlkEvent alloc] initLineEvent: line forWindow: self.name];
-        [glkctl queueEvent: gev];
+        line = [line scrubInvalidCharacters];
 
-        fence = textstorage.length;
+        gev = [[GlkEvent alloc] initLineEvent: line forWindow: self.name];
+        [self.glkctl queueEvent: gev];
+
+        fence = _textstorage.length;
         line_request = NO;
         [textview setEditable: NO];
     }
@@ -1539,7 +1702,7 @@
         [self travelForwardInHistory];
     }
 
-    else if (line_request && ch == keycode_PageUp && fence == (NSInteger)textstorage.length)
+    else if (line_request && ch == keycode_PageUp && fence == (NSInteger)_textstorage.length)
     {
         [textview scrollPageUp: nil];
         return;
@@ -1551,70 +1714,24 @@
             [self grabFocus];
 
         [self stopSpeakingText_10_7];
+        [[self.glkctl window] makeFirstResponder:textview];
         [textview superKeyDown: evt];
     }
 }
 
-- (void) echo: (BOOL)val
-{
-    if ((!(val) && echo) || (val && !(echo))) // Do we need to toggle echo?
-        echo_toggle_pending = YES;
-}
 
-- (BOOL) textView: (NSTextView*)textview_ clickedOnLink: (id)link atIndex: (NSUInteger)charIndex
-{
-    NSLog(@"txtbuf: clicked on link: %@", link);
 
-    if (!hyper_request)
-    {
-        NSLog(@"txtbuf: No hyperlink request in window.");
-        return NO;
-    }
 
-    GlkEvent *gev = [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue forWindow: self.name];
-    [glkctl queueEvent: gev];
-
-    hyper_request = NO;
-    [textview setEditable: NO];
-    return YES;
-}
-
-// Make margin image links clickable
-- (BOOL) myMouseDown: (NSEvent*)theEvent
-{
-    GlkEvent *gev;
-
-    //Do't draw a caret right now, even if we clicked at the prompt
-
-    [textview temporarilyHideCaret];
-
-    //NSLog(@"mouseDown in buffer window.");
-    if (hyper_request)
-    {
-        [glkctl markLastSeen];
-
-        NSPoint p;
-        p = theEvent.locationInWindow;
-        p = [textview convertPoint: p fromView: nil];
-        p.x -= textview.textContainerInset.width;
-        p.y -= textview.textContainerInset.height;
-
-        NSUInteger linkid = [container findHyperlinkAt:p];
-        if (linkid)
-        {
-            NSLog(@"Clicked margin image hyperlink in buf at %g,%g", p.x, p.y);
-            gev = [[GlkEvent alloc] initLinkEvent: linkid forWindow: self.name];
-            [glkctl queueEvent: gev];
-            hyper_request = NO;
-            return YES;
-        }
-    }
-    return NO;
-}
 
 - (void) grabFocus
 {
-    [self.window makeFirstResponder: textview];
+    dispatch_async(dispatch_get_main_queue(), ^{[self.window makeFirstResponder: textview];});
+    //NSLog(@"GlkTextBufferWindow %ld grabbed focus.", self.name);
+}
+
+- (BOOL) wantsFocus
+{
+    return char_request || line_request;
 }
 
 - (void) clear
@@ -1622,7 +1739,7 @@
     [textview resetTextFinder];
 
     id att = [[NSAttributedString alloc] initWithString: @""];
-    [textstorage setAttributedString: att];
+    [_textstorage setAttributedString: att];
     fence = 0;
     _lastseen = 0;
     _lastchar = '\n';
@@ -1639,7 +1756,7 @@
 
 - (void) clearScrollback: (id)sender
 {
-    NSString *string = textstorage.string;
+    NSString *string = _textstorage.string;
     NSInteger length = string.length;
     NSInteger save_request = line_request;
 
@@ -1664,7 +1781,7 @@
 
     line_request = NO;
 
-    [textstorage replaceCharactersInRange: NSMakeRange(0, fence - prompt) withString: @""];
+    [_textstorage replaceCharactersInRange: NSMakeRange(0, fence - prompt) withString: @""];
     _lastseen = 0;
     _lastchar = '\n';
     fence = prompt;
@@ -1696,7 +1813,7 @@
 
     NSAttributedString *attstr = [[NSAttributedString alloc] initWithString:str attributes:[self attributesFromStylevalue:stylevalue]];
 
-    [textstorage appendAttributedString: attstr];
+    [_textstorage appendAttributedString: attstr];
 
     _lastchar = [str characterAtIndex: str.length - 1];
 
@@ -1706,9 +1823,9 @@
 {
     //NSLog(@"init char in %d", name);
 
-    // [glkctl performScroll];
+    // [self.glkctl performScroll];
 
-    fence = textstorage.length;
+    fence = _textstorage.length;
 
     char_request = YES;
     textview.insertionPointColor = [Preferences bufferBackground];
@@ -1734,7 +1851,7 @@
 
     historypos = historypresent;
 
-    // [glkctl performScroll];
+    // [self.glkctl performScroll];
 
     [textview resetTextFinder];
 
@@ -1755,11 +1872,11 @@
         [self printToWindow: @" " style: style_Normal];
     }
 
-    fence = textstorage.length;
+    fence = _textstorage.length;
 
     id att = [[NSAttributedString alloc] initWithString: str
-                                             attributes: styles[style_Input].attributes];
-    [textstorage appendAttributedString: att];
+                                             attributes: ((GlkStyle *)[styles objectAtIndex:style_Input]).attributes];
+    [_textstorage appendAttributedString: att];
 
     textview.insertionPointColor = [Preferences bufferForeground];
 
@@ -1767,7 +1884,7 @@
 
     line_request = YES;
 
-    [textview setSelectedRange: NSMakeRange(textstorage.length, 0)];
+    [textview setSelectedRange: NSMakeRange(_textstorage.length, 0)];
 
     [self setLastMove];
     [self speakMostRecent:nil];
@@ -1778,7 +1895,7 @@
     [textview resetTextFinder];
 
     textview.insertionPointColor = [Preferences bufferBackground];
-    NSString *str = textstorage.string;
+    NSString *str = _textstorage.string;
     str = [str substringFromIndex:fence];
     if (echo)
     {
@@ -1786,16 +1903,391 @@
         _lastchar = '\n'; // [str characterAtIndex: str.length - 1];
     }
     else
-        [textstorage deleteCharactersInRange: NSMakeRange(fence, textstorage.length - fence)]; // Don't echo input line
+        [_textstorage deleteCharactersInRange: NSMakeRange(fence, _textstorage.length - fence)]; // Don't echo input line
 
     [textview setEditable: NO];
     line_request = NO;
     return str;
 }
 
+- (void) echo: (BOOL)val
+{
+    if ((!(val) && echo) || (val && !(echo))) // Do we need to toggle echo?
+        echo_toggle_pending = YES;
+}
+
+- (void) terpDidStop
+{
+    [textview setEditable: NO];
+}
+
+- (BOOL) textView: (NSTextView*)aTextView
+shouldChangeTextInRange: (NSRange)range
+replacementString: (id)repl
+{
+    if (line_request && (NSInteger)range.location >= fence)
+    {   textview.shouldDrawCaret = YES;
+        return YES;
+    }
+
+    textview.shouldDrawCaret = NO;
+    return NO;
+}
+
+- (void) textStorageWillProcessEditing: (NSNotification*)note
+{
+    if (!line_request)
+        return;
+
+    if ((NSInteger)_textstorage.editedRange.location < fence)
+        return;
+
+    [_textstorage setAttributes: ((GlkStyle *)[styles objectAtIndex:style_Input]).attributes
+                         range: _textstorage.editedRange];
+}
+
+- (NSRange) textView: (NSTextView *)aTextView
+willChangeSelectionFromCharacterRange: (NSRange)oldrange
+    toCharacterRange:(NSRange)newrange
+{
+    if (line_request)
+    {
+        if (newrange.length == 0)
+            if ((NSInteger)newrange.location < fence)
+                newrange.location = fence;
+    }
+    else
+    {
+        if (newrange.length == 0)
+            newrange.location = _textstorage.length;
+    }
+    return newrange;
+}
+
+#pragma mark images
+
+- (NSImage*) scaleImage: (NSImage*)src size: (NSSize)dstsize
+{
+    NSSize srcsize = src.size;
+    NSImage *dst;
+
+    if (NSEqualSizes(srcsize, dstsize))
+        return src;
+
+    dst = [[NSImage alloc] initWithSize: dstsize];
+    [dst lockFocus];
+
+    [NSGraphicsContext currentContext].imageInterpolation = NSImageInterpolationHigh;
+
+    [src drawInRect: NSMakeRect(0, 0, dstsize.width, dstsize.height)
+           fromRect: NSMakeRect(0, 0, srcsize.width, srcsize.height)
+          operation: NSCompositeSourceOver
+           fraction: 1.0 respectFlipped:YES hints:nil];
+
+    [dst unlockFocus];
+
+    return dst;
+}
+
+- (void) drawImage: (NSImage*)image val1: (NSInteger)align val2: (NSInteger)unused width: (NSInteger)w height: (NSInteger)h
+{
+    NSTextAttachment *att;
+    NSFileWrapper *wrapper;
+    NSData *tiffdata;
+    //NSAttributedString *attstr;
+
+    [textview resetTextFinder];
+
+    if (w == 0)
+        w = image.size.width;
+    if (h == 0)
+        h = image.size.height;
+
+    if (align == imagealign_MarginLeft || align == imagealign_MarginRight)
+    {
+        if (_lastchar != '\n' && _textstorage.length)
+        {
+            NSLog(@"lastchar is not line break. Do not add margin image.");
+            return;
+        }
+
+        //        NSLog(@"adding image to margins");
+
+        unichar uc[1];
+        uc[0] = NSAttachmentCharacter;
+
+        [_textstorage.mutableString appendString: [NSString stringWithCharacters: uc length: 1]];
+
+        NSUInteger linkid = 0;
+        if (currentHyperlink) linkid = currentHyperlink.index;
+
+        image = [self scaleImage: image size: NSMakeSize(w, h)];
+
+        tiffdata = image.TIFFRepresentation;
+
+        [container addImage: [[NSImage alloc] initWithData:tiffdata] align: align at: _textstorage.length - 1 linkid:linkid];
+
+        //        [container addImage: image align: align at: _textstorage.length - 1 linkid:linkid];
+
+    }
+    else
+    {
+        //        NSLog(@"adding image to text");
+
+        image = [self scaleImage: image size: NSMakeSize(w, h)];
+
+        tiffdata = image.TIFFRepresentation;
+
+        wrapper = [[NSFileWrapper alloc] initRegularFileWithContents: tiffdata];
+        wrapper.preferredFilename = @"image.tiff";
+        att = [[NSTextAttachment alloc] initWithFileWrapper: wrapper];
+        MyAttachmentCell *cell = [[MyAttachmentCell alloc] initImageCell:image andAlignment:align andAttStr:_textstorage at:_textstorage.length - 1];
+        att.attachmentCell = cell;
+        NSMutableAttributedString *attstr = (NSMutableAttributedString*)[NSMutableAttributedString attributedStringWithAttachment:att];
+
+        [_textstorage appendAttributedString: attstr];
+    }
+}
+
+- (void) flowBreak
+{
+    [textview resetTextFinder];
+
+    // NSLog(@"adding flowbreak");
+    unichar uc[1];
+    uc[0] = NSAttachmentCharacter;
+    [_textstorage.mutableString appendString: [NSString stringWithCharacters: uc length: 1]];
+    [container flowBreakAt: _textstorage.length - 1];
+}
+
+
+#pragma mark Hyperlinks
+
+- (void) setHyperlink:(NSUInteger)linkid
+{
+    NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
+
+    if (currentHyperlink && currentHyperlink.index != linkid)
+    {
+        NSLog(@"There is a preliminary hyperlink, with index %ld", currentHyperlink.index);
+        if (currentHyperlink.startpos >= _textstorage.length)
+        {
+            NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. currentHyperlink.startpos == %ld, _textstorage.length == %ld", currentHyperlink.startpos, _textstorage.length);
+            currentHyperlink = nil;
+        }
+        else
+        {
+            [textview resetTextFinder];
+
+            currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, _textstorage.length - currentHyperlink.startpos);
+            [_textstorage addAttribute:NSLinkAttributeName value:@(currentHyperlink.index) range:currentHyperlink.range];
+            [hyperlinks addObject:currentHyperlink];
+            currentHyperlink = nil;
+        }
+    }
+    if (!currentHyperlink && linkid)
+    {
+        currentHyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:_textstorage.length];
+        NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", currentHyperlink.startpos,linkid);
+
+    }
+}
+
+- (void) initHyperlink
+{
+    hyper_request = YES;
+    textview.editable = YES;
+    //    NSLog(@"txtbuf: hyperlink event requested");
+
+}
+
+- (void) cancelHyperlink
+{
+    hyper_request = NO;
+    textview.editable = NO;
+    //    NSLog(@"txtbuf: hyperlink event cancelled");
+}
+
+// Make margin image links clickable
+- (BOOL) myMouseDown: (NSEvent*)theEvent
+{
+    GlkEvent *gev;
+
+    //Do't draw a caret right now, even if we clicked at the prompt
+    [textview temporarilyHideCaret];
+
+    //NSLog(@"mouseDown in buffer window.");
+    if (hyper_request)
+    {
+        [self.glkctl markLastSeen];
+
+        NSPoint p;
+        p = theEvent.locationInWindow;
+        p = [textview convertPoint: p fromView: nil];
+        p.x -= textview.textContainerInset.width;
+        p.y -= textview.textContainerInset.height;
+
+        NSUInteger linkid = [container findHyperlinkAt:p];
+        if (linkid)
+        {
+            NSLog(@"Clicked margin image hyperlink in buf at %g,%g", p.x, p.y);
+            gev = [[GlkEvent alloc] initLinkEvent: linkid forWindow: self.name];
+            [self.glkctl queueEvent: gev];
+            hyper_request = NO;
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL) textView: (NSTextView*)textview_ clickedOnLink: (id)link atIndex: (NSUInteger)charIndex
+{
+    NSLog(@"txtbuf: clicked on link: %@", link);
+
+    if (!hyper_request)
+    {
+        NSLog(@"txtbuf: No hyperlink request in window.");
+        return NO;
+    }
+
+    GlkEvent *gev = [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue forWindow: self.name];
+    [self.glkctl queueEvent: gev];
+
+    hyper_request = NO;
+    [textview setEditable: NO];
+    return YES;
+}
+
+# pragma mark Scrolling
+
+- (void) markLastSeen
+{
+    NSRange glyphs;
+    NSRect line;
+
+    glyphs = [layoutmanager glyphRangeForTextContainer: container];
+
+    if (glyphs.length)
+    {
+        line = [layoutmanager lineFragmentRectForGlyphAtIndex: NSMaxRange(glyphs) - 1
+                                               effectiveRange: nil];
+
+        _lastseen = line.origin.y + line.size.height; // bottom of the line
+        //NSLog(@"GlkTextBufferWindow: markLastSeen: %ld", (long)_lastseen);
+    }
+}
+
+- (NSUInteger) lastVisibleCharacter:(CGFloat *)offset {
+
+    NSRect visibleRect = scrollview.documentVisibleRect;
+    NSLog(@"lastVisibleCharacter: scrollview.documentVisibleRect: %@", NSStringFromRect(visibleRect));
+
+    NSUInteger lastCharacter = [textview characterIndexForInsertionAtPoint:NSMakePoint(NSMaxX(visibleRect), NSMaxY(visibleRect))];
+
+    lastCharacter--;
+    if (lastCharacter >= _textstorage.length) {
+        NSLog(@"lastCharacter index (%ld) is outside _textstorage length (%ld)", lastCharacter, _textstorage.length);
+        lastCharacter = _textstorage.length - 1;
+    }
+
+    NSRect lastRect = [layoutmanager lineFragmentRectForGlyphAtIndex:lastCharacter effectiveRange:nil];
+
+    NSRect firstRect = [layoutmanager lineFragmentRectForGlyphAtIndex:0 effectiveRange:nil];
+    NSRect reallyLastRect = [layoutmanager lineFragmentRectForGlyphAtIndex:_textstorage.length-1 effectiveRange:nil];
+    NSLog(@"The first character of the _textstorage has rect %@", NSStringFromRect(firstRect));
+    NSLog(@"The last character of the _textstorage has rect %@", NSStringFromRect(reallyLastRect));
+
+    *offset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / (CGFloat)[Preferences lineHeight];
+
+    //NSLog(@"The last visible character has index %ld ('%@'), rect %@, vertical offset %f", (long)lastCharacter, [_textstorage.string substringWithRange:NSMakeRange(lastCharacter, 1)], NSStringFromRect(lastRect), *offset);
+
+    return lastCharacter;
+}
+
+
+- (void) restoreScroll;
+{
+    if (_restoredAtBottom) {
+        [self scrollToBottom];
+        return;
+    }
+    [self scrollToCharacter:_lastVisible withOffset:_scrollOffset];
+    return;
+    // first, force a layout so we have the correct textview frame
+    [container.layoutManager glyphRangeForTextContainer: container];
+    NSLog(@"GlkTextBufferWindow %ld restoreScroll: trying to scroll to %@", self.name, NSStringFromRect(_restoredScroll));
+    [scrollview.contentView scrollRectToVisible:_restoredScroll];
+    [scrollview reflectScrolledClipView:scrollview.contentView];
+
+    NSLog(@"Resulting visibleRect: %@", NSStringFromRect(scrollview.visibleRect));
+}
+
+- (void) restoreSelection {
+    textview.selectedRange = _restoredSelection;
+}
+
+- (void) scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset
+{
+    NSRange glyphs;
+    NSRect line;
+
+    offset = offset * (CGFloat)[Preferences lineHeight];
+    // first, force a layout so we have the correct textview frame
+    glyphs = [layoutmanager glyphRangeForTextContainer: container];
+
+    if (_textstorage.length)
+    {
+        line = [layoutmanager lineFragmentRectForGlyphAtIndex: character
+                                               effectiveRange: nil];
+
+        NSLog(@"GlkTextBufferWindow scrollToCharacter: trying to scroll to character %lu, (%@), rect %@, offset %f", (unsigned long)character, [_textstorage.string substringWithRange:NSMakeRange(character,1)], NSStringFromRect(line), offset);
+
+        NSRect firstRect = [layoutmanager lineFragmentRectForGlyphAtIndex:0 effectiveRange:nil];
+        NSRect reallyLastRect = [layoutmanager lineFragmentRectForGlyphAtIndex:_textstorage.length-1 effectiveRange:nil];
+        NSLog(@"The first character of the _textstorage has rect %@", NSStringFromRect(firstRect));
+        NSLog(@"The last character of the _textstorage has rect %@", NSStringFromRect(reallyLastRect));
+
+        NSLog(@"scrollview.documentVisibleRect: %@", NSStringFromRect(scrollview.documentVisibleRect));
+        NSLog(@"scrollview.contentView.frame: %@", NSStringFromRect(scrollview.contentView.frame));
+        NSLog(@"textview.frame: %@", NSStringFromRect(textview.frame));
+
+
+        CGFloat charbottom = NSMaxY(line); // bottom of the line
+        charbottom = charbottom + offset;
+        //bottom = NSHeight(textview.frame) - bottom;
+        NSPoint newScrollOrigin = NSMakePoint(0.0, charbottom);
+        NSRect newVisibleRect = NSMakeRect(0, charbottom - NSHeight(scrollview.frame), NSWidth(textview.frame), NSHeight(scrollview.frame));
+
+
+        NSLog(@"GlkTextBufferWindow %ld scrollToCharacter: trying to scroll to %@", self.name, NSStringFromPoint(newScrollOrigin));
+         NSLog(@"trying to scroll to %@", NSStringFromRect(newVisibleRect));
+        NSLog(@"_restoredScroll: %@", NSStringFromRect(_restoredScroll));
+        //[scrollview.contentView scrollToPoint:newScrollOrigin];
+
+        [scrollview.contentView scrollRectToVisible: newVisibleRect];
+        //[scrollview.contentView scrollRectToVisible: _restoredScroll];
+
+
+        [scrollview reflectScrolledClipView:scrollview.contentView];
+        NSLog(@"scrollview.documentVisibleRect: %@", NSStringFromRect(scrollview.documentVisibleRect));
+    }
+}
+
+- (void) performScroll
+{
+    [textview performScroll];
+}
+
+- (void)scrollToBottom
+{
+    [textview scrollToBottom];
+}
+
+#pragma mark Speech
+
 - (void) setLastMove
 {
-    NSUInteger maxlength = textstorage.length;
+    NSUInteger maxlength = _textstorage.length;
 
     if (!maxlength)
     {
@@ -1829,7 +2321,7 @@
     moveRangeIndex = moveRanges.count - 1;
     NSRange lastMove = ((NSValue *)moveRanges.lastObject).rangeValue;
 
-    if (lastMove.length <= 0 || NSMaxRange(lastMove) > textstorage.length)
+    if (lastMove.length <= 0 || NSMaxRange(lastMove) > _textstorage.length)
     {
         NSDictionary *announcementInfo = @{
                                            NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
@@ -1853,7 +2345,7 @@
     }
     else
     {
-        NSString *str = [textstorage.string substringWithRange:lastMove];
+        NSString *str = [_textstorage.string substringWithRange:lastMove];
 
         NSDictionary *announcementInfo = @{
                                            NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
@@ -1885,7 +2377,7 @@
         NSLog(@"No last move to speak");
         return;
     }
-    textview.rangeToSpeak_10_7 = NSMakeRange(lastMove.location, textstorage.length - lastMove.location);
+    textview.rangeToSpeak_10_7 = NSMakeRange(lastMove.location, _textstorage.length - lastMove.location);
     textview.shouldSpeak_10_7 = YES;
     NSAccessibilityPostNotification(self, NSAccessibilityFocusedUIElementChangedNotification );
     NSAccessibilityPostNotification(textview, NSAccessibilitySelectedTextChangedNotification);
@@ -1898,7 +2390,7 @@
     if (moveRangeIndex > 0)
         moveRangeIndex--;
     else moveRangeIndex = 0;
-    [self speakRange: ((NSValue *)moveRanges[moveRangeIndex]).rangeValue];
+    [self speakRange: ((NSValue *)[moveRanges objectAtIndex:moveRangeIndex]).rangeValue];
 }
 
 - (IBAction) speakNext: (id) sender {
@@ -1909,7 +2401,7 @@
         moveRangeIndex++;
     else
         moveRangeIndex = moveRanges.count - 1;
-    [self speakRange: ((NSValue *)moveRanges[moveRangeIndex]).rangeValue];
+    [self speakRange: ((NSValue *)[moveRanges objectAtIndex:moveRangeIndex]).rangeValue];
 }
 
 - (IBAction) speakStatus:(id)sender
@@ -1917,12 +2409,11 @@
     GlkWindow *win;
 
     // Try to find status window to pass this on to
-    for (int i = 0; i < MAXWIN; i++)
+    for (win in [self.glkctl.gwindows allValues])
     {
-        win = [glkctl windowWithNum:i];
         if ([win isKindOfClass: [GlkTextGridWindow class]])
         {
-            [(GlkTextBufferWindow *)win speakStatus:sender];
+            [(GlkTextGridWindow *)win speakStatus:sender];
             return;
         }
     }
@@ -1932,136 +2423,36 @@
 
 - (void) speakRange:(NSRange)aRange
 {
-	if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9)
-	{
+    if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9)
+    {
 
-		if (NSMaxRange(aRange) >= textstorage.length)
-			aRange = NSMakeRange(0, textstorage.length);
+        if (NSMaxRange(aRange) >= _textstorage.length)
+            aRange = NSMakeRange(0, _textstorage.length);
 
-		NSString *str = [textstorage.string substringWithRange:aRange];
+        NSString *str = [_textstorage.string substringWithRange:aRange];
 
-		NSDictionary *announcementInfo = @{
-										   NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-										   NSAccessibilityAnnouncementKey : str
-										   };
+        NSDictionary *announcementInfo = @{
+                                           NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+                                           NSAccessibilityAnnouncementKey : str
+                                           };
 
-		NSWindow *mainWin = [NSApp mainWindow];
+        NSWindow *mainWin = [NSApp mainWindow];
 
-		if (mainWin)
-			NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-	}
+        if (mainWin)
+            NSAccessibilityPostNotificationWithUserInfo(mainWin, NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+    }
 }
 
 - (void) stopSpeakingText_10_7
 {
     if (textview.shouldSpeak_10_7)
     {
-        textview.rangeToSpeak_10_7 = NSMakeRange(textstorage.length, 0);
+        textview.rangeToSpeak_10_7 = NSMakeRange(_textstorage.length, 0);
 
         textview.shouldSpeak_10_7 = NO;
 
     }
 }
-
-- (void) setHyperlink:(NSUInteger)linkid
-{
-    NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
-
-    if (currentHyperlink && currentHyperlink.index != linkid)
-    {
-        NSLog(@"There is a preliminary hyperlink, with index %ld", currentHyperlink.index);
-        if (currentHyperlink.startpos >= textstorage.length)
-        {
-            NSLog(@"The preliminary hyperlink started at the end of current input, so it was deleted. currentHyperlink.startpos == %ld, textstorage.length == %ld", currentHyperlink.startpos, textstorage.length);
-            currentHyperlink = nil;
-        }
-        else
-        {
-            [textview resetTextFinder];
-
-            currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, textstorage.length - currentHyperlink.startpos);
-            [textstorage addAttribute:NSLinkAttributeName value:@(currentHyperlink.index) range:currentHyperlink.range];
-            [hyperlinks addObject:currentHyperlink];
-            currentHyperlink = nil;
-        }
-    }
-    if (!currentHyperlink && linkid)
-    {
-        currentHyperlink = [[GlkHyperlink alloc] initWithIndex:linkid andPos:textstorage.length];
-        NSLog(@"New preliminary hyperlink started at position %ld, with link index %ld", currentHyperlink.startpos,linkid);
-
-    }
-}
-
-- (void) initHyperlink
-{
-    hyper_request = YES;
-    textview.editable = YES;
-    //    NSLog(@"txtbuf: hyperlink event requested");
-
-}
-
-- (void) cancelHyperlink
-{
-    hyper_request = NO;
-    textview.editable = NO;
-    //    NSLog(@"txtbuf: hyperlink event cancelled");
-}
-
-- (void) terpDidStop
-{
-    [textview setEditable: NO];
-}
-
-- (BOOL) wantsFocus
-{
-    return char_request || line_request;
-}
-
-- (BOOL) textView: (NSTextView*)aTextView
-shouldChangeTextInRange: (NSRange)range
-replacementString: (id)repl
-{
-    if (line_request && (NSInteger)range.location >= fence)
-    {   textview.shouldDrawCaret = YES;
-        return YES;
-    }
-
-    textview.shouldDrawCaret = NO;
-    return NO;
-}
-
-- (void) textStorageWillProcessEditing: (NSNotification*)note
-{
-    if (!line_request)
-        return;
-
-    if ((NSInteger)textstorage.editedRange.location < fence)
-        return;
-
-    [textstorage setAttributes: styles[style_Input].attributes
-                         range: textstorage.editedRange];
-}
-
-- (NSRange) textView: (NSTextView *)aTextView
-willChangeSelectionFromCharacterRange: (NSRange)oldrange
-    toCharacterRange:(NSRange)newrange
-{
-    if (line_request)
-    {
-        if (newrange.length == 0)
-            if ((NSInteger)newrange.location < fence)
-                newrange.location = fence;
-    }
-    else
-    {
-        if (newrange.length == 0)
-            newrange.location = textstorage.length;
-    }
-    return newrange;
-}
-
-
 
 # pragma mark Accessibility
 
@@ -2102,24 +2493,24 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 }
 
 - (NSArray*) accessibilityAttributeNames {
-
+    
     NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
     if (!result) result = [[NSMutableArray alloc] init];
-
+    
     [result addObjectsFromArray:@[NSAccessibilityContentsAttribute]];
-
+    
     //NSLog(@"GlkTextBufferWindow: accessibilityAttributeNames: %@ ", result);
     return result;
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
-
+    
     //NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@",attribute);
     if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
         return NSAccessibilityUnknownRole;
     }
-
+    
     if ([attribute isEqualToString: NSAccessibilityContentsAttribute]) {
         return textview;
     } else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
@@ -2132,7 +2523,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
     } else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
         return @[textview];
     }
-
+    
     return [super accessibilityAttributeValue: attribute];
 }
 

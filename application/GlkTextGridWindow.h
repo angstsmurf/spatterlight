@@ -4,17 +4,21 @@
 {
     NSTextField *input;
 	NSTextView *textview;
+    NSScrollView *scrollview;
 	NSTextStorage *textstorage;
 	NSLayoutManager *layoutmanager;
 	NSTextContainer *container;
     NSInteger rows, cols;
     NSInteger xpos, ypos;
-    NSInteger line_request;
-	NSInteger hyper_request;
-    NSInteger mouse_request;
+    BOOL line_request;
+	BOOL hyper_request;
+    BOOL mouse_request;
     BOOL dirty;
-    NSInteger transparent;
+    BOOL transparent;
 }
+
+@property NSRange restoredSelection;
+- (void) restoreSelection;
 
 - (BOOL) myMouseDown: (NSEvent*)theEvent;
 - (IBAction)speakStatus:(id)sender;

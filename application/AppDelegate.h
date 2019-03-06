@@ -3,16 +3,19 @@
  */
 
 #import "HelpPanelController.h"
+#import "InfoController.h"
 
-@interface AppDelegate : NSObject < NSWindowDelegate >
+@interface AppDelegate : NSObject < NSWindowDelegate, NSWindowRestoration >
 {
-    Preferences *prefctl;
-    LibController *libctl;
+    HelpPanelController *_helpLicenseWindow;
     NSPanel *filePanel;
-    HelpPanelController *helpLicenseWindow;
     NSDocumentController *theDocCont;
     BOOL addToRecents;
 }
+
+@property Preferences *prefctl;
+@property LibController *libctl;
+@property HelpPanelController *helpLicenseWindow;
 
 - (IBAction) openDocument: (id)sender;
 

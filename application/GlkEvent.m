@@ -9,6 +9,25 @@
     return [self initPrefsEvent];
 }
 
+- (instancetype) initWithCoder:(NSCoder *)decoder
+{
+    type = [decoder decodeIntegerForKey:@"type"];
+    win  = [decoder decodeIntegerForKey:@"win"];
+    val1 = [decoder decodeIntegerForKey:@"val1"];
+    val2 = [decoder decodeIntegerForKey:@"val2"];
+    ln = [decoder decodeObjectForKey:@"ln"];
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeInteger:type forKey:@"type"];
+    [encoder encodeInteger:win forKey:@"win"];
+    [encoder encodeInteger:val1 forKey:@"val1"];
+    [encoder encodeInteger:val2 forKey:@"val2"];
+    [encoder encodeObject:ln forKey:@"ln"];
+}
+
 unsigned chartokeycode(unsigned ch)
 {
     switch (ch)

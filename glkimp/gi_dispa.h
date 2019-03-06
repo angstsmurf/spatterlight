@@ -71,7 +71,7 @@ extern void gidispatch_set_retained_registry(
  on libraries that support autorestore. (Only iosglk, currently.)
  Only call this if GIDISPATCH_AUTORESTORE_REGISTRY is defined.
  */
-//#define GIDISPATCH_AUTORESTORE_REGISTRY
+#define GIDISPATCH_AUTORESTORE_REGISTRY
 extern void gidispatch_set_autorestore_registry(
                                                 long (*locatearr)(void *array, glui32 len, char *typecode,
                                                                   gidispatch_rock_t objrock, int *elemsizeref),

@@ -24,6 +24,6 @@
 - (void) prefsDidChange;
 - (BOOL) valueForHint: (NSInteger) hint value:(NSInteger *)val;
 
-@property (readonly, copy) NSDictionary *attributes;
+- (NSDictionary *) attributes;
 
 @end

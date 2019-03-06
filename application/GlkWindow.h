@@ -4,26 +4,25 @@
 
 @interface GlkWindow : NSView
 {
-    GlkController *glkctl;
-    GlkStyle *styles[style_NUMSTYLES];
+    NSMutableArray *styles;
     NSInteger bgnd;
 	NSMutableArray *hyperlinks;
 	GlkHyperlink *currentHyperlink;
 	NSMutableDictionary *currentTerminators;
 
-	NSInteger char_request;
+	BOOL char_request;
 }
-
+@property GlkController *glkctl;
 @property (readonly) NSInteger name;
+@property (readonly) NSRect restoredFrame;
 
 @property NSMutableDictionary *pendingTerminators;
 @property BOOL terminatorsPending;
-@property (readonly, copy) NSString *cancelLine;
-@property (readonly) BOOL wantsFocus;
 
 - (instancetype) initWithGlkController: (GlkController*)glkctl name: (NSInteger)name;
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value;
 - (BOOL) getStyleVal: (NSInteger)style hint: (NSInteger)hint value: (NSInteger *) value;
+- (BOOL) wantsFocus;
 - (void) grabFocus;
 - (void) flushDisplay;
 - (void) markLastSeen;
@@ -37,6 +36,7 @@
 - (void) initLine: (NSString*)buf;
 - (void) initChar;
 - (void) cancelChar;
+- (NSString*) cancelLine;
 - (void) initMouse;
 - (void) cancelMouse;
 - (void) setHyperlink: (NSUInteger)linkid;
@@ -48,5 +48,7 @@
 - (void) flowBreak;
 - (void) prefsDidChange;
 - (void) terpDidStop;
+
+- (void) restoreSelection;
 
 @end

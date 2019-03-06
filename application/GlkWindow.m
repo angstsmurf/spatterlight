@@ -8,9 +8,12 @@
 
     if (self)
     {
-        glkctl = glkctl_;
+        _glkctl = glkctl_;
         _name = name;
         bgnd = 0xFFFFFF; // White
+        styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+        while (styles.count < style_NUMSTYLES)
+            [styles addObject:[[GlkStyle alloc] init]];
         _pendingTerminators = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                @(NO), @keycode_Func1,
                                @(NO), @keycode_Func2,
@@ -33,22 +36,54 @@
     return self;
 }
 
+- (instancetype) initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self)
+    {
+        styles = [decoder decodeObjectForKey:@"styles"];
+        _name = [decoder decodeIntegerForKey:@"name"];
+        bgnd = [decoder decodeIntegerForKey:@"bgnd"];
+        hyperlinks = [decoder decodeObjectForKey:@"hyperlinks"];
+        currentHyperlink = [decoder decodeObjectForKey:@"currentHyperlink"];
+        currentTerminators = [decoder decodeObjectForKey:@"currentTerminators"];
+        _pendingTerminators = [decoder decodeObjectForKey:@"pendingTerminators"];
+        _terminatorsPending = [decoder decodeBoolForKey:@"terminatorsPending"];
+        char_request = [decoder decodeBoolForKey:@"char_request"];
+        _restoredFrame = [decoder decodeRectForKey:@"restoredFrame"];
+        NSLog(@"Decoded frame %@ for GlkWindow %ld", NSStringFromRect(_restoredFrame), self.name);
+    }
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
+    [super encodeWithCoder:encoder];
+
+    [encoder encodeInteger:_name forKey:@"name"];
+    [encoder encodeInteger:bgnd forKey:@"bgnd"];
+    [encoder encodeObject:hyperlinks forKey:@"hyperlinks"];
+    [encoder encodeObject:currentHyperlink forKey:@"currentHyperlink"];
+    [encoder encodeObject:currentTerminators forKey:@"currentTerminators"];
+    [encoder encodeObject:_pendingTerminators forKey:@"pendingTerminators"];
+    [encoder encodeBool:_terminatorsPending forKey:@"terminatorsPending"];
+    [encoder encodeBool:char_request forKey:@"char_request"];
+    [encoder encodeObject:styles forKey:@"styles"];
+    [encoder encodeRect:self.frame forKey:@"restoredFrame"];
+}
+
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value
 {
-    if (styles[style])
-    {
-        styles[style] = 0;
-    }
-
-    styles[style] = [[GlkStyle alloc] initWithStyle: style
+    [styles removeObjectAtIndex:style];
+    [styles insertObject:[[GlkStyle alloc] initWithStyle: style
                                          windowType: wintype
                                              enable: enable
-                                              value: value];
+                                                value: value] atIndex:style];
 }
 
 - (BOOL) getStyleVal: (NSInteger)style hint: (NSInteger)hint value:(NSInteger *)value
 {
-    GlkStyle *checkedStyle = styles[style];
+    GlkStyle *checkedStyle = [styles objectAtIndex:style];
     if(checkedStyle)
     {
         if ([checkedStyle valueForHint:hint value:value])
@@ -102,7 +137,7 @@
 {
     NSInteger i;
     for (i = 0; i < style_NUMSTYLES; i++)
-        [styles[i] prefsDidChange];
+        [[styles objectAtIndex:i] prefsDidChange];
 }
 
 - (void) terpDidStop
@@ -171,20 +206,20 @@
 
     if (fg || bg)
     {
-        NSMutableDictionary *mutatt = [styles[style].attributes mutableCopy];
-        mutatt[@"GlkStyle"] = @(stylevalue);
+        NSMutableDictionary *mutatt = [((GlkStyle *)([styles objectAtIndex:style])).attributes mutableCopy];
+        [mutatt setObject:@(stylevalue) forKey:@"GlkStyle"];
         if ([Preferences stylesEnabled])
         {
             if (fg)
-                mutatt[NSForegroundColorAttributeName] = [Preferences foregroundColor: (int)(fg - 1)];
+                [mutatt setObject:[Preferences foregroundColor: (int)(fg - 1)] forKey:NSForegroundColorAttributeName];
             if (bg)
-                mutatt[NSBackgroundColorAttributeName] = [Preferences backgroundColor: (int)(bg - 1)];
+                [mutatt setObject:[Preferences backgroundColor: (int)(bg - 1)] forKey:NSBackgroundColorAttributeName];
         }
         return (NSDictionary *) mutatt;
     }
     else
     {
-        return styles[style].attributes;
+        return ((GlkStyle *)([styles objectAtIndex:style])).attributes;
     }
 }
 
@@ -241,10 +276,20 @@
     return NO;
 }
 
+#pragma mark -
+#pragma mark Windows restoration
+
++ (NSArray *)restorableStateKeyPaths
+{
+    return @[ @"name" ];
+}
+
 #pragma mark Accessibility
 
 - (BOOL)accessibilityIsIgnored {
 	return NO;
 }
+
+- (void) restoreSelection {}
 
 @end

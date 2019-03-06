@@ -41,34 +41,50 @@ NSDictionary *gFormatMap;
                   @"quill": @"unquill",
                   @"tads2": @"tadsr",
                   @"tads3": @"tadsr",
-                  @"zcode": @"frotz"};
+                  @"zcode": @"fizmo"};
+                //  @"zcode": @"frotz"};
 
     addToRecents = YES;
 
-    prefctl = [[Preferences alloc] initWithWindowNibName: @"PrefsWindow"];
-    libctl = [[LibController alloc] initWithWindowNibName: @"LibraryWindow"];
-    [libctl loadLibrary];
+    _prefctl = [[Preferences alloc] initWithWindowNibName: @"PrefsWindow"];
+    _prefctl.window.restorable = YES;
+    _prefctl.window.restorationClass = [self class];
+    _prefctl.window.identifier = @"preferences";
+
+    _libctl = [[LibController alloc] init];
+    _libctl.window.restorable = YES;
+    _libctl.window.restorationClass = [self class];
+    _libctl.window.identifier = @"library";
+
     if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12)
     {
-        [libctl.window setValue:@2 forKey:@"tabbingMode"];
+        [_libctl.window setValue:@2 forKey:@"tabbingMode"];
     }
 }
 
-- (IBAction) showPrefs: (id)sender
+#pragma mark -
+#pragma mark License window
+
+- (void)setHelpLicenseWindow:(HelpPanelController *)newValue
 {
-    NSLog(@"appdel: showPrefs");
-    [prefctl showWindow: nil];
+   _helpLicenseWindow = newValue;
 }
 
-- (IBAction) showLibrary: (id)sender
+- (HelpPanelController *)helpLicenseWindow
 {
-    NSLog(@"appdel: showLibrary");
-    [libctl showWindow: nil];
+    if (!_helpLicenseWindow) {
+        _helpLicenseWindow = [[HelpPanelController alloc] initWithWindowNibName:@"HelpPanelController"];
+        _helpLicenseWindow.window.restorable = YES;
+        _helpLicenseWindow.window.restorationClass = [AppDelegate class];
+        _helpLicenseWindow.window.identifier = @"licenseWin";
+        _helpLicenseWindow.window.minSize = NSMakeSize(290, 200);
+    }
+    return _helpLicenseWindow;
 }
 
 - (IBAction) showHelpFile: (id)sender
 {
-//    NSLog(@"appdel: showHelpFile('%@')", [sender title]);
+    //    NSLog(@"appdel: showHelpFile('%@')", [sender title]);
     id title = [sender title];
     id pathname = [NSBundle mainBundle].resourcePath;
     id filename = [NSString stringWithFormat: @"%@/docs/%@.rtf", pathname, title];
@@ -76,10 +92,9 @@ NSDictionary *gFormatMap;
     NSURL *url = [NSURL fileURLWithPath:filename];
     NSError *error;
 
-    if (!helpLicenseWindow)
+    if (!_helpLicenseWindow)
     {
-        helpLicenseWindow = [[HelpPanelController alloc] initWithWindowNibName:@"HelpPanelController"];
-        helpLicenseWindow.window.minSize = NSMakeSize(290, 200);
+        _helpLicenseWindow = [self helpLicenseWindow];
     }
 
     NSAttributedString *content = [[NSAttributedString alloc] initWithURL:url
@@ -87,7 +102,55 @@ NSDictionary *gFormatMap;
                                                        documentAttributes:nil
                                                                     error:&error];
 
-    [helpLicenseWindow showHelpFile:content withTitle:title];
+    [_helpLicenseWindow showHelpFile:content withTitle:title];
+}
+
++ (void)restoreWindowWithIdentifier:(NSString *)identifier
+                              state:(NSCoder *)state
+                  completionHandler:(void (^)(NSWindow *, NSError *))completionHandler {
+    NSLog(@"restoreWindowWithIdentifier called with identifier %@",identifier);
+    NSWindow *window = nil;
+    AppDelegate *appDelegate = (AppDelegate *)[NSApp delegate];
+    if ([identifier isEqualToString:@"library"]) {
+        window = appDelegate.libctl.window;
+    }
+    else if ([identifier isEqualToString:@"licenseWin"]) {
+        window = appDelegate.helpLicenseWindow.window;
+    }
+    else if ([identifier isEqualToString:@"preferences"]) {
+        window = appDelegate.prefctl.window;
+    }
+    else {
+        NSString *firstLetters = [identifier substringWithRange:NSMakeRange(0, 7)];
+
+        if ([firstLetters isEqualToString:@"infoWin"]) {
+            NSString *path = [identifier substringFromIndex:7];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                InfoController *infoctl = [[InfoController alloc] initWithpath:path];
+                NSWindow *infoWindow = infoctl.window;
+                infoWindow.restorable = YES;
+                infoWindow.restorationClass = [AppDelegate class];
+                infoWindow.identifier = [NSString stringWithFormat: @"infoWin%@", path];
+                [appDelegate.libctl.infoWindows setObject:infoctl forKey:path];
+                window = infoctl.window;
+            }
+        } else if ([firstLetters isEqualToString:@"gameWin"]) {
+            NSString *ifid = [identifier substringFromIndex:7];
+            window = [appDelegate.libctl playGameWithIFID:ifid];
+        }
+    }
+    completionHandler(window, nil);
+}
+
+
+- (IBAction) showPrefs: (id)sender {
+    NSLog(@"appdel: showPrefs");
+    [_prefctl showWindow: nil];
+}
+
+- (IBAction) showLibrary: (id)sender {
+    NSLog(@"appdel: showLibrary");
+    [_libctl showWindow: nil];
 }
 
 /*
@@ -96,25 +159,25 @@ NSDictionary *gFormatMap;
 
 - (IBAction) addGamesToLibrary: (id)sender
 {
-    [libctl showWindow: sender];
-    [libctl addGamesToLibrary: sender];
+    [_libctl showWindow: sender];
+    [_libctl addGamesToLibrary: sender];
 }
 
 - (IBAction) importMetadata: (id)sender
 {
-    [libctl showWindow: sender];
-    [libctl importMetadata: sender];
+    [_libctl showWindow: sender];
+    [_libctl importMetadata: sender];
 }
 
 - (IBAction) exportMetadata: (id)sender
 {
-    [libctl showWindow: sender];
-    [libctl exportMetadata: sender];
+    [_libctl showWindow: sender];
+    [_libctl exportMetadata: sender];
 }
 
 - (IBAction) deleteLibrary: (id)sender
 {
-    [libctl deleteLibrary: sender];
+    [_libctl deleteLibrary: sender];
 }
 
 
@@ -142,7 +205,7 @@ NSDictionary *gFormatMap;
         NSLog(@"directory = %@", directory);
         [panel beginWithCompletionHandler:^(NSInteger result){
             if (result == NSFileHandlingPanelOKButton) {
-                NSURL*  theDoc = panel.URLs[0];
+                NSURL*  theDoc = [panel.URLs objectAtIndex:0];
                 {
                     NSString *pathString = theDoc.path.stringByDeletingLastPathComponent;
                     NSLog(@"directory = %@", directory);
@@ -165,11 +228,11 @@ NSDictionary *gFormatMap;
 
     if ([path.pathExtension.lowercaseString isEqualToString: @"ifiction"])
     {
-        [libctl importMetadataFromFile: path];
+        [_libctl importMetadataFromFile: path];
     }
     else
     {
-        [libctl importAndPlayGame: path];
+        [_libctl importAndPlayGame: path];
     }
 
     return YES;
@@ -184,7 +247,7 @@ NSDictionary *gFormatMap;
 
 - (NSWindow *) preferencePanel
 {
-	return prefctl.window;
+	return _prefctl.window;
 }
 
 -(void)addToRecents:(NSArray*)URLs
@@ -198,7 +261,7 @@ NSDictionary *gFormatMap;
         theDocCont = [NSDocumentController sharedDocumentController];
     }
 	
-	NSDocumentController *localDocCont = theDocCont;
+	__weak NSDocumentController *localDocCont = theDocCont;
 
     [URLs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [localDocCont noteNewRecentDocumentURL:obj];
@@ -230,9 +293,9 @@ NSDictionary *gFormatMap;
 
     while (count--)
     {
-        NSWindow *window = windows[count];
+        NSWindow *window = [windows objectAtIndex:count];
         id glkctl = window.delegate;
-        if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive])
+        if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive] && !((GlkController *)glkctl).autosaved)
             alive ++;
     }
 
@@ -253,9 +316,9 @@ NSDictionary *gFormatMap;
 
 - (void) applicationWillTerminate: (NSNotification*)notification
 {
-    [libctl saveLibrary:self];
-    if ([NSFontPanel.sharedFontPanel isVisible])
-		[NSFontPanel.sharedFontPanel orderOut:self];
+    [_libctl saveLibrary:self];
+    if ([[NSFontPanel sharedFontPanel] isVisible])
+        [[NSFontPanel sharedFontPanel] orderOut:self];
 }
 
 @end

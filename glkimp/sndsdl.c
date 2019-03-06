@@ -112,6 +112,8 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
     if (!chan)
         return NULL;
 
+    chan->tag = generate_tag(); /* For serialization */
+    
     chan->rock = rock;
     chan->status = CHANNEL_IDLE;
     chan->volume = volume >= GLK_MAXVOLUME ? MIX_MAX_VOLUME : round(pow(((double) volume) / GLK_MAXVOLUME, log(4)) * MIX_MAX_VOLUME);
@@ -134,11 +136,11 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
     chan->volume_delta = 0;
     chan->timer = NULL;
 
-    chan->chain_prev = NULL;
-    chan->chain_next = gli_channellist;
+    chan->prev = NULL;
+    chan->next = gli_channellist;
     gli_channellist = chan;
-    if (chan->chain_next)
-        chan->chain_next->chain_prev = chan;
+    if (chan->next)
+        chan->next->prev = chan;
 
     if (gli_register_obj)
         chan->disprock = (*gli_register_obj)(chan, gidisp_Class_Schannel);
@@ -209,18 +211,18 @@ void glk_schannel_destroy(schanid_t chan)
     if (gli_unregister_obj)
         (*gli_unregister_obj)(chan, gidisp_Class_Schannel, chan->disprock);
 
-    prev = chan->chain_prev;
-    next = chan->chain_next;
-    chan->chain_prev = NULL;
-    chan->chain_next = NULL;
+    prev = chan->prev;
+    next = chan->next;
+    chan->prev = NULL;
+    chan->next = NULL;
 
     if (prev)
-        prev->chain_next = next;
+        prev->next = next;
     else
         gli_channellist = next;
 
     if (next)
-        next->chain_prev = prev;
+        next->prev = prev;
 
     free(chan);
 }
@@ -230,7 +232,7 @@ schanid_t glk_schannel_iterate(schanid_t chan, glui32 *rock)
     if (!chan)
         chan = gli_channellist;
     else
-        chan = chan->chain_next;
+        chan = chan->next;
 
     if (chan)
     {
@@ -242,6 +244,41 @@ schanid_t glk_schannel_iterate(schanid_t chan, glui32 *rock)
     if (rock)
         *rock = 0;
     return NULL;
+}
+
+
+/* For autorestore */
+channel_t *gli_schan_for_tag(int tag)
+{
+    channel_t *chan = gli_channellist;
+    while (chan)
+    {
+        if (chan->tag == tag)
+            return chan;
+        chan = chan->next;
+    }
+    return NULL;
+}
+
+void gli_replace_schan_list(schanid_t newlist) /* Only used by autorestore */
+{
+    schanid_t chan;
+
+    if (!newlist)
+    {
+        gli_strict_warning("gli_replace_schannel_list: invalid ref");
+        return;
+    }
+
+    /* At the time when this is called, the sound channel list should be empty */
+    while (gli_channellist)
+    {
+        chan = gli_channellist;
+        gli_channellist = gli_channellist->next;
+        glk_schannel_destroy(chan);
+    }
+
+    gli_channellist = newlist;
 }
 
 glui32 glk_schannel_get_rock(schanid_t chan)

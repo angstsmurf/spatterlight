@@ -38,6 +38,42 @@
     return self;
 }
 
+- (instancetype) initWithCoder:(NSCoder *)decoder
+{
+	dict = [decoder decodeObjectForKey:@"dict"];
+	stylenumber = [decoder decodeIntegerForKey:@"stylenumber"];
+    windowtype = [decoder decodeIntegerForKey:@"windowtype"];
+    NSMutableArray *enablearray = [decoder decodeObjectForKey:@"enabled"];
+    NSMutableArray *valuearray = [decoder decodeObjectForKey:@"value"];
+
+    for (NSInteger i = 0; i < stylehint_NUMHINTS; i++)
+    {
+        enabled[i] = ((NSNumber *)[enablearray objectAtIndex:i]).integerValue;
+        value[i] = ((NSNumber *)[valuearray objectAtIndex:i]).integerValue;
+    }
+
+	return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)encoder
+{
+    NSNumber *num;
+    
+	[encoder encodeObject:dict forKey:@"dict"];
+    [encoder encodeInteger:stylenumber forKey:@"stylenumber"];
+    [encoder encodeInteger:windowtype forKey:@"windowtype"];
+    NSMutableArray *enablearray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
+    NSMutableArray *valuearray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
+    for (NSInteger i = 0; i < stylehint_NUMHINTS; i++)
+    {
+        num = [NSNumber numberWithInteger:enabled[i]];
+        [enablearray addObject:num];
+        num = [NSNumber numberWithInteger:value[i]];
+        [valuearray addObject:num];
+    }
+    [encoder encodeObject:enablearray forKey:@"enabled"];
+    [encoder encodeObject:valuearray forKey:@"value"];
+}
 
 - (NSDictionary*) attributes
 {
@@ -74,7 +110,7 @@
     // if (windowtype == wintype_TextBuffer)
     {
         NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
-        [para setParagraphStyle: dict[NSParagraphStyleAttributeName]];
+        [para setParagraphStyle:[dict objectForKey:NSParagraphStyleAttributeName]];
         
         NSInteger indent = para.headIndent;
         NSInteger paraindent = para.firstLineHeadIndent - indent;
@@ -106,7 +142,7 @@
             }
         }
 
-        dict[NSParagraphStyleAttributeName] = para;
+        [dict setObject:para forKey:NSParagraphStyleAttributeName];
     }
     
     /*
@@ -115,7 +151,7 @@
     
     {
         NSFontManager *fontmgr = [NSFontManager sharedFontManager];
-        NSFont *font = dict[NSFontAttributeName];
+        NSFont *font = [dict objectForKey:NSFontAttributeName];
         
         if (enabled[stylehint_Size] && windowtype == wintype_TextBuffer)
         {
@@ -149,7 +185,7 @@
                 font = [fontmgr convertFont: font toHaveTrait: NSFixedPitchFontMask];
         }
         
-        dict[NSFontAttributeName] = font;
+        [dict setObject:font forKey:NSFontAttributeName];
     }
     
     /*
@@ -166,7 +202,7 @@
                                                    green: g / 255.0
                                                     blue: b / 255.0
                                                    alpha: 1.0];
-        dict[NSForegroundColorAttributeName] = color;
+        [dict setObject:color forKey:NSForegroundColorAttributeName];
     }
     
     if (enabled[stylehint_BackColor])
@@ -179,20 +215,21 @@
                                                    green: g / 255.0
                                                     blue: b / 255.0
                                                    alpha: 1.0];
-        dict[NSBackgroundColorAttributeName] = color;
+        [dict setObject:color forKey:NSBackgroundColorAttributeName];
+
     }
-    
+
     if (enabled[stylehint_ReverseColor] && !(enabled[stylehint_TextColor] || enabled[stylehint_BackColor]))
     {
         if (windowtype == wintype_TextGrid)
         {
-            dict[NSForegroundColorAttributeName] = [Preferences gridBackground];
-            dict[NSBackgroundColorAttributeName] = [Preferences gridForeground];
+            [dict setObject:[Preferences gridBackground] forKey:NSForegroundColorAttributeName];
+            [dict setObject:[Preferences gridForeground] forKey:NSBackgroundColorAttributeName];
         }
         else
         {
-            dict[NSForegroundColorAttributeName] = [Preferences bufferBackground];
-            dict[NSBackgroundColorAttributeName] = [Preferences bufferForeground];
+            [dict setObject:[Preferences bufferBackground] forKey:NSForegroundColorAttributeName];
+            [dict setObject:[Preferences bufferForeground] forKey:NSBackgroundColorAttributeName];
         }
     }
 }

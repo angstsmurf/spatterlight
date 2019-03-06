@@ -13,6 +13,10 @@ static int inittime = FALSE;
 int main(int argc, char **argv)
 {
     glkunix_startup_t startdata;
+
+    /* Initialize tagcounter to a pseudorandom number between 1 and 100.
+     Not sure where to put this line */
+    tagcounter = ((glk_current_simple_time(1)) % 99) + 1;
     
     /* Test for compile-time errors. If one of these spouts off, you
 	   must edit glk.h and recompile. */
@@ -44,7 +48,7 @@ int main(int argc, char **argv)
     if (!glkunix_startup_code(&startdata))
 	return 1;
     inittime = FALSE;
-    
+
     /* sleep to give us time to attach a gdb process */
     if (getenv("CUGELWAIT"))
 	sleep(atoi(getenv("CUGELWAIT")));

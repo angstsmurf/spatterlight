@@ -8,7 +8,7 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 
 @class LibController;
 
-@interface InfoController : NSWindowController
+@interface InfoController : NSWindowController <NSWindowDelegate>
 {
     IBOutlet NSTextField *titleField;
     IBOutlet NSTextField *authorField;
@@ -17,12 +17,15 @@ void showInfoForFile(NSString *path, NSDictionary *info);
     IBOutlet NSTextView *descriptionText;
     IBOutlet NSImageView *imageView;
     
-    NSString *path;
-    NSDictionary *meta;
     NSString *ifid;
 }
 
-- (void) showForFile: (NSString*)path info: (NSDictionary*)meta;
+@property NSString *path;
+@property NSDictionary *meta;
+
+- (instancetype) initWithpath:(NSString*)path andInfo:(NSDictionary*)meta;
+- (instancetype) initWithpath:(NSString*)path;
+
 - (IBAction) saveImage: sender;
 
 @end
