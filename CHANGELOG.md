@@ -9,7 +9,7 @@
 - Added a perfunctory full screen mode
 - Added perfunctory text zooming
 - Disabled tab bar on 10.12+
-- Add a variable padding space surrounding the game view, i. e. just inside the NSWindow borders.
+- Added a variable padding space surrounding the game view, i. e. just inside the NSWindow borders
 
 ## Release 0.5.9b
 
@@ -20,29 +20,29 @@
 
 ## Release 0.5.9a
 
-- Turn text grid window into an NSTextView. Now grid window text can be selected, copied, 
+- Turned text grid window into an NSTextView. Now grid window text can be selected, copied, and spoken just like the buffer window text
 - Added "Speak Last Move" action. Only functional when VoiceOver is active
-- New accessibility code, improved VoiceOver support
+- New accessibility functionality, improved VoiceOver support
 - Cleaned up project settings and added a Headers folder with symlinks to make the project compile out-of-the-box on most systems (not on Xcode 10 and later yet)
 - Margin images are now inserted into saved rtf files
 - Added text search bar to buffer windows and license document window
 - Made Find shortcut (Command + F) work in library window as well
-- Made .glkdata and .glksave are the default extensions
-- Fixed license document window sometimes mis-calculating line length, causing ugly line breaks.
+- Made .glkdata and .glksave default extensions
+- Fixed license document window sometimes mis-calculating line length, causing ugly line breaks
 
 ## Release 0.5.8b
 
 - Fixed save file location. Previously saves always ended up in home directory
-- Fixed multiple (unlimited number of?) margin images.
-- Extended text buffer view downward when images stretch below text bottom
-- Game-generated external files are saved in an appropriate Application Support folder.
-- Fixed unicode character input.
-- Image Test should be a little harder to crash.
-- Do not put interpreter name in window title
+- Fixed multiple (unlimited number of?) margin images
+- Now extends text buffer view downward when images stretch below text bottom
+- Game-generated external files are saved in an appropriate Application Support folder
+- Fixed unicode character input
+- Image Test should be a little harder to crash
+- Interpreter name is no longer in window title
 
 ## Release 0.5.7b
 
-- Worked around buggy display of images. 
+- Worked around buggy display of images
 
 ## Release 0.5.6b
 
@@ -61,7 +61,7 @@
 - Fixed unicode input length. Previously the input was cut after half the requested length
 - Open game on double click in table view, edit name on click-and-hold
 - Added Open Recent menu
-- Remove black "scanlines" when drawing images in Level 9 games
+- Remove black "scanlines" when drawing images in Magnetic Scrolls games
 
 
 
