@@ -61,7 +61,7 @@
 - Fixed unicode input length. Previously the input was cut after half the requested length
 - Open game on double click in table view, edit name on click-and-hold
 - Added Open Recent menu
-- Remove black "scanlines" when drawing images in Magnetic Scrolls games
+- Fixed black "scanlines" on images in Magnetic Scrolls games
 
 
 
