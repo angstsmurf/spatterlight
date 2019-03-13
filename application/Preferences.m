@@ -856,7 +856,7 @@ NSString* fontToString(NSFont *font)
 	//	"NSStrikethroughStyleAttributeName"	"NSStrikethrough"
 	//	"NSUnderlineColorAttributeName"		"NSUnderlineColor"
 	//	"NSStrikethroughColorAttributeName"	"NSStrikethroughColor"
-	//										"NSShadow"
+	//	"NSShadowAttributeName"				"NSShadow"
 
 	if ([newAttributes valueForKey: @"NSColor"])
 	{
