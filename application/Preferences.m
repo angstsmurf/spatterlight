@@ -789,7 +789,6 @@ NSString* fontToString(NSFont *font)
 	colorp = nil;
 	colorp2 = nil;
 
-
 	if (sender == btnGridFont) { selfontp = &gridroman; colorp = &gridfg; colorp2 = &gridbg; }
 	if (sender == btnBufferFont) { selfontp = &bufroman;  colorp = &bufferfg; colorp2 = &bufferbg;  }
 	if (sender == btnInputFont) { selfontp = &inputfont;  colorp = &inputfg; colorp2 = &bufferbg; }
@@ -806,7 +805,6 @@ NSString* fontToString(NSFont *font)
 
 		[[NSFontManager sharedFontManager] setSelectedAttributes:attr isMultiple: NO];
 		[[NSFontManager sharedFontManager] setSelectedFont: *selfontp isMultiple:NO];
-
 	}
 }
 
