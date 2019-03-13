@@ -1,4 +1,4 @@
-#include <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 #include "fileref.h"
 #include "glkimp.h"
