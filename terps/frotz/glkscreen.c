@@ -280,6 +280,8 @@ void smartstatusline (void)
 		c ++;
 
 	d = packed + len - 1;
+    if (d < packed)
+        d = packed;
 	while (d[0] == ' ' && d > c)
 		d --;
 	if (d[0] != ' ' && d[0] != 0)
