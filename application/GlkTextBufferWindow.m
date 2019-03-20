@@ -1016,6 +1016,8 @@
         [textview setVerticallyResizable: YES];
 
         textview.autoresizingMask = NSViewWidthSizable;
+        textview.automaticQuoteSubstitutionEnabled = NO;
+
 
         [textview setAllowsImageEditing: NO];
         [textview setAllowsUndo: NO];
