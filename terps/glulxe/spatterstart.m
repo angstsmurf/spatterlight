@@ -347,11 +347,6 @@ static void spatterglk_game_select(glui32 eventaddr)
 	/* Do not autosave if we've just started up, or if the last event was a rearrange event. (We get rearranges in clusters, and they don't change anything interesting anyhow.) */
 	if (lasteventtype == -1 || lasteventtype == evtype_Arrange)
     {
-        if (lasteventtype == -1)
-            NSLog(@"We've just started up,");
-        else
-            NSLog(@"The last event was a rearrange event, ");
-        NSLog(@"so do not autosave");
 		return;
     }
 
