@@ -39,7 +39,6 @@
     BOOL waitforevent; /* terp wants an event */
     BOOL waitforfilename; /* terp wants a filename from a file dialog */
     BOOL dead; /* le roi est mort! vive le roi! */
-    BOOL autorestored;
     BOOL crashed;
     NSInteger turns;
 
@@ -67,6 +66,8 @@
     NSRect windowPreFullscreenFrame;
 
     CGFloat fontSizePreFullscreen;
+
+    GlkController *restoredController;
 }
 
 @property NSMutableDictionary *gwindows;
@@ -83,7 +84,9 @@
 
 @property (nonatomic) NSString *autosaveFile;
 @property (nonatomic) NSString *appSupportDir;
-@property BOOL autosaved;
+@property (readonly) BOOL supportsAutorestore;
+@property (readonly) BOOL hasAutorestored;
+
 
 - (void) runTerp: (NSString*)terpname
     withGameFile: (NSString*)gamefilename

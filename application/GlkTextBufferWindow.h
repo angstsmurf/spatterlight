@@ -28,10 +28,11 @@
 - (void) performScroll;
 - (void) temporarilyHideCaret;
 - (void) resetTextFinder; // Call after changing the text storage, or search will break.
-- (void) destroyTextFinder;
+- (void) restoreTextFinder: (NSTextFinder *)textfinder;
 - (BOOL) scrolledToBottom;
 
 @property BOOL shouldDrawCaret;
+@property NSRect restoredFrame;
 @property CGFloat bottomPadding;
 @property (weak, readonly) NSTextFinder* textFinder;
 
@@ -101,6 +102,7 @@
 @property NSRange restoredSelection;
 @property NSString *restoredSearch;
 @property BOOL restoredAtBottom;
+@property BOOL restoredFindBarVisible;
 
 - (void) recalcBackground;
 - (void) onKeyDown: (NSEvent*)evt;

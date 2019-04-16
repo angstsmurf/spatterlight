@@ -295,7 +295,7 @@ NSDictionary *gFormatMap;
     {
         NSWindow *window = [windows objectAtIndex:count];
         id glkctl = window.delegate;
-        if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive] && !((GlkController *)glkctl).autosaved)
+        if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive] && !((GlkController *)glkctl).supportsAutorestore)
             alive ++;
     }
 

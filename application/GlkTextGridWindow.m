@@ -238,24 +238,11 @@
     self = [super initWithCoder:decoder];
     if (self)
     {
-        textstorage = [decoder decodeObjectForKey:@"textstorage"];
-        layoutmanager = [decoder decodeObjectForKey:@"layoutmanager"];
-        scrollview = [decoder decodeObjectForKey:@"scrollview"];
-        container = [decoder decodeObjectForKey:@"container"];
         textview = [decoder decodeObjectForKey:@"textview"];
 
-        while (layoutmanager.textContainers.count)
-            [layoutmanager removeTextContainerAtIndex:0];
-        while (textstorage.layoutManagers.count)
-            [textstorage removeLayoutManager:[textstorage.layoutManagers objectAtIndex:0]];
-
-        [textstorage addLayoutManager:layoutmanager];
-        scrollview.documentView = textview;
-        container.layoutManager = layoutmanager;
-        [layoutmanager addTextContainer: container];
-        container.textView = textview;
-
-        scrollview.documentView = textview;
+        layoutmanager = textview.layoutManager;
+        textstorage = textview.textStorage;
+        container = (MarginContainer *)textview.textContainer;
 
         textview.delegate = self;
         textview.insertionPointColor = [Preferences gridBackground];
@@ -274,8 +261,8 @@
         transparent  = [decoder decodeBoolForKey:@"transparent"];
         _restoredSelection = ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"]).rangeValue;
         textview.selectedRange = _restoredSelection;
-        NSLog(@"Decoded range %@ for text grid window selected range", NSStringFromRange(_restoredSelection));
-        NSLog(@"textview.selectedRange = %@", NSStringFromRange(textview.selectedRange));
+        //NSLog(@"Decoded range %@ for text grid window selected range", NSStringFromRange(_restoredSelection));
+        //NSLog(@"textview.selectedRange = %@", NSStringFromRange(textview.selectedRange));
     }
     return self;
 }
@@ -283,10 +270,6 @@
 - (void) encodeWithCoder:(NSCoder *)encoder
 {
     [super encodeWithCoder:encoder];
-    [encoder encodeObject:scrollview forKey:@"scrollview"];
-    [encoder encodeObject:textstorage forKey:@"textstorage"];
-    [encoder encodeObject:layoutmanager forKey:@"layoutmanager"];
-    [encoder encodeObject:container forKey:@"container"];
     [encoder encodeObject:textview forKey:@"textview"];
     [encoder encodeBool:line_request forKey:@"line_request"];
     [encoder encodeBool:hyper_request forKey:@"hyper_request"];
@@ -297,7 +280,7 @@
     [encoder encodeBool:transparent forKey:@"transparent"];
     NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
-    NSLog(@"Encoded range %@ for text grid window selected range", NSStringFromRange(textview.selectedRange));
+    //NSLog(@"Encoded range %@ for text grid window selected range", NSStringFromRange(textview.selectedRange));
 }
 
 - (BOOL) isFlipped

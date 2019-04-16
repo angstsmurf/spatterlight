@@ -15,6 +15,7 @@
 @property GlkController *glkctl;
 @property (readonly) NSInteger name;
 @property (readonly) NSRect restoredFrame;
+@property (readonly) NSUInteger restoredResizingMask;
 
 @property NSMutableDictionary *pendingTerminators;
 @property BOOL terminatorsPending;

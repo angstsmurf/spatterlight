@@ -51,6 +51,7 @@
         _terminatorsPending = [decoder decodeBoolForKey:@"terminatorsPending"];
         char_request = [decoder decodeBoolForKey:@"char_request"];
         _restoredFrame = [decoder decodeRectForKey:@"restoredFrame"];
+        _restoredResizingMask = [decoder decodeIntegerForKey:@"autoresizingmask"];
         NSLog(@"Decoded frame %@ for GlkWindow %ld", NSStringFromRect(_restoredFrame), self.name);
     }
     return self;
@@ -69,7 +70,13 @@
     [encoder encodeBool:_terminatorsPending forKey:@"terminatorsPending"];
     [encoder encodeBool:char_request forKey:@"char_request"];
     [encoder encodeObject:styles forKey:@"styles"];
+    [encoder encodeInteger:self.autoresizingMask forKey:@"autoresizingmask"];
     [encoder encodeRect:self.frame forKey:@"restoredFrame"];
+}
+
+- (NSString *) sayMask: (NSUInteger)mask {
+    NSString *maskToSay = [NSString stringWithFormat:@" %@ | %@", (mask & NSViewWidthSizable)?@"NSViewWidthSizable":@"NSViewMaxXMargin", (mask & NSViewHeightSizable)?@"NSViewHeightSizable":@"NSViewMaxYMargin"];
+    return maskToSay;
 }
 
 - (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value
@@ -113,10 +120,10 @@
 
     CGFloat border = Preferences.border;
 
-    if (NSMaxX(thisframe) == floor(NSMaxX(mainframe) - border))
+    if (fabs(NSMaxX(thisframe) - (NSMaxX(mainframe) - border)) < 2.0)
         rgt = 1;
 
-    if (NSMaxY(thisframe) == floor(NSMaxY(mainframe) - border))
+    if (fabs(NSMaxY(thisframe) - (NSMaxY(mainframe) - border)) < 2.0)
         bot = 1;
 
     if (rgt)
@@ -129,7 +136,17 @@
     else
         vmask = NSViewMaxYMargin;
 
+    NSUInteger previousMask = self.autoresizingMask;
+
     self.autoresizingMask = hmask | vmask;
+
+    if (previousMask != self.autoresizingMask) {
+        NSLog(@"Changed autoresizingmask for window %ld from %@ to %@", _name, [self sayMask:previousMask], [self sayMask:self.autoresizingMask]);
+        NSLog(@"fabs(NSMaxX(thisframe) - (NSMaxX(mainframe) - border) = %f", fabs(NSMaxX(thisframe) - (NSMaxX(mainframe) - border)));
+        NSLog(@"fabs(NSMaxY(thisframe) - (NSMaxY(mainframe) - border)) = %f", fabs(NSMaxY(thisframe) - (NSMaxY(mainframe) - border)));
+
+    }
+
     super.frame = thisframe;
 }
 

@@ -29,10 +29,10 @@
 //    "EVTMOUSE", "EVTTIMER", "EVTSOUND", "EVTVOLUME", "EVTPREFS"
 //};
 
-//static const char *wintypenames[] =
-//{
-//    "wintype_AllTypes", "wintype_Pair", "wintype_Blank", "wintype_TextBuffer","wintype_TextGrid", "wintype_Graphics"
-//};
+static const char *wintypenames[] =
+{
+    "wintype_AllTypes", "wintype_Pair", "wintype_Blank", "wintype_TextBuffer","wintype_TextGrid", "wintype_Graphics"
+};
 
 //static const char *stylenames[] =
 //{
@@ -64,7 +64,7 @@
 
 - (void) setFrame: (NSRect)frame
 {
-    //NSLog (@"GlkHelperView (_contentView) setFrame: %@", NSStringFromRect(frame));
+//    NSLog (@"GlkHelperView (_contentView) setFrame: %@", NSStringFromRect(frame));
     super.frame = frame;
     if (!self.inLiveResize)
         [delegate contentDidResize: frame];
@@ -72,7 +72,7 @@
 
 - (void) viewDidEndLiveResize
 {
-    NSLog (@"GlkHelperView (_contentView) viewDidEndLiveResize self.frame: %@", NSStringFromRect(self.frame));
+//    NSLog (@"GlkHelperView (_contentView) viewDidEndLiveResize self.frame: %@", NSStringFromRect(self.frame));
     // We use a custom fullscreen width, so don't resize to full screen width when viewDidEndLiveResize
     // is called because we just entered fullscreen
     if ((delegate.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
@@ -96,11 +96,11 @@
 {
     NSLog(@"glkctl: runterp %@ %@", terpname, gamefile_);
 
-    _autosaved = [self.window isRestorable];
+    _supportsAutorestore = [self.window isRestorable];
 
     NSSize defsize = [Preferences defaultWindowSize];
 
-    autorestored = NO;
+    _hasAutorestored = NO;
     turns = 0;
 
     gamefile = gamefile_;
@@ -111,6 +111,8 @@
     [self autosaveFile];
 
     /* Setup our own stuff */
+
+    restoredController = nil;
 
     _queue = [[NSMutableArray alloc] init];
     _gwindows = [[NSMutableDictionary alloc] init];
@@ -144,32 +146,7 @@
         [self.window setValue:@2 forKey:@"tabbingMode"];
     }
 
-    // If there already is an interpreter-create autosave file, we autorestore the UI here.
-    // Otherwise this might be the first turn, so we look for an UI autosave file later,
-    // in handleRequest at the first NEXTEVENT.
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave.plist"]]) {
-        autorestored = YES;
-        GlkController *tempController = [NSKeyedUnarchiver unarchiveObjectWithFile:_autosaveFile];
-        if (tempController) {
-            [self.window setFrame:tempController.storedWindowFrame display:NO];
-            defsize = ((NSView *)self.window.contentView).frame.size;
-            for (id key in tempController.gwindows) {
-                GlkWindow *win = [tempController.gwindows objectForKey:key];
-                [_gwindows setObject:win forKey:@(win.name)];
-                [win removeFromSuperview];
-                [_contentView addSubview:win];
-                NSLog (@"Added GlkWindow %@, name %ld to contentView", win, win.name);
-                NSLog (@"Frame: %@ Bounds: %@", NSStringFromRect(win.frame), NSStringFromRect(win.bounds));
-                win.glkctl=self;
-                if (win.name == _firstResponderView)
-                    [win grabFocus];
-            }
-            [self restoreUI:tempController];
-            //_queue = tempController.queue;
-            [self.window setContentSize: defsize];
-        }
-        tempController = nil;
-    }
+    [self restoreAutosave];
 
     // Clamp to max screen size
     //defsize.height = self.window.frame.size.height;
@@ -252,7 +229,7 @@
      name: NSFileHandleDataAvailableNotification
      object: readfh];
 
-    if (autorestored)
+    if (_hasAutorestored)
     {
         [readfh waitForDataInBackgroundAndNotify];
     }
@@ -264,37 +241,47 @@
     /* Send a prefs and an arrange event first thing */
     GlkEvent *gevent;
 
-    //if (!autorestored) {
 
     gevent = [[GlkEvent alloc] initPrefsEvent];
     [self queueEvent: gevent];
 
-    gevent = [[GlkEvent alloc] initArrangeWidth: defsize.width - Preferences.border * 2 height: defsize.height  - Preferences.border * 2];
+    if (_hasAutorestored) {
+        gevent = [[GlkEvent alloc] initArrangeWidth: _contentView.frame.size.width height: _contentView.frame.size.height];
+    } else gevent = [[GlkEvent alloc] initArrangeWidth: defsize.width - Preferences.border * 2 height: defsize.height  - Preferences.border * 2];
     [self queueEvent: gevent];
 
     //}
     soundNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
+}
 
-    if (autorestored)
-    {
-        [self restoreFocus:nil];
-        autorestored = NO;
+- (void) restoreAutosave {
+    
+    // If there already is an interpreter-create autosave file, we autorestore the UI here.
+    // Otherwise this might be the first turn, so we look for an UI autosave file later,
+    // in handleRequest at the first NEXTEVENT.
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave.plist"]]) {
+        restoredController = [NSKeyedUnarchiver unarchiveObjectWithFile:_autosaveFile];
+        if (restoredController) {
+            [self.window setFrame:restoredController.storedWindowFrame display:NO];
+            _hasAutorestored = YES;
+        }
     }
 }
 
 - (void) restoreUI: (GlkController *) controller {
 
-    //NSSize defsize;
+    GlkWindow *win;
     if (!controller) {
         controller = [NSKeyedUnarchiver unarchiveObjectWithFile:_autosaveFile];
     }
     if (controller) {
         NSLog(@"Restoring UI");
-        //[self.window setFrame:tempController2.storedWindowFrame display:NO];
-        //defsize = tempController2.contentView.frame.size;
+        _hasAutorestored = YES;
         _firstResponderView = controller.firstResponderView;
         _timerInterval = controller.timerInterval;
         _timerLeft = controller.timerLeft;
+        _queue = controller.queue;
 
         if (_timerLeft) {
             NSLog(@"timerLeft:%f timerInterval:%f", _timerLeft, _timerInterval);
@@ -314,36 +301,29 @@
             NSLog(@"_timerInterval was %f, so started a timer.", _timerLeft);
         }
 
-        for (id key in _gwindows) {
-            GlkWindow *obj = [controller.gwindows objectForKey:key];
-            NSLog(@"Restoring Glk Window %@", key);
-            //[[_gwindows objectForKey:key] setFrame:obj.restoredFrame];
-            if ([obj isKindOfClass:[GlkTextBufferWindow class]]) {
-                GlkTextBufferWindow *savedwin = (GlkTextBufferWindow *)obj;
-                GlkTextBufferWindow *win = [_gwindows objectForKey:key];
-                if (savedwin.textstorage.length)
-                    [win.textstorage setAttributedString:savedwin.textstorage];
-                win.restoredSelection = savedwin.restoredSelection;
-                [win restoreSelection];
-                win.lastVisible = savedwin.lastVisible;
-                win.scrollOffset = savedwin.scrollOffset;
-                win.restoredScroll = savedwin.restoredScroll;
-                if (savedwin.restoredSearch) {
-                    win.restoredSearch = savedwin.restoredSearch;
-                }
-            }
-            if ([obj isKindOfClass:[GlkTextGridWindow class]]) {
-                GlkTextGridWindow *savedwin = (GlkTextGridWindow *)obj;
-                GlkTextGridWindow *win = [_gwindows objectForKey:key];
-                win.restoredSelection = savedwin.restoredSelection;
-                [win restoreSelection];
-            }
+        for (id key in controller.gwindows) {
+            win = [_gwindows objectForKey:key];
+            if (win)
+                [win removeFromSuperview];
+            win = [controller.gwindows objectForKey:key];
+            [_gwindows setObject:win forKey:@(win.name)];
+            [win removeFromSuperview];
+            [_contentView addSubview:win];
+            NSLog (@"Added GlkWindow %@, name %ld to contentView", win, win.name);
+            NSLog (@"Frame: %@ Bounds: %@", NSStringFromRect(win.frame), NSStringFromRect(win.bounds));
 
+            win.glkctl=self;
+//            [win restoreSelection];
+//            if (win.name == _firstResponderView)
+//                [win grabFocus];
         }
     }
 
+
+
     //GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth: defsize.width - Preferences.border * 2 height: defsize.height  - Preferences.border * 2];
     //[self queueEvent: gevent];
+    restoredController = nil;
 }
 
 - (NSString *) appSupportDir {
@@ -380,7 +360,7 @@
 
         NSString *dummyfilename = [[gameinfo objectForKey:@"title"] stringByAppendingPathExtension:@"txt"];
 
-        NSString *dummytext = [NSString stringWithFormat:@"This file, %@, was placed here in order to make it easier for humans to guess what game these autosave files belong to. Any files in this folder are for the game %@.", dummyfilename, [gameinfo objectForKey:@"title"]];
+        NSString *dummytext = [NSString stringWithFormat:@"This file, %@, was placed here in order to make it easier for humans to guess what game these autosave files belong to. Any files in this folder are for the game %@, or possibly a game with another name but identical contents.", dummyfilename, [gameinfo objectForKey:@"title"]];
 
         NSString *dummyfilepath = [appSupportURL.path stringByAppendingPathComponent:dummyfilename];
 
@@ -395,9 +375,8 @@
 }
 
 - (NSString *) autosaveFile {
-
     if (!_autosaveFile)
-        _autosaveFile = [_appSupportDir stringByAppendingPathComponent:@"autosave-winserv.plist"];
+        _autosaveFile = [_appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"];
     return _autosaveFile;
 }
 
@@ -432,8 +411,8 @@
         _timerLeft = [decoder decodeDoubleForKey:@"timerLeft"];
         _timerInterval = [decoder decodeDoubleForKey:@"timerInterval"];
         _firstResponderView = [decoder decodeIntegerForKey:@"firstResponder"];
-        _autosaved = YES;
-        NSLog (@"Decoded window %ld as first responder.", _firstResponderView);
+        //NSLog (@"Decoded window %ld as first responder.", _firstResponderView);
+        restoredController = nil;
     }
     return self;
 }
@@ -463,7 +442,7 @@
     } else if ([self.window.firstResponder isKindOfClass:[NSTextView class]] && [((NSTextView *)self.window.firstResponder).delegate isKindOfClass:[GlkWindow class]]) {
         _firstResponderView = ((GlkWindow *)((NSTextView *)self.window.firstResponder).delegate).name;
     }
-    NSLog (@"Encoded %ld as first responder.", _firstResponderView);
+    //NSLog (@"Encoded %ld as first responder.", _firstResponderView);
     [encoder encodeInteger:_firstResponderView forKey:@"firstResponder"];
     [encoder encodeDouble:_timerLeft forKey:@"timerLeft"];
     [encoder encodeDouble:_timerInterval forKey:@"timerInterval"];
@@ -479,7 +458,7 @@
 {
     //NSLog(@"glkctl: windowWillClose");
 
-    if (!crashed)
+    if (_supportsAutorestore && !crashed)
         [self autoSaveOnExit];
 
     [self.window setDelegate: nil];
@@ -583,7 +562,7 @@
 
     NSAlert *alert;
 
-    if (dead || _autosaved)
+    if (dead || _supportsAutorestore)
         return YES;
 
     alert = [[NSAlert alloc] init];
@@ -652,12 +631,11 @@
 
 - (void) restoreFocus: (id)sender {
     for (GlkWindow *win in [_gwindows allValues]) {
-        [win restoreSelection];
+        //nt[win restoreSelection];
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkTextBufferWindow *textbuf = (GlkTextBufferWindow *)win;
             [textbuf restoreScroll];
-            if (textbuf.restoredSearch)
-                [textbuf restoreTextFinder];
+            //[textbuf restoreTextFinder];
         }
         if (win.name == _firstResponderView) {
             [win grabFocus];
@@ -930,7 +908,7 @@
 {
     NSUInteger i, k;
 
-    //NSLog(@"handleNewWindowOfType: %s", wintypenames[wintype]);
+    NSLog(@"handleNewWindowOfType: %s", wintypenames[wintype]);
 
     for (i = 0; i < MAXWIN; i++)
         if ([_gwindows objectForKey:@(i)]== nil)
@@ -939,7 +917,7 @@
     if (i == MAXWIN)
         return -1;
 
-    //NSLog(@"Adding new Glk window with name: %ld", (long)i);
+    NSLog(@"Adding new %s window with name: %ld", wintypenames[wintype], (long)i);
 
     switch (wintype)
     {
@@ -1354,13 +1332,16 @@ NSInteger colorToInteger(NSColor *color)
             // If this is the first turn, we try to restore the UI from an autosave file,
             // in order to catch things like entered text and scrolling, that has changed the
             // UI but not sent any events to the interpreter.
-            if (++turns == 1 && _autosaved)
+            if (++turns == 1 && _supportsAutorestore)
             {
-                [self restoreUI: nil];
-                [self showWindow: self];
-                [self.window makeKeyAndOrderFront:nil];
-                [self.window makeFirstResponder: self.window];
-                [self restoreFocus:nil];
+                [self restoreUI: restoredController];
+
+                if (_hasAutorestored)
+                {
+                    [self.window makeKeyAndOrderFront:nil];
+                    [self.window makeFirstResponder: self.window];
+                    [self restoreFocus:nil];
+                }
             }
 
             waitforevent = YES;
@@ -1609,7 +1590,7 @@ NSInteger colorToInteger(NSColor *color)
 #pragma mark Request and cancel events
 
         case INITLINE:
-            NSLog(@"glkctl INITLINE %d", req->a1);
+            //NSLog(@"glkctl INITLINE %d", req->a1);
             [self performScroll];
             if (reqWin)
             {

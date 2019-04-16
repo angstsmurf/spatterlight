@@ -688,6 +688,7 @@
         _bottomPadding = 0;
         _shouldSpeak_10_7 = NO;
         _rangeToSpeak_10_7 = NSMakeRange(0, 0);
+        _textFinder = nil;
         //NSLog(@"GlkTextBufferWindow: MyTextView initWithFrame: %@", NSStringFromRect(rect));
     }
     return self;
@@ -702,6 +703,9 @@
         _shouldSpeak_10_7 = [decoder decodeBoolForKey:@"shouldSpeak_10_7"];
         NSValue *rangeVal = [decoder decodeObjectForKey:@"rangeToSpeak_10_7"];
         _rangeToSpeak_10_7 = rangeVal.rangeValue;
+        _textFinder = [decoder decodeObjectForKey:@"textfinder"];
+        _restoredFrame = [decoder decodeRectForKey:@"restoredFrame"];
+        //[self destroyTextFinder];
     }
 
     return self;
@@ -714,6 +718,10 @@
     [encoder encodeBool:_shouldSpeak_10_7 forKey:@"shouldSpeak_10_7"];
     NSValue *rangeVal = [NSValue valueWithRange:_rangeToSpeak_10_7];
     [encoder encodeObject:rangeVal forKey:@"rangeToSpeak_10_7"];
+    [encoder encodeObject:_textFinder forKey:@"textfinder"];
+    [encoder encodeRect:self.frame forKey:@"restoredFrame"];
+
+
 }
 
 - (void) superKeyDown: (NSEvent*)evt
@@ -753,12 +761,12 @@
 
     [scrollview.contentView scrollToPoint:newScrollOrigin];
     [scrollview reflectScrolledClipView:scrollview.contentView];
-    NSLog(@"scrollToBottom: Scrolled to bottom of scrollview");
+//    NSLog(@"scrollToBottom: Scrolled to bottom of scrollview");
 }
 
 - (void) performScroll
 {
-    NSLog(@"performScroll: scroll down from lastseen");
+//    NSLog(@"performScroll: scroll down from lastseen");
 
     int bottom;
     NSRange range;
@@ -794,9 +802,9 @@
 
     CGFloat scrollViewBottomOffset = self.frame.size.height - scrollview.bounds.size.height;
 
-    if (NSMaxY(scrollview.documentVisibleRect) >= scrollViewBottomOffset) {
-        NSLog(@"NSMaxY(scrollview.documentVisibleRect) (%f) >= scrollViewBottomOffset (%f). Scrolled to bottom!", NSMaxY(scrollview.documentVisibleRect), scrollViewBottomOffset);
-    } else NSLog(@"NSMaxY(scrollview.documentVisibleRect) (%f) < scrollViewBottomOffset (%f). Not scrolled to bottom!", NSMaxY(scrollview.documentVisibleRect), scrollViewBottomOffset);
+    //if (NSMaxY(scrollview.documentVisibleRect) >= scrollViewBottomOffset) {
+        //NSLog(@"NSMaxY(scrollview.documentVisibleRect) (%f) >= scrollViewBottomOffset (%f). Scrolled to bottom!", NSMaxY(scrollview.documentVisibleRect), scrollViewBottomOffset);
+    //} else NSLog(@"NSMaxY(scrollview.documentVisibleRect) (%f) < scrollViewBottomOffset (%f). Not scrolled to bottom!", NSMaxY(scrollview.documentVisibleRect), scrollViewBottomOffset);
 
     return (NSMaxY(scrollview.documentVisibleRect) >= scrollViewBottomOffset);
 }
@@ -898,14 +906,15 @@
     }
 }
 
-- (void) destroyTextFinder
+- (void) restoreTextFinder:(NSTextFinder *)textfinder
 {
-    // Create the text finder on demand
-    if (_textFinder) {
-        _textFinder.findBarContainer.findBarVisible = NO;
-        _textFinder.client = nil;
-        _textFinder.findBarContainer = nil;
-        _textFinder = nil;
+    // Restore the text finder after autorestoring
+    if (textfinder) {
+        _textFinder = textfinder;
+        _textFinder.client = self;
+        _textFinder.findBarContainer = self.enclosingScrollView;
+        _textFinder.incrementalSearchingEnabled = YES;
+        _textFinder.incrementalSearchingShouldDimContentView = NO;
     }
 }
 
@@ -1172,34 +1181,39 @@
     if (self)
     {
         NSInteger i;
-        scrollview = [decoder decodeObjectForKey:@"scrollview"];
-        _textstorage = [decoder decodeObjectForKey:@"_textstorage"];
-        layoutmanager = [decoder decodeObjectForKey:@"layoutmanager"];
-        container = [decoder decodeObjectForKey:@"container"];
         textview = [decoder decodeObjectForKey:@"textview"];
+        layoutmanager = textview.layoutManager;
+        _textstorage = textview.textStorage;
+        container = (MarginContainer *)textview.textContainer;
+        if (!layoutmanager)
+            NSLog(@"layoutmanager nil!");
+        if (!_textstorage)
+            NSLog(@"_textstorage nil!");
+        if (!container)
+            NSLog(@"container nil!");
+        scrollview = textview.enclosingScrollView;
+        if (!scrollview)
+            NSLog(@"scrollview nil!");
+        //scrollview.frame = self.frame;
+        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        scrollview.scrollerStyle = NSScrollerStyleOverlay;
+        scrollview.drawsBackground = YES;
 
-        while (layoutmanager.textContainers.count)
-            [layoutmanager removeTextContainerAtIndex:0];
-        while (_textstorage.layoutManagers.count)
-            [_textstorage removeLayoutManager:[_textstorage.layoutManagers objectAtIndex:0]];
-        container.layoutManager = layoutmanager;
-        [_textstorage addLayoutManager:layoutmanager];
-        [layoutmanager addTextContainer: container];
-        container.textView = textview;
+        scrollview.hasHorizontalScroller = NO;
+        scrollview.hasVerticalScroller = YES;
+        scrollview.autohidesScrollers = YES;
+
+        scrollview.borderType = NSNoBorder;
 
         scrollview.documentView = textview;
         textview.delegate = self;
-        _textstorage.delegate =self;
+        _textstorage.delegate = self;
 
         if (textview.textStorage != _textstorage)
             NSLog(@"Error! textview.textStorage != _textstorage");
 
-        scrollview.drawsBackground = YES;
-        scrollview.backgroundColor = [Preferences bufferBackground];
-        [textview destroyTextFinder];
-        NSLog(@"textview.textFinder = %@", textview.textFinder);
-
-        scrollview.findBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
+//        scrollview.drawsBackground = YES;
+//        scrollview.backgroundColor = [Preferences bufferBackground];
 
         line_request = [decoder decodeBoolForKey:@"line_request"];
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
@@ -1238,16 +1252,18 @@
         textview.insertionPointColor = [decoder decodeObjectForKey:@"insertionPointColor"];
         textview.shouldDrawCaret = [decoder decodeBoolForKey:@"shouldDrawCaret"];
         _restoredSearch = [decoder decodeObjectForKey:@"searchString"];
+        //[textview restoreTextFinder:[decoder decodeObjectForKey:@"textfinder"]];
+        //[textview destroyTextFinder];
+        //scrollview.findBarVisible = NO;
+//        _restoredFindBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
+//        textview.usesFindBar = NO;
     }
     return self;
 }
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeObject:scrollview forKey:@"scrollview"];
-    [encoder encodeObject:_textstorage forKey:@"_textstorage"];
-    [encoder encodeObject:layoutmanager forKey:@"layoutmanager"];
-    [encoder encodeObject:container forKey:@"container"];
+    [encoder encodeObject:textview.textFinder forKey:@"textfinder"];
     [encoder encodeObject:textview forKey:@"textview"];
     NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
@@ -1272,7 +1288,7 @@
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
     [encoder encodeRect:scrollview.documentVisibleRect forKey:@"visibleRect"];
-    NSLog(@"Encoded visibleRect as %@", NSStringFromRect(scrollview.documentVisibleRect));
+//    NSLog(@"Encoded visibleRect as %@", NSStringFromRect(scrollview.documentVisibleRect));
     _restoredAtBottom = textview.scrolledToBottom;
     [encoder encodeBool:_restoredAtBottom forKey:@"scrolledToBottom"];
     if (!_restoredAtBottom) {
@@ -1283,28 +1299,33 @@
 
     [encoder encodeObject:textview.insertionPointColor forKey:@"insertionPointColor"];
     [encoder encodeBool:textview.shouldDrawCaret forKey:@"shouldDrawCaret"];
-        NSSearchField *searchField = [self findSearchFieldIn:self];
-    if (searchField) {
-        [encoder encodeObject:searchField.stringValue forKey:@"searchString"];
-        NSLog(@"encoded search string %@",searchField.stringValue);
-    }
-    [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
+//        NSSearchField *searchField = [self findSearchFieldIn:self];
+//    if (searchField) {
+//        [encoder encodeObject:searchField.stringValue forKey:@"searchString"];
+//        NSLog(@"encoded search string %@",searchField.stringValue);
+//    }
+//    [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
 }
 
 - (void) restoreTextFinder {
-    BOOL waseditable = textview.editable;
-    textview.editable = NO;
-    NSTextFinder *newFinder = textview.textFinder;
-    newFinder.client = textview;
-    [newFinder performAction:NSTextFinderActionShowFindInterface];
-    NSSearchField *searchField = [self findSearchFieldIn:self];
-    if (searchField) {
-        searchField.stringValue = _restoredSearch;
-        [newFinder cancelFindIndicator];
-        [_window makeFirstResponder:textview];
-        [searchField sendAction:searchField.action to:searchField.target];
-    }
-    textview.editable = waseditable;
+//    BOOL waseditable = textview.editable;
+//    textview.editable = NO;
+//    textview.usesFindBar = YES;
+//    
+//    NSTextFinder *newFinder = textview.textFinder;
+//    newFinder.client = textview;
+//    if (_restoredFindBarVisible) {
+//
+//        [newFinder performAction:NSTextFinderActionShowFindInterface];
+//        NSSearchField *searchField = [self findSearchFieldIn:self];
+//        if (searchField) {
+//            searchField.stringValue = _restoredSearch;
+//            //        [newFinder cancelFindIndicator];
+//            //        [_window makeFirstResponder:textview];
+//            //        [searchField sendAction:searchField.action to:searchField.target];
+//        }
+//    }
+//    textview.editable = waseditable;
 }
 
 - (NSSearchField *) findSearchFieldIn: (NSView *)theView // search the subviews for a view of class NSSearchField
@@ -2180,7 +2201,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 - (NSUInteger) lastVisibleCharacter:(CGFloat *)offset {
 
     NSRect visibleRect = scrollview.documentVisibleRect;
-    NSLog(@"lastVisibleCharacter: scrollview.documentVisibleRect: %@", NSStringFromRect(visibleRect));
+//    NSLog(@"lastVisibleCharacter: scrollview.documentVisibleRect: %@", NSStringFromRect(visibleRect));
 
     NSUInteger lastCharacter = [textview characterIndexForInsertionAtPoint:NSMakePoint(NSMaxX(visibleRect), NSMaxY(visibleRect))];
 
@@ -2207,6 +2228,14 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 - (void) restoreScroll;
 {
+//    float width = textview.frame.size.width - 2 * textview.textContainerInset.width;
+//    float proposedHeight = [self heightForString:_textstorage.string font:textview.font andWidth:width andPadding:textview.textContainer.lineFragmentPadding];
+//
+//    NSRect frame = textview.frame;
+//    frame.size.height = proposedHeight;
+//
+    textview.frame = textview.restoredFrame;
+
     if (_restoredAtBottom) {
         [self scrollToBottom];
         return;
@@ -2215,15 +2244,15 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
     return;
     // first, force a layout so we have the correct textview frame
     [container.layoutManager glyphRangeForTextContainer: container];
-    NSLog(@"GlkTextBufferWindow %ld restoreScroll: trying to scroll to %@", self.name, NSStringFromRect(_restoredScroll));
+//    NSLog(@"GlkTextBufferWindow %ld restoreScroll: trying to scroll to %@", self.name, NSStringFromRect(_restoredScroll));
     [scrollview.contentView scrollRectToVisible:_restoredScroll];
     [scrollview reflectScrolledClipView:scrollview.contentView];
 
-    NSLog(@"Resulting visibleRect: %@", NSStringFromRect(scrollview.visibleRect));
+//    NSLog(@"Resulting visibleRect: %@", NSStringFromRect(scrollview.visibleRect));
 }
 
 - (void) restoreSelection {
-    textview.selectedRange = _restoredSelection;
+   // textview.selectedRange = _restoredSelection;
 }
 
 - (void) scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset
@@ -2240,16 +2269,16 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
         line = [layoutmanager lineFragmentRectForGlyphAtIndex: character
                                                effectiveRange: nil];
 
-        NSLog(@"GlkTextBufferWindow scrollToCharacter: trying to scroll to character %lu, (%@), rect %@, offset %f", (unsigned long)character, [_textstorage.string substringWithRange:NSMakeRange(character,1)], NSStringFromRect(line), offset);
+//        NSLog(@"GlkTextBufferWindow scrollToCharacter: trying to scroll to character %lu, (%@), rect %@, offset %f", (unsigned long)character, [_textstorage.string substringWithRange:NSMakeRange(character,1)], NSStringFromRect(line), offset);
 
         NSRect firstRect = [layoutmanager lineFragmentRectForGlyphAtIndex:0 effectiveRange:nil];
         NSRect reallyLastRect = [layoutmanager lineFragmentRectForGlyphAtIndex:_textstorage.length-1 effectiveRange:nil];
-        NSLog(@"The first character of the _textstorage has rect %@", NSStringFromRect(firstRect));
-        NSLog(@"The last character of the _textstorage has rect %@", NSStringFromRect(reallyLastRect));
-
-        NSLog(@"scrollview.documentVisibleRect: %@", NSStringFromRect(scrollview.documentVisibleRect));
-        NSLog(@"scrollview.contentView.frame: %@", NSStringFromRect(scrollview.contentView.frame));
-        NSLog(@"textview.frame: %@", NSStringFromRect(textview.frame));
+//        NSLog(@"The first character of the _textstorage has rect %@", NSStringFromRect(firstRect));
+//        NSLog(@"The last character of the _textstorage has rect %@", NSStringFromRect(reallyLastRect));
+//
+//        NSLog(@"scrollview.documentVisibleRect: %@", NSStringFromRect(scrollview.documentVisibleRect));
+//        NSLog(@"scrollview.contentView.frame: %@", NSStringFromRect(scrollview.contentView.frame));
+//        NSLog(@"textview.frame: %@", NSStringFromRect(textview.frame));
 
 
         CGFloat charbottom = NSMaxY(line); // bottom of the line
@@ -2330,7 +2359,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
         NSAccessibilityPostNotificationWithUserInfo([NSApp mainWindow], NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
 
-        NSLog(@"No last move to speak");
+        //NSLog(@"No last move to speak");
         return;
     }
 
@@ -2374,7 +2403,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
     if (lastMove.length == 0)
     {
-        NSLog(@"No last move to speak");
+        //NSLog(@"No last move to speak");
         return;
     }
     textview.rangeToSpeak_10_7 = NSMakeRange(lastMove.location, _textstorage.length - lastMove.location);
