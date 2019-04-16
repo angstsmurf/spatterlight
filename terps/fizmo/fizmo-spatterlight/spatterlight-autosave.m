@@ -57,7 +57,12 @@ char normal_start_save[1024] = ""; /* Not actually used */
  */
 int spatterlight_do_autosave() {
 
-    spatterlight_clear_autosave();
+    //spatterlight_clear_autosave();
+
+    if (lasteventtype == -1 || lasteventtype == evtype_Arrange)
+    {
+		return 0;
+    }
 
     @autoreleasepool {
         TempLibrary *library = [[TempLibrary alloc] init];
@@ -70,7 +75,6 @@ int spatterlight_do_autosave() {
 
         strncpy(autosavename, [tmpgamepath UTF8String], sizeof autosavename);
         autosavename[sizeof autosavename-1] = 0;
-        // cpathname will be freed when the pathname is freed; openfile() will strdup it before that happens.
         z_file *save_file = fsi->openfile(autosavename, FILETYPE_DATA, FILEACCESS_WRITE);
         if (!save_file) {
             NSLog(@"unable to create z_file!");
@@ -121,6 +125,9 @@ int spatterlight_do_autosave() {
             NSLog(@"could not move library autosave to final position (continuing)");
         }
     }
+
+    win_autosave(0); // Call window server to do its own autosave
+
 	return 0;
 }
 
