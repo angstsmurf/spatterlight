@@ -370,10 +370,10 @@ void opcode_throw(void)
         -1,
         (long)dest_stack_frame);
 
-  while (number_of_stack_frames >= dest_stack_frame)
-    unwind_stack_frame(0, true);
+  while (number_of_stack_frames > dest_stack_frame)
+        unwind_stack_frame(0, true);
 
-  set_variable(last_result_var, op[0], false);
+  return_from_routine(op[0]);
 }
 
 
