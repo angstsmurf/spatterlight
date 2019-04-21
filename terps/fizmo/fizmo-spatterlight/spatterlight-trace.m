@@ -31,7 +31,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 #include <tools/tracelog.h>
 #include <tools/z_ucs.h>
 
