@@ -160,14 +160,15 @@ int glkint_closefile(z_file *file_to_close)
     return z_filesys_interface_c.closefile(file_to_close);
   else
   {
-    if (file_to_close->file_object)
-      glk_stream_close((strid_t)file_to_close->file_object, NULL);
-    if (file_to_close->filename)
-      free(file_to_close->filename);
-    file_to_close->file_object = NULL;
-    file_to_close->filename = NULL;
-    free(file_to_close);
-    return 0;
+      if (file_to_close->file_object) {
+          glk_stream_close((strid_t)file_to_close->file_object, NULL);
+          if (file_to_close->filename != NULL)
+              free(file_to_close->filename);
+      }
+      file_to_close->file_object = NULL;
+      file_to_close->filename = NULL;
+      free(file_to_close);
+      return 0;
   }
 }
 
