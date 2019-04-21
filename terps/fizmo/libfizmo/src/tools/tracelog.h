@@ -59,9 +59,21 @@ void turn_off_trace(void);
 void _trace_log_z_ucs(z_ucs *output);
 #else /* ENABLE_TRACING */
 
+#ifdef ENABLE_IOS_TRACING
+
+#define TRACE_LOG(...) _trace_log_ios(__VA_ARGS__)
+#define TRACE_LOG_Z_UCS _trace_log_ios_z_ucs
+void turn_on_trace(void);
+void turn_off_trace(void);
+void _trace_log_ios(char *format, ...);
+void _trace_log_ios_z_ucs(z_ucs *output);
+
+#else /* ENABLE_IOS_TRACING */
+
 #define TRACE_LOG(...) ;
 #define TRACE_LOG_Z_UCS(...) ;
 
+#endif /* ENABLE_IOS_TRACING */
 #endif /* ENABLE_TRACING */
 
 #endif // tracelog_h_INCLUDED
