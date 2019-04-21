@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'IosFizmo' target in the 'IosFizmo' project
+// Prefix header for all source files of the 'fizmo' target in the 'Spatterlight' project. Adapted from IosFizmo by Andrew Plotkin.
 //
 
 #ifdef __OBJC__
