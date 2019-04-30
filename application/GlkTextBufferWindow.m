@@ -799,14 +799,8 @@
 - (BOOL) scrolledToBottom
 {
     NSScrollView *scrollview = self.enclosingScrollView;
-
-    CGFloat scrollViewBottomOffset = self.frame.size.height - scrollview.bounds.size.height;
-
-    //if (NSMaxY(scrollview.documentVisibleRect) >= scrollViewBottomOffset) {
-        //NSLog(@"NSMaxY(scrollview.documentVisibleRect) (%f) >= scrollViewBottomOffset (%f). Scrolled to bottom!", NSMaxY(scrollview.documentVisibleRect), scrollViewBottomOffset);
-    //} else NSLog(@"NSMaxY(scrollview.documentVisibleRect) (%f) < scrollViewBottomOffset (%f). Not scrolled to bottom!", NSMaxY(scrollview.documentVisibleRect), scrollViewBottomOffset);
-
-    return (NSMaxY(scrollview.documentVisibleRect) >= scrollViewBottomOffset);
+    NSView *clipView = scrollview.contentView;
+    return (clipView.bounds.origin.y + clipView.bounds.size.height == scrollview.documentView.bounds.size.height);
 }
 
 - (void) mouseDown: (NSEvent*)theEvent
