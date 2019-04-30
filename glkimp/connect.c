@@ -50,7 +50,7 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
     msgbuf.a3 = a3;
     msgbuf.a4 = a4;
     msgbuf.a5 = a5;
-    msgbuf.a6 = 0;
+    msgbuf.a6 = gscreenw;
     msgbuf.len = len;
 
 #ifdef DEBUG
@@ -255,6 +255,10 @@ void win_delwin(int name)
 void win_sizewin(int name, int a, int b, int c, int d)
 {
     win_flush();
+    /* The window size may have changed before the message reaches the
+     window server, so we send (what this process thinks is) the screen
+     width as a lazy-ass checksum. We really should send height as well,
+     but we only have one unused value left. */
     sendmsg(SIZWIN, name, a, b, c, d, 0, NULL);
 }
 
@@ -533,9 +537,10 @@ again:
             goto again;
 
         case EVTARRANGE:
-#ifdef DEBUG
+//#ifdef DEBUG
             fprintf(stderr, "win_select: arrange event\n");
-#endif
+            fprintf(stderr, "gscreenw: %u gscreenh: %u\n", wmsg.a1, wmsg.a2);
+//#endif
             /* + 5 for default line fragment padding */
             if ( gscreenw == wmsg.a1 &&
                 gscreenh == wmsg.a2 &&
