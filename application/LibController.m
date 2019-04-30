@@ -901,7 +901,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     [gctl runTerp:terp withGameFile:path IFID:ifid info:info];
     [self addURLtoRecents: [NSURL fileURLWithPath:path]];
 
-    if (!gctl.hasAutorestored)
+    if (!gctl.hasAutorestoredCocoa)
         [gctl showWindow:self];
     return gctl.window;
 }
