@@ -1435,10 +1435,12 @@
 
 - (void) setFrame: (NSRect)frame
 {
-    NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name, NSStringFromRect(frame));
+    //NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name, NSStringFromRect(frame));
 
-    if (NSEqualRects(frame, self.frame))
+    if (NSEqualRects(frame, self.frame)) {
+        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. Skipping.");
         return;
+    }
 
     BOOL atBottom = textview.scrolledToBottom;
     super.frame = frame;
