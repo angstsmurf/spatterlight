@@ -833,6 +833,11 @@
 
 - (void)setFrameSize:(NSSize)newSize
 {
+    //NSLog(@"MyTextView setFrameSize: %@ Old size: %@", NSStringFromSize(newSize), NSStringFromSize(self.frame.size));
+//    if (newSize.width > ((GlkTextBufferWindow *)self.delegate).glkctl.contentView.frame.size.width) {
+//        NSLog(@"Textview set to wider than contentview! MyTextView setFrameSize called with width %f, contentView width %f. Adjusting!", newSize.width, ((GlkTextBufferWindow *)self.delegate).glkctl.contentView.frame.size.width);
+//        newSize.width = ((GlkTextBufferWindow *)self.delegate).glkctl.contentView.frame.size.width;
+//    }
     newSize.height += _bottomPadding;
     [super setFrameSize:newSize];
 }
@@ -1437,6 +1442,14 @@
 
     BOOL atBottom = textview.scrolledToBottom;
     super.frame = frame;
+
+    if (textview.frame.size.width != frame.size.width && !self.inLiveResize) {
+        NSLog(@"Textview wrong width. Is %f, should be %f. Adjusting!", textview.frame.size.width, frame.size.width);
+        NSRect newframe = textview.frame;
+        newframe.size.width = frame.size.width;
+        textview.frame = newframe;
+    }
+
     [container invalidateLayout];
     if (atBottom)
         [self scrollToBottom];
