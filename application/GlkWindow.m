@@ -51,7 +51,7 @@
         _terminatorsPending = [decoder decodeBoolForKey:@"terminatorsPending"];
         char_request = [decoder decodeBoolForKey:@"char_request"];
         _restoredFrame = [decoder decodeRectForKey:@"restoredFrame"];
-        _restoredResizingMask = [decoder decodeIntegerForKey:@"autoresizingmask"];
+        _restoredResizingMask = [decoder decodeIntegerForKey:@"autoresizingMask"];
         NSLog(@"Decoded frame %@ for GlkWindow %ld", NSStringFromRect(_restoredFrame), self.name);
     }
     return self;
@@ -70,7 +70,7 @@
     [encoder encodeBool:_terminatorsPending forKey:@"terminatorsPending"];
     [encoder encodeBool:char_request forKey:@"char_request"];
     [encoder encodeObject:styles forKey:@"styles"];
-    [encoder encodeInteger:self.autoresizingMask forKey:@"autoresizingmask"];
+    [encoder encodeInteger:self.autoresizingMask forKey:@"autoresizingMask"];
     [encoder encodeRect:self.frame forKey:@"restoredFrame"];
 }
 
@@ -103,51 +103,6 @@
 - (BOOL) isOpaque
 {
     return YES;
-}
-
-- (void) setFrame: (NSRect)thisframe
-{
-    NSRect mainframe = self.superview.frame;
-    NSInteger hmask, vmask;
-    NSInteger rgt = 0;
-    NSInteger bot = 0;
-
-    /* set autoresizing for live resize. */
-    /* the client should rearrange after it's finished. */
-    /* flex the views connected to the right and bottom */
-    /* keep the other views fixed in size */
-    /* x and y separable */
-
-    CGFloat border = Preferences.border;
-
-    if (fabs(NSMaxX(thisframe) - (NSMaxX(mainframe) - border)) < 2.0)
-        rgt = 1;
-
-    if (fabs(NSMaxY(thisframe) - (NSMaxY(mainframe) - border)) < 2.0)
-        bot = 1;
-
-    if (rgt)
-        hmask = NSViewWidthSizable;
-    else
-        hmask = NSViewMaxXMargin;
-
-    if (bot)
-        vmask = NSViewHeightSizable;
-    else
-        vmask = NSViewMaxYMargin;
-
-    NSUInteger previousMask = self.autoresizingMask;
-
-    self.autoresizingMask = hmask | vmask;
-
-    if (previousMask != self.autoresizingMask) {
-        NSLog(@"Changed autoresizingmask for window %ld from %@ to %@", _name, [self sayMask:previousMask], [self sayMask:self.autoresizingMask]);
-        NSLog(@"fabs(NSMaxX(thisframe) - (NSMaxX(mainframe) - border) = %f", fabs(NSMaxX(thisframe) - (NSMaxX(mainframe) - border)));
-        NSLog(@"fabs(NSMaxY(thisframe) - (NSMaxY(mainframe) - border)) = %f", fabs(NSMaxY(thisframe) - (NSMaxY(mainframe) - border)));
-
-    }
-
-    super.frame = thisframe;
 }
 
 - (void) prefsDidChange

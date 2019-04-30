@@ -51,5 +51,6 @@
 - (void) terpDidStop;
 
 - (void) restoreSelection;
+- (NSString *) sayMask: (NSUInteger)mask;
 
 @end
