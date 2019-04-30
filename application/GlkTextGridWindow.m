@@ -242,11 +242,15 @@
 
         layoutmanager = textview.layoutManager;
         textstorage = textview.textStorage;
+        if (!textstorage)
+            NSLog(@"Error! textstorage is nil!");
         container = (MarginContainer *)textview.textContainer;
 
         textview.delegate = self;
         textview.insertionPointColor = [Preferences gridBackground];
         textstorage.delegate =self;
+        scrollview = textview.enclosingScrollView;
+        scrollview.documentView = textview;
 
         line_request = [decoder decodeBoolForKey:@"line_request"];
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
@@ -442,8 +446,10 @@
     NSInteger newcols = ceil((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding) * 2) / Preferences.charWidth);
     NSInteger newrows = ceil((frame.size.height + Preferences.leading - (textview.textContainerInset.width) * 2) / Preferences.lineHeight);
 
-    if (newcols == cols && newrows == rows && NSEqualRects(textview.frame, frame))
+    if (newcols == cols && newrows == rows && NSEqualRects(textview.frame, frame)) {
+        NSLog(@"GlkTextGridWindow setFrame: new frame same as old frame. Skipping.");
         return;
+    }
 
     if (newcols < 0)
         newcols = 0;
@@ -451,6 +457,13 @@
         newrows = 0;
 
     NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
+
+    if (!backingStorage) {
+        NSString *spaces = [[[NSString alloc] init] stringByPaddingToLength: rows * (cols+1) - (cols > 1) withString:@" " startingAtIndex:0];
+        backingStorage = [[NSTextStorage alloc]
+                                      initWithString: spaces
+                                      attributes: [self attributesFromStylevalue:style_Normal]];
+    }
     if (newcols < cols)
     {
         // Delete characters if the window has become narrower
@@ -540,8 +553,10 @@
     rows = cols = 0;
     xpos = ypos = 0;
 
-    [self setFrame:self.frame];
-    textview.selectedRange = selectedRange;
+    if (self.frame.size.width > 0 && self.frame.size.height > 0)
+        [self setFrame:self.frame];
+    if (NSMaxRange(selectedRange) <= textview.textStorage.length)
+        textview.selectedRange = selectedRange;
 }
 
 - (void) putString: (NSString*)string style: (NSInteger)stylevalue
