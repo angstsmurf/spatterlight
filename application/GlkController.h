@@ -17,7 +17,7 @@
 #define MAXSND 32
 
 // Define the number of custom animation steps
-#define DURATION_ADJUSTMENT 0.2
+#define DURATION_ADJUSTMENT 0.1
 #define ANIMATION_STEPS 2
 
 @interface GlkHelperView : NSView
@@ -40,7 +40,11 @@
     BOOL waitforfilename; /* terp wants a filename from a file dialog */
     BOOL dead; /* le roi est mort! vive le roi! */
     BOOL crashed;
-    NSInteger turns;
+    NSDictionary *lastArrangeValues;
+    NSRect lastContentResize;
+    BOOL contentViewResizable;
+
+    BOOL inFullScreenResize;
 
     /* the glk objects */
     //GlkSoundChannel *gchannels[MAXSND];
@@ -62,11 +66,6 @@
 
     NSDictionary *gameinfo;
 
-    NSRect contentFullScreenFrame;
-    NSRect windowPreFullscreenFrame;
-
-    CGFloat fontSizePreFullscreen;
-
     GlkController *restoredController;
 }
 
@@ -75,9 +74,21 @@
 @property IBOutlet GlkHelperView *contentView;
 
 @property (getter=isAlive, readonly) BOOL alive;
-@property NSTimeInterval timerLeft;
-@property NSTimeInterval timerInterval;
-@property NSRect storedWindowFrame;
+@property (readonly) NSTimeInterval storedTimerLeft;
+@property (readonly) NSTimeInterval storedTimerInterval;
+@property (readonly) NSRect storedWindowFrame;
+@property (readonly) NSRect storedContentFrame;
+@property (readonly) CGFloat storedBorder;
+@property (readonly) CGFloat storedCharwidth;
+@property (readonly) NSUInteger turns;
+@property (readonly) BOOL storedFullscreen;
+
+@property (readonly) NSRect contentFullScreenFrame;
+@property (readonly) NSRect contentPreFullScreenFrame;
+@property (readonly) NSRect windowPreFullscreenFrame;
+
+@property (readonly) CGFloat fontSizePreFullscreen;
+
 @property NSInteger firstResponderView;
 
 @property NSMutableArray *queue;
@@ -85,8 +96,8 @@
 @property (nonatomic) NSString *autosaveFile;
 @property (nonatomic) NSString *appSupportDir;
 @property (readonly) BOOL supportsAutorestore;
-@property (readonly) BOOL hasAutorestored;
-
+@property (readonly) BOOL hasAutorestoredCocoa;
+@property (readonly) BOOL hasAutorestoredGlk;
 
 - (void) runTerp: (NSString*)terpname
     withGameFile: (NSString*)gamefilename
