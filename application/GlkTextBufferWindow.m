@@ -1188,7 +1188,16 @@
         scrollview = textview.enclosingScrollView;
         if (!scrollview)
             NSLog(@"scrollview nil!");
-        //scrollview.frame = self.frame;
+
+        scrollview.documentView = textview;
+        textview.delegate = self;
+        _textstorage.delegate = self;
+
+        if (textview.textStorage != _textstorage)
+            NSLog(@"Error! textview.textStorage != _textstorage");
+
+        scrollview.backgroundColor = [Preferences bufferBackground];
+        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         scrollview.scrollerStyle = NSScrollerStyleOverlay;
         scrollview.drawsBackground = YES;
@@ -1198,16 +1207,8 @@
         scrollview.autohidesScrollers = YES;
 
         scrollview.borderType = NSNoBorder;
+        //scrollview.frame = self.restoredFrame;
 
-        scrollview.documentView = textview;
-        textview.delegate = self;
-        _textstorage.delegate = self;
-
-        if (textview.textStorage != _textstorage)
-            NSLog(@"Error! textview.textStorage != _textstorage");
-
-        scrollview.drawsBackground = YES;
-        scrollview.backgroundColor = [Preferences bufferBackground];
 
         line_request = [decoder decodeBoolForKey:@"line_request"];
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
