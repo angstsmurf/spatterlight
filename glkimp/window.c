@@ -691,6 +691,7 @@ void gli_windows_unechostream(stream_t *str)
 
 void gli_window_rearrange(window_t *win, grect_t *box)
 {
+//    fprintf(stderr, "gli_window_rearrange win %d box x0:%u y0:%u x1:%u y1:%u\n", win->peer, box->x0, box->y0, box->x1, box->y1);
     win->bbox = *box;
 
     switch (win->type)
