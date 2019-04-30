@@ -11,20 +11,20 @@
 
 - (instancetype) initWithCoder:(NSCoder *)decoder
 {
-    type = [decoder decodeIntegerForKey:@"type"];
+    _type = [decoder decodeIntegerForKey:@"type"];
     win  = [decoder decodeIntegerForKey:@"win"];
-    val1 = [decoder decodeIntegerForKey:@"val1"];
-    val2 = [decoder decodeIntegerForKey:@"val2"];
+    _val1 = [decoder decodeIntegerForKey:@"val1"];
+    _val2 = [decoder decodeIntegerForKey:@"val2"];
     ln = [decoder decodeObjectForKey:@"ln"];
     return self;
 }
 
 - (void) encodeWithCoder:(NSCoder *)encoder
 {
-    [encoder encodeInteger:type forKey:@"type"];
+    [encoder encodeInteger:_type forKey:@"type"];
     [encoder encodeInteger:win forKey:@"win"];
-    [encoder encodeInteger:val1 forKey:@"val1"];
-    [encoder encodeInteger:val2 forKey:@"val2"];
+    [encoder encodeInteger:_val1 forKey:@"val1"];
+    [encoder encodeInteger:_val2 forKey:@"val2"];
     [encoder encodeObject:ln forKey:@"ln"];
 }
 
@@ -84,9 +84,9 @@ unsigned chartokeycode(unsigned ch)
     self = [super init];
     if (self)
     {
-        type = EVTPREFS;
-        val1 = [Preferences graphicsEnabled];
-        val2 = [Preferences soundEnabled];
+        _type = EVTPREFS;
+        _val1 = [Preferences graphicsEnabled];
+        _val2 = [Preferences soundEnabled];
     }
     return self;
 }
@@ -96,9 +96,9 @@ unsigned chartokeycode(unsigned ch)
     self = [super init];
     if (self)
     {
-        type = EVTKEY;
+        _type = EVTKEY;
         win = name;
-        val1 = v;
+        _val1 = v;
     }
     return self;
 }
@@ -108,10 +108,10 @@ unsigned chartokeycode(unsigned ch)
     self = [super init];
     if (self)
     {
-        type = EVTMOUSE;
+        _type = EVTMOUSE;
         win = name;
-        val1 = v.x;
-        val2 = v.y;
+        _val1 = v.x;
+        _val2 = v.y;
     }
     return self;
 }
@@ -121,10 +121,10 @@ unsigned chartokeycode(unsigned ch)
     self = [super init];
     if (self)
     {
-        type = EVTLINE;
+        _type = EVTLINE;
         ln = [v copy];
         win = name;
-        val1 = (unsigned int)ln.length;
+        _val1 = (unsigned int)ln.length;
     }
     return self;
 }
@@ -133,19 +133,19 @@ unsigned chartokeycode(unsigned ch)
 {
     self = [super init];
     if (self)
-        type = EVTTIMER;
+        _type = EVTTIMER;
     return self;
 }
 
 - (instancetype) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
 {
-    //NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
+    NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
     self = [super init];
     if (self)
     {
-        type = EVTARRANGE;
-        val1 = aw;
-        val2 = ah;
+        _type = EVTARRANGE;
+        _val1 = aw;
+        _val2 = ah;
     }
     return self;
 }
@@ -155,9 +155,9 @@ unsigned chartokeycode(unsigned ch)
     self = [super init];
     if (self)
     {
-        type = EVTSOUND;
-        val1 = sound;
-        val2 = notify;
+        _type = EVTSOUND;
+        _val1 = sound;
+        _val2 = notify;
     }
     return self;
 }
@@ -167,8 +167,8 @@ unsigned chartokeycode(unsigned ch)
     self = [super init];
     if (self)
     {
-        type = EVTVOLUME;
-        val2 = notify;
+        _type = EVTVOLUME;
+        _val2 = notify;
     }
     return self;
 }
@@ -178,9 +178,9 @@ unsigned chartokeycode(unsigned ch)
     self = [super init];
     if (self)
     {
-        type = EVTHYPER;
+        _type = EVTHYPER;
         win = name;
-        val1 = linkid;
+        _val1 = linkid;
     }
     return self;
 }
@@ -202,15 +202,15 @@ unsigned chartokeycode(unsigned ch)
         reply.len = 0;
     }
 
-    reply.cmd = (int)type;
+    reply.cmd = (int)_type;
     reply.a1 = (int)win;
-    reply.a2 = (int)val1;
-    reply.a3 = (int)val2;
+    reply.a2 = (int)_val1;
+    reply.a3 = (int)_val2;
 
-    if (type == EVTARRANGE || type == EVTPREFS)
+    if (_type == EVTARRANGE || _type == EVTPREFS)
     {
-        reply.a1 = (int)val1;
-        reply.a2 = (int)val2;
+        reply.a1 = (int)_val1;
+        reply.a2 = (int)_val2;
         reply.a3 = (int)[Preferences bufferMargins];
         reply.a4 = (int)[Preferences gridMargins];
         reply.a5 = [Preferences charWidth] * 256.0;
@@ -221,11 +221,6 @@ unsigned chartokeycode(unsigned ch)
     write((int)fd, &reply, sizeof(struct message));
     if (reply.len)
         write((int)fd, buf, reply.len);
-}
-
-- (NSInteger) type
-{
-    return self->type;
 }
 
 @end

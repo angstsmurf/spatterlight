@@ -4,9 +4,7 @@ unsigned chartokeycode(unsigned ch);
 
 @interface GlkEvent : NSObject
 {
-    NSInteger type;
     NSInteger win;
-    NSUInteger val1, val2;
     NSString *ln;
 }
 
@@ -21,6 +19,9 @@ unsigned chartokeycode(unsigned ch);
 - (instancetype) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name;
 
 - (void) writeEvent: (NSInteger)fd;
+
 @property (readonly) NSInteger type;
+@property (readonly) NSUInteger val1;
+@property (readonly) NSUInteger val2;
 
 @end
