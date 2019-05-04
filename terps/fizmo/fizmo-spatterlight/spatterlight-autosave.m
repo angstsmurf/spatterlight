@@ -221,8 +221,20 @@ int spatterlight_restore_autosave(z_file *save_file) {
 
         if (![[NSFileManager defaultManager] fileExistsAtPath:glksavepath])
             return 0;
-        if (![[NSFileManager defaultManager] fileExistsAtPath:libsavepath])
+        if (![[NSFileManager defaultManager] fileExistsAtPath:libsavepath]) {
+
+            // If there is a glksave but no plist, we delete the glksave
+            // to make sure it does not cause trouble later.
+            NSError *error;
+
+            if ([[NSFileManager defaultManager] isDeletableFileAtPath:glksavepath]) {
+                BOOL success = [[NSFileManager defaultManager] removeItemAtPath:glksavepath error:&error];
+                if (!success) {
+                    NSLog(@"Error removing Glk autosave: %@", error);
+                }
+            }
             return 0;
+        }
 
 		[TempLibrary setExtraUnarchiveHook:spatterlight_library_unarchive];
 
@@ -240,7 +252,8 @@ int spatterlight_restore_autosave(z_file *save_file) {
             [newlib updateFromLibrary];
             glkint_recover_library_state(&library_state);
             [newlib updateFromLibraryLate];
-        }
+        } else { win_reset(); exit(0); }
+
     }
 	return 1;
 }

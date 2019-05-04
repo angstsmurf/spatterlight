@@ -513,6 +513,12 @@ void win_autosave(int hash)
     sendmsg(AUTOSAVE, 0, hash, 0, 0, 0, 0, NULL);
 }
 
+void win_reset()
+{
+    win_flush();
+    sendmsg(RESET, 0, 0, 0, 0, 0, 0, NULL);
+}
+
 void win_select(event_t *event, int block)
 {
     int i;

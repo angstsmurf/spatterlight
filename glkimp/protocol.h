@@ -40,6 +40,7 @@ enum
     SETBGND,
     SETTITLE,
     AUTOSAVE,
+    RESET,
 
     TIMER,
     INITCHAR,

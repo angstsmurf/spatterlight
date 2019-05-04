@@ -231,8 +231,20 @@ static void spatterglk_game_autorestore()
 
         if (![[NSFileManager defaultManager] fileExistsAtPath:glksavepath])
             return;
-        if (![[NSFileManager defaultManager] fileExistsAtPath:libsavepath])
+        if (![[NSFileManager defaultManager] fileExistsAtPath:libsavepath]) {
+
+            // If there is a glksave but no plist, we delete the glksave
+            // to make sure it does not cause trouble later.
+            NSError *error;
+
+            if ([[NSFileManager defaultManager] isDeletableFileAtPath:glksavepath]) {
+                BOOL success = [[NSFileManager defaultManager] removeItemAtPath:glksavepath error:&error];
+                if (!success) {
+                    NSLog(@"Error removing Glk autosave: %@", error);
+                }
+            }
             return;
+        }
 
 
         [TempLibrary setExtraUnarchiveHook:spatterglk_library_unarchive];
@@ -246,8 +258,9 @@ static void spatterglk_game_autorestore()
         [TempLibrary setExtraUnarchiveHook:nil];
 
         if (!newlib ||!((LibraryState *)newlib.extraData).active) {
-            /* Without a Glk state, there's no point in even trying the VM state. */
+            /* Without a Glk state, there's no point in even trying the VM state. We reset the game */
             NSLog(@"library autorestore failed!");
+            win_reset();
             return;
         }
 
@@ -264,6 +277,7 @@ static void spatterglk_game_autorestore()
 
         if (res) {
             NSLog(@"VM autorestore failed!");
+            win_reset();
             return;
         }
 

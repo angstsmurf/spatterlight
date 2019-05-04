@@ -19,7 +19,7 @@ static const char *msgnames[] =
     "OKAY", "ERROR", "HELLO", "PROMPTOPEN", "PROMPTSAVE",
     "NEWWIN", "DELWIN", "SIZWIN", "CLRWIN",
     "MOVETO", "PRINT",
-    "MAKETRANSPARENT", "STYLEHINT", "CLEARHINT", "STYLEMEASURE", "SETBGND", "SETTITLE", "AUTOSAVE",
+    "MAKETRANSPARENT", "STYLEHINT", "CLEARHINT", "STYLEMEASURE", "SETBGND", "SETTITLE", "AUTOSAVE", "RESET",
     "TIMER", "INITCHAR", "CANCELCHAR", "INITLINE", "CANCELLINE", "SETECHO", "TERMINATORS", "INITMOUSE", "CANCELMOUSE",
     "FILLRECT", "FINDIMAGE", "LOADIMAGE", "SIZEIMAGE",
     "DRAWIMAGE", "FLOWBREAK", "NEWCHAN", "DELCHAN",
@@ -153,7 +153,18 @@ static const char *wintypenames[] =
         [self autosaveFileTerp];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:_autosaveFileGUI]) {
-            restoredController = [NSKeyedUnarchiver unarchiveObjectWithFile:_autosaveFileGUI];
+            @try {
+                restoredController = [NSKeyedUnarchiver unarchiveObjectWithFile:_autosaveFileGUI];
+            }
+            @catch (NSException *ex) {
+                // leave restoredController as nil
+                NSLog(@"Unable to restore GUI autosave: %@", ex);
+            }
+            if (!restoredController) {
+                [self.window setContentSize: Preferences.defaultWindowSize];
+                [self reset:nil];
+                return;
+            }
             NSLog(@"Restored autosaved controller object. Turns property: %ld. Fullscreen:%@", restoredController.turns, restoredController.storedFullscreen?@"YES":@"NO");
             //contentViewResizable = restoredController.storedFullscreen;
             _storedFullscreen = restoredController.storedFullscreen;
@@ -1693,6 +1704,13 @@ NSInteger colorToInteger(NSColor *color)
         case AUTOSAVE:
             [self handleAutosave: req->a2];
             break;
+
+        // This just kills the interpreter process and restarts it from scratch.
+        // Used if an autorestore fails.
+        case RESET:
+            [self reset: nil];
+            break;
+
             /*
              * HTML-TADS specifics will go here.
              */
@@ -1768,6 +1786,12 @@ static BOOL pollMoreData(int fd)
                          didEndSelector: nil
                             contextInfo: nil];
         crashed = YES;
+        
+        [self removeFileAtPath:_autosaveFileGUI];
+        [self removeFileAtPath:_autosaveFileTerp];
+        [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]];
+        [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]];
+        [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]];
     }
 
     [self performScroll];

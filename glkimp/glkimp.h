@@ -93,6 +93,8 @@ void win_stopsound(int chan);
 void win_sound_notify(int snd, int notify);
 void win_volume_notify(int notify);
 void win_autosave(int hash);
+void win_reset(void);
+
 
 /* unicode case mapping */
 
