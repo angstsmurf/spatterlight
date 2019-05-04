@@ -897,7 +897,10 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         gctl.window.restorationClass = [AppDelegate class];
         gctl.window.identifier = [NSString stringWithFormat: @"gameWin%@", ifid];
     }
+    
     [_gameSessions setObject:gctl forKey:ifid];
+    gctl.resetting = NO;
+
     [gctl runTerp:terp withGameFile:path IFID:ifid info:info];
     [self addURLtoRecents: [NSURL fileURLWithPath:path]];
 

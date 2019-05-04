@@ -60,9 +60,10 @@
     NSInteger styleuse[2][style_NUMSTYLES][stylehint_NUMHINTS];
     NSInteger styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
 
-    /* keep some info around for the about-box */
+    /* keep some info around for the about-box and resetting*/
     NSString *gamefile;
     NSString *gameifid;
+    NSString *terpname;
 
     NSDictionary *gameinfo;
 
@@ -81,7 +82,6 @@
 @property (readonly) CGFloat storedBorder;
 @property (readonly) CGFloat storedCharwidth;
 @property (readonly) NSUInteger turns;
-@property (readonly) BOOL storedFullscreen;
 
 @property (readonly) NSRect contentFullScreenFrame;
 @property (readonly) NSRect contentPreFullScreenFrame;
@@ -93,11 +93,15 @@
 
 @property NSMutableArray *queue;
 
-@property (nonatomic) NSString *autosaveFile;
 @property (nonatomic) NSString *appSupportDir;
+@property (nonatomic) NSString *autosaveFileGUI;
+@property (nonatomic) NSString *autosaveFileTerp;
+
 @property (readonly) BOOL supportsAutorestore;
 @property (readonly) BOOL hasAutorestoredCocoa;
 @property (readonly) BOOL hasAutorestoredGlk;
+@property (readonly) BOOL storedFullscreen;
+@property BOOL resetting;
 
 - (void) runTerp: (NSString*)terpname
     withGameFile: (NSString*)gamefilename
