@@ -432,6 +432,7 @@ static const char *wintypenames[] =
     [self removeFileAtPath:_autosaveFileTerp];
     [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]];
     [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]];
+    [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]];
 
     _resetting = YES;
 
