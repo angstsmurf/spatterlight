@@ -13,21 +13,21 @@
 
 #define MINTIMER 5 /* Transparent wants this */
 
-//static const char *msgnames[] =
-//{
-//    "NOREPLY",
-//    "OKAY", "ERROR", "HELLO", "PROMPTOPEN", "PROMPTSAVE",
-//    "NEWWIN", "DELWIN", "SIZWIN", "CLRWIN",
-//    "MOVETO", "PRINT",
-//    "MAKETRANSPARENT", "STYLEHINT", "CLEARHINT", "STYLEMEASURE", "SETBGND", "SETTITLE", "AUTOSAVE",
-//    "TIMER", "INITCHAR", "CANCELCHAR", "INITLINE", "CANCELLINE", "SETECHO", "TERMINATORS", "INITMOUSE", "CANCELMOUSE",
-//    "FILLRECT", "FINDIMAGE", "LOADIMAGE", "SIZEIMAGE",
-//    "DRAWIMAGE", "FLOWBREAK", "NEWCHAN", "DELCHAN",
-//    "FINDSOUND", "LOADSOUND", "SETVOLUME", "PLAYSOUND", "STOPSOUND",
-//    "SETLINK", "INITLINK", "CANCELLINK", "EVTHYPER",
-//    "NEXTEVENT", "EVTARRANGE", "EVTLINE", "EVTKEY",
-//    "EVTMOUSE", "EVTTIMER", "EVTSOUND", "EVTVOLUME", "EVTPREFS"
-//};
+static const char *msgnames[] =
+{
+    "NOREPLY",
+    "OKAY", "ERROR", "HELLO", "PROMPTOPEN", "PROMPTSAVE",
+    "NEWWIN", "DELWIN", "SIZWIN", "CLRWIN",
+    "MOVETO", "PRINT",
+    "MAKETRANSPARENT", "STYLEHINT", "CLEARHINT", "STYLEMEASURE", "SETBGND", "SETTITLE", "AUTOSAVE",
+    "TIMER", "INITCHAR", "CANCELCHAR", "INITLINE", "CANCELLINE", "SETECHO", "TERMINATORS", "INITMOUSE", "CANCELMOUSE",
+    "FILLRECT", "FINDIMAGE", "LOADIMAGE", "SIZEIMAGE",
+    "DRAWIMAGE", "FLOWBREAK", "NEWCHAN", "DELCHAN",
+    "FINDSOUND", "LOADSOUND", "SETVOLUME", "PLAYSOUND", "STOPSOUND",
+    "SETLINK", "INITLINK", "CANCELLINK", "EVTHYPER",
+    "NEXTEVENT", "EVTARRANGE", "EVTLINE", "EVTKEY",
+    "EVTMOUSE", "EVTTIMER", "EVTSOUND", "EVTVOLUME", "EVTPREFS"
+};
 
 static const char *wintypenames[] =
 {
@@ -64,11 +64,14 @@ static const char *wintypenames[] =
 
 - (void) setFrame: (NSRect)frame
 {
-    if (!self.inLiveResize)
-        NSLog (@"GlkHelperView (_contentView) setFrame: %@ Previous frame: %@", NSStringFromRect(frame), NSStringFromRect(self.frame));
     super.frame = frame;
-    if (!self.inLiveResize)
+    
+    if (!self.inLiveResize) {
+        
+        NSLog (@"GlkHelperView (_contentView) setFrame: %@ Previous frame: %@", NSStringFromRect(frame), NSStringFromRect(self.frame));
+        
         [delegate contentDidResize: frame];
+    }
 }
 
 - (void) viewDidEndLiveResize
@@ -839,6 +842,7 @@ static const char *wintypenames[] =
 
 - (void) noteDefaultSizeChanged: (id)sender
 {
+    [self storeScrollOffsets];
     NSSize defaultWindowSize = Preferences.defaultWindowSize;
 
     if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
@@ -890,6 +894,8 @@ static const char *wintypenames[] =
         _contentView.frame = newframe;
         [self contentDidResize:newframe];
     }
+
+    [self restoreScrollOffsets];
 }
 
 - (void) handleChangeTitle:(char*)buf length: (int)len
@@ -1433,7 +1439,7 @@ NSInteger colorToInteger(NSColor *color)
             {
                 GlkEvent *gevent;
                 gevent = [_queue objectAtIndex:0];
-                //NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
+                NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
 
                 [gevent writeEvent: sendfh.fileDescriptor];
                 [_queue removeObjectAtIndex: 0];
@@ -2144,6 +2150,19 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     NSFont *font = [dict objectForKey:NSFontAttributeName];
     _fontSizePreFullscreen = font.pointSize;
     _storedFullscreen = YES;
+    [self storeScrollOffsets];
+}
+
+- (void) storeScrollOffsets {
+    for (GlkWindow *win in [_gwindows allValues])
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            [(GlkTextBufferWindow *)win storeScrollOffset];
+}
+
+- (void) restoreScrollOffsets {
+    for (GlkWindow *win in [_gwindows allValues])
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            [(GlkTextBufferWindow *)win restoreScroll];
 }
 
 - (void)window:(NSWindow *)window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration
@@ -2224,6 +2243,7 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 
 - (void)window:window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
 {
+    [self storeScrollOffsets];
     NSRect oldFrame = _windowPreFullscreenFrame;
 
     [NSAnimationContext
@@ -2255,6 +2275,12 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     gevent = [[GlkEvent alloc] initArrangeWidth: _contentFullScreenFrame.size.width height: _contentFullScreenFrame.size.height];
     [self queueEvent: gevent];
     [self contentDidResize: _contentFullScreenFrame];
+    for (GlkWindow *win in [_gwindows allValues])
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            [(GlkTextBufferWindow *)win restoreScrollView];
+            [(GlkTextBufferWindow *)win restoreScroll];
+        }
+
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification
@@ -2288,6 +2314,11 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 
     _contentView.frame = frame;
     [self contentDidResize: frame];
+    for (GlkWindow *win in [_gwindows allValues])
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            [(GlkTextBufferWindow *)win restoreScrollView];
+            [(GlkTextBufferWindow *)win restoreScroll];
+        }
 }
 
 #pragma mark Accessibility

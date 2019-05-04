@@ -111,6 +111,8 @@
 - (void) scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset;
 - (void) restoreScroll;
 - (void) restoreTextFinder;
+- (void) restoreScrollView;
+- (void) storeScrollOffset;
 
 - (IBAction) speakMostRecent: (id)sender;
 - (IBAction) speakPrevious: (id)sender;

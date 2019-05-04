@@ -796,7 +796,7 @@
 {
     NSScrollView *scrollview = self.enclosingScrollView;
     NSView *clipView = scrollview.contentView;
-    return (clipView.bounds.origin.y + clipView.bounds.size.height == scrollview.documentView.bounds.size.height);
+    return (clipView.bounds.origin.y + clipView.bounds.size.height == ((NSView *)scrollview.documentView).bounds.size.height);
 }
 
 - (void) mouseDown: (NSEvent*)theEvent
@@ -1083,16 +1083,9 @@
         _restoredSelection = NSMakeRange(0,0);
 
         scrollview = [[NSScrollView alloc] initWithFrame: NSZeroRect];
-        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        scrollview.scrollerStyle = NSScrollerStyleOverlay;
-        scrollview.drawsBackground = YES;
 
-        scrollview.hasHorizontalScroller = NO;
-        scrollview.hasVerticalScroller = YES;
-        scrollview.autohidesScrollers = YES;
-
-        scrollview.borderType = NSNoBorder;
-
+        [self restoreScrollView];
+        
         /* construct text system manually */
 
         _textstorage = [[NSTextStorage alloc] init];
@@ -1181,18 +1174,8 @@
             NSLog(@"Error! textview.textStorage != _textstorage");
 
         scrollview.backgroundColor = [Preferences bufferBackground];
-        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        scrollview.scrollerStyle = NSScrollerStyleOverlay;
-        scrollview.drawsBackground = YES;
 
-        scrollview.hasHorizontalScroller = NO;
-        scrollview.hasVerticalScroller = YES;
-        scrollview.autohidesScrollers = YES;
-
-        scrollview.borderType = NSNoBorder;
-        //scrollview.frame = self.restoredFrame;
-
+        [self restoreScrollView];
 
         line_request = [decoder decodeBoolForKey:@"line_request"];
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
@@ -1264,13 +1247,11 @@
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
     [encoder encodeRect:scrollview.documentVisibleRect forKey:@"visibleRect"];
-//    NSLog(@"Encoded visibleRect as %@", NSStringFromRect(scrollview.documentVisibleRect));
-    _restoredAtBottom = textview.scrolledToBottom;
+    [self storeScrollOffset];
     [encoder encodeBool:_restoredAtBottom forKey:@"scrolledToBottom"];
     if (!_restoredAtBottom) {
-        CGFloat offset;
-        [encoder encodeInteger:[self lastVisibleCharacter:&offset] forKey:@"lastVisible"];
-        [encoder encodeDouble:offset forKey:@"lastVisibleOffset"];
+        [encoder encodeInteger:_lastVisible forKey:@"lastVisible"];
+        [encoder encodeDouble:_scrollOffset forKey:@"lastVisibleOffset"];
      }
 
     [encoder encodeObject:textview.insertionPointColor forKey:@"insertionPointColor"];
@@ -1338,6 +1319,19 @@
     };
 
     return findSearchField(theView);
+}
+
+- (void) restoreScrollView {
+    if (scrollview) {
+
+        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        scrollview.scrollerStyle = NSScrollerStyleOverlay;
+        scrollview.drawsBackground = YES;
+        scrollview.hasHorizontalScroller = NO;
+        scrollview.hasVerticalScroller = YES;
+        scrollview.autohidesScrollers = YES;
+        scrollview.borderType = NSNoBorder;
+    }
 }
 
 - (BOOL) allowsDocumentBackgroundColorChange { return YES; }
@@ -2203,67 +2197,59 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
     }
 }
 
-- (NSUInteger) lastVisibleCharacter:(CGFloat *)offset {
+- (void) storeScrollOffset {
 
-    NSRect visibleRect = scrollview.documentVisibleRect;
-//    NSLog(@"lastVisibleCharacter: scrollview.documentVisibleRect: %@", NSStringFromRect(visibleRect));
+    _restoredAtBottom = textview.scrolledToBottom;
 
-    NSUInteger lastCharacter = [textview characterIndexForInsertionAtPoint:NSMakePoint(NSMaxX(visibleRect), NSMaxY(visibleRect))];
-
-    lastCharacter--;
-    if (lastCharacter >= _textstorage.length) {
-        NSLog(@"lastCharacter index (%ld) is outside _textstorage length (%ld)", lastCharacter, _textstorage.length);
-        lastCharacter = _textstorage.length - 1;
+    if (_restoredAtBottom) {
+        NSLog(@"storeScrollOffset: we are at bottom. Skipping");
+        return;
     }
 
-    NSRect lastRect = [layoutmanager lineFragmentRectForGlyphAtIndex:lastCharacter effectiveRange:nil];
+    NSRect visibleRect = scrollview.documentVisibleRect;
+
+    _lastVisible = [textview characterIndexForInsertionAtPoint:NSMakePoint(NSMaxX(visibleRect), NSMaxY(visibleRect))];
+
+    _lastVisible--;
+    if (_lastVisible >= _textstorage.length) {
+        NSLog(@"lastCharacter index (%ld) is outside _textstorage length (%ld)", _lastVisible, _textstorage.length);
+        _lastVisible = _textstorage.length - 1;
+    }
+
+    NSRect lastRect = [layoutmanager lineFragmentRectForGlyphAtIndex:_lastVisible effectiveRange:nil];
 
     NSRect firstRect = [layoutmanager lineFragmentRectForGlyphAtIndex:0 effectiveRange:nil];
     NSRect reallyLastRect = [layoutmanager lineFragmentRectForGlyphAtIndex:_textstorage.length-1 effectiveRange:nil];
     NSLog(@"The first character of the _textstorage has rect %@", NSStringFromRect(firstRect));
     NSLog(@"The last character of the _textstorage has rect %@", NSStringFromRect(reallyLastRect));
 
-    *offset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / (CGFloat)[Preferences lineHeight];
+    _scrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / (CGFloat)[Preferences lineHeight];
+    
+    NSLog(@"Stored _lastVisible as %ld (of %ld characters total) with _scrollOffset %f", _lastVisible, _textstorage.length, _scrollOffset);
 
-    //NSLog(@"The last visible character has index %ld ('%@'), rect %@, vertical offset %f", (long)lastCharacter, [_textstorage.string substringWithRange:NSMakeRange(lastCharacter, 1)], NSStringFromRect(lastRect), *offset);
-
-    return lastCharacter;
 }
 
 
 - (void) restoreScroll;
 {
-//    float width = textview.frame.size.width - 2 * textview.textContainerInset.width;
-//    float proposedHeight = [self heightForString:_textstorage.string font:textview.font andWidth:width andPadding:textview.textContainer.lineFragmentPadding];
-//
-//    NSRect frame = textview.frame;
-//    frame.size.height = proposedHeight;
-//
-    textview.frame = textview.restoredFrame;
-
     if (_restoredAtBottom) {
         [self scrollToBottom];
         return;
     }
     [self scrollToCharacter:_lastVisible withOffset:_scrollOffset];
     return;
-    // first, force a layout so we have the correct textview frame
-    [container.layoutManager glyphRangeForTextContainer: container];
-//    NSLog(@"GlkTextBufferWindow %ld restoreScroll: trying to scroll to %@", self.name, NSStringFromRect(_restoredScroll));
-    [scrollview.contentView scrollRectToVisible:_restoredScroll];
-    [scrollview reflectScrolledClipView:scrollview.contentView];
-
-//    NSLog(@"Resulting visibleRect: %@", NSStringFromRect(scrollview.visibleRect));
 }
 
 - (void) restoreSelection {
-   // textview.selectedRange = _restoredSelection;
+   textview.selectedRange = _restoredSelection;
 }
 
 - (void) scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset
 {
     NSRange glyphs;
     NSRect line;
+
+    NSLog(@"scrollToCharacter: %ld withOffset: %f", character, offset);
 
     offset = offset * (CGFloat)[Preferences lineHeight];
     // first, force a layout so we have the correct textview frame
@@ -2274,36 +2260,12 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
         line = [layoutmanager lineFragmentRectForGlyphAtIndex: character
                                                effectiveRange: nil];
 
-//        NSLog(@"GlkTextBufferWindow scrollToCharacter: trying to scroll to character %lu, (%@), rect %@, offset %f", (unsigned long)character, [_textstorage.string substringWithRange:NSMakeRange(character,1)], NSStringFromRect(line), offset);
-
-        NSRect firstRect = [layoutmanager lineFragmentRectForGlyphAtIndex:0 effectiveRange:nil];
-        NSRect reallyLastRect = [layoutmanager lineFragmentRectForGlyphAtIndex:_textstorage.length-1 effectiveRange:nil];
-//        NSLog(@"The first character of the _textstorage has rect %@", NSStringFromRect(firstRect));
-//        NSLog(@"The last character of the _textstorage has rect %@", NSStringFromRect(reallyLastRect));
-//
-//        NSLog(@"scrollview.documentVisibleRect: %@", NSStringFromRect(scrollview.documentVisibleRect));
-//        NSLog(@"scrollview.contentView.frame: %@", NSStringFromRect(scrollview.contentView.frame));
-//        NSLog(@"textview.frame: %@", NSStringFromRect(textview.frame));
-
-
         CGFloat charbottom = NSMaxY(line); // bottom of the line
         charbottom = charbottom + offset;
-        //bottom = NSHeight(textview.frame) - bottom;
-        NSPoint newScrollOrigin = NSMakePoint(0.0, charbottom);
         NSRect newVisibleRect = NSMakeRect(0, charbottom - NSHeight(scrollview.frame), NSWidth(textview.frame), NSHeight(scrollview.frame));
 
-
-        NSLog(@"GlkTextBufferWindow %ld scrollToCharacter: trying to scroll to %@", self.name, NSStringFromPoint(newScrollOrigin));
-         NSLog(@"trying to scroll to %@", NSStringFromRect(newVisibleRect));
-        NSLog(@"_restoredScroll: %@", NSStringFromRect(_restoredScroll));
-        //[scrollview.contentView scrollToPoint:newScrollOrigin];
-
         [scrollview.contentView scrollRectToVisible: newVisibleRect];
-        //[scrollview.contentView scrollRectToVisible: _restoredScroll];
-
-
         [scrollview reflectScrolledClipView:scrollview.contentView];
-        NSLog(@"scrollview.documentVisibleRect: %@", NSStringFromRect(scrollview.documentVisibleRect));
     }
 }
 
