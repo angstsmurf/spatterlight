@@ -98,7 +98,7 @@ static const char *wintypenames[] =
             IFID: (NSString*)gameifid_
             info: (NSDictionary*)gameinfo_
 {
-    NSLog(@"glkctl: runterp %@ %@", terpname, gamefile_);
+    NSLog(@"glkctl: runterp %@ %@", terpname_, gamefile_);
 
     gamefile = gamefile_;
     gameifid = gameifid_;
@@ -133,6 +133,8 @@ static const char *wintypenames[] =
                           @"leading": @(0)
                           };
 
+    _queue = [[NSMutableArray alloc] init];
+    _gwindows = [[NSMutableDictionary alloc] init];
 
     // If we are resetting, there is a bunch of stuff we don't need to do again
     if (!_resetting) {
@@ -218,9 +220,6 @@ static const char *wintypenames[] =
     } else defsize = _contentView.frame.size;
 
     self.window.title = [gameinfo objectForKey:@"title"];
-
-    _queue = [[NSMutableArray alloc] init];
-    _gwindows = [[NSMutableDictionary alloc] init];
 
     waitforevent = NO;
     waitforfilename = NO;
