@@ -809,7 +809,7 @@
             if (win != self && win.wantsFocus)
             {
                 [win grabFocus];
-                NSLog(@"Passing on keypress");
+                NSLog(@"GlkTextGridWindow: Passing on keypress");
                 if ([win isKindOfClass: [GlkTextBufferWindow class]])
                 {
                     [(GlkTextBufferWindow *)win onKeyDown:evt];

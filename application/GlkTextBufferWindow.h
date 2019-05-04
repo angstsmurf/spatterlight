@@ -28,7 +28,6 @@
 - (void) performScroll;
 - (void) temporarilyHideCaret;
 - (void) resetTextFinder; // Call after changing the text storage, or search will break.
-- (void) restoreTextFinder: (NSTextFinder *)textfinder;
 - (BOOL) scrolledToBottom;
 
 @property BOOL shouldDrawCaret;

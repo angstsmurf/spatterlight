@@ -703,9 +703,8 @@
         _shouldSpeak_10_7 = [decoder decodeBoolForKey:@"shouldSpeak_10_7"];
         NSValue *rangeVal = [decoder decodeObjectForKey:@"rangeToSpeak_10_7"];
         _rangeToSpeak_10_7 = rangeVal.rangeValue;
-        _textFinder = [decoder decodeObjectForKey:@"textfinder"];
         _restoredFrame = [decoder decodeRectForKey:@"restoredFrame"];
-        //[self destroyTextFinder];
+        _textFinder = nil;
     }
 
     return self;
@@ -718,10 +717,7 @@
     [encoder encodeBool:_shouldSpeak_10_7 forKey:@"shouldSpeak_10_7"];
     NSValue *rangeVal = [NSValue valueWithRange:_rangeToSpeak_10_7];
     [encoder encodeObject:rangeVal forKey:@"rangeToSpeak_10_7"];
-    [encoder encodeObject:_textFinder forKey:@"textfinder"];
     [encoder encodeRect:self.frame forKey:@"restoredFrame"];
-
-
 }
 
 - (void) superKeyDown: (NSEvent*)evt
@@ -863,9 +859,7 @@
     }
 
     if (menuItem.action == @selector(performTextFinderAction:))
-    {
         isValidItem = [self.textFinder validateAction:menuItem.tag];
-    }
 
     // validate other menu items if needed
     // ...
@@ -899,18 +893,6 @@
 {
     if  (_textFinder != nil) {
         [_textFinder noteClientStringWillChange];
-    }
-}
-
-- (void) restoreTextFinder:(NSTextFinder *)textfinder
-{
-    // Restore the text finder after autorestoring
-    if (textfinder) {
-        _textFinder = textfinder;
-        _textFinder.client = self;
-        _textFinder.findBarContainer = self.enclosingScrollView;
-        _textFinder.incrementalSearchingEnabled = YES;
-        _textFinder.incrementalSearchingShouldDimContentView = NO;
     }
 }
 
@@ -1249,11 +1231,8 @@
         textview.insertionPointColor = [decoder decodeObjectForKey:@"insertionPointColor"];
         textview.shouldDrawCaret = [decoder decodeBoolForKey:@"shouldDrawCaret"];
         _restoredSearch = [decoder decodeObjectForKey:@"searchString"];
-        //[textview restoreTextFinder:[decoder decodeObjectForKey:@"textfinder"]];
-        //[textview destroyTextFinder];
-        //scrollview.findBarVisible = NO;
-//        _restoredFindBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
-//        textview.usesFindBar = NO;
+        _restoredFindBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
+        [self destroyTextFinder];
     }
     return self;
 }
@@ -1296,33 +1275,50 @@
 
     [encoder encodeObject:textview.insertionPointColor forKey:@"insertionPointColor"];
     [encoder encodeBool:textview.shouldDrawCaret forKey:@"shouldDrawCaret"];
-//        NSSearchField *searchField = [self findSearchFieldIn:self];
-//    if (searchField) {
-//        [encoder encodeObject:searchField.stringValue forKey:@"searchString"];
-//        NSLog(@"encoded search string %@",searchField.stringValue);
-//    }
-//    [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
+    NSSearchField *searchField = [self findSearchFieldIn:self];
+    if (searchField) {
+        [encoder encodeObject:searchField.stringValue forKey:@"searchString"];
+        NSLog(@"encoded search string %@",searchField.stringValue);
+    }
+    [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
 }
 
 - (void) restoreTextFinder {
-//    BOOL waseditable = textview.editable;
-//    textview.editable = NO;
-//    textview.usesFindBar = YES;
-//    
-//    NSTextFinder *newFinder = textview.textFinder;
-//    newFinder.client = textview;
-//    if (_restoredFindBarVisible) {
-//
-//        [newFinder performAction:NSTextFinderActionShowFindInterface];
-//        NSSearchField *searchField = [self findSearchFieldIn:self];
-//        if (searchField) {
-//            searchField.stringValue = _restoredSearch;
-//            //        [newFinder cancelFindIndicator];
-//            //        [_window makeFirstResponder:textview];
-//            //        [searchField sendAction:searchField.action to:searchField.target];
-//        }
-//    }
-//    textview.editable = waseditable;
+    BOOL waseditable = textview.editable;
+    //[self storeScrollOffset];
+    textview.editable = NO;
+    textview.usesFindBar = YES;
+    
+    NSTextFinder *newFinder = textview.textFinder;
+    newFinder.client = textview;
+    newFinder.findBarContainer = scrollview;
+    newFinder.incrementalSearchingEnabled = YES;
+    newFinder.incrementalSearchingShouldDimContentView = NO;
+
+    if (_restoredFindBarVisible) {
+        NSLog(@"Restoring textFinder");
+        [newFinder performAction:NSTextFinderActionShowFindInterface];
+        NSSearchField *searchField = [self findSearchFieldIn:self];
+        if (searchField) {
+            searchField.stringValue = _restoredSearch;
+            [newFinder cancelFindIndicator];
+            [self.glkctl.window makeFirstResponder:textview];
+            [searchField sendAction:searchField.action to:searchField.target];
+        }
+    }
+    textview.editable = waseditable;
+    //[self restoreScroll];
+}
+
+- (void) destroyTextFinder {
+    
+    NSView *aView = [self findSearchFieldIn:scrollview];
+    if (aView) {
+        while (aView.superview != scrollview)
+            aView = aView.superview;
+        [aView removeFromSuperview];
+        NSLog(@"Destroyed textFinder!");
+    }
 }
 
 - (NSSearchField *) findSearchFieldIn: (NSView *)theView // search the subviews for a view of class NSSearchField
@@ -1600,7 +1596,7 @@
             if (win != self && win.wantsFocus)
             {
                 [win grabFocus];
-                NSLog(@"Passing on keypress");
+                NSLog(@"GlkTextBufferWindow: Passing on keypress");
                 if ([win isKindOfClass: [GlkTextBufferWindow class]])
                     [(GlkTextBufferWindow *)win onKeyDown:evt];
                 else
@@ -1609,7 +1605,7 @@
             }
         }
 
-    BOOL commandKeyOnly = ((flags & NSCommandKeyMask) && !(flags & (NSAlternateKeyMask | NSShiftKeyMask | NSControlKeyMask |NSHelpKeyMask)));
+    BOOL commandKeyOnly = ((flags & NSCommandKeyMask) && !(flags & (NSAlternateKeyMask | NSShiftKeyMask | NSControlKeyMask | NSHelpKeyMask)));
     BOOL optionKeyOnly = ((flags & NSAlternateKeyMask) && !(flags & (NSCommandKeyMask | NSShiftKeyMask | NSControlKeyMask | NSHelpKeyMask)));
 
     if (ch == keycode_Up)
@@ -1635,6 +1631,12 @@
     //            return;
     //        }
     //    }
+    else if (([str isEqualToString:@"f"] || [str isEqualToString:@"F"]) && commandKeyOnly) {
+        if (!scrollview.findBarVisible) {
+            [self restoreTextFinder];
+            return;
+        }
+    }
 
     NSNumber *key = @(ch);
 
@@ -1746,10 +1748,6 @@
         [textview superKeyDown: evt];
     }
 }
-
-
-
-
 
 - (void) grabFocus
 {
