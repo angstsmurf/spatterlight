@@ -175,6 +175,51 @@ static const char *wintypenames[] =
             if ([[NSFileManager defaultManager] fileExistsAtPath:_autosaveFileTerp]) {
                 autorestoringGlk = YES;
                 NSLog(@"Interpreter autorestore file exists");
+
+                NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
+                NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
+
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+                if ([defaults boolForKey: alertSuppressionKey]) {
+                    NSLog (@"Autorestore alert suppressed");
+                    if (![defaults boolForKey: alwaysAutorestoreKey]) {
+                        // The user has checked "Remember this choice" when
+                        // choosing to not autorestore
+                        [self reset:nil];
+                        return;
+                    }
+                } else {
+                    [self.window setFrame:restoredController.windowPreFullscreenFrame display:YES];
+                    [self showWindow:nil];
+                    [self.window makeKeyAndOrderFront:nil];
+
+                    NSAlert *anAlert = [[NSAlert alloc] init];
+                    anAlert.messageText = @"This game was automatically restored from a previous session.";
+                    anAlert.informativeText = @"Would you like to start over instead?";
+                    anAlert.suppressionButton.title = @"Remember this choice.";
+                    [anAlert addButtonWithTitle:@"OK"];
+                    [anAlert addButtonWithTitle:@"Restart"];
+
+                    anAlert.showsSuppressionButton = YES; // Uses default checkbox title
+                    [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
+                    if (anAlert.suppressionButton.state == NSOnState) {
+                        // Suppress this alert from now on
+                        [defaults setBool: YES forKey: alertSuppressionKey];
+                    }
+                    if (result == NSAlertSecondButtonReturn) {
+                        [self reset:nil];
+                        if (anAlert.suppressionButton.state == NSOnState) {
+                            [defaults setBool: NO forKey: alwaysAutorestoreKey];
+                        }
+                        return;
+                    } else {
+                        if (anAlert.suppressionButton.state == NSOnState) {
+                            [defaults setBool: YES forKey: alwaysAutorestoreKey];
+                        }
+                    }
+                     }];
+                }
             } else if (restoredController.turns == 1) {
                 autorestoringGUIFirstTurn = YES;
                 NSLog(@"Cocoa GUI autorestore file exists. We are at turn 1.");
