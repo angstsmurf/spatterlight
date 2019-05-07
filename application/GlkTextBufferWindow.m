@@ -1451,7 +1451,7 @@
     NSWindow* window = self.glkctl.window;
     BOOL isRtfd = NO;
     NSString* newExtension = @"rtf";
-    if (_textstorage.containsAttachments)
+    if (_textstorage.containsAttachments || [container hasMarginImages])
     {
         newExtension = @"rtfd";
         isRtfd = YES;
@@ -1472,10 +1472,17 @@
         if (result == NSFileHandlingPanelOKButton)
         {
             NSURL*  theFile = panel.URL;
+
+            NSMutableAttributedString *mutattstr = [localTextStorage mutableCopy];
+
+            mutattstr = [container marginsToAttachmentsInString:mutattstr];
+
+            [mutattstr addAttribute:NSBackgroundColorAttributeName value:textview.backgroundColor range:NSMakeRange(0, mutattstr.length)];
+
             if (isRtfd)
             {
                 NSFileWrapper *wrapper;
-                wrapper = [localTextStorage RTFDFileWrapperFromRange: NSMakeRange(0, localTextStorage.length)
+                wrapper = [mutattstr RTFDFileWrapperFromRange: NSMakeRange(0, mutattstr.length)
                                                   documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFDTextDocumentType}];
 
                 [wrapper writeToURL:theFile options: NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating originalContentsURL:nil error:NULL];
@@ -1484,7 +1491,7 @@
             else
             {
                 NSData *data;
-                data = [localTextStorage RTFFromRange: NSMakeRange(0, localTextStorage.length)
+                data = [mutattstr RTFFromRange: NSMakeRange(0, mutattstr.length)
                                    documentAttributes:@{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
                 [data writeToURL: theFile atomically:NO];
             }
