@@ -235,7 +235,6 @@ static const char *wintypenames[] =
     waitforevent = NO;
     waitforfilename = NO;
     dead = NO;
-    crashed = NO;
 
     windowdirty = NO;
 
@@ -351,10 +350,19 @@ static const char *wintypenames[] =
 
 - (void) windowWillClose: (id)sender
 {
-    //NSLog(@"glkctl: windowWillClose");
+    NSLog(@"glkctl: windowWillClose");
 
-    if (_supportsAutorestore && !crashed)
-        [self autoSaveOnExit];
+    if (_supportsAutorestore) {
+        if (!dead)
+            [self autoSaveOnExit];
+        else {
+            [self removeFileAtPath:_autosaveFileGUI];
+            [self removeFileAtPath:_autosaveFileTerp];
+            [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]];
+            [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]];
+            [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]];
+        }
+    }
 
     [self.window setDelegate: nil];
 
@@ -380,7 +388,6 @@ static const char *wintypenames[] =
         [task terminate];
         task = nil;
     }
-
     [((AppDelegate*)[NSApplication sharedApplication].delegate).libctl.gameSessions removeObjectForKey:gameifid];
 }
 
@@ -418,14 +425,6 @@ static const char *wintypenames[] =
         [soundNotificationsTimer invalidate];
         soundNotificationsTimer = nil;
     }
-
-//    if (readfh)
-//    {
-//        [[NSNotificationCenter defaultCenter]
-//         removeObserver: self
-//         name: NSFileHandleDataAvailableNotification
-//         object: readfh];
-//    }
 
     if (task)
     {
@@ -533,6 +532,7 @@ static const char *wintypenames[] =
 {
     if (rc == NSAlertFirstButtonReturn)
     {
+        [self windowWillClose:nil];
         [self close];
     }
 }
@@ -549,8 +549,10 @@ static const char *wintypenames[] =
 
     NSAlert *alert;
 
-    if (dead || _supportsAutorestore)
+    if (dead || _supportsAutorestore) {
+        [self windowWillClose:nil];
         return YES;
+    }
 
     alert = [[NSAlert alloc] init];
     alert.messageText = @"Do you want to abandon the game?";
@@ -1774,7 +1776,6 @@ static BOOL pollMoreData(int fd)
     if (task && task.terminationStatus != 0)
     {
         NSAlert *alert;
-
         alert = [NSAlert alertWithMessageText: @"The game has unexpectedly terminated."
                                 defaultButton: @"Oops"
                               alternateButton: nil
@@ -1785,13 +1786,6 @@ static BOOL pollMoreData(int fd)
                           modalDelegate: nil
                          didEndSelector: nil
                             contextInfo: nil];
-        crashed = YES;
-        
-        [self removeFileAtPath:_autosaveFileGUI];
-        [self removeFileAtPath:_autosaveFileTerp];
-        [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]];
-        [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]];
-        [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]];
     }
 
     [self performScroll];
@@ -1805,9 +1799,25 @@ static BOOL pollMoreData(int fd)
 
     self.window.title = [self.window.title stringByAppendingString: @" (finished)"];
 
+    [self removeFileAtPath:_autosaveFileGUI];
+    [self removeFileAtPath:_autosaveFileTerp];
+    [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]];
+    [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]];
+    [self removeFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]];
+
     task = nil;
 
+    // This must be delayed in order to read the final message from the interpreter
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                                             target:self
+                                           selector:@selector(delayedRemoveObserver:)
+                                           userInfo:nil
+                                            repeats:NO];
     // [self setDocumentEdited: NO];
+}
+
+-(void)delayedRemoveObserver:(id)sender {
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void) queueEvent: (GlkEvent*)gevent
@@ -2194,6 +2204,8 @@ again:
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
     //NSLog(@"Encoded %ld gwindows",(unsigned long)_gwindows.count);
     [encoder encodeRect:_contentFullScreenFrame forKey:@"contentFullScreenFrame"];
+    if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
+        _windowPreFullscreenFrame = self.window.frame;
     [encoder encodeRect:_windowPreFullscreenFrame forKey:@"windowPreFullscreenFrame"];
     [encoder encodeFloat:_fontSizePreFullscreen forKey:@"fontSizePreFullscreen"];
     [encoder encodeObject:_queue forKey:@"queue"];

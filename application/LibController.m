@@ -896,8 +896,8 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
         gctl.window.restorable = YES;
         gctl.window.restorationClass = [AppDelegate class];
         gctl.window.identifier = [NSString stringWithFormat: @"gameWin%@", ifid];
-    }
-    
+    } else gctl.window.restorable = NO;
+
     [_gameSessions setObject:gctl forKey:ifid];
     gctl.resetting = NO;
 
@@ -905,7 +905,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     [self addURLtoRecents: [NSURL fileURLWithPath:path]];
 
     if (!gctl.hasAutorestoredCocoa)
-        [gctl showWindow:self];
+        [gctl showWindow:nil];
     return gctl.window;
 }
 
