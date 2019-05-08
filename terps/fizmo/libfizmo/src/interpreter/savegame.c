@@ -1437,7 +1437,7 @@ int restore_game_from_stream(uint16_t address, uint16_t length,
 
     if (number_of_stack_frames == 0)
       store_first_stack_frame();
-    else
+    else {
       store_followup_stack_frame_header(
           last_stack_frame_nof_locals,
           stack_frame_discard_result,
@@ -1445,6 +1445,8 @@ int restore_game_from_stream(uint16_t address, uint16_t length,
           last_stack_frame_nof_functions_stack_words,
           stack_frame_return_pc,
           stack_frame_result_var);
+      number_of_stack_frames++;
+    }
 
     i = 0;
     // write locals and stack
@@ -1483,7 +1485,6 @@ int restore_game_from_stream(uint16_t address, uint16_t length,
     last_stack_frame_nof_functions_stack_words
       = current_stack_frame_nof_functions_stack_words;
 
-    number_of_stack_frames++;
   }
   TRACE_LOG("Number of stack frames: %d.\n", number_of_stack_frames);
 
@@ -1569,6 +1570,7 @@ int restore_game_from_stream(uint16_t address, uint16_t length,
   TRACE_LOG(
       "Restored stack: %d locals active, %d, words from active routine.\n",
       number_of_locals_active, stack_words_from_active_routine);
+  TRACE_LOG("Number of stack frames: %d.\n", number_of_stack_frames);
 
   if (saved_stack != NULL)
     delete_stack_container(saved_stack);
