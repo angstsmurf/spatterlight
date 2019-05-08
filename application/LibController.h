@@ -71,6 +71,7 @@
 - (void) addFile: (NSString*)path;
 
 - (NSWindow *) playGameWithIFID: (NSString*)ifid;
+- (NSWindow *) playGameWithIFID: (NSString*)ifid autorestoring:(BOOL)restoreflag;
 
 - (void) importAndPlayGame: (NSString*)path;
 

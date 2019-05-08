@@ -6,6 +6,10 @@
 #ifndef Spatterlight_compatibility_h
 #define Spatterlight_compatibility_h
 
+#ifndef NS_OPTIONS
+#define NS_OPTIONS(_type, _name) enum _name : _type _name; enum _name : _type
+#endif
+
 #if !defined(MAC_OS_X_VERSION_10_9) || MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_9
 
 typedef NSString *const NSAccessibilityNotificationUserInfoKey;

@@ -12,6 +12,7 @@
  */
 
 #import "main.h"
+#import "Compatibility.h"
 
 #define MAXWIN 64
 #define MAXSND 32
@@ -19,6 +20,43 @@
 // Define the number of custom animation steps
 #define DURATION_ADJUSTMENT 0.1
 #define ANIMATION_STEPS 2
+
+// A number of flags used when autorestoring.
+//
+// AUTORESTORED_BY_SYSTEM means that the window was open when
+// the application was closed, and restored by the AppDelegate
+// restoreWindowWithIdentifier method. The main difference from
+// the manual autorestore that occurs when the user clicks on a game
+// in the library window or similar, is that fullscreen is handled
+// automatically
+
+// AUTORESTORED_IN_FULLSCREEN means that the window was in fullscreen
+// when it was closed and should open in fullscreen when autorestored.
+// If the AUTORESTORED_BY_SYSTEM is not set, this has to be done
+// in the autorestore_UI method.
+
+// AUTORESTORED_BEFORE_FIRST_TURN means that the interpreter has made no
+// internal autosave yet, because the game has not really started, but we
+// have started the game before and saved any changes that the user has
+// done to the interface, such as resizing the window (which will send an 
+// arrange event to the interpreter, but may not trigger an autosave),
+// typing at the prompt but not yet pressing enter, or scrolling of the
+// text buffer. This means that there is a file named autosave-GUI.plist
+// created by the Cocoa GUI window server, but not yet a autosave.plist
+// created by the interpreter.
+
+// RESETTING means that we have killed the interpreter process and want to
+// start the game anew, deleting any existing autosave files. This reuses the
+// game window and should not resize it. A reset may be initiated by the user
+// from the file menu or autorestore alert at game stor, or may occur automatically
+// when the game has reached its end, crashed or when an autorestore attempt failed.
+
+typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
+    AUTORESTORED_BY_SYSTEM = 1 << 0,
+    AUTORESTORED_IN_FULLSCREEN = 1 << 1,
+    AUTORESTORED_BEFORE_FIRST_TURN = 1 << 2,
+    RESETTING = 1 << 3
+};
 
 @interface GlkHelperView : NSView
 {
@@ -100,12 +138,12 @@
 @property (readonly) BOOL hasAutorestoredCocoa;
 @property (readonly) BOOL hasAutorestoredGlk;
 @property (readonly) BOOL storedFullscreen;
-@property BOOL resetting;
 
 - (void) runTerp: (NSString*)terpname
     withGameFile: (NSString*)gamefilename
             IFID: (NSString*)gameifid
-            info: (NSDictionary*)gameinfo;
+            info: (NSDictionary*)gameinfo
+         options: (AutorestoreOptions)flags;
 
 - (void) queueEvent: (GlkEvent*)gevent;
 - (void) contentDidResize: (NSRect)frame;

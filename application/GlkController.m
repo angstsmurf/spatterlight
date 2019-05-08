@@ -309,7 +309,7 @@ static const char *wintypenames[] =
 
     NSSize defsize = Preferences.defaultWindowSize;
 
-    NSLog(@"runTerpNormal: initially, window frame is %@, window contentView frame is %@, _borderView frame is %@ and _contentView frame is %@", NSStringFromRect(self.window.frame), NSStringFromRect(((NSView *)self.window.contentView).frame), NSStringFromRect(_borderView.frame), NSStringFromRect(_contentView.frame));
+    NSLog(@"runTerpNormal: initially, window frame is %@, window contentView frame is %@, _borderView frame is %@ and _contentView frame is %@", NSStringFromRect(self.window.frame), NSStringFromRect(self.window.contentView.frame), NSStringFromRect(_borderView.frame), NSStringFromRect(_contentView.frame));
 
     [self.window setContentSize: defsize];
 
@@ -978,7 +978,12 @@ static const char *wintypenames[] =
 
     NSLog(@"NSWidth(frame):%f NSWidth(_borderView.frame):%f", NSWidth(frame), NSWidth(_borderView.frame));
     NSLog(@"NSHeight(frame):%f NSHeight(_borderView.frame):%f Preferences.border:%f", NSHeight(frame), NSHeight(_borderView.frame), Preferences.border);
-    NSLog(@"self.window.contentView.frame.size:%@", NSStringFromSize(((NSView *)self.window.contentView).frame.size));
+    NSLog(@"self.window.contentView.frame.size:%@", NSStringFromSize(self.window.contentView.frame.size));
+
+    //    if (dead)
+    //        for (NSInteger i = 0; i < MAXWIN; i++)
+    //            if (gwindows[i] && [gwindows[i] isKindOfClass:[GlkTextBufferWindow class]])
+    //                [gwindows[i] setFrame:frame];
 
     lastContentResize = frame;
 
@@ -1138,7 +1143,7 @@ static const char *wintypenames[] =
     NSRect frame = _contentView.frame;
     NSInteger border = Preferences.border;
 
-    _borderView.frame = ((NSView *)self.window.contentView).frame;
+    _borderView.frame = self.window.contentView.frame;
 
     if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
     {

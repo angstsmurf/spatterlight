@@ -847,12 +847,20 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
  */
 
 #pragma mark Actually starting the game
-- (NSWindow *) playGameWithIFID: (NSString*)ifid
+
+- (NSWindow *) playGameWithIFID: (NSString*)ifid {
+    return [self playGameWithIFID:ifid autorestoring:NO];
+}
+
+- (NSWindow *) playGameWithIFID: (NSString*)ifid autorestoring: (BOOL)restoreflag
 {
     NSDictionary *info = [metadata objectForKey:ifid];
     NSString *path = [games objectForKey:ifid];
     NSString *terp;
     GlkController *gctl = [_gameSessions objectForKey:ifid];
+    
+    AutorestoreOptions options = restoreflag?AUTORESTORED_BY_SYSTEM:0;
+
 
     NSLog(@"playgame %@ %@", ifid, info);
 
@@ -899,9 +907,8 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key)
     } else gctl.window.restorable = NO;
 
     [_gameSessions setObject:gctl forKey:ifid];
-    gctl.resetting = NO;
-
-    [gctl runTerp:terp withGameFile:path IFID:ifid info:info];
+    
+    [gctl runTerp:terp withGameFile:path IFID:ifid info:info options:options];
     [self addURLtoRecents: [NSURL fileURLWithPath:path]];
 
     if (!gctl.hasAutorestoredCocoa)
