@@ -1,0 +1,19 @@
+Spatterlight is released under the GNU Public License; the interpreters and libraries it uses under the hood are freely redistributable and covered by their own specific licenses.
+
+AdvSys 1.2 by David Betz.
+Agility 1.1.1 by Robert Masenten.
+Alan 2.8.6 / 3.0a5 by Thomas Nilsson.
+Frotz 2.50 by Stefan Jokisch and others.
+Glulxe 0.5.4 by Andrew Plotkin.
+Hugo 3.3.0 by Kent Tessman.
+Level9 4.1 by Glen Summers, David Kinder, Alan Staniforth, Simon Baldwin and Dieter Baron.
+Magnetic 2.2 by Niclas Karlsson, David Kinder, Stefan Meier and Paul David.
+Scare 1.3.9 by Simon Baldwin and Mark J. Tilford.
+TADS 2.5.10 / 3.1.3 by Michael J. Roberts.
+UnQuill 0.8.5 by John Elliott.
+
+Glk 0.7.5 by Andrew Plotkin.
+Babel 0.2b by L. Ross Raszewski.
+Simple DirectMedia Layer 2.0.9 and SDL_Mixer 2.0.4 audio library by Sam Lantinga and others.
+
+http://ccxvii.net/spatterlight
