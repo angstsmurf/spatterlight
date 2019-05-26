@@ -314,9 +314,9 @@ NSDictionary *gFormatMap;
         if (alive > 1)
             msg = [NSString stringWithFormat: @"You have %ld games running.\nAny unsaved progress will be lost.", (long)alive];
         if (restorable == 1)
-            msg = [msg stringByAppendingString:@"\n(There is also an autorestorable game running)."];
+            msg = [msg stringByAppendingString:@"\n(There is also an autorestorable game running.)"];
         else if (restorable > 1)
-            msg = [msg stringByAppendingFormat:@"\n(There are also %ld autorestorable games running).", restorable];
+            msg = [msg stringByAppendingFormat:@"\n(There are also %ld autorestorable games running.)", restorable];
 
         NSInteger choice = NSRunAlertPanel(@"Do you really want to quit?", @"%@", @"Quit", NULL, @"Cancel", msg);
         if (choice == NSAlertOtherReturn)
