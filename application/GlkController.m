@@ -113,7 +113,6 @@ static const char *wintypenames[] =
     /* Setup our own stuff */
 
     _supportsAutorestore = [self.window isRestorable];
-
     windowRestoredBySystem = ((flags & AUTORESTORED_BY_SYSTEM) == AUTORESTORED_BY_SYSTEM);
 
     shouldShowAutorestoreAlert = NO;
@@ -158,7 +157,6 @@ static const char *wintypenames[] =
     }
 
     lastContentResize = NSZeroRect;
-    contentViewResizable = YES;
     _inFullscreen = NO;
 
     _contentFullScreenFrame = _windowPreFullscreenFrame = NSZeroRect;
@@ -277,11 +275,11 @@ static const char *wintypenames[] =
 - (void) runTerpNormal {
 
     // Just start the game with no autorestore or fullscreen or resetting
-    
+
     [self.window setContentSize: Preferences.defaultWindowSize];
 
     [self forkInterpreterTask];
-    
+
     [self showWindow:nil];
 }
 
@@ -529,15 +527,12 @@ static const char *wintypenames[] =
         NSLog(@"adjustContentView: adjusting contentView to fullscreen: screen width: %f, contentView.width: %f, x:%f (screen width %f, contentView width %f)", self.window.screen.frame.size.width, _contentView.frame.size.width, desiredContentFrame.origin.x, self.window.screen.frame.size.width, _contentView.frame.size.width);
     }
 
-    //contentViewResizable = NO;
-
     if (NSEqualRects(_contentView.frame, desiredContentFrame))
     {
         NSLog(@"adjustContentView: frame was already correct (%@)", NSStringFromRect(desiredContentFrame));
         return;
     }
     _contentView.frame = desiredContentFrame;
-    //contentViewResizable = YES;
 }
 
 - (NSString *) appSupportDir {
@@ -600,6 +595,28 @@ static const char *wintypenames[] =
     return _autosaveFileTerp;
 }
 
+- (void) deleteAutosaveFiles {
+    [self deleteFileAtPath:_autosaveFileGUI];
+    [self deleteFileAtPath:_autosaveFileTerp];
+    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]];
+    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]];
+    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]];
+}
+
+- (void) deleteFileAtPath: (NSString *)path {
+    NSError *error;
+    // I'm not sure if the fileExistsAtPath check is necessary, but someone on
+    // Stack Overflow said it was a good idea
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        if ([[NSFileManager defaultManager] isDeletableFileAtPath:path]) {
+            BOOL success = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+            if (!success) {
+                NSLog(@"Error removing file at path: %@", error);
+            }
+        }
+    } else NSLog(@"deleteFileAtPath: No file exists at path %@", path);
+}
+
 
 - (void) autoSaveOnExit {
     NSInteger res = [NSKeyedArchiver archiveRootObject:self toFile:_autosaveFileGUI];
@@ -607,7 +624,6 @@ static const char *wintypenames[] =
         NSLog(@"GUI autosave on exit failed!");
         return;
     }
-
 }
 
 - (instancetype) initWithCoder:(NSCoder *)decoder
@@ -629,15 +645,11 @@ static const char *wintypenames[] =
         _storedWindowFrame = [decoder decodeRectForKey:@"windowFrame"];
         NSLog(@"GlkController initWithCoder: decoded main window frame as %@", NSStringFromRect(_storedWindowFrame));
         _windowPreFullscreenFrame = [decoder decodeRectForKey:@"windowPreFullscreenFrame"];
-        //        if (NSEqualRects(_windowPreFullscreenFrame, NSZeroRect))
-        //            _windowPreFullscreenFrame = _storedWindowFrame;
 
         _storedContentFrame = [decoder decodeRectForKey:@"contentFrame"];
         _storedBorderFrame = [decoder decodeRectForKey:@"borderFrame"];
 
         _contentFullScreenFrame = [decoder decodeRectForKey:@"contentFullScreenFrame"];
-        //        if (NSEqualRects(_contentFullScreenFrame, NSZeroRect))
-        //            _contentFullScreenFrame = _storedContentFrame;
 
         NSLog(@"GlkController initWithCoder: decoded contentFrame as %@", NSStringFromRect(_storedContentFrame));
 
@@ -736,6 +748,47 @@ static const char *wintypenames[] =
     }
 }
 
+- (IBAction) reset:(id)sender {
+
+    if (timer)
+    {
+        NSLog(@"glkctl reset: force stop the timer");
+        [timer invalidate];
+        timer = nil;
+    }
+
+    if (soundNotificationsTimer)
+    {
+        NSLog(@"glkctl reset: force stop the sound notifications timer");
+        [soundNotificationsTimer invalidate];
+        soundNotificationsTimer = nil;
+    }
+
+    if (task)
+    {
+        [[NSNotificationCenter defaultCenter]
+         removeObserver: self
+         name: NSTaskDidTerminateNotification
+         object: task];
+
+        NSLog(@"glkctl reset: force stop the interpreter");
+        [task terminate];
+        task = nil;
+    }
+
+    [self deleteAutosaveFiles];
+
+    [self runTerp: (NSString*)terpname
+     withGameFile: (NSString*)gamefile
+             IFID: gameifid
+             info: gameinfo
+          options: RESETTING];
+
+    [self.window makeKeyAndOrderFront: nil];
+    [self.window makeFirstResponder: nil];
+    [self guessFocus];
+}
+
 - (void) windowWillClose: (id)sender
 {
     NSLog(@"glkctl: windowWillClose");
@@ -788,70 +841,6 @@ static const char *wintypenames[] =
     [[NSWorkspace sharedWorkspace] selectFile: gamefile inFileViewerRootedAtPath: @""];
 }
 
-
-- (IBAction) reset:(id)sender {
-
-    if (timer)
-    {
-        NSLog(@"glkctl reset: force stop the timer");
-        [timer invalidate];
-        timer = nil;
-    }
-
-    if (soundNotificationsTimer)
-    {
-        NSLog(@"glkctl reset: force stop the sound notifications timer");
-        [soundNotificationsTimer invalidate];
-        soundNotificationsTimer = nil;
-    }
-
-    if (task)
-    {
-        [[NSNotificationCenter defaultCenter]
-         removeObserver: self
-         name: NSTaskDidTerminateNotification
-         object: task];
-
-        NSLog(@"glkctl reset: force stop the interpreter");
-        [task terminate];
-        task = nil;
-    }
-
-    [self deleteAutosaveFiles];
-
-    [self runTerp: (NSString*)terpname
-     withGameFile: (NSString*)gamefile
-             IFID: gameifid
-             info: gameinfo
-          options: RESETTING];
-
-    [self.window makeKeyAndOrderFront: nil];
-    [self.window makeFirstResponder: nil];
-    [self guessFocus];
-}
-
-- (void) deleteAutosaveFiles {
-    [self deleteFileAtPath:_autosaveFileGUI];
-    [self deleteFileAtPath:_autosaveFileTerp];
-    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]];
-    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]];
-    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]];
-}
-
-- (void) deleteFileAtPath: (NSString *)path {
-    NSError *error;
-    // I'm not sure if the fileExistsAtPath check is necessary, but someone on
-    // Stack Overflow said it was a good idea
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        if ([[NSFileManager defaultManager] isDeletableFileAtPath:path]) {
-            BOOL success = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
-            if (!success) {
-                NSLog(@"Error removing file at path: %@", error);
-            }
-        }
-    } else NSLog(@"deleteFileAtPath: No file exists at path %@", path);
-}
-
 - (BOOL) isAlive
 {
     return !dead;
@@ -892,9 +881,6 @@ static const char *wintypenames[] =
 
         if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask && !_inFullscreen) {
 
-            //  && contentViewResizable
-
-            //frame = borderViewFrameMinusBorder;
             NSLog(@"contentDidResize: ERROR! The requested contentView frame is not borderView frame (%@) - Preferences.border (%f) = %@, and we are not in fullscreen mode.", NSStringFromRect(_borderView.frame), Preferences.border, NSStringFromRect(borderViewFrameMinusBorder) );
         }
     }
@@ -2589,7 +2575,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 
     NSLog(@"windowDidExitFullScreen: contentview is set to: %@", NSStringFromRect(frame));
 
-    contentViewResizable = YES;
     _inFullscreen = NO;
 
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
