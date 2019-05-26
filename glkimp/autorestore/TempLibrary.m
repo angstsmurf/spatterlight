@@ -62,10 +62,10 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
         if (root)
             _rootwintag = root->tag;
         else {
-            NSLog(@"TempLibrary init: Error: no root window!");
+            //NSLog(@"TempLibrary init: Error: no root window!");
             root = glk_window_iterate(NULL, NULL);
             _rootwintag = root->tag;
-            NSLog(@"TempLibrary init: Setting root to first window in list!");
+            //NSLog(@"TempLibrary init: Setting root to first window in list!");
         }
 
         strid_t current = glk_stream_get_current();

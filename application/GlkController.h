@@ -83,6 +83,12 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
 
     BOOL inFullScreenResize;
 
+    BOOL windowRestoredBySystem;
+    BOOL shouldRestoreUI;
+    BOOL shouldShowAutorestoreAlert;
+
+    NSSize borderFullScreenSize;
+
     /* the glk objects */
     //GlkSoundChannel *gchannels[MAXSND];
     BOOL windowdirty; /* the contentView needs to repaint */
@@ -105,6 +111,7 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
     NSDictionary *gameinfo;
 
     GlkController *restoredController;
+    NSUInteger turns;
 }
 
 @property NSMutableDictionary *gwindows;
@@ -112,13 +119,18 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
 @property IBOutlet GlkHelperView *contentView;
 
 @property (getter=isAlive, readonly) BOOL alive;
+
 @property (readonly) NSTimeInterval storedTimerLeft;
 @property (readonly) NSTimeInterval storedTimerInterval;
 @property (readonly) NSRect storedWindowFrame;
 @property (readonly) NSRect storedContentFrame;
+@property (readonly) NSRect storedBorderFrame;
 @property (readonly) CGFloat storedBorder;
 @property (readonly) CGFloat storedCharwidth;
-@property (readonly) NSUInteger turns;
+@property (readonly) CGFloat storedBufferMargins;
+@property (readonly) CGFloat storedGridMargins;
+@property (readonly) CGFloat storedLineHeight;
+@property (readonly) CGFloat storedLeading;
 
 @property (readonly) NSRect contentFullScreenFrame;
 @property (readonly) NSRect contentPreFullScreenFrame;
@@ -137,7 +149,7 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
 @property (readonly) BOOL supportsAutorestore;
 @property (readonly) BOOL hasAutorestoredCocoa;
 @property (readonly) BOOL hasAutorestoredGlk;
-@property (readonly) BOOL storedFullscreen;
+@property (readonly) BOOL inFullscreen;
 
 - (void) runTerp: (NSString*)terpname
     withGameFile: (NSString*)gamefilename
@@ -152,5 +164,6 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
 - (void) setBorderColor: (NSColor *)color;
 - (void) restoreFocus: (id) sender;
 - (void) restoreUI: (GlkController *) controller;
+- (void) autoSaveOnExit;
 
 @end

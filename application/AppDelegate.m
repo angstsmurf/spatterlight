@@ -288,6 +288,7 @@ NSDictionary *gFormatMap;
     NSArray *windows = app.windows;
     NSInteger count = windows.count;
     NSInteger alive = 0;
+    NSInteger restorable = 0;
 
     NSLog(@"appdel: applicationShouldTerminate");
 
@@ -295,8 +296,14 @@ NSDictionary *gFormatMap;
     {
         NSWindow *window = [windows objectAtIndex:count];
         id glkctl = window.delegate;
-        if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive] && !((GlkController *)glkctl).supportsAutorestore)
-            alive ++;
+        if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive]) {
+            if (((GlkController *)glkctl).supportsAutorestore) {
+                restorable++;
+            }
+            else {
+                alive++;
+            }
+        }
     }
 
     NSLog(@"appdel: windows=%lu alive=%ld", (unsigned long)[windows count], (long)alive);
@@ -306,6 +313,11 @@ NSDictionary *gFormatMap;
         NSString *msg = @"You still have one game running.\nAny unsaved progress will be lost.";
         if (alive > 1)
             msg = [NSString stringWithFormat: @"You have %ld games running.\nAny unsaved progress will be lost.", (long)alive];
+        if (restorable == 1)
+            msg = [msg stringByAppendingString:@" (There is also an autorestorable game running)."];
+        else if (restorable > 1)
+            msg = [msg stringByAppendingFormat:@" (There are also %ld autorestorable games running).", restorable];
+
         NSInteger choice = NSRunAlertPanel(@"Do you really want to quit?", @"%@", @"Quit", NULL, @"Cancel", msg);
         if (choice == NSAlertOtherReturn)
             return NSTerminateCancel;
@@ -317,8 +329,14 @@ NSDictionary *gFormatMap;
 - (void) applicationWillTerminate: (NSNotification*)notification
 {
     [_libctl saveLibrary:self];
-    if ([[NSFontPanel sharedFontPanel] isVisible])
+
+    for (GlkController *glkctl in [_libctl.gameSessions allValues]) {
+        [glkctl autoSaveOnExit];
+    }
+
+    if ([[NSFontPanel sharedFontPanel] isVisible]) {
         [[NSFontPanel sharedFontPanel] orderOut:self];
+    }
 }
 
 @end

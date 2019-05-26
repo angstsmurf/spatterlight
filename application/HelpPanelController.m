@@ -82,7 +82,7 @@
     {
         [_textView resetTextFinder];
 
-        CGRect screenframe = [NSScreen mainScreen].visibleFrame;
+        CGRect screenframe = self.window.screen.visibleFrame;
 
         NSString *string = text.string;
 
@@ -185,7 +185,7 @@
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window
                         defaultFrame:(NSRect)newFrame
 {
-    CGRect screenframe = [NSScreen mainScreen].visibleFrame;
+    CGRect screenframe = window.screen.visibleFrame;
 
     CGFloat oldheight = window.frame.size.height;
 

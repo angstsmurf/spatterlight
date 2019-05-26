@@ -1422,7 +1422,7 @@
 
 - (void) setFrame: (NSRect)frame
 {
-    //NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name, NSStringFromRect(frame));
+//    NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name, NSStringFromRect(frame));
 
     if (NSEqualRects(frame, self.frame)) {
         NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. Skipping.");
@@ -1433,7 +1433,7 @@
     super.frame = frame;
 
     if (textview.frame.size.width != frame.size.width && !self.inLiveResize) {
-        NSLog(@"Textview wrong width. Is %f, should be %f. Adjusting!", textview.frame.size.width, frame.size.width);
+        NSLog(@"ERROR! Textview wrong width. Is %f, should be %f. Adjusting!", textview.frame.size.width, frame.size.width);
         NSRect newframe = textview.frame;
         newframe.size.width = frame.size.width;
         textview.frame = newframe;

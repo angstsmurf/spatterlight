@@ -81,6 +81,7 @@ unsigned chartokeycode(unsigned ch)
 
 - (instancetype) initPrefsEvent
 {
+    NSLog(@"GlkEvent initPrefsEvent graphicsEnabled: %@ soundEnabled: %@", [Preferences graphicsEnabled]?@"YES":@"NO", [Preferences soundEnabled]?@"YES":@"NO");
     self = [super init];
     if (self)
     {

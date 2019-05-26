@@ -479,7 +479,7 @@
             r -= (cols - newcols);
         }
         // For some reason we must remove a couple of extra characters at the end to avoid strays
-        if (rows == 1 && (NSInteger)backingStorage.length >= (cols - 2))
+        if (rows == 1 && cols > 1 && (NSInteger)backingStorage.length >= (cols - 2))
             [backingStorage deleteCharactersInRange:NSMakeRange(cols - 2, backingStorage.length - (cols - 2))];
     }
     else if (newcols > cols)

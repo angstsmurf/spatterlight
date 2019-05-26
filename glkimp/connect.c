@@ -6,6 +6,8 @@
 
 #define MIN(a,b) (a < b ? a : b)
 
+#define MAXWIN 64
+
 enum { BUFNONE, BUFPRINT, BUFRECT };
 
 static struct message wmsg;
@@ -238,11 +240,28 @@ char *win_promptsave(int type)
 
 int win_newwin(int type)
 {
+    int expected_peer;
     win_flush();
+
     if (type == wintype_Graphics && !gli_enable_graphics)
         return -1;
-    sendmsg(NEWWIN, type, 0, 0, 0, 0, 0, NULL);
+
+    /* We calculate which peer id this new window should get,
+     i.e. the first integer (including 0) that is not used by a window already.
+     We must tell the window server which peer we expect, because we may have
+     autorestored and the window may have been created already in the window server
+     process. */
+
+    for (expected_peer = 0; expected_peer < MAXWIN; expected_peer++)
+        if (gli_window_for_peer(expected_peer) == NULL)
+            break;
+
+    sendmsg(NEWWIN, type, expected_peer, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, wbuf);
+
+    if (wmsg.a1 != expected_peer)
+        fprintf(stderr, "win_newwin: Error! Expected window with peer %d, got %d\n", expected_peer, wmsg.a1);
+    
     return wmsg.a1;
 }
 
