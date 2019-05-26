@@ -116,8 +116,6 @@ static const char *wintypenames[] =
 
     windowRestoredBySystem = ((flags & AUTORESTORED_BY_SYSTEM) == AUTORESTORED_BY_SYSTEM);
 
-    _hasAutorestoredCocoa = NO;
-    _hasAutorestoredGlk = NO;
     shouldShowAutorestoreAlert = NO;
     shouldRestoreUI = NO;
     turns = 0;
@@ -142,7 +140,7 @@ static const char *wintypenames[] =
 
     waitforevent = NO;
     waitforfilename = NO;
-    dead = YES; //This should be dead until the interpreter process is running
+    dead = YES; // This should be YES until the interpreter process is running
 
     _windowPreFullscreenFrame = self.window.frame;
 
@@ -153,7 +151,6 @@ static const char *wintypenames[] =
     lastimageresno = -1;
     lastsoundresno = -1;
     lastimage = nil;
-    //lastsound = nil;
 
     if (flags & RESETTING) {
         [self runTerpAfterReset];
@@ -216,8 +213,6 @@ static const char *wintypenames[] =
         return;
     }
 
-    NSLog(@"Restored autosaved controller object. Fullscreen:%@", restoredController.inFullscreen?@"YES":@"NO");
-
     _inFullscreen = restoredController.inFullscreen;
     _contentFullScreenFrame = restoredController.contentFullScreenFrame;
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
@@ -265,7 +260,6 @@ static const char *wintypenames[] =
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     _contentView.frame = restoredController.storedContentFrame;
     NSLog(@"runTerp: Setting window frame from restored controller: %@", NSStringFromRect(restoredController.storedWindowFrame));
-
 
     shouldRestoreUI = YES;
 
@@ -318,6 +312,8 @@ static const char *wintypenames[] =
     [self forkInterpreterTask];
 
     soundNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
+    
+    [self showWindow:nil];
 }
 
 - (void) restoreWindowWhenDead {
@@ -437,7 +433,6 @@ static const char *wintypenames[] =
     }
     if (controller) {
         NSLog(@"Restoring UI");
-        _hasAutorestoredGlk = YES;
         _firstResponderView = controller.firstResponderView;
         _storedTimerInterval = controller.storedTimerInterval;
         _storedTimerLeft = controller.storedTimerLeft;
@@ -681,14 +676,6 @@ static const char *wintypenames[] =
         //            _contentFullScreenFrame = _storedContentFrame;
 
         NSLog(@"GlkController initWithCoder: decoded contentFrame as %@", NSStringFromRect(_storedContentFrame));
-        _storedBorder = [decoder decodeFloatForKey:@"border"];
-        NSLog(@"GlkController initWithCoder: decoded border as %f", _storedBorder);
-        _storedCharwidth = [decoder decodeFloatForKey:@"charWidth"];
-        NSLog(@"GlkController initWithCoder: decoded charWidth as %f", _storedCharwidth);
-        _storedBufferMargins = [decoder decodeFloatForKey:@"bufferMargins"];
-        _storedGridMargins = [decoder decodeFloatForKey:@"gridMargins"];
-        _storedLineHeight = [decoder decodeFloatForKey:@"lineHeight"];
-        _storedLeading = [decoder decodeFloatForKey:@"leading"];
 
         _queue = [decoder decodeObjectForKey:@"queue"];
         _storedTimerLeft = [decoder decodeDoubleForKey:@"timerLeft"];
@@ -711,19 +698,8 @@ static const char *wintypenames[] =
     [encoder encodeRect:_contentView.frame forKey:@"contentFrame"];
     [encoder encodeRect:_borderView.frame forKey:@"borderFrame"];
 
-    [encoder encodeFloat:Preferences.border forKey:@"border"];
-    [encoder encodeFloat:Preferences.charWidth forKey:@"charWidth"];
-    [encoder encodeFloat:Preferences.bufferMargins forKey:@"bufferMargins"];
-    [encoder encodeFloat:Preferences.gridMargins forKey:@"gridMargins"];
-    [encoder encodeFloat:Preferences.lineHeight forKey:@"lineHeight"];
-    [encoder encodeFloat:Preferences.leading forKey:@"leading"];
-
-    //    [encoder encodeObject:[[GlkEvent alloc] initArrangeWidth: _contentView.frame.size.width height: _contentView.frame.size.height] forKey:@"arrangeEvent"];
-
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
     [encoder encodeRect:_contentFullScreenFrame forKey:@"contentFullScreenFrame"];
-    //    if ((self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask)
-    //        _windowPreFullscreenFrame = self.window.frame;
     [encoder encodeRect:_windowPreFullscreenFrame forKey:@"windowPreFullscreenFrame"];
     [encoder encodeFloat:_fontSizePreFullscreen forKey:@"fontSizePreFullscreen"];
     [encoder encodeObject:_queue forKey:@"queue"];
@@ -740,7 +716,6 @@ static const char *wintypenames[] =
     } else if ([self.window.firstResponder isKindOfClass:[NSTextView class]] && [((NSTextView *)self.window.firstResponder).delegate isKindOfClass:[GlkWindow class]]) {
         _firstResponderView = ((GlkWindow *)((NSTextView *)self.window.firstResponder).delegate).name;
     }
-    //NSLog (@"Encoded %ld as first responder.", _firstResponderView);
     [encoder encodeInteger:_firstResponderView forKey:@"firstResponder"];
     [encoder encodeDouble:_storedTimerLeft forKey:@"timerLeft"];
     [encoder encodeDouble:_storedTimerInterval forKey:@"timerInterval"];
@@ -2633,29 +2608,7 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     gevent = [[GlkEvent alloc] initArrangeWidth: _contentFullScreenFrame.size.width height: _contentFullScreenFrame.size.height];
     [self queueEvent: gevent];
     [_contentView setNeedsDisplay: YES];
-
-    //   // [self contentDidResize: _contentFullScreenFrame];
-    //    for (GlkWindow *win in [_gwindows allValues])
-    //        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-    //            [(GlkTextBufferWindow *)win restoreScrollView];
-    //            [(GlkTextBufferWindow *)win restoreScroll];
-    //        }
-    //
-    //    if (shouldShowAutorestoreAlert)
-    //        [self showAutorestoreAlert];
 }
-
-//-(void)delayedShowAlert:(id)sender {
-//
-//    for (GlkWindow *win in [_gwindows allValues])
-//        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-//            [(GlkTextBufferWindow *)win restoreScrollView];
-//            [(GlkTextBufferWindow *)win restoreScroll];
-//        }
-//
-//
-//    }
-//}
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification
 {
@@ -2671,10 +2624,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     NSInteger border = Preferences.border;
 
     frame.origin.x = frame.origin.y = border;
-
-
-    //    [self.window setFrame:_windowPreFullscreenFrame display:YES];
-    //    _borderView.frame = [self.window contentRectForFrameRect:_windowPreFullscreenFrame];
 
     frame.size.width = _borderView.frame.size.width - (border * 2);
     frame.size.height = _borderView.frame.size.height - (border * 2);

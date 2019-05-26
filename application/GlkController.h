@@ -125,12 +125,6 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
 @property (readonly) NSRect storedWindowFrame;
 @property (readonly) NSRect storedContentFrame;
 @property (readonly) NSRect storedBorderFrame;
-@property (readonly) CGFloat storedBorder;
-@property (readonly) CGFloat storedCharwidth;
-@property (readonly) CGFloat storedBufferMargins;
-@property (readonly) CGFloat storedGridMargins;
-@property (readonly) CGFloat storedLineHeight;
-@property (readonly) CGFloat storedLeading;
 
 @property (readonly) NSRect contentFullScreenFrame;
 @property (readonly) NSRect contentPreFullScreenFrame;
@@ -147,8 +141,6 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
 @property (nonatomic) NSString *autosaveFileTerp;
 
 @property (readonly) BOOL supportsAutorestore;
-@property (readonly) BOOL hasAutorestoredCocoa;
-@property (readonly) BOOL hasAutorestoredGlk;
 @property (readonly) BOOL inFullscreen;
 
 - (void) runTerp: (NSString*)terpname
