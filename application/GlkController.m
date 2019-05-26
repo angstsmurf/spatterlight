@@ -264,17 +264,6 @@ static const char *wintypenames[] =
     shouldRestoreUI = YES;
 
     [self forkInterpreterTask];
-
-    /* Send a prefs and arrange event first thing */
-    GlkEvent *gevent;
-
-    gevent = [[GlkEvent alloc] initPrefsEvent];
-    [self queueEvent: gevent];
-
-    gevent = [[GlkEvent alloc] initArrangeWidth: _contentView.frame.size.width height: _contentView.frame.size.height];
-    [self queueEvent: gevent];
-
-    soundNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
 }
 
 - (void) runTerpAfterReset {
@@ -282,36 +271,16 @@ static const char *wintypenames[] =
     // that we don't need to do again (but we still have to check that they are done,
     // as the user can reset the game very quickly after starting)
 
-    GlkEvent *gevent;
-
     [self forkInterpreterTask];
-
-    /* Send a prefs and an arrange event first thing */
-
-    gevent = [[GlkEvent alloc] initPrefsEvent];
-    [self queueEvent: gevent];
-
-    gevent = [[GlkEvent alloc] initArrangeWidth: _contentView.frame.size.width height: _contentView.frame.size.height];
-    [self queueEvent: gevent];
-
-    soundNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
 }
 
 - (void) runTerpNormal {
 
     // Just start the game with no autorestore or fullscreen or resetting
-
-    NSSize defsize = Preferences.defaultWindowSize;
-
-    NSLog(@"runTerpNormal: initially, window frame is %@, window contentView frame is %@, _borderView frame is %@ and _contentView frame is %@", NSStringFromRect(self.window.frame), NSStringFromRect(((NSView *)self.window.contentView).frame), NSStringFromRect(_borderView.frame), NSStringFromRect(_contentView.frame));
-
-    [self.window setContentSize: defsize];
-
-    /* Setup Cocoa stuff */
+    
+    [self.window setContentSize: Preferences.defaultWindowSize];
 
     [self forkInterpreterTask];
-
-    soundNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
     
     [self showWindow:nil];
 }
@@ -322,8 +291,8 @@ static const char *wintypenames[] =
 
     _contentView.autoresizingMask = NSViewMaxXMargin | NSViewMaxYMargin | NSViewMinXMargin | NSViewMinYMargin;
     [self.window setFrame:restoredController.storedWindowFrame display:NO];
+
     NSSize defsize = [self.window contentRectForFrameRect:restoredController.storedWindowFrame].size;
-    NSLog(@"runTerp: Setting window frame from restored controller: %@", NSStringFromRect(restoredController.storedWindowFrame));
     [self.window setContentSize: defsize];
     _borderView.frame = NSMakeRect(0, 0, defsize.width, defsize.height);
     _contentView.frame = restoredController.storedContentFrame;
@@ -419,6 +388,8 @@ static const char *wintypenames[] =
     gevent = [[GlkEvent alloc] initArrangeWidth: _contentView.frame.size.width height: _contentView.frame.size.height];
     [self queueEvent: gevent];
 
+    soundNotificationsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector: @selector(keepAlive:) userInfo: nil repeats: YES];
+
     [readfh waitForDataInBackgroundAndNotify];
 }
 
@@ -507,7 +478,6 @@ static const char *wintypenames[] =
 
         }
         _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        //[self queueEvent: controller.storedArrangeEvent];
     }
 }
 
@@ -520,21 +490,15 @@ static const char *wintypenames[] =
 
     shouldRestoreUI = NO;
 
-    [self showWindow:nil];
     [self restoreUI:restoredController];
 
+    [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder: nil];
     [self restoreFocus:nil];
     if (restoredController && restoredController.inFullscreen && !windowRestoredBySystem) {
         [self.window toggleFullScreen:nil];
     }
-
-    NSRect dummyFrame = _contentView.frame;
-    dummyFrame.size = NSMakeSize(_contentView.frame.size.width + 10, _contentView.frame.size.height + 10);
-    [_contentView setFrame:dummyFrame];
-
-    [self notePreferencesChanged: nil];
 
     [self adjustContentView];
 
