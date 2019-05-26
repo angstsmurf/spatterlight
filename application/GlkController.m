@@ -741,12 +741,7 @@ static const char *wintypenames[] =
     NSLog(@"glkctl: windowWillClose");
 
     if (_supportsAutorestore) {
-        if (!dead)
-            [self autoSaveOnExit];
-        else {
-            // Delete autosave files if the game has ended
-            [self deleteAutosaveFiles];
-        }
+        [self autoSaveOnExit];
     }
 
     [self.window setDelegate: nil];
