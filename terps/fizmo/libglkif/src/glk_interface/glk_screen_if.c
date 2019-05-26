@@ -663,7 +663,12 @@ void glkint_erase_window(int16_t window_number)
 void glkint_set_cursor(int16_t line, int16_t column,
     int16_t window)
 {
-  if (window && statuswin)
+    /* HACK */
+    /* Fizmo gets its windows confused after autorestore */
+    /* Find out why & fix */
+    fprintf(stderr, "fizmo: glkint_set_cursor: win:%d x:%d y:%d\n", window, column, line);
+  /*if (window && statuswin)*/
+  if (statuswin)
     glk_window_move_cursor(statuswin, column-1, line-1);
 }
 

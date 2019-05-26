@@ -35,6 +35,7 @@
 #define glk_interface_h_INCLUDED
 
 #include <tools/types.h>
+#include <stdio.h>
 #include "glk.h"
 
 void glkint_fatal_error_handler(char *str, glui32 *ustr, char *arg,
