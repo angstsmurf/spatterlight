@@ -292,37 +292,56 @@ NSDictionary *gFormatMap;
 
     NSLog(@"appdel: applicationShouldTerminate");
 
-    while (count--)
-    {
-        NSWindow *window = [windows objectAtIndex:count];
-        id glkctl = window.delegate;
-        if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive]) {
-            if (((GlkController *)glkctl).supportsAutorestore) {
-                restorable++;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    if ([defaults boolForKey: @"terminationAlertSuppression"]) {
+        NSLog (@"Termination alert suppressed");
+    } else {
+        while (count--)
+        {
+            NSWindow *window = [windows objectAtIndex:count];
+            id glkctl = window.delegate;
+            if ([glkctl isKindOfClass: [GlkController class]] && [glkctl isAlive]) {
+                if (((GlkController *)glkctl).supportsAutorestore) {
+                    restorable++;
+                }
+                else {
+                    alive++;
+                }
             }
-            else {
-                alive++;
+        }
+
+        NSLog(@"appdel: windows=%lu alive=%ld", (unsigned long)[windows count], (long)alive);
+
+        if (alive > 0) {
+            NSString *msg = @"You still have one game running.\nAny unsaved progress will be lost.";
+            if (alive > 1)
+                msg = [NSString stringWithFormat: @"You have %ld games running.\nAny unsaved progress will be lost.", (long)alive];
+            if (restorable == 1)
+                msg = [msg stringByAppendingString:@"\n(There is also an autorestorable game running.)"];
+            else if (restorable > 1)
+                msg = [msg stringByAppendingFormat:@"\n(There are also %ld autorestorable games running.)", restorable];
+
+            NSAlert *anAlert = [[NSAlert alloc] init];
+            anAlert.messageText = @"Do you really want to quit?";
+
+            anAlert.informativeText = msg;
+            anAlert.showsSuppressionButton = YES; // Uses default checkbox title
+
+            [anAlert addButtonWithTitle:@"Quit"];
+            [anAlert addButtonWithTitle:@"Cancel"];
+
+            NSInteger choice = [anAlert runModal];
+
+            if (anAlert.suppressionButton.state == NSOnState) {
+                // Suppress this alert from now on
+                [defaults setBool: YES forKey: @"terminationAlertSuppression"];
+            }
+            if (choice == NSAlertOtherReturn) {
+                return NSTerminateCancel;
             }
         }
     }
-
-    NSLog(@"appdel: windows=%lu alive=%ld", (unsigned long)[windows count], (long)alive);
-
-    if (alive > 0)
-    {
-        NSString *msg = @"You still have one game running.\nAny unsaved progress will be lost.";
-        if (alive > 1)
-            msg = [NSString stringWithFormat: @"You have %ld games running.\nAny unsaved progress will be lost.", (long)alive];
-        if (restorable == 1)
-            msg = [msg stringByAppendingString:@"\n(There is also an autorestorable game running.)"];
-        else if (restorable > 1)
-            msg = [msg stringByAppendingFormat:@"\n(There are also %ld autorestorable games running.)", restorable];
-
-        NSInteger choice = NSRunAlertPanel(@"Do you really want to quit?", @"%@", @"Quit", NULL, @"Cancel", msg);
-        if (choice == NSAlertOtherReturn)
-            return NSTerminateCancel;
-    }
-
     return NSTerminateNow;
 }
 

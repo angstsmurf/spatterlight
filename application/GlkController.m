@@ -906,8 +906,11 @@ static const char *wintypenames[] =
 
 - (void) closeAlertDidFinish: (id)alert rc: (int)rc ctx: (void*)ctx
 {
-    if (rc == NSAlertFirstButtonReturn)
-    {
+    if (rc == NSAlertFirstButtonReturn) {
+        if (((NSAlert *)alert).suppressionButton.state == NSOnState) {
+            // Suppress this alert from now on
+            [[NSUserDefaults standardUserDefaults] setBool: YES forKey: @"closeAlertSuppression"];
+        }
         [self windowWillClose:nil];
         [self close];
     }
@@ -930,9 +933,15 @@ static const char *wintypenames[] =
         return YES;
     }
 
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"closeAlertSuppression"]) {
+        NSLog (@"Window close alert suppressed");
+        return YES;
+    }
     alert = [[NSAlert alloc] init];
     alert.messageText = @"Do you want to abandon the game?";
     alert.informativeText = @"Any unsaved progress will be lost.";
+    alert.showsSuppressionButton = YES; // Uses default checkbox title
+
     [alert addButtonWithTitle: @"Close"];
     [alert addButtonWithTitle: @"Cancel"];
 
