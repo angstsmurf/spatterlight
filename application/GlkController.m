@@ -160,7 +160,6 @@ static const char *wintypenames[] =
     _inFullscreen = NO;
 
     _contentFullScreenFrame = _windowPreFullscreenFrame = NSZeroRect;
-    _fontSizePreFullscreen = 0;
 
     borderFullScreenSize = NSZeroSize;
 
@@ -214,7 +213,6 @@ static const char *wintypenames[] =
     _inFullscreen = restoredController.inFullscreen;
     _contentFullScreenFrame = restoredController.contentFullScreenFrame;
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
-    _fontSizePreFullscreen = restoredController.fontSizePreFullscreen;
 
     if (!restoredController.isAlive) {
         if (windowRestoredBySystem) {
@@ -400,6 +398,7 @@ static const char *wintypenames[] =
         _firstResponderView = controller.firstResponderView;
         _storedTimerInterval = controller.storedTimerInterval;
         _storedTimerLeft = controller.storedTimerLeft;
+        _windowPreFullscreenFrame = controller.windowPreFullscreenFrame;
         _queue = controller.queue;
 
 
@@ -635,11 +634,10 @@ static const char *wintypenames[] =
         _gwindows = [decoder decodeObjectForKey:@"gwindows"];
         NSLog(@"GlkController initWithCoder: Decoded %ld gwindows",(unsigned long)_gwindows.count);
 
-        _fontSizePreFullscreen = [decoder decodeFloatForKey:@"fontSizePreFullscreen"];
-
         _storedWindowFrame = [decoder decodeRectForKey:@"windowFrame"];
         NSLog(@"GlkController initWithCoder: decoded main window frame as %@", NSStringFromRect(_storedWindowFrame));
         _windowPreFullscreenFrame = [decoder decodeRectForKey:@"windowPreFullscreenFrame"];
+        NSLog(@"GlkController initWithCoder: decoded windowPreFullscreenFrame as %@", NSStringFromRect(_windowPreFullscreenFrame));
 
         _storedContentFrame = [decoder decodeRectForKey:@"contentFrame"];
         _storedBorderFrame = [decoder decodeRectForKey:@"borderFrame"];
@@ -672,7 +670,7 @@ static const char *wintypenames[] =
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
     [encoder encodeRect:_contentFullScreenFrame forKey:@"contentFullScreenFrame"];
     [encoder encodeRect:_windowPreFullscreenFrame forKey:@"windowPreFullscreenFrame"];
-    [encoder encodeFloat:_fontSizePreFullscreen forKey:@"fontSizePreFullscreen"];
+    NSLog(@"GlkController encodeWithCoder: encoded windowPreFullscreenFrame as %@", NSStringFromRect(_windowPreFullscreenFrame));
     [encoder encodeObject:_queue forKey:@"queue"];
     _storedTimerLeft = 0;
     _storedTimerInterval = 0;
@@ -2395,9 +2393,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     _windowPreFullscreenFrame = self.window.frame;
     _contentPreFullScreenFrame = _contentView.frame;
 
-    NSDictionary *dict = [Preferences attributesForGridStyle: style_Normal];
-    NSFont *font = [dict objectForKey:NSFontAttributeName];
-    _fontSizePreFullscreen = font.pointSize;
     _inFullscreen = YES;
     [self storeScrollOffsets];
 }
@@ -2446,7 +2441,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     NSLog(@"customAnimToEnter... _contentFullScreenFrame: %@", NSStringFromRect(_contentFullScreenFrame));
     NSLog(@"customAnimToEnter... screen width: %f contentView width: %f", screen.frame.size.width, _contentView.frame.size.width);
 
-
     // The center frame for the window is used during
     // the 1st half of the fullscreen animation and is
     // the window at its original size but moved to the
@@ -2477,35 +2471,22 @@ willUseFullScreenContentSize:(NSSize)proposedSize
      {
          // First, we move the window to the center
          // of the screen
-         context.duration = duration / 3;
+         context.duration = duration / 2;
          [[window animator] setFrame:centerWindowFrame display:YES];
      }
                         completionHandler:^
      {
          [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
              // and then we enlarge it its full size.
-             context.duration = duration / 3;
+             context.duration = duration / 2;
              [[window animator] setFrame:[window frameRectForContentRect:border_finalFrame] display:YES];
-         }
-                             completionHandler:^
-          {
-              [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-                  context.duration =  duration / 3;
-                  _contentFullScreenFrame = [window convertRectFromScreen:(NSRect)_contentFullScreenFrame];
-                  [[_contentView animator] setFrame:_contentFullScreenFrame];
-                  GlkEvent *gevent;
-                  gevent = [[GlkEvent alloc] initArrangeWidth: _contentFullScreenFrame.size.width height: _contentFullScreenFrame.size.height];
-                  [self queueEvent: gevent];
-                  // [self contentDidResize: _contentFullScreenFrame];
 
-              } completionHandler:^{
-                  inFullScreenResize = NO;
-                  shouldShowAutorestoreAlert = stashShouldShowAlert;
-                  if (shouldShowAutorestoreAlert)
-                      [self showAutorestoreAlert];
-              } ];
-          }];
-
+         } completionHandler:^{
+             inFullScreenResize = NO;
+             shouldShowAutorestoreAlert = stashShouldShowAlert;
+             if (shouldShowAutorestoreAlert)
+                 [self showAutorestoreAlert];
+         } ];
      }];
 }
 
@@ -2515,7 +2496,11 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     [self storeScrollOffsets];
     NSRect oldFrame = _windowPreFullscreenFrame;
 
+    oldFrame.size.width = _contentView.frame.size.width + Preferences.border * 2;
+
     inFullScreenResize = YES;
+
+    _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context)
@@ -2539,27 +2524,23 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification
 {
-    NSLog(@"windowDidEnterFullScreen: _contentFullScreenFrame: %@, _contentView.frame: %@", NSStringFromRect(_contentFullScreenFrame), NSStringFromRect(_contentView.frame));
+    _contentFullScreenFrame = _contentView.frame;
+    _contentFullScreenFrame.size.height = self.window.screen.frame.size.height - Preferences.border * 2;
+    _contentFullScreenFrame.origin.y = Preferences.border;
 
     [[_contentView animator] setFrame:_contentFullScreenFrame];
 
-    NSLog(@"windowDidEnterFullScreen: Sending an arrange event with the new size (%@)", NSStringFromSize(_contentView.frame.size));
     GlkEvent *gevent;
-    gevent = [[GlkEvent alloc] initArrangeWidth: _contentFullScreenFrame.size.width height: _contentFullScreenFrame.size.height];
+    gevent = [[GlkEvent alloc] initArrangeWidth: _contentView.frame.size.width height: _contentView.frame.size.height];
     [self queueEvent: gevent];
-    [_contentView setNeedsDisplay: YES];
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification
 {
-    NSLog(@"windowDidExitFullScreen: contentview was: %@", NSStringFromRect(_contentView.frame));
-    NSLog(@"windowDidExitFullScreen: borderview is: %@", NSStringFromRect(_borderView.frame));
+    _borderView.frame = self.window.contentView.frame;
+    _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-    NSRect frame;
-
-    NSDictionary *dict = [Preferences attributesForGridStyle: style_Normal];
-    NSFont *font = [dict objectForKey:NSFontAttributeName];
-    [Preferences scale:_fontSizePreFullscreen / font.pointSize];
+    NSRect frame = _contentView.frame;
 
     NSInteger border = Preferences.border;
 
@@ -2568,14 +2549,11 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     frame.size.width = _borderView.frame.size.width - (border * 2);
     frame.size.height = _borderView.frame.size.height - (border * 2);
 
-    NSLog(@"windowDidExitFullScreen: contentview is set to: %@", NSStringFromRect(frame));
-
     _inFullscreen = NO;
-
-    _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     _contentView.frame = frame;
     [self contentDidResize: frame];
+
     for (GlkWindow *win in [_gwindows allValues])
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [(GlkTextBufferWindow *)win restoreScrollView];

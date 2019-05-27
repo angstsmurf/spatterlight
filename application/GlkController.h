@@ -112,8 +112,6 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
 @property (readonly) NSRect contentPreFullScreenFrame;
 @property (readonly) NSRect windowPreFullscreenFrame;
 
-@property (readonly) CGFloat fontSizePreFullscreen;
-
 @property NSInteger firstResponderView;
 
 @property NSMutableArray *queue;
