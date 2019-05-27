@@ -814,22 +814,19 @@ NSString* fontToString(NSFont *font)
         return;
     }
 
-	if (selfontp == &gridroman)
-	{
+	if (selfontp == &gridroman) {
 		[defaults setObject: gridroman.fontName forKey: @"GridFontName"];
 		[defaults setObject: @(gridroman.pointSize) forKey: @"GridFontSize"];
 		btnGridFont.title = fontToString(gridroman);
 	}
 
-	if (selfontp == &bufroman)
-	{
+	if (selfontp == &bufroman) {
 		[defaults setObject: bufroman.fontName forKey: @"BufferFontName"];
 		[defaults setObject: @(bufroman.pointSize) forKey: @"BufferFontSize"];
 		btnBufferFont.title = fontToString(bufroman);
 	}
 
-	if (selfontp == &inputfont)
-	{
+	if (selfontp == &inputfont) {
 		[defaults setObject: inputfont.fontName forKey: @"InputFontName"];
 		[defaults setObject: @(inputfont.pointSize) forKey: @"InputFontSize"];
 		btnInputFont.title = fontToString(inputfont);
