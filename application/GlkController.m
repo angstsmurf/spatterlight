@@ -159,7 +159,7 @@ static const char *wintypenames[] =
     lastContentResize = NSZeroRect;
     _inFullscreen = NO;
 
-    _contentFullScreenFrame = _windowPreFullscreenFrame = NSZeroRect;
+    _windowPreFullscreenFrame = NSZeroRect;
 
     borderFullScreenSize = NSZeroSize;
 
@@ -211,7 +211,6 @@ static const char *wintypenames[] =
     }
 
     _inFullscreen = restoredController.inFullscreen;
-    _contentFullScreenFrame = restoredController.contentFullScreenFrame;
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
 
     if (!restoredController.isAlive) {
@@ -494,16 +493,6 @@ static const char *wintypenames[] =
     [_contentView setFrame:oldFrame];
     [self adjustContentView];
 
-    lastArrangeValues = @{
-                          @"width": @(0),
-                          @"height": @(0),
-                          @"bufferMargin": @(0),
-                          @"gridMargin": @(0),
-                          @"charWidth": @(0),
-                          @"lineHeight": @(0),
-                          @"leading": @(0)
-                          };
-
     [self notePreferencesChanged: nil];
 
     [self showWindow:nil];
@@ -653,8 +642,6 @@ static const char *wintypenames[] =
         _storedContentFrame = [decoder decodeRectForKey:@"contentFrame"];
         _storedBorderFrame = [decoder decodeRectForKey:@"borderFrame"];
 
-        _contentFullScreenFrame = [decoder decodeRectForKey:@"contentFullScreenFrame"];
-
         NSLog(@"GlkController initWithCoder: decoded contentFrame as %@", NSStringFromRect(_storedContentFrame));
 
         _queue = [decoder decodeObjectForKey:@"queue"];
@@ -679,7 +666,6 @@ static const char *wintypenames[] =
     [encoder encodeRect:_borderView.frame forKey:@"borderFrame"];
 
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
-    [encoder encodeRect:_contentFullScreenFrame forKey:@"contentFullScreenFrame"];
     [encoder encodeRect:_windowPreFullscreenFrame forKey:@"windowPreFullscreenFrame"];
     NSLog(@"GlkController encodeWithCoder: encoded windowPreFullscreenFrame as %@", NSStringFromRect(_windowPreFullscreenFrame));
     [encoder encodeObject:_queue forKey:@"queue"];
@@ -2402,8 +2388,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     NSLog(@"glkctgl: windowWillEnterFullScreen");
     // Save the window frame so that it can be restored later
     _windowPreFullscreenFrame = self.window.frame;
-    _contentPreFullScreenFrame = _contentView.frame;
-
     _inFullscreen = YES;
     [self storeScrollOffsets];
 }
@@ -2438,19 +2422,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     // The final, full screen frame
     NSRect border_finalFrame = NSZeroRect;
     border_finalFrame.size = borderFullScreenSize;
-
-    _contentFullScreenFrame = _contentView.frame;
-
-    // Calculate the origin as half the difference between
-    // the window frame and the screen frame
-    _contentFullScreenFrame.origin.x =
-    ceil((NSWidth(screen.frame) -
-          NSWidth(_contentView.frame)) / 2 - Preferences.border);
-    _contentFullScreenFrame.origin.y = Preferences.border;
-    _contentFullScreenFrame.size.height = NSHeight(screen.frame) - Preferences.border * 2;
-
-    NSLog(@"customAnimToEnter... _contentFullScreenFrame: %@", NSStringFromRect(_contentFullScreenFrame));
-    NSLog(@"customAnimToEnter... screen width: %f contentView width: %f", screen.frame.size.width, _contentView.frame.size.width);
 
     // The center frame for the window is used during
     // the 1st half of the fullscreen animation and is
@@ -2535,11 +2506,11 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification
 {
-    _contentFullScreenFrame = _contentView.frame;
-    _contentFullScreenFrame.size.height = self.window.screen.frame.size.height - Preferences.border * 2;
-    _contentFullScreenFrame.origin.y = Preferences.border;
+    NSRect contentFullScreenFrame = _contentView.frame;
+    contentFullScreenFrame.size.height = self.window.screen.frame.size.height - Preferences.border * 2;
+    contentFullScreenFrame.origin.y = Preferences.border;
 
-    [[_contentView animator] setFrame:_contentFullScreenFrame];
+    [[_contentView animator] setFrame:contentFullScreenFrame];
 
     GlkEvent *gevent;
     gevent = [[GlkEvent alloc] initArrangeWidth: _contentView.frame.size.width height: _contentView.frame.size.height];

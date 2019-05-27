@@ -108,8 +108,6 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
 @property (readonly) NSRect storedContentFrame;
 @property (readonly) NSRect storedBorderFrame;
 
-@property (readonly) NSRect contentFullScreenFrame;
-@property (readonly) NSRect contentPreFullScreenFrame;
 @property (readonly) NSRect windowPreFullscreenFrame;
 
 @property NSInteger firstResponderView;
