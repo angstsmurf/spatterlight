@@ -488,7 +488,6 @@ static const char *wintypenames[] =
     [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder: nil];
-    [self restoreFocus:nil];
     if (restoredController && restoredController.inFullscreen && !windowRestoredBySystem) {
         [self.window toggleFullScreen:nil];
     }
@@ -504,6 +503,8 @@ static const char *wintypenames[] =
     [self adjustContentView];
 
     [self notePreferencesChanged: nil];
+    
+    [self restoreFocus:nil];
     restoredController = nil;
 }
 

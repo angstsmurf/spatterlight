@@ -740,9 +740,8 @@
 - (void)scrollToBottom
 {
     // first, force a layout so we have the correct textview frame
-   // [self.layoutManager glyphRangeForTextContainer: self.textContainer];
+    [self.layoutManager glyphRangeForTextContainer: self.textContainer];
 
-    GlkTextBufferWindow *glkTextBuffer = (GlkTextBufferWindow *)self.delegate;
     id view = self.superview;
     while (view && ![view isKindOfClass: [NSScrollView class]])
         view = [view superview];
@@ -751,9 +750,6 @@
 
     NSPoint newScrollOrigin = NSMakePoint(0.0,NSMaxY(self.frame)
                                           - NSHeight(scrollview.contentView.bounds));
-
-    if (glkTextBuffer.lastseen < newScrollOrigin.y)
-        newScrollOrigin.y = glkTextBuffer.lastseen;
 
     [scrollview.contentView scrollToPoint:newScrollOrigin];
     [scrollview reflectScrolledClipView:scrollview.contentView];
