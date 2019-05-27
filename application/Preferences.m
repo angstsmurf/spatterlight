@@ -807,7 +807,12 @@ NSString* fontToString(NSFont *font)
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-	*selfontp = [fontManager convertFont: *selfontp];
+    if (selfontp) {
+        *selfontp = [fontManager convertFont: *selfontp];
+    } else {
+        NSLog(@"Error! Preferences changeFont called with no font selected");
+        return;
+    }
 
 	if (selfontp == &gridroman)
 	{
