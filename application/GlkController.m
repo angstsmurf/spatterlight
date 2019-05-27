@@ -369,11 +369,6 @@ static const char *wintypenames[] =
      name: NSFileHandleDataAvailableNotification
      object: readfh];
 
-    //    if (_hasAutorestoredCocoa)
-    //    {
-    [readfh waitForDataInBackgroundAndNotify];
-    //    }
-
     [task launch];
     dead = NO;
 
@@ -498,6 +493,14 @@ static const char *wintypenames[] =
         [self.window toggleFullScreen:nil];
     }
 
+    NSRect oldFrame = _contentView.frame;
+    NSRect dummyFrame = oldFrame;
+    dummyFrame.size = NSMakeSize(_contentView.frame.size.width + 1, _contentView.frame.size.height);
+    [_contentView setFrame:dummyFrame];
+
+    [self notePreferencesChanged: nil];
+
+    [_contentView setFrame:oldFrame];
     [self adjustContentView];
 
     [self notePreferencesChanged: nil];
@@ -507,15 +510,6 @@ static const char *wintypenames[] =
 - (void) adjustContentView {
 
     NSRect desiredContentFrame;
-    //    NSRect desiredBorderFrame;
-    //
-    //    desiredBorderFrame = [self.window contentRectForFrameRect:self.window.frame];
-    //    desiredBorderFrame.origin = NSZeroPoint;
-    //
-    //    if (!NSEqualRects(_borderView.frame, desiredBorderFrame)) {
-    //        NSLog(@"adjustContentView: _borderView did have the wrong frame (%@, should have been %@), so I guess this check is necessary somehow", NSStringFromRect(_borderView.frame), NSStringFromRect(desiredBorderFrame));
-    //        _borderView.frame = desiredBorderFrame;
-    //    }
 
     if (((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask) != (_inFullscreen))
         NSLog(@"adjustContentView: Mismatch between window decoration style and inFullscreen flag!");
