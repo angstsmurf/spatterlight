@@ -484,13 +484,6 @@ static const char *wintypenames[] =
 
     [self restoreUI:restoredController];
 
-    [self showWindow:nil];
-    [self.window makeKeyAndOrderFront:nil];
-    [self.window makeFirstResponder: nil];
-    if (restoredController && restoredController.inFullscreen && !windowRestoredBySystem) {
-        [self.window toggleFullScreen:nil];
-    }
-
     NSRect oldFrame = _contentView.frame;
     NSRect dummyFrame = oldFrame;
     dummyFrame.size = NSMakeSize(_contentView.frame.size.width + 1, _contentView.frame.size.height);
@@ -501,8 +494,26 @@ static const char *wintypenames[] =
     [_contentView setFrame:oldFrame];
     [self adjustContentView];
 
+    lastArrangeValues = @{
+                          @"width": @(0),
+                          @"height": @(0),
+                          @"bufferMargin": @(0),
+                          @"gridMargin": @(0),
+                          @"charWidth": @(0),
+                          @"lineHeight": @(0),
+                          @"leading": @(0)
+                          };
+
     [self notePreferencesChanged: nil];
-    
+
+    [self showWindow:nil];
+    [self.window makeKeyAndOrderFront:nil];
+    [self.window makeFirstResponder: nil];
+
+    if (restoredController && restoredController.inFullscreen && !windowRestoredBySystem) {
+        [self.window toggleFullScreen:nil];
+    }
+
     [self restoreFocus:nil];
     restoredController = nil;
 }
