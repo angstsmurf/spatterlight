@@ -441,11 +441,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     }
 }
 
-- (IBAction) delete:(id)sender {
+- (IBAction)delete:(id)sender {
     [self deleteGame:sender];
 }
 
-- (BOOL) validateMenuItem:(NSMenuItem *)menuItem {
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     SEL action = menuItem.action;
     NSInteger count = _gameTableView.numberOfSelectedRows;
 
@@ -702,11 +702,13 @@ static void read_xml_text(const char *rp, char *wp) {
         NSLog(@"libctl: xml: %s", msg);
 }
 
-static void handleXMLCloseTag(struct XMLTag *tag, void *ctx) {
+static void handleXMLCloseTag(struct XMLTag *tag, void *ctx)
+{
     [(__bridge LibController *)ctx handleXMLCloseTag:tag];
 }
 
-static void handleXMLError(char *msg, void *ctx) {
+static void handleXMLError(char *msg, void *ctx)
+{
     [(__bridge LibController *)ctx handleXMLError:msg];
 }
 
