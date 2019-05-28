@@ -237,6 +237,7 @@
         recalc = NO;    /* don't infiniloop in here, settle for the first result */
 
         _bounds = NSZeroRect;
+        NSTextView *textview = _container.textView;
 
         /* force layout and get position of anchor glyph */
         ourglyph = [layout glyphRangeForCharacterRange: NSMakeRange(_pos, 1)
@@ -247,7 +248,7 @@
         /* set bounds to be at the same line as anchor but in left/right margin */
         if (_alignment == imagealign_MarginRight)
         {
-            CGFloat rightMargin = _container.textView.frame.size.width - _container.textView.textContainerInset.width * 2 - _container.lineFragmentPadding;
+            CGFloat rightMargin = textview.frame.size.width - textview.textContainerInset.width * 2 - _container.lineFragmentPadding;
             _bounds = NSMakeRect(rightMargin - size.width,
                                  theline.origin.y,
                                  size.width,
@@ -497,8 +498,10 @@
     if (margins.count < 2 || NSIsEmptyRect(image.bounds))
         return;
 
-    CGFloat leftMargin = self.textView.textContainerInset.width + self.lineFragmentPadding;
-    CGFloat rightMargin = self.textView.frame.size.width  - self.textView.textContainerInset.width * 2 - self.lineFragmentPadding;
+    NSTextView *textview = self.textView;
+
+    CGFloat leftMargin = textview.textContainerInset.width + self.lineFragmentPadding;
+    CGFloat rightMargin = textview.frame.size.width  - textview.textContainerInset.width * 2 - self.lineFragmentPadding;
     NSRect adjustedBounds = image.bounds;
 
     // If outside margin, move to opposite margin
@@ -571,7 +574,8 @@
 {
     //    NSLog(@"MarginContainer drawRect: %@", NSStringFromRect(rect));
 
-    NSSize inset = self.textView.textContainerInset;
+    MyTextView *textview = (MyTextView *)self.textView;
+    NSSize inset = textview.textContainerInset;
     NSSize size;
     NSRect bounds;
     BOOL extendflag = NO;
@@ -591,18 +595,18 @@
             bounds.origin.y += inset.height;
 
             // Check if we need to add padding to increase textview height to accommodate for low image
-            if (self.textView.frame.size.height <= NSMaxY(bounds))
+            if (textview.frame.size.height <= NSMaxY(bounds))
             {
 
-                ((MyTextView *)self.textView).bottomPadding = NSMaxY(bounds) - self.textView.frame.size.height + inset.height;
-                extendneeded = ((MyTextView *)self.textView).bottomPadding;
-                [self.textView setFrameSize:self.textView.frame.size];
+                textview.bottomPadding = NSMaxY(bounds) - textview.frame.size.height + inset.height;
+                extendneeded = textview.bottomPadding;
+                [textview setFrameSize:textview.frame.size];
                 extendflag = YES;
             }
             // Check if padding is still needed
-            else if (self.textView.frame.size.height - ((MyTextView *)self.textView).bottomPadding <= NSMaxY(bounds))
+            else if (textview.frame.size.height - textview.bottomPadding <= NSMaxY(bounds))
             {
-                NSInteger bottom = NSMaxY(bounds) - self.textView.frame.size.height + inset.height;
+                NSInteger bottom = NSMaxY(bounds) - textview.frame.size.height + inset.height;
                 if (extendneeded < bottom)
                     extendneeded = bottom;
             }
@@ -621,11 +625,11 @@
         }
     }
     // If we were at the bottom before, scroll to bottom of extended area so that we are still at bottom
-    if (extendflag && [(MyTextView *)self.textView scrolledToBottom])
-        [(MyTextView *)self.textView scrollToBottom];
+    if (extendflag && [textview scrolledToBottom])
+        [textview scrollToBottom];
 
     // Remove bottom padding if it is not needed any more
-    ((MyTextView *)self.textView).bottomPadding = extendneeded;
+    textview.bottomPadding = extendneeded;
 }
 
 - (NSUInteger) findHyperlinkAt: (NSPoint)p;
@@ -836,11 +840,12 @@
     BOOL isValidItem = NO;
     BOOL waseditable = self.editable;
     self.editable = NO;
+    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
 
     if (menuItem.action == @selector(cut:))
     {
         if (self.selectedRange.length &&
-            [self.delegate textView: self
+            [delegate textView: self
             shouldChangeTextInRange: self.selectedRange
                   replacementString: nil])
             self.editable = waseditable;
@@ -848,7 +853,7 @@
 
     else if (menuItem.action == @selector(paste:))
     {
-        if ([self.delegate textView: self
+        if ([delegate textView: self
             shouldChangeTextInRange: self.selectedRange
                   replacementString: nil])
             self.editable = waseditable;
@@ -907,6 +912,8 @@
 {
     //NSLog(@"MyTextView: accessibilityAttributeValue: %@",attribute);
 
+    NSResponder *firstResponder = self.window.firstResponder;
+
     if (_shouldSpeak_10_7)
     {
         if (NSMaxRange(_rangeToSpeak_10_7) != self.textStorage.length)
@@ -915,7 +922,7 @@
 
     if ([attribute isEqualToString:NSAccessibilityValueAttribute])
     {
-        NSString* selectedText = nil;
+        NSString *selectedText = nil;
 
         if (_shouldSpeak_10_7)
         {
@@ -929,8 +936,8 @@
         return (selectedText && selectedText.length) ? selectedText : [self.textStorage.string substringWithRange: ((NSValue *)[super accessibilityAttributeValue:NSAccessibilityVisibleCharacterRangeAttribute]).rangeValue];
     }
     else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute])
-        return [NSNumber numberWithBool: self.window.firstResponder == self ||
-                self.window.firstResponder == (GlkTextBufferWindow *)self.delegate];
+        return [NSNumber numberWithBool: firstResponder == self ||
+                firstResponder == (GlkTextBufferWindow *)self.delegate];
 
     if (_shouldSpeak_10_7 && NSMaxRange(_rangeToSpeak_10_7) <= self.textStorage.length)
     {
@@ -1019,14 +1026,16 @@
 - (void)accessibilityPerformAction:(NSString *)action {
     NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
 
+    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+
     if ([action isEqualToString: @"Repeat last move"])
-        [(GlkTextBufferWindow *)self.delegate speakMostRecent:nil];
+        [delegate speakMostRecent:nil];
     else if ([action isEqualToString: @"Speak move before"])
-        [(GlkTextBufferWindow *)self.delegate speakPrevious:nil];
+        [delegate speakPrevious:nil];
     else if ([action isEqualToString: @"Speak move after"])
-        [(GlkTextBufferWindow *)self.delegate speakNext:nil];
+        [delegate speakNext:nil];
     else if ([action isEqualToString: @"Speak status bar"])
-        [(GlkTextBufferWindow *)self.delegate speakStatus:nil];
+        [delegate speakStatus:nil];
     else [super accessibilityPerformAction: action];
 }
 
@@ -1462,8 +1471,11 @@
     panel.allowedFileTypes=@[newExtension];
     panel.extensionHidden=NO;
     [panel setCanCreateDirectories:YES];
+
     panel.nameFieldStringValue = newName;
+    NSTextView *localTextView = textview;
 	NSAttributedString *localTextStorage = _textstorage;
+    MarginContainer *localTextContainer = container;
     [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton)
         {
@@ -1471,9 +1483,9 @@
 
             NSMutableAttributedString *mutattstr = [localTextStorage mutableCopy];
 
-            mutattstr = [container marginsToAttachmentsInString:mutattstr];
+            mutattstr = [localTextContainer marginsToAttachmentsInString:mutattstr];
 
-            [mutattstr addAttribute:NSBackgroundColorAttributeName value:textview.backgroundColor range:NSMakeRange(0, mutattstr.length)];
+            [mutattstr addAttribute:NSBackgroundColorAttributeName value:localTextView.backgroundColor range:NSMakeRange(0, mutattstr.length)];
 
             if (isRtfd)
             {
@@ -1748,7 +1760,8 @@
 
 - (void) grabFocus
 {
-    dispatch_async(dispatch_get_main_queue(), ^{[self.window makeFirstResponder: textview];});
+    MyTextView *localTextView = textview;
+    dispatch_async(dispatch_get_main_queue(), ^{[self.window makeFirstResponder: localTextView];});
     //NSLog(@"GlkTextBufferWindow %ld grabbed focus.", self.name);
 }
 
@@ -2504,6 +2517,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
+    NSResponder *firstResponder = self.window.firstResponder;
     
     //NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@",attribute);
     if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
@@ -2515,8 +2529,8 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
     } else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
         return [NSString stringWithFormat: @"Text window%@%@%@. %@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
     } else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
-        return [NSNumber numberWithBool: self.window.firstResponder == self ||
-                self.window.firstResponder == textview];
+        return [NSNumber numberWithBool: firstResponder == self ||
+                firstResponder == textview];
     } else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
         return self.accessibilityFocusedUIElement;
     } else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {

@@ -950,6 +950,7 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
 
 - (id)accessibilityAttributeValue:(NSString *)attribute
 {
+    NSResponder *firstResponder = self.window.firstResponder;
     //NSLog(@"GlkTextGridWindow: accessibilityAttributeValue: %@",attribute);
     if ([attribute isEqualToString: NSAccessibilityContentsAttribute]) {
         return textview;
@@ -957,8 +958,8 @@ willChangeSelectionFromCharacterRange: (NSRange)oldrange
         return [NSString stringWithFormat: @"Status window%@%@%@. %@", line_request?@", waiting for commands":@"", char_request?@", waiting for a key press":@"", hyper_request?@", waiting for a hyperlink click":@"", [textview accessibilityAttributeValue:NSAccessibilityValueAttribute]];
     } else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
         //return (id)NO;
-        return [NSNumber numberWithBool: self.window.firstResponder == self ||
-                self.window.firstResponder == textview];
+        return [NSNumber numberWithBool: firstResponder == self ||
+                firstResponder == textview];
     } else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
         return self.accessibilityFocusedUIElement;
     } else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {

@@ -677,10 +677,22 @@ static const char *wintypenames[] =
         _storedTimerInterval = [timer timeInterval];
     }
     _firstResponderView = -1;
-    if ([self.window.firstResponder isKindOfClass:[GlkWindow class]]) {
-        _firstResponderView = ((GlkWindow *)self.window.firstResponder).name;
-    } else if ([self.window.firstResponder isKindOfClass:[NSTextView class]] && [((NSTextView *)self.window.firstResponder).delegate isKindOfClass:[GlkWindow class]]) {
-        _firstResponderView = ((GlkWindow *)((NSTextView *)self.window.firstResponder).delegate).name;
+
+    NSResponder *firstResponder = self.window.firstResponder;
+
+    if ([firstResponder isKindOfClass:[GlkWindow class]]) {
+        _firstResponderView = ((GlkWindow *)firstResponder).name;
+    } else {
+        id delegate = nil;
+        if ([firstResponder isKindOfClass:[NSTextView class]]) {
+            delegate = ((NSTextView *)firstResponder).delegate;
+            if (![delegate isKindOfClass:[GlkWindow class]]) {
+                delegate = nil;
+            }
+        }
+        if (delegate) {
+            _firstResponderView = ((GlkWindow *)delegate).name;
+        }
     }
     [encoder encodeInteger:_firstResponderView forKey:@"firstResponder"];
     [encoder encodeDouble:_storedTimerLeft forKey:@"timerLeft"];
