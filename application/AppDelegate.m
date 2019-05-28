@@ -238,20 +238,17 @@ NSDictionary *gFormatMap;
     return YES;
 }
 
-- (BOOL) applicationOpenUntitledFile: (NSApplication*)theApp
-{
+- (BOOL) applicationOpenUntitledFile: (NSApplication*)theApp {
     NSLog(@"appdel: applicationOpenUntitledFile");
     [self showLibrary: nil];
     return YES;
 }
 
-- (NSWindow *) preferencePanel
-{
+- (NSWindow *) preferencePanel {
 	return _prefctl.window;
 }
 
--(void)addToRecents:(NSArray*)URLs
-{
+-(void)addToRecents:(NSArray*)URLs {
     if (!addToRecents) {
         addToRecents = YES;
         return;
@@ -269,22 +266,19 @@ NSDictionary *gFormatMap;
 }
 
 
--(void)application:(NSApplication *)sender openFiles:(NSArray *)filenames
-{
+-(void)application:(NSApplication *)sender openFiles:(NSArray *)filenames {
     /* This is called when we select a file from the Open Recent menu,
      so we don't add them again */
 
     addToRecents = NO;
-    for (NSString *path in filenames)
-    {
+    for (NSString *path in filenames) {
         [self application: NSApp openFile: path];
     }
     addToRecents = YES;
 
 }
 
-- (NSApplicationTerminateReply) applicationShouldTerminate: (NSApplication *)app
-{
+- (NSApplicationTerminateReply) applicationShouldTerminate: (NSApplication *)app {
     NSArray *windows = app.windows;
     NSInteger count = windows.count;
     NSInteger alive = 0;
