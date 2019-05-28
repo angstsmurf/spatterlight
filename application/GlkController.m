@@ -84,8 +84,8 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 }
 
 - (void)viewDidEndLiveResize {
-    //    NSLog (@"GlkHelperView (_contentView) viewDidEndLiveResize self.frame:
-    //    %@", NSStringFromRect(self.frame));
+    // NSLog (@"GlkHelperView (_contentView) viewDidEndLiveResize self.frame:
+    //  %@", NSStringFromRect(self.frame));
     // We use a custom fullscreen width, so don't resize to full screen width
     // when viewDidEndLiveResize is called because we just entered fullscreen
     if ((delegate.window.styleMask & NSFullScreenWindowMask) !=
@@ -166,9 +166,7 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 
     lastContentResize = NSZeroRect;
     _inFullscreen = NO;
-
     _windowPreFullscreenFrame = NSZeroRect;
-
     borderFullScreenSize = NSZeroSize;
 
     restoredController = nil;
@@ -260,31 +258,25 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
             NSFullScreenWindowMask)
             [self enterFullscreen];
     }
-
     _contentView.autoresizingMask =
     NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
     [self.window setFrame:restoredController.storedWindowFrame display:YES];
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     _contentView.frame = restoredController.storedContentFrame;
-    NSLog(@"runTerp: Setting window frame from restored controller: %@",
-          NSStringFromRect(restoredController.storedWindowFrame));
 
     shouldRestoreUI = YES;
-
     [self forkInterpreterTask];
 
-    // The game has to start before we can restore the UI properly, so we don't
-    // have to do any more for now.
+    // The game has to start before we can restore
+    // the UI properly, so we don't have to do anything
+    // else here for now.
 }
 
 - (void)runTerpNormal {
 
     // Just start the game with no autorestore or fullscreen or resetting
-
     [self.window setContentSize:Preferences.defaultWindowSize];
-
     [self forkInterpreterTask];
-
     [self showWindow:nil];
 }
 
