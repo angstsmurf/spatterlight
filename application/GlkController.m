@@ -308,8 +308,6 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     _contentView.frame = restoredController.storedContentFrame;
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-    [self setBorderColor:[Preferences bufferBackground]];
-
     [self restoreUI:restoredController];
     self.window.title =
     [self.window.title stringByAppendingString:@" (finished)"];
@@ -688,6 +686,18 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
         _autosaveFileTerp =
         [_appSupportDir stringByAppendingPathComponent:@"autosave.plist"];
     return _autosaveFileTerp;
+}
+
+- (void) deleteAutosaveFilesForGameFile:(NSString *)gamefile_
+                                withInfo:(NSDictionary *)gameinfo_ {
+    gamefile = gamefile_;
+    gameinfo = gameinfo_;
+
+    [self appSupportDir];
+    [self autosaveFileGUI];
+    [self autosaveFileTerp];
+
+    [self deleteAutosaveFiles];
 }
 
 - (void)deleteAutosaveFiles {

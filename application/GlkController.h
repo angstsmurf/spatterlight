@@ -127,6 +127,11 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
             info:(NSDictionary *)gameinfo
          options:(AutorestoreOptions)flags;
 
+- (void) deleteAutosaveFilesForGameFile:(NSString *)gamefile_
+                                withInfo:(NSDictionary *)gameinfo_;
+
+- (IBAction)reset:(id)sender;
+
 - (void)queueEvent:(GlkEvent *)gevent;
 - (void)contentDidResize:(NSRect)frame;
 - (void)markLastSeen;

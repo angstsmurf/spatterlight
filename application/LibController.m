@@ -302,6 +302,33 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     [_searchField selectText:self];
 }
 
+- (IBAction)reset:(id)sender {
+    NSIndexSet *rows = _gameTableView.selectedRowIndexes;
+
+    // If we clicked outside selected rows, only show info for clicked row
+    if (_gameTableView.clickedRow != -1 &&
+        ![rows containsIndex:_gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
+
+    NSInteger i;
+    for (i = rows.firstIndex; i != NSNotFound;
+         i = [rows indexGreaterThanIndex:i]) {
+        NSString *ifid = [gameTableModel objectAtIndex:i];
+        NSString *path = [games objectForKey:ifid];
+        NSDictionary *info = [metadata objectForKey:ifid];
+
+        GlkController *gctl = [_gameSessions objectForKey:ifid];
+
+        if (gctl) {
+            [gctl reset:sender];
+        } else {
+            gctl = [[GlkController alloc] init];
+            [gctl deleteAutosaveFilesForGameFile:path
+                                      withInfo:info];
+        }
+    }
+}
+
 #pragma mark Contextual menu
 
 - (IBAction)playGame:(id)sender {
@@ -414,11 +441,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     }
 }
 
-- (IBAction)delete:(id)sender {
+- (IBAction) delete:(id)sender {
     [self deleteGame:sender];
 }
 
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+- (BOOL) validateMenuItem:(NSMenuItem *)menuItem {
     SEL action = menuItem.action;
     NSInteger count = _gameTableView.numberOfSelectedRows;
 
@@ -445,6 +472,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         return count > 0;
 
     if (action == @selector(showGameInfo:))
+        return count > 0;
+
+    if (action == @selector(reset:))
         return count > 0;
 
     if (action == @selector(playGame:))
