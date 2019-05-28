@@ -6,8 +6,7 @@
 #define TAG_SPACES_ONE 1
 #define TAG_SPACES_TWO 2
 
-@interface Preferences : NSWindowController <NSWindowDelegate>
-{
+@interface Preferences : NSWindowController <NSWindowDelegate> {
     IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
     IBOutlet NSColorWell *clrInputFg, *clrBufferFg, *clrGridFg;
     IBOutlet NSColorWell *clrBufferBg, *clrGridBg;
@@ -20,61 +19,61 @@
     IBOutlet NSButton *btnEnableSound;
     IBOutlet NSButton *btnEnableStyles;
     IBOutlet NSButton *btnUseScreenFonts;
-    NSFont * __strong *selfontp;
-    NSColor * __strong *colorp;
-    NSColor * __strong *colorp2;
+    NSFont *__strong *selfontp;
+    NSColor *__strong *colorp;
+    NSColor *__strong *colorp2;
 }
 
-+ (void) rebuildTextAttributes;
++ (void)rebuildTextAttributes;
 
-+ (NSSize) defaultWindowSize;
++ (NSSize)defaultWindowSize;
 
-- (IBAction) changeColor: (id)sender;
-- (IBAction) showFontPanel: (id)sender;
-- (IBAction) changeFont: (id)sender;
-- (IBAction) changeMargin: (id)sender;
-- (IBAction) changeLeading: (id)sender;
-- (IBAction) changeSmartQuotes: (id)sender;
-- (IBAction) changeSpaceFormatting: (id)sender;
-- (IBAction) changeDefaultSize: (id)sender;
-- (IBAction) changeBorderSize: (id)sender;
-- (IBAction) changeEnableGraphics: (id)sender;
-- (IBAction) changeEnableSound: (id)sender;
-- (IBAction) changeEnableStyles: (id)sender;
-- (IBAction) changeUseScreenFonts: (id)sender;
+- (IBAction)changeColor:(id)sender;
+- (IBAction)showFontPanel:(id)sender;
+- (IBAction)changeFont:(id)sender;
+- (IBAction)changeMargin:(id)sender;
+- (IBAction)changeLeading:(id)sender;
+- (IBAction)changeSmartQuotes:(id)sender;
+- (IBAction)changeSpaceFormatting:(id)sender;
+- (IBAction)changeDefaultSize:(id)sender;
+- (IBAction)changeBorderSize:(id)sender;
+- (IBAction)changeEnableGraphics:(id)sender;
+- (IBAction)changeEnableSound:(id)sender;
+- (IBAction)changeEnableStyles:(id)sender;
+- (IBAction)changeUseScreenFonts:(id)sender;
 
-+ (void) zoomIn;
-+ (void) zoomOut;
-+ (void) zoomToActualSize;
-+ (void) scale:(CGFloat)scalefactor;
-- (void) updatePanelAfterZoom;
++ (void)zoomIn;
++ (void)zoomOut;
++ (void)zoomToActualSize;
++ (void)scale:(CGFloat)scalefactor;
+- (void)updatePanelAfterZoom;
 
-+ (NSColor*) gridBackground;
-+ (NSColor*) gridForeground;
-+ (NSColor*) bufferBackground;
-+ (NSColor*) bufferForeground;
-+ (NSColor*) inputColor;
++ (NSColor *)gridBackground;
++ (NSColor *)gridForeground;
++ (NSColor *)bufferBackground;
++ (NSColor *)bufferForeground;
++ (NSColor *)inputColor;
 
-+ (NSColor*) foregroundColor: (int)number;
-+ (NSColor*) backgroundColor: (int)number;
++ (NSColor *)foregroundColor:(int)number;
++ (NSColor *)backgroundColor:(int)number;
 
-+ (float) lineHeight;
-+ (float) charWidth;
-+ (CGFloat) gridMargins;
-+ (CGFloat) bufferMargins;
-+ (CGFloat) border;
-+ (CGFloat) leading;
++ (float)lineHeight;
++ (float)charWidth;
++ (CGFloat)gridMargins;
++ (CGFloat)bufferMargins;
++ (CGFloat)border;
++ (CGFloat)leading;
 
-+ (BOOL) stylesEnabled;
-+ (BOOL) smartQuotes;
-+ (NSInteger) spaceFormat;
++ (BOOL)stylesEnabled;
++ (BOOL)smartQuotes;
++ (NSInteger)spaceFormat;
 
-+ (BOOL) graphicsEnabled;
-+ (BOOL) soundEnabled;
-+ (BOOL) useScreenFonts;
++ (BOOL)graphicsEnabled;
++ (BOOL)soundEnabled;
++ (BOOL)useScreenFonts;
 
-+ (Preferences *) instance;
-+ (NSDictionary*) attributesForGridStyle: (int)style;
-+ (NSDictionary*) attributesForBufferStyle: (int)style;
++ (Preferences *)instance;
++ (NSDictionary *)attributesForGridStyle:(int)style;
++ (NSDictionary *)attributesForBufferStyle:(int)style;
 
 @end

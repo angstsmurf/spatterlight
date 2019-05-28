@@ -2,26 +2,25 @@
 
 unsigned chartokeycode(unsigned ch);
 
-@interface GlkEvent : NSObject
-{
+@interface GlkEvent : NSObject {
     NSInteger win;
     NSString *ln;
 }
 
-- (instancetype) initPrefsEvent;
-- (instancetype) initCharEvent: (unsigned)v forWindow: (NSInteger)name;
-- (instancetype) initLineEvent: (NSString*)v forWindow: (NSInteger)name;
-- (instancetype) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name;
-- (instancetype) initTimerEvent;
-- (instancetype) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
-- (instancetype) initSoundNotify: (NSInteger)notify withSound: (NSInteger)sound;
-- (instancetype) initVolumeNotify: (NSInteger)notify;
-- (instancetype) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name;
+- (instancetype)initPrefsEvent;
+- (instancetype)initCharEvent:(unsigned)v forWindow:(NSInteger)name;
+- (instancetype)initLineEvent:(NSString *)v forWindow:(NSInteger)name;
+- (instancetype)initMouseEvent:(NSPoint)v forWindow:(NSInteger)name;
+- (instancetype)initTimerEvent;
+- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah;
+- (instancetype)initSoundNotify:(NSInteger)notify withSound:(NSInteger)sound;
+- (instancetype)initVolumeNotify:(NSInteger)notify;
+- (instancetype)initLinkEvent:(NSUInteger)linkid forWindow:(NSInteger)name;
 
-- (void) writeEvent: (NSInteger)fd;
+- (void)writeEvent:(NSInteger)fd;
 
-@property (readonly) NSInteger type;
-@property (readonly) NSUInteger val1;
-@property (readonly) NSUInteger val2;
+@property(readonly) NSInteger type;
+@property(readonly) NSUInteger val1;
+@property(readonly) NSUInteger val2;
 
 @end

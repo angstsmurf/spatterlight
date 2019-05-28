@@ -8,8 +8,7 @@
  * change.
  */
 
-@interface GlkStyle : NSObject
-{
+@interface GlkStyle : NSObject {
     NSMutableDictionary *dict;
     NSInteger stylenumber;
     NSInteger windowtype;
@@ -17,13 +16,13 @@
     NSInteger value[stylehint_NUMHINTS];
 }
 
-- initWithStyle: (NSInteger)stylenumber_
-     windowType: (NSInteger)windowtype_
-         enable: (NSInteger *)enablearray
-          value: (NSInteger *)valuearray;
-- (void) prefsDidChange;
-- (BOOL) valueForHint: (NSInteger) hint value:(NSInteger *)val;
+- initWithStyle:(NSInteger)stylenumber_
+     windowType:(NSInteger)windowtype_
+         enable:(NSInteger *)enablearray
+          value:(NSInteger *)valuearray;
+- (void)prefsDidChange;
+- (BOOL)valueForHint:(NSInteger)hint value:(NSInteger *)val;
 
-- (NSDictionary *) attributes;
+- (NSDictionary *)attributes;
 
 @end

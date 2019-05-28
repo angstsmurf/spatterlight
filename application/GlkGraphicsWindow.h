@@ -1,6 +1,5 @@
 
-@interface GlkGraphicsWindow : GlkWindow
-{
+@interface GlkGraphicsWindow : GlkWindow {
     NSImage *image;
     BOOL dirty;
     BOOL mouse_request;

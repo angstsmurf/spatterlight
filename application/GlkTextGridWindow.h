@@ -1,26 +1,26 @@
 /* TextGrid window controller */
 
-@interface GlkTextGridWindow : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate>
-{
+@interface GlkTextGridWindow
+    : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate> {
     NSTextField *input;
-	NSTextView *textview;
+    NSTextView *textview;
     NSScrollView *scrollview;
-	NSTextStorage *textstorage;
-	NSLayoutManager *layoutmanager;
-	NSTextContainer *container;
+    NSTextStorage *textstorage;
+    NSLayoutManager *layoutmanager;
+    NSTextContainer *container;
     NSInteger rows, cols;
     NSInteger xpos, ypos;
     BOOL line_request;
-	BOOL hyper_request;
+    BOOL hyper_request;
     BOOL mouse_request;
     BOOL dirty;
     BOOL transparent;
 }
 
 @property NSRange restoredSelection;
-- (void) restoreSelection;
+- (void)restoreSelection;
 
-- (BOOL) myMouseDown: (NSEvent*)theEvent;
+- (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (IBAction)speakStatus:(id)sender;
 
 @end

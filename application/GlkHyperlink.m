@@ -9,30 +9,26 @@
 
 @implementation GlkHyperlink
 
-- (instancetype) initWithIndex: (NSUInteger)index andPos: (NSUInteger)pos
-{
-	self = [super init];
-	if (self)
-	{
-		_index = index;
-		_startpos = pos;
-	}
-	return self;
+- (instancetype)initWithIndex:(NSUInteger)index andPos:(NSUInteger)pos {
+    self = [super init];
+    if (self) {
+        _index = index;
+        _startpos = pos;
+    }
+    return self;
 }
 
-- (instancetype) initWithCoder:(NSCoder *)decoder
-{
-	_index= [decoder decodeIntegerForKey:@"index"];
-	_startpos = [decoder decodeIntegerForKey:@"startpos"];
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+    _index = [decoder decodeIntegerForKey:@"index"];
+    _startpos = [decoder decodeIntegerForKey:@"startpos"];
     NSValue *rangeVal = [decoder decodeObjectForKey:@"range"];
     _range = rangeVal.rangeValue;
     _bounds = [decoder decodeRectForKey:@"bounds"];
-	return self;
+    return self;
 }
 
-- (void) encodeWithCoder:(NSCoder *)encoder
-{
-	[encoder encodeInteger:_index forKey:@"index"];
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeInteger:_index forKey:@"index"];
     [encoder encodeInteger:_startpos forKey:@"startpos"];
     NSValue *rangeVal = [NSValue valueWithRange:_range];
     [encoder encodeObject:rangeVal forKey:@"range"];

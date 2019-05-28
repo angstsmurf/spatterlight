@@ -2,33 +2,26 @@
 
 @implementation GlkWindow
 
-- (instancetype) initWithGlkController: (GlkController*)glkctl_ name: (NSInteger)name
-{
+- (instancetype)initWithGlkController:(GlkController *)glkctl_
+                                 name:(NSInteger)name {
     self = [super initWithFrame:NSZeroRect];
 
-    if (self)
-    {
+    if (self) {
         _glkctl = glkctl_;
         _name = name;
         bgnd = 0xFFFFFF; // White
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         while (styles.count < style_NUMSTYLES)
             [styles addObject:[[GlkStyle alloc] init]];
-        _pendingTerminators = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                               @(NO), @keycode_Func1,
-                               @(NO), @keycode_Func2,
-                               @(NO), @keycode_Func3,
-                               @(NO), @keycode_Func4,
-                               @(NO), @keycode_Func5,
-                               @(NO), @keycode_Func6,
-                               @(NO), @keycode_Func7,
-                               @(NO), @keycode_Func8,
-                               @(NO), @keycode_Func9,
-                               @(NO), @keycode_Func10,
-                               @(NO), @keycode_Func11,
-                               @(NO), @keycode_Func12,
-                               @(NO), @keycode_Escape,
-                               nil];
+        _pendingTerminators = [[NSMutableDictionary alloc]
+            initWithObjectsAndKeys:@(NO), @keycode_Func1, @(NO), @keycode_Func2,
+                                   @(NO), @keycode_Func3, @(NO), @keycode_Func4,
+                                   @(NO), @keycode_Func5, @(NO), @keycode_Func6,
+                                   @(NO), @keycode_Func7, @(NO), @keycode_Func8,
+                                   @(NO), @keycode_Func9, @(NO),
+                                   @keycode_Func10, @(NO), @keycode_Func11,
+                                   @(NO), @keycode_Func12, @(NO),
+                                   @keycode_Escape, nil];
         currentTerminators = _pendingTerminators;
         _terminatorsPending = NO;
     }
@@ -36,29 +29,29 @@
     return self;
 }
 
-- (instancetype) initWithCoder:(NSCoder *)decoder
-{
+- (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
-    if (self)
-    {
+    if (self) {
         styles = [decoder decodeObjectForKey:@"styles"];
         _name = [decoder decodeIntegerForKey:@"name"];
         bgnd = [decoder decodeIntegerForKey:@"bgnd"];
         hyperlinks = [decoder decodeObjectForKey:@"hyperlinks"];
         currentHyperlink = [decoder decodeObjectForKey:@"currentHyperlink"];
         currentTerminators = [decoder decodeObjectForKey:@"currentTerminators"];
-        _pendingTerminators = [decoder decodeObjectForKey:@"pendingTerminators"];
+        _pendingTerminators =
+            [decoder decodeObjectForKey:@"pendingTerminators"];
         _terminatorsPending = [decoder decodeBoolForKey:@"terminatorsPending"];
         char_request = [decoder decodeBoolForKey:@"char_request"];
         _restoredFrame = [decoder decodeRectForKey:@"restoredFrame"];
-        _restoredResizingMask = [decoder decodeIntegerForKey:@"autoresizingMask"];
-        NSLog(@"Decoded frame %@ for GlkWindow %ld", NSStringFromRect(_restoredFrame), self.name);
+        _restoredResizingMask =
+            [decoder decodeIntegerForKey:@"autoresizingMask"];
+        NSLog(@"Decoded frame %@ for GlkWindow %ld",
+              NSStringFromRect(_restoredFrame), self.name);
     }
     return self;
 }
 
-- (void) encodeWithCoder:(NSCoder *)encoder
-{
+- (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
 
     [encoder encodeInteger:_name forKey:@"name"];
@@ -74,25 +67,33 @@
     [encoder encodeRect:self.frame forKey:@"restoredFrame"];
 }
 
-- (NSString *) sayMask: (NSUInteger)mask {
-    NSString *maskToSay = [NSString stringWithFormat:@" %@ | %@", (mask & NSViewWidthSizable)?@"NSViewWidthSizable":@"NSViewMaxXMargin", (mask & NSViewHeightSizable)?@"NSViewHeightSizable":@"NSViewMaxYMargin"];
+- (NSString *)sayMask:(NSUInteger)mask {
+    NSString *maskToSay = [NSString
+        stringWithFormat:@" %@ | %@",
+                         (mask & NSViewWidthSizable) ? @"NSViewWidthSizable"
+                                                     : @"NSViewMaxXMargin",
+                         (mask & NSViewHeightSizable) ? @"NSViewHeightSizable"
+                                                      : @"NSViewMaxYMargin"];
     return maskToSay;
 }
 
-- (void) setStyle: (NSInteger)style windowType: (NSInteger)wintype enable: (NSInteger*)enable value:(NSInteger*)value
-{
+- (void)setStyle:(NSInteger)style
+      windowType:(NSInteger)wintype
+          enable:(NSInteger *)enable
+           value:(NSInteger *)value {
     [styles removeObjectAtIndex:style];
-    [styles insertObject:[[GlkStyle alloc] initWithStyle: style
-                                         windowType: wintype
-                                             enable: enable
-                                                value: value] atIndex:style];
+    [styles insertObject:[[GlkStyle alloc] initWithStyle:style
+                                              windowType:wintype
+                                                  enable:enable
+                                                   value:value]
+                 atIndex:style];
 }
 
-- (BOOL) getStyleVal: (NSInteger)style hint: (NSInteger)hint value:(NSInteger *)value
-{
+- (BOOL)getStyleVal:(NSInteger)style
+               hint:(NSInteger)hint
+              value:(NSInteger *)value {
     GlkStyle *checkedStyle = [styles objectAtIndex:style];
-    if(checkedStyle)
-    {
+    if (checkedStyle) {
         if ([checkedStyle valueForHint:hint value:value])
             return YES;
     }
@@ -100,168 +101,149 @@
     return NO;
 }
 
-- (BOOL) isOpaque
-{
+- (BOOL)isOpaque {
     return YES;
 }
 
-- (void) prefsDidChange
-{
+- (void)prefsDidChange {
     NSInteger i;
     for (i = 0; i < style_NUMSTYLES; i++)
         [[styles objectAtIndex:i] prefsDidChange];
 }
 
-- (void) terpDidStop
-{
+- (void)terpDidStop {
 }
 
-- (BOOL) wantsFocus
-{
+- (BOOL)wantsFocus {
     return NO;
 }
 
-- (void) grabFocus
-{
+- (void)grabFocus {
     // NSLog(@"grab focus in window %ld", self.name);
-    [self.window makeFirstResponder: self];
-    NSAccessibilityPostNotification( self, NSAccessibilityFocusedUIElementChangedNotification );
+    [self.window makeFirstResponder:self];
+    NSAccessibilityPostNotification(
+        self, NSAccessibilityFocusedUIElementChangedNotification);
 }
 
-- (void) flushDisplay
-{
+- (void)flushDisplay {
 }
 
-- (void) setBgColor: (NSInteger)bc
-{
+- (void)setBgColor:(NSInteger)bc {
     NSLog(@"set background color in %@ not allowed", [self class]);
 }
 
-- (void) fillRects: (struct fillrect *)rects count: (NSInteger)n
-{
+- (void)fillRects:(struct fillrect *)rects count:(NSInteger)n {
     NSLog(@"fillrect in %@ not implemented", [self class]);
 }
 
-- (void) drawImage: (NSImage*)buf val1: (NSInteger)v1 val2: (NSInteger)v2 width: (NSInteger)w height: (NSInteger)h
-{
+- (void)drawImage:(NSImage *)buf
+             val1:(NSInteger)v1
+             val2:(NSInteger)v2
+            width:(NSInteger)w
+           height:(NSInteger)h {
     NSLog(@"drawimage in %@ not implemented", [self class]);
 }
 
-- (void) flowBreak
-{
+- (void)flowBreak {
     NSLog(@"flowbreak in %@ not implemented", [self class]);
 }
 
-- (void) makeTransparent
-{
+- (void)makeTransparent {
     NSLog(@"makeTransparent in %@ not implemented", [self class]);
 }
 
-- (void) markLastSeen { }
-- (void) performScroll { }
+- (void)markLastSeen {
+}
+- (void)performScroll {
+}
 
-- (void) clear
-{
+- (void)clear {
     NSLog(@"clear in %@ not implemented", [self class]);
 }
 
-- (void) putString:(NSString*)buf style:(NSInteger)style
-{
+- (void)putString:(NSString *)buf style:(NSInteger)style {
     NSLog(@"print in %@ not implemented", [self class]);
 }
 
-- (NSDictionary *) attributesFromStylevalue: (NSInteger)stylevalue
-{
+- (NSDictionary *)attributesFromStylevalue:(NSInteger)stylevalue {
     NSInteger style = stylevalue & 0xff;
     NSInteger fg = (stylevalue >> 8) & 0xff;
     NSInteger bg = (stylevalue >> 16) & 0xff;
 
-    if (fg || bg)
-    {
-        NSMutableDictionary *mutatt = [((GlkStyle *)([styles objectAtIndex:style])).attributes mutableCopy];
+    if (fg || bg) {
+        NSMutableDictionary *mutatt =
+            [((GlkStyle *)(
+                  [styles objectAtIndex:style])).attributes mutableCopy];
         [mutatt setObject:@(stylevalue) forKey:@"GlkStyle"];
-        if ([Preferences stylesEnabled])
-        {
+        if ([Preferences stylesEnabled]) {
             if (fg)
-                [mutatt setObject:[Preferences foregroundColor: (int)(fg - 1)] forKey:NSForegroundColorAttributeName];
+                [mutatt setObject:[Preferences foregroundColor:(int)(fg - 1)]
+                           forKey:NSForegroundColorAttributeName];
             if (bg)
-                [mutatt setObject:[Preferences backgroundColor: (int)(bg - 1)] forKey:NSBackgroundColorAttributeName];
+                [mutatt setObject:[Preferences backgroundColor:(int)(bg - 1)]
+                           forKey:NSBackgroundColorAttributeName];
         }
-        return (NSDictionary *) mutatt;
-    }
-    else
-    {
+        return (NSDictionary *)mutatt;
+    } else {
         return ((GlkStyle *)([styles objectAtIndex:style])).attributes;
     }
 }
 
-- (void) moveToColumn:(NSInteger)x row:(NSInteger)y
-{
+- (void)moveToColumn:(NSInteger)x row:(NSInteger)y {
     NSLog(@"move cursor in %@ not implemented", [self class]);
 }
 
-- (void) initLine: (NSString*)buf
-{
+- (void)initLine:(NSString *)buf {
     NSLog(@"line input in %@ not implemented", [self class]);
 }
 
-- (NSString*) cancelLine
-{
+- (NSString *)cancelLine {
     return @"";
 }
 
-- (void) initChar
-{
+- (void)initChar {
     NSLog(@"char input in %@ not implemented", [self class]);
 }
 
-- (void) cancelChar
-{
+- (void)cancelChar {
 }
 
-- (void) initMouse
-{
+- (void)initMouse {
     NSLog(@"mouse input in %@ not implemented", [self class]);
 }
 
-- (void) cancelMouse
-{
+- (void)cancelMouse {
 }
 
-- (void) setHyperlink: (NSUInteger)linkid;
-{
+- (void)setHyperlink:(NSUInteger)linkid;
+{ NSLog(@"hyperlink input in %@ not implemented", [self class]); }
+
+- (void)initHyperlink {
     NSLog(@"hyperlink input in %@ not implemented", [self class]);
 }
 
-- (void) initHyperlink
-{
+- (void)cancelHyperlink {
     NSLog(@"hyperlink input in %@ not implemented", [self class]);
 }
 
-- (void) cancelHyperlink
-{
-    NSLog(@"hyperlink input in %@ not implemented", [self class]);
-}
-
-- (BOOL) hasLineRequest
-{
+- (BOOL)hasLineRequest {
     return NO;
 }
 
 #pragma mark -
 #pragma mark Windows restoration
 
-+ (NSArray *)restorableStateKeyPaths
-{
++ (NSArray *)restorableStateKeyPaths {
     return @[ @"name" ];
 }
 
 #pragma mark Accessibility
 
 - (BOOL)accessibilityIsIgnored {
-	return NO;
+    return NO;
 }
 
-- (void) restoreSelection {}
+- (void)restoreSelection {
+}
 
 @end

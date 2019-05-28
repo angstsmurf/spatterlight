@@ -13,5 +13,4 @@
 - (NSString *)signatureFromFile;
 - (NSString *)scrubInvalidCharacters;
 
-
 @end

@@ -4,23 +4,20 @@
 
 @implementation GlkEvent
 
-- (instancetype) init
-{
+- (instancetype)init {
     return [self initPrefsEvent];
 }
 
-- (instancetype) initWithCoder:(NSCoder *)decoder
-{
+- (instancetype)initWithCoder:(NSCoder *)decoder {
     _type = [decoder decodeIntegerForKey:@"type"];
-    win  = [decoder decodeIntegerForKey:@"win"];
+    win = [decoder decodeIntegerForKey:@"win"];
     _val1 = [decoder decodeIntegerForKey:@"val1"];
     _val2 = [decoder decodeIntegerForKey:@"val2"];
     ln = [decoder decodeObjectForKey:@"ln"];
     return self;
 }
 
-- (void) encodeWithCoder:(NSCoder *)encoder
-{
+- (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeInteger:_type forKey:@"type"];
     [encoder encodeInteger:win forKey:@"win"];
     [encoder encodeInteger:_val1 forKey:@"val1"];
@@ -28,49 +25,59 @@
     [encoder encodeObject:ln forKey:@"ln"];
 }
 
-unsigned chartokeycode(unsigned ch)
-{
-    switch (ch)
-    {
-        case '\n':
-        case '\r':
-            return keycode_Return;
-        case '\t':
-            return keycode_Tab;
-        case 8:
-        case 127:
-        case NSDeleteFunctionKey:
-            return keycode_Delete;
-        case NSUpArrowFunctionKey:
-            return keycode_Up;
-        case NSDownArrowFunctionKey:
-            return keycode_Down;
-        case NSLeftArrowFunctionKey:
-            return keycode_Left;
-        case NSRightArrowFunctionKey:
-            return keycode_Right;
-        case NSPageDownFunctionKey:
-            return keycode_PageDown;
-        case NSPageUpFunctionKey:
-            return keycode_PageUp;
-        case NSHomeFunctionKey:
-            return keycode_Home;
-        case NSEndFunctionKey:
-            return keycode_End;
-        case NSF1FunctionKey: return keycode_Func1;
-        case NSF2FunctionKey: return keycode_Func2;
-        case NSF3FunctionKey: return keycode_Func3;
-        case NSF4FunctionKey: return keycode_Func4;
-        case NSF5FunctionKey: return keycode_Func5;
-        case NSF6FunctionKey: return keycode_Func6;
-        case NSF7FunctionKey: return keycode_Func7;
-        case NSF8FunctionKey: return keycode_Func8;
-        case NSF9FunctionKey: return keycode_Func9;
-        case NSF10FunctionKey: return keycode_Func10;
-        case NSF11FunctionKey: return keycode_Func11;
-        case NSF12FunctionKey: return keycode_Func12;
-        case '\e':
-            return keycode_Escape;
+unsigned chartokeycode(unsigned ch) {
+    switch (ch) {
+    case '\n':
+    case '\r':
+        return keycode_Return;
+    case '\t':
+        return keycode_Tab;
+    case 8:
+    case 127:
+    case NSDeleteFunctionKey:
+        return keycode_Delete;
+    case NSUpArrowFunctionKey:
+        return keycode_Up;
+    case NSDownArrowFunctionKey:
+        return keycode_Down;
+    case NSLeftArrowFunctionKey:
+        return keycode_Left;
+    case NSRightArrowFunctionKey:
+        return keycode_Right;
+    case NSPageDownFunctionKey:
+        return keycode_PageDown;
+    case NSPageUpFunctionKey:
+        return keycode_PageUp;
+    case NSHomeFunctionKey:
+        return keycode_Home;
+    case NSEndFunctionKey:
+        return keycode_End;
+    case NSF1FunctionKey:
+        return keycode_Func1;
+    case NSF2FunctionKey:
+        return keycode_Func2;
+    case NSF3FunctionKey:
+        return keycode_Func3;
+    case NSF4FunctionKey:
+        return keycode_Func4;
+    case NSF5FunctionKey:
+        return keycode_Func5;
+    case NSF6FunctionKey:
+        return keycode_Func6;
+    case NSF7FunctionKey:
+        return keycode_Func7;
+    case NSF8FunctionKey:
+        return keycode_Func8;
+    case NSF9FunctionKey:
+        return keycode_Func9;
+    case NSF10FunctionKey:
+        return keycode_Func10;
+    case NSF11FunctionKey:
+        return keycode_Func11;
+    case NSF12FunctionKey:
+        return keycode_Func12;
+    case '\e':
+        return keycode_Escape;
     }
 
     if (ch < 0x200000)
@@ -79,12 +86,12 @@ unsigned chartokeycode(unsigned ch)
     return keycode_Unknown;
 }
 
-- (instancetype) initPrefsEvent
-{
-    NSLog(@"GlkEvent initPrefsEvent graphicsEnabled: %@ soundEnabled: %@", [Preferences graphicsEnabled]?@"YES":@"NO", [Preferences soundEnabled]?@"YES":@"NO");
+- (instancetype)initPrefsEvent {
+    NSLog(@"GlkEvent initPrefsEvent graphicsEnabled: %@ soundEnabled: %@",
+          [Preferences graphicsEnabled] ? @"YES" : @"NO",
+          [Preferences soundEnabled] ? @"YES" : @"NO");
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _type = EVTPREFS;
         _val1 = [Preferences graphicsEnabled];
         _val2 = [Preferences soundEnabled];
@@ -92,11 +99,9 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (instancetype) initCharEvent: (unsigned)v forWindow: (NSInteger)name
-{
+- (instancetype)initCharEvent:(unsigned)v forWindow:(NSInteger)name {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _type = EVTKEY;
         win = name;
         _val1 = v;
@@ -104,11 +109,9 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (instancetype) initMouseEvent: (NSPoint)v forWindow: (NSInteger)name
-{
+- (instancetype)initMouseEvent:(NSPoint)v forWindow:(NSInteger)name {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _type = EVTMOUSE;
         win = name;
         _val1 = v.x;
@@ -117,11 +120,9 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (instancetype) initLineEvent: (NSString*)v forWindow: (NSInteger)name
-{
+- (instancetype)initLineEvent:(NSString *)v forWindow:(NSInteger)name {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _type = EVTLINE;
         ln = [v copy];
         win = name;
@@ -130,20 +131,18 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (instancetype) initTimerEvent
-{
+- (instancetype)initTimerEvent {
     self = [super init];
     if (self)
         _type = EVTTIMER;
     return self;
 }
 
-- (instancetype) initArrangeWidth: (NSInteger)aw height: (NSInteger)ah;
+- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah;
 {
     NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _type = EVTARRANGE;
         _val1 = aw;
         _val2 = ah;
@@ -151,11 +150,9 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (instancetype) initSoundNotify: (NSInteger)notify withSound:(NSInteger)sound
-{
+- (instancetype)initSoundNotify:(NSInteger)notify withSound:(NSInteger)sound {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _type = EVTSOUND;
         _val1 = sound;
         _val2 = notify;
@@ -163,22 +160,18 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (instancetype) initVolumeNotify: (NSInteger)notify
-{
+- (instancetype)initVolumeNotify:(NSInteger)notify {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _type = EVTVOLUME;
         _val2 = notify;
     }
     return self;
 }
 
-- (instancetype) initLinkEvent: (NSUInteger)linkid forWindow: (NSInteger)name
-{
+- (instancetype)initLinkEvent:(NSUInteger)linkid forWindow:(NSInteger)name {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _type = EVTHYPER;
         win = name;
         _val1 = linkid;
@@ -186,20 +179,17 @@ unsigned chartokeycode(unsigned ch)
     return self;
 }
 
-- (void) writeEvent: (NSInteger)fd
-{
+- (void)writeEvent:(NSInteger)fd {
     struct message reply;
     char buf[4096];
 
-    if (ln)
-    {
+    if (ln) {
         reply.len = (int)(ln.length * 2);
         if (reply.len > (int)sizeof buf)
             reply.len = sizeof buf;
-        [ln getCharacters: (unsigned short*)buf range: NSMakeRange(0, reply.len/2)];
-    }
-    else
-    {
+        [ln getCharacters:(unsigned short *)buf
+                    range:NSMakeRange(0, reply.len / 2)];
+    } else {
         reply.len = 0;
     }
 
@@ -208,8 +198,7 @@ unsigned chartokeycode(unsigned ch)
     reply.a2 = (int)_val1;
     reply.a3 = (int)_val2;
 
-    if (_type == EVTARRANGE || _type == EVTPREFS)
-    {
+    if (_type == EVTARRANGE || _type == EVTPREFS) {
         reply.a1 = (int)_val1;
         reply.a2 = (int)_val2;
         reply.a3 = (int)[Preferences bufferMargins];

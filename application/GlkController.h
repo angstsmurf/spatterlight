@@ -11,8 +11,8 @@
  *       will succeed for more than just the last one uploaded.
  */
 
-#import "main.h"
 #import "Compatibility.h"
+#import "main.h"
 
 #define MAXWIN 64
 #define MAXSND 32
@@ -33,22 +33,21 @@
 // RESETTING means that we have killed the interpreter process and want to
 // start the game anew, deleting any existing autosave files. This reuses the
 // game window and should not resize it. A reset may be initiated by the user
-// from the file menu or autorestore alert at game stor, or may occur automatically
-// when the game has reached its end, crashed or when an autorestore attempt failed.
+// from the file menu or autorestore alert at game stor, or may occur
+// automatically when the game has reached its end, crashed or when an
+// autorestore attempt failed.
 
 typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
     AUTORESTORED_BY_SYSTEM = 1 << 0,
     RESETTING = 1 << 1
 };
 
-@interface GlkHelperView : NSView
-{
+@interface GlkHelperView : NSView {
     IBOutlet GlkController *delegate;
 }
 @end
 
-@interface GlkController : NSWindowController
-{
+@interface GlkController : NSWindowController {
     /* for talking to the interpreter */
     NSTask *task;
     NSFileHandle *readfh;
@@ -57,9 +56,9 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
     /* current state of the protocol */
     NSTimer *timer;
     NSTimer *soundNotificationsTimer;
-    BOOL waitforevent; /* terp wants an event */
+    BOOL waitforevent;    /* terp wants an event */
     BOOL waitforfilename; /* terp wants a filename from a file dialog */
-    BOOL dead; /* le roi est mort! vive le roi! */
+    BOOL dead;            /* le roi est mort! vive le roi! */
     NSDictionary *lastArrangeValues;
     NSRect lastContentResize;
 
@@ -72,7 +71,7 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
     NSSize borderFullScreenSize;
 
     /* the glk objects */
-    //GlkSoundChannel *gchannels[MAXSND];
+    // GlkSoundChannel *gchannels[MAXSND];
     BOOL windowdirty; /* the contentView needs to repaint */
 
     /* image/sound resource uploading protocol */
@@ -81,7 +80,8 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
     NSImage *lastimage;
     NSData *lastsound;
 
-    /* stylehints need to be copied to new windows, so we keep the values around */
+    /* stylehints need to be copied to new windows, so we keep the values around
+     */
     NSInteger styleuse[2][style_NUMSTYLES][stylehint_NUMHINTS];
     NSInteger styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
 
@@ -100,40 +100,40 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
 @property IBOutlet NSView *borderView;
 @property IBOutlet GlkHelperView *contentView;
 
-@property (getter=isAlive, readonly) BOOL alive;
+@property(getter=isAlive, readonly) BOOL alive;
 
-@property (readonly) NSTimeInterval storedTimerLeft;
-@property (readonly) NSTimeInterval storedTimerInterval;
-@property (readonly) NSRect storedWindowFrame;
-@property (readonly) NSRect storedContentFrame;
-@property (readonly) NSRect storedBorderFrame;
+@property(readonly) NSTimeInterval storedTimerLeft;
+@property(readonly) NSTimeInterval storedTimerInterval;
+@property(readonly) NSRect storedWindowFrame;
+@property(readonly) NSRect storedContentFrame;
+@property(readonly) NSRect storedBorderFrame;
 
-@property (readonly) NSRect windowPreFullscreenFrame;
+@property(readonly) NSRect windowPreFullscreenFrame;
 
 @property NSInteger firstResponderView;
 
 @property NSMutableArray *queue;
 
-@property (nonatomic) NSString *appSupportDir;
-@property (nonatomic) NSString *autosaveFileGUI;
-@property (nonatomic) NSString *autosaveFileTerp;
+@property(nonatomic) NSString *appSupportDir;
+@property(nonatomic) NSString *autosaveFileGUI;
+@property(nonatomic) NSString *autosaveFileTerp;
 
-@property (readonly) BOOL supportsAutorestore;
-@property (readonly) BOOL inFullscreen;
+@property(readonly) BOOL supportsAutorestore;
+@property(readonly) BOOL inFullscreen;
 
-- (void) runTerp: (NSString*)terpname
-    withGameFile: (NSString*)gamefilename
-            IFID: (NSString*)gameifid
-            info: (NSDictionary*)gameinfo
-         options: (AutorestoreOptions)flags;
+- (void)runTerp:(NSString *)terpname
+    withGameFile:(NSString *)gamefilename
+            IFID:(NSString *)gameifid
+            info:(NSDictionary *)gameinfo
+         options:(AutorestoreOptions)flags;
 
-- (void) queueEvent: (GlkEvent*)gevent;
-- (void) contentDidResize: (NSRect)frame;
-- (void) markLastSeen;
-- (void) performScroll;
-- (void) setBorderColor: (NSColor *)color;
-- (void) restoreFocus: (id) sender;
-- (void) restoreUI: (GlkController *) controller;
-- (void) autoSaveOnExit;
+- (void)queueEvent:(GlkEvent *)gevent;
+- (void)contentDidResize:(NSRect)frame;
+- (void)markLastSeen;
+- (void)performScroll;
+- (void)setBorderColor:(NSColor *)color;
+- (void)restoreFocus:(id)sender;
+- (void)restoreUI:(GlkController *)controller;
+- (void)autoSaveOnExit;
 
 @end
