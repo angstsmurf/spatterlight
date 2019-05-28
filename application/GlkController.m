@@ -157,8 +157,10 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     lastsoundresno = -1;
     lastimage = nil;
 
+    // If we are resetting, there is a bunch of stuff that we have already done
+    // and we can skip
     if (flags & RESETTING) {
-        [self runTerpAfterReset];
+        [self forkInterpreterTask];
         return;
     }
 
@@ -270,14 +272,9 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     shouldRestoreUI = YES;
 
     [self forkInterpreterTask];
-}
 
-- (void)runTerpAfterReset {
-    // If we are resetting, there is a bunch of stuff we have already done
-    // that we don't need to do again (but we still have to check that they are
-    // done, as the user can reset the game very quickly after starting)
-
-    [self forkInterpreterTask];
+    // The game has to start before we can restore the UI properly, so we don't
+    // have to do any more for now.
 }
 
 - (void)runTerpNormal {
