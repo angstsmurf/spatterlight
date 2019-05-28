@@ -692,19 +692,13 @@ static const char *wintypenames[] =
 
     shouldShowAutorestoreAlert = NO;
 
-    [self contentDidResize:_contentView.frame];
-
     NSAlert *anAlert = [[NSAlert alloc] init];
     anAlert.messageText = @"This game was automatically restored from a previous session.";
     anAlert.informativeText = @"Would you like to start over instead?";
+    anAlert.showsSuppressionButton = YES;
     anAlert.suppressionButton.title = @"Remember this choice.";
     [anAlert addButtonWithTitle:@"Continue"];
     [anAlert addButtonWithTitle:@"Restart"];
-
-    anAlert.showsSuppressionButton = YES; // Uses default checkbox title
-
-    [self showWindow:nil];
-    [self.window makeKeyAndOrderFront:nil];
 
     [anAlert beginSheetModalForWindow:self.window
                         modalDelegate:self
@@ -1694,13 +1688,13 @@ NSInteger colorToInteger(NSColor *color)
             // in order to catch things like entered text and scrolling, that has changed the
             // UI but not sent any events to the interpreter process.
 
-            if (shouldRestoreUI && turns == 2)
+            if (shouldRestoreUI && turns == 2) {
                 [self restoreUIlate];
+                if (shouldShowAutorestoreAlert)
+                    [self showAutorestoreAlert];
+            }
 
             turns++;
-
-            if (shouldShowAutorestoreAlert)
-                [self showAutorestoreAlert];
 
             [self flushDisplay];
 
@@ -2440,8 +2434,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize
     centerWindowFrame.origin.x =
     (screen.frame.size.width - centerWindowFrame.size.width ) / 2;
 
-    //CGFloat diff = [self.window frameRectForContentRect:screen.frame].size.height - screen.frame.size.height;
-
     centerWindowFrame.origin.y = NSHeight(screen.frame) - NSHeight(window.frame);
     if (NSMaxY(centerWindowFrame) > NSMaxY(screen.frame))
         centerWindowFrame.size.height -= (NSMaxY(centerWindowFrame) - NSMaxY(screen.frame));
@@ -2454,6 +2446,8 @@ willUseFullScreenContentSize:(NSSize)proposedSize
 
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin; // | NSViewMaxYMargin;
 
+    NSView *localContentView = _contentView;
+
     BOOL stashShouldShowAlert = shouldShowAutorestoreAlert;
     shouldShowAutorestoreAlert = NO;
 
@@ -2462,25 +2456,44 @@ willUseFullScreenContentSize:(NSSize)proposedSize
      {
          // First, we move the window to the center
          // of the screen
-         context.duration = duration / 2;
+         context.duration = duration / 3;
          [[window animator] setFrame:centerWindowFrame display:YES];
      }
                         completionHandler:^
      {
          [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
              // and then we enlarge it its full size.
-             context.duration = duration / 2;
+             context.duration = duration / 3;
              [[window animator] setFrame:[window frameRectForContentRect:border_finalFrame] display:YES];
-
          } completionHandler:^{
-             inFullScreenResize = NO;
-             shouldShowAutorestoreAlert = stashShouldShowAlert;
-             if (shouldShowAutorestoreAlert)
-                 [self showAutorestoreAlert];
-         } ];
+
+             NSRect contentFullScreenFrame = localContentView.frame;
+
+             contentFullScreenFrame.size.height = screen.frame.size.height - Preferences.border * 2;
+             //contentFullScreenFrame.size.height = self.window.contentView.frame.size.height - Preferences.border * 2;
+             contentFullScreenFrame.origin.y = Preferences.border;
+
+             [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+                 // then we enlarge the content view.
+                 context.duration = duration / 3;
+                 [[localContentView animator] setFrame:contentFullScreenFrame];
+             } completionHandler:^{
+
+                 [self enableArrangementEvents];
+                 GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth: contentFullScreenFrame.size.width height: contentFullScreenFrame.size.height];
+
+                 [self queueEvent: gevent];
+
+                 if (stashShouldShowAlert)
+                     [self showAutorestoreAlert];
+             }];
+         }];
      }];
 }
 
+- (void)enableArrangementEvents {
+    inFullScreenResize = NO;
+}
 
 - (void)window:window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
 {
@@ -2508,22 +2521,9 @@ willUseFullScreenContentSize:(NSSize)proposedSize
      }
      completionHandler:^
      {
-         inFullScreenResize = NO;
+         [self enableArrangementEvents];
      }
      ];
-}
-
-- (void)windowDidEnterFullScreen:(NSNotification *)notification
-{
-    NSRect contentFullScreenFrame = _contentView.frame;
-    contentFullScreenFrame.size.height = self.window.screen.frame.size.height - Preferences.border * 2;
-    contentFullScreenFrame.origin.y = Preferences.border;
-
-    [[_contentView animator] setFrame:contentFullScreenFrame];
-
-    GlkEvent *gevent;
-    gevent = [[GlkEvent alloc] initArrangeWidth: _contentView.frame.size.width height: _contentView.frame.size.height];
-    [self queueEvent: gevent];
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification
