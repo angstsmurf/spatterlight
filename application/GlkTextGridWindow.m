@@ -165,22 +165,8 @@
 
     if (self) {
         // lines = [[NSMutableArray alloc] init];
-        input = nil;
-
-        rows = 0;
-        cols = 0;
-        xpos = 0;
-        ypos = 0;
-
-        line_request = NO;
-        char_request = NO;
-        mouse_request = NO;
-        hyper_request = NO;
 
         hyperlinks = [[NSMutableArray alloc] init];
-        currentHyperlink = nil;
-
-        transparent = NO;
 
         /* construct text system manually */
 
