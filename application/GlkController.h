@@ -19,28 +19,6 @@
 
 // Define the number of custom animation steps
 #define DURATION_ADJUSTMENT 0.1
-#define ANIMATION_STEPS 2
-
-// Flags used when autorestoring.
-//
-// AUTORESTORED_BY_SYSTEM means that the window was open when
-// the application was closed, and restored by the AppDelegate
-// restoreWindowWithIdentifier method. The main difference from
-// the manual autorestore that occurs when the user clicks on a game
-// in the library window or similar, is that fullscreen is handled
-// automatically
-
-// RESETTING means that we have killed the interpreter process and want to
-// start the game anew, deleting any existing autosave files. This reuses the
-// game window and should not resize it. A reset may be initiated by the user
-// from the file menu or autorestore alert at game stor, or may occur
-// automatically when the game has reached its end, crashed or when an
-// autorestore attempt failed.
-
-typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
-    AUTORESTORED_BY_SYSTEM = 1 << 0,
-    RESETTING = 1 << 1
-};
 
 @interface GlkHelperView : NSView {
     IBOutlet GlkController *delegate;
@@ -122,13 +100,14 @@ typedef NS_OPTIONS(NSUInteger, AutorestoreOptions) {
 @property(readonly) BOOL inFullscreen;
 
 - (void)runTerp:(NSString *)terpname
-    withGameFile:(NSString *)gamefilename
-            IFID:(NSString *)gameifid
-            info:(NSDictionary *)gameinfo
-         options:(AutorestoreOptions)flags;
+   withGameFile:(NSString *)gamefilename
+           IFID:(NSString *)gameifid
+           info:(NSDictionary *)gameinfo
+          reset:(BOOL)shouldReset
+     winRestore:(BOOL)windowRestoredBySystem;
 
-- (void) deleteAutosaveFilesForGameFile:(NSString *)gamefile_
-                                withInfo:(NSDictionary *)gameinfo_;
+- (void)deleteAutosaveFilesForGameFile:(NSString *)gamefile
+                                withInfo:(NSDictionary *)gameinfo;
 
 - (IBAction)reset:(id)sender;
 

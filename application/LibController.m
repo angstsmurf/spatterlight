@@ -848,8 +848,6 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
     NSString *terp;
     GlkController *gctl = [_gameSessions objectForKey:ifid];
 
-    AutorestoreOptions options = restoreflag ? AUTORESTORED_BY_SYSTEM : 0;
-
     NSLog(@"playgame %@ %@", ifid, info);
 
     if (gctl) {
@@ -896,7 +894,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
 
     [_gameSessions setObject:gctl forKey:ifid];
 
-    [gctl runTerp:terp withGameFile:path IFID:ifid info:info options:options];
+    [gctl runTerp:terp withGameFile:path IFID:ifid info:info reset:NO winRestore:restoreflag];
     [self addURLtoRecents:[NSURL fileURLWithPath:path]];
 
     return gctl.window;

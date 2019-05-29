@@ -103,11 +103,28 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 
 #pragma mark Initialization
 
+// The two BOOL parameters in this method might need some explanation
+
+// shouldReset means that we have killed the interpreter process and want to
+// start the game anew, deleting any existing autosave files. This reuses the
+// game window and should not resize it. A reset may be initiated by the user
+// from the file menu or the autorestore alert at game start, or may occur
+// automatically when the game has reached its end, crashed or when an
+// autorestore attempt failed.
+
+// windowRestoredBySystem means that the game was running when
+// the application was last closed, and that its window was restored
+// by the AppDelegate restoreWindowWithIdentifier method. The main
+// difference from the manual autorestore that occurs when the user
+// clicks on a game in the library window or similar, is that
+// fullscreen is handled automatically
+
 - (void)runTerp:(NSString *)terpname_
    withGameFile:(NSString *)gamefile_
            IFID:(NSString *)gameifid_
            info:(NSDictionary *)gameinfo_
-        options:(AutorestoreOptions)flags {
+          reset:(BOOL)shouldReset
+     winRestore:(BOOL)windowRestoredBySystem_ {
     NSLog(@"glkctl: runterp %@ %@", terpname_, gamefile_);
 
     gamefile = gamefile_;
@@ -118,8 +135,7 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     /* Setup our own stuff */
 
     _supportsAutorestore = [self.window isRestorable];
-    windowRestoredBySystem =
-    ((flags & AUTORESTORED_BY_SYSTEM) == AUTORESTORED_BY_SYSTEM);
+    windowRestoredBySystem = windowRestoredBySystem_;
 
     shouldShowAutorestoreAlert = NO;
     shouldRestoreUI = NO;
@@ -159,7 +175,7 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 
     // If we are resetting, there is a bunch of stuff that we have already done
     // and we can skip
-    if (flags & RESETTING) {
+    if (shouldReset) {
         [self forkInterpreterTask];
         return;
     }
@@ -677,7 +693,7 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     return _autosaveFileTerp;
 }
 
-- (void) deleteAutosaveFilesForGameFile:(NSString *)gamefile_
+- (void)deleteAutosaveFilesForGameFile:(NSString *)gamefile_
                                 withInfo:(NSDictionary *)gameinfo_ {
     gamefile = gamefile_;
     gameinfo = gameinfo_;
@@ -892,7 +908,8 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
      withGameFile:(NSString *)gamefile
              IFID:gameifid
              info:gameinfo
-          options:RESETTING];
+            reset:YES
+       winRestore:NO];
 
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
@@ -1260,14 +1277,14 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
                                      defaultWindowSize.width - borders,
                                      defaultWindowSize.height - borders);
 
-        if (newframe.size.width > _borderView.frame.size.width - borders)
-            newframe.size.width = _borderView.frame.size.width - borders;
-        if (newframe.size.height > _borderView.frame.size.height - borders)
-            newframe.size.height = _borderView.frame.size.height - borders;
+        if (NSWidth(newframe) > NSWidth(_borderView.frame) - borders)
+            newframe.size.width = NSWidth(_borderView.frame) - borders;
+        if (NSHeight(newframe) > NSHeight(_borderView.frame) - borders)
+            newframe.size.height = NSHeight(_borderView.frame) - borders;
 
-        newframe.origin.x += (oldframe.size.width - newframe.size.width) / 2;
+        newframe.origin.x += (NSWidth(oldframe) - NSWidth(newframe)) / 2;
 
-        CGFloat offset = newframe.size.height - oldframe.size.height;
+        CGFloat offset = NSHeight(newframe) - NSHeight(oldframe);
         newframe.origin.y -= offset;
 
         //[[_contentView animator] setFrame:newframe];
@@ -2607,14 +2624,14 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     [_contentView setFrame:borderViewFrameMinusBorder];
 
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
-    NSViewMinYMargin; // | NSViewMaxYMargin;
+                                    NSViewMinYMargin; // Attached at top but not bottom or sides
 
     NSView *localContentView = _contentView;
 
     BOOL stashShouldShowAlert = shouldShowAutorestoreAlert;
     shouldShowAutorestoreAlert = NO;
 
-    // Our animation will be broken into two steps.
+    // Our animation will be broken into three steps.
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
          // First, we move the window to the center
