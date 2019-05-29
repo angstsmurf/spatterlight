@@ -2592,7 +2592,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     window.styleMask = (window.styleMask | NSFullScreenWindowMask);
     NSScreen *screen = window.screen;
 
-    // The final, full screen frame
     if (NSEqualSizes(borderFullScreenSize, NSZeroSize))
         borderFullScreenSize = screen.frame.size;
 
@@ -2633,54 +2632,50 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     // Our animation will be broken into three steps.
     [NSAnimationContext
-     runAnimationGroup:^(NSAnimationContext *context) {
-         // First, we move the window to the center
-         // of the screen
-         context.duration = duration / 3;
-         [[window animator] setFrame:centerWindowFrame display:YES];
-     }
-     completionHandler:^{
-         [NSAnimationContext
-          runAnimationGroup:^(NSAnimationContext *context) {
-              // and then we enlarge it its full size.
-              context.duration = duration / 3;
-              [[window animator]
-               setFrame:[window
-                         frameRectForContentRect:border_finalFrame]
-               display:YES];
-          }
-          completionHandler:^{
-              NSRect contentFullScreenFrame = localContentView.frame;
+        runAnimationGroup:^(NSAnimationContext *context) {
+            // First, we move the window to the center
+            // of the screen
+            context.duration = duration / 3;
+            [[window animator] setFrame:centerWindowFrame display:YES];
+        }
+        completionHandler:^{
+            [NSAnimationContext
+                runAnimationGroup:^(NSAnimationContext *context) {
+                    // and then we enlarge it its full size.
+                    context.duration = duration / 3;
+                    [[window animator]
+                        setFrame:[window
+                                     frameRectForContentRect:border_finalFrame]
+                         display:YES];
+                }
+                completionHandler:^{
+                    NSRect contentFullScreenFrame = localContentView.frame;
+                    contentFullScreenFrame.size.height =
+                        screen.frame.size.height - Preferences.border * 2;
+                    contentFullScreenFrame.origin.y = Preferences.border;
 
-              contentFullScreenFrame.size.height =
-              screen.frame.size.height - Preferences.border * 2;
-              // contentFullScreenFrame.size.height =
-              // self.window.contentView.frame.size.height -
-              // Preferences.border * 2;
-              contentFullScreenFrame.origin.y = Preferences.border;
+                    [NSAnimationContext
+                        runAnimationGroup:^(NSAnimationContext *context) {
+                            // then we extend the content view vertically as needed.
+                            context.duration = duration / 3;
+                            [[localContentView animator]
+                                setFrame:contentFullScreenFrame];
+                        }
+                        completionHandler:^{
+                            [self enableArrangementEvents];
+                            GlkEvent *gevent = [[GlkEvent alloc]
+                                initArrangeWidth:contentFullScreenFrame.size
+                                                     .width
+                                          height:contentFullScreenFrame.size
+                                                     .height];
 
-              [NSAnimationContext
-               runAnimationGroup:^(NSAnimationContext *context) {
-                   // then we enlarge the content view.
-                   context.duration = duration / 3;
-                   [[localContentView animator]
-                    setFrame:contentFullScreenFrame];
-               }
-               completionHandler:^{
-                   [self enableArrangementEvents];
-                   GlkEvent *gevent = [[GlkEvent alloc]
-                                       initArrangeWidth:contentFullScreenFrame.size
-                                       .width
-                                       height:contentFullScreenFrame.size
-                                       .height];
+                            [self queueEvent:gevent];
 
-                   [self queueEvent:gevent];
-
-                   if (stashShouldShowAlert)
-                       [self showAutorestoreAlert];
-               }];
-          }];
-     }];
+                            if (stashShouldShowAlert)
+                                [self showAutorestoreAlert];
+                        }];
+                }];
+        }];
 }
 
 - (void)enableArrangementEvents {
@@ -2701,19 +2696,20 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
     NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
 
     [NSAnimationContext
-     runAnimationGroup:^(NSAnimationContext *context) {
-         // Make sure the window style mask does not
-         // include full screen bit
-         [window
-          setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
-         // And then we'll move it back to its initial
-         // position.
-         context.duration = duration - 0.1;
-         [[window animator] setFrame:oldFrame display:YES];
-     }
-     completionHandler:^{
-         [self enableArrangementEvents];
-     }];
+        runAnimationGroup:^(NSAnimationContext *context) {
+            // Make sure the window style mask does not
+            // include full screen bit
+            [window
+                setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
+            // And then we'll move it back to its initial
+            // position.
+            // We subtract 0.1 seconds to avoid flicker at animation end
+            context.duration = duration - 0.1;
+            [[window animator] setFrame:oldFrame display:YES];
+        }
+        completionHandler:^{
+            [self enableArrangementEvents];
+        }];
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {

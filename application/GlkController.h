@@ -17,9 +17,6 @@
 #define MAXWIN 64
 #define MAXSND 32
 
-// Define the number of custom animation steps
-#define DURATION_ADJUSTMENT 0.1
-
 @interface GlkHelperView : NSView {
     IBOutlet GlkController *delegate;
 }
