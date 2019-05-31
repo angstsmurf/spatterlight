@@ -71,5 +71,6 @@ implementation of the Glk API by Andrew Plotkin
 
 - (id) initWithCStruct:(channel_t *)chan;
 - (void) copyToCStruct:(channel_t *)chan;
+- (void) restartInternal;
 
 @end

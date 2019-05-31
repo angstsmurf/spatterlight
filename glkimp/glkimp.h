@@ -354,10 +354,12 @@ fileref_t *gli_fileref_for_tag(int tag);
 extern void gli_replace_schan_list(channel_t *chan);
 channel_t *gli_schan_for_tag(int tag);
 
+extern void gli_initialize_sound(void);
+extern void gli_repopulate_sound_channels_array(void);
+
 extern void gli_sanity_check_windows(void);
 extern void gli_sanity_check_streams(void);
 extern void gli_sanity_check_filerefs(void);
-
 
 extern stream_t *gli_new_stream(int type, int readable, int writable,
                                 glui32 rock);
@@ -419,8 +421,6 @@ struct glk_schannel_struct
     gidispatch_rock_t disprock;
     channel_t *next, *prev;
 };
-
-extern void gli_initialize_sound(void);
 
 /* A macro that I can't think of anywhere else to put it. */
 

@@ -5,6 +5,10 @@
 
 #import "TempSChannel.h"
 
+#define SDL_MIX_MAXVOLUME 128
+#define GLK_MAXVOLUME 65536
+#define FADE_GRANULARITY 100
+
 @implementation TempSChannel
 
 - (instancetype) initWithCStruct:(channel_t *)chan {
@@ -127,7 +131,6 @@
     [encoder encodeDouble:volume_delta forKey:@"volume_delta"];
 }
 
-
 - (void) copyToCStruct:(channel_t *)chan {
 
     chan->sample = NULL; /* Mix_Chunk (or FMOD Sound) */
@@ -150,13 +153,53 @@
     chan->notify = notify;
     chan->buffered = buffered;
     chan->paused = paused;
-    //
-    //    /* for volume fades */
+
+    /* for volume fades */
     chan->volume_notify = volume_notify;
     chan->volume_timeout = volume_timeout;
     chan->target_volume = target_volume;
     chan->float_volume = float_volume;
     chan->volume_delta = volume_delta;
+}
+
+/* Restart the sound channel after a deserialize, and also any fade timer. Called from TempLibrary.updateFromLibraryLate. This is currently a primitive implementation
+    which disregards how much of the sound had played when the game was
+    autosaved or killed.
+ */
+- (void)restartInternal {
+
+    channel_t *chan = gli_schan_for_tag(_tag);
+
+    if (chan->status == CHANNEL_IDLE) {
+        return;
+    }
+
+    glui32 result = glk_schannel_play_ext(chan, chan->resid, chan->loop, chan->notify);
+    if (!result) {
+        NSLog(@"TempSChannel restartInternal: failed to restart sound channel %d. resid:%d loop:%d notify:%d status: %d", _tag, chan->resid, chan->loop, chan->notify, status);
+        return;
+    }
+
+    if (chan->volume_timeout > 0) {
+
+        int duration = (chan->volume_timeout * FADE_GRANULARITY);
+
+        int sdl_volume = chan->target_volume;
+        int glk_target_volume = GLK_MAXVOLUME;
+        if (sdl_volume < SDL_MIX_MAXVOLUME)
+           glk_target_volume = expf(logf((float)sdl_volume/SDL_MIX_MAXVOLUME)/logf(4)) * GLK_MAXVOLUME;
+        // This ridiculous calculation seems to be necessary to convert the Sdl volume back to the correct Glk volume.
+
+        NSLog(@"TempSChannel restartInternal: trying to create a volume fade on channel %d. Timeout: %d Delta: %f duration: %d Target volume: %d, volume_notify: %d", _tag, chan->volume_timeout, chan->volume_delta, duration, glk_target_volume, chan->volume_notify);
+
+        glk_schannel_set_volume_ext(chan, glk_target_volume, duration, chan->volume_notify);
+
+        if (!chan->timer)
+        {
+            gli_strict_warning("TempSChannel restartInternal: failed to create volume change timer.");
+        }
+    }
+    return;
 }
 
 @end
