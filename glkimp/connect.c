@@ -562,10 +562,10 @@ again:
             goto again;
 
         case EVTARRANGE:
-//#ifdef DEBUG
+#ifdef DEBUG
             fprintf(stderr, "win_select: arrange event\n");
             fprintf(stderr, "gscreenw: %u gscreenh: %u\n", wmsg.a1, wmsg.a2);
-//#endif
+#endif
             /* + 5 for default line fragment padding */
             if ( gscreenw == wmsg.a1 &&
                 gscreenh == wmsg.a2 &&

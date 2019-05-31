@@ -60,15 +60,9 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     return YES;
 }
 
-//- (void) drawRect: (NSRect)rect
-//{
-//    //    [[NSColor whiteColor] set];
-//    //    NSRectFill(rect);
-//}
-
 - (void)setFrame:(NSRect)frame {
-    NSLog(@"GlkHelperView (_contentView) setFrame: %@ Previous frame: %@",
-          NSStringFromRect(frame), NSStringFromRect(self.frame));
+//    NSLog(@"GlkHelperView (_contentView) setFrame: %@ Previous frame: %@",
+//          NSStringFromRect(frame), NSStringFromRect(self.frame));
 
     if (frame.origin.y < 0)
         NSLog(@"_contentView setFrame called with negative y!");
@@ -125,6 +119,7 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
            info:(NSDictionary *)gameinfo_
           reset:(BOOL)shouldReset
      winRestore:(BOOL)windowRestoredBySystem_ {
+
     NSLog(@"glkctl: runterp %@ %@", terpname_, gamefile_);
 
     gamefile = gamefile_;
@@ -227,8 +222,8 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
         NSLog(@"Unable to restore GUI autosave: %@", ex);
     }
     if (!restoredController) {
-        // If there exists an autosave file but we fail to read it, just run
-        // without autosave
+        // If there exists an autosave file but we fail to read it,
+        // delete it and run without autosave
         [self deleteAutosaveFiles];
         [self runTerpNormal];
         return;
@@ -424,7 +419,7 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
         [NSKeyedUnarchiver unarchiveObjectWithFile:_autosaveFileGUI];
     }
     if (controller) {
-        NSLog(@"Restoring UI");
+//        NSLog(@"Restoring UI");
         _firstResponderView = controller.firstResponderView;
         _storedTimerInterval = controller.storedTimerInterval;
         _storedTimerLeft = controller.storedTimerLeft;
@@ -477,10 +472,10 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
             }
 
             [_contentView addSubview:win];
-            NSLog(@"Added GlkWindow %@, name %ld to contentView", win,
-                  win.name);
-            NSLog(@"Frame: %@ Bounds: %@", NSStringFromRect(win.frame),
-                  NSStringFromRect(win.bounds));
+//            NSLog(@"Added GlkWindow %@, name %ld to contentView", win,
+//                  win.name);
+//            NSLog(@"Frame: %@ Bounds: %@", NSStringFromRect(win.frame),
+//                  NSStringFromRect(win.bounds));
 
             win.glkctl = self;
         }
@@ -513,9 +508,8 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 
         for (win in [_gwindows allValues]) {
             win.autoresizingMask = win.restoredResizingMask;
-
-            NSLog(@"Set autoresizing mask for gwindow %ld to %@", win.name,
-                  [win sayMask:win.restoredResizingMask]);
+//            NSLog(@"Set autoresizing mask for gwindow %ld to %@", win.name,
+//                  [win sayMask:win.restoredResizingMask]);
             if ([win isKindOfClass:[GlkTextBufferWindow class]])
                 [(GlkTextBufferWindow *)win restoreTextFinder];
         }
@@ -752,23 +746,23 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
         /* the glk objects */
 
         _gwindows = [decoder decodeObjectForKey:@"gwindows"];
-        NSLog(@"GlkController initWithCoder: Decoded %ld gwindows",
-              (unsigned long)_gwindows.count);
+//        NSLog(@"GlkController initWithCoder: Decoded %ld gwindows",
+//              (unsigned long)_gwindows.count);
 
         _storedWindowFrame = [decoder decodeRectForKey:@"windowFrame"];
-        NSLog(@"GlkController initWithCoder: decoded main window frame as %@",
-              NSStringFromRect(_storedWindowFrame));
+//        NSLog(@"GlkController initWithCoder: decoded main window frame as %@",
+//              NSStringFromRect(_storedWindowFrame));
         _windowPreFullscreenFrame =
-        [decoder decodeRectForKey:@"windowPreFullscreenFrame"];
-        NSLog(@"GlkController initWithCoder: decoded windowPreFullscreenFrame "
-              @"as %@",
-              NSStringFromRect(_windowPreFullscreenFrame));
+            [decoder decodeRectForKey:@"windowPreFullscreenFrame"];
+//        NSLog(@"GlkController initWithCoder: decoded windowPreFullscreenFrame "
+//              @"as %@",
+//              NSStringFromRect(_windowPreFullscreenFrame));
 
         _storedContentFrame = [decoder decodeRectForKey:@"contentFrame"];
         _storedBorderFrame = [decoder decodeRectForKey:@"borderFrame"];
 
-        NSLog(@"GlkController initWithCoder: decoded contentFrame as %@",
-              NSStringFromRect(_storedContentFrame));
+//        NSLog(@"GlkController initWithCoder: decoded contentFrame as %@",
+//              NSStringFromRect(_storedContentFrame));
 
         _queue = [decoder decodeObjectForKey:@"queue"];
         _storedTimerLeft = [decoder decodeDoubleForKey:@"timerLeft"];
@@ -786,17 +780,15 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 
     [encoder encodeBool:dead forKey:@"dead"];
     [encoder encodeRect:self.window.frame forKey:@"windowFrame"];
-    NSLog(@"encoded main window frame as %@",
-          NSStringFromRect(self.window.frame));
     [encoder encodeRect:_contentView.frame forKey:@"contentFrame"];
     [encoder encodeRect:_borderView.frame forKey:@"borderFrame"];
 
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
     [encoder encodeRect:_windowPreFullscreenFrame
                  forKey:@"windowPreFullscreenFrame"];
-    NSLog(@"GlkController encodeWithCoder: encoded windowPreFullscreenFrame as "
-          @"%@",
-          NSStringFromRect(_windowPreFullscreenFrame));
+//    NSLog(@"GlkController encodeWithCoder: encoded windowPreFullscreenFrame as "
+//          @"%@",
+//          NSStringFromRect(_windowPreFullscreenFrame));
     [encoder encodeObject:_queue forKey:@"queue"];
     _storedTimerLeft = 0;
     _storedTimerInterval = 0;
@@ -990,8 +982,8 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 }
 
 - (void)contentDidResize:(NSRect)frame {
-    NSLog(@"glkctl: contentDidResize: frame:%@ Previous _contentView.frame:%@",
-          NSStringFromRect(frame), NSStringFromRect(lastContentResize));
+//    NSLog(@"glkctl: contentDidResize: frame:%@ Previous _contentView.frame:%@",
+//          NSStringFromRect(frame), NSStringFromRect(lastContentResize));
 
     if (((self.window.styleMask & NSFullScreenWindowMask) ==
          NSFullScreenWindowMask) != (_inFullscreen))
@@ -1033,25 +1025,17 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     }
 
     if (NSEqualRects(frame, lastContentResize)) {
-        NSLog(
-              @"contentDidResize called with same frame as last time. Skipping.");
+//        NSLog(
+//            @"contentDidResize called with same frame as last time. Skipping.");
         return;
     }
-
-    NSLog(@"NSWidth(frame):%f NSWidth(_borderView.frame):%f", NSWidth(frame),
-          NSWidth(_borderView.frame));
-    NSLog(@"NSHeight(frame):%f NSHeight(_borderView.frame):%f "
-          @"Preferences.border:%f",
-          NSHeight(frame), NSHeight(_borderView.frame), Preferences.border);
-    NSLog(@"self.window.contentView.frame.size:%@",
-          NSStringFromSize(((NSView *)self.window.contentView).frame.size));
 
     lastContentResize = frame;
 
     if (!inFullScreenResize && !dead) {
-        NSLog(@"glkctl: contentDidResize: Sending an arrange event with the "
-              @"new size (%@)",
-              NSStringFromSize(frame.size));
+//        NSLog(@"glkctl: contentDidResize: Sending an arrange event with the "
+//              @"new size (%@)",
+//              NSStringFromSize(frame.size));
 
         if (frame.size.height == 781)
             NSLog(@"Height is 781!");
@@ -1220,9 +1204,9 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     }
 
     if (!NSEqualRects(frame, _contentView.frame)) {
-        NSLog(@"glkctl: notePreferencesChanged: _contentView frame changed "
-              @"from %@ to %@",
-              NSStringFromRect(_contentView.frame), NSStringFromRect(frame));
+//        NSLog(@"glkctl: notePreferencesChanged: _contentView frame changed "
+//              @"from %@ to %@",
+//              NSStringFromRect(_contentView.frame), NSStringFromRect(frame));
         _contentView.frame = frame;
     }
 
@@ -1252,18 +1236,18 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
         winrect.origin = self.window.frame.origin;
 
         // If the new size is too big to fit on screen, clip at screen size
-        if (winrect.size.height > screenframe.size.height - 1)
-            winrect.size.height = screenframe.size.height - 1;
-        if (winrect.size.width > screenframe.size.width)
-            winrect.size.width = screenframe.size.width;
+        if (NSHeight(winrect) > NSHeight(screenframe) - 1)
+            winrect.size.height = NSHeight(screenframe) - 1;
+        if (NSWidth(winrect) > NSWidth(screenframe))
+            winrect.size.width = NSWidth(screenframe);
 
-        CGFloat offset = winrect.size.height - self.window.frame.size.height;
+        CGFloat offset = NSHeight(winrect) - NSHeight(self.window.frame);
 
         winrect.origin.y -= offset;
 
         // If window is partly off the screen, move it (just) inside
         if (NSMaxX(winrect) > NSMaxX(screenframe))
-            winrect.origin.x = NSMaxX(screenframe) - winrect.size.width;
+            winrect.origin.x = NSMaxX(screenframe) - NSWidth(winrect);
 
         if (NSMinY(winrect) < 0)
             winrect.origin.y = NSMinY(screenframe);
@@ -1833,7 +1817,7 @@ NSInteger colorToInteger(NSColor *color) {
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+    //NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -1868,7 +1852,7 @@ NSInteger colorToInteger(NSColor *color) {
             if (_queue.count) {
                 GlkEvent *gevent;
                 gevent = [_queue objectAtIndex:0];
-                NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
+//            NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
 
                 [gevent writeEvent:sendfh.fileDescriptor];
                 [_queue removeObjectAtIndex:0];
@@ -2408,18 +2392,19 @@ static BOOL pollMoreData(int fd) {
                                            };
 
         if ([lastArrangeValues isEqualToDictionary:newArrangeValues]) {
-            NSLog(@"GlkController queue EVTARRANGE: same size as last time "
-                  @"(width: %@, height:%@, charWidth:%@). Skipping.",
-                  [newArrangeValues valueForKey:@"width"],
-                  [newArrangeValues valueForKey:@"height"],
-                  [newArrangeValues valueForKey:@"charWidth"]);
+//            NSLog(@"GlkController queue EVTARRANGE: same size as last time "
+//                  @"(width: %@, height:%@, charWidth:%@). Skipping.",
+//                  [newArrangeValues valueForKey:@"width"],
+//                  [newArrangeValues valueForKey:@"height"],
+//                  [newArrangeValues valueForKey:@"charWidth"]);
             return;
-        } else
-            NSLog(@"GlkController queue EVTARRANGE: width: %@, height:%@, "
-                  @"charWidth:%@.",
-                  [newArrangeValues valueForKey:@"width"],
-                  [newArrangeValues valueForKey:@"height"],
-                  [newArrangeValues valueForKey:@"charWidth"]);
+        }
+//        else
+//            NSLog(@"GlkController queue EVTARRANGE: width: %@, height:%@, "
+//                  @"charWidth:%@.",
+//                  [newArrangeValues valueForKey:@"width"],
+//                  [newArrangeValues valueForKey:@"height"],
+//                  [newArrangeValues valueForKey:@"charWidth"]);
 
         lastArrangeValues = newArrangeValues;
     }
@@ -2701,8 +2686,7 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
             // include full screen bit
             [window
                 setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
-            // And then we'll move it back to its initial
-            // position.
+            // And then we'll move it back to its initial position.
             // We subtract 0.1 seconds to avoid flicker at animation end
             context.duration = duration - 0.1;
             [[window animator] setFrame:oldFrame display:YES];

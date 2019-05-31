@@ -356,7 +356,7 @@ static int parse_partial_operand(int *opmodes)
  */
 static void spatterglk_game_select(glui32 eventaddr)
 {
-	NSLog(@"### game called select, last event was %d", lasteventtype);
+//    NSLog(@"### game called select, last event was %d", lasteventtype);
 
 	/* Do not autosave if we've just started up, or if the last event was a rearrange event. (We get rearranges in clusters, and they don't change anything interesting anyhow.) */
 	if (lasteventtype == -1 || lasteventtype == evtype_Arrange)
@@ -371,7 +371,7 @@ void spatterglk_do_autosave(glui32 eventaddr)
 {
     @autoreleasepool {
         TempLibrary *library = [[TempLibrary alloc] init];
-        NSLog(@"### attempting autosave (pc = %x, eventaddr = %x, stack = %d before stub)", prevpc, eventaddr, stackptr);
+        // NSLog(@"### attempting autosave (pc = %x, eventaddr = %x, stack = %d before stub)", prevpc, eventaddr, stackptr);
 
         /* When the save file is autorestored, the VM will restart the @glk opcode. That means that the Glk argument (the event structure address) must be waiting on the stack. Possibly also the @glk opcode's operands -- these might or might not have come off the stack. */
 

@@ -2234,7 +2234,7 @@
     _restoredAtBottom = textview.scrolledToBottom;
 
     if (_restoredAtBottom) {
-        NSLog(@"storeScrollOffset: we are at bottom. Skipping");
+//        NSLog(@"storeScrollOffset: we are at bottom. Skipping");
         return;
     }
 

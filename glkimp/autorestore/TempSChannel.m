@@ -163,8 +163,11 @@
 }
 
 /* Restart the sound channel after a deserialize, and also any fade timer. Called from TempLibrary.updateFromLibraryLate. This is currently a primitive implementation
-    which disregards how much of the sound had played when the game was
-    autosaved or killed.
+    which disregards how much of the sound had played when the game was autosaved
+    or killed. Fade timers remember this, however, so a clip halfway through a 10
+    second fade out will restart from the beginning but fade out in 10 seconds.
+    Well, except that it counts from last glk_select and not from when the process
+    was actually killed.
  */
 - (void)restartInternal {
 
@@ -186,11 +189,10 @@
 
         int sdl_volume = chan->target_volume;
         int glk_target_volume = GLK_MAXVOLUME;
+
+        // This ridiculous calculation seems to be necessary to convert the SDL volume back to the correct GLK volume.
         if (sdl_volume < SDL_MIX_MAXVOLUME)
            glk_target_volume = expf(logf((float)sdl_volume/SDL_MIX_MAXVOLUME)/logf(4)) * GLK_MAXVOLUME;
-        // This ridiculous calculation seems to be necessary to convert the Sdl volume back to the correct Glk volume.
-
-        NSLog(@"TempSChannel restartInternal: trying to create a volume fade on channel %d. Timeout: %d Delta: %f duration: %d Target volume: %d, volume_notify: %d", _tag, chan->volume_timeout, chan->volume_delta, duration, glk_target_volume, chan->volume_notify);
 
         glk_schannel_set_volume_ext(chan, glk_target_volume, duration, chan->volume_notify);
 

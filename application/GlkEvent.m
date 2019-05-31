@@ -87,9 +87,9 @@ unsigned chartokeycode(unsigned ch) {
 }
 
 - (instancetype)initPrefsEvent {
-    NSLog(@"GlkEvent initPrefsEvent graphicsEnabled: %@ soundEnabled: %@",
-          [Preferences graphicsEnabled] ? @"YES" : @"NO",
-          [Preferences soundEnabled] ? @"YES" : @"NO");
+//    NSLog(@"GlkEvent initPrefsEvent graphicsEnabled: %@ soundEnabled: %@",
+//          [Preferences graphicsEnabled] ? @"YES" : @"NO",
+//          [Preferences soundEnabled] ? @"YES" : @"NO");
     self = [super init];
     if (self) {
         _type = EVTPREFS;
@@ -140,7 +140,7 @@ unsigned chartokeycode(unsigned ch) {
 
 - (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah;
 {
-    NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
+//    NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
     self = [super init];
     if (self) {
         _type = EVTARRANGE;

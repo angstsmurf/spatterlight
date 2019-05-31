@@ -287,8 +287,6 @@
     NSRange range = NSMakeRange(0, 0);
     NSRange linkrange = NSMakeRange(0, 0);
     NSRange selectedRange = textview.selectedRange;
-    NSLog(@"prefsDidChange: stored text grid window selected range %@",
-          NSStringFromRange(selectedRange));
 
     int i;
 
@@ -337,9 +335,9 @@
 
     [self recalcBackground];
 
-    NSLog(@"prefsDidChange: selected range was %@, restored to %@",
-          NSStringFromRange(textview.selectedRange),
-          NSStringFromRange(selectedRange));
+//    NSLog(@"prefsDidChange: selected range was %@, restored to %@",
+//          NSStringFromRange(textview.selectedRange),
+//          NSStringFromRange(selectedRange));
     textview.selectedRange = selectedRange;
     [self setNeedsDisplay:YES];
     dirty = NO;

@@ -479,7 +479,7 @@ static void sound_completion_callback(int chan)
 {
     channel_t *sound_channel = sound_channels[chan];
 
-        if (!sound_channel)
+    if (!sound_channel)
     {
         fprintf(stderr, "sound_completion_callback called with invalid sound_channel %d\n", chan);
         return;

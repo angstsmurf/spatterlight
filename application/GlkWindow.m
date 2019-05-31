@@ -45,8 +45,6 @@
         _restoredFrame = [decoder decodeRectForKey:@"restoredFrame"];
         _restoredResizingMask =
             [decoder decodeIntegerForKey:@"autoresizingMask"];
-        NSLog(@"Decoded frame %@ for GlkWindow %ld",
-              NSStringFromRect(_restoredFrame), self.name);
     }
     return self;
 }

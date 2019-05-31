@@ -155,12 +155,8 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 }
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
-	NSLog(@"### TempLibrary: encoding with %ld windows, %ld streams, %ld filerefs, %ld sound channels", (unsigned long)_windows.count, (unsigned long)_streams.count, (unsigned long)_filerefs.count, (unsigned long)_schannels.count);
+//    NSLog(@"### TempLibrary: encoding with %ld windows, %ld streams, %ld filerefs, %ld sound channels", (unsigned long)_windows.count, (unsigned long)_streams.count, (unsigned long)_filerefs.count, (unsigned long)_schannels.count);
 	[encoder encodeInt:SERIAL_VERSION forKey:@"version"];
-
-	//NSAssert(!vmexited && specialrequest == nil, @"TempLibrary tried to serialize in special input state");
-
-	//[encoder encodeRect:_bounds forKey:@"bounds"];
 
     [encoder encodeObject:program_name forKey:@"program_name"];
     [encoder encodeObject:program_info forKey:@"program_info"];
@@ -172,9 +168,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 	[encoder encodeObject:_filerefs forKey:@"filerefs"];
     [encoder encodeObject:_schannels forKey:@"schannels"];
 
-	//if (timerinterval)
-	//	[encoder encodeInt32:timerinterval forKey:@"timerinterval"];
-
 	if (_rootwintag)
 		[encoder encodeInt32:_rootwintag forKey:@"rootwintag"];
 	if (_currentstrtag)
@@ -185,31 +178,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 		extra_archive_hook(self, encoder);
 
 }
-
-
-/* The player wants to restart the app after a glk_exit(). Clean up all the library state and prepare for a restart.
- */
-//- (void) clearForRestart {
-//	if (rootwin) {
-//		// This takes care of all the windows
-//		glk_window_close(rootwin, NULL);
-//	}
-//	while (streams.count) {
-//		TempStream *str = [streams objectAtIndex:0];
-//		glk_stream_close(str, NULL);
-//	}
-//	while (filerefs.count) {
-//		TempFileRef *fref = [filerefs objectAtIndex:0];
-//		glk_fileref_destroy(fref);
-//	}
-//
-//	self.vmexited = NO;
-//	timerinterval = 0;
-//	glk_request_timer_events(timerinterval);
-//
-//	NSAssert(windows.count == 0 && streams.count == 0 && filerefs.count == 0, @"clearForRestart: unclosed objects remain!");
-//	NSAssert(currentstr == nil && rootwin == nil, @"clearForRestart: root references remain!");
-//}
 
 /* Locate the window matching a given tag. (Or nil, if no window matches or the tag is nil.) This isn't efficient, but it's not heavily used.
  */
