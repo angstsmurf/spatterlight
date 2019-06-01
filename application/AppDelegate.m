@@ -111,7 +111,7 @@ NSDictionary *gFormatMap;
                               state:(NSCoder *)state
                   completionHandler:
                       (void (^)(NSWindow *, NSError *))completionHandler {
-    NSLog(@"restoreWindowWithIdentifier called with identifier %@", identifier);
+//    NSLog(@"restoreWindowWithIdentifier called with identifier %@", identifier);
     NSWindow *window = nil;
     AppDelegate *appDelegate = (AppDelegate *)[NSApp delegate];
     if ([identifier isEqualToString:@"library"]) {

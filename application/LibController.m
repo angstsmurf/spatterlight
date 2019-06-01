@@ -156,7 +156,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 }
 
 - (void)windowDidLoad {
-    NSLog(@"libctl: windowDidLoad");
+//    NSLog(@"libctl: windowDidLoad");
 
     self.windowFrameAutosaveName = @"LibraryWindow";
     _gameTableView.autosaveName = @"GameTable";
@@ -1353,7 +1353,7 @@ static NSInteger compareDicts(NSDictionary *a, NSDictionary *b, id key,
     NSString *searchText = [state decodeObjectForKey:@"searchText"];
     gameTableDirty = YES;
     if (searchText.length) {
-        NSLog(@"Restored searchbar text %@", searchText);
+//        NSLog(@"Restored searchbar text %@", searchText);
         _searchField.stringValue = searchText;
         [self searchForGames:_searchField];
     }

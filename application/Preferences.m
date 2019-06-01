@@ -481,7 +481,7 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)windowDidLoad {
-    NSLog(@"pref: windowDidLoad()");
+//    NSLog(@"pref: windowDidLoad()");
 
     [super windowDidLoad];
 

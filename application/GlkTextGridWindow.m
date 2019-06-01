@@ -744,8 +744,7 @@
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent {
     GlkEvent *gev;
-    // GlkHyperlink *hyp;
-    NSLog(@"mousedown in grid window");
+//    NSLog(@"mousedown in grid window");
 
     if (mouse_request) {
         [self.glkctl markLastSeen];
@@ -779,7 +778,7 @@
             }
         }
     } else {
-        // NSLog(@"No hyperlink request or mouse request in grid window");
+//        NSLog(@"No hyperlink request or mouse request in grid window");
         [super mouseDown:theEvent];
     }
     return NO;
