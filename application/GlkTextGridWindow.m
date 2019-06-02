@@ -103,9 +103,9 @@
     return stringValue;
 }
 
-- (BOOL)getObjectValue:(id *)object
+- (BOOL)getObjectValue:(id __autoreleasing *)object
              forString:(NSString *)string
-      errorDescription:(NSString **)error {
+      errorDescription:(NSString * __autoreleasing *)error {
     BOOL valid = YES;
 
     *object = [NSString stringWithString:string];
@@ -113,11 +113,11 @@
     return valid;
 }
 
-- (BOOL)isPartialStringValid:(NSString **)partialStringPtr
+- (BOOL)isPartialStringValid:(NSString * __autoreleasing *)partialStringPtr
        proposedSelectedRange:(NSRangePointer)proposedSelRangePtr
               originalString:(NSString *)origString
        originalSelectedRange:(NSRange)origSelRange
-            errorDescription:(NSString **)error {
+            errorDescription:(NSString * __autoreleasing *)error {
     BOOL valid = YES;
 
     NSString *proposedString = *partialStringPtr;
