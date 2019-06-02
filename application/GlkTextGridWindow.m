@@ -260,6 +260,7 @@
     [encoder encodeObject:textview forKey:@"textview"];
     [encoder encodeBool:line_request forKey:@"line_request"];
     [encoder encodeBool:hyper_request forKey:@"hyper_request"];
+    [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeInteger:rows forKey:@"rows"];
     [encoder encodeInteger:cols forKey:@"cols"];
     [encoder encodeInteger:xpos forKey:@"xpos"];
