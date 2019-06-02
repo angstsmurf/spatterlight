@@ -139,7 +139,7 @@
 
     chan->sdl_rwops = NULL; /* SDL_RWops */
     chan->sdl_memory = NULL;
-    chan->timer = NULL;
+    chan->timer = 0;
 
     chan->tag = _tag;
     chan->rock = _rock;

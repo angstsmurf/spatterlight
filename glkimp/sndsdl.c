@@ -151,7 +151,7 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
     chan->target_volume = 0;
     chan->float_volume = 0;
     chan->volume_delta = 0;
-    chan->timer = NULL;
+    chan->timer = 0;
 
     chan->prev = NULL;
     chan->next = gli_channellist;
@@ -210,7 +210,7 @@ static void cleanup_channel(schanid_t chan)
     if (chan->timer)
         SDL_RemoveTimer((SDL_TimerID)chan->timer);
 
-    chan->timer = NULL;
+    chan->timer = 0;
 }
 
 void glk_schannel_destroy(schanid_t chan)
@@ -374,7 +374,7 @@ Uint32 volume_timer_callback(Uint32 interval, void *param)
             return 0;
         }
         SDL_RemoveTimer((SDL_TimerID)chan->timer);
-        chan->timer = NULL;
+        chan->timer = 0;
 
         if (chan->volume != chan->target_volume)
         {
@@ -412,7 +412,7 @@ void init_fade(schanid_t chan, int glk_volume, int duration, int notify)
     if (chan->timer)
         SDL_RemoveTimer((SDL_TimerID)chan->timer);
 
-	chan->timer = (void *)SDL_AddTimer((Uint32)(duration / FADE_GRANULARITY), volume_timer_callback, (void *)chan);
+	chan->timer = (int)SDL_AddTimer((Uint32)(duration / FADE_GRANULARITY), volume_timer_callback, (void *)chan);
 
     if (!chan->timer)
     {

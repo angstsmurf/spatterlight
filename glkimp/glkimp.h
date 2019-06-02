@@ -414,7 +414,7 @@ struct glk_schannel_struct
     int target_volume;
     double float_volume;
     double volume_delta;
-    void *timer;
+    int timer;
 
     int tag; /* for serialization */
     
