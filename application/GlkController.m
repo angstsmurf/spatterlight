@@ -232,11 +232,15 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     _inFullscreen = restoredController.inFullscreen;
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
 
+    // If the process is dead, restore the dead window if this
+    // is a system window restoration at application start.
     if (!restoredController.isAlive) {
         if (windowRestoredBySystem) {
             [self restoreWindowWhenDead];
             return;
         } else {
+            // Otherwise we delete any autorestore files and
+            // restart the game.
             [self deleteAutosaveFiles];
             [self runTerpNormal];
             return;
@@ -245,7 +249,8 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:_autosaveFileTerp]) {
         NSLog(@"Interpreter autorestore file exists");
-
+        // Only show the alert about autorestoring if this is not a system
+        // window restoration, and the user has not suppressed it.
         if (!windowRestoredBySystem) {
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
@@ -264,6 +269,9 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
         }
     }
 
+    // If this is not a system window restoration,
+    // we have to enter fullscreen manually if the
+    // game was closed in fullscreen.
     if (!windowRestoredBySystem && restoredController.inFullscreen) {
         if ((self.window.styleMask & NSFullScreenWindowMask) !=
             NSFullScreenWindowMask)
@@ -278,9 +286,9 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     shouldRestoreUI = YES;
     [self forkInterpreterTask];
 
-    // The game has to start before we can restore
-    // the UI properly, so we don't have to do anything
-    // else here for now.
+    // The game has to run to its third(?) NEXTEVENT
+    // before we can restore the UI properly, so we don't
+    // have to do anything else here for now.
 }
 
 - (void)runTerpNormal {
@@ -292,7 +300,6 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 }
 
 - (void)restoreWindowWhenDead {
-
     dead = YES;
 
     _contentView.autoresizingMask = NSViewMaxXMargin | NSViewMaxYMargin |
@@ -1036,9 +1043,6 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 //        NSLog(@"glkctl: contentDidResize: Sending an arrange event with the "
 //              @"new size (%@)",
 //              NSStringFromSize(frame.size));
-
-        if (frame.size.height == 781)
-            NSLog(@"Height is 781!");
 
         GlkEvent *gevent;
         gevent = [[GlkEvent alloc] initArrangeWidth:frame.size.width
@@ -1817,7 +1821,7 @@ NSInteger colorToInteger(NSColor *color) {
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    //NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+//    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
