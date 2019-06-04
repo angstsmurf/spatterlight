@@ -494,6 +494,8 @@ void glk_window_get_size(window_t *win, glui32 *width, glui32 *height)
         return;
     }
 
+//    fprintf(stderr, "glk_window_get_size: window %d\n", win->tag);
+
     switch (win->type)
     {
         case wintype_Blank:
@@ -507,6 +509,8 @@ void glk_window_get_size(window_t *win, glui32 *width, glui32 *height)
         case wintype_TextBuffer:
             wid = ceil(((win->bbox.x1 - win->bbox.x0) - gbuffermarginx * 2) / gcellw);
             hgt = ((win->bbox.y1 - win->bbox.y0) + gleading - gbuffermarginy * 2) / gcellh;
+//            fprintf(stderr, "wintype_TextBuffer: width: bbox.x1(%d) - bbox.x0:(%d) / gcellw (%f) = %d\n", win->bbox.x1, win->bbox.x0, gcellw, wid);
+//            fprintf(stderr, "height: ( bbox.y1(%d) - bbox.y0:(%d) ) + gleading (%f) - gbuffermarginy (%d) * 2 / gcellh (%f) = %d\n", win->bbox.y1, win->bbox.y0, gleading, gbuffermarginy, gcellh, hgt);
             break;
         case wintype_Graphics:
             wid = win->bbox.x1 - win->bbox.x0;
