@@ -350,6 +350,9 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     }
     else NSLog(@"No streams in library! _streams.count = %lu", (unsigned long)_streams.count);
 
+    if (!glk_stream_get_current())
+        NSLog(@"ERROR: TempLibrary updateFromLibrary: could not update current stream!");
+
     TempFileRef *tempfileref = _filerefs.lastObject;
     fileref_t *tempCfileref = NULL;
 
