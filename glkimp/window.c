@@ -965,10 +965,15 @@ void glk_request_char_event_uni(window_t *win)
         return;
     }
 
-    if (win->char_request || win->line_request)
+    if (win->line_request)
     {
         gli_strict_warning("request_char_event: window already has keyboard request");
         return;
+    }
+
+    if (win->char_request)
+    {
+        fprintf(stderr, "ERROR! request_char_event_uni: window %d already has character request\n",  win->peer);
     }
 
     switch (win->type)
