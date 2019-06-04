@@ -36,7 +36,7 @@ implementation of the Glk API by Andrew Plotkin
 //    int target_volume;
 //    double float_volume;
 //    double volume_delta;
-//    void *timer;
+//    int timer;
 //
 //    gidispatch_rock_t disprock;
 //    channel_t *chain_next, *chain_prev;

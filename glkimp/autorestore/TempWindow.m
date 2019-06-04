@@ -322,10 +322,10 @@
         NSLog(@"finalizeCStruct: Error! Could no find echostream %d for window %d",_echostreamtag, _tag);
 
     if (win->str && win->tag != win->str->win->tag)
-        NSLog(@"finalizeCStruct: Error! Window stream does not point pack at window %d, but at %d",win->tag, win->str->win->tag);
+        NSLog(@"finalizeCStruct: Error! Window stream does not point back at window %d, but at %d",win->tag, win->str->win->tag);
 
     if (win->echostr && win->tag != win->echostr->win->tag)
-        NSLog(@"finalizeCStruct: Error! Window echo stream does not point pack at window %d, but at %d",win->tag, win->echostr->win->tag);
+        NSLog(@"finalizeCStruct: Error! Window echo stream does not point back at window %d, but at %d",win->tag, win->echostr->win->tag);
 }
 
 - (void) updateRegisterArray {
