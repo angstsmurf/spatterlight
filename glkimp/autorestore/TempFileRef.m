@@ -115,7 +115,7 @@
         strncpy(urlpath, path, strlen(path));
         urlpath[strlen(path)] = '\0';
         ref->filename = urlpath;
-        NSLog(@"TempFileRef copyToCStruct: set filename of fileref %d to %s",_tag, ref->filename);
+//        NSLog(@"TempFileRef copyToCStruct: set filename of fileref %d to %s",_tag, ref->filename);
     }
     else
     {
