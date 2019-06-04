@@ -431,7 +431,10 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
         _storedTimerInterval = controller.storedTimerInterval;
         _storedTimerLeft = controller.storedTimerLeft;
         _windowPreFullscreenFrame = controller.windowPreFullscreenFrame;
-        _queue = controller.queue;
+        if (controller.queue.count)
+            NSLog(@"controller.queue contains events");
+        for (GlkEvent *event in controller.queue)
+            [self queueEvent:event];
 
         if (_storedTimerLeft) {
             NSLog(@"storedTimerLeft:%f storedTimerInterval:%f",
