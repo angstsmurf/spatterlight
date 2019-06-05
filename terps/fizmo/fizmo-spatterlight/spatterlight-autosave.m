@@ -265,6 +265,10 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
 		[encoder encodeInt32:library_state.statusseenheight forKey:@"fizmo_statusseenheight"];
 		[encoder encodeInt32:library_state.statusmaxheight forKey:@"fizmo_statusmaxheight"];
 		[encoder encodeInt32:library_state.statuscurheight forKey:@"fizmo_statuscurheight"];
+//        [encoder encodeInt32:library_state.activewindow forKey:@"fizmo_activewindow"];
+//        [encoder encodeBool:library_state.instatuswin forKey:@"fizmo_instatuswin"];
+
+
 	}
 }
 
@@ -274,6 +278,9 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
 		library_state.statusseenheight = [decoder decodeInt32ForKey:@"fizmo_statusseenheight"];
 		library_state.statusmaxheight = [decoder decodeInt32ForKey:@"fizmo_statusmaxheight"];
 		library_state.statuscurheight = [decoder decodeInt32ForKey:@"fizmo_statuscurheight"];
-		//NSLog(@"### unarchive hook: seenheight %d, maxheight %d, curheight %d", library_state.statusseenheight, library_state.statusmaxheight, library_state.statuscurheight);
+//        library_state.activewindow = [decoder decodeInt32ForKey:@"fizmo_activewindow"];
+//        library_state.instatuswin = [decoder decodeBoolForKey:@"fizmo_instatuswin"];
+
+//        NSLog(@"### unarchive hook: seenheight %d, maxheight %d, curheight %d", library_state.statusseenheight, library_state.statusmaxheight, library_state.statuscurheight);
 	}
 }

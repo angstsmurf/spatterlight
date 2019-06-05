@@ -45,6 +45,8 @@ typedef struct library_state_data_struct {
     int statusseenheight;
     int statusmaxheight;
     int statuscurheight;
+//    int activewindow;
+//    bool instatuswin;
 } library_state_data;
 
 z_file *glkint_open_interface(z_file *(*game_open_func)(z_file *));

@@ -46,15 +46,18 @@
 #include "glk_interface.h"
 #include "glk_screen_if.h"
 
+//#include "glkimp.h"
+
 #include <interpreter/fizmo.h>
 #include <interpreter/text.h>
 #include <interpreter/streams.h>
 #include <interpreter/zpu.h>
+//#include <interpreter/output.h>
 #include <tools/unused.h>
 #include <tools/types.h>
 #include <tools/i18n.h>
 #include <tools/filesys.h>
-#include <tools/tracelog.h>
+//#include <tools/tracelog.h>
 
 static char* interface_name = "glk-screen";
 static char* interface_version = "0.2.5";
@@ -223,6 +226,13 @@ void glkint_recover_library_state(library_state_data *dat)
     statuscurheight = dat->statuscurheight;
     statusmaxheight = dat->statusmaxheight;
     statusseenheight = dat->statusseenheight;
+//      active_window_number = dat->activewindow;
+//      /* 1 is the status window; 0 is the story window. */
+//   if (dat->activewindow)
+//       glk_set_window(statuswin);
+//    else
+//       glk_set_window(mainwin);
+//    instatuswin = dat->instatuswin;
   }
 
   glkint_estimate_screen_size();
@@ -238,6 +248,8 @@ void glkint_stash_library_state(library_state_data *dat)
         dat->statuscurheight = statuscurheight;
         dat->statusmaxheight = statusmaxheight;
         dat->statusseenheight = statusseenheight;
+//        dat->activewindow = active_window_number;
+//        dat->instatuswin = instatuswin;
     }
 }
 
@@ -427,7 +439,16 @@ int glkint_interface_read_char(uint16_t tenth_seconds,
   win = (instatuswin ? statuswin : mainwin);
 
   if (win) {
-    glk_request_char_event_uni(win);
+//      fprintf(stderr, "fizmo: requesting char event from window %d, ",win->peer);
+
+//      if (win == statuswin)
+//          fprintf(stderr, "statuswin.\n");
+//      else if (win == mainwin)
+//          fprintf(stderr, "mainwin.\n");
+//      else
+//          fprintf(stderr, "neither statuswin or mainwin. Bug?\n");
+
+      glk_request_char_event_uni(win);
   }
 
   if (tenth_seconds) {
@@ -620,22 +641,32 @@ static void glkint_estimate_screen_size()
            window doesn't give us new information. It's better to keep
            using an old exact measurement of the status window than to
            approximate it in the story window. */
+//        fprintf(stderr, "glkint_estimate_screen_size: No statuswin!");
+
         return;
     }
     
     glk_window_get_size(statuswin, &width, &height);
+//    fprintf(stderr, "glkint_estimate_screen_size: statuswin width %d, height %d\n",width, height);
+
     screenestwidth = width;
     screenestheight = height;
     
     glk_window_get_size(mainwin, &width, &height);
     screenestheight += height;
-    
+//    fprintf(stderr, "glkint_estimate_screen_size: mainwin width %d, height %d\n",width, height);
+//
+//
+//    fprintf(stderr, "glkint_estimate_screen_size: width %d, height %d\n",screenestwidth, screenestheight);
+
     fizmo_new_screen_size(screenestwidth, screenestheight);
 }
 
 /* 1 is the status window; 0 is the story window. */
 void glkint_set_window(int16_t window_number)
 {
+//    fprintf(stderr, "fizmo: glkint_set_window: %d\n", window_number);
+
   if (!window_number) {
     glk_set_window(mainwin);
     instatuswin = false;
@@ -643,8 +674,10 @@ void glkint_set_window(int16_t window_number)
   else {
     if (statuswin)
       glk_set_window(statuswin);
-    else
+    else {
       glk_set_window(NULL);
+//        fprintf(stderr, "fizmo: glkint_set_window: set window stream to NULL\n");
+    }
     instatuswin = true;
   }
 }
@@ -666,19 +699,28 @@ void glkint_set_cursor(int16_t line, int16_t column,
     /* HACK */
     /* Fizmo gets its windows confused after autorestore */
     /* Find out why & fix */
-    fprintf(stderr, "fizmo: glkint_set_cursor: win:%d x:%d y:%d\n", window, column, line);
-  /*if (window && statuswin)*/
-  if (statuswin)
-    glk_window_move_cursor(statuswin, column-1, line-1);
+//    if (window == 0)
+//        fprintf(stderr, "fizmo: glkint_set_cursor called with window 0\n");
+
+//    fprintf(stderr, "fizmo: glkint_set_cursor: win:%d x:%d y:%d\n", window, column, line);
+//    if (window && statuswin)
+    if (statuswin)
+        glk_window_move_cursor(statuswin, column-1, line-1);
 }
 
 /* Glk doesn't support this. */
 uint16_t glkint_get_cursor_row()
-{ return 0; }
+{
+    fprintf(stderr, "ERROR: glkint_get_cursor_row() not implemented\n");
+    return 0;
+}
 
 /* Glk doesn't support this. */
 uint16_t glkint_get_cursor_column()
-{ return 0;}
+{
+    fprintf(stderr, "ERROR: glkint_get_cursor_column() not implemented\n");
+    return 0;
+}
 
 void glkint_erase_line_value(uint16_t UNUSED(start_position))
 { }
