@@ -64,12 +64,6 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 //    NSLog(@"GlkHelperView (_contentView) setFrame: %@ Previous frame: %@",
 //          NSStringFromRect(frame), NSStringFromRect(self.frame));
 
-    if (frame.origin.y < 0)
-        NSLog(@"_contentView setFrame called with negative y!");
-
-    if (frame.size.width > 1400)
-        NSLog(@"_contentView setFrame called with width %f!", frame.size.width);
-
     super.frame = frame;
 
     if ([delegate isAlive] && !self.inLiveResize) {
@@ -994,46 +988,7 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 - (void)contentDidResize:(NSRect)frame {
 //    NSLog(@"glkctl: contentDidResize: frame:%@ Previous _contentView.frame:%@",
 //          NSStringFromRect(frame), NSStringFromRect(lastContentResize));
-
-    if (((self.window.styleMask & NSFullScreenWindowMask) ==
-         NSFullScreenWindowMask) != (_inFullscreen))
-        NSLog(@"contentDidResize: Mismatch between window decoration style and "
-              @"inFullscreen flag!");
-
-    NSInteger borders = Preferences.border * 2;
-    // Check that we are not the same width as before (and only the border width
-    // has changed) or in fullscreen
-    if (NSWidth(frame) != NSWidth(_borderView.frame) - borders) {
-
-        NSRect borderViewFrameMinusBorder =
-        NSMakeRect(Preferences.border, Preferences.border,
-                   NSWidth(_borderView.frame) - borders,
-                   NSHeight(_borderView.frame) - borders);
-
-        if ((self.window.styleMask & NSFullScreenWindowMask) !=
-            NSFullScreenWindowMask &&
-            !_inFullscreen) {
-
-            NSLog(@"contentDidResize: ERROR! The requested contentView frame "
-                  @"is not borderView frame (%@) - Preferences.border (%f) = "
-                  @"%@, and we are not in fullscreen mode.",
-                  NSStringFromRect(_borderView.frame), Preferences.border,
-                  NSStringFromRect(borderViewFrameMinusBorder));
-        }
-    }
-
-    if (NSHeight(frame) != NSHeight(_borderView.frame) - borders) {
-        NSRect borderViewFrameMinusBorder =
-        NSMakeRect(Preferences.border, Preferences.border,
-                   NSWidth(_borderView.frame) - borders,
-                   NSHeight(_borderView.frame) - borders);
-
-        NSLog(@"contentDidResize: ERROR! The requested contentView frame is "
-              @"not borderView frame (%@) - Preferences.border (%f) = %@.",
-              NSStringFromRect(_borderView.frame), Preferences.border,
-              NSStringFromRect(borderViewFrameMinusBorder));
-    }
-
+    
     if (NSEqualRects(frame, lastContentResize)) {
 //        NSLog(
 //            @"contentDidResize called with same frame as last time. Skipping.");
