@@ -290,7 +290,6 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 }
 
 - (void)runTerpNormal {
-
     // Just start the game with no autorestore or fullscreen or resetting
     [self.window setContentSize:Preferences.defaultWindowSize];
     [self forkInterpreterTask];
@@ -754,23 +753,13 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
         /* the glk objects */
 
         _gwindows = [decoder decodeObjectForKey:@"gwindows"];
-//        NSLog(@"GlkController initWithCoder: Decoded %ld gwindows",
-//              (unsigned long)_gwindows.count);
 
         _storedWindowFrame = [decoder decodeRectForKey:@"windowFrame"];
-//        NSLog(@"GlkController initWithCoder: decoded main window frame as %@",
-//              NSStringFromRect(_storedWindowFrame));
         _windowPreFullscreenFrame =
             [decoder decodeRectForKey:@"windowPreFullscreenFrame"];
-//        NSLog(@"GlkController initWithCoder: decoded windowPreFullscreenFrame "
-//              @"as %@",
-//              NSStringFromRect(_windowPreFullscreenFrame));
 
         _storedContentFrame = [decoder decodeRectForKey:@"contentFrame"];
         _storedBorderFrame = [decoder decodeRectForKey:@"borderFrame"];
-
-//        NSLog(@"GlkController initWithCoder: decoded contentFrame as %@",
-//              NSStringFromRect(_storedContentFrame));
 
         _queue = [decoder decodeObjectForKey:@"queue"];
         _storedTimerLeft = [decoder decodeDoubleForKey:@"timerLeft"];
@@ -794,9 +783,6 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
     [encoder encodeRect:_windowPreFullscreenFrame
                  forKey:@"windowPreFullscreenFrame"];
-//    NSLog(@"GlkController encodeWithCoder: encoded windowPreFullscreenFrame as "
-//          @"%@",
-//          NSStringFromRect(_windowPreFullscreenFrame));
     [encoder encodeObject:_queue forKey:@"queue"];
     _storedTimerLeft = 0;
     _storedTimerInterval = 0;
