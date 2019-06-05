@@ -1062,6 +1062,8 @@
         _lastseen = 0;
         _lastchar = '\n';
 
+        lastLineheight = Preferences.lineHeight;
+
         for (i = 0; i < HISTORYLEN; i++)
             history[i] = nil;
         historypos = 0;
@@ -1383,6 +1385,7 @@
     NSRange linkrange = NSMakeRange(0, 0);
     NSUInteger x;
 
+    [self storeScrollOffset];
     [super prefsDidChange];
 
     NSInteger margin = [Preferences bufferMargins];
@@ -1428,6 +1431,8 @@
 
     layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
     [container invalidateLayout];
+    [self restoreScroll];
+    lastLineheight = Preferences.lineHeight;
 }
 
 - (void)setFrame:(NSRect)frame {
@@ -2245,18 +2250,11 @@
         [layoutmanager lineFragmentRectForGlyphAtIndex:_lastVisible
                                         effectiveRange:nil];
 
-    NSRect firstRect = [layoutmanager lineFragmentRectForGlyphAtIndex:0
-                                                       effectiveRange:nil];
-    NSRect reallyLastRect =
-        [layoutmanager lineFragmentRectForGlyphAtIndex:_textstorage.length - 1
-                                        effectiveRange:nil];
-    NSLog(@"The first character of the _textstorage has rect %@",
-          NSStringFromRect(firstRect));
-    NSLog(@"The last character of the _textstorage has rect %@",
-          NSStringFromRect(reallyLastRect));
-
     _scrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) /
-                    (CGFloat)[Preferences lineHeight];
+                    lastLineheight;
+
+    NSLog(@"_scrollOffset = NSMaxY(visibleRect)(%f) - NSMaxY(lastRect)(%f) (%f) / lineHeight(%f) = %f )",
+          NSMaxY(visibleRect), NSMaxY(lastRect), NSMaxY(visibleRect) - NSMaxY(lastRect), [Preferences lineHeight], _scrollOffset);
 
     NSLog(@"Stored _lastVisible as %ld (of %ld characters total) with "
           @"_scrollOffset %f",
@@ -2283,7 +2281,7 @@
 
     NSLog(@"scrollToCharacter: %ld withOffset: %f", character, offset);
 
-    offset = offset * (CGFloat)[Preferences lineHeight];
+    offset = offset * (CGFloat)Preferences.lineHeight;
     // first, force a layout so we have the correct textview frame
     glyphs = [layoutmanager glyphRangeForTextContainer:container];
 

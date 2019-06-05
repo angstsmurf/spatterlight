@@ -98,6 +98,8 @@
 
     NSMutableArray *moveRanges;
     NSInteger moveRangeIndex;
+
+    CGFloat lastLineheight;
 }
 
 @property NSTextStorage *textstorage;

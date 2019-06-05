@@ -116,5 +116,7 @@
 - (void)restoreFocus:(id)sender;
 - (void)restoreUI:(GlkController *)controller;
 - (void)autoSaveOnExit;
+- (void)storeScrollOffsets;
+- (void)restoreScrollOffsets;
 
 @end

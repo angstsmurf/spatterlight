@@ -71,6 +71,10 @@ static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
     }
 }
 
+- (void)viewDidEnterLiveResize {
+    [delegate storeScrollOffsets];
+}
+
 - (void)viewDidEndLiveResize {
     // NSLog (@"GlkHelperView (_contentView) viewDidEndLiveResize self.frame:
     //  %@", NSStringFromRect(self.frame));
@@ -1995,6 +1999,8 @@ NSInteger colorToInteger(NSColor *color) {
                 if (rect.size.height < 0)
                     rect.size.height = 0;
                 reqWin.frame = rect;
+                if ([reqWin isKindOfClass:[GlkTextBufferWindow class]])
+                    [(GlkTextBufferWindow *)reqWin restoreScroll];
 
                 NSInteger hmask = NSViewMaxXMargin;
                 NSInteger vmask = NSViewMaxYMargin;
@@ -2521,8 +2527,10 @@ willUseFullScreenContentSize:(NSSize)proposedSize {
 
 - (void)restoreScrollOffsets {
     for (GlkWindow *win in [_gwindows allValues])
-        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            [(GlkTextBufferWindow *)win restoreScrollView];
             [(GlkTextBufferWindow *)win restoreScroll];
+        }
 }
 
 - (void)window:(NSWindow *)window
@@ -2618,6 +2626,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
                             if (stashShouldShowAlert)
                                 [self showAutorestoreAlert];
+                            [self restoreScrollOffsets];
                         }];
                 }];
         }];
@@ -2671,11 +2680,7 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
     _contentView.frame = frame;
     [self contentDidResize:frame];
 
-    for (GlkWindow *win in [_gwindows allValues])
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            [(GlkTextBufferWindow *)win restoreScrollView];
-            [(GlkTextBufferWindow *)win restoreScroll];
-        }
+    [self restoreScrollOffsets];
 }
 
 - (void)enterFullscreen {
