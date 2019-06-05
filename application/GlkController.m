@@ -2650,9 +2650,6 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
             // include full screen bit
             [window
                 setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
-            // And then we'll move it back to its initial position.
-            // We subtract 0.1 seconds to avoid flicker at animation end
-            context.duration = duration - 0.1;
             [[window animator] setFrame:oldFrame display:YES];
         }
         completionHandler:^{
