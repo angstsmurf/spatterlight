@@ -1446,8 +1446,6 @@
     [container invalidateLayout];
     if (atBottom)
         [self scrollToBottom];
-    //  if (!textview.scrolledToBottom)
-    //    [self restoreScroll];
 }
 
 - (void)saveAsRTF:(id)sender {

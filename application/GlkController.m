@@ -2507,7 +2507,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize {
 }
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
-    NSLog(@"glkctgl: windowWillEnterFullScreen");
     // Save the window frame so that it can be restored later
     _windowPreFullscreenFrame = self.window.frame;
     _inFullscreen = YES;
@@ -2528,9 +2527,6 @@ willUseFullScreenContentSize:(NSSize)proposedSize {
 
 - (void)window:(NSWindow *)window
 startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
-    NSLog(@"startCustomAnimationToEnterFullScreenWithDuration: frame "
-          @"pre-fullscreen animation: %@",
-          NSStringFromRect(self.window.frame));
 
     inFullScreenResize = YES;
 
