@@ -2704,7 +2704,7 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
-    _borderView.frame = self.window.contentView.frame;
+    _borderView.frame = ((NSView *)self.window.contentView).frame;
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     NSRect frame = _contentView.frame;
