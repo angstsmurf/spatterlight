@@ -43,35 +43,6 @@
             _next = (chan->next)->tag;
         if (chan->prev)
             _prev = (chan->prev)->tag;
-        //
-        //    void *sample; /* Mix_Chunk (or FMOD Sound) */
-        //    void *music; /* Mix_Music (or FMOD Music) */
-        //    void *decode; /* Sound_Sample */
-        //
-        //    void *sdl_rwops; /* SDL_RWops */
-        //    unsigned char *sdl_memory;
-        //    int sdl_channel;
-        //
-        //    int resid; /* for notifies */
-        //    int status;
-        //    int channel;
-        //    int volume;
-        //    glui32 loop;
-        //    int notify;
-        //    int buffered;
-        //    int paused;
-        //
-        //    /* for volume fades */
-        //    int volume_notify;
-        //    int volume_timeout;
-        //    int target_volume;
-        //    double float_volume;
-        //    double volume_delta;
-        //    void *timer;
-        //
-        //    gidispatch_rock_t disprock;
-        //    channel_t *chain_next, *chain_prev;
-
     }
     return self;
 }
