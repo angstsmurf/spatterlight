@@ -1,8 +1,13 @@
 # Change log
 
 ## Unreleased
-- Added standard key equivalent Commando + Delete for delete 
-- Fixed grid view column toggle, which I inadvertently broke in the previous release
+
+- Autosave support for Glulx games
+- Windows restoration (except for non-Glulx game windows)
+- Automatic conversion of curly quotes and non-standard dashes in input
+- Improved retention of scroll position during resize
+- Added standard key equivalent Commando + Delete for deleting games from game library.
+- Fixed library view column toggle, which I inadvertently broke in the previous release
 
 ## Release 0.5.10b
 
