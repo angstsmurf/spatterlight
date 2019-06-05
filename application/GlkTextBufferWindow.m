@@ -1443,14 +1443,6 @@
     BOOL atBottom = textview.scrolledToBottom;
     super.frame = frame;
 
-    if (textview.frame.size.width != frame.size.width && !self.inLiveResize) {
-        NSLog(@"ERROR! Textview wrong width. Is %f, should be %f. Adjusting!",
-              textview.frame.size.width, frame.size.width);
-        NSRect newframe = textview.frame;
-        newframe.size.width = frame.size.width;
-        textview.frame = newframe;
-    }
-
     [container invalidateLayout];
     if (atBottom)
         [self scrollToBottom];
