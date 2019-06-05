@@ -1049,39 +1049,20 @@
     self = [super initWithGlkController:glkctl_ name:name_];
 
     if (self) {
-        NSInteger margin = [Preferences bufferMargins];
+        NSInteger margin = Preferences.bufferMargins;
         NSInteger i;
 
-        char_request = NO;
-        line_request = NO;
-        hyper_request = NO;
-        echo_toggle_pending = NO;
         echo = YES;
 
-        fence = 0;
-        _lastseen = 0;
         _lastchar = '\n';
 
         lastLineheight = Preferences.lineHeight;
 
         for (i = 0; i < HISTORYLEN; i++)
             history[i] = nil;
-        historypos = 0;
-        historyfirst = 0;
-        historypresent = 0;
 
         hyperlinks = [[NSMutableArray alloc] init];
-        currentHyperlink = nil;
-
         moveRanges = [[NSMutableArray alloc] init];
-        moveRangeIndex = 0;
-
-        _lastVisible = 0;
-        _scrollOffset = 0;
-
-        _restoredScroll = NSZeroRect;
-        _restoredSelection = NSMakeRange(0, 0);
-
         scrollview = [[NSScrollView alloc] initWithFrame:NSZeroRect];
 
         [self restoreScrollView];
