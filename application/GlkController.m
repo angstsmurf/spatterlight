@@ -2600,6 +2600,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                     contentFullScreenFrame.size.height =
                         screen.frame.size.height - Preferences.border * 2;
                     contentFullScreenFrame.origin.y = Preferences.border;
+                    contentFullScreenFrame.origin.x =
+                        (screen.frame.size.width - contentFullScreenFrame.size.width) / 2;
 
                     [NSAnimationContext
                         runAnimationGroup:^(NSAnimationContext *context) {
