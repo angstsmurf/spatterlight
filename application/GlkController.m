@@ -525,10 +525,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)restoreUIlate {
 
-    // If this is the first turn, we try to restore the UI from an autosave
-    // file, in order to catch things like entered text and scrolling, that has
-    // changed the UI but not sent any events to the interpreter process. This
-    // is called by handleRequest on a NEXTEVENT request.
+    // We try to restore the UI here, in order to catch things
+    // like entered text and scrolling, that has changed the UI
+    // but not sent any events to the interpreter process.
+    // This method is called in handleRequest on NEXTEVENT.
 
     shouldRestoreUI = NO;
 
