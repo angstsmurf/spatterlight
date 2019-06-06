@@ -2210,7 +2210,7 @@
         CGFloat charbottom = NSMaxY(line); // bottom of the line
         charbottom = charbottom + offset;
         NSRect newVisibleRect =
-            NSMakeRect(0, charbottom - NSHeight(scrollview.frame),
+            NSMakeRect(0, floor(charbottom - NSHeight(scrollview.frame)),
                        NSWidth(textview.frame), NSHeight(scrollview.frame));
 
         [scrollview.contentView scrollRectToVisible:newVisibleRect];
