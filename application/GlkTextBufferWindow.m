@@ -1315,6 +1315,7 @@
         scrollview.drawsBackground = YES;
         scrollview.hasHorizontalScroller = NO;
         scrollview.hasVerticalScroller = YES;
+        [[scrollview verticalScroller] setAlphaValue:0];
         scrollview.autohidesScrollers = YES;
         scrollview.borderType = NSNoBorder;
     }
