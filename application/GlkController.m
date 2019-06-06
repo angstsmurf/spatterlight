@@ -556,7 +556,18 @@ fprintf(stderr, "%s\n",                                                    \
         [self.window toggleFullScreen:nil];
     }
 
-    [self restoreFocus:nil];
+    for (GlkWindow *win in [_gwindows allValues]) {
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            GlkTextBufferWindow *textbuf = (GlkTextBufferWindow *)win;
+            [textbuf restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
+            [textbuf scrollToCharacter:textbuf.restoredLastVisible withOffset:textbuf.restoredScrollOffset];
+            [textbuf storeScrollOffset];
+        }
+        if (win.name == _firstResponderView) {
+            [win grabFocus];
+        }
+    }
+
     restoredController = nil;
 }
 
@@ -1089,18 +1100,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (void)restoreFocus:(id)sender {
-    for (GlkWindow *win in [_gwindows allValues]) {
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            GlkTextBufferWindow *textbuf = (GlkTextBufferWindow *)win;
-            [textbuf restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
-            [textbuf restoreScroll];
-        }
-        if (win.name == _firstResponderView) {
-            [win grabFocus];
-        }
-    }
-}
 
 - (void)markLastSeen {
     for (GlkWindow *win in [_gwindows allValues])

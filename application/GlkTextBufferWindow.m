@@ -1187,11 +1187,11 @@
             ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"])
                 .rangeValue;
         textview.selectedRange = _restoredSelection;
-        _restoredScroll = [decoder decodeRectForKey:@"visibleRect"];
         _restoredAtBottom = [decoder decodeBoolForKey:@"scrolledToBottom"];
         if (!_restoredAtBottom) {
-            _lastVisible = [decoder decodeIntegerForKey:@"lastVisible"];
-            _scrollOffset = [decoder decodeDoubleForKey:@"lastVisibleOffset"];
+            _restoredLastVisible = [decoder decodeIntegerForKey:@"lastVisible"];
+            _restoredScrollOffset = [decoder decodeDoubleForKey:@"scrollOffset"];
+            NSLog(@"GlkTextBufferWindow initWithCoder: decoded _lastVisible as %ld and _scrollOffset as %f", _restoredLastVisible, _restoredScrollOffset);
         }
         textview.insertionPointColor =
             [decoder decodeObjectForKey:@"insertionPointColor"];
@@ -1232,10 +1232,11 @@
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
     [encoder encodeRect:scrollview.documentVisibleRect forKey:@"visibleRect"];
     [self storeScrollOffset];
-    [encoder encodeBool:_restoredAtBottom forKey:@"scrolledToBottom"];
+    [encoder encodeBool:lastAtBottom forKey:@"scrolledToBottom"];
     if (!_restoredAtBottom) {
-        [encoder encodeInteger:_lastVisible forKey:@"lastVisible"];
-        [encoder encodeDouble:_scrollOffset forKey:@"lastVisibleOffset"];
+        [encoder encodeInteger:lastVisible forKey:@"lastVisible"];
+        [encoder encodeDouble:lastScrollOffset forKey:@"scrollOffset"];
+        NSLog(@"GlkTextBufferWindow encodeWithCoder: encoded last visible as %ld and scroll offset as %f", lastVisible, lastScrollOffset);
     }
 
     [encoder encodeObject:textview.insertionPointColor
@@ -1251,7 +1252,6 @@
 
 - (void)restoreTextFinder {
     BOOL waseditable = textview.editable;
-    //[self storeScrollOffset];
     textview.editable = NO;
     textview.usesFindBar = YES;
 
@@ -1273,7 +1273,6 @@
         }
     }
     textview.editable = waseditable;
-    //[self restoreScroll];
 }
 
 - (void)destroyTextFinder {
@@ -2205,39 +2204,38 @@
 
 - (void)storeScrollOffset {
 
-    _restoredAtBottom = textview.scrolledToBottom;
+    lastAtBottom = textview.scrolledToBottom;
 
-    if (_restoredAtBottom) {
-//        NSLog(@"storeScrollOffset: we are at bottom. Skipping");
+    if (lastAtBottom) {
         return;
     }
 
     NSRect visibleRect = scrollview.documentVisibleRect;
 
-    _lastVisible = [textview
+    lastVisible = [textview
         characterIndexForInsertionAtPoint:NSMakePoint(NSMaxX(visibleRect),
                                                       NSMaxY(visibleRect))];
 
-    _lastVisible--;
-    if (_lastVisible >= _textstorage.length) {
+    lastVisible--;
+    if (lastVisible >= _textstorage.length) {
         NSLog(@"lastCharacter index (%ld) is outside _textstorage length (%ld)",
-              _lastVisible, _textstorage.length);
-        _lastVisible = _textstorage.length - 1;
+              lastVisible, _textstorage.length);
+        lastVisible = _textstorage.length - 1;
     }
 
     NSRect lastRect =
-        [layoutmanager lineFragmentRectForGlyphAtIndex:_lastVisible
+        [layoutmanager lineFragmentRectForGlyphAtIndex:lastVisible
                                         effectiveRange:nil];
 
-    _scrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) /
+    lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) /
                     lastLineheight;
 
     NSLog(@"_scrollOffset = NSMaxY(visibleRect)(%f) - NSMaxY(lastRect)(%f) (%f) / lineHeight(%f) = %f )",
-          NSMaxY(visibleRect), NSMaxY(lastRect), NSMaxY(visibleRect) - NSMaxY(lastRect), [Preferences lineHeight], _scrollOffset);
+          NSMaxY(visibleRect), NSMaxY(lastRect), NSMaxY(visibleRect) - NSMaxY(lastRect), [Preferences lineHeight], lastScrollOffset);
 
     NSLog(@"Stored _lastVisible as %ld (of %ld characters total) with "
           @"_scrollOffset %f",
-          _lastVisible, _textstorage.length, _scrollOffset);
+          lastVisible, _textstorage.length, lastScrollOffset);
 }
 
 - (void)restoreScroll;
@@ -2246,7 +2244,7 @@
         [self scrollToBottom];
         return;
     }
-    [self scrollToCharacter:_lastVisible withOffset:_scrollOffset];
+    [self scrollToCharacter:lastVisible withOffset:lastScrollOffset];
     return;
 }
 
@@ -2258,7 +2256,7 @@
     NSRange glyphs;
     NSRect line;
 
-    NSLog(@"scrollToCharacter: %ld withOffset: %f", character, offset);
+    NSLog(@"scrollToCharacter: %ld ('%@') withOffset: %f", character, [_textstorage.string substringWithRange:NSMakeRange(character, 1)], offset);
 
     offset = offset * (CGFloat)Preferences.lineHeight;
     // first, force a layout so we have the correct textview frame

@@ -113,7 +113,6 @@
 - (void)markLastSeen;
 - (void)performScroll;
 - (void)setBorderColor:(NSColor *)color;
-- (void)restoreFocus:(id)sender;
 - (void)restoreUI:(GlkController *)controller;
 - (void)autoSaveOnExit;
 - (void)storeScrollOffsets;

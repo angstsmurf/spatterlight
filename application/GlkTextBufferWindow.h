@@ -100,17 +100,24 @@
     NSInteger moveRangeIndex;
 
     CGFloat lastLineheight;
+
+    /* for temporarily storing scroll position */
+    NSUInteger lastVisible; 
+    CGFloat lastScrollOffset;
+    BOOL lastAtBottom;
 }
 
 @property NSTextStorage *textstorage;
 @property(readonly) NSInteger lastchar; /* for smart formatting */
 @property(readonly) NSInteger lastseen; /* for more paging */
-@property NSInteger lastVisible;
-@property CGFloat scrollOffset;
-@property NSRect restoredScroll;
+
+/* For autorestoring scroll position */
+@property NSInteger restoredLastVisible;
+@property CGFloat restoredScrollOffset;
+@property BOOL restoredAtBottom;
+
 @property NSRange restoredSelection;
 @property NSString *restoredSearch;
-@property BOOL restoredAtBottom;
 @property BOOL restoredFindBarVisible;
 
 - (void)recalcBackground;
