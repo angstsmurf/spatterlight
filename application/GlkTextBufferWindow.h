@@ -27,12 +27,9 @@
 - (instancetype)initWithFrame:(NSRect)rect
                 textContainer:(NSTextContainer *)container;
 - (void)superKeyDown:(NSEvent *)evt;
-- (void)scrollToBottom;
-- (void)performScroll;
 - (void)temporarilyHideCaret;
 - (void)resetTextFinder; // Call after changing the text storage, or search will
                          // break.
-- (BOOL)scrolledToBottom;
 
 @property BOOL shouldDrawCaret;
 @property NSRect restoredFrame;
@@ -82,6 +79,7 @@
     NSLayoutManager *layoutmanager;
     MarginContainer *container;
     MyTextView *textview;
+    NSTextStorage *textstorage;
 
     BOOL line_request;
     BOOL hyper_request;
@@ -107,7 +105,6 @@
     BOOL lastAtBottom;
 }
 
-@property NSTextStorage *textstorage;
 @property(readonly) NSInteger lastchar; /* for smart formatting */
 @property(readonly) NSInteger lastseen; /* for more paging */
 
@@ -126,10 +123,12 @@
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (void)stopSpeakingText_10_7;
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset;
+- (void)scrollToBottom;
+- (BOOL)scrolledToBottom;
+- (void)storeScrollOffset;
 - (void)restoreScroll;
 - (void)restoreTextFinder;
 - (void)restoreScrollBarStyle;
-- (void)storeScrollOffset;
 
 - (IBAction)speakMostRecent:(id)sender;
 - (IBAction)speakPrevious:(id)sender;

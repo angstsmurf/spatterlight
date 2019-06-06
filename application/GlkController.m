@@ -526,7 +526,12 @@ fprintf(stderr, "%s\n",                                                    \
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkTextBufferWindow *textbuf = (GlkTextBufferWindow *)win;
             [textbuf restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
-            [textbuf scrollToCharacter:textbuf.restoredLastVisible withOffset:textbuf.restoredScrollOffset];
+            if (textbuf.restoredAtBottom) {
+                [textbuf scrollToBottom];
+            } else {
+                [textbuf scrollToCharacter:textbuf.restoredLastVisible withOffset:textbuf.restoredScrollOffset];
+            }
+
             [textbuf storeScrollOffset];
         }
         if (win.name == _firstResponderView) {
