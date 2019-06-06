@@ -6,6 +6,10 @@
 #define TAG_SPACES_ONE 1
 #define TAG_SPACES_TWO 2
 
+#define ZOOMRESET 0
+#define ZOOMIN 1
+#define ZOOMOUT 2
+
 @interface Preferences : NSWindowController <NSWindowDelegate> {
     IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
     IBOutlet NSColorWell *clrInputFg, *clrBufferFg, *clrGridFg;
@@ -66,7 +70,8 @@
 
 + (BOOL)stylesEnabled;
 + (BOOL)smartQuotes;
-+ (NSInteger)spaceFormat;
++ (NSUInteger)spaceFormat;
++ (NSUInteger)zoomDirection;
 
 + (BOOL)graphicsEnabled;
 + (BOOL)soundEnabled;

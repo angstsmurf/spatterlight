@@ -1173,64 +1173,6 @@ fprintf(stderr, "%s\n",                                                    \
         [win prefsDidChange];
 }
 
-- (void)noteDefaultSizeChanged:(id)sender {
-    [self storeScrollOffsets];
-    NSSize defaultWindowSize = Preferences.defaultWindowSize;
-
-    if ((self.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask) {
-        NSRect screenframe = [NSScreen mainScreen].visibleFrame;
-
-        NSRect contentRect =
-        NSMakeRect(0, 0, defaultWindowSize.width, defaultWindowSize.height);
-
-        NSRect winrect = [self.window frameRectForContentRect:contentRect];
-        winrect.origin = self.window.frame.origin;
-
-        // If the new size is too big to fit on screen, clip at screen size
-        if (NSHeight(winrect) > NSHeight(screenframe) - 1)
-            winrect.size.height = NSHeight(screenframe) - 1;
-        if (NSWidth(winrect) > NSWidth(screenframe))
-            winrect.size.width = NSWidth(screenframe);
-
-        CGFloat offset = NSHeight(winrect) - NSHeight(self.window.frame);
-
-        winrect.origin.y -= offset;
-
-        // If window is partly off the screen, move it (just) inside
-        if (NSMaxX(winrect) > NSMaxX(screenframe))
-            winrect.origin.x = NSMaxX(screenframe) - NSWidth(winrect);
-
-        if (NSMinY(winrect) < 0)
-            winrect.origin.y = NSMinY(screenframe);
-
-        //[self.window setFrame:winrect display:YES animate:YES];
-        [self.window setFrame:winrect display:NO animate:NO];
-    } else {
-        NSRect oldframe = _contentView.frame;
-        NSInteger borders = Preferences.border * 2;
-        NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
-                                     defaultWindowSize.width - borders,
-                                     defaultWindowSize.height - borders);
-
-        if (NSWidth(newframe) > NSWidth(_borderView.frame) - borders)
-            newframe.size.width = NSWidth(_borderView.frame) - borders;
-        if (NSHeight(newframe) > NSHeight(_borderView.frame) - borders)
-            newframe.size.height = NSHeight(_borderView.frame) - borders;
-
-        newframe.origin.x += (NSWidth(oldframe) - NSWidth(newframe)) / 2;
-
-        CGFloat offset = NSHeight(newframe) - NSHeight(oldframe);
-        newframe.origin.y -= offset;
-
-        //[[_contentView animator] setFrame:newframe];
-        _contentView.frame = newframe;
-        [self contentDidResize:newframe];
-    }
-
-    [self restoreScrollOffsets];
-}
-
 - (void)handleChangeTitle:(char *)buf length:(int)len {
     buf[len] = '\0';
     NSString *str = @(buf);
@@ -2480,6 +2422,67 @@ again:
     [Preferences zoomToActualSize];
     if (Preferences.instance)
         [Preferences.instance updatePanelAfterZoom];
+}
+
+- (void)noteDefaultSizeChanged:(id)sender {
+
+    NSSize sizeAfterZoom = Preferences.defaultWindowSize;
+    NSRect oldframe = _contentView.frame;
+
+    if ((sizeAfterZoom.width < oldframe.size.width && Preferences.zoomDirection == ZOOMIN) ||
+        (sizeAfterZoom.width > oldframe.size.width && Preferences.zoomDirection == ZOOMOUT)) {
+        return;
+    }
+
+    [self storeScrollOffsets];
+
+    if ((self.window.styleMask & NSFullScreenWindowMask) !=
+        NSFullScreenWindowMask) {
+        NSRect screenframe = [NSScreen mainScreen].visibleFrame;
+
+        NSRect contentRect =
+        NSMakeRect(0, 0, sizeAfterZoom.width, sizeAfterZoom.height);
+
+        NSRect winrect = [self.window frameRectForContentRect:contentRect];
+        winrect.origin = self.window.frame.origin;
+
+        // If the new size is too big to fit on screen, clip at screen size
+        if (NSHeight(winrect) > NSHeight(screenframe) - 1)
+            winrect.size.height = NSHeight(screenframe) - 1;
+        if (NSWidth(winrect) > NSWidth(screenframe))
+            winrect.size.width = NSWidth(screenframe);
+
+        CGFloat offset = NSHeight(winrect) - NSHeight(self.window.frame);
+
+        winrect.origin.y -= offset;
+
+        // If window is partly off the screen, move it (just) inside
+        if (NSMaxX(winrect) > NSMaxX(screenframe))
+            winrect.origin.x = NSMaxX(screenframe) - NSWidth(winrect);
+
+        if (NSMinY(winrect) < 0)
+            winrect.origin.y = NSMinY(screenframe);
+
+        [self.window setFrame:winrect display:NO animate:NO];
+    } else {
+        NSUInteger borders = Preferences.border * 2;
+        NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
+                                     sizeAfterZoom.width - borders,
+                                     NSHeight(_borderView.frame) - borders);
+
+        if (NSWidth(newframe) > NSWidth(_borderView.frame) - borders)
+            newframe.size.width = NSWidth(_borderView.frame) - borders;
+
+        newframe.origin.x += (NSWidth(oldframe) - NSWidth(newframe)) / 2;
+
+        CGFloat offset = NSHeight(newframe) - NSHeight(oldframe);
+        newframe.origin.y -= offset;
+
+        _contentView.frame = newframe;
+        [self contentDidResize:newframe];
+    }
+    
+    [self restoreScrollOffsets];
 }
 
 #pragma mark Full screen

@@ -21,7 +21,8 @@ static float cellw = 5;
 static float cellh = 5;
 
 static BOOL smartquotes = YES;
-static int spaceformat = 0;
+static NSUInteger spaceformat = TAG_SPACES_GAME;
+static NSUInteger zoomDirection = ZOOMRESET;
 static BOOL dographics = YES;
 static BOOL dosound = NO;
 static BOOL dostyles = NO;
@@ -245,8 +246,12 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     return smartquotes;
 }
 
-+ (NSInteger)spaceFormat {
++ (NSUInteger)spaceFormat {
     return spaceformat;
+}
+
++ (NSUInteger)zoomDirection {
+    return zoomDirection;
 }
 
 + (float)lineHeight {
@@ -614,7 +619,7 @@ NSString *fontToString(NSFont *font) {
 
 - (IBAction)changeSpaceFormatting:(id)sender {
     spaceformat = [sender state];
-    NSLog(@"pref: space format changed to %d", spaceformat);
+    NSLog(@"pref: space format changed to %ld", (unsigned long)spaceformat);
     [[NSUserDefaults standardUserDefaults] setObject:@(spaceformat)
                                               forKey:@"SpaceFormat"];
 }
@@ -677,19 +682,24 @@ NSString *fontToString(NSFont *font) {
 #pragma mark - Zoom
 
 + (void)zoomIn {
+    zoomDirection = ZOOMRESET;
     if (gridroman.pointSize < 100) {
+        zoomDirection = ZOOMIN;
         [self scale:(gridroman.pointSize + 1) / gridroman.pointSize];
     }
 }
 
 + (void)zoomOut {
+    zoomDirection = ZOOMRESET;
     if (gridroman.pointSize > 6) {
+        zoomDirection = ZOOMOUT;
         [self scale:(gridroman.pointSize - 1) / gridroman.pointSize];
     }
 }
 
 + (void)zoomToActualSize {
-    [self scale:12 / gridroman.pointSize];
+    zoomDirection = ZOOMRESET;
+    [self scale:12 / gridroman.pointSize];    
 }
 
 + (void)scale:(CGFloat)scalefactor {
