@@ -2512,7 +2512,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     // center of its eventual full screen frame.
     NSRect centerWindowFrame = window.frame;
     centerWindowFrame.origin.x =
-    (screen.frame.size.width - centerWindowFrame.size.width) / 2;
+    floor((screen.frame.size.width - centerWindowFrame.size.width) / 2);
 
     centerWindowFrame.origin.y =
     NSHeight(screen.frame) - NSHeight(window.frame);
@@ -2561,7 +2561,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                         screen.frame.size.height - Preferences.border * 2;
                     contentFullScreenFrame.origin.y = Preferences.border;
                     contentFullScreenFrame.origin.x =
-                        (screen.frame.size.width - contentFullScreenFrame.size.width) / 2;
+                        floor((screen.frame.size.width - contentFullScreenFrame.size.width) / 2);
 
                     [NSAnimationContext
                         runAnimationGroup:^(NSAnimationContext *context) {
