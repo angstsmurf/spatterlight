@@ -1091,12 +1091,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)restoreFocus:(id)sender {
     for (GlkWindow *win in [_gwindows allValues]) {
-        //[win restoreSelection];
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkTextBufferWindow *textbuf = (GlkTextBufferWindow *)win;
             [textbuf restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
             [textbuf restoreScroll];
-            //[textbuf restoreTextFinder];
         }
         if (win.name == _firstResponderView) {
             [win grabFocus];
