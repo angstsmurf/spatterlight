@@ -2255,8 +2255,11 @@
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset {
     NSRange glyphs;
     NSRect line;
-
-    NSLog(@"scrollToCharacter: %ld ('%@') withOffset: %f", character, [_textstorage.string substringWithRange:NSMakeRange(character, 1)], offset);
+ 
+    if (character >= _textstorage.length - 1) {
+        [self scrollToBottom];
+        return;
+    }
 
     offset = offset * (CGFloat)Preferences.lineHeight;
     // first, force a layout so we have the correct textview frame
