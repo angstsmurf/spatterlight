@@ -727,10 +727,11 @@
 
     NSScrollView *scrollview = (NSScrollView *)view;
 
-    NSPoint newScrollOrigin = NSMakePoint(
-        0.0, NSMaxY(self.frame) - NSHeight(scrollview.contentView.bounds));
+    NSRect newVisibleRect =
+        NSMakeRect(0, NSMaxY(self.frame) - NSHeight(scrollview.contentView.bounds),
+               NSWidth(scrollview.frame), NSHeight(scrollview.frame));
 
-    [scrollview.contentView scrollToPoint:newScrollOrigin];
+    [scrollview.contentView scrollRectToVisible:newVisibleRect];
     [scrollview reflectScrolledClipView:scrollview.contentView];
     //    NSLog(@"scrollToBottom: Scrolled to bottom of scrollview");
 }
@@ -2258,6 +2259,7 @@
     NSRect line;
  
     if (character >= _textstorage.length - 1) {
+        NSLog(@"Character: %ld _textstorage.length:%ld Scrolling to bottom! ", character, _textstorage.length);
         [self scrollToBottom];
         return;
     }
