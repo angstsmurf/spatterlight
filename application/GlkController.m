@@ -95,8 +95,6 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Initialization
 
-// The two BOOL parameters in this method might need some explanation
-
 // shouldReset means that we have killed the interpreter process and want to
 // start the game anew, deleting any existing autosave files. This reuses the
 // game window and should not resize it. A reset may be initiated by the user
