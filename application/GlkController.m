@@ -310,7 +310,7 @@ fprintf(stderr, "%s\n",                                                    \
     _contentView.frame = restoredController.storedContentFrame;
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-    [self restoreUI:restoredController];
+    [self restoreUI];
     self.window.title =
     [self.window.title stringByAppendingString:@" (finished)"];
 
@@ -412,118 +412,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Autorestore
 
-- (void)restoreUI:(GlkController *)controller {
-
-    GlkWindow *win;
-
-    if (!controller) {
-        controller =
-        [NSKeyedUnarchiver unarchiveObjectWithFile:_autosaveFileGUI];
-    }
-    if (controller) {
-//        NSLog(@"Restoring UI");
-        _firstResponderView = controller.firstResponderView;
-        _storedTimerInterval = controller.storedTimerInterval;
-        _storedTimerLeft = controller.storedTimerLeft;
-        _windowPreFullscreenFrame = controller.windowPreFullscreenFrame;
-        if (controller.queue.count)
-            NSLog(@"controller.queue contains events");
-        for (GlkEvent *event in controller.queue)
-            [self queueEvent:event];
-
-        if (_storedTimerLeft) {
-            NSLog(@"storedTimerLeft:%f storedTimerInterval:%f",
-                  _storedTimerLeft, _storedTimerInterval);
-            if (timer) {
-                [timer invalidate];
-                timer = nil;
-            }
-            timer =
-            [NSTimer scheduledTimerWithTimeInterval:_storedTimerLeft
-                                             target:self
-                                           selector:@selector(restartTimer:)
-                                           userInfo:0
-                                            repeats:NO];
-            NSLog(@"storedTimerLeft was %f, so started a timer.",
-                  _storedTimerInterval);
-
-        } else if (_storedTimerInterval) {
-            [self handleSetTimer:_storedTimerInterval * 1000];
-            NSLog(@"_storedTimerInterval was %f, so started a timer.",
-                  _storedTimerLeft);
-        }
-
-        _contentView.frame = controller.storedContentFrame;
-
-        for (id key in controller.gwindows) {
-            win = [_gwindows objectForKey:key];
-            if (win)
-                [win removeFromSuperview];
-            win = [controller.gwindows objectForKey:key];
-            [_gwindows setObject:win forKey:@(win.name)];
-            [win removeFromSuperview];
-
-            if (NSMaxX(win.frame) > NSMaxX(_contentView.frame)) {
-                NSLog(@"ERROR: Right edge of GlkWindow %ld is outside right "
-                      @"edge of _contentView. Trying to adjust",
-                      win.name);
-                CGFloat diff = NSMaxX(win.frame) - NSMaxX(_contentView.frame);
-                NSRect newContentFrame = _contentView.frame;
-                newContentFrame.size.width += diff;
-                _contentView.frame = newContentFrame;
-                NSRect newBorderViewFrame = _borderView.frame;
-                newBorderViewFrame.size.width += diff;
-                _borderView.frame = newBorderViewFrame;
-            }
-
-            [_contentView addSubview:win];
-//            NSLog(@"Added GlkWindow %@, name %ld to contentView", win,
-//                  win.name);
-//            NSLog(@"Frame: %@ Bounds: %@", NSStringFromRect(win.frame),
-//                  NSStringFromRect(win.bounds));
-
-            win.glkctl = self;
-        }
-
-        if ((self.window.styleMask & NSFullScreenWindowMask) !=
-            NSFullScreenWindowMask &&
-            !_inFullscreen) {
-
-            CGFloat border = Preferences.border;
-            NSRect desiredContentFrame =
-            NSMakeRect(border, border, _contentView.frame.size.width,
-                       _contentView.frame.size.height);
-            NSSize desiredBorderViewSize =
-            NSMakeSize(desiredContentFrame.size.width + border * 2,
-                       desiredContentFrame.size.height + border * 2);
-
-            if (!NSEqualSizes(_borderView.frame.size, desiredBorderViewSize) &&
-                !controller.inFullscreen) {
-                NSLog(@"GlkController restoreUI: _borderView.frame.size (%@) "
-                      @"is not _contentView.frame.size (%@) + "
-                      @"Preferences.border (%f), so we try to adjust it.",
-                      NSStringFromSize(_borderView.frame.size),
-                      NSStringFromSize(_contentView.frame.size),
-                      Preferences.border);
-                [self.window setContentSize:desiredBorderViewSize];
-                _contentView.frame = desiredContentFrame;
-            } else
-                NSLog(@"Borderview size was already correct");
-        }
-
-        for (win in [_gwindows allValues]) {
-            win.autoresizingMask = win.restoredResizingMask;
-//            NSLog(@"Set autoresizing mask for gwindow %ld to %@", win.name,
-//                  [win sayMask:win.restoredResizingMask]);
-            if ([win isKindOfClass:[GlkTextBufferWindow class]])
-                [(GlkTextBufferWindow *)win restoreTextFinder];
-        }
-        _contentView.autoresizingMask =
-        NSViewWidthSizable | NSViewHeightSizable;
-    }
-}
-
-- (void)restoreUIlate {
+- (void)restoreUI {
 
     // We try to restore the UI here, in order to catch things
     // like entered text and scrolling, that has changed the UI
@@ -532,8 +421,82 @@ fprintf(stderr, "%s\n",                                                    \
 
     shouldRestoreUI = NO;
 
-    [self restoreUI:restoredController];
+    GlkWindow *win;
 
+    // Copy values from autorestored GlkController object
+    _firstResponderView = restoredController.firstResponderView;
+    _storedTimerInterval = restoredController.storedTimerInterval;
+    _storedTimerLeft = restoredController.storedTimerLeft;
+    _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
+    
+    if (restoredController.queue.count)
+        NSLog(@"controller.queue contains events");
+    for (GlkEvent *event in restoredController.queue)
+        [self queueEvent:event];
+
+    // Restart timer
+    if (_storedTimerLeft) {
+        NSLog(@"storedTimerLeft:%f storedTimerInterval:%f",
+              _storedTimerLeft, _storedTimerInterval);
+        if (timer) {
+            [timer invalidate];
+            timer = nil;
+        }
+        timer =
+        [NSTimer scheduledTimerWithTimeInterval:_storedTimerLeft
+                                         target:self
+                                       selector:@selector(restartTimer:)
+                                       userInfo:0
+                                        repeats:NO];
+        NSLog(@"storedTimerLeft was %f, so started a timer.",
+              _storedTimerInterval);
+
+    } else if (_storedTimerInterval) {
+        [self handleSetTimer:_storedTimerInterval * 1000];
+        NSLog(@"_storedTimerInterval was %f, so started a timer.",
+              _storedTimerLeft);
+    }
+
+    // Restore frame size
+    _contentView.frame = restoredController.storedContentFrame;
+
+    // Copy all views and GlkWindow objects from restored Controller
+    for (id key in restoredController.gwindows) {
+        win = [_gwindows objectForKey:key];
+        if (win)
+            [win removeFromSuperview];
+        win = [restoredController.gwindows objectForKey:key];
+        [_gwindows setObject:win forKey:@(win.name)];
+        [win removeFromSuperview];
+
+        if (NSMaxX(win.frame) > NSMaxX(_contentView.frame)) {
+            NSLog(@"ERROR: Right edge of GlkWindow %ld is outside right "
+                  @"edge of _contentView. Trying to adjust",
+                  win.name);
+            CGFloat diff = NSMaxX(win.frame) - NSMaxX(_contentView.frame);
+            NSRect newContentFrame = _contentView.frame;
+            newContentFrame.size.width += diff;
+            _contentView.frame = newContentFrame;
+            NSRect newBorderViewFrame = _borderView.frame;
+            newBorderViewFrame.size.width += diff;
+            _borderView.frame = newBorderViewFrame;
+        }
+
+        [_contentView addSubview:win];
+
+        win.glkctl = self;
+    }
+
+    // Restore resizing masks and text finders
+    for (win in [_gwindows allValues]) {
+        win.autoresizingMask = win.restoredResizingMask;
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            [(GlkTextBufferWindow *)win restoreTextFinder];
+    }
+    _contentView.autoresizingMask =
+    NSViewWidthSizable | NSViewHeightSizable;
+
+    // Stupid hack to force arrange event
     NSRect oldFrame = _contentView.frame;
     NSRect dummyFrame = oldFrame;
     dummyFrame.size = NSMakeSize(_contentView.frame.size.width + 1,
@@ -547,15 +510,18 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self notePreferencesChanged:nil];
 
+    // Now we can actually show the window
     [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
 
-    if (restoredController && restoredController.inFullscreen &&
+    // Enter fullscreen if needed
+    if (restoredController.inFullscreen &&
         !windowRestoredBySystem) {
         [self.window toggleFullScreen:nil];
     }
 
+    // Restore scroll position and focus
     for (GlkWindow *win in [_gwindows allValues]) {
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkTextBufferWindow *textbuf = (GlkTextBufferWindow *)win;
@@ -1730,7 +1696,7 @@ NSInteger colorToInteger(NSColor *color) {
             // process.
 
             if (shouldRestoreUI && turns == 2) {
-                [self restoreUIlate];
+                [self restoreUI];
                 if (shouldShowAutorestoreAlert)
                     [self showAutorestoreAlert];
             }
