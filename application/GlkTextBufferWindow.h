@@ -24,8 +24,6 @@
     NSTextFinder *_textFinder;
 }
 
-- (instancetype)initWithFrame:(NSRect)rect
-                textContainer:(NSTextContainer *)container;
 - (void)superKeyDown:(NSEvent *)evt;
 - (void)temporarilyHideCaret;
 - (void)resetTextFinder; // Call after changing the text storage, or search will

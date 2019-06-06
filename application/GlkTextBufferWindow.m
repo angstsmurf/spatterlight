@@ -666,20 +666,6 @@
 
 @implementation MyTextView
 
-- (instancetype)initWithFrame:(NSRect)rect
-                textContainer:(NSTextContainer *)container {
-    self = [super initWithFrame:rect textContainer:container];
-    if (self) {
-        _bottomPadding = 0;
-        _shouldSpeak_10_7 = NO;
-        _rangeToSpeak_10_7 = NSMakeRange(0, 0);
-        _textFinder = nil;
-        // NSLog(@"GlkTextBufferWindow: MyTextView initWithFrame: %@",
-        // NSStringFromRect(rect));
-    }
-    return self;
-}
-
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
