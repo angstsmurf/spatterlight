@@ -1096,6 +1096,7 @@ fprintf(stderr, "%s\n",                                                    \
         //[win restoreSelection];
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkTextBufferWindow *textbuf = (GlkTextBufferWindow *)win;
+            [textbuf restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
             [textbuf restoreScroll];
             //[textbuf restoreTextFinder];
         }
@@ -2517,7 +2518,7 @@ willUseFullScreenContentSize:(NSSize)proposedSize {
 - (void)restoreScrollOffsets {
     for (GlkWindow *win in [_gwindows allValues])
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            [(GlkTextBufferWindow *)win restoreScrollView];
+            [(GlkTextBufferWindow *)win restoreScrollBarStyle];
             [(GlkTextBufferWindow *)win restoreScroll];
         }
 }

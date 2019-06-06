@@ -1065,7 +1065,7 @@
         moveRanges = [[NSMutableArray alloc] init];
         scrollview = [[NSScrollView alloc] initWithFrame:NSZeroRect];
 
-        [self restoreScrollView];
+        [self restoreScrollBarStyle];
 
         /* construct text system manually */
 
@@ -1157,7 +1157,7 @@
 
         scrollview.backgroundColor = [Preferences bufferBackground];
 
-        [self restoreScrollView];
+        [self restoreScrollBarStyle];
 
         line_request = [decoder decodeBoolForKey:@"line_request"];
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
@@ -1308,7 +1308,7 @@
     return findSearchField(theView);
 }
 
-- (void)restoreScrollView {
+- (void)restoreScrollBarStyle {
     if (scrollview) {
 
         scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
