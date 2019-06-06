@@ -1848,8 +1848,6 @@
 - (void)initChar {
     // NSLog(@"init char in %d", name);
 
-    // [self.glkctl performScroll];
-
     fence = _textstorage.length;
 
     char_request = YES;
