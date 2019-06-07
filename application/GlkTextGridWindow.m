@@ -428,14 +428,15 @@
                                   container.lineFragmentPadding) *
                                      2) /
              Preferences.charWidth);
+    
     NSInteger newrows = ceil((frame.size.height + Preferences.leading -
                               (textview.textContainerInset.width) * 2) /
                              Preferences.lineHeight);
 
     if (newcols == cols && newrows == rows &&
         NSEqualRects(textview.frame, frame)) {
-        NSLog(@"GlkTextGridWindow setFrame: new frame same as old frame. "
-              @"Skipping.");
+//        NSLog(@"GlkTextGridWindow setFrame: new frame same as old frame. "
+//              @"Skipping.");
         return;
     }
 

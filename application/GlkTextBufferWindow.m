@@ -1345,8 +1345,8 @@
     //    NSStringFromRect(frame));
 
     if (NSEqualRects(frame, self.frame)) {
-        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
-              @"Skipping.");
+//        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
+//              @"Skipping.");
         return;
     }
 
@@ -2062,7 +2062,7 @@
 - (BOOL)myMouseDown:(NSEvent *)theEvent {
     GlkEvent *gev;
 
-    // Do't draw a caret right now, even if we clicked at the prompt
+    // Don't draw a caret right now, even if we clicked at the prompt
     [textview temporarilyHideCaret];
 
     // NSLog(@"mouseDown in buffer window.");
@@ -2152,13 +2152,6 @@
 
     lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) /
                     lastLineheight;
-
-    NSLog(@"_scrollOffset = NSMaxY(visibleRect)(%f) - NSMaxY(lastRect)(%f) (%f) / lineHeight(%f) = %f )",
-          NSMaxY(visibleRect), NSMaxY(lastRect), NSMaxY(visibleRect) - NSMaxY(lastRect), [Preferences lineHeight], lastScrollOffset);
-
-    NSLog(@"Stored _lastVisible as %ld (of %ld characters total) with "
-          @"_scrollOffset %f",
-          lastVisible, textstorage.length, lastScrollOffset);
 }
 
 - (void)restoreScroll;

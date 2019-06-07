@@ -1878,9 +1878,9 @@ NSInteger colorToInteger(NSColor *color) {
 
                 checksumWidth = req->a6;
                 if (fabs(checksumWidth - _contentView.frame.size.width) > 2.0) {
-                    NSLog(@"handleRequest sizwin: wrong checksum width (%d). "
-                          @"Current _contentView width is %f",
-                          checksumWidth, _contentView.frame.size.width);
+//                    NSLog(@"handleRequest sizwin: wrong checksum width (%d). "
+//                          @"Current _contentView width is %f",
+//                          checksumWidth, _contentView.frame.size.width);
                     break;
                 }
 

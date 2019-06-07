@@ -107,7 +107,7 @@
 @property(readonly) NSInteger lastseen; /* for more paging */
 
 /* For autorestoring scroll position */
-@property NSInteger restoredLastVisible;
+@property NSUInteger restoredLastVisible;
 @property CGFloat restoredScrollOffset;
 @property BOOL restoredAtBottom;
 
