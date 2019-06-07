@@ -2129,7 +2129,7 @@
 
     lastAtBottom = self.scrolledToBottom;
 
-    if (lastAtBottom) {
+    if (lastAtBottom || !textstorage.length) {
         return;
     }
 
@@ -2179,6 +2179,9 @@
     }
 
     offset = offset * (CGFloat)Preferences.lineHeight;
+    if (isnan(offset) || offset < 0.1)
+        offset = 0;
+
     // first, force a layout so we have the correct textview frame
     glyphs = [layoutmanager glyphRangeForTextContainer:container];
 
