@@ -42,9 +42,9 @@ NSDictionary *gFormatMap;
         @"quill" : @"unquill",
         @"tads2" : @"tadsr",
         @"tads3" : @"tadsr",
-        @"zcode" : @"fizmo"
+        @"zcode" : @"frotz"
     };
-    //  @"zcode": @"frotz"};
+    //  @"zcode": @"fizmo"};
 
     addToRecents = YES;
 

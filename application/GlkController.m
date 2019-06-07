@@ -595,8 +595,8 @@ fprintf(stderr, "%s\n",                                                    \
                                      @"quill" : @"UnQuill",
                                      @"tads2" : @"TADS",
                                      @"tads3" : @"TADS",
-                                     //@"zcode": @"Frotz",
-                                     @"zcode" : @"Fizmo"
+                                     @"zcode": @"Frotz",
+                                     //@"zcode" : @"Fizmo"
                                      };
 
         NSError *error;
