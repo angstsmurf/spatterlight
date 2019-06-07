@@ -1174,77 +1174,6 @@
     [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
 }
 
-- (void)restoreTextFinder {
-    BOOL waseditable = textview.editable;
-    textview.editable = NO;
-    textview.usesFindBar = YES;
-
-    NSTextFinder *newFinder = textview.textFinder;
-    newFinder.client = textview;
-    newFinder.findBarContainer = scrollview;
-    newFinder.incrementalSearchingEnabled = YES;
-    newFinder.incrementalSearchingShouldDimContentView = NO;
-
-    if (_restoredFindBarVisible) {
-        NSLog(@"Restoring textFinder");
-        [newFinder performAction:NSTextFinderActionShowFindInterface];
-        NSSearchField *searchField = [self findSearchFieldIn:self];
-        if (searchField) {
-            searchField.stringValue = _restoredSearch;
-            [newFinder cancelFindIndicator];
-            [self.glkctl.window makeFirstResponder:textview];
-            [searchField sendAction:searchField.action to:searchField.target];
-        }
-    }
-    textview.editable = waseditable;
-}
-
-- (void)destroyTextFinder {
-
-    NSView *aView = [self findSearchFieldIn:scrollview];
-    if (aView) {
-        while (aView.superview != scrollview)
-            aView = aView.superview;
-        [aView removeFromSuperview];
-        NSLog(@"Destroyed textFinder!");
-    }
-}
-
-- (NSSearchField *)findSearchFieldIn:
-    (NSView *)theView // search the subviews for a view of class NSSearchField
-{
-    __block __weak NSSearchField * (^weak_findSearchField)(NSView *);
-    NSSearchField * (^findSearchField)(NSView *);
-    weak_findSearchField = findSearchField = ^(NSView *view) {
-        if ([view isKindOfClass:[NSSearchField class]])
-            return (NSSearchField *)view;
-        __block NSSearchField *foundView = nil;
-        [view.subviews enumerateObjectsUsingBlock:^(
-                           NSView *subview, NSUInteger idx, BOOL *stop) {
-            foundView = weak_findSearchField(subview);
-            if (foundView)
-                *stop = YES;
-        }];
-        return foundView;
-    };
-
-    return findSearchField(theView);
-}
-
-- (void)restoreScrollBarStyle {
-    if (scrollview) {
-
-        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        scrollview.scrollerStyle = NSScrollerStyleOverlay;
-        scrollview.drawsBackground = YES;
-        scrollview.hasHorizontalScroller = NO;
-        scrollview.hasVerticalScroller = YES;
-        [[scrollview verticalScroller] setAlphaValue:0];
-        scrollview.autohidesScrollers = YES;
-        scrollview.borderType = NSNoBorder;
-    }
-}
-
 - (BOOL)allowsDocumentBackgroundColorChange {
     return YES;
 }
@@ -1900,6 +1829,65 @@
     return newrange;
 }
 
+#pragma mark Text finder
+
+- (void)restoreTextFinder {
+    BOOL waseditable = textview.editable;
+    textview.editable = NO;
+    textview.usesFindBar = YES;
+
+    NSTextFinder *newFinder = textview.textFinder;
+    newFinder.client = textview;
+    newFinder.findBarContainer = scrollview;
+    newFinder.incrementalSearchingEnabled = YES;
+    newFinder.incrementalSearchingShouldDimContentView = NO;
+
+    if (_restoredFindBarVisible) {
+        NSLog(@"Restoring textFinder");
+        [newFinder performAction:NSTextFinderActionShowFindInterface];
+        NSSearchField *searchField = [self findSearchFieldIn:self];
+        if (searchField) {
+            searchField.stringValue = _restoredSearch;
+            [newFinder cancelFindIndicator];
+            [self.glkctl.window makeFirstResponder:textview];
+            [searchField sendAction:searchField.action to:searchField.target];
+        }
+    }
+    textview.editable = waseditable;
+}
+
+- (void)destroyTextFinder {
+
+    NSView *aView = [self findSearchFieldIn:scrollview];
+    if (aView) {
+        while (aView.superview != scrollview)
+            aView = aView.superview;
+        [aView removeFromSuperview];
+        NSLog(@"Destroyed textFinder!");
+    }
+}
+
+- (NSSearchField *)findSearchFieldIn:
+(NSView *)theView // search the subviews for a view of class NSSearchField
+{
+    __block __weak NSSearchField * (^weak_findSearchField)(NSView *);
+    NSSearchField * (^findSearchField)(NSView *);
+    weak_findSearchField = findSearchField = ^(NSView *view) {
+        if ([view isKindOfClass:[NSSearchField class]])
+            return (NSSearchField *)view;
+        __block NSSearchField *foundView = nil;
+        [view.subviews enumerateObjectsUsingBlock:^(
+                                                    NSView *subview, NSUInteger idx, BOOL *stop) {
+            foundView = weak_findSearchField(subview);
+            if (foundView)
+                *stop = YES;
+        }];
+        return foundView;
+    };
+
+    return findSearchField(theView);
+}
+
 #pragma mark images
 
 - (NSImage *)scaleImage:(NSImage *)src size:(NSSize)dstsize {
@@ -2244,6 +2232,20 @@
                  textview.bounds.size.height) < .5);
 }
 
+
+- (void)restoreScrollBarStyle {
+    if (scrollview) {
+
+        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        scrollview.scrollerStyle = NSScrollerStyleOverlay;
+        scrollview.drawsBackground = YES;
+        scrollview.hasHorizontalScroller = NO;
+        scrollview.hasVerticalScroller = YES;
+        [[scrollview verticalScroller] setAlphaValue:0];
+        scrollview.autohidesScrollers = YES;
+        scrollview.borderType = NSNoBorder;
+    }
+}
 
 #pragma mark Speech
 
