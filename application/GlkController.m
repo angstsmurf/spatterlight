@@ -428,7 +428,7 @@ fprintf(stderr, "%s\n",                                                    \
     _storedTimerInterval = restoredController.storedTimerInterval;
     _storedTimerLeft = restoredController.storedTimerLeft;
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
-    
+
     if (restoredController.queue.count)
         NSLog(@"controller.queue contains events");
     for (GlkEvent *event in restoredController.queue)
@@ -932,7 +932,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)contentDidResize:(NSRect)frame {
 //    NSLog(@"glkctl: contentDidResize: frame:%@ Previous _contentView.frame:%@",
 //          NSStringFromRect(frame), NSStringFromRect(lastContentResize));
-    
+
     if (NSEqualRects(frame, lastContentResize)) {
 //        NSLog(
 //            @"contentDidResize called with same frame as last time. Skipping.");
@@ -2400,7 +2400,7 @@ again:
         _contentView.frame = newframe;
         [self contentDidResize:newframe];
     }
-    
+
     [self restoreScrollOffsets];
 }
 
