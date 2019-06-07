@@ -1079,10 +1079,32 @@ fprintf(stderr, "%s\n",                                                    \
 
     GlkEvent *gevent;
 
-    [self adjustContentView];
+    NSRect frame = _contentView.frame;
+    NSUInteger border = Preferences.border;
 
-    gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
-                                         height:_contentView.frame.size.height];
+    _borderView.frame = ((NSView *)self.window.contentView).frame;
+
+    if ((self.window.styleMask & NSFullScreenWindowMask) !=
+        NSFullScreenWindowMask) {
+        frame.origin.x = frame.origin.y = border;
+
+        frame.size.width = _borderView.frame.size.width - (border * 2);
+        frame.size.height = _borderView.frame.size.height - (border * 2);
+    } else // We are in fullscreen
+    {
+        frame.origin.y = border;
+        frame.size.height = _borderView.frame.size.height - (border * 2);
+    }
+
+    if (!NSEqualRects(frame, _contentView.frame)) {
+//        NSLog(@"glkctl: notePreferencesChanged: _contentView frame changed "
+//              @"from %@ to %@",
+//              NSStringFromRect(_contentView.frame), NSStringFromRect(frame));
+        _contentView.frame = frame;
+    }
+
+    gevent = [[GlkEvent alloc] initArrangeWidth:frame.size.width
+                                         height:frame.size.height];
     [self queueEvent:gevent];
 
     gevent = [[GlkEvent alloc] initPrefsEvent];
@@ -2459,7 +2481,22 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     NSRect border_finalFrame = NSZeroRect;
     border_finalFrame.size = borderFullScreenSize;
 
-    
+    // The center frame for the window is used during
+    // the 1st half of the fullscreen animation and is
+    // the window at its original size but moved to the
+    // center of its eventual full screen frame.
+    NSRect centerWindowFrame = window.frame;
+    centerWindowFrame.origin.x =
+    floor((screen.frame.size.width - centerWindowFrame.size.width) / 2);
+
+    centerWindowFrame.origin.y =
+    NSHeight(screen.frame) - NSHeight(window.frame);
+    if (NSMaxY(centerWindowFrame) > NSMaxY(screen.frame))
+        centerWindowFrame.size.height -=
+        (NSMaxY(centerWindowFrame) - NSMaxY(screen.frame));
+
+    NSLog(@"centerWindowFrame: %@", NSStringFromRect(centerWindowFrame));
+
     NSRect borderViewFrameMinusBorder =
     NSMakeRect(Preferences.border, Preferences.border,
                NSWidth(_borderView.frame) - Preferences.border * 2,
@@ -2469,31 +2506,11 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
                                     NSViewMinYMargin; // Attached at top but not bottom or sides
-    
-    NSRect contentFullScreenFrame = _contentView.frame;
-    contentFullScreenFrame.size.height =
-     ceil(screen.frame.size.height - Preferences.border * 2);
-    contentFullScreenFrame.origin.y = ceil(Preferences.border);
-    contentFullScreenFrame.origin.x =
-    floor((screen.frame.size.width - contentFullScreenFrame.size.width) / 2);
 
-    // The center frame for the window is used during
-    // the 1st half of the fullscreen animation and is
-    // the window at its original size but moved to the
-    // center of its eventual full screen frame.
-    NSRect centerWindowFrame = window.frame;
-    centerWindowFrame.origin.x = contentFullScreenFrame.origin.x - Preferences.border;
-
-    centerWindowFrame.origin.y =
-    NSHeight(screen.frame) - NSHeight(window.frame);
-    if (NSMaxY(centerWindowFrame) > NSMaxY(screen.frame))
-        centerWindowFrame.size.height -=
-        (NSMaxY(centerWindowFrame) - NSMaxY(screen.frame));
+    NSView *localContentView = _contentView;
 
     BOOL stashShouldShowAlert = shouldShowAutorestoreAlert;
     shouldShowAutorestoreAlert = NO;
-
-    NSView *localContentView = _contentView;
 
     // Our animation will be broken into three steps.
     [NSAnimationContext
@@ -2514,6 +2531,13 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                          display:YES];
                 }
                 completionHandler:^{
+                    NSRect contentFullScreenFrame = localContentView.frame;
+                    contentFullScreenFrame.size.height =
+                        screen.frame.size.height - Preferences.border * 2;
+                    contentFullScreenFrame.origin.y = Preferences.border;
+                    contentFullScreenFrame.origin.x =
+                        floor((screen.frame.size.width - contentFullScreenFrame.size.width) / 2);
+
                     [NSAnimationContext
                         runAnimationGroup:^(NSAnimationContext *context) {
                             // then we extend the content view vertically as needed.
