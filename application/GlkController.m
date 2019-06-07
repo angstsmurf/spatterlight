@@ -2497,12 +2497,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     NSLog(@"centerWindowFrame: %@", NSStringFromRect(centerWindowFrame));
 
-    NSRect borderViewFrameMinusBorder =
-    NSMakeRect(Preferences.border, Preferences.border,
-               NSWidth(_borderView.frame) - Preferences.border * 2,
-               NSHeight(_borderView.frame) - Preferences.border * 2);
+    NSRect adjustedVertically = _contentView.frame;
+    adjustedVertically.origin.y = floor(Preferences.border);
 
-    [_contentView setFrame:borderViewFrameMinusBorder];
+    [_contentView setFrame:adjustedVertically];
 
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
                                     NSViewMinYMargin; // Attached at top but not bottom or sides
