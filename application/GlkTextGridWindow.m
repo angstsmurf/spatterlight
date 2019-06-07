@@ -535,6 +535,8 @@
     // NSLog(@"setFrame: selected range was %@, trying to restore to %@",
     // NSStringFromRange(textview.selectedRange),
     // NSStringFromRange(selectedRange));
+    if (NSMaxRange(selectedRange) >= textstorage.length)
+        selectedRange = NSMakeRange(textstorage.length - 1, 0);
     textview.selectedRange = selectedRange;
     // NSLog(@"Result: textview.selectedRange = %@",
     // NSStringFromRange(textview.selectedRange));
