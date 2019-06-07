@@ -140,7 +140,7 @@ NSDictionary *gFormatMap;
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
             NSString *ifid = [identifier substringFromIndex:7];
             window = [appDelegate.libctl playGameWithIFID:ifid
-                                            autorestoring:YES];
+                                            winRestore:YES];
         }
     }
     completionHandler(window, nil);

@@ -838,11 +838,24 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
 #pragma mark Actually starting the game
 
 - (NSWindow *)playGameWithIFID:(NSString *)ifid {
-    return [self playGameWithIFID:ifid autorestoring:NO];
+    return [self playGameWithIFID:ifid winRestore:NO];
 }
 
+// The winRestore flag is just to let us know whether
+// this is called from restoreWindowWithIdentifier in
+// AppDelegate.m. It really should be called 
+// systemWindowRestoration or something like that.
+// The playGameWithIFID method will pass this flag on
+// to the GlkController runTerp method.
+
+// The main difference is that then we will enter
+// fullscreen automatically if we autosaved in fullscreen,
+// so we don't have to worry about that, unlike when
+// autorestoring by clicking the game in the library view
+// or similar.
+
 - (NSWindow *)playGameWithIFID:(NSString *)ifid
-                 autorestoring:(BOOL)restoreflag {
+                 winRestore:(BOOL)restoreflag {
     NSDictionary *info = [metadata objectForKey:ifid];
     NSString *path = [games objectForKey:ifid];
     NSString *terp;
