@@ -2410,11 +2410,17 @@ again:
 }
 
 - (NSArray *)customWindowsToEnterFullScreenForWindow:(NSWindow *)window {
-    return @[ window ];
+    if (window == self.window)
+        return @[ window ];
+    else
+        return nil;
 }
 
 - (NSArray *)customWindowsToExitFullScreenForWindow:(NSWindow *)window {
-    return @[ window ];
+    if (window == self.window)
+        return @[ window ];
+    else
+        return nil;
 }
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
@@ -2424,6 +2430,11 @@ again:
     [self storeScrollOffsets];
 }
 
+- (void)windowDidFailToEnterFullScreen:(NSWindow *)window {
+    _inFullscreen = NO;
+    inFullScreenResize = NO;
+    [window setFrame:_windowPreFullscreenFrame display:YES];
+}
 
 - (void)storeScrollOffsets {
     for (GlkWindow *win in [_gwindows allValues])
