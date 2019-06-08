@@ -2161,7 +2161,6 @@
     NSRect line;
  
     if (character >= textstorage.length - 1) {
-        NSLog(@"Character: %ld textstorage.length:%ld Scrolling to bottom! ", character, textstorage.length);
         [self scrollToBottom];
         return;
     }

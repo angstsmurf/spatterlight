@@ -1978,7 +1978,7 @@ NSInteger colorToInteger(NSColor *color) {
             break;
 
         case CANCELLINE:
-            NSLog(@"glkctl CANCELLINE %d", req->a1);
+//            NSLog(@"glkctl CANCELLINE %d", req->a1);
             ans->cmd = OKAY;
             if (reqWin) {
                 const char *str = [reqWin cancelLine].UTF8String;
@@ -2409,7 +2409,6 @@ again:
 - (NSSize)window:(NSWindow *)window
 willUseFullScreenContentSize:(NSSize)proposedSize {
     borderFullScreenSize = proposedSize;
-    NSLog(@"willUseFullScreenContentSize: %@", NSStringFromSize(borderFullScreenSize));
     return proposedSize;
 }
 
@@ -2472,8 +2471,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if (NSMaxY(centerWindowFrame) > NSMaxY(screen.frame))
         centerWindowFrame.size.height -=
         (NSMaxY(centerWindowFrame) - NSMaxY(screen.frame));
-
-    NSLog(@"centerWindowFrame: %@", NSStringFromRect(centerWindowFrame));
 
     NSRect adjustedVertically = _contentView.frame;
     adjustedVertically.origin.y = floor(Preferences.border);
