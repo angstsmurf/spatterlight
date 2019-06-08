@@ -535,18 +535,20 @@ fprintf(stderr, "%s\n",                                                    \
     NSRect desiredContentFrame;
     NSUInteger border = floor(Preferences.border);
 
-    if ((self.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask) {
+    if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
+        (restoredController && restoredController.inFullscreen)) {
+        // We are in fullscreen
+        desiredContentFrame =
+        NSMakeRect(floor((self.window.screen.frame.size.width -
+                          _contentView.frame.size.width) /
+                         2),
+                   border, _contentView.frame.size.width,
+                   floor(NSHeight(_borderView.frame) - Preferences.border * 2));
+    } else {
+        // We are not in fullscreen
         desiredContentFrame =
         NSMakeRect(border, border,
                    floor(NSWidth(_borderView.frame) - Preferences.border * 2),
-                   floor(NSHeight(_borderView.frame) - Preferences.border * 2));
-    } else {
-        desiredContentFrame =
-        NSMakeRect(floor((self.window.screen.frame.size.width -
-                    _contentView.frame.size.width) /
-                   2),
-                   border, _contentView.frame.size.width,
                    floor(NSHeight(_borderView.frame) - Preferences.border * 2));
     }
 
