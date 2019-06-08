@@ -610,8 +610,8 @@ fprintf(stderr, "%s\n",                                                    \
 
         NSString *dummytext = [NSString
                                stringWithFormat:
-                               @"This file, %@, was placed here by Spatterlight in order to make it easier "
-                               @"for humans to guess what game these autosave files belong "
+                               @"This file, %@, was placed here by Spatterlight in order to make "
+                               @"it easier for humans to guess what game these autosave files belong "
                                @"to. Any files in this folder are for the game %@, or "
                                @"possibly a game with another name but identical contents.",
                                dummyfilename, [gameinfo objectForKey:@"title"]];
@@ -648,6 +648,7 @@ fprintf(stderr, "%s\n",                                                    \
     return _autosaveFileTerp;
 }
 
+// LibController calls this to reset non-running games
 - (void)deleteAutosaveFilesForGameFile:(NSString *)gamefile_
                                 withInfo:(NSDictionary *)gameinfo_ {
     gamefile = gamefile_;
