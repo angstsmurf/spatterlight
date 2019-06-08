@@ -71,10 +71,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (void)viewDidEnterLiveResize {
-    [delegate storeScrollOffsets];
-}
-
 - (void)viewDidEndLiveResize {
     // We use a custom fullscreen width, so don't resize to full screen width
     // when viewDidEndLiveResize is called because we just entered fullscreen
@@ -2351,8 +2347,6 @@ again:
         return;
     }
 
-    [self storeScrollOffsets];
-
     if ((self.window.styleMask & NSFullScreenWindowMask) !=
         NSFullScreenWindowMask) {
         NSRect screenframe = [NSScreen mainScreen].visibleFrame;
@@ -2398,8 +2392,6 @@ again:
         _contentView.frame = newframe;
         [self contentDidResize:newframe];
     }
-
-    [self restoreScrollOffsets];
 }
 
 #pragma mark Full screen
