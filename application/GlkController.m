@@ -1079,32 +1079,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     GlkEvent *gevent;
 
-    NSRect frame = _contentView.frame;
-    NSUInteger border = Preferences.border;
-
-    _borderView.frame = ((NSView *)self.window.contentView).frame;
-
-    if ((self.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask) {
-        frame.origin.x = frame.origin.y = border;
-
-        frame.size.width = _borderView.frame.size.width - (border * 2);
-        frame.size.height = _borderView.frame.size.height - (border * 2);
-    } else // We are in fullscreen
-    {
-        frame.origin.y = border;
-        frame.size.height = _borderView.frame.size.height - (border * 2);
-    }
-
-    if (!NSEqualRects(frame, _contentView.frame)) {
-//        NSLog(@"glkctl: notePreferencesChanged: _contentView frame changed "
-//              @"from %@ to %@",
-//              NSStringFromRect(_contentView.frame), NSStringFromRect(frame));
-        _contentView.frame = frame;
-    }
-
-    gevent = [[GlkEvent alloc] initArrangeWidth:frame.size.width
-                                         height:frame.size.height];
+    [self adjustContentView];
+    
+    gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
+                                         height:_contentView.frame.size.height];
     [self queueEvent:gevent];
 
     gevent = [[GlkEvent alloc] initPrefsEvent];
