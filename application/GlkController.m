@@ -161,6 +161,7 @@ fprintf(stderr, "%s\n",                                                    \
     // If we are resetting, there is a bunch of stuff that we have already done
     // and we can skip
     if (shouldReset) {
+        [self adjustContentView];
         [self forkInterpreterTask];
         return;
     }
