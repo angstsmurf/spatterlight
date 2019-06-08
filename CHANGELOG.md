@@ -2,11 +2,11 @@
 
 ## Unreleased
 
-- Autosave support for Glulx games
+- Autosave and autorestore support for Glulx games
 - Windows restoration (except for non-Glulx game windows)
 - Automatic conversion of curly quotes and non-standard dashes in input
 - Improved retention of scroll position during resize
-- Added standard key equivalent Commando + Delete for deleting games from game library.
+- Added standard key equivalent Command + Delete for deleting games from game library
 - Fixed library view column toggle, which I inadvertently broke in the previous release
 
 ## Release 0.5.10b
