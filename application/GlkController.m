@@ -2548,6 +2548,11 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
     _contentView.autoresizingMask =
     NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
 
+    NSWindow *localWindow = self.window;
+    NSView *localBorderView = _borderView;
+    NSView *localContentView =_contentView;
+    NSInteger border = Preferences.border;
+
     [NSAnimationContext
         runAnimationGroup:^(NSAnimationContext *context) {
             // Make sure the window style mask does not
@@ -2558,28 +2563,23 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
         }
         completionHandler:^{
             [self enableArrangementEvents];
+            localBorderView.frame = ((NSView *)localWindow.contentView).frame;
+            localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+
+            NSRect frame = localContentView.frame;
+
+            frame.origin.x = frame.origin.y = border;
+            frame.size.width = localBorderView.frame.size.width - (border * 2);
+            frame.size.height = localBorderView.frame.size.height - (border * 2);
+            
+            localContentView.frame = frame;
+            [self contentDidResize:frame];
+            [self restoreScrollOffsets];
         }];
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
-    _borderView.frame = ((NSView *)self.window.contentView).frame;
-    _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-
-    NSRect frame = _contentView.frame;
-
-    NSInteger border = Preferences.border;
-
-    frame.origin.x = frame.origin.y = border;
-
-    frame.size.width = _borderView.frame.size.width - (border * 2);
-    frame.size.height = _borderView.frame.size.height - (border * 2);
-
     _inFullscreen = NO;
-
-    _contentView.frame = frame;
-    [self contentDidResize:frame];
-
-    [self restoreScrollOffsets];
 }
 
 - (void)enterFullscreen {
