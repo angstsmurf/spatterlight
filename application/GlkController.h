@@ -43,6 +43,8 @@
     BOOL shouldRestoreUI;
     BOOL shouldShowAutorestoreAlert;
 
+    NSSize borderFullScreenSize;
+
     /* the glk objects */
     // GlkSoundChannel *gchannels[MAXSND];
     BOOL windowdirty; /* the contentView needs to repaint */

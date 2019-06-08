@@ -174,6 +174,7 @@ fprintf(stderr, "%s\n",                                                    \
     lastContentResize = NSZeroRect;
     _inFullscreen = NO;
     _windowPreFullscreenFrame = NSZeroRect;
+    borderFullScreenSize = NSZeroSize;
 
     restoredController = nil;
     inFullScreenResize = NO;
@@ -2406,6 +2407,11 @@ again:
 
 #pragma mark Full screen
 
+- (NSSize)window:(NSWindow *)window willUseFullScreenContentSize:(NSSize)proposedSize {
+    borderFullScreenSize = proposedSize;
+    return proposedSize;
+}
+
 - (NSArray *)customWindowsToEnterFullScreenForWindow:(NSWindow *)window {
     return @[ window ];
 }
@@ -2446,8 +2452,12 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     window.styleMask = (window.styleMask | NSFullScreenWindowMask);
     NSScreen *screen = window.screen;
 
+    if (NSEqualSizes(borderFullScreenSize, NSZeroSize))
+        borderFullScreenSize = screen.frame.size;
+
     // The final, full screen frame
     NSRect border_finalFrame = screen.frame;
+    border_finalFrame.size = borderFullScreenSize;
 
     // The center frame for the window is used during
     // the 1st half of the fullscreen animation and is
