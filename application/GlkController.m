@@ -76,8 +76,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)viewDidEndLiveResize {
-    // NSLog (@"GlkHelperView (_contentView) viewDidEndLiveResize self.frame:
-    //  %@", NSStringFromRect(self.frame));
     // We use a custom fullscreen width, so don't resize to full screen width
     // when viewDidEndLiveResize is called because we just entered fullscreen
     if ((delegate.window.styleMask & NSFullScreenWindowMask) !=
@@ -182,8 +180,6 @@ fprintf(stderr, "%s\n",                                                    \
     [self appSupportDir];
     [self autosaveFileGUI];
     [self autosaveFileTerp];
-
-    [self adjustContentView];
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -302,8 +298,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSViewMinXMargin | NSViewMinYMargin;
     [self.window setFrame:restoredController.storedWindowFrame display:NO];
 
-    NSSize defsize =
-    [self.window
+    NSSize defsize = [self.window
      contentRectForFrameRect:restoredController.storedWindowFrame]
     .size;
     [self.window setContentSize:defsize];
@@ -2476,11 +2471,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         centerWindowFrame.size.height -=
         (NSMaxY(centerWindowFrame) - NSMaxY(screen.frame));
 
-    NSRect adjustedVertically = _contentView.frame;
-    adjustedVertically.origin.y = floor(Preferences.border);
-
-    [_contentView setFrame:adjustedVertically];
-
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
                                     NSViewMinYMargin; // Attached at top but not bottom or sides
 
@@ -2512,8 +2502,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                     contentFullScreenFrame.size.height =
                         screen.frame.size.height - Preferences.border * 2;
                     contentFullScreenFrame.origin.y = Preferences.border;
-//                    contentFullScreenFrame.origin.x =
-//                        floor((screen.frame.size.width - contentFullScreenFrame.size.width) / 2);
 
                     [NSAnimationContext
                         runAnimationGroup:^(NSAnimationContext *context) {
