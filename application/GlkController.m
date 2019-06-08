@@ -290,6 +290,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)runTerpNormal {
     // Just start the game with no autorestore or fullscreen or resetting
     [self.window setContentSize:Preferences.defaultWindowSize];
+    [self.window center];
     [self forkInterpreterTask];
     [self showWindow:nil];
 }
