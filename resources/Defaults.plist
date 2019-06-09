@@ -1,7 +1,7 @@
 {
 	Border = 15;
-	DefaultWidth = 62;
-	DefaultHeight = 60;
+	DefaultWidth = 80;
+	DefaultHeight = 40;
 	GridForeground = <000000>;
 	GridBackground = <d8d8d8>;
 	GridFontName = Monaco;
