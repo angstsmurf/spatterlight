@@ -2,8 +2,8 @@
 
 ## Release 0.5.11b
 
-- Autosave and autorestore support for Glulx games
-- Windows restoration (except for non-Glulx game windows)
+- Autosave and autorestore support for Glulx games, based on code from IosGlulxe
+- Window restoration (except for non-Glulx game windows)
 - Reset command to delete any autosave files and restart game (Alt+Command+R)
 - Automatic conversion of curly quotes and non-standard dashes in input
 - Improved retention of scroll position during resize
@@ -15,7 +15,7 @@
 - Added a perfunctory full screen mode
 - Added perfunctory text zooming
 - Disabled tab bar on 10.12+
-- Added a variable padding space surrounding the game view, i. e. just inside the NSWindow borders
+- Added a variable padding space surrounding the game view, i. e. a border just inside the NSWindow borders
 
 ## Release 0.5.9b
 
@@ -31,15 +31,15 @@
 - New accessibility functionality, improved VoiceOver support
 - Cleaned up project settings and added a Headers folder with symlinks to make the project compile out-of-the-box on most systems (not on Xcode 10 and later yet)
 - Margin images are now inserted into saved rtf files
-- Added text search bar to buffer windows and license document window
+- Added a text search bar to buffer windows and license document window
 - Made Find shortcut (Command + F) work in library window as well
-- Made .glkdata and .glksave default extensions
+- Made .glkdata and .glksave the default file extensions for external data and save files
 - Fixed license document window sometimes mis-calculating line length, causing ugly line breaks
 
 ## Release 0.5.8b
 
 - Fixed save file location. Previously saves always ended up in home directory
-- Fixed multiple (unlimited number of?) margin images
+- Improved handling of multiple (unlimited number of?) margin images
 - Now extends text buffer view downward when images stretch below text bottom
 - Game-generated external files are saved in an appropriate Application Support folder
 - Fixed unicode character input
