@@ -1,9 +1,10 @@
 # Change log
 
-## Unreleased
+## Release 0.5.11b
 
 - Autosave and autorestore support for Glulx games
 - Windows restoration (except for non-Glulx game windows)
+- Reset command to delete any autosave files and restart game (Alt+Command+R)
 - Automatic conversion of curly quotes and non-standard dashes in input
 - Improved retention of scroll position during resize
 - Added standard key equivalent Command + Delete for deleting games from game library
