@@ -270,10 +270,8 @@ fprintf(stderr, "%s\n",                                                    \
     NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
     [self.window setFrame:restoredController.storedWindowFrame display:YES];
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-//    _contentView.frame = restoredController.storedContentFrame;
+
     [self adjustContentView];
-
-
     shouldRestoreUI = YES;
     [self forkInterpreterTask];
 
