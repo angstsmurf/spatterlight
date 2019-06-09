@@ -9,7 +9,7 @@
     NSInteger pos;
 }
 
-@property NSAttributedString *attrstr;
+@property (weak) NSAttributedString *attrstr;
 
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)analignment
