@@ -16,8 +16,6 @@
                     andAttStr:(NSAttributedString *)anattrstr
                            at:(NSInteger)apos;
 
-//@property (readonly) BOOL wantsToTrackMouse;
-
 @end
 
 @interface MyTextView : NSTextView <NSTextFinderClient> {
