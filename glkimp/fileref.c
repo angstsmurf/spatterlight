@@ -197,7 +197,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
         return NULL;
     }
 
-    fprintf(stderr, "fileref_create_by_name: created fileref %d with name: %s\n", fref->tag, name);
+//    fprintf(stderr, "fileref_create_by_name: created fileref %d with name: %s\n", fref->tag, name);
     return fref;
 }
 
