@@ -1248,7 +1248,7 @@
         [textstorage setAttributes:attributes range:range];
 
         if (image) {
-            ((MyAttachmentCell *)image).attrstr = textstorage;
+            ((MyAttachmentCell *)((NSTextAttachment *)image).attachmentCell).attrstr = textstorage;
             [textstorage addAttribute:@"NSAttachment"
                                  value:image
                                  range:NSMakeRange(x, 1)];
