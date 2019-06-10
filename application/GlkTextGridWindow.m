@@ -440,10 +440,10 @@
         return;
     }
 
-    if (newcols < 0)
-        newcols = 0;
-    if (newrows < 0)
-        newrows = 0;
+    if (newcols < 1)
+        newcols = 1;
+    if (newrows < 1)
+        newrows = 1;
 
     NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
 
