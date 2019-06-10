@@ -528,7 +528,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSUInteger border = Preferences.border;
 
     if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
-        (restoredController && restoredController.inFullscreen)) {
+        (restoredController && restoredController.inFullscreen && windowRestoredBySystem)) {
         // We are in fullscreen
         desiredContentFrame =
         NSMakeRect(floor((self.window.screen.frame.size.width -
