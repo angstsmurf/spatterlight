@@ -2427,6 +2427,7 @@ again:
     _inFullscreen = NO;
     inFullScreenResize = NO;
     [window setFrame:_windowPreFullscreenFrame display:YES];
+    [self adjustContentView];
 }
 
 - (void)storeScrollOffsets {
@@ -2466,7 +2467,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     // center of its eventual full screen frame.
     NSRect centerWindowFrame = window.frame;
     centerWindowFrame.origin.x = screen.frame.origin.x +
-    floor((screen.frame.size.width - centerWindowFrame.size.width) / 2);
+    floor((screen.frame.size.width - NSWidth(centerWindowFrame) ) / 2);
 
     centerWindowFrame.origin.y = screen.frame.origin.y +
     NSHeight(screen.frame) - NSHeight(window.frame);
@@ -2478,7 +2479,9 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
                                     NSViewMinYMargin; // Attached at top but not bottom or sides
 
+    NSUInteger border = Preferences.border;
     NSView *localContentView = _contentView;
+    NSView *localBorderView = _borderView;
 
     BOOL stashShouldShowAlert = shouldShowAutorestoreAlert;
     shouldShowAutorestoreAlert = NO;
@@ -2502,10 +2505,12 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
                          display:YES];
                 }
                 completionHandler:^{
-                    NSRect contentFullScreenFrame = localContentView.frame;
-                    contentFullScreenFrame.size.height =
-                        screen.frame.size.height - Preferences.border * 2;
-                    contentFullScreenFrame.origin.y = Preferences.border;
+                    NSRect contentFullScreenFrame =
+                        NSMakeRect(floor((screen.frame.size.width -
+                                      localContentView.frame.size.width) /
+                                     2),
+                               border, localContentView.frame.size.width,
+                               floor(NSHeight(localBorderView.frame) - Preferences.border * 2));
 
                     [NSAnimationContext
                         runAnimationGroup:^(NSAnimationContext *context) {
