@@ -525,7 +525,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)adjustContentView {
 
     NSRect desiredContentFrame;
-    NSUInteger border = floor(Preferences.border);
+    NSUInteger border = Preferences.border;
 
     if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
         (restoredController && restoredController.inFullscreen)) {
@@ -2557,7 +2557,6 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
     NSWindow *localWindow = self.window;
     NSView *localBorderView = _borderView;
     NSView *localContentView =_contentView;
-    NSInteger border = Preferences.border;
 
     [NSAnimationContext
         runAnimationGroup:^(NSAnimationContext *context) {
@@ -2572,14 +2571,9 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
             localBorderView.frame = ((NSView *)localWindow.contentView).frame;
             localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-            NSRect frame = localContentView.frame;
+            [self adjustContentView];
 
-            frame.origin.x = frame.origin.y = border;
-            frame.size.width = localBorderView.frame.size.width - (border * 2);
-            frame.size.height = localBorderView.frame.size.height - (border * 2);
-            
-            localContentView.frame = frame;
-            [self contentDidResize:frame];
+            [self contentDidResize:localContentView.frame];
             [self restoreScrollOffsets];
         }];
 }
