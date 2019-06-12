@@ -273,7 +273,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.5.11b</string>
+	<string>0.5.12b</string>
 	<key>CFBundleSignature</key>
 	<string>Spat</string>
 	<key>LSApplicationCategoryType</key>
