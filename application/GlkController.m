@@ -2537,7 +2537,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
                    [NSAnimationContext
                     runAnimationGroup:^(NSAnimationContext *context) {
-                        context.duration = duration / 5;
+                        context.duration = duration / 10;
                         [[localSnapshot.contentView animator] setAlphaValue:0];
                     }
                     completionHandler:^{
@@ -2551,7 +2551,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
                         [NSAnimationContext
                          runAnimationGroup:^(NSAnimationContext *context) {
-                             context.duration = duration / 5;
+                             context.duration = duration / 7;
                              [[localContentView animator]
                               setFrame:contentFullScreenFrame];
                          }
