@@ -231,7 +231,6 @@
     NSSearchField *searchField = [self findSearchFieldIn:window.contentView];
     if (searchField) {
         [state encodeObject:searchField.stringValue forKey:@"searchString"];
-        NSLog(@"encoded search string %@", searchField.stringValue);
     }
     [state encodeObject:window.title forKey:@"title"];
 }

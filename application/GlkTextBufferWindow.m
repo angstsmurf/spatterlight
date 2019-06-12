@@ -1169,7 +1169,6 @@
     NSSearchField *searchField = [self findSearchFieldIn:self];
     if (searchField) {
         [encoder encodeObject:searchField.stringValue forKey:@"searchString"];
-        NSLog(@"encoded search string %@", searchField.stringValue);
     }
     [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
 }
