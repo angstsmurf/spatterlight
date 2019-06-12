@@ -11,6 +11,8 @@
  *       will succeed for more than just the last one uploaded.
  */
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "Compatibility.h"
 #import "main.h"
 
@@ -44,6 +46,7 @@
     BOOL shouldShowAutorestoreAlert;
 
     NSSize borderFullScreenSize;
+    NSWindow *snapshotWindow;
 
     /* the glk objects */
     // GlkSoundChannel *gchannels[MAXSND];

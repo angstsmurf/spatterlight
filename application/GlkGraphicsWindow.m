@@ -90,6 +90,8 @@
 
 - (void)setFrame:(NSRect)frame {
 
+    frame.origin.y = round(frame.origin.y);
+    
     if (NSEqualRects(frame, self.frame))
         return;
 

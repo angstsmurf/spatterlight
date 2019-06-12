@@ -668,7 +668,6 @@ NSString *fontToString(NSFont *font) {
 
 - (IBAction)changeBorderSize:(id)sender {
     border = [sender floatValue];
-    NSLog(@"pref: border width changed to %f", border);
     [[NSUserDefaults standardUserDefaults] setObject:@(border)
                                               forKey:@"Border"];
 

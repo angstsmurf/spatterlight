@@ -283,6 +283,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)runTerpNormal {
     // Just start the game with no autorestore or fullscreen or resetting
     [self.window setContentSize:Preferences.defaultWindowSize];
+    [self adjustContentView];
     [self.window center];
     [self forkInterpreterTask];
     [self showWindow:nil];
@@ -531,17 +532,17 @@ fprintf(stderr, "%s\n",                                                    \
         (restoredController && restoredController.inFullscreen && windowRestoredBySystem)) {
         // We are in fullscreen
         desiredContentFrame =
-        NSMakeRect(floor((self.window.screen.frame.size.width -
-                          _contentView.frame.size.width) /
-                         2),
+        NSMakeRect(ceil((NSWidth(_borderView.bounds) -
+                         NSWidth(_contentView.frame)) /
+                        2),
                    border, _contentView.frame.size.width,
-                   floor(NSHeight(_borderView.frame) - Preferences.border * 2));
+                   ceil(NSHeight(_borderView.bounds) - Preferences.border * 2));
     } else {
         // We are not in fullscreen
         desiredContentFrame =
         NSMakeRect(border, border,
-                   floor(NSWidth(_borderView.frame) - Preferences.border * 2),
-                   floor(NSHeight(_borderView.frame) - Preferences.border * 2));
+                   ceil(NSWidth(_borderView.bounds) - Preferences.border * 2),
+                   ceil(NSHeight(_borderView.bounds) - Preferences.border * 2));
     }
 
     if (NSEqualRects(_contentView.frame, desiredContentFrame)) {
@@ -1075,7 +1076,7 @@ fprintf(stderr, "%s\n",                                                    \
     GlkEvent *gevent;
 
     [self adjustContentView];
-    
+
     gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
                                          height:_contentView.frame.size.height];
     [self queueEvent:gevent];
@@ -2403,10 +2404,12 @@ again:
 }
 
 - (NSArray *)customWindowsToEnterFullScreenForWindow:(NSWindow *)window {
-    if (window == self.window)
-        return @[ window ];
-    else
+    if (window == self.window) {
+        [self makeAndPrepareSnapshotWindow];
+        return @[ window, snapshotWindow ];
+    } else {
         return nil;
+    }
 }
 
 - (NSArray *)customWindowsToExitFullScreenForWindow:(NSWindow *)window {
@@ -2426,6 +2429,8 @@ again:
 - (void)windowDidFailToEnterFullScreen:(NSWindow *)window {
     _inFullscreen = NO;
     inFullScreenResize = NO;
+    _contentView.alphaValue = 1;
+    snapshotWindow = nil;
     [window setFrame:_windowPreFullscreenFrame display:YES];
     [self adjustContentView];
 }
@@ -2452,6 +2457,9 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     // Make sure the window style mask includes the
     // full screen bit
     window.styleMask = (window.styleMask | NSFullScreenWindowMask);
+    snapshotWindow.styleMask = (snapshotWindow.styleMask | NSFullScreenWindowMask);
+    [snapshotWindow setFrame:window.frame display:YES];
+
     NSScreen *screen = window.screen;
 
     if (NSEqualSizes(borderFullScreenSize, NSZeroSize))
@@ -2465,76 +2473,107 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     // the 1st half of the fullscreen animation and is
     // the window at its original size but moved to the
     // center of its eventual full screen frame.
-    NSRect centerWindowFrame = window.frame;
-    centerWindowFrame.origin.x = screen.frame.origin.x +
-    floor((screen.frame.size.width - NSWidth(centerWindowFrame) ) / 2);
 
-    centerWindowFrame.origin.y = screen.frame.origin.y +
-    NSHeight(screen.frame) - NSHeight(window.frame);
+    NSRect centerBorderFrame = NSMakeRect(floor((screen.frame.size.width -
+                                                 _borderView.frame.size.width) /
+                                                2), borderFullScreenSize.height
+                                          - _borderView.frame.size.height,
+                                          _borderView.frame.size.width,
+                                          _borderView.frame.size.height);
 
-    if (NSMaxY(centerWindowFrame) > NSMaxY(screen.frame))
-        centerWindowFrame.size.height -=
-        (NSMaxY(centerWindowFrame) - NSMaxY(screen.frame));
+    NSRect centerWindowFrame = [window frameRectForContentRect:centerBorderFrame];
+
+    centerWindowFrame.origin.x += screen.frame.origin.x;
+    centerWindowFrame.origin.y += screen.frame.origin.y;
 
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
-                                    NSViewMinYMargin; // Attached at top but not bottom or sides
+    NSViewMinYMargin; // Attached at top but not bottom or sides
 
-    NSUInteger border = Preferences.border;
     NSView *localContentView = _contentView;
     NSView *localBorderView = _borderView;
+    NSWindow *localSnapshot = snapshotWindow;
+
+    // Hide contentview
+    _contentView.alphaValue = 0;
 
     BOOL stashShouldShowAlert = shouldShowAutorestoreAlert;
     shouldShowAutorestoreAlert = NO;
 
     // Our animation will be broken into three steps.
     [NSAnimationContext
-        runAnimationGroup:^(NSAnimationContext *context) {
-            // First, we move the window to the center
-            // of the screen
-            context.duration = duration / 3;
-            [[window animator] setFrame:centerWindowFrame display:YES];
-        }
-        completionHandler:^{
-            [NSAnimationContext
-                runAnimationGroup:^(NSAnimationContext *context) {
-                    // and then we enlarge it its full size.
-                    context.duration = duration / 3;
-                    [[window animator]
-                        setFrame:[window
-                                     frameRectForContentRect:border_finalFrame]
-                         display:YES];
-                }
-                completionHandler:^{
-                    NSRect contentFullScreenFrame =
-                        NSMakeRect(floor((screen.frame.size.width -
-                                      localContentView.frame.size.width) /
-                                     2),
-                               border, localContentView.frame.size.width,
-                               floor(NSHeight(localBorderView.frame) - Preferences.border * 2));
+     runAnimationGroup:^(NSAnimationContext *context) {
+         // First, we move the window to the center
+         // of the screen
+         context.duration = duration / 3;
+         [[localSnapshot animator] setFrame:centerWindowFrame display:YES];
+         [[window animator] setFrame:centerWindowFrame display:YES];
+     }
+     completionHandler:^{
+         [NSAnimationContext
+          runAnimationGroup:^(NSAnimationContext *context) {
+              // and then we enlarge it to its full size.
+              context.duration = duration * 2 / 3;
+              [[window animator]
+               setFrame:[window
+                         frameRectForContentRect:border_finalFrame]
+               display:YES];
+          }
+          completionHandler:^{
+              // We get the invisible content view into position ...
+              NSRect newContentFrame =
+              NSMakeRect(floor((NSWidth(localBorderView.bounds) -
+                                NSWidth(localContentView.frame)) /
+                               2),
+                         ceil(NSHeight(localBorderView.bounds) - Preferences.border - localContentView.frame.size.height), localContentView.frame.size.width, localContentView.frame.size.height
+                         );
+              [NSAnimationContext
+               runAnimationGroup:^(NSAnimationContext *context) {
+                   context.duration = duration / 10;
+                   [[localContentView animator] setFrame:newContentFrame];
+               }
+               completionHandler:^{
+                   // Now we can fade out the snapshot window
+                   localContentView.alphaValue = 1;
 
-                    [NSAnimationContext
-                        runAnimationGroup:^(NSAnimationContext *context) {
-                            // then we extend the content view vertically as needed.
-                            context.duration = duration / 3;
-                            [[localContentView animator]
-                                setFrame:contentFullScreenFrame];
-                        }
-                        completionHandler:^{
-                            [self enableArrangementEvents];
-                            GlkEvent *gevent = [[GlkEvent alloc]
-                                initArrangeWidth:contentFullScreenFrame.size
-                                                     .width
-                                          height:contentFullScreenFrame.size
-                                                     .height];
+                   [NSAnimationContext
+                    runAnimationGroup:^(NSAnimationContext *context) {
+                        context.duration = duration / 5;
+                        [[localSnapshot.contentView animator] setAlphaValue:0];
+                    }
+                    completionHandler:^{
+                        // Finally, we extend the content view vertically if needed.
+                        [self enableArrangementEvents];
 
-                            [self queueEvent:gevent];
+                        NSRect contentFullScreenFrame = localContentView.frame;
+                        contentFullScreenFrame.size.height =
+                        localBorderView.bounds.size.height - ceil(Preferences.border * 2);
+                        contentFullScreenFrame.origin.y = Preferences.border;
 
-                            if (stashShouldShowAlert)
-                                [self showAutorestoreAlert];
-                            [self restoreScrollOffsets];
-                        }];
-                }];
-        }];
+                        [NSAnimationContext
+                         runAnimationGroup:^(NSAnimationContext *context) {
+                             context.duration = duration / 5;
+                             [[localContentView animator]
+                              setFrame:contentFullScreenFrame];
+                         }
+                         completionHandler:^{
+                             // Hide the snapshot window.
+                             ((NSView *)localSnapshot.contentView).hidden = YES;
+                             ((NSView *)localSnapshot.contentView).alphaValue = 1;
+
+                             GlkEvent *gevent = [[GlkEvent alloc]
+                                                 initArrangeWidth:localContentView.frame.size.width
+                                                 height:localContentView.frame.size.height];
+
+                             [self queueEvent:gevent];
+
+                             if (stashShouldShowAlert)
+                                 [self showAutorestoreAlert];
+                             [self restoreScrollOffsets];
+                         }];
+                    }];
+               }];
+          }];
+     }];
 }
 
 - (void)enableArrangementEvents {
@@ -2559,36 +2598,73 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
     NSView *localContentView =_contentView;
 
     [NSAnimationContext
-        runAnimationGroup:^(NSAnimationContext *context) {
-            // Make sure the window style mask does not
-            // include full screen bit
-            [window
-                setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
-            [[window animator] setFrame:oldFrame display:YES];
-        }
-        completionHandler:^{
-            [self enableArrangementEvents];
-            localBorderView.frame = ((NSView *)localWindow.contentView).frame;
-            localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+     runAnimationGroup:^(NSAnimationContext *context) {
+         // Make sure the window style mask does not
+         // include full screen bit
+         [window
+          setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
+         [[window animator] setFrame:oldFrame display:YES];
+     }
+     completionHandler:^{
+         [self enableArrangementEvents];
+         localBorderView.frame = ((NSView *)localWindow.contentView).frame;
+         localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-            [self adjustContentView];
+         [self adjustContentView];
 
-            [self contentDidResize:localContentView.frame];
-            [self restoreScrollOffsets];
-        }];
+         [self contentDidResize:localContentView.frame];
+         [self restoreScrollOffsets];
+     }];
 }
 
+- (void)windowDidEnterFullScreen:(NSNotification *)notification {
+    snapshotWindow = nil;
+}
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
     _inFullscreen = NO;
 }
 
 - (void)enterFullscreen {
     [self.window setFrame:restoredController.windowPreFullscreenFrame
-                  display:NO];
-    [self showWindow:nil];
-    [self.window makeKeyAndOrderFront:nil];
-    [self adjustContentView];
+                  display:YES];
     [self.window toggleFullScreen:nil];
+}
+
+
+- (CALayer *)takeSnapshot {
+    [self showWindow:nil];
+    CGImageRef windowSnapshot = CGWindowListCreateImage(
+                                                        CGRectNull, kCGWindowListOptionIncludingWindow,
+                                                        [self.window windowNumber], kCGWindowImageBoundsIgnoreFraming);
+    CALayer *snapshotLayer = [[CALayer alloc] init];
+    [snapshotLayer setFrame:NSRectToCGRect([self.window frame])];
+    [snapshotLayer setContents:CFBridgingRelease(windowSnapshot)];
+    [snapshotLayer setAnchorPoint:CGPointMake(0, 0)];
+    CGColorRef colorRef = CGColorCreateGenericRGB(0, 0, 0, 0);
+    [snapshotLayer setBackgroundColor:colorRef];
+    CGColorRelease(colorRef);
+    return snapshotLayer;
+}
+
+- (void)makeAndPrepareSnapshotWindow {
+    CALayer *snapshotLayer = [self takeSnapshot];
+    snapshotWindow = ([[NSWindow alloc]
+                       initWithContentRect:self.window.frame
+                       styleMask:0
+                       backing:NSBackingStoreBuffered
+                       defer:NO]);
+    [[snapshotWindow contentView] setWantsLayer:YES];
+    [snapshotWindow setOpaque:NO];
+    [snapshotWindow setBackgroundColor:[NSColor clearColor]];
+    [snapshotWindow setFrame:self.window.frame display:NO];
+    [[[snapshotWindow contentView] layer] addSublayer:snapshotLayer];
+    // Compute the frame of the snapshot layer such that the snapshot is
+    // positioned exactly on top of the original position of the game window.
+    NSRect snapshotLayerFrame =
+    [snapshotWindow convertRectFromScreen:self.window.frame];
+    [snapshotLayer setFrame:snapshotLayerFrame];
+    [(NSWindowController *)[snapshotWindow delegate] showWindow:nil];
+    [snapshotWindow orderFront:nil];
 }
 
 #pragma mark Accessibility
@@ -2619,7 +2695,7 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
     [[self.window accessibilityAttributeNames] mutableCopy];
     if (!result)
         result = [[NSMutableArray alloc] init];
-
+    
     [result addObjectsFromArray:@[
                                   NSAccessibilityContentsAttribute, NSAccessibilityChildrenAttribute,
                                   NSAccessibilityHelpAttribute, NSAccessibilityDescriptionAttribute,
