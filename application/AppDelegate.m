@@ -147,12 +147,12 @@ NSDictionary *gFormatMap;
 }
 
 - (IBAction)showPrefs:(id)sender {
-    NSLog(@"appdel: showPrefs");
+//    NSLog(@"appdel: showPrefs");
     [_prefctl showWindow:nil];
 }
 
 - (IBAction)showLibrary:(id)sender {
-    NSLog(@"appdel: showLibrary");
+//    NSLog(@"appdel: showLibrary");
     [_libctl showWindow:nil];
 }
 

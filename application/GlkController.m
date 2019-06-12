@@ -816,13 +816,13 @@ fprintf(stderr, "%s\n",                                                    \
 - (IBAction)reset:(id)sender {
 
     if (timer) {
-        NSLog(@"glkctl reset: force stop the timer");
+//        NSLog(@"glkctl reset: force stop the timer");
         [timer invalidate];
         timer = nil;
     }
 
     if (soundNotificationsTimer) {
-        NSLog(@"glkctl reset: force stop the sound notifications timer");
+//        NSLog(@"glkctl reset: force stop the sound notifications timer");
         [soundNotificationsTimer invalidate];
         soundNotificationsTimer = nil;
     }
@@ -853,7 +853,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)windowWillClose:(id)sender {
-    NSLog(@"glkctl: windowWillClose");
+//    NSLog(@"glkctl: windowWillClose");
 
     if (_supportsAutorestore) {
         [self autoSaveOnExit];
@@ -864,19 +864,19 @@ fprintf(stderr, "%s\n",                                                    \
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     if (timer) {
-        NSLog(@"glkctl: force stop the timer");
+//        NSLog(@"glkctl: force stop the timer");
         [timer invalidate];
         timer = nil;
     }
 
     if (soundNotificationsTimer) {
-        NSLog(@"glkctl: force stop the sound notifications timer");
+//        NSLog(@"glkctl: force stop the sound notifications timer");
         [soundNotificationsTimer invalidate];
         soundNotificationsTimer = nil;
     }
 
     if (task) {
-        NSLog(@"glkctl: force stop the interpreter");
+//        NSLog(@"glkctl: force stop the interpreter");
         [task terminate];
         task = nil;
     }
@@ -969,8 +969,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (BOOL)windowShouldClose:(id)sender {
-    NSLog(@"glkctl: windowShouldClose");
-
+//    NSLog(@"glkctl: windowShouldClose");
     NSAlert *alert;
 
     if (dead || _supportsAutorestore) {
@@ -1729,7 +1728,7 @@ NSInteger colorToInteger(NSColor *color) {
             break;
 
         case DELWIN:
-            NSLog(@"glkctl delwin %d", req->a1);
+//            NSLog(@"glkctl delwin %d", req->a1);
             if (reqWin) {
                 [reqWin removeFromSuperview];
                 reqWin = nil;
