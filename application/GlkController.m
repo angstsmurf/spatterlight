@@ -261,9 +261,9 @@ fprintf(stderr, "%s\n",                                                    \
     // If this is not a system window restoration,
     // we have to enter fullscreen manually if the
     // game was closed in fullscreen.
-    if (!windowRestoredBySystem && restoredController.inFullscreen && (self.window.styleMask & NSFullScreenWindowMask) !=
+    if (!windowRestoredBySystem && _inFullscreen && (self.window.styleMask & NSFullScreenWindowMask) !=
         NSFullScreenWindowMask) {
-        [self enterFullscreen];
+        [self startInFullscreen];
     } else {
         _contentView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
@@ -460,11 +460,10 @@ fprintf(stderr, "%s\n",                                                    \
         if (win)
             [win removeFromSuperview];
         win = [restoredController.gwindows objectForKey:key];
+
         [_gwindows setObject:win forKey:@(win.name)];
         [win removeFromSuperview];
-
         [_contentView addSubview:win];
-
         win.glkctl = self;
     }
 
@@ -512,34 +511,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     restoredController = nil;
-}
-
-- (void)adjustContentView {
-
-    NSRect desiredContentFrame;
-    NSUInteger border = Preferences.border;
-
-    if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
-        NSEqualRects(_borderView.frame, self.window.screen.frame)) {
-        // We are in fullscreen
-        desiredContentFrame =
-        NSMakeRect(ceil((NSWidth(_borderView.bounds) -
-                         NSWidth(_contentView.frame)) /
-                        2),
-                   border, _contentView.frame.size.width,
-                   ceil(NSHeight(_borderView.bounds) - Preferences.border * 2));
-    } else {
-        // We are not in fullscreen
-        desiredContentFrame =
-        NSMakeRect(border, border,
-                   ceil(NSWidth(_borderView.bounds) - Preferences.border * 2),
-                   ceil(NSHeight(_borderView.bounds) - Preferences.border * 2));
-    }
-
-    if (NSEqualRects(_contentView.frame, desiredContentFrame)) {
-        return;
-    }
-    _contentView.frame = desiredContentFrame;
 }
 
 - (NSString *)appSupportDir {
@@ -2343,8 +2314,7 @@ again:
         NSFullScreenWindowMask) {
         NSRect screenframe = [NSScreen mainScreen].visibleFrame;
 
-        NSRect contentRect =
-        NSMakeRect(0, 0, sizeAfterZoom.width, sizeAfterZoom.height);
+        NSRect contentRect = NSMakeRect(0, 0, sizeAfterZoom.width, sizeAfterZoom.height);
 
         NSRect winrect = [self.window frameRectForContentRect:contentRect];
         winrect.origin = self.window.frame.origin;
@@ -2424,7 +2394,7 @@ again:
     _contentView.alphaValue = 1;
     snapshotWindow = nil;
     [window setFrame:_windowPreFullscreenFrame display:YES];
-    [self adjustContentView];
+    _contentView.frame = [self contentFrameForWindowed];
 }
 
 - (void)storeScrollOffsets {
@@ -2548,16 +2518,11 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                         // Finally, we extend the content view vertically if needed.
                         [self enableArrangementEvents];
 
-                        NSRect contentFullScreenFrame = localContentView.frame;
-                        contentFullScreenFrame.size.height =
-                        localBorderView.bounds.size.height - ceil(Preferences.border * 2);
-                        contentFullScreenFrame.origin.y = Preferences.border;
-
                         [NSAnimationContext
                          runAnimationGroup:^(NSAnimationContext *context) {
                              context.duration = duration / 7;
                              [[localContentView animator]
-                              setFrame:contentFullScreenFrame];
+                              setFrame:[self contentFrameForFullscreen]];
                          }
                          completionHandler:^{
                              // Hide the snapshot window.
@@ -2604,10 +2569,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     centerWindowFrame.origin.x += screen.frame.origin.x;
     centerWindowFrame.origin.y += screen.frame.origin.y;
 
-
     NSView *localContentView = _contentView;
-    NSView *localBorderView = _borderView;
-
     BOOL stashShouldShowAlert = shouldShowAutorestoreAlert;
     shouldShowAutorestoreAlert = NO;
 
@@ -2631,15 +2593,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
           completionHandler:^{
             // Finally, we get the content view into position ...
               [self enableArrangementEvents];
-
-              NSRect contentFullScreenFrame = localContentView.frame;
-              contentFullScreenFrame.origin.y = Preferences.border;
-              contentFullScreenFrame.size.height = localBorderView.bounds.size.height -
-                ceil(Preferences.border * 2);
-              contentFullScreenFrame.size.width = NSWidth(localContentView.frame);
-              contentFullScreenFrame.origin.x = floor((localBorderView.bounds.size.width - NSWidth(localContentView.frame)) / 2) ;
-
-              localContentView.frame = contentFullScreenFrame;
+              localContentView.frame = [self contentFrameForFullscreen];
               GlkEvent *gevent = [[GlkEvent alloc]
                                   initArrangeWidth:localContentView.frame.size.width
                                   height:localContentView.frame.size.height];
@@ -2684,9 +2638,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
      completionHandler:^{
          [self enableArrangementEvents];
          localBorderView.frame = ((NSView *)localWindow.contentView).frame;
-         localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+         localContentView.frame = [self contentFrameForWindowed];
 
-         [self adjustContentView];
+         localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
          [self contentDidResize:localContentView.frame];
          [self restoreScrollOffsets];
@@ -2700,15 +2654,12 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     _inFullscreen = NO;
 }
 
-- (void)enterFullscreen {
+- (void)startInFullscreen {
     [self.window setFrame:_windowPreFullscreenFrame
                   display:YES];
 
-    NSRect startContent = [self.window.contentView frame];
-    startContent.origin = NSMakePoint(Preferences.border, Preferences.border);
-    startContent.size = NSMakeSize(NSWidth(startContent) - Preferences.border * 2, NSHeight(startContent) - Preferences.border * 2);
+    _contentView.frame = [self contentFrameForWindowed];
 
-    _contentView.frame = startContent;
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
 
@@ -2716,7 +2667,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     [self.window makeKeyAndOrderFront:nil];
     [self.window toggleFullScreen:nil];
 }
-
 
 - (CALayer *)takeSnapshot {
     [self showWindow:nil];
@@ -2749,6 +2699,32 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     [snapshotLayer setFrame:snapshotLayerFrame];
     [(NSWindowController *)[snapshotWindow delegate] showWindow:nil];
     [snapshotWindow orderFront:nil];
+}
+
+// Some convenience methods
+- (void)adjustContentView {
+    if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
+        NSEqualRects(_borderView.frame, self.window.screen.frame)) {
+        // We are in fullscreen
+        _contentView.frame = [self contentFrameForFullscreen];
+    } else {
+        // We are not in fullscreen
+        _contentView.frame = [self contentFrameForWindowed];
+    }
+}
+
+- (NSRect)contentFrameForWindowed {
+    NSUInteger border = Preferences.border;
+    return NSMakeRect(border, border,
+                      ceil(NSWidth(_borderView.bounds) - Preferences.border * 2),
+                      ceil(NSHeight(_borderView.bounds) - Preferences.border * 2));
+}
+
+- (NSRect)contentFrameForFullscreen {
+    return NSMakeRect(ceil((NSWidth(_borderView.bounds) -
+                            NSWidth(_contentView.frame)) / 2),
+                      floor(Preferences.border), _contentView.frame.size.width,
+                      ceil(NSHeight(_borderView.bounds) - Preferences.border * 2));
 }
 
 #pragma mark Accessibility
