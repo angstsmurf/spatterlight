@@ -520,7 +520,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSUInteger border = Preferences.border;
 
     if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
-        (restoredController && restoredController.inFullscreen && NSEqualRects(_borderView.frame, self.window.screen.frame))) {
+        NSEqualRects(_borderView.frame, self.window.screen.frame)) {
         // We are in fullscreen
         desiredContentFrame =
         NSMakeRect(ceil((NSWidth(_borderView.bounds) -
@@ -2634,10 +2634,10 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
               NSRect contentFullScreenFrame = localContentView.frame;
               contentFullScreenFrame.origin.y = Preferences.border;
-              contentFullScreenFrame.size.height =
-              localBorderView.bounds.size.height - ceil(Preferences.border * 2);
+              contentFullScreenFrame.size.height = localBorderView.bounds.size.height -
+                ceil(Preferences.border * 2);
               contentFullScreenFrame.size.width = NSWidth(localContentView.frame);
-              contentFullScreenFrame.origin.x = floor((localBorderView.bounds.size.width - NSWidth(localContentView.frame))/2) ;
+              contentFullScreenFrame.origin.x = floor((localBorderView.bounds.size.width - NSWidth(localContentView.frame)) / 2) ;
 
               localContentView.frame = contentFullScreenFrame;
               GlkEvent *gevent = [[GlkEvent alloc]
