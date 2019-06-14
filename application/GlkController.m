@@ -270,7 +270,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self.window setFrame:restoredController.storedWindowFrame display:YES];
         _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     }
-    
+
     [self adjustContentView];
     shouldRestoreUI = YES;
     [self forkInterpreterTask];
@@ -2449,7 +2449,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     // Make sure the window style mask includes the
     // full screen bit
     window.styleMask = (window.styleMask | NSFullScreenWindowMask);
-    
+
     if (restoredController && restoredController.inFullscreen) {
         [self window:window startGameInFullScreenAnimationWithDuration:duration];
     } else {
@@ -2595,7 +2595,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     // the window at its original size but moved to the
     // center of its eventual full screen frame.
 
-
     NSRect centerWindowFrame = _windowPreFullscreenFrame;
     centerWindowFrame.origin = NSMakePoint(screen.frame.origin.x + floor((screen.frame.size.width -
                                                                           _borderView.frame.size.width) /
@@ -2644,9 +2643,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               GlkEvent *gevent = [[GlkEvent alloc]
                                   initArrangeWidth:localContentView.frame.size.width
                                   height:localContentView.frame.size.height];
-              
+
               [self queueEvent:gevent];
-              
+
               if (stashShouldShowAlert)
                   [self showAutorestoreAlert];
               [self restoreScrollOffsets];
@@ -2780,7 +2779,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     [[self.window accessibilityAttributeNames] mutableCopy];
     if (!result)
         result = [[NSMutableArray alloc] init];
-    
+
     [result addObjectsFromArray:@[
                                   NSAccessibilityContentsAttribute, NSAccessibilityChildrenAttribute,
                                   NSAccessibilityHelpAttribute, NSAccessibilityDescriptionAttribute,
