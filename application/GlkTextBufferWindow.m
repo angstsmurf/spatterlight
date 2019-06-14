@@ -1999,16 +1999,16 @@
 #pragma mark Hyperlinks
 
 - (void)setHyperlink:(NSUInteger)linkid {
-    NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
+//    NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
 
     if (currentHyperlink && currentHyperlink.index != linkid) {
-        NSLog(@"There is a preliminary hyperlink, with index %ld",
-              currentHyperlink.index);
+//        NSLog(@"There is a preliminary hyperlink, with index %ld",
+//              currentHyperlink.index);
         if (currentHyperlink.startpos >= textstorage.length) {
-            NSLog(@"The preliminary hyperlink started at the end of current "
-                  @"input, so it was deleted. currentHyperlink.startpos == "
-                  @"%ld, textstorage.length == %ld",
-                  currentHyperlink.startpos, textstorage.length);
+//            NSLog(@"The preliminary hyperlink started at the end of current "
+//                  @"input, so it was deleted. currentHyperlink.startpos == "
+//                  @"%ld, textstorage.length == %ld",
+//                  currentHyperlink.startpos, textstorage.length);
             currentHyperlink = nil;
         } else {
             [textview resetTextFinder];
@@ -2027,9 +2027,9 @@
         currentHyperlink =
             [[GlkHyperlink alloc] initWithIndex:linkid
                                          andPos:textstorage.length];
-        NSLog(@"New preliminary hyperlink started at position %ld, with link "
-              @"index %ld",
-              currentHyperlink.startpos, linkid);
+//        NSLog(@"New preliminary hyperlink started at position %ld, with link "
+//              @"index %ld",
+//              currentHyperlink.startpos, linkid);
     }
 }
 
@@ -2125,7 +2125,6 @@
     lastVisible = [textview
         characterIndexForInsertionAtPoint:NSMakePoint(NSMaxX(visibleRect),
                                                       NSMaxY(visibleRect))];
-
     lastVisible--;
     if (lastVisible >= textstorage.length) {
         NSLog(@"lastCharacter index (%ld) is outside textstorage length (%ld)",
