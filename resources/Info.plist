@@ -83,6 +83,10 @@
 			<string>Interactive Fiction</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.hugo</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -136,6 +140,10 @@
 			<string>Interactive Fiction</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.glulx</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -156,6 +164,10 @@
 			<string>Interactive Fiction</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.tads.tads2-game</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -176,6 +188,10 @@
 			<string>Interactive Fiction</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.tads.tads3-game</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -200,6 +216,10 @@
 			<string>Interactive Fiction</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.zcode</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -208,10 +228,6 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>glb</string>
-				<string>gblorb</string>
-				<string>zlb</string>
-				<string>zblorb</string>
 				<string>blb</string>
 				<string>blorb</string>
 			</array>
@@ -225,6 +241,52 @@
 			<string>Interactive Fiction</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.blorb</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>zlb</string>
+				<string>zblorb</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>IconGame.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>Interactive Fiction</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.blorb.zcode</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>glb</string>
+				<string>gblorb</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>IconGame.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>Interactive Fiction</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.blorb.glulx</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -263,7 +325,7 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>Spatterlight</string>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
 	<string>IconApp</string>
 	<key>CFBundleIdentifier</key>
@@ -282,5 +344,223 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZCode story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGame</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.zcode</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>IFRS</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>z3</string>
+					<string>z4</string>
+					<string>z5</string>
+					<string>z6</string>
+					<string>z7</string>
+					<string>z8</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-zmachine</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Blorb resource file</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGame</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.blorb</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<array>
+					<string>ZCOD</string>
+				</array>
+				<key>public.filename-extension</key>
+				<array>
+					<string>blb</string>
+					<string>blorb</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-blorb</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZCode story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGame</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.blorb.zcode</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>zlb</string>
+					<string>zblorb</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Glulx Story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGame</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.blorb.glulx</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>glb</string>
+					<string>gblorb</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Glulx Story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGame</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.glulx</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ulx</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-glulx</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Hugo Story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGame</string>
+			<key>UTTypeIdentifier</key>
+			<string>public.hugo</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>hex</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>TADS Executable</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGame</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.tads.tads-game</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.tads.org/howto/mediatypes.htm</string>
+			<key>UTTypeTagSpecification</key>
+			<dict/>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>org.tads.tads-game</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>TADS 2 Game</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGame</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.tads.tads2-game</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.tads.org/howto/mediatypes.htm</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>TADG</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>gam</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-tads</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>org.tads.tads-game</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>TADS 3 Executable</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGame</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.tads.tads3-game</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.tads.org/howto/mediatypes.htm</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>.T3X</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>t3x</string>
+					<string>t3</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-t3vm-image</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
