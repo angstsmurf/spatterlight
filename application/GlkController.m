@@ -468,14 +468,11 @@ fprintf(stderr, "%s\n",                                                    \
         win.glkctl = self;
     }
 
-    // Restore resizing masks and text finders
+    // Restore text finders
     for (win in [_gwindows allValues]) {
-        win.autoresizingMask = win.restoredResizingMask;
         if ([win isKindOfClass:[GlkTextBufferWindow class]])
             [(GlkTextBufferWindow *)win restoreTextFinder];
     }
-    _contentView.autoresizingMask =
-    NSViewWidthSizable | NSViewHeightSizable;
 
     // Stupid hack to force arrange event
     NSRect oldFrame = _contentView.frame;
@@ -495,12 +492,6 @@ fprintf(stderr, "%s\n",                                                    \
     [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
-
-    // Enter fullscreen if needed
-    if (restoredController.inFullscreen &&
-        !windowRestoredBySystem) {
-        [self.window toggleFullScreen:nil];
-    }
 
     // Restore scroll position and focus
     for (GlkWindow *win in [_gwindows allValues]) {
@@ -529,7 +520,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSUInteger border = Preferences.border;
 
     if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
-        (restoredController && restoredController.inFullscreen && windowRestoredBySystem)) {
+        (restoredController && restoredController.inFullscreen)) {
         // We are in fullscreen
         desiredContentFrame =
         NSMakeRect(ceil((NSWidth(_borderView.bounds) -
