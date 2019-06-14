@@ -2462,6 +2462,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     // Make sure the snapshot window style mask includes the
     // full screen bit
+    snapshotWindow.styleMask = (snapshotWindow.styleMask | NSFullScreenWindowMask);
     [snapshotWindow setFrame:window.frame display:YES];
 
     NSScreen *screen = window.screen;
