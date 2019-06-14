@@ -2498,7 +2498,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               NSMakePoint(floor((NSWidth(localBorderView.bounds) -
                                 NSWidth(localContentView.frame)) /
                                2),
-                         ceil(NSHeight(localBorderView.bounds) - Preferences.border - localContentView.frame.size.height)
+                         floor(NSHeight(localBorderView.bounds) - Preferences.border - localContentView.frame.size.height)
                          );
               [NSAnimationContext
                runAnimationGroup:^(NSAnimationContext *context) {
@@ -2721,7 +2721,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (NSRect)contentFrameForFullscreen {
-    return NSMakeRect(ceil((NSWidth(_borderView.bounds) -
+    return NSMakeRect(floor((NSWidth(_borderView.bounds) -
                             NSWidth(_contentView.frame)) / 2),
                       floor(Preferences.border), _contentView.frame.size.width,
                       ceil(NSHeight(_borderView.bounds) - Preferences.border * 2));
