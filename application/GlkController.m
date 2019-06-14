@@ -2475,7 +2475,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
          // First, we move the window to the center
-         // of the screen
+         // of the screen with the snapshot window on top
          context.duration = duration / 3;
          [[localSnapshot animator] setFrame:centerWindowFrame display:YES];
          [[window animator] setFrame:centerWindowFrame display:YES];
@@ -2739,7 +2739,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 - (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
     return [self.window accessibilityIsAttributeSettable:attribute];
-    ;
 }
 
 - (void)accessibilityPerformAction:(NSString *)action {
@@ -2756,12 +2755,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     if (!result)
         result = [[NSMutableArray alloc] init];
 
-    [result addObjectsFromArray:@[
-                                  NSAccessibilityContentsAttribute, NSAccessibilityChildrenAttribute,
-                                  NSAccessibilityHelpAttribute, NSAccessibilityDescriptionAttribute,
-                                  NSAccessibilityTitleAttribute, NSAccessibilityFocusedUIElementAttribute
-                                  ]];
-
+    [result addObjectsFromArray:@[ NSAccessibilityContentsAttribute, NSAccessibilityChildrenAttribute,
+                                   NSAccessibilityHelpAttribute, NSAccessibilityDescriptionAttribute,
+                                   NSAccessibilityTitleAttribute, NSAccessibilityFocusedUIElementAttribute ]];
     return result;
 }
 
