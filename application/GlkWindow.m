@@ -42,9 +42,6 @@
             [decoder decodeObjectForKey:@"pendingTerminators"];
         _terminatorsPending = [decoder decodeBoolForKey:@"terminatorsPending"];
         char_request = [decoder decodeBoolForKey:@"char_request"];
-        _restoredFrame = [decoder decodeRectForKey:@"restoredFrame"];
-        _restoredResizingMask =
-            [decoder decodeIntegerForKey:@"autoresizingMask"];
     }
     return self;
 }
@@ -61,8 +58,6 @@
     [encoder encodeBool:_terminatorsPending forKey:@"terminatorsPending"];
     [encoder encodeBool:char_request forKey:@"char_request"];
     [encoder encodeObject:styles forKey:@"styles"];
-    [encoder encodeInteger:self.autoresizingMask forKey:@"autoresizingMask"];
-    [encoder encodeRect:self.frame forKey:@"restoredFrame"];
 }
 
 - (NSString *)sayMask:(NSUInteger)mask {

@@ -673,8 +673,6 @@
         _shouldSpeak_10_7 = [decoder decodeBoolForKey:@"shouldSpeak_10_7"];
         NSValue *rangeVal = [decoder decodeObjectForKey:@"rangeToSpeak_10_7"];
         _rangeToSpeak_10_7 = rangeVal.rangeValue;
-        _restoredFrame = [decoder decodeRectForKey:@"restoredFrame"];
-        _textFinder = nil;
     }
 
     return self;
@@ -686,7 +684,6 @@
     [encoder encodeBool:_shouldSpeak_10_7 forKey:@"shouldSpeak_10_7"];
     NSValue *rangeVal = [NSValue valueWithRange:_rangeToSpeak_10_7];
     [encoder encodeObject:rangeVal forKey:@"rangeToSpeak_10_7"];
-    [encoder encodeRect:self.frame forKey:@"restoredFrame"];
 }
 
 - (void)superKeyDown:(NSEvent *)evt {
@@ -1133,7 +1130,6 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeObject:textview.textFinder forKey:@"textfinder"];
     [encoder encodeObject:textview forKey:@"textview"];
     NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];

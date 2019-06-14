@@ -28,7 +28,6 @@
                          // break.
 
 @property BOOL shouldDrawCaret;
-@property NSRect restoredFrame;
 @property CGFloat bottomPadding;
 @property(weak, readonly) NSTextFinder *textFinder;
 
