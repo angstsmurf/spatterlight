@@ -2630,9 +2630,6 @@ startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
     [snapshotLayer setFrame:NSRectToCGRect([self.window frame])];
     [snapshotLayer setContents:CFBridgingRelease(windowSnapshot)];
     [snapshotLayer setAnchorPoint:CGPointMake(0, 0)];
-    CGColorRef colorRef = CGColorCreateGenericRGB(0, 0, 0, 0);
-    [snapshotLayer setBackgroundColor:colorRef];
-    CGColorRelease(colorRef);
     return snapshotLayer;
 }
 
