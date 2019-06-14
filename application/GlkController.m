@@ -2723,7 +2723,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 - (NSRect)contentFrameForFullscreen {
     return NSMakeRect(floor((NSWidth(_borderView.bounds) -
                             NSWidth(_contentView.frame)) / 2),
-                      floor(Preferences.border), _contentView.frame.size.width,
+                      floor(Preferences.border), NSWidth(_contentView.frame),
                       ceil(NSHeight(_borderView.bounds) - Preferences.border * 2));
 }
 
