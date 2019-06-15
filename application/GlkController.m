@@ -391,7 +391,8 @@ fprintf(stderr, "%s\n",                                                    \
     [self queueEvent:gevent];
 
     gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
-                                         height:_contentView.frame.size.height];
+                                         height:_contentView.frame.size.height
+                                          force:NO];
     [self queueEvent:gevent];
 
     soundNotificationsTimer =
@@ -473,17 +474,12 @@ fprintf(stderr, "%s\n",                                                    \
             [(GlkTextBufferWindow *)win restoreTextFinder];
     }
 
-    // Stupid hack to force arrange event
-    NSRect oldFrame = _contentView.frame;
-    NSRect dummyFrame = oldFrame;
-    dummyFrame.size = NSMakeSize(_contentView.frame.size.width + 1,
-                                 _contentView.frame.size.height);
-    [_contentView setFrame:dummyFrame];
-
-    [self notePreferencesChanged:nil];
-
-    [_contentView setFrame:oldFrame];
     [self adjustContentView];
+
+    GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
+                                         height:_contentView.frame.size.height
+                                          force:YES];
+    [self queueEvent:gevent];
 
     [self notePreferencesChanged:nil];
 
@@ -906,7 +902,8 @@ fprintf(stderr, "%s\n",                                                    \
 
         GlkEvent *gevent;
         gevent = [[GlkEvent alloc] initArrangeWidth:frame.size.width
-                                             height:frame.size.height];
+                                             height:frame.size.height
+                                              force:NO];
         [self queueEvent:gevent];
     }
 }
@@ -1039,7 +1036,8 @@ fprintf(stderr, "%s\n",                                                    \
     [self adjustContentView];
 
     gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
-                                         height:_contentView.frame.size.height];
+                                         height:_contentView.frame.size.height
+                                          force:NO];
     [self queueEvent:gevent];
 
     gevent = [[GlkEvent alloc] initPrefsEvent];
@@ -1782,21 +1780,32 @@ NSInteger colorToInteger(NSColor *color) {
             //            NSLog(@"glkctl SIZWIN %d: %d x %d", req->a1,
             //            req->a4-req->a2, req->a5-req->a3);
             if (reqWin) {
-                int x0, y0, x1, y1, checksumWidth;
+                int x0, y0, x1, y1, checksumWidth, checksumHeight;
                 NSRect rect;
 
-                checksumWidth = req->a6;
+                struct sizewinrect *sizewin = (void*)buf;
+
+                checksumWidth = sizewin->gamewidth;
+                checksumHeight = sizewin->gameheight;
+
                 if (fabs(checksumWidth - _contentView.frame.size.width) > 2.0) {
-//                    NSLog(@"handleRequest sizwin: wrong checksum width (%d). "
-//                          @"Current _contentView width is %f",
-//                          checksumWidth, _contentView.frame.size.width);
+                    //                    NSLog(@"handleRequest sizwin: wrong checksum width (%d). "
+                    //                          @"Current _contentView width is %f",
+                    //                          checksumWidth, _contentView.frame.size.width);
                     break;
                 }
 
-                x0 = req->a2;
-                y0 = req->a3;
-                x1 = req->a4;
-                y1 = req->a5;
+                if (fabs(checksumHeight - _contentView.frame.size.height) > 2.0) {
+                    //                    NSLog(@"handleRequest sizwin: wrong checksum height (%d). "
+                    //                          @"Current _contentView height is %f",
+                    //                          checksumHeight, _contentView.frame.size.height);
+                    break;
+                }
+
+                x0 = sizewin->x0;
+                y0 = sizewin->y0;
+                x1 = sizewin->x1;
+                y1 = sizewin->y1;
                 rect = NSMakeRect(x0, y0, x1 - x0, y1 - y0);
                 if (rect.size.width < 0)
                     rect.size.width = 0;
@@ -2163,7 +2172,7 @@ static BOOL pollMoreData(int fd) {
                                            @"leading" : @(Preferences.leading)
                                            };
 
-        if ([lastArrangeValues isEqualToDictionary:newArrangeValues]) {
+        if (!gevent.forced && [lastArrangeValues isEqualToDictionary:newArrangeValues]) {
 //            NSLog(@"GlkController queue EVTARRANGE: same size as last time "
 //                  @"(width: %@, height:%@, charWidth:%@). Skipping.",
 //                  [newArrangeValues valueForKey:@"width"],
@@ -2533,7 +2542,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                              // the new extended area
                              GlkEvent *gevent = [[GlkEvent alloc]
                                                  initArrangeWidth:localContentView.frame.size.width
-                                                 height:localContentView.frame.size.height];
+                                                 height:localContentView.frame.size.height
+                                                 force:NO];
 
                              [self queueEvent:gevent];
                              [self restoreScrollOffsets];
@@ -2596,7 +2606,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               localContentView.frame = [self contentFrameForFullscreen];
               GlkEvent *gevent = [[GlkEvent alloc]
                                   initArrangeWidth:localContentView.frame.size.width
-                                  height:localContentView.frame.size.height];
+                                  height:localContentView.frame.size.height
+                                  force:NO];
 
               [self queueEvent:gevent];
 

@@ -14,6 +14,7 @@
     _val1 = [decoder decodeIntegerForKey:@"val1"];
     _val2 = [decoder decodeIntegerForKey:@"val2"];
     ln = [decoder decodeObjectForKey:@"ln"];
+    _forced = [decoder decodeBoolForKey:@"forced"];
     return self;
 }
 
@@ -23,6 +24,7 @@
     [encoder encodeInteger:_val1 forKey:@"val1"];
     [encoder encodeInteger:_val2 forKey:@"val2"];
     [encoder encodeObject:ln forKey:@"ln"];
+    [encoder encodeBool:_forced forKey:@"forced"];
 }
 
 unsigned chartokeycode(unsigned ch) {
@@ -138,7 +140,7 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
-- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah;
+- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah force:(BOOL)forceFlag;
 {
 //    NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
     self = [super init];
@@ -146,6 +148,7 @@ unsigned chartokeycode(unsigned ch) {
         _type = EVTARRANGE;
         _val1 = aw;
         _val2 = ah;
+      _forced = forceFlag;
     }
     return self;
 }
@@ -182,6 +185,9 @@ unsigned chartokeycode(unsigned ch) {
 - (void)writeEvent:(NSInteger)fd {
     struct message reply;
     char buf[4096];
+    struct settings_struct *settings = (void*)buf;
+
+    reply.len = 0;
 
     if (ln) {
         reply.len = (int)(ln.length * 2);
@@ -189,8 +195,6 @@ unsigned chartokeycode(unsigned ch) {
             reply.len = sizeof buf;
         [ln getCharacters:(unsigned short *)buf
                     range:NSMakeRange(0, reply.len / 2)];
-    } else {
-        reply.len = 0;
     }
 
     reply.cmd = (int)_type;
@@ -198,14 +202,21 @@ unsigned chartokeycode(unsigned ch) {
     reply.a2 = (int)_val1;
     reply.a3 = (int)_val2;
 
-    if (_type == EVTARRANGE || _type == EVTPREFS) {
-        reply.a1 = (int)_val1;
-        reply.a2 = (int)_val2;
-        reply.a3 = (int)[Preferences bufferMargins];
-        reply.a4 = (int)[Preferences gridMargins];
-        reply.a5 = [Preferences charWidth] * 256.0;
-        reply.a6 = [Preferences lineHeight] * 256.0;
-        reply.a7 = [Preferences leading] * 256.0;
+    if (_type == EVTARRANGE) {
+
+        settings->screen_width = (int)_val1;
+        settings->screen_height = (int)_val2;
+
+        settings->buffer_margin_x = (int)[Preferences bufferMargins];
+        settings->buffer_margin_y = (int)[Preferences bufferMargins];
+        settings->grid_margin_x = (int)[Preferences gridMargins];
+        settings->grid_margin_y =(int)[Preferences gridMargins];
+        settings->cell_width = [Preferences charWidth];
+        settings->cell_height = [Preferences lineHeight];
+        settings->leading = [Preferences leading];
+        settings->force_arrange = _forced;
+
+        reply.len = sizeof(struct settings_struct);
     }
 
     write((int)fd, &reply, sizeof(struct message));
