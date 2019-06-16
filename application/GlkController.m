@@ -2464,10 +2464,11 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
 
-    NSView *localContentView = _contentView;
-    NSView *localBorderView = _borderView;
-    NSWindow *localSnapshot = snapshotWindow;
+    NSView __weak *localContentView = _contentView;
+    NSView __weak *localBorderView = _borderView;
+    NSWindow __weak *localSnapshot = snapshotWindow;
 
+    GlkController * __weak weakSelf = self;
     // Hide contentview
     _contentView.alphaValue = 0;
 
@@ -2516,13 +2517,13 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                     }
                     completionHandler:^{
                         // Finally, we extend the content view vertically if needed.
-                        [self enableArrangementEvents];
+                        [weakSelf enableArrangementEvents];
 
                         [NSAnimationContext
                          runAnimationGroup:^(NSAnimationContext *context) {
                              context.duration = duration / 7;
                              [[localContentView animator]
-                              setFrame:[self contentFrameForFullscreen]];
+                              setFrame:[weakSelf contentFrameForFullscreen]];
                          }
                          completionHandler:^{
                              // Hide the snapshot window.
@@ -2535,8 +2536,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                                                  initArrangeWidth:localContentView.frame.size.width
                                                  height:localContentView.frame.size.height];
 
-                             [self queueEvent:gevent];
-                             [self restoreScrollOffsets];
+                             [weakSelf queueEvent:gevent];
+                             [weakSelf restoreScrollOffsets];
                          }];
                     }];
                }];
@@ -2569,7 +2570,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     centerWindowFrame.origin.x += screen.frame.origin.x;
     centerWindowFrame.origin.y += screen.frame.origin.y;
 
-    NSView *localContentView = _contentView;
+    NSView __weak *localContentView = _contentView;
+    GlkController * __weak weakSelf = self;
+
     BOOL stashShouldShowAlert = shouldShowAutorestoreAlert;
     shouldShowAutorestoreAlert = NO;
 
@@ -2592,17 +2595,17 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
           }
           completionHandler:^{
             // Finally, we get the content view into position ...
-              [self enableArrangementEvents];
-              localContentView.frame = [self contentFrameForFullscreen];
+              [weakSelf enableArrangementEvents];
+              localContentView.frame = [weakSelf contentFrameForFullscreen];
               GlkEvent *gevent = [[GlkEvent alloc]
                                   initArrangeWidth:localContentView.frame.size.width
                                   height:localContentView.frame.size.height];
 
-              [self queueEvent:gevent];
+              [weakSelf queueEvent:gevent];
 
               if (stashShouldShowAlert)
-                  [self showAutorestoreAlert];
-              [self restoreScrollOffsets];
+                  [weakSelf showAutorestoreAlert];
+              [weakSelf restoreScrollOffsets];
           }];
      }];
 }
@@ -2623,9 +2626,10 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     _contentView.autoresizingMask =
     NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
 
-    NSWindow *localWindow = self.window;
-    NSView *localBorderView = _borderView;
-    NSView *localContentView =_contentView;
+    NSWindow __weak *localWindow = self.window;
+    NSView __weak *localBorderView = _borderView;
+    NSView __weak *localContentView =_contentView;
+    GlkController * __weak weakSelf = self;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
@@ -2636,14 +2640,14 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
          [[window animator] setFrame:oldFrame display:YES];
      }
      completionHandler:^{
-         [self enableArrangementEvents];
+         [weakSelf enableArrangementEvents];
          localBorderView.frame = ((NSView *)localWindow.contentView).frame;
-         localContentView.frame = [self contentFrameForWindowed];
+         localContentView.frame = [weakSelf contentFrameForWindowed];
 
          localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-         [self contentDidResize:localContentView.frame];
-         [self restoreScrollOffsets];
+         [weakSelf contentDidResize:localContentView.frame];
+         [weakSelf restoreScrollOffsets];
      }];
 }
 
