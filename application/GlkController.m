@@ -382,16 +382,19 @@ fprintf(stderr, "%s\n",                                                    \
 //     name:NSFileHandleDataAvailableNotification
 //     object:readfh];
 
+
     [[readpipe fileHandleForReading]
              setReadabilityHandler:^(NSFileHandle *file) {
+                 dispatch_async(dispatch_get_main_queue(), ^{
                      [self noteDataAvailable:file];
+                 });
              }];
 
     [task setTerminationHandler:^(NSTask *task) {
 
         // do your stuff on completion
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
-//        [task.standardError fileHandleForReading].readabilityHandler = nil;
+        [task.standardError fileHandleForReading].readabilityHandler = nil;
     }];
 
     [task launch];
@@ -2258,16 +2261,7 @@ again:
 
     memset(&reply, 0, sizeof reply);
 
-    __block struct message block_request = request;
-    __block struct message block_reply = reply;
-    __block char *block_buf = buf;
-    __block BOOL block_stop;
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-    block_stop = [self handleRequest:&block_request reply:&block_reply buffer:block_buf];
-    });
-
-    stop = block_stop;
+    stop = [self handleRequest:&request reply:&reply buffer:buf];
 
     if (reply.cmd > NOREPLY) {
         write(sendfd, &reply, sizeof(struct message));
