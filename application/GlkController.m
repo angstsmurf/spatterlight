@@ -328,6 +328,7 @@ fprintf(stderr, "%s\n",                                                    \
     task.currentDirectoryPath = NSHomeDirectory();
     task.standardOutput = readpipe;
 
+    // https://stackoverflow.com/questions/3444178/nstask-nspipe-objective-c-command-line-help
     //        [[task.standardOutput fileHandleForReading]
     //        setReadabilityHandler:^(NSFileHandle *file) {
     //            NSData *data = [file availableData]; // this will read to EOF,
@@ -375,11 +376,23 @@ fprintf(stderr, "%s\n",                                                    \
      name:NSTaskDidTerminateNotification
      object:task];
 
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(noteDataAvailable:)
-     name:NSFileHandleDataAvailableNotification
-     object:readfh];
+//    [[NSNotificationCenter defaultCenter]
+//     addObserver:self
+//     selector:@selector(noteDataAvailable:)
+//     name:NSFileHandleDataAvailableNotification
+//     object:readfh];
+
+    [[readpipe fileHandleForReading]
+             setReadabilityHandler:^(NSFileHandle *file) {
+                     [self noteDataAvailable:file];
+             }];
+
+    [task setTerminationHandler:^(NSTask *task) {
+
+        // do your stuff on completion
+        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
+//        [task.standardError fileHandleForReading].readabilityHandler = nil;
+    }];
 
     [task launch];
     dead = NO;
@@ -395,14 +408,14 @@ fprintf(stderr, "%s\n",                                                    \
                                           force:NO];
     [self queueEvent:gevent];
 
-    soundNotificationsTimer =
-    [NSTimer scheduledTimerWithTimeInterval:2.0
-                                     target:self
-                                   selector:@selector(keepAlive:)
-                                   userInfo:nil
-                                    repeats:YES];
-
-    [readfh waitForDataInBackgroundAndNotify];
+//    soundNotificationsTimer =
+//    [NSTimer scheduledTimerWithTimeInterval:2.0
+//                                     target:self
+//                                   selector:@selector(keepAlive:)
+//                                   userInfo:nil
+//                                    repeats:YES];
+//
+//    [readfh waitForDataInBackgroundAndNotify];
 }
 
 #pragma mark Autorestore
@@ -2193,7 +2206,6 @@ static BOOL pollMoreData(int fd) {
 }
 
 - (void)noteDataAvailable:(id)sender {
-    // NSLog(@"glkctl: noteDataAvailable");
 
     struct message request;
     struct message reply;
@@ -2246,7 +2258,16 @@ again:
 
     memset(&reply, 0, sizeof reply);
 
-    stop = [self handleRequest:&request reply:&reply buffer:buf];
+    __block struct message block_request = request;
+    __block struct message block_reply = reply;
+    __block char *block_buf = buf;
+    __block BOOL block_stop;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+    block_stop = [self handleRequest:&block_request reply:&block_reply buffer:block_buf];
+    });
+
+    stop = block_stop;
 
     if (reply.cmd > NOREPLY) {
         write(sendfd, &reply, sizeof(struct message));
@@ -2263,8 +2284,8 @@ again:
 
     if (pollMoreData(readfd))
         goto again;
-    else
-        [readfh waitForDataInBackgroundAndNotify];
+//    else
+//        [readfh waitForDataInBackgroundAndNotify];
 }
 
 - (void)setBorderColor:(NSColor *)color;
