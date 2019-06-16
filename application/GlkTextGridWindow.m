@@ -368,23 +368,17 @@
 }
 
 - (void)recalcBackground {
-    NSColor *bgcolor, *fgcolor;
-
+    NSColor *bgcolor;
     bgcolor = nil;
-    fgcolor = nil;
 
     if ([Preferences stylesEnabled] &&
         [styles objectAtIndex:style_Normal] != [NSNull null]) {
-        fgcolor = [[(GlkStyle *)[styles objectAtIndex:style_Normal] attributes]
-            objectForKey:NSForegroundColorAttributeName];
         bgcolor = [[(GlkStyle *)[styles objectAtIndex:style_Normal] attributes]
             objectForKey:NSBackgroundColorAttributeName];
     }
 
     if (!bgcolor)
         bgcolor = [Preferences gridBackground];
-    if (!fgcolor)
-        fgcolor = [Preferences gridForeground];
 
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = bgcolor;

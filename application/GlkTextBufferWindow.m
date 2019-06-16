@@ -2164,7 +2164,7 @@
         offset = 0;
 
     // first, force a layout so we have the correct textview frame
-    glyphs = [layoutmanager glyphRangeForTextContainer:container];
+    [layoutmanager glyphRangeForTextContainer:container];
 
     if (textstorage.length) {
         line = [layoutmanager lineFragmentRectForGlyphAtIndex:character
