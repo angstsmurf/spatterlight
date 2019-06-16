@@ -13,8 +13,10 @@ enum { BUFNONE, BUFPRINT, BUFRECT };
 static struct message wmsg;
 static char wbuf[GLKBUFSIZE];
 static unsigned short *pbuf = (void*)wbuf;
-static struct fillrect *rbuf = (void*)wbuf;
 
+/* These structs are used to transmit information that
+  won't fit into the standard message struct */
+static struct fillrect *rbuf = (void*)wbuf;
 static struct sizewinrect *sizewin = (void*)wbuf;
 static struct settings_struct *settings = (void*)wbuf;
 

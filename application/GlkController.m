@@ -408,7 +408,6 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Autorestore
 
 - (void)restoreUI {
-
     // We try to restore the UI here, in order to catch things
     // like entered text and scrolling, that has changed the UI
     // but not sent any events to the interpreter process.
@@ -466,21 +465,21 @@ fprintf(stderr, "%s\n",                                                    \
         [win removeFromSuperview];
         [_contentView addSubview:win];
         win.glkctl = self;
-    }
-
-    // Restore text finders
-    for (win in [_gwindows allValues]) {
+        // Restore text finders
         if ([win isKindOfClass:[GlkTextBufferWindow class]])
             [(GlkTextBufferWindow *)win restoreTextFinder];
     }
 
     [self adjustContentView];
 
+    // We create a forced arrange event in order to force the interpreter process
+    // to re-send us window sizes. The player may have changed settings that affect
+    // window size since the autosave was created, and at this point in the autorestore
+    // process, we have no other way to know what size the Glk windows should be.
     GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
-                                         height:_contentView.frame.size.height
-                                          force:YES];
+                                                   height:_contentView.frame.size.height
+                                                    force:YES];
     [self queueEvent:gevent];
-
     [self notePreferencesChanged:nil];
 
     // Now we can actually show the window
@@ -565,8 +564,8 @@ fprintf(stderr, "%s\n",                                                    \
                                stringWithFormat:
                                @"This file, %@, was placed here by Spatterlight in order to make "
                                @"it easier for humans to guess what game these autosave files belong "
-                               @"to. Any files in this folder are for the game %@, or "
-                               @"possibly a game with another name but identical contents.",
+                               @"to. Any files in this folder are for the game %@, or possibly "
+                               @"a game with another name but identical contents.",
                                dummyfilename, [gameinfo objectForKey:@"title"]];
 
         NSString *dummyfilepath =
@@ -627,8 +626,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)deleteFileAtPath:(NSString *)path {
     NSError *error;
-    // I'm not sure if the fileExistsAtPath check is necessary, but someone on
-    // Stack Overflow said it was a good idea
+    // I'm not sure if the fileExistsAtPath check is necessary,
+    // but someone on Stack Overflow said it was a good idea
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         if ([[NSFileManager defaultManager] isDeletableFileAtPath:path]) {
             BOOL success =
@@ -2173,16 +2172,9 @@ static BOOL pollMoreData(int fd) {
                                            };
 
         if (!gevent.forced && [lastArrangeValues isEqualToDictionary:newArrangeValues]) {
-//            NSLog(@"GlkController queue EVTARRANGE: same size as last time "
-//                  @"(width: %@, height:%@, charWidth:%@). Skipping.",
-//                  [newArrangeValues valueForKey:@"width"],
-//                  [newArrangeValues valueForKey:@"height"],
-//                  [newArrangeValues valueForKey:@"charWidth"]);
             return;
         }
-//        else
-//            NSLog(@"GlkController queue EVTARRANGE: width: %@, height:%@, "
-//                  @"charWidth:%@.",
+//            NSLog(@"GlkController queue EVTARRANGE: width: %@, height:%@, charWidth:%@.",
 //                  [newArrangeValues valueForKey:@"width"],
 //                  [newArrangeValues valueForKey:@"height"],
 //                  [newArrangeValues valueForKey:@"charWidth"]);

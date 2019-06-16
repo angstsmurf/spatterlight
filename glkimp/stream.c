@@ -343,7 +343,7 @@ strid_t glk_stream_open_resource(glui32 filenum, glui32 rock)
     err = giblorb_load_resource(map, giblorb_method_Memory, &res, giblorb_ID_Data, filenum);
     if (err)
     {
-        fprintf(stderr, "stream_open_resource %d: Err %d.\n.", filenum, err);
+        fprintf(stderr, "stream_open_resource %d: Err %d\n", filenum, err);
         return 0; /* Not found, or some other error */
     }
 
