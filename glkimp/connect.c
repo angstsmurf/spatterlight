@@ -13,7 +13,12 @@ enum { BUFNONE, BUFPRINT, BUFRECT };
 static struct message wmsg;
 static char wbuf[GLKBUFSIZE];
 static unsigned short *pbuf = (void*)wbuf;
+
+/* These structs are used to transmit information that
+  won't fit into the standard message struct */
 static struct fillrect *rbuf = (void*)wbuf;
+static struct sizewinrect *sizewin = (void*)wbuf;
+static struct settings_struct *settings = (void*)wbuf;
 
 int readfd = 0;
 int sendfd = 1;
@@ -52,7 +57,6 @@ void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf
     msgbuf.a3 = a3;
     msgbuf.a4 = a4;
     msgbuf.a5 = a5;
-    msgbuf.a6 = gscreenw;
     msgbuf.len = len;
 
 #ifdef DEBUG
@@ -271,14 +275,22 @@ void win_delwin(int name)
     sendmsg(DELWIN, name, 0, 0, 0, 0, 0, NULL);
 }
 
-void win_sizewin(int name, int a, int b, int c, int d)
+void win_sizewin(int name, int x0, int y0, int x1, int y1)
 {
     win_flush();
     /* The window size may have changed before the message reaches the
-     window server, so we send (what this process thinks is) the screen
-     width as a lazy-ass checksum. We really should send height as well,
-     but we only have one unused value left. */
-    sendmsg(SIZWIN, name, a, b, c, d, 0, NULL);
+     window server, so we send (what this interpreter process thinks is)
+     the screen width and height. */
+
+    sizewin->x0 = x0;
+    sizewin->y0 = y0;
+    sizewin->x1 = x1;
+    sizewin->y1 = y1;
+    sizewin->gamewidth = gscreenw;
+    sizewin->gameheight = gscreenh;
+    sendmsg(SIZWIN, name, 0, 0, 0, 0,
+            sizeof(struct sizewinrect),
+            (char*)sizewin);
 }
 
 void win_maketransparent(int name)
@@ -557,37 +569,40 @@ again:
             break;
 
         case EVTPREFS:
-            gli_enable_graphics = wmsg.a1;
-            gli_enable_sound = wmsg.a2;
+            gli_enable_graphics = wmsg.a2;
+            gli_enable_sound = wmsg.a3;
             goto again;
 
         case EVTARRANGE:
 #ifdef DEBUG
             fprintf(stderr, "win_select: arrange event\n");
-            fprintf(stderr, "gscreenw: %u gscreenh: %u\n", wmsg.a1, wmsg.a2);
+            fprintf(stderr, "gscreenw: %u gscreenh: %u\n", settings->screen_width, settings->screen_height);
 #endif
             /* + 5 for default line fragment padding */
-            if ( gscreenw == wmsg.a1 &&
-                gscreenh == wmsg.a2 &&
-                gbuffermarginx == wmsg.a3 + 5 &&
-                gbuffermarginy == wmsg.a3 &&
-                ggridmarginx == wmsg.a4 + 5 &&
-                ggridmarginy == wmsg.a4 &&
-                gcellw == wmsg.a5 / 256.0 &&
-                gcellh == wmsg.a6 / 256.0 &&
-				gleading == wmsg.a7 / 256.0 )
+            if (gscreenw == settings->screen_width &&
+                gscreenh == settings->screen_height &&
+                gbuffermarginx == settings->buffer_margin_x + 5 &&
+                gbuffermarginy == settings->buffer_margin_y &&
+                ggridmarginx == settings->grid_margin_x + 5 &&
+                ggridmarginy == settings->grid_margin_y &&
+                gcellw == settings->cell_width &&
+                gcellh == settings->cell_height &&
+				gleading == settings->leading &&
+                settings->force_arrange == 0)
                 goto again;
 
             event->type = evtype_Arrange;
-            gscreenw = wmsg.a1;
-            gscreenh = wmsg.a2;
-            gbuffermarginx = wmsg.a3 + 5;
-            gbuffermarginy = wmsg.a3;
-            ggridmarginx = wmsg.a4 + 5;
-            ggridmarginy = wmsg.a4;
-            gcellw = wmsg.a5 / 256.0;
-            gcellh = wmsg.a6 / 256.0;
-			gleading = wmsg.a7 / 256.0;
+            
+            gscreenw = settings->screen_width;
+            gscreenh = settings->screen_height;
+            gbuffermarginx = settings->buffer_margin_x + 5;
+            gbuffermarginy = settings->buffer_margin_y;
+            ggridmarginx = settings->grid_margin_x + 5;
+            ggridmarginy = settings->grid_margin_y;
+            gcellw = settings->cell_width;
+            gcellh = settings->cell_height;
+            gleading = settings->leading;
+
             gli_windows_rearrange();
             break;
 

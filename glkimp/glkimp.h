@@ -49,7 +49,7 @@ char *win_promptsave(int type);
 
 int win_newwin(int type);
 void win_delwin(int name);
-void win_sizewin(int name, int a, int b, int c, int d);
+void win_sizewin(int name, int x0, int y0, int x1, int y1);
 void win_maketransparent(int name);
 
 void win_initchar(int name);
