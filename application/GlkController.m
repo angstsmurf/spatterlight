@@ -371,10 +371,10 @@ static const char *msgnames[] = {
 
              }];
 
-    [task setTerminationHandler:^(NSTask *task) {
-        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
+    [task setTerminationHandler:^(NSTask *aTask) {
+        [aTask.standardOutput fileHandleForReading].readabilityHandler = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf noteTaskDidTerminate:task];
+            [weakSelf noteTaskDidTerminate:aTask];
         });
     }];
 
@@ -810,6 +810,8 @@ static const char *msgnames[] = {
     }
 
     if (task) {
+        [task setTerminationHandler:nil];
+        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
 //        NSLog(@"glkctl: force stop the interpreter");
         [task terminate];
         task = nil;
@@ -2063,6 +2065,8 @@ static NSString *signalToName(NSTask *task) {
         timer = nil;
     }
 
+    [task waitUntilExit];
+
     if (task && task.terminationStatus != 0) {
         NSAlert *alert;
         alert = [NSAlert
@@ -2092,13 +2096,14 @@ static NSString *signalToName(NSTask *task) {
 
     // This must be delayed in order to be able to read the final message from
     // the interpreter
-    timer = [NSTimer
-             scheduledTimerWithTimeInterval:0.5
-             target:self
-             selector:@selector(delayedRemoveObserver:)
-             userInfo:nil
-             repeats:NO];
+//    timer = [NSTimer
+//             scheduledTimerWithTimeInterval:0.5
+//             target:self
+//             selector:@selector(delayedRemoveObserver:)
+//             userInfo:nil
+//             repeats:NO];
 
+    // We autosave the UI but delete the terp autosave files
     [self autoSaveOnExit];
     [self deleteFileAtPath:_autosaveFileTerp];
     [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:
@@ -2109,9 +2114,9 @@ static NSString *signalToName(NSTask *task) {
                             @"autosave-tmp.plist"]];
 }
 
-- (void)delayedRemoveObserver:(id)sender {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+//- (void)delayedRemoveObserver:(id)sender {
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
 
 - (void)queueEvent:(GlkEvent *)gevent {
     if (gevent.type == EVTARRANGE) {
