@@ -191,6 +191,8 @@ static const char *msgnames[] = {
      object:nil];
 
     self.window.representedFilename = gamefile;
+
+    [_borderView setWantsLayer:YES];
     [self setBorderColor:[Preferences bufferBackground]];
 
     if (_supportsAutorestore &&
@@ -1758,14 +1760,14 @@ NSInteger colorToInteger(NSColor *color) {
                 checksumWidth = sizewin->gamewidth;
                 checksumHeight = sizewin->gameheight;
 
-                if (fabs(checksumWidth - _contentView.frame.size.width) > 2.0) {
+                if (fabs(checksumWidth - _contentView.frame.size.width) > 1.0) {
                     //                    NSLog(@"handleRequest sizwin: wrong checksum width (%d). "
                     //                          @"Current _contentView width is %f",
                     //                          checksumWidth, _contentView.frame.size.width);
                     break;
                 }
 
-                if (fabs(checksumHeight - _contentView.frame.size.height) > 2.0) {
+                if (fabs(checksumHeight - _contentView.frame.size.height) > 1.0) {
                     //                    NSLog(@"handleRequest sizwin: wrong checksum height (%d). "
                     //                          @"Current _contentView height is %f",
                     //                          checksumHeight, _contentView.frame.size.height);
@@ -1790,23 +1792,15 @@ NSInteger colorToInteger(NSColor *color) {
 
                 if (fabs(NSMaxX(rect) - _contentView.frame.size.width) < 2.0 &&
                     rect.size.width) {
+                    // If window is at right edge, attach to that edge
                     hmask = NSViewWidthSizable;
-                    // NSLog(@"Gwindow %ld is at right edge. NSMaxX = %f,
-                    // _contentView.frame.size.width = %f", reqWin.name,
-                    // NSMaxX(rect), _contentView.frame.size.width);
-                } // else NSLog(@"Gwindow %ld is not at right edge. NSMaxX = %f,
-                // _contentView.frame.size.width = %f", reqWin.name, NSMaxX(rect),
-                // _contentView.frame.size.width);
+                }
 
                 if (fabs(NSMaxY(rect) - _contentView.frame.size.height) < 2.0 &&
                     rect.size.height) {
+                    // If window is at bottom, attach to bottom
                     vmask = NSViewHeightSizable;
-                    // NSLog(@"Gwindow %ld is at bottom edge. NSMaxY = %f,
-                    // _contentView.frame.size.height = %f", reqWin.name,
-                    // NSMaxY(rect), _contentView.frame.size.height);
-                } // else NSLog(@"Gwindow %ld is not at bottom edge. NSMaxY = %f,
-                // _contentView.frame.size.height = %f", reqWin.name, NSMaxY(rect),
-                // _contentView.frame.size.height);
+                }
 
                 reqWin.autoresizingMask = hmask | vmask;
 
@@ -2179,7 +2173,7 @@ again:
     maxibuf = NULL;
 
     if (data.length < sizeof(struct message)) {
-        NSLog(@"%d bytes short. Bailing until we have more data.", (int)(data.length - sizeof(struct message)));
+        //Too little data to read header. Bailing until we have more.
         bufferedData = [NSMutableData dataWithData:data];
         return;
     }
@@ -2196,15 +2190,13 @@ again:
      rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), request.len);
 
     if (NSMaxRange(rangeToRead) > data.length) {
-        // We are buffering
-        NSLog(@"%d bytes short. Bailing until we have more data.", (int)(data.length - NSMaxRange(rangeToRead)));
+        //Too little data to read message body. Bailing until we have more.
         bufferedData = [NSMutableData dataWithData:data];
         return;
     }
 
-    //    NSLog(@"noteDataAvailable: incoming request %s, len %d, data.length %lu", msgnames[request.cmd], request.len, (unsigned long)data.length);
-
-    /* Create a maxibuf if we need more space than provided by minibuf */
+    // Create a maxibuf if we need more space than provided by minibuf.
+    // There likely exists a more elegant way to accomplish this
     if (request.len > GLKBUFSIZE) {
         maxibuf = malloc(request.len);
         if (!maxibuf) {
@@ -2261,8 +2253,6 @@ again:
 
 - (void)setBorderColor:(NSColor *)color;
 {
-    [_borderView setWantsLayer:YES];
-
     CGFloat components[[color numberOfComponents]];
     CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
     [color getComponents:(CGFloat *)&components];
