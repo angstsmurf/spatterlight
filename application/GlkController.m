@@ -2176,10 +2176,17 @@ static BOOL pollMoreData(int fd) {
 
     if (!data.length) {
         NSLog(@"Connection closed");
+        [task terminate];
         return;
     }
 
-    NSRange fileRange = NSMakeRange(0, sizeof(struct message));
+    if (bufferedData) {
+        [bufferedData appendData:data];
+        data = [NSData dataWithData:bufferedData];
+        bufferedData = nil;
+    }
+
+    NSRange rangeToRead = NSMakeRange(0, sizeof(struct message));
 
 again:
 
@@ -2187,9 +2194,11 @@ again:
     maxibuf = NULL;
 
     if (bufferedMessageHeader) {
+        // Construct the request struct from the bufferedMessageHeader data object
         [bufferedMessageHeader getBytes:&request
                                  length:sizeof(struct message)];
-        fileRange = NSMakeRange(0, 0);
+        // We are buffering, data will not begin with a header
+        rangeToRead = NSMakeRange(0, 0);
         if (bufferedMessageBody) {
             NSLog(@"noteDataAvailable: we are buffering message data. Requested data length: %d bytes. Current length of data buffer:%ld. To this we now add %ld bytes.", request.len, bufferedMessageBody.length, data.length );
             [bufferedMessageBody appendData:data];
@@ -2197,15 +2206,43 @@ again:
         }
     } else {
 
+         if (data.length < sizeof(struct message)) {
+             bufferedData = [NSMutableData dataWithData:data];
+             return;
+         }
+
         @try {
             [data getBytes:&request
-                     range:fileRange];
+                     range:rangeToRead];
         } @catch (NSException *ex) {
             NSLog(@"glkctl: could not read message header");
-            bufferedMessageHeader = nil;
+            [task terminate];
             return;
         }
     }
+
+    NSLog(@"noteDataAvailable: incoming request %s, len %d, data.length %lu", msgnames[request.cmd], request.len, (unsigned long)data.length);
+
+    rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), request.len);
+
+    if (NSMaxRange(rangeToRead) > data.length) {
+        // We are buffering
+        NSLog(@"Data is %d bytes short", (int)(data.length - NSMaxRange(rangeToRead)));
+        if (bufferedMessageHeader) {
+            bufferedMessageBody = [NSMutableData dataWithData:data];
+        } else {
+            bufferedMessageHeader = [NSData dataWithBytes:&request length:sizeof(struct message)];
+            bufferedMessageBody = [[NSMutableData alloc] init];
+            if (data.length > sizeof(struct message)) {
+                [bufferedMessageBody appendData:[data subdataWithRange:NSMakeRange(sizeof(struct message), data.length - sizeof(struct message))]];
+            }
+        }
+        return;
+    }
+
+    // We are not buffering
+    bufferedMessageHeader = nil;
+    bufferedMessageBody = nil;
 
     /* this should only happen when sending resources */
     if (request.len > GLKBUFSIZE) {
@@ -2219,41 +2256,18 @@ again:
         buf = maxibuf;
     }
 
-    NSLog(@"noteDataAvailable: incoming request %s, len %d, data.length %lu", msgnames[request.cmd], request.len, (unsigned long)data.length);
-
-    fileRange = NSMakeRange(NSMaxRange(fileRange), request.len);
-
-    if (NSMaxRange(fileRange) > data.length) {
-        NSLog(@"Data is %d bytes short!", (int)(data.length - NSMaxRange(fileRange)));
-        if (bufferedMessageHeader) {
-            bufferedMessageBody = [NSMutableData dataWithData:data];
-        } else {
-            bufferedMessageHeader = [NSData dataWithBytes:&request length:sizeof(struct message)];
-            bufferedMessageBody = [NSMutableData init];
-            if (data.length > sizeof(struct message)) {
-                [bufferedMessageBody appendData:[data subdataWithRange:NSMakeRange(sizeof(struct message), data.length - sizeof(struct message))]];
-            }
-        }
-        return;
-    }
-
-
     if (request.len) {
         @try {
             [data getBytes:buf
-                     range:fileRange];
+                     range:rangeToRead];
         } @catch (NSException *ex) {
             NSLog(@"glkctl: could not read message body");
             if (maxibuf)
                 free(maxibuf);
-            bufferedMessageHeader = nil;
-            bufferedMessageBody = nil;
+            [task terminate];
             return;
         }
     }
-
-    bufferedMessageHeader = nil;
-    bufferedMessageBody = nil;
 
     memset(&reply, 0, sizeof reply);
 
@@ -2268,14 +2282,23 @@ again:
     if (maxibuf)
         free(maxibuf);
 
+
     /* if stop, don't read or wait for more data */
-    if (stop)
-        return;
+    if (stop) {
+            bufferedData = [NSMutableData dataWithData:
+                              [data subdataWithRange:NSMakeRange(NSMaxRange(rangeToRead), data.length - NSMaxRange(rangeToRead))]]  ;
+            return;
+    }
 
-    fileRange = NSMakeRange(NSMaxRange(fileRange), sizeof(struct message));
+    rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), sizeof(struct message));
 
-    if (NSMaxRange(fileRange) <= data.length)
+    if (NSMaxRange(rangeToRead) <= data.length)
         goto again;
+    else{
+        bufferedData = [NSMutableData dataWithData:
+                        [data subdataWithRange:NSMakeRange(rangeToRead.location, data.length - rangeToRead.location)]]  ;
+        return;
+    }
 }
 
 - (void)setBorderColor:(NSColor *)color;
