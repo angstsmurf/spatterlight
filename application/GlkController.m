@@ -138,6 +138,7 @@ static const char *msgnames[] = {
 
     _queue = [[NSMutableArray alloc] init];
     _gwindows = [[NSMutableDictionary alloc] init];
+    bufferedData = nil;
 
     self.window.title = [gameinfo objectForKey:@"title"];
     if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
@@ -233,6 +234,9 @@ static const char *msgnames[] = {
             // Otherwise we delete any autorestore files and
             // restart the game.
             [self deleteAutosaveFiles];
+            // If we die in fullscreen and close the game,
+            // it should not open in fullscreen the next time.
+            _inFullscreen = NO;
             [self runTerpNormal];
             return;
         }
@@ -2676,7 +2680,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 // Some convenience methods
 - (void)adjustContentView {
     if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
-        NSEqualRects(_borderView.frame, self.window.screen.frame)) {
+        NSEqualRects(_borderView.frame, self.window.screen.frame) ||(dead && _inFullscreen && windowRestoredBySystem)) {
         // We are in fullscreen
         _contentView.frame = [self contentFrameForFullscreen];
     } else {
