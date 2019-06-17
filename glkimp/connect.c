@@ -281,7 +281,6 @@ void win_sizewin(int name, int x0, int y0, int x1, int y1)
     /* The window size may have changed before the message reaches the
      window server, so we send (what this interpreter process thinks is)
      the screen width and height. */
-
     sizewin->x0 = x0;
     sizewin->y0 = y0;
     sizewin->x1 = x1;

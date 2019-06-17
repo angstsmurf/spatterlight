@@ -72,6 +72,8 @@
 
     GlkController *restoredController;
     NSUInteger turns;
+    NSData *bufferedMessageHeader;
+    NSMutableData *bufferedMessageBody;
 }
 
 @property NSMutableDictionary *gwindows;

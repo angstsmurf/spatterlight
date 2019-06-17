@@ -14,22 +14,22 @@ fprintf(stderr, "%s\n",                                                    \
 
 #define MINTIMER 5 /* The game Transparent needs a timer this frequent */
 
-//static const char *msgnames[] = {
-//    "NOREPLY",         "OKAY",       "ERROR",       "HELLO",
-//    "PROMPTOPEN",      "PROMPTSAVE", "NEWWIN",      "DELWIN",
-//    "SIZWIN",          "CLRWIN",     "MOVETO",      "PRINT",
-//    "MAKETRANSPARENT", "STYLEHINT",  "CLEARHINT",   "STYLEMEASURE",
-//    "SETBGND",         "SETTITLE",   "AUTOSAVE",    "RESET",
-//    "TIMER",           "INITCHAR",   "CANCELCHAR",  "INITLINE",
-//    "CANCELLINE",      "SETECHO",    "TERMINATORS", "INITMOUSE",
-//    "CANCELMOUSE",     "FILLRECT",   "FINDIMAGE",   "LOADIMAGE",
-//    "SIZEIMAGE",       "DRAWIMAGE",  "FLOWBREAK",   "NEWCHAN",
-//    "DELCHAN",         "FINDSOUND",  "LOADSOUND",   "SETVOLUME",
-//    "PLAYSOUND",       "STOPSOUND",  "SETLINK",     "INITLINK",
-//    "CANCELLINK",      "EVTHYPER",   "NEXTEVENT",   "EVTARRANGE",
-//    "EVTLINE",         "EVTKEY",     "EVTMOUSE",    "EVTTIMER",
-//    "EVTSOUND",        "EVTVOLUME",  "EVTPREFS"};
-//
+static const char *msgnames[] = {
+    "NOREPLY",         "OKAY",       "ERROR",       "HELLO",
+    "PROMPTOPEN",      "PROMPTSAVE", "NEWWIN",      "DELWIN",
+    "SIZWIN",          "CLRWIN",     "MOVETO",      "PRINT",
+    "MAKETRANSPARENT", "STYLEHINT",  "CLEARHINT",   "STYLEMEASURE",
+    "SETBGND",         "SETTITLE",   "AUTOSAVE",    "RESET",
+    "TIMER",           "INITCHAR",   "CANCELCHAR",  "INITLINE",
+    "CANCELLINE",      "SETECHO",    "TERMINATORS", "INITMOUSE",
+    "CANCELMOUSE",     "FILLRECT",   "FINDIMAGE",   "LOADIMAGE",
+    "SIZEIMAGE",       "DRAWIMAGE",  "FLOWBREAK",   "NEWCHAN",
+    "DELCHAN",         "FINDSOUND",  "LOADSOUND",   "SETVOLUME",
+    "PLAYSOUND",       "STOPSOUND",  "SETLINK",     "INITLINK",
+    "CANCELLINK",      "EVTHYPER",   "NEXTEVENT",   "EVTARRANGE",
+    "EVTLINE",         "EVTKEY",     "EVTMOUSE",    "EVTTIMER",
+    "EVTSOUND",        "EVTVOLUME",  "EVTPREFS"};
+
 //static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 //    "wintype_Blank",    "wintype_TextBuffer",
 //    "wintype_TextGrid", "wintype_Graphics"};
@@ -327,24 +327,12 @@ fprintf(stderr, "%s\n",                                                    \
     task = [[NSTask alloc] init];
     task.currentDirectoryPath = NSHomeDirectory();
     task.standardOutput = readpipe;
-
-    // https://stackoverflow.com/questions/3444178/nstask-nspipe-objective-c-command-line-help
-    //        [[task.standardOutput fileHandleForReading]
-    //        setReadabilityHandler:^(NSFileHandle *file) {
-    //            NSData *data = [file availableData]; // this will read to EOF,
-    //            so call only once NSLog(@"Task output! %@", [[NSString alloc]
-    //            initWithData:data encoding:NSUTF8StringEncoding]);
-    //
-    //            // if you're collecting the whole output of a task, you may
-    //            store it on a property [self.taskOutput appendData:data];
-    //        }];
-
     task.standardInput = sendpipe;
 
 #ifdef TEE_TERP_OUTPUT
     [task setLaunchPath:@"/bin/bash"];
 
-    NSString *cmdline = @" "; //@"\"";
+    NSString *cmdline = @" ";
     cmdline = [cmdline stringByAppendingString:terppath];
     cmdline = [cmdline stringByAppendingString:@" \""];
     cmdline = [cmdline stringByAppendingString:gamefile];
@@ -370,31 +358,23 @@ fprintf(stderr, "%s\n",                                                    \
 
 #endif // TEE_TERP_OUTPUT
 
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(noteTaskDidTerminate:)
-     name:NSTaskDidTerminateNotification
-     object:task];
 
-//    [[NSNotificationCenter defaultCenter]
-//     addObserver:self
-//     selector:@selector(noteDataAvailable:)
-//     name:NSFileHandleDataAvailableNotification
-//     object:readfh];
-
+    GlkController * __weak weakSelf = self;
 
     [[readpipe fileHandleForReading]
              setReadabilityHandler:^(NSFileHandle *file) {
+                 NSData *data = [file availableData];
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     [self noteDataAvailable:file];
+                     [weakSelf noteDataAvailable:data];
                  });
+
              }];
 
     [task setTerminationHandler:^(NSTask *task) {
-
-        // do your stuff on completion
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
-        [task.standardError fileHandleForReading].readabilityHandler = nil;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf noteTaskDidTerminate:task];
+        });
     }];
 
     [task launch];
@@ -411,14 +391,6 @@ fprintf(stderr, "%s\n",                                                    \
                                           force:NO];
     [self queueEvent:gevent];
 
-//    soundNotificationsTimer =
-//    [NSTimer scheduledTimerWithTimeInterval:2.0
-//                                     target:self
-//                                   selector:@selector(keepAlive:)
-//                                   userInfo:nil
-//                                    repeats:YES];
-//
-//    [readfh waitForDataInBackgroundAndNotify];
 }
 
 #pragma mark Autorestore
@@ -794,12 +766,6 @@ fprintf(stderr, "%s\n",                                                    \
         timer = nil;
     }
 
-    if (soundNotificationsTimer) {
-//        NSLog(@"glkctl reset: force stop the sound notifications timer");
-        [soundNotificationsTimer invalidate];
-        soundNotificationsTimer = nil;
-    }
-
     if (task) {
         [[NSNotificationCenter defaultCenter]
          removeObserver:self
@@ -842,12 +808,6 @@ fprintf(stderr, "%s\n",                                                    \
         timer = nil;
     }
 
-    if (soundNotificationsTimer) {
-//        NSLog(@"glkctl: force stop the sound notifications timer");
-        [soundNotificationsTimer invalidate];
-        soundNotificationsTimer = nil;
-    }
-
     if (task) {
 //        NSLog(@"glkctl: force stop the interpreter");
         [task terminate];
@@ -876,10 +836,6 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (BOOL)isAlive {
     return !dead;
-}
-
-- (void)keepAlive:(NSTimer *)timer {
-    [readfh waitForDataInBackgroundAndNotify];
 }
 
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window
@@ -1600,7 +1556,7 @@ NSInteger colorToInteger(NSColor *color) {
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-//    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -2148,8 +2104,7 @@ static BOOL pollMoreData(int fd) {
     //        if (gchannels[i])
     //            [gchannels[i] stop];
 
-    self.window.title =
-    [self.window.title stringByAppendingString:@" (finished)"];
+    self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
     task = nil;
 
     // This must be delayed in order to be able to read the final message from
@@ -2208,31 +2163,48 @@ static BOOL pollMoreData(int fd) {
     }
 }
 
-- (void)noteDataAvailable:(id)sender {
+- (void)noteDataAvailable:(NSData *)data {
 
     struct message request;
     struct message reply;
     char minibuf[GLKBUFSIZE + 1];
     char *maxibuf;
     char *buf;
-    NSInteger n, t;
     BOOL stop;
 
-    int readfd = readfh.fileDescriptor;
     int sendfd = sendfh.fileDescriptor;
+
+    if (!data.length) {
+        NSLog(@"Connection closed");
+        return;
+    }
+
+    NSRange fileRange = NSMakeRange(0, sizeof(struct message));
 
 again:
 
     buf = minibuf;
     maxibuf = NULL;
 
-    n = read(readfd, &request, sizeof(struct message));
-    if (n < (NSInteger)sizeof(struct message)) {
-        if (n < 0)
+    if (bufferedMessageHeader) {
+        [bufferedMessageHeader getBytes:&request
+                                 length:sizeof(struct message)];
+        fileRange = NSMakeRange(0, 0);
+        if (bufferedMessageBody) {
+            NSLog(@"noteDataAvailable: we are buffering message data. Requested data length: %d bytes. Current length of data buffer:%ld. To this we now add %ld bytes.", request.len, bufferedMessageBody.length, data.length );
+            [bufferedMessageBody appendData:data];
+            data = [NSData dataWithData:bufferedMessageBody];
+        }
+    } else {
+
+        @try {
+            [data getBytes:&request
+                     range:fileRange];
+        } @catch (NSException *ex) {
             NSLog(@"glkctl: could not read message header");
-        else
-            NSLog(@"glkctl: connection closed");
-        return;
+            bufferedMessageHeader = nil;
+            return;
+        }
     }
 
     /* this should only happen when sending resources */
@@ -2240,24 +2212,48 @@ again:
         maxibuf = malloc(request.len);
         if (!maxibuf) {
             NSLog(@"glkctl: out of memory for message (%d bytes)", request.len);
+            bufferedMessageHeader = nil;
+            bufferedMessageBody = nil;
             return;
         }
         buf = maxibuf;
     }
 
-    if (request.len) {
-        n = 0;
-        while (n < request.len) {
-            t = read(readfd, buf + n, request.len - n);
-            if (t <= 0) {
-                NSLog(@"glkctl: could not read message body");
-                if (maxibuf)
-                    free(maxibuf);
-                return;
+    NSLog(@"noteDataAvailable: incoming request %s, len %d, data.length %lu", msgnames[request.cmd], request.len, (unsigned long)data.length);
+
+    fileRange = NSMakeRange(NSMaxRange(fileRange), request.len);
+
+    if (NSMaxRange(fileRange) > data.length) {
+        NSLog(@"Data is %d bytes short!", (int)(data.length - NSMaxRange(fileRange)));
+        if (bufferedMessageHeader) {
+            bufferedMessageBody = [NSMutableData dataWithData:data];
+        } else {
+            bufferedMessageHeader = [NSData dataWithBytes:&request length:sizeof(struct message)];
+            bufferedMessageBody = [NSMutableData init];
+            if (data.length > sizeof(struct message)) {
+                [bufferedMessageBody appendData:[data subdataWithRange:NSMakeRange(sizeof(struct message), data.length - sizeof(struct message))]];
             }
-            n += t;
+        }
+        return;
+    }
+
+
+    if (request.len) {
+        @try {
+            [data getBytes:buf
+                     range:fileRange];
+        } @catch (NSException *ex) {
+            NSLog(@"glkctl: could not read message body");
+            if (maxibuf)
+                free(maxibuf);
+            bufferedMessageHeader = nil;
+            bufferedMessageBody = nil;
+            return;
         }
     }
+
+    bufferedMessageHeader = nil;
+    bufferedMessageBody = nil;
 
     memset(&reply, 0, sizeof reply);
 
@@ -2276,10 +2272,10 @@ again:
     if (stop)
         return;
 
-    if (pollMoreData(readfd))
+    fileRange = NSMakeRange(NSMaxRange(fileRange), sizeof(struct message));
+
+    if (NSMaxRange(fileRange) <= data.length)
         goto again;
-//    else
-//        [readfh waitForDataInBackgroundAndNotify];
 }
 
 - (void)setBorderColor:(NSColor *)color;
