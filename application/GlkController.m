@@ -294,8 +294,6 @@ static const char *msgnames[] = {
 - (void)restoreWindowWhenDead {
     dead = YES;
 
-    _contentView.autoresizingMask = NSViewMaxXMargin | NSViewMaxYMargin |
-    NSViewMinXMargin | NSViewMinYMargin;
     [self.window setFrame:restoredController.storedWindowFrame display:NO];
 
     NSSize defsize = [self.window
@@ -768,9 +766,9 @@ static const char *msgnames[] = {
     }
 
     if (task) {
+//        NSLog(@"glkctl reset: force stop the interpreter");
         [task setTerminationHandler:nil];
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
-        NSLog(@"glkctl reset: force stop the interpreter");
         [task terminate];
         task = nil;
     }
@@ -798,8 +796,6 @@ static const char *msgnames[] = {
 
     [self.window setDelegate:nil];
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
     if (timer) {
 //        NSLog(@"glkctl: force stop the timer");
         [timer invalidate];
@@ -807,12 +803,13 @@ static const char *msgnames[] = {
     }
 
     if (task) {
+        //        NSLog(@"glkctl: force stop the interpreter");
         [task setTerminationHandler:nil];
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
-//        NSLog(@"glkctl: force stop the interpreter");
         [task terminate];
         task = nil;
     }
+
     [((AppDelegate *)[NSApplication sharedApplication].delegate)
      .libctl.gameSessions removeObjectForKey:gameifid];
 }
@@ -2098,10 +2095,6 @@ static NSString *signalToName(NSTask *task) {
     [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:
                             @"autosave-tmp.plist"]];
 }
-
-//- (void)delayedRemoveObserver:(id)sender {
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
 
 - (void)queueEvent:(GlkEvent *)gevent {
     if (gevent.type == EVTARRANGE) {
