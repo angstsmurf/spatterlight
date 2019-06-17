@@ -2193,64 +2193,37 @@ again:
     buf = minibuf;
     maxibuf = NULL;
 
-    if (bufferedMessageHeader) {
-        // Construct the request struct from the bufferedMessageHeader data object
-        [bufferedMessageHeader getBytes:&request
-                                 length:sizeof(struct message)];
-        // We are buffering, data will not begin with a header
-        rangeToRead = NSMakeRange(0, 0);
-        if (bufferedMessageBody) {
-            NSLog(@"noteDataAvailable: we are buffering message data. Requested data length: %d bytes. Current length of data buffer:%ld. To this we now add %ld bytes.", request.len, bufferedMessageBody.length, data.length );
-            [bufferedMessageBody appendData:data];
-            data = [NSData dataWithData:bufferedMessageBody];
-        }
-    } else {
+    if (data.length < sizeof(struct message)) {
+        NSLog(@"Data is %d bytes short. Bailing until we have more data.", (int)(data.length - sizeof(struct message)));
+        bufferedData = [NSMutableData dataWithData:data];
+        return;
+    }
 
-         if (data.length < sizeof(struct message)) {
-             bufferedData = [NSMutableData dataWithData:data];
-             return;
-         }
+    @try {
+        [data getBytes:&request
+                 range:rangeToRead];
+    } @catch (NSException *ex) {
+        NSLog(@"glkctl: could not read message header");
+        [task terminate];
+        return;
+    }
 
-        @try {
-            [data getBytes:&request
-                     range:rangeToRead];
-        } @catch (NSException *ex) {
-            NSLog(@"glkctl: could not read message header");
-            [task terminate];
-            return;
-        }
+     rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), request.len);
+
+    if (NSMaxRange(rangeToRead) > data.length) {
+        // We are buffering
+        NSLog(@"Data is %d bytes short. Bailing until we have more data.", (int)(data.length - NSMaxRange(rangeToRead)));
+        bufferedData = [NSMutableData dataWithData:data];
+        return;
     }
 
     NSLog(@"noteDataAvailable: incoming request %s, len %d, data.length %lu", msgnames[request.cmd], request.len, (unsigned long)data.length);
 
-    rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), request.len);
-
-    if (NSMaxRange(rangeToRead) > data.length) {
-        // We are buffering
-        NSLog(@"Data is %d bytes short", (int)(data.length - NSMaxRange(rangeToRead)));
-        if (bufferedMessageHeader) {
-            bufferedMessageBody = [NSMutableData dataWithData:data];
-        } else {
-            bufferedMessageHeader = [NSData dataWithBytes:&request length:sizeof(struct message)];
-            bufferedMessageBody = [[NSMutableData alloc] init];
-            if (data.length > sizeof(struct message)) {
-                [bufferedMessageBody appendData:[data subdataWithRange:NSMakeRange(sizeof(struct message), data.length - sizeof(struct message))]];
-            }
-        }
-        return;
-    }
-
-    // We are not buffering
-    bufferedMessageHeader = nil;
-    bufferedMessageBody = nil;
-
-    /* this should only happen when sending resources */
+    /* Create a maxibuf if we need more space than provided by minibuf */
     if (request.len > GLKBUFSIZE) {
         maxibuf = malloc(request.len);
         if (!maxibuf) {
             NSLog(@"glkctl: out of memory for message (%d bytes)", request.len);
-            bufferedMessageHeader = nil;
-            bufferedMessageBody = nil;
             return;
         }
         buf = maxibuf;
@@ -2292,11 +2265,11 @@ again:
 
     rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), sizeof(struct message));
 
-    if (NSMaxRange(rangeToRead) <= data.length)
+    if (NSMaxRange(rangeToRead) <= data.length) {
         goto again;
-    else{
+    } else {
         bufferedData = [NSMutableData dataWithData:
-                        [data subdataWithRange:NSMakeRange(rangeToRead.location, data.length - rangeToRead.location)]]  ;
+                        [data subdataWithRange:NSMakeRange(rangeToRead.location, data.length - rangeToRead.location)]];
         return;
     }
 }
