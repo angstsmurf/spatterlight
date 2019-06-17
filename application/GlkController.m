@@ -358,7 +358,6 @@ static const char *msgnames[] = {
 
 #endif // TEE_TERP_OUTPUT
 
-
     GlkController * __weak weakSelf = self;
 
     [[readpipe fileHandleForReading]
@@ -2060,16 +2059,6 @@ static NSString *signalToName(NSTask *task) {
     }
 }
 
-static BOOL pollMoreData(int fd) {
-    struct timeval timeout;
-    fd_set set;
-    FD_ZERO(&set);
-    FD_SET(fd, &set);
-    timeout.tv_sec = 0;
-    timeout.tv_usec = 0;
-    return select(fd + 1, &set, NULL, NULL, &timeout) == 1;
-}
-
 - (void)noteTaskDidTerminate:(id)sender {
     NSLog(@"glkctl: noteTaskDidTerminate");
 
@@ -2145,10 +2134,6 @@ static BOOL pollMoreData(int fd) {
         if (!gevent.forced && [lastArrangeValues isEqualToDictionary:newArrangeValues]) {
             return;
         }
-//            NSLog(@"GlkController queue EVTARRANGE: width: %@, height:%@, charWidth:%@.",
-//                  [newArrangeValues valueForKey:@"width"],
-//                  [newArrangeValues valueForKey:@"height"],
-//                  [newArrangeValues valueForKey:@"charWidth"]);
 
         lastArrangeValues = newArrangeValues;
     }
@@ -2194,7 +2179,7 @@ again:
     maxibuf = NULL;
 
     if (data.length < sizeof(struct message)) {
-        NSLog(@"Data is %d bytes short. Bailing until we have more data.", (int)(data.length - sizeof(struct message)));
+        NSLog(@"%d bytes short. Bailing until we have more data.", (int)(data.length - sizeof(struct message)));
         bufferedData = [NSMutableData dataWithData:data];
         return;
     }
@@ -2212,18 +2197,19 @@ again:
 
     if (NSMaxRange(rangeToRead) > data.length) {
         // We are buffering
-        NSLog(@"Data is %d bytes short. Bailing until we have more data.", (int)(data.length - NSMaxRange(rangeToRead)));
+        NSLog(@"%d bytes short. Bailing until we have more data.", (int)(data.length - NSMaxRange(rangeToRead)));
         bufferedData = [NSMutableData dataWithData:data];
         return;
     }
 
-    NSLog(@"noteDataAvailable: incoming request %s, len %d, data.length %lu", msgnames[request.cmd], request.len, (unsigned long)data.length);
+    //    NSLog(@"noteDataAvailable: incoming request %s, len %d, data.length %lu", msgnames[request.cmd], request.len, (unsigned long)data.length);
 
     /* Create a maxibuf if we need more space than provided by minibuf */
     if (request.len > GLKBUFSIZE) {
         maxibuf = malloc(request.len);
         if (!maxibuf) {
             NSLog(@"glkctl: out of memory for message (%d bytes)", request.len);
+            [task terminate];
             return;
         }
         buf = maxibuf;
@@ -2255,8 +2241,7 @@ again:
     if (maxibuf)
         free(maxibuf);
 
-
-    /* if stop, don't read or wait for more data */
+    // if stop, don't read or wait for more data (but buffer any unread data).
     if (stop) {
             bufferedData = [NSMutableData dataWithData:
                               [data subdataWithRange:NSMakeRange(NSMaxRange(rangeToRead), data.length - NSMaxRange(rangeToRead))]]  ;
