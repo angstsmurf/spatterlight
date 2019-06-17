@@ -768,11 +768,8 @@ static const char *msgnames[] = {
     }
 
     if (task) {
-        [[NSNotificationCenter defaultCenter]
-         removeObserver:self
-         name:NSTaskDidTerminateNotification
-         object:task];
-
+        [task setTerminationHandler:nil];
+        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
         NSLog(@"glkctl reset: force stop the interpreter");
         [task terminate];
         task = nil;
@@ -2087,21 +2084,9 @@ static NSString *signalToName(NSTask *task) {
     for (GlkWindow *win in [_gwindows allValues])
         [win terpDidStop];
 
-    //    for (i = 0; i < MAXSND; i++)
-    //        if (gchannels[i])
-    //            [gchannels[i] stop];
-
     self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
     task = nil;
 
-    // This must be delayed in order to be able to read the final message from
-    // the interpreter
-//    timer = [NSTimer
-//             scheduledTimerWithTimeInterval:0.5
-//             target:self
-//             selector:@selector(delayedRemoveObserver:)
-//             userInfo:nil
-//             repeats:NO];
 
     // We autosave the UI but delete the terp autosave files
     [self autoSaveOnExit];
