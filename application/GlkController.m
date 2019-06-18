@@ -362,7 +362,7 @@ static const char *msgnames[] = {
 
 #endif // TEE_TERP_OUTPUT
 
-    GlkController * __weak weakSelf = self;
+    GlkController * __unsafe_unretained weakSelf = self;
 
     [[readpipe fileHandleForReading]
              setReadabilityHandler:^(NSFileHandle *file) {
@@ -2442,9 +2442,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     NSView __weak *localContentView = _contentView;
     NSView __weak *localBorderView = _borderView;
-    NSWindow __weak *localSnapshot = snapshotWindow;
+    NSWindow __unsafe_unretained *localSnapshot = snapshotWindow;
 
-    GlkController * __weak weakSelf = self;
+    GlkController * __unsafe_unretained weakSelf = self;
     // Hide contentview
     _contentView.alphaValue = 0;
 
@@ -2548,7 +2548,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     centerWindowFrame.origin.y += screen.frame.origin.y;
 
     NSView __weak *localContentView = _contentView;
-    GlkController * __weak weakSelf = self;
+    GlkController * __unsafe_unretained weakSelf = self;
 
     BOOL stashShouldShowAlert = shouldShowAutorestoreAlert;
     shouldShowAutorestoreAlert = NO;
@@ -2604,10 +2604,10 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     _contentView.autoresizingMask =
     NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
 
-    NSWindow __weak *localWindow = self.window;
+    NSWindow __unsafe_unretained *localWindow = self.window;
     NSView __weak *localBorderView = _borderView;
     NSView __weak *localContentView =_contentView;
-    GlkController * __weak weakSelf = self;
+    GlkController * __unsafe_unretained weakSelf = self;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
