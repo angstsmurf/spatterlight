@@ -2136,7 +2136,7 @@ static NSString *signalToName(NSTask *task) {
     char minibuf[GLKBUFSIZE + 1];
     char *maxibuf;
     char *buf;
-    BOOL stop;
+    BOOL stop = NO;
 
     int sendfd = sendfh.fileDescriptor;
 
@@ -2161,7 +2161,8 @@ again:
 
     if (data.length < sizeof(struct message)) {
         //Too little data to read header. Bailing until we have more.
-        bufferedData = [NSMutableData dataWithData:data];
+        bufferedData = [NSMutableData dataWithData:[data subdataWithRange:NSMakeRange(rangeToRead.location, data.length - rangeToRead.location)]];
+
         return;
     }
 
@@ -2174,27 +2175,30 @@ again:
         return;
     }
 
-     rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), request.len);
-
-    if (NSMaxRange(rangeToRead) > data.length) {
-        //Too little data to read message body. Bailing until we have more.
-        bufferedData = [NSMutableData dataWithData:data];
-        return;
-    }
-
-    // Create a maxibuf if we need more space than provided by minibuf.
-    // There likely exists a more elegant way to accomplish this
-    if (request.len > GLKBUFSIZE) {
-        maxibuf = malloc(request.len);
-        if (!maxibuf) {
-            NSLog(@"glkctl: out of memory for message (%d bytes)", request.len);
-            [task terminate];
-            return;
-        }
-        buf = maxibuf;
-    }
+    rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), request.len);
 
     if (request.len) {
+
+        if (NSMaxRange(rangeToRead) > data.length) {
+            //Too little data to read message body. Bailing until we have more.
+            bufferedData = [NSMutableData dataWithData:
+                            [data subdataWithRange:NSMakeRange(rangeToRead.location - sizeof(struct message),
+                                    data.length - rangeToRead.location + sizeof(struct message))]];
+            return;
+        }
+
+        // Create a maxibuf if we need more space than provided by minibuf.
+        // There likely exists a more elegant way to accomplish this
+        if (request.len > GLKBUFSIZE) {
+            maxibuf = malloc(request.len);
+            if (!maxibuf) {
+                NSLog(@"glkctl: out of memory for message (%d bytes)", request.len);
+                [task terminate];
+                return;
+            }
+            buf = maxibuf;
+        }
+
         @try {
             [data getBytes:buf
                      range:rangeToRead];
@@ -2222,9 +2226,10 @@ again:
 
     // if stop, don't read or wait for more data (but buffer any unread data).
     if (stop) {
-            bufferedData = [NSMutableData dataWithData:
-                              [data subdataWithRange:NSMakeRange(NSMaxRange(rangeToRead), data.length - NSMaxRange(rangeToRead))]]  ;
-            return;
+        bufferedData = [NSMutableData dataWithData:
+                        [data subdataWithRange:NSMakeRange(NSMaxRange(rangeToRead),
+                                                           data.length - NSMaxRange(rangeToRead))]];
+        return;
     }
 
     rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), sizeof(struct message));
@@ -2233,7 +2238,8 @@ again:
         goto again;
     } else {
         bufferedData = [NSMutableData dataWithData:
-                        [data subdataWithRange:NSMakeRange(rangeToRead.location, data.length - rangeToRead.location)]];
+                        [data subdataWithRange:NSMakeRange(rangeToRead.location,
+                                                           data.length - rangeToRead.location)]];
         return;
     }
 }
