@@ -1749,8 +1749,6 @@ NSInteger colorToInteger(NSColor *color) {
 #pragma mark Window sizing, printing, drawing …
 
         case SIZWIN:
-            //            NSLog(@"glkctl SIZWIN %d: %d x %d", req->a1,
-            //            req->a4-req->a2, req->a5-req->a3);
             if (reqWin) {
                 int x0, y0, x1, y1, checksumWidth, checksumHeight;
                 NSRect rect;
@@ -1783,6 +1781,9 @@ NSInteger colorToInteger(NSColor *color) {
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
+                
+//                NSLog(@"glkctl SIZWIN %ld: %@", (long)reqWin.name, NSStringFromRect(rect));
+
                 reqWin.frame = rect;
                 if ([reqWin isKindOfClass:[GlkTextBufferWindow class]])
                     [(GlkTextBufferWindow *)reqWin restoreScroll];
