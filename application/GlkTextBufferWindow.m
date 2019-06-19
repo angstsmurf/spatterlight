@@ -1158,7 +1158,6 @@
     [encoder encodeBool:lastAtBottom forKey:@"scrolledToBottom"];
     [encoder encodeInteger:lastVisible forKey:@"lastVisible"];
     [encoder encodeDouble:lastScrollOffset forKey:@"scrollOffset"];
-
     [encoder encodeObject:textview.insertionPointColor
                    forKey:@"insertionPointColor"];
     [encoder encodeBool:textview.shouldDrawCaret forKey:@"shouldDrawCaret"];
@@ -2134,6 +2133,9 @@
 
     lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) /
                     lastLineheight;
+
+    if (isnan(lastScrollOffset) || isinf(lastScrollOffset)|| lastScrollOffset < 0.1)
+        lastScrollOffset = 0;
 }
 
 - (void)restoreScroll;
@@ -2159,7 +2161,7 @@
     }
 
     offset = offset * (CGFloat)Preferences.lineHeight;
-    if (isnan(offset) || offset < 0.1)
+    if (isnan(offset) || isinf(offset)|| offset < 0.1)
         offset = 0;
 
     // first, force a layout so we have the correct textview frame
@@ -2171,11 +2173,9 @@
 
         CGFloat charbottom = NSMaxY(line); // bottom of the line
         charbottom = charbottom + offset;
-        NSRect newVisibleRect =
-            NSMakeRect(0, floor(charbottom - NSHeight(scrollview.frame)),
-                       NSWidth(textview.frame), NSHeight(scrollview.frame));
-
-        [scrollview.contentView scrollRectToVisible:newVisibleRect];
+        NSPoint newScrollOrigin = NSMakePoint(0, floor(charbottom - NSHeight(scrollview.frame)));
+        [scrollview.contentView scrollToPoint:newScrollOrigin];
+        
         [scrollview reflectScrolledClipView:scrollview.contentView];
     }
 }
@@ -2184,12 +2184,10 @@
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
 
-    NSRect newVisibleRect =
-    NSMakeRect(0, NSMaxY(textview.frame) - NSHeight(scrollview.contentView.bounds),
-               NSWidth(scrollview.frame), NSHeight(scrollview.frame));
+    NSPoint newScrollOrigin = NSMakePoint(0, NSMaxY(textview.frame) - NSHeight(scrollview.contentView.bounds));
 
-    [scrollview.contentView scrollRectToVisible:newVisibleRect];
-    //    NSLog(@"scrollToBottom: Scrolled to bottom of scrollview");
+    [scrollview.contentView  scrollToPoint:newScrollOrigin];
+    [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
 - (void)performScroll {
