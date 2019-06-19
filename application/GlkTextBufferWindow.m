@@ -1260,7 +1260,6 @@
 
     layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
     [container invalidateLayout];
-    [self restoreScroll];
     lastLineheight = Preferences.lineHeight;
 }
 
