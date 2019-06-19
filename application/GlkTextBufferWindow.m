@@ -1260,6 +1260,7 @@
 
     layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
     [container invalidateLayout];
+    [self restoreScroll];
     lastLineheight = Preferences.lineHeight;
 }
 
@@ -2150,7 +2151,6 @@
 }
 
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset {
-    NSRange glyphs;
     NSRect line;
  
     if (character >= textstorage.length - 1) {
@@ -2189,7 +2189,6 @@
                NSWidth(scrollview.frame), NSHeight(scrollview.frame));
 
     [scrollview.contentView scrollRectToVisible:newVisibleRect];
-    [scrollview reflectScrolledClipView:scrollview.contentView];
     //    NSLog(@"scrollToBottom: Scrolled to bottom of scrollview");
 }
 
