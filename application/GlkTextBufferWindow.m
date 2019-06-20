@@ -1189,9 +1189,9 @@
     }
 
     if (!bgcolor)
-        bgcolor = [Preferences bufferBackground];
+        bgcolor = Preferences.bufferBackground;
     if (!fgcolor)
-        fgcolor = [Preferences bufferForeground];
+        fgcolor = Preferences.bufferForeground;
 
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = fgcolor;
