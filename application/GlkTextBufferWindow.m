@@ -1039,9 +1039,8 @@
         textstorage.delegate = self;
 
         textview.textContainerInset = NSMakeSize(margin, margin);
-        textview.backgroundColor = [Preferences bufferBackground];
-
-        textview.insertionPointColor = [Preferences bufferForeground];
+        textview.backgroundColor = Preferences.bufferBackground;
+        textview.insertionPointColor = Preferences.bufferForeground;
 
         [textview enableCaret:nil];
 
