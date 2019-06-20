@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "NSString+Signature.h"
+#import "NSString+Categories.h"
 
 #include "fileref.h"
 #include "glkimp.h"

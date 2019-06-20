@@ -15,6 +15,7 @@
 
 #import "Compatibility.h"
 #import "main.h"
+#import "Game.h"
 
 #define MAXWIN 64
 #define MAXSND 32
@@ -64,11 +65,11 @@
     NSInteger styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
 
     /* keep some info around for the about-box and resetting*/
+    Game *game;
     NSString *gamefile;
-    NSString *gameifid;
     NSString *terpname;
 
-    NSDictionary *gameinfo;
+    //NSDictionary *gameinfo;
 
     GlkController *restoredController;
     NSUInteger turns;
@@ -93,22 +94,19 @@
 
 @property NSMutableArray *queue;
 
-@property(nonatomic) NSString *appSupportDir;
-@property(nonatomic) NSString *autosaveFileGUI;
-@property(nonatomic) NSString *autosaveFileTerp;
+@property(strong, nonatomic) NSString *appSupportDir;
+@property(strong, nonatomic) NSString *autosaveFileGUI;
+@property(strong, nonatomic) NSString *autosaveFileTerp;
 
 @property(readonly) BOOL supportsAutorestore;
 @property(readonly) BOOL inFullscreen;
 
 - (void)runTerp:(NSString *)terpname
-   withGameFile:(NSString *)gamefilename
-           IFID:(NSString *)gameifid
-           info:(NSDictionary *)gameinfo
+       withGame:(Game *)game
           reset:(BOOL)shouldReset
      winRestore:(BOOL)windowRestoredBySystem;
 
-- (void)deleteAutosaveFilesForGameFile:(NSString *)gamefile
-                                withInfo:(NSDictionary *)gameinfo;
+- (void)deleteAutosaveFilesForGame:(Game *)game;
 
 - (IBAction)reset:(id)sender;
 

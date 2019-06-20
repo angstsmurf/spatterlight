@@ -4,7 +4,7 @@
 
 #import "Compatibility.h"
 #import "GlkHyperlink.h"
-#import "NSString+Signature.h"
+#import "NSString+Categories.h"
 #import "main.h"
 
 #ifdef DEBUG

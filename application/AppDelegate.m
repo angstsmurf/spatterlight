@@ -107,6 +107,9 @@ NSDictionary *gFormatMap;
     [_helpLicenseWindow showHelpFile:content withTitle:title];
 }
 
+#pragma mark -
+#pragma mark Windows restoration
+
 + (void)restoreWindowWithIdentifier:(NSString *)identifier
                               state:(NSCoder *)state
                   completionHandler:
@@ -139,17 +142,14 @@ NSDictionary *gFormatMap;
             }
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
             NSString *ifid = [identifier substringFromIndex:7];
-            window = [appDelegate.libctl playGameWithIFID:ifid
-                                            winRestore:YES];
+            window = [appDelegate.libctl playGameWithIFID:ifid];
         }
     }
     completionHandler(window, nil);
 }
 
-- (IBAction)showPrefs:(id)sender {
-//    NSLog(@"appdel: showPrefs");
-    [_prefctl showWindow:nil];
-}
+#pragma mark -
+#pragma mark Library
 
 - (IBAction)showLibrary:(id)sender {
 //    NSLog(@"appdel: showLibrary");
@@ -246,6 +246,11 @@ NSDictionary *gFormatMap;
     return _prefctl.window;
 }
 
+- (IBAction)showPrefs:(id)sender {
+    //    NSLog(@"appdel: showPrefs");
+    [_prefctl showWindow:nil];
+}
+
 - (void)addToRecents:(NSArray *)URLs {
     if (!addToRecents) {
         addToRecents = YES;
@@ -272,6 +277,21 @@ NSDictionary *gFormatMap;
         [self application:NSApp openFile:path];
     }
     addToRecents = YES;
+}
+
+#pragma mark - Core Data stack
+
+@synthesize coreDataManager = _coreDataManager;
+
+- (CoreDataManager *)coreDataManager {
+    // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
+    @synchronized (self) {
+        if (_coreDataManager == nil) {
+            _coreDataManager = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"];
+        }
+    }
+
+    return _coreDataManager;
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)app {
@@ -341,6 +361,47 @@ NSDictionary *gFormatMap;
             }
         }
     }
+    // Save changes in the application's managed object context before the application terminates.
+
+    if (!_managedObjectContext) {
+        return NSTerminateNow;
+    }
+
+    if (![[self managedObjectContext] commitEditing]) {
+        NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
+        return NSTerminateCancel;
+    }
+
+    if (![[self managedObjectContext] hasChanges]) {
+        return NSTerminateNow;
+    }
+
+    NSError *error = nil;
+    if (![[self managedObjectContext] save:&error]) {
+
+        // Customize this code block to include application-specific recovery steps.
+        BOOL result = [app presentError:error];
+        if (result) {
+            return NSTerminateCancel;
+        }
+
+        NSString *question = NSLocalizedString(@"Could not save changes while quitting. Quit anyway?", @"Quit without saves error question message");
+        NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
+        NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
+        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:question];
+        [alert setInformativeText:info];
+        [alert addButtonWithTitle:quitButton];
+        [alert addButtonWithTitle:cancelButton];
+
+        NSInteger answer = [alert runModal];
+
+        if (answer == NSAlertAlternateReturn) {
+            return NSTerminateCancel;
+        }
+    }
+    
     return NSTerminateNow;
 }
 
@@ -354,6 +415,29 @@ NSDictionary *gFormatMap;
     if ([[NSFontPanel sharedFontPanel] isVisible]) {
         [[NSFontPanel sharedFontPanel] orderOut:self];
     }
+    [_coreDataManager saveChanges];
 }
+
+
+
+// Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
+- (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window
+{
+    return [[self managedObjectContext] undoManager];
+}
+
+// Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
+//- (IBAction)saveAction:(id)sender
+//{
+//    NSError *error = nil;
+//
+//    if (![[self managedObjectContext] commitEditing]) {
+//        NSLog(@"%@:%@ unable to commit editing before saving", [self class], NSStringFromSelector(_cmd));
+//    }
+//
+//    if (![[self managedObjectContext] save:&error]) {
+//        [[NSApplication sharedApplication] presentError:error];
+//    }
+//}
 
 @end

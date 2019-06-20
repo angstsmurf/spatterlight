@@ -13,6 +13,18 @@
  *
  */
 
+#import <CoreData/CoreData.h>
+
+#import "Game.h"
+#import "Image.h"
+#import "Metadata.h"
+#import "Settings.h"
+#import "SideInfoView.h"
+#import "NSString+Categories.h"
+#import "NSDate+relative.h"
+#import "CoreDataManager.h"
+
+
 @interface LibHelperWindow : NSWindow <NSDraggingDestination>
 @end
 
@@ -22,7 +34,7 @@
 @class InfoController;
 
 @interface LibController
-    : NSWindowController <NSDraggingDestination, NSWindowDelegate> {
+    : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSURLConnectionDelegate> {
     NSURL *homepath;
 
     IBOutlet NSButton *infoButton;
@@ -30,9 +42,6 @@
     IBOutlet NSPanel *importProgressPanel;
     IBOutlet NSView *exportTypeView;
     IBOutlet NSPopUpButton *exportTypeControl;
-
-    NSMutableDictionary *metadata; /* ifid -> metadata dict */
-    NSMutableDictionary *games;    /* ifid -> filename */
 
     IBOutlet NSMenu *headerMenu;
 
@@ -48,10 +57,17 @@
 
     /* for the importing */
     NSInteger cursrc;
+    NSString *currentIfid;
     NSMutableArray *ifidbuf;
     NSMutableDictionary *metabuf;
     NSInteger errorflag;
+
+    NSURLConnection *dataTask;
+
 }
+
+@property (strong) CoreDataManager *coreDataManager;
+@property (strong) NSManagedObjectContext *managedObjectContext;
 
 @property NSMutableDictionary *infoWindows;
 @property NSMutableDictionary *gameSessions;
@@ -64,14 +80,15 @@
 - (void)beginImporting;
 - (void)endImporting;
 
-- (NSString *)importGame:(NSString *)path reportFailure:(BOOL)report;
+- (Game *)importGame:(NSString *)path reportFailure:(BOOL)report;
 - (void)addFile:(NSString *)path select:(NSMutableArray *)select;
 - (void)addFiles:(NSArray *)paths select:(NSMutableArray *)select;
 - (void)addFiles:(NSArray *)paths;
 - (void)addFile:(NSString *)path;
 
+- (NSWindow *)playGame:(Game *)game;
+- (NSWindow *)playGame:(Game *)game winRestore:(BOOL)restoreflag;
 - (NSWindow *)playGameWithIFID:(NSString *)ifid;
-- (NSWindow *)playGameWithIFID:(NSString *)ifid winRestore:(BOOL)restoreflag;
 
 - (void)importAndPlayGame:(NSString *)path;
 
@@ -84,19 +101,28 @@
 - (BOOL)exportMetadataToFile:(NSString *)filename what:(NSInteger)what;
 
 - (IBAction)searchForGames:(id)sender;
-- (IBAction)playGame:(id)sender;
+- (IBAction)play:(id)sender;
 - (IBAction)showGameInfo:(id)sender;
 - (IBAction)revealGameInFinder:(id)sender;
 - (IBAction)deleteGame:(id)sender;
 
-- (void)showInfo:(NSDictionary *)info forFile:(NSString *)path;
+- (void)showInfoForGame:(Game *)game;
 
 - (IBAction)toggleColumn:(id)sender;
 - (void)deselectGames;
-- (void)selectGameWithIFID:(NSString *)ifid;
 - (void)updateTableViews; /* must call this after -importGame: */
+- (void)updateSideView;
 
 - (void)enableClickToRenameAfterDelay;
+
+@property (strong) IBOutlet NSView *leftView;
+@property (strong) IBOutlet NSSplitView *splitView;
+
+- (IBAction) toggleSidebar:(id)sender;
+
+@property (strong) IBOutlet NSTextField *sideIfid;
+//@property (strong) IBOutlet NSClipView *sideClipView;
+@property (strong) IBOutlet NSScrollView *leftScrollView;
 
 - (NSString *)convertAGTFile:(NSString *)origpath;
 

@@ -2,6 +2,9 @@
  * Launcher -- the main application controller
  */
 
+#import <CoreData/CoreData.h>
+
+#import "CoreDataManager.h"
 #import "HelpPanelController.h"
 #import "InfoController.h"
 
@@ -15,6 +18,10 @@
 @property Preferences *prefctl;
 @property LibController *libctl;
 @property HelpPanelController *helpLicenseWindow;
+
+@property (readonly) CoreDataManager *coreDataManager;
+@property (readonly) NSManagedObjectContext *managedObjectContext;
+
 
 - (IBAction)openDocument:(id)sender;
 
