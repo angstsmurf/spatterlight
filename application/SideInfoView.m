@@ -17,6 +17,7 @@
 	{
 		libctl = sender;
 		ifidField = ifid;
+        
 	}
 	return self;
 }
@@ -323,6 +324,7 @@
 	{
 
 		font = [NSFont fontWithName:@"Playfair Display Black" size:30];
+
 		NSFontDescriptor *descriptor = font.fontDescriptor;
 
 		NSArray *array = @[@{NSFontFeatureTypeIdentifierKey : @(kNumberCaseType),
@@ -333,7 +335,7 @@
 		if (agame.metadata.title.length > 9)
 		{
 			font = [NSFont fontWithDescriptor:descriptor size:30];
-			//			NSLog(@"Long title (length = %lu), smaller text.", agame.metadata.title.length);
+						NSLog(@"Long title (length = %lu), smaller text.", agame.metadata.title.length);
 		}
 		else
 		{
@@ -346,16 +348,16 @@
 		{
 			if (word.length > longestWord.length) longestWord = word;
 		}
-//		NSLog (@"Longest word: %@", longestWord);
+		NSLog (@"Longest word: %@", longestWord);
 
 		// The magic number -24 means 10 points of margin and two points of textfield border on each side.
-		while ([longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width > superViewWidth - 24)
+		while ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > superViewWidth - 24)
 		{
-			//			NSLog(@"Font too large! Width %f, max allowed %f", [firstWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
+						NSLog(@"Font too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
 
 			font = [[NSFontManager sharedFontManager] convertFont:font toSize:font.pointSize - 2];
 		}
-		//		NSLog(@"Font not too large! Width %f, max allowed %f", [firstWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
+		//		NSLog(@"Font not too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
 
 		spaceBefore = [@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height * 0.7;
 
@@ -419,15 +421,16 @@
 
 	if (agame.metadata.headline)
 	{
-		font = [NSFont fontWithName:@"Playfair Display Regular" size:13];
+		//font = [NSFont fontWithName:@"Playfair Display Regular" size:13];
+        font = [NSFont fontWithName:@"HoeflerText-Regular" size:16];
 
 		NSFontDescriptor *descriptor = font.fontDescriptor;
 
-		NSArray *array = @[@{NSFontFeatureTypeIdentifierKey : @(kLetterCaseType),
+		NSArray *array = @[@{ NSFontFeatureTypeIdentifierKey : @(kLetterCaseType),
 							 NSFontFeatureSelectorIdentifierKey : @(kSmallCapsSelector)}];
 
 		descriptor = [descriptor fontDescriptorByAddingAttributes:@{NSFontFeatureSettingsAttribute : array}];
-		font = [NSFont fontWithDescriptor:descriptor size:13.f];
+		font = [NSFont fontWithDescriptor:descriptor size:16.f];
 
 		lastView = [self addSubViewWithtext:(agame.metadata.headline).lowercaseString andFont:font andSpaceBefore:4 andLastView:lastView];
 
@@ -442,6 +445,7 @@
 	if (agame.metadata.author)
 	{
 		font = [NSFont fontWithName:@"Gentium Plus Italic" size:14.f];
+
 		lastView = [self addSubViewWithtext:agame.metadata.author andFont:font andSpaceBefore:25 andLastView:lastView];
 
 		authorField = (NSTextField *)lastView;
@@ -455,6 +459,7 @@
 	if (agame.metadata.blurb)
 	{
 		font = [NSFont fontWithName:@"Gentium Plus" size:14.f];
+
 		lastView = [self addSubViewWithtext:agame.metadata.blurb andFont:font andSpaceBefore:23 andLastView:lastView];
 
 		blurbField = (NSTextField *)lastView;

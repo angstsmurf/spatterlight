@@ -121,7 +121,6 @@
 - (IBAction) toggleSidebar:(id)sender;
 
 @property (strong) IBOutlet NSTextField *sideIfid;
-//@property (strong) IBOutlet NSClipView *sideClipView;
 @property (strong) IBOutlet NSScrollView *leftScrollView;
 
 - (NSString *)convertAGTFile:(NSString *)origpath;

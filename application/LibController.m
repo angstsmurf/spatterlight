@@ -202,9 +202,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             }
         }
         
-        if (![self.managedObjectContext save:&error]) {
-            NSLog(@"There's a problem: %@", error);
-            }
+        [_coreDataManager saveChanges];
     }
     return self;
 }
@@ -231,10 +229,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     NSLog(@"libctl: saveLibrary");
 
     // Save the Managed Object Context
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"There's a problem: %@", error);
-    }
+//    NSError *error = nil;
+//    if (![self.managedObjectContext save:&error]) {
+//        NSLog(@"There's a problem: %@", error);
+//    }
+    [_coreDataManager saveChanges];
 }
 
 - (void)windowDidLoad {
@@ -466,20 +465,19 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     NSInteger i;
     for (i = rows.firstIndex; i != NSNotFound;
          i = [rows indexGreaterThanIndex:i]) {
-        NSString *ifid = [gameTableModel objectAtIndex:i];
-        Metadata *meta = [self fetchMetadataForIFID:ifid];
-        NSString *path = [meta.game urlForBookmark].path;
+        Game *game = [gameTableModel objectAtIndex:i];
+//        NSString *path = [game urlForBookmark].path;
+//
+//        if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+//            NSRunAlertPanel(
+//                @"Cannot find the file.",
+//                @"The file could not be found at its original location. Maybe "
+//                @"it has been moved since it was added to the library.",
+//                @"Okay", NULL, NULL);
+//            return;
+//        }
 
-        if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-            NSRunAlertPanel(
-                @"Cannot find the file.",
-                @"The file could not be found at its original location. Maybe "
-                @"it has been moved since it was added to the library.",
-                @"Okay", NULL, NULL);
-            return;
-        }
-
-        [self showInfoForGame:meta.game];
+        [self showInfoForGame:game];
     }
 }
 
@@ -908,11 +906,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     }
     // Save the Managed Object Context
-    NSError *error = nil;
+//    NSError *error = nil;
+//
+//    if (![self.managedObjectContext save:&error])
+//        NSLog(@"There's a problem: %@", error);
+    [_coreDataManager saveChanges];
 
-    if (![self.managedObjectContext save:&error])
-        NSLog(@"There's a problem: %@", error);
-    
+
 }
 
 - (void) setMetadataValue: (NSString*)val forKey: (NSString*)key forIFID: (NSString*)ifid
@@ -1913,6 +1913,10 @@ objectValueForTableColumn: (NSTableColumn*)column
         infoButton.enabled = rows.count > 0;
         playButton.enabled = rows.count == 1;
         [self invalidateRestorableState];
+        if (rows.count == 1)
+        {
+            [self updateSideView];
+        }
     }
 }
 
@@ -2016,11 +2020,11 @@ CGFloat lastsplitViewWidth = 0;
 
 - (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
     [state encodeObject:_searchField.stringValue forKey:@"searchText"];
-    NSIndexSet *selrow = _gameTableView.selectedRowIndexes;
-    if (selrow) {
-        NSArray *selectedGames = [gameTableModel objectsAtIndexes:selrow];
-        [state encodeObject:selectedGames forKey:@"selectedGames"];
-    }
+//    NSIndexSet *selrow = _gameTableView.selectedRowIndexes;
+//    if (selrow) {
+//        NSArray *selectedGames = [gameTableModel objectsAtIndexes:selrow];
+//        [state encodeObject:selectedGames forKey:@"selectedGames"];
+//    }
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
@@ -2031,17 +2035,17 @@ CGFloat lastsplitViewWidth = 0;
         _searchField.stringValue = searchText;
         [self searchForGames:_searchField];
     }
-    NSArray *selectedGames = [state decodeObjectForKey:@"selectedGames"];
-    if (selectedGames.count) {
-        [self updateTableViews];
-        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-
-        for (NSString *row in selectedGames)
-            if ([gameTableModel containsObject:row])
-                [indexSet addIndex:[gameTableModel indexOfObject:row]];
-
-        [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
-    }
+//    NSArray *selectedGames = [state decodeObjectForKey:@"selectedGames"];
+//    if (selectedGames.count) {
+//        [self updateTableViews];
+//        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+//
+//        for (NSString *row in selectedGames)
+//            if ([gameTableModel containsObject:row])
+//                [indexSet addIndex:[gameTableModel indexOfObject:row]];
+//
+//        [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+//    }
 }
 
 #pragma mark -

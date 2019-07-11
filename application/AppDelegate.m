@@ -376,32 +376,34 @@ NSDictionary *gFormatMap;
         return NSTerminateNow;
     }
 
-    NSError *error = nil;
-    if (![[self managedObjectContext] save:&error]) {
+    [_coreDataManager saveChanges];
 
-        // Customize this code block to include application-specific recovery steps.
-        BOOL result = [app presentError:error];
-        if (result) {
-            return NSTerminateCancel;
-        }
+//    NSError *error = nil;
+//    if (![[self managedObjectContext] save:&error]) {
+//
+//        // Customize this code block to include application-specific recovery steps.
+//        BOOL result = [app presentError:error];
+//        if (result) {
+//            return NSTerminateCancel;
+//        }
+//
+//        NSString *question = NSLocalizedString(@"Could not save changes while quitting. Quit anyway?", @"Quit without saves error question message");
+//        NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
+//        NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
+//        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
+//        NSAlert *alert = [[NSAlert alloc] init];
+//        [alert setMessageText:question];
+//        [alert setInformativeText:info];
+//        [alert addButtonWithTitle:quitButton];
+//        [alert addButtonWithTitle:cancelButton];
+//
+//        NSInteger answer = [alert runModal];
+//
+//        if (answer == NSAlertAlternateReturn) {
+//            return NSTerminateCancel;
+//        }
+//    }
 
-        NSString *question = NSLocalizedString(@"Could not save changes while quitting. Quit anyway?", @"Quit without saves error question message");
-        NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
-        NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
-        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:question];
-        [alert setInformativeText:info];
-        [alert addButtonWithTitle:quitButton];
-        [alert addButtonWithTitle:cancelButton];
-
-        NSInteger answer = [alert runModal];
-
-        if (answer == NSAlertAlternateReturn) {
-            return NSTerminateCancel;
-        }
-    }
-    
     return NSTerminateNow;
 }
 
