@@ -2026,11 +2026,15 @@ CGFloat lastsplitViewWidth = 0;
 
 - (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
     [state encodeObject:_searchField.stringValue forKey:@"searchText"];
-//    NSIndexSet *selrow = _gameTableView.selectedRowIndexes;
-//    if (selrow) {
-//        NSArray *selectedGames = [gameTableModel objectsAtIndexes:selrow];
-//        [state encodeObject:selectedGames forKey:@"selectedGames"];
-//    }
+    NSIndexSet *selrow = _gameTableView.selectedRowIndexes;
+    if (selrow) {
+        NSArray *selectedGames = [gameTableModel objectsAtIndexes:selrow];
+        NSMutableArray *selectedGameIfids = [NSMutableArray arrayWithCapacity:selectedGames.count];
+        for (Game *game in selectedGames)
+            [selectedGameIfids addObject:game.metadata.ifid];
+        [state encodeObject:selectedGameIfids forKey:@"selectedGames"];
+        NSLog(@"Encoded %ld selected games", (unsigned long)selectedGameIfids.count);
+    }
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
@@ -2041,17 +2045,23 @@ CGFloat lastsplitViewWidth = 0;
         _searchField.stringValue = searchText;
         [self searchForGames:_searchField];
     }
-//    NSArray *selectedGames = [state decodeObjectForKey:@"selectedGames"];
-//    if (selectedGames.count) {
-//        [self updateTableViews];
-//        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-//
-//        for (NSString *row in selectedGames)
-//            if ([gameTableModel containsObject:row])
-//                [indexSet addIndex:[gameTableModel indexOfObject:row]];
-//
-//        [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
-//    }
+    NSArray *selectedIfids = [state decodeObjectForKey:@"selectedGames"];
+    if (selectedIfids.count) {
+        NSMutableArray *selectedGames = [NSMutableArray arrayWithCapacity:selectedIfids.count];
+        [self updateTableViews];
+        for (NSString *ifid in selectedIfids) {
+            [selectedGames addObject:[self fetchMetadataForIFID:ifid].game];
+            NSLog(@"Restoring selection of game with ifid %@", ifid);
+        }
+        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+
+        for (Game *game in selectedGames) {
+            if ([gameTableModel containsObject:game])
+                [indexSet addIndex:[gameTableModel indexOfObject:game]];
+        }
+
+        [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+    }
 }
 
 #pragma mark -
