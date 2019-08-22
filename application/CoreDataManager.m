@@ -132,7 +132,7 @@
     return _mainManagedObjectContext;
 }
 
-// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "sjopet.Spatterlight" in the user's Application Support directory.
+// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "Spatterlight" in the user's Application Support directory.
 - (NSURL *)applicationFilesDirectory
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -151,8 +151,6 @@
             }
         }
     }];
-
-
 
     [privateManagedObjectContext performBlock:^{
         NSError *error;
