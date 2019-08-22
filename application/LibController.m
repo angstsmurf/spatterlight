@@ -466,17 +466,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     for (i = rows.firstIndex; i != NSNotFound;
          i = [rows indexGreaterThanIndex:i]) {
         Game *game = [gameTableModel objectAtIndex:i];
-//        NSString *path = [game urlForBookmark].path;
-//
-//        if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-//            NSRunAlertPanel(
-//                @"Cannot find the file.",
-//                @"The file could not be found at its original location. Maybe "
-//                @"it has been moved since it was added to the library.",
-//                @"Okay", NULL, NULL);
-//            return;
-//        }
-
         [self showInfoForGame:game];
     }
 }
