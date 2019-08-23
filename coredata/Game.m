@@ -30,6 +30,10 @@
 - (NSURL *)urlForBookmark {
     BOOL bookmarkIsStale = NO;
     NSError* theError = nil;
+    if (!self.fileLocation) {
+        NSLog(@"Error! File location for game %@ is nil!", self.metadata.title);
+        return nil;
+    }
     NSURL* bookmarkURL = [NSURL URLByResolvingBookmarkData:(NSData *)self.fileLocation
                                                    options:NSURLBookmarkResolutionWithoutUI
                                              relativeToURL:nil
@@ -44,7 +48,7 @@
     }
     if (theError != nil) {
 
-        NSLog(@"Error! %@", theError);
+        NSLog(@"Game urlForBookmark: Error! %@", theError);
         // Handle any errors
         return nil;
     }

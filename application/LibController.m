@@ -482,8 +482,10 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         infoWindow.restorable = YES;
         infoWindow.restorationClass = [AppDelegate class];
         NSString *path = [game urlForBookmark].path;
-        infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", path];
-        [_infoWindows setObject:infoctl forKey:path];
+        if (path) {
+            infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", path];
+            [_infoWindows setObject:infoctl forKey:path];
+        } else return;
     }
 
     [infoctl showWindow:nil];
