@@ -561,7 +561,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         for (i = rows.firstIndex; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
         {
             game = [gameTableModel objectAtIndex:i];
-            urlString = [@"http://ifdb.tads.org/viewgame?id=" stringByAppendingString:game.metadata.tuid];
+            urlString = [@"https://ifdb.tads.org/viewgame?id=" stringByAppendingString:game.metadata.tuid];
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: urlString]];
         }
     }
@@ -1100,7 +1100,7 @@ static void handleXMLError(char *msg, void *ctx)
         [dataTask cancel];
     }
 
-    NSURL *url = [NSURL URLWithString:[@"http://ifdb.tads.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
+    NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
 
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
