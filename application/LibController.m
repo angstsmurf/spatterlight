@@ -1620,7 +1620,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
 	else
 	{
 		NSLog(@"libctl: addFile: Error: File not added!");
-		[self importGame: url.path reportFailure: YES];
+		//[self importGame: url.path reportFailure: YES];
 	}
 }
 
