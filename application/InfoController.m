@@ -110,10 +110,12 @@
                     error:&error];
 
     NSLog(@"infoctl: windowDidLoad");
-
-    self.window.representedFilename = _path;
-    self.window.title =
+    
+    if (_path) {
+        self.window.representedFilename = _path;
+        self.window.title =
         [NSString stringWithFormat:@"%@ Info", _path.lastPathComponent];
+    }
 
     [descriptionText setDrawsBackground:NO];
     [(NSScrollView *)descriptionText.superview setDrawsBackground:NO];
