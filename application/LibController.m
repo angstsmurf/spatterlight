@@ -1143,7 +1143,7 @@ static void handleXMLError(char *msg, void *ctx)
 
 }
 
-- (BOOL) downloadImage: (NSString*)imgurl for: (Metadata *)metadata
+- (BOOL) downloadImage:(NSString*)imgurl for:(Metadata *)metadata
 {
     NSLog(@"libctl: download image from url %@", imgurl);
 
