@@ -979,7 +979,7 @@ static void read_xml_text(const char *rp, char *wp) {
 
 - (void)handleXMLCloseTag:(struct XMLTag *)tag {
     char bigbuf[4096];
-
+    
     /* we don't parse tags after bibliographic until the next story begins... */
     if (!strcmp(tag->tag, "bibliographic")) {
         NSLog(@"libctl: import metadata for %@ by %@",
@@ -987,6 +987,15 @@ static void read_xml_text(const char *rp, char *wp) {
               [metabuf objectForKey:@"author"]);
         [self addMetadata:metabuf forIFIDs:ifidbuf];
         ifidbuf = nil;
+        if (currentIfid == nil) /* We are not importing from ifdb */
+            metabuf = nil;
+    }
+    
+    /* parse extra ifdb tags... */
+    else if (!strcmp(tag->tag, "ifdb"))
+    {
+        NSLog(@"libctl: import extra ifdb metadata for %@", [metabuf objectForKey:@"title"]);
+        [self addMetadata: metabuf forIFIDs: @[currentIfid]];
         metabuf = nil;
     }
 
@@ -1042,6 +1051,14 @@ static void read_xml_text(const char *rp, char *wp) {
             [metabuf setObject:val forKey:@"seriesnumber"];
         if (!strcmp(tag->tag, "forgiveness"))
             [metabuf setObject:val forKey:@"forgiveness"];
+        if (!strcmp(tag->tag, "tuid"))
+            [metabuf setObject:val forKey:@"tuid"];
+        if (!strcmp(tag->tag, "averageRating"))
+            [metabuf setObject:val forKey:@"averageRating"];
+        if (!strcmp(tag->tag, "starRating"))
+            [metabuf setObject:val forKey:@"starRating"];
+        if (!strcmp(tag->tag, "url"))
+            [metabuf setObject:val forKey:@"coverArtURL"];
     }
 }
 
