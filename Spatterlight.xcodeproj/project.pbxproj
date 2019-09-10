@@ -100,15 +100,12 @@
 		6D8BCBC1225E514700696057 /* zpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D8BCBA2225E514700696057 /* zpu.c */; };
 		6DB6B51A219E31BF0039D2D7 /* fileref.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB6B519219E31BF0039D2D7 /* fileref.m */; };
 		6DBC471A21D27E9C00A20E28 /* Compatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC471821D2752000A20E28 /* Compatibility.m */; };
+		6DCDD44C23104AC4006715DD /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DCDD44B23104AC4006715DD /* fonts */; };
 		6DCFFC1D22BCCF600035FA99 /* Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCFFC1822BCCF600035FA99 /* Font.m */; };
 		6DCFFC1E22BCCF600035FA99 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCFFC1A22BCCF600035FA99 /* Game.m */; };
 		6DCFFC1F22BCCF600035FA99 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCFFC1B22BCCF600035FA99 /* Settings.m */; };
 		6DCFFC2122BCD1730035FA99 /* Fonts License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
 		6DCFFC2722BCD1BB0035FA99 /* Fonts License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
-		6DCFFC2822BCD1DE0035FA99 /* GentiumPlus-I.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2322BCD1840035FA99 /* GentiumPlus-I.ttf */; };
-		6DCFFC2922BCD1DE0035FA99 /* GentiumPlus-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2422BCD1840035FA99 /* GentiumPlus-R.ttf */; };
-		6DCFFC2A22BCD1DE0035FA99 /* PlayfairDisplay-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2522BCD1840035FA99 /* PlayfairDisplay-Black.ttf */; };
-		6DCFFC2B22BCD1DE0035FA99 /* PlayfairDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2622BCD1840035FA99 /* PlayfairDisplay-Regular.ttf */; };
 		6DCFFC2E22BE57790035FA99 /* SideInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2D22BE57790035FA99 /* SideInfoView.m */; };
 		6DF87CDC218259DB0020E9A1 /* GlkHyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
@@ -1153,6 +1150,7 @@
 		6DBC471721D270B100A20E28 /* Compatibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Compatibility.h; sourceTree = "<group>"; };
 		6DBC471821D2752000A20E28 /* Compatibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Compatibility.m; sourceTree = "<group>"; };
 		6DC144972215D3F6007C0A6B /* spatterstart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spatterstart.h; sourceTree = "<group>"; };
+		6DCDD44B23104AC4006715DD /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		6DCFFC1722BCCF600035FA99 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		6DCFFC1822BCCF600035FA99 /* Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Font.m; sourceTree = "<group>"; };
 		6DCFFC1922BCCF600035FA99 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
@@ -1160,10 +1158,6 @@
 		6DCFFC1B22BCCF600035FA99 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		6DCFFC1C22BCCF600035FA99 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Fonts License.rtf"; sourceTree = "<group>"; };
-		6DCFFC2322BCD1840035FA99 /* GentiumPlus-I.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GentiumPlus-I.ttf"; sourceTree = "<group>"; };
-		6DCFFC2422BCD1840035FA99 /* GentiumPlus-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GentiumPlus-R.ttf"; sourceTree = "<group>"; };
-		6DCFFC2522BCD1840035FA99 /* PlayfairDisplay-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Black.ttf"; sourceTree = "<group>"; };
-		6DCFFC2622BCD1840035FA99 /* PlayfairDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Regular.ttf"; sourceTree = "<group>"; };
 		6DCFFC2C22BE57790035FA99 /* SideInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideInfoView.h; sourceTree = "<group>"; };
 		6DCFFC2D22BE57790035FA99 /* SideInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideInfoView.m; sourceTree = "<group>"; };
 		6DF87CDA218259DB0020E9A1 /* GlkHyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkHyperlink.h; sourceTree = "<group>"; };
@@ -2895,17 +2889,6 @@
 			path = ../coredata;
 			sourceTree = "<group>";
 		};
-		6DCFFC2222BCD1840035FA99 /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				6DCFFC2322BCD1840035FA99 /* GentiumPlus-I.ttf */,
-				6DCFFC2422BCD1840035FA99 /* GentiumPlus-R.ttf */,
-				6DCFFC2522BCD1840035FA99 /* PlayfairDisplay-Black.ttf */,
-				6DCFFC2622BCD1840035FA99 /* PlayfairDisplay-Regular.ttf */,
-			);
-			path = fonts;
-			sourceTree = "<group>";
-		};
 		9611524E0A4F355800BB7FF2 /* htmltads */ = {
 			isa = PBXGroup;
 			children = (
@@ -3359,7 +3342,7 @@
 		961CCF2109F2940F00528FF9 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				6DCFFC2222BCD1840035FA99 /* fonts */,
+				6DCDD44B23104AC4006715DD /* fonts */,
 				961CCF2809F2940F00528FF9 /* docs */,
 				961CCF2309F2940F00528FF9 /* Credits.rtf */,
 				9650319509F29D3E0083E64E /* Info.plist */,
@@ -5156,10 +5139,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DCFFC2822BCD1DE0035FA99 /* GentiumPlus-I.ttf in Resources */,
-				6DCFFC2922BCD1DE0035FA99 /* GentiumPlus-R.ttf in Resources */,
-				6DCFFC2A22BCD1DE0035FA99 /* PlayfairDisplay-Black.ttf in Resources */,
-				6DCFFC2B22BCD1DE0035FA99 /* PlayfairDisplay-Regular.ttf in Resources */,
+				6DCDD44C23104AC4006715DD /* fonts in Resources */,
 				6D2C8709225E9ED9004A5A75 /* FizmoLocales in Resources */,
 				961CCF4009F2946F00528FF9 /* Credits.rtf in Resources */,
 				96A80EFD09F5821400CC75F4 /* InfoPlist.strings in Resources */,
