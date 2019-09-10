@@ -221,6 +221,9 @@
 	NSScrollView *scrollView = (NSScrollView *)clipView.superview;
 	CGFloat superViewWidth = clipView.frame.size.width;
 
+    if (superViewWidth < 24)
+        return;
+
 	[clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
 														 attribute:NSLayoutAttributeLeft
 														 relatedBy:NSLayoutRelationEqual
@@ -335,7 +338,7 @@
 		if (agame.metadata.title.length > 9)
 		{
 			font = [NSFont fontWithDescriptor:descriptor size:30];
-						NSLog(@"Long title (length = %lu), smaller text.", agame.metadata.title.length);
+            //NSLog(@"Long title (length = %lu), smaller text.", agame.metadata.title.length);
 		}
 		else
 		{
@@ -348,13 +351,12 @@
 		{
 			if (word.length > longestWord.length) longestWord = word;
 		}
-		NSLog (@"Longest word: %@", longestWord);
+		//NSLog (@"Longest word: %@", longestWord);
 
 		// The magic number -24 means 10 points of margin and two points of textfield border on each side.
 		while ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > superViewWidth - 24)
 		{
-						NSLog(@"Font too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
-
+//            NSLog(@"Font too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
 			font = [[NSFontManager sharedFontManager] convertFont:font toSize:font.pointSize - 2];
 		}
 		//		NSLog(@"Font not too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
