@@ -505,7 +505,7 @@
 																	<object class="NSTableHeaderCell" key="NSHeaderCell">
 																		<int key="NSCellFlags">75628096</int>
 																		<int key="NSCellFlags2">2048</int>
-																		<string key="NSContents">Genre</string>
+																		<string key="NSContents">Series</string>
 																		<reference key="NSSupport" ref="26"/>
 																		<reference key="NSBackgroundColor" ref="76975238"/>
 																		<reference key="NSTextColor" ref="656122900"/>
