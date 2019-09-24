@@ -419,10 +419,7 @@
 		C34F1FAA1ED860DB002AB38B /* Vorbis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813991ED83E28001E49C4 /* Vorbis.framework */; };
 		C34F1FAB1ED860E3002AB38B /* modplug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813981ED83E22001E49C4 /* modplug.framework */; };
 		C3567B24214F07190025A42F /* GlkHyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = C3567B23214F07190025A42F /* GlkHyperlink.m */; };
-		C36BE1C1214715F800B1CA54 /* PlayfairDisplay-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C36BE1BF214715F700B1CA54 /* PlayfairDisplay-Black.ttf */; };
-		C36BE1C2214715F800B1CA54 /* PlayfairDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C36BE1C0214715F800B1CA54 /* PlayfairDisplay-Regular.ttf */; };
-		C36BE1C52147162900B1CA54 /* GentiumPlus-I.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C36BE1C32147162900B1CA54 /* GentiumPlus-I.ttf */; };
-		C36BE1C62147162900B1CA54 /* GentiumPlus-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C36BE1C42147162900B1CA54 /* GentiumPlus-R.ttf */; };
+		C3759BDA233A8AD70062E81A /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = C3759BD9233A8AD70062E81A /* fonts */; };
 		C3782E612145528F00F2FA7F /* MySideInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3782E602145528F00F2FA7F /* MySideInfoView.m */; };
 		C37A99321EEAD8E800A5C260 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37A992F1EEAD8E800A5C260 /* CoreData.framework */; };
 		C381012A1EDA297E00B87B68 /* GlkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38101291EDA297E00B87B68 /* GlkController.m */; };
@@ -2115,10 +2112,7 @@
 		C3567B23214F07190025A42F /* GlkHyperlink.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlkHyperlink.m; sourceTree = "<group>"; };
 		C35813981ED83E22001E49C4 /* modplug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = modplug.framework; path = ../../../Library/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework; sourceTree = "<group>"; };
 		C35813991ED83E28001E49C4 /* Vorbis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vorbis.framework; path = ../../../Library/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/Vorbis.framework; sourceTree = "<group>"; };
-		C36BE1BF214715F700B1CA54 /* PlayfairDisplay-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Black.ttf"; sourceTree = "<group>"; };
-		C36BE1C0214715F800B1CA54 /* PlayfairDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Regular.ttf"; sourceTree = "<group>"; };
-		C36BE1C32147162900B1CA54 /* GentiumPlus-I.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GentiumPlus-I.ttf"; sourceTree = "<group>"; };
-		C36BE1C42147162900B1CA54 /* GentiumPlus-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GentiumPlus-R.ttf"; sourceTree = "<group>"; };
+		C3759BD9233A8AD70062E81A /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		C3782E5F2145528F00F2FA7F /* MySideInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySideInfoView.h; sourceTree = "<group>"; };
 		C3782E602145528F00F2FA7F /* MySideInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySideInfoView.m; sourceTree = "<group>"; };
 		C37A992F1EEAD8E800A5C260 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = ../../../System/Library/Frameworks/CoreData.framework; sourceTree = "<group>"; };
@@ -2875,7 +2869,7 @@
 		961CCF2109F2940F00528FF9 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				C36BE1C72147163200B1CA54 /* fonts */,
+				C3759BD9233A8AD70062E81A /* fonts */,
 				961CCF2809F2940F00528FF9 /* docs */,
 				961CCF2309F2940F00528FF9 /* Credits.rtf */,
 				9650319509F29D3E0083E64E /* Info.plist */,
@@ -4076,17 +4070,6 @@
 			name = sound;
 			sourceTree = "<group>";
 		};
-		C36BE1C72147163200B1CA54 /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				C36BE1C32147162900B1CA54 /* GentiumPlus-I.ttf */,
-				C36BE1C42147162900B1CA54 /* GentiumPlus-R.ttf */,
-				C36BE1BF214715F700B1CA54 /* PlayfairDisplay-Black.ttf */,
-				C36BE1C0214715F800B1CA54 /* PlayfairDisplay-Regular.ttf */,
-			);
-			path = fonts;
-			sourceTree = "<group>";
-		};
 		C39FEFDA1EF32ECF00A0500B /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -4626,11 +4609,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3759BDA233A8AD70062E81A /* fonts in Resources */,
 				961CCF4009F2946F00528FF9 /* Credits.rtf in Resources */,
 				96A80EFD09F5821400CC75F4 /* InfoPlist.strings in Resources */,
-				C36BE1C1214715F800B1CA54 /* PlayfairDisplay-Black.ttf in Resources */,
 				966EFA7809F635D400FA7F19 /* Defaults.plist in Resources */,
-				C36BE1C2214715F800B1CA54 /* PlayfairDisplay-Regular.ttf in Resources */,
 				96B6FCA80A0D478400E62E4D /* IconApp.icns in Resources */,
 				C3FCC9561EFD49C0000A288D /* HelpPanelController.xib in Resources */,
 				96B6FCA90A0D478400E62E4D /* IconGame.icns in Resources */,
@@ -4638,9 +4620,7 @@
 				C326885B21493425007C0ACC /* Fonts License.rtf in Resources */,
 				961CCF3D09F2946700528FF9 /* MainMenu.nib in Resources */,
 				961CCF3E09F2946700528FF9 /* PrefsWindow.nib in Resources */,
-				C36BE1C52147162900B1CA54 /* GentiumPlus-I.ttf in Resources */,
 				96A9BBA40A0668EB001B5B9B /* GameWindow.nib in Resources */,
-				C36BE1C62147162900B1CA54 /* GentiumPlus-R.ttf in Resources */,
 				96A9C0E50A07AD80001B5B9B /* LibraryWindow.nib in Resources */,
 				96FBD8F00A094E30002F6087 /* InfoPanel.nib in Resources */,
 				6D5494441EAC1BC4003DA5C4 /* LICENSE in Resources */,
