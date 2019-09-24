@@ -1958,11 +1958,11 @@ canCollapseSubview:(NSView *)subview
 
 CGFloat lastsplitViewWidth = 0;
 
-//- (void)splitViewDidResizeSubviews:(NSNotification *)notification
-//{
-//	// TODO: This should call a faster update method rather than rebuilding the view from scratch every time, but everything I've tried makes word wrap wonky
-//	[self updateSideView];
-//}
+- (void)splitViewDidResizeSubviews:(NSNotification *)notification
+{
+    // TODO: This should call a faster update method rather than rebuilding the view from scratch every time, but everything I've tried makes word wrap wonky
+    [self updateSideView];
+}
 
 #pragma mark -
 #pragma mark Add to Open Recent menu stuff
