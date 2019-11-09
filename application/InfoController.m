@@ -103,14 +103,14 @@
     // Get Application Support Directory URL
     NSError *error;
     imgpath = [[NSFileManager defaultManager]
-          URLForDirectory:NSApplicationSupportDirectory
-                 inDomain:NSUserDomainMask
-        appropriateForURL:nil
-                   create:YES
-                    error:&error];
+               URLForDirectory:NSApplicationSupportDirectory
+               inDomain:NSUserDomainMask
+               appropriateForURL:nil
+               create:YES
+               error:&error];
 
     NSLog(@"infoctl: windowDidLoad");
-    
+
     if (_path) {
         self.window.representedFilename = _path;
         self.window.title =
@@ -147,8 +147,8 @@
 
         ifidField.stringValue = ifid;
         pathstring =
-            [[@"Spatterlight/Cover%20Art" stringByAppendingPathComponent:ifid]
-                stringByAppendingPathExtension:@"tiff"];
+        [[@"Spatterlight/Cover%20Art" stringByAppendingPathComponent:ifid]
+         stringByAppendingPathExtension:@"tiff"];
         imgpath = [NSURL URLWithString:pathstring relativeToURL:imgpath];
         img = [[NSImage alloc] initWithContentsOfURL:imgpath];
         if (!img) {
@@ -184,9 +184,9 @@
 
 + (NSArray *)restorableStateKeyPaths {
     return @[
-        @"path", @"titleField.stringValue", @"authorField.stringValue",
-        @"headlineField.stringValue", @"descriptionText.string"
-    ];
+             @"path", @"titleField.stringValue", @"authorField.stringValue",
+             @"headlineField.stringValue", @"descriptionText.string"
+             ];
 }
 
 - (void)saveImage:sender {
@@ -195,19 +195,19 @@
 
     NSError *error;
     dirURL = [[NSFileManager defaultManager]
-          URLForDirectory:NSApplicationSupportDirectory
-                 inDomain:NSUserDomainMask
-        appropriateForURL:nil
-                   create:YES
-                    error:&error];
+              URLForDirectory:NSApplicationSupportDirectory
+              inDomain:NSUserDomainMask
+              appropriateForURL:nil
+              create:YES
+              error:&error];
 
     dirURL = [NSURL URLWithString:@"Spatterlight/Cover%20Art"
                     relativeToURL:dirURL];
 
     imgURL = [NSURL
-        fileURLWithPath:[[dirURL.path stringByAppendingPathComponent:ifid]
-                            stringByAppendingPathExtension:@"tiff"]
-            isDirectory:NO];
+              fileURLWithPath:[[dirURL.path stringByAppendingPathComponent:ifid]
+                               stringByAppendingPathExtension:@"tiff"]
+              isDirectory:NO];
 
     [[NSFileManager defaultManager] createDirectoryAtURL:dirURL
                              withIntermediateDirectories:YES
@@ -217,8 +217,8 @@
     NSLog(@"infoctl: save image %@", imgURL);
 
     imgdata =
-        [imageView.image TIFFRepresentationUsingCompression:NSTIFFCompressionLZW
-                                                     factor:0];
+    [imageView.image TIFFRepresentationUsingCompression:NSTIFFCompressionLZW
+                                                 factor:0];
     [imgdata writeToURL:imgURL atomically:YES];
 
     [self sizeToFitImageAnimate:YES];
