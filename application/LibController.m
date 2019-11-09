@@ -2023,7 +2023,7 @@ canCollapseSubview:(NSView *)subview
         lastSideviewWidth = PREFERRED_LEFT_VIEW_MIN_WIDTH;
     
     if (self.window.frame.size.width < PREFERRED_LEFT_VIEW_MIN_WIDTH + RIGHT_VIEW_MIN_WIDTH + dividerThickness) {
-        [self.window setContentSize:NSMakeSize(PREFERRED_LEFT_VIEW_MIN_WIDTH + RIGHT_VIEW_MIN_WIDTH + dividerThickness, self.window.contentView.frame.size.height)];
+        [self.window setContentSize:NSMakeSize(PREFERRED_LEFT_VIEW_MIN_WIDTH + RIGHT_VIEW_MIN_WIDTH + dividerThickness, ((NSView *)self.window.contentView).frame.size.height)];
     }
 
     [_splitView setPosition:lastSideviewWidth
