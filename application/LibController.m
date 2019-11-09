@@ -1949,6 +1949,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 
 	SideInfoView *infoView = [[SideInfoView alloc] initWithFrame:_leftScrollView.frame andIfid:_sideIfid andController:self];
 
+    _leftScrollView.documentView = nil;
 	_leftScrollView.documentView = infoView;
 
 	[infoView updateSideViewForGame:game];
