@@ -164,6 +164,8 @@
                                                        length:imglen
                                                  freeWhenDone:YES];
                 img = [[NSImage alloc] initWithData:imgdata];
+            } else {
+                img = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
             }
         }
 
