@@ -17,16 +17,8 @@
 	{
 		libctl = sender;
 		ifidField = ifid;
-        
 	}
 	return self;
-}
-
-
-- (void)drawRect:(NSRect)dirtyRect {
-    [super drawRect:dirtyRect];
-    
-    // Drawing code here.
 }
 
 - (void)viewDidEndLiveResize
