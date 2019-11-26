@@ -973,6 +973,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6D0C73F8237F7CED002FBA54 /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
 		6D2C8688225E5291004A5A75 /* filesys.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filesys.c; sourceTree = "<group>"; };
 		6D2C8689225E5291004A5A75 /* filesys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filesys.h; sourceTree = "<group>"; };
 		6D2C868A225E5291004A5A75 /* filesys_c.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filesys_c.c; sourceTree = "<group>"; };
@@ -3159,6 +3160,7 @@
 		961CCE5E09F2375A00528FF9 = {
 			isa = PBXGroup;
 			children = (
+				6D0C73F8237F7CED002FBA54 /* Spatterlight.entitlements */,
 				961CCECA09F239E700528FF9 /* application */,
 				961CCE8109F2381B00528FF9 /* glkimp */,
 				965031AC09F29EE10083E64E /* terps */,
@@ -6137,6 +6139,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				SDKROOT = "";
 				VALID_ARCHS = x86_64;
 			};
@@ -6181,6 +6184,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				SDKROOT = "";
 				VALID_ARCHS = x86_64;
 			};
@@ -6271,8 +6275,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Spatterlight.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
@@ -6308,8 +6314,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Spatterlight.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_OPTIMIZATION_LEVEL = 3;
