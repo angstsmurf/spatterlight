@@ -6007,7 +6007,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/terps/fizmo/libfizmo/src";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
+					"$(PROJECT_DIR)/headers",
+				);
 				MACOSX_DEPLOYMENT_TARGET = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
@@ -6029,7 +6032,10 @@
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/terps/fizmo/fizmo-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/terps/fizmo/libfizmo/src";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
+					"$(PROJECT_DIR)/headers",
+				);
 				MACOSX_DEPLOYMENT_TARGET = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
@@ -6253,6 +6259,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glkmain;
 			};
@@ -6266,6 +6273,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glkmain;
 			};
@@ -6507,6 +6515,7 @@
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = glulxe;
 			};
@@ -6521,6 +6530,7 @@
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = glulxe;
 			};
@@ -6803,6 +6813,7 @@
 					"$PROJECT_DIR/terps/tads/**",
 					"$PROJECT_DIR/terps/tads/tads2/**",
 					"$PROJECT_DIR/terps/tads/tads3/**",
+					$PROJECT_DIR/headers,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				LIBRARY_SEARCH_PATHS = (
@@ -6841,6 +6852,7 @@
 					"$PROJECT_DIR/terps/tads/**",
 					"$PROJECT_DIR/terps/tads/tads2/**",
 					"$PROJECT_DIR/terps/tads/tads3/**",
+					$PROJECT_DIR/headers,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				LIBRARY_SEARCH_PATHS = (
@@ -7104,7 +7116,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/SDL2.framework/Headers $(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework/Versions/A/Headers/";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

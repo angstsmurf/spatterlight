@@ -6,7 +6,10 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <SDL/SDL_timer.h>
+
 #include "glk.h"
+
 #include "gi_dispa.h"
 #include "gi_blorb.h"
 #include "glkstart.h"
@@ -414,7 +417,7 @@ struct glk_schannel_struct
     int target_volume;
     double float_volume;
     double volume_delta;
-    int timer;
+    SDL_TimerID timer;
 
     int tag; /* for serialization */
     
