@@ -659,6 +659,9 @@ static const char *msgnames[] = {
         _storedContentFrame = [decoder decodeRectForKey:@"contentFrame"];
         _storedBorderFrame = [decoder decodeRectForKey:@"borderFrame"];
 
+        lastimage = [decoder decodeObjectForKey:@"lastimage"];
+        lastimageresno = [decoder decodeIntegerForKey:@"lastimageresno"];
+
         _queue = [decoder decodeObjectForKey:@"queue"];
         _storedTimerLeft = [decoder decodeDoubleForKey:@"timerLeft"];
         _storedTimerInterval = [decoder decodeDoubleForKey:@"timerInterval"];
@@ -713,6 +716,9 @@ static const char *msgnames[] = {
     [encoder encodeBool:((self.window.styleMask & NSFullScreenWindowMask) ==
                          NSFullScreenWindowMask)
                  forKey:@"fullscreen"];
+
+    [encoder encodeObject:lastimage forKey:@"lastimage"];
+    [encoder encodeInteger:lastimageresno forKey:@"lastimageresno"];
 }
 
 - (void)showAutorestoreAlert {
@@ -1332,6 +1338,11 @@ static const char *msgnames[] = {
             size.width = imageRep.pixelsWide;
         if (imageRep.pixelsHigh > size.height)
             size.height = imageRep.pixelsHigh;
+    }
+
+    if (size.height == 0 || size.width == 0) {
+        NSLog(@"glkctl: image size is zero!");
+        return;
     }
 
     lastimage = [[NSImage alloc] initWithSize:size];
