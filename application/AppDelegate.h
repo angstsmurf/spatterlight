@@ -8,6 +8,8 @@
 #import "HelpPanelController.h"
 #import "InfoController.h"
 
+@class Preferences;
+
 @interface AppDelegate : NSObject <NSWindowDelegate, NSWindowRestoration> {
     HelpPanelController *_helpLicenseWindow;
     NSPanel *filePanel;

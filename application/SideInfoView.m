@@ -9,28 +9,17 @@
 
 @implementation SideInfoView
 
-- (instancetype) initWithFrame:(NSRect)frameRect andIfid:(NSTextField *)ifid andController:(LibController *)sender
+- (instancetype) initWithFrame:(NSRect)frameRect
 {
-	self = [self initWithFrame:frameRect];
+	self = [super initWithFrame:frameRect];
 
 	if (self)
 	{
-		libctl = sender;
-		ifidField = ifid;
+        libctl = ((AppDelegate *)([NSApplication sharedApplication].delegate)).libctl;
+		ifidField = libctl.sideIfid;
 	}
 	return self;
 }
-
-- (void)viewDidEndLiveResize
-{
-	if (game)
-	{
-		[self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-		[self updateSideViewForGame:game];
-	}
-
-	[super viewDidEndLiveResize];
-};
 
 - (BOOL) isFlipped { return YES; }
 

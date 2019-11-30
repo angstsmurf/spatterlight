@@ -20,7 +20,7 @@
 @property (nonatomic, retain) NSString * coverArtURL;
 @property (nonatomic, retain) NSDate * dateEdited;
 @property (nonatomic, retain) NSDate * firstpublished;
-@property (nonatomic, retain) NSString * forgiveness;
+@property (nonatomic, retain) NSNumber * forgiveness;
 @property (nonatomic, retain) NSString * format;
 @property (nonatomic, retain) NSString * genre;
 @property (nonatomic, retain) NSString * group;

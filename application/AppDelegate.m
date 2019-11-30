@@ -363,20 +363,22 @@ NSDictionary *gFormatMap;
     }
     // Save changes in the application's managed object context before the application terminates.
 
-    if (!_managedObjectContext) {
-        return NSTerminateNow;
-    }
-
-    if (![[self managedObjectContext] commitEditing]) {
-        NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
-        return NSTerminateCancel;
-    }
-
-    if (![[self managedObjectContext] hasChanges]) {
-        return NSTerminateNow;
-    }
-
-    [_coreDataManager saveChanges];
+//    if (!_managedObjectContext) {
+//        NSLog(@"No _managedObjectContext, terminate");
+//        return NSTerminateNow;
+//    }
+//
+//    if (![[self managedObjectContext] commitEditing]) {
+//        NSLog(@"%@:%@ unable to commit editing to terminate", [self class], NSStringFromSelector(_cmd));
+//        return NSTerminateCancel;
+//    }
+//
+//    if (![_managedObjectContext hasChanges]) {
+//        NSLog(@"_managedObjectContext has no changes, terminate");
+//        return NSTerminateNow;
+//    }
+//
+//    [_coreDataManager saveChanges];
 
 //    NSError *error = nil;
 //    if (![[self managedObjectContext] save:&error]) {
@@ -408,7 +410,8 @@ NSDictionary *gFormatMap;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
-    [_libctl saveLibrary:self];
+
+    [_coreDataManager saveChanges];
 
     for (GlkController *glkctl in [_libctl.gameSessions allValues]) {
         [glkctl autoSaveOnExit];
@@ -417,7 +420,6 @@ NSDictionary *gFormatMap;
     if ([[NSFontPanel sharedFontPanel] isVisible]) {
         [[NSFontPanel sharedFontPanel] orderOut:self];
     }
-    [_coreDataManager saveChanges];
 }
 
 

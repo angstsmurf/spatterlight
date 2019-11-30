@@ -34,7 +34,7 @@
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="added" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="fileLocation" optional="YES" attributeType="Transformable" valueTransformerName="" syncable="YES"/>
-        <attribute name="found" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="found" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="height" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lastModified" optional="YES" attributeType="Date" syncable="YES"/>
@@ -63,7 +63,7 @@
         <attribute name="coverArtURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateEdited" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="firstpublished" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="forgiveness" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="forgiveness" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="format" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>

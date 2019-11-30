@@ -50,7 +50,6 @@
     NSWindow *snapshotWindow;
 
     /* the glk objects */
-    // GlkSoundChannel *gchannels[MAXSND];
     BOOL windowdirty; /* the contentView needs to repaint */
 
     /* image/sound resource uploading protocol */
@@ -68,8 +67,6 @@
     Game *game;
     NSString *gamefile;
     NSString *terpname;
-
-    //NSDictionary *gameinfo;
 
     GlkController *restoredController;
     NSUInteger turns;

@@ -11,8 +11,9 @@
 #import "Game.h"
 #import "Image.h"
 #import "LibController.h"
+#import "AppDelegate.h"
 
-@class LibController;
+@class Preferences;
 
 @interface SideInfoView : NSView <NSTextFieldDelegate, NSControlTextEditingDelegate>
 {
@@ -27,10 +28,6 @@
 	NSTextField *ifidField;
 
 }
-
-- (instancetype) initWithFrame:(NSRect)frameRect andIfid:(NSTextField *)ifid andController:(LibController *)sender;
-
-- (NSTextField *) addSubViewWithtext:(NSString *)text andFont:(NSFont *)font andSpaceBefore:(CGFloat)space andLastView:(id)lastView;
 
 - (void) updateSideViewForGame:(Game *)game;
 

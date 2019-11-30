@@ -86,10 +86,9 @@
 
     NSString *storeFileName = [modelName stringByAppendingString:@".storedata"];
 
-
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:storeFileName];
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-    if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
+    if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
@@ -141,26 +140,31 @@
 }
 
 - (void)saveChanges {
+    NSLog(@"CoreDataManagare saveChanges");
     [_mainManagedObjectContext performBlockAndWait:^{
         NSError *error;
         if (_mainManagedObjectContext.hasChanges) {
-            [_mainManagedObjectContext save:&error];
-            if (error) {
+            if (![_mainManagedObjectContext save:&error]) {
                 NSLog(@"Unable to Save Changes of Main Managed Object Context!");
-                [[NSApplication sharedApplication] presentError:error];
-            }
-        }
+                if (error) {
+                    [[NSApplication sharedApplication] presentError:error];
+                }
+            } else NSLog(@"Changes in _mainManagedObjectContext were saved");
+
+        } else NSLog(@"No changes to save in _mainManagedObjectContext");
+
     }];
 
     [privateManagedObjectContext performBlock:^{
         NSError *error;
         if (privateManagedObjectContext.hasChanges) {
-            [privateManagedObjectContext save:&error];
-            if (error) {
+            if (![privateManagedObjectContext save:&error]) {
                 NSLog(@"Unable to Save Changes of Private Managed Object Context!");
-                [[NSApplication sharedApplication] presentError:error];
-            }
-        }
+                if (error) {
+                    [[NSApplication sharedApplication] presentError:error];
+                }
+            } else NSLog(@"Changes in privateManagedObjectContext were saved");
+        } else NSLog(@"No changes to save in privateManagedObjectContext");
     }];
 }
 @end

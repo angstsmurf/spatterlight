@@ -76,8 +76,6 @@
 @property IBOutlet NSTableView *gameTableView;
 @property IBOutlet NSSearchField *searchField;
 
-- (IBAction)saveLibrary:sender;
-
 - (void)beginImporting;
 - (void)endImporting;
 
