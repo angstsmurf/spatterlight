@@ -382,7 +382,7 @@
 																</object>
 																<object class="NSTableColumn" id="964615312">
 																	<string key="NSIdentifier">title</string>
-																	<double key="NSWidth">152</double>
+																	<double key="NSWidth">148</double>
 																	<double key="NSMinWidth">75</double>
 																	<double key="NSMaxWidth">1000</double>
 																	<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -945,10 +945,11 @@
 													<reference key="NSSuperview" ref="756741626"/>
 													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="690516205"/>
+													<bool key="NSEnabled">YES</bool>
 													<int key="NSsFlags">1</int>
 													<reference key="NSTarget" ref="756741626"/>
 													<string key="NSAction">_doScroller:</string>
-													<double key="NSPercent">0.98195488721804514</double>
+													<double key="NSPercent">0.9939117199391172</double>
 												</object>
 												<object class="NSClipView" id="465997657">
 													<reference key="NSNextResponder" ref="756741626"/>
@@ -970,7 +971,7 @@
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="465997657"/>
-											<int key="NSsFlags">133680</int>
+											<int key="NSsFlags">133808</int>
 											<reference key="NSVScroller" ref="1017274543"/>
 											<reference key="NSHScroller" ref="818338602"/>
 											<reference key="NSContentView" ref="19771704"/>
@@ -984,6 +985,7 @@
 											<string key="NSFrame">{{359, 9}, {282, 22}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSSearchFieldCell" key="NSCell" id="569807709">
 												<int key="NSCellFlags">343014976</int>
@@ -4093,16 +4095,11 @@
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addGamesToLibrary:">id</string>
-						<string key="delete:">id</string>
 						<string key="deleteGame:">id</string>
 						<string key="deleteLibrary:">id</string>
-						<string key="download:">id</string>
 						<string key="exportMetadata:">id</string>
 						<string key="importMetadata:">id</string>
-						<string key="openIfdb:">id</string>
 						<string key="play:">id</string>
-						<string key="purgeLibrary:">id</string>
-						<string key="reset:">id</string>
 						<string key="revealGameInFinder:">id</string>
 						<string key="searchForGames:">id</string>
 						<string key="showGameInfo:">id</string>
@@ -4114,20 +4111,12 @@
 							<string key="name">addGamesToLibrary:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="delete:">
-							<string key="name">delete:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="deleteGame:">
 							<string key="name">deleteGame:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="deleteLibrary:">
 							<string key="name">deleteLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="download:">
-							<string key="name">download:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="exportMetadata:">
@@ -4138,20 +4127,8 @@
 							<string key="name">importMetadata:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="openIfdb:">
-							<string key="name">openIfdb:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="play:">
 							<string key="name">play:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="purgeLibrary:">
-							<string key="name">purgeLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="reset:">
-							<string key="name">reset:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="revealGameInFinder:">
