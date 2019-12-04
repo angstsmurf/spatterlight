@@ -867,7 +867,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     for (i = 0; i < count; i++)
     {
         NSString *ifid =[list objectAtIndex:i];
-        entry = [self fetchMetadataForIFID:ifid];
+        entry = [self fetchMetadataForIFID:ifid inContext:context];
         if (!entry)
         {
             entry = (Metadata *) [NSEntityDescription
@@ -945,7 +945,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 [entry setValue:keyVal forKey:key];
                 if ([(NSString *)key isEqualToString:@"coverArtURL"])
                 {
-                    [self downloadImage:entry.coverArtURL for:entry inContext:_managedObjectContext];
+                    [self downloadImage:entry.coverArtURL for:entry inContext:context];
                 }
                 // NSLog(@"Set key %@ to value %@ in metadata %@", key, [dict valueForKey:key], entry)
             }
