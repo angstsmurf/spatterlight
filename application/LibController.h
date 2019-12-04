@@ -46,6 +46,7 @@
     IBOutlet NSMenu *headerMenu;
 
     NSMutableArray *gameTableModel;
+    NSArray *selectedGames;
     NSString *gameSortColumn;
     BOOL gameTableDirty;
     BOOL sortAscending;
@@ -63,8 +64,7 @@
     NSMutableDictionary *metabuf;
     NSInteger errorflag;
 
-    NSURLConnection *dataTask;
-
+    NSManagedObjectContext *importContext;
 }
 
 @property (strong) CoreDataManager *coreDataManager;

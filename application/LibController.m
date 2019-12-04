@@ -139,6 +139,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 }
 
 - (instancetype)init {
+    NSLog(@"LibController: init");
     self = [super initWithWindowNibName:@"LibraryWindow"];
     if (self) {
         NSError *error;
@@ -162,7 +163,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
         _coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
         _managedObjectContext = _coreDataManager.mainManagedObjectContext;
-        gameTableModel = [[self fetchObjects:@"Game"] mutableCopy];
+
+        //gameTableModel = [[self fetchObjects:@"Game"] mutableCopy];
 
 //        [_coreDataManager saveChanges];
     }
@@ -170,10 +172,10 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 }
 
 - (void)windowDidLoad {
-//    NSLog(@"libctl: windowDidLoad");
-
-    _coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
-    _managedObjectContext = _coreDataManager.mainManagedObjectContext;
+    NSLog(@"libctl: windowDidLoad");
+//
+//    _coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
+//    _managedObjectContext = _coreDataManager.mainManagedObjectContext;
 
     self.windowFrameAutosaveName = @"LibraryWindow";
     _gameTableView.autosaveName = @"GameTable";
@@ -521,19 +523,76 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     if (rows.count > 0)
     {
-        Game *game;
-        NSInteger i;
-        NSString *ifid;
-        NSArray *selectedGames = [gameTableModel objectsAtIndexes:rows];
+        LibController * __unsafe_unretained weakSelf = self;
+        NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
+
+        [_coreDataManager saveChanges];
+
+        importContext = childContext;
+
+        [childContext performBlock:^{
+
+            for (Game *game in selectedGames) {
+
+                if ([weakSelf downloadMetadataForIFID: game.metadata.ifid inContext:childContext]) {
+
+                        NSError *error = nil;
+                        if (childContext.hasChanges) {
+                            if (![childContext save:&error]) {
+                                NSLog(@"download: Unable to Save Changes of childContext!");
+                                if (error) {
+                                    [[NSApplication sharedApplication] presentError:error];
+                                }
+                            } else NSLog(@"download: Changes in childContext were saved");
+                        } else NSLog(@"download: No changes to save in childContext");
+
+                    [_managedObjectContext performBlock:^{
+                        [_coreDataManager saveChanges];
+                        gameTableDirty = YES;
+                        [weakSelf updateTableViews];
+                        NSIndexSet *rows = _gameTableView.selectedRowIndexes;
+                        if (rows.count == 1 && [gameTableModel objectAtIndex:[rows firstIndex]] == game) {
+                            [weakSelf updateSideView];
+                            [_gameTableView scrollRowToVisible:rows.firstIndex];
+                        }
+                    }];
+                }
+            }
+
+//            NSError *error = nil;
+//            if (![private save:&error]) {
+//                NSLog(@"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
+//                abort();
+//            }
+//            [_managedObjectContext performBlockAndWait:^{
+//                [_coreDataManager saveChanges];
+//                gameTableDirty = YES;
+//                [weakSelf updateTableViews];
+//            }];
+
+        }];
 
 
-        for (i = rows.firstIndex; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
-        {
-            game = [gameTableModel objectAtIndex:i];
-            ifid = game.metadata.ifid;
-            [self downloadMetadataForIFID: ifid];
-			[self extractMetadataFromFile:game];
-        }
+//        [private performBlockAndWait:^{
+//            NSError *error = nil;
+//            if (private.hasChanges) {
+//                if (![private save:&error]) {
+//                    NSLog(@"Unable to Save Changes of private managed object context!");
+//                    if (error) {
+//                        [[NSApplication sharedApplication] presentError:error];
+//                    }
+//                } else NSLog(@"Changes in private were saved");
+//
+//            } else NSLog(@"No changes to save in private");
+//
+//        }];
+//        [_managedObjectContext performBlock:^{
+//            [_coreDataManager saveChanges];
+//            gameTableDirty = YES;
+//            [weakSelf updateTableViews];
+//            [weakSelf updateSideView];
+//        }];
+
     }
 }
 
@@ -584,6 +643,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 				if (rv > 0)
 				{
 					cursrc = kInternal;
+                    importContext = _managedObjectContext;
 					[self importMetadataFromXML: mdbuf];
 					cursrc = 0;
 				}
@@ -854,7 +914,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 [entry setValue:keyVal forKey:key];
                 if ([(NSString *)key isEqualToString:@"coverArtURL"])
                 {
-                    [self downloadImage:entry.coverArtURL for:entry];
+                    [self downloadImage:entry.coverArtURL for:entry inContext:_managedObjectContext];
                 }
                 // NSLog(@"Set key %@ to value %@ in metadata %@", key, [dict valueForKey:key], entry)
             }
@@ -935,12 +995,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     LibController * __unsafe_unretained weakSelf = self;
 
-    NSManagedObjectContext *private = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    [private setParentContext:_managedObjectContext];
-
+    NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
     [private performBlock:^{
         cursrc = kInternal;
         NSMutableDictionary *metadata = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Metadata.plist"]);
+
         NSString *ifid;
 
         NSEnumerator *enumerator = [metadata keyEnumerator];
@@ -948,77 +1007,95 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         {
             [weakSelf addMetadata:[metadata objectForKey:ifid] forIFIDs:@[ifid] inContext:private];
         }
-
+        cursrc = 0;
         // Add games from plist to Core Data store if we have just created a new one
-        if (gameTableModel.count == 0)
+        NSMutableDictionary *games = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Games.plist"]);
+
+       enumerator = [games keyEnumerator];
+        //            NSInteger counter = 0;
+
+        while ((ifid = [enumerator nextObject]))
         {
-            NSMutableDictionary *games = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Games.plist"]);
-            NSString *ifid;
-
-            NSEnumerator *enumerator = [games keyEnumerator];
-            NSInteger counter = 0;
-
-            while ((ifid = [enumerator nextObject]))
+            Metadata *meta = [weakSelf fetchMetadataForIFID:ifid inContext:private];
+            if (meta)
             {
-                Metadata *meta = [weakSelf fetchMetadataForIFID:ifid inContext:private];
-                if (meta)
-                {
-                    Game *game = (Game *) [NSEntityDescription
-                                           insertNewObjectForEntityForName:@"Game"
-                                           inManagedObjectContext:private];
+                Game *game = (Game *) [NSEntityDescription
+                                       insertNewObjectForEntityForName:@"Game"
+                                       inManagedObjectContext:private];
 
-                    game.setting = (Settings *) [NSEntityDescription
-                                                 insertNewObjectForEntityForName:@"Settings"
-                                                 inManagedObjectContext:private];
+                game.setting = (Settings *) [NSEntityDescription
+                                             insertNewObjectForEntityForName:@"Settings"
+                                             inManagedObjectContext:private];
 
-                    game.setting.bufferFont = (Font *) [NSEntityDescription
-                                                        insertNewObjectForEntityForName:@"Font"
-                                                        inManagedObjectContext:private];
-                    game.setting.gridFont = (Font *) [NSEntityDescription
-                                                      insertNewObjectForEntityForName:@"Font"
-                                                      inManagedObjectContext:private];
-                    game.setting.bufInput = (Font *) [NSEntityDescription
-                                                      insertNewObjectForEntityForName:@"Font"
-                                                      inManagedObjectContext:private];
+                game.setting.bufferFont = (Font *) [NSEntityDescription
+                                                    insertNewObjectForEntityForName:@"Font"
+                                                    inManagedObjectContext:private];
+                game.setting.gridFont = (Font *) [NSEntityDescription
+                                                  insertNewObjectForEntityForName:@"Font"
+                                                  inManagedObjectContext:private];
+                game.setting.bufInput = (Font *) [NSEntityDescription
+                                                  insertNewObjectForEntityForName:@"Font"
+                                                  inManagedObjectContext:private];
 
 
-                    NSLog(@"Creating new instance of Game %@ and giving it metadata of ifid %@", meta.title, ifid);
-                    game.metadata = meta;
-                    game.added = [NSDate date];
-                    [game bookmarkForPath:[games valueForKey:ifid]];
+                //                    NSLog(@"Creating new instance of Game %@ and giving it metadata of ifid %@", meta.title, ifid);
+                game.metadata = meta;
+                game.added = [NSDate date];
+                [game bookmarkForPath:[games valueForKey:ifid]];
 
-                    //We save data and update the UI every 10 games
-                    if (++counter % 10 == 0) {
-                        NSError *error = nil;
+                //We save data and update the UI every 10 games
+                //                    if (++counter % 10 == 0) {
+                [private performBlockAndWait:^{
+                    NSError *error = nil;
+                    if (private.hasChanges) {
                         if (![private save:&error]) {
-                            NSLog(@"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
-                            abort();
-                        }
-                        [_managedObjectContext performBlockAndWait:^{
-                            [_coreDataManager saveChanges];
-                            gameTableDirty = YES;
-                            [weakSelf updateTableViews];
-                        }];
+                            NSLog(@"Unable to Save Changes of private managed object context!");
+                            if (error) {
+                                [[NSApplication sharedApplication] presentError:error];
+                            }
+                        } else NSLog(@"Changes in private were saved");
+                    } else {
+                        NSLog(@"No changes to save in private");
                     }
-                    
-                }
-                else
-                    NSLog(@"Could not find game file corresponding to %@. Skipping.", meta.title);
-            }
-        }
-        
-        NSError *error = nil;
-        if (![private save:&error]) {
-            NSLog(@"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
-            abort();
-        }
-        [_managedObjectContext performBlockAndWait:^{
-            [_coreDataManager saveChanges];
-            gameTableDirty = YES;
-            [weakSelf updateTableViews];
-        }];
-    }];
 
+                }];
+                [_managedObjectContext performBlock:^{
+                    [_coreDataManager saveChanges];
+                    gameTableDirty = YES;
+                    [weakSelf updateTableViews];
+                }];
+                //                    }
+
+            }
+            else
+                NSLog(@"Could not find game file corresponding to %@. Skipping.", meta.title);
+
+        }
+        //        [private performBlockAndWait:^{
+        //            NSError *error = nil;
+        //            if (private.hasChanges) {
+        //                if (![private save:&error]) {
+        //                    NSLog(@"Unable to Save Changes of private managed object context!");
+        //                    if (error) {
+        //                        [[NSApplication sharedApplication] presentError:error];
+        //                    }
+        //                } else NSLog(@"Changes in private were saved");
+        //
+        //            } else NSLog(@"No changes to save in private");
+        //
+        //        }];
+        //        [_managedObjectContext performBlock:^{
+        //            [_coreDataManager saveChanges];
+        //            gameTableDirty = YES;
+        //            [weakSelf updateTableViews];
+        //        }];
+    }];
+//
+//    [_managedObjectContext performBlock:^{
+//        [_coreDataManager saveChanges];
+//        gameTableDirty = YES;
+//        [weakSelf updateTableViews];
+//    }];
 }
 
 static void read_xml_text(const char *rp, char *wp) {
@@ -1074,20 +1151,18 @@ static void read_xml_text(const char *rp, char *wp) {
         NSLog(@"libctl: import metadata for %@ by %@",
               [metabuf objectForKey:@"title"],
               [metabuf objectForKey:@"author"]);
-        [self addMetadata:metabuf forIFIDs:ifidbuf];
+        [self addMetadata:metabuf forIFIDs:ifidbuf inContext:importContext];
         ifidbuf = nil;
         if (currentIfid == nil) /* We are not importing from ifdb */
             metabuf = nil;
     }
-    
     /* parse extra ifdb tags... */
     else if (!strcmp(tag->tag, "ifdb"))
     {
         NSLog(@"libctl: import extra ifdb metadata for %@", [metabuf objectForKey:@"title"]);
-        [self addMetadata: metabuf forIFIDs: @[currentIfid]];
+        [self addMetadata: metabuf forIFIDs: @[currentIfid] inContext:importContext];
         metabuf = nil;
     }
-
     /* we should only find ifid:s inside the <identification> tag, */
     /* which should be the first tag in a <story> */
     else if (!strcmp(tag->tag, "ifid")) {
@@ -1184,115 +1259,142 @@ static void handleXMLError(char *msg, void *ctx)
     [data appendBytes:"\0" length:1];
 
     cursrc = kExternal;
+    importContext = _managedObjectContext;
     [self importMetadataFromXML:data.mutableBytes];
+    importContext = nil;
     cursrc = 0;
 
     return YES;
 }
 
-- (BOOL) downloadMetadataForIFID: (NSString*)ifid
-{
-    NSLog(@"libctl: downloadMetadataForIFID %@", ifid);
+//- (BOOL)downloadMetadataForIFID:(NSString*)ifid inContext:context {
+//    NSLog(@"libctl: downloadMetadataForIFID %@", ifid);
+//
+//    LibController * __unsafe_unretained weakSelf = self;
+//
+//    NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
+//
+//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+//
+//    [NSURLConnection sendAsynchronousRequest:urlRequest queue:downloadQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+//     {
+//         if (error) {
+//             if (!data) {
+//                 [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+//                     NSLog(@"Error connecting: %@", [error localizedDescription]);
+//                 }];
+//                 return;
+//             }
+//         }
+//         else
+//         {
+//             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+//             if (httpResponse.statusCode == 200 && data) {
+//                 NSMutableData *mutableData = [data mutableCopy];
+//                 [mutableData appendBytes: "\0" length: 1];
+//
+//                 [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
+//                     cursrc = kIfdb;
+//                     currentIfid = ifid;
+//                     NSLog(@"Set currentIfid to %@", currentIfid);
+//                     importContext = context;
+//                     [weakSelf importMetadataFromXML: mutableData.mutableBytes];
+//                     currentIfid = nil;
+//                     cursrc = 0;
+//                     gameTableDirty = YES;
+//                     [weakSelf updateTableViews];
+//                 }];
+//                 
+//             }
+//         }
+//     }];
+//    
+//    return YES;
+//}
 
-    if (dataTask != nil) {
-        [dataTask cancel];
-    }
+- (BOOL)downloadMetadataForIFID:(NSString*)ifid inContext:context {
+    NSLog(@"libctl: downloadMetadataForIFID %@", ifid);
 
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
 
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    NSURLResponse *response = nil;
+    NSError *error = nil;
 
-    [NSURLConnection sendAsynchronousRequest:urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-     {
-         if (error) {
-             if (!data) {
-                 [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                     NSLog(@"Error connecting: %@", [error localizedDescription]);
-                 }];
-                 return;
-             }
-         }
-         else
-         {
-             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-             if (httpResponse.statusCode == 200 && data) {
-                 NSMutableData *mutableData = [data mutableCopy];
-                 [mutableData appendBytes: "\0" length: 1];
+    NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response
+                                                     error:&error];
+    if (error) {
+        if (!data) {
+            NSLog(@"Error connecting: %@", [error localizedDescription]);
+            return NO;
+        }
+    }
+    else
+    {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200 && data) {
+            NSMutableData *mutableData = [data mutableCopy];
+            [mutableData appendBytes: "\0" length: 1];
 
-                 [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                     cursrc = kIfdb;
-                     currentIfid = ifid;
-                     NSLog(@"Set currentIfid to %@", currentIfid);
-                     [self importMetadataFromXML: mutableData.mutableBytes];
-                     currentIfid = nil;
-                     cursrc = 0;
-                     [self updateTableViews];
-                 }];
-                 
-             }
-         }
-     }];
-    
+            cursrc = kIfdb;
+            currentIfid = ifid;
+            NSLog(@"Set currentIfid to %@", currentIfid);
+            importContext = context;
+            [self importMetadataFromXML: mutableData.mutableBytes];
+            importContext = nil;
+            currentIfid = nil;
+            cursrc = 0;
+        } else return NO;
+    }
     return YES;
-
 }
 
-- (BOOL) downloadImage:(NSString*)imgurl for:(Metadata *)metadata
+- (BOOL) downloadImage:(NSString*)imgurl for:(Metadata *)metadata inContext:(NSManagedObjectContext *)context
 {
     NSLog(@"libctl: download image from url %@", imgurl);
 
-    if (dataTask != nil) {
-        [dataTask cancel];
-    }
-
     NSURL *url = [NSURL URLWithString:imgurl];
-
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-     {
+    NSURLResponse *response = nil;
+    NSError *error = nil;
 
-         if (error) {
-             if (!data) {
-                 [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                     NSLog(@"Error connecting: %@", [error localizedDescription]);
-                 }];
-                 return;
-             }
+    NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response
+                                                     error:&error];
+    if (error) {
+        if (!data) {
+            NSLog(@"Error connecting: %@", [error localizedDescription]);
+            return NO;
+        }
+    }
+    else
+    {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200 && data) {
+            NSMutableData *mutableData = [data mutableCopy];
+            [self addImage: mutableData toMetadata:metadata inContext:context];
 
-
-         }
-         else
-         {
-
-             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-             if (httpResponse.statusCode == 200 && data) {
-                 NSMutableData *mutableData = [data mutableCopy];
-                 [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-
-                     [self addImage: mutableData toMetadata:metadata];
-                     [self updateSideView];
-                 }];
-                 
-             }
-         }
-     }];
-
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self updateSideView];
+//            });
+        } else return NO;
+    }
     return YES;
-
 }
 
 - (void) addImage:(NSData *)rawImageData toMetadata:(Metadata *)metadata
 {
+    [self addImage:rawImageData toMetadata:metadata inContext:_managedObjectContext];
+}
+
+- (void) addImage:(NSData *)rawImageData toMetadata:(Metadata *)metadata inContext:(NSManagedObjectContext *)context {
+
     Image *img;
     img = (Image *) [NSEntityDescription
                      insertNewObjectForEntityForName:@"Image"
-                     inManagedObjectContext:self.managedObjectContext];
+                     inManagedObjectContext:context];
     img.data = rawImageData;
     metadata.cover = img;
     NSLog(@"added a new image to game %@", metadata.title);
-    
 }
 
 static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
@@ -1599,6 +1701,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
         if (rv > 0)
         {
             cursrc = kInternal;
+            importContext = _managedObjectContext;
             [self importMetadataFromXML: mdbuf];
             cursrc = 0;
         }
@@ -1634,7 +1737,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
     if (!metadata.title)
     {
         metadata.title = path.lastPathComponent;
-        [self downloadMetadataForIFID:ifid];
+        [self downloadMetadataForIFID:ifid inContext:_managedObjectContext];
     }
 
     if (!metadata.cover)
@@ -1835,26 +1938,16 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
 - (void) updateTableViews
 {
 
-    Game *selection;
     NSFetchRequest *fetchRequest;
     NSEntityDescription *entity;
 
     NSInteger searchcount;
-    NSInteger selrow;
-    NSInteger count;
-    NSInteger i;
 
     if (!gameTableDirty)
         return;
 
-    selection = nil;
-    selrow = _gameTableView.selectedRow;
-    if (gameTableModel.count && selrow >= 0)
-        selection = [gameTableModel objectAtIndex:selrow];
-
-
     fetchRequest = [[NSFetchRequest alloc] init];
-    entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
+    entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
     fetchRequest.entity = entity;
 
     if (searchStrings)
@@ -1876,7 +1969,7 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
     }
 
     NSError *error = nil;
-    gameTableModel = [[self.managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
+    gameTableModel = [[_managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
     if (gameTableModel == nil)
         NSLog(@"Problem! %@",error);
 
@@ -1926,18 +2019,21 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
     [gameTableModel sortUsingDescriptors:@[sort]];
     [_gameTableView reloadData];
 
-    [_gameTableView deselectAll: self];
-    count = gameTableModel.count;
+    NSArray *previouslySelected = selectedGames;
+    if (selectedGames.count)
+        [_gameTableView deselectAll: self];
 
     NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
 
-    for (i = 0; i < count; i++)
-        if ([gameTableModel objectAtIndex:i] == selection)
-            [indexSet addIndex:i];
+    for (Game *game in previouslySelected) {
+        if ([gameTableModel containsObject:game]) {
+            [indexSet addIndex:[gameTableModel indexOfObject:game]];
+        }
+    }
 
     [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
-    [_gameTableView scrollRowToVisible:indexSet.firstIndex];
-    
+//    [_gameTableView scrollRowToVisible:indexSet.firstIndex];
+
     gameTableDirty = NO;
 }
 
@@ -2009,8 +2105,12 @@ objectValueForTableColumn: (NSTableColumn*)column
         infoButton.enabled = rows.count > 0;
         playButton.enabled = rows.count == 1;
         [self invalidateRestorableState];
-        if (rows.count == 1)
-            [self updateSideView];
+        if (gameTableModel.count && rows.count) {
+            if (rows.count == 1 && [selectedGames objectAtIndex:0] != [gameTableModel objectAtIndex:[rows firstIndex]])
+                [self updateSideView];
+            selectedGames = [gameTableModel objectsAtIndexes:rows];
+        }
+
     }
 }
 
@@ -2027,8 +2127,12 @@ objectValueForTableColumn: (NSTableColumn*)column
 
 	Game *game = [gameTableModel objectAtIndex:rows.firstIndex];
 
+    if (!game)
+        NSLog(@"Game null?");
+
+
 	NSLog(@"\nUpdating info pane for %@", game.metadata.title);
-    NSLog(@"Side view width: %f", NSWidth(_leftView.frame));
+    //NSLog(@"Side view width: %f", NSWidth(_leftView.frame));
 //    [((NSView *)_leftScrollView.documentView).subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
     [_leftScrollView.documentView performSelector:@selector(removeFromSuperview)];
@@ -2135,10 +2239,7 @@ canCollapseSubview:(NSView *)subview
     [state encodeBool:[_splitView isSubviewCollapsed:_leftView] forKey:@"sideviewHidden"];
     NSLog(@"Encoded left view collapsed as %@", [_splitView isSubviewCollapsed:_leftView]?@"YES":@"NO");
 
-
-    NSIndexSet *selrow = _gameTableView.selectedRowIndexes;
-    if (selrow) {
-        NSArray *selectedGames = [gameTableModel objectsAtIndexes:selrow];
+    if (selectedGames.count) {
         NSMutableArray *selectedGameIfids = [NSMutableArray arrayWithCapacity:selectedGames.count];
         for (Game *game in selectedGames)
             [selectedGameIfids addObject:game.metadata.ifid];
@@ -2157,22 +2258,28 @@ canCollapseSubview:(NSView *)subview
     }
     NSArray *selectedIfids = [state decodeObjectForKey:@"selectedGames"];
     if (selectedIfids.count) {
-        NSMutableArray *selectedGames = [NSMutableArray arrayWithCapacity:selectedIfids.count];
+        NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:selectedIfids.count];
         [self updateTableViews];
         for (NSString *ifid in selectedIfids) {
-            [selectedGames addObject:[self fetchMetadataForIFID:ifid].game];
-            NSLog(@"Restoring selection of game with ifid %@", ifid);
+            Metadata *meta = [self fetchMetadataForIFID:ifid];
+            if (meta && meta.game) {
+                [newSelection addObject:meta.game];
+                NSLog(@"Restoring selection of game with ifid %@", ifid);
+            } else NSLog(@"No game with ifid %@ in library, cannot restore selection", ifid);
         }
         NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
         
-        for (Game *game in selectedGames) {
-            if ([gameTableModel containsObject:game])
+        for (Game *game in newSelection) {
+            if ([gameTableModel containsObject:game]) {
                 [indexSet addIndex:[gameTableModel indexOfObject:game]];
+                NSLog(@"Selecting game %@ in table.", game.metadata.title);
+                
+            }
         }
         
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
     }
-    
+
     CGFloat newDividerPos = [state decodeFloatForKey:@"sideviewWidth"];
     
     if (newDividerPos < 50 && newDividerPos > 0) {

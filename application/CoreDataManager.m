@@ -2,7 +2,7 @@
 //  CoreDataManager.m
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2019-06-27.
+//  https://cocoacasts.com/bring-your-own
 //
 //
 
@@ -140,7 +140,7 @@
 }
 
 - (void)saveChanges {
-    NSLog(@"CoreDataManagare saveChanges");
+    NSLog(@"CoreDataManagar saveChanges");
     [_mainManagedObjectContext performBlockAndWait:^{
         NSError *error;
         if (_mainManagedObjectContext.hasChanges) {
@@ -167,4 +167,14 @@
         } else NSLog(@"No changes to save in privateManagedObjectContext");
     }];
 }
+
+- (NSManagedObjectContext *)privateChildManagedObjectContext {
+    // Initialize Managed Object Context
+    NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    // Configure Managed Object Context
+    [managedObjectContext setParentContext:_mainManagedObjectContext];
+
+    return managedObjectContext;
+}
+
 @end

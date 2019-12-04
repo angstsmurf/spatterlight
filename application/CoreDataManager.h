@@ -24,5 +24,6 @@
 *mainManagedObjectContext;
 
 - (instancetype)initWithModelName:(NSString *)aModelName;
+- (NSManagedObjectContext *)privateChildManagedObjectContext;
 - (void)saveChanges;
 @end
