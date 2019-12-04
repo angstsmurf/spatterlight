@@ -791,6 +791,10 @@ static const char *msgnames[] = {
         [self autoSaveOnExit];
     }
 
+    if (game.metadata.ifid)
+        [((AppDelegate *)[NSApplication sharedApplication].delegate)
+     .libctl.gameSessions removeObjectForKey:game.metadata.ifid];
+
     [self.window setDelegate:nil];
 
     if (timer) {
@@ -806,9 +810,6 @@ static const char *msgnames[] = {
         [task terminate];
         task = nil;
     }
-
-    [((AppDelegate *)[NSApplication sharedApplication].delegate)
-     .libctl.gameSessions removeObjectForKey:game.metadata.ifid];
 }
 
 /*

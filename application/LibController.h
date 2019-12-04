@@ -124,6 +124,8 @@
 @property (strong) IBOutlet NSTextField *sideIfid;
 @property (strong) IBOutlet NSScrollView *leftScrollView;
 
+@property (strong) IBOutlet NSProgressIndicator *progressCircle;
+
 - (NSString *)convertAGTFile:(NSString *)origpath;
 
 @end

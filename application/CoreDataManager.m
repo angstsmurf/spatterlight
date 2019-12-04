@@ -159,7 +159,7 @@
         NSError *error;
         if (privateManagedObjectContext.hasChanges) {
             if (![privateManagedObjectContext save:&error]) {
-                NSLog(@"Unable to Save Changes of Private Managed Object Context!");
+                NSLog(@"Unable to Save Changes of Private Managed Object Context! Error:%@", error);
                 if (error) {
                     [[NSApplication sharedApplication] presentError:error];
                 }
