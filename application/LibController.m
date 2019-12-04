@@ -526,6 +526,22 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         LibController * __unsafe_unretained weakSelf = self;
         NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
 
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(noteChildContextDidChange:)
+                                                     name:NSManagedObjectContextObjectsDidChangeNotification
+                                                   object:childContext];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(noteChildContextDidSave:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:childContext];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(noteMainContextDidChange:)
+                                                     name:NSManagedObjectContextObjectsDidChangeNotification
+                                                   object:_managedObjectContext];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(noteMainContextDidSave:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:_managedObjectContext];
         [_coreDataManager saveChanges];
 
         importContext = childContext;
@@ -595,6 +611,21 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     }
 }
+
+
+- (void)noteChildContextDidChange:(id)sender {
+    NSLog(@"noteChildContextDidChange");
+}
+- (void)noteMainContextDidChange:(id)sender {
+    NSLog(@"noteMainContextDidChange");
+}
+- (void)noteChildContextDidSave:(id)sender {
+    NSLog(@"noteChildContextDidSave");
+}
+- (void)noteMainContextDidSave:(id)sender {
+    NSLog(@"noteMainContextDidSave");
+}
+
 
 - (void) extractMetadataFromFile:(Game *)game
 {
@@ -993,9 +1024,28 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
 - (void) convertLibraryToCoreData {
 
+    // Add games from plist to Core Data store if we have just created a new one
+
     LibController * __unsafe_unretained weakSelf = self;
 
     NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(noteChildContextDidChange:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:private];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(noteChildContextDidSave:)
+                                                 name:NSManagedObjectContextDidSaveNotification
+                                               object:private];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(noteMainContextDidChange:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:_managedObjectContext];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(noteMainContextDidSave:)
+                                                 name:NSManagedObjectContextDidSaveNotification
+                                               object:_managedObjectContext];
     [private performBlock:^{
         cursrc = kInternal;
         NSMutableDictionary *metadata = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Metadata.plist"]);
@@ -1008,12 +1058,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             [weakSelf addMetadata:[metadata objectForKey:ifid] forIFIDs:@[ifid] inContext:private];
         }
         cursrc = 0;
-        // Add games from plist to Core Data store if we have just created a new one
         NSMutableDictionary *games = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Games.plist"]);
 
-       enumerator = [games keyEnumerator];
-        //            NSInteger counter = 0;
-
+        enumerator = [games keyEnumerator];
         while ((ifid = [enumerator nextObject]))
         {
             Metadata *meta = [weakSelf fetchMetadataForIFID:ifid inContext:private];
@@ -1038,13 +1085,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                                   inManagedObjectContext:private];
 
 
-                //                    NSLog(@"Creating new instance of Game %@ and giving it metadata of ifid %@", meta.title, ifid);
+                NSLog(@"Creating new instance of Game %@ and giving it metadata of ifid %@", meta.title, ifid);
                 game.metadata = meta;
                 game.added = [NSDate date];
                 [game bookmarkForPath:[games valueForKey:ifid]];
 
-                //We save data and update the UI every 10 games
-                //                    if (++counter % 10 == 0) {
                 [private performBlockAndWait:^{
                     NSError *error = nil;
                     if (private.hasChanges) {
@@ -1064,38 +1109,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                     gameTableDirty = YES;
                     [weakSelf updateTableViews];
                 }];
-                //                    }
-
             }
             else
                 NSLog(@"Could not find game file corresponding to %@. Skipping.", meta.title);
-
         }
-        //        [private performBlockAndWait:^{
-        //            NSError *error = nil;
-        //            if (private.hasChanges) {
-        //                if (![private save:&error]) {
-        //                    NSLog(@"Unable to Save Changes of private managed object context!");
-        //                    if (error) {
-        //                        [[NSApplication sharedApplication] presentError:error];
-        //                    }
-        //                } else NSLog(@"Changes in private were saved");
-        //
-        //            } else NSLog(@"No changes to save in private");
-        //
-        //        }];
-        //        [_managedObjectContext performBlock:^{
-        //            [_coreDataManager saveChanges];
-        //            gameTableDirty = YES;
-        //            [weakSelf updateTableViews];
-        //        }];
     }];
-//
-//    [_managedObjectContext performBlock:^{
-//        [_coreDataManager saveChanges];
-//        gameTableDirty = YES;
-//        [weakSelf updateTableViews];
-//    }];
 }
 
 static void read_xml_text(const char *rp, char *wp) {
