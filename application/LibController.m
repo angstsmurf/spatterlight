@@ -95,7 +95,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     }
 
     [super textDidEndEditing:notification];
-    [(LibController *)self.delegate updateSideView];
+    [(LibController *)self.delegate updateSideViewForce:YES];
 }
 
 @end
@@ -206,8 +206,29 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         }
     }
 
-    gameTableDirty = YES;
-    [self updateTableViews];
+    noneSelected = [self fetchMetadataForIFID:@"DUMMYnoneSelected" inContext:_managedObjectContext];
+    if (!noneSelected) {
+        noneSelected = (Metadata *) [NSEntityDescription
+                                     insertNewObjectForEntityForName:@"Metadata"
+                                     inManagedObjectContext:_managedObjectContext];
+        noneSelected.ifid = @"DUMMYnoneSelected";
+        noneSelected.title = @"No game selected";
+    }
+
+    manySelected = [self fetchMetadataForIFID:@"DUMMYmanySelected" inContext:_managedObjectContext];
+
+    if (!manySelected) {
+        manySelected = (Metadata *) [NSEntityDescription
+                                     insertNewObjectForEntityForName:@"Metadata"
+                                     inManagedObjectContext:_managedObjectContext];
+        noneSelected.ifid = @"DUMMYmanySelected";
+        noneSelected.title = @"Multiple games selected";
+    }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(noteManagedObjectContextDidChange:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:_managedObjectContext];
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
     gameTableModel = [[self fetchObjects:@"Game"] mutableCopy];
@@ -244,8 +265,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         NSError *saveError = nil;
         [_managedObjectContext save:&saveError];
         //more error handling here
-        gameTableDirty = YES;
-        [self updateTableViews];
     }
 }
 
@@ -302,7 +321,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
                           [self beginImporting];
                           [self importMetadataFromFile:url.path];
-                          [self updateTableViews];
                           [self endImporting];
                       }
                   }];
@@ -454,20 +472,14 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         Game *game = [gameTableModel objectAtIndex:i];
         NSURL *url = [game urlForBookmark];
         if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
-            if ([game.found isEqual:@(YES)]) {
-                game.found = @(NO);
-                [self updateTableViews];
-            }
+            game.found = @(NO);
             NSRunAlertPanel(
                 @"Cannot find the file.",
                 @"The file could not be found at its original location. Maybe "
                 @"it has been moved since it was added to the library.",
                 @"Okay", NULL, NULL);
             return;
-        } else if ([game.found isEqual:@(NO)]) {
-            game.found = @(YES);
-            [self updateTableViews];
-        }
+        } else game.found = @(YES);
         [[NSWorkspace sharedWorkspace] selectFile:url.path
                          inFileViewerRootedAtPath:@""];
     }
@@ -491,9 +503,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             NSLog(@"libctl: delete game %@", game.metadata.title);
             [self.managedObjectContext deleteObject:game];
         }
-
-        gameTableDirty = YES;
-        [self updateTableViews];
     }
 }
 
@@ -554,11 +563,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                         [_coreDataManager saveChanges];
                         [_managedObjectContext refreshObject:game
                                                  mergeChanges:YES];
-                        gameTableDirty = YES;
-                        [weakSelf updateTableViews];
                         NSIndexSet *rows = _gameTableView.selectedRowIndexes;
                         if (rows.count == 1 && [gameTableModel objectAtIndex:[rows firstIndex]] == game) {
-                            [weakSelf updateSideView];
+                            [weakSelf updateSideViewForce:YES];
                             [_gameTableView scrollRowToVisible:rows.firstIndex];
                         }
                     }];
@@ -646,7 +653,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 			if (img)
 			{
 				[self addImage: img toMetadata:game.metadata inContext:_managedObjectContext];
-				[self updateSideView];
+				[self updateSideViewForce:YES];
 			}
             
 		}
@@ -899,22 +906,20 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             }
 
         }
-        gameTableDirty = YES;
-
     }
 }
 
-- (void) setMetadataValue: (NSString*)val forKey: (NSString*)key forIFID: (NSString*)ifid
-{
-    Metadata *dict = [self fetchMetadataForIFID:ifid inContext:_managedObjectContext];
-    if (dict)
-    {
-        NSLog(@"libctl: user set value %@ = '%@' for %@", key, val, ifid);
-        dict.userEdited = @(YES);
-        [dict setValue:val forKey:key];
-        gameTableDirty = YES;
-    }
-}
+//- (void) setMetadataValue: (NSString*)val forKey: (NSString*)key forIFID: (NSString*)ifid
+//{
+//    Metadata *dict = [self fetchMetadataForIFID:ifid inContext:_managedObjectContext];
+//    if (dict)
+//    {
+//        NSLog(@"libctl: user set value %@ = '%@' for %@", key, val, ifid);
+//        dict.userEdited = @(YES);
+//        [dict setValue:val forKey:key];
+////        gameTableDirty = YES;
+//    }
+//}
 
 - (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
@@ -1035,8 +1040,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
                 [_managedObjectContext performBlock:^{
                     [_coreDataManager saveChanges];
-                    gameTableDirty = YES;
-                    [weakSelf updateTableViews];
                 }];
             }
             else
@@ -1444,20 +1447,15 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
     }
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        if ([game.found isEqual:@(YES)]) {
-            game.found = @(NO);
-            [self updateTableViews];
-        }
+        game.found = @(NO);
         NSRunAlertPanel(
                         @"Cannot find the file.",
                         @"The file could not be found at its original location. Maybe "
                         @"it has been moved since it was added to the library.",
                         @"Okay", NULL, NULL);
         return nil;
-    } else if ([game.found isEqual:@(NO)]) {
-        game.found = @(YES);
-        [self updateTableViews];
-    }
+    } else game.found = @(YES);
+
 
     if (![[NSFileManager defaultManager] isReadableFileAtPath:path]) {
         NSRunAlertPanel(@"Cannot read the file.",
@@ -1503,7 +1501,6 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
     game = [self importGame: path inContext:_managedObjectContext reportFailure: YES];
     if (game)
     {
-        [self updateTableViews];
         [self deselectGames];
         [self selectGameWithIfid:game.metadata.ifid];
         [self playGame: game];
@@ -1622,6 +1619,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
 				NSLog(@"File location did not match. Updating library with new file location.");
 				[metadata.game bookmarkForPath:path];
 			}
+            metadata.game.found = @(YES);
 			return metadata.game;
 		}
 	}
@@ -1672,11 +1670,6 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
 
     game.added = [NSDate date];
     game.metadata = metadata;
-    gameTableDirty = YES;
-
-//    NSLog(@"libctl: importGame: imported %@ with metadata %@", game, metadata);
-
-    [self addURLtoRecents: game.urlForBookmark];
 
     return game;
 }
@@ -1699,8 +1692,6 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
 
         [_managedObjectContext performBlock:^{
             [_coreDataManager saveChanges];
-            gameTableDirty = YES;
-            [self updateTableViews];
         }];
 
     } else {
@@ -1761,7 +1752,6 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
     [_managedObjectContext performBlock:^{
         [_coreDataManager saveChanges];
         [weakSelf deselectGames];
-        [weakSelf updateTableViews];
         NSInteger count = select.count;
         for (NSInteger i = 0; i < count; i++)
             [weakSelf selectGameWithIfid:[select objectAtIndex:i]];
@@ -1867,6 +1857,8 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
     if (!gameTableDirty)
         return;
 
+    NSLog(@"Updating table view");
+    
     fetchRequest = [[NSFetchRequest alloc] init];
     entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
     fetchRequest.entity = entity;
@@ -1953,8 +1945,6 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
     }
 
     [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
-//    [_gameTableView scrollRowToVisible:indexSet.firstIndex];
-
     gameTableDirty = NO;
 }
 
@@ -2030,62 +2020,76 @@ objectValueForTableColumn: (NSTableColumn*)column
             return;
         if ([value isEqualTo: oldval])
             return;
+        
         [meta setValue: value forKey: key];
+        game.lastModified = [NSDate date];
         NSLog(@"Set value of %@ to %@", key, value);
     }
 }
 
 - (void)tableViewSelectionDidChange:(id)notification {
     NSTableView *tableView = [notification object];
-    NSIndexSet *rows = tableView.selectedRowIndexes;
     if (tableView == _gameTableView) {
+        NSIndexSet *rows = tableView.selectedRowIndexes;
         infoButton.enabled = rows.count > 0;
         playButton.enabled = rows.count == 1;
         [self invalidateRestorableState];
         if (gameTableModel.count && rows.count) {
-            if (rows.count == 1 && [selectedGames objectAtIndex:0] != [gameTableModel objectAtIndex:[rows firstIndex]])
-                [self updateSideView];
             selectedGames = [gameTableModel objectsAtIndexes:rows];
-        }
-
+        } else selectedGames = nil;
+        [self updateSideViewForce:NO];
     }
 }
 
-- (void) updateSideView
+- (void)noteManagedObjectContextDidChange:(id)sender {
+    NSLog(@"noteManagedObjectContextDidChange");
+    gameTableDirty = YES;
+    [self updateTableViews];
+}
+
+- (void) updateSideViewForce:(BOOL)force
 {
+    Metadata *meta;
 
-	NSIndexSet *rows = _gameTableView.selectedRowIndexes;
-
-	if (!rows.count || [_splitView isSubviewCollapsed:_leftView])
+	if ([_splitView isSubviewCollapsed:_leftView])
 	{
-//		NSLog(@"No game selected in table view, returning without updating side view");
+		NSLog(@"Side view collapsed, returning without updating side view");
 		return;
-	} // else NSLog(@"%lu rows selected.", (unsigned long)rows.count);
+	}
 
-	Game *game = [gameTableModel objectAtIndex:rows.firstIndex];
+    if (!selectedGames || !selectedGames.count || selectedGames.count > 1) {
+        meta = (selectedGames.count > 1) ? manySelected : noneSelected;
+    }  else meta = ((Game *)[selectedGames objectAtIndex:0]).metadata;
 
-    if (!game)
-        NSLog(@"Game null?");
+    if (!meta) {
+        NSLog(@"updateSideView: Meta null? Something is broken");
+        return;
+    }
 
+    if (force == NO && meta == currentSideView) {
+        NSLog(@"updateSideView: %@ is already shown and force is NO", meta.title);
+        return;
+    }
 
-	NSLog(@"\nUpdating info pane for %@", game.metadata.title);
+    currentSideView = meta;
+
+	NSLog(@"\nUpdating info pane for %@", meta.title);
     //NSLog(@"Side view width: %f", NSWidth(_leftView.frame));
 
     [_leftScrollView.documentView performSelector:@selector(removeFromSuperview)];
 
-
 	SideInfoView *infoView = [[SideInfoView alloc] initWithFrame:_leftScrollView.frame];
+    
 	_leftScrollView.documentView = infoView;
 
-	[infoView updateSideViewForGame:game];
+	[infoView updateSideViewForMetadata:meta];
 
-	if (game.metadata.ifid)
-		_sideIfid.stringValue = game.metadata.ifid;
+	if (meta.ifid && meta != manySelected && meta != noneSelected)
+		_sideIfid.stringValue =meta.ifid;
 	else
 		_sideIfid.stringValue = @"";
 
 	_sideIfid.delegate = infoView;
-	gameTableDirty = YES;
 }
 
 #pragma mark -
@@ -2154,13 +2158,14 @@ canCollapseSubview:(NSView *)subview
            ofDividerAtIndex:0];
 
     [_splitView display];
-    [self updateSideView];
+    [self updateSideViewForce:YES];
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification
 {
     // TODO: This should call a faster update method rather than rebuilding the view from scratch every time, but everything I've tried makes word wrap wonky
-    [self updateSideView];
+    if (currentSideView)
+        [self updateSideViewForce:YES];
 }
 
 #pragma mark -

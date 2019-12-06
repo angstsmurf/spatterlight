@@ -22,8 +22,6 @@
 @property HelpPanelController *helpLicenseWindow;
 
 @property (readonly) CoreDataManager *coreDataManager;
-@property (readonly) NSManagedObjectContext *managedObjectContext;
-
 
 - (IBAction)openDocument:(id)sender;
 

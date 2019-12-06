@@ -228,10 +228,8 @@
 {
 	_game.metadata.blurb = descriptionText.textStorage.string;
 
-	[((AppDelegate *)[NSApplication sharedApplication].delegate)
-     .libctl updateSideView];
-	[((AppDelegate *)[NSApplication sharedApplication].delegate)
-     .libctl  updateTableViews];
+//	[((AppDelegate *)[NSApplication sharedApplication].delegate)
+//     .libctl updateSideViewForce:YES];
 }
 
 @end

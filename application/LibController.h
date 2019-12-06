@@ -57,6 +57,10 @@
     NSArray *searchStrings;
     CGFloat lastSideviewWidth;
 
+    Metadata *noneSelected;
+    Metadata *manySelected;
+    Metadata *currentSideView;
+        
     /* for the importing */
     NSInteger cursrc;
     NSString *currentIfid;
@@ -104,7 +108,7 @@
 - (IBAction)toggleColumn:(id)sender;
 - (void)deselectGames;
 - (void)updateTableViews; /* must call this after -importGame: */
-- (void)updateSideView;
+- (void)updateSideViewForce:(BOOL)force;
 
 - (void)enableClickToRenameAfterDelay;
 

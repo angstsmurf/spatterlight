@@ -15,11 +15,9 @@
 
 @class Preferences;
 
-@interface SideInfoView : NSView <NSTextFieldDelegate, NSControlTextEditingDelegate>
+@interface SideInfoView : NSView <NSTextFieldDelegate> //, NSControlTextEditingDelegate>
 {
-	Game *game;
-
-	LibController *libctl;
+	
 
 	NSTextField *titleField;
 	NSTextField *headlineField;
@@ -29,6 +27,9 @@
 
 }
 
-- (void) updateSideViewForGame:(Game *)game;
+//@property (weak) LibController *libctl;
+@property (weak) Metadata *metadata;
+
+- (void) updateSideViewForMetadata:(Metadata *)somedata;
 
 @end
