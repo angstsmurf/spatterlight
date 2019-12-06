@@ -360,7 +360,6 @@
 	divider.boxType = NSBoxSeparator;
 	divider.translatesAutoresizingMaskIntoConstraints = NO;
 
-
 	xPosConstraint = [NSLayoutConstraint constraintWithItem:divider
 												  attribute:NSLayoutAttributeLeft
 												  relatedBy:NSLayoutRelationEqual
