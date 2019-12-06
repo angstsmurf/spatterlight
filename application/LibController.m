@@ -392,16 +392,14 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     NSInteger i;
     for (i = rows.firstIndex; i != NSNotFound;
          i = [rows indexGreaterThanIndex:i]) {
-        NSString *ifid = [gameTableModel objectAtIndex:i];
-        Metadata *meta = [self fetchMetadataForIFID:ifid inContext:_managedObjectContext];
-
-        GlkController *gctl = [_gameSessions objectForKey:ifid];
+        Game *game = [gameTableModel objectAtIndex:i];
+        GlkController *gctl = [_gameSessions objectForKey:game.metadata.ifid];
 
         if (gctl) {
             [gctl reset:sender];
         } else {
             gctl = [[GlkController alloc] init];
-            [gctl deleteAutosaveFilesForGame:meta.game];
+            [gctl deleteAutosaveFilesForGame:game];
         }
     }
 }
