@@ -79,12 +79,6 @@
 - (void)beginImporting;
 - (void)endImporting;
 
-- (Game *)importGame:(NSString *)path reportFailure:(BOOL)report;
-- (void)addFile:(NSString *)path select:(NSMutableArray *)select;
-- (void)addFiles:(NSArray *)paths select:(NSMutableArray *)select;
-- (void)addFiles:(NSArray *)paths;
-- (void)addFile:(NSString *)path;
-
 - (NSWindow *)playGame:(Game *)game;
 - (NSWindow *)playGame:(Game *)game winRestore:(BOOL)restoreflag;
 - (NSWindow *)playGameWithIFID:(NSString *)ifid;
