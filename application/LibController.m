@@ -1576,7 +1576,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
     if (s) *s = 0;
     ifid = @(buf);
 
-    NSLog(@"libctl: import game %@ (%s)", path, format);
+    //NSLog(@"libctl: import game %@ (%s)", path, format);
 
     mdlen = babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
     if (mdlen > 0)
@@ -1674,7 +1674,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
     game.metadata = metadata;
     gameTableDirty = YES;
 
-    NSLog(@"libctl: importGame: imported %@ with metadata %@", game, metadata);
+//    NSLog(@"libctl: importGame: imported %@ with metadata %@", game, metadata);
 
     [self addURLtoRecents: game.urlForBookmark];
 
@@ -1999,12 +1999,25 @@ objectValueForTableColumn: (NSTableColumn*)column
     return nil;
 }
 
+- (void)tableView:(NSTableView *)tableView
+  willDisplayCell:(id)cell
+   forTableColumn:(NSTableColumn *)tableColumn
+              row:(NSInteger)row {
+    if (cell == _foundIndicatorCell) {
+        NSMutableAttributedString *attstr = [((NSTextFieldCell *)cell).attributedStringValue mutableCopy];
+
+        [attstr addAttribute:NSBaselineOffsetAttributeName
+                       value:[NSNumber numberWithFloat:2.0]
+                       range:NSMakeRange(0, attstr.length)];
+
+        [(NSTextFieldCell *)cell setAttributedStringValue:attstr];
+    }
+}
 
 - (void)tableView:(NSTableView *)tableView
    setObjectValue:(id)value
    forTableColumn:(NSTableColumn *)tableColumn
-              row:(int)row
-{
+              row:(int)row {
     if (tableView == _gameTableView)
     {
         Game *game = [gameTableModel objectAtIndex:row];

@@ -120,6 +120,8 @@
 
 @property (strong) IBOutlet NSProgressIndicator *progressCircle;
 
+@property (strong) IBOutlet NSTextFieldCell *foundIndicatorCell;
+
 - (NSString *)convertAGTFile:(NSString *)origpath;
 
 @end
