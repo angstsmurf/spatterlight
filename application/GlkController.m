@@ -14,21 +14,21 @@ fprintf(stderr, "%s\n",                                                    \
 
 #define MINTIMER 5 /* The game Transparent needs a timer this frequent */
 
-static const char *msgnames[] = {
-    "NOREPLY",         "OKAY",       "ERROR",       "HELLO",
-    "PROMPTOPEN",      "PROMPTSAVE", "NEWWIN",      "DELWIN",
-    "SIZWIN",          "CLRWIN",     "MOVETO",      "PRINT",
-    "MAKETRANSPARENT", "STYLEHINT",  "CLEARHINT",   "STYLEMEASURE",
-    "SETBGND",         "SETTITLE",   "AUTOSAVE",    "RESET",
-    "TIMER",           "INITCHAR",   "CANCELCHAR",  "INITLINE",
-    "CANCELLINE",      "SETECHO",    "TERMINATORS", "INITMOUSE",
-    "CANCELMOUSE",     "FILLRECT",   "FINDIMAGE",   "LOADIMAGE",
-    "SIZEIMAGE",       "DRAWIMAGE",  "FLOWBREAK",   "NEWCHAN",
-    "DELCHAN",         "FINDSOUND",  "LOADSOUND",   "SETVOLUME",
-    "PLAYSOUND",       "STOPSOUND",  "SETLINK",     "INITLINK",
-    "CANCELLINK",      "EVTHYPER",   "NEXTEVENT",   "EVTARRANGE",
-    "EVTLINE",         "EVTKEY",     "EVTMOUSE",    "EVTTIMER",
-    "EVTSOUND",        "EVTVOLUME",  "EVTPREFS"};
+//static const char *msgnames[] = {
+//    "NOREPLY",         "OKAY",       "ERROR",       "HELLO",
+//    "PROMPTOPEN",      "PROMPTSAVE", "NEWWIN",      "DELWIN",
+//    "SIZWIN",          "CLRWIN",     "MOVETO",      "PRINT",
+//    "MAKETRANSPARENT", "STYLEHINT",  "CLEARHINT",   "STYLEMEASURE",
+//    "SETBGND",         "SETTITLE",   "AUTOSAVE",    "RESET",
+//    "TIMER",           "INITCHAR",   "CANCELCHAR",  "INITLINE",
+//    "CANCELLINE",      "SETECHO",    "TERMINATORS", "INITMOUSE",
+//    "CANCELMOUSE",     "FILLRECT",   "FINDIMAGE",   "LOADIMAGE",
+//    "SIZEIMAGE",       "DRAWIMAGE",  "FLOWBREAK",   "NEWCHAN",
+//    "DELCHAN",         "FINDSOUND",  "LOADSOUND",   "SETVOLUME",
+//    "PLAYSOUND",       "STOPSOUND",  "SETLINK",     "INITLINK",
+//    "CANCELLINK",      "EVTHYPER",   "NEXTEVENT",   "EVTARRANGE",
+//    "EVTLINE",         "EVTKEY",     "EVTMOUSE",    "EVTTIMER",
+//    "EVTSOUND",        "EVTVOLUME",  "EVTPREFS"};
 
 //static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 //    "wintype_Blank",    "wintype_TextBuffer",

@@ -1996,9 +1996,18 @@ objectValueForTableColumn: (NSTableColumn*)column
     if (cell == _foundIndicatorCell) {
         NSMutableAttributedString *attstr = [((NSTextFieldCell *)cell).attributedStringValue mutableCopy];
 
-        [attstr addAttribute:NSBaselineOffsetAttributeName
+        NSFont *font = [NSFont fontWithName:@"ExclamationCircleNew-Regular" size:14];
+
+        [attstr addAttribute:NSFontAttributeName
+                       value:font
+                       range:NSMakeRange(0, attstr.length)];
+
+        if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
+
+            [attstr addAttribute:NSBaselineOffsetAttributeName
                        value:[NSNumber numberWithFloat:2.0]
                        range:NSMakeRange(0, attstr.length)];
+        }
 
         [(NSTextFieldCell *)cell setAttributedStringValue:attstr];
     }
