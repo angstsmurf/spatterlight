@@ -936,7 +936,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 }
 //              NSLog(@"Set key %@ to value %@ in metadata with ifid %@ title %@", key, [dict valueForKey:key], entry.ifid, entry.title)
             }
-
         }
     }
 }
