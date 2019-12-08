@@ -1292,6 +1292,14 @@ static void handleXMLError(char *msg, void *ctx)
     [self importMetadataFromXML:data.mutableBytes];
     importContext = nil;
     cursrc = 0;
+
+    [_coreDataManager saveChanges];
+
+    for (Game *game in gameTableModel) {
+        [_managedObjectContext refreshObject:game.metadata
+                                mergeChanges:YES];
+    }
+
     [self updateSideViewForce:YES];
     return YES;
 }
