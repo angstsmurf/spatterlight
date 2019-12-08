@@ -19,10 +19,8 @@
 @property (nonatomic, retain) id fileLocation;
 @property (nonatomic, retain) NSNumber * found;
 @property (nonatomic, retain) NSString * group;
-@property (nonatomic, retain) NSNumber * height;
 @property (nonatomic, retain) NSDate * lastModified;
 @property (nonatomic, retain) NSDate * lastPlayed;
-@property (nonatomic, retain) NSNumber * width;
 @property (nonatomic, retain) Interpreter *interpreter;
 @property (nonatomic, retain) Metadata *metadata;
 @property (nonatomic, retain) Settings *setting;

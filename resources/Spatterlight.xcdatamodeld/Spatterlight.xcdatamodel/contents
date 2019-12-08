@@ -36,10 +36,8 @@
         <attribute name="fileLocation" optional="YES" attributeType="Transformable" valueTransformerName="" syncable="YES"/>
         <attribute name="found" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="height" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lastModified" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="lastPlayed" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="width" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="interpreter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Interpreter" inverseName="games" inverseEntity="Interpreter" syncable="YES"/>
         <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="game" inverseEntity="Metadata" syncable="YES"/>
         <relationship name="override" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="overrides" inverseEntity="Settings" syncable="YES"/>
@@ -62,18 +60,22 @@
         <attribute name="blurb" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="coverArtURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateEdited" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="firstpublished" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="forgiveness" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="firstpublished" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstpublishedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="forgiveness" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="forgivenessNumeric" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="format" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="headline" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ifid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="languageAsWord" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="myRating" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ratingCountTot" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="series" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="seriesnumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="source" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="starRating" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tuid" optional="YES" attributeType="String" syncable="YES"/>
@@ -127,10 +129,10 @@
     </entity>
     <elements>
         <element name="Font" positionX="160" positionY="192" width="128" height="480"/>
-        <element name="Game" positionX="160" positionY="192" width="128" height="225"/>
+        <element name="Game" positionX="160" positionY="192" width="128" height="195"/>
         <element name="Image" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Metadata" positionX="160" positionY="192" width="128" height="435"/>
+        <element name="Metadata" positionX="160" positionY="192" width="128" height="495"/>
         <element name="Settings" positionX="160" positionY="192" width="128" height="585"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>
     </elements>

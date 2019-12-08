@@ -18,10 +18,8 @@
 @dynamic fileLocation;
 @dynamic found;
 @dynamic group;
-@dynamic height;
 @dynamic lastModified;
 @dynamic lastPlayed;
-@dynamic width;
 @dynamic interpreter;
 @dynamic metadata;
 @dynamic setting;

@@ -19,14 +19,17 @@
 @property (nonatomic, retain) NSString * blurb;
 @property (nonatomic, retain) NSString * coverArtURL;
 @property (nonatomic, retain) NSDate * dateEdited;
-@property (nonatomic, retain) NSDate * firstpublished;
-@property (nonatomic, retain) NSNumber * forgiveness;
+@property (nonatomic, retain) NSString * firstpublished;
+@property (nonatomic, retain) NSDate * firstpublishedDate;
+@property (nonatomic, retain) NSString * forgiveness;
+@property (nonatomic, retain) NSNumber * forgivenessNumeric;
 @property (nonatomic, retain) NSString * format;
 @property (nonatomic, retain) NSString * genre;
 @property (nonatomic, retain) NSString * group;
 @property (nonatomic, retain) NSString * headline;
 @property (nonatomic, retain) NSString * ifid;
 @property (nonatomic, retain) NSString * language;
+@property (nonatomic, retain) NSString * languageAsWord;
 @property (nonatomic, retain) NSString * myRating;
 @property (nonatomic, retain) NSString * ratingCountTot;
 @property (nonatomic, retain) NSString * series;
@@ -35,7 +38,7 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * tuid;
 @property (nonatomic, retain) NSNumber * userEdited;
-@property (nonatomic, retain) NSString * yearAsString;
+@property (nonatomic, retain) NSNumber * source;
 @property (nonatomic, retain) Image *cover;
 @property (nonatomic, retain) Game *game;
 @property (nonatomic, retain) Tag *tag;

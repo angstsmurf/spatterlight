@@ -60,7 +60,11 @@
     Metadata *noneSelected;
     Metadata *manySelected;
     Metadata *currentSideView;
-        
+
+    BOOL currentlyAddingGames;
+    BOOL currentlyImportingMetadata;
+    BOOL currentlyDownloadingMedata;
+
     /* for the importing */
     NSInteger cursrc;
     NSString *currentIfid;
@@ -79,6 +83,8 @@
 
 @property IBOutlet NSTableView *gameTableView;
 @property IBOutlet NSSearchField *searchField;
+
+@property (strong) IBOutlet NSButton *addButton;
 
 - (void)beginImporting;
 - (void)endImporting;

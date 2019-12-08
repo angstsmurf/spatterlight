@@ -92,7 +92,7 @@
 															<string key="NSFrameSize">{181, 98}</string>
 															<reference key="NSSuperview" ref="219485008"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="665392855"/>
+															<reference key="NSNextKeyView" ref="912555774"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<object class="NSTextContainer" key="NSTextContainer" id="575663586">
 																<object class="NSLayoutManager" key="NSLayoutManager">
@@ -221,7 +221,7 @@
 											<string key="NSFrame">{{0, 23}, {181, 262}}</string>
 											<reference key="NSSuperview" ref="401913480"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="219485008"/>
+											<reference key="NSNextKeyView" ref="665392855"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133632</int>
 											<reference key="NSVScroller" ref="665392855"/>
@@ -291,7 +291,7 @@
 															<string key="NSFrameSize">{653, 230}</string>
 															<reference key="NSSuperview" ref="19771704"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="465997657"/>
+															<reference key="NSNextKeyView" ref="1017274543"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTableHeaderView" key="NSHeaderView" id="1041211642">
 																<reference key="NSNextResponder" ref="465997657"/>
@@ -418,7 +418,7 @@
 																	<reference key="NSTableView" ref="521514176"/>
 																</object>
 																<object class="NSTableColumn" id="393179662">
-																	<string key="NSIdentifier">firstpublished</string>
+																	<string key="NSIdentifier">firstpublishedDate</string>
 																	<double key="NSWidth">32</double>
 																	<double key="NSMinWidth">32</double>
 																	<double key="NSMaxWidth">32</double>
@@ -590,7 +590,7 @@
 																	<reference key="NSTableView" ref="521514176"/>
 																</object>
 																<object class="NSTableColumn" id="910302630">
-																	<string key="NSIdentifier">forgiveness</string>
+																	<string key="NSIdentifier">forgivenessNumeric</string>
 																	<double key="NSWidth">70</double>
 																	<double key="NSMinWidth">40</double>
 																	<double key="NSMaxWidth">70</double>
@@ -619,7 +619,7 @@
 																		<int key="NSPeriodicInterval">75</int>
 																		<object class="NSMenuItem" key="NSMenuItem" id="582936359">
 																			<reference key="NSMenu" ref="94892172"/>
-																			<string key="NSTitle"/>
+																			<string key="NSTitle">--None--</string>
 																			<string key="NSKeyEquiv"/>
 																			<int key="NSKeyEquivModMask">1048576</int>
 																			<int key="NSMnemonicLoc">2147483647</int>
@@ -699,7 +699,6 @@
 																			<bool key="NSMenuExcludeMarkColumn">YES</bool>
 																			<reference key="NSMenuFont" ref="26"/>
 																		</object>
-																		<int key="NSSelectedIndex">-1</int>
 																		<int key="NSPreferredEdge">3</int>
 																		<bool key="NSUsesItemFromMenu">YES</bool>
 																		<bool key="NSAltersState">YES</bool>
@@ -710,7 +709,7 @@
 																	<reference key="NSTableView" ref="521514176"/>
 																</object>
 																<object class="NSTableColumn" id="425981650">
-																	<string key="NSIdentifier">language</string>
+																	<string key="NSIdentifier">languageAsWord</string>
 																	<double key="NSWidth">60</double>
 																	<double key="NSMinWidth">40</double>
 																	<double key="NSMaxWidth">1000</double>
@@ -868,6 +867,7 @@
 																		<double key="NSWarningValue">3</double>
 																		<double key="NSCriticalValue">3</double>
 																		<int key="NSIndicatorStyle">3</int>
+																		<int key="NSTickMarkPosition">1</int>
 																	</object>
 																	<int key="NSResizingMask">3</int>
 																	<bool key="NSIsResizeable">YES</bool>
@@ -951,7 +951,7 @@
 											<string key="NSFrame">{{0, 39}, {653, 247}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="19771704"/>
+											<reference key="NSNextKeyView" ref="465997657"/>
 											<int key="NSsFlags">133680</int>
 											<reference key="NSVScroller" ref="1017274543"/>
 											<reference key="NSHScroller" ref="818338602"/>
@@ -966,6 +966,7 @@
 											<string key="NSFrame">{{359, 9}, {282, 22}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSSearchFieldCell" key="NSCell" id="569807709">
 												<int key="NSCellFlags">343014976</int>
@@ -1176,7 +1177,7 @@
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomView" id="736319653">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSTextField" id="518277753">
@@ -1184,6 +1185,7 @@
 						<int key="NSvFlags">256</int>
 						<string key="NSFrame">{{11, 13}, {63, 17}}</string>
 						<reference key="NSSuperview" ref="736319653"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="792120010"/>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1202,6 +1204,8 @@
 						<int key="NSvFlags">256</int>
 						<string key="NSFrame">{{74, 7}, {256, 26}}</string>
 						<reference key="NSSuperview" ref="736319653"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="555633122">
 							<int key="NSCellFlags">-2076049856</int>
@@ -1274,6 +1278,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{404, 42}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="518277753"/>
 				<object class="NSMutableString" key="NSClassName">
 					<characters key="NS.bytes">NSView</characters>
@@ -1319,7 +1325,7 @@
 					</object>
 					<object class="NSMenuItem" id="582730247">
 						<reference key="NSMenu" ref="737572256"/>
-						<string key="NSTitle">Reload Info</string>
+						<string key="NSTitle">Download Info</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="785392618"/>
@@ -1806,6 +1812,14 @@
 						<reference key="destination" ref="242328665"/>
 					</object>
 					<int key="connectionID">449</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">addButton</string>
+						<reference key="source" ref="755207472"/>
+						<reference key="destination" ref="690516205"/>
+					</object>
+					<int key="connectionID">453</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -3618,7 +3632,7 @@
 							<object class="IBUserDefinedRuntimeAttribute">
 								<string key="typeIdentifier">com.apple.InterfaceBuilder.userDefinedRuntimeAttributeType.string</string>
 								<string key="keyPath">identifier</string>
-								<string key="value">firstpublished</string>
+								<string key="value">firstpublishedDate</string>
 							</object>
 						</array>
 					</object>
@@ -3729,14 +3743,18 @@
 				</object>
 				<boolean value="NO" key="129.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="129.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<object class="NSMutableDictionary" key="130.IBAttributePlaceholdersKey">
-					<string key="NS.key.0">AccessibilityDescription</string>
-					<object class="IBAccessibilityAttribute" key="NS.object.0">
+				<dictionary class="NSMutableDictionary" key="130.IBAttributePlaceholdersKey">
+					<object class="IBAccessibilityAttribute" key="AccessibilityDescription">
 						<string key="name">AccessibilityDescription</string>
 						<reference key="object" ref="690516205"/>
-						<string key="accessibilityValue">Add a game</string>
+						<string key="accessibilityValue">Add games to library</string>
 					</object>
-				</object>
+					<object class="IBToolTipAttribute" key="ToolTip">
+						<string key="name">ToolTip</string>
+						<reference key="object" ref="690516205"/>
+						<string key="toolTip">Add games to library</string>
+					</object>
+				</dictionary>
 				<array class="NSMutableArray" key="130.IBNSViewMetadataConstraints">
 					<reference ref="965771026"/>
 					<reference ref="888674169"/>
@@ -3873,7 +3891,7 @@
 							<object class="IBUserDefinedRuntimeAttribute">
 								<string key="typeIdentifier">com.apple.InterfaceBuilder.userDefinedRuntimeAttributeType.string</string>
 								<string key="keyPath">identifier</string>
-								<string key="value">forgiveness</string>
+								<string key="value">forgivenessNumeric</string>
 							</object>
 						</array>
 					</object>
@@ -3888,7 +3906,7 @@
 							<object class="IBUserDefinedRuntimeAttribute">
 								<string key="typeIdentifier">com.apple.InterfaceBuilder.userDefinedRuntimeAttributeType.string</string>
 								<string key="keyPath">identifier</string>
-								<string key="value">language</string>
+								<string key="value">languageAsWord</string>
 							</object>
 						</array>
 					</object>
@@ -4116,7 +4134,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">449</int>
+			<int key="maxID">453</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4156,11 +4174,16 @@
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addGamesToLibrary:">id</string>
+						<string key="delete:">id</string>
 						<string key="deleteGame:">id</string>
 						<string key="deleteLibrary:">id</string>
+						<string key="download:">id</string>
 						<string key="exportMetadata:">id</string>
 						<string key="importMetadata:">id</string>
+						<string key="openIfdb:">id</string>
 						<string key="play:">id</string>
+						<string key="purgeLibrary:">id</string>
+						<string key="reset:">id</string>
 						<string key="revealGameInFinder:">id</string>
 						<string key="searchForGames:">id</string>
 						<string key="showGameInfo:">id</string>
@@ -4172,12 +4195,20 @@
 							<string key="name">addGamesToLibrary:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="delete:">
+							<string key="name">delete:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="deleteGame:">
 							<string key="name">deleteGame:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="deleteLibrary:">
 							<string key="name">deleteLibrary:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="download:">
+							<string key="name">download:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="exportMetadata:">
@@ -4188,8 +4219,20 @@
 							<string key="name">importMetadata:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="openIfdb:">
+							<string key="name">openIfdb:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="play:">
 							<string key="name">play:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="purgeLibrary:">
+							<string key="name">purgeLibrary:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="reset:">
+							<string key="name">reset:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="revealGameInFinder:">
@@ -4214,6 +4257,7 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="addButton">NSButton</string>
 						<string key="exportTypeControl">NSPopUpButton</string>
 						<string key="exportTypeView">NSView</string>
 						<string key="foundIndicatorCell">NSTextFieldCell</string>
@@ -4231,6 +4275,10 @@
 						<string key="splitView">NSSplitView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="addButton">
+							<string key="name">addButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="exportTypeControl">
 							<string key="name">exportTypeControl</string>
 							<string key="candidateClassName">NSPopUpButton</string>

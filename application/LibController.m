@@ -205,6 +205,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             }
         }
     }
+ 
+    if (!_managedObjectContext) {
+        NSLog(@"LibController windowDidLoad: no _managedObjectContext!");
+        return;
+    }
 
     noneSelected = [self fetchMetadataForIFID:@"DUMMYnoneSelected" inContext:_managedObjectContext];
     if (!noneSelected) {
@@ -298,11 +303,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [_progressCircle startAnimation:self];
     });
-//    [importProgressPanel makeKeyAndOrderFront:self];
 }
 
 - (void)endImporting {
-    //    [importProgressPanel orderOut:self];
     dispatch_async(dispatch_get_main_queue(), ^{
         [_progressCircle stopAnimation:self];
     });
@@ -314,14 +317,19 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     panel.allowedFileTypes = @[ @"iFiction" ];
 
+    LibController * __unsafe_unretained weakSelf = self; 
+
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
                       if (result == NSFileHandlingPanelOKButton) {
                           NSURL *url = panel.URL;
 
-                          [self beginImporting];
-                          [self importMetadataFromFile:url.path];
-                          [self endImporting];
+                          [weakSelf beginImporting];
+                          [_managedObjectContext performBlock:^{
+                              [weakSelf importMetadataFromFile:url.path];
+                              [_coreDataManager saveChanges];
+                          }];
+                          [weakSelf endImporting];
                       }
                   }];
 }
@@ -355,11 +363,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     panel.allowedFileTypes = gGameFileTypes;
 
+    LibController * __unsafe_unretained weakSelf = self;
+
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
                       if (result == NSFileHandlingPanelOKButton) {
                           NSArray *urls = panel.URLs;
-                          [self addInBackground:urls];
+                          [weakSelf addInBackground:urls];
                       }
                   }];
 }
@@ -370,10 +380,18 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
 
     [self beginImporting];
+    
+    currentlyAddingGames = YES;
+    _addButton.enabled = NO;
 
     [childContext performBlock:^{
         [weakSelf addFiles:files inContext:childContext];
         [weakSelf endImporting];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _addButton.enabled = YES;
+            currentlyAddingGames = NO;
+        });
+
     }];
 }
 
@@ -542,6 +560,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         LibController * __unsafe_unretained weakSelf = self;
         NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
 
+        currentlyDownloadingMedata = YES;
+
         [childContext performBlock:^{
 
             for (Game *game in selectedGames) {
@@ -569,6 +589,10 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                     }];
                 }
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                currentlyDownloadingMedata = NO;
+            });
+
             [weakSelf endImporting];
         }];
     }
@@ -676,6 +700,12 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             return NO;
     }
 
+    if (action == @selector(addGamesToLibrary:))
+        return !currentlyAddingGames;
+
+    if (action == @selector(download:))
+        return !currentlyDownloadingMedata;
+
     if (action == @selector(delete:))
         return count > 0;
 
@@ -767,10 +797,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
  * and can be exported.
  */
 
-//- (void) addMetadata:(NSMutableDictionary*)dict forIFIDs:(NSArray*)list {
-//    [self addMetadata:dict forIFIDs:list inContext:_managedObjectContext];
-//}
-
 - (void) addMetadata:(NSMutableDictionary*)dict forIFIDs:(NSArray*)list inContext:(NSManagedObjectContext *)context {
     NSInteger count;
     NSInteger i;
@@ -829,8 +855,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             entry.ifid = ifid;
             NSLog(@"addMetaData:forIFIDs: Created new Metadata instance with ifid %@", ifid);
             //dict[kSource] = @((int)cursrc);
-        }
-
+        } // else NSLog(@"addMetaData:forIFIDs: Found existing Metadata instance with ifid %@ and game %@", entry.ifid, entry.title);
         for(id key in dict)
         {
             keyVal = [dict objectForKey:key];
@@ -866,19 +891,19 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                     dateFormatter.dateFormat = @"yyyy-MM-dd";
                 else NSLog(@"Illegal date format!");
 
-                entry.firstpublished = [dateFormatter dateFromString:keyVal];
+                entry.firstpublishedDate = [dateFormatter dateFromString:keyVal];
                 dateFormatter.dateFormat = @"yyyy";
-                entry.yearAsString = [dateFormatter stringFromDate:entry.firstpublished];
+                entry.firstpublished = [dateFormatter stringFromDate:entry.firstpublishedDate];
             }
             else if ([(NSString *)key isEqualToString:@"language"])
             {
-
                 sub = [keyVal substringWithRange:NSMakeRange(0, 2)];
                 sub = sub.lowercaseString;
                 if ([language objectForKey:sub])
-                    entry.language = [language objectForKey:sub];
+                    entry.languageAsWord = [language objectForKey:sub];
                 else
-                    entry.language = keyVal;
+                    entry.languageAsWord = sub;
+                entry.language = sub;
             }
             else if ([(NSString *)key isEqualToString:@"format"])
             {
@@ -887,11 +912,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             }
             else if ([(NSString *)key isEqualToString:@"forgiveness"])
             {
-                if ([forgiveness objectForKey:keyVal])
-                    entry.forgiveness = [forgiveness objectForKey:keyVal];
-                else
-                    entry.forgiveness = @(FORGIVENESS_NONE);
-
+                entry.forgiveness = [dict objectForKey:@"forgiveness"];
+                entry.forgivenessNumeric = [forgiveness objectForKey:keyVal];
             }
             else
             {
@@ -900,7 +922,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 {
                     [self downloadImage:entry.coverArtURL for:entry inContext:context];
                 }
-                // NSLog(@"Set key %@ to value %@ in metadata %@", key, [dict valueForKey:key], entry)
+//              NSLog(@"Set key %@ to value %@ in metadata with ifid %@ title %@", key, [dict valueForKey:key], entry.ifid, entry.title)
             }
 
         }
@@ -977,20 +999,29 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
 
-    [self beginImporting];
+    NSError *error;
+    NSURL *appSuppDir = [[NSFileManager defaultManager]
+               URLForDirectory:NSApplicationSupportDirectory
+               inDomain:NSUserDomainMask
+               appropriateForURL:nil
+               create:YES
+               error:&error];
     
+    [self beginImporting];
+    _addButton.enabled = NO;
+    currentlyAddingGames = YES;
+
     [private performBlock:^{
-        cursrc = kInternal;
         NSMutableDictionary *metadata = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Metadata.plist"]);
 
         NSString *ifid;
+        cursrc = kInternal;
 
         NSEnumerator *enumerator = [metadata keyEnumerator];
         while ((ifid = [enumerator nextObject]))
         {
             [weakSelf addMetadata:[metadata objectForKey:ifid] forIFIDs:@[ifid] inContext:private];
         }
-        cursrc = 0;
         NSMutableDictionary *games = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Games.plist"]);
 
         enumerator = [games keyEnumerator];
@@ -1018,11 +1049,40 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                                   insertNewObjectForEntityForName:@"Font"
                                                   inManagedObjectContext:private];
 
-
 //              NSLog(@"Creating new instance of Game %@ and giving it metadata of ifid %@", meta.title, ifid);
                 game.metadata = meta;
                 game.added = [NSDate date];
                 [game bookmarkForPath:[games valueForKey:ifid]];
+
+                // First, we look for a cover image file in Spatterlight Application Support folder
+
+                NSString *pathstring =
+                [[@"Spatterlight/Cover%20Art" stringByAppendingPathComponent:ifid]
+                 stringByAppendingPathExtension:@"tiff"];
+                NSURL *imgpath = [NSURL URLWithString:pathstring relativeToURL:appSuppDir];
+                NSData *imgdata = [[NSData alloc] initWithContentsOfURL:imgpath];
+
+                // If that fails, we try babel
+                if (!imgdata) {
+                    const char *format = babel_init((char *)((NSString *)[games valueForKey:ifid]).UTF8String);
+                    if (format) {
+                        int imglen = babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
+                        if (imglen > 0) {
+                            char *imgbuf = malloc(imglen);
+                            if (imgbuf) {
+                                NSLog(@"Babel found image data in %@!", meta.title);
+                                babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
+                                imgdata = [[NSData alloc] initWithBytesNoCopy:imgbuf
+                                                                               length:imglen
+                                                                         freeWhenDone:YES];
+                            }
+                        }
+                    }
+                }  else NSLog(@"Found cover image file for %@ at %@!", meta.title, imgpath.path);
+
+
+                if (imgdata)
+                    [weakSelf addImage:imgdata toMetadata:game.metadata inContext:private];
 
                 NSError *error = nil;
                 if (private.hasChanges) {
@@ -1041,8 +1101,15 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 }];
             }
             else
-                NSLog(@"Could not find game file corresponding to %@. Skipping.", meta.title);
+                NSLog(@"Could not find game entry corresponding to metadata entry %@. Skipping.", meta.title);
         }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _addButton.enabled = YES;
+            currentlyAddingGames = NO;
+        });
+        
+        cursrc = 0;
         [weakSelf endImporting];
     }];
 }
@@ -1284,25 +1351,30 @@ static void handleXMLError(char *msg, void *ctx)
 
 - (void) addImage:(NSData *)rawImageData toMetadata:(Metadata *)metadata inContext:(NSManagedObjectContext *)context {
 
-    Image *img;
-    img = (Image *) [NSEntityDescription
+    Image *img = (Image *) [NSEntityDescription
                      insertNewObjectForEntityForName:@"Image"
                      inManagedObjectContext:context];
     img.data = rawImageData;
     metadata.cover = img;
 }
 
-static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
+static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSString *val;
     const char *tagname;
     const char *s;
 
-    val = [info objectForKey:key];
+    val = [info valueForKey:key];
     if (!val)
         return;
 
+    //"description" is a reserved word in core data
+    if ([key isEqualToString:@"blurb"])
+        key = @"description";
+
+    NSLog(@"write_xml_text: key:%@ val:%@", key, val);
+
     tagname = key.UTF8String;
-    s = val.UTF8String;
+    s = [[NSString stringWithFormat:@"%@", val] UTF8String];
 
     fprintf(fp, "<%s>", tagname);
     while (*s) {
@@ -1325,12 +1397,11 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
 }
 
 /*
- * Export user-edited metadata (ie, with kSource == kUser)
+ * Export metadata (ie, with kSource == kUser)
  */
 - (BOOL)exportMetadataToFile:(NSString *)filename what:(NSInteger)what {
     NSEnumerator *enumerator;
-    Metadata *ifid;
-    //NSString *key, *val;
+    Metadata *meta;
     NSDictionary *info;
     int src;
 
@@ -1345,50 +1416,62 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
     fprintf(fp, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     fprintf(fp, "<ifindex version=\"1.0\">\n\n");
 
-    //FIXME
-    NSArray *metadata = [self fetchObjects:@"Metadata"];
-    //    NSArray *games = [self fetchObjects:@"Game"];
 
-    NSEntityDescription *entity;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:_managedObjectContext];
+    
+    switch (what) {
+        case X_EDITED:
+            fetchRequest.predicate = [NSPredicate predicateWithFormat: @"(userEdited == YES)"];
+            break;
+        case X_LIBRARY:
+            fetchRequest.predicate = [NSPredicate predicateWithFormat: @"(game != nil)"];
+        case X_DATABASE:
+            break;
+        default:
+            NSLog(@"exportMetadataToFile: Unhandled switch case!");
+            break;
+    }
 
-    //    if (what == X_EDITED || what == X_DATABASE)
-    //    {
+
+    NSError *error = nil;
+    NSArray *metadata = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+    if (!metadata) {
+        NSLog(@"exportMetadataToFile: Could not fetch metadata list. Error: %@", error);
+    }
+
     enumerator = [metadata objectEnumerator];
-    //    }
-    //    else
-    //        enumerator = [games objectEnumerator];
-    while ((ifid = [enumerator nextObject]))
+    while ((meta = [enumerator nextObject]))
     {
-        entity = ifid.entity;
-        info = entity.attributesByName;
         src = [[info objectForKey:kSource] intValue];
-        if ((what == X_EDITED && src >= kUser) || what != X_EDITED)
-        {
+
+        
             fprintf(fp, "<story>\n");
 
             fprintf(fp, "<identification>\n");
-            fprintf(fp, "<ifid>%s</ifid>\n", ifid.title.UTF8String);
-            write_xml_text(fp, info, @"format");
-            write_xml_text(fp, info, @"bafn");
+            fprintf(fp, "<ifid>%s</ifid>\n", meta.ifid.UTF8String);
+            write_xml_text(fp, meta, @"format");
+            write_xml_text(fp, meta, @"bafn");
             fprintf(fp, "</identification>\n");
 
             fprintf(fp, "<bibliographic>\n");
 
-            write_xml_text(fp, info, @"title");
-            write_xml_text(fp, info, @"author");
-            write_xml_text(fp, info, @"language");
-            write_xml_text(fp, info, @"headline");
-            write_xml_text(fp, info, @"firstpublished");
-            write_xml_text(fp, info, @"genre");
-            write_xml_text(fp, info, @"group");
-            write_xml_text(fp, info, @"series");
-            write_xml_text(fp, info, @"seriesnumber");
-            write_xml_text(fp, info, @"forgiveness");
-            write_xml_text(fp, info, @"description");
+            write_xml_text(fp, meta, @"title");
+            write_xml_text(fp, meta, @"author");
+            write_xml_text(fp, meta, @"language");
+            write_xml_text(fp, meta, @"headline");
+            write_xml_text(fp, meta, @"firstpublished");
+            write_xml_text(fp, meta, @"genre");
+            write_xml_text(fp, meta, @"group");
+            write_xml_text(fp, meta, @"series");
+            write_xml_text(fp, meta, @"seriesnumber");
+            write_xml_text(fp, meta, @"forgiveness");
+            write_xml_text(fp, meta, @"blurb");
 
             fprintf(fp, "</bibliographic>\n");
             fprintf(fp, "</story>\n\n");
-        }
     }
 
     fprintf(fp, "</ifindex>\n");
@@ -1499,8 +1582,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
     game = [self importGame: path inContext:_managedObjectContext reportFailure: YES];
     if (game)
     {
-        [self deselectGames];
-        [self selectGameWithIfid:game.metadata.ifid];
+        [self selectGames:@[game]];
         [self playGame: game];
     }
 }
@@ -1628,8 +1710,8 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
         metadata.ifid = ifid;
     if (!metadata.title)
     {
-        metadata.title = path.lastPathComponent;
-//        [self downloadMetadataForIFID:ifid inContext:context];
+        metadata.title = [path.lastPathComponent stringByDeletingPathExtension];
+//      [self downloadMetadataForIFID:ifid inContext:context];
     }
 
     if (!metadata.cover)
@@ -1693,7 +1775,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
         }];
 
     } else {
-		NSLog(@"libctl: addFile: Error: File %@ not added!", url.path);
+		NSLog(@"libctl: addFile: File %@ not added!", url.path);
 	}
 }
 
@@ -1749,10 +1831,7 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
 
     [_managedObjectContext performBlock:^{
         [_coreDataManager saveChanges];
-        [weakSelf deselectGames];
-        NSInteger count = select.count;
-        for (NSInteger i = 0; i < count; i++)
-            [weakSelf selectGameWithIfid:[select objectAtIndex:i]];
+        [weakSelf selectGamesWithIfids:select scroll:YES];
     }];
 }
 
@@ -1789,25 +1868,52 @@ static void write_xml_text(FILE *fp, NSDictionary *info, NSString *key) {
     }
 }
 
-- (void)deselectGames {
-    [_gameTableView deselectAll:self];
+- (void) selectGamesWithIfids:(NSArray*)ifids scroll:(BOOL)shouldscroll
+{
+    if (ifids.count) {
+        NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:ifids.count];
+        [self updateTableViews];
+        for (NSString *ifid in ifids) {
+            Metadata *meta = [self fetchMetadataForIFID:ifid inContext:_managedObjectContext];
+            if (meta && meta.game) {
+                [newSelection addObject:meta.game];
+                NSLog(@"Selecting game with ifid %@", ifid);
+            } else NSLog(@"No game with ifid %@ in library, cannot restore selection", ifid);
+        }
+        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+
+        for (Game *game in newSelection) {
+            if ([gameTableModel containsObject:game]) {
+                [indexSet addIndex:[gameTableModel indexOfObject:game]];
+                NSLog(@"Selecting game %@ in table.", game.metadata.title);
+
+            }
+        }
+        [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+        if (shouldscroll && indexSet.count && !currentlyAddingGames)
+            [_gameTableView scrollRowToVisible:indexSet.firstIndex];
+    }
 }
 
-- (void) selectGameWithIfid:(NSString*)ifid
+- (void) selectGames:(NSArray*)games
 {
-    [self updateTableViews];
-    Metadata *meta = [self fetchMetadataForIFID:ifid inContext:_managedObjectContext];
-    if (meta && meta.game) {
-        NSUInteger index = [gameTableModel indexOfObject:meta.game];
-         
-        if (index != NSNotFound) {
-            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
-            [_gameTableView selectRowIndexes:indexSet byExtendingSelection:YES];
-            [_gameTableView scrollRowToVisible:indexSet.firstIndex];
-            return;
+    NSLog(@"selectGames called with %ld games", games.count);
+
+    if (games.count) {
+        
+        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+
+        for (Game *game in games) {
+            if ([gameTableModel containsObject:game]) {
+                [indexSet addIndex:[gameTableModel indexOfObject:game]];
+                NSLog(@"selecting game %@",game.metadata.title);
+            } else NSLog(@"Game %@ not found in gameTableModel",game.metadata.title);
+
         }
+        [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+        if (indexSet.count == 1 && !currentlyAddingGames)
+            [_gameTableView scrollRowToVisible:indexSet.firstIndex];
     }
-    NSLog(@"selectGameWithIfid: game not found in gameTableModel!");
 }
 
 static NSInteger Strcmp(NSString *a, NSString *b)
@@ -1869,7 +1975,7 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
         NSMutableArray *predicateArr = [NSMutableArray arrayWithCapacity:searchcount];
 
         for (NSString *word in searchStrings) {
-            predicate = [NSPredicate predicateWithFormat: @"(metadata.format contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.language contains [c] %@) OR (metadata.yearAsString contains %@)", word, word, word, word, word, word, word, word, word, word, word];
+            predicate = [NSPredicate predicateWithFormat: @"(metadata.format contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.language contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
             [predicateArr addObject:predicate];
         }
 
@@ -1889,9 +1995,9 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
         Metadata *a = aid.metadata;
         Metadata *b = bid.metadata;
         NSInteger cmp;
-        if ([gameSortColumn isEqual:@"firstpublished"])
+        if ([gameSortColumn isEqual:@"firstpublishedDate"])
         {
-            cmp = compareDates(a.firstpublished, b.firstpublished, sortAscending);
+            cmp = compareDates(a.firstpublishedDate, b.firstpublishedDate, sortAscending);
             if (cmp) return cmp;
         }
         else if ([gameSortColumn isEqual:@"added"] || [gameSortColumn isEqual:@"lastPlayed"] || [gameSortColumn isEqual:@"lastModified"])
@@ -1900,14 +2006,14 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
             if (cmp) return cmp;
         }
         else if ([gameSortColumn isEqual:@"found"]) {
-            NSString *string1 = [a.game.found isEqual:@(YES)]?@"A":@"B";
-            NSString *string2 = [b.game.found isEqual:@(YES)]?@"A":@"B";
+            NSString *string1 = [a.game.found isEqual:@(YES)]?nil:@"A";
+            NSString *string2 = [b.game.found isEqual:@(YES)]?nil:@"A";
             cmp = compareStrings(string1, string2, sortAscending);
             if (cmp) return cmp;
         }
-        else if ([gameSortColumn isEqual:@"forgiveness"]) {
-            NSString *string1 = [NSString stringWithFormat:@"%@", a.forgiveness];
-            NSString *string2 = [NSString stringWithFormat:@"%@", b.forgiveness];
+        else if ([gameSortColumn isEqual:@"forgivenessNumeric"]) {
+            NSString *string1 = a.forgivenessNumeric ? [NSString stringWithFormat:@"%@", a.forgivenessNumeric] : nil;
+            NSString *string2 = b.forgivenessNumeric ? [NSString stringWithFormat:@"%@", b.forgivenessNumeric] : nil;
             cmp = compareStrings(string1, string2, sortAscending);
             if (cmp) return cmp;
         }
@@ -1922,7 +2028,7 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
         if (cmp) return cmp;
         cmp = compareGames(a, b, @"seriesnumber", sortAscending);
         if (cmp) return cmp;
-        cmp = compareDates(a.firstpublished, b.firstpublished, sortAscending);
+        cmp = compareDates(a.firstpublishedDate, b.firstpublishedDate, sortAscending);
         if (cmp) return cmp;
         return compareGames(a, b, @"format", sortAscending);
     }];
@@ -1930,19 +2036,8 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
     [gameTableModel sortUsingDescriptors:@[sort]];
     [_gameTableView reloadData];
 
-    NSArray *previouslySelected = selectedGames;
-    if (selectedGames.count)
-        [_gameTableView deselectAll: self];
+    [self selectGames:selectedGames];
 
-    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-
-    for (Game *game in previouslySelected) {
-        if ([gameTableModel containsObject:game]) {
-            [indexSet addIndex:[gameTableModel indexOfObject:game]];
-        }
-    }
-
-    [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
     gameTableDirty = NO;
 }
 
@@ -1958,8 +2053,7 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
         gameTableDirty = YES;
         [self updateTableViews];
         NSIndexSet *rows = tableView.selectedRowIndexes;
-        if (rows.count == 1)
-            [_gameTableView scrollRowToVisible:rows.firstIndex];
+        [_gameTableView scrollRowToVisible:rows.firstIndex];
     }
 }
 
@@ -1977,7 +2071,7 @@ objectValueForTableColumn: (NSTableColumn*)column
         Game *game = [gameTableModel objectAtIndex:row];
         Metadata *meta = game.metadata;
         if ([column.identifier isEqual: @"found"])
-            return [game.found isEqual: @(YES)]?@"":@"!";
+            return [game.found isEqual: @(YES)]?nil:@"!";
         if ([column.identifier isEqual: @"added"] || [column.identifier  isEqual: @"lastPlayed"] ||
             [column.identifier  isEqual: @"lastModified"]) {
             return [[game valueForKey: column.identifier] formattedRelativeString];
@@ -2021,14 +2115,25 @@ objectValueForTableColumn: (NSTableColumn*)column
         Metadata *meta = game.metadata;
         NSString *key = tableColumn.identifier;
         NSString *oldval = [meta valueForKey:key];
-		if ([value isKindOfClass:[NSNumber class]] && ![key isEqualToString:@"forgiveness"])
-			value = [[NSString alloc] initWithFormat:@"%@", value];
-        if (oldval == nil && (value == nil || ((NSString*)value).length == 0))
-            return;
+
+        if ([key isEqualToString:@"forgivenessNumeric"] && [value isEqual:@(FORGIVENESS_NONE)])
+            value = nil;
+
+        if (([key isEqualToString:@"starRating"] || [key isEqualToString:@"myRating"]) && [value isEqual:@(0)])
+            value = nil;
+
+		if ([value isKindOfClass:[NSNumber class]] && ![key isEqualToString:@"forgivenessNumeric"]) {
+			value = [NSString stringWithFormat:@"%@", value];
+        }
+
+        if ([value isKindOfClass:[NSString class]] && ((NSString*)value).length == 0)
+            value = nil;
+        
         if ([value isEqualTo: oldval])
             return;
-        
+
         [meta setValue: value forKey: key];
+        meta.userEdited = @(YES);
         game.lastModified = [NSDate date];
         NSLog(@"Set value of %@ to %@", key, value);
     }
@@ -2092,7 +2197,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 	[infoView updateSideViewForMetadata:meta];
 
 	if (meta.ifid && meta != manySelected && meta != noneSelected)
-		_sideIfid.stringValue =meta.ifid;
+		_sideIfid.stringValue=meta.ifid;
 	else
 		_sideIfid.stringValue = @"";
 
@@ -2208,28 +2313,7 @@ canCollapseSubview:(NSView *)subview
         [self searchForGames:_searchField];
     }
     NSArray *selectedIfids = [state decodeObjectForKey:@"selectedGames"];
-    if (selectedIfids.count) {
-        NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:selectedIfids.count];
-        [self updateTableViews];
-        for (NSString *ifid in selectedIfids) {
-            Metadata *meta = [self fetchMetadataForIFID:ifid inContext:_managedObjectContext];
-            if (meta && meta.game) {
-                [newSelection addObject:meta.game];
-                NSLog(@"Restoring selection of game with ifid %@", ifid);
-            } else NSLog(@"No game with ifid %@ in library, cannot restore selection", ifid);
-        }
-        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-        
-        for (Game *game in newSelection) {
-            if ([gameTableModel containsObject:game]) {
-                [indexSet addIndex:[gameTableModel indexOfObject:game]];
-                NSLog(@"Selecting game %@ in table.", game.metadata.title);
-                
-            }
-        }
-        
-        [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
-    }
+    [self selectGamesWithIfids:selectedIfids scroll:NO];
 
     CGFloat newDividerPos = [state decodeFloatForKey:@"sideviewWidth"];
     

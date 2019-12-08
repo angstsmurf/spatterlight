@@ -21,13 +21,16 @@
 @dynamic coverArtURL;
 @dynamic dateEdited;
 @dynamic firstpublished;
+@dynamic firstpublishedDate;
 @dynamic forgiveness;
+@dynamic forgivenessNumeric;
 @dynamic format;
 @dynamic genre;
 @dynamic group;
 @dynamic headline;
 @dynamic ifid;
 @dynamic language;
+@dynamic languageAsWord;
 @dynamic myRating;
 @dynamic ratingCountTot;
 @dynamic series;
@@ -36,7 +39,7 @@
 @dynamic title;
 @dynamic tuid;
 @dynamic userEdited;
-@dynamic yearAsString;
+@dynamic source;
 @dynamic cover;
 @dynamic game;
 @dynamic tag;
