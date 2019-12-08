@@ -156,14 +156,26 @@
     }];
 
     [privateManagedObjectContext performBlock:^{
+        BOOL result;
         NSError *error;
         if (privateManagedObjectContext.hasChanges) {
-            if (![privateManagedObjectContext save:&error]) {
+            @try {
+                result = [privateManagedObjectContext save:&error];
+            }
+            @catch (NSException *ex) {
+                // Ususally because we have deleted the core data files
+                // while the program is running
+                NSLog(@"Unable to save changes in Private Managed Object Context!");
+                return;
+            }
+
+            if (!result) {
                 NSLog(@"Unable to Save Changes of Private Managed Object Context! Error:%@", error);
                 if (error) {
                     [[NSApplication sharedApplication] presentError:error];
-                }
-            } else NSLog(@"Changes in privateManagedObjectContext were saved");
+                } else NSLog(@"Changes in privateManagedObjectContext were saved");
+            }
+
         } else NSLog(@"No changes to save in privateManagedObjectContext");
     }];
 }

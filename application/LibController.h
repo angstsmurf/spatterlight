@@ -64,12 +64,14 @@
     BOOL currentlyAddingGames;
     BOOL currentlyImportingMetadata;
     BOOL currentlyDownloadingMedata;
+    BOOL spinnerSpinning;
 
     /* for the importing */
     NSInteger cursrc;
     NSString *currentIfid;
     NSMutableArray *ifidbuf;
     NSMutableDictionary *metabuf;
+    NSMutableArray *iFictionFiles;
     NSInteger errorflag;
 
     NSManagedObjectContext *importContext;
