@@ -1020,7 +1020,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     currentlyAddingGames = YES;
 
     [private performBlock:^{
-
         // First, we try to load the Metadata.plist and add all entries as Metadata entities
         NSMutableDictionary *metadata = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Metadata.plist"]);
 
