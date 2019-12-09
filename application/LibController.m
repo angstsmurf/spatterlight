@@ -270,34 +270,43 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         for (NSManagedObject *meta in metadataEntries) {
             [_managedObjectContext deleteObject:meta];
         }
-        NSError *saveError = nil;
-        [_managedObjectContext save:&saveError];
-        //more error handling here
+
+        NSFetchRequest *allGames = [[NSFetchRequest alloc] init];
+        [allGames setEntity:[NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext]];
+        [allGames setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+
+        error = nil;
+        NSArray *gameEntries = [_managedObjectContext executeFetchRequest:allGames error:&error];
+        //error handling goes here
+        for (NSManagedObject *game in gameEntries) {
+            [_managedObjectContext deleteObject:game];
+        }
+
+        [_coreDataManager saveChanges];
     }
 }
 
 - (IBAction)purgeLibrary:(id)sender {
     NSInteger choice =
-        NSRunAlertPanel(@"Do you really want to purge the library?",
-                        @"Purging will delete the information about games that "
+        NSRunAlertPanel(@"Do you really want to prune the library?",
+                        @"Pruning will delete the information about games that "
                         @"are not in the library at the moment.",
-                        @"Purge", NULL, @"Cancel");
+                        @"Prune", NULL, @"Cancel");
     if (choice != NSAlertOtherReturn) {
 
         if (choice != NSAlertOtherReturn) {
-            NSFetchRequest *allMetadata = [[NSFetchRequest alloc] init];
-            [allMetadata setEntity:[NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:_managedObjectContext]];
-            [allMetadata setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+            NSFetchRequest *orphanedMetadata = [[NSFetchRequest alloc] init];
+            [orphanedMetadata setEntity:[NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:_managedObjectContext]];
+
+            orphanedMetadata.predicate = [NSPredicate predicateWithFormat: @"(game == nil)"];
 
             NSError *error = nil;
-            NSArray *metadataEntries = [_managedObjectContext executeFetchRequest:allMetadata error:&error];
+            NSArray *metadataEntriesToDelete = [_managedObjectContext executeFetchRequest:orphanedMetadata error:&error];
             //error handling goes here
-            for (NSManagedObject *meta in metadataEntries) {
+            for (NSManagedObject *meta in metadataEntriesToDelete) {
                 [_managedObjectContext deleteObject:meta];
             }
-            NSError *saveError = nil;
-            [_managedObjectContext save:&saveError];
-            //more error handling here
+            [_coreDataManager saveChanges];
         }
     }
 }
