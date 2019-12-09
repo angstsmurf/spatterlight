@@ -114,7 +114,6 @@
 - (void)showInfoForGame:(Game *)game;
 
 - (IBAction)toggleColumn:(id)sender;
-- (void)deselectGames;
 - (void)updateTableViews; /* must call this after -importGame: */
 - (void)updateSideViewForce:(BOOL)force;
 

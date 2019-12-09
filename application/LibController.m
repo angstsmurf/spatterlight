@@ -95,7 +95,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     }
 
     [super textDidEndEditing:notification];
-    [(LibController *)self.delegate updateSideViewForce:YES];
 }
 
 @end
@@ -546,7 +545,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
              i = [rows indexGreaterThanIndex:i]) {
             game = [gameTableModel objectAtIndex:i];
             NSLog(@"libctl: delete game %@", game.metadata.title);
-            [self.managedObjectContext deleteObject:game];
+            [_managedObjectContext deleteObject:game];
         }
     }
 }
@@ -609,19 +608,17 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                 [[NSApplication sharedApplication] presentError:error];
                             }
                         }
+                        
+                        NSManagedObjectID *objID = game.objectID;
+
+                        [_managedObjectContext performBlock:^{
+                            Game *updatedGame = (Game *)[_managedObjectContext objectWithID:objID];
+                            [_managedObjectContext refreshObject:updatedGame
+                                                    mergeChanges:YES];
+                        }];
+
                     }
 
-                    NSManagedObjectID *objID = game.objectID;
-
-                    [_managedObjectContext performBlock:^{
-                        [_coreDataManager saveChanges];
-                        [_managedObjectContext refreshObject:[_managedObjectContext objectWithID:objID]
-                                                 mergeChanges:YES];
-                        NSIndexSet *rows = _gameTableView.selectedRowIndexes;
-                        if (rows.count == 1 && [gameTableModel objectAtIndex:[rows firstIndex]] == game) {
-                            [weakSelf updateSideViewForce:YES];
-                        }
-                    }];
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -709,7 +706,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 			if (img)
 			{
 				[self addImage: img toMetadata:game.metadata inContext:_managedObjectContext];
-				[self updateSideViewForce:YES];
 			}
             
 		}
@@ -1349,8 +1345,6 @@ static void handleXMLError(char *msg, void *ctx)
         [_managedObjectContext refreshObject:game.metadata
                                 mergeChanges:YES];
     }
-
-    [self updateSideViewForce:YES];
     return YES;
 }
 
@@ -1920,13 +1914,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakSelf selectGamesWithIfids:select scroll:NO];
         for (NSString *path in iFictionFiles) {
             [weakSelf importMetadataFromFile:path];
         }
         iFictionFiles = nil;
-
-
+        [_coreDataManager saveChanges];
+        [weakSelf selectGamesWithIfids:select scroll:NO];
     });
     
 //    [_managedObjectContext performBlock:^{
@@ -2262,10 +2255,17 @@ objectValueForTableColumn: (NSTableColumn*)column
     [_coreDataManager saveChanges];
 }
 
-- (void)noteManagedObjectContextDidChange:(id)sender {
+- (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
     NSLog(@"noteManagedObjectContextDidChange");
     gameTableDirty = YES;
     [self updateTableViews];
+    NSArray *updatedObjects = [notification.userInfo objectForKey:NSUpdatedObjectsKey];
+    if ([updatedObjects containsObject:currentSideView])
+    {
+        NSLog(@"Game currently on display in side view (%@) did change", currentSideView.title);
+
+        [self updateSideViewForce:YES];
+    }
 }
 
 - (void) updateSideViewForce:(BOOL)force
