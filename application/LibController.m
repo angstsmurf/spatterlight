@@ -399,6 +399,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
 - (void)addInBackground:(NSArray *)files {
 
+    if (currentlyAddingGames)
+        return;
+
     LibController * __unsafe_unretained weakSelf = self;
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     
@@ -593,7 +596,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                                      name:NSManagedObjectContextObjectsDidChangeNotification
                                                    object:childContext];
 
-        currentlyDownloadingMedata = YES;
+        currentlyAddingGames = YES;
+        _addButton.enabled = NO;
 
         [childContext performBlock:^{
 
@@ -622,7 +626,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                currentlyDownloadingMedata = NO;
+                currentlyAddingGames = NO;
+                _addButton.enabled = YES;
             });
 
             [weakSelf endImporting];
@@ -731,10 +736,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     }
 
     if (action == @selector(addGamesToLibrary:))
-        return !currentlyAddingGames;
+        return !(currentlyAddingGames);
+
+    if (action == @selector(importMetadata:))
+         return !(currentlyAddingGames);
 
     if (action == @selector(download:))
-        return !currentlyDownloadingMedata;
+        return !(currentlyAddingGames);
 
     if (action == @selector(delete:))
         return count > 0;
@@ -743,7 +751,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         return count > 0;
 
     if (action == @selector(revealGameInFinder:))
-        return count > 0;
+        return count > 0 && count < 10;
 
     if (action == @selector(showGameInfo:))
         return count > 0;
@@ -774,6 +782,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     NSFileManager *mgr = [NSFileManager defaultManager];
     BOOL isdir;
     NSInteger i;
+
+    if (currentlyAddingGames)
+        return NSDragOperationNone;
 
     NSPasteboard *pboard = [sender draggingPasteboard];
     if ([pboard.types containsObject:NSFilenamesPboardType]) {
@@ -1124,6 +1135,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                             }
                         }
                     }
+                    babel_release();
                 }  else NSLog(@"Found cover image file for %@ at %@!", meta.title, imgpath.path);
 
                 if (imgdata)
@@ -1326,6 +1338,9 @@ static void handleXMLError(char *msg, void *ctx)
 - (BOOL)importMetadataFromFile:(NSString *)filename {
     NSLog(@"libctl: importMetadataFromFile %@", filename);
 
+    if (currentlyAddingGames)
+        return NO;
+
     NSMutableData *data;
 
     data = [NSMutableData dataWithContentsOfFile:filename];
@@ -1350,6 +1365,9 @@ static void handleXMLError(char *msg, void *ctx)
 
 - (BOOL)downloadMetadataForIFID:(NSString*)ifid inContext:context {
     NSLog(@"libctl: downloadMetadataForIFID %@", ifid);
+
+    if (!ifid)
+        return NO;
 
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
 
@@ -1913,23 +1931,23 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         }
     }
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        for (NSString *path in iFictionFiles) {
-            [weakSelf importMetadataFromFile:path];
-        }
-        iFictionFiles = nil;
-        [_coreDataManager saveChanges];
-        [weakSelf selectGamesWithIfids:select scroll:NO];
-    });
-    
-//    [_managedObjectContext performBlock:^{
-//        [_coreDataManager saveChanges];
-//        [weakSelf selectGamesWithIfids:select scroll:NO];
+//    dispatch_async(dispatch_get_main_queue(), ^{
 //        for (NSString *path in iFictionFiles) {
 //            [weakSelf importMetadataFromFile:path];
 //        }
 //        iFictionFiles = nil;
-//    }];
+//        [_coreDataManager saveChanges];
+//        [weakSelf selectGamesWithIfids:select scroll:NO];
+//    });
+
+    [_managedObjectContext performBlock:^{
+        [_coreDataManager saveChanges];
+        [weakSelf selectGamesWithIfids:select scroll:NO];
+        for (NSString *path in iFictionFiles) {
+            [weakSelf importMetadataFromFile:path];
+        }
+        iFictionFiles = nil;
+    }];
 }
 
 #pragma mark -
@@ -1987,7 +2005,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             }
         }
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:YES];
-        if (shouldscroll && indexSet.count && !currentlyAddingGames && !currentlyDownloadingMedata)
+        if (shouldscroll && indexSet.count && !currentlyAddingGames)
             [_gameTableView scrollRowToVisible:indexSet.firstIndex];
     }
 }
@@ -2008,7 +2026,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
         }
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
-        if (indexSet.count == 1 && !currentlyAddingGames && !currentlyDownloadingMedata)
+        if (indexSet.count == 1 && !currentlyAddingGames)
             [_gameTableView scrollRowToVisible:indexSet.firstIndex];
     }
 }
