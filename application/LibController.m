@@ -341,12 +341,12 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                   completionHandler:^(NSInteger result) {
                       if (result == NSFileHandlingPanelOKButton) {
                           NSURL *url = panel.URL;
-                          [_managedObjectContext performBlock:^{
+//                          [_managedObjectContext performBlock:^{
                               [weakSelf beginImporting];
                               [weakSelf importMetadataFromFile:url.path];
                               [_coreDataManager saveChanges];
                               [weakSelf endImporting];
-                          }];
+//                          }];
                       }
                   }];
 }
@@ -402,6 +402,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     LibController * __unsafe_unretained weakSelf = self;
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(backgroundManagedObjectContextDidSave:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:childContext];
 
     [self beginImporting];
     
@@ -584,6 +589,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         LibController * __unsafe_unretained weakSelf = self;
         NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
 
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(backgroundManagedObjectContextDidSave:)
+                                                     name:NSManagedObjectContextObjectsDidChangeNotification
+                                                   object:childContext];
+
         currentlyDownloadingMedata = YES;
 
         [childContext performBlock:^{
@@ -601,9 +611,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                         }
                     }
 
+                    NSManagedObjectID *objID = game.objectID;
+
                     [_managedObjectContext performBlock:^{
                         [_coreDataManager saveChanges];
-                        [_managedObjectContext refreshObject:game
+                        [_managedObjectContext refreshObject:[_managedObjectContext objectWithID:objID]
                                                  mergeChanges:YES];
                         NSIndexSet *rows = _gameTableView.selectedRowIndexes;
                         if (rows.count == 1 && [gameTableModel objectAtIndex:[rows firstIndex]] == game) {
@@ -1016,6 +1028,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(backgroundManagedObjectContextDidSave:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:private];
+
     NSError *error;
     NSURL *appSuppDir = [[NSFileManager defaultManager]
                URLForDirectory:NSApplicationSupportDirectory
@@ -1044,6 +1061,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         // Second, we try to load the Games.plist and add all entries as Game entities
         NSMutableDictionary *games = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Games.plist"]);
 
+        NSDate *timestamp = [NSDate date];
+        
         enumerator = [games keyEnumerator];
         while ((ifid = [enumerator nextObject]))
         {
@@ -1115,9 +1134,22 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                     [weakSelf addImage:imgdata toMetadata:game.metadata inContext:private];
 
             } else NSLog (@"Error! Could not create Game entity for game with ifid %@ and path %@", ifid, [games valueForKey:ifid]);
+
+            if ([timestamp timeIntervalSinceNow] < -0.5) {
+                NSError *error = nil;
+                if (private.hasChanges) {
+                    if (![private save:&error]) {
+                        NSLog(@"Unable to Save Changes of private managed object context!");
+                        if (error) {
+                            [[NSApplication sharedApplication] presentError:error];
+                        }
+                    } else NSLog(@"Changes in private were saved");
+                } else NSLog(@"No changes to save in private");
+                timestamp = [NSDate date];
+            }
         }
 
-        [private performBlockAndWait:^{
+//        [private performBlockAndWait:^{
             NSError *error = nil;
             if (private.hasChanges) {
                 if (![private save:&error]) {
@@ -1127,14 +1159,15 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                     }
                 } else NSLog(@"Changes in private were saved");
             } else NSLog(@"No changes to save in private");
-        }];
+//        }];
 
-        [_managedObjectContext performBlock:^{
-            [_coreDataManager saveChanges];
-            [weakSelf endImporting];
-        }];
+//        [_managedObjectContext performBlock:^{
+//            [_coreDataManager saveChanges];
+//            [weakSelf endImporting];
+//        }];
 
         dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf endImporting];
             _addButton.enabled = YES;
             currentlyAddingGames = NO;
         });
@@ -1798,18 +1831,18 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         [self beginImporting];
         [select addObject: meta.ifid];
 
-        NSError *error = nil;
-        if (context.hasChanges) {
-            if (![context save:&error]) {
-                if (error) {
-                    [[NSApplication sharedApplication] presentError:error];
-                }
-            }
-        }
-
-        [_managedObjectContext performBlock:^{
-            [_coreDataManager saveChanges];
-        }];
+//        NSError *error = nil;
+//        if (context.hasChanges) {
+//            if (![context save:&error]) {
+//                if (error) {
+//                    [[NSApplication sharedApplication] presentError:error];
+//                }
+//            }
+//        }
+//
+//        [_managedObjectContext performBlock:^{
+//            [_coreDataManager saveChanges];
+//        }];
 
     } else {
 		NSLog(@"libctl: addFile: File %@ not added!", url.path);
@@ -1822,6 +1855,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSInteger count;
     NSInteger i;
 
+    NSDate *timestamp = [NSDate date];
+    
     count = urls.count;
     for (i = 0; i < count; i++)
     {
@@ -1842,13 +1877,31 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         {
             [self addFile:[urls objectAtIndex:i] select: select inContext:context];
         }
+
+        if ([timestamp timeIntervalSinceNow] < -0.5) {
+
+            NSError *error = nil;
+            if (context.hasChanges) {
+                if (![context save:&error]) {
+                    if (error) {
+                        [[NSApplication sharedApplication] presentError:error];
+                    }
+                }
+            }
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self selectGamesWithIfids:select scroll:NO];
+//            });
+            timestamp = [NSDate date];
+        }
+
     }
 }
 
 - (void) addFiles: (NSArray*)urls inContext:(NSManagedObjectContext *)context {
 
-    NSLog(@"libctl: adding %lu files", (unsigned long)urls.count);
+    NSLog(@"libctl: adding %lu files. First: %@", (unsigned long)urls.count, ((NSURL *)[urls objectAtIndex:0]).path);
 
+    
     NSMutableArray *select = [NSMutableArray arrayWithCapacity: urls.count];
 
     LibController * __unsafe_unretained weakSelf = self;
@@ -1866,14 +1919,24 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         }
     }
 
-    [_managedObjectContext performBlock:^{
-        [_coreDataManager saveChanges];
+    dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf selectGamesWithIfids:select scroll:NO];
         for (NSString *path in iFictionFiles) {
             [weakSelf importMetadataFromFile:path];
         }
         iFictionFiles = nil;
-    }];
+
+
+    });
+    
+//    [_managedObjectContext performBlock:^{
+//        [_coreDataManager saveChanges];
+//        [weakSelf selectGamesWithIfids:select scroll:NO];
+//        for (NSString *path in iFictionFiles) {
+//            [weakSelf importMetadataFromFile:path];
+//        }
+//        iFictionFiles = nil;
+//    }];
 }
 
 #pragma mark -
@@ -1913,7 +1976,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 {
     if (ifids.count) {
         NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:ifids.count];
-        [self updateTableViews];
+//        [self updateTableViews];
         for (NSString *ifid in ifids) {
             Metadata *meta = [self fetchMetadataForIFID:ifid inContext:_managedObjectContext];
             if (meta && meta.game) {
@@ -1930,7 +1993,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
             }
         }
-        [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+        [_gameTableView selectRowIndexes:indexSet byExtendingSelection:YES];
         if (shouldscroll && indexSet.count && !currentlyAddingGames && !currentlyDownloadingMedata)
             [_gameTableView scrollRowToVisible:indexSet.firstIndex];
     }
@@ -2194,6 +2257,11 @@ objectValueForTableColumn: (NSTableColumn*)column
     }
 }
 
+- (void)backgroundManagedObjectContextDidSave:(id)sender {
+    NSLog(@"backgroundManagedObjectContextDidSave");
+    [_coreDataManager saveChanges];
+}
+
 - (void)noteManagedObjectContextDidChange:(id)sender {
     NSLog(@"noteManagedObjectContextDidChange");
     gameTableDirty = YES;
@@ -2354,6 +2422,7 @@ canCollapseSubview:(NSView *)subview
         [self searchForGames:_searchField];
     }
     NSArray *selectedIfids = [state decodeObjectForKey:@"selectedGames"];
+    [self updateTableViews];
     [self selectGamesWithIfids:selectedIfids scroll:NO];
 
     CGFloat newDividerPos = [state decodeFloatForKey:@"sideviewWidth"];
