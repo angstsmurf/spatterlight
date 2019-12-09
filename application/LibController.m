@@ -238,8 +238,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                                object:_managedObjectContext];
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
-    gameTableModel = [[self fetchObjects:@"Game"] mutableCopy];
-    if ([self fetchObjects:@"Metadata"].count <= 2 || gameTableModel.count == 0)
+    gameTableModel = [[self fetchObjects:@"Game" inContext:_managedObjectContext] mutableCopy];
+    NSArray *allMetadata = [self fetchObjects:@"Metadata" inContext:_managedObjectContext];
+    if (allMetadata.count <= 2 || gameTableModel.count == 0)
     {
         [self convertLibraryToCoreData];
     }
@@ -981,10 +982,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     }
 
     return [fetchedObjects objectAtIndex:0];
-}
-
-- (NSArray *) fetchObjects:(NSString *)entityName {
-    return [self fetchObjects:entityName inContext:_managedObjectContext];
 }
 
 - (NSArray *) fetchObjects:(NSString *)entityName inContext:(NSManagedObjectContext *)context {
