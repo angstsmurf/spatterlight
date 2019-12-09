@@ -1114,23 +1114,25 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 if (imgdata)
                     [weakSelf addImage:imgdata toMetadata:game.metadata inContext:private];
 
-                NSError *error = nil;
-                if (private.hasChanges) {
-                    if (![private save:&error]) {
-                        NSLog(@"Unable to Save Changes of private managed object context!");
-                        if (error) {
-                            [[NSApplication sharedApplication] presentError:error];
-                        }
-                    } else NSLog(@"Changes in private were saved");
-                } else {
-                    NSLog(@"No changes to save in private");
-                }
-
-                [_managedObjectContext performBlock:^{
-                    [_coreDataManager saveChanges];
-                }];
             } else NSLog (@"Error! Could not create Game entity for game with ifid %@ and path %@", ifid, [games valueForKey:ifid]);
         }
+
+        [private performBlockAndWait:^{
+            NSError *error = nil;
+            if (private.hasChanges) {
+                if (![private save:&error]) {
+                    NSLog(@"Unable to Save Changes of private managed object context!");
+                    if (error) {
+                        [[NSApplication sharedApplication] presentError:error];
+                    }
+                } else NSLog(@"Changes in private were saved");
+            } else NSLog(@"No changes to save in private");
+        }];
+
+        [_managedObjectContext performBlock:^{
+            [_coreDataManager saveChanges];
+            [weakSelf endImporting];
+        }];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             _addButton.enabled = YES;
@@ -1138,7 +1140,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         });
         
         cursrc = 0;
-        [weakSelf endImporting];
     }];
 }
 
