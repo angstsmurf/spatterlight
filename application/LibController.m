@@ -1144,30 +1144,23 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 timestamp = [NSDate date];
             }
         }
-
-//        [private performBlockAndWait:^{
-            NSError *error = nil;
-            if (private.hasChanges) {
-                if (![private save:&error]) {
-                    NSLog(@"Unable to Save Changes of private managed object context!");
-                    if (error) {
-                        [[NSApplication sharedApplication] presentError:error];
-                    }
-                } else NSLog(@"Changes in private were saved");
-            } else NSLog(@"No changes to save in private");
-//        }];
-
-//        [_managedObjectContext performBlock:^{
-//            [_coreDataManager saveChanges];
-//            [weakSelf endImporting];
-//        }];
+        
+        NSError *error = nil;
+        if (private.hasChanges) {
+            if (![private save:&error]) {
+                NSLog(@"Unable to Save Changes of private managed object context!");
+                if (error) {
+                    [[NSApplication sharedApplication] presentError:error];
+                }
+            } else NSLog(@"Changes in private were saved");
+        } else NSLog(@"No changes to save in private");
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf endImporting];
             _addButton.enabled = YES;
             currentlyAddingGames = NO;
         });
-        
+
         cursrc = 0;
     }];
 }
