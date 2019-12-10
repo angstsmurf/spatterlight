@@ -17,8 +17,6 @@
 
 @interface SideInfoView : NSView <NSTextFieldDelegate> //, NSControlTextEditingDelegate>
 {
-	
-
 	NSTextField *titleField;
 	NSTextField *headlineField;
 	NSTextField *authorField;
@@ -29,7 +27,11 @@
 
 //@property (weak) LibController *libctl;
 @property (weak) Metadata *metadata;
+@property (weak) NSString *string;
 
-- (void) updateSideViewForMetadata:(Metadata *)somedata;
+
+- (void) updateSideViewWithMetadata:(Metadata *)somedata;
+
+- (void) updateSideViewWithString:(NSString *)string;
 
 @end

@@ -210,25 +210,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         return;
     }
 
-    noneSelected = [self fetchMetadataForIFID:@"DUMMYnoneSelected" inContext:_managedObjectContext];
-    if (!noneSelected) {
-        noneSelected = (Metadata *) [NSEntityDescription
-                                     insertNewObjectForEntityForName:@"Metadata"
-                                     inManagedObjectContext:_managedObjectContext];
-        noneSelected.ifid = @"DUMMYnoneSelected";
-        noneSelected.title = @"No game selected";
-    }
-
-    manySelected = [self fetchMetadataForIFID:@"DUMMYmanySelected" inContext:_managedObjectContext];
-
-    if (!manySelected) {
-        manySelected = (Metadata *) [NSEntityDescription
-                                     insertNewObjectForEntityForName:@"Metadata"
-                                     inManagedObjectContext:_managedObjectContext];
-        manySelected.ifid = @"DUMMYmanySelected";
-        manySelected.title = @"Multiple games selected";
-    }
-
     [self updateSideViewForce:YES];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -239,7 +220,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     // Add metadata and games from plists to Core Data store if we have just created a new one
     gameTableModel = [[self fetchObjects:@"Game" inContext:_managedObjectContext] mutableCopy];
     NSArray *allMetadata = [self fetchObjects:@"Metadata" inContext:_managedObjectContext];
-    if (allMetadata.count <= 2 || gameTableModel.count == 0)
+
+    if (allMetadata.count == 0 || gameTableModel.count == 0)
     {
         [self convertLibraryToCoreData];
     }
@@ -1517,7 +1499,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             fetchRequest.predicate = [NSPredicate predicateWithFormat: @"(game != nil)"];
             break;
         case X_DATABASE:
-            fetchRequest.predicate = [NSPredicate predicateWithFormat: @"NOT (ifid BEGINSWITH 'DUMMY')"];
+            // No fetchRequest - we want all of them
             break;
         default:
             NSLog(@"exportMetadataToFile: Unhandled switch case!");
@@ -2294,7 +2276,8 @@ objectValueForTableColumn: (NSTableColumn*)column
 
 - (void) updateSideViewForce:(BOOL)force
 {
-    Metadata *meta;
+    Metadata *meta = nil;
+    NSString *string = nil;
 
 	if ([_splitView isSubviewCollapsed:_leftView])
 	{
@@ -2303,13 +2286,10 @@ objectValueForTableColumn: (NSTableColumn*)column
 	}
 
     if (!selectedGames || !selectedGames.count || selectedGames.count > 1) {
-        meta = (selectedGames.count > 1) ? manySelected : noneSelected;
-    }  else meta = ((Game *)[selectedGames objectAtIndex:0]).metadata;
 
-    if (!meta) {
-        NSLog(@"updateSideView: Meta null? Something is broken");
-        return;
-    }
+        string = (selectedGames.count > 1) ? @"Multiple selections" : @"No selection";
+
+    } else meta = ((Game *)[selectedGames objectAtIndex:0]).metadata;
 
     if (force == NO && meta == currentSideView) {
         NSLog(@"updateSideView: %@ is already shown and force is NO", meta.title);
@@ -2327,17 +2307,16 @@ objectValueForTableColumn: (NSTableColumn*)column
     
 	_leftScrollView.documentView = infoView;
 
+    _sideIfid.stringValue = @"";
+
     if (meta) {
 
         [infoView updateSideViewWithMetadata:meta];
 
         if (meta.ifid)
             _sideIfid.stringValue=meta.ifid;
-        else
-            _sideIfid.stringValue = @"";
     } else if (string) {
         [infoView updateSideViewWithString:string];
-        _sideIfid.stringValue = @"";
     }
 
 	_sideIfid.delegate = infoView;

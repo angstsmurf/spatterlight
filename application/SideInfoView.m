@@ -196,7 +196,7 @@
 }
 
 
-- (void) updateSideViewForMetadata:(Metadata *)somedata
+- (void) updateSideViewWithMetadata:(Metadata *)somedata
 {
 	NSLayoutConstraint *xPosConstraint;
 	NSLayoutConstraint *yPosConstraint;
@@ -481,6 +481,171 @@
 	}
 
 	_metadata = somedata;
+}
+
+
+- (void) updateSideViewWithString:(NSString *)aString
+{
+	NSLayoutConstraint *xPosConstraint;
+	NSLayoutConstraint *yPosConstraint;
+	NSLayoutConstraint *widthConstraint;
+	NSLayoutConstraint *heightConstraint;
+
+	NSFont *font;
+	CGFloat spaceBefore;
+	NSView *lastView;
+
+	self.translatesAutoresizingMaskIntoConstraints = NO;
+
+	NSClipView *clipView = (NSClipView *)self.superview;
+	NSScrollView *scrollView = (NSScrollView *)clipView.superview;
+	CGFloat superViewWidth = clipView.frame.size.width;
+
+    if (superViewWidth < 24)
+        return;
+
+	[clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
+														 attribute:NSLayoutAttributeLeft
+														 relatedBy:NSLayoutRelationEqual
+															toItem:clipView
+														 attribute:NSLayoutAttributeLeft
+														multiplier:1.0
+														  constant:0]];
+
+	[clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
+														 attribute:NSLayoutAttributeRight
+														 relatedBy:NSLayoutRelationEqual
+															toItem:clipView
+														 attribute:NSLayoutAttributeRight
+														multiplier:1.0
+														  constant:0]];
+
+	[clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
+														 attribute:NSLayoutAttributeTop
+														 relatedBy:NSLayoutRelationEqual
+															toItem:clipView
+														 attribute:NSLayoutAttributeTop
+														multiplier:1.0
+														  constant:0]];
+
+				
+	if (aString.length)
+	{
+        titleField = [[NSTextField alloc] initWithFrame:NSMakeRect(0,0,clipView.frame.size.width,clipView.frame.size.height)];
+
+		[self addSubview:titleField];
+
+		font = [NSFont fontWithName:@"Playfair Display Black" size:30];
+
+		NSFontDescriptor *descriptor = font.fontDescriptor;
+
+		NSArray *array = @[@{NSFontFeatureTypeIdentifierKey : @(kNumberCaseType),
+                       NSFontFeatureSelectorIdentifierKey : @(kUpperCaseNumbersSelector)}];
+
+		descriptor = [descriptor fontDescriptorByAddingAttributes:@{NSFontFeatureSettingsAttribute : array}];
+
+		if (aString.length > 9)
+		{
+			font = [NSFont fontWithDescriptor:descriptor size:30];
+            //NSLog(@"Long title (length = %lu), smaller text.", agame.metadata.title.length);
+		}
+		else
+		{
+			font = [NSFont fontWithDescriptor:descriptor size:50];
+		}
+
+		NSString *longestWord = @"";
+
+		for (NSString *word in [aString componentsSeparatedByString:@" "])
+		{
+			if (word.length > longestWord.length) longestWord = word;
+		}
+		//NSLog (@"Longest word: %@", longestWord);
+
+		// The magic number -24 means 10 points of margin and two points of textfield border on each side.
+		while ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > superViewWidth - 24)
+		{
+            //            NSLog(@"Font too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
+			font = [[NSFontManager sharedFontManager] convertFont:font toSize:font.pointSize - 2];
+		}
+		//		NSLog(@"Font not too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
+
+		spaceBefore = [@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height * 0.7;
+
+		lastView = [self addSubViewWithtext:aString andFont:font andSpaceBefore:spaceBefore andLastView:nil];
+
+
+        titleField = (NSTextField *)lastView;
+	}
+	else
+	{
+		NSLog(@"Error! No title!");
+		titleField = nil;
+		return;
+	}
+
+	NSBox *divider = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 1)];
+
+	divider.boxType = NSBoxSeparator;
+	divider.translatesAutoresizingMaskIntoConstraints = NO;
+
+	xPosConstraint = [NSLayoutConstraint constraintWithItem:divider
+												  attribute:NSLayoutAttributeLeft
+												  relatedBy:NSLayoutRelationEqual
+													 toItem:self
+												  attribute:NSLayoutAttributeLeft
+												 multiplier:1.0
+												   constant:0];
+
+	yPosConstraint = [NSLayoutConstraint constraintWithItem:divider
+												  attribute:NSLayoutAttributeTop
+												  relatedBy:NSLayoutRelationEqual
+													 toItem:lastView
+												  attribute:NSLayoutAttributeBottom
+												 multiplier:1.0
+												   constant:spaceBefore * 0.9];
+
+	widthConstraint = [NSLayoutConstraint constraintWithItem:divider
+												   attribute:NSLayoutAttributeWidth
+												   relatedBy:NSLayoutRelationEqual
+													  toItem:self
+												   attribute:NSLayoutAttributeWidth
+												  multiplier:1.0
+													constant:0];
+
+	heightConstraint = [NSLayoutConstraint constraintWithItem:divider
+													attribute:NSLayoutAttributeHeight
+													relatedBy:NSLayoutRelationEqual
+													   toItem:nil
+													attribute:NSLayoutAttributeNotAnAttribute
+												   multiplier:1.0
+													 constant:1];
+
+	[self addSubview:divider];
+
+	[self addConstraint:xPosConstraint];
+	[self addConstraint:yPosConstraint];
+	[self addConstraint:widthConstraint];
+	[self addConstraint:heightConstraint];
+
+	lastView = divider;
+
+	NSLayoutConstraint *bottomPinConstraint = [NSLayoutConstraint constraintWithItem:self
+																		   attribute:NSLayoutAttributeBottom
+																		   relatedBy:NSLayoutRelationEqual
+																			  toItem:lastView
+																		   attribute:NSLayoutAttributeBottom
+																		  multiplier:1.0
+																			constant:0];
+	[self addConstraint:bottomPinConstraint];
+    
+	if (![_string isEqualToString:aString])
+	{
+		[clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
+		[scrollView reflectScrolledClipView:clipView];
+	}
+    
+	_string = aString;
 }
 
 @end
