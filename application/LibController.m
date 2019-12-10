@@ -285,7 +285,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     }
 }
 
-- (IBAction)purgeLibrary:(id)sender {
+- (IBAction)pruneLibrary:(id)sender {
     NSInteger choice =
         NSRunAlertPanel(@"Do you really want to prune the library?",
                         @"Pruning will delete the information about games that "
@@ -302,7 +302,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             NSError *error = nil;
             NSArray *metadataEntriesToDelete = [_managedObjectContext executeFetchRequest:orphanedMetadata error:&error];
             //error handling goes here
-            for (NSManagedObject *meta in metadataEntriesToDelete) {
+            NSLog(@"Pruning %ld metadata entities", metadataEntriesToDelete.count);
+            for (Metadata *meta in metadataEntriesToDelete) {
+                NSLog(@"Pruning metadata for %@ with ifid %@", meta.title, meta.ifid)
                 [_managedObjectContext deleteObject:meta];
             }
             [_coreDataManager saveChanges];
@@ -2321,12 +2323,18 @@ objectValueForTableColumn: (NSTableColumn*)column
     
 	_leftScrollView.documentView = infoView;
 
-	[infoView updateSideViewForMetadata:meta];
+    if (meta) {
 
-	if (meta.ifid && meta != manySelected && meta != noneSelected)
-		_sideIfid.stringValue=meta.ifid;
-	else
-		_sideIfid.stringValue = @"";
+        [infoView updateSideViewWithMetadata:meta];
+
+        if (meta.ifid)
+            _sideIfid.stringValue=meta.ifid;
+        else
+            _sideIfid.stringValue = @"";
+    } else if (string) {
+        [infoView updateSideViewWithString:string];
+        _sideIfid.stringValue = @"";
+    }
 
 	_sideIfid.delegate = infoView;
 }

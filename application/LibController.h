@@ -97,6 +97,7 @@
 
 - (IBAction)addGamesToLibrary:(id)sender;
 - (IBAction)deleteLibrary:(id)sender;
+- (IBAction)pruneLibrary:(id)sender;
 
 - (IBAction)importMetadata:(id)sender;
 - (IBAction)exportMetadata:(id)sender;
