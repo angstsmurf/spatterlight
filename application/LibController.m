@@ -422,19 +422,18 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         ![rows containsIndex:_gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
 
-    NSInteger i;
-    for (i = rows.firstIndex; i != NSNotFound;
-         i = [rows indexGreaterThanIndex:i]) {
-        Game *game = [gameTableModel objectAtIndex:i];
-        GlkController *gctl = [_gameSessions objectForKey:game.metadata.ifid];
+    [rows
+     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+         Game *game = [gameTableModel objectAtIndex:idx];
+         GlkController *gctl = [_gameSessions objectForKey:game.metadata.ifid];
 
-        if (gctl) {
-            [gctl reset:sender];
-        } else {
-            gctl = [[GlkController alloc] init];
-            [gctl deleteAutosaveFilesForGame:game];
-        }
-    }
+         if (gctl) {
+             [gctl reset:sender];
+         } else {
+             gctl = [[GlkController alloc] init];
+             [gctl deleteAutosaveFilesForGame:game];
+         }
+     }];
 }
 
 #pragma mark Contextual menu
@@ -524,17 +523,14 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         ![rows containsIndex:_gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
 
-    if (rows.count > 0) {
-        Game *game;
-        NSInteger i;
-
-        for (i = rows.firstIndex; i != NSNotFound;
-             i = [rows indexGreaterThanIndex:i]) {
-            game = [gameTableModel objectAtIndex:i];
-            NSLog(@"libctl: delete game %@", game.metadata.title);
-            [_managedObjectContext deleteObject:game];
-        }
-    }
+    __block Game *game;
+    
+    [rows
+     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+         game = [gameTableModel objectAtIndex:idx];
+//         NSLog(@"libctl: delete game %@", game.metadata.title);
+         [_managedObjectContext deleteObject:game];
+     }];
 }
 
 - (IBAction)delete:(id)sender {
@@ -548,19 +544,15 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     if ((_gameTableView.clickedRow >= 0) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
 
-    if (rows.count > 0)
-    {
-        Game *game;
-        NSInteger i;
-        NSString *urlString;
+    __block Game *game;
+    __block NSString *urlString;
 
-        for (i = rows.firstIndex; i != NSNotFound; i = [rows indexGreaterThanIndex: i])
-        {
-            game = [gameTableModel objectAtIndex:i];
-            urlString = [@"https://ifdb.tads.org/viewgame?id=" stringByAppendingString:game.metadata.tuid];
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: urlString]];
-        }
-    }
+    [rows
+     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+         game = [gameTableModel objectAtIndex:idx];
+         urlString = [@"https://ifdb.tads.org/viewgame?id=" stringByAppendingString:game.metadata.tuid];
+         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: urlString]];
+     }];
 }
 
 - (IBAction) download:(id)sender
