@@ -840,13 +840,17 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
  * and can be exported.
  */
 
-- (void) addMetadata:(NSMutableDictionary*)dict forIFIDs:(NSArray*)list inContext:(NSManagedObjectContext *)context {
+- (void) addMetadata:(NSDictionary*)metadataDictionary forIFIDs:(NSArray*)ifidArray inContext:(NSManagedObjectContext *)context {
     NSInteger count;
     NSInteger i;
     NSDateFormatter *dateFormatter;
     Metadata *entry;
     NSString *keyVal;
     NSString *sub;
+
+    // Make things slightly less thread-unsafe
+    NSDictionary *dict = [metadataDictionary copy];
+    NSArray *list = [ifidArray copy];
 
     NSDictionary *language = @{
                                @"en" : @"English",
