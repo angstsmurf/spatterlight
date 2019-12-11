@@ -202,30 +202,17 @@
 
                 [scanner scanUpToCharactersFromSet:boundaryCharacterSet intoString:&unknownEntity];
 
-
                 [result appendFormat:@"&#%@%@", xForHex, unknownEntity];
 
-                //[scanner scanUpToString:@";" intoString:&unknownEntity];
-                //[result appendFormat:@"&#%@%@;", xForHex, unknownEntity];
                 NSLog(@"Expected numeric character entity but got &#%@%@;", xForHex, unknownEntity);
 
             }
 
-        }
-        else {
+        } else {
             NSString *amp;
 
             [scanner scanString:@"&" intoString:&amp];  //an isolated & symbol
             [result appendString:amp];
-
-            /*
-             NSString *unknownEntity = @"";
-             [scanner scanUpToString:@";" intoString:&unknownEntity];
-             NSString *semicolon = @"";
-             [scanner scanString:@";" intoString:&semicolon];
-             [result appendFormat:@"%@%@", unknownEntity, semicolon];
-             NSLog(@"Unsupported XML character entity %@%@", unknownEntity, semicolon);
-             */
         }
         
     }
