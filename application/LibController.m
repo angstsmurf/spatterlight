@@ -14,6 +14,7 @@
 #import "IFictionMetadata.h"
 #import "IFStory.h"
 #import "IFIdentification.h"
+#import "IfdbDownloader.h"
 #import "main.h"
 
 #ifdef DEBUG
@@ -587,10 +588,10 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         _addButton.enabled = NO;
 
         [childContext performBlock:^{
-
+            IfdbDownloader *downloader = [[IfdbDownloader alloc] initWithContext:childContext];
             for (Game *game in selectedGames) {
                 [weakSelf beginImporting];
-                if ([weakSelf downloadMetadataForIFID: game.metadata.ifid inContext:childContext]) {
+                if ([downloader downloadMetadataForIFID:game.metadata.ifid]) {
 
                     NSError *error = nil;
                     if (childContext.hasChanges) {
@@ -600,13 +601,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                             }
                         }
                         
-                        NSManagedObjectID *objID = game.objectID;
+//                        NSManagedObjectID *objID = game.objectID;
 
-                        [_managedObjectContext performBlock:^{
-                            Game *updatedGame = (Game *)[_managedObjectContext objectWithID:objID];
-                            [_managedObjectContext refreshObject:updatedGame
-                                                    mergeChanges:YES];
-                        }];
+//                        [_managedObjectContext performBlock:^{
+//                            Game *updatedGame = (Game *)[_managedObjectContext objectWithID:objID];
+//                            [_managedObjectContext refreshObject:updatedGame
+//                                                    mergeChanges:YES];
+//                        }];
 
                     }
 
@@ -825,17 +826,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
  * and can be exported.
  */
 
-- (void) addMetadata:(NSDictionary*)metadataDictionary forIFIDs:(NSArray*)ifidArray inContext:(NSManagedObjectContext *)context {
-    NSInteger count;
-    NSInteger i;
+- (void) addMetadata:(NSDictionary*)dict forIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSDateFormatter *dateFormatter;
     Metadata *entry;
     NSString *keyVal;
     NSString *sub;
-
-    // Make things slightly less thread-unsafe
-    NSDictionary *dict = [metadataDictionary copy];
-    NSArray *list = [ifidArray copy];
 
     NSDictionary *language = @{
                                @"en" : @"English",
@@ -844,7 +839,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                @"ru" : @"Russian",
                                @"se" : @"Swedish",
                                @"de" : @"German",
-                               @"zh" : @"Chinesese"
+                               @"zh" : @"Chinese"
                                };
 
     NSDictionary *forgiveness = @{
@@ -856,106 +851,80 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                   @"Merciful" : @(FORGIVENESS_MERCIFUL)
                                   };
 
-    if (cursrc == 0)
-        NSLog(@"libctl: current metadata source failed...");
 
-    /* prune the ifid list if it comes from ifdb */
-    /* until we have a proper fix for downloading many images at once */
-
-    if (cursrc == kIfdb) {
-        if (currentIfid) {
-            for (NSString *str in list)
-                if ([str isEqualToString:currentIfid]) {
-                    list = @[str];
-                    break;
-                }
-        }
-        list = @[[list objectAtIndex:0]];
-    }
-
-    count = list.count;
-
-    for (i = 0; i < count; i++)
+    entry = [self fetchMetadataForIFID:ifid inContext:context];
+    if (!entry)
     {
-        NSString *ifid =[list objectAtIndex:i];
-        entry = [self fetchMetadataForIFID:ifid inContext:context];
-        if (!entry)
-        {
-            entry = (Metadata *) [NSEntityDescription
-                                  insertNewObjectForEntityForName:@"Metadata"
-                                  inManagedObjectContext:context];
-            entry.ifid = ifid;
-            NSLog(@"addMetaData:forIFIDs: Created new Metadata instance with ifid %@", ifid);
-            //dict[kSource] = @((int)cursrc);
-        } // else NSLog(@"addMetaData:forIFIDs: Found existing Metadata instance with ifid %@ and game %@", entry.ifid, entry.title);
-        for(id key in dict)
-        {
-            keyVal = [dict objectForKey:key];
+        entry = (Metadata *) [NSEntityDescription
+                              insertNewObjectForEntityForName:@"Metadata"
+                              inManagedObjectContext:context];
+        entry.ifid = ifid;
+        NSLog(@"addMetaData:forIFIDs: Created new Metadata instance with ifid %@", ifid);
+        //dict[kSource] = @((int)cursrc);
+    } // else NSLog(@"addMetaData:forIFIDs: Found existing Metadata instance with ifid %@ and game %@", entry.ifid, entry.title);
+    for(id key in dict)
+    {
+        keyVal = [dict objectForKey:key];
 
-            if (cursrc == kIfdb)
-			{
-                keyVal = [keyVal stringByDecodingXMLEntities];
-				keyVal = [keyVal stringByReplacingOccurrencesOfString:@"'" withString:@"’"];
-			}
-            if ([(NSString *)key isEqualToString:@"description"])
-			{
-                [entry setValue:keyVal forKey:@"blurb"];
-			}
-            else if ([(NSString *)key isEqualToString:kSource])
-            {
-                if ((int)[dict objectForKey:kSource] == kUser)
-                    entry.userEdited=@(YES);
-                else
-                    entry.userEdited=@(NO);
-            }
-            else if ([(NSString *)key isEqualToString:@"ifid"])
-            {
-                if (entry.ifid == nil)
-                    entry.ifid = [dict objectForKey:@"ifid"];
-            }
-            else if ([(NSString *)key isEqualToString:@"firstpublished"])
-            {
-                if (dateFormatter == nil)
-                    dateFormatter = [[NSDateFormatter alloc] init];
-                if (keyVal.length == 4)
-                    dateFormatter.dateFormat = @"yyyy";
-                else if (keyVal.length == 10)
-                    dateFormatter.dateFormat = @"yyyy-MM-dd";
-                else NSLog(@"Illegal date format!");
-
-                entry.firstpublishedDate = [dateFormatter dateFromString:keyVal];
-                dateFormatter.dateFormat = @"yyyy";
-                entry.firstpublished = [dateFormatter stringFromDate:entry.firstpublishedDate];
-            }
-            else if ([(NSString *)key isEqualToString:@"language"])
-            {
-                sub = [keyVal substringWithRange:NSMakeRange(0, 2)];
-                sub = sub.lowercaseString;
-                if ([language objectForKey:sub])
-                    entry.languageAsWord = [language objectForKey:sub];
-                else
-                    entry.languageAsWord = sub;
-                entry.language = sub;
-            }
-            else if ([(NSString *)key isEqualToString:@"format"])
-            {
-                if (entry.format == nil)
-                    entry.format = [dict objectForKey:@"format"];
-            }
-            else if ([(NSString *)key isEqualToString:@"forgiveness"])
-            {
-                entry.forgiveness = [dict objectForKey:@"forgiveness"];
-                entry.forgivenessNumeric = [forgiveness objectForKey:keyVal];
-            }
+        if (cursrc == kIfdb)
+        {
+            keyVal = [keyVal stringByDecodingXMLEntities];
+            keyVal = [keyVal stringByReplacingOccurrencesOfString:@"'" withString:@"’"];
+        }
+        if ([(NSString *)key isEqualToString:@"description"])
+        {
+            [entry setValue:keyVal forKey:@"blurb"];
+        }
+        else if ([(NSString *)key isEqualToString:kSource])
+        {
+            if ((int)[dict objectForKey:kSource] == kUser)
+                entry.userEdited=@(YES);
             else
-            {
-                [entry setValue:keyVal forKey:key];
-                if ([(NSString *)key isEqualToString:@"coverArtURL"])
-                {
-                    [self downloadImage:entry.coverArtURL for:entry inContext:context];
-                }
-//              NSLog(@"Set key %@ to value %@ in metadata with ifid %@ title %@", key, [dict valueForKey:key], entry.ifid, entry.title)
-            }
+                entry.userEdited=@(NO);
+        }
+        else if ([(NSString *)key isEqualToString:@"ifid"])
+        {
+            if (entry.ifid == nil)
+                entry.ifid = [dict objectForKey:@"ifid"];
+        }
+        else if ([(NSString *)key isEqualToString:@"firstpublished"])
+        {
+            if (dateFormatter == nil)
+                dateFormatter = [[NSDateFormatter alloc] init];
+            if (keyVal.length == 4)
+                dateFormatter.dateFormat = @"yyyy";
+            else if (keyVal.length == 10)
+                dateFormatter.dateFormat = @"yyyy-MM-dd";
+            else NSLog(@"Illegal date format!");
+
+            entry.firstpublishedDate = [dateFormatter dateFromString:keyVal];
+            dateFormatter.dateFormat = @"yyyy";
+            entry.firstpublished = [dateFormatter stringFromDate:entry.firstpublishedDate];
+        }
+        else if ([(NSString *)key isEqualToString:@"language"])
+        {
+            sub = [keyVal substringWithRange:NSMakeRange(0, 2)];
+            sub = sub.lowercaseString;
+            if ([language objectForKey:sub])
+                entry.languageAsWord = [language objectForKey:sub];
+            else
+                entry.languageAsWord = keyVal;
+            entry.language = sub;
+        }
+        else if ([(NSString *)key isEqualToString:@"format"])
+        {
+            if (entry.format == nil)
+                entry.format = [dict objectForKey:@"format"];
+        }
+        else if ([(NSString *)key isEqualToString:@"forgiveness"])
+        {
+            entry.forgiveness = [dict objectForKey:@"forgiveness"];
+            entry.forgivenessNumeric = [forgiveness objectForKey:keyVal];
+        }
+        else
+        {
+            [entry setValue:keyVal forKey:key];
+            //              NSLog(@"Set key %@ to value %@ in metadata with ifid %@ title %@", key, [dict valueForKey:key], entry.ifid, entry.title)
         }
     }
 }
@@ -1049,7 +1018,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         NSEnumerator *enumerator = [metadata keyEnumerator];
         while ((ifid = [enumerator nextObject]))
         {
-            [weakSelf addMetadata:[metadata objectForKey:ifid] forIFIDs:@[ifid] inContext:private];
+            [weakSelf addMetadata:[metadata objectForKey:ifid] forIFID:ifid inContext:private];
         }
 
         // Second, we try to load the Games.plist and add all entries as Game entities
@@ -1106,8 +1075,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 NSURL *imgpath = [NSURL URLWithString:pathstring relativeToURL:appSuppDir];
                 NSData *imgdata = [[NSData alloc] initWithContentsOfURL:imgpath];
 
+                if (imgdata) {
+                    game.metadata.coverArtURL = imgpath.path;
+
                 // If that fails, we try Babel
-                if (!imgdata) {
+                } else {
                     const char *format = babel_init((char *)((NSString *)[games valueForKey:ifid]).UTF8String);
                     if (format) {
                         int imglen = babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
@@ -1119,11 +1091,12 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                 imgdata = [[NSData alloc] initWithBytesNoCopy:imgbuf
                                                                                length:imglen
                                                                          freeWhenDone:YES];
+                                game.metadata.coverArtURL = [games valueForKey:ifid];
                             }
                         }
                     }
                     babel_release();
-                }  else NSLog(@"Found cover image file for %@ at %@!", meta.title, imgpath.path);
+                }
 
                 if (imgdata)
                     [weakSelf addImage:imgdata toMetadata:game.metadata inContext:private];
@@ -1165,9 +1138,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 }
 
 - (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context {
-
-    IFictionMetadata *metadata =
-    [[IFictionMetadata alloc] initWithData:mdbuf andContext:context];
+    IFictionMetadata *metadata = [[IFictionMetadata alloc] initWithData:mdbuf andContext:context];
     if (metadata.stories.count == 0)
         return nil;
     return ((IFStory *)[metadata.stories objectAtIndex:0]).identification.metadata;
@@ -1175,9 +1146,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
 - (BOOL)importMetadataFromFile:(NSString *)filename {
     NSLog(@"libctl: importMetadataFromFile %@", filename);
-
-    if (currentlyAddingGames)
-        return NO;
 
     NSData *data = [NSData dataWithContentsOfFile:filename];
     if (!data)
@@ -1187,77 +1155,15 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     [self importMetadataFromXML:data inContext:_managedObjectContext];
     cursrc = 0;
 
-    [_coreDataManager saveChanges];
+//    [_coreDataManager saveChanges];
 
-    for (Game *game in gameTableModel) {
-        [_managedObjectContext refreshObject:game.metadata
-                                mergeChanges:YES];
-    }
+//    for (Game *game in gameTableModel) {
+//        [_managedObjectContext refreshObject:game.metadata
+//                                mergeChanges:YES];
+//    }
     return YES;
 }
 
-- (BOOL)downloadMetadataForIFID:(NSString*)ifid inContext:context {
-    NSLog(@"libctl: downloadMetadataForIFID %@", ifid);
-
-    if (!ifid)
-        return NO;
-
-    NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
-
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-
-    NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response
-                                                     error:&error];
-    if (error) {
-        if (!data) {
-            NSLog(@"Error connecting: %@", [error localizedDescription]);
-            return NO;
-        }
-    }
-    else
-    {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && data) {
-            cursrc = kIfdb;
-            currentIfid = ifid;
-            NSLog(@"Set currentIfid to %@", currentIfid);
-            [self importMetadataFromXML:data inContext:context];
-            currentIfid = nil;
-            cursrc = 0;
-        } else return NO;
-    }
-    return YES;
-}
-
-- (BOOL) downloadImage:(NSString*)imgurl for:(Metadata *)metadata inContext:(NSManagedObjectContext *)context
-{
-    NSLog(@"libctl: download image from url %@", imgurl);
-
-    NSURL *url = [NSURL URLWithString:imgurl];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-
-    NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response
-                                                     error:&error];
-    if (error) {
-        if (!data) {
-            NSLog(@"Error connecting: %@", [error localizedDescription]);
-            return NO;
-        }
-    }
-    else
-    {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && data) {
-            NSMutableData *mutableData = [data mutableCopy];
-            [self addImage: mutableData toMetadata:metadata inContext:context];
-        } else return NO;
-    }
-    return YES;
-}
 
 - (void) addImage:(NSData *)rawImageData toMetadata:(Metadata *)metadata inContext:(NSManagedObjectContext *)context {
 

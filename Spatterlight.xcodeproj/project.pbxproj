@@ -464,6 +464,7 @@
 		96FE87D309F3A19D00D41D78 /* vmundo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036D909F29EE60083E64E /* vmundo.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		96FE87DA09F3A1D100D41D78 /* libtads2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876009F3A11900D41D78 /* libtads2.a */; };
 		96FE87DB09F3A1D100D41D78 /* libtads3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876509F3A12B00D41D78 /* libtads3.a */; };
+		C300D48423A11786000B2165 /* IfdbDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C300D48323A11786000B2165 /* IfdbDownloader.m */; };
 		C30F8E921ED7153B005E6863 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		C30F8E931ED7153E005E6863 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		C32036B61ED763DC00FF60DF /* audio_convert.c in Sources */ = {isa = PBXBuildFile; fileRef = C32036B21ED763DB00FF60DF /* audio_convert.c */; };
@@ -2323,6 +2324,8 @@
 		96FE867109F38BF600D41D78 /* tadsr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tadsr; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FE876009F3A11900D41D78 /* libtads2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FE876509F3A12B00D41D78 /* libtads3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads3.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C300D48223A11786000B2165 /* IfdbDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfdbDownloader.h; sourceTree = "<group>"; };
+		C300D48323A11786000B2165 /* IfdbDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfdbDownloader.m; sourceTree = "<group>"; };
 		C32036B21ED763DB00FF60DF /* audio_convert.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = audio_convert.c; path = support/sdl_sound/audio_convert.c; sourceTree = "<group>"; };
 		C32036B31ED763DB00FF60DF /* extra_rwops.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = extra_rwops.c; path = support/sdl_sound/extra_rwops.c; sourceTree = "<group>"; };
 		C32036B41ED763DB00FF60DF /* SDL_sound.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = SDL_sound.c; path = support/sdl_sound/SDL_sound.c; sourceTree = "<group>"; };
@@ -2778,6 +2781,8 @@
 				6D7673DB239FFB0900FB24C0 /* IFDB.h */,
 				6D7673DC239FFB0900FB24C0 /* IFDB.m */,
 				6D7673D4239FFB0900FB24C0 /* babel.ifiction */,
+				C300D48223A11786000B2165 /* IfdbDownloader.h */,
+				C300D48323A11786000B2165 /* IfdbDownloader.m */,
 			);
 			name = "IFiction XML parsing";
 			path = "Treaty of Babel";
@@ -5346,6 +5351,7 @@
 				961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */,
 				6DF87CDC218259DB0020E9A1 /* GlkHyperlink.m in Sources */,
 				6D85C897218BD6E10088D849 /* HelpPanelController.m in Sources */,
+				C300D48423A11786000B2165 /* IfdbDownloader.m in Sources */,
 				6D79435A224A2D2E0071EB3D /* NSString+Categories.m in Sources */,
 				6D5C1C0122BC2799009E03F2 /* Spatterlight.xcdatamodeld in Sources */,
 				6DCFFC1D22BCCF600035FA99 /* Font.m in Sources */,
