@@ -61,7 +61,6 @@
     Metadata *currentSideView;
 
     BOOL currentlyAddingGames;
-    BOOL currentlyDownloading;
     BOOL spinnerSpinning;
 
     /* for the importing */

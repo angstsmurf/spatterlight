@@ -575,7 +575,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                                      name:NSManagedObjectContextObjectsDidChangeNotification
                                                    object:childContext];
 
-        currentlyDownloading = YES;
+        currentlyAddingGames = YES;
+        _addButton.enabled = NO;
 
         [childContext performBlock:^{
 
@@ -604,7 +605,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                currentlyDownloading = NO;
+                currentlyAddingGames = NO;
+                _addButton.enabled = YES;
             });
 
             [weakSelf endImporting];
@@ -713,13 +715,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     }
 
     if (action == @selector(addGamesToLibrary:))
-        return !(currentlyAddingGames);
+        return !currentlyAddingGames;
 
     if (action == @selector(importMetadata:))
-         return !(currentlyAddingGames);
+         return !currentlyAddingGames;
 
     if (action == @selector(download:))
-        return !(currentlyDownloading);
+        return !currentlyAddingGames;
 
     if (action == @selector(delete:))
         return count > 0;
