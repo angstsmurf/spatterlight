@@ -4,9 +4,7 @@
 
 #import <CoreData/CoreData.h>
 
-#import "CoreDataManager.h"
-#import "HelpPanelController.h"
-#import "InfoController.h"
+@class HelpPanelController;
 
 @class Preferences;
 

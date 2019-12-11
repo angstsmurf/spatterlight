@@ -1,4 +1,3 @@
-
 @class GlkController;
 @class GlkHyperlink;
 

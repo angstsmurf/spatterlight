@@ -13,9 +13,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "Compatibility.h"
-#import "main.h"
-#import "Game.h"
+@class Game;
 
 #define MAXWIN 64
 #define MAXSND 32

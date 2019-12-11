@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-#import "Font.h"
-
 @class Font, Game;
 
 @interface Settings : NSManagedObject

@@ -1,4 +1,8 @@
 #import "InfoController.h"
+
+#import "Game.h"
+#import "Metadata.h"
+#import "Image.h"
 #import "main.h"
 
 #include "babel_handler.h"

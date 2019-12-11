@@ -5,8 +5,6 @@
 //  Created by Administrator on 2018-09-16.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface GlkHyperlink : NSObject
 
 @property NSUInteger index;

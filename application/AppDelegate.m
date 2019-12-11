@@ -3,6 +3,9 @@
  */
 
 #import "Compatibility.h"
+#import "CoreDataManager.h"
+#import "HelpPanelController.h"
+#import "InfoController.h"
 #import "main.h"
 
 #ifdef DEBUG

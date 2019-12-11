@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-#import "InfoController.h"
-
 @class Interpreter, Metadata, Settings;
 
 @interface Game : NSManagedObject
@@ -31,6 +29,3 @@
 - (void) bookmarkForPath: (NSString *)path;
 
 @end
-
-//@interface UrlToBookmarkTransformer : NSValueTransformer
-//@end

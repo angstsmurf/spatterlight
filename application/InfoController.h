@@ -4,10 +4,10 @@
  * Eventually, this might become the metadata editor.
  */
 
-
 #import <CoreData/CoreData.h>
 
-#import "Metadata.h"
+@class Game;
+@class Metadata;
 
 void showInfoForFile(NSString *path, NSDictionary *info);
 

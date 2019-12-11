@@ -7,6 +7,12 @@
 
 #import "SideInfoView.h"
 
+#import "Game.h"
+#import "Metadata.h"
+#import "Image.h"
+#import "LibController.h"
+#import "AppDelegate.h"
+
 @implementation SideInfoView
 
 //- (instancetype) initWithFrame:(NSRect)frameRect

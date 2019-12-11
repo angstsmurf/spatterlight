@@ -2,6 +2,14 @@
  *
  */
 
+#import "Game.h"
+#import "Image.h"
+#import "Metadata.h"
+#import "Settings.h"
+#import "SideInfoView.h"
+#import "NSString+Categories.h"
+#import "NSDate+relative.h"
+#import "CoreDataManager.h"
 #import "InfoController.h"
 #import "IFictionMetadata.h"
 #import "IFStory.h"

@@ -1,5 +1,9 @@
 #import "InfoController.h"
 #import "NSString+Categories.h"
+#import "Metadata.h"
+#import "Compatibility.h"
+#import "Game.h"
+
 #import "main.h"
 
 #include <sys/time.h>

@@ -8,11 +8,7 @@
 #import <Cocoa/Cocoa.h>
 #import <CoreData/CoreData.h>
 
-#import "Game.h"
-#import "Image.h"
-#import "LibController.h"
-#import "AppDelegate.h"
-
+@class Metadata;
 @class Preferences;
 
 @interface SideInfoView : NSView <NSTextFieldDelegate> //, NSControlTextEditingDelegate>
