@@ -24,7 +24,6 @@
 #import "NSDate+relative.h"
 #import "CoreDataManager.h"
 
-
 @interface LibHelperWindow : NSWindow <NSDraggingDestination>
 @end
 
@@ -62,6 +61,7 @@
     Metadata *currentSideView;
 
     BOOL currentlyAddingGames;
+    BOOL currentlyDownloading;
     BOOL spinnerSpinning;
 
     /* for the importing */

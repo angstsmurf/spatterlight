@@ -50,6 +50,11 @@
 		6D73052122BFA9EB00DFC73C /* NSDate+relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */; };
 		6D73E55721873509009CD59A /* LibraryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D73E55621873509009CD59A /* LibraryWindow.xib */; };
 		6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D76353522C4F113000873F3 /* CoreDataManager.m */; };
+		6D7673E8239FFC6C00FB24C0 /* IFBibliographic.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673D8239FFB0900FB24C0 /* IFBibliographic.m */; };
+		6D7673EA239FFC6C00FB24C0 /* IFDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673DC239FFB0900FB24C0 /* IFDB.m */; };
+		6D7673EC239FFC6C00FB24C0 /* IFictionMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673E0239FFB0900FB24C0 /* IFictionMetadata.m */; };
+		6D7673ED239FFC6C00FB24C0 /* IFIdentification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673E2239FFB0900FB24C0 /* IFIdentification.m */; };
+		6D7673EE239FFC6C00FB24C0 /* IFStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673E4239FFB0900FB24C0 /* IFStory.m */; };
 		6D76780022B17AB200C80DDE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D7677FE22B1430700C80DDE /* QuartzCore.framework */; };
 		6D7778CA22C172B5003694C8 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7778C922C172B5003694C8 /* Image.m */; };
 		6D7778CD22C172F9003694C8 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7778CC22C172F9003694C8 /* Metadata.m */; };
@@ -1061,6 +1066,17 @@
 		6D73E55621873509009CD59A /* LibraryWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LibraryWindow.xib; sourceTree = "<group>"; };
 		6D76353422C4F113000873F3 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = ../application/CoreDataManager.h; sourceTree = "<group>"; };
 		6D76353522C4F113000873F3 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = ../application/CoreDataManager.m; sourceTree = "<group>"; };
+		6D7673D4239FFB0900FB24C0 /* babel.ifiction */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = babel.ifiction; sourceTree = "<group>"; };
+		6D7673D7239FFB0900FB24C0 /* IFBibliographic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFBibliographic.h; sourceTree = "<group>"; };
+		6D7673D8239FFB0900FB24C0 /* IFBibliographic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFBibliographic.m; sourceTree = "<group>"; };
+		6D7673DB239FFB0900FB24C0 /* IFDB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFDB.h; sourceTree = "<group>"; };
+		6D7673DC239FFB0900FB24C0 /* IFDB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFDB.m; sourceTree = "<group>"; };
+		6D7673DF239FFB0900FB24C0 /* IFictionMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFictionMetadata.h; sourceTree = "<group>"; };
+		6D7673E0239FFB0900FB24C0 /* IFictionMetadata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFictionMetadata.m; sourceTree = "<group>"; };
+		6D7673E1239FFB0900FB24C0 /* IFIdentification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFIdentification.h; sourceTree = "<group>"; };
+		6D7673E2239FFB0900FB24C0 /* IFIdentification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFIdentification.m; sourceTree = "<group>"; };
+		6D7673E3239FFB0900FB24C0 /* IFStory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFStory.h; sourceTree = "<group>"; };
+		6D7673E4239FFB0900FB24C0 /* IFStory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFStory.m; sourceTree = "<group>"; };
 		6D7677FE22B1430700C80DDE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		6D7778C822C172B5003694C8 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = coredata/Image.h; sourceTree = SOURCE_ROOT; };
 		6D7778C922C172B5003694C8 /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Image.m; path = coredata/Image.m; sourceTree = SOURCE_ROOT; };
@@ -2748,6 +2764,25 @@
 			path = fizmo/libfizmo/src/locales;
 			sourceTree = "<group>";
 		};
+		6D7673D3239FFB0900FB24C0 /* IFiction XML parsing */ = {
+			isa = PBXGroup;
+			children = (
+				6D7673DF239FFB0900FB24C0 /* IFictionMetadata.h */,
+				6D7673E0239FFB0900FB24C0 /* IFictionMetadata.m */,
+				6D7673E3239FFB0900FB24C0 /* IFStory.h */,
+				6D7673E4239FFB0900FB24C0 /* IFStory.m */,
+				6D7673E1239FFB0900FB24C0 /* IFIdentification.h */,
+				6D7673E2239FFB0900FB24C0 /* IFIdentification.m */,
+				6D7673D7239FFB0900FB24C0 /* IFBibliographic.h */,
+				6D7673D8239FFB0900FB24C0 /* IFBibliographic.m */,
+				6D7673DB239FFB0900FB24C0 /* IFDB.h */,
+				6D7673DC239FFB0900FB24C0 /* IFDB.m */,
+				6D7673D4239FFB0900FB24C0 /* babel.ifiction */,
+			);
+			name = "IFiction XML parsing";
+			path = "Treaty of Babel";
+			sourceTree = SOURCE_ROOT;
+		};
 		6D7917CF223130CC00C3C9F7 /* autorestore */ = {
 			isa = PBXGroup;
 			children = (
@@ -3299,6 +3334,7 @@
 			isa = PBXGroup;
 			children = (
 				6DCFFC1622BCCF600035FA99 /* coredata */,
+				6D7673D3239FFB0900FB24C0 /* IFiction XML parsing */,
 				961CCEDF09F239E700528FF9 /* main.h */,
 				961CCEE009F239E700528FF9 /* main.m */,
 				6DBC471721D270B100A20E28 /* Compatibility.h */,
@@ -5321,6 +5357,11 @@
 				6D7778CD22C172F9003694C8 /* Metadata.m in Sources */,
 				6D7778D022C186BE003694C8 /* Interpreter.m in Sources */,
 				6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */,
+				6D7673E8239FFC6C00FB24C0 /* IFBibliographic.m in Sources */,
+				6D7673EA239FFC6C00FB24C0 /* IFDB.m in Sources */,
+				6D7673EC239FFC6C00FB24C0 /* IFictionMetadata.m in Sources */,
+				6D7673ED239FFC6C00FB24C0 /* IFIdentification.m in Sources */,
+				6D7673EE239FFC6C00FB24C0 /* IFStory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

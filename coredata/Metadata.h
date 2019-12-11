@@ -33,7 +33,7 @@
 @property (nonatomic, retain) NSString * myRating;
 @property (nonatomic, retain) NSString * ratingCountTot;
 @property (nonatomic, retain) NSString * series;
-@property (nonatomic, retain) NSString * seriesIndex;
+@property (nonatomic, retain) NSString * seriesnumber;
 @property (nonatomic, retain) NSString * starRating;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * tuid;

@@ -80,7 +80,6 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tuid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userEdited" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="yearAsString" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="cover" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="metadata" inverseEntity="Image" syncable="YES"/>
         <relationship name="game" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="metadata" inverseEntity="Game" syncable="YES"/>
         <relationship name="tag" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="metadata" inverseEntity="Tag" syncable="YES"/>
@@ -132,7 +131,7 @@
         <element name="Game" positionX="160" positionY="192" width="128" height="195"/>
         <element name="Image" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Metadata" positionX="160" positionY="192" width="128" height="495"/>
+        <element name="Metadata" positionX="160" positionY="192" width="128" height="480"/>
         <element name="Settings" positionX="160" positionY="192" width="128" height="585"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>
     </elements>

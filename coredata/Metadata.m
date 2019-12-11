@@ -34,7 +34,7 @@
 @dynamic myRating;
 @dynamic ratingCountTot;
 @dynamic series;
-@dynamic seriesIndex;
+@dynamic seriesnumber;
 @dynamic starRating;
 @dynamic title;
 @dynamic tuid;

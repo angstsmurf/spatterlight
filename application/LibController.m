@@ -3,6 +3,9 @@
  */
 
 #import "InfoController.h"
+#import "IFictionMetadata.h"
+#import "IFStory.h"
+#import "IFIdentification.h"
 #import "main.h"
 
 #ifdef DEBUG
@@ -572,8 +575,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                                      name:NSManagedObjectContextObjectsDidChangeNotification
                                                    object:childContext];
 
-        currentlyAddingGames = YES;
-        _addButton.enabled = NO;
+        currentlyDownloading = YES;
 
         [childContext performBlock:^{
 
@@ -602,8 +604,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                currentlyAddingGames = NO;
-                _addButton.enabled = YES;
+                currentlyDownloading = NO;
             });
 
             [weakSelf endImporting];
@@ -657,8 +658,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 				if (rv > 0)
 				{
 					cursrc = kInternal;
-                    importContext = _managedObjectContext;
-					[self importMetadataFromXML: mdbuf];
+                    NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
+					[self importMetadataFromXML:mdbufData inContext:_managedObjectContext];
 					cursrc = 0;
 				}
 
@@ -718,7 +719,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
          return !(currentlyAddingGames);
 
     if (action == @selector(download:))
-        return !(currentlyAddingGames);
+        return !(currentlyDownloading);
 
     if (action == @selector(delete:))
         return count > 0;
@@ -964,15 +965,11 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 - (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
-    NSPredicate *predicate;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:context];
 
-    fetchRequest.entity = entity;
-
-    predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@",ifid];
-    fetchRequest.predicate = predicate;
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@",ifid];
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
@@ -985,7 +982,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     }
     else if (fetchedObjects.count == 0)
     {
-        NSLog(@"fetchMetadataForIFID: Found no Metadata entity with ifid %@ in %@", ifid, (context == _managedObjectContext)?@"_managedObjectContext":@"childContext");
+        NSLog(@"fetchMetadataForIFID: Found no Metadata object with ifid %@ in %@", ifid, (context == _managedObjectContext)?@"_managedObjectContext":@"childContext");
         return nil;
     }
 
@@ -1009,7 +1006,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
 - (void) convertLibraryToCoreData {
 
-    // Add games from plist to Core Data store if we have just created a new one
+    // Add games from plist files to Core Data store if we have just created a new one
 
     LibController * __unsafe_unretained weakSelf = self;
 
@@ -1157,155 +1154,13 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     }];
 }
 
-static void read_xml_text(const char *rp, char *wp) {
-    /* kill initial whitespace */
-    while (*rp && isspace(*rp))
-        rp++;
+- (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context {
 
-    while (*rp) {
-        if (*rp == '<') {
-            if (strstr(rp, "<br/>") == rp || strstr(rp, "<br />") == rp) {
-                *wp++ = '\n';
-                *wp++ = '\n';
-                rp += 5;
-                if (*rp == '>')
-                    rp++;
-
-                /* kill trailing whitespace */
-                while (*rp && isspace(*rp))
-                    rp++;
-            } else {
-                *wp++ = *rp++;
-            }
-        } else if (*rp == '&') {
-            if (strstr(rp, "&lt;") == rp) {
-                *wp++ = '<';
-                rp += 4;
-            } else if (strstr(rp, "&gt;") == rp) {
-                *wp++ = '>';
-                rp += 4;
-            } else if (strstr(rp, "&amp;") == rp) {
-                *wp++ = '&';
-                rp += 5;
-            } else {
-                *wp++ = *rp++;
-            }
-        } else if (isspace(*rp)) {
-            *wp++ = ' ';
-            while (*rp && isspace(*rp))
-                rp++;
-        } else {
-            *wp++ = *rp++;
-        }
-    }
-
-    *wp = 0;
-}
-
-- (void)handleXMLCloseTag:(struct XMLTag *)tag {
-    char bigbuf[4096];
-
-    /* we don't parse tags after bibliographic until the next story begins... */
-    if (!strcmp(tag->tag, "bibliographic")) {
-        NSLog(@"libctl: import metadata for %@ by %@ in %@",
-              [metabuf objectForKey:@"title"],
-              [metabuf objectForKey:@"author"],
-            (importContext == _managedObjectContext)?@"_managedObjectContext":@"childContext");
-        [self addMetadata:metabuf forIFIDs:ifidbuf inContext:importContext];
-        ifidbuf = nil;
-        if (currentIfid == nil) /* We are not importing from ifdb */
-            metabuf = nil;
-    }
-    /* parse extra ifdb tags... */
-    else if (!strcmp(tag->tag, "ifdb"))
-    {
-        NSLog(@"libctl: import extra ifdb metadata for %@", [metabuf objectForKey:@"title"]);
-        [self addMetadata: metabuf forIFIDs: @[currentIfid] inContext:importContext];
-        metabuf = nil;
-    }
-    /* we should only find ifid:s inside the <identification> tag, */
-    /* which should be the first tag in a <story> */
-    else if (!strcmp(tag->tag, "ifid")) {
-        if (!ifidbuf) {
-            ifidbuf = [[NSMutableArray alloc] initWithCapacity:1];
-            metabuf = [[NSMutableDictionary alloc] initWithCapacity:10];
-        }
-        char save = *tag->end;
-        *tag->end = 0;
-        [ifidbuf addObject:@(tag->begin)];
-        *tag->end = save;
-    }
-
-    /* only extract text from within the indentification and bibliographic tags
-     */
-    else if (metabuf) {
-        if (tag->end - tag->begin >= (long)sizeof(bigbuf) - 1)
-            return;
-
-        char save = *tag->end;
-        *tag->end = 0;
-        read_xml_text(tag->begin, bigbuf);
-        *tag->end = save;
-
-        NSString *val = @(bigbuf);
-
-        if (!strcmp(tag->tag, "format"))
-            [metabuf setObject:val forKey:@"format"];
-        if (!strcmp(tag->tag, "bafn"))
-            [metabuf setObject:val forKey:@"bafn"];
-        if (!strcmp(tag->tag, "title"))
-            [metabuf setObject:val forKey:@"title"];
-        if (!strcmp(tag->tag, "author"))
-            [metabuf setObject:val forKey:@"author"];
-        if (!strcmp(tag->tag, "language"))
-            [metabuf setObject:val forKey:@"language"];
-        if (!strcmp(tag->tag, "headline"))
-            [metabuf setObject:val forKey:@"headline"];
-        if (!strcmp(tag->tag, "firstpublished"))
-            [metabuf setObject:val forKey:@"firstpublished"];
-        if (!strcmp(tag->tag, "genre"))
-            [metabuf setObject:val forKey:@"genre"];
-        if (!strcmp(tag->tag, "group"))
-            [metabuf setObject:val forKey:@"group"];
-        if (!strcmp(tag->tag, "description"))
-            [metabuf setObject:val forKey:@"description"];
-        if (!strcmp(tag->tag, "series"))
-            [metabuf setObject:val forKey:@"series"];
-        if (!strcmp(tag->tag, "seriesnumber"))
-            [metabuf setObject:val forKey:@"seriesnumber"];
-        if (!strcmp(tag->tag, "forgiveness"))
-            [metabuf setObject:val forKey:@"forgiveness"];
-        if (!strcmp(tag->tag, "tuid"))
-            [metabuf setObject:val forKey:@"tuid"];
-        if (!strcmp(tag->tag, "averageRating"))
-            [metabuf setObject:val forKey:@"averageRating"];
-        if (!strcmp(tag->tag, "starRating"))
-            [metabuf setObject:val forKey:@"starRating"];
-        if (!strcmp(tag->tag, "url"))
-            [metabuf setObject:val forKey:@"coverArtURL"];
-    }
-}
-
-- (void)handleXMLError:(char *)msg {
-    if (strstr(msg, "Error:"))
-        NSLog(@"libctl: xml: %s", msg);
-}
-
-static void handleXMLCloseTag(struct XMLTag *tag, void *ctx)
-{
-    [(__bridge LibController *)ctx handleXMLCloseTag:tag];
-}
-
-static void handleXMLError(char *msg, void *ctx)
-{
-    [(__bridge LibController *)ctx handleXMLError:msg];
-}
-
-- (void)importMetadataFromXML:(char *)mdbuf {
-    ifiction_parse(mdbuf, handleXMLCloseTag, (__bridge void *)(self),
-                   handleXMLError, (__bridge void *)(self));
-    ifidbuf = nil;
-    metabuf = nil;
+    IFictionMetadata *metadata =
+    [[IFictionMetadata alloc] initWithData:mdbuf andContext:context];
+    if (metadata.stories.count == 0)
+        return nil;
+    return ((IFStory *)[metadata.stories objectAtIndex:0]).identification.metadata;
 }
 
 - (BOOL)importMetadataFromFile:(NSString *)filename {
@@ -1314,17 +1169,12 @@ static void handleXMLError(char *msg, void *ctx)
     if (currentlyAddingGames)
         return NO;
 
-    NSMutableData *data;
-
-    data = [NSMutableData dataWithContentsOfFile:filename];
+    NSData *data = [NSData dataWithContentsOfFile:filename];
     if (!data)
         return NO;
-    [data appendBytes:"\0" length:1];
 
     cursrc = kExternal;
-    importContext = _managedObjectContext;
-    [self importMetadataFromXML:data.mutableBytes];
-    importContext = nil;
+    [self importMetadataFromXML:data inContext:_managedObjectContext];
     cursrc = 0;
 
     [_coreDataManager saveChanges];
@@ -1360,15 +1210,10 @@ static void handleXMLError(char *msg, void *ctx)
     {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200 && data) {
-            NSMutableData *mutableData = [data mutableCopy];
-            [mutableData appendBytes: "\0" length: 1];
-
             cursrc = kIfdb;
             currentIfid = ifid;
             NSLog(@"Set currentIfid to %@", currentIfid);
-            importContext = context;
-            [self importMetadataFromXML: mutableData.mutableBytes];
-            importContext = nil;
+            [self importMetadataFromXML:data inContext:context];
             currentIfid = nil;
             cursrc = 0;
         } else return NO;
@@ -1410,6 +1255,7 @@ static void handleXMLError(char *msg, void *ctx)
                      insertNewObjectForEntityForName:@"Image"
                      inManagedObjectContext:context];
     img.data = rawImageData;
+    img.originalURL = metadata.coverArtURL;
     metadata.cover = img;
 }
 
@@ -1710,41 +1556,37 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     //NSLog(@"libctl: import game %@ (%s)", path, format);
 
-    mdlen = babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
-    if (mdlen > 0)
-    {
-        char *mdbuf = malloc(mdlen);
-        if (!mdbuf)
-        {
-            if (report)
-                NSRunAlertPanel(@"Out of memory.",
-                                @"Can not allocate memory for the metadata text.",
-                                @"Okay", NULL, NULL);
-            babel_release();
-            return nil;
-        }
-
-        rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
-        if (rv > 0)
-        {
-            cursrc = kInternal;
-            importContext = context;
-            [self importMetadataFromXML: mdbuf];
-            importContext = nil;
-            cursrc = 0;
-        }
-
-        free(mdbuf);
-    }
-
     metadata = [self fetchMetadataForIFID:ifid inContext:context];
+
     if (!metadata)
     {
-        metadata = (Metadata *) [NSEntityDescription
-                                 insertNewObjectForEntityForName:@"Metadata"
-                                 inManagedObjectContext:context];
+        mdlen = babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
+        if (mdlen > 0)
+        {
+            char *mdbuf = malloc(mdlen);
+            if (!mdbuf)
+            {
+                if (report)
+                    NSRunAlertPanel(@"Out of memory.",
+                                    @"Can not allocate memory for the metadata text.",
+                                    @"Okay", NULL, NULL);
+                babel_release();
+                return nil;
+            }
+
+            rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
+            if (rv > 0)
+            {
+                cursrc = kInternal;
+                NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
+                metadata = [self importMetadataFromXML: mdbufData inContext:context];
+                cursrc = 0;
+            }
+            
+            free(mdbuf);
+        }
     }
-	else
+    else
 	{
 		if (metadata.game)
 		{
@@ -1758,6 +1600,14 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 			return metadata;
 		}
 	}
+
+    if (!metadata)
+    {
+        metadata = (Metadata *) [NSEntityDescription
+                                 insertNewObjectForEntityForName:@"Metadata"
+                                 inManagedObjectContext:context];
+    }
+	
 
     if (!metadata.format)
         metadata.format = @(format);
@@ -1776,6 +1626,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         NSData *img = [[NSData alloc] initWithContentsOfFile: imgpath];
         if (img)
         {
+            metadata.coverArtURL = imgpath;
             [self addImage:img toMetadata:metadata inContext:context];
         }
         else
@@ -1788,6 +1639,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                 {
                     //                    rv =
 					babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
+                    metadata.coverArtURL = path;
                     [self addImage:[[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES] toMetadata:metadata inContext:context];
 
                 }
@@ -1815,20 +1667,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (meta) {
         [self beginImporting];
         [select addObject: meta.ifid];
-
-//        NSError *error = nil;
-//        if (context.hasChanges) {
-//            if (![context save:&error]) {
-//                if (error) {
-//                    [[NSApplication sharedApplication] presentError:error];
-//                }
-//            }
-//        }
-//
-//        [_managedObjectContext performBlock:^{
-//            [_coreDataManager saveChanges];
-//        }];
-
     } else {
 		NSLog(@"libctl: addFile: File %@ not added!", url.path);
 	}
@@ -1873,9 +1711,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                     }
                 }
             }
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self selectGamesWithIfids:select scroll:NO];
-//            });
+
             timestamp = [NSDate date];
         }
 
@@ -1903,15 +1739,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             }
         }
     }
-
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        for (NSString *path in iFictionFiles) {
-//            [weakSelf importMetadataFromFile:path];
-//        }
-//        iFictionFiles = nil;
-//        [_coreDataManager saveChanges];
-//        [weakSelf selectGamesWithIfids:select scroll:NO];
-//    });
 
     [_managedObjectContext performBlock:^{
         [_coreDataManager saveChanges];
@@ -1960,7 +1787,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 {
     if (ifids.count) {
         NSMutableArray *newSelection = [NSMutableArray arrayWithCapacity:ifids.count];
-//        [self updateTableViews];
         for (NSString *ifid in ifids) {
             Metadata *meta = [self fetchMetadataForIFID:ifid inContext:_managedObjectContext];
             if (meta && meta.game) {
@@ -1996,7 +1822,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                 [indexSet addIndex:[gameTableModel indexOfObject:game]];
                 NSLog(@"selecting game %@",game.metadata.title);
             } else NSLog(@"Game %@ not found in gameTableModel",game.metadata.title);
-
         }
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
         if (indexSet.count == 1 && !currentlyAddingGames)
@@ -2040,7 +1865,6 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
 
 - (void) updateTableViews
 {
-
     NSFetchRequest *fetchRequest;
     NSEntityDescription *entity;
 
@@ -2204,20 +2028,23 @@ objectValueForTableColumn: (NSTableColumn*)column
         NSString *key = tableColumn.identifier;
         NSString *oldval = [meta valueForKey:key];
 
-        if ([key isEqualToString:@"forgivenessNumeric"] && [value isEqual:@(FORGIVENESS_NONE)])
+        if ([key isEqualToString:@"forgivenessNumeric"] && [value isEqual:@(FORGIVENESS_NONE)]) {
             value = nil;
+            if ([oldval isEqual:@(FORGIVENESS_NONE)])
+                oldval = nil;
+        }
 
         if (([key isEqualToString:@"starRating"] || [key isEqualToString:@"myRating"]) && [value isEqual:@(0)])
             value = nil;
 
 		if ([value isKindOfClass:[NSNumber class]] && ![key isEqualToString:@"forgivenessNumeric"]) {
-			value = [NSString stringWithFormat:@"%@", value];
+                value = [NSString stringWithFormat:@"%@", value];
         }
 
         if ([value isKindOfClass:[NSString class]] && ((NSString*)value).length == 0)
             value = nil;
         
-        if ([value isEqualTo: oldval])
+        if ([value isEqual: oldval] || (value == oldval))
             return;
 
         [meta setValue: value forKey: key];
