@@ -22,17 +22,17 @@
     while ((node = [enumChildren nextObject])) {
       if ([node.name compare:@"tuid"] == 0) {
         metadata.tuid = node.stringValue;
-      } else if ([node.name compare:@"link"] == 0) {
-//        metadata.link = [NSURL URLWithString:node.stringValue];
       } else if ([node.name compare:@"coverart"] == 0) {
-        metadata.coverArtURL = [self pathFromCoverArtElement:(NSXMLElement *)node];
-      } else if ([node.name compare:@"averageRating"] == 0) {
-//        metadata.averageRating = node.stringValue.doubleValue;
+          metadata.coverArtURL = [self pathFromCoverArtElement:(NSXMLElement *)node];
       } else if ([node.name compare:@"starRating"] == 0) {
-        metadata.starRating = node.stringValue;
-      } else if ([node.name compare:@"ratingCountAvg"] == 0) {
+          metadata.starRating = node.stringValue;
+//      } else if ([node.name compare:@"link"] == 0) {
+//        metadata.link = [NSURL URLWithString:node.stringValue];
+//      } else if ([node.name compare:@"averageRating"] == 0) {
+//        metadata.averageRating = node.stringValue.doubleValue;
+//      } else if ([node.name compare:@"ratingCountAvg"] == 0) {
 //        metadata.ratingCountAvg = node.stringValue.integerValue;
-      } else if ([node.name compare:@"ratingCountTot"] == 0) {
+//      } else if ([node.name compare:@"ratingCountTot"] == 0) {
 //        metadata.ratingCountTot = node.stringValue.integerValue;
       }
     }
