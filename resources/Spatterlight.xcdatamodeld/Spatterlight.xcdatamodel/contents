@@ -36,22 +36,26 @@
         <attribute name="fileLocation" optional="YES" attributeType="Transformable" valueTransformerName="" syncable="YES"/>
         <attribute name="found" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="lastModified" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="hashTag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ifid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastPlayed" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="interpreter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Interpreter" inverseName="games" inverseEntity="Interpreter" syncable="YES"/>
         <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="game" inverseEntity="Metadata" syncable="YES"/>
         <relationship name="override" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="overrides" inverseEntity="Settings" syncable="YES"/>
         <relationship name="setting" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="game" inverseEntity="Settings" syncable="YES"/>
+    </entity>
+    <entity name="Ifid" representedClassName="Ifid" syncable="YES">
+        <attribute name="ifidString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="ifids" inverseEntity="Metadata" syncable="YES"/>
     </entity>
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="originalURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="cover" inverseEntity="Metadata" syncable="YES"/>
+        <relationship name="metadata" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Metadata" inverseName="cover" inverseEntity="Metadata" syncable="YES"/>
     </entity>
     <entity name="Interpreter" representedClassName="Interpreter" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="games" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="interpreter" inverseEntity="Game" syncable="YES"/>
+        <relationship name="setting" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="interpreter" inverseEntity="Settings" syncable="YES"/>
     </entity>
     <entity name="Metadata" representedClassName="Metadata" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
@@ -68,9 +72,9 @@
         <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="headline" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="ifid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="languageAsWord" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastModified" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="myRating" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ratingCountTot" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="series" optional="YES" attributeType="String" syncable="YES"/>
@@ -82,21 +86,36 @@
         <attribute name="userEdited" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="cover" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="metadata" inverseEntity="Image" syncable="YES"/>
         <relationship name="game" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="metadata" inverseEntity="Game" syncable="YES"/>
+        <relationship name="ifids" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ifid" inverseName="metadata" inverseEntity="Ifid" syncable="YES"/>
         <relationship name="tag" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="metadata" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <entity name="Settings" representedClassName="Settings" syncable="YES">
+        <attribute name="border" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="bufferBackground" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="bufferMarginX" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="bufferMarginY" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="dashes" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="defaultHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="defaultWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="defaultCols" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="defaultRows" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="doGraphics" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
         <attribute name="doSound" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
         <attribute name="doStyles" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
+        <attribute name="editable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="gridBackground" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="gridMarginX" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="gridMarginY" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="justify" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="maxCols" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="maxRows" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="minCols" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="minRows" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="morePrompt" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="smartQuotes" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="spaceFormat" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="wborder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="wmargin" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="wpadding" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="spacingColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="themeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="winSpacingX" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="winSpacingY" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufAlert" inverseEntity="Font" syncable="YES"/>
         <relationship name="bufBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufBlock" inverseEntity="Font" syncable="YES"/>
         <relationship name="bufEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufEmph" inverseEntity="Font" syncable="YES"/>
@@ -108,7 +127,9 @@
         <relationship name="bufSubH" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufSubH" inverseEntity="Font" syncable="YES"/>
         <relationship name="bufUsr1" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufUsr1" inverseEntity="Font" syncable="YES"/>
         <relationship name="bufUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufUsr2" inverseEntity="Font" syncable="YES"/>
-        <relationship name="game" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="setting" inverseEntity="Game" syncable="YES"/>
+        <relationship name="defaultChild" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Settings" inverseName="defaultParent" inverseEntity="Settings" syncable="YES"/>
+        <relationship name="defaultParent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="defaultChild" inverseEntity="Settings" syncable="YES"/>
+        <relationship name="game" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Game" inverseName="setting" inverseEntity="Game" syncable="YES"/>
         <relationship name="gridAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridAlert" inverseEntity="Font" syncable="YES"/>
         <relationship name="gridBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridBlock" inverseEntity="Font" syncable="YES"/>
         <relationship name="gridEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridEmph" inverseEntity="Font" syncable="YES"/>
@@ -120,19 +141,21 @@
         <relationship name="gridSubH" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridSubH" inverseEntity="Font" syncable="YES"/>
         <relationship name="gridUsr1" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridUsr1" inverseEntity="Font" syncable="YES"/>
         <relationship name="gridUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridUsr2" inverseEntity="Font" syncable="YES"/>
+        <relationship name="interpreter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Interpreter" inverseName="setting" inverseEntity="Interpreter" syncable="YES"/>
         <relationship name="overrides" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="override" inverseEntity="Game" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="tag" inverseEntity="Metadata" syncable="YES"/>
+        <relationship name="metadata" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Metadata" inverseName="tag" inverseEntity="Metadata" syncable="YES"/>
     </entity>
     <elements>
         <element name="Font" positionX="160" positionY="192" width="128" height="480"/>
         <element name="Game" positionX="160" positionY="192" width="128" height="195"/>
         <element name="Image" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Metadata" positionX="160" positionY="192" width="128" height="480"/>
-        <element name="Settings" positionX="160" positionY="192" width="128" height="585"/>
+        <element name="Metadata" positionX="160" positionY="192" width="128" height="495"/>
+        <element name="Settings" positionX="160" positionY="192" width="128" height="840"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="Ifid" positionX="160" positionY="192" width="128" height="75"/>
     </elements>
 </model>

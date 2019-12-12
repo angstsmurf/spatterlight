@@ -801,9 +801,9 @@ fprintf(stderr, "%s\n",                                                    \
         [self autoSaveOnExit];
     }
 
-    if (game.metadata.ifid)
+    if (game.ifid)
         [((AppDelegate *)[NSApplication sharedApplication].delegate)
-     .libctl.gameSessions removeObjectForKey:game.metadata.ifid];
+     .libctl.gameSessions removeObjectForKey:game.ifid];
 
     [self.window setDelegate:nil];
 

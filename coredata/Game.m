@@ -2,12 +2,11 @@
 //  Game.m
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2019-06-25.
+//  Created by Petter Sjölund on 2019-12-12.
 //
 //
 
 #import "Game.h"
-#import "Interpreter.h"
 #import "Metadata.h"
 #import "Settings.h"
 
@@ -17,13 +16,13 @@
 @dynamic added;
 @dynamic fileLocation;
 @dynamic found;
+@dynamic ifid;
 @dynamic group;
-@dynamic lastModified;
 @dynamic lastPlayed;
-@dynamic interpreter;
+@dynamic hashTag;
 @dynamic metadata;
-@dynamic setting;
 @dynamic override;
+@dynamic setting;
 
 - (NSURL *)urlForBookmark {
     BOOL bookmarkIsStale = NO;
@@ -76,6 +75,5 @@
 
     self.fileLocation=bookmark;
 }
-
 
 @end

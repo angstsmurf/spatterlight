@@ -7,6 +7,8 @@
 
 #import "IFIdentification.h"
 #import "Metadata.h"
+#import "Ifid.h"
+
 
 @implementation IFIdentification
 
@@ -14,6 +16,9 @@
   self = [super init];
   if (self) {
     NSMutableArray *ifids = [[NSMutableArray alloc] init];
+    NSMutableArray *ifidObjs = [[NSMutableArray alloc] init];
+
+      Ifid *ifidObj;
     _format = @"";
 
     NSEnumerator *enumChildren = [element.children objectEnumerator];
@@ -26,38 +31,51 @@
       } else if ([node.name compare:@"bafn"] == 0)
         _bafn = node.stringValue;
     }
+      if (ifids.count == 0) {
+          NSLog(@"IFIdentification: no Ifids in document! Bailing!");
+          return nil;
+      }
     _ifids = ifids;
       for (NSString *ifid in ifids) {
-          _metadata = [self fetchMetadataForIFID:ifid inContext:context];
-          if (_metadata) {
-              break;
+          ifidObj = [self fetchIfid:ifid inContext:context];
+          if (!ifidObj) {
+              ifidObj = (Ifid *) [NSEntityDescription
+                                        insertNewObjectForEntityForName:@"Ifid"
+                                        inManagedObjectContext:context];
+              ifidObj.ifidString = ifid;
           }
+          [ifidObjs addObject:ifidObj];
+      }
+      for (Ifid *ifid in ifidObjs) {
+          _metadata = ifid.metadata;
+          if (_metadata)
+              break;
       }
 
       if (!_metadata) {
           _metadata = (Metadata *) [NSEntityDescription
                                     insertNewObjectForEntityForName:@"Metadata"
                                     inManagedObjectContext:context];
-          _metadata.ifid = [ifids objectAtIndex:0];
       }
       if (!_metadata.format)
           _metadata.format = _format;
       _metadata.bafn = _bafn;
+      [_metadata addIfid:[NSSet setWithArray:ifidObjs]];
   }
   return self;
 }
 
-- (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
+- (Ifid *)fetchIfid:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
     NSPredicate *predicate;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ifid" inManagedObjectContext:context];
 
     fetchRequest.entity = entity;
 
-    predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@",ifid];
+    predicate = [NSPredicate predicateWithFormat:@"ifidString like[c] %@",ifid];
     fetchRequest.predicate = predicate;
 
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
@@ -67,7 +85,7 @@
 
     if (fetchedObjects.count > 1)
     {
-        NSLog(@"Found more than one entry with metadata %@",ifid);
+        NSLog(@"Found more than one Ifid with ifidString %@",ifid);
     }
     else if (fetchedObjects.count == 0)
     {

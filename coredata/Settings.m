@@ -2,29 +2,45 @@
 //  Settings.m
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2019-06-25.
+//  Created by Petter Sjölund on 2019-12-12.
 //
 //
 
 #import "Settings.h"
 #import "Font.h"
 #import "Game.h"
+#import "Interpreter.h"
+#import "Settings.h"
 
 
 @implementation Settings
 
 @dynamic dashes;
-@dynamic defaultHeight;
-@dynamic defaultWidth;
+@dynamic defaultRows;
+@dynamic defaultCols;
 @dynamic doGraphics;
 @dynamic doSound;
 @dynamic doStyles;
 @dynamic justify;
 @dynamic smartQuotes;
 @dynamic spaceFormat;
-@dynamic wborder;
-@dynamic wmargin;
-@dynamic wpadding;
+@dynamic border;
+@dynamic bufferMarginX;
+@dynamic winSpacingX;
+@dynamic themeName;
+@dynamic minRows;
+@dynamic minCols;
+@dynamic maxRows;
+@dynamic maxCols;
+@dynamic morePrompt;
+@dynamic bufferMarginY;
+@dynamic winSpacingY;
+@dynamic spacingColor;
+@dynamic gridMarginX;
+@dynamic gridMarginY;
+@dynamic gridBackground;
+@dynamic bufferBackground;
+@dynamic editable;
 @dynamic bufAlert;
 @dynamic bufBlock;
 @dynamic bufEmph;
@@ -36,6 +52,7 @@
 @dynamic bufSubH;
 @dynamic bufUsr1;
 @dynamic bufUsr2;
+@dynamic game;
 @dynamic gridAlert;
 @dynamic gridBlock;
 @dynamic gridEmph;
@@ -47,8 +64,10 @@
 @dynamic gridSubH;
 @dynamic gridUsr1;
 @dynamic gridUsr2;
-@dynamic game;
 @dynamic overrides;
+@dynamic interpreter;
+@dynamic defaultParent;
+@dynamic defaultChild;
 
 - (Settings *)clone
 {

@@ -2,17 +2,17 @@
 //  Interpreter.m
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2019-06-25.
+//  Created by Petter Sjölund on 2019-12-12.
 //
 //
 
 #import "Interpreter.h"
-#import "Game.h"
+#import "Settings.h"
 
 
 @implementation Interpreter
 
 @dynamic name;
-@dynamic games;
+@dynamic setting;
 
 @end

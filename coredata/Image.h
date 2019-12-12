@@ -2,7 +2,7 @@
 //  Image.h
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2019-06-25.
+//  Created by Petter Sjölund on 2019-12-12.
 //
 //
 
@@ -16,6 +16,14 @@
 @property (nonatomic, retain) id data;
 @property (nonatomic, retain) NSString * originalURL;
 @property (nonatomic, retain) NSString * type;
-@property (nonatomic, retain) Metadata *metadata;
+@property (nonatomic, retain) NSSet *metadata;
+@end
+
+@interface Image (CoreDataGeneratedAccessors)
+
+- (void)addMetadataObject:(Metadata *)value;
+- (void)removeMetadataObject:(Metadata *)value;
+- (void)addMetadata:(NSSet *)values;
+- (void)removeMetadata:(NSSet *)values;
 
 @end

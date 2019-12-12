@@ -67,6 +67,7 @@
 
     if (img) {
         metadata.cover = img;
+        return YES;
     }
 
     NSURL *url = [NSURL URLWithString:metadata.coverArtURL];
@@ -104,7 +105,10 @@
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:_context];;
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:_context];
+
+
+    fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
 
     fetchedObjects = [_context executeFetchRequest:fetchRequest error:&error];
@@ -114,11 +118,11 @@
 
     if (fetchedObjects.count > 1)
     {
-        NSLog(@"Found more than one entry with url %@",imgurl);
+        NSLog(@"Found more than one Image with originalURL %@",imgurl);
     }
     else if (fetchedObjects.count == 0)
     {
-        NSLog(@"fetchMetadataForIFID: Found no Image object with url %@", imgurl);
+        NSLog(@"fetchImageForURL: Found no Image object with url %@", imgurl);
         return nil;
     }
 
