@@ -1,5 +1,5 @@
 //
-//  IfdbDownloader.h
+//  IFDBDownloader.h
 //  Spatterlight
 //
 //  Created by Administrator on 2019-12-11.
@@ -9,7 +9,7 @@
 
 @class Metadata;
 
-@interface IfdbDownloader : NSObject
+@interface IFDBDownloader : NSObject
 
 - (instancetype)initWithContext:(NSManagedObjectContext *)context;
 - (BOOL)downloadMetadataForIFID:(NSString*)ifid;

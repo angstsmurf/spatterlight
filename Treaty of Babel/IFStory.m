@@ -11,7 +11,7 @@
 #import "IFDB.h"
 #import "Metadata.h"
 #import "Image.h"
-#import "IfdbDownloader.h"
+#import "IFDBDownloader.h"
 
 @implementation IFStory
 
@@ -30,7 +30,7 @@
         if (elements.count > 0) {
             _ifdb = [[IFDB alloc] initWithXMLElement:[elements objectAtIndex:0] andMetadata:metadata];
             if (metadata.coverArtURL && ![metadata.cover.originalURL isEqualToString:metadata.coverArtURL]) {
-                IfdbDownloader *downLoader = [[IfdbDownloader alloc] initWithContext:context];
+                IFDBDownloader *downLoader = [[IFDBDownloader alloc] initWithContext:context];
                 [downLoader downloadImageFor:metadata];
             }
         }

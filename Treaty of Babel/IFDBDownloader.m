@@ -1,17 +1,17 @@
 //
-//  IfdbDownloader.m
+//  IFDBDownloader.m
 //  Spatterlight
 //
 //  Created by Administrator on 2019-12-11.
 //
 
-#import "IfdbDownloader.h"
+#import "IFDBDownloader.h"
 #import "IFictionMetadata.h"
 #import "Metadata.h"
 #import "Image.h"
 
 
-@implementation IfdbDownloader
+@implementation IFDBDownloader
 
 - (instancetype)initWithContext:(NSManagedObjectContext *)context {
     self = [super init];

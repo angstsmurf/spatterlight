@@ -15,7 +15,7 @@
 #import "IFictionMetadata.h"
 #import "IFStory.h"
 #import "IFIdentification.h"
-#import "IfdbDownloader.h"
+#import "IFDBDownloader.h"
 #import "main.h"
 
 #ifdef DEBUG
@@ -589,7 +589,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         _addButton.enabled = NO;
 
         [childContext performBlock:^{
-            IfdbDownloader *downloader = [[IfdbDownloader alloc] initWithContext:childContext];
+            IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
             for (Game *game in selectedGames) {
                 [weakSelf beginImporting];
                 if ([downloader downloadMetadataForIFID:game.metadata.ifid]) {
