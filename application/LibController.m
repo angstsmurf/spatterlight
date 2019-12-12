@@ -1921,7 +1921,7 @@ objectValueForTableColumn: (NSTableColumn*)column
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)row {
 
-    CGFloat offset = 1 + (NSAppKitVersionNumber < NSAppKitVersionNumber10_8); //Need to check this
+    CGFloat offset = 1 + (NSAppKitVersionNumber < NSAppKitVersionNumber10_9); //Need to check this
 
     if (cell == _foundIndicatorCell) {
         NSMutableAttributedString *attstr = [((NSTextFieldCell *)cell).attributedStringValue mutableCopy];
