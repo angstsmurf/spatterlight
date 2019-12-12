@@ -47,7 +47,11 @@
         if (httpResponse.statusCode == 200 && data) {
 //            cursrc = kIfdb;
 //            currentIfid = ifid;
-            [[IFictionMetadata alloc] initWithData:data andContext:_context];
+            IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:_context];
+            if (!result) {
+                NSLog(@"downloadMetadataForIFID: Could not convert downloaded iFiction XML data to Metadata!");
+                return NO;
+            }
 //            currentIfid = nil;
 //            cursrc = 0;
         } else return NO;

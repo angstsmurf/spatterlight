@@ -10,8 +10,6 @@
 
 @interface IFDB ()
 
-- (NSURL *)URLFromCoverArtElement:(NSXMLElement *)element;
-
 @end
 
 @implementation IFDB
@@ -27,7 +25,7 @@
       } else if ([node.name compare:@"link"] == 0) {
 //        metadata.link = [NSURL URLWithString:node.stringValue];
       } else if ([node.name compare:@"coverart"] == 0) {
-        metadata.coverArtURL = [self URLFromCoverArtElement:(NSXMLElement *)node];
+        metadata.coverArtURL = [self pathFromCoverArtElement:(NSXMLElement *)node];
       } else if ([node.name compare:@"averageRating"] == 0) {
 //        metadata.averageRating = node.stringValue.doubleValue;
       } else if ([node.name compare:@"starRating"] == 0) {
@@ -42,7 +40,7 @@
   return self;
 }
 
-- (NSString *)URLFromCoverArtElement:(NSXMLElement *)element {
+- (NSString *)pathFromCoverArtElement:(NSXMLElement *)element {
   NSEnumerator *enumChildren = [element.children objectEnumerator];
   NSXMLNode *node;
   while ((node = [enumChildren nextObject])) {

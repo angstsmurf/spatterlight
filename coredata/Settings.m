@@ -105,7 +105,7 @@
 		if ([self valueForKey:keyName] != nil && [cloned valueForKey:keyName] == nil && ![keyName isEqualToString:@"games"])
 		{
 			//Clone it, and add clone to set
-			Font *clonedFont = [[self valueForKey:keyName] clone];
+			Font *clonedFont = [((Font *)[self valueForKey:keyName]) clone];
 			[cloned setValue:clonedFont forKey:keyName];
 			if ([clonedFont valueForKey:keyName] != cloned)
 				NSLog(@"Error! Reciprocal relationship did not work as expected");
