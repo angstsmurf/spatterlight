@@ -359,7 +359,7 @@ NSDictionary *gFormatMap;
                 // Suppress this alert from now on
                 [defaults setBool:YES forKey:@"terminationAlertSuppression"];
             }
-            if (choice == NSAlertOtherReturn) {
+            if (choice == NSAlertSecondButtonReturn) {
                 return NSTerminateCancel;
             }
         }
