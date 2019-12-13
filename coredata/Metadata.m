@@ -2,7 +2,7 @@
 //  Metadata.m
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2019-12-12.
+//  Created by Petter Sjölund on 2019-12-13.
 //
 //
 
@@ -31,6 +31,7 @@
 @dynamic headline;
 @dynamic language;
 @dynamic languageAsWord;
+@dynamic lastModified;
 @dynamic myRating;
 @dynamic ratingCountTot;
 @dynamic series;
@@ -40,24 +41,11 @@
 @dynamic title;
 @dynamic tuid;
 @dynamic userEdited;
-@dynamic lastModified;
 @dynamic cover;
-@dynamic game;
-@dynamic tag;
+@dynamic games;
 @dynamic ifids;
+@dynamic tag;
 
-
-- (void)addIfidObject:(Ifid *)value {
-    NSMutableSet* tempSet = [NSMutableSet setWithSet:self.ifids];
-    [tempSet addObject:value];
-    self.ifids = [NSSet setWithSet:tempSet];
-}
-
-- (void)addIfid:(NSSet *)values {
-    NSMutableSet* tempSet = [NSMutableSet setWithSet:self.ifids];
-    [tempSet unionSet:values];
-    self.ifids = [NSSet setWithSet:tempSet];
-}
 
 - (Ifid *)findOrCreateIfid:(NSString *)ifidstring {
 
@@ -73,7 +61,7 @@
     fetchRequest.includesPropertyValues = YES;
 
     fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
+
     if (fetchedObjects == nil) {
         NSLog(@"findOrInsertIfid: %@",error);
     }
@@ -84,14 +72,14 @@
 
     if (fetchedObjects == nil || fetchedObjects.count == 0) {
         ifid = (Ifid *) [NSEntityDescription
-                            insertNewObjectForEntityForName:@"Ifid"
-                            inManagedObjectContext:self.managedObjectContext];
+                         insertNewObjectForEntityForName:@"Ifid"
+                         inManagedObjectContext:self.managedObjectContext];
         ifid.ifidString = ifidstring;
 
     } else ifid = [fetchedObjects objectAtIndex:0];
 
-    [self addIfidObject:ifid];
-
+    [self addIfidsObject:ifid];
+    
     return ifid;
 }
 

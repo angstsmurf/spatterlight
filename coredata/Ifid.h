@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Metadata;
+@class Metadata, Game;
 
 @interface Ifid : NSManagedObject
 

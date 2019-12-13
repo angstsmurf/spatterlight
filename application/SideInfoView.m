@@ -202,7 +202,7 @@
 }
 
 
-- (void) updateSideViewWithMetadata:(Metadata *)somedata
+- (void) updateSideViewWithGame:(Game *)somegame
 {
 	NSLayoutConstraint *xPosConstraint;
 	NSLayoutConstraint *yPosConstraint;
@@ -213,6 +213,8 @@
 	NSFont *font;
 	CGFloat spaceBefore;
 	NSView *lastView;
+
+    Metadata *somedata = somegame.metadata;
 
 	self.translatesAutoresizingMaskIntoConstraints = NO;
 
@@ -480,13 +482,13 @@
 																			constant:0];
 	[self addConstraint:bottomPinConstraint];
 
-	if (_metadata != somedata)
+	if (_game != somegame)
 	{
 		[clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
 		[scrollView reflectScrolledClipView:clipView];
 	}
 
-	_metadata = somedata;
+	_game = somegame;
 }
 
 

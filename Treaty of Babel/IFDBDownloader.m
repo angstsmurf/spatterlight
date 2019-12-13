@@ -21,13 +21,28 @@
     return self;
 }
 
+- (BOOL)downloadMetadataForTUID:(NSString*)tuid {
+    NSLog(@"libctl: downloadMetadataForTUID %@", tuid);
+
+    if (!tuid || tuid.length == 0)
+        return NO;
+
+    NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&id=" stringByAppendingString:tuid]];
+    return [self downloadMetadataFromURL:url];
+}
+
 - (BOOL)downloadMetadataForIFID:(NSString*)ifid {
     NSLog(@"libctl: downloadMetadataForIFID %@", ifid);
 
-    if (!ifid)
+    if (!ifid || ifid.length == 0)
         return NO;
 
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
+    return [self downloadMetadataFromURL:url];
+}
+
+
+- (BOOL)downloadMetadataFromURL:(NSURL*)url {
 
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     NSURLResponse *response = nil;
@@ -45,19 +60,17 @@
     {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200 && data) {
-//            cursrc = kIfdb;
-//            currentIfid = ifid;
+
             IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:_context];
-            if (!result) {
-                NSLog(@"downloadMetadataForIFID: Could not convert downloaded iFiction XML data to Metadata!");
+            if (!result || result.stories.count == 0) {
+                NSLog(@"Could not convert downloaded iFiction XML data to Metadata!");
                 return NO;
             }
-//            currentIfid = nil;
-//            cursrc = 0;
         } else return NO;
     }
     return YES;
 }
+
 
 - (BOOL)downloadImageFor:(Metadata *)metadata
 {

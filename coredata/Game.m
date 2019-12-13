@@ -20,6 +20,7 @@
 @dynamic group;
 @dynamic lastPlayed;
 @dynamic hashTag;
+@dynamic version;
 @dynamic metadata;
 @dynamic override;
 @dynamic setting;

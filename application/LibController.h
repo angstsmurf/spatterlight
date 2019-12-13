@@ -50,9 +50,7 @@
     NSArray *searchStrings;
     CGFloat lastSideviewWidth;
 
-    Metadata *noneSelected;
-    Metadata *manySelected;
-    Metadata *currentSideView;
+    Game *currentSideView;
 
     BOOL currentlyAddingGames;
     BOOL spinnerSpinning;

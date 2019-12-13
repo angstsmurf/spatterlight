@@ -13,6 +13,7 @@
 
 - (instancetype)initWithContext:(NSManagedObjectContext *)context;
 - (BOOL)downloadMetadataForIFID:(NSString*)ifid;
+- (BOOL)downloadMetadataForTUID:(NSString*)tuid;
 - (BOOL)downloadImageFor:(Metadata *)metadata;
 
 @property (strong) NSManagedObjectContext *context;

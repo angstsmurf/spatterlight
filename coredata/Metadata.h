@@ -2,7 +2,7 @@
 //  Metadata.h
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2019-12-12.
+//  Created by Petter Sjölund on 2019-12-13.
 //
 //
 
@@ -29,6 +29,7 @@
 @property (nonatomic, retain) NSString * headline;
 @property (nonatomic, retain) NSString * language;
 @property (nonatomic, retain) NSString * languageAsWord;
+@property (nonatomic, retain) NSDate * lastModified;
 @property (nonatomic, retain) NSString * myRating;
 @property (nonatomic, retain) NSString * ratingCountTot;
 @property (nonatomic, retain) NSString * series;
@@ -38,20 +39,25 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * tuid;
 @property (nonatomic, retain) NSNumber * userEdited;
-@property (nonatomic, retain) NSDate * lastModified;
 @property (nonatomic, retain) Image *cover;
-@property (nonatomic, retain) Game *game;
-@property (nonatomic, retain) Tag *tag;
+@property (nonatomic, retain) NSSet *games;
 @property (nonatomic, retain) NSSet *ifids;
+@property (nonatomic, retain) Tag *tag;
+
+- (Ifid *)findOrCreateIfid:(NSString *)ifidstring;
+
 @end
 
 @interface Metadata (CoreDataGeneratedAccessors)
 
-- (void)addIfidObject:(Ifid *)value;
-- (void)removeIfidObject:(Ifid *)value;
-- (void)addIfid:(NSSet *)values;
-- (void)removeIfid:(NSSet *)values;
+- (void)addGamesObject:(Game *)value;
+- (void)removeGamesObject:(Game *)value;
+- (void)addGames:(NSSet *)values;
+- (void)removeGames:(NSSet *)values;
 
-- (Ifid *)findOrCreateIfid:(NSString *)ifidstring;
+- (void)addIfidsObject:(Ifid *)value;
+- (void)removeIfidsObject:(Ifid *)value;
+- (void)addIfids:(NSSet *)values;
+- (void)removeIfids:(NSSet *)values;
 
 @end

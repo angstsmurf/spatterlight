@@ -8,7 +8,7 @@
 #import <Cocoa/Cocoa.h>
 #import <CoreData/CoreData.h>
 
-@class Metadata;
+@class Game;
 @class Preferences;
 
 @interface SideInfoView : NSView <NSTextFieldDelegate> //, NSControlTextEditingDelegate>
@@ -22,11 +22,11 @@
 }
 
 //@property (weak) LibController *libctl;
-@property (weak) Metadata *metadata;
+@property (weak) Game *game;
 @property (weak) NSString *string;
 
 
-- (void) updateSideViewWithMetadata:(Metadata *)somedata;
+- (void) updateSideViewWithGame:(Game *)somegame;
 
 - (void) updateSideViewWithString:(NSString *)string;
 

@@ -8,6 +8,7 @@
 #import "IFIdentification.h"
 #import "Metadata.h"
 #import "Ifid.h"
+#import "Game.h"
 
 
 @implementation IFIdentification
@@ -16,7 +17,8 @@
   self = [super init];
   if (self) {
     NSMutableArray *ifids = [[NSMutableArray alloc] init];
-    NSMutableArray *ifidObjs = [[NSMutableArray alloc] init];
+    NSMutableSet *games = [[NSMutableSet alloc] init];
+    NSMutableSet *ifidObjs = [[NSMutableSet alloc] init];
 
       Ifid *ifidObj;
     _format = @"";
@@ -35,21 +37,25 @@
           NSLog(@"IFIdentification: no Ifids in document! Bailing!");
           return nil;
       }
-    _ifids = ifids;
+      _ifids = ifids;
       for (NSString *ifid in ifids) {
           ifidObj = [self fetchIfid:ifid inContext:context];
           if (!ifidObj) {
               ifidObj = (Ifid *) [NSEntityDescription
-                                        insertNewObjectForEntityForName:@"Ifid"
-                                        inManagedObjectContext:context];
+                                  insertNewObjectForEntityForName:@"Ifid"
+                                  inManagedObjectContext:context];
               ifidObj.ifidString = ifid;
+              NSLog(@"Created new Ifid object");
           }
           [ifidObjs addObject:ifidObj];
+          NSLog(@"Added Ifid object with ifid %@", ifid);
       }
+
       for (Ifid *ifid in ifidObjs) {
-          _metadata = ifid.metadata;
-          if (_metadata)
-              break;
+          if (!_metadata)
+              _metadata = ifid.metadata;
+          for (Game *g in ifid.metadata.games)
+              [games addObject:g];
       }
 
       if (!_metadata) {
@@ -57,10 +63,12 @@
                                     insertNewObjectForEntityForName:@"Metadata"
                                     inManagedObjectContext:context];
       }
+      
       if (!_metadata.format)
           _metadata.format = _format;
       _metadata.bafn = _bafn;
-      [_metadata addIfid:[NSSet setWithArray:ifidObjs]];
+      [_metadata addIfids:[NSSet setWithSet:ifidObjs]];
+      [_metadata addGames:[NSSet setWithSet:games]];
   }
   return self;
 }

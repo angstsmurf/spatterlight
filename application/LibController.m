@@ -585,15 +585,24 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                                  selector:@selector(backgroundManagedObjectContextDidSave:)
                                                      name:NSManagedObjectContextObjectsDidChangeNotification
                                                    object:childContext];
-
         currentlyAddingGames = YES;
         _addButton.enabled = NO;
 
         [childContext performBlock:^{
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
+            BOOL result = NO;
             for (Game *game in selectedGames) {
                 [weakSelf beginImporting];
-                if ([downloader downloadMetadataForIFID:game.ifid]) {
+                if (game.metadata.tuid) {
+                    result = [downloader downloadMetadataForTUID:game.metadata.tuid];
+                } else {
+                    for (Ifid *ifidObj in game.metadata.ifids) {
+                        result = [downloader downloadMetadataForIFID:ifidObj.ifidString];
+                        if (result)
+                            break;
+                    }
+                }
+                if (result) {
 
                     NSError *error = nil;
                     if (childContext.hasChanges) {
@@ -605,13 +614,16 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
                         if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
 
-                        NSManagedObjectID *objID = game.objectID;
 
-                        [_managedObjectContext performBlock:^{
-                            Game *updatedGame = (Game *)[_managedObjectContext objectWithID:objID];
-                            [_managedObjectContext refreshObject:updatedGame
-                                                    mergeChanges:YES];
-                        }];
+                            [_managedObjectContext performBlock:^{
+                                [_coreDataManager saveChanges];
+
+                                for (Game *game in gameTableModel) {
+                                    [_managedObjectContext refreshObject:game.metadata
+                                                            mergeChanges:YES];
+                                }
+                                [self updateSideViewForce:YES];
+                             }];
                         }
 
                     }
@@ -834,6 +846,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 - (void) addMetadata:(NSDictionary*)dict forIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSDateFormatter *dateFormatter;
     Metadata *entry;
+    NSString *key;
     NSString *keyVal;
     NSString *sub;
 
@@ -857,41 +870,44 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                   };
 
 
-    entry = [self fetchMetadataForIFID:ifid inContext:context];
+    entry = [self fetchMetadataForIFID:ifid inContext:context]; // this should always return nil
     if (!entry)
     {
         entry = (Metadata *) [NSEntityDescription
                               insertNewObjectForEntityForName:@"Metadata"
                               inManagedObjectContext:context];
-        [entry findOrCreateIfid:ifid];
         NSLog(@"addMetaData:forIFIDs: Created new Metadata object with ifid %@", ifid);
-        //dict[kSource] = @((int)cursrc);
-    } else NSLog(@"addMetaData:forIFIDs: Found existing Metadata object with game %@", entry.title);
-    for(id key in dict) {
+        Ifid *ifidObj = (Ifid *) [NSEntityDescription
+                                              insertNewObjectForEntityForName:@"Ifid"
+                                              inManagedObjectContext:context];
+        ifidObj.ifidString = ifid;
+        ifidObj.metadata = entry;
+    } else NSLog(@"addMetaData:forIFIDs: Error! Found existing Metadata object with game %@", entry.title);
+
+    for(key in dict) {
         keyVal = [dict objectForKey:key];
-        if ([(NSString *)key isEqualToString:@"description"]) {
+        if ([key isEqualToString:@"description"]) {
             [entry setValue:keyVal forKey:@"blurb"];
-        }
-        else if ([(NSString *)key isEqualToString:kSource]) {
-            if ((int)[dict objectForKey:kSource] == kUser)
+        } else if ([key isEqualToString:kSource]) {
+            NSInteger intVal = (NSInteger)[dict objectForKey:kSource];
+            if (intVal == kUser)
                 entry.userEdited=@(YES);
             else
                 entry.userEdited=@(NO);
-        } else if ([(NSString *)key isEqualToString:@"ifid"]) {
-            [entry findOrCreateIfid:[dict objectForKey:key]];
-        } else if ([(NSString *)key isEqualToString:@"firstpublished"]) {
+            entry.source = @(intVal);
+        } else if ([key isEqualToString:@"firstpublished"]) {
             if (dateFormatter == nil)
                 dateFormatter = [[NSDateFormatter alloc] init];
             if (keyVal.length == 4)
                 dateFormatter.dateFormat = @"yyyy";
             else if (keyVal.length == 10)
                 dateFormatter.dateFormat = @"yyyy-MM-dd";
-            else NSLog(@"Illegal date format!");
+            else NSLog(@"Illegal date format in plist!");
 
             entry.firstpublishedDate = [dateFormatter dateFromString:keyVal];
             dateFormatter.dateFormat = @"yyyy";
             entry.firstpublished = [dateFormatter stringFromDate:entry.firstpublishedDate];
-        } else if ([(NSString *)key isEqualToString:@"language"]) {
+        } else if ([key isEqualToString:@"language"]) {
             sub = [keyVal substringWithRange:NSMakeRange(0, 2)];
             sub = sub.lowercaseString;
             if ([language objectForKey:sub])
@@ -899,10 +915,10 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             else
                 entry.languageAsWord = keyVal;
             entry.language = sub;
-        } else if ([(NSString *)key isEqualToString:@"format"]) {
+        } else if ([key isEqualToString:@"format"]) {
             if (entry.format == nil)
                 entry.format = [dict objectForKey:@"format"];
-        } else if ([(NSString *)key isEqualToString:@"forgiveness"]) {
+        } else if ([key isEqualToString:@"forgiveness"]) {
             entry.forgiveness = [dict objectForKey:@"forgiveness"];
             entry.forgivenessNumeric = [forgiveness objectForKey:keyVal];
         }
@@ -1052,8 +1068,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 // import it again, creating new metadata. This could happen if the user has deleted
                 // the Metadata.plist but not the Games.plist file, or if the Metadata and Games plists
                 // have gone out of sync somehow.
-                meta = [weakSelf importGame: [games valueForKey:ifid] inContext:private reportFailure: NO];
-                game = meta.game;
+                game = [weakSelf importGame: [games valueForKey:ifid] inContext:private reportFailure: NO];
+                meta = game.metadata;
             } else {
                 // Otherwise we simply use the Metadata entity we created
                 game = (Game *) [NSEntityDescription
@@ -1147,8 +1163,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             _addButton.enabled = YES;
             currentlyAddingGames = NO;
         });
-
-        cursrc = 0;
     }];
 }
 
@@ -1172,12 +1186,12 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
 
-    [_coreDataManager saveChanges];
+        [_coreDataManager saveChanges];
 
-    for (Game *game in gameTableModel) {
-        [_managedObjectContext refreshObject:game.metadata
-                                mergeChanges:YES];
-    }
+        for (Game *game in gameTableModel) {
+            [_managedObjectContext refreshObject:game.metadata
+                                    mergeChanges:YES];
+        }
     }
     return YES;
 }
@@ -1416,17 +1430,18 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (void)importAndPlayGame:(NSString *)path {
 
-    Metadata *meta = [self importGame: path inContext:_managedObjectContext reportFailure: YES];
-    if (meta)
+    Game *game = [self importGame: path inContext:_managedObjectContext reportFailure: YES];
+    if (game)
     {
-        [self selectGames:@[meta.game]];
-        [self playGame: meta.game];
+        [self selectGames:@[game]];
+        [self playGame:game];
     }
 }
 
-- (Metadata *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report {
+- (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report {
     char buf[TREATY_MINIMUM_EXTENT];
     Metadata *metadata;
+    Game *game;
     NSString *ifid;
     char *format;
     char *s;
@@ -1513,10 +1528,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
             if (rv > 0)
             {
-                cursrc = kInternal;
                 NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
                 metadata = [self importMetadataFromXML: mdbufData inContext:context];
-                cursrc = 0;
+            } else {
+                NSLog(@"Error! Babel could not extract metadata from file");
+                free(mdbuf);
+                return nil;
             }
             
             free(mdbuf);
@@ -1524,16 +1541,17 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
     else
 	{
-		if (metadata.game)
+        game = [self fetchGameForIFID:ifid inContext:context];
+		if (game)
 		{
-			NSLog(@"Game %@ already exists in library!", metadata.title);
-			if (![path isEqualToString:[metadata.game urlForBookmark].path])
+			NSLog(@"Game %@ already exists in library!", game.metadata.title);
+			if (![path isEqualToString:[game urlForBookmark].path])
 			{
 				NSLog(@"File location did not match. Updating library with new file location.");
-				[metadata.game bookmarkForPath:path];
+				[game bookmarkForPath:path];
 			}
-            metadata.game.found = @(YES);
-			return metadata;
+            game.found = @(YES);
+			return game;
 		}
 	}
 
@@ -1551,7 +1569,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (!metadata.title)
     {
         metadata.title = [path.lastPathComponent stringByDeletingPathExtension];
-//      [self downloadMetadataForIFID:ifid inContext:context];
     }
 
     if (!metadata.cover)
@@ -1584,7 +1601,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     babel_release();
 
-    Game *game = (Game *) [NSEntityDescription
+    game = (Game *) [NSEntityDescription
                            insertNewObjectForEntityForName:@"Game"
                            inManagedObjectContext:context];
 
@@ -1594,21 +1611,21 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     game.metadata = metadata;
     game.ifid = ifid;
 
-    return metadata;
+    return game;
 }
 
-- (void) addFile: (NSURL*)url select: (NSMutableArray*)select inContext:(NSManagedObjectContext *)context
+- (void) addFile: (NSURL*)url select: (NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure
 {
-    Metadata *meta = [self importGame: url.path inContext:context reportFailure: NO];
-    if (meta) {
+    Game *game = [self importGame: url.path inContext:context reportFailure:reportFailure];
+    if (game) {
         [self beginImporting];
-        [select addObject: meta.game.ifid];
+        [select addObject: game.ifid];
     } else {
 		NSLog(@"libctl: addFile: File %@ not added!", url.path);
 	}
 }
 
-- (void) addFiles:(NSArray*)urls select:(NSMutableArray*)select inContext:(NSManagedObjectContext *)context {
+- (void) addFiles:(NSArray*)urls select:(NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure {
     NSFileManager *filemgr = [NSFileManager defaultManager];
     BOOL isdir;
     NSInteger count;
@@ -1630,11 +1647,11 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                                        includingPropertiesForKeys:@[NSURLNameKey]
                                                           options:NSDirectoryEnumerationSkipsHiddenFiles
                                                             error:nil];
-            [self addFiles: contents select: select inContext:context];
+            [self addFiles: contents select: select inContext:context reportFailure:reportFailure];
         }
         else
         {
-            [self addFile:[urls objectAtIndex:i] select: select inContext:context];
+            [self addFile:[urls objectAtIndex:i] select:select inContext:context reportFailure:reportFailure];
         }
 
         if ([timestamp timeIntervalSinceNow] < -0.5) {
@@ -1662,8 +1679,23 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     LibController * __unsafe_unretained weakSelf = self;
 
+    BOOL reportFailure = NO;
+
+    if (urls.count == 1) {
+        // If the user only selects one file, and it is invalid
+        // (and not a directory) we should report the failure.
+        BOOL isDir;
+        [[NSFileManager defaultManager] fileExistsAtPath:((NSURL *)[urls objectAtIndex:0]).path isDirectory: &isDir];
+        if (!isDir)
+            reportFailure = YES;
+    }
+
+    
     [self beginImporting];
-    [self addFiles: urls select: select inContext:context];
+    NSLog(@"urls.count is%@1", (urls.count == 1) ? @" " : @" not ");
+    for (NSURL *url in urls)
+        NSLog(@"%@", url.path);
+    [self addFiles: urls select: select inContext:context reportFailure:reportFailure];
     [self endImporting];
 
     NSError *error = nil;
@@ -1848,12 +1880,12 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
         }
         else if ([gameSortColumn isEqual:@"added"] || [gameSortColumn isEqual:@"lastPlayed"] || [gameSortColumn isEqual:@"lastModified"])
         {
-            cmp = compareDates([a.game valueForKey:gameSortColumn], [b.game valueForKey:gameSortColumn], sortAscending);
+            cmp = compareDates([aid valueForKey:gameSortColumn], [bid valueForKey:gameSortColumn], sortAscending);
             if (cmp) return cmp;
         }
         else if ([gameSortColumn isEqual:@"found"]) {
-            NSString *string1 = [a.game.found isEqual:@(YES)]?nil:@"A";
-            NSString *string2 = [b.game.found isEqual:@(YES)]?nil:@"A";
+            NSString *string1 = [aid.found isEqual:@(YES)]?nil:@"A";
+            NSString *string2 = [bid.found isEqual:@(YES)]?nil:@"A";
             cmp = compareStrings(string1, string2, sortAscending);
             if (cmp) return cmp;
         }
@@ -2014,9 +2046,9 @@ objectValueForTableColumn: (NSTableColumn*)column
     gameTableDirty = YES;
     [self updateTableViews];
     NSArray *updatedObjects = [notification.userInfo objectForKey:NSUpdatedObjectsKey];
-    if ([updatedObjects containsObject:currentSideView])
+    if ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView])
     {
-        NSLog(@"Game currently on display in side view (%@) did change", currentSideView.title);
+        NSLog(@"Game currently on display in side view (%@) did change", currentSideView.metadata.title);
 
         [self updateSideViewForce:YES];
     }
@@ -2024,7 +2056,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 
 - (void) updateSideViewForce:(BOOL)force
 {
-    Metadata *meta = nil;
+    Game *game = nil;
     NSString *string = nil;
 
 	if ([_splitView isSubviewCollapsed:_leftView])
@@ -2037,14 +2069,14 @@ objectValueForTableColumn: (NSTableColumn*)column
 
         string = (selectedGames.count > 1) ? @"Multiple selections" : @"No selection";
 
-    } else meta = ((Game *)[selectedGames objectAtIndex:0]).metadata;
+    } else game = [selectedGames objectAtIndex:0];
 
-    if (force == NO && meta && meta == currentSideView) {
-        NSLog(@"updateSideView: %@ is already shown and force is NO", meta.title);
+    if (force == NO && game && game == currentSideView) {
+        NSLog(@"updateSideView: %@ is already shown and force is NO", game.metadata.title);
         return;
     }
 
-    currentSideView = meta;
+    currentSideView = game;
 
     [_leftScrollView.documentView performSelector:@selector(removeFromSuperview)];
 
@@ -2056,13 +2088,13 @@ objectValueForTableColumn: (NSTableColumn*)column
 
     _sideIfid.stringValue = @"";
 
-    if (meta) {
-        [infoView updateSideViewWithMetadata:meta];
-        NSLog(@"\nUpdating info pane for %@ with ifid %@", meta.title, meta.game.ifid);
+    if (game) {
+        [infoView updateSideViewWithGame:game];
+        NSLog(@"\nUpdating info pane for %@ with ifid %@", game.metadata.title, game.ifid);
         //NSLog(@"Side view width: %f", NSWidth(_leftView.frame));
 
-        if (meta.game.ifid)
-            _sideIfid.stringValue=meta.game.ifid;
+        if (game.ifid)
+            _sideIfid.stringValue = game.ifid;
     } else if (string) {
         [infoView updateSideViewWithString:string];
         NSLog(@"\nUpdating info pane with string '%@'", string);
