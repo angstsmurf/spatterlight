@@ -29,6 +29,7 @@
 @interface LibController
     : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSURLConnectionDelegate, NSSplitViewDelegate> {
     NSURL *homepath;
+    NSURL *imageDir;
 
     IBOutlet NSButton *infoButton;
     IBOutlet NSButton *playButton;

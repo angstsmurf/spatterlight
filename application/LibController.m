@@ -156,7 +156,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     self = [super initWithWindowNibName:@"LibraryWindow"];
     if (self) {
         NSError *error;
-        homepath = [[NSFileManager defaultManager]
+        NSURL *appSuppDir = [[NSFileManager defaultManager]
               URLForDirectory:NSApplicationSupportDirectory
                      inDomain:NSUserDomainMask
             appropriateForURL:nil
@@ -167,7 +167,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                   @"Error: %@",
                   error);
 
-        homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:homepath];
+        homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:appSuppDir];
+
+        imageDir = [NSURL URLWithString:@"Cover Art" relativeToURL:homepath];
 
         [[NSFileManager defaultManager] createDirectoryAtURL:homepath
                                  withIntermediateDirectories:YES
@@ -693,11 +695,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
 				free(mdbuf);
 			}
-			NSString *dirpath = (@"~/Library/Application Support/Spatterlight/Cover Art").stringByStandardizingPath;
-			NSString *imgpath = [[dirpath stringByAppendingPathComponent: ifid] stringByAppendingPathExtension: @"tiff"];
 
-
-			NSData *img = [[NSData alloc] initWithContentsOfFile: imgpath];
+            NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:imageDir];
+            NSData *img = [[NSData alloc] initWithContentsOfURL:imgpath];
 			if (!img)
 			{
 				int imglen = babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
@@ -1024,15 +1024,6 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                              selector:@selector(backgroundManagedObjectContextDidSave:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:private];
-
-    NSError *error;
-    NSURL *appSuppDir = [[NSFileManager defaultManager]
-               URLForDirectory:NSApplicationSupportDirectory
-               inDomain:NSUserDomainMask
-               appropriateForURL:nil
-               create:YES
-               error:&error];
-    
     [self beginImporting];
     _addButton.enabled = NO;
     currentlyAddingGames = YES;
@@ -1099,11 +1090,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 [game bookmarkForPath:[games valueForKey:ifid]];
 
                 // First, we look for a cover image file in Spatterlight Application Support folder
-
-                NSString *pathstring =
-                [[@"Spatterlight/Cover%20Art" stringByAppendingPathComponent:ifid]
-                 stringByAppendingPathExtension:@"tiff"];
-                NSURL *imgpath = [NSURL URLWithString:pathstring relativeToURL:appSuppDir];
+                NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:imageDir];
                 NSData *imgdata = [[NSData alloc] initWithContentsOfURL:imgpath];
 
                 if (imgdata) {
@@ -1573,12 +1560,11 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     if (!metadata.cover)
     {
-        NSString *dirpath = (@"~/Library/Application Support/Spatterlight/Cover Art").stringByStandardizingPath;
-        NSString *imgpath = [[dirpath stringByAppendingPathComponent: ifid] stringByAppendingPathExtension: @"tiff"];
-        NSData *img = [[NSData alloc] initWithContentsOfFile: imgpath];
+        NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:imageDir];
+        NSData *img = [[NSData alloc] initWithContentsOfURL:imgpath];
         if (img)
         {
-            metadata.coverArtURL = imgpath;
+            metadata.coverArtURL = imgpath.path;
             [self addImage:img toMetadata:metadata inContext:context];
         }
         else
