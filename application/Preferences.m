@@ -382,24 +382,24 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 
         font = bufroman;
         switch (style) {
-        case style_Emphasized:
-            font = bufitalic;
-            break;
-        case style_Preformatted:
-            font = gridroman;
-            break;
-        case style_Header:
-            font = bufheader;
-            break;
-        case style_Subheader:
-            font = bufbold;
-            break;
-        case style_Alert:
-            font = bufbolditalic;
-            break;
-        case style_Input:
-            font = inputfont;
-            break;
+            case style_Emphasized:
+                font = bufitalic;
+                break;
+            case style_Preformatted:
+                font = gridroman;
+                break;
+            case style_Header:
+                font = bufheader;
+                break;
+            case style_Subheader:
+                font = bufbold;
+                break;
+            case style_Alert:
+                font = bufbolditalic;
+                break;
+            case style_Input:
+                font = inputfont;
+                break;
         }
         [dict setObject:font forKey:NSFontAttributeName];
 
@@ -420,21 +420,21 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 
         font = gridroman;
         switch (style) {
-        case style_Emphasized:
-            font = griditalic;
-            break;
-        case style_Preformatted:
-            font = gridroman;
-            break;
-        case style_Header:
-            font = gridbold;
-            break;
-        case style_Subheader:
-            font = gridbold;
-            break;
-        case style_Alert:
-            font = gridbolditalic;
-            break;
+            case style_Emphasized:
+                font = griditalic;
+                break;
+            case style_Preformatted:
+                font = gridroman;
+                break;
+            case style_Header:
+                font = gridbold;
+                break;
+            case style_Subheader:
+                font = gridbold;
+                break;
+            case style_Alert:
+                font = gridbolditalic;
+                break;
         }
         [dict setObject:font forKey:NSFontAttributeName];
 
@@ -465,8 +465,8 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 
     /* send notification that prefs have changed -- trigger configure events */
     [[NSNotificationCenter defaultCenter]
-        postNotificationName:@"PreferencesChanged"
-                      object:nil];
+     postNotificationName:@"PreferencesChanged"
+     object:nil];
 }
 
 /* ---------------------------------------------------------------------- */
@@ -479,14 +479,14 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 NSString *fontToString(NSFont *font) {
     if ((int)font.pointSize == font.pointSize)
         return [NSString stringWithFormat:@"%@ %.f", font.displayName,
-                                          (float)font.pointSize];
+                (float)font.pointSize];
     else
         return [NSString stringWithFormat:@"%@ %.1f", font.displayName,
-                                          (float)font.pointSize];
+                (float)font.pointSize];
 }
 
 - (void)windowDidLoad {
-//    NSLog(@"pref: windowDidLoad()");
+    //    NSLog(@"pref: windowDidLoad()");
 
     [super windowDidLoad];
 
@@ -541,8 +541,8 @@ NSString *fontToString(NSFont *font) {
 
     /* send notification that default size has changed -- resize all windows */
     [[NSNotificationCenter defaultCenter]
-        postNotificationName:@"DefaultSizeChanged"
-                      object:nil];
+     postNotificationName:@"DefaultSizeChanged"
+     object:nil];
 }
 
 - (IBAction)changeColor:(id)sender {
@@ -633,8 +633,8 @@ NSString *fontToString(NSFont *font) {
     /* send notification that prefs have changed -- tell clients that graphics
      * are off limits */
     [[NSNotificationCenter defaultCenter]
-        postNotificationName:@"PreferencesChanged"
-                      object:nil];
+     postNotificationName:@"PreferencesChanged"
+     object:nil];
 }
 
 - (IBAction)changeEnableSound:(id)sender {
@@ -646,8 +646,8 @@ NSString *fontToString(NSFont *font) {
     /* send notification that prefs have changed -- tell clients that sound is
      * off limits */
     [[NSNotificationCenter defaultCenter]
-        postNotificationName:@"PreferencesChanged"
-                      object:nil];
+     postNotificationName:@"PreferencesChanged"
+     object:nil];
 }
 
 - (IBAction)changeEnableStyles:(id)sender {
@@ -674,8 +674,8 @@ NSString *fontToString(NSFont *font) {
     /* send notification that prefs have changed -- tell clients that border has
      * changed */
     [[NSNotificationCenter defaultCenter]
-        postNotificationName:@"PreferencesChanged"
-                      object:nil];
+     postNotificationName:@"PreferencesChanged"
+     object:nil];
 }
 
 #pragma mark - Zoom
@@ -698,7 +698,7 @@ NSString *fontToString(NSFont *font) {
 
 + (void)zoomToActualSize {
     zoomDirection = ZOOMRESET;
-    [self scale:12 / gridroman.pointSize];    
+    [self scale:12 / gridroman.pointSize];
 }
 
 + (void)scale:(CGFloat)scalefactor {
@@ -761,8 +761,8 @@ NSString *fontToString(NSFont *font) {
 
     /* send notification that default size has changed -- resize all windows */
     [[NSNotificationCenter defaultCenter]
-        postNotificationName:@"DefaultSizeChanged"
-                      object:nil];
+     postNotificationName:@"DefaultSizeChanged"
+     object:nil];
 }
 
 - (void)updatePanelAfterZoom {
@@ -800,7 +800,7 @@ NSString *fontToString(NSFont *font) {
 
     if (selfontp) {
         NSDictionary *attr =
-            @{@"NSColor" : *colorp, @"NSDocumentBackgroundColor" : *colorp2};
+        @{@"NSColor" : *colorp, @"NSDocumentBackgroundColor" : *colorp2};
 
         [self.window makeFirstResponder:self.window];
 
@@ -898,8 +898,8 @@ NSString *fontToString(NSFont *font) {
 
 - (NSUInteger)validModesForFontPanel:(NSFontPanel *)fontPanel {
     return NSFontPanelFaceModeMask | NSFontPanelCollectionModeMask |
-           NSFontPanelSizeModeMask | NSFontPanelTextColorEffectModeMask |
-           NSFontPanelDocumentColorEffectModeMask;
+    NSFontPanelSizeModeMask | NSFontPanelTextColorEffectModeMask |
+    NSFontPanelDocumentColorEffectModeMask;
 }
 
 - (void)windowWillClose:(id)sender {

@@ -35,18 +35,18 @@ NSDictionary *gFormatMap;
     gExtMap = @{@"acd" : @"alan2", @"a3c" : @"alan3", @"d$$" : @"agility"};
 
     gFormatMap = @{
-        @"adrift" : @"scare",
-        @"advsys" : @"advsys",
-        @"agt" : @"agility",
-        @"glulx" : @"glulxe",
-        @"hugo" : @"hugo",
-        @"level9" : @"level9",
-        @"magscrolls" : @"magnetic",
-        @"quill" : @"unquill",
-        @"tads2" : @"tadsr",
-        @"tads3" : @"tadsr",
-        @"zcode" : @"frotz"
-    };
+                   @"adrift" : @"scare",
+                   @"advsys" : @"advsys",
+                   @"agt" : @"agility",
+                   @"glulx" : @"glulxe",
+                   @"hugo" : @"hugo",
+                   @"level9" : @"level9",
+                   @"magscrolls" : @"magnetic",
+                   @"quill" : @"unquill",
+                   @"tads2" : @"tadsr",
+                   @"tads3" : @"tadsr",
+                   @"zcode" : @"frotz"
+                   };
     //  @"zcode": @"fizmo"};
 
     addToRecents = YES;
@@ -76,7 +76,7 @@ NSDictionary *gFormatMap;
 - (HelpPanelController *)helpLicenseWindow {
     if (!_helpLicenseWindow) {
         _helpLicenseWindow = [[HelpPanelController alloc]
-            initWithWindowNibName:@"HelpPanelController"];
+                              initWithWindowNibName:@"HelpPanelController"];
         _helpLicenseWindow.window.restorable = YES;
         _helpLicenseWindow.window.restorationClass = [AppDelegate class];
         _helpLicenseWindow.window.identifier = @"licenseWin";
@@ -90,7 +90,7 @@ NSDictionary *gFormatMap;
     id title = [sender title];
     id pathname = [NSBundle mainBundle].resourcePath;
     id filename =
-        [NSString stringWithFormat:@"%@/docs/%@.rtf", pathname, title];
+    [NSString stringWithFormat:@"%@/docs/%@.rtf", pathname, title];
 
     NSURL *url = [NSURL fileURLWithPath:filename];
     NSError *error;
@@ -100,12 +100,12 @@ NSDictionary *gFormatMap;
     }
 
     NSAttributedString *content = [[NSAttributedString alloc]
-               initWithURL:url
-                   options:@{
-                       NSDocumentTypeDocumentOption : NSRTFTextDocumentType
-                   }
-        documentAttributes:nil
-                     error:&error];
+                                   initWithURL:url
+                                   options:@{
+                                   NSDocumentTypeDocumentOption : NSRTFTextDocumentType
+                                   }
+                                   documentAttributes:nil
+                                   error:&error];
 
     [_helpLicenseWindow showHelpFile:content withTitle:title];
 }
@@ -116,8 +116,8 @@ NSDictionary *gFormatMap;
 + (void)restoreWindowWithIdentifier:(NSString *)identifier
                               state:(NSCoder *)state
                   completionHandler:
-                      (void (^)(NSWindow *, NSError *))completionHandler {
-//    NSLog(@"restoreWindowWithIdentifier called with identifier %@", identifier);
+(void (^)(NSWindow *, NSError *))completionHandler {
+    //    NSLog(@"restoreWindowWithIdentifier called with identifier %@", identifier);
     NSWindow *window = nil;
     AppDelegate *appDelegate = (AppDelegate *)[NSApp delegate];
     if ([identifier isEqualToString:@"library"]) {
@@ -128,18 +128,18 @@ NSDictionary *gFormatMap;
         window = appDelegate.prefctl.window;
     } else {
         NSString *firstLetters =
-            [identifier substringWithRange:NSMakeRange(0, 7)];
+        [identifier substringWithRange:NSMakeRange(0, 7)];
 
         if ([firstLetters isEqualToString:@"infoWin"]) {
             NSString *path = [identifier substringFromIndex:7];
             if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
                 InfoController *infoctl =
-                    [[InfoController alloc] initWithpath:path];
+                [[InfoController alloc] initWithpath:path];
                 NSWindow *infoWindow = infoctl.window;
                 infoWindow.restorable = YES;
                 infoWindow.restorationClass = [AppDelegate class];
                 infoWindow.identifier =
-                    [NSString stringWithFormat:@"infoWin%@", path];
+                [NSString stringWithFormat:@"infoWin%@", path];
                 [appDelegate.libctl.infoWindows setObject:infoctl forKey:path];
                 window = infoctl.window;
             }
@@ -155,7 +155,7 @@ NSDictionary *gFormatMap;
 #pragma mark Library
 
 - (IBAction)showLibrary:(id)sender {
-//    NSLog(@"appdel: showLibrary");
+    //    NSLog(@"appdel: showLibrary");
     [_libctl showWindow:nil];
 }
 
@@ -190,9 +190,9 @@ NSDictionary *gFormatMap;
     NSLog(@"appdel: openDocument");
 
     NSURL *directory =
-        [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
-                                   objectForKey:@"GameDirectory"]
-                   isDirectory:YES];
+    [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
+                            objectForKey:@"GameDirectory"]
+               isDirectory:YES];
     NSOpenPanel *panel;
 
     if (filePanel) {
@@ -208,16 +208,16 @@ NSDictionary *gFormatMap;
                 NSURL *theDoc = [panel.URLs objectAtIndex:0];
                 if (theDoc) {
                     NSString *pathString =
-                        theDoc.path.stringByDeletingLastPathComponent;
+                    theDoc.path.stringByDeletingLastPathComponent;
                     NSLog(@"directory = %@", directory);
                     if ([theDoc.path.pathExtension isEqualToString:@"sav"])
                         [[NSUserDefaults standardUserDefaults]
-                            setObject:pathString
-                               forKey:@"SaveDirectory"];
+                         setObject:pathString
+                         forKey:@"SaveDirectory"];
                     else
                         [[NSUserDefaults standardUserDefaults]
-                            setObject:pathString
-                               forKey:@"GameDirectory"];
+                         setObject:pathString
+                         forKey:@"GameDirectory"];
 
                     [self application:NSApp openFile:theDoc.path];
                 }
@@ -273,7 +273,7 @@ NSDictionary *gFormatMap;
 
 - (void)application:(NSApplication *)sender openFiles:(NSArray *)filenames {
     /* This is called when we select a file from the Open Recent menu,
-       so we don't add them again */
+     so we don't add them again */
 
     addToRecents = NO;
     for (NSString *path in filenames) {
@@ -336,13 +336,13 @@ NSDictionary *gFormatMap;
                                      (long)alive];
             if (restorable == 1)
                 msg = [msg
-                    stringByAppendingString:
-                        @"\n(There is also an autorestorable game running.)"];
+                       stringByAppendingString:
+                       @"\n(There is also an autorestorable game running.)"];
             else if (restorable > 1)
                 msg = [msg
-                    stringByAppendingFormat:
-                        @"\n(There are also %ld autorestorable games running.)",
-                        restorable];
+                       stringByAppendingFormat:
+                       @"\n(There are also %ld autorestorable games running.)",
+                       restorable];
 
             NSAlert *anAlert = [[NSAlert alloc] init];
             anAlert.messageText = @"Do you really want to quit?";
@@ -375,7 +375,6 @@ NSDictionary *gFormatMap;
     for (GlkController *glkctl in [_libctl.gameSessions allValues]) {
         [glkctl autoSaveOnExit];
     }
-
     if ([[NSFontPanel sharedFontPanel] isVisible]) {
         [[NSFontPanel sharedFontPanel] orderOut:self];
     }
