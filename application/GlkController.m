@@ -2119,7 +2119,7 @@ static NSString *signalToName(NSTask *task) {
                                            @"height" : @(gevent.val2),
                                            @"bufferMargin" : @(Preferences.bufferMargins),
                                            @"gridMargin" : @(Preferences.gridMargins),
-                                           @"charWidth" : @(Preferences.gridMargins),
+                                           @"charWidth" : @(Preferences.charWidth),
                                            @"lineHeight" : @(Preferences.lineHeight),
                                            @"leading" : @(Preferences.leading)
                                            };
