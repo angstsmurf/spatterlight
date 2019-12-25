@@ -10,7 +10,7 @@
 #import "Image.h"
 #import "Metadata.h"
 #import "Ifid.h"
-#import "Settings.h"
+#import "Theme.h"
 #import "SideInfoView.h"
 #import "InfoController.h"
 #import "IFictionMetadata.h"
@@ -942,6 +942,35 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 //    }
 //}
 
+- (Theme *)findDefaultThemeInContext:(NSManagedObjectContext *)context {
+
+    NSError *error = nil;
+    NSArray *fetchedObjects;
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:context];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"themeName like[c] %@", @"Default"];
+
+    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"findDefaultThemeInContext: %@",error);
+    }
+
+    if (fetchedObjects.count > 1)
+    {
+        NSLog(@"findDefaultThemeInContext: Found more than one Theme object with themeName Default");
+    }
+    else if (fetchedObjects.count == 0)
+    {
+        NSLog(@"fetchMetadataForIFID: Found no Ifid object with with themeName Default");
+        return nil;
+    }
+
+    return [fetchedObjects objectAtIndex:0];
+}
+
+
 - (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
     NSError *error = nil;
     NSArray *fetchedObjects;
@@ -1070,19 +1099,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             // Now we should have a Game with corresponding Metadata
             // (but we check anyway just to make sure)
             if (meta) {
-                game.setting = (Settings *) [NSEntityDescription
-                                             insertNewObjectForEntityForName:@"Settings"
-                                             inManagedObjectContext:private];
 
-                game.setting.bufferFont = (Font *) [NSEntityDescription
-                                                    insertNewObjectForEntityForName:@"Font"
-                                                    inManagedObjectContext:private];
-                game.setting.gridFont = (Font *) [NSEntityDescription
-                                                  insertNewObjectForEntityForName:@"Font"
-                                                  inManagedObjectContext:private];
-                game.setting.bufInput = (Font *) [NSEntityDescription
-                                                  insertNewObjectForEntityForName:@"Font"
-                                                  inManagedObjectContext:private];
+                game.setting = [self findDefaultThemeInContext:private];
 
                 game.ifid = ifid;
                 game.metadata = meta;
@@ -1596,6 +1614,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     game.added = [NSDate date];
     game.metadata = metadata;
     game.ifid = ifid;
+
+    game.setting = [self findDefaultThemeInContext:context];
 
     return game;
 }

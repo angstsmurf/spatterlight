@@ -13,7 +13,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@class Game;
+@class Game, Theme;
 
 #define MAXWIN 64
 #define MAXSND 32
@@ -58,13 +58,10 @@
 
     /* stylehints need to be copied to new windows, so we keep the values around
      */
-    NSInteger styleuse[2][style_NUMSTYLES][stylehint_NUMHINTS];
-    NSInteger styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
-
-    /* keep some info around for the about-box and resetting*/
-    Game *game;
-    NSString *gamefile;
-    NSString *terpname;
+//    NSInteger styleuse[2][style_NUMSTYLES][stylehint_NUMHINTS];
+//    NSInteger styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
+    NSMutableArray *gridStyleHints;
+    NSMutableArray *bufferStyleHints;
 
     GlkController *restoredController;
     NSUInteger turns;
@@ -85,9 +82,15 @@
 
 @property(readonly) NSRect windowPreFullscreenFrame;
 
-@property NSInteger firstResponderView;
+@property(readonly) NSInteger firstResponderView;
 
-@property NSMutableArray *queue;
+@property(readonly) NSMutableArray *queue;
+
+/* keep some info around for the about-box and resetting*/
+@property(readonly) Game *game;
+@property(readonly) NSString *gamefile;
+@property(readonly) NSString *terpname;
+@property(readonly) Theme *theme;
 
 @property(strong, nonatomic) NSString *appSupportDir;
 @property(strong, nonatomic) NSString *autosaveFileGUI;

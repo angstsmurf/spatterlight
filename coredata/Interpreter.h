@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Settings;
+@class Theme;
 
 @interface Interpreter : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) Settings *setting;
+@property (nonatomic, retain) Theme *setting;
 
 @end

@@ -29,6 +29,8 @@ enum  {
 - (instancetype)initWithXMLElement:(NSXMLElement *)element andMetadata:(Metadata *)metadata;{
     self = [super init];
     if (self) {
+        // This dictionary is repeated in LibController.m, which will be cumbersome
+        // when/if we add more languages
         NSDictionary *language = @{
                                    @"en" : @"English",
                                    @"fr" : @"French",

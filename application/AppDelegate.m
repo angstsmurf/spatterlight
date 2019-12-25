@@ -19,6 +19,10 @@
 @implementation AppDelegate
 
 NSArray *gGameFileTypes;
+
+NSArray *gBufferStyleNames;
+NSArray *gGridStyleNames;
+
 NSDictionary *gExtMap;
 NSDictionary *gFormatMap;
 
@@ -31,6 +35,35 @@ NSDictionary *gFormatMap;
         @"z3",    @"z4",  @"z5",     @"z7",     @"z8",    @"ulx", @"blb",
         @"blorb", @"glb", @"gblorb", @"zlb",    @"zblorb"
     ];
+
+    // To map the Glk style indices onto our Core Data relation names
+    gBufferStyleNames = @[
+                       @"bufferFont",
+                       @"bufEmph",
+                       @"bufPre",
+                       @"bufHead",
+                       @"bufSubH",
+                       @"bufAlert",
+                       @"bufNote",
+                       @"bufBlock",
+                       @"bufInput",
+                       @"bufUsr1",
+                       @"bufUsr2",
+                       ];
+
+    gGridStyleNames = @[
+                       @"gridFont",
+                       @"gridEmph",
+                       @"gridPre",
+                       @"gridHead",
+                       @"gridSubH",
+                       @"gridAlert",
+                       @"gridNote",
+                       @"gridBlock",
+                       @"gridInput",
+                       @"gridUsr1",
+                       @"gridUsr2",
+                       ];
 
     gExtMap = @{@"acd" : @"alan2", @"a3c" : @"alan3", @"d$$" : @"agility"};
 
@@ -55,6 +88,9 @@ NSDictionary *gFormatMap;
     _prefctl.window.restorable = YES;
     _prefctl.window.restorationClass = [self class];
     _prefctl.window.identifier = @"preferences";
+
+    [_prefctl createDefaultThemes];
+
 
     _libctl = [[LibController alloc] init];
     _libctl.window.restorable = YES;

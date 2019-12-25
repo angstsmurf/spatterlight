@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Metadata, Settings;
+@class Metadata, Theme;
 
 @interface Game : NSManagedObject
 
@@ -22,8 +22,8 @@
 @property (nonatomic, retain) NSString * hashTag;
 @property (nonatomic, retain) NSString * version;
 @property (nonatomic, retain) Metadata *metadata;
-@property (nonatomic, retain) Settings *override;
-@property (nonatomic, retain) Settings *setting;
+@property (nonatomic, retain) Theme *override;
+@property (nonatomic, retain) Theme *setting;
 
 @property (readonly, copy) NSURL *urlForBookmark;
 - (void) bookmarkForPath: (NSString *)path;

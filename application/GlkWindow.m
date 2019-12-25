@@ -8,11 +8,12 @@
 
     if (self) {
         _glkctl = glkctl_;
+        theme = glkctl_.theme;
         _name = name;
         bgnd = 0xFFFFFF; // White
-        styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-        while (styles.count < style_NUMSTYLES)
-            [styles addObject:[[GlkStyle alloc] init]];
+//        styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+//        while (styles.count < style_NUMSTYLES)
+//            [styles addObject:[[GlkStyle alloc] init]];
         _pendingTerminators = [[NSMutableDictionary alloc]
             initWithObjectsAndKeys:@(NO), @keycode_Func1, @(NO), @keycode_Func2,
                                    @(NO), @keycode_Func3, @(NO), @keycode_Func4,
@@ -32,7 +33,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        styles = [decoder decodeObjectForKey:@"styles"];
+        _styleHints = [decoder decodeObjectForKey:@"styleHints"];
         _name = [decoder decodeIntegerForKey:@"name"];
         bgnd = [decoder decodeIntegerForKey:@"bgnd"];
         hyperlinks = [decoder decodeObjectForKey:@"hyperlinks"];
@@ -57,7 +58,7 @@
     [encoder encodeObject:_pendingTerminators forKey:@"pendingTerminators"];
     [encoder encodeBool:_terminatorsPending forKey:@"terminatorsPending"];
     [encoder encodeBool:char_request forKey:@"char_request"];
-    [encoder encodeObject:styles forKey:@"styles"];
+    [encoder encodeObject:_styleHints forKey:@"styleHints"];
 }
 
 - (NSString *)sayMask:(NSUInteger)mask {
@@ -70,28 +71,37 @@
     return maskToSay;
 }
 
-- (void)setStyle:(NSInteger)style
-      windowType:(NSInteger)wintype
-          enable:(NSInteger *)enable
-           value:(NSInteger *)value {
-    [styles removeObjectAtIndex:style];
-    [styles insertObject:[[GlkStyle alloc] initWithStyle:style
-                                              windowType:wintype
-                                                  enable:enable
-                                                   value:value]
-                 atIndex:style];
-}
+//- (void)setStyle:(NSInteger)style
+//      windowType:(NSInteger)wintype
+//          enable:(NSInteger *)enable
+//           value:(NSInteger *)value {
+//    [styles removeObjectAtIndex:style];
+//    [styles insertObject:[[GlkStyle alloc] initWithStyle:style
+//                                              windowType:wintype
+//                                                  enable:enable
+//                                                   value:value]
+//                 atIndex:style];
+//}
 
 - (BOOL)getStyleVal:(NSInteger)style
                hint:(NSInteger)hint
               value:(NSInteger *)value {
-    GlkStyle *checkedStyle = [styles objectAtIndex:style];
-    if (checkedStyle) {
-        if ([checkedStyle valueForHint:hint value:value])
-            return YES;
-    }
 
-    return NO;
+    NSNumber *valObj = nil;
+    
+    if (style < 0 || style >= style_NUMSTYLES)
+        return NO;
+
+    if (hint < 0 || hint >= stylehint_NUMHINTS)
+        return NO;
+
+    NSArray *hintsForStyle = [_styleHints objectAtIndex:style];
+
+    valObj = [hintsForStyle objectAtIndex:hint];
+    if ([valObj isNotEqualTo:[NSNull null]])
+       *value = valObj.integerValue;
+
+    return [valObj isNotEqualTo:[NSNull null]];
 }
 
 - (BOOL)isOpaque {
@@ -99,9 +109,6 @@
 }
 
 - (void)prefsDidChange {
-    NSInteger i;
-    for (i = 0; i < style_NUMSTYLES; i++)
-        [[styles objectAtIndex:i] prefsDidChange];
 }
 
 - (void)terpDidStop {
@@ -165,8 +172,7 @@
 
     if (fg || bg) {
         NSMutableDictionary *mutatt =
-            [((GlkStyle *)(
-                  [styles objectAtIndex:style])).attributes mutableCopy];
+            [[styles objectAtIndex:style] mutableCopy];
         [mutatt setObject:@(stylevalue) forKey:@"GlkStyle"];
         if ([Preferences stylesEnabled]) {
             if (fg)
@@ -178,7 +184,7 @@
         }
         return (NSDictionary *)mutatt;
     } else {
-        return ((GlkStyle *)([styles objectAtIndex:style])).attributes;
+        return [styles objectAtIndex:style];
     }
 }
 

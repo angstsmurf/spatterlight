@@ -28,12 +28,12 @@
           metadata.starRating = node.stringValue;
 //      } else if ([node.name compare:@"link"] == 0) {
 //        metadata.link = [NSURL URLWithString:node.stringValue];
-//      } else if ([node.name compare:@"averageRating"] == 0) {
-//        metadata.averageRating = node.stringValue.doubleValue;
+      } else if ([node.name compare:@"averageRating"] == 0) {
+        metadata.averageRating = node.stringValue;
 //      } else if ([node.name compare:@"ratingCountAvg"] == 0) {
-//        metadata.ratingCountAvg = node.stringValue.integerValue;
-//      } else if ([node.name compare:@"ratingCountTot"] == 0) {
-//        metadata.ratingCountTot = node.stringValue.integerValue;
+//        metadata.ratingCountAvg = node.stringValue;
+      } else if ([node.name compare:@"ratingCountTot"] == 0) {
+        metadata.ratingCountTot = node.stringValue;
       }
     }
   }

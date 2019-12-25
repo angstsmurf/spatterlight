@@ -7,7 +7,7 @@
 //
 
 #import "Interpreter.h"
-#import "Settings.h"
+#import "Theme.h"
 
 
 @implementation Interpreter

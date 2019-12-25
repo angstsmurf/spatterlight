@@ -1,4 +1,9 @@
 #import "Compatibility.h"
+#import "CoreDataManager.h"
+#import "Game.h"
+#import "Theme.h"
+#import "GlkStyle.h"
+
 #import "main.h"
 
 #ifdef DEBUG
@@ -47,6 +52,8 @@ static NSColor *bgcolor[8];
 
 static NSDictionary *bufferatts[style_NUMSTYLES];
 static NSDictionary *gridatts[style_NUMSTYLES];
+
+static Theme *theme = nil;
 
 static Preferences *prefs = nil;
 
@@ -168,6 +175,63 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     }
 }
 
+
++ (void)readSettingsFromObject:(Theme *)setting {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *name;
+    float size;
+
+    defscreenw = setting.defaultCols.intValue;
+    defscreenh = setting.defaultRows.intValue;
+
+    smartquotes = setting.smartQuotes.boolValue;
+    smartquotes = setting.spaceFormat.intValue;
+
+    dographics = setting.doGraphics.boolValue;
+    dosound = setting.doSound.boolValue;
+    dostyles = setting.doStyles.boolValue;
+
+    usescreenfonts = NO;
+
+    gridbg = setting.gridBackground;
+    gridfg = setting.gridFont.color;
+    bufferbg = setting.bufferBackground;
+    bufferfg = setting.bufferFont.color;
+    inputfg = setting.bufInput.color;
+
+    gridmargin = [[defaults objectForKey:@"GridMargin"] doubleValue];
+    buffermargin = [[defaults objectForKey:@"BufferMargin"] doubleValue];
+    border = [[defaults objectForKey:@"Border"] doubleValue];
+
+    leading = [[defaults objectForKey:@"Leading"] doubleValue];
+
+    name = [defaults objectForKey:@"GridFontName"];
+    size = [[defaults objectForKey:@"GridFontSize"] doubleValue];
+    gridroman = [NSFont fontWithName:name size:size];
+    if (!gridroman) {
+        NSLog(@"pref: failed to create grid font '%@'", name);
+        gridroman = [NSFont userFixedPitchFontOfSize:0];
+    }
+
+    name = [defaults objectForKey:@"BufferFontName"];
+    size = [[defaults objectForKey:@"BufferFontSize"] doubleValue];
+    bufroman = [NSFont fontWithName:name size:size];
+    if (!bufroman) {
+        NSLog(@"pref: failed to create buffer font '%@'", name);
+        bufroman = [NSFont userFontOfSize:0];
+    }
+
+    name = [defaults objectForKey:@"InputFontName"];
+    size = [[defaults objectForKey:@"InputFontSize"] doubleValue];
+    inputfont = [NSFont fontWithName:name size:size];
+    if (!inputfont) {
+        NSLog(@"pref: failed to create input font '%@'", name);
+        inputfont = [NSFont userFontOfSize:0];
+    }
+}
+
+
+
 + (void)initialize {
     NSInteger i;
 
@@ -210,9 +274,8 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     [self rebuildTextAttributes];
 }
 
-/*
- * Global accessors
- */
+
+#pragma mark Global accessors
 
 + (NSColor *)foregroundColor:(int)number {
     if (number < 0 || number > 7)
@@ -278,37 +341,36 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     return leading;
 }
 
-+ (NSSize)defaultWindowSize {
-    NSInteger width =
-        ceil(self.charWidth * defscreenw + (gridmargin + border + 4) * 2.0);
-    NSInteger height =
-        ceil(self.lineHeight * defscreenh + (gridmargin + border + 4) * 2.0);
-
-    return NSMakeSize(width, height);
-}
-
 + (NSColor *)gridBackground {
     return gridbg;
 }
 
-+ (NSColor *)gridForeground;
-{ return gridfg; }
++ (NSColor *)gridForeground {
+    return gridfg;
+}
 
-+ (NSColor *)bufferBackground;
-{ return bufferbg; }
++ (NSColor *)bufferBackground {
+    return bufferbg;
+}
 
-+ (NSColor *)bufferForeground;
-{ return bufferfg; }
++ (NSColor *)bufferForeground {
+    return bufferfg;
+}
 
-+ (NSColor *)inputColor;
-{ return inputfg; }
++ (NSColor *)inputColor {
+    return inputfg;
+}
 
-+ (Preferences *)instance;
-{ return prefs; }
++ (Theme *)currentTheme {
+    return theme;
+}
 
-/*
- * Style and attributed-string magic
- */
++ (Preferences *)instance {
+    return prefs;
+}
+
+
+#pragma mark GlkStyle and attributed-string magic
 
 + (NSDictionary *)attributesForGridStyle:(int)style {
     if (style < 0 || style >= style_NUMSTYLES)
@@ -415,8 +477,8 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
         [dict setObject:gridfg forKey:NSForegroundColorAttributeName];
 
         /* for our frotz quote-box hack */
-        if (style == style_User1)
-            [dict setObject:gridbg forKey:NSBackgroundColorAttributeName];
+//        if (style == style_User1)
+//            [dict setObject:gridbg forKey:NSBackgroundColorAttributeName];
 
         font = gridroman;
         switch (style) {
@@ -441,10 +503,10 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
         gridatts[style] = dict;
     }
 
-    if (usescreenfonts)
-        font = gridroman.screenFont;
-    else
-        font = gridroman.printerFont;
+//    if (usescreenfonts)
+//        font = gridroman.screenFont;
+//    else
+//        font = gridroman.printerFont;
 
     // NSLog(@"[font advancementForGlyph:(NSGlyph)'X'].width:%f
     // font.maximumAdvancement.width:%f [@\"X\"
@@ -464,17 +526,18 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     // cellh = [font ascender] + [font descender] + [font leading] + leading;
 
     /* send notification that prefs have changed -- trigger configure events */
+
+    NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:[Preferences currentTheme]];
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"PreferencesChanged"
-     object:nil];
+     postNotification:notification];
 }
 
-/* ---------------------------------------------------------------------- */
+- (void)noteCurrentThemeDidChange:(NSNotification *)notification {
 
-/*
- * Instance -- controller for preference panel
- *
- */
+    
+}
+
+#pragma mark - Instance -- controller for preference panel
 
 NSString *fontToString(NSFont *font) {
     if ((int)font.pointSize == font.pointSize)
@@ -523,6 +586,175 @@ NSString *fontToString(NSFont *font) {
     btnUseScreenFonts.state = usescreenfonts;
 }
 
+- (void)createDefaultThemes {
+
+    Theme *defaultTheme;
+    Theme *darkTheme;
+
+    NSArray *fetchedObjects;
+    NSError *error;
+
+    // First, check if they already exist
+    NSManagedObjectContext *managedObjectContext = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager.mainManagedObjectContext;
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:managedObjectContext];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"themeName like[c] %@", @"Default"];
+
+    fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+    if (fetchedObjects && fetchedObjects.count) {
+        defaultTheme = [fetchedObjects objectAtIndex:0];
+    }
+
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"themeName like[c] %@", @"Dark"];
+
+    fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+    if (fetchedObjects && fetchedObjects.count) {
+        darkTheme = [fetchedObjects objectAtIndex:0];
+    }
+
+    // If they do, delete them
+
+    if (defaultTheme) {
+        [managedObjectContext deleteObject:defaultTheme];
+    }
+
+    defaultTheme = (Theme *) [NSEntityDescription
+                                 insertNewObjectForEntityForName:@"Theme"
+                                 inManagedObjectContext:managedObjectContext];
+
+    if (darkTheme) {
+        [managedObjectContext deleteObject:darkTheme];
+    }
+
+    // For now, we reset them here whether they existed previously or not
+
+    defaultTheme.themeName = @"Default";
+    defaultTheme.dashes = @(YES);
+    defaultTheme.defaultRows = @(100);
+    defaultTheme.defaultCols = @(80);
+    defaultTheme.minRows = @(5);
+    defaultTheme.minCols = @(32);
+    defaultTheme.maxRows = @(1000);
+    defaultTheme.maxCols = @(1000);;
+    defaultTheme.doGraphics = @(YES);
+    defaultTheme.doSound = @(YES);
+    defaultTheme.doStyles = @(YES);
+    defaultTheme.justify = @(NO);
+    defaultTheme.smartQuotes = @(YES);
+    defaultTheme.spaceFormat = @(TAG_SPACES_GAME);
+    defaultTheme.border = @(10);
+    defaultTheme.bufferMarginX = @(5);
+    defaultTheme.bufferMarginY = @(5);
+    defaultTheme.gridMarginX = @(15);
+    defaultTheme.gridMarginY = @(15);
+
+    defaultTheme.winSpacingX = @(0);
+    defaultTheme.winSpacingY = @(0);
+
+    defaultTheme.morePrompt = nil;
+    defaultTheme.spacingColor = nil;
+
+    defaultTheme.gridBackground = [NSColor whiteColor];
+    defaultTheme.bufferBackground = [NSColor whiteColor];
+    defaultTheme.editable = @(NO);
+
+    GlkStyle *bufferFont = (GlkStyle *) [NSEntityDescription
+              insertNewObjectForEntityForName:@"GlkStyle"
+              inManagedObjectContext:managedObjectContext];
+
+    bufferFont.baseline = @(0);
+    bufferFont.bgcolor = [NSColor whiteColor];
+    bufferFont.color = [NSColor blackColor];
+    bufferFont.pitch = @(0);
+    bufferFont.leading = @(1);
+    bufferFont.name = @"Helvetica";
+    bufferFont.size = @(13);
+
+    bufferFont.font = [NSFont fontWithName:bufferFont.name size:bufferFont.size.doubleValue];
+
+    [bufferFont recalculateCell];
+
+    NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
+    [para setParagraphStyle:[NSParagraphStyle defaultParagraphStyle]];
+    para.lineSpacing = 1;
+
+    bufferFont.paragraphStyle = para;
+
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+
+    [dict setObject:para forKey:NSParagraphStyleAttributeName];
+
+    [dict setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
+    [dict setObject:bufferFont.font forKey:NSFontAttributeName];
+
+    bufferFont.attributeDict = dict;
+        
+
+    GlkStyle *inputFont = [bufferFont clone];
+    inputFont.variant = @"Bold";
+
+    bufferFont.font = [[NSFontManager sharedFontManager] convertFont:bufferFont.font toHaveTrait:NSBoldFontMask];
+
+    GlkStyle *gridFont = [bufferFont clone];
+
+    gridFont.name = @"Monaco";
+    gridFont.size = @(12);
+
+    gridFont.font = [NSFont fontWithName:gridFont.name size:gridFont.size.doubleValue];
+
+
+    [gridFont recalculateCell];
+
+    defaultTheme.bufAlert = bufferFont;
+    defaultTheme.bufBlock = bufferFont;
+    defaultTheme.bufEmph = bufferFont;
+    defaultTheme.bufferFont = bufferFont;
+    defaultTheme.bufHead = bufferFont;
+    defaultTheme.bufInput = inputFont;
+    defaultTheme.bufNote = bufferFont;
+    defaultTheme.bufPre = bufferFont;
+    defaultTheme.bufSubH = bufferFont;
+    defaultTheme.bufUsr1 = bufferFont;
+    defaultTheme.bufUsr2 = bufferFont;
+    defaultTheme.gridAlert = gridFont;
+    defaultTheme.gridBlock = gridFont;
+    defaultTheme.gridEmph = gridFont;
+    defaultTheme.gridFont = gridFont;
+    defaultTheme.gridHead = gridFont;
+    defaultTheme.gridInput = gridFont;
+    defaultTheme.gridNote = gridFont;
+    defaultTheme.gridPre = gridFont;
+    defaultTheme.gridSubH = gridFont;
+    defaultTheme.gridUsr1 = gridFont;
+    defaultTheme.gridUsr2 = gridFont;
+    defaultTheme.game = nil;;
+    defaultTheme.overrides = nil;
+    defaultTheme.interpreter = nil;
+    defaultTheme.defaultParent = nil;
+    defaultTheme.defaultChild = nil;
+
+    darkTheme = [defaultTheme clone];
+
+    darkTheme.gridBackground = [NSColor blackColor];
+    darkTheme.bufferBackground = [NSColor blackColor];
+    darkTheme.bufferFont.color = [NSColor whiteColor];
+    darkTheme.gridFont.color = [NSColor whiteColor];
+
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:managedObjectContext];
+
+    fetchRequest.predicate = nil;
+    fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+    for (Game *game in fetchedObjects)
+        game.setting = defaultTheme;
+}
+
+#pragma mark User actions
+
 - (IBAction)changeDefaultSize:(id)sender {
     if (sender == txtCols) {
         defscreenw = [sender intValue];
@@ -540,9 +772,9 @@ NSString *fontToString(NSFont *font) {
     }
 
     /* send notification that default size has changed -- resize all windows */
+    NSNotification *notification = [NSNotification notificationWithName:@"DefaultSizeChanged" object:[Preferences currentTheme]];
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"DefaultSizeChanged"
-     object:nil];
+     postNotification:notification];
 }
 
 - (IBAction)changeColor:(id)sender {
@@ -576,7 +808,6 @@ NSString *fontToString(NSFont *font) {
 
         [[NSUserDefaults standardUserDefaults] setObject:colorToData(*colorp)
                                                   forKey:key];
-
         [Preferences rebuildTextAttributes];
     }
 }
@@ -678,7 +909,7 @@ NSString *fontToString(NSFont *font) {
      object:nil];
 }
 
-#pragma mark - Zoom
+#pragma mark Zoom
 
 + (void)zoomIn {
     zoomDirection = ZOOMRESET;
@@ -775,7 +1006,7 @@ NSString *fontToString(NSFont *font) {
     txtBorder.intValue = border;
 }
 
-#pragma mark - Font panel
+#pragma mark Font panel
 
 - (IBAction)showFontPanel:(id)sender {
     selfontp = nil;
@@ -853,7 +1084,7 @@ NSString *fontToString(NSFont *font) {
 
     NSDictionary *newAttributes = [sender convertAttributes:@{}];
 
-    NSLog(@"Keys in newAttributes:");
+    NSLog(@"changeAttributes: Keys in newAttributes:");
     for (NSString *key in newAttributes.allKeys) {
         NSLog(@" %@ : %@", key, [newAttributes objectForKey:key]);
     }
@@ -882,7 +1113,7 @@ NSString *fontToString(NSFont *font) {
 // This is sent from the font panel when changing background color there
 
 - (void)changeDocumentBackgroundColor:(id)sender {
-    NSLog(@"changeDocumentBackgroundColor");
+//    NSLog(@"changeDocumentBackgroundColor");
 
     NSColorWell *colorWell = nil;
     NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
@@ -897,9 +1128,10 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (NSUInteger)validModesForFontPanel:(NSFontPanel *)fontPanel {
-    return NSFontPanelFaceModeMask | NSFontPanelCollectionModeMask |
-    NSFontPanelSizeModeMask | NSFontPanelTextColorEffectModeMask |
-    NSFontPanelDocumentColorEffectModeMask;
+    return NSFontPanelAllModesMask;
+//    NSFontPanelFaceModeMask | NSFontPanelCollectionModeMask |
+//    NSFontPanelSizeModeMask | NSFontPanelTextColorEffectModeMask |
+//    NSFontPanelDocumentColorEffectModeMask;
 }
 
 - (void)windowWillClose:(id)sender {

@@ -4,7 +4,6 @@
 //  See https://github.com/dcsch/yazmin
 //
 
-
 #import "IFIdentification.h"
 #import "Metadata.h"
 #import "Ifid.h"
@@ -34,7 +33,7 @@
         _bafn = node.stringValue;
     }
       if (ifids.count == 0) {
-          NSLog(@"IFIdentification: no Ifids in document! Bailing!");
+          NSLog(@"IFIdentification: no Ifids found in document! Bailing!");
           return nil;
       }
       _ifids = ifids;
@@ -48,14 +47,10 @@
               NSLog(@"Created new Ifid object");
           }
           [ifidObjs addObject:ifidObj];
-          NSLog(@"Added Ifid object with ifid %@", ifid);
-      }
-
-      for (Ifid *ifid in ifidObjs) {
           if (!_metadata)
-              _metadata = ifid.metadata;
-          for (Game *g in ifid.metadata.games)
-              [games addObject:g];
+              _metadata = ifidObj.metadata;
+          [games unionSet:ifidObj.metadata.games];
+          NSLog(@"Added Ifid object with ifid %@", ifid);
       }
 
       if (!_metadata) {
@@ -63,12 +58,13 @@
                                     insertNewObjectForEntityForName:@"Metadata"
                                     inManagedObjectContext:context];
       }
-      
+
+      [_metadata addIfids:[NSSet setWithSet:ifidObjs]];
+      [_metadata addGames:[NSSet setWithSet:games]];
+
       if (!_metadata.format)
           _metadata.format = _format;
       _metadata.bafn = _bafn;
-      [_metadata addIfids:[NSSet setWithSet:ifidObjs]];
-      [_metadata addGames:[NSSet setWithSet:games]];
   }
   return self;
 }

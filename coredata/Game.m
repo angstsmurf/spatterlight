@@ -8,7 +8,7 @@
 
 #import "Game.h"
 #import "Metadata.h"
-#import "Settings.h"
+#import "Theme.h"
 
 
 @implementation Game

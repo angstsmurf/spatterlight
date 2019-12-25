@@ -12,7 +12,6 @@
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSCustomObject</string>
-			<string>NSLevelIndicatorCell</string>
 			<string>NSMenu</string>
 			<string>NSMenuItem</string>
 		</array>
@@ -841,20 +840,6 @@
 			<object class="NSCustomObject" id="514244795">
 				<string key="NSClassName">AppDelegate</string>
 			</object>
-			<object class="NSLevelIndicatorCell" id="384091000">
-				<int key="NSCellFlags">-2080374784</int>
-				<int key="NSCellFlags2">131072</int>
-				<object class="NSFont" key="NSSupport">
-					<string key="NSName">LucidaGrande</string>
-					<double key="NSSize">11</double>
-					<int key="NSfFlags">3100</int>
-				</object>
-				<double key="NSValue">3</double>
-				<double key="NSMaxValue">3</double>
-				<double key="NSWarningValue">3</double>
-				<double key="NSCriticalValue">3</double>
-				<int key="NSIndicatorStyle">2</int>
-			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<array class="NSMutableArray" key="connectionRecords">
@@ -1626,12 +1611,6 @@
 						<reference key="parent" ref="281252344"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">248</int>
-						<reference key="object" ref="514244795"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Delegate</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">-3</int>
 						<reference key="object" ref="507362220"/>
 						<reference key="parent" ref="0"/>
@@ -1893,14 +1872,15 @@
 						<reference key="parent" ref="884281638"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">875</int>
-						<reference key="object" ref="384091000"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">876</int>
 						<reference key="object" ref="648266046"/>
 						<reference key="parent" ref="560355318"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">248</int>
+						<reference key="object" ref="514244795"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Delegate</string>
 					</object>
 				</array>
 			</object>
@@ -1996,7 +1976,6 @@
 				<string key="867.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="868.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="872.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="875.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="876.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="92.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
@@ -2012,32 +1991,12 @@
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="addGamesToLibrary:">id</string>
-						<string key="deleteLibrary:">id</string>
-						<string key="exportMetadata:">id</string>
-						<string key="importMetadata:">id</string>
 						<string key="openDocument:">id</string>
 						<string key="showHelpFile:">id</string>
 						<string key="showLibrary:">id</string>
 						<string key="showPrefs:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="addGamesToLibrary:">
-							<string key="name">addGamesToLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="deleteLibrary:">
-							<string key="name">deleteLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="exportMetadata:">
-							<string key="name">exportMetadata:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="importMetadata:">
-							<string key="name">importMetadata:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="openDocument:">
 							<string key="name">openDocument:</string>
 							<string key="candidateClassName">id</string>
@@ -2176,13 +2135,15 @@
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addGamesToLibrary:">id</string>
+						<string key="delete:">id</string>
 						<string key="deleteGame:">id</string>
 						<string key="deleteLibrary:">id</string>
-						<string key="download:">id</string>
 						<string key="exportMetadata:">id</string>
 						<string key="importMetadata:">id</string>
+						<string key="openIfdb:">id</string>
 						<string key="play:">id</string>
 						<string key="pruneLibrary:">id</string>
+						<string key="reset:">id</string>
 						<string key="revealGameInFinder:">id</string>
 						<string key="searchForGames:">id</string>
 						<string key="showGameInfo:">id</string>
@@ -2194,16 +2155,16 @@
 							<string key="name">addGamesToLibrary:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="delete:">
+							<string key="name">delete:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="deleteGame:">
 							<string key="name">deleteGame:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="deleteLibrary:">
 							<string key="name">deleteLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="download:">
-							<string key="name">download:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="exportMetadata:">
@@ -2214,12 +2175,20 @@
 							<string key="name">importMetadata:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="openIfdb:">
+							<string key="name">openIfdb:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="play:">
 							<string key="name">play:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="pruneLibrary:">
 							<string key="name">pruneLibrary:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="reset:">
+							<string key="name">reset:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="revealGameInFinder:">

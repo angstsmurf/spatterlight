@@ -3,6 +3,8 @@
 #import "Metadata.h"
 #import "Compatibility.h"
 #import "Game.h"
+#import "Theme.h"
+#import "GlkStyle.h"
 
 #import "main.h"
 
@@ -112,11 +114,29 @@ fprintf(stderr, "%s\n",                                                    \
           reset:(BOOL)shouldReset
      winRestore:(BOOL)windowRestoredBySystem_ {
 
-    NSLog(@"glkctl: runterp %@ %@", terpname_, game);
+    NSLog(@"glkctl: runterp %@ %@", terpname_, _game);
 
-    game = game_;
-    gamefile = [game urlForBookmark].path;
-    terpname = terpname_;
+    _game = game_;
+    _theme = _game.setting;
+
+    NSLog(@"runTerp: theme name:%@", _theme.themeName);
+
+    _gamefile = [_game urlForBookmark].path;
+    _terpname = terpname_;
+
+    /* Setup blank style hints for both kinds of windows */
+
+    NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
+    
+    NSInteger i;
+    for (i = 0 ; i < stylehint_NUMHINTS ; i ++)
+        [nullarray addObject:[NSNull null]];
+    gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    for (i = 0 ; i < style_NUMSTYLES ; i ++) {
+        [gridStyleHints addObject:nullarray];
+        [bufferStyleHints addObject:nullarray];
+    }
 
     /* Setup our own stuff */
 
@@ -141,7 +161,7 @@ fprintf(stderr, "%s\n",                                                    \
     _gwindows = [[NSMutableDictionary alloc] init];
     bufferedData = nil;
 
-    self.window.title = game.metadata.title;
+    self.window.title = _game.metadata.title;
     if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
         [self.window setValue:@2 forKey:@"tabbingMode"];
     }
@@ -192,10 +212,10 @@ fprintf(stderr, "%s\n",                                                    \
      name:@"DefaultSizeChanged"
      object:nil];
 
-    self.window.representedFilename = gamefile;
+    self.window.representedFilename = _gamefile;
 
     [_borderView setWantsLayer:YES];
-    [self setBorderColor:[Preferences bufferBackground]];
+    [self setBorderColor:_theme.bufferBackground];
 
     if (_supportsAutorestore &&
         [[NSFileManager defaultManager] fileExistsAtPath:_autosaveFileGUI]) {
@@ -289,7 +309,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)runTerpNormal {
     // Just start the game with no autorestore or fullscreen or resetting
-    [self.window setContentSize:Preferences.defaultWindowSize];
+    [self.window setContentSize:[self defaultWindowSize]];
     [self adjustContentView];
     [self.window center];
     [self forkInterpreterTask];
@@ -323,7 +343,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSPipe *readpipe;
     NSPipe *sendpipe;
 
-    terppath = [[NSBundle mainBundle] pathForAuxiliaryExecutable:terpname];
+    terppath = [[NSBundle mainBundle] pathForAuxiliaryExecutable:_terpname];
     readpipe = [NSPipe pipe];
     sendpipe = [NSPipe pipe];
     readfh = readpipe.fileHandleForReading;
@@ -340,7 +360,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSString *cmdline = @" ";
     cmdline = [cmdline stringByAppendingString:terppath];
     cmdline = [cmdline stringByAppendingString:@" \""];
-    cmdline = [cmdline stringByAppendingString:gamefile];
+    cmdline = [cmdline stringByAppendingString:_gamefile];
 
     cmdline = [cmdline
                stringByAppendingString:@"\" | tee -a ~/Desktop/Spatterlight\\ "];
@@ -359,7 +379,7 @@ fprintf(stderr, "%s\n",                                                    \
 #else
 
     task.launchPath = terppath;
-    task.arguments = @[ gamefile ];
+    task.arguments = @[ _gamefile ];
 
 #endif // TEE_TERP_OUTPUT
 
@@ -530,14 +550,14 @@ fprintf(stderr, "%s\n",                                                    \
                   error);
 
         NSString *terpFolder =
-        [[gFolderMap objectForKey:game.metadata.format]
+        [[gFolderMap objectForKey:_game.metadata.format]
          stringByAppendingString:@" Files"];
 
         NSString *dirstr =
         [@"Spatterlight" stringByAppendingPathComponent:terpFolder];
         dirstr = [dirstr stringByAppendingPathComponent:@"Autosaves"];
         dirstr = [dirstr
-                  stringByAppendingPathComponent:[gamefile signatureFromFile]];
+                  stringByAppendingPathComponent:[_gamefile signatureFromFile]];
         dirstr = [dirstr
                   stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
@@ -549,7 +569,7 @@ fprintf(stderr, "%s\n",                                                    \
                                                   attributes:nil
                                                        error:NULL];
 
-        NSString *dummyfilename = [game.metadata.title
+        NSString *dummyfilename = [_game.metadata.title
                                    stringByAppendingPathExtension:@"txt"];
 
         NSString *dummytext = [NSString
@@ -558,7 +578,7 @@ fprintf(stderr, "%s\n",                                                    \
                                @"it easier for humans to guess what game these autosave files belong "
                                @"to. Any files in this folder are for the game %@, or possibly "
                                @"a game with another name but identical contents.",
-                               dummyfilename, game.metadata.title];
+                               dummyfilename, _game.metadata.title];
 
         NSString *dummyfilepath =
         [appSupportURL.path stringByAppendingPathComponent:dummyfilename];
@@ -594,7 +614,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 // LibController calls this to reset non-running games
 - (void)deleteAutosaveFilesForGame:(Game *)aGame {
-    gamefile = [aGame urlForBookmark].path;
+    _gamefile = [aGame urlForBookmark].path;
 
     [self appSupportDir];
     [self autosaveFileGUI];
@@ -784,8 +804,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self deleteAutosaveFiles];
 
-    [self runTerp:(NSString *)terpname
-         withGame:(Game *)game
+    [self runTerp:(NSString *)_terpname
+         withGame:(Game *)_game
             reset:YES
        winRestore:NO];
 
@@ -801,9 +821,9 @@ fprintf(stderr, "%s\n",                                                    \
         [self autoSaveOnExit];
     }
 
-    if (game.ifid)
+    if (_game.ifid)
         [((AppDelegate *)[NSApplication sharedApplication].delegate)
-     .libctl.gameSessions removeObjectForKey:game.ifid];
+     .libctl.gameSessions removeObjectForKey:_game.ifid];
 
     [self.window setDelegate:nil];
 
@@ -830,11 +850,11 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (IBAction)showGameInfo:(id)sender {
     [((AppDelegate *)[NSApplication sharedApplication].delegate).libctl
-     showInfoForGame:game];
+     showInfoForGame:_game];
 }
 
 - (IBAction)revealGameInFinder:(id)sender {
-    [[NSWorkspace sharedWorkspace] selectFile:gamefile
+    [[NSWorkspace sharedWorkspace] selectFile:_gamefile
                      inFileViewerRootedAtPath:@""];
 }
 
@@ -846,7 +866,7 @@ fprintf(stderr, "%s\n",                                                    \
                         defaultFrame:(NSRect)defaultFrame {
     // NSLog(@"glkctl: windowWillUseStandardFrame");
 
-    NSSize windowSize = [Preferences defaultWindowSize];
+    NSSize windowSize = [self defaultWindowSize];
     CGRect screenframe = window.screen.visibleFrame;
 
     if (windowSize.width > screenframe.size.width)
@@ -856,6 +876,15 @@ fprintf(stderr, "%s\n",                                                    \
                               windowSize.width, NSHeight(screenframe));
 
     return frame;
+}
+
+- (NSSize)defaultWindowSize {
+    NSInteger width =
+    ceil(_theme.gridFont.columnWidth.doubleValue * _theme.defaultCols.integerValue + (_theme.gridMarginX.integerValue + _theme.border.integerValue + 4) * 2.0);
+    NSInteger height =
+    ceil(_theme.gridFont.lineHeight.doubleValue * _theme.defaultRows.integerValue + (_theme.gridMarginY.integerValue + _theme.border.integerValue + 4) * 2.0);
+
+    return NSMakeSize(width, height);
 }
 
 - (void)contentDidResize:(NSRect)frame {
@@ -1003,9 +1032,12 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Preference and style hint glue
 
-- (void)notePreferencesChanged:(id)sender {
+- (void)notePreferencesChanged:(NSNotification *)notify {
     // NSLog(@"glkctl: notePreferencesChanged");
 
+    if (notify.object != _game.setting)
+        return;
+    
     GlkEvent *gevent;
 
     [self adjustContentView];
@@ -1132,7 +1164,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (fileusage == fileusage_Transcript || fileusage == fileusage_InputRecord)
         filename =
-        [filename stringByAppendingString:game.metadata.title];
+        [filename stringByAppendingString:_game.metadata.title];
 
     if (fileusage == fileusage_SavedGame) {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -1140,7 +1172,7 @@ fprintf(stderr, "%s\n",                                                    \
         date = [formatter stringFromDate:[NSDate date]];
 
         filename =
-        [game.metadata.title stringByAppendingString:date];
+        [_game.metadata.title stringByAppendingString:date];
     }
 
     if (ext)
@@ -1180,7 +1212,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSInteger)handleNewWindowOfType:(NSInteger)wintype andName:(NSInteger)name {
-    NSUInteger i, k;
+    NSUInteger i;
 
     //    NSLog(@"GlkController handleNewWindowOfType: %s",
     //    wintypenames[wintype]);
@@ -1205,43 +1237,31 @@ fprintf(stderr, "%s\n",                                                    \
     // NSLog(@"GlkController handleNewWindowOfType: Adding new %s window with
     // name: %ld", wintypenames[wintype], (long)i);
 
+    GlkWindow *win;
+
     switch (wintype) {
         case wintype_TextGrid:
-            [_gwindows
-             setObject:[[GlkTextGridWindow alloc] initWithGlkController:self
-                                                                   name:i]
-             forKey:@(i)];
-            [_contentView addSubview:[_gwindows objectForKey:@(i)]];
+             win = [[GlkTextGridWindow alloc] initWithGlkController:self name:i];
+            [_gwindows setObject:win forKey:@(i)];
+            [_contentView addSubview:win];
 
-            for (k = 0; k < style_NUMSTYLES; k++) {
-                [[_gwindows objectForKey:@(i)] setStyle:k
-                                             windowType:wintype_TextGrid
-                                                 enable:styleuse[0][k]
-                                                  value:styleval[0][k]];
-            }
+            win.styleHints = gridStyleHints;
             return i;
 
         case wintype_TextBuffer:
-            [_gwindows
-             setObject:[[GlkTextBufferWindow alloc] initWithGlkController:self
-                                                                     name:i]
-             forKey:@(i)];
-            [_contentView addSubview:[_gwindows objectForKey:@(i)]];
+             win = [[GlkTextBufferWindow alloc] initWithGlkController:self name:i];
 
-            for (k = 0; k < style_NUMSTYLES; k++) {
-                [[_gwindows objectForKey:@(i)] setStyle:k
-                                             windowType:wintype_TextBuffer
-                                                 enable:styleuse[1][k]
-                                                  value:styleval[1][k]];
-            }
+            [_gwindows setObject:win forKey:@(i)];
+            [_contentView addSubview:win];
+
+            win.styleHints = bufferStyleHints;
+            
             return i;
 
         case wintype_Graphics:
-            [_gwindows
-             setObject:[[GlkGraphicsWindow alloc] initWithGlkController:self
-                                                                   name:i]
-             forKey:@(i)];
-            [_contentView addSubview:[_gwindows objectForKey:@(i)]];
+             win = [[GlkGraphicsWindow alloc] initWithGlkController:self name:i];
+            [_gwindows setObject:win forKey:@(i)];
+            [_contentView addSubview: win];
             return i;
     }
 
@@ -1370,17 +1390,26 @@ fprintf(stderr, "%s\n",                                                    \
     if (style < 0 || style >= style_NUMSTYLES)
         return;
 
-    if (wintype == wintype_AllTypes) {
-        styleuse[0][style][hint] = YES;
-        styleval[0][style][hint] = value;
-        styleuse[1][style][hint] = YES;
-        styleval[1][style][hint] = value;
-    } else if (wintype == wintype_TextGrid) {
-        styleuse[0][style][hint] = YES;
-        styleval[0][style][hint] = value;
-    } else if (wintype == wintype_TextBuffer) {
-        styleuse[1][style][hint] = YES;
-        styleval[1][style][hint] = value;
+    if (hint < 0 || hint >= stylehint_NUMHINTS)
+        return;
+
+    NSMutableArray *gridHintsForStyle = [gridStyleHints objectAtIndex:style];
+    NSMutableArray *bufferHintsForStyle = [bufferStyleHints objectAtIndex:style];
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            [gridHintsForStyle replaceObjectAtIndex:hint withObject:@(value)];
+            [bufferHintsForStyle replaceObjectAtIndex:hint withObject:@(value)];
+            break;
+        case wintype_TextGrid:
+            [gridHintsForStyle replaceObjectAtIndex:hint withObject:@(value)];
+            break;
+        case wintype_TextBuffer:
+            [bufferHintsForStyle replaceObjectAtIndex:hint withObject:@(value)];
+            break;
+        default:
+            NSLog(@"styleHintOnWindowType for unhandled wintype!");
+            break;
     }
 }
 
@@ -1404,27 +1433,27 @@ NSInteger colorToInteger(NSColor *color) {
                           style:(int)style
                            hint:(int)hint
                          result:(NSInteger *)result {
-    if (styleuse[1][style_Normal][stylehint_TextColor])
-        NSLog(@"styleuse[1][style_Normal][stylehint_TextColor] is true. "
-              @"Value:%ld",
-              (long)styleval[1][style_Normal][stylehint_TextColor]);
+//    if (styleuse[1][style_Normal][stylehint_TextColor])
+//        NSLog(@"styleuse[1][style_Normal][stylehint_TextColor] is true. "
+//              @"Value:%ld",
+//              (long)styleval[1][style_Normal][stylehint_TextColor]);
 
     if ([gwindow getStyleVal:style hint:hint value:result])
         return YES;
     else {
         if (hint == stylehint_TextColor) {
             if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = colorToInteger([Preferences bufferForeground]);
+                *result = colorToInteger(_theme.bufferFont.color);
             else
-                *result = colorToInteger([Preferences gridForeground]);
+                *result = colorToInteger(_theme.gridFont.color);
 
             return YES;
         }
         if (hint == stylehint_BackColor) {
             if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = colorToInteger([Preferences bufferBackground]);
+                *result = colorToInteger(_theme.bufferBackground);
             else
-                *result = colorToInteger([Preferences gridBackground]);
+                *result = colorToInteger(_theme.gridBackground);
 
             return YES;
         }
@@ -1435,17 +1464,29 @@ NSInteger colorToInteger(NSColor *color) {
 - (void)handleClearHintOnWindowType:(int)wintype
                               style:(int)style
                                hint:(int)hint {
+    
     if (style < 0 || style >= style_NUMSTYLES)
         return;
 
-    if (wintype == wintype_AllTypes) {
-        styleuse[0][style][hint] = NO;
-        styleuse[1][style][hint] = NO;
-    } else if (wintype == wintype_TextGrid) {
-        styleuse[0][style][hint] = NO;
-    } else if (wintype == wintype_TextBuffer) {
-        styleuse[1][style][hint] = NO;
+    NSMutableArray *gridHintsForStyle = [gridStyleHints objectAtIndex:style];
+    NSMutableArray *bufferHintsForStyle = [bufferStyleHints objectAtIndex:style];
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            [gridHintsForStyle replaceObjectAtIndex:hint withObject:[NSNull null]];
+            [bufferHintsForStyle replaceObjectAtIndex:hint withObject:[NSNull null]];
+            break;
+        case wintype_TextGrid:
+            [gridHintsForStyle replaceObjectAtIndex:hint withObject:[NSNull null]];
+            break;
+        case wintype_TextBuffer:
+            [bufferHintsForStyle replaceObjectAtIndex:hint withObject:[NSNull null]];
+            break;
+        default:
+            NSLog(@"clearHintOnWindowType for unhandled wintype!");
+            break;
     }
+
 }
 
 - (void)handlePrintOnWindow:(GlkWindow *)gwindow
@@ -1457,8 +1498,8 @@ NSInteger colorToInteger(NSColor *color) {
     if ([gwindow isKindOfClass:[GlkTextBufferWindow class]] &&
         (style & 0xff) != style_Preformatted) {
         GlkTextBufferWindow *textwin = (GlkTextBufferWindow *)gwindow;
-        NSInteger smartquotes = [Preferences smartQuotes];
-        NSInteger spaceformat = [Preferences spaceFormat];
+        NSInteger smartquotes = _theme.smartQuotes.boolValue;
+        NSInteger spaceformat = _theme.spaceFormat.integerValue;
         NSInteger lastchar = textwin.lastchar;
         NSInteger spaced = 0;
         NSInteger i;
@@ -2022,6 +2063,7 @@ NSInteger colorToInteger(NSColor *color) {
 
         default:
             NSLog(@"glkctl: unhandled request (%d)", req->cmd);
+            break;
     }
 
     return NO; /* keep reading */
@@ -2114,11 +2156,11 @@ static NSString *signalToName(NSTask *task) {
         NSDictionary *newArrangeValues = @{
                                            @"width" : @(gevent.val1),
                                            @"height" : @(gevent.val2),
-                                           @"bufferMargin" : @(Preferences.bufferMargins),
-                                           @"gridMargin" : @(Preferences.gridMargins),
-                                           @"charWidth" : @(Preferences.gridMargins),
-                                           @"lineHeight" : @(Preferences.lineHeight),
-                                           @"leading" : @(Preferences.leading)
+                                           @"bufferMargin" : _theme.bufferMarginX,
+                                           @"gridMargin" : _theme.gridMarginX,
+                                           @"charWidth" : _theme.gridFont.columnWidth,
+                                           @"lineHeight" : _theme.gridFont.lineHeight,
+                                           @"leading" : _theme.gridFont.leading
                                            };
 
         if (!gevent.forced && [lastArrangeValues isEqualToDictionary:newArrangeValues]) {
@@ -2233,7 +2275,7 @@ again:
     if (maxibuf)
         free(maxibuf);
 
-    // if stop, don't read or wait for more data (but buffer any unread data).
+    // if stop is true, don't read or wait for more data (but buffer any unread data).
     if (stop) {
         bufferedData = [NSMutableData dataWithData:
                         [data subdataWithRange:NSMakeRange(NSMaxRange(rangeToRead),
@@ -2285,9 +2327,12 @@ again:
         [Preferences.instance updatePanelAfterZoom];
 }
 
-- (void)noteDefaultSizeChanged:(id)sender {
+- (void)noteDefaultSizeChanged:(NSNotification *)notification {
 
-    NSSize sizeAfterZoom = Preferences.defaultWindowSize;
+    if (notification.object != _game.setting)
+        return;
+
+    NSSize sizeAfterZoom = [self defaultWindowSize];
     NSRect oldframe = _contentView.frame;
 
     if ((sizeAfterZoom.width < oldframe.size.width && Preferences.zoomDirection == ZOOMIN) ||
@@ -2323,7 +2368,7 @@ again:
 
         [self.window setFrame:winrect display:NO animate:NO];
     } else {
-        NSUInteger borders = Preferences.border * 2;
+        NSUInteger borders = _theme.border.integerValue * 2;
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
                                      sizeAfterZoom.width - borders,
                                      NSHeight(_borderView.frame) - borders);
@@ -2484,7 +2529,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               NSMakePoint(floor((NSWidth(localBorderView.bounds) -
                                 NSWidth(localContentView.frame)) /
                                2),
-                         floor(NSHeight(localBorderView.bounds) - Preferences.border - localContentView.frame.size.height)
+                         floor(NSHeight(localBorderView.bounds) - _theme.border.integerValue - localContentView.frame.size.height)
                          );
               [NSAnimationContext
                runAnimationGroup:^(NSAnimationContext *context) {
@@ -2606,7 +2651,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSRect oldFrame = _windowPreFullscreenFrame;
 
     oldFrame.size.width =
-    _contentView.frame.size.width + Preferences.border * 2;
+    _contentView.frame.size.width + _theme.border.integerValue * 2;
 
     inFullScreenResize = YES;
 
@@ -2705,17 +2750,18 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (NSRect)contentFrameForWindowed {
-    NSUInteger border = Preferences.border;
+    NSUInteger border = _theme.border.integerValue;
     return NSMakeRect(border, border,
-                      ceil(NSWidth(_borderView.bounds) - Preferences.border * 2),
-                      ceil(NSHeight(_borderView.bounds) - Preferences.border * 2));
+                      ceil(NSWidth(_borderView.bounds) - border * 2),
+                      ceil(NSHeight(_borderView.bounds) - border * 2));
 }
 
 - (NSRect)contentFrameForFullscreen {
+    NSUInteger border = _theme.border.integerValue;
     return NSMakeRect(floor((NSWidth(_borderView.bounds) -
                             NSWidth(_contentView.frame)) / 2),
-                      floor(Preferences.border), NSWidth(_contentView.frame),
-                      ceil(NSHeight(_borderView.bounds) - Preferences.border * 2));
+                      border, NSWidth(_contentView.frame),
+                      ceil(NSHeight(_borderView.bounds) - border * 2));
 }
 
 #pragma mark Accessibility

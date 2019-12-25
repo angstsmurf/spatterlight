@@ -5,6 +5,8 @@
 #import "Compatibility.h"
 #import "GlkHyperlink.h"
 #import "NSString+Categories.h"
+#import "Theme.h"
+#import "GlkStyle.h"
 #import "main.h"
 
 #ifdef DEBUG
@@ -975,14 +977,18 @@
     self = [super initWithGlkController:glkctl_ name:name_];
 
     if (self) {
-        NSInteger margin = Preferences.bufferMargins;
+        NSInteger marginX = theme.bufferMarginX.integerValue;
+        NSInteger marginY = theme.bufferMarginY.integerValue;
+
         NSInteger i;
 
         echo = YES;
 
         _lastchar = '\n';
 
-        lastLineheight = Preferences.lineHeight;
+        // We use lastLineheight to restore scroll position with sub-character size precision
+        // after a resize
+        lastLineheight = ((NSFont *)theme.bufferFont.font).boundingRectForFont.size.height;
 
         for (i = 0; i < HISTORYLEN; i++)
             history[i] = nil;
@@ -1038,16 +1044,16 @@
         textview.delegate = self;
         textstorage.delegate = self;
 
-        textview.textContainerInset = NSMakeSize(margin, margin);
-        textview.backgroundColor = Preferences.bufferBackground;
-        textview.insertionPointColor = Preferences.bufferForeground;
+        textview.textContainerInset = NSMakeSize(marginX, marginY);
+        textview.backgroundColor = theme.bufferBackground;
+        textview.insertionPointColor = theme.bufferFont.color;
 
         [textview enableCaret:nil];
 
         // disabling screen fonts will force font smoothing and kerning.
         // using screen fonts will render ugly and uneven text and sometimes
         // even bitmapped fonts.
-        layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
+        //layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
 
         [self addSubview:scrollview];
     }
@@ -1080,7 +1086,7 @@
         if (textview.textStorage != textstorage)
             NSLog(@"Error! textview.textStorage != textstorage");
 
-        scrollview.backgroundColor = [Preferences bufferBackground];
+        scrollview.backgroundColor = theme.bufferBackground;
 
         [self restoreScrollBarStyle];
 
@@ -1181,17 +1187,16 @@
     bgcolor = nil;
     fgcolor = nil;
 
-    if ([Preferences stylesEnabled]) {
-        bgcolor = [((GlkStyle *)[styles objectAtIndex:style_Normal]).attributes
-            objectForKey:NSBackgroundColorAttributeName];
-        fgcolor = [((GlkStyle *)[styles objectAtIndex:style_Normal]).attributes
-            objectForKey:NSForegroundColorAttributeName];
+    if (theme.doStyles.boolValue) {
+        NSDictionary *attributes = [styles objectAtIndex:style_Normal];
+        bgcolor = [attributes objectForKey:NSBackgroundColorAttributeName];
+        fgcolor = [attributes objectForKey:NSForegroundColorAttributeName];
     }
 
     if (!bgcolor)
-        bgcolor = Preferences.bufferBackground;
+        bgcolor = theme.bufferBackground;
     if (!fgcolor)
-        fgcolor = Preferences.bufferForeground;
+        fgcolor = theme.bufferFont.color;
 
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = fgcolor;
@@ -1199,13 +1204,13 @@
     [self.glkctl setBorderColor:bgcolor];
 }
 
-- (void)setStyle:(NSInteger)style
-      windowType:(NSInteger)wintype
-          enable:(NSInteger *)enable
-           value:(NSInteger *)value {
-    [super setStyle:style windowType:wintype enable:enable value:value];
-    [self recalcBackground];
-}
+//- (void)setStyle:(NSInteger)style
+//      windowType:(NSInteger)wintype
+//          enable:(NSInteger *)enable
+//           value:(NSInteger *)value {
+//    [super setStyle:style windowType:wintype enable:enable value:value];
+//    [self recalcBackground];
+//}
 
 - (void)prefsDidChange {
     NSRange range = NSMakeRange(0, 0);
@@ -1213,10 +1218,25 @@
     NSUInteger x;
 
     [self storeScrollOffset];
-    [super prefsDidChange];
 
-    NSInteger margin = [Preferences bufferMargins];
-    textview.textContainerInset = NSMakeSize(margin, margin);
+    NSInteger i;
+
+    NSMutableDictionary *attributes;
+    
+    for (i = 0; i < style_NUMSTYLES; i++) {
+        if (theme.doStyles.boolValue) {
+            attributes = [((GlkStyle *)[theme valueForKey:[gBufferStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i] andGridWindow:NO];
+        } else {
+            attributes = ((GlkStyle *)[theme valueForKey:[gBufferStyleNames objectAtIndex:i]]).attributeDict;
+        }
+        
+        [attributes setObject:@(i) forKey:@"GlkStyle"];
+        [styles replaceObjectAtIndex:i withObject:attributes];
+    }
+
+    NSInteger marginX = theme.bufferMarginX.integerValue;
+    NSInteger marginY = theme.bufferMarginX.integerValue;
+    textview.textContainerInset = NSMakeSize(marginX, marginY);
     [self recalcBackground];
 
     [textstorage removeAttribute:NSBackgroundColorAttributeName
@@ -1230,7 +1250,7 @@
                                   effectiveRange:&range];
 
         NSDictionary *attributes =
-            [self attributesFromStylevalue:[styleobject intValue]];
+            [styles objectAtIndex:[styleobject intValue]];
 
         id image = [textstorage attribute:@"NSAttachment"
                                    atIndex:x
@@ -1256,10 +1276,10 @@
         x = NSMaxRange(range);
     }
 
-    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
+//    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
     [container invalidateLayout];
     [self restoreScroll];
-    lastLineheight = Preferences.lineHeight;
+    lastLineheight = ((NSFont *)theme.bufferFont.font).boundingRectForFont.size.height;
 }
 
 - (void)setFrame:(NSRect)frame {
@@ -1540,7 +1560,7 @@
 
         [textview resetTextFinder];
 
-        textview.insertionPointColor = [Preferences bufferBackground];
+        textview.insertionPointColor = theme.bufferBackground;
 
         [self.glkctl markLastSeen];
 
@@ -1682,7 +1702,7 @@
 
     NSAttributedString *attstr = [[NSAttributedString alloc]
         initWithString:str
-            attributes:[self attributesFromStylevalue:stylevalue]];
+            attributes:[styles objectAtIndex:stylevalue]];
 
     [textstorage appendAttributedString:attstr];
 
@@ -1695,7 +1715,7 @@
     fence = textstorage.length;
 
     char_request = YES;
-    textview.insertionPointColor = [Preferences bufferBackground];
+    textview.insertionPointColor = theme.bufferBackground;
     [textview setEditable:YES];
 
     [textview setSelectedRange:NSMakeRange(fence, 0)];
@@ -1716,7 +1736,7 @@
 
     historypos = historypresent;
 
-    // [self.glkctl performScroll];
+    // [glkctl performScroll];
 
     [textview resetTextFinder];
 
@@ -1730,7 +1750,7 @@
         echo = !echo;
     }
 
-    if (_lastchar == '>' && [Preferences spaceFormat]) {
+    if (_lastchar == '>' && theme.spaceFormat) {
         [self printToWindow:@" " style:style_Normal];
     }
 
@@ -1738,11 +1758,10 @@
 
     id att = [[NSAttributedString alloc]
         initWithString:str
-            attributes:((GlkStyle *)[styles objectAtIndex:style_Input])
-                           .attributes];
+              attributes:theme.bufInput.attributeDict];
     [textstorage appendAttributedString:att];
 
-    textview.insertionPointColor = [Preferences bufferForeground];
+    textview.insertionPointColor = theme.bufferFont.color;
 
     [textview setEditable:YES];
 
@@ -1757,7 +1776,7 @@
 - (NSString *)cancelLine {
     [textview resetTextFinder];
 
-    textview.insertionPointColor = [Preferences bufferBackground];
+    textview.insertionPointColor = theme.bufferBackground;
     NSString *str = textstorage.string;
     str = [str substringFromIndex:fence];
     if (echo) {
@@ -1803,8 +1822,7 @@
     if ((NSInteger)textstorage.editedRange.location < fence)
         return;
 
-    [textstorage setAttributes:((GlkStyle *)[styles objectAtIndex:style_Input])
-                                    .attributes
+    [textstorage setAttributes:[styles objectAtIndex:style_Input]
                           range:textstorage.editedRange];
 }
 
@@ -2159,7 +2177,7 @@
         return;
     }
 
-    offset = offset * (CGFloat)Preferences.lineHeight;
+    offset = offset * ((NSFont *)theme.bufferFont.font).boundingRectForFont.size.height;
     if (isnan(offset) || isinf(offset)|| offset < 0.1)
         offset = 0;
 

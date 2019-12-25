@@ -6,6 +6,8 @@
 #import "Compatibility.h"
 #import "GlkHyperlink.h"
 #import "NSString+Categories.h"
+#import "Theme.h"
+#import "GlkStyle.h"
 #import "main.h"
 
 #ifdef DEBUG
@@ -204,7 +206,7 @@
         textview.delegate = self;
         textstorage.delegate = self;
         textview.textContainerInset =
-            NSMakeSize([Preferences gridMargins], [Preferences gridMargins]);
+            NSMakeSize(theme.gridMarginX.integerValue, theme.gridMarginY.integerValue);
 
         textview.editable = NO;
         textview.usesFontPanel = NO;
@@ -228,7 +230,7 @@
         container = (MarginContainer *)textview.textContainer;
 
         textview.delegate = self;
-        textview.insertionPointColor = [Preferences gridBackground];
+        textview.insertionPointColor = theme.gridBackground;
         textstorage.delegate = self;
         scrollview = textview.enclosingScrollView;
         scrollview.documentView = textview;
@@ -276,13 +278,13 @@
     return YES;
 }
 
-- (void)setStyle:(NSInteger)style
-      windowType:(NSInteger)wintype
-          enable:(NSInteger *)enable
-           value:(NSInteger *)value {
-    [super setStyle:style windowType:wintype enable:enable value:value];
-    [self recalcBackground];
-}
+//- (void)setStyle:(NSInteger)style
+//      windowType:(NSInteger)wintype
+//          enable:(NSInteger *)enable
+//           value:(NSInteger *)value {
+//    [super setStyle:style windowType:wintype enable:enable value:value];
+//    [self recalcBackground];
+//}
 
 - (void)prefsDidChange {
     NSRange range = NSMakeRange(0, 0);
@@ -291,10 +293,23 @@
 
     int i;
 
-    [super prefsDidChange];
+    NSMutableDictionary *attributes;
 
-    NSInteger margin = [Preferences gridMargins];
-    textview.textContainerInset = NSMakeSize(margin, margin);
+    for (i = 0; i < style_NUMSTYLES; i++) {
+        if (theme.doStyles.boolValue) {
+            attributes = [((GlkStyle *)[theme valueForKey:[gGridStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i] andGridWindow:YES];
+        } else {
+            attributes = ((GlkStyle *)[theme valueForKey:[gGridStyleNames objectAtIndex:i]]).attributeDict;
+        }
+
+        [attributes setObject:@(i) forKey:@"GlkStyle"];
+        [styles replaceObjectAtIndex:i withObject:attributes];
+    }
+
+    NSInteger marginX = theme.gridMarginX.integerValue;
+    NSInteger marginY = theme.gridMarginY.integerValue;
+
+    textview.textContainerInset = NSMakeSize(marginX, marginY);
 
     [textstorage removeAttribute:NSBackgroundColorAttributeName
                            range:NSMakeRange(0, textstorage.length)];
@@ -313,7 +328,7 @@
                               effectiveRange:&range];
 
             NSDictionary *attributes =
-                [self attributesFromStylevalue:[styleobject intValue]];
+                [styles objectAtIndex:[styleobject intValue]];
 
             id hyperlink = [line attribute:NSLinkAttributeName
                                    atIndex:x
@@ -367,18 +382,18 @@
     NSLog(@"changeDocumentBackgroundColor");
 }
 
+
 - (void)recalcBackground {
     NSColor *bgcolor;
     bgcolor = nil;
 
-    if ([Preferences stylesEnabled] &&
-        [styles objectAtIndex:style_Normal] != [NSNull null]) {
-        bgcolor = [[(GlkStyle *)[styles objectAtIndex:style_Normal] attributes]
-            objectForKey:NSBackgroundColorAttributeName];
+    if (theme.doStyles.boolValue) {
+            NSDictionary *attributes = [theme.bufferFont attributesWithHints:[self.styleHints objectAtIndex:style_Normal] andGridWindow:YES];
+            bgcolor = [attributes objectForKey:NSBackgroundColorAttributeName];
     }
 
     if (!bgcolor)
-        bgcolor = [Preferences gridBackground];
+        bgcolor = theme.gridBackground;
 
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = bgcolor;
@@ -421,11 +436,11 @@
         ceil((frame.size.width - (textview.textContainerInset.width +
                                   container.lineFragmentPadding) *
                                      2) /
-             Preferences.charWidth);
+             theme.gridFont.columnWidth.doubleValue);
     
-    NSInteger newrows = ceil((frame.size.height + Preferences.leading -
+    NSInteger newrows = ceil((frame.size.height + theme.gridFont.leading.integerValue -
                               (textview.textContainerInset.width) * 2) /
-                             Preferences.lineHeight);
+                             theme.gridFont.lineHeight.integerValue);
 
     if (newcols == cols && newrows == rows &&
         NSEqualRects(textview.frame, frame)) {
@@ -448,7 +463,7 @@
                     startingAtIndex:0];
         backingStorage = [[NSTextStorage alloc]
             initWithString:spaces
-                attributes:[self attributesFromStylevalue:style_Normal]];
+                attributes:[styles objectAtIndex:style_Normal]];
     }
     if (newcols < cols) {
         // Delete characters if the window has become narrower
@@ -480,8 +495,8 @@
                                                   withString:@" "
                                              startingAtIndex:0];
         NSAttributedString *string = [[NSAttributedString alloc]
-            initWithString:spaces
-                attributes:[self attributesFromStylevalue:style_Normal]];
+                                      initWithString:spaces
+                                      attributes:[styles objectAtIndex:style_Normal]];
 
         for (r = cols; r < backingStorage.length - 1; r += (cols + 1)) {
             [backingStorage insertAttributedString:string atIndex:r];
@@ -502,8 +517,7 @@
                     startingAtIndex:0];
         NSAttributedString *string = [[NSAttributedString alloc]
             initWithString:spaces
-                attributes:[(GlkStyle *)[styles objectAtIndex:style_Normal]
-                               attributes]];
+                attributes:[styles objectAtIndex:style_Normal]];
         [backingStorage appendAttributedString:string];
     } else if ((NSInteger)backingStorage.length > desiredLength)
         [backingStorage
@@ -513,8 +527,7 @@
 
     NSAttributedString *newlinestring = [[NSAttributedString alloc]
         initWithString:@"\n"
-            attributes:[(GlkStyle *)[styles objectAtIndex:style_Normal]
-                           attributes]];
+            attributes:[styles objectAtIndex:style_Normal]];
 
     // Instert a newline character at the end of each line to avoid reflow
     // during live resize. (We carefully have to print around these in the
@@ -579,7 +592,7 @@
 - (void)printToWindow:(NSString *)string style:(NSInteger)stylevalue {
     NSUInteger length = string.length;
     NSUInteger pos = 0;
-    NSDictionary *att = [self attributesFromStylevalue:stylevalue];
+    NSDictionary *att = [styles objectAtIndex:stylevalue];
     NSRange selectedRange = textview.selectedRange;
 
     //    NSLog(@"textGrid printToWindow: '%@' (style %ld)", string,
@@ -591,7 +604,7 @@
     NSString *firstline =
         [textstorage.string substringWithRange:NSMakeRange(0, cols)];
     CGSize stringSize = [firstline
-        sizeWithAttributes:[self attributesFromStylevalue:stylevalue]];
+        sizeWithAttributes:[styles objectAtIndex:stylevalue]];
 
     if (stringSize.width > self.frame.size.width) {
         NSLog(@"ERROR! First line has somehow become too wide!!!!");
@@ -842,12 +855,16 @@
     }
 
     NSRect bounds = self.bounds;
-    NSInteger m = [Preferences gridMargins];
-    if (transparent)
-        m = 0;
+    NSInteger mx = theme.gridMarginX.integerValue;
+    NSInteger my = theme.gridMarginY.integerValue;
 
-    NSInteger x0 = NSMinX(bounds) + m + container.lineFragmentPadding;
-    NSInteger y0 = NSMinY(bounds) + m;
+//    What is this supposed to do?
+//    Quotebox, I guess?
+//    if (transparent)
+//        mx = my = 0;
+
+    NSInteger x0 = NSMinX(bounds) + mx + container.lineFragmentPadding;
+    NSInteger y0 = NSMinY(bounds) + my;
     NSInteger lineHeight = [Preferences lineHeight];
     float charWidth = [Preferences charWidth];
 
@@ -858,7 +875,7 @@
     caret.origin.x = x0 + xpos * charWidth;
     caret.origin.y = y0 + ypos * lineHeight;
     caret.size.width =
-        NSMaxX(bounds) - m * 2 - caret.origin.x; // 20 * charWidth;
+        NSMaxX(bounds) - mx * 2 - caret.origin.x; // 20 * charWidth;
     caret.size.height = lineHeight;
 
     NSLog(@"grid initLine: %@ in: %ld", str, (long)self.name);
@@ -880,7 +897,7 @@
 
     NSAttributedString *attString = [[NSAttributedString alloc]
         initWithString:str
-            attributes:[self attributesFromStylevalue:style_Input]];
+            attributes:[styles objectAtIndex:style_Input]];
 
     input.attributedStringValue = attString;
 

@@ -46,6 +46,7 @@
 		6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494321EAC1BC4003DA5C4 /* README.md */; };
 		6D5C1BD222BC2456009E03F2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
 		6D5C1C0122BC2799009E03F2 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C1BFF22BC2799009E03F2 /* Spatterlight.xcdatamodeld */; };
+		6D6E9B4023B3C5A7001DECC2 /* GlkStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E9B3F23B3C5A7001DECC2 /* GlkStyle.m */; };
 		6D70DA80218B3F210022E13B /* Alan License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6D70DA7C218B3EFC0022E13B /* Alan License.rtf */; };
 		6D73052122BFA9EB00DFC73C /* NSDate+relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */; };
 		6D73E55721873509009CD59A /* LibraryWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D73E55621873509009CD59A /* LibraryWindow.xib */; };
@@ -102,14 +103,14 @@
 		6D8BCBC1225E514700696057 /* zpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D8BCBA2225E514700696057 /* zpu.c */; };
 		6DB6B51A219E31BF0039D2D7 /* fileref.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB6B519219E31BF0039D2D7 /* fileref.m */; };
 		6DBC471A21D27E9C00A20E28 /* Compatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC471821D2752000A20E28 /* Compatibility.m */; };
+		6DBC629B23A421BE0066F443 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214823A26078002DEF3B /* Metadata.m */; };
 		6DC6213723A26077002DEF3B /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213623A26077002DEF3B /* Game.m */; };
-		6DC6213A23A26078002DEF3B /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213923A26078002DEF3B /* Settings.m */; };
+		6DC6213A23A26078002DEF3B /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213923A26078002DEF3B /* Theme.m */; };
 		6DC6213D23A26078002DEF3B /* Ifid.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213C23A26078002DEF3B /* Ifid.m */; };
 		6DC6214023A26078002DEF3B /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		6DC6214323A26078002DEF3B /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214223A26078002DEF3B /* Tag.m */; };
 		6DC6214623A26078002DEF3B /* Interpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214523A26078002DEF3B /* Interpreter.m */; };
 		6DCDD44C23104AC4006715DD /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DCDD44B23104AC4006715DD /* fonts */; };
-		6DCFFC1D22BCCF600035FA99 /* Font.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCFFC1822BCCF600035FA99 /* Font.m */; };
 		6DCFFC2122BCD1730035FA99 /* Fonts License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
 		6DCFFC2722BCD1BB0035FA99 /* Fonts License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
 		6DCFFC2E22BE57790035FA99 /* SideInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2D22BE57790035FA99 /* SideInfoView.m */; };
@@ -359,7 +360,6 @@
 		96B6FCA90A0D478400E62E4D /* IconGame.icns in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2509F2940F00528FF9 /* IconGame.icns */; };
 		96B6FE6F0A0E4E0200E62E4D /* Question.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B6FE6E0A0E4E0200E62E4D /* Question.png */; };
 		96BE643F0E0AEAA40050667D /* sclocale.c in Sources */ = {isa = PBXBuildFile; fileRef = 96BE643E0E0AEAA40050667D /* sclocale.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		96CC05900A134D22004F30FA /* GlkStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CC04C90A133B93004F30FA /* GlkStyle.m */; };
 		96E6B9430AC4081600DCBE8B /* glulxe in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 9650385409F2AF280083E64E /* glulxe */; };
 		96FBD8F00A094E30002F6087 /* InfoPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = 96FBD8EF0A094E2F002F6087 /* InfoPanel.nib */; };
 		96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FBD8F50A0950EA002F6087 /* InfoController.m */; };
@@ -1061,6 +1061,8 @@
 		6D5494361EAC1BC4003DA5C4 /* spatterstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spatterstart.m; sourceTree = "<group>"; };
 		6D5494371EAC1BC4003DA5C4 /* vm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vm.c; sourceTree = "<group>"; };
 		6D5C1C0022BC2799009E03F2 /* Spatterlight.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spatterlight.xcdatamodel; sourceTree = "<group>"; };
+		6D6E9B3E23B3C5A7001DECC2 /* GlkStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlkStyle.h; path = coredata/GlkStyle.h; sourceTree = SOURCE_ROOT; };
+		6D6E9B3F23B3C5A7001DECC2 /* GlkStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlkStyle.m; path = coredata/GlkStyle.m; sourceTree = SOURCE_ROOT; };
 		6D70DA7C218B3EFC0022E13B /* Alan License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Alan License.rtf"; sourceTree = "<group>"; };
 		6D70DA7E218B3EFC0022E13B /* Glulxe License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Glulxe License.rtf"; sourceTree = "<group>"; };
 		6D73051D22BFA9EB00DFC73C /* NSDate+relative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+relative.h"; sourceTree = "<group>"; };
@@ -1163,8 +1165,8 @@
 		6DC144972215D3F6007C0A6B /* spatterstart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spatterstart.h; sourceTree = "<group>"; };
 		6DC6213523A26077002DEF3B /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = coredata/Game.h; sourceTree = SOURCE_ROOT; };
 		6DC6213623A26077002DEF3B /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game.m; path = coredata/Game.m; sourceTree = SOURCE_ROOT; };
-		6DC6213823A26078002DEF3B /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = coredata/Settings.h; sourceTree = SOURCE_ROOT; };
-		6DC6213923A26078002DEF3B /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Settings.m; path = coredata/Settings.m; sourceTree = SOURCE_ROOT; };
+		6DC6213823A26078002DEF3B /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Theme.h; path = coredata/Theme.h; sourceTree = SOURCE_ROOT; };
+		6DC6213923A26078002DEF3B /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Theme.m; path = coredata/Theme.m; sourceTree = SOURCE_ROOT; };
 		6DC6213B23A26078002DEF3B /* Ifid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ifid.h; path = coredata/Ifid.h; sourceTree = SOURCE_ROOT; };
 		6DC6213C23A26078002DEF3B /* Ifid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Ifid.m; path = coredata/Ifid.m; sourceTree = SOURCE_ROOT; };
 		6DC6213E23A26078002DEF3B /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = coredata/Image.h; sourceTree = SOURCE_ROOT; };
@@ -1176,8 +1178,6 @@
 		6DC6214723A26078002DEF3B /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Metadata.h; path = coredata/Metadata.h; sourceTree = SOURCE_ROOT; };
 		6DC6214823A26078002DEF3B /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Metadata.m; path = coredata/Metadata.m; sourceTree = SOURCE_ROOT; };
 		6DCDD44B23104AC4006715DD /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
-		6DCFFC1722BCCF600035FA99 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
-		6DCFFC1822BCCF600035FA99 /* Font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Font.m; sourceTree = "<group>"; };
 		6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Fonts License.rtf"; sourceTree = "<group>"; };
 		6DCFFC2C22BE57790035FA99 /* SideInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideInfoView.h; sourceTree = "<group>"; };
 		6DCFFC2D22BE57790035FA99 /* SideInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideInfoView.m; sourceTree = "<group>"; };
@@ -2320,8 +2320,6 @@
 		96A9C0F10A07AE31001B5B9B /* LibController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibController.h; sourceTree = "<group>"; };
 		96B6FE6E0A0E4E0200E62E4D /* Question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Question.png; sourceTree = "<group>"; };
 		96BE643E0E0AEAA40050667D /* sclocale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sclocale.c; sourceTree = "<group>"; };
-		96CC04C80A133B93004F30FA /* GlkStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkStyle.h; sourceTree = "<group>"; };
-		96CC04C90A133B93004F30FA /* GlkStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkStyle.m; sourceTree = "<group>"; };
 		96FBD8EF0A094E2F002F6087 /* InfoPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = InfoPanel.nib; sourceTree = "<group>"; };
 		96FBD8F40A0950EA002F6087 /* InfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
 		96FBD8F50A0950EA002F6087 /* InfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoController.m; sourceTree = "<group>"; };
@@ -2927,10 +2925,10 @@
 				6DC6213F23A26078002DEF3B /* Image.m */,
 				6DC6213B23A26078002DEF3B /* Ifid.h */,
 				6DC6213C23A26078002DEF3B /* Ifid.m */,
-				6DC6213823A26078002DEF3B /* Settings.h */,
-				6DC6213923A26078002DEF3B /* Settings.m */,
-				6DCFFC1722BCCF600035FA99 /* Font.h */,
-				6DCFFC1822BCCF600035FA99 /* Font.m */,
+				6DC6213823A26078002DEF3B /* Theme.h */,
+				6DC6213923A26078002DEF3B /* Theme.m */,
+				6D6E9B3E23B3C5A7001DECC2 /* GlkStyle.h */,
+				6D6E9B3F23B3C5A7001DECC2 /* GlkStyle.m */,
 			);
 			name = coredata;
 			path = ../coredata;
@@ -3369,8 +3367,6 @@
 				C38101291EDA297E00B87B68 /* GlkController.m */,
 				961CCED909F239E700528FF9 /* GlkEvent.h */,
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
-				96CC04C80A133B93004F30FA /* GlkStyle.h */,
-				96CC04C90A133B93004F30FA /* GlkStyle.m */,
 				6DF87CDA218259DB0020E9A1 /* GlkHyperlink.h */,
 				6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */,
 				961CCEE909F239E700528FF9 /* GlkWindow.h */,
@@ -5350,7 +5346,6 @@
 				96A9C0F00A07AE17001B5B9B /* LibController.m in Sources */,
 				96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */,
 				961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */,
-				96CC05900A134D22004F30FA /* GlkStyle.m in Sources */,
 				961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */,
 				C381012A1EDA297E00B87B68 /* GlkController.m in Sources */,
 				961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */,
@@ -5361,7 +5356,6 @@
 				C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */,
 				6D79435A224A2D2E0071EB3D /* NSString+Categories.m in Sources */,
 				6D5C1C0122BC2799009E03F2 /* Spatterlight.xcdatamodeld in Sources */,
-				6DCFFC1D22BCCF600035FA99 /* Font.m in Sources */,
 				6DCFFC2E22BE57790035FA99 /* SideInfoView.m in Sources */,
 				6D73052122BFA9EB00DFC73C /* NSDate+relative.m in Sources */,
 				6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */,
@@ -5371,11 +5365,13 @@
 				6D7673ED239FFC6C00FB24C0 /* IFIdentification.m in Sources */,
 				6D7673EE239FFC6C00FB24C0 /* IFStory.m in Sources */,
 				6DC6213723A26077002DEF3B /* Game.m in Sources */,
-				6DC6213A23A26078002DEF3B /* Settings.m in Sources */,
+				6DC6213A23A26078002DEF3B /* Theme.m in Sources */,
 				6DC6213D23A26078002DEF3B /* Ifid.m in Sources */,
 				6DC6214023A26078002DEF3B /* Image.m in Sources */,
 				6DC6214323A26078002DEF3B /* Tag.m in Sources */,
 				6DC6214623A26078002DEF3B /* Interpreter.m in Sources */,
+				6DBC629B23A421BE0066F443 /* Metadata.m in Sources */,
+				6D6E9B4023B3C5A7001DECC2 /* GlkStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

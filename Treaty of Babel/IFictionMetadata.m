@@ -5,7 +5,6 @@
 //
 
 #import "IFictionMetadata.h"
-#import "IFIdentification.h"
 #import "IFStory.h"
 
 @implementation IFictionMetadata

@@ -22,7 +22,7 @@
 }
 
 - (BOOL)downloadMetadataForTUID:(NSString*)tuid {
-    NSLog(@"libctl: downloadMetadataForTUID %@", tuid);
+//    NSLog(@"libctl: downloadMetadataForTUID %@", tuid);
 
     if (!tuid || tuid.length == 0)
         return NO;
@@ -32,7 +32,7 @@
 }
 
 - (BOOL)downloadMetadataForIFID:(NSString*)ifid {
-    NSLog(@"libctl: downloadMetadataForIFID %@", ifid);
+//    NSLog(@"libctl: downloadMetadataForIFID %@", ifid);
 
     if (!ifid || ifid.length == 0)
         return NO;
@@ -40,7 +40,6 @@
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
     return [self downloadMetadataFromURL:url];
 }
-
 
 - (BOOL)downloadMetadataFromURL:(NSURL*)url {
 
@@ -71,10 +70,9 @@
     return YES;
 }
 
-
 - (BOOL)downloadImageFor:(Metadata *)metadata
 {
-    NSLog(@"libctl: download image from url %@", metadata.coverArtURL);
+//    NSLog(@"libctl: download image from url %@", metadata.coverArtURL);
 
     Image *img = [self fetchImageForURL:metadata.coverArtURL];
 
@@ -129,12 +127,10 @@
         NSLog(@"Problem! %@",error);
     }
 
-    if (fetchedObjects.count > 1)
-    {
+    if (fetchedObjects.count > 1) {
         NSLog(@"Found more than one Image with originalURL %@",imgurl);
     }
-    else if (fetchedObjects.count == 0)
-    {
+    else if (fetchedObjects.count == 0) {
         NSLog(@"fetchImageForURL: Found no Image object with url %@", imgurl);
         return nil;
     }

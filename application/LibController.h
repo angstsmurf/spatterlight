@@ -78,6 +78,19 @@
 
 @property (strong) IBOutlet NSButton *addButton;
 
+@property (strong) IBOutlet NSView *leftView;
+@property (strong) IBOutlet NSView *rightView;
+
+@property (strong) IBOutlet NSSplitView *splitView;
+
+
+@property (strong) IBOutlet NSTextField *sideIfid;
+@property (strong) IBOutlet NSScrollView *leftScrollView;
+
+@property (strong) IBOutlet NSTextFieldCell *foundIndicatorCell;
+@property (strong) IBOutlet NSProgressIndicator *progressCircle;
+
+
 - (void)beginImporting;
 - (void)endImporting;
 
@@ -86,6 +99,9 @@
 - (NSWindow *)playGameWithIFID:(NSString *)ifid;
 
 - (void)importAndPlayGame:(NSString *)path;
+
+- (IBAction) toggleSidebar:(id)sender;
+- (IBAction)toggleColumn:(id)sender;
 
 - (IBAction)addGamesToLibrary:(id)sender;
 - (IBAction)deleteLibrary:(id)sender;
@@ -104,25 +120,12 @@
 
 - (void)showInfoForGame:(Game *)game;
 
-- (IBAction)toggleColumn:(id)sender;
 - (void)updateTableViews; /* must call this after -importGame: */
 - (void)updateSideViewForce:(BOOL)force;
 
 - (void)enableClickToRenameAfterDelay;
 
-@property (strong) IBOutlet NSView *leftView;
-@property (strong) IBOutlet NSView *rightView;
 
-@property (strong) IBOutlet NSSplitView *splitView;
-
-- (IBAction) toggleSidebar:(id)sender;
-
-@property (strong) IBOutlet NSTextField *sideIfid;
-@property (strong) IBOutlet NSScrollView *leftScrollView;
-
-@property (strong) IBOutlet NSProgressIndicator *progressCircle;
-
-@property (strong) IBOutlet NSTextFieldCell *foundIndicatorCell;
 
 - (NSString *)convertAGTFile:(NSString *)origpath;
 

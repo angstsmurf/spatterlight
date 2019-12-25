@@ -1,36 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Font" representedClassName="Font" syncable="YES">
-        <attribute name="baseline" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="bgcolor" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="leading" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="pitch" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="size" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
-        <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufAlert" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="bufBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufBlock" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="bufEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufEmph" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="bufferFont" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufferFont" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="bufHead" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufHead" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="bufInput" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufInput" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="bufNote" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufNote" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="bufPre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufPre" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="bufSubH" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufSubH" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="bufUsr1" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufUsr1" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="bufUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="bufUsr2" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridAlert" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridBlock" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridEmph" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridFont" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridFont" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridHead" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridHead" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridInput" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridInput" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridNote" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridNote" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridPre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridPre" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridSubH" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridSubH" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridUsr1" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridUsr1" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="gridUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="gridUsr2" inverseEntity="Settings" syncable="YES"/>
-    </entity>
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="added" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="fileLocation" optional="YES" attributeType="Transformable" valueTransformerName="" syncable="YES"/>
@@ -41,8 +10,52 @@
         <attribute name="lastPlayed" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="games" inverseEntity="Metadata" syncable="YES"/>
-        <relationship name="override" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="overrides" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="setting" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="game" inverseEntity="Settings" syncable="YES"/>
+        <relationship name="override" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="overrides" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="setting" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="game" inverseEntity="Theme" syncable="YES"/>
+    </entity>
+    <entity name="GlkStyle" representedClassName="GlkStyle" syncable="YES">
+        <attribute name="attributeDict" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="baseline" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="bgcolor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="columnWidth" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="font" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="kerning" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="leading" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="ligatures" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="lineHeight" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="paragraphStyle" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="pitch" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="shadow" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="size" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="strikethrough" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="strikethroughColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="underline" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="underlineColor" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="variant" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufAlert" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="bufBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufBlock" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="bufEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufEmph" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="bufferFont" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufferFont" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="bufHead" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufHead" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="bufInput" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufInput" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="bufNote" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufNote" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="bufPre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufPre" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="bufSubH" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufSubH" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="bufUsr1" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufUsr1" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="bufUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="bufUsr2" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridAlert" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridBlock" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridEmph" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridFont" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridFont" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridHead" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridHead" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridInput" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridInput" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridNote" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridNote" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridPre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridPre" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridSubH" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridSubH" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridUsr1" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridUsr1" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="gridUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="gridUsr2" inverseEntity="Theme" syncable="YES"/>
     </entity>
     <entity name="Ifid" representedClassName="Ifid" syncable="YES">
         <attribute name="ifidString" optional="YES" attributeType="String" syncable="YES"/>
@@ -56,7 +69,7 @@
     </entity>
     <entity name="Interpreter" representedClassName="Interpreter" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="setting" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="interpreter" inverseEntity="Settings" syncable="YES"/>
+        <relationship name="setting" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="interpreter" inverseEntity="Theme" syncable="YES"/>
     </entity>
     <entity name="Metadata" representedClassName="Metadata" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
@@ -90,7 +103,11 @@
         <relationship name="ifids" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ifid" inverseName="metadata" inverseEntity="Ifid" syncable="YES"/>
         <relationship name="tag" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="metadata" inverseEntity="Tag" syncable="YES"/>
     </entity>
-    <entity name="Settings" representedClassName="Settings" syncable="YES">
+    <entity name="Tag" representedClassName="Tag" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="metadata" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Metadata" inverseName="tag" inverseEntity="Metadata" syncable="YES"/>
+    </entity>
+    <entity name="Theme" representedClassName="Theme" syncable="YES">
         <attribute name="border" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="bufferBackground" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="bufferMarginX" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -117,46 +134,42 @@
         <attribute name="themeName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="winSpacingX" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="winSpacingY" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufAlert" inverseEntity="Font" syncable="YES"/>
-        <relationship name="bufBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufBlock" inverseEntity="Font" syncable="YES"/>
-        <relationship name="bufEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufEmph" inverseEntity="Font" syncable="YES"/>
-        <relationship name="bufferFont" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufferFont" inverseEntity="Font" syncable="YES"/>
-        <relationship name="bufHead" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufHead" inverseEntity="Font" syncable="YES"/>
-        <relationship name="bufInput" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufInput" inverseEntity="Font" syncable="YES"/>
-        <relationship name="bufNote" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufNote" inverseEntity="Font" syncable="YES"/>
-        <relationship name="bufPre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufPre" inverseEntity="Font" syncable="YES"/>
-        <relationship name="bufSubH" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufSubH" inverseEntity="Font" syncable="YES"/>
-        <relationship name="bufUsr1" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufUsr1" inverseEntity="Font" syncable="YES"/>
-        <relationship name="bufUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="bufUsr2" inverseEntity="Font" syncable="YES"/>
-        <relationship name="defaultChild" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Settings" inverseName="defaultParent" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="defaultParent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="defaultChild" inverseEntity="Settings" syncable="YES"/>
+        <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufAlert" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="bufBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufBlock" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="bufEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufEmph" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="bufferFont" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufferFont" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="bufHead" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufHead" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="bufInput" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufInput" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="bufNote" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufNote" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="bufPre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufPre" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="bufSubH" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufSubH" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="bufUsr1" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufUsr1" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="bufUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="bufUsr2" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="defaultChild" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Theme" inverseName="defaultParent" inverseEntity="Theme" syncable="YES"/>
+        <relationship name="defaultParent" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="defaultChild" inverseEntity="Theme" syncable="YES"/>
         <relationship name="game" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Game" inverseName="setting" inverseEntity="Game" syncable="YES"/>
-        <relationship name="gridAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridAlert" inverseEntity="Font" syncable="YES"/>
-        <relationship name="gridBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridBlock" inverseEntity="Font" syncable="YES"/>
-        <relationship name="gridEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridEmph" inverseEntity="Font" syncable="YES"/>
-        <relationship name="gridFont" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridFont" inverseEntity="Font" syncable="YES"/>
-        <relationship name="gridHead" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridHead" inverseEntity="Font" syncable="YES"/>
-        <relationship name="gridInput" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridInput" inverseEntity="Font" syncable="YES"/>
-        <relationship name="gridNote" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridNote" inverseEntity="Font" syncable="YES"/>
-        <relationship name="gridPre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridPre" inverseEntity="Font" syncable="YES"/>
-        <relationship name="gridSubH" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridSubH" inverseEntity="Font" syncable="YES"/>
-        <relationship name="gridUsr1" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridUsr1" inverseEntity="Font" syncable="YES"/>
-        <relationship name="gridUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Font" inverseName="gridUsr2" inverseEntity="Font" syncable="YES"/>
+        <relationship name="gridAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridAlert" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="gridBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridBlock" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="gridEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridEmph" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="gridFont" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridFont" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="gridHead" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridHead" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="gridInput" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridInput" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="gridNote" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridNote" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="gridPre" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridPre" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="gridSubH" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridSubH" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="gridUsr1" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridUsr1" inverseEntity="GlkStyle" syncable="YES"/>
+        <relationship name="gridUsr2" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GlkStyle" inverseName="gridUsr2" inverseEntity="GlkStyle" syncable="YES"/>
         <relationship name="interpreter" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Interpreter" inverseName="setting" inverseEntity="Interpreter" syncable="YES"/>
         <relationship name="overrides" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="override" inverseEntity="Game" syncable="YES"/>
     </entity>
-    <entity name="Tag" representedClassName="Tag" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="metadata" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Metadata" inverseName="tag" inverseEntity="Metadata" syncable="YES"/>
-    </entity>
     <elements>
-        <element name="Font" positionX="160" positionY="192" width="128" height="480"/>
         <element name="Game" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="GlkStyle" positionX="160" positionY="192" width="128" height="675"/>
         <element name="Ifid" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Image" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Metadata" positionX="160" positionY="192" width="128" height="495"/>
-        <element name="Settings" positionX="160" positionY="192" width="128" height="840"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="Theme" positionX="160" positionY="192" width="128" height="840"/>
     </elements>
 </model>

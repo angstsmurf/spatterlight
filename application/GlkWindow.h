@@ -1,27 +1,36 @@
-@class GlkController;
-@class GlkHyperlink;
+@class GlkController, GlkHyperlink, Theme;
 
 @interface GlkWindow : NSView {
-    NSMutableArray *styles;
+//    NSMutableArray *styles;
     NSInteger bgnd;
     NSMutableArray *hyperlinks;
     GlkHyperlink *currentHyperlink;
     NSMutableDictionary *currentTerminators;
 
+    Theme *theme;
+
+    // An array of attribute dictionaries,
+    // with style hints applied if hints
+    // are on for this theme
+    NSMutableArray *styles;
+
     BOOL char_request;
 }
-@property GlkController *glkctl;
+
 @property(readonly) NSInteger name;
+@property GlkController *glkctl;
+
+@property NSMutableArray *styleHints;
 
 @property NSMutableDictionary *pendingTerminators;
 @property BOOL terminatorsPending;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl
                                  name:(NSInteger)name;
-- (void)setStyle:(NSInteger)style
-      windowType:(NSInteger)wintype
-          enable:(NSInteger *)enable
-           value:(NSInteger *)value;
+//- (void)setStyle:(NSInteger)style
+//      windowType:(NSInteger)wintype
+//          enable:(NSInteger *)enable
+//           value:(NSInteger *)value;
 - (BOOL)getStyleVal:(NSInteger)style
                hint:(NSInteger)hint
               value:(NSInteger *)value;
