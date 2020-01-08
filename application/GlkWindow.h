@@ -1,13 +1,14 @@
 @class GlkController, GlkHyperlink, Theme;
 
 @interface GlkWindow : NSView {
-//    NSMutableArray *styles;
-    NSInteger bgnd;
+
+    NSColor *foregroundColor;
+    NSColor *backgroundColor;
+    NSColor *inputColor;
+
     NSMutableArray *hyperlinks;
     GlkHyperlink *currentHyperlink;
     NSMutableDictionary *currentTerminators;
-
-    Theme *theme;
 
     // An array of attribute dictionaries,
     // with style hints applied if hints
@@ -21,19 +22,17 @@
 @property GlkController *glkctl;
 
 @property NSMutableArray *styleHints;
-
 @property NSMutableDictionary *pendingTerminators;
 @property BOOL terminatorsPending;
+@property Theme *theme;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl
                                  name:(NSInteger)name;
-//- (void)setStyle:(NSInteger)style
-//      windowType:(NSInteger)wintype
-//          enable:(NSInteger *)enable
-//           value:(NSInteger *)value;
+
 - (BOOL)getStyleVal:(NSInteger)style
                hint:(NSInteger)hint
               value:(NSInteger *)value;
+
 - (BOOL)wantsFocus;
 - (void)grabFocus;
 - (void)flushDisplay;
@@ -67,5 +66,6 @@
 
 - (void)restoreSelection;
 - (NSString *)sayMask:(NSUInteger)mask;
+- (void)printStyleHints;
 
 @end

@@ -233,6 +233,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:_managedObjectContext];
 
+    [[Preferences instance] createDefaultThemes];
+    
     // Add metadata and games from plists to Core Data store if we have just created a new one
     gameTableModel = [[self fetchObjects:@"Game" inContext:_managedObjectContext] mutableCopy];
     NSArray *allMetadata = [self fetchObjects:@"Metadata" inContext:_managedObjectContext];
@@ -876,7 +878,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         entry = (Metadata *) [NSEntityDescription
                               insertNewObjectForEntityForName:@"Metadata"
                               inManagedObjectContext:context];
-        NSLog(@"addMetaData:forIFIDs: Created new Metadata object with ifid %@", ifid);
+        // NSLog(@"addMetaData:forIFIDs: Created new Metadata object with ifid %@", ifid);
         Ifid *ifidObj = (Ifid *) [NSEntityDescription
                                               insertNewObjectForEntityForName:@"Ifid"
                                               inManagedObjectContext:context];
@@ -959,11 +961,18 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     if (fetchedObjects.count > 1)
     {
-        NSLog(@"findDefaultThemeInContext: Found more than one Theme object with themeName Default");
-    }
+        NSLog(@"findDefaultThemeInContext: Found more than one Theme object with themeName Default (total %ld)", fetchedObjects.count);
+        NSMutableSet *storedSet = [[NSMutableSet alloc] init];
+        for (NSInteger i = fetchedObjects.count - 1; i > 0 ; i--) {
+            for (Game *game in ((Theme *)[fetchedObjects objectAtIndex:i]).games)
+                [storedSet addObject:game];
+        }
+        [((Theme *)[fetchedObjects objectAtIndex:0]) addGames:storedSet];
+
+     }
     else if (fetchedObjects.count == 0)
     {
-        NSLog(@"fetchMetadataForIFID: Found no Ifid object with with themeName Default");
+        NSLog(@"findDefaultThemeInContext: Found no Ifid object with with themeName Default");
         return nil;
     }
 
@@ -991,7 +1000,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     }
     else if (fetchedObjects.count == 0)
     {
-        NSLog(@"fetchMetadataForIFID: Found no Ifid object with ifidString %@ in %@", ifid, (context == _managedObjectContext)?@"_managedObjectContext":@"childContext");
+//        NSLog(@"fetchMetadataForIFID: Found no Ifid object with ifidString %@ in %@", ifid, (context == _managedObjectContext)?@"_managedObjectContext":@"childContext");
         return nil;
     }
 
@@ -1099,8 +1108,14 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             // Now we should have a Game with corresponding Metadata
             // (but we check anyway just to make sure)
             if (meta) {
+                if (!game)
+                    NSLog(@"No game?");
 
-                game.setting = [self findDefaultThemeInContext:private];
+                Theme *theme = [self findDefaultThemeInContext:private];
+                if (theme)
+                    game.theme = theme;
+                else
+                    NSLog(@"No theme?");
 
                 game.ifid = ifid;
                 game.metadata = meta;
@@ -1147,8 +1162,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                         if (error) {
                             [[NSApplication sharedApplication] presentError:error];
                         }
-                    } else NSLog(@"Changes in private were saved");
-                } else NSLog(@"No changes to save in private");
+                    } //else NSLog(@"Changes in private were saved");
+                } //else NSLog(@"No changes to save in private");
                 timestamp = [NSDate date];
             }
         }
@@ -1355,6 +1370,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return [self playGame:game winRestore:YES];
 }
 
+- (NSWindow *)playGame:(Game *)game
+            winRestore:(BOOL)restoreflag {
 
 // The winRestore flag is just to let us know whether
 // this is called from restoreWindowWithIdentifier in
@@ -1369,8 +1386,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 // autorestoring by clicking the game in the library view
 // or similar.
 
-- (NSWindow *)playGame:(Game *)game 
-                 winRestore:(BOOL)restoreflag {
     Metadata *meta = game.metadata;
     NSURL *url = [game urlForBookmark];
     NSString *path = url.path;
@@ -1386,14 +1401,14 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        game.found = @(NO);
+        game.found = NO;
         NSRunAlertPanel(
                         @"Cannot find the file.",
                         @"The file could not be found at its original location. Maybe "
                         @"it has been moved since it was added to the library.",
                         @"Okay", NULL, NULL);
         return nil;
-    } else game.found = @(YES);
+    } else game.found = YES;
 
 
     if (![[NSFileManager defaultManager] isReadableFileAtPath:path]) {
@@ -1615,7 +1630,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     game.metadata = metadata;
     game.ifid = ifid;
 
-    game.setting = [self findDefaultThemeInContext:context];
+    game.theme = [self findDefaultThemeInContext:context];
 
     return game;
 }
@@ -1783,7 +1798,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (void) selectGames:(NSArray*)games
 {
-    NSLog(@"selectGames called with %ld games", games.count);
+    //NSLog(@"selectGames called with %ld games", games.count);
 
     if (games.count) {
         
@@ -1845,7 +1860,7 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
     if (!gameTableDirty)
         return;
 
-    NSLog(@"Updating table view");
+    //NSLog(@"Updating table view");
     
     fetchRequest = [[NSFetchRequest alloc] init];
     entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
@@ -1890,8 +1905,8 @@ static NSInteger compareDates(NSDate *ael, NSDate *bel,bool ascending)
             if (cmp) return cmp;
         }
         else if ([gameSortColumn isEqual:@"found"]) {
-            NSString *string1 = [aid.found isEqual:@(YES)]?nil:@"A";
-            NSString *string2 = [bid.found isEqual:@(YES)]?nil:@"A";
+            NSString *string1 = aid.found?nil:@"A";
+            NSString *string2 = bid.found?nil:@"A";
             cmp = compareStrings(string1, string2, sortAscending);
             if (cmp) return cmp;
         }
@@ -1955,7 +1970,7 @@ objectValueForTableColumn: (NSTableColumn*)column
         Game *game = [gameTableModel objectAtIndex:row];
         Metadata *meta = game.metadata;
         if ([column.identifier isEqual: @"found"]) {
-            return [game.found isEqual: @(YES)]?nil:@"!";
+            return game.found?nil:@"!";
         } else if ([column.identifier isEqual: @"added"] || [column.identifier  isEqual: @"lastPlayed"]) {
             return [[game valueForKey: column.identifier] formattedRelativeString];
         } else if ([column.identifier  isEqual: @"lastModified"]){
@@ -2048,7 +2063,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
-    NSLog(@"noteManagedObjectContextDidChange");
+    //NSLog(@"noteManagedObjectContextDidChange");
     gameTableDirty = YES;
     [self updateTableViews];
     NSArray *updatedObjects = [notification.userInfo objectForKey:NSUpdatedObjectsKey];

@@ -138,14 +138,14 @@
         // Get the string components
         NSString *prefix = [origString substringToIndex:origSelRange.location];
         NSString *suffix = [origString
-            substringFromIndex:origSelRange.location + origSelRange.length];
+                            substringFromIndex:origSelRange.location + origSelRange.length];
         NSString *insert = [proposedString
-            substringWithRange:NSMakeRange(origSelRange.location,
-                                           insertLength)];
+                            substringWithRange:NSMakeRange(origSelRange.location,
+                                                           insertLength)];
 
         // Assemble the final string
         *partialStringPtr =
-            [NSString stringWithFormat:@"%@%@%@", prefix, insert, suffix];
+        [NSString stringWithFormat:@"%@%@%@", prefix, insert, suffix];
 
         // Fix-up the proposed selection range
         proposedSelRangePtr->location = origSelRange.location + insertLength;
@@ -168,6 +168,17 @@
     if (self) {
         // lines = [[NSMutableArray alloc] init];
 
+        self.styleHints = self.glkctl.gridStyleHints;
+        styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+        for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
+
+            if (self.theme.doStyles) {
+                [styles addObject:[((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]]];
+            } else {
+                [styles addObject:((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]).attributeDict];
+            }
+        }
+
         hyperlinks = [[NSMutableArray alloc] init];
 
         /* construct text system manually */
@@ -187,7 +198,7 @@
         [textstorage addLayoutManager:layoutmanager];
 
         container = [[NSTextContainer alloc]
-            initWithContainerSize:NSMakeSize(10000000, 10000000)];
+                     initWithContainerSize:NSMakeSize(10000000, 10000000)];
 
         container.layoutManager = layoutmanager;
         [layoutmanager addTextContainer:container];
@@ -206,7 +217,7 @@
         textview.delegate = self;
         textstorage.delegate = self;
         textview.textContainerInset =
-            NSMakeSize(theme.gridMarginX.integerValue, theme.gridMarginY.integerValue);
+        NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
 
         textview.editable = NO;
         textview.usesFontPanel = NO;
@@ -230,7 +241,7 @@
         container = (MarginContainer *)textview.textContainer;
 
         textview.delegate = self;
-        textview.insertionPointColor = theme.gridBackground;
+        textview.insertionPointColor = self.theme.gridBackground;
         textstorage.delegate = self;
         scrollview = textview.enclosingScrollView;
         scrollview.documentView = textview;
@@ -247,8 +258,8 @@
         dirty = YES;
         transparent = [decoder decodeBoolForKey:@"transparent"];
         _restoredSelection =
-            ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"])
-                .rangeValue;
+        ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"])
+        .rangeValue;
         textview.selectedRange = _restoredSelection;
         // NSLog(@"Decoded range %@ for text grid window selected range",
         // NSStringFromRange(_restoredSelection)); NSLog(@"textview.selectedRange
@@ -287,27 +298,26 @@
 //}
 
 - (void)prefsDidChange {
+
+    NSLog(@"GlkTextGridWindow prefsDidChange");
     NSRange range = NSMakeRange(0, 0);
     NSRange linkrange = NSMakeRange(0, 0);
     NSRange selectedRange = textview.selectedRange;
 
     int i;
 
-    NSMutableDictionary *attributes;
+    styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
 
     for (i = 0; i < style_NUMSTYLES; i++) {
-        if (theme.doStyles.boolValue) {
-            attributes = [((GlkStyle *)[theme valueForKey:[gGridStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i] andGridWindow:YES];
+        if (self.theme.doStyles) {
+            [styles addObject:[((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]]];
         } else {
-            attributes = ((GlkStyle *)[theme valueForKey:[gGridStyleNames objectAtIndex:i]]).attributeDict;
+            [styles addObject:((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]).attributeDict];
         }
-
-        [attributes setObject:@(i) forKey:@"GlkStyle"];
-        [styles replaceObjectAtIndex:i withObject:attributes];
     }
 
-    NSInteger marginX = theme.gridMarginX.integerValue;
-    NSInteger marginY = theme.gridMarginY.integerValue;
+    NSInteger marginX = self.theme.gridMarginX;
+    NSInteger marginY = self.theme.gridMarginY;
 
     textview.textContainerInset = NSMakeSize(marginX, marginY);
 
@@ -320,7 +330,7 @@
         if (i * cols + cols > (long)textstorage.length)
             lineRange = NSMakeRange(i * cols, textstorage.length - i * cols);
         NSMutableAttributedString *line =
-            [[textstorage attributedSubstringFromRange:lineRange] mutableCopy];
+        [[textstorage attributedSubstringFromRange:lineRange] mutableCopy];
         NSUInteger x = 0;
         while (x < line.length) {
             id styleobject = [line attribute:@"GlkStyle"
@@ -328,7 +338,7 @@
                               effectiveRange:&range];
 
             NSDictionary *attributes =
-                [styles objectAtIndex:[styleobject intValue]];
+            [styles objectAtIndex:[styleobject intValue]];
 
             id hyperlink = [line attribute:NSLinkAttributeName
                                    atIndex:x
@@ -387,13 +397,13 @@
     NSColor *bgcolor;
     bgcolor = nil;
 
-    if (theme.doStyles.boolValue) {
-            NSDictionary *attributes = [theme.bufferFont attributesWithHints:[self.styleHints objectAtIndex:style_Normal] andGridWindow:YES];
-            bgcolor = [attributes objectForKey:NSBackgroundColorAttributeName];
+    if (self.theme.doStyles) {
+        NSDictionary *attributes = [self.theme.bufferNormal attributesWithHints:[self.styleHints objectAtIndex:style_Normal]];
+        bgcolor = [attributes objectForKey:NSBackgroundColorAttributeName];
     }
 
     if (!bgcolor)
-        bgcolor = theme.gridBackground;
+        bgcolor = self.theme.gridBackground;
 
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = bgcolor;
@@ -433,19 +443,19 @@
 
     super.frame = frame;
     NSInteger newcols =
-        ceil((frame.size.width - (textview.textContainerInset.width +
-                                  container.lineFragmentPadding) *
-                                     2) /
-             theme.gridFont.columnWidth.doubleValue);
-    
-    NSInteger newrows = ceil((frame.size.height + theme.gridFont.leading.integerValue -
-                              (textview.textContainerInset.width) * 2) /
-                             theme.gridFont.lineHeight.integerValue);
+    ceil((frame.size.width - (textview.textContainerInset.width +
+                              container.lineFragmentPadding) *
+          2) /
+         self.theme.cellWidth);
+
+    NSInteger newrows = ceil((frame.size.height + ((NSParagraphStyle *)[self.theme.gridNormal.attributeDict objectForKey:NSParagraphStyleAttributeName]).lineSpacing -
+                              textview.textContainerInset.height * 2) /
+                             self.theme.cellHeight);
 
     if (newcols == cols && newrows == rows &&
         NSEqualRects(textview.frame, frame)) {
-//        NSLog(@"GlkTextGridWindow setFrame: new frame same as old frame. "
-//              @"Skipping.");
+        //        NSLog(@"GlkTextGridWindow setFrame: new frame same as old frame. "
+        //              @"Skipping.");
         return;
     }
 
@@ -458,24 +468,24 @@
 
     if (!backingStorage) {
         NSString *spaces = [[[NSString alloc] init]
-            stringByPaddingToLength:rows * (cols + 1) - (cols > 1)
-                         withString:@" "
-                    startingAtIndex:0];
+                            stringByPaddingToLength:rows * (cols + 1) - (cols > 1)
+                            withString:@" "
+                            startingAtIndex:0];
         backingStorage = [[NSTextStorage alloc]
-            initWithString:spaces
-                attributes:[styles objectAtIndex:style_Normal]];
+                          initWithString:spaces
+                          attributes:[styles objectAtIndex:style_Normal]];
     }
     if (newcols < cols) {
         // Delete characters if the window has become narrower
         for (r = cols - 1; r < backingStorage.length; r += cols + 1) {
             NSRange deleteRange =
-                NSMakeRange(r - (cols - newcols), cols - newcols);
+            NSMakeRange(r - (cols - newcols), cols - newcols);
             if (r - (cols - newcols) < 0)
                 continue;
             if (NSMaxRange(deleteRange) > backingStorage.length)
                 deleteRange =
-                    NSMakeRange(r - (cols - newcols),
-                                backingStorage.length - (r - (cols - newcols)));
+                NSMakeRange(r - (cols - newcols),
+                            backingStorage.length - (r - (cols - newcols)));
 
             [backingStorage deleteCharactersInRange:deleteRange];
             r -= (cols - newcols);
@@ -485,15 +495,15 @@
         if (rows == 1 && cols > 1 &&
             (NSInteger)backingStorage.length >= (cols - 2))
             [backingStorage
-                deleteCharactersInRange:NSMakeRange(cols - 2,
-                                                    backingStorage.length -
-                                                        (cols - 2))];
+             deleteCharactersInRange:NSMakeRange(cols - 2,
+                                                 backingStorage.length -
+                                                 (cols - 2))];
     } else if (newcols > cols) {
         // Pad with spaces if the window has become wider
         NSString *spaces =
-            [[[NSString alloc] init] stringByPaddingToLength:newcols - cols
-                                                  withString:@" "
-                                             startingAtIndex:0];
+        [[[NSString alloc] init] stringByPaddingToLength:newcols - cols
+                                              withString:@" "
+                                         startingAtIndex:0];
         NSAttributedString *string = [[NSAttributedString alloc]
                                       initWithString:spaces
                                       attributes:[styles objectAtIndex:style_Normal]];
@@ -507,27 +517,27 @@
     rows = newrows;
 
     NSInteger desiredLength =
-        rows * (cols + 1) - 1; // -1 because we don't want a newline at the end
+    rows * (cols + 1) - 1; // -1 because we don't want a newline at the end
     if (desiredLength < 1 || rows == 1)
         desiredLength = cols;
     if ((NSInteger)backingStorage.length < desiredLength) {
         NSString *spaces = [[[NSString alloc] init]
-            stringByPaddingToLength:desiredLength - backingStorage.length
-                         withString:@" "
-                    startingAtIndex:0];
+                            stringByPaddingToLength:desiredLength - backingStorage.length
+                            withString:@" "
+                            startingAtIndex:0];
         NSAttributedString *string = [[NSAttributedString alloc]
-            initWithString:spaces
-                attributes:[styles objectAtIndex:style_Normal]];
+                                      initWithString:spaces
+                                      attributes:[styles objectAtIndex:style_Normal]];
         [backingStorage appendAttributedString:string];
     } else if ((NSInteger)backingStorage.length > desiredLength)
         [backingStorage
-            deleteCharactersInRange:NSMakeRange(desiredLength,
-                                                backingStorage.length -
-                                                    desiredLength)];
+         deleteCharactersInRange:NSMakeRange(desiredLength,
+                                             backingStorage.length -
+                                             desiredLength)];
 
     NSAttributedString *newlinestring = [[NSAttributedString alloc]
-        initWithString:@"\n"
-            attributes:[styles objectAtIndex:style_Normal]];
+                                         initWithString:@"\n"
+                                         attributes:[styles objectAtIndex:style_Normal]];
 
     // Instert a newline character at the end of each line to avoid reflow
     // during live resize. (We carefully have to print around these in the
@@ -566,7 +576,7 @@
 - (void)clear {
     NSRange selectedRange = textview.selectedRange;
     [textstorage setAttributedString:[[NSMutableAttributedString alloc]
-                                         initWithString:@""]];
+                                      initWithString:@""]];
     hyperlinks = nil;
     hyperlinks = [[NSMutableArray alloc] init];
 
@@ -601,10 +611,15 @@
     //
     //    NSLog(@"self.frame.size.width: %f",self.frame.size.width);
 
+    NSMutableDictionary *attrDict = [styles objectAtIndex:stylevalue];
+
+    if (!attrDict)
+        NSLog(@"GlkTextGridWindow printToWindow: ERROR! Style dictionary nil!");
+
     NSString *firstline =
-        [textstorage.string substringWithRange:NSMakeRange(0, cols)];
+    [textstorage.string substringWithRange:NSMakeRange(0, cols)];
     CGSize stringSize = [firstline
-        sizeWithAttributes:[styles objectAtIndex:stylevalue]];
+                         sizeWithAttributes:attrDict];
 
     if (stringSize.width > self.frame.size.width) {
         NSLog(@"ERROR! First line has somehow become too wide!!!!");
@@ -654,14 +669,14 @@
 
         // "Draw" the characters
         NSAttributedString *partString = [[NSAttributedString alloc]
-            initWithString:[string substringWithRange:NSMakeRange(pos,
-                                                                  amountToDraw)]
-                attributes:att];
+                                          initWithString:[string substringWithRange:NSMakeRange(pos,
+                                                                                                amountToDraw)]
+                                          attributes:att];
 
         [textstorage
-            replaceCharactersInRange:NSMakeRange((cols + 1) * ypos + xpos,
-                                                 amountToDraw)
-                withAttributedString:partString];
+         replaceCharactersInRange:NSMakeRange((cols + 1) * ypos + xpos,
+                                              amountToDraw)
+         withAttributedString:partString];
         //        NSLog(@"Replaced characters in range %@ with '%@'",
         //        NSStringFromRange(NSMakeRange((cols + 1) * ypos + xpos,
         //        amountToDraw)), partString.string);
@@ -706,7 +721,7 @@
             currentHyperlink = nil;
         } else {
             currentHyperlink.range = NSMakeRange(
-                currentHyperlink.startpos, length - currentHyperlink.startpos);
+                                                 currentHyperlink.startpos, length - currentHyperlink.startpos);
             [hyperlinks addObject:currentHyperlink];
             NSNumber *link = @(currentHyperlink.index);
 
@@ -745,8 +760,8 @@
     }
 
     GlkEvent *gev =
-        [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue
-                              forWindow:self.name];
+    [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue
+                          forWindow:self.name];
     [self.glkctl queueEvent:gev];
 
     hyper_request = NO;
@@ -755,7 +770,7 @@
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent {
     GlkEvent *gev;
-//    NSLog(@"mousedown in grid window");
+    //    NSLog(@"mousedown in grid window");
 
     if (mouse_request) {
         [self.glkctl markLastSeen];
@@ -769,9 +784,9 @@
         p.y -= textview.textContainerInset.height;
 
         NSUInteger charIndex =
-            [textview.layoutManager characterIndexForPoint:p
-                                           inTextContainer:container
-                  fractionOfDistanceBetweenInsertionPoints:nil];
+        [textview.layoutManager characterIndexForPoint:p
+                                       inTextContainer:container
+              fractionOfDistanceBetweenInsertionPoints:nil];
         // NSLog(@"Clicked on char index %ld, which is '%@'.", charIndex,
         // [textstorage.string substringWithRange:NSMakeRange(charIndex, 1)]);
 
@@ -789,7 +804,7 @@
             }
         }
     } else {
-//        NSLog(@"No hyperlink request or mouse request in grid window");
+        //        NSLog(@"No hyperlink request or mouse request in grid window");
         [super mouseDown:theEvent];
     }
     return NO;
@@ -855,13 +870,13 @@
     }
 
     NSRect bounds = self.bounds;
-    NSInteger mx = theme.gridMarginX.integerValue;
-    NSInteger my = theme.gridMarginY.integerValue;
+    NSInteger mx = self.theme.gridMarginX;
+    NSInteger my = self.theme.gridMarginY;
 
-//    What is this supposed to do?
-//    Quotebox, I guess?
-//    if (transparent)
-//        mx = my = 0;
+    //    What is this supposed to do?
+    //    Quotebox, I guess?
+    //    if (transparent)
+    //        mx = my = 0;
 
     NSInteger x0 = NSMinX(bounds) + mx + container.lineFragmentPadding;
     NSInteger y0 = NSMinY(bounds) + my;
@@ -875,7 +890,7 @@
     caret.origin.x = x0 + xpos * charWidth;
     caret.origin.y = y0 + ypos * lineHeight;
     caret.size.width =
-        NSMaxX(bounds) - mx * 2 - caret.origin.x; // 20 * charWidth;
+    NSMaxX(bounds) - mx * 2 - caret.origin.x; // 20 * charWidth;
     caret.size.height = lineHeight;
 
     NSLog(@"grid initLine: %@ in: %ld", str, (long)self.name);
@@ -896,13 +911,13 @@
         str = @" ";
 
     NSAttributedString *attString = [[NSAttributedString alloc]
-        initWithString:str
-            attributes:[styles objectAtIndex:style_Input]];
+                                     initWithString:str
+                                     attributes:[styles objectAtIndex:style_Input]];
 
     input.attributedStringValue = attString;
 
     MyTextFormatter *inputFormatter =
-        [[MyTextFormatter alloc] initWithMaxLength:cols - xpos];
+    [[MyTextFormatter alloc] initWithMaxLength:cols - xpos];
     input.formatter = inputFormatter;
 
     [textview addSubview:input];
@@ -940,8 +955,8 @@
 }
 
 - (NSRange)textView:(NSTextView *)aTextView
-    willChangeSelectionFromCharacterRange:(NSRange)oldrange
-                         toCharacterRange:(NSRange)newrange {
+willChangeSelectionFromCharacterRange:(NSRange)oldrange
+   toCharacterRange:(NSRange)newrange {
     if (textstorage.length >= NSMaxRange(_restoredSelection))
         _restoredSelection = newrange;
     return newrange;
@@ -967,21 +982,21 @@
     if ([attribute isEqualToString:NSAccessibilityContentsAttribute]) {
         return textview;
     } else if ([attribute
-                   isEqualToString:NSAccessibilityRoleDescriptionAttribute]) {
+                isEqualToString:NSAccessibilityRoleDescriptionAttribute]) {
         return [NSString
-            stringWithFormat:
+                stringWithFormat:
                 @"Status window%@%@%@. %@",
                 line_request ? @", waiting for commands" : @"",
                 char_request ? @", waiting for a key press" : @"",
                 hyper_request ? @", waiting for a hyperlink click" : @"",
                 [textview
-                    accessibilityAttributeValue:NSAccessibilityValueAttribute]];
+                 accessibilityAttributeValue:NSAccessibilityValueAttribute]];
     } else if ([attribute isEqualToString:NSAccessibilityFocusedAttribute]) {
         // return (id)NO;
         return [NSNumber numberWithBool:firstResponder == self ||
-                                        firstResponder == textview];
+                firstResponder == textview];
     } else if ([attribute
-                   isEqualToString:NSAccessibilityFocusedUIElementAttribute]) {
+                isEqualToString:NSAccessibilityFocusedUIElementAttribute]) {
         return self.accessibilityFocusedUIElement;
     } else if ([attribute isEqualToString:NSAccessibilityChildrenAttribute]) {
         return @[ textview ];
@@ -997,12 +1012,12 @@
 - (IBAction)speakStatus:(id)sender {
     if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
         NSDictionary *announcementInfo = @{
-            NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-            NSAccessibilityAnnouncementKey : textstorage.string
-        };
+                                           NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+                                           NSAccessibilityAnnouncementKey : textstorage.string
+                                           };
         NSAccessibilityPostNotificationWithUserInfo(
-            [NSApp mainWindow],
-            NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+                                                    [NSApp mainWindow],
+                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
     }
 }
 

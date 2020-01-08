@@ -16,6 +16,7 @@
 
     if (self) {
         image = [[NSImage alloc] initWithSize:NSZeroSize];
+        bgnd = 0xFFFFFF; // White
 
         mouse_request = NO;
         transparent = NO;
@@ -31,6 +32,7 @@
         dirty = YES;
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
+        bgnd = [decoder decodeIntegerForKey:@"bgnd"];
     }
     return self;
 }
@@ -40,6 +42,7 @@
     [encoder encodeObject:image forKey:@"image"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeBool:transparent forKey:@"transparent"];
+    [encoder encodeInteger:bgnd forKey:@"bgnd"];
 }
 
 - (BOOL)isOpaque {

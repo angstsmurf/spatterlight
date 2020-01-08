@@ -1,4 +1,6 @@
 #import "main.h"
+#import "Theme.h"
+#import "GlkStyle.h"
 
 #include <unistd.h>
 
@@ -140,7 +142,7 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
-- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah force:(BOOL)forceFlag;
+- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah theme:(Theme *)aTheme force:(BOOL)forceFlag;
 {
 //    NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
     self = [super init];
@@ -148,6 +150,7 @@ unsigned chartokeycode(unsigned ch) {
         _type = EVTARRANGE;
         _val1 = aw;
         _val2 = ah;
+        theme = aTheme;
       _forced = forceFlag;
     }
     return self;
@@ -207,13 +210,13 @@ unsigned chartokeycode(unsigned ch) {
         settings->screen_width = (int)_val1;
         settings->screen_height = (int)_val2;
 
-        settings->buffer_margin_x = (int)[Preferences bufferMargins];
-        settings->buffer_margin_y = (int)[Preferences bufferMargins];
-        settings->grid_margin_x = (int)[Preferences gridMargins];
-        settings->grid_margin_y =(int)[Preferences gridMargins];
-        settings->cell_width = [Preferences charWidth];
-        settings->cell_height = [Preferences lineHeight];
-        settings->leading = [Preferences leading];
+        settings->buffer_margin_x = (int)theme.bufferMarginX;
+        settings->buffer_margin_y = (int)theme.bufferMarginY;
+        settings->grid_margin_x = (int)theme.gridMarginX;
+        settings->grid_margin_y =(int)theme.gridMarginY;
+        settings->cell_width = theme.cellWidth;
+        settings->cell_height = theme.cellHeight;
+        settings->leading = ((NSParagraphStyle *)[theme.gridNormal.attributeDict objectForKey:NSParagraphStyleAttributeName]).lineSpacing;
         settings->force_arrange = _forced;
 
         reply.len = sizeof(struct settings_struct);

@@ -56,13 +56,6 @@
     NSImage *lastimage;
     NSData *lastsound;
 
-    /* stylehints need to be copied to new windows, so we keep the values around
-     */
-//    NSInteger styleuse[2][style_NUMSTYLES][stylehint_NUMHINTS];
-//    NSInteger styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
-    NSMutableArray *gridStyleHints;
-    NSMutableArray *bufferStyleHints;
-
     GlkController *restoredController;
     NSUInteger turns;
     NSMutableData *bufferedData;
@@ -71,6 +64,12 @@
 @property NSMutableDictionary *gwindows;
 @property IBOutlet NSView *borderView;
 @property IBOutlet GlkHelperView *contentView;
+
+
+// stylehints need to be copied to new windows, so we keep the values around
+
+@property NSMutableArray *gridStyleHints;
+@property NSMutableArray *bufferStyleHints;
 
 @property(getter=isAlive, readonly) BOOL alive;
 

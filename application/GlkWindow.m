@@ -8,12 +8,9 @@
 
     if (self) {
         _glkctl = glkctl_;
-        theme = glkctl_.theme;
+        _theme = glkctl_.theme;
         _name = name;
-        bgnd = 0xFFFFFF; // White
-//        styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-//        while (styles.count < style_NUMSTYLES)
-//            [styles addObject:[[GlkStyle alloc] init]];
+
         _pendingTerminators = [[NSMutableDictionary alloc]
             initWithObjectsAndKeys:@(NO), @keycode_Func1, @(NO), @keycode_Func2,
                                    @(NO), @keycode_Func3, @(NO), @keycode_Func4,
@@ -33,9 +30,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        _styleHints = [decoder decodeObjectForKey:@"styleHints"];
         _name = [decoder decodeIntegerForKey:@"name"];
-        bgnd = [decoder decodeIntegerForKey:@"bgnd"];
         hyperlinks = [decoder decodeObjectForKey:@"hyperlinks"];
         currentHyperlink = [decoder decodeObjectForKey:@"currentHyperlink"];
         currentTerminators = [decoder decodeObjectForKey:@"currentTerminators"];
@@ -43,6 +38,11 @@
             [decoder decodeObjectForKey:@"pendingTerminators"];
         _terminatorsPending = [decoder decodeBoolForKey:@"terminatorsPending"];
         char_request = [decoder decodeBoolForKey:@"char_request"];
+        _styleHints = [decoder decodeObjectForKey:@"styleHints"];
+        styles = [decoder decodeObjectForKey:@"styles"];
+
+//        NSLog(@"GlkWindow initWithCoder: restored the following style hints:");
+//        [self printStyleHints];
     }
     return self;
 }
@@ -51,7 +51,6 @@
     [super encodeWithCoder:encoder];
 
     [encoder encodeInteger:_name forKey:@"name"];
-    [encoder encodeInteger:bgnd forKey:@"bgnd"];
     [encoder encodeObject:hyperlinks forKey:@"hyperlinks"];
     [encoder encodeObject:currentHyperlink forKey:@"currentHyperlink"];
     [encoder encodeObject:currentTerminators forKey:@"currentTerminators"];
@@ -59,6 +58,30 @@
     [encoder encodeBool:_terminatorsPending forKey:@"terminatorsPending"];
     [encoder encodeBool:char_request forKey:@"char_request"];
     [encoder encodeObject:_styleHints forKey:@"styleHints"];
+    [encoder encodeObject:styles forKey:@"styles"];
+}
+
+- (void)printStyleHints {
+
+     NSArray *styleHintNames = @[ @"stylehint_Indentation", @"stylehint_ParaIndentation",
+        @"stylehint_Justification", @"stylehint_Size",
+        @"stylehint_Weight",@"stylehi@nt_Oblique", @"stylehint_Proportional",
+        @"stylehint_TextColor", @"stylehint_BackColor", @"stylehint_ReverseColor",
+        @"stylehint_NUMHINTS"];
+
+    for (NSArray *style in _styleHints) {
+        NSString *styleName;
+        NSLog(@"[_styleHints indexOfObject:style] == %ld", [_styleHints indexOfObject:style]);
+        if ([self isKindOfClass:[GlkTextBufferWindow class]])
+            styleName = [gBufferStyleNames objectAtIndex:[_styleHints indexOfObject:style]];
+        else
+            styleName = [gGridStyleNames objectAtIndex:[_styleHints indexOfObject:style]];
+        
+        NSLog (@"Stylehints for style %@:", styleName);
+        for (NSInteger i = 0; i < stylehint_NUMHINTS ; i ++) {
+            NSLog(@"%@: %@", [styleHintNames objectAtIndex:i], [style objectAtIndex:i]);
+        }
+    }
 }
 
 - (NSString *)sayMask:(NSUInteger)mask {

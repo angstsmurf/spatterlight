@@ -38,7 +38,7 @@ NSDictionary *gFormatMap;
 
     // To map the Glk style indices onto our Core Data relation names
     gBufferStyleNames = @[
-                       @"bufferFont",
+                       @"bufferNormal",
                        @"bufEmph",
                        @"bufPre",
                        @"bufHead",
@@ -52,7 +52,7 @@ NSDictionary *gFormatMap;
                        ];
 
     gGridStyleNames = @[
-                       @"gridFont",
+                       @"gridNormal",
                        @"gridEmph",
                        @"gridPre",
                        @"gridHead",
@@ -88,9 +88,6 @@ NSDictionary *gFormatMap;
     _prefctl.window.restorable = YES;
     _prefctl.window.restorationClass = [self class];
     _prefctl.window.identifier = @"preferences";
-
-    [_prefctl createDefaultThemes];
-
 
     _libctl = [[LibController alloc] init];
     _libctl.window.restorable = YES;

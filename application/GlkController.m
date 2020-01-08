@@ -117,9 +117,12 @@ fprintf(stderr, "%s\n",                                                    \
     NSLog(@"glkctl: runterp %@ %@", terpname_, _game);
 
     _game = game_;
-    _theme = _game.setting;
+    _theme = _game.theme;
 
     NSLog(@"runTerp: theme name:%@", _theme.themeName);
+//    [_theme.bufferNormal printDebugInfo];
+    if (_theme.doStyles == NO)
+        NSLog(@"glkctl: runterp: doStyles = NO!");
 
     _gamefile = [_game urlForBookmark].path;
     _terpname = terpname_;
@@ -131,11 +134,11 @@ fprintf(stderr, "%s\n",                                                    \
     NSInteger i;
     for (i = 0 ; i < stylehint_NUMHINTS ; i ++)
         [nullarray addObject:[NSNull null]];
-    gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    _gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    _bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     for (i = 0 ; i < style_NUMSTYLES ; i ++) {
-        [gridStyleHints addObject:nullarray];
-        [bufferStyleHints addObject:nullarray];
+        [_gridStyleHints addObject:[nullarray mutableCopy]];
+        [_bufferStyleHints addObject:[nullarray mutableCopy]];
     }
 
     /* Setup our own stuff */
@@ -412,6 +415,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
                                          height:_contentView.frame.size.height
+                                          theme:_theme
                                           force:NO];
     [self queueEvent:gevent];
 
@@ -477,6 +481,7 @@ fprintf(stderr, "%s\n",                                                    \
         [win removeFromSuperview];
         [_contentView addSubview:win];
         win.glkctl = self;
+        win.theme = _theme;
         // Restore text finders
         if ([win isKindOfClass:[GlkTextBufferWindow class]])
             [(GlkTextBufferWindow *)win restoreTextFinder];
@@ -490,6 +495,7 @@ fprintf(stderr, "%s\n",                                                    \
     // process, we have no other way to know what size the Glk windows should be.
     GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
                                                    height:_contentView.frame.size.height
+                                                    theme:_theme
                                                     force:YES];
     [self queueEvent:gevent];
     [self notePreferencesChanged:nil];
@@ -880,9 +886,9 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSSize)defaultWindowSize {
     NSInteger width =
-    ceil(_theme.gridFont.columnWidth.doubleValue * _theme.defaultCols.integerValue + (_theme.gridMarginX.integerValue + _theme.border.integerValue + 4) * 2.0);
+    ceil(_theme.cellWidth * _theme.defaultCols + (_theme.gridMarginX + _theme.border + 4) * 2.0);
     NSInteger height =
-    ceil(_theme.gridFont.lineHeight.doubleValue * _theme.defaultRows.integerValue + (_theme.gridMarginY.integerValue + _theme.border.integerValue + 4) * 2.0);
+    ceil(_theme.cellHeight * _theme.defaultRows + (_theme.gridMarginY + _theme.border + 4) * 2.0);
 
     return NSMakeSize(width, height);
 }
@@ -907,6 +913,7 @@ fprintf(stderr, "%s\n",                                                    \
         GlkEvent *gevent;
         gevent = [[GlkEvent alloc] initArrangeWidth:frame.size.width
                                              height:frame.size.height
+                                              theme:_theme
                                               force:NO];
         [self queueEvent:gevent];
     }
@@ -1033,10 +1040,16 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Preference and style hint glue
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
-    // NSLog(@"glkctl: notePreferencesChanged");
+    NSLog(@"glkctl: notePreferencesChanged");
 
-    if (notify.object != _game.setting)
-        return;
+    if (notify.object != _game.theme) {
+        NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).themeName, _game.theme.themeName);
+        NSLog(@"current setting: %@ notePreferencesChanged object name %@", _game.theme.themeName, ((Theme *)notify.object).themeName );
+        if (notify.object != nil)
+            NSLog(@"notify.object: %@", notify.object);
+
+       // return;
+    }
     
     GlkEvent *gevent;
 
@@ -1044,11 +1057,16 @@ fprintf(stderr, "%s\n",                                                    \
 
     gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
                                          height:_contentView.frame.size.height
+                                          theme:_theme
                                           force:NO];
     [self queueEvent:gevent];
 
     gevent = [[GlkEvent alloc] initPrefsEvent];
     [self queueEvent:gevent];
+
+    if (!_gwindows.count) {
+        NSLog(@"glkctl: notePreferencesChanged called with no _gwindows");
+    }
 
     for (GlkWindow *win in [_gwindows allValues])
         [win prefsDidChange];
@@ -1245,7 +1263,7 @@ fprintf(stderr, "%s\n",                                                    \
             [_gwindows setObject:win forKey:@(i)];
             [_contentView addSubview:win];
 
-            win.styleHints = gridStyleHints;
+            win.styleHints = _gridStyleHints;
             return i;
 
         case wintype_TextBuffer:
@@ -1254,7 +1272,7 @@ fprintf(stderr, "%s\n",                                                    \
             [_gwindows setObject:win forKey:@(i)];
             [_contentView addSubview:win];
 
-            win.styleHints = bufferStyleHints;
+            win.styleHints = _bufferStyleHints;
             
             return i;
 
@@ -1393,8 +1411,8 @@ fprintf(stderr, "%s\n",                                                    \
     if (hint < 0 || hint >= stylehint_NUMHINTS)
         return;
 
-    NSMutableArray *gridHintsForStyle = [gridStyleHints objectAtIndex:style];
-    NSMutableArray *bufferHintsForStyle = [bufferStyleHints objectAtIndex:style];
+    NSMutableArray *bufferHintsForStyle = [_bufferStyleHints objectAtIndex:style];
+    NSMutableArray *gridHintsForStyle = [_gridStyleHints objectAtIndex:style];
 
     switch (wintype) {
         case wintype_AllTypes:
@@ -1443,9 +1461,9 @@ NSInteger colorToInteger(NSColor *color) {
     else {
         if (hint == stylehint_TextColor) {
             if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = colorToInteger(_theme.bufferFont.color);
+                *result = colorToInteger([_theme.bufferNormal.attributeDict objectForKey:NSForegroundColorAttributeName]);
             else
-                *result = colorToInteger(_theme.gridFont.color);
+                *result = colorToInteger([_theme.gridNormal.attributeDict objectForKey:NSForegroundColorAttributeName]);
 
             return YES;
         }
@@ -1468,8 +1486,8 @@ NSInteger colorToInteger(NSColor *color) {
     if (style < 0 || style >= style_NUMSTYLES)
         return;
 
-    NSMutableArray *gridHintsForStyle = [gridStyleHints objectAtIndex:style];
-    NSMutableArray *bufferHintsForStyle = [bufferStyleHints objectAtIndex:style];
+    NSMutableArray *gridHintsForStyle = [_gridStyleHints objectAtIndex:style];
+    NSMutableArray *bufferHintsForStyle = [_bufferStyleHints objectAtIndex:style];
 
     switch (wintype) {
         case wintype_AllTypes:
@@ -1498,8 +1516,8 @@ NSInteger colorToInteger(NSColor *color) {
     if ([gwindow isKindOfClass:[GlkTextBufferWindow class]] &&
         (style & 0xff) != style_Preformatted) {
         GlkTextBufferWindow *textwin = (GlkTextBufferWindow *)gwindow;
-        NSInteger smartquotes = _theme.smartQuotes.boolValue;
-        NSInteger spaceformat = _theme.spaceFormat.integerValue;
+        NSInteger smartquotes = _theme.smartQuotes;
+        NSInteger spaceformat = _theme.spaceFormat;
         NSInteger lastchar = textwin.lastchar;
         NSInteger spaced = 0;
         NSInteger i;
@@ -2156,11 +2174,11 @@ static NSString *signalToName(NSTask *task) {
         NSDictionary *newArrangeValues = @{
                                            @"width" : @(gevent.val1),
                                            @"height" : @(gevent.val2),
-                                           @"bufferMargin" : _theme.bufferMarginX,
-                                           @"gridMargin" : _theme.gridMarginX,
-                                           @"charWidth" : _theme.gridFont.columnWidth,
-                                           @"lineHeight" : _theme.gridFont.lineHeight,
-                                           @"leading" : _theme.gridFont.leading
+                                           @"bufferMargin" : @(_theme.bufferMarginX),
+                                           @"gridMargin" : @(_theme.gridMarginX),
+                                           @"charWidth" : @(_theme.cellWidth),
+                                           @"lineHeight" : @(_theme.cellHeight),
+                                           @"leading" : @(((NSParagraphStyle *)[_theme.gridNormal.attributeDict objectForKey:NSParagraphStyleAttributeName]).lineSpacing)
                                            };
 
         if (!gevent.forced && [lastArrangeValues isEqualToDictionary:newArrangeValues]) {
@@ -2329,7 +2347,7 @@ again:
 
 - (void)noteDefaultSizeChanged:(NSNotification *)notification {
 
-    if (notification.object != _game.setting)
+    if (notification.object != _game.theme)
         return;
 
     NSSize sizeAfterZoom = [self defaultWindowSize];
@@ -2368,7 +2386,7 @@ again:
 
         [self.window setFrame:winrect display:NO animate:NO];
     } else {
-        NSUInteger borders = _theme.border.integerValue * 2;
+        NSUInteger borders = _theme.border * 2;
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
                                      sizeAfterZoom.width - borders,
                                      NSHeight(_borderView.frame) - borders);
@@ -2529,7 +2547,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               NSMakePoint(floor((NSWidth(localBorderView.bounds) -
                                 NSWidth(localContentView.frame)) /
                                2),
-                         floor(NSHeight(localBorderView.bounds) - _theme.border.integerValue - localContentView.frame.size.height)
+                         floor(NSHeight(localBorderView.bounds) - _theme.border - localContentView.frame.size.height)
                          );
               [NSAnimationContext
                runAnimationGroup:^(NSAnimationContext *context) {
@@ -2565,6 +2583,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                              GlkEvent *gevent = [[GlkEvent alloc]
                                                  initArrangeWidth:localContentView.frame.size.width
                                                  height:localContentView.frame.size.height
+                                                 theme:self.theme
                                                  force:NO];
 
                              [weakSelf queueEvent:gevent];
@@ -2631,6 +2650,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               GlkEvent *gevent = [[GlkEvent alloc]
                                   initArrangeWidth:localContentView.frame.size.width
                                   height:localContentView.frame.size.height
+                                  theme:_theme
                                   force:NO];
 
               [weakSelf queueEvent:gevent];
@@ -2651,7 +2671,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSRect oldFrame = _windowPreFullscreenFrame;
 
     oldFrame.size.width =
-    _contentView.frame.size.width + _theme.border.integerValue * 2;
+    _contentView.frame.size.width + _theme.border * 2;
 
     inFullScreenResize = YES;
 
@@ -2750,14 +2770,14 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (NSRect)contentFrameForWindowed {
-    NSUInteger border = _theme.border.integerValue;
+    NSUInteger border = _theme.border;
     return NSMakeRect(border, border,
                       ceil(NSWidth(_borderView.bounds) - border * 2),
                       ceil(NSHeight(_borderView.bounds) - border * 2));
 }
 
 - (NSRect)contentFrameForFullscreen {
-    NSUInteger border = _theme.border.integerValue;
+    NSUInteger border = _theme.border;
     return NSMakeRect(floor((NSWidth(_borderView.bounds) -
                             NSWidth(_contentView.frame)) / 2),
                       border, NSWidth(_contentView.frame),

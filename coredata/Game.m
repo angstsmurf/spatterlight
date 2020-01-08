@@ -2,7 +2,7 @@
 //  Game.m
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2019-12-12.
+//  Created by Petter Sjölund on 2019-12-31.
 //
 //
 
@@ -16,21 +16,21 @@
 @dynamic added;
 @dynamic fileLocation;
 @dynamic found;
-@dynamic ifid;
 @dynamic group;
-@dynamic lastPlayed;
 @dynamic hashTag;
+@dynamic ifid;
+@dynamic lastPlayed;
 @dynamic version;
 @dynamic metadata;
 @dynamic override;
-@dynamic setting;
+@dynamic theme;
 
 - (NSURL *)urlForBookmark {
     BOOL bookmarkIsStale = NO;
     NSError* theError = nil;
     if (!self.fileLocation) {
         NSLog(@"Error! File location for game %@ is nil!", self.metadata.title);
-        self.found = @(NO);
+        self.found = NO;
         return nil;
     }
     NSURL* bookmarkURL = [NSURL URLByResolvingBookmarkData:(NSData *)self.fileLocation
@@ -49,7 +49,7 @@
 
         NSLog(@"Game urlForBookmark: Error! %@", theError);
         // Handle any errors
-        self.found = @(NO);
+        self.found = NO;
         return nil;
     }
 
@@ -69,7 +69,7 @@
 
     if (theError || (bookmark == nil)) {
         // Handle any errors.
-        self.found = @(NO);
+        self.found = NO;
         NSLog(@"Could not create bookmark from file at %@",path);
         return;
     }

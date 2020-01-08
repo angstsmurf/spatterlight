@@ -125,8 +125,6 @@
 
 - (void)enableClickToRenameAfterDelay;
 
-
-
 - (NSString *)convertAGTFile:(NSString *)origpath;
 
 @end
