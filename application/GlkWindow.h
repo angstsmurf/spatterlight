@@ -42,7 +42,7 @@
 - (void)setBgColor:(NSInteger)bc;
 - (void)clear;
 - (void)putString:(NSString *)buf style:(NSInteger)style;
-- (NSDictionary *)attributesFromStylevalue:(NSInteger)stylevalue;
+//- (NSDictionary *)attributesFromStylevalue:(NSInteger)stylevalue;
 - (void)moveToColumn:(NSInteger)x row:(NSInteger)y;
 - (void)initLine:(NSString *)buf;
 - (void)initChar;

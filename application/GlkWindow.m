@@ -188,28 +188,28 @@
     NSLog(@"print in %@ not implemented", [self class]);
 }
 
-- (NSDictionary *)attributesFromStylevalue:(NSInteger)stylevalue {
-    NSInteger style = stylevalue & 0xff;
-    NSInteger fg = (stylevalue >> 8) & 0xff;
-    NSInteger bg = (stylevalue >> 16) & 0xff;
-
-    if (fg || bg) {
-        NSMutableDictionary *mutatt =
-            [[styles objectAtIndex:style] mutableCopy];
-        [mutatt setObject:@(stylevalue) forKey:@"GlkStyle"];
-        if ([Preferences stylesEnabled]) {
-            if (fg)
-                [mutatt setObject:[Preferences foregroundColor:(int)(fg - 1)]
-                           forKey:NSForegroundColorAttributeName];
-            if (bg)
-                [mutatt setObject:[Preferences backgroundColor:(int)(bg - 1)]
-                           forKey:NSBackgroundColorAttributeName];
-        }
-        return (NSDictionary *)mutatt;
-    } else {
-        return [styles objectAtIndex:style];
-    }
-}
+//- (NSDictionary *)attributesFromStylevalue:(NSInteger)stylevalue {
+//    NSInteger style = stylevalue & 0xff;
+//    NSInteger fg = (stylevalue >> 8) & 0xff;
+//    NSInteger bg = (stylevalue >> 16) & 0xff;
+//
+//    if (fg || bg) {
+//        NSMutableDictionary *mutatt =
+//            [[styles objectAtIndex:style] mutableCopy];
+//        [mutatt setObject:@(stylevalue) forKey:@"GlkStyle"];
+//        if ([Preferences stylesEnabled]) {
+//            if (fg)
+//                [mutatt setObject:[Preferences foregroundColor:(int)(fg - 1)]
+//                           forKey:NSForegroundColorAttributeName];
+//            if (bg)
+//                [mutatt setObject:[Preferences backgroundColor:(int)(bg - 1)]
+//                           forKey:NSBackgroundColorAttributeName];
+//        }
+//        return (NSDictionary *)mutatt;
+//    } else {
+//        return [styles objectAtIndex:style];
+//    }
+//}
 
 - (void)moveToColumn:(NSInteger)x row:(NSInteger)y {
     NSLog(@"move cursor in %@ not implemented", [self class]);

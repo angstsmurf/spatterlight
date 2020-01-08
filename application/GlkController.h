@@ -65,7 +65,6 @@
 @property IBOutlet NSView *borderView;
 @property IBOutlet GlkHelperView *contentView;
 
-
 // stylehints need to be copied to new windows, so we keep the values around
 
 @property NSMutableArray *gridStyleHints;
@@ -89,7 +88,7 @@
 @property(readonly) Game *game;
 @property(readonly) NSString *gamefile;
 @property(readonly) NSString *terpname;
-@property(readonly) Theme *theme;
+@property Theme *theme;
 
 @property(strong, nonatomic) NSString *appSupportDir;
 @property(strong, nonatomic) NSString *autosaveFileGUI;
@@ -116,5 +115,6 @@
 - (void)autoSaveOnExit;
 - (void)storeScrollOffsets;
 - (void)restoreScrollOffsets;
+- (void)adjustContentView;
 
 @end

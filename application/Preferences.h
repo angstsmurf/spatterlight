@@ -10,7 +10,7 @@
 #define ZOOMIN 1
 #define ZOOMOUT 2
 
-@class Theme;
+@class Theme, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow;
 
 @interface Preferences : NSWindowController <NSWindowDelegate> {
     IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
@@ -25,10 +25,24 @@
     IBOutlet NSButton *btnEnableSound;
     IBOutlet NSButton *btnEnableStyles;
     IBOutlet NSButton *btnUseScreenFonts;
+    IBOutlet NSTableView *themesTableView;
+    IBOutlet NSButton *btnUseThemeForAll;
+    IBOutlet NSButton *btnUseThemeForRunning;
+    IBOutlet NSButton *btnUseThemeForSelected;
+    IBOutlet NSView *sampleTextBorderView;
+    IBOutlet GlkHelperView *sampleTextView;
+
+    GlkController *glkcntrl;
+    GlkTextBufferWindow *glktxtbuf;
+
     NSFont *__strong *selfontp;
     NSColor *__strong *colorp;
     NSColor *__strong *colorp2;
 }
+
+@property (readonly) Theme *defaultTheme;
+@property (readonly) CoreDataManager *coreDataManager;
+@property (readonly) NSManagedObjectContext *managedObjectContext;
 
 + (void)rebuildTextAttributes;
 
@@ -44,7 +58,14 @@
 - (IBAction)changeEnableGraphics:(id)sender;
 - (IBAction)changeEnableSound:(id)sender;
 - (IBAction)changeEnableStyles:(id)sender;
-- (IBAction)changeUseScreenFonts:(id)sender;
+//- (IBAction)changeUseScreenFonts:(id)sender;
+
+- (IBAction)addTheme:(id)sender;
+- (IBAction)deleteTheme:(id)sender;
+
+- (IBAction)pushedUseThemeForAll:(id)sender;
+- (IBAction)pushedUseThemeForRunning:(id)sender;
+- (IBAction)pushedUseThemeForSelected:(id)sender;
 
 - (void)createDefaultThemes;
 
@@ -79,11 +100,12 @@
 + (BOOL)soundEnabled;
 + (BOOL)useScreenFonts;
 
-+ (NSDictionary *)attributesForGridStyle:(int)style;
-+ (NSDictionary *)attributesForBufferStyle:(int)style;
+//+ (NSDictionary *)attributesForGridStyle:(int)style;
+//+ (NSDictionary *)attributesForBufferStyle:(int)style;
 
 + (Theme *)currentTheme;
 
 + (Preferences *)instance;
 
+@property (strong) IBOutlet NSTextField *sampleTextfield;
 @end

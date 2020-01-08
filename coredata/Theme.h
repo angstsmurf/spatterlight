@@ -36,7 +36,7 @@
 @property (nonatomic) BOOL smartQuotes;
 @property (nonatomic) int32_t spaceFormat;
 @property (nonatomic, retain) id spacingColor;
-@property (nonatomic, retain) NSString * themeName;
+@property (nonatomic, retain) NSString * name;
 @property (nonatomic) int32_t winSpacingX;
 @property (nonatomic) int32_t winSpacingY;
 @property (nonatomic) float cellWidth;

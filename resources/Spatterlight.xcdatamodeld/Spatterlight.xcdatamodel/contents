@@ -112,10 +112,10 @@
         <attribute name="minCols" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="minRows" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="morePrompt" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="smartQuotes" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="spaceFormat" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="spacingColor" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="themeName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="winSpacingX" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="winSpacingY" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufAlert" inverseEntity="GlkStyle" syncable="YES"/>

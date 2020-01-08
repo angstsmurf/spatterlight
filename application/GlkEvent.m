@@ -216,7 +216,7 @@ unsigned chartokeycode(unsigned ch) {
         settings->grid_margin_y =(int)theme.gridMarginY;
         settings->cell_width = theme.cellWidth;
         settings->cell_height = theme.cellHeight;
-        settings->leading = ((NSParagraphStyle *)[theme.gridNormal.attributeDict objectForKey:NSParagraphStyleAttributeName]).lineSpacing;
+        settings->leading = theme.gridNormal.lineSpacing;
         settings->force_arrange = _forced;
 
         reply.len = sizeof(struct settings_struct);

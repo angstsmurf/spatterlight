@@ -119,7 +119,13 @@ fprintf(stderr, "%s\n",                                                    \
     _game = game_;
     _theme = _game.theme;
 
-    NSLog(@"runTerp: theme name:%@", _theme.themeName);
+    if (!_theme.name) {
+        NSLog(@"GlkController runTerp called with game without theme!");
+        _game.theme = [Preferences currentTheme];
+        _theme = _game.theme;
+    }
+
+    NSLog(@"runTerp: theme name:%@", _theme.name);
 //    [_theme.bufferNormal printDebugInfo];
     if (_theme.doStyles == NO)
         NSLog(@"glkctl: runterp: doStyles = NO!");
@@ -199,14 +205,20 @@ fprintf(stderr, "%s\n",                                                    \
     restoredController = nil;
     inFullScreenResize = NO;
 
-    [self appSupportDir];
-    [self autosaveFileGUI];
-    [self autosaveFileTerp];
+//    [self appSupportDir];
+//    [self autosaveFileGUI];
+//    [self autosaveFileTerp];
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(notePreferencesChanged:)
      name:@"PreferencesChanged"
+     object:nil];
+
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(noteThemeChanged:)
+     name:@"ThemeChanged"
      object:nil];
 
     [[NSNotificationCenter defaultCenter]
@@ -221,7 +233,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self setBorderColor:_theme.bufferBackground];
 
     if (_supportsAutorestore &&
-        [[NSFileManager defaultManager] fileExistsAtPath:_autosaveFileGUI]) {
+        [[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI]) {
         [self runTerpWithAutorestore];
     } else {
         [self runTerpNormal];
@@ -232,14 +244,14 @@ fprintf(stderr, "%s\n",                                                    \
 
     @try {
         restoredController =
-        [NSKeyedUnarchiver unarchiveObjectWithFile:_autosaveFileGUI];
+        [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileGUI];
     } @catch (NSException *ex) {
         // leave restoredController as nil
         NSLog(@"Unable to restore GUI autosave: %@", ex);
     }
     if (!restoredController) {
-        // If there exists an autosave file but we fail to read it,
-        // delete it and run without autosave
+        // If there exists an autosave file but we failed to read it,
+        // delete it and run game without autorestoring
         [self deleteAutosaveFiles];
         [self runTerpNormal];
         return;
@@ -249,24 +261,24 @@ fprintf(stderr, "%s\n",                                                    \
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
 
     // If the process is dead, restore the dead window if this
-    // is a system window restoration at application start.
+    // is a system window restoration at application start
     if (!restoredController.isAlive) {
         if (windowRestoredBySystem) {
             [self restoreWindowWhenDead];
             return;
         } else {
             // Otherwise we delete any autorestore files and
-            // restart the game.
+            // restart the game
             [self deleteAutosaveFiles];
             // If we die in fullscreen and close the game,
-            // it should not open in fullscreen the next time.
+            // the game should not open in fullscreen the next time
             _inFullscreen = NO;
             [self runTerpNormal];
             return;
         }
     }
 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:_autosaveFileTerp]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileTerp]) {
         NSLog(@"Interpreter autorestore file exists");
         // Only show the alert about autorestoring if this is not a system
         // window restoration, and the user has not suppressed it.
@@ -288,9 +300,9 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }
 
-    // If this is not a system window restoration,
-    // we have to enter fullscreen manually if the
-    // game was closed in fullscreen.
+    // If this is not a window restoration done by the system,
+    // we now re-enter fullscreen manually if the game was
+    // closed in fullscreen mode.
     if (!windowRestoredBySystem && _inFullscreen && (self.window.styleMask & NSFullScreenWindowMask) !=
         NSFullScreenWindowMask) {
         [self startInFullscreen];
@@ -606,7 +618,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSString *)autosaveFileGUI {
     if (!_autosaveFileGUI)
-        _autosaveFileGUI = [_appSupportDir
+        _autosaveFileGUI = [self.appSupportDir
                             stringByAppendingPathComponent:@"autosave-GUI.plist"];
     return _autosaveFileGUI;
 }
@@ -614,7 +626,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSString *)autosaveFileTerp {
     if (!_autosaveFileTerp)
         _autosaveFileTerp =
-        [_appSupportDir stringByAppendingPathComponent:@"autosave.plist"];
+        [self.appSupportDir stringByAppendingPathComponent:@"autosave.plist"];
     return _autosaveFileTerp;
 }
 
@@ -1040,23 +1052,39 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Preference and style hint glue
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
-    NSLog(@"glkctl: notePreferencesChanged");
+    //NSLog(@"glkctl notePreferencesChanged");
 
-    if (notify.object != _game.theme) {
-        NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).themeName, _game.theme.themeName);
-        NSLog(@"current setting: %@ notePreferencesChanged object name %@", _game.theme.themeName, ((Theme *)notify.object).themeName );
-        if (notify.object != nil)
-            NSLog(@"notify.object: %@", notify.object);
-
-       // return;
+    if (notify.object != _game.theme && notify.object != nil) {
+        NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).name, _game.theme.name);
+        NSLog(@"current setting: %@ notePreferencesChanged object name %@", _game.theme.name, ((Theme *)notify.object).name );
+        return;
+     
     }
-    
+
     GlkEvent *gevent;
 
     [self adjustContentView];
 
-    gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
-                                         height:_contentView.frame.size.height
+    if (!_theme) {
+        if (_game.theme) {
+            _theme = _game.theme;
+        } else {
+            NSLog(@"GlkController notePreferencesChanged: game has no theme! Setting to default");
+            _theme = [Preferences currentTheme];
+            _game.theme = _theme;
+        }
+    }
+
+    CGFloat width = _contentView.frame.size.width;
+    CGFloat height = _contentView.frame.size.height;
+
+    if (width < 0)
+        width = 0;
+    if (height < 0)
+        height = 0;
+
+    gevent = [[GlkEvent alloc] initArrangeWidth:width
+                                         height:height
                                           theme:_theme
                                           force:NO];
     [self queueEvent:gevent];
@@ -1069,7 +1097,18 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     for (GlkWindow *win in [_gwindows allValues])
+    {
+        win.theme = _theme;
         [win prefsDidChange];
+    }
+}
+
+- (void)noteThemeChanged:(NSNotification *)notify {
+
+    NSLog(@"glkctl noteThemeChanged");
+    _theme = notify.object;
+    _game.theme = notify.object;
+    [self notePreferencesChanged:nil];
 }
 
 - (void)handleChangeTitle:(char *)buf length:(int)len {
@@ -1461,9 +1500,9 @@ NSInteger colorToInteger(NSColor *color) {
     else {
         if (hint == stylehint_TextColor) {
             if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = colorToInteger([_theme.bufferNormal.attributeDict objectForKey:NSForegroundColorAttributeName]);
+                *result = colorToInteger(_theme.bufferNormal.color);
             else
-                *result = colorToInteger([_theme.gridNormal.attributeDict objectForKey:NSForegroundColorAttributeName]);
+                *result = colorToInteger(_theme.gridNormal.color);
 
             return YES;
         }
@@ -2180,6 +2219,8 @@ static NSString *signalToName(NSTask *task) {
                                            @"lineHeight" : @(_theme.cellHeight),
                                            @"leading" : @(((NSParagraphStyle *)[_theme.gridNormal.attributeDict objectForKey:NSParagraphStyleAttributeName]).lineSpacing)
                                            };
+
+//        NSLog(@"GlkController queueEvent: %@",newArrangeValues);
 
         if (!gevent.forced && [lastArrangeValues isEqualToDictionary:newArrangeValues]) {
             return;

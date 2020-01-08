@@ -167,15 +167,24 @@
 
     if (self) {
         // lines = [[NSMutableArray alloc] init];
+        
+        NSDictionary *styleDict = nil;
 
         self.styleHints = self.glkctl.gridStyleHints;
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
 
             if (self.theme.doStyles) {
-                [styles addObject:[((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]]];
+                 styleDict = [((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]];
             } else {
-                [styles addObject:((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]).attributeDict];
+                styleDict = ((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]).attributeDict;
+            }
+
+            if (!styleDict) {
+                NSLog(@"GlkTextGridWindow couldn't create style dict for style %ld", i);
+                [styles addObject:[NSNull null]];
+            } else {
+                [styles addObject:styleDict];
             }
         }
 
@@ -218,6 +227,10 @@
         textstorage.delegate = self;
         textview.textContainerInset =
         NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
+
+        NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
+        [linkAttributes setObject:[[styles objectAtIndex:style_Normal] objectForKey:NSForegroundColorAttributeName] forKey:NSForegroundColorAttributeName];
+        textview.linkTextAttributes = linkAttributes;
 
         textview.editable = NO;
         textview.usesFontPanel = NO;
@@ -398,7 +411,7 @@
     bgcolor = nil;
 
     if (self.theme.doStyles) {
-        NSDictionary *attributes = [self.theme.bufferNormal attributesWithHints:[self.styleHints objectAtIndex:style_Normal]];
+        NSDictionary *attributes = [self.theme.gridNormal attributesWithHints:[self.styleHints objectAtIndex:style_Normal]];
         bgcolor = [attributes objectForKey:NSBackgroundColorAttributeName];
     }
 
@@ -448,8 +461,8 @@
           2) /
          self.theme.cellWidth);
 
-    NSInteger newrows = ceil((frame.size.height + ((NSParagraphStyle *)[self.theme.gridNormal.attributeDict objectForKey:NSParagraphStyleAttributeName]).lineSpacing -
-                              textview.textContainerInset.height * 2) /
+    NSInteger newrows = ceil((frame.size.height + self.theme.gridNormal.lineSpacing -
+                              (textview.textContainerInset.height * 2) ) /
                              self.theme.cellHeight);
 
     if (newcols == cols && newrows == rows &&
@@ -593,8 +606,8 @@
     if (line_request)
         NSLog(@"Printing to text grid window during line request");
 
-    if (char_request)
-        NSLog(@"Printing to text grid window during character request");
+//    if (char_request)
+//        NSLog(@"Printing to text grid window during character request");
 
     [self printToWindow:string style:stylevalue];
 }
@@ -605,11 +618,11 @@
     NSDictionary *att = [styles objectAtIndex:stylevalue];
     NSRange selectedRange = textview.selectedRange;
 
-    //    NSLog(@"textGrid printToWindow: '%@' (style %ld)", string,
-    //    stylevalue); NSLog(@"cols: %ld rows: %ld", cols, rows); NSLog(@"xpos:
-    //    %ld ypos: %ld", xpos, ypos);
-    //
-    //    NSLog(@"self.frame.size.width: %f",self.frame.size.width);
+//    NSLog(@"textGrid printToWindow: '%@' (style %ld)", string, stylevalue);
+//    NSLog(@"cols: %ld rows: %ld", cols, rows);
+//    NSLog(@"xpos:%ld ypos: %ld", xpos, ypos);
+//
+//    NSLog(@"self.frame.size.width: %f",self.frame.size.width);
 
     NSMutableDictionary *attrDict = [styles objectAtIndex:stylevalue];
 
@@ -677,9 +690,10 @@
          replaceCharactersInRange:NSMakeRange((cols + 1) * ypos + xpos,
                                               amountToDraw)
          withAttributedString:partString];
-        //        NSLog(@"Replaced characters in range %@ with '%@'",
-        //        NSStringFromRange(NSMakeRange((cols + 1) * ypos + xpos,
-        //        amountToDraw)), partString.string);
+        
+//        NSLog(@"Replaced characters in range %@ with '%@'",
+//        NSStringFromRange(NSMakeRange((cols + 1) * ypos + xpos,
+//        amountToDraw)), partString.string);
 
         // Update the x position (and the y position if necessary)
         xpos += amountToDraw;

@@ -982,14 +982,21 @@
 
         NSInteger i;
 
+        NSDictionary *styleDict = nil;
         self.styleHints = self.glkctl.bufferStyleHints;
 
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
             if (self.theme.doStyles) {
-                [styles addObject:[((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]]];
+                styleDict = [((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]];
             } else {
-                [styles addObject:((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]).attributeDict];
+                styleDict = ((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]).attributeDict;
+            }
+            if (!styleDict) {
+                NSLog(@"GlkTextBufferWindow couldn't create style dict for style %ld", i);
+                [styles addObject:[NSNull null]];
+            } else {
+                [styles addObject:styleDict];
             }
         }
         
@@ -999,7 +1006,7 @@
 
         // We use lastLineheight to restore scroll position with sub-character size precision
         // after a resize
-        lastLineheight = ((NSFont *)[self.theme.bufferNormal.attributeDict objectForKey:NSFontAttributeName]).boundingRectForFont.size.height;
+        lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
 
         for (i = 0; i < HISTORYLEN; i++)
             history[i] = nil;
@@ -1057,7 +1064,11 @@
 
         textview.textContainerInset = NSMakeSize(marginX, marginY);
         textview.backgroundColor = self.theme.bufferBackground;
-        textview.insertionPointColor = [self.theme.bufferNormal.attributeDict objectForKey:NSForegroundColorAttributeName];
+        textview.insertionPointColor = self.theme.bufferNormal.color;
+
+        NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
+        [linkAttributes setObject:[[styles objectAtIndex:style_Normal] objectForKey:NSForegroundColorAttributeName] forKey:NSForegroundColorAttributeName];
+        textview.linkTextAttributes = linkAttributes;
 
         [textview enableCaret:nil];
 
@@ -1206,8 +1217,13 @@
 
     if (!bgcolor)
         bgcolor = self.theme.bufferBackground;
+
     if (!fgcolor)
-        fgcolor = [self.theme.bufferNormal.attributeDict objectForKey:NSForegroundColorAttributeName];
+        fgcolor = self.theme.bufferNormal.color;
+
+    if (!fgcolor || !bgcolor) {
+        NSLog(@"GlkTexBufferWindow recalcBackground: color error!");
+    }
 
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = fgcolor;
@@ -1219,6 +1235,7 @@
     NSRange range = NSMakeRange(0, 0);
     NSRange linkrange = NSMakeRange(0, 0);
     NSUInteger x;
+    NSDictionary *attributes;
 
     [self storeScrollOffset];
 
@@ -1226,20 +1243,26 @@
     for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
 
         if (self.theme.doStyles) {
-            [styles addObject:[((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]]];
+            attributes = [((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]];
         } else {
-            NSLog(@"GlkTextBufferWindow prefsDidChange: We're not doing styles, so use the raw style attributes");
-            [styles addObject:((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]).attributeDict];
+            //We're not doing styles, so use the raw style attributes
+            attributes = ((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]).attributeDict;
         }
+
+        if (attributes)
+            [styles addObject:[attributes copy]];
+        else
+            [styles addObject:[NSNull null]];
     }
 
     NSInteger marginX = self.theme.bufferMarginX;
     NSInteger marginY = self.theme.bufferMarginX;
     textview.textContainerInset = NSMakeSize(marginX, marginY);
+
     [self recalcBackground];
 
-    [textstorage removeAttribute:NSBackgroundColorAttributeName
-                            range:NSMakeRange(0, textstorage.length)];
+//    [textstorage removeAttribute:NSBackgroundColorAttributeName
+//                            range:NSMakeRange(0, textstorage.length)];
 
     /* reassign attribute dictionaries */
     x = 0;
@@ -1248,8 +1271,10 @@
                                          atIndex:x
                                   effectiveRange:&range];
 
-        NSDictionary *attributes =
-            [styles objectAtIndex:[styleobject intValue]];
+        attributes = [styles objectAtIndex:[styleobject intValue]];
+        if ([attributes isEqual:[NSNull null]]) {
+            NSLog(@"Error! broken style (%@)", styleobject);
+        }
 
         id image = [textstorage attribute:@"NSAttachment"
                                    atIndex:x
@@ -1257,7 +1282,14 @@
         id hyperlink = [textstorage attribute:NSLinkAttributeName
                                        atIndex:x
                                 effectiveRange:&linkrange];
-        [textstorage setAttributes:attributes range:range];
+        @try {
+            [textstorage setAttributes:attributes range:range];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"GlkTextBufferWindow prefsDidChange: exception:%@ attributes:%@", exception, attributes);
+        }
+        @finally {
+        }
 
         if (image) {
             ((MyAttachmentCell *)((NSTextAttachment *)image).attachmentCell).attrstr = textstorage;
@@ -1276,9 +1308,14 @@
     }
 
 //    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
+
+    NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
+    [linkAttributes setObject:[[styles objectAtIndex:style_Normal] objectForKey:NSForegroundColorAttributeName] forKey:NSForegroundColorAttributeName];
+    textview.linkTextAttributes = linkAttributes;
+    
     [container invalidateLayout];
     [self restoreScroll];
-    lastLineheight = ((NSFont *)[self.theme.bufferNormal.attributeDict objectForKey:NSFontAttributeName]).boundingRectForFont.size.height;
+    lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
 }
 
 - (void)setFrame:(NSRect)frame {
@@ -1760,7 +1797,7 @@
               attributes:self.theme.bufInput.attributeDict];
     [textstorage appendAttributedString:att];
 
-    textview.insertionPointColor =  [self.theme.bufferNormal.attributeDict objectForKey:NSForegroundColorAttributeName];
+    textview.insertionPointColor =  self.theme.bufferNormal.color;
 
     [textview setEditable:YES];
 
@@ -2169,13 +2206,13 @@
 
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset {
     NSRect line;
- 
+
     if (character >= textstorage.length - 1) {
         [self scrollToBottom];
         return;
     }
 
-    offset = offset * ((NSFont *)[self.theme.bufferNormal.attributeDict objectForKey:NSFontAttributeName]).boundingRectForFont.size.height;
+    offset = offset * self.theme.bufferNormal.font.boundingRectForFont.size.height;
     if (isnan(offset) || isinf(offset)|| offset < 0.1)
         offset = 0;
 

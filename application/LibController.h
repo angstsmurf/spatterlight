@@ -83,7 +83,6 @@
 
 @property (strong) IBOutlet NSSplitView *splitView;
 
-
 @property (strong) IBOutlet NSTextField *sideIfid;
 @property (strong) IBOutlet NSScrollView *leftScrollView;
 
@@ -117,7 +116,6 @@
 - (IBAction)showGameInfo:(id)sender;
 - (IBAction)revealGameInFinder:(id)sender;
 - (IBAction)deleteGame:(id)sender;
-
 - (void)showInfoForGame:(Game *)game;
 
 - (void)updateTableViews; /* must call this after -importGame: */

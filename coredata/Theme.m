@@ -37,7 +37,7 @@
 @dynamic smartQuotes;
 @dynamic spaceFormat;
 @dynamic spacingColor;
-@dynamic themeName;
+@dynamic name;
 @dynamic winSpacingX;
 @dynamic winSpacingY;
 @dynamic cellWidth;
@@ -72,7 +72,7 @@
 
 - (Theme *)clone {
 
-    NSLog(@"Creating a clone of theme %@", self.themeName);
+    NSLog(@"Creating a clone of theme %@", self.name);
     
 	//create new object in data store
 	Theme *cloned = [NSEntityDescription
@@ -106,12 +106,15 @@
 				NSLog(@"Error! Reciprocal relationship did not work as expected");
 		}
 	}
+
+    cloned.name = [cloned.name stringByAppendingString:@" cloned"];
 	return cloned;
 }
 
 - (void)populateStyles {
 
     NSFontManager *mgr = [NSFontManager sharedFontManager];
+    BOOL bufInputExists = NO;
 
     if (!self.bufferNormal) {
 
@@ -120,23 +123,49 @@
                                           inManagedObjectContext:self.managedObjectContext];
 
         [self.bufferNormal createDefaultAttributeDictionary];
-        NSLog(@"Created a new normal buffer style for theme %@", self.themeName);
+        NSLog(@"Created a new normal buffer style for theme %@", self.name);
     }
 
 
     if (!self.gridNormal) {
-        self.gridNormal = [self.bufferNormal clone];
+        self.gridNormal = (GlkStyle *) [NSEntityDescription
+                                        insertNewObjectForEntityForName:@"GlkStyle"
+                                        inManagedObjectContext:self.managedObjectContext];
         [self.gridNormal createDefaultAttributeDictionary];
-        NSLog(@"Created a new normal buffer style for theme %@", self.themeName);
+        NSSize size = [self.gridNormal cellSize];
+        self.cellWidth = size.width;
+        self.cellHeight = size.height;
+        NSLog(@"Created a new normal buffer style for theme %@", self.name);
     }
 
-    for (NSInteger i = 0 ; i < style_NUMSTYLES ; i++)
-	{
-		[self setValue:[self.bufferNormal clone] forKey:[gBufferStyleNames objectAtIndex:i]];
-        [self setValue:[self.gridNormal clone] forKey:[gGridStyleNames objectAtIndex:i]];
+    if (!self.bufInput) {
+        self.bufInput = (GlkStyle *) [NSEntityDescription
+                                          insertNewObjectForEntityForName:@"GlkStyle"
+                                          inManagedObjectContext:self.managedObjectContext];
 
-        [((GlkStyle *)[self valueForKey:[gBufferStyleNames objectAtIndex:i]]).attributeDict setObject:@(i) forKey:@"GlkStyle"];
-        [((GlkStyle *)[self valueForKey:[gGridStyleNames objectAtIndex:i]]).attributeDict setObject:@(i) forKey:@"GlkStyle"];
+        [self.bufInput createDefaultAttributeDictionary];
+        NSLog(@"Created a new buffer input style for theme %@", self.name);
+    } else bufInputExists = YES;
+
+    // We skip the first element (0), i.e. the Normal styles here
+    for (NSInteger i = 1 ; i < style_NUMSTYLES ; i++)
+	{
+        // Delete all old GlkStyle objects that we do not want to keep
+        if ([self valueForKey:[gGridStyleNames objectAtIndex:i]])
+            [self.managedObjectContext deleteObject:[self valueForKey:[gGridStyleNames objectAtIndex:i]]];
+        
+        [self setValue:[self.gridNormal clone] forKey:[gGridStyleNames objectAtIndex:i]];
+        [[self valueForKey:[gGridStyleNames objectAtIndex:i]] setIndex:i];
+
+        if ([self valueForKey:[gBufferStyleNames objectAtIndex:i]]) {
+            if (i == style_Input)
+                continue;
+            // Delete all old GlkStyle objects that we do not want to keep
+            [self.managedObjectContext deleteObject:[self valueForKey:[gBufferStyleNames objectAtIndex:i]]];
+        }
+
+        [self setValue:[self.bufferNormal clone] forKey:[gBufferStyleNames objectAtIndex:i]];
+        [[self valueForKey:[gBufferStyleNames objectAtIndex:i]] setIndex:i];
 	}
 
       /* make italic, bold, bolditalic font variants */
@@ -144,8 +173,8 @@
     NSFont *bufroman, *bufbold, *bufitalic, *bufbolditalic, *bufheader;
     NSFont *gridroman, *gridbold, *griditalic, *gridbolditalic;
 
-    bufroman  = [self.bufferNormal.attributeDict objectForKey:NSFontAttributeName];
-    gridroman = [self.gridNormal.attributeDict objectForKey:NSFontAttributeName];
+    bufroman  = self.bufferNormal.font;
+    gridroman = self.gridNormal.font;
 
     gridbold = [mgr convertWeight:YES ofFont:gridroman];
     griditalic = [mgr convertFont:gridroman toHaveTrait:NSItalicFontMask];
@@ -156,18 +185,19 @@
     bufbolditalic = [mgr convertFont:bufbold toHaveTrait:NSItalicFontMask];
     bufheader = [mgr convertFont:bufbold toSize:bufbold.pointSize + 2];
 
-    [self.bufInput.attributeDict setObject:[bufbold copy] forKey:NSFontAttributeName];
-    [self.bufEmph.attributeDict setObject:[bufitalic copy] forKey:NSFontAttributeName];
-    [self.bufHead.attributeDict setObject:[bufheader copy] forKey:NSFontAttributeName];
-    [self.bufSubH.attributeDict setObject:[bufbold copy] forKey:NSFontAttributeName];
-    [self.bufAlert.attributeDict setObject:[bufbolditalic copy] forKey:NSFontAttributeName];
+    // Do not replace input style there was an old one
+    if (!bufInputExists)
+        [self.bufInput setFont:[bufbold copy]];
+    [self.bufEmph setFont:[bufitalic copy]];
+    [self.bufHead setFont:[bufheader copy]];
+    [self.bufSubH setFont:[bufbold copy]];
+    [self.bufAlert setFont:[bufbolditalic copy]];
 
-    [self.gridInput.attributeDict setObject:[gridbold copy] forKey:NSFontAttributeName];
-    [self.gridEmph.attributeDict setObject:[griditalic copy] forKey:NSFontAttributeName];
-    [self.gridHead.attributeDict setObject:[gridbold copy] forKey:NSFontAttributeName];
-    [self.gridSubH.attributeDict setObject:[gridbold copy] forKey:NSFontAttributeName];
-    [self.gridAlert.attributeDict setObject:[gridbolditalic copy] forKey:NSFontAttributeName];
-
+    [self.gridInput setFont:[gridbold copy]];
+    [self.gridEmph setFont:[griditalic copy]];
+    [self.gridHead setFont:[gridbold copy]];
+    [self.gridSubH setFont:[gridbold copy]];
+    [self.gridAlert setFont:[gridbolditalic copy]];
 }
 
 @end
