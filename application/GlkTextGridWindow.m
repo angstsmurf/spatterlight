@@ -374,6 +374,10 @@
 
     [self recalcBackground];
 
+    NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
+    [linkAttributes setObject:[[styles objectAtIndex:style_Normal] objectForKey:NSForegroundColorAttributeName] forKey:NSForegroundColorAttributeName];
+    textview.linkTextAttributes = linkAttributes;
+
 //    NSLog(@"prefsDidChange: selected range was %@, restored to %@",
 //          NSStringFromRange(textview.selectedRange),
 //          NSStringFromRange(selectedRange));
