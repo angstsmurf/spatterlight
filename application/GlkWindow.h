@@ -29,8 +29,8 @@
 - (instancetype)initWithGlkController:(GlkController *)glkctl
                                  name:(NSInteger)name;
 
-- (BOOL)getStyleVal:(NSInteger)style
-               hint:(NSInteger)hint
+- (BOOL)getStyleVal:(NSUInteger)style
+               hint:(NSUInteger)hint
               value:(NSInteger *)value;
 
 - (BOOL)wantsFocus;
@@ -41,9 +41,9 @@
 - (void)makeTransparent;
 - (void)setBgColor:(NSInteger)bc;
 - (void)clear;
-- (void)putString:(NSString *)buf style:(NSInteger)style;
+- (void)putString:(NSString *)buf style:(NSUInteger)style;
 //- (NSDictionary *)attributesFromStylevalue:(NSInteger)stylevalue;
-- (void)moveToColumn:(NSInteger)x row:(NSInteger)y;
+- (void)moveToColumn:(NSUInteger)x row:(NSUInteger)y;
 - (void)initLine:(NSString *)buf;
 - (void)initChar;
 - (void)cancelChar;

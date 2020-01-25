@@ -332,7 +332,7 @@ NSDictionary *gFormatMap;
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)app {
     NSArray *windows = app.windows;
-    NSInteger count = windows.count;
+    NSUInteger count = windows.count;
     NSInteger alive = 0;
     NSInteger restorable = 0;
 

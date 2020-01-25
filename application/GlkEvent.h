@@ -21,8 +21,8 @@ unsigned chartokeycode(unsigned ch);
 - (void)writeEvent:(NSInteger)fd;
 
 @property(readonly) NSInteger type;
-@property(readonly) NSUInteger val1;
-@property(readonly) NSUInteger val2;
+@property(readonly) NSInteger val1;
+@property(readonly) NSInteger val2;
 @property(readonly) BOOL forced;
 
 

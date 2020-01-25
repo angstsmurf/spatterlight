@@ -78,7 +78,7 @@
             styleName = [gGridStyleNames objectAtIndex:[_styleHints indexOfObject:style]];
         
         NSLog (@"Stylehints for style %@:", styleName);
-        for (NSInteger i = 0; i < stylehint_NUMHINTS ; i ++) {
+        for (NSUInteger i = 0; i < stylehint_NUMHINTS ; i ++) {
             NSLog(@"%@: %@", [styleHintNames objectAtIndex:i], [style objectAtIndex:i]);
         }
     }
@@ -106,16 +106,16 @@
 //                 atIndex:style];
 //}
 
-- (BOOL)getStyleVal:(NSInteger)style
-               hint:(NSInteger)hint
+- (BOOL)getStyleVal:(NSUInteger)style
+               hint:(NSUInteger)hint
               value:(NSInteger *)value {
 
     NSNumber *valObj = nil;
     
-    if (style < 0 || style >= style_NUMSTYLES)
+    if (style >= style_NUMSTYLES)
         return NO;
 
-    if (hint < 0 || hint >= stylehint_NUMHINTS)
+    if (hint >= stylehint_NUMHINTS)
         return NO;
 
     NSArray *hintsForStyle = [_styleHints objectAtIndex:style];
@@ -184,7 +184,7 @@
     NSLog(@"clear in %@ not implemented", [self class]);
 }
 
-- (void)putString:(NSString *)buf style:(NSInteger)style {
+- (void)putString:(NSString *)buf style:(NSUInteger)style {
     NSLog(@"print in %@ not implemented", [self class]);
 }
 
@@ -211,7 +211,7 @@
 //    }
 //}
 
-- (void)moveToColumn:(NSInteger)x row:(NSInteger)y {
+- (void)moveToColumn:(NSUInteger)x row:(NSUInteger)y {
     NSLog(@"move cursor in %@ not implemented", [self class]);
 }
 

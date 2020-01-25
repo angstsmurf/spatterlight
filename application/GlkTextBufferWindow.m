@@ -22,7 +22,7 @@
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)analignment
                     andAttStr:(NSAttributedString *)anattrstr
-                           at:(NSInteger)apos {
+                           at:(NSUInteger)apos {
     self = [super initImageCell:image];
     if (self) {
         align = analignment;
@@ -37,7 +37,7 @@
     if (self) {
         align = [decoder decodeIntegerForKey:@"align"];
         _attrstr = [decoder decodeObjectForKey:@"attstr"];
-        pos = [decoder decodeIntegerForKey:@"pos"];
+        pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
     }
     return self;
 }
@@ -46,7 +46,7 @@
     [super encodeWithCoder:encoder];
     [encoder encodeInteger:align forKey:@"align"];
     [encoder encodeObject:_attrstr forKey:@"attrstr"];
-    [encoder encodeInteger:pos forKey:@"pos"];
+    [encoder encodeInteger:(NSInteger)pos forKey:@"pos"];
 }
 
 - (BOOL)wantsToTrackMouse {
@@ -75,11 +75,11 @@
     BOOL recalc;
 }
 
-- (instancetype)initWithPos:(NSInteger)pos;
+- (instancetype)initWithPos:(NSUInteger)pos;
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout;
 
 @property NSRect bounds;
-@property NSInteger pos;
+@property NSUInteger pos;
 
 @end
 
@@ -89,7 +89,7 @@
     return [self initWithPos:0];
 }
 
-- (instancetype)initWithPos:(NSInteger)apos {
+- (instancetype)initWithPos:(NSUInteger)apos {
     self = [super init];
     if (self) {
         _pos = apos;
@@ -100,7 +100,7 @@
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
-    _pos = [decoder decodeIntegerForKey:@"pos"];
+    _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
     _bounds = [decoder decodeRectForKey:@"bounds"];
     recalc = [decoder decodeBoolForKey:@"recalc"];
 
@@ -108,7 +108,7 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeInteger:_pos forKey:@"pos"];
+    [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
     [encoder encodeRect:_bounds forKey:@"bounds"];
     [encoder encodeBool:recalc forKey:@"recalc"];
 }
@@ -158,15 +158,15 @@
 
 @property(strong) NSImage *image;
 @property(readonly) NSInteger alignment;
-@property NSInteger pos;
+@property NSUInteger pos;
 @property NSRect bounds;
 @property NSUInteger linkid;
 @property MarginContainer *container;
 
 - (instancetype)initWithImage:(NSImage *)animage
                         align:(NSInteger)analign
-                       linkid:(NSInteger)linkid
-                           at:(NSInteger)apos
+                       linkid:(NSUInteger)linkid
+                           at:(NSUInteger)apos
                        sender:(id)sender;
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout;
@@ -187,8 +187,8 @@
 
 - (instancetype)initWithImage:(NSImage *)animage
                         align:(NSInteger)analign
-                       linkid:(NSInteger)linkid
-                           at:(NSInteger)apos
+                       linkid:(NSUInteger)linkid
+                           at:(NSUInteger)apos
                        sender:(id)sender {
     self = [super init];
     if (self) {
@@ -207,8 +207,8 @@
     _image = [decoder decodeObjectForKey:@"image"];
     _alignment = [decoder decodeIntegerForKey:@"alignment"];
     _bounds = [decoder decodeRectForKey:@"bounds"];
-    _linkid = [decoder decodeIntegerForKey:@"linkid"];
-    _pos = [decoder decodeIntegerForKey:@"pos"];
+    _linkid = (NSUInteger)[decoder decodeIntegerForKey:@"linkid"];
+    _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
     recalc = [decoder decodeBoolForKey:@"recalc"];
     ;
 
@@ -219,8 +219,8 @@
     [encoder encodeObject:_image forKey:@"image"];
     [encoder encodeInteger:_alignment forKey:@"alignment"];
     [encoder encodeRect:_bounds forKey:@"bounds"];
-    [encoder encodeInteger:_linkid forKey:@"linkid"];
-    [encoder encodeInteger:_pos forKey:@"pos"];
+    [encoder encodeInteger:(NSInteger)_linkid forKey:@"linkid"];
+    [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
     [encoder encodeBool:recalc forKey:@"recalc"];
 }
 
@@ -237,7 +237,7 @@
         NSTextView *textview = _container.textView;
 
         /* force layout and get position of anchor glyph */
-        ourglyph = [layout glyphRangeForCharacterRange:NSMakeRange(_pos, 1)
+        ourglyph = [layout glyphRangeForCharacterRange:NSMakeRange((NSUInteger)_pos, 1)
                                   actualCharacterRange:&ourline];
         theline = [layout lineFragmentRectForGlyphAtIndex:ourglyph.location
                                            effectiveRange:nil];
@@ -332,7 +332,7 @@
 
 - (void)addImage:(NSImage *)image
            align:(NSInteger)align
-              at:(NSInteger)top
+              at:(NSUInteger)top
           linkid:(NSUInteger)linkid {
     MarginImage *mi = [[MarginImage alloc] initWithImage:image
                                                    align:align
@@ -343,7 +343,7 @@
     [self.layoutManager textContainerChangedGeometry:self];
 }
 
-- (void)flowBreakAt:(NSInteger)pos {
+- (void)flowBreakAt:(NSUInteger)pos {
     FlowBreak *f = [[FlowBreak alloc] initWithPos:pos];
     [flowbreaks addObject:f];
     [self.layoutManager textContainerChangedGeometry:self];
@@ -506,8 +506,8 @@
         adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
     }
 
-    for (NSInteger i = [margins indexOfObject:image] - 1; i >= 0; i--) {
-        MarginImage *img2 = [margins objectAtIndex:i];
+    for (NSInteger i = (NSInteger)[margins indexOfObject:image] - 1; i >= 0; i--) {
+        MarginImage *img2 = [margins objectAtIndex:(NSUInteger)i];
 
         // If overlapping, shift in opposite alignment direction
         if (NSIntersectsRect(img2.bounds, adjustedBounds)) {
@@ -590,7 +590,7 @@
             // Check if padding is still needed
             else if (textview.frame.size.height - textview.bottomPadding <=
                      NSMaxY(bounds)) {
-                NSInteger bottom =
+                CGFloat bottom =
                     NSMaxY(bounds) - textview.frame.size.height + inset.height;
                 if (extendneeded < bottom)
                     extendneeded = bottom;
@@ -651,7 +651,7 @@
             (NSMutableAttributedString *)[NSMutableAttributedString
                 attributedStringWithAttachment:att];
 
-        [string insertAttributedString:attstr atIndex:image.pos];
+        [string insertAttributedString:attstr atIndex:(NSUInteger)image.pos];
     }
     return string;
 }
@@ -671,7 +671,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        _bottomPadding = [decoder decodeFloatForKey:@"bottomPadding"];
+        _bottomPadding = [decoder decodeDoubleForKey:@"bottomPadding"];
         _shouldSpeak_10_7 = [decoder decodeBoolForKey:@"shouldSpeak_10_7"];
         NSValue *rangeVal = [decoder decodeObjectForKey:@"rangeToSpeak_10_7"];
         _rangeToSpeak_10_7 = rangeVal.rangeValue;
@@ -682,7 +682,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeFloat:_bottomPadding forKey:@"bottomPadding"];
+    [encoder encodeDouble:_bottomPadding forKey:@"bottomPadding"];
     [encoder encodeBool:_shouldSpeak_10_7 forKey:@"shouldSpeak_10_7"];
     NSValue *rangeVal = [NSValue valueWithRange:_rangeToSpeak_10_7];
     [encoder encodeObject:rangeVal forKey:@"rangeToSpeak_10_7"];
@@ -980,13 +980,13 @@
         NSInteger marginX = self.theme.bufferMarginX;
         NSInteger marginY = self.theme.bufferMarginY;
 
-        NSInteger i;
+        NSUInteger i;
 
         NSDictionary *styleDict = nil;
         self.styleHints = self.glkctl.bufferStyleHints;
 
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-        for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
+        for (i = 0; i < style_NUMSTYLES; i++) {
             if (self.theme.doStyles) {
                 styleDict = [((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]];
             } else {
@@ -1086,7 +1086,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        NSInteger i;
+        NSUInteger i;
         textview = [decoder decodeObjectForKey:@"textview"];
         layoutmanager = textview.layoutManager;
         textstorage = textview.textStorage;
@@ -1118,7 +1118,7 @@
         echo_toggle_pending = [decoder decodeBoolForKey:@"echo_toggle_pending"];
         echo = [decoder decodeBoolForKey:@"echo"];
 
-        fence = [decoder decodeIntegerForKey:@"fence"];
+        fence = (NSUInteger)[decoder decodeIntegerForKey:@"fence"];
 
         NSMutableArray *historyarray = [decoder decodeObjectForKey:@"history"];
 
@@ -1133,7 +1133,7 @@
         historyfirst = [decoder decodeIntegerForKey:@"historyfirst"];
         historypresent = [decoder decodeIntegerForKey:@"historypresent"];
         moveRanges = [decoder decodeObjectForKey:@"moveRanges"];
-        moveRangeIndex = [decoder decodeIntegerForKey:@"moveRangeIndex"];
+        moveRangeIndex = (NSUInteger)[decoder decodeIntegerForKey:@"moveRangeIndex"];
         _lastchar = [decoder decodeIntegerForKey:@"lastchar"];
         _lastseen = [decoder decodeIntegerForKey:@"lastseen"];
         _restoredSelection =
@@ -1141,7 +1141,7 @@
                 .rangeValue;
         textview.selectedRange = _restoredSelection;
         _restoredAtBottom = [decoder decodeBoolForKey:@"scrolledToBottom"];
-        _restoredLastVisible = [decoder decodeIntegerForKey:@"lastVisible"];
+        _restoredLastVisible = (NSUInteger)[decoder decodeIntegerForKey:@"lastVisible"];
         _restoredScrollOffset = [decoder decodeDoubleForKey:@"scrollOffset"];
 
         textview.insertionPointColor =
@@ -1164,7 +1164,7 @@
     [encoder encodeBool:hyper_request forKey:@"hyper_request"];
     [encoder encodeBool:echo_toggle_pending forKey:@"echo_toggle_pending"];
     [encoder encodeBool:echo forKey:@"echo"];
-    [encoder encodeInteger:fence forKey:@"fence"];
+    [encoder encodeInteger:(NSInteger)fence forKey:@"fence"];
     NSMutableArray *historyarray = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < HISTORYLEN; i++) {
         if (history[i])
@@ -1177,13 +1177,13 @@
     [encoder encodeInteger:historyfirst forKey:@"historyfirst"];
     [encoder encodeInteger:historypresent forKey:@"historypresent"];
     [encoder encodeObject:moveRanges forKey:@"moveRanges"];
-    [encoder encodeInteger:moveRangeIndex forKey:@"moveRangeIndex"];
+    [encoder encodeInteger:(NSInteger)moveRangeIndex forKey:@"moveRangeIndex"];
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
     [encoder encodeRect:scrollview.documentVisibleRect forKey:@"visibleRect"];
     [self storeScrollOffset];
     [encoder encodeBool:lastAtBottom forKey:@"scrolledToBottom"];
-    [encoder encodeInteger:lastVisible forKey:@"lastVisible"];
+    [encoder encodeInteger:(NSInteger)lastVisible forKey:@"lastVisible"];
     [encoder encodeDouble:lastScrollOffset forKey:@"scrollOffset"];
     [encoder encodeObject:textview.insertionPointColor
                    forKey:@"insertionPointColor"];
@@ -1240,7 +1240,7 @@
     [self storeScrollOffset];
 
     styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
+    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
 
         if (self.theme.doStyles) {
             attributes = [((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]];
@@ -1271,7 +1271,7 @@
                                          atIndex:x
                                   effectiveRange:&range];
 
-        attributes = [styles objectAtIndex:[styleobject intValue]];
+        attributes = [styles objectAtIndex:(NSUInteger)[styleobject intValue]];
         if ([attributes isEqual:[NSNull null]]) {
             NSLog(@"Error! broken style (%@)", styleobject);
         }
@@ -1636,7 +1636,7 @@
     }
 
     else if (line_request && ch == keycode_PageUp &&
-             fence == (NSInteger)textstorage.length) {
+             fence == textstorage.length) {
         [textview scrollPageUp:nil];
         return;
     }
@@ -1684,13 +1684,13 @@
 
 - (void)clearScrollback:(id)sender {
     NSString *string = textstorage.string;
-    NSInteger length = string.length;
-    NSInteger save_request = line_request;
+    NSUInteger length = string.length;
+    BOOL save_request = line_request;
 
     [textview resetTextFinder];
 
-    int prompt;
-    int i;
+    NSUInteger prompt;
+    NSUInteger i;
 
     if (!line_request)
         fence = string.length;
@@ -1723,17 +1723,17 @@
     moveRanges = [[NSMutableArray alloc] init];
 }
 
-- (void)putString:(NSString *)str style:(NSInteger)stylevalue {
+- (void)putString:(NSString *)str style:(NSUInteger)stylevalue {
     if (line_request)
         NSLog(@"Printing to text buffer window during line request");
 
-    if (char_request)
-        NSLog(@"Printing to text buffer window during character request");
+//    if (char_request)
+//        NSLog(@"Printing to text buffer window during character request");
 
     [self printToWindow:str style:stylevalue];
 }
 
-- (void)printToWindow:(NSString *)str style:(NSInteger)stylevalue {
+- (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
     [textview resetTextFinder];
 
     NSAttributedString *attstr = [[NSAttributedString alloc]
@@ -1841,7 +1841,7 @@
 - (BOOL)textView:(NSTextView *)aTextView
     shouldChangeTextInRange:(NSRange)range
           replacementString:(id)repl {
-    if (line_request && (NSInteger)range.location >= fence) {
+    if (line_request && range.location >= fence) {
         textview.shouldDrawCaret = YES;
         return YES;
     }
@@ -1854,7 +1854,7 @@
     if (!line_request)
         return;
 
-    if ((NSInteger)textstorage.editedRange.location < fence)
+    if (textstorage.editedRange.location < fence)
         return;
 
     [textstorage setAttributes:[styles objectAtIndex:style_Input]
@@ -1866,7 +1866,7 @@
                          toCharacterRange:(NSRange)newrange {
     if (line_request) {
         if (newrange.length == 0)
-            if ((NSInteger)newrange.location < fence)
+            if (newrange.location < fence)
                 newrange.location = fence;
     } else {
         if (newrange.length == 0)
@@ -1974,9 +1974,9 @@
     [textview resetTextFinder];
 
     if (w == 0)
-        w = image.size.width;
+        w = (NSInteger)image.size.width;
     if (h == 0)
-        h = image.size.height;
+        h = (NSInteger)image.size.height;
 
     if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
         if (_lastchar != '\n' && textstorage.length) {
@@ -2154,7 +2154,7 @@
             lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
                              effectiveRange:nil];
 
-        _lastseen = line.origin.y + line.size.height; // bottom of the line
+        _lastseen = (NSInteger)(line.origin.y + line.size.height); // bottom of the line
         // NSLog(@"GlkTextBufferWindow: markLastSeen: %ld", (long)_lastseen);
     }
 }
@@ -2245,7 +2245,7 @@
 - (void)performScroll {
     //    NSLog(@"performScroll: scroll down from lastseen");
 
-    int bottom;
+    CGFloat bottom;
     NSRange range;
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
@@ -2408,7 +2408,7 @@
     // NSLog(@"speakNext: moveRangeIndex; %ld", moveRangeIndex);
     if (!moveRanges.count)
         return;
-    if (moveRangeIndex < (NSInteger)moveRanges.count - 1)
+    if (moveRangeIndex < moveRanges.count - 1)
         moveRangeIndex++;
     else
         moveRangeIndex = moveRanges.count - 1;

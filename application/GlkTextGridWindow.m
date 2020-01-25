@@ -53,9 +53,9 @@
 @interface MyTextFormatter : NSFormatter {
 }
 
-- (id)initWithMaxLength:(NSInteger)alength;
+- (id)initWithMaxLength:(NSUInteger)alength;
 
-@property NSInteger maxLength;
+@property NSUInteger maxLength;
 
 @end
 
@@ -69,7 +69,7 @@
     return self;
 }
 
-- (id)initWithMaxLength:(NSInteger)alength {
+- (id)initWithMaxLength:(NSUInteger)alength {
     if (self = [super init]) {
         self.maxLength = alength;
     }
@@ -80,14 +80,14 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        _maxLength = [decoder decodeIntegerForKey:@"maxLength"];
+        _maxLength = (NSUInteger)[decoder decodeIntegerForKey:@"maxLength"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeInteger:_maxLength forKey:@"maxLength"];
+    [encoder encodeInteger:(NSInteger)_maxLength forKey:@"maxLength"];
 }
 
 #pragma mark -
@@ -123,13 +123,13 @@
     BOOL valid = YES;
 
     NSString *proposedString = *partialStringPtr;
-    if ((NSInteger)proposedString.length > self.maxLength) {
+    if (proposedString.length > self.maxLength) {
 
         // The original string has been modified by one or more characters (via
         // pasting). Either way compute how much of the proposed string can be
         // accommodated.
-        NSInteger origLength = origString.length;
-        NSInteger insertLength = self.maxLength - origLength;
+        NSUInteger origLength = origString.length;
+        NSUInteger insertLength = self.maxLength - origLength;
 
         // If a range is selected then characters in that range will be removed
         // so adjust the insert length accordingly
@@ -172,7 +172,7 @@
 
         self.styleHints = self.glkctl.gridStyleHints;
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-        for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
+        for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
 
             if (self.theme.doStyles) {
                  styleDict = [((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]];
@@ -263,10 +263,10 @@
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
 
-        rows = [decoder decodeIntegerForKey:@"rows"];
-        cols = [decoder decodeIntegerForKey:@"cols"];
-        xpos = [decoder decodeIntegerForKey:@"xpos"];
-        ypos = [decoder decodeIntegerForKey:@"ypos"];
+        rows = (NSUInteger)[decoder decodeIntegerForKey:@"rows"];
+        cols = (NSUInteger)[decoder decodeIntegerForKey:@"cols"];
+        xpos = (NSUInteger)[decoder decodeIntegerForKey:@"xpos"];
+        ypos = (NSUInteger)[decoder decodeIntegerForKey:@"ypos"];
 
         dirty = YES;
         transparent = [decoder decodeBoolForKey:@"transparent"];
@@ -287,10 +287,10 @@
     [encoder encodeBool:line_request forKey:@"line_request"];
     [encoder encodeBool:hyper_request forKey:@"hyper_request"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
-    [encoder encodeInteger:rows forKey:@"rows"];
-    [encoder encodeInteger:cols forKey:@"cols"];
-    [encoder encodeInteger:xpos forKey:@"xpos"];
-    [encoder encodeInteger:ypos forKey:@"ypos"];
+    [encoder encodeInteger:(NSInteger)rows forKey:@"rows"];
+    [encoder encodeInteger:(NSInteger)cols forKey:@"cols"];
+    [encoder encodeInteger:(NSInteger)xpos forKey:@"xpos"];
+    [encoder encodeInteger:(NSInteger)ypos forKey:@"ypos"];
     [encoder encodeBool:transparent forKey:@"transparent"];
     NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
@@ -317,7 +317,7 @@
     NSRange linkrange = NSMakeRange(0, 0);
     NSRange selectedRange = textview.selectedRange;
 
-    int i;
+    NSUInteger i;
 
     styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
 
@@ -340,7 +340,7 @@
     /* reassign styles to attributedstrings */
     for (i = 0; i < rows; i++) {
         NSRange lineRange = NSMakeRange(i * cols, cols);
-        if (i * cols + cols > (long)textstorage.length)
+        if (i * cols + cols > textstorage.length)
             lineRange = NSMakeRange(i * cols, textstorage.length - i * cols);
         NSMutableAttributedString *line =
         [[textstorage attributedSubstringFromRange:lineRange] mutableCopy];
@@ -351,7 +351,7 @@
                               effectiveRange:&range];
 
             NSDictionary *attributes =
-            [styles objectAtIndex:[styleobject intValue]];
+            [styles objectAtIndex:(NSUInteger)[styleobject intValue]];
 
             id hyperlink = [line attribute:NSLinkAttributeName
                                    atIndex:x
@@ -365,7 +365,7 @@
                              range:linkrange];
             }
 
-            x = (int)(range.location + range.length);
+            x = range.location + range.length;
         }
 
         [textstorage replaceCharactersInRange:lineRange
@@ -451,7 +451,7 @@
 }
 
 - (void)setFrame:(NSRect)frame {
-    NSInteger r;
+    NSUInteger r;
     NSRange selectedRange = textview.selectedRange;
     if (self.inLiveResize)
         _restoredSelection = NSMakeRange(0, 0);
@@ -459,13 +459,13 @@
         selectedRange = _restoredSelection;
 
     super.frame = frame;
-    NSInteger newcols =
-    ceil((frame.size.width - (textview.textContainerInset.width +
+    NSUInteger newcols =
+    (NSUInteger)ceil((frame.size.width - (textview.textContainerInset.width +
                               container.lineFragmentPadding) *
           2) /
          self.theme.cellWidth);
 
-    NSInteger newrows = ceil((frame.size.height + self.theme.gridNormal.lineSpacing -
+    NSUInteger newrows = (NSUInteger)ceil((frame.size.height + self.theme.gridNormal.lineSpacing -
                               (textview.textContainerInset.height * 2) ) /
                              self.theme.cellHeight);
 
@@ -485,7 +485,7 @@
 
     if (!backingStorage) {
         NSString *spaces = [[[NSString alloc] init]
-                            stringByPaddingToLength:rows * (cols + 1) - (cols > 1)
+                            stringByPaddingToLength:(NSUInteger)(rows * (cols + 1) - (cols > 1))
                             withString:@" "
                             startingAtIndex:0];
         backingStorage = [[NSTextStorage alloc]
@@ -495,10 +495,10 @@
     if (newcols < cols) {
         // Delete characters if the window has become narrower
         for (r = cols - 1; r < backingStorage.length; r += cols + 1) {
+            if (r < (cols - newcols))
+                continue;
             NSRange deleteRange =
             NSMakeRange(r - (cols - newcols), cols - newcols);
-            if (r - (cols - newcols) < 0)
-                continue;
             if (NSMaxRange(deleteRange) > backingStorage.length)
                 deleteRange =
                 NSMakeRange(r - (cols - newcols),
@@ -510,7 +510,7 @@
         // For some reason we must remove a couple of extra characters at the
         // end to avoid strays
         if (rows == 1 && cols > 1 &&
-            (NSInteger)backingStorage.length >= (cols - 2))
+            backingStorage.length >= (cols - 2))
             [backingStorage
              deleteCharactersInRange:NSMakeRange(cols - 2,
                                                  backingStorage.length -
@@ -533,11 +533,11 @@
     cols = newcols;
     rows = newrows;
 
-    NSInteger desiredLength =
+    NSUInteger desiredLength =
     rows * (cols + 1) - 1; // -1 because we don't want a newline at the end
     if (desiredLength < 1 || rows == 1)
         desiredLength = cols;
-    if ((NSInteger)backingStorage.length < desiredLength) {
+    if (backingStorage.length < desiredLength) {
         NSString *spaces = [[[NSString alloc] init]
                             stringByPaddingToLength:desiredLength - backingStorage.length
                             withString:@" "
@@ -546,7 +546,7 @@
                                       initWithString:spaces
                                       attributes:[styles objectAtIndex:style_Normal]];
         [backingStorage appendAttributedString:string];
-    } else if ((NSInteger)backingStorage.length > desiredLength)
+    } else if (backingStorage.length > desiredLength)
         [backingStorage
          deleteCharactersInRange:NSMakeRange(desiredLength,
                                              backingStorage.length -
@@ -585,7 +585,7 @@
     textview.selectedRange = _restoredSelection;
 }
 
-- (void)moveToColumn:(NSInteger)c row:(NSInteger)r {
+- (void)moveToColumn:(NSUInteger)c row:(NSUInteger)r {
     xpos = c;
     ypos = r;
 }
@@ -606,7 +606,7 @@
         textview.selectedRange = selectedRange;
 }
 
-- (void)putString:(NSString *)string style:(NSInteger)stylevalue {
+- (void)putString:(NSString *)string style:(NSUInteger)stylevalue {
     if (line_request)
         NSLog(@"Printing to text grid window during line request");
 
@@ -616,7 +616,7 @@
     [self printToWindow:string style:stylevalue];
 }
 
-- (void)printToWindow:(NSString *)string style:(NSInteger)stylevalue {
+- (void)printToWindow:(NSString *)string style:(NSUInteger)stylevalue {
     NSUInteger length = string.length;
     NSUInteger pos = 0;
     NSDictionary *att = [styles objectAtIndex:stylevalue];
@@ -662,7 +662,7 @@
     // Write this string
     while (pos < length) {
         // Can't write if we've fallen off the end of the window
-        if (ypos > (NSInteger)textstorage.length / (cols + 1) || ypos > rows)
+        if (ypos > textstorage.length / (cols + 1) || ypos > rows)
             break;
 
         // Can only write a certain number of characters
@@ -673,12 +673,12 @@
         }
 
         // Get the number of characters to write
-        NSInteger amountToDraw = cols - xpos;
-        if (amountToDraw > (NSInteger)(string.length - pos)) {
+        NSUInteger amountToDraw = cols - xpos;
+        if (amountToDraw > string.length - pos) {
             amountToDraw = string.length - pos;
         }
 
-        if (cols * ypos + xpos + amountToDraw > (NSInteger)textstorage.length)
+        if (cols * ypos + xpos + amountToDraw > textstorage.length)
             amountToDraw = textstorage.length - (cols * ypos + xpos) + 1;
 
         if (amountToDraw < 1)
@@ -726,12 +726,12 @@
 - (void)setHyperlink:(NSUInteger)linkid {
     // NSLog(@"txtgrid: hyperlink %ld set", (long)linkid);
 
-    NSInteger length = ypos * (cols + 1) + xpos;
+    NSUInteger length = ypos * (cols + 1) + xpos;
 
     if (currentHyperlink && currentHyperlink.index != linkid) {
         //        NSLog(@"There is a preliminary hyperlink, with index %ld",
         //        currentHyperlink.index);
-        if ((NSInteger)currentHyperlink.startpos >= length) {
+        if (currentHyperlink.startpos >= length) {
             //            NSLog(@"The preliminary hyperlink started at the very
             //            end of grid window text, so it was deleted to avoid a
             //            zero-length link. currentHyperlink.startpos == %ld,
@@ -896,12 +896,12 @@
     //    if (transparent)
     //        mx = my = 0;
 
-    NSInteger x0 = NSMinX(bounds) + mx + container.lineFragmentPadding;
-    NSInteger y0 = NSMinY(bounds) + my;
-    NSInteger lineHeight = [Preferences lineHeight];
-    float charWidth = [Preferences charWidth];
+    NSInteger x0 = (NSInteger)(NSMinX(bounds) + mx + container.lineFragmentPadding);
+    NSInteger y0 = (NSInteger)(NSMinY(bounds) + my);
+    CGFloat lineHeight = [Preferences lineHeight];
+    CGFloat charWidth = [Preferences charWidth];
 
-    if (ypos >= (NSInteger)textstorage.length / cols)
+    if (ypos >= textstorage.length / cols)
         ypos = textstorage.length / cols - 1;
 
     NSRect caret;

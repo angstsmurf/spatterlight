@@ -26,7 +26,7 @@ static int defscreenh = 24;
 //static float cellh = 5;
 
 static BOOL smartquotes = YES;
-//static NSUInteger spaceformat = TAG_SPACES_GAME;
+static NSUInteger spaceformat = TAG_SPACES_GAME;
 static NSUInteger zoomDirection = ZOOMRESET;
 //static BOOL dographics = YES;
 //static BOOL dosound = NO;
@@ -70,9 +70,9 @@ NSData *colorToData(NSColor *color) {
 
     [color getRed:&r green:&g blue:&b alpha:&a];
 
-    buf[0] = (int)(r * 255);
-    buf[1] = (int)(g * 255);
-    buf[2] = (int)(b * 255);
+    buf[0] = (unsigned char)(r * 255);
+    buf[1] = (unsigned char)(g * 255);
+    buf[2] = (unsigned char)(b * 255);
 
     data = [NSData dataWithBytes:buf length:3];
 
@@ -252,7 +252,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     defscreenh = theme.defaultRows;
 
     smartquotes = theme.smartQuotes;
-    smartquotes = theme.spaceFormat;
+    spaceformat = (NSUInteger)theme.spaceFormat;
 
 //    dographics = theme.doGraphics;
 //    dosound = theme.doSound;
@@ -374,7 +374,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 }
 
 + (NSUInteger)spaceFormat {
-    return theme.spaceFormat;
+    return (NSUInteger)theme.spaceFormat;
 }
 
 + (NSUInteger)zoomDirection {
@@ -629,8 +629,6 @@ NSString *fontToString(NSFont *font) {
 
     self.windowFrameAutosaveName = @"PrefsWindow";
     self.window.delegate = self;
-
-    Theme *theme = [Preferences currentTheme];
 
     if (!theme)
         theme = [self defaultTheme];
@@ -905,14 +903,14 @@ NSString *fontToString(NSFont *font) {
             return 0;
         }
 
-        return fetchedObjects.count;
+        return (NSInteger)fetchedObjects.count;
     }
     return 0;
 }
 
 - (id) tableView: (NSTableView*)tableView
 objectValueForTableColumn: (NSTableColumn*)column
-             row: (int)row
+             row:(NSInteger)row
 {
     if (tableView == themesTableView) {
         NSArray *fetchedObjects = [self themeTableArray];
@@ -921,8 +919,8 @@ objectValueForTableColumn: (NSTableColumn*)column
             return 0;
         }
 
-        Theme *theme = [fetchedObjects objectAtIndex:row];
-        return theme.name;
+        Theme *t = [fetchedObjects objectAtIndex:(NSUInteger)row];
+        return t.name;
     }
     return nil;
 }
@@ -954,7 +952,7 @@ objectValueForTableColumn: (NSTableColumn*)column
         [self updatePrefsPanel];
         [[NSUserDefaults standardUserDefaults] setObject:theme.name forKey:@"themeName"];
 
-        NSNotification *notification = [NSNotification notificationWithName:@"ThemeChanged" object:theme];
+        notification = [NSNotification notificationWithName:@"ThemeChanged" object:theme];
         [Preferences readSettingsFromTheme:theme];
 
         glktxtbuf.theme = theme;

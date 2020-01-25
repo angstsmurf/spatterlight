@@ -35,8 +35,8 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
     }
     else if ([self isThisWeek]) {
         NSDateComponents *weekdayComponents = [[NSCalendar currentCalendar] components:kCFCalendarUnitWeekday fromDate:self];
-        NSInteger weekday = weekdayComponents.weekday;
-        return [dateFormatter.weekdaySymbols objectAtIndex:weekday-1];
+        NSUInteger weekday = (NSUInteger)weekdayComponents.weekday;
+        return [dateFormatter.weekdaySymbols objectAtIndex:weekday - 1];
     } else {
         dateFormatter.timeStyle = NSDateFormatterNoStyle;
         dateFormatter.dateStyle = NSDateFormatterShortStyle;
@@ -74,7 +74,7 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
 	if (components1.week != components2.week) return NO;
 
 	// Must have a time interval under 1 week. Thanks @aclark
-	return (abs([self timeIntervalSinceDate:aDate]) < D_WEEK);
+	return (abs((int)[self timeIntervalSinceDate:aDate]) < D_WEEK);
 }
 
 - (BOOL) isThisWeek {

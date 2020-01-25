@@ -51,11 +51,9 @@
             Byte *bytes12 = (Byte *)malloc(12);
 
             int execStart = 0;
-            for (NSInteger i = 24;
-                 i <= chunkLength + 8 && i < theData.length - 12; i += 12) {
+            for (NSUInteger i = 24; i <= (NSUInteger)chunkLength + 8 && i < theData.length - 12; i += 12) {
                 [theData getBytes:bytes12 range:NSMakeRange(i, 12)];
-                if (bytes12[0] == 'E' && bytes12[1] == 'x' &&
-                    bytes12[2] == 'e' && bytes12[3] == 'c') {
+                if (bytes12[0] == 'E' && bytes12[1] == 'x' && bytes12[2] == 'e' && bytes12[3] == 'c') {
                     execStart = bytes12[8] << 24 | (bytes12[9] & 0xff) << 16 |
                                 (bytes12[10] & 0xff) << 8 |
                                 (bytes12[11] & 0xff);
@@ -68,9 +66,9 @@
             free(bytes12);
 
             if (execStart > 0) {
-                if (execStart + 8 + 64 <= theData.length) {
+                if (execStart + 8 + 64 <= (int)theData.length) {
                     [theData getBytes:bytes64
-                                range:NSMakeRange(execStart + 8, 64)];
+                                range:NSMakeRange((NSUInteger)execStart + 8, 64)];
                 } else
                     NSLog(@"signatureFromFile: Executable chunk too small to "
                           @"make signature!");
@@ -150,7 +148,7 @@
         return self;
     }
     // Make result string with some extra capacity.
-    NSMutableString *result = [NSMutableString stringWithCapacity:(myLength * 1.25)];
+    NSMutableString *result = [NSMutableString stringWithCapacity:(NSUInteger)(myLength * 1.25)];
 
     // First iteration doesn't need to scan to & since we did that already, but for code simplicity's sake we'll do it again with the scanner.
     NSScanner *scanner = [NSScanner scannerWithString:self];

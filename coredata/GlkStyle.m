@@ -132,7 +132,8 @@
     NSMutableParagraphStyle *para = [[attributes
                                      objectForKey:NSParagraphStyleAttributeName] mutableCopy];
 
-    NSInteger value, i, r, b, g;
+    NSInteger value, r, b, g;
+    NSUInteger i;
     NSColor *color;
 
     for (i = 0 ; i < stylehint_NUMHINTS ; i++ ){
@@ -180,8 +181,7 @@
 
                 case stylehint_Size:
                     if (![self testGridStyle]) {
-
-                        float size = font.matrix[0] + value * 2;
+                        CGFloat size = font.matrix[0] + value * 2;
                         font = [fontmgr convertFont:font toSize:size];
                     }
                     break;
@@ -403,7 +403,7 @@
     
     if (!theme) {
         NSLog(@"Error! No theme found!");
-        NSInteger styleValue = ((NSNumber *)[self.attributeDict objectForKey:@"GlkStyle"]).integerValue;
+        NSUInteger styleValue = (NSUInteger)((NSNumber *)[self.attributeDict objectForKey:@"GlkStyle"]).integerValue;
 
         NSString *styleName = [self testGridStyle]?[gGridStyleNames objectAtIndex:styleValue]:[gBufferStyleNames objectAtIndex:styleValue];
         NSLog(@"GlkStyle attribute: %ld (%@), count: %ld", styleValue, styleName, count);
@@ -435,9 +435,9 @@
 
 
 - (NSInteger)index {
-    for (NSInteger i = 0 ; i < style_NUMSTYLES ; i++){
+    for (NSUInteger i = 0 ; i < style_NUMSTYLES ; i++){
         if ([self valueForKey:[gBufferStyleNames objectAtIndex:i]] || [self valueForKey:[gGridStyleNames objectAtIndex:i]])
-            return i;
+            return (NSInteger)i;
     }
     NSLog(@"GlkStyle styleIndex: This style does not belong to a theme, so style index can not be calculated!");
     return -1;
@@ -466,7 +466,7 @@
 }
 
 - (void)printDebugInfo {
-    NSInteger stylevalue = ((NSNumber *)[self.attributeDict objectForKey:@"GlkStyle"]).integerValue;
+    NSUInteger stylevalue = (NSUInteger)((NSNumber *)[self.attributeDict objectForKey:@"GlkStyle"]).integerValue;
     NSString *styleName = [self testGridStyle] ? [gGridStyleNames objectAtIndex:stylevalue] : [gBufferStyleNames objectAtIndex:stylevalue];
     NSColor *debugColor = self.color;
     NSString *fontColorName = [debugColor isEqual:[NSColor blackColor]]?@"black":@"not black";

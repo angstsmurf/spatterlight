@@ -43,7 +43,7 @@
     NSSize cursize;
     NSSize setsize;
     NSSize maxsize;
-    float scale;
+    double scale;
 
     maxsize = self.window.screen.frame.size;
     wellsize = imageView.frame.size;
@@ -138,7 +138,7 @@
     if (format) {
         char buf[TREATY_MINIMUM_EXTENT];
         char *s;
-        int imglen;
+        size_t imglen;
         int rv;
 
         rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
@@ -156,7 +156,7 @@
         imgpath = [NSURL URLWithString:pathstring relativeToURL:imgpath];
         img = [[NSImage alloc] initWithContentsOfURL:imgpath];
         if (!img) {
-            imglen = babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
+            imglen = (size_t)babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
             if (imglen > 0) {
                 char *imgbuf = malloc(imglen);
                 if (!imgbuf)

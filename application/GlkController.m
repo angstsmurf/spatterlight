@@ -425,8 +425,8 @@ fprintf(stderr, "%s\n",                                                    \
     gevent = [[GlkEvent alloc] initPrefsEvent];
     [self queueEvent:gevent];
 
-    gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
-                                         height:_contentView.frame.size.height
+    gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
+                                         height:(NSInteger)_contentView.frame.size.height
                                           theme:_theme
                                           force:NO];
     [self queueEvent:gevent];
@@ -474,7 +474,7 @@ fprintf(stderr, "%s\n",                                                    \
               _storedTimerInterval);
 
     } else if (_storedTimerInterval) {
-        [self handleSetTimer:_storedTimerInterval * 1000];
+        [self handleSetTimer:(NSUInteger)(_storedTimerInterval * 1000)];
         NSLog(@"_storedTimerInterval was %f, so started a timer.",
               _storedTimerLeft);
     }
@@ -505,8 +505,8 @@ fprintf(stderr, "%s\n",                                                    \
     // to re-send us window sizes. The player may have changed settings that affect
     // window size since the autosave was created, and at this point in the autorestore
     // process, we have no other way to know what size the Glk windows should be.
-    GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:_contentView.frame.size.width
-                                                   height:_contentView.frame.size.height
+    GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
+                                                   height:(NSInteger)_contentView.frame.size.height
                                                     theme:_theme
                                                     force:YES];
     [self queueEvent:gevent];
@@ -518,7 +518,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self.window makeFirstResponder:nil];
 
     // Restore scroll position and focus
-    for (GlkWindow *win in [_gwindows allValues]) {
+    for (win in [_gwindows allValues]) {
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkTextBufferWindow *textbuf = (GlkTextBufferWindow *)win;
             [textbuf restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
@@ -898,9 +898,9 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSSize)defaultWindowSize {
     NSInteger width =
-    ceil(_theme.cellWidth * _theme.defaultCols + (_theme.gridMarginX + _theme.border + 4) * 2.0);
+    (NSInteger)ceil(_theme.cellWidth * _theme.defaultCols + (_theme.gridMarginX + _theme.border + 4.0) * 2.0);
     NSInteger height =
-    ceil(_theme.cellHeight * _theme.defaultRows + (_theme.gridMarginY + _theme.border + 4) * 2.0);
+    (NSInteger)ceil(_theme.cellHeight * _theme.defaultRows + (_theme.gridMarginY + _theme.border + 4.0) * 2.0);
 
     return NSMakeSize(width, height);
 }
@@ -923,8 +923,8 @@ fprintf(stderr, "%s\n",                                                    \
 //              NSStringFromSize(frame.size));
 
         GlkEvent *gevent;
-        gevent = [[GlkEvent alloc] initArrangeWidth:frame.size.width
-                                             height:frame.size.height
+        gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)frame.size.width
+                                             height:(NSInteger)frame.size.height
                                               theme:_theme
                                               force:NO];
         [self queueEvent:gevent];
@@ -1083,8 +1083,8 @@ fprintf(stderr, "%s\n",                                                    \
     if (height < 0)
         height = 0;
 
-    gevent = [[GlkEvent alloc] initArrangeWidth:width
-                                         height:height
+    gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)width
+                                         height:(NSInteger)height
                                           theme:_theme
                                           force:NO];
     [self queueEvent:gevent];
@@ -1160,7 +1160,7 @@ fprintf(stderr, "%s\n",                                                    \
                           s = "";
 
                       reply.cmd = OKAY;
-                      reply.len = (int)strlen(s);
+                      reply.len = strlen(s);
 
                       write((int)sendfd, &reply, sizeof(struct message));
                       if (reply.len)
@@ -1256,7 +1256,7 @@ fprintf(stderr, "%s\n",                                                    \
                           s = "";
 
                       reply.cmd = OKAY;
-                      reply.len = (int)strlen(s);
+                      reply.len = strlen(s);
 
                       write((int)sendfd, &reply, sizeof(struct message));
                       if (reply.len)
@@ -1269,7 +1269,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSInteger)handleNewWindowOfType:(NSInteger)wintype andName:(NSInteger)name {
-    NSUInteger i;
+    NSInteger i;
 
     //    NSLog(@"GlkController handleNewWindowOfType: %s",
     //    wintypenames[wintype]);
@@ -1341,7 +1341,7 @@ fprintf(stderr, "%s\n",                                                    \
     return MAXSND;
 }
 
-- (void)handleSetTimer:(int)millisecs {
+- (void)handleSetTimer:(NSUInteger)millisecs {
     if (timer) {
         [timer invalidate];
         timer = nil;
@@ -1349,8 +1349,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (millisecs > 0) {
         if (millisecs < MINTIMER) {
-            NSLog(@"glkctl: too small timer interval (%d); increasing to %d",
-                  millisecs, MINTIMER);
+            NSLog(@"glkctl: too small timer interval (%ld); increasing to %d",
+                  (unsigned long)millisecs, MINTIMER);
             millisecs = MINTIMER;
         }
 
@@ -1371,12 +1371,12 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)restartTimer:(id)sender {
-    [self handleSetTimer:(int)(_storedTimerInterval * 1000)];
+    [self handleSetTimer:(NSUInteger)(_storedTimerInterval * 1000)];
 }
 
 - (void)handleLoadSoundNumber:(int)resno
                          from:(char *)buffer
-                       length:(int)length {
+                       length:(NSUInteger)length {
     lastsoundresno = -1;
 
     if (lastsound) {
@@ -1390,7 +1390,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)handleLoadImageNumber:(int)resno
                          from:(char *)buffer
-                       length:(int)length {
+                       length:(NSUInteger)length {
     lastimageresno = -1;
 
     if (lastimage) {
@@ -1437,17 +1437,17 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)handleStyleHintOnWindowType:(int)wintype
-                              style:(int)style
-                               hint:(int)hint
+                              style:(NSUInteger)style
+                               hint:(NSUInteger)hint
                               value:(int)value {
 
     // NSLog(@"handleStyleHintOnWindowType: %s style: %s hint: %s value: %d",
     // wintypenames[wintype], stylenames[style], stylehintnames[hint], value);
 
-    if (style < 0 || style >= style_NUMSTYLES)
+    if (style >= style_NUMSTYLES)
         return;
 
-    if (hint < 0 || hint >= stylehint_NUMHINTS)
+    if (hint >= stylehint_NUMHINTS)
         return;
 
     NSMutableArray *bufferHintsForStyle = [_bufferStyleHints objectAtIndex:style];
@@ -1478,17 +1478,17 @@ NSInteger colorToInteger(NSColor *color) {
 
     [color getRed:&r green:&g blue:&b alpha:&a];
 
-    buf[0] = (int)(r * 255);
-    buf[1] = (int)(g * 255);
-    buf[2] = (int)(b * 255);
+    buf[0] = (uint32_t)(r * 255);
+    buf[1] = (uint32_t)(g * 255);
+    buf[2] = (uint32_t)(b * 255);
 
     i = buf[2] + (buf[1] << 8) + (buf[0] << 16);
     return i;
 }
 
 - (BOOL)handleStyleMeasureOnWin:(GlkWindow *)gwindow
-                          style:(int)style
-                           hint:(int)hint
+                          style:(NSUInteger)style
+                           hint:(NSUInteger)hint
                          result:(NSInteger *)result {
 //    if (styleuse[1][style_Normal][stylehint_TextColor])
 //        NSLog(@"styleuse[1][style_Normal][stylehint_TextColor] is true. "
@@ -1519,10 +1519,10 @@ NSInteger colorToInteger(NSColor *color) {
 }
 
 - (void)handleClearHintOnWindowType:(int)wintype
-                              style:(int)style
-                               hint:(int)hint {
+                              style:(NSUInteger)style
+                               hint:(NSUInteger)hint {
     
-    if (style < 0 || style >= style_NUMSTYLES)
+    if (style >= style_NUMSTYLES)
         return;
 
     NSMutableArray *gridHintsForStyle = [_gridStyleHints objectAtIndex:style];
@@ -1547,9 +1547,9 @@ NSInteger colorToInteger(NSColor *color) {
 }
 
 - (void)handlePrintOnWindow:(GlkWindow *)gwindow
-                      style:(int)style
+                      style:(NSUInteger)style
                      buffer:(unichar *)buf
-                     length:(int)len {
+                     length:(size_t)len {
     NSString *str;
 
     if ([gwindow isKindOfClass:[GlkTextBufferWindow class]] &&
@@ -1559,7 +1559,7 @@ NSInteger colorToInteger(NSColor *color) {
         NSInteger spaceformat = _theme.spaceFormat;
         NSInteger lastchar = textwin.lastchar;
         NSInteger spaced = 0;
-        NSInteger i;
+        NSUInteger i;
 
         for (i = 0; i < len; i++) {
             /* turn (punct sp sp) into (punct sp) */
@@ -1617,7 +1617,7 @@ NSInteger colorToInteger(NSColor *color) {
             lastchar = buf[i];
         }
 
-        len = (int)i;
+        len = (size_t)i;
     }
 
     str = [NSString stringWithCharacters:buf length:len];
@@ -1729,8 +1729,8 @@ NSInteger colorToInteger(NSColor *color) {
 
         case STYLEHINT:
             [self handleStyleHintOnWindowType:req->a1
-                                        style:req->a2
-                                         hint:req->a3
+                                        style:(NSUInteger)req->a2
+                                         hint:(NSUInteger)req->a3
                                         value:req->a4];
             break;
 
@@ -1738,14 +1738,14 @@ NSInteger colorToInteger(NSColor *color) {
             result = 0;
             ans->cmd = OKAY;
             ans->a1 = [self handleStyleMeasureOnWin:reqWin
-                                              style:req->a2
-                                               hint:req->a3
+                                              style:(NSUInteger)req->a2
+                                               hint:(NSUInteger)req->a3
                                              result:&result];
             ans->a2 = (int)result;
             break;
 
         case CLEARHINT:
-            [self handleClearHintOnWindowType:req->a1 style:req->a2 hint:req->a3];
+            [self handleClearHintOnWindowType:req->a1 style:(NSUInteger)req->a2 hint:(NSUInteger)req->a3];
             break;
 
             /*
@@ -1812,8 +1812,8 @@ NSInteger colorToInteger(NSColor *color) {
             if (lastimage) {
                 NSSize size;
                 size = lastimage.size;
-                ans->a1 = size.width;
-                ans->a2 = size.height;
+                ans->a1 = (NSUInteger)size.width;
+                ans->a2 = (NSUInteger)size.height;
             }
             break;
 
@@ -1856,7 +1856,7 @@ NSInteger colorToInteger(NSColor *color) {
 
         case SIZWIN:
             if (reqWin) {
-                int x0, y0, x1, y1, checksumWidth, checksumHeight;
+                uint x0, y0, x1, y1, checksumWidth, checksumHeight;
                 NSRect rect;
 
                 struct sizewinrect *sizewin = (void*)buf;
@@ -1961,7 +1961,7 @@ NSInteger colorToInteger(NSColor *color) {
         case PRINT:
             if (reqWin) {
                 [self handlePrintOnWindow:reqWin
-                                    style:req->a2
+                                    style:(NSUInteger)req->a2
                                    buffer:(unichar *)buf
                                    length:req->len / sizeof(unichar)];
             }
@@ -1975,7 +1975,7 @@ NSInteger colorToInteger(NSColor *color) {
                     x = 10000;
                 if (y < 0)
                     y = 10000;
-                [reqWin moveToColumn:x row:y];
+                [reqWin moveToColumn:(NSUInteger)x row:(NSUInteger)y];
             }
             break;
 
@@ -1991,7 +1991,7 @@ NSInteger colorToInteger(NSColor *color) {
         case TERMINATORS:
             [self handleSetTerminatorsOnWindow:reqWin
                                         buffer:(glui32 *)buf
-                                        length:req->a2];
+                                        length:(glui32)req->a2];
             break;
 
         case FLOWBREAK:
@@ -2020,7 +2020,7 @@ NSInteger colorToInteger(NSColor *color) {
             if (reqWin) {
                 const char *str = [reqWin cancelLine].UTF8String;
                 strlcpy(buf, str, GLKBUFSIZE);
-                ans->len = (int)strlen(buf);
+                ans->len = strlen(buf);
             }
             break;
 
@@ -2053,7 +2053,7 @@ NSInteger colorToInteger(NSColor *color) {
             //            NSLog(@"glkctl set hyperlink %d in window %d", req->a2,
             //            req->a1);
             if (reqWin) {
-                [reqWin setHyperlink:req->a2];
+                [reqWin setHyperlink:(NSUInteger)req->a2];
             }
             break;
 
@@ -2075,7 +2075,7 @@ NSInteger colorToInteger(NSColor *color) {
             break;
 
         case TIMER:
-            [self handleSetTimer:req->a1];
+            [self handleSetTimer:(NSUInteger)req->a1];
             break;
 
         case EVTSOUND:
@@ -2302,7 +2302,7 @@ again:
         if (request.len > GLKBUFSIZE) {
             maxibuf = malloc(request.len);
             if (!maxibuf) {
-                NSLog(@"glkctl: out of memory for message (%d bytes)", request.len);
+                NSLog(@"glkctl: out of memory for message (%zd bytes)", request.len);
                 [task terminate];
                 return;
             }
@@ -2427,7 +2427,7 @@ again:
 
         [self.window setFrame:winrect display:NO animate:NO];
     } else {
-        NSUInteger borders = _theme.border * 2;
+        NSUInteger borders = (NSUInteger)_theme.border * 2;
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
                                      sizeAfterZoom.width - borders,
                                      NSHeight(_borderView.frame) - borders);
@@ -2622,8 +2622,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                              // Send an arrangement event to fill
                              // the new extended area
                              GlkEvent *gevent = [[GlkEvent alloc]
-                                                 initArrangeWidth:localContentView.frame.size.width
-                                                 height:localContentView.frame.size.height
+                                                 initArrangeWidth:(NSInteger)localContentView.frame.size.width
+                                                 height:(NSInteger)localContentView.frame.size.height
                                                  theme:self.theme
                                                  force:NO];
 
@@ -2689,8 +2689,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               [weakSelf enableArrangementEvents];
               localContentView.frame = [weakSelf contentFrameForFullscreen];
               GlkEvent *gevent = [[GlkEvent alloc]
-                                  initArrangeWidth:localContentView.frame.size.width
-                                  height:localContentView.frame.size.height
+                                  initArrangeWidth:(NSInteger)localContentView.frame.size.width
+                                  height:(NSInteger)localContentView.frame.size.height
                                   theme:_theme
                                   force:NO];
 
@@ -2811,14 +2811,14 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (NSRect)contentFrameForWindowed {
-    NSUInteger border = _theme.border;
+    NSUInteger border = (NSUInteger)_theme.border;
     return NSMakeRect(border, border,
                       ceil(NSWidth(_borderView.bounds) - border * 2),
                       ceil(NSHeight(_borderView.bounds) - border * 2));
 }
 
 - (NSRect)contentFrameForFullscreen {
-    NSUInteger border = _theme.border;
+    NSUInteger border = (NSUInteger)_theme.border;
     return NSMakeRect(floor((NSWidth(_borderView.bounds) -
                             NSWidth(_contentView.frame)) / 2),
                       border, NSWidth(_contentView.frame),

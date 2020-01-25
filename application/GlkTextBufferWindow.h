@@ -6,7 +6,7 @@
 
 @interface MyAttachmentCell : NSTextAttachmentCell {
     NSInteger align;
-    NSInteger pos;
+    NSUInteger pos;
 }
 
 @property (weak) NSAttributedString *attrstr;
@@ -14,7 +14,7 @@
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)analignment
                     andAttStr:(NSAttributedString *)anattrstr
-                           at:(NSInteger)apos;
+                           at:(NSUInteger)apos;
 
 @end
 
@@ -50,7 +50,7 @@
 - (void)clearImages;
 - (void)addImage:(NSImage *)image
            align:(NSInteger)align
-              at:(NSInteger)top
+              at:(NSUInteger)top
           linkid:(NSUInteger)linkid;
 - (void)drawRect:(NSRect)rect;
 - (void)invalidateLayout;
@@ -83,14 +83,14 @@
                                  starting from the next line event*/
     BOOL echo; /* if NO, line input text will be deleted when entered */
 
-    NSInteger fence; /* for input line editing */
+    NSUInteger fence; /* for input line editing */
 
     NSString *history[HISTORYLEN];
     NSInteger historypos;
     NSInteger historyfirst, historypresent;
 
     NSMutableArray *moveRanges;
-    NSInteger moveRangeIndex;
+    NSUInteger moveRangeIndex;
 
     CGFloat lastLineheight;
 

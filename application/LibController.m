@@ -331,9 +331,9 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         NSIndexSet *rows = _gameTableView.selectedRowIndexes;
 
         if ((_gameTableView.clickedRow != -1) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
-            rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
+            rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
         if (rows.count)
-            [_gameTableView scrollRowToVisible:rows.firstIndex];
+            [_gameTableView scrollRowToVisible:(NSInteger)rows.firstIndex];
     });
 }
 
@@ -444,8 +444,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     // If we clicked outside selected rows, only show info for clicked row
     if (_gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:_gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
+        ![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
     [rows
      enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
@@ -472,7 +472,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
         rowidx = _gameTableView.selectedRow;
 
     if (rowidx >= 0) {
-         [self playGame:[gameTableModel objectAtIndex:rowidx]];
+         [self playGame:[gameTableModel objectAtIndex:(NSUInteger)rowidx]];
     }
 }
 
@@ -481,10 +481,10 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     // If we clicked outside selected rows, only show info for clicked row
     if (_gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:_gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
+        ![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
-    NSInteger i;
+    NSUInteger i;
     for (i = rows.firstIndex; i != NSNotFound;
          i = [rows indexGreaterThanIndex:i]) {
         Game *game = [gameTableModel objectAtIndex:i];
@@ -518,10 +518,10 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     // If we clicked outside selected rows, only reveal game in clicked row
     if (_gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:_gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
+        ![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
-    NSInteger i;
+    NSUInteger i;
     for (i = rows.firstIndex; i != NSNotFound;
          i = [rows indexGreaterThanIndex:i]) {
         Game *game = [gameTableModel objectAtIndex:i];
@@ -545,8 +545,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     // If we clicked outside selected rows, only delete game in clicked row
     if (_gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:_gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
+        ![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
     __block Game *game;
     
@@ -567,7 +567,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     NSIndexSet *rows = _gameTableView.selectedRowIndexes;
 
     if ((_gameTableView.clickedRow != -1) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
     __block Game *game;
     __block NSString *urlString;
@@ -588,7 +588,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     NSIndexSet *rows = _gameTableView.selectedRowIndexes;
 
     if ((_gameTableView.clickedRow != -1) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:_gameTableView.clickedRow];
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
     if (rows.count > 0)
     {
@@ -632,8 +632,8 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                             [_managedObjectContext performBlock:^{
                                 [_coreDataManager saveChanges];
 
-                                for (Game *game in gameTableModel) {
-                                    [_managedObjectContext refreshObject:game.metadata
+                                for (Game *aGame in gameTableModel) {
+                                    [_managedObjectContext refreshObject:aGame.metadata
                                                             mergeChanges:YES];
                                 }
                                 [self updateSideViewForce:YES];
@@ -656,7 +656,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
 - (void) extractMetadataFromFile:(Game *)game
 {
-	int mdlen;
+	size_t mdlen;
 
 	BOOL report = YES;
 	currentIfid = nil;
@@ -682,7 +682,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 			if (!ifid || [ifid isEqualToString:@""])
 				ifid = game.ifid;
 
-			mdlen = babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
+			mdlen = (size_t)babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
 			if (mdlen > 0)
 			{
 				char *mdbuf = malloc(mdlen);
@@ -712,7 +712,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
             NSData *img = [[NSData alloc] initWithContentsOfURL:imgpath];
 			if (!img)
 			{
-				int imglen = babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
+				size_t imglen = (size_t)babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
 				if (imglen > 0)
 				{
 					char *imgbuf = malloc(imglen);
@@ -742,7 +742,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     NSIndexSet *rows = _gameTableView.selectedRowIndexes;
 
     if (_gameTableView.clickedRow != -1 &&
-        (![rows containsIndex:_gameTableView.clickedRow]))
+        (![rows containsIndex:(NSUInteger)_gameTableView.clickedRow]))
         count = 1;
 
     if (action == @selector(performFindPanelAction:)) {
@@ -798,7 +798,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
 
     NSFileManager *mgr = [NSFileManager defaultManager];
     BOOL isdir;
-    NSInteger i;
+    NSUInteger i;
 
     if (currentlyAddingGames)
         return NSDragOperationNone;
@@ -806,7 +806,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     NSPasteboard *pboard = [sender draggingPasteboard];
     if ([pboard.types containsObject:NSFilenamesPboardType]) {
         NSArray *paths = [pboard propertyListForType:NSFilenamesPboardType];
-        NSInteger count = paths.count;
+        NSUInteger count = paths.count;
         for (i = 0; i < count; i++) {
             NSString *path = [paths objectAtIndex:i];
             if ([gGameFileTypes
@@ -973,7 +973,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
     {
         NSLog(@"findTheme: inContext: Found more than one Theme object with name %@ (total %ld)",name, fetchedObjects.count);
         NSMutableSet *storedSet = [[NSMutableSet alloc] init];
-        for (NSInteger i = fetchedObjects.count - 1; i > 0 ; i--) {
+        for (NSUInteger i = fetchedObjects.count - 1; i > 0 ; i--) {
             for (Game *game in ((Theme *)[fetchedObjects objectAtIndex:i]).games)
                 [storedSet addObject:game];
         }
@@ -1142,7 +1142,7 @@ static BOOL save_plist(NSString *path, NSDictionary *plist) {
                 } else {
                     const char *format = babel_init((char *)((NSString *)[games valueForKey:ifid]).UTF8String);
                     if (format) {
-                        int imglen = babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
+                        size_t imglen = (size_t)babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
                         if (imglen > 0) {
                             char *imgbuf = malloc(imglen);
                             if (imgbuf) {
@@ -1480,7 +1480,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSString *ifid;
     char *format;
     char *s;
-    int mdlen;
+    size_t mdlen;
     int rv;
 
     if ([path.pathExtension.lowercaseString isEqualToString: @"ifiction"])
@@ -1546,7 +1546,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     if (!metadata)
     {
-        mdlen = babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
+        mdlen = (size_t)babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
         if (mdlen > 0)
         {
             char *mdbuf = malloc(mdlen);
@@ -1617,7 +1617,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         }
         else
         {
-            int imglen = babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
+            size_t imglen = (size_t)babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
             if (imglen > 0)
             {
                 char *imgbuf = malloc(imglen);
@@ -1664,8 +1664,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 - (void) addFiles:(NSArray*)urls select:(NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure {
     NSFileManager *filemgr = [NSFileManager defaultManager];
     BOOL isdir;
-    NSInteger count;
-    NSInteger i;
+    NSUInteger count;
+    NSUInteger i;
 
     NSDate *timestamp = [NSDate date];
     
@@ -1807,7 +1807,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         }
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
         if (shouldscroll && indexSet.count && !currentlyAddingGames)
-            [_gameTableView scrollRowToVisible:indexSet.firstIndex];
+            [_gameTableView scrollRowToVisible:(NSInteger)indexSet.firstIndex];
     }
 }
 
@@ -1827,7 +1827,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         }
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
         if (indexSet.count == 1 && !currentlyAddingGames)
-            [_gameTableView scrollRowToVisible:indexSet.firstIndex];
+            [_gameTableView scrollRowToVisible:(NSInteger)indexSet.firstIndex];
     }
 }
 
@@ -1866,7 +1866,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSFetchRequest *fetchRequest;
     NSEntityDescription *entity;
 
-    NSInteger searchcount;
+    NSUInteger searchcount;
 
     if (!gameTableDirty)
         return;
@@ -1966,22 +1966,22 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         gameTableDirty = YES;
         [self updateTableViews];
         NSIndexSet *rows = tableView.selectedRowIndexes;
-        [_gameTableView scrollRowToVisible:rows.firstIndex];
+        [_gameTableView scrollRowToVisible:(NSInteger)rows.firstIndex];
     }
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if (tableView == _gameTableView)
-        return gameTableModel.count;
+        return (NSInteger)gameTableModel.count;
     return 0;
 }
 
 - (id) tableView: (NSTableView*)tableView
 objectValueForTableColumn: (NSTableColumn*)column
-             row: (int)row
+             row:(NSInteger)row
 {
     if (tableView == _gameTableView) {
-        Game *game = [gameTableModel objectAtIndex:row];
+        Game *game = [gameTableModel objectAtIndex:(NSUInteger)row];
         Metadata *meta = game.metadata;
         if ([column.identifier isEqual: @"found"]) {
             return game.found?nil:@"!";
@@ -2013,7 +2013,7 @@ objectValueForTableColumn: (NSTableColumn*)column
                        range:NSMakeRange(0, attstr.length)];
 
             [attstr addAttribute:NSBaselineOffsetAttributeName
-                       value:[NSNumber numberWithFloat:offset]
+                       value:[NSNumber numberWithDouble:offset]
                        range:NSMakeRange(0, attstr.length)];
 
         [(NSTextFieldCell *)cell setAttributedStringValue:attstr];
@@ -2023,10 +2023,10 @@ objectValueForTableColumn: (NSTableColumn*)column
 - (void)tableView:(NSTableView *)tableView
    setObjectValue:(id)value
    forTableColumn:(NSTableColumn *)tableColumn
-              row:(int)row {
+              row:(NSInteger)row {
     if (tableView == _gameTableView)
     {
-        Game *game = [gameTableModel objectAtIndex:row];
+        Game *game = [gameTableModel objectAtIndex:(NSUInteger)row];
         Metadata *meta = game.metadata;
         NSString *key = tableColumn.identifier;
         NSString *oldval = [meta valueForKey:key];
@@ -2218,7 +2218,7 @@ canCollapseSubview:(NSView *)subview
 - (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
     [state encodeObject:_searchField.stringValue forKey:@"searchText"];
 
-    [state encodeFloat:NSWidth(_leftView.frame) forKey:@"sideviewWidth"];
+    [state encodeDouble:NSWidth(_leftView.frame) forKey:@"sideviewWidth"];
 //    NSLog(@"Encoded left view width as %f", NSWidth(_leftView.frame))
     [state encodeBool:[_splitView isSubviewCollapsed:_leftView] forKey:@"sideviewHidden"];
 //    NSLog(@"Encoded left view collapsed as %@", [_splitView isSubviewCollapsed:_leftView]?@"YES":@"NO");
@@ -2248,7 +2248,7 @@ canCollapseSubview:(NSView *)subview
     [self updateTableViews];
     [self selectGamesWithIfids:selectedIfids scroll:NO];
 
-    CGFloat newDividerPos = [state decodeFloatForKey:@"sideviewWidth"];
+    CGFloat newDividerPos = [state decodeDoubleForKey:@"sideviewWidth"];
     
     if (newDividerPos < 50 && newDividerPos > 0) {
         NSLog(@"Left view width too narrow, setting to 50.");

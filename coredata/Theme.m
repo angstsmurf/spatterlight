@@ -148,14 +148,14 @@
     } else bufInputExists = YES;
 
     // We skip the first element (0), i.e. the Normal styles here
-    for (NSInteger i = 1 ; i < style_NUMSTYLES ; i++)
+    for (NSUInteger i = 1 ; i < style_NUMSTYLES ; i++)
 	{
         // Delete all old GlkStyle objects that we do not want to keep
         if ([self valueForKey:[gGridStyleNames objectAtIndex:i]])
             [self.managedObjectContext deleteObject:[self valueForKey:[gGridStyleNames objectAtIndex:i]]];
         
         [self setValue:[self.gridNormal clone] forKey:[gGridStyleNames objectAtIndex:i]];
-        [[self valueForKey:[gGridStyleNames objectAtIndex:i]] setIndex:i];
+        [[self valueForKey:[gGridStyleNames objectAtIndex:i]] setIndex:(NSInteger)i];
 
         if ([self valueForKey:[gBufferStyleNames objectAtIndex:i]]) {
             if (i == style_Input)
@@ -165,7 +165,7 @@
         }
 
         [self setValue:[self.bufferNormal clone] forKey:[gBufferStyleNames objectAtIndex:i]];
-        [[self valueForKey:[gBufferStyleNames objectAtIndex:i]] setIndex:i];
+        [[self valueForKey:[gBufferStyleNames objectAtIndex:i]] setIndex:(NSInteger)i];
 	}
 
       /* make italic, bold, bolditalic font variants */

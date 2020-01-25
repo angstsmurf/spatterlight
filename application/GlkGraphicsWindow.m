@@ -134,8 +134,8 @@
     [self drawImage:oldimage
                val1:0
                val2:0
-              width:oldimage.size.width
-             height:oldimage.size.height];
+              width:(NSInteger)oldimage.size.width
+             height:(NSInteger)oldimage.size.height];
 
     dirty = YES;
 }
@@ -153,8 +153,8 @@
 
     bitmap = [[NSBitmapImageRep alloc]
         initWithBitmapDataPlanes:NULL
-                      pixelsWide:size.width
-                      pixelsHigh:size.height
+                      pixelsWide:(NSInteger)size.width
+                      pixelsHigh:(NSInteger)size.height
                    bitsPerSample:8
                  samplesPerPixel:4
                         hasAlpha:YES
@@ -241,9 +241,9 @@
     NSSize srcsize = src.size;
 
     if (w == 0)
-        w = srcsize.width;
+        w = (NSInteger)srcsize.width;
     if (h == 0)
-        h = srcsize.height;
+        h = (NSInteger)srcsize.height;
 
     // NSLog(@"  drawimage in gfx x=%d y=%d w=%d h=%d\n", x, y, w, h);
 

@@ -118,8 +118,8 @@ unsigned chartokeycode(unsigned ch) {
     if (self) {
         _type = EVTMOUSE;
         win = name;
-        _val1 = v.x;
-        _val2 = v.y;
+        _val1 = (NSInteger)v.x;
+        _val2 = (NSInteger)v.y;
     }
     return self;
 }
@@ -180,7 +180,7 @@ unsigned chartokeycode(unsigned ch) {
     if (self) {
         _type = EVTHYPER;
         win = name;
-        _val1 = linkid;
+        _val1 = (NSInteger)linkid;
     }
     return self;
 }
@@ -193,11 +193,11 @@ unsigned chartokeycode(unsigned ch) {
     reply.len = 0;
 
     if (ln) {
-        reply.len = (int)(ln.length * 2);
-        if (reply.len > (int)sizeof buf)
+        reply.len = ln.length * 2;
+        if (reply.len > sizeof buf)
             reply.len = sizeof buf;
         [ln getCharacters:(unsigned short *)buf
-                    range:NSMakeRange(0, reply.len / 2)];
+                    range:NSMakeRange(0, (NSUInteger)reply.len / 2)];
     }
 
     reply.cmd = (int)_type;
@@ -216,7 +216,7 @@ unsigned chartokeycode(unsigned ch) {
         settings->grid_margin_y =(int)theme.gridMarginY;
         settings->cell_width = theme.cellWidth;
         settings->cell_height = theme.cellHeight;
-        settings->leading = theme.gridNormal.lineSpacing;
+        settings->leading = (float)theme.gridNormal.lineSpacing;
         settings->force_arrange = _forced;
 
         reply.len = sizeof(struct settings_struct);
@@ -224,7 +224,7 @@ unsigned chartokeycode(unsigned ch) {
 
     write((int)fd, &reply, sizeof(struct message));
     if (reply.len)
-        write((int)fd, buf, reply.len);
+        write((int)fd, buf, (size_t)reply.len);
 }
 
 @end
