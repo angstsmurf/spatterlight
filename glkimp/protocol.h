@@ -4,7 +4,7 @@ struct message
 {
     int cmd;
     int a1, a2, a3, a4, a5;
-    int len;
+    size_t len;
 };
 
 struct fillrect
@@ -32,7 +32,7 @@ struct settings_struct
     int force_arrange;
 };
 
-void sendmsg(int msg, int a1, int a2, int a3, int a4, int a5, int len, char *buf);
+void sendmsg(int msg, int a1, int a2, int a3, int a4, int a5, size_t len, char *buf);
 void readmsg(struct message *msgbuf, char *buf);
 
 enum

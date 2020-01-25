@@ -194,8 +194,8 @@ unsigned chartokeycode(unsigned ch) {
 
     if (ln) {
         reply.len = ln.length * 2;
-        if (reply.len > sizeof buf)
-            reply.len = sizeof buf;
+        if (reply.len > sizeof(buf))
+            reply.len = sizeof(buf);
         [ln getCharacters:(unsigned short *)buf
                     range:NSMakeRange(0, (NSUInteger)reply.len / 2)];
     }
@@ -214,8 +214,8 @@ unsigned chartokeycode(unsigned ch) {
         settings->buffer_margin_y = (int)theme.bufferMarginY;
         settings->grid_margin_x = (int)theme.gridMarginX;
         settings->grid_margin_y =(int)theme.gridMarginY;
-        settings->cell_width = theme.cellWidth;
-        settings->cell_height = theme.cellHeight;
+        settings->cell_width = (float)theme.cellWidth;
+        settings->cell_height = (float)theme.cellHeight;
         settings->leading = (float)theme.gridNormal.lineSpacing;
         settings->force_arrange = _forced;
 

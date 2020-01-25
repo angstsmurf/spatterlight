@@ -46,7 +46,7 @@ float gleading = 0;
 
 glui32 lasteventtype = -1;
 
-void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf)
+void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, size_t len, char *buf)
 {
     ssize_t n;
     struct message msgbuf;

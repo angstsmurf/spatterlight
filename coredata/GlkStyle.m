@@ -271,7 +271,7 @@
                     
                 default:
                     
-                    NSLog(@"Unhandled style hint");
+                    NSLog(@"Unhandled style hint: %ld", i);
                     break;
             }
         }

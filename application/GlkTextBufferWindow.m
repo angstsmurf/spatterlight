@@ -473,7 +473,7 @@
                     lowest = NSMaxY(img2.bounds) + 1;
                 }
 
-            if (lowest)
+            if (lowest > 0)
                 rect.origin.y = lowest;
         }
     }

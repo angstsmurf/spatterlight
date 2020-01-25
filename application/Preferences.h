@@ -84,8 +84,8 @@
 + (NSColor *)foregroundColor:(int)number;
 + (NSColor *)backgroundColor:(int)number;
 
-+ (float)lineHeight;
-+ (float)charWidth;
++ (double)lineHeight;
++ (double)charWidth;
 + (CGFloat)gridMargins;
 + (CGFloat)bufferMargins;
 + (CGFloat)border;

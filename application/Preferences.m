@@ -381,11 +381,11 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     return zoomDirection;
 }
 
-+ (float)lineHeight {
++ (double)lineHeight {
     return theme.cellHeight;
 }
 
-+ (float)charWidth {
++ (double)charWidth {
     return theme.cellWidth;;
 }
 
@@ -713,7 +713,7 @@ NSString *fontToString(NSFont *font) {
 
     txtGridMargin.floatValue = theme.gridMarginX;
     txtBufferMargin.floatValue = theme.bufferMarginX;
-    txtLeading.floatValue = theme.bufferNormal.lineSpacing;
+    txtLeading.doubleValue = theme.bufferNormal.lineSpacing;
 
     txtCols.intValue = theme.defaultCols;
     txtRows.intValue = theme.defaultRows;
@@ -1139,9 +1139,9 @@ objectValueForTableColumn: (NSTableColumn*)column
 - (IBAction)changeMargin:(id)sender;
 {
     NSString *key = nil;
-    float val = 0.0;
+    NSInteger val = 0;
 
-    val = [sender floatValue];
+    val = [sender intValue];
 
     if (sender == txtGridMargin) {
         key = @"GridMargin";
@@ -1226,7 +1226,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 //}
 
 - (IBAction)changeBorderSize:(id)sender {
-    theme.border = [sender floatValue];
+    theme.border = [sender intValue];
 //    [[NSUserDefaults standardUserDefaults] setObject:@(border)
 //                                              forKey:@"Border"];
 

@@ -114,7 +114,7 @@ fprintf(stderr, "%s\n",                                                    \
           reset:(BOOL)shouldReset
      winRestore:(BOOL)windowRestoredBySystem_ {
 
-    NSLog(@"glkctl: runterp %@ %@", terpname_, _game);
+    NSLog(@"glkctl: runterp %@ %@", terpname_, game_.metadata.title);
 
     _game = game_;
     _theme = _game.theme;
@@ -204,10 +204,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     restoredController = nil;
     inFullScreenResize = NO;
-
-//    [self appSupportDir];
-//    [self autosaveFileGUI];
-//    [self autosaveFileTerp];
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -457,7 +453,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self queueEvent:event];
 
     // Restart timer
-    if (_storedTimerLeft) {
+    if (_storedTimerLeft > 0) {
         NSLog(@"storedTimerLeft:%f storedTimerInterval:%f",
               _storedTimerLeft, _storedTimerInterval);
         if (timer) {
@@ -473,7 +469,7 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"storedTimerLeft was %f, so started a timer.",
               _storedTimerInterval);
 
-    } else if (_storedTimerInterval) {
+    } else if (_storedTimerInterval > 0) {
         [self handleSetTimer:(NSUInteger)(_storedTimerInterval * 1000)];
         NSLog(@"_storedTimerInterval was %f, so started a timer.",
               _storedTimerLeft);
@@ -1898,18 +1894,18 @@ NSInteger colorToInteger(NSColor *color) {
                 NSInteger vmask = NSViewMaxYMargin;
 
                 if (fabs(NSMaxX(rect) - _contentView.frame.size.width) < 2.0 &&
-                    rect.size.width) {
+                    rect.size.width > 0) {
                     // If window is at right edge, attach to that edge
                     hmask = NSViewWidthSizable;
                 }
 
                 if (fabs(NSMaxY(rect) - _contentView.frame.size.height) < 2.0 &&
-                    rect.size.height) {
+                    rect.size.height > 0) {
                     // If window is at bottom, attach to bottom
                     vmask = NSViewHeightSizable;
                 }
 
-                reqWin.autoresizingMask = hmask | vmask;
+                reqWin.autoresizingMask = (NSAutoresizingMaskOptions)(hmask | vmask);
 
                 windowdirty = YES;
             } else
@@ -1939,7 +1935,7 @@ NSInteger colorToInteger(NSColor *color) {
 
         case DRAWIMAGE:
             if (reqWin) {
-                if (lastimage) {
+                if (lastimage && !NSEqualSizes(lastimage.size, NSZeroSize)) {
                     [reqWin drawImage:lastimage
                                  val1:req->a2
                                  val2:req->a3
@@ -2302,7 +2298,7 @@ again:
         if (request.len > GLKBUFSIZE) {
             maxibuf = malloc(request.len);
             if (!maxibuf) {
-                NSLog(@"glkctl: out of memory for message (%zd bytes)", request.len);
+                NSLog(@"glkctl: out of memory for message (%zu bytes)", request.len);
                 [task terminate];
                 return;
             }

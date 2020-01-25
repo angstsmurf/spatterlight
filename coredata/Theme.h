@@ -39,8 +39,8 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic) int32_t winSpacingX;
 @property (nonatomic) int32_t winSpacingY;
-@property (nonatomic) float cellWidth;
-@property (nonatomic) float cellHeight;
+@property (nonatomic) double cellWidth;
+@property (nonatomic) double cellHeight;
 @property (nonatomic, retain) GlkStyle *bufAlert;
 @property (nonatomic, retain) GlkStyle *bufBlock;
 @property (nonatomic, retain) GlkStyle *bufEmph;

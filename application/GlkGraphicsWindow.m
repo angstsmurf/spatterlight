@@ -95,7 +95,7 @@
 
     frame.origin.y = round(frame.origin.y);
     
-    if (NSEqualRects(frame, self.frame))
+    if (NSEqualRects(frame, self.frame) && !NSEqualSizes(image.size, NSZeroSize))
         return;
 
     super.frame = frame;
@@ -240,12 +240,16 @@
            height:(NSInteger)h {
     NSSize srcsize = src.size;
 
+    if (NSEqualSizes(image.size, NSZeroSize)) {
+        return;
+    }
+
     if (w == 0)
         w = (NSInteger)srcsize.width;
     if (h == 0)
         h = (NSInteger)srcsize.height;
 
-    // NSLog(@"  drawimage in gfx x=%d y=%d w=%d h=%d\n", x, y, w, h);
+//    NSLog(@"drawimage in gfx x=%ld y=%ld w=%ld h=%ld \n", (long)x, (long)y, (long)w, (long)h);
 
     @try {
         [image lockFocus];

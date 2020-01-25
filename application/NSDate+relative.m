@@ -34,7 +34,7 @@ static const unsigned componentFlags = (NSYearCalendarUnit| NSMonthCalendarUnit 
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
     }
     else if ([self isThisWeek]) {
-        NSDateComponents *weekdayComponents = [[NSCalendar currentCalendar] components:kCFCalendarUnitWeekday fromDate:self];
+        NSDateComponents *weekdayComponents = [[NSCalendar currentCalendar] components:(NSCalendarUnit)kCFCalendarUnitWeekday fromDate:self];
         NSUInteger weekday = (NSUInteger)weekdayComponents.weekday;
         return [dateFormatter.weekdaySymbols objectAtIndex:weekday - 1];
     } else {
