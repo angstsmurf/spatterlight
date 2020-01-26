@@ -967,6 +967,31 @@ objectValueForTableColumn: (NSTableColumn*)column
     return;
 }
 
+
+-(BOOL)tableView:(NSTableView *)tableView
+shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
+    NSLog(@"Preferences tableView:shouldEditTableColumn:row:");
+    if (tableView == themesTableView) {
+        NSArray *themes = [self themeTableArray];
+        if ([[themes objectAtIndex:(NSUInteger)rowIndex] editable]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)notification {
+    NSInteger row = [themesTableView rowForView:notification.object];
+    if (row != -1) {
+        NSLog(@"Preferences controlTextDidEndEditing: rowForView: %ld", row);
+        row = themesTableView.selectedRow;
+        NSLog(@"selectedRow: %ld", row);
+        NSArray *themes = [self themeTableArray];
+        NSLog(@"Current name for theme at row %ld: %@", row, ((Theme *)[themes objectAtIndex:(NSUInteger)row]).name);
+        ((Theme *)[themes objectAtIndex:(NSUInteger)row]).name = ((NSTextField *)notification.object).stringValue;
+        [themesTableView reloadData];
+    }
+}
 - (NSArray *)themeTableArray {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSArray *fetchedObjects;
@@ -1008,7 +1033,13 @@ objectValueForTableColumn: (NSTableColumn*)column
         name = [NSString stringWithFormat:@"New theme %ld", counter++];
     }
     newTheme.name = name;
+    newTheme.editable = YES;
     [themesTableView reloadData];
+    NSArray *themes = [self themeTableArray];
+    NSUInteger row = [themes indexOfObject:newTheme];
+    NSIndexSet *set = [NSIndexSet indexSetWithIndex:row];
+    [themesTableView selectRowIndexes:set byExtendingSelection:NO];
+    [themesTableView editColumn:0 row:(NSInteger)row withEvent:nil select:YES];
 }
 
 - (IBAction)deleteTheme:(id)sender {
