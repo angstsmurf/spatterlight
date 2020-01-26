@@ -1400,7 +1400,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSString *terp;
     GlkController *gctl = [_gameSessions objectForKey:game.ifid];
 
-    NSLog(@"playgame %@", game);
+    NSLog(@"LibController playGame: %@ winRestore: %@", game.metadata.title, restoreflag ? @"YES" : @"NO");
 
     if (gctl) {
         NSLog(@"A game with this ifid is already in session");
@@ -2083,8 +2083,7 @@ objectValueForTableColumn: (NSTableColumn*)column
     NSArray *updatedObjects = [notification.userInfo objectForKey:NSUpdatedObjectsKey];
     if ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView])
     {
-        NSLog(@"Game currently on display in side view (%@) did change", currentSideView.metadata.title);
-
+//        NSLog(@"Game currently on display in side view (%@) did change", currentSideView.metadata.title);
         [self updateSideViewForce:YES];
     }
 }
