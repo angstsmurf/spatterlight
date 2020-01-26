@@ -1261,8 +1261,8 @@
 
     [self recalcBackground];
 
-//    [textstorage removeAttribute:NSBackgroundColorAttributeName
-//                            range:NSMakeRange(0, textstorage.length)];
+    [textstorage removeAttribute:NSBackgroundColorAttributeName
+                            range:NSMakeRange(0, textstorage.length)];
 
     /* reassign attribute dictionaries */
     x = 0;
