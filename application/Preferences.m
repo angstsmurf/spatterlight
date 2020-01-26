@@ -854,6 +854,7 @@ NSString *fontToString(NSFont *font) {
         [darkTheme populateStyles];
     [darkTheme.bufferNormal setColor:[NSColor whiteColor]];
     [darkTheme.gridNormal setColor:[NSColor whiteColor]];
+    [darkTheme.bufInput setColor:[NSColor redColor]];
     [darkTheme populateStyles];
 
     fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
