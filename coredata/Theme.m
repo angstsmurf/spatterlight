@@ -90,24 +90,30 @@
 	}
 
     //Loop through all relationships, and clone them if nil in target.
-	NSDictionary *relationships = [NSEntityDescription
-                                   entityForName:@"Theme"
-                                   inManagedObjectContext:self.managedObjectContext].relationshipsByName;
-	for (NSRelationshipDescription *rel in relationships)
-	{
-		NSString *keyName = [NSString stringWithFormat:@"%@",rel];
-		if ([self valueForKey:keyName] != nil && [cloned valueForKey:keyName] == nil && ![keyName isEqualToString:@"games"])
-		{
-			//Clone it, and add clone to set
-            //NSLog(@"Setting clone %@ to a clone of my %@", keyName, keyName);
-			GlkStyle *clonedFont = [((GlkStyle *)[self valueForKey:keyName]) clone];
-			[cloned setValue:clonedFont forKey:keyName];
-			if ([clonedFont valueForKey:keyName] != cloned)
-				NSLog(@"Error! Reciprocal relationship did not work as expected");
-		}
+//    NSDictionary *relationships = [NSEntityDescription
+//                                   entityForName:@"Theme"
+//                                   inManagedObjectContext:self.managedObjectContext].relationshipsByName;
+	//for (NSRelationshipDescription *rel in relationships)
+
+    NSString *keyName;
+    GlkStyle *clonedStyle;
+    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
+        //Clone it, and add clone to set
+        //NSLog(@"Setting clone %@ to a clone of my %@", keyName, keyName);
+        keyName = [gBufferStyleNames objectAtIndex:i];
+        clonedStyle = [(GlkStyle * )[self valueForKey:keyName] clone];
+        [cloned setValue:clonedStyle forKey:keyName];
+        if ([clonedStyle valueForKey:keyName] != cloned)
+            NSLog(@"Error! Reciprocal relationship did not work as expected");
+        keyName = [gGridStyleNames objectAtIndex:i];
+        clonedStyle = [(GlkStyle * )[self valueForKey:keyName] clone];
+        [cloned setValue:clonedStyle forKey:keyName];
+        if ([clonedStyle valueForKey:keyName] != cloned)
+            NSLog(@"Error! Reciprocal relationship did not work as expected");
 	}
 
     cloned.name = [cloned.name stringByAppendingString:@" cloned"];
+    cloned.defaultParent = self;
 	return cloned;
 }
 

@@ -934,7 +934,6 @@ objectValueForTableColumn: (NSTableColumn*)column
             NSLog(@"The user has somehow selected more than one theme in preferences window!?");
             return;
         }
-
         
         if (rows.count == 0) {
             // All selected themes were de-selected
@@ -982,17 +981,47 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
-    NSInteger row = [themesTableView rowForView:notification.object];
-    if (row != -1) {
-        NSLog(@"Preferences controlTextDidEndEditing: rowForView: %ld", row);
-        row = themesTableView.selectedRow;
-        NSLog(@"selectedRow: %ld", row);
+    Theme *renamedTheme;
+    if ([themesTableView rowForView:notification.object] != -1) {
+        NSUInteger row = (NSUInteger)themesTableView.selectedRow;
+        NSString *newName = ((NSTextField *)notification.object).stringValue;
         NSArray *themes = [self themeTableArray];
-        NSLog(@"Current name for theme at row %ld: %@", row, ((Theme *)[themes objectAtIndex:(NSUInteger)row]).name);
-        ((Theme *)[themes objectAtIndex:(NSUInteger)row]).name = ((NSTextField *)notification.object).stringValue;
-        [themesTableView reloadData];
+        if ([self findThemeByName:newName] == nil) {
+            if (row < themes.count) {
+                renamedTheme = [themes objectAtIndex:row];
+                renamedTheme.name = newName;
+            } else {
+                // We deleted a theme while editing its name
+                renamedTheme = theme;
+            }
+            [themesTableView reloadData];
+            themes = [self themeTableArray];
+            row = [themes indexOfObject:renamedTheme];
+            NSIndexSet *set = [NSIndexSet indexSetWithIndex:row];
+            [themesTableView selectRowIndexes:set byExtendingSelection:NO];
+            [themesTableView scrollRowToVisible:(NSInteger)row];
+        }
     }
 }
+
+- (BOOL)control:(NSControl *)control
+  isValidObject:(id)obj {
+    NSLog(@"control:isValidObject:");
+    NSInteger result = [themesTableView rowForView:control];
+    if (result != -1) {
+        NSLog(@"control:isValidObject:obj is a view in themesTableView. Row:%ld", result);
+        if ([obj isKindOfClass:[NSString class]]) {
+            if ([self findThemeByName:(NSString *)obj] == nil) {
+             return YES;
+            } else {
+                NSBeep();
+                return NO;
+            }
+        }
+    }
+    return YES;
+}
+
 - (NSArray *)themeTableArray {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSArray *fetchedObjects;
@@ -1027,7 +1056,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 }
 
 - (IBAction)addTheme:(id)sender {
-    Theme *newTheme = (Theme *) [theme clone];
+    Theme *newTheme = theme.clone;
     NSString *name = @"New theme";
     NSUInteger counter = 1;
     while ([self findThemeByName:name]) {
@@ -1035,9 +1064,10 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     }
     newTheme.name = name;
     newTheme.editable = YES;
+    theme = newTheme;
     [themesTableView reloadData];
     NSArray *themes = [self themeTableArray];
-    NSUInteger row = [themes indexOfObject:newTheme];
+    NSUInteger row = [themes indexOfObject:theme];
     NSIndexSet *set = [NSIndexSet indexSetWithIndex:row];
     [themesTableView selectRowIndexes:set byExtendingSelection:NO];
     [themesTableView editColumn:0 row:(NSInteger)row withEvent:nil select:YES];
@@ -1046,31 +1076,48 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 - (IBAction)deleteTheme:(id)sender {
     NSIndexSet *rows = themesTableView.selectedRowIndexes;
     if (!rows.count)
+        //Should never happen
         return;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSArray *fetchedObjects;
-    NSError *error;
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-    fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
-    Theme *selectedTheme = [fetchedObjects objectAtIndex:rows.firstIndex];
+    NSArray *themes = [self themeTableArray];
+
+    Theme *selectedTheme = [themes objectAtIndex:rows.firstIndex];
     if (selectedTheme == theme) {
-        NSEnumerator *enumerator = [fetchedObjects objectEnumerator];
-        Theme *nextTheme;
-        while (nextTheme = [enumerator nextObject]) {
-            if (nextTheme != selectedTheme) {
-                theme = nextTheme;
-                break;
+        //Should always be true
+
+        if (!selectedTheme.editable || themes.count == 1) {
+            NSBeep();
+            return;
+        }
+
+        if (selectedTheme.defaultParent) {
+            NSLog(@"We are deleting theme %@, so switch to theme %@", theme.name, selectedTheme.defaultParent.name)
+            theme = selectedTheme.defaultParent;
+        } else {
+            NSEnumerator *enumerator = [themes objectEnumerator];
+            Theme *nextTheme;
+            while (nextTheme = [enumerator nextObject]) {
+                if (nextTheme != selectedTheme) {
+                    theme = nextTheme;
+                    break;
+                }
             }
         }
         if (theme == selectedTheme) {
             NSLog(@"Error! Tried to delete last remaining theme!");
+            NSBeep();
             return;
         }
+        for (Theme *child in selectedTheme.defaultChild)
+            child.defaultParent = theme;
+        [self.managedObjectContext deleteObject:selectedTheme];
+        [themesTableView reloadData];
+        NSUInteger row = [themes indexOfObject:theme];
+        NSIndexSet *set = [NSIndexSet indexSetWithIndex:row];
+        [themesTableView selectRowIndexes:set byExtendingSelection:NO];
+        [themesTableView scrollRowToVisible:(NSInteger)row];
+        [self.window makeFirstResponder:themesTableView];
     }
-    [self.managedObjectContext deleteObject:selectedTheme];
-    [themesTableView reloadData];
 }
 
 

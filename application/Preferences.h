@@ -12,7 +12,7 @@
 
 @class Theme, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow;
 
-@interface Preferences : NSWindowController <NSWindowDelegate> {
+@interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate> {
     IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
     IBOutlet NSColorWell *clrInputFg, *clrBufferFg, *clrGridFg;
     IBOutlet NSColorWell *clrBufferBg, *clrGridBg;
