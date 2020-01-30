@@ -1905,7 +1905,7 @@ NSInteger colorToInteger(NSColor *color) {
                     vmask = NSViewHeightSizable;
                 }
 
-                reqWin.autoresizingMask = (NSAutoresizingMaskOptions)(hmask | vmask);
+                reqWin.autoresizingMask = hmask | vmask;
 
                 windowdirty = YES;
             } else
@@ -2725,7 +2725,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
          // Make sure the window style mask does not
          // include full screen bit
          [window
-          setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
+          setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
          [[window animator] setFrame:oldFrame display:YES];
      }
      completionHandler:^{
