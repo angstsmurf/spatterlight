@@ -1056,7 +1056,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 }
 
 - (IBAction)addTheme:(id)sender {
-    Theme *newTheme = theme.clone;
+    Theme *newTheme = [theme clone];
     NSString *name = @"New theme";
     NSUInteger counter = 1;
     while ([self findThemeByName:name]) {
@@ -1064,20 +1064,18 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     }
     newTheme.name = name;
     newTheme.editable = YES;
-
-    NSLog(@"Created new theme %@ with parent %@", newTheme.name, newTheme.defaultParent.name);
     theme = newTheme;
     [themesTableView reloadData];
     NSArray *themes = [self themeTableArray];
     NSUInteger row = [themes indexOfObject:theme];
-    NSIndexSet *set = [NSIndexSet indexSetWithIndex:row];
-    [themesTableView selectRowIndexes:set byExtendingSelection:NO];
     [themesTableView editColumn:0 row:(NSInteger)row withEvent:nil select:YES];
 }
 
 - (IBAction)deleteTheme:(id)sender {
     NSIndexSet *rows = themesTableView.selectedRowIndexes;
     NSString *themeName;
+    NSEnumerator *enumerator;
+    Theme *nextTheme;
     NSUInteger row;
     if (!rows.count)
         //Should never happen
@@ -1103,11 +1101,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
             themeName = theme.name;
 
         } else {
-            NSEnumerator *enumerator = [themes objectEnumerator];
-            Theme *nextTheme;
+            enumerator = [themes objectEnumerator];
             while (nextTheme = [enumerator nextObject]) {
                 if (nextTheme != selectedTheme) {
                     theme = nextTheme;
+                    themeName = theme.name;
                     break;
                 }
             }
@@ -1117,8 +1115,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
             NSBeep();
             return;
         }
-        for (Theme *child in selectedTheme.defaultChild)
-            child.defaultParent = theme;
+        enumerator = [selectedTheme.defaultChild objectEnumerator];
+        while (nextTheme = [enumerator nextObject])
+            nextTheme.defaultParent = theme;
 
         [self.managedObjectContext deleteObject:selectedTheme];
         [themesTableView reloadData];
@@ -1132,7 +1131,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
         [themesTableView selectRowIndexes:set byExtendingSelection:NO];
         NSLog(@"Selected theme at row %ld (%@)", row, ((Theme *)[themes objectAtIndex:row]).name);
         [themesTableView scrollRowToVisible:(NSInteger)row];
-        [self.window makeFirstResponder:themesTableView];
     } else NSLog(@"Error! selectedTheme != theme");
 }
 
