@@ -1077,6 +1077,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
 
 - (IBAction)deleteTheme:(id)sender {
     NSIndexSet *rows = themesTableView.selectedRowIndexes;
+    NSString *themeName;
+    NSUInteger row;
     if (!rows.count)
         //Should never happen
         return;
@@ -1092,9 +1094,14 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
             return;
         }
 
+        themeName = theme.name;
+
         if (selectedTheme.defaultParent) {
-            NSLog(@"We are deleting theme %@, so switch to theme %@", theme.name, selectedTheme.defaultParent.name)
+            NSLog(@"We are deleting theme %@, so switching to its parent theme %@", themeName, selectedTheme.defaultParent.name)
             theme = selectedTheme.defaultParent;
+            NSLog(@"Theme set to %@, with parent %@", theme.name, theme.defaultParent.name);
+            themeName = theme.name;
+
         } else {
             NSEnumerator *enumerator = [themes objectEnumerator];
             Theme *nextTheme;
@@ -1112,14 +1119,21 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
         }
         for (Theme *child in selectedTheme.defaultChild)
             child.defaultParent = theme;
+
         [self.managedObjectContext deleteObject:selectedTheme];
         [themesTableView reloadData];
-        NSUInteger row = [themes indexOfObject:theme];
+        themes = [self themeTableArray];
+        if (![theme.name isEqualToString:themeName]) {
+            NSLog(@"Error! theme.name(%@) is not equal to themeName (%@)!",theme.name, themeName);
+            theme = [self findThemeByName:themeName]; }
+        row = [themes indexOfObject:theme];
+
         NSIndexSet *set = [NSIndexSet indexSetWithIndex:row];
         [themesTableView selectRowIndexes:set byExtendingSelection:NO];
+        NSLog(@"Selected theme at row %ld (%@)", row, ((Theme *)[themes objectAtIndex:row]).name);
         [themesTableView scrollRowToVisible:(NSInteger)row];
         [self.window makeFirstResponder:themesTableView];
-    }
+    } else NSLog(@"Error! selectedTheme != theme");
 }
 
 
