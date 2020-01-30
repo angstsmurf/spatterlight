@@ -2,7 +2,7 @@
 //  Theme.h
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2019-12-29.
+//  Created by Petter Sjölund on 2020-01-30.
 //
 //
 
@@ -17,6 +17,8 @@
 @property (nonatomic, retain) id bufferBackground;
 @property (nonatomic) int32_t bufferMarginX;
 @property (nonatomic) int32_t bufferMarginY;
+@property (nonatomic) double cellHeight;
+@property (nonatomic) double cellWidth;
 @property (nonatomic) int32_t dashes;
 @property (nonatomic) int32_t defaultCols;
 @property (nonatomic) int32_t defaultRows;
@@ -33,14 +35,12 @@
 @property (nonatomic) int32_t minCols;
 @property (nonatomic) int32_t minRows;
 @property (nonatomic, retain) id morePrompt;
+@property (nonatomic, retain) NSString * name;
 @property (nonatomic) BOOL smartQuotes;
 @property (nonatomic) int32_t spaceFormat;
 @property (nonatomic, retain) id spacingColor;
-@property (nonatomic, retain) NSString * name;
 @property (nonatomic) int32_t winSpacingX;
 @property (nonatomic) int32_t winSpacingY;
-@property (nonatomic) double cellWidth;
-@property (nonatomic) double cellHeight;
 @property (nonatomic, retain) GlkStyle *bufAlert;
 @property (nonatomic, retain) GlkStyle *bufBlock;
 @property (nonatomic, retain) GlkStyle *bufEmph;
@@ -58,9 +58,9 @@
 @property (nonatomic, retain) GlkStyle *gridAlert;
 @property (nonatomic, retain) GlkStyle *gridBlock;
 @property (nonatomic, retain) GlkStyle *gridEmph;
-@property (nonatomic, retain) GlkStyle *gridNormal;
 @property (nonatomic, retain) GlkStyle *gridHead;
 @property (nonatomic, retain) GlkStyle *gridInput;
+@property (nonatomic, retain) GlkStyle *gridNormal;
 @property (nonatomic, retain) GlkStyle *gridNote;
 @property (nonatomic, retain) GlkStyle *gridPre;
 @property (nonatomic, retain) GlkStyle *gridSubH;
@@ -68,9 +68,10 @@
 @property (nonatomic, retain) GlkStyle *gridUsr2;
 @property (nonatomic, retain) Interpreter *interpreter;
 @property (nonatomic, retain) Game *overrides;
+@property (nonatomic, retain) Theme *darkTheme;
+@property (nonatomic, retain) Theme *lightTheme;
 
-@property (readonly, strong) Theme *clone;
-
+- (Theme *)clone;
 - (void)populateStyles;
 
 @end

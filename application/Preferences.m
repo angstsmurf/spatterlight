@@ -1064,6 +1064,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     }
     newTheme.name = name;
     newTheme.editable = YES;
+
+    NSLog(@"Created new theme %@ with parent %@", newTheme.name, newTheme.defaultParent.name);
     theme = newTheme;
     [themesTableView reloadData];
     NSArray *themes = [self themeTableArray];

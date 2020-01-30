@@ -2,15 +2,17 @@
 //  Theme.m
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2019-12-29.
+//  Created by Petter Sjölund on 2020-01-30.
 //
 //
 
-#import "Theme.h"
 #import "main.h"
+#import "Theme.h"
 #import "Game.h"
 #import "GlkStyle.h"
 #import "Interpreter.h"
+#import "Theme.h"
+
 
 @implementation Theme
 
@@ -18,6 +20,8 @@
 @dynamic bufferBackground;
 @dynamic bufferMarginX;
 @dynamic bufferMarginY;
+@dynamic cellHeight;
+@dynamic cellWidth;
 @dynamic dashes;
 @dynamic defaultCols;
 @dynamic defaultRows;
@@ -34,14 +38,12 @@
 @dynamic minCols;
 @dynamic minRows;
 @dynamic morePrompt;
+@dynamic name;
 @dynamic smartQuotes;
 @dynamic spaceFormat;
 @dynamic spacingColor;
-@dynamic name;
 @dynamic winSpacingX;
 @dynamic winSpacingY;
-@dynamic cellWidth;
-@dynamic cellHeight;
 @dynamic bufAlert;
 @dynamic bufBlock;
 @dynamic bufEmph;
@@ -59,9 +61,9 @@
 @dynamic gridAlert;
 @dynamic gridBlock;
 @dynamic gridEmph;
-@dynamic gridNormal;
 @dynamic gridHead;
 @dynamic gridInput;
+@dynamic gridNormal;
 @dynamic gridNote;
 @dynamic gridPre;
 @dynamic gridSubH;
@@ -69,11 +71,13 @@
 @dynamic gridUsr2;
 @dynamic interpreter;
 @dynamic overrides;
+@dynamic darkTheme;
+@dynamic lightTheme;
 
 - (Theme *)clone {
 
     NSLog(@"Creating a clone of theme %@", self.name);
-    
+
 	//create new object in data store
 	Theme *cloned = [NSEntityDescription
                      insertNewObjectForEntityForName:@"Theme"
@@ -90,9 +94,9 @@
 	}
 
     //Loop through all relationships, and clone them if nil in target.
-//    NSDictionary *relationships = [NSEntityDescription
-//                                   entityForName:@"Theme"
-//                                   inManagedObjectContext:self.managedObjectContext].relationshipsByName;
+    //    NSDictionary *relationships = [NSEntityDescription
+    //                                   entityForName:@"Theme"
+    //                                   inManagedObjectContext:self.managedObjectContext].relationshipsByName;
 	//for (NSRelationshipDescription *rel in relationships)
 
     NSString *keyName;
@@ -112,7 +116,12 @@
             NSLog(@"Error! Reciprocal relationship did not work as expected");
 	}
 
-    cloned.name = [cloned.name stringByAppendingString:@" cloned"];
+    NSString *trimmedString=[cloned.name substringFromIndex:(NSUInteger)MAX((int)[cloned.name length]-7, 0)]; //in case string is less than 7 characters long.
+    if ([trimmedString isEqualToString:@" cloned"])
+        cloned.name = [cloned.name stringByAppendingString:@" 2"];
+    else
+        cloned.name = [cloned.name stringByAppendingString:@" cloned"];
+
     cloned.defaultParent = self;
 	return cloned;
 }
@@ -146,8 +155,8 @@
 
     if (!self.bufInput) {
         self.bufInput = (GlkStyle *) [NSEntityDescription
-                                          insertNewObjectForEntityForName:@"GlkStyle"
-                                          inManagedObjectContext:self.managedObjectContext];
+                                      insertNewObjectForEntityForName:@"GlkStyle"
+                                      inManagedObjectContext:self.managedObjectContext];
 
         [self.bufInput createDefaultAttributeDictionary];
         NSLog(@"Created a new buffer input style for theme %@", self.name);
@@ -159,7 +168,7 @@
         // Delete all old GlkStyle objects that we do not want to keep
         if ([self valueForKey:[gGridStyleNames objectAtIndex:i]])
             [self.managedObjectContext deleteObject:[self valueForKey:[gGridStyleNames objectAtIndex:i]]];
-        
+
         [self setValue:[self.gridNormal clone] forKey:[gGridStyleNames objectAtIndex:i]];
         [[self valueForKey:[gGridStyleNames objectAtIndex:i]] setIndex:(NSInteger)i];
 
@@ -174,7 +183,7 @@
         [[self valueForKey:[gBufferStyleNames objectAtIndex:i]] setIndex:(NSInteger)i];
 	}
 
-      /* make italic, bold, bolditalic font variants */
+    /* make italic, bold, bolditalic font variants */
 
     NSFont *bufroman, *bufbold, *bufitalic, *bufbolditalic, *bufheader;
     NSFont *gridroman, *gridbold, *griditalic, *gridbolditalic;
