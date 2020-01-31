@@ -145,7 +145,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 
     if (fetchedObjects == nil || fetchedObjects.count == 0) {
         NSLog(@"Preference readDefaults: Error! Saved theme %@ not found. Creating new default theme!", name);
-        theme = [self classCreateDefaultThemeInContext:managedObjectContext];
+        theme = [Preferences createDefaultThemeInContext:managedObjectContext];
         if (!theme)
             NSLog(@"Preference readDefaults: Error! Could not create default theme!");
     } else theme = [fetchedObjects objectAtIndex:0];
@@ -201,7 +201,24 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 }
 
 
-+ (Theme *)classCreateDefaultThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createDefaultThemeInContext:(NSManagedObjectContext *)context {
+    NSArray *fetchedObjects;
+    NSError *error = nil;
+
+    // First, check if ißt already exists
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:context];
+
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", @"Default"];
+    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+
+    if (fetchedObjects && fetchedObjects.count)
+        return [fetchedObjects objectAtIndex:0];
+    else if (error != nil) {
+        NSLog(@"Preferences createDefaultThemeInContext: %@", error);
+        return nil;
+    }
+
     Theme *defaultTheme = (Theme *) [NSEntityDescription
                                      insertNewObjectForEntityForName:@"Theme"
                                      inManagedObjectContext:context];
@@ -686,6 +703,7 @@ NSString *fontToString(NSFont *font) {
 
     prefs = self;
     [self updatePrefsPanel];
+    [themesTableView reloadData];
 }
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
@@ -745,13 +763,15 @@ NSString *fontToString(NSFont *font) {
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:[self managedObjectContext]];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", @"Default"];
-        NSError *error;
+        NSError *error = nil;
         NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
         if (fetchedObjects && fetchedObjects.count) {
             _defaultTheme = [fetchedObjects objectAtIndex:0];
         } else {
-            _defaultTheme = [self createDefaultTheme];
+            if (error != nil)
+                NSLog(@"Preferences defaultTheme: %@", error);
+            _defaultTheme = [Preferences createDefaultThemeInContext:_managedObjectContext];
         }
     }
     return _defaultTheme;
@@ -775,55 +795,9 @@ NSString *fontToString(NSFont *font) {
     return _managedObjectContext;
 }
 
-- (Theme *)createDefaultTheme {
-    Theme *defaultTheme = (Theme *) [NSEntityDescription
-                              insertNewObjectForEntityForName:@"Theme"
-                              inManagedObjectContext:_managedObjectContext];
-    
-    defaultTheme.name = @"Default";
-    defaultTheme.dashes = YES;
-    defaultTheme.defaultRows = 100;
-    defaultTheme.defaultCols = 80;
-    defaultTheme.minRows = 5;
-    defaultTheme.minCols = 32;
-    defaultTheme.maxRows = 1000;
-    defaultTheme.maxCols = 1000;
-    defaultTheme.doGraphics = YES;
-    defaultTheme.doSound = YES;
-    defaultTheme.doStyles = YES;
-    defaultTheme.justify = NO;
-    defaultTheme.smartQuotes = YES;
-    defaultTheme.spaceFormat = TAG_SPACES_GAME;
-    defaultTheme.border = 10;
-    defaultTheme.bufferMarginX = 5;
-    defaultTheme.bufferMarginY = 5;
-    defaultTheme.gridMarginX = 0;
-    defaultTheme.gridMarginY = 0;
-
-    defaultTheme.winSpacingX = 0;
-    defaultTheme.winSpacingY = 0;
-
-    defaultTheme.morePrompt = nil;
-    defaultTheme.spacingColor = nil;
-
-    defaultTheme.gridBackground = [NSColor whiteColor];
-    defaultTheme.bufferBackground = [NSColor whiteColor];
-    defaultTheme.editable = NO;
-
-    [defaultTheme populateStyles];
-
-    NSSize size = [defaultTheme.gridNormal cellSize];
-
-    defaultTheme.cellHeight = size.height;
-    defaultTheme.cellWidth = size.width;
-
-    return defaultTheme;
-}
-
 - (void)createDefaultThemes {
 
     Theme *darkTheme;
-
     NSArray *fetchedObjects;
     NSError *error;
 
@@ -997,8 +971,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
             [themesTableView reloadData];
             themes = [self themeTableArray];
             row = [themes indexOfObject:renamedTheme];
-            NSIndexSet *set = [NSIndexSet indexSetWithIndex:row];
-            [themesTableView selectRowIndexes:set byExtendingSelection:NO];
+//            NSIndexSet *set = [NSIndexSet indexSetWithIndex:row];
+//            [themesTableView selectRowIndexes:set byExtendingSelection:NO];
             [themesTableView scrollRowToVisible:(NSInteger)row];
         }
     }
@@ -1068,6 +1042,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
     [themesTableView reloadData];
     NSArray *themes = [self themeTableArray];
     NSUInteger row = [themes indexOfObject:theme];
+    [themesTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
     [themesTableView editColumn:0 row:(NSInteger)row withEvent:nil select:YES];
 }
 
