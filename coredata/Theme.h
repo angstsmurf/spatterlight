@@ -72,7 +72,9 @@
 @property (nonatomic, retain) Theme *lightTheme;
 
 - (Theme *)clone;
+- (void)copyAttributesFrom:(Theme *)theme;
 - (void)populateStyles;
+
 
 @end
 

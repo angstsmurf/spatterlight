@@ -83,40 +83,9 @@
                      insertNewObjectForEntityForName:@"Theme"
                      inManagedObjectContext:self.managedObjectContext];
 
-	//Loop through all attributes and assign then to the clone
-	NSDictionary *attributes = [NSEntityDescription
-                                entityForName:@"Theme"
-                                inManagedObjectContext:self.managedObjectContext].attributesByName;
+	[cloned copyAttributesFrom:self];
 
-	for (NSString *attr in attributes) {
-        //NSLog(@"Setting clone %@ to %@", attr, [self valueForKey:attr]);
-        [cloned setValue:[self valueForKey:attr] forKey:attr];
-	}
-
-    //Loop through all relationships, and clone them if nil in target.
-    //    NSDictionary *relationships = [NSEntityDescription
-    //                                   entityForName:@"Theme"
-    //                                   inManagedObjectContext:self.managedObjectContext].relationshipsByName;
-	//for (NSRelationshipDescription *rel in relationships)
-
-    NSString *keyName;
-    GlkStyle *clonedStyle;
-    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
-        //Clone it, and add clone to set
-        //NSLog(@"Setting clone %@ to a clone of my %@", keyName, keyName);
-        keyName = [gBufferStyleNames objectAtIndex:i];
-        clonedStyle = [(GlkStyle * )[self valueForKey:keyName] clone];
-        [cloned setValue:clonedStyle forKey:keyName];
-        if ([clonedStyle valueForKey:keyName] != cloned)
-            NSLog(@"Error! Reciprocal relationship did not work as expected");
-        keyName = [gGridStyleNames objectAtIndex:i];
-        clonedStyle = [(GlkStyle * )[self valueForKey:keyName] clone];
-        [cloned setValue:clonedStyle forKey:keyName];
-        if ([clonedStyle valueForKey:keyName] != cloned)
-            NSLog(@"Error! Reciprocal relationship did not work as expected");
-	}
-
-    NSString *trimmedString=[cloned.name substringFromIndex:(NSUInteger)MAX((int)[cloned.name length]-7, 0)]; //in case string is less than 7 characters long.
+    NSString *trimmedString = [cloned.name substringFromIndex:(NSUInteger)MAX((int)[cloned.name length]-7, 0)]; //in case string is less than 7 characters long.
     if ([trimmedString isEqualToString:@" cloned"])
         cloned.name = [cloned.name stringByAppendingString:@" 2"];
     else
@@ -124,6 +93,39 @@
 
     cloned.defaultParent = self;
 	return cloned;
+}
+
+- (void)copyAttributesFrom:(Theme *)theme {
+    //Loop through all attributes and assign then to the clone
+	NSDictionary *attributes = [NSEntityDescription
+                                entityForName:@"Theme"
+                                inManagedObjectContext:self.managedObjectContext].attributesByName;
+
+	for (NSString *attr in attributes) {
+        //NSLog(@"Setting clone %@ to %@", attr, [self valueForKey:attr]);
+        [self setValue:[theme valueForKey:attr] forKey:attr];
+	}
+
+    self.editable = YES;
+
+    //Loop through all relationships, and clone them if nil in target.
+
+    NSString *keyName;
+    GlkStyle *clonedStyle;
+    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
+        //Clone it, and add clone to set
+        //NSLog(@"Setting clone %@ to a clone of my %@", keyName, keyName);
+        keyName = [gBufferStyleNames objectAtIndex:i];
+        clonedStyle = [(GlkStyle * )[theme valueForKey:keyName] clone];
+        [self setValue:clonedStyle forKey:keyName];
+        if ([clonedStyle valueForKey:keyName] != self)
+            NSLog(@"Error! Reciprocal relationship did not work as expected");
+        keyName = [gGridStyleNames objectAtIndex:i];
+        clonedStyle = [(GlkStyle * )[theme valueForKey:keyName] clone];
+        [self setValue:clonedStyle forKey:keyName];
+        if ([clonedStyle valueForKey:keyName] != self)
+            NSLog(@"Error! Reciprocal relationship did not work as expected");
+	}
 }
 
 - (void)populateStyles {

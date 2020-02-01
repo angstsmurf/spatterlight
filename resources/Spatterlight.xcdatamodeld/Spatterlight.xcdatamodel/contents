@@ -102,7 +102,7 @@
         <attribute name="doGraphics" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
         <attribute name="doSound" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
         <attribute name="doStyles" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
-        <attribute name="editable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="editable" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="gridBackground" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="gridMarginX" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="gridMarginY" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -112,7 +112,7 @@
         <attribute name="minCols" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="minRows" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="morePrompt" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="smartQuotes" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="spaceFormat" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="spacingColor" optional="YES" attributeType="Transformable" syncable="YES"/>

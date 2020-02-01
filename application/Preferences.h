@@ -10,7 +10,7 @@
 #define ZOOMIN 1
 #define ZOOMOUT 2
 
-@class Theme, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow;
+@class Theme, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController;
 
 @interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate> {
     IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
@@ -40,9 +40,6 @@
     NSColor *__strong *colorp2;
 }
 
-@property (readonly) Theme *defaultTheme;
-@property (readonly) CoreDataManager *coreDataManager;
-@property (readonly) NSManagedObjectContext *managedObjectContext;
 
 + (void)rebuildTextAttributes;
 
@@ -60,8 +57,7 @@
 - (IBAction)changeEnableStyles:(id)sender;
 //- (IBAction)changeUseScreenFonts:(id)sender;
 
-- (IBAction)addTheme:(id)sender;
-- (IBAction)deleteTheme:(id)sender;
+- (IBAction)clickedSegmentedControl:(id)sender;
 
 - (IBAction)pushedUseThemeForAll:(id)sender;
 - (IBAction)pushedUseThemeForRunning:(id)sender;
@@ -107,5 +103,14 @@
 
 + (Preferences *)instance;
 
+@property (readonly) Theme *defaultTheme;
+@property (readonly) CoreDataManager *coreDataManager;
+@property (readonly) NSArray *sortDescriptors;
+
+@property (readonly) NSManagedObjectContext *managedObjectContext;
+@property (strong) IBOutlet NSSegmentedControl *addAndRemove;
+@property (strong) IBOutlet ThemeArrayController *arrayController;
+@property (strong) IBOutlet NSScrollView *scrollView;
 @property (strong) IBOutlet NSTextField *sampleTextfield;
+
 @end
