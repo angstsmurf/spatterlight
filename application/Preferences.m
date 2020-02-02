@@ -4,6 +4,7 @@
 #import "Theme.h"
 #import "ThemeArrayController.h"
 #import "GlkStyle.h"
+#import "NSColor+compare.h"
 
 #import "main.h"
 
@@ -644,6 +645,7 @@ NSString *fontToString(NSFont *font) {
     //    NSLog(@"pref: windowDidLoad()");
 
     [super windowDidLoad];
+    disregardTableSelection = YES;
 
     self.windowFrameAutosaveName = @"PrefsWindow";
     self.window.delegate = self;
@@ -870,8 +872,8 @@ NSString *fontToString(NSFont *font) {
 
 - (void)restoreThemeSelection:(id)sender {
     NSArray *themes = _arrayController.arrangedObjects;
-
-    if (![themes containsObject:theme]) {
+    theme = sender;
+    if (![themes containsObject:sender]) {
         NSLog(@"selected theme not found!");
         return;
     }
@@ -881,20 +883,19 @@ NSString *fontToString(NSFont *font) {
     [_arrayController setSelectionIndex:row];
     themesTableView.allowsEmptySelection = NO;
     [themesTableView scrollRowToVisible:(NSInteger)row];
+    disregardTableSelection = NO;
 }
 
 - (void)tableViewSelectionDidChange:(id)notification {
     NSTableView *tableView = [notification object];
     if (tableView == themesTableView) {
-        if (_arrayController.selectedTheme == theme)
+        if (_arrayController.selectedTheme == theme || disregardTableSelection == YES)
             return;
         theme = _arrayController.selectedTheme;
         // Send notification that theme has changed -- trigger configure events
 
         [self updatePrefsPanel];
         [[NSUserDefaults standardUserDefaults] setObject:theme.name forKey:@"themeName"];
-        NSLog(@"Saved themeName setting with name %@", theme.name);
-
         notification = [NSNotification notificationWithName:@"ThemeChanged" object:theme];
         [Preferences readSettingsFromTheme:theme];
 
@@ -1006,7 +1007,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
             row = (NSInteger)[_arrayController selectionIndex] - 1;
             [_arrayController remove:sender];
-            _arrayController.selectionIndex = row;
+            _arrayController.selectionIndex = (NSUInteger)row;
             break;
         case 2:
             //Should never happen
@@ -1020,6 +1021,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeDefaultSize:(id)sender {
     if (sender == txtCols) {
+        if (defscreenw == [sender intValue])
+            return;
+        [self cloneThemeIfNotEditable];
         defscreenw = [sender intValue];
         if (defscreenw < 5)
             defscreenw = 5;
@@ -1027,10 +1031,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
             defscreenw = 200;
         txtCols.intValue = defscreenw;
         theme.defaultCols = defscreenw;
-//        [[NSUserDefaults standardUserDefaults] setObject:@(defscreenw)
-//                                                  forKey:@"DefaultWidth"];
     }
     if (sender == txtRows) {
+        if (defscreenh == [sender intValue])
+            return;
+        [self cloneThemeIfNotEditable];
         defscreenh = [sender intValue];
         if (defscreenh < 5)
             defscreenh = 5;
@@ -1038,8 +1043,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             defscreenh = 200;
         txtRows.intValue = defscreenh;
         theme.defaultRows = defscreenh;
-//        [[NSUserDefaults standardUserDefaults] setObject:@(defscreenh)
-//                                                  forKey:@"DefaultHeight"];
+
     }
 
     /* send notification that default size has changed -- resize all windows */
@@ -1060,10 +1064,16 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (sender == clrGridFg) {
        key = @"gridNormal";
     } else if (sender == clrGridBg) {
+        if ([theme.gridBackground isEqualToColor:color])
+            return;
+        [self cloneThemeIfNotEditable];
         theme.gridBackground = color;
     } else if (sender == clrBufferFg) {
         key = @"bufferNormal";
     } else if (sender == clrBufferBg) {
+        if ([theme.bufferBackground isEqualToColor:color])
+            return;
+        [self cloneThemeIfNotEditable];
         theme.bufferBackground = color;
     } else if (sender == clrInputFg) {
         key = @"bufInput";
@@ -1075,10 +1085,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
             NSLog(@"Preferences changeColor called with invalid theme object!");
             return;
         }
-        style.color=color;
 
-//        [[NSUserDefaults standardUserDefaults] setObject:colorToData(*colorp)
-//                                                  forKey:key];
+        if ([style.color isEqualToColor:color])
+            return;
+
+        [self cloneThemeIfNotEditable];
+        style.color = color;
+
     }
 
     [Preferences rebuildTextAttributes];
@@ -1090,54 +1103,64 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 }
 
-- (IBAction)changeMargin:(id)sender;
-{
+- (IBAction)changeMargin:(id)sender  {
     NSString *key = nil;
     NSInteger val = 0;
 
     val = [sender intValue];
 
     if (sender == txtGridMargin) {
+        if (theme.gridMarginX == val)
+            return;
+        [self cloneThemeIfNotEditable];
         key = @"GridMargin";
         theme.gridMarginX = val;
     }
     if (sender == txtBufferMargin) {
+        if (theme.bufferMarginX == val)
+            return;
+        [self cloneThemeIfNotEditable];
         key = @"BufferMargin";
         theme.bufferMarginX = val;
     }
 
     if (key) {
-//        [[NSUserDefaults standardUserDefaults] setObject:@(val) forKey:key];
         [Preferences rebuildTextAttributes];
     }
 }
 
 - (IBAction)changeLeading:(id)sender {
-    theme.bufferNormal.lineSpacing = [sender floatValue];     
+    if (theme.bufferNormal.lineSpacing == [sender floatValue])
+        return;
+    [self cloneThemeIfNotEditable];
+    theme.bufferNormal.lineSpacing = [sender floatValue];
 //    [[NSUserDefaults standardUserDefaults] setObject:@(leading)
 //                                              forKey:@"Leading"];
     [Preferences rebuildTextAttributes];
 }
 
 - (IBAction)changeSmartQuotes:(id)sender {
+    if (theme.smartQuotes  == [sender state])
+        return;
+    [self cloneThemeIfNotEditable];
     theme.smartQuotes = [sender state];
     NSLog(@"pref: smart quotes changed to %d", smartquotes);
-//    [[NSUserDefaults standardUserDefaults] setObject:@(smartquotes)
-//                                              forKey:@"SmartQuotes"];
 }
 
 - (IBAction)changeSpaceFormatting:(id)sender {
+    if (theme.spaceFormat  == [sender state])
+        return;
+    [self cloneThemeIfNotEditable];
     theme.spaceFormat = [sender state];
     NSLog(@"pref: space format changed to %d", theme.spaceFormat);
-//    [[NSUserDefaults standardUserDefaults] setObject:@(spaceformat)
-//                                              forKey:@"SpaceFormat"];
 }
 
 - (IBAction)changeEnableGraphics:(id)sender {
+    if (theme.doGraphics  == [sender state])
+        return;
+    [self cloneThemeIfNotEditable];
     theme.doGraphics = [sender state];
     NSLog(@"pref: dographics changed to %d", theme.doGraphics);
-//    [[NSUserDefaults standardUserDefaults] setObject:@(dographics)
-//                                              forKey:@"EnableGraphics"];
 
     /* send notification that prefs have changed -- tell clients that graphics
      * are off limits */
@@ -1149,10 +1172,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeEnableSound:(id)sender {
+    if (theme.doSound  == [sender state])
+        return;
+    [self cloneThemeIfNotEditable];
     theme.doSound = [sender state];
     NSLog(@"pref: dosound changed to %d", theme.doSound);
-//    [[NSUserDefaults standardUserDefaults] setObject:@(dosound)
-//                                              forKey:@"EnableSound"];
 
     /* send notification that prefs have changed -- tell clients that sound is
      * off limits */
@@ -1164,25 +1188,20 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeEnableStyles:(id)sender {
+    if (theme.doStyles  == [sender state])
+        return;
+    [self cloneThemeIfNotEditable];
     theme.doStyles = [sender state];
     NSLog(@"pref: dostyles changed to %d", theme.doStyles);
-//    [[NSUserDefaults standardUserDefaults] setObject:@(dostyles)
-//                                              forKey:@"EnableStyles"];
     [Preferences rebuildTextAttributes];
 }
 
-//- (IBAction)changeUseScreenFonts:(id)sender {
-//    usescreenfonts = [sender state];
-//    NSLog(@"pref: usescreenfonts changed to %d", usescreenfonts);
-//    [[NSUserDefaults standardUserDefaults] setObject:@(usescreenfonts)
-//                                              forKey:@"ScreenFonts"];
-//    [Preferences rebuildTextAttributes];
-//}
 
 - (IBAction)changeBorderSize:(id)sender {
+    if (theme.border == [sender intValue])
+        return;
+    [self cloneThemeIfNotEditable];
     theme.border = [sender intValue];
-//    [[NSUserDefaults standardUserDefaults] setObject:@(border)
-//                                              forKey:@"Border"];
 
     /* send notification that prefs have changed -- tell clients that border has
      * changed */
@@ -1191,6 +1210,22 @@ textShouldEndEditing:(NSText *)fieldEditor {
      object:[Preferences currentTheme]];
 
     NSLog(@"Preferences changeBorderSize issued PreferencesChanged notification with object %@", [Preferences currentTheme].name);
+}
+
+- (void)cloneThemeIfNotEditable {
+    if (!theme.editable) {
+        disregardTableSelection = YES;
+        Theme *clonedTheme = theme.clone;
+        clonedTheme.editable = YES;
+        NSString *name = [theme.name stringByAppendingString:@" (modified)"];
+        NSUInteger counter = 2;
+        while ([_arrayController findThemeByName:name]) {
+            name = [NSString stringWithFormat:@"%@ (modified) %ld", theme.name, counter++];
+        }
+        clonedTheme.name = name;
+        theme = clonedTheme;
+        [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
+    }
 }
 
 #pragma mark Zoom

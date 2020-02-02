@@ -506,6 +506,7 @@
 		C358139C1ED83F48001E49C4 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813931ED83DF0001E49C4 /* SDL2_mixer.framework */; };
 		C35813A21ED83F69001E49C4 /* SDL2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C35813941ED83DF8001E49C4 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C35813A31ED83F6C001E49C4 /* SDL2_mixer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C35813931ED83DF0001E49C4 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C35F1D1023E6CFA900AC49D0 /* NSColor+compare.m in Sources */ = {isa = PBXBuildFile; fileRef = C35F1D0F23E6CFA900AC49D0 /* NSColor+compare.m */; };
 		C381012A1EDA297E00B87B68 /* GlkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38101291EDA297E00B87B68 /* GlkController.m */; };
 		C392312D1ECB7F9200536504 /* save.c in Sources */ = {isa = PBXBuildFile; fileRef = C392312C1ECB7F9200536504 /* save.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C392312F1ECB7FA900536504 /* sysdep.c in Sources */ = {isa = PBXBuildFile; fileRef = C392312E1ECB7FA900536504 /* sysdep.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -2369,6 +2370,8 @@
 		C35813981ED83E22001E49C4 /* Vorbis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vorbis.framework; path = Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/Vorbis.framework; sourceTree = "<group>"; };
 		C35813991ED83E28001E49C4 /* modplug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = modplug.framework; path = Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework; sourceTree = "<group>"; };
 		C358139A1ED83E34001E49C4 /* FLAC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLAC.framework; path = Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/FLAC.framework; sourceTree = "<group>"; };
+		C35F1D0E23E6CFA900AC49D0 /* NSColor+compare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSColor+compare.h"; sourceTree = "<group>"; };
+		C35F1D0F23E6CFA900AC49D0 /* NSColor+compare.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSColor+compare.m"; sourceTree = "<group>"; };
 		C38101291EDA297E00B87B68 /* GlkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkController.m; sourceTree = "<group>"; };
 		C392312C1ECB7F9200536504 /* save.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = save.c; sourceTree = "<group>"; };
 		C392312E1ECB7FA900536504 /* sysdep.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sysdep.c; sourceTree = "<group>"; };
@@ -3358,6 +3361,8 @@
 				6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */,
 				6D794357224A2D2E0071EB3D /* NSString+Categories.h */,
 				6D794358224A2D2E0071EB3D /* NSString+Categories.m */,
+				C35F1D0E23E6CFA900AC49D0 /* NSColor+compare.h */,
+				C35F1D0F23E6CFA900AC49D0 /* NSColor+compare.m */,
 				961CCEDD09F239E700528FF9 /* AppDelegate.h */,
 				961CCEDE09F239E700528FF9 /* AppDelegate.m */,
 				961CCEE309F239E700528FF9 /* Preferences.h */,
@@ -5374,6 +5379,7 @@
 				6DC6214323A26078002DEF3B /* Tag.m in Sources */,
 				6DC6214623A26078002DEF3B /* Interpreter.m in Sources */,
 				6DBC629B23A421BE0066F443 /* Metadata.m in Sources */,
+				C35F1D1023E6CFA900AC49D0 /* NSColor+compare.m in Sources */,
 				6DF73C3523B8F46100F76CF9 /* GlkStyle.m in Sources */,
 				6DC520AA23BAD54B0004923A /* Game.m in Sources */,
 				6DE957B023E3040A003246B6 /* Theme.m in Sources */,

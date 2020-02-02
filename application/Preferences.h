@@ -38,6 +38,8 @@
     NSFont *__strong *selfontp;
     NSColor *__strong *colorp;
     NSColor *__strong *colorp2;
+
+    BOOL disregardTableSelection;
 }
 
 

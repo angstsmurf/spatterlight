@@ -12,6 +12,8 @@
 
 @interface ThemeArrayController : NSArrayController
 
+- (Theme *)findThemeByName:(NSString *)name;
+
 @property (readonly) Theme *selectedTheme;
 
 @end

@@ -15,7 +15,7 @@
     Theme *newObj = [super newObject];
     [newObj copyAttributesFrom:self.selectedTheme];
     NSString *name = @"New theme";
-    NSUInteger counter = 1;
+    NSUInteger counter = 2;
     while ([self findThemeByName:name]) {
         name = [NSString stringWithFormat:@"New theme %ld", counter++];
     }
