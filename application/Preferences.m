@@ -4,7 +4,6 @@
 #import "Theme.h"
 #import "ThemeArrayController.h"
 #import "GlkStyle.h"
-#import "NSColor+compare.h"
 
 #import "main.h"
 
@@ -1064,14 +1063,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (sender == clrGridFg) {
        key = @"gridNormal";
     } else if (sender == clrGridBg) {
-        if ([theme.gridBackground isEqualToColor:color])
+        if ([theme.gridBackground isEqual:color])
             return;
         [self cloneThemeIfNotEditable];
         theme.gridBackground = color;
     } else if (sender == clrBufferFg) {
         key = @"bufferNormal";
     } else if (sender == clrBufferBg) {
-        if ([theme.bufferBackground isEqualToColor:color])
+        if ([theme.bufferBackground isEqual:color])
             return;
         [self cloneThemeIfNotEditable];
         theme.bufferBackground = color;
@@ -1086,7 +1085,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return;
         }
 
-        if ([style.color isEqualToColor:color])
+        if ([style.color isEqual:color])
             return;
 
         [self cloneThemeIfNotEditable];
