@@ -23,22 +23,10 @@
 
 static int defscreenw = 80;
 static int defscreenh = 24;
-//static float cellw = 5;ny
-//static float cellh = 5;
 
 static BOOL smartquotes = YES;
 static NSUInteger spaceformat = TAG_SPACES_GAME;
 static NSUInteger zoomDirection = ZOOMRESET;
-//static BOOL dographics = YES;
-//static BOOL dosound = NO;
-//static BOOL dostyles = NO;
-//static BOOL usescreenfonts = NO;
-
-//static CGFloat gridmargin = 0;
-//static CGFloat buffermargin = 0;
-//static CGFloat border = 0;
-//
-//static CGFloat leading = 0; /* added to lineHeight */
 
 static NSFont *bufroman;
 static NSFont *gridroman;
@@ -50,9 +38,6 @@ static NSColor *inputfg;
 
 static NSColor *fgcolor[8];
 static NSColor *bgcolor[8];
-
-//static NSDictionary *bufferatts[style_NUMSTYLES];
-//static NSDictionary *gridatts[style_NUMSTYLES];
 
 static Theme *theme = nil;
 
