@@ -2276,13 +2276,12 @@
 
 - (void)restoreScrollBarStyle {
     if (scrollview) {
-
         scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         scrollview.scrollerStyle = NSScrollerStyleOverlay;
         scrollview.drawsBackground = YES;
         scrollview.hasHorizontalScroller = NO;
         scrollview.hasVerticalScroller = YES;
-        [[scrollview verticalScroller] setAlphaValue:100];
+        scrollview.verticalScroller.alphaValue = 100;
         scrollview.autohidesScrollers = YES;
         scrollview.borderType = NSNoBorder;
     }
