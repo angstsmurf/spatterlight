@@ -135,21 +135,21 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     return dict;
 }
 
-static BOOL save_plist(NSString *path, NSDictionary *plist) {
-    NSData *plistData;
-    NSString *error;
-
-    plistData = [NSPropertyListSerialization
-        dataFromPropertyList:plist
-                      format:NSPropertyListBinaryFormat_v1_0
-            errorDescription:&error];
-    if (plistData) {
-        return [plistData writeToFile:path atomically:YES];
-    } else {
-        NSLog(@"%@", error);
-        return NO;
-    }
-}
+//static BOOL save_plist(NSString *path, NSDictionary *plist) {
+//    NSData *plistData;
+//    NSString *error;
+//
+//    plistData = [NSPropertyListSerialization
+//        dataFromPropertyList:plist
+//                      format:NSPropertyListBinaryFormat_v1_0
+//            errorDescription:&error];
+//    if (plistData) {
+//        return [plistData writeToFile:path atomically:YES];
+//    } else {
+//        NSLog(@"%@", error);
+//        return NO;
+//    }
+//}
 
 - (instancetype)init {
     NSLog(@"LibController: init");

@@ -24,7 +24,6 @@
     IBOutlet NSButton *btnEnableGraphics;
     IBOutlet NSButton *btnEnableSound;
     IBOutlet NSButton *btnEnableStyles;
-    IBOutlet NSButton *btnUseScreenFonts;
     IBOutlet NSTableView *themesTableView;
     IBOutlet NSButton *btnUseThemeForAll;
     IBOutlet NSButton *btnUseThemeForRunning;
@@ -57,7 +56,6 @@
 - (IBAction)changeEnableGraphics:(id)sender;
 - (IBAction)changeEnableSound:(id)sender;
 - (IBAction)changeEnableStyles:(id)sender;
-//- (IBAction)changeUseScreenFonts:(id)sender;
 
 - (IBAction)clickedSegmentedControl:(id)sender;
 
@@ -97,9 +95,6 @@
 + (BOOL)graphicsEnabled;
 + (BOOL)soundEnabled;
 + (BOOL)useScreenFonts;
-
-//+ (NSDictionary *)attributesForGridStyle:(int)style;
-//+ (NSDictionary *)attributesForBufferStyle:(int)style;
 
 + (Theme *)currentTheme;
 
