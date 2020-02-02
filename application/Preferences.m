@@ -111,7 +111,6 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 + (void)readDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *name;
-//    float size;
 
     name = [defaults objectForKey:@"themeName"];
 
@@ -137,53 +136,6 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     } else theme = [fetchedObjects objectAtIndex:0];
 
     [self readSettingsFromTheme:theme];
-          
-//    defscreenw = [[defaults objectForKey:@"DefaultWidth"] intValue];
-//    defscreenh = [[defaults objectForKey:@"DefaultHeight"] intValue];
-//
-//    smartquotes = [[defaults objectForKey:@"SmartQuotes"] boolValue];
-//    spaceformat = [[defaults objectForKey:@"SpaceFormat"] intValue];
-//
-//    dographics = [[defaults objectForKey:@"EnableGraphics"] boolValue];
-//    dosound = [[defaults objectForKey:@"EnableSound"] boolValue];
-//    dostyles = [[defaults objectForKey:@"EnableStyles"] boolValue];
-//    usescreenfonts = [[defaults objectForKey:@"ScreenFonts"] boolValue];
-//
-//    gridbg = dataToColor([defaults objectForKey:@"GridBackground"]);
-//    gridfg = dataToColor([defaults objectForKey:@"GridForeground"]);
-//    bufferbg = dataToColor([defaults objectForKey:@"BufferBackground"]);
-//    bufferfg = dataToColor([defaults objectForKey:@"BufferForeground"]);
-//    inputfg = dataToColor([defaults objectForKey:@"InputColor"]);
-//
-//    gridmargin = [[defaults objectForKey:@"GridMargin"] doubleValue];
-//    buffermargin = [[defaults objectForKey:@"BufferMargin"] doubleValue];
-//    border = [[defaults objectForKey:@"Border"] doubleValue];
-//
-//    leading = [[defaults objectForKey:@"Leading"] doubleValue];
-//
-//    name = [defaults objectForKey:@"GridFontName"];
-//    size = [[defaults objectForKey:@"GridFontSize"] doubleValue];
-//    gridroman = [NSFont fontWithName:name size:size];
-//    if (!gridroman) {
-//        NSLog(@"pref: failed to create grid font '%@'", name);
-//        gridroman = [NSFont userFixedPitchFontOfSize:0];
-//    }
-//
-//    name = [defaults objectForKey:@"BufferFontName"];
-//    size = [[defaults objectForKey:@"BufferFontSize"] doubleValue];
-//    bufroman = [NSFont fontWithName:name size:size];
-//    if (!bufroman) {
-//        NSLog(@"pref: failed to create buffer font '%@'", name);
-//        bufroman = [NSFont userFontOfSize:0];
-//    }
-//
-//    name = [defaults objectForKey:@"InputFontName"];
-//    size = [[defaults objectForKey:@"InputFontSize"] doubleValue];
-//    inputfont = [NSFont fontWithName:name size:size];
-//    if (!inputfont) {
-//        NSLog(@"pref: failed to create input font '%@'", name);
-//        inputfont = [NSFont userFontOfSize:0];
-//    }
 }
 
 
@@ -257,23 +209,11 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     smartquotes = theme.smartQuotes;
     spaceformat = (NSUInteger)theme.spaceFormat;
 
-//    dographics = theme.doGraphics;
-//    dosound = theme.doSound;
-//    dostyles = theme.doStyles;
-//
-//    usescreenfonts = NO;
-
     gridbg = theme.gridBackground;
     gridfg = theme.gridNormal.color;
     bufferbg = theme.bufferBackground;
     bufferfg = theme.bufferNormal.color;
     inputfg = theme.bufInput.color;
-
-//    gridmargin = theme.gridMarginX;
-//    buffermargin = theme.bufferMarginX;
-//    border = theme.border;
-//
-//    leading = ((NSParagraphStyle *)[theme.bufferNormal.attributeDict objectForKey:NSParagraphStyleAttributeName]).lineSpacing;
 
     gridroman = theme.gridNormal.font;
     if (!gridroman) {
@@ -300,15 +240,9 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 
 
 + (void)initialize {
-//    NSInteger i;
 
     [self initFactoryDefaults];
     [self readDefaults];
-
-//    for (i = 0; i < style_NUMSTYLES; i++) {
-//        bufferatts[i] = nil;
-//        gridatts[i] = nil;
-//    }
 
     /* 0=black, 1=red, 2=green, 3=yellow, 4=blue, 5=magenta, 6=cyan, 7=white */
 
@@ -439,49 +373,12 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 
 #pragma mark GlkStyle and attributed-string magic
 
-//+ (NSDictionary *)attributesForGridStyle:(int)style {
-//    if (style < 0 || style >= style_NUMSTYLES)
-//        return nil;
-//    return gridatts[style];
-//}
-//
-//+ (NSDictionary *)attributesForBufferStyle:(int)style {
-//    if (style < 0 || style >= style_NUMSTYLES)
-//        return nil;
-//    return bufferatts[style];
-//}
-
 + (void)rebuildTextAttributes {
-//    int style;
-//    NSFontManager *mgr = [NSFontManager sharedFontManager];
-//    NSMutableParagraphStyle *para;
-//    NSMutableDictionary *dict;
-//    NSFont *font;
-//    GlkStyle *glkstyle;
 
     [theme populateStyles];
     NSSize cellsize = [theme.gridNormal cellSize];
     theme.cellWidth = cellsize.width;
     theme.cellHeight = cellsize.height;
-
-//    [theme.gridNormal.attributeDict  setObject:@(-1) forKey:NSBaselineOffsetAttributeName];
-
-    // NSLog(@"pref: rebuildTextAttributes()");
-
-    /* make italic, bold, bolditalic font variants */
-
-    /* update style attribute dictionaries */
-
-//    para.lineSpacing = leading;
-
-//    for (style = 0; style < style_NUMSTYLES; style++) {
-//        /*
-//         * Buffer windows
-//         */
-//
-//        dict = [[NSMutableDictionary alloc] init];
-//        [dict setObject:@(style) forKey:@"GlkStyle"];
-//        [dict setObject:para forKey:NSParagraphStyleAttributeName];
 
 #if 0
         if (style == style_BlockQuote)
@@ -497,101 +394,6 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
             [mpara release];
         }
 #endif
-
-//        if (style == style_Input)
-//            [dict setObject:inputfg forKey:NSForegroundColorAttributeName];
-//        else
-//            [dict setObject:bufferfg forKey:NSForegroundColorAttributeName];
-//
-//        switch (style) {
-//            case style_Emphasized:
-//                font = bufitalic;
-//                break;
-//            case style_Preformatted:
-//                font = gridroman;
-//                break;
-//            case style_Header:
-//                font = bufheader;
-//                break;
-//            case style_Subheader:
-//                font = bufbold;
-//                break;
-//            case style_Alert:
-//                font = bufbolditalic;
-//                break;
-//            case style_Input:
-//                font = inputfont;
-//                break;
-//            default:
-//                font = bufroman;
-//                break;
-//        }
-//        [dict setObject:font forKey:NSFontAttributeName];
-
-//        bufferatts[style] = dict;
-//        glkstyle = [theme valueForKey:[gBufferStyleNames objectAtIndex:style]];
-//        glkstyle.attributeDict = [dict mutableCopy];
-//
-//        /*
-//         * Grid windows
-//         */
-//
-//        dict = [[NSMutableDictionary alloc] init];
-//        [dict setObject:@(style) forKey:@"GlkStyle"];
-//        [dict setObject:para forKey:NSParagraphStyleAttributeName];
-//        [dict setObject:gridfg forKey:NSForegroundColorAttributeName];
-//
-//        /* for our frotz quote-box hack */
-////        if (style == style_User1)
-////            [dict setObject:gridbg forKey:NSBackgroundColorAttributeName];
-//
-//        font = gridroman;
-//        switch (style) {
-//            case style_Emphasized:
-//                font = griditalic;
-//                break;
-//            case style_Preformatted:
-//                font = gridroman;
-//                break;
-//            case style_Header:
-//                font = gridbold;
-//                break;
-//            case style_Subheader:
-//                font = gridbold;
-//                break;
-//            case style_Alert:
-//                font = gridbolditalic;
-//                break;
-//        }
-//        [dict setObject:font forKey:NSFontAttributeName];
-//
-//        gridatts[style] = dict;
-//        glkstyle = [theme valueForKey:[gGridStyleNames objectAtIndex:style]];
-//        glkstyle.attributeDict = [dict mutableCopy];
-//    }
-
-//    if (usescreenfonts)
-//        font = gridroman.screenFont;
-//    else
-//        font = gridroman.printerFont;
-
-    // NSLog(@"[font advancementForGlyph:(NSGlyph)'X'].width:%f
-    // font.maximumAdvancement.width:%f [@\"X\"
-    // sizeWithAttributes:@{NSFontAttributeName: font}].width:%f", [font
-    // advancementForGlyph:(NSGlyph) 'X'].width, font.maximumAdvancement.width,
-    // [@"X" sizeWithAttributes:@{NSFontAttributeName: font}].width);
-
-    // This is the only way I have found to get the correct width at all sizes
-//    if (NSAppKitVersionNumber < NSAppKitVersionNumber10_8)
-//        cellw = [@"X" sizeWithAttributes:@{NSFontAttributeName : font}].width;
-//    else
-//        cellw = [font advancementForGlyph:(NSGlyph)'X'].width;
-//
-//    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-//    cellh = [layoutManager defaultLineHeightForFont:font] + leading;
-//    layoutManager = nil;
-    // cellh = [font ascender] + [font descender] + [font leading] + leading;
-
     /* send notification that prefs have changed -- trigger configure events */
 
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:theme];
@@ -606,7 +408,7 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     // Send notification that theme has changed -- trigger configure events
 
     [self updatePrefsPanel];
-    [[NSUserDefaults standardUserDefaults] setObject:theme.name forKey:@"themeName"];
+    [self changeThemeName:theme.name];
 
     [Preferences readSettingsFromTheme:theme];
 
@@ -700,6 +502,8 @@ NSString *fontToString(NSFont *font) {
     _scrollView.autohidesScrollers = YES;
     _scrollView.borderType = NSNoBorder;
 
+    [self changeThemeName:theme.name];
+    [_addAndRemove setEnabled:theme.editable forSegment:1];
     [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
 }
 
@@ -745,7 +549,6 @@ NSString *fontToString(NSFont *font) {
     btnEnableGraphics.state = theme.doGraphics;
     btnEnableSound.state = theme.doSound;
     btnEnableStyles.state = theme.doSound;
-//    btnUseScreenFonts.state = usescreenfonts;
 }
 
 @synthesize defaultTheme = _defaultTheme;
@@ -879,7 +682,8 @@ NSString *fontToString(NSFont *font) {
         // Send notification that theme has changed -- trigger configure events
 
         [self updatePrefsPanel];
-        [[NSUserDefaults standardUserDefaults] setObject:theme.name forKey:@"themeName"];
+        [self changeThemeName:theme.name];
+        [_addAndRemove setEnabled:theme.editable forSegment:1];
         notification = [NSNotification notificationWithName:@"ThemeChanged" object:theme];
         [Preferences readSettingsFromTheme:theme];
 
@@ -893,6 +697,11 @@ NSString *fontToString(NSFont *font) {
         return;
     }
     return;
+}
+
+- (void)changeThemeName:(NSString *)name {
+    [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"themeName"];
+    _settingsThemeHeader.stringValue = [NSString stringWithFormat:@"Settings for theme %@", name];
 }
 
 - (BOOL)control:(NSControl *)control
@@ -926,7 +735,7 @@ textShouldBeginEditing:(NSText *)fieldEditor {
 - (BOOL)control:(NSControl *)control
 textShouldEndEditing:(NSText *)fieldEditor {
     NSLog(@"textShouldEndEditing: %@", fieldEditor.string);
-    [[NSUserDefaults standardUserDefaults] setObject:fieldEditor.string forKey:@"themeName"];
+    [self changeThemeName:fieldEditor.string];
     return YES;
 }
 
@@ -1118,8 +927,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     [self cloneThemeIfNotEditable];
     theme.bufferNormal.lineSpacing = [sender floatValue];
-//    [[NSUserDefaults standardUserDefaults] setObject:@(leading)
-//                                              forKey:@"Leading"];
     [Preferences rebuildTextAttributes];
 }
 
@@ -1208,6 +1015,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
         }
         clonedTheme.name = name;
         theme = clonedTheme;
+        [self changeThemeName:name];
+        [_addAndRemove setEnabled:YES forSegment:1];
         [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
     }
 }
@@ -1271,26 +1080,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [defaults setObject:@(fontSize) forKey:@"InputFontSize"];
     }
 
-//    if (leading * scalefactor > 0) {
-//        leading *= scalefactor;
-//        [defaults setObject:@(leading) forKey:@"Leading"];
-//    }
-//
-//    if (gridmargin * scalefactor > 0) {
-//        gridmargin *= scalefactor;
-//        [defaults setObject:@(gridmargin) forKey:@"GridMargin"];
-//    }
-//
-//    if (buffermargin * scalefactor > 0) {
-//        buffermargin *= scalefactor;
-//        [defaults setObject:@(buffermargin) forKey:@"BufferMargin"];
-//    }
-
-//    if (border * scalefactor > 0) {
-//        border *= scalefactor;
-//        [defaults setObject:@(border) forKey:@"Border"];
-//    }
-
     [Preferences rebuildTextAttributes];
 
     /* send notification that default size has changed -- resize all windows */
@@ -1303,10 +1092,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     btnGridFont.title = fontToString(gridroman);
     btnBufferFont.title = fontToString(bufroman);
     btnInputFont.title = fontToString(inputfont);
-//    txtLeading.floatValue = leading;
-//    txtGridMargin.floatValue = gridmargin;
-//    txtBufferMargin.floatValue = buffermargin;
-//    txtBorder.intValue = border;
 }
 
 #pragma mark Font panel
@@ -1350,8 +1135,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeFont:(id)fontManager {
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
     if (selfontp) {
         *selfontp = [fontManager convertFont:*selfontp];
     } else {
@@ -1360,25 +1143,22 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 
     if (selfontp == &gridroman) {
-        [theme.gridNormal setFont:gridroman];
-//        [defaults setObject:gridroman.fontName forKey:@"GridFontName"];
-//        [defaults setObject:@(gridroman.pointSize) forKey:@"GridFontSize"];
+        if ([theme.gridNormal.font isEqual:gridroman])
+            return;
+        [self cloneThemeIfNotEditable];
+        theme.gridNormal.font = gridroman;
         btnGridFont.title = fontToString(gridroman);
-    }
-
-    if (selfontp == &bufroman) {
-        [theme.bufferNormal setFont:bufroman];
-//
-//        [defaults setObject:bufroman.fontName forKey:@"BufferFontName"];
-//        [defaults setObject:@(bufroman.pointSize) forKey:@"BufferFontSize"];
+    } else if (selfontp == &bufroman) {
+        if ([theme.bufferNormal.font isEqual:bufroman])
+            return;
+        [self cloneThemeIfNotEditable];
+        theme.bufferNormal.font = bufroman;
         btnBufferFont.title = fontToString(bufroman);
-    }
-
-    if (selfontp == &inputfont) {
-        [theme.bufInput setFont:inputfont];
-//
-//        [defaults setObject:inputfont.fontName forKey:@"InputFontName"];
-//        [defaults setObject:@(inputfont.pointSize) forKey:@"InputFontSize"];
+    } else if (selfontp == &inputfont) {
+        if ([theme.bufInput.font isEqual:inputfont])
+            return;
+        [self cloneThemeIfNotEditable];
+        theme.bufInput.font = inputfont;
         btnInputFont.title = fontToString(inputfont);
     }
 

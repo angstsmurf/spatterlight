@@ -113,6 +113,7 @@
 @property (strong) IBOutlet NSSegmentedControl *addAndRemove;
 @property (strong) IBOutlet ThemeArrayController *arrayController;
 @property (strong) IBOutlet NSScrollView *scrollView;
-@property (strong) IBOutlet NSTextField *sampleTextfield;
+@property (strong) IBOutlet NSTextFieldCell *settingsThemeHeader;
+@property (strong) IBOutlet NSTextFieldCell *gamesScopeHeader;
 
 @end
