@@ -1426,6 +1426,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (void)windowWillClose:(id)sender {
     if ([[NSFontPanel sharedFontPanel] isVisible])
         [[NSFontPanel sharedFontPanel] orderOut:self];
+    if ([[NSColorPanel sharedColorPanel] isVisible])
+        [[NSColorPanel sharedColorPanel] orderOut:self];
 }
 
 @end

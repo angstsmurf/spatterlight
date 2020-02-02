@@ -408,9 +408,11 @@ NSDictionary *gFormatMap;
     for (GlkController *glkctl in [_libctl.gameSessions allValues]) {
         [glkctl autoSaveOnExit];
     }
-    if ([[NSFontPanel sharedFontPanel] isVisible]) {
+
+    if ([[NSFontPanel sharedFontPanel] isVisible])
         [[NSFontPanel sharedFontPanel] orderOut:self];
-    }
+    if ([[NSColorPanel sharedColorPanel] isVisible])
+        [[NSColorPanel sharedColorPanel] orderOut:self];
 }
 
 
