@@ -34,9 +34,7 @@
     GlkController *glkcntrl;
     GlkTextBufferWindow *glktxtbuf;
 
-    NSFont *__strong *selfontp;
-    NSColor *__strong *colorp;
-    NSColor *__strong *colorp2;
+    NSButton *selectedFontButton;
 
     BOOL disregardTableSelection;
 }
@@ -77,8 +75,8 @@
 + (NSColor *)bufferForeground;
 + (NSColor *)inputColor;
 
-+ (NSColor *)foregroundColor:(int)number;
-+ (NSColor *)backgroundColor:(int)number;
+//+ (NSColor *)foregroundColor:(int)number;
+//+ (NSColor *)backgroundColor:(int)number;
 
 + (double)lineHeight;
 + (double)charWidth;

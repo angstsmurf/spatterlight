@@ -24,71 +24,35 @@
 static int defscreenw = 80;
 static int defscreenh = 24;
 
-static BOOL smartquotes = YES;
-static NSUInteger spaceformat = TAG_SPACES_GAME;
+//static BOOL smartquotes = YES;
+//static NSUInteger spaceformat = TAG_SPACES_GAME;
 static NSUInteger zoomDirection = ZOOMRESET;
 
-static NSFont *bufroman;
-static NSFont *gridroman;
-static NSFont *inputfont;
+//static NSFont *bufroman;
+//static NSFont *gridroman;
+//static NSFont *inputfont;
+//
+//static NSColor *bufferbg, *bufferfg;
+//static NSColor *gridbg, *gridfg;
+//static NSColor *inputfg;
 
-static NSColor *bufferbg, *bufferfg;
-static NSColor *gridbg, *gridfg;
-static NSColor *inputfg;
-
-static NSColor *fgcolor[8];
-static NSColor *bgcolor[8];
+//static NSColor *fgcolor[8];
+//static NSColor *bgcolor[8];
 
 static Theme *theme = nil;
-
 static Preferences *prefs = nil;
 
 /*
  * Some color utility functions
  */
 
-NSData *colorToData(NSColor *color) {
-    NSData *data;
-    CGFloat r = 0, g = 0, b = 0, a = 0;
-    unsigned char buf[3];
-
-    color = [color colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-
-    [color getRed:&r green:&g blue:&b alpha:&a];
-
-    buf[0] = (unsigned char)(r * 255);
-    buf[1] = (unsigned char)(g * 255);
-    buf[2] = (unsigned char)(b * 255);
-
-    data = [NSData dataWithBytes:buf length:3];
-
-    return data;
-}
-
-NSColor *dataToColor(NSData *data) {
-    NSColor *color;
-    CGFloat r, g, b;
-    const unsigned char *buf = data.bytes;
-
-    if (data.length < 3)
-        r = g = b = 0;
-    else {
-        r = buf[0] / 255.0;
-        g = buf[1] / 255.0;
-        b = buf[2] / 255.0;
-    }
-
-    color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
-
-    return color;
-}
-
-static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
-    return [NSColor colorWithCalibratedHue:h
-                                saturation:s
-                                brightness:b
-                                     alpha:1.0];
-}
+//
+//static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
+//    return [NSColor colorWithCalibratedHue:h
+//                                saturation:s
+//                                brightness:b
+//                                     alpha:1.0];
+//}
 
 /*
  * Load and save defaults
@@ -206,34 +170,29 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     defscreenw = theme.defaultCols;
     defscreenh = theme.defaultRows;
 
-    smartquotes = theme.smartQuotes;
-    spaceformat = (NSUInteger)theme.spaceFormat;
+//    smartquotes = theme.smartQuotes;
+//    spaceformat = (NSUInteger)theme.spaceFormat;
 
-    gridbg = theme.gridBackground;
-    gridfg = theme.gridNormal.color;
-    bufferbg = theme.bufferBackground;
-    bufferfg = theme.bufferNormal.color;
-    inputfg = theme.bufInput.color;
-
-    gridroman = theme.gridNormal.font;
-    if (!gridroman) {
+//    gridbg = theme.gridBackground;
+//    gridfg = theme.gridNormal.color;
+//    bufferbg = theme.bufferBackground;
+//    bufferfg = theme.bufferNormal.color;
+//    inputfg = theme.bufInput.color;
+//
+//    gridroman = theme.gridNormal.font;
+    if (!theme.gridNormal.font) {
         NSLog(@"pref: Found no grid NSFont object in theme %@, creating default", theme.name);
-        gridroman = [NSFont userFixedPitchFontOfSize:0];
-        [theme.gridNormal setFont:gridroman];
+        theme.gridNormal.font = [NSFont userFixedPitchFontOfSize:0];
     }
 
-    bufroman = theme.bufferNormal.font;
-    if (!bufroman) {
+    if (!theme.bufferNormal.font) {
         NSLog(@"pref: Found no buffer NSFont object in theme %@, creating default", theme.name);
-        bufroman = [NSFont userFontOfSize:0];
-        theme.bufferNormal.font = bufroman;
+        theme.bufferNormal.font = [NSFont userFontOfSize:0];
     }
 
-    inputfont = [theme.bufInput.attributeDict objectForKey:NSFontAttributeName];
-    if (!inputfont) {
+    if (!theme.bufInput.font) {
         NSLog(@"pref: Found no bufInput NSFont object in theme %@, creating default", theme.name);
-        inputfont = [NSFont userFontOfSize:0];
-        theme.bufInput.font = inputfont;
+        theme.bufInput.font = [NSFont userFontOfSize:0];
     }
 }
 
@@ -244,33 +203,33 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
     [self initFactoryDefaults];
     [self readDefaults];
 
-    /* 0=black, 1=red, 2=green, 3=yellow, 4=blue, 5=magenta, 6=cyan, 7=white */
-
-    /* black */
-    bgcolor[0] = makehsb(0, 0, 0.2);
-    fgcolor[0] = makehsb(0, 0, 0.0);
-
-    /* white */
-    bgcolor[7] = makehsb(0, 0, 1.0);
-    fgcolor[7] = makehsb(0, 0, 0.8);
-
-    /* hues go from red, orange, yellow, green, cyan, blue, magenta, red */
-    /* foreground: 70% sat 30% bright */
-    /* background: 60% sat 90% bright */
-
-    bgcolor[1] = makehsb(0 / 360.0, 0.8, 0.4);   /* red */
-    bgcolor[2] = makehsb(120 / 360.0, 0.8, 0.4); /* green */
-    bgcolor[3] = makehsb(60 / 360.0, 0.8, 0.4);  /* yellow */
-    bgcolor[4] = makehsb(230 / 360.0, 0.8, 0.4); /* blue */
-    bgcolor[5] = makehsb(300 / 360.0, 0.8, 0.4); /* magenta */
-    bgcolor[6] = makehsb(180 / 360.0, 0.8, 0.4); /* cyan */
-
-    fgcolor[1] = makehsb(0 / 360.0, 0.8, 0.8);   /* red */
-    fgcolor[2] = makehsb(120 / 360.0, 0.8, 0.8); /* green */
-    fgcolor[3] = makehsb(60 / 360.0, 0.8, 0.8);  /* yellow */
-    fgcolor[4] = makehsb(230 / 360.0, 0.8, 0.8); /* blue */
-    fgcolor[5] = makehsb(300 / 360.0, 0.8, 0.8); /* magenta */
-    fgcolor[6] = makehsb(180 / 360.0, 0.8, 0.8); /* cyan */
+//    /* 0=black, 1=red, 2=green, 3=yellow, 4=blue, 5=magenta, 6=cyan, 7=white */
+//
+//    /* black */
+//    bgcolor[0] = makehsb(0, 0, 0.2);
+//    fgcolor[0] = makehsb(0, 0, 0.0);
+//
+//    /* white */
+//    bgcolor[7] = makehsb(0, 0, 1.0);
+//    fgcolor[7] = makehsb(0, 0, 0.8);
+//
+//    /* hues go from red, orange, yellow, green, cyan, blue, magenta, red */
+//    /* foreground: 70% sat 30% bright */
+//    /* background: 60% sat 90% bright */
+//
+//    bgcolor[1] = makehsb(0 / 360.0, 0.8, 0.4);   /* red */
+//    bgcolor[2] = makehsb(120 / 360.0, 0.8, 0.4); /* green */
+//    bgcolor[3] = makehsb(60 / 360.0, 0.8, 0.4);  /* yellow */
+//    bgcolor[4] = makehsb(230 / 360.0, 0.8, 0.4); /* blue */
+//    bgcolor[5] = makehsb(300 / 360.0, 0.8, 0.4); /* magenta */
+//    bgcolor[6] = makehsb(180 / 360.0, 0.8, 0.4); /* cyan */
+//
+//    fgcolor[1] = makehsb(0 / 360.0, 0.8, 0.8);   /* red */
+//    fgcolor[2] = makehsb(120 / 360.0, 0.8, 0.8); /* green */
+//    fgcolor[3] = makehsb(60 / 360.0, 0.8, 0.8);  /* yellow */
+//    fgcolor[4] = makehsb(230 / 360.0, 0.8, 0.8); /* blue */
+//    fgcolor[5] = makehsb(300 / 360.0, 0.8, 0.8); /* magenta */
+//    fgcolor[6] = makehsb(180 / 360.0, 0.8, 0.8); /* cyan */
 
     [self rebuildTextAttributes];
 }
@@ -278,17 +237,17 @@ static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
 
 #pragma mark Global accessors
 
-+ (NSColor *)foregroundColor:(int)number {
-    if (number < 0 || number > 7)
-        return nil;
-    return fgcolor[number];
-}
-
-+ (NSColor *)backgroundColor:(int)number {
-    if (number < 0 || number > 7)
-        return nil;
-    return bgcolor[number];
-}
+//+ (NSColor *)foregroundColor:(int)number {
+//    if (number < 0 || number > 7)
+//        return nil;
+//    return fgcolor[number];
+//}
+//
+//+ (NSColor *)backgroundColor:(int)number {
+//    if (number < 0 || number > 7)
+//        return nil;
+//    return bgcolor[number];
+//}
 
 + (BOOL)graphicsEnabled {
     return theme.doGraphics;
@@ -438,7 +397,7 @@ NSString *fontToString(NSFont *font) {
     themesTableView.autosaveName = @"ThemesTable";
 
     if (!theme)
-        theme = [self defaultTheme];
+        theme = self.defaultTheme;
 
     // Sample text view
     glkcntrl = [[GlkController alloc] init];
@@ -490,6 +449,8 @@ NSString *fontToString(NSFont *font) {
      object:nil];
 
     [Preferences readSettingsFromTheme:theme];
+
+    selectedFontButton = nil;
 
     prefs = self;
     [self updatePrefsPanel];
@@ -549,6 +510,9 @@ NSString *fontToString(NSFont *font) {
     btnEnableGraphics.state = theme.doGraphics;
     btnEnableSound.state = theme.doSound;
     btnEnableStyles.state = theme.doSound;
+
+    if ([[NSFontPanel sharedFontPanel] isVisible] && selectedFontButton)
+        [self showFontPanel:selectedFontButton];
 }
 
 @synthesize defaultTheme = _defaultTheme;
@@ -667,16 +631,18 @@ NSString *fontToString(NSFont *font) {
 
     NSUInteger row = [themes indexOfObject:theme];
 
+    disregardTableSelection = NO;
+
     [_arrayController setSelectionIndex:row];
     themesTableView.allowsEmptySelection = NO;
     [themesTableView scrollRowToVisible:(NSInteger)row];
-    disregardTableSelection = NO;
 }
 
 - (void)tableViewSelectionDidChange:(id)notification {
     NSTableView *tableView = [notification object];
     if (tableView == themesTableView) {
-        if (_arrayController.selectedTheme == theme || disregardTableSelection == YES)
+//        if (_arrayController.selectedTheme == theme || disregardTableSelection == YES)
+        if (disregardTableSelection == YES)
             return;
         theme = _arrayController.selectedTheme;
         // Send notification that theme has changed -- trigger configure events
@@ -840,7 +806,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 
     /* send notification that default size has changed -- resize all windows */
-    NSNotification *notification = [NSNotification notificationWithName:@"DefaultSizeChanged" object:[Preferences currentTheme]];
+    NSNotification *notification = [NSNotification notificationWithName:@"DefaultSizeChanged" object:theme];
     [[NSNotificationCenter defaultCenter]
      postNotification:notification];
 }
@@ -935,7 +901,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     [self cloneThemeIfNotEditable];
     theme.smartQuotes = [sender state];
-    NSLog(@"pref: smart quotes changed to %d", smartquotes);
+    NSLog(@"pref: smart quotes changed to %d", theme.smartQuotes);
 }
 
 - (IBAction)changeSpaceFormatting:(id)sender {
@@ -1025,6 +991,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 + (void)zoomIn {
     zoomDirection = ZOOMRESET;
+    NSFont *gridroman = theme.gridNormal.font;
+    NSLog(@"zoomIn gridroman.pointSize = %f", gridroman.pointSize);
+
     if (gridroman.pointSize < 100) {
         zoomDirection = ZOOMIN;
         [self scale:(gridroman.pointSize + 1) / gridroman.pointSize];
@@ -1032,7 +1001,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 + (void)zoomOut {
+    NSLog(@"zoomOut");
     zoomDirection = ZOOMRESET;
+    NSFont *gridroman = theme.gridNormal.font;
     if (gridroman.pointSize > 6) {
         zoomDirection = ZOOMOUT;
         [self scale:(gridroman.pointSize - 1) / gridroman.pointSize];
@@ -1040,44 +1011,49 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 + (void)zoomToActualSize {
+    NSLog(@"zoomToActualSize");
     zoomDirection = ZOOMRESET;
-    [self scale:12 / gridroman.pointSize];
+    [self scale:12 / theme.gridNormal.font.pointSize];
 }
 
 + (void)scale:(CGFloat)scalefactor {
-    // NSLog(@"Preferences scale: %f", scalefactor);
+    NSLog(@"Preferences scale: %f", scalefactor);
+
+    NSFont *gridroman = theme.gridNormal.font;
+    NSFont *bufroman = theme.bufferNormal.font;
+    NSFont *inputfont = theme.bufInput.font;
+
 
     if (scalefactor < 0)
         scalefactor = fabs(scalefactor);
 
     if ((scalefactor < 1.01 && scalefactor > 0.99) || scalefactor == 0.0)
-        scalefactor = 1.0;
+//        scalefactor = 1.0;
+        return;
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [prefs cloneThemeIfNotEditable];
+
     CGFloat fontSize;
 
     fontSize = gridroman.pointSize;
     fontSize *= scalefactor;
     if (fontSize > 0) {
-        gridroman = [NSFont fontWithDescriptor:gridroman.fontDescriptor
+        theme.gridNormal.font = [NSFont fontWithDescriptor:gridroman.fontDescriptor
                                           size:fontSize];
-        [defaults setObject:@(fontSize) forKey:@"GridFontSize"];
     }
 
     fontSize = bufroman.pointSize;
     fontSize *= scalefactor;
     if (fontSize > 0) {
-        bufroman = [NSFont fontWithDescriptor:bufroman.fontDescriptor
+        theme.bufferNormal.font = [NSFont fontWithDescriptor:bufroman.fontDescriptor
                                          size:fontSize];
-        [defaults setObject:@(fontSize) forKey:@"BufferFontSize"];
     }
 
     fontSize = inputfont.pointSize;
     fontSize *= scalefactor;
     if (fontSize > 0) {
-        inputfont = [NSFont fontWithDescriptor:inputfont.fontDescriptor
+        theme.bufInput.font = [NSFont fontWithDescriptor:inputfont.fontDescriptor
                                           size:fontSize];
-        [defaults setObject:@(fontSize) forKey:@"InputFontSize"];
     }
 
     [Preferences rebuildTextAttributes];
@@ -1085,41 +1061,44 @@ textShouldEndEditing:(NSText *)fieldEditor {
     /* send notification that default size has changed -- resize all windows */
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"DefaultSizeChanged"
-     object:nil];
+     object:theme];
 }
 
 - (void)updatePanelAfterZoom {
-    btnGridFont.title = fontToString(gridroman);
-    btnBufferFont.title = fontToString(bufroman);
-    btnInputFont.title = fontToString(inputfont);
+    btnGridFont.title = fontToString(theme.gridNormal.font);
+    btnBufferFont.title = fontToString(theme.bufferNormal.font);
+    btnInputFont.title = fontToString(theme.bufInput.font);
 }
 
 #pragma mark Font panel
 
 - (IBAction)showFontPanel:(id)sender {
-    selfontp = nil;
-    colorp = nil;
-    colorp2 = nil;
+
+    selectedFontButton = sender;
+    NSFont *selectedFont = nil;
+    NSColor *selectedFontColor = nil;
+    NSColor *selectedDocumentColor = nil;
+
 
     if (sender == btnGridFont) {
-        selfontp = &gridroman;
-        colorp = &gridfg;
-        colorp2 = &gridbg;
+        selectedFont = theme.gridNormal.font;
+        selectedFontColor = theme.gridNormal.color;
+        selectedDocumentColor = theme.gridBackground;
     }
     if (sender == btnBufferFont) {
-        selfontp = &bufroman;
-        colorp = &bufferfg;
-        colorp2 = &bufferbg;
+        selectedFont = theme.bufferNormal.font;
+        selectedFontColor = theme.bufferNormal.color;
+        selectedDocumentColor = theme.bufferBackground;
     }
     if (sender == btnInputFont) {
-        selfontp = &inputfont;
-        colorp = &inputfg;
-        colorp2 = &bufferbg;
+        selectedFont = theme.bufInput.font;
+        selectedFontColor = theme.bufInput.color;
+        selectedDocumentColor = theme.bufferBackground;
     }
 
-    if (selfontp) {
+    if (selectedFont) {
         NSDictionary *attr =
-        @{@"NSColor" : *colorp, @"NSDocumentBackgroundColor" : *colorp2};
+        @{@"NSColor" : selectedFontColor, @"NSDocumentBackgroundColor" : selectedDocumentColor};
 
         [self.window makeFirstResponder:self.window];
 
@@ -1129,37 +1108,58 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
         [[NSFontManager sharedFontManager] setSelectedAttributes:attr
                                                       isMultiple:NO];
-        [[NSFontManager sharedFontManager] setSelectedFont:*selfontp
+        [[NSFontManager sharedFontManager] setSelectedFont:selectedFont
                                                 isMultiple:NO];
     }
 }
 
+- (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
+    NSString *selectedfontString = nil;
+    if (selectedFontButton)
+        selectedfontString = selectedFontButton.identifier;
+    [state encodeObject:selectedfontString forKey:@"selectedFont"];
+}
+
+- (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
+    NSString *selectedfontString = [state decodeObjectForKey:@"selectedFont"];
+    if (selectedfontString == nil)
+        return;
+    NSArray *fontsButtons = @[btnBufferFont, btnGridFont, btnInputFont];
+    for (NSButton *button in fontsButtons) {
+        if ([button.identifier isEqualToString:selectedfontString]) {
+            selectedFontButton = button;
+        }
+    }
+
+}
+
 - (IBAction)changeFont:(id)fontManager {
-    if (selfontp) {
-        *selfontp = [fontManager convertFont:*selfontp];
+    NSFont *newFont = nil;
+    if (selectedFontButton) {
+        newFont = [fontManager convertFont:[fontManager selectedFont]];
     } else {
         NSLog(@"Error! Preferences changeFont called with no font selected");
         return;
     }
 
-    if (selfontp == &gridroman) {
-        if ([theme.gridNormal.font isEqual:gridroman])
+    if (selectedFontButton == btnGridFont) {
+        if ([theme.gridNormal.font isEqual:newFont])
             return;
         [self cloneThemeIfNotEditable];
-        theme.gridNormal.font = gridroman;
-        btnGridFont.title = fontToString(gridroman);
-    } else if (selfontp == &bufroman) {
-        if ([theme.bufferNormal.font isEqual:bufroman])
+        theme.gridNormal.font = newFont;
+        btnGridFont.title = fontToString(newFont);
+    } else if (selectedFontButton == btnBufferFont) {
+        if ([theme.bufferNormal.font isEqual:newFont])
             return;
         [self cloneThemeIfNotEditable];
-        theme.bufferNormal.font = bufroman;
-        btnBufferFont.title = fontToString(bufroman);
-    } else if (selfontp == &inputfont) {
-        if ([theme.bufInput.font isEqual:inputfont])
+        theme.bufferNormal.font = newFont;
+        btnBufferFont.title = fontToString(newFont);
+    } else if (selectedFontButton == btnInputFont) {
+        if ([theme.bufInput.font isEqual:newFont])
             return;
         [self cloneThemeIfNotEditable];
-        theme.bufInput.font = inputfont;
-        btnInputFont.title = fontToString(inputfont);
+        theme.bufInput.font = newFont;
+        btnInputFont.title = fontToString(newFont);
     }
 
     [Preferences rebuildTextAttributes];
@@ -1187,11 +1187,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if ([newAttributes objectForKey:@"NSColor"]) {
         NSColorWell *colorWell = nil;
         NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
-        if (currentFont == gridroman)
+        if (currentFont == theme.gridNormal.font)
             colorWell = clrGridFg;
-        else if (currentFont == bufroman)
+        else if (currentFont == theme.bufferNormal.font)
             colorWell = clrBufferFg;
-        else if (currentFont == inputfont)
+        else if (currentFont == theme.bufInput.font)
             colorWell = clrInputFg;
         colorWell.color = [newAttributes objectForKey:@"NSColor"];
         [self changeColor:colorWell];
@@ -1205,11 +1205,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     NSColorWell *colorWell = nil;
     NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
-    if (currentFont == gridroman)
+    if (currentFont == theme.gridNormal.font)
         colorWell = clrGridBg;
-    else if (currentFont == bufroman)
+    else if (currentFont == theme.bufferNormal.font)
         colorWell = clrBufferBg;
-    else if (currentFont == inputfont)
+    else if (currentFont == theme.bufInput.font)
         colorWell = clrBufferBg;
     colorWell.color = [sender color];
     [self changeColor:colorWell];
