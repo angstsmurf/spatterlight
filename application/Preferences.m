@@ -21,20 +21,7 @@
  * Preference variables, all unpacked
  */
 
-static int defscreenw = 80;
-static int defscreenh = 24;
-
-//static BOOL smartquotes = YES;
-//static NSUInteger spaceformat = TAG_SPACES_GAME;
 static NSUInteger zoomDirection = ZOOMRESET;
-
-//static NSFont *bufroman;
-//static NSFont *gridroman;
-//static NSFont *inputfont;
-//
-//static NSColor *bufferbg, *bufferfg;
-//static NSColor *gridbg, *gridfg;
-//static NSColor *inputfg;
 
 //static NSColor *fgcolor[8];
 //static NSColor *bgcolor[8];
@@ -167,19 +154,6 @@ static Preferences *prefs = nil;
 
 + (void)readSettingsFromTheme:(Theme *)theme {
 
-    defscreenw = theme.defaultCols;
-    defscreenh = theme.defaultRows;
-
-//    smartquotes = theme.smartQuotes;
-//    spaceformat = (NSUInteger)theme.spaceFormat;
-
-//    gridbg = theme.gridBackground;
-//    gridfg = theme.gridNormal.color;
-//    bufferbg = theme.bufferBackground;
-//    bufferfg = theme.bufferNormal.color;
-//    inputfg = theme.bufInput.color;
-//
-//    gridroman = theme.gridNormal.font;
     if (!theme.gridNormal.font) {
         NSLog(@"pref: Found no grid NSFont object in theme %@, creating default", theme.name);
         theme.gridNormal.font = [NSFont userFixedPitchFontOfSize:0];
@@ -780,29 +754,26 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeDefaultSize:(id)sender {
     if (sender == txtCols) {
-        if (defscreenw == [sender intValue])
+        if (theme.defaultCols == [sender intValue])
             return;
         [self cloneThemeIfNotEditable];
-        defscreenw = [sender intValue];
-        if (defscreenw < 5)
-            defscreenw = 5;
-        if (defscreenw > 200)
-            defscreenw = 200;
-        txtCols.intValue = defscreenw;
-        theme.defaultCols = defscreenw;
+        theme.defaultCols  = [sender intValue];
+        if (theme.defaultCols  < 5)
+            theme.defaultCols  = 5;
+        if (theme.defaultCols  > 200)
+            theme.defaultCols  = 200;
+        txtCols.intValue = theme.defaultCols ;
     }
     if (sender == txtRows) {
-        if (defscreenh == [sender intValue])
+        if (theme.defaultRows == [sender intValue])
             return;
         [self cloneThemeIfNotEditable];
-        defscreenh = [sender intValue];
-        if (defscreenh < 5)
-            defscreenh = 5;
-        if (defscreenh > 200)
-            defscreenh = 200;
-        txtRows.intValue = defscreenh;
-        theme.defaultRows = defscreenh;
-
+        theme.defaultRows  = [sender intValue];
+        if (theme.defaultRows  < 5)
+            theme.defaultRows  = 5;
+        if (theme.defaultRows  > 200)
+            theme.defaultRows  = 200;
+        txtRows.intValue = theme.defaultRows ;
     }
 
     /* send notification that default size has changed -- resize all windows */
