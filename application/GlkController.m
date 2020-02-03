@@ -2386,6 +2386,8 @@ again:
     NSSize sizeAfterZoom = [self defaultWindowSize];
     NSRect oldframe = _contentView.frame;
 
+    // Prevent the window from shrinking when zooming in or growing when 
+    // zooming out, which might otherwise happen at edge cases
     if ((sizeAfterZoom.width < oldframe.size.width && Preferences.zoomDirection == ZOOMIN) ||
         (sizeAfterZoom.width > oldframe.size.width && Preferences.zoomDirection == ZOOMOUT)) {
         return;
