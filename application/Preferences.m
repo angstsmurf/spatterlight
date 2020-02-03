@@ -21,7 +21,7 @@
  * Preference variables, all unpacked
  */
 
-static NSUInteger zoomDirection = ZOOMRESET;
+static kZoomDirectionType zoomDirection = ZOOMRESET;
 
 //static NSColor *fgcolor[8];
 //static NSColor *bgcolor[8];
@@ -170,7 +170,13 @@ static Preferences *prefs = nil;
     }
 }
 
-
++ (void)changeTheme:(Theme *)aTheme {
+    theme = aTheme;
+    if (prefs) {
+        [prefs changeThemeName:theme.name];
+        [prefs restoreThemeSelection:theme];
+    }
+}
 
 + (void)initialize {
 
@@ -243,11 +249,11 @@ static Preferences *prefs = nil;
     return theme.smartQuotes;
 }
 
-+ (NSUInteger)spaceFormat {
-    return (NSUInteger)theme.spaceFormat;
++ (kSpacesFormatType)spaceFormat {
+    return (kSpacesFormatType)theme.spaceFormat;
 }
 
-+ (NSUInteger)zoomDirection {
++ (kZoomDirectionType)zoomDirection {
     return zoomDirection;
 }
 
@@ -424,7 +430,7 @@ NSString *fontToString(NSFont *font) {
 
     [Preferences readSettingsFromTheme:theme];
 
-    selectedFontButton = nil;
+    themeSelectionScope = USE_FOR_ALL;
 
     prefs = self;
     [self updatePrefsPanel];
@@ -693,18 +699,21 @@ textShouldEndEditing:(NSText *)fieldEditor {
     btnUseThemeForAll.state = NSOnState;
     btnUseThemeForRunning.state = NSOffState;
     btnUseThemeForSelected.state = NSOffState;
+    themeSelectionScope = USE_FOR_ALL;
 }
 
 - (IBAction)pushedUseThemeForRunning:(id)sender {
     btnUseThemeForAll.state = NSOffState;
     btnUseThemeForRunning.state = NSOnState;
     btnUseThemeForSelected.state = NSOffState;
+    themeSelectionScope = USE_FOR_ACTIVE;
 }
 
 - (IBAction)pushedUseThemeForSelected:(id)sender {
     btnUseThemeForAll.state = NSOffState;
     btnUseThemeForRunning.state = NSOffState;
     btnUseThemeForSelected.state = NSOnState;
+    themeSelectionScope = USE_FOR_SELECTED;
 }
 
 - (void)editNewEntry:(id)sender {

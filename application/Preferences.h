@@ -2,13 +2,24 @@
  * Preferences is a combined singleton / window controller.
  */
 
-#define TAG_SPACES_GAME 0
-#define TAG_SPACES_ONE 1
-#define TAG_SPACES_TWO 2
+typedef enum kSpacesFormatType : NSUInteger {
+    TAG_SPACES_GAME,
+    TAG_SPACES_ONE,
+    TAG_SPACES_TWO,
+} kSpacesFormatType;
 
-#define ZOOMRESET 0
-#define ZOOMIN 1
-#define ZOOMOUT 2
+typedef enum kZoomDirectionType : NSUInteger {
+    ZOOMRESET,
+    ZOOMIN,
+    ZOOMOUT,
+} kZoomDirectionType;
+
+typedef enum kThemeSelectionScopeType : NSUInteger {
+    USE_FOR_ALL,
+    USE_FOR_ACTIVE,
+    USE_FOR_SELECTED,
+} kThemeSelectionScopeType;
+
 
 @class Theme, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController;
 
@@ -37,6 +48,8 @@
     NSButton *selectedFontButton;
 
     BOOL disregardTableSelection;
+
+    kThemeSelectionScopeType themeSelectionScope;
 }
 
 
@@ -87,8 +100,8 @@
 
 + (BOOL)stylesEnabled;
 + (BOOL)smartQuotes;
-+ (NSUInteger)spaceFormat;
-+ (NSUInteger)zoomDirection;
++ (kSpacesFormatType)spaceFormat;
++ (kZoomDirectionType)zoomDirection;
 
 + (BOOL)graphicsEnabled;
 + (BOOL)soundEnabled;
