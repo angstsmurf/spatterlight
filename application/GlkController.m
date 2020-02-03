@@ -630,21 +630,17 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)deleteAutosaveFilesForGame:(Game *)aGame {
     _gamefile = [aGame urlForBookmark].path;
 
-    [self appSupportDir];
-    [self autosaveFileGUI];
-    [self autosaveFileTerp];
-
     [self deleteAutosaveFiles];
 }
 
 - (void)deleteAutosaveFiles {
-    [self deleteFileAtPath:_autosaveFileGUI];
-    [self deleteFileAtPath:_autosaveFileTerp];
-    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:
+    [self deleteFileAtPath:self.autosaveFileGUI];
+    [self deleteFileAtPath:self.autosaveFileTerp];
+    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
                             @"autosave.glksave"]];
-    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:
+    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
                             @"autosave-tmp.glksave"]];
-    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:
+    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
                             @"autosave-tmp.plist"]];
 }
 
@@ -667,7 +663,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)autoSaveOnExit {
     NSInteger res = [NSKeyedArchiver archiveRootObject:self
-                                                toFile:_autosaveFileGUI];
+                                                toFile:self.autosaveFileGUI];
     if (!res) {
         NSLog(@"GUI autosave on exit failed!");
         return;
@@ -1032,7 +1028,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)handleAutosave:(int)hash {
     NSInteger res = [NSKeyedArchiver archiveRootObject:self
-                                                toFile:_autosaveFileGUI];
+                                                toFile:self.autosaveFileGUI];
 
     if (!res) {
         NSLog(@"Window serialize failed!");
@@ -2195,12 +2191,12 @@ static NSString *signalToName(NSTask *task) {
 
     // We autosave the UI but delete the terp autosave files
     [self autoSaveOnExit];
-    [self deleteFileAtPath:_autosaveFileTerp];
-    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:
+    [self deleteFileAtPath:self.autosaveFileTerp];
+    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
                             @"autosave.glksave"]];
-    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:
+    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
                             @"autosave-tmp.glksave"]];
-    [self deleteFileAtPath:[_appSupportDir stringByAppendingPathComponent:
+    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
                             @"autosave-tmp.plist"]];
 }
 
