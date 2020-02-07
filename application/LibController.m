@@ -243,6 +243,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     {
         [self convertLibraryToCoreData];
     }
+
+    [self rebuildThemesSubmenu];
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
@@ -735,6 +737,71 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 	babel_release();
 }
 
+- (void)rebuildThemesSubmenu {
+
+    NSMenu *themesMenu = [[NSMenu alloc] initWithTitle:@"Apply Theme"];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"editable" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
+    NSError *error = nil;
+    
+    NSArray *themes = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (themes == nil) {
+        NSLog(@"Problem! %@",error);
+    }
+
+    for (Theme *theme in themes) {
+        [themesMenu addItemWithTitle:theme.name action:@selector(applyTheme:) keyEquivalent:@""];
+    }
+
+    _themesSubMenu.submenu = themesMenu;
+}
+
+- (IBAction) applyTheme:(id)sender {
+
+    NSIndexSet *rows = _gameTableView.selectedRowIndexes;
+
+    if ((_gameTableView.clickedRow != -1) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
+
+    NSString *name = ((NSMenuItem *)sender).title;
+
+    Theme *theme = [self findTheme:name inContext:self.managedObjectContext];
+
+    if (!theme) {
+        NSLog(@"applyTheme: found no theme with name %@", name);
+        return;
+    }
+
+    NSSet *games = [NSSet setWithArray:[gameTableModel objectsAtIndexes:rows]];
+    [theme addGames:games];
+
+    Preferences *prefwin = [Preferences instance];
+    if (prefwin)
+        prefwin.oneThemeForAll = NO;
+
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+}
+
+- (IBAction) selectSameTheme:(id)sender {
+    NSIndexSet *rows = _gameTableView.selectedRowIndexes;
+
+    if ((_gameTableView.clickedRow != -1) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
+
+    Game *selectedGame = [gameTableModel objectAtIndex:[rows firstIndex]];
+
+    NSSet *gamesWithTheme = selectedGame.theme.games;
+    
+    NSIndexSet *matchingIndexes = [gameTableModel indexesOfObjectsPassingTest:^BOOL(NSString *obj, NSUInteger idx, BOOL *stop) {
+        return [gamesWithTheme containsObject:obj];
+    }];
+
+    [_gameTableView selectRowIndexes:matchingIndexes byExtendingSelection:NO];
+}
+
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     SEL action = menuItem.action;
     NSInteger count = _gameTableView.numberOfSelectedRows;
@@ -761,26 +828,39 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     if (action == @selector(download:))
         return !currentlyAddingGames;
 
-    if (action == @selector(delete:))
-        return count > 0;
-
-    if (action == @selector(deleteGame:))
+    if (action == @selector(delete:) || action == @selector(deleteGame:)
+        || action == @selector(showGameInfo:)
+        || action == @selector(reset:))
         return count > 0;
 
     if (action == @selector(revealGameInFinder:))
         return count > 0 && count < 10;
 
-    if (action == @selector(showGameInfo:))
-        return count > 0;
-
-    if (action == @selector(reset:))
-        return count > 0;
-
     if (action == @selector(playGame:))
         return count == 1;
-//
-//    if (action == @selector(openIfdb:))
-//        return (((Game *)[gameTableModel objectAtIndex:_gameTableView.clickedRow]).metadata.tuid != nil);
+
+    if (action == @selector(selectSameTheme:)) {
+        // Check if all selected games use the same theme
+        NSArray *selection = [gameTableModel objectsAtIndexes:rows];
+        Theme *selectionTheme = nil;
+        for (Game *game in selection) {
+            if (selectionTheme == nil) {
+                selectionTheme = game.theme;
+            } else {
+                if (game.theme != selectionTheme) {
+                    return NO;
+                }
+            }
+        }
+    }
+
+    if (action == @selector(reset:)) {
+        NSArray *selection = [gameTableModel objectsAtIndexes:rows];
+        for (Game *game in selection) {
+            if (game.autosaved) return YES;
+        }
+        return NO;
+    }
 
     if (action == @selector(toggleSidebar:))
     {
@@ -1455,10 +1535,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     game.lastPlayed = [NSDate date];
     [self addURLtoRecents: game.urlForBookmark];
 
-    if (game.theme != [Preferences currentTheme])
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"CurrentThemeChanged"
-         object:game.theme];
+    [Preferences changeCurrentGame:game];
 
     return gctl.window;
 }
@@ -1468,7 +1545,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     Game *game = [self importGame: path inContext:_managedObjectContext reportFailure: YES];
     if (game)
     {
-        [self selectGames:@[game]];
+        [self selectGames:[NSSet setWithArray:@[game]]];
         [self playGame:game];
     }
 }
@@ -1806,26 +1883,22 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             }
         }
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+        _selectedGames = [gameTableModel objectsAtIndexes:indexSet];
         if (shouldscroll && indexSet.count && !currentlyAddingGames)
             [_gameTableView scrollRowToVisible:(NSInteger)indexSet.firstIndex];
     }
 }
 
-- (void) selectGames:(NSArray*)games
+- (void)selectGames:(NSSet*)games
 {
     //NSLog(@"selectGames called with %ld games", games.count);
 
     if (games.count) {
-        
-        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-
-        for (Game *game in games) {
-            if ([gameTableModel containsObject:game]) {
-                [indexSet addIndex:[gameTableModel indexOfObject:game]];
-                //NSLog(@"selecting game %@",game.metadata.title);
-            } else NSLog(@"Game %@ not found in gameTableModel",game.metadata.title);
-        }
+        NSIndexSet *indexSet = [gameTableModel indexesOfObjectsPassingTest:^BOOL(NSString *obj, NSUInteger idx, BOOL *stop) {
+            return [games containsObject:obj];
+        }];
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+        _selectedGames = [gameTableModel objectsAtIndexes:indexSet];
         if (indexSet.count == 1 && !currentlyAddingGames)
             [_gameTableView scrollRowToVisible:(NSInteger)indexSet.firstIndex];
     }
@@ -1949,7 +2022,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     [gameTableModel sortUsingDescriptors:@[sort]];
     [_gameTableView reloadData];
 
-    [self selectGames:selectedGames];
+    [self selectGames:[NSSet setWithArray:_selectedGames]];
 
     gameTableDirty = NO;
 }
@@ -2065,8 +2138,8 @@ objectValueForTableColumn: (NSTableColumn*)column
         playButton.enabled = rows.count == 1;
         [self invalidateRestorableState];
         if (gameTableModel.count && rows.count) {
-            selectedGames = [gameTableModel objectsAtIndexes:rows];
-        } else selectedGames = nil;
+            _selectedGames = [gameTableModel objectsAtIndexes:rows];
+        } else _selectedGames = nil;
         [self updateSideViewForce:NO];
     }
 }
@@ -2081,6 +2154,13 @@ objectValueForTableColumn: (NSTableColumn*)column
     gameTableDirty = YES;
     [self updateTableViews];
     NSArray *updatedObjects = [notification.userInfo objectForKey:NSUpdatedObjectsKey];
+
+    for (id obj in updatedObjects) {
+        if ([obj isKindOfClass:[Theme class]]) {
+            [self rebuildThemesSubmenu];
+            break;
+        }
+    }
     if ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView])
     {
 //        NSLog(@"Game currently on display in side view (%@) did change", currentSideView.metadata.title);
@@ -2099,11 +2179,11 @@ objectValueForTableColumn: (NSTableColumn*)column
 		return;
 	}
 
-    if (!selectedGames || !selectedGames.count || selectedGames.count > 1) {
+    if (!_selectedGames || !_selectedGames.count || _selectedGames.count > 1) {
 
-        string = (selectedGames.count > 1) ? @"Multiple selections" : @"No selection";
+        string = (_selectedGames.count > 1) ? @"Multiple selections" : @"No selection";
 
-    } else game = [selectedGames objectAtIndex:0];
+    } else game = [_selectedGames objectAtIndex:0];
 
     if (force == NO && game && game == currentSideView) {
         //NSLog(@"updateSideView: %@ is already shown and force is NO", game.metadata.title);
@@ -2222,10 +2302,10 @@ canCollapseSubview:(NSView *)subview
     [state encodeBool:[_splitView isSubviewCollapsed:_leftView] forKey:@"sideviewHidden"];
 //    NSLog(@"Encoded left view collapsed as %@", [_splitView isSubviewCollapsed:_leftView]?@"YES":@"NO");
 
-    if (selectedGames.count) {
-        NSMutableArray *selectedGameIfids = [NSMutableArray arrayWithCapacity:selectedGames.count];
+    if (_selectedGames.count) {
+        NSMutableArray *selectedGameIfids = [NSMutableArray arrayWithCapacity:_selectedGames.count];
         NSString *str;
-        for (Game *game in selectedGames) {
+        for (Game *game in _selectedGames) {
             str = game.ifid;
             if (str)
                 [selectedGameIfids addObject:str];

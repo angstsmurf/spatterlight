@@ -19,8 +19,10 @@
 #define MAXSND 32
 
 @interface GlkHelperView : NSView {
-    IBOutlet GlkController *delegate;
 }
+
+@property IBOutlet GlkController *glkctrl;
+
 @end
 
 @interface GlkController : NSWindowController {
@@ -59,6 +61,8 @@
     GlkController *restoredController;
     NSUInteger turns;
     NSMutableData *bufferedData;
+
+    LibController *libcontroller;
 }
 
 @property NSMutableDictionary *gwindows;
@@ -70,7 +74,7 @@
 @property NSMutableArray *gridStyleHints;
 @property NSMutableArray *bufferStyleHints;
 
-@property(getter=isAlive, readonly) BOOL alive;
+@property(readonly, getter=isAlive) BOOL alive;
 
 @property(readonly) NSTimeInterval storedTimerLeft;
 @property(readonly) NSTimeInterval storedTimerInterval;

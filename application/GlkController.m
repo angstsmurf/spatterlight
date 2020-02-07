@@ -72,17 +72,17 @@ fprintf(stderr, "%s\n",                                                    \
 
     super.frame = frame;
 
-    if ([delegate isAlive] && !self.inLiveResize) {
-        [delegate contentDidResize:frame];
+    if ([_glkctrl isAlive] && !self.inLiveResize) {
+        [_glkctrl contentDidResize:frame];
     }
 }
 
 - (void)viewDidEndLiveResize {
     // We use a custom fullscreen width, so don't resize to full screen width
     // when viewDidEndLiveResize is called because we just entered fullscreen
-    if ((delegate.window.styleMask & NSFullScreenWindowMask) !=
+    if ((_glkctrl.window.styleMask & NSFullScreenWindowMask) !=
         NSFullScreenWindowMask)
-        [delegate contentDidResize:self.frame];
+        [_glkctrl contentDidResize:self.frame];
 }
 
 @end
@@ -119,8 +119,10 @@ fprintf(stderr, "%s\n",                                                    \
     _game = game_;
     _theme = _game.theme;
 
+    libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+
     if (!_theme.name) {
-        NSLog(@"GlkController runTerp called with game without theme!");
+        NSLog(@"GlkController runTerp called with theme without name!");
         _game.theme = [Preferences currentTheme];
         _theme = _game.theme;
     }
@@ -150,6 +152,7 @@ fprintf(stderr, "%s\n",                                                    \
     /* Setup our own stuff */
 
     _supportsAutorestore = [self.window isRestorable];
+    _game.autosaved = _supportsAutorestore;
     windowRestoredBySystem = windowRestoredBySystem_;
 
     shouldShowAutorestoreAlert = NO;
@@ -213,12 +216,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self
-     selector:@selector(noteThemeChanged:)
-     name:@"ThemeChanged"
-     object:nil];
-
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
      selector:@selector(noteDefaultSizeChanged:)
      name:@"DefaultSizeChanged"
      object:nil];
@@ -249,6 +246,7 @@ fprintf(stderr, "%s\n",                                                    \
         // If there exists an autosave file but we failed to read it,
         // delete it and run game without autorestoring
         [self deleteAutosaveFiles];
+        _game.autosaved = NO;
         [self runTerpNormal];
         return;
     }
@@ -266,6 +264,7 @@ fprintf(stderr, "%s\n",                                                    \
             // Otherwise we delete any autorestore files and
             // restart the game
             [self deleteAutosaveFiles];
+            _game.autosaved = NO;
             // If we die in fullscreen and close the game,
             // the game should not open in fullscreen the next time
             _inFullscreen = NO;
@@ -287,6 +286,7 @@ fprintf(stderr, "%s\n",                                                    \
                     // The user has checked "Remember this choice" when
                     // choosing to not autorestore
                     [self deleteAutosaveFiles];
+                    _game.autosaved = NO;
                     [self runTerpNormal];
                     return;
                 }
@@ -629,7 +629,7 @@ fprintf(stderr, "%s\n",                                                    \
 // LibController calls this to reset non-running games
 - (void)deleteAutosaveFilesForGame:(Game *)aGame {
     _gamefile = [aGame urlForBookmark].path;
-
+    aGame.autosaved = NO;
     [self deleteAutosaveFiles];
 }
 
@@ -667,7 +667,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (!res) {
         NSLog(@"GUI autosave on exit failed!");
         return;
-    }
+    } else _game.autosaved = YES;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
@@ -825,17 +825,22 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)windowWillClose:(id)sender {
-//    NSLog(@"glkctl: windowWillClose");
+    NSLog(@"glkctl (game %@): windowWillClose", _game.metadata.title);
 
     if (_supportsAutorestore) {
         [self autoSaveOnExit];
     }
 
     if (_game.ifid)
-        [((AppDelegate *)[NSApplication sharedApplication].delegate)
-     .libctl.gameSessions removeObjectForKey:_game.ifid];
+        [libcontroller.gameSessions removeObjectForKey:_game.ifid];
 
-    [self.window setDelegate:nil];
+    if ([Preferences instance].currentGame == _game) {
+        Game *remainingGameSession = nil;
+        if (libcontroller.gameSessions.count)
+            remainingGameSession = ((GlkController *)[libcontroller.gameSessions.allValues objectAtIndex:0]).game;
+        NSLog(@"GlkController for game %@ closing. Setting preferences current game to %@", _game.metadata.title, remainingGameSession.metadata.title);
+        [Preferences changeCurrentGame:remainingGameSession];
+    } else NSLog(@"GlkController for game %@ closing, but preferences currentGame was %@", _game.metadata.title, [Preferences instance].currentGame.metadata.title);
 
     if (timer) {
 //        NSLog(@"glkctl: force stop the timer");
@@ -850,6 +855,14 @@ fprintf(stderr, "%s\n",                                                    \
         [task terminate];
         task = nil;
     }
+
+    for (GlkWindow *win in [_gwindows allValues])
+    {
+        win.glkctl = nil;
+    }
+    
+    _contentView.glkctrl = nil;
+    [self.window setDelegate:nil];
 }
 
 /*
@@ -859,8 +872,7 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Cocoa glue
 
 - (IBAction)showGameInfo:(id)sender {
-    [((AppDelegate *)[NSApplication sharedApplication].delegate).libctl
-     showInfoForGame:_game];
+    [libcontroller showInfoForGame:_game];
 }
 
 - (IBAction)revealGameInFinder:(id)sender {
@@ -937,6 +949,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
+    [Preferences changeCurrentGame:_game];
     if (!dead) {
         [self guessFocus];
     }
@@ -1044,45 +1057,47 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Preference and style hint glue
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
-    //NSLog(@"glkctl notePreferencesChanged");
 
-    if (notify.object != _game.theme && notify.object != nil) {
-        NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).name, _game.theme.name);
-        NSLog(@"current setting: %@ notePreferencesChanged object name %@", _game.theme.name, ((Theme *)notify.object).name );
-        return;
-     
+    // If this is the GlkController of the sample text in
+    // the preferences window, we use the _dummyTheme property
+    if (_game) {
+        NSLog(@"glkctl notePreferencesChanged called for game %@, currently using theme %@", _game.metadata.title, _game.theme.name);
+        _theme = _game.theme;
+    } else {
+        _theme = [Preferences currentTheme];
+        dead = YES;
     }
 
-    GlkEvent *gevent;
+    if (notify.object != _theme && notify.object != nil) {
+        NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).name, _theme.name);
+        return;
+    } else if ( notify.object == nil) {
+        NSLog(@"glkctl: PreferencesChanged with a nil object.");
+    }
+
 
     [self adjustContentView];
 
-    if (!_theme) {
-        if (_game.theme) {
-            _theme = _game.theme;
-        } else {
-            NSLog(@"GlkController notePreferencesChanged: game has no theme! Setting to default");
-            _theme = [Preferences currentTheme];
-            _game.theme = _theme;
-        }
+    if (!dead) {
+        GlkEvent *gevent;
+
+        CGFloat width = _contentView.frame.size.width;
+        CGFloat height = _contentView.frame.size.height;
+
+        if (width < 0)
+            width = 0;
+        if (height < 0)
+            height = 0;
+
+        gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)width
+                                             height:(NSInteger)height
+                                              theme:_theme
+                                              force:NO];
+        [self queueEvent:gevent];
+
+        gevent = [[GlkEvent alloc] initPrefsEvent];
+        [self queueEvent:gevent];
     }
-
-    CGFloat width = _contentView.frame.size.width;
-    CGFloat height = _contentView.frame.size.height;
-
-    if (width < 0)
-        width = 0;
-    if (height < 0)
-        height = 0;
-
-    gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)width
-                                         height:(NSInteger)height
-                                          theme:_theme
-                                          force:NO];
-    [self queueEvent:gevent];
-
-    gevent = [[GlkEvent alloc] initPrefsEvent];
-    [self queueEvent:gevent];
 
     if (!_gwindows.count) {
         NSLog(@"glkctl: notePreferencesChanged called with no _gwindows");
@@ -1093,14 +1108,6 @@ fprintf(stderr, "%s\n",                                                    \
         win.theme = _theme;
         [win prefsDidChange];
     }
-}
-
-- (void)noteThemeChanged:(NSNotification *)notify {
-
-    NSLog(@"glkctl noteThemeChanged");
-    _theme = notify.object;
-    _game.theme = notify.object;
-    [self notePreferencesChanged:nil];
 }
 
 - (void)handleChangeTitle:(char *)buf length:(int)len {

@@ -12,6 +12,7 @@
 
 @property (readonly, copy) NSString *stringByDecodingXMLEntities;
 
++ (NSString *)stringWithSummaryOf:(NSArray *)games;
 - (NSString *)signatureFromFile;
 - (NSString *)scrubInvalidCharacters;
 

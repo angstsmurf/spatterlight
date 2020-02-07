@@ -14,6 +14,7 @@
 @implementation Game
 
 @dynamic added;
+@dynamic autosaved;
 @dynamic fileLocation;
 @dynamic found;
 @dynamic group;

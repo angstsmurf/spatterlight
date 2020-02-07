@@ -73,7 +73,6 @@
     NSScrollView *scrollview;
     NSLayoutManager *layoutmanager;
     MarginContainer *container;
-    MyTextView *textview;
     NSTextStorage *textstorage;
 
     BOOL line_request;
@@ -99,6 +98,8 @@
     CGFloat lastScrollOffset;
     BOOL lastAtBottom;
 }
+
+@property MyTextView *textview;
 
 @property(readonly) NSInteger lastchar; /* for smart formatting */
 @property(readonly) NSInteger lastseen; /* for more paging */

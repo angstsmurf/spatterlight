@@ -2,6 +2,7 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63" minimumToolsVersion="Xcode 4.3">
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="added" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="autosaved" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="fileLocation" optional="YES" attributeType="Transformable" valueTransformerName="" syncable="YES"/>
         <attribute name="found" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
@@ -149,7 +150,7 @@
         <relationship name="overrides" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="override" inverseEntity="Game" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Game" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="Game" positionX="160" positionY="192" width="128" height="225"/>
         <element name="GlkStyle" positionX="160" positionY="192" width="128" height="405"/>
         <element name="Ifid" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Image" positionX="160" positionY="192" width="128" height="105"/>

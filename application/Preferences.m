@@ -1,9 +1,12 @@
 #import "Compatibility.h"
 #import "CoreDataManager.h"
 #import "Game.h"
+#import "Metadata.h"
 #import "Theme.h"
 #import "ThemeArrayController.h"
 #import "GlkStyle.h"
+#import "LibController.h"
+#import "NSString+Categories.h"
 
 #import "main.h"
 
@@ -86,7 +89,7 @@ static Preferences *prefs = nil;
             NSLog(@"Preference readDefaults: Error! Could not create default theme!");
     } else theme = [fetchedObjects objectAtIndex:0];
 
-    [self readSettingsFromTheme:theme];
+//    [self readSettingsFromTheme:theme];
 }
 
 
@@ -152,28 +155,27 @@ static Preferences *prefs = nil;
     return defaultTheme;
 }
 
-+ (void)readSettingsFromTheme:(Theme *)theme {
+//+ (void)readSettingsFromTheme:(Theme *)theme {
+//
+//    if (!theme.gridNormal.font) {
+//        NSLog(@"pref: Found no grid NSFont object in theme %@, creating default", theme.name);
+//        theme.gridNormal.font = [NSFont userFixedPitchFontOfSize:0];
+//    }
+//
+//    if (!theme.bufferNormal.font) {
+//        NSLog(@"pref: Found no buffer NSFont object in theme %@, creating default", theme.name);
+//        theme.bufferNormal.font = [NSFont userFontOfSize:0];
+//    }
+//
+//    if (!theme.bufInput.font) {
+//        NSLog(@"pref: Found no bufInput NSFont object in theme %@, creating default", theme.name);
+//        theme.bufInput.font = [NSFont userFontOfSize:0];
+//    }
+//}
 
-    if (!theme.gridNormal.font) {
-        NSLog(@"pref: Found no grid NSFont object in theme %@, creating default", theme.name);
-        theme.gridNormal.font = [NSFont userFixedPitchFontOfSize:0];
-    }
-
-    if (!theme.bufferNormal.font) {
-        NSLog(@"pref: Found no buffer NSFont object in theme %@, creating default", theme.name);
-        theme.bufferNormal.font = [NSFont userFontOfSize:0];
-    }
-
-    if (!theme.bufInput.font) {
-        NSLog(@"pref: Found no bufInput NSFont object in theme %@, creating default", theme.name);
-        theme.bufInput.font = [NSFont userFontOfSize:0];
-    }
-}
-
-+ (void)changeTheme:(Theme *)aTheme {
-    theme = aTheme;
++ (void)changeCurrentGame:(Game *)game {
     if (prefs) {
-        [prefs changeThemeName:theme.name];
+        prefs.currentGame = game;
         [prefs restoreThemeSelection:theme];
     }
 }
@@ -239,10 +241,6 @@ static Preferences *prefs = nil;
 
 + (BOOL)stylesEnabled {
     return theme.doStyles;
-}
-
-+ (BOOL)useScreenFonts {
-    return NO;
 }
 
 + (BOOL)smartQuotes {
@@ -342,19 +340,6 @@ static Preferences *prefs = nil;
      postNotification:notification];
 }
 
-- (void)noteCurrentThemeDidChange:(NSNotification *)notification {
-    theme = notification.object;
-    // Send notification that theme has changed -- trigger configure events
-
-    [self updatePrefsPanel];
-    [self changeThemeName:theme.name];
-
-    [Preferences readSettingsFromTheme:theme];
-
-    glktxtbuf.theme = theme;
-    [glktxtbuf prefsDidChange];
-}
-
 #pragma mark - Instance -- controller for preference panel
 
 NSString *fontToString(NSFont *font) {
@@ -411,26 +396,23 @@ NSString *fontToString(NSFont *font) {
     glktxtbuf.frame = sampleTextFrame;
 
     [glktxtbuf putString:@"Palace Gate\n" style:style_Subheader];
-    [glktxtbuf putString:@"A tide of perambulators surges north along the crowded Broad Walk. " style:style_Normal];
-    [glktxtbuf putString:@"(From Trinity, Infocom 1986)" style:style_Emphasized];
+    [glktxtbuf putString:@"A tide of perambulators surges north along the crowded Broad Walk. "
+                         @"Shaded glades stretch away to the northeast, "
+                         @"and a hint of color marks the western edge of the Flower Walk. " style:style_Normal];
+
+    [glktxtbuf putString:@"(Trinity, Brian Moriarty, Infocom, 1986)" style:style_Emphasized];
 
     [glktxtbuf restoreScrollBarStyle];
 
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(notePreferencesChanged:)
-     name:@"PreferencesChanged"
-     object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notePreferencesChanged:)
+                                                 name:@"PreferencesChanged"
+                                               object:nil];
 
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(noteCurrentThemeDidChange:)
-     name:@"CurrentThemeChanged"
-     object:nil];
+//    [Preferences readSettingsFromTheme:theme];
 
-    [Preferences readSettingsFromTheme:theme];
-
-    themeSelectionScope = USE_FOR_ALL;
+    _oneThemeForAll = [[NSUserDefaults standardUserDefaults] boolForKey:@"oneThemeForAll"];
+    _themesHeader.stringValue = [self themeScopeTitle];
 
     prefs = self;
     [self updatePrefsPanel];
@@ -444,20 +426,46 @@ NSString *fontToString(NSFont *font) {
     _scrollView.borderType = NSNoBorder;
 
     [self changeThemeName:theme.name];
-    [_addAndRemove setEnabled:theme.editable forSegment:1];
+    _btnRemove.enabled = YES;
     [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
 }
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
-    NSLog(@"Preferences: notePreferencesChanged notification received");
+    // Change the theme of the sample text field
+
+//    NSLog(@"Preferences notePreferencesChanged:%@", [(Theme *)notify.object name]);
     glktxtbuf.theme = theme;
-    NSRect sampleTextFrame;
+    if (previewHidden) return;
+
+    [self resizeWindowToHeight:[self previewHeight]+20];
+
+    NSRect sampleTextFrame = glktxtbuf.frame;
     sampleTextFrame.origin = NSMakePoint(theme.border, theme.border);
-    sampleTextFrame.size = NSMakeSize(sampleTextView.frame.size.width - theme.border * 2,
-                                      sampleTextView.frame.size.height - theme.border * 2);
+    sampleTextFrame.size.width = ((NSView *)self.window.contentView).frame.size.width - 2 * theme.border;
+
+    NSLog(@"sampleTextFrame: %@", NSStringFromRect(sampleTextFrame));
+    NSTextView *textview = glktxtbuf.textview;
+    
+    [textview.layoutManager ensureLayoutForTextContainer:textview.textContainer];
+
+    textview.frame = [textview.layoutManager usedRectForTextContainer:textview.textContainer];
+
+    NSLog(@" textview.frame: %@", NSStringFromRect(textview.frame));
+
+//
+//    sampleTextFrame.size = NSMakeSize(sampleTextView.frame.size.width - theme.border * 2,
+//                                      sampleTextView.frame.size.height - theme.border * 2);
+
+    sampleTextFrame.size.height = textview.frame.size.height;
     glktxtbuf.frame = sampleTextFrame;
     [glktxtbuf restoreScrollBarStyle];
     [glktxtbuf prefsDidChange];
+    NSRect previewFrame = self.window.frame;
+    previewFrame.size.height = previewFrame.size.height - kDefaultPrefWindowHeight;
+    previewFrame.size.width = previewFrame.size.width - 2 * theme.bufferMarginX;
+
+    previewFrame.origin = NSZeroPoint;
+    glktxtbuf.textview.frame = previewFrame;
 }
 
 - (void)updatePrefsPanel {
@@ -485,14 +493,34 @@ NSString *fontToString(NSFont *font) {
     btnInputFont.title = fontToString(theme.bufInput.font);
 
     btnSmartQuotes.state = theme.smartQuotes;
-    btnSpaceFormat.state = theme.spaceFormat;
+    btnSpaceFormat.state = (theme.spaceFormat == TAG_SPACES_ONE);
 
     btnEnableGraphics.state = theme.doGraphics;
     btnEnableSound.state = theme.doSound;
-    btnEnableStyles.state = theme.doSound;
+    btnEnableStyles.state = theme.doStyles;
+
+    _btnOneThemeForAll.state = _oneThemeForAll;
 
     if ([[NSFontPanel sharedFontPanel] isVisible] && selectedFontButton)
         [self showFontPanel:selectedFontButton];
+}
+
+@synthesize currentGame = _currentGame;
+
+- (void)setCurrentGame:(Game *)currentGame {
+    _currentGame = currentGame;
+    _themesHeader.stringValue = [self themeScopeTitle];
+    if (currentGame == nil) {
+        NSLog(@"Preferences currentGame was set to nil");
+        return;
+    }
+    if (_currentGame.theme != theme) {
+        [self restoreThemeSelection:_currentGame.theme];
+    }
+}
+
+- (Game *)currentGame {
+    return _currentGame;
 }
 
 @synthesize defaultTheme = _defaultTheme;
@@ -599,6 +627,141 @@ NSString *fontToString(NSFont *font) {
         NSLog(@"createDefaultThemes successful");
 }
 
+#pragma mark Preview
+
+//- (void)resizePreview {
+//    NSWindow *prefsPanel= self.window;
+//
+//
+//        CGRect screenframe = self.window.screen.visibleFrame;
+//
+//        CGFloat oldheight = prefsPanel.frame.size.height;
+//
+//
+//        CGRect winrect = [self previewRect];
+//        winrect.origin = prefsPanel.frame.origin;
+//
+//        // If the entire text does not fit on screen, don't change height at all
+//        if (winrect.size.height > screenframe.size.height)
+//            winrect.size.height = oldheight;
+//
+//        // When we reuse the window it will remember our last scroll position,
+//        // so we reset it here
+//
+//        // Scroll the vertical scroller to top
+//        _scrollView.verticalScroller.floatValue = 0;
+//
+//        // Scroll the contentView to top
+//        [_scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
+//
+//        CGFloat offset = winrect.size.height - oldheight;
+//
+//        winrect.origin.y -= offset;
+//
+//        // If window is partly off the screen, move it (just) inside
+//        if (NSMaxX(winrect) > NSMaxX(screenframe))
+//            winrect.origin.x = NSMaxX(screenframe) - winrect.size.width;
+//
+//        if (NSMinY(winrect) < 0)
+//            winrect.origin.y = NSMinY(screenframe);
+//
+//        [prefsPanel setFrame:winrect display:YES animate:YES];
+//        [sampleTextView scrollRectToVisible:NSMakeRect(0, 0, 0, 0)];
+//}
+
+- (void)resizeWindowToHeight:(CGFloat)height {
+
+    NSLog(@"resizeWindowToHeight %f", height);
+
+    NSWindow *prefsPanel= self.window;
+    CGRect screenframe = prefsPanel.screen.visibleFrame;
+
+    CGFloat oldheight = prefsPanel.frame.size.height;
+
+    CGRect winrect = prefsPanel.frame;
+    winrect.origin = prefsPanel.frame.origin;
+
+    winrect.size.height = height;
+
+    // Add window header height
+    winrect = [prefsPanel frameRectForContentRect:winrect];
+
+    // If the entire text does not fit on screen, don't change height at all
+    if (winrect.size.height > screenframe.size.height)
+        winrect.size.height = oldheight;
+
+    // When we reuse the window it will remember our last scroll position,
+    // so we reset it here
+
+    // Scroll the vertical scroller to top
+    _scrollView.verticalScroller.floatValue = 0;
+
+    // Scroll the contentView to top
+    [_scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
+
+    CGFloat offset = winrect.size.height - oldheight;
+
+    winrect.origin.y -= offset;
+
+    // If window is partly off the screen, move it (just) inside
+    if (NSMaxX(winrect) > NSMaxX(screenframe))
+        winrect.origin.x = NSMaxX(screenframe) - winrect.size.width;
+
+    if (NSMinY(winrect) < 0)
+        winrect.origin.y = NSMinY(screenframe);
+
+    [prefsPanel setFrame:winrect display:YES animate:YES];
+    [sampleTextView scrollRectToVisible:NSMakeRect(0, 0, 0, 0)];
+}
+
+- (CGFloat)previewHeight {
+
+    NSTextView *textview = [[NSTextView alloc] initWithFrame:glktxtbuf.textview.frame];   
+    if (textview == nil) {
+        NSLog(@"No NSTextView in sampleTextView");
+        return 0;
+    }
+
+    CGFloat textWidth = self.window.frame.size.width - 2 * theme.border - 2 * theme.bufferMarginX;
+
+    NSLog(@"textWidth: %f", textWidth);
+
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:[glktxtbuf.textview.textStorage copy]];
+
+    NSTextContainer *textContainer = [[NSTextContainer alloc]
+                                      initWithContainerSize:NSMakeSize(textWidth, FLT_MAX)];
+
+    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+    [layoutManager addTextContainer:textContainer];
+    [textStorage addLayoutManager:layoutManager];
+
+    [layoutManager glyphRangeForTextContainer:textContainer];
+
+    CGRect proposedRect =
+    [layoutManager usedRectForTextContainer:textContainer];
+
+//    NSRect textFrame = textview.frame;
+//    NSLog(@"Textview original frame: %@", NSStringFromRect(textview.frame));
+//    textview.frame = textFrame;
+//
+//    NSLog(@"Textview new frame: %@", NSStringFromRect(textview.frame));
+//
+//    
+//    CGRect proposedRect =
+//    [textview.layoutManager usedRectForTextContainer:textview.textContainer];
+
+    NSLog(@"proposedRect: %@", NSStringFromRect(proposedRect));
+
+
+    CGFloat totalHeight = kDefaultPrefWindowHeight + proposedRect.size.height + 2 * theme.border + 2 * theme.bufferMarginY;
+    NSLog(@"total height = kDefaultPrefWindowHeight (%ld) + proposedRect.size.height (%f) + 2 * theme.border (%d)", kDefaultPrefWindowHeight,  proposedRect.size.height, theme.border);
+    CGRect screenframe = [NSScreen mainScreen].visibleFrame;
+    if (totalHeight > screenframe.size.height) totalHeight = screenframe.size.height;
+    return totalHeight;
+}
+
+
+
 #pragma mark Themes Table View Magic
 
 - (void)restoreThemeSelection:(id)sender {
@@ -621,45 +784,42 @@ NSString *fontToString(NSFont *font) {
 - (void)tableViewSelectionDidChange:(id)notification {
     NSTableView *tableView = [notification object];
     if (tableView == themesTableView) {
-//        if (_arrayController.selectedTheme == theme || disregardTableSelection == YES)
-        if (disregardTableSelection == YES)
+        NSLog(@"Preferences tableViewSelectionDidChange:%@", _arrayController.selectedTheme.name);
+        if (disregardTableSelection == YES) {
+            disregardTableSelection = NO;
             return;
+        }
         theme = _arrayController.selectedTheme;
         // Send notification that theme has changed -- trigger configure events
 
         [self updatePrefsPanel];
         [self changeThemeName:theme.name];
-        [_addAndRemove setEnabled:theme.editable forSegment:1];
-        notification = [NSNotification notificationWithName:@"ThemeChanged" object:theme];
-        [Preferences readSettingsFromTheme:theme];
+        _btnRemove.enabled = YES;
+//        [Preferences readSettingsFromTheme:theme];
 
-        glktxtbuf.theme = theme;
-        [glktxtbuf prefsDidChange];
+        if (_oneThemeForAll) {
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSArray *fetchedObjects;
+            NSError *error;
+            fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
+            fetchRequest.includesPropertyValues = NO;
+            fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+            [theme addGames:[NSSet setWithArray:fetchedObjects]];
+        } else if (_currentGame) {
+            _currentGame.theme = theme;
+        }
 
-//        NSLog(@"Preferences tableViewSelectionDidChange issued themeChanged notification with object %@", theme.name);
+
         [[NSNotificationCenter defaultCenter]
-         postNotification:notification];
+         postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
 
-        return;
     }
     return;
 }
 
 - (void)changeThemeName:(NSString *)name {
     [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"themeName"];
-    _settingsThemeHeader.stringValue = [NSString stringWithFormat:@"Settings for theme %@", name];
-}
-
-- (BOOL)control:(NSControl *)control
-  isValidObject:(id)obj {
-    NSLog(@"control:isValidObject:");
-    NSInteger result = [themesTableView rowForView:control];
-    if (result != -1) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            return [self notDuplicate:obj];
-        }
-    }
-    return YES;
+    _detailsHeader.stringValue = [NSString stringWithFormat:@"Settings for theme %@", name];
 }
 
 - (BOOL)notDuplicate:(NSString *)string {
@@ -671,65 +831,156 @@ NSString *fontToString(NSFont *font) {
     return YES;
 }
 
-
-- (BOOL)control:(NSControl *)control
-textShouldBeginEditing:(NSText *)fieldEditor {
-    NSLog(@"textShouldBeginEditing: %@", fieldEditor.string);
-    return YES;
-}
-
 - (BOOL)control:(NSControl *)control
 textShouldEndEditing:(NSText *)fieldEditor {
-    NSLog(@"textShouldEndEditing: %@", fieldEditor.string);
-    [self changeThemeName:fieldEditor.string];
+    if ([self notDuplicate:fieldEditor.string] == NO) {
+        [self showDuplicateThemeNameAlert:fieldEditor];
+        return NO;
+    }
     return YES;
 }
 
+- (void)showDuplicateThemeNameAlert:(NSText *)fieldEditor {
+    NSAlert *anAlert = [[NSAlert alloc] init];
+    anAlert.messageText =
+    [NSString stringWithFormat:@"The theme name \"%@\" is already in use.", fieldEditor.string];
+    anAlert.informativeText = @"Please enter another name.";
+    [anAlert addButtonWithTitle:@"Okay"];
+    [anAlert addButtonWithTitle:@"Discard Change"];
 
-- (void)controlTextDidEndEditing:(NSNotification *)obj {
-    NSLog(@"Preferences controlTextDidEndEditing: %@", obj.object);
+    [anAlert beginSheetModalForWindow:self.window
+                        modalDelegate:self
+                       didEndSelector:@selector(duplicateThemeNameAlertDidFinish:
+                                                rc:ctx:)
+                          contextInfo:(__bridge void *)fieldEditor];
+}
+
+- (void)duplicateThemeNameAlertDidFinish:(id)alert rc:(int)result ctx:(void *)ctx {
+    if (result == NSAlertSecondButtonReturn) {
+        ((__bridge NSText *)ctx).string = theme.name;
+    }
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)notification {
+    if ([notification.object isKindOfClass:[NSTextField class]]) {
+        NSTextField *textfield = notification.object;
+        [self changeThemeName:textfield.stringValue];
+    }
 }
 
 - (NSArray *)sortDescriptors {
-    return @[[NSSortDescriptor sortDescriptorWithKey:@"editable" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
+    return @[[NSSortDescriptor sortDescriptorWithKey:@"editable" ascending:YES],
+             [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES
+                                            selector:@selector(localizedStandardCompare:)]];
 }
 
+#pragma mark Action menu
 
-- (IBAction)pushedUseThemeForAll:(id)sender {
-    btnUseThemeForAll.state = NSOnState;
-    btnUseThemeForRunning.state = NSOffState;
-    btnUseThemeForSelected.state = NSOffState;
-    themeSelectionScope = USE_FOR_ALL;
-}
+@synthesize oneThemeForAll = _oneThemeForAll;
 
-- (IBAction)pushedUseThemeForRunning:(id)sender {
-    btnUseThemeForAll.state = NSOffState;
-    btnUseThemeForRunning.state = NSOnState;
-    btnUseThemeForSelected.state = NSOffState;
-    themeSelectionScope = USE_FOR_ACTIVE;
-}
-
-- (IBAction)pushedUseThemeForSelected:(id)sender {
-    btnUseThemeForAll.state = NSOffState;
-    btnUseThemeForRunning.state = NSOffState;
-    btnUseThemeForSelected.state = NSOnState;
-    themeSelectionScope = USE_FOR_SELECTED;
-}
-
-- (void)editNewEntry:(id)sender {
-    NSInteger row = (NSInteger)[_arrayController selectionIndex];
-    NSTableCellView* cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:row makeIfNecessary:YES];
-    if ([cellView.textField acceptsFirstResponder]) {
-        [cellView.window makeFirstResponder:cellView.textField];
-        [themesTableView scrollRowToVisible:(NSInteger)row];
+- (void)setOneThemeForAll:(BOOL)oneThemeForAll {
+    _oneThemeForAll = oneThemeForAll;
+    [[NSUserDefaults standardUserDefaults] setBool:_oneThemeForAll forKey:@"oneThemeForAll"];
+    _themesHeader.stringValue = [self themeScopeTitle];
+    if (oneThemeForAll) {
+        _btnOneThemeForAll.state = NSOnState;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSError *error = nil;
+        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
+        fetchRequest.includesPropertyValues = NO;
+        NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        theme.games = [NSSet setWithArray:fetchedObjects];
+    } else {
+        _btnOneThemeForAll.state = NSOffState;
     }
 
+}
+
+- (BOOL)oneThemeForAll {
+    return _oneThemeForAll;
+}
+
+- (IBAction)clickedOneThemeForAll:(id)sender {
+    if ([sender state] == 1) {
+        if (![[NSUserDefaults standardUserDefaults] valueForKey:@"UseForAllAlertAlertSuppression"]) {
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSError *error = nil;
+            fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
+            fetchRequest.includesPropertyValues = NO;
+            NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+            NSUInteger numberOfGames = fetchedObjects.count;
+            Theme *mostPopularTheme = nil;
+            NSUInteger highestCount = 0;
+            NSUInteger currentCount = 0;
+            for (Theme *t in _arrayController.arrangedObjects) {
+                currentCount = t.games.count;
+                if (currentCount > highestCount) {
+                    highestCount = t.games.count;
+                    mostPopularTheme = t;
+                    NSLog(@"Theme %@ has the highest number (%ld) of games using it so far", t.name, highestCount);
+                }
+            }
+            if (highestCount < numberOfGames) {
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"theme != %@", mostPopularTheme];
+                fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+                [self showUseForAllAlert:fetchedObjects];
+                return;
+            }
+        }
+    }
+
+    self.oneThemeForAll = (BOOL)[sender state];
+}
+
+- (void)showUseForAllAlert:(NSArray *)games {
+    NSAlert *anAlert = [[NSAlert alloc] init];
+    anAlert.messageText =
+    [NSString stringWithFormat:@"%@ %@ individual theme settings.", [NSString stringWithSummaryOf:games], (games.count == 1) ? @"has" : @"have"];
+    anAlert.informativeText = [NSString stringWithFormat:@"Would you like to use theme %@ for all games?", theme.name];
+    anAlert.showsSuppressionButton = YES;
+    anAlert.suppressionButton.title = @"Do not show again.";
+    [anAlert addButtonWithTitle:@"Okay"];
+    [anAlert addButtonWithTitle:@"Cancel"];
+
+    [anAlert beginSheetModalForWindow:self.window
+                        modalDelegate:self
+                       didEndSelector:@selector(useForAllAlertDidFinish:
+                                                rc:ctx:)
+                          contextInfo:NULL];
+}
+
+- (void)useForAllAlertDidFinish:(id)alert rc:(int)result ctx:(void *)ctx {
+
+    NSAlert *anAlert = alert;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    NSString *alertSuppressionKey = @"UseForAllAlertAlertSuppression";
+
+    if (anAlert.suppressionButton.state == NSOnState) {
+        // Suppress this alert from now on
+        [defaults setBool:YES forKey:alertSuppressionKey];
+    }
+
+    if (result == NSAlertFirstButtonReturn) {
+        self.oneThemeForAll = YES;
+    } else {
+        _btnOneThemeForAll.state = NSOffState;
+    }
+}
+
+- (NSString *)themeScopeTitle {
+    if (_oneThemeForAll) return @"Theme setting for all games";
+    if ( _currentGame == nil)
+        return @"No game is currently running";
+    else
+        return [@"Theme setting for game " stringByAppendingString:_currentGame.metadata.title];
 }
 
 - (IBAction)clickedSegmentedControl:(id)sender {
 
     NSInteger row;
     NSTableCellView* cellView;
+    NSSet *orphanedGames;
     
     NSInteger clickedSegment = [sender selectedSegment];
     NSInteger clickedSegmentTag = [[sender cell] tagForSegment:clickedSegment];
@@ -738,6 +989,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
             row = (NSInteger)[_arrayController selectionIndex];
             cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:row makeIfNecessary:YES];
             if ([self notDuplicate:cellView.textField.stringValue]) {
+                // For some reason, tableViewSelectionDidChange will be called twice here,
+                // so we disregard the first call
+                disregardTableSelection = YES;
                 [_arrayController add:sender];
                 [self performSelector:@selector(editNewEntry:) withObject:nil afterDelay:0.1];
             } else NSBeep();
@@ -747,16 +1001,149 @@ textShouldEndEditing:(NSText *)fieldEditor {
                 NSBeep();
                 break;
             }
+            orphanedGames = _arrayController.selectedTheme.games;
             row = (NSInteger)[_arrayController selectionIndex] - 1;
             [_arrayController remove:sender];
             _arrayController.selectionIndex = (NSUInteger)row;
-            break;
-        case 2:
-            //Should never happen
+            [_arrayController.selectedTheme addGames:orphanedGames];
             break;
         default:
+            NSLog(@"Unhandled switch case. Bug!");
             break;
     }
+}
+
+- (IBAction)addTheme:(id)sender {
+    NSInteger row = (NSInteger)[_arrayController selectionIndex];
+    NSTableCellView *cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:row makeIfNecessary:YES];
+    if ([self notDuplicate:cellView.textField.stringValue]) {
+        // For some reason, tableViewSelectionDidChange will be called twice here,
+        // so we disregard the first call
+        disregardTableSelection = YES;
+        [_arrayController add:sender];
+        [self performSelector:@selector(editNewEntry:) withObject:nil afterDelay:0.1];
+    } else NSBeep();
+}
+
+- (IBAction)removeTheme:(id)sender {
+    if (!_arrayController.selectedTheme.editable) {
+        NSBeep();
+        return;
+    }
+    NSSet *orphanedGames = _arrayController.selectedTheme.games;
+    NSInteger row = (NSInteger)[_arrayController selectionIndex] - 1;
+    [_arrayController remove:sender];
+    _arrayController.selectionIndex = (NSUInteger)row;
+    [_arrayController.selectedTheme addGames:orphanedGames];
+}
+
+- (IBAction)applyToSelected:(id)sender {
+    [theme addGames:[NSSet setWithArray:_libcontroller.selectedGames]];
+}
+
+- (IBAction)selectUsingTheme:(id)sender {
+    [_libcontroller selectGames:theme.games];
+    NSLog(@"selected %ld games using theme %@", theme.games.count, theme.name);
+}
+
+- (IBAction)deleteUserThemes:(id)sender {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSArray *fetchedObjects;
+    NSError *error;
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"editable == YES"];
+    fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+    if (fetchedObjects == nil || fetchedObjects.count == 0) {
+        return;
+    }
+
+    NSMutableSet *orphanedGames = [[NSMutableSet alloc] init];
+
+    for (Theme *t in fetchedObjects) {
+        [orphanedGames unionSet:t.games];
+    }
+
+    [_arrayController removeObjects:fetchedObjects];
+
+    NSArray *remainingThemes = [_arrayController arrangedObjects];
+    Theme *lastTheme = [remainingThemes objectAtIndex:remainingThemes.count - 1];
+    NSLog(@"lastRemainingTheme: %@", lastTheme.name);
+    [lastTheme addGames:orphanedGames];
+    _arrayController.selectedObjects = @[lastTheme];
+}
+
+- (IBAction)togglePreview:(id)sender {
+    if (!previewHidden) {
+        NSLog(@"togglePreview: preview is shown, so we shrink the window to %ld points high", kDefaultPrefWindowHeight);
+
+        [self resizeWindowToHeight:kDefaultPrefWindowHeight];
+        previewHidden = YES;
+        
+    } else {
+        NSLog(@"togglePreview: preview is shown, so we grow the window to %f points high", [self previewHeight]);
+        previewHidden = NO;
+        [self resizeWindowToHeight:[self previewHeight]+20];
+        NSRect previewFrame = self.window.frame;
+        previewFrame.size.height = previewFrame.size.height - kDefaultPrefWindowHeight;
+        previewFrame.size.width = previewFrame.size.width - theme.border;
+
+        previewFrame.origin = NSZeroPoint;
+        previewFrame.origin.y = 20;
+
+        glktxtbuf.textview.frame = previewFrame;
+
+        [self notePreferencesChanged:(NSNotification *)theme];
+    }
+}
+
+- (IBAction)editNewEntry:(id)sender {
+    NSInteger row = (NSInteger)[_arrayController selectionIndex];
+    NSTableCellView* cellView = (NSTableCellView*)[themesTableView viewAtColumn:0 row:row makeIfNecessary:YES];
+    if ([cellView.textField acceptsFirstResponder]) {
+        [cellView.window makeFirstResponder:cellView.textField];
+        [themesTableView scrollRowToVisible:(NSInteger)row];
+    }
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    SEL action = menuItem.action;
+
+    if (action == @selector(applyToSelected:)) {
+        if (_oneThemeForAll || _libcontroller.selectedGames.count == 0) {
+            return NO;
+        } else {
+            return YES;
+        }
+    }
+
+    if (action == @selector(selectUsingTheme:))
+        return (theme.games.count > 0);
+
+    if (action == @selector(deleteUserThemes:)) {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSArray *fetchedObjects;
+        NSError *error;
+        fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"editable == YES"];
+        fetchRequest.includesPropertyValues = NO;
+        fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+        if (fetchedObjects == nil || fetchedObjects.count == 0) {
+            return NO;
+        }
+    }
+
+    if (action == @selector(editNewEntry:))
+        return theme.editable;
+
+    if (action == @selector(togglePreview:))
+    {
+        NSString* title = previewHidden ? @"Show Preview" : @"Hide Preview";
+        ((NSMenuItem*)menuItem).title = title;
+    }
+    
+    return YES;
 }
 
 #pragma mark User actions
@@ -854,6 +1241,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [self cloneThemeIfNotEditable];
         key = @"GridMargin";
         theme.gridMarginX = val;
+        theme.gridMarginY = val;
     }
     if (sender == txtBufferMargin) {
         if (theme.bufferMarginX == val)
@@ -861,6 +1249,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [self cloneThemeIfNotEditable];
         key = @"BufferMargin";
         theme.bufferMarginX = val;
+        theme.bufferMarginY = val;
     }
 
     if (key) {
@@ -885,7 +1274,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeSpaceFormatting:(id)sender {
-    if (theme.spaceFormat  == [sender state])
+    if (theme.spaceFormat == [sender state])
         return;
     [self cloneThemeIfNotEditable];
     theme.spaceFormat = [sender state];
@@ -925,11 +1314,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeEnableStyles:(id)sender {
-    if (theme.doStyles  == [sender state])
+    if (theme.doStyles == [sender state])
         return;
     [self cloneThemeIfNotEditable];
     theme.doStyles = [sender state];
-    NSLog(@"pref: dostyles changed to %d", theme.doStyles);
+    NSLog(@"pref: dostyles for theme %@ changed to %d", theme.name, theme.doStyles);
     [Preferences rebuildTextAttributes];
 }
 
@@ -962,7 +1351,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         clonedTheme.name = name;
         theme = clonedTheme;
         [self changeThemeName:name];
-        [_addAndRemove setEnabled:YES forSegment:1];
+        _btnRemove.enabled = YES;
         [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
     }
 }

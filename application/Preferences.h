@@ -14,14 +14,13 @@ typedef enum kZoomDirectionType : NSUInteger {
     ZOOMOUT,
 } kZoomDirectionType;
 
-typedef enum kThemeSelectionScopeType : NSUInteger {
-    USE_FOR_ALL,
-    USE_FOR_ACTIVE,
-    USE_FOR_SELECTED,
-} kThemeSelectionScopeType;
+typedef enum kDefaultPrefWindowSize : NSUInteger {
+    kDefaultPrefWindowWidth = 516, 
+    kDefaultPrefWindowHeight = 305
+} kDefaultPrefWindowSize;
 
 
-@class Theme, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController;
+@class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController;
 
 @interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate> {
     IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
@@ -36,20 +35,16 @@ typedef enum kThemeSelectionScopeType : NSUInteger {
     IBOutlet NSButton *btnEnableSound;
     IBOutlet NSButton *btnEnableStyles;
     IBOutlet NSTableView *themesTableView;
-    IBOutlet NSButton *btnUseThemeForAll;
-    IBOutlet NSButton *btnUseThemeForRunning;
-    IBOutlet NSButton *btnUseThemeForSelected;
     IBOutlet NSView *sampleTextBorderView;
     IBOutlet GlkHelperView *sampleTextView;
 
     GlkController *glkcntrl;
     GlkTextBufferWindow *glktxtbuf;
-
+    
     NSButton *selectedFontButton;
 
     BOOL disregardTableSelection;
-
-    kThemeSelectionScopeType themeSelectionScope;
+    BOOL previewHidden;
 }
 
 
@@ -68,11 +63,16 @@ typedef enum kThemeSelectionScopeType : NSUInteger {
 - (IBAction)changeEnableSound:(id)sender;
 - (IBAction)changeEnableStyles:(id)sender;
 
-- (IBAction)clickedSegmentedControl:(id)sender;
+- (IBAction)addTheme:(id)sender;
+- (IBAction)removeTheme:(id)sender;
+- (IBAction)clickedOneThemeForAll:(id)sender;
 
-- (IBAction)pushedUseThemeForAll:(id)sender;
-- (IBAction)pushedUseThemeForRunning:(id)sender;
-- (IBAction)pushedUseThemeForSelected:(id)sender;
+#pragma mark Action menu
+- (IBAction)applyToSelected:(id)sender;
+- (IBAction)selectUsingTheme:(id)sender;
+- (IBAction)deleteUserThemes:(id)sender;
+- (IBAction)togglePreview:(id)sender;
+- (IBAction)editNewEntry:(id)sender;
 
 - (void)createDefaultThemes;
 
@@ -82,14 +82,13 @@ typedef enum kThemeSelectionScopeType : NSUInteger {
 + (void)scale:(CGFloat)scalefactor;
 - (void)updatePanelAfterZoom;
 
+#pragma mark Global accessors
+
 + (NSColor *)gridBackground;
 + (NSColor *)gridForeground;
 + (NSColor *)bufferBackground;
 + (NSColor *)bufferForeground;
 + (NSColor *)inputColor;
-
-//+ (NSColor *)foregroundColor:(int)number;
-//+ (NSColor *)backgroundColor:(int)number;
 
 + (double)lineHeight;
 + (double)charWidth;
@@ -105,21 +104,31 @@ typedef enum kThemeSelectionScopeType : NSUInteger {
 
 + (BOOL)graphicsEnabled;
 + (BOOL)soundEnabled;
-+ (BOOL)useScreenFonts;
 
 + (Theme *)currentTheme;
 
 + (Preferences *)instance;
 
++ (void)changeCurrentGame:(Game *)game;
+
 @property (readonly) Theme *defaultTheme;
 @property (readonly) CoreDataManager *coreDataManager;
 @property (readonly) NSArray *sortDescriptors;
-
 @property (readonly) NSManagedObjectContext *managedObjectContext;
-@property (strong) IBOutlet NSSegmentedControl *addAndRemove;
+@property Game *currentGame;
+@property BOOL oneThemeForAll;
+@property LibController *libcontroller;
+
 @property (strong) IBOutlet ThemeArrayController *arrayController;
 @property (strong) IBOutlet NSScrollView *scrollView;
-@property (strong) IBOutlet NSTextFieldCell *settingsThemeHeader;
-@property (strong) IBOutlet NSTextFieldCell *gamesScopeHeader;
+
+@property (strong) IBOutlet NSTextFieldCell *detailsHeader;
+@property (strong) IBOutlet NSTextFieldCell *themesHeader;
+@property (strong) IBOutlet NSButton *btnOneThemeForAll;
+
+@property (strong) IBOutlet NSPopUpButton *actionButton;
+
+@property (strong) IBOutlet NSButton *btnAdd;
+@property (strong) IBOutlet NSButton *btnRemove;
 
 @end

@@ -40,7 +40,6 @@
     IBOutlet NSMenu *headerMenu;
 
     NSMutableArray *gameTableModel;
-    NSArray *selectedGames;
     NSString *gameSortColumn;
     BOOL gameTableDirty;
     BOOL sortAscending;
@@ -89,6 +88,9 @@
 @property (strong) IBOutlet NSTextFieldCell *foundIndicatorCell;
 @property (strong) IBOutlet NSProgressIndicator *progressCircle;
 
+@property (strong) IBOutlet NSMenuItem *themesSubMenu;
+
+@property NSArray *selectedGames;
 
 - (void)beginImporting;
 - (void)endImporting;
@@ -116,7 +118,11 @@
 - (IBAction)showGameInfo:(id)sender;
 - (IBAction)revealGameInFinder:(id)sender;
 - (IBAction)deleteGame:(id)sender;
+- (IBAction)selectSameTheme:(id)sender;
+
 - (void)showInfoForGame:(Game *)game;
+
+- (void)selectGames:(NSSet*)games;
 
 - (void)updateTableViews; /* must call this after -importGame: */
 - (void)updateSideViewForce:(BOOL)force;

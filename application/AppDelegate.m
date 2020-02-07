@@ -7,6 +7,7 @@
 #import "HelpPanelController.h"
 #import "InfoController.h"
 #import "main.h"
+#import "NSString+Categories.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -84,15 +85,16 @@ NSDictionary *gFormatMap;
 
     addToRecents = YES;
 
-    _prefctl = [[Preferences alloc] initWithWindowNibName:@"PrefsWindow"];
-    _prefctl.window.restorable = YES;
-    _prefctl.window.restorationClass = [self class];
-    _prefctl.window.identifier = @"preferences";
-
     _libctl = [[LibController alloc] init];
     _libctl.window.restorable = YES;
     _libctl.window.restorationClass = [self class];
     _libctl.window.identifier = @"library";
+
+    _prefctl = [[Preferences alloc] initWithWindowNibName:@"PrefsWindow"];
+    _prefctl.window.restorable = YES;
+    _prefctl.window.restorationClass = [self class];
+    _prefctl.window.identifier = @"preferences";
+    _prefctl.libcontroller = _libctl;
 
     if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
         [_libctl.window setValue:@2 forKey:@"tabbingMode"];
@@ -134,13 +136,13 @@ NSDictionary *gFormatMap;
 
     NSAttributedString *content = [[NSAttributedString alloc]
                                    initWithURL:url
-                                   options:@{
-                                   NSDocumentTypeDocumentOption : NSRTFTextDocumentType
-                                   }
+                                   options:@{ NSDocumentTypeDocumentOption :
+                                        NSRTFTextDocumentType }
                                    documentAttributes:nil
                                    error:&error];
 
     [_helpLicenseWindow showHelpFile:content withTitle:title];
+    _helpLicenseWindow.window.representedFilename = filename;
 }
 
 #pragma mark -
@@ -339,6 +341,7 @@ NSDictionary *gFormatMap;
     NSLog(@"appdel: applicationShouldTerminate");
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *games = [[NSMutableArray alloc] initWithCapacity:count];
 
     if ([defaults boolForKey:@"terminationAlertSuppression"]) {
         NSLog(@"Termination alert suppressed");
@@ -352,6 +355,7 @@ NSDictionary *gFormatMap;
                     restorable++;
                 } else {
                     alive++;
+                    [games addObject:((GlkController *)glkctl).game];
                 }
             }
         }
@@ -360,13 +364,9 @@ NSDictionary *gFormatMap;
               (long)alive);
 
         if (alive > 0) {
-            NSString *msg = @"You still have one game running.\nAny unsaved "
-                            @"progress will be lost.";
-            if (alive > 1)
-                msg = [NSString
-                    stringWithFormat:@"You have %ld games running.\nAny "
-                                     @"unsaved progress will be lost.",
-                                     (long)alive];
+            NSString *msg = [NSString stringWithFormat:@"%@ %@ still running.\nAny unsaved progress will be lost.",
+                             [NSString stringWithSummaryOf:games], (alive == 1) ? @"is" : @"are"];
+
             if (restorable == 1)
                 msg = [msg
                        stringByAppendingString:
