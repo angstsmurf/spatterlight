@@ -30,7 +30,7 @@
     BOOL bookmarkIsStale = NO;
     NSError* theError = nil;
     if (!self.fileLocation) {
-        NSLog(@"Error! File location for game %@ is nil!", self.metadata.title);
+        NSLog(@"Game urlForBookmark: Error! File location for game %@ is nil!", self.metadata.title);
         self.found = NO;
         return nil;
     }
