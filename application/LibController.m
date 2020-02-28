@@ -857,6 +857,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     if (action == @selector(reset:)) {
         NSArray *selection = [gameTableModel objectsAtIndexes:rows];
         for (Game *game in selection) {
+            NSLog(@"validateMenuItem: autosaved of game %@ is %@", game.metadata.title, game.autosaved?@"YES":@"NO");
             if (game.autosaved) return YES;
         }
         return NO;

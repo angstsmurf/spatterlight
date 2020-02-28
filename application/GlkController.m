@@ -563,9 +563,19 @@ fprintf(stderr, "%s\n",                                                    \
             NSLog(@"Could not find Application Support folder. Error: %@",
                   error);
 
+        if (!_game.metadata.format) {
+            NSLog(@"GlkController appSupportDir: Game %@ has no specified format!", _game.metadata.title);
+            return nil;
+        }
+
         NSString *terpFolder =
         [[gFolderMap objectForKey:_game.metadata.format]
          stringByAppendingString:@" Files"];
+
+        if (!terpFolder) {
+            NSLog(@"GlkController appSupportDir: Could not map game format %@ to a folder name!", _game.metadata.format);
+            return nil; 
+        }
 
         NSString *dirstr =
         [@"Spatterlight" stringByAppendingPathComponent:terpFolder];
@@ -630,6 +640,10 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)deleteAutosaveFilesForGame:(Game *)aGame {
     _gamefile = [aGame urlForBookmark].path;
     aGame.autosaved = NO;
+    NSLog(@"GlkController deleteAutosaveFilesForGame: set autosaved of game %@ to NO", aGame.metadata.title);
+    if (!_gamefile)
+        return;
+    _game = aGame;
     [self deleteAutosaveFiles];
 }
 
