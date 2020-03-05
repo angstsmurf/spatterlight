@@ -93,7 +93,7 @@
 															<string key="NSFrameSize">{181, 98}</string>
 															<reference key="NSSuperview" ref="219485008"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="912555774"/>
+															<reference key="NSNextKeyView" ref="665392855"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<object class="NSTextContainer" key="NSTextContainer" id="575663586">
 																<object class="NSLayoutManager" key="NSLayoutManager">
@@ -222,7 +222,7 @@
 											<string key="NSFrame">{{0, 23}, {181, 262}}</string>
 											<reference key="NSSuperview" ref="401913480"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="665392855"/>
+											<reference key="NSNextKeyView" ref="219485008"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133632</int>
 											<reference key="NSVScroller" ref="665392855"/>
@@ -292,7 +292,7 @@
 															<string key="NSFrameSize">{653, 230}</string>
 															<reference key="NSSuperview" ref="19771704"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="1017274543"/>
+															<reference key="NSNextKeyView" ref="465997657"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTableHeaderView" key="NSHeaderView" id="1041211642">
 																<reference key="NSNextResponder" ref="465997657"/>
@@ -952,7 +952,7 @@
 											<string key="NSFrame">{{0, 39}, {653, 247}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="465997657"/>
+											<reference key="NSNextKeyView" ref="19771704"/>
 											<int key="NSsFlags">133680</int>
 											<reference key="NSVScroller" ref="1017274543"/>
 											<reference key="NSHScroller" ref="818338602"/>
@@ -967,7 +967,6 @@
 											<string key="NSFrame">{{359, 9}, {282, 22}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSSearchFieldCell" key="NSCell" id="569807709">
 												<int key="NSCellFlags">343014976</int>
@@ -1875,11 +1874,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">reset:</string>
+						<string key="label">deleteSaves:</string>
 						<reference key="source" ref="755207472"/>
 						<reference key="destination" ref="1036599086"/>
 					</object>
-					<int key="connectionID">484</int>
+					<int key="connectionID">485</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -4242,7 +4241,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">484</int>
+			<int key="maxID">485</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4282,10 +4281,15 @@
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addGamesToLibrary:">id</string>
+						<string key="applyTheme:">id</string>
+						<string key="delete:">id</string>
 						<string key="deleteGame:">id</string>
 						<string key="deleteLibrary:">id</string>
+						<string key="deleteSaves:">id</string>
+						<string key="download:">id</string>
 						<string key="exportMetadata:">id</string>
 						<string key="importMetadata:">id</string>
+						<string key="openIfdb:">id</string>
 						<string key="play:">id</string>
 						<string key="pruneLibrary:">id</string>
 						<string key="revealGameInFinder:">id</string>
@@ -4300,6 +4304,14 @@
 							<string key="name">addGamesToLibrary:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="applyTheme:">
+							<string key="name">applyTheme:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="delete:">
+							<string key="name">delete:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="deleteGame:">
 							<string key="name">deleteGame:</string>
 							<string key="candidateClassName">id</string>
@@ -4308,12 +4320,24 @@
 							<string key="name">deleteLibrary:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="deleteSaves:">
+							<string key="name">deleteSaves:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="download:">
+							<string key="name">download:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="exportMetadata:">
 							<string key="name">exportMetadata:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="importMetadata:">
 							<string key="name">importMetadata:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openIfdb:">
+							<string key="name">openIfdb:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="play:">

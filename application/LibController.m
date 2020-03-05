@@ -441,7 +441,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     [_searchField selectText:self];
 }
 
-- (IBAction)reset:(id)sender {
+- (IBAction)deleteSaves:(id)sender {
     NSIndexSet *rows = _gameTableView.selectedRowIndexes;
 
     // If we clicked outside selected rows, only show info for clicked row
@@ -854,10 +854,9 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         }
     }
 
-    if (action == @selector(reset:)) {
+    if (action == @selector(deleteSaves:)) {
         NSArray *selection = [gameTableModel objectsAtIndexes:rows];
         for (Game *game in selection) {
-            NSLog(@"validateMenuItem: autosaved of game %@ is %@", game.metadata.title, game.autosaved?@"YES":@"NO");
             if (game.autosaved) return YES;
         }
         return NO;

@@ -119,6 +119,7 @@
 - (IBAction)revealGameInFinder:(id)sender;
 - (IBAction)deleteGame:(id)sender;
 - (IBAction)selectSameTheme:(id)sender;
+- (IBAction)deleteSaves:(id)sender;
 
 - (void)showInfoForGame:(Game *)game;
 
