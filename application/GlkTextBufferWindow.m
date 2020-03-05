@@ -1322,11 +1322,11 @@
         NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
         NSStringFromRect(frame));
 
-    if (NSEqualRects(frame, self.frame)) {
-        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
-              @"Skipping.");
-        return;
-    }
+//    if (NSEqualRects(frame, self.frame)) {
+//        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
+//              @"Skipping.");
+//        return;
+//    }
 
     [self storeScrollOffset];
     super.frame = frame;
@@ -2230,6 +2230,14 @@
         
         [scrollview reflectScrolledClipView:scrollview.contentView];
     }
+}
+
+- (void)scrollToTop {
+    // first, force a layout so we have the correct textview frame
+    [layoutmanager glyphRangeForTextContainer:container];
+
+    [scrollview.contentView  scrollToPoint:NSZeroPoint];
+    [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
 - (void)scrollToBottom {

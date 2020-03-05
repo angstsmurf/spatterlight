@@ -119,6 +119,7 @@
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (void)stopSpeakingText_10_7;
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset;
+- (void)scrollToTop;
 - (void)scrollToBottom;
 - (BOOL)scrolledToBottom;
 - (void)storeScrollOffset;

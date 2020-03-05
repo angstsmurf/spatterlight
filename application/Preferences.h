@@ -16,7 +16,7 @@ typedef enum kZoomDirectionType : NSUInteger {
 
 typedef enum kDefaultPrefWindowSize : NSUInteger {
     kDefaultPrefWindowWidth = 516, 
-    kDefaultPrefWindowHeight = 305
+    kDefaultPrefWindowHeight = 330
 } kDefaultPrefWindowSize;
 
 
@@ -130,5 +130,5 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 
 @property (strong) IBOutlet NSButton *btnAdd;
 @property (strong) IBOutlet NSButton *btnRemove;
-
+@property (strong) IBOutlet NSBox *divider;
 @end
