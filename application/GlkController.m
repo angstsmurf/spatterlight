@@ -811,7 +811,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (IBAction)reset:(id)sender {
-
     if (timer) {
 //        NSLog(@"glkctl reset: force stop the timer");
         [timer invalidate];

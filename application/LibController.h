@@ -101,7 +101,7 @@
 
 - (void)importAndPlayGame:(NSString *)path;
 
-- (IBAction) toggleSidebar:(id)sender;
+- (IBAction)toggleSidebar:(id)sender;
 - (IBAction)toggleColumn:(id)sender;
 
 - (IBAction)addGamesToLibrary:(id)sender;
