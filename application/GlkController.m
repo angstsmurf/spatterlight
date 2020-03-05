@@ -837,47 +837,6 @@ fprintf(stderr, "%s\n",                                                    \
     [self guessFocus];
 }
 
-- (void)windowWillClose:(id)sender {
-    NSLog(@"glkctl (game %@): windowWillClose", _game.metadata.title);
-
-    if (_supportsAutorestore) {
-        [self autoSaveOnExit];
-    }
-
-    if (_game.ifid)
-        [libcontroller.gameSessions removeObjectForKey:_game.ifid];
-
-    if ([Preferences instance].currentGame == _game) {
-        Game *remainingGameSession = nil;
-        if (libcontroller.gameSessions.count)
-            remainingGameSession = ((GlkController *)[libcontroller.gameSessions.allValues objectAtIndex:0]).game;
-        NSLog(@"GlkController for game %@ closing. Setting preferences current game to %@", _game.metadata.title, remainingGameSession.metadata.title);
-        [Preferences changeCurrentGame:remainingGameSession];
-    } else NSLog(@"GlkController for game %@ closing, but preferences currentGame was %@", _game.metadata.title, [Preferences instance].currentGame.metadata.title);
-
-    if (timer) {
-//        NSLog(@"glkctl: force stop the timer");
-        [timer invalidate];
-        timer = nil;
-    }
-
-    if (task) {
-        //        NSLog(@"glkctl: force stop the interpreter");
-        [task setTerminationHandler:nil];
-        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
-        [task terminate];
-        task = nil;
-    }
-
-    for (GlkWindow *win in [_gwindows allValues])
-    {
-        win.glkctl = nil;
-    }
-    
-    _contentView.glkctrl = nil;
-    [self.window setDelegate:nil];
-}
-
 /*
  *
  */
@@ -996,6 +955,58 @@ fprintf(stderr, "%s\n",                                                    \
                         contextInfo:NULL];
 
     return NO;
+}
+
+
+- (void)windowWillClose:(id)sender {
+    NSLog(@"glkctl (game %@): windowWillClose", _game ? _game.metadata.title : @"nil");
+    if (windowClosedAlready) {
+        NSLog(@"windowWillClose called twice!");
+        return;
+    } else windowClosedAlready = YES;
+
+    if (_supportsAutorestore) {
+        [self autoSaveOnExit];
+    }
+
+    if (_game.ifid)
+        [libcontroller.gameSessions removeObjectForKey:_game.ifid];
+
+    if (_game && [Preferences instance].currentGame == _game) {
+        Game *remainingGameSession = nil;
+        if (libcontroller.gameSessions.count)
+            remainingGameSession = ((GlkController *)[libcontroller.gameSessions.allValues objectAtIndex:0]).game;
+        NSLog(@"GlkController for game %@ closing. Setting preferences current game to %@", _game.metadata.title, remainingGameSession.metadata.title);
+        [Preferences changeCurrentGame:remainingGameSession];
+    } else {
+        if (_game == nil)
+            NSLog(@"GlkController windowWillClose called with _game nil!");
+        else
+            NSLog(@"GlkController for game %@ closing, but preferences currentGame was not the same", _game.metadata.title);
+                  //[Preferences instance].currentGame ? [Preferences instance].currentGame.metadata.title : @"nil");
+    }
+
+    if (timer) {
+        //        NSLog(@"glkctl: force stop the timer");
+        [timer invalidate];
+        timer = nil;
+    }
+
+    if (task) {
+        //        NSLog(@"glkctl: force stop the interpreter");
+        [task setTerminationHandler:nil];
+        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
+        [task terminate];
+        task = nil;
+    }
+
+    for (GlkWindow *win in [_gwindows allValues])
+    {
+        win.glkctl = nil;
+    }
+
+    _contentView.glkctrl = nil;
+    //[self.window setDelegate:nil]; This segfaults
 }
 
 - (void)flushDisplay {

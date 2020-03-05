@@ -49,6 +49,8 @@
     NSSize borderFullScreenSize;
     NSWindow *snapshotWindow;
 
+    BOOL windowClosedAlready;
+
     /* the glk objects */
     BOOL windowdirty; /* the contentView needs to repaint */
 
