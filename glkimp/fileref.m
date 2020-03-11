@@ -31,9 +31,9 @@ void getworkdir()
         if (error)
             NSLog(@"Could not find Application Support folder. Error: %@", error);
 
-        NSString *firstWord = [[[[NSString stringWithUTF8String:gli_program_name] componentsSeparatedByString:@" "] objectAtIndex:0] lowercaseString];
+        NSString *firstWord = [[@(gli_program_name) componentsSeparatedByString:@" "][0] lowercaseString];
         
-        NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", [gFolderMap objectForKey:firstWord]];
+        NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", gFolderMap[firstWord]];
 
         dirstr = [dirstr stringByAppendingString:@" Files"];
         dirstr = [dirstr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -58,8 +58,8 @@ void getautosavedir(char *file)
         NSError *error = nil;
 
         getworkdir();
-        NSString *gamepath = [NSString stringWithUTF8String:file];
-        NSString *dirname = [NSString stringWithUTF8String:workingdir];
+        NSString *gamepath = @(file);
+        NSString *dirname = @(workingdir);
         dirname = [dirname stringByAppendingPathComponent:@"Autosaves"];
         dirname = [dirname stringByAppendingPathComponent:[gamepath signatureFromFile]];
 

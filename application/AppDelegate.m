@@ -175,7 +175,7 @@ NSDictionary *gFormatMap;
                 infoWindow.restorationClass = [AppDelegate class];
                 infoWindow.identifier =
                 [NSString stringWithFormat:@"infoWin%@", path];
-                [appDelegate.libctl.infoWindows setObject:infoctl forKey:path];
+                (appDelegate.libctl.infoWindows)[path] = infoctl;
                 window = infoctl.window;
             }
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
@@ -240,7 +240,7 @@ NSDictionary *gFormatMap;
         NSLog(@"directory = %@", directory);
         [panel beginWithCompletionHandler:^(NSInteger result) {
             if (result == NSFileHandlingPanelOKButton) {
-                NSURL *theDoc = [panel.URLs objectAtIndex:0];
+                NSURL *theDoc = (panel.URLs)[0];
                 if (theDoc) {
                     NSString *pathString =
                     theDoc.path.stringByDeletingLastPathComponent;
@@ -347,7 +347,7 @@ NSDictionary *gFormatMap;
         NSLog(@"Termination alert suppressed");
     } else {
         while (count--) {
-            NSWindow *window = [windows objectAtIndex:count];
+            NSWindow *window = windows[count];
             id glkctl = window.delegate;
             if ([glkctl isKindOfClass:[GlkController class]] &&
                 [glkctl isAlive]) {

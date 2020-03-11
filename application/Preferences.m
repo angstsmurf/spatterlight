@@ -54,10 +54,8 @@ static Preferences *prefs = nil;
     NSMutableDictionary *defaults =
         [NSMutableDictionary dictionaryWithContentsOfFile:filename];
 
-    [defaults setObject:(@"~/Documents").stringByExpandingTildeInPath
-                 forKey:@"GameDirectory"];
-    [defaults setObject:(@"~/Documents").stringByExpandingTildeInPath
-                 forKey:@"SaveDirectory"];
+    defaults[@"GameDirectory"] = (@"~/Documents").stringByExpandingTildeInPath;
+    defaults[@"SaveDirectory"] = (@"~/Documents").stringByExpandingTildeInPath;
 
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
@@ -87,7 +85,7 @@ static Preferences *prefs = nil;
         theme = [Preferences createDefaultThemeInContext:managedObjectContext];
         if (!theme)
             NSLog(@"Preference readDefaults: Error! Could not create default theme!");
-    } else theme = [fetchedObjects objectAtIndex:0];
+    } else theme = fetchedObjects[0];
 
 //    [self readSettingsFromTheme:theme];
 }
@@ -105,7 +103,7 @@ static Preferences *prefs = nil;
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
 
     if (fetchedObjects && fetchedObjects.count)
-        return [fetchedObjects objectAtIndex:0];
+        return fetchedObjects[0];
     else if (error != nil) {
         NSLog(@"Preferences createDefaultThemeInContext: %@", error);
         return nil;
@@ -497,7 +495,7 @@ NSString *fontToString(NSFont *font) {
         NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
         if (fetchedObjects && fetchedObjects.count) {
-            _defaultTheme = [fetchedObjects objectAtIndex:0];
+            _defaultTheme = fetchedObjects[0];
         } else {
             if (error != nil)
                 NSLog(@"Preferences defaultTheme: %@", error);
@@ -584,7 +582,7 @@ NSString *fontToString(NSFont *font) {
         NSLog(@"createDefaultThemes: Found no Ifid object with with name Default");
     }
 
-    if ([fetchedObjects objectAtIndex:0] != self.defaultTheme) {
+    if (fetchedObjects[0] != self.defaultTheme) {
         NSLog(@"createDefaultThemes: something went wrong");
     } else
         NSLog(@"createDefaultThemes successful");
@@ -1032,7 +1030,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [_arrayController removeObjects:fetchedObjects];
 
     NSArray *remainingThemes = [_arrayController arrangedObjects];
-    Theme *lastTheme = [remainingThemes objectAtIndex:remainingThemes.count - 1];
+    Theme *lastTheme = remainingThemes[remainingThemes.count - 1];
     NSLog(@"lastRemainingTheme: %@", lastTheme.name);
     [lastTheme addGames:orphanedGames];
     _arrayController.selectedObjects = @[lastTheme];
@@ -1499,7 +1497,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     NSLog(@"changeAttributes: Keys in newAttributes:");
     for (NSString *key in newAttributes.allKeys) {
-        NSLog(@" %@ : %@", key, [newAttributes objectForKey:key]);
+        NSLog(@" %@ : %@", key, newAttributes[key]);
     }
 
     //	"NSForegroundColorAttributeName"	"NSColor"
@@ -1509,7 +1507,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     //	"NSStrikethroughColorAttributeName"	"NSStrikethroughColor"
     //	"NSShadowAttributeName"				"NSShadow"
 
-    if ([newAttributes objectForKey:@"NSColor"]) {
+    if (newAttributes[@"NSColor"]) {
         NSColorWell *colorWell = nil;
         NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
         if (currentFont == theme.gridNormal.font)
@@ -1518,7 +1516,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             colorWell = clrBufferFg;
         else if (currentFont == theme.bufInput.font)
             colorWell = clrInputFg;
-        colorWell.color = [newAttributes objectForKey:@"NSColor"];
+        colorWell.color = newAttributes[@"NSColor"];
         [self changeColor:colorWell];
     }
 }

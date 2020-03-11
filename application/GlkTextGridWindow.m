@@ -175,9 +175,9 @@
         for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
 
             if (self.theme.doStyles) {
-                 styleDict = [((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]];
+                 styleDict = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:(self.styleHints)[i]];
             } else {
-                styleDict = ((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]).attributeDict;
+                styleDict = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict;
             }
 
             if (!styleDict) {
@@ -229,7 +229,7 @@
         NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
 
         NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
-        [linkAttributes setObject:[[styles objectAtIndex:style_Normal] objectForKey:NSForegroundColorAttributeName] forKey:NSForegroundColorAttributeName];
+        linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
         textview.linkTextAttributes = linkAttributes;
 
         textview.editable = NO;
@@ -323,9 +323,9 @@
 
     for (i = 0; i < style_NUMSTYLES; i++) {
         if (self.theme.doStyles) {
-            [styles addObject:[((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]]];
+            [styles addObject:[((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:(self.styleHints)[i]]];
         } else {
-            [styles addObject:((GlkStyle *)[self.theme valueForKey:[gGridStyleNames objectAtIndex:i]]).attributeDict];
+            [styles addObject:((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict];
         }
     }
 
@@ -351,7 +351,7 @@
                               effectiveRange:&range];
 
             NSDictionary *attributes =
-            [styles objectAtIndex:(NSUInteger)[styleobject intValue]];
+            styles[(NSUInteger)[styleobject intValue]];
 
             id hyperlink = [line attribute:NSLinkAttributeName
                                    atIndex:x
@@ -375,7 +375,7 @@
     [self recalcBackground];
 
     NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
-    [linkAttributes setObject:[[styles objectAtIndex:style_Normal] objectForKey:NSForegroundColorAttributeName] forKey:NSForegroundColorAttributeName];
+    linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
     textview.linkTextAttributes = linkAttributes;
 
 //    NSLog(@"prefsDidChange: selected range was %@, restored to %@",
@@ -415,8 +415,8 @@
     bgcolor = nil;
 
     if (self.theme.doStyles) {
-        NSDictionary *attributes = [self.theme.gridNormal attributesWithHints:[self.styleHints objectAtIndex:style_Normal]];
-        bgcolor = [attributes objectForKey:NSBackgroundColorAttributeName];
+        NSDictionary *attributes = [self.theme.gridNormal attributesWithHints:(self.styleHints)[style_Normal]];
+        bgcolor = attributes[NSBackgroundColorAttributeName];
     }
 
     if (!bgcolor)
@@ -490,7 +490,7 @@
                             startingAtIndex:0];
         backingStorage = [[NSTextStorage alloc]
                           initWithString:spaces
-                          attributes:[styles objectAtIndex:style_Normal]];
+                          attributes:styles[style_Normal]];
     }
     if (newcols < cols) {
         // Delete characters if the window has become narrower
@@ -523,7 +523,7 @@
                                          startingAtIndex:0];
         NSAttributedString *string = [[NSAttributedString alloc]
                                       initWithString:spaces
-                                      attributes:[styles objectAtIndex:style_Normal]];
+                                      attributes:styles[style_Normal]];
 
         for (r = cols; r < backingStorage.length - 1; r += (cols + 1)) {
             [backingStorage insertAttributedString:string atIndex:r];
@@ -544,7 +544,7 @@
                             startingAtIndex:0];
         NSAttributedString *string = [[NSAttributedString alloc]
                                       initWithString:spaces
-                                      attributes:[styles objectAtIndex:style_Normal]];
+                                      attributes:styles[style_Normal]];
         [backingStorage appendAttributedString:string];
     } else if (backingStorage.length > desiredLength)
         [backingStorage
@@ -554,7 +554,7 @@
 
     NSAttributedString *newlinestring = [[NSAttributedString alloc]
                                          initWithString:@"\n"
-                                         attributes:[styles objectAtIndex:style_Normal]];
+                                         attributes:styles[style_Normal]];
 
     // Instert a newline character at the end of each line to avoid reflow
     // during live resize. (We carefully have to print around these in the
@@ -619,7 +619,7 @@
 - (void)printToWindow:(NSString *)string style:(NSUInteger)stylevalue {
     NSUInteger length = string.length;
     NSUInteger pos = 0;
-    NSDictionary *att = [styles objectAtIndex:stylevalue];
+    NSDictionary *att = styles[stylevalue];
     NSRange selectedRange = textview.selectedRange;
 
 //    NSLog(@"textGrid printToWindow: '%@' (style %ld)", string, stylevalue);
@@ -628,7 +628,7 @@
 //
 //    NSLog(@"self.frame.size.width: %f",self.frame.size.width);
 
-    NSMutableDictionary *attrDict = [styles objectAtIndex:stylevalue];
+    NSMutableDictionary *attrDict = styles[stylevalue];
 
     if (!attrDict)
         NSLog(@"GlkTextGridWindow printToWindow: ERROR! Style dictionary nil!");
@@ -877,7 +877,7 @@
 
     if (line_request &&
         (ch == keycode_Return ||
-         [[currentTerminators objectForKey:key] isEqual:@(YES)]))
+         [currentTerminators[key] isEqual:@(YES)]))
         [self typedEnter:nil];
 }
 
@@ -930,7 +930,7 @@
 
     NSAttributedString *attString = [[NSAttributedString alloc]
                                      initWithString:str
-                                     attributes:[styles objectAtIndex:style_Input]];
+                                     attributes:styles[style_Input]];
 
     input.attributedStringValue = attString;
 

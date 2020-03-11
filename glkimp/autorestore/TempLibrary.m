@@ -35,10 +35,10 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 
     if (self) {
 
-        program_name = [NSString stringWithUTF8String:gli_program_name];
-        program_info = [NSString stringWithUTF8String:gli_program_info];
-        story_name = [NSString stringWithUTF8String:gli_story_name];
-        story_title = [NSString stringWithUTF8String:gli_story_title];
+        program_name = @(gli_program_name);
+        program_info = @(gli_program_info);
+        story_name = @(gli_story_name);
+        story_title = @(gli_story_title);
 
         _windows = [NSMutableArray arrayWithCapacity:8];
         _streams = [NSMutableArray arrayWithCapacity:8];

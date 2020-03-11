@@ -135,7 +135,7 @@
         return nil;
     }
 
-    return [fetchedObjects objectAtIndex:0];
+    return fetchedObjects[0];
 }
 
 @end

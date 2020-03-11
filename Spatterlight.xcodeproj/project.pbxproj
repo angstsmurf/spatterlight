@@ -6344,6 +6344,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				PRODUCT_NAME = glkimp;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -6370,6 +6371,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				PRODUCT_NAME = glkimp;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -6444,7 +6446,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight;
 				PRODUCT_NAME = Spatterlight;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -6489,7 +6491,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight;
 				PRODUCT_NAME = Spatterlight;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -480,12 +480,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     // Copy all views and GlkWindow objects from restored Controller
     for (id key in restoredController.gwindows) {
-        win = [_gwindows objectForKey:key];
+        win = _gwindows[key];
         if (win)
             [win removeFromSuperview];
-        win = [restoredController.gwindows objectForKey:key];
+        win = (restoredController.gwindows)[key];
 
-        [_gwindows setObject:win forKey:@(win.name)];
+        _gwindows[@(win.name)] = win;
         [win removeFromSuperview];
         [_contentView addSubview:win];
         win.glkctl = self;
@@ -569,7 +569,7 @@ fprintf(stderr, "%s\n",                                                    \
         }
 
         NSString *terpFolder =
-        [[gFolderMap objectForKey:_game.metadata.format]
+        [gFolderMap[_game.metadata.format]
          stringByAppendingString:@" Files"];
 
         if (!terpFolder) {
@@ -975,7 +975,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (_game && [Preferences instance].currentGame == _game) {
         Game *remainingGameSession = nil;
         if (libcontroller.gameSessions.count)
-            remainingGameSession = ((GlkController *)[libcontroller.gameSessions.allValues objectAtIndex:0]).game;
+            remainingGameSession = ((GlkController *)(libcontroller.gameSessions.allValues)[0]).game;
         NSLog(@"GlkController for game %@ closing. Setting preferences current game to %@", _game.metadata.title, remainingGameSession.metadata.title);
         [Preferences changeCurrentGame:remainingGameSession];
     } else {
@@ -1172,7 +1172,7 @@ fprintf(stderr, "%s\n",                                                    \
                       struct message reply;
 
                       if (result == NSFileHandlingPanelOKButton) {
-                          NSURL *theDoc = [panel.URLs objectAtIndex:0];
+                          NSURL *theDoc = (panel.URLs)[0];
 
                           [[NSUserDefaults standardUserDefaults]
                            setObject:theDoc.path
@@ -1298,7 +1298,7 @@ fprintf(stderr, "%s\n",                                                    \
     //    wintypenames[wintype]);
 
     for (i = 0; i < MAXWIN; i++)
-        if ([_gwindows objectForKey:@(i)] == nil)
+        if (_gwindows[@(i)] == nil)
             break;
 
     if (i == MAXWIN)
@@ -1322,7 +1322,7 @@ fprintf(stderr, "%s\n",                                                    \
     switch (wintype) {
         case wintype_TextGrid:
              win = [[GlkTextGridWindow alloc] initWithGlkController:self name:i];
-            [_gwindows setObject:win forKey:@(i)];
+            _gwindows[@(i)] = win;
             [_contentView addSubview:win];
 
             win.styleHints = _gridStyleHints;
@@ -1331,7 +1331,7 @@ fprintf(stderr, "%s\n",                                                    \
         case wintype_TextBuffer:
              win = [[GlkTextBufferWindow alloc] initWithGlkController:self name:i];
 
-            [_gwindows setObject:win forKey:@(i)];
+            _gwindows[@(i)] = win;
             [_contentView addSubview:win];
 
             win.styleHints = _bufferStyleHints;
@@ -1340,7 +1340,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case wintype_Graphics:
              win = [[GlkGraphicsWindow alloc] initWithGlkController:self name:i];
-            [_gwindows setObject:win forKey:@(i)];
+            _gwindows[@(i)] = win;
             [_contentView addSubview: win];
             return i;
     }
@@ -1473,19 +1473,19 @@ fprintf(stderr, "%s\n",                                                    \
     if (hint >= stylehint_NUMHINTS)
         return;
 
-    NSMutableArray *bufferHintsForStyle = [_bufferStyleHints objectAtIndex:style];
-    NSMutableArray *gridHintsForStyle = [_gridStyleHints objectAtIndex:style];
+    NSMutableArray *bufferHintsForStyle = _bufferStyleHints[style];
+    NSMutableArray *gridHintsForStyle = _gridStyleHints[style];
 
     switch (wintype) {
         case wintype_AllTypes:
-            [gridHintsForStyle replaceObjectAtIndex:hint withObject:@(value)];
-            [bufferHintsForStyle replaceObjectAtIndex:hint withObject:@(value)];
+            gridHintsForStyle[hint] = @(value);
+            bufferHintsForStyle[hint] = @(value);
             break;
         case wintype_TextGrid:
-            [gridHintsForStyle replaceObjectAtIndex:hint withObject:@(value)];
+            gridHintsForStyle[hint] = @(value);
             break;
         case wintype_TextBuffer:
-            [bufferHintsForStyle replaceObjectAtIndex:hint withObject:@(value)];
+            bufferHintsForStyle[hint] = @(value);
             break;
         default:
             NSLog(@"styleHintOnWindowType for unhandled wintype!");
@@ -1548,19 +1548,19 @@ NSInteger colorToInteger(NSColor *color) {
     if (style >= style_NUMSTYLES)
         return;
 
-    NSMutableArray *gridHintsForStyle = [_gridStyleHints objectAtIndex:style];
-    NSMutableArray *bufferHintsForStyle = [_bufferStyleHints objectAtIndex:style];
+    NSMutableArray *gridHintsForStyle = _gridStyleHints[style];
+    NSMutableArray *bufferHintsForStyle = _bufferStyleHints[style];
 
     switch (wintype) {
         case wintype_AllTypes:
-            [gridHintsForStyle replaceObjectAtIndex:hint withObject:[NSNull null]];
-            [bufferHintsForStyle replaceObjectAtIndex:hint withObject:[NSNull null]];
+            gridHintsForStyle[hint] = [NSNull null];
+            bufferHintsForStyle[hint] = [NSNull null];
             break;
         case wintype_TextGrid:
-            [gridHintsForStyle replaceObjectAtIndex:hint withObject:[NSNull null]];
+            gridHintsForStyle[hint] = [NSNull null];
             break;
         case wintype_TextBuffer:
-            [bufferHintsForStyle replaceObjectAtIndex:hint withObject:[NSNull null]];
+            bufferHintsForStyle[hint] = [NSNull null];
             break;
         default:
             NSLog(@"clearHintOnWindowType for unhandled wintype!");
@@ -1666,7 +1666,7 @@ NSInteger colorToInteger(NSColor *color) {
     NSArray *keys = myDict.allKeys;
 
     for (key in keys) {
-        [myDict setObject:@(NO) forKey:key];
+        myDict[key] = @(NO);
     }
 
     //    NSLog(@"handleSetTerminatorsOnWindow: %ld length: %u",
@@ -1674,9 +1674,9 @@ NSInteger colorToInteger(NSColor *color) {
 
     for (NSInteger i = 0; i < len; i++) {
         key = @(buf[i]);
-        id terminator_setting = [myDict objectForKey:key];
+        id terminator_setting = myDict[key];
         if (terminator_setting) {
-            [myDict setObject:@(YES) forKey:key];
+            myDict[key] = @(YES);
         } else
             NSLog(@"Illegal line terminator request: %u", buf[i]);
     }
@@ -1691,8 +1691,8 @@ NSInteger colorToInteger(NSColor *color) {
     NSInteger result;
     GlkWindow *reqWin = nil;
 
-    if (req->a1 >= 0 && req->a1 < MAXWIN && [_gwindows objectForKey:@(req->a1)])
-        reqWin = [_gwindows objectForKey:@(req->a1)];
+    if (req->a1 >= 0 && req->a1 < MAXWIN && _gwindows[@(req->a1)])
+        reqWin = _gwindows[@(req->a1)];
 
     switch (req->cmd) {
         case HELLO:
@@ -1720,7 +1720,7 @@ NSInteger colorToInteger(NSColor *color) {
 
             if (_queue.count) {
                 GlkEvent *gevent;
-                gevent = [_queue objectAtIndex:0];
+                gevent = _queue[0];
 //            NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
 
                 [gevent writeEvent:sendfh.fileDescriptor];
@@ -2240,7 +2240,7 @@ static NSString *signalToName(NSTask *task) {
                                            @"gridMargin" : @(_theme.gridMarginX),
                                            @"charWidth" : @(_theme.cellWidth),
                                            @"lineHeight" : @(_theme.cellHeight),
-                                           @"leading" : @(((NSParagraphStyle *)[_theme.gridNormal.attributeDict objectForKey:NSParagraphStyleAttributeName]).lineSpacing)
+                                           @"leading" : @(((NSParagraphStyle *)(_theme.gridNormal.attributeDict)[NSParagraphStyleAttributeName]).lineSpacing)
                                            };
 
 //        NSLog(@"GlkController queueEvent: %@",newArrangeValues);

@@ -73,13 +73,13 @@
         NSString *styleName;
         NSLog(@"[_styleHints indexOfObject:style] == %ld", [_styleHints indexOfObject:style]);
         if ([self isKindOfClass:[GlkTextBufferWindow class]])
-            styleName = [gBufferStyleNames objectAtIndex:[_styleHints indexOfObject:style]];
+            styleName = gBufferStyleNames[[_styleHints indexOfObject:style]];
         else
-            styleName = [gGridStyleNames objectAtIndex:[_styleHints indexOfObject:style]];
+            styleName = gGridStyleNames[[_styleHints indexOfObject:style]];
         
         NSLog (@"Stylehints for style %@:", styleName);
         for (NSUInteger i = 0; i < stylehint_NUMHINTS ; i ++) {
-            NSLog(@"%@: %@", [styleHintNames objectAtIndex:i], [style objectAtIndex:i]);
+            NSLog(@"%@: %@", styleHintNames[i], style[i]);
         }
     }
 }
@@ -118,9 +118,9 @@
     if (hint >= stylehint_NUMHINTS)
         return NO;
 
-    NSArray *hintsForStyle = [_styleHints objectAtIndex:style];
+    NSArray *hintsForStyle = _styleHints[style];
 
-    valObj = [hintsForStyle objectAtIndex:hint];
+    valObj = hintsForStyle[hint];
     if ([valObj isNotEqualTo:[NSNull null]])
        *value = valObj.integerValue;
 

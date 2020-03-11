@@ -115,12 +115,12 @@
     for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
         //Clone it, and add clone to set
         //NSLog(@"Setting clone %@ to a clone of my %@", keyName, keyName);
-        keyName = [gBufferStyleNames objectAtIndex:i];
+        keyName = gBufferStyleNames[i];
         clonedStyle = [(GlkStyle * )[theme valueForKey:keyName] clone];
         [self setValue:clonedStyle forKey:keyName];
         if ([clonedStyle valueForKey:keyName] != self)
             NSLog(@"Error! Reciprocal relationship did not work as expected");
-        keyName = [gGridStyleNames objectAtIndex:i];
+        keyName = gGridStyleNames[i];
         clonedStyle = [(GlkStyle * )[theme valueForKey:keyName] clone];
         [self setValue:clonedStyle forKey:keyName];
         if ([clonedStyle valueForKey:keyName] != self)
@@ -168,21 +168,21 @@
     for (NSUInteger i = 1 ; i < style_NUMSTYLES ; i++)
 	{
         // Delete all old GlkStyle objects that we do not want to keep
-        if ([self valueForKey:[gGridStyleNames objectAtIndex:i]])
-            [self.managedObjectContext deleteObject:[self valueForKey:[gGridStyleNames objectAtIndex:i]]];
+        if ([self valueForKey:gGridStyleNames[i]])
+            [self.managedObjectContext deleteObject:[self valueForKey:gGridStyleNames[i]]];
 
-        [self setValue:[self.gridNormal clone] forKey:[gGridStyleNames objectAtIndex:i]];
-        [[self valueForKey:[gGridStyleNames objectAtIndex:i]] setIndex:(NSInteger)i];
+        [self setValue:[self.gridNormal clone] forKey:gGridStyleNames[i]];
+        [[self valueForKey:gGridStyleNames[i]] setIndex:(NSInteger)i];
 
-        if ([self valueForKey:[gBufferStyleNames objectAtIndex:i]]) {
+        if ([self valueForKey:gBufferStyleNames[i]]) {
             if (i == style_Input)
                 continue;
             // Delete all old GlkStyle objects that we do not want to keep
-            [self.managedObjectContext deleteObject:[self valueForKey:[gBufferStyleNames objectAtIndex:i]]];
+            [self.managedObjectContext deleteObject:[self valueForKey:gBufferStyleNames[i]]];
         }
 
-        [self setValue:[self.bufferNormal clone] forKey:[gBufferStyleNames objectAtIndex:i]];
-        [[self valueForKey:[gBufferStyleNames objectAtIndex:i]] setIndex:(NSInteger)i];
+        [self setValue:[self.bufferNormal clone] forKey:gBufferStyleNames[i]];
+        [[self valueForKey:gBufferStyleNames[i]] setIndex:(NSInteger)i];
 	}
 
     /* make italic, bold, bolditalic font variants */

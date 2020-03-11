@@ -78,15 +78,15 @@ enum  {
                     } else if ([key isEqualToString:@"language"]) {
                         sub = [keyVal substringWithRange:NSMakeRange(0, 2)];
                         sub = sub.lowercaseString;
-                        if ([language objectForKey:sub])
-                            metadata.languageAsWord = [language objectForKey:sub];
+                        if (language[sub])
+                            metadata.languageAsWord = language[sub];
                         else
                             metadata.languageAsWord = keyVal;
                         metadata.language = sub;
                     } else {
                         [metadata setValue:keyVal forKey:key];
                         if ([key isEqualToString:@"forgiveness"])
-                            metadata.forgivenessNumeric = [forgiveness objectForKey:keyVal];
+                            metadata.forgivenessNumeric = forgiveness[keyVal];
                         if ([key isEqualToString:@"title"])
                             metadata.title = [metadata.title stringByDecodingXMLEntities];
 

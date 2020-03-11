@@ -56,7 +56,7 @@
 - (NSPoint)cellBaselineOffset {
     NSDictionary *attributes = [_attrstr attributesAtIndex:pos
                                             effectiveRange:nil];
-    NSFont *font = [attributes objectForKey:NSFontAttributeName];
+    NSFont *font = attributes[NSFontAttributeName];
 
     CGFloat xheight = font.ascender;
 
@@ -507,7 +507,7 @@
     }
 
     for (NSInteger i = (NSInteger)[margins indexOfObject:image] - 1; i >= 0; i--) {
-        MarginImage *img2 = [margins objectAtIndex:(NSUInteger)i];
+        MarginImage *img2 = margins[(NSUInteger)i];
 
         // If overlapping, shift in opposite alignment direction
         if (NSIntersectsRect(img2.bounds, adjustedBounds)) {
@@ -830,8 +830,7 @@
 
         if (self.selectedRanges)
             selectedText = [self.textStorage.string
-                substringWithRange:((NSValue *)[self.selectedRanges
-                                        objectAtIndex:0])
+                substringWithRange:((NSValue *)(self.selectedRanges)[0])
                                        .rangeValue];
 
         return (selectedText && selectedText.length)
@@ -988,9 +987,9 @@
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (i = 0; i < style_NUMSTYLES; i++) {
             if (self.theme.doStyles) {
-                styleDict = [((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]];
+                styleDict = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:(self.styleHints)[i]];
             } else {
-                styleDict = ((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]).attributeDict;
+                styleDict = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
             }
             if (!styleDict) {
                 NSLog(@"GlkTextBufferWindow couldn't create style dict for style %ld", i);
@@ -1067,7 +1066,7 @@
         _textview.insertionPointColor = self.theme.bufferNormal.color;
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-        [linkAttributes setObject:[[styles objectAtIndex:style_Normal] objectForKey:NSForegroundColorAttributeName] forKey:NSForegroundColorAttributeName];
+        linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
         _textview.linkTextAttributes = linkAttributes;
 
         [_textview enableCaret:nil];
@@ -1123,7 +1122,7 @@
         NSMutableArray *historyarray = [decoder decodeObjectForKey:@"history"];
 
         for (i = 0; i < historyarray.count; i++) {
-            history[i] = [historyarray objectAtIndex:i];
+            history[i] = historyarray[i];
         }
 
         while (++i < HISTORYLEN) {
@@ -1210,9 +1209,9 @@
     fgcolor = nil;
 
     if (self.theme.doStyles) {
-        NSDictionary *attributes = [styles objectAtIndex:style_Normal];
-        bgcolor = [attributes objectForKey:NSBackgroundColorAttributeName];
-        fgcolor = [attributes objectForKey:NSForegroundColorAttributeName];
+        NSDictionary *attributes = styles[style_Normal];
+        bgcolor = attributes[NSBackgroundColorAttributeName];
+        fgcolor = attributes[NSForegroundColorAttributeName];
     }
 
     if (!bgcolor)
@@ -1243,10 +1242,10 @@
     for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
 
         if (self.theme.doStyles) {
-            attributes = [((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]) attributesWithHints:[self.styleHints objectAtIndex:i]];
+            attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:(self.styleHints)[i]];
         } else {
             //We're not doing styles, so use the raw style attributes
-            attributes = ((GlkStyle *)[self.theme valueForKey:[gBufferStyleNames objectAtIndex:i]]).attributeDict;
+            attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
         }
 
         if (attributes)
@@ -1271,7 +1270,7 @@
                                          atIndex:x
                                   effectiveRange:&range];
 
-        attributes = [styles objectAtIndex:(NSUInteger)[styleobject intValue]];
+        attributes = styles[(NSUInteger)[styleobject intValue]];
         if ([attributes isEqual:[NSNull null]]) {
             NSLog(@"Error! broken style (%@)", styleobject);
         }
@@ -1310,7 +1309,7 @@
 //    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
 
     NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-    [linkAttributes setObject:[[styles objectAtIndex:style_Normal] objectForKey:NSForegroundColorAttributeName] forKey:NSForegroundColorAttributeName];
+    linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
     _textview.linkTextAttributes = linkAttributes;
     
     [container invalidateLayout];
@@ -1319,14 +1318,14 @@
 }
 
 - (void)setFrame:(NSRect)frame {
-        NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
-        NSStringFromRect(frame));
+//        NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
+//        NSStringFromRect(frame));
 
-//    if (NSEqualRects(frame, self.frame)) {
-//        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
-//              @"Skipping.");
-//        return;
-//    }
+    if (NSEqualRects(frame, self.frame)) {
+        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
+              @"Skipping.");
+        return;
+    }
 
     [self storeScrollOffset];
     super.frame = frame;
@@ -1591,7 +1590,7 @@
 
     } else if (line_request &&
                (ch == keycode_Return ||
-                [[currentTerminators objectForKey:key] isEqual:@(YES)])) {
+                [currentTerminators[key] isEqual:@(YES)])) {
         // NSLog(@"line event from %ld", (long)self.name);
 
         [_textview resetTextFinder];
@@ -1738,7 +1737,7 @@
 
     NSAttributedString *attstr = [[NSAttributedString alloc]
         initWithString:str
-            attributes:[styles objectAtIndex:stylevalue]];
+            attributes:styles[stylevalue]];
 
     [textstorage appendAttributedString:attstr];
 
@@ -1857,7 +1856,7 @@
     if (textstorage.editedRange.location < fence)
         return;
 
-    [textstorage setAttributes:[styles objectAtIndex:style_Input]
+    [textstorage setAttributes:styles[style_Input]
                           range:textstorage.editedRange];
 }
 
@@ -2234,9 +2233,8 @@
 
 - (void)scrollToTop {
     // first, force a layout so we have the correct textview frame
-    [layoutmanager glyphRangeForTextContainer:container];
-
-    [scrollview.contentView  scrollToPoint:NSZeroPoint];
+//    [layoutmanager glyphRangeForTextContainer:container];
+    [scrollview.contentView scrollToPoint:NSZeroPoint];
     [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
@@ -2407,7 +2405,7 @@
         moveRangeIndex--;
     else
         moveRangeIndex = 0;
-    [self speakRange:((NSValue *)[moveRanges objectAtIndex:moveRangeIndex])
+    [self speakRange:((NSValue *)moveRanges[moveRangeIndex])
                          .rangeValue];
 }
 
@@ -2419,7 +2417,7 @@
         moveRangeIndex++;
     else
         moveRangeIndex = moveRanges.count - 1;
-    [self speakRange:((NSValue *)[moveRanges objectAtIndex:moveRangeIndex])
+    [self speakRange:((NSValue *)moveRanges[moveRangeIndex])
                          .rangeValue];
 }
 

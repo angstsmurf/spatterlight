@@ -71,7 +71,7 @@
             return nil;
         }
     } else {
-        if (![[properties objectForKey:NSURLIsDirectoryKey] boolValue]) {
+        if (![properties[NSURLIsDirectoryKey] boolValue]) {
             // Customize and localize this error.
             NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]];
 

@@ -41,13 +41,13 @@
         return nil;
     }
 
-    return [fetchedObjects objectAtIndex:0];
+    return fetchedObjects[0];
 }
 
 - (Theme *)selectedTheme {
     NSArray *selectedThemes = [self selectedObjects];
     if (selectedThemes && selectedThemes.count)
-        return [selectedThemes objectAtIndex:0];
+        return selectedThemes[0];
     return nil;
 }
 

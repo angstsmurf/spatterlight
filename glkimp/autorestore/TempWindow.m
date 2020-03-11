@@ -291,7 +291,7 @@
         if (win->line_terminators)
         {
             for (int i=0; i<win->termct; i++)
-                win->line_terminators[i]=(glui32)((NSNumber *)[line_terminators objectAtIndex:i]).intValue;
+                win->line_terminators[i]=(glui32)((NSNumber *)line_terminators[i]).intValue;
             win->line_terminators[win->termct] = 0;
         }
     }
