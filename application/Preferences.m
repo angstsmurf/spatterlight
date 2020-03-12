@@ -721,9 +721,13 @@ NSString *fontToString(NSFont *font) {
     NSArray *updatedObjects = (notify.userInfo)[NSUpdatedObjectsKey];
 
     if ([updatedObjects containsObject:theme]) {
-        [self updatePrefsPanel];
-        [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+        Preferences * __unsafe_unretained weakSelf = self;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf updatePrefsPanel];
+            [[NSNotificationCenter defaultCenter]
+             postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+        });
     }
 }
 
