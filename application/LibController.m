@@ -1701,7 +1701,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 					babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
                     metadata.coverArtURL = path;
                     [self addImage:[[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES] toMetadata:metadata inContext:context];
-
                 }
             }
         }
