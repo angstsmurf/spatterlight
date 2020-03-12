@@ -628,10 +628,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
                         if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
 
-
                             [_managedObjectContext performBlock:^{
-                                [_coreDataManager saveChanges];
-
                                 for (Game *aGame in gameTableModel) {
                                     [_managedObjectContext refreshObject:aGame.metadata
                                                             mergeChanges:YES];
