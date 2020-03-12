@@ -779,7 +779,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     Preferences *prefwin = [Preferences instance];
     if (prefwin) {
-        prefwin.oneThemeForAll = NO;
+        // Unless we are changing the theme of all games simultaneously,
+        // uncheck the "Changes apply to all games" box.
+        if (games.count < gameTableModel.count) {
+            prefwin.oneThemeForAll = NO;
+        }
         [prefwin restoreThemeSelection:theme];
     }
 
