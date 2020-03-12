@@ -408,6 +408,11 @@ NSString *fontToString(NSFont *font) {
                                                  name:@"PreferencesChanged"
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(noteManagedObjectContextDidChange:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:_managedObjectContext];
+
     _oneThemeForAll = [[NSUserDefaults standardUserDefaults] boolForKey:@"oneThemeForAll"];
     _themesHeader.stringValue = [self themeScopeTitle];
 
@@ -600,7 +605,9 @@ NSString *fontToString(NSFont *font) {
     [glktxtbuf prefsDidChange];
     [_coreDataManager saveChanges];
 
-    if (previewHidden) return;
+    if (previewHidden)
+        return;
+
     [self resizeWindowToHeight:[self previewHeight]];
 }
 
@@ -708,6 +715,16 @@ NSString *fontToString(NSFont *font) {
 
     CGRect proposedRect = [layoutManager usedRectForTextContainer:textContainer];
     return proposedRect.size.height;
+}
+
+- (void)noteManagedObjectContextDidChange:(NSNotification *)notify {
+    NSArray *updatedObjects = (notify.userInfo)[NSUpdatedObjectsKey];
+
+    if ([updatedObjects containsObject:theme]) {
+        [self updatePrefsPanel];
+        [[NSNotificationCenter defaultCenter]
+         postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+    }
 }
 
 #pragma mark Themes Table View Magic
