@@ -157,7 +157,7 @@
         NSError *error;
         if (_mainManagedObjectContext.hasChanges) {
             if (![_mainManagedObjectContext save:&error]) {
-                NSLog(@"Unable to Save Changes of Main Managed Object Context!");
+                NSLog(@"Unable to Save Changes of Main Managed Object Context! Error: %@", error);
                 if (error) {
                     [[NSApplication sharedApplication] presentError:error];
                 }
