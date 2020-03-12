@@ -454,12 +454,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
          Game *game = gameTableModel[idx];
          GlkController *gctl = _gameSessions[game.ifid];
 
-         if (gctl) {
-             [gctl reset:sender];
-         } else {
+         if (!gctl) {
              gctl = [[GlkController alloc] init];
-             [gctl deleteAutosaveFilesForGame:game];
          }
+         [gctl deleteAutosaveFilesForGame:game];
      }];
 }
 
