@@ -294,12 +294,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                         @"are not in the library at the moment.",
                         @"Prune", NULL, @"Cancel");
     if (choice != NSAlertOtherReturn) {
-
-        if (choice != NSAlertOtherReturn) {
             NSFetchRequest *orphanedMetadata = [[NSFetchRequest alloc] init];
             [orphanedMetadata setEntity:[NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:_managedObjectContext]];
 
-            orphanedMetadata.predicate = [NSPredicate predicateWithFormat: @"(game == nil)"];
+            orphanedMetadata.predicate = [NSPredicate predicateWithFormat: @"ANY games == NIL"];
 
             NSError *error = nil;
             NSArray *metadataEntriesToDelete = [_managedObjectContext executeFetchRequest:orphanedMetadata error:&error];
@@ -311,7 +309,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
             }
             [_coreDataManager saveChanges];
         }
-    }
 }
 
 - (void)beginImporting {
