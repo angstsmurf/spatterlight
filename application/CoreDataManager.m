@@ -116,6 +116,12 @@
     privateManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [privateManagedObjectContext setPersistentStoreCoordinator:coordinator];
 
+    if (privateManagedObjectContext.undoManager == nil) {
+        NSUndoManager *newManager = [[NSUndoManager alloc] init];
+        [newManager setLevelsOfUndo:10];
+        privateManagedObjectContext.undoManager = newManager;
+    }
+
     return privateManagedObjectContext;
 }
 
@@ -127,7 +133,13 @@
     _mainManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     
     [_mainManagedObjectContext setParentContext:[self privateManagedObjectContext]];
-    
+
+    if (_mainManagedObjectContext.undoManager == nil) {
+        NSUndoManager *newManager = [[NSUndoManager alloc] init];
+        [newManager setLevelsOfUndo:10];
+        _mainManagedObjectContext.undoManager = newManager;
+    }
+
     return _mainManagedObjectContext;
 }
 
