@@ -355,7 +355,7 @@ NSString *fontToString(NSFont *font) {
     [super windowDidLoad];
     disregardTableSelection = YES;
 
-    self.windowFrameAutosaveName = @"PrefsWindow";
+    self.windowFrameAutosaveName = @"PrefsPanel";
     self.window.delegate = self;
     themesTableView.autosaveName = @"ThemesTable";
 
@@ -368,7 +368,7 @@ NSString *fontToString(NSFont *font) {
     glkcntrl.borderView = sampleTextBorderView;
     glkcntrl.contentView = sampleTextView;
 
-    [sampleTextBorderView setWantsLayer:YES];
+    sampleTextBorderView.wantsLayer = YES;
     [glkcntrl setBorderColor:theme.bufferBackground];
 
     glktxtbuf = [[GlkTextBufferWindow alloc] initWithGlkController:glkcntrl name:1];
@@ -401,14 +401,12 @@ NSString *fontToString(NSFont *font) {
 
     [glktxtbuf putString:@"(Trinity, Brian Moriarty, Infocom, 1986)" style:style_Emphasized];
 
-    [glktxtbuf restoreScrollBarStyle];
+    [self fixScrollBar:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notePreferencesChanged:)
                                                  name:@"PreferencesChanged"
                                                object:nil];
-
-//    [Preferences readSettingsFromTheme:theme];
 
     _oneThemeForAll = [[NSUserDefaults standardUserDefaults] boolForKey:@"oneThemeForAll"];
     _themesHeader.stringValue = [self themeScopeTitle];
@@ -425,7 +423,6 @@ NSString *fontToString(NSFont *font) {
     _scrollView.borderType = NSNoBorder;
 
     [self changeThemeName:theme.name];
-    _btnRemove.enabled = YES;
     [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
 }
 
@@ -590,72 +587,24 @@ NSString *fontToString(NSFont *font) {
 
 #pragma mark Preview
 
-//- (void)resizePreview {
-//    NSWindow *prefsPanel= self.window;
-//
-//
-//        CGRect screenframe = self.window.screen.visibleFrame;
-//
-//        CGFloat oldheight = prefsPanel.frame.size.height;
-//
-//
-//        CGRect winrect = [self previewRect];
-//        winrect.origin = prefsPanel.frame.origin;
-//
-//        // If the entire text does not fit on screen, don't change height at all
-//        if (winrect.size.height > screenframe.size.height)
-//            winrect.size.height = oldheight;
-//
-//        // When we reuse the window it will remember our last scroll position,
-//        // so we reset it here
-//
-//        // Scroll the vertical scroller to top
-//        _scrollView.verticalScroller.floatValue = 0;
-//
-//        // Scroll the contentView to top
-//        [_scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
-//
-//        CGFloat offset = winrect.size.height - oldheight;
-//
-//        winrect.origin.y -= offset;
-//
-//        // If window is partly off the screen, move it (just) inside
-//        if (NSMaxX(winrect) > NSMaxX(screenframe))
-//            winrect.origin.x = NSMaxX(screenframe) - winrect.size.width;
-//
-//        if (NSMinY(winrect) < 0)
-//            winrect.origin.y = NSMinY(screenframe);
-//
-//        [prefsPanel setFrame:winrect display:YES animate:YES];
-//        [sampleTextView scrollRectToVisible:NSMakeRect(0, 0, 0, 0)];
-//}
-
 - (void)notePreferencesChanged:(NSNotification *)notify {
+    NSLog(@"notePreferencesChanged:");
+
     // Change the theme of the sample text field
-
-    NSLog(@"Preferences notePreferencesChanged:%@", notify);
-    NSLog(@"theme = %@", theme.name);
-
     glktxtbuf.theme = theme;
+    glkcntrl.theme = theme;
+
     //This makes the animation of the preview a little less jumpy
-    sampleTextView.frame = NSMakeRect(theme.border, theme.border, sampleTextBorderView.frame.size.width - theme.border * 2, sampleTextBorderView.frame.size.height - theme.border * 2);
+    sampleTextView.frame = NSMakeRect(theme.border, theme.border - 2, sampleTextBorderView.frame.size.width - theme.border * 2, sampleTextBorderView.frame.size.height - theme.border * 2);
+
     [glktxtbuf prefsDidChange];
+    [_coreDataManager saveChanges];
 
-    if (previewHidden) {
-        NSLog(@"The preview pane is hidden, so skip");
-        return;
-    }
-
-    CGFloat calculatedNewHeight = [self previewHeight];
-    NSLog(@"Preferences notePreferencesChanged: resizeWindowToHeight:%f",calculatedNewHeight);
-    [self resizeWindowToHeight:calculatedNewHeight];
-
-    NSLog(@"Preferences notePreferencesChanged: window frame is now:%@", NSStringFromRect(self.window.frame));
+    if (previewHidden) return;
+    [self resizeWindowToHeight:[self previewHeight]];
 }
 
 - (void)resizeWindowToHeight:(CGFloat)height {
-
-    NSLog(@"resizeWindowToHeight %f", height);
     NSWindow *prefsPanel= self.window;
     CGRect screenframe = prefsPanel.screen.visibleFrame;
 
@@ -677,10 +626,10 @@ NSString *fontToString(NSFont *font) {
 
     // Scroll the vertical scroller to top
     scrollView.verticalScroller.floatValue = 0;
-//
-//    // Scroll the contentView to top
-    [scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
-//
+
+    // Scroll the contentView to top
+    [scrollView.contentView scrollToPoint:NSZeroPoint];
+
     CGFloat offset = winrect.size.height - oldheight;
     winrect.origin.y -= offset;
 
@@ -690,37 +639,37 @@ NSString *fontToString(NSFont *font) {
 
     if (NSMinY(winrect) < 0)
         winrect.origin.y = NSMinY(screenframe);
-//
-//    [prefsPanel setFrame:winrect display:YES animate:NO];
-//    [self performSelector:@selector(fixPreview:) withObject:nil afterDelay:0.1];
 
-
+    Preferences * __unsafe_unretained weakSelf = self;
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
          [[prefsPanel animator]
           setFrame:winrect
           display:YES];
-     }
-     completionHandler:^{
-         NSRect newFrame = self.window.frame;
+     } completionHandler:^{
+         //We need to reset the sampleTextBorderView here, otherwise some of it will still show when hiding the preview.
+         NSRect newFrame = weakSelf.window.frame;
          sampleTextBorderView.frame = NSMakeRect(0, 0, newFrame.size.width, newFrame.size.height - kDefaultPrefWindowHeight);
+
          sampleTextView.frame = NSMakeRect(theme.border, theme.border, sampleTextBorderView.frame.size.width - theme.border * 2, sampleTextBorderView.frame.size.height - theme.border * 2);
 
          [_divider removeFromSuperview];
-         _divider.frame = NSMakeRect(0, sampleTextBorderView.frame.size.height, self.window.frame.size.width, 1);
-         [self.window.contentView addSubview:_divider];
+         if (!previewHidden) {
+             _divider.frame = NSMakeRect(0, sampleTextBorderView.frame.size.height, newFrame.size.width, 1);
+             [weakSelf.window.contentView addSubview:_divider];
+         }
 
-         NSScrollView *newScrollView = glktxtbuf.textview.enclosingScrollView;
-         glktxtbuf.frame = NSMakeRect(0, 0, sampleTextView.frame.size.width, sampleTextView.frame.size.height);
-         newScrollView.frame = glktxtbuf.frame;
-         [glktxtbuf scrollToTop];
-         [self performSelector:@selector(fixScrollBar:) withObject:nil afterDelay:0.1];
+         [weakSelf performSelector:@selector(fixScrollBar:) withObject:nil afterDelay:0.1];
      }];
 }
 
 - (void)fixScrollBar:(id)sender {
     [glktxtbuf restoreScrollBarStyle];
+    glktxtbuf.frame = NSMakeRect(0, 0, sampleTextView.frame.size.width, sampleTextView.frame.size.height);
+    NSScrollView *scrollView = glktxtbuf.textview.enclosingScrollView;
+    scrollView.frame = glktxtbuf.frame;
+    [scrollView.contentView scrollToPoint:NSZeroPoint];
 }
 
 
@@ -729,11 +678,10 @@ NSString *fontToString(NSFont *font) {
     CGFloat proposedHeight = [self textHeight];
 
     CGFloat totalHeight = kDefaultPrefWindowHeight + proposedHeight + 2 * (theme.border + theme.bufferMarginY);
-    NSLog(@"total height = kDefaultPrefWindowHeight (%ld) + proposedHeight (%f) + 2 * theme.border (%d)", kDefaultPrefWindowHeight,  proposedHeight, theme.border);
     CGRect screenframe = [NSScreen mainScreen].visibleFrame;
+
     if (totalHeight > screenframe.size.height) {
         totalHeight = screenframe.size.height;
-        NSLog(@"Calculated total height taller than screen. reducing to %f", totalHeight);
     }
     return totalHeight;
 }
@@ -748,7 +696,7 @@ NSString *fontToString(NSFont *font) {
     CGFloat padding = glktxtbuf.textview.textContainer.lineFragmentPadding;
 
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:[glktxtbuf.textview.textStorage copy]];
-    CGFloat textWidth = textview.frame.size.width - padding;
+    CGFloat textWidth = textview.frame.size.width - padding + 1;
     NSTextContainer *textContainer = [[NSTextContainer alloc]
                                       initWithContainerSize:NSMakeSize(textWidth, FLT_MAX)];
 
@@ -769,6 +717,7 @@ NSString *fontToString(NSFont *font) {
     theme = sender;
     if (![themes containsObject:sender]) {
         NSLog(@"selected theme not found!");
+        theme = self.defaultTheme;
         return;
     }
 
@@ -794,7 +743,7 @@ NSString *fontToString(NSFont *font) {
 
         [self updatePrefsPanel];
         [self changeThemeName:theme.name];
-        _btnRemove.enabled = YES;
+        _btnRemove.enabled = theme.editable;
 //        [Preferences readSettingsFromTheme:theme];
 
         if (_oneThemeForAll) {
@@ -812,7 +761,6 @@ NSString *fontToString(NSFont *font) {
 
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
-
     }
     return;
 }
@@ -820,6 +768,7 @@ NSString *fontToString(NSFont *font) {
 - (void)changeThemeName:(NSString *)name {
     [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"themeName"];
     _detailsHeader.stringValue = [NSString stringWithFormat:@"Settings for theme %@", name];
+//    [_coreDataManager saveChanges];
 }
 
 - (BOOL)notDuplicate:(NSString *)string {
@@ -872,6 +821,42 @@ textShouldEndEditing:(NSText *)fieldEditor {
     return @[[NSSortDescriptor sortDescriptorWithKey:@"editable" ascending:YES],
              [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES
                                             selector:@selector(localizedStandardCompare:)]];
+}
+
+#pragma mark -
+#pragma mark Windows restoration
+
+- (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
+    NSString *selectedfontString = nil;
+    if (selectedFontButton)
+        selectedfontString = selectedFontButton.identifier;
+    [state encodeObject:selectedfontString forKey:@"selectedFont"];
+    [state encodeBool:previewHidden forKey:@"previewHidden"];
+}
+
+- (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
+    NSString *selectedfontString = [state decodeObjectForKey:@"selectedFont"];
+    if (selectedfontString != nil) {
+        NSArray *fontsButtons = @[btnBufferFont, btnGridFont, btnInputFont];
+        for (NSButton *button in fontsButtons) {
+            if ([button.identifier isEqualToString:selectedfontString]) {
+                selectedFontButton = button;
+            }
+        }
+    }
+    
+    previewHidden = [state decodeBoolForKey:@"previewHidden"];
+    if (previewHidden) {
+        [self resizeWindowToHeight:kDefaultPrefWindowHeight];
+    } else {
+        [self resizeWindowToHeight:[self previewHeight]];
+    }
+
+}
+
+- (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
+    //    NSLog(@"libctl: windowWillReturnUndoManager!")
+    return _managedObjectContext.undoManager;
 }
 
 #pragma mark Action menu
@@ -1038,15 +1023,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)togglePreview:(id)sender {
     if (!previewHidden) {
-        NSLog(@"togglePreview: we are hiding preview, so we shrink the window to %ld points high", kDefaultPrefWindowHeight);
-
         [self resizeWindowToHeight:kDefaultPrefWindowHeight];
         previewHidden = YES;
-        
     } else {
-        NSLog(@"togglePreview: we are showing preview, so we grow the window to %f points high", [self previewHeight]);
         previewHidden = NO;
-
+        if (!previewHidden) {
+            _divider.frame = NSMakeRect(0, sampleTextBorderView.frame.size.height, self.window.frame.size.width, 1);
+            [self.window.contentView addSubview:_divider];
+        }
         [self notePreferencesChanged:(NSNotification *)theme];
     }
 }
@@ -1436,25 +1420,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 }
 
-- (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
-    NSString *selectedfontString = nil;
-    if (selectedFontButton)
-        selectedfontString = selectedFontButton.identifier;
-    [state encodeObject:selectedfontString forKey:@"selectedFont"];
-}
 
-- (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
-    NSString *selectedfontString = [state decodeObjectForKey:@"selectedFont"];
-    if (selectedfontString == nil)
-        return;
-    NSArray *fontsButtons = @[btnBufferFont, btnGridFont, btnInputFont];
-    for (NSButton *button in fontsButtons) {
-        if ([button.identifier isEqualToString:selectedfontString]) {
-            selectedFontButton = button;
-        }
-    }
-
-}
 
 - (IBAction)changeFont:(id)fontManager {
     NSFont *newFont = nil;

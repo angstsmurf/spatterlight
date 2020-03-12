@@ -75,6 +75,7 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 - (IBAction)editNewEntry:(id)sender;
 
 - (void)createDefaultThemes;
+- (void)restoreThemeSelection:(id)sender;
 
 + (void)zoomIn;
 + (void)zoomOut;

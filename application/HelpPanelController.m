@@ -100,7 +100,7 @@
         _scrollView.verticalScroller.floatValue = 0;
 
         // Scroll the contentView to top
-        [_scrollView.contentView scrollToPoint:NSMakePoint(0, 0)];
+        [_scrollView.contentView scrollToPoint:NSZeroPoint];
 
         [self showWindow:helpWindow];
 
