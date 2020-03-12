@@ -18,7 +18,7 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
-#define MINTIMER 5 /* The game Transparent needs a timer this frequent */
+#define MINTIMER 1 /* The game Transparent needs a timer this frequent */
 
 //static const char *msgnames[] = {
 //    "NOREPLY",         "OKAY",       "ERROR",       "HELLO",
