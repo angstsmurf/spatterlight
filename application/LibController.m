@@ -415,6 +415,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     LibController * __unsafe_unretained weakSelf = self;
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
+    childContext.undoManager = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(backgroundManagedObjectContextDidSave:)
@@ -594,6 +595,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     {
         LibController * __unsafe_unretained weakSelf = self;
         NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
+        childContext.undoManager = nil;
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(backgroundManagedObjectContextDidSave:)
@@ -1147,6 +1149,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     LibController * __unsafe_unretained weakSelf = self;
 
     NSManagedObjectContext *private = [_coreDataManager privateChildManagedObjectContext];
+    private.undoManager = nil;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(backgroundManagedObjectContextDidSave:)
