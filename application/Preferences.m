@@ -599,9 +599,6 @@ NSString *fontToString(NSFont *font) {
     glktxtbuf.theme = theme;
     glkcntrl.theme = theme;
 
-    //This makes the animation of the preview a little less jumpy
-    sampleTextView.frame = NSMakeRect(theme.border, theme.border - 2, sampleTextBorderView.frame.size.width - theme.border * 2, sampleTextBorderView.frame.size.height - theme.border * 2);
-
     [glktxtbuf prefsDidChange];
     [_coreDataManager saveChanges];
 
