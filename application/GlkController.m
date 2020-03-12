@@ -588,35 +588,36 @@ fprintf(stderr, "%s\n",                                                    \
         appSupportURL = [NSURL URLWithString:dirstr
                                relativeToURL:appSupportURL];
 
-        [[NSFileManager defaultManager] createDirectoryAtURL:appSupportURL
-                                 withIntermediateDirectories:YES
-                                                  attributes:nil
-                                                       error:NULL];
+        if (_supportsAutorestore) {
+            [[NSFileManager defaultManager] createDirectoryAtURL:appSupportURL
+                                     withIntermediateDirectories:YES
+                                                      attributes:nil
+                                                           error:NULL];
 
-        NSString *dummyfilename = [_game.metadata.title
-                                   stringByAppendingPathExtension:@"txt"];
+            NSString *dummyfilename = [_game.metadata.title
+                                       stringByAppendingPathExtension:@"txt"];
 
-        NSString *dummytext = [NSString
-                               stringWithFormat:
-                               @"This file, %@, was placed here by Spatterlight in order to make "
-                               @"it easier for humans to guess what game these autosave files belong "
-                               @"to. Any files in this folder are for the game %@, or possibly "
-                               @"a game with another name but identical contents.",
-                               dummyfilename, _game.metadata.title];
+            NSString *dummytext = [NSString
+                                   stringWithFormat:
+                                   @"This file, %@, was placed here by Spatterlight in order to make "
+                                   @"it easier for humans to guess what game these autosave files belong "
+                                   @"to. Any files in this folder are for the game %@, or possibly "
+                                   @"a game with a different name but identical contents.",
+                                   dummyfilename, _game.metadata.title];
 
-        NSString *dummyfilepath =
-        [appSupportURL.path stringByAppendingPathComponent:dummyfilename];
+            NSString *dummyfilepath =
+            [appSupportURL.path stringByAppendingPathComponent:dummyfilename];
 
-        BOOL succeed =
-        [dummytext writeToURL:[NSURL fileURLWithPath:dummyfilepath]
-                   atomically:YES
-                     encoding:NSUTF8StringEncoding
-                        error:&error];
-        if (!succeed) {
-            NSLog(@"Failed to write dummy file to autosave directory. Error:%@",
-                  error);
+            BOOL succeed =
+            [dummytext writeToURL:[NSURL fileURLWithPath:dummyfilepath]
+                       atomically:YES
+                         encoding:NSUTF8StringEncoding
+                            error:&error];
+            if (!succeed) {
+                NSLog(@"Failed to write dummy file to autosave directory. Error:%@",
+                      error);
+            }
         }
-
         _appSupportDir = appSupportURL.path;
     }
     return _appSupportDir;
