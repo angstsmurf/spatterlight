@@ -27,7 +27,7 @@
         //We use tags instead of pointers here
 
         _next = _prev = _parent = 0;
-        
+
         if (win->next)
             _next = (win->next)->tag;
         if (win->prev)
@@ -69,7 +69,7 @@
 		style = win->style;
 
         _streamtag = _echostreamtag = 0;
-        
+
         if (win->str)
             _streamtag = win->str->tag;
 
@@ -87,7 +87,7 @@
 
 
 - (id) initWithCoder:(NSCoder *)decoder {
-	
+
     _tag = [decoder decodeInt32ForKey:@"tag"];
 	_type = [decoder decodeInt32ForKey:@"type"];
 	_rock = [decoder decodeInt32ForKey:@"rock"];
@@ -121,7 +121,7 @@
     hyper = [decoder decodeInt32ForKey:@"hyper"];
 
 	_parent = [decoder decodeInt32ForKey:@"parent"];
-		
+
 	char_request = [decoder decodeInt32ForKey:@"char_request"];
 	line_request = [decoder decodeInt32ForKey:@"line_request"];
 	char_request_uni = [decoder decodeInt32ForKey:@"char_request_uni"];
@@ -156,7 +156,7 @@
 			}
 		}
 	}
-	
+
 	echo_line_input = [decoder decodeIntForKey:@"echo_line_input"];
 	style = [decoder decodeInt32ForKey:@"style"];
     line_terminators = [decoder decodeObjectForKey:@"line_terminators"];
@@ -259,7 +259,7 @@
     win->line.buf = buf;
     win->line.len = len;
     win->line.cap = cap;
-    
+
     win->background = background;
 
     win->char_request = char_request;
@@ -267,7 +267,7 @@
     win->line_request = line_request;
     win->line_request_uni = line_request_uni;
     win->mouse_request = mouse_request;
-    
+
     win->bbox.x0 = x0;
     win->bbox.y0 = y0;
     win->bbox.x1 = x1;
@@ -291,7 +291,7 @@
         if (win->line_terminators)
         {
             for (int i=0; i<win->termct; i++)
-                win->line_terminators[i]=(glui32)((NSNumber *)line_terminators[i]).intValue;
+                win->line_terminators[i]=(glui32)((NSNumber *)[line_terminators objectAtIndex:i]).intValue;
             win->line_terminators[win->termct] = 0;
         }
     }

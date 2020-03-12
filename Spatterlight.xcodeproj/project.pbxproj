@@ -6186,6 +6186,7 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = htmltads;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6202,6 +6203,7 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = htmltads;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6218,6 +6220,7 @@
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = htmltadsr;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6232,6 +6235,7 @@
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = htmltadsr;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6272,8 +6276,9 @@
 				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
@@ -6316,8 +6321,9 @@
 				HEADER_SEARCH_PATHS = "";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				VALID_ARCHS = x86_64;
 			};
 			name = Release;
@@ -6344,7 +6350,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				PRODUCT_NAME = glkimp;
-				SDKROOT = macosx;
+				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -6371,7 +6377,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				PRODUCT_NAME = glkimp;
-				SDKROOT = macosx;
+				SDKROOT = "";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -6389,6 +6395,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glkmain;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6402,6 +6409,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glkmain;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6507,6 +6515,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = frotz;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6520,6 +6529,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = frotz;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6535,6 +6545,7 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = scare;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6548,6 +6559,7 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = scare;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6569,6 +6581,7 @@
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = level9;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6588,6 +6601,7 @@
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = level9;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6603,6 +6617,7 @@
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = magnetic;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6616,6 +6631,7 @@
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = magnetic;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6630,6 +6646,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = unquill;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6642,6 +6659,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = unquill;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6657,6 +6675,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = glulxe;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6671,6 +6690,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = glulxe;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6691,6 +6711,7 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = agility;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6709,6 +6730,7 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = agility;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6731,6 +6753,7 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
+				SDKROOT = "";
 				WARNING_CFLAGS = "-Wmost";
 			};
 			name = Debug;
@@ -6752,6 +6775,7 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
+				SDKROOT = "";
 				WARNING_CFLAGS = "-Wmost";
 			};
 			name = Release;
@@ -6778,6 +6802,7 @@
 					"-DREVERSED",
 				);
 				PRODUCT_NAME = alan2;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6801,6 +6826,7 @@
 					"-DREVERSED",
 				);
 				PRODUCT_NAME = alan2;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6822,6 +6848,7 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = alan3;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6841,6 +6868,7 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = alan3;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6857,6 +6885,7 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = "-w";
 				PRODUCT_NAME = advsys;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6871,6 +6900,7 @@
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_CFLAGS = "-w";
 				PRODUCT_NAME = advsys;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6885,6 +6915,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = agt2agx;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6897,6 +6928,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = agt2agx;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6911,6 +6943,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = babel;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -6923,6 +6956,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = babel;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -6963,6 +6997,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = tadsr;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -7001,6 +7036,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = tadsr;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -7038,6 +7074,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = tads2;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -7073,6 +7110,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = tads2;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -7114,6 +7152,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = tads3;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -7153,6 +7192,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = tads3;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
@@ -7204,6 +7244,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/SDL2.framework/Headers $(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework/Versions/A/Headers/";
 			};
 			name = Debug;
@@ -7252,6 +7293,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/SDL2.framework/Headers $(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework/Versions/A/Headers/";
 			};
 			name = Release;

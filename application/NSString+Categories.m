@@ -214,10 +214,8 @@
             [scanner scanString:@"&" intoString:&amp];  //an isolated & symbol
             [result appendString:amp];
         }
-        
-    }
-    while (![scanner isAtEnd]);
-    
+    } while (![scanner isAtEnd]);
+
 finish:
     return result;
 }
@@ -227,36 +225,36 @@ finish:
     if (!games || games.count == 0)
         return nil;
 
-    NSString *gameString = ((Game *)games[0]).metadata.title;
+    NSString *gameString = ((Game *)[games objectAtIndex:0]).metadata.title;
     if (gameString.length > 40) {
         gameString = [gameString substringToIndex:39];
         gameString = [NSString stringWithFormat:@"%@…", gameString];
     }
     gameString = [NSString stringWithFormat:@"\"%@\"", gameString];
-    
+
     NSUInteger number = games.count - 1;
 
     if (number == 0)
         return gameString;
-    
+
     if (number == 1) {
-        NSString *gameString2 = ((Game *)games[1]).metadata.title;
+        NSString *gameString2 = ((Game *)[games objectAtIndex:1]).metadata.title;
         if (gameString2.length > 40) {
             gameString2 = [gameString2 substringToIndex:39];
             gameString2 = [NSString stringWithFormat:@"%@…", gameString];
         }
         return [NSString stringWithFormat:@"%@ and \"%@\"", gameString, gameString2];
     }
-    
+
     NSString *numberString;
 
     if (number <= 12) {
-    //convert to words
-    NSNumber *numberValue = [NSNumber numberWithInt:number]; //needs to be NSNumber!
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    numberFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    numberFormatter.numberStyle = NSNumberFormatterSpellOutStyle;
-    numberString = [numberFormatter stringFromNumber:numberValue];
+        //convert to words
+        NSNumber *numberValue = [NSNumber numberWithInt:number]; //needs to be NSNumber!
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        numberFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        numberFormatter.numberStyle = NSNumberFormatterSpellOutStyle;
+        numberString = [numberFormatter stringFromNumber:numberValue];
     } else {
         numberString = [NSString stringWithFormat:@"%ld", number];
     }
