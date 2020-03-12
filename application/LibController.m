@@ -624,25 +624,21 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                                 [[NSApplication sharedApplication] presentError:error];
                             }
                         }
-
-                        if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
-
-                            [_managedObjectContext performBlock:^{
-                                for (Game *aGame in gameTableModel) {
-                                    [_managedObjectContext refreshObject:aGame.metadata
-                                                            mergeChanges:YES];
-                                }
-                                [self updateSideViewForce:YES];
-                             }];
-                        }
-
                     }
-
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 currentlyAddingGames = NO;
                 _addButton.enabled = YES;
+                if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
+
+                    [_coreDataManager saveChanges];
+                    for (Game *aGame in [gameTableModel objectsAtIndexes:rows]) {
+                        [_managedObjectContext refreshObject:aGame.metadata
+                                                mergeChanges:YES];
+                    }
+                    [weakSelf updateSideViewForce:YES];
+                }
             });
 
             [weakSelf endImporting];
