@@ -31,9 +31,9 @@
         NSLog(@"Unable to Find Data Model!");
         return nil;
     }
-    
+
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    
+
     if (!_managedObjectModel) {
         NSLog(@"Unable to Load Data Model!");
         return nil;
@@ -93,7 +93,7 @@
         return nil;
     }
     _persistentStoreCoordinator = coordinator;
-    
+
     return _persistentStoreCoordinator;
 }
 
@@ -131,7 +131,7 @@
         return _mainManagedObjectContext;
     }
     _mainManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    
+
     [_mainManagedObjectContext setParentContext:[self privateManagedObjectContext]];
 
     if (_mainManagedObjectContext.undoManager == nil) {
@@ -197,7 +197,7 @@
     NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     // Configure Managed Object Context
     [managedObjectContext setParentContext:_mainManagedObjectContext];
-
+    
     return managedObjectContext;
 }
 
