@@ -894,7 +894,9 @@ NSString *fontToString(NSFont *font) {
     glkcntrl.theme = theme;
 
     [glktxtbuf prefsDidChange];
-    [_coreDataManager saveChanges];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_coreDataManager saveChanges];
+    });
 
     if (previewHidden)
         return;
