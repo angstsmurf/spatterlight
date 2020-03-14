@@ -18,7 +18,13 @@
 - (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context {
     self = [super init];
     if (self) {
-        NSXMLElement *idElement = [element elementsForName:@"identification"][0];
+        NSXMLElement *idElement;
+        if ([element elementsForName:@"identification"].count) {
+            idElement = [element elementsForName:@"identification"][0];
+        } else {
+            NSLog(@"Unsupported iFiction file!");
+            return self;
+        }
         _identification = [[IFIdentification alloc] initWithXMLElement:idElement andContext:context];
 
         Metadata *metadata = _identification.metadata;
