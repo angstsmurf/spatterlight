@@ -775,86 +775,86 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     }
 }
 
-- (void) extractMetadataFromFile:(Game *)game
-{
-	size_t mdlen;
-
-	BOOL report = YES;
-	currentIfid = nil;
-	cursrc = kInternal;
-
-	NSString *path = game.urlForBookmark.path;
-
-	char *format = babel_init((char*)path.UTF8String);
-	if (format)
-	{
-		char buf[TREATY_MINIMUM_EXTENT];
-		char *s;
-		NSString *ifid;
-		int rv;
-
-		rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
-		if (rv > 0)
-		{
-			s = strchr(buf, ',');
-			if (s) *s = 0;
-			ifid = @(buf);
-
-			if (!ifid || [ifid isEqualToString:@""])
-				ifid = game.ifid;
-
-			mdlen = (size_t)babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
-			if (mdlen > 0)
-			{
-				char *mdbuf = malloc(mdlen);
-				if (!mdbuf)
-				{
-					if (report)
-						NSRunAlertPanel(@"Out of memory.",
-										@"Can not allocate memory for the metadata text.",
-										@"Okay", NULL, NULL);
-					babel_release();
-					return;
-				}
-
-				rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
-				if (rv > 0)
-				{
-					cursrc = kInternal;
-                    NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
-					[self importMetadataFromXML:mdbufData inContext:_managedObjectContext];
-					cursrc = 0;
-				}
-
-				free(mdbuf);
-			}
-
-            NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:imageDir];
-            NSData *img = [[NSData alloc] initWithContentsOfURL:imgpath];
-			if (!img)
-			{
-				size_t imglen = (size_t)babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
-				if (imglen > 0)
-				{
-					char *imgbuf = malloc(imglen);
-					if (imgbuf)
-					{
-						babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
-						NSData *imgdata = [[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES];
-						img = [[NSData alloc] initWithData: imgdata];
-					}
-				}
-
-			}
-			if (img)
-			{
-				[self addImage: img toMetadata:game.metadata inContext:_managedObjectContext];
-			}
-            
-		}
-	}
-	babel_release();
-}
+//- (void) extractMetadataFromFile:(Game *)game
+//{
+//	size_t mdlen;
+//
+//	BOOL report = YES;
+//	currentIfid = nil;
+//	cursrc = kInternal;
+//
+//	NSString *path = game.urlForBookmark.path;
+//
+//	char *format = babel_init((char*)path.UTF8String);
+//	if (format)
+//	{
+//		char buf[TREATY_MINIMUM_EXTENT];
+//		char *s;
+//		NSString *ifid;
+//		int rv;
+//
+//		rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
+//		if (rv > 0)
+//		{
+//			s = strchr(buf, ',');
+//			if (s) *s = 0;
+//			ifid = @(buf);
+//
+//			if (!ifid || [ifid isEqualToString:@""])
+//				ifid = game.ifid;
+//
+//			mdlen = (size_t)babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
+//			if (mdlen > 0)
+//			{
+//				char *mdbuf = malloc(mdlen);
+//				if (!mdbuf)
+//				{
+//					if (report)
+//						NSRunAlertPanel(@"Out of memory.",
+//										@"Can not allocate memory for the metadata text.",
+//										@"Okay", NULL, NULL);
+//					babel_release();
+//					return;
+//				}
+//
+//				rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
+//				if (rv > 0)
+//				{
+//					cursrc = kInternal;
+//                    NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
+//					[self importMetadataFromXML:mdbufData inContext:_managedObjectContext];
+//					cursrc = 0;
+//				}
+//
+//				free(mdbuf);
+//			}
+//
+//            NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:imageDir];
+//            NSData *img = [[NSData alloc] initWithContentsOfURL:imgpath];
+//			if (!img)
+//			{
+//				size_t imglen = (size_t)babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
+//				if (imglen > 0)
+//				{
+//					char *imgbuf = malloc(imglen);
+//					if (imgbuf)
+//					{
+//						babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
+//						NSData *imgdata = [[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES];
+//						img = [[NSData alloc] initWithData: imgdata];
+//					}
+//				}
+//
+//			}
+//			if (img)
+//			{
+//				[self addImage: img toMetadata:game.metadata inContext:_managedObjectContext];
+//			}
+//            
+//		}
+//	}
+//	babel_release();
+//}
 
 - (void)rebuildThemesSubmenu {
 
