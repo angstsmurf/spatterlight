@@ -187,7 +187,7 @@
 
     /* make italic, bold, bolditalic font variants */
 
-    NSFont *bufroman, *bufbold, *bufitalic, *bufbolditalic, *bufheader;
+    NSFont *bufroman, *bufbold, *bufitalic, *bufbolditalic, *bufheader, *bufFixed;
     NSFont *gridroman, *gridbold, *griditalic, *gridbolditalic;
 
     bufroman  = self.bufferNormal.font;
@@ -201,6 +201,8 @@
     bufitalic = [mgr convertFont:bufroman toHaveTrait:NSItalicFontMask];
     bufbolditalic = [mgr convertFont:bufbold toHaveTrait:NSItalicFontMask];
     bufheader = [mgr convertFont:bufbold toSize:bufbold.pointSize + 2];
+    bufFixed = [mgr convertFont:gridroman toHaveTrait:NSFixedPitchFontMask];
+    bufFixed = [mgr convertFont:bufFixed toSize:bufroman.pointSize];
 
     // Do not replace input style there was an old one
     if (!bufInputExists)
@@ -209,6 +211,7 @@
     [self.bufHead setFont:[bufheader copy]];
     [self.bufSubH setFont:[bufbold copy]];
     [self.bufAlert setFont:[bufbolditalic copy]];
+    [self.bufPre setFont:[bufFixed copy]];
 
     [self.gridInput setFont:[gridbold copy]];
     [self.gridEmph setFont:[griditalic copy]];
