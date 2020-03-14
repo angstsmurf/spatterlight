@@ -211,10 +211,10 @@ static Preferences *prefs = nil;
     lectroteTheme.smartQuotes = YES;
     lectroteTheme.spaceFormat = TAG_SPACES_GAME;
     lectroteTheme.border = 20;
-    lectroteTheme.bufferMarginX = 15;
+    lectroteTheme.bufferMarginX = 20;
     lectroteTheme.bufferMarginY = 15;
-    lectroteTheme.gridMarginX = 5;
-    lectroteTheme.gridMarginY = 5;
+    lectroteTheme.gridMarginX = 15;
+    lectroteTheme.gridMarginY = 6;
 
     lectroteTheme.winSpacingX = 0;
     lectroteTheme.winSpacingY = 0;
@@ -229,7 +229,7 @@ static Preferences *prefs = nil;
     [lectroteTheme populateStyles];
 
     lectroteTheme.bufferNormal.font = [NSFont fontWithName:@"Lora" size:15];
-    lectroteTheme.bufferNormal.lineSpacing = 4;
+    lectroteTheme.bufferNormal.lineSpacing = 3.2;
 
     lectroteTheme.bufInput.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:lectroteTheme.bufferNormal.font];
 
@@ -288,15 +288,19 @@ static Preferences *prefs = nil;
     [zoomTheme populateStyles];
 
     zoomTheme.bufferNormal.font = [NSFont fontWithName:@"Gill Sans" size:12];
-    zoomTheme.bufInput.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:zoomTheme.bufferNormal.font];
+
+    NSFont *gillSansBold = [[NSFontManager sharedFontManager] convertFont:zoomTheme.bufferNormal.font toFace:@"GillSans-Bold"];
+
+    zoomTheme.bufInput.font = [gillSansBold copy];
 
     zoomTheme.gridNormal.font = [NSFont fontWithName:@"Courier" size:12];
     zoomTheme.gridNormal.color = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
     
     [zoomTheme populateStyles];
 
-    zoomTheme.bufSubH.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:zoomTheme.bufferNormal.font];
-    zoomTheme.bufSubH.font = [[NSFontManager sharedFontManager] convertFont:zoomTheme.bufSubH.font toSize:13];
+    zoomTheme.bufSubH.font = [[NSFontManager sharedFontManager] convertFont:gillSansBold toSize:13];
+    //I'm sure this can't really be necessay, but every time I remove it something breaks
+    zoomTheme.bufSubH.font = [[NSFontManager sharedFontManager] convertFont:zoomTheme.bufSubH.font toFace:@"GillSans-Bold"];
 
     zoomTheme.bufHead.font = [NSFont fontWithName:@"Gill Sans" size:16];
 
@@ -323,7 +327,7 @@ static Preferences *prefs = nil;
     dosTheme.maxCols = 1000;
     dosTheme.doGraphics = YES;
     dosTheme.doSound = YES;
-    dosTheme.doStyles = YES;
+    dosTheme.doStyles = NO;
     dosTheme.justify = NO;
     dosTheme.smartQuotes = NO;
     dosTheme.spaceFormat = TAG_SPACES_GAME;
