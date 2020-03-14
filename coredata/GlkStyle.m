@@ -414,6 +414,10 @@
 }
 
 - (void)setFont:(NSFont *)font {
+    if (!font) {
+        NSLog(@"GlkStyle setFont called with bad Font!");
+        return;
+    }
     NSMutableDictionary *mutableDict = [self.attributeDict mutableCopy];
     mutableDict[NSFontAttributeName] = font;
     self.attributeDict = mutableDict;
