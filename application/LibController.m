@@ -347,7 +347,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                                   [self lookForMoreMissingFilesInFolder:newPath.stringByDeletingLastPathComponent];
                               } else {
                                   NSRunAlertPanel(@"Not a match.",
-                                                  [NSString stringWithFormat:
+                                                  @"%@", [NSString stringWithFormat:
                                                    @"This file does not match the game \"%@.\"", game.metadata.title],
                                                   @"Okay", NULL, NULL);
                               }
@@ -426,7 +426,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     if (filenames.count > 0) {
         NSInteger choice =
         NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ also in this folder.", [NSString stringWithSummaryOf:fetchedObjects], (fetchedObjects.count > 1) ? @"are" : @"is"],
-                        [NSString stringWithFormat:@"Do you want to add %@ as well?", (fetchedObjects.count > 1) ? @"them" : @"it" ],
+                        @"%@", [NSString stringWithFormat:@"Do you want to add %@ as well?", (fetchedObjects.count > 1) ? @"them" : @"it" ],
                         @"Yes", NULL, @"Cancel");
         if (choice != NSAlertOtherReturn) {
             for (filename in filenames) {
