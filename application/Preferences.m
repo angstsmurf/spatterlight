@@ -87,33 +87,20 @@ static Preferences *prefs = nil;
             NSLog(@"Preference readDefaults: Error! Could not create default theme!");
     } else theme = fetchedObjects[0];
 
-//    [self readSettingsFromTheme:theme];
+    [Preferences createZoomThemeInContext:managedObjectContext];
+    [Preferences createClassicSpatterlightThemeInContext:managedObjectContext];
+    [Preferences createDOSThemeInContext:managedObjectContext];
+    [Preferences createLectroteThemeInContext:managedObjectContext];
 }
 
 
 + (Theme *)createDefaultThemeInContext:(NSManagedObjectContext *)context {
-    NSArray *fetchedObjects;
-    NSError *error = nil;
 
-    // First, check if ißt already exists
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:context];
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", @"Default"];
-    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects && fetchedObjects.count)
-        return fetchedObjects[0];
-    else if (error != nil) {
-        NSLog(@"Preferences createDefaultThemeInContext: %@", error);
-        return nil;
-    }
-
-    Theme *defaultTheme = (Theme *) [NSEntityDescription
-                                     insertNewObjectForEntityForName:@"Theme"
-                                     inManagedObjectContext:context];
-
-    defaultTheme.name = @"Default";
+    BOOL exists = NO;
+    Theme *defaultTheme = [Preferences findOrCreateTheme:@"Default" inContext:context alreadyExists:&exists];
+    if (exists)
+        return defaultTheme;
+    
     defaultTheme.dashes = YES;
     defaultTheme.defaultRows = 100;
     defaultTheme.defaultCols = 80;
@@ -151,6 +138,309 @@ static Preferences *prefs = nil;
     defaultTheme.cellWidth = size.width;
     
     return defaultTheme;
+}
+
++ (Theme *)createClassicSpatterlightThemeInContext:(NSManagedObjectContext *)context {
+
+    BOOL exists = NO;
+    Theme *classicTheme = [Preferences findOrCreateTheme:@"Spatterlight Classic" inContext:context alreadyExists:&exists];
+    if (exists)
+        return classicTheme;
+    
+    classicTheme.dashes = YES;
+    classicTheme.defaultRows = 30;
+    classicTheme.defaultCols = 62;
+    classicTheme.minRows = 5;
+    classicTheme.minCols = 32;
+    classicTheme.maxRows = 1000;
+    classicTheme.maxCols = 1000;
+    classicTheme.doGraphics = YES;
+    classicTheme.doSound = YES;
+    classicTheme.doStyles = NO;
+    classicTheme.justify = NO;
+    classicTheme.smartQuotes = YES;
+    classicTheme.spaceFormat = TAG_SPACES_GAME;
+    classicTheme.border = 0;
+    classicTheme.bufferMarginX = 15;
+    classicTheme.bufferMarginY = 15;
+    classicTheme.gridMarginX = 5;
+    classicTheme.gridMarginY = 5;
+
+    classicTheme.winSpacingX = 0;
+    classicTheme.winSpacingY = 0;
+
+    classicTheme.morePrompt = nil;
+    classicTheme.spacingColor = nil;
+
+    classicTheme.gridBackground = [NSColor colorWithCalibratedRed:0.85 green:0.85 blue:0.85 alpha:1.0];
+    classicTheme.bufferBackground = [NSColor whiteColor];
+    classicTheme.editable = NO;
+
+    [classicTheme populateStyles];
+
+    NSSize size = [classicTheme.gridNormal cellSize];
+
+    classicTheme.cellHeight = size.height;
+    classicTheme.cellWidth = size.width;
+
+    classicTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.14 green:0.43 blue:0.15 alpha:1.0];
+
+
+
+    return classicTheme;
+
+}
+
++ (Theme *)createLectroteThemeInContext:(NSManagedObjectContext *)context {
+    BOOL exists = NO;
+    Theme *lectroteTheme = [Preferences findOrCreateTheme:@"Lectrote" inContext:context alreadyExists:&exists];
+    if (exists)
+        return lectroteTheme;
+
+    lectroteTheme.dashes = YES;
+    lectroteTheme.defaultRows = 100;
+    lectroteTheme.defaultCols = 100;
+    lectroteTheme.minRows = 5;
+    lectroteTheme.minCols = 32;
+    lectroteTheme.maxRows = 1000;
+    lectroteTheme.maxCols = 1000;
+    lectroteTheme.doGraphics = YES;
+    lectroteTheme.doSound = YES;
+    lectroteTheme.doStyles = NO;
+    lectroteTheme.justify = NO;
+    lectroteTheme.smartQuotes = YES;
+    lectroteTheme.spaceFormat = TAG_SPACES_GAME;
+    lectroteTheme.border = 20;
+    lectroteTheme.bufferMarginX = 15;
+    lectroteTheme.bufferMarginY = 15;
+    lectroteTheme.gridMarginX = 5;
+    lectroteTheme.gridMarginY = 5;
+
+    lectroteTheme.winSpacingX = 0;
+    lectroteTheme.winSpacingY = 0;
+
+    lectroteTheme.morePrompt = nil;
+    lectroteTheme.spacingColor = nil;
+
+    lectroteTheme.gridBackground = [NSColor colorWithCalibratedRed:0.916565 green:0.902161 blue:0.839754 alpha:1];
+    lectroteTheme.bufferBackground = [NSColor whiteColor];
+    lectroteTheme.editable = NO;
+
+    [lectroteTheme populateStyles];
+
+    lectroteTheme.bufferNormal.font = [NSFont fontWithName:@"Lora" size:15];
+    lectroteTheme.bufferNormal.lineSpacing = 4;
+
+    lectroteTheme.bufInput.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:lectroteTheme.bufferNormal.font];
+
+    lectroteTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.042041 green:0.333368  blue:0.011031 alpha:1];
+
+
+    lectroteTheme.gridNormal.font = [NSFont fontWithName:@"Source Code Pro" size:14];
+    lectroteTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.450844 green:0.325858  blue:0.205177 alpha:1];
+
+    [lectroteTheme populateStyles];
+
+
+    NSSize size = [lectroteTheme.gridNormal cellSize];
+
+    lectroteTheme.cellHeight = size.height;
+    lectroteTheme.cellWidth = size.width;
+
+    return lectroteTheme;
+}
+
++ (Theme *)createZoomThemeInContext:(NSManagedObjectContext *)context {
+    BOOL exists = NO;
+    Theme *zoomTheme = [Preferences findOrCreateTheme:@"Zoom" inContext:context alreadyExists:&exists];
+    if (exists)
+        return zoomTheme;
+
+    zoomTheme.dashes = YES;
+    zoomTheme.defaultRows = 50;
+    zoomTheme.defaultCols = 92;
+    zoomTheme.minRows = 5;
+    zoomTheme.minCols = 32;
+    zoomTheme.maxRows = 1000;
+    zoomTheme.maxCols = 1000;
+    zoomTheme.doGraphics = YES;
+    zoomTheme.doSound = YES;
+    zoomTheme.doStyles = NO;
+    zoomTheme.justify = NO;
+    zoomTheme.smartQuotes = YES;
+    zoomTheme.spaceFormat = TAG_SPACES_GAME;
+    zoomTheme.border = 0;
+    zoomTheme.bufferMarginX = 10;
+    zoomTheme.bufferMarginY = 38;
+    zoomTheme.gridMarginX = 0;
+    zoomTheme.gridMarginY = 0;
+
+    zoomTheme.winSpacingX = 0;
+    zoomTheme.winSpacingY = 0;
+
+    zoomTheme.morePrompt = nil;
+    zoomTheme.spacingColor = nil;
+
+    zoomTheme.gridBackground = [NSColor blackColor];
+    zoomTheme.bufferBackground = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
+    zoomTheme.editable = NO;
+
+    [zoomTheme populateStyles];
+
+    zoomTheme.bufferNormal.font = [NSFont fontWithName:@"Gill Sans" size:12];
+    zoomTheme.bufInput.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:zoomTheme.bufferNormal.font];
+
+    zoomTheme.gridNormal.font = [NSFont fontWithName:@"Courier" size:12];
+    zoomTheme.gridNormal.color = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
+    
+    [zoomTheme populateStyles];
+
+    zoomTheme.bufSubH.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:zoomTheme.bufferNormal.font];
+    zoomTheme.bufSubH.font = [[NSFontManager sharedFontManager] convertFont:zoomTheme.bufSubH.font toSize:13];
+
+    zoomTheme.bufHead.font = [NSFont fontWithName:@"Gill Sans" size:16];
+
+    NSSize size = [zoomTheme.gridNormal cellSize];
+
+    zoomTheme.cellHeight = size.height;
+    zoomTheme.cellWidth = size.width;
+    
+    return zoomTheme;
+}
+
++ (Theme *)createDOSThemeInContext:(NSManagedObjectContext *)context {
+    BOOL exists = NO;
+    Theme *dosTheme = [Preferences findOrCreateTheme:@"MS-DOS" inContext:context alreadyExists:&exists];
+    if (exists)
+        return dosTheme;
+
+    dosTheme.dashes = NO;
+    dosTheme.defaultRows = 24;
+    dosTheme.defaultCols = 80;
+    dosTheme.minRows = 5;
+    dosTheme.minCols = 32;
+    dosTheme.maxRows = 1000;
+    dosTheme.maxCols = 1000;
+    dosTheme.doGraphics = YES;
+    dosTheme.doSound = YES;
+    dosTheme.doStyles = YES;
+    dosTheme.justify = NO;
+    dosTheme.smartQuotes = NO;
+    dosTheme.spaceFormat = TAG_SPACES_GAME;
+    dosTheme.border = 0;
+    dosTheme.bufferMarginX = 0;
+    dosTheme.bufferMarginY = 0;
+    dosTheme.gridMarginX = 0;
+    dosTheme.gridMarginY = 0;
+
+    dosTheme.winSpacingX = 0;
+    dosTheme.winSpacingY = 0;
+
+    dosTheme.morePrompt = nil;
+    dosTheme.spacingColor = nil;
+
+    dosTheme.gridBackground = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
+    dosTheme.bufferBackground = [NSColor blackColor];
+    dosTheme.editable = NO;
+
+    [dosTheme populateStyles];
+
+    dosTheme.gridNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
+    dosTheme.gridNormal.color = [NSColor blackColor];
+
+    dosTheme.bufferNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
+    dosTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
+    dosTheme.bufInput.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
+    dosTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
+    
+    [dosTheme populateStyles];
+
+    dosTheme.bufHead.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
+    dosTheme.bufHead.color = [NSColor whiteColor];
+    dosTheme.bufSubH.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
+    dosTheme.bufSubH.color = [NSColor whiteColor];
+
+    NSSize size = [dosTheme.gridNormal cellSize];
+
+    dosTheme.cellHeight = size.height;
+    dosTheme.cellWidth = size.width;
+    
+    return dosTheme;
+}
+
++ (Theme *)createSTThemeInContext:(NSManagedObjectContext *)context {
+    BOOL exists = NO;
+    Theme *stTheme = [Preferences findOrCreateTheme:@"Atari ST" inContext:context alreadyExists:&exists];
+    if (exists)
+        return stTheme;
+
+    stTheme.dashes = NO;
+    stTheme.defaultRows = 100;
+    stTheme.defaultCols = 80;
+    stTheme.minRows = 5;
+    stTheme.minCols = 32;
+    stTheme.maxRows = 1000;
+    stTheme.maxCols = 1000;
+    stTheme.doGraphics = YES;
+    stTheme.doSound = YES;
+    stTheme.doStyles = YES;
+    stTheme.justify = NO;
+    stTheme.smartQuotes = NO;
+    stTheme.spaceFormat = TAG_SPACES_GAME;
+    stTheme.border = 0;
+    stTheme.bufferMarginX = 0;
+    stTheme.bufferMarginY = 0;
+    stTheme.gridMarginX = 0;
+    stTheme.gridMarginY = 0;
+
+    stTheme.winSpacingX = 0;
+    stTheme.winSpacingY = 0;
+
+    stTheme.morePrompt = nil;
+    stTheme.spacingColor = nil;
+
+    stTheme.gridBackground = [NSColor whiteColor];
+    stTheme.bufferBackground = [NSColor whiteColor];
+    stTheme.editable = YES;
+
+    [stTheme populateStyles];
+
+    NSSize size = [stTheme.gridNormal cellSize];
+
+    stTheme.cellHeight = size.height;
+    stTheme.cellWidth = size.width;
+    
+    return stTheme;
+}
+
++ (Theme *)findOrCreateTheme:(NSString *)themeName inContext:(NSManagedObjectContext *)context alreadyExists:(BOOL *)existsFlagPointer {
+
+    NSArray *fetchedObjects;
+    NSError *error = nil;
+    *existsFlagPointer = NO;
+
+    // First, check if it already exists
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:context];
+
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", themeName];
+    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+
+    if (fetchedObjects && fetchedObjects.count) {
+        NSLog(@"Theme %@ already exists. Returning old theme with this name.", themeName);
+        *existsFlagPointer = YES;
+        return fetchedObjects[0];
+    } else if (error != nil) {
+        NSLog(@"Preferences findOrCreateTheme: %@", error);
+        return nil;
+    }
+
+    Theme *newTheme = (Theme *) [NSEntityDescription
+                                 insertNewObjectForEntityForName:@"Theme"
+                                 inManagedObjectContext:context];
+
+    newTheme.name = themeName;
+    return newTheme;
 }
 
 //+ (void)readSettingsFromTheme:(Theme *)theme {
