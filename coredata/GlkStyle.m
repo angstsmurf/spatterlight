@@ -85,7 +85,7 @@
     
     if ([self testGridStyle]) {
         NSLog(@"GlkStyle createDefaultAttributeDictionary: This is a grid style. Setting font to Monacoc 12");
-        font = [NSFont fontWithName:@"Monaco" size:12];
+        font = [NSFont fontWithName:@"Monaco" size:11];
 
     } else {
         NSLog(@"GlkStyle createDefaultAttributeDictionary: This is a buffer style. Setting font to Helvetica 13");
