@@ -311,6 +311,134 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         }
 }
 
+- (BOOL)lookForMissingFile:(Game *)game {
+    NSInteger choice =
+    NSRunAlertPanel(
+                    @"Cannot find the file.",
+                    @"The file could not be found at its original location. Do "
+                    @"you want to look for it?",
+                    @"Yes", NULL, @"Cancel");
+    if (choice != NSAlertOtherReturn) {
+        NSOpenPanel *panel = [NSOpenPanel openPanel];
+        [panel setAllowsMultipleSelection:NO];
+        [panel setCanChooseDirectories:NO];
+        panel.prompt = @"Look for file";
+
+        NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
+                                           fromBookmarkData:game.fileLocation];
+
+        NSString *path = [values objectForKey:NSURLPathKey];
+                                
+        NSString *extension = path.pathExtension;
+        
+        panel.allowedFileTypes = @[extension];
+
+        LibController * __unsafe_unretained weakSelf = self;
+
+        [panel beginSheetModalForWindow:self.window
+                      completionHandler:^(NSInteger result) {
+                          if (result == NSFileHandlingPanelOKButton) {
+
+                              NSString *newPath = ((NSURL *)panel.URLs[0]).path;
+                              NSString *ifid = [weakSelf ifidFromFile:newPath];
+                              if (ifid && [ifid isEqualToString:game.ifid]) {
+                                  [game bookmarkForPath:newPath];
+                                   game.found = YES;
+                                  [self lookForMoreMissingFilesInFolder:newPath.stringByDeletingLastPathComponent];
+                              } else {
+                                  NSRunAlertPanel(@"Not a match.",
+                                                  [NSString stringWithFormat:
+                                                   @"This file does not match the game \"%@.\"", game.metadata.title],
+                                                  @"Okay", NULL, NULL);
+                              }
+                          }
+                      }];
+    }
+    return NO;
+}
+
+- (NSString *)ifidFromFile:(NSString *)path {
+
+    char *format = babel_init((char*)path.UTF8String);
+    if (!format || !babel_get_authoritative())
+    {
+        NSRunAlertPanel(@"Unknown file format.",
+                            @"Babel can not identify the file format.",
+                            @"Okay", NULL, NULL);
+        babel_release();
+        return nil;
+    }
+
+    char *s = strchr(format, ' ');
+    if (s) format = s+1;
+    char buf[TREATY_MINIMUM_EXTENT];
+
+    int rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
+    if (rv <= 0)
+    {
+            NSRunAlertPanel(@"Fatal error.",
+                            @"Can not compute IFID from the file.",
+                            @"Okay", NULL, NULL);
+        babel_release();
+        return nil;
+    }
+
+    s = strchr(buf, ',');
+    if (s)
+        *s = 0;
+
+    babel_release();
+    return @(buf);
+}
+
+- (void)lookForMoreMissingFilesInFolder:(NSString *)directory {
+    NSError *error = nil;
+    NSArray *fetchedObjects;
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"found == NO"];
+
+    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"lookForMoreMissingFilesInFolder: %@",error);
+    }
+
+    if (fetchedObjects.count == 0) {
+        return; //Found no missing files in library.
+    }
+    NSMutableDictionary *filenames = [[NSMutableDictionary alloc] initWithCapacity:fetchedObjects.count];
+    NSDictionary *values;
+
+    NSString *filename;
+    for (Game *game in fetchedObjects) {
+        values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
+                             fromBookmarkData:game.fileLocation];
+        filename = [values objectForKey:NSURLPathKey];
+        filename = [directory stringByAppendingPathComponent:filename.lastPathComponent];
+
+        if ([[NSFileManager defaultManager] fileExistsAtPath:filename] && [[self ifidFromFile:filename] isEqualToString:game.ifid]) {
+            [filenames setObject:game forKey:filename];
+        }
+    }
+
+    if (filenames.count > 0) {
+        NSInteger choice =
+        NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ also in this folder.", [NSString stringWithSummaryOf:fetchedObjects], (fetchedObjects.count > 1) ? @"are" : @"is"],
+                        [NSString stringWithFormat:@"Do you want to add %@ as well?", (fetchedObjects.count > 1) ? @"them" : @"it" ],
+                        @"Yes", NULL, @"Cancel");
+        if (choice != NSAlertOtherReturn) {
+            for (filename in filenames) {
+                Game *game = [filenames objectForKey:filename];
+                NSLog(@"Updating game %@ with new path %@", game.metadata.title, filename);
+                [game bookmarkForPath:filename];
+                game.found = YES;
+            }
+        }
+    }
+}
+
 - (void)beginImporting {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (!spinnerSpinning) {
@@ -526,11 +654,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         NSURL *url = [game urlForBookmark];
         if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
             game.found = NO;
-            NSRunAlertPanel(
-                @"Cannot find the file.",
-                @"The file could not be found at its original location. Maybe "
-                @"it has been moved since it was added to the library.",
-                @"Okay", NULL, NULL);
+            [self lookForMissingFile:game];
             return;
         } else game.found = YES;
         [[NSWorkspace sharedWorkspace] selectFile:url.path
@@ -606,6 +730,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
             BOOL result = NO;
             for (Game *game in [gameTableModel objectsAtIndexes:rows]) {
                 [weakSelf beginImporting];
+                
+                //It makes some kind of sense to also check if the game file still exists while downloading metadata
+                if (![[NSFileManager defaultManager] isReadableFileAtPath:[game urlForBookmark].path])
+                    game.found = NO;
+
                 if (game.metadata.tuid) {
                     result = [downloader downloadMetadataForTUID:game.metadata.tuid];
                 } else {
@@ -1487,11 +1616,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         game.found = NO;
-        NSRunAlertPanel(
-                        @"Cannot find the file.",
-                        @"The file could not be found at its original location. Maybe "
-                        @"it has been moved since it was added to the library.",
-                        @"Okay", NULL, NULL);
+        [self lookForMissingFile:game];
         return nil;
     } else game.found = YES;
 
@@ -1677,7 +1802,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         metadata.format = @(format);
     if (!metadata.title)
     {
-        metadata.title = [path.lastPathComponent stringByDeletingPathExtension];
+        metadata.title = path.lastPathComponent;
     }
 
     if (!metadata.cover)

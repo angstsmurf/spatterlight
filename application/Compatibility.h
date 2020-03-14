@@ -52,4 +52,8 @@ NSAppKitVersion NSAppKitVersionNumber10_12 NS_AVAILABLE_MAC(10_7);
 
 #endif // MAC_OS_X_VERSION_10_12
 
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_8
+#define NSURLPathKey @"_NSURLPathKey"
+#endif
+
 #endif // Spatterlight_compatibility_h
