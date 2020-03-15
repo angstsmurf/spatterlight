@@ -2206,7 +2206,7 @@ objectValueForTableColumn: (NSTableColumn*)column
                        value:font
                        range:NSMakeRange(0, attstr.length)];
 
-            [attstr addAttribute:NSBaselineOffsetAttributeName
+        [attstr addAttribute:NSBaselineOffsetAttributeName
                        value:@(offset)
                        range:NSMakeRange(0, attstr.length)];
 

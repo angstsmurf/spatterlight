@@ -141,7 +141,6 @@
             value = ((NSNumber *)hints[i]).integerValue;
 
             switch (i) {
-
                     /*
                      * Change indentation and justification.
                      */
@@ -216,7 +215,6 @@
                      */
 
                 case stylehint_TextColor:
-
                     r = (value >> 16) & 0xff;
                     g = (value >> 8) & 0xff;
                     b = (value >> 0) & 0xff;
@@ -229,7 +227,6 @@
                     break;
 
                 case stylehint_BackColor:
-
                     r = (value >> 16) & 0xff;
                     g = (value >> 8) & 0xff;
                     b = (value >> 0) & 0xff;
@@ -243,7 +240,6 @@
 
 
                 case stylehint_ReverseColor:
-
                     if ([hints[stylehint_TextColor] isEqual:[NSNull null]] &&
                         [hints[stylehint_BackColor] isEqual:[NSNull null]]) {
                         NSColor *bgcolor = (self.attributeDict)[NSBackgroundColorAttributeName];
@@ -260,7 +256,6 @@
                                     bgcolor = theme.bufferBackground;
                             }
                         }
-
                         attributes[NSForegroundColorAttributeName] = bgcolor;
                         attributes[NSBackgroundColorAttributeName] = fgcolor;
                     }
@@ -272,7 +267,6 @@
                     break;
             }
         }
-        
     }
 
     attributes[NSParagraphStyleAttributeName] = para;
