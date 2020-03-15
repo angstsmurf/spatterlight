@@ -90,7 +90,9 @@ static Preferences *prefs = nil;
     [Preferences createZoomThemeInContext:managedObjectContext];
     [Preferences createClassicSpatterlightThemeInContext:managedObjectContext];
     [Preferences createDOSThemeInContext:managedObjectContext];
+    [Preferences createDOSBoxThemeInContext:managedObjectContext];
     [Preferences createLectroteThemeInContext:managedObjectContext];
+    [Preferences createGargoyleThemeInContext:managedObjectContext];
 }
 
 
@@ -185,17 +187,78 @@ static Preferences *prefs = nil;
 
     classicTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.14 green:0.43 blue:0.15 alpha:1.0];
 
-
-
     return classicTheme;
-
 }
 
++ (Theme *)createGargoyleThemeInContext:(NSManagedObjectContext *)context {
+
+    BOOL exists = NO;
+    Theme *gargoyleTheme = [Preferences findOrCreateTheme:@"Gargoyle" inContext:context alreadyExists:&exists];
+//    if (exists)
+//        return gargoyleTheme;
+
+    gargoyleTheme.dashes = YES;
+    gargoyleTheme.defaultRows = 30;
+    gargoyleTheme.defaultCols = 62;
+    gargoyleTheme.minRows = 5;
+    gargoyleTheme.minCols = 32;
+    gargoyleTheme.maxRows = 1000;
+    gargoyleTheme.maxCols = 1000;
+    gargoyleTheme.doGraphics = YES;
+    gargoyleTheme.doSound = YES;
+    gargoyleTheme.doStyles = NO;
+    gargoyleTheme.justify = NO;
+    gargoyleTheme.smartQuotes = YES;
+    gargoyleTheme.spaceFormat = TAG_SPACES_GAME;
+    gargoyleTheme.border = 20;
+    gargoyleTheme.bufferMarginX = 3;
+    gargoyleTheme.bufferMarginY = 7;
+    gargoyleTheme.gridMarginX = 0;
+    gargoyleTheme.gridMarginY = 3;
+
+    gargoyleTheme.winSpacingX = 0;
+    gargoyleTheme.winSpacingY = 0;
+
+    gargoyleTheme.morePrompt = nil;
+    gargoyleTheme.spacingColor = nil;
+
+    gargoyleTheme.gridBackground = [NSColor colorWithCalibratedRed:0.376 green:0.376 blue:0.376 alpha:1.0];
+    gargoyleTheme.bufferBackground = [NSColor whiteColor];
+    gargoyleTheme.editable = NO;
+
+    [gargoyleTheme populateStyles];
+
+    gargoyleTheme.bufferNormal.font = [NSFont fontWithName:@"Linux Libertine O" size:15.5];
+    gargoyleTheme.bufferNormal.lineSpacing = 2;
+
+    gargoyleTheme.bufInput.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:gargoyleTheme.bufferNormal.font];
+    gargoyleTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.291 green:0.501 blue:0.192 alpha:1.0];
+
+    gargoyleTheme.gridNormal.font = [NSFont fontWithName:@"Liberation Mono" size:12.5];
+    gargoyleTheme.gridNormal.color = [NSColor whiteColor];
+
+    [gargoyleTheme populateStyles];
+
+    gargoyleTheme.bufHead.font = [NSFont fontWithName:@"Linux Libertine O Bold" size:15.5];
+    gargoyleTheme.bufSubH.font = [NSFont fontWithName:@"Linux Libertine O Bold" size:15.5];
+
+    NSMutableDictionary *dict = [gargoyleTheme.gridNormal.attributeDict mutableCopy];
+    dict[NSBaselineOffsetAttributeName] = @(-2);
+    gargoyleTheme.gridNormal.attributeDict = dict;
+
+    NSSize size = [gargoyleTheme.gridNormal cellSize];
+
+    gargoyleTheme.cellHeight = size.height;
+    gargoyleTheme.cellWidth = size.width;
+
+
+    return gargoyleTheme;
+}
 + (Theme *)createLectroteThemeInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *lectroteTheme = [Preferences findOrCreateTheme:@"Lectrote" inContext:context alreadyExists:&exists];
-    if (exists)
-        return lectroteTheme;
+//    if (exists)
+//        return lectroteTheme;
 
     lectroteTheme.dashes = YES;
     lectroteTheme.defaultRows = 100;
@@ -217,7 +280,7 @@ static Preferences *prefs = nil;
     lectroteTheme.gridMarginY = 6;
 
     lectroteTheme.winSpacingX = 0;
-    lectroteTheme.winSpacingY = 0;
+    lectroteTheme.winSpacingY = 10;
 
     lectroteTheme.morePrompt = nil;
     lectroteTheme.spacingColor = nil;
@@ -233,14 +296,12 @@ static Preferences *prefs = nil;
 
     lectroteTheme.bufInput.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:lectroteTheme.bufferNormal.font];
 
-    lectroteTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.042041 green:0.333368  blue:0.011031 alpha:1];
-
+    lectroteTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.042041 green:0.333368 blue:0.011031 alpha:1];
 
     lectroteTheme.gridNormal.font = [NSFont fontWithName:@"Source Code Pro" size:14];
-    lectroteTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.450844 green:0.325858  blue:0.205177 alpha:1];
+    lectroteTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.450844 green:0.325858 blue:0.205177 alpha:1];
 
     [lectroteTheme populateStyles];
-
 
     NSSize size = [lectroteTheme.gridNormal cellSize];
 
@@ -299,7 +360,7 @@ static Preferences *prefs = nil;
     [zoomTheme populateStyles];
 
     zoomTheme.bufSubH.font = [[NSFontManager sharedFontManager] convertFont:gillSansBold toSize:13];
-    //I'm sure this can't really be necessay, but every time I remove it something breaks
+    //I'm sure this line can't be necessay, but every time I change it reverts to semibold
     zoomTheme.bufSubH.font = [[NSFontManager sharedFontManager] convertFont:zoomTheme.bufSubH.font toFace:@"GillSans-Bold"];
 
     zoomTheme.bufHead.font = [NSFont fontWithName:@"Gill Sans" size:16];
@@ -349,20 +410,22 @@ static Preferences *prefs = nil;
 
     [dosTheme populateStyles];
 
-    dosTheme.gridNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
+    dosTheme.gridNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
     dosTheme.gridNormal.color = [NSColor blackColor];
 
-    dosTheme.bufferNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
+    dosTheme.bufferNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
     dosTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
     dosTheme.bufInput.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
     dosTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
     
     [dosTheme populateStyles];
 
-    dosTheme.bufHead.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
+    dosTheme.bufHead.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
     dosTheme.bufHead.color = [NSColor whiteColor];
-    dosTheme.bufSubH.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
+    dosTheme.bufSubH.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
     dosTheme.bufSubH.color = [NSColor whiteColor];
+    dosTheme.bufEmph.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y-UC" size:18];
+    dosTheme.gridEmph.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y-UC" size:18];
 
     NSSize size = [dosTheme.gridNormal cellSize];
 
@@ -370,6 +433,71 @@ static Preferences *prefs = nil;
     dosTheme.cellWidth = size.width;
     
     return dosTheme;
+}
+
++ (Theme *)createDOSBoxThemeInContext:(NSManagedObjectContext *)context {
+    BOOL exists = NO;
+    Theme *dosBoxTheme = [Preferences findOrCreateTheme:@"DOSBox" inContext:context alreadyExists:&exists];
+//    if (exists)
+//        return dosBoxTheme;
+
+    dosBoxTheme.dashes = NO;
+    dosBoxTheme.defaultRows = 24;
+    dosBoxTheme.defaultCols = 80;
+    dosBoxTheme.minRows = 5;
+    dosBoxTheme.minCols = 32;
+    dosBoxTheme.maxRows = 1000;
+    dosBoxTheme.maxCols = 1000;
+    dosBoxTheme.doGraphics = YES;
+    dosBoxTheme.doSound = YES;
+    dosBoxTheme.doStyles = NO;
+    dosBoxTheme.justify = NO;
+    dosBoxTheme.smartQuotes = NO;
+    dosBoxTheme.spaceFormat = TAG_SPACES_GAME;
+    dosBoxTheme.border = 0;
+    dosBoxTheme.bufferMarginX = 0;
+    dosBoxTheme.bufferMarginY = 0;
+    dosBoxTheme.gridMarginX = 0;
+    dosBoxTheme.gridMarginY = 0;
+
+    dosBoxTheme.winSpacingX = 0;
+    dosBoxTheme.winSpacingY = 0;
+
+    dosBoxTheme.morePrompt = nil;
+    dosBoxTheme.spacingColor = nil;
+
+    dosBoxTheme.editable = NO;
+
+    dosBoxTheme.gridBackground = [NSColor colorWithCalibratedRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
+
+    dosBoxTheme.bufferBackground = [NSColor colorWithCalibratedRed:0.008897 green:0  blue:0.633764 alpha:1];
+
+    [dosBoxTheme populateStyles];
+
+    dosBoxTheme.gridNormal.font = [NSFont fontWithName:@"PxPlus VGA SquarePX" size:24];
+    dosBoxTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.008897 green:0  blue:0.633764 alpha:1];
+
+    dosBoxTheme.bufferNormal.font = [NSFont fontWithName:@"PxPlus VGA SquarePX" size:24];
+    dosBoxTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
+
+    dosBoxTheme.bufInput.font = [NSFont fontWithName:@"PxPlus VGA SquarePX" size:24];
+    dosBoxTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
+
+    [dosBoxTheme populateStyles];
+
+    dosBoxTheme.bufHead.font = [NSFont fontWithName:@"PxPlus VGA SquarePX" size:24];
+    dosBoxTheme.bufHead.color = [NSColor whiteColor];
+    dosBoxTheme.bufSubH.font = [NSFont fontWithName:@"PxPlus VGA SquarePX" size:24];
+    dosBoxTheme.bufSubH.color = [NSColor whiteColor];
+    dosBoxTheme.bufEmph.font = [NSFont fontWithName:@"PxPlus VGA SquarePX UC" size:24];
+    dosBoxTheme.gridEmph.font = [NSFont fontWithName:@"PxPlus VGA SquarePX UC" size:24];
+
+    NSSize size = [dosBoxTheme.gridNormal cellSize];
+
+    dosBoxTheme.cellHeight = size.height;
+    dosBoxTheme.cellWidth = size.width;
+
+    return dosBoxTheme;
 }
 
 + (Theme *)createSTThemeInContext:(NSManagedObjectContext *)context {
@@ -888,7 +1016,7 @@ NSString *fontToString(NSFont *font) {
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
     NSLog(@"notePreferencesChanged:");
-
+    [sampleTextView removeFromSuperview];
     // Change the theme of the sample text field
     glktxtbuf.theme = theme;
     glkcntrl.theme = theme;
