@@ -1132,7 +1132,7 @@ NSString *fontToString(NSFont *font) {
     CGFloat padding = glktxtbuf.textview.textContainer.lineFragmentPadding;
 
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:[glktxtbuf.textview.textStorage copy]];
-    CGFloat textWidth = textview.frame.size.width;// + 1;
+    CGFloat textWidth = textview.frame.size.width;
     NSTextContainer *textContainer = [[NSTextContainer alloc]
                                       initWithContainerSize:NSMakeSize(textWidth, FLT_MAX)];
 
