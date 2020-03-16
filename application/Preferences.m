@@ -789,6 +789,7 @@ NSString *fontToString(NSFont *font) {
     glkcntrl.theme = theme;
     glkcntrl.borderView = sampleTextBorderView;
     glkcntrl.contentView = sampleTextView;
+    sampleTextView.glkctrl = glkcntrl;
 
     sampleTextBorderView.wantsLayer = YES;
     [glkcntrl setBorderColor:theme.bufferBackground];
@@ -1016,7 +1017,6 @@ NSString *fontToString(NSFont *font) {
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
     NSLog(@"notePreferencesChanged:");
-    [sampleTextView removeFromSuperview];
     // Change the theme of the sample text field
     glktxtbuf.theme = theme;
     glkcntrl.theme = theme;
@@ -1033,10 +1033,18 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)resizeWindowToHeight:(CGFloat)height {
-    NSWindow *prefsPanel= self.window;
-    CGRect screenframe = prefsPanel.screen.visibleFrame;
+    NSWindow *prefsPanel = self.window;
 
     CGFloat oldheight = prefsPanel.frame.size.height;
+
+    if (ceil(height) == ceil(oldheight)) {
+        if (!previewHidden) {
+            [self performSelector:@selector(fixScrollBar:) withObject:nil afterDelay:0.1];
+        }
+        return;
+    }
+
+    CGRect screenframe = prefsPanel.screen.visibleFrame;
 
     CGRect winrect = prefsPanel.frame;
     winrect.origin = prefsPanel.frame.origin;
@@ -1080,26 +1088,26 @@ NSString *fontToString(NSFont *font) {
          NSRect newFrame = weakSelf.window.frame;
          sampleTextBorderView.frame = NSMakeRect(0, 0, newFrame.size.width, newFrame.size.height - kDefaultPrefWindowHeight);
 
-         sampleTextView.frame = NSMakeRect(theme.border, theme.border, sampleTextBorderView.frame.size.width - theme.border * 2, sampleTextBorderView.frame.size.height - theme.border * 2);
-
          [_divider removeFromSuperview];
          if (!previewHidden) {
              _divider.frame = NSMakeRect(0, sampleTextBorderView.frame.size.height, newFrame.size.width, 1);
              [weakSelf.window.contentView addSubview:_divider];
+             [weakSelf performSelector:@selector(fixScrollBar:) withObject:nil afterDelay:0.1];
          }
-
-         [weakSelf performSelector:@selector(fixScrollBar:) withObject:nil afterDelay:0.1];
      }];
 }
 
 - (void)fixScrollBar:(id)sender {
-    [glktxtbuf restoreScrollBarStyle];
-    glktxtbuf.frame = NSMakeRect(0, 0, sampleTextView.frame.size.width, sampleTextView.frame.size.height);
-    NSScrollView *scrollView = glktxtbuf.textview.enclosingScrollView;
-    scrollView.frame = glktxtbuf.frame;
-    [scrollView.contentView scrollToPoint:NSZeroPoint];
+    if (!previewHidden) {
+        sampleTextView.frame = NSMakeRect(theme.border, theme.border, sampleTextBorderView.frame.size.width - theme.border * 2, sampleTextBorderView.frame.size.height - theme.border * 2);
+        [glktxtbuf restoreScrollBarStyle];
+        glktxtbuf.frame = NSMakeRect(0, 0, sampleTextView.frame.size.width, sampleTextView.frame.size.height);
+        
+        NSScrollView *scrollView = glktxtbuf.textview.enclosingScrollView;
+        scrollView.frame = glktxtbuf.frame;
+        [scrollView.contentView scrollToPoint:NSZeroPoint];
+    }
 }
-
 
 - (CGFloat)previewHeight {
 
@@ -1124,7 +1132,7 @@ NSString *fontToString(NSFont *font) {
     CGFloat padding = glktxtbuf.textview.textContainer.lineFragmentPadding;
 
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:[glktxtbuf.textview.textStorage copy]];
-    CGFloat textWidth = textview.frame.size.width - padding + 1;
+    CGFloat textWidth = textview.frame.size.width;// + 1;
     NSTextContainer *textContainer = [[NSTextContainer alloc]
                                       initWithContainerSize:NSMakeSize(textWidth, FLT_MAX)];
 
@@ -1135,7 +1143,7 @@ NSString *fontToString(NSFont *font) {
     [layoutManager ensureLayoutForGlyphRange:NSMakeRange(0, textStorage.length)];
 
     CGRect proposedRect = [layoutManager usedRectForTextContainer:textContainer];
-    return proposedRect.size.height;
+    return floor(proposedRect.size.height);
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notify {
