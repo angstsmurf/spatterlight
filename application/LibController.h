@@ -49,6 +49,7 @@
 
     NSArray *searchStrings;
     CGFloat lastSideviewWidth;
+    CGFloat lastSideviewPercentage;
 
     Game *currentSideView;
 
@@ -90,6 +91,7 @@
 
 @property (strong) IBOutlet NSMenuItem *themesSubMenu;
 
+@property (strong) IBOutlet NSLayoutConstraint *leftViewConstraint;
 @property NSArray *selectedGames;
 
 - (void)beginImporting;

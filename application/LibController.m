@@ -45,7 +45,7 @@ enum  {
 #define kUser 4
 #define kIfdb 5
 
-#define RIGHT_VIEW_MIN_WIDTH 340.0
+#define RIGHT_VIEW_MIN_WIDTH 350.0
 #define PREFERRED_LEFT_VIEW_MIN_WIDTH 200.0
 
 #include <ctype.h>
@@ -226,7 +226,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         return;
     }
 
-    [self updateSideViewForce:YES];
+    if ([_splitView isSubviewCollapsed:_leftView])
+        [self collapseLeftView];
+    else
+        [self uncollapseLeftView];
+
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
@@ -239,12 +243,19 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     gameTableModel = [[self fetchObjects:@"Game" inContext:_managedObjectContext] mutableCopy];
     NSArray *allMetadata = [self fetchObjects:@"Metadata" inContext:_managedObjectContext];
 
+    [self rebuildThemesSubmenu];
+    [self performSelector:@selector(restoreSideViewSelection:) withObject:nil afterDelay:0.1];
+
+
     if (allMetadata.count == 0 || gameTableModel.count == 0)
     {
         [self convertLibraryToCoreData];
     }
 
-    [self rebuildThemesSubmenu];
+}
+
+- (void)restoreSideViewSelection:(id)sender {
+    [self updateSideViewForce:YES];
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
@@ -2300,7 +2311,6 @@ objectValueForTableColumn: (NSTableColumn*)column
 		NSLog(@"Side view collapsed, returning without updating side view");
 		return;
 	}
-
     if (!_selectedGames || !_selectedGames.count || _selectedGames.count > 1) {
 
         string = (_selectedGames.count > 1) ? @"Multiple selections" : @"No selection";
@@ -2379,14 +2389,23 @@ canCollapseSubview:(NSView *)subview
 -(void)collapseLeftView
 {
     lastSideviewWidth = _leftView.frame.size.width;
+    lastSideviewPercentage = lastSideviewWidth / self.window.frame.size.width;
+
 	_leftView.hidden = YES;
     [_splitView setPosition:0
            ofDividerAtIndex:0];
+    NSSize minSize = self.window.minSize;
+    minSize.width =  RIGHT_VIEW_MIN_WIDTH;
+    self.window.minSize = minSize;
+    _leftViewConstraint.priority = NSLayoutPriorityDefaultLow;
 	[_splitView display];
 }
 
 -(void)uncollapseLeftView
 {
+     lastSideviewWidth = lastSideviewPercentage *  self.window.frame.size.width;
+    _leftViewConstraint.priority = 999;
+
 	_leftView.hidden = NO;
 
     CGFloat dividerThickness = _splitView.dividerThickness;
@@ -2398,6 +2417,12 @@ canCollapseSubview:(NSView *)subview
     if (self.window.frame.size.width < PREFERRED_LEFT_VIEW_MIN_WIDTH + RIGHT_VIEW_MIN_WIDTH + dividerThickness) {
         [self.window setContentSize:NSMakeSize(PREFERRED_LEFT_VIEW_MIN_WIDTH + RIGHT_VIEW_MIN_WIDTH + dividerThickness, ((NSView *)self.window.contentView).frame.size.height)];
     }
+
+    NSSize minSize = self.window.minSize;
+    minSize.width = RIGHT_VIEW_MIN_WIDTH * 2 + dividerThickness;
+    if (minSize.width > self.window.frame.size.width)
+        minSize.width  = self.window.frame.size.width;
+    self.window.minSize = minSize;
 
     [_splitView setPosition:lastSideviewWidth
            ofDividerAtIndex:0];
@@ -2419,6 +2444,7 @@ canCollapseSubview:(NSView *)subview
 - (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
     [state encodeObject:_searchField.stringValue forKey:@"searchText"];
 
+    [state encodeDouble:lastSideviewPercentage forKey:@"sideviewPercent"];
     [state encodeDouble:NSWidth(_leftView.frame) forKey:@"sideviewWidth"];
 //    NSLog(@"Encoded left view width as %f", NSWidth(_leftView.frame))
     [state encodeBool:[_splitView isSubviewCollapsed:_leftView] forKey:@"sideviewHidden"];
@@ -2450,7 +2476,10 @@ canCollapseSubview:(NSView *)subview
     [self selectGamesWithIfids:selectedIfids scroll:NO];
 
     CGFloat newDividerPos = [state decodeDoubleForKey:@"sideviewWidth"];
-    
+    lastSideviewPercentage = [state decodeDoubleForKey:@"sideviewPercent"];
+    if (lastSideviewPercentage && newDividerPos > 0)
+        newDividerPos = self.window.frame.size.width * lastSideviewPercentage;
+
     if (newDividerPos < 50 && newDividerPos > 0) {
         NSLog(@"Left view width too narrow, setting to 50.");
         newDividerPos = 50;
