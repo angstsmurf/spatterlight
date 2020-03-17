@@ -20,6 +20,7 @@
 @dynamic group;
 @dynamic hashTag;
 @dynamic ifid;
+@dynamic path;
 @dynamic lastPlayed;
 @dynamic version;
 @dynamic metadata;
@@ -43,6 +44,7 @@
     if (bookmarkIsStale) {
         NSLog(@"Bookmark is stale! New location: %@", bookmarkURL.path);
         [self bookmarkForPath:bookmarkURL.path];
+        self.path = bookmarkURL.path;
         // Handle any errors
         return bookmarkURL;
     }

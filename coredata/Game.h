@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSString * group;
 @property (nonatomic, retain) NSString * hashTag;
 @property (nonatomic, retain) NSString * ifid;
+@property (nonatomic, retain) NSString * path;
 @property (nonatomic) NSDate *lastPlayed;
 @property (nonatomic, retain) NSString * version;
 @property (nonatomic, retain) Metadata *metadata;

@@ -338,9 +338,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
                                            fromBookmarkData:game.fileLocation];
 
-        NSData *bookMark = game.fileLocation;
-
         NSString *path = [values objectForKey:NSURLPathKey];
+
+        if (!path)
+            path = game.path;
 
         NSLog(@"lookForMissingFile path:%@", path);
                                 
@@ -428,6 +429,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
                              fromBookmarkData:game.fileLocation];
         filename = [values objectForKey:NSURLPathKey];
+        if (!filename)
+            filename = game.path;
         filename = [directory stringByAppendingPathComponent:filename.lastPathComponent];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:filename] && [[self ifidFromFile:filename] isEqualToString:game.ifid]) {
