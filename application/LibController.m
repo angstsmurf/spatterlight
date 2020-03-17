@@ -360,8 +360,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                                   [self lookForMoreMissingFilesInFolder:newPath.stringByDeletingLastPathComponent];
                               } else {
                                   if (ifid) {
-                                      NSInteger result = NSRunAlertPanel(@"Not a match.", [NSString stringWithFormat:@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", game.metadata.title],  @"Yes", NULL, @"Cancel");
-                                      if (choice != NSAlertOtherReturn) {
+                                      NSInteger response = NSRunAlertPanel(@"Not a match.", [NSString stringWithFormat:@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", game.metadata.title],  @"Yes", NULL, @"Cancel");
+                                      if (response != NSAlertOtherReturn) {
                                           if ([weakSelf importGame:newPath inContext:_managedObjectContext reportFailure:YES]) {
                                               [_managedObjectContext deleteObject:game];
                                           }
