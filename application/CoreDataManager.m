@@ -152,7 +152,7 @@
 }
 
 - (void)saveChanges {
-    NSLog(@"CoreDataManagar saveChanges");
+//    NSLog(@"CoreDataManagar saveChanges");
     [_mainManagedObjectContext performBlockAndWait:^{
         NSError *error;
         if (_mainManagedObjectContext.hasChanges) {
