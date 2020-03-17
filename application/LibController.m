@@ -333,16 +333,20 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         NSOpenPanel *panel = [NSOpenPanel openPanel];
         [panel setAllowsMultipleSelection:NO];
         [panel setCanChooseDirectories:NO];
-        panel.prompt = @"Look for file";
+        panel.prompt = @"Open";
 
         NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
                                            fromBookmarkData:game.fileLocation];
 
+        NSData *bookMark = game.fileLocation;
+
         NSString *path = [values objectForKey:NSURLPathKey];
+
+        NSLog(@"lookForMissingFile path:%@", path);
                                 
         NSString *extension = path.pathExtension;
-        
-        panel.allowedFileTypes = @[extension];
+        if (extension)
+            panel.allowedFileTypes = @[extension];
 
         LibController * __unsafe_unretained weakSelf = self;
 
@@ -357,10 +361,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                                    game.found = YES;
                                   [self lookForMoreMissingFilesInFolder:newPath.stringByDeletingLastPathComponent];
                               } else {
-                                  NSRunAlertPanel(@"Not a match.",
-                                                  @"%@", [NSString stringWithFormat:
-                                                   @"This file does not match the game \"%@.\"", game.metadata.title],
-                                                  @"Okay", NULL, NULL);
+                                  NSRunAlertPanel(@"Not a match.", [NSString stringWithFormat:@"This file does not match the game \"%@.\"", game.metadata.title], @"OK", NULL, NULL);
                               }
                           }
                       }];
