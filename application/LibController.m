@@ -1348,6 +1348,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                 game.metadata = meta;
                 game.added = [NSDate date];
                 [game bookmarkForPath:[games valueForKey:ifid]];
+                game.path = [games valueForKey:ifid];
 
                 // First, we look for a cover image file in Spatterlight Application Support folder
                 NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:imageDir];
