@@ -1322,8 +1322,8 @@
 //        NSStringFromRect(frame));
 
     if (NSEqualRects(frame, self.frame)) {
-        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
-              @"Skipping.");
+//        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
+//              @"Skipping.");
         return;
     }
 
