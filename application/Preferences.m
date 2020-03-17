@@ -194,8 +194,8 @@ static Preferences *prefs = nil;
 
     BOOL exists = NO;
     Theme *gargoyleTheme = [Preferences findOrCreateTheme:@"Gargoyle" inContext:context alreadyExists:&exists];
-//    if (exists)
-//        return gargoyleTheme;
+    if (exists)
+        return gargoyleTheme;
 
     gargoyleTheme.dashes = YES;
     gargoyleTheme.defaultRows = 30;
@@ -259,8 +259,8 @@ static Preferences *prefs = nil;
 + (Theme *)createLectroteThemeInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *lectroteTheme = [Preferences findOrCreateTheme:@"Lectrote" inContext:context alreadyExists:&exists];
-//    if (exists)
-//        return lectroteTheme;
+    if (exists)
+        return lectroteTheme;
 
     lectroteTheme.dashes = YES;
     lectroteTheme.defaultRows = 100;
@@ -446,8 +446,8 @@ static Preferences *prefs = nil;
 + (Theme *)createDOSBoxThemeInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *dosBoxTheme = [Preferences findOrCreateTheme:@"DOSBox" inContext:context alreadyExists:&exists];
-//    if (exists)
-//        return dosBoxTheme;
+    if (exists)
+        return dosBoxTheme;
 
     dosBoxTheme.dashes = NO;
     dosBoxTheme.defaultRows = 24;
