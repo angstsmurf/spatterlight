@@ -1206,11 +1206,9 @@ NSString *fontToString(NSFont *font) {
         }
         theme = _arrayController.selectedTheme;
         // Send notification that theme has changed -- trigger configure events
-
         [self updatePrefsPanel];
         [self changeThemeName:theme.name];
         _btnRemove.enabled = theme.editable;
-//        [Preferences readSettingsFromTheme:theme];
 
         if (_oneThemeForAll) {
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
