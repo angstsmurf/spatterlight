@@ -1100,7 +1100,6 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"glkctl: PreferencesChanged with a nil object.");
     }
 
-
     [self adjustContentView];
 
     if (!dead) {
