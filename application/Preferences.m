@@ -44,6 +44,24 @@ static Preferences *prefs = nil;
 //                                     alpha:1.0];
 //}
 
+NSColor *dataToColor(NSData *data) {
+    NSColor *color;
+    CGFloat r, g, b;
+    const unsigned char *buf = data.bytes;
+
+    if (data.length < 3)
+        r = g = b = 0;
+    else {
+        r = buf[0] / 255.0;
+        g = buf[1] / 255.0;
+        b = buf[2] / 255.0;
+    }
+
+    color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
+
+    return color;
+}
+
 /*
  * Load and save defaults
  */
@@ -93,8 +111,83 @@ static Preferences *prefs = nil;
     [Preferences createDOSBoxThemeInContext:managedObjectContext];
     [Preferences createLectroteThemeInContext:managedObjectContext];
     [Preferences createGargoyleThemeInContext:managedObjectContext];
+    [Preferences createThemeFromDefaultsPlistInContext:managedObjectContext];
 }
 
++ (Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context {
+
+    BOOL exists = NO;
+    Theme *oldTheme = [Preferences findOrCreateTheme:@"Old settings" inContext:context alreadyExists:&exists];
+    if (exists)
+        return oldTheme;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *name;
+    CGFloat size;
+
+    oldTheme.defaultCols = [[defaults objectForKey:@"DefaultWidth"] intValue];
+    oldTheme.defaultRows = [[defaults objectForKey:@"DefaultHeight"] intValue];
+
+    oldTheme.smartQuotes = [[defaults objectForKey:@"SmartQuotes"] boolValue];
+    oldTheme.spaceFormat = [[defaults objectForKey:@"SpaceFormat"] intValue];
+
+    oldTheme.doGraphics = [[defaults objectForKey:@"EnableGraphics"] boolValue];
+    oldTheme.doSound = [[defaults objectForKey:@"EnableSound"] boolValue];
+    oldTheme.doStyles = [[defaults objectForKey:@"EnableStyles"] boolValue];
+//    oldTheme.usescreenfonts = [[defaults objectForKey:@"ScreenFonts"] boolValue];
+
+
+    oldTheme.gridMarginX = (int32_t)[[defaults objectForKey:@"GridMargin"] doubleValue];
+    oldTheme.gridMarginY = oldTheme.gridMarginX;
+    oldTheme.bufferMarginX = (int32_t)[[defaults objectForKey:@"BufferMargin"] doubleValue];
+    oldTheme.bufferMarginY = oldTheme.bufferMarginX;
+
+    oldTheme.border = (int32_t)[[defaults objectForKey:@"Border"] doubleValue];
+
+    oldTheme.editable = NO;
+
+    name = [defaults objectForKey:@"GridFontName"];
+    size = [[defaults objectForKey:@"GridFontSize"] doubleValue];
+    oldTheme.gridNormal.font = [NSFont fontWithName:name size:size];
+
+    if (!oldTheme.gridNormal.font) {
+        NSLog(@"pref: failed to create grid font '%@'", name);
+        oldTheme.gridNormal.font = [NSFont userFontOfSize:0];
+    }
+
+    oldTheme.gridBackground = dataToColor([defaults objectForKey:@"GridBackground"]);
+    oldTheme.gridNormal.color = dataToColor([defaults objectForKey:@"GridForeground"]);
+
+    name = [defaults objectForKey:@"BufferFontName"];
+    size = [[defaults objectForKey:@"BufferFontSize"] doubleValue];
+    oldTheme.bufferNormal.font = [NSFont fontWithName:name size:size];
+    if (!oldTheme.bufferNormal.font) {
+        NSLog(@"pref: failed to create buffer font '%@'", name);
+        oldTheme.bufferNormal.font = [NSFont userFontOfSize:0];
+    }
+    oldTheme.bufferBackground = dataToColor([defaults objectForKey:@"BufferBackground"]);
+    oldTheme.bufferNormal.color = dataToColor([defaults objectForKey:@"BufferForeground"]);
+
+    name = [defaults objectForKey:@"InputFontName"];
+    size = [[defaults objectForKey:@"InputFontSize"] doubleValue];
+    oldTheme.bufInput.font = [NSFont fontWithName:name size:size];
+    if (!oldTheme.bufInput.font) {
+        NSLog(@"pref: failed to create input font '%@'", name);
+        oldTheme.bufInput.font = [NSFont userFontOfSize:0];
+    }
+
+    oldTheme.bufInput.color = dataToColor([defaults objectForKey:@"InputColor"]);
+    oldTheme.gridNormal.lineSpacing = [[defaults objectForKey:@"Leading"] doubleValue];
+
+    NSSize cellSize = [oldTheme.gridNormal cellSize];
+
+    oldTheme.cellHeight = cellSize.height;
+    oldTheme.cellWidth = cellSize.width;
+
+    [oldTheme populateStyles];
+
+    return oldTheme;
+}
 
 + (Theme *)createDefaultThemeInContext:(NSManagedObjectContext *)context {
 
@@ -584,26 +677,11 @@ static Preferences *prefs = nil;
                                  inManagedObjectContext:context];
 
     newTheme.name = themeName;
+
+    [newTheme populateStyles];
+
     return newTheme;
 }
-
-//+ (void)readSettingsFromTheme:(Theme *)theme {
-//
-//    if (!theme.gridNormal.font) {
-//        NSLog(@"pref: Found no grid NSFont object in theme %@, creating default", theme.name);
-//        theme.gridNormal.font = [NSFont userFixedPitchFontOfSize:0];
-//    }
-//
-//    if (!theme.bufferNormal.font) {
-//        NSLog(@"pref: Found no buffer NSFont object in theme %@, creating default", theme.name);
-//        theme.bufferNormal.font = [NSFont userFontOfSize:0];
-//    }
-//
-//    if (!theme.bufInput.font) {
-//        NSLog(@"pref: Found no bufInput NSFont object in theme %@, creating default", theme.name);
-//        theme.bufInput.font = [NSFont userFontOfSize:0];
-//    }
-//}
 
 + (void)changeCurrentGame:(Game *)game {
     if (prefs) {
