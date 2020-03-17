@@ -343,8 +343,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         if (!path)
             path = game.path;
 
-        NSLog(@"lookForMissingFile path:%@", path);
-                                
         NSString *extension = path.pathExtension;
         if (extension)
             panel.allowedFileTypes = @[extension];
@@ -354,15 +352,24 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         [panel beginSheetModalForWindow:self.window
                       completionHandler:^(NSInteger result) {
                           if (result == NSFileHandlingPanelOKButton) {
-
                               NSString *newPath = ((NSURL *)panel.URLs[0]).path;
                               NSString *ifid = [weakSelf ifidFromFile:newPath];
                               if (ifid && [ifid isEqualToString:game.ifid]) {
                                   [game bookmarkForPath:newPath];
-                                   game.found = YES;
+                                  game.found = YES;
                                   [self lookForMoreMissingFilesInFolder:newPath.stringByDeletingLastPathComponent];
                               } else {
-                                  NSRunAlertPanel(@"Not a match.", [NSString stringWithFormat:@"This file does not match the game \"%@.\"", game.metadata.title], @"OK", NULL, NULL);
+                                  if (ifid) {
+                                      NSInteger result = NSRunAlertPanel(@"Not a match.", [NSString stringWithFormat:@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", game.metadata.title],  @"Yes", NULL, @"Cancel");
+                                      if (choice != NSAlertOtherReturn) {
+                                          if ([weakSelf importGame:newPath inContext:_managedObjectContext reportFailure:YES]) {
+                                              [_managedObjectContext deleteObject:game];
+                                          }
+                                      }
+
+                                  } else {
+                                      NSRunAlertPanel(@"Not a match.", [NSString stringWithFormat:@"This file does not match the game \"%@.\"", game.metadata.title], @"OK", NULL, NULL);
+                                  }
                               }
                           }
                       }];
@@ -431,12 +438,23 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         filename = [values objectForKey:NSURLPathKey];
         if (!filename)
             filename = game.path;
-        filename = [directory stringByAppendingPathComponent:filename.lastPathComponent];
 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:filename] && [[self ifidFromFile:filename] isEqualToString:game.ifid]) {
-            [filenames setObject:game forKey:filename];
+        NSString *dirname = [filename stringByDeletingLastPathComponent];
+        dirname = dirname.lastPathComponent;
+
+        NSString *searchPath = [directory stringByAppendingPathComponent:filename.lastPathComponent];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:searchPath] && [[self ifidFromFile:searchPath] isEqualToString:game.ifid]) {
+            [filenames setObject:game forKey:searchPath];
+        } else {
+            //Check inside folders as well, one level down, for good measure
+            searchPath = [directory stringByAppendingPathComponent:dirname];
+            searchPath = [searchPath stringByAppendingPathComponent:filename.lastPathComponent];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:searchPath] && [[self ifidFromFile:searchPath] isEqualToString:game.ifid])
+                [filenames setObject:game forKey:searchPath];
         }
     }
+
+    fetchedObjects = [filenames allValues];
 
     if (filenames.count > 0) {
         NSInteger choice =
