@@ -22,6 +22,8 @@
     self = [super initWithWindowNibName:@"InfoPanel"];
     if (self) {
         _path = [game urlForBookmark].path;
+        if (!_path)
+            _path = game.path;
         _meta = game.metadata;
     }
     return self;
@@ -132,6 +134,9 @@
             headlineField.stringValue = _meta.headline;
         if (_meta.blurb)
             descriptionText.string = _meta.blurb;
+        ifid = ((Game *)_meta.games.anyObject).ifid;
+        if (ifid)
+            ifidField.stringValue = ifid;
     }
 
     format = babel_init((char *)_path.UTF8String);

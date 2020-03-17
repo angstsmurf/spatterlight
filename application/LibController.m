@@ -654,6 +654,9 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 - (void)showInfoForGame:(Game *)game {
     InfoController *infoctl;
 
+    NSString *path = [game urlForBookmark].path;
+    if (!path)
+        path = game.path;
     // First, we check if we have created this info window already
     infoctl = _infoWindows[[game urlForBookmark].path];
 
@@ -662,11 +665,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         NSWindow *infoWindow = infoctl.window;
         infoWindow.restorable = YES;
         infoWindow.restorationClass = [AppDelegate class];
-        NSString *path = [game urlForBookmark].path;
         if (path) {
             infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", path];
             _infoWindows[path] = infoctl;
-        } else return;
+        } // else return;
     }
 
     [infoctl showWindow:nil];
