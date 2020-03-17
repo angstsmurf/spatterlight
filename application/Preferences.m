@@ -110,6 +110,7 @@ NSColor *dataToColor(NSData *data) {
     [Preferences createDOSThemeInContext:managedObjectContext];
     [Preferences createDOSBoxThemeInContext:managedObjectContext];
     [Preferences createLectroteThemeInContext:managedObjectContext];
+    [Preferences createLectroteDarkThemeInContext:managedObjectContext];
     [Preferences createGargoyleThemeInContext:managedObjectContext];
     [Preferences createThemeFromDefaultsPlistInContext:managedObjectContext];
 }
@@ -401,6 +402,61 @@ NSColor *dataToColor(NSData *data) {
     return lectroteTheme;
 }
 
++ (Theme *)createLectroteDarkThemeInContext:(NSManagedObjectContext *)context {
+    BOOL exists = NO;
+    Theme *lectroteDarkTheme = [Preferences findOrCreateTheme:@"Lectrote Dark" inContext:context alreadyExists:&exists];
+    if (exists)
+        return lectroteDarkTheme;
+
+    lectroteDarkTheme.dashes = YES;
+    lectroteDarkTheme.defaultRows = 100;
+    lectroteDarkTheme.defaultCols = 100;
+    lectroteDarkTheme.minRows = 5;
+    lectroteDarkTheme.minCols = 32;
+    lectroteDarkTheme.maxRows = 1000;
+    lectroteDarkTheme.maxCols = 1000;
+    lectroteDarkTheme.doGraphics = YES;
+    lectroteDarkTheme.doSound = YES;
+    lectroteDarkTheme.doStyles = NO;
+    lectroteDarkTheme.justify = NO;
+    lectroteDarkTheme.smartQuotes = YES;
+    lectroteDarkTheme.spaceFormat = TAG_SPACES_GAME;
+    lectroteDarkTheme.border = 20;
+    lectroteDarkTheme.bufferMarginX = 20;
+    lectroteDarkTheme.bufferMarginY = 15;
+    lectroteDarkTheme.gridMarginX = 15;
+    lectroteDarkTheme.gridMarginY = 6;
+
+    lectroteDarkTheme.winSpacingX = 0;
+    lectroteDarkTheme.winSpacingY = 10;
+
+    lectroteDarkTheme.morePrompt = nil;
+    lectroteDarkTheme.spacingColor = nil;
+
+    lectroteDarkTheme.gridBackground = [NSColor colorWithCalibratedRed:0.258 green:0.205 blue:0.145 alpha:1];
+    lectroteDarkTheme.bufferBackground = [NSColor blackColor];
+    lectroteDarkTheme.editable = NO;
+
+    lectroteDarkTheme.gridNormal.font = [NSFont fontWithName:@"Source Code Pro" size:14];
+    lectroteDarkTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.991 green:0.957 blue:0.937 alpha:1];
+
+    lectroteDarkTheme.bufferNormal.font = [NSFont fontWithName:@"Lora" size:15];
+    lectroteDarkTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.991 green:0.957 blue:0.937 alpha:1];
+
+    lectroteDarkTheme.bufferNormal.lineSpacing = 3.2;
+
+    lectroteDarkTheme.bufInput.font = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:lectroteDarkTheme.bufferNormal.font];
+    lectroteDarkTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.842 green:0.994 blue:0.820 alpha:1];
+
+    NSSize size = [lectroteDarkTheme.gridNormal cellSize];
+
+    lectroteDarkTheme.cellHeight = size.height;
+    lectroteDarkTheme.cellWidth = size.width;
+
+    [lectroteDarkTheme populateStyles];
+
+    return lectroteDarkTheme;
+}
 + (Theme *)createZoomThemeInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *zoomTheme = [Preferences findOrCreateTheme:@"Zoom" inContext:context alreadyExists:&exists];
