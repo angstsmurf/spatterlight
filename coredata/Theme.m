@@ -96,13 +96,13 @@
 }
 
 - (void)copyAttributesFrom:(Theme *)theme {
-    //Loop through all attributes and assign then to the clone
+    //Loop through all attributes of theme and assign them to me
 	NSDictionary *attributes = [NSEntityDescription
                                 entityForName:@"Theme"
                                 inManagedObjectContext:self.managedObjectContext].attributesByName;
 
 	for (NSString *attr in attributes) {
-        //NSLog(@"Setting clone %@ to %@", attr, [self valueForKey:attr]);
+        //NSLog(@"Setting my %@ to %@", attr, [theme valueForKey:attr]);
         [self setValue:[theme valueForKey:attr] forKey:attr];
 	}
 
@@ -114,14 +114,15 @@
     GlkStyle *clonedStyle;
     for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
         //Clone it, and add clone to set
-        //NSLog(@"Setting clone %@ to a clone of my %@", keyName, keyName);
         keyName = gBufferStyleNames[i];
         clonedStyle = [(GlkStyle * )[theme valueForKey:keyName] clone];
+        //NSLog(@"Setting my %@ to a clone of the %@ of %@", keyName, keyName, theme.name);
         [self setValue:clonedStyle forKey:keyName];
         if ([clonedStyle valueForKey:keyName] != self)
             NSLog(@"Error! Reciprocal relationship did not work as expected");
         keyName = gGridStyleNames[i];
         clonedStyle = [(GlkStyle * )[theme valueForKey:keyName] clone];
+//        NSLog(@"Setting my %@ to a clone of the %@ of %@", keyName, keyName, theme.name);
         [self setValue:clonedStyle forKey:keyName];
         if ([clonedStyle valueForKey:keyName] != self)
             NSLog(@"Error! Reciprocal relationship did not work as expected");
@@ -140,7 +141,7 @@
                                           inManagedObjectContext:self.managedObjectContext];
 
         [self.bufferNormal createDefaultAttributeDictionary];
-        NSLog(@"Created a new normal buffer style for theme %@", self.name);
+//        NSLog(@"Created a new normal buffer style for theme %@", self.name);
     }
 
 
@@ -152,7 +153,7 @@
         NSSize size = [self.gridNormal cellSize];
         self.cellWidth = size.width;
         self.cellHeight = size.height;
-        NSLog(@"Created a new normal buffer style for theme %@", self.name);
+//        NSLog(@"Created a new normal grid style for theme %@", self.name);
     }
 
     if (!self.bufInput) {
