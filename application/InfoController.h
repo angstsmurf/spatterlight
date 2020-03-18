@@ -32,7 +32,7 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 - (instancetype)initWithGame:(Game *)game;
 - (instancetype)initWithpath:(NSString *)path;
 
-- (void)updateBlurb;
+//- (void)updateBlurb;
 
 - (IBAction)saveImage:sender;
 
