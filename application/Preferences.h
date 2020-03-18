@@ -45,8 +45,6 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 
     BOOL disregardTableSelection;
     BOOL previewHidden;
-    NSDate *lastCloneTime;
-    NSString *lastCloneName;
 }
 
 

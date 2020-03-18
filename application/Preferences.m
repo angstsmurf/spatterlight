@@ -978,8 +978,6 @@ NSString *fontToString(NSFont *font) {
     [glktxtbuf putString:@"(Trinity, Brian Moriarty, Infocom, 1986)" style:style_Emphasized];
 
     [self fixScrollBar:nil];
-    lastCloneTime = [NSDate date];
-    lastCloneName = @"";
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notePreferencesChanged:)
@@ -1880,19 +1878,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (void)cloneThemeIfNotEditable {
     if (!theme.editable) {
-        if ([lastCloneTime timeIntervalSinceNow] > -0.2) {
-            NSLog(@"Too soon! lastCloneTime timeIntervalSinceNow: %f", [lastCloneTime timeIntervalSinceNow]);
-            Theme *backupTheme = [_arrayController findThemeByName: lastCloneName];
-            if (!backupTheme) {
-                NSLog(@"Super-error! Abort!");
-            } else {
-                theme = backupTheme;
-                lastCloneTime = [NSDate date];
-                return;
-            }
-        }
-
-        NSLog(@"Cloned theme %@", theme.name);
+//        NSLog(@"Cloned theme %@", theme.name);
         Theme *clonedTheme = theme.clone;
         clonedTheme.editable = YES;
         NSString *name = [theme.name stringByAppendingString:@" (modified)"];
@@ -1906,8 +1892,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         theme = clonedTheme;
         disregardTableSelection = YES;
         [self performSelector:@selector(restoreThemeSelection:) withObject:clonedTheme afterDelay:0.1];
-        lastCloneTime = [NSDate date];
-        lastCloneName = name;
     }
 }
 
