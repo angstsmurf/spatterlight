@@ -1304,7 +1304,7 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notify {
-    NSLog(@"noteManagedObjectContextDidChange:");
+    NSLog(@"noteManagedObjectContextDidChange: %@", theme.name);
     NSArray *updatedObjects = (notify.userInfo)[NSUpdatedObjectsKey];
 
     if ([updatedObjects containsObject:theme]) {
@@ -1321,6 +1321,9 @@ NSString *fontToString(NSFont *font) {
 #pragma mark Themes Table View Magic
 
 - (void)restoreThemeSelection:(id)sender {
+    if (_arrayController.selectedTheme == sender) {
+        NSLog(@"restoreThemeSelection: selected theme already was %@. Returning", ((Theme *)sender).name);
+    }
     NSArray *themes = _arrayController.arrangedObjects;
     theme = sender;
     if (![themes containsObject:sender]) {
@@ -1342,6 +1345,7 @@ NSString *fontToString(NSFont *font) {
     if (tableView == themesTableView) {
         NSLog(@"Preferences tableViewSelectionDidChange:%@", _arrayController.selectedTheme.name);
         if (disregardTableSelection == YES) {
+//            NSLog(@"Disregarding tableViewSelectionDidChange");
             disregardTableSelection = NO;
             return;
         }
@@ -1747,27 +1751,22 @@ textShouldEndEditing:(NSText *)fieldEditor {
     } else return;
 
     if (key) {
+        //NSLog(@"key: %@", key);
         GlkStyle *style = [theme valueForKey:key];
+        if ([style.color isEqual:color])
+            return;
+
+        [self cloneThemeIfNotEditable];
+        style = [theme valueForKey:key];
+
         if (!style.attributeDict) {
             NSLog(@"Preferences changeColor called with invalid theme object!");
             return;
         }
 
-        if ([style.color isEqual:color])
-            return;
-
-        [self cloneThemeIfNotEditable];
         style.color = color;
-
     }
-
     [Preferences rebuildTextAttributes];
-
-    if (sender == clrBufferFg) {
-        NSLog(@"User changed text color to %@", theme.bufferNormal.color);
-        for (NSString *str in gBufferStyleNames)
-            NSLog(@"Text color of %@ is now %@", str, [[theme valueForKey:str] color]);
-    }
 }
 
 - (IBAction)changeMargin:(id)sender  {
@@ -1881,7 +1880,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (void)cloneThemeIfNotEditable {
     if (!theme.editable) {
-        if ([lastCloneTime timeIntervalSinceNow] > -0.25) {
+        if ([lastCloneTime timeIntervalSinceNow] > -0.2) {
             NSLog(@"Too soon! lastCloneTime timeIntervalSinceNow: %f", [lastCloneTime timeIntervalSinceNow]);
             Theme *backupTheme = [_arrayController findThemeByName: lastCloneName];
             if (!backupTheme) {
@@ -1905,6 +1904,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [self changeThemeName:name];
         _btnRemove.enabled = YES;
         theme = clonedTheme;
+        disregardTableSelection = YES;
         [self performSelector:@selector(restoreThemeSelection:) withObject:clonedTheme afterDelay:0.1];
         lastCloneTime = [NSDate date];
         lastCloneName = name;
