@@ -1329,7 +1329,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         }
 
         // Second, we try to load the Games.plist and add all entries as Game entities
-        NSMutableDictionary *games = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Games.plist"]);
+        NSDictionary *games = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Games.plist"]);
 
         NSDate *timestamp = [NSDate date];
         
