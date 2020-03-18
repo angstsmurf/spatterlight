@@ -1276,7 +1276,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     }
     else if (fetchedObjects.count == 0)
     {
-        NSLog(@"fetchGameForIFID: Found no Metadata object with ifid %@ in %@", ifid, (context == _managedObjectContext)?@"_managedObjectContext":@"childContext");
+//        NSLog(@"fetchGameForIFID: Found no Metadata object with ifid %@ in %@", ifid, (context == _managedObjectContext)?@"_managedObjectContext":@"childContext");
         return nil;
     }
 
@@ -1890,7 +1890,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         [self beginImporting];
         [select addObject: game.ifid];
     } else {
-		NSLog(@"libctl: addFile: File %@ not added!", url.path);
+		//NSLog(@"libctl: addFile: File %@ not added!", url.path);
 	}
 }
 
