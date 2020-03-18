@@ -749,6 +749,8 @@ NSColor *dataToColor(NSData *data) {
 + (void)changeCurrentGame:(Game *)game {
     if (prefs) {
         prefs.currentGame = game;
+        if (!game.theme)
+            game.theme = theme;
         [prefs restoreThemeSelection:theme];
     }
 }

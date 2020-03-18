@@ -1212,13 +1212,12 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     if (fetchedObjects.count > 1)
     {
         NSLog(@"findTheme: inContext: Found more than one Theme object with name %@ (total %ld)",name, fetchedObjects.count);
-        NSMutableSet *storedSet = [[NSMutableSet alloc] init];
-        for (NSUInteger i = fetchedObjects.count - 1; i > 0 ; i--) {
-            for (Game *game in ((Theme *)fetchedObjects[i]).games)
-                [storedSet addObject:game];
-        }
-        [((Theme *)fetchedObjects[0]) addGames:storedSet];
-
+//        NSMutableSet *storedSet = [[NSMutableSet alloc] init];
+//        for (NSUInteger i = fetchedObjects.count - 1; i > 0 ; i--) {
+//            for (Game *game in ((Theme *)fetchedObjects[i]).games)
+//                [storedSet addObject:game];
+//        }
+//        [((Theme *)fetchedObjects[0]) addGames:storedSet];
      }
     else if (fetchedObjects.count == 0)
     {
@@ -1361,11 +1360,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                 if (!game)
                     NSLog(@"No game?");
 
-                Theme *theme = [self findTheme:@"Default" inContext:private];
-                if (theme)
-                    game.theme = theme;
-                else
-                    NSLog(@"No theme?");
+//                Theme *theme = [self findTheme:@"Old settings" inContext:private];
+//                if (theme)
+//                    game.theme = theme;
+//                else
+//                    NSLog(@"No theme?");
 
                 game.ifid = ifid;
                 game.metadata = meta;
@@ -1879,7 +1878,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     game.metadata = metadata;
     game.ifid = ifid;
 
-    game.theme = [self findTheme:[Preferences currentTheme].name inContext:context];
+//    game.theme = [self findTheme:[Preferences currentTheme].name inContext:context];
 
     return game;
 }
@@ -2296,7 +2295,11 @@ objectValueForTableColumn: (NSTableColumn*)column
         [self invalidateRestorableState];
         if (gameTableModel.count && rows.count) {
             _selectedGames = [gameTableModel objectsAtIndexes:rows];
-            [(Preferences *)[Preferences instance] restoreThemeSelection:((Game *)_selectedGames[0]).theme];
+            Game *game = _selectedGames[0];
+            if (!game.theme)
+                game.theme = [Preferences currentTheme];
+            else
+                [(Preferences *)[Preferences instance] restoreThemeSelection:game.theme];
         } else _selectedGames = nil;
         [self updateSideViewForce:NO];
     }
