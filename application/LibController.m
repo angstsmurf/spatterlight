@@ -576,7 +576,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     childContext.undoManager = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(backgroundManagedObjectContextDidSave:)
+                                             selector:@selector(backgroundManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:childContext];
 
@@ -754,7 +754,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         childContext.undoManager = nil;
 
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(backgroundManagedObjectContextDidSave:)
+                                                 selector:@selector(backgroundManagedObjectContextDidChange:)
                                                      name:NSManagedObjectContextObjectsDidChangeNotification
                                                    object:childContext];
         currentlyAddingGames = YES;
@@ -1308,7 +1308,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     private.undoManager = nil;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(backgroundManagedObjectContextDidSave:)
+                                             selector:@selector(backgroundManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:private];
     [self beginImporting];
@@ -2305,8 +2305,8 @@ objectValueForTableColumn: (NSTableColumn*)column
     }
 }
 
-- (void)backgroundManagedObjectContextDidSave:(id)sender {
-    NSLog(@"backgroundManagedObjectContextDidSave");
+- (void)backgroundManagedObjectContextDidChange:(id)sender {
+    NSLog(@"backgroundManagedObjectContextDidChange");
     [_coreDataManager saveChanges];
 }
 
