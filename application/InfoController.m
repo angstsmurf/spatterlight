@@ -193,8 +193,8 @@
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:managedObjectContext];
 
-    [descriptionText setDrawsBackground:NO];
-    [(NSScrollView *)descriptionText.superview setDrawsBackground:NO];
+    descriptionText.drawsBackground = NO;
+    ((NSScrollView *)descriptionText.superview).drawsBackground = NO;
     
     [self update];
     [self updateImage];
