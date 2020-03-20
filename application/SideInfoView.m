@@ -322,7 +322,65 @@
 	else
 	{
 //		NSLog(@"No image");
-	}
+        NSBox *imageView = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 400)];
+        imageView.boxType = NSBoxSeparator;
+
+
+        [self addSubview:imageView];
+
+        imageView.frame = NSMakeRect(0,0, superViewWidth, 1);
+
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+
+
+        xPosConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                      attribute:NSLayoutAttributeLeft
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:self
+                                                      attribute:NSLayoutAttributeLeft
+                                                     multiplier:1.0
+                                                       constant:0];
+
+        yPosConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                      attribute:NSLayoutAttributeTop
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:self
+                                                      attribute:NSLayoutAttributeTop
+                                                     multiplier:1.0
+                                                       constant:clipView.frame.size.height/4];
+
+        widthConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                          toItem:self
+                                                       attribute:NSLayoutAttributeWidth
+                                                      multiplier:1.0
+                                                        constant:0];
+
+        heightConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationLessThanOrEqual
+                                                           toItem:imageView
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:1];
+
+        rightMarginConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                             attribute:NSLayoutAttributeRight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self
+                                                             attribute:NSLayoutAttributeRight
+                                                            multiplier:1.0
+                                                              constant:0];
+
+        [self addConstraint:xPosConstraint];
+        [self addConstraint:yPosConstraint];
+        [self addConstraint:widthConstraint];
+        [self addConstraint:heightConstraint];
+        [self addConstraint:rightMarginConstraint];
+
+        lastView = imageView;
+    }
 
 	if (somedata.title) // Every game will have a title unless something is broken
 	{
@@ -498,50 +556,117 @@
 	NSLayoutConstraint *yPosConstraint;
 	NSLayoutConstraint *widthConstraint;
 	NSLayoutConstraint *heightConstraint;
+    NSLayoutConstraint *rightMarginConstraint;
 
 	NSFont *font;
 	CGFloat spaceBefore;
 	NSView *lastView;
 
-	self.translatesAutoresizingMaskIntoConstraints = NO;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
 
-	NSClipView *clipView = (NSClipView *)self.superview;
-	NSScrollView *scrollView = (NSScrollView *)clipView.superview;
-	CGFloat superViewWidth = clipView.frame.size.width;
+    NSClipView *clipView = (NSClipView *)self.superview;
+    NSScrollView *scrollView = (NSScrollView *)clipView.superview;
+    CGFloat superViewWidth = clipView.frame.size.width;
 
     if (superViewWidth < 24)
         return;
 
-	[clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
-														 attribute:NSLayoutAttributeLeft
-														 relatedBy:NSLayoutRelationEqual
-															toItem:clipView
-														 attribute:NSLayoutAttributeLeft
-														multiplier:1.0
-														  constant:0]];
+    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
+                                                         attribute:NSLayoutAttributeLeft
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:clipView
+                                                         attribute:NSLayoutAttributeLeft
+                                                        multiplier:1.0
+                                                          constant:0]];
 
-	[clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
-														 attribute:NSLayoutAttributeRight
-														 relatedBy:NSLayoutRelationEqual
-															toItem:clipView
-														 attribute:NSLayoutAttributeRight
-														multiplier:1.0
-														  constant:0]];
+    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
+                                                         attribute:NSLayoutAttributeRight
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:clipView
+                                                         attribute:NSLayoutAttributeRight
+                                                        multiplier:1.0
+                                                          constant:0]];
 
-	[clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
-														 attribute:NSLayoutAttributeTop
-														 relatedBy:NSLayoutRelationEqual
-															toItem:clipView
-														 attribute:NSLayoutAttributeTop
-														multiplier:1.0
-														  constant:0]];
+    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
+                                                         attribute:NSLayoutAttributeTop
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:clipView
+                                                         attribute:NSLayoutAttributeTop
+                                                        multiplier:1.0
+                                                          constant:0]];
 
-				
+
+    if (1)
+    {
+
+        NSBox *imageView = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 400)];
+        imageView.boxType = NSBoxSeparator;
+
+
+        [self addSubview:imageView];
+
+        imageView.frame = NSMakeRect(0,0, superViewWidth, 1);
+
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+
+
+        xPosConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                      attribute:NSLayoutAttributeLeft
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:self
+                                                      attribute:NSLayoutAttributeLeft
+                                                     multiplier:1.0
+                                                       constant:0];
+
+        yPosConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                      attribute:NSLayoutAttributeTop
+                                                      relatedBy:NSLayoutRelationEqual
+                                                         toItem:self
+                                                      attribute:NSLayoutAttributeTop
+                                                     multiplier:1.0
+                                                       constant:clipView.frame.size.height/4];
+
+        widthConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                          toItem:self
+                                                       attribute:NSLayoutAttributeWidth
+                                                      multiplier:1.0
+                                                        constant:0];
+
+        heightConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationLessThanOrEqual
+                                                           toItem:imageView
+                                                        attribute:NSLayoutAttributeWidth
+                                                       multiplier:1
+                                                         constant:1];
+
+        rightMarginConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                             attribute:NSLayoutAttributeRight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self
+                                                             attribute:NSLayoutAttributeRight
+                                                            multiplier:1.0
+                                                              constant:0];
+
+        [self addConstraint:xPosConstraint];
+        [self addConstraint:yPosConstraint];
+        [self addConstraint:widthConstraint];
+        [self addConstraint:heightConstraint];
+        [self addConstraint:rightMarginConstraint];
+
+        lastView = imageView;
+
+    }
+
 	if (aString.length)
 	{
-        titleField = [[NSTextField alloc] initWithFrame:NSMakeRect(0,0,clipView.frame.size.width,clipView.frame.size.height)];
-
-		[self addSubview:titleField];
+//        titleField = [[NSView alloc] initWithFrame:NSMakeRect(0,0,clipView.frame.size.width,clipView.frame.size.height)];
+//        titleField.drawsBackground = NO;
+//        [self addSubview:titleField];
+//
+//        NSTextField *titleField
 
 		font = [NSFont fontWithName:@"Playfair Display Black" size:30];
 
@@ -578,10 +703,9 @@
 		}
 		//		NSLog(@"Font not too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
 
-		spaceBefore = [@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height * 0.7;
+        spaceBefore = [@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height * 0.7;
 
-		lastView = [self addSubViewWithtext:aString andFont:font andSpaceBefore:spaceBefore andLastView:nil];
-
+		lastView = [self addSubViewWithtext:aString andFont:font andSpaceBefore:spaceBefore andLastView:lastView];
 
         titleField = (NSTextField *)lastView;
 	}
