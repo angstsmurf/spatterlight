@@ -101,6 +101,7 @@
 		6D8BCBC0225E514700696057 /* wordwrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D8BCBA0225E514700696057 /* wordwrap.c */; };
 		6D8BCBC1225E514700696057 /* zpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D8BCBA2225E514700696057 /* zpu.c */; };
 		6DB6B51A219E31BF0039D2D7 /* fileref.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB6B519219E31BF0039D2D7 /* fileref.m */; };
+		6DBC1ACF2424CEA40078311B /* VerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC1ACD2424CEA40078311B /* VerticallyCenteredTextFieldCell.m */; };
 		6DBC471A21D27E9C00A20E28 /* Compatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC471821D2752000A20E28 /* Compatibility.m */; };
 		6DBC629B23A421BE0066F443 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214823A26078002DEF3B /* Metadata.m */; };
 		6DC520AA23BAD54B0004923A /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
@@ -1159,6 +1160,8 @@
 		6D8BCBA4225E514700696057 /* zscii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscii.h; sourceTree = "<group>"; };
 		6DB6B519219E31BF0039D2D7 /* fileref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fileref.m; sourceTree = "<group>"; };
 		6DB6B51B219E38870039D2D7 /* fileref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileref.h; sourceTree = "<group>"; };
+		6DBC1ACD2424CEA40078311B /* VerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
+		6DBC1ACE2424CEA40078311B /* VerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
 		6DBC471721D270B100A20E28 /* Compatibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Compatibility.h; sourceTree = "<group>"; };
 		6DBC471821D2752000A20E28 /* Compatibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Compatibility.m; sourceTree = "<group>"; };
 		6DC144972215D3F6007C0A6B /* spatterstart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spatterstart.h; sourceTree = "<group>"; };
@@ -3366,6 +3369,8 @@
 				96A9C0EF0A07AE17001B5B9B /* LibController.m */,
 				6DCFFC2C22BE57790035FA99 /* SideInfoView.h */,
 				6DCFFC2D22BE57790035FA99 /* SideInfoView.m */,
+				6DBC1ACE2424CEA40078311B /* VerticallyCenteredTextFieldCell.h */,
+				6DBC1ACD2424CEA40078311B /* VerticallyCenteredTextFieldCell.m */,
 				96FBD8F40A0950EA002F6087 /* InfoController.h */,
 				96FBD8F50A0950EA002F6087 /* InfoController.m */,
 				96A9BB7A0A0662FA001B5B9B /* GlkController.h */,
@@ -5378,6 +5383,7 @@
 				6DC520AA23BAD54B0004923A /* Game.m in Sources */,
 				6DE957B023E3040A003246B6 /* Theme.m in Sources */,
 				6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */,
+				6DBC1ACF2424CEA40078311B /* VerticallyCenteredTextFieldCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
