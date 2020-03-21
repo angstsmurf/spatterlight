@@ -585,7 +585,7 @@
     if (imageView)
         titleYpos = NSHeight(imageView.frame) + NSHeight(titleField.frame);
     else
-        titleYpos = self.frame.size.height;
+        titleYpos = clipView.frame.size.height / 2;
     CGFloat yPoint = titleYpos - (clipView.frame.size.height / 2);
     if (yPoint < 0) {
         NSLog(@"yPoint is %f, clipping to 0", yPoint);
