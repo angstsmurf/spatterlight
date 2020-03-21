@@ -259,8 +259,11 @@
 												<object class="NSColor" key="NSTextColor">
 													<int key="NSColorSpace">6</int>
 													<string key="NSCatalogName">System</string>
-													<string key="NSColorName">textColor</string>
-													<reference key="NSColor" ref="352392495"/>
+													<string key="NSColorName">disabledControlTextColor</string>
+													<object class="NSColor" key="NSColor">
+														<int key="NSColorSpace">3</int>
+														<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+													</object>
 												</object>
 											</object>
 										</object>
@@ -271,7 +274,7 @@
 									<reference key="NSNextKeyView" ref="432603481"/>
 									<string key="NSReuseIdentifierKey">_NS:11</string>
 									<string key="NSHuggingPriority">{250, 590}</string>
-									<string key="NSAntiCompressionPriority">{250, 750}</string>
+									<string key="NSAntiCompressionPriority">{500, 750}</string>
 									<string key="NSClassName">NSView</string>
 								</object>
 								<object class="NSView" id="582597135">
@@ -968,6 +971,7 @@
 											<string key="NSFrame">{{359, 9}, {282, 22}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSSearchFieldCell" key="NSCell" id="569807709">
 												<int key="NSCellFlags">343014976</int>
@@ -4301,7 +4305,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">523</int>
+			<int key="maxID">534</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4341,15 +4345,11 @@
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addGamesToLibrary:">id</string>
-						<string key="applyTheme:">id</string>
-						<string key="delete:">id</string>
 						<string key="deleteGame:">id</string>
 						<string key="deleteLibrary:">id</string>
 						<string key="deleteSaves:">id</string>
-						<string key="download:">id</string>
 						<string key="exportMetadata:">id</string>
 						<string key="importMetadata:">id</string>
-						<string key="openIfdb:">id</string>
 						<string key="play:">id</string>
 						<string key="pruneLibrary:">id</string>
 						<string key="revealGameInFinder:">id</string>
@@ -4364,14 +4364,6 @@
 							<string key="name">addGamesToLibrary:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="applyTheme:">
-							<string key="name">applyTheme:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="delete:">
-							<string key="name">delete:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="deleteGame:">
 							<string key="name">deleteGame:</string>
 							<string key="candidateClassName">id</string>
@@ -4384,20 +4376,12 @@
 							<string key="name">deleteSaves:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="download:">
-							<string key="name">download:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="exportMetadata:">
 							<string key="name">exportMetadata:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="importMetadata:">
 							<string key="name">importMetadata:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openIfdb:">
-							<string key="name">openIfdb:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="play:">

@@ -119,9 +119,7 @@
 
 	textField.bezeled=NO;
 	textField.drawsBackground = NO;
-//	textField.editable = YES;
     textField.editable = NO;
-
 	textField.selectable = YES;
 	textField.bordered = NO;
 	[textField.cell setUsesSingleLineMode:NO];
@@ -205,17 +203,25 @@
 
 - (void) updateSideViewWithGame:(Game *)somegame
 {
+    Metadata *somedata = somegame.metadata;
+ 
+    if (somedata.blurb == nil && somedata.author == nil && somedata.headline == nil && somedata.cover == nil) {
+        ifidField.stringValue = somegame.ifid;
+        [self updateSideViewWithString:somedata.title];
+        return;
+    }
+    
 	NSLayoutConstraint *xPosConstraint;
 	NSLayoutConstraint *yPosConstraint;
 	NSLayoutConstraint *widthConstraint;
 	NSLayoutConstraint *heightConstraint;
 	NSLayoutConstraint *rightMarginConstraint;
+    NSLayoutConstraint *topSpacerYConstraint;
+
 
 	NSFont *font;
 	CGFloat spaceBefore;
-	NSView *lastView;
-
-    Metadata *somedata = somegame.metadata;
+	NSView *lastView;    
 
 	self.translatesAutoresizingMaskIntoConstraints = NO;
 
@@ -260,7 +266,7 @@
 		// We make the image double size to make enlarging when draggin divider to the right work
 		theImage.size = NSMakeSize(superViewWidth * 2, superViewWidth * 2 / ratio );
 
-		NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0,0,theImage.size.width,theImage.size.height)];
+		imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0,0,theImage.size.width,theImage.size.height)];
 
 		[self addSubview:imageView];
 
@@ -313,6 +319,7 @@
 		[self addConstraint:yPosConstraint];
 		[self addConstraint:widthConstraint];
 		[self addConstraint:heightConstraint];
+        rightMarginConstraint.priority = 999;
 		[self addConstraint:rightMarginConstraint];
 
 		imageView.image = theImage;
@@ -322,19 +329,20 @@
 	}
 	else
 	{
+        imageView = nil;
 //		NSLog(@"No image");
-        NSBox *imageView = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 400)];
-        imageView.boxType = NSBoxSeparator;
+        topSpacer = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 0)];
+        topSpacer.boxType = NSBoxSeparator;
 
 
-        [self addSubview:imageView];
+        [self addSubview:topSpacer];
 
-        imageView.frame = NSMakeRect(0,0, superViewWidth, 1);
+        topSpacer.frame = NSMakeRect(0,0, superViewWidth, 1);
 
-        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        topSpacer.translatesAutoresizingMaskIntoConstraints = NO;
 
 
-        xPosConstraint = [NSLayoutConstraint constraintWithItem:imageView
+        xPosConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
                                                       attribute:NSLayoutAttributeLeft
                                                       relatedBy:NSLayoutRelationEqual
                                                          toItem:self
@@ -342,15 +350,17 @@
                                                      multiplier:1.0
                                                        constant:0];
 
-        yPosConstraint = [NSLayoutConstraint constraintWithItem:imageView
+        yPosConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
                                                       attribute:NSLayoutAttributeTop
-                                                      relatedBy:NSLayoutRelationEqual
+                                                      relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                          toItem:self
                                                       attribute:NSLayoutAttributeTop
                                                      multiplier:1.0
                                                        constant:clipView.frame.size.height/4];
 
-        widthConstraint = [NSLayoutConstraint constraintWithItem:imageView
+        yPosConstraint.priority = NSLayoutPriorityDefaultLow;
+        
+        widthConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
                                                        attribute:NSLayoutAttributeWidth
                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                           toItem:self
@@ -358,29 +368,12 @@
                                                       multiplier:1.0
                                                         constant:0];
 
-        heightConstraint = [NSLayoutConstraint constraintWithItem:imageView
-                                                        attribute:NSLayoutAttributeHeight
-                                                        relatedBy:NSLayoutRelationLessThanOrEqual
-                                                           toItem:imageView
-                                                        attribute:NSLayoutAttributeWidth
-                                                       multiplier:1
-                                                         constant:1];
-
-        rightMarginConstraint = [NSLayoutConstraint constraintWithItem:imageView
-                                                             attribute:NSLayoutAttributeRight
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:self
-                                                             attribute:NSLayoutAttributeRight
-                                                            multiplier:1.0
-                                                              constant:0];
 
         [self addConstraint:xPosConstraint];
         [self addConstraint:yPosConstraint];
         [self addConstraint:widthConstraint];
-        [self addConstraint:heightConstraint];
-        [self addConstraint:rightMarginConstraint];
 
-        lastView = imageView;
+        lastView = topSpacer;
     }
 
 	if (somedata.title) // Every game will have a title unless something is broken
@@ -541,53 +534,114 @@
 																			constant:0];
 	[self addConstraint:bottomPinConstraint];
 
-	if (_game != somegame)
-	{
+    if (imageView == nil) {
+        CGFloat windowHeight = ((NSView *)self.window.contentView).frame.size.height;
+
+        CGFloat contentHeight = titleField.frame.size.height + headlineField.frame.size.height + authorField.frame.size.height + blurbField.frame.size.height;
+
+        topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
+                                                            attribute:NSLayoutAttributeTop
+                                                            relatedBy:NSLayoutRelationLessThanOrEqual
+                                                               toItem:self
+                                                            attribute:NSLayoutAttributeTop
+                                                           multiplier:1.0
+                                                             constant:(windowHeight - contentHeight) / 3];
+        topSpacerYConstraint.priority = 999;
+
+        NSLog(@"topSpacerYConstraint.constant: %f",topSpacerYConstraint.constant);
+        NSLog(@"windowHeight (%f) - contentHeight (%f) / 3) = %f", windowHeight, contentHeight, topSpacerYConstraint.constant);
+
+        if (clipView.frame.size.height < self.frame.size.height) {
+            topSpacerYConstraint.constant = 0;
+            yPosConstraint.constant = 0;
+        }
+        
+        [self addConstraint:topSpacerYConstraint];
+
+    }
+    
+	if (_game != somegame) {
+        
 		[clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
 		[scrollView reflectScrolledClipView:clipView];
+
+        [self performSelector:@selector(fixScroll:) withObject:nil afterDelay:0.1];
 	}
 
 	_game = somegame;
+}
+
+- (void)fixScroll:(id)sender {
+
+    NSClipView *clipView = (NSClipView *)self.superview;
+	NSScrollView *scrollView = (NSScrollView *)clipView.superview;
+
+    if (clipView.frame.size.height >= self.frame.size.height) {
+//        NSLog(@"fixScroll: Sideview fits within scrollview");
+        return;
+    }
+
+    CGFloat titleYpos;
+    if (imageView)
+        titleYpos = NSHeight(imageView.frame) + NSHeight(titleField.frame);
+    else
+        titleYpos = self.frame.size.height;
+    CGFloat yPoint = titleYpos - (clipView.frame.size.height / 2);
+    if (yPoint < 0) {
+        NSLog(@"yPoint is %f, clipping to 0", yPoint);
+        yPoint = 0;
+    }
+    if (yPoint > NSMaxY(self.frame) - clipView.frame.size.height) {
+        NSLog(@"yPoint is %f, clipping to %f", yPoint, NSMaxY(self.frame) - clipView.frame.size.height);
+
+        yPoint = NSMaxY(self.frame) - clipView.frame.size.height;
+    }
+//    NSLog(@"Trying to scroll to yPoint:%f titleYpos:%f clipView.frame:%@ self.frame:%@", yPoint, titleYpos, NSStringFromRect(clipView.frame),  NSStringFromRect(self.frame));
+
+    NSPoint newOrigin = [clipView bounds].origin;
+    newOrigin.y = yPoint;
+    
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:0.2];
+ 
+    [[clipView animator] setBoundsOrigin:newOrigin];
+    [scrollView reflectScrolledClipView: [scrollView contentView]]; // may not bee necessary
+    [NSAnimationContext endGrouping];
 }
 
 - (void) updateSideViewWithString:(NSString *)aString {
     NSFont *font;
 	NSClipView *clipView = (NSClipView *)self.superview;
 
+    [titleField removeFromSuperview];
     titleField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, clipView.frame.size.width, clipView.frame.size.height)];
     titleField.drawsBackground = NO;
     self.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     titleField.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-    [self addSubview:titleField];
-
 
     titleField.cell = [[VerticallyCenteredTextFieldCell alloc] initTextCell:aString];
+    
+    [self addSubview:titleField];
+
     NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
 
-    font = [NSFont fontWithName:@"Helvetica" size:16];
-
-//    para.minimumLineHeight = font.pointSize + 3;
-//    para.maximumLineHeight = para.minimumLineHeight;
+    font = [NSFont titleBarFontOfSize:16];
 
     para.alignment = NSCenterTextAlignment;
-//    para.lineSpacing = 1;
-//
-//    if (font.pointSize > 25)
-//        para.lineSpacing = 0.2f;
+    para.lineBreakMode = NSLineBreakByTruncatingMiddle;
 
     NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                  font,
                                  NSFontAttributeName,
                                  para,
                                  NSParagraphStyleAttributeName,
-                                 [NSColor colorWithRed:0.467 green:0.467 blue:0.467 alpha:1],
+                                 [NSColor disabledControlTextColor],
                                  NSForegroundColorAttributeName,
                                  nil];
 
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:aString attributes:attr];
     titleField.attributedStringValue = attrString;
-
 }
 
 @end

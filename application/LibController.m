@@ -2429,6 +2429,18 @@ canCollapseSubview:(NSView *)subview
 	[_splitView display];
 }
 
+- (NSSize)windowWillResize:(NSWindow *)sender
+                    toSize:(NSSize)frameSize {
+
+    if ([_splitView isSubviewCollapsed:_leftView])
+        return frameSize;
+    if (_leftView.frame.size.width <= PREFERRED_LEFT_VIEW_MIN_WIDTH - 10) {
+        [self collapseLeftView];
+    }
+
+    return frameSize;
+}
+
 -(void)uncollapseLeftView
 {
      lastSideviewWidth = lastSideviewPercentage *  self.window.frame.size.width;
@@ -2505,7 +2517,9 @@ canCollapseSubview:(NSView *)subview
 
     CGFloat newDividerPos = [state decodeDoubleForKey:@"sideviewWidth"];
     lastSideviewPercentage = [state decodeDoubleForKey:@"sideviewPercent"];
-    if (lastSideviewPercentage && newDividerPos > 0)
+    CGFloat newDividerPosbyPercentage = self.window.frame.size.width * lastSideviewPercentage;
+
+    if (lastSideviewPercentage && newDividerPos > 0 && newDividerPosbyPercentage < newDividerPosbyPercentage)
         newDividerPos = self.window.frame.size.width * lastSideviewPercentage;
 
     if (newDividerPos < 50 && newDividerPos > 0) {

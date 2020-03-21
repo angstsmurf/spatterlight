@@ -13,12 +13,13 @@
 
 @interface SideInfoView : NSView <NSTextFieldDelegate> //, NSControlTextEditingDelegate>
 {
+    NSBox *topSpacer;
+    NSImageView *imageView;
 	NSTextField *titleField;
 	NSTextField *headlineField;
 	NSTextField *authorField;
 	NSTextField *blurbField;
 	NSTextField *ifidField;
-
 }
 
 //@property (weak) LibController *libctl;
@@ -27,7 +28,6 @@
 
 
 - (void) updateSideViewWithGame:(Game *)somegame;
-
 - (void) updateSideViewWithString:(NSString *)string;
 
 @end
