@@ -218,7 +218,6 @@
 	NSLayoutConstraint *rightMarginConstraint;
     NSLayoutConstraint *topSpacerYConstraint;
 
-
 	NSFont *font;
 	CGFloat spaceBefore;
 	NSView *lastView;    
@@ -547,9 +546,6 @@
                                                            multiplier:1.0
                                                              constant:(windowHeight - contentHeight) / 3];
         topSpacerYConstraint.priority = 999;
-
-        NSLog(@"topSpacerYConstraint.constant: %f",topSpacerYConstraint.constant);
-        NSLog(@"windowHeight (%f) - contentHeight (%f) / 3) = %f", windowHeight, contentHeight, topSpacerYConstraint.constant);
 
         if (clipView.frame.size.height < self.frame.size.height) {
             topSpacerYConstraint.constant = 0;
