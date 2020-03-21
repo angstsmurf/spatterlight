@@ -2519,7 +2519,7 @@ canCollapseSubview:(NSView *)subview
     lastSideviewPercentage = [state decodeDoubleForKey:@"sideviewPercent"];
     CGFloat newDividerPosbyPercentage = self.window.frame.size.width * lastSideviewPercentage;
 
-    if (lastSideviewPercentage && newDividerPos > 0 && newDividerPosbyPercentage < newDividerPosbyPercentage)
+    if (lastSideviewPercentage > 0 && newDividerPos > 0 && newDividerPosbyPercentage < newDividerPosbyPercentage)
         newDividerPos = self.window.frame.size.width * lastSideviewPercentage;
 
     if (newDividerPos < 50 && newDividerPos > 0) {
