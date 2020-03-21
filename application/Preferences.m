@@ -1304,7 +1304,7 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notify {
-    NSLog(@"noteManagedObjectContextDidChange: %@", theme.name);
+//    NSLog(@"noteManagedObjectContextDidChange: %@", theme.name);
     NSArray *updatedObjects = (notify.userInfo)[NSUpdatedObjectsKey];
 
     if ([updatedObjects containsObject:theme]) {
@@ -1343,7 +1343,7 @@ NSString *fontToString(NSFont *font) {
 - (void)tableViewSelectionDidChange:(id)notification {
     NSTableView *tableView = [notification object];
     if (tableView == themesTableView) {
-        NSLog(@"Preferences tableViewSelectionDidChange:%@", _arrayController.selectedTheme.name);
+//        NSLog(@"Preferences tableViewSelectionDidChange:%@", _arrayController.selectedTheme.name);
         if (disregardTableSelection == YES) {
 //            NSLog(@"Disregarding tableViewSelectionDidChange");
             disregardTableSelection = NO;
