@@ -727,7 +727,7 @@ NSColor *dataToColor(NSData *data) {
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
 
     if (fetchedObjects && fetchedObjects.count) {
-        NSLog(@"Theme %@ already exists. Returning old theme with this name.", themeName);
+//        NSLog(@"Theme %@ already exists. Returning old theme with this name.", themeName);
         *existsFlagPointer = YES;
         return fetchedObjects[0];
     } else if (error != nil) {
@@ -1171,8 +1171,8 @@ NSString *fontToString(NSFont *font) {
 #pragma mark Preview
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
-    Theme *notificationTheme = notify.object;
-    NSLog(@"notePreferencesChanged: %@", notificationTheme.name);
+//    Theme *notificationTheme = notify.object;
+//    NSLog(@"notePreferencesChanged: %@", notificationTheme.name);
 
     // Change the theme of the sample text field
     glktxtbuf.theme = theme;
@@ -1322,7 +1322,7 @@ NSString *fontToString(NSFont *font) {
 
 - (void)restoreThemeSelection:(id)sender {
     if (_arrayController.selectedTheme == sender) {
-        NSLog(@"restoreThemeSelection: selected theme already was %@. Returning", ((Theme *)sender).name);
+//        NSLog(@"restoreThemeSelection: selected theme already was %@. Returning", ((Theme *)sender).name);
     }
     NSArray *themes = _arrayController.arrangedObjects;
     theme = sender;
