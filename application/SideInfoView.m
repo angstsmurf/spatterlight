@@ -156,7 +156,7 @@
 	{
 		yPosConstraint = [NSLayoutConstraint constraintWithItem:textField
 													  attribute:NSLayoutAttributeTop
-													  relatedBy:NSLayoutRelationLessThanOrEqual
+													  relatedBy:NSLayoutRelationGreaterThanOrEqual
 														 toItem:self
 													  attribute:NSLayoutAttributeTop
 													 multiplier:1.0
@@ -502,7 +502,7 @@
                                                              toItem:self
                                                           attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
-                                                           constant:(windowHeight - contentHeight) / 3];
+                                                           constant:(windowHeight - contentHeight) / 2];
         topSpaceConstraint.priority = 1000;
 
         if (clipView.frame.size.height < self.frame.size.height)
@@ -517,7 +517,8 @@
 		[clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
 		[scrollView reflectScrolledClipView:clipView];
 
-        [self performSelector:@selector(fixScroll:) withObject:nil afterDelay:0.05];
+        if (imageView)
+            [self performSelector:@selector(fixScroll:) withObject:nil afterDelay:0.05];
 	}
 
 	_game = somegame;
@@ -534,10 +535,10 @@
     }
 
     CGFloat titleYpos;
-    if (imageView)
+//    if (imageView)
         titleYpos = NSHeight(imageView.frame) + NSHeight(titleField.frame);
-    else
-        titleYpos = clipView.frame.size.height / 2;
+//    else
+//        titleYpos = clipView.frame.size.height / 2;
     CGFloat yPoint = titleYpos - (clipView.frame.size.height / 2);
     if (yPoint < 0) {
         NSLog(@"yPoint is %f, clipping to 0", yPoint);
