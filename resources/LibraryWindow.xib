@@ -93,7 +93,7 @@
 															<string key="NSFrameSize">{181, 98}</string>
 															<reference key="NSSuperview" ref="219485008"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="912555774"/>
+															<reference key="NSNextKeyView" ref="665392855"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<object class="NSTextContainer" key="NSTextContainer" id="575663586">
 																<object class="NSLayoutManager" key="NSLayoutManager">
@@ -221,7 +221,7 @@
 											<string key="NSFrame">{{0, 23}, {181, 262}}</string>
 											<reference key="NSSuperview" ref="401913480"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="665392855"/>
+											<reference key="NSNextKeyView" ref="219485008"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<string key="NSAntiCompressionPriority">{993, 750}</string>
 											<int key="NSsFlags">133632</int>
@@ -295,7 +295,7 @@
 															<string key="NSFrameSize">{653, 230}</string>
 															<reference key="NSSuperview" ref="19771704"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="1017274543"/>
+															<reference key="NSNextKeyView" ref="465997657"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTableHeaderView" key="NSHeaderView" id="1041211642">
 																<reference key="NSNextResponder" ref="465997657"/>
@@ -882,7 +882,7 @@
 															</array>
 															<double key="NSIntercellSpacingWidth">3</double>
 															<double key="NSIntercellSpacingHeight">2</double>
-															<reference key="NSBackgroundColor" ref="736007834"/>
+															<reference key="NSBackgroundColor" ref="831519879"/>
 															<object class="NSColor" key="NSGridColor">
 																<int key="NSColorSpace">6</int>
 																<string key="NSCatalogName">System</string>
@@ -911,7 +911,7 @@
 													<reference key="NSNextKeyView" ref="521514176"/>
 													<reference key="NSDocView" ref="521514176"/>
 													<reference key="NSBGColor" ref="831519879"/>
-													<int key="NScvFlags">4</int>
+													<int key="NScvFlags">2</int>
 												</object>
 												<object class="NSScroller" id="1017274543">
 													<reference key="NSNextResponder" ref="756741626"/>
@@ -955,7 +955,7 @@
 											<string key="NSFrame">{{0, 39}, {653, 247}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="465997657"/>
+											<reference key="NSNextKeyView" ref="19771704"/>
 											<string key="NSAntiCompressionPriority">{310, 750}</string>
 											<int key="NSsFlags">133680</int>
 											<reference key="NSVScroller" ref="1017274543"/>
@@ -971,7 +971,6 @@
 											<string key="NSFrame">{{359, 9}, {282, 22}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSSearchFieldCell" key="NSCell" id="569807709">
 												<int key="NSCellFlags">343014976</int>
