@@ -949,6 +949,9 @@ NSString *fontToString(NSFont *font) {
     sampleTextBorderView.wantsLayer = YES;
     [glkcntrl setBorderColor:theme.bufferBackground];
 
+    _divider.frame = NSMakeRect(0, 0, self.window.frame.size.width, 1);
+    _divider.autoresizingMask = NSViewMaxYMargin;
+
     glktxtbuf = [[GlkTextBufferWindow alloc] initWithGlkController:glkcntrl name:1];
 
     NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
@@ -962,7 +965,6 @@ NSString *fontToString(NSFont *font) {
     }
 
     [sampleTextView addSubview:glktxtbuf];
-    [_divider removeFromSuperview];
 
     NSRect sampleTextFrame;
 
@@ -1245,10 +1247,7 @@ NSString *fontToString(NSFont *font) {
          NSRect newFrame = weakSelf.window.frame;
          sampleTextBorderView.frame = NSMakeRect(0, 0, newFrame.size.width, newFrame.size.height - kDefaultPrefWindowHeight);
 
-         [_divider removeFromSuperview];
          if (!previewHidden) {
-             _divider.frame = NSMakeRect(0, sampleTextBorderView.frame.size.height, newFrame.size.width, 1);
-             [weakSelf.window.contentView addSubview:_divider];
              [weakSelf performSelector:@selector(fixScrollBar:) withObject:nil afterDelay:0.1];
          }
      }];
@@ -1634,10 +1633,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
         previewHidden = YES;
     } else {
         previewHidden = NO;
-        if (!previewHidden) {
-            _divider.frame = NSMakeRect(0, sampleTextBorderView.frame.size.height, self.window.frame.size.width, 1);
-            [self.window.contentView addSubview:_divider];
-        }
+        [self resizeWindowToHeight:[self previewHeight] + 20];
+
         [self notePreferencesChanged:(NSNotification *)theme];
     }
 }
