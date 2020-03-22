@@ -156,12 +156,14 @@
 	{
 		yPosConstraint = [NSLayoutConstraint constraintWithItem:textField
 													  attribute:NSLayoutAttributeTop
-													  relatedBy:NSLayoutRelationEqual
+													  relatedBy:NSLayoutRelationLessThanOrEqual
 														 toItem:self
 													  attribute:NSLayoutAttributeTop
 													 multiplier:1.0
 													   constant:space];
-	}
+        yPosConstraint.priority = 200;
+    }
+	
 
 	NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:textField
 												   attribute:NSLayoutAttributeWidth
@@ -216,7 +218,6 @@
 	NSLayoutConstraint *widthConstraint;
 	NSLayoutConstraint *heightConstraint;
 	NSLayoutConstraint *rightMarginConstraint;
-    NSLayoutConstraint *topSpacerYConstraint;
 
 	NSFont *font;
 	CGFloat spaceBefore;
@@ -329,50 +330,7 @@
 	else
 	{
         imageView = nil;
-//		NSLog(@"No image");
-        topSpacer = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 0)];
-        topSpacer.boxType = NSBoxSeparator;
-
-
-        [self addSubview:topSpacer];
-
-        topSpacer.frame = NSMakeRect(0,0, superViewWidth, 1);
-
-        topSpacer.translatesAutoresizingMaskIntoConstraints = NO;
-
-
-        xPosConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                      attribute:NSLayoutAttributeLeft
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:self
-                                                      attribute:NSLayoutAttributeLeft
-                                                     multiplier:1.0
-                                                       constant:0];
-
-        yPosConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                      attribute:NSLayoutAttributeTop
-                                                      relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                         toItem:self
-                                                      attribute:NSLayoutAttributeTop
-                                                     multiplier:1.0
-                                                       constant:clipView.frame.size.height/4];
-
-        yPosConstraint.priority = NSLayoutPriorityDefaultLow;
-        
-        widthConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                          toItem:self
-                                                       attribute:NSLayoutAttributeWidth
-                                                      multiplier:1.0
-                                                        constant:0];
-
-
-        [self addConstraint:xPosConstraint];
-        [self addConstraint:yPosConstraint];
-        [self addConstraint:widthConstraint];
-
-        lastView = topSpacer;
+   //		NSLog(@"No image");
     }
 
 	if (somedata.title) // Every game will have a title unless something is broken
@@ -538,30 +496,28 @@
 
         CGFloat contentHeight = titleField.frame.size.height + headlineField.frame.size.height + authorField.frame.size.height + blurbField.frame.size.height;
 
-        topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                            attribute:NSLayoutAttributeTop
-                                                            relatedBy:NSLayoutRelationLessThanOrEqual
-                                                               toItem:self
-                                                            attribute:NSLayoutAttributeTop
-                                                           multiplier:1.0
-                                                             constant:(windowHeight - contentHeight) / 3];
-        topSpacerYConstraint.priority = 999;
+		NSLayoutConstraint *topSpaceConstraint = [NSLayoutConstraint constraintWithItem:titleField
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationLessThanOrEqual
+                                                             toItem:self
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:(windowHeight - contentHeight) / 3];
+        topSpaceConstraint.priority = 1000;
 
-        if (clipView.frame.size.height < self.frame.size.height) {
-            topSpacerYConstraint.constant = 0;
-            yPosConstraint.constant = 0;
-        }
-        
-        [self addConstraint:topSpacerYConstraint];
+        if (clipView.frame.size.height < self.frame.size.height)
+            topSpaceConstraint.constant = 0;
 
+        [self addConstraint:topSpaceConstraint];
     }
+
     
 	if (_game != somegame) {
         
 		[clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
 		[scrollView reflectScrolledClipView:clipView];
 
-        [self performSelector:@selector(fixScroll:) withObject:nil afterDelay:0.1];
+        [self performSelector:@selector(fixScroll:) withObject:nil afterDelay:0.05];
 	}
 
 	_game = somegame;
@@ -598,7 +554,7 @@
     newOrigin.y = yPoint;
     
     [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:0.2];
+    [[NSAnimationContext currentContext] setDuration:0.5];
  
     [[clipView animator] setBoundsOrigin:newOrigin];
     [scrollView reflectScrolledClipView: [scrollView contentView]]; // may not bee necessary
