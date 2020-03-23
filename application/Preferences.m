@@ -1559,6 +1559,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 }
 
+- (IBAction)clickedAppliesToSelected:(id)sender {
+}
+
 - (NSString *)themeScopeTitle {
     if (_oneThemeForAll) return @"Theme setting for all games";
     if ( _currentGame == nil)
@@ -1859,6 +1862,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [Preferences rebuildTextAttributes];
 }
 
+- (IBAction)changeOverwriteStyles:(id)sender {
+}
 
 - (IBAction)changeBorderSize:(id)sender {
     if (theme.border == [sender intValue])

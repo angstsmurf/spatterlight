@@ -16,7 +16,8 @@ typedef enum kZoomDirectionType : NSUInteger {
 
 typedef enum kDefaultPrefWindowSize : NSUInteger {
     kDefaultPrefWindowWidth = 516, 
-    kDefaultPrefWindowHeight = 330
+    kDefaultPrefWindowHeight = 330,
+    kDefaultPrefsLowerViewHeight = 311
 } kDefaultPrefWindowSize;
 
 
