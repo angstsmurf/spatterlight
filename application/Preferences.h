@@ -62,10 +62,12 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 - (IBAction)changeEnableGraphics:(id)sender;
 - (IBAction)changeEnableSound:(id)sender;
 - (IBAction)changeEnableStyles:(id)sender;
+- (IBAction)changeOverwriteStyles:(id)sender;
 
 - (IBAction)addTheme:(id)sender;
 - (IBAction)removeTheme:(id)sender;
 - (IBAction)clickedOneThemeForAll:(id)sender;
+- (IBAction)clickedAppliesToSelected:(id)sender;
 
 #pragma mark Action menu
 - (IBAction)applyToSelected:(id)sender;
@@ -126,10 +128,14 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 @property (strong) IBOutlet NSTextFieldCell *detailsHeader;
 @property (strong) IBOutlet NSTextFieldCell *themesHeader;
 @property (strong) IBOutlet NSButton *btnOneThemeForAll;
+@property (strong) IBOutlet NSButton *btnAppliesToSelected;
 
 @property (strong) IBOutlet NSPopUpButton *actionButton;
 
 @property (strong) IBOutlet NSButton *btnAdd;
 @property (strong) IBOutlet NSButton *btnRemove;
 @property (strong) IBOutlet NSBox *divider;
+
+@property (strong) IBOutlet NSButton *btnOverwriteStyles;
+
 @end
