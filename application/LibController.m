@@ -2459,7 +2459,7 @@ canCollapseSubview:(NSView *)subview
     }
 
     NSSize minSize = self.window.minSize;
-    minSize.width = RIGHT_VIEW_MIN_WIDTH * 2 + dividerThickness;
+    minSize.width = RIGHT_VIEW_MIN_WIDTH + PREFERRED_LEFT_VIEW_MIN_WIDTH + dividerThickness;
     if (minSize.width > self.window.frame.size.width)
         minSize.width  = self.window.frame.size.width;
     self.window.minSize = minSize;
