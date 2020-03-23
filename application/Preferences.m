@@ -560,7 +560,7 @@ NSColor *dataToColor(NSData *data) {
 
     dosTheme.bufferNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
     dosTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
-    dosTheme.bufInput.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:22];
+    dosTheme.bufInput.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
     dosTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
 
     NSSize size = [dosTheme.gridNormal cellSize];
