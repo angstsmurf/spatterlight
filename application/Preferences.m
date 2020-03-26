@@ -1643,9 +1643,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 }
 
-- (IBAction)clickedAppliesToSelected:(id)sender {
-}
-
 - (NSString *)themeScopeTitle {
     if (_oneThemeForAll) return @"Theme setting for all games";
     if ( _currentGame == nil)
