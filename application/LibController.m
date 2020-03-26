@@ -2334,11 +2334,10 @@ objectValueForTableColumn: (NSTableColumn*)column
     Game *game = nil;
     NSString *string = nil;
 
-	if ([_splitView isSubviewCollapsed:_leftView])
-	{
-		NSLog(@"Side view collapsed, returning without updating side view");
-		return;
-	}
+    if ([_splitView isSubviewCollapsed:_leftView]) {
+        return;
+    }
+
     if (!_selectedGames || !_selectedGames.count || _selectedGames.count > 1) {
 
         string = (_selectedGames.count > 1) ? @"Multiple selections" : @"No selection";
