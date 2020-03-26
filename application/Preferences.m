@@ -1579,7 +1579,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)clickedOneThemeForAll:(id)sender {
     if ([sender state] == 1) {
-        if (![[NSUserDefaults standardUserDefaults] valueForKey:@"UseForAllAlertAlertSuppression"]) {
+        if (![[NSUserDefaults standardUserDefaults] valueForKey:@"UseForAllAlertSuppression"]) {
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
             NSError *error = nil;
             fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
@@ -1629,7 +1629,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSAlert *anAlert = alert;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSString *alertSuppressionKey = @"UseForAllAlertAlertSuppression";
+    NSString *alertSuppressionKey = @"UseForAllAlertSuppression";
 
     if (anAlert.suppressionButton.state == NSOnState) {
         // Suppress this alert from now on
