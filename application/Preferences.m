@@ -1193,7 +1193,10 @@ NSString *fontToString(NSFont *font) {
     if (previewHidden)
         return;
 
-    [self adjustPreview:nil];
+    if (sampleTextView.frame.size.height < sampleTextBorderView.frame.size.height) {
+        [self adjustPreview:nil];
+
+    }
     [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.1];
 }
 
@@ -1236,6 +1239,8 @@ NSString *fontToString(NSFont *font) {
     glktxtbuf.frame = sampleTextView.bounds;
 
     glktxtbuf.autoresizingMask = NSViewHeightSizable;
+    glktxtbuf.textview.enclosingScrollView.autoresizingMask = NSViewHeightSizable;
+    [self scrollToTop:nil];
 }
 
 - (NSSize)windowWillResize:(NSWindow *)sender
@@ -1251,15 +1256,18 @@ NSString *fontToString(NSFont *font) {
         } else {
             NSRect newFrame = sampleTextView.frame;
 
+            [sampleTextView removeFromSuperview];
+
             if (sampleTextView.frame.size.height < glktxtbuf.textview.frame.size.height && glktxtbuf.frame.size.height < glktxtbuf.textview.frame.size.height) {
                 newFrame.size.height = glktxtbuf.textview.frame.size.height;
                 sampleTextView.frame = newFrame;
                 glktxtbuf.frame = sampleTextView.bounds;
                 glktxtbuf.textview.enclosingScrollView.frame = sampleTextView.bounds;
             }
-
             newFrame.origin.y = round((sampleTextBorderView.bounds.size.height - newFrame.size.height) / 2);
             sampleTextView.frame = newFrame;
+
+            [sampleTextBorderView addSubview:sampleTextView];
         }
     }
 
@@ -1276,7 +1284,7 @@ NSString *fontToString(NSFont *font) {
 
     if (ceil(height) == ceil(oldheight)) {
         if (!previewHidden) {
-            [self performSelector:@selector(fixScrollBar:) withObject:nil afterDelay:0.1];
+            [self performSelector:@selector(scrollToTop:) withObject:nil afterDelay:0.1];
         }
         return;
     }
@@ -1334,7 +1342,7 @@ NSString *fontToString(NSFont *font) {
      }];
 }
 
-- (void)fixScrollBar:(id)sender {
+- (void)scrollToTop:(id)sender {
     if (!previewHidden) {
         NSScrollView *scrollView = glktxtbuf.textview.enclosingScrollView;
         scrollView.frame = glktxtbuf.frame;
@@ -2174,7 +2182,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 // This is sent from the font panel when changing background color there
 
 - (void)changeDocumentBackgroundColor:(id)sender {
-//    NSLog(@"changeDocumentBackgroundColor");
+    //    NSLog(@"changeDocumentBackgroundColor");
 
     NSColorWell *colorWell = nil;
     NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
