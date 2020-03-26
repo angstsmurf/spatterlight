@@ -41,13 +41,13 @@
 - (GlkStyle *)clone;
 - (NSSize)cellSize;
 - (void)createDefaultAttributeDictionary;
+- (BOOL)testGridStyle;
+- (NSMutableDictionary *)attributesWithHints:(NSArray *)hints;
+- (void)printDebugInfo;
 
 @property NSInteger index;
 @property (strong, nonatomic) NSFont *font;
 @property (strong, nonatomic) NSColor *color;
 @property CGFloat lineSpacing;
-
-- (NSMutableDictionary *)attributesWithHints:(NSArray *)hints;
-- (void)printDebugInfo;
 
 @end
