@@ -938,7 +938,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         if (games.count < gameTableModel.count) {
             prefwin.oneThemeForAll = NO;
         }
-        [prefwin restoreThemeSelection:theme];
+        if ([games containsObject:prefwin.currentGame])
+            [prefwin restoreThemeSelection:theme];
     }
 
     [[NSNotificationCenter defaultCenter]
@@ -2298,8 +2299,11 @@ objectValueForTableColumn: (NSTableColumn*)column
             Game *game = _selectedGames[0];
             if (!game.theme)
                 game.theme = [Preferences currentTheme];
-            else
-                [(Preferences *)[Preferences instance] restoreThemeSelection:game.theme];
+            else {
+                Preferences *prefs = Preferences.instance;
+                if (prefs && prefs.currentGame == nil)
+                    [prefs restoreThemeSelection:game.theme];
+            }
         } else _selectedGames = nil;
         [self updateSideViewForce:NO];
     }
