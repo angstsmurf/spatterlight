@@ -1043,7 +1043,7 @@ NSString *fontToString(NSFont *font) {
     btnEnableStyles.state = theme.doStyles;
 
     _btnOverwriteStyles.enabled = theme.hasCustomStyles;
-    _btnOverwriteStyles.state = (_btnOverwriteStyles.enabled == NO);
+    _btnOverwriteStyles.state = ([_btnOverwriteStyles isEnabled] == NO);
 
     _btnOneThemeForAll.state = _oneThemeForAll;
 
@@ -1982,7 +1982,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
                         modalDelegate:self
                        didEndSelector:@selector(overwriteStylesAlertDidFinish:
                                                 rc:ctx:)
-                          contextInfo:(__bridge void * _Nullable)(styles)];
+                          contextInfo:(__bridge void *)styles];
 }
 
 - (void)overwriteStylesAlertDidFinish:(id)alert rc:(int)result ctx:(void *)ctx {
