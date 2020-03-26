@@ -1409,7 +1409,6 @@ NSString *fontToString(NSFont *font) {
     NSArray *themes = _arrayController.arrangedObjects;
     theme = sender;
     if (![themes containsObject:sender]) {
-        NSLog(@"selected theme not found!");
         theme = themes.lastObject;
         return;
     }
@@ -1595,7 +1594,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
                 if (currentCount > highestCount) {
                     highestCount = t.games.count;
                     mostPopularTheme = t;
-                    NSLog(@"Theme %@ has the highest number (%ld) of games using it so far", t.name, highestCount);
                 }
             }
             if (highestCount < numberOfGames) {
@@ -1606,7 +1604,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
         }
     }
-
     self.oneThemeForAll = (BOOL)[sender state];
 }
 
