@@ -1729,30 +1729,39 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         path = [self convertAGTFile: path];
         if (!path)
         {
-            if (report)
+            if (report) {
+                dispatch_async(dispatch_get_main_queue(), ^{
                 NSRunAlertPanel(@"Conversion failed.",
                                 @"This old style AGT file could not be converted to the new AGX format.",
                                 @"Okay", NULL, NULL);
+                });
+            }
             return nil;
         }
     }
 
     if (![gGameFileTypes containsObject: path.pathExtension.lowercaseString])
     {
-        if (report)
+        if (report) {
+            dispatch_async(dispatch_get_main_queue(), ^{
             NSRunAlertPanel(@"Unknown file format.",
                             @"Can not recognize the file extension.",
                             @"Okay", NULL, NULL);
+            });
+        }
         return nil;
     }
 
     format = babel_init((char*)path.UTF8String);
     if (!format || !babel_get_authoritative())
     {
-        if (report)
-            NSRunAlertPanel(@"Unknown file format.",
-                            @"Babel can not identify the file format.",
-                            @"Okay", NULL, NULL);
+        if (report) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSRunAlertPanel(@"Unknown file format.",
+                                @"Babel can not identify the file format.",
+                                @"Okay", NULL, NULL);
+            });
+        }
         babel_release();
         return nil;
     }
@@ -1763,10 +1772,13 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
     if (rv <= 0)
     {
-        if (report)
+        if (report) {
+            dispatch_async(dispatch_get_main_queue(), ^{
             NSRunAlertPanel(@"Fatal error.",
                             @"Can not compute IFID from the file.",
                             @"Okay", NULL, NULL);
+            });
+        }
         babel_release();
         return nil;
     }
@@ -1787,10 +1799,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             char *mdbuf = malloc(mdlen);
             if (!mdbuf)
             {
-                if (report)
-                    NSRunAlertPanel(@"Out of memory.",
+                if (report) {
+                    dispatch_async(dispatch_get_main_queue(), ^{                    NSRunAlertPanel(@"Out of memory.",
                                     @"Can not allocate memory for the metadata text.",
                                     @"Okay", NULL, NULL);
+                    });
+                }
                 babel_release();
                 return nil;
             }
@@ -1803,6 +1817,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             } else {
                 NSLog(@"Error! Babel could not extract metadata from file");
                 free(mdbuf);
+                babel_release();
                 return nil;
             }
             
