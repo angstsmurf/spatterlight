@@ -1731,9 +1731,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         {
             if (report) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                NSRunAlertPanel(@"Conversion failed.",
-                                @"This old style AGT file could not be converted to the new AGX format.",
-                                @"Okay", NULL, NULL);
+                    NSRunAlertPanel(@"Conversion failed.",
+                                    @"This old style AGT file could not be converted to the new AGX format.",
+                                    @"Okay", NULL, NULL);
                 });
             }
             return nil;
@@ -1744,9 +1744,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
-            NSRunAlertPanel(@"Unknown file format.",
-                            @"Can not recognize the file extension.",
-                            @"Okay", NULL, NULL);
+                NSRunAlertPanel(@"Unknown file format.",
+                                @"Can not recognize the file extension.",
+                                @"Okay", NULL, NULL);
             });
         }
         return nil;
@@ -1774,9 +1774,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
-            NSRunAlertPanel(@"Fatal error.",
-                            @"Can not compute IFID from the file.",
-                            @"Okay", NULL, NULL);
+                NSRunAlertPanel(@"Fatal error.",
+                                @"Can not compute IFID from the file.",
+                                @"Okay", NULL, NULL);
             });
         }
         babel_release();
@@ -1800,9 +1800,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             if (!mdbuf)
             {
                 if (report) {
-                    dispatch_async(dispatch_get_main_queue(), ^{                    NSRunAlertPanel(@"Out of memory.",
-                                    @"Can not allocate memory for the metadata text.",
-                                    @"Okay", NULL, NULL);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSRunAlertPanel(@"Out of memory.",
+                                        @"Can not allocate memory for the metadata text.",
+                                        @"Okay", NULL, NULL);
                     });
                 }
                 babel_release();
