@@ -138,4 +138,8 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 
 @property (strong) IBOutlet NSButton *btnOverwriteStyles;
 
+@property (strong) IBOutlet NSButton *btnAdjustSize;
+
+- (IBAction)changeAdjustSize:(id)sender;
+
 @end

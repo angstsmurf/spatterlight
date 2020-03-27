@@ -2271,4 +2271,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [[NSColorPanel sharedColorPanel] orderOut:self];
 }
 
+- (IBAction)changeAdjustSize:(id)sender {
+}
 @end
