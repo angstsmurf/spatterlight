@@ -198,7 +198,7 @@ NSColor *dataToColor(NSData *data) {
         return defaultTheme;
 
     defaultTheme.dashes = YES;
-    defaultTheme.defaultRows = 100;
+    defaultTheme.defaultRows = 50;
     defaultTheme.defaultCols = 80;
     defaultTheme.minRows = 5;
     defaultTheme.minCols = 32;
@@ -354,7 +354,7 @@ NSColor *dataToColor(NSData *data) {
         return lectroteTheme;
 
     lectroteTheme.dashes = YES;
-    lectroteTheme.defaultRows = 100;
+    lectroteTheme.defaultRows = 40;
     lectroteTheme.defaultCols = 100;
     lectroteTheme.minRows = 5;
     lectroteTheme.minCols = 32;
@@ -409,7 +409,7 @@ NSColor *dataToColor(NSData *data) {
         return lectroteDarkTheme;
 
     lectroteDarkTheme.dashes = YES;
-    lectroteDarkTheme.defaultRows = 100;
+    lectroteDarkTheme.defaultRows = 40;
     lectroteDarkTheme.defaultCols = 100;
     lectroteDarkTheme.minRows = 5;
     lectroteDarkTheme.minCols = 32;
@@ -657,7 +657,7 @@ NSColor *dataToColor(NSData *data) {
 //        return stTheme;
 
     stTheme.dashes = NO;
-    stTheme.defaultRows = 100;
+    stTheme.defaultRows = 24;
     stTheme.defaultCols = 80;
     stTheme.minRows = 5;
     stTheme.minCols = 32;
