@@ -65,6 +65,8 @@
     NSMutableData *bufferedData;
 
     LibController *libcontroller;
+
+    NSSize previousCharacterCellSize;
 }
 
 @property NSMutableDictionary *gwindows;
@@ -85,6 +87,9 @@
 @property(readonly) NSRect storedBorderFrame;
 
 @property(readonly) NSRect windowPreFullscreenFrame;
+@property(readonly) NSSize contentSizeInChars;
+
+@property BOOL ignoreResizes;
 
 @property(readonly) NSInteger firstResponderView;
 

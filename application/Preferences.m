@@ -954,10 +954,13 @@ NSString *fontToString(NSFont *font) {
     glkcntrl.theme = theme;
     glkcntrl.borderView = sampleTextBorderView;
     glkcntrl.contentView = sampleTextView;
+    glkcntrl.ignoreResizes = YES;
     sampleTextView.glkctrl = glkcntrl;
 
     sampleTextBorderView.fillColor = theme.bufferBackground;
-    sampleTextBorderView.frame = NSMakeRect(0, 312, self.window.frame.size.width, ((NSView *)self.window.contentView).frame.size.height - 312);
+    NSRect newSampleFrame = NSMakeRect(0, 312, self.window.frame.size.width, ((NSView *)self.window.contentView).frame.size.height - 312);
+    sampleTextView.frame = newSampleFrame;
+    sampleTextBorderView.frame = newSampleFrame;
 
     _divider.frame = NSMakeRect(0, 311, self.window.frame.size.width, 1);
     _divider.autoresizingMask = NSViewMaxYMargin;
@@ -1202,7 +1205,6 @@ NSString *fontToString(NSFont *font) {
 
     if (sampleTextView.frame.size.height < sampleTextBorderView.frame.size.height) {
         [self adjustPreview:nil];
-
     }
     [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.1];
 }
@@ -1237,7 +1239,7 @@ NSString *fontToString(NSFont *font) {
     NSTextView *textview = glktxtbuf.textview;
     textview.textContainerInset = NSZeroSize;
 
-    if (sampleTextView.frame.size.height < glktxtbuf.textview.frame.size.height && glktxtbuf.frame.size.height < glktxtbuf.textview.frame.size.height) {
+    if (sampleTextView.frame.size.height < glktxtbuf.textview.frame.size.height && glktxtbuf.frame.size.height < glktxtbuf.textview.frame.size.height && glktxtbuf.textview.frame.size.height < sampleTextBorderView.frame.size.height) {
         newSampleFrame.size.height = textview.frame.size.height;
     }
 
@@ -1412,6 +1414,7 @@ NSString *fontToString(NSFont *font) {
 - (void)restoreThemeSelection:(id)sender {
     if (_arrayController.selectedTheme == sender) {
 //        NSLog(@"restoreThemeSelection: selected theme already was %@. Returning", ((Theme *)sender).name);
+        return;
     }
     NSArray *themes = _arrayController.arrangedObjects;
     theme = sender;

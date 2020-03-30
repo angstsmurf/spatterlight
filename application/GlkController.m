@@ -72,7 +72,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     super.frame = frame;
 
-    if ([_glkctrl isAlive] && !self.inLiveResize) {
+    if ([_glkctrl isAlive] && !self.inLiveResize && !_glkctrl.ignoreResizes) {
         [_glkctrl contentDidResize:frame];
     }
 }
@@ -81,7 +81,7 @@ fprintf(stderr, "%s\n",                                                    \
     // We use a custom fullscreen width, so don't resize to full screen width
     // when viewDidEndLiveResize is called because we just entered fullscreen
     if ((_glkctrl.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask)
+        NSFullScreenWindowMask && !_glkctrl.ignoreResizes)
         [_glkctrl contentDidResize:self.frame];
 }
 
@@ -115,6 +115,8 @@ fprintf(stderr, "%s\n",                                                    \
      winRestore:(BOOL)windowRestoredBySystem_ {
 
     NSLog(@"glkctl: runterp %@ %@", terpname_, game_.metadata.title);
+
+    _ignoreResizes = YES;
 
     _game = game_;
     _theme = _game.theme;
@@ -182,7 +184,8 @@ fprintf(stderr, "%s\n",                                                    \
     waitforfilename = NO;
     dead = YES; // This should be YES until the interpreter process is running
 
-    _windowPreFullscreenFrame = self.window.frame;
+    previousCharacterCellSize = _theme.gridNormal.cellSize;
+    _contentSizeInChars = [self calculateContentSizeInCharsForCellSize:previousCharacterCellSize];
 
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
@@ -192,9 +195,12 @@ fprintf(stderr, "%s\n",                                                    \
     lastsoundresno = -1;
     lastimage = nil;
 
+    _ignoreResizes = NO;
+
     // If we are resetting, there is a bunch of stuff that we have already done
     // and we can skip
     if (shouldReset) {
+        _windowPreFullscreenFrame = self.window.frame;
         [self adjustContentView];
         [self forkInterpreterTask];
         return;
@@ -446,6 +452,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     shouldRestoreUI = NO;
 
+    _ignoreResizes = YES;
+
     GlkWindow *win;
 
     // Copy values from autorestored GlkController object
@@ -503,6 +511,8 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     [self adjustContentView];
+
+    _ignoreResizes = NO;
 
     // We create a forced arrange event in order to force the interpreter process
     // to re-send us window sizes. The player may have changed settings that affect
@@ -2950,7 +2960,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 // Some convenience methods
 - (void)adjustContentView {
     if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
-        NSEqualRects(_borderView.frame, self.window.screen.frame) ||(dead && _inFullscreen && windowRestoredBySystem)) {
+        NSEqualRects(_borderView.frame, self.window.screen.frame) || (dead && _inFullscreen && windowRestoredBySystem)) {
         // We are in fullscreen
         _contentView.frame = [self contentFrameForFullscreen];
     } else {
@@ -2962,8 +2972,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 - (NSRect)contentFrameForWindowed {
     NSUInteger border = (NSUInteger)_theme.border;
     return NSMakeRect(border, border,
-                      ceil(NSWidth(_borderView.bounds) - border * 2),
-                      ceil(NSHeight(_borderView.bounds) - border * 2));
+                      round(NSWidth(_borderView.bounds) - border * 2),
+                      round(NSHeight(_borderView.bounds) - border * 2));
 }
 
 - (NSRect)contentFrameForFullscreen {
@@ -2971,7 +2981,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     return NSMakeRect(floor((NSWidth(_borderView.bounds) -
                             NSWidth(_contentView.frame)) / 2),
                       border, NSWidth(_contentView.frame),
-                      ceil(NSHeight(_borderView.bounds) - border * 2));
+                      round(NSHeight(_borderView.bounds) - border * 2));
 }
 
 #pragma mark Accessibility

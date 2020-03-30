@@ -451,6 +451,9 @@
 }
 
 - (void)setFrame:(NSRect)frame {
+
+    if (self.glkctl.ignoreResizes)
+        return;
     NSUInteger r;
     NSRange selectedRange = textview.selectedRange;
     if (self.inLiveResize)
@@ -459,27 +462,38 @@
         selectedRange = _restoredSelection;
 
     super.frame = frame;
-    NSUInteger newcols =
-    (NSUInteger)ceil((frame.size.width - (textview.textContainerInset.width +
+    NSInteger newcols =
+    (NSInteger)round((frame.size.width - (textview.textContainerInset.width +
                               container.lineFragmentPadding) *
           2) /
          self.theme.cellWidth);
 
-    NSUInteger newrows = (NSUInteger)ceil((frame.size.height + self.theme.gridNormal.lineSpacing -
+    NSInteger newrows = (NSInteger)round((frame.size.height + self.theme.gridNormal.lineSpacing -
                               (textview.textContainerInset.height * 2) ) /
                              self.theme.cellHeight);
 
-    if (newcols == cols && newrows == rows &&
-        NSEqualRects(textview.frame, frame)) {
-        //        NSLog(@"GlkTextGridWindow setFrame: new frame same as old frame. "
-        //              @"Skipping.");
-        return;
+    if (newcols == (NSInteger)cols && newrows == (NSInteger)rows) {
+        //&& NSEqualRects(textview.frame, frame)) {
+        NSLog(@"GlkTextGridWindow %ld setFrame: new frame same as old frame. "
+              @"Skipping.", self.name);
+        
+        if ( NSEqualRects(textview.frame, frame))
+            return;
+    } else {
+//        NSLog(@"GlkTextGridWindow %ld setFrame: old cols:%ld new cols:%ld old rows:%ld new rows:%ld", self.name, cols, newcols, rows, newrows);
+//        NSLog(@"Rebuilding grid window!");
     }
 
     if (newcols < 1)
         newcols = 1;
     if (newrows < 1)
         newrows = 1;
+
+    NSSize screensize = self.glkctl.window.screen.frame.size;
+    if (newcols * self.theme.cellWidth > screensize.width || newrows * self.theme.cellHeight > screensize.height) {
+        NSLog(@"GlkTextGridWindow setFrame error! newcols (%ld) * theme.cellwith (%f) = %f. newrows (%ld) * theme.cellheight (%f) = %f. Returning.", newcols, self.theme.cellWidth, newcols * self.theme.cellWidth, newrows, self.theme.cellHeight, newrows * self.theme.cellHeight);
+        return;
+    }
 
     NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
 
