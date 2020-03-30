@@ -72,8 +72,13 @@
     } else
         size = [font advancementForGlyph:(NSGlyph)'X'];
 
+    CGFloat baselineOffset = [self.attributeDict[NSBaselineOffsetAttributeName] floatValue];
+
+    if (baselineOffset < 0)
+        baselineOffset = -baselineOffset;
+
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-    size.height = [layoutManager defaultLineHeightForFont:font] + self.lineSpacing;
+    size.height = [layoutManager defaultLineHeightForFont:font] + self.lineSpacing + baselineOffset;
     return size;
 }
 
