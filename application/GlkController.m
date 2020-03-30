@@ -689,8 +689,7 @@ fprintf(stderr, "%s\n",                                                    \
                 NSLog(@"Error removing file at path: %@", error);
             }
         }
-    } else
-        NSLog(@"deleteFileAtPath: No file exists at path %@", path);
+    }
 }
 
 - (void)autoSaveOnExit {
