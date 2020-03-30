@@ -2048,7 +2048,6 @@ NSInteger colorToInteger(NSColor *color) {
             break;
 
         case INITCHAR:
-            [self performScroll];
             //            NSLog(@"glkctl initchar %d", req->a1);
             if (reqWin)
                 [reqWin initChar];
