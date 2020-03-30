@@ -501,6 +501,10 @@ NSColor *dataToColor(NSData *data) {
     zoomTheme.gridNormal.font = [NSFont fontWithName:@"Courier" size:12];
     zoomTheme.gridNormal.color = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
 
+    NSMutableDictionary *dict = [zoomTheme.gridNormal.attributeDict mutableCopy];
+    dict[NSBaselineOffsetAttributeName] = @(-2);
+    zoomTheme.gridNormal.attributeDict = dict;
+
     NSSize size = [zoomTheme.gridNormal cellSize];
 
     zoomTheme.cellHeight = size.height;
