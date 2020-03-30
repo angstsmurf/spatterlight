@@ -2419,14 +2419,11 @@ static NSString *signalToName(NSTask *task) {
                             contextInfo:nil];
     }
 
-    [self performScroll];
-
     for (GlkWindow *win in [_gwindows allValues])
         [win terpDidStop];
 
     self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
     task = nil;
-
 
     // We autosave the UI but delete the terp autosave files
     [self autoSaveOnExit];

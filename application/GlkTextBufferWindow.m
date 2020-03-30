@@ -1911,6 +1911,7 @@
 
 - (void)terpDidStop {
     [_textview setEditable:NO];
+    [self grabFocus];
 }
 
 - (BOOL)textView:(NSTextView *)aTextView
