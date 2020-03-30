@@ -1830,6 +1830,9 @@
     [_textview setEditable:YES];
 
     [_textview setSelectedRange:NSMakeRange(fence, 0)];
+    if (_lastseen < NSHeight(_textview.frame) - (self.theme.border + self.theme.bufferMarginY) * 2) {
+        [self performScroll];
+    }
 
     [self setLastMove];
     [self speakMostRecent:nil];
@@ -2230,7 +2233,7 @@
             lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
                              effectiveRange:nil];
 
-        _lastseen = (NSInteger)(line.origin.y + line.size.height); // bottom of the line
+        _lastseen = (NSInteger)NSMaxY(line); // bottom of the line
         // NSLog(@"GlkTextBufferWindow: markLastSeen: %ld", (long)_lastseen);
     }
 }
@@ -2348,6 +2351,7 @@
     else
         [_textview scrollRectToVisible:NSMakeRect(0, _lastseen, 0,
                                              bottom - _lastseen)];
+    [self markLastSeen];
 }
 
 - (BOOL)scrolledToBottom {
