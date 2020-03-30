@@ -1375,7 +1375,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
                 // First, we look for a cover image file in Spatterlight Application Support folder
                 NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:imageDir];
-                NSData *imgdata = [[NSData alloc] initWithContentsOfURL:imgpath];
+                NSData *imgdata;
+
+                if ([[NSFileManager defaultManager] fileExistsAtPath:imgpath.path]) {
+                    imgdata = [[NSData alloc] initWithContentsOfURL:imgpath];
+                }
 
                 if (imgdata) {
                     game.metadata.coverArtURL = imgpath.path;
