@@ -916,7 +916,7 @@ void glk_request_char_event(window_t *win)
     if (win->char_request || win->line_request)
     {
         gli_strict_warning("request_char_event: window already has keyboard request");
-        return;
+//        return;
     }
 
     switch (win->type)
@@ -946,7 +946,7 @@ void glk_request_line_event(window_t *win, char *buf, glui32 maxlen, glui32 init
     if (win->char_request || win->line_request)
     {
         gli_strict_warning("request_line_event: window already has keyboard request");
-        return;
+//        return;
     }
 
     switch (win->type)
