@@ -320,7 +320,14 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)runTerpNormal {
     // Just start the game with no autorestore or fullscreen or resetting
-    [self.window setContentSize:[self defaultWindowSize]];
+    NSRect newContentFrame = [self.window.contentView frame];
+    newContentFrame.size = [self defaultWindowSize];
+    NSRect newWindowFrame = [self.window frameRectForContentRect:newContentFrame];
+    NSRect screenFrame = self.window.screen.visibleFrame;
+    // Make sure that the window is shorter than the screen
+    if (newWindowFrame.size.height > screenFrame.size.height)
+        newWindowFrame.size.height = screenFrame.size.height;
+    [self.window setFrame:newWindowFrame display:NO];
     [self adjustContentView];
     [self.window center];
     [self forkInterpreterTask];
