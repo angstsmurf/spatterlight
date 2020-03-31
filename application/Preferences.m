@@ -958,7 +958,7 @@ NSString *fontToString(NSFont *font) {
     sampleTextView.glkctrl = glkcntrl;
 
     sampleTextBorderView.fillColor = theme.bufferBackground;
-    NSRect newSampleFrame = NSMakeRect(0, 312, self.window.frame.size.width, ((NSView *)self.window.contentView).frame.size.height - 312);
+    NSRect newSampleFrame = NSMakeRect(20, 312, self.window.frame.size.width - 40, ((NSView *)self.window.contentView).frame.size.height - 312);
     sampleTextView.frame = newSampleFrame;
     sampleTextBorderView.frame = newSampleFrame;
 
