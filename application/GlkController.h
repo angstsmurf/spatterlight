@@ -69,6 +69,7 @@
     NSSize lastSizeInChars;
     Theme *lastTheme;
 
+    NSInteger autosaveVersion;
 }
 
 @property NSMutableDictionary *gwindows;

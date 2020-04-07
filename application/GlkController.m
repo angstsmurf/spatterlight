@@ -744,6 +744,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
 
+    [encoder encodeInteger:autosaveVersion forKey:@"version"];
+
     [encoder encodeBool:dead forKey:@"dead"];
     [encoder encodeRect:self.window.frame forKey:@"windowFrame"];
     [encoder encodeRect:_contentView.frame forKey:@"contentFrame"];
@@ -863,6 +865,9 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)handleAutosave:(int)hash {
+
+    autosaveVersion = hash;
+
     NSInteger res = [NSKeyedArchiver archiveRootObject:self
                                                 toFile:self.autosaveFileGUI];
 
