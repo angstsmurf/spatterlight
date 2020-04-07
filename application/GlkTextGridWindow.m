@@ -276,16 +276,34 @@
         ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"])
         .rangeValue;
         textview.selectedRange = _restoredSelection;
-        // NSLog(@"Decoded range %@ for text grid window selected range",
-        // NSStringFromRange(_restoredSelection)); NSLog(@"textview.selectedRange
-        // = %@", NSStringFromRange(textview.selectedRange));
+        if (line_request) {
+            NSArray *subviews = textview.subviews;
+            for (NSView *view in subviews) {
+                if ([view isKindOfClass:[NSTextField class]]) {
+                    input = (NSTextField *)view;
+                    [input removeFromSuperview];
+                    NSLog(@"Found old input textfield!");
+                }
+            }
+
+            NSString *inputString = [decoder decodeObjectForKey:@"inputString"];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self performSelector:@selector(deferredInitLine:) withObject:inputString afterDelay:0.5];
+            });
+        }
     }
     return self;
+}
+
+- (void)deferredInitLine:(id)sender {
+    [self initLine:(NSString *)sender];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     [encoder encodeObject:textview forKey:@"textview"];
+    [encoder encodeObject:input forKey:@"input"];
     [encoder encodeBool:line_request forKey:@"line_request"];
     [encoder encodeBool:hyper_request forKey:@"hyper_request"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
@@ -296,25 +314,17 @@
     [encoder encodeBool:transparent forKey:@"transparent"];
     NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
-    // NSLog(@"Encoded range %@ for text grid window selected range",
-    // NSStringFromRange(textview.selectedRange));
+    if (fieldEditor) {
+        [encoder encodeObject:fieldEditor.textStorage.string forKey:@"inputString"];
+    }
 }
 
 - (BOOL)isFlipped {
     return YES;
 }
 
-//- (void)setStyle:(NSInteger)style
-//      windowType:(NSInteger)wintype
-//          enable:(NSInteger *)enable
-//           value:(NSInteger *)value {
-//    [super setStyle:style windowType:wintype enable:enable value:value];
-//    [self recalcBackground];
-//}
-
 - (void)prefsDidChange {
-
-    NSLog(@"GlkTextGridWindow prefsDidChange");
+//    NSLog(@"GlkTextGridWindow %ld prefsDidChange", self.name);
     NSRange range = NSMakeRange(0, 0);
     NSRange linkrange = NSMakeRange(0, 0);
     NSRange selectedRange = textview.selectedRange;
@@ -491,7 +501,7 @@
     if (newrows < 1)
         newrows = 1;
 
-    NSSize screensize = self.glkctl.window.screen.frame.size;
+    NSSize screensize = self.glkctl.window.screen.visibleFrame.size;
     if (newcols * self.theme.cellWidth > screensize.width || newrows * self.theme.cellHeight > screensize.height) {
         NSLog(@"GlkTextGridWindow setFrame error! newcols (%ld) * theme.cellwith (%f) = %f. newrows (%ld) * theme.cellheight (%f) = %f. Returning.", newcols, self.theme.cellWidth, newcols * self.theme.cellWidth, newrows, self.theme.cellHeight, newrows * self.theme.cellHeight);
         return;
@@ -895,7 +905,7 @@
     if (line_request &&
         (ch == keycode_Return ||
          [currentTerminators[key] isEqual:@(YES)]))
-        [self typedEnter:nil];
+        [[input window] makeFirstResponder:nil];
 }
 
 - (void)initLine:(NSString *)str {
@@ -905,8 +915,8 @@
     }
 
     NSRect bounds = self.bounds;
-    NSInteger mx = self.theme.gridMarginX;
-    NSInteger my = self.theme.gridMarginY;
+    NSInteger mx = (NSInteger)textview.textContainerInset.width;
+    NSInteger my = (NSInteger)textview.textContainerInset.height;
 
     //    What is this supposed to do?
     //    Quotebox, I guess?
@@ -939,6 +949,7 @@
     input.bezeled = NO;
     input.drawsBackground = NO;
     input.selectable = YES;
+    input.delegate = self;
 
     [input.cell setWraps:YES];
 
@@ -956,9 +967,14 @@
     input.formatter = inputFormatter;
 
     [textview addSubview:input];
-    [self.window makeFirstResponder:input];
+
+    [self performSelector:@selector(deferredGrabFocus:) withObject:input afterDelay:0.1];
 
     line_request = YES;
+}
+
+- (void)deferredGrabFocus:(id)sender {
+    [self.window makeFirstResponder:input];
 }
 
 - (NSString *)cancelLine {
@@ -996,6 +1012,11 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     if (textstorage.length >= NSMaxRange(_restoredSelection))
         _restoredSelection = newrange;
     return newrange;
+}
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    NSDictionary *dict = obj.userInfo;
+    fieldEditor = dict[@"NSFieldEditor"];
 }
 
 #pragma mark Accessibility

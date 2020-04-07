@@ -1587,11 +1587,12 @@
     GlkWindow *win;
 
     // pass on this key press to another GlkWindow if we are not expecting one
-    if (!self.wantsFocus)
+    if (!self.wantsFocus) {
+        NSLog(@"%ld does not want focus", self.name);
         for (win in [self.glkctl.gwindows allValues]) {
             if (win != self && win.wantsFocus) {
+                NSLog(@"GlkTextBufferWindow: Passing on keypress to window %ld", win.name);
                 [win grabFocus];
-                NSLog(@"GlkTextBufferWindow: Passing on keypress");
                 if ([win isKindOfClass:[GlkTextBufferWindow class]])
                     [(GlkTextBufferWindow *)win onKeyDown:evt];
                 else
@@ -1599,6 +1600,7 @@
                 return;
             }
         }
+    }
 
     BOOL commandKeyOnly = ((flags & NSCommandKeyMask) &&
                            !(flags & (NSAlternateKeyMask | NSShiftKeyMask |
@@ -1840,8 +1842,7 @@
         NSString *line = [textstorage.string substringFromIndex:fence];
         if (echo) {
             [self printToWindow:@"\n"
-                          style:style_Input]; // XXX arranger lastchar needs to
-            // be set
+                          style:style_Input]; // XXX arranger lastchar needs to be set
             _lastchar = '\n';
         } else
             [textstorage
@@ -1892,7 +1893,7 @@
 }
 
 - (void)initChar {
-    //NSLog(@"init char in %ld", (long)self.name);
+//    NSLog(@"GlkTextbufferWindow %ld initChar", (long)self.name);
 
     fence = textstorage.length;
 
@@ -2585,6 +2586,10 @@
         scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         scrollview.scrollerStyle = NSScrollerStyleOverlay;
         scrollview.drawsBackground = YES;
+        NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+        if (!bgcolor)
+            bgcolor = self.theme.bufferBackground;
+        scrollview.backgroundColor = bgcolor;
         scrollview.hasHorizontalScroller = NO;
         scrollview.hasVerticalScroller = YES;
         scrollview.verticalScroller.alphaValue = 100;
