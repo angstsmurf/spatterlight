@@ -1062,8 +1062,8 @@
         textstorage.delegate = self;
 
         _textview.textContainerInset = NSMakeSize(marginX, marginY);
-        _textview.backgroundColor = self.theme.bufferBackground;
-        _textview.insertionPointColor = self.theme.bufferNormal.color;
+        _textview.backgroundColor = styles[style_Normal][NSBackgroundColorAttributeName];
+        _textview.insertionPointColor = styles[style_Input][NSForegroundColorAttributeName];
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
@@ -1107,8 +1107,6 @@
 
         if (_textview.textStorage != textstorage)
             NSLog(@"Error! _textview.textStorage != textstorage");
-
-        scrollview.backgroundColor = self.theme.bufferBackground;
 
         [self restoreScrollBarStyle];
 
@@ -1240,7 +1238,7 @@
     }
 
     _textview.backgroundColor = bgcolor;
-    _textview.insertionPointColor = fgcolor;
+//    _textview.insertionPointColor = fgcolor;
 
     [self.glkctl setBorderColor:bgcolor];
 }
@@ -1328,7 +1326,7 @@
     _textview.linkTextAttributes = linkAttributes;
     
     [container invalidateLayout];
-    [self restoreScroll];
+    [self showInsertionPoint];
     lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
     [self recalcBackground];
     [self restoreScroll];
@@ -1719,6 +1717,7 @@
 
         fence = textstorage.length;
         line_request = NO;
+        [self hideInsertionPoint];
         [_textview setEditable:NO];
     }
 
@@ -1774,6 +1773,7 @@
     moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;
 
+    [self recalcBackground];
     [container invalidateLayout];
 }
 
@@ -1859,6 +1859,7 @@
 
         fence = textstorage.length;
         line_request = NO;
+        [self hideInsertionPoint];
         [_textview setEditable:NO];
     }
 }
@@ -1894,7 +1895,7 @@
     fence = textstorage.length;
 
     char_request = YES;
-    _textview.insertionPointColor = self.theme.bufferBackground;
+    [self hideInsertionPoint];
     [_textview setEditable:YES];
 
     [_textview setSelectedRange:NSMakeRange(fence, 0)];
@@ -1938,11 +1939,10 @@
               attributes:self.theme.bufInput.attributeDict];
     [textstorage appendAttributedString:att];
 
-    _textview.insertionPointColor =  self.theme.bufferNormal.color;
-
     [_textview setEditable:YES];
 
     line_request = YES;
+    [self showInsertionPoint];
 
     [_textview setSelectedRange:NSMakeRange(textstorage.length, 0)];
     [self setLastMove];
@@ -1952,7 +1952,6 @@
 - (NSString *)cancelLine {
     [_textview resetTextFinder];
 
-    _textview.insertionPointColor = self.theme.bufferBackground;
     NSString *str = textstorage.string;
     str = [str substringFromIndex:fence];
     if (echo) {
@@ -1967,7 +1966,26 @@
 
     [_textview setEditable:NO];
     line_request = NO;
+    [self hideInsertionPoint];
     return str;
+}
+
+- (void)hideInsertionPoint {
+    if (!line_request) {
+        NSColor *color = styles[style_Normal][NSBackgroundColorAttributeName];
+        if (!color)
+            color = self.theme.bufferBackground;
+        _textview.insertionPointColor = color;
+    }
+}
+
+- (void)showInsertionPoint {
+    if (line_request) {
+        NSColor *color = styles[style_Input][NSForegroundColorAttributeName];
+        if (!color)
+            color = self.theme.bufInput.color;
+        _textview.insertionPointColor = color;
+    }
 }
 
 - (void)echo:(BOOL)val {
