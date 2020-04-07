@@ -480,25 +480,25 @@
 
     super.frame = frame;
     NSInteger newcols =
-    (NSInteger)round((frame.size.width - (textview.textContainerInset.width +
-                              container.lineFragmentPadding) *
-          2) /
+    (NSInteger)round((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding
+          ) * 2) /
          self.theme.cellWidth);
 
-    NSInteger newrows = (NSInteger)round((frame.size.height + self.theme.gridNormal.lineSpacing -
-                              (textview.textContainerInset.height * 2) ) /
+    NSInteger newrows = (NSInteger)round((frame.size.height + self.theme.gridNormal.lineSpacing
+                              - (textview.textContainerInset.height * 2) ) /
                              self.theme.cellHeight);
 
+//    NSLog(@"GlkTextGridWindow setFrame: newcols: %ld newrows: %ld", newcols, newrows);
     if (newcols == (NSInteger)cols && newrows == (NSInteger)rows) {
         //&& NSEqualRects(textview.frame, frame)) {
-        NSLog(@"GlkTextGridWindow %ld setFrame: new frame same as old frame. "
-              @"Skipping.", self.name);
-        
+        //        NSLog(@"GlkTextGridWindow %ld setFrame: new frame same as old frame. "
+        //              @"Skipping.", self.name);
+
         if ( NSEqualRects(textview.frame, frame))
             return;
     } else {
-//        NSLog(@"GlkTextGridWindow %ld setFrame: old cols:%ld new cols:%ld old rows:%ld new rows:%ld", self.name, cols, newcols, rows, newrows);
-//        NSLog(@"Rebuilding grid window!");
+        //        NSLog(@"GlkTextGridWindow %ld setFrame: old cols:%ld new cols:%ld old rows:%ld new rows:%ld", self.name, cols, newcols, rows, newrows);
+        //        NSLog(@"Rebuilding grid window!");
     }
 
     if (newcols < 1)
@@ -693,7 +693,7 @@
     // Write this string
     while (pos < length) {
         // Can't write if we've fallen off the end of the window
-        if (ypos > textstorage.length / (cols + 1) || ypos > rows)
+        if ((cols > -1 && ypos > (NSInteger)textstorage.length / (cols + 1) ) || ypos > rows)
             break;
 
         // Can only write a certain number of characters
@@ -819,7 +819,7 @@
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent {
     GlkEvent *gev;
-    //    NSLog(@"mousedown in grid window");
+//    NSLog(@"mousedown in grid window %ld", self.name);
 
     if (mouse_request) {
         self.glkctl.shouldScrollOnInputEvent = YES;
