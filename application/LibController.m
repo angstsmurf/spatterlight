@@ -326,8 +326,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     NSInteger choice =
     NSRunAlertPanel(
                     @"Cannot find the file.",
-                    @"The file could not be found at its original location. Do "
-                    @"you want to look for it?",
+                  [NSString stringWithFormat: @"The game file for \"%@\" could not be found at its original location. Do "
+                    @"you want to look for it?", game.metadata.title],
                     @"Yes", NULL, @"Cancel");
     if (choice != NSAlertOtherReturn) {
         NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -1656,7 +1656,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
         game.found = NO;
-        [self lookForMissingFile:game];
+        if (!restoreflag) // Everything will break if we throw up a dialog during system window restoration
+            [self lookForMissingFile:game];
         return nil;
     } else game.found = YES;
 
