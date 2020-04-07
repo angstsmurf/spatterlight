@@ -66,7 +66,9 @@
 
     LibController *libcontroller;
 
-    NSSize previousCharacterCellSize;
+    NSSize lastSizeInChars;
+    Theme *lastTheme;
+
 }
 
 @property NSMutableDictionary *gwindows;
@@ -87,7 +89,6 @@
 @property(readonly) NSRect storedBorderFrame;
 
 @property(readonly) NSRect windowPreFullscreenFrame;
-@property(readonly) NSSize contentSizeInChars;
 
 @property BOOL ignoreResizes;
 

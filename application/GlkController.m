@@ -184,9 +184,6 @@ fprintf(stderr, "%s\n",                                                    \
     waitforfilename = NO;
     dead = YES; // This should be YES until the interpreter process is running
 
-    previousCharacterCellSize = _theme.gridNormal.cellSize;
-    _contentSizeInChars = [self calculateContentSizeInCharsForCellSize:previousCharacterCellSize];
-
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     windowdirty = NO;
@@ -327,7 +324,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)runTerpNormal {
     // Just start the game with no autorestore or fullscreen or resetting
     NSRect newContentFrame = [self.window.contentView frame];
-    newContentFrame.size = [self defaultWindowSize];
+    newContentFrame.size = [self defaultContentSize];
     NSRect newWindowFrame = [self.window frameRectForContentRect:newContentFrame];
     NSRect screenFrame = self.window.screen.visibleFrame;
     // Make sure that the window is shorter than the screen
@@ -335,6 +332,7 @@ fprintf(stderr, "%s\n",                                                    \
         newWindowFrame.size.height = screenFrame.size.height;
     [self.window setFrame:newWindowFrame display:NO];
     [self adjustContentView];
+    lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
     [self.window center];
     [self forkInterpreterTask];
     [self showWindow:nil];
@@ -1043,44 +1041,32 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Window resizing
 
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window
-                        defaultFrame:(NSRect)defaultFrame {
-    // NSLog(@"glkctl: windowWillUseStandardFrame");
+                        defaultFrame:(NSRect)screenframe {
+    NSLog(@"glkctl: windowWillUseStandardFrame");
 
-    NSSize windowSize = [self defaultWindowSize];
-    CGRect screenframe = window.screen.visibleFrame;
+    NSSize windowSize = [self defaultContentSize];
 
-    if (windowSize.width > screenframe.size.width)
-        windowSize.width = screenframe.size.width;
+    NSRect frame = [window frameRectForContentRect:NSMakeRect(0, 0, windowSize.width, windowSize.height)];;
 
-    NSRect frame = NSMakeRect((NSWidth(screenframe) - windowSize.width) / 2, 0,
-                              windowSize.width, NSHeight(screenframe));
+    if (frame.size.width > screenframe.size.width)
+        frame.size.width = screenframe.size.width;
+    if (frame.size.height > screenframe.size.height)
+        frame.size.height = screenframe.size.height;
+
+    frame.origin = NSMakePoint(self.window.frame.origin.x, self.window.frame.origin.y - (frame.size.height - self.window.frame.size.height));
+
+    if (NSMaxY(frame) > NSMaxY(screenframe))
+        frame.origin.y = NSMaxY(screenframe) - frame.size.height;
 
     return frame;
 }
 
-- (NSSize)defaultWindowSize {
-    CGFloat width = round(_theme.cellWidth * _theme.defaultCols + (_theme.gridMarginX + _theme.border + 4.0) * 2.0);
-    CGFloat height = round(_theme.cellHeight * _theme.defaultRows + (_theme.gridMarginY + _theme.border + 4.0) * 2.0);
-
-    return NSMakeSize(width, height);
-}
-
-- (NSSize)calculateContentSizeInCharsForCellSize:(NSSize)cellSize {
-    CGFloat width = round((_contentView.frame.size.width - (_theme.gridMarginX + 5.0) * 2.0) / cellSize.width);
-    CGFloat height = round((_contentView.frame.size.height - (_theme.gridMarginY) * 2.0) / cellSize.height);
-
-    if (width < 10 || height < 2) {
-        NSLog(@"calculateContentSizeInChars: Error!");
-        NSLog(@"calculateContentSizeInChars: width: %f", width);
-        CGFloat margins = (_theme.gridMarginX + 5.0) * 2.0;
-        NSLog(@"_contentView.frame.size.width (%f) - ((_theme.gridMarginX (%d) + 5.0 (padding)) * 2.0) (%f) /  _theme.cellWidth (%f))", _contentView.frame.size.width, _theme.gridMarginX, margins, _theme.cellWidth);
-        NSLog(@"calculateContentSizeInChars: height: %f", height);
-        margins = (_theme.gridMarginY) * 2.0;
-        NSLog(@"_contentView.frame.size.height (%f) - (_theme.gridMarginY (%d) * 2.0) (%f) /  _theme.cellHeight (%f))", _contentView.frame.size.height, _theme.gridMarginY, margins, _theme.cellHeight);
-        return _contentSizeInChars;
-    }
-
-    return NSMakeSize(width, height);;
+- (NSSize)defaultContentSize {
+    // Actually the size of the content view, not including window title bar
+    NSSize size;
+    size.width = round(_theme.cellWidth * _theme.defaultCols + (_theme.gridMarginX + _theme.border + 5.0) * 2.0);
+    size.height = round(_theme.cellHeight * _theme.defaultRows + (_theme.gridMarginY + _theme.border) * 2.0);
+    return size;
 }
 
 - (void)contentDidResize:(NSRect)frame {
@@ -1090,21 +1076,13 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
-//    NSLog(@"glkctl: contentDidResize: frame:%@ Previous _contentView.frame:%@",
-//          NSStringFromRect(frame), NSStringFromRect(lastContentResize));
-
     if (frame.origin.x < 0 || frame.origin.y < 0 || frame.size.width < 0 || frame.size.height < 0) {
         NSLog(@"contentDidResize: weird new frame: %@", NSStringFromRect(frame));
     }
 
     lastContentResize = frame;
 
-    NSSize oldContentSizeInChars = _contentSizeInChars;
-    _contentSizeInChars = [self calculateContentSizeInCharsForCellSize:_theme.gridNormal.cellSize];
-
-    if (!NSEqualSizes(oldContentSizeInChars, _contentSizeInChars)) {
-        NSLog(@"Old contentSizeInChars: %@ new: %@", NSStringFromSize(oldContentSizeInChars), NSStringFromSize(_contentSizeInChars));
-    }
+    lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
 
     if (!inFullScreenResize && !dead) {
         //        NSLog(@"glkctl: contentDidResize: Sending an arrange event with the "
@@ -1124,8 +1102,15 @@ fprintf(stderr, "%s\n",                                                    \
     _ignoreResizes = YES;
     NSRect oldframe = _contentView.frame;
 
+    NSUInteger borders = (NSUInteger)_theme.border * 2;
+
     if ((self.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask) {
+        NSFullScreenWindowMask) { // We are not in fullscreen
+//        NSLog(@"zoomContentToSize: we are not in fullscreen");
+
+        newSize.width += borders;
+        newSize.height += borders;
+
         NSRect screenframe = [NSScreen mainScreen].visibleFrame;
 
         NSRect contentRect = NSMakeRect(0, 0, newSize.width, newSize.height);
@@ -1134,8 +1119,8 @@ fprintf(stderr, "%s\n",                                                    \
         winrect.origin = self.window.frame.origin;
 
         // If the new size is too big to fit on screen, clip at screen size
-        if (NSHeight(winrect) > NSHeight(screenframe) - 1)
-            winrect.size.height = NSHeight(screenframe) - 1;
+        if (NSHeight(winrect) > NSHeight(screenframe))
+            winrect.size.height = NSHeight(screenframe);
         if (NSWidth(winrect) > NSWidth(screenframe))
             winrect.size.width = NSWidth(screenframe);
 
@@ -1152,13 +1137,19 @@ fprintf(stderr, "%s\n",                                                    \
             winrect.origin.y = NSMinY(screenframe);
         }
 
-        [self.window setFrame:winrect display:NO animate:NO];
+        NSSize minSize = self.window.minSize;
+        if (winrect.size.width < minSize.width)
+            winrect.size.width = minSize.width;
+        if (winrect.size.height < minSize.width)
+            winrect.size.height = minSize.width;
+
+        [self.window setFrame:winrect display:YES animate:YES];
         _contentView.frame = [self contentFrameForWindowed];
     } else {
-        NSUInteger borders = (NSUInteger)_theme.border * 2;
+//        NSLog(@"zoomContentToSize: we are in fullscreen");
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
-                                     newSize.width - borders,
-                                     NSHeight(_borderView.frame) - borders);
+                                     newSize.width,
+                                     NSHeight(_borderView.frame));
 
         if (NSWidth(newframe) > NSWidth(_borderView.frame) - borders)
             newframe.size.width = NSWidth(_borderView.frame) - borders;
@@ -1173,6 +1164,25 @@ fprintf(stderr, "%s\n",                                                    \
     _ignoreResizes = NO;
 }
 
+
+- (NSSize)charCellsToContentSize:(NSSize)cells {
+    // Only _contentView, does not take border into account
+    NSSize size;
+    size.width = round(_theme.cellWidth * cells.width + (_theme.gridMarginX + 5.0) * 2.0);
+    size.height = round(_theme.cellHeight * cells.height + (_theme.gridMarginY) * 2.0);
+//    NSLog(@"charCellsToContentSize: %@ in character cells is %@ in points", NSStringFromSize(cells), NSStringFromSize(size));
+    return size;
+}
+
+- (NSSize)contentSizeToCharCells:(NSSize)points {
+    // Only _contentView, does not take border into account
+    NSSize size;
+    size.width = round((points.width - (_theme.gridMarginX + 5.0) * 2.0) / _theme.cellWidth);
+    size.height = round((points.height - (_theme.gridMarginY) * 2.0) / _theme.cellHeight);
+//    NSLog(@"contentSizeToCharCells: %@ in points is %@ in character cells ", NSStringFromSize(points), NSStringFromSize(size));
+    return size;
+}
+
 /*
  *
  */
@@ -1184,7 +1194,7 @@ fprintf(stderr, "%s\n",                                                    \
     // If this is the GlkController of the sample text in
     // the preferences window, we use the _dummyTheme property
     if (_game) {
-        NSLog(@"glkctl notePreferencesChanged called for game %@, currently using theme %@", _game.metadata.title, _game.theme.name);
+//        NSLog(@"glkctl notePreferencesChanged called for game %@, currently using theme %@", _game.metadata.title, _game.theme.name);
         _theme = _game.theme;
     } else {
         _theme = [Preferences currentTheme];
@@ -1195,45 +1205,26 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).name, _theme.name);
         return;
     } else if ( notify.object == nil) {
-        NSLog(@"glkctl: PreferencesChanged with a nil object.");
+//        NSLog(@"glkctl: PreferencesChanged with a nil object.");
     }
 
-    NSSize newCellSize = _theme.gridNormal.cellSize;
-    NSSize newSize = [self calculateContentSizeInCharsForCellSize:newCellSize];
-    NSSize oldSize = [self calculateContentSizeInCharsForCellSize:previousCharacterCellSize];
+    if ([Preferences instance].adjustSize) {
+        if (lastTheme != _theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
+            NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
 
-    if (!NSEqualSizes(previousCharacterCellSize, newCellSize)) {
-        NSLog(@"Cell size changed!");
+            if (!NSEqualSizes(_borderView.bounds.size, newContentSize)) {
+                [self zoomContentToSize:newContentSize];
 
-        NSLog(@"Old cell size: %@ New cell size: %@ Old content size in characters: %@", NSStringFromSize(previousCharacterCellSize), NSStringFromSize(newCellSize), NSStringFromSize(oldSize));
+//                NSLog(@"Changed window size to keep size in char cells constant. Previous size in char cells: %@ Current size in char cells: %@", NSStringFromSize(lastSizeInChars), NSStringFromSize([self contentSizeToCharCells:_contentView.frame.size]));
 
-        _contentSizeInChars = [self calculateContentSizeInCharsForCellSize:previousCharacterCellSize];
-
-
-        if (!NSEqualSizes(oldSize, newSize)) {
-            [self zoomContentToSize:NSMakeSize(round(_contentSizeInChars.width * _theme.cellWidth + (_theme.gridMarginX + _theme.border + 5.0) * 2), round(_contentSizeInChars.height * _theme.cellHeight + (_theme.gridMarginY + _theme.border) * 2))];
-
-            NSLog(@"self contentFrameForWindowed: %@ Current content frame: %@", NSStringFromRect([self contentFrameForWindowed]), NSStringFromRect(_contentView.frame));
-
-            newSize = [self calculateContentSizeInCharsForCellSize:newCellSize];
-
-            if (!NSEqualSizes(oldSize, newSize)) {
-                NSLog(@"Old size in chars: %@ New, adjusted size in chars: %@", NSStringFromSize(oldSize), NSStringFromSize(newSize));
-                NSLog(@"Nope, didn't work. Should have been the same.");
+                //            NSLog(@"[self.window.contentView frame]: %@ _borderView.frame: %@", NSStringFromRect([self.window.contentView frame]), NSStringFromRect(_borderView.frame));
             }
         }
-
-        _contentSizeInChars = newSize;
-        previousCharacterCellSize = newCellSize;
     }
 
-//    if (!NSEqualSizes(_contentSizeInChars, newSize)) {
-//        NSLog(@"Content size in chars changed!");
-//        [self zoomContentToSize:NSMakeSize(round(newSize.width * _theme.cellWidth + (_theme.gridMarginX + _theme.border + 5.0) * 2), round(newSize.height * _theme.cellHeight + (_theme.gridMarginY + _theme.border) * 2))];
-//        _contentSizeInChars = newSize;
-//    }
-//
-
+    lastTheme = _theme;
+    lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
+    
     [self adjustContentView];
 
     if (!dead) {
@@ -1295,7 +1286,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (notification.object != _game.theme)
     return;
 
-    NSSize sizeAfterZoom = [self defaultWindowSize];
+    NSSize sizeAfterZoom = [self defaultContentSize];
     NSRect oldframe = _contentView.frame;
 
     // Prevent the window from shrinking when zooming in or growing when
