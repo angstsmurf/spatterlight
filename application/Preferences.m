@@ -1531,6 +1531,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [state encodeObject:selectedfontString forKey:@"selectedFont"];
     [state encodeBool:previewHidden forKey:@"previewHidden"];
     [state encodeDouble:self.window.frame.size.height forKey:@"windowHeight"];
+    [state encodeBool:_adjustSize forKey:@"adjustSize"];
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
@@ -1543,7 +1544,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
         }
     }
-
+    _adjustSize = [state decodeBoolForKey:@"adjustSize"];
     previewHidden = [state decodeBoolForKey:@"previewHidden"];
     if (previewHidden) {
         [self resizeWindowToHeight:kDefaultPrefWindowHeight];
@@ -1659,6 +1660,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return @"No game is currently running";
     else
         return [@"Theme setting for game " stringByAppendingString:_currentGame.metadata.title];
+}
+
+- (IBAction)changeAdjustSize:(id)sender {
+    _adjustSize = [sender state];
 }
 
 - (IBAction)addTheme:(id)sender {
@@ -2278,6 +2283,4 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [[NSColorPanel sharedColorPanel] orderOut:self];
 }
 
-- (IBAction)changeAdjustSize:(id)sender {
-}
 @end

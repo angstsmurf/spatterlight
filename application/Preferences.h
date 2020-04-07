@@ -49,7 +49,6 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
     CGFloat previewTextHeight;
 }
 
-
 + (void)rebuildTextAttributes;
 
 - (IBAction)changeColor:(id)sender;
@@ -69,6 +68,9 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 - (IBAction)addTheme:(id)sender;
 - (IBAction)removeTheme:(id)sender;
 - (IBAction)clickedOneThemeForAll:(id)sender;
+
+@property (strong) IBOutlet NSButton *btnAdjustSize;
+- (IBAction)changeAdjustSize:(id)sender;
 
 #pragma mark Action menu
 - (IBAction)applyToSelected:(id)sender;
@@ -121,6 +123,7 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 @property (readonly) NSManagedObjectContext *managedObjectContext;
 @property Game *currentGame;
 @property BOOL oneThemeForAll;
+@property BOOL adjustSize;
 @property LibController *libcontroller;
 
 @property (strong) IBOutlet ThemeArrayController *arrayController;
@@ -138,8 +141,6 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 
 @property (strong) IBOutlet NSButton *btnOverwriteStyles;
 
-@property (strong) IBOutlet NSButton *btnAdjustSize;
 
-- (IBAction)changeAdjustSize:(id)sender;
 
 @end
