@@ -1271,6 +1271,11 @@
 
     NSInteger marginX = self.theme.bufferMarginX;
     NSInteger marginY = self.theme.bufferMarginY;
+
+    if (marginY * 2 > _textview.visibleRect.size.height) {
+        marginY = 0;
+    }
+
     _textview.textContainerInset = NSMakeSize(marginX, marginY);
 
     [self recalcBackground];
