@@ -189,9 +189,9 @@ void wintitle(void)
         sprintf(buf, "%s", gli_story_title);
     else if (strlen(gli_story_name))
         sprintf(buf, "%s", gli_story_name);
-        //sprintf(buf, "%s - %s", gli_story_name, gli_program_name);
-    else
-        sprintf(buf, "%s", gli_program_name);
+//        //sprintf(buf, "%s - %s", gli_story_name, gli_program_name);
+//    else
+//        sprintf(buf, "%s", gli_program_name);
     if (strlen(buf))
         sendmsg(SETTITLE, 0, 0, 0, 0, 0,
                 (int)(strlen(buf)), // * sizeof(unsigned short)
@@ -703,6 +703,11 @@ again:
 #endif
             event->type = evtype_Hyperlink;
             event->win = gli_window_for_peer(wmsg.a1);
+            if (event->win == NULL)
+            {
+                fprintf(stderr, "Error: window %d not found!\n",  wmsg.a1);
+                break;
+            }
             event->val1 = wmsg.a2;
             event->win->hyper_request = FALSE;
             break;

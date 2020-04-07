@@ -240,7 +240,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)runTerpWithAutorestore {
-
+    NSLog(@"runTerpWithAutorestore");
     @try {
         restoredController =
         [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileGUI];
@@ -1896,8 +1896,11 @@ NSInteger colorToInteger(NSColor *color) {
 - (void)handleChangeTitle:(char *)buf length:(int)len {
     buf[len] = '\0';
     NSString *str = @(buf);
-    [@(buf) substringToIndex:(NSUInteger)len];
-    // self.window.title = str;
+    if (str && str.length > (NSUInteger)len - 1)
+        [@(buf) substringToIndex:(NSUInteger)len - 1];
+    if (str == nil)
+        return;
+    self.window.title = str;
     NSLog(@"Change title request: %@", str);
 }
 
