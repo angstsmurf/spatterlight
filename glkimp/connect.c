@@ -42,6 +42,8 @@ int ggridmarginx = 0;
 int ggridmarginy = 0;
 float gcellw = 8;
 float gcellh = 12;
+float gbufcellw = 8;
+float gbufcellh = 12;
 float gleading = 0;
 
 glui32 lasteventtype = -1;
@@ -586,6 +588,8 @@ again:
                 ggridmarginy == settings->grid_margin_y &&
                 gcellw == settings->cell_width &&
                 gcellh == settings->cell_height &&
+                gbufcellw == settings->buffer_cell_width &&
+                gbufcellh == settings->buffer_cell_height &&
 				gleading == settings->leading &&
                 settings->force_arrange == 0)
                 goto again;
@@ -600,6 +604,8 @@ again:
             ggridmarginy = settings->grid_margin_y;
             gcellw = settings->cell_width;
             gcellh = settings->cell_height;
+            gbufcellw = settings->buffer_cell_width;
+            gbufcellh = settings->buffer_cell_height;
             gleading = settings->leading;
 
             gli_windows_rearrange();

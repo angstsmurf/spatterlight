@@ -216,6 +216,9 @@ unsigned chartokeycode(unsigned ch) {
         settings->grid_margin_y =(int)theme.gridMarginY;
         settings->cell_width = (float)theme.cellWidth;
         settings->cell_height = (float)theme.cellHeight;
+        NSSize bufferCellSize = theme.bufferNormal.cellSize;
+        settings->buffer_cell_width = (float)bufferCellSize.width;
+        settings->buffer_cell_height = (float)bufferCellSize.height;
         settings->leading = (float)theme.gridNormal.lineSpacing;
         settings->force_arrange = _forced;
 

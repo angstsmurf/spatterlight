@@ -28,6 +28,8 @@ struct settings_struct
     int grid_margin_y;
     float cell_width;
     float cell_height;
+    float buffer_cell_width;
+    float buffer_cell_height;
     float leading;
     int force_arrange;
 };
