@@ -176,7 +176,6 @@ int glkunix_startup_code(glkunix_startup_t *data)
         /* Load game directly from file. */
         locate_gamefile(FALSE);
 
-        return TRUE;
     }
     else if (buf[0] == 'F' && buf[1] == 'O' && buf[2] == 'R' && buf[3] == 'M'
              && buf[8] == 'I' && buf[9] == 'F' && buf[10] == 'R' && buf[11] == 'S') {
@@ -202,17 +201,19 @@ int glkunix_startup_code(glkunix_startup_t *data)
         }
 #endif /* VM_DEBUGGER */
 
-        set_library_autorestore_hook(&spatterglk_game_autorestore);
-        set_library_select_hook(&spatterglk_game_select);
-        max_undo_level = 32; // allow 32 undo steps
-
-        return TRUE;
     }
     else {
         init_err = "This is neither a Glulx game file nor a Blorb file "
         "which contains one.";
+
         return TRUE;
     }
+
+    set_library_autorestore_hook(&spatterglk_game_autorestore);
+    set_library_select_hook(&spatterglk_game_select);
+    max_undo_level = 32; // allow 32 undo steps
+
+    return TRUE;
 }
 
 /* This is the library_autorestore_hook, which will be called from glk_main() between VM setup and the beginning of the execution loop. (VM thread)
