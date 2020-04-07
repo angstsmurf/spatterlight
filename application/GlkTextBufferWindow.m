@@ -54,6 +54,8 @@
 }
 
 - (NSPoint)cellBaselineOffset {
+    if (pos > _attrstr.length)
+        pos = 0;
     NSDictionary *attributes = [_attrstr attributesAtIndex:pos
                                             effectiveRange:nil];
     NSFont *font = attributes[NSFontAttributeName];
