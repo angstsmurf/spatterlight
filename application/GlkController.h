@@ -109,6 +109,8 @@
 @property(readonly) BOOL supportsAutorestore;
 @property(readonly) BOOL inFullscreen;
 
+@property BOOL shouldScrollOnInputEvent;
+
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game
           reset:(BOOL)shouldReset

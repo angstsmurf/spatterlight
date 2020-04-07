@@ -295,6 +295,7 @@
         p = [self convertPoint:p fromView:nil];
         p.y = self.frame.size.height - p.y;
         // NSLog(@"mousedown in gfx at %g,%g", p.x, p.y);
+        self.glkctl.shouldScrollOnInputEvent = YES;
         GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
         [self.glkctl queueEvent:gev];
         mouse_request = NO;

@@ -966,6 +966,7 @@ NSString *fontToString(NSFont *font) {
     _divider.autoresizingMask = NSViewMaxYMargin;
 
     glktxtbuf = [[GlkTextBufferWindow alloc] initWithGlkController:glkcntrl name:1];
+    glktxtbuf.preserveScroll = NO;
 
     NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
 
@@ -1346,7 +1347,7 @@ NSString *fontToString(NSFont *font) {
          if (!previewHidden) {
              [weakSelf adjustPreview:nil];
              [glktxtbuf restoreScrollBarStyle];
-             [glktxtbuf scrollToTop];
+//             [glktxtbuf scrollToTop];
          }
      }];
 }

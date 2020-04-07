@@ -97,6 +97,7 @@
     NSUInteger lastVisible; 
     CGFloat lastScrollOffset;
     BOOL lastAtBottom;
+    BOOL lastAtTop;
 }
 
 @property MyTextView *textview;
@@ -108,10 +109,14 @@
 @property NSUInteger restoredLastVisible;
 @property CGFloat restoredScrollOffset;
 @property BOOL restoredAtBottom;
+@property BOOL restoredAtTop;
+
 
 @property NSRange restoredSelection;
 @property NSString *restoredSearch;
 @property BOOL restoredFindBarVisible;
+
+@property BOOL preserveScroll;
 
 - (void)recalcBackground;
 - (void)onKeyDown:(NSEvent *)evt;

@@ -543,6 +543,8 @@ fprintf(stderr, "%s\n",                                                    \
             [textbuf restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
             if (textbuf.restoredAtBottom) {
                 [textbuf scrollToBottom];
+            } else if (textbuf.restoredAtTop) {
+                [textbuf scrollToTop];
             } else {
                 [textbuf scrollToCharacter:textbuf.restoredLastVisible withOffset:textbuf.restoredScrollOffset];
             }
@@ -1036,14 +1038,20 @@ fprintf(stderr, "%s\n",                                                    \
 
 
 - (void)markLastSeen {
-    for (GlkWindow *win in [_gwindows allValues])
-        [win markLastSeen];
+    for (GlkWindow *win in [_gwindows allValues]) {
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            ((GlkTextBufferWindow *)win).preserveScroll = YES;
+            [win markLastSeen];
+        }
+    }
 }
 
 - (void)performScroll {
     for (GlkWindow *win in [_gwindows allValues])
-        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            ((GlkTextBufferWindow *)win).preserveScroll = YES;
             [win performScroll];
+        }
 }
 
 #pragma mark Window resizing
@@ -2134,7 +2142,7 @@ NSInteger colorToInteger(NSColor *color) {
 //                NSLog(@"glkctl SIZWIN %ld: %@", (long)reqWin.name, NSStringFromRect(rect));
 
                 reqWin.frame = rect;
-                if ([reqWin isKindOfClass:[GlkTextBufferWindow class]])
+                if ([reqWin isKindOfClass:[GlkTextBufferWindow class]] && ((GlkTextBufferWindow *)reqWin).preserveScroll)
                     [(GlkTextBufferWindow *)reqWin restoreScroll];
 
                 NSInteger hmask = NSViewMaxXMargin;

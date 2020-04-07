@@ -9,6 +9,8 @@
 #import "Theme.h"
 #import "GlkStyle.h"
 #import "main.h"
+#import "Game.h"
+#import "Metadata.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -785,7 +787,7 @@
 
 - (BOOL)textView:textview clickedOnLink:(id)link atIndex:(NSUInteger)charIndex {
     NSLog(@"txtgrid: clicked on link: %@", link);
-
+    self.glkctl.shouldScrollOnInputEvent = YES;
     if (!hyper_request) {
         NSLog(@"txtgrid: No hyperlink request in window.");
         return NO;
@@ -805,6 +807,7 @@
     //    NSLog(@"mousedown in grid window");
 
     if (mouse_request) {
+        self.glkctl.shouldScrollOnInputEvent = YES;
         [self.glkctl markLastSeen];
 
         NSPoint p;
@@ -836,7 +839,7 @@
             }
         }
     } else {
-        //        NSLog(@"No hyperlink request or mouse request in grid window");
+//                NSLog(@"No hyperlink request or mouse request in grid window %ld", self.name);
         [super mouseDown:theEvent];
     }
     return NO;
@@ -974,6 +977,7 @@
     line_request = NO;
     if (input) {
         [self.glkctl markLastSeen];
+        self.glkctl.shouldScrollOnInputEvent = YES;
 
         NSString *str = input.stringValue;
         [self printToWindow:str style:style_Input];
