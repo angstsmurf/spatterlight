@@ -93,7 +93,10 @@
 
     CGFloat lastLineheight;
 
-    /* for temporarily storing scroll position */
+    BOOL storedNewline;
+    NSUInteger storedNewlineStyle;
+
+    // for temporarily storing scroll position
     NSUInteger lastVisible; 
     CGFloat lastScrollOffset;
     BOOL lastAtBottom;

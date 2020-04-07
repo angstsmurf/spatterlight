@@ -1154,6 +1154,9 @@
             [decoder decodeBoolForKey:@"shouldDrawCaret"];
         _restoredSearch = [decoder decodeObjectForKey:@"searchString"];
         _restoredFindBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
+        storedNewline = [decoder decodeBoolForKey:@"storedNewline"];
+        storedNewlineStyle = (NSUInteger)[decoder decodeIntegerForKey:@"storedNewlineStyle"];
+
         [self destroyTextFinder];
     }
     return self;
@@ -1202,6 +1205,8 @@
         [encoder encodeObject:searchField.stringValue forKey:@"searchString"];
     }
     [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
+    [encoder encodeBool:storedNewline forKey:@"storedNewline"];
+    [encoder encodeInteger:(NSInteger)storedNewlineStyle forKey:@"storedNewlineStyle"];
 }
 
 - (BOOL)allowsDocumentBackgroundColorChange {
@@ -1861,13 +1866,26 @@
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
     [_textview resetTextFinder];
 
+    if (storedNewline && textstorage.length) {
+        NSAttributedString *newlinestring = [[NSAttributedString alloc]
+                                      initWithString:@"\n"
+                                      attributes:styles[storedNewlineStyle]];
+        [textstorage appendAttributedString:newlinestring];
+    }
+
+    _lastchar = [str characterAtIndex:str.length - 1];
+
+    if (_lastchar == '\n' && textstorage.length) {
+        str = [str substringWithRange:NSMakeRange(0, str.length - 1)];
+        storedNewline = YES;
+        storedNewlineStyle = stylevalue;
+    } else storedNewline = NO;
+
     NSAttributedString *attstr = [[NSAttributedString alloc]
         initWithString:str
             attributes:styles[stylevalue]];
 
     [textstorage appendAttributedString:attstr];
-
-    _lastchar = [str characterAtIndex:str.length - 1];
 }
 
 - (void)initChar {
