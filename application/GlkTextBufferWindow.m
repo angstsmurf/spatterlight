@@ -1278,7 +1278,6 @@
 
     _textview.textContainerInset = NSMakeSize(marginX, marginY);
 
-    [self recalcBackground];
 
     [textstorage removeAttribute:NSBackgroundColorAttributeName
                             range:NSMakeRange(0, textstorage.length)];
