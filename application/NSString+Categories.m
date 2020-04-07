@@ -241,7 +241,7 @@ finish:
         NSString *gameString2 = ((Game *)[games objectAtIndex:1]).metadata.title;
         if (gameString2.length > 40) {
             gameString2 = [gameString2 substringToIndex:39];
-            gameString2 = [NSString stringWithFormat:@"%@…", gameString];
+            gameString2 = [NSString stringWithFormat:@"%@…", gameString2];
         }
         return [NSString stringWithFormat:@"%@ and \"%@\"", gameString, gameString2];
     }
