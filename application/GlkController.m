@@ -416,9 +416,11 @@ fprintf(stderr, "%s\n",                                                    \
     [[readpipe fileHandleForReading]
              setReadabilityHandler:^(NSFileHandle *file) {
                  NSData *data = [file availableData];
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [weakSelf noteDataAvailable:data];
-                 });
+                 if (data) {
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                         [weakSelf noteDataAvailable:data];
+                     });
+                 }
 
              }];
 
@@ -2267,6 +2269,7 @@ NSInteger colorToInteger(NSColor *color) {
 
         case INITCHAR:
             //            NSLog(@"glkctl initchar %d", req->a1);
+            [self performScroll];
             if (reqWin)
                 [reqWin initChar];
             break;
