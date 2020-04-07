@@ -297,6 +297,12 @@ fprintf(stderr, "%s\n",                                                    \
                 shouldShowAutorestoreAlert = YES;
             }
         }
+    } else {
+        NSLog(@"No interpreter autorestore file exists");
+        [self deleteAutosaveFiles];
+        _game.autosaved = NO;
+        [self runTerpNormal];
+        return;
     }
 
     // If this is not a window restoration done by the system,
