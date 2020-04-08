@@ -709,8 +709,8 @@
             amountToDraw = string.length - pos;
         }
 
-        if (cols * ypos + xpos + amountToDraw > textstorage.length)
-            amountToDraw = textstorage.length - (cols * ypos + xpos) + 1;
+        if ((cols + 1) * ypos + xpos + amountToDraw > textstorage.length)
+            amountToDraw = textstorage.length - ((cols + 1) * ypos + xpos) + 1;
 
         if (amountToDraw < 1)
             break;
