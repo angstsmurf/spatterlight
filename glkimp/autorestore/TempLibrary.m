@@ -98,10 +98,14 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     program_info = [decoder decodeObjectForKey:@"program_info"];
     story_name = [decoder decodeObjectForKey:@"story_name"];
     story_title = [decoder decodeObjectForKey:@"story_title"];
-    garglk_set_program_name([program_name UTF8String]);
-    garglk_set_program_info([program_info UTF8String]);
-    garglk_set_story_name([story_name UTF8String]);
-    garglk_set_story_title([story_title UTF8String]);
+    if (program_name != NULL)
+        garglk_set_program_name([program_name UTF8String]);
+    if (program_info != NULL)
+        garglk_set_program_info([program_info UTF8String]);
+    if (story_name != NULL)
+        garglk_set_story_name([story_name UTF8String]);
+    if (story_title != NULL)
+        garglk_set_story_title([story_title UTF8String]);
 
 	_windows = [decoder decodeObjectForKey:@"windows"];
     if (!_windows)
