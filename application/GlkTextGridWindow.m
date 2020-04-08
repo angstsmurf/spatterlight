@@ -479,17 +479,17 @@
         selectedRange = _restoredSelection;
 
     super.frame = frame;
-    NSInteger newcols =
-    (NSInteger)round((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding
+    NSUInteger newcols =
+    (NSUInteger)round((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding
           ) * 2) /
          self.theme.cellWidth);
 
-    NSInteger newrows = (NSInteger)round((frame.size.height + self.theme.gridNormal.lineSpacing
+    NSUInteger newrows = (NSUInteger)round((frame.size.height + self.theme.gridNormal.lineSpacing
                               - (textview.textContainerInset.height * 2) ) /
                              self.theme.cellHeight);
 
 //    NSLog(@"GlkTextGridWindow setFrame: newcols: %ld newrows: %ld", newcols, newrows);
-    if (newcols == (NSInteger)cols && newrows == (NSInteger)rows) {
+    if (newcols == cols && newrows == rows) {
         //&& NSEqualRects(textview.frame, frame)) {
         //        NSLog(@"GlkTextGridWindow %ld setFrame: new frame same as old frame. "
         //              @"Skipping.", self.name);
@@ -693,7 +693,7 @@
     // Write this string
     while (pos < length) {
         // Can't write if we've fallen off the end of the window
-        if ((cols > -1 && ypos > (NSInteger)textstorage.length / (cols + 1) ) || ypos > rows)
+        if (((NSInteger)cols > -1 && ypos > textstorage.length / (cols + 1) ) || ypos > rows)
             break;
 
         // Can only write a certain number of characters
