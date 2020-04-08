@@ -345,6 +345,7 @@
         [self.glkctl markLastSeen];
 
         // NSLog(@"char event from %d", name);
+        self.glkctl.shouldScrollOnInputEvent = YES;
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
         [self.glkctl queueEvent:gev];
         char_request = NO;
