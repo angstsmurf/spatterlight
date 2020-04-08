@@ -134,7 +134,6 @@
 - (void)restoreScroll;
 - (void)restoreTextFinder;
 - (void)restoreScrollBarStyle;
-- (void)sampleViewDidChange;
 
 - (IBAction)speakMostRecent:(id)sender;
 - (IBAction)speakPrevious:(id)sender;

@@ -1269,99 +1269,17 @@
             [styles addObject:[NSNull null]];
     }
 
-    NSInteger marginX = self.theme.bufferMarginX;
-    NSInteger marginY = self.theme.bufferMarginY;
+    if (!self.glkctl.previewDummy) {
+        NSInteger marginX = self.theme.bufferMarginX;
+        NSInteger marginY = self.theme.bufferMarginY;
 
-    if (marginY * 2 > _textview.visibleRect.size.height) {
-        marginY = 0;
+        if (marginY * 2 > _textview.visibleRect.size.height) {
+            marginY = 0;
+        }
+
+        _textview.textContainerInset = NSMakeSize(marginX, marginY);
+
     }
-
-    _textview.textContainerInset = NSMakeSize(marginX, marginY);
-
-
-    [textstorage removeAttribute:NSBackgroundColorAttributeName
-                            range:NSMakeRange(0, textstorage.length)];
-
-    /* reassign attribute dictionaries */
-    x = 0;
-    while (x < textstorage.length) {
-        id styleobject = [textstorage attribute:@"GlkStyle"
-                                         atIndex:x
-                                  effectiveRange:&range];
-
-        attributes = styles[(NSUInteger)[styleobject intValue]];
-        if ([attributes isEqual:[NSNull null]]) {
-            NSLog(@"Error! broken style (%@)", styleobject);
-        }
-
-        id image = [textstorage attribute:@"NSAttachment"
-                                   atIndex:x
-                            effectiveRange:NULL];
-        id hyperlink = [textstorage attribute:NSLinkAttributeName
-                                       atIndex:x
-                                effectiveRange:&linkrange];
-        @try {
-            [textstorage setAttributes:attributes range:range];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"GlkTextBufferWindow prefsDidChange: exception:%@ attributes:%@", exception, attributes);
-        }
-        @finally {
-        }
-
-        if (image) {
-            ((MyAttachmentCell *)((NSTextAttachment *)image).attachmentCell).attrstr = textstorage;
-            [textstorage addAttribute:@"NSAttachment"
-                                 value:image
-                                 range:NSMakeRange(x, 1)];
-        }
-
-        if (hyperlink) {
-            [textstorage addAttribute:NSLinkAttributeName
-                                 value:hyperlink
-                                 range:linkrange];
-        }
-
-        x = NSMaxRange(range);
-    }
-
-//    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
-
-    NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-    linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-    _textview.linkTextAttributes = linkAttributes;
-    
-    [container invalidateLayout];
-    [self showInsertionPoint];
-    lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
-    [self recalcBackground];
-    [self restoreScroll];
-}
-
-- (void)sampleViewDidChange {
-    NSRange range = NSMakeRange(0, 0);
-    NSRange linkrange = NSMakeRange(0, 0);
-    NSUInteger x;
-    NSDictionary *attributes;
-
-    styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
-
-        if (self.theme.doStyles) {
-            attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:(self.styleHints)[i]];
-        } else {
-            //We're not doing styles, so use the raw style attributes
-            attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
-        }
-
-        if (attributes)
-            [styles addObject:[attributes copy]];
-        else
-            [styles addObject:[NSNull null]];
-    }
-
-    [self recalcBackground];
-
     [textstorage removeAttribute:NSBackgroundColorAttributeName
                            range:NSMakeRange(0, textstorage.length)];
 
@@ -1408,11 +1326,24 @@
         x = NSMaxRange(range);
     }
 
+    //    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
 
-    NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-    linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-    _textview.linkTextAttributes = linkAttributes;
+    if (!self.glkctl.previewDummy) {
+
+        NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
+        linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
+        _textview.linkTextAttributes = linkAttributes;
+
+        [container invalidateLayout];
+        [self showInsertionPoint];
+        lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
+        [self recalcBackground];
+        [self restoreScroll];
+    } else {
+        [self recalcBackground];
+    }
 }
+
 
 - (void)setFrame:(NSRect)frame {
 //        NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
@@ -1424,11 +1355,11 @@
         return;
     }
 
-    if (_preserveScroll)
+    if (_preserveScroll || ! self.glkctl.previewDummy)
         [self storeScrollOffset];
     super.frame = frame;
     [container invalidateLayout];
-    if (_preserveScroll)
+    if (_preserveScroll || ! self.glkctl.previewDummy)
         [self restoreScroll];
 }
 

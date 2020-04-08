@@ -112,6 +112,8 @@
 
 @property BOOL shouldScrollOnInputEvent;
 
+@property BOOL previewDummy;
+
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game
           reset:(BOOL)shouldReset

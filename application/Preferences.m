@@ -952,6 +952,7 @@ NSString *fontToString(NSFont *font) {
     // Sample text view
     glkcntrl = [[GlkController alloc] init];
     glkcntrl.theme = theme;
+    glkcntrl.previewDummy = YES;
     glkcntrl.borderView = sampleTextBorderView;
     glkcntrl.contentView = sampleTextView;
     glkcntrl.ignoreResizes = YES;
@@ -1195,7 +1196,7 @@ NSString *fontToString(NSFont *font) {
 
     sampleTextBorderView.fillColor = theme.bufferBackground;
 
-    [glktxtbuf sampleViewDidChange];
+    [glktxtbuf prefsDidChange];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [_coreDataManager saveChanges];

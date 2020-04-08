@@ -736,6 +736,8 @@ fprintf(stderr, "%s\n",                                                    \
         _firstResponderView = [decoder decodeIntegerForKey:@"firstResponder"];
         _inFullscreen = [decoder decodeBoolForKey:@"fullscreen"];
 
+        _previewDummy =[decoder decodeBoolForKey:@"previewDummy"];
+
         restoredController = nil;
     }
     return self;
@@ -786,6 +788,8 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeBool:((self.window.styleMask & NSFullScreenWindowMask) ==
                          NSFullScreenWindowMask)
                  forKey:@"fullscreen"];
+
+    [encoder encodeBool:_previewDummy forKey:@"previewDummy"];
 
     [encoder encodeObject:lastimage forKey:@"lastimage"];
     [encoder encodeInteger:lastimageresno forKey:@"lastimageresno"];
@@ -1214,14 +1218,18 @@ fprintf(stderr, "%s\n",                                                    \
 
     // If this is the GlkController of the sample text in
     // the preferences window, we use the _dummyTheme property
-    if (_game) {
+    if (_game && !_previewDummy) {
 //        NSLog(@"glkctl notePreferencesChanged called for game %@, currently using theme %@", _game.metadata.title, _game.theme.name);
         _theme = _game.theme;
     } else {
+        NSLog(@"notePreferencesChanged: no game. Probable the GlkController of the sample text. Set it to dead.");
         _theme = [Preferences currentTheme];
         dead = YES;
     }
 
+    if (_previewDummy)
+        return;
+    
     if (notify.object != _theme && notify.object != nil) {
         NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).name, _theme.name);
         return;
