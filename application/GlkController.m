@@ -1048,7 +1048,6 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)markLastSeen {
     for (GlkWindow *win in [_gwindows allValues]) {
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            ((GlkTextBufferWindow *)win).preserveScroll = YES;
             [win markLastSeen];
         }
     }
@@ -1057,7 +1056,6 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)performScroll {
     for (GlkWindow *win in [_gwindows allValues])
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            ((GlkTextBufferWindow *)win).preserveScroll = YES;
             [win performScroll];
         }
 }
