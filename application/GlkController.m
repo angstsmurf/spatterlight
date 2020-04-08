@@ -226,8 +226,7 @@ fprintf(stderr, "%s\n",                                                    \
     self.window.representedFilename = _gamefile;
 
     [_borderView setWantsLayer:YES];
-    [self setBorderColor:_theme.bufferBackground];
-
+    
     if (_supportsAutorestore &&
         [[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI]) {
         [self runTerpWithAutorestore];
@@ -2615,16 +2614,22 @@ again:
     }
 }
 
-- (void)setBorderColor:(NSColor *)color;
-{
-    CGFloat components[[color numberOfComponents]];
-    CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
-    [color getComponents:(CGFloat *)&components];
-    CGColorRef cgcol = CGColorCreate(colorSpace, components);
+- (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
 
-    _borderView.layer.backgroundColor = cgcol;
-    self.window.backgroundColor = color;
-    CFRelease(cgcol);
+    for (GlkWindow *win in [_gwindows allValues]) {
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            if (win == aWindow) {
+                CGFloat components[[color numberOfComponents]];
+                CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
+                [color getComponents:(CGFloat *)&components];
+                CGColorRef cgcol = CGColorCreate(colorSpace, components);
+
+                _borderView.layer.backgroundColor = cgcol;
+                self.window.backgroundColor = color;
+                CFRelease(cgcol);
+            } else return;
+        }
+    }
 }
 
 #pragma mark Full screen

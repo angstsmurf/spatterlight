@@ -127,7 +127,7 @@
 - (void)contentDidResize:(NSRect)frame;
 - (void)markLastSeen;
 - (void)performScroll;
-- (void)setBorderColor:(NSColor *)color;
+- (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow;
 - (void)restoreUI;
 - (void)autoSaveOnExit;
 - (void)storeScrollOffsets;

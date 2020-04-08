@@ -1242,7 +1242,7 @@
     _textview.backgroundColor = bgcolor;
 //    _textview.insertionPointColor = fgcolor;
 
-    [self.glkctl setBorderColor:bgcolor];
+    [self.glkctl setBorderColor:bgcolor fromWindow:self];
 }
 
 - (void)prefsDidChange {
