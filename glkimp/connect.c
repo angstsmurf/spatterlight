@@ -187,18 +187,20 @@ void wintitle(void)
 
     if (strlen(gli_story_title))
         sprintf(buf, "%s", gli_story_title);
-    else if (strlen(gli_story_name))
-        sprintf(buf, "%s", gli_story_name);
+//    else if (strlen(gli_story_name))
+//        sprintf(buf, "%s", gli_story_name);
 //        //sprintf(buf, "%s - %s", gli_story_name, gli_program_name);
 //    else
 //        sprintf(buf, "%s", gli_program_name);
     if (strlen(buf))
+    {
         sendmsg(SETTITLE, 0, 0, 0, 0, 0,
                 (int)(strlen(buf)), // * sizeof(unsigned short)
                 (char*)buf);
-#ifdef DEBUG
-    fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
-#endif
+//#ifdef DEBUG
+        fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
+    }
+//#endif
 }
 
 /* End of Gargoyle glue */

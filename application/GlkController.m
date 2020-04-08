@@ -1910,7 +1910,7 @@ NSInteger colorToInteger(NSColor *color) {
     NSString *str = @(buf);
     if (str && str.length > (NSUInteger)len - 1)
         [@(buf) substringToIndex:(NSUInteger)len - 1];
-    if (str == nil)
+    if (str == nil || str.length < 2)
         return;
     self.window.title = str;
     NSLog(@"Change title request: %@", str);
