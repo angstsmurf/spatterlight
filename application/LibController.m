@@ -389,8 +389,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         return nil;
     }
 
-    char *s = strchr(format, ' ');
-    if (s) format = s+1;
     char buf[TREATY_MINIMUM_EXTENT];
 
     int rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
@@ -402,10 +400,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         babel_release();
         return nil;
     }
-
-    s = strchr(buf, ',');
-    if (s)
-        *s = 0;
 
     babel_release();
     return @(buf);
