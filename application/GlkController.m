@@ -1428,7 +1428,7 @@ fprintf(stderr, "%s\n",                                                    \
                             objectForKey:@"SaveDirectory"]
                isDirectory:YES];
     NSSavePanel *panel = [NSSavePanel savePanel];
-    NSString *prompt;
+//    NSString *prompt;
     NSString *ext;
     NSString *filename;
     NSString *date;
@@ -1437,26 +1437,26 @@ fprintf(stderr, "%s\n",                                                    \
 
     switch (fileusage) {
         case fileusage_Data:
-            prompt = @"Save data file: ";
+//            prompt = @"Save data file: ";
             ext = @"glkdata";
             filename = @"Data";
             break;
         case fileusage_SavedGame:
-            prompt = @"Save game: ";
+//            prompt = @"Save game: ";
             ext = @"glksave";
             break;
         case fileusage_Transcript:
-            prompt = @"Save transcript: ";
+//            prompt = @"Save transcript: ";
             ext = @"txt";
             filename = @"Transcript of ";
             break;
         case fileusage_InputRecord:
-            prompt = @"Save recording: ";
+//            prompt = @"Save recording: ";
             ext = @"rec";
             filename = @"Recordning of ";
             break;
         default:
-            prompt = @"Save: ";
+//            prompt = @"Save: ";
             ext = nil;
             break;
     }
