@@ -1762,7 +1762,6 @@
 
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
     [_textview resetTextFinder];
-
     if (storedNewline && textstorage.length) {
         NSAttributedString *newlinestring = [[NSAttributedString alloc]
                                       initWithString:@"\n"

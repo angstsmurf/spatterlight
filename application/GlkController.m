@@ -1563,7 +1563,6 @@ fprintf(stderr, "%s\n",                                                    \
             [_contentView addSubview:win];
 
             win.styleHints = _bufferStyleHints;
-            
             return i;
 
         case wintype_Graphics:
