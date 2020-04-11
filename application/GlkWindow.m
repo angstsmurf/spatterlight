@@ -12,14 +12,20 @@
         _name = name;
 
         _pendingTerminators = [[NSMutableDictionary alloc]
-            initWithObjectsAndKeys:@(NO), @keycode_Func1, @(NO), @keycode_Func2,
-                                   @(NO), @keycode_Func3, @(NO), @keycode_Func4,
-                                   @(NO), @keycode_Func5, @(NO), @keycode_Func6,
-                                   @(NO), @keycode_Func7, @(NO), @keycode_Func8,
-                                   @(NO), @keycode_Func9, @(NO),
-                                   @keycode_Func10, @(NO), @keycode_Func11,
-                                   @(NO), @keycode_Func12, @(NO),
-                                   @keycode_Escape, nil];
+                               initWithObjectsAndKeys:@(NO), @keycode_Func1,
+                               @(NO), @keycode_Func2,
+                               @(NO), @keycode_Func3,
+                               @(NO), @keycode_Func4,
+                               @(NO), @keycode_Func5,
+                               @(NO), @keycode_Func6,
+                               @(NO), @keycode_Func7,
+                               @(NO), @keycode_Func8,
+                               @(NO), @keycode_Func9,
+                               @(NO), @keycode_Func10,
+                               @(NO), @keycode_Func11,
+                               @(NO), @keycode_Func12,
+                               @(NO),
+                               @keycode_Escape, nil];
         currentTerminators = _pendingTerminators;
         _terminatorsPending = NO;
     }
@@ -40,9 +46,6 @@
         char_request = [decoder decodeBoolForKey:@"char_request"];
         _styleHints = [decoder decodeObjectForKey:@"styleHints"];
         styles = [decoder decodeObjectForKey:@"styles"];
-
-//        NSLog(@"GlkWindow initWithCoder: restored the following style hints:");
-//        [self printStyleHints];
     }
     return self;
 }
@@ -60,51 +63,6 @@
     [encoder encodeObject:_styleHints forKey:@"styleHints"];
     [encoder encodeObject:styles forKey:@"styles"];
 }
-
-- (void)printStyleHints {
-
-     NSArray *styleHintNames = @[ @"stylehint_Indentation", @"stylehint_ParaIndentation",
-        @"stylehint_Justification", @"stylehint_Size",
-        @"stylehint_Weight",@"stylehi@nt_Oblique", @"stylehint_Proportional",
-        @"stylehint_TextColor", @"stylehint_BackColor", @"stylehint_ReverseColor",
-        @"stylehint_NUMHINTS"];
-
-    for (NSArray *style in _styleHints) {
-        NSString *styleName;
-        NSLog(@"[_styleHints indexOfObject:style] == %ld", [_styleHints indexOfObject:style]);
-        if ([self isKindOfClass:[GlkTextBufferWindow class]])
-            styleName = gBufferStyleNames[[_styleHints indexOfObject:style]];
-        else
-            styleName = gGridStyleNames[[_styleHints indexOfObject:style]];
-        
-        NSLog (@"Stylehints for style %@:", styleName);
-        for (NSUInteger i = 0; i < stylehint_NUMHINTS ; i ++) {
-            NSLog(@"%@: %@", styleHintNames[i], style[i]);
-        }
-    }
-}
-
-- (NSString *)sayMask:(NSUInteger)mask {
-    NSString *maskToSay = [NSString
-        stringWithFormat:@" %@ | %@",
-                         (mask & NSViewWidthSizable) ? @"NSViewWidthSizable"
-                                                     : @"NSViewMaxXMargin",
-                         (mask & NSViewHeightSizable) ? @"NSViewHeightSizable"
-                                                      : @"NSViewMaxYMargin"];
-    return maskToSay;
-}
-
-//- (void)setStyle:(NSInteger)style
-//      windowType:(NSInteger)wintype
-//          enable:(NSInteger *)enable
-//           value:(NSInteger *)value {
-//    [styles removeObjectAtIndex:style];
-//    [styles insertObject:[[GlkStyle alloc] initWithStyle:style
-//                                              windowType:wintype
-//                                                  enable:enable
-//                                                   value:value]
-//                 atIndex:style];
-//}
 
 - (BOOL)getStyleVal:(NSUInteger)style
                hint:(NSUInteger)hint
@@ -187,29 +145,6 @@
 - (void)putString:(NSString *)buf style:(NSUInteger)style {
     NSLog(@"print in %@ not implemented", [self class]);
 }
-
-//- (NSDictionary *)attributesFromStylevalue:(NSInteger)stylevalue {
-//    NSInteger style = stylevalue & 0xff;
-//    NSInteger fg = (stylevalue >> 8) & 0xff;
-//    NSInteger bg = (stylevalue >> 16) & 0xff;
-//
-//    if (fg || bg) {
-//        NSMutableDictionary *mutatt =
-//            [[styles objectAtIndex:style] mutableCopy];
-//        [mutatt setObject:@(stylevalue) forKey:@"GlkStyle"];
-//        if ([Preferences stylesEnabled]) {
-//            if (fg)
-//                [mutatt setObject:[Preferences foregroundColor:(int)(fg - 1)]
-//                           forKey:NSForegroundColorAttributeName];
-//            if (bg)
-//                [mutatt setObject:[Preferences backgroundColor:(int)(bg - 1)]
-//                           forKey:NSBackgroundColorAttributeName];
-//        }
-//        return (NSDictionary *)mutatt;
-//    } else {
-//        return [styles objectAtIndex:style];
-//    }
-//}
 
 - (void)moveToColumn:(NSUInteger)x row:(NSUInteger)y {
     NSLog(@"move cursor in %@ not implemented", [self class]);

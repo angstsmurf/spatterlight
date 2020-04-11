@@ -11,8 +11,8 @@
     NSMutableDictionary *currentTerminators;
 
     // An array of attribute dictionaries,
-    // with style hints applied if hints
-    // are on for this theme
+    // with style hints applied if use hints
+    // option is on for this theme
     NSMutableArray *styles;
 
     BOOL char_request;
@@ -42,7 +42,6 @@
 - (void)setBgColor:(NSInteger)bc;
 - (void)clear;
 - (void)putString:(NSString *)buf style:(NSUInteger)style;
-//- (NSDictionary *)attributesFromStylevalue:(NSInteger)stylevalue;
 - (void)moveToColumn:(NSUInteger)x row:(NSUInteger)y;
 - (void)initLine:(NSString *)buf;
 - (void)initChar;
@@ -65,7 +64,5 @@
 - (void)terpDidStop;
 
 - (void)restoreSelection;
-- (NSString *)sayMask:(NSUInteger)mask;
-- (void)printStyleHints;
 
 @end
