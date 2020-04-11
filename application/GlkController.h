@@ -113,6 +113,7 @@
 @property(readonly) BOOL inFullscreen;
 
 @property BOOL shouldScrollOnInputEvent;
+@property BOOL shouldStoreScrollOffset;
 
 @property BOOL previewDummy;
 

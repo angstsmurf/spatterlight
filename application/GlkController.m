@@ -256,6 +256,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     _inFullscreen = restoredController.inFullscreen;
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
+    _shouldStoreScrollOffset = NO;
 
     // If the process is dead, restore the dead window if this
     // is a system window restoration at application start
@@ -459,6 +460,7 @@ fprintf(stderr, "%s\n",                                                    \
     shouldRestoreUI = NO;
 
     _ignoreResizes = YES;
+    _shouldStoreScrollOffset = NO;
 
     GlkWindow *win;
 
@@ -536,26 +538,18 @@ fprintf(stderr, "%s\n",                                                    \
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
 
+
     // Restore scroll position and focus
     for (win in [_gwindows allValues]) {
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            GlkTextBufferWindow *textbuf = (GlkTextBufferWindow *)win;
-            [textbuf restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
-            if (textbuf.restoredAtBottom) {
-                [textbuf scrollToBottom];
-            } else if (textbuf.restoredAtTop) {
-                [textbuf scrollToTop];
-            } else {
-                [textbuf scrollToCharacter:textbuf.restoredLastVisible withOffset:textbuf.restoredScrollOffset];
-            }
-
-            [textbuf storeScrollOffset];
+            [(GlkTextBufferWindow *)win postRestoreScrollAdjustment];
         }
         if (win.name == _firstResponderView) {
             [win grabFocus];
         }
     }
 
+    _shouldStoreScrollOffset = YES;
     restoredController = nil;
 }
 
@@ -1223,13 +1217,14 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"notePreferencesChanged: no game. Probable the GlkController of the sample text. Set it to dead.");
         _theme = [Preferences currentTheme];
         dead = YES;
+        return;
     }
 
     if (_previewDummy)
         return;
     
     if (notify.object != _theme && notify.object != nil) {
-        NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).name, _theme.name);
+//        NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).name, _theme.name);
         return;
     } else if ( notify.object == nil) {
 //        NSLog(@"glkctl: PreferencesChanged with a nil object.");
@@ -1254,29 +1249,28 @@ fprintf(stderr, "%s\n",                                                    \
     
     [self adjustContentView];
 
-    if (!dead) {
-        GlkEvent *gevent;
+    GlkEvent *gevent;
 
-        CGFloat width = _contentView.frame.size.width;
-        CGFloat height = _contentView.frame.size.height;
+    CGFloat width = _contentView.frame.size.width;
+    CGFloat height = _contentView.frame.size.height;
 
-        if (width < 0)
-            width = 0;
-        if (height < 0)
-            height = 0;
+    if (width < 0)
+        width = 0;
+    if (height < 0)
+        height = 0;
 
-        gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)width
-                                             height:(NSInteger)height
-                                              theme:_theme
-                                              force:NO];
-        [self queueEvent:gevent];
+    gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)width
+                                         height:(NSInteger)height
+                                          theme:_theme
+                                          force:NO];
+    [self queueEvent:gevent];
 
-        gevent = [[GlkEvent alloc] initPrefsEvent];
-        [self queueEvent:gevent];
-    }
+    gevent = [[GlkEvent alloc] initPrefsEvent];
+    [self queueEvent:gevent];
 
     if (!_gwindows.count) {
         NSLog(@"glkctl: notePreferencesChanged called with no _gwindows");
+        return;
     }
 
     for (GlkWindow *win in [_gwindows allValues])

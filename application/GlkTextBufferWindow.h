@@ -133,6 +133,7 @@
 - (void)storeScrollOffset;
 - (void)restoreScroll;
 - (void)restoreTextFinder;
+- (void)postRestoreScrollAdjustment;
 - (void)restoreScrollBarStyle;
 
 - (IBAction)speakMostRecent:(id)sender;
