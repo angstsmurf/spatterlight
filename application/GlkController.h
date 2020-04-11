@@ -69,6 +69,8 @@
     NSSize lastSizeInChars;
     Theme *lastTheme;
 
+    NSInteger lastRequest;
+
     NSInteger autosaveVersion;
 }
 

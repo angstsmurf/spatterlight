@@ -193,6 +193,7 @@ fprintf(stderr, "%s\n",                                                    \
     lastimage = nil;
 
     _ignoreResizes = NO;
+    _shouldScrollOnInputEvent = NO;
 
     // If we are resetting, there is a bunch of stuff that we have already done
     // and we can skip
@@ -1963,6 +1964,7 @@ NSInteger colorToInteger(NSColor *color) {
 
                 [gevent writeEvent:sendfh.fileDescriptor];
                 [_queue removeObjectAtIndex:0];
+                lastRequest = req->cmd;
                 return NO; /* keep reading ... we sent the reply */
             } else {
                 // No queued events.
@@ -1978,6 +1980,7 @@ NSInteger colorToInteger(NSColor *color) {
             [self guessFocus];
 
             waitforevent = YES;
+            lastRequest = req->cmd;
             return YES; /* stop reading ... terp is waiting for reply */
 
         case PROMPTOPEN:
@@ -2286,8 +2289,14 @@ NSInteger colorToInteger(NSColor *color) {
             break;
 
         case INITCHAR:
-            //            NSLog(@"glkctl initchar %d", req->a1);
-            [self performScroll];
+//            NSLog(@"glkctl initchar %d", req->a1);
+            if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"] && lastRequest == PRINT)
+                _shouldScrollOnInputEvent = YES;
+
+            if (_shouldScrollOnInputEvent) {
+                [self performScroll];
+            }
+
             if (reqWin)
                 [reqWin initChar];
             break;
@@ -2384,6 +2393,7 @@ NSInteger colorToInteger(NSColor *color) {
             break;
     }
 
+    lastRequest = req->cmd;
     return NO; /* keep reading */
 }
 

@@ -59,29 +59,15 @@
 
     //    NSLog(@"Background in graphics window was set to bgnd(%ld)",
     //    (long)bgnd);
+
+    [self.glkctl setBorderColor:[self colorFromBgnd] fromWindow:self];
 }
 
 - (void)drawRect:(NSRect)rect {
-    NSColor *color;
-    CGFloat r, g, b;
-
     NSRect bounds = self.bounds;
 
     if (!transparent) {
-
-        color = nil;
-
-        r = (bgnd >> 16) / 255.0;
-        g = (bgnd >> 8 & 0xFF) / 255.0;
-        b = (bgnd & 0xFF) / 255.0;
-
-        color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
-
-        if (!color)
-            color = [NSColor whiteColor];
-
-        [color set];
-
+        [[self colorFromBgnd] set];
         NSRectFill(rect);
     }
 
@@ -108,24 +94,11 @@
 
     // Then we create a new image, filling it with background color
     if (!transparent) {
-        NSColor *color = nil;
-        CGFloat r, g, b;
-
-        r = (bgnd >> 16) / 255.0;
-        g = (bgnd >> 8 & 0xFF) / 255.0;
-        b = (bgnd & 0xFF) / 255.0;
-
-        color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
-        // NSLog(@"drawRect: Set color in graphics window to bgnd(%ld), %@",
-        // (long)bgnd, color);
-
-        if (!color)
-            color = [NSColor whiteColor];
 
         image = [[NSImage alloc] initWithSize:frame.size];
 
         [image lockFocus];
-        [color set];
+        [[self colorFromBgnd] set];
         NSRectFill(self.bounds);
         [image unlockFocus];
     }
@@ -138,6 +111,23 @@
              height:(NSInteger)oldimage.size.height];
 
     dirty = YES;
+}
+
+- (NSColor *)colorFromBgnd {
+    NSColor *color = nil;
+    CGFloat r, g, b;
+
+    r = (bgnd >> 16) / 255.0;
+    g = (bgnd >> 8 & 0xFF) / 255.0;
+    b = (bgnd & 0xFF) / 255.0;
+
+    color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
+    // NSLog(@"drawRect: Set color in graphics window to bgnd(%ld), %@",
+    // (long)bgnd, color);
+
+    if (!color)
+        color = [NSColor whiteColor];
+    return color;
 }
 
 - (void)fillRects:(struct fillrect *)rects count:(NSInteger)count {
