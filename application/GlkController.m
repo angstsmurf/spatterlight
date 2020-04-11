@@ -416,7 +416,7 @@ fprintf(stderr, "%s\n",                                                    \
     [[readpipe fileHandleForReading]
              setReadabilityHandler:^(NSFileHandle *file) {
                  NSData *data = [file availableData];
-                 if (data) {
+                 if (data && task) {
                      dispatch_async(dispatch_get_main_queue(), ^{
                          [weakSelf noteDataAvailable:data];
                      });
