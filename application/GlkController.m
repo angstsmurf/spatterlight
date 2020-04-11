@@ -1918,7 +1918,7 @@ NSInteger colorToInteger(NSColor *color) {
         [@(buf) substringToIndex:(NSUInteger)len - 1];
     if (str == nil || str.length < 2)
         return;
-    self.window.title = str;
+//    self.window.title = str;
     NSLog(@"Change title request: %@", str);
 }
 
