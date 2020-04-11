@@ -198,9 +198,10 @@ void wintitle(void)
                 (int)(strlen(buf)), // * sizeof(unsigned short)
                 (char*)buf);
 //#ifdef DEBUG
-        fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
-    }
+//        fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
 //#endif
+
+    }
 }
 
 /* End of Gargoyle glue */
