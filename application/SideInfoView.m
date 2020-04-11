@@ -584,15 +584,11 @@
         titleYpos = clipView.frame.size.height / 2;
     CGFloat yPoint = titleYpos - (clipView.frame.size.height / 2);
     if (yPoint < 0) {
-        NSLog(@"yPoint is %f, clipping to 0", yPoint);
         yPoint = 0;
     }
     if (yPoint > NSMaxY(self.frame) - clipView.frame.size.height) {
-        NSLog(@"yPoint is %f, clipping to %f", yPoint, NSMaxY(self.frame) - clipView.frame.size.height);
-
         yPoint = NSMaxY(self.frame) - clipView.frame.size.height;
     }
-//    NSLog(@"Trying to scroll to yPoint:%f titleYpos:%f clipView.frame:%@ self.frame:%@", yPoint, titleYpos, NSStringFromRect(clipView.frame),  NSStringFromRect(self.frame));
 
     NSPoint newOrigin = [clipView bounds].origin;
     newOrigin.y = yPoint;
