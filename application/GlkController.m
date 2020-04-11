@@ -2175,6 +2175,8 @@ NSInteger colorToInteger(NSColor *color) {
 
                 reqWin.autoresizingMask = hmask | vmask;
 
+                if ([reqWin isKindOfClass:[GlkTextBufferWindow class]])
+                     [(GlkTextBufferWindow *)reqWin recalcBackground];
                 windowdirty = YES;
             } else
                 NSLog(@"sizwin: something went wrong.");
@@ -2623,21 +2625,32 @@ again:
 }
 
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
+//    NSLog(@"setBorderColor %@ fromWindow %ld", color, aWindow.name);
+    if (aWindow == [self largestWindow]) {
+        CGFloat components[[color numberOfComponents]];
+        CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
+        [color getComponents:(CGFloat *)&components];
+        CGColorRef cgcol = CGColorCreate(colorSpace, components);
+
+        _borderView.layer.backgroundColor = cgcol;
+        self.window.backgroundColor = color;
+        CFRelease(cgcol);
+    }
+}
+
+- (GlkWindow *)largestWindow {
+    GlkWindow *largestWin = nil;
+    CGFloat largestSize = 0;
 
     for (GlkWindow *win in [_gwindows allValues]) {
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            if (win == aWindow) {
-                CGFloat components[[color numberOfComponents]];
-                CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
-                [color getComponents:(CGFloat *)&components];
-                CGColorRef cgcol = CGColorCreate(colorSpace, components);
-
-                _borderView.layer.backgroundColor = cgcol;
-                self.window.backgroundColor = color;
-                CFRelease(cgcol);
-            } else return;
+        CGFloat winarea = win.bounds.size.width * win.bounds.size.height;
+        if (winarea > largestSize) {
+            largestSize = winarea;
+            largestWin = win;
         }
     }
+
+    return largestWin;
 }
 
 #pragma mark Full screen
