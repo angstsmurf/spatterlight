@@ -425,15 +425,13 @@ fprintf(stderr, "%s\n",                                                    \
     GlkController * __unsafe_unretained weakSelf = self;
 
     [[readpipe fileHandleForReading]
-             setReadabilityHandler:^(NSFileHandle *file) {
-                 NSData *data = [file availableData];
-                 if (data && task) {
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                         [weakSelf noteDataAvailable:data];
-                     });
-                 }
+     setReadabilityHandler:^(NSFileHandle *file) {
+         NSData *data = [file availableData];
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self noteDataAvailable:data];
+         });
 
-             }];
+     }];
 
     [task setTerminationHandler:^(NSTask *aTask) {
         [aTask.standardOutput fileHandleForReading].readabilityHandler = nil;
