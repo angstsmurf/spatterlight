@@ -370,8 +370,7 @@ fprintf(stderr, "%s\n",                                                    \
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     [self restoreUI];
-    self.window.title =
-    [self.window.title stringByAppendingString:@" (finished)"];
+    self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
 
     restoredController = nil;
 }
