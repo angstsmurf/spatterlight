@@ -7,6 +7,7 @@
 #import "GlkStyle.h"
 
 #import "main.h"
+#include "glkimp.h"
 
 #include <sys/time.h>
 
@@ -115,6 +116,10 @@ fprintf(stderr, "%s\n",                                                    \
      winRestore:(BOOL)windowRestoredBySystem_ {
 
     NSLog(@"glkctl: runterp %@ %@", terpname_, game_.metadata.title);
+
+    // We could use separate versioning for GUI and interpreter autosaves,
+    // but it is probably simpler this way
+    _autosaveVersion = AUTOSAVE_SERIAL_VERSION;
 
     _ignoreResizes = YES;
 
@@ -245,6 +250,12 @@ fprintf(stderr, "%s\n",                                                    \
         // leave restoredController as nil
         NSLog(@"Unable to restore GUI autosave: %@", ex);
     }
+
+    if (restoredController.autosaveVersion != _autosaveVersion) {
+        NSLog(@"GUI autosave file is wrong version! Wanted %ld, got %ld. Deleting!", _autosaveVersion, restoredController.autosaveVersion );
+        restoredController = nil;
+    }
+
     if (!restoredController) {
         // If there exists an autosave file but we failed to read it,
         // delete it and run game without autorestoring
@@ -712,6 +723,8 @@ fprintf(stderr, "%s\n",                                                    \
 
         /* the glk objects */
 
+        _autosaveVersion = [decoder decodeIntegerForKey:@"version"];
+
         _gwindows = [decoder decodeObjectForKey:@"gwindows"];
 
         _storedWindowFrame = [decoder decodeRectForKey:@"windowFrame"];
@@ -740,7 +753,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
 
-    [encoder encodeInteger:autosaveVersion forKey:@"version"];
+    [encoder encodeInteger:_autosaveVersion forKey:@"version"];
 
     [encoder encodeBool:dead forKey:@"dead"];
     [encoder encodeRect:self.window.frame forKey:@"windowFrame"];
@@ -864,7 +877,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)handleAutosave:(int)hash {
 
-    autosaveVersion = hash;
+    _autosaveVersion = hash;
 
     NSInteger res = [NSKeyedArchiver archiveRootObject:self
                                                 toFile:self.autosaveFileGUI];

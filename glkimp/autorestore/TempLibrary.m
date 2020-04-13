@@ -7,8 +7,6 @@
 
 @implementation TempLibrary
 
-#define SERIAL_VERSION (1)
-
 //static TempLibrary *singleton = nil;
 static void (*extra_archive_hook)(TempLibrary *, NSCoder *) = nil;
 static void (*extra_unarchive_hook)(TempLibrary *, NSCoder *) = nil;
@@ -79,7 +77,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 - (id) initWithCoder:(NSCoder *)decoder {
 
 	int version = [decoder decodeIntForKey:@"version"];
-    if (version <= 0 || version > SERIAL_VERSION)
+    if (version <= 0 || version > AUTOSAVE_SERIAL_VERSION)
     {
         NSLog(@"Wrong serial version!");
         return nil;
@@ -160,7 +158,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
 //    NSLog(@"### TempLibrary: encoding with %ld windows, %ld streams, %ld filerefs, %ld sound channels", (unsigned long)_windows.count, (unsigned long)_streams.count, (unsigned long)_filerefs.count, (unsigned long)_schannels.count);
-	[encoder encodeInt:SERIAL_VERSION forKey:@"version"];
+	[encoder encodeInt:AUTOSAVE_SERIAL_VERSION forKey:@"version"];
 
     [encoder encodeObject:program_name forKey:@"program_name"];
     [encoder encodeObject:program_info forKey:@"program_info"];

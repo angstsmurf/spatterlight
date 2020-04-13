@@ -485,7 +485,7 @@ void spatterglk_do_autosave(glui32 eventaddr)
             NSLog(@"could not move library autosave to final position");
             return;
         }
-        win_autosave(0); // Call window server to do its own autosave
+        win_autosave(AUTOSAVE_SERIAL_VERSION); // Call window server to do its own autosave
     }
 }
 

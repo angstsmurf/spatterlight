@@ -70,8 +70,6 @@
     Theme *lastTheme;
 
     NSInteger lastRequest;
-
-    NSInteger autosaveVersion;
 }
 
 @property NSMutableDictionary *gwindows;
@@ -116,6 +114,8 @@
 @property BOOL shouldStoreScrollOffset;
 
 @property BOOL previewDummy;
+
+@property NSInteger autosaveVersion;
 
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game
