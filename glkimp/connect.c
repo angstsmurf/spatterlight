@@ -184,9 +184,10 @@ void win_print(int name, int ch, int at)
 void wintitle(void)
 {
     char buf[256];
-
-    if (strlen(gli_story_title))
+    buf[0] = '\0';
+    if (strlen(gli_story_title)) {
         sprintf(buf, "%s", gli_story_title);
+    }
 //    else if (strlen(gli_story_name))
 //        sprintf(buf, "%s", gli_story_name);
 //        //sprintf(buf, "%s - %s", gli_story_name, gli_program_name);
@@ -200,7 +201,6 @@ void wintitle(void)
 //#ifdef DEBUG
 //        fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
 //#endif
-
     }
 }
 
