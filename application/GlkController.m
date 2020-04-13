@@ -2293,10 +2293,16 @@ NSInteger colorToInteger(NSColor *color) {
 
         case INITCHAR:
 //            NSLog(@"glkctl initchar %d", req->a1);
-            if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"] && lastRequest == PRINT)
-                _shouldScrollOnInputEvent = YES;
-
-            if (_shouldScrollOnInputEvent) {
+            if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"]) {
+                if (lastRequest == PRINT) {
+                    _shouldScrollOnInputEvent = YES;
+                }
+                
+                if (_shouldScrollOnInputEvent) {
+                    [self performScroll];
+                }
+                
+            } else {
                 [self performScroll];
             }
 

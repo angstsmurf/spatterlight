@@ -802,7 +802,6 @@
 
 - (BOOL)textView:textview clickedOnLink:(id)link atIndex:(NSUInteger)charIndex {
     NSLog(@"txtgrid: clicked on link: %@", link);
-    self.glkctl.shouldScrollOnInputEvent = YES;
     if (!hyper_request) {
         NSLog(@"txtgrid: No hyperlink request in window.");
         return NO;
@@ -822,7 +821,6 @@
 //    NSLog(@"mousedown in grid window %ld", self.name);
 
     if (mouse_request) {
-        self.glkctl.shouldScrollOnInputEvent = YES;
         [self.glkctl markLastSeen];
 
         NSPoint p;
@@ -998,7 +996,6 @@
     line_request = NO;
     if (input) {
         [self.glkctl markLastSeen];
-        self.glkctl.shouldScrollOnInputEvent = YES;
 
         NSString *str = input.stringValue;
         [self printToWindow:str style:style_Input];

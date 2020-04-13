@@ -1641,7 +1641,6 @@
 
     [_textview resetTextFinder];
 
-    self.glkctl.shouldScrollOnInputEvent = YES;
     [self.glkctl markLastSeen];
 
     NSString *line = [textstorage.string substringFromIndex:fence];
@@ -2168,7 +2167,6 @@
         NSUInteger linkid = [container findHyperlinkAt:p];
         if (linkid) {
             NSLog(@"Clicked margin image hyperlink in buf at %g,%g", p.x, p.y);
-            self.glkctl.shouldScrollOnInputEvent = YES;
             gev = [[GlkEvent alloc] initLinkEvent:linkid forWindow:self.name];
             [self.glkctl queueEvent:gev];
             hyper_request = NO;
@@ -2188,7 +2186,6 @@
 //        return NO;
     }
 
-    self.glkctl.shouldScrollOnInputEvent = YES;
     GlkEvent *gev =
         [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue
                               forWindow:self.name];
@@ -2385,6 +2382,10 @@
 
     lastAtTop = NO;
     lastAtBottom = YES;
+
+    if (_textview.textContainerInset.height * 2 > self.frame.size.height) {
+        _textview.textContainerInset = NSMakeSize(_textview.textContainerInset.width, 0);
+    }
 
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
