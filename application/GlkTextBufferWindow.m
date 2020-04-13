@@ -2391,6 +2391,11 @@
     else
         NSLog(@"NOT scrolled to bottom!");
 
+    // If a window is only a single line high,
+    // input becomes impossible unless we return yes here.
+    if (NSHeight(_textview.bounds) < self.theme.bufferNormal.cellSize.height + _textview.textContainerInset.height * 2) {
+        return YES;
+    }
 
     return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.bottomPadding);
 }
