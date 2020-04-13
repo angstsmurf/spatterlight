@@ -503,7 +503,7 @@ fprintf(stderr, "%s\n",                                                    \
     } else if (_storedTimerInterval > 0) {
         [self handleSetTimer:(NSUInteger)(_storedTimerInterval * 1000)];
         NSLog(@"_storedTimerInterval was %f, so started a timer.",
-              _storedTimerLeft);
+              _storedTimerInterval);
     }
 
     // Restore frame size
@@ -765,7 +765,7 @@ fprintf(stderr, "%s\n",                                                    \
     _storedTimerInterval = 0;
     if (timer && timer.isValid) {
         _storedTimerLeft =
-        [[timer fireDate] timeIntervalSinceDate:[[NSDate alloc] init]];
+        [[timer fireDate] timeIntervalSinceDate:[NSDate date]];
         _storedTimerInterval = [timer timeInterval];
     }
     _firstResponderView = -1;
@@ -846,11 +846,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (IBAction)reset:(id)sender {
-    if (timer) {
-//        NSLog(@"glkctl reset: force stop the timer");
-        [timer invalidate];
-        timer = nil;
-    }
+    [self handleSetTimer:0];
 
     if (task) {
 //        NSLog(@"glkctl reset: force stop the interpreter");
@@ -1596,6 +1592,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)handleSetTimer:(NSUInteger)millisecs {
+//    NSLog(@"handleSetTimer: %ld millisecs", millisecs);
     if (timer) {
         [timer invalidate];
         timer = nil;
