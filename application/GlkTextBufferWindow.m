@@ -2385,11 +2385,11 @@
 //    NSLog(@"GlkTextBufferWindow %ld: scrolledToBottom?", self.name);
     NSView *clipView = scrollview.contentView;
 
-    NSLog(@"(NSHeight(_textview.bounds) (%f) - NSMaxY(clipView.bounds) (%f) = %f", NSHeight(_textview.bounds), NSMaxY(clipView.bounds), NSHeight(_textview.bounds) - NSMaxY(clipView.bounds));
-    if (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.bottomPadding)
-        NSLog(@"scrolled to bottom!");
-    else
-        NSLog(@"NOT scrolled to bottom!");
+    // At least the start screen of Kerkerkruip uses a buffer window
+    // with height 0 to catch key input.
+    if (!clipView || NSHeight(clipView.bounds) == 0) {
+        return YES;
+    }
 
     // If a window is only a single line high,
     // input becomes impossible unless we return yes here.
