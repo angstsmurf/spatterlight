@@ -498,7 +498,7 @@ static void sound_completion_callback(int chan)
     Uint32 soundbytes = Sound_Decode(sound_channel->decode);
     if (!soundbytes)
     {
-        if (sound_channel->loop > -1)
+        if (sound_channel->loop != UINT32_MAX && sound_channel->loop != 0)
             sound_channel->loop--;
         if (!sound_channel->loop)
         {
