@@ -2312,46 +2312,27 @@
 
     NSRect line;
 
-    if (character >= textstorage.length - 1) {
+    if (character >= textstorage.length - 1 || !textstorage.length) {
         return;
     }
 
-//    NSLog(@"Character %lu is '%@'", character, [textstorage.string substringWithRange:NSMakeRange(character, 1)]);
-//    if (character > 11)
-//        NSLog(@"Previous 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(character - 10, 10)]);
-//    if (textstorage.length > character + 12)
-//        NSLog(@"Next 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(character + 1, 10)]);
-//
-//    NSLog(@"offset: %f self.theme.bufferNormal.cellSize.height: %f", offset, self.theme.bufferNormal.cellSize.height);
-
-
     offset = offset * self.theme.bufferNormal.cellSize.height;
-//    NSLog(@"offset * self.theme.bufferNormal.cellSize.height: %f", offset);
-    if (isnan(offset) || isinf(offset))
-        offset = 0;
-
-//    NSLog(@"final offset: %f", offset);
-//
-//    NSLog(@"offset as percentage of cell height: %f", (offset / self.theme.bufferNormal.cellSize.height) * 100);
-
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
 
-    if (textstorage.length) {
-        line = [layoutmanager lineFragmentRectForGlyphAtIndex:character
-                                               effectiveRange:nil];
+    line = [layoutmanager lineFragmentRectForGlyphAtIndex:character
+                                           effectiveRange:nil];
 
-        CGFloat charbottom = NSMaxY(line); // bottom of the line
-        if (fabs(charbottom - NSHeight(scrollview.frame)) < self.theme.bufferNormal.cellSize.height) {
-            NSLog(@"scrollToCharacter: too close to the top!");
-            [self scrollToTop];
-            return;
-        }
-        charbottom = charbottom + offset;
-        NSPoint newScrollOrigin = NSMakePoint(0, floor(charbottom - NSHeight(scrollview.frame)));
-        [scrollview.contentView scrollToPoint:newScrollOrigin];
-        [scrollview reflectScrolledClipView:scrollview.contentView];
+    CGFloat charbottom = NSMaxY(line); // bottom of the line
+    if (fabs(charbottom - NSHeight(scrollview.frame)) < self.theme.bufferNormal.cellSize.height) {
+        NSLog(@"scrollToCharacter: too close to the top!");
+        [self scrollToTop];
+        return;
     }
+    charbottom = charbottom + offset;
+    NSPoint newScrollOrigin = NSMakePoint(0, floor(charbottom - NSHeight(scrollview.frame)));
+    [scrollview.contentView scrollToPoint:newScrollOrigin];
+    [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
 - (void)performScroll {
@@ -2391,13 +2372,12 @@
         return YES;
     }
 
-    // If a window is only a single line high,
-    // input becomes impossible unless we return yes here.
-    if (NSHeight(_textview.bounds) < self.theme.bufferNormal.cellSize.height + _textview.textContainerInset.height * 2) {
-        return YES;
-    }
+//    NSLog(@"_textview.bounds: %@ clipView.bounds: %@ NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) = %f cellSize.height: %f _textview.textContainerInset.height: %f", NSStringFromRect(_textview.bounds), NSStringFromRect(clipView.bounds), NSHeight(_textview.bounds) - NSMaxY(clipView.bounds), self.theme.bufferNormal.cellSize.height, _textview.textContainerInset.height);
+//
+//    if (!(NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < _textview.textContainerInset.height + 2 + _textview.bottomPadding))
+//        NSLog(@"Not scrolled to bottom");
 
-    return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.bottomPadding);
+    return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding);
 }
 
 - (void)scrollToBottom {
