@@ -1216,18 +1216,15 @@ fprintf(stderr, "%s\n",                                                    \
 
     // If this is the GlkController of the sample text in
     // the preferences window, we use the _dummyTheme property
-    if (_game && !_previewDummy) {
+    if (_game && !_previewDummy && !dead) {
 //        NSLog(@"glkctl notePreferencesChanged called for game %@, currently using theme %@", _game.metadata.title, _game.theme.name);
         _theme = _game.theme;
     } else {
-        NSLog(@"notePreferencesChanged: no game. Probable the GlkController of the sample text. Set it to dead.");
+        NSLog(@"notePreferencesChanged: no game. Set GlkController to dead.");
         _theme = [Preferences currentTheme];
         dead = YES;
         return;
     }
-
-    if (_previewDummy)
-        return;
     
     if (notify.object != _theme && notify.object != nil) {
 //        NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).name, _theme.name);
@@ -1255,6 +1252,12 @@ fprintf(stderr, "%s\n",                                                    \
     
     [self adjustContentView];
 
+    if (!_gwindows.count) {
+        // No _gwindows, nothing to do. Probably caused by restoring
+        // theme setting in the preferences window at startup
+        return;
+    }
+
     GlkEvent *gevent;
 
     CGFloat width = _contentView.frame.size.width;
@@ -1273,11 +1276,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     gevent = [[GlkEvent alloc] initPrefsEvent];
     [self queueEvent:gevent];
-
-    if (!_gwindows.count) {
-        NSLog(@"glkctl: notePreferencesChanged called with no _gwindows");
-        return;
-    }
 
     for (GlkWindow *win in [_gwindows allValues])
     {
