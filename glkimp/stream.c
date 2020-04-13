@@ -676,7 +676,7 @@ static void gli_put_char(stream_t *str, unsigned char ch)
         case strtype_Window:
             if (str->win->line_request) {
                 gli_strict_warning("put_char: window has pending line request");
-                break;
+//                break;
             }
             /* If you're going to convert Latin-1 to a different
              character set, this is (a) place to do it. Only on the

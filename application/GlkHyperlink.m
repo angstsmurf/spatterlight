@@ -19,8 +19,8 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
-    _index = [decoder decodeIntegerForKey:@"index"];
-    _startpos = [decoder decodeIntegerForKey:@"startpos"];
+    _index = (NSUInteger)[decoder decodeIntegerForKey:@"index"];
+    _startpos = (NSUInteger)[decoder decodeIntegerForKey:@"startpos"];
     NSValue *rangeVal = [decoder decodeObjectForKey:@"range"];
     _range = rangeVal.rangeValue;
     _bounds = [decoder decodeRectForKey:@"bounds"];
@@ -28,8 +28,8 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeInteger:_index forKey:@"index"];
-    [encoder encodeInteger:_startpos forKey:@"startpos"];
+    [encoder encodeInteger:(NSInteger)_index forKey:@"index"];
+    [encoder encodeInteger:(NSInteger)_startpos forKey:@"startpos"];
     NSValue *rangeVal = [NSValue valueWithRange:_range];
     [encoder encodeObject:rangeVal forKey:@"range"];
     [encoder encodeRect:_bounds forKey:@"bounds"];

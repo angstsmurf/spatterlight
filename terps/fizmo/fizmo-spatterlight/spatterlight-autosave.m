@@ -126,7 +126,7 @@ int spatterlight_do_autosave() {
         }
     }
 
-    win_autosave(0); // Call window server to do its own autosave
+    win_autosave(AUTOSAVE_SERIAL_VERSION); // Call window server to do its own autosave
 
 	return 0;
 }

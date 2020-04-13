@@ -7,8 +7,6 @@
 
 @implementation TempLibrary
 
-#define SERIAL_VERSION (1)
-
 //static TempLibrary *singleton = nil;
 static void (*extra_archive_hook)(TempLibrary *, NSCoder *) = nil;
 static void (*extra_unarchive_hook)(TempLibrary *, NSCoder *) = nil;
@@ -34,11 +32,14 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     self = [super init];
 
     if (self) {
-
+        // gli_program_name should always be interpreter name or Unknown
         program_name = [NSString stringWithUTF8String:gli_program_name];
-        program_info = [NSString stringWithUTF8String:gli_program_info];
-        story_name = [NSString stringWithUTF8String:gli_story_name];
-        story_title = [NSString stringWithUTF8String:gli_story_title];
+        if (gli_program_info[0] != '\0')
+            program_info = [NSString stringWithUTF8String:gli_program_info];
+        if (gli_story_name[0] != '\0')
+            story_name = [NSString stringWithUTF8String:gli_story_name];
+        if (gli_story_name[0] != '\0')
+            story_title = [NSString stringWithUTF8String:gli_story_title];
 
         _windows = [NSMutableArray arrayWithCapacity:8];
         _streams = [NSMutableArray arrayWithCapacity:8];
@@ -79,7 +80,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 - (id) initWithCoder:(NSCoder *)decoder {
 
 	int version = [decoder decodeIntForKey:@"version"];
-    if (version <= 0 || version > SERIAL_VERSION)
+    if (version <= 0 || version > AUTOSAVE_SERIAL_VERSION)
     {
         NSLog(@"Wrong serial version!");
         return nil;
@@ -98,10 +99,14 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     program_info = [decoder decodeObjectForKey:@"program_info"];
     story_name = [decoder decodeObjectForKey:@"story_name"];
     story_title = [decoder decodeObjectForKey:@"story_title"];
-    garglk_set_program_name([program_name UTF8String]);
-    garglk_set_program_info([program_info UTF8String]);
-    garglk_set_story_name([story_name UTF8String]);
-    garglk_set_story_title([story_title UTF8String]);
+    if (program_name)
+        garglk_set_program_name([program_name UTF8String]);
+    if (program_info)
+        garglk_set_program_info([program_info UTF8String]);
+    if (story_name)
+        garglk_set_story_name([story_name UTF8String]);
+    if (story_title)
+        garglk_set_story_title([story_title UTF8String]);
 
 	_windows = [decoder decodeObjectForKey:@"windows"];
     if (!_windows)
@@ -156,7 +161,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
 //    NSLog(@"### TempLibrary: encoding with %ld windows, %ld streams, %ld filerefs, %ld sound channels", (unsigned long)_windows.count, (unsigned long)_streams.count, (unsigned long)_filerefs.count, (unsigned long)_schannels.count);
-	[encoder encodeInt:SERIAL_VERSION forKey:@"version"];
+	[encoder encodeInt:AUTOSAVE_SERIAL_VERSION forKey:@"version"];
 
     [encoder encodeObject:program_name forKey:@"program_name"];
     [encoder encodeObject:program_info forKey:@"program_info"];

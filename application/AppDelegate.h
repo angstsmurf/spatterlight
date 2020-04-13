@@ -2,8 +2,11 @@
  * Launcher -- the main application controller
  */
 
-#import "HelpPanelController.h"
-#import "InfoController.h"
+#import <CoreData/CoreData.h>
+
+@class HelpPanelController;
+
+@class Preferences;
 
 @interface AppDelegate : NSObject <NSWindowDelegate, NSWindowRestoration> {
     HelpPanelController *_helpLicenseWindow;
@@ -15,6 +18,8 @@
 @property Preferences *prefctl;
 @property LibController *libctl;
 @property HelpPanelController *helpLicenseWindow;
+
+@property (readonly) CoreDataManager *coreDataManager;
 
 - (IBAction)openDocument:(id)sender;
 

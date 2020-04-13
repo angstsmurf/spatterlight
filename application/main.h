@@ -6,7 +6,6 @@
 #import "Preferences.h"
 
 #import "GlkEvent.h"
-#import "GlkStyle.h"
 #import "GlkWindow.h"
 #import "GlkTextBufferWindow.h"
 #import "GlkTextGridWindow.h"
@@ -17,5 +16,8 @@
 #import "AppDelegate.h"
 
 extern NSArray *gGameFileTypes;
+extern NSArray *gGridStyleNames;
+extern NSArray *gBufferStyleNames;
+
 extern NSDictionary *gExtMap;
 extern NSDictionary *gFormatMap;

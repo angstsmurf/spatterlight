@@ -148,6 +148,12 @@
         return;
     }
 
+    if (chan->paused == TRUE) {
+        glk_schannel_pause(chan);
+    }
+
+    NSLog(@"TempSChannel restartInternal: chan %d: loop: %d notify: %d", _tag, chan->loop, chan->notify);
+
     glui32 result = glk_schannel_play_ext(chan, chan->resid, chan->loop, chan->notify);
     if (!result) {
         NSLog(@"TempSChannel restartInternal: failed to restart sound channel %d. resid:%d loop:%d notify:%d status: %d", _tag, chan->resid, chan->loop, chan->notify, status);

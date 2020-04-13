@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "NSString+Signature.h"
+#import "NSString+Categories.h"
 
 #include "fileref.h"
 #include "glkimp.h"
@@ -32,7 +32,7 @@ void getworkdir()
             NSLog(@"Could not find Application Support folder. Error: %@", error);
 
         NSString *firstWord = [[[[NSString stringWithUTF8String:gli_program_name] componentsSeparatedByString:@" "] objectAtIndex:0] lowercaseString];
-        
+
         NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", [gFolderMap objectForKey:firstWord]];
 
         dirstr = [dirstr stringByAppendingString:@" Files"];
@@ -40,10 +40,10 @@ void getworkdir()
         appSupportDir = [NSURL URLWithString: dirstr relativeToURL:appSupportDir];
 
         [[NSFileManager defaultManager] createDirectoryAtURL:appSupportDir withIntermediateDirectories:YES attributes:nil error:NULL];
-        
+
         strncpy(workingdir, [appSupportDir.path UTF8String], sizeof workingdir);
     }
-    
+
 	workingdir[sizeof workingdir-1] = 0;
 }
 
@@ -69,6 +69,6 @@ void getautosavedir(char *file)
 
         strncpy(autosavedir, [dirname UTF8String], sizeof autosavedir);
     }
-
+    
 	autosavedir[sizeof autosavedir-1] = 0;
 }

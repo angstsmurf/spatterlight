@@ -2,15 +2,28 @@
  * Preferences is a combined singleton / window controller.
  */
 
-#define TAG_SPACES_GAME 0
-#define TAG_SPACES_ONE 1
-#define TAG_SPACES_TWO 2
+typedef enum kSpacesFormatType : NSUInteger {
+    TAG_SPACES_GAME,
+    TAG_SPACES_ONE,
+    TAG_SPACES_TWO,
+} kSpacesFormatType;
 
-#define ZOOMRESET 0
-#define ZOOMIN 1
-#define ZOOMOUT 2
+typedef enum kZoomDirectionType : NSUInteger {
+    ZOOMRESET,
+    ZOOMIN,
+    ZOOMOUT,
+} kZoomDirectionType;
 
-@interface Preferences : NSWindowController <NSWindowDelegate> {
+typedef enum kDefaultPrefWindowSize : NSUInteger {
+    kDefaultPrefWindowWidth = 516,
+    kDefaultPrefWindowHeight = 330,
+    kDefaultPrefsLowerViewHeight = 311
+} kDefaultPrefWindowSize;
+
+
+@class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController;
+
+@interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate> {
     IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
     IBOutlet NSColorWell *clrInputFg, *clrBufferFg, *clrGridFg;
     IBOutlet NSColorWell *clrBufferBg, *clrGridBg;
@@ -22,15 +35,21 @@
     IBOutlet NSButton *btnEnableGraphics;
     IBOutlet NSButton *btnEnableSound;
     IBOutlet NSButton *btnEnableStyles;
-    IBOutlet NSButton *btnUseScreenFonts;
-    NSFont *__strong *selfontp;
-    NSColor *__strong *colorp;
-    NSColor *__strong *colorp2;
+    IBOutlet NSTableView *themesTableView;
+    IBOutlet NSBox *sampleTextBorderView;
+    IBOutlet GlkHelperView *sampleTextView;
+
+    GlkController *glkcntrl;
+    GlkTextBufferWindow *glktxtbuf;
+
+    NSButton *selectedFontButton;
+
+    BOOL disregardTableSelection;
+    BOOL previewHidden;
+    CGFloat previewTextHeight;
 }
 
 + (void)rebuildTextAttributes;
-
-+ (NSSize)defaultWindowSize;
 
 - (IBAction)changeColor:(id)sender;
 - (IBAction)showFontPanel:(id)sender;
@@ -44,7 +63,24 @@
 - (IBAction)changeEnableGraphics:(id)sender;
 - (IBAction)changeEnableSound:(id)sender;
 - (IBAction)changeEnableStyles:(id)sender;
-- (IBAction)changeUseScreenFonts:(id)sender;
+- (IBAction)changeOverwriteStyles:(id)sender;
+
+- (IBAction)addTheme:(id)sender;
+- (IBAction)removeTheme:(id)sender;
+- (IBAction)clickedOneThemeForAll:(id)sender;
+
+@property (strong) IBOutlet NSButton *btnAdjustSize;
+- (IBAction)changeAdjustSize:(id)sender;
+
+#pragma mark Action menu
+- (IBAction)applyToSelected:(id)sender;
+- (IBAction)selectUsingTheme:(id)sender;
+- (IBAction)deleteUserThemes:(id)sender;
+- (IBAction)togglePreview:(id)sender;
+- (IBAction)editNewEntry:(id)sender;
+
+- (void)createDefaultThemes;
+- (void)restoreThemeSelection:(id)sender;
 
 + (void)zoomIn;
 + (void)zoomOut;
@@ -52,17 +88,16 @@
 + (void)scale:(CGFloat)scalefactor;
 - (void)updatePanelAfterZoom;
 
+#pragma mark Global accessors
+
 + (NSColor *)gridBackground;
 + (NSColor *)gridForeground;
 + (NSColor *)bufferBackground;
 + (NSColor *)bufferForeground;
 + (NSColor *)inputColor;
 
-+ (NSColor *)foregroundColor:(int)number;
-+ (NSColor *)backgroundColor:(int)number;
-
-+ (float)lineHeight;
-+ (float)charWidth;
++ (double)lineHeight;
++ (double)charWidth;
 + (CGFloat)gridMargins;
 + (CGFloat)bufferMargins;
 + (CGFloat)border;
@@ -70,15 +105,42 @@
 
 + (BOOL)stylesEnabled;
 + (BOOL)smartQuotes;
-+ (NSUInteger)spaceFormat;
-+ (NSUInteger)zoomDirection;
++ (kSpacesFormatType)spaceFormat;
++ (kZoomDirectionType)zoomDirection;
 
 + (BOOL)graphicsEnabled;
 + (BOOL)soundEnabled;
-+ (BOOL)useScreenFonts;
+
++ (Theme *)currentTheme;
 
 + (Preferences *)instance;
-+ (NSDictionary *)attributesForGridStyle:(int)style;
-+ (NSDictionary *)attributesForBufferStyle:(int)style;
+
++ (void)changeCurrentGame:(Game *)game;
+
+@property (readonly) Theme *defaultTheme;
+@property (readonly) CoreDataManager *coreDataManager;
+@property (readonly) NSArray *sortDescriptors;
+@property (readonly) NSManagedObjectContext *managedObjectContext;
+@property Game *currentGame;
+@property BOOL oneThemeForAll;
+@property BOOL adjustSize;
+@property LibController *libcontroller;
+
+@property (strong) IBOutlet ThemeArrayController *arrayController;
+@property (strong) IBOutlet NSScrollView *scrollView;
+
+@property (strong) IBOutlet NSTextFieldCell *detailsHeader;
+@property (strong) IBOutlet NSTextFieldCell *themesHeader;
+@property (strong) IBOutlet NSButton *btnOneThemeForAll;
+
+@property (strong) IBOutlet NSPopUpButton *actionButton;
+
+@property (strong) IBOutlet NSButton *btnAdd;
+@property (strong) IBOutlet NSButton *btnRemove;
+@property (strong) IBOutlet NSBox *divider;
+
+@property (strong) IBOutlet NSButton *btnOverwriteStyles;
+
+
 
 @end

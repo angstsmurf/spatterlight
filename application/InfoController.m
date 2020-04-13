@@ -1,4 +1,9 @@
 #import "InfoController.h"
+
+#import "Game.h"
+#import "Metadata.h"
+#import "CoreDataManager.h"
+#import "Image.h"
 #import "main.h"
 
 #include "babel_handler.h"
@@ -14,11 +19,14 @@
 
 @implementation InfoController
 
-- (instancetype)initWithpath:(NSString *)path andInfo:(NSDictionary *)meta {
+- (instancetype)initWithGame:(Game *)game  {
     self = [super initWithWindowNibName:@"InfoPanel"];
     if (self) {
-        _path = path;
-        _meta = meta;
+        _game = game;
+        _path = [game urlForBookmark].path;
+        if (!_path)
+            _path = game.path;
+        _meta = game.metadata;
     }
     return self;
 }
@@ -27,9 +35,41 @@
     self = [super initWithWindowNibName:@"InfoPanel"];
     if (self) {
         _path = path;
-        _meta = nil;
+        _game = [self fetchGameWithPath:path];
+        if (_game)
+            _meta = _game.metadata;
     }
     return self;
+}
+
+- (Game *)fetchGameWithPath:(NSString *)path {
+    NSError *error = nil;
+    NSArray *fetchedObjects;
+
+    CoreDataManager *coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
+    NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:managedObjectContext];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path like[c] %@",path];
+
+    fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"Problem! %@",error);
+    }
+
+    if (fetchedObjects.count > 1)
+    {
+        NSLog(@"Found more than one entry with path %@",path);
+    }
+    else if (fetchedObjects.count == 0)
+    {
+        NSLog(@"fetchGameWithPath: Found no Game object with path %@", path);
+        return nil;
+    }
+
+    return fetchedObjects[0];
 }
 
 - (void)sizeToFitImageAnimate:(BOOL)animate {
@@ -39,7 +79,7 @@
     NSSize cursize;
     NSSize setsize;
     NSSize maxsize;
-    float scale;
+    double scale;
 
     maxsize = self.window.screen.frame.size;
     wellsize = imageView.frame.size;
@@ -90,99 +130,82 @@
     frame.size.width = setsize.width;
     frame.size.height = setsize.height;
     frame.origin.y -= setsize.height;
+    if (NSMaxY(frame) > NSMaxY(self.window.screen.frame))
+        frame.origin.y = NSMaxY(self.window.screen.frame) - frame.size.height;
     [self.window setFrame:frame display:YES animate:animate];
 }
 
-- (void)windowDidLoad {
-    NSURL *imgpath;
-    NSString *pathstring;
-    NSImage *img;
-    NSData *imgdata;
-    const char *format;
+- (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
+    NSLog(@"noteManagedObjectContextDidChange");
+    NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    NSArray *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
+    NSArray *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];
 
-    // Get Application Support Directory URL
-    NSError *error;
-    imgpath = [[NSFileManager defaultManager]
-          URLForDirectory:NSApplicationSupportDirectory
-                 inDomain:NSUserDomainMask
-        appropriateForURL:nil
-                   create:YES
-                    error:&error];
+    if ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game])
+    {
+        [self update];
 
-    NSLog(@"infoctl: windowDidLoad");
+        if (_meta.cover && ([insertedObjects containsObject:_meta.cover] || [refreshedObjects containsObject:_meta.cover] || [updatedObjects containsObject:_meta.cover])) {
+            [self updateImage];
+        }
+    }
+}
 
+- (void)update {
+    if (!_path)
+        _path = _game.urlForBookmark.path;
+    if (!_path)
+        _path = _game.path;
     self.window.representedFilename = _path;
     self.window.title =
-        [NSString stringWithFormat:@"%@ Info", _path.lastPathComponent];
-
-    [descriptionText setDrawsBackground:NO];
-    [(NSScrollView *)descriptionText.superview setDrawsBackground:NO];
+    [NSString stringWithFormat:@"%@ Info", _meta.title];
 
     if (_meta) {
-        titleField.stringValue = [_meta objectForKey:@"title"];
-        if ([_meta valueForKey:@"author"])
-            authorField.stringValue = [_meta objectForKey:@"author"];
-        if ([_meta valueForKey:@"headline"])
-            headlineField.stringValue = [_meta objectForKey:@"headline"];
-        if ([_meta valueForKey:@"description"])
-            descriptionText.string = [_meta objectForKey:@"description"];
+        titleField.stringValue = _meta.title;
+        if (_meta.author)
+            authorField.stringValue = _meta.author;
+        if (_meta.headline)
+            headlineField.stringValue = _meta.headline;
+        if (_meta.blurb)
+            descriptionText.string = _meta.blurb;
+        ifid = ((Game *)_meta.games.anyObject).ifid;
+        if (ifid)
+            ifidField.stringValue = ifid;
+    }
+}
+
+- (void)updateImage {
+    if (_meta.cover) {
+        imageView.image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
     }
 
-    format = babel_init((char *)_path.UTF8String);
-    if (format) {
-        char buf[TREATY_MINIMUM_EXTENT];
-        char *s;
-        int imglen;
-        int rv;
+    [self sizeToFitImageAnimate:NO];
+}
 
-        rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
-        if (rv <= 0)
-            goto finish;
-        s = strchr(buf, ',');
-        if (s)
-            *s = 0;
-        ifid = @(buf);
 
-        ifidField.stringValue = ifid;
-        pathstring =
-            [[@"Spatterlight/Cover%20Art" stringByAppendingPathComponent:ifid]
-                stringByAppendingPathExtension:@"tiff"];
-        imgpath = [NSURL URLWithString:pathstring relativeToURL:imgpath];
-        img = [[NSImage alloc] initWithContentsOfURL:imgpath];
-        if (!img) {
-            imglen = babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
-            if (imglen > 0) {
-                char *imgbuf = malloc(imglen);
-                if (!imgbuf)
-                    goto finish;
+- (void)windowDidLoad {
+    NSLog(@"infoctl: windowDidLoad");
+    CoreDataManager *coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
+    NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
 
-                //                rv =
-                babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
-                imgdata = [[NSData alloc] initWithBytesNoCopy:imgbuf
-                                                       length:imglen
-                                                 freeWhenDone:YES];
-                img = [[NSImage alloc] initWithData:imgdata];
-            }
-        }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(noteManagedObjectContextDidChange:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:managedObjectContext];
 
-        if (img) {
-            imageView.image = img;
-        }
-
-        [self sizeToFitImageAnimate:NO];
-
-    finish:
-        babel_release();
-    }
-
+    descriptionText.drawsBackground = NO;
+    ((NSScrollView *)descriptionText.superview).drawsBackground = NO;
+    
+    [self update];
+    [self updateImage];
     self.window.delegate = self;
 }
 
 + (NSArray *)restorableStateKeyPaths {
     return @[
-        @"path", @"titleField.stringValue", @"authorField.stringValue",
-        @"headlineField.stringValue", @"descriptionText.string"
-    ];
+             @"path", @"titleField.stringValue", @"authorField.stringValue",
+             @"headlineField.stringValue", @"descriptionText.string"
+             ];
 }
 
 - (void)saveImage:sender {
@@ -191,19 +214,19 @@
 
     NSError *error;
     dirURL = [[NSFileManager defaultManager]
-          URLForDirectory:NSApplicationSupportDirectory
-                 inDomain:NSUserDomainMask
-        appropriateForURL:nil
-                   create:YES
-                    error:&error];
+              URLForDirectory:NSApplicationSupportDirectory
+              inDomain:NSUserDomainMask
+              appropriateForURL:nil
+              create:YES
+              error:&error];
 
     dirURL = [NSURL URLWithString:@"Spatterlight/Cover%20Art"
                     relativeToURL:dirURL];
 
     imgURL = [NSURL
-        fileURLWithPath:[[dirURL.path stringByAppendingPathComponent:ifid]
-                            stringByAppendingPathExtension:@"tiff"]
-            isDirectory:NO];
+              fileURLWithPath:[[dirURL.path stringByAppendingPathComponent:ifid]
+                               stringByAppendingPathExtension:@"tiff"]
+              isDirectory:NO];
 
     [[NSFileManager defaultManager] createDirectoryAtURL:dirURL
                              withIntermediateDirectories:YES
@@ -213,11 +236,16 @@
     NSLog(@"infoctl: save image %@", imgURL);
 
     imgdata =
-        [imageView.image TIFFRepresentationUsingCompression:NSTIFFCompressionLZW
-                                                     factor:0];
+    [imageView.image TIFFRepresentationUsingCompression:NSTIFFCompressionLZW
+                                                 factor:0];
     [imgdata writeToURL:imgURL atomically:YES];
 
     [self sizeToFitImageAnimate:YES];
 }
+
+//- (void)updateBlurb
+//{
+//	_game.metadata.blurb = descriptionText.textStorage.string;
+//}
 
 @end

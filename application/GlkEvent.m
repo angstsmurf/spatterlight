@@ -1,4 +1,6 @@
 #import "main.h"
+#import "Theme.h"
+#import "GlkStyle.h"
 
 #include <unistd.h>
 
@@ -116,8 +118,8 @@ unsigned chartokeycode(unsigned ch) {
     if (self) {
         _type = EVTMOUSE;
         win = name;
-        _val1 = v.x;
-        _val2 = v.y;
+        _val1 = (NSInteger)v.x;
+        _val2 = (NSInteger)v.y;
     }
     return self;
 }
@@ -140,7 +142,7 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
-- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah force:(BOOL)forceFlag;
+- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah theme:(Theme *)aTheme force:(BOOL)forceFlag;
 {
 //    NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
     self = [super init];
@@ -148,6 +150,7 @@ unsigned chartokeycode(unsigned ch) {
         _type = EVTARRANGE;
         _val1 = aw;
         _val2 = ah;
+        theme = aTheme;
       _forced = forceFlag;
     }
     return self;
@@ -177,7 +180,7 @@ unsigned chartokeycode(unsigned ch) {
     if (self) {
         _type = EVTHYPER;
         win = name;
-        _val1 = linkid;
+        _val1 = (NSInteger)linkid;
     }
     return self;
 }
@@ -190,11 +193,11 @@ unsigned chartokeycode(unsigned ch) {
     reply.len = 0;
 
     if (ln) {
-        reply.len = (int)(ln.length * 2);
-        if (reply.len > (int)sizeof buf)
-            reply.len = sizeof buf;
+        reply.len = ln.length * 2;
+        if (reply.len > sizeof(buf))
+            reply.len = sizeof(buf);
         [ln getCharacters:(unsigned short *)buf
-                    range:NSMakeRange(0, reply.len / 2)];
+                    range:NSMakeRange(0, (NSUInteger)reply.len / 2)];
     }
 
     reply.cmd = (int)_type;
@@ -207,13 +210,16 @@ unsigned chartokeycode(unsigned ch) {
         settings->screen_width = (int)_val1;
         settings->screen_height = (int)_val2;
 
-        settings->buffer_margin_x = (int)[Preferences bufferMargins];
-        settings->buffer_margin_y = (int)[Preferences bufferMargins];
-        settings->grid_margin_x = (int)[Preferences gridMargins];
-        settings->grid_margin_y =(int)[Preferences gridMargins];
-        settings->cell_width = [Preferences charWidth];
-        settings->cell_height = [Preferences lineHeight];
-        settings->leading = [Preferences leading];
+        settings->buffer_margin_x = (int)theme.bufferMarginX;
+        settings->buffer_margin_y = (int)theme.bufferMarginY;
+        settings->grid_margin_x = (int)theme.gridMarginX;
+        settings->grid_margin_y =(int)theme.gridMarginY;
+        settings->cell_width = (float)theme.cellWidth;
+        settings->cell_height = (float)theme.cellHeight;
+        NSSize bufferCellSize = theme.bufferNormal.cellSize;
+        settings->buffer_cell_width = (float)bufferCellSize.width;
+        settings->buffer_cell_height = (float)bufferCellSize.height;
+        settings->leading = (float)theme.gridNormal.lineSpacing;
         settings->force_arrange = _forced;
 
         reply.len = sizeof(struct settings_struct);
@@ -221,7 +227,7 @@ unsigned chartokeycode(unsigned ch) {
 
     write((int)fd, &reply, sizeof(struct message));
     if (reply.len)
-        write((int)fd, buf, reply.len);
+        write((int)fd, buf, (size_t)reply.len);
 }
 
 @end

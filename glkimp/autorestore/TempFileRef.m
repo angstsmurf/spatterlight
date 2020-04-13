@@ -41,7 +41,7 @@
         _tag = ref->tag;
         _rock = ref->rock;
         if (ref->filename)
-            URL = [NSURL fileURLWithPath:[NSString stringWithUTF8String:ref->filename]];
+            URL = [NSURL fileURLWithPath:@(ref->filename)];
         else
             URL = nil;
         _filetype = ref->filetype;

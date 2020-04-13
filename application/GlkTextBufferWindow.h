@@ -6,7 +6,7 @@
 
 @interface MyAttachmentCell : NSTextAttachmentCell {
     NSInteger align;
-    NSInteger pos;
+    NSUInteger pos;
 }
 
 @property (weak) NSAttributedString *attrstr;
@@ -14,7 +14,7 @@
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)analignment
                     andAttStr:(NSAttributedString *)anattrstr
-                           at:(NSInteger)apos;
+                           at:(NSUInteger)apos;
 
 @end
 
@@ -50,7 +50,7 @@
 - (void)clearImages;
 - (void)addImage:(NSImage *)image
            align:(NSInteger)align
-              at:(NSInteger)top
+              at:(NSUInteger)top
           linkid:(NSUInteger)linkid;
 - (void)drawRect:(NSRect)rect;
 - (void)invalidateLayout;
@@ -73,7 +73,6 @@
     NSScrollView *scrollview;
     NSLayoutManager *layoutmanager;
     MarginContainer *container;
-    MyTextView *textview;
     NSTextStorage *textstorage;
 
     BOOL line_request;
@@ -83,22 +82,28 @@
                                  starting from the next line event*/
     BOOL echo; /* if NO, line input text will be deleted when entered */
 
-    NSInteger fence; /* for input line editing */
+    NSUInteger fence; /* for input line editing */
 
     NSString *history[HISTORYLEN];
     NSInteger historypos;
     NSInteger historyfirst, historypresent;
 
     NSMutableArray *moveRanges;
-    NSInteger moveRangeIndex;
+    NSUInteger moveRangeIndex;
 
     CGFloat lastLineheight;
 
-    /* for temporarily storing scroll position */
+    BOOL storedNewline;
+    NSUInteger storedNewlineStyle;
+
+    // for temporarily storing scroll position
     NSUInteger lastVisible; 
     CGFloat lastScrollOffset;
     BOOL lastAtBottom;
+    BOOL lastAtTop;
 }
+
+@property MyTextView *textview;
 
 @property(readonly) NSInteger lastchar; /* for smart formatting */
 @property(readonly) NSInteger lastseen; /* for more paging */
@@ -107,10 +112,14 @@
 @property NSUInteger restoredLastVisible;
 @property CGFloat restoredScrollOffset;
 @property BOOL restoredAtBottom;
+@property BOOL restoredAtTop;
+
 
 @property NSRange restoredSelection;
 @property NSString *restoredSearch;
 @property BOOL restoredFindBarVisible;
+
+@property BOOL preserveScroll;
 
 - (void)recalcBackground;
 - (void)onKeyDown:(NSEvent *)evt;
@@ -118,11 +127,13 @@
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (void)stopSpeakingText_10_7;
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset;
+- (void)scrollToTop;
 - (void)scrollToBottom;
 - (BOOL)scrolledToBottom;
 - (void)storeScrollOffset;
 - (void)restoreScroll;
 - (void)restoreTextFinder;
+- (void)postRestoreScrollAdjustment;
 - (void)restoreScrollBarStyle;
 
 - (IBAction)speakMostRecent:(id)sender;

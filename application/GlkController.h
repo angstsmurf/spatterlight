@@ -13,15 +13,16 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "Compatibility.h"
-#import "main.h"
+@class Game, Theme;
 
 #define MAXWIN 64
 #define MAXSND 32
 
 @interface GlkHelperView : NSView {
-    IBOutlet GlkController *delegate;
 }
+
+@property IBOutlet GlkController *glkctrl;
+
 @end
 
 @interface GlkController : NSWindowController {
@@ -48,8 +49,9 @@
     NSSize borderFullScreenSize;
     NSWindow *snapshotWindow;
 
+    BOOL windowClosedAlready;
+
     /* the glk objects */
-    // GlkSoundChannel *gchannels[MAXSND];
     BOOL windowdirty; /* the contentView needs to repaint */
 
     /* image/sound resource uploading protocol */
@@ -58,28 +60,28 @@
     NSImage *lastimage;
     NSData *lastsound;
 
-    /* stylehints need to be copied to new windows, so we keep the values around
-     */
-    NSInteger styleuse[2][style_NUMSTYLES][stylehint_NUMHINTS];
-    NSInteger styleval[2][style_NUMSTYLES][stylehint_NUMHINTS];
-
-    /* keep some info around for the about-box and resetting*/
-    NSString *gamefile;
-    NSString *gameifid;
-    NSString *terpname;
-
-    NSDictionary *gameinfo;
-
     GlkController *restoredController;
     NSUInteger turns;
     NSMutableData *bufferedData;
+
+    LibController *libcontroller;
+
+    NSSize lastSizeInChars;
+    Theme *lastTheme;
+
+    NSInteger lastRequest;
 }
 
 @property NSMutableDictionary *gwindows;
 @property IBOutlet NSView *borderView;
 @property IBOutlet GlkHelperView *contentView;
 
-@property(getter=isAlive, readonly) BOOL alive;
+// stylehints need to be copied to new windows, so we keep the values around
+
+@property NSMutableArray *gridStyleHints;
+@property NSMutableArray *bufferStyleHints;
+
+@property(readonly, getter=isAlive) BOOL alive;
 
 @property(readonly) NSTimeInterval storedTimerLeft;
 @property(readonly) NSTimeInterval storedTimerInterval;
@@ -89,26 +91,38 @@
 
 @property(readonly) NSRect windowPreFullscreenFrame;
 
-@property NSInteger firstResponderView;
+@property BOOL ignoreResizes;
 
-@property NSMutableArray *queue;
+@property(readonly) NSInteger firstResponderView;
 
-@property(nonatomic) NSString *appSupportDir;
-@property(nonatomic) NSString *autosaveFileGUI;
-@property(nonatomic) NSString *autosaveFileTerp;
+@property(readonly) NSMutableArray *queue;
+
+/* keep some info around for the about-box and resetting*/
+@property(readonly) Game *game;
+@property(readonly) NSString *gamefile;
+@property(readonly) NSString *terpname;
+@property Theme *theme;
+
+@property(strong, nonatomic) NSString *appSupportDir;
+@property(strong, nonatomic) NSString *autosaveFileGUI;
+@property(strong, nonatomic) NSString *autosaveFileTerp;
 
 @property(readonly) BOOL supportsAutorestore;
 @property(readonly) BOOL inFullscreen;
 
+@property BOOL shouldScrollOnInputEvent;
+@property BOOL shouldStoreScrollOffset;
+
+@property BOOL previewDummy;
+
+@property NSInteger autosaveVersion;
+
 - (void)runTerp:(NSString *)terpname
-   withGameFile:(NSString *)gamefilename
-           IFID:(NSString *)gameifid
-           info:(NSDictionary *)gameinfo
+       withGame:(Game *)game
           reset:(BOOL)shouldReset
      winRestore:(BOOL)windowRestoredBySystem;
 
-- (void)deleteAutosaveFilesForGameFile:(NSString *)gamefile
-                                withInfo:(NSDictionary *)gameinfo;
+- (void)deleteAutosaveFilesForGame:(Game *)game;
 
 - (IBAction)reset:(id)sender;
 
@@ -116,10 +130,11 @@
 - (void)contentDidResize:(NSRect)frame;
 - (void)markLastSeen;
 - (void)performScroll;
-- (void)setBorderColor:(NSColor *)color;
+- (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow;
 - (void)restoreUI;
 - (void)autoSaveOnExit;
 - (void)storeScrollOffsets;
 - (void)restoreScrollOffsets;
+- (void)adjustContentView;
 
 @end

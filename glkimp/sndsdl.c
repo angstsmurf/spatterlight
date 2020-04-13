@@ -495,8 +495,7 @@ static void sound_completion_callback(int chan)
     Uint32 soundbytes = Sound_Decode(sound_channel->decode);
     if (!soundbytes)
     {
-        /* -1 means loop forever */
-        if (sound_channel->loop != -1)
+        if (sound_channel->loop != UINT32_MAX && sound_channel->loop != 0)
             sound_channel->loop--;
 
         if (sound_channel->loop == 0)
@@ -583,10 +582,10 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
             char resname[4];
             memcpy(resname, (*buf) + 1080, 4);
             if (!strcmp(resname+1, "CHN") ||        /* 4CHN, 6CHN, 8CHN */
-                    !strcmp(resname+2, "CN") ||         /* 16CN, 32CN */
-                    !strcmp(resname, "M.K.") || !strcmp(resname, "M!K!") ||
-                    !strcmp(resname, "FLT4") || !strcmp(resname, "CD81") ||
-                    !strcmp(resname, "OKTA") || !strcmp(resname, "    "))
+                !strcmp(resname+2, "CN") ||         /* 16CN, 32CN */
+                !strcmp(resname, "M.K.") || !strcmp(resname, "M!K!") ||
+                !strcmp(resname, "FLT4") || !strcmp(resname, "CD81") ||
+                !strcmp(resname, "OKTA") || !strcmp(resname, "    "))
                 return giblorb_ID_MOD;
         }
 
@@ -708,7 +707,7 @@ static glui32 play_mod(schanid_t chan, long len)
     if (music_busy)
     {
         /* We already checked for music playing on *this* channel
-        in glk_schannel_play_ext */
+         in glk_schannel_play_ext */
 
         gli_strict_warning("MOD player already in use on another channel!");
         return 0;
@@ -718,11 +717,11 @@ static glui32 play_mod(schanid_t chan, long len)
     /* The fscking mikmod lib want to read the mod only from disk! */
     tempdir = getenv("TMPDIR");
     if (tempdir == NULL) tempdir = ".";
-	//fprintf(stderr, "tempdir = %s\n", tempdir);
+    //fprintf(stderr, "tempdir = %s\n", tempdir);
 
     sprintf(tn, "%sXXXXXX", tempdir);
     mkstemp(tn);
-	sprintf(tn, "%s.mod", tn);
+    sprintf(tn, "%s.mod", tn);
 
     //fprintf(stderr, "tn = %s\n", tn);
 

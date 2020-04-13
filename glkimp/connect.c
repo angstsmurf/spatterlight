@@ -42,11 +42,13 @@ int ggridmarginx = 0;
 int ggridmarginy = 0;
 float gcellw = 8;
 float gcellh = 12;
+float gbufcellw = 8;
+float gbufcellh = 12;
 float gleading = 0;
 
 glui32 lasteventtype = -1;
 
-void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, int len, char *buf)
+void sendmsg(int cmd, int a1, int a2, int a3, int a4, int a5, size_t len, char *buf)
 {
     ssize_t n;
     struct message msgbuf;
@@ -182,21 +184,24 @@ void win_print(int name, int ch, int at)
 void wintitle(void)
 {
     char buf[256];
-
-    if (strlen(gli_story_title))
+    buf[0] = '\0';
+    if (strlen(gli_story_title)) {
         sprintf(buf, "%s", gli_story_title);
-    else if (strlen(gli_story_name))
-        sprintf(buf, "%s", gli_story_name);
-        //sprintf(buf, "%s - %s", gli_story_name, gli_program_name);
-    else
-        sprintf(buf, "%s", gli_program_name);
+    }
+//    else if (strlen(gli_story_name))
+//        sprintf(buf, "%s", gli_story_name);
+//        //sprintf(buf, "%s - %s", gli_story_name, gli_program_name);
+//    else
+//        sprintf(buf, "%s", gli_program_name);
     if (strlen(buf))
+    {
         sendmsg(SETTITLE, 0, 0, 0, 0, 0,
                 (int)(strlen(buf)), // * sizeof(unsigned short)
                 (char*)buf);
-#ifdef DEBUG
-    //fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
-#endif
+//#ifdef DEBUG
+//        fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
+//#endif
+    }
 }
 
 /* End of Gargoyle glue */
@@ -586,6 +591,8 @@ again:
                 ggridmarginy == settings->grid_margin_y &&
                 gcellw == settings->cell_width &&
                 gcellh == settings->cell_height &&
+                gbufcellw == settings->buffer_cell_width &&
+                gbufcellh == settings->buffer_cell_height &&
 				gleading == settings->leading &&
                 settings->force_arrange == 0)
                 goto again;
@@ -600,6 +607,8 @@ again:
             ggridmarginy = settings->grid_margin_y;
             gcellw = settings->cell_width;
             gcellh = settings->cell_height;
+            gbufcellw = settings->buffer_cell_width;
+            gbufcellh = settings->buffer_cell_height;
             gleading = settings->leading;
 
             gli_windows_rearrange();
@@ -697,6 +706,11 @@ again:
 #endif
             event->type = evtype_Hyperlink;
             event->win = gli_window_for_peer(wmsg.a1);
+            if (event->win == NULL)
+            {
+                fprintf(stderr, "Error: window %d not found!\n",  wmsg.a1);
+                break;
+            }
             event->val1 = wmsg.a2;
             event->win->hyper_request = FALSE;
             break;

@@ -6,8 +6,6 @@
 //
 //
 
-#import <Cocoa/Cocoa.h>
-
 @interface HelpTextView : NSTextView <NSTextFinderClient> {
     NSTextFinder *_textFinder; // define your own text finder
 }

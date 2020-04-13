@@ -16,6 +16,7 @@
 
     if (self) {
         image = [[NSImage alloc] initWithSize:NSZeroSize];
+        bgnd = 0xFFFFFF; // White
 
         mouse_request = NO;
         transparent = NO;
@@ -31,6 +32,7 @@
         dirty = YES;
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
+        bgnd = [decoder decodeIntegerForKey:@"bgnd"];
     }
     return self;
 }
@@ -40,6 +42,7 @@
     [encoder encodeObject:image forKey:@"image"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeBool:transparent forKey:@"transparent"];
+    [encoder encodeInteger:bgnd forKey:@"bgnd"];
 }
 
 - (BOOL)isOpaque {
@@ -56,29 +59,15 @@
 
     //    NSLog(@"Background in graphics window was set to bgnd(%ld)",
     //    (long)bgnd);
+
+    [self.glkctl setBorderColor:[self colorFromBgnd] fromWindow:self];
 }
 
 - (void)drawRect:(NSRect)rect {
-    NSColor *color;
-    CGFloat r, g, b;
-
     NSRect bounds = self.bounds;
 
     if (!transparent) {
-
-        color = nil;
-
-        r = (bgnd >> 16) / 255.0;
-        g = (bgnd >> 8 & 0xFF) / 255.0;
-        b = (bgnd & 0xFF) / 255.0;
-
-        color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
-
-        if (!color)
-            color = [NSColor whiteColor];
-
-        [color set];
-
+        [[self colorFromBgnd] set];
         NSRectFill(rect);
     }
 
@@ -92,7 +81,7 @@
 
     frame.origin.y = round(frame.origin.y);
     
-    if (NSEqualRects(frame, self.frame))
+    if (NSEqualRects(frame, self.frame) && !NSEqualSizes(image.size, NSZeroSize))
         return;
 
     super.frame = frame;
@@ -105,24 +94,11 @@
 
     // Then we create a new image, filling it with background color
     if (!transparent) {
-        NSColor *color = nil;
-        CGFloat r, g, b;
-
-        r = (bgnd >> 16) / 255.0;
-        g = (bgnd >> 8 & 0xFF) / 255.0;
-        b = (bgnd & 0xFF) / 255.0;
-
-        color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
-        // NSLog(@"drawRect: Set color in graphics window to bgnd(%ld), %@",
-        // (long)bgnd, color);
-
-        if (!color)
-            color = [NSColor whiteColor];
 
         image = [[NSImage alloc] initWithSize:frame.size];
 
         [image lockFocus];
-        [color set];
+        [[self colorFromBgnd] set];
         NSRectFill(self.bounds);
         [image unlockFocus];
     }
@@ -131,10 +107,27 @@
     [self drawImage:oldimage
                val1:0
                val2:0
-              width:oldimage.size.width
-             height:oldimage.size.height];
+              width:(NSInteger)oldimage.size.width
+             height:(NSInteger)oldimage.size.height];
 
     dirty = YES;
+}
+
+- (NSColor *)colorFromBgnd {
+    NSColor *color = nil;
+    CGFloat r, g, b;
+
+    r = (bgnd >> 16) / 255.0;
+    g = (bgnd >> 8 & 0xFF) / 255.0;
+    b = (bgnd & 0xFF) / 255.0;
+
+    color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
+    // NSLog(@"drawRect: Set color in graphics window to bgnd(%ld), %@",
+    // (long)bgnd, color);
+
+    if (!color)
+        color = [NSColor whiteColor];
+    return color;
 }
 
 - (void)fillRects:(struct fillrect *)rects count:(NSInteger)count {
@@ -150,8 +143,8 @@
 
     bitmap = [[NSBitmapImageRep alloc]
         initWithBitmapDataPlanes:NULL
-                      pixelsWide:size.width
-                      pixelsHigh:size.height
+                      pixelsWide:(NSInteger)size.width
+                      pixelsHigh:(NSInteger)size.height
                    bitsPerSample:8
                  samplesPerPixel:4
                         hasAlpha:YES
@@ -237,12 +230,16 @@
            height:(NSInteger)h {
     NSSize srcsize = src.size;
 
-    if (w == 0)
-        w = srcsize.width;
-    if (h == 0)
-        h = srcsize.height;
+    if (NSEqualSizes(image.size, NSZeroSize)) {
+        return;
+    }
 
-    // NSLog(@"  drawimage in gfx x=%d y=%d w=%d h=%d\n", x, y, w, h);
+    if (w == 0)
+        w = (NSInteger)srcsize.width;
+    if (h == 0)
+        h = (NSInteger)srcsize.height;
+
+//    NSLog(@"drawimage in gfx x=%ld y=%ld w=%ld h=%ld \n", (long)x, (long)y, (long)w, (long)h);
 
     @try {
         [image lockFocus];
@@ -288,6 +285,7 @@
         p = [self convertPoint:p fromView:nil];
         p.y = self.frame.size.height - p.y;
         // NSLog(@"mousedown in gfx at %g,%g", p.x, p.y);
+        self.glkctl.shouldScrollOnInputEvent = YES;
         GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
         [self.glkctl queueEvent:gev];
         mouse_request = NO;
@@ -337,6 +335,7 @@
         [self.glkctl markLastSeen];
 
         // NSLog(@"char event from %d", name);
+        self.glkctl.shouldScrollOnInputEvent = YES;
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
         [self.glkctl queueEvent:gev];
         char_request = NO;

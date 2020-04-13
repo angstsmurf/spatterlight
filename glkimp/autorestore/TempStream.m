@@ -34,7 +34,7 @@
 
         URL = nil;
         if (str->filename)
-            URL = [NSURL fileURLWithPath:[NSString stringWithUTF8String:str->filename]];
+            URL = [NSURL fileURLWithPath:@(str->filename)];
         _file = str->file;
 
         //    /* for strtype_Memory and strtype_Resource. Separate pointers for
