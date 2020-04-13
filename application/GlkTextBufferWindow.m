@@ -2223,7 +2223,7 @@
 }
 
 - (void)storeScrollOffset {
-    NSLog(@"GlkTextBufferWindow %ld: storeScrollOffset", self.name);
+//    NSLog(@"GlkTextBufferWindow %ld: storeScrollOffset", self.name);
     if (self.scrolledToBottom) {
         lastAtBottom = YES;
         lastAtTop = NO;
@@ -2248,13 +2248,13 @@
         lastVisible = textstorage.length - 1;
     }
 
-    NSLog(@"storeScrollOffset: lastVisible: %ld", lastVisible);
-
-    NSLog(@"Character %lu is '%@'", lastVisible, [textstorage.string substringWithRange:NSMakeRange(lastVisible, 1)]);
-    if (lastVisible > 11)
-        NSLog(@"Previous 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(lastVisible - 10, 10)]);
-    if (textstorage.length > lastVisible + 12)
-        NSLog(@"Next 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(lastVisible + 1, 10)]);
+//    NSLog(@"storeScrollOffset: lastVisible: %ld", lastVisible);
+//
+//    NSLog(@"Character %lu is '%@'", lastVisible, [textstorage.string substringWithRange:NSMakeRange(lastVisible, 1)]);
+//    if (lastVisible > 11)
+//        NSLog(@"Previous 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(lastVisible - 10, 10)]);
+//    if (textstorage.length > lastVisible + 12)
+//        NSLog(@"Next 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(lastVisible + 1, 10)]);
 
     NSRect lastRect =
         [layoutmanager lineFragmentRectForGlyphAtIndex:lastVisible
@@ -2263,13 +2263,13 @@
     lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / self.theme.bufferNormal.cellSize.height;
                   //  lastLineheight;
 
-    NSLog(@"(NSMaxY(visibleRect) (%f) - NSMaxY(lastRect)) (%f) / self.theme.bufferNormal.cellSize.height: %f = %f", NSMaxY(visibleRect),  NSMaxY(lastRect), self.theme.bufferNormal.cellSize.height, lastScrollOffset);
+//    NSLog(@"(NSMaxY(visibleRect) (%f) - NSMaxY(lastRect)) (%f) / self.theme.bufferNormal.cellSize.height: %f = %f", NSMaxY(visibleRect),  NSMaxY(lastRect), self.theme.bufferNormal.cellSize.height, lastScrollOffset);
 
     if (isnan(lastScrollOffset) || isinf(lastScrollOffset))
         lastScrollOffset = 0;
 
-    NSLog(@"lastScrollOffset: %f", lastScrollOffset);
-    NSLog(@"lastScrollOffset as percentage of cell height: %f", (lastScrollOffset / self.theme.bufferNormal.cellSize.height) * 100);
+//    NSLog(@"lastScrollOffset: %f", lastScrollOffset);
+//    NSLog(@"lastScrollOffset as percentage of cell height: %f", (lastScrollOffset / self.theme.bufferNormal.cellSize.height) * 100);
 
 
 }
@@ -2286,7 +2286,6 @@
     }
 
     if (!lastVisible) {
-        [self storeScrollOffset];
         return;
     }
 
@@ -2317,23 +2316,23 @@
         return;
     }
 
-    NSLog(@"Character %lu is '%@'", character, [textstorage.string substringWithRange:NSMakeRange(character, 1)]);
-    if (character > 11)
-        NSLog(@"Previous 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(character - 10, 10)]);
-    if (textstorage.length > character + 12)
-        NSLog(@"Next 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(character + 1, 10)]);
-
-    NSLog(@"offset: %f self.theme.bufferNormal.cellSize.height: %f", offset, self.theme.bufferNormal.cellSize.height);
+//    NSLog(@"Character %lu is '%@'", character, [textstorage.string substringWithRange:NSMakeRange(character, 1)]);
+//    if (character > 11)
+//        NSLog(@"Previous 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(character - 10, 10)]);
+//    if (textstorage.length > character + 12)
+//        NSLog(@"Next 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(character + 1, 10)]);
+//
+//    NSLog(@"offset: %f self.theme.bufferNormal.cellSize.height: %f", offset, self.theme.bufferNormal.cellSize.height);
 
 
     offset = offset * self.theme.bufferNormal.cellSize.height;
-    NSLog(@"offset * self.theme.bufferNormal.cellSize.height: %f", offset);
+//    NSLog(@"offset * self.theme.bufferNormal.cellSize.height: %f", offset);
     if (isnan(offset) || isinf(offset))
         offset = 0;
 
-    NSLog(@"final offset: %f", offset);
-
-    NSLog(@"offset as percentage of cell height: %f", (offset / self.theme.bufferNormal.cellSize.height) * 100);
+//    NSLog(@"final offset: %f", offset);
+//
+//    NSLog(@"offset as percentage of cell height: %f", (offset / self.theme.bufferNormal.cellSize.height) * 100);
 
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
@@ -2383,7 +2382,7 @@
 }
 
 - (BOOL)scrolledToBottom {
-    NSLog(@"GlkTextBufferWindow %ld: scrolledToBottom?", self.name);
+//    NSLog(@"GlkTextBufferWindow %ld: scrolledToBottom?", self.name);
     NSView *clipView = scrollview.contentView;
 
     NSLog(@"(NSHeight(_textview.bounds) (%f) - NSMaxY(clipView.bounds) (%f) = %f", NSHeight(_textview.bounds), NSMaxY(clipView.bounds), NSHeight(_textview.bounds) - NSMaxY(clipView.bounds));
