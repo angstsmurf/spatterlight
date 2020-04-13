@@ -198,7 +198,7 @@ fprintf(stderr, "%s\n",                                                    \
     lastimage = nil;
 
     _ignoreResizes = NO;
-    _shouldScrollOnInputEvent = NO;
+    _shouldScrollOnCharEvent = NO;
 
     // If we are resetting, there is a bunch of stuff that we have already done
     // and we can skip
@@ -1059,6 +1059,9 @@ fprintf(stderr, "%s\n",                                                    \
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [win performScroll];
         }
+
+    // To fix scrolling in the Adrian Mole games
+    _shouldScrollOnCharEvent = NO;
 }
 
 #pragma mark Window resizing
@@ -2293,12 +2296,14 @@ NSInteger colorToInteger(NSColor *color) {
 
         case INITCHAR:
 //            NSLog(@"glkctl initchar %d", req->a1);
+
+            // To fix scrolling in the Adrian Mole games
             if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"]) {
                 if (lastRequest == PRINT) {
-                    _shouldScrollOnInputEvent = YES;
+                    _shouldScrollOnCharEvent = YES;
                 }
                 
-                if (_shouldScrollOnInputEvent) {
+                if (_shouldScrollOnCharEvent) {
                     [self performScroll];
                 }
                 

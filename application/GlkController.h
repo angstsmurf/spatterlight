@@ -69,6 +69,7 @@
     NSSize lastSizeInChars;
     Theme *lastTheme;
 
+    // To fix scrolling in the Adrian Mole games
     NSInteger lastRequest;
 }
 
@@ -110,7 +111,9 @@
 @property(readonly) BOOL supportsAutorestore;
 @property(readonly) BOOL inFullscreen;
 
-@property BOOL shouldScrollOnInputEvent;
+// To fix scrolling in the Adrian Mole games
+@property BOOL shouldScrollOnCharEvent;
+
 @property BOOL shouldStoreScrollOffset;
 
 @property BOOL previewDummy;

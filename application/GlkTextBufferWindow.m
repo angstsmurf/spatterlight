@@ -1596,14 +1596,16 @@
                 return;
             default:
                 [self performScroll];
+                // To fix scrolling in the Adrian Mole games
                 scrolled = YES;
                 break;
         }
     }
 
     if (char_request && ch != keycode_Unknown) {
-        if (scrolled == NO)
-            self.glkctl.shouldScrollOnInputEvent = YES;
+        // To fix scrolling in the Adrian Mole games
+        if (!scrolled)
+            self.glkctl.shouldScrollOnCharEvent = YES;
 
         [self markLastSeen];
 
@@ -2356,7 +2358,6 @@
 //        [_textview scrollRectToVisible:NSMakeRect(0, _lastseen, 0,
 //                                                  bottom - _lastseen)];
     }
-    self.glkctl.shouldScrollOnInputEvent = NO;
 }
 
 - (BOOL)scrolledToBottom {
