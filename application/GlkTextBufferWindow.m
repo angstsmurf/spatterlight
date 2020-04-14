@@ -6,6 +6,7 @@
 #import "GlkHyperlink.h"
 #import "NSString+Categories.h"
 #import "Theme.h"
+#import "Game.h"
 #import "GlkStyle.h"
 #import "main.h"
 
@@ -1273,9 +1274,9 @@
         NSInteger marginX = self.theme.bufferMarginX;
         NSInteger marginY = self.theme.bufferMarginY;
 
-        if (marginY * 2 > _textview.visibleRect.size.height) {
-            marginY = 0;
-        }
+//        if (marginY * 2 > _textview.visibleRect.size.height) {
+//            marginY = 0;
+//        }
 
         _textview.textContainerInset = NSMakeSize(marginX, marginY);
 
@@ -2337,6 +2338,16 @@
 - (void)performScroll {
     //    NSLog(@"performScroll: scroll down one screen from _lastseen");
 
+    self.glkctl.shouldScrollOnCharEvent = NO;
+
+//    if (![[self.glkctl.game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"]) {
+//
+//        if (NSHeight(_textview.frame) - _textview.textContainerInset.height * 2 < self.frame.size.height) {
+//            [self scrollToMiddle];
+//            return;
+//        }
+//    }
+
     CGFloat bottom;
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
@@ -2349,7 +2360,7 @@
     // then, get the bottom
     bottom = NSHeight(_textview.frame);
 
-    // scroll so rect from lastseen to bottom is visible
+//     scroll so rect from lastseen to bottom is visible
     if (bottom - _lastseen > NSHeight(scrollview.frame)) {
         [_textview scrollRectToVisible:NSMakeRect(0, _lastseen, 0,
                                                   NSHeight(scrollview.frame))];
@@ -2384,10 +2395,6 @@
     lastAtTop = NO;
     lastAtBottom = YES;
 
-    if (_textview.textContainerInset.height * 2 > self.frame.size.height) {
-        _textview.textContainerInset = NSMakeSize(_textview.textContainerInset.width, 0);
-    }
-
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
     NSPoint newScrollOrigin = NSMakePoint(0, NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds));
@@ -2409,8 +2416,20 @@
     lastAtTop = YES;
     lastAtBottom = NO;
 
+//    if (NSHeight(_textview.frame) - _textview.textContainerInset.height * 2 < self.frame.size.height) {
+//        [self scrollToMiddle];
+//        return;
+//    }
+
 //    NSLog(@"scrolling window %ld to top", self.name);
     [scrollview.contentView scrollToPoint:NSZeroPoint];
+    [scrollview reflectScrolledClipView:scrollview.contentView];
+}
+
+- (void)scrollToMiddle {
+    [layoutmanager glyphRangeForTextContainer:container];
+    NSPoint newScrollOrigin = NSMakePoint(0, ceil((NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds)) / 2));
+    [scrollview.contentView scrollToPoint:newScrollOrigin];
     [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 

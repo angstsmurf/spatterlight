@@ -1051,7 +1051,6 @@ fprintf(stderr, "%s\n",                                                    \
         }
 
     // To fix scrolling in the Adrian Mole games
-    _shouldScrollOnCharEvent = NO;
 }
 
 #pragma mark Window resizing
