@@ -110,6 +110,8 @@
 
 @property(readonly) BOOL supportsAutorestore;
 @property(readonly) BOOL inFullscreen;
+@property NSColor *bgcolor;
+
 
 // To fix scrolling in the Adrian Mole games
 @property BOOL shouldScrollOnCharEvent;

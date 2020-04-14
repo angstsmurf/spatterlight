@@ -528,6 +528,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self adjustContentView];
 
+    if (restoredController.bgcolor)
+        [self setBorderColor:restoredController.bgcolor];
+
     _ignoreResizes = NO;
 
     // We create a forced arrange event in order to force the interpreter process
@@ -721,6 +724,8 @@ fprintf(stderr, "%s\n",                                                    \
         _storedContentFrame = [decoder decodeRectForKey:@"contentFrame"];
         _storedBorderFrame = [decoder decodeRectForKey:@"borderFrame"];
 
+        _bgcolor = [decoder decodeObjectForKey:@"backgroundColor"];
+
         lastimage = [decoder decodeObjectForKey:@"lastimage"];
         lastimageresno = [decoder decodeIntegerForKey:@"lastimageresno"];
 
@@ -746,6 +751,8 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeRect:self.window.frame forKey:@"windowFrame"];
     [encoder encodeRect:_contentView.frame forKey:@"contentFrame"];
     [encoder encodeRect:_borderView.frame forKey:@"borderFrame"];
+
+    [encoder encodeObject:_bgcolor forKey:@"backgroundColor"];
 
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
     [encoder encodeRect:_windowPreFullscreenFrame
@@ -2626,16 +2633,22 @@ again:
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
 //    NSLog(@"setBorderColor %@ fromWindow %ld", color, aWindow.name);
     if (aWindow == [self largestWindow]) {
-        CGFloat components[[color numberOfComponents]];
-        CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
-        [color getComponents:(CGFloat *)&components];
-        CGColorRef cgcol = CGColorCreate(colorSpace, components);
-
-        _borderView.layer.backgroundColor = cgcol;
-        self.window.backgroundColor = color;
-        CFRelease(cgcol);
+        [self setBorderColor:color];
     }
 }
+
+- (void)setBorderColor:(NSColor *)color {
+    self.bgcolor = color;
+    CGFloat components[[color numberOfComponents]];
+    CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
+    [color getComponents:(CGFloat *)&components];
+    CGColorRef cgcol = CGColorCreate(colorSpace, components);
+
+    _borderView.layer.backgroundColor = cgcol;
+    self.window.backgroundColor = color;
+    CFRelease(cgcol);
+}
+
 
 - (GlkWindow *)largestWindow {
     GlkWindow *largestWin = nil;
