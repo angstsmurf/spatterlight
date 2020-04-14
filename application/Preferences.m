@@ -1910,7 +1910,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     [self cloneThemeIfNotEditable];
     theme.smartQuotes = [sender state];
-    NSLog(@"pref: smart quotes changed to %d", theme.smartQuotes);
+//    NSLog(@"pref: smart quotes changed to %d", theme.smartQuotes);
 }
 
 - (IBAction)changeSpaceFormatting:(id)sender {
@@ -1918,7 +1918,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     [self cloneThemeIfNotEditable];
     theme.spaceFormat = [sender state];
-    NSLog(@"pref: space format changed to %d", theme.spaceFormat);
+//    NSLog(@"pref: space format changed to %d", theme.spaceFormat);
 }
 
 - (IBAction)changeEnableGraphics:(id)sender {
@@ -1926,7 +1926,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     [self cloneThemeIfNotEditable];
     theme.doGraphics = [sender state];
-    NSLog(@"pref: dographics changed to %d", theme.doGraphics);
+//    NSLog(@"pref: dographics changed to %d", theme.doGraphics);
 
     /* send notification that prefs have changed -- tell clients that graphics
      * are off limits */
@@ -1934,7 +1934,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
      postNotificationName:@"PreferencesChanged"
      object:[Preferences currentTheme]];
 
-    NSLog(@"Preferences changeEnableGraphics issued PreferencesChanged notification with object %@", [Preferences currentTheme].name);
+//    NSLog(@"Preferences changeEnableGraphics issued PreferencesChanged notification with object %@", [Preferences currentTheme].name);
 }
 
 - (IBAction)changeEnableSound:(id)sender {
@@ -1950,7 +1950,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
      postNotificationName:@"PreferencesChanged"
      object:[Preferences currentTheme]];
 
-    NSLog(@"Preferences changeEnableGraphics issued PreferencesChanged notification with object %@", [Preferences currentTheme].name);
+//    NSLog(@"Preferences changeEnableGraphics issued PreferencesChanged notification with object %@", [Preferences currentTheme].name);
 }
 
 - (IBAction)changeEnableStyles:(id)sender {
@@ -1958,7 +1958,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     [self cloneThemeIfNotEditable];
     theme.doStyles = [sender state];
-    NSLog(@"pref: dostyles for theme %@ changed to %d", theme.name, theme.doStyles);
+//    NSLog(@"pref: dostyles for theme %@ changed to %d", theme.name, theme.doStyles);
     [Preferences rebuildTextAttributes];
 }
 
