@@ -51,6 +51,7 @@
 #define GLK_MAXVOLUME 0x10000
 #define FADE_GRANULARITY 100
 
+#define GLK_VOLUME_TO_SDL_VOLUME(x) ((x) < GLK_MAXVOLUME ? (round(pow(((double)x) / GLK_MAXVOLUME, log(4)) * MIX_MAX_VOLUME)) : (MIX_MAX_VOLUME))
 
 static channel_t *gli_channellist = NULL;
 static channel_t *sound_channels[SDL_CHANNELS];
@@ -133,7 +134,7 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
 
     chan->rock = rock;
     chan->status = CHANNEL_IDLE;
-    chan->volume = volume >= GLK_MAXVOLUME ? MIX_MAX_VOLUME : round(pow(((double) volume) / GLK_MAXVOLUME, log(4)) * MIX_MAX_VOLUME);
+    chan->volume = GLK_VOLUME_TO_SDL_VOLUME(volume);
     chan->resid = 0;
     chan->loop = 0;
     chan->notify = 0;
@@ -208,7 +209,7 @@ static void cleanup_channel(schanid_t chan)
     chan->music = 0;
 
     if (chan->timer)
-        SDL_RemoveTimer((SDL_TimerID)chan->timer);
+        SDL_RemoveTimer(chan->timer);
 
     chan->timer = 0;
 }
@@ -373,7 +374,7 @@ Uint32 volume_timer_callback(Uint32 interval, void *param)
             gli_strict_warning("volume_timer_callback: invalid timer.");
             return 0;
         }
-        SDL_RemoveTimer((SDL_TimerID)chan->timer);
+        SDL_RemoveTimer(chan->timer);
         chan->timer = 0;
 
         if (chan->volume != chan->target_volume)
@@ -401,8 +402,7 @@ void init_fade(schanid_t chan, int glk_volume, int duration, int notify)
 
     chan->volume_notify = notify;
 
-    /* Convert requested Glk Volume to SDL Volume */
-    chan->target_volume = glk_volume >= GLK_MAXVOLUME ? MIX_MAX_VOLUME : round(pow(((double)glk_volume) / GLK_MAXVOLUME, log(4)) * MIX_MAX_VOLUME);
+    chan->target_volume = GLK_VOLUME_TO_SDL_VOLUME(glk_volume);
 
     chan->float_volume = (double)chan->volume;
     chan->volume_delta = (double)(chan->target_volume - chan->volume) / FADE_GRANULARITY;
@@ -410,9 +410,10 @@ void init_fade(schanid_t chan, int glk_volume, int duration, int notify)
     chan->volume_timeout = FADE_GRANULARITY;
 
     if (chan->timer)
-        SDL_RemoveTimer((SDL_TimerID)chan->timer);
+        SDL_RemoveTimer(chan->timer);
 
-	chan->timer = (int)SDL_AddTimer((Uint32)(duration / FADE_GRANULARITY), volume_timer_callback, (void *)chan);
+	chan->timer = SDL_AddTimer((Uint32)(duration / FADE_GRANULARITY),
+                               volume_timer_callback, (void *)chan);
 
     if (!chan->timer)
     {
@@ -436,10 +437,8 @@ void glk_schannel_set_volume_ext(schanid_t chan, glui32 glk_volume,
 
     if (!duration)
     {
-        chan->volume = MIX_MAX_VOLUME;
 
-        if (glk_volume < GLK_MAXVOLUME)
-            chan->volume = round(pow(((double)glk_volume) / GLK_MAXVOLUME, log(4)) * MIX_MAX_VOLUME);
+        chan->volume = GLK_VOLUME_TO_SDL_VOLUME(glk_volume);
 
         switch (chan->status)
         {
@@ -481,7 +480,7 @@ static void sound_completion_callback(int chan)
 
     if (!sound_channel)
     {
-        fprintf(stderr, "sound_completion_callback called with invalid sound_channel %d\n", chan);
+        gli_strict_warning("sound completion callback called with invalid channel");
         return;
     }
 
@@ -500,6 +499,7 @@ static void sound_completion_callback(int chan)
     {
         if (sound_channel->loop != UINT32_MAX && sound_channel->loop != 0)
             sound_channel->loop--;
+
         if (!sound_channel->loop)
         {
             if (sound_channel->notify)
@@ -699,7 +699,10 @@ static glui32 play_mod(schanid_t chan, long len)
     int music_busy, loop;
 
     if (chan == NULL)
+    {
         gli_strict_warning("MOD player called with an invalid channel!");
+        return 0;
+    }
 
     music_busy = Mix_PlayingMusic();
 
@@ -866,7 +869,6 @@ void glk_schannel_stop(schanid_t chan)
     }
     SDL_LockAudio();
     chan->buffered = 0;
-    chan->paused = 0;
     glk_schannel_unpause(chan);
     SDL_UnlockAudio();
     switch (chan->status)
