@@ -2182,7 +2182,7 @@
 - (BOOL)textView:(NSTextView *)textview_
     clickedOnLink:(id)link
           atIndex:(NSUInteger)charIndex {
-    NSLog(@"txtbuf: clicked on link: %@", link);
+//    NSLog(@"txtbuf: clicked on link: %@", link);
 
     if (!hyper_request) {
         NSLog(@"txtbuf: No hyperlink request in window.");
