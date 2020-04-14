@@ -1755,7 +1755,7 @@
 
     [self printToWindow:str style:stylevalue];
 
-    if (line_request) {
+    if (self.glkctl.deadCities && line_request && [[str substringFromIndex:str.length - 1] isEqualToString:@"\n"]) {
         // This is against the Glk spec but makes
         // hyperlinks in Dead Cities work.
         // There should be some kind of switch for this.

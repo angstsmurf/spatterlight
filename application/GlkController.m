@@ -134,6 +134,11 @@ fprintf(stderr, "%s\n",                                                    \
         _theme = _game.theme;
     }
 
+    if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"])
+        _adrianMole = YES;
+    if ([_game.ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"])
+         _deadCities = YES;
+
     NSLog(@"runTerp: theme name:%@", _theme.name);
 //    [_theme.bufferNormal printDebugInfo];
     if (_theme.doStyles == NO)
@@ -2294,7 +2299,7 @@ NSInteger colorToInteger(NSColor *color) {
 //            NSLog(@"glkctl initchar %d", req->a1);
 
             // To fix scrolling in the Adrian Mole games
-            if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"]) {
+            if (_adrianMole) {
                 if (lastRequest == PRINT) {
                     _shouldScrollOnCharEvent = YES;
                 }

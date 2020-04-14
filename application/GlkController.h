@@ -120,6 +120,9 @@
 
 @property BOOL previewDummy;
 
+@property BOOL adrianMole;
+@property BOOL deadCities;
+
 @property NSInteger autosaveVersion;
 
 - (void)runTerp:(NSString *)terpname
