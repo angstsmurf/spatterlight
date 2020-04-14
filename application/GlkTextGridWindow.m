@@ -429,7 +429,7 @@
     if (self.theme.doStyles) {
         NSDictionary *attributes = [self.theme.gridNormal attributesWithHints:(self.styleHints)[style_Normal]];
         bgcolor = attributes[NSBackgroundColorAttributeName];
-        if ([self.styleHints[stylehint_ReverseColor] isNotEqualTo:[NSNull null]] && !([self.glkctl.game.metadata.format isEqualToString:@"glulx"] || [self.glkctl.game.metadata.format isEqualToString:@"hugo"]))
+        if ([self.styleHints[stylehint_ReverseColor] isNotEqualTo:[NSNull null]] && !([self.glkctl.game.metadata.format isEqualToString:@"glulx"] || [self.glkctl.game.metadata.format isEqualToString:@"hugo"] || [self.glkctl.game.metadata.format isEqualToString:@"zcode"]))
         {   // Hack to make status bars look okay in other interpreters than Glulxe.
             // Need to find out what is really going on here.
             bgcolor = attributes[NSForegroundColorAttributeName];
