@@ -141,8 +141,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSLog(@"runTerp: theme name:%@", _theme.name);
 //    [_theme.bufferNormal printDebugInfo];
-    if (_theme.doStyles == NO)
-        NSLog(@"glkctl: runterp: doStyles = NO!");
+//    if (_theme.doStyles == NO)
+//        NSLog(@"glkctl: runterp: doStyles = NO!");
 
     _gamefile = [_game urlForBookmark].path;
     _terpname = terpname_;
