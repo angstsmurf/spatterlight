@@ -1004,6 +1004,8 @@ NSString *fontToString(NSFont *font) {
     _oneThemeForAll = [[NSUserDefaults standardUserDefaults] boolForKey:@"oneThemeForAll"];
     _themesHeader.stringValue = [self themeScopeTitle];
 
+    _adjustSize = [[NSUserDefaults standardUserDefaults] boolForKey:@"adjustSize"];
+
     prefs = self;
     [self updatePrefsPanel];
 
@@ -1055,6 +1057,7 @@ NSString *fontToString(NSFont *font) {
     _btnOverwriteStyles.state = ([_btnOverwriteStyles isEnabled] == NO);
 
     _btnOneThemeForAll.state = _oneThemeForAll;
+    _btnAdjustSize.state = _adjustSize;
 
     if ([[NSFontPanel sharedFontPanel] isVisible] && selectedFontButton)
         [self showFontPanel:selectedFontButton];
@@ -1533,7 +1536,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [state encodeObject:selectedfontString forKey:@"selectedFont"];
     [state encodeBool:previewHidden forKey:@"previewHidden"];
     [state encodeDouble:self.window.frame.size.height forKey:@"windowHeight"];
-    [state encodeBool:_adjustSize forKey:@"adjustSize"];
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
@@ -1546,7 +1548,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
         }
     }
-    _adjustSize = [state decodeBoolForKey:@"adjustSize"];
     previewHidden = [state decodeBoolForKey:@"previewHidden"];
     if (previewHidden) {
         [self resizeWindowToHeight:kDefaultPrefWindowHeight];
@@ -1666,6 +1667,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeAdjustSize:(id)sender {
     _adjustSize = [sender state];
+    [[NSUserDefaults standardUserDefaults] setBool:_adjustSize forKey:@"adjustSize"];
 }
 
 - (IBAction)addTheme:(id)sender {
