@@ -478,7 +478,7 @@ NSColor *dataToColor(NSData *data) {
     zoomTheme.spaceFormat = TAG_SPACES_GAME;
     zoomTheme.border = 0;
     zoomTheme.bufferMarginX = 10;
-    zoomTheme.bufferMarginY = 38;
+    zoomTheme.bufferMarginY = 12;
     zoomTheme.gridMarginX = 0;
     zoomTheme.gridMarginY = 0;
 
