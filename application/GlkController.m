@@ -676,30 +676,20 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)deleteAutosaveFiles {
-    [self deleteFileAtPath:self.autosaveFileGUI];
-    [self deleteFileAtPath:self.autosaveFileTerp];
-    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
-                            @"autosave.glksave"]];
-    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
-                            @"autosave-tmp.glksave"]];
-    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
-                            @"autosave-tmp.plist"]];
+
+    [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
+                         [NSURL fileURLWithPath:self.autosaveFileTerp],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }
 
-- (void)deleteFileAtPath:(NSString *)path {
-    NSError *error;
-    // I'm not sure if the fileExistsAtPath check is necessary,
-    // but someone on Stack Overflow said it was a good idea
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        if ([[NSFileManager defaultManager] isDeletableFileAtPath:path]) {
-            BOOL success =
-            [[NSFileManager defaultManager] removeItemAtPath:path
-                                                       error:&error];
-            if (!success) {
-                NSLog(@"Error removing file at path: %@", error);
-            }
+- (void)deleteFiles:(NSArray *)urls {
+    [[NSWorkspace sharedWorkspace] recycleURLs:urls completionHandler:^(NSDictionary<NSURL *,NSURL *> *newURLs, NSError *error) {
+        if (error) {
+            NSLog(@"deleteAutosaveFiles: %@", error);
         }
-    }
+    }];
 }
 
 - (void)autoSaveOnExit {
@@ -2481,13 +2471,11 @@ static NSString *signalToName(NSTask *task) {
 
     // We autosave the UI but delete the terp autosave files
     [self autoSaveOnExit];
-    [self deleteFileAtPath:self.autosaveFileTerp];
-    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
-                            @"autosave.glksave"]];
-    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
-                            @"autosave-tmp.glksave"]];
-    [self deleteFileAtPath:[self.appSupportDir stringByAppendingPathComponent:
-                            @"autosave-tmp.plist"]];
+
+    [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileTerp],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }
 
 - (void)queueEvent:(GlkEvent *)gevent {
