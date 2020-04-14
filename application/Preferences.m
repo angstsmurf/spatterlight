@@ -300,7 +300,7 @@ NSColor *dataToColor(NSData *data) {
     gargoyleTheme.maxCols = 1000;
     gargoyleTheme.doGraphics = YES;
     gargoyleTheme.doSound = YES;
-    gargoyleTheme.doStyles = NO;
+    gargoyleTheme.doStyles = YES;
     gargoyleTheme.justify = NO;
     gargoyleTheme.smartQuotes = YES;
     gargoyleTheme.spaceFormat = TAG_SPACES_GAME;
@@ -472,7 +472,7 @@ NSColor *dataToColor(NSData *data) {
     zoomTheme.maxCols = 1000;
     zoomTheme.doGraphics = YES;
     zoomTheme.doSound = YES;
-    zoomTheme.doStyles = NO;
+    zoomTheme.doStyles = YES;
     zoomTheme.justify = NO;
     zoomTheme.smartQuotes = YES;
     zoomTheme.spaceFormat = TAG_SPACES_GAME;
