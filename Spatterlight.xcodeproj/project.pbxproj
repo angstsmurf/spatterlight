@@ -6147,7 +6147,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/terps/fizmo/libfizmo/src";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
+					"$(HEADER_SEARCH_PATHS)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
@@ -6169,7 +6172,10 @@
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/terps/fizmo/fizmo-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/terps/fizmo/libfizmo/src";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
+					"$(HEADER_SEARCH_PATHS)",
+				);
 				MACOSX_DEPLOYMENT_TARGET = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
@@ -6279,7 +6285,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = "";
@@ -6324,7 +6330,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = "";
@@ -6991,6 +6997,7 @@
 					"$PROJECT_DIR/terps/tads/**",
 					"$PROJECT_DIR/terps/tads/tads2/**",
 					"$PROJECT_DIR/terps/tads/tads3/**",
+					"$(HEADER_SEARCH_PATHS)",
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				LIBRARY_SEARCH_PATHS = (
@@ -7030,6 +7037,7 @@
 					"$PROJECT_DIR/terps/tads/**",
 					"$PROJECT_DIR/terps/tads/tads2/**",
 					"$PROJECT_DIR/terps/tads/tads3/**",
+					"$(HEADER_SEARCH_PATHS)",
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				LIBRARY_SEARCH_PATHS = (
