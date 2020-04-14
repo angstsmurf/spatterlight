@@ -685,7 +685,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)deleteFiles:(NSArray *)urls {
-    [[NSWorkspace sharedWorkspace] recycleURLs:urls completionHandler:^(NSDictionary<NSURL *,NSURL *> *newURLs, NSError *error) {
+    [[NSWorkspace sharedWorkspace] recycleURLs:urls completionHandler:^(NSDictionary *newURLs, NSError *error) {
         if (error) {
             NSLog(@"deleteAutosaveFiles: %@", error);
         }
