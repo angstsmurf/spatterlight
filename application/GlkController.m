@@ -1176,7 +1176,7 @@ fprintf(stderr, "%s\n",                                                    \
             winrect.origin.x = NSMaxX(screenframe) - NSWidth(winrect);
 
         if (NSMinY(winrect) < NSMinY(screenframe)) {
-            NSLog(@"NSMinY(winrect) (%f) < NSMinY(screenframe) (%f)", NSMinY(winrect), NSMinY(screenframe));
+            NSLog(@"NSMinY(winrect) (%f) < NSMinY(screenframe) (%f) Moving window up inside screen frame", NSMinY(winrect), NSMinY(screenframe));
             winrect.origin.y = NSMinY(screenframe);
         }
 
