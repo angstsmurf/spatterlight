@@ -79,9 +79,7 @@ NSColor *dataToColor(NSData *data) {
 
 + (void)readDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *name;
-
-    name = [defaults objectForKey:@"themeName"];
+    NSString *name = [defaults objectForKey:@"themeName"];
 
     if (!name)
         name = @"Default";
