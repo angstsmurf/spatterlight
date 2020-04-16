@@ -410,7 +410,7 @@
 
 - (void)flushDisplay {
     if (dirty)
-        [self setNeedsDisplay:YES];
+        self.needsDisplay = YES;
     dirty = NO;
 }
 
