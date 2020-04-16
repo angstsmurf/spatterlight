@@ -909,13 +909,6 @@ NSColor *dataToColor(NSData *data) {
             [mpara release];
         }
 #endif
-    /* send notification that prefs have changed -- trigger configure events */
-
-    NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:theme];
-
-    //NSLog(@"Preferences rebuildTextAttributes issued PreferencesChanged notification with object %@", theme.name);
-    [[NSNotificationCenter defaultCenter]
-     postNotification:notification];
 }
 
 #pragma mark - Instance -- controller for preference panel
@@ -966,18 +959,20 @@ NSString *fontToString(NSFont *font) {
     _divider.frame = NSMakeRect(0, 311, self.window.frame.size.width, 1);
     _divider.autoresizingMask = NSViewMaxYMargin;
 
-    glktxtbuf = [[GlkTextBufferWindow alloc] initWithGlkController:glkcntrl name:1];
-    glktxtbuf.preserveScroll = NO;
-
     NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
 
     NSInteger i;
     for (i = 0 ; i < stylehint_NUMHINTS ; i ++)
         [nullarray addObject:[NSNull null]];
-    glktxtbuf.styleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    NSMutableArray *stylehHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     for (i = 0 ; i < style_NUMSTYLES ; i ++) {
-        [glktxtbuf.styleHints addObject:[nullarray mutableCopy]];
+        [stylehHints addObject:[nullarray mutableCopy]];
     }
+
+    glkcntrl.bufferStyleHints = stylehHints;
+
+    glktxtbuf = [[GlkTextBufferWindow alloc] initWithGlkController:glkcntrl name:1];
+    glktxtbuf.preserveScroll = NO;
 
     glktxtbuf.textview.editable = NO;
     [sampleTextView addSubview:glktxtbuf];
@@ -1927,14 +1922,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [self cloneThemeIfNotEditable];
     theme.doGraphics = [sender state];
 //    NSLog(@"pref: dographics changed to %d", theme.doGraphics);
-
-    /* send notification that prefs have changed -- tell clients that graphics
-     * are off limits */
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"PreferencesChanged"
-     object:[Preferences currentTheme]];
-
-//    NSLog(@"Preferences changeEnableGraphics issued PreferencesChanged notification with object %@", [Preferences currentTheme].name);
 }
 
 - (IBAction)changeEnableSound:(id)sender {
@@ -1943,14 +1930,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [self cloneThemeIfNotEditable];
     theme.doSound = [sender state];
     NSLog(@"pref: dosound changed to %d", theme.doSound);
-
-    /* send notification that prefs have changed -- tell clients that sound is
-     * off limits */
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"PreferencesChanged"
-     object:[Preferences currentTheme]];
-
-//    NSLog(@"Preferences changeEnableGraphics issued PreferencesChanged notification with object %@", [Preferences currentTheme].name);
 }
 
 - (IBAction)changeEnableStyles:(id)sender {
@@ -2034,14 +2013,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     [self cloneThemeIfNotEditable];
     theme.border = [sender intValue];
-
-    /* send notification that prefs have changed -- tell clients that border has
-     * changed */
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"PreferencesChanged"
-     object:[Preferences currentTheme]];
-
-    NSLog(@"Preferences changeBorderSize issued PreferencesChanged notification with object %@", [Preferences currentTheme].name);
 }
 
 - (void)cloneThemeIfNotEditable {

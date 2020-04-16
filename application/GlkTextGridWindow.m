@@ -172,12 +172,13 @@
         
         NSDictionary *styleDict = nil;
 
-        self.styleHints = self.glkctl.gridStyleHints;
+        self.styleHints = [self deepCopyOfStyleHintsArray:self.glkctl.gridStyleHints];
+
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
 
             if (self.theme.doStyles) {
-                 styleDict = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:(self.styleHints)[i]];
+                styleDict = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]];
             } else {
                 styleDict = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict;
             }
@@ -335,7 +336,7 @@
 
     for (i = 0; i < style_NUMSTYLES; i++) {
         if (self.theme.doStyles) {
-            [styles addObject:[((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:(self.styleHints)[i]]];
+            [styles addObject:[((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]]];
         } else {
             [styles addObject:((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict];
         }
@@ -423,17 +424,10 @@
 
 
 - (void)recalcBackground {
-    NSColor *bgcolor;
-    bgcolor = nil;
+    NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
 
-    if (self.theme.doStyles) {
-        NSDictionary *attributes = [self.theme.gridNormal attributesWithHints:(self.styleHints)[style_Normal]];
-        bgcolor = attributes[NSBackgroundColorAttributeName];
-        if ([self.styleHints[stylehint_ReverseColor] isNotEqualTo:[NSNull null]] && !([self.glkctl.game.metadata.format isEqualToString:@"glulx"] || [self.glkctl.game.metadata.format isEqualToString:@"hugo"] || [self.glkctl.game.metadata.format isEqualToString:@"zcode"]))
-        {   // Hack to make status bars look okay in other interpreters than Glulxe.
-            // Need to find out what is really going on here.
-            bgcolor = attributes[NSForegroundColorAttributeName];
-        }
+    if (!([self.glkctl.game.metadata.format isEqualToString:@"glulx"] || [self.glkctl.game.metadata.format isEqualToString:@"hugo"] || [self.glkctl.game.metadata.format isEqualToString:@"zcode"])) {
+        bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
     }
 
     if (!bgcolor)

@@ -64,6 +64,15 @@
     [encoder encodeObject:styles forKey:@"styles"];
 }
 
+- (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array {
+    NSMutableArray *newArray = [[NSMutableArray alloc] initWithCapacity:style_NUMSTYLES];
+    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
+        [newArray addObject:[[NSArray alloc] initWithArray:array[i] copyItems:YES]];
+    }
+    return newArray;
+}
+
+
 - (BOOL)getStyleVal:(NSUInteger)style
                hint:(NSUInteger)hint
               value:(NSInteger *)value {

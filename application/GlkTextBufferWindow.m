@@ -7,6 +7,7 @@
 #import "NSString+Categories.h"
 #import "Theme.h"
 #import "Game.h"
+#import "Metadata.h"
 #import "GlkStyle.h"
 #import "main.h"
 
@@ -985,12 +986,12 @@
         NSUInteger i;
 
         NSDictionary *styleDict = nil;
-        self.styleHints = self.glkctl.bufferStyleHints;
+        self.styleHints = [self deepCopyOfStyleHintsArray:self.glkctl.bufferStyleHints];
 
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (i = 0; i < style_NUMSTYLES; i++) {
             if (self.theme.doStyles) {
-                styleDict = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:(self.styleHints)[i]];
+                styleDict = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:self.styleHints[i]];
             } else {
                 styleDict = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
             }
@@ -1218,20 +1219,11 @@
 }
 
 - (void)recalcBackground {
-    NSColor *bgcolor, *fgcolor;
-
-    bgcolor = nil;
-    fgcolor = nil;
-
-    if (self.theme.doStyles) {
-        NSDictionary *attributes = styles[style_Normal];
-        bgcolor = attributes[NSBackgroundColorAttributeName];
-        fgcolor = attributes[NSForegroundColorAttributeName];
-    }
-
+    NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
     if (!bgcolor)
         bgcolor = self.theme.bufferBackground;
 
+    NSColor *fgcolor = styles[style_Normal][NSForegroundColorAttributeName];
     if (!fgcolor)
         fgcolor = self.theme.bufferNormal.color;
 
@@ -1240,8 +1232,9 @@
     }
 
     _textview.backgroundColor = bgcolor;
-//    _textview.insertionPointColor = fgcolor;
+    _textview.insertionPointColor = fgcolor;
 
+    [self hideInsertionPoint];
     [self.glkctl setBorderColor:bgcolor fromWindow:self];
 }
 
@@ -1258,14 +1251,14 @@
     for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
 
         if (self.theme.doStyles) {
-            attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:(self.styleHints)[i]];
+            attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:self.styleHints[i]];
         } else {
             //We're not doing styles, so use the raw style attributes
             attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
         }
 
         if (attributes)
-            [styles addObject:[attributes copy]];
+            [styles addObject:attributes];
         else
             [styles addObject:[NSNull null]];
     }

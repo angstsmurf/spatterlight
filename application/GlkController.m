@@ -483,6 +483,9 @@ fprintf(stderr, "%s\n",                                                    \
     _storedTimerLeft = restoredController.storedTimerLeft;
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
 
+    _bufferStyleHints = restoredController.bufferStyleHints;
+    _gridStyleHints = restoredController.gridStyleHints;
+
     if (restoredController.queue.count)
         NSLog(@"controller.queue contains events");
     for (GlkEvent *event in restoredController.queue)
@@ -547,7 +550,8 @@ fprintf(stderr, "%s\n",                                                    \
                                                     theme:_theme
                                                     force:YES];
     [self queueEvent:gevent];
-    [self notePreferencesChanged:nil];
+    NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
+    [self notePreferencesChanged:notification];
 
     // Now we can actually show the window
     [self showWindow:nil];
@@ -731,6 +735,9 @@ fprintf(stderr, "%s\n",                                                    \
 
         _bgcolor = [decoder decodeObjectForKey:@"backgroundColor"];
 
+        _bufferStyleHints = [decoder decodeObjectForKey:@"bufferStyleHints"];
+        _gridStyleHints = [decoder decodeObjectForKey:@"gridStyleHints"];
+
         lastimage = [decoder decodeObjectForKey:@"lastimage"];
         lastimageresno = [decoder decodeIntegerForKey:@"lastimageresno"];
 
@@ -758,6 +765,9 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeRect:_borderView.frame forKey:@"borderFrame"];
 
     [encoder encodeObject:_bgcolor forKey:@"backgroundColor"];
+
+    [encoder encodeObject:_bufferStyleHints forKey:@"bufferStyleHints"];
+    [encoder encodeObject:_gridStyleHints forKey:@"gridStyleHints"];
 
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
     [encoder encodeRect:_windowPreFullscreenFrame
@@ -1554,8 +1564,6 @@ fprintf(stderr, "%s\n",                                                    \
              win = [[GlkTextGridWindow alloc] initWithGlkController:self name:i];
             _gwindows[@(i)] = win;
             [_contentView addSubview:win];
-
-            win.styleHints = _gridStyleHints;
             return i;
 
         case wintype_TextBuffer:
@@ -1563,8 +1571,6 @@ fprintf(stderr, "%s\n",                                                    \
 
             _gwindows[@(i)] = win;
             [_contentView addSubview:win];
-
-            win.styleHints = _bufferStyleHints;
             return i;
 
         case wintype_Graphics:

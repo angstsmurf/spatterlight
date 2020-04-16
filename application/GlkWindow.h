@@ -2,10 +2,6 @@
 
 @interface GlkWindow : NSView {
 
-    NSColor *foregroundColor;
-    NSColor *backgroundColor;
-    NSColor *inputColor;
-
     NSMutableArray *hyperlinks;
     GlkHyperlink *currentHyperlink;
     NSMutableDictionary *currentTerminators;
@@ -21,7 +17,7 @@
 @property(readonly) NSInteger name;
 @property GlkController *glkctl;
 
-@property NSMutableArray *styleHints;
+@property NSArray *styleHints;
 @property NSMutableDictionary *pendingTerminators;
 @property BOOL terminatorsPending;
 @property Theme *theme;
@@ -62,6 +58,7 @@
 - (void)flowBreak;
 - (void)prefsDidChange;
 - (void)terpDidStop;
+- (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array;
 
 - (void)restoreSelection;
 
