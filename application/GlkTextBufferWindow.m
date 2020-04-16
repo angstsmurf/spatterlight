@@ -1874,7 +1874,7 @@
     if (line_request) {
         NSColor *color = styles[style_Input][NSForegroundColorAttributeName];
         if (!color)
-            color = self.theme.bufInput.color;
+            color = self.theme.bufferNormal.color;
         _textview.insertionPointColor = color;
     }
 }
