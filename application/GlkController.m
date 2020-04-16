@@ -783,9 +783,10 @@ fprintf(stderr, "%s\n",                                                    \
     _storedTimerLeft = 0;
     _storedTimerInterval = 0;
     if (timer && timer.isValid) {
-        _storedTimerLeft =
-        [[timer fireDate] timeIntervalSinceDate:[NSDate date]];
+        _storedTimerLeft = [[timer fireDate] timeIntervalSinceDate:[NSDate date]];
         _storedTimerInterval = [timer timeInterval];
+        [encoder encodeDouble:_storedTimerLeft forKey:@"timerLeft"];
+        [encoder encodeDouble:_storedTimerInterval forKey:@"timerInterval"];
     }
     _firstResponderView = -1;
 
@@ -806,8 +807,6 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }
     [encoder encodeInteger:_firstResponderView forKey:@"firstResponder"];
-    [encoder encodeDouble:_storedTimerLeft forKey:@"timerLeft"];
-    [encoder encodeDouble:_storedTimerInterval forKey:@"timerInterval"];
     [encoder encodeBool:((self.window.styleMask & NSFullScreenWindowMask) ==
                          NSFullScreenWindowMask)
                  forKey:@"fullscreen"];
