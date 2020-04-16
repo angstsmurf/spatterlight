@@ -2278,10 +2278,6 @@
         return;
     }
 
-    if (!lastVisible) {
-        return;
-    }
-
     if (lastAtBottom) {
         [self scrollToBottom];
         return;
@@ -2289,6 +2285,10 @@
 
     if (lastAtTop) {
         [self scrollToTop];
+        return;
+    }
+
+    if (!lastVisible) {
         return;
     }
 
