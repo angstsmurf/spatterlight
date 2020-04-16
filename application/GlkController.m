@@ -1186,7 +1186,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (winrect.size.height < minSize.width)
             winrect.size.height = minSize.width;
 
-        [self.window setFrame:winrect display:YES animate:YES];
+        [self.window setFrame:winrect display:YES];
         _contentView.frame = [self contentFrameForWindowed];
     } else {
 //        NSLog(@"zoomContentToSize: we are in fullscreen");
