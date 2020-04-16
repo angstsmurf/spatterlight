@@ -33,7 +33,6 @@
 
     /* current state of the protocol */
     NSTimer *timer;
-    NSTimer *soundNotificationsTimer;
     BOOL waitforevent;    /* terp wants an event */
     BOOL waitforfilename; /* terp wants a filename from a file dialog */
     BOOL dead;            /* le roi est mort! vive le roi! */
