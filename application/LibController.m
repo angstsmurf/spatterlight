@@ -241,13 +241,14 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
     gameTableModel = [[self fetchObjects:@"Game" inContext:_managedObjectContext] mutableCopy];
-    NSArray *allMetadata = [self fetchObjects:@"Metadata" inContext:_managedObjectContext];
 
     [self rebuildThemesSubmenu];
     [self performSelector:@selector(restoreSideViewSelection:) withObject:nil afterDelay:0.1];
 
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hasConvertedLibrary"];
 
-    if (allMetadata.count == 0 || gameTableModel.count == 0)
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasConvertedLibrary"])
+//    if (gameTableModel.count == 0)
     {
         [self convertLibraryToCoreData];
     }
@@ -1129,7 +1130,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                                               inManagedObjectContext:context];
         ifidObj.ifidString = ifid;
         ifidObj.metadata = entry;
-    } else NSLog(@"addMetaData:forIFIDs: Error! Found existing Metadata object with game %@", entry.title);
+    } else {
+        NSLog(@"addMetaData:forIFIDs: Error! Found existing Metadata object with game %@", entry.title);
+        return;
+    }
 
     for(key in dict) {
         keyVal = dict[key];
@@ -1336,7 +1340,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
             Game *game;
 
-            if (!meta) {
+            if (!meta || meta.games.count) {
                 // If we did not create a matching Metadata entity for this Game above, we simply
                 // import it again, creating new metadata. This could happen if the user has deleted
                 // the Metadata.plist but not the Games.plist file, or if the Metadata and Games plists
@@ -1352,8 +1356,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
             // Now we should have a Game with corresponding Metadata
             // (but we check anyway just to make sure)
             if (meta) {
-                if (!game)
+                if (!game) {
                     NSLog(@"No game?");
+                    continue;
+                }
 
 //                Theme *theme = [self findTheme:@"Old settings" inContext:private];
 //                if (theme)
@@ -1432,6 +1438,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
             _addButton.enabled = YES;
             currentlyAddingGames = NO;
         });
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasConvertedLibrary"];
     }];
 }
 
