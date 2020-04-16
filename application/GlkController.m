@@ -590,6 +590,8 @@ fprintf(stderr, "%s\n",                                                    \
                                      //@"zcode" : @"Fizmo"
                                      };
 
+        NSDictionary *gFolderMapExt = @{@"acd" : @"Alan 2", @"a3c" : @"Alan 3", @"d$$" : @"AGiliTy"};
+
         NSError *error;
         NSURL *appSupportURL = [[NSFileManager defaultManager]
                                 URLForDirectory:NSApplicationSupportDirectory
@@ -610,6 +612,11 @@ fprintf(stderr, "%s\n",                                                    \
         NSString *terpFolder =
         [gFolderMap[_game.metadata.format]
          stringByAppendingString:@" Files"];
+
+        if (!terpFolder) {
+            terpFolder = [gFolderMapExt[_gamefile.pathExtension]
+                          stringByAppendingString:@" Files"];
+        }
 
         if (!terpFolder) {
             NSLog(@"GlkController appSupportDir: Could not map game format %@ to a folder name!", _game.metadata.format);
