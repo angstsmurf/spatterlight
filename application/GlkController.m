@@ -1292,7 +1292,7 @@ fprintf(stderr, "%s\n",                                                    \
     gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)width
                                          height:(NSInteger)height
                                           theme:_theme
-                                          force:NO];
+                                          force:YES];
     [self queueEvent:gevent];
 
     gevent = [[GlkEvent alloc] initPrefsEvent];
