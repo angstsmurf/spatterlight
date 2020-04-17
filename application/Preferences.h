@@ -45,7 +45,7 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
     NSButton *selectedFontButton;
 
     BOOL disregardTableSelection;
-    BOOL previewHidden;
+    BOOL previewShown;
     CGFloat previewTextHeight;
 }
 

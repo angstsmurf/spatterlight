@@ -937,12 +937,14 @@ NSString *fontToString(NSFont *font) {
     self.window.delegate = self;
     themesTableView.autosaveName = @"ThemesTable";
 
-    if (self.window.minSize.height > kDefaultPrefWindowHeight) {
-        NSLog(@"self.window.minSize.height (%f) > kDefaultPrefWindowHeight (%ld)!", self.window.minSize.height, kDefaultPrefWindowHeight );
+    if (self.window.minSize.height != kDefaultPrefWindowHeight || self.window.minSize.width != kDefaultPrefWindowWidth) {
         NSSize minSize = self.window.minSize;
         minSize.height = kDefaultPrefWindowHeight;
+        minSize.width = kDefaultPrefWindowWidth;
         self.window.minSize = minSize;
     }
+
+    previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
 
     if (!theme)
         theme = self.defaultTheme;
@@ -1016,9 +1018,22 @@ NSString *fontToString(NSFont *font) {
     _scrollView.autohidesScrollers = YES;
     _scrollView.borderType = NSNoBorder;
 
-
     [self changeThemeName:theme.name];
     [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
+
+    // If the application state was saved on an old version of Spatterlight, the preferences window
+    // will be restored too narrow, so we fix it here. We need a delay in order to wait for system
+    // windows restoration to finish.
+    [self performSelector:@selector(restoreWindowSize:) withObject:theme afterDelay:0.1];
+}
+
+- (void)restoreWindowSize:(id)sender  {
+    if (self.window.frame.size.width != kDefaultPrefWindowWidth) {
+        previewShown = NO;
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowThemePreview"];
+        [self resizeWindowToHeight:kDefaultPrefWindowHeight];
+        sampleTextView.autoresizingMask = NSViewHeightSizable;
+    }
 }
 
 - (void)updatePrefsPanel {
@@ -1204,7 +1219,7 @@ NSString *fontToString(NSFont *font) {
         [_coreDataManager saveChanges];
     });
 
-    if (previewHidden)
+    if (!previewShown)
         return;
 
     if (sampleTextView.frame.size.height < sampleTextBorderView.frame.size.height) {
@@ -1285,8 +1300,11 @@ NSString *fontToString(NSFont *font) {
     }
 
     if (frameSize.height <= kDefaultPrefWindowHeight) {
-        previewHidden = YES;
-    } else previewHidden = NO;
+        previewShown = NO;
+    } else previewShown = YES;
+
+    [[NSUserDefaults standardUserDefaults] setBool:previewShown forKey:@"ShowThemePreview"];
+
     return frameSize;
 }
 
@@ -1296,7 +1314,7 @@ NSString *fontToString(NSFont *font) {
     CGFloat oldheight = prefsPanel.frame.size.height;
 
     if (ceil(height) == ceil(oldheight)) {
-        if (!previewHidden) {
+        if (previewShown) {
             [self performSelector:@selector(scrollToTop:) withObject:nil afterDelay:0.1];
         }
         return;
@@ -1308,6 +1326,7 @@ NSString *fontToString(NSFont *font) {
     winrect.origin = prefsPanel.frame.origin;
 
     winrect.size.height = height;
+    winrect.size.width = kDefaultPrefWindowWidth;
 
     // If the entire text does not fit on screen, don't change height at all
     if (winrect.size.height > screenframe.size.height)
@@ -1347,7 +1366,7 @@ NSString *fontToString(NSFont *font) {
          NSRect newFrame = weakSelf.window.frame;
          sampleTextBorderView.frame = NSMakeRect(0, kDefaultPrefWindowHeight, newFrame.size.width, newFrame.size.height - kDefaultPrefWindowHeight);
 
-         if (!previewHidden) {
+         if (previewShown) {
              [weakSelf adjustPreview:nil];
              [glktxtbuf restoreScrollBarStyle];
 //             [glktxtbuf scrollToTop];
@@ -1356,7 +1375,7 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)scrollToTop:(id)sender {
-    if (!previewHidden) {
+    if (previewShown) {
         NSScrollView *scrollView = glktxtbuf.textview.enclosingScrollView;
         scrollView.frame = glktxtbuf.frame;
         [scrollView.contentView scrollToPoint:NSZeroPoint];
@@ -1533,7 +1552,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (selectedFontButton)
         selectedfontString = selectedFontButton.identifier;
     [state encodeObject:selectedfontString forKey:@"selectedFont"];
-    [state encodeBool:previewHidden forKey:@"previewHidden"];
+    [state encodeBool:previewShown forKey:@"previewShown"];
     [state encodeDouble:self.window.frame.size.height forKey:@"windowHeight"];
 }
 
@@ -1547,8 +1566,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
         }
     }
-    previewHidden = [state decodeBoolForKey:@"previewHidden"];
-    if (previewHidden) {
+    previewShown = [state decodeBoolForKey:@"previewShown"];
+    if (!previewShown) {
         [self resizeWindowToHeight:kDefaultPrefWindowHeight];
     } else {
         CGFloat storedHeight = [state decodeDoubleForKey:@"windowHeight"];
@@ -1730,15 +1749,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)togglePreview:(id)sender {
-    if (!previewHidden) {
+    if (previewShown) {
         [self resizeWindowToHeight:kDefaultPrefWindowHeight];
-        previewHidden = YES;
+        previewShown = NO;
     } else {
-        previewHidden = NO;
+        previewShown = YES;
         [self resizeWindowToHeight:[self previewHeight]];
-
-//        [self notePreferencesChanged:(NSNotification *)theme];
     }
+    [[NSUserDefaults standardUserDefaults] setBool:previewShown forKey:@"ShowThemePreview"];
 }
 
 - (IBAction)editNewEntry:(id)sender {
@@ -1783,7 +1801,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     if (action == @selector(togglePreview:))
     {
-        NSString* title = previewHidden ? @"Show Preview" : @"Hide Preview";
+        NSString* title = previewShown ? @"Hide Preview" : @"Show Preview";
         ((NSMenuItem*)menuItem).title = title;
     }
 
