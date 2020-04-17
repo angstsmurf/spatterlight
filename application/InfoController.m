@@ -208,6 +208,12 @@
              ];
 }
 
+- (void)windowWillClose:(NSNotification *)notification {
+    LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+    if (_game.ifid)
+        [libcontroller.infoWindows removeObjectForKey:_game.path];
+}
+
 - (void)saveImage:sender {
     NSURL *dirURL, *imgURL;
     NSData *imgdata;
