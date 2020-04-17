@@ -82,7 +82,7 @@ NSColor *dataToColor(NSData *data) {
     NSString *name = [defaults objectForKey:@"themeName"];
 
     if (!name)
-        name = @"Default";
+        name = @"Old settings";
 
     CoreDataManager *coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
 
@@ -97,10 +97,18 @@ NSColor *dataToColor(NSData *data) {
 
     if (fetchedObjects == nil || fetchedObjects.count == 0) {
         NSLog(@"Preference readDefaults: Error! Saved theme %@ not found. Creating new default theme!", name);
-        theme = [Preferences createDefaultThemeInContext:managedObjectContext];
+        theme = [Preferences createThemeFromDefaultsPlistInContext:managedObjectContext];
         if (!theme)
+            theme = [Preferences createDefaultThemeInContext:managedObjectContext];
+        if (!theme) {
             NSLog(@"Preference readDefaults: Error! Could not create default theme!");
+        }
     } else theme = fetchedObjects[0];
+
+    // We may or may not have created these two already above.
+    // Then these two calls will do nothing.
+    [Preferences createThemeFromDefaultsPlistInContext:managedObjectContext];
+    [Preferences createDefaultThemeInContext:managedObjectContext];
 
     [Preferences createZoomThemeInContext:managedObjectContext];
     [Preferences createClassicSpatterlightThemeInContext:managedObjectContext];
@@ -110,7 +118,6 @@ NSColor *dataToColor(NSData *data) {
     [Preferences createLectroteDarkThemeInContext:managedObjectContext];
     [Preferences createGargoyleThemeInContext:managedObjectContext];
 //    [Preferences createSTThemeInContext:managedObjectContext];
-    [Preferences createThemeFromDefaultsPlistInContext:managedObjectContext];
 }
 
 + (Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context {
