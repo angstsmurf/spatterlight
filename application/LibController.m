@@ -2549,7 +2549,7 @@ canCollapseSubview:(NSView *)subview
                ofDividerAtIndex:0];
         [self.window setFrame:frame display:NO animate:YES];
     }
-        [self updateSideViewForce:NO];
+    [self updateSideViewForce:YES];
 }
 
 #pragma mark -
