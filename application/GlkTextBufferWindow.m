@@ -2371,13 +2371,11 @@
         return YES;
     }
 
-//    NSLog(@"_textview.bounds: %@ clipView.bounds: %@ NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) = %f cellSize.height: %f _textview.textContainerInset.height: %f", NSStringFromRect(_textview.bounds), NSStringFromRect(clipView.bounds), NSHeight(_textview.bounds) - NSMaxY(clipView.bounds), self.theme.bufferNormal.cellSize.height, _textview.textContainerInset.height);
-//
-    if (!self.glkctl.previewDummy)
-        NSLog(@"GlkTextBufferWindow %ld game %@: scrolledToBottom? %@", self.name, self.glkctl.game.metadata.title, (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding) ? @"Yes" : @"NO");
+//    if (!self.glkctl.previewDummy)
+//        NSLog(@"GlkTextBufferWindow %ld game %@: scrolledToBottom? %@", self.name, self.glkctl.game.metadata.title, (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding) ? @"Yes" : @"NO");
 
-    if (!(NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding))
-        NSLog(@"Not scrolled to bottom");
+//    if (!(NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding))
+//        NSLog(@"Not scrolled to bottom");
 
     return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding);
 }

@@ -139,11 +139,6 @@ fprintf(stderr, "%s\n",                                                    \
     if ([_game.ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"])
          _deadCities = YES;
 
-    NSLog(@"runTerp: theme name:%@", _theme.name);
-//    [_theme.bufferNormal printDebugInfo];
-//    if (_theme.doStyles == NO)
-//        NSLog(@"glkctl: runterp: doStyles = NO!");
-
     _gamefile = [_game urlForBookmark].path;
     _terpname = terpname_;
 

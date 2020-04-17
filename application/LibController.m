@@ -152,7 +152,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 //}
 
 - (instancetype)init {
-    NSLog(@"LibController: init");
+//    NSLog(@"LibController: init");
     self = [super initWithWindowNibName:@"LibraryWindow"];
     if (self) {
         NSError *error;
@@ -183,7 +183,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 }
 
 - (void)windowDidLoad {
-    NSLog(@"libctl: windowDidLoad");
+//    NSLog(@"libctl: windowDidLoad");
 
     self.windowFrameAutosaveName = @"LibraryWindow";
     _gameTableView.autosaveName = @"GameTable";
@@ -1686,7 +1686,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSString *terp;
     GlkController *gctl = _gameSessions[game.ifid];
 
-    NSLog(@"LibController playGame: %@ winRestore: %@", game.metadata.title, restoreflag ? @"YES" : @"NO");
+//    NSLog(@"LibController playGame: %@ winRestore: %@", game.metadata.title, restoreflag ? @"YES" : @"NO");
 
     if (gctl) {
         NSLog(@"A game with this ifid is already in session");
