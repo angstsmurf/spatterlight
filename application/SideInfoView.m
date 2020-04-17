@@ -561,7 +561,7 @@
         [clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
         [scrollView reflectScrolledClipView:clipView];
 
-        [self performSelector:@selector(fixScroll:) withObject:nil afterDelay:0.1];
+        [self performSelector:@selector(fixScroll:) withObject:nil afterDelay:0.5];
     }
 
     _game = somegame;
@@ -591,7 +591,7 @@
     }
 
     NSPoint newOrigin = [clipView bounds].origin;
-    if (fabs(newOrigin.y - yPoint) < NSHeight(self.frame) / 10)
+    if (fabs(newOrigin.y - yPoint) < NSHeight(self.frame) / 20)
         return;
     newOrigin.y = yPoint;
 
