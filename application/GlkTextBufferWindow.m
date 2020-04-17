@@ -1244,12 +1244,12 @@
     NSUInteger x;
     NSDictionary *attributes;
 
-    if (self.glkctl.shouldStoreScrollOffset)
+    if (!self.glkctl.previewDummy && self.glkctl.shouldStoreScrollOffset) {
         [self storeScrollOffset];
+    }
 
     styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
-
         if (self.theme.doStyles) {
             attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:self.styleHints[i]];
         } else {
@@ -1349,11 +1349,11 @@
         return;
     }
 
-    if (_preserveScroll || ! self.glkctl.previewDummy)
+    if (!self.glkctl.previewDummy && self.glkctl.shouldStoreScrollOffset)
         [self storeScrollOffset];
     super.frame = frame;
     [container invalidateLayout];
-    if (_preserveScroll || ! self.glkctl.previewDummy)
+    if (!self.glkctl.previewDummy && self.glkctl.shouldStoreScrollOffset)
         [self restoreScroll];
 }
 

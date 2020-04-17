@@ -1252,6 +1252,8 @@ fprintf(stderr, "%s\n",                                                    \
 //        NSLog(@"glkctl: PreferencesChanged with a nil object.");
     }
 
+    [self storeScrollOffsets];
+    _shouldStoreScrollOffset = NO;
     if ([Preferences instance].adjustSize) {
         if (lastTheme != _theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
             NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
@@ -1301,6 +1303,7 @@ fprintf(stderr, "%s\n",                                                    \
         win.theme = _theme;
         [win prefsDidChange];
     }
+    _shouldStoreScrollOffset = YES;
 }
 
 
