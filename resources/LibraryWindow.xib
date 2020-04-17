@@ -93,7 +93,7 @@
 															<string key="NSFrameSize">{181, 98}</string>
 															<reference key="NSSuperview" ref="219485008"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="665392855"/>
+															<reference key="NSNextKeyView" ref="912555774"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<object class="NSTextContainer" key="NSTextContainer" id="575663586">
 																<object class="NSLayoutManager" key="NSLayoutManager">
@@ -221,7 +221,7 @@
 											<string key="NSFrame">{{0, 23}, {181, 262}}</string>
 											<reference key="NSSuperview" ref="401913480"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="219485008"/>
+											<reference key="NSNextKeyView" ref="665392855"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<string key="NSAntiCompressionPriority">{993, 750}</string>
 											<int key="NSsFlags">133632</int>
@@ -295,7 +295,7 @@
 															<string key="NSFrameSize">{653, 230}</string>
 															<reference key="NSSuperview" ref="19771704"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="465997657"/>
+															<reference key="NSNextKeyView" ref="1017274543"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTableHeaderView" key="NSHeaderView" id="1041211642">
 																<reference key="NSNextResponder" ref="465997657"/>
@@ -368,7 +368,7 @@
 																</object>
 																<object class="NSTableColumn" id="964615312">
 																	<string key="NSIdentifier">title</string>
-																	<double key="NSWidth">151</double>
+																	<double key="NSWidth">345</double>
 																	<double key="NSMinWidth">75</double>
 																	<double key="NSMaxWidth">1000</double>
 																	<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -394,7 +394,7 @@
 																</object>
 																<object class="NSTableColumn" id="554367711">
 																	<string key="NSIdentifier">author</string>
-																	<double key="NSWidth">45</double>
+																	<double key="NSWidth">200</double>
 																	<double key="NSMinWidth">40</double>
 																	<double key="NSMaxWidth">1000</double>
 																	<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -459,7 +459,6 @@
 																	<bool key="NSIsResizeable">YES</bool>
 																	<bool key="NSIsEditable">YES</bool>
 																	<reference key="NSTableView" ref="521514176"/>
-																	<bool key="NSHidden">YES</bool>
 																</object>
 																<object class="NSTableColumn" id="473468624">
 																	<string key="NSIdentifier">genre</string>
@@ -513,6 +512,7 @@
 																	<bool key="NSIsResizeable">YES</bool>
 																	<bool key="NSIsEditable">YES</bool>
 																	<reference key="NSTableView" ref="521514176"/>
+																	<bool key="NSHidden">YES</bool>
 																</object>
 																<object class="NSTableColumn" id="435322450">
 																	<string key="NSIdentifier">series</string>
@@ -539,6 +539,7 @@
 																	<bool key="NSIsResizeable">YES</bool>
 																	<bool key="NSIsEditable">YES</bool>
 																	<reference key="NSTableView" ref="521514176"/>
+																	<bool key="NSHidden">YES</bool>
 																</object>
 																<object class="NSTableColumn" id="903343897">
 																	<string key="NSIdentifier">seriesnumber</string>
@@ -711,6 +712,7 @@
 																	<bool key="NSIsResizeable">YES</bool>
 																	<bool key="NSIsEditable">YES</bool>
 																	<reference key="NSTableView" ref="521514176"/>
+																	<bool key="NSHidden">YES</bool>
 																</object>
 																<object class="NSTableColumn" id="425981650">
 																	<string key="NSIdentifier">languageAsWord</string>
@@ -789,6 +791,7 @@
 																	<int key="NSResizingMask">3</int>
 																	<bool key="NSIsResizeable">YES</bool>
 																	<reference key="NSTableView" ref="521514176"/>
+																	<bool key="NSHidden">YES</bool>
 																</object>
 																<object class="NSTableColumn" id="400052549">
 																	<string key="NSIdentifier">lastModified</string>
@@ -814,6 +817,7 @@
 																	<int key="NSResizingMask">3</int>
 																	<bool key="NSIsResizeable">YES</bool>
 																	<reference key="NSTableView" ref="521514176"/>
+																	<bool key="NSHidden">YES</bool>
 																</object>
 																<object class="NSTableColumn" id="83077753">
 																	<string key="NSIdentifier">starRating</string>
@@ -846,6 +850,7 @@
 																	<int key="NSResizingMask">3</int>
 																	<bool key="NSIsResizeable">YES</bool>
 																	<reference key="NSTableView" ref="521514176"/>
+																	<bool key="NSHidden">YES</bool>
 																</object>
 																<object class="NSTableColumn" id="790259979">
 																	<string key="NSIdentifier">myRating</string>
@@ -931,10 +936,11 @@
 													<reference key="NSSuperview" ref="756741626"/>
 													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="690516205"/>
+													<bool key="NSEnabled">YES</bool>
 													<int key="NSsFlags">1</int>
 													<reference key="NSTarget" ref="756741626"/>
 													<string key="NSAction">_doScroller:</string>
-													<double key="NSPercent">0.86655112651646449</double>
+													<double key="NSPercent">0.86719787516600266</double>
 												</object>
 												<object class="NSClipView" id="465997657">
 													<reference key="NSNextResponder" ref="756741626"/>
@@ -955,9 +961,9 @@
 											<string key="NSFrame">{{0, 39}, {653, 247}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="19771704"/>
+											<reference key="NSNextKeyView" ref="465997657"/>
 											<string key="NSAntiCompressionPriority">{310, 750}</string>
-											<int key="NSsFlags">133680</int>
+											<int key="NSsFlags">133808</int>
 											<reference key="NSVScroller" ref="1017274543"/>
 											<reference key="NSHScroller" ref="818338602"/>
 											<reference key="NSContentView" ref="19771704"/>
@@ -971,6 +977,7 @@
 											<string key="NSFrame">{{359, 9}, {282, 22}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSSearchFieldCell" key="NSCell" id="569807709">
 												<int key="NSCellFlags">343014976</int>
