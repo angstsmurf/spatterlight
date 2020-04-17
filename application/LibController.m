@@ -226,7 +226,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         return;
     }
 
-    _leftView.hidden = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowSidebar"];
+    _leftView.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"ShowSidebar"];
 
     if (_leftView.hidden)
         [self collapseLeftView];
@@ -2396,12 +2396,11 @@ objectValueForTableColumn: (NSTableColumn*)column
 
 - (void) updateSideViewForce:(BOOL)force
 {
+    if ([_splitView isSubviewCollapsed:_leftView])
+        return;
+
     Game *game = nil;
     NSString *string = nil;
-
-    if ([_splitView isSubviewCollapsed:_leftView]) {
-        return;
-    }
 
     if (!_selectedGames || !_selectedGames.count || _selectedGames.count > 1) {
 
@@ -2422,7 +2421,6 @@ objectValueForTableColumn: (NSTableColumn*)column
     
 	_leftScrollView.documentView = infoView;
     _sideIfid.delegate = infoView;
-
 
     _sideIfid.stringValue = @"";
 
@@ -2452,21 +2450,24 @@ canCollapseSubview:(NSView *)subview
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition ofSubviewAt:(NSInteger)dividerIndex
 {
-    CGFloat result;
-    if (NSWidth(_rightView.frame) <= RIGHT_VIEW_MIN_WIDTH)
+    CGFloat result = NSWidth(splitView.frame) / 2;
+    if (result < RIGHT_VIEW_MIN_WIDTH)
         result = NSWidth(splitView.frame) - RIGHT_VIEW_MIN_WIDTH;
-    else
-        result = NSWidth(splitView.frame) / 2;
 
-//    NSLog(@"splitView:constrainMaxCoordinate:%f ofSubviewAt:%ld (returning %f)", proposedMaximumPosition, dividerIndex, result);
+   if (![splitView isSubviewCollapsed:_leftView])
+       [self updateSideViewForce:NO];
+
     return result;
 }
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex
 {
-//    NSLog(@"splitView:constrainMinCoordinate:%f ofSubviewAt:%ld (returning 200)", proposedMinimumPosition, dividerIndex);
+    CGFloat result = PREFERRED_LEFT_VIEW_MIN_WIDTH;
 
-	return (CGFloat)PREFERRED_LEFT_VIEW_MIN_WIDTH;
+    if (NSWidth(splitView.frame) - PREFERRED_LEFT_VIEW_MIN_WIDTH < RIGHT_VIEW_MIN_WIDTH)
+        result = RIGHT_VIEW_MIN_WIDTH;
+
+        return result;
 }
 
 -(IBAction)toggleSidebar:(id)sender;
@@ -2496,10 +2497,9 @@ canCollapseSubview:(NSView *)subview
 
 - (NSSize)windowWillResize:(NSWindow *)sender
                     toSize:(NSSize)frameSize {
-
-    if ([_splitView isSubviewCollapsed:_leftView])
-        return frameSize;
-    if (_leftView.frame.size.width <= PREFERRED_LEFT_VIEW_MIN_WIDTH - 10) {
+    if (![_splitView isSubviewCollapsed:_leftView] &&
+    (_leftView.frame.size.width < PREFERRED_LEFT_VIEW_MIN_WIDTH - 10
+        || _rightView.frame.size.width < RIGHT_VIEW_MIN_WIDTH)) {
         [self collapseLeftView];
     }
 
@@ -2602,8 +2602,13 @@ ofDividerAtIndex:0];
     BOOL collapsed = [state decodeBoolForKey:@"sideviewHidden"];
     //NSLog(@"Decoded left view visibility as %@", collapsed?@"NO":@"YES");
 
-    if (collapsed)
+    if (collapsed) {
         [self collapseLeftView];
+    } else {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowSidebar"]) {
+            [self uncollapseLeftView];
+        }
+    }
 }
 
 #pragma mark -
