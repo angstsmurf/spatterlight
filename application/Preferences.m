@@ -977,7 +977,6 @@ NSString *fontToString(NSFont *font) {
     glkcntrl.bufferStyleHints = stylehHints;
 
     glktxtbuf = [[GlkTextBufferWindow alloc] initWithGlkController:glkcntrl name:1];
-    glktxtbuf.preserveScroll = NO;
 
     glktxtbuf.textview.editable = NO;
     [sampleTextView addSubview:glktxtbuf];

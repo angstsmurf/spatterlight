@@ -2174,7 +2174,7 @@ NSInteger colorToInteger(NSColor *color) {
 //                NSLog(@"glkctl SIZWIN %ld: %@", (long)reqWin.name, NSStringFromRect(rect));
 
                 reqWin.frame = rect;
-                if ([reqWin isKindOfClass:[GlkTextBufferWindow class]] && ((GlkTextBufferWindow *)reqWin).preserveScroll)
+                if ([reqWin isKindOfClass:[GlkTextBufferWindow class]] && _shouldStoreScrollOffset)
                     [(GlkTextBufferWindow *)reqWin restoreScroll];
 
                 NSInteger hmask = NSViewMaxXMargin;

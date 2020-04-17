@@ -119,8 +119,6 @@
 @property NSString *restoredSearch;
 @property BOOL restoredFindBarVisible;
 
-@property BOOL preserveScroll;
-
 - (void)recalcBackground;
 - (void)onKeyDown:(NSEvent *)evt;
 - (void)echo:(BOOL)val;

@@ -1081,7 +1081,6 @@
         //layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
 
         [self addSubview:scrollview];
-        _preserveScroll = YES;
     }
 
     return self;
@@ -1144,7 +1143,6 @@
                 .rangeValue;
         _textview.selectedRange = _restoredSelection;
 
-        _preserveScroll = [decoder decodeBoolForKey:@"preserveScroll"];
         _restoredAtBottom = [decoder decodeBoolForKey:@"scrolledToBottom"];
         _restoredAtTop = [decoder decodeBoolForKey:@"scrolledToTop"];
         _restoredLastVisible = (NSUInteger)[decoder decodeIntegerForKey:@"lastVisible"];
@@ -1189,7 +1187,6 @@
     [encoder encodeInteger:(NSInteger)moveRangeIndex forKey:@"moveRangeIndex"];
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
-    [encoder encodeBool:_preserveScroll forKey:@"preserveScroll"];
 
     [self storeScrollOffset];
 
@@ -2376,8 +2373,11 @@
 
 //    NSLog(@"_textview.bounds: %@ clipView.bounds: %@ NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) = %f cellSize.height: %f _textview.textContainerInset.height: %f", NSStringFromRect(_textview.bounds), NSStringFromRect(clipView.bounds), NSHeight(_textview.bounds) - NSMaxY(clipView.bounds), self.theme.bufferNormal.cellSize.height, _textview.textContainerInset.height);
 //
-//    if (!(NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < _textview.textContainerInset.height + 2 + _textview.bottomPadding))
-//        NSLog(@"Not scrolled to bottom");
+    if (!self.glkctl.previewDummy)
+        NSLog(@"GlkTextBufferWindow %ld game %@: scrolledToBottom? %@", self.name, self.glkctl.game.metadata.title, (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding) ? @"Yes" : @"NO");
+
+    if (!(NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding))
+        NSLog(@"Not scrolled to bottom");
 
     return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding);
 }
