@@ -268,31 +268,55 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 - (IBAction)deleteLibrary:(id)sender {
     NSInteger choice =
         NSRunAlertPanel(@"Do you really want to delete the library?",
-                        @"All the information about your games will be lost. "
-                        @"The original game files will not be harmed.",
+                        [NSString stringWithFormat: @"This will empty your game list and delete all metadata. "
+                         @"%@The original game files will not be affected.",
+                         (_gameSessions.count) ? @"Currently running games will be skipped. " : @""],
                         @"Delete", NULL, @"Cancel");
     
     if (choice != NSAlertOtherReturn) {
-        NSFetchRequest *allMetadata = [[NSFetchRequest alloc] init];
-        [allMetadata setEntity:[NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:_managedObjectContext]];
-        [allMetadata setIncludesPropertyValues:NO]; //only fetch the managedObjectID
 
-        NSError *error = nil;
-        NSArray *metadataEntries = [_managedObjectContext executeFetchRequest:allMetadata error:&error];
-        //error handling goes here
-        for (NSManagedObject *meta in metadataEntries) {
-            [_managedObjectContext deleteObject:meta];
+        NSArray *entitiesToDelete = @[@"Metadata", @"Game", @"Ifid", @"Image"];
+
+        NSMutableSet *gamesToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
+        NSMutableSet *metadataToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
+        NSMutableSet *imagesToKeep = [[NSMutableSet alloc] initWithCapacity:_gameSessions.count];
+        NSSet *ifidsToKeep = [[NSSet alloc] init];
+
+        for (GlkController *ctl in [_gameSessions allValues]) {
+            [gamesToKeep addObject:ctl.game];
+            [metadataToKeep addObject:ctl.game.metadata];
+            [imagesToKeep addObject:ctl.game.metadata.cover];
+            ifidsToKeep  = [ifidsToKeep setByAddingObjectsFromSet:ctl.game.metadata.ifids];
         }
 
-        NSFetchRequest *allGames = [[NSFetchRequest alloc] init];
-        [allGames setEntity:[NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext]];
-        [allGames setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+        for (NSString *entity in entitiesToDelete) {
+            NSFetchRequest *fetchEntities = [[NSFetchRequest alloc] init];
+            [fetchEntities setEntity:[NSEntityDescription entityForName:entity inManagedObjectContext:_managedObjectContext]];
+            [fetchEntities setIncludesPropertyValues:NO]; //only fetch the managedObjectID
 
-        error = nil;
-        NSArray *gameEntries = [_managedObjectContext executeFetchRequest:allGames error:&error];
-        //error handling goes here
-        for (NSManagedObject *game in gameEntries) {
-            [_managedObjectContext deleteObject:game];
+            NSError *error = nil;
+            NSArray *objectsToDelete = [_managedObjectContext executeFetchRequest:fetchEntities error:&error];
+            if (error)
+                NSLog(@"deleteLibrary: %@", error);
+            //error handling goes here
+
+            NSMutableSet *set = [NSMutableSet setWithArray:objectsToDelete];
+
+            if ([entity isEqualToString:@"Game"]) {
+                [set minusSet:gamesToKeep];
+            } else if ([entity isEqualToString:@"Metadata"]) {
+                [set minusSet:metadataToKeep];
+            } else if ([entity isEqualToString:@"Image"]) {
+                [set minusSet:imagesToKeep];
+            } else if ([entity isEqualToString:@"Ifid"]) {
+                [set minusSet:ifidsToKeep];
+            }
+
+            objectsToDelete = [set allObjects];
+
+            for (NSManagedObject *object in objectsToDelete) {
+                [_managedObjectContext deleteObject:object];
+            }
         }
 
         [_coreDataManager saveChanges];
@@ -706,7 +730,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
      enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
          game = gameTableModel[idx];
 //         NSLog(@"libctl: delete game %@", game.metadata.title);
-         [_managedObjectContext deleteObject:game];
+         if (_gameSessions[game.ifid] == nil)
+             [_managedObjectContext deleteObject:game];
      }];
 }
 
@@ -965,8 +990,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     NSIndexSet *rows = _gameTableView.selectedRowIndexes;
 
     if (_gameTableView.clickedRow != -1 &&
-        (![rows containsIndex:(NSUInteger)_gameTableView.clickedRow]))
+        (![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])) {
         count = 1;
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
+    }
 
     if (action == @selector(performFindPanelAction:)) {
         if (menuItem.tag == NSTextFinderActionShowFindInterface)
@@ -984,8 +1011,18 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     if (action == @selector(download:))
         return !currentlyAddingGames;
 
-    if (action == @selector(delete:) || action == @selector(deleteGame:)
-        || action == @selector(showGameInfo:)
+    if (action == @selector(delete:) || action == @selector(deleteGame:)) {
+        if (count == 0)
+            return NO;
+        NSArray *selection = [gameTableModel objectsAtIndexes:rows];
+        for (Game *game in selection) {
+            if (_gameSessions[game.ifid] == nil)
+                return YES;
+        }
+        return NO;
+    }
+
+    if (action == @selector(showGameInfo:)
         || action == @selector(reset:))
         return count > 0;
 
