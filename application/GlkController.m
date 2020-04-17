@@ -1149,7 +1149,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     if ((self.window.styleMask & NSFullScreenWindowMask) !=
         NSFullScreenWindowMask) { // We are not in fullscreen
-//        NSLog(@"zoomContentToSize: we are not in fullscreen");
 
         newSize.width += borders;
         newSize.height += borders;
