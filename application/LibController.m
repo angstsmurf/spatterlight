@@ -2388,9 +2388,11 @@ objectValueForTableColumn: (NSTableColumn*)column
             break;
         }
     }
-    if ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView])
+    if ([updatedObjects containsObject:currentSideView.metadata]) // && [updatedObjects containsObject:currentSideView])
     {
-//        NSLog(@"Game currently on display in side view (%@) did change", currentSideView.metadata.title);
+        NSLog(@"Game currently on display in side view (%@) did change", currentSideView.metadata.title);
+        NSLog(@"updatedObjects.count = %ld", updatedObjects.count);
+
         [self updateSideViewForce:YES];
     }
 }

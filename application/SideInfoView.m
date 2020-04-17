@@ -591,10 +591,12 @@
     }
 
     NSPoint newOrigin = [clipView bounds].origin;
+    if (fabs(newOrigin.y - yPoint) < NSHeight(self.frame) / 10)
+        return;
     newOrigin.y = yPoint;
 
     [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:0.2];
+    [[NSAnimationContext currentContext] setDuration:1];
 
     [[clipView animator] setBoundsOrigin:newOrigin];
     [scrollView reflectScrolledClipView: [scrollView contentView]]; // may not bee necessary
