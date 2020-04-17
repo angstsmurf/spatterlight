@@ -47,6 +47,7 @@ enum  {
 
 #define RIGHT_VIEW_MIN_WIDTH 350.0
 #define PREFERRED_LEFT_VIEW_MIN_WIDTH 200.0
+#define ACTUAL_LEFT_VIEW_MIN_WIDTH 50.0
 
 #include <ctype.h>
 
@@ -2417,7 +2418,10 @@ objectValueForTableColumn: (NSTableColumn*)column
 
     [_leftScrollView.documentView performSelector:@selector(removeFromSuperview)];
 
-	SideInfoView *infoView = [[SideInfoView alloc] initWithFrame:_leftScrollView.frame];
+    if (NSWidth(_leftView.frame) < ACTUAL_LEFT_VIEW_MIN_WIDTH)
+        return;
+    
+    SideInfoView *infoView = [[SideInfoView alloc] initWithFrame:_leftScrollView.frame];
     
 	_leftScrollView.documentView = infoView;
     _sideIfid.delegate = infoView;
@@ -2433,7 +2437,6 @@ objectValueForTableColumn: (NSTableColumn*)column
             _sideIfid.stringValue = game.ifid;
     } else if (string) {
         [infoView updateSideViewWithString:string];
-        NSLog(@"\nUpdating info pane with string '%@'", string);
     }
 }
 
@@ -2454,9 +2457,6 @@ canCollapseSubview:(NSView *)subview
     if (result < RIGHT_VIEW_MIN_WIDTH)
         result = NSWidth(splitView.frame) - RIGHT_VIEW_MIN_WIDTH;
 
-   if (![splitView isSubviewCollapsed:_leftView])
-       [self updateSideViewForce:NO];
-
     return result;
 }
 
@@ -2465,9 +2465,9 @@ canCollapseSubview:(NSView *)subview
     CGFloat result = PREFERRED_LEFT_VIEW_MIN_WIDTH;
 
     if (NSWidth(splitView.frame) - PREFERRED_LEFT_VIEW_MIN_WIDTH < RIGHT_VIEW_MIN_WIDTH)
-        result = RIGHT_VIEW_MIN_WIDTH;
+        result = ACTUAL_LEFT_VIEW_MIN_WIDTH;
 
-        return result;
+    return result;
 }
 
 -(IBAction)toggleSidebar:(id)sender;
@@ -2498,8 +2498,8 @@ canCollapseSubview:(NSView *)subview
 - (NSSize)windowWillResize:(NSWindow *)sender
                     toSize:(NSSize)frameSize {
     if (![_splitView isSubviewCollapsed:_leftView] &&
-    (_leftView.frame.size.width < PREFERRED_LEFT_VIEW_MIN_WIDTH - 10
-        || _rightView.frame.size.width < RIGHT_VIEW_MIN_WIDTH)) {
+    (_leftView.frame.size.width < PREFERRED_LEFT_VIEW_MIN_WIDTH - 1
+        || _rightView.frame.size.width < RIGHT_VIEW_MIN_WIDTH - 1)) {
         [self collapseLeftView];
     }
 
@@ -2533,15 +2533,21 @@ canCollapseSubview:(NSView *)subview
            ofDividerAtIndex:0];
 
     [_splitView display];
-    [self updateSideViewForce:YES];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ShowSidebar"];
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification
 {
     // TODO: This should call a faster update method rather than rebuilding the view from scratch every time, but everything I've tried makes word wrap wonky
-    if (currentSideView)
-        [self updateSideViewForce:YES];
+
+    if (NSWidth(_splitView.frame) < ACTUAL_LEFT_VIEW_MIN_WIDTH + RIGHT_VIEW_MIN_WIDTH && ![_splitView isSubviewCollapsed:_leftView]) {
+        NSRect frame = self.window.frame;
+        frame.size.width = PREFERRED_LEFT_VIEW_MIN_WIDTH + RIGHT_VIEW_MIN_WIDTH + 10;
+        [_splitView setPosition:PREFERRED_LEFT_VIEW_MIN_WIDTH - 10
+               ofDividerAtIndex:0];
+        [self.window setFrame:frame display:NO animate:YES];
+    }
+        [self updateSideViewForce:NO];
 }
 
 #pragma mark -
