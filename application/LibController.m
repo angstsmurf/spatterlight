@@ -226,7 +226,9 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         return;
     }
 
-    if ([_splitView isSubviewCollapsed:_leftView])
+    _leftView.hidden = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowSidebar"];
+
+    if (_leftView.hidden)
         [self collapseLeftView];
     else
         [self uncollapseLeftView];
@@ -2489,6 +2491,7 @@ canCollapseSubview:(NSView *)subview
     self.window.minSize = minSize;
     _leftViewConstraint.priority = NSLayoutPriorityDefaultLow;
 	[_splitView display];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowSidebar"];
 }
 
 - (NSSize)windowWillResize:(NSWindow *)sender
@@ -2531,6 +2534,7 @@ canCollapseSubview:(NSView *)subview
 
     [_splitView display];
     [self updateSideViewForce:YES];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ShowSidebar"];
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification
