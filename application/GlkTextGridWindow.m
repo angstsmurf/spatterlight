@@ -502,8 +502,8 @@
 
     NSSize screensize = self.glkctl.window.screen.visibleFrame.size;
     if (newcols * self.theme.cellWidth > screensize.width || newrows * self.theme.cellHeight > screensize.height) {
-        NSLog(@"GlkTextGridWindow setFrame error! newcols (%ld) * theme.cellwith (%f) = %f. newrows (%ld) * theme.cellheight (%f) = %f. Returning.", newcols, self.theme.cellWidth, newcols * self.theme.cellWidth, newrows, self.theme.cellHeight, newrows * self.theme.cellHeight);
-        return;
+        NSLog(@"GlkTextGridWindow setFrame error! newcols (%ld) * theme.cellwith (%f) = %f. screensize.width:%f newrows (%ld) * theme.cellheight (%f) = %f. screensize.height:%f Returning.", newcols, self.theme.cellWidth, newcols * self.theme.cellWidth, screensize.width, newrows, self.theme.cellHeight, newrows * self.theme.cellHeight, screensize.height);
+//        return;
     }
 
     NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
