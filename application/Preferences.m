@@ -1002,10 +1002,10 @@ NSString *fontToString(NSFont *font) {
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:_managedObjectContext];
 
-    _oneThemeForAll = [[NSUserDefaults standardUserDefaults] boolForKey:@"oneThemeForAll"];
+    _oneThemeForAll = [[NSUserDefaults standardUserDefaults] boolForKey:@"OneThemeForAll"];
     _themesHeader.stringValue = [self themeScopeTitle];
 
-    _adjustSize = [[NSUserDefaults standardUserDefaults] boolForKey:@"adjustSize"];
+    _adjustSize = [[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"];
 
     prefs = self;
     [self updatePrefsPanel];
@@ -1589,7 +1589,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (void)setOneThemeForAll:(BOOL)oneThemeForAll {
     _oneThemeForAll = oneThemeForAll;
-    [[NSUserDefaults standardUserDefaults] setBool:_oneThemeForAll forKey:@"oneThemeForAll"];
+    [[NSUserDefaults standardUserDefaults] setBool:_oneThemeForAll forKey:@"OneThemeForAll"];
     _themesHeader.stringValue = [self themeScopeTitle];
     if (oneThemeForAll) {
         _btnOneThemeForAll.state = NSOnState;
@@ -1685,7 +1685,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeAdjustSize:(id)sender {
     _adjustSize = [sender state];
-    [[NSUserDefaults standardUserDefaults] setBool:_adjustSize forKey:@"adjustSize"];
+    [[NSUserDefaults standardUserDefaults] setBool:_adjustSize forKey:@"AdjustSize"];
 }
 
 - (IBAction)addTheme:(id)sender {

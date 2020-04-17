@@ -1256,7 +1256,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self storeScrollOffsets];
     _shouldStoreScrollOffset = NO;
-    if ([Preferences instance].adjustSize) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"]) {
         if (lastTheme != _theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
             NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
 
