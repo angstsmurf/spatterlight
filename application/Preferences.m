@@ -2082,7 +2082,19 @@ textShouldEndEditing:(NSText *)fieldEditor {
 + (void)zoomToActualSize {
     NSLog(@"zoomToActualSize");
     zoomDirection = ZOOMRESET;
-    [self scale:12 / theme.gridNormal.font.pointSize];
+
+    CGFloat scale;
+    Theme *parent = theme.defaultParent;
+    while (parent.defaultParent)
+        parent = parent.defaultParent;
+
+    if (parent)
+        scale = parent.gridNormal.font.pointSize;
+
+    if (scale < 6)
+        scale = 12;
+
+    [self scale:scale / theme.gridNormal.font.pointSize];
 }
 
 + (void)scale:(CGFloat)scalefactor {
