@@ -1,4 +1,8 @@
 {
+	AdjustSize = YES;
+	OneThemeForAll = YES;
+	ShowThemePreview = NO;
+	ShowSidebar = NO;
 	Border = 15;
 	DefaultWidth = 80;
 	DefaultHeight = 40;
