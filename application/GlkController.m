@@ -1252,6 +1252,8 @@ fprintf(stderr, "%s\n",                                                    \
 //        NSLog(@"glkctl: PreferencesChanged with a nil object.");
     }
 
+//    NSLog(@"GlkController for game %@ notePreferencesChanged", _game.metadata.title);
+
     [self storeScrollOffsets];
     _shouldStoreScrollOffset = NO;
     if ([Preferences instance].adjustSize) {
