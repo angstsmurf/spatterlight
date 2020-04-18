@@ -171,6 +171,7 @@
 							<string key="NSFrame">{{15, 10}, {488, 286}}</string>
 							<reference key="NSSuperview" ref="1040721980"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="284727235"/>
 							<array class="NSMutableArray" key="NSTabViewItems">
 								<object class="NSTabViewItem" id="907437729">
 									<string key="NSIdentifier">1</string>
@@ -184,6 +185,7 @@
 												<string key="NSFrame">{{18, 217}, {440, 17}}</string>
 												<reference key="NSSuperview" ref="284727235"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="1046819282"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="598989027">
 													<int key="NSCellFlags">67239488</int>
@@ -218,7 +220,7 @@
 															<object class="NSTableView" id="1004143078">
 																<reference key="NSNextResponder" ref="732792440"/>
 																<int key="NSvFlags">256</int>
-																<string key="NSFrameSize">{434, 159}</string>
+																<string key="NSFrameSize">{434, 152}</string>
 																<reference key="NSSuperview" ref="732792440"/>
 																<reference key="NSWindow"/>
 																<reference key="NSNextKeyView" ref="361651069"/>
@@ -257,7 +259,7 @@
 																			<string key="NSContents">Text Cell</string>
 																			<reference key="NSSupport" ref="1060177376"/>
 																			<reference key="NSControlView" ref="1004143078"/>
-																			<reference key="NSBackgroundColor" ref="309798081"/>
+																			<reference key="NSBackgroundColor" ref="276414319"/>
 																			<reference key="NSTextColor" ref="1016277735"/>
 																		</object>
 																		<int key="NSResizingMask">3</int>
@@ -267,7 +269,7 @@
 																</array>
 																<double key="NSIntercellSpacingWidth">3</double>
 																<double key="NSIntercellSpacingHeight">2</double>
-																<reference key="NSBackgroundColor" ref="309798081"/>
+																<reference key="NSBackgroundColor" ref="276414319"/>
 																<object class="NSColor" key="NSGridColor">
 																	<int key="NSColorSpace">6</int>
 																	<string key="NSCatalogName">System</string>
@@ -277,7 +279,7 @@
 																		<bytes key="NSWhite">MC41AA</bytes>
 																	</object>
 																</object>
-																<double key="NSRowHeight">14</double>
+																<double key="NSRowHeight">17</double>
 																<int key="NSTvFlags">312475648</int>
 																<reference key="NSDelegate"/>
 																<reference key="NSDataSource"/>
@@ -290,14 +292,14 @@
 																<int key="NSTableViewGroupRowStyle">1</int>
 															</object>
 														</array>
-														<string key="NSFrameSize">{434, 159}</string>
+														<string key="NSFrameSize">{434, 152}</string>
 														<reference key="NSSuperview" ref="1046819282"/>
 														<reference key="NSWindow"/>
 														<reference key="NSNextKeyView" ref="1004143078"/>
 														<string key="NSReuseIdentifierKey">_NS:11</string>
 														<reference key="NSDocView" ref="1004143078"/>
 														<reference key="NSBGColor" ref="276414319"/>
-														<int key="NScvFlags">6</int>
+														<int key="NScvFlags">2</int>
 													</object>
 													<object class="NSScroller" id="736899205">
 														<reference key="NSNextResponder" ref="1046819282"/>
@@ -323,7 +325,7 @@
 														<double key="NSPercent">0.99275362318840576</double>
 													</object>
 												</array>
-												<string key="NSFrame">{{17, 55}, {434, 159}}</string>
+												<string key="NSFrame">{{17, 55}, {434, 152}}</string>
 												<reference key="NSSuperview" ref="284727235"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="732792440"/>
@@ -331,7 +333,7 @@
 												<reference key="NSVScroller" ref="736899205"/>
 												<reference key="NSHScroller" ref="443132569"/>
 												<reference key="NSContentView" ref="732792440"/>
-												<bytes key="NSScrollAmts">QSAAAEEgAABBgAAAQYAAAA</bytes>
+												<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 											</object>
 											<object class="NSPopUpButton" id="936790052">
 												<reference key="NSNextResponder" ref="284727235"/>
@@ -561,6 +563,7 @@
 												<string key="NSFrame">{{128, 6}, {126, 18}}</string>
 												<reference key="NSSuperview" ref="284727235"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView"/>
 												<int key="NSTag">40</int>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="412311321">
@@ -606,6 +609,7 @@
 												<int key="NSvFlags">256</int>
 												<string key="NSFrame">{{18, 217}, {440, 17}}</string>
 												<reference key="NSSuperview" ref="585165377"/>
+												<reference key="NSNextKeyView" ref="209161808"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="512923193">
 													<int key="NSCellFlags">67239488</int>
@@ -1395,6 +1399,7 @@
 																<int key="NSvFlags">256</int>
 																<string key="NSFrame">{{71, 11}, {50, 18}}</string>
 																<reference key="NSSuperview" ref="736343980"/>
+																<reference key="NSNextKeyView" ref="698170760"/>
 																<int key="NSTag">13</int>
 																<bool key="NSEnabled">YES</bool>
 																<object class="NSTextFieldCell" key="NSCell" id="127715446">
@@ -3194,6 +3199,7 @@
 				<string key="599.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="675.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="676.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="YES" key="676.ibExternalAutomaticallyCalculatesRowSizeFromViewHeight"/>
 				<string key="677.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="679.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="680.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
