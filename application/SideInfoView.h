@@ -20,6 +20,8 @@
 	NSTextField *authorField;
 	NSTextField *blurbField;
 	NSTextField *ifidField;
+
+    CGFloat totalHeight;
 }
 
 //@property (weak) LibController *libctl;

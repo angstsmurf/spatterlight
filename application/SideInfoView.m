@@ -75,7 +75,6 @@
 
 - (NSTextField *) addSubViewWithtext:(NSString *)text andFont:(NSFont *)font andSpaceBefore:(CGFloat)space andLastView:(id)lastView
 {
-
     NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
 
     para.minimumLineHeight = font.pointSize + 3;
@@ -197,6 +196,9 @@
                                                                          constant: contentRect.size.height + 1];
 
     [self addConstraint:heightConstraint];
+
+    totalHeight += NSHeight(textField.bounds) + space;
+
     return textField;
 }
 
@@ -210,6 +212,8 @@
         [self updateSideViewWithString:somedata.title];
         return;
     }
+
+    totalHeight = 0;
 
     NSLayoutConstraint *xPosConstraint;
     NSLayoutConstraint *yPosConstraint;
@@ -324,10 +328,7 @@
         imageView.image = theImage;
 
         lastView = imageView;
-
-    }
-    else
-    {
+    } else {
         imageView = nil;
         //NSLog(@"No image");
         topSpacer = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 0)];
@@ -536,7 +537,9 @@
     if (imageView == nil) {
         CGFloat windowHeight = ((NSView *)self.window.contentView).frame.size.height;
 
-        CGFloat contentHeight = titleField.frame.size.height + headlineField.frame.size.height + authorField.frame.size.height + blurbField.frame.size.height;
+        CGFloat topConstraintConstant = (windowHeight - totalHeight) / 2;
+        if (topConstraintConstant < 0)
+            topConstraintConstant = 0;
 
         topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
                                                             attribute:NSLayoutAttributeTop
@@ -544,7 +547,7 @@
                                                                toItem:self
                                                             attribute:NSLayoutAttributeTop
                                                            multiplier:1.0
-                                                             constant:(windowHeight - contentHeight) / 3];
+                                                             constant:topConstraintConstant];
         topSpacerYConstraint.priority = 999;
 
         if (clipView.frame.size.height < self.frame.size.height) {
