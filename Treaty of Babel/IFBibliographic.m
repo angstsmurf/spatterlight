@@ -94,7 +94,11 @@ enum  {
 
                 } else if ([node.name compare:@"description"] == 0) {
                     metadata.blurb =
-                    [self renderDescriptionElement:(NSXMLElement *)node];
+                        [self renderDescriptionElement:(NSXMLElement *)node];
+                    // When importing Return to Ditch Day, Babel returns a text with \\n instead of line breaks.
+                    metadata.blurb =
+                        [metadata.blurb stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+
                 }
             }
         }
