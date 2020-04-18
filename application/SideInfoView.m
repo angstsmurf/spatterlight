@@ -537,7 +537,7 @@
     if (imageView == nil) {
         CGFloat windowHeight = ((NSView *)self.window.contentView).frame.size.height;
 
-        CGFloat topConstraintConstant = (windowHeight - totalHeight) / 2;
+        CGFloat topConstraintConstant = (windowHeight - totalHeight - 60) / 2;
         if (topConstraintConstant < 0)
             topConstraintConstant = 0;
 
