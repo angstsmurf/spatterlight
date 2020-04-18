@@ -1,4 +1,5 @@
 {
+	HasConvertedLibrary = NO;
 	AdjustSize = YES;
 	OneThemeForAll = YES;
 	ShowThemePreview = NO;
