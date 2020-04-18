@@ -972,9 +972,9 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     } else windowClosedAlready = YES;
 
-    if (_supportsAutorestore) {
-        [self autoSaveOnExit];
-    }
+//    if (_supportsAutorestore) {
+//        [self autoSaveOnExit];
+//    }
 
     if (_game.ifid)
         [libcontroller.gameSessions removeObjectForKey:_game.ifid];
