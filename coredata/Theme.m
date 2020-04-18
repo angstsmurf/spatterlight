@@ -22,6 +22,8 @@
 @dynamic bufferMarginY;
 @dynamic cellHeight;
 @dynamic cellWidth;
+@dynamic bufferCellHeight;
+@dynamic bufferCellWidth;
 @dynamic dashes;
 @dynamic defaultCols;
 @dynamic defaultRows;
@@ -133,6 +135,7 @@
 
     NSFontManager *mgr = [NSFontManager sharedFontManager];
     BOOL bufInputExists = NO;
+    NSSize size;
 
     if (!self.bufferNormal) {
 
@@ -141,6 +144,9 @@
                                           inManagedObjectContext:self.managedObjectContext];
 
         [self.bufferNormal createDefaultAttributeDictionary];
+        size = [self.bufferNormal cellSize];
+        self.bufferCellWidth = size.width;
+        self.bufferCellHeight = size.height;
 //        NSLog(@"Created a new normal buffer style for theme %@", self.name);
     }
 
@@ -150,7 +156,7 @@
                                         insertNewObjectForEntityForName:@"GlkStyle"
                                         inManagedObjectContext:self.managedObjectContext];
         [self.gridNormal createDefaultAttributeDictionary];
-        NSSize size = [self.gridNormal cellSize];
+        size = [self.gridNormal cellSize];
         self.cellWidth = size.width;
         self.cellHeight = size.height;
 //        NSLog(@"Created a new normal grid style for theme %@", self.name);

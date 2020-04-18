@@ -190,6 +190,11 @@ NSColor *dataToColor(NSData *data) {
     oldTheme.cellHeight = cellSize.height;
     oldTheme.cellWidth = cellSize.width;
 
+    cellSize = [oldTheme.bufferNormal cellSize];
+
+    oldTheme.bufferCellHeight = cellSize.height;
+    oldTheme.bufferCellWidth = cellSize.width;
+
     [oldTheme populateStyles];
 
     return oldTheme;
@@ -238,6 +243,11 @@ NSColor *dataToColor(NSData *data) {
     defaultTheme.cellHeight = size.height;
     defaultTheme.cellWidth = size.width;
 
+    size = [defaultTheme.bufferNormal cellSize];
+
+    defaultTheme.bufferCellHeight = size.height;
+    defaultTheme.bufferCellWidth = size.width;
+
     return defaultTheme;
 }
 
@@ -285,6 +295,11 @@ NSColor *dataToColor(NSData *data) {
 
     classicTheme.cellHeight = size.height;
     classicTheme.cellWidth = size.width;
+
+    size = [classicTheme.bufferNormal cellSize];
+
+    classicTheme.bufferCellHeight = size.height;
+    classicTheme.bufferCellWidth = size.width;
 
     return classicTheme;
 }
@@ -350,6 +365,11 @@ NSColor *dataToColor(NSData *data) {
     gargoyleTheme.cellHeight = size.height;
     gargoyleTheme.cellWidth = size.width;
 
+    size = [gargoyleTheme.bufferNormal cellSize];
+
+    gargoyleTheme.bufferCellHeight = size.height;
+    gargoyleTheme.bufferCellWidth = size.width;
+
     return gargoyleTheme;
 }
 + (Theme *)createLectroteThemeInContext:(NSManagedObjectContext *)context {
@@ -401,6 +421,11 @@ NSColor *dataToColor(NSData *data) {
 
     lectroteTheme.cellHeight = size.height;
     lectroteTheme.cellWidth = size.width;
+
+    size = [lectroteTheme.bufferNormal cellSize];
+
+    lectroteTheme.bufferCellHeight = size.height;
+    lectroteTheme.bufferCellWidth = size.width;
 
     [lectroteTheme populateStyles];
 
@@ -458,6 +483,11 @@ NSColor *dataToColor(NSData *data) {
     lectroteDarkTheme.cellHeight = size.height;
     lectroteDarkTheme.cellWidth = size.width;
 
+    size = [lectroteDarkTheme.bufferNormal cellSize];
+
+    lectroteDarkTheme.bufferCellHeight = size.height;
+    lectroteDarkTheme.bufferCellWidth = size.width;
+
     [lectroteDarkTheme populateStyles];
 
     return lectroteDarkTheme;
@@ -514,6 +544,11 @@ NSColor *dataToColor(NSData *data) {
 
     zoomTheme.cellHeight = size.height;
     zoomTheme.cellWidth = size.width;
+
+    size = [zoomTheme.bufferNormal cellSize];
+
+    zoomTheme.bufferCellHeight = size.height;
+    zoomTheme.bufferCellWidth = size.width;
 
     [zoomTheme populateStyles];
 
@@ -575,6 +610,11 @@ NSColor *dataToColor(NSData *data) {
 
     dosTheme.cellHeight = size.height;
     dosTheme.cellWidth = size.width;
+
+    size = [dosTheme.bufferNormal cellSize];
+
+    dosTheme.bufferCellHeight = size.height;
+    dosTheme.bufferCellWidth = size.width;
 
     [dosTheme populateStyles];
 
@@ -656,6 +696,11 @@ NSColor *dataToColor(NSData *data) {
     dosBoxTheme.cellHeight = size.height;
     dosBoxTheme.cellWidth = size.width;
 
+    size = [dosBoxTheme.bufferNormal cellSize];
+
+    dosBoxTheme.bufferCellHeight = size.height;
+    dosBoxTheme.bufferCellWidth = size.width;
+
     return dosBoxTheme;
 }
 
@@ -717,6 +762,11 @@ NSColor *dataToColor(NSData *data) {
 
     stTheme.cellHeight = size.height;
     stTheme.cellWidth = size.width;
+
+    size = [stTheme.bufferNormal cellSize];
+
+    stTheme.bufferCellHeight = size.height;
+    stTheme.bufferCellWidth = size.width;
 
     return stTheme;
 }
@@ -899,6 +949,9 @@ NSColor *dataToColor(NSData *data) {
     NSSize cellsize = [theme.gridNormal cellSize];
     theme.cellWidth = cellsize.width;
     theme.cellHeight = cellsize.height;
+    cellsize = [theme.bufferNormal cellSize];
+    theme.bufferCellWidth = cellsize.width;
+    theme.bufferCellHeight = cellsize.height;
 
 #if 0
         if (style == style_BlockQuote)

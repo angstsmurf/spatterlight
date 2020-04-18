@@ -1009,7 +1009,7 @@
 
         // We use lastLineheight to restore scroll position with sub-character size precision
         // after a resize
-        lastLineheight = self.theme.bufferNormal.cellSize.height;
+        lastLineheight = self.theme.bufferCellHeight;
 
         for (i = 0; i < HISTORYLEN; i++)
             history[i] = nil;
@@ -2250,16 +2250,16 @@
         [layoutmanager lineFragmentRectForGlyphAtIndex:lastVisible
                                         effectiveRange:nil];
 
-    lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / self.theme.bufferNormal.cellSize.height;
+    lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / self.theme.bufferCellHeight;
                   //  lastLineheight;
 
-//    NSLog(@"(NSMaxY(visibleRect) (%f) - NSMaxY(lastRect)) (%f) / self.theme.bufferNormal.cellSize.height: %f = %f", NSMaxY(visibleRect),  NSMaxY(lastRect), self.theme.bufferNormal.cellSize.height, lastScrollOffset);
+//    NSLog(@"(NSMaxY(visibleRect) (%f) - NSMaxY(lastRect)) (%f) / self.theme.bufferCellHeight;: %f = %f", NSMaxY(visibleRect),  NSMaxY(lastRect), self.theme.bufferCellHeight, lastScrollOffset);
 
     if (isnan(lastScrollOffset) || isinf(lastScrollOffset))
         lastScrollOffset = 0;
 
 //    NSLog(@"lastScrollOffset: %f", lastScrollOffset);
-//    NSLog(@"lastScrollOffset as percentage of cell height: %f", (lastScrollOffset / self.theme.bufferNormal.cellSize.height) * 100);
+//    NSLog(@"lastScrollOffset as percentage of cell height: %f", (lastScrollOffset / self.theme.bufferCellHeight) * 100);
 
 
 }
@@ -2306,7 +2306,7 @@
         return;
     }
 
-    offset = offset * self.theme.bufferNormal.cellSize.height;
+    offset = offset * self.theme.bufferCellHeight;;
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
 
@@ -2314,7 +2314,7 @@
                                            effectiveRange:nil];
 
     CGFloat charbottom = NSMaxY(line); // bottom of the line
-    if (fabs(charbottom - NSHeight(scrollview.frame)) < self.theme.bufferNormal.cellSize.height) {
+    if (fabs(charbottom - NSHeight(scrollview.frame)) < self.theme.bufferCellHeight) {
         NSLog(@"scrollToCharacter: too close to the top!");
         [self scrollToTop];
         return;
@@ -2329,14 +2329,6 @@
     //    NSLog(@"performScroll: scroll down one screen from _lastseen");
 
     self.glkctl.shouldScrollOnCharEvent = NO;
-
-//    if (![[self.glkctl.game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"]) {
-//
-//        if (NSHeight(_textview.frame) - _textview.textContainerInset.height * 2 < self.frame.size.height) {
-//            [self scrollToMiddle];
-//            return;
-//        }
-//    }
 
     CGFloat bottom;
     // first, force a layout so we have the correct textview frame
@@ -2400,7 +2392,7 @@
         return NO;
     }
     CGFloat diff = clipView.bounds.origin.y;
-    return (diff < self.theme.bufferNormal.cellSize.height);
+    return (diff < self.theme.bufferCellHeight);
 }
 
 - (void)scrollToTop {
