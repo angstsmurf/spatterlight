@@ -80,8 +80,8 @@ NSDictionary *gFormatMap;
                    @"tads2" : @"tadsr",
                    @"tads3" : @"tadsr",
                    @"zcode" : @"frotz"
+//                   @"zcode": @"fizmo"
                    };
-    //  @"zcode": @"fizmo"};
 
     addToRecents = YES;
 
