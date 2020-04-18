@@ -221,6 +221,13 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
             }
         }
     }
+
+
+    // The "found" column seems to move about sometimes,
+    // so we move it back to the front here.
+    NSInteger foundColumnIndex = [_gameTableView columnWithIdentifier:@"found"];
+    if (foundColumnIndex != 0)
+        [_gameTableView moveColumn:foundColumnIndex toColumn:0];
  
     if (!_managedObjectContext) {
         NSLog(@"LibController windowDidLoad: no _managedObjectContext!");
