@@ -803,13 +803,13 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                     }
                 }
                 if (result) {
-
                     NSError *error = nil;
                     if (childContext.hasChanges) {
                         if (![childContext save:&error]) {
                             if (error) {
                                 [[NSApplication sharedApplication] presentError:error];
                             }
+                            game.metadata.source = @(kIfdb);
                         }
                     }
                 }
@@ -839,7 +839,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 //
 //	BOOL report = YES;
 //	currentIfid = nil;
-//	cursrc = kInternal;
 //
 //	NSString *path = game.urlForBookmark.path;
 //
@@ -878,10 +877,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 //				rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
 //				if (rv > 0)
 //				{
-//					cursrc = kInternal;
 //                    NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
 //					[self importMetadataFromXML:mdbufData inContext:_managedObjectContext];
-//					cursrc = 0;
 //				}
 //
 //				free(mdbuf);
@@ -1221,18 +1218,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     }
 }
 
-//- (void) setMetadataValue: (NSString*)val forKey: (NSString*)key forIFID: (NSString*)ifid
-//{
-//    Metadata *dict = [self fetchMetadataForIFID:ifid inContext:_managedObjectContext];
-//    if (dict)
-//    {
-//        NSLog(@"libctl: user set value %@ = '%@' for %@", key, val, ifid);
-//        dict.userEdited = @(YES);
-//        [dict setValue:val forKey:key];
-////        gameTableDirty = YES;
-//    }
-//}
-
 - (Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context {
 
     NSError *error = nil;
@@ -1251,15 +1236,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     if (fetchedObjects.count > 1)
     {
         NSLog(@"findTheme: inContext: Found more than one Theme object with name %@ (total %ld)",name, fetchedObjects.count);
-//        NSMutableSet *storedSet = [[NSMutableSet alloc] init];
-//        for (NSUInteger i = fetchedObjects.count - 1; i > 0 ; i--) {
-//            for (Game *game in ((Theme *)fetchedObjects[i]).games)
-//                [storedSet addObject:game];
-//        }
-//        [((Theme *)fetchedObjects[0]) addGames:storedSet];
-     }
-    else if (fetchedObjects.count == 0)
-    {
+     } else if (fetchedObjects.count == 0) {
         NSLog(@"findTheme: inContext: Found no Ifid object with with name %@", name);
         return nil;
     }
@@ -1359,7 +1336,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         NSMutableDictionary *metadata = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Metadata.plist"]);
 
         NSString *ifid;
-        cursrc = kInternal;
 
         NSEnumerator *enumerator = [metadata keyEnumerator];
         while ((ifid = [enumerator nextObject]))
@@ -1496,9 +1472,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     if (!data)
         return NO;
 
-    cursrc = kExternal;
-    [self importMetadataFromXML:data inContext:_managedObjectContext];
-    cursrc = 0;
+    Metadata *metadata = [self importMetadataFromXML:data inContext:_managedObjectContext];
+    metadata.source = @(kExternal);
 
     if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
 
@@ -1511,7 +1486,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     }
     return YES;
 }
-
 
 - (void) addImage:(NSData *)rawImageData toMetadata:(Metadata *)metadata inContext:(NSManagedObjectContext *)context {
 
@@ -1861,6 +1835,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             {
                 NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
                 metadata = [self importMetadataFromXML: mdbufData inContext:context];
+                metadata.source = @(kInternal);
             } else {
                 NSLog(@"Error! Babel could not extract metadata from file");
                 free(mdbuf);
@@ -2344,6 +2319,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 
         [meta setValue: value forKey: key];
         meta.userEdited = @(YES);
+        meta.source = @(kUser);
         game.metadata.lastModified = [NSDate date];
         NSLog(@"Set value of %@ to %@", key, value);
     }
