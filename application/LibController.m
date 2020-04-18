@@ -1824,8 +1824,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         if (mdlen > 0)
         {
             char *mdbuf = malloc(mdlen);
-            if (!mdbuf)
-            {
+            if (!mdbuf) {
                 if (report) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         NSRunAlertPanel(@"Out of memory.",
@@ -1838,8 +1837,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             }
 
             rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
-            if (rv > 0)
-            {
+            if (rv > 0) {
                 NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
                 metadata = [self importMetadataFromXML: mdbufData inContext:context];
                 metadata.source = @(kInternal);
