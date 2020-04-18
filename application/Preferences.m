@@ -984,11 +984,13 @@ NSString *fontToString(NSFont *font) {
     //    NSLog(@"pref: windowDidLoad()");
 
     [super windowDidLoad];
-    disregardTableSelection = YES;
+
+    self.window.delegate = self;
 
     self.windowFrameAutosaveName = @"PrefsPanel";
-    self.window.delegate = self;
     themesTableView.autosaveName = @"ThemesTable";
+
+    disregardTableSelection = YES;
 
     if (self.window.minSize.height != kDefaultPrefWindowHeight || self.window.minSize.width != kDefaultPrefWindowWidth) {
         NSSize minSize = self.window.minSize;
