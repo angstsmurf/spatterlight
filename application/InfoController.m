@@ -210,8 +210,17 @@
 
 - (void)windowWillClose:(NSNotification *)notification {
     LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
-    if (_game.ifid)
-        [libcontroller.infoWindows removeObjectForKey:_game.path];
+    // It seems we have to do it in this cumbersome way because the game.path used for key may have changed.
+    // Probably a good reason to use something else as key.
+    for (InfoController *controller in [libcontroller.infoWindows allValues])
+        if (controller == self) {
+            NSArray *temp = [libcontroller.infoWindows allKeysForObject:controller];
+            NSString *key = [temp objectAtIndex:0];
+            if (key) {
+                [libcontroller.infoWindows removeObjectForKey:key];
+                return;
+            }
+        }
 }
 
 - (void)saveImage:sender {
