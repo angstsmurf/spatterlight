@@ -255,9 +255,9 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     [self rebuildThemesSubmenu];
     [self performSelector:@selector(restoreSideViewSelection:) withObject:nil afterDelay:0.1];
 
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hasConvertedLibrary"];
+//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"HasConvertedLibrary"];
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasConvertedLibrary"])
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"])
 //    if (gameTableModel.count == 0)
     {
         [self convertLibraryToCoreData];
@@ -1461,7 +1461,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
             _addButton.enabled = YES;
             currentlyAddingGames = NO;
         });
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasConvertedLibrary"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasConvertedLibrary"];
     }];
 }
 
