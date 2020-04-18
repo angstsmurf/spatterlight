@@ -131,7 +131,7 @@
         NSLog(@"Found more than one Image with originalURL %@",imgurl);
     }
     else if (fetchedObjects.count == 0) {
-        NSLog(@"fetchImageForURL: Found no Image object with url %@", imgurl);
+//        NSLog(@"fetchImageForURL: Found no previously loaded Image object with url %@", imgurl);
         return nil;
     }
 

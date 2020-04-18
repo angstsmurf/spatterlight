@@ -184,7 +184,7 @@
 
 
 - (void)windowDidLoad {
-    NSLog(@"infoctl: windowDidLoad");
+//    NSLog(@"infoctl: windowDidLoad");
     CoreDataManager *coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
     NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
 

@@ -44,13 +44,13 @@
                                   insertNewObjectForEntityForName:@"Ifid"
                                   inManagedObjectContext:context];
               ifidObj.ifidString = ifid;
-              NSLog(@"Created new Ifid object");
-          }
+              NSLog(@"Created new Ifid object with ifid %@", ifid);
+          } else NSLog(@"Ifid object with ifid %@ already exists", ifid);
+
           [ifidObjs addObject:ifidObj];
           if (!_metadata)
               _metadata = ifidObj.metadata;
           [games unionSet:ifidObj.metadata.games];
-          NSLog(@"Added Ifid object with ifid %@", ifid);
       }
 
       if (!_metadata) {

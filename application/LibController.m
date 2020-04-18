@@ -2372,7 +2372,7 @@ objectValueForTableColumn: (NSTableColumn*)column
 }
 
 - (void)backgroundManagedObjectContextDidChange:(id)sender {
-    NSLog(@"backgroundManagedObjectContextDidChange");
+//    NSLog(@"backgroundManagedObjectContextDidChange");
     [_coreDataManager saveChanges];
 }
 
@@ -2390,8 +2390,7 @@ objectValueForTableColumn: (NSTableColumn*)column
     }
     if ([updatedObjects containsObject:currentSideView.metadata]) // && [updatedObjects containsObject:currentSideView])
     {
-        NSLog(@"Game currently on display in side view (%@) did change", currentSideView.metadata.title);
-        NSLog(@"updatedObjects.count = %ld", updatedObjects.count);
+//        NSLog(@"Metadata for game currently on display in side view (%@) did change", currentSideView.metadata.title);
 
         [self updateSideViewForce:YES];
     }
