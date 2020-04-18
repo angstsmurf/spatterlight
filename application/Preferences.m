@@ -1083,7 +1083,7 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)restoreWindowSize:(id)sender  {
-    if (self.window.frame.size.width != kDefaultPrefWindowWidth) {
+    if (NSWidth(self.window.frame) != kDefaultPrefWindowWidth || !previewShown) {
         previewShown = NO;
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowThemePreview"];
         [self resizeWindowToHeight:kDefaultPrefWindowHeight];
