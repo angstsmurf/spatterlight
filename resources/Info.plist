@@ -569,5 +569,9 @@
 			</dict>
 		</dict>
 	</array>
+	<key>NSRequiresAquaSystemAppearance</key>
+	<false/>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Spatterlight saves and loads savegames in the Documents folder by default.</string>
 </dict>
 </plist>
