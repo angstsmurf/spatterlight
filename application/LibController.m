@@ -1772,7 +1772,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSRunAlertPanel(@"Unknown file format.",
-                                [NSString stringWithFormat:@"Can not recognize the file extension %@.", path],
+                                [NSString stringWithFormat:@"Can not recognize the file extension \"%@.\"", path.pathExtension],
                                 @"Okay", NULL, NULL);
             });
         }
