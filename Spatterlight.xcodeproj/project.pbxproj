@@ -997,6 +997,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6D0D7BCB244B12FD005D6BBA /* SpatterlightDataModel v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpatterlightDataModel v2.xcdatamodel"; sourceTree = "<group>"; };
 		6D2C8688225E5291004A5A75 /* filesys.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filesys.c; sourceTree = "<group>"; };
 		6D2C8689225E5291004A5A75 /* filesys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filesys.h; sourceTree = "<group>"; };
 		6D2C868A225E5291004A5A75 /* filesys_c.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filesys_c.c; sourceTree = "<group>"; };
@@ -7537,6 +7538,7 @@
 		6D5C1BFF22BC2799009E03F2 /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				6D0D7BCB244B12FD005D6BBA /* SpatterlightDataModel v2.xcdatamodel */,
 				6D5C1C0022BC2799009E03F2 /* Spatterlight.xcdatamodel */,
 			);
 			currentVersion = 6D5C1C0022BC2799009E03F2 /* Spatterlight.xcdatamodel */;
