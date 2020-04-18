@@ -1067,7 +1067,7 @@
 
         _textview.textContainerInset = NSMakeSize(marginX, marginY);
         _textview.backgroundColor = styles[style_Normal][NSBackgroundColorAttributeName];
-        _textview.insertionPointColor = styles[style_Input][NSForegroundColorAttributeName];
+        _textview.insertionPointColor = styles[style_Normal][NSForegroundColorAttributeName];
 
         NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
@@ -1869,7 +1869,7 @@
 
 - (void)showInsertionPoint {
     if (line_request) {
-        NSColor *color = styles[style_Input][NSForegroundColorAttributeName];
+        NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
         if (!color)
             color = self.theme.bufferNormal.color;
         _textview.insertionPointColor = color;
