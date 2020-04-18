@@ -236,7 +236,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     _leftView.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"ShowSidebar"];
 
-    if (_leftView.hidden)
+    if (_leftView.isHidden)
         [self collapseLeftView];
     else
         [self uncollapseLeftView];
@@ -1772,7 +1772,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSRunAlertPanel(@"Unknown file format.",
-                                @"Can not recognize the file extension.",
+                                [NSString stringWithFormat:@"Can not recognize the file extension %@.", path],
                                 @"Okay", NULL, NULL);
             });
         }
