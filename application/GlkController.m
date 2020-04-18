@@ -1013,6 +1013,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     _contentView.glkctrl = nil;
+    libcontroller = nil;
     //[self.window setDelegate:nil]; This segfaults
 }
 
