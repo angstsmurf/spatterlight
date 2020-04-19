@@ -109,7 +109,7 @@
 		6DC6214323A26078002DEF3B /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214223A26078002DEF3B /* Tag.m */; };
 		6DC6214623A26078002DEF3B /* Interpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214523A26078002DEF3B /* Interpreter.m */; };
 		6DCDD44C23104AC4006715DD /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DCDD44B23104AC4006715DD /* fonts */; };
-		6DCDF487244CCFD800EB5D3B /* Spatterlight.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF486244CCFD800EB5D3B /* Spatterlight.xcdatamodel */; };
+		6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		6DCFFC2122BCD1730035FA99 /* Fonts License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
 		6DCFFC2722BCD1BB0035FA99 /* Fonts License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
 		6DCFFC2E22BE57790035FA99 /* SideInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2D22BE57790035FA99 /* SideInfoView.m */; };
@@ -1177,7 +1177,7 @@
 		6DC6214723A26078002DEF3B /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Metadata.h; path = coredata/Metadata.h; sourceTree = SOURCE_ROOT; };
 		6DC6214823A26078002DEF3B /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Metadata.m; path = coredata/Metadata.m; sourceTree = SOURCE_ROOT; };
 		6DCDD44B23104AC4006715DD /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
-		6DCDF486244CCFD800EB5D3B /* Spatterlight.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = Spatterlight.xcdatamodel; path = Spatterlight.xcdatamodeld/Spatterlight.xcdatamodel; sourceTree = "<group>"; };
+		6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spatterlight.xcdatamodel; sourceTree = "<group>"; };
 		6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Fonts License.rtf"; sourceTree = "<group>"; };
 		6DCFFC2C22BE57790035FA99 /* SideInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideInfoView.h; sourceTree = "<group>"; };
 		6DCFFC2D22BE57790035FA99 /* SideInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideInfoView.m; sourceTree = "<group>"; };
@@ -3411,7 +3411,7 @@
 				6D73E55621873509009CD59A /* LibraryWindow.xib */,
 				96FBD8EF0A094E2F002F6087 /* InfoPanel.nib */,
 				6D85C896218BD6E00088D849 /* HelpPanelController.xib */,
-				6DCDF486244CCFD800EB5D3B /* Spatterlight.xcdatamodel */,
+				6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -5383,7 +5383,7 @@
 				6DE957B023E3040A003246B6 /* Theme.m in Sources */,
 				6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */,
 				6DBC1ACF2424CEA40078311B /* VerticallyCenteredTextFieldCell.m in Sources */,
-				6DCDF487244CCFD800EB5D3B /* Spatterlight.xcdatamodel in Sources */,
+				6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7532,6 +7532,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
+			);
+			currentVersion = 6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */;
+			path = Spatterlight.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 961CCE6009F2375A00528FF9 /* Project object */;
 }
