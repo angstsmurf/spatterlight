@@ -207,6 +207,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     NSString *key;
     NSSortDescriptor *sortDescriptor;
 
+    NSArray *sortDescriptors = _gameTableView.sortDescriptors;
+
+   if (!sortDescriptors.count)
+       _gameTableView.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES] ];
+
     for (NSTableColumn *tableColumn in _gameTableView.tableColumns) {
 
         key = tableColumn.identifier;
@@ -257,9 +262,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
 //    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"HasConvertedLibrary"];
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"])
-//    if (gameTableModel.count == 0)
-    {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"]) {
         [self convertLibraryToCoreData];
     }
 
@@ -2229,8 +2232,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 - (void)tableView:(NSTableView *)tableView
     sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     if (tableView == _gameTableView) {
-        NSSortDescriptor *sortDescriptor =
-            (tableView.sortDescriptors)[0];
+        NSArray *sortDescriptors = tableView.sortDescriptors;
+        if (!sortDescriptors.count)
+            return;
+        NSSortDescriptor *sortDescriptor = sortDescriptors[0];
         if (!sortDescriptor)
             return;
         gameSortColumn = sortDescriptor.key;
