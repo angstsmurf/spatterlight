@@ -1178,8 +1178,8 @@ fprintf(stderr, "%s\n",                                                    \
         NSSize minSize = self.window.minSize;
         if (winrect.size.width < minSize.width)
             winrect.size.width = minSize.width;
-        if (winrect.size.height < minSize.width)
-            winrect.size.height = minSize.width;
+        if (winrect.size.height < minSize.height)
+            winrect.size.height = minSize.height;
 
         [self.window setFrame:winrect display:YES];
         _contentView.frame = [self contentFrameForWindowed];
