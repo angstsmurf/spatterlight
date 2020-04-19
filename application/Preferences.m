@@ -150,7 +150,7 @@ NSColor *dataToColor(NSData *data) {
 
     oldTheme.border = (int32_t)[[defaults objectForKey:@"Border"] doubleValue];
 
-    oldTheme.editable = NO;
+    oldTheme.editable = YES;
 
     name = [defaults objectForKey:@"GridFontName"];
     size = [[defaults objectForKey:@"GridFontSize"] doubleValue];
@@ -197,6 +197,8 @@ NSColor *dataToColor(NSData *data) {
 
     [oldTheme populateStyles];
 
+    oldTheme.defaultParent = [Preferences createDefaultThemeInContext:context];
+
     return oldTheme;
 }
 
@@ -221,10 +223,10 @@ NSColor *dataToColor(NSData *data) {
     defaultTheme.smartQuotes = YES;
     defaultTheme.spaceFormat = TAG_SPACES_GAME;
     defaultTheme.border = 10;
-    defaultTheme.bufferMarginX = 5;
-    defaultTheme.bufferMarginY = 5;
-    defaultTheme.gridMarginX = 0;
-    defaultTheme.gridMarginY = 0;
+    defaultTheme.bufferMarginX = 15;
+    defaultTheme.bufferMarginY = 15;
+    defaultTheme.gridMarginX = 5;
+    defaultTheme.gridMarginY = 5;
 
     defaultTheme.winSpacingX = 0;
     defaultTheme.winSpacingY = 0;
@@ -232,9 +234,14 @@ NSColor *dataToColor(NSData *data) {
     defaultTheme.morePrompt = nil;
     defaultTheme.spacingColor = nil;
 
-    defaultTheme.gridBackground = [NSColor whiteColor];
+    defaultTheme.gridBackground = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+
     defaultTheme.bufferBackground = [NSColor whiteColor];
     defaultTheme.editable = NO;
+
+    defaultTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.137 green:0.431 blue:0.145 alpha:1.0];
+
+    defaultTheme.bufferNormal.lineSpacing = 1;
 
     [defaultTheme populateStyles];
 
@@ -270,7 +277,7 @@ NSColor *dataToColor(NSData *data) {
     classicTheme.doStyles = NO;
     classicTheme.justify = NO;
     classicTheme.smartQuotes = YES;
-    classicTheme.spaceFormat = TAG_SPACES_GAME;
+    classicTheme.spaceFormat = TAG_SPACES_ONE;
     classicTheme.border = 0;
     classicTheme.bufferMarginX = 15;
     classicTheme.bufferMarginY = 15;
@@ -283,11 +290,11 @@ NSColor *dataToColor(NSData *data) {
     classicTheme.morePrompt = nil;
     classicTheme.spacingColor = nil;
 
-    classicTheme.gridBackground = [NSColor colorWithCalibratedRed:0.85 green:0.85 blue:0.85 alpha:1.0];
+    classicTheme.gridBackground = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
     classicTheme.bufferBackground = [NSColor whiteColor];
     classicTheme.editable = NO;
 
-    classicTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.14 green:0.43 blue:0.15 alpha:1.0];
+    classicTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.137 green:0.431 blue:0.145 alpha:1.0];
 
     [classicTheme populateStyles];
 

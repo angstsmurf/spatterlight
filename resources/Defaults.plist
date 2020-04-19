@@ -4,9 +4,9 @@
 	OneThemeForAll = YES;
 	ShowThemePreview = NO;
 	ShowSidebar = NO;
-	Border = 15;
+	Border = 10;
 	DefaultWidth = 80;
-	DefaultHeight = 40;
+	DefaultHeight = 50;
 	GridForeground = <000000>;
 	GridBackground = <d8d8d8>;
 	GridFontName = Monaco;
