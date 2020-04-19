@@ -64,26 +64,12 @@
         [self createDefaultAttributeDictionary];
 
     NSFont *font = self.font;
-    NSSize size;
-
-    // This is the only way I have found to get the correct width at all sizes
-//    if (NSAppKitVersionNumber < NSAppKitVersionNumber10_8) {
-//        size = [@"W" sizeWithAttributes:@{NSFontAttributeName: font}];
-//    } else
-//        size = [font advancementForGlyph:(NSGlyph)'W'];
-
-    size = [@"W" sizeWithAttributes:self.attributeDict];
-    NSSize height = [@"qld" sizeWithAttributes:self.attributeDict];
-    if (size.height < height.height)
-        size.height = height.height;
+    NSSize size = [@"W" sizeWithAttributes:self.attributeDict];
 
     CGFloat baselineOffset = fabs([self.attributeDict[NSBaselineOffsetAttributeName] floatValue]);
 
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-    CGFloat newheight = [layoutManager defaultLineHeightForFont:font] + self.lineSpacing + baselineOffset;
-
-     if (size.height < newheight)
-         size.height = newheight;
+    size.height = [layoutManager defaultLineHeightForFont:font] + self.lineSpacing + baselineOffset;
 
     return size;
 }
