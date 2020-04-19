@@ -1255,8 +1255,9 @@ fprintf(stderr, "%s\n",                                                    \
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"]) {
         if (lastTheme != _theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
             NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
+            NSSize newSizeIncludingBorders = NSMakeSize(newContentSize.width + _theme.border * 2, newContentSize.height + _theme.border * 2);
 
-            if (!NSEqualSizes(_borderView.bounds.size, newContentSize)) {
+            if (!NSEqualSizes(_borderView.bounds.size, newSizeIncludingBorders)) {
                 [self zoomContentToSize:newContentSize];
 
 //                NSLog(@"Changed window size to keep size in char cells constant. Previous size in char cells: %@ Current size in char cells: %@", NSStringFromSize(lastSizeInChars), NSStringFromSize([self contentSizeToCharCells:_contentView.frame.size]));
