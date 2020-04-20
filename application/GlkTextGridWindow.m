@@ -897,11 +897,9 @@
         return;
     }
 
-    NSNumber *key = @(ch);
-
     if (line_request &&
         (ch == keycode_Return ||
-         [currentTerminators[key] isEqual:@(YES)]))
+         [currentTerminators[@(ch)] isEqual:@(YES)]))
         [[input window] makeFirstResponder:nil];
 }
 
@@ -922,8 +920,8 @@
 
     NSInteger x0 = (NSInteger)(NSMinX(bounds) + mx + container.lineFragmentPadding);
     NSInteger y0 = (NSInteger)(NSMinY(bounds) + my);
-    CGFloat lineHeight = [Preferences lineHeight];
-    CGFloat charWidth = [Preferences charWidth];
+    CGFloat lineHeight = self.theme.cellHeight;
+    CGFloat charWidth = self.theme.cellWidth;
 
     if (ypos >= textstorage.length / cols)
         ypos = textstorage.length / cols - 1;
@@ -931,11 +929,11 @@
     NSRect caret;
     caret.origin.x = x0 + xpos * charWidth;
     caret.origin.y = y0 + ypos * lineHeight;
-    caret.size.width =
-    NSMaxX(bounds) - mx * 2 - caret.origin.x; // 20 * charWidth;
+    caret.size.width = (cols - xpos) * charWidth;
+    //NSMaxX(bounds) - mx * 2 - caret.origin.x + 1; // 20 * charWidth;
     caret.size.height = lineHeight;
 
-    NSLog(@"grid initLine: %@ in: %ld", str, (long)self.name);
+//    NSLog(@"grid initLine: \"%@\" in: %ld", str, (long)self.name);
 
     input = [[NSTextField alloc] initWithFrame:caret];
     input.editable = YES;
@@ -944,11 +942,12 @@
     input.target = self;
     input.allowsEditingTextAttributes = YES;
     input.bezeled = NO;
-    input.drawsBackground = NO;
+    input.drawsBackground = YES;
+    input.backgroundColor = self.theme.gridBackground;
     input.selectable = YES;
     input.delegate = self;
 
-    [input.cell setWraps:YES];
+    input.cell.wraps = YES;
 
     if (str.length == 0)
         str = @" ";
@@ -960,7 +959,7 @@
     input.attributedStringValue = attString;
 
     MyTextFormatter *inputFormatter =
-    [[MyTextFormatter alloc] initWithMaxLength:cols - xpos];
+    [[MyTextFormatter alloc] initWithMaxLength:cols - xpos - 1];
     input.formatter = inputFormatter;
 
     [textview addSubview:input];
@@ -972,6 +971,26 @@
 
 - (void)deferredGrabFocus:(id)sender {
     [self.window makeFirstResponder:input];
+}
+
+- (void)restoreInput {
+    if (line_request) {
+        [input removeFromSuperview];
+        NSString *str = input.stringValue;
+        [self initLine:str];
+    }
+}
+
+- (void)resignInput {
+    if (line_request) {
+        [input removeFromSuperview];
+        NSString *str = input.stringValue;
+        NSUInteger oldxpos = xpos;
+        NSUInteger oldypos = ypos;
+        [self printToWindow:str style:style_Input];
+        xpos = oldxpos;
+        ypos = oldypos;
+    }
 }
 
 - (NSString *)cancelLine {

@@ -1,9 +1,11 @@
 /* TextGrid window controller */
 
+@class MyGridTextView;
+
 @interface GlkTextGridWindow
     : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
     NSTextField *input;
-    NSTextView *textview;
+    MyGridTextView *textview;
     NSScrollView *scrollview;
     NSTextStorage *textstorage;
     NSLayoutManager *layoutmanager;
@@ -25,5 +27,7 @@
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (IBAction)speakStatus:(id)sender;
 - (void)deferredGrabFocus:(id)sender;
+- (void)restoreInput;
+- (void)resignInput;
 
 @end
