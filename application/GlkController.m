@@ -229,6 +229,12 @@ fprintf(stderr, "%s\n",                                                    \
      name:@"DefaultSizeChanged"
      object:nil];
 
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(noteManagedObjectContextDidChange:)
+     name:NSManagedObjectContextObjectsDidChangeNotification
+     object:libcontroller.managedObjectContext];
+
     self.window.representedFilename = _gamefile;
 
     [_borderView setWantsLayer:YES];
@@ -2683,6 +2689,17 @@ again:
 
     return largestWin;
 }
+
+- (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
+    NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+
+    if ([updatedObjects containsObject:_game.metadata])
+    {
+        if (![_game.metadata.title isEqualToString:_gamefile.lastPathComponent])
+            self.window.title =_game.metadata.title;
+    }
+}
+
 
 #pragma mark Full screen
 
