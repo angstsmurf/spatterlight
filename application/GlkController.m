@@ -134,8 +134,8 @@ fprintf(stderr, "%s\n",                                                    \
         _theme = _game.theme;
     }
 
-    if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"])
-        _adrianMole = YES;
+//    if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"])
+//        _adrianMole = YES;
     if ([_game.ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"])
          _deadCities = YES;
 
@@ -2311,8 +2311,9 @@ NSInteger colorToInteger(NSColor *color) {
         case INITCHAR:
 //            NSLog(@"glkctl initchar %d", req->a1);
 
-            // To fix scrolling in the Adrian Mole games
-            if (_adrianMole) {
+            // To fix scrolling in the Adrian Mole games and My Angel
+            // This must be game-specific, otherwise it breaks
+//            if (_adrianMole) {
                 if (lastRequest == PRINT) {
                     _shouldScrollOnCharEvent = YES;
                 }
@@ -2321,9 +2322,9 @@ NSInteger colorToInteger(NSColor *color) {
                     [self performScroll];
                 }
                 
-            } else {
-                [self performScroll];
-            }
+//            } else {
+//                [self performScroll];
+//            }
 
             if (reqWin)
                 [reqWin initChar];
