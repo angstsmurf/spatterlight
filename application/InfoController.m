@@ -188,10 +188,11 @@
     CoreDataManager *coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
     NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(noteManagedObjectContextDidChange:)
-                                                 name:NSManagedObjectContextObjectsDidChangeNotification
-                                               object:managedObjectContext];
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(noteManagedObjectContextDidChange:)
+     name:NSManagedObjectContextObjectsDidChangeNotification
+     object:managedObjectContext];
 
     descriptionText.drawsBackground = NO;
     ((NSScrollView *)descriptionText.superview).drawsBackground = NO;
