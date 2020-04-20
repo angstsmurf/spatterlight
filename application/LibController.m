@@ -207,11 +207,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     NSString *key;
     NSSortDescriptor *sortDescriptor;
 
-    NSArray *sortDescriptors = _gameTableView.sortDescriptors;
-
-   if (!sortDescriptors.count)
-       _gameTableView.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES] ];
-
     for (NSTableColumn *tableColumn in _gameTableView.tableColumns) {
 
         key = tableColumn.identifier;
@@ -227,6 +222,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         }
     }
 
+    NSArray *sortDescriptors = _gameTableView.sortDescriptors;
+
+    if (!sortDescriptors.count)
+        _gameTableView.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES] ];
 
     // The "found" column seems to move about sometimes,
     // so we move it back to the front here.
