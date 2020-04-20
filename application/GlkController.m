@@ -901,7 +901,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (task) {
 //        NSLog(@"glkctl reset: force stop the interpreter");
-        [task setTerminationHandler:nil];
+        task.terminationHandler = nil;
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
         [task terminate];
         task = nil;
