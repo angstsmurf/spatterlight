@@ -326,8 +326,8 @@ fprintf(stderr, "%s\n",                                                    \
     // If this is not a window restoration done by the system,
     // we now re-enter fullscreen manually if the game was
     // closed in fullscreen mode.
-    if (!windowRestoredBySystem && _inFullscreen && (self.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask) {
+    if (!windowRestoredBySystem && _inFullscreen
+        && (self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask) {
         [self startInFullscreen];
     } else {
         _contentView.autoresizingMask =
