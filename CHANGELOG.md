@@ -1,5 +1,33 @@
 # Change log
 
+## Unreleased
+
+- Library converted to use Core Data
+- Game presentation in library window side bar
+- Ifdb metadata download
+- Themes
+- Per-game settings
+- Themes preview in preferences window
+- Game list view now indicates missing game files
+- User can search for and update missing game files
+- Option to keep size in chars constant when changing themes
+- Fixed bug that would cause blank status bar on first turn
+- Once again you can scroll in the Adrian Mole games
+- Hyperlinks for commands work in Dead Cities
+- Improved status bar input in My Angel
+- Improved playability of A Colder Light, though problems remain
+- Status bars in TADS and other interpreters that use style User 1 now has correct background colour
+- No longer spams empty folders in Application Support
+- Improved waiting for key press to scroll (our more prompt-equivalent).
+- Game titles sent by TADS games are now used
+- Games in .ulx now autosave properly
+- Undo support in GUI interface
+- Forgiveness setting is now a pop-up menu
+- Hyperlinks are no longer always blue
+- Support for multiple releases of the same game with separate Ifids
+- Cascading of new game windows
+- Games are imported on background thread
+
 ## Release 0.5.11b
 
 - Autosave and autorestore support for Glulx games, based on code from IosGlulxe
