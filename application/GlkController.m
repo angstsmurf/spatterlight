@@ -352,12 +352,44 @@ fprintf(stderr, "%s\n",                                                    \
     NSRect newWindowFrame = [self.window frameRectForContentRect:newContentFrame];
     NSRect screenFrame = self.window.screen.visibleFrame;
     // Make sure that the window is shorter than the screen
-    if (newWindowFrame.size.height > screenFrame.size.height)
-        newWindowFrame.size.height = screenFrame.size.height;
+    if (NSHeight(newWindowFrame) > NSHeight(screenFrame))
+        newWindowFrame.size.height = NSHeight(screenFrame);
+
+    newWindowFrame.origin.x = round((NSWidth(screenFrame) - NSWidth(newWindowFrame)) / 2);
+    // Place the window just above center by default
+    newWindowFrame.origin.y = round(screenFrame.origin.y + (NSHeight(screenFrame) - NSHeight(newWindowFrame)) / 2) + 40;
+
+    //Very lazy cascading
+    if (libcontroller.gameSessions.count > 1) {
+        NSPoint thisPoint, thatPoint;
+        NSInteger repeats = 0;
+        BOOL overlapping;
+        thisPoint = newWindowFrame.origin;
+        thisPoint.y += NSHeight(newWindowFrame);
+        do {
+            overlapping = NO;
+            for (GlkController *ctrl in libcontroller.gameSessions.allValues) {
+                if (ctrl != self && ctrl.window) {
+                    thatPoint = ctrl.window.frame.origin;
+                    thatPoint.y += NSHeight(ctrl.window.frame);
+                    if (fabs(thisPoint.x - thatPoint.x) < 3 || fabs(thisPoint.y - thatPoint.y) < 3) {
+                        thisPoint.x = thatPoint.x + 20;
+                        thisPoint.y = thatPoint.y - 20;
+                        overlapping = YES;
+                        repeats++;
+                    }
+                }
+            }
+        } while (overlapping == YES && repeats < 100);
+        if (repeats >= 100)
+            NSLog(@"Got caught in a cascading infinite loop");
+        newWindowFrame.origin = thisPoint;
+        newWindowFrame.origin.y -= NSHeight(newWindowFrame);
+    }
+
     [self.window setFrame:newWindowFrame display:NO];
     [self adjustContentView];
     lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
-    [self.window center];
     [self forkInterpreterTask];
     [self showWindow:nil];
 }
@@ -434,7 +466,7 @@ fprintf(stderr, "%s\n",                                                    \
      setReadabilityHandler:^(NSFileHandle *file) {
          NSData *data = [file availableData];
          dispatch_async(dispatch_get_main_queue(), ^{
-             [self noteDataAvailable:data];
+             [weakSelf noteDataAvailable:data];
          });
 
      }];
@@ -2485,7 +2517,7 @@ static NSString *signalToName(NSTask *task) {
 
     [task waitUntilExit];
 
-    if (task && task.terminationStatus != 0) {
+    if (task && task.terminationStatus != 0 ) {
         NSAlert *alert;
         alert = [NSAlert
                  alertWithMessageText:@"The game has unexpectedly terminated."
