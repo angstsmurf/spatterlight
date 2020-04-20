@@ -1235,15 +1235,11 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
 
-    // If this is the GlkController of the sample text in
-    // the preferences window, we use the _dummyTheme property
     if (_game && !_previewDummy && !dead) {
 //        NSLog(@"glkctl notePreferencesChanged called for game %@, currently using theme %@", _game.metadata.title, _game.theme.name);
         _theme = _game.theme;
     } else {
-        NSLog(@"notePreferencesChanged: no game. Set GlkController to dead.");
-        _theme = [Preferences currentTheme];
-        dead = YES;
+//        NSLog(@"notePreferencesChanged: no game.");
         return;
     }
     
@@ -1279,8 +1275,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self adjustContentView];
 
     if (!_gwindows.count) {
-        // No _gwindows, nothing to do. Probably caused by restoring
-        // theme setting in the preferences window at startup
+        // No _gwindows, nothing to do.
         return;
     }
 
