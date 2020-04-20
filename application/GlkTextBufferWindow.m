@@ -2348,7 +2348,7 @@
                                                   NSHeight(scrollview.frame))];
     } else {
         [self scrollToBottom];
-        [self markLastSeen];
+//        [self markLastSeen];
 //        [_textview scrollRectToVisible:NSMakeRect(0, _lastseen, 0,
 //                                                  bottom - _lastseen)];
     }
