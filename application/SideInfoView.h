@@ -29,7 +29,7 @@
 @property (weak) NSString *string;
 
 
-- (void) updateSideViewWithGame:(Game *)somegame;
+- (void) updateSideViewWithGame:(Game *)somegame scroll:(BOOL)shouldScroll;
 - (void) updateSideViewWithString:(NSString *)string;
 
 @end

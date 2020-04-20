@@ -2400,8 +2400,6 @@ objectValueForTableColumn: (NSTableColumn*)column
         return;
     }
 
-    currentSideView = game;
-
     [_leftScrollView.documentView performSelector:@selector(removeFromSuperview)];
 
     if (NSWidth(_leftView.frame) < ACTUAL_LEFT_VIEW_MIN_WIDTH)
@@ -2415,7 +2413,7 @@ objectValueForTableColumn: (NSTableColumn*)column
     _sideIfid.stringValue = @"";
 
     if (game) {
-        [infoView updateSideViewWithGame:game];
+        [infoView updateSideViewWithGame:game scroll:(game != currentSideView)];
         //NSLog(@"\nUpdating info pane for %@ with ifid %@", game.metadata.title, game.ifid);
         //NSLog(@"Side view width: %f", NSWidth(_leftView.frame));
 
@@ -2424,6 +2422,8 @@ objectValueForTableColumn: (NSTableColumn*)column
     } else if (string) {
         [infoView updateSideViewWithString:string];
     }
+
+    currentSideView = game;
 }
 
 #pragma mark -

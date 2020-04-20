@@ -203,7 +203,7 @@
 }
 
 
-- (void) updateSideViewWithGame:(Game *)somegame
+- (void) updateSideViewWithGame:(Game *)somegame scroll:(BOOL)shouldScroll
 {
     Metadata *somedata = somegame.metadata;
 
@@ -559,7 +559,7 @@
 
     }
 
-    if (_game != somegame) {
+    if (_game != somegame && shouldScroll) {
 
         [clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
         [scrollView reflectScrolledClipView:clipView];
@@ -594,7 +594,7 @@
     }
 
     NSPoint newOrigin = [clipView bounds].origin;
-    if (fabs(newOrigin.y - yPoint) < NSHeight(self.frame) / 20)
+    if (fabs(newOrigin.y - yPoint) < NSHeight(self.frame) / 10)
         return;
     newOrigin.y = yPoint;
 
