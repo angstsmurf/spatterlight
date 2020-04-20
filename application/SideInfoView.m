@@ -564,7 +564,7 @@
         [clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
         [scrollView reflectScrolledClipView:clipView];
 
-        [self performSelector:@selector(fixScroll:) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(fixScroll:) withObject:nil afterDelay:2];
     }
 
     _game = somegame;
@@ -599,7 +599,7 @@
     newOrigin.y = yPoint;
 
     [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:1];
+    [[NSAnimationContext currentContext] setDuration:4];
 
     [[clipView animator] setBoundsOrigin:newOrigin];
     [scrollView reflectScrolledClipView: [scrollView contentView]]; // may not bee necessary
