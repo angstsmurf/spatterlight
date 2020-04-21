@@ -946,8 +946,7 @@
     input.backgroundColor = self.theme.gridBackground;
     input.selectable = YES;
     input.delegate = self;
-
-    input.cell.wraps = YES;
+    [input.cell setWraps:YES];
 
     if (str.length == 0)
         str = @" ";
