@@ -2100,7 +2100,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         }];
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
         _selectedGames = [gameTableModel objectsAtIndexes:indexSet];
-        if (indexSet.count == 1 && !currentlyAddingGames)
+        if (indexSet.count && indexSet.count < 50 && !currentlyAddingGames)
             [_gameTableView scrollRowToVisible:(NSInteger)indexSet.firstIndex];
     }
 }
