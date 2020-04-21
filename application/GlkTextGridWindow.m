@@ -423,6 +423,17 @@
 //    NSLog(@"prefsDidChange: selected range was %@, restored to %@",
 //          NSStringFromRange(textview.selectedRange),
 //          NSStringFromRange(selectedRange));
+
+    if (line_request) {
+        if (!enteredTextSoFar)
+            enteredTextSoFar = @"";
+        if (input) {
+            [input removeFromSuperview];
+            enteredTextSoFar = input.stringValue;
+        }
+        [self initLine:enteredTextSoFar];
+    }
+
     textview.selectedRange = selectedRange;
     [self setNeedsDisplay:YES];
     dirty = NO;
