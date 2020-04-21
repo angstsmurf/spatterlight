@@ -970,17 +970,6 @@ fprintf(stderr, "%s\n",                                                    \
     if (!dead) {
         [self guessFocus];
     }
-    for (GlkWindow *win in [_gwindows allValues])
-        if ([win isKindOfClass:[GlkTextGridWindow class]])
-            [(GlkTextGridWindow *)win restoreInput];
-}
-
-- (void)windowDidResignKey:(NSNotification *)notification {
-    for (GlkWindow *win in [_gwindows allValues])
-        if ([win isKindOfClass:[GlkTextGridWindow class]])
-                [(GlkTextGridWindow *)win resignInput];
-
-
 }
 
 - (BOOL)windowShouldClose:(id)sender {

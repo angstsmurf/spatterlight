@@ -1,10 +1,11 @@
 /* TextGrid window controller */
 
 @class MyGridTextView;
+@class MyGridTextField;
 
 @interface GlkTextGridWindow
     : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
-    NSTextField *input;
+    MyGridTextField *input;
     MyGridTextView *textview;
     NSScrollView *scrollview;
     NSTextStorage *textstorage;
@@ -19,6 +20,7 @@
     BOOL transparent;
 
     NSTextView *fieldEditor;
+    NSString *enteredTextSoFar;
 }
 
 @property NSRange restoredSelection;
@@ -27,7 +29,5 @@
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (IBAction)speakStatus:(id)sender;
 - (void)deferredGrabFocus:(id)sender;
-- (void)restoreInput;
-- (void)resignInput;
 
 @end

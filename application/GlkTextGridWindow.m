@@ -48,6 +48,35 @@
 
 @end
 
+@interface MyGridTextField: NSTextField
+
+@end
+
+/*
+ * Extend NSTextField to ...
+ *   - set insertion point color
+ */
+
+@implementation MyGridTextField
+
+-(BOOL) becomeFirstResponder
+{
+    BOOL    success = [super becomeFirstResponder];
+    if( success )
+    {
+        // Strictly spoken, NSText (which currentEditor returns) doesn't
+        // implement setInsertionPointColor:, but it's an NSTextView in practice.
+        // But let's be paranoid, better show an invisible black-on-black cursor
+        // than crash.
+        NSTextView* textField = (NSTextView*) [self currentEditor];
+        if( [textField respondsToSelector: @selector(setInsertionPointColor:)] )
+            [textField setInsertionPointColor:self.textColor];
+    }
+    return success;
+}
+
+@end
+
 // Custom formatter adapted from code by Jonathan Mitchell
 // See
 // https://stackoverflow.com/questions/827014/how-to-limit-nstextfield-text-length-and-keep-it-always-upper-case
@@ -315,8 +344,10 @@
     [encoder encodeBool:transparent forKey:@"transparent"];
     NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
-    if (fieldEditor) {
+    if (fieldEditor && fieldEditor.textStorage.string.length) {
         [encoder encodeObject:fieldEditor.textStorage.string forKey:@"inputString"];
+    } else {
+        [encoder encodeObject:enteredTextSoFar forKey:@"inputString"];
     }
 }
 
@@ -935,18 +966,21 @@
 
 //    NSLog(@"grid initLine: \"%@\" in: %ld", str, (long)self.name);
 
-    input = [[NSTextField alloc] initWithFrame:caret];
+    input = [[MyGridTextField alloc] initWithFrame:caret];
     input.editable = YES;
     input.bordered = NO;
     input.action = @selector(typedEnter:);
     input.target = self;
     input.allowsEditingTextAttributes = YES;
     input.bezeled = NO;
-    input.drawsBackground = YES;
-    input.backgroundColor = self.theme.gridBackground;
+    input.drawsBackground = NO;
     input.selectable = YES;
     input.delegate = self;
+    input.font = self.theme.gridInput.font;
+    input.textColor = self.theme.gridInput.color;
     [input.cell setWraps:YES];
+
+    enteredTextSoFar = str;
 
     if (str.length == 0)
         str = @" ";
@@ -970,26 +1004,6 @@
 
 - (void)deferredGrabFocus:(id)sender {
     [self.window makeFirstResponder:input];
-}
-
-- (void)restoreInput {
-    if (line_request) {
-        [input removeFromSuperview];
-        NSString *str = input.stringValue;
-        [self initLine:str];
-    }
-}
-
-- (void)resignInput {
-    if (line_request) {
-        [input removeFromSuperview];
-        NSString *str = input.stringValue;
-        NSUInteger oldxpos = xpos;
-        NSUInteger oldypos = ypos;
-        [self printToWindow:str style:style_Input];
-        xpos = oldxpos;
-        ypos = oldypos;
-    }
 }
 
 - (NSString *)cancelLine {
@@ -1031,6 +1045,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 - (void)controlTextDidChange:(NSNotification *)obj {
     NSDictionary *dict = obj.userInfo;
     fieldEditor = dict[@"NSFieldEditor"];
+    enteredTextSoFar = [fieldEditor.string copy];
 }
 
 #pragma mark Accessibility
