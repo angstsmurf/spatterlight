@@ -420,10 +420,6 @@
     linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
     textview.linkTextAttributes = linkAttributes;
 
-//    NSLog(@"prefsDidChange: selected range was %@, restored to %@",
-//          NSStringFromRange(textview.selectedRange),
-//          NSStringFromRange(selectedRange));
-
     if (line_request) {
         if (!enteredTextSoFar)
             enteredTextSoFar = @"";
