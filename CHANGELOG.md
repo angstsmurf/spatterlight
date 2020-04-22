@@ -27,6 +27,7 @@
 - Support for multiple releases of the same game with separate Ifids, though they will just look like duplicates in the library view.
 - Cascading of newly opened (not autosaved) game windows, so that new game windows don't completely obscure previous ones
 - Games are imported on background thread
+- App is built on macOS 10.15 Catalina, notarized and runs all the way back to 10.9.
 
 ## Release 0.5.11b
 
