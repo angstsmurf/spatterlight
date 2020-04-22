@@ -981,14 +981,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">playGame:</string>
-						<reference key="source" ref="823233140"/>
-						<reference key="destination" ref="848151378"/>
-					</object>
-					<int key="connectionID">396</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">addGamesToLibrary:</string>
 						<reference key="source" ref="823233140"/>
 						<reference key="destination" ref="221357572"/>
@@ -1258,6 +1250,14 @@
 						<reference key="destination" ref="388833119"/>
 					</object>
 					<int key="connectionID">880</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">play:</string>
+						<reference key="source" ref="823233140"/>
+						<reference key="destination" ref="848151378"/>
+					</object>
+					<int key="connectionID">881</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1983,7 +1983,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">880</int>
+			<int key="maxID">881</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2056,13 +2056,13 @@
 					<string key="className">GlkHelperView</string>
 					<string key="superclassName">NSView</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">delegate</string>
+						<string key="NS.key.0">glkctrl</string>
 						<string key="NS.object.0">GlkController</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">delegate</string>
+						<string key="NS.key.0">glkctrl</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">delegate</string>
+							<string key="name">glkctrl</string>
 							<string key="candidateClassName">GlkController</string>
 						</object>
 					</object>
@@ -2135,17 +2135,16 @@
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addGamesToLibrary:">id</string>
-						<string key="delete:">id</string>
 						<string key="deleteGame:">id</string>
 						<string key="deleteLibrary:">id</string>
+						<string key="deleteSaves:">id</string>
 						<string key="exportMetadata:">id</string>
 						<string key="importMetadata:">id</string>
-						<string key="openIfdb:">id</string>
 						<string key="play:">id</string>
 						<string key="pruneLibrary:">id</string>
-						<string key="reset:">id</string>
 						<string key="revealGameInFinder:">id</string>
 						<string key="searchForGames:">id</string>
+						<string key="selectSameTheme:">id</string>
 						<string key="showGameInfo:">id</string>
 						<string key="toggleColumn:">id</string>
 						<string key="toggleSidebar:">id</string>
@@ -2153,10 +2152,6 @@
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="addGamesToLibrary:">
 							<string key="name">addGamesToLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="delete:">
-							<string key="name">delete:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="deleteGame:">
@@ -2167,16 +2162,16 @@
 							<string key="name">deleteLibrary:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="deleteSaves:">
+							<string key="name">deleteSaves:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="exportMetadata:">
 							<string key="name">exportMetadata:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="importMetadata:">
 							<string key="name">importMetadata:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openIfdb:">
-							<string key="name">openIfdb:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="play:">
@@ -2187,16 +2182,16 @@
 							<string key="name">pruneLibrary:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="reset:">
-							<string key="name">reset:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="revealGameInFinder:">
 							<string key="name">revealGameInFinder:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="searchForGames:">
 							<string key="name">searchForGames:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="selectSameTheme:">
+							<string key="name">selectSameTheme:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showGameInfo:">
@@ -2223,12 +2218,14 @@
 						<string key="infoButton">NSButton</string>
 						<string key="leftScrollView">NSScrollView</string>
 						<string key="leftView">NSView</string>
+						<string key="leftViewConstraint">NSLayoutConstraint</string>
 						<string key="playButton">NSButton</string>
 						<string key="progressCircle">NSProgressIndicator</string>
 						<string key="rightView">NSView</string>
 						<string key="searchField">NSSearchField</string>
 						<string key="sideIfid">NSTextField</string>
 						<string key="splitView">NSSplitView</string>
+						<string key="themesSubMenu">NSMenuItem</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="addButton">
@@ -2271,6 +2268,10 @@
 							<string key="name">leftView</string>
 							<string key="candidateClassName">NSView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="leftViewConstraint">
+							<string key="name">leftViewConstraint</string>
+							<string key="candidateClassName">NSLayoutConstraint</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="playButton">
 							<string key="name">playButton</string>
 							<string key="candidateClassName">NSButton</string>
@@ -2295,10 +2296,22 @@
 							<string key="name">splitView</string>
 							<string key="candidateClassName">NSSplitView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="themesSubMenu">
+							<string key="name">themesSubMenu</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/LibController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSLayoutConstraint</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSLayoutConstraint.h</string>
 					</object>
 				</object>
 			</array>
