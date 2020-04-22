@@ -1,31 +1,31 @@
 # Change log
 
-## Unreleased
+## Release 0.5.12b
 
 - Library converted to use Core Data
 - Game presentation in library window side bar
-- Ifdb metadata download
+- Metadata download from ifdb.tads.org
 - Themes
 - Per-game settings
 - Themes preview in preferences window
-- Game list view now indicates missing game files
+- Game list view now indicates known missing game files
 - User can search for and update missing game files
-- Option to keep size in chars constant when changing themes
-- Fixed bug that would cause blank status bar on first turn
-- Once again you can scroll in the Adrian Mole games
+- Option to keep window size in chars constant when changing themes
+- Fixed bug that could cause blank status bar on first turn
+- Once again it is possible to scroll in the Adrian Mole games
 - Hyperlinks for commands work in Dead Cities
-- Improved status bar input in My Angel
-- Improved playability of A Colder Light, though problems remain
+- Improved status bar line input, as seen in My Angel
+- Improved playability of A Colder Light, though some problems remain
 - Status bars in TADS and other interpreters that use style User 1 now has correct background colour
 - No longer spams empty folders in Application Support
-- Improved waiting for key press to scroll (our more prompt-equivalent).
-- Game titles sent by TADS games are now used
-- Games in .ulx now autosave properly
-- Undo support in GUI interface
-- Forgiveness setting is now a pop-up menu
+- Waiting for key press to scroll (our more prompt-equivalent) is less buggy now
+- Game titles sent by TADS games are used
+- Games in .ulx format now autosave properly
+- Undo support in the GUI interface
+- Forgiveness setting is a pop-up menu
 - Hyperlinks are no longer always blue
-- Support for multiple releases of the same game with separate Ifids
-- Cascading of new game windows
+- Support for multiple releases of the same game with separate Ifids, though they will just look like duplicates in the library view.
+- Cascading of newly opened (not autosaved) game windows, so that new game windows don't completely obscure previous ones
 - Games are imported on background thread
 
 ## Release 0.5.11b
