@@ -11,7 +11,7 @@
 
 void showInfoForFile(NSString *path, NSDictionary *info);
 
-@class LibController;
+@class LibController, CoreDataManager;
 
 @interface InfoController : NSWindowController <NSWindowDelegate> {
     IBOutlet NSTextField *titleField;
@@ -20,6 +20,9 @@ void showInfoForFile(NSString *path, NSDictionary *info);
     IBOutlet NSTextField *ifidField;
     IBOutlet NSTextView *descriptionText;
     IBOutlet NSImageView *imageView;
+
+    CoreDataManager *coreDataManager;
+    NSManagedObjectContext *managedObjectContext;
 
     NSString *ifid;
 }

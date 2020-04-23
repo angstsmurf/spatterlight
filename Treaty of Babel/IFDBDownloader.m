@@ -99,15 +99,20 @@
     {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200 && data) {
-            img = (Image *) [NSEntityDescription
-                                    insertNewObjectForEntityForName:@"Image"
-                                    inManagedObjectContext:_context];
-            img.data = [data copy];
-            img.originalURL = metadata.coverArtURL;
-            metadata.cover = img;
+            [self insertImage:data inMetadata:metadata];
         } else return NO;
     }
     return YES;
+}
+
+- (Image *)insertImage:(NSData *)data inMetadata:(Metadata *)metadata {
+   Image *img = (Image *) [NSEntityDescription
+                     insertNewObjectForEntityForName:@"Image"
+                     inManagedObjectContext:_context];
+    img.data = [data copy];
+    img.originalURL = metadata.coverArtURL;
+    metadata.cover = img;
+    return img;
 }
 
 - (Image *)fetchImageForURL:(NSString *)imgurl {

@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Metadata;
+@class Metadata, Image;
 
 @interface IFDBDownloader : NSObject
 
@@ -15,6 +15,8 @@
 - (BOOL)downloadMetadataForIFID:(NSString*)ifid;
 - (BOOL)downloadMetadataForTUID:(NSString*)tuid;
 - (BOOL)downloadImageFor:(Metadata *)metadata;
+- (Image *)fetchImageForURL:(NSString *)imgurl;
+- (Image *)insertImage:(NSData *)data inMetadata:(Metadata *)metadata;
 
 @property (strong) NSManagedObjectContext *context;
 

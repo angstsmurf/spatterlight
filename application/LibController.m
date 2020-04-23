@@ -38,13 +38,6 @@ enum  {
     FORGIVENESS_MERCIFUL
 };
 
-#define kSource @".source"
-#define kDefault 1
-#define kInternal 2
-#define kExternal 3
-#define kUser 4
-#define kIfdb 5
-
 #define RIGHT_VIEW_MIN_WIDTH 350.0
 #define PREFERRED_LEFT_VIEW_MIN_WIDTH 200.0
 #define ACTUAL_LEFT_VIEW_MIN_WIDTH 50.0

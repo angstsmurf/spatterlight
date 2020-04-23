@@ -2,8 +2,10 @@
 
 #import "Game.h"
 #import "Metadata.h"
+#import "LibController.h"
 #import "CoreDataManager.h"
 #import "Image.h"
+#import "IFDBDownloader.h"
 #import "main.h"
 
 #include "babel_handler.h"
@@ -19,8 +21,18 @@
 
 @implementation InfoController
 
-- (instancetype)initWithGame:(Game *)game  {
+- (instancetype)init {
     self = [super initWithWindowNibName:@"InfoPanel"];
+    if (self) {
+        coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
+        managedObjectContext = coreDataManager.mainManagedObjectContext;
+    }
+
+    return self;
+}
+
+- (instancetype)initWithGame:(Game *)game  {
+    self = [self init];
     if (self) {
         _game = game;
         _path = [game urlForBookmark].path;
@@ -32,7 +44,7 @@
 }
 
 - (instancetype)initWithpath:(NSString *)path {
-    self = [super initWithWindowNibName:@"InfoPanel"];
+    self = [self init];
     if (self) {
         _path = path;
         _game = [self fetchGameWithPath:path];
@@ -45,9 +57,6 @@
 - (Game *)fetchGameWithPath:(NSString *)path {
     NSError *error = nil;
     NSArray *fetchedObjects;
-
-    CoreDataManager *coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
-    NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
@@ -178,17 +187,13 @@
     if (_meta.cover) {
         imageView.image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
     }
-
     [self sizeToFitImageAnimate:NO];
 }
 
 
 - (void)windowDidLoad {
 //    NSLog(@"infoctl: windowDidLoad");
-    CoreDataManager *coreDataManager = ((AppDelegate*)[NSApplication sharedApplication].delegate).coreDataManager;
-    NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
-
-    [[NSNotificationCenter defaultCenter]
+     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(noteManagedObjectContextDidChange:)
      name:NSManagedObjectContextObjectsDidChangeNotification
@@ -251,10 +256,27 @@
 
     NSLog(@"infoctl: save image %@", imgURL);
 
+
     imgdata =
     [imageView.image TIFFRepresentationUsingCompression:NSTIFFCompressionLZW
                                                  factor:0];
-    [imgdata writeToURL:imgURL atomically:YES];
+    if (imgdata) {
+        [imgdata writeToURL:imgURL atomically:YES];
+        _meta.coverArtURL = imgURL.path;
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:managedObjectContext];
+        // Check if we already have created an image object for this game
+        // with a file in Application Support as its originalURL
+        Image *image = [downloader fetchImageForURL:imgURL.path];
+        if (image) {
+            _meta.cover = image;
+            image.data = imgdata;
+        } else {
+            // If not, create a new one
+            [downloader insertImage:imgdata inMetadata:_meta];
+        }
+        _meta.userEdited = @(YES);
+        _meta.source = @(kUser);
+    }
 
     [self sizeToFitImageAnimate:YES];
 }
