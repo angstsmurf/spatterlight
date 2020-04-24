@@ -11,7 +11,7 @@
 @class Game;
 @class Preferences;
 
-@interface SideInfoView : NSView <NSTextFieldDelegate> //, NSControlTextEditingDelegate>
+@interface SideInfoView : NSView <NSTextFieldDelegate>
 {
     NSBox *topSpacer;
     NSImageView *imageView;
@@ -24,7 +24,6 @@
     CGFloat totalHeight;
 }
 
-//@property (weak) LibController *libctl;
 @property (weak) Game *game;
 @property (weak) NSString *string;
 
