@@ -71,6 +71,9 @@
     NSMutableArray *iFictionFiles;
     NSInteger errorflag;
 
+    NSLocale *englishUSLocale;
+    NSDictionary *languageCodes;
+
     NSManagedObjectContext *importContext;
 }
 

@@ -238,13 +238,28 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     else
         [self uncollapseLeftView];
 
+    // Set up a dictionary to match language codes to languages
+    // To be used when a user enters a language for a game
+    englishUSLocale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+    NSArray *ISOLanguageCodes = [NSLocale ISOLanguageCodes];
+    NSMutableDictionary *mutablelanguageCodes = [NSMutableDictionary dictionaryWithCapacity:ISOLanguageCodes.count];
+    NSString *languageWord;
+    for (NSString *languageCode in ISOLanguageCodes) {
+        languageWord = [englishUSLocale localizedStringForLanguageCode:languageCode];
+        if (languageWord) {
+            [mutablelanguageCodes setObject:languageCode
+                                     forKey:[englishUSLocale localizedStringForLanguageCode:languageCode].lowercaseString];
+        }
+    }
+
+    languageCodes = mutablelanguageCodes;
+
+    [[Preferences instance] createDefaultThemes];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:_managedObjectContext];
-
-    [[Preferences instance] createDefaultThemes];
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
     gameTableModel = [[self fetchObjects:@"Game" inContext:_managedObjectContext] mutableCopy];
@@ -257,7 +272,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"]) {
         [self convertLibraryToCoreData];
     }
-
 }
 
 - (void)restoreSideViewSelection:(id)sender {
@@ -1137,16 +1151,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     NSString *keyVal;
     NSString *sub;
 
-    NSDictionary *language = @{
-                               @"en" : @"English",
-                               @"fr" : @"French",
-                               @"es" : @"Spanish",
-                               @"ru" : @"Russian",
-                               @"se" : @"Swedish",
-                               @"de" : @"German",
-                               @"zh" : @"Chinese"
-                               };
-
     NSDictionary *forgiveness = @{
                                   @"" : @(FORGIVENESS_NONE),
                                   @"Cruel" : @(FORGIVENESS_CRUEL),
@@ -1198,13 +1202,26 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
             dateFormatter.dateFormat = @"yyyy";
             entry.firstpublished = [dateFormatter stringFromDate:entry.firstpublishedDate];
         } else if ([key isEqualToString:@"language"]) {
-            sub = [keyVal substringWithRange:NSMakeRange(0, 2)];
-            sub = sub.lowercaseString;
-            if (language[sub])
-                entry.languageAsWord = language[sub];
-            else
-                entry.languageAsWord = keyVal;
-            entry.language = sub;
+            // In IFDB xml data, "language" is usually a language code such as "en"
+            // but may also be a locale code such as "en-US" or adescriptive string
+            // like "English, French (en, fr)." We try to deal with all of them here.
+            NSString *languageCode = keyVal;
+            if (languageCode.length > 1) {
+                if (languageCode.length > 3) {
+                    // If it is longer than three characters, we use the first two
+                    // as language code. This seems to cover all known cases.
+                    languageCode = [languageCode substringToIndex:2];
+                }
+                NSString *language = [englishUSLocale localizedStringForLanguageCode:languageCode];
+                if (language) {
+                    entry.languageAsWord = language;
+                } else {
+                    // Otherwise we use the full string for both language and languageAsWord.
+                    entry.languageAsWord = keyVal;
+                    languageCode = keyVal;
+                }
+            }
+            entry.language = languageCode;
         } else if ([key isEqualToString:@"format"]) {
             if (entry.format == nil)
                 entry.format = dict[@"format"];
@@ -2152,7 +2169,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         NSMutableArray *predicateArr = [NSMutableArray arrayWithCapacity:searchcount];
 
         for (NSString *word in searchStrings) {
-            predicate = [NSPredicate predicateWithFormat: @"(metadata.format contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.language contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
+            predicate = [NSPredicate predicateWithFormat: @"(metadata.format contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
             [predicateArr addObject:predicate];
         }
 
@@ -2328,6 +2345,36 @@ objectValueForTableColumn: (NSTableColumn*)column
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             dateFormatter.dateFormat = @"yyyy";
             meta.firstpublished = [dateFormatter stringFromDate:meta.firstpublishedDate];
+        }
+
+        else if ([key isEqualToString:@"languageAsWord"]) {
+            // The player may have entered a language code such as "en"
+            // but more likely a full word ("English".)
+            // so we try to deal with both cases here to give proper
+            // values to language as well as languageAsWord
+            NSString *languageAsWord = value;
+            NSString *languageCode = value;
+            if (languageAsWord.length > 1) {
+                // First we try to match the entered string to a language (in words)
+                languageCode = languageCodes[languageAsWord.lowercaseString];
+                if (!languageCode) {
+                    languageCode = value;
+                    // If this does not work, we try to use it as a language code
+                    if (languageCode.length > 3) {
+                        languageCode = [languageAsWord substringToIndex:2];
+                    }
+                    languageCode = languageCode.lowercaseString;
+                    languageAsWord = [englishUSLocale localizedStringForLanguageCode:languageCode];
+                    if (!languageAsWord) {
+                        // If that doesn't work either, we just use the raw string for both values
+                        languageCode = value;
+                        languageAsWord = value;
+                    }
+                }
+                meta.language = languageCode;
+                NSLog(@"Set value of language to %@", languageCode);
+                meta.languageAsWord = languageAsWord.capitalizedString;
+            }
         }
 
         NSLog(@"Set value of %@ to %@", key, value);

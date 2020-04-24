@@ -8,6 +8,7 @@
 #import "IFBibliographic.h"
 #import "Metadata.h"
 #import "NSString+Categories.h"
+#import "main.h"
 
 enum  {
     FORGIVENESS_NONE,
@@ -29,17 +30,8 @@ enum  {
 - (instancetype)initWithXMLElement:(NSXMLElement *)element andMetadata:(Metadata *)metadata;{
     self = [super init];
     if (self) {
-        // This dictionary is repeated in LibController.m, which will be cumbersome
-        // when/if we add more languages
-        NSDictionary *language = @{
-                                   @"en" : @"English",
-                                   @"fr" : @"French",
-                                   @"es" : @"Spanish",
-                                   @"ru" : @"Russian",
-                                   @"se" : @"Swedish",
-                                   @"de" : @"German",
-                                   @"zh" : @"Chinese"
-                                   };
+
+        NSLocale *englishUSLocale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
 
         NSDictionary *forgiveness = @{
                                       @"" : @(FORGIVENESS_NONE),
@@ -54,7 +46,7 @@ enum  {
 
         NSEnumerator *enumChildren = [element.children objectEnumerator];
         NSXMLNode *node;
-        NSString *keyVal, *sub;
+        NSString *keyVal;
         NSArray *allKeys = [[[metadata entity] attributesByName] allKeys];
         while ((node = [enumChildren nextObject])) {
             keyVal = node.stringValue;
@@ -76,20 +68,32 @@ enum  {
                         metadata.firstpublished = [dateFormatter stringFromDate:metadata.firstpublishedDate];
 
                     } else if ([key isEqualToString:@"language"]) {
-                        sub = [keyVal substringWithRange:NSMakeRange(0, 2)];
-                        sub = sub.lowercaseString;
-                        if (language[sub])
-                            metadata.languageAsWord = language[sub];
-                        else
-                            metadata.languageAsWord = keyVal;
-                        metadata.language = sub;
+                        // In IFDB xml data, "language" is usually a language code such as "en"
+                        // but may also be a locale code such as "en-US" or adescriptive string
+                        // like "English, French (en, fr)." We try to deal with all of them here.
+                        NSString *languageCode = keyVal;
+                        if (languageCode.length > 1) {
+                            if (languageCode.length > 3) {
+                                // If it is longer than three characters, we use the first two
+                                // as language code. This seems to cover all known cases.
+                                languageCode = [languageCode substringToIndex:2];
+                            }
+                            NSString *language = [englishUSLocale localizedStringForLanguageCode:languageCode];
+                            if (language) {
+                                metadata.languageAsWord = language;
+                            } else {
+                                // Otherwise we use the full string for both language and languageAsWord.
+                                metadata.languageAsWord = keyVal;
+                                languageCode = keyVal;
+                            }
+                        }
+                        metadata.language = languageCode;
                     } else {
                         [metadata setValue:keyVal forKey:key];
                         if ([key isEqualToString:@"forgiveness"])
                             metadata.forgivenessNumeric = forgiveness[keyVal];
                         if ([key isEqualToString:@"title"])
                             metadata.title = [metadata.title stringByDecodingXMLEntities];
-
                     }
 
                 } else if ([node.name compare:@"description"] == 0) {
