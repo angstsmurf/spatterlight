@@ -16,52 +16,7 @@
 
 @implementation SideInfoView
 
-//- (instancetype) initWithFrame:(NSRect)frameRect
-//{
-//	self = [super initWithFrame:frameRect];
-//
-//	if (self)
-//	{
-////		ifidField = libctl.sideIfid;
-//	}
-//	return self;
-//}
-
 - (BOOL) isFlipped { return YES; }
-
-//- (void)controlTextDidEndEditing:(NSNotification *)notification
-//{
-//	if ([notification.object isKindOfClass:[NSTextField class]])
-//	{
-//		NSTextField *textfield = notification.object;
-//		NSLog(@"controlTextDidEndEditing");
-//
-//		if (textfield == titleField)
-//		{
-//			_metadata.title = titleField.stringValue;
-//		}
-//		else if (textfield == headlineField)
-//		{
-//			_metadata.headline = headlineField.stringValue;
-//		}
-//		else if (textfield == authorField)
-//		{
-//			_metadata.author = authorField.stringValue;
-//		}
-//		else if (textfield == blurbField)
-//		{
-//			_metadata.blurb = blurbField.stringValue;
-//		}
-//		else if (textfield == ifidField)
-//		{
-//			_metadata.ifid = [ifidField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//		}
-//
-//		dispatch_async(dispatch_get_main_queue(), ^{[textfield.window makeFirstResponder:nil];});
-//	}
-//	[self viewDidEndLiveResize];
-//	[libctl updateTableViews];
-//}
 
 - (BOOL)textFieldShouldBeginEditing:(NSTextField *)textField{
     return NO;
