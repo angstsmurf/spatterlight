@@ -1641,7 +1641,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
-    //    NSLog(@"libctl: windowWillReturnUndoManager!")
     return _managedObjectContext.undoManager;
 }
 
