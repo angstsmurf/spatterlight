@@ -332,4 +332,9 @@
     }
 }
 
+
+- (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
+    return managedObjectContext.undoManager;
+}
+
 @end
