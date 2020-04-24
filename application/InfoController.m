@@ -316,11 +316,13 @@
 		{
 			_meta.author = authorField.stringValue;
 		}
-		
 //		else if (textfield == ifidField)
 //		{
 //			_game.ifid = [ifidField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 //		}
+
+        dispatch_async(dispatch_get_main_queue(), ^{[textfield.window makeFirstResponder:nil];});
+
 	}
 }
 
