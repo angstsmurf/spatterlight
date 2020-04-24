@@ -2323,6 +2323,13 @@ objectValueForTableColumn: (NSTableColumn*)column
         meta.userEdited = @(YES);
         meta.source = @(kUser);
         game.metadata.lastModified = [NSDate date];
+
+        if ([key isEqualToString:@"firstpublishedDate"]) {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"yyyy";
+            meta.firstpublished = [dateFormatter stringFromDate:meta.firstpublishedDate];
+        }
+
         NSLog(@"Set value of %@ to %@", key, value);
     }
 }
