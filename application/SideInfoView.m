@@ -519,7 +519,7 @@
         [clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
         [scrollView reflectScrolledClipView:clipView];
 
-        [self performSelector:@selector(fixScroll:) withObject:nil afterDelay:2];
+        [self performSelector:@selector(fixScroll:) withObject:@(clipView.bounds.origin.y) afterDelay:2];
     }
 
     _game = somegame;
@@ -529,6 +529,9 @@
 
     NSClipView *clipView = (NSClipView *)self.superview;
     NSScrollView *scrollView = (NSScrollView *)clipView.superview;
+
+    if ([sender floatValue] != clipView.bounds.origin.y)
+        return;
 
     if (clipView.frame.size.height >= self.frame.size.height) {
         //        NSLog(@"fixScroll: Sideview fits within scrollview");
