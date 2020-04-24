@@ -240,15 +240,15 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     // Set up a dictionary to match language codes to languages
     // To be used when a user enters a language for a game
-    englishUSLocale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+    englishUSLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     NSArray *ISOLanguageCodes = [NSLocale ISOLanguageCodes];
     NSMutableDictionary *mutablelanguageCodes = [NSMutableDictionary dictionaryWithCapacity:ISOLanguageCodes.count];
     NSString *languageWord;
     for (NSString *languageCode in ISOLanguageCodes) {
-        languageWord = [englishUSLocale localizedStringForLanguageCode:languageCode];
+        languageWord = [englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
         if (languageWord) {
             [mutablelanguageCodes setObject:languageCode
-                                     forKey:[englishUSLocale localizedStringForLanguageCode:languageCode].lowercaseString];
+                                     forKey:[englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode].lowercaseString];
         }
     }
 
@@ -1149,7 +1149,6 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     Metadata *entry;
     NSString *key;
     NSString *keyVal;
-    NSString *sub;
 
     NSDictionary *forgiveness = @{
                                   @"" : @(FORGIVENESS_NONE),
@@ -1212,7 +1211,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                     // as language code. This seems to cover all known cases.
                     languageCode = [languageCode substringToIndex:2];
                 }
-                NSString *language = [englishUSLocale localizedStringForLanguageCode:languageCode];
+                NSString *language = [englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
                 if (language) {
                     entry.languageAsWord = language;
                 } else {
@@ -2364,7 +2363,7 @@ objectValueForTableColumn: (NSTableColumn*)column
                         languageCode = [languageAsWord substringToIndex:2];
                     }
                     languageCode = languageCode.lowercaseString;
-                    languageAsWord = [englishUSLocale localizedStringForLanguageCode:languageCode];
+                    languageAsWord = [englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
                     if (!languageAsWord) {
                         // If that doesn't work either, we just use the raw string for both values
                         languageCode = value;

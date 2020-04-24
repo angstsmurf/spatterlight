@@ -31,7 +31,7 @@ enum  {
     self = [super init];
     if (self) {
 
-        NSLocale *englishUSLocale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+        NSLocale *englishUSLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 
         NSDictionary *forgiveness = @{
                                       @"" : @(FORGIVENESS_NONE),
@@ -78,7 +78,7 @@ enum  {
                                 // as language code. This seems to cover all known cases.
                                 languageCode = [languageCode substringToIndex:2];
                             }
-                            NSString *language = [englishUSLocale localizedStringForLanguageCode:languageCode];
+                            NSString *language = [englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
                             if (language) {
                                 metadata.languageAsWord = language;
                             } else {
