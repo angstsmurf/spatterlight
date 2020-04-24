@@ -13,7 +13,8 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 
 @class LibController, CoreDataManager;
 
-@interface InfoController : NSWindowController <NSWindowDelegate> {
+@interface InfoController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
+{
     IBOutlet NSTextField *titleField;
     IBOutlet NSTextField *authorField;
     IBOutlet NSTextField *headlineField;
@@ -23,8 +24,6 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 
     CoreDataManager *coreDataManager;
     NSManagedObjectContext *managedObjectContext;
-
-    NSString *ifid;
 }
 
 @property (strong) Game *game;

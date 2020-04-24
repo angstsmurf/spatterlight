@@ -177,9 +177,7 @@
             headlineField.stringValue = _meta.headline;
         if (_meta.blurb)
             descriptionText.string = _meta.blurb;
-        ifid = ((Game *)_meta.games.anyObject).ifid;
-        if (ifid)
-            ifidField.stringValue = ifid;
+        ifidField.stringValue = _game.ifid;
     }
 }
 
@@ -204,7 +202,26 @@
     
     [self update];
     [self updateImage];
+
+    titleField.editable = YES;
+    titleField.delegate = self;
+
+    authorField.editable = YES;
+    authorField.delegate = self;
+    
+    headlineField.editable = YES;
+    headlineField.delegate = self;
+
+//    ifidField.editable = YES;
+//    ifidField.delegate = self;
+
+    descriptionText.editable = YES;
+    descriptionText.delegate = self;
+
+    [self.window makeFirstResponder:imageView];
+
     self.window.delegate = self;
+    
 }
 
 + (NSArray *)restorableStateKeyPaths {
@@ -245,7 +262,7 @@
                     relativeToURL:dirURL];
 
     imgURL = [NSURL
-              fileURLWithPath:[[dirURL.path stringByAppendingPathComponent:ifid]
+              fileURLWithPath:[[dirURL.path stringByAppendingPathComponent:_game.ifid]
                                stringByAppendingPathExtension:@"tiff"]
               isDirectory:NO];
 
@@ -281,9 +298,36 @@
     [self sizeToFitImageAnimate:YES];
 }
 
-//- (void)updateBlurb
-//{
-//	_game.metadata.blurb = descriptionText.textStorage.string;
-//}
+- (void)controlTextDidEndEditing:(NSNotification *)notification
+{
+	if ([notification.object isKindOfClass:[NSTextField class]])
+	{
+		NSTextField *textfield = notification.object;
+
+		if (textfield == titleField)
+		{
+			_meta.title = titleField.stringValue;
+		}
+		else if (textfield == headlineField)
+		{
+			_meta.headline = headlineField.stringValue;
+		}
+		else if (textfield == authorField)
+		{
+			_meta.author = authorField.stringValue;
+		}
+		
+//		else if (textfield == ifidField)
+//		{
+//			_game.ifid = [ifidField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//		}
+	}
+}
+
+- (void)textDidEndEditing:(NSNotification *)notification {
+    if (notification.object == descriptionText) {
+        _meta.blurb = descriptionText.textStorage.string;
+    }
+}
 
 @end
