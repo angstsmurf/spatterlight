@@ -230,8 +230,8 @@
         scrollview.hasVerticalScroller = NO;
         scrollview.horizontalScrollElasticity = NSScrollElasticityNone;
         scrollview.verticalScrollElasticity = NSScrollElasticityNone;
-
         scrollview.borderType = NSNoBorder;
+        scrollview.drawsBackground = NO;
 
         textstorage = [[NSTextStorage alloc] init];
 
@@ -470,6 +470,9 @@
 
     if (!bgcolor)
         bgcolor = self.theme.gridBackground;
+
+    if (transparent)
+        bgcolor = [NSColor clearColor];
 
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = bgcolor;
