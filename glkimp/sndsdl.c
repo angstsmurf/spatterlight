@@ -38,6 +38,8 @@
 
 #include "gi_blorb.h"
 
+#include "fileref.h"
+
 #define giblorb_ID_MOD  (giblorb_make_id('M', 'O', 'D', ' '))
 #define giblorb_ID_OGG  (giblorb_make_id('O', 'G', 'G', 'V'))
 #define giblorb_ID_FORM (giblorb_make_id('F', 'O', 'R', 'M'))
@@ -80,6 +82,7 @@ void gli_initialize_sound(void)
         gli_enable_sound = 0;
         return;
     }
+
     Sound_AudioInfo *audio;
     audio = malloc(sizeof(Sound_AudioInfo));
     audio->format = MIX_DEFAULT_FORMAT;
@@ -538,7 +541,7 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
         FILE *file;
         char name[1024];
 
-        sprintf(name, "%s/SND%ld", gli_workdir, (long) snd);
+        sprintf(name, "%s/SND%ld.glkdata", workingdir, (long) snd);
 
         file = fopen(name, "rb");
         if (!file)
@@ -667,6 +670,12 @@ static glui32 play_compressed(schanid_t chan, char *ext)
     Mix_GroupChannel(chan->sdl_channel, BUSY);
     SDL_UnlockAudio();
     chan->decode = Sound_NewSample(chan->sdl_rwops, ext, output, 65536);
+    if (chan->decode == NULL)
+    {
+        gli_strict_warning("Sndsdl: Decode failed!");
+        chan->sdl_rwops = NULL;
+        return 0;
+    }
     Uint32 soundbytes = Sound_Decode(chan->decode);
     Sound_Sample *sample = chan->decode;
     chan->sample = Mix_QuickLoad_RAW(sample->buffer, soundbytes);

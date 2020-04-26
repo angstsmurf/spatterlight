@@ -104,7 +104,7 @@ glkunix_startup_code (glkunix_startup_t *data)
       return FALSE;
     }
 
-#ifdef GARGLK
+#if defined(GARGLK) || defined(SPATTERLIGHT)
     char *s;
     s = strrchr(data->argv[1], '/');
     if (!s) s = strrchr(data->argv[1], '\\');

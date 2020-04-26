@@ -21,9 +21,8 @@
 	file (see FindResource()).
 */
 
-
 #include "heheader.h"
-
+#include "glkimp.h"
 
 /* Function prototypes: */
 long FindResource(char *filename, char *resname);
@@ -310,6 +309,18 @@ Identified:
 #endif
 }
 
+void strip_extension(char *fname)
+{
+    char *end = fname + strlen(fname);
+
+    while (end > fname && *end != '.') {
+        --end;
+    }
+
+    if (end > fname) {
+        *end = '\0';
+    }
+}
 
 /* FINDRESOURCE
 
@@ -370,7 +381,10 @@ long FindResource(char *filename, char *resname)
 	/* Glk implementation */
 	fref = glk_fileref_create_by_name(fileusage_Data | fileusage_BinaryMode,
 		filename, 0);
-	if (glk_fileref_does_file_exist(fref))
+
+    strip_extension(fref->filename);
+
+    if (glk_fileref_does_file_exist(fref))
 		resource_file = glk_stream_open_file(fref, filemode_Read, 0);
 	else
 		resource_file = NULL;

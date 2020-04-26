@@ -268,23 +268,19 @@ void arc_colour(unsigned char n, unsigned int c);
 #endif  /* Mac OS X Glk */
 
 /*---------------------------------------------------------------------------
-	Definitions for the Glk port
+ Definitions for the Glk port
 
-	by Kent Tessman and Andrew Plotkin
----------------------------------------------------------------------------*/
+ by Kent Tessman and Andrew Plotkin
+ ---------------------------------------------------------------------------*/
 
 #if defined (GLK)
 
 #include "glk.h"
 
-#ifdef GARGLK
-#undef WIN32 /* Gargoyle is not WinGlk */
-#endif
+#define PORT_NAME "Cugel"
+#define PORTER_NAME "Kent Tessman and Andrew Plotkin and Tor Andersson"
 
-#define PORT_NAME "Glk"
-#define PORTER_NAME "Kent Tessman and Andrew Plotkin"
-
-#define HUGO_FILE	strid_t
+#define HUGO_FILE    strid_t
 #define MAXPATH         256
 #define MAXFILENAME     256
 #define MAXDRIVE        256
@@ -292,13 +288,13 @@ void arc_colour(unsigned char n, unsigned int c);
 #define MAXEXT          256
 
 #define DEF_PRN         ""
-#define DEF_FCOLOR      0
-#define DEF_BGCOLOR     15
-#define DEF_SLFCOLOR	15
-#define DEF_SLBGCOLOR	1
+#define DEF_FCOLOR      33
+#define DEF_BGCOLOR     34
+#define DEF_SLFCOLOR    35
+#define DEF_SLBGCOLOR    36
 
-#define MAXBUFFER 1280	/* larger than normal since Glk doesn't
-			   break up paragraphs (1024+256)*/
+#define MAXBUFFER 1280    /* larger than normal since Glk doesn't
+break up paragraphs (1024+256)*/
 
 #ifndef HUGO_INLINE
 #define HUGO_INLINE __inline
@@ -318,7 +314,7 @@ void heglk_printfatalerror(char *err);
 #define EXTRA_STRING_FUNCTIONS
 
 #ifndef isascii
-#define isascii(c)	(1)
+#define isascii(c)    (1)
 #endif
 #undef tolower
 #undef toupper
@@ -326,35 +322,35 @@ void heglk_printfatalerror(char *err);
 #define toupper(c)      (glk_char_to_upper((unsigned char)c))
 
 /* Must always close Glk via glk_exit() */
-#define exit(n)		(glk_exit())
+#define exit(n)        (glk_exit())
 
 /* Glk doesn't use stdio; mapping these will cut radically down on
-   #ifdef sections in the source:
-*/
+ #ifdef sections in the source:
+ */
 #undef fclose
-#define fclose(f)	(glk_stream_close(f, NULL), 0)
+#define fclose(f)    (glk_stream_close(f, NULL), 0)
 #undef ferror
-#define ferror(f)	(0)	/* No ferror() equivalent */
+#define ferror(f)    (0)    /* No ferror() equivalent */
 #undef fgetc
-#define fgetc(f)	(glk_get_char_stream(f))
+#define fgetc(f)    (glk_get_char_stream(f))
 #undef fgets
-#define fgets(a, n, f)	(glk_get_line_stream(f, a, n))
+#define fgets(a, n, f)    (glk_get_line_stream(f, a, n))
 #undef fread
-#define fread(a,s,n,f)	(glk_get_buffer_stream(f, (char *)a, n))
+#define fread(a,s,n,f)    (glk_get_buffer_stream(f, (char *)a, n))
 #undef fprintf
-#define fprintf(f,s,a)	(glk_put_string_stream(f, a), 0)
+#define fprintf(f,s,a)    (glk_put_string_stream(f, a), 0)
 #undef fputc
-#define fputc(c, f)	(glk_put_char_stream(f, (unsigned char)(c)), 0)
+#define fputc(c, f)    (glk_put_char_stream(f, (unsigned char)(c)), 0)
 #undef fputs
-#define fputs(s, f)	(glk_put_buffer_stream(f, s, strlen(s)), 0)
+#define fputs(s, f)    (glk_put_buffer_stream(f, s, strlen(s)), 0)
 #undef ftell
-#define ftell(f)	(glk_stream_get_position(f))
+#define ftell(f)    (glk_stream_get_position(f))
 #undef fseek
-#define fseek(f, p, m)	(glk_stream_set_position(f, p, m), 0)
+#define fseek(f, p, m)    (glk_stream_set_position(f, p, m), 0)
 #undef SEEK_SET
-#define SEEK_SET	seekmode_Start
+#define SEEK_SET    seekmode_Start
 #undef SEEK_END
-#define SEEK_END	seekmode_End
+#define SEEK_END    seekmode_End
 
 #if defined (_WINDOWS)
 #define SETTITLE_SUPPORTED

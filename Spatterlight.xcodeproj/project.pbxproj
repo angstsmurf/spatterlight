@@ -107,6 +107,7 @@
 		6DC6214023A26078002DEF3B /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		6DC6214323A26078002DEF3B /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214223A26078002DEF3B /* Tag.m */; };
 		6DC6214623A26078002DEF3B /* Interpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214523A26078002DEF3B /* Interpreter.m */; };
+		6DC79A832455AD4800CD9989 /* hecugel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DC79A822455AD4800CD9989 /* hecugel.c */; };
 		6DCDD44C23104AC4006715DD /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DCDD44B23104AC4006715DD /* fonts */; };
 		6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		6DCFFC2122BCD1730035FA99 /* Fonts License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
@@ -516,7 +517,6 @@
 		C39231391ECB80F100536504 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = C39231381ECB80F100536504 /* state.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39DE2601ECB76A100CE5B70 /* glk.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE25F1ECB76A100CE5B70 /* glk.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39DE2621ECB76C400CE5B70 /* bitmap.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2611ECB76C400CE5B70 /* bitmap.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C39DE2641ECB799500CE5B70 /* heglk.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2631ECB799500CE5B70 /* heglk.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39DE2681ECB7A7E00CE5B70 /* attribute.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2671ECB7A7E00CE5B70 /* attribute.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39DE26A1ECB7A9600CE5B70 /* checkentry.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2691ECB7A9600CE5B70 /* checkentry.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39DE26C1ECB7AA700CE5B70 /* class.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE26B1ECB7AA700CE5B70 /* class.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1173,6 +1173,7 @@
 		6DC6214523A26078002DEF3B /* Interpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Interpreter.m; path = coredata/Interpreter.m; sourceTree = SOURCE_ROOT; };
 		6DC6214723A26078002DEF3B /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Metadata.h; path = coredata/Metadata.h; sourceTree = SOURCE_ROOT; };
 		6DC6214823A26078002DEF3B /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Metadata.m; path = coredata/Metadata.m; sourceTree = SOURCE_ROOT; };
+		6DC79A822455AD4800CD9989 /* hecugel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hecugel.c; path = heglk/hecugel.c; sourceTree = "<group>"; };
 		6DCDD44B23104AC4006715DD /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spatterlight.xcdatamodel; sourceTree = "<group>"; };
 		6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Fonts License.rtf"; sourceTree = "<group>"; };
@@ -3761,6 +3762,7 @@
 				965032A909F29EE20083E64E /* hebuffer.c */,
 				965032AB09F29EE20083E64E /* heexpr.c */,
 				C39DE2631ECB799500CE5B70 /* heglk.c */,
+				6DC79A822455AD4800CD9989 /* hecugel.c */,
 				965032AD09F29EE20083E64E /* heglkunix.c */,
 				965032AF09F29EE20083E64E /* hemisc.c */,
 				965032B009F29EE20083E64E /* heobject.c */,
@@ -5521,6 +5523,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				965038CB09F2D3300083E64E /* he.c in Sources */,
+				6DC79A832455AD4800CD9989 /* hecugel.c in Sources */,
+				965038D009F2D3300083E64E /* heglkunix.c in Sources */,
 				965038CE09F2D3300083E64E /* heexpr.c in Sources */,
 				965038D109F2D3300083E64E /* hemisc.c in Sources */,
 				965038D209F2D3300083E64E /* heobject.c in Sources */,
@@ -5529,8 +5533,6 @@
 				965038D509F2D3300083E64E /* herun.c in Sources */,
 				965038D609F2D3300083E64E /* heset.c in Sources */,
 				965038D709F2D3300083E64E /* stringfn.c in Sources */,
-				C39DE2641ECB799500CE5B70 /* heglk.c in Sources */,
-				965038D009F2D3300083E64E /* heglkunix.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
