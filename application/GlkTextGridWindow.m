@@ -954,7 +954,6 @@
     NSInteger my = (NSInteger)textview.textContainerInset.height;
 
     //    What is this supposed to do?
-    //    Quotebox, I guess?
     //    if (transparent)
     //        mx = my = 0;
 
