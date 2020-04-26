@@ -35,7 +35,7 @@ static void spatterglk_library_archive(TempLibrary *library, NSCoder *encoder);
 static void spatterglk_library_unarchive(TempLibrary *library, NSCoder *decoder);
 static void recover_library_state(LibraryState *library_state);
 
-char autosavename[1024] = "";
+static char autosavename[1024] = "";
 
 /* The only command-line argument is the filename. And the profiling switch,
  if that's compiled in. The only *two* command-line arguments are...
