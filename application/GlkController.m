@@ -909,6 +909,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self deleteAutosaveFiles];
 
+    for (GlkWindow *win in _gwindows.allValues) {
+        [win removeFromSuperview];
+    }
+
     [self runTerp:(NSString *)_terpname
          withGame:(Game *)_game
             reset:YES
