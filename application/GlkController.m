@@ -238,7 +238,8 @@ fprintf(stderr, "%s\n",                                                    \
     self.window.representedFilename = _gamefile;
 
     [_borderView setWantsLayer:YES];
-    
+    [self setBorderColor:_theme.bufferBackground];
+
     if (_supportsAutorestore &&
         [[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI]) {
         [self runTerpWithAutorestore];
