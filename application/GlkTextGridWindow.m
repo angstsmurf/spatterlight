@@ -310,7 +310,7 @@
             NSArray *subviews = textview.subviews;
             for (NSView *view in subviews) {
                 if ([view isKindOfClass:[NSTextField class]]) {
-                    input = (NSTextField *)view;
+                    input = (MyGridTextField *)view;
                     [input removeFromSuperview];
                     NSLog(@"Found old input textfield!");
                 }
