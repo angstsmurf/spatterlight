@@ -1108,7 +1108,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-
 - (void)markLastSeen {
     for (GlkWindow *win in [_gwindows allValues]) {
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {

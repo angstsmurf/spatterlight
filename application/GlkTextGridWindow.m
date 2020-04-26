@@ -503,7 +503,6 @@
 }
 
 - (void)setFrame:(NSRect)frame {
-
     if (self.glkctl.ignoreResizes)
         return;
     NSUInteger r;
