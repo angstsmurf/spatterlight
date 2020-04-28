@@ -65,12 +65,8 @@ static void hugo_flushnl(void);
 static schanid_t mchannel = NULL;
 static schanid_t schannel = NULL;
 
-static long resids[2][MAXRES];
-static int numres[2] = { 0, 0 };
-
-static char gamefilepath[512] = "";
-static char appsupportpath[512] = "";
-
+static long resids[MAXRES];
+static int numres = 0;
 
 
 /* glk_main
