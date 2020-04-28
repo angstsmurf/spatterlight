@@ -1977,7 +1977,8 @@ NSInteger colorToInteger(NSColor *color) {
         [@(buf) substringToIndex:(NSUInteger)len - 1];
     if (str == nil || str.length < 2)
         return;
-    if ([_game.metadata.title isEqualToString:_gamefile.lastPathComponent]) {
+    if ([_game.metadata.title.lowercaseString isEqualToString:
+         _gamefile.lastPathComponent.lowercaseString]) {
         self.window.title = str;
         _game.metadata.title = str;
     }
