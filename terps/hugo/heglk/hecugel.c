@@ -899,9 +899,9 @@ static void hugo_mapcurwin()
 		if (quartz)
 		    win_maketransparent(wins[curwin].win->peer);
 	    }
-	    else
 		//LOG(" - is status window\n");
-	    glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
+        if (wins[curwin].win->type == wintype_TextGrid)
+            glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
 	}
 	win_sizewin(wins[curwin].win->peer,
 		    wins[curwin].x0, wins[curwin].y0, 
