@@ -390,6 +390,10 @@ extern glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen,
 
 extern glui32 generate_tag(void);
 
+extern void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length);
+extern glui32 gli_detect_sound_format(char *buf, size_t len);
+
+
 enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
 
 struct glk_schannel_struct

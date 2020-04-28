@@ -48,12 +48,25 @@
 /* non-standard types */
 #define giblorb_ID_MP3  (giblorb_make_id('M', 'P', '3', ' '))
 #define giblorb_ID_WAVE (giblorb_make_id('W', 'A', 'V', 'E'))
+#define giblorb_ID_MIDI (giblorb_make_id('M', 'I', 'D', 'I'))
 
 #define SDL_CHANNELS 64
 #define GLK_MAXVOLUME 0x10000
 #define FADE_GRANULARITY 100
 
+#define MAX_SOUND_RESOURCES 500
+
 #define GLK_VOLUME_TO_SDL_VOLUME(x) ((x) < GLK_MAXVOLUME ? (round(pow(((double)x) / GLK_MAXVOLUME, log(4)) * MIX_MAX_VOLUME)) : (MIX_MAX_VOLUME))
+
+struct my_sound_resource_struct
+{
+    void *data;
+    size_t length;
+    int loadedflag;
+    int type;
+};
+
+static struct my_sound_resource_struct *my_resources[MAX_SOUND_RESOURCES];
 
 static channel_t *gli_channellist = NULL;
 static channel_t *sound_channels[SDL_CHANNELS];
@@ -96,6 +109,7 @@ void gli_initialize_sound(void)
         gli_enable_sound = 0;
         return;
     }
+
     int channels = Mix_AllocateChannels(SDL_CHANNELS);
     Mix_GroupChannels(0, channels - 1 , FREE);
     Mix_ChannelFinished(NULL);
@@ -185,8 +199,12 @@ static void cleanup_channel(schanid_t chan)
     }
     if (chan->sdl_memory)
     {
-        free(chan->sdl_memory);
-        chan->sdl_memory = 0;
+        struct my_sound_resource_struct *res = my_resources[chan->resid];
+        if (res && res->loadedflag) {
+            free(res->data);
+            chan->sdl_memory = 0;
+            res->loadedflag = FALSE;
+        }
     }
     switch (chan->status)
     {
@@ -329,11 +347,6 @@ glui32 glk_schannel_play_multi(schanid_t *chanarray, glui32 chancount,
     }
 
     return successes;
-}
-
-void glk_sound_load_hint(glui32 snd, glui32 flag)
-{
-    /* nop */
 }
 
 /** Make an incremental volume change when the fade timer fires */
@@ -534,14 +547,81 @@ static void sound_completion_callback(int chan)
     return;
 }
 
+glui32 gli_detect_sound_format(char *buf, size_t len)
+{
+    char str[30];
+    if (len > 29)
+    {
+        strncpy(str, buf, 29);
+        str[29]='\0';
+    } else {
+        strncpy(str, buf, len);
+        str[len - 1]='\0';
+    }
+    fprintf(stderr, "gli_detect_sound_format buf:%s len:%ld\n",str, len);
+    /* AIFF */
+    if (len > 4 && !memcmp(buf, "FORM", 4))
+        return giblorb_ID_FORM;
+
+    /* WAVE */
+    if (len > 4 && !memcmp(buf, "WAVE", 4))
+        return giblorb_ID_WAVE;
+
+    if (len > 4 && !memcmp(buf, "RIFF", 4))
+        return giblorb_ID_WAVE;
+
+    if (len > 7 && !memcmp(buf + 3, "RIFF", 4))
+        return giblorb_ID_WAVE;
+
+    /* midi */
+    if (len > 4 && !memcmp(buf, "MThd", 4))
+        return giblorb_ID_MIDI;
+
+    /* s3m */
+    if (len > 0x30 && !memcmp(buf + 0x2c, "SCRM", 4))
+        return giblorb_ID_MOD;
+
+    /* XM */
+    if (len > 20 && !memcmp(buf, "Extended Module: ", 17))
+        return giblorb_ID_MOD;
+
+    /* MOD */
+    if (len > 1084)
+    {
+        char resname[4];
+        memcpy(resname, (buf) + 1080, 4);
+        if (!strcmp(resname+1, "CHN") ||        /* 4CHN, 6CHN, 8CHN */
+            !strcmp(resname+2, "CN") ||         /* 16CN, 32CN */
+            !strcmp(resname, "M.K.") || !strcmp(resname, "M!K!") ||
+            !strcmp(resname, "FLT4") || !strcmp(resname, "CD81") ||
+            !strcmp(resname, "OKTA") || !strcmp(resname, "    "))
+            return giblorb_ID_MOD;
+    }
+
+    /* ogg */
+    if (len > 4 && !memcmp(buf, "OggS", 4))
+        return giblorb_ID_OGG;
+
+    return giblorb_ID_MP3;
+}
+
 static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
 {
+    struct my_sound_resource_struct *resource = my_resources[snd];
+
+    if (resource && resource->loadedflag == TRUE)
+    {
+        *len = resource->length;
+        *buf = resource->data;
+        return resource->type;
+    }
+
     if (!giblorb_is_resource_map())
     {
         FILE *file;
         char name[1024];
 
-        sprintf(name, "%s/SND%ld.glkdata", workingdir, (long) snd);
+        sprintf(name, "%s/SND%ld", gli_workdir, (long) snd);
 
         file = fopen(name, "rb");
         if (!file)
@@ -565,44 +645,7 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
         }
         fclose(file);
 
-        /* AIFF */
-        if (*len > 4 && !memcmp(*buf, "FORM", 4))
-            return giblorb_ID_FORM;
-
-        /* WAVE */
-        if (*len > 4 && !memcmp(*buf, "WAVE", 4))
-            return giblorb_ID_WAVE;
-
-        /* s3m */
-        if (*len > 0x30 && !memcmp(*buf + 0x2c, "SCRM", 4))
-            return giblorb_ID_MOD;
-
-        /* XM */
-        if (*len > 20 && !memcmp(*buf, "Extended Module: ", 17))
-            return giblorb_ID_MOD;
-
-        /* MOD */
-        if (*len > 1084)
-        {
-            char resname[4];
-            memcpy(resname, (*buf) + 1080, 4);
-            if (!strcmp(resname+1, "CHN") ||        /* 4CHN, 6CHN, 8CHN */
-                !strcmp(resname+2, "CN") ||         /* 16CN, 32CN */
-                !strcmp(resname, "M.K.") || !strcmp(resname, "M!K!") ||
-                !strcmp(resname, "FLT4") || !strcmp(resname, "CD81") ||
-                !strcmp(resname, "OKTA") || !strcmp(resname, "    "))
-                return giblorb_ID_MOD;
-        }
-
-        /* ogg */
-        if (*len > 4 && !memcmp(*buf, "OggS", 4))
-            return giblorb_ID_OGG;
-
-        /* mp3 */
-        if (*len > 2 && !memcmp(*buf, "\377\372", 2))
-            return giblorb_ID_MP3;
-
-        return giblorb_ID_MP3;
+        return gli_detect_sound_format(*buf, *len);
     }
     else
     {
@@ -624,83 +667,28 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
     }
 }
 
-/** Start a sound channel */
-static glui32 play_sound(schanid_t chan)
+void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length)
 {
-    int loop;
-    SDL_LockAudio();
-    chan->status = CHANNEL_SOUND;
-    chan->buffered = 0;
-    chan->sdl_channel = Mix_GroupAvailable(FREE);
-    Mix_GroupChannel(chan->sdl_channel, BUSY);
-    SDL_UnlockAudio();
-    chan->sample = Mix_LoadWAV_RW(chan->sdl_rwops, FALSE);
-    if (chan->sdl_channel < 0)
-    {
-        gli_strict_warning("No available sound channels");
-    }
-    if (chan->sdl_channel >= 0 && chan->sample)
-    {
-        SDL_LockAudio();
-        sound_channels[chan->sdl_channel] = chan;
-        SDL_UnlockAudio();
-        Mix_Volume(chan->sdl_channel, chan->volume);
-        Mix_ChannelFinished(&sound_completion_callback);
-        loop = chan->loop - 1;
-        if (loop < -1)
-            loop = -1;
-        if (Mix_PlayChannel(chan->sdl_channel, chan->sample, loop) >= 0)
-            return 1;
-    }
-    gli_strict_warning("play sound failed");
-    gli_strict_warning(Mix_GetError());
-    SDL_LockAudio();
-    cleanup_channel(chan);
-    SDL_UnlockAudio();
-    return 0;
-}
+    struct my_sound_resource_struct *res = my_resources[snd];
 
-/** Start a compressed sound channel */
-static glui32 play_compressed(schanid_t chan, char *ext)
-{
-    SDL_LockAudio();
-    chan->status = CHANNEL_SOUND;
-    chan->buffered = 1;
-    chan->sdl_channel = Mix_GroupAvailable(FREE);
-    Mix_GroupChannel(chan->sdl_channel, BUSY);
-    SDL_UnlockAudio();
-    chan->decode = Sound_NewSample(chan->sdl_rwops, ext, output, 65536);
-    if (chan->decode == NULL)
-    {
-        gli_strict_warning("Sndsdl: Decode failed!");
-        chan->sdl_rwops = NULL;
-        return 0;
+    if (!res) {
+        my_resources[snd] = malloc(sizeof(struct my_sound_resource_struct));
+        res = my_resources[snd];
+        res->loadedflag = FALSE;
+    } else {
+
+        if (res->loadedflag == TRUE)
+            return;
     }
-    Uint32 soundbytes = Sound_Decode(chan->decode);
-    Sound_Sample *sample = chan->decode;
-    chan->sample = Mix_QuickLoad_RAW(sample->buffer, soundbytes);
-    if (chan->sdl_channel < 0)
-        gli_strict_warning("No available sound channels");
-    if (chan->sdl_channel >= 0 && chan->sample)
-    {
-        SDL_LockAudio();
-        sound_channels[chan->sdl_channel] = chan;
-        SDL_UnlockAudio();
-        Mix_Volume(chan->sdl_channel, chan->volume);
-        Mix_ChannelFinished(&sound_completion_callback);
-        if (Mix_PlayChannel(chan->sdl_channel, chan->sample, 0) >= 0)
-            return 1;
-    }
-    gli_strict_warning("play sound failed");
-    gli_strict_warning(Mix_GetError());
-    SDL_LockAudio();
-    cleanup_channel(chan);
-    SDL_UnlockAudio();
-    return 0;
+
+    res->type = type;
+    res->length = length;
+    res->data = data;
+    res->loadedflag = TRUE;
 }
 
 /** Start a mod music channel */
-static glui32 play_mod(schanid_t chan, long len)
+static glui32 play_mod(schanid_t chan, long len, char *ext)
 {
     FILE *file;
     char tn[256];
@@ -732,7 +720,7 @@ static glui32 play_mod(schanid_t chan, long len)
 
     sprintf(tn, "%sXXXXXX", tempdir);
     mkstemp(tn);
-    sprintf(tn, "%s.mod", tn);
+    sprintf(tn, "%s.%s", tn, ext);
 
     //fprintf(stderr, "tn = %s\n", tn);
 
@@ -762,6 +750,107 @@ static glui32 play_mod(schanid_t chan, long len)
     return 0;
 }
 
+
+/** Start a sound channel */
+static glui32 play_sound(schanid_t chan)
+{
+    int loop;
+    SDL_LockAudio();
+    chan->status = CHANNEL_SOUND;
+    chan->buffered = 0;
+    chan->sdl_channel = Mix_GroupAvailable(FREE);
+    Mix_GroupChannel(chan->sdl_channel, BUSY);
+    SDL_UnlockAudio();
+    chan->sample = Mix_LoadWAV_RW(chan->sdl_rwops, FALSE);
+    if (chan->sample == 0)
+        fprintf(stderr, "drats\n");
+    if (chan->sdl_channel < 0)
+    {
+        gli_strict_warning("No available sound channels");
+    }
+    if (chan->sdl_channel >= 0 && chan->sample)
+    {
+        SDL_LockAudio();
+        sound_channels[chan->sdl_channel] = chan;
+        SDL_UnlockAudio();
+        Mix_Volume(chan->sdl_channel, chan->volume);
+        Mix_ChannelFinished(&sound_completion_callback);
+        loop = (int)chan->loop - 1;
+        if (loop < -1)
+            loop = -1;
+        if (Mix_PlayChannel(chan->sdl_channel, chan->sample, loop) >= 0)
+            return 1;
+    }
+    gli_strict_warning("play sound failed");
+    gli_strict_warning(Mix_GetError());
+    chan->sdl_memory = 0;
+    chan->sdl_rwops = 0;
+    SDL_LockAudio();
+    cleanup_channel(chan);
+    SDL_UnlockAudio();
+    return 0;
+}
+
+
+/** Start a compressed sound channel */
+static glui32 play_compressed(schanid_t chan, char *ext)
+{
+    SDL_LockAudio();
+    chan->status = CHANNEL_SOUND;
+    chan->buffered = 1;
+    chan->sdl_channel = Mix_GroupAvailable(FREE);
+    Mix_GroupChannel(chan->sdl_channel, BUSY);
+    SDL_UnlockAudio();
+    chan->decode = Sound_NewSample(chan->sdl_rwops, ext, output, 65536);
+    if (chan->decode == NULL)
+    {
+        chan->sdl_rwops = NULL;
+        gli_strict_warning("Sndsdl: Decode failed!");
+        SDL_LockAudio();
+        cleanup_channel(chan);
+        SDL_UnlockAudio();
+        return 0;
+    }
+    Uint32 soundbytes = Sound_Decode(chan->decode);
+    Sound_Sample *sample = chan->decode;
+    chan->sample = Mix_QuickLoad_RAW(sample->buffer, soundbytes);
+    if (chan->sdl_channel < 0)
+        gli_strict_warning("No available sound channels");
+    if (chan->sdl_channel >= 0 && chan->sample)
+    {
+        SDL_LockAudio();
+        sound_channels[chan->sdl_channel] = chan;
+        SDL_UnlockAudio();
+        Mix_Volume(chan->sdl_channel, chan->volume);
+        Mix_ChannelFinished(&sound_completion_callback);
+        if (Mix_PlayChannel(chan->sdl_channel, chan->sample, 0) >= 0)
+            return 1;
+    }
+    gli_strict_warning("play sound failed");
+    gli_strict_warning(Mix_GetError());
+    SDL_LockAudio();
+    cleanup_channel(chan);
+    SDL_UnlockAudio();
+    return 0;
+}
+
+void glk_sound_load_hint(glui32 snd, glui32 flag)
+{
+    if (flag == 1) {
+        long len = 0;
+        glui32 type;
+        char *buf = 0;
+        /* load sound resource into memory */
+        type = load_sound_resource(snd, &len, &buf);
+        gli_set_sound_resource(snd, type, buf, len);
+    } else {
+        struct my_sound_resource_struct *res = my_resources[snd];
+        if (res->data)
+            free(res->data);
+        res->loadedflag = FALSE;
+    }
+}
+
 glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 notify)
 {
     long len = 0;
@@ -787,6 +876,7 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
 
     /* load sound resource into memory */
     type = load_sound_resource(snd, &len, &buf);
+    gli_set_sound_resource(snd, type, buf, len);
 
     chan->sdl_memory = (unsigned char*)buf;
     chan->sdl_rwops = SDL_RWFromConstMem(buf, (int)len);
@@ -811,7 +901,11 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
             break;
 
         case giblorb_ID_MOD:
-            result = play_mod(chan, len);
+            result = play_mod(chan, len, "mod");
+            break;
+
+        case giblorb_ID_MIDI:
+            result = play_mod(chan, len, "mid");
             break;
 
         default:
@@ -821,8 +915,6 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
     /* if channel was paused it should be paused again */
     if (result && paused)
     {
-        if (paused)
-            fprintf(stderr, "glk_schannel_play_ext: pausing channel again\n");
         glk_schannel_pause(chan);
     }
     return result;

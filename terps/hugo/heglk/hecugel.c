@@ -266,55 +266,52 @@ void hugo_stopvideo(void) {}
 //    win_stopsound(sound_channel);
 //}
 
-static int loadres(HUGO_FILE infile, int reslen, int type)
+static int loadres(HUGO_FILE infile, int reslen)
 {
-    char buf[4096];
-    frefid_t fileref;
-    strid_t stream;
-    long offset;
+    char *buf;
+    long offset, suboffset;
     int id;
-    int i, n;
+    int i;
 
     offset = glk_stream_get_position(infile);
-    for (i = 0; i < numres[type]; i++)
-        if (resids[type][i] == offset)
+    for (i = 0; i < numres; i++)
+        if (resids[i] == offset)
             return i;
 
     /* Too many resources loaded... */
-    if (numres[type] + 1 == MAXRES)
+    if (numres + 1 == MAXRES)
         return -1;
 
-    id = numres[type]++;
-    sprintf(buf, "%s%d", type == PIC ? "PIC" : "SND", id);
-    resids[type][id] = offset;
+    id = numres++;
+        
+    resids[id] = offset;
+    buf = malloc(reslen);
 
-    fileref = glk_fileref_create_by_name(fileusage_Data, buf, 0);
+    glk_get_buffer_stream(infile, (char *)buf, reslen);
 
-    if (!fileref)
+    suboffset = 0;
+
+    if (reslen > 128)
     {
-        return -1;
+        for (i = 0; i < 124; i++)
+        {
+            if (!memcmp(buf + i, "RIFF", 4))
+            {
+                suboffset = i;
+                break;
+            }
+        }
     }
 
-    stream = glk_stream_open_file(fileref, filemode_Write, 0);
-    if (!stream)
-    {
-        glk_fileref_destroy(fileref);
-        return -1;
+    if (suboffset) {
+        buf += suboffset;
+        unsigned int wavdatalength = *(buf + 43) << 24 | (*(buf + 42) & 0xff) << 16 |
+        (*(buf + 41) & 0xff) << 8 | (*(buf + 40) & 0xff);
+        reslen = 41 + wavdatalength;
     }
 
-    glk_fileref_destroy(fileref);
-
-    while (reslen > 0)
-    {
-        n = glk_get_buffer_stream(infile, (char *)buf, reslen < sizeof buf ? reslen : sizeof buf);
-        if (n <= 0)
-            break;
-        glk_put_buffer_stream(stream, buf, n);
-        reslen -= n;
-    }
-
-    glk_stream_close(stream, NULL);
-
+    glui32 type = gli_detect_sound_format(buf, reslen);
+    gli_set_sound_resource(id, type, buf, reslen);
     return id;
 }
 
@@ -340,7 +337,7 @@ int hugo_playmusic(HUGO_FILE infile, long reslen, char loop_flag)
         initmusic();
     if (mchannel)
     {
-        id = loadres(infile, reslen, SND);
+        id = loadres(infile, reslen);
         if (id < 0)
         {
             glk_stream_close(infile, NULL);
@@ -373,7 +370,7 @@ int hugo_playsample(HUGO_FILE infile, long reslen, char loop_flag)
 
     if (schannel)
     {
-        id = loadres(infile, reslen, SND);
+        id = loadres(infile, reslen);
         if (id < 0)
         {
             glk_stream_close(infile, NULL);
