@@ -199,12 +199,7 @@ static void cleanup_channel(schanid_t chan)
     }
     if (chan->sdl_memory)
     {
-        struct my_sound_resource_struct *res = my_resources[chan->resid];
-        if (res && res->loadedflag) {
-            free(res->data);
-            chan->sdl_memory = 0;
-            res->loadedflag = FALSE;
-        }
+        chan->sdl_memory = 0;
     }
     switch (chan->status)
     {
@@ -570,9 +565,6 @@ glui32 gli_detect_sound_format(char *buf, size_t len)
     if (len > 4 && !memcmp(buf, "RIFF", 4))
         return giblorb_ID_WAVE;
 
-    if (len > 7 && !memcmp(buf + 3, "RIFF", 4))
-        return giblorb_ID_WAVE;
-
     /* midi */
     if (len > 4 && !memcmp(buf, "MThd", 4))
         return giblorb_ID_MIDI;
@@ -669,17 +661,11 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
 
 void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length)
 {
-    struct my_sound_resource_struct *res = my_resources[snd];
-
-    if (!res) {
+    if (!my_resources[snd]) {
         my_resources[snd] = malloc(sizeof(struct my_sound_resource_struct));
-        res = my_resources[snd];
-        res->loadedflag = FALSE;
-    } else {
-
-        if (res->loadedflag == TRUE)
-            return;
     }
+
+    struct my_sound_resource_struct *res = my_resources[snd];
 
     res->type = type;
     res->length = length;

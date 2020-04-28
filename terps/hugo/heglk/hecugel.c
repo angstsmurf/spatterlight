@@ -262,8 +262,9 @@ static int loadres(HUGO_FILE infile, int reslen)
 
     offset = glk_stream_get_position(infile);
     for (i = 0; i < numres; i++)
-        if (resids[i] == offset)
+        if (resids[i] == offset) {
             return i;
+        }
 
     /* Too many resources loaded... */
     if (numres + 1 == MAXRES)
@@ -278,6 +279,10 @@ static int loadres(HUGO_FILE infile, int reslen)
 
     suboffset = 0;
 
+    // At least Hugo Tetris sends malformed data with extra junk before the RIFF header.
+    // We try to fix that here, but as our audio code still won't play the result
+    // (and the game in question is still unplayable for other reasons) it seems
+    // kind of pointless.
     if (reslen > 128)
     {
         for (i = 0; i < 124; i++)
@@ -290,12 +295,7 @@ static int loadres(HUGO_FILE infile, int reslen)
         }
     }
 
-    if (suboffset) {
-        buf += suboffset;
-        unsigned int wavdatalength = *(buf + 43) << 24 | (*(buf + 42) & 0xff) << 16 |
-        (*(buf + 41) & 0xff) << 8 | (*(buf + 40) & 0xff);
-        reslen = 41 + wavdatalength;
-    }
+    buf += suboffset;
 
     glui32 type = gli_detect_sound_format(buf, reslen);
     gli_set_sound_resource(id, type, buf, reslen);
