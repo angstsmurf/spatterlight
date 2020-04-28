@@ -104,16 +104,7 @@ int hugo_timewait(int n)
     millisecs = 1000 / n;
     if (millisecs == 0)
 	millisecs = 1;
-    
-    // For the time being, we're going to disallow
-    // millisecond delays in Glk (1) because there's no
-    // point, and (2) so that we can tell we're running
-    // under Glk.
-    
-    if (millisecs < 1000) {
-        return false;
-    }
-    
+
     glk_request_timer_events(millisecs);
     while (1)
     {
