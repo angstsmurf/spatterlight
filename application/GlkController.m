@@ -1972,15 +1972,15 @@ NSInteger colorToInteger(NSColor *color) {
 - (void)handleChangeTitle:(char *)buf length:(int)len {
     buf[len] = '\0';
     NSLog(@"HandleChangeTitle: %s length: %d", buf, len);
-
     NSString *str = @(buf);
     if (str && str.length > (NSUInteger)len - 1)
         [@(buf) substringToIndex:(NSUInteger)len - 1];
     if (str == nil || str.length < 2)
         return;
-    self.window.title = str;
-    if ([_game.metadata.title isEqualToString:_gamefile.lastPathComponent])
+    if ([_game.metadata.title isEqualToString:_gamefile.lastPathComponent]) {
+        self.window.title = str;
         _game.metadata.title = str;
+    }
 }
 
 - (BOOL)handleRequest:(struct message *)req
