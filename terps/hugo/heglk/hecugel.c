@@ -164,95 +164,6 @@ void hugo_stopvideo(void) {}
  * Sound & music
  */
 
-//int hugo_hasaudio(void)
-//{
-//    static int inited = 0;
-//
-//    fprintf(stderr, "hugo_hasaudio called\n");
-//
-//    if (!inited && glk_gestalt(gestalt_Sound, 0))
-//    {
-//        fprintf(stderr, "hugo initializing audio!\n");
-//    inited = 1;
-//    sound_channel = win_newchan();
-//    music_channel = win_newchan();
-//    }
-//
-//    return sound_channel != -1 && music_channel != -1;
-//}
-//
-//int hugo_playaudio(HUGO_FILE infile, long length, char loop_flag, int channel)
-//{
-//    fprintf(stderr, "hugo_playaudio\n");
-//
-//    if (hugo_hasaudio())
-//    {
-//
-//    char *buf = malloc(length);
-//    int offset = 0;
-//    int i;
-//
-//    if (buf)
-//    {
-//        glk_get_buffer_stream(infile, buf, length);
-//
-//        /* look for RIFF (some games have broken resources...?) */
-//        if (length > 128 && channel == sound_channel)
-//        {
-//        for (i = 0; i < 124; i++)
-//        {
-//            if (!memcmp(buf + i, "RIFF", 4))
-//            {
-//            offset = i;
-//            break;
-//            }
-//        }
-//        }
-//
-//        win_loadsound(0, buf + offset, length - offset);
-//
-//        free(buf);
-//
-//        win_playsound(channel, loop_flag ? -1 : 1, 0);
-//    }
-//    }
-//
-//    glk_stream_close(infile, NULL);
-//    return true;    /* not an error */
-//}
-//
-//int hugo_playmusic(HUGO_FILE infile, long reslength, char loop_flag)
-//{
-//    fprintf(stderr, "hugo_playmusic\n");
-//    return hugo_playaudio(infile, reslength, loop_flag, music_channel);
-//}
-//
-//void hugo_musicvolume(int vol)
-//{
-//    win_setvolume(music_channel, (vol * 0x10000) / 100);
-//}
-//
-//void hugo_stopmusic(void)
-//{
-//    win_stopsound(music_channel);
-//}
-//
-//int hugo_playsample(HUGO_FILE infile, long reslength, char loop_flag)
-//{
-//    fprintf(stderr, "hugo_playsample\n");
-//    return hugo_playaudio(infile, reslength, loop_flag, sound_channel);
-//}
-//
-//void hugo_samplevolume(int vol)
-//{
-//    win_setvolume(sound_channel, (vol * 0x10000) / 100);
-//}
-//
-//void hugo_stopsample(void)
-//{
-//    win_stopsound(sound_channel);
-//}
-
 static int loadres(HUGO_FILE infile, int reslen)
 {
     char *buf;
@@ -280,9 +191,7 @@ static int loadres(HUGO_FILE infile, int reslen)
     suboffset = 0;
 
     // At least Hugo Tetris sends malformed data with extra junk before the RIFF header.
-    // We try to fix that here, but as our audio code still won't play the result
-    // (and the game in question is still unplayable for other reasons) it seems
-    // kind of pointless.
+    // We try to fix that here.
     if (reslen > 128)
     {
         for (i = 0; i < 124; i++)
