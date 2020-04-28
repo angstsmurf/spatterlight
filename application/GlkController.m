@@ -2354,20 +2354,13 @@ NSInteger colorToInteger(NSColor *color) {
         case INITCHAR:
 //            NSLog(@"glkctl initchar %d", req->a1);
 
-            // To fix scrolling in the Adrian Mole games and My Angel
-            // This must be game-specific, otherwise it breaks
-//            if (_adrianMole) {
-                if (lastRequest == PRINT) {
-                    _shouldScrollOnCharEvent = YES;
-                }
-                
-                if (_shouldScrollOnCharEvent) {
-                    [self performScroll];
-                }
-                
-//            } else {
-//                [self performScroll];
-//            }
+            if (lastRequest == PRINT) {
+                _shouldScrollOnCharEvent = YES;
+            }
+
+            if (_shouldScrollOnCharEvent) {
+                [self performScroll];
+            }
 
             if (reqWin)
                 [reqWin initChar];
