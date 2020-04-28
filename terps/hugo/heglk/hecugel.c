@@ -45,8 +45,8 @@ static int curstyle = style_Normal;
 static int glk_fgcolor = 0;
 static int glk_bgcolor = 0;
 
-//static int sound_channel = -1;
-//static int music_channel = -1;
+static int istetris = false;
+static int keypress = 0;
 
 static int nlbufcnt;
 static int nlbufwin;
@@ -86,6 +86,22 @@ void heglk_printfatalerror(char *err)
     LOG("hugo: %s\n", err);
 }
 
+/* Convert Glk special keycodes: */
+int hugo_convert_key(int n) {
+
+    switch (n)
+    {
+        case keycode_Left:    n = 8;    break;
+        case keycode_Right:    n = 21;    break;
+        case keycode_Up:    n = 11;    break;
+        case keycode_Down:    n = 10;    break;
+        case keycode_Return:    n = 13;    break;
+        case keycode_Escape:    n = 27;    break;
+    }
+
+    return n;
+}
+
 /* hugo_timewait 
  * Waits for 1/n seconds.  Returns false if waiting is unsupported.
  */
@@ -105,12 +121,18 @@ int hugo_timewait(int n)
     if (millisecs == 0)
 	millisecs = 1;
 
+    if (istetris && keypress == 0 && wins[curwin].win->char_request == false)
+        glk_request_char_event(wins[curwin].win);
+
     glk_request_timer_events(millisecs);
     while (1)
     {
 	glk_select(&ev);
 	if (ev.type == evtype_Arrange)
 	    hugo_handlearrange();
+    if (istetris && ev.type == evtype_CharInput) {
+        keypress = hugo_convert_key(ev.val1);
+    }
 	if (ev.type == evtype_Timer)
 	    break;
     }
@@ -144,6 +166,8 @@ void hugo_closefiles()
 void hugo_setgametitle(char *t)
 {
     garglk_set_story_title(t);
+    if (!strncmp(t, "Hugo Tetris", 11))
+        istetris = true;
 }
 
 int hugo_hasvideo(void)
@@ -301,6 +325,9 @@ void hugo_stopsample(void)
 
 int hugo_iskeywaiting(void)
 {
+    if (istetris && keypress) {
+        return true;
+    }
     var[system_status] = STAT_UNAVAILABLE;
     return 0;
 }
@@ -313,6 +340,11 @@ void hugo_scrollwindowup()
 
 int hugo_getkey(void)
 {
+    if (istetris) {
+        int oldkeypress = keypress;
+        keypress = 0;
+        return oldkeypress;
+    }
     /* Not needed here--single-character events are handled
 	   solely by hugo_waitforkey(), below */
     return 0;
@@ -577,17 +609,7 @@ int hugo_waitforkey(void)
     }
     
     /* Convert Glk special keycodes: */
-    switch (ev.val1)
-    {
-	case keycode_Left:	ev.val1 = 8;	break;
-	case keycode_Right:	ev.val1 = 21;	break;
-	case keycode_Up:	ev.val1 = 11;	break;
-	case keycode_Down:	ev.val1 = 10;	break;
-	case keycode_Return:	ev.val1 = 13;	break;
-	case keycode_Escape:	ev.val1 = 27;	break;
-    }
-    
-    return ev.val1;
+    return hugo_convert_key (ev.val1);
 }
 
 
