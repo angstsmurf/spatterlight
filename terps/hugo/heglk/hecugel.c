@@ -772,23 +772,23 @@ static void hugo_unmapcleared(void)
 
 void hugo_handlearrange(void)
 {
-    int i;
-    LOG("arrange event ... zap aux wins!");
-    for (i = 0; i < nwins; i++)
-    {
-	if (i == curwin)
-	    continue;
-	if (wins[i].ismain)
-	    continue;
-	if (wins[i].l == 1 && wins[i].t == 1 && wins[i].r > 0x7000)
-	    continue;
-	if (wins[i].win)
-	{
-	    LOG(" + unmap window %d (zap)\n", i);
-	    gli_delete_window(wins[i].win);
-	    wins[i].win = 0;
-	}
-    }
+//    int i;
+//    LOG("arrange event ... zap aux wins!");
+//    for (i = 0; i < nwins; i++)
+//    {
+//    if (i == curwin)
+//        continue;
+//    if (wins[i].ismain)
+//        continue;
+//    if (wins[i].l == 1 && wins[i].t == 1 && wins[i].r > 0x7000)
+//        continue;
+//    if (wins[i].win)
+//    {
+//        LOG(" + unmap window %d (zap)\n", i);
+//        gli_delete_window(wins[i].win);
+//        wins[i].win = 0;
+//    }
+//    }
 }
 
 /* Hugo's arbitrarily positioned windows don't currently
