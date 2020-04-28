@@ -466,23 +466,23 @@ fprintf(stderr, "%s\n",                                                    \
     [[readpipe fileHandleForReading]
      setReadabilityHandler:^(NSFileHandle *file) {
          NSData *data = [file availableData];
-         dispatch_async(dispatch_get_main_queue(), ^{
-             GlkController *strongSelf = weakSelf;
-             if(strongSelf) {
+         GlkController *strongSelf = weakSelf;
+         if(strongSelf) {
+             dispatch_async(dispatch_get_main_queue(), ^{
                  [strongSelf noteDataAvailable:data];
-             }
-         });
-
+             });
+         }
      }];
 
     [task setTerminationHandler:^(NSTask *aTask) {
         [aTask.standardOutput fileHandleForReading].readabilityHandler = nil;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            GlkController *strongSelf = weakSelf;
-            if(strongSelf) {
+        GlkController *strongSelf = weakSelf;
+        if(strongSelf) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
                 [strongSelf noteTaskDidTerminate:aTask];
-            }
-        });
+            });
+        }
     }];
 
     [task launch];
