@@ -106,7 +106,7 @@
     if (self.bufferNormal)
         return NO;
 
-    return (self.gridNormal || self.gridAlert || self.gridBlock || self.gridEmph || self.gridHead || self.gridInput || self.gridNote || self.gridSubH || self.gridUsr1 || self.gridUsr2);
+    return (self.gridNormal || self.gridAlert || self.gridBlock || self.gridEmph || self.gridPre || self.gridHead || self.gridInput || self.gridNote || self.gridSubH || self.gridUsr1 || self.gridUsr2);
 }
 
 
