@@ -181,6 +181,13 @@ void win_print(int name, int ch, int at)
 
 /* Gargoyle glue */
 
+void win_unprint(int name, char *str, int len)
+{
+    sendmsg(UNPRINT, name, 0, 0, 0, 0,
+            len * sizeof(unsigned short),
+            str);
+}
+
 void wintitle(void)
 {
     char buf[256];
@@ -547,6 +554,19 @@ void win_autosave(int hash)
     win_flush();
     sendmsg(AUTOSAVE, 0, hash, 0, 0, 0, 0, NULL);
 }
+
+void win_setzcolor(int name, glsi32 fg, glsi32 bg)
+{
+    win_flush();
+    sendmsg(SETZCOLOR, name, fg, bg, 0, 0, 0, NULL);
+}
+
+void win_setreverse(int name, int reverse)
+{
+    win_flush();
+    sendmsg(SETREVERSE, name, reverse, 0, 0, 0, 0, NULL);
+}
+
 
 void win_reset()
 {

@@ -24,7 +24,9 @@ void getworkdir()
                                      @"unquill": @"UnQuill",
                                      @"tads": @"TADS",
                                      @"frotz": @"Frotz",
-                                     @"fizmo": @"Fizmo"};
+                                     @"fizmo": @"Fizmo",
+                                     @"bocfel": @"Bocfel"
+                                     };
         NSError *error;
         NSURL *appSupportDir = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
 

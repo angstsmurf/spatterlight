@@ -101,6 +101,32 @@
 		6D8BCBC0225E514700696057 /* wordwrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D8BCBA0225E514700696057 /* wordwrap.c */; };
 		6D8BCBC1225E514700696057 /* zpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D8BCBA2225E514700696057 /* zpu.c */; };
 		6DB6B51A219E31BF0039D2D7 /* fileref.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB6B519219E31BF0039D2D7 /* fileref.m */; };
+		6DB774C02458B9B300EDC671 /* blorb.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774AB2458B9B300EDC671 /* blorb.c */; };
+		6DB774C12458B9B300EDC671 /* branch.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774AC2458B9B300EDC671 /* branch.c */; };
+		6DB774C22458B9B300EDC671 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774AD2458B9B300EDC671 /* dict.c */; };
+		6DB774C32458B9B300EDC671 /* glkstart.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774AE2458B9B300EDC671 /* glkstart.c */; };
+		6DB774C42458B9B300EDC671 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774AF2458B9B300EDC671 /* iff.c */; };
+		6DB774C52458B9B300EDC671 /* io.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774B02458B9B300EDC671 /* io.c */; };
+		6DB774C62458B9B300EDC671 /* math.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774B12458B9B300EDC671 /* math.c */; };
+		6DB774C72458B9B300EDC671 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774B22458B9B300EDC671 /* memory.c */; };
+		6DB774C82458B9B300EDC671 /* meta.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774B32458B9B300EDC671 /* meta.c */; };
+		6DB774C92458B9B300EDC671 /* objects.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774B42458B9B300EDC671 /* objects.c */; };
+		6DB774CA2458B9B300EDC671 /* osdep.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774B52458B9B300EDC671 /* osdep.c */; };
+		6DB774CB2458B9B300EDC671 /* patches.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774B62458B9B300EDC671 /* patches.c */; };
+		6DB774CC2458B9B300EDC671 /* process.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774B72458B9B300EDC671 /* process.c */; };
+		6DB774CD2458B9B300EDC671 /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774B82458B9B300EDC671 /* random.c */; };
+		6DB774CE2458B9B300EDC671 /* screen.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774B92458B9B300EDC671 /* screen.c */; };
+		6DB774CF2458B9B300EDC671 /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774BA2458B9B300EDC671 /* sound.c */; };
+		6DB774D02458B9B300EDC671 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774BB2458B9B300EDC671 /* stack.c */; };
+		6DB774D12458B9B300EDC671 /* unicode.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774BC2458B9B300EDC671 /* unicode.c */; };
+		6DB774D22458B9B300EDC671 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774BD2458B9B300EDC671 /* util.c */; };
+		6DB774D32458B9B300EDC671 /* zoom.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774BE2458B9B300EDC671 /* zoom.c */; };
+		6DB774D42458B9B300EDC671 /* zterp.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DB774BF2458B9B300EDC671 /* zterp.c */; };
+		6DB774D52458BAE000EDC671 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
+		6DB774D62458BAE400EDC671 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
+		6DB774D72458DD4900EDC671 /* bocfel in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 6DB774A22458B95E00EDC671 /* bocfel */; };
+		6DB8C1E924599DF9002CDCCB /* ZColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB8C1E824599DF8002CDCCB /* ZColor.m */; };
+		6DB8C1EC24599E33002CDCCB /* ZReverseVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB8C1EB24599E33002CDCCB /* ZReverseVideo.m */; };
 		6DBC471A21D27E9C00A20E28 /* Compatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC471821D2752000A20E28 /* Compatibility.m */; };
 		6DBC629B23A421BE0066F443 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214823A26078002DEF3B /* Metadata.m */; };
 		6DC520AA23BAD54B0004923A /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
@@ -943,12 +969,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6DB774A02458B95E00EDC671 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		9650315509F296CF0083E64E /* Copy Interpreter Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				6DB774D72458DD4900EDC671 /* bocfel in Copy Interpreter Files */,
 				6D2C86F4225E8A05004A5A75 /* fizmo in Copy Interpreter Files */,
 				C32036E51ED7738700FF60DF /* libglkimp.dylib in Copy Interpreter Files */,
 				C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */,
@@ -1161,6 +1197,32 @@
 		6D8BCBA4225E514700696057 /* zscii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zscii.h; sourceTree = "<group>"; };
 		6DB6B519219E31BF0039D2D7 /* fileref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fileref.m; sourceTree = "<group>"; };
 		6DB6B51B219E38870039D2D7 /* fileref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileref.h; sourceTree = "<group>"; };
+		6DB774A22458B95E00EDC671 /* bocfel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bocfel; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DB774AB2458B9B300EDC671 /* blorb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = blorb.c; path = ../terps/bocfel/blorb.c; sourceTree = "<group>"; };
+		6DB774AC2458B9B300EDC671 /* branch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = branch.c; path = ../terps/bocfel/branch.c; sourceTree = "<group>"; };
+		6DB774AD2458B9B300EDC671 /* dict.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dict.c; path = ../terps/bocfel/dict.c; sourceTree = "<group>"; };
+		6DB774AE2458B9B300EDC671 /* glkstart.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = glkstart.c; path = ../terps/bocfel/glkstart.c; sourceTree = "<group>"; };
+		6DB774AF2458B9B300EDC671 /* iff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = iff.c; path = ../terps/bocfel/iff.c; sourceTree = "<group>"; };
+		6DB774B02458B9B300EDC671 /* io.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = io.c; path = ../terps/bocfel/io.c; sourceTree = "<group>"; };
+		6DB774B12458B9B300EDC671 /* math.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = math.c; path = ../terps/bocfel/math.c; sourceTree = "<group>"; };
+		6DB774B22458B9B300EDC671 /* memory.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = memory.c; path = ../terps/bocfel/memory.c; sourceTree = "<group>"; };
+		6DB774B32458B9B300EDC671 /* meta.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = meta.c; path = ../terps/bocfel/meta.c; sourceTree = "<group>"; };
+		6DB774B42458B9B300EDC671 /* objects.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = objects.c; path = ../terps/bocfel/objects.c; sourceTree = "<group>"; };
+		6DB774B52458B9B300EDC671 /* osdep.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osdep.c; path = ../terps/bocfel/osdep.c; sourceTree = "<group>"; };
+		6DB774B62458B9B300EDC671 /* patches.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = patches.c; path = ../terps/bocfel/patches.c; sourceTree = "<group>"; };
+		6DB774B72458B9B300EDC671 /* process.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = process.c; path = ../terps/bocfel/process.c; sourceTree = "<group>"; };
+		6DB774B82458B9B300EDC671 /* random.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = random.c; path = ../terps/bocfel/random.c; sourceTree = "<group>"; };
+		6DB774B92458B9B300EDC671 /* screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = screen.c; path = ../terps/bocfel/screen.c; sourceTree = "<group>"; };
+		6DB774BA2458B9B300EDC671 /* sound.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = sound.c; path = ../terps/bocfel/sound.c; sourceTree = "<group>"; };
+		6DB774BB2458B9B300EDC671 /* stack.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = stack.c; path = ../terps/bocfel/stack.c; sourceTree = "<group>"; };
+		6DB774BC2458B9B300EDC671 /* unicode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = unicode.c; path = ../terps/bocfel/unicode.c; sourceTree = "<group>"; };
+		6DB774BD2458B9B300EDC671 /* util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = util.c; path = ../terps/bocfel/util.c; sourceTree = "<group>"; };
+		6DB774BE2458B9B300EDC671 /* zoom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = zoom.c; path = ../terps/bocfel/zoom.c; sourceTree = "<group>"; };
+		6DB774BF2458B9B300EDC671 /* zterp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = zterp.c; path = ../terps/bocfel/zterp.c; sourceTree = "<group>"; };
+		6DB8C1E724599DF8002CDCCB /* ZColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZColor.h; sourceTree = "<group>"; };
+		6DB8C1E824599DF8002CDCCB /* ZColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZColor.m; sourceTree = "<group>"; };
+		6DB8C1EA24599E33002CDCCB /* ZReverseVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZReverseVideo.h; sourceTree = "<group>"; };
+		6DB8C1EB24599E33002CDCCB /* ZReverseVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZReverseVideo.m; sourceTree = "<group>"; };
 		6DBC471721D270B100A20E28 /* Compatibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Compatibility.h; sourceTree = "<group>"; };
 		6DBC471821D2752000A20E28 /* Compatibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Compatibility.m; sourceTree = "<group>"; };
 		6DC144972215D3F6007C0A6B /* spatterstart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spatterstart.h; sourceTree = "<group>"; };
@@ -2477,6 +2539,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6DB7749F2458B95E00EDC671 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DB774D62458BAE400EDC671 /* libglkmain.a in Frameworks */,
+				6DB774D52458BAE000EDC671 /* libglkimp.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9611535D0A4F35EE00BB7FF2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2917,6 +2988,35 @@
 			path = fizmo/libfizmo/src/interpreter;
 			sourceTree = "<group>";
 		};
+		6DB774A32458B95E00EDC671 /* bocfel */ = {
+			isa = PBXGroup;
+			children = (
+				6DB774AB2458B9B300EDC671 /* blorb.c */,
+				6DB774AC2458B9B300EDC671 /* branch.c */,
+				6DB774AD2458B9B300EDC671 /* dict.c */,
+				6DB774AE2458B9B300EDC671 /* glkstart.c */,
+				6DB774AF2458B9B300EDC671 /* iff.c */,
+				6DB774B02458B9B300EDC671 /* io.c */,
+				6DB774B12458B9B300EDC671 /* math.c */,
+				6DB774B22458B9B300EDC671 /* memory.c */,
+				6DB774B32458B9B300EDC671 /* meta.c */,
+				6DB774B42458B9B300EDC671 /* objects.c */,
+				6DB774B52458B9B300EDC671 /* osdep.c */,
+				6DB774B62458B9B300EDC671 /* patches.c */,
+				6DB774B72458B9B300EDC671 /* process.c */,
+				6DB774B82458B9B300EDC671 /* random.c */,
+				6DB774B92458B9B300EDC671 /* screen.c */,
+				6DB774BA2458B9B300EDC671 /* sound.c */,
+				6DB774BB2458B9B300EDC671 /* stack.c */,
+				6DB774BC2458B9B300EDC671 /* unicode.c */,
+				6DB774BD2458B9B300EDC671 /* util.c */,
+				6DB774BE2458B9B300EDC671 /* zoom.c */,
+				6DB774BF2458B9B300EDC671 /* zterp.c */,
+			);
+			name = bocfel;
+			path = ../bocfel;
+			sourceTree = "<group>";
+		};
 		6DCFFC1622BCCF600035FA99 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
@@ -3312,6 +3412,7 @@
 				9650381009F2A4430083E64E /* unquill */,
 				C3378A1A1ECF95CB00BCEAE5 /* libSDL_sound_static.a */,
 				6D8BCAD6225E4ACF00696057 /* fizmo */,
+				6DB774A22458B95E00EDC671 /* bocfel */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3388,6 +3489,10 @@
 				961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */,
 				961CCEDB09F239E700528FF9 /* GlkGraphicsWindow.h */,
 				961CCEDC09F239E700528FF9 /* GlkGraphicsWindow.m */,
+				6DB8C1E724599DF8002CDCCB /* ZColor.h */,
+				6DB8C1E824599DF8002CDCCB /* ZColor.m */,
+				6DB8C1EA24599E33002CDCCB /* ZReverseVideo.h */,
+				6DB8C1EB24599E33002CDCCB /* ZReverseVideo.m */,
 				6D85C894218BD6E00088D849 /* HelpPanelController.h */,
 				6D85C895218BD6E00088D849 /* HelpPanelController.m */,
 			);
@@ -3452,6 +3557,7 @@
 		965031AC09F29EE10083E64E /* terps */ = {
 			isa = PBXGroup;
 			children = (
+				6DB774A32458B95E00EDC671 /* bocfel */,
 				6D8BCAD1225E4AA800696057 /* fizmo */,
 				965031AD09F29EE10083E64E /* advsys */,
 				965031BA09F29EE10083E64E /* agility */,
@@ -4724,6 +4830,23 @@
 			productReference = 6D8BCAD6225E4ACF00696057 /* fizmo */;
 			productType = "com.apple.product-type.tool";
 		};
+		6DB774A12458B95E00EDC671 /* bocfel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6DB774AA2458B95E00EDC671 /* Build configuration list for PBXNativeTarget "bocfel" */;
+			buildPhases = (
+				6DB7749E2458B95E00EDC671 /* Sources */,
+				6DB7749F2458B95E00EDC671 /* Frameworks */,
+				6DB774A02458B95E00EDC671 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = bocfel;
+			productName = bocfel;
+			productReference = 6DB774A22458B95E00EDC671 /* bocfel */;
+			productType = "com.apple.product-type.tool";
+		};
 		9611535E0A4F35EE00BB7FF2 /* htmltads */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 961153630A4F362400BB7FF2 /* Build configuration list for PBXNativeTarget "htmltads" */;
@@ -5174,6 +5297,7 @@
 				96A9B9F00A064A4E001B5B9B /* agt2agx */,
 				965038E809F2D3DC0083E64E /* alan2 */,
 				9650391209F2D4A10083E64E /* alan3 */,
+				6DB774A12458B95E00EDC671 /* bocfel */,
 				965036FF09F29F020083E64E /* frotz */,
 				9650384809F2AF280083E64E /* glulxe */,
 				9650387D09F2CC4E0083E64E /* hugo */,
@@ -5269,6 +5393,34 @@
 				6D2C86ED225E8671004A5A75 /* spatterlight-trace.m in Sources */,
 				6D83E103225EC854001A4221 /* libglkif_locales.c in Sources */,
 				6D7F90F6225FEF440069C135 /* mathemat.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6DB7749E2458B95E00EDC671 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DB774C02458B9B300EDC671 /* blorb.c in Sources */,
+				6DB774C12458B9B300EDC671 /* branch.c in Sources */,
+				6DB774C22458B9B300EDC671 /* dict.c in Sources */,
+				6DB774C32458B9B300EDC671 /* glkstart.c in Sources */,
+				6DB774C42458B9B300EDC671 /* iff.c in Sources */,
+				6DB774C52458B9B300EDC671 /* io.c in Sources */,
+				6DB774C62458B9B300EDC671 /* math.c in Sources */,
+				6DB774C72458B9B300EDC671 /* memory.c in Sources */,
+				6DB774C82458B9B300EDC671 /* meta.c in Sources */,
+				6DB774C92458B9B300EDC671 /* objects.c in Sources */,
+				6DB774CA2458B9B300EDC671 /* osdep.c in Sources */,
+				6DB774CB2458B9B300EDC671 /* patches.c in Sources */,
+				6DB774CC2458B9B300EDC671 /* process.c in Sources */,
+				6DB774CD2458B9B300EDC671 /* random.c in Sources */,
+				6DB774CE2458B9B300EDC671 /* screen.c in Sources */,
+				6DB774CF2458B9B300EDC671 /* sound.c in Sources */,
+				6DB774D02458B9B300EDC671 /* stack.c in Sources */,
+				6DB774D12458B9B300EDC671 /* unicode.c in Sources */,
+				6DB774D22458B9B300EDC671 /* util.c in Sources */,
+				6DB774D32458B9B300EDC671 /* zoom.c in Sources */,
+				6DB774D42458B9B300EDC671 /* zterp.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5387,6 +5539,8 @@
 				6DE957B023E3040A003246B6 /* Theme.m in Sources */,
 				6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */,
 				6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */,
+				6DB8C1E924599DF9002CDCCB /* ZColor.m in Sources */,
+				6DB8C1EC24599E33002CDCCB /* ZReverseVideo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6184,6 +6338,52 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/terps/fizmo/libfizmo/src $(PROJECT_DIR)/terps/fizmo/libglkif/src";
+			};
+			name = Release;
+		};
+		6DB774A82458B95E00EDC671 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					ZTERP_GLK,
+					GARGLK,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6DB774A92458B95E00EDC671 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					ZTERP_GLK,
+					GARGLK,
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -7328,6 +7528,15 @@
 			buildConfigurations = (
 				6D8BCADD225E4AD000696057 /* Debug */,
 				6D8BCADE225E4AD000696057 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6DB774AA2458B95E00EDC671 /* Build configuration list for PBXNativeTarget "bocfel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DB774A82458B95E00EDC671 /* Debug */,
+				6DB774A92458B95E00EDC671 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -38,7 +38,6 @@
 
 #include "gi_blorb.h"
 
-#include "fileref.h"
 
 #define giblorb_ID_MOD  (giblorb_make_id('M', 'O', 'D', ' '))
 #define giblorb_ID_OGG  (giblorb_make_id('O', 'G', 'G', 'V'))

@@ -1212,6 +1212,7 @@ void gli_window_put_char(window_t *win, unsigned ch)
     }
 }
 
+
 void glk_window_clear(window_t *win)
 {
     if (!win)
