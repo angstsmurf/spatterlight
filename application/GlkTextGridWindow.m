@@ -11,6 +11,9 @@
 #import "main.h"
 #import "Game.h"
 #import "Metadata.h"
+#import "ZColor.h"
+#import "ZReverseVideo.h"
+
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -359,6 +362,9 @@
 //    NSLog(@"GlkTextGridWindow %ld prefsDidChange", self.name);
     NSRange range = NSMakeRange(0, 0);
     NSRange linkrange = NSMakeRange(0, 0);
+    NSRange zcolrange = NSMakeRange(0, 0);
+    NSRange reverserange = NSMakeRange(0, 0);
+
     NSRange selectedRange = textview.selectedRange;
 
     NSUInteger i;
@@ -398,12 +404,32 @@
                                    atIndex:x
                             effectiveRange:&linkrange];
 
+            id zcolor = [textstorage attribute:@"ZColor"
+                                       atIndex:x
+                                effectiveRange:&zcolrange];
+
+            id reverse = [textstorage attribute:@"ReverseVideo"
+                                        atIndex:x
+                                 effectiveRange:&reverserange];
+
             [line setAttributes:attributes range:range];
 
             if (hyperlink) {
                 [line addAttribute:NSLinkAttributeName
                              value:hyperlink
                              range:linkrange];
+            }
+
+            if (zcolor) {
+                [line addAttribute:@"ZColor"
+                             value:zcolor
+                             range:zcolrange];
+            }
+
+            if (reverse) {
+                [line addAttribute:@"ReverseVideo"
+                             value:reverse
+                             range:reverserange];
             }
 
             x = range.location + range.length;
@@ -426,6 +452,9 @@
         }
         [self initLine:enteredTextSoFar];
     }
+
+    if (self.theme.doStyles)
+        [self applyZColorsAndThenReverse];
 
     textview.selectedRange = selectedRange;
     [self setNeedsDisplay:YES];
@@ -452,11 +481,6 @@
 - (BOOL)allowsDocumentBackgroundColorChange {
     return YES;
 }
-
-- (void)changeDocumentBackgroundColor:(id)sender {
-    NSLog(@"changeDocumentBackgroundColor");
-}
-
 
 - (void)recalcBackground {
     NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
@@ -498,6 +522,8 @@
     }
     return [super resignFirstResponder];
 }
+
+#pragma mark Printing, moving, resizing
 
 - (void)setFrame:(NSRect)frame {
     if (self.glkctl.ignoreResizes)
@@ -777,13 +803,7 @@
     dirty = YES;
 }
 
-- (void)initMouse {
-    mouse_request = YES;
-}
-
-- (void)cancelMouse {
-    mouse_request = NO;
-}
+#pragma mark Hyperlinks
 
 - (void)setHyperlink:(NSUInteger)linkid {
     // NSLog(@"txtgrid: hyperlink %ld set", (long)linkid);
@@ -847,6 +867,16 @@
     return YES;
 }
 
+- (void)initMouse {
+    mouse_request = YES;
+}
+
+- (void)cancelMouse {
+    mouse_request = NO;
+}
+
+#pragma mark Mouse input
+
 - (BOOL)myMouseDown:(NSEvent *)theEvent {
     GlkEvent *gev;
 //    NSLog(@"mousedown in grid window %ld", self.name);
@@ -888,6 +918,8 @@
     }
     return NO;
 }
+
+#pragma mark Single key input
 
 - (void)initChar {
     // NSLog(@"init char in %ld", (long)self.name);
@@ -939,6 +971,8 @@
          [currentTerminators[@(ch)] isEqual:@(YES)]))
         [[input window] makeFirstResponder:nil];
 }
+
+#pragma mark Line input
 
 - (void)initLine:(NSString *)str {
     if (self.terminatorsPending) {
@@ -1051,6 +1085,93 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     NSDictionary *dict = obj.userInfo;
     fieldEditor = dict[@"NSFieldEditor"];
     enteredTextSoFar = [fieldEditor.string copy];
+}
+
+#pragma mark ZColors
+
+- (void)applyZColorsAndThenReverse {
+    NSRange dummyrange;
+    NSDictionary *dict;
+    NSUInteger stylevalue;
+    for (ZColor *z in zColors) {
+        dict = [textstorage attributesAtIndex:z.startpos effectiveRange:&dummyrange];
+        stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+        NSLog(@"Glk style at Zcolor range: %@", gBufferStyleNames[stylevalue]);
+        NSLog(@"Font used at Zcolor range: %@", dict[NSFontAttributeName]);
+        if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+            //            NSLog(@"It has stylehint_ReverseColor set");
+            //            NSLog(@"Applied Zcolor with reversed attributes");
+            dict = [z reversedAttributes:dict];
+        } else {
+            //            NSLog(@"Applied Zcolor normally");
+            dict = [z coloredAttributes:dict];
+        }
+        [textstorage setAttributes:dict range:z.range];
+    }
+    for (ZReverseVideo *r in reverseVideos) {
+        dict = [textstorage attributesAtIndex:r.startpos effectiveRange:&dummyrange];
+        NSLog(@"Font used at reverse video range: %@", dict[NSFontAttributeName]);
+        stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+        BOOL zcolorValue = (dict[@"ZColor"] != nil);
+        if (!([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
+            //            NSLog(@"Applying reverse video at %@. ZColor at this range is %@.", NSStringFromRange(r.range), dict[@"ZColor"]);
+            dict = [r reversedAttributes:dict background:self.theme.bufferBackground];
+            [textstorage setAttributes:dict range:r.range];
+        }
+    }
+}
+
+- (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
+
+    NSUInteger length = ypos * (cols + 1) + xpos;
+
+    if (currentZColor && !(currentZColor.fg == fg && currentZColor.bg == bg)) {
+        if (currentZColor.startpos < length) {
+            currentZColor.range =
+            NSMakeRange(currentZColor.startpos,
+                        length - currentZColor.startpos);
+            if (!zColors)
+                zColors = [[NSMutableArray alloc] init];
+            [zColors addObject:currentZColor];
+            currentZColor.index = zColors.count - 1;
+            [textstorage addAttribute:@"ZColor"
+                                value:@(currentZColor.index)
+                                range:currentZColor.range];
+        }
+        currentZColor = nil;
+    }
+    if (!currentZColor && !(fg == zcolor_Default && bg == zcolor_Default)) {
+        currentZColor =
+        [[ZColor alloc] initWithText:fg background:bg andLocation:length];
+    }
+}
+
+- (void)setReverseVideo:(BOOL)reverse {
+    //    NSLog(@"txtbuf: setReverseVideo %@", reverse ? @"on" : @"off");
+
+    NSUInteger length = ypos * (cols + 1) + xpos;
+
+    if (currentReverseVideo && !reverse) {
+        if (currentReverseVideo.startpos < length) {
+            currentReverseVideo.range =
+            NSMakeRange(currentReverseVideo.startpos,
+                        length - currentReverseVideo.startpos);
+            if (!reverseVideos)
+                reverseVideos = [[NSMutableArray alloc] init];
+            [reverseVideos addObject:currentReverseVideo];
+            currentReverseVideo.index = reverseVideos.count - 1;
+            [textstorage addAttribute:@"ReverseVideo"
+                                value:@(currentReverseVideo.index)
+                                range:currentReverseVideo.range];
+            NSLog(@"Added reverse video object %ld with range %@", reverseVideos.count - 1, NSStringFromRange(currentReverseVideo.range));
+        }
+        currentReverseVideo = nil;
+    }
+    if (!currentReverseVideo && reverse) {
+        currentReverseVideo =
+        [[ZReverseVideo alloc] initWithLocation:length];
+        NSLog(@"Reverse video was switched on at position %ld", length);
+    }
 }
 
 #pragma mark Accessibility
