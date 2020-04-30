@@ -2546,6 +2546,7 @@ static NSString *signalToName(NSTask *task) {
         [win terpDidStop];
 
     self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
+    [self performScroll];
     task = nil;
 
     // We autosave the UI but delete the terp autosave files
