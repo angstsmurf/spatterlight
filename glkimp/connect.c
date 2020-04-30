@@ -663,6 +663,8 @@ again:
                     gli_stream_echo_line(event->win->echostr, event->win->line.buf, event->val1);
             }
 
+            event->win->str->readcount += event->val1;
+            
             if (gli_unregister_arr)
             {
                 (*gli_unregister_arr)(event->win->line.buf, event->win->line.cap,
