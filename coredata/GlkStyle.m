@@ -131,6 +131,7 @@
     NSInteger value, r, b, g;
     NSUInteger i;
     NSColor *color;
+    NSFontTraitMask mask;
 
     for (i = 0 ; i < stylehint_NUMHINTS ; i++ ){
         if ([hints[i] isNotEqualTo:[NSNull null]]) {
@@ -202,9 +203,24 @@
                     if (value == 1)
                         font = [fontmgr convertFont:font
                                      toNotHaveTrait:NSFixedPitchFontMask];
-                    else
+                    else {
                         font = [fontmgr convertFont:font
                                         toHaveTrait:NSFixedPitchFontMask];
+
+                        // This usually does not work, so we hack it to use the preformatted style font
+                        if (![self testGridStyle] && ([fontmgr traitsOfFont:font] & NSFixedPitchFontMask) != NSFixedPitchFontMask) {
+                            Theme *theme = [self findTheme];
+                            if (theme) {
+                                NSFont *fixedWidth = theme.bufPre.font;
+                                mask = [fontmgr traitsOfFont:font];
+                                if (mask & NSItalicFontMask)
+                                    fixedWidth = [fontmgr convertFont:fixedWidth toHaveTrait:NSItalicFontMask];
+                                if (mask & NSBoldFontMask)
+                                    fixedWidth = [fontmgr convertFont:fixedWidth toHaveTrait:NSBoldFontMask];
+                                font = fixedWidth;
+                            }
+                        }
+                    }
                     break;
 
                     /*
