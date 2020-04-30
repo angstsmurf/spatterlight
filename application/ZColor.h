@@ -14,6 +14,8 @@
 @property NSInteger bg;
 @property NSColor *foregroundColor;
 @property NSColor *backgroundColor;
+@property NSUInteger index;
+@property NSUInteger startpos;
 @property NSRange range;
 
 - (instancetype)initWithText:(NSInteger)fg background:(NSInteger)bg

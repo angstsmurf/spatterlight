@@ -10,6 +10,8 @@
 
 @interface ZReverseVideo : NSObject
 
+@property NSUInteger index;
+@property NSUInteger startpos;
 @property NSRange range;
 
 - (instancetype)initWithLocation:(NSUInteger)location;

@@ -16,7 +16,7 @@
     if (self) {
         _fg = fg;
         _bg = bg;
-        _range = NSMakeRange(location, 0);
+        _startpos = location;
     }
 
     return self;
@@ -27,10 +27,14 @@
     _bg = [decoder decodeIntegerForKey:@"bg"];
     NSValue *rangeVal = [decoder decodeObjectForKey:@"range"];
     _range = rangeVal.rangeValue;
+    _index = (NSUInteger)[decoder decodeIntegerForKey:@"index"];
+    _startpos = (NSUInteger)[decoder decodeIntegerForKey:@"startpos"];
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeInteger:(NSInteger)_index forKey:@"index"];
+    [encoder encodeInteger:(NSInteger)_startpos forKey:@"startpos"];
     [encoder encodeInteger:_fg forKey:@"fg"];
     [encoder encodeInteger:_bg forKey:@"bg"];
     NSValue *rangeVal = [NSValue valueWithRange:_range];

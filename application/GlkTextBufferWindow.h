@@ -96,6 +96,8 @@
     BOOL storedNewline;
     NSUInteger storedNewlineStyle;
 
+    NSUInteger lastStyle;
+
     // for temporarily storing scroll position
     NSUInteger lastVisible; 
     CGFloat lastScrollOffset;
