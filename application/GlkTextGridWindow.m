@@ -378,9 +378,6 @@
 
     textview.textContainerInset = NSMakeSize(marginX, marginY);
 
-    [textstorage removeAttribute:NSBackgroundColorAttributeName
-                           range:NSMakeRange(0, textstorage.length)];
-
     /* reassign styles to attributedstrings */
     for (i = 0; i < rows; i++) {
         NSRange lineRange = NSMakeRange(i * cols, cols);
@@ -797,7 +794,7 @@
         //        NSLog(@"There is a preliminary hyperlink, with index %ld",
         //        currentHyperlink.index);
         if (currentHyperlink.startpos >= length) {
-            //            NSLog(@"The preliminary hyperlink started at the very
+            //            NSLog(@"The preliminary hyperlink started and ended at the very
             //            end of grid window text, so it was deleted to avoid a
             //            zero-length link. currentHyperlink.startpos == %ld,
             //            length == %ld", currentHyperlink.startpos, length);

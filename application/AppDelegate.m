@@ -79,7 +79,8 @@ NSDictionary *gFormatMap;
                    @"quill" : @"unquill",
                    @"tads2" : @"tadsr",
                    @"tads3" : @"tadsr",
-                   @"zcode" : @"frotz"
+                   @"zcode" : @"bocfel"
+//                   @"zcode" : @"frotz"
 //                   @"zcode": @"fizmo"
                    };
 

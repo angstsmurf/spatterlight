@@ -1745,7 +1745,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeAdjustSize:(id)sender {
-    _adjustSize = [sender state];
+    _adjustSize = (BOOL)[sender state];
     [[NSUserDefaults standardUserDefaults] setBool:_adjustSize forKey:@"AdjustSize"];
 }
 

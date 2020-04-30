@@ -237,10 +237,11 @@
 
 
                 case stylehint_ReverseColor:
-                    if ([hints[stylehint_TextColor] isEqual:[NSNull null]] &&
+                    if (value == 1 && [hints[stylehint_TextColor] isEqual:[NSNull null]] &&
                         [hints[stylehint_BackColor] isEqual:[NSNull null]]) {
-                        NSColor *bgcolor = (self.attributeDict)[NSBackgroundColorAttributeName];
-                        NSColor *fgcolor = self.color;
+//                  if (value == 1) {
+                        NSColor *bgcolor = attributes[NSBackgroundColorAttributeName];
+                        NSColor *fgcolor = attributes[NSForegroundColorAttributeName];
 
                         if (!bgcolor) {
                             Theme *theme = [self findTheme];

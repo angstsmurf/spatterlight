@@ -1,13 +1,20 @@
-@class GlkController, GlkHyperlink, Theme;
+@class GlkController, GlkHyperlink, Theme, ZColor, ZReverseVideo;
 
 @interface GlkWindow : NSView {
 
     NSMutableArray *hyperlinks;
     GlkHyperlink *currentHyperlink;
+
+    NSMutableArray *zColors;
+    ZColor *currentZColor;
+
+    NSMutableArray *reverseVideos;
+    ZReverseVideo *currentReverseVideo;
+
     NSMutableDictionary *currentTerminators;
 
-    // An array of attribute dictionaries,
-    // with style hints applied if use hints
+    // An array of attribute dictionaries, with
+    // style hints applied if the "use hints"
     // option is on for this theme
     NSMutableArray *styles;
 
@@ -38,6 +45,7 @@
 - (void)setBgColor:(NSInteger)bc;
 - (void)clear;
 - (void)putString:(NSString *)buf style:(NSUInteger)style;
+- (void)unputString:(NSString *)buf;
 - (void)moveToColumn:(NSUInteger)x row:(NSUInteger)y;
 - (void)initLine:(NSString *)buf;
 - (void)initChar;
@@ -48,6 +56,9 @@
 - (void)setHyperlink:(NSUInteger)linkid;
 - (void)initHyperlink;
 - (void)cancelHyperlink;
+
+- (void)setZColorText:(NSInteger)fg background:(NSInteger)bg;
+- (void)setReverseVideo:(BOOL)reverse;
 
 - (void)fillRects:(struct fillrect *)rects count:(NSInteger)n;
 - (void)drawImage:(NSImage *)buf

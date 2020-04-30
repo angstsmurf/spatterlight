@@ -1,4 +1,6 @@
 #import "main.h"
+#import "ZColor.h"
+#import "ZReverseVideo.h"
 
 @implementation GlkWindow
 
@@ -26,6 +28,7 @@
                                @(NO), @keycode_Func12,
                                @(NO),
                                @keycode_Escape, nil];
+
         currentTerminators = _pendingTerminators;
         _terminatorsPending = NO;
     }
@@ -46,6 +49,10 @@
         char_request = [decoder decodeBoolForKey:@"char_request"];
         _styleHints = [decoder decodeObjectForKey:@"styleHints"];
         styles = [decoder decodeObjectForKey:@"styles"];
+        zColors = [decoder decodeObjectForKey:@"zColors"];
+        currentZColor = [decoder decodeObjectForKey:@"currentZColor"];
+        reverseVideos = [decoder decodeObjectForKey:@"reverseVideos"];
+        currentReverseVideo = [decoder decodeObjectForKey:@"currentReverseVideo"];
     }
     return self;
 }
@@ -62,6 +69,10 @@
     [encoder encodeBool:char_request forKey:@"char_request"];
     [encoder encodeObject:_styleHints forKey:@"styleHints"];
     [encoder encodeObject:styles forKey:@"styles"];
+    [encoder encodeObject:zColors forKey:@"zColors"];
+    [encoder encodeObject:currentZColor forKey:@"currentZColor"];
+    [encoder encodeObject:reverseVideos forKey:@"reverseVideos"];
+    [encoder encodeObject:currentReverseVideo forKey:@"currentReverseVideo"];
 }
 
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array {
@@ -155,6 +166,10 @@
     NSLog(@"print in %@ not implemented", [self class]);
 }
 
+- (void)unputString:(NSString *)buf {
+    NSLog(@"unprint in %@ not implemented", [self class]);
+}
+
 - (void)moveToColumn:(NSUInteger)x row:(NSUInteger)y {
     NSLog(@"move cursor in %@ not implemented", [self class]);
 }
@@ -190,6 +205,14 @@
 
 - (void)cancelHyperlink {
     NSLog(@"hyperlink input in %@ not implemented", [self class]);
+}
+
+- (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
+    NSLog(@"ZColors in %@ not implemented", [self class]);
+}
+
+- (void)setReverseVideo:(BOOL)reverse {
+    NSLog(@"Reverse video in %@ not implemented", [self class]);
 }
 
 - (BOOL)hasLineRequest {

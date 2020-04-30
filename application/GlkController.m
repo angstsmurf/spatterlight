@@ -22,20 +22,21 @@ fprintf(stderr, "%s\n",                                                    \
 #define MINTIMER 1 /* The game Transparent needs a timer this frequent */
 
 //static const char *msgnames[] = {
-//    "NOREPLY",         "OKAY",       "ERROR",       "HELLO",
-//    "PROMPTOPEN",      "PROMPTSAVE", "NEWWIN",      "DELWIN",
-//    "SIZWIN",          "CLRWIN",     "MOVETO",      "PRINT",
-//    "MAKETRANSPARENT", "STYLEHINT",  "CLEARHINT",   "STYLEMEASURE",
-//    "SETBGND",         "SETTITLE",   "AUTOSAVE",    "RESET",
-//    "TIMER",           "INITCHAR",   "CANCELCHAR",  "INITLINE",
-//    "CANCELLINE",      "SETECHO",    "TERMINATORS", "INITMOUSE",
-//    "CANCELMOUSE",     "FILLRECT",   "FINDIMAGE",   "LOADIMAGE",
-//    "SIZEIMAGE",       "DRAWIMAGE",  "FLOWBREAK",   "NEWCHAN",
-//    "DELCHAN",         "FINDSOUND",  "LOADSOUND",   "SETVOLUME",
-//    "PLAYSOUND",       "STOPSOUND",  "SETLINK",     "INITLINK",
-//    "CANCELLINK",      "EVTHYPER",   "NEXTEVENT",   "EVTARRANGE",
-//    "EVTLINE",         "EVTKEY",     "EVTMOUSE",    "EVTTIMER",
-//    "EVTSOUND",        "EVTVOLUME",  "EVTPREFS"};
+//    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
+//    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
+//    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
+//    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
+//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
+//    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
+//    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
+//    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
+//    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
+//    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
+//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "SETLINK",
+//    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
+//    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
+//    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
+//    "EVTVOLUME",       "EVTPREFS"};
 
 //static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 //    "wintype_Blank",    "wintype_TextBuffer",
@@ -2295,15 +2296,19 @@ NSInteger colorToInteger(NSColor *color) {
             }
             break;
 
+        case UNPRINT:
+            if (reqWin) {
+                [reqWin unputString:
+                 [NSString stringWithCharacters:(unichar *)buf
+                                         length:req->len / sizeof(unichar)]];
+            }
+            break;
+
         case MOVETO:
             if (reqWin) {
-                int x = req->a2;
-                int y = req->a3;
-                if (x < 0)
-                    x = 10000;
-                if (y < 0)
-                    y = 10000;
-                [reqWin moveToColumn:(NSUInteger)x row:(NSUInteger)y];
+                NSUInteger x = (NSUInteger)req->a2;
+                NSUInteger y = (NSUInteger)req->a3;
+                [reqWin moveToColumn:x row:y];
             }
             break;
 
@@ -2326,6 +2331,18 @@ NSInteger colorToInteger(NSColor *color) {
             NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
             if (reqWin) {
                 [reqWin flowBreak];
+            }
+            break;
+
+        case SETZCOLOR:
+            if (reqWin) {
+                [reqWin setZColorText:req->a2 background:req->a3];
+            }
+            break;
+
+        case SETREVERSE:
+            if (reqWin) {
+                [reqWin setReverseVideo:(req->a2 != 0)];
             }
             break;
 
