@@ -181,11 +181,20 @@ void win_print(int name, int ch, int at)
 
 /* Gargoyle glue */
 
-void win_unprint(int name, char *str, int len)
+void win_unprint(int name, glui32 *s, int len)
 {
+
+    win_flush();
+
+    glui32 ix;
+    for (ix=0; ix<len; ix++) {
+         pbuf[ix] = s[ix];
+    }
+
+    fprintf(stderr, "win_unprint win %d len %d string %s\n", name, len, (char *)pbuf);
     sendmsg(UNPRINT, name, 0, 0, 0, 0,
             len * sizeof(unsigned short),
-            str);
+            (char *)pbuf);
 }
 
 void wintitle(void)
@@ -340,10 +349,16 @@ void win_cancelchar(int name)
     sendmsg(CANCELCHAR, name, 0, 0, 0, 0, 0, NULL);
 }
 
-void win_initline(int name, int cap, int len, char *buf)
+void win_initline(int name, int cap, int len, glui32 *buf)
 {
     win_flush();
-    sendmsg(INITLINE, name, cap, 0, 0, 0, len, buf);
+
+    glui32 ix;
+    for (ix=0; ix<len; ix++) {
+        pbuf[ix] = buf[ix];
+    }
+
+    sendmsg(INITLINE, name, cap, 0, 0, 0, len * sizeof(unsigned short), (char *)pbuf);
 }
 
 void win_cancelline(int name, int cap, int *len, char *buf)

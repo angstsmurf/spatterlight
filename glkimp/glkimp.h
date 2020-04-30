@@ -58,7 +58,7 @@ void win_maketransparent(int name);
 
 void win_initchar(int name);
 void win_cancelchar(int name);
-void win_initline(int name, int cap, int len, char *buf);
+void win_initline(int name, int cap, int len, glui32 *buf);
 void win_cancelline(int name, int cap, int *len, char *buf);
 void win_setlink(int name, int val);
 void win_initlink(int name);
@@ -75,6 +75,7 @@ void win_timer(int millisecs);
 void win_select(event_t *event, int block);
 void win_flush(void);
 void win_print(int name, int ch, int at);
+void win_unprint(int name, glui32 *s, int len);
 
 void win_fillrect(int name, glui32 color, int left, int top, int width, int height);
 void win_flowbreak(int name);

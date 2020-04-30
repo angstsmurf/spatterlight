@@ -1985,6 +1985,17 @@ NSInteger colorToInteger(NSColor *color) {
     }
 }
 
+- (void)handleUnprintOnWindow:(GlkWindow *)win string:(unichar *)buf length:(int)len {
+
+    NSString *str = [NSString stringWithCharacters:buf length:(NSUInteger)len];
+
+    if (str == nil || str.length < 2)
+        return;
+
+    [win unputString:str];
+}
+
+
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
@@ -2297,10 +2308,8 @@ NSInteger colorToInteger(NSColor *color) {
             break;
 
         case UNPRINT:
-            if (reqWin) {
-                [reqWin unputString:
-                 [NSString stringWithCharacters:(unichar *)buf
-                                         length:req->len / sizeof(unichar)]];
+            if (reqWin && req->len) {
+                [self handleUnprintOnWindow:reqWin string:(unichar *)buf length:req->len / sizeof(unichar)];
             }
             break;
 
@@ -2352,10 +2361,7 @@ NSInteger colorToInteger(NSColor *color) {
             // NSLog(@"glkctl INITLINE %d", req->a1);
             [self performScroll];
             if (reqWin) {
-                [reqWin initLine:[[NSString alloc]
-                                  initWithData:[NSData dataWithBytes:buf
-                                                              length:req->len]
-                                  encoding:NSUTF8StringEncoding]];
+                [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)]];
             }
             break;
 

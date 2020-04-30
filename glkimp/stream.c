@@ -1873,7 +1873,11 @@ void gli_sanity_check_streams()
 
 void garglk_unput_string_uni(glui32 *s)
 {
-    gli_unput_buffer_uni(gli_currentstr, s, strlen_uni(s));
+    int len = strlen_uni(s);
+    win_unprint(gli_currentstr->win->peer, (glui32 *)s,  len);
+    gli_currentstr->win->str->writecount -= len;
+    if (gli_currentstr->win->echostr)
+        gli_currentstr->win->echostr->writecount -= len;
 }
 
 void garglk_unput_string(char *s)

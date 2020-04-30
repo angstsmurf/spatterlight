@@ -1877,19 +1877,12 @@
     lastStyle = stylevalue;
 }
 
-- (NSString *)blueOrRed:(NSColor *)color {
-    if (color == nil || [color isEqual:[NSNull null]] )
-        return @"nothing";
-    CGFloat r, g, b, a;
-       color = [color colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-
-    [color getRed:&r green:&g blue:&b alpha:&a];
-    if (r == 1 && b == 0 && g == 0) return @"red";
-    if (r == 0 && b == 1 && g == 0)  return @"blue";
-    if (r == 0 && b == 0 && g == 1)  return @"green";
-
-    return @"neither red nor blue";
-
+- (void)unputString:(NSString *)buf {
+    NSLog(@"GlkTextBufferWindow %ld unputString %@", self.name, buf);
+    NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length];
+    if ([stringToRemove isEqualToString:buf]) {
+        [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
+    }
 }
 
 - (void)initChar {
@@ -1915,7 +1908,7 @@
 }
 
 - (void)initLine:(NSString *)str {
-    // NSLog(@"initLine: %@ in: %d", str, name);
+//    NSLog(@"initLine: %@ in: %ld", str, (long)self.name);
 
     historypos = historypresent;
 
