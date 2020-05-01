@@ -271,6 +271,8 @@
         textview.usesFontPanel = NO;
         _restoredSelection = NSMakeRange(0, 0);
 
+        lastStyle = style_NUMSTYLES;
+
         [self addSubview:scrollview];
         [self recalcBackground];
     }
@@ -305,6 +307,8 @@
 
         dirty = YES;
         transparent = [decoder decodeBoolForKey:@"transparent"];
+
+        lastStyle = (NSUInteger)[decoder decodeIntegerForKey:@"lastStyle"];
         _restoredSelection =
         ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"])
         .rangeValue;
@@ -345,6 +349,7 @@
     [encoder encodeInteger:(NSInteger)xpos forKey:@"xpos"];
     [encoder encodeInteger:(NSInteger)ypos forKey:@"ypos"];
     [encoder encodeBool:transparent forKey:@"transparent"];
+    [encoder encodeInteger:(NSInteger)lastStyle forKey:@"lastStyle"];
     NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
     if (fieldEditor && fieldEditor.textStorage.string.length) {
@@ -716,7 +721,39 @@
 //
 //    NSLog(@"self.frame.size.width: %f",self.frame.size.width);
 
-    NSMutableDictionary *attrDict = styles[stylevalue];
+    NSDictionary *attrDict = styles[stylevalue];
+
+    if (currentZColor) {
+        if (lastStyle != stylevalue && currentZColor.startpos != textstorage.length) {
+            NSInteger storedfg = currentZColor.fg;
+            NSInteger storedbg = currentZColor.bg;
+            [self setZColorText:zcolor_Default background:zcolor_Default];
+            [self setZColorText:storedfg background:storedbg];
+        }
+
+        if (self.theme.doStyles) {
+            if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+                attrDict = [currentZColor reversedAttributes:attrDict];
+                //  If the style has the reverseColor hint set, we apply the zcolors in reverse
+            } else {
+                attrDict = [currentZColor coloredAttributes:attrDict];
+                // Otherwise we apply the zcolors normally");
+            }
+        }
+    }
+
+    if (currentReverseVideo) {
+        if (lastStyle != stylevalue && currentReverseVideo.startpos != textstorage.length) {
+            [self setReverseVideo:NO];
+            [self setReverseVideo:YES];
+        }
+        if (self.theme.doStyles) {
+            if ( [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
+                //  Because current colours are not already reversed by stylehint_ReverseColor, we reverse colors
+                attrDict = [currentReverseVideo reversedAttributes:attrDict background:self.theme.gridBackground];
+            }
+        }
+    }
 
     if (!attrDict)
         NSLog(@"GlkTextGridWindow printToWindow: ERROR! Style dictionary nil!");
@@ -801,6 +838,7 @@
     // NSStringFromRange(selectedRange));
     textview.selectedRange = selectedRange;
     dirty = YES;
+    lastStyle = stylevalue;
 }
 
 #pragma mark Hyperlinks
@@ -811,15 +849,8 @@
     NSUInteger length = ypos * (cols + 1) + xpos;
 
     if (currentHyperlink && currentHyperlink.index != linkid) {
-        //        NSLog(@"There is a preliminary hyperlink, with index %ld",
-        //        currentHyperlink.index);
-        if (currentHyperlink.startpos >= length) {
-            //            NSLog(@"The preliminary hyperlink started and ended at the very
-            //            end of grid window text, so it was deleted to avoid a
-            //            zero-length link. currentHyperlink.startpos == %ld,
-            //            length == %ld", currentHyperlink.startpos, length);
-            currentHyperlink = nil;
-        } else {
+        // A hyperlink run finished
+        if (currentHyperlink.startpos < length) {
             currentHyperlink.range = NSMakeRange(
                                                  currentHyperlink.startpos, length - currentHyperlink.startpos);
             [hyperlinks addObject:currentHyperlink];
@@ -830,14 +861,13 @@
                                 range:currentHyperlink.range];
 
             dirty = YES;
-            currentHyperlink = nil;
         }
+        currentHyperlink = nil;
     }
     if (!currentHyperlink && linkid) {
+        // New hyperlink run started
         currentHyperlink = [[GlkHyperlink alloc] initWithIndex:linkid
                                                         andPos:length];
-        // NSLog(@"New preliminary hyperlink started at position %ld, with link
-        // index %ld", currentHyperlink.startpos,linkid);
     }
 }
 

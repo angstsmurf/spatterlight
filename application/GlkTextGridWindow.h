@@ -19,6 +19,8 @@
     BOOL dirty;
     BOOL transparent;
 
+    NSUInteger lastStyle;
+
     NSTextView *fieldEditor;
     NSString *enteredTextSoFar;
 }
