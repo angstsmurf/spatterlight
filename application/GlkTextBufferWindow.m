@@ -2302,14 +2302,12 @@
     for (ZColor *z in zColors) {
         dict = [textstorage attributesAtIndex:z.startpos effectiveRange:&dummyrange];
         stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
-        NSLog(@"Glk style at Zcolor range: %@", gBufferStyleNames[stylevalue]);
-        NSLog(@"Font used at Zcolor range: %@", dict[NSFontAttributeName]);
         if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
-//            NSLog(@"It has stylehint_ReverseColor set");
-//            NSLog(@"Applied Zcolor with reversed attributes");
+            // Style here has stylehint_ReverseColor set to 1");
+            // so we apply the zcolor with flipped foreground and background");
             dict = [z reversedAttributes:dict];
         } else {
-//            NSLog(@"Applied Zcolor normally");
+            // Apply the zcolor without flipping
             dict = [z coloredAttributes:dict];
         }
         [textstorage setAttributes:dict range:z.range];
@@ -2317,11 +2315,11 @@
 
     for (ZReverseVideo *r in reverseVideos) {
         dict = [textstorage attributesAtIndex:r.startpos effectiveRange:&dummyrange];
-        NSLog(@"Font used at reverse video range: %@", dict[NSFontAttributeName]);
         stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
         BOOL zcolorValue = (dict[@"ZColor"] != nil);
         if (!([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
-//            NSLog(@"Applying reverse video at %@. ZColor at this range is %@.", NSStringFromRange(r.range), dict[@"ZColor"]);
+            // If the colours are not already flipped due to stylehint_ReverseColor
+            // we flip them here
             dict = [r reversedAttributes:dict background:self.theme.bufferBackground];
             [textstorage setAttributes:dict range:r.range];
         }
@@ -2331,6 +2329,7 @@
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
     if (currentZColor && !(currentZColor.fg == fg && currentZColor.bg == bg)) {
         if (currentZColor.startpos < textstorage.length) {
+            // A run of zcolor ended
             [_textview resetTextFinder];
             currentZColor.range =
             NSMakeRange(currentZColor.startpos,
@@ -2346,6 +2345,7 @@
         currentZColor = nil;
     }
     if (!currentZColor && !(fg == zcolor_Default && bg == zcolor_Default)) {
+        // A run of zcolor started
         currentZColor =
         [[ZColor alloc] initWithText:fg background:bg andLocation:textstorage.length];
     }
@@ -2355,6 +2355,7 @@
 //    NSLog(@"txtbuf: setReverseVideo %@", reverse ? @"on" : @"off");
 
     if (currentReverseVideo && !reverse) {
+        // A run of reverse video ended
         if (currentReverseVideo.startpos < textstorage.length) {
             [_textview resetTextFinder];
             currentReverseVideo.range =
@@ -2367,14 +2368,13 @@
             [textstorage addAttribute:@"ReverseVideo"
                                 value:@(currentReverseVideo.index)
                                 range:currentReverseVideo.range];
-            NSLog(@"Added reverse video object %ld with range %@", reverseVideos.count - 1, NSStringFromRange(currentReverseVideo.range));
         }
         currentReverseVideo = nil;
     }
     if (!currentReverseVideo && reverse) {
+        // A run of reverse video started
         currentReverseVideo =
         [[ZReverseVideo alloc] initWithLocation:textstorage.length];
-        NSLog(@"Reverse video was switched on at position %ld", textstorage.length);
     }
 }
 
