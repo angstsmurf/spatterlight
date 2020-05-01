@@ -1198,27 +1198,27 @@
 		6DB6B519219E31BF0039D2D7 /* fileref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fileref.m; sourceTree = "<group>"; };
 		6DB6B51B219E38870039D2D7 /* fileref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileref.h; sourceTree = "<group>"; };
 		6DB774A22458B95E00EDC671 /* bocfel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bocfel; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DB774AB2458B9B300EDC671 /* blorb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = blorb.c; path = terps/bocfel/blorb.c; sourceTree = SOURCE_ROOT; };
-		6DB774AC2458B9B300EDC671 /* branch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = branch.c; path = terps/bocfel/branch.c; sourceTree = SOURCE_ROOT; };
-		6DB774AD2458B9B300EDC671 /* dict.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = dict.c; path = terps/bocfel/dict.c; sourceTree = SOURCE_ROOT; };
-		6DB774AE2458B9B300EDC671 /* glkstart.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = glkstart.c; path = terps/bocfel/glkstart.c; sourceTree = SOURCE_ROOT; };
-		6DB774AF2458B9B300EDC671 /* iff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = iff.c; path = terps/bocfel/iff.c; sourceTree = SOURCE_ROOT; };
-		6DB774B02458B9B300EDC671 /* io.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = io.c; path = terps/bocfel/io.c; sourceTree = SOURCE_ROOT; };
-		6DB774B12458B9B300EDC671 /* math.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = math.c; path = terps/bocfel/math.c; sourceTree = SOURCE_ROOT; };
-		6DB774B22458B9B300EDC671 /* memory.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = memory.c; path = terps/bocfel/memory.c; sourceTree = SOURCE_ROOT; };
-		6DB774B32458B9B300EDC671 /* meta.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = meta.c; path = terps/bocfel/meta.c; sourceTree = SOURCE_ROOT; };
-		6DB774B42458B9B300EDC671 /* objects.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = objects.c; path = terps/bocfel/objects.c; sourceTree = SOURCE_ROOT; };
-		6DB774B52458B9B300EDC671 /* osdep.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osdep.c; path = terps/bocfel/osdep.c; sourceTree = SOURCE_ROOT; };
-		6DB774B62458B9B300EDC671 /* patches.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = patches.c; path = terps/bocfel/patches.c; sourceTree = SOURCE_ROOT; };
-		6DB774B72458B9B300EDC671 /* process.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = process.c; path = terps/bocfel/process.c; sourceTree = SOURCE_ROOT; };
-		6DB774B82458B9B300EDC671 /* random.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = random.c; path = terps/bocfel/random.c; sourceTree = SOURCE_ROOT; };
-		6DB774B92458B9B300EDC671 /* screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = screen.c; path = terps/bocfel/screen.c; sourceTree = SOURCE_ROOT; };
-		6DB774BA2458B9B300EDC671 /* sound.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = sound.c; path = terps/bocfel/sound.c; sourceTree = SOURCE_ROOT; };
-		6DB774BB2458B9B300EDC671 /* stack.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = stack.c; path = terps/bocfel/stack.c; sourceTree = SOURCE_ROOT; };
-		6DB774BC2458B9B300EDC671 /* unicode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = unicode.c; path = terps/bocfel/unicode.c; sourceTree = SOURCE_ROOT; };
-		6DB774BD2458B9B300EDC671 /* util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = util.c; path = terps/bocfel/util.c; sourceTree = SOURCE_ROOT; };
-		6DB774BE2458B9B300EDC671 /* zoom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = zoom.c; path = terps/bocfel/zoom.c; sourceTree = SOURCE_ROOT; };
-		6DB774BF2458B9B300EDC671 /* zterp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = zterp.c; path = terps/bocfel/zterp.c; sourceTree = SOURCE_ROOT; };
+		6DB774AB2458B9B300EDC671 /* blorb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blorb.c; sourceTree = "<group>"; };
+		6DB774AC2458B9B300EDC671 /* branch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = branch.c; sourceTree = "<group>"; };
+		6DB774AD2458B9B300EDC671 /* dict.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
+		6DB774AE2458B9B300EDC671 /* glkstart.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = glkstart.c; sourceTree = "<group>"; };
+		6DB774AF2458B9B300EDC671 /* iff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = iff.c; sourceTree = "<group>"; };
+		6DB774B02458B9B300EDC671 /* io.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = io.c; sourceTree = "<group>"; };
+		6DB774B12458B9B300EDC671 /* math.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = math.c; sourceTree = "<group>"; };
+		6DB774B22458B9B300EDC671 /* memory.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
+		6DB774B32458B9B300EDC671 /* meta.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = meta.c; sourceTree = "<group>"; };
+		6DB774B42458B9B300EDC671 /* objects.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = objects.c; sourceTree = "<group>"; };
+		6DB774B52458B9B300EDC671 /* osdep.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = osdep.c; sourceTree = "<group>"; };
+		6DB774B62458B9B300EDC671 /* patches.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = patches.c; sourceTree = "<group>"; };
+		6DB774B72458B9B300EDC671 /* process.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = process.c; sourceTree = "<group>"; };
+		6DB774B82458B9B300EDC671 /* random.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = random.c; sourceTree = "<group>"; };
+		6DB774B92458B9B300EDC671 /* screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = screen.c; sourceTree = "<group>"; };
+		6DB774BA2458B9B300EDC671 /* sound.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
+		6DB774BB2458B9B300EDC671 /* stack.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
+		6DB774BC2458B9B300EDC671 /* unicode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
+		6DB774BD2458B9B300EDC671 /* util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		6DB774BE2458B9B300EDC671 /* zoom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zoom.c; sourceTree = "<group>"; };
+		6DB774BF2458B9B300EDC671 /* zterp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zterp.c; sourceTree = "<group>"; };
 		6DB8C1E724599DF8002CDCCB /* ZColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZColor.h; sourceTree = "<group>"; };
 		6DB8C1E824599DF8002CDCCB /* ZColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZColor.m; sourceTree = "<group>"; };
 		6DB8C1EA24599E33002CDCCB /* ZReverseVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZReverseVideo.h; sourceTree = "<group>"; };
@@ -3013,8 +3013,7 @@
 				6DB774BE2458B9B300EDC671 /* zoom.c */,
 				6DB774BF2458B9B300EDC671 /* zterp.c */,
 			);
-			name = bocfel;
-			path = ../bocfel;
+			path = bocfel;
 			sourceTree = "<group>";
 		};
 		6DCFFC1622BCCF600035FA99 /* coredata */ = {
