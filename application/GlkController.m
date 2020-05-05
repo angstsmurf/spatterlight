@@ -177,7 +177,6 @@ fprintf(stderr, "%s\n",                                                    \
                           @"leading" : @(0)
                           };
 
-    _queue = [[NSMutableArray alloc] init];
     _gwindows = [[NSMutableDictionary alloc] init];
     bufferedData = nil;
 
@@ -486,6 +485,8 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }];
 
+    _queue = [[NSMutableArray alloc] init];
+
     [task launch];
     dead = NO;
 
@@ -494,13 +495,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     gevent = [[GlkEvent alloc] initPrefsEvent];
     [self queueEvent:gevent];
-
     gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
                                          height:(NSInteger)_contentView.frame.size.height
                                           theme:_theme
                                           force:NO];
     [self queueEvent:gevent];
-
+    restartingAlready = NO;
 }
 
 #pragma mark Autorestore
@@ -905,6 +905,11 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (IBAction)reset:(id)sender {
+    if (restartingAlready)
+        return;
+
+    restartingAlready = YES;
+
     [self handleSetTimer:0];
 
     if (task) {
@@ -916,6 +921,10 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     [self deleteAutosaveFiles];
+    [self performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.1];
+}
+
+- (void)deferredRestart:(id)sender {
 
     for (GlkWindow *win in _gwindows.allValues) {
         [win removeFromSuperview];

@@ -50,6 +50,8 @@
 
     BOOL windowClosedAlready;
 
+    BOOL restartingAlready;
+
     /* the glk objects */
     BOOL windowdirty; /* the contentView needs to repaint */
 
