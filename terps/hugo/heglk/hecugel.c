@@ -77,7 +77,7 @@ static int numres = 0;
  */
 
 void glk_main(void)
-{	
+{
     he_main(0, NULL); /* no argc, argv */
 }
 
@@ -102,7 +102,7 @@ int hugo_convert_key(int n) {
     return n;
 }
 
-/* hugo_timewait 
+/* hugo_timewait
  * Waits for 1/n seconds.  Returns false if waiting is unsupported.
  */
 
@@ -110,13 +110,13 @@ int hugo_timewait(int n)
 {
     glui32 millisecs;
     event_t ev;
-    
+
     if (!glk_gestalt(gestalt_Timer, 0))
 	return false;
-    
+
     if (n == 0)
 	return true;
-    
+
     millisecs = 1000 / n;
     if (millisecs == 0)
 	millisecs = 1;
@@ -137,7 +137,7 @@ int hugo_timewait(int n)
 	    break;
     }
     glk_request_timer_events(0);
-    
+
     return true;
 }
 
@@ -206,7 +206,7 @@ static int loadres(HUGO_FILE infile, int reslen)
         return -1;
 
     id = numres++;
-        
+
     resids[id] = offset;
     buf = malloc(reslen);
 
@@ -317,7 +317,7 @@ void hugo_stopsample(void)
     glk_schannel_stop(schannel);
 }
 
-/* 
+/*
 * Return true if a keypress is waiting to be retrieved.
  */
 
@@ -356,7 +356,7 @@ void hugo_settextmode(void)
     * a standard text display
     */
     charwidth = FIXEDCHARWIDTH;
-    lineheight = FIXEDLINEHEIGHT;	
+    lineheight = FIXEDLINEHEIGHT;
 }
 
 
@@ -375,12 +375,12 @@ int hugo_color(int c)
     
     /* Uncomment this block of code and change "c = ..." values if the system
 	palette differs from the Hugo palette.
-	
+
 	If colors are unavailable on the system in question, it may suffice
 	to have black, white, and brightwhite (i.e. boldface).  It is expected
 	that colored text will be visible on any other-colored background.
     */
-    
+
     switch (c)
     {
 	case DEF_FCOLOR:	 c = 0; break;
@@ -442,23 +442,23 @@ int hugo_charwidth(char a)
 	return the width of the supplied character in the current
 	font and style.
     */
-    
+
     if (a==FORCED_SPACE)
 	return CHARWIDTH;         /* same as ' ' */
-    
+
     else if ((unsigned char)a >= ' ') /* alphanumeric characters */
-	     
+
 	     return CHARWIDTH;         /* for non-proportional */
-	     
+
 	     return 0;
 }
 
 int hugo_textwidth(char *a)
 {
     int i, slen, len = 0;
-    
+
     slen = (int)strlen(a);
-    
+
     for (i=0; i<slen; i++)
     {
 	if (a[i]==COLOR_CHANGE) i+=2;
@@ -466,23 +466,23 @@ int hugo_textwidth(char *a)
 	else
 	    len += hugo_charwidth(a[i]);
     }
-    
+
     return len;
 }
 
 int hugo_strlen(char *a)
 {
     int i, slen, len = 0;
-    
+
     slen = (int)strlen(a);
-    
+
     for (i=0; i<slen; i++)
     {
 	if (a[i]==COLOR_CHANGE) i+=2;
 	else if (a[i]==FONT_CHANGE) i++;
 	else len++;
     }
-    
+
     return len;
 }
 
@@ -512,22 +512,22 @@ int heglk_get_screenheight(void)
 void hugo_init_screen(void)
 {
     // LOG("hugo_init_screen\n");
-    
+
     /* Does whatever has to be done to initially set up the display. */
-    
+
     /* By setting the width and height so high, we're basically
 	   forcing the Glk library to deal with text-wrapping and
 	   page ends
     */
-    
+
     SCREENWIDTH = 0x7fff;
     SCREENHEIGHT = 0x7fff;
     FIXEDCHARWIDTH = 1;
     FIXEDLINEHEIGHT = 1;
-    
+
     nwins = 0;
     curwin = -1;
-    
+
     nlbufwin = -1;
     nlbufcnt = 0;
     
@@ -543,25 +543,25 @@ void hugo_cleanup_screen(void)
 }
 
 
-/* 
+/*
  * Get a line of input from the keyboard, storing it in <buffer>.
  */
 
 void hugo_getline(char *prompt)
 {
     event_t ev;
-    
+
     //LOG("getline '%s'\n", prompt);
-    
+
     /* make sure we have a window */
     hugo_mapcurwin();
-    
+
     /* Print prompt */
     hugo_print(prompt);
-    
+
     /* Request line input */
     glk_request_line_event(wins[curwin].win, buffer, MAXBUFFER, 0);
-    
+
     while (1)
     {
 	glk_select(&ev);
@@ -570,10 +570,10 @@ void hugo_getline(char *prompt)
 	if (ev.type == evtype_LineInput)
 	    break;
     }
-    
+
     /* The line we have received in commandbuf is not null-terminated */
     buffer[ev.val1] = '\0';	/* i.e., the length */
-    
+
     /* Copy the input to the script file (if open) */
     if (script)
     {
@@ -621,12 +621,12 @@ int hugo_waitforkey(void)
 void hugo_clearfullscreen(void)
 {
     int i;
-    
+
     LOG("hugo_clearfullscreen\n");
 
     nlbufwin = -1;
     nlbufcnt = 0;
-    
+
     for (i = 0; i < nwins; i++)
     {
 	//LOG(" + delete %d\n", i);
@@ -635,12 +635,12 @@ void hugo_clearfullscreen(void)
     }
     nwins = 0;
     curwin = -1;
-    
+
     /* create initial fullscreen window */
     hugo_settextwindow(1, 1,
 		       SCREENWIDTH/FIXEDCHARWIDTH,
 		       SCREENHEIGHT/FIXEDLINEHEIGHT);
-    
+
     currentpos = 0;
     currentline = 1;
 }
@@ -656,15 +656,15 @@ void hugo_clearwindow(void)
     int r = wins[curwin].r;
     int b = wins[curwin].b;
     int i;
-    
+
     LOG("hugo_clearwindow bg=%d\n", glk_bgcolor);
-    
+
     if (curwin == nlbufwin)
     {
 	nlbufwin = -1;
 	nlbufcnt = 0;
     }
-    
+
     for (i = 0; i < nwins; i++)
     {
 	if (wins[i].l >= l && wins[i].r <= r && wins[i].t >= t && wins[i].b <= b)
@@ -681,7 +681,7 @@ void hugo_clearwindow(void)
 	    wins[i].cury = 0;
 	}
     }
-    
+
     currentpos = 0;
     currentline = 1;
 }
@@ -734,11 +734,11 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     int x0, y0, x1, y1;
     int ismain = 0;
     int i;
-    
+
     if (curwin >= 0)
     {
-	wins[curwin].cury = currentline;    /* one-based */
-	wins[curwin].curx = currentpos;	    /* zero-based */
+        wins[curwin].cury = currentline;    /* one-based */
+        wins[curwin].curx = currentpos;	    /* zero-based */
     }
 
     LOG("hugo_settextwindow %d %d %d %d\n", left, top, right, bottom);
@@ -755,7 +755,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 	y1 = gscreenh;
 	ismain = 1;
     }
-    
+
     /* find a match */
     curwin = -1;
     for (i = 0; i < nwins; i++)
@@ -767,10 +767,10 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 	    curwin = i;
 	}
     }
-    
+
     /* unmap old unused windows that are cleared */
     hugo_unmapcleared();
-    
+
     if (curwin != -1)
     {
 	//LOG("  reuse ctx %d %s\n", curwin, ismain ? "(main)" : "");
@@ -855,9 +855,9 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 void hugo_settextpos(int x, int y)
 {
    LOG("hugo_settextpos %d %d\n", x, y);
-    
+
     /* The top-left corner of the current active window is (1, 1). */
-    
+
     currentline = y;
     currentpos = (x-1) * CHARWIDTH;   /* Note:  zero-based */
     
@@ -929,7 +929,7 @@ static void hugo_mapcurwin()
 		    wins[curwin].x0, wins[curwin].y0, 
 		    wins[curwin].x1, wins[curwin].y1);
     }
-}    
+}
 
 void hugo_flushnl(void)
 {
@@ -962,58 +962,58 @@ void hugo_print(char *a)
     /* Essentially the same as printf() without formatting, since printf()
     generally doesn't take into account color setting, font changes,
     windowing, etc.
-    
+
     The newline character '\n' must be explicitly included at the end of
     a line in order to produce a linefeed.  The new cursor position is set
     to the end of this printed text.  Upon hitting the right edge of the
     screen, the printing position wraps to the start of the next line.
     */
-    
+
     static char just_printed_linefeed = false;
-    
+
     int mono = (curstyle == style_Preformatted);
-    
+
     if (curwin == -1)
     {
 	LOG("printing to hell\n");
 	return;
     }
-    
+
     hugo_unmapcleared();
 
     /* printing to a window that is showing graphics... unmap */
     if (wins[curwin].win && wins[curwin].win->type == wintype_Graphics)
     {
-	LOG("  unmap graphics window %d for printing\n", curwin);
-	if (!wins[curwin].clear)
-	    hugo_waitforkey();
-	gli_delete_window(wins[curwin].win);
-	wins[curwin].win = 0;
+        LOG("  unmap graphics window %d for printing\n", curwin);
+        if (!wins[curwin].clear)
+            hugo_waitforkey();
+        gli_delete_window(wins[curwin].win);
+        wins[curwin].win = 0;
     }
-    
+
     /* check if we need to unmap a cleared window so we can swap type */
     if (wins[curwin].win && wins[curwin].clear)
     {
-	if (wins[curwin].win->type == wintype_TextGrid)
-	{
-	    if (wins[curwin].ismain &&
-		(currentline > 0x7000 ||
-		 (currentline == 1 && !mono) ||
-		 (currentline >= heglk_get_screenheight() && !mono)))
-	    {
-		LOG("  unmap grid main window %d so we can swap back to buffer\n", curwin);
-		if (!wins[curwin].clear)
-		    hugo_waitforkey();
-		gli_delete_window(wins[curwin].win);
-		wins[curwin].win = 0;
-	    }
-	}
+        if (wins[curwin].win->type == wintype_TextGrid)
+        {
+            if (wins[curwin].ismain &&
+                (currentline > 0x7000 ||
+                 (currentline == 1 && !mono) ||
+                 (currentline >= heglk_get_screenheight() && !mono)))
+            {
+                LOG("  unmap grid main window %d so we can swap back to buffer\n", curwin);
+                if (!wins[curwin].clear)
+                    hugo_waitforkey();
+                gli_delete_window(wins[curwin].win);
+                wins[curwin].win = 0;
+            }
+        }
     }
-    
+
     hugo_mapcurwin();
-    
+
     wins[curwin].clear = 0;
-    
+
     glk_set_window(wins[curwin].win);
     glk_set_style(curstyle | (glk_fgcolor << 8) | (glk_bgcolor << 16));
     
@@ -1051,22 +1051,22 @@ void hugo_font(int f)
     /* The <f> argument is a mask containing any or none of:
     * BOLD_FONT, UNDERLINE_FONT, ITALIC_FONT, PROP_FONT.
     */
-    
+
     if (f & BOLD_FONT && f & ITALIC_FONT)
 	curstyle = style_Alert;
-    
+
     else if (f & BOLD_FONT)
 	curstyle = style_Subheader;
-    
+
     else if (f & UNDERLINE_FONT)
 	curstyle = style_Emphasized;
-    
+
     else if (f & ITALIC_FONT)
 	curstyle = style_Emphasized;
-    
+
     else
 	curstyle = style_Normal;
-    
+
     if (! ( f & PROP_FONT ) )
     {
 	curstyle = style_Preformatted;
@@ -1085,7 +1085,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
     int oldx = 0;
     int oldy = 0;
     mainwin = -1;
-    
+
     for (i = 0; i < nwins; i++)
     {
 	if (wins[i].ismain && wins[i].win && wins[i].win->type == wintype_TextBuffer)
@@ -1170,7 +1170,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
 	    }
 	}
     }
-    
+
     glk_stream_close(infile, NULL);
     return true;
 }
