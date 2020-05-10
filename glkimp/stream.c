@@ -691,6 +691,10 @@ static void gli_put_char(stream_t *str, unsigned char ch)
                 gli_put_char(str->win->echostr, ch);
             break;
         case strtype_File:
+            if (!str->file) {
+                gli_strict_warning("put_char: file stream has no file!");
+                break;
+            }
             gli_stream_ensure_op(str, filemode_Write);
             if (!str->unicode) {
                 putc(ch, str->file);
@@ -866,6 +870,10 @@ static void gli_put_buffer(stream_t *str, char *buf, glui32 len)
                 gli_put_buffer(str->win->echostr, buf, len);
             break;
         case strtype_File:
+            if (!str->file) {
+                gli_strict_warning("put_buffer: file stream has no file!");
+                break;
+            }
             gli_stream_ensure_op(str, filemode_Write);
             if (!str->unicode) {
                 fwrite(buf, 1, len, str->file);

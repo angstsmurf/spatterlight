@@ -324,8 +324,14 @@
     if (win->str && win->tag != win->str->win->tag)
         NSLog(@"finalizeCStruct: Error! Window stream does not point back at window %d, but at %d",win->tag, win->str->win->tag);
 
-    if (win->echostr && win->tag != win->echostr->win->tag)
-        NSLog(@"finalizeCStruct: Error! Window echo stream does not point back at window %d, but at %d",win->tag, win->echostr->win->tag);
+    if (win->echostr && (!win->echostr->win || win->tag != win->echostr->win->tag)) {
+        if (!win->echostr->win)
+            NSLog(@"finalizeCStruct: Error! Window echo stream has no win at all!");
+        else
+            NSLog(@"finalizeCStruct: Error! Window echo stream does not point back at window %d, but at %d",win->tag, win->echostr->win->tag);
+        NSLog(@"Trying to fix this.");
+        win->echostr->win = win;
+    }
 }
 
 - (void) updateRegisterArray {
