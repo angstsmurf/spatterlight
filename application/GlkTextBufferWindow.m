@@ -1189,12 +1189,17 @@
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
 
-    [self storeScrollOffset];
+    lastAtBottom = [self scrolledToBottom];
+    lastAtTop = [self scrolledToTop];
 
     [encoder encodeBool:lastAtBottom forKey:@"scrolledToBottom"];
     [encoder encodeBool:lastAtTop forKey:@"scrolledToTop"];
-    [encoder encodeInteger:(NSInteger)lastVisible forKey:@"lastVisible"];
-    [encoder encodeDouble:lastScrollOffset forKey:@"scrollOffset"];
+
+    if (!lastAtBottom && !lastAtTop) {
+        [self storeScrollOffset];
+        [encoder encodeInteger:(NSInteger)lastVisible forKey:@"lastVisible"];
+        [encoder encodeDouble:lastScrollOffset forKey:@"scrollOffset"];
+    }
 
     [encoder encodeObject:_textview.insertionPointColor
                    forKey:@"insertionPointColor"];
@@ -1367,12 +1372,16 @@
         return;
     }
 
-    if (!self.glkctl.previewDummy && self.glkctl.shouldStoreScrollOffset)
-        [self storeScrollOffset];
     super.frame = frame;
-    [container invalidateLayout];
-    if (!self.glkctl.previewDummy && self.glkctl.shouldStoreScrollOffset)
-        [self restoreScroll];
+    if ([container hasMarginImages])
+        [container invalidateLayout];
+
+    if (NSMaxX(self.frame) > NSWidth(self.glkctl.contentView.bounds) && NSWidth(self.frame) > 10) {
+        NSLog(@"GlkTextViewBuffer %ld width: something is wrong: contentView width: %f self maxX: %f", (long)self.name, NSWidth(self.glkctl.contentView.bounds), NSMaxX(self.frame));
+        NSLog(@"Self frame:%@ contentview frame: %@ _textview.frame %@ scrollview.frame %@", NSStringFromRect(self.frame),  NSStringFromRect(self.glkctl.contentView.frame), NSStringFromRect(_textview.frame), NSStringFromRect(scrollview.frame));
+        self.frame = NSMakeRect(frame.origin.x, self.frame.origin.y, NSWidth(self.glkctl.contentView.bounds) - frame.origin.x, frame.size.height);
+        _textview.frame = self.frame;
+    }
 }
 
 - (void)saveAsRTF:(id)sender {
@@ -1410,6 +1419,8 @@
 
                        mutattstr = [localTextContainer
                            marginsToAttachmentsInString:mutattstr];
+
+                       [mutattstr appendAttributedString:[[NSAttributedString alloc] initWithString:[self.glkctl debugString] attributes:styles[style_Normal]]];
 
                        [mutattstr
                            addAttribute:NSBackgroundColorAttributeName
@@ -2553,12 +2564,6 @@
         return YES;
     }
 
-//    if (!self.glkctl.previewDummy)
-//        NSLog(@"GlkTextBufferWindow %ld game %@: scrolledToBottom? %@", self.name, self.glkctl.game.metadata.title, (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding) ? @"Yes" : @"NO");
-
-//    if (!(NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding))
-//        NSLog(@"Not scrolled to bottom");
-
     return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding);
 }
 
@@ -2606,6 +2611,14 @@
     [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
+- (void)viewWillStartLiveResize {
+    [self storeScrollOffset];
+}
+
+- (void)viewDidEndLiveResize {
+    [self restoreScroll];
+}
+
 - (void)postRestoreScrollAdjustment {
     [self restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
 
@@ -2622,7 +2635,10 @@
     } else if (_restoredAtTop) {
         [self scrollToTop];
     } else {
-        [self scrollToCharacter:_restoredLastVisible withOffset:_restoredScrollOffset];
+        if (_restoredLastVisible == 0)
+            [self scrollToBottom];
+        else
+            [self scrollToCharacter:_restoredLastVisible withOffset:_restoredScrollOffset];
     }
 }
 

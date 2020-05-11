@@ -2816,7 +2816,7 @@ again:
     for (GlkWindow *win in [_gwindows allValues])
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [(GlkTextBufferWindow *)win restoreScrollBarStyle];
-            [(GlkTextBufferWindow *)win restoreScroll];
+            [(GlkTextBufferWindow *)win performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.1];
         }
 }
 
