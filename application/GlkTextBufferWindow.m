@@ -1189,13 +1189,10 @@
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
 
-    BOOL atBottom = [self scrolledToBottom];
-    BOOL atTop  = [self scrolledToTop];
+    [encoder encodeBool:lastAtBottom forKey:@"scrolledToBottom"];
+    [encoder encodeBool:lastAtTop forKey:@"scrolledToTop"];
 
-    [encoder encodeBool:atBottom forKey:@"scrolledToBottom"];
-    [encoder encodeBool:atBottom forKey:@"scrolledToTop"];
-
-    if (!atBottom && !atTop) {
+    if (!lastAtBottom && !lastAtTop) {
         [self storeScrollOffset];
         [encoder encodeInteger:(NSInteger)lastVisible forKey:@"lastVisible"];
         [encoder encodeDouble:lastScrollOffset forKey:@"scrollOffset"];
@@ -2465,7 +2462,7 @@
 
 }
 
-- (void)restoreScroll; {
+- (void)restoreScroll:(id)sender {
 //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
 //    NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
     if (_textview.bounds.size.height <= scrollview.bounds.size.height) {
