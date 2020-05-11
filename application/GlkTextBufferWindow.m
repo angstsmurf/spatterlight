@@ -1189,13 +1189,13 @@
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
 
-    lastAtBottom = [self scrolledToBottom];
-    lastAtTop = [self scrolledToTop];
+    BOOL atBottom = [self scrolledToBottom];
+    BOOL atTop  = [self scrolledToTop];
 
-    [encoder encodeBool:lastAtBottom forKey:@"scrolledToBottom"];
-    [encoder encodeBool:lastAtTop forKey:@"scrolledToTop"];
+    [encoder encodeBool:atBottom forKey:@"scrolledToBottom"];
+    [encoder encodeBool:atBottom forKey:@"scrolledToTop"];
 
-    if (!lastAtBottom && !lastAtTop) {
+    if (!atBottom && !atTop) {
         [self storeScrollOffset];
         [encoder encodeInteger:(NSInteger)lastVisible forKey:@"lastVisible"];
         [encoder encodeDouble:lastScrollOffset forKey:@"scrollOffset"];
@@ -1247,10 +1247,6 @@
 
     NSUInteger x;
     NSDictionary *attributes;
-
-    if (!self.glkctl.previewDummy && self.glkctl.shouldStoreScrollOffset) {
-        [self storeScrollOffset];
-    }
 
     // Preferences has changed, so first we must redo the styles library
     NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
@@ -1364,7 +1360,7 @@
                 [self applyZColorsAndThenReverse];
             [container invalidateLayout];
         }
-        [self restoreScroll];
+        [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.1];
     } else {
         [self recalcBackground];
     }
@@ -2610,14 +2606,6 @@
     NSPoint newScrollOrigin = NSMakePoint(0, ceil((NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds)) / 2));
     [scrollview.contentView scrollToPoint:newScrollOrigin];
     [scrollview reflectScrolledClipView:scrollview.contentView];
-}
-
-- (void)viewWillStartLiveResize {
-    [self storeScrollOffset];
-}
-
-- (void)viewDidEndLiveResize {
-    [self restoreScroll];
 }
 
 - (void)postRestoreScrollAdjustment {

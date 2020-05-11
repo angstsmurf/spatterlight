@@ -79,12 +79,20 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+- (void)viewWillStartLiveResize {
+    if ((_glkctrl.window.styleMask & NSFullScreenWindowMask) !=
+        NSFullScreenWindowMask && !_glkctrl.ignoreResizes)
+        [_glkctrl storeScrollOffsets];
+}
+
 - (void)viewDidEndLiveResize {
     // We use a custom fullscreen width, so don't resize to full screen width
     // when viewDidEndLiveResize is called because we just entered fullscreen
     if ((_glkctrl.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask && !_glkctrl.ignoreResizes)
+        NSFullScreenWindowMask && !_glkctrl.ignoreResizes) {
         [_glkctrl contentDidResize:self.frame];
+        [_glkctrl restoreScrollOffsets];
+    }
 }
 
 @end
@@ -1304,7 +1312,6 @@ fprintf(stderr, "%s\n",                                                    \
 
 //    NSLog(@"GlkController for game %@ notePreferencesChanged", _game.metadata.title);
 
-    [self storeScrollOffsets];
     _shouldStoreScrollOffset = NO;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"]) {
         if (lastTheme != _theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
@@ -2238,8 +2245,8 @@ NSInteger colorToInteger(NSColor *color) {
 //                NSLog(@"glkctl SIZWIN %ld: %@", (long)reqWin.name, NSStringFromRect(rect));
 
                 reqWin.frame = rect;
-                if ([reqWin isKindOfClass:[GlkTextBufferWindow class]] && _shouldStoreScrollOffset)
-                    [(GlkTextBufferWindow *)reqWin restoreScroll];
+//                if ([reqWin isKindOfClass:[GlkTextBufferWindow class]] && _shouldStoreScrollOffset)
+//                    [(GlkTextBufferWindow *)reqWin restoreScroll:nil];
 
                 NSInteger hmask = NSViewMaxXMargin;
                 NSInteger vmask = NSViewMaxYMargin;
@@ -2807,16 +2814,20 @@ again:
 }
 
 - (void)storeScrollOffsets {
+    if (_previewDummy)
+        return;
     for (GlkWindow *win in [_gwindows allValues])
         if ([win isKindOfClass:[GlkTextBufferWindow class]])
             [(GlkTextBufferWindow *)win storeScrollOffset];
 }
 
 - (void)restoreScrollOffsets {
+    if (_previewDummy)
+        return;
     for (GlkWindow *win in [_gwindows allValues])
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [(GlkTextBufferWindow *)win restoreScrollBarStyle];
-            [(GlkTextBufferWindow *)win performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.1];
+            [(GlkTextBufferWindow *)win performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.1];
         }
 }
 

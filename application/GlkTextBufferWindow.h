@@ -135,7 +135,7 @@
 - (void)restoreTextFinder;
 - (void)postRestoreScrollAdjustment;
 - (void)restoreScrollBarStyle;
-- (void)deferredScrollPosition:(id)sender;
+- (void)restoreScroll:(id)sender;
 
 - (IBAction)speakMostRecent:(id)sender;
 - (IBAction)speakPrevious:(id)sender;
