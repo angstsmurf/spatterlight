@@ -1911,9 +1911,6 @@
 
     char_request = YES;
     [self hideInsertionPoint];
-    [_textview setEditable:YES];
-
-    [_textview setSelectedRange:NSMakeRange(fence, 0)];
 
     [self setLastMove];
     [self speakMostRecent:nil];
@@ -2499,10 +2496,6 @@
 
     [self scrollToCharacter:lastVisible withOffset:lastScrollOffset];
     return;
-}
-
-- (void)restoreSelection {
-    _textview.selectedRange = _restoredSelection;
 }
 
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset {
