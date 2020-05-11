@@ -1253,7 +1253,8 @@
     }
 
     // Preferences has changed, so first we must redo the styles library
-    styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    BOOL different = NO;
     for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
         if (self.theme.doStyles) {
             // We're doing styles, so we call the current theme object with our hints array
@@ -1265,9 +1266,11 @@
             attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
         }
 
-        if (attributes)
-            [styles addObject:attributes];
-        else
+        if (attributes) {
+            [newstyles addObject:attributes];
+            if (!different && ![newstyles[i] isEqualToDictionary:styles[i]])
+                different = YES;
+        } else
             [styles addObject:[NSNull null]];
     }
 
@@ -1286,81 +1289,86 @@
     // to make sure that no inline images, hyperlinks or zcolors
     // get lost when we update the Glk Styles.
 
-    x = 0;
-    while (x < textstorage.length) {
-        id styleobject = [textstorage attribute:@"GlkStyle"
+    if (different) {
+        styles = newstyles;
+        x = 0;
+        while (x < textstorage.length) {
+            id styleobject = [textstorage attribute:@"GlkStyle"
+                                            atIndex:x
+                                     effectiveRange:&range];
+
+            attributes = styles[(NSUInteger)[styleobject intValue]];
+
+            id image = [textstorage attribute:@"NSAttachment"
+                                      atIndex:x
+                               effectiveRange:NULL];
+
+            id hyperlink = [textstorage attribute:NSLinkAttributeName
+                                          atIndex:x
+                                   effectiveRange:&linkrange];
+
+            id zcolor = [textstorage attribute:@"ZColor"
+                                       atIndex:x
+                                effectiveRange:&zcolrange];
+
+            id reverse = [textstorage attribute:@"ReverseVideo"
                                         atIndex:x
-                                 effectiveRange:&range];
+                                 effectiveRange:&reverserange];
 
-        attributes = styles[(NSUInteger)[styleobject intValue]];
+            [textstorage setAttributes:attributes range:range];
 
-        id image = [textstorage attribute:@"NSAttachment"
-                                  atIndex:x
-                           effectiveRange:NULL];
-        
-        id hyperlink = [textstorage attribute:NSLinkAttributeName
-                                      atIndex:x
-                               effectiveRange:&linkrange];
+            if (image) {
+                ((MyAttachmentCell *)((NSTextAttachment *)image).attachmentCell).attrstr = textstorage;
+                [textstorage addAttribute:@"NSAttachment"
+                                    value:image
+                                    range:NSMakeRange(x, 1)];
+            }
 
-        id zcolor = [textstorage attribute:@"ZColor"
-                                      atIndex:x
-                               effectiveRange:&zcolrange];
+            if (hyperlink) {
+                [textstorage addAttribute:NSLinkAttributeName
+                                    value:hyperlink
+                                    range:linkrange];
+            }
 
-        id reverse = [textstorage attribute:@"ReverseVideo"
-                                   atIndex:x
-                            effectiveRange:&reverserange];
+            if (zcolor) {
+                [textstorage addAttribute:@"ZColor"
+                                    value:zcolor
+                                    range:zcolrange];
+            }
 
-        [textstorage setAttributes:attributes range:range];
+            if (reverse) {
+                [textstorage addAttribute:@"ReverseVideo"
+                                    value:reverse
+                                    range:reverserange];
+            }
 
-        if (image) {
-            ((MyAttachmentCell *)((NSTextAttachment *)image).attachmentCell).attrstr = textstorage;
-            [textstorage addAttribute:@"NSAttachment"
-                                value:image
-                                range:NSMakeRange(x, 1)];
+            x = NSMaxRange(range);
         }
-
-        if (hyperlink) {
-            [textstorage addAttribute:NSLinkAttributeName
-                                value:hyperlink
-                                range:linkrange];
-        }
-
-        if (zcolor) {
-            [textstorage addAttribute:@"ZColor"
-                                value:zcolor
-                                range:zcolrange];
-        }
-
-        if (reverse) {
-            [textstorage addAttribute:@"ReverseVideo"
-                                value:reverse
-                                range:reverserange];
-        }
-
-        x = NSMaxRange(range);
-    }
 
     //    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
 
+    }
+
     if (!self.glkctl.previewDummy) {
 
-        // Set style of hyperlinks
-        NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-        linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-        _textview.linkTextAttributes = linkAttributes;
+        if (different) {
+            // Set style of hyperlinks
+            NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
+            linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
+            _textview.linkTextAttributes = linkAttributes;
 
-        [self showInsertionPoint];
-        lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
-        [self recalcBackground];
-        if (self.theme.doStyles)
-            [self applyZColorsAndThenReverse];
-        [container invalidateLayout];
+            [self showInsertionPoint];
+            lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
+            [self recalcBackground];
+            if (self.theme.doStyles)
+                [self applyZColorsAndThenReverse];
+            [container invalidateLayout];
+        }
         [self restoreScroll];
     } else {
         [self recalcBackground];
     }
 }
-
 
 - (void)setFrame:(NSRect)frame {
 //        NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
