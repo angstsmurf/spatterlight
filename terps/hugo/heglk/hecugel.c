@@ -1175,3 +1175,6 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
     return true;
 }
 
+void PromptMore(void)
+{
+}
