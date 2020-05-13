@@ -15,5 +15,6 @@
 + (NSColor *)colorFromData:(NSData *)data;
 
 - (NSInteger)integerColor;
+- (BOOL)isEqualToColor:(NSColor *)color;
 
 @end

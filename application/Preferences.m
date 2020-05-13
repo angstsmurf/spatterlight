@@ -1844,14 +1844,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (sender == clrGridFg) {
         key = @"gridNormal";
     } else if (sender == clrGridBg) {
-        if ([theme.gridBackground isEqual:color])
+        if ([theme.gridBackground isEqualToColor:color])
             return;
         themeToChange = [self cloneThemeIfNotEditable];
         themeToChange.gridBackground = color;
     } else if (sender == clrBufferFg) {
         key = @"bufferNormal";
     } else if (sender == clrBufferBg) {
-        if ([theme.bufferBackground isEqual:color])
+        if ([theme.bufferBackground isEqualToColor:color])
             return;
         themeToChange = [self cloneThemeIfNotEditable];
         themeToChange.bufferBackground = color;
@@ -1862,7 +1862,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (key) {
         //NSLog(@"key: %@", key);
         GlkStyle *style = [theme valueForKey:key];
-        if ([style.color isEqual:color])
+        if ([style.color isEqualToColor:color])
             return;
 
         themeToChange = [self cloneThemeIfNotEditable];

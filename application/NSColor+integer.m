@@ -14,7 +14,7 @@
     CGFloat r, g, b, a;
     uint32_t buf[3];
     NSInteger i;
-    NSColor *color = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+    NSColor *color = [self colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
 
     [color getRed:&r green:&g blue:&b alpha:&a];
 
@@ -56,6 +56,12 @@
 
     color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
     return color;
+}
+
+- (BOOL)isEqualToColor:(NSColor *)color {
+    NSColor *aColor = [self colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
+    NSColor *bColor = [color colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
+    return ([aColor isEqualTo:bColor]);
 }
 
 @end
