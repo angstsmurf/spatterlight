@@ -576,6 +576,14 @@ glui32 gli_detect_sound_format(char *buf, size_t len)
     if (len > 20 && !memcmp(buf, "Extended Module: ", 17))
         return giblorb_ID_MOD;
 
+    /* Whatever Dragon Hunt uses */
+    if (len > 11 && !memcmp(buf, "introfronty", 11))
+        return giblorb_ID_MOD;
+
+    /* Whatever Enceladus uses */
+    if (len > 11 && !memcmp(buf, "elysium", 7))
+        return giblorb_ID_MOD;
+
     /* MOD */
     if (len > 1084)
     {
