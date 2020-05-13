@@ -7,6 +7,7 @@
 #import "GlkStyle.h"
 #import "LibController.h"
 #import "NSString+Categories.h"
+#import "NSColor+integer.h"
 #import "main.h"
 
 #ifdef DEBUG
@@ -25,41 +26,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 static kZoomDirectionType zoomDirection = ZOOMRESET;
 
-//static NSColor *fgcolor[8];
-//static NSColor *bgcolor[8];
-
 static Theme *theme = nil;
 static Preferences *prefs = nil;
-
-/*
- * Some color utility functions
- */
-
-//
-//static NSColor *makehsb(CGFloat h, CGFloat s, CGFloat b) {
-//    return [NSColor colorWithCalibratedHue:h
-//                                saturation:s
-//                                brightness:b
-//                                     alpha:1.0];
-//}
-
-NSColor *dataToColor(NSData *data) {
-    NSColor *color;
-    CGFloat r, g, b;
-    const unsigned char *buf = data.bytes;
-
-    if (data.length < 3)
-        r = g = b = 0;
-    else {
-        r = buf[0] / 255.0;
-        g = buf[1] / 255.0;
-        b = buf[2] / 255.0;
-    }
-
-    color = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
-
-    return color;
-}
 
 /*
  * Load and save defaults
@@ -161,8 +129,8 @@ NSColor *dataToColor(NSData *data) {
         oldTheme.gridNormal.font = [NSFont userFontOfSize:0];
     }
 
-    oldTheme.gridBackground = dataToColor([defaults objectForKey:@"GridBackground"]);
-    oldTheme.gridNormal.color = dataToColor([defaults objectForKey:@"GridForeground"]);
+    oldTheme.gridBackground = [NSColor colorFromData:[defaults objectForKey:@"GridBackground"]];
+    oldTheme.gridNormal.color = [NSColor colorFromData:[defaults objectForKey:@"GridForeground"]];
 
     name = [defaults objectForKey:@"BufferFontName"];
     size = [[defaults objectForKey:@"BufferFontSize"] doubleValue];
@@ -171,8 +139,8 @@ NSColor *dataToColor(NSData *data) {
         NSLog(@"pref: failed to create buffer font '%@'", name);
         oldTheme.bufferNormal.font = [NSFont userFontOfSize:0];
     }
-    oldTheme.bufferBackground = dataToColor([defaults objectForKey:@"BufferBackground"]);
-    oldTheme.bufferNormal.color = dataToColor([defaults objectForKey:@"BufferForeground"]);
+    oldTheme.bufferBackground = [NSColor colorFromData:[defaults objectForKey:@"BufferBackground"]];
+    oldTheme.bufferNormal.color = [NSColor colorFromData:[defaults objectForKey:@"BufferForeground"]];
 
     name = [defaults objectForKey:@"InputFontName"];
     size = [[defaults objectForKey:@"InputFontSize"] doubleValue];
@@ -182,7 +150,7 @@ NSColor *dataToColor(NSData *data) {
         oldTheme.bufInput.font = [NSFont userFontOfSize:0];
     }
 
-    oldTheme.bufInput.color = dataToColor([defaults objectForKey:@"InputColor"]);
+    oldTheme.bufInput.color = [NSColor colorFromData:[defaults objectForKey:@"InputColor"]];
     oldTheme.gridNormal.lineSpacing = [[defaults objectForKey:@"Leading"] doubleValue];
 
     NSSize cellSize = [oldTheme.gridNormal cellSize];
@@ -825,51 +793,11 @@ NSColor *dataToColor(NSData *data) {
     [self initFactoryDefaults];
     [self readDefaults];
 
-//    /* 0=black, 1=red, 2=green, 3=yellow, 4=blue, 5=magenta, 6=cyan, 7=white */
-//
-//    /* black */
-//    bgcolor[0] = makehsb(0, 0, 0.2);
-//    fgcolor[0] = makehsb(0, 0, 0.0);
-//
-//    /* white */
-//    bgcolor[7] = makehsb(0, 0, 1.0);
-//    fgcolor[7] = makehsb(0, 0, 0.8);
-//
-//    /* hues go from red, orange, yellow, green, cyan, blue, magenta, red */
-//    /* foreground: 70% sat 30% bright */
-//    /* background: 60% sat 90% bright */
-//
-//    bgcolor[1] = makehsb(0 / 360.0, 0.8, 0.4);   /* red */
-//    bgcolor[2] = makehsb(120 / 360.0, 0.8, 0.4); /* green */
-//    bgcolor[3] = makehsb(60 / 360.0, 0.8, 0.4);  /* yellow */
-//    bgcolor[4] = makehsb(230 / 360.0, 0.8, 0.4); /* blue */
-//    bgcolor[5] = makehsb(300 / 360.0, 0.8, 0.4); /* magenta */
-//    bgcolor[6] = makehsb(180 / 360.0, 0.8, 0.4); /* cyan */
-//
-//    fgcolor[1] = makehsb(0 / 360.0, 0.8, 0.8);   /* red */
-//    fgcolor[2] = makehsb(120 / 360.0, 0.8, 0.8); /* green */
-//    fgcolor[3] = makehsb(60 / 360.0, 0.8, 0.8);  /* yellow */
-//    fgcolor[4] = makehsb(230 / 360.0, 0.8, 0.8); /* blue */
-//    fgcolor[5] = makehsb(300 / 360.0, 0.8, 0.8); /* magenta */
-//    fgcolor[6] = makehsb(180 / 360.0, 0.8, 0.8); /* cyan */
-
     [self rebuildTextAttributes];
 }
 
 
 #pragma mark Global accessors
-
-//+ (NSColor *)foregroundColor:(int)number {
-//    if (number < 0 || number > 7)
-//        return nil;
-//    return fgcolor[number];
-//}
-//
-//+ (NSColor *)backgroundColor:(int)number {
-//    if (number < 0 || number > 7)
-//        return nil;
-//    return bgcolor[number];
-//}
 
 + (BOOL)graphicsEnabled {
     return theme.doGraphics;
