@@ -12,6 +12,7 @@
 #import "Theme.h"
 #import "main.h"
 #import "Compatibility.h"
+#import "NSColor+integer.h"
 
 
 @implementation GlkStyle
@@ -128,9 +129,8 @@
 
     NSMutableParagraphStyle *para = [attributes[NSParagraphStyleAttributeName] mutableCopy];
 
-    NSInteger value, r, b, g;
+    NSInteger value;
     NSUInteger i;
-    NSColor *color;
     NSFontTraitMask mask;
 
     for (i = 0 ; i < stylehint_NUMHINTS ; i++ ){
@@ -228,27 +228,11 @@
                      */
 
                 case stylehint_TextColor:
-                    r = (value >> 16) & 0xff;
-                    g = (value >> 8) & 0xff;
-                    b = (value >> 0) & 0xff;
-                    color = [NSColor colorWithCalibratedRed:r / 255.0
-                                                      green:g / 255.0
-                                                       blue:b / 255.0
-                                                      alpha:1.0];
-
-                    attributes[NSForegroundColorAttributeName] = color;
+                    attributes[NSForegroundColorAttributeName] = [NSColor colorFromInteger:value];
                     break;
 
                 case stylehint_BackColor:
-                    r = (value >> 16) & 0xff;
-                    g = (value >> 8) & 0xff;
-                    b = (value >> 0) & 0xff;
-                    color = [NSColor colorWithCalibratedRed:r / 255.0
-                                                      green:g / 255.0
-                                                       blue:b / 255.0
-                                                      alpha:1.0];
-
-                    attributes[NSBackgroundColorAttributeName] = color;
+                    attributes[NSBackgroundColorAttributeName] = [NSColor colorFromInteger:value];
                     break;
 
 
