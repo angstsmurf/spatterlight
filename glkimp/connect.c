@@ -609,6 +609,8 @@ again:
 
         case EVTPREFS:
             gli_enable_graphics = wmsg.a2;
+            if (gli_enable_sound == 1 && wmsg.a3 == 0)
+                gli_stop_all_sound_channels();
             gli_enable_sound = wmsg.a3;
             goto again;
 

@@ -680,6 +680,17 @@ void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length)
     res->loadedflag = TRUE;
 }
 
+void gli_stop_all_sound_channels()
+{
+    channel_t *chan;
+
+    for (chan = glk_schannel_iterate(NULL, NULL); chan; chan = glk_schannel_iterate(chan, NULL))
+    {
+        glk_schannel_stop(chan);
+    }
+
+}
+
 /** Start a mod music channel */
 static glui32 play_mod(schanid_t chan, long len, char *ext)
 {
@@ -851,6 +862,9 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
     glui32 result = 0;
     glui32 paused = 0;
     char *buf = 0;
+
+    if (gli_enable_sound == 0)
+        return 0;
 
     if (!chan)
     {
