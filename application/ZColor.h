@@ -12,8 +12,6 @@
 
 @property NSInteger fg;
 @property NSInteger bg;
-@property NSColor *foregroundColor;
-@property NSColor *backgroundColor;
 @property NSUInteger index;
 @property NSUInteger startpos;
 @property NSRange range;

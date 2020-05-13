@@ -14,6 +14,7 @@
     if (self) {
         _index = index;
         _startpos = pos;
+        _range = NSMakeRange(pos, 0);
     }
     return self;
 }

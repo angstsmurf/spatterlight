@@ -14,6 +14,7 @@
     self = [super init];
     if (self) {
         _startpos = location;
+        _range = NSMakeRange(location, 0);
     }
 
     return self;

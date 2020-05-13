@@ -7,6 +7,7 @@
 //
 
 #import "ZColor.h"
+#import "NSColor+integer.h"
 
 @implementation ZColor
 
@@ -17,6 +18,7 @@
         _fg = fg;
         _bg = bg;
         _startpos = location;
+        _range = NSMakeRange(location, 0);
     }
 
     return self;
@@ -44,10 +46,10 @@
 - (NSDictionary *)coloredAttributes:(NSDictionary *)dict {
     NSMutableDictionary *mutable = [dict mutableCopy];
     if (_fg >= 0) {
-        mutable[NSForegroundColorAttributeName] = [self colorFromInteger:_fg];
+        mutable[NSForegroundColorAttributeName] = [NSColor colorFromInteger:_fg];
     }
     if (_bg >= 0) {
-        mutable[NSBackgroundColorAttributeName] = [self colorFromInteger:_bg];
+        mutable[NSBackgroundColorAttributeName] = [NSColor colorFromInteger:_bg];
     }
     return mutable;
 }
@@ -55,28 +57,18 @@
 - (NSDictionary *)reversedAttributes:(NSDictionary *)dict {
     NSMutableDictionary *mutable = [dict mutableCopy];
     if (_fg >= 0) {
-        mutable[NSBackgroundColorAttributeName] = [self colorFromInteger:_fg];
+        mutable[NSBackgroundColorAttributeName] = [NSColor colorFromInteger:_fg];
     }
     if (_bg >= 0) {
-        mutable[NSForegroundColorAttributeName] = [self colorFromInteger:_bg];
+        mutable[NSForegroundColorAttributeName] = [NSColor colorFromInteger:_bg];
     }
     return mutable;
 }
 
-- (NSColor *)colorFromInteger:(NSInteger)value {
-    NSInteger r,g,b;
-    r = (value >> 16) & 0xff;
-    g = (value >> 8) & 0xff;
-    b = (value >> 0) & 0xff;
-    return [NSColor colorWithCalibratedRed:r / 255.0
-                                      green:g / 255.0
-                                       blue:b / 255.0
-                                      alpha:1.0];
 
-}
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"fg: %@ bg: %@", [self colorFromInteger:_fg], [self colorFromInteger:_bg]];
+    return [NSString stringWithFormat:@"fg: %@ bg: %@", [NSColor colorFromInteger:_fg], [NSColor colorFromInteger:_bg]];
 }
 
 @end
