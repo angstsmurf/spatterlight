@@ -288,7 +288,7 @@
 								</object>
 								<object class="NSMenuItem" id="930490662">
 									<reference key="NSMenu" ref="884281638"/>
-									<string key="NSTitle">Clear Transcript</string>
+									<string key="NSTitle">Clear Scrollback</string>
 									<string key="NSKeyEquiv">k</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -297,7 +297,7 @@
 								</object>
 								<object class="NSMenuItem" id="275639141">
 									<reference key="NSMenu" ref="884281638"/>
-									<string key="NSTitle">Save Transcript…</string>
+									<string key="NSTitle">Save Scrollback…</string>
 									<string key="NSKeyEquiv">s</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
