@@ -1421,8 +1421,6 @@
                        mutattstr = [localTextContainer
                            marginsToAttachmentsInString:mutattstr];
 
-                       [mutattstr appendAttributedString:[[NSAttributedString alloc] initWithString:[self.glkctl debugString] attributes:styles[style_Normal]]];
-
                        [mutattstr
                            addAttribute:NSBackgroundColorAttributeName
                                   value:localTextView.backgroundColor
