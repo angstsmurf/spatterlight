@@ -5,6 +5,7 @@
 #import "Game.h"
 #import "Theme.h"
 #import "GlkStyle.h"
+#import "NSColor+integer.h"
 
 #import "main.h"
 #include "glkimp.h"
@@ -1796,22 +1797,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-NSInteger colorToInteger(NSColor *color) {
-    CGFloat r, g, b, a;
-    uint32_t buf[3];
-    NSInteger i;
-    color = [color colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-
-    [color getRed:&r green:&g blue:&b alpha:&a];
-
-    buf[0] = (uint32_t)(r * 255);
-    buf[1] = (uint32_t)(g * 255);
-    buf[2] = (uint32_t)(b * 255);
-
-    i = buf[2] + (buf[1] << 8) + (buf[0] << 16);
-    return i;
-}
-
 - (BOOL)handleStyleMeasureOnWin:(GlkWindow *)gwindow
                           style:(NSUInteger)style
                            hint:(NSUInteger)hint
@@ -1826,17 +1811,17 @@ NSInteger colorToInteger(NSColor *color) {
     else {
         if (hint == stylehint_TextColor) {
             if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = colorToInteger(_theme.bufferNormal.color);
+                *result = [_theme.bufferNormal.color integerColor];
             else
-                *result = colorToInteger(_theme.gridNormal.color);
+                *result = [_theme.gridNormal.color integerColor];
 
             return YES;
         }
         if (hint == stylehint_BackColor) {
             if ([gwindow isKindOfClass:[GlkTextBufferWindow class]])
-                *result = colorToInteger(_theme.bufferBackground);
+                *result = [_theme.bufferBackground integerColor];
             else
-                *result = colorToInteger(_theme.gridBackground);
+                *result = [_theme.gridBackground integerColor];
 
             return YES;
         }
