@@ -12,7 +12,7 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "ZColor.h"
-#import "ZReverseVideo.h"
+#import "NSColor+integer.h"
 
 
 #ifdef DEBUG
@@ -333,10 +333,6 @@
     return self;
 }
 
-- (void)deferredInitLine:(id)sender {
-    [self initLine:(NSString *)sender];
-}
-
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     [encoder encodeObject:textview forKey:@"textview"];
@@ -357,151 +353,6 @@
     } else {
         [encoder encodeObject:enteredTextSoFar forKey:@"inputString"];
     }
-}
-
-- (BOOL)isFlipped {
-    return YES;
-}
-
-- (void)prefsDidChange {
-//    NSLog(@"GlkTextGridWindow %ld prefsDidChange", self.name);
-    NSRange range = NSMakeRange(0, 0);
-    NSRange linkrange = NSMakeRange(0, 0);
-    NSRange zcolrange = NSMakeRange(0, 0);
-    NSRange reverserange = NSMakeRange(0, 0);
-
-    NSRange selectedRange = textview.selectedRange;
-
-    NSUInteger i;
-
-    styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-
-    for (i = 0; i < style_NUMSTYLES; i++) {
-        if (self.theme.doStyles) {
-            [styles addObject:[((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]]];
-        } else {
-            [styles addObject:((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict];
-        }
-    }
-
-    NSInteger marginX = self.theme.gridMarginX;
-    NSInteger marginY = self.theme.gridMarginY;
-
-    textview.textContainerInset = NSMakeSize(marginX, marginY);
-
-    /* reassign styles to attributedstrings */
-    for (i = 0; i < rows; i++) {
-        NSRange lineRange = NSMakeRange(i * cols, cols);
-        if (i * cols + cols > textstorage.length)
-            lineRange = NSMakeRange(i * cols, textstorage.length - i * cols);
-        NSMutableAttributedString *line =
-        [[textstorage attributedSubstringFromRange:lineRange] mutableCopy];
-        NSUInteger x = 0;
-        while (x < line.length) {
-            id styleobject = [line attribute:@"GlkStyle"
-                                     atIndex:x
-                              effectiveRange:&range];
-
-            NSDictionary *attributes =
-            styles[(NSUInteger)[styleobject intValue]];
-
-            id hyperlink = [line attribute:NSLinkAttributeName
-                                   atIndex:x
-                            effectiveRange:&linkrange];
-
-            id zcolor = [textstorage attribute:@"ZColor"
-                                       atIndex:x
-                                effectiveRange:&zcolrange];
-
-            id reverse = [textstorage attribute:@"ReverseVideo"
-                                        atIndex:x
-                                 effectiveRange:&reverserange];
-
-            [line setAttributes:attributes range:range];
-
-            if (hyperlink) {
-                [line addAttribute:NSLinkAttributeName
-                             value:hyperlink
-                             range:linkrange];
-            }
-
-            if (zcolor) {
-                [line addAttribute:@"ZColor"
-                             value:zcolor
-                             range:zcolrange];
-            }
-
-            if (reverse) {
-                [line addAttribute:@"ReverseVideo"
-                             value:reverse
-                             range:reverserange];
-            }
-
-            x = range.location + range.length;
-        }
-
-        [textstorage replaceCharactersInRange:lineRange
-                         withAttributedString:line];
-    }
-
-    NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
-    linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-    textview.linkTextAttributes = linkAttributes;
-
-    if (line_request) {
-        if (!enteredTextSoFar)
-            enteredTextSoFar = @"";
-        if (input) {
-            [input removeFromSuperview];
-            enteredTextSoFar = input.stringValue;
-        }
-        [self initLine:enteredTextSoFar];
-    }
-
-    if (self.theme.doStyles)
-        [self applyZColorsAndThenReverse];
-
-    textview.selectedRange = selectedRange;
-    [self setNeedsDisplay:YES];
-    dirty = NO;
-
-    [self recalcBackground];
-}
-
-- (BOOL)isOpaque {
-    return !transparent;
-}
-
-- (void)makeTransparent {
-    transparent = YES;
-    dirty = YES;
-}
-
-- (void)flushDisplay {
-    if (dirty)
-        self.needsDisplay = YES;
-    dirty = NO;
-}
-
-- (BOOL)allowsDocumentBackgroundColorChange {
-    return YES;
-}
-
-- (void)recalcBackground {
-    NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
-
-    if (!([self.glkctl.game.metadata.format isEqualToString:@"glulx"] || [self.glkctl.game.metadata.format isEqualToString:@"hugo"] || [self.glkctl.game.metadata.format isEqualToString:@"zcode"])) {
-        bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
-    }
-
-    if (!bgcolor)
-        bgcolor = self.theme.gridBackground;
-
-    if (transparent)
-        bgcolor = [NSColor clearColor];
-
-    textview.backgroundColor = bgcolor;
-    textview.insertionPointColor = bgcolor;
 }
 
 - (BOOL)wantsFocus {
@@ -528,36 +379,198 @@
     return [super resignFirstResponder];
 }
 
+- (void)flushDisplay {
+    if (dirty)
+        self.needsDisplay = YES;
+    dirty = NO;
+}
+
+- (BOOL)isFlipped {
+    return YES;
+}
+
+- (BOOL)isOpaque {
+    return !transparent;
+}
+
+- (void)makeTransparent {
+    transparent = YES;
+    dirty = YES;
+}
+
+#pragma mark Colors and styles
+
+- (void)prefsDidChange {
+    //    NSLog(@"GlkTextGridWindow %ld prefsDidChange", self.name);
+
+
+    NSRange selectedRange = textview.selectedRange;
+    NSUInteger textstoragelength = textstorage.length;
+
+    NSUInteger i;
+
+    styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+
+    if (self.theme.doStyles) {
+        for (i = 0; i < style_NUMSTYLES; i++)
+            [styles addObject:[((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]]];
+    } else {
+        for (i = 0; i < style_NUMSTYLES; i++)
+            [styles addObject:((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict];
+    }
+
+    NSInteger marginX = self.theme.gridMarginX;
+    NSInteger marginY = self.theme.gridMarginY;
+
+    textview.textContainerInset = NSMakeSize(marginX, marginY);
+
+    /* reassign styles to attributedstrings */
+    // We create a copy of the text storage
+    NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
+
+    [textstorage
+     enumerateAttributesInRange:NSMakeRange(0, textstoragelength)
+     options:0
+     usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
+
+         // First, we overwrite all attributes with those in our updated
+         // styles array
+         id styleobject = attrs[@"GlkStyle"];
+         if (styleobject) {
+             NSDictionary *attributes = styles[(NSUInteger)[styleobject intValue]];
+             [backingStorage setAttributes:attributes range:range];
+         }
+
+         // Then, we re-add all the "non-Glk" style values we want to keep
+         // (hyperlinks, Z-colors and reverse video)
+         id hyperlink = attrs[NSLinkAttributeName];
+         if (hyperlink) {
+             [backingStorage addAttribute:NSLinkAttributeName
+                                    value:hyperlink
+                                    range:range];
+         }
+
+         id zcolor = attrs[@"ZColor"];
+         if (zcolor) {
+             [backingStorage addAttribute:@"ZColor"
+                                    value:zcolor
+                                    range:range];
+         }
+
+         id reverse = attrs[@"ReverseVideo"];
+         if (reverse) {
+             [backingStorage addAttribute:@"ReverseVideo"
+                                    value:reverse
+                                    range:range];
+         }
+
+     }];
+
+    if (self.theme.doStyles)
+        backingStorage = [self applyZColorsAndThenReverse:backingStorage];
+
+    // Now we can replace the text storager
+    [textstorage setAttributedString:backingStorage];
+
+    NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
+    linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
+    textview.linkTextAttributes = linkAttributes;
+
+    if (line_request) {
+        if (!enteredTextSoFar)
+            enteredTextSoFar = @"";
+        if (input) {
+            [input removeFromSuperview];
+            enteredTextSoFar = input.stringValue;
+        }
+        [self initLine:enteredTextSoFar];
+    }
+
+    textview.selectedRange = selectedRange;
+    [self setNeedsDisplay:YES];
+    dirty = NO;
+
+    [self recalcBackground];
+}
+
+
+- (BOOL)allowsDocumentBackgroundColorChange {
+    return YES;
+}
+
+- (void)recalcBackground {
+    NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+
+    if (!([self.glkctl.game.metadata.format isEqualToString:@"glulx"] || [self.glkctl.game.metadata.format isEqualToString:@"hugo"] || [self.glkctl.game.metadata.format isEqualToString:@"zcode"])) {
+        bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
+    }
+
+    if (self.theme.doStyles && bgnd > -1) {
+        bgcolor = [NSColor colorFromInteger:bgnd];
+        //        NSLog(@"GlkTextGridWindow %ld: Set bgcolor to %ld (%@)",self.name, bgnd, bgcolor);
+    }
+
+    if (!bgcolor)
+        bgcolor = self.theme.gridBackground;
+
+    if (transparent)
+        bgcolor = [NSColor clearColor];
+
+    textview.backgroundColor = bgcolor;
+    textview.insertionPointColor = bgcolor;
+}
+
+- (void)setBgColor:(NSInteger)bc {
+    bgnd = bc;
+
+    [self recalcBackground];
+}
+
 #pragma mark Printing, moving, resizing
 
 - (void)setFrame:(NSRect)frame {
     if (self.glkctl.ignoreResizes)
         return;
+
+    //    NSLog(@"GlkTextGridWindow %ld setFrame: %@", self.name, NSStringFromRect(frame));
+
     NSUInteger r;
     NSRange selectedRange = textview.selectedRange;
-    if (self.inLiveResize)
-        _restoredSelection = NSMakeRange(0, 0);
-    if (!NSEqualRanges(_restoredSelection, selectedRange))
+
+    if (selectedRange.length == 0 && _restoredSelection.length > 0)
         selectedRange = _restoredSelection;
 
+    NSUInteger selectedRow = selectedRange.location / (cols + 1);
+    NSUInteger selectedCol = selectedRange.location % (cols + 1);
+
+    //    if (!NSEqualRanges(_restoredSelection, selectedRange))
+    //        selectedRange = _restoredSelection;
+    //    if (self.inLiveResize)
+    //        _restoredSelection = NSMakeRange(0, 0);
+
     super.frame = frame;
+
+    if (frame.size.height == 0)
+        return;
+
     NSUInteger newcols =
     (NSUInteger)round((frame.size.width - (textview.textContainerInset.width + container.lineFragmentPadding
-          ) * 2) /
-         self.theme.cellWidth);
+                                           ) * 2) /
+                      self.theme.cellWidth);
 
     NSUInteger newrows = (NSUInteger)round((frame.size.height + self.theme.gridNormal.lineSpacing
-                              - (textview.textContainerInset.height * 2) ) /
-                             self.theme.cellHeight);
+                                            - (textview.textContainerInset.height * 2) ) /
+                                           self.theme.cellHeight);
 
-//    NSLog(@"GlkTextGridWindow setFrame: newcols: %ld newrows: %ld", newcols, newrows);
+    //    NSLog(@"GlkTextGridWindow %ld setFrame: newcols: %ld newrows: %ld", self.name, newcols, newrows);
     if (newcols == cols && newrows == rows) {
         //&& NSEqualRects(textview.frame, frame)) {
-        //        NSLog(@"GlkTextGridWindow %ld setFrame: new frame same as old frame. "
-        //              @"Skipping.", self.name);
+        //        NSLog(@"GlkTextGridWindow %ld setFrame: new frame same as old frame (in characters).", self.name);
 
-        if ( NSEqualRects(textview.frame, frame))
+        if ( NSEqualRects(textview.frame, frame)) {
+            //            NSLog(@"Skipping.");
             return;
+        }
     } else {
         //        NSLog(@"GlkTextGridWindow %ld setFrame: old cols:%ld new cols:%ld old rows:%ld new rows:%ld", self.name, cols, newcols, rows, newrows);
         //        NSLog(@"Rebuilding grid window!");
@@ -662,20 +675,14 @@
     // NSLog(@"setFrame: selected range was %@, trying to restore to %@",
     // NSStringFromRange(textview.selectedRange),
     // NSStringFromRange(selectedRange));
-    if (NSMaxRange(selectedRange) >= textstorage.length)
-        selectedRange = NSMakeRange(textstorage.length - 1, 0);
+    selectedRange = NSMakeRange(selectedCol + selectedRow * (cols + 1), selectedRange.length);
+    //    if (NSMaxRange(selectedRange) >= textstorage.length)
+    //        selectedRange = NSMakeRange(textstorage.length - 1, 0);
     textview.selectedRange = selectedRange;
     // NSLog(@"Result: textview.selectedRange = %@",
     // NSStringFromRange(textview.selectedRange));
     _restoredSelection = selectedRange;
     dirty = YES;
-}
-
-- (void)restoreSelection {
-    // NSLog(@"restoreSelection: selected range was %@, restored to %@",
-    // NSStringFromRange(textview.selectedRange),
-    // NSStringFromRange(_restoredSelection));
-    textview.selectedRange = _restoredSelection;
 }
 
 - (void)moveToColumn:(NSUInteger)c row:(NSUInteger)r {
@@ -695,42 +702,59 @@
 
     if (self.frame.size.width > 0 && self.frame.size.height > 0)
         [self setFrame:self.frame];
-    if (NSMaxRange(selectedRange) <= textview.textStorage.length)
-        textview.selectedRange = selectedRange;
+    if (NSMaxRange(selectedRange) > textview.textStorage.length) {
+        selectedRange = NSMakeRange(textview.textStorage.length - 1, 0);
+    }
+    textview.selectedRange = selectedRange;
 }
 
 - (void)putString:(NSString *)string style:(NSUInteger)stylevalue {
     if (line_request)
         NSLog(@"Printing to text grid window during line request");
 
-//    if (char_request)
-//        NSLog(@"Printing to text grid window during character request");
+    //    if (char_request)
+    //        NSLog(@"Printing to text grid window during character request");
 
     [self printToWindow:string style:stylevalue];
 }
 
 - (void)printToWindow:(NSString *)string style:(NSUInteger)stylevalue {
     NSUInteger length = string.length;
+    NSUInteger textstoragelength = textstorage.length;
+    NSUInteger startpos;
     NSUInteger pos = 0;
-    NSDictionary *att = styles[stylevalue];
+
     NSRange selectedRange = textview.selectedRange;
 
-//    NSLog(@"textGrid printToWindow: '%@' (style %ld)", string, stylevalue);
-//    NSLog(@"cols: %ld rows: %ld", cols, rows);
-//    NSLog(@"xpos:%ld ypos: %ld", xpos, ypos);
-//
-//    NSLog(@"self.frame.size.width: %f",self.frame.size.width);
+    if (cols == 0 || rows == 0)
+        return;
 
-    NSDictionary *attrDict = styles[stylevalue];
+    if (xpos > cols) {
+        ypos += (xpos / cols);
+        xpos = (xpos % cols);
+    }
+
+    //    NSLog(@"textGrid printToWindow: '%@' (style %ld)", string, stylevalue);
+    //    NSLog(@"cols: %ld rows: %ld", cols, rows);
+    //    NSLog(@"xpos:%ld ypos: %ld", xpos, ypos);
+    //
+    //    NSLog(@"self.frame.size.width: %f",self.frame.size.width);
+
+    NSMutableDictionary *attrDict = [styles[stylevalue] mutableCopy];
+
+    if (!attrDict)
+        NSLog(@"GlkTextGridWindow printToWindow: ERROR! Style dictionary nil!");
+
+    startpos = ypos * (cols + 1) + xpos;
+    if (startpos > textstoragelength) {
+        // We are outside window visible range!
+        // Do nothing
+        NSLog(@"Printed outside grid window visible range!");
+        return;
+    }
 
     if (currentZColor) {
-        if (lastStyle != stylevalue && currentZColor.startpos != textstorage.length) {
-            NSInteger storedfg = currentZColor.fg;
-            NSInteger storedbg = currentZColor.bg;
-            [self setZColorText:zcolor_Default background:zcolor_Default];
-            [self setZColorText:storedfg background:storedbg];
-        }
-
+        attrDict[@"ZColor"] = currentZColor;
         if (self.theme.doStyles) {
             if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
                 attrDict = [currentZColor reversedAttributes:attrDict];
@@ -743,34 +767,38 @@
     }
 
     if (currentReverseVideo) {
-        if (lastStyle != stylevalue && currentReverseVideo.startpos != textstorage.length) {
-            [self setReverseVideo:NO];
-            [self setReverseVideo:YES];
-        }
+        attrDict[@"ReverseVideo"] = @(YES);
         if (self.theme.doStyles) {
             if ( [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
-                //  Because current colours are not already reversed by stylehint_ReverseColor, we reverse colors
-                attrDict = [currentReverseVideo reversedAttributes:attrDict background:self.theme.gridBackground];
+                // If the current colours are not already reversed by stylehint_ReverseColor,
+                // we reverse the colors here
+                attrDict = [self reversedAttributes:attrDict background:self.theme.gridBackground];
             }
         }
     }
 
-    if (!attrDict)
-        NSLog(@"GlkTextGridWindow printToWindow: ERROR! Style dictionary nil!");
-
-    NSString *firstline =
-    [textstorage.string substringWithRange:NSMakeRange(0, cols)];
-    CGSize stringSize = [firstline
-                         sizeWithAttributes:attrDict];
-
-    if (stringSize.width > self.frame.size.width) {
-        NSLog(@"ERROR! First line has somehow become too wide!!!!");
-        NSLog(@"First line of text storage: '%@'", firstline);
-        NSLog(@"Width of first line: %f", stringSize.width);
-        NSLog(@"Width of text grid window: %f", self.frame.size.width);
+    if (currentHyperlink) {
+        attrDict[NSLinkAttributeName] = @(currentHyperlink.index);
     }
 
-    // Check for newlines
+    if (ypos > rows) {
+        NSLog(@"printToWindow: ypos outside visible range");
+        return;
+    }
+
+    //    NSString *firstline =
+    //    [textstorage.string substringWithRange:NSMakeRange(0, cols)];
+    //    CGSize stringSize = [firstline
+    //                         sizeWithAttributes:attrDict];
+    //
+    //    if (stringSize.width > self.frame.size.width) {
+    //        NSLog(@"ERROR! First line has  become too wide!!!!");
+    //        NSLog(@"First line of text storage: '%@'", firstline);
+    //        NSLog(@"Width of first line: %f", stringSize.width);
+    //        NSLog(@"Width of text grid window: %f", self.frame.size.width);
+    //    }
+
+    // Check for newlines in string to write
     NSUInteger x;
     for (x = 0; x < length; x++) {
         if ([string characterAtIndex:x] == '\n' ||
@@ -787,7 +815,7 @@
     // Write this string
     while (pos < length) {
         // Can't write if we've fallen off the end of the window
-        if (((NSInteger)cols > -1 && ypos > textstorage.length / (cols + 1) ) || ypos > rows)
+        if (((NSInteger)cols > -1 && ypos > textstoragelength / (cols + 1) ) || ypos > rows)
             break;
 
         // Can only write a certain number of characters
@@ -803,21 +831,20 @@
             amountToDraw = string.length - pos;
         }
 
-        if ((cols + 1) * ypos + xpos + amountToDraw > textstorage.length)
-            amountToDraw = textstorage.length - ((cols + 1) * ypos + xpos) + 1;
+        if ((cols + 1) * ypos + xpos + amountToDraw > textstoragelength)
+            amountToDraw = textstoragelength - ((cols + 1) * ypos + xpos) + 1;
 
         if (amountToDraw < 1)
             break;
 
         // "Draw" the characters
         NSAttributedString *partString = [[NSAttributedString alloc]
-                                          initWithString:[string substringWithRange:NSMakeRange(pos,
-                                                                                                amountToDraw)]
-                                          attributes:att];
+                                          initWithString:[string substringWithRange:
+                                                          NSMakeRange(pos, amountToDraw)]
+                                          attributes:attrDict];
 
         [textstorage
-         replaceCharactersInRange:NSMakeRange((cols + 1) * ypos + xpos,
-                                              amountToDraw)
+         replaceCharactersInRange:NSMakeRange((cols + 1) * ypos + xpos, amountToDraw)
          withAttributedString:partString];
         
 //        NSLog(@"Replaced characters in range %@ with '%@'",
@@ -833,12 +860,8 @@
         }
     }
 
-    // NSLog(@"printToWindow: selected range was %@, restored to %@",
-    // NSStringFromRange(textview.selectedRange),
-    // NSStringFromRange(selectedRange));
     textview.selectedRange = selectedRange;
     dirty = YES;
-    lastStyle = stylevalue;
 }
 
 #pragma mark Hyperlinks
@@ -846,13 +869,15 @@
 - (void)setHyperlink:(NSUInteger)linkid {
     // NSLog(@"txtgrid: hyperlink %ld set", (long)linkid);
 
-    NSUInteger length = ypos * (cols + 1) + xpos;
+    NSUInteger position = ypos * (cols + 1) + xpos;
 
     if (currentHyperlink && currentHyperlink.index != linkid) {
         // A hyperlink run finished
-        if (currentHyperlink.startpos < length) {
-            currentHyperlink.range = NSMakeRange(
-                                                 currentHyperlink.startpos, length - currentHyperlink.startpos);
+        if (currentHyperlink.startpos < position && currentHyperlink.startpos < textstorage.length) {
+            currentHyperlink.range =
+            NSMakeRange(currentHyperlink.startpos, position - currentHyperlink.startpos);
+            if (NSMaxRange(currentHyperlink.range) > textstorage.length)
+                currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, textstorage.length - currentHyperlink.startpos);
             [hyperlinks addObject:currentHyperlink];
             NSNumber *link = @(currentHyperlink.index);
 
@@ -867,7 +892,7 @@
     if (!currentHyperlink && linkid) {
         // New hyperlink run started
         currentHyperlink = [[GlkHyperlink alloc] initWithIndex:linkid
-                                                        andPos:length];
+                                                        andPos:position];
     }
 }
 
@@ -1117,91 +1142,92 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     enteredTextSoFar = [fieldEditor.string copy];
 }
 
-#pragma mark ZColors
-
-- (void)applyZColorsAndThenReverse {
-    NSRange dummyrange;
-    NSDictionary *dict;
-    NSUInteger stylevalue;
-    for (ZColor *z in zColors) {
-        dict = [textstorage attributesAtIndex:z.startpos effectiveRange:&dummyrange];
-        stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
-        NSLog(@"Glk style at Zcolor range: %@", gBufferStyleNames[stylevalue]);
-        NSLog(@"Font used at Zcolor range: %@", dict[NSFontAttributeName]);
-        if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
-            //            NSLog(@"It has stylehint_ReverseColor set");
-            //            NSLog(@"Applied Zcolor with reversed attributes");
-            dict = [z reversedAttributes:dict];
-        } else {
-            //            NSLog(@"Applied Zcolor normally");
-            dict = [z coloredAttributes:dict];
-        }
-        [textstorage setAttributes:dict range:z.range];
-    }
-    for (ZReverseVideo *r in reverseVideos) {
-        dict = [textstorage attributesAtIndex:r.startpos effectiveRange:&dummyrange];
-        NSLog(@"Font used at reverse video range: %@", dict[NSFontAttributeName]);
-        stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
-        BOOL zcolorValue = (dict[@"ZColor"] != nil);
-        if (!([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
-            //            NSLog(@"Applying reverse video at %@. ZColor at this range is %@.", NSStringFromRange(r.range), dict[@"ZColor"]);
-            dict = [r reversedAttributes:dict background:self.theme.bufferBackground];
-            [textstorage setAttributes:dict range:r.range];
-        }
-    }
+- (void)deferredInitLine:(id)sender {
+    [self initLine:(NSString *)sender];
 }
+
+#pragma mark ZColors
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
 
-    NSUInteger length = ypos * (cols + 1) + xpos;
-
     if (currentZColor && !(currentZColor.fg == fg && currentZColor.bg == bg)) {
-        if (currentZColor.startpos < length) {
-            currentZColor.range =
-            NSMakeRange(currentZColor.startpos,
-                        length - currentZColor.startpos);
-            if (!zColors)
-                zColors = [[NSMutableArray alloc] init];
-            [zColors addObject:currentZColor];
-            currentZColor.index = zColors.count - 1;
-            [textstorage addAttribute:@"ZColor"
-                                value:@(currentZColor.index)
-                                range:currentZColor.range];
-        }
+        // If there already was a previous active zcolor, we
+        // deactivate it here, unless it uses the same colors as the new one.
         currentZColor = nil;
     }
+
     if (!currentZColor && !(fg == zcolor_Default && bg == zcolor_Default)) {
         currentZColor =
-        [[ZColor alloc] initWithText:fg background:bg andLocation:length];
+        [[ZColor alloc] initWithText:fg background:bg];
+        //        NSLog(@"Started a new ZColor run";
     }
+
 }
 
 - (void)setReverseVideo:(BOOL)reverse {
-    //    NSLog(@"txtbuf: setReverseVideo %@", reverse ? @"on" : @"off");
+    NSLog(@"txtgrid %ld: setReverseVideo %@", self.name, reverse ? @"on" : @"off");
 
-    NSUInteger length = ypos * (cols + 1) + xpos;
+    currentReverseVideo = reverse;
+}
 
-    if (currentReverseVideo && !reverse) {
-        if (currentReverseVideo.startpos < length) {
-            currentReverseVideo.range =
-            NSMakeRange(currentReverseVideo.startpos,
-                        length - currentReverseVideo.startpos);
-            if (!reverseVideos)
-                reverseVideos = [[NSMutableArray alloc] init];
-            [reverseVideos addObject:currentReverseVideo];
-            currentReverseVideo.index = reverseVideos.count - 1;
-            [textstorage addAttribute:@"ReverseVideo"
-                                value:@(currentReverseVideo.index)
-                                range:currentReverseVideo.range];
-            NSLog(@"Added reverse video object %ld with range %@", reverseVideos.count - 1, NSStringFromRange(currentReverseVideo.range));
-        }
-        currentReverseVideo = nil;
-    }
-    if (!currentReverseVideo && reverse) {
-        currentReverseVideo =
-        [[ZReverseVideo alloc] initWithLocation:length];
-        NSLog(@"Reverse video was switched on at position %ld", length);
-    }
+- (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
+    NSUInteger textstoragelength = attStr.length;
+    [attStr
+     enumerateAttribute:@"ZColor"
+     inRange:NSMakeRange(0, textstoragelength)
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
+
+         if (!value) {
+             NSLog(@"ZColor at %@ had no value?", NSStringFromRange(range));
+             return;
+         }
+         NSLog(@"Re-Applying zcolors at range %@", NSStringFromRange(range));
+         ZColor *z = value;
+         [attStr
+          enumerateAttributesInRange:range
+          options:0
+          usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
+              NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+              NSMutableDictionary *mutDict = [dict mutableCopy];
+              if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+                  //            NSLog(@"It has stylehint_ReverseColor set");
+                  //            NSLog(@"Applied Zcolor with reversed attributes");
+                  mutDict = [z reversedAttributes:mutDict];
+              } else {
+                  //            NSLog(@"Applied Zcolor normally");
+                  mutDict = [z coloredAttributes:mutDict];
+              }
+              [attStr addAttributes:mutDict range:range2];
+          }];
+     }];
+
+    [attStr
+     enumerateAttribute:@"ReverseVideo"
+     inRange:NSMakeRange(0, textstoragelength)
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
+         if (!value) {
+             NSLog(@"ReverseVideo at %@ had no value?",  NSStringFromRange(range));
+             return;
+         }
+         NSLog(@"Re-Applying reverse video at range %@", NSStringFromRange(range));
+         [attStr
+          enumerateAttributesInRange:range
+          options:0
+          usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
+              NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+              BOOL zcolorValue = (dict[@"ZColor"] != nil);
+              if (!([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
+                  //NSLog(@"Applying reverse video at %@. ZColor at this range is %@.", NSStringFromRange(range), dict[@"ZColor"]);
+                  NSMutableDictionary *mutDict = [dict mutableCopy];
+                  mutDict = [self reversedAttributes:mutDict background:self.theme.gridBackground];
+                  [attStr addAttributes:mutDict range:range2];
+              }
+          }];
+     }];
+    
+    return attStr;
 }
 
 #pragma mark Accessibility

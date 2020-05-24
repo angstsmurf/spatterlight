@@ -12,15 +12,11 @@
 
 @property NSInteger fg;
 @property NSInteger bg;
-@property NSUInteger index;
-@property NSUInteger startpos;
-@property NSRange range;
 
-- (instancetype)initWithText:(NSInteger)fg background:(NSInteger)bg
-                  andLocation:(NSUInteger)location;
+- (instancetype)initWithText:(NSInteger)fg background:(NSInteger)bg;
 
-- (NSDictionary *)coloredAttributes:(NSDictionary *)dict;
-- (NSDictionary *)reversedAttributes:(NSDictionary *)dict;
+- (NSMutableDictionary *)coloredAttributes:(NSMutableDictionary *)dict;
+- (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict;
 
 
 @end

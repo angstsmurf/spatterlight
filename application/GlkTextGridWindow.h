@@ -26,7 +26,6 @@
 }
 
 @property NSRange restoredSelection;
-- (void)restoreSelection;
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (IBAction)speakStatus:(id)sender;

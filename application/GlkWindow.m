@@ -1,6 +1,5 @@
 #import "main.h"
 #import "ZColor.h"
-#import "ZReverseVideo.h"
 
 @implementation GlkWindow
 
@@ -49,10 +48,9 @@
         char_request = [decoder decodeBoolForKey:@"char_request"];
         _styleHints = [decoder decodeObjectForKey:@"styleHints"];
         styles = [decoder decodeObjectForKey:@"styles"];
-        zColors = [decoder decodeObjectForKey:@"zColors"];
         currentZColor = [decoder decodeObjectForKey:@"currentZColor"];
-        reverseVideos = [decoder decodeObjectForKey:@"reverseVideos"];
-        currentReverseVideo = [decoder decodeObjectForKey:@"currentReverseVideo"];
+        currentReverseVideo = [decoder decodeBoolForKey:@"currentReverseVideo"];
+        bgnd = [decoder decodeIntegerForKey:@"bgnd"];
     }
     return self;
 }
@@ -69,10 +67,9 @@
     [encoder encodeBool:char_request forKey:@"char_request"];
     [encoder encodeObject:_styleHints forKey:@"styleHints"];
     [encoder encodeObject:styles forKey:@"styles"];
-    [encoder encodeObject:zColors forKey:@"zColors"];
     [encoder encodeObject:currentZColor forKey:@"currentZColor"];
-    [encoder encodeObject:reverseVideos forKey:@"reverseVideos"];
-    [encoder encodeObject:currentReverseVideo forKey:@"currentReverseVideo"];
+    [encoder encodeBool:currentReverseVideo forKey:@"currentReverseVideo"];
+    [encoder encodeInteger:bgnd forKey:@"bgnd"];
 }
 
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array {
@@ -82,7 +79,6 @@
     }
     return newArray;
 }
-
 
 - (BOOL)getStyleVal:(NSUInteger)style
                hint:(NSUInteger)hint
@@ -103,6 +99,18 @@
        *value = valObj.integerValue;
 
     return [valObj isNotEqualTo:[NSNull null]];
+}
+
+- (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict background:(NSColor *)backCol {
+    NSColor *fg = dict[NSForegroundColorAttributeName];
+    NSColor *bg = dict[NSBackgroundColorAttributeName];
+    if (!bg)
+        bg = backCol;
+    if (bg)
+        dict[NSForegroundColorAttributeName] = bg;
+    if (fg)
+        dict[NSBackgroundColorAttributeName] = fg;
+    return dict;
 }
 
 - (BOOL)isOpaque {
@@ -230,9 +238,6 @@
 
 - (BOOL)accessibilityIsIgnored {
     return NO;
-}
-
-- (void)restoreSelection {
 }
 
 @end

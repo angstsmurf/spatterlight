@@ -10,7 +10,6 @@
 #import "Metadata.h"
 #import "GlkStyle.h"
 #import "ZColor.h"
-#import "ZReverseVideo.h"
 #import "main.h"
 
 
@@ -1077,8 +1076,6 @@
 
         [_textview enableCaret:nil];
 
-        lastStyle = style_NUMSTYLES;
-
         [self addSubview:scrollview];
     }
 
@@ -1153,10 +1150,7 @@
             [decoder decodeBoolForKey:@"shouldDrawCaret"];
         _restoredSearch = [decoder decodeObjectForKey:@"searchString"];
         _restoredFindBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
-        storedNewline = [decoder decodeBoolForKey:@"storedNewline"];
-        storedNewlineStyle = (NSUInteger)[decoder decodeIntegerForKey:@"storedNewlineStyle"];
-
-        lastStyle = (NSUInteger)[decoder decodeIntegerForKey:@"lastStyle"];
+        storedNewline = [decoder decodeObjectForKey:@"storedNewline"];
 
         [self destroyTextFinder];
     }
@@ -1206,9 +1200,7 @@
         [encoder encodeObject:searchField.stringValue forKey:@"searchString"];
     }
     [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
-    [encoder encodeBool:storedNewline forKey:@"storedNewline"];
-    [encoder encodeInteger:(NSInteger)storedNewlineStyle forKey:@"storedNewlineStyle"];
-    [encoder encodeInteger:(NSInteger)lastStyle forKey:@"lastStyle"];
+    [encoder encodeObject:storedNewline forKey:@"storedNewline"];
 }
 
 - (BOOL)allowsDocumentBackgroundColorChange {
@@ -1237,12 +1229,6 @@
 
 - (void)prefsDidChange {
 //    NSLog(@"GlkTextBufferWindow %ld prefsDidChange", self.name);
-    NSRange range = NSMakeRange(0, 0);
-    NSRange linkrange = NSMakeRange(0, 0);
-    NSRange zcolrange = NSMakeRange(0, 0);
-    NSRange reverserange = NSMakeRange(0, 0);
-
-    NSUInteger x;
     NSDictionary *attributes;
 
     // Preferences has changed, so first we must redo the styles library
@@ -1284,68 +1270,74 @@
 
     if (different) {
         styles = newstyles;
-        x = 0;
-        while (x < textstorage.length) {
-            id styleobject = [textstorage attribute:@"GlkStyle"
-                                            atIndex:x
-                                     effectiveRange:&range];
+        /* reassign styles to attributedstrings */
+        NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
 
-            attributes = styles[(NSUInteger)[styleobject intValue]];
+        if (storedNewline) {
+            [backingStorage appendAttributedString:storedNewline];
+        }
+        
+        NSRange selectedRange = _textview.selectedRange;
 
-            id image = [textstorage attribute:@"NSAttachment"
-                                      atIndex:x
-                               effectiveRange:NULL];
+        [textstorage
+         enumerateAttributesInRange:NSMakeRange(0, textstorage.length)
+         options:0
+         usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
 
-            id hyperlink = [textstorage attribute:NSLinkAttributeName
-                                          atIndex:x
-                                   effectiveRange:&linkrange];
+             // First, we overwrite all attributes with those in our updated
+             // styles array
+             id styleobject = attrs[@"GlkStyle"];
+             if (styleobject) {
+                 NSDictionary *stylesAtt = styles[(NSUInteger)[styleobject intValue]];
+                 [backingStorage setAttributes:stylesAtt range:range];
+             }
 
-            id zcolor = [textstorage attribute:@"ZColor"
-                                       atIndex:x
-                                effectiveRange:&zcolrange];
+             // Then, we re-add all the "non-Glk" style values we want to keep
+             // (inline images, hyperlinks, Z-colors and reverse video)
+             id image = attrs[@"NSAttachment"];
+             if (image) {
+                 ((MyAttachmentCell *)((NSTextAttachment *)image).attachmentCell).attrstr = backingStorage;
+             }
 
-            id reverse = [textstorage attribute:@"ReverseVideo"
-                                        atIndex:x
-                                 effectiveRange:&reverserange];
+             id hyperlink = attrs[NSLinkAttributeName];
+             if (hyperlink) {
+                 [backingStorage addAttribute:NSLinkAttributeName
+                                        value:hyperlink
+                                        range:range];
+             }
 
-            [textstorage setAttributes:attributes range:range];
+             id zcolor = attrs[@"ZColor"];
+             if (zcolor) {
+                 [backingStorage addAttribute:@"ZColor"
+                                        value:zcolor
+                                        range:range];
+             }
 
-            if (image) {
-                ((MyAttachmentCell *)((NSTextAttachment *)image).attachmentCell).attrstr = textstorage;
-                [textstorage addAttribute:@"NSAttachment"
-                                    value:image
-                                    range:NSMakeRange(x, 1)];
-            }
+             id reverse = attrs[@"ReverseVideo"];
+             if (reverse) {
+                 [backingStorage addAttribute:@"ReverseVideo"
+                                        value:reverse
+                                        range:range];
+             }
+         }];
 
-            if (hyperlink) {
-                [textstorage addAttribute:NSLinkAttributeName
-                                    value:hyperlink
-                                    range:linkrange];
-            }
+        if (self.theme.doStyles)
+            backingStorage = [self applyZColorsAndThenReverse:backingStorage];
 
-            if (zcolor) {
-                [textstorage addAttribute:@"ZColor"
-                                    value:zcolor
-                                    range:zcolrange];
-            }
-
-            if (reverse) {
-                [textstorage addAttribute:@"ReverseVideo"
-                                    value:reverse
-                                    range:reverserange];
-            }
-
-            x = NSMaxRange(range);
+        if (storedNewline) {
+            storedNewline = [[NSAttributedString alloc] initWithString:@"\n" attributes:[backingStorage attributesAtIndex:backingStorage.length - 1 effectiveRange:NULL]];
+            [backingStorage deleteCharactersInRange:NSMakeRange(backingStorage.length - 1, 1)];
         }
 
-    //    layoutmanager.usesScreenFonts = [Preferences useScreenFonts];
+        [textstorage setAttributedString:backingStorage];
 
+        _textview.selectedRange = selectedRange;
     }
 
     if (!self.glkctl.previewDummy) {
 
         if (different) {
-            // Set style of hyperlinks
+            // Set style for hyperlinks
             NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
             linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
             _textview.linkTextAttributes = linkAttributes;
@@ -1353,8 +1345,6 @@
             [self showInsertionPoint];
             lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
             [self recalcBackground];
-            if (self.theme.doStyles)
-                [self applyZColorsAndThenReverse];
             [container invalidateLayout];
         }
         [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.1];
@@ -1717,17 +1707,6 @@
     [container clearImages];
 
     hyperlinks = nil;
-    zColors = nil;
-    reverseVideos = nil;
-
-    if (currentHyperlink)
-        currentHyperlink.startpos = 0;
-
-    if (currentZColor)
-        currentZColor.startpos = 0;
-
-    if (currentReverseVideo)
-        currentReverseVideo.startpos = 0;
 
     moveRanges = nil;
     moveRanges = [[NSMutableArray alloc] init];
@@ -1772,7 +1751,6 @@
 
     [container clearImages];
     hyperlinks = nil;
-    hyperlinks = [[NSMutableArray alloc] init];
 
     moveRanges = nil;
     moveRanges = [[NSMutableArray alloc] init];
@@ -1801,57 +1779,15 @@
 
     // A lot of code to not print single newlines
     // at the bottom
-    if (storedNewline && textstorage.length) {
-        storedNewline = NO;
-        
-        ZReverseVideo *heldReverse = currentReverseVideo;
-        ZColor *heldZColor = currentZColor;
-        GlkHyperlink *heldHyper = currentHyperlink;
-
-        if (currentReverseVideo && currentReverseVideo.startpos == textstorage.length) {
-            currentReverseVideo.startpos++;
-            currentReverseVideo = nil;
-        }
-        if (currentZColor && currentZColor.startpos == textstorage.length) {
-            currentZColor.startpos++;
-            currentZColor = nil;
-        }
-        if (currentHyperlink && currentHyperlink.startpos == textstorage.length) {
-            currentHyperlink.startpos++;
-            currentHyperlink = nil;
-        }
-        
-        [self printToWindow:@"\n" style:storedNewlineStyle];
-
-        currentReverseVideo = heldReverse;
-        currentZColor = heldZColor;
-        currentHyperlink = heldHyper;
+    if (storedNewline) {
+        [textstorage appendAttributedString:storedNewline];
+        storedNewline = nil;
     }
 
-    storedNewline = NO;
-
-    if (str.length > 1) {
-        _lastchar = [str characterAtIndex:str.length - 1];
-
-        if (_lastchar == '\n' && textstorage.length) {
-            str = [str substringWithRange:NSMakeRange(0, str.length - 1)];
-            storedNewline = YES;
-            storedNewlineStyle = stylevalue;
-        } 
-    }
-
-    // Newline code ends here
-
-    NSDictionary *attributes = styles[stylevalue];
+    NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
 
     if (currentZColor) {
-        if (lastStyle != stylevalue && currentZColor.startpos != textstorage.length) {
-            NSInteger storedfg = currentZColor.fg;
-            NSInteger storedbg = currentZColor.bg;
-            [self setZColorText:zcolor_Default background:zcolor_Default];
-            [self setZColorText:storedfg background:storedbg];
-        }
-
+        attributes[@"ZColor"] = currentZColor;
         if (self.theme.doStyles) {
             if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
                 attributes = [currentZColor reversedAttributes:attributes];
@@ -1862,29 +1798,36 @@
             }
         }
     }
-    
+
     if (currentReverseVideo) {
-        if (lastStyle != stylevalue && currentReverseVideo.startpos != textstorage.length) {
-            [self setReverseVideo:NO];
-            [self setReverseVideo:YES];
-        }
+        attributes[@"ReverseVideo"] = @(YES);
         if (self.theme.doStyles) {
             if ( [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
-                //            NSLog(@"Current style has stylehint_ReverseColor unset, so we reverse colors");
-                attributes = [currentReverseVideo reversedAttributes:attributes background:self.theme.bufferBackground];
+                // Current style has stylehint_ReverseColor unset, so we reverse colors
+                attributes = [self reversedAttributes:attributes background:self.theme.bufferBackground];
             }
         }
     }
 
+    if (str.length > 1) {
+        _lastchar = [str characterAtIndex:str.length - 1];
+        if (_lastchar == '\n') {
+            storedNewline = [[NSAttributedString alloc]
+                             initWithString:@"\n"
+                             attributes:attributes];
+
+            str = [str substringWithRange:NSMakeRange(0, str.length - 1)];
+        }
+    }
+    
+
     NSAttributedString *attstr = [[NSAttributedString alloc]
-        initWithString:str
-            attributes:attributes];
+                                  initWithString:str
+                                  attributes:attributes];
 
     [_textview resetTextFinder];
 
     [textstorage appendAttributedString:attstr];
-
-    lastStyle = stylevalue;
 }
 
 - (void)unputString:(NSString *)buf {
@@ -2142,9 +2085,14 @@
         h = (NSInteger)image.size.height;
 
     if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
-        if (_lastchar != '\n' && textstorage.length) {
+        if (_lastchar != '\n' && !storedNewline && textstorage.length) {
             NSLog(@"lastchar is not line break. Do not add margin image.");
             return;
+        } else {
+            if (storedNewline) {
+                [textstorage appendAttributedString:storedNewline];
+                storedNewline = nil;
+            }
         }
 
         //        NSLog(@"adding image to margins");
@@ -2302,87 +2250,80 @@
 
 #pragma mark ZColors
 
-- (void)applyZColorsAndThenReverse {
-    NSRange dummyrange;
-    NSDictionary *dict;
-    NSUInteger stylevalue;
-    for (ZColor *z in zColors) {
-        dict = [textstorage attributesAtIndex:z.startpos effectiveRange:&dummyrange];
-        stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
-        if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
-            // Style here has stylehint_ReverseColor set to 1");
-            // so we apply the zcolor with flipped foreground and background");
-            dict = [z reversedAttributes:dict];
-        } else {
-            // Apply the zcolor without flipping
-            dict = [z coloredAttributes:dict];
-        }
-        [textstorage setAttributes:dict range:z.range];
-    }
+- (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
+    NSUInteger textstoragelength = attStr.length;
+    [attStr
+     enumerateAttribute:@"ZColor"
+     inRange:NSMakeRange(0, textstoragelength)
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
 
-    for (ZReverseVideo *r in reverseVideos) {
-        dict = [textstorage attributesAtIndex:r.startpos effectiveRange:&dummyrange];
-        stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
-        BOOL zcolorValue = (dict[@"ZColor"] != nil);
-        if (!([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
-            // If the colours are not already flipped due to stylehint_ReverseColor
-            // we flip them here
-            dict = [r reversedAttributes:dict background:self.theme.bufferBackground];
-            [textstorage setAttributes:dict range:r.range];
-        }
-    }
+         if (!value) {
+             NSLog(@"ZColor at %@ had no value?", NSStringFromRange(range));
+             return;
+         }
+         NSLog(@"Re-Applying zcolors at range %@", NSStringFromRange(range));
+         ZColor *z = value;
+         [attStr
+          enumerateAttributesInRange:range
+          options:0
+          usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
+              NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+              NSMutableDictionary *mutDict = [dict mutableCopy];
+              if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+                  //            NSLog(@"It has stylehint_ReverseColor set");
+                  //            NSLog(@"Applied Zcolor with reversed attributes");
+                  mutDict = [z reversedAttributes:mutDict];
+              } else {
+                  //            NSLog(@"Applied Zcolor normally");
+                  mutDict = [z coloredAttributes:mutDict];
+              }
+              [attStr addAttributes:mutDict range:range2];
+          }];
+     }];
+
+    [attStr
+     enumerateAttribute:@"ReverseVideo"
+     inRange:NSMakeRange(0, textstoragelength)
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
+         if (!value) {
+             NSLog(@"ReverseVideo at %@ had no value?",  NSStringFromRange(range));
+             return;
+         }
+         NSLog(@"Re-Applying reverse video at range %@", NSStringFromRange(range));
+         [attStr
+          enumerateAttributesInRange:range
+          options:0
+          usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
+              NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+              BOOL zcolorValue = (dict[@"ZColor"] != nil);
+              if (!([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
+                  //NSLog(@"Applying reverse video at %@. ZColor at this range is %@.", NSStringFromRange(range), dict[@"ZColor"]);
+                  NSMutableDictionary *mutDict = [dict mutableCopy];
+                  mutDict = [self reversedAttributes:mutDict background:self.theme.gridBackground];
+                  [attStr addAttributes:mutDict range:range2];
+              }
+          }];
+     }];
+
+    return attStr;
 }
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
     if (currentZColor && !(currentZColor.fg == fg && currentZColor.bg == bg)) {
-        if (currentZColor.startpos < textstorage.length) {
-            // A run of zcolor ended
-            [_textview resetTextFinder];
-            currentZColor.range =
-            NSMakeRange(currentZColor.startpos,
-                        textstorage.length - currentZColor.startpos);
-            if (!zColors)
-                zColors = [[NSMutableArray alloc] init];
-            [zColors addObject:currentZColor];
-            currentZColor.index = zColors.count - 1;
-            [textstorage addAttribute:@"ZColor"
-                                value:@(currentZColor.index)
-                                range:currentZColor.range];
-        }
         currentZColor = nil;
     }
     if (!currentZColor && !(fg == zcolor_Default && bg == zcolor_Default)) {
         // A run of zcolor started
         currentZColor =
-        [[ZColor alloc] initWithText:fg background:bg andLocation:textstorage.length];
+        [[ZColor alloc] initWithText:fg background:bg];
     }
 }
 
 - (void)setReverseVideo:(BOOL)reverse {
-//    NSLog(@"txtbuf: setReverseVideo %@", reverse ? @"on" : @"off");
-
-    if (currentReverseVideo && !reverse) {
-        // A run of reverse video ended
-        if (currentReverseVideo.startpos < textstorage.length) {
-            [_textview resetTextFinder];
-            currentReverseVideo.range =
-            NSMakeRange(currentReverseVideo.startpos,
-                        textstorage.length - currentReverseVideo.startpos);
-            if (!reverseVideos)
-                reverseVideos = [[NSMutableArray alloc] init];
-            [reverseVideos addObject:currentReverseVideo];
-            currentReverseVideo.index = reverseVideos.count - 1;
-            [textstorage addAttribute:@"ReverseVideo"
-                                value:@(currentReverseVideo.index)
-                                range:currentReverseVideo.range];
-        }
-        currentReverseVideo = nil;
-    }
-    if (!currentReverseVideo && reverse) {
-        // A run of reverse video started
-        currentReverseVideo =
-        [[ZReverseVideo alloc] initWithLocation:textstorage.length];
-    }
+    //    NSLog(@"txtbuf: setReverseVideo %@", reverse ? @"on" : @"off");
+    currentReverseVideo = reverse;
 }
 
 #pragma mark Scrolling

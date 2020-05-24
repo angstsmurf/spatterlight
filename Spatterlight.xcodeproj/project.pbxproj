@@ -127,7 +127,6 @@
 		6DB774D62458BAE400EDC671 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		6DB774D72458DD4900EDC671 /* bocfel in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 6DB774A22458B95E00EDC671 /* bocfel */; };
 		6DB8C1E924599DF9002CDCCB /* ZColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB8C1E824599DF8002CDCCB /* ZColor.m */; };
-		6DB8C1EC24599E33002CDCCB /* ZReverseVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB8C1EB24599E33002CDCCB /* ZReverseVideo.m */; };
 		6DBC471A21D27E9C00A20E28 /* Compatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC471821D2752000A20E28 /* Compatibility.m */; };
 		6DBC629B23A421BE0066F443 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214823A26078002DEF3B /* Metadata.m */; };
 		6DC520AA23BAD54B0004923A /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
@@ -1037,6 +1036,7 @@
 /* Begin PBXFileReference section */
 		6D212736246BDC4E00D775A8 /* NSColor+integer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+integer.h"; sourceTree = "<group>"; };
 		6D212737246BDC4E00D775A8 /* NSColor+integer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+integer.m"; sourceTree = "<group>"; };
+		6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 2.xcdatamodel"; sourceTree = "<group>"; };
 		6D2BA43824564BCB00FE5B52 /* mpg123.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = mpg123.framework; path = Frameworks/SDL2_mixer.framework/Frameworks/mpg123.framework; sourceTree = "<group>"; };
 		6D2C8688225E5291004A5A75 /* filesys.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filesys.c; sourceTree = "<group>"; };
 		6D2C8689225E5291004A5A75 /* filesys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filesys.h; sourceTree = "<group>"; };
@@ -1224,8 +1224,6 @@
 		6DB774BF2458B9B300EDC671 /* zterp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zterp.c; sourceTree = "<group>"; };
 		6DB8C1E724599DF8002CDCCB /* ZColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZColor.h; sourceTree = "<group>"; };
 		6DB8C1E824599DF8002CDCCB /* ZColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZColor.m; sourceTree = "<group>"; };
-		6DB8C1EA24599E33002CDCCB /* ZReverseVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZReverseVideo.h; sourceTree = "<group>"; };
-		6DB8C1EB24599E33002CDCCB /* ZReverseVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZReverseVideo.m; sourceTree = "<group>"; };
 		6DBC471721D270B100A20E28 /* Compatibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Compatibility.h; sourceTree = "<group>"; };
 		6DBC471821D2752000A20E28 /* Compatibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Compatibility.m; sourceTree = "<group>"; };
 		6DC144972215D3F6007C0A6B /* spatterstart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spatterstart.h; sourceTree = "<group>"; };
@@ -3503,8 +3501,6 @@
 				961CCEDC09F239E700528FF9 /* GlkGraphicsWindow.m */,
 				6DB8C1E724599DF8002CDCCB /* ZColor.h */,
 				6DB8C1E824599DF8002CDCCB /* ZColor.m */,
-				6DB8C1EA24599E33002CDCCB /* ZReverseVideo.h */,
-				6DB8C1EB24599E33002CDCCB /* ZReverseVideo.m */,
 				6D85C894218BD6E00088D849 /* HelpPanelController.h */,
 				6D85C895218BD6E00088D849 /* HelpPanelController.m */,
 			);
@@ -5552,7 +5548,6 @@
 				6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */,
 				6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */,
 				6DB8C1E924599DF9002CDCCB /* ZColor.m in Sources */,
-				6DB8C1EC24599E33002CDCCB /* ZReverseVideo.m in Sources */,
 				6D212738246BDC4E00D775A8 /* NSColor+integer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7769,6 +7764,7 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
 			currentVersion = 6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */;
