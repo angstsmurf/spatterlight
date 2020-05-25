@@ -11,6 +11,7 @@
         _glkctl = glkctl_;
         _theme = glkctl_.theme;
         _name = name;
+        bgnd = -1;
 
         _pendingTerminators = [[NSMutableDictionary alloc]
                                initWithObjectsAndKeys:@(NO), @keycode_Func1,
@@ -39,8 +40,7 @@
     self = [super initWithCoder:decoder];
     if (self) {
         _name = [decoder decodeIntegerForKey:@"name"];
-        hyperlinks = [decoder decodeObjectForKey:@"hyperlinks"];
-        currentHyperlink = [decoder decodeObjectForKey:@"currentHyperlink"];
+        _currentHyperlink = [decoder decodeIntegerForKey:@"currentHyperlink"];
         currentTerminators = [decoder decodeObjectForKey:@"currentTerminators"];
         _pendingTerminators =
             [decoder decodeObjectForKey:@"pendingTerminators"];
@@ -49,7 +49,7 @@
         _styleHints = [decoder decodeObjectForKey:@"styleHints"];
         styles = [decoder decodeObjectForKey:@"styles"];
         currentZColor = [decoder decodeObjectForKey:@"currentZColor"];
-        currentReverseVideo = [decoder decodeBoolForKey:@"currentReverseVideo"];
+        _currentReverseVideo = [decoder decodeBoolForKey:@"currentReverseVideo"];
         bgnd = [decoder decodeIntegerForKey:@"bgnd"];
     }
     return self;
@@ -59,8 +59,7 @@
     [super encodeWithCoder:encoder];
 
     [encoder encodeInteger:_name forKey:@"name"];
-    [encoder encodeObject:hyperlinks forKey:@"hyperlinks"];
-    [encoder encodeObject:currentHyperlink forKey:@"currentHyperlink"];
+    [encoder encodeInteger:_currentHyperlink forKey:@"currentHyperlink"];
     [encoder encodeObject:currentTerminators forKey:@"currentTerminators"];
     [encoder encodeObject:_pendingTerminators forKey:@"pendingTerminators"];
     [encoder encodeBool:_terminatorsPending forKey:@"terminatorsPending"];
@@ -68,7 +67,7 @@
     [encoder encodeObject:_styleHints forKey:@"styleHints"];
     [encoder encodeObject:styles forKey:@"styles"];
     [encoder encodeObject:currentZColor forKey:@"currentZColor"];
-    [encoder encodeBool:currentReverseVideo forKey:@"currentReverseVideo"];
+    [encoder encodeBool:_currentReverseVideo forKey:@"currentReverseVideo"];
     [encoder encodeInteger:bgnd forKey:@"bgnd"];
 }
 
@@ -204,9 +203,6 @@
 - (void)cancelMouse {
 }
 
-- (void)setHyperlink:(NSUInteger)linkid;
-{ NSLog(@"hyperlink input in %@ not implemented", [self class]); }
-
 - (void)initHyperlink {
     NSLog(@"hyperlink input in %@ not implemented", [self class]);
 }
@@ -217,10 +213,6 @@
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
     NSLog(@"ZColors in %@ not implemented", [self class]);
-}
-
-- (void)setReverseVideo:(BOOL)reverse {
-    NSLog(@"Reverse video in %@ not implemented", [self class]);
 }
 
 - (BOOL)hasLineRequest {

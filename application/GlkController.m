@@ -2350,7 +2350,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case SETREVERSE:
             if (reqWin) {
-                [reqWin setReverseVideo:(req->a2 != 0)];
+                reqWin.currentReverseVideo = (req->a2 != 0);
             }
             break;
 
@@ -2411,7 +2411,7 @@ fprintf(stderr, "%s\n",                                                    \
             //            NSLog(@"glkctl set hyperlink %d in window %d", req->a2,
             //            req->a1);
             if (reqWin) {
-                [reqWin setHyperlink:(NSUInteger)req->a2];
+                reqWin.currentHyperlink = req->a2;
             }
             break;
 

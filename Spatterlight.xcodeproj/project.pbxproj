@@ -144,7 +144,6 @@
 		6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD7679B23E45FB7003B605C /* ThemeArrayController.m */; };
 		6DE957B023E3040A003246B6 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE957AF23E3040A003246B6 /* Theme.m */; };
 		6DF73C3523B8F46100F76CF9 /* GlkStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF73C3423B8F46100F76CF9 /* GlkStyle.m */; };
-		6DF87CDC218259DB0020E9A1 /* GlkHyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
 		961153670A4F365C00BB7FF2 /* htmldb3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152520A4F355800BB7FF2 /* htmldb3.cpp */; };
 		961153680A4F365C00BB7FF2 /* htmldbg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152530A4F355800BB7FF2 /* htmldbg.cpp */; };
@@ -1252,8 +1251,6 @@
 		6DE957AF23E3040A003246B6 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		6DF73C3323B8F46100F76CF9 /* GlkStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkStyle.h; sourceTree = "<group>"; };
 		6DF73C3423B8F46100F76CF9 /* GlkStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkStyle.m; sourceTree = "<group>"; };
-		6DF87CDA218259DB0020E9A1 /* GlkHyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkHyperlink.h; sourceTree = "<group>"; };
-		6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkHyperlink.m; sourceTree = "<group>"; };
 		9611524F0A4F355800BB7FF2 /* html_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html_os.h; sourceTree = "<group>"; };
 		961152500A4F355800BB7FF2 /* htmlattr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = htmlattr.h; sourceTree = "<group>"; };
 		961152510A4F355800BB7FF2 /* htmldb2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = htmldb2.cpp; sourceTree = "<group>"; };
@@ -3489,8 +3486,6 @@
 				C38101291EDA297E00B87B68 /* GlkController.m */,
 				961CCED909F239E700528FF9 /* GlkEvent.h */,
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
-				6DF87CDA218259DB0020E9A1 /* GlkHyperlink.h */,
-				6DF87CDB218259DB0020E9A1 /* GlkHyperlink.m */,
 				961CCEE909F239E700528FF9 /* GlkWindow.h */,
 				961CCEEA09F239E700528FF9 /* GlkWindow.m */,
 				961CCEE509F239E700528FF9 /* GlkTextBufferWindow.h */,
@@ -5525,7 +5520,6 @@
 				961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
 				961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */,
-				6DF87CDC218259DB0020E9A1 /* GlkHyperlink.m in Sources */,
 				6D85C897218BD6E10088D849 /* HelpPanelController.m in Sources */,
 				C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */,
 				6D79435A224A2D2E0071EB3D /* NSString+Categories.m in Sources */,

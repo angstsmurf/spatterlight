@@ -4,7 +4,6 @@
  */
 
 #import "Compatibility.h"
-#import "GlkHyperlink.h"
 #import "NSString+Categories.h"
 #import "Theme.h"
 #import "GlkStyle.h"
@@ -222,8 +221,6 @@
                 [styles addObject:styleDict];
             }
         }
-
-        hyperlinks = [[NSMutableArray alloc] init];
 
         /* construct text system manually */
 
@@ -694,9 +691,6 @@
     NSRange selectedRange = textview.selectedRange;
     [textstorage setAttributedString:[[NSMutableAttributedString alloc]
                                       initWithString:@""]];
-    hyperlinks = nil;
-    hyperlinks = [[NSMutableArray alloc] init];
-
     rows = cols = 0;
     xpos = ypos = 0;
 
@@ -766,7 +760,7 @@
         }
     }
 
-    if (currentReverseVideo) {
+    if (self.currentReverseVideo) {
         attrDict[@"ReverseVideo"] = @(YES);
         if (self.theme.doStyles) {
             if ( [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
@@ -777,8 +771,8 @@
         }
     }
 
-    if (currentHyperlink) {
-        attrDict[NSLinkAttributeName] = @(currentHyperlink.index);
+    if (self.currentHyperlink) {
+        attrDict[NSLinkAttributeName] = @(self.currentHyperlink);
     }
 
     if (ypos > rows) {
@@ -865,36 +859,6 @@
 }
 
 #pragma mark Hyperlinks
-
-- (void)setHyperlink:(NSUInteger)linkid {
-    // NSLog(@"txtgrid: hyperlink %ld set", (long)linkid);
-
-    NSUInteger position = ypos * (cols + 1) + xpos;
-
-    if (currentHyperlink && currentHyperlink.index != linkid) {
-        // A hyperlink run finished
-        if (currentHyperlink.startpos < position && currentHyperlink.startpos < textstorage.length) {
-            currentHyperlink.range =
-            NSMakeRange(currentHyperlink.startpos, position - currentHyperlink.startpos);
-            if (NSMaxRange(currentHyperlink.range) > textstorage.length)
-                currentHyperlink.range = NSMakeRange(currentHyperlink.startpos, textstorage.length - currentHyperlink.startpos);
-            [hyperlinks addObject:currentHyperlink];
-            NSNumber *link = @(currentHyperlink.index);
-
-            [textstorage addAttribute:NSLinkAttributeName
-                                value:link
-                                range:currentHyperlink.range];
-
-            dirty = YES;
-        }
-        currentHyperlink = nil;
-    }
-    if (!currentHyperlink && linkid) {
-        // New hyperlink run started
-        currentHyperlink = [[GlkHyperlink alloc] initWithIndex:linkid
-                                                        andPos:position];
-    }
-}
 
 - (void)initHyperlink {
     hyper_request = YES;
@@ -1162,12 +1126,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
         //        NSLog(@"Started a new ZColor run";
     }
 
-}
-
-- (void)setReverseVideo:(BOOL)reverse {
-    NSLog(@"txtgrid %ld: setReverseVideo %@", self.name, reverse ? @"on" : @"off");
-
-    currentReverseVideo = reverse;
 }
 
 - (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {

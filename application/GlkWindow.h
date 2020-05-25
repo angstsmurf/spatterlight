@@ -1,12 +1,8 @@
-@class GlkController, GlkHyperlink, Theme, ZColor, ZReverseVideo;
+@class GlkController, Theme, ZColor;
 
 @interface GlkWindow : NSView {
 
-    NSMutableArray *hyperlinks;
-    GlkHyperlink *currentHyperlink;
-
     ZColor *currentZColor;
-    BOOL currentReverseVideo;
 
     NSMutableDictionary *currentTerminators;
 
@@ -22,6 +18,9 @@
 
 @property(readonly) NSInteger name;
 @property GlkController *glkctl;
+
+@property BOOL currentReverseVideo;
+@property NSInteger currentHyperlink;
 
 @property NSArray *styleHints;
 @property NSMutableDictionary *pendingTerminators;
@@ -52,12 +51,10 @@
 - (NSString *)cancelLine;
 - (void)initMouse;
 - (void)cancelMouse;
-- (void)setHyperlink:(NSUInteger)linkid;
 - (void)initHyperlink;
 - (void)cancelHyperlink;
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg;
-- (void)setReverseVideo:(BOOL)reverse;
 
 - (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict background:(NSColor *)backCol;
 
@@ -71,7 +68,5 @@
 - (void)prefsDidChange;
 - (void)terpDidStop;
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array;
-
-- (void)restoreSelection;
 
 @end

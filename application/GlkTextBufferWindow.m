@@ -3,7 +3,6 @@
  */
 
 #import "Compatibility.h"
-#import "GlkHyperlink.h"
 #import "NSString+Categories.h"
 #import "Theme.h"
 #import "Game.h"
@@ -1706,8 +1705,6 @@
     _lastchar = '\n';
     [container clearImages];
 
-    hyperlinks = nil;
-
     moveRanges = nil;
     moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;
@@ -1750,7 +1747,6 @@
     line_request = save_request;
 
     [container clearImages];
-    hyperlinks = nil;
 
     moveRanges = nil;
     moveRanges = [[NSMutableArray alloc] init];
@@ -1799,7 +1795,7 @@
         }
     }
 
-    if (currentReverseVideo) {
+    if (self.currentReverseVideo) {
         attributes[@"ReverseVideo"] = @(YES);
         if (self.theme.doStyles) {
             if ( [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
@@ -1807,6 +1803,10 @@
                 attributes = [self reversedAttributes:attributes background:self.theme.bufferBackground];
             }
         }
+    }
+
+    if (self.currentHyperlink) {
+        attributes[NSLinkAttributeName] = @(self.currentHyperlink);
     }
 
     if (str.length > 1) {
@@ -2103,10 +2103,6 @@
         [textstorage.mutableString
             appendString:[NSString stringWithCharacters:uc length:1]];
 
-        NSUInteger linkid = 0;
-        if (currentHyperlink)
-            linkid = currentHyperlink.index;
-
         image = [self scaleImage:image size:NSMakeSize(w, h)];
 
         tiffdata = image.TIFFRepresentation;
@@ -2114,7 +2110,7 @@
         [container addImage:[[NSImage alloc] initWithData:tiffdata]
                       align:align
                          at:textstorage.length - 1
-                     linkid:linkid];
+                     linkid:(NSUInteger)self.currentHyperlink];
 
         //        [container addImage: image align: align at:
         //        textstorage.length - 1 linkid:linkid];
@@ -2139,6 +2135,10 @@
             (NSMutableAttributedString *)[NSMutableAttributedString
                 attributedStringWithAttachment:att];
 
+        if (self.currentHyperlink) {
+            [attstr addAttribute:NSLinkAttributeName value:@(self.currentHyperlink) range:NSMakeRange(0, attstr.length)];
+        }
+
         [textstorage appendAttributedString:attstr];
     }
 }
@@ -2155,37 +2155,6 @@
 }
 
 #pragma mark Hyperlinks
-
-- (void)setHyperlink:(NSUInteger)linkid {
-//    NSLog(@"txtbuf: hyperlink %ld set", (long)linkid);
-
-    if (currentHyperlink && currentHyperlink.index != linkid) {
-//        NSLog(@"There is a preliminary hyperlink, with index %ld",
-//              currentHyperlink.index);
-        if (currentHyperlink.startpos < textstorage.length) {
-            [_textview resetTextFinder];
-
-            currentHyperlink.range =
-                NSMakeRange(currentHyperlink.startpos,
-                            textstorage.length - currentHyperlink.startpos);
-            [textstorage addAttribute:NSLinkAttributeName
-                                 value:@(currentHyperlink.index)
-                                 range:currentHyperlink.range];
-            if (!hyperlinks)
-                hyperlinks = [[NSMutableArray alloc] init];
-            [hyperlinks addObject:currentHyperlink];
-        }
-        currentHyperlink = nil;
-    }
-    if (!currentHyperlink && linkid) {
-        currentHyperlink =
-            [[GlkHyperlink alloc] initWithIndex:linkid
-                                         andPos:textstorage.length];
-//        NSLog(@"New preliminary hyperlink started at position %ld, with link "
-//              @"index %ld",
-//              currentHyperlink.startpos, linkid);
-    }
-}
 
 - (void)initHyperlink {
     hyper_request = YES;
@@ -2319,11 +2288,6 @@
         currentZColor =
         [[ZColor alloc] initWithText:fg background:bg];
     }
-}
-
-- (void)setReverseVideo:(BOOL)reverse {
-    //    NSLog(@"txtbuf: setReverseVideo %@", reverse ? @"on" : @"off");
-    currentReverseVideo = reverse;
 }
 
 #pragma mark Scrolling
@@ -2545,6 +2509,7 @@
 }
 
 - (void)postRestoreScrollAdjustment {
+    [container invalidateLayout]; // This fixes a bug with margin images on 10.7
     [self restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
 
     lastVisible = _restoredLastVisible;
