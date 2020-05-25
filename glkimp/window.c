@@ -862,7 +862,7 @@ void gli_windows_rearrange(void)
  * Input events
  */
 
-void gli_init_line_event(window_t *win, glui32 *buf, int maxlen, int initlen)
+void gli_init_line_event(window_t *win, void *buf, int maxlen, int initlen)
 {
     win_initline(win->peer, maxlen, initlen, buf);
 

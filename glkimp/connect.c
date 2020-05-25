@@ -349,13 +349,26 @@ void win_cancelchar(int name)
     sendmsg(CANCELCHAR, name, 0, 0, 0, 0, 0, NULL);
 }
 
-void win_initline(int name, int cap, int len, glui32 *buf)
+void win_initline(int name, int cap, int len, void *buf)
 {
     win_flush();
 
+    window_t *win = gli_window_for_peer(name);
+
     glui32 ix;
-    for (ix=0; ix<len; ix++) {
-        pbuf[ix] = buf[ix];
+
+    if (win->line_request_uni) {
+        for (ix=0; ix<len; ix++) {
+            pbuf[ix] = ((glui32 *)buf)[ix];
+        }
+    } else {
+        // If this was not a unicode line event request,
+        // we convert to unicode here
+        for (ix=0; ix<len; ix++) {
+            pbuf[ix] = ((char *)buf)[ix];
+            if ( pbuf[ix] >= 0x100)
+                pbuf[ix] = '?';
+        }
     }
 
     sendmsg(INITLINE, name, cap, 0, 0, 0, len * sizeof(unsigned short), (char *)pbuf);
