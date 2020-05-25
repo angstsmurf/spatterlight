@@ -886,6 +886,8 @@
     return YES;
 }
 
+#pragma mark Mouse input
+
 - (void)initMouse {
     mouse_request = YES;
 }
@@ -893,8 +895,6 @@
 - (void)cancelMouse {
     mouse_request = NO;
 }
-
-#pragma mark Mouse input
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent {
     GlkEvent *gev;
@@ -1135,9 +1135,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
      inRange:NSMakeRange(0, textstoragelength)
      options:0
      usingBlock:^(id value, NSRange range, BOOL *stop) {
-
          if (!value) {
-             NSLog(@"ZColor at %@ had no value?", NSStringFromRange(range));
              return;
          }
          NSLog(@"Re-Applying zcolors at range %@", NSStringFromRange(range));
@@ -1166,7 +1164,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
      options:0
      usingBlock:^(id value, NSRange range, BOOL *stop) {
          if (!value) {
-             NSLog(@"ReverseVideo at %@ had no value?",  NSStringFromRange(range));
              return;
          }
          NSLog(@"Re-Applying reverse video at range %@", NSStringFromRange(range));
