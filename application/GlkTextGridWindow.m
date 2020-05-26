@@ -484,7 +484,7 @@
     }
 
     textview.selectedRange = selectedRange;
-    [self setNeedsDisplay:YES];
+//    [self setNeedsDisplay:YES];
     dirty = NO;
 
     [self recalcBackground];
@@ -1130,6 +1130,9 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
 - (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
     NSUInteger textstoragelength = attStr.length;
+
+    GlkTextGridWindow * __unsafe_unretained weakSelf = self;
+
     [attStr
      enumerateAttribute:@"ZColor"
      inRange:NSMakeRange(0, textstoragelength)
@@ -1146,12 +1149,12 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
           usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
               NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
               NSMutableDictionary *mutDict = [dict mutableCopy];
-              if ([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
-                  //            NSLog(@"It has stylehint_ReverseColor set");
-                  //            NSLog(@"Applied Zcolor with reversed attributes");
+              if ([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+                  // Style has stylehint_ReverseColor set,
+                  // so we apply Zcolor with reversed attributes
                   mutDict = [z reversedAttributes:mutDict];
               } else {
-                  //            NSLog(@"Applied Zcolor normally");
+                  // Apply Zcolor normally
                   mutDict = [z coloredAttributes:mutDict];
               }
               [attStr addAttributes:mutDict range:range2];
@@ -1173,10 +1176,10 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
           usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
               NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
               BOOL zcolorValue = (dict[@"ZColor"] != nil);
-              if (!([self.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
+              if (!([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
                   //NSLog(@"Applying reverse video at %@. ZColor at this range is %@.", NSStringFromRange(range), dict[@"ZColor"]);
                   NSMutableDictionary *mutDict = [dict mutableCopy];
-                  mutDict = [self reversedAttributes:mutDict background:self.theme.gridBackground];
+                  mutDict = [weakSelf reversedAttributes:mutDict background:self.theme.gridBackground];
                   [attStr addAttributes:mutDict range:range2];
               }
           }];
