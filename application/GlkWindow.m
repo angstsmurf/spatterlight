@@ -148,7 +148,8 @@
              val1:(NSInteger)v1
              val2:(NSInteger)v2
             width:(NSInteger)w
-           height:(NSInteger)h {
+           height:(NSInteger)h
+            style:(NSUInteger)style {
     NSLog(@"drawimage in %@ not implemented", [self class]);
 }
 

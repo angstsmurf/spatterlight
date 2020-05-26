@@ -18,6 +18,7 @@ static unsigned short *pbuf = (void*)wbuf;
   won't fit into the standard message struct */
 static struct fillrect *rbuf = (void*)wbuf;
 static struct sizewinrect *sizewin = (void*)wbuf;
+static struct drawrect *drawstruct = (void*)wbuf;
 static struct settings_struct *settings = (void*)wbuf;
 
 int readfd = 0;
@@ -473,7 +474,20 @@ void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 heig
 {
     win_flush();
     if (gli_enable_graphics)
-        sendmsg(DRAWIMAGE, name, val1, val2, width, height, 0, NULL);
+    {
+
+        window_t *win = gli_window_for_peer(name);
+
+        drawstruct->x = val1;
+        drawstruct->y = val2;
+        drawstruct->width = width;
+        drawstruct->height = height;
+        drawstruct->style = win->style;
+
+        sendmsg(DRAWIMAGE, name, 0, 0, 0, 0,
+                    sizeof(struct drawrect),
+                    (char*)drawstruct);
+    }
 }
 
 int win_newchan(void)

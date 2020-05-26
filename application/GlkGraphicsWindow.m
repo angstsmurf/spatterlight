@@ -107,7 +107,8 @@
                val1:0
                val2:0
               width:(NSInteger)oldimage.size.width
-             height:(NSInteger)oldimage.size.height];
+             height:(NSInteger)oldimage.size.height
+              style:style_Normal];
 
     dirty = YES;
 }
@@ -209,7 +210,8 @@
              val1:(NSInteger)x
              val2:(NSInteger)y
             width:(NSInteger)w
-           height:(NSInteger)h {
+           height:(NSInteger)h
+            style:(NSUInteger)style {
     NSSize srcsize = src.size;
 
     if (NSEqualSizes(image.size, NSZeroSize)) {

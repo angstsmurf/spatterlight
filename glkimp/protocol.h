@@ -18,6 +18,11 @@ struct sizewinrect
     glui32 x0, y0, x1, y1, gamewidth, gameheight;
 };
 
+struct drawrect
+{
+    glui32 x, y, width, height, style;
+};
+
 struct settings_struct
 {
     int screen_width;

@@ -2279,11 +2279,14 @@ fprintf(stderr, "%s\n",                                                    \
         case DRAWIMAGE:
             if (reqWin) {
                 if (lastimage && !NSEqualSizes(lastimage.size, NSZeroSize)) {
+                    struct drawrect *drawstruct = (void *)buf;
+
                     [reqWin drawImage:lastimage
-                                 val1:req->a2
-                                 val2:req->a3
-                                width:req->a4
-                               height:req->a5];
+                                 val1:drawstruct->x
+                                 val2:drawstruct->y
+                                width:drawstruct->width
+                               height:drawstruct->height
+                                style:drawstruct->style];
                 }
             }
             break;

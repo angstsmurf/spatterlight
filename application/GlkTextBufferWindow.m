@@ -1819,7 +1819,7 @@
             str = [str substringWithRange:NSMakeRange(0, str.length - 1)];
         }
     }
-    
+
 
     NSAttributedString *attstr = [[NSAttributedString alloc]
                                   initWithString:str
@@ -2071,11 +2071,18 @@
              val1:(NSInteger)align
              val2:(NSInteger)unused
             width:(NSInteger)w
-           height:(NSInteger)h {
+           height:(NSInteger)h
+            style:(NSUInteger)style {
     NSTextAttachment *att;
     NSFileWrapper *wrapper;
     NSData *tiffdata;
     // NSAttributedString *attstr;
+
+    if (storedNewline) {
+        [textstorage appendAttributedString:storedNewline];
+        storedNewline = nil;
+        _lastchar = '\n';
+    }
 
     [_textview resetTextFinder];
 
@@ -2085,16 +2092,11 @@
         h = (NSInteger)image.size.height;
 
     if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
-        if (_lastchar != '\n' && !storedNewline && textstorage.length) {
+        if (_lastchar != '\n' && textstorage.length) {
             NSLog(@"lastchar is not line break. Do not add margin image.");
             return;
-        } else {
-            if (storedNewline) {
-                [textstorage appendAttributedString:storedNewline];
-                storedNewline = nil;
-            }
-        }
-
+        } 
+            
         //        NSLog(@"adding image to margins");
 
         unichar uc[1];
@@ -2141,6 +2143,7 @@
 
         [textstorage appendAttributedString:attstr];
     }
+    [textstorage addAttributes:styles[style] range:NSMakeRange(textstorage.length -1, 1)];
 }
 
 - (void)flowBreak {
