@@ -57,10 +57,15 @@
 }
 
 - (NSPoint)cellBaselineOffset {
-    if (pos > _attrstr.length)
-        pos = 0;
-    NSDictionary *attributes = [_attrstr attributesAtIndex:pos
-                                            effectiveRange:nil];
+
+    NSUInteger lastCharPos = pos - 1;
+    
+    if (lastCharPos > _attrstr.length)
+        lastCharPos = 0;
+    
+    NSDictionary *attributes = [_attrstr attributesAtIndex:lastCharPos
+                                  effectiveRange:nil];
+
     NSFont *font = attributes[NSFontAttributeName];
 
     CGFloat xheight = font.ascender;
