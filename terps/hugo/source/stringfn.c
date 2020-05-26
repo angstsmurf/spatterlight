@@ -37,7 +37,7 @@ char *strupr(char *s);
 #endif
 
 
-void *hugo_strcpy(char *dest, const char *source);
+void hugo_strcpy(char *dest, const char *source);
 
 /* GETTEMPSTRING
 
@@ -176,7 +176,7 @@ char *Rtrim(char a[])
 
 /* Fix some problems when strcpy is used on overlapping strings. */
 /* Inspired by previous code by Sean Barrett */
-void *hugo_strcpy(char *dest, const char *source)
+void hugo_strcpy(char *dest, const char *source)
 {
     size_t sourceLen = strlen(source);
     memcpy(dest, source, sourceLen);
