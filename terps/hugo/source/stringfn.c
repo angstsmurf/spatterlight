@@ -37,6 +37,8 @@ char *strupr(char *s);
 #endif
 
 
+void *hugo_strcpy(char *dest, const char *source);
+
 /* GETTEMPSTRING
 
 	Prevents having to make sure each string-returning function has its
@@ -104,9 +106,9 @@ char *Ltrim(char a[])
 #else
 	temp = &tempstring[0];
 #endif
-	strcpy(temp, a);
+	hugo_strcpy(temp, a);
 	while (temp[0]==' ' || temp[0]=='\t')
-		strcpy(temp, temp+1);
+		hugo_strcpy(temp, temp+1);
 	return temp;
 }
 
@@ -166,12 +168,20 @@ char *Rtrim(char a[])
 #else
 	temp = &tempstring[0];
 #endif
-	strcpy(temp, a);
+	hugo_strcpy(temp, a);
 	while (((len = strlen(temp))) && (temp[len-1]==' ' || temp[len-1]=='\t'))
-		strcpy(temp, Left(temp, len-1));
+		hugo_strcpy(temp, Left(temp, len-1));
 	return temp;
 }
 
+/* Fix some problems when strcpy is used on overlapping strings. */
+/* Inspired by previous code by Sean Barrett */
+void *hugo_strcpy(char *dest, const char *source)
+{
+    size_t sourceLen = strlen(source);
+    memcpy(dest, source, sourceLen);
+    * (dest + sourceLen) = '\0'; //null terminate
+}
 
 #if defined (EXTRA_STRING_FUNCTIONS)
 
@@ -217,12 +227,3 @@ char *strupr(char *s)
 }
 
 #endif
-
-/* Sean Barrett wrote this routine to fix some strcpy problems 
-we saw when strcpy was used on overlapping strings. */
-char *hugo_strcpy(char *s, const char *t) 
-{ 
-	char *r = s; 
-	while ((*s++ = *t++) != 0) ; 
-	return r; 
-}
