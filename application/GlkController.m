@@ -2250,7 +2250,7 @@ fprintf(stderr, "%s\n",                                                    \
 
                 if ([reqWin isKindOfClass:[GlkTextBufferWindow class]])
                      [(GlkTextBufferWindow *)reqWin recalcBackground];
-                windowdirty = YES;
+//                windowdirty = YES;
             } else
                 NSLog(@"sizwin: something went wrong.");
 
