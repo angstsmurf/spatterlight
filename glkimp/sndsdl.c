@@ -97,6 +97,11 @@ void gli_initialize_sound(void)
 
     Sound_AudioInfo *audio;
     audio = malloc(sizeof(Sound_AudioInfo));
+    if (audio == NULL)
+    {
+        gli_strict_warning("Sound_AudioInfo malloc failed\n");
+        return;
+    }
     audio->format = MIX_DEFAULT_FORMAT;
     audio->channels = 2;
     audio->rate = 44100;
