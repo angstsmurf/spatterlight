@@ -50,8 +50,14 @@ int main(int argc, char **argv)
     inittime = FALSE;
 
     /* sleep to give us time to attach a gdb process */
-    if (getenv("CUGELWAIT"))
-	sleep(atoi(getenv("CUGELWAIT")));
+    char *cugelwait = getenv("CUGELWAIT");
+    if (cugelwait)
+    {
+        int cugelwaittime = atoi(cugelwait);
+        if (cugelwaittime && cugelwaittime < 60)
+            sleep(cugelwaittime);
+    }
+
     
     glk_main();
     glk_exit();
