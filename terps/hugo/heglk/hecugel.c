@@ -18,35 +18,119 @@
 #undef ftell
 #undef fseek
 
-#define LOG(...) // fprintf(stderr, __VA_ARGS__)
+#define LOG(...) fprintf(stderr, "HUGO: "); fprintf(stderr, __VA_ARGS__)
 
 #define ABS(a) ((a) < 0 ? -(a) : (a))
+#define MIN(a,b) (a < b ? a : b)
+#define MAX(a,b) (a > b ? a : b)
+
+
+// Defined Hugo colors
+#define HUGO_BLACK (0)
+#define HUGO_BLUE (1)
+#define HUGO_GREEN (2)
+#define HUGO_CYAN (3)
+#define HUGO_RED (4)
+#define HUGO_MAGENTA (5)
+#define HUGO_BROWN (6)
+#define HUGO_WHITE (7)
+#define HUGO_DARK_GRAY (8)
+#define HUGO_LIGHT_BLUE (9)
+#define HUGO_LIGHT_GREEN (10)
+#define HUGO_LIGHT_CYAN (11)
+#define HUGO_LIGHT_RED (12)
+#define HUGO_LIGHT_MAGENTA (13)
+#define HUGO_YELLOW (14)
+#define HUGO_BRIGHT_WHITE (15)
+
+#undef DEF_FCOLOR
+#undef DEF_BGCOLOR
+#undef DEF_SLFCOLOR
+#undef DEF_SLBGCOLOR
+
+#define DEF_FCOLOR 16
+#define DEF_BGCOLOR 17
+#define DEF_SLFCOLOR 18
+#define DEF_SLBGCOLOR 19
+
+#define NEEDED_STATUS_CHARS (81)
+#define INFINITE (0x7000)
+
 
 #include <stdio.h>
 
 #define MAXWINS 256
 
-enum { PNONE, PGRID, PBUFFER, PGRAPHICS };
+enum { ISSTATUS, ISAUX, ISMAIN };
 
 struct winctx
 {
-    int l, t, b, r;	    /* hugo coords */
-    int x0, y0, x1, y1;	    /* real, mapped, coords */
-    winid_t win;	    /* mapped peer windows */
-    int clear;		    /* any printed content? */
-    int ismain;
-    int curx, cury;	    /* last cursor position */
+    int l, t, b, r;        /* hugo coords */
+    int x0, y0, x1, y1;        /* real, mapped, coords */
+    winid_t win;        /* mapped peer windows */
+    int clear;            /* any printed content? */
+    int isaux;            /* is aux?  */
+    int curx, cury;        /* last cursor position */
+    int fg, bg;         /* text colors in this window */
+    int revvid;
+    int halfscreenwidth;
+    int peggedtoright;
+    int wasmoved;
 };
 
-static struct winctx wins[MAXWINS];
+static struct winctx wins[MAXWINS]; // For simplicity, this starts at 1. Index 0 is not used.
 static int nwins = 0;
 static int curwin = 0;
+
 static int curstyle = style_Normal;
-static int glk_fgcolor = 0;
-static int glk_bgcolor = 0;
+static int laststyle = style_Normal;
+
+static int glk_fgcolor = -1;
+static int glk_bgcolor = -1;
+static int lastfg = 0;
+static int lastbg = 0;
+static int screen_bg = 0;
+
+static int lastres = 0;
+
+static int mainwin = 0;
+static int statuswin = 0;
+static int auxwin = 0;
+static int menuwin = 0;
+
+static int below_status = 0; // Typically main window
+static int second_image_row = 0; // Typically a border image or line below the image area
+
+static int menutop = 0;
+static int statusheight = 0;
+
+static int inmenu = false;
+static int mono = false;
 
 static int istetris = false;
+static int isczk = false;
+static int isfutureboy = false;
+static int isenceladus = false;
+static int iscolossal = false;
+static int isnecrotic = false;
+static int isfallacy = false;
+static int isguiltybastards = false;
+static int iscwb2 = false;
+static int ishtg = false;
+static int isworldbuilder = false;
+static int isnextday = false;
+static int iscrimson = false;
+static int istraveling = false;
+
+static int showing_futureboy_title = false;
+static int showing_author_photo = false;
+
 static int keypress = 0;
+
+static int just_displayed_something = false;
+static int lowest_printed_position_in_status = 0;
+
+static int in_valid_window = false;
 
 static int nlbufcnt;
 static int nlbufwin;
@@ -56,7 +140,12 @@ static int nlbufwin;
 static void hugo_mapcurwin(void);
 static void hugo_handlearrange(void);
 static void hugo_flushnl(void);
-
+static void heglk_sizeifexists(int i);
+static void heglk_zcolor(void);
+static int heglk_push_down_main_window_to(int y);
+static void heglk_ensure_menu(void);
+static int heglk_find_attached_at_top(int top);
+static int heglk_find_attached_to_left(int left);
 
 #define PIC 0
 #define SND 1
@@ -112,31 +201,35 @@ int hugo_timewait(int n)
     event_t ev;
 
     if (!glk_gestalt(gestalt_Timer, 0))
-	return false;
+        return false;
 
     if (n == 0)
-	return true;
+        return true;
 
     millisecs = 1000 / n;
     if (millisecs == 0)
-	millisecs = 1;
+        millisecs = 1;
 
-    if (istetris && keypress == 0 && wins[curwin].win->char_request == false)
+    if (keypress == 0 && wins[curwin].win && wins[curwin].win->char_request == false)
         glk_request_char_event(wins[curwin].win);
 
     glk_request_timer_events(millisecs);
     while (1)
     {
-	glk_select(&ev);
-	if (ev.type == evtype_Arrange)
-	    hugo_handlearrange();
-    if (istetris && ev.type == evtype_CharInput) {
-        keypress = hugo_convert_key(ev.val1);
-    }
-	if (ev.type == evtype_Timer)
-	    break;
+        glk_select(&ev);
+        if (ev.type == evtype_Arrange)
+            hugo_handlearrange();
+        if (ev.type == evtype_CharInput) {
+
+            keypress = hugo_convert_key(ev.val1);
+        }
+        if (ev.type == evtype_Timer)
+            break;
     }
     glk_request_timer_events(0);
+
+    if (!istetris && wins[curwin].win && wins[curwin].win->char_request)
+        glk_cancel_char_event(wins[curwin].win);
 
     return true;
 }
@@ -165,9 +258,36 @@ void hugo_closefiles()
 
 void hugo_setgametitle(char *t)
 {
+    if (!strncmp(t, "NOT READY YET", 13))
+        return;
+
     garglk_set_story_title(t);
-    if (!strncmp(t, "Hugo Tetris", 11))
+
+    if (!strncmp(t, "Hugo Tetris", 11)) {
         istetris = true;
+    } else if (!strncmp(t, "CRYPTOZOOKEEPER", 15)) {
+        isczk = true;
+    } else if (!strncmp(t, "Future Boy!", 11)) {
+        isfutureboy = true;
+    } else if (!strncmp(t, "ENCELADUS", 9)) {
+        isenceladus = true;
+    } else if (!strncmp(t, "NECROTIC DRIFT", 14)) {
+        isnecrotic = true;
+    } else if (!strncmp(t, "FALLACY OF DAWN", 15)) {
+        isfallacy = true;
+    } else if (!strncmp(t, "The Clockwork Boy 2", 19)) {
+        iscwb2 = true;
+    } else if (!strncmp(t, "World Builder", 13)) {
+        isworldbuilder = true;
+    } else if (!strncmp(t, "The Next Day", 12)) {
+        isnextday = true;
+    } else if (!strncmp(t, "A CRIMSON", 9)) {
+        iscrimson = true;
+    } else if (!strncmp(t, "Guilty Bastards", 15)) {
+        isguiltybastards = true;
+    } else if (!strncmp(t, "Tales of the Traveling", 22)) {
+        istraveling = true;
+    }
 }
 
 int hugo_hasvideo(void)
@@ -176,7 +296,7 @@ int hugo_hasvideo(void)
 }
 
 int hugo_playvideo(HUGO_FILE infile, long reslength,
-		   char loop_flag, char background, int volume)
+                   char loop_flag, char background, int volume)
 {
     glk_stream_close(infile, NULL);
     return true;
@@ -318,18 +438,15 @@ void hugo_stopsample(void)
 }
 
 /*
-* Return true if a keypress is waiting to be retrieved.
+ * Return true if a keypress is waiting to be retrieved.
  */
 
 #define STAT_UNAVAILABLE (-1)
 
 int hugo_iskeywaiting(void)
 {
-    if (istetris && keypress) {
-        return true;
-    }
-    var[system_status] = STAT_UNAVAILABLE;
-    return 0;
+    //if (istetris && keypress)
+    return keypress;
 }
 
 
@@ -340,21 +457,14 @@ void hugo_scrollwindowup()
 
 int hugo_getkey(void)
 {
-    if (istetris) {
-        int oldkeypress = keypress;
-        keypress = 0;
-        return oldkeypress;
-    }
-    /* Not needed here--single-character events are handled
-	   solely by hugo_waitforkey(), below */
-    return 0;
+    return hugo_waitforkey();
 }
 
 void hugo_settextmode(void)
 {
     /* This function does whatever is necessary to set the system up for
-    * a standard text display
-    */
+     * a standard text display
+     */
     charwidth = FIXEDCHARWIDTH;
     lineheight = FIXEDLINEHEIGHT;
 }
@@ -363,94 +473,159 @@ void hugo_settextmode(void)
 
 int hugo_color(int c)
 {
+    int converted = 0;
     /* Color-setting functions should always pass the color through
-    hugo_color() in order to properly set default fore/background colors:
-    */
-    
-    if (c==16)      c = DEF_FCOLOR;
-    else if (c==17) c = DEF_BGCOLOR;
-    else if (c==18) c = DEF_SLFCOLOR;
-    else if (c==19) c = DEF_SLBGCOLOR;
-    else if (c==20) c = hugo_color(fcolor);	/* match foreground */
-    
-    /* Uncomment this block of code and change "c = ..." values if the system
-	palette differs from the Hugo palette.
+     hugo_color() in order to properly set default fore/background colors:
+     */
 
-	If colors are unavailable on the system in question, it may suffice
-	to have black, white, and brightwhite (i.e. boldface).  It is expected
-	that colored text will be visible on any other-colored background.
-    */
+    //        if (c==16)      c = DEF_FCOLOR;
+    //        else if (c==17) c = DEF_BGCOLOR;
+    //        else if (c==18) c = DEF_SLFCOLOR;
+    //        else if (c==19) c = DEF_SLBGCOLOR;
+    //    else if (c==20) c = hugo_color(fcolor);    /* match foreground */
 
     switch (c)
     {
-	case DEF_FCOLOR:	 c = 0; break;
-	case DEF_BGCOLOR:	 c = 0; break;
-	case DEF_SLFCOLOR:	 c = 0; break;
-	case DEF_SLBGCOLOR:	 c = 0; break;
-
-	case 0:	c = 1;  break;
-	case 1:	c = 5;  break;
-	case 2:	c = 3;  break;
-	case 3:	c = 7;  break;
-	case 4:	c = 2;  break;
-	case 5:	c = 6;  break;
-	case 6:	c = 4;  break;
-	case 7:	c = 8;  break;
-	case 8:	c = 0;  break;
-	case 9:	c = 5;  break;
-	case 10: c = 3; break;
-	case 11: c = 7; break;
-	case 12: c = 2; break;
-	case 13: c = 6; break;
-	case 14: c = 4; break;
-	case 15: c = 8; break;
+//        case DEF_FCOLOR:     converted = gfgcol; break;
+//        case DEF_BGCOLOR:     converted = gbgcol; break;
+//        case DEF_SLFCOLOR:     converted = gsfgcol; break;
+//        case DEF_SLBGCOLOR:     converted = gsbgcol; break;
+        case DEF_FCOLOR:     converted = 0x000000; break;
+        case DEF_BGCOLOR:     converted = 0xcfcfcf; break;
+        case DEF_SLFCOLOR:     converted = 0xcfcfcf; break;
+        case DEF_SLBGCOLOR:     converted = 0x000000; break;
+        case 20:
+            converted = hugo_color(fcolor); break;    /* match foreground */
+        case HUGO_BLACK: converted = 0x000000;  break;
+        case HUGO_BLUE: converted = 0x00007f;  break;
+        case HUGO_GREEN: converted = 0x007f00;  break;
+        case HUGO_CYAN: converted = 0x007f7f;  break;
+        case HUGO_RED: converted = 0x7f0000;  break;
+        case HUGO_MAGENTA: converted = 0x7f007f;  break;
+        case HUGO_BROWN: converted = 0x7f5f00;  break;
+        case HUGO_WHITE: converted = 0xcfcfcf;  break;
+        case HUGO_DARK_GRAY: converted = 0x3f3f3f;  break;
+        case HUGO_LIGHT_BLUE: converted = 0x0000ff;  break;
+        case HUGO_LIGHT_GREEN: converted = 0x00ff00;  break;
+        case HUGO_LIGHT_CYAN: converted = 0x00ffff;  break;
+        case HUGO_LIGHT_RED: converted = 0xff0000;  break;
+        case HUGO_LIGHT_MAGENTA: converted = 0xff00ff;  break;
+        case HUGO_YELLOW: converted = 0xffff00;  break;
+        case HUGO_BRIGHT_WHITE: converted = 0xffffff; break;
+        default:
+            LOG("Unmapped color %d\n", c);
     }
 
-    return c;
+    if (wins[curwin].win || (statuswin && curwin == statuswin)) {
+        if (curwin == statuswin || wins[curwin].win->type == wintype_TextGrid) {
+            if (c == DEF_SLFCOLOR && wins[curwin].fg == DEF_SLFCOLOR && wins[curwin].bg == DEF_SLBGCOLOR) {
+                return zcolor_Default;
+            }
+            if (c == DEF_SLBGCOLOR && wins[curwin].bg == DEF_SLBGCOLOR) { //} && !inmenu) {
+                return zcolor_Default;
+            }
+        } else {
+            if (c == DEF_FCOLOR  && wins[curwin].fg == DEF_FCOLOR && wins[curwin].bg == DEF_BGCOLOR) {
+                return zcolor_Default;
+            }
+            if (c == DEF_BGCOLOR && wins[curwin].bg == DEF_BGCOLOR) {
+                return zcolor_Default;
+            }
+        }
+    }
+
+    return converted;
+}
+
+void heglk_reversevideo(int flag)
+{
+    if (curwin) {
+        wins[curwin].revvid = flag;
+        if (wins[curwin].win)
+            glk_set_window(wins[curwin].win);
+    }
+    if (flag)
+        garglk_set_reversevideo(1);
+    else
+        garglk_set_reversevideo(0);
+}
+
+void print_colorname(int c)
+{
+    switch(c) {
+        case DEF_FCOLOR:
+            LOG("This is the default main window text color\n");
+            break;
+        case DEF_BGCOLOR:
+            LOG("This is the default main window background color\n");
+            break;
+        case DEF_SLFCOLOR:
+            LOG("This is the default status window text color\n");
+            break;
+        case DEF_SLBGCOLOR:
+            LOG("This is the default status window background color\n");
+            break;
+        default:
+            break;
+    }
 }
 
 void hugo_settextcolor(int c)
 {
-    glk_fgcolor = hugo_color(c);
+    LOG("hugo_settextcolor %d Glk:(%x, %d) \n", c, hugo_color(c), hugo_color(c));
+    print_colorname(c);
+    if (curwin) {
+        wins[curwin].fg = c;
+    } else {
+        LOG("hugo_settextcolor: No curwin\n");
+    }
 }
 
 
 void hugo_setbackcolor(int c)
 {
-    glk_bgcolor = hugo_color(c);
+    LOG("hugo_setbackcolor %d Glk:(%x, %d) \n", c, hugo_color(c), hugo_color(c));
+    print_colorname(c);
+
+    if (curwin) {
+        wins[curwin].bg = c;
+    } else  {
+        LOG("hugo_setbackcolor: No curwin\n");
+    }
 }
+
 
 
 
 /* CHARACTER AND TEXT MEASUREMENT
 
-For non-proportional printing, screen dimensions will be given
-in characters, not pixels.
+ For non-proportional printing, screen dimensions will be given
+ in characters, not pixels.
 
-For proportional printing, screen dimensions need to be in
-pixels, and each width routine must take into account the
-current font and style.
+ For proportional printing, screen dimensions need to be in
+ pixels, and each width routine must take into account the
+ current font and style.
 
-The hugo_strlen() function is used to give the length of
-the string not including any non-printing control characters.
-*/
+ The hugo_strlen() function is used to give the length of
+ the string not including any non-printing control characters.
+ */
 
 int hugo_charwidth(char a)
 {
     /*  As given here, this function works only for non-proportional
-	printing.  For proportional printing, hugo_charwidth() should
-	return the width of the supplied character in the current
-	font and style.
-    */
+     printing.  For proportional printing, hugo_charwidth() should
+     return the width of the supplied character in the current
+     font and style.
+     */
 
     if (a==FORCED_SPACE)
-	return CHARWIDTH;         /* same as ' ' */
+        return CHARWIDTH;         /* same as ' ' */
 
     else if ((unsigned char)a >= ' ') /* alphanumeric characters */
 
-	     return CHARWIDTH;         /* for non-proportional */
+        return CHARWIDTH;         /* for non-proportional */
 
-	     return 0;
+    return 0;
 }
 
 int hugo_textwidth(char *a)
@@ -461,10 +636,10 @@ int hugo_textwidth(char *a)
 
     for (i=0; i<slen; i++)
     {
-	if (a[i]==COLOR_CHANGE) i+=2;
-	else if (a[i]==FONT_CHANGE) i++;
-	else
-	    len += hugo_charwidth(a[i]);
+        if (a[i]==COLOR_CHANGE) i+=2;
+        else if (a[i]==FONT_CHANGE) i++;
+        else
+            len += hugo_charwidth(a[i]);
     }
 
     return len;
@@ -478,26 +653,28 @@ int hugo_strlen(char *a)
 
     for (i=0; i<slen; i++)
     {
-	if (a[i]==COLOR_CHANGE) i+=2;
-	else if (a[i]==FONT_CHANGE) i++;
-	else len++;
+        if (a[i]==COLOR_CHANGE) i+=2;
+        else if (a[i]==FONT_CHANGE) i++;
+        else len++;
     }
 
     return len;
 }
 
 /* heglk_get_linelength
-*
-* Specially accommodated in GetProp() in heobject.c.
-* While the engine thinks that the linelength is 0x7fff,
-* this tells things like the display object the actual
-* length.  (Defined as ACTUAL_LINELENGTH in heheader.h.)
-*/
+ *
+ * Specially accommodated in GetProp() in heobject.c.
+ * While the engine thinks that the linelength is 0x7fff,
+ * this tells things like the display object the actual
+ * length.  (Defined as ACTUAL_LINELENGTH in heheader.h.)
+ */
 
 int heglk_get_linelength(void)
 {
-    glui32 width = (gscreenw - 2 * ggridmarginx) / gcellw;
-    return width - 1; /* -1 to override automatic line wrapping */
+    glui32 width = gscreenw;
+    width -= 2 * ggridmarginx;
+    width = width / gcellw;
+    return width - 2; /* -2 to trigger automatic line wrapping */
 }
 
 int heglk_get_screenheight(void)
@@ -505,7 +682,6 @@ int heglk_get_screenheight(void)
     glui32 height = (gscreenh - 2 * ggridmarginy) / gcellh;
     return height;
 }
-
 
 /* ----------------------------------------------------------------------------- */
 
@@ -516,25 +692,47 @@ void hugo_init_screen(void)
     /* Does whatever has to be done to initially set up the display. */
 
     /* By setting the width and height so high, we're basically
-	   forcing the Glk library to deal with text-wrapping and
-	   page ends
-    */
+     forcing the Glk library to deal with text-wrapping and
+     page ends
+     */
 
     SCREENWIDTH = 0x7fff;
     SCREENHEIGHT = 0x7fff;
     FIXEDCHARWIDTH = 1;
     FIXEDLINEHEIGHT = 1;
 
-    nwins = 0;
-    curwin = -1;
+    nwins = 1;
+    curwin = 0;
 
-    nlbufwin = -1;
+    nlbufwin = 0;
     nlbufcnt = 0;
-    
-    /* create initial fullscreen window */
-    hugo_settextwindow(1, 1,
-		       SCREENWIDTH/FIXEDCHARWIDTH,
-		       SCREENHEIGHT/FIXEDLINEHEIGHT);
+
+    if ((gscreenw - 2 * ggridmarginx) / gcellw < NEEDED_STATUS_CHARS && !inmenu)
+        statusheight = 2;
+    else
+        statusheight = 1;
+
+    glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Justification, stylehint_just_Centered);
+    //    glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_TextColor, gsfgcol);
+    //    glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_BackColor, gsbgcol);
+    //    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, hugo_color(fcolor));
+
+    game_version = HEVERSION * 10 + HEREVISION;
+
+    hugo_clearfullscreen();
+
+    if (mainwin)
+        wins[mainwin].bg = HUGO_BLACK;
+
+    hugo_clearwindow();
+
+    win_setbgnd(-1, 0);
+   
+    if (!strncmp(gli_story_name, "colossal.hex", 12)) {
+        iscolossal = true;
+    } else if (!strncmp(gli_story_name, "htgessay.hex", 12)) {
+        ishtg = true;
+    }
 }
 
 void hugo_cleanup_screen(void)
@@ -542,6 +740,62 @@ void hugo_cleanup_screen(void)
     /* Does whatever has to be done to clean up the display pre-termination. */
 }
 
+void heglk_record_physical(struct winctx ctx) {
+    /* record position of the window */
+    physical_windowleft = (ctx.l-1)*FIXEDCHARWIDTH;
+    LOG("physical_windowleft: %d\n", physical_windowleft);
+    physical_windowtop = (ctx.t-1)*FIXEDLINEHEIGHT;
+    LOG("physical_windowtop: %d\n", physical_windowtop);
+    physical_windowright = ctx.r*FIXEDCHARWIDTH-1;
+    LOG("physical_windowright: %d\n", physical_windowright);
+    physical_windowbottom = ctx.b*FIXEDLINEHEIGHT-1;
+    LOG("physical_windowbottom: %d\n", physical_windowbottom);
+    if (ctx.r - ctx.l < heglk_get_linelength())
+        physical_windowwidth = (ctx.r-ctx.l-(ggridmarginx / gcellw - 1))*FIXEDCHARWIDTH;
+    else
+        physical_windowwidth = (ctx.r-ctx.l+1)*FIXEDCHARWIDTH;
+    if (ctx.isaux && ctx.l > 3 && ctx.r > heglk_get_linelength() - 2)
+        physical_windowwidth = 0x7FFF;
+
+    LOG("physical_windowwidth: %d\n", physical_windowwidth);
+    physical_windowheight = (ctx.b-ctx.t+1)*FIXEDLINEHEIGHT;
+    LOG("physical_windowheight: %d\n", physical_windowheight);
+}
+
+void heglk_remap_to_buffer() {
+    LOG("heglk_remap_to_buffer\n");
+
+    if (wins[curwin].win)
+    {
+        if (!wins[curwin].clear) {
+            LOG("  pausing to let the player read the text in window %d before we delete it (and swap to buffer)\n", curwin);
+            hugo_waitforkey();
+        }
+        LOG("heglk_remap_to_buffer: deleting current window\n");
+        gli_delete_window(wins[curwin].win);
+        wins[curwin].win = 0;
+    }
+
+    LOG("heglk_remap_to_buffer: creating a new text buffer window\n");
+    wins[curwin].win = gli_new_window(wintype_TextBuffer, 0);
+    wins[curwin].x1 = gscreenw;
+    wins[curwin].r = INFINITE;
+
+    win_sizewin(wins[curwin].win->peer,
+                wins[curwin].x0, wins[curwin].y0,
+                wins[curwin].x1, wins[curwin].y1);
+}
+
+void heglk_move_to_main() {
+    if (!mainwin) {
+        LOG("heglk_move_to_main: found no main window, remapping to buffer\n");
+        heglk_remap_to_buffer();
+        return;
+    }
+
+    curwin = mainwin;
+    heglk_record_physical(wins[mainwin]);
+}
 
 /*
  * Get a line of input from the keyboard, storing it in <buffer>.
@@ -551,35 +805,50 @@ void hugo_getline(char *prompt)
 {
     event_t ev;
 
-    //LOG("getline '%s'\n", prompt);
+    LOG("getline '%s'\n", prompt);
 
     /* make sure we have a window */
     hugo_mapcurwin();
 
+    glk_set_window(wins[curwin].win);
     /* Print prompt */
     hugo_print(prompt);
 
+    // Asking for line input usually means that we are not in a menu
+    // But there is an exception in Haunting the Ghosts.
+    if (wins[curwin].win->type != wintype_TextGrid)
+    {
+        inmenu = false;
+        LOG("Detected that we are NOT in a menu!\n");
+    }
+
     /* Request line input */
+    if (wins[curwin].win->char_request)
+        glk_cancel_char_event(wins[curwin].win);
+
     glk_request_line_event(wins[curwin].win, buffer, MAXBUFFER, 0);
 
     while (1)
     {
-	glk_select(&ev);
-	if (ev.type == evtype_Arrange)
-	    hugo_handlearrange();
-	if (ev.type == evtype_LineInput)
-	    break;
+        glk_select(&ev);
+        if (ev.type == evtype_Arrange)
+            hugo_handlearrange();
+        if (ev.type == evtype_LineInput)
+            break;
     }
 
     /* The line we have received in commandbuf is not null-terminated */
-    buffer[ev.val1] = '\0';	/* i.e., the length */
+    buffer[ev.val1] = '\0';    /* i.e., the length */
+
+    if (wins[curwin].win->type == wintype_TextGrid)
+        win_moveto(wins[curwin].win->peer, 0, currentline + 2);
 
     /* Copy the input to the script file (if open) */
     if (script)
     {
-	glk_put_string_stream(script, prompt);
-	glk_put_string_stream(script, buffer);
-	glk_put_string_stream(script, "\n");
+        glk_put_string_stream(script, prompt);
+        glk_put_string_stream(script, buffer);
+        glk_put_string_stream(script, "\n");
     }
 }
 
@@ -593,30 +862,145 @@ void hugo_getline(char *prompt)
 int hugo_waitforkey(void)
 {
     event_t ev;
-    
-    /* make sure we have a window */
+
+    window_t *win;
+
+    LOG("hugo_waitforKey\n");
+
+    if (keypress)
+    {
+        int oldkeypress = keypress;
+        keypress = 0;
+        return oldkeypress;
+    }
+
+    /* Ignore calls where there's been no recent display. */
+    if (!just_displayed_something && !inmenu)
+        return 0;
+    just_displayed_something = false;
+
+    LOG("hugo_waitforKey(): Current Glk windows:\n");
+
+    int event_requested = 0;
+
     hugo_mapcurwin();
-    
-    glk_request_char_event(wins[curwin].win);
-    
+
+    win = wins[curwin].win;
+    if (win) {
+        switch (win->type) {
+            case wintype_TextGrid:
+                LOG("wintype_TextGrid");
+                break;
+            case wintype_TextBuffer:
+                LOG("wintype_TextBuffer");
+                break;
+            case wintype_Graphics:
+                LOG("wintype_Graphics");
+                break;
+            case wintype_Pair:
+                LOG("wintype_Pair");
+                break;
+            case wintype_Blank:
+                LOG("wintype_Blank");
+                break;
+            default:
+                LOG("wintype_Unknown");
+                break;
+        }
+
+
+        fprintf(stderr, " x:%d y:%d width:%d height:%d.\n",win->bbox.x0, win->bbox.y0, win->bbox.x1 - win->bbox.x0, win->bbox.y1 - win->bbox.y0);
+
+        if (win->type == wintype_Graphics || win->type == wintype_TextGrid || win->type == wintype_TextBuffer) {
+            if (!win->char_request) {
+                glk_request_char_event(win);
+                LOG("requested char event in win %d\n", win->peer);
+            }
+            event_requested = 1;
+        }
+
+        if (win->type == wintype_Graphics || win->type == wintype_TextGrid) {
+            if (!win->mouse_request) {
+                glk_request_mouse_event(win);
+                LOG("requested mouse event in win %d\n", win->peer);
+                wins[curwin].clear = true;
+            }
+        }
+        if (win->type == wintype_TextBuffer) {
+            if (!win->hyper_request) {
+                glk_request_hyperlink_event(win);
+                LOG("requested hyperlink event in win %d\n", win->peer);
+            }
+        }
+    }
+
+
+    if (!event_requested) {
+        if (!curwin)
+            return 0;
+        hugo_mapcurwin();
+        glk_request_char_event(wins[curwin].win);
+    }
+
+    if (wins[curwin].win && wins[curwin].win->type == wintype_TextGrid && (menuwin || inmenu) && !wins[curwin].isaux)
+    {
+        glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
+        glk_put_char('*');
+    }
+
     while (1)
     {
-	glk_select(&ev);
-	if (ev.type == evtype_Arrange)
-	    hugo_handlearrange();
-	if (ev.type == evtype_CharInput)
-	    break;
+        glk_select(&ev);
+        if (ev.type == evtype_Arrange)
+            hugo_handlearrange();
+
+        if (ev.type == evtype_Hyperlink) {
+            LOG("hugo_waitforKey: received a hyperlink input (%d)\n", ev.val1);
+        }
+        if (ev.type == evtype_CharInput || ev.type == evtype_MouseInput || ev.type == evtype_Hyperlink)
+            break;
     }
-    
+
+    if (ev.type == evtype_MouseInput) {
+        // It's a mouse click.
+        LOG("hugo_waitforKey: received a mouse input\n");
+        display_pointer_x = ev.val1;
+        display_pointer_y = ev.val2;
+        if (wins[curwin].win && wins[curwin].win->type == wintype_Graphics) {
+            display_pointer_x = display_pointer_x / gcellw;
+            display_pointer_y = display_pointer_y / gcellh;
+        }
+        LOG("mouse input x = %d mouse input y = %d \n", display_pointer_x, display_pointer_y );
+        return 1;
+    }
+
+    if (ev.type == evtype_CharInput)
+        LOG("hugo_waitforKey: received a key input (%d) for window %d\n", ev.val1, ev.win->peer);
+
+    display_pointer_x = currentpos;
+    display_pointer_y = currentline;
+
+    for (win = glk_window_iterate(NULL, NULL); win; win = glk_window_iterate(win, NULL)) {
+        if (win->mouse_request) {
+            glk_cancel_mouse_event(win);
+        }
+        if (win->char_request) {
+            glk_cancel_char_event(win);
+        }
+        if (win->hyper_request) {
+            glk_cancel_hyperlink_event(win);
+        }
+    }
+
     /* Convert Glk special keycodes: */
     return hugo_convert_key (ev.val1);
 }
 
 
 /* Clear everything on the screen,
-* move the cursor to the top-left
-* corner of the screen
-*/
+ * move the cursor to the top-left
+ * corner of the screen
+ */
 
 void hugo_clearfullscreen(void)
 {
@@ -624,25 +1008,48 @@ void hugo_clearfullscreen(void)
 
     LOG("hugo_clearfullscreen\n");
 
-    nlbufwin = -1;
+    nlbufwin = 0;
     nlbufcnt = 0;
 
-    for (i = 0; i < nwins; i++)
+    for (i = 1; i < nwins; i++)
     {
-	//LOG(" + delete %d\n", i);
-	if (wins[i].win)
-	    gli_delete_window(wins[i].win);
+        //LOG(" + delete %d\n", i);
+        if (wins[i].win) {
+            gli_delete_window(wins[i].win);
+        }
     }
-    nwins = 0;
-    curwin = -1;
+
+    nwins = 1;
+    curwin = 0;
+    mainwin = 0;
+    statuswin = 0;
+    auxwin = 0;
+    below_status = 0;
+    second_image_row = 0;
 
     /* create initial fullscreen window */
     hugo_settextwindow(1, 1,
-		       SCREENWIDTH/FIXEDCHARWIDTH,
-		       SCREENHEIGHT/FIXEDLINEHEIGHT);
+                       SCREENWIDTH,
+                       SCREENHEIGHT);
+
+    win_setbgnd(-1, hugo_color(bgcolor));
 
     currentpos = 0;
     currentline = 1;
+}
+
+// Returns true if the two window contexts overlap
+int doOverlap(struct winctx a, struct winctx b)
+{
+    // If one rectangle is on left side of other
+    if (a.l >= b.r || b.l >= a.r)
+        return false;
+
+    // If one rectangle is above other
+    if (a.b <= b.t || b.b <= a.t)
+        return false;
+
+    return true;
 }
 
 /* Clear the currently defined window, move the cursor to the top-left
@@ -651,35 +1058,105 @@ void hugo_clearfullscreen(void)
 
 void hugo_clearwindow(void)
 {
+    if (menuwin) {
+        return;
+    }
+
+    if (curwin == menuwin) {
+        currentpos = 0;
+        currentline = 1;
+        return;
+    }
+
     int l = wins[curwin].l;
     int t = wins[curwin].t;
     int r = wins[curwin].r;
     int b = wins[curwin].b;
     int i;
 
-    LOG("hugo_clearwindow bg=%d\n", glk_bgcolor);
+    LOG("hugo_clearwindow %d: l:%d t:%d r:%d b:%d\n",curwin, l, t, r, b);
+    LOG("hugo_clearwindow bg = %d (0x%x, %d)\n", wins[curwin].bg, hugo_color(wins[curwin].bg), hugo_color(wins[curwin].bg));
 
     if (curwin == nlbufwin)
     {
-	nlbufwin = -1;
-	nlbufcnt = 0;
+        nlbufwin = 0;
+        nlbufcnt = 0;
     }
 
-    for (i = 0; i < nwins; i++)
+    for (i = 1; i < nwins; i++)
     {
-	if (wins[i].l >= l && wins[i].r <= r && wins[i].t >= t && wins[i].b <= b)
-	// if (wins[i].l < r && wins[i].r > l && wins[i].t < b && wins[i].b > t)
-	{
-	    if (wins[i].win)
-	    {
-		LOG("   cleared %d\n", i);
-		glk_window_clear(wins[i].win);
-		win_setbgnd(wins[i].win->peer, glk_bgcolor);
-	    }
-	    wins[i].clear = 1;
-	    wins[i].curx = 0;
-	    wins[i].cury = 0;
-	}
+        if (wins[i].l >= l && wins[i].t >= t && wins[i].r <= r && wins[i].b <= b)
+        {
+            if (wins[i].win)
+            {
+                if (wins[curwin].win && hugo_color(wins[curwin].bg) != -1) {
+                    wins[i].bg = wins[curwin].bg;
+                    win_setbgnd(wins[i].win->peer, hugo_color(wins[i].bg));
+                }
+                LOG("   cleared %d\n", i);
+                glk_window_clear(wins[i].win);
+
+                if (i == menuwin) {
+                    menuwin = 0;
+                    menutop = 0;
+                    below_status = 0;
+                    gli_delete_window(wins[i].win);
+                    wins[i].win = 0;
+                    curwin = statuswin;
+                    if (wins[statuswin].win) {
+                        glk_set_window(wins[statuswin].win);
+                    }
+
+                }
+
+                if (i == below_status) {
+                    below_status = 0;
+                    if (mainwin) {
+                        below_status = heglk_find_attached_at_top(wins[mainwin].t);
+                        if (wins[below_status].clear)
+                            below_status = 0;
+                    }
+                }
+                if (i == second_image_row) {
+                    second_image_row = 0;
+                }
+            } else {
+                LOG("   win %d has no Glk counterpart (yet), so won't actually be cleared or colored.\n", i);
+                for (int j = 1; j < nwins; j++) {
+                    if (wins[j].win && wins[j].win->type == wintype_Graphics && j != second_image_row && wins[j].wasmoved && isfutureboy) {
+                        LOG("Window %d is a graphics window. l:%d t:%d r:%d b:%d\n", j, wins[j].l, wins[j].t, wins[j].r, wins[j].b);
+                        if (doOverlap(wins[j], wins[i]) || doOverlap(wins[j], wins[curwin])) {
+                            gli_delete_window(wins[j].win);
+                            wins[j].win = 0;
+                            LOG("Deleted window %d\n", j);
+                        }
+                    }
+                }
+            }
+
+            wins[i].clear = 1;
+            wins[i].curx = 0;
+            wins[i].cury = 0;
+            wins[i].isaux = 0;
+        }
+    }
+
+    if (wins[curwin].win)
+        win_setbgnd(wins[curwin].win->peer, hugo_color(wins[curwin].bg));
+    //    heglk_zcolor();
+
+    // Hack to keep black room description window from
+    // being deleted at the first turn of Guilty Bastards
+    if (isguiltybastards && wins[curwin].l >= heglk_get_linelength() / 2 && wins[curwin].halfscreenwidth) {
+        wins[curwin].clear = 0;
+    }
+
+    if ((wins[curwin].x0 == 0 && wins[curwin].y0 == 0 && wins[curwin].x0 == gscreenw && wins[curwin].y0 == gscreenh) ||
+        (wins[curwin].l == 1 && wins[curwin].r == 0x7FFF && wins[curwin].t == 1 && wins[curwin].b == 0x7FFF) )
+    {
+        win_setbgnd(-1, hugo_color(wins[curwin].bg));
+        screen_bg = wins[curwin].bg;
+        LOG("Window %d filled the screen, so we set the entire window to its background color.\n", curwin);
     }
 
     currentpos = 0;
@@ -690,244 +1167,818 @@ static void hugo_unmapcleared(void)
 {
     int i;
 
-    for (i = 0; i < nwins; i++)
+    for (i = 1; i < nwins; i++)
     {
-	if (i != curwin && wins[i].clear && wins[i].win)
-	{
-	    LOG(" + unmap window %d\n", i);
-	    gli_delete_window(wins[i].win);
-	    wins[i].win = 0;
-	}
+        if (i != curwin && wins[i].clear && wins[i].win)
+        {
+            LOG(" + unmap window %d\n", i);
+            gli_delete_window(wins[i].win);
+            wins[i].win = NULL;
+            if (i == statuswin)
+                statuswin = 0;
+            if (i == below_status)
+                below_status = 0;
+            if (i == second_image_row)
+                second_image_row = 0;
+        }
     }
-}    
+}
 
 void hugo_handlearrange(void)
 {
-//    int i;
-//    LOG("arrange event ... zap aux wins!");
-//    for (i = 0; i < nwins; i++)
-//    {
-//    if (i == curwin)
-//        continue;
-//    if (wins[i].ismain)
-//        continue;
-//    if (wins[i].l == 1 && wins[i].t == 1 && wins[i].r > 0x7000)
-//        continue;
-//    if (wins[i].win)
-//    {
-//        LOG(" + unmap window %d (zap)\n", i);
-//        gli_delete_window(wins[i].win);
-//        wins[i].win = 0;
-//    }
-//    }
+    LOG("heglk_get_linelength: %d\n", heglk_get_linelength() );
+
+    if (menuwin) {
+        heglk_ensure_menu();
+        return;
+    }
+
+    if (statuswin && wins[statuswin].win) {
+        wins[statuswin].y1 = ggridmarginy * 2 + wins[statuswin].b * gcellh;
+        wins[statuswin].x1 = gscreenw;
+        win_sizewin(wins[statuswin].win->peer, wins[statuswin].x0, wins[statuswin].y0, wins[statuswin].x1, wins[statuswin].y1);
+        if (below_status) {
+            wins[below_status].y0 = wins[statuswin].y1;
+            if (mainwin && below_status != mainwin && !second_image_row)
+                wins[below_status].y1 = heglk_push_down_main_window_to(wins[below_status].y1);
+
+            for (int i = 1; i < nwins; i++) {
+                int oldx0 = wins[i].x0;
+                int oldy0 = wins[i].y0;
+                int oldx1 = wins[i].x1;
+                int oldy1 = wins[i].y1;
+
+                if (wins[i].halfscreenwidth)
+                {
+                    if (isguiltybastards) {
+                        below_status = i;
+                    } else {
+                        if (wins[i].peggedtoright) {
+                            wins[i].x0 = gscreenw / 2;
+                        } else {
+                            wins[i].x1 = wins[i].x0 + gscreenw / 2;
+                        }
+                    }
+                }
+                if (wins[i].x0 != oldx0 || wins[i].y0 != oldy0 || wins[i].x1 != oldx1 || wins[i].y1 != oldy1) {
+                    heglk_sizeifexists(i);
+                }
+                wins[i].wasmoved = true;
+            }
+
+        }
+    }
+
+    if (mainwin && wins[mainwin].win) {
+        wins[mainwin].x1 = gscreenw;
+        wins[mainwin].x0 = 0;
+        wins[mainwin].y1 = gscreenh;
+        win_sizewin(wins[mainwin].win->peer, wins[mainwin].x0, wins[mainwin].y0, wins[mainwin].x1, wins[mainwin].y1);
+    }
 }
 
-/* Hugo's arbitrarily positioned windows don't currently
- * mesh with what Glk has to offer, so we have to delay any
- * non-Glk-ish Windows and just maintain the current
- * parameters for creating floating TextGrids later when they
- * are printed to.
- */
+void heglk_sizeifexists(int i)
+{
+    if (wins[i].win) {
+        if ( wins[i].x0 < 0) {
+            wins[i].x0 = 0;
+        }
+        if (wins[i].y0 == wins[i].y1) {
+            LOG("glk_sizeifexists: Window %d was resized to height 0!\n", i);
+        }
+        win_sizewin(wins[i].win->peer, wins[i].x0, wins[i].y0, wins[i].x1, wins[i].y1);
+        LOG("glk_sizeifexists: Resized window %d to %d %d %d %d\n", i, wins[i].x0, wins[i].y0, wins[i].x1, wins[i].y1);
+    } else {
+        LOG("glk_sizeifexists: Window %d has no Glk counterpart!\n", i);
+    }
+}
+
+/* Pre-v2.4 versions had no proper concept of windows, */
+/* so we guess the status window height here and in */
+/* in heglk_adjust_pre_v24_status_when_printing() below */
+
+int heglk_adjust_pre_24_status_when_setting_window(int bottom)
+{
+    if (game_version >= 24 || bottom <= heglk_get_screenheight())
+        return bottom;
+
+    if (statuswin && wins[statuswin].clear == 0 && wins[statuswin].b < bottom) {
+        bottom = wins[statuswin].b;
+        if (lowest_printed_position_in_status < bottom)
+            bottom = lowest_printed_position_in_status;
+    } else {
+        bottom = 1;
+    }
+    return bottom;
+}
+
+int heglk_push_down_main_window_to(int y)
+{
+    LOG("heglk_push_down_main_window_to %d\n", y);
+    if (!y) {
+        LOG("y == 0!\n");
+    } if (!mainwin || !y) {
+        return y;
+    }
+
+    if (statuswin && wins[statuswin].y1)
+        y = MAX(y, wins[statuswin].y1);
+
+    if (second_image_row && wins[second_image_row].y1)
+        y = MIN(y, wins[second_image_row].y1);
+
+    int minimal_mainwin_height = gbuffermarginy * 2 + gbufcellh * 3;
+    if (wins[mainwin].win && wins[mainwin].win->type == wintype_TextGrid)
+        minimal_mainwin_height = ggridmarginy * 2 + gcellh * 3;
+    if (gscreenh <  minimal_mainwin_height)
+        minimal_mainwin_height = gscreenh / 2;
+    if (gscreenh - y < minimal_mainwin_height)
+        y = gscreenh - minimal_mainwin_height;
+    wins[mainwin].y0 = y;
+    heglk_sizeifexists(mainwin);
+    LOG("Pushed down main window to %d\n", y);
+    if (!y) {
+        LOG("y == 0!\n");
+    }
+    return y;
+}
+
+int heglk_find_attached_at_top(int top)
+{
+    for (int i = 1; i < nwins; i++) {
+        if (ABS(wins[i].b - top) <= 1) {
+            LOG("Window %d (l:%d, t:%d, r:%d, b:%d) is attached to top\n", i, wins[i].l, wins[i].t, wins[i].r, wins[i].b);
+            return i;
+        }
+    }
+    return 0;
+}
+
+int heglk_find_attached_to_left(int left)
+{
+    for (int i = 1; i < nwins; i++) {
+        if (ABS(wins[i].r - left) <= 1) {
+            LOG("Window %d (l:%d, t:%d, r:%d, b:%d) is attached to the left\n", i, wins[i].l, wins[i].t, wins[i].r, wins[i].b);
+            return i;
+        }
+    }
+    return 0;
+}
+
+void heglk_ensure_menu(void)
+{
+    LOG("heglk_ensure_menu\n");
+    LOG("Splitting status window into status + menu\n");
+
+    // We only want two windows, so delete all others
+    for (int i = 1; i < nwins; i++) {
+        if (i != menuwin && i != statuswin) {
+            wins[i].clear = 1;
+            if (wins[i].win) {
+                gli_delete_window(wins[i].win);
+                wins[i].win = 0;
+            }
+        }
+    }
+
+    nwins = MAX(menuwin, statuswin) + 1;
+    mainwin = menuwin;
+
+    if (!menuwin) {
+        if (statuswin == 1) {
+            menuwin = 2;
+            nwins = 3;
+        }
+        else {
+            menuwin = 1;
+            nwins = statuswin + 1;
+        }
+
+        if (!wins[menuwin].win ) {
+            wins[menuwin].win = gli_new_window(wintype_TextGrid, 0);
+        }
+
+        if (!menutop) {
+            menutop = currentline;
+            LOG("menu top:%d\n", menutop);
+        }
+        wins[menuwin].revvid = false;
+    }
+
+    LOG("menuwin id:%d statuswin:%d nwins:%d\n", menuwin, statuswin, nwins);
+
+    wins[menuwin].t = menutop;
+    wins[menuwin].l = 1;
+    wins[menuwin].b = heglk_get_screenheight();
+    wins[menuwin].r = heglk_get_linelength();
+    wins[menuwin].x0 = 0;
+    wins[menuwin].x1 = gscreenw;
+    below_status = menuwin;
+    second_image_row = 0;
+    curwin = menuwin;
+
+    wins[menuwin].y0 = (menutop - 1 - (menutop > 2)) * gcellh + 2 * ggridmarginy;
+    wins[menuwin].y1 = gscreenh;
+
+    if (statuswin == menuwin) {
+        statuswin = 0;
+    }
+    if (statuswin) {
+        wins[menuwin].fg = wins[statuswin].fg;
+        wins[menuwin].bg = wins[statuswin].bg;
+        win_setbgnd(wins[menuwin].win->peer, hugo_color(wins[menuwin].bg));
+        heglk_zcolor();
+    } else {
+        statuswin = nwins++;
+    }
+    wins[statuswin].y1 = wins[menuwin].y0;
+    wins[statuswin].revvid = false;
+
+    if (!wins[statuswin].win)
+        wins[statuswin].win = gli_new_window(wintype_TextGrid, 0);
+
+    wins[menuwin].clear = 0;
+    wins[statuswin].clear = 0;
+
+    heglk_sizeifexists(statuswin);
+    heglk_sizeifexists(menuwin);
+    glk_set_window(wins[menuwin].win);
+
+    // Hack to remove leftover lines at menu bottom
+    // in Clockwork Boy 2 and The Next Day
+    if (iscwb2 || isnextday) {
+        glk_window_clear(wins[menuwin].win);
+    }
+    glk_window_move_cursor(wins[menuwin].win, 0, 0);
+}
 
 void hugo_settextwindow(int left, int top, int right, int bottom)
 {
     int x0, y0, x1, y1;
-    int ismain = 0;
+    int origleft, origtop, origright, origbottom;
+    int type = ISMAIN;
+    int new_below_status = false;
+    int new_second_image_row = false;
+    int matches = 0;
+    int halfscreenwidth = false;
+    int peggedtoright = false;
+
+    int reused = false;
+
+    origleft = left;
+    origtop = top;
+    origright = right;
+    origbottom = bottom;
+
     int i;
 
     if (curwin >= 0)
     {
         wins[curwin].cury = currentline;    /* one-based */
-        wins[curwin].curx = currentpos;	    /* zero-based */
+        wins[curwin].curx = currentpos;        /* zero-based */
     }
 
     LOG("hugo_settextwindow %d %d %d %d\n", left, top, right, bottom);
-    
-    /* detect main window and set size and flag with top=0 */
-    if ((left == 1 && right > 0x7000 && bottom > 0x7000) || !inwindow)
-    {
-	x0 = 0;
-	x1 = gscreenw;
-	if (top == 1)
-	    y0 = 0;
-	else
-	    y0 = ggridmarginy * 2 + (top - 1) * gcellh;
-	y1 = gscreenh;
-	ismain = 1;
+
+    if (bottom < top) {
+        LOG("hugo_settextwindow: negative height. Bailing.\n");
+        return;
+    }
+
+    /* Hugo's arbitrarily positioned windows don't currently
+     mesh with what Glk has to offer, so we have to ignore any
+     non-Glk-ish Windows and just maintain the current
+     parameters
+     */
+
+    if (menuwin) {
+        LOG("hugo_settextwindow: We are in a menu\n");
+        if (left == 1 && (top == 1 || top > 5) && right == SCREENWIDTH && (bottom == SCREENHEIGHT || bottom > 3)) {
+            if (bottom == SCREENHEIGHT || top > 5) {
+                LOG("hugo_settextwindow: Just setting window background, bailing, doing nothing\n");
+                return;
+            }
+            heglk_ensure_menu();
+            return;
+        }
+        else {
+            LOG("hugo_settextwindow: Guessing that we are trying to leave the menu. Clearing menu window and carrying on.\n");
+            wins[menuwin].clear = 1;
+            curwin = menuwin;
+            mainwin = menuwin;
+            menuwin = 0;
+        }
     }
 
     /* find a match */
-    curwin = -1;
-    for (i = 0; i < nwins; i++)
+    curwin = 0;
+    for (i = 1; i < nwins; i++)
     {
-	if ((wins[i].ismain && ismain) ||
-	    (wins[i].l == left && wins[i].t == top &&
-	     wins[i].r == right && wins[i].b == bottom))
-	{
-	    curwin = i;
-	}
+        if
+            (wins[i].l == left && wins[i].t == top &&
+             wins[i].r == right && wins[i].b == bottom)
+        {
+            curwin = i;
+            LOG("hugo_settextwindow: found a match! (%d). main = %d, status = %d\n", i, mainwin, statuswin);
+            matches++;
+        }
+    }
+
+    if (matches > 1) {
+        LOG("hugo_settextwindow: Found more than one match! (%d)\n", matches);
     }
 
     /* unmap old unused windows that are cleared */
     hugo_unmapcleared();
 
-    if (curwin != -1)
+    if ((top != 1 || bottom >= physical_windowbottom/FIXEDLINEHEIGHT+1)
+        /* Pre-v2.4 didn't support proper windowing */
+        && (game_version >= 24 || !inwindow))
     {
-	//LOG("  reuse ctx %d %s\n", curwin, ismain ? "(main)" : "");
-	
-	/* we may need to resize the main window */
-	if (ismain)
-	{
-	    wins[curwin].t = top;
-	    wins[curwin].x0 = x0;
-	    wins[curwin].y0 = y0;
-	    wins[curwin].x1 = x1;
-	    wins[curwin].y1 = y1;
-	    if (wins[curwin].win)
-	    {
-		//LOG("    really [%d %d %d %d]\n", x0, y0, x1, y1);
-		win_sizewin(wins[curwin].win->peer,
-			    wins[curwin].x0, wins[curwin].y0,
-			    wins[curwin].x1, wins[curwin].y1);
-	    }
-	}
+        LOG("Detected that we are setting an aux window. Or is it the main window?\n");
+
+        in_valid_window = false;
+
+        /* Glk-illegal floating window; setting currentwin
+         to NULL will tell hugo_print() not to print in it:
+         */
+        if (bottom < physical_windowbottom/FIXEDLINEHEIGHT+1 || (isfutureboy && bottom < 0x7000))
+        {
+            type = ISAUX;
+        }
+        else {
+            LOG("It is the main window, actually.\n");
+            // type ISMAIN is the default
+            if (left == 1 && top == 1 && right >= 0x7000 && bottom >= 0x7000) {
+                if (below_status && below_status != mainwin) {
+                    below_status = mainwin;
+                }
+            }
+        }
+    } else {
+        /* Otherwise this is a valid window (positioned along the
+         top of the screen a la a status window), so... */
+
+        LOG("Detected that we are setting a status window\n");
+        type = ISSTATUS;
+
+        if (isfutureboy && bottom == 26)
+            type = ISAUX;
     }
-    
-    else
+
+    x0 = 0;
+    y0 = 0;
+    x1 = gscreenw;
+    y1 = bottom * gcellh + 2 * ggridmarginy;
+
+    switch (type) {
+        case ISSTATUS:
+            bottom = heglk_adjust_pre_24_status_when_setting_window(bottom);
+            y1 = bottom * gcellh + 2 * ggridmarginy;
+            if (!below_status && mainwin)
+                below_status = mainwin;
+            if (below_status) {
+                wins[below_status].y0 = y1;
+                if (below_status == mainwin) {
+                    wins[below_status].t = bottom + 1;
+                }
+                heglk_sizeifexists(below_status);
+            }
+            if (curwin) {
+                if (curwin == mainwin) {
+                    curwin = 0;
+                }
+            }
+            if (statuswin) {
+                curwin = statuswin;
+                if (wins[statuswin].win)
+                    glk_window_clear(wins[statuswin].win);
+            }
+            right = heglk_get_linelength() + 2;
+            break;
+        case ISAUX:
+            if (curwin) {
+                if (!wins[curwin].isaux) {
+                    LOG("Setting window detected as aux, but reused window is not aux!?\n");
+                    if (curwin == mainwin) {
+                        LOG("  It was actually mainwin\n");
+                    }
+                    if (curwin == statuswin) {
+                        LOG("  It was actually statuswin\n");
+                    }
+                    wins[curwin].isaux = true;
+                }
+            }
+
+            x0 = (left - 1) * gcellw;
+            y0 = (top - 1) * gcellh; //+ 2 * ggridmarginy * (top > 1);
+            x1 = right * gcellw;
+
+            if (gscreenw - x1 < 3 * gcellw || right > heglk_get_linelength() - 1)
+                x1 = gscreenw;
+
+            if (ABS((right - left) - (heglk_get_linelength() / 2)) < 2) { //&& !isfutureboy) {
+                x1 = x0 + gscreenw / 2;
+                halfscreenwidth = true;
+
+                LOG("Detected that aux window is supposed to be half screen width. Stretching it out.\n");
+
+                // Hack to keep black room description window from
+                // being deleted at the first turn of Guilty Bastards
+                if (isguiltybastards && left > 2 && curwin) {
+                    hugo_mapcurwin();
+                    wins[curwin].clear = 0;
+                    x0 = gscreenw / 2;
+                    x1 = gscreenw;
+                    peggedtoright = 1;
+                }
+            }
+
+            if (ABS(right - heglk_get_linelength()) < 2 && !heglk_find_attached_to_left(left)) {
+                int diff = gscreenw - x1;
+                x1 = gscreenw;
+                x0 += diff;
+                peggedtoright = true;
+            }
+
+            y1 = y0 + gcellh * (bottom - top + 1);
+            
+            LOG("statuswin = %d wins[statuswin].b = %d top = %d ABS(top - wins[statuswin].b) = %d\n", statuswin, wins[statuswin].b, top, ABS(top - wins[statuswin].t));
+
+            if (statuswin && ABS(top - wins[statuswin].b) < 2) {
+                new_below_status = true;
+                int diff = wins[statuswin].y1 - y0;
+                y0 += diff;
+                y1 += diff;
+            } else if (!statuswin && top <= 2) {
+                new_below_status = true;
+                int diff = 2 * ggridmarginy + gcellh + gcellh * (heglk_get_linelength() < 80) - y0;
+                y0 += diff;
+                y1 += diff;
+            } else {
+                int attop = heglk_find_attached_at_top(top);
+                if (!second_image_row && attop && (attop == below_status || wins[attop].t == wins[below_status].t)) {
+                    new_second_image_row = true;
+                    int diff = wins[below_status].y1 - y0;
+                    y0 += diff;
+                    y1 += diff;
+                }
+            }
+            break;
+        case ISMAIN:
+            if (curwin) {
+                if (curwin == statuswin) {
+                    curwin = 0;
+                }
+            }
+            if (mainwin) {
+                curwin = mainwin;
+            }
+            y1 = gscreenh;
+            if (statuswin && !wins[statuswin].clear && (below_status || second_image_row)) {
+                if (top == 1) { // if we are setting a fullscreen window, clear all windows below status
+                    //                    if (second_image_row) {
+                    //                        wins[second_image_row].clear = 1;
+                    //                        second_image_row = 0;
+                    //                    }
+                    if (below_status && below_status != mainwin) {
+                        wins[below_status].clear = 1;
+                        below_status = mainwin;
+                    }
+                }
+                int above_main = heglk_find_attached_at_top(top);
+
+                if (!above_main) {
+                    above_main = heglk_find_attached_at_top(wins[mainwin].t);
+                    if (!above_main) {
+                        if (second_image_row) {
+                            above_main = second_image_row;
+                        } else if (statuswin) {
+                            above_main = statuswin;
+                        }
+                    }
+                }
+
+                if (above_main && above_main != mainwin) {
+                    y0 = heglk_push_down_main_window_to(wins[above_main].y1);
+                    LOG("hugo_settextwindow: Adjusted main window top from %d to %d (%d) (bottom of window %d)\n", top, wins[above_main].b,  wins[above_main].y1, above_main);
+                } else {
+                    y0 = heglk_push_down_main_window_to(wins[statuswin].y1);
+                    LOG("hugo_settextwindow: Adjusted main window top from %d to %d (%d) (bottom of status window)\n", top, wins[statuswin].b,  wins[statuswin].y1);
+                }
+            }
+
+            if (!statuswin && !below_status && !second_image_row) {
+                new_below_status = true;
+            }
+            break;
+        default:
+            LOG("Unhandled switch case!\n");
+            break;
+    }
+
+    if (!curwin)
     {
-	//LOG("  create ctx %d [%d %d %d %d] ", nwins, left, top, right, bottom);
+        /* ... create a new window context if no suitable exists... */
+        curwin = nwins++;
+        LOG("Created new window context %d\n", curwin);
+        wins[curwin].win = NULL;
+        wins[curwin].clear = 1;
+        wins[curwin].fg = DEF_FCOLOR;
+        wins[curwin].revvid = false;
+        wins[curwin].wasmoved = false;
 
-	curwin = nwins;
-	wins[curwin].l = left;
-	wins[curwin].t = top;
-	wins[curwin].r = right;
-	wins[curwin].b = bottom;
-	wins[curwin].win = 0;
-	wins[curwin].clear = 1;
-	wins[curwin].ismain = ismain;
-	
-	if (ismain)
-	{
-	    /* we already set the size above */
-	    //LOG("mainwin\n");
-	}
-	else if (left == 1 && top == 1 && right > 0x7000)
-	{
-	    x0 = 0;
-	    y0 = 0;
-	    x1 = gscreenw;
-	    y1 = ggridmarginy * 2 + bottom * gcellh;
-	    //LOG("statuswin\n");
-	}
-	else
-	{
-	    x0 = ggridmarginx + gcellw * (left - 1);
-	    y0 = ggridmarginy * 2 + gcellh * (top - 1);
-	    if (right > 0x7000)
-		x1 = gscreenw - ggridmarginx;
-	    else
-		x1 = ggridmarginx + gcellw * right;
-	    if (bottom > 0x7000)
-		y1 = gscreenh - ggridmarginy;
-	    else
-		y1 = ggridmarginy * 2 + gcellh * bottom;
-	    //LOG("auxwin\n");
-	}
-	
-	wins[curwin].x0 = x0;
-	wins[curwin].y0 = y0;
-	wins[curwin].x1 = x1;
-	wins[curwin].y1 = y1;
+        if (screen_bg != -1)
+            wins[curwin].bg = screen_bg;
+        else
+            wins[curwin].bg = DEF_BGCOLOR;
 
-    	nwins ++;
+        if (type == ISMAIN) {
+            mainwin = curwin;
+        } else if (type == ISSTATUS) {
+            statuswin = curwin;
+            wins[curwin].fg = DEF_SLFCOLOR;
+            if (screen_bg != -1) {
+                wins[curwin].bg = screen_bg;
+            } else {
+                wins[curwin].bg = DEF_SLBGCOLOR;
+            }
+        }
+    } else {
+        LOG("Reused window context %d\n", curwin);
+        reused = true;
     }
-    
-    /* record position of the window */
-    physical_windowleft = (left-1)*FIXEDCHARWIDTH;
-    physical_windowtop = (top-1)*FIXEDLINEHEIGHT;
-    physical_windowright = right*FIXEDCHARWIDTH-1;
-    physical_windowbottom = bottom*FIXEDLINEHEIGHT-1;
-    physical_windowwidth = (right-left+1)*FIXEDCHARWIDTH;
-    physical_windowheight = (bottom-top+1)*FIXEDLINEHEIGHT;
+
+    wins[curwin].isaux = (type == ISAUX);
+    wins[curwin].peggedtoright = peggedtoright;
+    wins[curwin].halfscreenwidth = halfscreenwidth;
+
+    if (new_below_status) {
+        below_status = curwin;
+        if (statuswin) {
+            y0 = wins[statuswin].y1;
+        }
+        LOG("Attached %s window %d below status\n", (curwin == mainwin) ? "main" : "aux", curwin);
+    }
+
+    if (new_second_image_row) {
+        second_image_row = curwin;
+        y1 = heglk_push_down_main_window_to(y1);
+        //        }
+    }
+
+    if (y1 > gscreenh)
+        y1 = gscreenh;
+    if (x1 > gscreenw)
+        x1 = gscreenw;
+
+    int changed = false;
+    if (reused) {
+        LOG("hugo_settextwindow: Old values of ctx %d: l:%d t:%d r:%d b:%d, x0:%d y0:%d x1:%d y1:%d\n", curwin, wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1, wins[curwin].y1);
+        if (wins[curwin].l != left) {
+            LOG("wins[curwin].l was changed from %d to %d\n", wins[curwin].l, left);
+            changed = true;
+        }
+        if (wins[curwin].t != top) {
+            LOG("wins[curwin].t was changed from %d to %d\n", wins[curwin].t, top);
+            changed = true;
+        }
+        if (wins[curwin].r != right) {
+            LOG("wins[curwin].r was changed from %d to %d\n", wins[curwin].r, right);
+            changed = true;
+        }
+        if (wins[curwin].b != bottom) {
+            LOG("wins[curwin].r was changed from %d to %d\n", wins[curwin].b, bottom);
+            changed = true;
+        }
+        if (wins[curwin].x0 != x0) {
+            LOG("wins[curwin].x0 was changed from %d to %d\n", wins[curwin].x0, x0);
+            changed = true;
+        }
+        if (wins[curwin].y0 != y0) {
+            LOG("wins[curwin].y0 was changed from %d to %d\n", wins[curwin].y0, y0);
+            changed = true;
+        }
+        if (wins[curwin].x1 != x1) {
+            LOG("wins[curwin].x1 was changed from %d to %d\n", wins[curwin].x1, x1);
+            changed = true;
+        }
+        if (wins[curwin].y1 != y1) {
+            LOG("wins[curwin].y1 was changed from %d to %d\n", wins[curwin].y1, y1);
+            changed = true;
+        }
+        if (!changed) {
+            LOG("hugo_settextwindow: No values were changed in reused context!\n");
+        }
+    }
+    // If we reuse the context,
+    // most of these should will have the right value already...
+    wins[curwin].l = left;
+    wins[curwin].t = top;
+    wins[curwin].r = right;
+    wins[curwin].b = bottom;
+    wins[curwin].x0 = x0;
+    wins[curwin].y0 = y0;
+    wins[curwin].x1 = x1;
+    wins[curwin].y1 = y1;
+
+    LOG("hugo_settextwindow (%d): l:%d t:%d r:%d b:%d was translated to x0:%d y0:%d x1:%d y1:%d\n", curwin, origleft, origtop, origright, origbottom, x0, y0, x1, y1);
+
+    heglk_sizeifexists(curwin);
+    heglk_record_physical(wins[curwin]);
 }
-
 
 void hugo_settextpos(int x, int y)
 {
-   LOG("hugo_settextpos %d %d\n", x, y);
+    LOG("hugo_settextpos %d %d. Currentline:%d currentpos:%d\n", x, y, currentline, currentpos);
 
     /* The top-left corner of the current active window is (1, 1). */
 
     currentline = y;
+
+    if (y == 2 && wins[curwin].clear)
+        currentline = 1;
+
     currentpos = (x-1) * CHARWIDTH;   /* Note:  zero-based */
-    
-    if (wins[curwin].win)
+
+    if (wins[curwin].revvid) {
+        heglk_reversevideo(false);
+    }
+
+    if (wins[curwin].win == NULL) {
+        return;
+    }
+
+    if (y >= 0x7000) {
+        if ((wins[curwin].win->type == wintype_TextGrid && !menuwin) || wins[curwin].win->type == wintype_Graphics) {
+            LOG("  moved to line %d in grid window. unmap.\n", y);
+            if (isfutureboy && wins[curwin].win->type == wintype_Graphics) {
+                gli_delete_window(wins[curwin].win);
+                wins[curwin].win = NULL;
+                hugo_mapcurwin();
+                return;
+            }
+            gli_delete_window(wins[curwin].win);
+            wins[curwin].win = NULL;
+        }
+        return;
+    }
+    else if (wins[curwin].win->type == wintype_TextBuffer)
     {
-	if (wins[curwin].win->type == wintype_TextBuffer)
-	{
-	    if (y < 0x7000)
-	    {
-		LOG("  move in buffer window. unmap.\n");
-		if (!wins[curwin].clear)
-		    hugo_waitforkey();
-		gli_delete_window(wins[curwin].win);
-		wins[curwin].win = 0;
-	    }
-	}
-	else if (wins[curwin].win->type == wintype_TextGrid)
-	{
-	    glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
-	}
+        // Hack to keep black room description window from
+        // being deleted at the first turn of Guilty Bastards
+        if (isguiltybastards && wins[curwin].l >= heglk_get_linelength() / 2 && wins[curwin].halfscreenwidth) {
+            LOG(" move in buffer window, Guilty bastards. x:%d y:%d\n", x, y);
+            return;
+        }
+        if (showing_futureboy_title) {
+            LOG(" move in buffer window, showing Future Boy! title\n");
+            return;
+        }
+
+        if (showing_author_photo) {
+            int y1 = 0;
+            for (int i = 0; i < nwins; i++) {
+                if (!wins[i].clear && wins[i].win && wins[i].win->type == wintype_Graphics) {
+                    y1 = wins[i].y1;
+                    break;
+                }
+            }
+            wins[mainwin].y0 = y1;
+            heglk_sizeifexists(mainwin);
+            showing_author_photo = 0;
+            return;
+        }
+
+        LOG("  move in buffer window. unmap.\n");
+        if (!wins[curwin].clear && !wins[curwin].isaux && !isfutureboy)
+            hugo_waitforkey();
+        gli_delete_window(wins[curwin].win);
+        wins[curwin].win = NULL;
+    }
+    else if (wins[curwin].win->type == wintype_TextGrid)
+    {
+        if (menuwin) {
+            LOG("  hugo_settextpos in menu window.\n");
+            if (currentline < menutop) {
+                LOG("currentline (%d) is less than menutop (%d)  moving to status window.\n", currentline, menutop);
+                curwin = statuswin;
+                glk_set_window(wins[statuswin].win);
+
+            } else {
+                LOG("currentline (%d) is greater than or equal to menutop (%d)  moving to menu window line %d\n", currentline, menutop, currentline - menutop);
+                curwin = menuwin;
+                glk_set_window(wins[menuwin].win);
+                glk_window_move_cursor(wins[curwin].win, currentpos, currentline - menutop);
+                return;
+            }
+        }
+        glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
     }
 }
 
+/* Check if the current "context" wins[curwin] has a corresponding Glk Window object. If not, create one */
 static void hugo_mapcurwin()
 {
-    int mono = (curstyle == style_Preformatted);
-    int quartz, i;
+    //        LOG("hugo_mapcurwin\n");
 
-    if (wins[curwin].win == 0)
+    if (!curwin || wins[curwin].win != NULL)
+        return; // The current window context already has a corresponding Glk window
+
+    if ((curwin == mainwin
+         && (currentline > 0x7000 || !mono)) || // We are in a standard, main textbuffer window
+
+        // Hack to give fixed-width font in Haunting the Ghosts menu proper word wrapping
+        (ishtg && currentline == 1 && statuswin && curwin != statuswin && wins[curwin].fg == 7 && wins[curwin].bg == 0) ||
+
+        // Hack to give fixed-width font in World Builder menu proper word wrapping
+        // (Haunting the Ghosts and World Builder use a fixed-width style for the regular game text,
+        // so the usual trick of checking for a fixed-with font doesn't work)
+        (isworldbuilder && currentline == 1 && statuswin && curwin != statuswin && !menuwin) ||
+
+        (!mono && inwindow && wins[curwin].l > 5))  // We are in a right-aligned aux textbuffer window
     {
-	if (wins[curwin].ismain &&
-	    (currentline > 0x7000 ||
-	     (currentline == 1 && !mono) ||
-	     (currentline >= heglk_get_screenheight() && !mono)))
-	{
-	    LOG(" * map win to buffer %d\n", curwin);
-	    wins[curwin].win = gli_new_window(wintype_TextBuffer, 0);
-	    win_setbgnd(wins[curwin].win->peer, glk_bgcolor);
-	}
-	else
-	{
-	    LOG(" * map win to grid %d\n", curwin);
-	    wins[curwin].win = gli_new_window(wintype_TextGrid, 0);
-	    win_setbgnd(wins[curwin].win->peer, glk_bgcolor);
-	    if (wins[curwin].ismain || wins[curwin].t != 1)
-	    {
-		//LOG(" - is aux or main window\n");
-		if (wins[curwin].ismain)
-		{
-		    //LOG(" - ismain, check transparency\n");
-		    quartz = 0;
-		    for (i = 0; i < nwins; i++)
-			if (wins[i].win && wins[i].win->type == wintype_Graphics)
-			    quartz = 1;
-		}
-		else
-		{
-		    quartz = 1;
-		}
-		
-		if (quartz)
-		    win_maketransparent(wins[curwin].win->peer);
-	    }
-		//LOG(" - is status window\n");
-        if (wins[curwin].win->type == wintype_TextGrid)
-            glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
-	}
-	win_sizewin(wins[curwin].win->peer,
-		    wins[curwin].x0, wins[curwin].y0, 
-		    wins[curwin].x1, wins[curwin].y1);
+        LOG(" * map win to buffer %d\n", curwin);
+
+        //        LOG(" * curwin %d l:%d t:%d r:%d b:%d clear:%d\n", curwin, wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, wins[curwin].clear);
+        //        LOG(" * statuswin %d l:%d t:%d r:%d b:%d clear:%d\n", statuswin, wins[statuswin].l, wins[statuswin].t, wins[statuswin].r, wins[statuswin].b, wins[statuswin].clear);
+
+        if (wins[curwin].bg != DEF_BGCOLOR && wins[curwin].fg != DEF_FCOLOR)
+            glk_stylehint_set(wintype_TextBuffer, style_Input, stylehint_TextColor, hugo_color(wins[curwin].fg));
+        wins[curwin].win = gli_new_window(wintype_TextBuffer, 0);
+    }
+    else
+    {
+        LOG(" * map win to grid %d\n", curwin);
+
+        if (currentline == 1 && statuswin && curwin != statuswin && !menuwin && wins[curwin].b > heglk_get_screenheight() ) {
+            LOG("wins[curwin].b = %d\n", wins[curwin].b );
+            LOG("wins[curwin].t = %d\n", wins[curwin].t );
+            LOG("wins[curwin].fg = %d\n", wins[curwin].fg );
+
+            LOG("wins[curwin].bg = %d\n", wins[curwin].bg );
+            LOG("statuswin = %d\n", statuswin );
+            LOG("wins[statuswin].b = %d\n", wins[statuswin].b );
+            LOG("wins[curwin].y1 = %d\n", wins[curwin].y1 );
+            LOG("inmenu = %d\n", inmenu );
+            LOG("currentpos = %d\n", currentpos );
+            LOG("currentline = %d\n", currentline );
+
+        }
+
+        wins[curwin].win = gli_new_window(wintype_TextGrid, 0);
+
+        int quartz = 0;
+        if (curwin == statuswin) {
+            LOG(" - is status window\n");
+
+        } else if (curwin == mainwin) {
+            LOG(" - is main window\n");
+            // If the main window is a grid, we guess that this is a menu
+            inmenu = true;
+            LOG("Guessing that we are in a menu!\n");
+        } else {
+            LOG(" - is aux window\n");
+        }
+
+        if (curwin == mainwin)
+        {
+            //LOG(" - ismain, check transparency\n");
+            for (int i = 1; i < nwins; i++) {
+                if (wins[i].win && wins[i].win->type == wintype_Graphics)
+                    quartz = 1;
+            }
+        }
+        else if (istetris) {
+            quartz = 1;
+        }
+
+        if (quartz) {
+            win_maketransparent(wins[curwin].win->peer);
+            wins[curwin].y0 = wins[curwin].t * gcellh;
+            below_status = 0;
+            inmenu = 0;
+        }
+    }
+
+    win_sizewin(wins[curwin].win->peer,
+                wins[curwin].x0, wins[curwin].y0,
+                wins[curwin].x1, wins[curwin].y1);
+
+    LOG("hugo_mapcurwin %d, bg = %d (0x%x, %d)\n", curwin, wins[curwin].bg, hugo_color(wins[curwin].bg), hugo_color(wins[curwin].bg));
+    if (hugo_color(wins[curwin].bg) != -1) {
+        win_setbgnd(wins[curwin].win->peer, hugo_color(wins[curwin].bg));
+        heglk_zcolor();
+    }
+    //    }
+
+    if (wins[curwin].win->type == wintype_TextGrid) {
+        if (inwindow && wins[curwin].l > 2 && wins[curwin].t > 2) {
+            currentpos = 0;
+            currentline = 1;
+        }
+        glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
+
     }
 }
 
@@ -935,12 +1986,15 @@ void hugo_flushnl(void)
 {
     if (nlbufcnt && nlbufwin >= 0)
     {
-	glk_set_window(wins[nlbufwin].win);
-	while (nlbufcnt--)
-	    glk_put_char('\n');
-	nlbufwin = -1;
-	nlbufcnt = 0;
-	glk_set_window(wins[curwin].win);
+        glk_set_window(wins[nlbufwin].win);
+        if (nlbufcnt > 2)
+            nlbufcnt = 2;
+        while (nlbufcnt--) {
+            glk_put_char('\n');
+        }
+        nlbufwin = 0;
+        nlbufcnt = 0;
+        glk_set_window(wins[curwin].win);
     }
 }
 
@@ -948,35 +2002,101 @@ void hugo_printnl(void)
 {
     if (wins[curwin].win->type == wintype_TextBuffer)
     {
-	if (nlbufwin != curwin)
-	    hugo_flushnl();
-	nlbufwin = curwin;
-	nlbufcnt ++;
+        if (nlbufwin != curwin) {
+            hugo_flushnl();
+        }
+        nlbufwin = curwin;
+        nlbufcnt ++;
     }
     else
-	glk_put_char('\n');
+    {
+        glk_put_char('\n');
+    }
 }
+
+/* Pre-v2.4 versions had no proper concept of windows, */
+/* so we guess the status window height here and in */
+/* in heglk_adjust_pre_v24_status_when_setting_window() below */
+
+void heglk_adjust_pre_v24_status_when_printing(void)
+{
+    if (game_version >= 24 || curwin != statuswin) {
+        return;
+    }
+
+    if (wins[curwin].clear)
+        lowest_printed_position_in_status = 0;
+
+    int actual_height_in_characters = (wins[curwin].y1 - wins[curwin].y0 - 2 * ggridmarginy) / gcellh;
+    if ( currentline > actual_height_in_characters && currentline < heglk_get_screenheight() ) {
+        LOG("Current line %d is below bottom of status line (height %d)\n", currentline, actual_height_in_characters);
+        wins[curwin].b += (currentline - actual_height_in_characters);
+        if (wins[curwin].b == wins[curwin].t)
+            wins[curwin].b++;
+        LOG("Expanded it to %d\n", wins[curwin].b - wins[curwin].t);
+        wins[curwin].y1 = wins[curwin].y0 + currentline * gcellh + 2 * ggridmarginy;
+        if (mainwin) {
+            wins[mainwin].t = wins[statuswin].b + 1;
+            wins[mainwin].y0 = wins[statuswin].y1;
+        }
+        heglk_sizeifexists(mainwin);
+        heglk_sizeifexists(statuswin);
+        glk_window_move_cursor(wins[statuswin].win, currentpos, currentline - 1);
+        lowest_printed_position_in_status = currentline - 1 +
+        // Hack to make Colossal Cave status bar grow when needed
+        (heglk_get_linelength() < 80 && !inmenu);
+    }
+
+    // Hack to make Colossal Cave status bar shrink when needed
+    if (lowest_printed_position_in_status > 1 && (heglk_get_linelength() > 80 || inmenu))
+        lowest_printed_position_in_status = 1;
+}
+
+void heglk_zcolor(void)
+{
+    if (!wins[curwin].win)
+        return;
+    glk_set_window(wins[curwin].win);
+
+    int fg = wins[curwin].fg;
+    int bg = wins[curwin].bg;
+
+    glk_fgcolor = hugo_color(fg);
+    glk_bgcolor = hugo_color(bg);
+
+    if ((bg == DEF_SLBGCOLOR && wins[curwin].win->type == wintype_TextGrid) &&
+        ((currentpos == 0 && currentline == 1) || wins[curwin].clear)) {
+        win_setbgnd(wins[curwin].win->peer, -1);
+        LOG("Trying to set window background back to default\n");
+    }
+
+    if ((bg == DEF_BGCOLOR && wins[curwin].win->type == wintype_TextBuffer) &&
+        ((currentpos == 0 && currentline == 1) || wins[curwin].clear)) {
+        win_setbgnd(wins[curwin].win->peer, -1);
+        LOG("Trying to set window background back to default\n");
+    }
+
+    if (glk_fgcolor == -1 && glk_bgcolor == -1) {
+        glk_fgcolor = glk_bgcolor = -2;
+
+    }
+    LOG("Setting zcolors to %x (%d), %x (%d)\n", glk_fgcolor, glk_fgcolor, glk_bgcolor, glk_bgcolor);
+    garglk_set_zcolors(glk_fgcolor, glk_bgcolor) ;
+}
+
+
 
 void hugo_print(char *a)
 {
     /* Essentially the same as printf() without formatting, since printf()
-    generally doesn't take into account color setting, font changes,
-    windowing, etc.
+     generally doesn't take into account color setting, font changes,
+     windowing, etc.
+     */
 
-    The newline character '\n' must be explicitly included at the end of
-    a line in order to produce a linefeed.  The new cursor position is set
-    to the end of this printed text.  Upon hitting the right edge of the
-    screen, the printing position wraps to the start of the next line.
-    */
-
-    static char just_printed_linefeed = false;
-
-    int mono = (curstyle == style_Preformatted);
-
-    if (curwin == -1)
+    if (!curwin)
     {
-	LOG("printing to hell\n");
-	return;
+        LOG("  Tried to print without a window!\n");
+        return;
     }
 
     hugo_unmapcleared();
@@ -984,93 +2104,107 @@ void hugo_print(char *a)
     /* printing to a window that is showing graphics... unmap */
     if (wins[curwin].win && wins[curwin].win->type == wintype_Graphics)
     {
+        if (isfutureboy && (a[0] == ' ' || a[0] == '\r' || a[0] == '\n'))
+            return;
+        else
+            fprintf(stderr, "%d\n", a[0]);
         LOG("  unmap graphics window %d for printing\n", curwin);
-        if (!wins[curwin].clear)
+        if (!wins[curwin].clear )
             hugo_waitforkey();
         gli_delete_window(wins[curwin].win);
         wins[curwin].win = 0;
     }
 
-    /* check if we need to unmap a cleared window so we can swap type */
-    if (wins[curwin].win && wins[curwin].clear)
-    {
-        if (wins[curwin].win->type == wintype_TextGrid)
-        {
-            if (wins[curwin].ismain &&
-                (currentline > 0x7000 ||
-                 (currentline == 1 && !mono) ||
-                 (currentline >= heglk_get_screenheight() && !mono)))
-            {
-                LOG("  unmap grid main window %d so we can swap back to buffer\n", curwin);
-                if (!wins[curwin].clear)
-                    hugo_waitforkey();
-                gli_delete_window(wins[curwin].win);
-                wins[curwin].win = 0;
-            }
-        }
+    /* check if we are trying to print a menu in the main buffer window */
+    // Enceladus
+    if (curwin == mainwin && mono && a[0] == '[' && wins[mainwin].clear && !inwindow) {
+        hugo_settextpos(1, 1);
     }
 
     hugo_mapcurwin();
 
+    glk_set_window(wins[curwin].win);
+
+    //if (curstyle != laststyle)
+    glk_set_style(curstyle);
+
+    laststyle = curstyle;
+
+    if (mono && a[0] == '[') {
+        inmenu = true;
+        if (curwin == statuswin && currentline > 1) {
+            LOG("We are trying to print a menu\n");
+            heglk_ensure_menu();
+        }
+    }
+
+    heglk_adjust_pre_v24_status_when_printing();
+
     wins[curwin].clear = 0;
 
-    glk_set_window(wins[curwin].win);
-    glk_set_style(curstyle | (glk_fgcolor << 8) | (glk_bgcolor << 16));
-    
-    // LOG("hugo print: '%s' %c\n", a, mono ? 'm' : 'p');
-    
-    if (a[0]=='\n')
+    LOG("hugo print: '%s' %s %s inwin: %d inmenu %d x:%d y:%d curwin:%d length:%lu\n", a, mono ? "mono" : "prop", (wins[curwin].win->type == wintype_TextGrid) ? "grid" : "buf", inwindow, inmenu, currentpos, currentline, curwin, strlen(a));
+
+
+    if (a[0] == '\r')
     {
-	if (!just_printed_linefeed)
-	{
-	    hugo_printnl();
-	}
-	else
-	    just_printed_linefeed = false;
+        hugo_printnl();
     }
-    else if (a[0]=='\r')
+    else if (a[0] != '\n')
     {
-	if (!just_printed_linefeed)
-	{
-	    hugo_printnl();
-	    just_printed_linefeed = true;
-	}
-	else
-	    just_printed_linefeed = false;
+        hugo_flushnl();
+
+        if (!(wins[curwin].fg == lastfg && wins[curwin].bg == lastbg)) {
+            heglk_zcolor();
+        }
+
+        lastfg = wins[curwin].fg;
+        lastbg = wins[curwin].bg;
+
+        if (istetris && a[0] == 'B' && mono) {
+            win_moveto(wins[curwin].win->peer, currentpos, currentline - 2);
+            glk_put_string("Score:");
+            hugo_settextpos(currentpos + 1, currentline);
+        }
+        glk_put_string(a);
+
     }
-    else
-    {
-	hugo_flushnl();
-	glk_put_string(a);
-	just_printed_linefeed = false;
-    }
+
+    just_displayed_something = true;
 }
 
 void hugo_font(int f)
 {
     /* The <f> argument is a mask containing any or none of:
-    * BOLD_FONT, UNDERLINE_FONT, ITALIC_FONT, PROP_FONT.
-    */
+     * BOLD_FONT, UNDERLINE_FONT, ITALIC_FONT, PROP_FONT.
+     */
 
     if (f & BOLD_FONT && f & ITALIC_FONT)
-	curstyle = style_Alert;
+        curstyle = style_Alert;
 
     else if (f & BOLD_FONT)
-	curstyle = style_Subheader;
+        curstyle = style_Subheader;
 
     else if (f & UNDERLINE_FONT)
-	curstyle = style_Emphasized;
+        curstyle = style_Emphasized;
 
     else if (f & ITALIC_FONT)
-	curstyle = style_Emphasized;
+        curstyle = style_Emphasized;
 
     else
-	curstyle = style_Normal;
+        curstyle = style_Normal;
 
     if (! ( f & PROP_FONT ) )
     {
-	curstyle = style_Preformatted;
-    }
+        curstyle = style_Preformatted;
+        LOG("Changing to a fixed-width font\n");
+        mono = true;
+
+        // Hack to avoid extra line breaks in Captain Speedo intro boxes
+        if (inwindow && wins[curwin].l > 2 && wins[curwin].t > 2)
+        {
+            glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
+        }
+    } else mono = false;
 }
 
 int hugo_hasgraphics(void)
@@ -1080,98 +2214,240 @@ int hugo_hasgraphics(void)
 
 int hugo_displaypicture(HUGO_FILE infile, long reslength)
 {
-    glui32 width, height;
-    int i, mainwin;
+    glui32 width, height, origwidth;
     int oldx = 0;
-    int oldy = 0;
-    mainwin = -1;
-
-    for (i = 0; i < nwins; i++)
-    {
-	if (wins[i].ismain && wins[i].win && wins[i].win->type == wintype_TextBuffer)
-	{
-	    //LOG("  main x=%d y=%d\n", wins[i].curx, wins[i].cury);
-	    oldx = wins[i].x0 + wins[i].curx * gcellw;
-	    oldy = wins[i].y0 + (wins[i].cury-1) * gcellh;
-	    if (oldy > wins[i].y1)
-		oldy = wins[i].y1;
-	    mainwin = i;
-	}
-    }
 
     if (hugo_hasgraphics())
     {
-	char *buf = malloc(reslength);
-	if (buf)
-	{
-	    glk_get_buffer_stream(infile, buf, reslength);
-	    win_loadimage(0, buf, reslength);
-	    free(buf);
-	    
-	    win_sizeimage(&width, &height);
-	    
-	    float aspect = (float) height / width;
-	    
-	    int x0 = wins[curwin].x0;
-	    int y0 = wins[curwin].y0;
-	    int x1 = wins[curwin].x1;
-	    int y1 = wins[curwin].y1;
-	    
-	    if (width > x1 - x0) { width = x1 - x0; height = width * aspect; }
-	    if (height > y1 - y0) { height = y1 - y0; width = height / aspect; }
-	    
-	    int xoff = ((x1 - x0) - width) / 2;
-	    int yoff = ((y1 - y0) - height) / 2;
-	    
-	    LOG("hugo_displaypicture w=%d h=%d\n", width, height);
-	    
-	    hugo_unmapcleared();
-	    
-	    if (mainwin != -1 &&
-		ABS(oldx - wins[curwin].x0) < gcellw * 2 &&
-		ABS(wins[mainwin].y1 - wins[curwin].y1) < gcellh * 2)
-	    {
-		int linecount = height / gcellh + 1;
-		LOG("  PictureInText %d\n", linecount);
+        if (mainwin)
+        {
+            struct winctx mainctx = wins[mainwin];
+            if (mainctx.win && mainctx.win->type == wintype_TextBuffer) {
+                LOG("  main x=%d y=%d\n", mainctx.curx, mainctx.cury);
+                oldx = mainctx.x0 + mainctx.curx * gcellw;
+            }
+        }
 
-		if (1) // nlbufwin == mainwin)
-		{
-		    nlbufcnt -= linecount;
-		    if (nlbufcnt < 0)
-			nlbufcnt = 0;
-		}
-		
-		hugo_flushnl();
-		
-		glk_set_window(wins[mainwin].win);
-		win_drawimage(wins[mainwin].win->peer, imagealign_InlineUp, 0, width, height);
-		wins[mainwin].clear = 0;
-		glk_put_char('\n');
-	    }
-	    else
-	    {
-		if (wins[curwin].win)
-		{
-		    LOG("  unmap old window %d for graphics\n", curwin);
-		    if (wins[curwin].win->type != wintype_Graphics && !wins[curwin].clear)
-			hugo_waitforkey();
-		    gli_delete_window(wins[curwin].win);
-		    wins[curwin].win = 0;	
-		}
-		
-		wins[curwin].win = gli_new_window(wintype_Graphics, 0);
-		win_sizewin(wins[curwin].win->peer,
-			    wins[curwin].x0, wins[curwin].y0, 
-			    wins[curwin].x1, wins[curwin].y1);
-		win_maketransparent(wins[curwin].win->peer);
-		win_fillrect(wins[curwin].win->peer, 0, 0, 0, x1-x0, y1-y0);
-		win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height);
-		wins[curwin].clear = 0;
-	    }
-	}
+        if (curwin == below_status && statuswin) {
+            int diff = wins[statuswin].y1 - wins[curwin].y0;
+            if (diff) {
+                wins[curwin].y0 = wins[statuswin].y1;
+                if (diff > 0 && curwin != mainwin)
+                    wins[curwin].y1 = heglk_push_down_main_window_to(wins[curwin].y1 + diff);
+                heglk_sizeifexists(curwin);
+            }
+
+        }
+
+        char *buf = malloc(reslength);
+        if (buf)
+        {
+            if (reslength != lastres) {
+                glk_get_buffer_stream(infile, buf, reslength);
+                win_loadimage(0, buf, reslength);
+                lastres = reslength;
+            }
+            free(buf);
+
+            if (isenceladus && reslength == 4690362) {
+                width = 6000;
+                height = 6000;
+            } else {
+                win_sizeimage(&width, &height);
+            }
+
+            origwidth = width;
+
+            if (isfutureboy && width == 600 && height == 320)
+                showing_futureboy_title = true;
+            else
+                showing_futureboy_title = false;
+
+            if (ishtg && (reslength == 3501 || reslength == 4117))
+                showing_author_photo = true;
+
+            LOG("hugo_displaypicture: original image size: width %d height %d , reslength: %ld\n", width, height, reslength);
+            float aspect = (float) height / width;
+
+            int x0 = (wins[curwin].l - 1) * gcellw;
+            int y0 = wins[curwin].y0;
+            int winwidth = (wins[curwin].r - wins[curwin].l + 1) * gcellw + 1;
+            int x1 = x0 + winwidth;
+            if (x1 > gscreenw)
+                x1 = gscreenw;
+            int y1 = wins[curwin].y1;
+
+            if (reslength == 14236 && isfutureboy) {
+                second_image_row = curwin;
+            }
+
+            if (second_image_row && second_image_row != curwin && wins[second_image_row].y0 < y1) {
+                y1 = wins[second_image_row].y0;
+            }
+
+            if (gscreenw - x1 < (gcellw * 2 + 2 * ggridmarginx) || wins[curwin].peggedtoright || x1 > gscreenw) {
+                if (x0 < ggridmarginx) {
+                    x0 = 0;
+                } else if (wins[curwin].halfscreenwidth) {
+                    x0 = gscreenw / 2;
+                } else {
+                    int diff = gscreenw - x1;
+                    x0 += diff;
+                }
+                x1 = gscreenw;
+            }
+
+            if (wins[curwin].halfscreenwidth && x0 < ggridmarginx) {
+                x0 = 0;
+                x1 = gscreenw / 2 + 1;
+            }
+
+            // Hack to center the title mugshot gallery in Guilty Bastards
+            if (isguiltybastards && wins[curwin].r - wins[curwin].l < heglk_get_linelength() / 4) {
+                int diff = ggridmarginx + gcellw;
+                x0 += diff;
+                x1 += diff;
+            }
+
+            LOG("hugo_displaypicture curwin (%d) x0: %d y0: %d width: %d height: %d \n", curwin, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1 - wins[curwin].x0, wins[curwin].y1 - wins[curwin].y0);
+
+            if (width < 1 || height < 1)
+                return false;
+
+            if (width > x1 - x0) {
+                width = x1 - x0;
+                height = width * aspect;
+            }
+
+            if (y1 == y0) {
+                y1 = y0 + gcellh;
+                if (y1 > gscreenh) {
+                    y1 = gscreenh;
+                    y0 = gscreenh - gcellh;
+                }
+            }
+            if (height > y1 - y0) {
+                height = y1 - y0;
+                width = height / aspect;
+            }
+
+            int xoff = ((x1 - x0) - width) / 2;
+            int yoff = ((y1 - y0) - height) / 2;
+
+            LOG("hugo_displaypicture w=%d h=%d\n", width, height);
+
+            hugo_unmapcleared();
+
+            LOG("ABS(oldx - wins[curwin].x0) = %d  gcellw * 2 = %f\n", ABS(oldx - wins[curwin].x0),  gcellw * 2);
+            LOG("ABS(wins[mainwin].y1 - wins[curwin].y1) = %d  gbufcellh * 2 = %f\n", ABS(wins[mainwin].y1 - wins[curwin].y1),  gbufcellh * 2);
+
+            // Prints an inline image in the main text window instead of replacing it with a new graphics window.
+            // This will break any graphical menus that expect mouse input with correct coordinates,
+            // such as the main menu of Cryptozookeeper, so we'll need to check for that here.
+
+            if ((mainwin && wins[mainwin].win && // We have a main window with Glk counterpart
+
+                 // The two lines below try to check if the main window current position and the
+                 // current window, i.e. the window Hugo just set for this image,
+                 // are close enough.
+
+                 ((ABS(oldx - wins[curwin].x0) < gbufcellw * 2 && // The difference between main window last printed
+                   // character position (inaccurate because it is a buffer
+                   // window but the position is calculated using grid cellwidth)
+                   // and current window left edge is less than two (grid) characters
+
+                   ABS(wins[mainwin].y1 - wins[curwin].y1) < gbufcellh * 2)  // The difference betwee main window bottom edge
+                  // and current window bottom edge is less than two
+                  // characters
+
+                  || istraveling)
+
+                 && !isczk && !isenceladus && !isnecrotic && !isfallacy)) {
+                // In Cryptozookeeper, this breaks the main menu. Enceladus simply looks better
+                // with images in their own windows, vertically centered.
+
+                // Scale down again to buffer margins
+                x0 = wins[mainwin].x0 + gbuffermarginx;
+                x1 = wins[mainwin].x1 - gbuffermarginx;
+
+                if (origwidth < x1 - x0) {
+                    width = origwidth;
+                    height = origwidth * aspect;
+                } else if (width > x1 - x0) {
+                    width = x1 - x0;
+                    height = width * aspect;
+                }
+                
+                int linecount = height / gbufcellh + 1;
+                LOG("  PictureInText at line %d, window %d\n", linecount, mainwin);
+                                
+                if (1) // nlbufwin == mainwin)
+                {
+                    nlbufcnt -= linecount;
+                    if (nlbufcnt < 0)
+                        nlbufcnt = 0;
+                }
+                
+                hugo_flushnl();
+                glk_set_window(wins[mainwin].win);
+                
+                // We use a centered style for the image and
+                // give it its own paragraph
+                glk_set_style(style_User1);
+                glk_put_char(' ');
+                glk_set_hyperlink(1);
+                win_drawimage(wins[mainwin].win->peer, imagealign_InlineUp, 0, width, height);
+                glk_set_hyperlink(0);
+                wins[mainwin].clear = 0;
+                glk_put_char('\n');
+                glk_set_style(style_Normal);
+                
+                wins[curwin].clear = 1;
+                wins[curwin].y1 = 0;
+                wins[curwin].b = 0;
+                
+                if (second_image_row) {
+                    wins[mainwin].y0 = wins[second_image_row].y1;
+                }
+            }
+            else
+            {
+                // Here we create a new graphic window instead
+                if (wins[curwin].win)
+                {
+                    LOG("  unmap old window %d for graphics\n", curwin);
+                    if (wins[curwin].win->type != wintype_Graphics && !wins[curwin].clear) {
+                        LOG("  pausing to let the player read the text in window %d before we delete it (and swap to graphics)\n", curwin);
+                        hugo_waitforkey();
+                    }
+                    gli_delete_window(wins[curwin].win);
+                    wins[curwin].win = 0;
+                }
+                
+                wins[curwin].win = gli_new_window(wintype_Graphics, 0);                
+                win_sizewin(wins[curwin].win->peer,
+                            x0, y0,
+                            x1, y1);
+
+                wins[curwin].x0 = x0;
+                wins[curwin].y0 = y0;
+                wins[curwin].x1 = x1;
+                wins[curwin].y1 = y1;
+
+                win_maketransparent(wins[curwin].win->peer);
+                
+                LOG("hugo_displaypicture: fill a rect with background color %x: width %d, height %d\n", hugo_color(wins[curwin].bg), abs(x1-x0), abs(y1-y0));
+                win_fillrect(wins[curwin].win->peer, hugo_color(wins[curwin].bg), 0, 0, abs(x1-x0), abs(y1-y0));
+                LOG("hugo_displaypicture: draw image: x offset %d, y offset %d, width %d, height %d\n", xoff, yoff, width, height);
+                win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height);
+                wins[curwin].clear = 0;
+                
+            }
+        }
     }
-
+    
     glk_stream_close(infile, NULL);
+    just_displayed_something = true;
     return true;
 }
 
