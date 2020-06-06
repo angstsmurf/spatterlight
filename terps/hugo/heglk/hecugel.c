@@ -1206,6 +1206,12 @@ void heglk_sizeifexists(int i)
         if ( wins[i].x0 < 0) {
             wins[i].x0 = 0;
         }
+        if (wins[i].y0 > wins[i].y1) {
+            int temp = wins[i].y0;
+            wins[i].y0 = wins[i].y1;
+            wins[i].y1 = temp;
+        }
+
         if (wins[i].y0 == wins[i].y1) {
             LOG("glk_sizeifexists: Window %d was resized to height 0!\n", i);
         }
@@ -1502,6 +1508,8 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
                 below_status = mainwin;
             if (below_status) {
                 wins[below_status].y0 = y1;
+                if (wins[below_status].y1 < y1)
+                    wins[below_status].y1 = y1;
                 if (below_status == mainwin) {
                     wins[below_status].t = bottom + 1;
                 }
