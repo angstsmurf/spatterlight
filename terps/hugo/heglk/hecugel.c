@@ -147,8 +147,6 @@ static void heglk_ensure_menu(void);
 static int heglk_find_attached_at_top(int top);
 static int heglk_find_attached_to_left(int left);
 
-#define PIC 0
-#define SND 1
 #define MAXRES 1024
 
 static schanid_t mchannel = NULL;
@@ -760,41 +758,6 @@ void heglk_record_physical(struct winctx ctx) {
     LOG("physical_windowwidth: %d\n", physical_windowwidth);
     physical_windowheight = (ctx.b-ctx.t+1)*FIXEDLINEHEIGHT;
     LOG("physical_windowheight: %d\n", physical_windowheight);
-}
-
-void heglk_remap_to_buffer() {
-    LOG("heglk_remap_to_buffer\n");
-
-    if (wins[curwin].win)
-    {
-        if (!wins[curwin].clear) {
-            LOG("  pausing to let the player read the text in window %d before we delete it (and swap to buffer)\n", curwin);
-            hugo_waitforkey();
-        }
-        LOG("heglk_remap_to_buffer: deleting current window\n");
-        gli_delete_window(wins[curwin].win);
-        wins[curwin].win = 0;
-    }
-
-    LOG("heglk_remap_to_buffer: creating a new text buffer window\n");
-    wins[curwin].win = gli_new_window(wintype_TextBuffer, 0);
-    wins[curwin].x1 = gscreenw;
-    wins[curwin].r = INFINITE;
-
-    win_sizewin(wins[curwin].win->peer,
-                wins[curwin].x0, wins[curwin].y0,
-                wins[curwin].x1, wins[curwin].y1);
-}
-
-void heglk_move_to_main() {
-    if (!mainwin) {
-        LOG("heglk_move_to_main: found no main window, remapping to buffer\n");
-        heglk_remap_to_buffer();
-        return;
-    }
-
-    curwin = mainwin;
-    heglk_record_physical(wins[mainwin]);
 }
 
 /*
