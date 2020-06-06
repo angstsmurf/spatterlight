@@ -729,6 +729,8 @@ void hugo_init_screen(void)
         iscolossal = true;
     } else if (!strncmp(gli_story_name, "htgessay.hex", 12)) {
         ishtg = true;
+    } else if (!strncmp(gli_story_name, "marjorie.hex", 12)) {
+        ismarjorie = true;
     }
 }
 
@@ -2163,7 +2165,7 @@ void hugo_font(int f)
 
     if (! ( f & PROP_FONT ) )
     {
-        if (ishtg && wins[curwin].win && wins[curwin].win->type == wintype_TextBuffer) {
+        if ((ishtg || isworldbuilder || ismarjorie) && wins[curwin].win && wins[curwin].win->type == wintype_TextBuffer) {
             return;
         }
             curstyle = style_Preformatted;
