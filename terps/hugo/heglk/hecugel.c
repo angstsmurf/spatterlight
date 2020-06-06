@@ -439,8 +439,6 @@ void hugo_stopsample(void)
  * Return true if a keypress is waiting to be retrieved.
  */
 
-#define STAT_UNAVAILABLE (-1)
-
 int hugo_iskeywaiting(void)
 {
     //if (istetris && keypress)
