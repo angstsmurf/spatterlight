@@ -1811,7 +1811,7 @@ void hugo_settextpos(int x, int y)
                     break;
                 }
             }
-            wins[mainwin].y0 = y1;
+            wins[mainwin].y0 = y1 - gcellh;
             heglk_sizeifexists(mainwin);
             showing_author_photo = 0;
             return;
