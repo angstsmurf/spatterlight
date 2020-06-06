@@ -791,13 +791,11 @@ void hugo_getline(char *prompt)
 
     glk_request_line_event(wins[curwin].win, buffer, MAXBUFFER, 0);
 
-    while (1)
+    while (ev.type != evtype_LineInput)
     {
         glk_select(&ev);
         if (ev.type == evtype_Arrange)
             hugo_handlearrange();
-        if (ev.type == evtype_LineInput)
-            break;
     }
 
     /* The line we have received in commandbuf is not null-terminated */
