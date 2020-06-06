@@ -2162,7 +2162,10 @@ void hugo_font(int f)
 
     if (! ( f & PROP_FONT ) )
     {
-        curstyle = style_Preformatted;
+        if (ishtg && wins[curwin].win && wins[curwin].win->type == wintype_TextBuffer) {
+            return;
+        }
+            curstyle = style_Preformatted;
         LOG("Changing to a fixed-width font\n");
         mono = true;
 
