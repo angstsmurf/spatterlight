@@ -53,7 +53,16 @@
 #define DEF_SLFCOLOR 18
 #define DEF_SLBGCOLOR 19
 
-#define NEEDED_STATUS_CHARS (81)
+// If the calculated screen width is greater than
+// this number of chars, the status line will be
+// one line rather than two.
+#define MAX_STATUS_CHARS (81)
+
+// We use a "fake" screen width (and height) in characters
+// of 0x7FFF in order to disable the internal Hugo line wrapping,
+// but sometimes calculations will make windows and lines a few
+// characters less. So we use this arbitrarily lower number
+// to check against.
 #define INFINITE (0x7000)
 
 
@@ -82,6 +91,10 @@ static struct winctx wins[MAXWINS]; // For simplicity, this starts at 1. Index 0
 static int nwins = 0;
 static int curwin = 0;
 
+static int screenwidth_in_chars = 0;
+static int screenheight_in_chars = 0;
+
+
 static int curstyle = style_Normal;
 static int laststyle = style_Normal;
 
@@ -102,7 +115,6 @@ static int below_status = 0; // Typically main window
 static int second_image_row = 0; // Typically a border image or line below the image area
 
 static int menutop = 0;
-static int statusheight = 0;
 
 static int inmenu = false;
 static int mono = false;
@@ -698,16 +710,14 @@ void hugo_init_screen(void)
     FIXEDCHARWIDTH = 1;
     FIXEDLINEHEIGHT = 1;
 
+    screenwidth_in_chars = heglk_get_linelength();
+    screenheight_in_chars = heglk_get_screenheight();
+
     nwins = 1;
     curwin = 0;
 
     nlbufwin = 0;
     nlbufcnt = 0;
-
-    if ((gscreenw - 2 * ggridmarginx) / gcellw < NEEDED_STATUS_CHARS && !inmenu)
-        statusheight = 2;
-    else
-        statusheight = 1;
 
     glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Justification, stylehint_just_Centered);
     //    glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_TextColor, gsfgcol);
@@ -749,12 +759,12 @@ void heglk_record_physical(struct winctx ctx) {
     LOG("physical_windowright: %d\n", physical_windowright);
     physical_windowbottom = ctx.b*FIXEDLINEHEIGHT-1;
     LOG("physical_windowbottom: %d\n", physical_windowbottom);
-    if (ctx.r - ctx.l < heglk_get_linelength())
+    if (ctx.r - ctx.l < screenwidth_in_chars)
         physical_windowwidth = (ctx.r-ctx.l-(ggridmarginx / gcellw - 1))*FIXEDCHARWIDTH;
     else
         physical_windowwidth = (ctx.r-ctx.l+1)*FIXEDCHARWIDTH;
-    if (ctx.isaux && ctx.l > 3 && ctx.r > heglk_get_linelength() - 2)
-        physical_windowwidth = 0x7FFF;
+    if (ctx.isaux && ctx.l > 3 && ctx.r > screenwidth_in_chars - 2)
+        physical_windowwidth = SCREENWIDTH;
 
     LOG("physical_windowwidth: %d\n", physical_windowwidth);
     physical_windowheight = (ctx.b-ctx.t+1)*FIXEDLINEHEIGHT;
@@ -839,41 +849,16 @@ int hugo_waitforkey(void)
     /* Ignore calls where there's been no recent display. */
     if (!just_displayed_something && !inmenu)
         return 0;
-    just_displayed_something = false;
 
-    LOG("hugo_waitforKey(): Current Glk windows:\n");
+    just_displayed_something = false;
 
     int event_requested = 0;
 
-    hugo_mapcurwin();
+//    hugo_mapcurwin();
 
     win = wins[curwin].win;
     if (win) {
-        switch (win->type) {
-            case wintype_TextGrid:
-                LOG("wintype_TextGrid");
-                break;
-            case wintype_TextBuffer:
-                LOG("wintype_TextBuffer");
-                break;
-            case wintype_Graphics:
-                LOG("wintype_Graphics");
-                break;
-            case wintype_Pair:
-                LOG("wintype_Pair");
-                break;
-            case wintype_Blank:
-                LOG("wintype_Blank");
-                break;
-            default:
-                LOG("wintype_Unknown");
-                break;
-        }
-
-
-        fprintf(stderr, " x:%d y:%d width:%d height:%d.\n",win->bbox.x0, win->bbox.y0, win->bbox.x1 - win->bbox.x0, win->bbox.y1 - win->bbox.y0);
-
-        if (win->type == wintype_Graphics || win->type == wintype_TextGrid || win->type == wintype_TextBuffer) {
+             if (win->type == wintype_Graphics || win->type == wintype_TextGrid || win->type == wintype_TextBuffer) {
             if (!win->char_request) {
                 glk_request_char_event(win);
                 LOG("requested char event in win %d\n", win->peer);
@@ -910,17 +895,11 @@ int hugo_waitforkey(void)
         glk_put_char('*');
     }
 
-    while (1)
+    while (ev.type != evtype_CharInput && ev.type != evtype_MouseInput && ev.type != evtype_Hyperlink)
     {
         glk_select(&ev);
         if (ev.type == evtype_Arrange)
             hugo_handlearrange();
-
-        if (ev.type == evtype_Hyperlink) {
-            LOG("hugo_waitforKey: received a hyperlink input (%d)\n", ev.val1);
-        }
-        if (ev.type == evtype_CharInput || ev.type == evtype_MouseInput || ev.type == evtype_Hyperlink)
-            break;
     }
 
     if (ev.type == evtype_MouseInput) {
@@ -1001,7 +980,7 @@ void hugo_clearfullscreen(void)
 }
 
 // Returns true if the two window contexts overlap
-int doOverlap(struct winctx a, struct winctx b)
+int overlap(struct winctx a, struct winctx b)
 {
     // If one rectangle is on left side of other
     if (a.l >= b.r || b.l >= a.r)
@@ -1012,6 +991,28 @@ int doOverlap(struct winctx a, struct winctx b)
         return false;
 
     return true;
+}
+
+// Returns true if the window context covers the screen
+int isfullscreen(struct winctx ctx)
+{
+    return ((ctx.x0 == 0 && ctx.y0 == 0 && ctx.x0 == gscreenw && ctx.y0 == gscreenh)
+         || (ctx.l == 1 && ctx.r == SCREENWIDTH && ctx.t == 1 && ctx.b == SCREENHEIGHT));
+}
+
+void checkfutureboyoverlap(void)
+{
+    if (!isfutureboy || !wins[curwin].isaux || curwin == mainwin || curwin == statuswin || curwin == second_image_row)
+        return;
+    
+    for (int i = 1; i < nwins; i++)
+    {
+        if (wins[i].win && wins[i].win->type == wintype_Graphics && i != second_image_row && wins[i].wasmoved && overlap(wins[i], wins[curwin]))
+        {
+            gli_delete_window(wins[i].win);
+            wins[i].win = 0;
+        }
+    }
 }
 
 /* Clear the currently defined window, move the cursor to the top-left
@@ -1084,16 +1085,6 @@ void hugo_clearwindow(void)
                 }
             } else {
                 LOG("   win %d has no Glk counterpart (yet), so won't actually be cleared or colored.\n", i);
-                for (int j = 1; j < nwins; j++) {
-                    if (wins[j].win && wins[j].win->type == wintype_Graphics && j != second_image_row && wins[j].wasmoved && isfutureboy) {
-                        LOG("Window %d is a graphics window. l:%d t:%d r:%d b:%d\n", j, wins[j].l, wins[j].t, wins[j].r, wins[j].b);
-                        if (doOverlap(wins[j], wins[i]) || doOverlap(wins[j], wins[curwin])) {
-                            gli_delete_window(wins[j].win);
-                            wins[j].win = 0;
-                            LOG("Deleted window %d\n", j);
-                        }
-                    }
-                }
             }
 
             wins[i].clear = 1;
@@ -1109,12 +1100,13 @@ void hugo_clearwindow(void)
 
     // Hack to keep black room description window from
     // being deleted at the first turn of Guilty Bastards
-    if (isguiltybastards && wins[curwin].l >= heglk_get_linelength() / 2 && wins[curwin].halfscreenwidth) {
+    if (isguiltybastards && wins[curwin].l >= screenwidth_in_chars / 2 && wins[curwin].halfscreenwidth) {
         wins[curwin].clear = 0;
     }
 
-    if ((wins[curwin].x0 == 0 && wins[curwin].y0 == 0 && wins[curwin].x0 == gscreenw && wins[curwin].y0 == gscreenh) ||
-        (wins[curwin].l == 1 && wins[curwin].r == 0x7FFF && wins[curwin].t == 1 && wins[curwin].b == 0x7FFF) )
+    checkfutureboyoverlap();
+
+    if (isfullscreen(wins[curwin]))
     {
         win_setbgnd(-1, hugo_color(wins[curwin].bg));
         screen_bg = wins[curwin].bg;
@@ -1148,9 +1140,11 @@ static void hugo_unmapcleared(void)
 
 void hugo_handlearrange(void)
 {
-    LOG("heglk_get_linelength: %d\n", heglk_get_linelength() );
+    screenwidth_in_chars = heglk_get_linelength();
+    screenheight_in_chars = heglk_get_screenheight();
 
-    if (menuwin) {
+    if (menuwin)
+    {
         heglk_ensure_menu();
         return;
     }
@@ -1159,18 +1153,20 @@ void hugo_handlearrange(void)
         wins[statuswin].y1 = ggridmarginy * 2 + wins[statuswin].b * gcellh;
         wins[statuswin].x1 = gscreenw;
         win_sizewin(wins[statuswin].win->peer, wins[statuswin].x0, wins[statuswin].y0, wins[statuswin].x1, wins[statuswin].y1);
-        if (below_status) {
+        if (below_status)
+        {
             wins[below_status].y0 = wins[statuswin].y1;
             if (mainwin && below_status != mainwin && !second_image_row)
                 wins[below_status].y1 = heglk_push_down_main_window_to(wins[below_status].y1);
 
-            for (int i = 1; i < nwins; i++) {
+            for (int i = 1; i < nwins; i++)
+            {
                 int oldx0 = wins[i].x0;
                 int oldy0 = wins[i].y0;
                 int oldx1 = wins[i].x1;
                 int oldy1 = wins[i].y1;
 
-                if (wins[i].halfscreenwidth)
+                if (wins[i].halfscreenwidth && !isfutureboy)
                 {
                     if (isguiltybastards) {
                         below_status = i;
@@ -1182,7 +1178,18 @@ void hugo_handlearrange(void)
                         }
                     }
                 }
-                if (wins[i].x0 != oldx0 || wins[i].y0 != oldy0 || wins[i].x1 != oldx1 || wins[i].y1 != oldy1) {
+                if (isczk && wins[i].isaux)
+                {
+                    int toleft = heglk_find_attached_to_left(wins[i].l);
+                    if (toleft)
+                        wins[i].x0 = wins[toleft].x1;
+                    wins[i].y1 = wins[mainwin].y0;
+                    if (wins[i].win && wins[i].win->type == wintype_TextBuffer)
+                        wins[i].x1 = gscreenw;
+                }
+
+                if (wins[i].x0 != oldx0 || wins[i].y0 != oldy0 || wins[i].x1 != oldx1 || wins[i].y1 != oldy1)
+                {
                     heglk_sizeifexists(i);
                 }
                 wins[i].wasmoved = true;
@@ -1191,7 +1198,8 @@ void hugo_handlearrange(void)
         }
     }
 
-    if (mainwin && wins[mainwin].win) {
+    if (mainwin && wins[mainwin].win)
+    {
         wins[mainwin].x1 = gscreenw;
         wins[mainwin].x0 = 0;
         wins[mainwin].y1 = gscreenh;
@@ -1202,16 +1210,26 @@ void hugo_handlearrange(void)
 void heglk_sizeifexists(int i)
 {
     if (wins[i].win) {
-        if ( wins[i].x0 < 0) {
+        if ( wins[i].x0 < 0)
+        {
             wins[i].x0 = 0;
         }
-        if (wins[i].y0 > wins[i].y1) {
+        if (wins[i].y0 > wins[i].y1)
+        {
             int temp = wins[i].y0;
             wins[i].y0 = wins[i].y1;
             wins[i].y1 = temp;
         }
 
-        if (wins[i].y0 == wins[i].y1) {
+        if (wins[i].x0 > wins[i].x1)
+        {
+            int temp = wins[i].x0;
+            wins[i].x0 = wins[i].x1;
+            wins[i].x1 = temp;
+        }
+
+        if (wins[i].y0 == wins[i].y1)
+        {
             LOG("glk_sizeifexists: Window %d was resized to height 0!\n", i);
         }
         win_sizewin(wins[i].win->peer, wins[i].x0, wins[i].y0, wins[i].x1, wins[i].y1);
@@ -1227,10 +1245,11 @@ void heglk_sizeifexists(int i)
 
 int heglk_adjust_pre_24_status_when_setting_window(int bottom)
 {
-    if (game_version >= 24 || bottom <= heglk_get_screenheight())
+    if (game_version >= 24 || bottom <= screenheight_in_chars)
         return bottom;
 
-    if (statuswin && wins[statuswin].clear == 0 && wins[statuswin].b < bottom) {
+    if (statuswin && wins[statuswin].clear == 0 && wins[statuswin].b < bottom)
+    {
         bottom = wins[statuswin].b;
         if (lowest_printed_position_in_status < bottom)
             bottom = lowest_printed_position_in_status;
@@ -1284,7 +1303,8 @@ int heglk_find_attached_at_top(int top)
 
 int heglk_find_attached_to_left(int left)
 {
-    for (int i = 1; i < nwins; i++) {
+    for (int i = 1; i < nwins; i++)
+    {
         if (ABS(wins[i].r - left) <= 1) {
             LOG("Window %d (l:%d, t:%d, r:%d, b:%d) is attached to the left\n", i, wins[i].l, wins[i].t, wins[i].r, wins[i].b);
             return i;
@@ -1300,9 +1320,11 @@ void heglk_ensure_menu(void)
 
     // We only want two windows, so delete all others
     for (int i = 1; i < nwins; i++) {
-        if (i != menuwin && i != statuswin) {
+        if (i != menuwin && i != statuswin)
+        {
             wins[i].clear = 1;
-            if (wins[i].win) {
+            if (wins[i].win)
+            {
                 gli_delete_window(wins[i].win);
                 wins[i].win = 0;
             }
@@ -1313,20 +1335,24 @@ void heglk_ensure_menu(void)
     mainwin = menuwin;
 
     if (!menuwin) {
-        if (statuswin == 1) {
+        if (statuswin == 1)
+        {
             menuwin = 2;
             nwins = 3;
         }
-        else {
+        else
+        {
             menuwin = 1;
             nwins = statuswin + 1;
         }
 
-        if (!wins[menuwin].win ) {
+        if (!wins[menuwin].win )
+        {
             wins[menuwin].win = gli_new_window(wintype_TextGrid, 0);
         }
 
-        if (!menutop) {
+        if (!menutop)
+        {
             menutop = currentline;
             LOG("menu top:%d\n", menutop);
         }
@@ -1337,8 +1363,8 @@ void heglk_ensure_menu(void)
 
     wins[menuwin].t = menutop;
     wins[menuwin].l = 1;
-    wins[menuwin].b = heglk_get_screenheight();
-    wins[menuwin].r = heglk_get_linelength();
+    wins[menuwin].b = screenheight_in_chars;
+    wins[menuwin].r = screenwidth_in_chars;
     wins[menuwin].x0 = 0;
     wins[menuwin].x1 = gscreenw;
     below_status = menuwin;
@@ -1348,10 +1374,12 @@ void heglk_ensure_menu(void)
     wins[menuwin].y0 = (menutop - 1 - (menutop > 2)) * gcellh + 2 * ggridmarginy;
     wins[menuwin].y1 = gscreenh;
 
-    if (statuswin == menuwin) {
+    if (statuswin == menuwin)
+    {
         statuswin = 0;
     }
-    if (statuswin) {
+    if (statuswin)
+    {
         wins[menuwin].fg = wins[statuswin].fg;
         wins[menuwin].bg = wins[statuswin].bg;
         win_setbgnd(wins[menuwin].win->peer, hugo_color(wins[menuwin].bg));
@@ -1374,7 +1402,8 @@ void heglk_ensure_menu(void)
 
     // Hack to remove leftover lines at menu bottom
     // in Clockwork Boy 2 and The Next Day
-    if (iscwb2 || isnextday) {
+    if (iscwb2 || isnextday)
+    {
         glk_window_clear(wins[menuwin].win);
     }
     glk_window_move_cursor(wins[menuwin].win, 0, 0);
@@ -1408,7 +1437,8 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 
     LOG("hugo_settextwindow %d %d %d %d\n", left, top, right, bottom);
 
-    if (bottom < top) {
+    if (bottom < top)
+    {
         LOG("hugo_settextwindow: negative height. Bailing.\n");
         return;
     }
@@ -1419,7 +1449,8 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
      parameters
      */
 
-    if (menuwin) {
+    if (menuwin)
+    {
         LOG("hugo_settextwindow: We are in a menu\n");
         if (left == 1 && (top == 1 || top > 5) && right == SCREENWIDTH && (bottom == SCREENHEIGHT || bottom > 3)) {
             if (bottom == SCREENHEIGHT || top > 5) {
@@ -1428,8 +1459,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
             }
             heglk_ensure_menu();
             return;
-        }
-        else {
+        } else {
             LOG("hugo_settextwindow: Guessing that we are trying to leave the menu. Clearing menu window and carrying on.\n");
             wins[menuwin].clear = 1;
             curwin = menuwin;
@@ -1470,15 +1500,16 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         /* Glk-illegal floating window; setting currentwin
          to NULL will tell hugo_print() not to print in it:
          */
-        if (bottom < physical_windowbottom/FIXEDLINEHEIGHT+1 || (isfutureboy && bottom < 0x7000))
+        if (bottom < physical_windowbottom/FIXEDLINEHEIGHT+1 || (isfutureboy && bottom < INFINITE))
         {
             type = ISAUX;
         }
         else {
             LOG("It is the main window, actually.\n");
             // type ISMAIN is the default
-            if (left == 1 && top == 1 && right >= 0x7000 && bottom >= 0x7000) {
-                if (below_status && below_status != mainwin) {
+            if (left == 1 && top == 1 && right >= INFINITE && bottom >= INFINITE) {
+                if (below_status && below_status != mainwin)
+                {
                     below_status = mainwin;
                 }
             }
@@ -1524,7 +1555,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
                 if (wins[statuswin].win)
                     glk_window_clear(wins[statuswin].win);
             }
-            right = heglk_get_linelength() + 2;
+            right = screenwidth_in_chars + 2;
             break;
         case ISAUX:
             if (curwin) {
@@ -1544,10 +1575,10 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
             y0 = (top - 1) * gcellh; //+ 2 * ggridmarginy * (top > 1);
             x1 = right * gcellw;
 
-            if (gscreenw - x1 < 3 * gcellw || right > heglk_get_linelength() - 1)
+            if (gscreenw - x1 < 3 * gcellw || right > screenwidth_in_chars - 1)
                 x1 = gscreenw;
 
-            if (ABS((right - left) - (heglk_get_linelength() / 2)) < 2) { //&& !isfutureboy) {
+            if (ABS((right - left) - (screenwidth_in_chars / 2)) < 2) { //&& !isfutureboy) {
                 x1 = x0 + gscreenw / 2;
                 halfscreenwidth = true;
 
@@ -1564,7 +1595,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
                 }
             }
 
-            if (ABS(right - heglk_get_linelength()) < 2 && !heglk_find_attached_to_left(left)) {
+            if (ABS(right - screenwidth_in_chars) < 2 && !heglk_find_attached_to_left(left)) {
                 int diff = gscreenw - x1;
                 x1 = gscreenw;
                 x0 += diff;
@@ -1577,21 +1608,15 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 
             if (statuswin && ABS(top - wins[statuswin].b) < 2) {
                 new_below_status = true;
-                int diff = wins[statuswin].y1 - y0;
-                y0 += diff;
-                y1 += diff;
             } else if (!statuswin && top <= 2) {
                 new_below_status = true;
-                int diff = 2 * ggridmarginy + gcellh + gcellh * (heglk_get_linelength() < 80) - y0;
+                int diff = 2 * ggridmarginy + gcellh + gcellh * (screenwidth_in_chars < MAX_STATUS_CHARS) - y0;
                 y0 += diff;
                 y1 += diff;
             } else {
                 int attop = heglk_find_attached_at_top(top);
                 if (!second_image_row && attop && (attop == below_status || wins[attop].t == wins[below_status].t)) {
                     new_second_image_row = true;
-                    int diff = wins[below_status].y1 - y0;
-                    y0 += diff;
-                    y1 += diff;
                 }
             }
             break;
@@ -1606,15 +1631,10 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
             }
             y1 = gscreenh;
             if (statuswin && !wins[statuswin].clear && (below_status || second_image_row)) {
-                if (top == 1) { // if we are setting a fullscreen window, clear all windows below status
-                    //                    if (second_image_row) {
-                    //                        wins[second_image_row].clear = 1;
-                    //                        second_image_row = 0;
-                    //                    }
-                    if (below_status && below_status != mainwin) {
+                if (top == 1 && below_status && below_status != mainwin)
+                {
                         wins[below_status].clear = 1;
                         below_status = mainwin;
-                    }
                 }
                 int above_main = heglk_find_attached_at_top(top);
 
@@ -1779,7 +1799,7 @@ void hugo_settextpos(int x, int y)
         return;
     }
 
-    if (y >= 0x7000) {
+    if (y >= INFINITE) {
         if ((wins[curwin].win->type == wintype_TextGrid && !menuwin) || wins[curwin].win->type == wintype_Graphics) {
             LOG("  moved to line %d in grid window. unmap.\n", y);
             if (isfutureboy && wins[curwin].win->type == wintype_Graphics) {
@@ -1797,7 +1817,7 @@ void hugo_settextpos(int x, int y)
     {
         // Hack to keep black room description window from
         // being deleted at the first turn of Guilty Bastards
-        if (isguiltybastards && wins[curwin].l >= heglk_get_linelength() / 2 && wins[curwin].halfscreenwidth) {
+        if (isguiltybastards && wins[curwin].l >= screenwidth_in_chars / 2 && wins[curwin].halfscreenwidth) {
             LOG(" move in buffer window, Guilty bastards. x:%d y:%d\n", x, y);
             return;
         }
@@ -1856,7 +1876,7 @@ static void hugo_mapcurwin()
         return; // The current window context already has a corresponding Glk window
 
     if ((curwin == mainwin
-         && (currentline > 0x7000 || !mono)) || // We are in a standard, main textbuffer window
+         && (currentline > INFINITE || !mono)) || // We are in a standard, main textbuffer window
 
         // Hack to give fixed-width font in Haunting the Ghosts menu proper word wrapping
         (ishtg && currentline == 1 && statuswin && curwin != statuswin && wins[curwin].fg == 7 && wins[curwin].bg == 0) ||
@@ -1876,12 +1896,17 @@ static void hugo_mapcurwin()
         if (wins[curwin].bg != DEF_BGCOLOR && wins[curwin].fg != DEF_FCOLOR)
             glk_stylehint_set(wintype_TextBuffer, style_Input, stylehint_TextColor, hugo_color(wins[curwin].fg));
         wins[curwin].win = gli_new_window(wintype_TextBuffer, 0);
+        if (isczk && !mono && inwindow && wins[curwin].l > 5 && wins[mainwin].y0 > wins[curwin].y1)
+        {
+                wins[curwin].y1 = wins[mainwin].y0;
+        }
+        
     }
     else
     {
         LOG(" * map win to grid %d\n", curwin);
 
-        if (currentline == 1 && statuswin && curwin != statuswin && !menuwin && wins[curwin].b > heglk_get_screenheight() ) {
+        if (currentline == 1 && statuswin && curwin != statuswin && !menuwin && wins[curwin].b > screenheight_in_chars ) {
             LOG("wins[curwin].b = %d\n", wins[curwin].b );
             LOG("wins[curwin].t = %d\n", wins[curwin].t );
             LOG("wins[curwin].fg = %d\n", wins[curwin].fg );
@@ -1998,7 +2023,7 @@ void heglk_adjust_pre_v24_status_when_printing(void)
         lowest_printed_position_in_status = 0;
 
     int actual_height_in_characters = (wins[curwin].y1 - wins[curwin].y0 - 2 * ggridmarginy) / gcellh;
-    if ( currentline > actual_height_in_characters && currentline < heglk_get_screenheight() ) {
+    if ( currentline > actual_height_in_characters && currentline < screenheight_in_chars) {
         LOG("Current line %d is below bottom of status line (height %d)\n", currentline, actual_height_in_characters);
         wins[curwin].b += (currentline - actual_height_in_characters);
         if (wins[curwin].b == wins[curwin].t)
@@ -2014,11 +2039,11 @@ void heglk_adjust_pre_v24_status_when_printing(void)
         glk_window_move_cursor(wins[statuswin].win, currentpos, currentline - 1);
         lowest_printed_position_in_status = currentline - 1 +
         // Hack to make Colossal Cave status bar grow when needed
-        (heglk_get_linelength() < 80 && !inmenu);
+        (screenwidth_in_chars < MAX_STATUS_CHARS && !inmenu);
     }
 
     // Hack to make Colossal Cave status bar shrink when needed
-    if (lowest_printed_position_in_status > 1 && (heglk_get_linelength() > 80 || inmenu))
+    if (lowest_printed_position_in_status > 1 && (screenwidth_in_chars > MAX_STATUS_CHARS || inmenu))
         lowest_printed_position_in_status = 1;
 }
 
@@ -2276,13 +2301,15 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             }
 
             // Hack to center the title mugshot gallery in Guilty Bastards
-            if (isguiltybastards && wins[curwin].r - wins[curwin].l < heglk_get_linelength() / 4) {
+            if (isguiltybastards && wins[curwin].r - wins[curwin].l < screenwidth_in_chars / 4) {
                 int diff = ggridmarginx + gcellw;
                 x0 += diff;
                 x1 += diff;
             }
 
-            LOG("hugo_displaypicture curwin (%d) x0: %d y0: %d width: %d height: %d \n", curwin, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1 - wins[curwin].x0, wins[curwin].y1 - wins[curwin].y0);
+             LOG("hugo_displaypicture curwin (%d) x0: %d y0: %d x1: %d y1: %d \n", curwin, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1, wins[curwin].y1);
+
+
 
             if (width < 1 || height < 1)
                 return false;
@@ -2307,7 +2334,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             int xoff = ((x1 - x0) - width) / 2;
             int yoff = ((y1 - y0) - height) / 2;
 
-            LOG("hugo_displaypicture w=%d h=%d\n", width, height);
+            LOG("hugo_displaypicture w=%d h=%d x offset: %d y offset: %d\n", width, height, xoff, yoff);
 
             hugo_unmapcleared();
 
@@ -2396,8 +2423,10 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                     gli_delete_window(wins[curwin].win);
                     wins[curwin].win = 0;
                 }
+
+                checkfutureboyoverlap();
                 
-                wins[curwin].win = gli_new_window(wintype_Graphics, 0);                
+                wins[curwin].win = gli_new_window(wintype_Graphics, 0);
                 win_sizewin(wins[curwin].win->peer,
                             x0, y0,
                             x1, y1);
@@ -2408,9 +2437,11 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                 wins[curwin].y1 = y1;
 
                 win_maketransparent(wins[curwin].win->peer);
+
+                int color = hugo_color(wins[curwin].bg);
                 
                 LOG("hugo_displaypicture: fill a rect with background color %x: width %d, height %d\n", hugo_color(wins[curwin].bg), abs(x1-x0), abs(y1-y0));
-                win_fillrect(wins[curwin].win->peer, hugo_color(wins[curwin].bg), 0, 0, abs(x1-x0), abs(y1-y0));
+                win_fillrect(wins[curwin].win->peer, color, 0, 0, abs(x1-x0), abs(y1-y0));
                 LOG("hugo_displaypicture: draw image: x offset %d, y offset %d, width %d, height %d\n", xoff, yoff, width, height);
                 win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height);
                 wins[curwin].clear = 0;
