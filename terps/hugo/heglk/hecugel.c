@@ -209,7 +209,7 @@ int hugo_convert_key(int n)
 int hugo_timewait(int n)
 {
     glui32 millisecs;
-    event_t ev;
+    event_t ev = {0};
 
     if (!glk_gestalt(gestalt_Timer, 0))
         return false;
@@ -225,7 +225,7 @@ int hugo_timewait(int n)
         glk_request_char_event(wins[curwin].win);
 
     glk_request_timer_events(millisecs);
-    while (1)
+    while (ev.type != evtype_Timer)
     {
         glk_select(&ev);
         if (ev.type == evtype_Arrange)
@@ -234,8 +234,6 @@ int hugo_timewait(int n)
         {
             keypress = hugo_convert_key(ev.val1);
         }
-        if (ev.type == evtype_Timer)
-            break;
     }
     glk_request_timer_events(0);
 
@@ -786,7 +784,7 @@ void heglk_record_physical(struct winctx ctx) {
 
 void hugo_getline(char *prompt)
 {
-    event_t ev;
+    event_t ev = {0};
 
     LOG("getline '%s'\n", prompt);
 
@@ -842,7 +840,7 @@ void hugo_getline(char *prompt)
 
 int hugo_waitforkey(void)
 {
-    event_t ev;
+    event_t ev = {0};
 
     window_t *win;
 
