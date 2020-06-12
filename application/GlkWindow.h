@@ -12,6 +12,7 @@
     NSMutableArray *styles;
 
     BOOL char_request;
+    BOOL dirty;
 
     NSInteger bgnd;
 }

@@ -1935,6 +1935,7 @@ fprintf(stderr, "%s\n",                                                    \
     str = [NSString stringWithCharacters:buf length:len];
 
     [gwindow putString:str style:style];
+    windowdirty = YES;
 }
 
 - (void)handleSoundNotification:(NSInteger)notify withSound:(NSInteger)sound {
@@ -2250,8 +2251,8 @@ fprintf(stderr, "%s\n",                                                    \
                 reqWin.autoresizingMask = hmask | vmask;
 
                 if ([reqWin isKindOfClass:[GlkTextBufferWindow class]])
-                     [(GlkTextBufferWindow *)reqWin recalcBackground];
-//                windowdirty = YES;
+                    [(GlkTextBufferWindow *)reqWin recalcBackground];
+                windowdirty = YES;
             } else
                 NSLog(@"sizwin: something went wrong.");
 

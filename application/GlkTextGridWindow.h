@@ -16,7 +16,6 @@
     BOOL line_request;
     BOOL hyper_request;
     BOOL mouse_request;
-    BOOL dirty;
     BOOL transparent;
 
     NSUInteger lastStyle;

@@ -134,6 +134,9 @@
 }
 
 - (void)flushDisplay {
+    if (dirty)
+        self.needsDisplay = YES;
+    dirty = NO;
 }
 
 - (void)setBgColor:(NSInteger)bc {

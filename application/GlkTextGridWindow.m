@@ -376,12 +376,6 @@
     return [super resignFirstResponder];
 }
 
-- (void)flushDisplay {
-    if (dirty)
-        self.needsDisplay = YES;
-    dirty = NO;
-}
-
 - (BOOL)isFlipped {
     return YES;
 }
@@ -512,6 +506,8 @@
 
     if (transparent)
         bgcolor = [NSColor clearColor];
+    else
+        [self.glkctl setBorderColor:bgcolor fromWindow:self];
 
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = bgcolor;

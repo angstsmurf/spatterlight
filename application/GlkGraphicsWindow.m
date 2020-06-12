@@ -246,12 +246,6 @@
     dirty = YES;
 }
 
-- (void)flushDisplay {
-    if (dirty)
-        [self setNeedsDisplay:YES];
-    dirty = NO;
-}
-
 - (void)initMouse {
     mouse_request = YES;
 }
