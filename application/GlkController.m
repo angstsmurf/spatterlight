@@ -1094,6 +1094,11 @@ fprintf(stderr, "%s\n",                                                    \
         [_contentView setNeedsDisplay:YES];
         windowdirty = NO;
     }
+    GlkWindow *largest = [self largestWindow];
+     if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
+         [(GlkTextBufferWindow *)largest recalcBackground];
+     if ([largest isKindOfClass:[GlkTextGridWindow class]])
+         [(GlkTextGridWindow *)largest recalcBackground];
 }
 
 - (void)guessFocus {
@@ -2006,6 +2011,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSInteger result;
     GlkWindow *reqWin = nil;
+    NSColor *bg = nil;
 
     if (req->a1 >= 0 && req->a1 < MAXWIN && _gwindows[@(req->a1)])
         reqWin = _gwindows[@(req->a1)];
@@ -2250,8 +2256,6 @@ fprintf(stderr, "%s\n",                                                    \
 
                 reqWin.autoresizingMask = hmask | vmask;
 
-                if ([reqWin isKindOfClass:[GlkTextBufferWindow class]])
-                    [(GlkTextBufferWindow *)reqWin recalcBackground];
                 windowdirty = YES;
             } else
                 NSLog(@"sizwin: something went wrong.");
@@ -2266,14 +2270,16 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case SETBGND:
-            if (reqWin) {
-                if (![reqWin isKindOfClass:[GlkGraphicsWindow class]]) {
-                    NSLog(
-                          @"glkctl: SETBGND: ERROR win %d is not a graphics window.",
-                          req->a1);
-                    break;
-                }
+            NSLog(@"glkctl: SETBGND %d, color %x (%d).", req->a1, req->a2, req->a2);
+            if (req->a2 < 0)
+                bg = _theme.bufferBackground;
+            else
+                bg = [NSColor colorFromInteger:req->a2];
+            if (req->a1 == -1) {
+                [self setBorderColor:bg];
+            }
 
+            if (reqWin) {
                 [reqWin setBgColor:req->a2];
             }
             break;
@@ -2715,7 +2721,15 @@ again:
 }
 
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
-//    NSLog(@"setBorderColor %@ fromWindow %ld", color, aWindow.name);
+    //     NSLog(@"setBorderColor %@ fromWindow %ld", color, aWindow.name);
+
+    CGFloat relativeSize = (aWindow.bounds.size.width * aWindow.bounds.size.height) / (_contentView.bounds.size.width * _contentView.bounds.size.height);
+
+    //    NSLog(@"relativeSize aWindow (%f) /  _contentView (%f) == %f", aWindow.bounds.size.width * aWindow.bounds.size.height, _contentView.bounds.size.width * _contentView.bounds.size.height,  relativeSize);
+
+    if (relativeSize < 0.75)
+        return;
+
     if (aWindow == [self largestWindow]) {
         [self setBorderColor:color];
     }
@@ -2723,14 +2737,17 @@ again:
 
 - (void)setBorderColor:(NSColor *)color {
     self.bgcolor = color;
-    CGFloat components[[color numberOfComponents]];
-    CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
-    [color getComponents:(CGFloat *)&components];
-    CGColorRef cgcol = CGColorCreate(colorSpace, components);
+    //    NSLog(@"GlkController setBorderColor: %@", color);
+    if (_theme.doStyles || [color isEqualToColor:_theme.bufferBackground] || [color isEqualToColor:_theme.gridBackground]) {
+        CGFloat components[[color numberOfComponents]];
+        CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
+        [color getComponents:(CGFloat *)&components];
+        CGColorRef cgcol = CGColorCreate(colorSpace, components);
 
-    _borderView.layer.backgroundColor = cgcol;
-    self.window.backgroundColor = color;
-    CFRelease(cgcol);
+        _borderView.layer.backgroundColor = cgcol;
+        self.window.backgroundColor = color;
+        CFRelease(cgcol);
+    }
 }
 
 

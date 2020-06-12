@@ -29,5 +29,6 @@
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (IBAction)speakStatus:(id)sender;
 - (void)deferredGrabFocus:(id)sender;
+- (void)recalcBackground;
 
 @end

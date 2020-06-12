@@ -4,6 +4,7 @@
 
 #import "Compatibility.h"
 #import "NSString+Categories.h"
+#import "NSColor+integer.h"
 #import "Theme.h"
 #import "Game.h"
 #import "Metadata.h"
@@ -1214,6 +1215,11 @@
 
 - (void)recalcBackground {
     NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+
+    if (self.theme.doStyles && bgnd > -1) {
+        bgcolor = [NSColor colorFromInteger:bgnd];
+    }
+    
     if (!bgcolor)
         bgcolor = self.theme.bufferBackground;
 
@@ -1230,6 +1236,11 @@
 
     [self hideInsertionPoint];
     [self.glkctl setBorderColor:bgcolor fromWindow:self];
+}
+
+- (void)setBgColor:(NSInteger)bc {
+    bgnd = bc;
+    [self recalcBackground];
 }
 
 - (void)prefsDidChange {
