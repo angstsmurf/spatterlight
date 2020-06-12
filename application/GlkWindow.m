@@ -31,6 +31,7 @@
 
         currentTerminators = _pendingTerminators;
         _terminatorsPending = NO;
+        self.canDrawConcurrently = YES;
     }
 
     return self;
