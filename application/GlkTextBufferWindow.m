@@ -1941,7 +1941,7 @@
 
 - (void)hideInsertionPoint {
     if (!line_request) {
-        NSColor *color = styles[style_Normal][NSBackgroundColorAttributeName];
+        NSColor *color = _textview.backgroundColor;
         if (!color)
             color = self.theme.bufferBackground;
         _textview.insertionPointColor = color;
