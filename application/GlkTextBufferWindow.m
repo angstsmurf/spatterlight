@@ -1679,6 +1679,12 @@
 
     line = [line scrubInvalidCharacters];
 
+    if (self.glkctl.deadCities) {
+        unichar endChar = [line characterAtIndex:line.length - 1];
+        if (endChar == '\n' || endChar == '\r')
+            line = [line substringToIndex:line.length - 1];
+    }
+    
     GlkEvent *gev = [[GlkEvent alloc] initLineEvent:line forWindow:self.name];
     [self.glkctl queueEvent:gev];
 
@@ -1831,8 +1837,8 @@
                                   attributes:attributes];
 
     [_textview resetTextFinder];
-
     [textstorage appendAttributedString:attstr];
+    dirty = YES;
 }
 
 - (void)unputString:(NSString *)buf {
