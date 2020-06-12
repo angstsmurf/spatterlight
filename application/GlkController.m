@@ -246,7 +246,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     self.window.representedFilename = _gamefile;
 
-    [_borderView setWantsLayer:YES];
+    _borderView.wantsLayer = YES;
+    _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     [self setBorderColor:_theme.bufferBackground];
 
     if (_supportsAutorestore &&
