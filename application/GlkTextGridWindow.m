@@ -521,6 +521,21 @@
     [self recalcBackground];
 }
 
+- (void)checkForUglyBorder {
+    if (self.theme.gridMarginX == 0 && self.theme.gridMarginY == 0)
+        return;
+    NSRange range;
+    NSDictionary *attrDict = [textstorage attributesAtIndex:0 effectiveRange:&range];
+    if (range.length >= cols - 2) {
+        NSColor *bgCol = attrDict[NSBackgroundColorAttributeName];
+        if (bgCol && ![bgCol isEqualToColor:textview.backgroundColor] && !transparent) {
+            [self setBgColor:[bgCol integerColor]];
+            textview.backgroundColor = bgCol;
+        }
+    }
+}
+
+
 #pragma mark Printing, moving, resizing
 
 - (void)setFrame:(NSRect)frame {
@@ -851,6 +866,8 @@
             ypos++;
         }
     }
+
+    [self checkForUglyBorder];
 
     textview.selectedRange = selectedRange;
     dirty = YES;
