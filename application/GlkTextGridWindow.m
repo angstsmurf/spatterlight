@@ -236,6 +236,8 @@
         textstorage = [[NSTextStorage alloc] init];
 
         layoutmanager = [[NSLayoutManager alloc] init];
+        layoutmanager.backgroundLayoutEnabled = YES;
+
         [textstorage addLayoutManager:layoutmanager];
 
         container = [[NSTextContainer alloc]
