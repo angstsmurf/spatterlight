@@ -35,6 +35,10 @@ struct settings_struct
     float cell_height;
     float buffer_cell_width;
     float buffer_cell_height;
+    int buffer_foreground;
+    int buffer_background;
+    int grid_foreground;
+    int grid_background;
     float leading;
     int force_arrange;
 };

@@ -1,6 +1,7 @@
 #import "main.h"
 #import "Theme.h"
 #import "GlkStyle.h"
+#import "NSColor+integer.h"
 
 #include <unistd.h>
 
@@ -205,6 +206,10 @@ unsigned chartokeycode(unsigned ch) {
     reply.a2 = (int)_val1;
     reply.a3 = (int)_val2;
 
+    if (_type == EVTPREFS) {
+        reply.a4 = (int)theme.doStyles;
+    }
+
     if (_type == EVTARRANGE) {
 
         settings->screen_width = (int)_val1;
@@ -219,6 +224,10 @@ unsigned chartokeycode(unsigned ch) {
         settings->buffer_cell_width = (float)theme.bufferCellWidth;
         settings->buffer_cell_height = (float)theme.bufferCellHeight;
         settings->leading = (float)theme.gridNormal.lineSpacing;
+        settings->buffer_foreground = [theme.bufferNormal.color integerColor];
+        settings->buffer_background = [theme.bufferBackground integerColor];
+        settings->grid_foreground = [theme.gridNormal.color integerColor];
+        settings->grid_background = [theme.gridBackground integerColor];
         settings->force_arrange = _forced;
 
         reply.len = sizeof(struct settings_struct);

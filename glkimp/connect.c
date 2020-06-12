@@ -34,6 +34,7 @@ int gli_utf8input = TRUE;
 
 int gli_enable_graphics = 0;
 int gli_enable_sound = 0;
+int gli_enable_styles = 0;
 
 int gscreenw = 1;
 int gscreenh = 1;
@@ -46,6 +47,11 @@ float gcellh = 12;
 float gbufcellw = 8;
 float gbufcellh = 12;
 float gleading = 0;
+
+uint32_t gfgcol = 0;
+uint32_t gbgcol = 0;
+uint32_t gsfgcol = 0;
+uint32_t gsbgcol = 0;
 
 glui32 lasteventtype = -1;
 
@@ -639,6 +645,7 @@ again:
             if (gli_enable_sound == 1 && wmsg.a3 == 0)
                 gli_stop_all_sound_channels();
             gli_enable_sound = wmsg.a3;
+            gli_enable_styles = wmsg.a4;
             goto again;
 
         case EVTARRANGE:
@@ -649,31 +656,39 @@ again:
             /* + 5 for default line fragment padding */
             if (gscreenw == settings->screen_width &&
                 gscreenh == settings->screen_height &&
-                gbuffermarginx == settings->buffer_margin_x + 5 &&
+                gbuffermarginx == settings->buffer_margin_x + 5 &&  // line fragment padding
                 gbuffermarginy == settings->buffer_margin_y &&
-                ggridmarginx == settings->grid_margin_x + 5 &&
+                ggridmarginx == settings->grid_margin_x + 5 &&  // line fragment padding
                 ggridmarginy == settings->grid_margin_y &&
                 gcellw == settings->cell_width &&
                 gcellh == settings->cell_height &&
                 gbufcellw == settings->buffer_cell_width &&
                 gbufcellh == settings->buffer_cell_height &&
 				gleading == settings->leading &&
+                gfgcol == settings->buffer_foreground &&
+                gbgcol == settings->buffer_background &&
+                gsfgcol == settings->grid_foreground &&
+                gsbgcol == settings->grid_background &&
                 settings->force_arrange == 0)
                 goto again;
 
             event->type = evtype_Arrange;
-            
+
             gscreenw = settings->screen_width;
             gscreenh = settings->screen_height;
-            gbuffermarginx = settings->buffer_margin_x + 5;
+            gbuffermarginx = settings->buffer_margin_x + 5; // line fragment padding
             gbuffermarginy = settings->buffer_margin_y;
-            ggridmarginx = settings->grid_margin_x + 5;
+            ggridmarginx = settings->grid_margin_x + 5;  // line fragment padding
             ggridmarginy = settings->grid_margin_y;
             gcellw = settings->cell_width;
             gcellh = settings->cell_height;
             gbufcellw = settings->buffer_cell_width;
             gbufcellh = settings->buffer_cell_height;
             gleading = settings->leading;
+            gfgcol = settings->buffer_foreground;
+            gbgcol = settings->buffer_background;
+            gsfgcol = settings->grid_foreground;
+            gsbgcol = settings->grid_background;
 
             gli_windows_rearrange();
             break;

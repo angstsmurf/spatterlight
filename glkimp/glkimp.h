@@ -20,6 +20,7 @@
 
 extern int gli_enable_graphics;
 extern int gli_enable_sound;
+extern int gli_enable_styles;
 
 extern int gscreenw;
 extern int gscreenh;
@@ -31,6 +32,10 @@ extern float gcellw;
 extern float gcellh;
 extern float gbufcellw;
 extern float gbufcellh;
+extern uint32_t gfgcol;
+extern uint32_t gbgcol;
+extern uint32_t gsfgcol;
+extern uint32_t gsbgcol;
 extern float gleading;
 
 extern glui32 tagcounter;
