@@ -485,22 +485,12 @@ int hugo_color(int c)
      hugo_color() in order to properly set default fore/background colors:
      */
 
-    //        if (c==16)      c = DEF_FCOLOR;
-    //        else if (c==17) c = DEF_BGCOLOR;
-    //        else if (c==18) c = DEF_SLFCOLOR;
-    //        else if (c==19) c = DEF_SLBGCOLOR;
-    //    else if (c==20) c = hugo_color(fcolor);    /* match foreground */
-
     switch (c)
     {
-//        case DEF_FCOLOR:     converted = gfgcol; break;
-//        case DEF_BGCOLOR:     converted = gbgcol; break;
-//        case DEF_SLFCOLOR:     converted = gsfgcol; break;
-//        case DEF_SLBGCOLOR:     converted = gsbgcol; break;
-        case DEF_FCOLOR:     converted = 0x000000; break;
-        case DEF_BGCOLOR:     converted = 0xcfcfcf; break;
-        case DEF_SLFCOLOR:     converted = 0xcfcfcf; break;
-        case DEF_SLBGCOLOR:     converted = 0x000000; break;
+        case DEF_FCOLOR:     converted = gfgcol; break;
+        case DEF_BGCOLOR:     converted = gbgcol; break;
+        case DEF_SLFCOLOR:     converted = gsfgcol; break;
+        case DEF_SLBGCOLOR:     converted = gsbgcol; break;
         case 20:
             converted = hugo_color(fcolor); break;    /* match foreground */
         case HUGO_BLACK: converted = 0x000000;  break;
