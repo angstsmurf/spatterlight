@@ -655,13 +655,13 @@ fprintf(stderr, "%s\n",                                                    \
             NSLog(@"Could not find Application Support folder. Error: %@",
                   error);
 
-        if (!_game.metadata.format) {
+        if (!_game.detectedFormat) {
             NSLog(@"GlkController appSupportDir: Game %@ has no specified format!", _game.metadata.title);
             return nil;
         }
 
         NSString *terpFolder =
-        [gFolderMap[_game.metadata.format]
+        [gFolderMap[_game.detectedFormat]
          stringByAppendingString:@" Files"];
 
         if (!terpFolder) {
@@ -670,7 +670,7 @@ fprintf(stderr, "%s\n",                                                    \
         }
 
         if (!terpFolder) {
-            NSLog(@"GlkController appSupportDir: Could not map game format %@ to a folder name!", _game.metadata.format);
+            NSLog(@"GlkController appSupportDir: Could not map game format %@ to a folder name!", _game.detectedFormat);
             return nil; 
         }
 

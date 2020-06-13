@@ -15,6 +15,7 @@
 
 @property (nonatomic) NSDate *added;
 @property (nonatomic) BOOL autosaved;
+@property (nonatomic, retain) NSString * detectedFormat;
 @property (nonatomic, retain) id fileLocation;
 @property (nonatomic) BOOL found;
 @property (nonatomic, retain) NSString * group;

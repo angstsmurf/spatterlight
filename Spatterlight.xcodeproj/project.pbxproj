@@ -7761,7 +7761,7 @@
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = 6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */;
+			currentVersion = 6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

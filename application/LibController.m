@@ -1673,7 +1673,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 // autorestoring by clicking the game in the library view
 // or similar.
 
-    Metadata *meta = game.metadata;
     NSURL *url = [game urlForBookmark];
     NSString *path = url.path;
     NSString *terp;
@@ -1702,9 +1701,13 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         return nil;
     }
 
+    if (!game.detectedFormat) {
+        game.detectedFormat = game.metadata.format;
+    }
+
     terp = gExtMap[path.pathExtension];
     if (!terp)
-        terp = gFormatMap[meta.format];
+        terp = gFormatMap[game.detectedFormat];
 
 
     if (!terp) {
@@ -1873,6 +1876,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 				NSLog(@"File location did not match. Updating library with new file location.");
 				[game bookmarkForPath:path];
 			}
+            if (![game.detectedFormat isEqualToString:@(format)]) {
+                NSLog(@"Game format did not match. Updating library with new detected format (%s).", format);
+                game.detectedFormat = @(format);
+            }
             game.found = YES;
 			return game;
 		}
@@ -1931,6 +1938,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     game.added = [NSDate date];
     game.metadata = metadata;
     game.ifid = ifid;
+    game.detectedFormat = @(format);
 
 //    game.theme = [self findTheme:[Preferences currentTheme].name inContext:context];
 
@@ -2168,7 +2176,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         NSMutableArray *predicateArr = [NSMutableArray arrayWithCapacity:searchcount];
 
         for (NSString *word in searchStrings) {
-            predicate = [NSPredicate predicateWithFormat: @"(metadata.format contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
+            predicate = [NSPredicate predicateWithFormat: @"(detectedFormat contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
             [predicateArr addObject:predicate];
         }
 
@@ -2226,7 +2234,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         if (cmp) return cmp;
         cmp = [weakSelf compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:sortAscending];
         if (cmp) return cmp;
-        return [weakSelf compareGame:a with:b key:@"format" ascending:sortAscending];
+        return [weakSelf compareString:aid.detectedFormat withString:bid.detectedFormat ascending:sortAscending];
     }];
 
     [gameTableModel sortUsingDescriptors:@[sort]];
@@ -2270,6 +2278,10 @@ objectValueForTableColumn: (NSTableColumn*)column
         Metadata *meta = game.metadata;
         if ([column.identifier isEqual: @"found"]) {
             return game.found?nil:@"!";
+        } else if ([column.identifier isEqual: @"format"]) {
+            if (!game.detectedFormat)
+                game.detectedFormat = meta.format;
+            return game.detectedFormat;
         } else if ([column.identifier isEqual: @"added"] || [column.identifier  isEqual: @"lastPlayed"]) {
             return [[game valueForKey: column.identifier] formattedRelativeString];
         } else if ([column.identifier  isEqual: @"lastModified"]){

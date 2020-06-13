@@ -494,7 +494,7 @@
 - (void)recalcBackground {
     NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
 
-    if (!([self.glkctl.game.metadata.format isEqualToString:@"glulx"] || [self.glkctl.game.metadata.format isEqualToString:@"hugo"] || [self.glkctl.game.metadata.format isEqualToString:@"zcode"])) {
+    if (!([self.glkctl.game.detectedFormat isEqualToString:@"glulx"] || [self.glkctl.game.detectedFormat isEqualToString:@"hugo"] || [self.glkctl.game.detectedFormat isEqualToString:@"zcode"])) {
         bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
     }
 

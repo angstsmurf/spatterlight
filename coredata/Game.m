@@ -15,6 +15,7 @@
 
 @dynamic added;
 @dynamic autosaved;
+@dynamic detectedFormat;
 @dynamic fileLocation;
 @dynamic found;
 @dynamic group;
