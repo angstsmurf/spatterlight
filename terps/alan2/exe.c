@@ -1557,10 +1557,12 @@ glk_fileref_destroy(fref);
   if (str[0] == '\0')
     strcpy(str, savfnm);
   col = 1;
+#ifndef GARGLK
   if ((savfil = fopen(str, READ_MODE)) != NULL)
     /* It already existed */
     if (!confirm(M_SAVEOVERWRITE))
       error(MSGMAX);            /* Return to player without saying anything */
+#endif
   if ((savfil = fopen(str, WRITE_MODE)) == NULL)
     error(M_SAVEFAILED);
   strcpy(savfnm, str);
