@@ -100,9 +100,9 @@ static int laststyle = style_Normal;
 
 static int glk_fgcolor = -1;
 static int glk_bgcolor = -1;
-static int lastfg = 0;
-static int lastbg = 0;
-static int screen_bg = 0;
+static int lastfg = -1;
+static int lastbg = -1;
+static int screen_bg = -1;
 
 static int lastres = 0;
 
