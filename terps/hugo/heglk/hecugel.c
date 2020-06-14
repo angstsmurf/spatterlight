@@ -142,7 +142,7 @@ static int keypress = 0;
 
 static int just_displayed_something = false;
 static int lowest_printed_position_in_status = 0;
-
+static int in_arrange_event = false;
 static int in_valid_window = false;
 
 static int nlbufcnt;
@@ -1155,13 +1155,17 @@ void hugo_handlearrange(void)
 
     if (menuwin)
     {
+        in_arrange_event = true;
         heglk_ensure_menu();
-        return;
+        in_arrange_event = false;
     }
 
     if (statuswin && wins[statuswin].win)
     {
-        wins[statuswin].y1 = ggridmarginy * 2 + wins[statuswin].b * gcellh;
+        if (!menuwin)
+        {
+            wins[statuswin].y1 = ggridmarginy * 2 + wins[statuswin].b * gcellh;
+        }
         wins[statuswin].x1 = gscreenw;
         win_sizewin(wins[statuswin].win->peer, wins[statuswin].x0, wins[statuswin].y0, wins[statuswin].x1, wins[statuswin].y1);
         if (below_status)
@@ -1418,7 +1422,7 @@ void heglk_ensure_menu(void)
 
     // Hack to remove leftover lines at menu bottom
     // in Clockwork Boy 2 and The Next Day
-    if (iscwb2 || isnextday)
+    if (!in_arrange_event && (iscwb2 || isnextday))
     {
         glk_window_clear(wins[menuwin].win);
     }
