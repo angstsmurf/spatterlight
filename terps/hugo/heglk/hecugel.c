@@ -1114,8 +1114,10 @@ void hugo_clearwindow(void)
     }
 
     if (wins[curwin].win)
+    {
         win_setbgnd(wins[curwin].win->peer, hugo_color(wins[curwin].bg));
-    //    heglk_zcolor();
+        heglk_zcolor();
+    }
 
     // Hack to keep black room description window from
     // being deleted at the first turn of Guilty Bastards
