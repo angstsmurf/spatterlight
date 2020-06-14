@@ -1116,7 +1116,6 @@ void hugo_clearwindow(void)
     if (wins[curwin].win)
     {
         win_setbgnd(wins[curwin].win->peer, hugo_color(wins[curwin].bg));
-        heglk_zcolor();
     }
 
     // Hack to keep black room description window from
@@ -2236,12 +2235,12 @@ void hugo_print(char *a)
     }
     else if (a[0] != '\n')
     {
-        hugo_flushnl();
-
         if (!(wins[curwin].fg == lastfg && wins[curwin].bg == lastbg))
         {
             heglk_zcolor();
         }
+
+        hugo_flushnl();
 
         lastfg = wins[curwin].fg;
         lastbg = wins[curwin].bg;
