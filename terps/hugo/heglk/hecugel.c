@@ -18,7 +18,7 @@
 #undef ftell
 #undef fseek
 
-#define LOG(...) fprintf(stderr, "HUGO: "); fprintf(stderr, __VA_ARGS__)
+#define LOG(...) fprintf(stderr, __VA_ARGS__)
 
 #define ABS(a) ((a) < 0 ? -(a) : (a))
 #define MIN(a,b) (a < b ? a : b)
@@ -2137,6 +2137,9 @@ void heglk_zcolor(void)
     glk_fgcolor = hugo_color(fg);
     glk_bgcolor = hugo_color(bg);
 
+    int fg_result = glk_fgcolor;
+    int bg_result = glk_bgcolor;
+
     if ((bg == DEF_SLBGCOLOR && wins[curwin].win->type == wintype_TextGrid) &&
         ((currentpos == 0 && currentline == 1) || wins[curwin].clear))
     {
@@ -2154,8 +2157,11 @@ void heglk_zcolor(void)
     if (glk_fgcolor == -1 && glk_bgcolor == -1)
     {
         glk_fgcolor = glk_bgcolor = -2;
-
     }
+
+    if (fg_result == 0 && (bg_result == 0 || screen_bg == 0))
+        glk_fgcolor = hugo_color(HUGO_WHITE);
+
     LOG("Setting zcolors to %x (%d), %x (%d)\n", glk_fgcolor, glk_fgcolor, glk_bgcolor, glk_bgcolor);
     garglk_set_zcolors(glk_fgcolor, glk_bgcolor) ;
 }
