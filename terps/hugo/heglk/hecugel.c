@@ -863,30 +863,39 @@ int hugo_waitforkey(void)
             event_requested = 1;
         }
 
-        if (win->type == wintype_Graphics || win->type == wintype_TextGrid) {
-            if (!win->mouse_request) {
-                glk_request_mouse_event(win);
-                LOG("requested mouse event in win %d\n", win->peer);
-                wins[curwin].clear = true;
+        if (!menuwin && !inmenu)
+        {
+            if (win->type == wintype_Graphics || win->type == wintype_TextGrid)
+            {
+                if (!win->mouse_request)
+                {
+                    glk_request_mouse_event(win);
+                    LOG("requested mouse event in win %d\n", win->peer);
+                    wins[curwin].clear = true;
+                }
             }
-        }
-        if (win->type == wintype_TextBuffer) {
-            if (!win->hyper_request) {
-                glk_request_hyperlink_event(win);
-                LOG("requested hyperlink event in win %d\n", win->peer);
+            if (win->type == wintype_TextBuffer)
+            {
+                if (!win->hyper_request)
+                {
+                    glk_request_hyperlink_event(win);
+                    LOG("requested hyperlink event in win %d\n", win->peer);
+                }
             }
         }
     }
 
 
-    if (!event_requested) {
+    if (!event_requested)
+    {
         if (!curwin)
             return 0;
         hugo_mapcurwin();
         glk_request_char_event(wins[curwin].win);
     }
 
-    if (wins[curwin].win && wins[curwin].win->type == wintype_TextGrid && (menuwin || inmenu) && !wins[curwin].isaux)
+    if (wins[curwin].win && wins[curwin].win->type == wintype_TextGrid && (menuwin || inmenu) && !wins[curwin].isaux &&
+        gli_enable_styles)
     {
         glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
         glk_put_char('*');
@@ -904,7 +913,8 @@ int hugo_waitforkey(void)
         LOG("hugo_waitforKey: received a mouse input\n");
         display_pointer_x = ev.val1;
         display_pointer_y = ev.val2;
-        if (wins[curwin].win && wins[curwin].win->type == wintype_Graphics) {
+        if (wins[curwin].win && wins[curwin].win->type == wintype_Graphics)
+        {
             display_pointer_x = display_pointer_x / gcellw;
             display_pointer_y = display_pointer_y / gcellh;
         }
