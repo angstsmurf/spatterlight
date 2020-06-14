@@ -81,6 +81,7 @@ struct winctx
     int isaux;            /* is aux?  */
     int curx, cury;        /* last cursor position */
     int fg, bg;         /* text colors in this window */
+    int papercolor;
     int revvid;
     int halfscreenwidth;
     int peggedtoright;
@@ -1068,7 +1069,9 @@ void hugo_clearwindow(void)
                 if (wins[curwin].win && hugo_color(wins[curwin].bg) != -1)
                 {
                     wins[i].bg = wins[curwin].bg;
+                    wins[i].papercolor = wins[curwin].bg;
                     win_setbgnd(wins[i].win->peer, hugo_color(wins[i].bg));
+                    lastbg = -1;
                 }
                 LOG("   cleared %d\n", i);
                 glk_window_clear(wins[i].win);
@@ -1116,6 +1119,8 @@ void hugo_clearwindow(void)
     if (wins[curwin].win)
     {
         win_setbgnd(wins[curwin].win->peer, hugo_color(wins[curwin].bg));
+        wins[curwin].papercolor = wins[curwin].bg;
+        lastbg = -1;
     }
 
     // Hack to keep black room description window from
@@ -1414,7 +1419,8 @@ void heglk_ensure_menu(void)
         wins[menuwin].fg = wins[statuswin].fg;
         wins[menuwin].bg = wins[statuswin].bg;
         win_setbgnd(wins[menuwin].win->peer, hugo_color(wins[menuwin].bg));
-        heglk_zcolor();
+        wins[menuwin].papercolor = wins[menuwin].bg;
+        lastbg = -1;
     } else {
         statuswin = nwins++;
     }
@@ -1753,6 +1759,8 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
                 wins[curwin].bg = DEF_SLBGCOLOR;
             }
         }
+        wins[curwin].papercolor = wins[curwin].bg;
+        lastbg = -1;
     } else {
         LOG("Reused window context %d\n", curwin);
         reused = true;
@@ -2034,11 +2042,11 @@ static void hugo_mapcurwin()
                 wins[curwin].x1, wins[curwin].y1);
 
     LOG("hugo_mapcurwin %d, bg = %d (0x%x, %d)\n", curwin, wins[curwin].bg, hugo_color(wins[curwin].bg), hugo_color(wins[curwin].bg));
+    wins[curwin].papercolor = wins[curwin].bg;
+    lastbg = -1;
     if (hugo_color(wins[curwin].bg) != -1) {
         win_setbgnd(wins[curwin].win->peer, hugo_color(wins[curwin].bg));
-        heglk_zcolor();
     }
-    //    }
 
     if (wins[curwin].win->type == wintype_TextGrid)
     {
@@ -2158,8 +2166,10 @@ void heglk_zcolor(void)
         glk_fgcolor = glk_bgcolor = -2;
     }
 
-    if (fg_result == 0 && (bg_result == 0 || screen_bg == 0))
+    if (fg_result == 0 && (bg_result == 0 || (glk_bgcolor < 0 && wins[curwin].papercolor == 0)))
+    {
         glk_fgcolor = hugo_color(HUGO_WHITE);
+    }
 
     LOG("Setting zcolors to %x (%d), %x (%d)\n", glk_fgcolor, glk_fgcolor, glk_bgcolor, glk_bgcolor);
     garglk_set_zcolors(glk_fgcolor, glk_bgcolor) ;
