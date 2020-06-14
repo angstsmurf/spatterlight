@@ -2147,14 +2147,21 @@ void heglk_zcolor(void)
     int fg_result = glk_fgcolor;
     int bg_result = glk_bgcolor;
 
-    if ((bg == DEF_SLBGCOLOR && wins[curwin].win->type == wintype_TextGrid) &&
-        ((currentpos == 0 && currentline == 1) || wins[curwin].clear))
-    {
-        win_setbgnd(wins[curwin].win->peer, -1);
-        LOG("Trying to set window background back to default\n");
+    if (wins[curwin].win->type == wintype_TextBuffer) {
+        if (fg_result < 0)
+            fg_result = gfgcol;
+        if (bg_result < 0)
+            bg_result = gbgcol;
+
+        if (bg == DEF_BGCOLOR &&
+            ((currentpos == 0 && currentline == 1) || wins[curwin].clear))
+        {
+            win_setbgnd(wins[curwin].win->peer, -1);
+            LOG("Trying to set window background back to default\n");
+        }
     }
 
-    if ((bg == DEF_BGCOLOR && wins[curwin].win->type == wintype_TextBuffer) &&
+    if ((bg == DEF_SLBGCOLOR && wins[curwin].win->type == wintype_TextGrid) &&
         ((currentpos == 0 && currentline == 1) || wins[curwin].clear))
     {
         win_setbgnd(wins[curwin].win->peer, -1);
@@ -2291,7 +2298,7 @@ void hugo_font(int f)
 
     if (! ( f & PROP_FONT ) )
     {
-        if ((ishtg || isworldbuilder || ismarjorie) && wins[curwin].win && wins[curwin].win->type == wintype_TextBuffer)
+        if ((ishtg || isworldbuilder) && wins[curwin].win && wins[curwin].win->type == wintype_TextBuffer) // || ismarjorie
         {
             return;
         }
