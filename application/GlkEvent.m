@@ -7,10 +7,6 @@
 
 @implementation GlkEvent
 
-- (instancetype)init {
-    return [self initPrefsEvent];
-}
-
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     _type = [decoder decodeIntegerForKey:@"type"];
     win = [decoder decodeIntegerForKey:@"win"];
@@ -91,15 +87,13 @@ unsigned chartokeycode(unsigned ch) {
     return keycode_Unknown;
 }
 
-- (instancetype)initPrefsEvent {
-//    NSLog(@"GlkEvent initPrefsEvent graphicsEnabled: %@ soundEnabled: %@",
-//          [Preferences graphicsEnabled] ? @"YES" : @"NO",
-//          [Preferences soundEnabled] ? @"YES" : @"NO");
+- (instancetype)initPrefsEventForTheme:(Theme *)aTheme {
     self = [super init];
     if (self) {
         _type = EVTPREFS;
         _val1 = [Preferences graphicsEnabled];
         _val2 = [Preferences soundEnabled];
+        theme = aTheme;
     }
     return self;
 }

@@ -503,7 +503,7 @@ fprintf(stderr, "%s\n",                                                    \
     /* Send a prefs and an arrange event first thing */
     GlkEvent *gevent;
 
-    gevent = [[GlkEvent alloc] initPrefsEvent];
+    gevent = [[GlkEvent alloc] initPrefsEventForTheme:_theme];
     [self queueEvent:gevent];
     gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
                                          height:(NSInteger)_contentView.frame.size.height
@@ -1361,7 +1361,7 @@ fprintf(stderr, "%s\n",                                                    \
                                           force:YES];
     [self queueEvent:gevent];
 
-    gevent = [[GlkEvent alloc] initPrefsEvent];
+    gevent = [[GlkEvent alloc] initPrefsEventForTheme:_theme];
     [self queueEvent:gevent];
 
     for (GlkWindow *win in [_gwindows allValues])

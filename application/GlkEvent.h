@@ -8,7 +8,7 @@ unsigned chartokeycode(unsigned ch);
     Theme *theme;
 }
 
-- (instancetype)initPrefsEvent;
+- (instancetype)initPrefsEventForTheme:(Theme *)theme;
 - (instancetype)initCharEvent:(unsigned)v forWindow:(NSInteger)name;
 - (instancetype)initLineEvent:(NSString *)v forWindow:(NSInteger)name;
 - (instancetype)initMouseEvent:(NSPoint)v forWindow:(NSInteger)name;
