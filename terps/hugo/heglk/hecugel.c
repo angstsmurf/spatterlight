@@ -2161,11 +2161,14 @@ void heglk_zcolor(void)
         }
     }
 
-    if ((bg == DEF_SLBGCOLOR && wins[curwin].win->type == wintype_TextGrid) &&
-        ((currentpos == 0 && currentline == 1) || wins[curwin].clear))
-    {
-        win_setbgnd(wins[curwin].win->peer, -1);
-        LOG("Trying to set window background back to default\n");
+    if (bg == DEF_SLBGCOLOR && wins[curwin].win->type == wintype_TextGrid) {
+        if ((currentpos == 0 && currentline == 1) || wins[curwin].clear)
+        {
+            win_setbgnd(wins[curwin].win->peer, -1);
+            LOG("Trying to set window background back to default\n");
+        }
+        if (wins[curwin].papercolor != DEF_SLBGCOLOR)
+            glk_bgcolor = gsbgcol;
     }
 
     if (glk_fgcolor == -1 && glk_bgcolor == -1)
