@@ -82,7 +82,6 @@ struct winctx
     int curx, cury;        /* last cursor position */
     int fg, bg;         /* text colors in this window */
     int papercolor;
-    int revvid;
     int halfscreenwidth;
     int peggedtoright;
     int wasmoved;
@@ -538,19 +537,6 @@ int hugo_color(int c)
     }
 
     return converted;
-}
-
-void heglk_reversevideo(int flag)
-{
-    if (curwin) {
-        wins[curwin].revvid = flag;
-        if (wins[curwin].win)
-            glk_set_window(wins[curwin].win);
-    }
-    if (flag)
-        garglk_set_reversevideo(1);
-    else
-        garglk_set_reversevideo(0);
 }
 
 void print_colorname(int c)
@@ -1392,7 +1378,6 @@ void heglk_ensure_menu(void)
             menutop = currentline;
             LOG("menu top:%d\n", menutop);
         }
-        wins[menuwin].revvid = false;
     }
 
     LOG("menuwin id:%d statuswin:%d nwins:%d\n", menuwin, statuswin, nwins);
@@ -1425,7 +1410,6 @@ void heglk_ensure_menu(void)
         statuswin = nwins++;
     }
     wins[statuswin].y1 = wins[menuwin].y0;
-    wins[statuswin].revvid = false;
 
     if (!wins[statuswin].win)
         wins[statuswin].win = gli_new_window(wintype_TextGrid, 0);
@@ -1737,7 +1721,6 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         wins[curwin].win = NULL;
         wins[curwin].clear = 1;
         wins[curwin].fg = DEF_FCOLOR;
-        wins[curwin].revvid = false;
         wins[curwin].wasmoved = false;
 
         if (screen_bg != -1)
@@ -1860,11 +1843,6 @@ void hugo_settextpos(int x, int y)
         currentline = 1;
 
     currentpos = (x-1) * CHARWIDTH;   /* Note:  zero-based */
-
-    if (wins[curwin].revvid)
-    {
-        heglk_reversevideo(false);
-    }
 
     if (wins[curwin].win == NULL)
     {
