@@ -882,7 +882,7 @@ int hugo_waitforkey(void)
     }
 
     if (wins[curwin].win && wins[curwin].win->type == wintype_TextGrid && (menuwin || inmenu) && !wins[curwin].isaux &&
-        gli_enable_styles)
+        !gli_enable_styles)
     {
         glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
         glk_put_char('*');
