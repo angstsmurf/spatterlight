@@ -746,6 +746,8 @@ again:
 #endif
             event->type = evtype_CharInput;
             event->win = gli_window_for_peer(wmsg.a1);
+            if (event->win == NULL)
+                break;
             event->val1 = wmsg.a2;
             if (!event->win->char_request_uni)
             {
