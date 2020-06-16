@@ -121,7 +121,7 @@
 
     size = image.size;
 
-    if (size.width == 0 || size.height == 0)
+    if (size.width == 0 || size.height == 0 || size.height > INT_MAX)
         return;
 
     bitmap = [[NSBitmapImageRep alloc]
