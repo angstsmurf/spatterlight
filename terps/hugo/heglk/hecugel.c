@@ -1001,7 +1001,7 @@ int isfullscreen(struct winctx ctx)
 
 void checkfutureboyoverlap(void)
 {
-    if (!isfutureboy || !wins[curwin].isaux || curwin == mainwin || curwin == statuswin || curwin == second_image_row)
+    if (!isfutureboy || !isguiltybastards || !wins[curwin].isaux || curwin == mainwin || curwin == statuswin || curwin == second_image_row)
         return;
     
     for (int i = 1; i < nwins; i++)
@@ -1083,8 +1083,13 @@ void hugo_clearwindow(void)
                     if (mainwin)
                     {
                         below_status = heglk_find_attached_at_top(wins[mainwin].t);
-                        if (wins[below_status].clear)
-                            below_status = 0;
+                        if (below_status)
+                        {
+                            if (below_status == statuswin || wins[below_status].clear)
+                            {
+                                below_status = 0;
+                            }
+                        }
                     }
                 }
                 if (i == second_image_row)
@@ -1185,7 +1190,7 @@ void hugo_handlearrange(void)
 
                 if (wins[i].halfscreenwidth && !isfutureboy)
                 {
-                    if (isguiltybastards)
+                    if (isguiltybastards && i != statuswin)
                     {
                         below_status = i;
                     } else {
