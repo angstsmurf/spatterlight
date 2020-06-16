@@ -1873,7 +1873,8 @@ void hugo_settextpos(int x, int y)
     {
         // Hack to keep black room description window from
         // being deleted at the first turn of Guilty Bastards
-        if (isguiltybastards && wins[curwin].l >= screenwidth_in_chars / 2 && wins[curwin].halfscreenwidth) {
+        if (isguiltybastards && wins[curwin].l >= screenwidth_in_chars / 2 && wins[curwin].halfscreenwidth)
+        {
             LOG(" move in buffer window, Guilty bastards. x:%d y:%d\n", x, y);
             return;
         }
@@ -2330,7 +2331,6 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                     wins[curwin].y1 = heglk_push_down_main_window_to(wins[curwin].y1 + diff);
                 heglk_sizeifexists(curwin);
             }
-
         }
 
         char *buf = malloc(reslength);
@@ -2512,7 +2512,8 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                 wins[curwin].y1 = 0;
                 wins[curwin].b = 0;
                 
-                if (second_image_row) {
+                if (second_image_row)
+                {
                     wins[mainwin].y0 = wins[second_image_row].y1;
                 }
             }
