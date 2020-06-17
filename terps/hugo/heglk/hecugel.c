@@ -1050,6 +1050,13 @@ void hugo_clearwindow(void)
         nlbufcnt = 0;
     }
 
+    /* We delete the main window here in order to be able */
+    /* to change input text color */
+    if (curwin == mainwin && wins[curwin].win) {
+        gli_delete_window(wins[curwin].win);
+        wins[curwin].win = 0;
+    }
+
     for (i = 1; i < nwins; i++)
     {
         if (wins[i].l >= l && wins[i].t >= t && wins[i].r <= r && wins[i].b <= b)
@@ -2001,11 +2008,18 @@ static void hugo_mapcurwin()
     {
         LOG(" * map win to buffer %d\n", curwin);
 
-        //        LOG(" * curwin %d l:%d t:%d r:%d b:%d clear:%d\n", curwin, wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, wins[curwin].clear);
-        //        LOG(" * statuswin %d l:%d t:%d r:%d b:%d clear:%d\n", statuswin, wins[statuswin].l, wins[statuswin].t, wins[statuswin].r, wins[statuswin].b, wins[statuswin].clear);
-
+        /* We try to change to input style text color to something readable, */
+        /* i.e. different from the background color */
         if (wins[curwin].bg != DEF_BGCOLOR && wins[curwin].fg != DEF_FCOLOR)
             glk_stylehint_set(wintype_TextBuffer, style_Input, stylehint_TextColor, hugo_color(wins[curwin].fg));
+        else
+            glk_stylehint_clear(wintype_TextBuffer, style_Input, stylehint_TextColor);
+
+        if (ismarjorie && wins[curwin].fg == DEF_FCOLOR && gfgcol == 0 && wins[curwin].bg == 0)
+        {
+            glk_stylehint_set(wintype_TextBuffer, style_Input, stylehint_TextColor, hugo_color(HUGO_WHITE));
+        }
+
         wins[curwin].win = gli_new_window(wintype_TextBuffer, 0);
         if (isczk && !mono && inwindow && wins[curwin].l > 5 && wins[mainwin].y0 > wins[curwin].y1)
         {
