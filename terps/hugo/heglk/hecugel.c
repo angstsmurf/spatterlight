@@ -1013,7 +1013,7 @@ void checkfutureboyoverlap(void)
         if (wins[i].win && wins[i].win->type == wintype_Graphics && i != second_image_row && wins[i].wasmoved && overlap(wins[i], wins[curwin]))
         {
             gli_delete_window(wins[i].win);
-            wins[i].win = 0;
+            wins[i].win = NULL;
         }
     }
 }
@@ -1079,7 +1079,7 @@ void hugo_clearwindow(void)
                     menutop = 0;
                     below_status = 0;
                     gli_delete_window(wins[i].win);
-                    wins[i].win = 0;
+                    wins[i].win = NULL;
                     curwin = statuswin;
                     if (wins[statuswin].win)
                     {
@@ -1365,7 +1365,7 @@ void heglk_ensure_menu(void)
             if (wins[i].win)
             {
                 gli_delete_window(wins[i].win);
-                wins[i].win = 0;
+                wins[i].win = NULL;
             }
         }
     }
