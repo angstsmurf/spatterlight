@@ -114,6 +114,9 @@ static int menuwin = 0;
 static int below_status = 0; // Typically main window
 static int second_image_row = 0; // Typically a border image or line below the image area
 
+static int guilty_bastards_graphics_win = 0;
+static int guilty_bastards_aux_win = 0;
+
 static int menutop = 0;
 
 static int inmenu = false;
@@ -159,6 +162,7 @@ static int heglk_push_down_main_window_to(int y);
 static void heglk_ensure_menu(void);
 static int heglk_find_attached_at_top(int top);
 static int heglk_find_attached_to_left(int left);
+static void heglk_adjust_guilty_bastards_windows(void);
 
 #define MAXRES 1024
 
@@ -1229,6 +1233,8 @@ void hugo_handlearrange(void)
         wins[mainwin].y1 = gscreenh;
         win_sizewin(wins[mainwin].win->peer, wins[mainwin].x0, wins[mainwin].y0, wins[mainwin].x1, wins[mainwin].y1);
     }
+
+    heglk_adjust_guilty_bastards_windows();
 }
 
 void heglk_sizeifexists(int i)
@@ -1360,6 +1366,9 @@ void heglk_ensure_menu(void)
     nwins = MAX(menuwin, statuswin) + 1;
     mainwin = menuwin;
 
+    guilty_bastards_aux_win = 0;
+    guilty_bastards_graphics_win = 0;
+
     if (!menuwin)
     {
         if (statuswin == 1)
@@ -1433,6 +1442,35 @@ void heglk_ensure_menu(void)
         glk_window_clear(wins[menuwin].win);
     }
     glk_window_move_cursor(wins[menuwin].win, 0, 0);
+}
+
+void heglk_adjust_guilty_bastards_windows(void)
+{
+    if (!(isguiltybastards && guilty_bastards_aux_win && guilty_bastards_aux_win && statuswin && mainwin))
+        return;
+    int diff = wins[statuswin].y1 - wins[guilty_bastards_graphics_win].y0;
+
+    wins[guilty_bastards_graphics_win].y0 = wins[statuswin].y1;
+    wins[guilty_bastards_graphics_win].y1 += diff;
+
+    if (gscreenw < wins[guilty_bastards_graphics_win].x1 || gscreenw > wins[guilty_bastards_graphics_win].x1 * 3)
+        wins[guilty_bastards_graphics_win].y1 = gscreenw / 2;
+
+    if (gscreenh < wins[guilty_bastards_graphics_win].y1 + wins[guilty_bastards_graphics_win].y0)
+        wins[guilty_bastards_graphics_win].y1 = gscreenh / 2;
+
+    wins[guilty_bastards_aux_win].y0 = wins[guilty_bastards_graphics_win].y0;
+    wins[guilty_bastards_aux_win].y1 = wins[guilty_bastards_graphics_win].y1;
+    wins[guilty_bastards_aux_win].x0 = wins[guilty_bastards_graphics_win].x1;
+    wins[guilty_bastards_aux_win].x1 = gscreenw;
+    if (wins[mainwin].t > 3)
+    {
+        wins[mainwin].y0 = wins[guilty_bastards_graphics_win].y1;
+        heglk_sizeifexists(mainwin);
+    }
+
+    heglk_sizeifexists(guilty_bastards_graphics_win);
+    heglk_sizeifexists(guilty_bastards_aux_win);
 }
 
 void hugo_settextwindow(int left, int top, int right, int bottom)
@@ -1625,13 +1663,22 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 
                 // Hack to keep black room description window from
                 // being deleted at the first turn of Guilty Bastards
-                if (isguiltybastards && left > 2 && curwin)
+                if (isguiltybastards && curwin)
                 {
-                    hugo_mapcurwin();
-                    wins[curwin].clear = 0;
-                    x0 = gscreenw / 2;
-                    x1 = gscreenw;
-                    peggedtoright = 1;
+                    if (left == 1)
+                    {
+                        guilty_bastards_graphics_win = curwin;
+                    }
+                    else
+                    {
+                        guilty_bastards_aux_win = curwin;
+                        hugo_mapcurwin();
+                        wins[curwin].clear = 0;
+                        x0 = gscreenw / 2;
+                        x1 = gscreenw;
+                        peggedtoright = 1;
+                    }
+
                 }
             }
 
@@ -1833,6 +1880,9 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     LOG("hugo_settextwindow (%d): l:%d t:%d r:%d b:%d was translated to x0:%d y0:%d x1:%d y1:%d\n", curwin, origleft, origtop, origright, origbottom, x0, y0, x1, y1);
 
     heglk_sizeifexists(curwin);
+
+    heglk_adjust_guilty_bastards_windows();
+
     heglk_record_physical(wins[curwin]);
 }
 
