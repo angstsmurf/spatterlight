@@ -1453,8 +1453,19 @@ void heglk_ensure_menu(void)
 
 void heglk_adjust_guilty_bastards_windows(void)
 {
-    if (!(isguiltybastards && guilty_bastards_aux_win && guilty_bastards_aux_win && statuswin && mainwin))
+    if (!(isguiltybastards && guilty_bastards_graphics_win && guilty_bastards_aux_win && statuswin && mainwin))
         return;
+    
+    for (int i = 1; i < nwins; i ++)
+    {
+        if (wins[i].win && wins[i].win->type == wintype_Graphics && i != guilty_bastards_graphics_win)
+        {
+            gli_delete_window(wins[i].win);
+            wins[i].win = NULL;
+            wins[i].clear = 1;
+        }
+    }
+
     int diff = wins[statuswin].y1 - wins[guilty_bastards_graphics_win].y0;
 
     wins[guilty_bastards_graphics_win].y0 = wins[statuswin].y1;
