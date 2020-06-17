@@ -2642,14 +2642,14 @@ again:
         return;
     }
 
-    @try {
+//    @try {
         [data getBytes:&request
                  range:rangeToRead];
-    } @catch (NSException *ex) {
-        NSLog(@"glkctl: could not read message header");
-        [task terminate];
-        return;
-    }
+//    } @catch (NSException *ex) {
+//        NSLog(@"glkctl: could not read message header");
+//        [task terminate];
+//        return;
+//    }
 
     rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), request.len);
 
@@ -2675,16 +2675,16 @@ again:
             buf = maxibuf;
         }
 
-        @try {
+//        @try {
             [data getBytes:buf
                      range:rangeToRead];
-        } @catch (NSException *ex) {
-            NSLog(@"glkctl: could not read message body");
-            if (maxibuf)
-                free(maxibuf);
-            [task terminate];
-            return;
-        }
+//        } @catch (NSException *ex) {
+//            NSLog(@"glkctl: could not read message body");
+//            if (maxibuf)
+//                free(maxibuf);
+//            [task terminate];
+//            return;
+//        }
     }
 
     memset(&reply, 0, sizeof reply);
