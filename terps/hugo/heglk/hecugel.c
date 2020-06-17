@@ -76,7 +76,7 @@ struct winctx
 {
     int l, t, b, r;        /* hugo coords */
     int x0, y0, x1, y1;        /* real, mapped, coords */
-    winid_t win;        /* mapped peer windows */
+    winid_t win;        /* mapped peer window */
     int clear;            /* any printed content? */
     int isaux;            /* is aux?  */
     int curx, cury;        /* last cursor position */
