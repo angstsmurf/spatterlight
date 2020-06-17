@@ -75,16 +75,16 @@ enum { ISSTATUS, ISAUX, ISMAIN };
 struct winctx
 {
     int l, t, b, r;        /* hugo coords */
-    int x0, y0, x1, y1;        /* real, mapped, coords */
-    winid_t win;        /* mapped peer window */
-    int clear;            /* any printed content? */
-    int isaux;            /* is aux?  */
+    int x0, y0, x1, y1;    /* real, mapped, coords */
+    winid_t win;           /* mapped peer window */
+    int clear;             /* any printed content? */
+    int isaux;             /* is aux?  */
     int curx, cury;        /* last cursor position */
-    int fg, bg;         /* text colors in this window */
-    int papercolor;
-    int halfscreenwidth;
-    int peggedtoright;
-    int wasmoved;
+    int fg, bg;            /* text colors in this window */
+    int papercolor;        /* background color of this window */
+    int halfscreenwidth;   /* is this window supposed to be half screen width?*/
+    int peggedtoright;     /* is this window supposed to be attached to right edge?*/
+    int wasmoved;          /* was this window moved when the player adjusted window size?*/
 };
 
 static struct winctx wins[MAXWINS]; // For simplicity, this starts at 1. Index 0 is not used.
