@@ -85,6 +85,7 @@ struct winctx
     int halfscreenwidth;   /* is this window supposed to be half screen width?*/
     int peggedtoright;     /* is this window supposed to be attached to right edge?*/
     int wasmoved;          /* was this window moved when the player adjusted window size?*/
+    int screenwidth_at_creation;
 };
 
 static struct winctx wins[MAXWINS]; // For simplicity, this starts at 1. Index 0 is not used.
@@ -116,6 +117,9 @@ static int second_image_row = 0; // Typically a border image or line below the i
 
 static int guilty_bastards_graphics_win = 0;
 static int guilty_bastards_aux_win = 0;
+
+static int future_boy_main_image = 0;
+static int future_boy_main_image_right = false;
 
 static int menutop = 0;
 
@@ -986,11 +990,11 @@ void hugo_clearfullscreen(void)
 int overlap(struct winctx a, struct winctx b)
 {
     // If one rectangle is on left side of other
-    if (a.l >= b.r || b.l >= a.r)
+    if (a.x0 >= b.x1 || b.x0 >= a.x1)
         return false;
 
     // If one rectangle is above other
-    if (a.b <= b.t || b.b <= a.t)
+    if (a.y1 <= b.y0 || b.y1 <= a.y0)
         return false;
 
     return true;
@@ -1003,19 +1007,45 @@ int isfullscreen(struct winctx ctx)
          || (ctx.l == 1 && ctx.r == SCREENWIDTH && ctx.t == 1 && ctx.b == SCREENHEIGHT));
 }
 
-void checkfutureboyoverlap(void)
+void checkfutureboyoverlap(int left, int top, int right, int bottom)
 {
-    if (!isfutureboy || !isguiltybastards || !wins[curwin].isaux || curwin == mainwin || curwin == statuswin || curwin == second_image_row)
+    int i, quarter, quadrant, req_quadrant;
+    // Bail if requested window is lower than main window
+    if ((mainwin && top >= wins[mainwin].t) || !isfutureboy)
         return;
-    
-    for (int i = 1; i < nwins; i++)
+
+    int width = right - left;
+    int height = bottom - top;
+    // First, we check if this is the large main image
+    if (((width > 30 && width < 50 && height > 9 && height < 15) || (screenwidth_in_chars < 60 && ABS(screenwidth_in_chars / 2 - width) < 3))) {
+        if (wins[future_boy_main_image].wasmoved && ((left > screenwidth_in_chars / 2 && future_boy_main_image_right) ||
+            (left <= screenwidth_in_chars / 2 && !future_boy_main_image_right)))
+            wins[future_boy_main_image].clear = 1;
+            return;
+    }
+
+    quarter = screenwidth_in_chars / 4;
+    if (future_boy_main_image_right)
+        req_quadrant = left / quarter;
+    else
+        req_quadrant = right / quarter;
+
+    for (i = 1; i < nwins; i++)
     {
-        if (wins[i].win && wins[i].win->type == wintype_Graphics && i != second_image_row && wins[i].wasmoved && overlap(wins[i], wins[curwin]))
-        {
-            gli_delete_window(wins[i].win);
-            wins[i].win = NULL;
+        quarter = wins[i].screenwidth_at_creation / 4;
+
+        if (future_boy_main_image_right)
+            quadrant = wins[i].l / quarter;
+        else
+            quadrant = wins[i].r / quarter;
+
+        if (wins[i].wasmoved && wins[i].win && wins[i].win->type == wintype_Graphics && req_quadrant == quadrant && ABS(wins[i].r - wins[i].l) <= quarter && wins[i].t < wins[mainwin].t) {
+            wins[i].clear = 1;
+            return;
         }
     }
+
+    return;
 }
 
 /* Clear the currently defined window, move the cursor to the top-left
@@ -1052,7 +1082,8 @@ void hugo_clearwindow(void)
 
     /* We delete the main window here in order to be able */
     /* to change input text color */
-    if (curwin == mainwin && wins[curwin].win) {
+    if (curwin == mainwin && wins[curwin].win && !isfutureboy)
+    {
         gli_delete_window(wins[curwin].win);
         wins[curwin].win = 0;
     }
@@ -1131,8 +1162,6 @@ void hugo_clearwindow(void)
     {
         wins[curwin].clear = 0;
     }
-
-    checkfutureboyoverlap();
 
     if (isfullscreen(wins[curwin]))
     {
@@ -1583,6 +1612,9 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         LOG("hugo_settextwindow: Found more than one match! (%d)\n", matches);
     }
 
+    if (isfutureboy  && !curwin)
+        checkfutureboyoverlap(left, top, right, bottom);
+
     /* unmap old unused windows that are cleared */
     hugo_unmapcleared();
 
@@ -1805,6 +1837,8 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         wins[curwin].clear = 1;
         wins[curwin].fg = DEF_FCOLOR;
         wins[curwin].wasmoved = false;
+
+        wins[curwin].screenwidth_at_creation = screenwidth_in_chars;
 
         if (screen_bg != -1)
             wins[curwin].bg = screen_bg;
@@ -2619,8 +2653,21 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                     wins[curwin].win = 0;
                 }
 
-                checkfutureboyoverlap();
-                
+                if (isfutureboy && ((width > 30 && width < 50 && height > 9 && height < 15) || (screenwidth_in_chars < 60 && ABS(screenwidth_in_chars / 2 - width) < 3))) {
+                    future_boy_main_image = curwin;
+                    future_boy_main_image_right = (wins[curwin].l > screenwidth_in_chars / 2);
+                    LOG("  Decided that the current image is Future Boy main image (%d)\n", curwin);
+                    if (future_boy_main_image_right)
+                        LOG("  and that it is right-aligned\n");
+                    else
+                        LOG("  and that it is left-aligned\n");
+
+                    if (x1 - x0 < (wins[curwin].r - wins[curwin].l) * gcellw) {
+                        x1 = (wins[curwin].r - wins[curwin].l) * gcellw + x0;
+                        y1 = (wins[curwin].b - wins[curwin].t) * gcellh + y0;
+                    }
+                }
+
                 wins[curwin].win = gli_new_window(wintype_Graphics, 0);
                 win_sizewin(wins[curwin].win->peer,
                             x0, y0,
