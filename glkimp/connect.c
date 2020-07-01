@@ -309,6 +309,31 @@ void win_sizewin(int name, int x0, int y0, int x1, int y1)
     /* The window size may have changed before the message reaches the
      window server, so we send (what this interpreter process thinks is)
      the screen width and height. */
+
+    if (x0 > x1) {
+        fprintf(stderr, "win_sizewin: Error! Negative width: %d, x0:%d x1:%d. Reversing!\n", x1 - x0, x0, x1);
+        int temp = x0;
+        x0 = x1;
+        x1 = temp;
+    }
+
+    if (y0 > y1) {
+        fprintf(stderr, "win_sizewin: Error! Negative height: %d, y0:%d y1:%d. Reversing!\n", y1 - y0, y0, y1);
+        int temp = y0;
+        y0 = y1;
+        y1 = temp;
+    }
+
+    if (x1 > gscreenw * 2) {
+        fprintf(stderr, "win_sizewin: Error! x1 too big: %d Setting to gscreenw:%d!\n", x1, gscreenw);
+        x1 = gscreenw;
+    }
+
+    if (y1 > gscreenh * 2) {
+        fprintf(stderr, "win_sizewin: Error! y1 too big: %d Setting to gscreenh:%d!\n", y1, gscreenh);
+        y1 = gscreenh;
+    }
+
     sizewin->x0 = x0;
     sizewin->y0 = y0;
     sizewin->x1 = x1;
