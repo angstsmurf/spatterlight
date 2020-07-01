@@ -565,26 +565,26 @@ void print_colorname(int c)
 
 void hugo_settextcolor(int c)
 {
-    LOG("hugo_settextcolor %d Glk:(%x, %d) \n", c, hugo_color(c), hugo_color(c));
+//    LOG("hugo_settextcolor %d Glk:(%x, %d) \n", c, hugo_color(c), hugo_color(c));
     print_colorname(c);
     if (curwin) {
         wins[curwin].fg = c;
     } else {
-        LOG("hugo_settextcolor: No curwin\n");
+//        LOG("hugo_settextcolor: No curwin\n");
     }
 }
 
 
 void hugo_setbackcolor(int c)
 {
-    LOG("hugo_setbackcolor %d Glk:(%x, %d) \n", c, hugo_color(c), hugo_color(c));
-    print_colorname(c);
+//    LOG("hugo_setbackcolor %d Glk:(%x, %d) \n", c, hugo_color(c), hugo_color(c));
+//    print_colorname(c);
 
     if (curwin)
     {
         wins[curwin].bg = c;
     } else  {
-        LOG("hugo_setbackcolor: No curwin\n");
+//        LOG("hugo_setbackcolor: No curwin\n");
     }
 }
 
@@ -740,13 +740,13 @@ void hugo_cleanup_screen(void)
 void heglk_record_physical(struct winctx ctx) {
     /* record position of the window */
     physical_windowleft = (ctx.l-1)*FIXEDCHARWIDTH;
-    LOG("physical_windowleft: %d\n", physical_windowleft);
+//    LOG("physical_windowleft: %d\n", physical_windowleft);
     physical_windowtop = (ctx.t-1)*FIXEDLINEHEIGHT;
-    LOG("physical_windowtop: %d\n", physical_windowtop);
+//    LOG("physical_windowtop: %d\n", physical_windowtop);
     physical_windowright = ctx.r*FIXEDCHARWIDTH-1;
-    LOG("physical_windowright: %d\n", physical_windowright);
+//    LOG("physical_windowright: %d\n", physical_windowright);
     physical_windowbottom = ctx.b*FIXEDLINEHEIGHT-1;
-    LOG("physical_windowbottom: %d\n", physical_windowbottom);
+//    LOG("physical_windowbottom: %d\n", physical_windowbottom);
     if (ctx.r - ctx.l < screenwidth_in_chars)
         physical_windowwidth = (ctx.r-ctx.l-(ggridmarginx / gcellw - 1))*FIXEDCHARWIDTH;
     else
@@ -754,9 +754,9 @@ void heglk_record_physical(struct winctx ctx) {
     if (ctx.isaux && ctx.l > 3 && ctx.r > screenwidth_in_chars - 2)
         physical_windowwidth = SCREENWIDTH;
 
-    LOG("physical_windowwidth: %d\n", physical_windowwidth);
+//    LOG("physical_windowwidth: %d\n", physical_windowwidth);
     physical_windowheight = (ctx.b-ctx.t+1)*FIXEDLINEHEIGHT;
-    LOG("physical_windowheight: %d\n", physical_windowheight);
+//    LOG("physical_windowheight: %d\n", physical_windowheight);
 }
 
 /*
@@ -781,7 +781,7 @@ void hugo_getline(char *prompt)
     if (wins[curwin].win->type != wintype_TextGrid)
     {
         inmenu = false;
-        LOG("Detected that we are NOT in a menu!\n");
+//        LOG("Detected that we are NOT in a menu!\n");
     }
 
     /* Request line input */
@@ -1042,7 +1042,7 @@ void hugo_clearwindow(void)
     int i;
 
     LOG("hugo_clearwindow %d: l:%d t:%d r:%d b:%d\n",curwin, l, t, r, b);
-    LOG("hugo_clearwindow bg = %d (0x%x, %d)\n", wins[curwin].bg, hugo_color(wins[curwin].bg), hugo_color(wins[curwin].bg));
+//    LOG("hugo_clearwindow bg = %d (0x%x, %d)\n", wins[curwin].bg, hugo_color(wins[curwin].bg), hugo_color(wins[curwin].bg));
 
     if (curwin == nlbufwin)
     {
@@ -1560,7 +1560,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
              wins[i].r == right && wins[i].b == bottom)
         {
             curwin = i;
-            LOG("hugo_settextwindow: found a match! (%d). main = %d, status = %d\n", i, mainwin, statuswin);
+//            LOG("hugo_settextwindow: found a match! (%d). main = %d, status = %d\n", i, mainwin, statuswin);
             matches++;
         }
     }
@@ -1710,7 +1710,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 
             y1 = y0 + gcellh * (bottom - top + 1);
             
-            LOG("statuswin = %d wins[statuswin].b = %d top = %d ABS(top - wins[statuswin].b) = %d\n", statuswin, wins[statuswin].b, top, ABS(top - wins[statuswin].t));
+//            LOG("statuswin = %d wins[statuswin].b = %d top = %d ABS(top - wins[statuswin].b) = %d\n", statuswin, wins[statuswin].b, top, ABS(top - wins[statuswin].t));
 
             if (statuswin && ABS(top - wins[statuswin].b) < 2)
             {
@@ -1766,10 +1766,10 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
                 if (above_main && above_main != mainwin)
                 {
                     y0 = heglk_push_down_main_window_to(wins[above_main].y1);
-                    LOG("hugo_settextwindow: Adjusted main window top from %d to %d (%d) (bottom of window %d)\n", top, wins[above_main].b,  wins[above_main].y1, above_main);
+//                    LOG("hugo_settextwindow: Adjusted main window top from %d to %d (%d) (bottom of window %d)\n", top, wins[above_main].b,  wins[above_main].y1, above_main);
                 } else {
                     y0 = heglk_push_down_main_window_to(wins[statuswin].y1);
-                    LOG("hugo_settextwindow: Adjusted main window top from %d to %d (%d) (bottom of status window)\n", top, wins[statuswin].b,  wins[statuswin].y1);
+//                    LOG("hugo_settextwindow: Adjusted main window top from %d to %d (%d) (bottom of status window)\n", top, wins[statuswin].b,  wins[statuswin].y1);
                 }
             }
 
@@ -1830,7 +1830,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         {
             y0 = wins[statuswin].y1;
         }
-        LOG("Attached %s window %d below status\n", (curwin == mainwin) ? "main" : "aux", curwin);
+//        LOG("Attached %s window %d below status\n", (curwin == mainwin) ? "main" : "aux", curwin);
     }
 
     if (new_second_image_row)
@@ -1844,46 +1844,46 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     if (x1 > gscreenw)
         x1 = gscreenw;
 
-    int changed = false;
-    if (reused)
-    {
-        LOG("hugo_settextwindow: Old values of ctx %d: l:%d t:%d r:%d b:%d, x0:%d y0:%d x1:%d y1:%d\n", curwin, wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1, wins[curwin].y1);
-        if (wins[curwin].l != left) {
-            LOG("wins[curwin].l was changed from %d to %d\n", wins[curwin].l, left);
-            changed = true;
-        }
-        if (wins[curwin].t != top) {
-            LOG("wins[curwin].t was changed from %d to %d\n", wins[curwin].t, top);
-            changed = true;
-        }
-        if (wins[curwin].r != right) {
-            LOG("wins[curwin].r was changed from %d to %d\n", wins[curwin].r, right);
-            changed = true;
-        }
-        if (wins[curwin].b != bottom) {
-            LOG("wins[curwin].r was changed from %d to %d\n", wins[curwin].b, bottom);
-            changed = true;
-        }
-        if (wins[curwin].x0 != x0) {
-            LOG("wins[curwin].x0 was changed from %d to %d\n", wins[curwin].x0, x0);
-            changed = true;
-        }
-        if (wins[curwin].y0 != y0) {
-            LOG("wins[curwin].y0 was changed from %d to %d\n", wins[curwin].y0, y0);
-            changed = true;
-        }
-        if (wins[curwin].x1 != x1) {
-            LOG("wins[curwin].x1 was changed from %d to %d\n", wins[curwin].x1, x1);
-            changed = true;
-        }
-        if (wins[curwin].y1 != y1) {
-            LOG("wins[curwin].y1 was changed from %d to %d\n", wins[curwin].y1, y1);
-            changed = true;
-        }
-        if (!changed) {
-            LOG("hugo_settextwindow: No values were changed in reused context!\n");
-        }
-    }
+//    int changed = false;
+//    if (reused)
+//    {
+//        LOG("hugo_settextwindow: Old values of ctx %d: l:%d t:%d r:%d b:%d, x0:%d y0:%d x1:%d y1:%d\n", curwin, wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1, wins[curwin].y1);
+//        if (wins[curwin].l != left) {
+//            LOG("wins[curwin].l was changed from %d to %d\n", wins[curwin].l, left);
+//            changed = true;
+//        }
+//        if (wins[curwin].t != top) {
+//            LOG("wins[curwin].t was changed from %d to %d\n", wins[curwin].t, top);
+//            changed = true;
+//        }
+//        if (wins[curwin].r != right) {
+//            LOG("wins[curwin].r was changed from %d to %d\n", wins[curwin].r, right);
+//            changed = true;
+//        }
+//        if (wins[curwin].b != bottom) {
+//            LOG("wins[curwin].r was changed from %d to %d\n", wins[curwin].b, bottom);
+//            changed = true;
+//        }
+//        if (wins[curwin].x0 != x0) {
+//            LOG("wins[curwin].x0 was changed from %d to %d\n", wins[curwin].x0, x0);
+//            changed = true;
+//        }
+//        if (wins[curwin].y0 != y0) {
+//            LOG("wins[curwin].y0 was changed from %d to %d\n", wins[curwin].y0, y0);
+//            changed = true;
+//        }
+//        if (wins[curwin].x1 != x1) {
+//            LOG("wins[curwin].x1 was changed from %d to %d\n", wins[curwin].x1, x1);
+//            changed = true;
+//        }
+//        if (wins[curwin].y1 != y1) {
+//            LOG("wins[curwin].y1 was changed from %d to %d\n", wins[curwin].y1, y1);
+//            changed = true;
+//        }
+//        if (!changed) {
+//            LOG("hugo_settextwindow: No values were changed in reused context!\n");
+//        }
+//    }
     // If we reuse the context,
     // most of these should will have the right value already...
     wins[curwin].l = left;
@@ -1895,7 +1895,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     wins[curwin].x1 = x1;
     wins[curwin].y1 = y1;
 
-    LOG("hugo_settextwindow (%d): l:%d t:%d r:%d b:%d was translated to x0:%d y0:%d x1:%d y1:%d\n", curwin, origleft, origtop, origright, origbottom, x0, y0, x1, y1);
+//    LOG("hugo_settextwindow (%d): l:%d t:%d r:%d b:%d was translated to x0:%d y0:%d x1:%d y1:%d\n", curwin, origleft, origtop, origright, origbottom, x0, y0, x1, y1);
 
     heglk_sizeifexists(curwin);
 
