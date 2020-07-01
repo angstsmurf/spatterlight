@@ -1156,12 +1156,22 @@ static void hugo_unmapcleared(void)
             LOG(" + unmap window %d\n", i);
             gli_delete_window(wins[i].win);
             wins[i].win = NULL;
+
             if (i == statuswin)
                 statuswin = 0;
             if (i == below_status)
                 below_status = 0;
             if (i == second_image_row)
                 second_image_row = 0;
+            if (i == guilty_bastards_aux_win)
+                guilty_bastards_aux_win = 0;
+            if (i == guilty_bastards_graphics_win)
+                guilty_bastards_graphics_win = 0;
+
+            if (i == nwins - 1)
+            {
+                nwins--;
+            }
         }
     }
 }
