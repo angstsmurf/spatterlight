@@ -2203,9 +2203,13 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             cmp = [weakSelf compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:sortAscending];
             if (cmp) return cmp;
         }
-        else if ([gameSortColumn isEqual:@"added"] || [gameSortColumn isEqual:@"lastPlayed"] || [gameSortColumn isEqual:@"lastModified"])
+        else if ([gameSortColumn isEqual:@"added"] || [gameSortColumn isEqual:@"lastPlayed"])
         {
             cmp = [weakSelf compareDate:[aid valueForKey:gameSortColumn] withDate:[bid valueForKey:gameSortColumn] ascending:sortAscending];
+            if (cmp) return cmp;
+        }
+        else if ([gameSortColumn isEqual:@"lastModified"]) {
+            cmp = [weakSelf compareDate:[a valueForKey:gameSortColumn] withDate:[b valueForKey:gameSortColumn] ascending:sortAscending];
             if (cmp) return cmp;
         }
         else if ([gameSortColumn isEqual:@"found"]) {
