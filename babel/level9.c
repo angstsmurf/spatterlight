@@ -630,7 +630,7 @@ static int get_l9_version(unsigned char *sf, int32 extent, char **ifid)
 static int32 claim_story_file(void *story, int32 extent)
 {
  char *ifid=NULL;
-    if (get_l9_version((unsigned char *) story,extent, &ifid)) {
+    if (get_l9_version((unsigned char *) story, extent + 2, &ifid)) {
   if (ifid) return VALID_STORY_FILE_RV;
         else return NO_REPLY_RV;
     }
@@ -642,7 +642,7 @@ static int32 claim_story_file(void *story, int32 extent)
 static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, int32 output_extent)
 {
  char *ifid=NULL;
- int i=get_l9_version((unsigned char *)story_file, extent, &ifid);
+ int i=get_l9_version((unsigned char *)story_file, extent + 2, &ifid);
  if (!i) return INVALID_STORY_FILE_RV;
  if (ifid)
  {
