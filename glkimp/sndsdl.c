@@ -156,7 +156,7 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
     chan->rock = rock;
     chan->status = CHANNEL_IDLE;
     chan->volume = GLK_VOLUME_TO_SDL_VOLUME(volume);
-    chan->resid = 0;
+    chan->resid = -1;
     chan->loop = 0;
     chan->notify = 0;
     chan->sdl_memory = 0;
@@ -232,6 +232,20 @@ static void cleanup_channel(schanid_t chan)
         SDL_RemoveTimer(chan->timer);
 
     chan->timer = 0;
+
+    if (chan->resid >= 0)
+    {
+        struct my_sound_resource_struct *res = my_resources[chan->resid];
+
+        if (res && res->loadedflag)
+        {
+            if (res->data)
+                free(res->data);
+
+            res->loadedflag = FALSE;
+        }
+    }
+    chan->resid = -1;
 }
 
 void glk_schannel_destroy(schanid_t chan)
@@ -476,7 +490,7 @@ void glk_schannel_set_volume_ext(schanid_t chan, glui32 glk_volume,
 /* Notify the music channel completion */
 static void music_completion_callback()
 {
-    if (!music_channel || !music_channel->resid)
+    if (!music_channel || music_channel->resid < 0)
     {
         gli_strict_warning("music callback failed");
         return;
@@ -681,8 +695,12 @@ void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length)
 
     res->type = type;
     res->length = length;
-    res->data = data;
-    res->loadedflag = TRUE;
+    res->data = malloc(length);
+    if (res->data && data)
+    {
+        memcpy(res->data , data, length);
+        res->loadedflag = TRUE;
+    }
 }
 
 void gli_stop_all_sound_channels()
