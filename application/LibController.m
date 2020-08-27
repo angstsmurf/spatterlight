@@ -163,9 +163,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
         homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:appSuppDir];
 
-        imageDir = [NSURL URLWithString:@"Cover Art" relativeToURL:homepath];
+        NSString* imageDirName = @"Cover Art";
+        imageDirName = [imageDirName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        imageDir = [NSURL URLWithString:imageDirName relativeToURL:homepath];
 
-        [[NSFileManager defaultManager] createDirectoryAtURL:homepath
+        [[NSFileManager defaultManager] createDirectoryAtURL:imageDir
                                  withIntermediateDirectories:YES
                                                   attributes:NULL
                                                        error:NULL];
