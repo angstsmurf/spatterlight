@@ -38,6 +38,9 @@
       }
       _ifids = ifids;
       for (NSString *ifid in ifids) {
+          if ([ifid isEqualToString:@"DUMMYmanySelected"]  || [ifid isEqualToString:@"DUMMYnoneSelected"]) {
+              continue;
+          }
           ifidObj = [self fetchIfid:ifid inContext:context];
           if (!ifidObj) {
               ifidObj = (Ifid *) [NSEntityDescription
