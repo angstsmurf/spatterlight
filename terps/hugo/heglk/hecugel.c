@@ -725,7 +725,7 @@ void hugo_init_screen(void)
     hugo_clearwindow();
 
     win_setbgnd(-1, 0);
-   
+
     if (!strncmp(gli_story_name, "colossal.hex", 12))
     {
         iscolossal = true;
@@ -1496,7 +1496,7 @@ void heglk_adjust_guilty_bastards_windows(void)
 {
     if (!(isguiltybastards && guilty_bastards_graphics_win && guilty_bastards_aux_win && statuswin && mainwin))
         return;
-    
+
     for (int i = 1; i < nwins; i ++)
     {
         if (wins[i].win && wins[i].win->type == wintype_Graphics && i != guilty_bastards_graphics_win)
@@ -1756,7 +1756,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
             }
 
             y1 = y0 + gcellh * (bottom - top + 1);
-            
+
 //            LOG("statuswin = %d wins[statuswin].b = %d top = %d ABS(top - wins[statuswin].b) = %d\n", statuswin, wins[statuswin].b, top, ABS(top - wins[statuswin].t));
 
             if (statuswin && ABS(top - wins[statuswin].b) < 2)
@@ -2085,7 +2085,7 @@ static void hugo_mapcurwin()
         {
                 wins[curwin].y1 = wins[mainwin].y0;
         }
-        
+
     }
     else
     {
@@ -2607,20 +2607,20 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                     width = x1 - x0;
                     height = width * aspect;
                 }
-                
+
                 int linecount = height / gbufcellh + 1;
                 LOG("  PictureInText at line %d, window %d\n", linecount, mainwin);
-                                
+
                 if (1) // nlbufwin == mainwin)
                 {
                     nlbufcnt -= linecount;
                     if (nlbufcnt < 0)
                         nlbufcnt = 0;
                 }
-                
+
                 hugo_flushnl();
                 glk_set_window(wins[mainwin].win);
-                
+
                 // We use a centered style for the image and
                 // give it its own paragraph
                 glk_set_style(style_User1);
@@ -2631,11 +2631,11 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                 wins[mainwin].clear = 0;
                 glk_put_char('\n');
                 glk_set_style(style_Normal);
-                
+
                 wins[curwin].clear = 1;
                 wins[curwin].y1 = 0;
                 wins[curwin].b = 0;
-                
+
                 if (second_image_row)
                 {
                     wins[mainwin].y0 = wins[second_image_row].y1;
@@ -2683,17 +2683,17 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                 win_maketransparent(wins[curwin].win->peer);
 
                 int color = hugo_color(wins[curwin].bg);
-                
+
                 LOG("hugo_displaypicture: fill a rect with background color %x: width %d, height %d\n", hugo_color(wins[curwin].bg), abs(x1-x0), abs(y1-y0));
                 win_fillrect(wins[curwin].win->peer, color, 0, 0, abs(x1-x0), abs(y1-y0));
                 LOG("hugo_displaypicture: draw image: x offset %d, y offset %d, width %d, height %d\n", xoff, yoff, width, height);
                 win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height);
                 wins[curwin].clear = 0;
-                
+
             }
         }
     }
-    
+
     glk_stream_close(infile, NULL);
     just_displayed_something = true;
     return true;
