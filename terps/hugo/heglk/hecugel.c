@@ -327,7 +327,7 @@ void hugo_stopvideo(void) {}
 
 static int loadres(HUGO_FILE infile, int reslen)
 {
-    char *buf;
+    char *buf, *origbuf;
     long offset, suboffset;
     int id;
     int i;
@@ -345,7 +345,8 @@ static int loadres(HUGO_FILE infile, int reslen)
     id = numres++;
 
     resids[id] = offset;
-    buf = malloc(reslen);
+    origbuf = malloc(reslen);
+    buf = origbuf;
 
     glk_get_buffer_stream(infile, (char *)buf, reslen);
 
@@ -369,6 +370,7 @@ static int loadres(HUGO_FILE infile, int reslen)
 
     glui32 type = gli_detect_sound_format(buf, reslen);
     gli_set_sound_resource(id, type, buf, reslen);
+    free(origbuf);
     return id;
 }
 
