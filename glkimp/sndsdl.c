@@ -259,7 +259,6 @@ void glk_schannel_destroy(schanid_t chan)
     }
 
     glk_schannel_stop(chan);
-    cleanup_channel(chan);
     if (gli_unregister_obj)
         (*gli_unregister_obj)(chan, gidisp_Class_Schannel, chan->disprock);
 
