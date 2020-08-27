@@ -34,7 +34,7 @@
 @class InfoController;
 
 @interface LibController
-    : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSURLConnectionDelegate, NSSplitViewDelegate> {
+    : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate> {
     NSURL *homepath;
     NSURL *imageDir;
 
