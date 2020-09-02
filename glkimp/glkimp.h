@@ -401,7 +401,7 @@ extern glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen,
 
 extern glui32 generate_tag(void);
 
-extern void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length);
+extern void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length, char *filename, size_t offset);
 extern glui32 gli_detect_sound_format(char *buf, size_t len);
 extern void gli_stop_all_sound_channels();
 

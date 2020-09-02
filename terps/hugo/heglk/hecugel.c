@@ -369,7 +369,8 @@ static int loadres(HUGO_FILE infile, int reslen)
     buf += suboffset;
 
     glui32 type = gli_detect_sound_format(buf, reslen);
-    gli_set_sound_resource(id, type, buf, reslen);
+    gli_set_sound_resource(id, type, buf, reslen, infile->filename, offset + suboffset);
+
     free(origbuf);
     return id;
 }

@@ -61,6 +61,8 @@ struct my_sound_resource_struct
 {
     void *data;
     size_t length;
+    char *filename;
+    size_t offset;
     int loadedflag;
     int type;
 };
@@ -626,48 +628,42 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
 {
     struct my_sound_resource_struct *resource = my_resources[snd];
 
-    if (resource && resource->loadedflag == TRUE)
+    glui32 type = 0;
+
+    if (resource)
     {
-        *len = resource->length;
-        *buf = resource->data;
-        return resource->type;
+        if (resource->loadedflag == TRUE)
+        {
+            *len = resource->length;
+            *buf = resource->data;
+            type = resource->type;
+        }
+        else if (resource->filename != NULL && resource->length > 0)
+        {
+            fprintf(stderr, "sndsdl: resource->filename = %s length = %ld offset %ld\n", resource->filename, resource->length, resource->offset);
+            FILE *file = fopen(resource->filename, "rb");
+             if (file)
+             {
+                 fseek(file, resource->offset, SEEK_SET);
+                 resource->data = malloc(resource->length);
+                 if (fread(resource->data, resource->length, 1, file) != 1 && !feof(file))
+                 {
+                     fclose(file);
+                     fprintf(stderr, "sndsdl: could not read sound resource from file %s, length %ld, offset %ld\n",resource->filename, resource->length, resource->offset);
+                     return 0;
+                 }
+                 fclose(file);
+                 resource->loadedflag = TRUE;
+                 *len = resource->length;
+                 *buf = resource->data;
+                 type = resource->type;
+             }
+        }
     }
 
-    if (!giblorb_is_resource_map())
+    if (!type && giblorb_is_resource_map())
     {
         FILE *file;
-        char name[1024];
-
-        sprintf(name, "%s/SND%ld", gli_workdir, (long) snd);
-
-        file = fopen(name, "rb");
-        if (!file)
-            return 0;
-
-        fseek(file, 0, SEEK_END);
-        *len = ftell(file);
-
-        *buf = malloc(*len);
-        if (!*buf)
-        {
-            fclose(file);
-            return 0;
-        }
-
-        fseek(file, 0, 0);
-        if ((long)fread(*buf, 1, *len, file) != *len && !feof(file))
-        {
-            fclose(file);
-            return 0;
-        }
-        fclose(file);
-
-        return gli_detect_sound_format(*buf, *len);
-    }
-    else
-    {
-        FILE *file;
-        glui32 type;
         long pos;
 
         giblorb_get_resource(giblorb_ID_Snd, snd, &file, &pos, len, &type);
@@ -680,11 +676,13 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
 
         fseek(file, pos, 0);
         if ((long)fread(*buf, 1, *len, file) != *len && !feof(file)) return 0;
-        return type;
     }
+
+    gli_set_sound_resource(snd, type, *buf, *len, NULL, 0);
+    return type;
 }
 
-void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length)
+void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length, char *filename, size_t offset)
 {
     if (!my_resources[snd]) {
         my_resources[snd] = malloc(sizeof(struct my_sound_resource_struct));
@@ -692,12 +690,23 @@ void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length)
 
     struct my_sound_resource_struct *res = my_resources[snd];
 
+    if (res->loadedflag == TRUE)
+        return;
+
     res->type = type;
     res->length = length;
+    if (filename != NULL)
+    {
+        res->filename = malloc(strlen(filename));
+        strncpy(res->filename, filename, strlen(filename));
+    }
+    else res->filename = NULL;
+
+    res->offset = offset;
     res->data = malloc(length);
     if (res->data && data)
     {
-        memcpy(res->data , data, length);
+        memcpy(res->data, data, length);
         res->loadedflag = TRUE;
     }
 }
@@ -862,18 +871,21 @@ static glui32 play_compressed(schanid_t chan, char *ext)
 
 void glk_sound_load_hint(glui32 snd, glui32 flag)
 {
+    struct my_sound_resource_struct *res = my_resources[snd];
+
     if (flag == 1) {
         long len = 0;
         glui32 type;
         char *buf = 0;
         /* load sound resource into memory */
         type = load_sound_resource(snd, &len, &buf);
-        gli_set_sound_resource(snd, type, buf, len);
     } else {
-        struct my_sound_resource_struct *res = my_resources[snd];
-        if (res->data)
-            free(res->data);
-        res->loadedflag = FALSE;
+        if (res)
+        {
+            if (res->data)
+                free(res->data);
+            res->loadedflag = FALSE;
+        }
     }
 }
 
@@ -905,7 +917,6 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
 
     /* load sound resource into memory */
     type = load_sound_resource(snd, &len, &buf);
-    gli_set_sound_resource(snd, type, buf, len);
 
     chan->sdl_memory = (unsigned char*)buf;
     chan->sdl_rwops = SDL_RWFromConstMem(buf, (int)len);
