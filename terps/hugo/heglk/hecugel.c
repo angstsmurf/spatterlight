@@ -464,7 +464,6 @@ void hugo_stopsample(void)
 
 int hugo_iskeywaiting(void)
 {
-    //if (istetris && keypress)
     return keypress;
 }
 
