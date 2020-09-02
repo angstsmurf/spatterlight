@@ -1,3 +1,6 @@
+#include <sys/syslimits.h>
+#include <fcntl.h>
+
 #include "glkimp.h"
 
 extern char gli_workdir[];
@@ -10,17 +13,13 @@ static int loadimage(int image)
     char *buf;
     long pos;
     long len;
-    
-    if (win_findimage(image))
-        return TRUE;
-    
+    char filename[PATH_MAX];
+
     if (!giblorb_is_resource_map())
     {
-        char filename[1024];
-        
         sprintf(filename, "%s/PIC%d", gli_workdir, image);
         
-        fprintf(stderr, "loadimage %s", filename);
+        fprintf(stderr, "loadimage %s\n", filename);
         
         file = fopen(filename, "rb");
         if (!file)
@@ -28,17 +27,18 @@ static int loadimage(int image)
         
         fseek(file, 0, 2);
         len = ftell(file);
+        pos = 0;
         fseek(file, 0, 0);
-        
+
         buf = malloc(len);
         if (!buf)
         {
             fclose(file);
             return FALSE;
         }
-        
+
         fread(buf, len, 1, file);
-        
+
         fclose(file);
     }
     else
@@ -49,19 +49,16 @@ static int loadimage(int image)
             gli_strict_warning("Failed to get resource from blorb!\n");
             return FALSE;
         }
-        
-        buf = malloc(len);
-        if (!buf)
+
+        if (fcntl(fileno(file), F_GETPATH, filename) == -1)
+        {
+            gli_strict_warning("Failed to get file name from blorb!\n");
             return FALSE;
-        
-        fseek(file, pos, 0);
-        fread(buf, len, 1, file);
+        }
     }
     
-    win_loadimage(image, buf, (int)len);
-    
-    free(buf);
-    
+    win_loadimage(image, filename, pos, len);
+
     return TRUE;
 }
 

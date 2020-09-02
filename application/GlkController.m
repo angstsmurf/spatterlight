@@ -1722,7 +1722,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)handleLoadImageNumber:(int)resno
-                         from:(char *)buffer
+                         from:(NSString *)path
+                       offset:(NSInteger)offset
                        length:(NSUInteger)length {
     lastimageresno = -1;
 
@@ -1730,22 +1731,17 @@ fprintf(stderr, "%s\n",                                                    \
         lastimage = nil;
     }
 
-    NSData *data = [[NSData alloc] initWithBytesNoCopy:buffer
-                                                length:length
-                                          freeWhenDone:NO];
+    NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
+
+    [fileHandle seekToFileOffset:(unsigned long long)offset];
+    NSData *data = [fileHandle readDataOfLength:length];
+
     if (!data)
         return;
 
     NSArray *reps = [NSBitmapImageRep imageRepsWithData:data];
-
-    NSSize size = NSZeroSize;
-
-    for (NSImageRep *imageRep in reps) {
-        if (imageRep.pixelsWide > size.width)
-            size.width = imageRep.pixelsWide;
-        if (imageRep.pixelsHigh > size.height)
-            size.height = imageRep.pixelsHigh;
-    }
+    NSImageRep *rep = reps[0];
+    NSSize size = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
 
     if (size.height == 0 || size.width == 0) {
         NSLog(@"glkctl: image size is zero!");
@@ -1760,12 +1756,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     [lastimage addRepresentations:reps];
-
-    NSData *tiffdata = lastimage.TIFFRepresentation;
-
-    lastimage = [[NSImage alloc] initWithData:tiffdata];
-    lastimage.size = size;
-
     lastimageresno = resno;
 }
 
@@ -2149,7 +2139,10 @@ fprintf(stderr, "%s\n",                                                    \
 
         case LOADIMAGE:
             buf[req->len] = 0;
-            [self handleLoadImageNumber:req->a1 from:buf length:req->len];
+            [self handleLoadImageNumber:req->a1
+                                   from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
+                                 offset:req->a2
+                                 length:(NSUInteger)req->a3];
             break;
 
         case SIZEIMAGE:

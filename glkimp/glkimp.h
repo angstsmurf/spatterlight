@@ -85,7 +85,7 @@ void win_unprint(int name, glui32 *s, int len);
 void win_fillrect(int name, glui32 color, int left, int top, int width, int height);
 void win_flowbreak(int name);
 int  win_findimage(int resno);
-void win_loadimage(int resno, char *buf, int len);
+void win_loadimage(int resno, char *filename, int offset, int len);
 void win_sizeimage(glui32 *width, glui32 *height);
 void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 height);
 

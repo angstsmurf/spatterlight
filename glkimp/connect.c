@@ -477,11 +477,20 @@ int win_findimage(int resno)
     return wmsg.a1;
 }
 
-void win_loadimage(int resno, char *buf, int len)
+void win_loadimage(int resno, char *filename, int offset, int reslen)
 {
     win_flush();
     if (gli_enable_graphics)
-        sendmsg(LOADIMAGE, resno, 0, 0, 0, 0, len, buf);
+    {
+        int len = strlen(filename);
+        if (len)
+        {
+            char *buf = malloc(len);
+            strcpy(buf, filename);
+            sendmsg(LOADIMAGE, resno, offset, reslen, 0, 0, len, buf);
+            free(buf);
+        }
+    }
 }
 
 void win_sizeimage(glui32 *width, glui32 *height)

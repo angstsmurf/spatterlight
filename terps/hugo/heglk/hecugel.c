@@ -2458,240 +2458,226 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             }
         }
 
-        char *buf = malloc(reslength);
-        if (buf)
+        if (reslength != lastres)
         {
-            if (reslength != lastres)
-            {
-                glk_get_buffer_stream(infile, buf, reslength);
-                win_loadimage(0, buf, reslength);
-                lastres = reslength;
-            }
-            free(buf);
+            win_loadimage(0, infile->filename, glk_stream_get_position(infile), reslength);
+            lastres = reslength;
+        }
 
-            if (isenceladus && reslength == 4690362)
-            {
-                width = 6000;
-                height = 6000;
-            } else {
-                win_sizeimage(&width, &height);
-            }
+        win_sizeimage(&width, &height);
 
-            origwidth = width;
+        origwidth = width;
 
-            if (isfutureboy && width == 600 && height == 320)
-                showing_futureboy_title = true;
-            else
-                showing_futureboy_title = false;
+        if (isfutureboy && width == 600 && height == 320)
+            showing_futureboy_title = true;
+        else
+            showing_futureboy_title = false;
 
-            if (ishtg && (reslength == 3501 || reslength == 4117))
-                showing_author_photo = true;
+        if (ishtg && (reslength == 3501 || reslength == 4117))
+            showing_author_photo = true;
 
-            LOG("hugo_displaypicture: original image size: width %d height %d , reslength: %ld\n", width, height, reslength);
-            float aspect = (float) height / width;
+        LOG("hugo_displaypicture: original image size: width %d height %d , reslength: %ld\n", width, height, reslength);
+        float aspect = (float) height / width;
 
-            int x0 = (wins[curwin].l - 1) * gcellw;
-            int y0 = wins[curwin].y0;
-            int winwidth = (wins[curwin].r - wins[curwin].l + 1) * gcellw + 1;
-            int x1 = x0 + winwidth;
-            if (x1 > gscreenw)
-                x1 = gscreenw;
-            int y1 = wins[curwin].y1;
+        int x0 = (wins[curwin].l - 1) * gcellw;
+        int y0 = wins[curwin].y0;
+        int winwidth = (wins[curwin].r - wins[curwin].l + 1) * gcellw + 1;
+        int x1 = x0 + winwidth;
+        if (x1 > gscreenw)
+            x1 = gscreenw;
+        int y1 = wins[curwin].y1;
 
-            if (reslength == 14236 && isfutureboy)
-            {
-                second_image_row = curwin;
-            }
+        if (reslength == 14236 && isfutureboy)
+        {
+            second_image_row = curwin;
+        }
 
-            if (second_image_row && second_image_row != curwin && wins[second_image_row].y0 < y1)
-            {
-                y1 = wins[second_image_row].y0;
-            }
+        if (second_image_row && second_image_row != curwin && wins[second_image_row].y0 < y1)
+        {
+            y1 = wins[second_image_row].y0;
+        }
 
-            if (gscreenw - x1 < (gcellw * 2 + 2 * ggridmarginx) || wins[curwin].peggedtoright || x1 > gscreenw)
-            {
-                if (x0 < ggridmarginx)
-                {
-                    x0 = 0;
-                } else if (wins[curwin].halfscreenwidth)
-                {
-                    x0 = gscreenw / 2;
-                } else {
-                    int diff = gscreenw - x1;
-                    x0 += diff;
-                }
-                x1 = gscreenw;
-            }
-
-            if (wins[curwin].halfscreenwidth && x0 < ggridmarginx)
+        if (gscreenw - x1 < (gcellw * 2 + 2 * ggridmarginx) || wins[curwin].peggedtoright || x1 > gscreenw)
+        {
+            if (x0 < ggridmarginx)
             {
                 x0 = 0;
-                x1 = gscreenw / 2 + 1;
-            }
-
-            // Hack to center the title mugshot gallery in Guilty Bastards
-            if (isguiltybastards && wins[curwin].r - wins[curwin].l < screenwidth_in_chars / 4) {
-                int diff = ggridmarginx + gcellw;
+            } else if (wins[curwin].halfscreenwidth)
+            {
+                x0 = gscreenw / 2;
+            } else {
+                int diff = gscreenw - x1;
                 x0 += diff;
-                x1 += diff;
             }
+            x1 = gscreenw;
+        }
 
-             LOG("hugo_displaypicture curwin (%d) x0: %d y0: %d x1: %d y1: %d \n", curwin, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1, wins[curwin].y1);
+        if (wins[curwin].halfscreenwidth && x0 < ggridmarginx)
+        {
+            x0 = 0;
+            x1 = gscreenw / 2 + 1;
+        }
 
+        // Hack to center the title mugshot gallery in Guilty Bastards
+        if (isguiltybastards && wins[curwin].r - wins[curwin].l < screenwidth_in_chars / 4) {
+            int diff = ggridmarginx + gcellw;
+            x0 += diff;
+            x1 += diff;
+        }
 
+        LOG("hugo_displaypicture curwin (%d) x0: %d y0: %d x1: %d y1: %d \n", curwin, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1, wins[curwin].y1);
 
-            if (width < 1 || height < 1)
-                return false;
+        if (width < 1 || height < 1)
+            return false;
 
-            if (width > x1 - x0) {
+        if (width > x1 - x0) {
+            width = x1 - x0;
+            height = width * aspect;
+        }
+
+        if (y1 == y0) {
+            y1 = y0 + gcellh;
+            if (y1 > gscreenh)
+            {
+                y1 = gscreenh;
+                y0 = gscreenh - gcellh;
+            }
+        }
+        if (height > y1 - y0)
+        {
+            height = y1 - y0;
+            width = height / aspect;
+        }
+
+        int xoff = ((x1 - x0) - width) / 2;
+        int yoff = ((y1 - y0) - height) / 2;
+
+        LOG("hugo_displaypicture w=%d h=%d x offset: %d y offset: %d\n", width, height, xoff, yoff);
+
+        hugo_unmapcleared();
+
+        LOG("ABS(oldx - wins[curwin].x0) = %d  gcellw * 2 = %f\n", ABS(oldx - wins[curwin].x0),  gcellw * 2);
+        LOG("ABS(wins[mainwin].y1 - wins[curwin].y1) = %d  gbufcellh * 2 = %f\n", ABS(wins[mainwin].y1 - wins[curwin].y1),  gbufcellh * 2);
+
+        // Prints an inline image in the main text window instead of replacing it with a new graphics window.
+        // This will break any graphical menus that expect mouse input with correct coordinates,
+        // such as the main menu of Cryptozookeeper, so we'll need to check for that here.
+
+        if ((mainwin && wins[mainwin].win && // We have a main window with Glk counterpart
+
+             // The two lines below try to check if the main window current position and the
+             // current window, i.e. the window Hugo just set for this image,
+             // are close enough.
+
+             ((ABS(oldx - wins[curwin].x0) < gbufcellw * 2 && // The difference between main window last printed
+               // character position (inaccurate because it is a buffer
+               // window but the position is calculated using grid cellwidth)
+               // and current window left edge is less than two (grid) characters
+
+               ABS(wins[mainwin].y1 - wins[curwin].y1) < gbufcellh * 2)  // The difference betwee main window bottom edge
+              // and current window bottom edge is less than two
+              // characters
+
+              || istraveling)
+
+             && !isczk && !isenceladus && !isnecrotic && !isfallacy)) {
+            // In Cryptozookeeper, this breaks the main menu. Enceladus simply looks better
+            // with images in their own windows, vertically centered.
+
+            // Scale down again to buffer margins
+            x0 = wins[mainwin].x0 + gbuffermarginx;
+            x1 = wins[mainwin].x1 - gbuffermarginx;
+
+            if (origwidth < x1 - x0) {
+                width = origwidth;
+                height = origwidth * aspect;
+            } else if (width > x1 - x0) {
                 width = x1 - x0;
                 height = width * aspect;
             }
 
-            if (y1 == y0) {
-                y1 = y0 + gcellh;
-                if (y1 > gscreenh)
-                {
-                    y1 = gscreenh;
-                    y0 = gscreenh - gcellh;
-                }
-            }
-            if (height > y1 - y0)
+            int linecount = height / gbufcellh + 1;
+            LOG("  PictureInText at line %d, window %d\n", linecount, mainwin);
+
+            if (1) // nlbufwin == mainwin)
             {
-                height = y1 - y0;
-                width = height / aspect;
+                nlbufcnt -= linecount;
+                if (nlbufcnt < 0)
+                    nlbufcnt = 0;
             }
 
-            int xoff = ((x1 - x0) - width) / 2;
-            int yoff = ((y1 - y0) - height) / 2;
+            hugo_flushnl();
+            glk_set_window(wins[mainwin].win);
 
-            LOG("hugo_displaypicture w=%d h=%d x offset: %d y offset: %d\n", width, height, xoff, yoff);
+            // We use a centered style for the image and
+            // give it its own paragraph
+            glk_set_style(style_User1);
+            glk_put_char(' ');
+            glk_set_hyperlink(1);
+            win_drawimage(wins[mainwin].win->peer, imagealign_InlineUp, 0, width, height);
+            glk_set_hyperlink(0);
+            wins[mainwin].clear = 0;
+            glk_put_char('\n');
+            glk_set_style(style_Normal);
 
-            hugo_unmapcleared();
+            wins[curwin].clear = 1;
+            wins[curwin].y1 = 0;
+            wins[curwin].b = 0;
 
-            LOG("ABS(oldx - wins[curwin].x0) = %d  gcellw * 2 = %f\n", ABS(oldx - wins[curwin].x0),  gcellw * 2);
-            LOG("ABS(wins[mainwin].y1 - wins[curwin].y1) = %d  gbufcellh * 2 = %f\n", ABS(wins[mainwin].y1 - wins[curwin].y1),  gbufcellh * 2);
-
-            // Prints an inline image in the main text window instead of replacing it with a new graphics window.
-            // This will break any graphical menus that expect mouse input with correct coordinates,
-            // such as the main menu of Cryptozookeeper, so we'll need to check for that here.
-
-            if ((mainwin && wins[mainwin].win && // We have a main window with Glk counterpart
-
-                 // The two lines below try to check if the main window current position and the
-                 // current window, i.e. the window Hugo just set for this image,
-                 // are close enough.
-
-                 ((ABS(oldx - wins[curwin].x0) < gbufcellw * 2 && // The difference between main window last printed
-                   // character position (inaccurate because it is a buffer
-                   // window but the position is calculated using grid cellwidth)
-                   // and current window left edge is less than two (grid) characters
-
-                   ABS(wins[mainwin].y1 - wins[curwin].y1) < gbufcellh * 2)  // The difference betwee main window bottom edge
-                  // and current window bottom edge is less than two
-                  // characters
-
-                  || istraveling)
-
-                 && !isczk && !isenceladus && !isnecrotic && !isfallacy)) {
-                // In Cryptozookeeper, this breaks the main menu. Enceladus simply looks better
-                // with images in their own windows, vertically centered.
-
-                // Scale down again to buffer margins
-                x0 = wins[mainwin].x0 + gbuffermarginx;
-                x1 = wins[mainwin].x1 - gbuffermarginx;
-
-                if (origwidth < x1 - x0) {
-                    width = origwidth;
-                    height = origwidth * aspect;
-                } else if (width > x1 - x0) {
-                    width = x1 - x0;
-                    height = width * aspect;
-                }
-
-                int linecount = height / gbufcellh + 1;
-                LOG("  PictureInText at line %d, window %d\n", linecount, mainwin);
-
-                if (1) // nlbufwin == mainwin)
-                {
-                    nlbufcnt -= linecount;
-                    if (nlbufcnt < 0)
-                        nlbufcnt = 0;
-                }
-
-                hugo_flushnl();
-                glk_set_window(wins[mainwin].win);
-
-                // We use a centered style for the image and
-                // give it its own paragraph
-                glk_set_style(style_User1);
-                glk_put_char(' ');
-                glk_set_hyperlink(1);
-                win_drawimage(wins[mainwin].win->peer, imagealign_InlineUp, 0, width, height);
-                glk_set_hyperlink(0);
-                wins[mainwin].clear = 0;
-                glk_put_char('\n');
-                glk_set_style(style_Normal);
-
-                wins[curwin].clear = 1;
-                wins[curwin].y1 = 0;
-                wins[curwin].b = 0;
-
-                if (second_image_row)
-                {
-                    wins[mainwin].y0 = wins[second_image_row].y1;
-                }
-            }
-            else
+            if (second_image_row)
             {
-                // Here we create a new graphic window instead
-                if (wins[curwin].win)
-                {
-                    LOG("  unmap old window %d for graphics\n", curwin);
-                    if (wins[curwin].win->type != wintype_Graphics && !wins[curwin].clear) {
-                        LOG("  pausing to let the player read the text in window %d before we delete it (and swap to graphics)\n", curwin);
-                        hugo_waitforkey();
-                    }
-                    gli_delete_window(wins[curwin].win);
-                    wins[curwin].win = 0;
-                }
-
-                if (isfutureboy && ((width > 30 && width < 50 && height > 9 && height < 15) || (screenwidth_in_chars < 60 && ABS(screenwidth_in_chars / 2 - width) < 3))) {
-                    future_boy_main_image = curwin;
-                    future_boy_main_image_right = (wins[curwin].l > screenwidth_in_chars / 2);
-                    LOG("  Decided that the current image is Future Boy main image (%d)\n", curwin);
-                    if (future_boy_main_image_right)
-                        LOG("  and that it is right-aligned\n");
-                    else
-                        LOG("  and that it is left-aligned\n");
-
-                    if (x1 - x0 < (wins[curwin].r - wins[curwin].l) * gcellw) {
-                        x1 = (wins[curwin].r - wins[curwin].l) * gcellw + x0;
-                        y1 = (wins[curwin].b - wins[curwin].t) * gcellh + y0;
-                    }
-                }
-
-                wins[curwin].win = gli_new_window(wintype_Graphics, 0);
-                win_sizewin(wins[curwin].win->peer,
-                            x0, y0,
-                            x1, y1);
-
-                wins[curwin].x0 = x0;
-                wins[curwin].y0 = y0;
-                wins[curwin].x1 = x1;
-                wins[curwin].y1 = y1;
-
-                win_maketransparent(wins[curwin].win->peer);
-
-                int color = hugo_color(wins[curwin].bg);
-
-                LOG("hugo_displaypicture: fill a rect with background color %x: width %d, height %d\n", hugo_color(wins[curwin].bg), abs(x1-x0), abs(y1-y0));
-                win_fillrect(wins[curwin].win->peer, color, 0, 0, abs(x1-x0), abs(y1-y0));
-                LOG("hugo_displaypicture: draw image: x offset %d, y offset %d, width %d, height %d\n", xoff, yoff, width, height);
-                win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height);
-                wins[curwin].clear = 0;
-
+                wins[mainwin].y0 = wins[second_image_row].y1;
             }
+        }
+        else
+        {
+            // Here we create a new graphic window instead
+            if (wins[curwin].win)
+            {
+                LOG("  unmap old window %d for graphics\n", curwin);
+                if (wins[curwin].win->type != wintype_Graphics && !wins[curwin].clear) {
+                    LOG("  pausing to let the player read the text in window %d before we delete it (and swap to graphics)\n", curwin);
+                    hugo_waitforkey();
+                }
+                gli_delete_window(wins[curwin].win);
+                wins[curwin].win = 0;
+            }
+
+            if (isfutureboy && ((width > 30 && width < 50 && height > 9 && height < 15) || (screenwidth_in_chars < 60 && ABS(screenwidth_in_chars / 2 - width) < 3))) {
+                future_boy_main_image = curwin;
+                future_boy_main_image_right = (wins[curwin].l > screenwidth_in_chars / 2);
+                LOG("  Decided that the current image is Future Boy main image (%d)\n", curwin);
+                if (future_boy_main_image_right)
+                    LOG("  and that it is right-aligned\n");
+                else
+                    LOG("  and that it is left-aligned\n");
+
+                if (x1 - x0 < (wins[curwin].r - wins[curwin].l) * gcellw) {
+                    x1 = (wins[curwin].r - wins[curwin].l) * gcellw + x0;
+                    y1 = (wins[curwin].b - wins[curwin].t) * gcellh + y0;
+                }
+            }
+
+            wins[curwin].win = gli_new_window(wintype_Graphics, 0);
+            win_sizewin(wins[curwin].win->peer,
+                        x0, y0,
+                        x1, y1);
+
+            wins[curwin].x0 = x0;
+            wins[curwin].y0 = y0;
+            wins[curwin].x1 = x1;
+            wins[curwin].y1 = y1;
+
+            win_maketransparent(wins[curwin].win->peer);
+
+            int color = hugo_color(wins[curwin].bg);
+
+            LOG("hugo_displaypicture: fill a rect with background color %x: width %d, height %d\n", hugo_color(wins[curwin].bg), abs(x1-x0), abs(y1-y0));
+            win_fillrect(wins[curwin].win->peer, color, 0, 0, abs(x1-x0), abs(y1-y0));
+            LOG("hugo_displaypicture: draw image: x offset %d, y offset %d, width %d, height %d\n", xoff, yoff, width, height);
+            win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height);
+            wins[curwin].clear = 0;
+
         }
     }
 
