@@ -17,6 +17,8 @@ void getworkdir()
         NSDictionary *gFolderMap = @{@"scare": @"SCARE",
                                      @"advsys": @"AdvSys",
                                      @"agility": @"AGiliTy",
+                                     @"alan": @"Alan 2",
+                                     @"alan 3": @"Alan 3",
                                      @"glulxe": @"Glulxe",
                                      @"hugo": @"Hugo",
                                      @"level9": @"Level 9",
@@ -33,7 +35,11 @@ void getworkdir()
         if (error)
             NSLog(@"Could not find Application Support folder. Error: %@", error);
 
-        NSString *firstWord = [[[[NSString stringWithUTF8String:gli_program_name] componentsSeparatedByString:@" "] objectAtIndex:0] lowercaseString];
+        NSString *terpName = [NSString stringWithUTF8String:gli_program_name];
+        NSString *firstWord = [[[terpName componentsSeparatedByString:@" "] objectAtIndex:0] lowercaseString];
+
+        if ([firstWord isEqualToString:@"alan"] && [[[terpName componentsSeparatedByString:@"."] objectAtIndex:0] isEqualToString:@"Alan 3"])
+            firstWord = @"alan 3";
 
         NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", [gFolderMap objectForKey:firstWord]];
 
