@@ -93,13 +93,6 @@ void win_stylehint(int type, int styl, int hint, int val);
 void win_clearhint(int type, int styl, int hint);
 int win_style_measure(int name, int styl, int hint, glui32 *result);
 
-int win_newchan(void);
-void win_delchan(int chan);
-void win_setvolume(int chan, int volume);
-int  win_findsound(int resno);
-void win_loadsound(int resno, char *buf, int len);
-void win_playsound(int chan, int repeats, int notify);
-void win_stopsound(int chan);
 void win_sound_notify(int snd, int notify);
 void win_volume_notify(int notify);
 void win_autosave(int hash);
@@ -403,7 +396,7 @@ extern glui32 generate_tag(void);
 
 extern void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length, char *filename, size_t offset);
 extern glui32 gli_detect_sound_format(char *buf, size_t len);
-extern void gli_stop_all_sound_channels();
+extern void gli_stop_all_sound_channels(void);
 
 
 

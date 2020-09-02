@@ -530,58 +530,6 @@ void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 heig
     }
 }
 
-int win_newchan(void)
-{
-    win_flush();
-    if (!gli_enable_sound)
-        return 0;
-    sendmsg(NEWCHAN, 0, 0, 0, 0, 0, 0, NULL);
-    readmsg(&wmsg, wbuf);
-    return wmsg.a1;
-}
-
-void win_delchan(int chan)
-{
-    win_flush();
-    sendmsg(DELCHAN, chan, 0, 0, 0, 0, 0, NULL);
-}
-
-int win_findsound(int resno)
-{
-    win_flush();
-    if (!gli_enable_sound)
-        return 0;
-    sendmsg(FINDSOUND, resno, 0, 0, 0, 0, 0, NULL);
-    readmsg(&wmsg, wbuf);
-    return wmsg.a1;
-}
-
-void win_loadsound(int resno, char *buf, int len)
-{
-    win_flush();
-    if (gli_enable_sound)
-        sendmsg(LOADSOUND, resno, 0, 0, 0, 0, len, buf);
-}
-
-void win_setvolume(int chan, int volume)
-{
-    win_flush();
-    sendmsg(SETVOLUME, chan, volume, 0, 0, 0, 0, NULL);
-}
-
-void win_playsound(int chan, int repeats, int notify)
-{
-    win_flush();
-    if (gli_enable_sound)
-        sendmsg(PLAYSOUND, chan, repeats, notify, 0, 0, 0, NULL);
-}
-
-void win_stopsound(int chan)
-{
-    win_flush();
-    sendmsg(STOPSOUND, chan, 0, 0, 0, 0, 0, NULL);
-}
-
 void win_stylehint(int wintype, int styl, int hint, int val)
 {
     win_flush();
