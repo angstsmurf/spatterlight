@@ -206,24 +206,18 @@ void win_unprint(int name, glui32 *s, int len)
 
 void wintitle(void)
 {
-    char buf[256];
-    buf[0] = '\0';
-    if (strlen(gli_story_title)) {
-        sprintf(buf, "%s", gli_story_title);
-    }
-//    else if (strlen(gli_story_name))
-//        sprintf(buf, "%s", gli_story_name);
-//        //sprintf(buf, "%s - %s", gli_story_name, gli_program_name);
-//    else
-//        sprintf(buf, "%s", gli_program_name);
-    if (strlen(buf))
-    {
-        sendmsg(SETTITLE, 0, 0, 0, 0, 0,
-                (int)(strlen(buf)), // * sizeof(unsigned short)
-                (char*)buf);
-//#ifdef DEBUG
-//        fprintf(stderr, "Sent change title request: length %d, title %s (Latin-1, not Unicode)\n", (int)(strlen(buf)), (char*)buf);
-//#endif
+    size_t len = strlen(gli_story_title);
+    if (len) {
+        char *buf = malloc(len);
+        strcpy(buf, gli_story_title);
+
+        if (strlen(buf))
+        {
+            sendmsg(SETTITLE, 0, 0, 0, 0, 0,
+                    (int)len,
+                    buf);
+        }
+        free(buf);
     }
 }
 
