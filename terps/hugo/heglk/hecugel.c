@@ -18,7 +18,8 @@
 #undef ftell
 #undef fseek
 
-#define LOG(...) fprintf(stderr, __VA_ARGS__)
+#define LOG(...)
+//fprintf(stderr, __VA_ARGS__)
 
 #define ABS(a) ((a) < 0 ? -(a) : (a))
 #define MIN(a,b) (a < b ? a : b)
