@@ -1031,7 +1031,7 @@
         textstorage = [[NSTextStorage alloc] init];
 
         layoutmanager = [[NSLayoutManager alloc] init];
-        layoutmanager.backgroundLayoutEnabled = YES;
+//        layoutmanager.backgroundLayoutEnabled = YES;
         [textstorage addLayoutManager:layoutmanager];
 
         container = [[MarginContainer alloc]
