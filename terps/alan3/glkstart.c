@@ -1,6 +1,6 @@
 /* glkstart.c: Unix-specific startup code
    Adapted for Alan by Joe Mason <jcmason@uwaterloo.ca>
-   And tweaked by Thomas Nilsson <thomas@alanif.se>
+   And tweaked by Thomas Nilefalk <thomas@alanif.se>
 
    Based on the sample file designed by
    Andrew Plotkin <erkyrath@netcom.com>
@@ -19,6 +19,7 @@
 #include "args.h"
 #include "main.h"
 #include "glk.h"
+#include "glkimp.h"
 #include "glkstart.h"
 #include "glkio.h"
 #include "resources.h"
@@ -76,11 +77,11 @@ static void openResourceFile() {
     giblorb_err_t ecode;
 
 #ifdef HAVE_GARGLK
-	if (strrchr(resourceFileName, '/'))
-		resourceFileName = strrchr(resourceFileName, '/') + 1;
-	else if (strrchr(resourceFileName, '\\'))
-		resourceFileName = strrchr(resourceFileName, '\\') + 1;
-	if (!resourceFileName)
+    if (strrchr(resourceFileName, '/'))
+        resourceFileName = strrchr(resourceFileName, '/') + 1;
+    else if (strrchr(resourceFileName, '\\'))
+        resourceFileName = strrchr(resourceFileName, '\\') + 1;
+    if (!resourceFileName)
 		resourceFileName = originalFileName;
 
 	if (extension)
@@ -98,9 +99,15 @@ static void openResourceFile() {
     resourceFileRef = glk_fileref_create_by_name(fileusage_BinaryMode,
                                                  resourceFileName, 0);
 #endif
+
+    free(resourceFileRef->filename);
+    resourceFileRef->filename = malloc(1 + strlen(originalFileName));
+    strcpy(resourceFileRef->filename, originalFileName);
+
     if (glk_fileref_does_file_exist(resourceFileRef)) {
         resourceFile = glk_stream_open_file(resourceFileRef, filemode_Read, 0);
         ecode = giblorb_set_resource_map(resourceFile);
+        (void)ecode;
     }
     free(originalFileName);
 }
@@ -118,7 +125,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
 #ifdef HAVE_GARGLK
 	garglk_set_program_name(alan.shortHeader);
-	garglk_set_program_info("Alan Interpreter 3.0 beta 2 by Thomas Nilsson\n");
+	char info[80];
+	sprintf(info, "%s Interpreter by Thomas Nilefalk\n", alan.shortHeader);
+	garglk_set_program_info(info);
 #endif
 
     /* now process the command line arguments */
@@ -127,7 +136,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
     if (adventureFileName == NULL || strcmp(adventureFileName, "") == 0) {
         printf("You should supply a game file to play.\n");
         usage("arun"); // TODO Find real programname from arguments
-        terminate(0);
+        terminate(1);
     }
 
     /* Open any possible blorb resource file */
@@ -138,17 +147,18 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
 
 
+#ifdef HAVE_WINGLK
 static int argCount;
 static char *argumentVector[10];
 
 /*----------------------------------------------------------------------*/
 static void splitArgs(char *commandLine) {
-    unsigned char *cp = commandLine;
+    unsigned char *cp = (unsigned char *)commandLine;
 
     while (*cp) {
         while (*cp && isspace(*cp)) cp++;
         if (*cp) {
-            argumentVector[argCount++] = cp;
+            argumentVector[argCount++] = (char *)cp;
             if (*cp == '"') {
                 do {
                     cp++;
@@ -166,7 +176,6 @@ static void splitArgs(char *commandLine) {
 }
 
 
-#ifdef HAVE_WINGLK
 /*======================================================================*/
 int winglk_startup_code(const char* cmdline)
 {

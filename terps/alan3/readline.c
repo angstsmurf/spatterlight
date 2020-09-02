@@ -150,6 +150,7 @@ bool readline(char buffer[])
                         break;
                     case ID_MENU_ABOUT:
                         e = DialogBox(myInstance, MAKEINTRESOURCE(IDD_ABOUT), NULL, &AboutDialogProc);
+                        (void)e;
                         break;
                     }
                     break;
@@ -184,11 +185,7 @@ bool readline(char buffer[])
 #include <termios.h>
 #endif
 
-#ifdef __PACIFIC__
-#include <unixio.h>
-#else
 #include <unistd.h>
-#endif
 
 #include "readline.h"
 
@@ -277,7 +274,7 @@ static KeyMap keymap[] = {
     {0x0a, 0x0a, newLine},
     {0x1b, 0x1b, escHook},
     {0x1c, 0x7e, insertCh},
-#ifdef __macosx__
+#ifdef __macos__
     {0x7f, 0x7f, delBwd},		/* Standard UNIX : delFwd, MACOSX : delBwd */
 #elif __linux__
     {0x7f, 0x7f, delBwd},		/* Standard UNIX : delFwd, MACOSX : delBwd */
@@ -644,12 +641,12 @@ static void echoOn()
 }
 
 static void stripNewline(char *buffer) {
-	if (buffer[strlen(buffer)-1] == '\n')
-		buffer[strlen(buffer)-1] = '\0';
+    if (buffer[strlen(buffer)-1] == '\n')
+        buffer[strlen(buffer)-1] = '\0';
 }
 
 static void copyToUserBuffer(char *usrbuf, char *buffer) {
-	strcpy(usrbuf, (char *)buffer);
+    strcpy(usrbuf, (char *)buffer);
 }
 
 /*======================================================================
@@ -661,7 +658,7 @@ static void copyToUserBuffer(char *usrbuf, char *buffer) {
 
 */
 
-/* 4f - length of user buffer should be used */
+/* TODO - length of user buffer should be used */
 bool readline(char usrbuf[])
 {
     static bool readingCommands = FALSE;
