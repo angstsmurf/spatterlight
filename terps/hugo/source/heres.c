@@ -183,7 +183,7 @@ void PlayMusic(void)
 	}
 
 	/* No file type identified */
-	resource_type = UNKNOWN_R;
+	/* resource_type = UNKNOWN_R; */
 
 Identified:
 	fseek(resource_file, resstart, SEEK_SET);
