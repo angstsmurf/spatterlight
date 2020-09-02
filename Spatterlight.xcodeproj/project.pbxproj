@@ -136,6 +136,7 @@
 		6DC6214623A26078002DEF3B /* Interpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214523A26078002DEF3B /* Interpreter.m */; };
 		6DC79A832455AD4800CD9989 /* hecugel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DC79A822455AD4800CD9989 /* hecugel.c */; };
 		6DC79B1C24564B2700CD9989 /* mpg123.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DC79B1B24564B2700CD9989 /* mpg123.c */; };
+		6DCA0A5B24FFDDED00EA14C9 /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DCA0A5A24FFDDED00EA14C9 /* types.c */; };
 		6DCDD44C23104AC4006715DD /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DCDD44B23104AC4006715DD /* fonts */; };
 		6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		6DCFFC2122BCD1730035FA99 /* Fonts License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
@@ -1240,6 +1241,7 @@
 		6DC6214823A26078002DEF3B /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Metadata.m; path = coredata/Metadata.m; sourceTree = SOURCE_ROOT; };
 		6DC79A822455AD4800CD9989 /* hecugel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hecugel.c; path = heglk/hecugel.c; sourceTree = "<group>"; };
 		6DC79B1B24564B2700CD9989 /* mpg123.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mpg123.c; path = support/sdl_sound/decoders/mpg123.c; sourceTree = "<group>"; };
+		6DCA0A5A24FFDDED00EA14C9 /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
 		6DCDD44B23104AC4006715DD /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spatterlight.xcdatamodel; sourceTree = "<group>"; };
 		6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Fonts License.rtf"; sourceTree = "<group>"; };
@@ -3773,6 +3775,7 @@
 				9650326B09F29EE20083E64E /* syserr.h */,
 				9650326D09F29EE20083E64E /* term.h */,
 				9650326E09F29EE20083E64E /* types.h */,
+				6DCA0A5A24FFDDED00EA14C9 /* types.c */,
 				9650327209F29EE20083E64E /* version.h */,
 				9650322109F29EE20083E64E /* act.c */,
 				9650322309F29EE20083E64E /* alan.version.c */,
@@ -5776,6 +5779,7 @@
 				C39DE2951ECB7C6000CE5B70 /* Location.c in Sources */,
 				C39DE2821ECB7BD700CE5B70 /* ParameterPosition.c in Sources */,
 				C39DE29C1ECB7C6000CE5B70 /* StateStack.c in Sources */,
+				6DCA0A5B24FFDDED00EA14C9 /* types.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
