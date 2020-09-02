@@ -2340,7 +2340,7 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case FLOWBREAK:
-            NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
+            //NSLog(@"glkctl: WEE! WE GOT A FLOWBREAK! ^^;");
             if (reqWin) {
                 [reqWin flowBreak];
             }

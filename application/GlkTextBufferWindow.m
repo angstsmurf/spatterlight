@@ -470,9 +470,9 @@
         flowrect = [f boundsWithLayout:self.layoutManager];
 
         if (NSIntersectsRect(flowrect, rect)) {
-            NSLog(@"MarginContainer: looking for an image that intersects "
-                  @"flowbreak %ld (%@)",
-                  [flowbreaks indexOfObject:f], NSStringFromRect(flowrect));
+//            NSLog(@"MarginContainer: looking for an image that intersects "
+//                  @"flowbreak %ld (%@)",
+//                  [flowbreaks indexOfObject:f], NSStringFromRect(flowrect));
 
             CGFloat lowest = 0;
 
