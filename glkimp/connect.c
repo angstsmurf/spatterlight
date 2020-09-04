@@ -208,7 +208,7 @@ void wintitle(void)
 {
     size_t len = strlen(gli_story_title);
     if (len) {
-        char *buf = malloc(len);
+        char *buf = malloc(len + 1);
         strcpy(buf, gli_story_title);
 
         if (strlen(buf))
@@ -479,7 +479,7 @@ void win_loadimage(int resno, char *filename, int offset, int reslen)
         int len = strlen(filename);
         if (len)
         {
-            char *buf = malloc(len);
+            char *buf = malloc(len + 1);
             strcpy(buf, filename);
             sendmsg(LOADIMAGE, resno, offset, reslen, 0, 0, len, buf);
             free(buf);

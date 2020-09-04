@@ -697,7 +697,7 @@ void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length, cha
     res->length = length;
     if (filename != NULL)
     {
-        res->filename = malloc(strlen(filename));
+        res->filename = malloc(strlen(filename) + 1);
         strncpy(res->filename, filename, strlen(filename));
     }
     else res->filename = NULL;
