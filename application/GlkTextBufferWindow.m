@@ -1231,6 +1231,7 @@
         NSLog(@"GlkTexBufferWindow recalcBackground: color error!");
     }
 
+    _textview.editable = YES;
     _textview.backgroundColor = bgcolor;
     _textview.insertionPointColor = fgcolor;
 
