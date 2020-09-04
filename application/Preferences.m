@@ -1318,6 +1318,9 @@ NSString *fontToString(NSFont *font) {
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window
                         defaultFrame:(NSRect)newFrame {
 
+    if (window != self.window)
+        return newFrame;
+    
     if (!previewShown) {
         [self resizeWindowToHeight:kDefaultPrefWindowHeight];
     } else {
