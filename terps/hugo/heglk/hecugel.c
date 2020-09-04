@@ -1539,20 +1539,12 @@ void heglk_adjust_guilty_bastards_windows(void)
 void hugo_settextwindow(int left, int top, int right, int bottom)
 {
     int x0, y0, x1, y1;
-    int origleft, origtop, origright, origbottom;
     int type = ISMAIN;
     int new_below_status = false;
     int new_second_image_row = false;
     int matches = 0;
     int halfscreenwidth = false;
     int peggedtoright = false;
-
-    int reused = false;
-
-    origleft = left;
-    origtop = top;
-    origright = right;
-    origbottom = bottom;
 
     int i;
 
@@ -1866,7 +1858,6 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         lastbg = -1;
     } else {
         LOG("Reused window context %d\n", curwin);
-        reused = true;
     }
 
     wins[curwin].isaux = (type == ISAUX);
