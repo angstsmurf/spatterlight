@@ -1315,6 +1315,18 @@ NSString *fontToString(NSFont *font) {
     return frameSize;
 }
 
+- (NSRect)windowWillUseStandardFrame:(NSWindow *)window
+                        defaultFrame:(NSRect)newFrame {
+
+    if (!previewShown) {
+        [self resizeWindowToHeight:kDefaultPrefWindowHeight];
+    } else {
+            [self resizeWindowToHeight:[self previewHeight]];
+    }
+
+    return window.frame;
+};
+
 - (void)resizeWindowToHeight:(CGFloat)height {
     NSWindow *prefsPanel = self.window;
 
