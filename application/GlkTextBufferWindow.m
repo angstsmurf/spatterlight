@@ -1031,7 +1031,8 @@
         textstorage = [[NSTextStorage alloc] init];
 
         layoutmanager = [[NSLayoutManager alloc] init];
-//        layoutmanager.backgroundLayoutEnabled = YES;
+        layoutmanager.backgroundLayoutEnabled = YES;
+        layoutmanager.allowsNonContiguousLayout = YES;
         [textstorage addLayoutManager:layoutmanager];
 
         container = [[MarginContainer alloc]
@@ -2114,6 +2115,8 @@
         w = (NSInteger)image.size.width;
     if (h == 0)
         h = (NSInteger)image.size.height;
+
+    layoutmanager.allowsNonContiguousLayout = NO;
 
     if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
         if (_lastchar != '\n' && textstorage.length) {
