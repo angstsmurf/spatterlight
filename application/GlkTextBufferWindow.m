@@ -2132,15 +2132,15 @@
 
         image = [self scaleImage:image size:NSMakeSize(w, h)];
 
-        tiffdata = image.TIFFRepresentation;
+        //        tiffdata = image.TIFFRepresentation;
+        //
+        //        [container addImage:[[NSImage alloc] initWithData:tiffdata]
+        //                      align:align
+        //                         at:textstorage.length - 1
+        //                     linkid:(NSUInteger)self.currentHyperlink];
 
-        [container addImage:[[NSImage alloc] initWithData:tiffdata]
-                      align:align
-                         at:textstorage.length - 1
-                     linkid:(NSUInteger)self.currentHyperlink];
-
-        //        [container addImage: image align: align at:
-        //        textstorage.length - 1 linkid:linkid];
+        [container addImage: image align: align at:
+         textstorage.length - 1 linkid:(NSUInteger)self.currentHyperlink];
 
     } else {
         //        NSLog(@"adding image to text");
