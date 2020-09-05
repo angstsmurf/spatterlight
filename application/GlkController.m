@@ -1963,7 +1963,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (terminator_setting) {
             myDict[key] = @(YES);
         } else
-            NSLog(@"Illegal line terminator request: %u", buf[i]);
+            NSLog(@"Illegal line terminator request: %x", buf[i]);
     }
     gwindow.terminatorsPending = YES;
 }

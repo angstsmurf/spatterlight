@@ -14,7 +14,8 @@
         bgnd = -1;
 
         _pendingTerminators = [[NSMutableDictionary alloc]
-                               initWithObjectsAndKeys:@(NO), @keycode_Func1,
+                               initWithObjectsAndKeys:
+                               @(NO), @keycode_Func1,
                                @(NO), @keycode_Func2,
                                @(NO), @keycode_Func3,
                                @(NO), @keycode_Func4,
@@ -26,8 +27,11 @@
                                @(NO), @keycode_Func10,
                                @(NO), @keycode_Func11,
                                @(NO), @keycode_Func12,
-                               @(NO),
-                               @keycode_Escape, nil];
+                               @(NO), @keycode_Left,
+                               @(NO), @keycode_Right,
+                               @(NO), @keycode_Up,
+                               @(NO), @keycode_Down,
+                               @(NO), @keycode_Escape, nil];
 
         currentTerminators = _pendingTerminators;
         _terminatorsPending = NO;
