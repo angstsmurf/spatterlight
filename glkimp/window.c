@@ -514,8 +514,10 @@ void glk_window_get_size(window_t *win, glui32 *width, glui32 *height)
 //            fprintf(stderr, "height: ( bbox.y1(%d) - bbox.y0:(%d) ) - ggridmarginy (%d) * 2 / gcellh (%f) = %d\n", win->bbox.y1, win->bbox.y0, ggridmarginy, gcellh, hgt);
             break;
         case wintype_TextBuffer:
-            wid = round(((win->bbox.x1 - win->bbox.x0) - gbuffermarginx * 2 - LINE_FRAGMENT_PADDING) / gbufcellw);
-            hgt = round(((win->bbox.y1 - win->bbox.y0) - gbuffermarginy * 2) / gbufcellh);
+            if (win->bbox.x0 + gbuffermarginx * 2 + LINE_FRAGMENT_PADDING <= win->bbox.x1)
+                wid = round(((win->bbox.x1 - win->bbox.x0) - gbuffermarginx * 2 - LINE_FRAGMENT_PADDING) / gbufcellw);
+            if (win->bbox.y0 + gbuffermarginy * 2 <= win->bbox.y1)
+                hgt = round(((win->bbox.y1 - win->bbox.y0) - gbuffermarginy * 2) / gbufcellh);
 //            fprintf(stderr, "wintype_TextBuffer: width: bbox.x1(%d) - bbox.x0:(%d) / gcellw (%f) = %d\n", win->bbox.x1, win->bbox.x0, gbufcellw, wid);
 //            fprintf(stderr, "height: ( bbox.y1(%d) - bbox.y0:(%d) ) - gbuffermarginy (%d) * 2 / gbufcellh (%f) = %d\n", win->bbox.y1, win->bbox.y0, gbuffermarginy, gbufcellh, hgt);
             break;
