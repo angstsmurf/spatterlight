@@ -1306,6 +1306,11 @@ NSString *fontToString(NSFont *font) {
         }
     }
 
+    if (zooming) {
+        zooming = NO;
+        return frameSize;
+    }
+
     if (frameSize.height <= kDefaultPrefWindowHeight) {
         previewShown = NO;
     } else previewShown = YES;
@@ -1320,15 +1325,34 @@ NSString *fontToString(NSFont *font) {
 
     if (window != self.window)
         return newFrame;
-    
+
+    CGFloat newHeight;
+
     if (!previewShown) {
-        [self resizeWindowToHeight:kDefaultPrefWindowHeight];
+        newHeight = kDefaultPrefWindowHeight;
+        zooming = YES;
     } else {
-            [self resizeWindowToHeight:[self previewHeight]];
+        newHeight = [self previewHeight];
     }
 
-    return window.frame;
+    NSRect currentFrame = window.frame;
+
+    CGFloat diff = currentFrame.size.height - newHeight;
+    currentFrame.origin.y += diff;
+    currentFrame.size.height = newHeight;
+
+    return currentFrame;
 };
+
+- (BOOL)windowShouldZoom:(NSWindow *)window toFrame:(NSRect)newFrame {
+    if (window != self.window)
+        return YES;
+    if (!previewShown && newFrame.size.height > kDefaultPrefWindowHeight)
+        return NO;
+    if (previewShown)
+        [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.1];
+    return YES;
+}
 
 - (void)resizeWindowToHeight:(CGFloat)height {
     NSWindow *prefsPanel = self.window;
