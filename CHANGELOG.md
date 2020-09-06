@@ -1,5 +1,28 @@
 # Change log
 
+## Unreleased
+
+- Improved Hugo support, with working images, sound and text colours
+- Bocfel is now the default Z-machine interpreter. (Currently there is no way to change it back to Frotz)
+- Support for Gargoyle Glk extensions for text colour and reverse video
+- Support for preloaded input
+- All TerpEtude tests pass
+- Alan 3 was updated to beta 6, and many games no longer crash
+- Image support in Alan 3
+- Improved performance when scrollback is large
+- Improved performance when displaying large images
+- Correctly detects more Level 9 games
+- Play Game menu entry and shortcut now work
+- Transcripts can now be turned off and autorestored without crashing Glulxe
+- Renamed "Transcript" to "Scrollback" in menu items
+- Fixed zoom button functionality on the preferences window
+- Fixed sorting on Last modified column in library
+- Sound is silenced immediately when switched off in preferences
+- Fixed a crash that would sometimes occur when resetting with the Alt+Command+R shortcut
+- Some games (such as Hugo Tetris and Hugo Zork) would stop working after downloading metadata from Ifdb
+- Themes would sometimes be cloned twice when editing a non-editable theme
+- Images dragged to the info window are now stored properly as a new cover image
+
 ## Release 0.5.12b
 
 - Library converted to use Core Data
