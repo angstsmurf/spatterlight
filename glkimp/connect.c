@@ -190,7 +190,9 @@ void win_print(int name, int ch, int at)
 
 void win_unprint(int name, glui32 *s, int len)
 {
-
+    if (!len)
+        return;
+    
     win_flush();
 
     glui32 ix;
