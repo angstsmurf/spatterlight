@@ -678,6 +678,9 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
         if ((long)fread(*buf, 1, *len, file) != *len && !feof(file)) return 0;
     }
 
+    if (!type && *buf && *len)
+        type = gli_detect_sound_format(*buf, *len);
+
     gli_set_sound_resource(snd, type, *buf, *len, NULL, 0);
     return type;
 }
