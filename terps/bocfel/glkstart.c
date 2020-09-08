@@ -25,7 +25,7 @@
 #include "glk.h"
 
 #ifdef ZTERP_GLK_BLORB
-#include <gi_blorb.h>
+#include "gi_blorb.h"
 #endif
 
 static void load_resources(void);

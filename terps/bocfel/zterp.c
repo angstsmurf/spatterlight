@@ -222,7 +222,7 @@ static void check_infocom(void)
     "88-840726",  "119-880429", "7-UG3AU5",   "15-820308",  "17-820427",  "18-820512",
     "19-820721",  "22-830331",  "23-830411",  "22-840518",  "48-840904",  "63-860811",
     "10-820818",  "12-821025",  "15-830331",  "16-830410",  "15-840518",  "17-840727",
-    "25-860811",
+    "25-860811"
   };
 
   for(size_t i = 0; i < sizeof v1234 / sizeof *v1234; i++)
@@ -432,6 +432,7 @@ void write_header(void)
 
     /* Interpreter number & version. */
     if(options.int_number < 1 || options.int_number > 11) options.int_number = 1; /* DEC */
+
     store_byte(0x1e, options.int_number);
     store_byte(0x1f, options.int_version);
 
