@@ -3,8 +3,8 @@
 #include <string.h>
 
 #include "sound.h"
-#include "stack.h"
 #include "process.h"
+#include "stack.h"
 #include "zterp.h"
 
 #ifdef ZTERP_GLK

@@ -52,11 +52,11 @@
 #include "objects.h"
 #include "osdep.h"
 #include "process.h"
+#include "sound.h"
 #include "stack.h"
 #include "unicode.h"
 #include "util.h"
 #include "zterp.h"
-#include "sound.h"
 
 bool header_fixed_font;
 
