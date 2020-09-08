@@ -56,6 +56,7 @@
 #include "unicode.h"
 #include "util.h"
 #include "zterp.h"
+#include "sound.h"
 
 bool header_fixed_font;
 
@@ -1743,6 +1744,19 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
         }
 
         break;
+
+       case evtype_SoundNotify:
+        {
+            struct window *saved3 = curwin;
+            end_of_sound();
+
+            /* It’s possible for an interrupt to switch windows; if it
+             * does, simply switch back.  This is the easiest way to deal
+             * with an undefined bit of the Z-machine.
+             */
+            if(curwin != saved3) set_current_window(saved3);
+            break;
+        }
 
       case evtype_CharInput:
         ZASSERT(input->type == INPUT_CHAR, "got unexpected evtype_CharInput");
