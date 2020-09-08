@@ -183,12 +183,17 @@ static bool is_story(const char *id)
 
 bool is_beyond_zork(void)
 {
-  return is_story("47-870915") || is_story("49-870917") || is_story("51-870923") || is_story("57-871221");
+  return is_story("47-870915") || is_story("49-870917") || is_story("51-870923") || is_story("57-871221") || is_story("60-880610");
 }
 
 bool is_journey(void)
 {
-  return is_story("83-890706");
+  return is_story("46-880603") || is_story("26-890316") || is_story("30-890322") || is_story("54-890526") || is_story("77-890616") || is_story("79-890627") || is_story("83-890706");
+}
+
+bool is_lurking_horror(void)
+{
+    return is_story("203-870506") || is_story("219-870912") || is_story("221-870918");
 }
 
 bool is_infocom_v1234;
