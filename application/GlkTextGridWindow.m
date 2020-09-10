@@ -598,6 +598,8 @@
 
     NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
 
+    NSMutableDictionary *attrDict = styles[style_Normal];
+
     if (!backingStorage) {
         NSString *spaces = [[[NSString alloc] init]
                             stringByPaddingToLength:(NSUInteger)(rows * (cols + 1) - (cols > 1))
@@ -605,7 +607,7 @@
                             startingAtIndex:0];
         backingStorage = [[NSTextStorage alloc]
                           initWithString:spaces
-                          attributes:styles[style_Normal]];
+                          attributes:attrDict];
     }
     if (newcols < cols) {
         // Delete characters if the window has become narrower
@@ -638,7 +640,7 @@
                                          startingAtIndex:0];
         NSAttributedString *string = [[NSAttributedString alloc]
                                       initWithString:spaces
-                                      attributes:styles[style_Normal]];
+                                      attributes:attrDict];
 
         for (r = cols; r < backingStorage.length - 1; r += (cols + 1)) {
             [backingStorage insertAttributedString:string atIndex:r];
@@ -659,7 +661,7 @@
                             startingAtIndex:0];
         NSAttributedString *string = [[NSAttributedString alloc]
                                       initWithString:spaces
-                                      attributes:styles[style_Normal]];
+                                      attributes:attrDict];
         [backingStorage appendAttributedString:string];
     } else if (backingStorage.length > desiredLength)
         [backingStorage
@@ -669,7 +671,7 @@
 
     NSAttributedString *newlinestring = [[NSAttributedString alloc]
                                          initWithString:@"\n"
-                                         attributes:styles[style_Normal]];
+                                         attributes:attrDict];
 
     // Instert a newline character at the end of each line to avoid reflow
     // during live resize. (We carefully have to print around these in the
