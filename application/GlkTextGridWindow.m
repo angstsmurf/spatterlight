@@ -1078,7 +1078,7 @@
     input.bordered = NO;
     input.action = @selector(typedEnter:);
     input.target = self;
-    input.allowsEditingTextAttributes = YES;
+    input.allowsEditingTextAttributes = NO;
     input.bezeled = NO;
     input.drawsBackground = NO;
     input.selectable = YES;
@@ -1110,6 +1110,8 @@
 }
 
 - (void)deferredGrabFocus:(id)sender {
+    NSDictionary *attrDict = [textstorage attributesAtIndex:0 effectiveRange:nil];
+    input.textColor = [attrDict[NSForegroundColorAttributeName] copy];
     [self.window makeFirstResponder:input];
 }
 
