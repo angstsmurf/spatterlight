@@ -1210,6 +1210,10 @@ static void hugo_unmapcleared(void)
 
 void hugo_handlearrange(void)
 {
+    if (heglk_get_linelength() == screenwidth_in_chars && heglk_get_screenheight() == screenheight_in_chars) {
+        return;
+    }
+
     screenwidth_in_chars = heglk_get_linelength();
     screenheight_in_chars = heglk_get_screenheight();
 
