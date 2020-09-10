@@ -966,6 +966,13 @@
     // NSLog(@"init char in %ld", (long)self.name);
     char_request = YES;
     dirty = YES;
+    if (self.glkctl.bureaucracy) {
+        self.currentReverseVideo = YES;
+        [self putString:@" " style:style_Normal];
+        self.currentReverseVideo = NO;
+        xpos--;
+    }
+
     [self speakStatus:nil];
 }
 
@@ -998,6 +1005,26 @@
 
     if (char_request && ch != keycode_Unknown) {
         [self.glkctl markLastSeen];
+
+        if (self.glkctl.bureaucracy) {
+            // Bureacracy on Bocfel will try to convert these keycodes
+            // to characters and then error out with
+            // "fatal error: @print_char called with invalid character"
+            // so we attempt to change them into something reasonable here.
+            if (ch == keycode_Up || ch == keycode_Home || ch == keycode_PageUp)
+                ch = '^';
+            else if (ch == keycode_Down || ch == keycode_Tab || ch == keycode_End || ch == keycode_PageDown)
+                ch = keycode_Return;
+            else if (ch == keycode_Left || ch == keycode_Erase)
+                ch = keycode_Delete;
+            else if (ch == keycode_Right)
+                ch = ' ';
+            else if (ch == keycode_Escape || (ch >= keycode_Func12 && ch <= keycode_Func1))
+                 ch = keycode_Unknown;
+            self.currentReverseVideo = NO;
+            [self putString:@" " style:style_Normal];
+            xpos--;
+        }
 
         // NSLog(@"char event from %ld", self.name);
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
