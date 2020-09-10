@@ -734,8 +734,16 @@
 
     NSRange selectedRange = textview.selectedRange;
 
-    if (cols == 0 || rows == 0)
+    if (cols == 0 || rows == 0 || length == 0)
         return;
+
+    // With certain fonts and sizes, strings containing only spaces will "collapse."
+    // So if the first character is a space, we replace it with a &nbsp;
+     if ([string characterAtIndex:0] == ' ') {
+        const unichar nbsp = 0xa0;
+        NSString *nbspstring = [NSString stringWithCharacters:&nbsp length:1];
+         string = [string stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:nbspstring];
+    }
 
     if (xpos > cols) {
         ypos += (xpos / cols);
