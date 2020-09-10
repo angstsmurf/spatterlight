@@ -459,8 +459,7 @@
 
      }];
 
-    if (self.theme.doStyles)
-        backingStorage = [self applyZColorsAndThenReverse:backingStorage];
+    backingStorage = [self applyZColorsAndThenReverse:backingStorage];
 
     // Now we can replace the text storager
     [textstorage setAttributedString:backingStorage];
@@ -775,12 +774,10 @@
 
     if (self.currentReverseVideo) {
         attrDict[@"ReverseVideo"] = @(YES);
-        if (self.theme.doStyles) {
-            if ( [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
-                // If the current colours are not already reversed by stylehint_ReverseColor,
-                // we reverse the colors here
-                attrDict = [self reversedAttributes:attrDict background:self.theme.gridBackground];
-            }
+        if (!self.theme.doStyles || [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
+            // If the current colours are not already reversed by stylehint_ReverseColor,
+            // we reverse the colors here
+            attrDict = [self reversedAttributes:attrDict background:self.theme.gridBackground];
         }
     }
 
@@ -1148,33 +1145,34 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
     GlkTextGridWindow * __unsafe_unretained weakSelf = self;
 
-    [attStr
-     enumerateAttribute:@"ZColor"
-     inRange:NSMakeRange(0, textstoragelength)
-     options:0
-     usingBlock:^(id value, NSRange range, BOOL *stop) {
-         if (!value) {
-             return;
-         }
-         NSLog(@"Re-Applying zcolors at range %@", NSStringFromRange(range));
-         ZColor *z = value;
-         [attStr
-          enumerateAttributesInRange:range
-          options:0
-          usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
-              NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
-              NSMutableDictionary *mutDict = [dict mutableCopy];
-              if ([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
-                  // Style has stylehint_ReverseColor set,
-                  // so we apply Zcolor with reversed attributes
-                  mutDict = [z reversedAttributes:mutDict];
-              } else {
-                  // Apply Zcolor normally
-                  mutDict = [z coloredAttributes:mutDict];
-              }
-              [attStr addAttributes:mutDict range:range2];
-          }];
-     }];
+    if (self.theme.doStyles) {
+        [attStr
+         enumerateAttribute:@"ZColor"
+         inRange:NSMakeRange(0, textstoragelength)
+         options:0
+         usingBlock:^(id value, NSRange range, BOOL *stop) {
+             if (!value) {
+                 return;
+             }
+             ZColor *z = value;
+             [attStr
+              enumerateAttributesInRange:range
+              options:0
+              usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
+                  NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+                  NSMutableDictionary *mutDict = [dict mutableCopy];
+                  if ([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+                      // Style has stylehint_ReverseColor set,
+                      // so we apply Zcolor with reversed attributes
+                      mutDict = [z reversedAttributes:mutDict];
+                  } else {
+                      // Apply Zcolor normally
+                      mutDict = [z coloredAttributes:mutDict];
+                  }
+                  [attStr addAttributes:mutDict range:range2];
+              }];
+         }];
+    }
 
     [attStr
      enumerateAttribute:@"ReverseVideo"
@@ -1184,7 +1182,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
          if (!value) {
              return;
          }
-         NSLog(@"Re-Applying reverse video at range %@", NSStringFromRange(range));
          [attStr
           enumerateAttributesInRange:range
           options:0
