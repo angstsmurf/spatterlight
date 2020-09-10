@@ -149,6 +149,12 @@ fprintf(stderr, "%s\n",                                                    \
     if ([_game.ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"])
          _deadCities = YES;
 
+    if ([_game.ifid isEqualToString:@"ZCODE-86-870212"] || [_game.ifid isEqualToString:@"ZCODE-116-870602"] || [_game.ifid isEqualToString:@"ZCODE-160-880521"])
+        _bureaucracy = YES;
+
+    if ([_game.ifid isEqualToString:@"ZCODE-47-870915"] || [_game.ifid isEqualToString:@"ZCODE-49-870917"] || [_game.ifid isEqualToString:@"ZCODE-51-870923"] || [_game.ifid isEqualToString:@"ZCODE-57-871221"] || [_game.ifid isEqualToString:@"ZCODE-60-880610"])
+        _beyondZork = YES;
+
     _gamefile = [_game urlForBookmark].path;
     _terpname = terpname_;
 
@@ -2263,7 +2269,7 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case SETBGND:
-            NSLog(@"glkctl: SETBGND %d, color %x (%d).", req->a1, req->a2, req->a2);
+//            NSLog(@"glkctl: SETBGND %d, color %x (%d).", req->a1, req->a2, req->a2);
             if (req->a2 < 0)
                 bg = _theme.bufferBackground;
             else

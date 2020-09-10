@@ -123,6 +123,8 @@
 
 //@property BOOL adrianMole;
 @property BOOL deadCities;
+@property BOOL bureaucracy;
+@property BOOL beyondZork;
 
 @property NSInteger autosaveVersion;
 
