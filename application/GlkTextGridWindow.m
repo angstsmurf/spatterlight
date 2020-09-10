@@ -1084,7 +1084,8 @@
     input.selectable = YES;
     input.delegate = self;
     input.font = self.theme.gridInput.font;
-    input.textColor = self.theme.gridInput.color;
+    NSDictionary *firstCharDict = [textstorage attributesAtIndex:0 effectiveRange:nil];
+    input.textColor = firstCharDict[NSForegroundColorAttributeName];
     [input.cell setWraps:YES];
 
     enteredTextSoFar = str;
@@ -1094,7 +1095,7 @@
 
     NSAttributedString *attString = [[NSAttributedString alloc]
                                      initWithString:str
-                                     attributes:styles[style_Input]];
+                                     attributes:firstCharDict];
 
     input.attributedStringValue = attString;
 
@@ -1110,8 +1111,6 @@
 }
 
 - (void)deferredGrabFocus:(id)sender {
-    NSDictionary *attrDict = [textstorage attributesAtIndex:0 effectiveRange:nil];
-    input.textColor = [attrDict[NSForegroundColorAttributeName] copy];
     [self.window makeFirstResponder:input];
 }
 
