@@ -1314,6 +1314,9 @@
              // (inline images, hyperlinks, Z-colors and reverse video)
              id image = attrs[@"NSAttachment"];
              if (image) {
+                 [backingStorage addAttribute: @"NSAttachment"
+                                        value: image
+                                        range: NSMakeRange(range.location, 1)];
                  ((MyAttachmentCell *)((NSTextAttachment *)image).attachmentCell).attrstr = backingStorage;
              }
 
