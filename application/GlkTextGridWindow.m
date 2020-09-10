@@ -73,6 +73,7 @@
         NSTextView* textField = (NSTextView*) [self currentEditor];
         if( [textField respondsToSelector: @selector(setInsertionPointColor:)] )
             [textField setInsertionPointColor:self.textColor];
+        textField.selectedRange = NSMakeRange(textField.string.length,0);
     }
     return success;
 }
@@ -314,11 +315,12 @@
         textview.selectedRange = _restoredSelection;
         if (line_request) {
             NSArray *subviews = textview.subviews;
-            for (NSView *view in subviews) {
-                if ([view isKindOfClass:[NSTextField class]]) {
-                    input = (MyGridTextField *)view;
-                    [input removeFromSuperview];
-                    NSLog(@"Found old input textfield!");
+            if (subviews) {
+                for (NSView *view in subviews) {
+                    if ([view isKindOfClass:[NSTextField class]]) {
+                        input = (MyGridTextField *)view;
+                        [input removeFromSuperview];
+                    }
                 }
             }
 
@@ -468,21 +470,26 @@
     linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
     textview.linkTextAttributes = linkAttributes;
 
+    textview.selectedRange = selectedRange;
+    dirty = NO;
+
+    [self recalcBackground];
+    [self checkForUglyBorder];
+
     if (line_request) {
         if (!enteredTextSoFar)
             enteredTextSoFar = @"";
         if (input) {
-            [input removeFromSuperview];
-            enteredTextSoFar = input.stringValue;
+            enteredTextSoFar = [input.stringValue copy];
+            input = nil;
         }
-        [self initLine:enteredTextSoFar];
+
+        fieldEditor = nil;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSelector:@selector(deferredInitLine:) withObject:enteredTextSoFar afterDelay:0];
+        });
     }
-
-    textview.selectedRange = selectedRange;
-//    [self setNeedsDisplay:YES];
-    dirty = NO;
-
-    [self recalcBackground];
 }
 
 
@@ -510,6 +517,7 @@
     else
         [self.glkctl setBorderColor:bgcolor fromWindow:self];
 
+    textview.editable = YES;
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = bgcolor;
 }
@@ -521,8 +529,9 @@
 }
 
 - (void)checkForUglyBorder {
-    if (self.theme.gridMarginX == 0 && self.theme.gridMarginY == 0)
+    if (!textstorage.length)
         return;
+
     NSRange range;
     NSDictionary *attrDict = [textstorage attributesAtIndex:0 effectiveRange:&range];
     if (range.length >= cols - 2) {
@@ -1090,9 +1099,6 @@
 
     enteredTextSoFar = str;
 
-    if (str.length == 0)
-        str = @" ";
-
     NSAttributedString *attString = [[NSAttributedString alloc]
                                      initWithString:str
                                      attributes:firstCharDict];
@@ -1157,6 +1163,15 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 }
 
 - (void)deferredInitLine:(id)sender {
+    NSArray *subviews = textview.subviews;
+    if (subviews) {
+        for (NSView *view in subviews) {
+            if ([view isKindOfClass:[NSTextField class]]) {
+                input = (MyGridTextField *)view;
+                [input removeFromSuperview];
+            }
+        }
+    }
     [self initLine:(NSString *)sender];
 }
 
