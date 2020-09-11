@@ -8,6 +8,14 @@
 
 #import "HelpPanelController.h"
 
+#ifdef DEBUG
+#define NSLog(FORMAT, ...)                                                     \
+fprintf(stderr, "%s\n",                                                    \
+[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(...)
+#endif
+
 @implementation HelpTextView
 
 // Text finder command validation (could also be done in method
