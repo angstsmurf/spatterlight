@@ -753,6 +753,12 @@ static void update_delayed(void)
   glk_window_set_arrangement(glk_window_get_parent(upperwin->id), winmethod_Above | winmethod_Fixed, delayed_window_shrink, upperwin->id);
   upper_window_height = delayed_window_shrink;
 
+    if (upper_window_height == 0)
+    {
+        garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
+        glk_window_clear(upperwin->id);
+    }
+
   /* Glk might resize the window to a smaller height than was requested,
    * so track the actual height, not the requested height.
    */
@@ -1091,6 +1097,7 @@ void znew_line(void)
 void zerase_window(void)
 {
 #ifdef ZTERP_GLK
+    fprintf(stderr, "zerase_window %d\n", as_signed(zargs[0]));
   switch(as_signed(zargs[0]))
   {
     case -2:
@@ -1123,12 +1130,17 @@ void zerase_window(void)
 void zerase_line(void)
 {
 #ifdef ZTERP_GLK
-  /* XXX V6 does pixel handling here. */
-  if(zargs[0] != 1 || curwin != upperwin || upperwin->id == NULL) return;
+    /* XXX V6 does pixel handling here. */
+    if(zargs[0] == 0 || curwin != upperwin || upperwin->id == NULL) return;
 
-  for(long i = upperwin->x; i < upper_window_width; i++) GLK_PUT_CHAR(UNICODE_SPACE);
+    fprintf(stderr, "zerase_line:%d\n", zargs[0]);
+    uint16_t units_to_erase = zargs[0] - 1;
+    if (units_to_erase == 0)
+        units_to_erase = upper_window_width - upperwin->x;
 
-  glk_window_move_cursor(upperwin->id, upperwin->x, upperwin->y);
+    for(long i = 0; i < units_to_erase; i++) GLK_PUT_CHAR(UNICODE_SPACE);
+
+    glk_window_move_cursor(upperwin->id, upperwin->x, upperwin->y);
 #endif
 }
 

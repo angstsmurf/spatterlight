@@ -1043,10 +1043,10 @@
         return;
     }
 
-    if (line_request &&
-        (ch == keycode_Return ||
-         [currentTerminators[@(ch)] isEqual:@(YES)]))
+    if (line_request && (ch == keycode_Return || [currentTerminators[@(ch)] isEqual:@(YES)])) {
+        terminator = [currentTerminators[@(ch)] isEqual:@(YES)] ? ch : 0;
         [[input window] makeFirstResponder:nil];
+    }
 }
 
 #pragma mark Line input
@@ -1056,6 +1056,8 @@
         currentTerminators = self.pendingTerminators;
         self.terminatorsPending = NO;
     }
+
+    terminator = 0;
 
     NSRect bounds = self.bounds;
     NSInteger mx = (NSInteger)textview.textContainerInset.width;
@@ -1141,7 +1143,7 @@
         [self printToWindow:str style:style_Input];
         str = [str scrubInvalidCharacters];
         GlkEvent *gev = [[GlkEvent alloc] initLineEvent:str
-                                              forWindow:self.name];
+                                              forWindow:self.name terminator:terminator];
         [self.glkctl queueEvent:gev];
         [input removeFromSuperview];
         input = nil;

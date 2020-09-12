@@ -1224,19 +1224,23 @@
     if (!bgcolor)
         bgcolor = self.theme.bufferBackground;
 
-    NSColor *fgcolor = styles[style_Normal][NSForegroundColorAttributeName];
-    if (!fgcolor)
-        fgcolor = self.theme.bufferNormal.color;
-
-    if (!fgcolor || !bgcolor) {
-        NSLog(@"GlkTexBufferWindow recalcBackground: color error!");
-    }
+//    NSColor *fgcolor = styles[style_Normal][NSForegroundColorAttributeName];
+//    if (!fgcolor)
+//        fgcolor = self.theme.bufferNormal.color;
+//
+//    if (currentZColor && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default && self.theme.doStyles)
+//        fgcolor = [NSColor colorFromInteger:currentZColor.fg];
+//
+//    if (!fgcolor || !bgcolor) {
+//        NSLog(@"GlkTexBufferWindow recalcBackground: color error!");
+//    }
 
     _textview.editable = YES;
     _textview.backgroundColor = bgcolor;
-    _textview.insertionPointColor = fgcolor;
+//    _textview.insertionPointColor = fgcolor;
 
-    [self hideInsertionPoint];
+    if (line_request)
+        [self showInsertionPoint];
     [self.glkctl setBorderColor:bgcolor fromWindow:self];
 }
 
@@ -1649,7 +1653,7 @@
 
     } else if (line_request && (ch == keycode_Return ||
                 [currentTerminators[key] isEqual:@(YES)])) {
-                   [self sendInputLine];
+        [self sendInputLineWithTerminator:ch == keycode_Return ? 0 : key.integerValue];
     } else if (line_request && ch == keycode_Up) {
         [self travelBackwardInHistory];
     } else if (line_request && ch == keycode_Down) {
@@ -1670,7 +1674,7 @@
     }
 }
 
--(void)sendInputLine {
+-(void)sendInputLineWithTerminator:(NSInteger)terminator {
     // NSLog(@"line event from %ld", (long)self.name);
 
     [_textview resetTextFinder];
@@ -1701,7 +1705,7 @@
             line = [line substringToIndex:line.length - 1];
     }
     
-    GlkEvent *gev = [[GlkEvent alloc] initLineEvent:line forWindow:self.name];
+    GlkEvent *gev = [[GlkEvent alloc] initLineEvent:line forWindow:self.name terminator:terminator];
     [self.glkctl queueEvent:gev];
 
     fence = textstorage.length;
@@ -1792,7 +1796,7 @@
         // This is against the Glk spec but makes
         // hyperlinks in Dead Cities work.
         // There should be some kind of switch for this.
-        [self sendInputLine];
+        [self sendInputLineWithTerminator:0];
     }
 }
 
@@ -1944,15 +1948,23 @@
 - (void)hideInsertionPoint {
     if (!line_request) {
         NSColor *color = _textview.backgroundColor;
-        if (!color)
+        if (textstorage.length) {
+            color = [textstorage attribute:NSBackgroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
+        }
+        if (!color) {
             color = self.theme.bufferBackground;
+        }
         _textview.insertionPointColor = color;
+        NSLog(@"hideInsertionPoint");
     }
 }
 
 - (void)showInsertionPoint {
     if (line_request) {
         NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
+        if (textstorage.length) {
+            color = [textstorage attribute:NSForegroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
+        }
         if (!color)
             color = self.theme.bufferNormal.color;
         _textview.insertionPointColor = color;
@@ -1988,7 +2000,11 @@
     if (textstorage.editedRange.location < fence)
         return;
 
-    [textstorage setAttributes:styles[style_Input]
+    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
+    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Default && currentZColor.fg != zcolor_Current)
+        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
+
+    [textstorage setAttributes:inputStyle
                           range:textstorage.editedRange];
 }
 

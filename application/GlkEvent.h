@@ -10,7 +10,7 @@ unsigned chartokeycode(unsigned ch);
 
 - (instancetype)initPrefsEventForTheme:(Theme *)theme;
 - (instancetype)initCharEvent:(unsigned)v forWindow:(NSInteger)name;
-- (instancetype)initLineEvent:(NSString *)v forWindow:(NSInteger)name;
+- (instancetype)initLineEvent:(NSString *)v forWindow:(NSInteger)name terminator:(NSInteger)terminator;
 - (instancetype)initMouseEvent:(NSPoint)v forWindow:(NSInteger)name;
 - (instancetype)initTimerEvent;
 - (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah theme:(Theme *)theme force:(BOOL)forceFlag;

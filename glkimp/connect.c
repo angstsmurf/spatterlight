@@ -678,6 +678,7 @@ again:
 
             event->type = evtype_LineInput;
             event->win = gli_window_for_peer(wmsg.a1);
+            event->val2 = wmsg.a3;
 
             if (event->win->line_request_uni)
             {

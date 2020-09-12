@@ -119,7 +119,7 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
-- (instancetype)initLineEvent:(NSString *)v forWindow:(NSInteger)name {
+- (instancetype)initLineEvent:(NSString *)v forWindow:(NSInteger)name terminator:(NSInteger)terminator {
     self = [super init];
     if (self) {
         _type = EVTLINE;

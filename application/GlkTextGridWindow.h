@@ -19,6 +19,7 @@
     BOOL transparent;
 
     NSUInteger lastStyle;
+    NSInteger terminator;
 
     NSTextView *fieldEditor;
     NSString *enteredTextSoFar;
