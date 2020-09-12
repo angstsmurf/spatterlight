@@ -1739,6 +1739,7 @@
     moveRanges = nil;
     moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;
+    storedNewline = nil;
 
     [self recalcBackground];
     [container invalidateLayout];
