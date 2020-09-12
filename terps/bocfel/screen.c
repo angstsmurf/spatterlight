@@ -18,6 +18,7 @@
 
 #include <ctype.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <stddef.h>
 #include <stdarg.h>
@@ -412,17 +413,18 @@ static void put_char_base(uint16_t c, bool unicode)
        */
       if(curwin->font == FONT_CHARACTER && !options.disable_graphics_font && c != UNICODE_LINEFEED)
       {
-        zscii = unicode_to_zscii[c];
+//        zscii = unicode_to_zscii[c];
 
-        /* These four characters have a “built-in” reverse video (see §16). */
-        if(zscii >= 123 && zscii <= 126)
-        {
-          style_window->style ^= STYLE_REVERSE;
-          set_current_style();
-        }
-
-        c = zscii_to_font3[zscii];
+//        /* These four characters have a “built-in” reverse video (see §16). */
+//        if(zscii >= 123 && zscii <= 126)
+//        {
+//          style_window->style ^= STYLE_REVERSE;
+              glk_set_style(style_BlockQuote);
+//        }
+//
+//        c = zscii_to_font3[zscii];
       }
+
 #ifdef ZTERP_GLK
       if((streams & STREAM_SCREEN) && curwin->id != NULL)
       {

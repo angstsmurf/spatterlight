@@ -126,6 +126,7 @@ unsigned chartokeycode(unsigned ch) {
         ln = [v copy];
         win = name;
         _val1 = (unsigned int)ln.length;
+        _val2 = terminator;
     }
     return self;
 }
