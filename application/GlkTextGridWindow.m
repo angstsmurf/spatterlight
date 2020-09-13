@@ -24,8 +24,6 @@
 
 @interface MyGridTextView : NSTextView
 
-- (void)superKeyDown:(NSEvent *)evt;
-
 @end
 
 /*
@@ -34,10 +32,6 @@
  */
 
 @implementation MyGridTextView
-
-- (void)superKeyDown:(NSEvent *)evt {
-    [super keyDown:evt];
-}
 
 - (void)keyDown:(NSEvent *)evt {
     [(GlkTextGridWindow *)self.delegate keyDown:evt];
