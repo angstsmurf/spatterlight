@@ -35,8 +35,8 @@ fprintf(stderr, "%s\n",                                                    \
                                @(NO), @keycode_Func10,
                                @(NO), @keycode_Func11,
                                @(NO), @keycode_Func12,
-                               @(NO), @keycode_Left,
-                               @(NO), @keycode_Right,
+//                               @(NO), @keycode_Left,
+//                               @(NO), @keycode_Right,
                                @(NO), @keycode_Up,
                                @(NO), @keycode_Down,
                                @(NO), @keycode_Escape, nil];
