@@ -776,6 +776,14 @@
 
     if (self.frame.size.width > 0 && self.frame.size.height > 0)
         [self setFrame:self.frame];
+
+    if (currentZColor) {
+        if (currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default) {
+            bgnd = currentZColor.bg;
+        }
+        [self recalcBackground];
+    }
+
     if (NSMaxRange(selectedRange) > textview.textStorage.length) {
         selectedRange = NSMakeRange(textview.textStorage.length - 1, 0);
     }

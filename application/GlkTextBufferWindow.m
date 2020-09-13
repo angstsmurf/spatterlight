@@ -1772,6 +1772,9 @@
     moveRangeIndex = 0;
     storedNewline = nil;
 
+    if (currentZColor && currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default)
+        bgnd = currentZColor.bg;
+    
     [self recalcBackground];
     [container invalidateLayout];
 }
@@ -1942,9 +1945,14 @@
 
     fence = textstorage.length;
 
+    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
+    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default )
+        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
+
     id att = [[NSAttributedString alloc]
         initWithString:str
-              attributes:self.theme.bufInput.attributeDict];
+              attributes:inputStyle];
+
     [textstorage appendAttributedString:att];
 
     [_textview setEditable:YES];
