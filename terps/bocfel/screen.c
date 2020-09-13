@@ -325,7 +325,7 @@ static void cleanup_screen(struct input *input)
       if(upperwin->y < upper_window_height) upperwin->y++;
     }
 
-    glk_window_move_cursor(upperwin->id, upperwin->x, upperwin->y);
+//    glk_window_move_cursor(upperwin->id, upperwin->x, upperwin->y);
   }
 
   /* If line input echoing is turned off, newlines will not be printed
