@@ -50,7 +50,8 @@
 
 @end
 
-@interface MyGridTextField: NSTextField
+
+@interface MyGridTextField: NSTextField <NSTextViewDelegate>
 
 @end
 
@@ -71,11 +72,32 @@
         // But let's be paranoid, better show an invisible black-on-black cursor
         // than crash.
         NSTextView* textField = (NSTextView*) [self currentEditor];
+        textField.delegate = self;
         if( [textField respondsToSelector: @selector(setInsertionPointColor:)] )
             [textField setInsertionPointColor:self.textColor];
         textField.selectedRange = NSMakeRange(textField.string.length,0);
     }
     return success;
+}
+
+@end
+
+@interface MyFieldEditor : NSTextView
+
+@end
+
+@implementation MyFieldEditor
+
+- (void)keyDown:(NSEvent *)evt {
+    NSString *str = evt.characters;
+    unsigned ch = keycode_Unknown;
+    if (str.length)
+        ch = chartokeycode([str characterAtIndex:0]);
+    GlkTextGridWindow *gridWin = (GlkTextGridWindow *)((MyGridTextField *)self.delegate).delegate;
+    if ([gridWin.currentTerminators[@(ch)] isEqual:@(YES)])
+        [gridWin keyDown:evt];
+    else
+        [super keyDown:evt];
 }
 
 @end
@@ -321,8 +343,8 @@
             if (subviews) {
                 for (NSView *view in subviews) {
                     if ([view isKindOfClass:[NSTextField class]]) {
-                        input = (MyGridTextField *)view;
-                        [input removeFromSuperview];
+                        _input = (MyGridTextField *)view;
+                        [_input removeFromSuperview];
                     }
                 }
             }
@@ -340,7 +362,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     [encoder encodeObject:textview forKey:@"textview"];
-    [encoder encodeObject:input forKey:@"input"];
+    [encoder encodeObject:_input forKey:@"input"];
     [encoder encodeBool:line_request forKey:@"line_request"];
     [encoder encodeBool:hyper_request forKey:@"hyper_request"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
@@ -352,8 +374,8 @@
     [encoder encodeInteger:(NSInteger)lastStyle forKey:@"lastStyle"];
     NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
-    if (fieldEditor && fieldEditor.textStorage.string.length) {
-        [encoder encodeObject:fieldEditor.textStorage.string forKey:@"inputString"];
+    if (_fieldEditor && _fieldEditor.textStorage.string.length) {
+        [encoder encodeObject:_fieldEditor.textStorage.string forKey:@"inputString"];
     } else {
         [encoder encodeObject:enteredTextSoFar forKey:@"inputString"];
     }
@@ -485,12 +507,12 @@
     if (line_request) {
         if (!enteredTextSoFar)
             enteredTextSoFar = @"";
-        if (input) {
-            enteredTextSoFar = [input.stringValue copy];
-            input = nil;
+        if (_input) {
+            enteredTextSoFar = [_input.stringValue copy];
+            _input = nil;
         }
 
-        fieldEditor = nil;
+        _fieldEditor = nil;
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [self performSelector:@selector(deferredInitLine:) withObject:enteredTextSoFar afterDelay:0];

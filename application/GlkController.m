@@ -1156,6 +1156,17 @@ fprintf(stderr, "%s\n",                                                    \
     // To fix scrolling in the Adrian Mole games
 }
 
+- (id)windowWillReturnFieldEditor:(NSWindow *)sender
+                         toObject:(id)client {
+    for (GlkWindow *win in [_gwindows allValues])
+        if ([win isKindOfClass:[GlkTextGridWindow class]]) {
+            GlkTextGridWindow *gridWin = (GlkTextGridWindow *)win;
+            if (gridWin.input == client)
+                return gridWin.fieldEditor;
+        }
+    return nil;
+}
+
 #pragma mark Window resizing
 
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window

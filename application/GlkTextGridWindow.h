@@ -1,11 +1,11 @@
 /* TextGrid window controller */
 
 @class MyGridTextView;
+@class MyFieldEditor;
 @class MyGridTextField;
 
 @interface GlkTextGridWindow
     : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
-    MyGridTextField *input;
     MyGridTextView *textview;
     NSScrollView *scrollview;
     NSTextStorage *textstorage;
@@ -22,11 +22,12 @@
     NSUInteger lastStyle;
     NSInteger terminator;
 
-    NSTextView *fieldEditor;
     NSString *enteredTextSoFar;
 }
 
 @property NSRange restoredSelection;
+@property MyGridTextField *input;
+@property (readonly) MyFieldEditor *fieldEditor;
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (IBAction)speakStatus:(id)sender;
