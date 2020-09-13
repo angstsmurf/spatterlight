@@ -2264,7 +2264,7 @@ fprintf(stderr, "%s\n",                                                    \
                     vmask = NSViewHeightSizable;
                 }
 
-                reqWin.autoresizingMask = hmask | vmask;
+                reqWin.autoresizingMask = (NSAutoresizingMaskOptions)(hmask | vmask);
 
                 windowdirty = YES;
             } else
