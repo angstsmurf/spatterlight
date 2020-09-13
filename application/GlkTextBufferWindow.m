@@ -1086,6 +1086,9 @@
         [self addSubview:scrollview];
     }
 
+    if (self.glkctl.beyondZork)
+        [self createBeyondZorkStyle];
+
     return self;
 }
 
@@ -1275,6 +1278,9 @@
             [styles addObject:[NSNull null]];
     }
 
+    if (self.glkctl.beyondZork)
+        [self createBeyondZorkStyle];
+
     if (!self.glkctl.previewDummy) {
         NSInteger marginX = self.theme.bufferMarginX;
         NSInteger marginY = self.theme.bufferMarginY;
@@ -1375,6 +1381,31 @@
     } else {
         [self recalcBackground];
     }
+}
+
+- (void)createBeyondZorkStyle {
+    NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:self.theme.bufferNormal.font.pointSize];
+    if (!zorkFont) {
+        NSLog(@"Error! No Zork Font Found!");
+        return;
+    }
+    CGFloat realHeight = [layoutmanager defaultLineHeightForFont:styles[style_Normal][NSFontAttributeName]];
+
+    NSMutableDictionary *beyondZorkStyle = [styles[style_BlockQuote] mutableCopy];
+    beyondZorkStyle[NSFontAttributeName] = zorkFont;
+    NSSize size = [@"\\" sizeWithAttributes:beyondZorkStyle];
+    NSAffineTransform *transform = [[NSAffineTransform alloc] init];
+    [transform scaleBy:zorkFont.pointSize];
+    CGFloat xscale = 1;
+    CGFloat yscale = realHeight / size.height;
+    [transform scaleXBy:xscale yBy:yscale];
+    NSFontDescriptor *descriptor = [NSFontDescriptor fontDescriptorWithName:@"FreeFont3" matrix:transform];
+    zorkFont = [NSFont fontWithDescriptor:descriptor size:zorkFont.pointSize];
+    if (!zorkFont)
+        NSLog(@"Failed to create Zork Font!");
+    beyondZorkStyle[NSFontAttributeName] = zorkFont;
+
+    styles[style_BlockQuote] = beyondZorkStyle;
 }
 
 - (void)setFrame:(NSRect)frame {

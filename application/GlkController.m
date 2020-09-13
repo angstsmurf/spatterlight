@@ -2370,7 +2370,7 @@ fprintf(stderr, "%s\n",                                                    \
             // NSLog(@"glkctl INITLINE %d", req->a1);
             [self performScroll];
             if (reqWin) {
-                [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)]];
+                [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)] maxLength:req->a2];
             }
             break;
 
@@ -2726,7 +2726,7 @@ again:
 
     //    NSLog(@"relativeSize aWindow (%f) /  _contentView (%f) == %f", aWindow.bounds.size.width * aWindow.bounds.size.height, _contentView.bounds.size.width * _contentView.bounds.size.height,  relativeSize);
 
-    if (relativeSize < 0.75)
+    if (relativeSize < 0.75 && ![aWindow isKindOfClass:[GlkTextBufferWindow class]])
         return;
 
     if (aWindow == [self largestWindow]) {

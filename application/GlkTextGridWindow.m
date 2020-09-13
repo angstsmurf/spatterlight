@@ -1059,6 +1059,11 @@
 
     terminator = 0;
 
+    if (xpos + maxLength > cols || maxLength == 0)
+        maxLength = cols - xpos;
+
+    maxInputLength = maxLength;
+
     NSRect bounds = self.bounds;
     NSInteger mx = (NSInteger)textview.textContainerInset.width;
     NSInteger my = (NSInteger)textview.textContainerInset.height;
@@ -1078,26 +1083,27 @@
     NSRect caret;
     caret.origin.x = x0 + xpos * charWidth;
     caret.origin.y = y0 + ypos * lineHeight;
-    caret.size.width = (cols - xpos) * charWidth;
-    //NSMaxX(bounds) - mx * 2 - caret.origin.x + 1; // 20 * charWidth;
+    caret.size.width = maxLength * charWidth;
     caret.size.height = lineHeight;
 
-//    NSLog(@"grid initLine: \"%@\" in: %ld", str, (long)self.name);
+    _fieldEditor.frame = caret;
 
-    input = [[MyGridTextField alloc] initWithFrame:caret];
-    input.editable = YES;
-    input.bordered = NO;
-    input.action = @selector(typedEnter:);
-    input.target = self;
-    input.allowsEditingTextAttributes = NO;
-    input.bezeled = NO;
-    input.drawsBackground = NO;
-    input.selectable = YES;
-    input.delegate = self;
-    input.font = self.theme.gridInput.font;
+    _input = [[MyGridTextField alloc] initWithFrame:caret];
+    _input.editable = YES;
+    _input.bordered = NO;
+    _input.action = @selector(typedEnter:);
+    _input.target = self;
+    _input.allowsEditingTextAttributes = NO;
+    _input.bezeled = NO;
+    _input.drawsBackground = NO;
+    _input.selectable = YES;
+    _input.delegate = self;
+    _input.font = self.theme.gridInput.font;
     NSDictionary *firstCharDict = [textstorage attributesAtIndex:0 effectiveRange:nil];
-    input.textColor = firstCharDict[NSForegroundColorAttributeName];
-    [input.cell setWraps:YES];
+    _input.textColor = firstCharDict[NSForegroundColorAttributeName];
+    if (currentZColor && self.theme.doStyles)
+        _input.textColor = [NSColor colorFromInteger:currentZColor.fg];
+    [_input.cell setWraps:YES];
 
     enteredTextSoFar = str;
 
@@ -1105,30 +1111,34 @@
                                      initWithString:str
                                      attributes:firstCharDict];
 
-    input.attributedStringValue = attString;
+    _input.attributedStringValue = attString;
 
     MyTextFormatter *inputFormatter =
     [[MyTextFormatter alloc] initWithMaxLength:cols - xpos - 1];
-    input.formatter = inputFormatter;
+    _input.formatter = inputFormatter;
 
-    [textview addSubview:input];
+    [textview addSubview:_input];
 
-    [self performSelector:@selector(deferredGrabFocus:) withObject:input afterDelay:0.1];
+    [self performSelector:@selector(deferredGrabFocus:) withObject:_input afterDelay:0.1];
 
     line_request = YES;
 }
 
 - (void)deferredGrabFocus:(id)sender {
-    [self.window makeFirstResponder:input];
+    [self.window makeFirstResponder:_input];
 }
 
 - (NSString *)cancelLine {
+//    NSLog(@"cancelline");
     line_request = NO;
-    if (input) {
-        NSString *str = input.stringValue;
+    if (_input) {
+        NSUInteger oldx = xpos;
+        NSUInteger oldy = ypos;
+        NSString *str = _input.stringValue;
         [self printToWindow:str style:style_Input];
-        [input removeFromSuperview];
-        input = nil;
+        [self moveToColumn:oldx row:oldy + 1];
+        [_input removeFromSuperview];
+        _input = nil;
         return str;
     }
     return @"";
@@ -1136,32 +1146,42 @@
 
 - (void)typedEnter:(id)sender {
     line_request = NO;
-    if (input) {
+    if (_input) {
         [self.glkctl markLastSeen];
 
-        NSString *str = input.stringValue;
+        NSString *str = _input.stringValue;
+
+        NSUInteger oldx = xpos;
+        NSUInteger oldy = ypos;
+
         [self printToWindow:str style:style_Input];
+
+        if (terminator == 0) {
+            [self moveToColumn:oldx row:oldy + 1];
+        }
+
         str = [str scrubInvalidCharacters];
+
         GlkEvent *gev = [[GlkEvent alloc] initLineEvent:str
                                               forWindow:self.name terminator:terminator];
         [self.glkctl queueEvent:gev];
-        [input removeFromSuperview];
-        input = nil;
+        [_input removeFromSuperview];
+        _input = nil;
     }
 }
 
 - (NSRange)textView:(NSTextView *)aTextView
 willChangeSelectionFromCharacterRange:(NSRange)oldrange
    toCharacterRange:(NSRange)newrange {
-    if (textstorage.length >= NSMaxRange(_restoredSelection))
+    if (aTextView == textview && textstorage.length >= NSMaxRange(_restoredSelection))
         _restoredSelection = newrange;
     return newrange;
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj {
     NSDictionary *dict = obj.userInfo;
-    fieldEditor = dict[@"NSFieldEditor"];
-    enteredTextSoFar = [fieldEditor.string copy];
+    _fieldEditor = dict[@"NSFieldEditor"];
+    enteredTextSoFar = [_fieldEditor.string copy];
 }
 
 - (void)deferredInitLine:(id)sender {
@@ -1169,12 +1189,48 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     if (subviews) {
         for (NSView *view in subviews) {
             if ([view isKindOfClass:[NSTextField class]]) {
-                input = (MyGridTextField *)view;
-                [input removeFromSuperview];
+                _input = (MyGridTextField *)view;
+                [_input removeFromSuperview];
             }
         }
     }
-    [self initLine:(NSString *)sender];
+    [self initLine:(NSString *)sender maxLength:maxInputLength];
+}
+
+- (void)unputString:(NSString *)buf {
+    NSLog(@"GlkTextGridWindow %ld unputString %@", self.name, buf);
+
+    NSUInteger endpos = ypos * (cols + 1) + xpos;
+    NSUInteger startpos = endpos - buf.length;
+
+    if (endpos > textstorage.length || startpos > endpos) {
+        return;
+    }
+
+    NSString *stringToRemove = [textstorage.string substringWithRange:NSMakeRange(startpos, buf.length)].localizedUppercaseString;
+    NSLog(@"GlkTextGridWindow stringToRemove: %@", stringToRemove);
+
+    if ([stringToRemove isEqualToString:buf.localizedUppercaseString]) {
+        NSString *spaces = [[[NSString alloc] init]
+                            stringByPaddingToLength:buf.length
+                            withString:@" "
+                            startingAtIndex:0];
+        xpos -= buf.length;
+        [self putString:spaces style:style_Normal];
+        xpos -= buf.length;
+    } else {
+        NSLog(@"string not found!");
+    }
+}
+
+@synthesize fieldEditor = _fieldEditor;
+
+- (MyFieldEditor *)fieldEditor {
+        if (_fieldEditor == nil) {
+            _fieldEditor = [[MyFieldEditor alloc] init];
+            _fieldEditor.fieldEditor = YES;
+        }
+    return _fieldEditor;
 }
 
 #pragma mark ZColors
