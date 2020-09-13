@@ -1566,12 +1566,6 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         return;
     }
 
-    /* Hugo's arbitrarily positioned windows don't currently
-     mesh with what Glk has to offer, so we have to ignore any
-     non-Glk-ish Windows and just maintain the current
-     parameters
-     */
-
     if (menuwin)
     {
         LOG("hugo_settextwindow: We are in a menu\n");
