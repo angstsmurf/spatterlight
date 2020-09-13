@@ -4,8 +4,6 @@
 
     ZColor *currentZColor;
 
-    NSMutableDictionary *currentTerminators;
-
     // An array of attribute dictionaries, with
     // style hints applied if the "use hints"
     // option is on for this theme
@@ -24,9 +22,11 @@
 @property NSInteger currentHyperlink;
 
 @property NSArray *styleHints;
-@property NSMutableDictionary *pendingTerminators;
-@property BOOL terminatorsPending;
 @property Theme *theme;
+
+@property NSMutableDictionary *pendingTerminators;
+@property NSMutableDictionary *currentTerminators;
+@property BOOL terminatorsPending;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl
                                  name:(NSInteger)name;

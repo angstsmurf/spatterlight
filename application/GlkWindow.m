@@ -41,8 +41,9 @@ fprintf(stderr, "%s\n",                                                    \
                                @(NO), @keycode_Down,
                                @(NO), @keycode_Escape, nil];
 
-        currentTerminators = _pendingTerminators;
+        _currentTerminators = _pendingTerminators;
         _terminatorsPending = NO;
+        
         self.canDrawConcurrently = YES;
     }
 
@@ -54,7 +55,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (self) {
         _name = [decoder decodeIntegerForKey:@"name"];
         _currentHyperlink = [decoder decodeIntegerForKey:@"currentHyperlink"];
-        currentTerminators = [decoder decodeObjectForKey:@"currentTerminators"];
+        _currentTerminators = [decoder decodeObjectForKey:@"currentTerminators"];
         _pendingTerminators =
             [decoder decodeObjectForKey:@"pendingTerminators"];
         _terminatorsPending = [decoder decodeBoolForKey:@"terminatorsPending"];
@@ -73,7 +74,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [encoder encodeInteger:_name forKey:@"name"];
     [encoder encodeInteger:_currentHyperlink forKey:@"currentHyperlink"];
-    [encoder encodeObject:currentTerminators forKey:@"currentTerminators"];
+    [encoder encodeObject:_currentTerminators forKey:@"currentTerminators"];
     [encoder encodeObject:_pendingTerminators forKey:@"pendingTerminators"];
     [encoder encodeBool:_terminatorsPending forKey:@"terminatorsPending"];
     [encoder encodeBool:char_request forKey:@"char_request"];
@@ -198,7 +199,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSLog(@"move cursor in %@ not implemented", [self class]);
 }
 
-- (void)initLine:(NSString *)buf {
+- (void)initLine:(NSString *)buf maxLength:(NSUInteger)maxLength {
     NSLog(@"line input in %@ not implemented", [self class]);
 }
 

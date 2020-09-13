@@ -1084,9 +1084,11 @@
         return;
     }
 
-    if (line_request && (ch == keycode_Return || [currentTerminators[@(ch)] isEqual:@(YES)])) {
-        terminator = [currentTerminators[@(ch)] isEqual:@(YES)] ? ch : 0;
-        [[input window] makeFirstResponder:nil];
+    if (line_request && (ch == keycode_Return || [self.currentTerminators[@(ch)] isEqual:@(YES)])) {
+        terminator = [self.currentTerminators[@(ch)] isEqual:@(YES)] ? ch : 0;
+        [[_input window] makeFirstResponder:nil];
+        if (ch != keycode_Return)
+            [self typedEnter:nil];
     }
 }
 
@@ -1094,7 +1096,7 @@
 
 - (void)initLine:(NSString *)str {
     if (self.terminatorsPending) {
-        currentTerminators = self.pendingTerminators;
+        self.currentTerminators = self.pendingTerminators;
         self.terminatorsPending = NO;
     }
 

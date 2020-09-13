@@ -1683,7 +1683,7 @@
         [_textview setEditable:NO];
 
     } else if (line_request && (ch == keycode_Return ||
-                [currentTerminators[key] isEqual:@(YES)])) {
+                [self.currentTerminators[key] isEqual:@(YES)])) {
         [self sendInputLineWithTerminator:ch == keycode_Return ? 0 : key.integerValue];
     } else if (line_request && ch == keycode_Up) {
         [self travelBackwardInHistory];
@@ -1926,7 +1926,7 @@
     [_textview resetTextFinder];
 
     if (self.terminatorsPending) {
-        currentTerminators = self.pendingTerminators;
+        self.currentTerminators = self.pendingTerminators;
         self.terminatorsPending = NO;
     }
 
