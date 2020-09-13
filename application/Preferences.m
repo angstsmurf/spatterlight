@@ -1278,8 +1278,12 @@ NSString *fontToString(NSFont *font) {
     [self scrollToTop:nil];
 }
 
-- (NSSize)windowWillResize:(NSWindow *)sender
+- (NSSize)windowWillResize:(NSWindow *)window
                     toSize:(NSSize)frameSize {
+
+    if (window != self.window)
+        return frameSize;
+
     if (frameSize.height > self.window.frame.size.height) { // We are enlarging
         NSRect previewFrame = sampleTextBorderView.frame;
         previewFrame.origin.y = kDefaultPrefsLowerViewHeight + 1;
