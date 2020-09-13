@@ -13,6 +13,7 @@
     NSTextContainer *container;
     NSUInteger rows, cols;
     NSUInteger xpos, ypos;
+    NSUInteger maxInputLength;
     BOOL line_request;
     BOOL hyper_request;
     BOOL mouse_request;

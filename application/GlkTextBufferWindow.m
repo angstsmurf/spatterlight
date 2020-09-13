@@ -1918,7 +1918,8 @@
     [_textview setEditable:NO];
 }
 
-- (void)initLine:(NSString *)str {
+- (void)initLine:(NSString *)str maxLength:(NSUInteger)maxLength
+{
 //    NSLog(@"initLine: %@ in: %ld", str, (long)self.name);
 
     historypos = historypresent;

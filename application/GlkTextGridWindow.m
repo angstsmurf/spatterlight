@@ -1094,7 +1094,7 @@
 
 #pragma mark Line input
 
-- (void)initLine:(NSString *)str {
+- (void)initLine:(NSString *)str maxLength:(NSUInteger)maxLength  {
     if (self.terminatorsPending) {
         self.currentTerminators = self.pendingTerminators;
         self.terminatorsPending = NO;

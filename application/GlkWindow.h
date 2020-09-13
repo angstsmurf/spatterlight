@@ -46,7 +46,7 @@
 - (void)putString:(NSString *)buf style:(NSUInteger)style;
 - (void)unputString:(NSString *)buf;
 - (void)moveToColumn:(NSUInteger)x row:(NSUInteger)y;
-- (void)initLine:(NSString *)buf;
+- (void)initLine:(NSString *)buf maxLength:(NSUInteger)maxLength;
 - (void)initChar;
 - (void)cancelChar;
 - (NSString *)cancelLine;
