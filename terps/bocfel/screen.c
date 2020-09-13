@@ -412,21 +412,21 @@ static void put_char_base(uint16_t c, bool unicode)
        */
       if(curwin->font == FONT_CHARACTER && !options.disable_graphics_font && c != UNICODE_LINEFEED)
       {
-#ifdef SPATTERLIGHT
-          /* Spatterlight uses a real Font 3 and does not need any conversion */
+//#ifdef SPATTERLIGHT
+//          /* Spatterlight uses a real Font 3 and does not need any conversion */
           glk_set_style(style_BlockQuote);
-#else
-        zscii = unicode_to_zscii[c];
-
-        /* These four characters have a “built-in” reverse video (see §16). */
-        if(zscii >= 123 && zscii <= 126)
-        {
-          style_window->style ^= STYLE_REVERSE;
-          set_current_style();
-        }
-
-        c = zscii_to_font3[zscii];
-#endif
+//#else
+//        zscii = unicode_to_zscii[c];
+//
+//        /* These four characters have a “built-in” reverse video (see §16). */
+//        if(zscii >= 123 && zscii <= 126)
+//        {
+//          style_window->style ^= STYLE_REVERSE;
+//          set_current_style();
+//        }
+//
+//        c = zscii_to_font3[zscii];
+//#endif
       }
 
 #ifdef ZTERP_GLK

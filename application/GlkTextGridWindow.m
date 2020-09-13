@@ -275,6 +275,9 @@
 
         [self addSubview:scrollview];
         [self recalcBackground];
+
+        if (self.glkctl.beyondZork)
+            [self createBeyondZorkStyle];
     }
     return self;
 }
@@ -414,6 +417,9 @@
             [styles addObject:((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict];
     }
 
+    if (self.glkctl.beyondZork)
+        [self createBeyondZorkStyle];
+
     NSInteger marginX = self.theme.gridMarginX;
     NSInteger marginY = self.theme.gridMarginY;
 
@@ -492,6 +498,41 @@
     }
 }
 
+- (void)createBeyondZorkStyle {
+    NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:12];
+    if (!zorkFont) {
+        NSLog(@"Error! No Zork Font Found!");
+        return;
+    }
+
+    NSMutableDictionary *beyondZorkStyle = [styles[style_BlockQuote] mutableCopy];
+    NSMutableParagraphStyle *para = [beyondZorkStyle[NSParagraphStyleAttributeName] mutableCopy];
+    para.lineSpacing = 0;
+    para.paragraphSpacing = 0;
+    para.paragraphSpacingBefore = 0;
+    para.maximumLineHeight = self.theme.cellHeight;
+    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
+    beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
+
+    beyondZorkStyle[NSFontAttributeName] = zorkFont;
+
+    NSSize size = [@"6" sizeWithAttributes:beyondZorkStyle];
+
+    NSAffineTransform *transform = [[NSAffineTransform alloc] init];
+    [transform scaleBy:zorkFont.pointSize];
+    CGFloat xscale = self.theme.cellWidth / size.width;
+    CGFloat yscale = self.theme.cellHeight / size.height; //* 1.05;
+    [transform scaleXBy:xscale yBy:yscale];
+
+    NSFontDescriptor *descriptor = [NSFontDescriptor fontDescriptorWithName:@"FreeFont3" matrix:transform];
+    zorkFont = [NSFont fontWithDescriptor:descriptor size:zorkFont.pointSize];
+
+    if (!zorkFont)
+        NSLog(@"Failed to create Zork Font!");
+
+    beyondZorkStyle[NSFontAttributeName] = zorkFont;
+    styles[style_BlockQuote] = beyondZorkStyle;
+}
 
 - (BOOL)allowsDocumentBackgroundColorChange {
     return YES;
