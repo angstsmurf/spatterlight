@@ -1893,8 +1893,8 @@
 
 - (void)unputString:(NSString *)buf {
     NSLog(@"GlkTextBufferWindow %ld unputString %@", self.name, buf);
-    NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length];
-    if ([stringToRemove isEqualToString:buf]) {
+    NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].localizedUppercaseString;
+    if ([stringToRemove isEqualToString:buf.localizedUppercaseString]) {
         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
     }
 }

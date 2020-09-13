@@ -2072,8 +2072,12 @@ static bool read_handler(void)
        * valid to pass to toupper(): Bocfel requires ASCII (or a
        * compatible character set), so this assumption is fine.
        */
+#ifndef SPATTERLIGHT
       if(is_beyond_zork() && c < 256) string[i] = toupper(c);
-      else                            string[i] = c;
+        if(0 && c < 256) string[i] = toupper(c);
+      else
+#endif
+        string[i] = c;
     }
 
     string[input.preloaded] = 0;

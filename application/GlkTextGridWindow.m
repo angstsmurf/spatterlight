@@ -1239,7 +1239,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 }
 
 - (void)unputString:(NSString *)buf {
-    NSLog(@"GlkTextGridWindow %ld unputString %@", self.name, buf);
 
     NSUInteger endpos = ypos * (cols + 1) + xpos;
     NSUInteger startpos = endpos - buf.length;
@@ -1249,7 +1248,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     }
 
     NSString *stringToRemove = [textstorage.string substringWithRange:NSMakeRange(startpos, buf.length)].localizedUppercaseString;
-    NSLog(@"GlkTextGridWindow stringToRemove: %@", stringToRemove);
 
     if ([stringToRemove isEqualToString:buf.localizedUppercaseString]) {
         NSString *spaces = [[[NSString alloc] init]
@@ -1260,7 +1258,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
         [self putString:spaces style:style_Normal];
         xpos -= buf.length;
     } else {
-        NSLog(@"string not found!");
+        NSLog(@"GlkTextGridWindow unputString: string \"%@\" not found!", buf);
     }
 }
 
