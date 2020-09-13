@@ -1866,7 +1866,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSString *str;
 
     if ([gwindow isKindOfClass:[GlkTextBufferWindow class]] &&
-        (style & 0xff) != style_Preformatted) {
+        (style & 0xff) != style_Preformatted && style != style_BlockQuote) {
         GlkTextBufferWindow *textwin = (GlkTextBufferWindow *)gwindow;
         NSInteger smartquotes = _theme.smartQuotes;
         NSInteger spaceformat = _theme.spaceFormat;
