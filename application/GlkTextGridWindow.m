@@ -574,7 +574,6 @@
     else
         [self.glkctl setBorderColor:bgcolor fromWindow:self];
 
-    textview.editable = YES;
     textview.backgroundColor = bgcolor;
     textview.insertionPointColor = bgcolor;
 }
