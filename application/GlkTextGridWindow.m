@@ -515,7 +515,8 @@
 }
 
 - (void)createBeyondZorkStyle {
-    NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:12];
+    CGFloat pointSize = self.theme.gridNormal.font.pointSize;
+    NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:pointSize];
     if (!zorkFont) {
         NSLog(@"Error! No Zork Font Found!");
         return;
@@ -529,24 +530,38 @@
     para.maximumLineHeight = self.theme.cellHeight;
     beyondZorkStyle[NSParagraphStyleAttributeName] = para;
     beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
+    beyondZorkStyle[NSKernAttributeName] = @(0);
+
+    NSLog(@"cellWidth:%f cellHeight:%f", self.theme.cellHeight, self.theme.cellWidth);
+    NSLog(@"layoutManager defaultLineHeightForFont before:%f", [container.layoutManager defaultLineHeightForFont:zorkFont]);
 
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
 
     NSSize size = [@"6" sizeWithAttributes:beyondZorkStyle];
 
-    NSAffineTransform *transform = [[NSAffineTransform alloc] init];
-    [transform scaleBy:zorkFont.pointSize];
-    CGFloat xscale = self.theme.cellWidth / size.width;
-    CGFloat yscale = self.theme.cellHeight / size.height; //* 1.05;
-    [transform scaleXBy:xscale yBy:yscale];
+    NSLog(@"Size before: %@", NSStringFromSize(size));
 
-    NSFontDescriptor *descriptor = [NSFontDescriptor fontDescriptorWithName:@"FreeFont3" matrix:transform];
-    zorkFont = [NSFont fontWithDescriptor:descriptor size:zorkFont.pointSize];
+    NSAffineTransform *transform = [[NSAffineTransform alloc] init];
+    [transform scaleBy:pointSize];
+    CGFloat xscale = self.theme.cellWidth / size.width * 0.952;
+    CGFloat yscale = self.theme.cellHeight / size.height * 1.35;
+    NSLog(@"xscale: %f yscale: %f", xscale, yscale);
+    [transform scaleXBy:xscale yBy:yscale];
+    //[transform concat];
+
+    NSFontDescriptor *descriptor = [NSFontDescriptor fontDescriptorWithName:@"FreeFont3" size:pointSize];
+    zorkFont = [NSFont fontWithDescriptor:descriptor textTransform:transform];
 
     if (!zorkFont)
         NSLog(@"Failed to create Zork Font!");
 
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
+
+    size = [@"6" sizeWithAttributes:beyondZorkStyle];
+
+    NSLog(@"Size after: %@", NSStringFromSize(size));
+    NSLog(@"layoutManager defaultLineHeightForFont after:%f", [container.layoutManager defaultLineHeightForFont:zorkFont]);
+    
     styles[style_BlockQuote] = beyondZorkStyle;
 }
 
@@ -1272,9 +1287,9 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
         return;
     }
 
-    NSString *stringToRemove = [textstorage.string substringWithRange:NSMakeRange(startpos, buf.length)].localizedUppercaseString;
+    NSString *stringToRemove = [textstorage.string substringWithRange:NSMakeRange(startpos, buf.length)].uppercaseString;
 
-    if ([stringToRemove isEqualToString:buf.localizedUppercaseString]) {
+    if ([stringToRemove isEqualToString:buf.uppercaseString]) {
         NSString *spaces = [[[NSString alloc] init]
                             stringByPaddingToLength:buf.length
                             withString:@" "

@@ -1103,7 +1103,6 @@ void znew_line(void)
 void zerase_window(void)
 {
 #ifdef ZTERP_GLK
-    fprintf(stderr, "zerase_window %d\n", as_signed(zargs[0]));
   switch(as_signed(zargs[0]))
   {
     case -2:
