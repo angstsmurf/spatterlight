@@ -521,48 +521,100 @@
         NSLog(@"Error! No Zork Font Found!");
         return;
     }
+    
+    NSString *normalTextSample = [self sampleStringWithString:@"The horizon is lost in the glare of morning upon the Great Sea. "];
+
+    NSString *zorkTextSample = [self sampleStringWithString:@"/''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''0 "];
+
+    CGFloat desiredWidth = [self widthForPointSize:pointSize baseFont:self.theme.gridNormal.font sampleText:normalTextSample];
+
+    zorkFont = [self fontToFitWidth:desiredWidth baseFont:zorkFont sampleText:zorkTextSample];
 
     NSMutableDictionary *beyondZorkStyle = [styles[style_BlockQuote] mutableCopy];
     NSMutableParagraphStyle *para = [beyondZorkStyle[NSParagraphStyleAttributeName] mutableCopy];
     para.lineSpacing = 0;
     para.paragraphSpacing = 0;
     para.paragraphSpacingBefore = 0;
-    para.maximumLineHeight = self.theme.cellHeight;
+
     beyondZorkStyle[NSParagraphStyleAttributeName] = para;
     beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
-    beyondZorkStyle[NSKernAttributeName] = @(0);
-
-    NSLog(@"cellWidth:%f cellHeight:%f", self.theme.cellHeight, self.theme.cellWidth);
-    NSLog(@"layoutManager defaultLineHeightForFont before:%f", [container.layoutManager defaultLineHeightForFont:zorkFont]);
 
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
 
-    NSSize size = [@"6" sizeWithAttributes:beyondZorkStyle];
-
-    NSLog(@"Size before: %@", NSStringFromSize(size));
-
     NSAffineTransform *transform = [[NSAffineTransform alloc] init];
-    [transform scaleBy:pointSize];
-    CGFloat xscale = self.theme.cellWidth / size.width * 0.952;
-    CGFloat yscale = self.theme.cellHeight / size.height * 1.35;
-    NSLog(@"xscale: %f yscale: %f", xscale, yscale);
-    [transform scaleXBy:xscale yBy:yscale];
-    //[transform concat];
+    [transform scaleBy:zorkFont.pointSize];
+    CGFloat yscale = (self.theme.cellHeight + 1) / [zorkFont boundingRectForFont].size.height;
+    [transform scaleXBy:1 yBy:yscale];
+    [transform concat];
 
-    NSFontDescriptor *descriptor = [NSFontDescriptor fontDescriptorWithName:@"FreeFont3" size:pointSize];
-    zorkFont = [NSFont fontWithDescriptor:descriptor textTransform:transform];
+    zorkFont = [NSFont fontWithDescriptor:zorkFont.fontDescriptor textTransform:transform];
 
     if (!zorkFont)
         NSLog(@"Failed to create Zork Font!");
 
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
 
-    size = [@"6" sizeWithAttributes:beyondZorkStyle];
+    para.maximumLineHeight = self.theme.cellHeight;
+    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
 
-    NSLog(@"Size after: %@", NSStringFromSize(size));
-    NSLog(@"layoutManager defaultLineHeightForFont after:%f", [container.layoutManager defaultLineHeightForFont:zorkFont]);
-    
     styles[style_BlockQuote] = beyondZorkStyle;
+}
+
+- (NSString *)sampleStringWithString:(NSString *)str {
+    if (!str.length)
+        return nil;
+
+    while (str.length < 100) {
+        str = [str stringByAppendingString:str];
+    }
+    str = [str substringToIndex:99];
+    return str;
+}
+
+-(NSFont *)fontToFitWidth:(CGFloat)desiredWidth baseFont:(NSFont *)font sampleText:(NSString *)text {
+    {
+        if (!text.length || desiredWidth < 2) {
+            return font;
+        }
+        
+        CGFloat guess;
+        CGFloat guessWidth;
+
+        guess = font.pointSize;
+        if (guess > 1 && guess < 1000) { guess = 50; }
+
+        guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
+
+        if (guessWidth == desiredWidth)
+        {
+            return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+        }
+
+        NSInteger iterations = 4;
+
+        while(iterations > 0)
+        {
+            guess = guess * ( desiredWidth / guessWidth );
+            guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
+
+            if (guessWidth == desiredWidth)
+            {
+                return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+            }
+            
+            iterations -= 1;
+        }
+        
+        return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+    }
+}
+
+- (CGFloat) widthForPointSize:(CGFloat)guess baseFont:(NSFont *)font sampleText:(NSString *)text {
+    NSFont *newFont = [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:newFont forKey:NSFontAttributeName];
+    CGFloat textWidth = [text sizeWithAttributes:dic].width;
+    return textWidth;
 }
 
 - (BOOL)allowsDocumentBackgroundColorChange {
@@ -799,7 +851,10 @@
     }
 
     if (NSMaxRange(selectedRange) > textview.textStorage.length) {
-        selectedRange = NSMakeRange(textview.textStorage.length - 1, 0);
+        if (textview.textStorage.length)
+            selectedRange = NSMakeRange(textview.textStorage.length - 1, 0);
+        else
+            selectedRange = NSMakeRange(0, 0);
     }
     textview.selectedRange = selectedRange;
 }
