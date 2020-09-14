@@ -514,109 +514,6 @@
     }
 }
 
-- (void)createBeyondZorkStyle {
-    CGFloat pointSize = self.theme.gridNormal.font.pointSize;
-    NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:pointSize];
-    if (!zorkFont) {
-        NSLog(@"Error! No Zork Font Found!");
-        return;
-    }
-    
-    NSString *normalTextSample = [self sampleStringWithString:@"The horizon is lost in the glare of morning upon the Great Sea. "];
-
-    NSString *zorkTextSample = [self sampleStringWithString:@"/''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''0 "];
-
-    CGFloat desiredWidth = [self widthForPointSize:pointSize baseFont:self.theme.gridNormal.font sampleText:normalTextSample];
-
-    zorkFont = [self fontToFitWidth:desiredWidth baseFont:zorkFont sampleText:zorkTextSample];
-
-    NSMutableDictionary *beyondZorkStyle = [styles[style_BlockQuote] mutableCopy];
-    NSMutableParagraphStyle *para = [beyondZorkStyle[NSParagraphStyleAttributeName] mutableCopy];
-    para.lineSpacing = 0;
-    para.paragraphSpacing = 0;
-    para.paragraphSpacingBefore = 0;
-
-    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
-    beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
-
-    beyondZorkStyle[NSFontAttributeName] = zorkFont;
-
-    NSAffineTransform *transform = [[NSAffineTransform alloc] init];
-    [transform scaleBy:zorkFont.pointSize];
-    CGFloat yscale = (self.theme.cellHeight + 1) / [zorkFont boundingRectForFont].size.height;
-    [transform scaleXBy:1 yBy:yscale];
-    [transform concat];
-
-    zorkFont = [NSFont fontWithDescriptor:zorkFont.fontDescriptor textTransform:transform];
-
-    if (!zorkFont)
-        NSLog(@"Failed to create Zork Font!");
-
-    beyondZorkStyle[NSFontAttributeName] = zorkFont;
-
-    para.maximumLineHeight = self.theme.cellHeight;
-    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
-
-    styles[style_BlockQuote] = beyondZorkStyle;
-}
-
-- (NSString *)sampleStringWithString:(NSString *)str {
-    if (!str.length)
-        return nil;
-
-    while (str.length < 100) {
-        str = [str stringByAppendingString:str];
-    }
-    str = [str substringToIndex:99];
-    return str;
-}
-
--(NSFont *)fontToFitWidth:(CGFloat)desiredWidth baseFont:(NSFont *)font sampleText:(NSString *)text {
-    {
-        if (!text.length || desiredWidth < 2) {
-            return font;
-        }
-        
-        CGFloat guess;
-        CGFloat guessWidth;
-
-        guess = font.pointSize;
-        if (guess > 1 && guess < 1000) { guess = 50; }
-
-        guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
-
-        if (guessWidth == desiredWidth)
-        {
-            return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-        }
-
-        NSInteger iterations = 4;
-
-        while(iterations > 0)
-        {
-            guess = guess * ( desiredWidth / guessWidth );
-            guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
-
-            if (guessWidth == desiredWidth)
-            {
-                return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-            }
-            
-            iterations -= 1;
-        }
-        
-        return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-    }
-}
-
-- (CGFloat) widthForPointSize:(CGFloat)guess baseFont:(NSFont *)font sampleText:(NSString *)text {
-    NSFont *newFont = [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:newFont forKey:NSFontAttributeName];
-    CGFloat textWidth = [text sizeWithAttributes:dic].width;
-    return textWidth;
-}
-
 - (BOOL)allowsDocumentBackgroundColorChange {
     return YES;
 }
@@ -1443,6 +1340,118 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
      }];
     
     return attStr;
+}
+
+#pragma mark Beyond Zork graphical font
+
+- (void)createBeyondZorkStyle {
+    CGFloat pointSize = self.theme.gridNormal.font.pointSize;
+    NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:pointSize];
+
+    if (!zorkFont) {
+        NSLog(@"Error! No Zork Font Found!");
+        return;
+    }
+
+    // First we find a point size that matches the width of the Normal style font
+    NSString *normalTextSample = [self sampleStringWithString:@"The horizon is lost in the glare of morning upon the Great Sea. "];
+    NSString *zorkTextSample = [self sampleStringWithString:@"/''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''0 "];
+
+    CGFloat desiredWidth = [self widthForPointSize:pointSize baseFont:self.theme.gridNormal.font sampleText:normalTextSample];
+    zorkFont = [self fontToFitWidth:desiredWidth baseFont:zorkFont sampleText:zorkTextSample];
+
+    // Then we switch off anything that may cause gaps in the default BlockQuote style font
+    NSMutableDictionary *beyondZorkStyle = [styles[style_BlockQuote] mutableCopy];
+    NSMutableParagraphStyle *para = [beyondZorkStyle[NSParagraphStyleAttributeName] mutableCopy];
+    para.lineSpacing = 0;
+    para.paragraphSpacing = 0;
+    para.paragraphSpacingBefore = 0;
+
+    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
+    beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
+
+    beyondZorkStyle[NSFontAttributeName] = zorkFont;
+
+    // Create an NSAffineTransform that stretches the font to our cellHeight
+    // This is where things usually go wrong, i.e. the result is too short or too tall
+    NSAffineTransform *transform = [[NSAffineTransform alloc] init];
+    [transform scaleBy:zorkFont.pointSize];
+    CGFloat yscale = (self.theme.cellHeight + 1) / [zorkFont boundingRectForFont].size.height;
+    [transform scaleXBy:1 yBy:yscale];
+    [transform concat];
+
+    zorkFont = [NSFont fontWithDescriptor:zorkFont.fontDescriptor textTransform:transform];
+
+    if (!zorkFont)
+        NSLog(@"Failed to create Zork Font!");
+
+    beyondZorkStyle[NSFontAttributeName] = zorkFont;
+
+    para.maximumLineHeight = self.theme.cellHeight;
+    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
+
+    styles[style_BlockQuote] = beyondZorkStyle;
+}
+
+// Convenience method to create an exactly 100 characters wide string
+// by repeating the input string
+
+- (NSString *)sampleStringWithString:(NSString *)str {
+    if (!str.length)
+        return nil;
+
+    while (str.length < 100) {
+        str = [str stringByAppendingString:str];
+    }
+    str = [str substringToIndex:99];
+    return str;
+}
+
+// Find a font size to match a certain width in points
+// This is really only necessary on 10.7, which can't give exact character width for fonts,
+// but I think it give slightly better results (less gaps) on recent systems as well.
+
+- (NSFont *)fontToFitWidth:(CGFloat)desiredWidth baseFont:(NSFont *)font sampleText:(NSString *)text {
+    {
+        if (!text.length || desiredWidth < 2) {
+            return font;
+        }
+
+        CGFloat guess;
+        CGFloat guessWidth;
+
+        guess = font.pointSize;
+        if (guess > 1 && guess < 1000) { guess = 50; }
+
+        guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
+
+        if (guessWidth == desiredWidth) {
+            return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+        }
+
+        NSInteger iterations = 4;
+
+        while(iterations > 0) {
+            guess = guess * ( desiredWidth / guessWidth );
+            guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
+
+            if (guessWidth == desiredWidth)
+            {
+                return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+            }
+
+            iterations -= 1;
+        }
+        return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+    }
+}
+
+- (CGFloat)widthForPointSize:(CGFloat)guess baseFont:(NSFont *)font sampleText:(NSString *)text {
+    NSFont *newFont = [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:newFont forKey:NSFontAttributeName];
+    CGFloat textWidth = [text sizeWithAttributes:dic].width;
+    return textWidth;
 }
 
 #pragma mark Accessibility
