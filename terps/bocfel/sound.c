@@ -53,7 +53,7 @@ bool sound_loaded(void)
 
 void os_beep(int number)
 {
-    fprintf(stderr, "os_beep type %d\n", number);
+    win_beep(number);
 }
 
 /*
