@@ -1378,7 +1378,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     [transform scaleBy:zorkFont.pointSize];
     CGFloat yscale = (self.theme.cellHeight + 1) / [zorkFont boundingRectForFont].size.height;
     [transform scaleXBy:1 yBy:yscale];
-    [transform concat];
 
     zorkFont = [NSFont fontWithDescriptor:zorkFont.fontDescriptor textTransform:transform];
 
