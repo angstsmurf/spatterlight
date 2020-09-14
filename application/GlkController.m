@@ -33,7 +33,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
 //    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
 //    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
-//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "SETLINK",
+//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "BEEP", "SETLINK",
 //    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
 //    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
 //    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
@@ -2205,6 +2205,14 @@ fprintf(stderr, "%s\n",                                                    \
             //            }
             break;
 
+        case BEEP:
+            NSLog(@"BEEP: %d", req->a1);
+                if (req->a1 == 1)
+                    [[NSSound soundNamed:@"Glass"] play];
+                 if (req->a1 == 2)
+                    [[NSSound soundNamed:@"Blow"] play];
+
+            break;
             /*
              * Window sizing, printing, drawing, etc...
              */

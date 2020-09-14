@@ -9,6 +9,8 @@
 
 #ifdef ZTERP_GLK
 #include "glk.h"
+#include "glkimp.h"
+
 #endif
 
 #define EFFECT_PREPARE 1

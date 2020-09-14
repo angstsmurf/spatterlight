@@ -76,6 +76,7 @@ void win_cancelmouse(int name);
 void win_setbgnd(int name, glui32 color);
 void win_clear(int name);
 void win_moveto(int name, int x, int y);
+void win_beep(int type);
 void win_timer(int millisecs);
 void win_select(event_t *event, int block);
 void win_flush(void);

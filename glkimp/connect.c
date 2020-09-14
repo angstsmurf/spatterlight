@@ -359,6 +359,13 @@ void win_moveto(int name, int x, int y)
     sendmsg(MOVETO, name, x, y, 0, 0, 0, NULL);
 }
 
+void win_beep(int type)
+{
+    win_flush();
+    sendmsg(BEEP, type, 0, 0, 0, 0, 0, NULL);
+}
+
+
 void win_timer(int millisecs)
 {
     win_flush();

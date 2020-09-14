@@ -97,6 +97,7 @@ enum
     SETVOLUME,
     PLAYSOUND,
     STOPSOUND,
+    BEEP,
     
     SETLINK,
     INITLINK,
