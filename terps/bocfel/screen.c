@@ -1818,6 +1818,11 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
             set_header_extension(HEADER_EXTENSION_MOUSE_X, ev.val1 + 1);
             set_header_extension(HEADER_EXTENSION_MOUSE_Y, ev.val2 + 1);
 
+            if (input->type == INPUT_CHAR) {
+                status = InputReceived;
+                input->key = ZSCII_CLICK_SINGLE;
+            }
+
             if (input->type == INPUT_LINE) {
                 status = InputReceived;
                 event_t ev;
