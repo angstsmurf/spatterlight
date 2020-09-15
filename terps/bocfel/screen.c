@@ -1823,7 +1823,7 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
                 input->key = ZSCII_CLICK_SINGLE;
             }
 
-            if (input->type == INPUT_LINE) {
+            if (input->type == INPUT_LINE && curwin != upperwin) {
                 status = InputReceived;
                 event_t ev;
 
