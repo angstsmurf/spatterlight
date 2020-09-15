@@ -200,7 +200,6 @@ void win_unprint(int name, glui32 *s, int len)
          pbuf[ix] = s[ix];
     }
 
-    fprintf(stderr, "win_unprint win %d len %d string %s\n", name, len, (char *)pbuf);
     sendmsg(UNPRINT, name, 0, 0, 0, 0,
             len * sizeof(unsigned short),
             (char *)pbuf);
