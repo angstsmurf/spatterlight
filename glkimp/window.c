@@ -887,11 +887,37 @@ void gli_cancel_line_event(window_t *win, event_t *ev)
 {
     win_cancelline(win->peer, win->line.cap, &win->line.len, win->line.buf);
 
-    if (win->echostr)
-        gli_stream_echo_line(win->echostr, win->line.buf, win->line.len);
+    unsigned short *unicharbuf = (unsigned short *)win->line.buf;
+    glui32 *tempbuf = malloc(win->line.len * sizeof(glui32));
+    for (int i = 0; i < win->line.len; i++) {
+        tempbuf[i] = unicharbuf[i];
+    }
+
+    if (win->line_request_uni)
+    {
+        glui32 *unicode = win->line.buf;
+        for (int i = 0; i < win->line.len; i++)
+            unicode[i] = tempbuf[i];
+        if (win->echostr)
+            gli_stream_echo_line_uni(win->echostr, win->line.buf, win->line.len);
+    }
+    else
+    {
+        unsigned char *latin1 = win->line.buf;
+        for (int i = 0; i < win->line.len; i++)
+            latin1[i] = tempbuf[i] < 0x100 ? tempbuf[i] : '?';
+        if (win->echostr)
+            gli_stream_echo_line(win->echostr, win->line.buf, win->line.len);
+    }
+    free(tempbuf);
+
+    win->str->readcount +=  win->line.len;
 
     if (gli_unregister_arr)
         (*gli_unregister_arr)(win->line.buf, win->line.cap, win->line_request_uni ? "&+#!Iu" : "&+#!Cn", win->line.inarrayrock);
+
+    if (ev == NULL)
+        return;
 
     ev->type = evtype_LineInput;
     ev->win = win;

@@ -687,11 +687,12 @@ again:
             event->win = gli_window_for_peer(wmsg.a1);
             event->val2 = wmsg.a3;
 
+            event->val1 = MIN(wmsg.a2, event->win->line.cap);
+            unsigned short *ibuf = (unsigned short*)wbuf;
+
             if (event->win->line_request_uni)
             {
-                event->val1 = MIN(wmsg.a2, event->win->line.cap); /* / sizeof(glui32));*/
                 glui32 *obuf = event->win->line.buf;
-                unsigned short *ibuf = (unsigned short*)wbuf;
                 for (i = 0; i < (int)event->val1; i++)
                     obuf[i] = ibuf[i];
                 if (event->win->echostr)
@@ -699,9 +700,7 @@ again:
             }
             else
             {
-                event->val1 = MIN(wmsg.a2, event->win->line.cap);
                 unsigned char *obuf = event->win->line.buf;
-                unsigned short *ibuf = (unsigned short*)wbuf;
                 for (i = 0; i < (int)event->val1; i++)
                     obuf[i] = ibuf[i] < 0x100 ? ibuf[i] : '?';
                 if (event->win->echostr)
