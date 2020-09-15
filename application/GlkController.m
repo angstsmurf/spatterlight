@@ -2175,9 +2175,9 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case LOADSOUND:
-            buf[req->len] = 0;
-            [self handleLoadSoundNumber:req->a1 from:buf length:req->len];
-            break;
+//            buf[req->len] = 0;
+//            [self handleLoadSoundNumber:req->a1 from:buf length:req->len];
+//            break;
 
         case SETVOLUME:
             //            if (req->a1 >= 0 && req->a1 < MAXSND &&
@@ -2207,10 +2207,16 @@ fprintf(stderr, "%s\n",                                                    \
 
         case BEEP:
             NSLog(@"BEEP: %d", req->a1);
-                if (req->a1 == 1)
-                    [[NSSound soundNamed:@"Glass"] play];
-                 if (req->a1 == 2)
-                    [[NSSound soundNamed:@"Blow"] play];
+                if (req->a1 == 1) {
+                    NSSound *sound = [NSSound soundNamed:@"Glass"];
+                    [sound stop];
+                    [sound play];
+                }
+                if (req->a1 == 2) {
+                    NSSound *sound = [NSSound soundNamed:@"Pop"];
+                    [sound stop];
+                    [sound play];
+                }
 
             break;
             /*
