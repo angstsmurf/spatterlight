@@ -1165,11 +1165,9 @@
 //    NSLog(@"cancelline");
     line_request = NO;
     if (_input) {
-        NSUInteger oldx = xpos;
-        NSUInteger oldy = ypos;
         NSString *str = _input.stringValue;
         [self printToWindow:str style:style_Input];
-        [self moveToColumn:oldx row:oldy + 1];
+        [self moveToColumn:0 row:ypos + 1];
         [_input removeFromSuperview];
         _input = nil;
         return str;
@@ -1184,13 +1182,10 @@
 
         NSString *str = _input.stringValue;
 
-        NSUInteger oldx = xpos;
-        NSUInteger oldy = ypos;
-
         [self printToWindow:str style:style_Input];
 
         if (terminator == 0) {
-            [self moveToColumn:oldx row:oldy + 1];
+            [self moveToColumn:0 row:ypos + 1];
         }
 
         str = [str scrubInvalidCharacters];
@@ -1369,6 +1364,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
     beyondZorkStyle[NSParagraphStyleAttributeName] = para;
     beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
+    beyondZorkStyle[NSCursorAttributeName] = [NSCursor arrowCursor];
 
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
 
