@@ -1727,6 +1727,8 @@
 
     NSString *line = [textstorage.string substringFromIndex:fence];
     if (echo) {
+        [textstorage
+         addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(fence, textstorage.length - fence)];
         [self printToWindow:@"\n"
                       style:style_Input]; // XXX arranger lastchar needs to be set
         _lastchar = '\n';
@@ -1962,6 +1964,8 @@
     if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default )
         inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
 
+    inputStyle[NSCursorAttributeName] = [NSCursor IBeamCursor];
+
     id att = [[NSAttributedString alloc]
         initWithString:str
               attributes:inputStyle];
@@ -2189,10 +2193,8 @@
         if (_lastchar != '\n' && textstorage.length) {
             NSLog(@"lastchar is not line break. Do not add margin image.");
             return;
-        } 
-            
+        }
         //        NSLog(@"adding image to margins");
-
         unichar uc[1];
         uc[0] = NSAttachmentCharacter;
 
@@ -2201,19 +2203,11 @@
 
         image = [self scaleImage:image size:NSMakeSize(w, h)];
 
-        //        tiffdata = image.TIFFRepresentation;
-        //
-        //        [container addImage:[[NSImage alloc] initWithData:tiffdata]
-        //                      align:align
-        //                         at:textstorage.length - 1
-        //                     linkid:(NSUInteger)self.currentHyperlink];
-
         [container addImage: image align: align at:
          textstorage.length - 1 linkid:(NSUInteger)self.currentHyperlink];
 
     } else {
         //        NSLog(@"adding image to text");
-
         image = [self scaleImage:image size:NSMakeSize(w, h)];
 
         tiffdata = image.TIFFRepresentation;
