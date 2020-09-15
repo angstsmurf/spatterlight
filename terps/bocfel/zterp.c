@@ -419,7 +419,9 @@ void write_header(void)
   if(zversion >= 5)
   {
     uint16_t flags2 = word(0x10);
-
+#ifdef SPATTERLIGHT
+    if (!is_beyond_zork())
+#endif
     flags2 &= ~FLAGS2_MOUSE;
     if(!sound_loaded()) flags2 &= ~FLAGS2_SOUND;
     if(zversion >= 6) flags2 &= ~FLAGS2_MENUS;

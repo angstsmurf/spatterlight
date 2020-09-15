@@ -73,8 +73,12 @@ extern struct options options;
 #define FLAGS2_SOUND		(1U << 7)
 #define FLAGS2_MENUS		(1U << 8)
 
+#define HEADER_EXTENSION_MOUSE_X 1
+#define HEADER_EXTENSION_MOUSE_Y 2
+
 #define status_is_time()	(zversion == 3 && (byte(0x01) & FLAGS1_STATUSTYPE))
 #define timer_available()	(zversion >= 4 && (byte(0x01) & FLAGS1_TIMED))
+#define mouse_available()   (zversion >= 5 && (word(0x10) & FLAGS2_MOUSE))
 
 struct header
 {

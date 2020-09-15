@@ -98,6 +98,9 @@ static struct window statuswin;
 static long upper_window_height = 0;
 static long upper_window_width = 0;
 static winid_t errorwin;
+
+bool mouse_request_active;
+
 #endif
 
 /* In all versions but 6, styles and colors are global and stored in
@@ -793,6 +796,33 @@ static void clear_window(struct window *window)
   window->x = window->y = 0;
 }
 #endif
+
+/*
+ * set_header_extension
+ *
+ * Set an entry in the header extension (former mouse table).
+ *
+ */
+void set_header_extension(int entry, uint16_t val)
+{
+    uint16_t addr;
+
+    if(zversion >= 5)
+    {
+        uint16_t etable = word(0x36);
+
+        if(etable != 0)
+        {
+            uint16_t nentries = user_word(etable);
+
+            if (entry > nentries)
+                return;
+
+            addr = etable + 2 * entry;
+            store_word(addr, val);
+        }
+    }
+} /* set_header_extension */
 
 /* If restoring from an interrupt (which is a bad idea to begin with),
  * it’s entirely possible that there will be pending read events that
@@ -1695,6 +1725,12 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
     glk_set_window(curwin->id);
   }
 
+  if(mouse_available() && !mouse_request_active && upperwin)
+  {
+      glk_request_mouse_event(upperwin->id);
+      mouse_request_active = true;
+  }
+
   if(input->type == INPUT_CHAR)
   {
     request_char();
@@ -1772,6 +1808,24 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
              * with an undefined bit of the Z-machine.
              */
             if(curwin != saved3) set_current_window(saved3);
+            break;
+        }
+
+        case evtype_MouseInput:
+        {
+            mouse_request_active = false;
+
+            set_header_extension(HEADER_EXTENSION_MOUSE_X, ev.val1 + 1);
+            set_header_extension(HEADER_EXTENSION_MOUSE_Y, ev.val2 + 1);
+
+            if (input->type == INPUT_LINE) {
+                status = InputReceived;
+                event_t ev;
+
+                glk_cancel_line_event(curwin->id, &ev);
+                input->len = ev.val1;
+                input->term = ZSCII_CLICK_SINGLE;
+            }
             break;
         }
 
