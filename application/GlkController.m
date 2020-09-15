@@ -2389,7 +2389,7 @@ fprintf(stderr, "%s\n",                                                    \
             // NSLog(@"glkctl INITLINE %d", req->a1);
             [self performScroll];
             if (reqWin) {
-                [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)] maxLength:req->a2];
+                [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)] maxLength:(NSUInteger)req->a2];
             }
             break;
 
@@ -2397,9 +2397,12 @@ fprintf(stderr, "%s\n",                                                    \
 //            NSLog(@"glkctl CANCELLINE %d", req->a1);
             ans->cmd = OKAY;
             if (reqWin) {
-                const char *str = [reqWin cancelLine].UTF8String;
-                strlcpy(buf, str, GLKBUFSIZE);
-                ans->len = strlen(buf);
+                NSString *str = [reqWin cancelLine];
+                ans->len = str.length * sizeof(unichar);
+                if (ans->len > GLKBUFSIZE)
+                    ans->len = GLKBUFSIZE;
+                [str getCharacters:(unsigned short *)buf
+                            range:NSMakeRange(0, str.length)];
             }
             break;
 

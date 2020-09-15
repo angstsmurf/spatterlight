@@ -414,7 +414,7 @@ void win_cancelline(int name, int cap, int *len, char *buf)
     win_flush();
     sendmsg(CANCELLINE, name, cap, 0, 0, 0, 0, NULL);
     readmsg(&wmsg, buf);
-    *len = wmsg.len;
+    *len = wmsg.len / sizeof(unsigned short);
 }
 
 void win_setlink(int name, int val)
