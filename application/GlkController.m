@@ -2207,6 +2207,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case BEEP:
             NSLog(@"BEEP: %d", req->a1);
+            if (_theme.doSound) {
                 if (req->a1 == 1) {
                     NSSound *sound = [NSSound soundNamed:@"Glass"];
                     [sound stop];
@@ -2217,6 +2218,7 @@ fprintf(stderr, "%s\n",                                                    \
                     [sound stop];
                     [sound play];
                 }
+            }
 
             break;
             /*
