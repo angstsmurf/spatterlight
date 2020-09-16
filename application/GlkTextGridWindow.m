@@ -554,7 +554,7 @@
 
     NSRange range;
     NSDictionary *attrDict = [textstorage attributesAtIndex:0 effectiveRange:&range];
-    if (range.length >= cols - 2 && rows <= range.length / cols) {
+    if (range.length >= cols - 2 && rows <= range.length / cols + 1) {
         NSColor *bgCol = attrDict[NSBackgroundColorAttributeName];
         if (bgCol && ![bgCol isEqualToColor:textview.backgroundColor] && !transparent) {
             [self setBgColor:[bgCol integerColor]];
