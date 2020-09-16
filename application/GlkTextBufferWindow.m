@@ -1213,6 +1213,195 @@
     [encoder encodeObject:storedNewline forKey:@"storedNewline"];
 }
 
+- (void)setFrame:(NSRect)frame {
+    //        NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
+    //        NSStringFromRect(frame));
+
+    if (NSEqualRects(frame, self.frame)) {
+        //        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
+        //              @"Skipping.");
+        return;
+    }
+
+    super.frame = frame;
+    if ([container hasMarginImages])
+        [container invalidateLayout];
+
+    if (NSMaxX(self.frame) > NSWidth(self.glkctl.contentView.bounds) && NSWidth(self.frame) > 10) {
+        NSLog(@"GlkTextViewBuffer %ld width: something is wrong: contentView width: %f self maxX: %f", (long)self.name, NSWidth(self.glkctl.contentView.bounds), NSMaxX(self.frame));
+        NSLog(@"Self frame:%@ contentview frame: %@ _textview.frame %@ scrollview.frame %@", NSStringFromRect(self.frame),  NSStringFromRect(self.glkctl.contentView.frame), NSStringFromRect(_textview.frame), NSStringFromRect(scrollview.frame));
+        self.frame = NSMakeRect(frame.origin.x, self.frame.origin.y, NSWidth(self.glkctl.contentView.bounds) - frame.origin.x, frame.size.height);
+        _textview.frame = self.frame;
+    }
+}
+
+- (void)saveAsRTF:(id)sender {
+    NSWindow *window = self.glkctl.window;
+    BOOL isRtfd = NO;
+    NSString *newExtension = @"rtf";
+    if (textstorage.containsAttachments || [container hasMarginImages]) {
+        newExtension = @"rtfd";
+        isRtfd = YES;
+    }
+    NSString *newName = [window.title.stringByDeletingPathExtension
+                         stringByAppendingPathExtension:newExtension];
+
+    // Set the default name for the file and show the panel.
+
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    //[panel setNameFieldLabel: @"Save Scrollback: "];
+    panel.nameFieldLabel = @"Save Text: ";
+    panel.allowedFileTypes = @[ newExtension ];
+    panel.extensionHidden = NO;
+    [panel setCanCreateDirectories:YES];
+
+    panel.nameFieldStringValue = newName;
+    NSTextView *localTextView = _textview;
+    NSAttributedString *localTextStorage = textstorage;
+    MarginContainer *localTextContainer = container;
+    [panel
+     beginSheetModalForWindow:window
+     completionHandler:^(NSInteger result) {
+         if (result == NSFileHandlingPanelOKButton) {
+             NSURL *theFile = panel.URL;
+
+             NSMutableAttributedString *mutattstr =
+             [localTextStorage mutableCopy];
+
+             mutattstr = [localTextContainer
+                          marginsToAttachmentsInString:mutattstr];
+
+             [mutattstr
+              addAttribute:NSBackgroundColorAttributeName
+              value:localTextView.backgroundColor
+              range:NSMakeRange(0, mutattstr.length)];
+
+             if (isRtfd) {
+                 NSFileWrapper *wrapper;
+                 wrapper = [mutattstr
+                            RTFDFileWrapperFromRange:NSMakeRange(
+                                                                 0, mutattstr.length)
+                            documentAttributes:@{
+                                                 NSDocumentTypeDocumentAttribute :
+                                                     NSRTFDTextDocumentType
+                                                 }];
+
+                 [wrapper writeToURL:theFile
+                             options:
+                  NSFileWrapperWritingAtomic |
+                  NSFileWrapperWritingWithNameUpdating
+                 originalContentsURL:nil
+                               error:NULL];
+
+             } else {
+                 NSData *data;
+                 data = [mutattstr
+                         RTFFromRange:NSMakeRange(0,
+                                                  mutattstr.length)
+                         documentAttributes:@{
+                                              NSDocumentTypeDocumentAttribute :
+                                                  NSRTFTextDocumentType
+                                              }];
+                 [data writeToURL:theFile atomically:NO];
+             }
+         }
+     }];
+}
+
+- (void)grabFocus {
+    MyTextView *localTextView = _textview;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.window makeFirstResponder:localTextView];
+    });
+    // NSLog(@"GlkTextBufferWindow %ld grabbed focus.", self.name);
+}
+
+- (BOOL)wantsFocus {
+    return char_request || line_request;
+}
+
+- (void)terpDidStop {
+    [_textview setEditable:NO];
+    [self grabFocus];
+}
+
+#pragma mark Command history
+
+- (void)saveHistory:(NSString *)line {
+    if (history[historypresent]) {
+        history[historypresent] = nil;
+    }
+
+    history[historypresent] = line;
+
+    historypresent++;
+    if (historypresent >= HISTORYLEN)
+        historypresent -= HISTORYLEN;
+
+    if (historypresent == historyfirst) {
+        historyfirst++;
+        if (historyfirst > HISTORYLEN)
+            historyfirst -= HISTORYLEN;
+    }
+
+    if (history[historypresent]) {
+        history[historypresent] = nil;
+    }
+}
+
+- (void)travelBackwardInHistory {
+    [_textview resetTextFinder];
+
+    NSString *cx;
+
+    if (historypos == historyfirst)
+        return;
+
+    if (historypos == historypresent) {
+        /* save the edited line */
+        if (textstorage.length - fence > 0)
+            cx = [textstorage.string substringFromIndex:fence];
+        else
+            cx = nil;
+        history[historypos] = cx;
+    }
+
+    historypos--;
+    if (historypos < 0)
+        historypos += HISTORYLEN;
+
+    cx = history[historypos];
+    if (!cx)
+        cx = @"";
+
+    [textstorage
+     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+     withString:cx];
+}
+
+- (void)travelForwardInHistory {
+    [_textview resetTextFinder];
+
+    NSString *cx;
+
+    if (historypos == historypresent)
+        return;
+
+    historypos++;
+    if (historypos >= HISTORYLEN)
+        historypos -= HISTORYLEN;
+
+    cx = history[historypos];
+    if (!cx)
+        cx = @"";
+
+    [textstorage
+     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+     withString:cx];
+}
+
+#pragma mark Colors and styles
+
 - (BOOL)allowsDocumentBackgroundColorChange {
     return YES;
 }
@@ -1385,392 +1574,7 @@
     }
 }
 
-- (void)createBeyondZorkStyle {
-    CGFloat pointSize = ((NSFont *)(styles[style_Normal][NSFontAttributeName])).pointSize;
-    NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:pointSize];
-    if (!zorkFont) {
-        NSLog(@"Error! No Zork Font Found!");
-        return;
-    }
-
-    NSMutableDictionary *beyondZorkStyle = [styles[style_BlockQuote] mutableCopy];
-
-    beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
-
-    beyondZorkStyle[NSFontAttributeName] = zorkFont;
-
-    NSSize size = [@"6" sizeWithAttributes:beyondZorkStyle];
-    NSSize wSize = [@"W" sizeWithAttributes:styles[style_Normal]];
-
-
-    NSAffineTransform *transform = [[NSAffineTransform alloc] init];
-    [transform scaleBy:pointSize];
-    
-    CGFloat xscale = wSize.width / size.width;
-    if (xscale < 1) xscale = 1;
-    CGFloat yscale = wSize.height / size.height;
-    if (yscale < 1) yscale = 1;
-
-    [transform scaleXBy:xscale yBy:yscale];
-    NSFontDescriptor *descriptor = [NSFontDescriptor fontDescriptorWithName:@"FreeFont3" size:pointSize];
-    zorkFont = [NSFont fontWithDescriptor:descriptor textTransform:transform];
-    if (!zorkFont)
-        NSLog(@"Failed to create Zork Font!");
-    beyondZorkStyle[NSFontAttributeName] = zorkFont;
-
-    styles[style_BlockQuote] = beyondZorkStyle;
-}
-
-- (void)setFrame:(NSRect)frame {
-//        NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
-//        NSStringFromRect(frame));
-
-    if (NSEqualRects(frame, self.frame)) {
-//        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
-//              @"Skipping.");
-        return;
-    }
-
-    super.frame = frame;
-    if ([container hasMarginImages])
-        [container invalidateLayout];
-
-    if (NSMaxX(self.frame) > NSWidth(self.glkctl.contentView.bounds) && NSWidth(self.frame) > 10) {
-        NSLog(@"GlkTextViewBuffer %ld width: something is wrong: contentView width: %f self maxX: %f", (long)self.name, NSWidth(self.glkctl.contentView.bounds), NSMaxX(self.frame));
-        NSLog(@"Self frame:%@ contentview frame: %@ _textview.frame %@ scrollview.frame %@", NSStringFromRect(self.frame),  NSStringFromRect(self.glkctl.contentView.frame), NSStringFromRect(_textview.frame), NSStringFromRect(scrollview.frame));
-        self.frame = NSMakeRect(frame.origin.x, self.frame.origin.y, NSWidth(self.glkctl.contentView.bounds) - frame.origin.x, frame.size.height);
-        _textview.frame = self.frame;
-    }
-}
-
-- (void)saveAsRTF:(id)sender {
-    NSWindow *window = self.glkctl.window;
-    BOOL isRtfd = NO;
-    NSString *newExtension = @"rtf";
-    if (textstorage.containsAttachments || [container hasMarginImages]) {
-        newExtension = @"rtfd";
-        isRtfd = YES;
-    }
-    NSString *newName = [window.title.stringByDeletingPathExtension
-        stringByAppendingPathExtension:newExtension];
-
-    // Set the default name for the file and show the panel.
-
-    NSSavePanel *panel = [NSSavePanel savePanel];
-    //[panel setNameFieldLabel: @"Save Scrollback: "];
-    panel.nameFieldLabel = @"Save Text: ";
-    panel.allowedFileTypes = @[ newExtension ];
-    panel.extensionHidden = NO;
-    [panel setCanCreateDirectories:YES];
-
-    panel.nameFieldStringValue = newName;
-    NSTextView *localTextView = _textview;
-    NSAttributedString *localTextStorage = textstorage;
-    MarginContainer *localTextContainer = container;
-    [panel
-        beginSheetModalForWindow:window
-               completionHandler:^(NSInteger result) {
-                   if (result == NSFileHandlingPanelOKButton) {
-                       NSURL *theFile = panel.URL;
-
-                       NSMutableAttributedString *mutattstr =
-                           [localTextStorage mutableCopy];
-
-                       mutattstr = [localTextContainer
-                           marginsToAttachmentsInString:mutattstr];
-
-                       [mutattstr
-                           addAttribute:NSBackgroundColorAttributeName
-                                  value:localTextView.backgroundColor
-                                  range:NSMakeRange(0, mutattstr.length)];
-
-                       if (isRtfd) {
-                           NSFileWrapper *wrapper;
-                           wrapper = [mutattstr
-                               RTFDFileWrapperFromRange:NSMakeRange(
-                                                            0, mutattstr.length)
-                                     documentAttributes:@{
-                                         NSDocumentTypeDocumentAttribute :
-                                             NSRTFDTextDocumentType
-                                     }];
-
-                           [wrapper writeToURL:theFile
-                                           options:
-                                               NSFileWrapperWritingAtomic |
-                                               NSFileWrapperWritingWithNameUpdating
-                               originalContentsURL:nil
-                                             error:NULL];
-
-                       } else {
-                           NSData *data;
-                           data = [mutattstr
-                                     RTFFromRange:NSMakeRange(0,
-                                                              mutattstr.length)
-                               documentAttributes:@{
-                                   NSDocumentTypeDocumentAttribute :
-                                       NSRTFTextDocumentType
-                               }];
-                           [data writeToURL:theFile atomically:NO];
-                       }
-                   }
-               }];
-}
-
-- (void)saveHistory:(NSString *)line {
-    if (history[historypresent]) {
-        history[historypresent] = nil;
-    }
-
-    history[historypresent] = line;
-
-    historypresent++;
-    if (historypresent >= HISTORYLEN)
-        historypresent -= HISTORYLEN;
-
-    if (historypresent == historyfirst) {
-        historyfirst++;
-        if (historyfirst > HISTORYLEN)
-            historyfirst -= HISTORYLEN;
-    }
-
-    if (history[historypresent]) {
-        history[historypresent] = nil;
-    }
-}
-
-- (void)travelBackwardInHistory {
-    [_textview resetTextFinder];
-
-    NSString *cx;
-
-    if (historypos == historyfirst)
-        return;
-
-    if (historypos == historypresent) {
-        /* save the edited line */
-        if (textstorage.length - fence > 0)
-            cx = [textstorage.string substringFromIndex:fence];
-        else
-            cx = nil;
-        history[historypos] = cx;
-    }
-
-    historypos--;
-    if (historypos < 0)
-        historypos += HISTORYLEN;
-
-    cx = history[historypos];
-    if (!cx)
-        cx = @"";
-
-    [textstorage
-        replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
-                      withString:cx];
-}
-
-- (void)travelForwardInHistory {
-    [_textview resetTextFinder];
-
-    NSString *cx;
-
-    if (historypos == historypresent)
-        return;
-
-    historypos++;
-    if (historypos >= HISTORYLEN)
-        historypos -= HISTORYLEN;
-
-    cx = history[historypos];
-    if (!cx)
-        cx = @"";
-
-    [textstorage
-        replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
-                      withString:cx];
-}
-
-- (void)onKeyDown:(NSEvent *)evt {
-//    NSLog(@"GlkTextBufferWindow %ld onKeyDown", self.name);
-    GlkEvent *gev;
-    NSString *str = evt.characters;
-    unsigned ch = keycode_Unknown;
-    if (str.length)
-        ch = chartokeycode([str characterAtIndex:0]);
-
-    NSUInteger flags = evt.modifierFlags;
-
-    GlkWindow *win;
-
-    // pass on this key press to another GlkWindow if we are not expecting one
-    if (!self.wantsFocus) {
-        NSLog(@"%ld does not want focus", self.name);
-        for (win in [self.glkctl.gwindows allValues]) {
-            if (win != self && win.wantsFocus) {
-                NSLog(@"GlkTextBufferWindow: Passing on keypress to window %ld", win.name);
-                [win grabFocus];
-                if ([win isKindOfClass:[GlkTextBufferWindow class]])
-                    [(GlkTextBufferWindow *)win onKeyDown:evt];
-                else
-                    [win keyDown:evt];
-                return;
-            }
-        }
-    }
-
-    BOOL commandKeyOnly = ((flags & NSCommandKeyMask) &&
-                           !(flags & (NSAlternateKeyMask | NSShiftKeyMask |
-                                      NSControlKeyMask | NSHelpKeyMask)));
-    BOOL optionKeyOnly = ((flags & NSAlternateKeyMask) &&
-                          !(flags & (NSCommandKeyMask | NSShiftKeyMask |
-                                     NSControlKeyMask | NSHelpKeyMask)));
-
-    if (ch == keycode_Up) {
-        if (optionKeyOnly)
-            ch = keycode_PageUp;
-        else if (commandKeyOnly)
-            ch = keycode_Home;
-    } else if (ch == keycode_Down) {
-        if (optionKeyOnly)
-            ch = keycode_PageDown;
-        else if (commandKeyOnly)
-            ch = keycode_End;
-    }
-    //    else if (ch == keycode_Left)
-    //    {
-    //        if ((flags & (NSAlternateKeyMask | NSCommandKeyMask)) && !(flags &
-    //        (NSShiftKeyMask | NSControlKeyMask | NSHelpKeyMask)))
-    //        {
-    //            NSLog(@"Pressed keyboard shortcut for speakMostRecent!");
-    //            [self speakMostRecent:nil];
-    //            return;
-    //        }
-    //    }
-    else if (([str isEqualToString:@"f"] || [str isEqualToString:@"F"]) &&
-             commandKeyOnly) {
-        if (!scrollview.findBarVisible) {
-            [self restoreTextFinder];
-            return;
-        }
-    }
-
-    NSNumber *key = @(ch);
-    BOOL scrolled = NO;
-
-    if (![self scrolledToBottom]) {
-//        NSLog(@"Not scrolled to the bottom, pagedown or navigate scrolling on each key instead");
-        switch (ch) {
-            case keycode_PageUp:
-            case keycode_Delete:
-                [_textview scrollPageUp:nil];
-                return;
-            case keycode_PageDown:
-            case ' ':
-                [_textview scrollPageDown:nil];
-                return;
-            case keycode_Up:
-                [_textview scrollLineUp:nil];
-                return;
-            case keycode_Down:
-            case keycode_Return:
-                [_textview scrollLineDown:nil];
-                return;
-            default:
-                [self performScroll];
-                // To fix scrolling in the Adrian Mole games
-                scrolled = YES;
-                break;
-        }
-    }
-
-    if (char_request && ch != keycode_Unknown) {
-        // To fix scrolling in the Adrian Mole games
-        if (!scrolled)
-            self.glkctl.shouldScrollOnCharEvent = YES;
-
-        [self markLastSeen];
-
-        gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
-        [self.glkctl queueEvent:gev];
-
-        char_request = NO;
-        [_textview setEditable:NO];
-
-    } else if (line_request && (ch == keycode_Return ||
-                [self.currentTerminators[key] isEqual:@(YES)])) {
-        [self sendInputLineWithTerminator:ch == keycode_Return ? 0 : key.integerValue];
-    } else if (line_request && ch == keycode_Up) {
-        [self travelBackwardInHistory];
-    } else if (line_request && ch == keycode_Down) {
-        [self travelForwardInHistory];
-    } else if (line_request && ch == keycode_PageUp &&
-             fence == textstorage.length) {
-        [_textview scrollPageUp:nil];
-        return;
-    }
-
-    else {
-        if (line_request)
-            [self grabFocus];
-
-        [self stopSpeakingText_10_7];
-        [[self.glkctl window] makeFirstResponder:_textview];
-        [_textview superKeyDown:evt];
-    }
-}
-
--(void)sendInputLineWithTerminator:(NSInteger)terminator {
-    // NSLog(@"line event from %ld", (long)self.name);
-
-    [_textview resetTextFinder];
-
-    [self.glkctl markLastSeen];
-
-    NSString *line = [textstorage.string substringFromIndex:fence];
-    if (echo) {
-        [textstorage
-         addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(fence, textstorage.length - fence)];
-        [self printToWindow:@"\n"
-                      style:style_Input]; // XXX arranger lastchar needs to be set
-        _lastchar = '\n';
-    } else
-        [textstorage
-         deleteCharactersInRange:NSMakeRange(fence,
-                                             textstorage.length -
-                                             fence)]; // Don't echo
-    // input line
-
-    if (line.length > 0) {
-        [self saveHistory:line];
-    }
-
-    line = [line scrubInvalidCharacters];
-
-    if (self.glkctl.deadCities) {
-        unichar endChar = [line characterAtIndex:line.length - 1];
-        if (endChar == '\n' || endChar == '\r')
-            line = [line substringToIndex:line.length - 1];
-    }
-    
-    GlkEvent *gev = [[GlkEvent alloc] initLineEvent:line forWindow:self.name terminator:terminator];
-    [self.glkctl queueEvent:gev];
-
-    fence = textstorage.length;
-    line_request = NO;
-    [self hideInsertionPoint];
-    [_textview setEditable:NO];
-}
-
-- (void)grabFocus {
-    MyTextView *localTextView = _textview;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.window makeFirstResponder:localTextView];
-    });
-    // NSLog(@"GlkTextBufferWindow %ld grabbed focus.", self.name);
-}
-
-- (BOOL)wantsFocus {
-    return char_request || line_request;
-}
+#pragma mark Output
 
 - (void)clear {
     [_textview resetTextFinder];
@@ -1917,6 +1721,253 @@
     }
 }
 
+
+- (void)echo:(BOOL)val {
+    if ((!(val) && echo) || (val && !(echo))) // Do we need to toggle echo?
+        echo_toggle_pending = YES;
+}
+
+#pragma mark NSTextView customization
+
+- (BOOL)textView:(NSTextView *)aTextView
+shouldChangeTextInRange:(NSRange)range
+replacementString:(id)repl {
+    if (line_request && range.location >= fence) {
+        _textview.shouldDrawCaret = YES;
+        return YES;
+    }
+
+    _textview.shouldDrawCaret = NO;
+    return NO;
+}
+
+- (void)textStorageWillProcessEditing:(NSNotification *)note {
+    if (!line_request)
+        return;
+
+    if (textstorage.editedRange.location < fence)
+        return;
+
+    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
+    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Default && currentZColor.fg != zcolor_Current)
+        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
+
+    [textstorage setAttributes:inputStyle
+                         range:textstorage.editedRange];
+}
+
+- (NSRange)textView:(NSTextView *)aTextView
+willChangeSelectionFromCharacterRange:(NSRange)oldrange
+   toCharacterRange:(NSRange)newrange {
+    if (line_request) {
+        if (newrange.length == 0)
+            if (newrange.location < fence)
+                newrange.location = fence;
+    } else {
+        if (newrange.length == 0)
+            newrange.location = textstorage.length;
+    }
+    return newrange;
+}
+
+- (void)hideInsertionPoint {
+    if (!line_request) {
+        NSColor *color = _textview.backgroundColor;
+        if (textstorage.length) {
+            color = [textstorage attribute:NSBackgroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
+        }
+        if (!color) {
+            color = self.theme.bufferBackground;
+        }
+        _textview.insertionPointColor = color;
+    }
+}
+
+- (void)showInsertionPoint {
+    if (line_request) {
+        NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
+        if (textstorage.length) {
+            color = [textstorage attribute:NSForegroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
+        }
+        if (!color)
+            color = self.theme.bufferNormal.color;
+        _textview.insertionPointColor = color;
+    }
+}
+
+#pragma mark Input
+
+- (void)onKeyDown:(NSEvent *)evt {
+    //    NSLog(@"GlkTextBufferWindow %ld onKeyDown", self.name);
+    GlkEvent *gev;
+    NSString *str = evt.characters;
+    unsigned ch = keycode_Unknown;
+    if (str.length)
+        ch = chartokeycode([str characterAtIndex:0]);
+
+    NSUInteger flags = evt.modifierFlags;
+
+    GlkWindow *win;
+
+    // pass on this key press to another GlkWindow if we are not expecting one
+    if (!self.wantsFocus) {
+        NSLog(@"%ld does not want focus", self.name);
+        for (win in [self.glkctl.gwindows allValues]) {
+            if (win != self && win.wantsFocus) {
+                NSLog(@"GlkTextBufferWindow: Passing on keypress to window %ld", win.name);
+                [win grabFocus];
+                if ([win isKindOfClass:[GlkTextBufferWindow class]])
+                    [(GlkTextBufferWindow *)win onKeyDown:evt];
+                else
+                    [win keyDown:evt];
+                return;
+            }
+        }
+    }
+
+    BOOL commandKeyOnly = ((flags & NSCommandKeyMask) &&
+                           !(flags & (NSAlternateKeyMask | NSShiftKeyMask |
+                                      NSControlKeyMask | NSHelpKeyMask)));
+    BOOL optionKeyOnly = ((flags & NSAlternateKeyMask) &&
+                          !(flags & (NSCommandKeyMask | NSShiftKeyMask |
+                                     NSControlKeyMask | NSHelpKeyMask)));
+
+    if (ch == keycode_Up) {
+        if (optionKeyOnly)
+            ch = keycode_PageUp;
+        else if (commandKeyOnly)
+            ch = keycode_Home;
+    } else if (ch == keycode_Down) {
+        if (optionKeyOnly)
+            ch = keycode_PageDown;
+        else if (commandKeyOnly)
+            ch = keycode_End;
+    }
+    //    else if (ch == keycode_Left)
+    //    {
+    //        if ((flags & (NSAlternateKeyMask | NSCommandKeyMask)) && !(flags &
+    //        (NSShiftKeyMask | NSControlKeyMask | NSHelpKeyMask)))
+    //        {
+    //            NSLog(@"Pressed keyboard shortcut for speakMostRecent!");
+    //            [self speakMostRecent:nil];
+    //            return;
+    //        }
+    //    }
+    else if (([str isEqualToString:@"f"] || [str isEqualToString:@"F"]) &&
+             commandKeyOnly) {
+        if (!scrollview.findBarVisible) {
+            [self restoreTextFinder];
+            return;
+        }
+    }
+
+    NSNumber *key = @(ch);
+    BOOL scrolled = NO;
+
+    if (![self scrolledToBottom]) {
+        //        NSLog(@"Not scrolled to the bottom, pagedown or navigate scrolling on each key instead");
+        switch (ch) {
+            case keycode_PageUp:
+            case keycode_Delete:
+                [_textview scrollPageUp:nil];
+                return;
+            case keycode_PageDown:
+            case ' ':
+                [_textview scrollPageDown:nil];
+                return;
+            case keycode_Up:
+                [_textview scrollLineUp:nil];
+                return;
+            case keycode_Down:
+            case keycode_Return:
+                [_textview scrollLineDown:nil];
+                return;
+            default:
+                [self performScroll];
+                // To fix scrolling in the Adrian Mole games
+                scrolled = YES;
+                break;
+        }
+    }
+
+    if (char_request && ch != keycode_Unknown) {
+        // To fix scrolling in the Adrian Mole games
+        if (!scrolled)
+            self.glkctl.shouldScrollOnCharEvent = YES;
+
+        [self markLastSeen];
+
+        gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
+        [self.glkctl queueEvent:gev];
+
+        char_request = NO;
+        [_textview setEditable:NO];
+
+    } else if (line_request && (ch == keycode_Return ||
+                                [self.currentTerminators[key] isEqual:@(YES)])) {
+        [self sendInputLineWithTerminator:ch == keycode_Return ? 0 : key.integerValue];
+    } else if (line_request && ch == keycode_Up) {
+        [self travelBackwardInHistory];
+    } else if (line_request && ch == keycode_Down) {
+        [self travelForwardInHistory];
+    } else if (line_request && ch == keycode_PageUp &&
+               fence == textstorage.length) {
+        [_textview scrollPageUp:nil];
+        return;
+    }
+
+    else {
+        if (line_request)
+            [self grabFocus];
+
+        [self stopSpeakingText_10_7];
+        [[self.glkctl window] makeFirstResponder:_textview];
+        [_textview superKeyDown:evt];
+    }
+}
+
+-(void)sendInputLineWithTerminator:(NSInteger)terminator {
+    // NSLog(@"line event from %ld", (long)self.name);
+
+    [_textview resetTextFinder];
+
+    [self.glkctl markLastSeen];
+
+    NSString *line = [textstorage.string substringFromIndex:fence];
+    if (echo) {
+        [textstorage
+         addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(fence, textstorage.length - fence)];
+        [self printToWindow:@"\n"
+                      style:style_Input]; // XXX arranger lastchar needs to be set
+        _lastchar = '\n';
+    } else
+        [textstorage
+         deleteCharactersInRange:NSMakeRange(fence,
+                                             textstorage.length -
+                                             fence)]; // Don't echo
+    // input line
+
+    if (line.length > 0) {
+        [self saveHistory:line];
+    }
+
+    line = [line scrubInvalidCharacters];
+
+    if (self.glkctl.deadCities) {
+        unichar endChar = [line characterAtIndex:line.length - 1];
+        if (endChar == '\n' || endChar == '\r')
+            line = [line substringToIndex:line.length - 1];
+    }
+
+    GlkEvent *gev = [[GlkEvent alloc] initLineEvent:line forWindow:self.name terminator:terminator];
+    [self.glkctl queueEvent:gev];
+
+    fence = textstorage.length;
+    line_request = NO;
+    [self hideInsertionPoint];
+    [_textview setEditable:NO];
+}
+
 - (void)initChar {
 //    NSLog(@"GlkTextbufferWindow %ld initChar", (long)self.name);
 
@@ -2003,80 +2054,48 @@
     return str;
 }
 
-- (void)hideInsertionPoint {
-    if (!line_request) {
-        NSColor *color = _textview.backgroundColor;
-        if (textstorage.length) {
-            color = [textstorage attribute:NSBackgroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
-        }
-        if (!color) {
-            color = self.theme.bufferBackground;
-        }
-        _textview.insertionPointColor = color;
-    }
-}
+#pragma mark Beyond Zork font
 
-- (void)showInsertionPoint {
-    if (line_request) {
-        NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
-        if (textstorage.length) {
-            color = [textstorage attribute:NSForegroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
-        }
-        if (!color)
-            color = self.theme.bufferNormal.color;
-        _textview.insertionPointColor = color;
-    }
-}
-
-- (void)echo:(BOOL)val {
-    if ((!(val) && echo) || (val && !(echo))) // Do we need to toggle echo?
-        echo_toggle_pending = YES;
-}
-
-- (void)terpDidStop {
-    [_textview setEditable:NO];
-    [self grabFocus];
-}
-
-- (BOOL)textView:(NSTextView *)aTextView
-    shouldChangeTextInRange:(NSRange)range
-          replacementString:(id)repl {
-    if (line_request && range.location >= fence) {
-        _textview.shouldDrawCaret = YES;
-        return YES;
-    }
-
-    _textview.shouldDrawCaret = NO;
-    return NO;
-}
-
-- (void)textStorageWillProcessEditing:(NSNotification *)note {
-    if (!line_request)
+- (void)createBeyondZorkStyle {
+    CGFloat pointSize = ((NSFont *)(styles[style_Normal][NSFontAttributeName])).pointSize;
+    NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:pointSize];
+    if (!zorkFont) {
+        NSLog(@"Error! No Zork Font Found!");
         return;
-
-    if (textstorage.editedRange.location < fence)
-        return;
-
-    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
-    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Default && currentZColor.fg != zcolor_Current)
-        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
-
-    [textstorage setAttributes:inputStyle
-                          range:textstorage.editedRange];
-}
-
-- (NSRange)textView:(NSTextView *)aTextView
-    willChangeSelectionFromCharacterRange:(NSRange)oldrange
-                         toCharacterRange:(NSRange)newrange {
-    if (line_request) {
-        if (newrange.length == 0)
-            if (newrange.location < fence)
-                newrange.location = fence;
-    } else {
-        if (newrange.length == 0)
-            newrange.location = textstorage.length;
     }
-    return newrange;
+
+    NSMutableDictionary *beyondZorkStyle = [styles[style_BlockQuote] mutableCopy];
+
+    beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
+
+    beyondZorkStyle[NSFontAttributeName] = zorkFont;
+
+    NSSize size = [@"6" sizeWithAttributes:beyondZorkStyle];
+    NSSize wSize = [@"W" sizeWithAttributes:styles[style_Normal]];
+
+    NSAffineTransform *transform = [[NSAffineTransform alloc] init];
+    [transform scaleBy:pointSize];
+
+    CGFloat xscale = wSize.width / size.width;
+    if (xscale < 1) xscale = 1;
+    CGFloat yscale = wSize.height / size.height;
+    if (yscale < 1) yscale = 1;
+
+    [transform scaleXBy:xscale yBy:yscale];
+    NSFontDescriptor *descriptor = [NSFontDescriptor fontDescriptorWithName:@"FreeFont3" size:pointSize];
+    zorkFont = [NSFont fontWithDescriptor:descriptor textTransform:transform];
+    if (!zorkFont)
+        NSLog(@"Failed to create Zork Font!");
+    beyondZorkStyle[NSFontAttributeName] = zorkFont;
+    NSMutableParagraphStyle *para = [beyondZorkStyle[NSParagraphStyleAttributeName] mutableCopy];
+    para.lineSpacing = 0;
+    para.paragraphSpacing = 0;
+    para.paragraphSpacingBefore = 0;
+    para.maximumLineHeight = [layoutmanager defaultLineHeightForFont:self.theme.bufferNormal.font];;
+    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
+    beyondZorkStyle[NSKernAttributeName] = @(-2);
+
+    styles[style_BlockQuote] = beyondZorkStyle;
 }
 
 #pragma mark Text finder
