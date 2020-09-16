@@ -1248,6 +1248,27 @@
 		6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Fonts License.rtf"; sourceTree = "<group>"; };
 		6DCFFC2C22BE57790035FA99 /* SideInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideInfoView.h; sourceTree = "<group>"; };
 		6DCFFC2D22BE57790035FA99 /* SideInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideInfoView.m; sourceTree = "<group>"; };
+		6DD3D26C2512C11300667CA6 /* dict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dict.h; sourceTree = "<group>"; };
+		6DD3D26D2512C11300667CA6 /* help.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = help.h; sourceTree = "<group>"; };
+		6DD3D26E2512C11300667CA6 /* iff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iff.h; sourceTree = "<group>"; };
+		6DD3D26F2512C11300667CA6 /* io.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = io.h; sourceTree = "<group>"; };
+		6DD3D2702512C11300667CA6 /* math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
+		6DD3D2712512C11300667CA6 /* memory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memory.h; sourceTree = "<group>"; };
+		6DD3D2722512C11300667CA6 /* meta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = meta.h; sourceTree = "<group>"; };
+		6DD3D2732512C11300667CA6 /* objects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = objects.h; sourceTree = "<group>"; };
+		6DD3D2742512C11300667CA6 /* osdep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = osdep.h; sourceTree = "<group>"; };
+		6DD3D2752512C11300667CA6 /* patches.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = patches.h; sourceTree = "<group>"; };
+		6DD3D2762512C11300667CA6 /* process.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = process.h; sourceTree = "<group>"; };
+		6DD3D2772512C11300667CA6 /* random.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = random.h; sourceTree = "<group>"; };
+		6DD3D2782512C11300667CA6 /* screen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = screen.h; sourceTree = "<group>"; };
+		6DD3D2792512C11300667CA6 /* sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sound.h; sourceTree = "<group>"; };
+		6DD3D27A2512C11300667CA6 /* stack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		6DD3D27B2512C11300667CA6 /* unicode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unicode.h; sourceTree = "<group>"; };
+		6DD3D27C2512C11300667CA6 /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		6DD3D27D2512C11300667CA6 /* zoom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zoom.h; sourceTree = "<group>"; };
+		6DD3D27E2512C11300667CA6 /* zterp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zterp.h; sourceTree = "<group>"; };
+		6DD3D27F2512C18300667CA6 /* blorb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blorb.h; sourceTree = "<group>"; };
+		6DD3D2802512C19200667CA6 /* branch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = branch.h; sourceTree = "<group>"; };
 		6DD7679A23E45FB7003B605C /* ThemeArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeArrayController.h; sourceTree = "<group>"; };
 		6DD7679B23E45FB7003B605C /* ThemeArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeArrayController.m; sourceTree = "<group>"; };
 		6DE6699E2500334400DDBDAA /* acode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = acode.h; sourceTree = "<group>"; };
@@ -3018,26 +3039,47 @@
 		6DB774A32458B95E00EDC671 /* bocfel */ = {
 			isa = PBXGroup;
 			children = (
+				6DD3D27F2512C18300667CA6 /* blorb.h */,
 				6DB774AB2458B9B300EDC671 /* blorb.c */,
+				6DD3D2802512C19200667CA6 /* branch.h */,
 				6DB774AC2458B9B300EDC671 /* branch.c */,
+				6DD3D26C2512C11300667CA6 /* dict.h */,
 				6DB774AD2458B9B300EDC671 /* dict.c */,
 				6DB774AE2458B9B300EDC671 /* glkstart.c */,
+				6DD3D26D2512C11300667CA6 /* help.h */,
+				6DD3D26E2512C11300667CA6 /* iff.h */,
 				6DB774AF2458B9B300EDC671 /* iff.c */,
+				6DD3D26F2512C11300667CA6 /* io.h */,
 				6DB774B02458B9B300EDC671 /* io.c */,
+				6DD3D2702512C11300667CA6 /* math.h */,
 				6DB774B12458B9B300EDC671 /* math.c */,
+				6DD3D2712512C11300667CA6 /* memory.h */,
 				6DB774B22458B9B300EDC671 /* memory.c */,
+				6DD3D2722512C11300667CA6 /* meta.h */,
 				6DB774B32458B9B300EDC671 /* meta.c */,
+				6DD3D2732512C11300667CA6 /* objects.h */,
 				6DB774B42458B9B300EDC671 /* objects.c */,
+				6DD3D2742512C11300667CA6 /* osdep.h */,
 				6DB774B52458B9B300EDC671 /* osdep.c */,
+				6DD3D2752512C11300667CA6 /* patches.h */,
 				6DB774B62458B9B300EDC671 /* patches.c */,
+				6DD3D2762512C11300667CA6 /* process.h */,
 				6DB774B72458B9B300EDC671 /* process.c */,
+				6DD3D2772512C11300667CA6 /* random.h */,
 				6DB774B82458B9B300EDC671 /* random.c */,
+				6DD3D2782512C11300667CA6 /* screen.h */,
 				6DB774B92458B9B300EDC671 /* screen.c */,
+				6DD3D2792512C11300667CA6 /* sound.h */,
 				6DB774BA2458B9B300EDC671 /* sound.c */,
+				6DD3D27A2512C11300667CA6 /* stack.h */,
 				6DB774BB2458B9B300EDC671 /* stack.c */,
+				6DD3D27B2512C11300667CA6 /* unicode.h */,
 				6DB774BC2458B9B300EDC671 /* unicode.c */,
+				6DD3D27C2512C11300667CA6 /* util.h */,
 				6DB774BD2458B9B300EDC671 /* util.c */,
+				6DD3D27D2512C11300667CA6 /* zoom.h */,
 				6DB774BE2458B9B300EDC671 /* zoom.c */,
+				6DD3D27E2512C11300667CA6 /* zterp.h */,
 				6DB774BF2458B9B300EDC671 /* zterp.c */,
 			);
 			path = bocfel;
