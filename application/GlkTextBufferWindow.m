@@ -1325,81 +1325,6 @@
     [self grabFocus];
 }
 
-#pragma mark Command history
-
-- (void)saveHistory:(NSString *)line {
-    if (history[historypresent]) {
-        history[historypresent] = nil;
-    }
-
-    history[historypresent] = line;
-
-    historypresent++;
-    if (historypresent >= HISTORYLEN)
-        historypresent -= HISTORYLEN;
-
-    if (historypresent == historyfirst) {
-        historyfirst++;
-        if (historyfirst > HISTORYLEN)
-            historyfirst -= HISTORYLEN;
-    }
-
-    if (history[historypresent]) {
-        history[historypresent] = nil;
-    }
-}
-
-- (void)travelBackwardInHistory {
-    [_textview resetTextFinder];
-
-    NSString *cx;
-
-    if (historypos == historyfirst)
-        return;
-
-    if (historypos == historypresent) {
-        /* save the edited line */
-        if (textstorage.length - fence > 0)
-            cx = [textstorage.string substringFromIndex:fence];
-        else
-            cx = nil;
-        history[historypos] = cx;
-    }
-
-    historypos--;
-    if (historypos < 0)
-        historypos += HISTORYLEN;
-
-    cx = history[historypos];
-    if (!cx)
-        cx = @"";
-
-    [textstorage
-     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
-     withString:cx];
-}
-
-- (void)travelForwardInHistory {
-    [_textview resetTextFinder];
-
-    NSString *cx;
-
-    if (historypos == historypresent)
-        return;
-
-    historypos++;
-    if (historypos >= HISTORYLEN)
-        historypos -= HISTORYLEN;
-
-    cx = history[historypos];
-    if (!cx)
-        cx = @"";
-
-    [textstorage
-     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
-     withString:cx];
-}
-
 #pragma mark Colors and styles
 
 - (BOOL)allowsDocumentBackgroundColorChange {
@@ -1735,74 +1660,6 @@
         echo_toggle_pending = YES;
 }
 
-#pragma mark NSTextView customization
-
-- (BOOL)textView:(NSTextView *)aTextView
-shouldChangeTextInRange:(NSRange)range
-replacementString:(id)repl {
-    if (line_request && range.location >= fence) {
-        _textview.shouldDrawCaret = YES;
-        return YES;
-    }
-
-    _textview.shouldDrawCaret = NO;
-    return NO;
-}
-
-- (void)textStorageWillProcessEditing:(NSNotification *)note {
-    if (!line_request)
-        return;
-
-    if (textstorage.editedRange.location < fence)
-        return;
-
-    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
-    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Default && currentZColor.fg != zcolor_Current)
-        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
-
-    [textstorage setAttributes:inputStyle
-                         range:textstorage.editedRange];
-}
-
-- (NSRange)textView:(NSTextView *)aTextView
-willChangeSelectionFromCharacterRange:(NSRange)oldrange
-   toCharacterRange:(NSRange)newrange {
-    if (line_request) {
-        if (newrange.length == 0)
-            if (newrange.location < fence)
-                newrange.location = fence;
-    } else {
-        if (newrange.length == 0)
-            newrange.location = textstorage.length;
-    }
-    return newrange;
-}
-
-- (void)hideInsertionPoint {
-    if (!line_request) {
-        NSColor *color = _textview.backgroundColor;
-        if (textstorage.length) {
-            color = [textstorage attribute:NSBackgroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
-        }
-        if (!color) {
-            color = self.theme.bufferBackground;
-        }
-        _textview.insertionPointColor = color;
-    }
-}
-
-- (void)showInsertionPoint {
-    if (line_request) {
-        NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
-        if (textstorage.length) {
-            color = [textstorage attribute:NSForegroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
-        }
-        if (!color)
-            color = self.theme.bufferNormal.color;
-        _textview.insertionPointColor = color;
-    }
-}
-
 #pragma mark Input
 
 - (void)onKeyDown:(NSEvent *)evt {
@@ -2062,6 +1919,81 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     return str;
 }
 
+#pragma mark Command history
+
+- (void)saveHistory:(NSString *)line {
+    if (history[historypresent]) {
+        history[historypresent] = nil;
+    }
+
+    history[historypresent] = line;
+
+    historypresent++;
+    if (historypresent >= HISTORYLEN)
+        historypresent -= HISTORYLEN;
+
+    if (historypresent == historyfirst) {
+        historyfirst++;
+        if (historyfirst > HISTORYLEN)
+            historyfirst -= HISTORYLEN;
+    }
+
+    if (history[historypresent]) {
+        history[historypresent] = nil;
+    }
+}
+
+- (void)travelBackwardInHistory {
+    [_textview resetTextFinder];
+
+    NSString *cx;
+
+    if (historypos == historyfirst)
+        return;
+
+    if (historypos == historypresent) {
+        /* save the edited line */
+        if (textstorage.length - fence > 0)
+            cx = [textstorage.string substringFromIndex:fence];
+        else
+            cx = nil;
+        history[historypos] = cx;
+    }
+
+    historypos--;
+    if (historypos < 0)
+        historypos += HISTORYLEN;
+
+    cx = history[historypos];
+    if (!cx)
+        cx = @"";
+
+    [textstorage
+     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+     withString:cx];
+}
+
+- (void)travelForwardInHistory {
+    [_textview resetTextFinder];
+
+    NSString *cx;
+
+    if (historypos == historypresent)
+        return;
+
+    historypos++;
+    if (historypos >= HISTORYLEN)
+        historypos -= HISTORYLEN;
+
+    cx = history[historypos];
+    if (!cx)
+        cx = @"";
+
+    [textstorage
+     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+     withString:cx];
+}
+
 #pragma mark Beyond Zork font
 
 - (void)createBeyondZorkStyle {
@@ -2139,6 +2071,74 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
              @"y" : @"ᚥ",
              @"z" : @"ᛟ"
              };
+}
+
+#pragma mark NSTextView customization
+
+- (BOOL)textView:(NSTextView *)aTextView
+shouldChangeTextInRange:(NSRange)range
+replacementString:(id)repl {
+    if (line_request && range.location >= fence) {
+        _textview.shouldDrawCaret = YES;
+        return YES;
+    }
+
+    _textview.shouldDrawCaret = NO;
+    return NO;
+}
+
+- (void)textStorageWillProcessEditing:(NSNotification *)note {
+    if (!line_request)
+        return;
+
+    if (textstorage.editedRange.location < fence)
+        return;
+
+    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
+    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Default && currentZColor.fg != zcolor_Current)
+        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
+
+    [textstorage setAttributes:inputStyle
+                         range:textstorage.editedRange];
+}
+
+- (NSRange)textView:(NSTextView *)aTextView
+willChangeSelectionFromCharacterRange:(NSRange)oldrange
+   toCharacterRange:(NSRange)newrange {
+    if (line_request) {
+        if (newrange.length == 0)
+            if (newrange.location < fence)
+                newrange.location = fence;
+    } else {
+        if (newrange.length == 0)
+            newrange.location = textstorage.length;
+    }
+    return newrange;
+}
+
+- (void)hideInsertionPoint {
+    if (!line_request) {
+        NSColor *color = _textview.backgroundColor;
+        if (textstorage.length) {
+            color = [textstorage attribute:NSBackgroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
+        }
+        if (!color) {
+            color = self.theme.bufferBackground;
+        }
+        _textview.insertionPointColor = color;
+    }
+}
+
+- (void)showInsertionPoint {
+    if (line_request) {
+        NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
+        if (textstorage.length) {
+            color = [textstorage attribute:NSForegroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
+        }
+        if (!color)
+            color = self.theme.bufferNormal.color;
+        _textview.insertionPointColor = color;
+    }
 }
 
 #pragma mark Text finder
