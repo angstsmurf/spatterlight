@@ -1656,6 +1656,14 @@
 
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
 
+    if (self.glkctl.beyondZork && str.length == 1 && stylevalue == style_BlockQuote) {
+        NSDictionary *font3 = [self font3ToUnicode];
+        NSString *newString = font3[str];
+        if (newString) {
+            str = newString;
+            stylevalue = style_Normal;
+        }
+    }
 //    NSLog(@"\nPrinting %ld chars at position %ld with style %@", str.length, textstorage.length, gBufferStyleNames[stylevalue]);
 
     // A lot of code to not print single newlines
@@ -2096,6 +2104,41 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     beyondZorkStyle[NSKernAttributeName] = @(-2);
 
     styles[style_BlockQuote] = beyondZorkStyle;
+}
+
+- (NSDictionary *)font3ToUnicode {
+    return @{
+             @"!" : @"←",
+            @"\"" : @"→",
+            @"\\" : @"↑",
+             @"]" : @"↓",
+             @"a" : @"ᚪ",
+             @"b" : @"ᛒ",
+             @"c" : @"ᛇ",
+             @"d" : @"ᛞ",
+             @"e" : @"ᛖ",
+             @"f" : @"ᚠ",
+             @"g" : @"ᚷ",
+             @"h" : @"ᚻ",
+             @"i" : @"ᛁ",
+             @"j" : @"ᛄ",
+             @"k" : @"ᛦ",
+             @"l" : @"ᛚ",
+             @"m" : @"ᛗ",
+             @"n" : @"ᚾ",
+             @"o" : @"ᚩ",
+             @"p" : @"ᖾ",
+             @"q" : @"ᚳ",
+             @"r" : @"ᚱ",
+             @"s" : @"ᛋ",
+             @"t" : @"ᛏ",
+             @"u" : @"ᚢ",
+             @"v" : @"ᛠ",
+             @"w" : @"ᚹ",
+             @"x" : @"ᛉ",
+             @"y" : @"ᚥ",
+             @"z" : @"ᛟ"
+             };
 }
 
 #pragma mark Text finder
