@@ -1364,7 +1364,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
     beyondZorkStyle[NSParagraphStyleAttributeName] = para;
     beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
-    beyondZorkStyle[NSCursorAttributeName] = [NSCursor arrowCursor];
 
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
 
