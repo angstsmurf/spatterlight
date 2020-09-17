@@ -319,7 +319,7 @@ static void cleanup_screen(struct input *input)
    */
   if(curwin == upperwin)
   {
-    if(input->term != ZSCII_NEWLINE) upperwin->x += input->len;
+    /* if(input->term != ZSCII_NEWLINE) upperwin->x += input->len; */
 
     if(input->term == ZSCII_NEWLINE || upperwin->x >= upper_window_width)
     {
@@ -327,7 +327,7 @@ static void cleanup_screen(struct input *input)
       if(upperwin->y < upper_window_height) upperwin->y++;
     }
 
-//    glk_window_move_cursor(upperwin->id, upperwin->x, upperwin->y);
+    glk_window_move_cursor(upperwin->id, upperwin->x, upperwin->y);
   }
 
   /* If line input echoing is turned off, newlines will not be printed
@@ -1823,7 +1823,7 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
                 input->key = ZSCII_CLICK_SINGLE;
             }
 
-            if (input->type == INPUT_LINE && curwin != upperwin) {
+            if (input->type == INPUT_LINE) {
                 status = InputReceived;
                 event_t ev;
 

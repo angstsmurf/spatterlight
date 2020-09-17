@@ -1162,7 +1162,6 @@
 }
 
 - (NSString *)cancelLine {
-//    NSLog(@"cancelline");
     line_request = NO;
     if (_input) {
         NSString *str = _input.stringValue;
@@ -1183,10 +1182,7 @@
         NSString *str = _input.stringValue;
 
         [self printToWindow:str style:style_Input];
-
-        if (terminator == 0) {
-            [self moveToColumn:0 row:ypos + 1];
-        }
+        [self moveToColumn:0 row:ypos + 1];
 
         str = [str scrubInvalidCharacters];
 
