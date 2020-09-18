@@ -598,8 +598,10 @@
     if (_bufferTextStorage)
         [textstorage setAttributedString:_bufferTextStorage];
 
-    textview.selectedRange = selectedRange;
-    _restoredSelection = selectedRange;
+    if (NSMaxRange(selectedRange) <= textstorage.length) {
+        textview.selectedRange = selectedRange;
+        _restoredSelection = selectedRange;
+    }
 
     [super flushDisplay];
     textview.editable = NO;
