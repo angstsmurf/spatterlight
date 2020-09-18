@@ -155,6 +155,9 @@ fprintf(stderr, "%s\n",                                                    \
     if ([_game.ifid isEqualToString:@"ZCODE-47-870915"] || [_game.ifid isEqualToString:@"ZCODE-49-870917"] || [_game.ifid isEqualToString:@"ZCODE-51-870923"] || [_game.ifid isEqualToString:@"ZCODE-57-871221"] || [_game.ifid isEqualToString:@"ZCODE-60-880610"])
         _beyondZork = YES;
 
+    if ([_game.ifid isEqualToString:@"ZCODE-6-031116-1D88"] || [_game.ifid isEqualToString:@"ZCODE-7-130320-4A18"])
+        _robotFindsKitten = YES;
+
     _gamefile = [_game urlForBookmark].path;
     _terpname = terpname_;
 

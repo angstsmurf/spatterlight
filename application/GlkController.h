@@ -125,6 +125,7 @@
 @property BOOL deadCities;
 @property BOOL bureaucracy;
 @property BOOL beyondZork;
+@property BOOL robotFindsKitten;
 
 @property NSInteger autosaveVersion;
 
