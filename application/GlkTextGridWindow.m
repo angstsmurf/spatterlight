@@ -52,13 +52,14 @@
 /*
  * Extend NSTextField to ...
  *   - set insertion point color
+ *   - set selection at end on becoming key
  */
 
 @implementation MyGridTextField
 
 -(BOOL) becomeFirstResponder
 {
-    BOOL    success = [super becomeFirstResponder];
+    BOOL success = [super becomeFirstResponder];
     if( success )
     {
         // Strictly spoken, NSText (which currentEditor returns) doesn't
@@ -75,6 +76,7 @@
 }
 
 @end
+
 
 @interface MyFieldEditor : NSTextView
 
@@ -95,6 +97,7 @@
 }
 
 @end
+
 
 // Custom formatter adapted from code by Jonathan Mitchell
 // See
@@ -379,26 +382,6 @@
     return char_request || line_request;
 }
 
-- (BOOL)acceptsFirstResponder {
-    return YES;
-}
-
-- (BOOL)becomeFirstResponder {
-    if (char_request) {
-        [self setNeedsDisplay:YES];
-        dirty = NO;
-    }
-    return [super becomeFirstResponder];
-}
-
-- (BOOL)resignFirstResponder {
-    if (char_request) {
-        [self setNeedsDisplay:YES];
-        dirty = NO;
-    }
-    return [super resignFirstResponder];
-}
-
 - (BOOL)isFlipped {
     return YES;
 }
@@ -680,7 +663,7 @@
     rows = newrows;
 
     NSUInteger desiredLength =
-    rows * (cols + 1) - 1; // -1 because we don't want a newline at the end
+    rows * (cols + 1) - 1; // -1 because we don't want a newline at the very end
     if (desiredLength < 1 || rows == 1)
         desiredLength = cols;
     if (backingStorage.length < desiredLength) {
@@ -789,13 +772,6 @@
         ypos += (xpos / cols);
         xpos = (xpos % cols);
     }
-
-    //    NSLog(@"textGrid printToWindow: '%@' (style %ld)", string, stylevalue);
-    //    NSLog(@"cols: %ld rows: %ld", cols, rows);
-    //    NSLog(@"xpos:%ld ypos: %ld", xpos, ypos);
-    //
-    //    NSLog(@"self.frame.size.width: %f",self.frame.size.width);
-
     NSMutableDictionary *attrDict = [styles[stylevalue] mutableCopy];
 
     if (!attrDict)
