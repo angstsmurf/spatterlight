@@ -223,15 +223,7 @@
     if (h == 0)
         h = (NSInteger)srcsize.height;
 
-//    NSLog(@"drawimage in gfx x=%ld y=%ld w=%ld h=%ld \n", (long)x, (long)y, (long)w, (long)h);
-
-    @try {
-        [image lockFocus];
-    } @catch (NSException *ex) {
-        // This may happen if the autosavefile is old and buggy
-        NSLog(@"GlkGraphicsWindow drawImage: %@", ex);
-        return;
-    }
+    [image lockFocus];
 
     [NSGraphicsContext currentContext].imageInterpolation =
         NSImageInterpolationHigh;
