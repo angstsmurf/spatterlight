@@ -28,6 +28,8 @@
 #define HOME_PAGE "http://eblong.com/zarf/blorb"
 #define FORMAT_EXT ".blorb,.blb,.zblorb,.zlb,.gblorb,.glb"
 #define CONTAINER_FORMAT
+#define MAX_RESOURCE_SIZE 10000000
+
 #include "treaty_builder.h"
 #include <stdlib.h>
 #include <ctype.h>
@@ -119,7 +121,8 @@ static int32 get_story_file(void *blorb_file, int32 extent, void *output, int32 
  int32 i,j;
  if (blorb_get_resource(blorb_file, extent, "Exec", 0, &i, &j))
  {
-  ASSERT_OUTPUT_SIZE(j);
+  if (output_extent < j || j > MAX_RESOURCE_SIZE)
+      return INVALID_USAGE_RV;
   memcpy(output,(char *)blorb_file+i,j);
   return j;
  }
