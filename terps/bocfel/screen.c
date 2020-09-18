@@ -762,11 +762,6 @@ static void update_delayed(void)
   glk_window_set_arrangement(glk_window_get_parent(upperwin->id), winmethod_Above | winmethod_Fixed, delayed_window_shrink, upperwin->id);
   upper_window_height = delayed_window_shrink;
 
-    if (upper_window_height == 0)
-    {
-        garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
-        glk_window_clear(upperwin->id);
-    }
 
   /* Glk might resize the window to a smaller height than was requested,
    * so track the actual height, not the requested height.
@@ -840,6 +835,10 @@ static void resize_upper_window(long nlines)
 #ifdef ZTERP_GLK
   if(upperwin->id == NULL) return;
 
+    if(nlines == 0) {
+        garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
+        glk_window_clear(upperwin->id);
+    }
   long previous_height = upper_window_height;
 
   /* To avoid code duplication, put all window resizing code in
@@ -1168,7 +1167,6 @@ void zerase_line(void)
     /* XXX V6 does pixel handling here. */
     if(zargs[0] == 0 || curwin != upperwin || upperwin->id == NULL) return;
 
-    fprintf(stderr, "zerase_line:%d\n", zargs[0]);
     uint16_t units_to_erase = zargs[0] - 1;
     if (units_to_erase == 0)
         units_to_erase = upper_window_width - upperwin->x;
@@ -2101,6 +2099,10 @@ static bool read_handler(void)
 {
   uint16_t text = zargs[0], parse = zargs[1];
   uint8_t maxchars = zversion >= 5 ? user_byte(text) : user_byte(text) - 1;
+
+  if (text == 0)
+      maxchars = 0;
+
   uint8_t zscii_string[maxchars];
   uint32_t string[maxchars + 1];
   struct input input = { .type = INPUT_LINE, .line = string, .maxlen = maxchars };
@@ -2117,7 +2119,7 @@ static bool read_handler(void)
 
   if(zversion >= 5)
   {
-    input.preloaded = user_byte(text + 1);
+    input.preloaded = text > 0 ? user_byte(text + 1) : 0;
     ZASSERT(input.preloaded <= maxchars, "too many preloaded characters: %d when max is %d", input.preloaded, maxchars);
 
 #ifdef GARGLK
