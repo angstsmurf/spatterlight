@@ -2573,6 +2573,7 @@ static NSString *signalToName(NSTask *task) {
         timer = nil;
     }
 
+    [self flushDisplay];
     [task waitUntilExit];
 
     if (task && task.terminationStatus != 0 ) {
