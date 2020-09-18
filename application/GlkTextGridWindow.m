@@ -1418,17 +1418,19 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
     CGFloat desiredWidth = [self widthForPointSize:pointSize baseFont:self.theme.gridNormal.font sampleText:normalTextSample];
     zorkFont = [self fontToFitWidth:desiredWidth baseFont:zorkFont sampleText:zorkTextSample];
-
     // Then we switch off anything that may cause gaps in the default BlockQuote style font
-    NSMutableDictionary *beyondZorkStyle = [styles[style_BlockQuote] mutableCopy];
+    NSMutableDictionary *beyondZorkStyle = [styles[style_Normal] mutableCopy];
+    NSString *normalFontName = self.theme.gridNormal.font.fontName;
+    BOOL isMonaco = ([normalFontName isEqualToString:@"Monaco"]);
+    
+    beyondZorkStyle[@"GlkStyle"] = @(style_BlockQuote);
+
     NSMutableParagraphStyle *para = [beyondZorkStyle[NSParagraphStyleAttributeName] mutableCopy];
-    para.lineSpacing = 0;
-    para.paragraphSpacing = 0;
-    para.paragraphSpacingBefore = 0;
+//    para.lineSpacing = 0;
+//    para.paragraphSpacing = 0;
+//    para.paragraphSpacingBefore = 0;
 
-    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
-    beyondZorkStyle[NSBaselineOffsetAttributeName] = self.theme.gridNormal.attributeDict[NSBaselineOffsetAttributeName];
-
+//    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
 
     // Create an NSAffineTransform that stretches the font to our cellHeight
@@ -1436,6 +1438,8 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     NSAffineTransform *transform = [[NSAffineTransform alloc] init];
     [transform scaleBy:zorkFont.pointSize];
     CGFloat yscale = (self.theme.cellHeight + 1) / [zorkFont boundingRectForFont].size.height;
+    if (isMonaco)
+        yscale *= 1.04;
     [transform scaleXBy:1 yBy:yscale];
 
     zorkFont = [NSFont fontWithDescriptor:zorkFont.fontDescriptor textTransform:transform];
