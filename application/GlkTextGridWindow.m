@@ -1347,7 +1347,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     para.paragraphSpacingBefore = 0;
 
     beyondZorkStyle[NSParagraphStyleAttributeName] = para;
-    beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
+    beyondZorkStyle[NSBaselineOffsetAttributeName] = self.theme.gridNormal.attributeDict[NSBaselineOffsetAttributeName];
 
     beyondZorkStyle[NSFontAttributeName] = zorkFont;
 
