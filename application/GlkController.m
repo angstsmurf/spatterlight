@@ -1096,15 +1096,15 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)flushDisplay {
-    for (GlkWindow *win in [_gwindows allValues])
-        [win flushDisplay];
-
     GlkWindow *largest = [self largestWindow];
     if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
         [(GlkTextBufferWindow *)largest recalcBackground];
     if ([largest isKindOfClass:[GlkTextGridWindow class]])
         [(GlkTextGridWindow *)largest recalcBackground];
 
+    for (GlkWindow *win in [_gwindows allValues])
+        [win flushDisplay];
+    
     if (windowdirty) {
 //        [_contentView setNeedsDisplay:YES];
         windowdirty = NO;
