@@ -258,6 +258,7 @@
         scrollview.drawsBackground = NO;
 
         textstorage = [[NSTextStorage alloc] init];
+        _bufferTextStorage = [[NSMutableAttributedString alloc] init];
 
         layoutmanager = [[NSLayoutManager alloc] init];
         layoutmanager.backgroundLayoutEnabled = YES;
@@ -314,6 +315,7 @@
         textstorage = textview.textStorage;
         if (!textstorage)
             NSLog(@"Error! textstorage is nil!");
+        _bufferTextStorage = [textstorage mutableCopy];
         container = (MarginContainer *)textview.textContainer;
 
         textview.delegate = self;
@@ -406,7 +408,6 @@
 
 
     NSRange selectedRange = textview.selectedRange;
-    NSUInteger textstoragelength = textstorage.length;
 
     NSUInteger i;
 
@@ -428,9 +429,12 @@
 
     textview.textContainerInset = NSMakeSize(marginX, marginY);
 
+    [self flushDisplay];
+    NSUInteger textstoragelength = textstorage.length;
+
     /* reassign styles to attributedstrings */
     // We create a copy of the text storage
-    NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
+    _bufferTextStorage = [textstorage mutableCopy];
 
     [textstorage
      enumerateAttributesInRange:NSMakeRange(0, textstoragelength)
@@ -442,38 +446,43 @@
          id styleobject = attrs[@"GlkStyle"];
          if (styleobject) {
              NSDictionary *attributes = styles[(NSUInteger)[styleobject intValue]];
-             [backingStorage setAttributes:attributes range:range];
-         }
+             [_bufferTextStorage setAttributes:attributes range:range];
+         } else NSLog(@"No GlkStyle for range %@!", NSStringFromRange(range));
 
          // Then, we re-add all the "non-Glk" style values we want to keep
          // (hyperlinks, Z-colors and reverse video)
          id hyperlink = attrs[NSLinkAttributeName];
          if (hyperlink) {
-             [backingStorage addAttribute:NSLinkAttributeName
-                                    value:hyperlink
-                                    range:range];
+             [_bufferTextStorage addAttribute:NSLinkAttributeName
+                                        value:hyperlink
+                                        range:range];
          }
 
          id zcolor = attrs[@"ZColor"];
          if (zcolor) {
-             [backingStorage addAttribute:@"ZColor"
-                                    value:zcolor
-                                    range:range];
+             [_bufferTextStorage addAttribute:@"ZColor"
+                                        value:zcolor
+                                        range:range];
          }
 
          id reverse = attrs[@"ReverseVideo"];
          if (reverse) {
-             [backingStorage addAttribute:@"ReverseVideo"
-                                    value:reverse
-                                    range:range];
+             [_bufferTextStorage addAttribute:@"ReverseVideo"
+                                        value:reverse
+                                        range:range];
          }
 
      }];
 
-    backingStorage = [self applyZColorsAndThenReverse:backingStorage];
+    if (self.theme.doStyles)
+        _bufferTextStorage = [self applyZColorsAndThenReverse:_bufferTextStorage];
+    else
+        _bufferTextStorage = [self applyReverseOnly:_bufferTextStorage];
+
+    [_bufferTextStorage addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(0, _bufferTextStorage.length)];
 
     // Now we can replace the text storager
-    [textstorage setAttributedString:backingStorage];
+    [textstorage setAttributedString:_bufferTextStorage];
 
     NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
     linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
@@ -483,6 +492,7 @@
     dirty = NO;
 
     [self recalcBackground];
+    textview.backgroundColor = _pendingBackgroundCol;
     [self checkForUglyBorder];
 
     if (line_request) {
@@ -525,7 +535,7 @@
     else
         [self.glkctl setBorderColor:bgcolor fromWindow:self];
 
-    textview.backgroundColor = bgcolor;
+    _pendingBackgroundCol = bgcolor;
     textview.insertionPointColor = bgcolor;
 }
 
@@ -536,18 +546,63 @@
 }
 
 - (void)checkForUglyBorder {
-    if (!textstorage.length)
-        return;
+    if (!_bufferTextStorage.length) {
+        if (textstorage.length) {
+            _bufferTextStorage = textstorage;
+        } else return;
+    }
 
     NSRange range;
-    NSDictionary *attrDict = [textstorage attributesAtIndex:0 effectiveRange:&range];
-    if (range.length >= cols - 2 && rows <= range.length / cols + 1) {
-        NSColor *bgCol = attrDict[NSBackgroundColorAttributeName];
-        if (bgCol && ![bgCol isEqualToColor:textview.backgroundColor] && !transparent) {
-            [self setBgColor:[bgCol integerColor]];
-            textview.backgroundColor = bgCol;
+    NSColor *bgCol = [_bufferTextStorage attribute:NSBackgroundColorAttributeName atIndex:0 longestEffectiveRange:&range inRange:NSMakeRange(0, _bufferTextStorage.length)];
+    if (range.length < cols - 1 || !cols || rows > range.length / cols + 1) {
+        if (bgnd < 0 || !self.theme.doStyles) {
+            bgCol = self.theme.gridBackground;
+        }
+        else {
+            bgCol = [NSColor colorFromInteger:bgnd];
         }
     }
+    _pendingBackgroundCol = bgCol;
+}
+
+- (void)flushDisplay {
+    textview.editable = YES;
+    NSRange selectedRange = textview.selectedRange;
+
+    if (self.framePending) {
+        if (!NSEqualRects(self.frame, self.pendingFrame)) {
+
+            if (selectedRange.length == 0 && _restoredSelection.length > 0)
+                selectedRange = _restoredSelection;
+
+            NSUInteger selectedRow = selectedRange.location / (cols + 1);
+            NSUInteger selectedCol = selectedRange.location % (cols + 1);
+
+            [super setFrame:self.pendingFrame];
+            textview.frame = self.pendingFrame;
+            dirty = YES;
+
+            selectedRange = NSMakeRange(selectedCol + selectedRow * (cols + 1), selectedRange.length);
+            if (NSMaxRange(selectedRange) >= textstorage.length)
+                selectedRange = NSMakeRange(textstorage.length - 1, 0);
+        }
+        self.framePending = NO;
+    }
+
+    if (_pendingBackgroundCol && ![_pendingBackgroundCol isEqualToColor:textview.backgroundColor]) {
+        textview.backgroundColor = _pendingBackgroundCol;
+        dirty = YES;
+    }
+    _pendingBackgroundCol = nil;
+
+    if (_bufferTextStorage)
+        [textstorage setAttributedString:_bufferTextStorage];
+
+    textview.selectedRange = selectedRange;
+    _restoredSelection = selectedRange;
+
+    [super flushDisplay];
+    textview.editable = NO;
 }
 
 
@@ -560,20 +615,6 @@
     //    NSLog(@"GlkTextGridWindow %ld setFrame: %@", self.name, NSStringFromRect(frame));
 
     NSUInteger r;
-    NSRange selectedRange = textview.selectedRange;
-
-    if (selectedRange.length == 0 && _restoredSelection.length > 0)
-        selectedRange = _restoredSelection;
-
-    NSUInteger selectedRow = selectedRange.location / (cols + 1);
-    NSUInteger selectedCol = selectedRange.location % (cols + 1);
-
-    //    if (!NSEqualRanges(_restoredSelection, selectedRange))
-    //        selectedRange = _restoredSelection;
-    //    if (self.inLiveResize)
-    //        _restoredSelection = NSMakeRange(0, 0);
-
-    super.frame = frame;
 
     if (frame.size.height == 0)
         return;
@@ -612,41 +653,39 @@
         return;
     }
 
-    NSMutableAttributedString *backingStorage = [textstorage mutableCopy];
+    NSDictionary *attrDict = styles[style_Normal];
 
-    NSMutableDictionary *attrDict = styles[style_Normal];
-
-    if (!backingStorage) {
+    if (!_bufferTextStorage || !_bufferTextStorage.length) {
         NSString *spaces = [[[NSString alloc] init]
                             stringByPaddingToLength:(NSUInteger)(rows * (cols + 1) - (cols > 1))
                             withString:@" "
                             startingAtIndex:0];
-        backingStorage = [[NSTextStorage alloc]
-                          initWithString:spaces
-                          attributes:attrDict];
+        _bufferTextStorage = [[NSTextStorage alloc]
+                              initWithString:spaces
+                              attributes:attrDict];
     }
     if (newcols < cols) {
         // Delete characters if the window has become narrower
-        for (r = cols - 1; r < backingStorage.length; r += cols + 1) {
+        for (r = cols - 1; r < _bufferTextStorage.length; r += cols + 1) {
             if (r < (cols - newcols))
                 continue;
             NSRange deleteRange =
             NSMakeRange(r - (cols - newcols), cols - newcols);
-            if (NSMaxRange(deleteRange) > backingStorage.length)
+            if (NSMaxRange(deleteRange) > _bufferTextStorage.length)
                 deleteRange =
                 NSMakeRange(r - (cols - newcols),
-                            backingStorage.length - (r - (cols - newcols)));
+                            _bufferTextStorage.length - (r - (cols - newcols)));
 
-            [backingStorage deleteCharactersInRange:deleteRange];
+            [_bufferTextStorage deleteCharactersInRange:deleteRange];
             r -= (cols - newcols);
         }
         // For some reason we must remove a couple of extra characters at the
         // end to avoid strays
         if (rows == 1 && cols > 1 &&
-            backingStorage.length >= (cols - 2))
-            [backingStorage
+            _bufferTextStorage.length >= (cols - 2))
+            [_bufferTextStorage
              deleteCharactersInRange:NSMakeRange(cols - 2,
-                                                 backingStorage.length -
+                                                 _bufferTextStorage.length -
                                                  (cols - 2))];
     } else if (newcols > cols) {
         // Pad with spaces if the window has become wider
@@ -655,11 +694,17 @@
                                               withString:@" "
                                          startingAtIndex:0];
         NSAttributedString *string = [[NSAttributedString alloc]
-                                      initWithString:spaces
-                                      attributes:attrDict];
+                                               initWithString:spaces
+                                               attributes:attrDict];
 
-        for (r = cols; r < backingStorage.length - 1; r += (cols + 1)) {
-            [backingStorage insertAttributedString:string atIndex:r];
+        for (r = cols; r < _bufferTextStorage.length - 1; r += (cols + 1)) {
+            if (_bufferTextStorage.length) {
+                NSDictionary *attrs = [_bufferTextStorage attributesAtIndex:r effectiveRange:nil];
+                string = [[NSAttributedString alloc]
+                          initWithString:spaces
+                          attributes:attrs];
+            }
+            [_bufferTextStorage insertAttributedString:string atIndex:r];
             r += (newcols - cols);
         }
     }
@@ -670,19 +715,19 @@
     rows * (cols + 1) - 1; // -1 because we don't want a newline at the very end
     if (desiredLength < 1 || rows == 1)
         desiredLength = cols;
-    if (backingStorage.length < desiredLength) {
+    if (_bufferTextStorage.length < desiredLength) {
         NSString *spaces = [[[NSString alloc] init]
-                            stringByPaddingToLength:desiredLength - backingStorage.length
+                            stringByPaddingToLength:desiredLength - _bufferTextStorage.length
                             withString:@" "
                             startingAtIndex:0];
         NSAttributedString *string = [[NSAttributedString alloc]
                                       initWithString:spaces
                                       attributes:attrDict];
-        [backingStorage appendAttributedString:string];
-    } else if (backingStorage.length > desiredLength)
-        [backingStorage
+        [_bufferTextStorage appendAttributedString:string];
+    } else if (_bufferTextStorage.length > desiredLength)
+        [_bufferTextStorage
          deleteCharactersInRange:NSMakeRange(desiredLength,
-                                             backingStorage.length -
+                                             _bufferTextStorage.length -
                                              desiredLength)];
 
     NSAttributedString *newlinestring = [[NSAttributedString alloc]
@@ -692,23 +737,20 @@
     // Instert a newline character at the end of each line to avoid reflow
     // during live resize. (We carefully have to print around these in the
     // printToWindow method)
-    for (r = cols; r < backingStorage.length; r += cols + 1)
-        [backingStorage replaceCharactersInRange:NSMakeRange(r, 1)
-                            withAttributedString:newlinestring];
+    for (r = cols; r < _bufferTextStorage.length; r += cols + 1)
+        [_bufferTextStorage replaceCharactersInRange:NSMakeRange(r, 1)
+                                withAttributedString:newlinestring];
 
-    [textstorage setAttributedString:backingStorage];
-    textview.frame = frame;
     [self recalcBackground];
-    // NSLog(@"setFrame: selected range was %@, trying to restore to %@",
-    // NSStringFromRange(textview.selectedRange),
-    // NSStringFromRange(selectedRange));
-    selectedRange = NSMakeRange(selectedCol + selectedRow * (cols + 1), selectedRange.length);
-    //    if (NSMaxRange(selectedRange) >= textstorage.length)
-    //        selectedRange = NSMakeRange(textstorage.length - 1, 0);
-    textview.selectedRange = selectedRange;
-    // NSLog(@"Result: textview.selectedRange = %@",
-    // NSStringFromRange(textview.selectedRange));
-    _restoredSelection = selectedRange;
+    [self checkForUglyBorder];
+
+    if ([self inLiveResize]) {
+        [super setFrame:frame];
+        self.framePending = NO;
+    } else {
+        self.framePending = YES;
+        self.pendingFrame = frame;
+    }
     dirty = YES;
 }
 
@@ -719,12 +761,15 @@
 
 - (void)clear {
     NSRange selectedRange = textview.selectedRange;
-    [textstorage setAttributedString:[[NSMutableAttributedString alloc]
-                                      initWithString:@""]];
-    rows = cols = 0;
-    xpos = ypos = 0;
+    _bufferTextStorage = [[NSMutableAttributedString alloc]
+                          initWithString:@""];
 
-    if (self.frame.size.width > 0 && self.frame.size.height > 0)
+    rows = cols = xpos = ypos = 0;
+
+    // Re-fill with spaces
+    if (self.framePending) {
+        [self setFrame:self.pendingFrame];
+    } else
         [self setFrame:self.frame];
 
     if (currentZColor) {
@@ -755,21 +800,31 @@
 
 - (void)printToWindow:(NSString *)string style:(NSUInteger)stylevalue {
     NSUInteger length = string.length;
-    NSUInteger textstoragelength = textstorage.length;
     NSUInteger startpos;
     NSUInteger pos = 0;
 
-    NSRange selectedRange = textview.selectedRange;
+    if (!NSEqualRects(self.frame, textview.frame)) {
+        textview.frame = self.frame;
+    }
+
+    NSUInteger textstoragelength = _bufferTextStorage.length;
+
+    if (textstoragelength == 0) {
+        if (textstorage.length) {
+            _bufferTextStorage = [textstorage mutableCopy];
+            textstoragelength = textstorage.length;
+        } else return;
+    }
 
     if (cols == 0 || rows == 0 || length == 0)
         return;
 
     // With certain fonts and sizes, strings containing only spaces will "collapse."
     // So if the first character is a space, we replace it with a &nbsp;
-     if ([string characterAtIndex:0] == ' ') {
+    if ([string characterAtIndex:0] == ' ') {
         const unichar nbsp = 0xa0;
         NSString *nbspstring = [NSString stringWithCharacters:&nbsp length:1];
-         string = [string stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:nbspstring];
+        string = [string stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:nbspstring];
     }
 
     if (xpos > cols) {
@@ -877,7 +932,7 @@
                                                           NSMakeRange(pos, amountToDraw)]
                                           attributes:attrDict];
 
-        [textstorage
+        [_bufferTextStorage
          replaceCharactersInRange:NSMakeRange((cols + 1) * ypos + xpos, amountToDraw)
          withAttributedString:partString];
         
@@ -895,8 +950,6 @@
     }
 
     [self checkForUglyBorder];
-
-    textview.selectedRange = selectedRange;
     dirty = YES;
 }
 
@@ -1093,8 +1146,11 @@
     CGFloat lineHeight = self.theme.cellHeight;
     CGFloat charWidth = self.theme.cellWidth;
 
-    if (ypos >= textstorage.length / cols)
-        ypos = textstorage.length / cols - 1;
+    if (cols == 0)
+        cols = 1;
+
+    if (ypos >= _bufferTextStorage.length / cols)
+        ypos = _bufferTextStorage.length / cols - 1;
 
     NSRect caret;
     caret.origin.x = x0 + xpos * charWidth;
@@ -1115,7 +1171,7 @@
     _input.selectable = YES;
     _input.delegate = self;
     _input.font = self.theme.gridInput.font;
-    NSDictionary *firstCharDict = [textstorage attributesAtIndex:0 effectiveRange:nil];
+    NSDictionary *firstCharDict = [_bufferTextStorage attributesAtIndex:0 effectiveRange:nil];
     _input.textColor = firstCharDict[NSForegroundColorAttributeName];
     if (currentZColor && self.theme.doStyles)
         _input.textColor = [NSColor colorFromInteger:currentZColor.fg];
@@ -1139,8 +1195,6 @@
     [textview addSubview:_input];
 
     [self performSelector:@selector(deferredGrabFocus:) withObject:_input afterDelay:0.1];
-
-    line_request = YES;
 }
 
 - (void)deferredGrabFocus:(id)sender {
@@ -1212,11 +1266,11 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     NSUInteger endpos = ypos * (cols + 1) + xpos;
     NSUInteger startpos = endpos - buf.length;
 
-    if (endpos > textstorage.length || startpos > endpos) {
+    if (endpos > _bufferTextStorage.length || startpos > endpos) {
         return;
     }
 
-    NSString *stringToRemove = [textstorage.string substringWithRange:NSMakeRange(startpos, buf.length)].uppercaseString;
+    NSString *stringToRemove = [_bufferTextStorage.string substringWithRange:NSMakeRange(startpos, buf.length)].uppercaseString;
 
     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
         NSString *spaces = [[[NSString alloc] init]
@@ -1264,34 +1318,32 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
     GlkTextGridWindow * __unsafe_unretained weakSelf = self;
 
-    if (self.theme.doStyles) {
-        [attStr
-         enumerateAttribute:@"ZColor"
-         inRange:NSMakeRange(0, textstoragelength)
-         options:0
-         usingBlock:^(id value, NSRange range, BOOL *stop) {
-             if (!value) {
-                 return;
-             }
-             ZColor *z = value;
-             [attStr
-              enumerateAttributesInRange:range
-              options:0
-              usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
-                  NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
-                  NSMutableDictionary *mutDict = [dict mutableCopy];
-                  if ([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
-                      // Style has stylehint_ReverseColor set,
-                      // so we apply Zcolor with reversed attributes
-                      mutDict = [z reversedAttributes:mutDict];
-                  } else {
-                      // Apply Zcolor normally
-                      mutDict = [z coloredAttributes:mutDict];
-                  }
-                  [attStr addAttributes:mutDict range:range2];
-              }];
-         }];
-    }
+    [attStr
+     enumerateAttribute:@"ZColor"
+     inRange:NSMakeRange(0, textstoragelength)
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
+         if (!value) {
+             return;
+         }
+         ZColor *z = value;
+         [attStr
+          enumerateAttributesInRange:range
+          options:0
+          usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
+              NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
+              NSMutableDictionary *mutDict = [dict mutableCopy];
+              if ([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)]) {
+                  // Style has stylehint_ReverseColor set,
+                  // so we apply Zcolor with reversed attributes
+                  mutDict = [z reversedAttributes:mutDict];
+              } else {
+                  // Apply Zcolor normally
+                  mutDict = [z coloredAttributes:mutDict];
+              }
+              [attStr addAttributes:mutDict range:range2];
+          }];
+     }];
 
     [attStr
      enumerateAttribute:@"ReverseVideo"
@@ -1318,6 +1370,32 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
           }];
      }];
     
+    return attStr;
+}
+
+- (NSMutableAttributedString *)applyReverseOnly:(NSMutableAttributedString *)attStr {
+    NSUInteger textstoragelength = attStr.length;
+
+    GlkTextGridWindow * __unsafe_unretained weakSelf = self;
+
+    [attStr
+     enumerateAttribute:@"ReverseVideo"
+     inRange:NSMakeRange(0, textstoragelength)
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
+         if (!value) {
+             return;
+         }
+         [attStr
+          enumerateAttributesInRange:range
+          options:0
+          usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
+                  NSMutableDictionary *mutDict = [dict mutableCopy];
+                  mutDict = [weakSelf reversedAttributes:mutDict background:self.theme.gridBackground];
+                  [attStr addAttributes:mutDict range:range2];
+          }];
+     }];
+
     return attStr;
 }
 

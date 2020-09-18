@@ -1099,15 +1099,16 @@ fprintf(stderr, "%s\n",                                                    \
     for (GlkWindow *win in [_gwindows allValues])
         [win flushDisplay];
 
+    GlkWindow *largest = [self largestWindow];
+    if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
+        [(GlkTextBufferWindow *)largest recalcBackground];
+    if ([largest isKindOfClass:[GlkTextGridWindow class]])
+        [(GlkTextGridWindow *)largest recalcBackground];
+
     if (windowdirty) {
-        [_contentView setNeedsDisplay:YES];
+//        [_contentView setNeedsDisplay:YES];
         windowdirty = NO;
     }
-    GlkWindow *largest = [self largestWindow];
-     if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
-         [(GlkTextBufferWindow *)largest recalcBackground];
-     if ([largest isKindOfClass:[GlkTextGridWindow class]])
-         [(GlkTextGridWindow *)largest recalcBackground];
 }
 
 - (void)guessFocus {
@@ -2754,13 +2755,16 @@ again:
 }
 
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
-    //     NSLog(@"setBorderColor %@ fromWindow %ld", color, aWindow.name);
+//         NSLog(@"setBorderColor %@ fromWindow %ld", color, aWindow.name);
 
-    CGFloat relativeSize = (aWindow.bounds.size.width * aWindow.bounds.size.height) / (_contentView.bounds.size.width * _contentView.bounds.size.height);
+    NSSize windowsize = aWindow.bounds.size;
+    if (aWindow.framePending)
+        windowsize = aWindow.pendingFrame.size;
+    CGFloat relativeSize = (windowsize.width * windowsize.height) / (_contentView.bounds.size.width * _contentView.bounds.size.height);
 
-    //    NSLog(@"relativeSize aWindow (%f) /  _contentView (%f) == %f", aWindow.bounds.size.width * aWindow.bounds.size.height, _contentView.bounds.size.width * _contentView.bounds.size.height,  relativeSize);
+//    NSLog(@"relativeSize aWindow (%f) /  _contentView (%f) == %f", windowsize.width * windowsize.height, _contentView.bounds.size.width * _contentView.bounds.size.height,  relativeSize);
 
-    if (relativeSize < 0.75 && ![aWindow isKindOfClass:[GlkTextBufferWindow class]])
+    if (relativeSize < 0.70 && ![aWindow isKindOfClass:[GlkTextBufferWindow class]])
         return;
 
     if (aWindow == [self largestWindow]) {
@@ -2789,7 +2793,10 @@ again:
     CGFloat largestSize = 0;
 
     for (GlkWindow *win in [_gwindows allValues]) {
-        CGFloat winarea = win.bounds.size.width * win.bounds.size.height;
+        NSSize windowsize = win.bounds.size;
+        if (win.framePending)
+            windowsize = win.pendingFrame.size;
+        CGFloat winarea = windowsize.width * windowsize.height;
         if (winarea > largestSize) {
             largestSize = winarea;
             largestWin = win;

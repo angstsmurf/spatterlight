@@ -28,6 +28,8 @@
 @property NSRange restoredSelection;
 @property MyGridTextField *input;
 @property (readonly) MyFieldEditor *fieldEditor;
+@property NSColor *pendingBackgroundCol;
+@property NSMutableAttributedString *bufferTextStorage;
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (IBAction)speakStatus:(id)sender;

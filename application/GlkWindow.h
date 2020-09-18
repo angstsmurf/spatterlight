@@ -27,6 +27,8 @@
 @property NSMutableDictionary *pendingTerminators;
 @property NSMutableDictionary *currentTerminators;
 @property BOOL terminatorsPending;
+@property BOOL framePending;
+@property NSRect pendingFrame;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl
                                  name:(NSInteger)name;

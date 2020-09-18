@@ -1217,22 +1217,32 @@
     //        NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
     //        NSStringFromRect(frame));
 
-    if (NSEqualRects(frame, self.frame)) {
-        //        NSLog(@"GlkTextBufferWindow setFrame: new frame same as old frame. "
-        //              @"Skipping.");
-        return;
-    }
+        self.framePending = YES;
+        self.pendingFrame = frame;
 
-    super.frame = frame;
-    if ([container hasMarginImages])
-        [container invalidateLayout];
+    if ([self inLiveResize])
+        [self flushDisplay];
+}
 
-    if (NSMaxX(self.frame) > NSWidth(self.glkctl.contentView.bounds) && NSWidth(self.frame) > 10) {
-        NSLog(@"GlkTextViewBuffer %ld width: something is wrong: contentView width: %f self maxX: %f", (long)self.name, NSWidth(self.glkctl.contentView.bounds), NSMaxX(self.frame));
-        NSLog(@"Self frame:%@ contentview frame: %@ _textview.frame %@ scrollview.frame %@", NSStringFromRect(self.frame),  NSStringFromRect(self.glkctl.contentView.frame), NSStringFromRect(_textview.frame), NSStringFromRect(scrollview.frame));
-        self.frame = NSMakeRect(frame.origin.x, self.frame.origin.y, NSWidth(self.glkctl.contentView.bounds) - frame.origin.x, frame.size.height);
-        _textview.frame = self.frame;
+- (void)flushDisplay {
+    if (self.framePending) {
+        self.framePending = NO;
+        if (!NSEqualRects(self.pendingFrame, self.frame)) {
+            
+            super.frame = self.pendingFrame;
+            if ([container hasMarginImages])
+                [container invalidateLayout];
+
+            if (NSMaxX(self.frame) > NSWidth(self.glkctl.contentView.bounds) && NSWidth(self.frame) > 10) {
+                NSLog(@"GlkTextViewBuffer %ld width: something is wrong: contentView width: %f self maxX: %f", (long)self.name, NSWidth(self.glkctl.contentView.bounds), NSMaxX(self.frame));
+                NSLog(@"Self frame:%@ contentview frame: %@ _textview.frame %@ scrollview.frame %@", NSStringFromRect(self.frame),  NSStringFromRect(self.glkctl.contentView.frame), NSStringFromRect(_textview.frame), NSStringFromRect(scrollview.frame));
+                self.frame = NSMakeRect(self.pendingFrame.origin.x, self.frame.origin.y, NSWidth(self.glkctl.contentView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
+                _textview.frame = self.frame;
+            }
+        }
     }
+    if (_pendingScroll)
+        [self reallyPerformScroll];
 }
 
 - (void)saveAsRTF:(id)sender {
@@ -2584,9 +2594,15 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 }
 
 - (void)performScroll {
-    //    NSLog(@"performScroll: scroll down one screen from _lastseen");
+    _pendingScroll = YES;
+}
 
+- (void)reallyPerformScroll {
+    _pendingScroll = NO;
     self.glkctl.shouldScrollOnCharEvent = NO;
+
+    if (!textstorage.length)
+        return;
 
     CGFloat bottom;
     // first, force a layout so we have the correct textview frame
@@ -2595,10 +2611,25 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     if (textstorage.length == 0)
         return;
 
-    //    [layoutmanager textContainerForGlyphAtIndex:0 effectiveRange:&range];
-
     // then, get the bottom
     bottom = NSHeight(_textview.frame);
+
+    // Skip newlines
+    unichar chr = '\0';
+    NSInteger lastIndex = -1;
+    do {
+        NSUInteger index = [layoutmanager characterIndexForPoint:NSMakePoint(0, _lastseen)
+                                             inTextContainer:container
+                    fractionOfDistanceBetweenInsertionPoints:nil];
+        chr = [textstorage.string characterAtIndex:index];
+        if (chr == '\n') {
+            _lastseen += self.theme.bufferCellHeight;
+        }
+        if (lastIndex == (NSInteger)index) {
+            chr = 0;
+        }
+        lastIndex = (NSInteger)index;
+    } while (chr == '\n' && _lastseen < bottom);
 
 //     scroll so rect from lastseen to bottom is visible
     if (bottom - _lastseen > NSHeight(scrollview.frame)) {
@@ -2606,9 +2637,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
                                                   NSHeight(scrollview.frame))];
     } else {
         [self scrollToBottom];
-//        [self markLastSeen];
-//        [_textview scrollRectToVisible:NSMakeRect(0, _lastseen, 0,
-//                                                  bottom - _lastseen)];
     }
 }
 
@@ -2626,8 +2654,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 }
 
 - (void)scrollToBottom {
-    //    NSLog(@"GlkTextBufferWindow %ld scrollToBottom", self.name);
-
     lastAtTop = NO;
     lastAtBottom = YES;
 
@@ -2649,6 +2675,8 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 }
 
 - (void)scrollToTop {
+    NSLog(@"GlkTextBufferWindow %ld scrollToTop", self.name);
+
     lastAtTop = YES;
     lastAtBottom = NO;
 
