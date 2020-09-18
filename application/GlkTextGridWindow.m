@@ -901,9 +901,9 @@
          replaceCharactersInRange:NSMakeRange((cols + 1) * ypos + xpos, amountToDraw)
          withAttributedString:partString];
         
-//        NSLog(@"Replaced characters in range %@ with '%@'",
-//        NSStringFromRange(NSMakeRange((cols + 1) * ypos + xpos,
-//        amountToDraw)), partString.string);
+        //        NSLog(@"Replaced characters in range %@ with '%@'",
+        //        NSStringFromRange(NSMakeRange((cols + 1) * ypos + xpos,
+        //        amountToDraw)), partString.string);
 
         // Update the x position (and the y position if necessary)
         xpos += amountToDraw;
@@ -960,7 +960,7 @@
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent {
     GlkEvent *gev;
-//    NSLog(@"mousedown in grid window %ld", self.name);
+    //    NSLog(@"mousedown in grid window %ld", self.name);
 
     if (mouse_request) {
         [self.glkctl markLastSeen];
@@ -994,7 +994,7 @@
             }
         }
     } else {
-//                NSLog(@"No hyperlink request or mouse request in grid window %ld", self.name);
+        //                NSLog(@"No hyperlink request or mouse request in grid window %ld", self.name);
         [super mouseDown:theEvent];
     }
     return NO;
@@ -1060,7 +1060,7 @@
             else if (ch == keycode_Right)
                 ch = ' ';
             else if (ch == keycode_Escape || (ch >= keycode_Func12 && ch <= keycode_Func1))
-                 ch = keycode_Unknown;
+                ch = keycode_Unknown;
             self.currentReverseVideo = NO;
             [self putString:@" " style:style_Normal];
             xpos--;
@@ -1100,10 +1100,6 @@
     NSRect bounds = self.bounds;
     NSInteger mx = (NSInteger)textview.textContainerInset.width;
     NSInteger my = (NSInteger)textview.textContainerInset.height;
-
-    //    What is this supposed to do?
-    //    if (transparent)
-    //        mx = my = 0;
 
     NSInteger x0 = (NSInteger)(NSMinX(bounds) + mx + container.lineFragmentPadding);
     NSInteger y0 = (NSInteger)(NSMinY(bounds) + my);
@@ -1248,10 +1244,10 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 @synthesize fieldEditor = _fieldEditor;
 
 - (MyFieldEditor *)fieldEditor {
-        if (_fieldEditor == nil) {
-            _fieldEditor = [[MyFieldEditor alloc] init];
-            _fieldEditor.fieldEditor = YES;
-        }
+    if (_fieldEditor == nil) {
+        _fieldEditor = [[MyFieldEditor alloc] init];
+        _fieldEditor.fieldEditor = YES;
+    }
     return _fieldEditor;
 }
 
@@ -1321,7 +1317,9 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
           usingBlock:^(NSDictionary *dict, NSRange range2, BOOL *stop2) {
               NSUInteger stylevalue = (NSUInteger)((NSNumber *)dict[@"GlkStyle"]).integerValue;
               BOOL zcolorValue = (dict[@"ZColor"] != nil);
-              if (!([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue)) {
+              // We only apply reversed attributes if they were not already set to reverse by the
+              // ZColor check iteration above (because the style hint ReverseColor was active)
+              if (!([weakSelf.styleHints[stylevalue][stylehint_ReverseColor] isEqualTo:@(1)] && !zcolorValue))  {
                   //NSLog(@"Applying reverse video at %@. ZColor at this range is %@.", NSStringFromRange(range), dict[@"ZColor"]);
                   NSMutableDictionary *mutDict = [dict mutableCopy];
                   mutDict = [weakSelf reversedAttributes:mutDict background:self.theme.gridBackground];
