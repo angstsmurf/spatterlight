@@ -151,7 +151,7 @@ static Preferences *prefs = nil;
     }
 
     oldTheme.bufInput.color = [NSColor colorFromData:[defaults objectForKey:@"InputColor"]];
-    oldTheme.gridNormal.lineSpacing = [[defaults objectForKey:@"Leading"] doubleValue];
+    oldTheme.gridNormal.lineSpacing = 0;
 
     NSSize cellSize = [oldTheme.gridNormal cellSize];
 
