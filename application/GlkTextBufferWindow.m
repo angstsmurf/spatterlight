@@ -1514,8 +1514,10 @@
 - (void)clear {
     [_textview resetTextFinder];
 
-    id att = [[NSAttributedString alloc] initWithString:@""];
-    [textstorage setAttributedString:att];
+    if(textstorage.length) {
+        id att = [[NSAttributedString alloc] initWithString:@""];
+        [textstorage setAttributedString:att];
+    }
     fence = 0;
     _lastseen = 0;
     _lastchar = '\n';
