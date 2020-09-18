@@ -1068,6 +1068,13 @@
 
     terminator = 0;
 
+    line_request = YES;
+
+    // Robot Finds Kitten requests repeated line input in the upper right corner during animation.
+    // We just ignore it.
+    if (self.glkctl.robotFindsKitten && ypos == 0 && xpos == cols - 1 && maxLength == 0)
+        return;
+
     if (xpos + maxLength > cols || maxLength == 0)
         maxLength = cols - xpos;
 
