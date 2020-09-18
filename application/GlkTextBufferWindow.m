@@ -1591,6 +1591,14 @@
     }
 //    NSLog(@"\nPrinting %ld chars at position %ld with style %@", str.length, textstorage.length, gBufferStyleNames[stylevalue]);
 
+    // With certain fonts and sizes, strings containing only spaces will "collapse."
+    // So if the first character is a space, we replace it with a &nbsp;
+    if (stylevalue == style_Preformatted && [str characterAtIndex:0] == ' ') {
+        const unichar nbsp = 0xa0;
+        NSString *nbspstring = [NSString stringWithCharacters:&nbsp length:1];
+        str = [str stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:nbspstring];
+    }
+
     // A lot of code to not print single newlines
     // at the bottom
     if (storedNewline) {
