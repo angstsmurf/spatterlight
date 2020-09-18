@@ -202,7 +202,8 @@ static Preferences *prefs = nil;
     defaultTheme.morePrompt = nil;
     defaultTheme.spacingColor = nil;
 
-    defaultTheme.gridBackground = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+    defaultTheme.gridBackground = [NSColor blackColor];
+    defaultTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
 
     defaultTheme.bufferBackground = [NSColor whiteColor];
     defaultTheme.editable = NO;
@@ -242,7 +243,7 @@ static Preferences *prefs = nil;
     classicTheme.maxCols = 1000;
     classicTheme.doGraphics = YES;
     classicTheme.doSound = YES;
-    classicTheme.doStyles = NO;
+    classicTheme.doStyles = YES;
     classicTheme.justify = NO;
     classicTheme.smartQuotes = YES;
     classicTheme.spaceFormat = TAG_SPACES_ONE;
@@ -258,7 +259,8 @@ static Preferences *prefs = nil;
     classicTheme.morePrompt = nil;
     classicTheme.spacingColor = nil;
 
-    classicTheme.gridBackground = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+    classicTheme.gridBackground = [NSColor blackColor];
+    classicTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.847 green:0.847 blue:0.847 alpha:1.0];
     classicTheme.bufferBackground = [NSColor whiteColor];
     classicTheme.editable = NO;
 
@@ -311,7 +313,7 @@ static Preferences *prefs = nil;
     gargoyleTheme.morePrompt = nil;
     gargoyleTheme.spacingColor = nil;
 
-    gargoyleTheme.gridBackground = [NSColor colorWithCalibratedRed:0.376 green:0.376 blue:0.376 alpha:1.0];
+    gargoyleTheme.gridBackground = [NSColor whiteColor];
     gargoyleTheme.bufferBackground = [NSColor whiteColor];
     gargoyleTheme.editable = NO;
 
@@ -322,7 +324,7 @@ static Preferences *prefs = nil;
     gargoyleTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.291 green:0.501 blue:0.192 alpha:1.0];
 
     gargoyleTheme.gridNormal.font = [NSFont fontWithName:@"Liberation Mono" size:12.5];
-    gargoyleTheme.gridNormal.color = [NSColor whiteColor];
+    gargoyleTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.376 green:0.376 blue:0.376 alpha:1.0];
 
     NSMutableDictionary *dict = [gargoyleTheme.gridNormal.attributeDict mutableCopy];
     dict[NSBaselineOffsetAttributeName] = @(-2);
@@ -362,7 +364,7 @@ static Preferences *prefs = nil;
     lectroteTheme.maxCols = 1000;
     lectroteTheme.doGraphics = YES;
     lectroteTheme.doSound = YES;
-    lectroteTheme.doStyles = NO;
+    lectroteTheme.doStyles = YES;
     lectroteTheme.justify = NO;
     lectroteTheme.smartQuotes = YES;
     lectroteTheme.spaceFormat = TAG_SPACES_GAME;
@@ -378,7 +380,7 @@ static Preferences *prefs = nil;
     lectroteTheme.morePrompt = nil;
     lectroteTheme.spacingColor = nil;
 
-    lectroteTheme.gridBackground = [NSColor colorWithCalibratedRed:0.916565 green:0.902161 blue:0.839754 alpha:1];
+    lectroteTheme.gridBackground = [NSColor colorWithCalibratedRed:0.450844 green:0.325858 blue:0.205177 alpha:1];
     lectroteTheme.bufferBackground = [NSColor whiteColor];
     lectroteTheme.editable = NO;
 
@@ -390,7 +392,7 @@ static Preferences *prefs = nil;
     lectroteTheme.bufInput.color = [NSColor colorWithCalibratedRed:0.042041 green:0.333368 blue:0.011031 alpha:1];
 
     lectroteTheme.gridNormal.font = [NSFont fontWithName:@"Source Code Pro" size:14];
-    lectroteTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.450844 green:0.325858 blue:0.205177 alpha:1];
+    lectroteTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.916565 green:0.902161 blue:0.839754 alpha:1];
 
     NSSize size = [lectroteTheme.gridNormal cellSize];
 
@@ -422,7 +424,7 @@ static Preferences *prefs = nil;
     lectroteDarkTheme.maxCols = 1000;
     lectroteDarkTheme.doGraphics = YES;
     lectroteDarkTheme.doSound = YES;
-    lectroteDarkTheme.doStyles = NO;
+    lectroteDarkTheme.doStyles = YES;
     lectroteDarkTheme.justify = NO;
     lectroteDarkTheme.smartQuotes = YES;
     lectroteDarkTheme.spaceFormat = TAG_SPACES_GAME;
@@ -438,13 +440,12 @@ static Preferences *prefs = nil;
     lectroteDarkTheme.morePrompt = nil;
     lectroteDarkTheme.spacingColor = nil;
 
-    lectroteDarkTheme.gridBackground = [NSColor colorWithCalibratedRed:0.258 green:0.205 blue:0.145 alpha:1];
+    lectroteDarkTheme.gridBackground = [NSColor colorWithCalibratedRed:0.991 green:0.957 blue:0.937 alpha:1];
     lectroteDarkTheme.bufferBackground = [NSColor blackColor];
     lectroteDarkTheme.editable = NO;
 
     lectroteDarkTheme.gridNormal.font = [NSFont fontWithName:@"Source Code Pro" size:14];
-    lectroteDarkTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.991 green:0.957 blue:0.937 alpha:1];
-
+    lectroteDarkTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.258 green:0.205 blue:0.145 alpha:1];
     lectroteDarkTheme.bufferNormal.font = [NSFont fontWithName:@"Lora" size:15];
     lectroteDarkTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.991 green:0.957 blue:0.937 alpha:1];
 
@@ -498,7 +499,7 @@ static Preferences *prefs = nil;
     zoomTheme.morePrompt = nil;
     zoomTheme.spacingColor = nil;
 
-    zoomTheme.gridBackground = [NSColor blackColor];
+    zoomTheme.gridBackground = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
     zoomTheme.bufferBackground = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
     zoomTheme.editable = NO;
 
@@ -509,7 +510,7 @@ static Preferences *prefs = nil;
     zoomTheme.bufInput.font = [gillSansBold copy];
 
     zoomTheme.gridNormal.font = [NSFont fontWithName:@"Courier" size:12];
-    zoomTheme.gridNormal.color = [NSColor colorWithCalibratedRed:1 green:1 blue:0.8 alpha:1];
+    zoomTheme.gridNormal.color = [NSColor blackColor];
 
     NSMutableDictionary *dict = [zoomTheme.gridNormal.attributeDict mutableCopy];
     dict[NSBaselineOffsetAttributeName] = @(-2);
@@ -527,15 +528,15 @@ static Preferences *prefs = nil;
 
     [zoomTheme populateStyles];
 
-    dict = zoomTheme.bufBlock.attributeDict.mutableCopy;
-    
-    NSMutableParagraphStyle *para = [dict[NSParagraphStyleAttributeName] mutableCopy];
-    para.headIndent = 10;
-    para.firstLineHeadIndent = 10;
-    dict[NSParagraphStyleAttributeName] = para;
-    zoomTheme.bufBlock.attributeDict = dict;
-    zoomTheme.bufBlock.font = [[NSFontManager sharedFontManager] convertFont:zoomTheme.bufBlock.font toHaveTrait:NSBoldFontMask];
-    zoomTheme.bufBlock.autogenerated = NO;
+//    dict = zoomTheme.bufBlock.attributeDict.mutableCopy;
+//
+//    NSMutableParagraphStyle *para = [dict[NSParagraphStyleAttributeName] mutableCopy];
+//    para.headIndent = 10;
+//    para.firstLineHeadIndent = 10;
+//    dict[NSParagraphStyleAttributeName] = para;
+//    zoomTheme.bufBlock.attributeDict = dict;
+//    zoomTheme.bufBlock.font = [[NSFontManager sharedFontManager] convertFont:zoomTheme.bufBlock.font toHaveTrait:NSBoldFontMask];
+//    zoomTheme.bufBlock.autogenerated = NO;
 
     zoomTheme.bufSubH.font = [[NSFontManager sharedFontManager] convertFont:gillSansBold toSize:13];
     //I'm sure this line can't be necessay, but every time I change it reverts to semibold
@@ -544,7 +545,7 @@ static Preferences *prefs = nil;
 
     zoomTheme.bufHead.font = [NSFont fontWithName:@"Gill Sans" size:16];
     dict = zoomTheme.bufHead.attributeDict.mutableCopy;
-    para = [dict[NSParagraphStyleAttributeName] mutableCopy];
+    NSMutableParagraphStyle *para = [dict[NSParagraphStyleAttributeName] mutableCopy];
     para.alignment = NSCenterTextAlignment;
     dict[NSParagraphStyleAttributeName] = para;
     zoomTheme.bufHead.attributeDict = dict;
@@ -568,7 +569,7 @@ static Preferences *prefs = nil;
     dosTheme.maxCols = 1000;
     dosTheme.doGraphics = YES;
     dosTheme.doSound = YES;
-    dosTheme.doStyles = NO;
+    dosTheme.doStyles = YES;
     dosTheme.justify = NO;
     dosTheme.smartQuotes = NO;
     dosTheme.spaceFormat = TAG_SPACES_GAME;
@@ -584,12 +585,12 @@ static Preferences *prefs = nil;
     dosTheme.morePrompt = nil;
     dosTheme.spacingColor = nil;
 
-    dosTheme.gridBackground = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
+    dosTheme.gridBackground =  [NSColor blackColor];
     dosTheme.bufferBackground = [NSColor blackColor];
     dosTheme.editable = NO;
 
     dosTheme.gridNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
-    dosTheme.gridNormal.color = [NSColor blackColor];
+    dosTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
 
     dosTheme.bufferNormal.font = [NSFont fontWithName:@"PxPlus IBM CGA-2y" size:18];
     dosTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.512756 green:0.512821  blue:0.512721 alpha:1];
@@ -637,7 +638,7 @@ static Preferences *prefs = nil;
     dosBoxTheme.maxCols = 1000;
     dosBoxTheme.doGraphics = YES;
     dosBoxTheme.doSound = YES;
-    dosBoxTheme.doStyles = NO;
+    dosBoxTheme.doStyles = YES;
     dosBoxTheme.justify = NO;
     dosBoxTheme.smartQuotes = NO;
     dosBoxTheme.spaceFormat = TAG_SPACES_GAME;
@@ -655,12 +656,11 @@ static Preferences *prefs = nil;
 
     dosBoxTheme.editable = NO;
 
-    dosBoxTheme.gridBackground = [NSColor colorWithCalibratedRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
-
+    dosBoxTheme.gridBackground = [NSColor colorWithCalibratedRed:0.008897 green:0  blue:0.633764 alpha:1];
     dosBoxTheme.bufferBackground = [NSColor colorWithCalibratedRed:0.008897 green:0  blue:0.633764 alpha:1];
 
     dosBoxTheme.gridNormal.font = [NSFont fontWithName:@"PxPlus VGA SquarePX" size:24];
-    dosBoxTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.008897 green:0  blue:0.633764 alpha:1];
+    dosBoxTheme.gridNormal.color = [NSColor colorWithCalibratedRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
 
     dosBoxTheme.bufferNormal.font = [NSFont fontWithName:@"PxPlus VGA SquarePX" size:24];
     dosBoxTheme.bufferNormal.color = [NSColor colorWithCalibratedRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
