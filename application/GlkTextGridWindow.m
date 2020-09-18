@@ -285,7 +285,8 @@
         textview.delegate = self;
         textstorage.delegate = self;
         textview.textContainerInset =
-        NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
+            NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
+        textview.backgroundColor = self.theme.gridBackground;
 
         NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
