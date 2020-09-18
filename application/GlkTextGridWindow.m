@@ -96,6 +96,10 @@
         [super keyDown:evt];
 }
 
+- (void)mouseMoved:(NSEvent *)event {
+    [[NSCursor IBeamCursor] set];
+}
+
 @end
 
 
@@ -1128,6 +1132,9 @@
     MyTextFormatter *inputFormatter =
     [[MyTextFormatter alloc] initWithMaxLength:cols - xpos - 1];
     _input.formatter = inputFormatter;
+
+    NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:caret options: (NSTrackingActiveAlways | NSTrackingMouseEnteredAndExited) owner:_input userInfo:nil];
+    [_input addTrackingArea:trackingArea];
 
     [textview addSubview:_input];
 
