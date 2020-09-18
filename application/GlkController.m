@@ -2420,7 +2420,7 @@ fprintf(stderr, "%s\n",                                                    \
         case INITCHAR:
 //            NSLog(@"glkctl initchar %d", req->a1);
 
-            if (lastRequest == PRINT) {
+            if (lastRequest == PRINT || lastRequest == SETZCOLOR) {
                 _shouldScrollOnCharEvent = YES;
             }
 
