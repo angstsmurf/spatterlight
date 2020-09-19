@@ -277,6 +277,8 @@
         textview.minSize = NSMakeSize(0, 0);
         textview.maxSize = NSMakeSize(10000000, 10000000);
 
+        textview.autoresizingMask = NSViewWidthSizable;
+
         container.textView = textview;
         scrollview.documentView = textview;
 
