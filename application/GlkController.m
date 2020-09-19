@@ -2792,7 +2792,17 @@ again:
     GlkWindow *largestWin = nil;
     CGFloat largestSize = 0;
 
-    for (GlkWindow *win in [_gwindows allValues]) {
+    NSArray *winArray = [_gwindows allValues];
+
+    // Check for status window plus buffer window arrangement
+    // and return the buffer window
+    if (_gwindows.count == 2) {
+        if ([winArray[0] isKindOfClass:[GlkTextGridWindow class]] && [winArray[1] isKindOfClass:[GlkTextBufferWindow class]] )
+            return winArray[1];
+        if ([winArray[0] isKindOfClass:[GlkTextBufferWindow class]] && [winArray[1] isKindOfClass:[GlkTextGridWindow class]] )
+            return winArray[0];
+    }
+    for (GlkWindow *win in winArray) {
         NSSize windowsize = win.bounds.size;
         if (win.framePending)
             windowsize = win.pendingFrame.size;
