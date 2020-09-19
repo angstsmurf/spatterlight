@@ -1454,9 +1454,12 @@ static void window_change(void)
 
     upper_window_width = w;
 
+    long stored_shrink = delayed_window_shrink;
+
     /* Force a redraw (do not wait for user input). */
     saw_input = true;
     resize_upper_window(h);
+    delayed_window_shrink = stored_shrink;
   }
 
   /* §8.4
