@@ -571,6 +571,7 @@
 - (void)flushDisplay {
     textview.editable = YES;
     NSRange selectedRange = textview.selectedRange;
+    NSString *selectedString = [textstorage.string substringWithRange:selectedRange];
 
     if (self.framePending) {
         if (!NSEqualRects(self.frame, self.pendingFrame)) {
@@ -602,9 +603,12 @@
         [textstorage setAttributedString:_bufferTextStorage];
 
     if (NSMaxRange(selectedRange) <= textstorage.length) {
-        textview.selectedRange = selectedRange;
-        _restoredSelection = selectedRange;
+        NSString *newSelectedString = [textstorage.string substringWithRange:selectedRange];
+        if ([newSelectedString isEqualToString:selectedString]) {
+           textview.selectedRange = selectedRange;
+        }
     }
+    _restoredSelection = textview.selectedRange;
 
     [super flushDisplay];
     textview.editable = NO;
