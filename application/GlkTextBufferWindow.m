@@ -2616,24 +2616,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     // then, get the bottom
     bottom = NSHeight(_textview.frame);
 
-    // Skip newlines
-    unichar chr = '\0';
-    NSInteger lastIndex = -1;
-    do {
-        NSUInteger index = [layoutmanager characterIndexForPoint:NSMakePoint(0, _lastseen)
-                                             inTextContainer:container
-                    fractionOfDistanceBetweenInsertionPoints:nil];
-        chr = [textstorage.string characterAtIndex:index];
-        if (chr == '\n') {
-            _lastseen += self.theme.bufferCellHeight;
-        }
-        if (lastIndex == (NSInteger)index) {
-            chr = 0;
-        }
-        lastIndex = (NSInteger)index;
-    } while (chr == '\n' && _lastseen < bottom);
-
-//     scroll so rect from lastseen to bottom is visible
     if (bottom - _lastseen > NSHeight(scrollview.frame)) {
         [_textview scrollRectToVisible:NSMakeRect(0, _lastseen, 0,
                                                   NSHeight(scrollview.frame))];
@@ -2682,20 +2664,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     lastAtTop = YES;
     lastAtBottom = NO;
 
-//    if (NSHeight(_textview.frame) - _textview.textContainerInset.height * 2 < self.frame.size.height) {
-//        [self scrollToMiddle];
-//        return;
-//    }
-
-//    NSLog(@"scrolling window %ld to top", self.name);
     [scrollview.contentView scrollToPoint:NSZeroPoint];
-    [scrollview reflectScrolledClipView:scrollview.contentView];
-}
-
-- (void)scrollToMiddle {
-    [layoutmanager glyphRangeForTextContainer:container];
-    NSPoint newScrollOrigin = NSMakePoint(0, ceil((NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds)) / 2));
-    [scrollview.contentView scrollToPoint:newScrollOrigin];
     [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
