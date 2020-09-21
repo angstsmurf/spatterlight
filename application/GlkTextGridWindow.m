@@ -804,11 +804,10 @@
     if (bg && range.length > rowLength - 2) {
         NSMutableDictionary *attrDict = [[NSMutableDictionary alloc] init];
         attrDict[NSBackgroundColorAttributeName] = bg;
-        NSRange newRange;
-        NSValue *reverse = [attString attribute:@"ReverseVideo" atIndex:index effectiveRange:&newRange];
+        NSValue *reverse = [attString attribute:@"ReverseVideo" atIndex:index effectiveRange:nil];
         if (reverse)
             attrDict[@"ReverseVideo"] = reverse;
-        ZColor *zCol = [attString attribute:@"ZColor" atIndex:index effectiveRange:&newRange];
+        ZColor *zCol = [attString attribute:@"ZColor" atIndex:index effectiveRange:nil];
         if (zCol)
             attrDict[@"ZColor"] = zCol;
         return attrDict;
