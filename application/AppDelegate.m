@@ -33,8 +33,8 @@ NSDictionary *gFormatMap;
     gGameFileTypes = @[
         @"d$$",   @"dat", @"sna",    @"advsys", @"quill", @"l9",  @"mag",
         @"a3c",   @"acd", @"agx",    @"gam",    @"t3",    @"hex", @"taf",
-        @"z3",    @"z4",  @"z5",     @"z7",     @"z8",    @"ulx", @"blb",
-        @"blorb", @"glb", @"gblorb", @"zlb",    @"zblorb"
+        @"z3",    @"z4",  @"z5",     @"z6",    @"z7",     @"z8",    @"ulx",
+        @"blb",   @"blorb", @"glb", @"gblorb", @"zlb",    @"zblorb"
     ];
 
     // To map the Glk style indices onto our Core Data relation names
