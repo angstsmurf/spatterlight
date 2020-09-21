@@ -25,7 +25,6 @@
 		6D2C86DB225E7CA2004A5A75 /* libfizmo_locales.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C86D8225E7CA2004A5A75 /* libfizmo_locales.c */; };
 		6D2C86EC225E8671004A5A75 /* spatterlight-restart.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C86EA225E8671004A5A75 /* spatterlight-restart.m */; };
 		6D2C86ED225E8671004A5A75 /* spatterlight-trace.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C86EB225E8671004A5A75 /* spatterlight-trace.m */; };
-		6D2C86F4225E8A05004A5A75 /* fizmo in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 6D8BCAD6225E4ACF00696057 /* fizmo */; };
 		6D2C8709225E9ED9004A5A75 /* FizmoLocales in Resources */ = {isa = PBXBuildFile; fileRef = 6D2C8708225E9EA7004A5A75 /* FizmoLocales */; };
 		6D2C870C225EA75C004A5A75 /* tracelog.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C8695225E5291004A5A75 /* tracelog.c */; };
 		6D395C021EAD095E0070886C /* accel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941B1EAC1BC4003DA5C4 /* accel.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -275,7 +274,6 @@
 		9650371B09F29F520083E64E /* variable.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650329009F29EE20083E64E /* variable.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9650371C09F29F690083E64E /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		9650371D09F29F690083E64E /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
-		9650372209F29FAE0083E64E /* frotz in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 9650370009F29F020083E64E /* frotz */; };
 		9650378009F2A2CE0083E64E /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		9650378109F2A2CE0083E64E /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		9650378909F2A2F20083E64E /* os_glk.c in Sources */ = {isa = PBXBuildFile; fileRef = 965032CC09F29EE20083E64E /* os_glk.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -632,12 +630,12 @@
 			remoteGlobalIDString = 961CCE7A09F237E700528FF9;
 			remoteInfo = glkimp;
 		};
-		6D2C86F2225E89AC004A5A75 /* PBXContainerItemProxy */ = {
+		6D77E2BF2518B482008B9C69 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6D8BCAD5225E4ACF00696057;
-			remoteInfo = fizmo;
+			remoteGlobalIDString = 6DB774A12458B95E00EDC671;
+			remoteInfo = bocfel;
 		};
 		961154210A4F3F8B00BB7FF2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -701,13 +699,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 961CCEB609F2396500528FF9;
 			remoteInfo = glkmain;
-		};
-		9650372409F29FBC0083E64E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 965036FF09F29F020083E64E;
-			remoteInfo = frotz;
 		};
 		9650376809F2A2CE0083E64E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -987,7 +978,6 @@
 			dstSubfolderSpec = 6;
 			files = (
 				6DB774D72458DD4900EDC671 /* bocfel in Copy Interpreter Files */,
-				6D2C86F4225E8A05004A5A75 /* fizmo in Copy Interpreter Files */,
 				C32036E51ED7738700FF60DF /* libglkimp.dylib in Copy Interpreter Files */,
 				C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */,
 				9650397F09F2D7180083E64E /* advsys in Copy Interpreter Files */,
@@ -995,7 +985,6 @@
 				96A9BA220A064BCC001B5B9B /* agt2agx in Copy Interpreter Files */,
 				9650395E09F2D63A0083E64E /* alan2 in Copy Interpreter Files */,
 				9650395F09F2D63A0083E64E /* alan3 in Copy Interpreter Files */,
-				9650372209F29FAE0083E64E /* frotz in Copy Interpreter Files */,
 				96E6B9430AC4081600DCBE8B /* glulxe in Copy Interpreter Files */,
 				965038D809F2D3580083E64E /* hugo in Copy Interpreter Files */,
 				9650381B09F2A4AE0083E64E /* level9 in Copy Interpreter Files */,
@@ -5016,7 +5005,7 @@
 				96A9BA200A064BBC001B5B9B /* PBXTargetDependency */,
 				9650395D09F2D6050083E64E /* PBXTargetDependency */,
 				9650395B09F2D6050083E64E /* PBXTargetDependency */,
-				9650372509F29FBC0083E64E /* PBXTargetDependency */,
+				6D77E2C02518B482008B9C69 /* PBXTargetDependency */,
 				96E6B92E0AC407C200DCBE8B /* PBXTargetDependency */,
 				9650388C09F2CC7C0083E64E /* PBXTargetDependency */,
 				9650381A09F2A4A00083E64E /* PBXTargetDependency */,
@@ -5024,7 +5013,6 @@
 				9650379F09F2A2FA0083E64E /* PBXTargetDependency */,
 				966EFA4309F62D4C00FA7F19 /* PBXTargetDependency */,
 				C3D6AD701ECF372000ADB69C /* PBXTargetDependency */,
-				6D2C86F3225E89AC004A5A75 /* PBXTargetDependency */,
 			);
 			name = Spatterlight;
 			productName = Spatterlight;
@@ -6118,10 +6106,10 @@
 			target = 961CCE7A09F237E700528FF9 /* glkimp */;
 			targetProxy = 6D2C86F0225E898D004A5A75 /* PBXContainerItemProxy */;
 		};
-		6D2C86F3225E89AC004A5A75 /* PBXTargetDependency */ = {
+		6D77E2C02518B482008B9C69 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6D8BCAD5225E4ACF00696057 /* fizmo */;
-			targetProxy = 6D2C86F2225E89AC004A5A75 /* PBXContainerItemProxy */;
+			target = 6DB774A12458B95E00EDC671 /* bocfel */;
+			targetProxy = 6D77E2BF2518B482008B9C69 /* PBXContainerItemProxy */;
 		};
 		961154200A4F3F8B00BB7FF2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6167,11 +6155,6 @@
 			isa = PBXTargetDependency;
 			target = 961CCEB609F2396500528FF9 /* glkmain */;
 			targetProxy = 9650370409F29F0B0083E64E /* PBXContainerItemProxy */;
-		};
-		9650372509F29FBC0083E64E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 965036FF09F29F020083E64E /* frotz */;
-			targetProxy = 9650372409F29FBC0083E64E /* PBXContainerItemProxy */;
 		};
 		9650376709F2A2CE0083E64E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
