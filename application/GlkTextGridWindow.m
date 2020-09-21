@@ -662,7 +662,6 @@
 
     NSUInteger selectedRow = _restoredSelection.location / (cols + 1);
     NSUInteger selectedCol = _restoredSelection.location % (cols + 1);
-    NSLog(@"setFrame: _restoredSelection: %@ selectedRow:%ld selectedCol:%ld", NSStringFromRange(_restoredSelection), selectedRow, selectedCol);
 
     NSSize screensize = self.glkctl.window.screen.visibleFrame.size;
     if (newcols * self.theme.cellWidth > screensize.width || newrows * self.theme.cellHeight > screensize.height) {
