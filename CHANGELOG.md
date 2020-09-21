@@ -1,13 +1,18 @@
 # Change log
 
-## Unreleased
+## Release 0.5.13b
 
-- Improved Hugo support, with working images, sound and text colours
-- Bocfel is now the default Z-machine interpreter.
-- Sound support for The Lurking Horror and Sherlock: The Riddle of the Crown Jewels.
+- Improved Hugo support, with working images, sound and colours
+- Bocfel is now the Z-machine interpreter
+- Sound support for The Lurking Horror and Sherlock: The Riddle of the Crown Jewels
 - Support for Gargoyle Glk extensions for text colour and reverse video
+- Mouse support in Beyond Zork
+- New graphic font for Beyond Zork borrowed from Frotz
 - Support for preloaded input
 - All TerpEtude tests pass
+- Time in Cutthroats shows 99:99 where intended
+- Improved form entry in Bureaucracy
+- Full support for Robot Finds Kitten and other Z-machine abuses
 - Alan 3 was updated to beta 6, and more games now work
 - Image support in Alan 3
 - Improved performance when scrollback is large
@@ -16,11 +21,12 @@
 - Play Game menu entry and shortcut now work
 - Transcripts can now be turned off and autorestored without crashing Glulxe
 - Renamed "Transcript" to "Scrollback" in menu items to avoid confusion
-- Fixed zoom button functionality of the preferences window
+- Fixed the zoom button functionality of the preferences window
 - Fixed sorting on Last modified column in library
+- Annoying beeps in Infocom games supported
 - Sound is silenced immediately when switched off in preferences
 - Fixed a crash that would sometimes occur when resetting with the Alt+Command+R shortcut
-- Some games (such as Hugo Tetris and Hugo Zork) would stop working after downloading IFDB metadata 
+- Some games (such as Hugo Tetris and Hugo Zork) would stop working after adding their IFDB metadata 
 - Themes would sometimes be cloned twice when editing a non-editable theme
 - Images dragged to the info window are now stored properly as a new cover image
 
@@ -51,7 +57,7 @@
 - Support for multiple releases of the same game with separate Ifids, though they will just look like duplicates in the library view.
 - Cascading of newly opened (not autosaved) game windows, so that new game windows don't completely obscure previous ones
 - Games are imported on background thread
-- App is built on macOS 10.15 Catalina, notarized and runs all the way back to 10.9.
+- App is built on macOS 10.15 Catalina, notarized and runs all the way back to 10.9
 
 ## Release 0.5.11b
 
