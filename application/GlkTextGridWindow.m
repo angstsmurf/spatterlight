@@ -654,6 +654,16 @@
     if ((NSInteger)newrows < 1)
         newrows = 1;
 
+    if (self.inLiveResize && newcols < cols)
+        return;
+
+    if (_restoredSelection.length == 0)
+        _restoredSelection = textview.selectedRange;
+
+    NSUInteger selectedRow = _restoredSelection.location / (cols + 1);
+    NSUInteger selectedCol = _restoredSelection.location % (cols + 1);
+    NSLog(@"setFrame: _restoredSelection: %@ selectedRow:%ld selectedCol:%ld", NSStringFromRange(_restoredSelection), selectedRow, selectedCol);
+
     NSSize screensize = self.glkctl.window.screen.visibleFrame.size;
     if (newcols * self.theme.cellWidth > screensize.width || newrows * self.theme.cellHeight > screensize.height) {
         NSLog(@"GlkTextGridWindow setFrame error! newcols (%ld) * theme.cellwith (%f) = %f. screensize.width:%f newrows (%ld) * theme.cellheight (%f) = %f. screensize.height:%f Returning.", newcols, self.theme.cellWidth, newcols * self.theme.cellWidth, screensize.width, newrows, self.theme.cellHeight, newrows * self.theme.cellHeight, screensize.height);
@@ -763,8 +773,8 @@
         [_bufferTextStorage replaceCharactersInRange:NSMakeRange(r, 1)
                                 withAttributedString:newlinestring];
 
-    [self recalcBackground];
-    [self checkForUglyBorder];
+    _restoredSelection = NSMakeRange(selectedCol + selectedRow * (cols + 1), _restoredSelection.length);
+
 
     if ([self inLiveResize]) {
         [super setFrame:frame];
