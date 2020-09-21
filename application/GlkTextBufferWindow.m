@@ -1514,7 +1514,7 @@
 - (void)clear {
     [_textview resetTextFinder];
 
-    if(textstorage.length) {
+    if (textstorage.length) {
         id att = [[NSAttributedString alloc] initWithString:@""];
         [textstorage setAttributedString:att];
     }
