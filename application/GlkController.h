@@ -75,6 +75,8 @@
 }
 
 @property NSMutableDictionary *gwindows;
+@property NSMutableArray *windowsToBeAdded;
+@property NSMutableArray *windowsToBeRemoved;
 @property IBOutlet NSView *borderView;
 @property IBOutlet GlkHelperView *contentView;
 

@@ -196,6 +196,8 @@ fprintf(stderr, "%s\n",                                                    \
                           };
 
     _gwindows = [[NSMutableDictionary alloc] init];
+    _windowsToBeAdded = [[NSMutableArray alloc] init];
+    _windowsToBeRemoved = [[NSMutableArray alloc] init];
     bufferedData = nil;
 
     self.window.title = _game.metadata.title;
@@ -1096,19 +1098,30 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)flushDisplay {
+    if (windowdirty) {
     GlkWindow *largest = [self largestWindow];
     if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
         [(GlkTextBufferWindow *)largest recalcBackground];
     if ([largest isKindOfClass:[GlkTextGridWindow class]])
         [(GlkTextGridWindow *)largest recalcBackground];
-
-    for (GlkWindow *win in [_gwindows allValues])
-        [win flushDisplay];
-    
-    if (windowdirty) {
-//        [_contentView setNeedsDisplay:YES];
         windowdirty = NO;
     }
+
+    for (GlkWindow *win in _windowsToBeAdded) {
+        [_contentView addSubview:win];
+    }
+
+    _windowsToBeAdded = [[NSMutableArray alloc] init];
+
+    for (GlkWindow *win in [_gwindows allValues]) {
+        [win flushDisplay];
+    }
+
+    for (GlkWindow *win in _windowsToBeRemoved) {
+        [win removeFromSuperview];
+    }
+
+    _windowsToBeRemoved = [[NSMutableArray alloc] init];
 }
 
 - (void)guessFocus {
@@ -1658,20 +1671,20 @@ fprintf(stderr, "%s\n",                                                    \
         case wintype_TextGrid:
              win = [[GlkTextGridWindow alloc] initWithGlkController:self name:i];
             _gwindows[@(i)] = win;
-            [_contentView addSubview:win];
+            [_windowsToBeAdded addObject:win];
             return i;
 
         case wintype_TextBuffer:
              win = [[GlkTextBufferWindow alloc] initWithGlkController:self name:i];
 
             _gwindows[@(i)] = win;
-            [_contentView addSubview:win];
+            [_windowsToBeAdded addObject:win];
             return i;
 
         case wintype_Graphics:
              win = [[GlkGraphicsWindow alloc] initWithGlkController:self name:i];
             _gwindows[@(i)] = win;
-            [_contentView addSubview: win];
+            [_windowsToBeAdded addObject:win];
             return i;
     }
 
@@ -2126,8 +2139,7 @@ fprintf(stderr, "%s\n",                                                    \
         case DELWIN:
 //            NSLog(@"glkctl delwin %d", req->a1);
             if (reqWin) {
-                [reqWin removeFromSuperview];
-                reqWin = nil;
+                [_windowsToBeRemoved addObject:reqWin];
                 [_gwindows removeObjectForKey:@(req->a1)];
             } else
                 NSLog(@"delwin: something went wrong.");
