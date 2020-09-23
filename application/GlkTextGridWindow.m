@@ -638,8 +638,12 @@
 
     NSUInteger r;
 
-    if (frame.size.height == 0)
+    self.framePending = YES;
+    self.pendingFrame = frame;
+
+    if (frame.size.height == 0) {
         return;
+    }
 
     NSUInteger newcols = (NSUInteger)round((frame.size.width -
                                             (textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
@@ -778,9 +782,6 @@
     if ([self inLiveResize]) {
         [super setFrame:frame];
         self.framePending = NO;
-    } else {
-        self.framePending = YES;
-        self.pendingFrame = frame;
     }
     dirty = YES;
 }
