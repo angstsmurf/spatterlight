@@ -1707,7 +1707,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         game.detectedFormat = game.metadata.format;
     }
 
-    terp = gExtMap[path.pathExtension];
+    terp = gExtMap[path.pathExtension.lowercaseString];
     if (!terp)
         terp = gFormatMap[game.detectedFormat];
 
