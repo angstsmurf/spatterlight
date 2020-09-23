@@ -1525,7 +1525,7 @@ void heglk_adjust_guilty_bastards_windows(void)
 
     wins[guilty_bastards_aux_win].y0 = wins[guilty_bastards_graphics_win].y0;
     wins[guilty_bastards_aux_win].y1 = wins[guilty_bastards_graphics_win].y1;
-    wins[guilty_bastards_aux_win].x0 = wins[guilty_bastards_graphics_win].x1;
+    wins[guilty_bastards_aux_win].x0 = wins[guilty_bastards_graphics_win].x1 - 1;
     wins[guilty_bastards_aux_win].x1 = gscreenw;
 
     /* For some reason this is called when on our custom menu screen,
