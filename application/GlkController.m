@@ -676,7 +676,7 @@ fprintf(stderr, "%s\n",                                                    \
          stringByAppendingString:@" Files"];
 
         if (!terpFolder) {
-            terpFolder = [gFolderMapExt[_gamefile.pathExtension]
+            terpFolder = [gFolderMapExt[_gamefile.pathExtension.lowercaseString]
                           stringByAppendingString:@" Files"];
         }
 
