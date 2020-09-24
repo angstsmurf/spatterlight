@@ -27,6 +27,7 @@
 
 #include "os.h"
 #include "glk.h"
+#include "glkimp.h"
 
 /* for version strings */
 #include "trd.h"
@@ -432,9 +433,70 @@ void os_set_text_attr(int attr)
  */
 void os_set_text_color(os_color_t fg, os_color_t bg)
 {
-    glk_window_set_background_color(mainwin, (glui32)bg);
-    if (statuswin)
-        glk_window_set_background_color(statuswin, (glui32)bg);
+//    fprintf(stderr, "os_set_text_color fg:%lu (%lx), bg:%lu (%lx)\n", fg, fg, bg, bg);
+
+    // Fix for Hill Ridge Lost & Found
+    if (fg == 0 && bg == OS_COLOR_P_TRANSPARENT) {
+//        fprintf(stderr, "Trying to set foreground color to hard black\n");
+        fg = zcolor_Default;
+    }
+
+    switch (fg) {
+        case OS_COLOR_P_TRANSPARENT:
+//            fprintf(stderr, "Trying to set foreground color to OS_COLOR_P_TRANSPARENT\n");
+            fg = zcolor_Default;
+            break;
+        case OS_COLOR_P_TEXT:
+//            fprintf(stderr, "Trying to set foreground color to OS_COLOR_P_TEXT\n");
+            fg = zcolor_Default;
+            break;
+        case OS_COLOR_P_TEXTBG:
+            fprintf(stderr, "Trying to set foreground color to OS_COLOR_P_TEXTBG\n");
+            break;
+        case OS_COLOR_P_STATUSLINE:
+            fprintf(stderr, "Trying to set foreground color to OS_COLOR_P_STATUSLINE\n");
+            break;
+        case OS_COLOR_P_STATUSBG:
+            fprintf(stderr, "Trying to set foreground color to OS_COLOR_P_STATUSBG\n");
+            break;
+        case OS_COLOR_P_INPUT:
+            fprintf(stderr, "Trying to set foreground color to OS_COLOR_P_INPUT\n");
+            break;
+        default:
+            break;
+    }
+
+    switch (bg) {
+        case OS_COLOR_P_TRANSPARENT:
+//            fprintf(stderr, "Trying to set background color to OS_COLOR_P_TRANSPARENT\n");
+            bg = zcolor_Default;
+            break;
+        case OS_COLOR_P_TEXT:
+            fprintf(stderr, "Trying to set background color to OS_COLOR_P_TEXT\n");
+            break;
+        case OS_COLOR_P_TEXTBG:
+            fprintf(stderr, "Trying to set background color to OS_COLOR_P_TEXTBG\n");
+            bg = zcolor_Default;
+            break;
+        case OS_COLOR_P_STATUSLINE:
+            fprintf(stderr, "Trying to set background color to OS_COLOR_P_STATUSLINE\n");
+            break;
+        case OS_COLOR_P_STATUSBG:
+            fprintf(stderr, "Trying to set background color to OS_COLOR_P_STATUSBG\n");
+            break;
+        case OS_COLOR_P_INPUT:
+            fprintf(stderr, "Trying to set background color to OS_COLOR_P_INPUT\n");
+            break;
+        default:
+            break;
+    }
+
+
+    win_setbgnd(curwin, (glui32)bg);
+    garglk_set_zcolors( (glui32)fg, (glui32)bg);
+//    glk_window_set_background_color(mainwin, (glui32)bg);
+//    if (statuswin)
+////        glk_window_set_background_color(statuswin, (glui32)bg);
 }
 
 /*
@@ -454,6 +516,7 @@ void os_set_text_color(os_color_t fg, os_color_t bg)
  */
 void os_set_screen_color(os_color_t color)
 {
+    win_setbgnd(-1, (glui32)color);
 }
 
 /*
@@ -492,7 +555,7 @@ void os_set_title(const char *title)
  */
 void os_more_prompt()
 {
-    os_printz("\n[more]\n");
+    os_printz("\n[Press a key]\n");
     os_waitc();
 }
 

@@ -233,6 +233,9 @@ void os_banner_styles_apply (osbanid_t banner)
     glui32 propval = banner->status ? 0 : (banner->type == wintype_TextGrid ? 0 : 1);
     glui32 bgcustom = banner->bgtrans ? banner->bgcolor : banner->bgcustom;
 
+    banner->fgcolor = gsbgcol;
+    banner->bgcolor = gsfgcol;
+
     /* font style: monospace for text grid and tab aligned buffers, else proportional */
     glk_stylehint_set(banner->type, style_Alert, stylehint_Proportional, propval);
     glk_stylehint_set(banner->type, style_Subheader, stylehint_Proportional, propval);
