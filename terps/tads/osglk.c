@@ -318,7 +318,7 @@ void os_status(int stat)
     {
         if (statuswin == NULL)
         {
-//            glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+            glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
 
             statuswin = glk_window_open(mainwin,
                                         winmethod_Above | winmethod_Fixed, 1,
