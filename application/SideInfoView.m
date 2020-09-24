@@ -92,6 +92,8 @@ fprintf(stderr, "%s\n",                                                    \
         [attrString addAttribute:NSKernAttributeName value:@1.f range:NSMakeRange(0, text.length)];
     }
 
+    [attrString addAttribute:NSForegroundColorAttributeName value:[NSColor textColor] range:NSMakeRange(0, text.length)] ;
+
     CGRect contentRect = [attrString boundingRectWithSize:CGSizeMake(self.frame.size.width - 24, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin];
     // I guess the magic number -24 here means that the text field inner width differs 4 points from the outer width. 2-point border?
 
@@ -108,7 +110,7 @@ fprintf(stderr, "%s\n",                                                    \
     textField.bordered = NO;
     [textField.cell setUsesSingleLineMode:NO];
     textField.allowsEditingTextAttributes = YES;
-
+    textField.alignment = para.alignment;
 
     [textField.cell setWraps:YES];
     [textField.cell setScrollable:NO];
