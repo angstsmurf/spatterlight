@@ -645,6 +645,10 @@
         return;
     }
 
+    NSSize screensize = self.glkctl.window.screen.visibleFrame.size;
+    if (frame.size.height > screensize.height)
+        frame.size.height = self.glkctl.contentView.frame.size.height;
+
     NSUInteger newcols = (NSUInteger)round((frame.size.width -
                                             (textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
                                            self.theme.cellWidth);
@@ -667,7 +671,6 @@
     NSUInteger selectedRow = _restoredSelection.location / (cols + 1);
     NSUInteger selectedCol = _restoredSelection.location % (cols + 1);
 
-    NSSize screensize = self.glkctl.window.screen.visibleFrame.size;
     if (newcols * self.theme.cellWidth > screensize.width || newrows * self.theme.cellHeight > screensize.height) {
         NSLog(@"GlkTextGridWindow setFrame error! newcols (%ld) * theme.cellwith (%f) = %f. screensize.width:%f newrows (%ld) * theme.cellheight (%f) = %f. screensize.height:%f Returning.", newcols, self.theme.cellWidth, newcols * self.theme.cellWidth, screensize.width, newrows, self.theme.cellHeight, newrows * self.theme.cellHeight, screensize.height);
         return;
