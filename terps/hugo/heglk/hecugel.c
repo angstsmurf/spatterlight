@@ -1314,7 +1314,8 @@ void heglk_sizeifexists(int i)
 
         if (wins[i].y0 == wins[i].y1)
         {
-            LOG("glk_sizeifexists: Window %d was resized to height 0!\n", i);
+            LOG("glk_sizeifexists: Window %d was resized to height 0! Leave it at one character high.\n", i);
+            wins[i].y1 = wins[i].y0 + gcellh;
         }
         win_sizewin(wins[i].win->peer, wins[i].x0, wins[i].y0, wins[i].x1, wins[i].y1);
         LOG("glk_sizeifexists: Resized window %d to %d %d %d %d\n", i, wins[i].x0, wins[i].y0, wins[i].x1, wins[i].y1);
@@ -1367,6 +1368,9 @@ int heglk_push_down_main_window_to(int y)
         minimal_mainwin_height = gscreenh / 2;
     if (gscreenh - y < minimal_mainwin_height)
         y = gscreenh - minimal_mainwin_height;
+    /* Dont't allow negative height */
+    if (wins[mainwin].y1 <= y)
+        return wins[mainwin].y0;
     wins[mainwin].y0 = y;
     heglk_sizeifexists(mainwin);
     LOG("Pushed down main window to %d\n", y);
@@ -1565,8 +1569,10 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 
     if (bottom < top)
     {
-        LOG("hugo_settextwindow: negative height. Bailing.\n");
-        return;
+        LOG("hugo_settextwindow: negative height. Reversing top and bottom.\n");
+        int temp = top;
+        top = bottom;
+        bottom = temp;
     }
 
     if (menuwin)
