@@ -1282,9 +1282,18 @@
                           marginsToAttachmentsInString:mutattstr];
 
              [mutattstr
-              addAttribute:NSBackgroundColorAttributeName
-              value:localTextView.backgroundColor
-              range:NSMakeRange(0, mutattstr.length)];
+              enumerateAttribute:NSBackgroundColorAttributeName
+              inRange:NSMakeRange(0, mutattstr.length)
+              options:0
+              usingBlock:^(id value, NSRange range, BOOL *stop) {
+                  if (!value || [value isEqual:[NSColor textBackgroundColor]]) {
+                      [mutattstr
+                       addAttribute:NSBackgroundColorAttributeName
+                       value:localTextView.backgroundColor
+                       range:range];
+                  }
+              }];
+
 
              if (isRtfd) {
                  NSFileWrapper *wrapper;
