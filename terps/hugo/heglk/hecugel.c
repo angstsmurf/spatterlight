@@ -2527,7 +2527,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
         }
 
         if (y1 == y0) {
-            y1 = y0 + gcellh;
+            y1 = y0 + (wins[curwin].b - wins[curwin].t) * gcellh;
             if (y1 > gscreenh)
             {
                 y1 = gscreenh;
