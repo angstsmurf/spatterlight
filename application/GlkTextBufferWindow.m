@@ -2665,9 +2665,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
 
-    if (textstorage.length == 0)
-        return;
-
     // then, get the bottom
     bottom = NSHeight(_textview.frame);
 
