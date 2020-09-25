@@ -2659,9 +2659,12 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             wins[curwin].x1 = x1;
             wins[curwin].y1 = y1;
 
-            win_maketransparent(wins[curwin].win->peer);
-
             int color = hugo_color(wins[curwin].bg);
+
+            if (isguiltybastards)
+                glk_window_set_background_color(wins[curwin].win, color);
+            else
+                win_maketransparent(wins[curwin].win->peer);
 
             LOG("hugo_displaypicture: fill a rect with background color %x: width %d, height %d\n", hugo_color(wins[curwin].bg), abs(x1-x0), abs(y1-y0));
             win_fillrect(wins[curwin].win->peer, color, 0, 0, abs(x1-x0), abs(y1-y0));
