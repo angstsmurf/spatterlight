@@ -827,6 +827,8 @@
 
 - (void)clear {
     NSRange selectedRange = textview.selectedRange;
+    if (!_bufferTextStorage.length)
+        return;
     _bufferTextStorage = [[NSMutableAttributedString alloc]
                           initWithString:@""];
 
