@@ -1376,20 +1376,7 @@
     if (!bgcolor)
         bgcolor = self.theme.bufferBackground;
 
-//    NSColor *fgcolor = styles[style_Normal][NSForegroundColorAttributeName];
-//    if (!fgcolor)
-//        fgcolor = self.theme.bufferNormal.color;
-//
-//    if (currentZColor && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default && self.theme.doStyles)
-//        fgcolor = [NSColor colorFromInteger:currentZColor.fg];
-//
-//    if (!fgcolor || !bgcolor) {
-//        NSLog(@"GlkTexBufferWindow recalcBackground: color error!");
-//    }
-
-    _textview.editable = YES;
     _textview.backgroundColor = bgcolor;
-//    _textview.insertionPointColor = fgcolor;
 
     if (line_request)
         [self showInsertionPoint];
