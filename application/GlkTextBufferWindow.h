@@ -74,6 +74,7 @@
     NSLayoutManager *layoutmanager;
     MarginContainer *container;
     NSTextStorage *textstorage;
+    NSMutableAttributedString *bufferTextstorage;
 
     BOOL line_request;
     BOOL hyper_request;
@@ -118,6 +119,8 @@
 @property BOOL restoredFindBarVisible;
 @property BOOL usingStyles;
 @property BOOL pendingScroll;
+@property BOOL pendingClear;
+@property BOOL pendingScrollRestore;
 
 - (void)recalcBackground;
 - (void)onKeyDown:(NSEvent *)evt;

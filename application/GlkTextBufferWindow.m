@@ -1031,6 +1031,7 @@
         /* construct text system manually */
 
         textstorage = [[NSTextStorage alloc] init];
+        bufferTextstorage = [textstorage mutableCopy];
 
         layoutmanager = [[NSLayoutManager alloc] init];
         layoutmanager.backgroundLayoutEnabled = YES;
@@ -1227,27 +1228,40 @@
 }
 
 - (void)flushDisplay {
+    if (!bufferTextstorage)
+        bufferTextstorage = [[NSMutableAttributedString alloc] init];
+
     if (self.framePending) {
         self.framePending = NO;
         if (!NSEqualRects(self.pendingFrame, self.frame)) {
             
-            super.frame = self.pendingFrame;
             if ([container hasMarginImages])
                 [container invalidateLayout];
 
-            if (NSMaxX(self.frame) > NSWidth(self.glkctl.contentView.bounds) && NSWidth(self.frame) > 10) {
-                NSLog(@"GlkTextViewBuffer %ld width: something is wrong: contentView width: %f self maxX: %f", (long)self.name, NSWidth(self.glkctl.contentView.bounds), NSMaxX(self.frame));
-                NSLog(@"Self frame:%@ contentview frame: %@ _textview.frame %@ scrollview.frame %@", NSStringFromRect(self.frame),  NSStringFromRect(self.glkctl.contentView.frame), NSStringFromRect(_textview.frame), NSStringFromRect(scrollview.frame));
-                self.frame = NSMakeRect(self.pendingFrame.origin.x, self.frame.origin.y, NSWidth(self.glkctl.contentView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
-                _textview.frame = self.frame;
+            if (NSMaxX(self.pendingFrame) > NSWidth(self.glkctl.contentView.bounds) && NSWidth(self.pendingFrame) > 10) {
+                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(self.glkctl.contentView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
             }
+
+            super.frame = self.pendingFrame;
         }
     }
-    if (_pendingScroll)
+
+    if (_pendingClear) {
+        [self reallyClear];
+        [textstorage setAttributedString:bufferTextstorage];
+    } else if (bufferTextstorage.length) {
+        [textstorage appendAttributedString:bufferTextstorage];
+    }
+
+    bufferTextstorage = [[NSMutableAttributedString alloc] init];
+
+    if (_pendingScroll) {
         [self reallyPerformScroll];
+    }
 }
 
 - (void)saveAsRTF:(id)sender {
+    [self flushDisplay];
     NSWindow *window = self.glkctl.window;
     BOOL isRtfd = NO;
     NSString *newExtension = @"rtf";
@@ -1528,12 +1542,13 @@
 #pragma mark Output
 
 - (void)clear {
-    [_textview resetTextFinder];
+    _pendingClear = YES;
+    storedNewline = nil;
+    bufferTextstorage = [[NSMutableAttributedString alloc] init];
+}
 
-    if (textstorage.length) {
-        id att = [[NSAttributedString alloc] initWithString:@""];
-        [textstorage setAttributedString:att];
-    }
+- (void)reallyClear {
+    [_textview resetTextFinder];
     fence = 0;
     _lastseen = 0;
     _lastchar = '\n';
@@ -1542,13 +1557,13 @@
     moveRanges = nil;
     moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;
-    storedNewline = nil;
 
     if (currentZColor && currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default)
         bgnd = currentZColor.bg;
-    
+
     [self recalcBackground];
     [container invalidateLayout];
+    _pendingClear = NO;
 }
 
 - (void)clearScrollback:(id)sender {
@@ -1644,7 +1659,7 @@
     // A lot of code to not print single newlines
     // at the bottom
     if (storedNewline) {
-        [textstorage appendAttributedString:storedNewline];
+        [bufferTextstorage appendAttributedString:storedNewline];
         storedNewline = nil;
     }
 
@@ -1692,11 +1707,12 @@
                                   attributes:attributes];
 
     [_textview resetTextFinder];
-    [textstorage appendAttributedString:attstr];
+    [bufferTextstorage appendAttributedString:attstr];
     dirty = YES;
 }
 
 - (void)unputString:(NSString *)buf {
+    [self flushDisplay];
     NSLog(@"GlkTextBufferWindow %ld unputString %@", self.name, buf);
     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
@@ -1843,6 +1859,7 @@
 
 -(void)sendInputLineWithTerminator:(NSInteger)terminator {
     // NSLog(@"line event from %ld", (long)self.name);
+    [self flushDisplay];
 
     [_textview resetTextFinder];
 
@@ -1905,6 +1922,7 @@
 - (void)initLine:(NSString *)str maxLength:(NSUInteger)maxLength
 {
 //    NSLog(@"initLine: %@ in: %ld", str, (long)self.name);
+    [self flushDisplay];
 
     historypos = historypresent;
 
@@ -1949,6 +1967,7 @@
 }
 
 - (NSString *)cancelLine {
+    [self flushDisplay];
     [_textview resetTextFinder];
 
     NSString *str = textstorage.string;
@@ -1994,6 +2013,7 @@
 }
 
 - (void)travelBackwardInHistory {
+    [self flushDisplay];
     [_textview resetTextFinder];
 
     NSString *cx;
@@ -2024,6 +2044,7 @@
 }
 
 - (void)travelForwardInHistory {
+    [self flushDisplay];
     [_textview resetTextFinder];
 
     NSString *cx;
@@ -2290,6 +2311,8 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     NSData *tiffdata;
     // NSAttributedString *attstr;
 
+    [self flushDisplay];
+
     if (storedNewline) {
         [textstorage appendAttributedString:storedNewline];
         storedNewline = nil;
@@ -2349,6 +2372,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 }
 
 - (void)flowBreak {
+    [self flushDisplay];
     [_textview resetTextFinder];
 
     // NSLog(@"adding flowbreak");
