@@ -2132,8 +2132,8 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case NEWCHAN:
-            ans->cmd = OKAY;
-            ans->a1 = [self handleNewSoundChannel];
+//            ans->cmd = OKAY;
+//            ans->a1 = [self handleNewSoundChannel];
             break;
 
         case DELWIN:
