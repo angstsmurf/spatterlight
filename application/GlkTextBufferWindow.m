@@ -1391,6 +1391,9 @@
 - (void)prefsDidChange {
 //    NSLog(@"GlkTextBufferWindow %ld prefsDidChange", self.name);
     NSDictionary *attributes;
+    if (!_pendingScrollRestore) {
+        [self storeScrollOffset];
+    }
 
     // Preferences has changed, so first we must redo the styles library
     NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
@@ -1520,7 +1523,11 @@
             [self recalcBackground];
             [container invalidateLayout];
         }
-        [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.1];
+        if (!_pendingScrollRestore) {
+            _pendingScrollRestore = YES;
+            [self flushDisplay];
+            [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
+        }
     } else {
         [self recalcBackground];
     }
@@ -2531,6 +2538,8 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
 - (void)storeScrollOffset {
 //    NSLog(@"GlkTextBufferWindow %ld: storeScrollOffset", self.name);
+    if (_pendingScrollRestore)
+        return;
     if (self.scrolledToBottom) {
         lastAtBottom = YES;
         lastAtTop = NO;
@@ -2545,9 +2554,11 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
     NSRect visibleRect = scrollview.documentVisibleRect;
 
-    lastVisible = [_textview
-        characterIndexForInsertionAtPoint:NSMakePoint(NSMaxX(visibleRect),
-                                                      NSMaxY(visibleRect))];
+    lastVisible = [layoutmanager characterIndexForPoint:NSMakePoint(NSMaxX(visibleRect),
+                                                      NSMaxY(visibleRect))
+                          inTextContainer:container
+ fractionOfDistanceBetweenInsertionPoints:nil];
+
     lastVisible--;
     if (lastVisible >= textstorage.length) {
         NSLog(@"lastCharacter index (%ld) is outside textstorage length (%ld)",
