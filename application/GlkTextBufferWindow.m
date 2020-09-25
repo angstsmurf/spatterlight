@@ -2552,6 +2552,9 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
         return;
     }
 
+    if (textstorage.length < 50000)
+        [layoutmanager glyphRangeForTextContainer:container];
+
     NSRect visibleRect = scrollview.documentVisibleRect;
 
     lastVisible = [layoutmanager characterIndexForPoint:NSMakePoint(NSMaxX(visibleRect),
