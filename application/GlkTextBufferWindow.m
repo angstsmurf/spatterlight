@@ -1223,7 +1223,7 @@
         self.framePending = YES;
         self.pendingFrame = frame;
 
-    if ([self inLiveResize] && !self.glkctl.inFullscreen)
+    if ([self inLiveResize] && (!self.glkctl.inFullscreen || [self.glkctl.gwindows count] > 2))
         [self flushDisplay];
 }
 
