@@ -2661,6 +2661,8 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
 
             int color = hugo_color(wins[curwin].bg);
 
+            /* Avoid clear background behind images in Guilty Bastards */
+            /* Can happen after changing settings */
             if (isguiltybastards)
                 glk_window_set_background_color(wins[curwin].win, color);
             else
