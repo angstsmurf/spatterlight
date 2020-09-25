@@ -116,7 +116,7 @@
 @property NSRange restoredSelection;
 @property NSString *restoredSearch;
 @property BOOL restoredFindBarVisible;
-
+@property BOOL usingStyles;
 @property BOOL pendingScroll;
 
 - (void)recalcBackground;

@@ -1009,6 +1009,8 @@
                 [styles addObject:styleDict];
             }
         }
+
+        _usingStyles = self.theme.doStyles;
         
         echo = YES;
 
@@ -1401,6 +1403,11 @@
             // We're not doing styles, so use the raw style attributes from
             // the theme object's attributeDict object
             attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
+        }
+
+        if (_usingStyles != self.theme.doStyles) {
+            different = YES;
+            _usingStyles = self.theme.doStyles;
         }
 
         if (attributes) {
@@ -2564,6 +2571,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 }
 
 - (void)restoreScroll:(id)sender {
+    _pendingScrollRestore = NO;
 //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
 //    NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
     if (_textview.bounds.size.height <= scrollview.bounds.size.height) {
