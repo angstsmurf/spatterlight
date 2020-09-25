@@ -1935,6 +1935,12 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 //            LOG("hugo_settextwindow: No values were changed in reused context!\n");
 //        }
 //    }
+
+    /* The prevents Future Boy images from getting shrunk to 1-character-size */
+    if (y1 <= y0)
+        y1 = y0 + (bottom - top) * gcellh;
+    if (y1 <= y0)
+        y1 = y0 + gcellh;
     // If we reuse the context,
     // most of these should will have the right value already...
     wins[curwin].l = left;
