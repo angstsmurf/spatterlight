@@ -555,7 +555,7 @@ void os_set_title(const char *title)
  */
 void os_more_prompt()
 {
-    os_printz("\n[Press a key]\n");
+    os_printz("\n\n\n");
     os_waitc();
 }
 
