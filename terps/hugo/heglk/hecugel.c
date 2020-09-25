@@ -1652,9 +1652,6 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 
         LOG("Detected that we are setting a status window\n");
         type = ISSTATUS;
-
-        if (isfutureboy && bottom == 26)
-            type = ISAUX;
     }
 
     x0 = 0;
