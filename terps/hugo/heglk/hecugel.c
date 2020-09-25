@@ -1357,6 +1357,9 @@ int heglk_push_down_main_window_to(int y)
     if (second_image_row && wins[second_image_row].y1)
         y = MIN(y, wins[second_image_row].y1);
 
+    if (isguiltybastards && y - wins[mainwin].y0 > gcellh * 10)
+        return wins[mainwin].y0;
+
     int minimal_mainwin_height = gbuffermarginy * 2 + gbufcellh * 3;
     if (wins[mainwin].win && wins[mainwin].win->type == wintype_TextGrid)
         minimal_mainwin_height = ggridmarginy * 2 + gcellh * 3;
