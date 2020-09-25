@@ -1545,6 +1545,12 @@
 }
 
 - (void)clearScrollback:(id)sender {
+    [self flushDisplay];
+    if (storedNewline) {
+        [textstorage appendAttributedString:storedNewline];
+    }
+    storedNewline = nil;
+
     NSString *string = textstorage.string;
     NSUInteger length = string.length;
     BOOL save_request = line_request;
@@ -1554,32 +1560,40 @@
     NSUInteger prompt;
     NSUInteger i;
 
-    if (!line_request)
-        fence = string.length;
+    NSUInteger charsAfterFence = length - fence;
+    BOOL found = NO;
 
-    /* try to rescue prompt line */
+    // find the second newline from the end
     for (i = 0; i < length; i++) {
-        if ([string characterAtIndex:length - i - 1] == '\n')
-            break;
+        if ([string characterAtIndex:length - i - 1] == '\n') {
+            if (found) {
+                break;
+            } else {
+                found = YES;
+            }
+        }
     }
     if (i < length)
         prompt = i;
-    else
+    else {
         prompt = 0;
+       // Found no newline
+    }
 
     line_request = NO;
 
-    [textstorage replaceCharactersInRange:NSMakeRange(0, fence - prompt)
-                                withString:@""];
+    [textstorage deleteCharactersInRange:NSMakeRange(0, length - prompt)];
+
     _lastseen = 0;
     _lastchar = '\n';
-    fence = prompt;
+    if (textstorage.length < charsAfterFence)
+        fence = 0;
+    else
+        fence = textstorage.length - charsAfterFence;
 
     line_request = save_request;
 
     [container clearImages];
-
-    moveRanges = nil;
     moveRanges = [[NSMutableArray alloc] init];
 }
 
