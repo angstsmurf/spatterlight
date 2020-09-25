@@ -2111,8 +2111,10 @@ replacementString:(id)repl {
         _textview.shouldDrawCaret = YES;
         return YES;
     }
-
-    _textview.shouldDrawCaret = NO;
+    if (line_request && range.location == fence - 1)
+        _textview.shouldDrawCaret = YES;
+    else
+        _textview.shouldDrawCaret = NO;
     return NO;
 }
 
