@@ -1923,7 +1923,7 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
   curwin->pending_read = false;
   curwin->line = NULL;
 
-  if(status == InputReceived) saw_input = true;
+  saw_input = true;
 
   if(errorwin != NULL)
   {
