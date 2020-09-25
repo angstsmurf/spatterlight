@@ -1945,7 +1945,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 
 void hugo_settextpos(int x, int y)
 {
-    LOG("hugo_settextpos %d %d. Currentline:%d currentpos:%d\n", x, y, currentline, currentpos);
+//    LOG("hugo_settextpos %d %d. Currentline:%d currentpos:%d\n", x, y, currentline, currentpos);
 
     /* The top-left corner of the current active window is (1, 1). */
 
@@ -2279,7 +2279,7 @@ void heglk_zcolor(void)
         glk_fgcolor = hugo_color(HUGO_WHITE);
     }
 
-    LOG("Setting zcolors to %x (%d), %x (%d)\n", glk_fgcolor, glk_fgcolor, glk_bgcolor, glk_bgcolor);
+//    LOG("Setting zcolors to %x (%d), %x (%d)\n", glk_fgcolor, glk_fgcolor, glk_bgcolor, glk_bgcolor);
     garglk_set_zcolors(glk_fgcolor, glk_bgcolor) ;
 }
 
@@ -2344,7 +2344,7 @@ void hugo_print(char *a)
 
     wins[curwin].clear = 0;
 
-    LOG("hugo print: '%s' %s %s inwin: %d inmenu %d x:%d y:%d curwin:%d length:%lu\n", a, mono ? "mono" : "prop", (wins[curwin].win->type == wintype_TextGrid) ? "grid" : "buf", inwindow, inmenu, currentpos, currentline, curwin, strlen(a));
+//    LOG("hugo print: '%s' %s %s inwin: %d inmenu %d x:%d y:%d curwin:%d length:%lu\n", a, mono ? "mono" : "prop", (wins[curwin].win->type == wintype_TextGrid) ? "grid" : "buf", inwindow, inmenu, currentpos, currentline, curwin, strlen(a));
 
 
     if (a[0] == '\r')
@@ -2404,7 +2404,7 @@ void hugo_font(int f)
             return;
         }
             curstyle = style_Preformatted;
-        LOG("Changing to a fixed-width font\n");
+//        LOG("Changing to a fixed-width font\n");
         mono = true;
 
         // Hack to avoid extra line breaks in Captain Speedo intro boxes
