@@ -1748,7 +1748,11 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
                 peggedtoright = true;
             }
 
-            y1 = y0 + gcellh * (bottom - top + 1);
+            /* A height of 1 and a height of 0 will both
+             be considered 1 character high */
+            y1 = y0 + gcellh * (bottom - top);
+            if (y1 == y0)
+                y1 += gcellh;
 
 //            LOG("statuswin = %d wins[statuswin].b = %d top = %d ABS(top - wins[statuswin].b) = %d\n", statuswin, wins[statuswin].b, top, ABS(top - wins[statuswin].t));
 
