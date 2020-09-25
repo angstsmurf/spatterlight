@@ -835,12 +835,12 @@
     } else
         [self setFrame:self.frame];
 
-    if (currentZColor) {
-        if (currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default) {
-            bgnd = currentZColor.bg;
-        }
-        [self recalcBackground];
-    }
+//    if (currentZColor && bgnd != currentZColor.bg) {
+//        if (currentZColor.bg != zcolor_Current && currentZColor.bg != zcolor_Default) {
+//            bgnd = currentZColor.bg;
+//        }
+//        [self recalcBackground];
+//    }
 
     if (NSMaxRange(selectedRange) > textview.textStorage.length) {
         if (textview.textStorage.length)

@@ -27,6 +27,7 @@
 
 #ifdef ZTERP_GLK
 #include "glk.h"
+#include "glkimp.h"
 
 #if defined(ZTERP_WIN32) && !defined(GARGLK)
 /* rpcndr.h, eventually included via WinGlk.h, defines a type “byte”
@@ -1157,6 +1158,7 @@ void zerase_window(void)
   }
 
   /* glk_window_clear() kills reverse video in Gargoyle.  Reapply style. */
+  win_setbgnd(upperwin->id->peer, gargoyle_color(&style_window->bg_color));
   set_current_style();
 #endif
 }
