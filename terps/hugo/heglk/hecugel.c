@@ -1734,7 +1734,6 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
                         x1 = gscreenw;
                         peggedtoright = 1;
                     }
-
                 }
             }
 
