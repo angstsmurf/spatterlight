@@ -58,8 +58,8 @@ static int32 claim_story_file(void *story_file, int32 extent)
  }
  else
  { /* Identify Alan 3 */
-//   bf=read_alan_int(sf+12);
-//   if (bf < 0 || bf > (extent/4)) return INVALID_STORY_FILE_RV;
+   bf=read_alan_int(sf+12);
+   if (bf < 0 || bf > (extent/4)) return INVALID_STORY_FILE_RV;
 //   for (i=184;i<(bf*4);i++)
 //    crc+=sf[i];
 // if (crc!=read_alan_int(sf+176)) return INVALID_STORY_FILE_RV;
