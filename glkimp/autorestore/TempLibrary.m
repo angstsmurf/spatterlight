@@ -41,6 +41,8 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
         if (gli_story_name[0] != '\0')
             story_title = [NSString stringWithUTF8String:gli_story_title];
 
+        _timerInterval = gtimerinterval;
+
         _windows = [NSMutableArray arrayWithCapacity:8];
         _streams = [NSMutableArray arrayWithCapacity:8];
         _filerefs = [NSMutableArray arrayWithCapacity:8];
@@ -156,6 +158,8 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 	if (extra_unarchive_hook)
 		extra_unarchive_hook(self, decoder);
 
+    _timerInterval = [decoder decodeInt32ForKey:@"timerInterval"];
+
 	return self;
 }
 
@@ -172,6 +176,9 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 	[encoder encodeObject:_streams forKey:@"streams"];
 	[encoder encodeObject:_filerefs forKey:@"filerefs"];
     [encoder encodeObject:_schannels forKey:@"schannels"];
+
+    [encoder encodeInt32:_timerInterval forKey:@"timerInterval"];
+
 
 	if (_rootwintag)
 		[encoder encodeInt32:_rootwintag forKey:@"rootwintag"];
@@ -450,6 +457,8 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     gli_sanity_check_windows();
     gli_sanity_check_streams();
     gli_sanity_check_filerefs();
+
+    glk_request_timer_events(_timerInterval);
 }
 
 - (void) sanityCheck {

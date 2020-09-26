@@ -41,6 +41,7 @@ extern float gleading;
 extern glui32 tagcounter;
 extern glui32 lasteventtype;
 
+extern glui32 gtimerinterval;
 
 /* more Gargoyle glue */
 extern char gli_program_name[256];

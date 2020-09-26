@@ -37,6 +37,8 @@ Identity of the current selected output stream */
 @property glui32 rootwintag;
 @property glui32 currentstrtag;
 
+@property glui32 timerInterval;
+
 @property id extraData;
 
 //@property id specialrequest;

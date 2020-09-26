@@ -48,6 +48,8 @@ float gbufcellw = 8;
 float gbufcellh = 12;
 float gleading = 0;
 
+uint32_t gtimerinterval = 0;
+
 uint32_t gfgcol = 0;
 uint32_t gbgcol = 0;
 uint32_t gsfgcol = 0;
@@ -369,6 +371,7 @@ void win_timer(int millisecs)
 {
     win_flush();
     sendmsg(TIMER, millisecs, 0, 0, 0, 0, 0, NULL);
+    gtimerinterval = millisecs;
 }
 
 void win_initchar(int name)

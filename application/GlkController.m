@@ -553,29 +553,6 @@ fprintf(stderr, "%s\n",                                                    \
     for (GlkEvent *event in restoredController.queue)
         [self queueEvent:event];
 
-    // Restart timer
-    if (_storedTimerLeft > 0) {
-        NSLog(@"storedTimerLeft:%f storedTimerInterval:%f",
-              _storedTimerLeft, _storedTimerInterval);
-        if (timer) {
-            [timer invalidate];
-            timer = nil;
-        }
-        timer =
-        [NSTimer scheduledTimerWithTimeInterval:_storedTimerLeft
-                                         target:self
-                                       selector:@selector(restartTimer:)
-                                       userInfo:0
-                                        repeats:NO];
-        NSLog(@"storedTimerLeft was %f, so started a timer.",
-              _storedTimerInterval);
-
-    } else if (_storedTimerInterval > 0) {
-        [self handleSetTimer:(NSUInteger)(_storedTimerInterval * 1000)];
-        NSLog(@"_storedTimerInterval was %f, so started a timer.",
-              _storedTimerInterval);
-    }
-
     // Restore frame size
     _contentView.frame = restoredController.storedContentFrame;
 
@@ -811,8 +788,6 @@ fprintf(stderr, "%s\n",                                                    \
         lastimageresno = [decoder decodeIntegerForKey:@"lastimageresno"];
 
         _queue = [decoder decodeObjectForKey:@"queue"];
-        _storedTimerLeft = [decoder decodeDoubleForKey:@"timerLeft"];
-        _storedTimerInterval = [decoder decodeDoubleForKey:@"timerInterval"];
         _firstResponderView = [decoder decodeIntegerForKey:@"firstResponder"];
         _inFullscreen = [decoder decodeBoolForKey:@"fullscreen"];
 
@@ -842,14 +817,6 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeRect:_windowPreFullscreenFrame
                  forKey:@"windowPreFullscreenFrame"];
     [encoder encodeObject:_queue forKey:@"queue"];
-    _storedTimerLeft = 0;
-    _storedTimerInterval = 0;
-    if (timer && timer.isValid) {
-        _storedTimerLeft = [[timer fireDate] timeIntervalSinceDate:[NSDate date]];
-        _storedTimerInterval = [timer timeInterval];
-        [encoder encodeDouble:_storedTimerLeft forKey:@"timerLeft"];
-        [encoder encodeDouble:_storedTimerInterval forKey:@"timerInterval"];
-    }
     _firstResponderView = -1;
 
     NSResponder *firstResponder = self.window.firstResponder;
