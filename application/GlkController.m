@@ -1206,8 +1206,6 @@ fprintf(stderr, "%s\n",                                                    \
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [win performScroll];
         }
-
-    // To fix scrolling in the Adrian Mole games
 }
 
 - (id)windowWillReturnFieldEditor:(NSWindow *)sender
