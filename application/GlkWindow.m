@@ -65,6 +65,8 @@ fprintf(stderr, "%s\n",                                                    \
         currentZColor = [decoder decodeObjectForKey:@"currentZColor"];
         _currentReverseVideo = [decoder decodeBoolForKey:@"currentReverseVideo"];
         bgnd = [decoder decodeIntegerForKey:@"bgnd"];
+        _framePending = [decoder decodeBoolForKey:@"framePending"];
+        _pendingFrame = ((NSValue *)[decoder decodeObjectForKey:@"pendingFrame"]).rectValue;
     }
     return self;
 }
@@ -83,6 +85,9 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeObject:currentZColor forKey:@"currentZColor"];
     [encoder encodeBool:_currentReverseVideo forKey:@"currentReverseVideo"];
     [encoder encodeInteger:bgnd forKey:@"bgnd"];
+    [encoder encodeBool:_framePending forKey:@"framePending"];
+    NSValue *frameObj = [NSValue valueWithRect:_pendingFrame];
+    [encoder encodeObject:frameObj forKey:@"pendingFrame"];
 }
 
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array {
@@ -231,6 +236,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
     NSLog(@"ZColors in %@ not implemented", [self class]);
+}
+
+- (void)postRestoreAdjustments:(GlkWindow *)win {
+    NSLog(@"postRestoreAdjustments in %@ not implemented", [self class]);
 }
 
 - (BOOL)hasLineRequest {

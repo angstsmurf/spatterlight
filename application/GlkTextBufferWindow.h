@@ -121,6 +121,9 @@
 @property BOOL pendingScroll;
 @property BOOL pendingClear;
 @property BOOL pendingScrollRestore;
+@property NSRect lastScrollFrame;
+
+@property NSAttributedString *restoredInput;
 
 - (void)recalcBackground;
 - (void)onKeyDown:(NSEvent *)evt;
@@ -133,7 +136,6 @@
 - (BOOL)scrolledToBottom;
 - (void)storeScrollOffset;
 - (void)restoreTextFinder;
-- (void)postRestoreScrollAdjustment;
 - (void)restoreScrollBarStyle;
 - (void)restoreScroll:(id)sender;
 

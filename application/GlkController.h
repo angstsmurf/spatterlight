@@ -62,6 +62,7 @@
     NSData *lastsound;
 
     GlkController *restoredController;
+    GlkController *restoredControllerLate;
     NSUInteger turns;
     NSMutableData *bufferedData;
 
@@ -128,6 +129,7 @@
 @property BOOL bureaucracy;
 @property BOOL beyondZork;
 @property BOOL robotFindsKitten;
+@property BOOL kerkerkruip;
 
 @property NSInteger autosaveVersion;
 

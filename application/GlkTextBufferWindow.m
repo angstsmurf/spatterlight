@@ -1165,6 +1165,15 @@
         _restoredFindBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
         storedNewline = [decoder decodeObjectForKey:@"storedNewline"];
 
+        _usingStyles = [decoder decodeBoolForKey:@"usingStyles"];
+        _pendingScroll = [decoder decodeBoolForKey:@"pendingScroll"];
+        _pendingClear = [decoder decodeBoolForKey:@"pendingClear"];
+        _pendingScrollRestore = NO; //[decoder decodeBoolForKey:@"pendingScrollRestore"];
+
+        bufferTextstorage = [decoder decodeObjectForKey:@"bufferTextstorage"];
+
+        _restoredInput = [decoder decodeObjectForKey:@"inputString"];
+
         [self destroyTextFinder];
     }
     return self;
@@ -1196,14 +1205,12 @@
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
 
+    [self storeScrollOffset];
+
     [encoder encodeBool:lastAtBottom forKey:@"scrolledToBottom"];
     [encoder encodeBool:lastAtTop forKey:@"scrolledToTop"];
-
-    if (!lastAtBottom && !lastAtTop) {
-        [self storeScrollOffset];
-        [encoder encodeInteger:(NSInteger)lastVisible forKey:@"lastVisible"];
-        [encoder encodeDouble:lastScrollOffset forKey:@"scrollOffset"];
-    }
+    [encoder encodeInteger:(NSInteger)lastVisible forKey:@"lastVisible"];
+    [encoder encodeDouble:lastScrollOffset forKey:@"scrollOffset"];
 
     [encoder encodeObject:_textview.insertionPointColor
                    forKey:@"insertionPointColor"];
@@ -1214,6 +1221,18 @@
     }
     [encoder encodeBool:scrollview.findBarVisible forKey:@"findBarVisible"];
     [encoder encodeObject:storedNewline forKey:@"storedNewline"];
+
+    [encoder encodeBool:_usingStyles forKey:@"usingStyles"];
+    [encoder encodeBool:_pendingScroll forKey:@"pendingScroll"];
+    [encoder encodeBool:_pendingClear forKey:@"pendingClear"];
+    [encoder encodeBool:_pendingScrollRestore forKey:@"pendingScrollRestore"];
+
+    if (line_request) {
+        NSAttributedString *input = [textstorage attributedSubstringFromRange:NSMakeRange(fence, textstorage.length - fence)];
+        [encoder encodeObject:input forKey:@"inputString"];
+    }
+
+    [encoder encodeObject:bufferTextstorage forKey:@"bufferTextstorage"];
 }
 
 - (void)setFrame:(NSRect)frame {
@@ -1529,7 +1548,9 @@
             [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
         }
     } else {
+        [self flushDisplay];
         [self recalcBackground];
+        [self restoreScrollBarStyle];
     }
 }
 
@@ -1700,9 +1721,12 @@
                                   initWithString:str
                                   attributes:attributes];
 
-    [_textview resetTextFinder];
     [bufferTextstorage appendAttributedString:attstr];
     dirty = YES;
+    if (!_pendingClear && textstorage.length && bufferTextstorage.length) {
+        [textstorage appendAttributedString:bufferTextstorage];
+        bufferTextstorage = [[NSMutableAttributedString alloc] init];
+    }
 }
 
 - (void)unputString:(NSString *)buf {
@@ -1820,7 +1844,7 @@
         if (!scrolled)
             self.glkctl.shouldScrollOnCharEvent = YES;
 
-        [self markLastSeen];
+        [self.glkctl markLastSeen];
 
         gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
         [self.glkctl queueEvent:gev];
@@ -2250,7 +2274,9 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 (NSView *)theView // search the subviews for a view of class NSSearchField
 {
     __block __weak NSSearchField * (^weak_findSearchField)(NSView *);
+
     NSSearchField * (^findSearchField)(NSView *);
+
     weak_findSearchField = findSearchField = ^(NSView *view) {
         if ([view isKindOfClass:[NSSearchField class]])
             return (NSSearchField *)view;
@@ -2569,22 +2595,11 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
         lastVisible = textstorage.length - 1;
     }
 
-//    NSLog(@"storeScrollOffset: lastVisible: %ld", lastVisible);
-//
-//    NSLog(@"Character %lu is '%@'", lastVisible, [textstorage.string substringWithRange:NSMakeRange(lastVisible, 1)]);
-//    if (lastVisible > 11)
-//        NSLog(@"Previous 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(lastVisible - 10, 10)]);
-//    if (textstorage.length > lastVisible + 12)
-//        NSLog(@"Next 10: '%@'", [textstorage.string substringWithRange:NSMakeRange(lastVisible + 1, 10)]);
-
     NSRect lastRect =
         [layoutmanager lineFragmentRectForGlyphAtIndex:lastVisible
                                         effectiveRange:nil];
 
     lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / self.theme.bufferCellHeight;
-                  //  lastLineheight;
-
-//    NSLog(@"(NSMaxY(visibleRect) (%f) - NSMaxY(lastRect)) (%f) / self.theme.bufferCellHeight;: %f = %f", NSMaxY(visibleRect),  NSMaxY(lastRect), self.theme.bufferCellHeight, lastScrollOffset);
 
     if (isnan(lastScrollOffset) || isinf(lastScrollOffset))
         lastScrollOffset = 0;
@@ -2597,6 +2612,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
 - (void)restoreScroll:(id)sender {
     _pendingScrollRestore = NO;
+    _pendingScroll = NO;
 //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
 //    NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
     if (_textview.bounds.size.height <= scrollview.bounds.size.height) {
@@ -2626,7 +2642,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 }
 
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset {
-//    NSLog(@"GlkTextBufferWindow %ld: scrollToCharacter", self.name);
+//    NSLog(@"GlkTextBufferWindow %ld: scrollToCharacter %ld withOffset: %f", self.name, character, offset);
 
     NSRect line;
 
@@ -2669,11 +2685,18 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     [layoutmanager glyphRangeForTextContainer:container];
 
     // then, get the bottom
-    bottom = NSHeight(_textview.frame);
+    CGFloat bottom = NSHeight(_textview.frame);
+
+    NSRect targetFrame = NSMakeRect(0, _lastseen, 0,
+                                    NSHeight(scrollview.frame));
 
     if (bottom - _lastseen > NSHeight(scrollview.frame)) {
-        [_textview scrollRectToVisible:NSMakeRect(0, _lastseen, 0,
-                                                  NSHeight(scrollview.frame))];
+        //Never scroll in the wrong direction
+        if (NSMinY(targetFrame) < NSMinY(scrollview.documentVisibleRect) || NSEqualRects(targetFrame, _lastScrollFrame))
+            return;
+        NSLog(@"scrolling down to %@", NSStringFromRect(targetFrame));
+        [_textview scrollRectToVisible:targetFrame];
+        _lastScrollFrame = targetFrame;
     } else {
         [self scrollToBottom];
     }
@@ -2723,18 +2746,41 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
-- (void)postRestoreScrollAdjustment {
+- (void)postRestoreAdjustments:(GlkWindow *)win {
     [container invalidateLayout]; // This fixes a bug with margin images on 10.7
-    [self restoreScrollBarStyle]; // Windows restoration will mess up the scrollbar style on 10.7
+
+    GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
+
+    if (line_request && restoredWin.restoredInput) {
+        if (textstorage.length > fence)
+            [textstorage deleteCharactersInRange:NSMakeRange(fence, textstorage.length - fence)];
+        [textstorage appendAttributedString:restoredWin.restoredInput];
+    }
+
+    _restoredSelection = restoredWin.restoredSelection;
+    _textview.selectedRange = _restoredSelection;
+
+    _restoredFindBarVisible = restoredWin.restoredFindBarVisible;
+    _restoredSearch = restoredWin.restoredSearch;
+    [self restoreTextFinder];
+
+    _restoredLastVisible = restoredWin.restoredLastVisible;
+    _restoredScrollOffset = restoredWin.restoredScrollOffset;
+    _restoredAtTop = restoredWin.restoredAtTop;
+    _restoredAtBottom = restoredWin.restoredAtBottom;
 
     lastVisible = _restoredLastVisible;
     lastScrollOffset = _restoredScrollOffset;
     lastAtTop = _restoredAtTop;
     lastAtBottom = _restoredAtBottom;
+
+    _pendingScrollRestore = YES;
+    _pendingScroll = NO;
     [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.1];
 }
 
 - (void)deferredScrollPosition:(id)sender {
+    [self restoreScrollBarStyle];
     if (_restoredAtBottom) {
         [self scrollToBottom];
     } else if (_restoredAtTop) {
@@ -2745,6 +2791,8 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
         else
             [self scrollToCharacter:_restoredLastVisible withOffset:_restoredScrollOffset];
     }
+    _pendingScrollRestore = NO;
+    [self storeScrollOffset];
 }
 
 - (void)restoreScrollBarStyle {

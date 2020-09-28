@@ -279,8 +279,33 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"Unable to restore GUI autosave: %@", ex);
     }
 
+    NSDate *terpAutosaveDate = nil;
+    NSDate *GUIAutosaveDate = nil;
+    NSDate *GUILateAutosaveDate = nil;
+
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDictionary* attrs = [fileManager attributesOfItemAtPath:self.autosaveFileTerp error:&error];
+    if (attrs) {
+        terpAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
+    } else {
+        NSLog(@"Error: %@", error);
+    }
+
+    attrs = [fileManager attributesOfItemAtPath:self.autosaveFileGUI error:&error];
+    if (attrs) {
+        GUIAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
+    } else {
+        NSLog(@"Error: %@", error);
+    }
+
     if (restoredController.autosaveVersion != _autosaveVersion) {
         NSLog(@"GUI autosave file is wrong version! Wanted %ld, got %ld. Deleting!", _autosaveVersion, restoredController.autosaveVersion );
+        restoredController = nil;
+    }
+
+    if ([terpAutosaveDate compare:GUIAutosaveDate] == NSOrderedDescending) {
+        NSLog(@"GUI autosave file is created before terp autosave file! Bailing autorestore!");
         restoredController = nil;
     }
 
@@ -293,8 +318,35 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
-    _inFullscreen = restoredController.inFullscreen;
-    _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
+    restoredControllerLate = restoredController;
+
+    NSString *autosaveLatePath = [self.appSupportDir
+                              stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath]) {
+        @try {
+            restoredControllerLate =
+            [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
+        } @catch (NSException *ex) {
+            NSLog(@"Unable to restore late GUI autosave: %@", ex);
+            restoredControllerLate = restoredController;
+        }
+    }
+
+    attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
+    if (attrs) {
+        GUILateAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
+    } else {
+        NSLog(@"Error: %@", error);
+    }
+
+    if ([GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
+        NSLog(@"GUI autosave late file is created before GUI autosave file!");
+        restoredControllerLate = restoredController;
+    }
+
+    _inFullscreen = restoredControllerLate.inFullscreen;
+    _windowPreFullscreenFrame = restoredControllerLate.windowPreFullscreenFrame;
     _shouldStoreScrollOffset = NO;
 
     // If the process is dead, restore the dead window if this
@@ -354,7 +406,7 @@ fprintf(stderr, "%s\n",                                                    \
     } else {
         _contentView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
-        [self.window setFrame:restoredController.storedWindowFrame display:YES];
+        [self.window setFrame:restoredControllerLate.storedWindowFrame display:YES];
         _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     }
 
@@ -534,15 +586,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     shouldRestoreUI = NO;
 
-    _ignoreResizes = YES;
     _shouldStoreScrollOffset = NO;
 
     GlkWindow *win;
 
     // Copy values from autorestored GlkController object
     _firstResponderView = restoredController.firstResponderView;
-    _storedTimerInterval = restoredController.storedTimerInterval;
-    _storedTimerLeft = restoredController.storedTimerLeft;
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
 
     _bufferStyleHints = restoredController.bufferStyleHints;
@@ -554,18 +603,24 @@ fprintf(stderr, "%s\n",                                                    \
         [self queueEvent:event];
 
     // Restore frame size
-    _contentView.frame = restoredController.storedContentFrame;
+    _contentView.frame = restoredControllerLate.storedContentFrame;
 
     // Copy all views and GlkWindow objects from restored Controller
     for (id key in restoredController.gwindows) {
         win = _gwindows[key];
-        if (win)
+        if (win) {
             [win removeFromSuperview];
+            _gwindows[key] = nil;
+            win = nil;
+        }
         win = (restoredController.gwindows)[key];
 
         _gwindows[@(win.name)] = win;
         [win removeFromSuperview];
         [_contentView addSubview:win];
+
+        GlkWindow *laterWin = (restoredControllerLate.gwindows)[key];
+        win.frame = laterWin.frame;
         win.glkctl = self;
         win.theme = _theme;
         // Restore text finders
@@ -575,20 +630,20 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self adjustContentView];
 
-    if (restoredController.bgcolor)
-        [self setBorderColor:restoredController.bgcolor];
+    if (restoredControllerLate.bgcolor)
+        [self setBorderColor:restoredControllerLate.bgcolor];
 
-    _ignoreResizes = NO;
+    GlkWindow *winToGrabFocus = nil;
 
-    // We create a forced arrange event in order to force the interpreter process
-    // to re-send us window sizes. The player may have changed settings that affect
-    // window size since the autosave was created, and at this point in the autorestore
-    // process, we have no other way to know what size the Glk windows should be.
-    GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
-                                                   height:(NSInteger)_contentView.frame.size.height
-                                                    theme:_theme
-                                                    force:YES];
-    [self queueEvent:gevent];
+    // Restore scroll position etc
+    for (win in [_gwindows allValues]) {
+        if (![win isKindOfClass:[GlkGraphicsWindow class]])
+            [win postRestoreAdjustments:(restoredControllerLate.gwindows)[@(win.name)]];
+        if (win.name == _firstResponderView) {
+            winToGrabFocus = win;
+        }
+    }
+
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
     [self notePreferencesChanged:notification];
 
@@ -597,19 +652,25 @@ fprintf(stderr, "%s\n",                                                    \
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
 
+    if (winToGrabFocus)
+        [winToGrabFocus grabFocus];
 
-    // Restore scroll position and focus
-    for (win in [_gwindows allValues]) {
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            [(GlkTextBufferWindow *)win postRestoreScrollAdjustment];
-        }
-        if (win.name == _firstResponderView) {
-            [win grabFocus];
-        }
-    }
-
-    _shouldStoreScrollOffset = YES;
     restoredController = nil;
+    restoredControllerLate = nil;
+
+    // We create a forced arrange event in order to force the interpreter process
+    // to re-send us window sizes. The player may have changed settings that affect
+    // window size since the autosave was created.,
+    [self performSelector:@selector(sendArrangeEvent:) withObject:nil afterDelay:0];
+}
+
+- (void)sendArrangeEvent:(id)sender {
+    GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
+                                                   height:(NSInteger)_contentView.frame.size.height
+                                                    theme:_theme
+                                                    force:YES];
+    [self queueEvent:gevent];
+    _shouldStoreScrollOffset = YES;
 }
 
 - (NSString *)appSupportDir {
@@ -739,6 +800,7 @@ fprintf(stderr, "%s\n",                                                    \
                          [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-late.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }
 
@@ -751,8 +813,11 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)autoSaveOnExit {
+    NSLog(@"autoSaveOnExit");
+    NSString *autosaveLate = [self.appSupportDir
+                        stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
     NSInteger res = [NSKeyedArchiver archiveRootObject:self
-                                                toFile:self.autosaveFileGUI];
+                                                toFile:autosaveLate];
     if (!res) {
         NSLog(@"GUI autosave on exit failed!");
         return;
@@ -939,7 +1004,7 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"Window serialize failed!");
         return;
     }
-    // NSLog(@"Autosave request: %d", hash);
+//    NSLog(@"UI autosaved successfully. Hash: %d", hash);
 }
 
 /*
@@ -1019,9 +1084,9 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     } else windowClosedAlready = YES;
 
-//    if (_supportsAutorestore) {
-//        [self autoSaveOnExit];
-//    }
+    if (_supportsAutorestore) {
+        [self autoSaveOnExit];
+    }
 
     if (_game.ifid)
         [libcontroller.gameSessions removeObjectForKey:_game.ifid];
@@ -1758,6 +1823,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [lastimage addRepresentations:reps];
     lastimageresno = resno;
+    [imageCache setObject:lastimage forKey:@(lastimageresno)];
 }
 
 - (void)handleStyleHintOnWindowType:(int)wintype
@@ -2016,15 +2082,22 @@ fprintf(stderr, "%s\n",                                                    \
 
         case NEXTEVENT:
 
-            // If this is the first turn, we try to restore the UI from an autosave
-            // file, in order to catch things like entered text and scrolling, that
-            // has changed the UI but not sent any events to the interpreter
-            // process.
-
-            if (shouldRestoreUI && turns == 2) {
-                [self restoreUI];
-                if (shouldShowAutorestoreAlert)
-                    [self showAutorestoreAlert];
+            // If this is the first turn, we try to restore the UI
+            // from an autosave file.
+            if (turns == 2) {
+                if (shouldRestoreUI) {
+                    [self restoreUI];
+                    if (shouldShowAutorestoreAlert)
+                        [self showAutorestoreAlert];
+                } else {
+                    // If we are not autorestoring, try to guess an input window.
+                    for (GlkWindow *win in _gwindows.allValues) {
+                        if ([win isKindOfClass:[GlkTextBufferWindow class]] && [win wantsFocus]) {
+                            [win grabFocus];
+                            break;
+                        }
+                    }
+                }
             }
 
             turns++;
@@ -2579,7 +2652,7 @@ static NSString *signalToName(NSTask *task) {
     task = nil;
 
     // We autosave the UI but delete the terp autosave files
-    [self autoSaveOnExit];
+//    [self autoSaveOnExit];
 
     [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],

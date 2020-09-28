@@ -298,8 +298,6 @@
         textview.usesFontPanel = NO;
         _restoredSelection = NSMakeRange(0, 0);
 
-        lastStyle = style_NUMSTYLES;
-
         [self addSubview:scrollview];
         [self recalcBackground];
 
@@ -336,31 +334,21 @@
         xpos = (NSUInteger)[decoder decodeIntegerForKey:@"xpos"];
         ypos = (NSUInteger)[decoder decodeIntegerForKey:@"ypos"];
 
+        _selectedRow = (NSUInteger)[decoder decodeIntegerForKey:@"selectedRow"];
+        _selectedCol = (NSUInteger)[decoder decodeIntegerForKey:@"selectedCol"];
+        _selectedString = [decoder decodeObjectForKey:@"selectedString"];
+
         dirty = YES;
         transparent = [decoder decodeBoolForKey:@"transparent"];
 
-        lastStyle = (NSUInteger)[decoder decodeIntegerForKey:@"lastStyle"];
         _restoredSelection =
         ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"])
         .rangeValue;
-        textview.selectedRange = _restoredSelection;
-        if (line_request) {
-            NSArray *subviews = textview.subviews;
-            if (subviews) {
-                for (NSView *view in subviews) {
-                    if ([view isKindOfClass:[NSTextField class]]) {
-                        _input = (MyGridTextField *)view;
-                        [_input removeFromSuperview];
-                    }
-                }
-            }
 
-            NSString *inputString = [decoder decodeObjectForKey:@"inputString"];
+        _pendingBackgroundCol = [decoder decodeObjectForKey:@"pendingBackgroundCol"];
+        _bufferTextStorage = [decoder decodeObjectForKey:@"bufferTextStorage"];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self performSelector:@selector(deferredInitLine:) withObject:inputString afterDelay:0.5];
-            });
-        }
+        _enteredTextSoFar = [decoder decodeObjectForKey:@"inputString"];
     }
     return self;
 }
@@ -377,14 +365,20 @@
     [encoder encodeInteger:(NSInteger)xpos forKey:@"xpos"];
     [encoder encodeInteger:(NSInteger)ypos forKey:@"ypos"];
     [encoder encodeBool:transparent forKey:@"transparent"];
-    [encoder encodeInteger:(NSInteger)lastStyle forKey:@"lastStyle"];
     NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
+
+    [encoder encodeInteger:(NSInteger)(textview.selectedRange.location / (cols + 1)) forKey:@"selectedRow"];
+    [encoder encodeInteger:(NSInteger)(textview.selectedRange.location % (cols + 1)) forKey:@"selectedCol"];
+    [encoder encodeObject:[textstorage.string substringWithRange:textview.selectedRange] forKey:@"selectedString"];
+
     if (_fieldEditor && _fieldEditor.textStorage.string.length) {
         [encoder encodeObject:_fieldEditor.textStorage.string forKey:@"inputString"];
     } else {
-        [encoder encodeObject:enteredTextSoFar forKey:@"inputString"];
+        [encoder encodeObject:_enteredTextSoFar forKey:@"inputString"];
     }
+    [encoder encodeObject:_pendingBackgroundCol forKey:@"pendingBackgroundCol"];
+    [encoder encodeObject: _bufferTextStorage forKey:@"bufferTextStorage"];
 }
 
 - (BOOL)wantsFocus {
@@ -402,6 +396,43 @@
 - (void)makeTransparent {
     transparent = YES;
     dirty = YES;
+}
+
+- (void)postRestoreAdjustments:(GlkWindow *)win {
+
+    GlkTextGridWindow *restoredWin = (GlkTextGridWindow *)win;
+
+    if (restoredWin.framePending)
+        self.frame = restoredWin.pendingFrame;
+    else
+        self.frame = restoredWin.frame;
+
+    if (restoredWin.bufferTextStorage)
+        _bufferTextStorage = restoredWin.bufferTextStorage;
+
+    [self flushDisplay];
+
+    _restoredSelection = restoredWin.restoredSelection;
+    _selectedRow = restoredWin.selectedRow;
+    _selectedCol = restoredWin.selectedCol;
+    _selectedString = restoredWin.selectedString;
+
+    if (NSMaxRange(_restoredSelection) < textstorage.length && [[textstorage.string substringWithRange:_restoredSelection] isEqualToString:_selectedString]) {
+        textview.selectedRange = _restoredSelection;
+    } else {
+        _restoredSelection = NSMakeRange(_selectedCol + _selectedRow * (cols + 1), _restoredSelection.length);
+        if (NSMaxRange(_restoredSelection) < textstorage.length && [[textstorage.string substringWithRange:_restoredSelection] isEqualToString:_selectedString]) {
+            textview.selectedRange = _restoredSelection;
+        }
+    }
+
+    _enteredTextSoFar = restoredWin.enteredTextSoFar;
+
+    if (line_request) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSelector:@selector(deferredInitLine:) withObject:_enteredTextSoFar afterDelay:0.5];
+        });
+    }
 }
 
 #pragma mark Colors and styles
@@ -497,17 +528,17 @@
     textview.backgroundColor = _pendingBackgroundCol;
 
     if (line_request) {
-        if (!enteredTextSoFar)
-            enteredTextSoFar = @"";
+        if (!_enteredTextSoFar)
+            _enteredTextSoFar = @"";
         if (_input) {
-            enteredTextSoFar = [_input.stringValue copy];
+            _enteredTextSoFar = [_input.stringValue copy];
             _input = nil;
         }
 
         _fieldEditor = nil;
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self performSelector:@selector(deferredInitLine:) withObject:enteredTextSoFar afterDelay:0];
+            [self performSelector:@selector(deferredInitLine:) withObject:_enteredTextSoFar afterDelay:0];
         });
     }
 }
@@ -591,6 +622,8 @@
     textview.editable = YES;
     NSRange selectedRange = textview.selectedRange;
     NSString *selectedString = [textstorage.string substringWithRange:selectedRange];
+    _selectedRow = selectedRange.location / (cols + 1);
+    _selectedCol = selectedRange.location % (cols + 1);
 
     if (self.framePending) {
         if (!NSEqualRects(self.frame, self.pendingFrame)) {
@@ -617,6 +650,7 @@
         _bufferTextStorage = [textstorage mutableCopy];
     }
 
+    _restoredSelection = NSMakeRange(_selectedCol + _selectedRow * (cols + 1), _restoredSelection.length);
     if (NSMaxRange(_restoredSelection) <= _bufferTextStorage.length) {
         NSString *newSelectedString = [_bufferTextStorage.string substringWithRange:_restoredSelection];
         if ([newSelectedString isEqualToString:selectedString]) {
@@ -668,8 +702,8 @@
     if (_restoredSelection.length == 0)
         _restoredSelection = textview.selectedRange;
 
-    NSUInteger selectedRow = _restoredSelection.location / (cols + 1);
-    NSUInteger selectedCol = _restoredSelection.location % (cols + 1);
+    _selectedRow = _restoredSelection.location / (cols + 1);
+    _selectedCol = _restoredSelection.location % (cols + 1);
 
     if (newcols * self.theme.cellWidth > screensize.width || newrows * self.theme.cellHeight > screensize.height) {
         NSLog(@"GlkTextGridWindow setFrame error! newcols (%ld) * theme.cellwith (%f) = %f. screensize.width:%f newrows (%ld) * theme.cellheight (%f) = %f. screensize.height:%f Returning.", newcols, self.theme.cellWidth, newcols * self.theme.cellWidth, screensize.width, newrows, self.theme.cellHeight, newrows * self.theme.cellHeight, screensize.height);
@@ -779,7 +813,7 @@
         [_bufferTextStorage replaceCharactersInRange:NSMakeRange(r, 1)
                                 withAttributedString:newlinestring];
 
-    _restoredSelection = NSMakeRange(selectedCol + selectedRow * (cols + 1), _restoredSelection.length);
+    _restoredSelection = NSMakeRange(_selectedCol + _selectedRow * (cols + 1), _restoredSelection.length);
 
 
     if ([self inLiveResize]) {
@@ -996,6 +1030,16 @@
                                                           NSMakeRange(pos, amountToDraw)]
                                           attributes:attrDict];
 
+        NSRange replaceRange = NSMakeRange((cols + 1) * ypos + xpos, amountToDraw);
+        if (NSMaxRange(replaceRange) > textstoragelength) {
+            if ((cols + 1) * ypos + xpos > textstoragelength)
+                return;
+            else {
+                NSUInteger diff =  NSMaxRange(replaceRange) - textstoragelength;
+                replaceRange = NSMakeRange((cols + 1) * ypos + xpos, amountToDraw - diff);
+                partString = [partString attributedSubstringFromRange:NSMakeRange(0, amountToDraw - diff)];
+            }
+        }
         [_bufferTextStorage
          replaceCharactersInRange:NSMakeRange((cols + 1) * ypos + xpos, amountToDraw)
          withAttributedString:partString];
@@ -1242,7 +1286,7 @@
         _input.textColor = [NSColor colorFromInteger:currentZColor.fg];
     [_input.cell setWraps:YES];
 
-    enteredTextSoFar = str;
+    _enteredTextSoFar = str;
 
     NSAttributedString *attString = [[NSAttributedString alloc]
                                      initWithString:str
@@ -1302,7 +1346,7 @@
 - (void)controlTextDidChange:(NSNotification *)obj {
     NSDictionary *dict = obj.userInfo;
     _fieldEditor = dict[@"NSFieldEditor"];
-    enteredTextSoFar = [_fieldEditor.string copy];
+    _enteredTextSoFar = [_fieldEditor.string copy];
 }
 
 - (void)deferredInitLine:(id)sender {

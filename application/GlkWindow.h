@@ -72,5 +72,6 @@
 - (void)prefsDidChange;
 - (void)terpDidStop;
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array;
+- (void)postRestoreAdjustments:(GlkWindow *)win;
 
 @end

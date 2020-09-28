@@ -19,17 +19,20 @@
     BOOL mouse_request;
     BOOL transparent;
 
-    NSUInteger lastStyle;
     NSInteger terminator;
-
-    NSString *enteredTextSoFar;
 }
 
 @property NSRange restoredSelection;
+@property NSUInteger selectedRow;
+@property NSUInteger selectedCol;
+@property NSString *selectedString;
+
 @property MyGridTextField *input;
 @property (readonly) MyFieldEditor *fieldEditor;
 @property NSColor *pendingBackgroundCol;
 @property NSMutableAttributedString *bufferTextStorage;
+
+@property NSString *enteredTextSoFar;
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (IBAction)speakStatus:(id)sender;
