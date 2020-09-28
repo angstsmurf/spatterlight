@@ -1446,6 +1446,7 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (CGFloat)textHeight {
+    [glktxtbuf flushDisplay];
     NSTextView *textview = [[NSTextView alloc] initWithFrame:glktxtbuf.textview.frame];
     if (textview == nil) {
         NSLog(@"Couldn't create textview!");
