@@ -1840,9 +1840,10 @@ void gli_sanity_check_streams()
 
         switch (str->type) {
             case strtype_Window: {
-                if (!str->win)
+                if (!str->win) {
                     fprintf(stderr, "sanity_check: window stream %d has no window\n", str->tag);
-                else if (!str->win->str)
+//                    gli_delete_stream(str);
+                } else if (!str->win->str)
                     fprintf(stderr, "sanity_check: window of window stream has no stream\n");
                 else if (str->win->str != str && str->win->echostr != str)
                 {
