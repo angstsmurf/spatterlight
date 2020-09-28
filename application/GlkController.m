@@ -158,6 +158,9 @@ fprintf(stderr, "%s\n",                                                    \
     if ([_game.ifid isEqualToString:@"ZCODE-6-031116-1D88"] || [_game.ifid isEqualToString:@"ZCODE-7-130320-4A18"])
         _robotFindsKitten = YES;
 
+    if ([_game.ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"])
+        _kerkerkruip = YES;
+
     _gamefile = [_game urlForBookmark].path;
     _terpname = terpname_;
 
@@ -1753,6 +1756,11 @@ fprintf(stderr, "%s\n",                                                    \
             NSLog(@"glkctl: too small timer interval (%ld); increasing to %d",
                   (unsigned long)millisecs, MINTIMER);
             millisecs = MINTIMER;
+        }
+        if (_kerkerkruip && millisecs == 10) {
+            [timer invalidate];
+            NSLog(@"Kerkerkruip tried to start a 10 millisecond timer.");
+            return;
         }
 
         timer =
