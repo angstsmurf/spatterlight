@@ -320,7 +320,7 @@
 
     str->win = gli_window_for_tag(wintag);
     if (wintag && !str->win)
-        NSLog(@"TempStream copyToCStruct: could not find window struct for window %d",wintag);
+        NSLog(@"TempStream copyToCStruct: could not find window struct for window %d", wintag);
     str->unicode = unicode;
     str->readcount = readcount;
     str->writecount = writecount;
