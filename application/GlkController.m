@@ -1831,7 +1831,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     [lastimage addRepresentations:reps];
     lastimageresno = resno;
-    [imageCache setObject:lastimage forKey:@(lastimageresno)];
 }
 
 - (void)handleStyleHintOnWindowType:(int)wintype
