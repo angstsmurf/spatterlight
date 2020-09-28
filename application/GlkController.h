@@ -73,6 +73,8 @@
 
     // To fix scrolling in the Adrian Mole games
     NSInteger lastRequest;
+
+    NSDate *lastFlushTimestamp;
 }
 
 @property NSMutableDictionary *gwindows;

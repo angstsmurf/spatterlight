@@ -1130,6 +1130,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)flushDisplay {
+    lastFlushTimestamp = [NSDate date];
+
     if (windowdirty) {
     GlkWindow *largest = [self largestWindow];
     if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
@@ -2069,6 +2071,12 @@ fprintf(stderr, "%s\n",                                                    \
     NSInteger result;
     GlkWindow *reqWin = nil;
     NSColor *bg = nil;
+
+    if (req->cmd != NEXTEVENT && [lastFlushTimestamp timeIntervalSinceNow]  < -0.5) {
+        [self performScroll];
+        [self flushDisplay];
+//        NSLog(@"Autoscroll triggered");
+    }
 
     if (req->a1 >= 0 && req->a1 < MAXWIN && _gwindows[@(req->a1)])
         reqWin = _gwindows[@(req->a1)];
