@@ -1036,8 +1036,11 @@
                 return;
             else {
                 NSUInteger diff =  NSMaxRange(replaceRange) - textstoragelength;
-                replaceRange = NSMakeRange((cols + 1) * ypos + xpos, amountToDraw - diff);
-                partString = [partString attributedSubstringFromRange:NSMakeRange(0, amountToDraw - diff)];
+                amountToDraw -= diff;
+                if (!amountToDraw)
+                    return;
+                replaceRange = NSMakeRange((cols + 1) * ypos + xpos, amountToDraw);
+                partString = [partString attributedSubstringFromRange:NSMakeRange(0, amountToDraw)];
             }
         }
         [_bufferTextStorage
