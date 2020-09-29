@@ -106,8 +106,6 @@ static int lastfg = -1;
 static int lastbg = -1;
 static int screen_bg = -1;
 
-static int lastres = 0;
-
 static int mainwin = 0;
 static int statuswin = 0;
 static int auxwin = 0;
@@ -2462,11 +2460,9 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             }
         }
 
-        if (reslength != lastres)
-        {
-            win_loadimage(0, infile->filename, glk_stream_get_position(infile), reslength);
-            lastres = reslength;
-        }
+        int file_offset = glk_stream_get_position(infile);
+        int fake_image_id = file_offset + reslength;
+        win_loadimage(fake_image_id, infile->filename, file_offset, reslength);
 
         win_sizeimage(&width, &height);
 
