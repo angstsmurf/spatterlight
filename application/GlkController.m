@@ -705,7 +705,7 @@ fprintf(stderr, "%s\n",                                                    \
                                      @"quill" : @"UnQuill",
                                      @"tads2" : @"TADS",
                                      @"tads3" : @"TADS",
-                                     @"zcode": @"Frotz",
+                                     @"zcode": @"Bocfel",
                                      //@"zcode" : @"Fizmo"
                                      };
 
