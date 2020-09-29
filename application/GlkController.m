@@ -239,7 +239,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     lastContentResize = NSZeroRect;
     _inFullscreen = NO;
-    _windowPreFullscreenFrame = NSZeroRect;
+    _windowPreFullscreenFrame = self.window.frame;
     borderFullScreenSize = NSZeroSize;
 
     restoredController = nil;
