@@ -43,6 +43,7 @@
 
     BOOL windowRestoredBySystem;
     BOOL shouldRestoreUI;
+    BOOL restoredUIOnly;
     BOOL shouldShowAutorestoreAlert;
 
     NSSize borderFullScreenSize;

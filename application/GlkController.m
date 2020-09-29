@@ -226,7 +226,9 @@ fprintf(stderr, "%s\n",                                                    \
     // If we are resetting, there is a bunch of stuff that we have already done
     // and we can skip
     if (shouldReset) {
-        _windowPreFullscreenFrame = self.window.frame;
+        if (!_inFullscreen) {
+            _windowPreFullscreenFrame = self.window.frame;
+        }
         [self adjustContentView];
         [self forkInterpreterTask];
         return;
@@ -267,8 +269,11 @@ fprintf(stderr, "%s\n",                                                    \
     _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     [self setBorderColor:_theme.bufferBackground];
 
+    NSString *autosaveLatePath = [self.appSupportDir
+                                  stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
+
     if (_supportsAutorestore &&
-        [[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI]) {
+        ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI] || [[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath])) {
         [self runTerpWithAutorestore];
     } else {
         [self runTerpNormal];
@@ -315,15 +320,6 @@ fprintf(stderr, "%s\n",                                                    \
         restoredController = nil;
     }
 
-    if (!restoredController) {
-        // If there exists an autosave file but we failed to read it,
-        // delete it and run game without autorestoring
-        [self deleteAutosaveFiles];
-        _game.autosaved = NO;
-        [self runTerpNormal];
-        return;
-    }
-
     restoredControllerLate = restoredController;
 
     NSString *autosaveLatePath = [self.appSupportDir
@@ -351,8 +347,22 @@ fprintf(stderr, "%s\n",                                                    \
         restoredControllerLate = restoredController;
     }
 
+    if (!restoredController) {
+        if (restoredControllerLate) {
+            restoredController = restoredControllerLate;
+        } else {
+        // If there exists an autosave file but we failed to read it,
+        // (and also no "GUI-late" autosave)
+        // delete it and run game without autorestoring
+        [self deleteAutosaveFiles];
+        _game.autosaved = NO;
+        [self runTerpNormal];
+        return;
+        }
+    }
+
     _inFullscreen = restoredControllerLate.inFullscreen;
-    _windowPreFullscreenFrame = restoredControllerLate.windowPreFullscreenFrame;
+    _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
     _shouldStoreScrollOffset = NO;
 
     // If the process is dead, restore the dead window if this
@@ -376,6 +386,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileTerp]) {
         NSLog(@"Interpreter autorestore file exists");
+        NSLog(@"restoredUIOnly = NO");
+        restoredUIOnly = NO;
+
         // Only show the alert about autorestoring if this is not a system
         // window restoration, and the user has not suppressed it.
         if (!windowRestoredBySystem) {
@@ -397,10 +410,8 @@ fprintf(stderr, "%s\n",                                                    \
         }
     } else {
         NSLog(@"No interpreter autorestore file exists");
-        [self deleteAutosaveFiles];
-        _game.autosaved = NO;
-        [self runTerpNormal];
-        return;
+        NSLog(@"Only restore UI state at first turn");
+        restoredUIOnly = YES;
     }
 
     // If this is not a window restoration done by the system,
@@ -590,6 +601,11 @@ fprintf(stderr, "%s\n",                                                    \
     // but not sent any events to the interpreter process.
     // This method is called in handleRequest on NEXTEVENT.
 
+    if (restoredUIOnly) {
+        restoredController = restoredControllerLate;
+        shouldShowAutorestoreAlert = NO;
+    }
+
     shouldRestoreUI = NO;
 
     _shouldStoreScrollOffset = NO;
@@ -603,35 +619,31 @@ fprintf(stderr, "%s\n",                                                    \
     _bufferStyleHints = restoredController.bufferStyleHints;
     _gridStyleHints = restoredController.gridStyleHints;
 
-    if (restoredController.queue.count)
-        NSLog(@"controller.queue contains events");
-    for (GlkEvent *event in restoredController.queue)
-        [self queueEvent:event];
-
     // Restore frame size
     _contentView.frame = restoredControllerLate.storedContentFrame;
 
     // Copy all views and GlkWindow objects from restored Controller
     for (id key in restoredController.gwindows) {
+
         win = _gwindows[key];
-        if (win) {
+
+        if (!restoredUIOnly) {
+            if (win) {
+                [win removeFromSuperview];
+                _gwindows[key] = nil;
+                win = nil;
+            }
+            win = (restoredController.gwindows)[key];
+
+            _gwindows[@(win.name)] = win;
             [win removeFromSuperview];
-            _gwindows[key] = nil;
-            win = nil;
+            [_contentView addSubview:win];
+
+            win.glkctl = self;
+            win.theme = _theme;
         }
-        win = (restoredController.gwindows)[key];
-
-        _gwindows[@(win.name)] = win;
-        [win removeFromSuperview];
-        [_contentView addSubview:win];
-
         GlkWindow *laterWin = (restoredControllerLate.gwindows)[key];
         win.frame = laterWin.frame;
-        win.glkctl = self;
-        win.theme = _theme;
-        // Restore text finders
-        if ([win isKindOfClass:[GlkTextBufferWindow class]])
-            [(GlkTextBufferWindow *)win restoreTextFinder];
     }
 
     [self adjustContentView];
@@ -663,6 +675,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     restoredController = nil;
     restoredControllerLate = nil;
+    restoredUIOnly = NO;
 
     // We create a forced arrange event in order to force the interpreter process
     // to re-send us window sizes. The player may have changed settings that affect
@@ -806,6 +819,7 @@ fprintf(stderr, "%s\n",                                                    \
                          [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-late.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }
@@ -820,14 +834,16 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)autoSaveOnExit {
     NSLog(@"autoSaveOnExit");
-    NSString *autosaveLate = [self.appSupportDir
-                        stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
-    NSInteger res = [NSKeyedArchiver archiveRootObject:self
-                                                toFile:autosaveLate];
-    if (!res) {
-        NSLog(@"GUI autosave on exit failed!");
-        return;
-    } else _game.autosaved = YES;
+    if (_supportsAutorestore) {
+        NSString *autosaveLate = [self.appSupportDir
+                                  stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
+        NSInteger res = [NSKeyedArchiver archiveRootObject:self
+                                                    toFile:autosaveLate];
+        if (!res) {
+            NSLog(@"GUI autosave on exit failed!");
+            return;
+        } else _game.autosaved = YES;
+    }
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
@@ -1090,9 +1106,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     } else windowClosedAlready = YES;
 
-    if (_supportsAutorestore) {
-        [self autoSaveOnExit];
-    }
+    [self autoSaveOnExit];
 
     for (GlkController *controller in libcontroller.gameSessions.allValues)
         if (controller == self) {
@@ -2128,7 +2142,6 @@ fprintf(stderr, "%s\n",                                                    \
                     for (GlkWindow *win in _gwindows.allValues) {
                         if ([win isKindOfClass:[GlkTextBufferWindow class]] && [win wantsFocus]) {
                             [win grabFocus];
-                            break;
                         }
                     }
                 }
@@ -2686,10 +2699,12 @@ static NSString *signalToName(NSTask *task) {
     task = nil;
 
     // We autosave the UI but delete the terp autosave files
-//    [self autoSaveOnExit];
+    if (!restartingAlready)
+        [self autoSaveOnExit];
 
     [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }
