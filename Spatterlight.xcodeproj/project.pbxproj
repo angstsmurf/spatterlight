@@ -193,9 +193,6 @@
 		6DE66A3C2500334400DDBDAA /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DE66A032500334400DDBDAA /* utils.c */; };
 		6DE66A3E2500334400DDBDAA /* word.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DE66A072500334400DDBDAA /* word.c */; };
 		6DE957B023E3040A003246B6 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE957AF23E3040A003246B6 /* Theme.m */; };
-		6DF00E7025232ABB002F43CB /* Blorb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF00E6B25232ABB002F43CB /* Blorb.m */; };
-		6DF00E7125232ABB002F43CB /* BlorbResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF00E6D25232ABB002F43CB /* BlorbResource.m */; };
-		6DF00E7225232ABB002F43CB /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DF00E6E25232ABB002F43CB /* iff.c */; };
 		6DF73C3523B8F46100F76CF9 /* GlkStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF73C3423B8F46100F76CF9 /* GlkStyle.m */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
 		961153670A4F365C00BB7FF2 /* htmldb3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152520A4F355800BB7FF2 /* htmldb3.cpp */; };
@@ -1372,12 +1369,6 @@
 		6DE66A082500334400DDBDAA /* word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = word.h; sourceTree = "<group>"; };
 		6DE957AE23E3040A003246B6 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		6DE957AF23E3040A003246B6 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
-		6DF00E6A25232ABB002F43CB /* Blorb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Blorb.h; sourceTree = "<group>"; };
-		6DF00E6B25232ABB002F43CB /* Blorb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Blorb.m; sourceTree = "<group>"; };
-		6DF00E6C25232ABB002F43CB /* BlorbResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlorbResource.h; sourceTree = "<group>"; };
-		6DF00E6D25232ABB002F43CB /* BlorbResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlorbResource.m; sourceTree = "<group>"; };
-		6DF00E6E25232ABB002F43CB /* iff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iff.c; sourceTree = "<group>"; };
-		6DF00E6F25232ABB002F43CB /* iff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iff.h; sourceTree = "<group>"; };
 		6DF73C3323B8F46100F76CF9 /* GlkStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkStyle.h; sourceTree = "<group>"; };
 		6DF73C3423B8F46100F76CF9 /* GlkStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkStyle.m; sourceTree = "<group>"; };
 		9611524F0A4F355800BB7FF2 /* html_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html_os.h; sourceTree = "<group>"; };
@@ -3111,20 +3102,6 @@
 			path = ../coredata;
 			sourceTree = "<group>";
 		};
-		6DF00E6925232ABB002F43CB /* Blorb handling from Yazmin */ = {
-			isa = PBXGroup;
-			children = (
-				6DF00E6A25232ABB002F43CB /* Blorb.h */,
-				6DF00E6B25232ABB002F43CB /* Blorb.m */,
-				6DF00E6C25232ABB002F43CB /* BlorbResource.h */,
-				6DF00E6D25232ABB002F43CB /* BlorbResource.m */,
-				6DF00E6F25232ABB002F43CB /* iff.h */,
-				6DF00E6E25232ABB002F43CB /* iff.c */,
-			);
-			name = "Blorb handling from Yazmin";
-			path = YazminBlorb;
-			sourceTree = "<group>";
-		};
 		9611524E0A4F355800BB7FF2 /* htmltads */ = {
 			isa = PBXGroup;
 			children = (
@@ -3536,7 +3513,6 @@
 			isa = PBXGroup;
 			children = (
 				6DCFFC1622BCCF600035FA99 /* coredata */,
-				6DF00E6925232ABB002F43CB /* Blorb handling from Yazmin */,
 				6D7673D3239FFB0900FB24C0 /* IFiction XML parsing */,
 				6D212739246BDC5B00D775A8 /* Categories */,
 				961CCEDF09F239E700528FF9 /* main.h */,
@@ -5626,9 +5602,6 @@
 				6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */,
 				6DB8C1E924599DF9002CDCCB /* ZColor.m in Sources */,
 				6D212738246BDC4E00D775A8 /* NSColor+integer.m in Sources */,
-				6DF00E7025232ABB002F43CB /* Blorb.m in Sources */,
-				6DF00E7125232ABB002F43CB /* BlorbResource.m in Sources */,
-				6DF00E7225232ABB002F43CB /* iff.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
