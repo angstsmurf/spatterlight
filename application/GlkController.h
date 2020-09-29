@@ -58,6 +58,7 @@
     /* image/sound resource uploading protocol */
     NSInteger lastimageresno;
     NSInteger lastsoundresno;
+    NSCache *imageCache;
     NSImage *lastimage;
     NSData *lastsound;
 

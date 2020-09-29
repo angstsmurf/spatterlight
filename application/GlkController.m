@@ -7,6 +7,9 @@
 #import "GlkStyle.h"
 #import "NSColor+integer.h"
 
+#import "Blorb.h"
+#import "BlorbResource.h"
+
 #import "main.h"
 #include "glkimp.h"
 
@@ -137,6 +140,12 @@ fprintf(stderr, "%s\n",                                                    \
     _theme = _game.theme;
 
     libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+
+    imageCache = [[NSCache alloc] init];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self cacheImages];
+    });
 
     if (!_theme.name) {
         NSLog(@"GlkController runTerp called with theme without name!");
@@ -577,6 +586,47 @@ fprintf(stderr, "%s\n",                                                    \
                                           force:NO];
     [self queueEvent:gevent];
     restartingAlready = NO;
+}
+
+#pragma mark Image cache
+
+- (void)cacheImages{
+
+    NSURL *resourceURL = [_game urlForBookmark];
+    if (resourceURL) {
+        NSData *data = [NSData dataWithContentsOfURL:resourceURL];
+        Blorb *blorb = [[Blorb alloc] initWithData:data];
+
+        // Assign images
+        NSArray *imageResources = [blorb resourcesForUsage:PictureResource];
+        for (BlorbResource *imageResource in imageResources) {
+            NSData *imageData = [blorb dataForResource:imageResource];
+            if (!imageData)
+                return;
+
+            NSArray *reps = [NSBitmapImageRep imageRepsWithData:imageData];
+            if (reps.count == 0) {
+                continue;
+            } else {
+                NSImageRep *rep = reps[0];
+                NSSize size = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+
+                if (size.height == 0 || size.width == 0) {
+                    NSLog(@"glkctl: image size is zero!");
+                    return;
+                }
+
+                lastimage = [[NSImage alloc] initWithSize:size];
+            }
+            if (!lastimage) {
+                NSLog(@"glkctl: failed to decode image");
+                return;
+            }
+
+            [lastimage addRepresentations:reps];
+            [imageCache setObject:lastimage forKey:@(imageResource.number)];
+        }
+    }
 }
 
 #pragma mark Autorestore
@@ -1806,6 +1856,16 @@ fprintf(stderr, "%s\n",                                                    \
                          from:(NSString *)path
                        offset:(NSInteger)offset
                        length:(NSUInteger)length {
+
+    if (lastimageresno == resno && lastimage)
+        return;
+
+    lastimage = [imageCache objectForKey:@(resno)];
+    if (lastimage) {
+        lastimageresno = resno;
+        return;
+    }
+
     lastimageresno = -1;
 
     if (lastimage) {
@@ -1838,6 +1898,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [lastimage addRepresentations:reps];
     lastimageresno = resno;
+    [imageCache setObject:lastimage forKey:@(lastimageresno)];
 }
 
 - (void)handleStyleHintOnWindowType:(int)wintype
@@ -2222,7 +2283,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case FINDIMAGE:
             ans->cmd = OKAY;
-            ans->a1 = lastimageresno == req->a1;
+            ans->a1 = [imageCache objectForKey:@(req->a1)] != nil;
             break;
 
         case FINDSOUND:
