@@ -1091,8 +1091,15 @@ fprintf(stderr, "%s\n",                                                    \
         [self autoSaveOnExit];
     }
 
-    if (_game.ifid)
-        [libcontroller.gameSessions removeObjectForKey:_game.ifid];
+    for (GlkController *controller in libcontroller.gameSessions.allValues)
+        if (controller == self) {
+            NSArray *temp = [libcontroller.gameSessions allKeysForObject:controller];
+            NSString *key = [temp objectAtIndex:0];
+            if (key) {
+                [libcontroller.gameSessions removeObjectForKey:key];
+            }
+        }
+
 
     if (_game && [Preferences instance].currentGame == _game) {
         Game *remainingGameSession = nil;
