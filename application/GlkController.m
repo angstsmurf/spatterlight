@@ -7,9 +7,6 @@
 #import "GlkStyle.h"
 #import "NSColor+integer.h"
 
-#import "Blorb.h"
-#import "BlorbResource.h"
-
 #import "main.h"
 #include "glkimp.h"
 
