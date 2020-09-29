@@ -93,7 +93,7 @@
 															<string key="NSFrameSize">{161, 84}</string>
 															<reference key="NSSuperview" ref="219485008"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="912555774"/>
+															<reference key="NSNextKeyView" ref="665392855"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<object class="NSTextContainer" key="NSTextContainer" id="575663586">
 																<object class="NSLayoutManager" key="NSLayoutManager">
@@ -221,7 +221,7 @@
 											<string key="NSFrame">{{0, 23}, {161, 262}}</string>
 											<reference key="NSSuperview" ref="401913480"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="665392855"/>
+											<reference key="NSNextKeyView" ref="219485008"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<string key="NSAntiCompressionPriority">{993, 750}</string>
 											<int key="NSsFlags">133632</int>
@@ -295,7 +295,7 @@
 															<string key="NSFrameSize">{577, 230}</string>
 															<reference key="NSSuperview" ref="19771704"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="1017274543"/>
+															<reference key="NSNextKeyView" ref="465997657"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTableHeaderView" key="NSHeaderView" id="1041211642">
 																<reference key="NSNextResponder" ref="465997657"/>
@@ -959,7 +959,7 @@
 											<string key="NSFrame">{{0, 39}, {577, 247}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="465997657"/>
+											<reference key="NSNextKeyView" ref="19771704"/>
 											<string key="NSAntiCompressionPriority">{310, 750}</string>
 											<int key="NSsFlags">133680</int>
 											<reference key="NSVScroller" ref="1017274543"/>
@@ -975,7 +975,6 @@
 											<string key="NSFrame">{{369, 9}, {196, 22}}</string>
 											<reference key="NSSuperview" ref="582597135"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSSearchFieldCell" key="NSCell" id="569807709">
 												<int key="NSCellFlags">343014976</int>
@@ -1394,7 +1393,7 @@
 					</object>
 					<object class="NSMenuItem" id="715746254">
 						<reference key="NSMenu" ref="737572256"/>
-						<string key="NSTitle">Delete</string>
+						<string key="NSTitle">Delete Game</string>
 						<string type="base64-UTF8" key="NSKeyEquiv">CA</string>
 						<int key="NSKeyEquivModMask">1048576</int>
 						<int key="NSMnemonicLoc">2147483647</int>
