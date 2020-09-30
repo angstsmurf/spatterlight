@@ -2778,7 +2778,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     _restoredSelection = restoredWin.restoredSelection;
     if (_restoredSelection.location > textstorage.length)
         _restoredSelection = NSMakeRange(0, 0);
-    if (NSMaxRange(_restoredSelection) > textstorage.length)
+    else if (NSMaxRange(_restoredSelection) > textstorage.length)
         _restoredSelection = NSMakeRange(_restoredSelection.location, textstorage.length - _restoredSelection.location);
     _textview.selectedRange = _restoredSelection;
 
