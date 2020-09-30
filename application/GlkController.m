@@ -59,6 +59,30 @@ fprintf(stderr, "%s\n",                                                    \
 //    "stylehint_NUMHINTS"
 //};
 
+@interface TempLibrary : NSObject {
+}
+
+@property glui32 autosaveTag;
+@end
+
+@implementation TempLibrary
+
+- (id) initWithCoder:(NSCoder *)decoder {
+    int version = [decoder decodeIntForKey:@"version"];
+    if (version <= 0 || version > AUTOSAVE_SERIAL_VERSION)
+    {
+        NSLog(@"Interpreter autosave file:Wrong serial version!");
+        return nil;
+    }
+
+    // We don't worry about glkdelegate or the dispatch hooks. (Because this will only be used through updateFromLibrary). Similarly, none of the windows need stylesets yet, and none of the file streams are really open.
+
+    _autosaveTag = (glui32)[decoder decodeInt32ForKey:@"autosaveTag"];
+
+    return self;
+}
+@end
+
 @implementation GlkHelperView
 
 - (BOOL)isFlipped {
@@ -187,6 +211,7 @@ fprintf(stderr, "%s\n",                                                    \
     shouldShowAutorestoreAlert = NO;
     shouldRestoreUI = NO;
     turns = 0;
+    _hasAutoSaved = NO;
 
     lastArrangeValues = @{
                           @"width" : @(0),
@@ -310,7 +335,7 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"Error: %@", error);
     }
 
-    if (restoredController.autosaveVersion != _autosaveVersion) {
+    if (restoredController.autosaveVersion != AUTOSAVE_SERIAL_VERSION) {
         NSLog(@"GUI autosave file is wrong version! Wanted %ld, got %ld. Deleting!", _autosaveVersion, restoredController.autosaveVersion );
         restoredController = nil;
     }
@@ -345,6 +370,15 @@ fprintf(stderr, "%s\n",                                                    \
     if ([GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
         NSLog(@"GUI autosave late file is created before GUI autosave file!");
         restoredControllerLate = restoredController;
+    }
+
+    if (restoredController.autosaveTag != restoredControllerLate.autosaveTag) {
+        NSLog(@"GUI autosave late tag does not match GUI autosave file tag!");
+        NSLog(@"restoredController.autosaveTag %ld restoredControllerLate.autosaveTag: %ld", restoredController.autosaveTag, restoredControllerLate.autosaveTag);
+        if (restoredControllerLate.autosaveTag == 0)
+            restoredControllerLate = restoredController;
+        else
+            restoredController = restoredControllerLate;
     }
 
     if (!restoredController) {
@@ -388,29 +422,52 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"Interpreter autorestore file exists");
         restoredUIOnly = NO;
 
-        // Only show the alert about autorestoring if this is not a system
-        // window restoration, and the user has not suppressed it.
-        if (!windowRestoredBySystem) {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        TempLibrary *tempLib =
+        [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileTerp];
+        if (tempLib.autosaveTag != restoredController.autosaveTag) {
+            NSLog(@"The terp autosave and the GUI autosave have non-matching tags.");
+            NSLog(@"The terp autosave tag: %u GUI autosave tag: %ld", tempLib.autosaveTag, restoredController.autosaveTag);
 
-            if ([defaults boolForKey:@"AutorestoreAlertSuppression"]) {
-                NSLog(@"Autorestore alert suppressed");
-                if (![defaults boolForKey:@"AlwaysAutorestore"]) {
-                    // The user has checked "Remember this choice" when
-                    // choosing to not autorestore
-                    [self deleteAutosaveFiles];
-                    _game.autosaved = NO;
-                    [self runTerpNormal];
-                    return;
+            NSLog(@"Only restore UI state at first turn");
+            [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
+                                 [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
+            restoredUIOnly = YES;
+        } else {
+            NSLog(@"The terp autosave tag: %u GUI autosave tag: %ld", tempLib.autosaveTag, restoredController.autosaveTag);
+
+            // Only show the alert about autorestoring if this is not a system
+            // window restoration, and the user has not suppressed it.
+            if (!windowRestoredBySystem) {
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+                if ([defaults boolForKey:@"AutorestoreAlertSuppression"]) {
+                    NSLog(@"Autorestore alert suppressed");
+                    if (![defaults boolForKey:@"AlwaysAutorestore"]) {
+                        // The user has checked "Remember this choice" when
+                        // choosing to not autorestore
+                        [self deleteAutosaveFiles];
+                        _game.autosaved = NO;
+                        [self runTerpNormal];
+                        return;
+                    }
+                } else {
+                    shouldShowAutorestoreAlert = YES;
                 }
-            } else {
-                shouldShowAutorestoreAlert = YES;
             }
         }
     } else {
         NSLog(@"No interpreter autorestore file exists");
         NSLog(@"Only restore UI state at first turn");
         restoredUIOnly = YES;
+    }
+
+    if (restoredUIOnly && restoredControllerLate.hasAutoSaved) {
+        NSLog(@"restoredControllerLate was not saved at the first turn!");
+        restoredUIOnly = NO;
+        [self deleteAutosaveFiles];
+        _game.autosaved = NO;
+        [self runTerpNormal];
+        return;
     }
 
     // If this is not a window restoration done by the system,
@@ -606,7 +663,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     shouldRestoreUI = NO;
-
     _shouldStoreScrollOffset = NO;
 
     GlkWindow *win;
@@ -614,6 +670,7 @@ fprintf(stderr, "%s\n",                                                    \
     // Copy values from autorestored GlkController object
     _firstResponderView = restoredController.firstResponderView;
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
+    _autosaveTag = restoredController.autosaveTag;
 
     _bufferStyleHints = restoredController.bufferStyleHints;
     _gridStyleHints = restoredController.gridStyleHints;
@@ -671,6 +728,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (winToGrabFocus)
         [winToGrabFocus grabFocus];
+
+    if (!restoredUIOnly)
+        _hasAutoSaved = YES;
 
     restoredController = nil;
     restoredControllerLate = nil;
@@ -832,7 +892,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)autoSaveOnExit {
-    NSLog(@"autoSaveOnExit");
+    NSLog(@"%@ autoSaveOnExit", _game.metadata.title);
     if (_supportsAutorestore) {
         NSString *autosaveLate = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
@@ -855,6 +915,7 @@ fprintf(stderr, "%s\n",                                                    \
         /* the glk objects */
 
         _autosaveVersion = [decoder decodeIntegerForKey:@"version"];
+        _hasAutoSaved = [decoder decodeBoolForKey:@"_hasAutoSaved"];
 
         _gwindows = [decoder decodeObjectForKey:@"gwindows"];
 
@@ -870,8 +931,8 @@ fprintf(stderr, "%s\n",                                                    \
         _bufferStyleHints = [decoder decodeObjectForKey:@"bufferStyleHints"];
         _gridStyleHints = [decoder decodeObjectForKey:@"gridStyleHints"];
 
-        lastimage = [decoder decodeObjectForKey:@"lastimage"];
-        lastimageresno = [decoder decodeIntegerForKey:@"lastimageresno"];
+        lastimage = nil;
+        lastimageresno = -1;
 
         _queue = [decoder decodeObjectForKey:@"queue"];
         _firstResponderView = [decoder decodeIntegerForKey:@"firstResponder"];
@@ -888,6 +949,7 @@ fprintf(stderr, "%s\n",                                                    \
     [super encodeWithCoder:encoder];
 
     [encoder encodeInteger:_autosaveVersion forKey:@"version"];
+    [encoder encodeBool:_hasAutoSaved forKey:@"_hasAutoSaved"];
 
     [encoder encodeBool:dead forKey:@"dead"];
     [encoder encodeRect:self.window.frame forKey:@"windowFrame"];
@@ -927,9 +989,6 @@ fprintf(stderr, "%s\n",                                                    \
                  forKey:@"fullscreen"];
 
     [encoder encodeBool:_previewDummy forKey:@"previewDummy"];
-
-    [encoder encodeObject:lastimage forKey:@"lastimage"];
-    [encoder encodeInteger:lastimageresno forKey:@"lastimageresno"];
 }
 
 - (void)showAutorestoreAlert {
@@ -1014,9 +1073,9 @@ fprintf(stderr, "%s\n",                                                    \
     [self guessFocus];
 }
 
-- (void)handleAutosave:(int)hash {
+- (void)handleAutosave:(NSInteger)hash {
 
-    _autosaveVersion = hash;
+    _autosaveTag = hash;
 
     NSInteger res = [NSKeyedArchiver archiveRootObject:self
                                                 toFile:self.autosaveFileGUI];
@@ -1025,7 +1084,9 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"Window serialize failed!");
         return;
     }
-//    NSLog(@"UI autosaved successfully. Hash: %d", hash);
+
+    _hasAutoSaved = YES;
+     NSLog(@"UI autosaved successfully. Tag: %ld", (long)hash);
 }
 
 /*

@@ -136,6 +136,8 @@
 @property BOOL kerkerkruip;
 
 @property NSInteger autosaveVersion;
+@property NSInteger autosaveTag;
+@property BOOL hasAutoSaved;
 
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game

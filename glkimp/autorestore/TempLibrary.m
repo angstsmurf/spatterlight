@@ -73,6 +73,8 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 
         strid_t current = glk_stream_get_current();
 		_currentstrtag = current->tag;
+
+        _autosaveTag = generate_tag();
 	}
 
     [self sanityCheck];
@@ -159,6 +161,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 		extra_unarchive_hook(self, decoder);
 
     _timerInterval = [decoder decodeInt32ForKey:@"timerInterval"];
+    _autosaveTag = [decoder decodeInt32ForKey:@"autosaveTag"];
 
 	return self;
 }
@@ -178,7 +181,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     [encoder encodeObject:_schannels forKey:@"schannels"];
 
     [encoder encodeInt32:_timerInterval forKey:@"timerInterval"];
-
+    [encoder encodeInt32:_autosaveTag forKey:@"autosaveTag"];
 
 	if (_rootwintag)
 		[encoder encodeInt32:_rootwintag forKey:@"rootwintag"];
