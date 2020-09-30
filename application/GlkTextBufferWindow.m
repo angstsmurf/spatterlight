@@ -1529,7 +1529,7 @@
         _textview.selectedRange = selectedRange;
     }
 
-    if (!self.glkctl.previewDummy) {
+    if (!self.glkctl.previewDummy && self.glkctl.isAlive) {
 
         if (different) {
             // Set style for hyperlinks
@@ -1548,6 +1548,18 @@
             [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
         }
     } else {
+        if (!self.glkctl.isAlive) {
+            NSRect frame = self.frame;
+
+            if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
+                frame.size.width = self.glkctl.contentView.frame.size.width - frame.origin.x;
+            }
+
+            if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
+                frame.size.height = self.glkctl.contentView.frame.size.height - frame.origin.y;
+            }
+            self.frame = frame;
+        }
         [self flushDisplay];
         [self recalcBackground];
         [self restoreScrollBarStyle];

@@ -541,6 +541,21 @@
             [self performSelector:@selector(deferredInitLine:) withObject:_enteredTextSoFar afterDelay:0];
         });
     }
+
+    if (!self.glkctl.isAlive) {
+        NSRect frame = self.frame;
+
+        if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
+            frame.size.width = self.glkctl.contentView.frame.size.width - frame.origin.x;
+        }
+
+        if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
+            frame.size.height = self.glkctl.contentView.frame.size.height - frame.origin.y;
+        }
+        self.frame = frame;
+        [self checkForUglyBorder];
+        [self flushDisplay];
+    }
 }
 
 - (BOOL)allowsDocumentBackgroundColorChange {

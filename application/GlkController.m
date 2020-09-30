@@ -1395,7 +1395,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
 
-    if (_game && !_previewDummy && !dead) {
+    if (_game && !_previewDummy) {
 //        NSLog(@"glkctl notePreferencesChanged called for game %@, currently using theme %@", _game.metadata.title, _game.theme.name);
         _theme = _game.theme;
     } else {
