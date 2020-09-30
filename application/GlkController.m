@@ -915,7 +915,8 @@ fprintf(stderr, "%s\n",                                                    \
         /* the glk objects */
 
         _autosaveVersion = [decoder decodeIntegerForKey:@"version"];
-        _hasAutoSaved = [decoder decodeBoolForKey:@"_hasAutoSaved"];
+        _hasAutoSaved = [decoder decodeBoolForKey:@"hasAutoSaved"];
+        _autosaveTag =  [decoder decodeIntegerForKey:@"autosaveTag"];
 
         _gwindows = [decoder decodeObjectForKey:@"gwindows"];
 
@@ -949,7 +950,8 @@ fprintf(stderr, "%s\n",                                                    \
     [super encodeWithCoder:encoder];
 
     [encoder encodeInteger:_autosaveVersion forKey:@"version"];
-    [encoder encodeBool:_hasAutoSaved forKey:@"_hasAutoSaved"];
+    [encoder encodeBool:_hasAutoSaved forKey:@"hasAutoSaved"];
+    [encoder encodeInteger:_autosaveTag forKey:@"autosaveTag"];
 
     [encoder encodeBool:dead forKey:@"dead"];
     [encoder encodeRect:self.window.frame forKey:@"windowFrame"];
