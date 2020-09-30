@@ -386,7 +386,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileTerp]) {
         NSLog(@"Interpreter autorestore file exists");
-        NSLog(@"restoredUIOnly = NO");
         restoredUIOnly = NO;
 
         // Only show the alert about autorestoring if this is not a system
