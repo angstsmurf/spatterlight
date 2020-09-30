@@ -483,7 +483,8 @@ fprintf(stderr, "%s\n",                                                    \
         _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     }
 
-    [self adjustContentView];
+    if (!windowRestoredBySystem)
+        [self adjustContentView];
     shouldRestoreUI = YES;
     [self forkInterpreterTask];
 
@@ -636,16 +637,19 @@ fprintf(stderr, "%s\n",                                                    \
     [task launch];
     dead = NO;
 
-    /* Send a prefs and an arrange event first thing */
-    GlkEvent *gevent;
+    if (!(_inFullscreen && windowRestoredBySystem)) {
+        /* Send a prefs and an arrange event first thing */
+        GlkEvent *gevent;
 
-    gevent = [[GlkEvent alloc] initPrefsEventForTheme:_theme];
-    [self queueEvent:gevent];
-    gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
-                                         height:(NSInteger)_contentView.frame.size.height
-                                          theme:_theme
-                                          force:NO];
-    [self queueEvent:gevent];
+        gevent = [[GlkEvent alloc] initPrefsEventForTheme:_theme];
+        [self queueEvent:gevent];
+        gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
+                                             height:(NSInteger)_contentView.frame.size.height
+                                              theme:_theme
+                                              force:NO];
+        [self queueEvent:gevent];
+    }
+
     restartingAlready = NO;
 }
 
@@ -1170,16 +1174,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self autoSaveOnExit];
 
-    for (GlkController *controller in libcontroller.gameSessions.allValues)
-        if (controller == self) {
-            NSArray *temp = [libcontroller.gameSessions allKeysForObject:controller];
-            NSString *key = [temp objectAtIndex:0];
-            if (key) {
-                [libcontroller.gameSessions removeObjectForKey:key];
-            }
-        }
-
-
     if (_game && [Preferences instance].currentGame == _game) {
         Game *remainingGameSession = nil;
         if (libcontroller.gameSessions.count)
@@ -1214,6 +1208,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     _contentView.glkctrl = nil;
+    [libcontroller releaseGlkControllerSoon:self];
     libcontroller = nil;
     //[self.window setDelegate:nil]; This segfaults
 }
@@ -3294,8 +3289,13 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
+    [self performSelector:@selector(deferredReleaseSnapshotwindow:) withObject:nil afterDelay:2];
+}
+
+- (void)deferredReleaseSnapshotwindow:(id)sender {
     snapshotWindow = nil;
 }
+
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
     _inFullscreen = NO;
 }

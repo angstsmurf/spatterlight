@@ -1741,6 +1741,23 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return gctl.window;
 }
 
+- (void)releaseGlkControllerSoon:(GlkController *)glkctl {
+    for (GlkController *controller in _gameSessions.allValues)
+        if (controller == glkctl) {
+            NSArray *temp = [_gameSessions allKeysForObject:controller];
+            NSString *key = [temp objectAtIndex:0];
+            if (key) {
+                glkctl.window.delegate = nil;
+                [_gameSessions removeObjectForKey:key];
+            }
+        }
+    [self performSelector:@selector(releaseGlkControllerNow:) withObject:glkctl afterDelay:1];
+}
+
+- (void)releaseGlkControllerNow:(GlkController *)glkctl {
+    // do nothing
+}
+
 - (void)importAndPlayGame:(NSString *)path {
 
     Game *game = [self importGame: path inContext:_managedObjectContext reportFailure: YES];
