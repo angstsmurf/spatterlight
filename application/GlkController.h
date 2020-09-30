@@ -50,7 +50,6 @@
     NSWindow *snapshotWindow;
 
     BOOL windowClosedAlready;
-
     BOOL restartingAlready;
 
     /* the glk objects */
