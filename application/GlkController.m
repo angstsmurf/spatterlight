@@ -3285,8 +3285,13 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
+    [self performSelector:@selector(deferredReleaseSnapshotwindow:) withObject:nil afterDelay:2];
+}
+
+- (void)deferredReleaseSnapshotwindow:(id)sender {
     snapshotWindow = nil;
 }
+
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
     _inFullscreen = NO;
 }
