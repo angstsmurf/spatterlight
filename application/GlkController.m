@@ -483,7 +483,8 @@ fprintf(stderr, "%s\n",                                                    \
         _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     }
 
-    [self adjustContentView];
+    if (!windowRestoredBySystem)
+        [self adjustContentView];
     shouldRestoreUI = YES;
     [self forkInterpreterTask];
 
@@ -636,16 +637,19 @@ fprintf(stderr, "%s\n",                                                    \
     [task launch];
     dead = NO;
 
-    /* Send a prefs and an arrange event first thing */
-    GlkEvent *gevent;
+    if (!(_inFullscreen && windowRestoredBySystem)) {
+        /* Send a prefs and an arrange event first thing */
+        GlkEvent *gevent;
 
-    gevent = [[GlkEvent alloc] initPrefsEventForTheme:_theme];
-    [self queueEvent:gevent];
-    gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
-                                         height:(NSInteger)_contentView.frame.size.height
-                                          theme:_theme
-                                          force:NO];
-    [self queueEvent:gevent];
+        gevent = [[GlkEvent alloc] initPrefsEventForTheme:_theme];
+        [self queueEvent:gevent];
+        gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
+                                             height:(NSInteger)_contentView.frame.size.height
+                                              theme:_theme
+                                              force:NO];
+        [self queueEvent:gevent];
+    }
+
     restartingAlready = NO;
 }
 
