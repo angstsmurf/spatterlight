@@ -24,6 +24,7 @@
 
 @class CoreDataManager;
 @class Metadata;
+@class GlkController;
 
 @interface LibHelperWindow : NSWindow <NSDraggingDestination>
 @end
@@ -110,6 +111,7 @@
 - (NSWindow *)playGame:(Game *)game;
 - (NSWindow *)playGame:(Game *)game winRestore:(BOOL)restoreflag;
 - (NSWindow *)playGameWithIFID:(NSString *)ifid;
+- (void)releaseGlkControllerSoon:(GlkController *)glkctl;
 
 - (void)importAndPlayGame:(NSString *)path;
 

@@ -1170,16 +1170,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self autoSaveOnExit];
 
-    for (GlkController *controller in libcontroller.gameSessions.allValues)
-        if (controller == self) {
-            NSArray *temp = [libcontroller.gameSessions allKeysForObject:controller];
-            NSString *key = [temp objectAtIndex:0];
-            if (key) {
-                [libcontroller.gameSessions removeObjectForKey:key];
-            }
-        }
-
-
     if (_game && [Preferences instance].currentGame == _game) {
         Game *remainingGameSession = nil;
         if (libcontroller.gameSessions.count)
@@ -1214,6 +1204,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     _contentView.glkctrl = nil;
+    [libcontroller releaseGlkControllerSoon:self];
     libcontroller = nil;
     //[self.window setDelegate:nil]; This segfaults
 }
