@@ -188,7 +188,7 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
     else
         chan->disprock.ptr = NULL;
 
-	return chan;
+    return chan;
 }
 
 static void cleanup_channel(schanid_t chan)
@@ -350,7 +350,7 @@ glui32 glk_schannel_play(schanid_t chan, glui32 snd)
 }
 
 glui32 glk_schannel_play_multi(schanid_t *chanarray, glui32 chancount,
-        glui32 *sndarray, glui32 soundcount, glui32 notify)
+                               glui32 *sndarray, glui32 soundcount, glui32 notify)
 {
     glui32 i;
     glui32 successes = 0;
@@ -442,7 +442,7 @@ void init_fade(schanid_t chan, int glk_volume, int duration, int notify)
     if (chan->timer)
         SDL_RemoveTimer(chan->timer);
 
-	chan->timer = SDL_AddTimer((Uint32)(duration / FADE_GRANULARITY),
+    chan->timer = SDL_AddTimer((Uint32)(duration / FADE_GRANULARITY),
                                volume_timer_callback, (void *)chan);
 
     if (!chan->timer)
@@ -457,7 +457,7 @@ void glk_schannel_set_volume(schanid_t chan, glui32 vol)
 }
 
 void glk_schannel_set_volume_ext(schanid_t chan, glui32 glk_volume,
-        glui32 duration, glui32 notify)
+                                 glui32 duration, glui32 notify)
 {
     if (!chan)
     {
@@ -642,22 +642,22 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
         {
             fprintf(stderr, "sndsdl: resource->filename = %s length = %ld offset %ld\n", resource->filename, resource->length, resource->offset);
             FILE *file = fopen(resource->filename, "rb");
-             if (file)
-             {
-                 fseek(file, resource->offset, SEEK_SET);
-                 resource->data = malloc(resource->length);
-                 if (fread(resource->data, resource->length, 1, file) != 1 && !feof(file))
-                 {
-                     fclose(file);
-                     fprintf(stderr, "sndsdl: could not read sound resource from file %s, length %ld, offset %ld\n",resource->filename, resource->length, resource->offset);
-                     return 0;
-                 }
-                 fclose(file);
-                 resource->loadedflag = TRUE;
-                 *len = resource->length;
-                 *buf = resource->data;
-                 type = resource->type;
-             }
+            if (file)
+            {
+                fseek(file, resource->offset, SEEK_SET);
+                resource->data = malloc(resource->length);
+                if (fread(resource->data, resource->length, 1, file) != 1 && !feof(file))
+                {
+                    fclose(file);
+                    fprintf(stderr, "sndsdl: could not read sound resource from file %s, length %ld, offset %ld\n",resource->filename, resource->length, resource->offset);
+                    return 0;
+                }
+                fclose(file);
+                resource->loadedflag = TRUE;
+                *len = resource->length;
+                *buf = resource->data;
+                type = resource->type;
+            }
         }
     }
 
