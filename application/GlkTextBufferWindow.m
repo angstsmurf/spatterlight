@@ -60,10 +60,10 @@
 - (NSPoint)cellBaselineOffset {
 
     NSUInteger lastCharPos = pos - 1;
-    
+
     if (lastCharPos > _attrstr.length)
         lastCharPos = 0;
-    
+
     NSDictionary *attributes = [_attrstr attributesAtIndex:lastCharPos
                                   effectiveRange:nil];
 
@@ -1011,7 +1011,7 @@
         }
 
         _usingStyles = self.theme.doStyles;
-        
+
         echo = YES;
 
         _lastchar = '\n';
@@ -1253,7 +1253,7 @@
     if (self.framePending) {
         self.framePending = NO;
         if (!NSEqualRects(self.pendingFrame, self.frame)) {
-            
+
             if ([container hasMarginImages])
                 [container invalidateLayout];
 
@@ -1391,7 +1391,7 @@
     if (self.theme.doStyles && bgnd > -1) {
         bgcolor = [NSColor colorFromInteger:bgnd];
     }
-    
+
     if (!bgcolor)
         bgcolor = self.theme.bufferBackground;
 
@@ -1440,7 +1440,7 @@
         } else
             [styles addObject:[NSNull null]];
     }
-    
+
     if (!self.glkctl.previewDummy) {
         NSInteger marginX = self.theme.bufferMarginX;
         NSInteger marginY = self.theme.bufferMarginY;
@@ -1458,7 +1458,7 @@
 
     if (different) {
         styles = newstyles;
-        
+
         if (self.glkctl.beyondZork) {
             [self createBeyondZorkStyle];
         }
@@ -1469,7 +1469,7 @@
         if (storedNewline) {
             [backingStorage appendAttributedString:storedNewline];
         }
-        
+
         NSRange selectedRange = _textview.selectedRange;
 
         [textstorage
