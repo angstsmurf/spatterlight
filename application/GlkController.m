@@ -3008,9 +3008,7 @@ again:
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
     // Save the window frame so that it can be restored later
     _windowPreFullscreenFrame = self.window.frame;
-    NSLog(@"windowWillEnterFullScreen set _windowPreFullscreenFrame to %@", NSStringFromRect(_windowPreFullscreenFrame));
     _inFullscreen = YES;
-    NSLog(@"windowWillEnterFullScreen: calling storeScrollOffsets and turns off resizes");
     [self storeScrollOffsets];
     _ignoreResizes = YES;
     // _ignoreResizes means no storing scroll offsets,
@@ -3041,7 +3039,6 @@ again:
 - (void)restoreScrollOffsets {
     if (_previewDummy)
         return;
-    NSLog(@"GlkController: restoreScrollOffsets");
     for (GlkWindow *win in [_gwindows allValues])
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [(GlkTextBufferWindow *)win restoreScrollBarStyle];
@@ -3290,14 +3287,12 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
          localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
          [weakSelf contentDidResize:localContentView.frame];
-         NSLog(@"window:startCustomAnimationToExitFullScreenWithDuration: calls restoreScrollOffsets at the very end.");
          [weakSelf restoreScrollOffsets];
      }];
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
     [self performSelector:@selector(deferredReleaseSnapshotwindow:) withObject:nil afterDelay:2];
-    NSLog(@"windowDidEnterFullScreen turns on resizes");
     _ignoreResizes = NO;
     [self contentDidResize:_contentView.frame];
 }
@@ -3307,15 +3302,12 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
-    NSLog(@"windowDidExitFullScreen sets ignoreResizes to NO");
     _ignoreResizes = NO;
     _inFullscreen = NO;
     [self contentDidResize:_contentView.frame];
 }
 
 - (void)startInFullscreen {
-    NSLog(@"startInFullscreen begins by setting the window to _windowPreFullscreenFrame: %@", NSStringFromRect(_windowPreFullscreenFrame));
-//    _ignoreResizes = YES;
     [self.window setFrame:restoredControllerLate.windowPreFullscreenFrame
                   display:NO];
     [self showWindow:nil];
@@ -3331,10 +3323,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkTextBufferWindow *bufwin = (GlkTextBufferWindow *)win;
             [bufwin restoreScrollBarStyle];
-//            [bufwin restoreScroll:nil];
             bufwin.pendingScrollRestore = YES;
         }
-//    inFullScreenResize = YES;
     [self performSelector:@selector(deferredEnterFullscreen:) withObject:nil afterDelay:1];
 }
 //
