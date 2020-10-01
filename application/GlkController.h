@@ -100,6 +100,7 @@
 @property(readonly) NSRect windowPreFullscreenFrame;
 
 @property BOOL ignoreResizes;
+@property BOOL startingInFullscreen;
 
 @property(readonly) NSInteger firstResponderView;
 

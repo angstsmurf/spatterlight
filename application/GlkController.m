@@ -476,6 +476,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (!windowRestoredBySystem && _inFullscreen
         && (self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask) {
         [self startInFullscreen];
+        _startingInFullscreen = YES;
     } else {
         _contentView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
@@ -625,7 +626,7 @@ fprintf(stderr, "%s\n",                                                    \
         GlkController *strongSelf = weakSelf;
         if(strongSelf) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                
+
                 [strongSelf noteTaskDidTerminate:aTask];
             });
         }
@@ -672,8 +673,8 @@ fprintf(stderr, "%s\n",                                                    \
     GlkWindow *win;
 
     // Copy values from autorestored GlkController object
-    _firstResponderView = restoredController.firstResponderView;
-    _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
+    _firstResponderView = restoredControllerLate.firstResponderView;
+    _windowPreFullscreenFrame = restoredControllerLate.windowPreFullscreenFrame;
     _autosaveTag = restoredController.autosaveTag;
 
     _bufferStyleHints = restoredController.bufferStyleHints;
@@ -725,11 +726,6 @@ fprintf(stderr, "%s\n",                                                    \
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
     [self notePreferencesChanged:notification];
 
-    // Now we can actually show the window
-    [self showWindow:nil];
-    [self.window makeKeyAndOrderFront:nil];
-    [self.window makeFirstResponder:nil];
-
     if (winToGrabFocus)
         [winToGrabFocus grabFocus];
 
@@ -753,6 +749,10 @@ fprintf(stderr, "%s\n",                                                    \
                                                     force:YES];
     [self queueEvent:gevent];
     _shouldStoreScrollOffset = YES;
+    // Now we can actually show the window
+    [self showWindow:nil];
+    [self.window makeKeyAndOrderFront:nil];
+    [self.window makeFirstResponder:nil];
 }
 
 - (NSString *)appSupportDir {
@@ -802,7 +802,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         if (!terpFolder) {
             NSLog(@"GlkController appSupportDir: Could not map game format %@ to a folder name!", _game.detectedFormat);
-            return nil; 
+            return nil;
         }
 
         NSString *dirstr =
@@ -1338,13 +1338,13 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
+    lastContentResize = frame;
+    lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
+
     if (frame.origin.x < 0 || frame.origin.y < 0 || frame.size.width < 0 || frame.size.height < 0) {
         NSLog(@"contentDidResize: weird new frame: %@", NSStringFromRect(frame));
+        return;
     }
-
-    lastContentResize = frame;
-
-    lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
 
     if (!inFullScreenResize && !dead) {
         //        NSLog(@"glkctl: contentDidResize: Sending an arrange event with the "
@@ -1392,11 +1392,6 @@ fprintf(stderr, "%s\n",                                                    \
         // If window is partly off the screen, move it (just) inside
         if (NSMaxX(winrect) > NSMaxX(screenframe))
             winrect.origin.x = NSMaxX(screenframe) - NSWidth(winrect);
-
-        if (NSMinY(winrect) < NSMinY(screenframe)) {
-            NSLog(@"NSMinY(winrect) (%f) < NSMinY(screenframe) (%f) Moving window inside screen frame", NSMinY(winrect), NSMinY(screenframe));
-            winrect.origin.y = NSMinY(screenframe);
-        }
 
         NSSize minSize = self.window.minSize;
         if (winrect.size.width < minSize.width)
@@ -3013,12 +3008,18 @@ again:
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
     // Save the window frame so that it can be restored later
     _windowPreFullscreenFrame = self.window.frame;
+    NSLog(@"windowWillEnterFullScreen set _windowPreFullscreenFrame to %@", NSStringFromRect(_windowPreFullscreenFrame));
     _inFullscreen = YES;
+    NSLog(@"windowWillEnterFullScreen: calling storeScrollOffsets and turns off resizes");
     [self storeScrollOffsets];
+    _ignoreResizes = YES;
+    // _ignoreResizes means no storing scroll offsets,
+    // but also no arrange events
 }
 
 - (void)windowDidFailToEnterFullScreen:(NSWindow *)window {
     _inFullscreen = NO;
+    _ignoreResizes = NO;
     inFullScreenResize = NO;
     _contentView.alphaValue = 1;
     snapshotWindow = nil;
@@ -3027,20 +3028,24 @@ again:
 }
 
 - (void)storeScrollOffsets {
-    if (_previewDummy)
+    if (_previewDummy || _ignoreResizes)
         return;
     for (GlkWindow *win in [_gwindows allValues])
-        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            ((GlkTextBufferWindow *)win).pendingScrollRestore = NO;
             [(GlkTextBufferWindow *)win storeScrollOffset];
+            ((GlkTextBufferWindow *)win).pendingScrollRestore = YES;
+        }
 }
 
 - (void)restoreScrollOffsets {
     if (_previewDummy)
         return;
+    NSLog(@"GlkController: restoreScrollOffsets");
     for (GlkWindow *win in [_gwindows allValues])
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             [(GlkTextBufferWindow *)win restoreScrollBarStyle];
-            [(GlkTextBufferWindow *)win performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.1];
+            [(GlkTextBufferWindow *)win performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
         }
 }
 
@@ -3253,6 +3258,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 - (void)window:window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
     [self storeScrollOffsets];
+    _ignoreResizes = YES;
     NSRect oldFrame = _windowPreFullscreenFrame;
 
     oldFrame.size.width =

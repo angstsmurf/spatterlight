@@ -1039,32 +1039,29 @@
         if (amountToDraw < 1)
             break;
 
-        // "Draw" the characters
-        NSAttributedString *partString = [[NSAttributedString alloc]
-                                          initWithString:[string substringWithRange:
-                                                          NSMakeRange(pos, amountToDraw)]
-                                          attributes:attrDict];
-
         NSRange replaceRange = NSMakeRange((cols + 1) * ypos + xpos, amountToDraw);
         if (NSMaxRange(replaceRange) > textstoragelength) {
             if ((cols + 1) * ypos + xpos > textstoragelength)
                 return;
             else {
-                NSUInteger diff =  NSMaxRange(replaceRange) - textstoragelength;
+                NSUInteger diff = NSMaxRange(replaceRange) - textstoragelength;
                 amountToDraw -= diff;
                 if (!amountToDraw)
                     return;
                 replaceRange = NSMakeRange((cols + 1) * ypos + xpos, amountToDraw);
-                partString = [partString attributedSubstringFromRange:NSMakeRange(0, amountToDraw)];
             }
         }
+
+        // "Draw" the characters
+        NSAttributedString *partString = [[NSAttributedString alloc]
+                                          initWithString:[string substringWithRange:
+                                                          NSMakeRange(pos, amountToDraw)]
+                                          attributes:attrDict];
         [_bufferTextStorage
-         replaceCharactersInRange:NSMakeRange((cols + 1) * ypos + xpos, amountToDraw)
-         withAttributedString:partString];
+         replaceCharactersInRange:replaceRange withAttributedString:partString];
         
         //        NSLog(@"Replaced characters in range %@ with '%@'",
-        //        NSStringFromRange(NSMakeRange((cols + 1) * ypos + xpos,
-        //        amountToDraw)), partString.string);
+        //        NSStringFromRange(replaceRange), partString.string);
 
         // Update the x position (and the y position if necessary)
         xpos += amountToDraw;

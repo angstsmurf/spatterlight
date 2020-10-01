@@ -2678,7 +2678,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     charbottom = charbottom + offset;
     NSPoint newScrollOrigin = NSMakePoint(0, floor(charbottom - NSHeight(scrollview.frame)));
     [scrollview.contentView scrollToPoint:newScrollOrigin];
-    [scrollview reflectScrolledClipView:scrollview.contentView];
+//    [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
 - (void)performScroll {
@@ -2798,7 +2798,10 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
     _pendingScrollRestore = YES;
     _pendingScroll = NO;
-    [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.1];
+    if (!self.glkctl.inFullscreen || self.glkctl.startingInFullscreen)
+        [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.1];
+    else
+        [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.5];
 }
 
 - (void)deferredScrollPosition:(id)sender {
@@ -2814,7 +2817,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
             [self scrollToCharacter:_restoredLastVisible withOffset:_restoredScrollOffset];
     }
     _pendingScrollRestore = NO;
-    [self storeScrollOffset];
 }
 
 - (void)restoreScrollBarStyle {
