@@ -2704,12 +2704,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
                                     NSHeight(scrollview.frame));
 
     if (bottom - _lastseen > NSHeight(scrollview.frame)) {
-        //Never scroll in the wrong direction
-        if (NSMinY(targetFrame) < NSMinY(scrollview.documentVisibleRect) || NSEqualRects(targetFrame, _lastScrollFrame))
-            return;
-        NSLog(@"scrolling down to %@", NSStringFromRect(targetFrame));
         [_textview scrollRectToVisible:targetFrame];
-        _lastScrollFrame = targetFrame;
     } else {
         [self scrollToBottom];
     }

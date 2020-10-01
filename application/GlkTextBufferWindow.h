@@ -121,7 +121,6 @@
 @property BOOL pendingScroll;
 @property BOOL pendingClear;
 @property BOOL pendingScrollRestore;
-@property NSRect lastScrollFrame;
 
 @property NSAttributedString *restoredInput;
 
