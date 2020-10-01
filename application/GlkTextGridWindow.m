@@ -974,7 +974,7 @@
         attrDict[@"ReverseVideo"] = @(YES);
         if (!self.theme.doStyles || [self.styleHints[stylevalue][stylehint_ReverseColor] isNotEqualTo:@(1)]) {
             // If the current colours are not already reversed by stylehint_ReverseColor,
-            // we reverse the colors here
+            // we reverse the colours here
             attrDict = [self reversedAttributes:attrDict background:self.theme.gridBackground];
         }
     }
@@ -987,18 +987,6 @@
         NSLog(@"printToWindow: ypos outside visible range");
         return;
     }
-
-    //    NSString *firstline =
-    //    [textstorage.string substringWithRange:NSMakeRange(0, cols)];
-    //    CGSize stringSize = [firstline
-    //                         sizeWithAttributes:attrDict];
-    //
-    //    if (stringSize.width > self.frame.size.width) {
-    //        NSLog(@"ERROR! First line has  become too wide!!!!");
-    //        NSLog(@"First line of text storage: '%@'", firstline);
-    //        NSLog(@"Width of first line: %f", stringSize.width);
-    //        NSLog(@"Width of text grid window: %f", self.frame.size.width);
-    //    }
 
     // Check for newlines in string to write
     NSUInteger x;
