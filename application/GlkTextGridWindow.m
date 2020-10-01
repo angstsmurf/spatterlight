@@ -1558,7 +1558,7 @@
 }
 
 // Convenience method to create an exactly 100 characters wide string
-// by repeating the input string
+// by repeating the input string.
 
 - (NSString *)sampleStringWithString:(NSString *)str {
     if (!str.length)
@@ -1571,7 +1571,7 @@
     return str;
 }
 
-// Find a font size to match a certain width in points
+// Find a font size to match a certain width in points.
 // This is really only necessary on 10.7, which can't give exact character width for fonts,
 // but I think it give slightly better results (less gaps) on recent systems as well.
 
