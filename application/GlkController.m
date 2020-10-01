@@ -191,7 +191,7 @@ fprintf(stderr, "%s\n",                                                    \
     /* Setup blank style hints for both kinds of windows */
 
     NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
-    
+
     NSInteger i;
     for (i = 0 ; i < stylehint_NUMHINTS ; i ++)
         [nullarray addObject:[NSNull null]];
@@ -1459,7 +1459,7 @@ fprintf(stderr, "%s\n",                                                    \
 //        NSLog(@"notePreferencesChanged: no game.");
         return;
     }
-    
+
     if (notify.object != _theme && notify.object != nil) {
 //        NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).name, _theme.name);
         return;
@@ -1487,7 +1487,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     lastTheme = _theme;
     lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
-    
+
     [self adjustContentView];
 
     if (!_gwindows.count) {
@@ -1994,7 +1994,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)handleClearHintOnWindowType:(int)wintype
                               style:(NSUInteger)style
                                hint:(NSUInteger)hint {
-    
+
     if (style >= style_NUMSTYLES)
         return;
 
@@ -2420,7 +2420,7 @@ fprintf(stderr, "%s\n",                                                    \
                     rect.size.width = 0;
                 if (rect.size.height < 0)
                     rect.size.height = 0;
-                
+
 //                NSLog(@"glkctl SIZWIN %ld: %@", (long)reqWin.name, NSStringFromRect(rect));
 
                 reqWin.frame = rect;
@@ -3284,12 +3284,16 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
          localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
          [weakSelf contentDidResize:localContentView.frame];
+         NSLog(@"window:startCustomAnimationToExitFullScreenWithDuration: calls restoreScrollOffsets at the very end.");
          [weakSelf restoreScrollOffsets];
      }];
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
     [self performSelector:@selector(deferredReleaseSnapshotwindow:) withObject:nil afterDelay:2];
+    NSLog(@"windowDidEnterFullScreen turns on resizes");
+    _ignoreResizes = NO;
+    [self contentDidResize:_contentView.frame];
 }
 
 - (void)deferredReleaseSnapshotwindow:(id)sender {
@@ -3297,21 +3301,44 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
+    NSLog(@"windowDidExitFullScreen sets ignoreResizes to NO");
+    _ignoreResizes = NO;
     _inFullscreen = NO;
+    [self contentDidResize:_contentView.frame];
 }
 
 - (void)startInFullscreen {
-    [self.window setFrame:_windowPreFullscreenFrame
-                  display:YES];
+    NSLog(@"startInFullscreen begins by setting the window to _windowPreFullscreenFrame: %@", NSStringFromRect(_windowPreFullscreenFrame));
+//    _ignoreResizes = YES;
+    [self.window setFrame:restoredControllerLate.windowPreFullscreenFrame
+                  display:NO];
+    [self showWindow:nil];
+    [self.window makeKeyAndOrderFront:nil];
 
     _contentView.frame = [self contentFrameForWindowed];
 
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
 
-    [self showWindow:nil];
-    [self.window makeKeyAndOrderFront:nil];
+    [self contentDidResize:_contentView.frame];
+    for (GlkWindow *win in [_gwindows allValues])
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            GlkTextBufferWindow *bufwin = (GlkTextBufferWindow *)win;
+            [bufwin restoreScrollBarStyle];
+//            [bufwin restoreScroll:nil];
+            bufwin.pendingScrollRestore = YES;
+        }
+//    inFullScreenResize = YES;
+    [self performSelector:@selector(deferredEnterFullscreen:) withObject:nil afterDelay:1];
+}
+//
+- (void)deferredEnterFullscreen:(id)sender {
+//    [self showWindow:nil];
+//    [self.window makeKeyAndOrderFront:nil];
+//    _ignoreResizes = YES;
     [self.window toggleFullScreen:nil];
+//    [self restoreUI];
+//    inFullScreenResize = NO;
 }
 
 - (CALayer *)takeSnapshot {
