@@ -1212,7 +1212,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)flushDisplay {
-    lastFlushTimestamp = [NSDate date];
+//    lastFlushTimestamp = [NSDate date];
 
     if (windowdirty) {
     GlkWindow *largest = [self largestWindow];
@@ -2131,11 +2131,11 @@ fprintf(stderr, "%s\n",                                                    \
     GlkWindow *reqWin = nil;
     NSColor *bg = nil;
 
-    if (req->cmd != NEXTEVENT && [lastFlushTimestamp timeIntervalSinceNow]  < -0.5) {
-        [self performScroll];
-        [self flushDisplay];
-//        NSLog(@"Autoscroll triggered");
-    }
+//    if (req->cmd != NEXTEVENT && [lastFlushTimestamp timeIntervalSinceNow]  < -0.5) {
+//        [self performScroll];
+//        [self flushDisplay];
+//        NSLog(@"Autoscroll (performScroll + flushDisplay) triggered by timer");
+//    }
 
     if (req->a1 >= 0 && req->a1 < MAXWIN && _gwindows[@(req->a1)])
         reqWin = _gwindows[@(req->a1)];
