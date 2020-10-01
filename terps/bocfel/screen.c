@@ -2105,11 +2105,12 @@ static bool read_handler(void)
   uint16_t text = zargs[0], parse = zargs[1];
   uint8_t maxchars = zversion >= 5 ? user_byte(text) : user_byte(text) - 1;
 
-  if (text == 0)
-      maxchars = 0;
-
   uint8_t zscii_string[maxchars];
   uint32_t string[maxchars + 1];
+
+  if (text == 0)
+    maxchars = 0;
+
   struct input input = { .type = INPUT_LINE, .line = string, .maxlen = maxchars };
   uint16_t timer = 0;
   uint16_t routine = zargs[3];

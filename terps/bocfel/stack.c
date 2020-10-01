@@ -673,10 +673,12 @@ static void trim_saves(enum save_type type, long n)
   while(n-- > 0 && s->count > 0)
   {
     struct save_state *tmp = s->head;
-
-    s->head = s->head->next;
-    s->count--;
-    free_save_state(tmp);
+    if(s->head != NULL)
+    {
+      s->head = s->head->next;
+      s->count--;
+      free_save_state(tmp);
+    }
     if(s->head != NULL) s->head->prev = NULL;
     if(s->count == 0) s->tail = NULL;
   }
