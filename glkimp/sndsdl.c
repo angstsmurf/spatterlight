@@ -687,14 +687,17 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
 
 void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length, char *filename, size_t offset)
 {
-    if (!my_resources[snd]) {
-        my_resources[snd] = malloc(sizeof(struct my_sound_resource_struct));
-    }
-
     struct my_sound_resource_struct *res = my_resources[snd];
 
-    if (res->loadedflag == TRUE)
+    if (res == NULL)
+    {
+        res = malloc(sizeof(struct my_sound_resource_struct));
+        my_resources[snd] = res;
+    }
+    else if (res->loadedflag == TRUE)
+    {
         return;
+    }
 
     res->type = type;
     res->length = length;
@@ -878,17 +881,14 @@ void glk_sound_load_hint(glui32 snd, glui32 flag)
 
     if (flag == 1) {
         long len = 0;
-        glui32 type;
         char *buf = 0;
         /* load sound resource into memory */
-        type = load_sound_resource(snd, &len, &buf);
-    } else {
-        if (res)
-        {
-            if (res->data)
-                free(res->data);
-            res->loadedflag = FALSE;
-        }
+        load_sound_resource(snd, &len, &buf);
+    } else if (res)
+    {
+        if (res->data)
+            free(res->data);
+        res->loadedflag = FALSE;
     }
 }
 
