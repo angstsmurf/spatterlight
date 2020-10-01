@@ -1053,7 +1053,7 @@ L9BOOL Check(L9BYTE* StartFile,L9UINT32 FileSize,L9UINT32 Offset)
 
 long Scan(L9BYTE* StartFile,L9UINT32 FileSize)
 {
-	L9BYTE *Chk=malloc(FileSize+1);
+	L9BYTE *Chk = calloc(FileSize+1, 1);
 	L9BYTE *Image=calloc(FileSize,1);
 	L9UINT32 i,num,Size,MaxSize=0;
 	int j;
@@ -1130,7 +1130,7 @@ long Scan(L9BYTE* StartFile,L9UINT32 FileSize)
 
 long ScanV2(L9BYTE* StartFile,L9UINT32 FileSize)
 {
-	L9BYTE *Chk=malloc(FileSize+1);
+	L9BYTE *Chk=calloc(FileSize+1, 1);
 	L9BYTE *Image=calloc(FileSize,1);
 	L9UINT32 i,Size,MaxSize=0,num;
 	int j;
@@ -1152,7 +1152,7 @@ long ScanV2(L9BYTE* StartFile,L9UINT32 FileSize)
 	for (i=0;i<FileSize-28;i++)
 	{
 		num=L9WORD(StartFile+i+28)+1;
-		if (i+num<=FileSize && ((Chk[i+num]-Chk[i+32])&0xff)==StartFile[i+0x1e])
+        if ((i + num) <= FileSize && i < (FileSize - 32) && ((Chk[i + num] - Chk[i + 32]) & 0xff) == StartFile[i + 0x1e])
 		{
 			for (j=0;j<14;j++)
 			{
