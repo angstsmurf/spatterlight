@@ -32,8 +32,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
 //    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
 //    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
-//    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
-//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",   "BEEP", "SETLINK",
+//    "BEEP",            "SETLINK",
 //    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
 //    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
 //    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
@@ -242,7 +241,6 @@ fprintf(stderr, "%s\n",                                                    \
     windowdirty = NO;
 
     lastimageresno = -1;
-    lastsoundresno = -1;
     lastimage = nil;
 
     _ignoreResizes = NO;
@@ -1802,22 +1800,6 @@ fprintf(stderr, "%s\n",                                                    \
     return -1;
 }
 
-- (int)handleNewSoundChannel {
-    //    int i;
-    //
-    //    for (i = 0; i < MAXSND; i++)
-    //        if (gchannels[i] == nil)
-    //            break;
-    //
-    //    if (i == MAXSND)
-    //        return -1;
-    //
-    //    gchannels[i] = [[GlkSoundChannel alloc] initWithGlkController: self
-    //    name: i];
-    //
-    return MAXSND;
-}
-
 - (void)handleSetTimer:(NSUInteger)millisecs {
 //    NSLog(@"handleSetTimer: %ld millisecs", millisecs);
     if (timer) {
@@ -1855,20 +1837,6 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)restartTimer:(id)sender {
     [self handleSetTimer:(NSUInteger)(_storedTimerInterval * 1000)];
-}
-
-- (void)handleLoadSoundNumber:(int)resno
-                         from:(char *)buffer
-                       length:(NSUInteger)length {
-    lastsoundresno = -1;
-
-    if (lastsound) {
-        lastsound = nil;
-    }
-
-    lastsound = [[NSData alloc] initWithBytes:buffer length:length];
-    if (lastsound)
-        lastsoundresno = resno;
 }
 
 - (void)handleLoadImageNumber:(int)resno
@@ -2011,7 +1979,6 @@ fprintf(stderr, "%s\n",                                                    \
             NSLog(@"clearHintOnWindowType for unhandled wintype!");
             break;
     }
-
 }
 
 - (void)handlePrintOnWindow:(GlkWindow *)gwindow
@@ -2262,17 +2229,12 @@ fprintf(stderr, "%s\n",                                                    \
              * Create and destroy windows and channels
              */
 
-#pragma mark Create and destroy windows and sound channels
+#pragma mark Create and destroy windows
 
         case NEWWIN:
             ans->cmd = OKAY;
             ans->a1 = (int)[self handleNewWindowOfType:req->a1 andName:req->a2];
             // NSLog(@"glkctl newwin %d (type %d)", ans->a1, req->a1);
-            break;
-
-        case NEWCHAN:
-//            ans->cmd = OKAY;
-//            ans->a1 = [self handleNewSoundChannel];
             break;
 
         case DELWIN:
@@ -2285,28 +2247,15 @@ fprintf(stderr, "%s\n",                                                    \
 
             break;
 
-        case DELCHAN:
-            //            if (req->a1 >= 0 && req->a1 < MAXSND &&
-            //            gchannels[req->a1])
-            //            {
-            //                gchannels[req->a1] = nil;
-            //            }
-            break;
-
             /*
-             * Load images; load and play sounds
+             * Load images
              */
 
-#pragma mark Load images; load and play sounds
+#pragma mark Load images
 
         case FINDIMAGE:
             ans->cmd = OKAY;
             ans->a1 = [imageCache objectForKey:@(req->a1)] != nil;
-            break;
-
-        case FINDSOUND:
-            ans->cmd = OKAY;
-            ans->a1 = lastsoundresno == req->a1;
             break;
 
         case LOADIMAGE:
@@ -2327,37 +2276,6 @@ fprintf(stderr, "%s\n",                                                    \
                 ans->a1 = (NSUInteger)size.width;
                 ans->a2 = (NSUInteger)size.height;
             }
-            break;
-
-        case LOADSOUND:
-//            buf[req->len] = 0;
-//            [self handleLoadSoundNumber:req->a1 from:buf length:req->len];
-//            break;
-
-        case SETVOLUME:
-            //            if (req->a1 >= 0 && req->a1 < MAXSND &&
-            //            gchannels[req->a1])
-            //            {
-            //                [gchannels[req->a1] setVolume: req->a2];
-            //            }
-            break;
-
-        case PLAYSOUND:
-            //            if (req->a1 >= 0 && req->a1 < MAXSND &&
-            //            gchannels[req->a1])
-            //            {
-            //                if (lastsound)
-            //                    [gchannels[req->a1] play: lastsound repeats:
-            //                    req->a2 notify: req->a3];
-            //            }
-            break;
-
-        case STOPSOUND:
-            //            if (req->a1 >= 0 && req->a1 < MAXSND &&
-            //            gchannels[req->a1])
-            //            {
-            //                [gchannels[req->a1] stop];
-            //            }
             break;
 
         case BEEP:
@@ -2632,13 +2550,13 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case EVTSOUND:
-            NSLog(@"glkctl EVTSOUND %d, %d. Send it back to where it came from.",
+            NSLog(@"glkctl EVTSOUND %d, %d. Send it back whence it came.",
                   req->a2, req->a3);
             [self handleSoundNotification:req->a3 withSound:req->a2];
             break;
 
         case EVTVOLUME:
-            NSLog(@"glkctl EVTVOLUME %d. Send it back where it came.", req->a3);
+            NSLog(@"glkctl EVTVOLUME %d. Send it back whence it came.", req->a3);
             [self handleVolumeNotification:req->a3];
             break;
 

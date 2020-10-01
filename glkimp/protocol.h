@@ -90,13 +90,6 @@ enum
     DRAWIMAGE,
     FLOWBREAK,
 
-    NEWCHAN,
-    DELCHAN,
-    FINDSOUND,
-    LOADSOUND,
-    SETVOLUME,
-    PLAYSOUND,
-    STOPSOUND,
     BEEP,
     
     SETLINK,

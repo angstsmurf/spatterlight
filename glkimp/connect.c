@@ -366,7 +366,6 @@ void win_beep(int type)
     sendmsg(BEEP, type, 0, 0, 0, 0, 0, NULL);
 }
 
-
 void win_timer(int millisecs)
 {
     win_flush();
@@ -568,7 +567,6 @@ void win_setbgnd(int name, glui32 color)
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
 
-//void win_sound_notify(glui32 snd, glui32 notify)
 void win_sound_notify(int snd, int notify)
 {
 #ifdef DEBUG
@@ -601,7 +599,6 @@ void win_setreverse(int name, int reverse)
     win_flush();
     sendmsg(SETREVERSE, name, reverse, 0, 0, 0, 0, NULL);
 }
-
 
 void win_reset()
 {

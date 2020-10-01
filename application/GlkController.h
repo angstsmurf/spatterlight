@@ -4,11 +4,9 @@
  * An NSWindowController that controls the game window,
  * talks with the interpreter process,
  * handles global glk commands,
- * dispatches sound channel and window commands,
+ * dispatches window commands,
  * queues events for sending to the interpreter.
  *
- * TODO: cache resources (in raw format) so findimage/findsound
- *       will succeed for more than just the last one uploaded.
  */
 
 #import <QuartzCore/QuartzCore.h>
@@ -16,7 +14,6 @@
 @class Game, Theme;
 
 #define MAXWIN 64
-#define MAXSND 32
 
 @interface GlkHelperView : NSView {
 }
@@ -55,12 +52,10 @@
     /* the glk objects */
     BOOL windowdirty; /* the contentView needs to repaint */
 
-    /* image/sound resource uploading protocol */
+    /* image resource uploading protocol */
     NSInteger lastimageresno;
-    NSInteger lastsoundresno;
     NSCache *imageCache;
     NSImage *lastimage;
-    NSData *lastsound;
 
     GlkController *restoredController;
     GlkController *restoredControllerLate;
@@ -119,7 +114,6 @@
 @property(readonly) BOOL supportsAutorestore;
 @property(readonly) BOOL inFullscreen;
 @property NSColor *bgcolor;
-
 
 // To fix scrolling in the Adrian Mole games
 @property BOOL shouldScrollOnCharEvent;
