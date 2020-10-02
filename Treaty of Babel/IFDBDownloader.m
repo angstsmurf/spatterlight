@@ -22,8 +22,6 @@
 }
 
 - (BOOL)downloadMetadataForTUID:(NSString*)tuid {
-//    NSLog(@"libctl: downloadMetadataForTUID %@", tuid);
-
     if (!tuid || tuid.length == 0)
         return NO;
 
@@ -32,8 +30,6 @@
 }
 
 - (BOOL)downloadMetadataForIFID:(NSString*)ifid {
-//    NSLog(@"libctl: downloadMetadataForIFID %@", ifid);
-
     if (!ifid || ifid.length == 0)
         return NO;
 
@@ -123,7 +119,6 @@
 
     fetchRequest.entity = [NSEntityDescription entityForName:@"Image" inManagedObjectContext:_context];
 
-
     fetchRequest.includesPropertyValues = NO; //only fetch the managedObjectID
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
 
@@ -136,7 +131,7 @@
         NSLog(@"Found more than one Image with originalURL %@",imgurl);
     }
     else if (fetchedObjects.count == 0) {
-//        NSLog(@"fetchImageForURL: Found no previously loaded Image object with url %@", imgurl);
+    // Found no previously loaded Image object with url imgurl
         return nil;
     }
 
