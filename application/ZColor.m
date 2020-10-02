@@ -25,7 +25,6 @@ fprintf(stderr, "%s\n",                                                    \
         _fg = fg;
         _bg = bg;
     }
-
     return self;
 }
 
@@ -44,15 +43,9 @@ fprintf(stderr, "%s\n",                                                    \
     if (_fg >= 0) {
         dict[NSForegroundColorAttributeName] = [NSColor colorFromInteger:_fg];
     }
-    //    else {
-    //        [dict removeObjectForKey:NSForegroundColorAttributeName];
-    //    }
     if (_bg >= 0) {
         dict[NSBackgroundColorAttributeName] = [NSColor colorFromInteger:_bg];
     }
-    //    else {
-    //        [dict removeObjectForKey:NSBackgroundColorAttributeName];
-    //    }
     return dict;
 }
 
