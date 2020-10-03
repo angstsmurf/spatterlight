@@ -571,7 +571,7 @@ void print_colorname(int c)
 void hugo_settextcolor(int c)
 {
 //    LOG("hugo_settextcolor %d Glk:(%x, %d) \n", c, hugo_color(c), hugo_color(c));
-    print_colorname(c);
+//    print_colorname(c);
     if (curwin) {
         wins[curwin].fg = c;
     } else {
@@ -1140,7 +1140,7 @@ void hugo_clearwindow(void)
                     second_image_row = 0;
                 }
             } else {
-                LOG("   win %d has no Glk counterpart (yet), so won't actually be cleared or colored.\n", i);
+//                LOG("   win %d has no Glk counterpart (yet), so won't actually be cleared or colored.\n", i);
             }
 
             wins[i].clear = 1;
@@ -1316,9 +1316,9 @@ void heglk_sizeifexists(int i)
             wins[i].y1 = wins[i].y0 + gcellh;
         }
         win_sizewin(wins[i].win->peer, wins[i].x0, wins[i].y0, wins[i].x1, wins[i].y1);
-        LOG("glk_sizeifexists: Resized window %d to %d %d %d %d\n", i, wins[i].x0, wins[i].y0, wins[i].x1, wins[i].y1);
+//        LOG("glk_sizeifexists: Resized window %d to %d %d %d %d\n", i, wins[i].x0, wins[i].y0, wins[i].x1, wins[i].y1);
     } else {
-        LOG("glk_sizeifexists: Window %d has no Glk counterpart!\n", i);
+//        LOG("glk_sizeifexists: Window %d has no Glk counterpart!\n", i);
     }
 }
 
@@ -1344,7 +1344,7 @@ int heglk_adjust_pre_24_status_when_setting_window(int bottom)
 
 int heglk_push_down_main_window_to(int y)
 {
-    LOG("heglk_push_down_main_window_to %d\n", y);
+    LOG("heglk_push_down_main_window_to %d (main window:%d)\n", y, mainwin);
     if (!mainwin || !y)
     {
         return y;
@@ -1622,7 +1622,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         /* Pre-v2.4 didn't support proper windowing */
         && (game_version >= 24 || !inwindow))
     {
-        LOG("Detected that we are setting an aux window. Or is it the main window?\n");
+//        LOG("Detected that we are setting an aux window. Or is it the main window?\n");
 
         in_valid_window = false;
 
@@ -1634,7 +1634,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
             type = ISAUX;
         }
         else {
-            LOG("It is the main window, actually.\n");
+//            LOG("It is the main window, actually.\n");
             // type ISMAIN is the default
             if (left == 1 && top == 1 && right >= INFINITE && bottom >= INFINITE)
             {
@@ -1848,7 +1848,8 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         if (type == ISMAIN)
         {
             mainwin = curwin;
-        } else if (type == ISSTATUS)
+        }
+        else if (type == ISSTATUS)
         {
             statuswin = curwin;
             wins[curwin].fg = DEF_SLFCOLOR;
@@ -1862,7 +1863,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         wins[curwin].papercolor = wins[curwin].bg;
         lastbg = -1;
     } else {
-        LOG("Reused window context %d\n", curwin);
+//        LOG("Reused window context %d\n", curwin);
     }
 
     wins[curwin].isaux = (type == ISAUX);
@@ -2682,7 +2683,6 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             LOG("hugo_displaypicture: draw image: x offset %d, y offset %d, width %d, height %d\n", xoff, yoff, width, height);
             win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height);
             wins[curwin].clear = 0;
-
         }
     }
 
