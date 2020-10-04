@@ -1,5 +1,22 @@
 # Change log
 
+## Unreleased
+
+- Future Boy window resizing less broken
+- Changes to the UI, such as window resizing, text entry, and scroll position, are now autosaved even if they happen after the interpreter autosaves, or on the first turn, before the first actual autosave of the game
+- More robust autosaving with stricter version control. In principle, only one UI autosave file can be used with one particular interpreter autosave, and  that is now enforced properly
+- Entering and exiting fullscreen should be less error-prone
+- Images are now cached, although there appears to be no performance difference
+- Finished games will still respond to some preference changes, such as fonts and colors
+- Eleminated flicker in TADS 3 status bar
+- Partial text color support in TADS 3
+- Reduced flicker when adding and removing windows, noticeable in Cryptozookeeper
+- Game detection is now case-insensitive
+- It is again possible to set status window to height 0. This fixes gntests.z5
+- Prevent side view text from changing color when selected in dark mode
+- Made Save scrollback and Clear scrollback work more reliably. Save scrollback now saves readable text also in dark mode
+- Added font license to Help menu
+
 ## Release 0.5.13b
 
 - Improved Hugo support, with working images, sound and colours
