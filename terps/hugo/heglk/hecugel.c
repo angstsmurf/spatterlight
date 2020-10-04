@@ -86,7 +86,11 @@ struct winctx
     int halfscreenwidth;   /* is this window supposed to be half screen width?*/
     int peggedtoright;     /* is this window supposed to be attached to right edge?*/
     int wasmoved;          /* was this window moved when the player adjusted window size?*/
+    int screenheight_at_creation;
     int screenwidth_at_creation;
+    char *filename;
+    size_t offset;
+    size_t length;
 };
 
 static struct winctx wins[MAXWINS]; // For simplicity, this starts at 1. Index 0 is not used.
@@ -117,8 +121,20 @@ static int second_image_row = 0; // Typically a border image or line below the i
 static int guilty_bastards_graphics_win = 0;
 static int guilty_bastards_aux_win = 0;
 
-static int future_boy_main_image = 0;
-static int future_boy_main_image_right = false;
+#define FB_ALIGNMENT_LEFT 0
+#define FB_ALIGNMENT_RIGHT 1
+
+#define FB_IMAGE_MAIN 0
+#define FB_IMAGE_SUB_1 1
+#define FB_IMAGE_SUB_2 2
+#define FB_IMAGE_COMPASS 3
+#define FB_IMAGE_LINE 4
+#define FB_STATUS 5
+#define FB_MAIN 6
+#define FB_IMAGE_UNKNOWN 99
+
+static int future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+static int future_boy_line = 0;
 
 static int menutop = 0;
 
@@ -141,7 +157,6 @@ static int istetris = false;
 static int istraveling = false;
 static int isworldbuilder = false;
 
-static int showing_futureboy_title = false;
 static int showing_author_photo = false;
 
 static int keypress = 0;
@@ -166,6 +181,8 @@ static void heglk_ensure_menu(void);
 static int heglk_find_attached_at_top(int top);
 static int heglk_find_attached_to_left(int left);
 static void heglk_adjust_guilty_bastards_windows(void);
+static void heglk_adjust_future_boy_windows(void);
+static int heglk_id_future_boy_images(int left, int top, int right, int bottom, int screenwidth, int screenheight);
 
 #define MAXRES 1024
 
@@ -975,6 +992,7 @@ void hugo_clearfullscreen(void)
     auxwin = 0;
     below_status = 0;
     second_image_row = 0;
+    future_boy_line = 0;
 
     /* create initial fullscreen window */
     hugo_settextwindow(1, 1,
@@ -1008,45 +1026,30 @@ int isfullscreen(struct winctx ctx)
          || (ctx.l == 1 && ctx.r == SCREENWIDTH && ctx.t == 1 && ctx.b == SCREENHEIGHT));
 }
 
-void checkfutureboyoverlap(int left, int top, int right, int bottom)
-{
-    int i, quarter, quadrant, req_quadrant;
-    // Bail if requested window is lower than main window
-    if ((mainwin && top >= wins[mainwin].t) || !isfutureboy)
-        return;
+int heglk_clear_future_boy_type(int type, int not_this) {
+    if (!isfutureboy)
+        return 0;
+    if (type == FB_IMAGE_UNKNOWN || type == FB_MAIN || type == FB_STATUS || type == FB_IMAGE_LINE)
+        return 0;
+    int result = 0;
 
-    int width = right - left;
-    int height = bottom - top;
-    // First, we check if this is the large main image
-    if (((width > 30 && width < 50 && height > 9 && height < 15) || (screenwidth_in_chars < 60 && ABS(screenwidth_in_chars / 2 - width) < 3))) {
-        if (wins[future_boy_main_image].wasmoved && ((left > screenwidth_in_chars / 2 && future_boy_main_image_right) ||
-            (left <= screenwidth_in_chars / 2 && !future_boy_main_image_right)))
-            wins[future_boy_main_image].clear = 1;
-            return;
-    }
-
-    quarter = screenwidth_in_chars / 4;
-    if (future_boy_main_image_right)
-        req_quadrant = left / quarter;
-    else
-        req_quadrant = right / quarter;
-
-    for (i = 1; i < nwins; i++)
+    for (int i = 1; i < nwins; i++)
     {
-        quarter = wins[i].screenwidth_at_creation / 4;
-
-        if (future_boy_main_image_right)
-            quadrant = wins[i].l / quarter;
-        else
-            quadrant = wins[i].r / quarter;
-
-        if (wins[i].wasmoved && wins[i].win && wins[i].win->type == wintype_Graphics && req_quadrant == quadrant && ABS(wins[i].r - wins[i].l) <= quarter && wins[i].t < wins[mainwin].t) {
+        if (i == not_this)
+            continue;
+        else if (heglk_id_future_boy_images(wins[i].l, wins[i].t, wins[i].r, wins[i].b, wins[i].screenwidth_at_creation,  wins[i].screenheight_at_creation) == type) {
             wins[i].clear = 1;
-            return;
+            if (wins[i].win)
+                gli_delete_window(wins[i].win);
+            wins[i].win = 0;
+            if (wins[i].filename != NULL) {
+                free(wins[i].filename);
+                wins[i].filename = NULL;
+            }
+            result = 1;
         }
     }
-
-    return;
+    return result;
 }
 
 /* Clear the currently defined window, move the cursor to the top-left
@@ -1074,6 +1077,12 @@ void hugo_clearwindow(void)
 
     LOG("hugo_clearwindow %d: l:%d t:%d r:%d b:%d\n",curwin, l, t, r, b);
 //    LOG("hugo_clearwindow bg = %d (0x%x, %d)\n", wins[curwin].bg, hugo_color(wins[curwin].bg), hugo_color(wins[curwin].bg));
+
+    if (isfutureboy) {
+        int type = heglk_id_future_boy_images(l, t, r, b, screenwidth_in_chars, screenheight_in_chars);
+        if (heglk_clear_future_boy_type(type, -1))
+            return;
+    }
 
     if (curwin == nlbufwin)
     {
@@ -1186,7 +1195,10 @@ static void hugo_unmapcleared(void)
             LOG(" + unmap window %d\n", i);
             gli_delete_window(wins[i].win);
             wins[i].win = NULL;
-
+            if (wins[i].filename != NULL) {
+                free(wins[i].filename);
+                wins[i].filename = NULL;
+            }
             if (i == statuswin)
                 statuswin = 0;
             if (i == below_status)
@@ -1285,6 +1297,7 @@ void hugo_handlearrange(void)
         win_sizewin(wins[mainwin].win->peer, wins[mainwin].x0, wins[mainwin].y0, wins[mainwin].x1, wins[mainwin].y1);
     }
 
+    heglk_adjust_future_boy_windows();
     heglk_adjust_guilty_bastards_windows();
 }
 
@@ -1545,6 +1558,192 @@ void heglk_adjust_guilty_bastards_windows(void)
     heglk_sizeifexists(guilty_bastards_aux_win);
 }
 
+int heglk_id_future_boy_images(int left, int top, int right, int bottom, int screenwidth, int screenheight) {
+
+    if (right >= INFINITE)
+        right = screenwidth;
+
+    int width = right - left;
+    int height = bottom - top;
+
+    int verticalmiddle = screenheight / 2;
+    int horizontalmiddle = screenwidth / 2;
+
+    if (bottom >= INFINITE) {
+        return FB_MAIN;
+    }
+
+    if (top > 3 && top == bottom && left == 1 && right == screenwidth) {
+        return FB_IMAGE_LINE;
+    }
+
+    if (top > verticalmiddle) {
+        if (bottom >= INFINITE) {
+            return FB_MAIN;
+        }
+        return FB_IMAGE_UNKNOWN;
+    }
+
+    if (width < screenwidth && width >= screenwidth / 2) {
+        //This is the main image
+        if (left != 1) {
+            future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
+        } else future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+        return FB_IMAGE_MAIN;
+    }
+
+    if (width <= screenwidth / 4 && height > screenheight * 0.15) {
+        if (right == screenwidth || left == 1) {
+            if (left == 1) {
+                future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
+            } else future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+            return FB_IMAGE_SUB_2;
+        }
+
+        if (left < horizontalmiddle && left != 1) {
+            future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
+        } else future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+        return FB_IMAGE_SUB_1;
+    }
+
+    if (top == 2 && width <= (screenwidth / 4) && height <= screenheight * 0.15) {
+        if (left < 3) {
+            future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
+        } else {
+            future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+        }
+        return FB_IMAGE_COMPASS;
+    }
+
+    if (top == 1 && bottom < 3) {
+        return FB_STATUS;
+    }
+
+    LOG("Did not recognize this as a Future boy image.\n");
+    return FB_IMAGE_UNKNOWN;
+}
+
+void heglk_adjust_single_future_boy_image(int type, int i, int alignment, int should_draw) {
+
+    int x0, y0, x1, y1;
+    int upper_bound = gcellh + ggridmarginy * 2;
+    int lower_bound = (screenheight_in_chars / 2) * gcellh;
+    int compass_height = gscreenh * 0.12;
+
+    int large_image_edge = gscreenw * 0.53;
+
+    x0 = 0;
+    x1 = gscreenw;
+    y0 = upper_bound;
+    y1 = lower_bound;
+
+    switch (type) {
+        case FB_IMAGE_MAIN:
+            x1 = large_image_edge;
+            break;
+        case FB_IMAGE_SUB_1:
+            y1 = lower_bound - compass_height;
+            x0 = large_image_edge + gcellw;
+            x1 = x0 + gscreenw * 0.21;
+            break;
+        case FB_IMAGE_SUB_2:
+            x0 = x1 - gscreenw * 0.21;
+            y0 = upper_bound + compass_height;
+            break;
+        case FB_IMAGE_LINE:
+            y0 = lower_bound;
+            y1 = y0 + gcellh;
+            wins[mainwin].y0 = y1;
+            wins[mainwin].y1 = gscreenh;
+            heglk_sizeifexists(mainwin);
+            break;
+        case FB_IMAGE_COMPASS:
+            y1 = y0 + compass_height;
+            x0 = x1 - gscreenw * 0.21;
+            break;
+        case FB_STATUS:
+            y0 = 0;
+            y1 = upper_bound;
+            break;
+        case FB_MAIN:
+            y0 = lower_bound + gcellh;
+            y1 = gscreenh;
+            break;
+        default:
+            LOG("heglk_adjust_single_future_boy_image: could not identify image. returning.\n");
+            return;
+    }
+
+    if (alignment == FB_ALIGNMENT_RIGHT) {
+        int temp = x0;
+        x0 = gscreenw - x1;
+        x1 = gscreenw - temp;
+    }
+
+    wins[i].x0 = x0;
+    wins[i].x1 = x1;
+    wins[i].y0 = y0;
+    wins[i].y1 = y1;
+    wins[i].clear = 0;
+
+    if (type == FB_STATUS || type == FB_MAIN || !should_draw)
+        return;
+
+    if (wins[i].filename == NULL) {
+        LOG("Window %d (type %d) has no filename!\n", i, type);
+        wins[i].clear = 1;
+        if (wins[i].win) {
+            gli_delete_window(wins[i].win);
+            wins[i].win = NULL;
+        }
+        return;
+    }
+
+    win_loadimage(wins[i].offset + wins[i].length, wins[i].filename, wins[i].offset, wins[i].length);
+    glui32 origwidth, origheight;
+    win_sizeimage(&origwidth, &origheight);
+
+    float aspect = (float) origheight / origwidth;
+    if (origwidth > x1 - x0) {
+        origwidth = x1 - x0;
+        origheight = origwidth * aspect;
+    }
+
+    if (origheight > y1 - y0)
+    {
+        origheight = y1 - y0;
+        origwidth = origheight / aspect;
+    }
+
+    int xoff = (x1 - x0 - origwidth) / 2;
+    int yoff = (y1 - y0 - origheight) / 2;
+
+    if (wins[i].win) {
+        gli_delete_window(wins[i].win);
+    }
+    wins[i].win = gli_new_window(wintype_Graphics, 0);
+
+    heglk_sizeifexists(i);
+    win_fillrect(wins[i].win->peer, hugo_color(wins[i].bg), 0, 0, abs(x1-x0), abs(y1-y0));
+    win_drawimage(wins[i].win->peer, xoff, yoff, origwidth, origheight);
+    win_maketransparent(wins[i].win->peer);
+}
+
+void heglk_adjust_future_boy_windows() {
+    if (!isfutureboy)
+        return;
+    int type;
+    for (int i = 1; i < nwins; i ++)
+    {
+        if (wins[i].clear)
+            continue;
+        type = heglk_id_future_boy_images(wins[i].l, wins[i].t, wins[i].r, wins[i].b, wins[i].screenwidth_at_creation, wins[i].screenheight_at_creation);
+
+        heglk_sizeifexists(i);
+        heglk_adjust_single_future_boy_image(type, i, future_boy_graphics_alignment, 1);
+    }
+}
+
 void hugo_settextwindow(int left, int top, int right, int bottom)
 {
     int x0, y0, x1, y1;
@@ -1612,9 +1811,6 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         LOG("hugo_settextwindow: Found more than one match! (%d)\n", matches);
     }
 
-    if (isfutureboy  && !curwin)
-        checkfutureboyoverlap(left, top, right, bottom);
-
     /* unmap old unused windows that are cleared */
     hugo_unmapcleared();
 
@@ -1626,10 +1822,9 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 
         in_valid_window = false;
 
-        /* Glk-illegal floating window; setting currentwin
-         to NULL will tell hugo_print() not to print in it:
+        /* Glk-illegal floating window
          */
-        if (bottom < physical_windowbottom/FIXEDLINEHEIGHT+1 || (isfutureboy && bottom < INFINITE))
+        if (bottom < physical_windowbottom/FIXEDLINEHEIGHT+1)
         {
             type = ISAUX;
         }
@@ -1714,7 +1909,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
             if (gscreenw - x1 < 3 * gcellw || right > screenwidth_in_chars - 1)
                 x1 = gscreenw;
 
-            if (ABS((right - left) - (screenwidth_in_chars / 2)) < 2) //&& !isfutureboy)
+            if (ABS((right - left) - (screenwidth_in_chars / 2)) < 2 && !isfutureboy)
             {
                 x1 = x0 + gscreenw / 2;
                 halfscreenwidth = true;
@@ -1754,8 +1949,6 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
             y1 = y0 + gcellh * (bottom - top);
             if (y1 == y0)
                 y1 += gcellh;
-
-//            LOG("statuswin = %d wins[statuswin].b = %d top = %d ABS(top - wins[statuswin].b) = %d\n", statuswin, wins[statuswin].b, top, ABS(top - wins[statuswin].t));
 
             if (statuswin && ABS(top - wins[statuswin].b) < 2)
             {
@@ -1839,6 +2032,8 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         wins[curwin].wasmoved = false;
 
         wins[curwin].screenwidth_at_creation = screenwidth_in_chars;
+        wins[curwin].screenheight_at_creation = screenheight_in_chars;
+        wins[curwin].filename = NULL;
 
         if (screen_bg != -1)
             wins[curwin].bg = screen_bg;
@@ -1891,54 +2086,14 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     if (x1 > gscreenw)
         x1 = gscreenw;
 
-//    int changed = false;
-//    if (reused)
-//    {
-//        LOG("hugo_settextwindow: Old values of ctx %d: l:%d t:%d r:%d b:%d, x0:%d y0:%d x1:%d y1:%d\n", curwin, wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1, wins[curwin].y1);
-//        if (wins[curwin].l != left) {
-//            LOG("wins[curwin].l was changed from %d to %d\n", wins[curwin].l, left);
-//            changed = true;
-//        }
-//        if (wins[curwin].t != top) {
-//            LOG("wins[curwin].t was changed from %d to %d\n", wins[curwin].t, top);
-//            changed = true;
-//        }
-//        if (wins[curwin].r != right) {
-//            LOG("wins[curwin].r was changed from %d to %d\n", wins[curwin].r, right);
-//            changed = true;
-//        }
-//        if (wins[curwin].b != bottom) {
-//            LOG("wins[curwin].r was changed from %d to %d\n", wins[curwin].b, bottom);
-//            changed = true;
-//        }
-//        if (wins[curwin].x0 != x0) {
-//            LOG("wins[curwin].x0 was changed from %d to %d\n", wins[curwin].x0, x0);
-//            changed = true;
-//        }
-//        if (wins[curwin].y0 != y0) {
-//            LOG("wins[curwin].y0 was changed from %d to %d\n", wins[curwin].y0, y0);
-//            changed = true;
-//        }
-//        if (wins[curwin].x1 != x1) {
-//            LOG("wins[curwin].x1 was changed from %d to %d\n", wins[curwin].x1, x1);
-//            changed = true;
-//        }
-//        if (wins[curwin].y1 != y1) {
-//            LOG("wins[curwin].y1 was changed from %d to %d\n", wins[curwin].y1, y1);
-//            changed = true;
-//        }
-//        if (!changed) {
-//            LOG("hugo_settextwindow: No values were changed in reused context!\n");
-//        }
-//    }
-
-    /* The prevents Future Boy images from getting shrunk to 1-character-size */
-    if (y1 <= y0)
-        y1 = y0 + (bottom - top) * gcellh;
-    if (y1 <= y0)
-        y1 = y0 + gcellh;
     // If we reuse the context,
     // most of these should will have the right value already...
+
+    if (future_boy_line && y1 >= wins[future_boy_line].y0 && bottom == wins[future_boy_line].t) {
+        y1 = wins[future_boy_line].y0;
+        LOG("Someone tried to print over the Future Boy line!\n");
+    }
+
     wins[curwin].l = left;
     wins[curwin].t = top;
     wins[curwin].r = right;
@@ -1947,6 +2102,8 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     wins[curwin].y0 = y0;
     wins[curwin].x1 = x1;
     wins[curwin].y1 = y1;
+    wins[curwin].screenwidth_at_creation = screenwidth_in_chars;
+    wins[curwin].screenheight_at_creation = screenheight_in_chars;
 
 //    LOG("hugo_settextwindow (%d): l:%d t:%d r:%d b:%d was translated to x0:%d y0:%d x1:%d y1:%d\n", curwin, origleft, origtop, origright, origbottom, x0, y0, x1, y1);
 
@@ -1999,11 +2156,6 @@ void hugo_settextpos(int x, int y)
             LOG(" move in buffer window, Guilty bastards. x:%d y:%d\n", x, y);
             return;
         }
-        if (showing_futureboy_title)
-        {
-            LOG(" move in buffer window, showing Future Boy! title\n");
-            return;
-        }
 
         if (showing_author_photo)
         {
@@ -2019,6 +2171,9 @@ void hugo_settextpos(int x, int y)
             showing_author_photo = 0;
             return;
         }
+
+        if (isfutureboy)
+            return;
 
         LOG("  move in buffer window. unmap.\n");
         if (!wins[curwin].clear && !wins[curwin].isaux && !isfutureboy)
@@ -2079,6 +2234,7 @@ static void hugo_mapcurwin()
         else
             glk_stylehint_clear(wintype_TextBuffer, style_Input, stylehint_TextColor);
 
+        // Make input readable on the opening screen of Will The Real Marjorie Hopkirk Please Stand Up?
         if (ismarjorie && wins[curwin].fg == DEF_FCOLOR && gfgcol == 0 && wins[curwin].bg == 0)
         {
             glk_stylehint_set(wintype_TextBuffer, style_Input, stylehint_TextColor, hugo_color(HUGO_WHITE));
@@ -2413,7 +2569,7 @@ void hugo_font(int f)
 
     if (! ( f & PROP_FONT ) )
     {
-        if ((ishtg || isworldbuilder) && wins[curwin].win && wins[curwin].win->type == wintype_TextBuffer) // || ismarjorie
+        if ((ishtg || isworldbuilder) && wins[curwin].win && wins[curwin].win->type == wintype_TextBuffer)
         {
             return;
         }
@@ -2434,9 +2590,45 @@ int hugo_hasgraphics(void)
     return glk_gestalt(gestalt_Graphics, 0) && glk_gestalt(gestalt_DrawImage, wintype_TextBuffer);
 }
 
+
+int heglk_detect_fb_graphics(int width, int height) {
+    if (!isfutureboy)
+        return FB_IMAGE_UNKNOWN;
+    int alignment = future_boy_graphics_alignment;
+    int type = heglk_id_future_boy_images(wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, screenwidth_in_chars, screenheight_in_chars);
+    future_boy_graphics_alignment = alignment;
+    if (width > 400 && width < 450 && height > 250 && height < 300) {
+        if (wins[curwin].l < 3)
+            future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+        else
+            future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
+//        // Future Boy main image
+        type = FB_IMAGE_MAIN;
+    } else if (width > 170 && width < 180 && height > 180 && height < 190) {
+        // Future Boy sub image;
+    } else if (width > 120 && width < 140 && height > 50 && height < 70) {
+        //Compass image
+        if (wins[curwin].l < 3)
+            future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
+        else
+            future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+        type = FB_IMAGE_COMPASS;
+    } else if (width > 1020 && width < 1100 && height > 5 && height < 10) {
+        //Line image
+        future_boy_line = curwin;
+        type = FB_IMAGE_LINE;
+    } else {
+        LOG("Future Boy unknown image kind: width:%d height:%d\n", width, height);
+    }
+   if (type != FB_IMAGE_UNKNOWN && type != FB_MAIN && type != FB_STATUS) {
+        heglk_clear_future_boy_type(type, curwin);
+    }
+    return type;
+}
+
 int hugo_displaypicture(HUGO_FILE infile, long reslength)
 {
-    glui32 width, height, origwidth;
+    glui32 width, height, origwidth, origheight;
     int oldx = 0;
 
     if (hugo_hasgraphics())
@@ -2449,6 +2641,9 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                 oldx = mainctx.x0 + mainctx.curx * gcellw;
             }
         }
+
+        if (isfutureboy)
+            below_status = 0;
 
         if (curwin == below_status && statuswin)
         {
@@ -2464,15 +2659,15 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
         int file_offset = glk_stream_get_position(infile);
         int fake_image_id = file_offset + reslength;
         win_loadimage(fake_image_id, infile->filename, file_offset, reslength);
+        wins[curwin].offset = file_offset;
+        wins[curwin].length = reslength;
+        wins[curwin].filename = malloc(strlen(infile->filename));
+        strcpy(wins[curwin].filename , infile->filename);
 
         win_sizeimage(&width, &height);
 
         origwidth = width;
-
-        if (isfutureboy && width == 600 && height == 320)
-            showing_futureboy_title = true;
-        else
-            showing_futureboy_title = false;
+        origheight = height;
 
         if (ishtg && (reslength == 3501 || reslength == 4117))
             showing_author_photo = true;
@@ -2549,6 +2744,8 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             height = y1 - y0;
             width = height / aspect;
         }
+
+        heglk_detect_fb_graphics(origwidth, origheight);
 
         int xoff = ((x1 - x0) - width) / 2;
         int yoff = ((y1 - y0) - height) / 2;
@@ -2644,30 +2841,16 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                 wins[curwin].win = 0;
             }
 
-            if (isfutureboy && ((width > 30 && width < 50 && height > 9 && height < 15) || (screenwidth_in_chars < 60 && ABS(screenwidth_in_chars / 2 - width) < 3))) {
-                future_boy_main_image = curwin;
-                future_boy_main_image_right = (wins[curwin].l > screenwidth_in_chars / 2);
-                LOG("  Decided that the current image is Future Boy main image (%d)\n", curwin);
-                if (future_boy_main_image_right)
-                    LOG("  and that it is right-aligned\n");
-                else
-                    LOG("  and that it is left-aligned\n");
-
-                if (x1 - x0 < (wins[curwin].r - wins[curwin].l) * gcellw) {
-                    x1 = (wins[curwin].r - wins[curwin].l) * gcellw + x0;
-                    y1 = (wins[curwin].b - wins[curwin].t) * gcellh + y0;
-                }
-            }
+            LOG("  hugo_displaypicture %d: x0:%d y0:%d x1:%d y1:%d\n", curwin, x0 , y0, x1, y1);
+            wins[curwin].x0 = x0;
+            wins[curwin].y0 = y0;
+            wins[curwin].x1 = x1;
+            wins[curwin].y1 = y1;
 
             wins[curwin].win = gli_new_window(wintype_Graphics, 0);
             win_sizewin(wins[curwin].win->peer,
                         x0, y0,
                         x1, y1);
-
-            wins[curwin].x0 = x0;
-            wins[curwin].y0 = y0;
-            wins[curwin].x1 = x1;
-            wins[curwin].y1 = y1;
 
             int color = hugo_color(wins[curwin].bg);
 
