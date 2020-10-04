@@ -2282,12 +2282,12 @@ fprintf(stderr, "%s\n",                                                    \
             NSLog(@"BEEP: %d", req->a1);
             if (_theme.doSound) {
                 if (req->a1 == 1) {
-                    NSSound *sound = [NSSound soundNamed:@"Glass"];
+                    NSSound *sound = [NSSound soundNamed:_theme.beepHigh];
                     [sound stop];
                     [sound play];
                 }
                 if (req->a1 == 2) {
-                    NSSound *sound = [NSSound soundNamed:@"Pop"];
+                    NSSound *sound = [NSSound soundNamed:_theme.beepLow];
                     [sound stop];
                     [sound play];
                 }
