@@ -15,12 +15,12 @@
 
 @property (nonatomic) int32_t border;
 @property (nonatomic, retain) id bufferBackground;
+@property (nonatomic) double bufferCellHeight;
+@property (nonatomic) double bufferCellWidth;
 @property (nonatomic) int32_t bufferMarginX;
 @property (nonatomic) int32_t bufferMarginY;
 @property (nonatomic) double cellHeight;
 @property (nonatomic) double cellWidth;
-@property (nonatomic) double bufferCellHeight;
-@property (nonatomic) double bufferCellWidth;
 @property (nonatomic) int32_t dashes;
 @property (nonatomic) int32_t defaultCols;
 @property (nonatomic) int32_t defaultRows;
@@ -43,6 +43,17 @@
 @property (nonatomic, retain) id spacingColor;
 @property (nonatomic) int32_t winSpacingX;
 @property (nonatomic) int32_t winSpacingY;
+@property (nonatomic) int32_t coverArtStyle;
+@property (nonatomic, retain) id borderColor;
+@property (nonatomic, retain) NSString * beepHigh;
+@property (nonatomic, retain) NSString * beepLow;
+@property (nonatomic) BOOL slowDrawing;
+@property (nonatomic) int32_t imageSizing;
+@property (nonatomic) int32_t borderBehavior;
+@property (nonatomic) int32_t bZAdjustment;
+@property (nonatomic) int32_t zMachineTerp;
+@property (nonatomic) BOOL saveOnTimer;
+@property (nonatomic) int32_t bZTerminator;
 @property (nonatomic, retain) GlkStyle *bufAlert;
 @property (nonatomic, retain) GlkStyle *bufBlock;
 @property (nonatomic, retain) GlkStyle *bufEmph;
@@ -54,6 +65,7 @@
 @property (nonatomic, retain) GlkStyle *bufSubH;
 @property (nonatomic, retain) GlkStyle *bufUsr1;
 @property (nonatomic, retain) GlkStyle *bufUsr2;
+@property (nonatomic, retain) Theme *darkTheme;
 @property (nonatomic, retain) NSSet *defaultChild;
 @property (nonatomic, retain) Theme *defaultParent;
 @property (nonatomic, retain) NSSet *games;
@@ -69,8 +81,6 @@
 @property (nonatomic, retain) GlkStyle *gridUsr1;
 @property (nonatomic, retain) GlkStyle *gridUsr2;
 @property (nonatomic, retain) Interpreter *interpreter;
-@property (nonatomic, retain) Game *overrides;
-@property (nonatomic, retain) Theme *darkTheme;
 @property (nonatomic, retain) Theme *lightTheme;
 
 - (Theme *)clone;

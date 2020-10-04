@@ -127,7 +127,8 @@
 		6DB774D72458DD4900EDC671 /* bocfel in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 6DB774A22458B95E00EDC671 /* bocfel */; };
 		6DB8C1E924599DF9002CDCCB /* ZColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB8C1E824599DF8002CDCCB /* ZColor.m */; };
 		6DBC471A21D27E9C00A20E28 /* Compatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC471821D2752000A20E28 /* Compatibility.m */; };
-		6DBC629B23A421BE0066F443 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214823A26078002DEF3B /* Metadata.m */; };
+		6DC1FAEF252A5A5900540C6E /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAEE252A5A5900540C6E /* Metadata.m */; };
+		6DC1FAF5252A5C8A00540C6E /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAF4252A5C8A00540C6E /* Theme.m */; };
 		6DC520AA23BAD54B0004923A /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
 		6DC6213D23A26078002DEF3B /* Ifid.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213C23A26078002DEF3B /* Ifid.m */; };
 		6DC6214023A26078002DEF3B /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
@@ -192,7 +193,6 @@
 		6DE66A3A2500334400DDBDAA /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DE66A002500334400DDBDAA /* types.c */; };
 		6DE66A3C2500334400DDBDAA /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DE66A032500334400DDBDAA /* utils.c */; };
 		6DE66A3E2500334400DDBDAA /* word.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DE66A072500334400DDBDAA /* word.c */; };
-		6DE957B023E3040A003246B6 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE957AF23E3040A003246B6 /* Theme.m */; };
 		6DF73C3523B8F46100F76CF9 /* GlkStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF73C3423B8F46100F76CF9 /* GlkStyle.m */; };
 		961153660A4F365C00BB7FF2 /* htmldb2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152510A4F355800BB7FF2 /* htmldb2.cpp */; };
 		961153670A4F365C00BB7FF2 /* htmldb3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 961152520A4F355800BB7FF2 /* htmldb3.cpp */; };
@@ -1218,6 +1218,11 @@
 		6DBC471721D270B100A20E28 /* Compatibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Compatibility.h; sourceTree = "<group>"; };
 		6DBC471821D2752000A20E28 /* Compatibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Compatibility.m; sourceTree = "<group>"; };
 		6DC144972215D3F6007C0A6B /* spatterstart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spatterstart.h; sourceTree = "<group>"; };
+		6DC1FAEC252A3DB900540C6E /* Spatterlight 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 3.xcdatamodel"; sourceTree = "<group>"; };
+		6DC1FAED252A5A5900540C6E /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metadata.h; sourceTree = "<group>"; };
+		6DC1FAEE252A5A5900540C6E /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Metadata.m; sourceTree = "<group>"; };
+		6DC1FAF3252A5C8A00540C6E /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
+		6DC1FAF4252A5C8A00540C6E /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		6DC520A823BAD54B0004923A /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		6DC520A923BAD54B0004923A /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		6DC6213B23A26078002DEF3B /* Ifid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ifid.h; path = coredata/Ifid.h; sourceTree = SOURCE_ROOT; };
@@ -1228,8 +1233,6 @@
 		6DC6214223A26078002DEF3B /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tag.m; path = coredata/Tag.m; sourceTree = SOURCE_ROOT; };
 		6DC6214423A26078002DEF3B /* Interpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Interpreter.h; path = coredata/Interpreter.h; sourceTree = SOURCE_ROOT; };
 		6DC6214523A26078002DEF3B /* Interpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Interpreter.m; path = coredata/Interpreter.m; sourceTree = SOURCE_ROOT; };
-		6DC6214723A26078002DEF3B /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Metadata.h; path = coredata/Metadata.h; sourceTree = SOURCE_ROOT; };
-		6DC6214823A26078002DEF3B /* Metadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Metadata.m; path = coredata/Metadata.m; sourceTree = SOURCE_ROOT; };
 		6DC79A822455AD4800CD9989 /* hecugel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hecugel.c; path = heglk/hecugel.c; sourceTree = "<group>"; };
 		6DC79B1B24564B2700CD9989 /* mpg123.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mpg123.c; path = support/sdl_sound/decoders/mpg123.c; sourceTree = "<group>"; };
 		6DCDD44B23104AC4006715DD /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
@@ -1367,8 +1370,6 @@
 		6DE66A062500334400DDBDAA /* winargs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = winargs.c; sourceTree = "<group>"; };
 		6DE66A072500334400DDBDAA /* word.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = word.c; sourceTree = "<group>"; };
 		6DE66A082500334400DDBDAA /* word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = word.h; sourceTree = "<group>"; };
-		6DE957AE23E3040A003246B6 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
-		6DE957AF23E3040A003246B6 /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
 		6DF73C3323B8F46100F76CF9 /* GlkStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkStyle.h; sourceTree = "<group>"; };
 		6DF73C3423B8F46100F76CF9 /* GlkStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkStyle.m; sourceTree = "<group>"; };
 		9611524F0A4F355800BB7FF2 /* html_os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html_os.h; sourceTree = "<group>"; };
@@ -3077,18 +3078,18 @@
 		6DCFFC1622BCCF600035FA99 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
+				6DC1FAF3252A5C8A00540C6E /* Theme.h */,
+				6DC1FAF4252A5C8A00540C6E /* Theme.m */,
+				6DC1FAED252A5A5900540C6E /* Metadata.h */,
+				6DC1FAEE252A5A5900540C6E /* Metadata.m */,
 				6DD7679A23E45FB7003B605C /* ThemeArrayController.h */,
 				6DD7679B23E45FB7003B605C /* ThemeArrayController.m */,
-				6DE957AE23E3040A003246B6 /* Theme.h */,
-				6DE957AF23E3040A003246B6 /* Theme.m */,
 				6D76353422C4F113000873F3 /* CoreDataManager.h */,
 				6D76353522C4F113000873F3 /* CoreDataManager.m */,
 				6DC520A823BAD54B0004923A /* Game.h */,
 				6DC520A923BAD54B0004923A /* Game.m */,
 				6DF73C3323B8F46100F76CF9 /* GlkStyle.h */,
 				6DF73C3423B8F46100F76CF9 /* GlkStyle.m */,
-				6DC6214723A26078002DEF3B /* Metadata.h */,
-				6DC6214823A26078002DEF3B /* Metadata.m */,
 				6DC6214423A26078002DEF3B /* Interpreter.h */,
 				6DC6214523A26078002DEF3B /* Interpreter.m */,
 				6DC6214123A26078002DEF3B /* Tag.h */,
@@ -5594,14 +5595,14 @@
 				6DC6214023A26078002DEF3B /* Image.m in Sources */,
 				6DC6214323A26078002DEF3B /* Tag.m in Sources */,
 				6DC6214623A26078002DEF3B /* Interpreter.m in Sources */,
-				6DBC629B23A421BE0066F443 /* Metadata.m in Sources */,
 				6DF73C3523B8F46100F76CF9 /* GlkStyle.m in Sources */,
 				6DC520AA23BAD54B0004923A /* Game.m in Sources */,
-				6DE957B023E3040A003246B6 /* Theme.m in Sources */,
 				6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */,
 				6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */,
 				6DB8C1E924599DF9002CDCCB /* ZColor.m in Sources */,
 				6D212738246BDC4E00D775A8 /* NSColor+integer.m in Sources */,
+				6DC1FAEF252A5A5900540C6E /* Metadata.m in Sources */,
+				6DC1FAF5252A5C8A00540C6E /* Theme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7819,10 +7820,11 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				6DC1FAEC252A3DB900540C6E /* Spatterlight 3.xcdatamodel */,
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = 6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */;
+			currentVersion = 6DC1FAEC252A3DB900540C6E /* Spatterlight 3.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

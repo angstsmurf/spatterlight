@@ -2,7 +2,7 @@
 //  Theme.m
 //  Spatterlight
 //
-//  Created by Petter Sjölund on 2020-01-30.
+//  Created by Petter Sjölund on 2020-10-04.
 //
 //
 
@@ -18,12 +18,12 @@
 
 @dynamic border;
 @dynamic bufferBackground;
+@dynamic bufferCellHeight;
+@dynamic bufferCellWidth;
 @dynamic bufferMarginX;
 @dynamic bufferMarginY;
 @dynamic cellHeight;
 @dynamic cellWidth;
-@dynamic bufferCellHeight;
-@dynamic bufferCellWidth;
 @dynamic dashes;
 @dynamic defaultCols;
 @dynamic defaultRows;
@@ -46,6 +46,17 @@
 @dynamic spacingColor;
 @dynamic winSpacingX;
 @dynamic winSpacingY;
+@dynamic coverArtStyle;
+@dynamic borderColor;
+@dynamic beepHigh;
+@dynamic beepLow;
+@dynamic slowDrawing;
+@dynamic imageSizing;
+@dynamic borderBehavior;
+@dynamic bZAdjustment;
+@dynamic zMachineTerp;
+@dynamic saveOnTimer;
+@dynamic bZTerminator;
 @dynamic bufAlert;
 @dynamic bufBlock;
 @dynamic bufEmph;
@@ -57,6 +68,7 @@
 @dynamic bufSubH;
 @dynamic bufUsr1;
 @dynamic bufUsr2;
+@dynamic darkTheme;
 @dynamic defaultChild;
 @dynamic defaultParent;
 @dynamic games;
@@ -72,8 +84,6 @@
 @dynamic gridUsr1;
 @dynamic gridUsr2;
 @dynamic interpreter;
-@dynamic overrides;
-@dynamic darkTheme;
 @dynamic lightTheme;
 
 - (Theme *)clone {
