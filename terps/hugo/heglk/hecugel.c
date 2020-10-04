@@ -1102,6 +1102,12 @@ void hugo_clearwindow(void)
     {
         if (wins[i].l >= l && wins[i].t >= t && wins[i].r <= r && wins[i].b <= b)
         {
+            if (i == future_boy_line) {
+                int line = wins[future_boy_line].t;
+                if (abs(line - b) < 3 || abs(line - t < 3))
+                    continue;
+            } else future_boy_line = 0;
+
             if (wins[i].win)
             {
                 if (wins[curwin].win && hugo_color(wins[curwin].bg) != -1)
@@ -1553,6 +1559,8 @@ void heglk_adjust_guilty_bastards_windows(void)
         wins[mainwin].y0 = wins[guilty_bastards_graphics_win].y1;
         heglk_sizeifexists(mainwin);
     }
+
+glk_window_set_background_color(wins[guilty_bastards_graphics_win].win, hugo_color(wins[guilty_bastards_graphics_win].bg));
 
     heglk_sizeifexists(guilty_bastards_graphics_win);
     heglk_sizeifexists(guilty_bastards_aux_win);
