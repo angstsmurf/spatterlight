@@ -337,20 +337,24 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.5.13b</string>
+	<string>0.5.14b</string>
 	<key>CFBundleSignature</key>
 	<string>Spat</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.adventure-games</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Spatterlight saves and loads savegames in the Documents folder by default.</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSRequiresAquaSystemAppearance</key>
+	<false/>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -569,9 +573,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>NSRequiresAquaSystemAppearance</key>
-	<false/>
-	<key>NSDocumentsFolderUsageDescription</key>
-	<string>Spatterlight saves and loads savegames in the Documents folder by default.</string>
 </dict>
 </plist>
