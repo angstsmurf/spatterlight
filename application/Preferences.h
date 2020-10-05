@@ -145,5 +145,9 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 @property (strong) IBOutlet NSBox *divider;
 
 @property (strong) IBOutlet NSButton *btnOverwriteStyles;
+@property (strong) IBOutlet NSButton *swapGridColBtn;
+@property (strong) IBOutlet NSButton *swapBufColBtn;
+
+- (IBAction)swapColors:(id)sender;
 
 @end

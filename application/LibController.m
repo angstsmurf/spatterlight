@@ -2321,12 +2321,12 @@ objectValueForTableColumn: (NSTableColumn*)column
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)row {
 
-    CGFloat offset = 1 + (NSAppKitVersionNumber < NSAppKitVersionNumber10_9); //Need to check this
+    CGFloat offset = 1 + (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) * 2; //Need to check this
 
     if (cell == _foundIndicatorCell) {
         NSMutableAttributedString *attstr = [((NSTextFieldCell *)cell).attributedStringValue mutableCopy];
 
-        NSFont *font = [NSFont fontWithName:@"ExclamationCircleNew-Regular" size:14];
+        NSFont *font = [NSFont fontWithName:@"Exclamation Circle New" size:14];
 
         [attstr addAttribute:NSFontAttributeName
                        value:font

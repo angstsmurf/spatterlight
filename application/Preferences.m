@@ -951,6 +951,25 @@ NSString *fontToString(NSFont *font) {
 
     previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
 
+     NSMutableAttributedString *attstr = _swapBufColBtn.attributedStringValue.mutableCopy;
+     NSFont *font = [NSFont fontWithName:@"Exclamation Circle New" size:17];
+
+    [attstr addAttribute:NSFontAttributeName
+                   value:font
+                   range:NSMakeRange(0, attstr.length)];
+
+    [attstr replaceCharactersInRange:NSMakeRange(0,1) withString:@"\u264B"];
+////    [attstr replaceCharactersInRange:NSMakeRange(0,1) withString:@"!"];
+//
+//
+    [attstr addAttribute:NSBaselineOffsetAttributeName
+                   value:@(3)
+                   range:NSMakeRange(0, attstr.length)];
+//
+    _swapBufColBtn.attributedTitle = attstr;
+    _swapGridColBtn.attributedTitle = attstr;
+////    [_swapBufColBtn setAttrbutedTitle::@"\U0000264B"];
+
     if (!theme)
         theme = self.defaultTheme;
 
@@ -1936,6 +1955,23 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 
     [Preferences rebuildTextAttributes];
+}
+
+- (IBAction)swapColors:(id)sender {
+    NSColor *tempCol;
+    if (sender == _swapBufColBtn) {
+        tempCol = clrBufferFg.color;
+        clrBufferFg.color = clrBufferBg.color;
+        clrBufferBg.color = tempCol;
+        [self changeColor:clrBufferFg];
+        [self changeColor:clrBufferBg];
+    } else if (sender == _swapGridColBtn) {
+        tempCol = clrGridFg.color;
+        clrGridFg.color = clrGridBg.color;
+        clrGridBg.color = tempCol;
+        [self changeColor:clrGridFg];
+        [self changeColor:clrGridBg];
+    }
 }
 
 - (IBAction)changeMargin:(id)sender  {
