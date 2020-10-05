@@ -158,6 +158,7 @@ static int istraveling = false;
 static int isworldbuilder = false;
 
 static int showing_author_photo = false;
+static int showing_futureboy_title = false;
 
 static int keypress = 0;
 
@@ -1092,7 +1093,7 @@ void hugo_clearwindow(void)
 
     /* We delete the main window here in order to be able */
     /* to change input text color */
-    if (curwin == mainwin && wins[curwin].win && !isfutureboy)
+    if (curwin == mainwin && wins[curwin].win && !showing_futureboy_title)
     {
         gli_delete_window(wins[curwin].win);
         wins[curwin].win = 0;
@@ -2677,6 +2678,11 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
 
         if (ishtg && (reslength == 3501 || reslength == 4117))
             showing_author_photo = true;
+
+        if (isfutureboy && reslength == 17211)
+            showing_futureboy_title = true;
+        else
+            showing_futureboy_title = false;
 
         LOG("hugo_displaypicture: original image size: width %d height %d , reslength: %ld\n", width, height, reslength);
         float aspect = (float) height / width;
