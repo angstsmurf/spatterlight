@@ -1826,6 +1826,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         previewShown = YES;
         [self resizeWindowToHeight:[self previewHeight]];
     }
+    [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.5];
     [[NSUserDefaults standardUserDefaults] setBool:previewShown forKey:@"ShowThemePreview"];
 }
 
