@@ -959,16 +959,22 @@ NSString *fontToString(NSFont *font) {
                    range:NSMakeRange(0, attstr.length)];
 
     [attstr replaceCharactersInRange:NSMakeRange(0,1) withString:@"\u264B"];
-////    [attstr replaceCharactersInRange:NSMakeRange(0,1) withString:@"!"];
-//
-//
+
+    CGFloat offset = 1 + (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) * 2; //Need to check this
+
     [attstr addAttribute:NSBaselineOffsetAttributeName
-                   value:@(3)
+                   value:@(offset)
                    range:NSMakeRange(0, attstr.length)];
-//
+
+    NSRect butFrame = _swapBufColBtn.frame;
+    butFrame.origin.x -= (NSAppKitVersionNumber > NSAppKitVersionNumber10_9) * 5;
+    _swapBufColBtn.frame = butFrame;
+    butFrame = _swapGridColBtn.frame;
+    butFrame.origin.x -= (NSAppKitVersionNumber > NSAppKitVersionNumber10_9) * 5;
+    _swapGridColBtn.frame = butFrame;
+
     _swapBufColBtn.attributedTitle = attstr;
     _swapGridColBtn.attributedTitle = attstr;
-////    [_swapBufColBtn setAttrbutedTitle::@"\U0000264B"];
 
     if (!theme)
         theme = self.defaultTheme;
