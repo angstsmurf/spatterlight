@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## Release 0.5.14b
 
 - Added color swap buttons to the preferences panel
 - Future Boy window resizing is less broken, and it has less other glitches
