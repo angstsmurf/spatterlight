@@ -205,7 +205,7 @@ static void cleanup_channel(schanid_t chan)
     }
     if (chan->sdl_memory)
     {
-        chan->sdl_memory = 0;
+        chan->sdl_memory = NULL;
     }
     switch (chan->status)
     {
@@ -278,6 +278,7 @@ void glk_schannel_destroy(schanid_t chan)
         next->prev = prev;
 
     free(chan);
+    chan = NULL;
 }
 
 schanid_t glk_schannel_iterate(schanid_t chan, glui32 *rock)
@@ -680,7 +681,12 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
             return 0;
 
         fseek(file, pos, 0);
-        if ((long)fread(*buf, 1, *len, file) != *len && !feof(file)) return 0;
+        if ((long)fread(*buf, 1, *len, file) != *len && !feof(file))
+        {
+            free(*buf);
+            *buf = NULL;
+            return 0;
+        }
     }
 
     if (!type && *buf && *len)
