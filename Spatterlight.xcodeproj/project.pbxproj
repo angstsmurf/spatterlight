@@ -2504,7 +2504,7 @@
 		C35813991ED83E28001E49C4 /* modplug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = modplug.framework; path = Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework; sourceTree = "<group>"; };
 		C358139A1ED83E34001E49C4 /* FLAC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLAC.framework; path = Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/FLAC.framework; sourceTree = "<group>"; };
 		C38101291EDA297E00B87B68 /* GlkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkController.m; sourceTree = "<group>"; };
-		C39DE25F1ECB76A100CE5B70 /* glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glk.c; path = terps/level9/glk.c; sourceTree = SOURCE_ROOT; };
+		C39DE25F1ECB76A100CE5B70 /* glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glk.c; path = terps/level9/Glk/glk.c; sourceTree = SOURCE_ROOT; };
 		C39DE2611ECB76C400CE5B70 /* bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitmap.c; path = terps/level9/bitmap.c; sourceTree = SOURCE_ROOT; };
 		C39DE2631ECB799500CE5B70 /* heglk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heglk.c; path = heglk/heglk.c; sourceTree = "<group>"; };
 		C3A2C66421C0D3F6003C4A15 /* SDL */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SDL; path = headers/SDL; sourceTree = SOURCE_ROOT; };

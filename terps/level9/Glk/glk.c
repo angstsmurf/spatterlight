@@ -1709,7 +1709,7 @@ gln_graphics_clear_and_border (winid_t glk_window,
    */
   glk_window_set_background_color (glk_window, background);
   glk_window_clear (glk_window);
-#ifndef GARGLK
+#if !(defined(GARGLK) || defined(SPATTERLIGHT))
   /*
    * For very small pictures, just border them, but don't try and
    * do any shading.  Failing this check is probably highly unlikely.
@@ -2166,8 +2166,7 @@ gln_graphics_paint_everything (winid_t glk_window,
 			palette[ pixel ],
 			x * GLN_GRAPHICS_PIXEL + x_offset,
 			y * GLN_GRAPHICS_PIXEL + y_offset,
-			GLN_GRAPHICS_PIXEL, GLN_GRAPHICS_PIXEL);
-	    }
+			GLN_GRAPHICS_PIXEL, GLN_GRAPHICS_PIXEL + (y < height - 1)); /* Needed to avoid dark lines on Spatterlight */	    }
 	}
 }
 
@@ -3649,7 +3648,7 @@ gln_status_print (void)
         {
           int index;
 
-#ifndef GARGLK
+#defined(GARGLK) || defined(SPATTERLIGHT)
           /* Set fixed width font to try to preserve status line formatting. */
           glk_set_style (style_Preformatted);
 #endif
@@ -5287,7 +5286,7 @@ gln_expand_abbreviations (char *buffer, int size)
       memmove (command + strlen (expansion) - 1, command, strlen (command) + 1);
       memcpy (command, expansion, strlen (expansion));
 
-#ifndef GARGLK
+#if !(defined(GARGLK) || defined(SPATTERLIGHT))
       gln_standout_string ("[");
       gln_standout_char (abbreviation);
       gln_standout_string (" -> ");
