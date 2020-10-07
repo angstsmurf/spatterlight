@@ -635,7 +635,10 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
         if (resource->loadedflag == TRUE)
         {
             *len = resource->length;
-            *buf = resource->data;
+            if (resource->data)
+                *buf = resource->data;
+            else
+                *buf = NULL;
             type = resource->type;
         }
         else if (resource->filename != NULL && resource->length > 0)
@@ -650,6 +653,8 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
                 {
                     fclose(file);
                     fprintf(stderr, "sndsdl: could not read sound resource from file %s, length %ld, offset %ld\n",resource->filename, resource->length, resource->offset);
+                    free(resource->data);
+                    resource->data = NULL;
                     return 0;
                 }
                 fclose(file);
@@ -732,7 +737,7 @@ void gli_stop_all_sound_channels()
 static glui32 play_mod(schanid_t chan, long len, char *ext)
 {
     FILE *file;
-    char tn[256];
+    char *tn;
     char *tempdir;
     int music_busy, loop;
 
@@ -756,20 +761,22 @@ static glui32 play_mod(schanid_t chan, long len, char *ext)
     chan->status = CHANNEL_MUSIC;
     /* The fscking mikmod lib want to read the mod only from disk! */
     tempdir = getenv("TMPDIR");
-    if (tempdir == NULL) tempdir = ".";
-    //fprintf(stderr, "tempdir = %s\n", tempdir);
-
+    /* malloc size of string tempdir + "XXXXXX.' + 3 letter extension + terminator */
+    tn = malloc(strlen(tempdir) + strlen("XXXXXX.mod") + 1);
     sprintf(tn, "%sXXXXXX", tempdir);
-    mkstemp(tn);
+#if defined(WIN32) || defined(_WIN32) || defined(WINDOWS)
+    _mktemp_s(tn, strlen(tn));
+#else
+    int filehandle = mkstemp(tn);
+    close(filehandle);
+#endif
     sprintf(tn, "%s.%s", tn, ext);
-
-    //fprintf(stderr, "tn = %s\n", tn);
-
     file = fopen(tn, "wb");
     fwrite(chan->sdl_memory, 1, len, file);
     fclose(file);
     chan->music = Mix_LoadMUS(tn);
     remove(tn);
+    free(tn);
     if (chan->music)
     {
         SDL_LockAudio();
@@ -884,10 +891,14 @@ void glk_sound_load_hint(glui32 snd, glui32 flag)
         char *buf = 0;
         /* load sound resource into memory */
         load_sound_resource(snd, &len, &buf);
-    } else if (res)
+    }
+    else if (res)
     {
         if (res->data)
+        {
             free(res->data);
+            res->data = NULL;
+        }
         res->loadedflag = FALSE;
     }
 }
@@ -905,7 +916,7 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
 
     if (!chan)
     {
-        gli_strict_warning("schannel_play_ext: invalid id.");
+        gli_strict_warning("schannel_play_ext: invalid channel.");
         return 0;
     }
 
