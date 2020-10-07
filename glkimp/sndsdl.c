@@ -573,7 +573,6 @@ glui32 gli_detect_sound_format(char *buf, size_t len)
         strncpy(str, buf, len);
         str[len - 1]='\0';
     }
-    fprintf(stderr, "gli_detect_sound_format buf:%s len:%ld\n",str, len);
     /* AIFF */
     if (len > 4 && !memcmp(buf, "FORM", 4))
         return giblorb_ID_FORM;
@@ -644,7 +643,6 @@ static glui32 load_sound_resource(glui32 snd, long *len, char **buf)
         }
         else if (resource->filename != NULL && resource->length > 0)
         {
-            fprintf(stderr, "sndsdl: resource->filename = %s length = %ld offset %ld\n", resource->filename, resource->length, resource->offset);
             FILE *file = fopen(resource->filename, "rb");
             if (file)
             {
