@@ -1,10 +1,10 @@
-/* vi: set ts=2 shiftwidth=2 expandtab: 
+/* vi: set ts=2 shiftwidth=2 expandtab:
  *
  * Copyright (C) 2002-2011  Simon Baldwin, simon_baldwin@yahoo.com
  * Mac portions Copyright (C) 2002  Ben Hines
  *
  * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 2 of the GNU General Public License 
+ * it under the terms of version 2 of the GNU General Public License
  * as published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
@@ -14,8 +14,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  
- * USA 
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
+ * USA
  */
 
 /*
@@ -2166,7 +2166,8 @@ gln_graphics_paint_everything (winid_t glk_window,
 			palette[ pixel ],
 			x * GLN_GRAPHICS_PIXEL + x_offset,
 			y * GLN_GRAPHICS_PIXEL + y_offset,
-			GLN_GRAPHICS_PIXEL, GLN_GRAPHICS_PIXEL + (y < height - 1)); /* Needed to avoid dark lines on Spatterlight */	    }
+			GLN_GRAPHICS_PIXEL, GLN_GRAPHICS_PIXEL + (y < height - 1)); /* Needed to avoid dark lines on Spatterlight */
+	    }
 	}
 }
 
@@ -3648,7 +3649,7 @@ gln_status_print (void)
         {
           int index;
 
-#if defined(GARGLK) || defined(SPATTERLIGHT)
+#if !(defined(GARGLK) || defined(SPATTERLIGHT))
           /* Set fixed width font to try to preserve status line formatting. */
           glk_set_style (style_Preformatted);
 #endif
