@@ -3648,7 +3648,7 @@ gln_status_print (void)
         {
           int index;
 
-#defined(GARGLK) || defined(SPATTERLIGHT)
+#if defined(GARGLK) || defined(SPATTERLIGHT)
           /* Set fixed width font to try to preserve status line formatting. */
           glk_set_style (style_Preformatted);
 #endif
