@@ -597,7 +597,7 @@
 																	<string key="NSIdentifier">forgivenessNumeric</string>
 																	<double key="NSWidth">70</double>
 																	<double key="NSMinWidth">40</double>
-																	<double key="NSMaxWidth">80</double>
+																	<double key="NSMaxWidth">85</double>
 																	<object class="NSTableHeaderCell" key="NSHeaderCell">
 																		<int key="NSCellFlags">75628096</int>
 																		<int key="NSCellFlags2">2048</int>
@@ -796,7 +796,7 @@
 																	<string key="NSIdentifier">lastModified</string>
 																	<double key="NSWidth">80</double>
 																	<double key="NSMinWidth">70</double>
-																	<double key="NSMaxWidth">85</double>
+																	<double key="NSMaxWidth">90</double>
 																	<object class="NSTableHeaderCell" key="NSHeaderCell">
 																		<int key="NSCellFlags">75628096</int>
 																		<int key="NSCellFlags2">2048</int>
@@ -855,7 +855,7 @@
 																	<string key="NSIdentifier">myRating</string>
 																	<double key="NSWidth">65</double>
 																	<double key="NSMinWidth">65</double>
-																	<double key="NSMaxWidth">65</double>
+																	<double key="NSMaxWidth">70</double>
 																	<object class="NSTableHeaderCell" key="NSHeaderCell">
 																		<int key="NSCellFlags">75628096</int>
 																		<int key="NSCellFlags2">2048</int>
