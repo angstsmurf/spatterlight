@@ -1438,7 +1438,7 @@
             if (!different && ![newstyles[i] isEqualToDictionary:styles[i]])
                 different = YES;
         } else
-            [styles addObject:[NSNull null]];
+            [newstyles addObject:[NSNull null]];
     }
 
     if (!self.glkctl.previewDummy) {
