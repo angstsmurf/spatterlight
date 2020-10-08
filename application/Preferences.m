@@ -798,7 +798,7 @@ static Preferences *prefs = nil;
     montserratTheme.bufferBackground = [NSColor whiteColor];
     montserratTheme.editable = NO;
 
-    montserratTheme.gridNormal.font = [NSFont fontWithName:@"PT Sans Narrow" size:15];
+    montserratTheme.gridNormal.font = [NSFont fontWithName:@"PT Sans" size:15];
     montserratTheme.gridNormal.color = [NSColor blackColor];
 
 
