@@ -440,28 +440,46 @@
 - (void)prefsDidChange {
     //    NSLog(@"GlkTextGridWindow %ld prefsDidChange", self.name);
 
-
+    NSDictionary *attributes;
     NSRange selectedRange = textview.selectedRange;
 
     NSUInteger i;
 
-    styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    BOOL different = NO;
+    for (i = 0; i < style_NUMSTYLES; i++) {
+        if (self.theme.doStyles) {
+            // We're doing styles, so we call the current theme object with our hints array
+            // in order to get an attributes dictionary
+            attributes = [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]];
+        } else {
+            // We're not doing styles, so use the raw style attributes from
+            // the theme object's attributeDict object
+            attributes = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict;
+        }
 
-    if (self.theme.doStyles) {
-        for (i = 0; i < style_NUMSTYLES; i++)
-            [styles addObject:[((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]) attributesWithHints:self.styleHints[i]]];
-    } else {
-        for (i = 0; i < style_NUMSTYLES; i++)
-            [styles addObject:((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict];
+        if (_usingStyles != self.theme.doStyles) {
+            different = YES;
+            _usingStyles = self.theme.doStyles;
+        }
+
+        if (attributes) {
+            [newstyles addObject:attributes];
+            if (!different && ![newstyles[i] isEqualToDictionary:styles[i]])
+                different = YES;
+        } else
+            [newstyles addObject:[NSNull null]];
     }
-
-    if (self.glkctl.beyondZork)
-        [self createBeyondZorkStyle];
 
     NSInteger marginX = self.theme.gridMarginX;
     NSInteger marginY = self.theme.gridMarginY;
 
     textview.textContainerInset = NSMakeSize(marginX, marginY);
+
+    if (different) {
+        styles = newstyles;
+    if (self.glkctl.beyondZork)
+        [self createBeyondZorkStyle];
 
     NSUInteger textstoragelength = textstorage.length;
 
@@ -478,8 +496,8 @@
          // styles array
          id styleobject = attrs[@"GlkStyle"];
          if (styleobject) {
-             NSDictionary *attributes = styles[(NSUInteger)[styleobject intValue]];
-             [_bufferTextStorage setAttributes:attributes range:range];
+             NSDictionary *blockattributes = styles[(NSUInteger)[styleobject intValue]];
+             [_bufferTextStorage setAttributes:blockattributes range:range];
          } else NSLog(@"No GlkStyle for range %@!", NSStringFromRange(range));
 
          // Then, we re-add all the "non-Glk" style values we want to keep
@@ -555,6 +573,7 @@
         self.frame = frame;
         [self checkForUglyBorder];
         [self flushDisplay];
+    }
     }
 }
 

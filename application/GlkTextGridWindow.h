@@ -34,6 +34,8 @@
 
 @property NSString *enteredTextSoFar;
 
+@property BOOL usingStyles;
+
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (IBAction)speakStatus:(id)sender;
 - (void)deferredGrabFocus:(id)sender;
