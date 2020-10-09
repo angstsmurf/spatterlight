@@ -1317,7 +1317,7 @@
     _input.attributedStringValue = attString;
 
     MyTextFormatter *inputFormatter =
-    [[MyTextFormatter alloc] initWithMaxLength:cols - xpos - 1];
+    [[MyTextFormatter alloc] initWithMaxLength:maxLength];
     _input.formatter = inputFormatter;
 
     NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:caret options: (NSTrackingActiveAlways | NSTrackingMouseEnteredAndExited) owner:_input userInfo:nil];
