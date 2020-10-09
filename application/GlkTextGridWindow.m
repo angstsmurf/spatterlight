@@ -1322,7 +1322,8 @@
 }
 
 - (void)deferredGrabFocus:(id)sender {
-    [self.window makeFirstResponder:_input];
+    if (_input)
+        [self.window makeFirstResponder:_input];
 }
 
 - (NSString *)cancelLine {
