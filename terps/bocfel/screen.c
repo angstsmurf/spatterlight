@@ -320,7 +320,7 @@ static void cleanup_screen(struct input *input)
    */
   if(curwin == upperwin)
   {
-    /* if(input->term != ZSCII_NEWLINE) upperwin->x += input->len; */
+    if(input->term != ZSCII_NEWLINE) upperwin->x += input->len - input->preloaded;
 
     if(input->term == ZSCII_NEWLINE || upperwin->x >= upper_window_width)
     {
