@@ -1272,7 +1272,7 @@
     NSInteger mx = (NSInteger)textview.textContainerInset.width;
     NSInteger my = (NSInteger)textview.textContainerInset.height;
 
-    NSInteger x0 = (NSInteger)(NSMinX(bounds) + mx + container.lineFragmentPadding);
+    NSInteger x0 = (NSInteger)(NSMinX(bounds) + mx + container.lineFragmentPadding / 2);
     NSInteger y0 = (NSInteger)(NSMinY(bounds) + my);
     CGFloat lineHeight = self.theme.cellHeight;
     CGFloat charWidth = self.theme.cellWidth;
