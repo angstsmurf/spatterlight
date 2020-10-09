@@ -178,9 +178,6 @@ fprintf(stderr, "%s\n",                                                    \
     if ([_game.ifid isEqualToString:@"ZCODE-47-870915"] || [_game.ifid isEqualToString:@"ZCODE-49-870917"] || [_game.ifid isEqualToString:@"ZCODE-51-870923"] || [_game.ifid isEqualToString:@"ZCODE-57-871221"] || [_game.ifid isEqualToString:@"ZCODE-60-880610"])
         _beyondZork = YES;
 
-    if ([_game.ifid isEqualToString:@"ZCODE-6-031116-1D88"] || [_game.ifid isEqualToString:@"ZCODE-7-130320-4A18"])
-        _robotFindsKitten = YES;
-
     if ([_game.ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"])
         _kerkerkruip = YES;
 
