@@ -1286,7 +1286,7 @@
     NSRect caret;
     caret.origin.x = x0 + xpos * charWidth;
     caret.origin.y = y0 + ypos * lineHeight;
-    caret.size.width = maxLength * charWidth;
+    caret.size.width = maxLength * charWidth + container.lineFragmentPadding;
     caret.size.height = lineHeight;
 
     _fieldEditor.frame = caret;
