@@ -2568,6 +2568,8 @@ bool create_upperwin(void)
    */
   if(upperwin->id != NULL) glk_window_close(upperwin->id, NULL);
 
+  mouse_request_active = false;
+
   /* The upper window appeared in V3. */
   if(zversion >= 3)
   {
