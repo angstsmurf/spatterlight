@@ -1366,7 +1366,7 @@ gms_graphics_position_picture (winid_t glk_window,
         gms_graphics_window = glk_window_open (gms_main_window,
                                                winmethod_Above
                                                | winmethod_Fixed,
-                                               height * pixel_size + GMS_GRAPHICS_BORDER * 2 + GMS_GRAPHICS_SHADING + 2 * gcellh,
+                                               height * pixel_size + GMS_GRAPHICS_BORDER * 2 + GMS_GRAPHICS_SHADING + 20,
                                                wintype_Graphics, 0);
         glk_window_get_size (gms_graphics_window, &window_width, &window_height);
     }

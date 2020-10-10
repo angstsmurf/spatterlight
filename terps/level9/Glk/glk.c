@@ -1835,7 +1835,7 @@ gln_graphics_position_picture (winid_t glk_window, int pixel_size,
         gln_graphics_window = glk_window_open (gln_main_window,
                                            winmethod_Above
                                            | winmethod_Fixed,
-                                           height * pixel_size + GLN_GRAPHICS_BORDER * 2 + GLN_GRAPHICS_SHADING + 2 * gcellh,
+                                           height * pixel_size + GLN_GRAPHICS_BORDER * 2 + GLN_GRAPHICS_SHADING + 20,
                                            wintype_Graphics, 0);
         glk_window_get_size (gln_graphics_window, &window_width, &window_height);
     }
