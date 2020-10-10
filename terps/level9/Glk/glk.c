@@ -1394,7 +1394,7 @@ static const glui32 GLN_GRAPHICS_TIMEOUT = 50;
 static const int GLN_GRAPHICS_REPAINT_WAIT = 10;
 
 /* Pixel size multiplier for image size scaling. */
-static const int GLN_GRAPHICS_PIXEL = 1;
+static const int GLN_GRAPHICS_PIXEL = 2;
 
 /* Proportion of the display to use for graphics. */
 static const glui32 GLN_GRAPHICS_PROPORTION = 30;
@@ -1828,6 +1828,17 @@ gln_graphics_position_picture (winid_t glk_window, int pixel_size,
 
   /* Measure the current graphics window dimensions. */
   glk_window_get_size (glk_window, &window_width, &window_height);
+
+    if (window_height < height * pixel_size + GLN_GRAPHICS_BORDER * 2 + GLN_GRAPHICS_SHADING)
+    {
+        glk_window_close(gln_graphics_window, NULL);
+        gln_graphics_window = glk_window_open (gln_main_window,
+                                           winmethod_Above
+                                           | winmethod_Fixed,
+                                           height * pixel_size + GLN_GRAPHICS_BORDER * 2 + GLN_GRAPHICS_SHADING + 2 * gcellh,
+                                           wintype_Graphics, 0);
+        glk_window_get_size (gln_graphics_window, &window_width, &window_height);
+    }
 
   /*
    * Calculate and return an x and y offset to use on point plotting, so that

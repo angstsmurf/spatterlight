@@ -643,7 +643,7 @@ static const int GMS_GRAPHICS_ANIMATION_WAIT = 2,
 static const int GMS_GRAPHICS_PIXEL = 2;
 
 /* Proportion of the display to use for graphics. */
-static const glui32 GMS_GRAPHICS_PROPORTION = 60;
+static const glui32 GMS_GRAPHICS_PROPORTION = 30;
 
 /*
  * Border and shading control.  For cases where we can't detect the back-
@@ -1360,6 +1360,16 @@ gms_graphics_position_picture (winid_t glk_window,
 
   /* Measure the current graphics window dimensions. */
   glk_window_get_size (glk_window, &window_width, &window_height);
+
+    if (window_height < height * pixel_size + GMS_GRAPHICS_BORDER * 2 + GMS_GRAPHICS_SHADING) {
+        glk_window_close(gms_graphics_window, NULL);
+        gms_graphics_window = glk_window_open (gms_main_window,
+                                               winmethod_Above
+                                               | winmethod_Fixed,
+                                               height * pixel_size + GMS_GRAPHICS_BORDER * 2 + GMS_GRAPHICS_SHADING + 2 * gcellh,
+                                               wintype_Graphics, 0);
+        glk_window_get_size (gms_graphics_window, &window_width, &window_height);
+    }
 
   /*
    * Calculate and return an x and y offset to use on point plotting, so that
@@ -6236,7 +6246,7 @@ glkunix_startup_code (glkunix_startup_t * data)
 /*---------------------------------------------------------------------*/
 /*  Glk linkage relevant only to the Mac platform                      */
 /*---------------------------------------------------------------------*/
-#if TARGET_OS_MAC
+#if defined (TARGET_OS_MAC) && !defined(GARGLK)
 
 #include "macglk_startup.h"
 
