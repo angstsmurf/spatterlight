@@ -599,7 +599,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (void) updateSideViewWithString:(NSString *)aString {
     NSFont *font;
     NSClipView *clipView = (NSClipView *)self.superview;
-
+    if (!aString)
+        return;
     [titleField removeFromSuperview];
     titleField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, clipView.frame.size.width, clipView.frame.size.height)];
     titleField.drawsBackground = NO;
