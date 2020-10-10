@@ -1,5 +1,12 @@
 # Change log
 
+## Unreleased
+- New theme based on the Montserrat font
+- Mouse clicks in Beyond Zork now still work after restarting
+- Fixes to line input in grid text windows, mainly used by My Angel and Beyond Zork. Input length limit is now respected.
+- All table headers in game list should be readable while selected
+- Less flicker in status window when changing settings
+
 ## Release 0.5.14b
 
 - Added color swap buttons to the preferences panel
