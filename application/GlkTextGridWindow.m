@@ -1552,9 +1552,9 @@
     // This is where things usually go wrong, i.e. the result is too short or too tall
     NSAffineTransform *transform = [[NSAffineTransform alloc] init];
     [transform scaleBy:zorkFont.pointSize];
-    CGFloat yscale = (self.theme.cellHeight + 1) / [zorkFont boundingRectForFont].size.height;
+    CGFloat yscale = (self.theme.cellHeight + 0.5) / [zorkFont boundingRectForFont].size.height;
     if (isMonaco)
-        yscale *= 1.04;
+        yscale *= 1.1;
     [transform scaleXBy:1 yBy:yscale];
 
     zorkFont = [NSFont fontWithDescriptor:zorkFont.fontDescriptor textTransform:transform];
