@@ -161,13 +161,13 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                   @"Error: %@",
                   error);
 
-        homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:appSuppDir];
+        _homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:appSuppDir];
 
-        NSString* imageDirName = @"Cover Art";
-        imageDirName = [imageDirName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        imageDir = [NSURL URLWithString:imageDirName relativeToURL:homepath];
+        NSString* _imageDirName = @"Cover Art";
+        _imageDirName = [_imageDirName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        _imageDir = [NSURL URLWithString:_imageDirName relativeToURL:_homepath];
 
-        [[NSFileManager defaultManager] createDirectoryAtURL:imageDir
+        [[NSFileManager defaultManager] createDirectoryAtURL:_imageDir
                                  withIntermediateDirectories:YES
                                                   attributes:NULL
                                                        error:NULL];
@@ -197,7 +197,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     _infoWindows = [[NSMutableDictionary alloc] init];
     _gameSessions = [[NSMutableDictionary alloc] init];
-    gameTableModel = [[NSMutableArray alloc] init];
+    _gameTableModel = [[NSMutableArray alloc] init];
 
     NSString *key;
     NSSortDescriptor *sortDescriptor;
@@ -264,7 +264,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                                                object:_managedObjectContext];
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
-    gameTableModel = [[self fetchObjects:@"Game" inContext:_managedObjectContext] mutableCopy];
+    _gameTableModel = [[self fetchObjects:@"Game" inContext:_managedObjectContext] mutableCopy];
 
     [self rebuildThemesSubmenu];
     [self performSelector:@selector(restoreSideViewSelection:) withObject:nil afterDelay:0.1];
@@ -408,8 +408,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                                   if (ifid) {
                                       NSInteger response = NSRunAlertPanel(@"Not a match.", [NSString stringWithFormat:@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", game.metadata.title],  @"Yes", NULL, @"Cancel");
                                       if (response != NSAlertOtherReturn) {
-                                          if ([weakSelf importGame:newPath inContext:_managedObjectContext reportFailure:YES]) {
-                                              [_managedObjectContext deleteObject:game];
+                                          if ([weakSelf importGame:newPath inContext:weakSelf.managedObjectContext reportFailure:YES]) {
+                                              [weakSelf.managedObjectContext deleteObject:game];
                                           }
                                       }
 
@@ -513,27 +513,29 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 }
 
 - (void)beginImporting {
+    LibController * __unsafe_unretained weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (!spinnerSpinning) {
-            [_progressCircle startAnimation:self];
-            spinnerSpinning = YES;
+        if (!weakSelf.spinnerSpinning) {
+            [weakSelf.progressCircle startAnimation:weakSelf];
+            weakSelf.spinnerSpinning = YES;
         }
     });
 }
 
 - (void)endImporting {
+    LibController * __unsafe_unretained weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (spinnerSpinning) {
-            [_progressCircle stopAnimation:self];
-            spinnerSpinning = NO;
+        if (weakSelf.spinnerSpinning) {
+            [weakSelf.progressCircle stopAnimation:weakSelf];
+            weakSelf.spinnerSpinning = NO;
         }
         
-        NSIndexSet *rows = _gameTableView.selectedRowIndexes;
+        NSIndexSet *rows = weakSelf.gameTableView.selectedRowIndexes;
 
-        if ((_gameTableView.clickedRow != -1) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
-            rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
+        if ((weakSelf.gameTableView.clickedRow != -1) && ![weakSelf.gameTableView isRowSelected:weakSelf.gameTableView.clickedRow])
+            rows = [NSIndexSet indexSetWithIndex:(NSUInteger)weakSelf.gameTableView.clickedRow];
         if (rows.count)
-            [_gameTableView scrollRowToVisible:(NSInteger)rows.firstIndex];
+            [weakSelf.gameTableView scrollRowToVisible:(NSInteger)rows.firstIndex];
     });
 }
 
@@ -552,7 +554,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 //                          [_managedObjectContext performBlock:^{
                               [weakSelf beginImporting];
                               [weakSelf importMetadataFromFile:url.path];
-                              [_coreDataManager saveChanges];
+                              [weakSelf.coreDataManager saveChanges];
                               [weakSelf endImporting];
 //                          }];
                       }
@@ -581,10 +583,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 }
 
 - (void)addIfidFile:(NSString *)file {
-    if (!iFictionFiles)
-        iFictionFiles = [NSMutableArray arrayWithObject:file];
+    if (!_iFictionFiles)
+        _iFictionFiles = [NSMutableArray arrayWithObject:file];
     else
-        [iFictionFiles addObject:file];
+        [_iFictionFiles addObject:file];
 }
 
 - (IBAction)addGamesToLibrary:(id)sender {
@@ -608,7 +610,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
 - (void)addInBackground:(NSArray *)files {
 
-    if (currentlyAddingGames)
+    if (_currentlyAddingGames)
         return;
 
     LibController * __unsafe_unretained weakSelf = self;
@@ -622,15 +624,15 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     [self beginImporting];
     
-    currentlyAddingGames = YES;
+    _currentlyAddingGames = YES;
     _addButton.enabled = NO;
 
     [childContext performBlock:^{
         [weakSelf addFiles:files inContext:childContext];
         [weakSelf endImporting];
         dispatch_async(dispatch_get_main_queue(), ^{
-            _addButton.enabled = YES;
-            currentlyAddingGames = NO;
+            weakSelf.addButton.enabled = YES;
+            weakSelf.currentlyAddingGames = NO;
         });
 
     }];
@@ -642,6 +644,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
 - (IBAction)deleteSaves:(id)sender {
     NSIndexSet *rows = _gameTableView.selectedRowIndexes;
+    LibController * __unsafe_unretained weakSelf = self;
 
     // If we clicked outside selected rows, only show info for clicked row
     if (_gameTableView.clickedRow != -1 &&
@@ -650,8 +653,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     [rows
      enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-         Game *game = gameTableModel[idx];
-         GlkController *gctl = _gameSessions[game.ifid];
+         Game *game = weakSelf.gameTableModel[idx];
+         GlkController *gctl = weakSelf.gameSessions[game.ifid];
 
          if (!gctl) {
              gctl = [[GlkController alloc] init];
@@ -671,7 +674,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         rowidx = _gameTableView.selectedRow;
 
     if (rowidx >= 0) {
-         [self playGame:gameTableModel[(NSUInteger)rowidx]];
+         [self playGame:_gameTableModel[(NSUInteger)rowidx]];
     }
 }
 
@@ -686,7 +689,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     NSUInteger i;
     for (i = rows.firstIndex; i != NSNotFound;
          i = [rows indexGreaterThanIndex:i]) {
-        Game *game = gameTableModel[i];
+        Game *game = _gameTableModel[i];
         [self showInfoForGame:game];
     }
 }
@@ -725,7 +728,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     NSUInteger i;
     for (i = rows.firstIndex; i != NSNotFound;
          i = [rows indexGreaterThanIndex:i]) {
-        Game *game = gameTableModel[i];
+        Game *game = _gameTableModel[i];
         NSURL *url = [game urlForBookmark];
         if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
             game.found = NO;
@@ -746,13 +749,15 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
     __block Game *game;
-    
+
+    LibController * __unsafe_unretained weakSelf = self;
+
     [rows
      enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-         game = gameTableModel[idx];
+         game = weakSelf.gameTableModel[idx];
 //         NSLog(@"libctl: delete game %@", game.metadata.title);
-         if (_gameSessions[game.ifid] == nil)
-             [_managedObjectContext deleteObject:game];
+         if (weakSelf.gameSessions[game.ifid] == nil)
+             [weakSelf.managedObjectContext deleteObject:game];
      }];
 }
 
@@ -770,9 +775,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     __block Game *game;
     __block NSString *urlString;
 
+    LibController * __unsafe_unretained weakSelf = self;
+
     [rows
      enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-         game = gameTableModel[idx];
+         game = weakSelf.gameTableModel[idx];
          if (game.metadata.tuid)
              urlString = [@"https://ifdb.tads.org/viewgame?id=" stringByAppendingString:game.metadata.tuid];
          else
@@ -798,13 +805,13 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                                                  selector:@selector(backgroundManagedObjectContextDidChange:)
                                                      name:NSManagedObjectContextObjectsDidChangeNotification
                                                    object:childContext];
-        currentlyAddingGames = YES;
+        _currentlyAddingGames = YES;
         _addButton.enabled = NO;
 
         [childContext performBlock:^{
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
             BOOL result = NO;
-            for (Game *game in [gameTableModel objectsAtIndexes:rows]) {
+            for (Game *game in [weakSelf.gameTableModel objectsAtIndexes:rows]) {
                 [weakSelf beginImporting];
                 
                 //It makes some kind of sense to also check if the game file still exists while downloading metadata
@@ -833,13 +840,13 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                currentlyAddingGames = NO;
-                _addButton.enabled = YES;
+                weakSelf.currentlyAddingGames = NO;
+                weakSelf.addButton.enabled = YES;
                 if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
 
-                    [_coreDataManager saveChanges];
-                    for (Game *aGame in [gameTableModel objectsAtIndexes:rows]) {
-                        [_managedObjectContext refreshObject:aGame.metadata
+                    [weakSelf.coreDataManager saveChanges];
+                    for (Game *aGame in [weakSelf.gameTableModel objectsAtIndexes:rows]) {
+                        [weakSelf.managedObjectContext refreshObject:aGame.metadata
                                                 mergeChanges:YES];
                     }
                     [weakSelf updateSideViewForce:YES];
@@ -902,7 +909,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 //				free(mdbuf);
 //			}
 //
-//            NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:imageDir];
+//            NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:_imageDir];
 //            NSData *img = [[NSData alloc] initWithContentsOfURL:imgpath];
 //			if (!img)
 //			{
@@ -966,14 +973,14 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         return;
     }
 
-    NSSet *games = [NSSet setWithArray:[gameTableModel objectsAtIndexes:rows]];
+    NSSet *games = [NSSet setWithArray:[_gameTableModel objectsAtIndexes:rows]];
     [theme addGames:games];
 
     Preferences *prefwin = [Preferences instance];
     if (prefwin) {
         // Unless we are changing the theme of all games simultaneously,
         // uncheck the "Changes apply to all games" box.
-        if (games.count < gameTableModel.count) {
+        if (games.count < _gameTableModel.count) {
             prefwin.oneThemeForAll = NO;
         }
         if ([games containsObject:prefwin.currentGame])
@@ -990,11 +997,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     if ((_gameTableView.clickedRow != -1) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
-    Game *selectedGame = gameTableModel[[rows firstIndex]];
+    Game *selectedGame = _gameTableModel[[rows firstIndex]];
 
     NSSet *gamesWithTheme = selectedGame.theme.games;
     
-    NSIndexSet *matchingIndexes = [gameTableModel indexesOfObjectsPassingTest:^BOOL(NSString *obj, NSUInteger idx, BOOL *stop) {
+    NSIndexSet *matchingIndexes = [_gameTableModel indexesOfObjectsPassingTest:^BOOL(NSString *obj, NSUInteger idx, BOOL *stop) {
         return [gamesWithTheme containsObject:obj];
     }];
 
@@ -1021,18 +1028,18 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     }
 
     if (action == @selector(addGamesToLibrary:))
-        return !currentlyAddingGames;
+        return !_currentlyAddingGames;
 
     if (action == @selector(importMetadata:))
-         return !currentlyAddingGames;
+         return !_currentlyAddingGames;
 
     if (action == @selector(download:))
-        return !currentlyAddingGames;
+        return !_currentlyAddingGames;
 
     if (action == @selector(delete:) || action == @selector(deleteGame:)) {
         if (count == 0)
             return NO;
-        NSArray *selection = [gameTableModel objectsAtIndexes:rows];
+        NSArray *selection = [_gameTableModel objectsAtIndexes:rows];
         for (Game *game in selection) {
             if (_gameSessions[game.ifid] == nil)
                 return YES;
@@ -1052,7 +1059,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     if (action == @selector(selectSameTheme:)) {
         // Check if all selected games use the same theme
-        NSArray *selection = [gameTableModel objectsAtIndexes:rows];
+        NSArray *selection = [_gameTableModel objectsAtIndexes:rows];
         Theme *selectionTheme = nil;
         for (Game *game in selection) {
             if (selectionTheme == nil) {
@@ -1066,7 +1073,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     }
 
     if (action == @selector(deleteSaves:)) {
-        NSArray *selection = [gameTableModel objectsAtIndexes:rows];
+        NSArray *selection = [_gameTableModel objectsAtIndexes:rows];
         for (Game *game in selection) {
             if (game.autosaved) return YES;
         }
@@ -1091,7 +1098,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     BOOL isdir;
     NSUInteger i;
 
-    if (currentlyAddingGames)
+    if (_currentlyAddingGames)
         return NSDragOperationNone;
 
     NSPasteboard *pboard = [sender draggingPasteboard];
@@ -1349,11 +1356,11 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                                                object:private];
     [self beginImporting];
     _addButton.enabled = NO;
-    currentlyAddingGames = YES;
+    _currentlyAddingGames = YES;
 
     [private performBlock:^{
         // First, we try to load the Metadata.plist and add all entries as Metadata entities
-        NSMutableDictionary *metadata = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Metadata.plist"]);
+        NSMutableDictionary *metadata = load_mutable_plist([weakSelf.homepath.path stringByAppendingPathComponent: @"Metadata.plist"]);
 
         NSString *ifid;
 
@@ -1364,7 +1371,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         }
 
         // Second, we try to load the Games.plist and add all entries as Game entities
-        NSDictionary *games = load_mutable_plist([homepath.path stringByAppendingPathComponent: @"Games.plist"]);
+        NSDictionary *games = load_mutable_plist([weakSelf.homepath.path stringByAppendingPathComponent: @"Games.plist"]);
 
         NSDate *timestamp = [NSDate date];
         
@@ -1410,7 +1417,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                 game.path = [games valueForKey:ifid];
 
                 // First, we look for a cover image file in Spatterlight Application Support folder
-                NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:imageDir];
+                NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:weakSelf.imageDir];
                 NSData *imgdata;
 
                 if ([[NSFileManager defaultManager] fileExistsAtPath:imgpath.path]) {
@@ -1471,8 +1478,8 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf endImporting];
-            _addButton.enabled = YES;
-            currentlyAddingGames = NO;
+            weakSelf.addButton.enabled = YES;
+            weakSelf.currentlyAddingGames = NO;
         });
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasConvertedLibrary"];
     }];
@@ -1499,7 +1506,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
         [_coreDataManager saveChanges];
 
-        for (Game *game in gameTableModel) {
+        for (Game *game in _gameTableModel) {
             [_managedObjectContext refreshObject:game.metadata
                                     mergeChanges:YES];
         }
@@ -1922,7 +1929,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     if (!metadata.cover)
     {
-        NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:imageDir];
+        NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:_imageDir];
         NSData *img = [[NSData alloc] initWithContentsOfURL:imgpath];
         if (img)
         {
@@ -2058,13 +2065,13 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 
     [_managedObjectContext performBlock:^{
-        [_coreDataManager saveChanges];
-        currentlyAddingGames = NO;
+        [weakSelf.coreDataManager saveChanges];
+        weakSelf.currentlyAddingGames = NO;
         [weakSelf selectGamesWithIfids:select scroll:YES];
-        for (NSString *path in iFictionFiles) {
+        for (NSString *path in weakSelf.iFictionFiles) {
             [weakSelf importMetadataFromFile:path];
         }
-        iFictionFiles = nil;
+        weakSelf.iFictionFiles = nil;
     }];
 }
 
@@ -2115,13 +2122,13 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
 
         for (Game *game in newSelection) {
-            if ([gameTableModel containsObject:game]) {
-                [indexSet addIndex:[gameTableModel indexOfObject:game]];
+            if ([_gameTableModel containsObject:game]) {
+                [indexSet addIndex:[_gameTableModel indexOfObject:game]];
             }
         }
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
-        _selectedGames = [gameTableModel objectsAtIndexes:indexSet];
-        if (shouldscroll && indexSet.count && !currentlyAddingGames)
+        _selectedGames = [_gameTableModel objectsAtIndexes:indexSet];
+        if (shouldscroll && indexSet.count && !_currentlyAddingGames)
             [_gameTableView scrollRowToVisible:(NSInteger)indexSet.firstIndex];
     }
 }
@@ -2131,12 +2138,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     //NSLog(@"selectGames called with %ld games", games.count);
 
     if (games.count) {
-        NSIndexSet *indexSet = [gameTableModel indexesOfObjectsPassingTest:^BOOL(NSString *obj, NSUInteger idx, BOOL *stop) {
+        NSIndexSet *indexSet = [_gameTableModel indexesOfObjectsPassingTest:^BOOL(NSString *obj, NSUInteger idx, BOOL *stop) {
             return [games containsObject:obj];
         }];
         [_gameTableView selectRowIndexes:indexSet byExtendingSelection:NO];
-        _selectedGames = [gameTableModel objectsAtIndexes:indexSet];
-        if (indexSet.count && indexSet.count < 50 && !currentlyAddingGames)
+        _selectedGames = [_gameTableModel objectsAtIndexes:indexSet];
+        if (indexSet.count && indexSet.count < 50 && !_currentlyAddingGames)
             [_gameTableView scrollRowToVisible:(NSInteger)indexSet.firstIndex];
     }
 }
@@ -2206,61 +2213,61 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 
     NSError *error = nil;
-    gameTableModel = [[_managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
-    if (gameTableModel == nil)
+    _gameTableModel = [[_managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
+    if (_gameTableModel == nil)
         NSLog(@"Problem! %@",error);
 
     LibController * __unsafe_unretained weakSelf = self;
 
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:sortAscending comparator:^(Game *aid, Game *bid) {
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:_sortAscending comparator:^(Game *aid, Game *bid) {
 
         Metadata *a = aid.metadata;
         Metadata *b = bid.metadata;
         NSInteger cmp;
-        if ([gameSortColumn isEqual:@"firstpublishedDate"])
+        if ([weakSelf.gameSortColumn isEqual:@"firstpublishedDate"])
         {
-            cmp = [weakSelf compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:sortAscending];
+            cmp = [weakSelf compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:weakSelf.sortAscending];
             if (cmp) return cmp;
         }
-        else if ([gameSortColumn isEqual:@"added"] || [gameSortColumn isEqual:@"lastPlayed"])
+        else if ([weakSelf.gameSortColumn isEqual:@"added"] || [weakSelf.gameSortColumn isEqual:@"lastPlayed"])
         {
-            cmp = [weakSelf compareDate:[aid valueForKey:gameSortColumn] withDate:[bid valueForKey:gameSortColumn] ascending:sortAscending];
+            cmp = [weakSelf compareDate:[aid valueForKey:weakSelf.gameSortColumn] withDate:[bid valueForKey:weakSelf.gameSortColumn] ascending:weakSelf.sortAscending];
             if (cmp) return cmp;
         }
-        else if ([gameSortColumn isEqual:@"lastModified"]) {
-            cmp = [weakSelf compareDate:[a valueForKey:gameSortColumn] withDate:[b valueForKey:gameSortColumn] ascending:sortAscending];
+        else if ([weakSelf.gameSortColumn isEqual:@"lastModified"]) {
+            cmp = [weakSelf compareDate:[a valueForKey:weakSelf.gameSortColumn] withDate:[b valueForKey:weakSelf.gameSortColumn] ascending:weakSelf.sortAscending];
             if (cmp) return cmp;
         }
-        else if ([gameSortColumn isEqual:@"found"]) {
+        else if ([weakSelf.gameSortColumn isEqual:@"found"]) {
             NSString *string1 = aid.found?nil:@"A";
             NSString *string2 = bid.found?nil:@"A";
-            cmp = [weakSelf compareString:string1 withString:string2 ascending:sortAscending];
+            cmp = [weakSelf compareString:string1 withString:string2 ascending:weakSelf.sortAscending];
             if (cmp) return cmp;
         }
-        else if ([gameSortColumn isEqual:@"forgivenessNumeric"]) {
+        else if ([weakSelf.gameSortColumn isEqual:@"forgivenessNumeric"]) {
             NSString *string1 = a.forgivenessNumeric ? [NSString stringWithFormat:@"%@", a.forgivenessNumeric] : nil;
             NSString *string2 = b.forgivenessNumeric ? [NSString stringWithFormat:@"%@", b.forgivenessNumeric] : nil;
-            cmp = [weakSelf compareString:string1 withString:string2 ascending:sortAscending];
+            cmp = [weakSelf compareString:string1 withString:string2 ascending:weakSelf.sortAscending];
 
             if (cmp) return cmp;
         }
-        else if (gameSortColumn)
+        else if (weakSelf.gameSortColumn)
         {
-            cmp = [weakSelf compareGame:a with:b key:gameSortColumn ascending:sortAscending];
+            cmp = [weakSelf compareGame:a with:b key:weakSelf.gameSortColumn ascending:weakSelf.sortAscending];
             if (cmp) return cmp;
         }
-        cmp = [weakSelf compareGame:a with:b key:@"title" ascending:sortAscending];
+        cmp = [weakSelf compareGame:a with:b key:@"title" ascending:weakSelf.sortAscending];
         if (cmp) return cmp;
-        cmp = [weakSelf compareGame:a with:b key:@"author" ascending:sortAscending];
+        cmp = [weakSelf compareGame:a with:b key:@"author" ascending:weakSelf.sortAscending];
         if (cmp) return cmp;
-        cmp = [weakSelf compareGame:a with:b key:@"seriesnumber" ascending:sortAscending];
+        cmp = [weakSelf compareGame:a with:b key:@"seriesnumber" ascending:weakSelf.sortAscending];
         if (cmp) return cmp;
-        cmp = [weakSelf compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:sortAscending];
+        cmp = [weakSelf compareDate:a.firstpublishedDate withDate:b.firstpublishedDate ascending:weakSelf.sortAscending];
         if (cmp) return cmp;
-        return [weakSelf compareString:aid.detectedFormat withString:bid.detectedFormat ascending:sortAscending];
+        return [weakSelf compareString:aid.detectedFormat withString:bid.detectedFormat ascending:weakSelf.sortAscending];
     }];
 
-    [gameTableModel sortUsingDescriptors:@[sort]];
+    [_gameTableModel sortUsingDescriptors:@[sort]];
     [_gameTableView reloadData];
 
     [self selectGames:[NSSet setWithArray:_selectedGames]];
@@ -2277,8 +2284,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         NSSortDescriptor *sortDescriptor = sortDescriptors[0];
         if (!sortDescriptor)
             return;
-        gameSortColumn = sortDescriptor.key;
-        sortAscending = sortDescriptor.ascending;
+        _gameSortColumn = sortDescriptor.key;
+        _sortAscending = sortDescriptor.ascending;
         gameTableDirty = YES;
         [self updateTableViews];
         NSIndexSet *rows = tableView.selectedRowIndexes;
@@ -2288,7 +2295,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if (tableView == _gameTableView)
-        return (NSInteger)gameTableModel.count;
+        return (NSInteger)_gameTableModel.count;
     return 0;
 }
 
@@ -2297,7 +2304,7 @@ objectValueForTableColumn: (NSTableColumn*)column
              row:(NSInteger)row
 {
     if (tableView == _gameTableView) {
-        Game *game = gameTableModel[(NSUInteger)row];
+        Game *game = _gameTableModel[(NSUInteger)row];
         Metadata *meta = game.metadata;
         if ([column.identifier isEqual: @"found"]) {
             return game.found?nil:@"!";
@@ -2346,7 +2353,7 @@ objectValueForTableColumn: (NSTableColumn*)column
               row:(NSInteger)row {
     if (tableView == _gameTableView)
     {
-        Game *game = gameTableModel[(NSUInteger)row];
+        Game *game = _gameTableModel[(NSUInteger)row];
         Metadata *meta = game.metadata;
         NSString *key = tableColumn.identifier;
         NSString *oldval = [meta valueForKey:key];
@@ -2422,8 +2429,8 @@ objectValueForTableColumn: (NSTableColumn*)column
         infoButton.enabled = rows.count > 0;
         playButton.enabled = rows.count == 1;
         [self invalidateRestorableState];
-        if (gameTableModel.count && rows.count) {
-            _selectedGames = [gameTableModel objectsAtIndexes:rows];
+        if (_gameTableModel.count && rows.count) {
+            _selectedGames = [_gameTableModel objectsAtIndexes:rows];
             Game *game = _selectedGames[0];
             if (!game.theme)
                 game.theme = [Preferences currentTheme];
@@ -2787,7 +2794,7 @@ ofDividerAtIndex:0];
         int rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
         if (rv == 1) {
             dirpath =
-                [homepath.path stringByAppendingPathComponent:@"Converted"];
+                [_homepath.path stringByAppendingPathComponent:@"Converted"];
 
             [[NSFileManager defaultManager]
                        createDirectoryAtURL:[NSURL fileURLWithPath:dirpath

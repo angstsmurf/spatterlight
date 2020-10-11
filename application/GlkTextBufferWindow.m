@@ -1307,7 +1307,7 @@
     [panel
      beginSheetModalForWindow:window
      completionHandler:^(NSInteger result) {
-         if (result NSModalResponseOKton) {
+         if (result == NSModalResponseOK) {
              NSURL *theFile = panel.URL;
 
              NSMutableAttributedString *mutattstr =

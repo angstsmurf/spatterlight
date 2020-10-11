@@ -469,7 +469,7 @@ fprintf(stderr, "%s\n",                                                    \
     // we now re-enter fullscreen manually if the game was
     // closed in fullscreen mode.
     if (!windowRestoredBySystem && _inFullscreen
-        && (self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask) {
+        && (self.window.styleMask & NSWindowStyleMaskFullScreen) != NSWindowStyleMaskFullScreen) {
         [self startInFullscreen];
         _startingInFullscreen = YES;
     } else {
@@ -985,8 +985,8 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }
     [encoder encodeInteger:_firstResponderView forKey:@"firstResponder"];
-    [encoder encodeBool:((self.window.styleMask & NSFullScreenWindowMask) ==
-                         NSFullScreenWindowMask)
+    [encoder encodeBool:((self.window.styleMask & NSWindowStyleMaskFullScreen) ==
+                         NSWindowStyleMaskFullScreen)
                  forKey:@"fullscreen"];
 
     [encoder encodeBool:_previewDummy forKey:@"previewDummy"];
@@ -1625,7 +1625,7 @@ fprintf(stderr, "%s\n",                                                    \
                       const char *s;
                       struct message reply;
 
-                      if (result == NSFileHandlingPanelOKButton) {
+                      if (result == NSModalResponseOK) {
                           NSURL *theDoc = (panel.URLs)[0];
 
                           [[NSUserDefaults standardUserDefaults]
@@ -3048,7 +3048,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               NSMakePoint(floor((NSWidth(localBorderView.bounds) -
                                 NSWidth(localContentView.frame)) /
                                2),
-                         floor(NSHeight(localBorderView.bounds) - _theme.border - localContentView.frame.size.height)
+                         floor(NSHeight(localBorderView.bounds) - weakSelf.theme.border - localContentView.frame.size.height)
                          );
               [NSAnimationContext
                runAnimationGroup:^(NSAnimationContext *context) {

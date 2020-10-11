@@ -36,16 +36,13 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
     IBOutlet NSButton *btnEnableSound;
     IBOutlet NSButton *btnEnableStyles;
     IBOutlet NSTableView *themesTableView;
-    IBOutlet NSBox *sampleTextBorderView;
     IBOutlet GlkHelperView *sampleTextView;
 
     GlkController *glkcntrl;
-    GlkTextBufferWindow *glktxtbuf;
 
     NSButton *selectedFontButton;
 
     BOOL disregardTableSelection;
-    BOOL previewShown;
     BOOL zooming;
     CGFloat previewTextHeight;
     NSString *lastSelectedTheme;
@@ -53,6 +50,8 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
     NSDate *themeDuplicationTimestamp;
     Theme *lastDuplicatedTheme;
 }
+
+
 
 + (void)rebuildTextAttributes;
 
@@ -121,6 +120,11 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 + (Preferences *)instance;
 
 + (void)changeCurrentGame:(Game *)game;
+
+@property BOOL previewShown;
+@property GlkTextBufferWindow *glktxtbuf;
+@property IBOutlet NSBox *sampleTextBorderView;
+
 
 @property (readonly) Theme *defaultTheme;
 @property (readonly) CoreDataManager *coreDataManager;

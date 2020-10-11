@@ -36,8 +36,6 @@
 
 @interface LibController
     : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate> {
-    NSURL *homepath;
-    NSURL *imageDir;
 
     IBOutlet NSButton *infoButton;
     IBOutlet NSButton *playButton;
@@ -47,10 +45,7 @@
 
     IBOutlet NSMenu *headerMenu;
 
-    NSMutableArray *gameTableModel;
-    NSString *gameSortColumn;
     BOOL gameTableDirty;
-    BOOL sortAscending;
 
     BOOL canEdit;
     NSTimer *timer;
@@ -61,15 +56,11 @@
 
     Game *currentSideView;
 
-    BOOL currentlyAddingGames;
-    BOOL spinnerSpinning;
-
     /* for the importing */
     NSInteger cursrc;
     NSString *currentIfid;
     NSMutableArray *ifidbuf;
     NSMutableDictionary *metabuf;
-    NSMutableArray *iFictionFiles;
     NSInteger errorflag;
 
     NSLocale *englishUSLocale;
@@ -77,6 +68,18 @@
 
     NSManagedObjectContext *importContext;
 }
+
+@property NSMutableArray *iFictionFiles;
+
+@property NSURL *homepath;
+@property NSURL *imageDir;
+
+@property NSMutableArray *gameTableModel;
+
+@property BOOL currentlyAddingGames;
+@property BOOL spinnerSpinning;
+@property BOOL sortAscending;
+@property NSString *gameSortColumn;
 
 @property (strong) CoreDataManager *coreDataManager;
 @property (strong) NSManagedObjectContext *managedObjectContext;

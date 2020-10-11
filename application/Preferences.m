@@ -1053,7 +1053,7 @@ NSString *fontToString(NSFont *font) {
         self.window.minSize = minSize;
     }
 
-    previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
+    _previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
 
      NSMutableAttributedString *attstr = _swapBufColBtn.attributedStringValue.mutableCopy;
      NSFont *font = [NSFont fontWithName:@"Exclamation Circle New" size:17];
@@ -1087,15 +1087,15 @@ NSString *fontToString(NSFont *font) {
     glkcntrl = [[GlkController alloc] init];
     glkcntrl.theme = theme;
     glkcntrl.previewDummy = YES;
-    glkcntrl.borderView = sampleTextBorderView;
+    glkcntrl.borderView = _sampleTextBorderView;
     glkcntrl.contentView = sampleTextView;
     glkcntrl.ignoreResizes = YES;
     sampleTextView.glkctrl = glkcntrl;
 
-    sampleTextBorderView.fillColor = theme.bufferBackground;
+    _sampleTextBorderView.fillColor = theme.bufferBackground;
     NSRect newSampleFrame = NSMakeRect(20, 312, self.window.frame.size.width - 40, ((NSView *)self.window.contentView).frame.size.height - 312);
     sampleTextView.frame = newSampleFrame;
-    sampleTextBorderView.frame = newSampleFrame;
+    _sampleTextBorderView.frame = newSampleFrame;
 
     _divider.frame = NSMakeRect(0, 311, self.window.frame.size.width, 1);
     _divider.autoresizingMask = NSViewMaxYMargin;
@@ -1112,16 +1112,16 @@ NSString *fontToString(NSFont *font) {
 
     glkcntrl.bufferStyleHints = stylehHints;
 
-    glktxtbuf = [[GlkTextBufferWindow alloc] initWithGlkController:glkcntrl name:1];
+    _glktxtbuf = [[GlkTextBufferWindow alloc] initWithGlkController:glkcntrl name:1];
 
-    glktxtbuf.textview.editable = NO;
-    [sampleTextView addSubview:glktxtbuf];
+    _glktxtbuf.textview.editable = NO;
+    [sampleTextView addSubview:_glktxtbuf];
 
-    [glktxtbuf putString:@"Palace Gate" style:style_Subheader];
-    [glktxtbuf putString:@" A tide of perambulators surges north along the crowded Broad Walk. "
+    [_glktxtbuf putString:@"Palace Gate" style:style_Subheader];
+    [_glktxtbuf putString:@" A tide of perambulators surges north along the crowded Broad Walk. "
                    style:style_Normal];
 
-    [glktxtbuf putString:@"(Trinity, Brian Moriarty, Infocom 1986)" style:style_Emphasized];
+    [_glktxtbuf putString:@"(Trinity, Brian Moriarty, Infocom 1986)" style:style_Emphasized];
 
     previewTextHeight = [self textHeight];
     [self adjustPreview:nil];
@@ -1164,8 +1164,8 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)restoreWindowSize:(id)sender  {
-    if (NSWidth(self.window.frame) != kDefaultPrefWindowWidth || !previewShown) {
-        previewShown = NO;
+    if (NSWidth(self.window.frame) != kDefaultPrefWindowWidth || !_previewShown) {
+        _previewShown = NO;
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowThemePreview"];
         [self resizeWindowToHeight:kDefaultPrefWindowHeight];
         sampleTextView.autoresizingMask = NSViewHeightSizable;
@@ -1342,23 +1342,25 @@ NSString *fontToString(NSFont *font) {
 //    NSLog(@"notePreferencesChanged: %@", notificationTheme.name);
 
     // Change the theme of the sample text field
-    glktxtbuf.theme = theme;
+    _glktxtbuf.theme = theme;
     glkcntrl.theme = theme;
 
     previewTextHeight = [self textHeight];
 
-    sampleTextBorderView.fillColor = theme.bufferBackground;
+    _sampleTextBorderView.fillColor = theme.bufferBackground;
 
-    [glktxtbuf prefsDidChange];
+    [_glktxtbuf prefsDidChange];
+
+    Preferences * __unsafe_unretained weakSelf = self;
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_coreDataManager saveChanges];
+        [weakSelf.coreDataManager saveChanges];
     });
 
-    if (!previewShown)
+    if (!_previewShown)
         return;
 
-    if (sampleTextView.frame.size.height < sampleTextBorderView.frame.size.height) {
+    if (sampleTextView.frame.size.height < _sampleTextBorderView.frame.size.height) {
         [self adjustPreview:nil];
     }
     [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.1];
@@ -1368,42 +1370,42 @@ NSString *fontToString(NSFont *font) {
     NSRect previewFrame = [self.window.contentView frame];
     previewFrame.origin.y = kDefaultPrefsLowerViewHeight + 1; // Plus one to allow for divider line
     previewFrame.size.height = previewFrame.size.height - kDefaultPrefsLowerViewHeight - 1;
-    sampleTextBorderView.frame = previewFrame;
+    _sampleTextBorderView.frame = previewFrame;
 
     previewTextHeight = [self textHeight];
-    NSRect newSampleFrame = sampleTextBorderView.bounds;
+    NSRect newSampleFrame = _sampleTextBorderView.bounds;
 
     newSampleFrame.origin = NSMakePoint(
-                                        round((NSWidth([sampleTextBorderView bounds]) - NSWidth([sampleTextView frame])) / 2),
-                                        round((NSHeight([sampleTextBorderView bounds]) - previewTextHeight) / 2)
+                                        round((NSWidth([_sampleTextBorderView bounds]) - NSWidth([sampleTextView frame])) / 2),
+                                        round((NSHeight([_sampleTextBorderView bounds]) - previewTextHeight) / 2)
                                         );
     if (newSampleFrame.origin.x < 0)
         newSampleFrame.origin.x = 0;
     if (newSampleFrame.origin.y < 0)
         newSampleFrame.origin.y = 0;
 
-    newSampleFrame.size.width = sampleTextBorderView.frame.size.width - 40;
+    newSampleFrame.size.width = _sampleTextBorderView.frame.size.width - 40;
     newSampleFrame.size.height = previewTextHeight;
 
     sampleTextView.autoresizingMask = NSViewMinYMargin | NSViewMaxYMargin | NSViewWidthSizable;
 
-    if (newSampleFrame.size.height > sampleTextBorderView.bounds.size.height) {
-        newSampleFrame.size.height = sampleTextBorderView.bounds.size.height;
+    if (newSampleFrame.size.height > _sampleTextBorderView.bounds.size.height) {
+        newSampleFrame.size.height = _sampleTextBorderView.bounds.size.height;
     }
 
-    NSTextView *textview = glktxtbuf.textview;
+    NSTextView *textview = _glktxtbuf.textview;
     textview.textContainerInset = NSZeroSize;
 
-    if (sampleTextView.frame.size.height < glktxtbuf.textview.frame.size.height && glktxtbuf.frame.size.height < glktxtbuf.textview.frame.size.height && glktxtbuf.textview.frame.size.height < sampleTextBorderView.frame.size.height) {
+    if (sampleTextView.frame.size.height < _glktxtbuf.textview.frame.size.height && _glktxtbuf.frame.size.height < _glktxtbuf.textview.frame.size.height && _glktxtbuf.textview.frame.size.height < _sampleTextBorderView.frame.size.height) {
         newSampleFrame.size.height = textview.frame.size.height;
     }
 
     sampleTextView.frame = newSampleFrame;
-    glktxtbuf.textview.enclosingScrollView.frame = sampleTextView.bounds;
-    glktxtbuf.frame = sampleTextView.bounds;
+    _glktxtbuf.textview.enclosingScrollView.frame = sampleTextView.bounds;
+    _glktxtbuf.frame = sampleTextView.bounds;
 
-    glktxtbuf.autoresizingMask = NSViewHeightSizable;
-    glktxtbuf.textview.enclosingScrollView.autoresizingMask = NSViewHeightSizable;
+    _glktxtbuf.autoresizingMask = NSViewHeightSizable;
+    _glktxtbuf.textview.enclosingScrollView.autoresizingMask = NSViewHeightSizable;
     [self scrollToTop:nil];
 }
 
@@ -1414,10 +1416,10 @@ NSString *fontToString(NSFont *font) {
         return frameSize;
 
     if (frameSize.height > self.window.frame.size.height) { // We are enlarging
-        NSRect previewFrame = sampleTextBorderView.frame;
+        NSRect previewFrame = _sampleTextBorderView.frame;
         previewFrame.origin.y = kDefaultPrefsLowerViewHeight + 1;
-        sampleTextBorderView.frame = previewFrame;
-        if (sampleTextView.frame.size.height >= sampleTextBorderView.frame.size.height) { // Preview fills superview
+        _sampleTextBorderView.frame = previewFrame;
+        if (sampleTextView.frame.size.height >= _sampleTextBorderView.frame.size.height) { // Preview fills superview
             if (sampleTextView.frame.size.height >= previewTextHeight) {
                 sampleTextView.autoresizingMask = NSViewMinYMargin | NSViewMaxYMargin;
             } else sampleTextView.autoresizingMask = NSViewHeightSizable;
@@ -1426,16 +1428,16 @@ NSString *fontToString(NSFont *font) {
 
             [sampleTextView removeFromSuperview];
 
-            if (sampleTextView.frame.size.height < glktxtbuf.textview.frame.size.height && glktxtbuf.frame.size.height < glktxtbuf.textview.frame.size.height) {
-                newFrame.size.height = glktxtbuf.textview.frame.size.height;
+            if (sampleTextView.frame.size.height < _glktxtbuf.textview.frame.size.height && _glktxtbuf.frame.size.height < _glktxtbuf.textview.frame.size.height) {
+                newFrame.size.height = _glktxtbuf.textview.frame.size.height;
                 sampleTextView.frame = newFrame;
-                glktxtbuf.frame = sampleTextView.bounds;
-                glktxtbuf.textview.enclosingScrollView.frame = sampleTextView.bounds;
+                _glktxtbuf.frame = sampleTextView.bounds;
+                _glktxtbuf.textview.enclosingScrollView.frame = sampleTextView.bounds;
             }
-            newFrame.origin.y = round((sampleTextBorderView.bounds.size.height - newFrame.size.height) / 2);
+            newFrame.origin.y = round((_sampleTextBorderView.bounds.size.height - newFrame.size.height) / 2);
             sampleTextView.frame = newFrame;
 
-            [sampleTextBorderView addSubview:sampleTextView];
+            [_sampleTextBorderView addSubview:sampleTextView];
         }
     }
 
@@ -1445,10 +1447,10 @@ NSString *fontToString(NSFont *font) {
     }
 
     if (frameSize.height <= kDefaultPrefWindowHeight) {
-        previewShown = NO;
-    } else previewShown = YES;
+        _previewShown = NO;
+    } else _previewShown = YES;
 
-    [[NSUserDefaults standardUserDefaults] setBool:previewShown forKey:@"ShowThemePreview"];
+    [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 
     return frameSize;
 }
@@ -1461,7 +1463,7 @@ NSString *fontToString(NSFont *font) {
 
     CGFloat newHeight;
 
-    if (!previewShown) {
+    if (!_previewShown) {
         newHeight = kDefaultPrefWindowHeight;
         zooming = YES;
     } else {
@@ -1480,9 +1482,9 @@ NSString *fontToString(NSFont *font) {
 - (BOOL)windowShouldZoom:(NSWindow *)window toFrame:(NSRect)newFrame {
     if (window != self.window)
         return YES;
-    if (!previewShown && newFrame.size.height > kDefaultPrefWindowHeight)
+    if (!_previewShown && newFrame.size.height > kDefaultPrefWindowHeight)
         return NO;
-    if (previewShown)
+    if (_previewShown)
         [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.1];
     return YES;
 }
@@ -1493,7 +1495,7 @@ NSString *fontToString(NSFont *font) {
     CGFloat oldheight = prefsPanel.frame.size.height;
 
     if (ceil(height) == ceil(oldheight)) {
-        if (previewShown) {
+        if (_previewShown) {
             [self performSelector:@selector(scrollToTop:) withObject:nil afterDelay:0.1];
         }
         return;
@@ -1514,7 +1516,7 @@ NSString *fontToString(NSFont *font) {
     // When we reuse the window it will remember our last scroll position,
     // so we reset it here
 
-    NSScrollView *scrollView = glktxtbuf.textview.enclosingScrollView;
+    NSScrollView *scrollView = _glktxtbuf.textview.enclosingScrollView;
 
     // Scroll the vertical scroller to top
     scrollView.verticalScroller.floatValue = 0;
@@ -1533,6 +1535,7 @@ NSString *fontToString(NSFont *font) {
         winrect.origin.y = NSMinY(screenframe);
 
     Preferences * __unsafe_unretained weakSelf = self;
+
     [self adjustPreview:nil];
 
     [NSAnimationContext
@@ -1541,22 +1544,22 @@ NSString *fontToString(NSFont *font) {
           setFrame:winrect
           display:YES];
      } completionHandler:^{
-         //We need to reset the sampleTextBorderView here, otherwise some of it will still show when hiding the preview.
+         //We need to reset the _sampleTextBorderView here, otherwise some of it will still show when hiding the preview.
          NSRect newFrame = weakSelf.window.frame;
-         sampleTextBorderView.frame = NSMakeRect(0, kDefaultPrefWindowHeight, newFrame.size.width, newFrame.size.height - kDefaultPrefWindowHeight);
+         weakSelf.sampleTextBorderView.frame = NSMakeRect(0, kDefaultPrefWindowHeight, newFrame.size.width, newFrame.size.height - kDefaultPrefWindowHeight);
 
-         if (previewShown) {
+         if (weakSelf.previewShown) {
              [weakSelf adjustPreview:nil];
-             [glktxtbuf restoreScrollBarStyle];
-//             [glktxtbuf scrollToTop];
+             [weakSelf.glktxtbuf restoreScrollBarStyle];
          }
      }];
 }
 
 - (void)scrollToTop:(id)sender {
-    if (previewShown) {
-        NSScrollView *scrollView = glktxtbuf.textview.enclosingScrollView;
-        scrollView.frame = glktxtbuf.frame;
+    Preferences * __unsafe_unretained weakSelf = self;
+    if (weakSelf.previewShown) {
+        NSScrollView *scrollView = _glktxtbuf.textview.enclosingScrollView;
+        scrollView.frame = _glktxtbuf.frame;
         [scrollView.contentView scrollToPoint:NSZeroPoint];
     }
 }
@@ -1575,14 +1578,14 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (CGFloat)textHeight {
-    [glktxtbuf flushDisplay];
-    NSTextView *textview = [[NSTextView alloc] initWithFrame:glktxtbuf.textview.frame];
+    [_glktxtbuf flushDisplay];
+    NSTextView *textview = [[NSTextView alloc] initWithFrame:_glktxtbuf.textview.frame];
     if (textview == nil) {
         NSLog(@"Couldn't create textview!");
         return 0;
     }
 
-    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:[glktxtbuf.textview.textStorage copy]];
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:[_glktxtbuf.textview.textStorage copy]];
     CGFloat textWidth = textview.frame.size.width;
     NSTextContainer *textContainer = [[NSTextContainer alloc]
                                       initWithContainerSize:NSMakeSize(textWidth, FLT_MAX)];
@@ -1733,7 +1736,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (selectedFontButton)
         selectedfontString = selectedFontButton.identifier;
     [state encodeObject:selectedfontString forKey:@"selectedFont"];
-    [state encodeBool:previewShown forKey:@"previewShown"];
+    [state encodeBool:_previewShown forKey:@"_previewShown"];
     [state encodeDouble:self.window.frame.size.height forKey:@"windowHeight"];
 }
 
@@ -1747,8 +1750,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
         }
     }
-    previewShown = [state decodeBoolForKey:@"previewShown"];
-    if (!previewShown) {
+    _previewShown = [state decodeBoolForKey:@"_previewShown"];
+    if (!_previewShown) {
         [self resizeWindowToHeight:kDefaultPrefWindowHeight];
     } else {
         CGFloat storedHeight = [state decodeDoubleForKey:@"windowHeight"];
@@ -1929,15 +1932,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)togglePreview:(id)sender {
-    if (previewShown) {
+    if (_previewShown) {
         [self resizeWindowToHeight:kDefaultPrefWindowHeight];
-        previewShown = NO;
+        _previewShown = NO;
     } else {
-        previewShown = YES;
+        _previewShown = YES;
         [self resizeWindowToHeight:[self previewHeight]];
     }
     [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.5];
-    [[NSUserDefaults standardUserDefaults] setBool:previewShown forKey:@"ShowThemePreview"];
+    [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 }
 
 - (IBAction)editNewEntry:(id)sender {
@@ -1982,7 +1985,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     if (action == @selector(togglePreview:))
     {
-        NSString* title = previewShown ? @"Hide Preview" : @"Show Preview";
+        NSString* title = _previewShown ? @"Hide Preview" : @"Show Preview";
         ((NSMenuItem*)menuItem).title = title;
     }
 
