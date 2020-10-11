@@ -8,6 +8,8 @@ Spatterlight is a native Cocoa application that plays most parser-based interact
 
 [credits]: https://github.com/angstsmurf/spatterlight/blob/master/resources/Credits.txt "Credits.rtf: Credits for Spatterlight libraries"
 
+Download the latest release [here](https://github.com/angstsmurf/spatterlight/releases)!
+
 <img src="readme_images/jigsaw.png" width="900">
 
 # Features
@@ -26,7 +28,6 @@ And another one for 0.5.12b: https://youtu.be/Y07jFFvjsnE
 
 <img src="readme_images/library.png" width="1000">
 <img src="readme_images/preferences_themes_2.png" width="600">
-<img src="readme_images/guilty_bastards.png" width="900"> 
 
 # Gameplay videos
 
