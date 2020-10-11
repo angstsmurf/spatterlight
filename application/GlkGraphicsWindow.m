@@ -72,7 +72,7 @@
 
     [image drawAtPoint:bounds.origin
               fromRect:NSMakeRect(0, 0, bounds.size.width, bounds.size.height)
-             operation:NSCompositeSourceOver
+             operation:NSCompositingOperationSourceOver
               fraction:1.0];
 }
 
@@ -191,7 +191,7 @@
         [tmp addRepresentation:bitmap];
         [tmp drawAtPoint:NSZeroPoint
                 fromRect:NSMakeRect(0, 0, size.width, size.height)
-               operation:NSCompositeSourceOver
+               operation:NSCompositingOperationSourceOver
                 fraction:1.0];
     }
     [image unlockFocus];
@@ -230,7 +230,7 @@
 
     [src drawInRect:[self florpCoords:NSMakeRect(x, y, w, h)]
            fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
-          operation:NSCompositeSourceOver
+          operation:NSCompositingOperationSourceOver
            fraction:1.0];
 
     [image unlockFocus];

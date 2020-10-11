@@ -397,7 +397,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
         [panel beginSheetModalForWindow:self.window
                       completionHandler:^(NSInteger result) {
-                          if (result == NSFileHandlingPanelOKButton) {
+                          if (result == NSModalResponseOK) {
                               NSString *newPath = ((NSURL *)panel.URLs[0]).path;
                               NSString *ifid = [weakSelf ifidFromFile:newPath];
                               if (ifid && [ifid isEqualToString:game.ifid]) {
@@ -547,7 +547,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-                      if (result == NSFileHandlingPanelOKButton) {
+                      if (result == NSModalResponseOK) {
                           NSURL *url = panel.URL;
 //                          [_managedObjectContext performBlock:^{
                               [weakSelf beginImporting];
@@ -599,7 +599,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-                      if (result == NSFileHandlingPanelOKButton) {
+                      if (result == NSModalResponseOK) {
                           NSArray *urls = panel.URLs;
                           [weakSelf addInBackground:urls];
                       }

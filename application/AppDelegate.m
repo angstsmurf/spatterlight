@@ -240,7 +240,7 @@ NSDictionary *gFormatMap;
         panel.directoryURL = directory;
         NSLog(@"directory = %@", directory);
         [panel beginWithCompletionHandler:^(NSInteger result) {
-            if (result == NSFileHandlingPanelOKButton) {
+            if (result == NSModalResponseOK) {
                 NSURL *theDoc = (panel.URLs)[0];
                 if (theDoc) {
                     NSString *pathString =
@@ -389,7 +389,7 @@ NSDictionary *gFormatMap;
 
             NSInteger choice = [anAlert runModal];
 
-            if (anAlert.suppressionButton.state == NSOnState) {
+            if (anAlert.suppressionButton.state == NSControlStateValueOn) {
                 // Suppress this alert from now on
                 [defaults setBool:YES forKey:@"terminationAlertSuppression"];
             }

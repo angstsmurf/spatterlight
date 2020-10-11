@@ -104,16 +104,16 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)viewWillStartLiveResize {
-    if ((_glkctrl.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask && !_glkctrl.ignoreResizes)
+    if ((_glkctrl.window.styleMask & NSWindowStyleMaskFullScreen) !=
+        NSWindowStyleMaskFullScreen && !_glkctrl.ignoreResizes)
         [_glkctrl storeScrollOffsets];
 }
 
 - (void)viewDidEndLiveResize {
     // We use a custom fullscreen width, so don't resize to full screen width
     // when viewDidEndLiveResize is called because we just entered fullscreen
-    if ((_glkctrl.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask && !_glkctrl.ignoreResizes) {
+    if ((_glkctrl.window.styleMask & NSWindowStyleMaskFullScreen) !=
+        NSWindowStyleMaskFullScreen && !_glkctrl.ignoreResizes) {
         [_glkctrl contentDidResize:self.frame];
         [_glkctrl restoreScrollOffsets];
     }
@@ -1020,19 +1020,19 @@ fprintf(stderr, "%s\n",                                                    \
     NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
     NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
 
-    if (anAlert.suppressionButton.state == NSOnState) {
+    if (anAlert.suppressionButton.state == NSControlStateValueOn) {
         // Suppress this alert from now on
         [defaults setBool:YES forKey:alertSuppressionKey];
     }
 
     if (result == NSAlertSecondButtonReturn) {
         [self reset:nil];
-        if (anAlert.suppressionButton.state == NSOnState) {
+        if (anAlert.suppressionButton.state == NSControlStateValueOn) {
             [defaults setBool:NO forKey:alwaysAutorestoreKey];
         }
         return;
     } else {
-        if (anAlert.suppressionButton.state == NSOnState) {
+        if (anAlert.suppressionButton.state == NSControlStateValueOn) {
             [defaults setBool:YES forKey:alwaysAutorestoreKey];
         }
     }
@@ -1111,7 +1111,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)closeAlertDidFinish:(id)alert rc:(int)rc ctx:(void *)ctx {
     if (rc == NSAlertFirstButtonReturn) {
-        if (((NSAlert *)alert).suppressionButton.state == NSOnState) {
+        if (((NSAlert *)alert).suppressionButton.state == NSControlStateValueOn) {
             // Suppress this alert from now on
             [[NSUserDefaults standardUserDefaults]
              setBool:YES
@@ -1361,8 +1361,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSUInteger borders = (NSUInteger)_theme.border * 2;
 
-    if ((self.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask) { // We are not in fullscreen
+    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
+        NSWindowStyleMaskFullScreen) { // We are not in fullscreen
 
         newSize.width += borders;
         newSize.height += borders;
@@ -1549,8 +1549,8 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     }
 
-    if ((self.window.styleMask & NSFullScreenWindowMask) !=
-        NSFullScreenWindowMask) {
+    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
+        NSWindowStyleMaskFullScreen) {
         NSRect screenframe = [NSScreen mainScreen].visibleFrame;
 
         NSRect contentRect = NSMakeRect(0, 0, sizeAfterZoom.width, sizeAfterZoom.height);
@@ -1722,7 +1722,7 @@ fprintf(stderr, "%s\n",                                                    \
                       struct message reply;
                       const char *s;
 
-                      if (result == NSFileHandlingPanelOKButton) {
+                      if (result == NSModalResponseOK) {
                           NSURL *theFile = panel.URL;
                           [[NSUserDefaults standardUserDefaults]
                            setObject:theFile.path
@@ -2334,8 +2334,8 @@ fprintf(stderr, "%s\n",                                                    \
 
                 reqWin.frame = rect;
 
-                NSInteger hmask = NSViewMaxXMargin;
-                NSInteger vmask = NSViewMaxYMargin;
+                NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
+                NSAutoresizingMaskOptions vmask = NSViewMaxYMargin;
 
                 if (fabs(NSMaxX(rect) - _contentView.frame.size.width) < 2.0 &&
                     rect.size.width > 0) {
@@ -2967,7 +2967,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     // Make sure the window style mask includes the
     // full screen bit
-    window.styleMask = (window.styleMask | NSFullScreenWindowMask);
+    window.styleMask = (window.styleMask | NSWindowStyleMaskFullScreen);
 
     if (restoredController && restoredController.inFullscreen) {
         [self window:window startGameInFullScreenAnimationWithDuration:duration];
@@ -2981,7 +2981,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     // Make sure the snapshot window style mask includes the
     // full screen bit
-    snapshotWindow.styleMask = (snapshotWindow.styleMask | NSFullScreenWindowMask);
+    snapshotWindow.styleMask = (snapshotWindow.styleMask | NSWindowStyleMaskFullScreen);
     [snapshotWindow setFrame:window.frame display:YES];
 
     NSScreen *screen = window.screen;
@@ -3190,7 +3190,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
          // Make sure the window style mask does not
          // include full screen bit
          [window
-          setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
+          setStyleMask:([window styleMask] & ~NSWindowStyleMaskFullScreen)];
          [[window animator] setFrame:oldFrame display:YES];
      }
      completionHandler:^{
@@ -3282,7 +3282,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 // Some convenience methods
 - (void)adjustContentView {
-    if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
+    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen ||
         NSEqualRects(_borderView.frame, self.window.screen.frame) || (dead && _inFullscreen && windowRestoredBySystem)) {
         // We are in fullscreen
         _contentView.frame = [self contentFrameForFullscreen];

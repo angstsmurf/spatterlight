@@ -612,7 +612,7 @@
                 [image.image
                         drawInRect:bounds
                           fromRect:NSMakeRect(0, 0, size.width, size.height)
-                         operation:NSCompositeSourceOver
+                 operation:NSCompositingOperationSourceOver
                           fraction:1.0
                     respectFlipped:YES
                              hints:nil];
@@ -1307,7 +1307,7 @@
     [panel
      beginSheetModalForWindow:window
      completionHandler:^(NSInteger result) {
-         if (result == NSFileHandlingPanelOKButton) {
+         if (result NSModalResponseOKton) {
              NSURL *theFile = panel.URL;
 
              NSMutableAttributedString *mutattstr =
@@ -1786,12 +1786,12 @@
         }
     }
 
-    BOOL commandKeyOnly = ((flags & NSCommandKeyMask) &&
-                           !(flags & (NSAlternateKeyMask | NSShiftKeyMask |
-                                      NSControlKeyMask | NSHelpKeyMask)));
-    BOOL optionKeyOnly = ((flags & NSAlternateKeyMask) &&
-                          !(flags & (NSCommandKeyMask | NSShiftKeyMask |
-                                     NSControlKeyMask | NSHelpKeyMask)));
+    BOOL commandKeyOnly = ((flags & NSEventModifierFlagCommand) &&
+                           !(flags & (NSEventModifierFlagOption | NSEventModifierFlagShift |
+                                      NSEventModifierFlagControl | NSEventModifierFlagHelp)));
+    BOOL optionKeyOnly = ((flags & NSEventModifierFlagOption) &&
+                          !(flags & (NSEventModifierFlagCommand | NSEventModifierFlagShift |
+                                     NSEventModifierFlagControl | NSEventModifierFlagHelp)));
 
     if (ch == keycode_Up) {
         if (optionKeyOnly)
@@ -2322,7 +2322,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
     [src drawInRect:NSMakeRect(0, 0, dstsize.width, dstsize.height)
               fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
-             operation:NSCompositeSourceOver
+          operation:NSCompositingOperationSourceOver
               fraction:1.0
         respectFlipped:YES
                  hints:nil];

@@ -255,8 +255,4 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Accessibility
 
-- (BOOL)accessibilityIsIgnored {
-    return NO;
-}
-
 @end
