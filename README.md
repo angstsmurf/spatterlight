@@ -22,7 +22,7 @@ Download the latest release [here](https://github.com/angstsmurf/spatterlight/re
 
 #
 
-A promotional video for Spatterlight 0.5.13b: https://youtu.be/Lg_NIQW1ARA
+A promotional video for Spatterlight 0.5.13b: https://youtu.be/KXbk_gpLQ8w
 
 And another one for 0.5.12b: https://youtu.be/Y07jFFvjsnE
 
@@ -51,9 +51,8 @@ The Spatterlight application is released under the GNU Public License; the inter
 
 This is beta software! There is no warranty: use it at your own risk. You will need Mac OS X 10.7 or higher. There are separate versions for later operative systems. Make sure you download the right one for your system.
 
-This is an updated fork of Spatterlight, which was originally written by Tor Andersson. Copyright 2007-2020 by Tor Andersson.
+Spatterlight was originally written by Tor Andersson. Copyright 2007-2020 by Tor Andersson and the respective interpreter authors.
 
 Please provide bug reports as [issues][issues].
 
-[ccxvii]: http://ccxvii.net/spatterlight/ "ccxvii.net: Spatterlight homepage"
 [issues]: https://github.com/angstsmurf/spatterlight/issues "The issues page of this repository"
