@@ -25,7 +25,6 @@
 		6D2C86DB225E7CA2004A5A75 /* libfizmo_locales.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C86D8225E7CA2004A5A75 /* libfizmo_locales.c */; };
 		6D2C86EC225E8671004A5A75 /* spatterlight-restart.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C86EA225E8671004A5A75 /* spatterlight-restart.m */; };
 		6D2C86ED225E8671004A5A75 /* spatterlight-trace.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C86EB225E8671004A5A75 /* spatterlight-trace.m */; };
-		6D2C8709225E9ED9004A5A75 /* FizmoLocales in Resources */ = {isa = PBXBuildFile; fileRef = 6D2C8708225E9EA7004A5A75 /* FizmoLocales */; };
 		6D2C870C225EA75C004A5A75 /* tracelog.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C8695225E5291004A5A75 /* tracelog.c */; };
 		6D395C021EAD095E0070886C /* accel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941B1EAC1BC4003DA5C4 /* accel.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D395C041EAD095E0070886C /* exec.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941D1EAC1BC4003DA5C4 /* exec.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -5385,7 +5384,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DCDD44C23104AC4006715DD /* fonts in Resources */,
-				6D2C8709225E9ED9004A5A75 /* FizmoLocales in Resources */,
 				961CCF4009F2946F00528FF9 /* Credits.rtf in Resources */,
 				96A80EFD09F5821400CC75F4 /* InfoPlist.strings in Resources */,
 				966EFA7809F635D400FA7F19 /* Defaults.plist in Resources */,
