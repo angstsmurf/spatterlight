@@ -1615,7 +1615,7 @@
 											<object class="NSButton" id="334424689">
 												<reference key="NSNextResponder" ref="585165377"/>
 												<int key="NSvFlags">258</int>
-												<string key="NSFrame">{{326, 171}, {27, 19}}</string>
+												<string key="NSFrame">{{325, 173}, {20, 19}}</string>
 												<reference key="NSSuperview" ref="585165377"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="224566863"/>
@@ -1623,10 +1623,10 @@
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="139639661">
 													<int key="NSCellFlags">67239424</int>
-													<int key="NSCellFlags2">134217728</int>
+													<int key="NSCellFlags2">0</int>
 													<string key="NSContents">♋</string>
 													<object class="NSFont" key="NSSupport" id="485352378">
-														<string key="NSName">ExclamationCircleNew-Layers</string>
+														<string key="NSName">LucidaGrande</string>
 														<double key="NSSize">17</double>
 														<int key="NSfFlags">16</int>
 													</object>
@@ -1697,7 +1697,7 @@ A</bytes>
 											<object class="NSButton" id="469413874">
 												<reference key="NSNextResponder" ref="585165377"/>
 												<int key="NSvFlags">258</int>
-												<string key="NSFrame">{{326, 140}, {27, 19}}</string>
+												<string key="NSFrame">{{325, 141}, {20, 19}}</string>
 												<reference key="NSSuperview" ref="585165377"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="562829700"/>
@@ -1705,7 +1705,7 @@ A</bytes>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="759752088">
 													<int key="NSCellFlags">67239424</int>
-													<int key="NSCellFlags2">134217728</int>
+													<int key="NSCellFlags2">0</int>
 													<string key="NSContents">♋</string>
 													<reference key="NSSupport" ref="485352378"/>
 													<reference key="NSControlView" ref="469413874"/>

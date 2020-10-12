@@ -1064,7 +1064,7 @@ NSString *fontToString(NSFont *font) {
 
     [attstr replaceCharactersInRange:NSMakeRange(0,1) withString:@"\u264B"];
 
-    CGFloat offset = 1 + (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) * 2; //Need to check this
+    CGFloat offset = (NSAppKitVersionNumber < NSAppKitVersionNumber10_9); //Need to check this
 
     [attstr addAttribute:NSBaselineOffsetAttributeName
                    value:@(offset)
