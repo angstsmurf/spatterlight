@@ -2277,15 +2277,19 @@ fprintf(stderr, "%s\n",                                                    \
 
         case BEEP:
             if (_theme.doSound) {
-                if (req->a1 == 1) {
+                if (req->a1 == 1 && _theme.beepHigh) {
                     NSSound *sound = [NSSound soundNamed:_theme.beepHigh];
-                    [sound stop];
-                    [sound play];
+                    if (sound) {
+                        [sound stop];
+                        [sound play];
+                    }
                 }
-                if (req->a1 == 2) {
+                if (req->a1 == 2 && _theme.beepLow) {
                     NSSound *sound = [NSSound soundNamed:_theme.beepLow];
-                    [sound stop];
-                    [sound play];
+                    if (sound) {
+                        [sound stop];
+                        [sound play];
+                    }
                 }
             }
 
