@@ -992,7 +992,7 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeBool:_previewDummy forKey:@"previewDummy"];
 }
 
-- (void)showAutorestoreAlert {
+- (void)showAutorestoreAlert:(id)userInfo {
 
     shouldShowAutorestoreAlert = NO;
 
@@ -2151,8 +2151,8 @@ fprintf(stderr, "%s\n",                                                    \
             if (turns == 2) {
                 if (shouldRestoreUI) {
                     [self restoreUI];
-                    if (shouldShowAutorestoreAlert)
-                        [self showAutorestoreAlert];
+                    if (shouldShowAutorestoreAlert && !_startingInFullscreen)
+                        [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
                 } else {
                     // If we are not autorestoring, try to guess an input window.
                     for (GlkWindow *win in _gwindows.allValues) {
@@ -3161,7 +3161,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               [weakSelf queueEvent:gevent];
 
               if (stashShouldShowAlert)
-                  [weakSelf showAutorestoreAlert];
+                  [weakSelf performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
               [weakSelf restoreScrollOffsets];
           }];
      }];
@@ -3243,12 +3243,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 //
 - (void)deferredEnterFullscreen:(id)sender {
-//    [self showWindow:nil];
-//    [self.window makeKeyAndOrderFront:nil];
-//    _ignoreResizes = YES;
     [self.window toggleFullScreen:nil];
-//    [self restoreUI];
-//    inFullScreenResize = NO;
+    if (shouldShowAutorestoreAlert)
+        [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:1];
 }
 
 - (CALayer *)takeSnapshot {
