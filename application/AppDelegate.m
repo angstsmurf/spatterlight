@@ -389,7 +389,7 @@ NSDictionary *gFormatMap;
 
             NSInteger choice = [anAlert runModal];
 
-            if (anAlert.suppressionButton.state == NSControlStateValueOn) {
+            if (anAlert.suppressionButton.state == NSOnState) {
                 // Suppress this alert from now on
                 [defaults setBool:YES forKey:@"terminationAlertSuppression"];
             }

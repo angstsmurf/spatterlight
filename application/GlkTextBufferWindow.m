@@ -612,7 +612,7 @@
                 [image.image
                         drawInRect:bounds
                           fromRect:NSMakeRect(0, 0, size.width, size.height)
-                 operation:NSCompositingOperationSourceOver
+                 operation:NSCompositeSourceOver
                           fraction:1.0
                     respectFlipped:YES
                              hints:nil];
@@ -1766,11 +1766,11 @@
     unsigned ch = keycode_Unknown;
     if (str.length)
         ch = chartokeycode([str characterAtIndex:0]);
-
+    
     NSUInteger flags = evt.modifierFlags;
-
+    
     GlkWindow *win;
-
+    
     // pass on this key press to another GlkWindow if we are not expecting one
     if (!self.wantsFocus) {
         NSLog(@"%ld does not want focus", self.name);
@@ -1786,14 +1786,14 @@
             }
         }
     }
-
-    BOOL commandKeyOnly = ((flags & NSEventModifierFlagCommand) &&
-                           !(flags & (NSEventModifierFlagOption | NSEventModifierFlagShift |
-                                      NSEventModifierFlagControl | NSEventModifierFlagHelp)));
-    BOOL optionKeyOnly = ((flags & NSEventModifierFlagOption) &&
-                          !(flags & (NSEventModifierFlagCommand | NSEventModifierFlagShift |
-                                     NSEventModifierFlagControl | NSEventModifierFlagHelp)));
-
+    
+    BOOL commandKeyOnly = ((flags & NSCommandKeyMask) &&
+                           !(flags & (NSAlternateKeyMask | NSShiftKeyMask |
+                                      NSControlKeyMask | NSHelpKeyMask)));
+    BOOL optionKeyOnly = ((flags & NSAlternateKeyMask) &&
+                          !(flags & (NSCommandKeyMask | NSShiftKeyMask |
+                                     NSControlKeyMask | NSHelpKeyMask)));
+    
     if (ch == keycode_Up) {
         if (optionKeyOnly)
             ch = keycode_PageUp;
@@ -1822,10 +1822,10 @@
             return;
         }
     }
-
+    
     NSNumber *key = @(ch);
     BOOL scrolled = NO;
-
+    
     if (![self scrolledToBottom]) {
         //        NSLog(@"Not scrolled to the bottom, pagedown or navigate scrolling on each key instead");
         switch (ch) {
@@ -1851,20 +1851,20 @@
                 break;
         }
     }
-
+    
     if (char_request && ch != keycode_Unknown) {
         // To fix scrolling in the Adrian Mole games
         if (!scrolled)
             self.glkctl.shouldScrollOnCharEvent = YES;
-
+        
         [self.glkctl markLastSeen];
-
+        
         gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
         [self.glkctl queueEvent:gev];
-
+        
         char_request = NO;
         [_textview setEditable:NO];
-
+        
     } else if (line_request && (ch == keycode_Return ||
                                 [self.currentTerminators[key] isEqual:@(YES)])) {
         [self sendInputLineWithTerminator:ch == keycode_Return ? 0 : key.integerValue];
@@ -1877,11 +1877,11 @@
         [_textview scrollPageUp:nil];
         return;
     }
-
+    
     else {
         if (line_request)
             [self grabFocus];
-
+        
         [self stopSpeakingText_10_7];
         [[self.glkctl window] makeFirstResponder:_textview];
         [_textview superKeyDown:evt];
@@ -2191,28 +2191,19 @@ replacementString:(id)repl {
     return NO;
 }
 
-- (void)textStorage:(NSTextStorage *)textStorage
- willProcessEditing:(NSTextStorageEditActions)editedMask
-              range:(NSRange)editedRange
-     changeInLength:(NSInteger)delta {
-    if (textStorage != textstorage)
-        return;
+- (void)textStorageWillProcessEditing:(NSNotification *)note {
     if (!line_request)
         return;
-
-    if (editedRange.location < fence)
+    
+    if (textstorage.editedRange.location < fence)
         return;
-
-    if ((editedMask &  NSTextStorageEditedCharacters) != NSTextStorageEditedCharacters)
-        return;
-
+    
     NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
     if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Default && currentZColor.fg != zcolor_Current)
         inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
-
+    
     [textstorage setAttributes:inputStyle
-                         range:editedRange];
-    return;
+                         range:textstorage.editedRange];
 }
 
 - (NSRange)textView:(NSTextView *)aTextView
@@ -2332,7 +2323,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
     [src drawInRect:NSMakeRect(0, 0, dstsize.width, dstsize.height)
               fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
-          operation:NSCompositingOperationSourceOver
+          operation:NSCompositeSourceOver
               fraction:1.0
         respectFlipped:YES
                  hints:nil];

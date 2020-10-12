@@ -157,16 +157,16 @@
                 case stylehint_Justification:
                     switch (value) {
                         case stylehint_just_LeftFlush:
-                            para.alignment = NSTextAlignmentLeft;
+                            para.alignment = NSLeftTextAlignment;
                             break;
                         case stylehint_just_LeftRight:
-                            para.alignment = NSTextAlignmentJustified;
+                            para.alignment = NSJustifiedTextAlignment;
                             break;
                         case stylehint_just_Centered:
-                            para.alignment = NSTextAlignmentCenter;
+                            para.alignment = NSCenterTextAlignment;
                             break;
                         case stylehint_just_RightFlush:
-                            para.alignment = NSTextAlignmentRight;
+                            para.alignment = NSRightTextAlignment;
                             break;
                         default:
                             NSLog(@"Unimplemented justification style hint!");

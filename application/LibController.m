@@ -411,7 +411,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                               } else {
                                   if (ifid) {
                                       NSAlert *anAlert = [[NSAlert alloc] init];
-                                      anAlert.alertStyle = NSAlertStyleInformational;
+                                      anAlert.alertStyle = NSInformationalAlertStyle;
                                       anAlert.messageText = @"Not a match.";
                                       anAlert.informativeText = [NSString stringWithFormat:@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", game.metadata.title];
                                       [anAlert addButtonWithTitle:@"Yes"];
@@ -513,7 +513,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     if (filenames.count > 0) {
         NSAlert *alert = [[NSAlert alloc] init];
-        alert.alertStyle = NSAlertStyleInformational;
+        alert.alertStyle = NSInformationalAlertStyle;
         alert.messageText = [NSString stringWithFormat:@"%@ %@ also in this folder.", [NSString stringWithSummaryOf:fetchedObjects], (fetchedObjects.count > 1) ? @"are" : @"is"];
         alert.informativeText = [NSString stringWithFormat:@"Do you want to update %@ as well?", (fetchedObjects.count > 1) ? @"them" : @"it"];
         [alert addButtonWithTitle:@"Yes"];
