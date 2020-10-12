@@ -757,6 +757,11 @@
     self.editable = NO;
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
 
+    NSLog(@"%@", NSStringFromSelector(menuItem.action));
+
+    if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuItem.action != @selector(_lookUpDefiniteRangeInDictionaryFromMenu:) && menuItem.action != @selector(_searchWithGoogleFromMenu:))
+        return NO;
+
     if (menuItem.action == @selector(cut:)) {
         if (self.selectedRange.length &&
             [delegate textView:self
@@ -1377,6 +1382,12 @@
 - (void)terpDidStop {
     [_textview setEditable:NO];
     [self grabFocus];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    if (self.glkctl.previewDummy)
+        return NO;
+    return [super validateMenuItem:menuItem];
 }
 
 #pragma mark Colors and styles
