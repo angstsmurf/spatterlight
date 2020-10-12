@@ -3175,7 +3175,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
          // Make sure the window style mask does not
          // include full screen bit
          [window
-          setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
+          setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
          [[window animator] setFrame:oldFrame display:YES];
      }
      completionHandler:^{
