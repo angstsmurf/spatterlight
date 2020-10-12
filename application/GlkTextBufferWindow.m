@@ -905,8 +905,8 @@
     if ([attribute isEqualToString:
                        NSAccessibilityRangeForLineParameterizedAttribute]) {
         NSLayoutManager *layoutManager = self.layoutManager;
-        unsigned numberOfLines, index;
-        unsigned numberOfGlyphs = [layoutManager numberOfGlyphs];
+        NSUInteger numberOfLines, index;
+        NSUInteger numberOfGlyphs = [layoutManager numberOfGlyphs];
         NSRange lineRange;
 
         for (numberOfLines = 0, index = 0; index < numberOfGlyphs;
