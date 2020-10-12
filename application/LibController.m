@@ -2353,7 +2353,7 @@ objectValueForTableColumn: (NSTableColumn*)column
    forTableColumn:(NSTableColumn *)tableColumn
               row:(NSInteger)row {
 
-    CGFloat offset = 3; // seems to look fine
+    CGFloat offset = 3; // Seems to look okay
 
     if (cell == _foundIndicatorCell) {
         NSMutableAttributedString *attstr = [((NSTextFieldCell *)cell).attributedStringValue mutableCopy];
