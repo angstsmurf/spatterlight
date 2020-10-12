@@ -111,15 +111,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 #pragma mark Window controller, menus and file dialogs.
 
-static NSMutableDictionary *load_mutable_plist(NSString *path) {
+- (NSMutableDictionary *)load_mutable_plist:(NSString *)path {
     NSMutableDictionary *dict;
-    NSString *error;
+    NSError *error;
 
-    dict = [NSPropertyListSerialization
-        propertyListFromData:[NSData dataWithContentsOfFile:path]
-            mutabilityOption:NSPropertyListMutableContainersAndLeaves
-                      format:NULL
-            errorDescription:&error];
+    dict = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:path] options:NSPropertyListMutableContainersAndLeaves format:nil error:&error];
 
     if (!dict) {
         NSLog(@"libctl: cannot load plist: %@", error);
@@ -164,7 +160,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         _homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:appSuppDir];
 
         NSString* _imageDirName = @"Cover Art";
-        _imageDirName = [_imageDirName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        _imageDirName = [_imageDirName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
         _imageDir = [NSURL URLWithString:_imageDirName relativeToURL:_homepath];
 
         [[NSFileManager defaultManager] createDirectoryAtURL:_imageDir
@@ -287,14 +283,15 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
 
 - (IBAction)deleteLibrary:(id)sender {
-    NSInteger choice =
-        NSRunAlertPanel(@"Do you really want to delete the library?",
-                        [NSString stringWithFormat: @"This will empty your game list and delete all metadata. "
-                         @"%@The original game files will not be affected.",
-                         (_gameSessions.count) ? @"Currently running games will be skipped. " : @""],
-                        @"Delete", NULL, @"Cancel");
-    
-    if (choice != NSAlertOtherReturn) {
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText:@"Do you really want to delete the library?"];
+    [alert setInformativeText:[NSString stringWithFormat:@"This will empty your game list and delete all metadata. %@\nThe original game files will not be affected.",
+                               (_gameSessions.count) ? @"Currently running games will be skipped. " : @""]];
+    [alert addButtonWithTitle:@"Delete"];
+    [alert addButtonWithTitle:@"Cancel"];
+    NSModalResponse choice = [alert runModal];
+
+    if (choice == NSAlertFirstButtonReturn) {
 
         NSArray *entitiesToDelete = @[@"Metadata", @"Game", @"Ifid", @"Image"];
 
@@ -345,37 +342,44 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 }
 
 - (IBAction)pruneLibrary:(id)sender {
-    NSInteger choice =
-        NSRunAlertPanel(@"Do you really want to prune the library?",
-                        @"Pruning will delete the information about games that "
-                        @"are not in the library at the moment.",
-                        @"Prune", NULL, @"Cancel");
-    if (choice != NSAlertOtherReturn) {
-            NSFetchRequest *orphanedMetadata = [[NSFetchRequest alloc] init];
-            [orphanedMetadata setEntity:[NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:_managedObjectContext]];
 
-            orphanedMetadata.predicate = [NSPredicate predicateWithFormat: @"ANY games == NIL"];
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = @"Do you really want to prune the library?";
+    alert.informativeText = @"Pruning will delete the information about games that are not in the library at the moment.";
+    [alert addButtonWithTitle:@"Prune"];
+    [alert addButtonWithTitle:@"Cancel"];
 
-            NSError *error = nil;
-            NSArray *metadataEntriesToDelete = [_managedObjectContext executeFetchRequest:orphanedMetadata error:&error];
-            //error handling goes here
-            NSLog(@"Pruning %ld metadata entities", metadataEntriesToDelete.count);
-            for (Metadata *meta in metadataEntriesToDelete) {
-                NSLog(@"Pruning metadata for %@", meta.title)
-                [_managedObjectContext deleteObject:meta];
-            }
-            [_coreDataManager saveChanges];
+    NSModalResponse choice = [alert runModal];
+
+    if (choice == NSAlertFirstButtonReturn) {
+        NSFetchRequest *orphanedMetadata = [[NSFetchRequest alloc] init];
+        [orphanedMetadata setEntity:[NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:_managedObjectContext]];
+
+        orphanedMetadata.predicate = [NSPredicate predicateWithFormat: @"ANY games == NIL"];
+
+        NSError *error = nil;
+        NSArray *metadataEntriesToDelete = [_managedObjectContext executeFetchRequest:orphanedMetadata error:&error];
+        //error handling goes here
+        NSLog(@"Pruning %ld metadata entities", metadataEntriesToDelete.count);
+        for (Metadata *meta in metadataEntriesToDelete) {
+            NSLog(@"Pruning metadata for %@", meta.title)
+            [_managedObjectContext deleteObject:meta];
         }
+        [_coreDataManager saveChanges];
+    }
 }
 
 - (BOOL)lookForMissingFile:(Game *)game {
-    NSInteger choice =
-    NSRunAlertPanel(
-                    @"Cannot find the file.",
-                  [NSString stringWithFormat: @"The game file for \"%@\" could not be found at its original location. Do "
-                    @"you want to look for it?", game.metadata.title],
-                    @"Yes", NULL, @"Cancel");
-    if (choice != NSAlertOtherReturn) {
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = @"Cannot find the file.";
+    alert.informativeText = [NSString stringWithFormat: @"The game file for \"%@\" could not be found at its original location. Do "
+                             @"you want to look for it?", game.metadata.title];
+    [alert addButtonWithTitle:@"Yes"];
+    [alert addButtonWithTitle:@"Cancel"];
+
+    NSModalResponse choice = [alert runModal];
+
+    if (choice == NSAlertFirstButtonReturn) {
         NSOpenPanel *panel = [NSOpenPanel openPanel];
         [panel setAllowsMultipleSelection:NO];
         [panel setCanChooseDirectories:NO];
@@ -406,15 +410,24 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
                                   [self lookForMoreMissingFilesInFolder:newPath.stringByDeletingLastPathComponent];
                               } else {
                                   if (ifid) {
-                                      NSInteger response = NSRunAlertPanel(@"Not a match.", [NSString stringWithFormat:@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", game.metadata.title],  @"Yes", NULL, @"Cancel");
-                                      if (response != NSAlertOtherReturn) {
+                                      NSAlert *anAlert = [[NSAlert alloc] init];
+                                      anAlert.alertStyle = NSAlertStyleInformational;
+                                      anAlert.messageText = @"Not a match.";
+                                      anAlert.informativeText = [NSString stringWithFormat:@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", game.metadata.title];
+                                      [anAlert addButtonWithTitle:@"Yes"];
+                                      [anAlert addButtonWithTitle:@"Cancel"];
+                                      NSInteger response = [anAlert runModal];
+                                      if (response == NSAlertFirstButtonReturn) {
                                           if ([weakSelf importGame:newPath inContext:weakSelf.managedObjectContext reportFailure:YES]) {
                                               [weakSelf.managedObjectContext deleteObject:game];
                                           }
                                       }
 
                                   } else {
-                                      NSRunAlertPanel(@"Not a match.", [NSString stringWithFormat:@"This file does not match the game \"%@.\"", game.metadata.title], @"OK", NULL, NULL);
+                                      NSAlert *anAlert = [[NSAlert alloc] init];
+                                      anAlert.messageText = @"Not a match.";
+                                      anAlert.informativeText = [NSString stringWithFormat:@"This file does not match the game \"%@.", game.metadata.title];
+                                      [anAlert runModal];
                                   }
                               }
                           }
@@ -428,9 +441,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     char *format = babel_init((char*)path.UTF8String);
     if (!format || !babel_get_authoritative())
     {
-        NSRunAlertPanel(@"Unknown file format.",
-                            @"Babel can not identify the file format.",
-                            @"Okay", NULL, NULL);
+        NSAlert *anAlert = [[NSAlert alloc] init];
+        anAlert.messageText = @"Unknown file format.";
+        anAlert.informativeText = @"Babel can not identify the file format.";
+        [anAlert runModal];
         babel_release();
         return nil;
     }
@@ -440,9 +454,10 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     int rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
     if (rv <= 0)
     {
-            NSRunAlertPanel(@"Fatal error.",
-                            @"Can not compute IFID from the file.",
-                            @"Okay", NULL, NULL);
+        NSAlert *anAlert = [[NSAlert alloc] init];
+        anAlert.messageText = @"Fatal error.";
+        anAlert.informativeText = @"Can not compute IFID from the file.";
+        [anAlert runModal];
         babel_release();
         return nil;
     }
@@ -497,11 +512,15 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
     fetchedObjects = [filenames allValues];
 
     if (filenames.count > 0) {
-        NSInteger choice =
-        NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ also in this folder.", [NSString stringWithSummaryOf:fetchedObjects], (fetchedObjects.count > 1) ? @"are" : @"is"],
-                        [NSString stringWithFormat:@"Do you want to update %@ as well?", (fetchedObjects.count > 1) ? @"them" : @"it" ],
-                        @"Yes", NULL, @"Cancel");
-        if (choice != NSAlertOtherReturn) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.alertStyle = NSAlertStyleInformational;
+        alert.messageText = [NSString stringWithFormat:@"%@ %@ also in this folder.", [NSString stringWithSummaryOf:fetchedObjects], (fetchedObjects.count > 1) ? @"are" : @"is"];
+        alert.informativeText = [NSString stringWithFormat:@"Do you want to update %@ as well?", (fetchedObjects.count > 1) ? @"them" : @"it"];
+        [alert addButtonWithTitle:@"Yes"];
+        [alert addButtonWithTitle:@"Cancel"];
+
+        NSModalResponse choice = [alert runModal];
+        if (choice == NSAlertFirstButtonReturn) {
             for (filename in filenames) {
                 Game *game = [filenames objectForKey:filename];
                 NSLog(@"Updating game %@ with new path %@", game.metadata.title, filename);
@@ -572,7 +591,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-                      if (result == NSFileHandlingPanelOKButton) {
+                      if (result == NSModalResponseOK) {
                           NSURL *url = panel.URL;
 
                           [self exportMetadataToFile:url.path
@@ -1360,7 +1379,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
 
     [private performBlock:^{
         // First, we try to load the Metadata.plist and add all entries as Metadata entities
-        NSMutableDictionary *metadata = load_mutable_plist([weakSelf.homepath.path stringByAppendingPathComponent: @"Metadata.plist"]);
+        NSMutableDictionary *metadata = [weakSelf load_mutable_plist:[weakSelf.homepath.path stringByAppendingPathComponent: @"Metadata.plist"]];
 
         NSString *ifid;
 
@@ -1371,7 +1390,7 @@ static NSMutableDictionary *load_mutable_plist(NSString *path) {
         }
 
         // Second, we try to load the Games.plist and add all entries as Game entities
-        NSDictionary *games = load_mutable_plist([weakSelf.homepath.path stringByAppendingPathComponent: @"Games.plist"]);
+        NSDictionary *games = [weakSelf load_mutable_plist:[weakSelf.homepath.path stringByAppendingPathComponent: @"Games.plist"]];
 
         NSDate *timestamp = [NSDate date];
         
@@ -1704,9 +1723,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 
     if (![[NSFileManager defaultManager] isReadableFileAtPath:path]) {
-        NSRunAlertPanel(@"Cannot read the file.",
-                        @"The file exists but can not be read.", @"Okay", NULL,
-                        NULL);
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.messageText = @"Cannot read the file.";
+        alert.informativeText = @"The file exists but can not be read.";
+        [alert runModal];
         return nil;
     }
 
@@ -1720,10 +1740,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 
     if (!terp) {
-        NSRunAlertPanel(@"Cannot play the file.",
-                        @"The game is not in a recognized file format; cannot "
-                        @"find a suitable interpreter.",
-                        @"Okay", NULL, NULL);
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.messageText = @"Cannot play the file.";
+        alert.informativeText = @"The game is not in a recognized file format; cannot find a suitable interpreter.";
+        [alert runModal];
         return nil;
     }
 
@@ -1798,9 +1818,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         {
             if (report) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSRunAlertPanel(@"Conversion failed.",
-                                    @"This old style AGT file could not be converted to the new AGX format.",
-                                    @"Okay", NULL, NULL);
+                    NSAlert *alert = [[NSAlert alloc] init];
+                    alert.messageText = @"Conversion failed.";
+                    alert.informativeText = @"This old style AGT file could not be converted to the new AGX format.";
+                    [alert runModal];
                 });
             }
             return nil;
@@ -1811,9 +1832,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSRunAlertPanel(@"Unknown file format.",
-                                [NSString stringWithFormat:@"Can not recognize the file extension \"%@.\"", path.pathExtension],
-                                @"Okay", NULL, NULL);
+                NSAlert *alert = [[NSAlert alloc] init];
+                alert.messageText = @"Unknown file format.";
+                alert.informativeText = [NSString stringWithFormat:@"Can not recognize the file extension \"%@.\"", path.pathExtension];
+                [alert runModal];
             });
         }
         return nil;
@@ -1824,9 +1846,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSRunAlertPanel(@"Unknown file format.",
-                                @"Babel can not identify the file format.",
-                                @"Okay", NULL, NULL);
+                NSAlert *alert = [[NSAlert alloc] init];
+                alert.messageText = @"Unknown file format.";
+                alert.informativeText = @"Babel can not identify the file format.";
+                [alert runModal];
             });
         }
         babel_release();
@@ -1841,9 +1864,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSRunAlertPanel(@"Fatal error.",
-                                @"Can not compute IFID from the file.",
-                                @"Okay", NULL, NULL);
+                NSAlert *alert = [[NSAlert alloc] init];
+                alert.messageText = @"Fatal error.";
+                alert.informativeText = @"Can not compute IFID from the file.";
+                [alert runModal];
             });
         }
         babel_release();
@@ -1867,9 +1891,10 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             if (!mdbuf) {
                 if (report) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        NSRunAlertPanel(@"Out of memory.",
-                                        @"Can not allocate memory for the metadata text.",
-                                        @"Okay", NULL, NULL);
+                        NSAlert *alert = [[NSAlert alloc] init];
+                        alert.messageText = @"Out of memory.";
+                        alert.informativeText = @"Can not allocate memory for the metadata text.";
+                        [alert runModal];
                     });
                 }
                 babel_release();

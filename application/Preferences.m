@@ -1702,18 +1702,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [anAlert addButtonWithTitle:@"Okay"];
     [anAlert addButtonWithTitle:@"Discard Change"];
 
-    [anAlert beginSheetModalForWindow:self.window
-                        modalDelegate:self
-                       didEndSelector:@selector(duplicateThemeNameAlertDidFinish:
-                                                rc:ctx:)
-                          contextInfo:(__bridge void *)fieldEditor];
+    [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
+        if (result == NSAlertSecondButtonReturn) {
+            fieldEditor.string = theme.name;
+        }
+    }];
 }
 
-- (void)duplicateThemeNameAlertDidFinish:(id)alert rc:(int)result ctx:(void *)ctx {
-    if (result == NSAlertSecondButtonReturn) {
-        ((__bridge NSText *)ctx).string = theme.name;
-    }
-}
+
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
     if ([notification.object isKindOfClass:[NSTextField class]]) {
@@ -1832,30 +1828,22 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [anAlert addButtonWithTitle:@"Okay"];
     [anAlert addButtonWithTitle:@"Cancel"];
 
-    [anAlert beginSheetModalForWindow:self.window
-                        modalDelegate:self
-                       didEndSelector:@selector(useForAllAlertDidFinish:
-                                                rc:ctx:)
-                          contextInfo:NULL];
-}
+    Preferences * __unsafe_unretained weakSelf = self;
+    [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
 
-- (void)useForAllAlertDidFinish:(id)alert rc:(int)result ctx:(void *)ctx {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *alertSuppressionKey = @"UseForAllAlertSuppression";
 
-    NSAlert *anAlert = alert;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    NSString *alertSuppressionKey = @"UseForAllAlertSuppression";
-
-    if (anAlert.suppressionButton.state == NSControlStateValueOn) {
-        // Suppress this alert from now on
-        [defaults setBool:YES forKey:alertSuppressionKey];
-    }
-
-    if (result == NSAlertFirstButtonReturn) {
-        self.oneThemeForAll = YES;
-    } else {
-        _btnOneThemeForAll.state = NSControlStateValueOff;
-    }
+        if (anAlert.suppressionButton.state == NSControlStateValueOn) {
+            // Suppress this alert from now on
+            [defaults setBool:YES forKey:alertSuppressionKey];
+        }
+        if (result == NSAlertFirstButtonReturn) {
+            weakSelf.oneThemeForAll = YES;
+        } else {
+            weakSelf.btnOneThemeForAll.state = NSControlStateValueOff;
+        }
+    }];
 }
 
 - (NSString *)themeScopeTitle {
@@ -2197,30 +2185,25 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [anAlert addButtonWithTitle:@"Okay"];
     [anAlert addButtonWithTitle:@"Cancel"];
 
-    [anAlert beginSheetModalForWindow:self.window
-                        modalDelegate:self
-                       didEndSelector:@selector(overwriteStylesAlertDidFinish:
-                                                rc:ctx:)
-                          contextInfo:(__bridge void *)styles];
-}
+    Preferences * __unsafe_unretained weakSelf = self;
 
-- (void)overwriteStylesAlertDidFinish:(id)alert rc:(int)result ctx:(void *)ctx {
+    [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
 
-    NSAlert *anAlert = alert;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSString *alertSuppressionKey = @"OverwriteStylesAlertSuppression";
+        NSString *alertSuppressionKey = @"OverwriteStylesAlertSuppression";
 
-    if (anAlert.suppressionButton.state == NSControlStateValueOn) {
-        // Suppress this alert from now on
-        [defaults setBool:YES forKey:alertSuppressionKey];
-    }
+        if (anAlert.suppressionButton.state == NSControlStateValueOn) {
+            // Suppress this alert from now on
+            [defaults setBool:YES forKey:alertSuppressionKey];
+        }
 
-    if (result == NSAlertFirstButtonReturn) {
-        [self overWriteStyles];
-    } else {
-        _btnOverwriteStyles.state = NSControlStateValueOff;
-    }
+        if (result == NSAlertFirstButtonReturn) {
+            [weakSelf overWriteStyles];
+        } else {
+            weakSelf.btnOverwriteStyles.state = NSControlStateValueOff;
+        }
+    }];
 }
 
 - (void)overWriteStyles {

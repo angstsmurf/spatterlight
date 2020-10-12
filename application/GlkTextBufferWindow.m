@@ -1472,6 +1472,7 @@
 
         NSRange selectedRange = _textview.selectedRange;
 
+        __block NSArray *blockStyles = styles;
         [textstorage
          enumerateAttributesInRange:NSMakeRange(0, textstorage.length)
          options:0
@@ -1481,7 +1482,7 @@
              // styles array
              id styleobject = attrs[@"GlkStyle"];
              if (styleobject) {
-                 NSDictionary *stylesAtt = styles[(NSUInteger)[styleobject intValue]];
+                 NSDictionary *stylesAtt = blockStyles[(NSUInteger)[styleobject intValue]];
                  [backingStorage setAttributes:stylesAtt range:range];
              }
 
@@ -2190,11 +2191,19 @@ replacementString:(id)repl {
     return NO;
 }
 
-- (void)textStorageWillProcessEditing:(NSNotification *)note {
+- (void)textStorage:(NSTextStorage *)textStorage
+ willProcessEditing:(NSTextStorageEditActions)editedMask
+              range:(NSRange)editedRange
+     changeInLength:(NSInteger)delta {
+    if (textStorage != textstorage)
+        return;
     if (!line_request)
         return;
 
-    if (textstorage.editedRange.location < fence)
+    if (editedRange.location < fence)
+        return;
+
+    if ((editedMask &  NSTextStorageEditedCharacters) != NSTextStorageEditedCharacters)
         return;
 
     NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
@@ -2202,7 +2211,8 @@ replacementString:(id)repl {
         inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
 
     [textstorage setAttributes:inputStyle
-                         range:textstorage.editedRange];
+                         range:editedRange];
+    return;
 }
 
 - (NSRange)textView:(NSTextView *)aTextView

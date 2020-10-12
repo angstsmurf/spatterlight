@@ -806,7 +806,7 @@ fprintf(stderr, "%s\n",                                                    \
         dirstr = [dirstr
                   stringByAppendingPathComponent:[_gamefile signatureFromFile]];
         dirstr = [dirstr
-                  stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                  stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
 
         appSupportURL = [NSURL URLWithString:dirstr
                                relativeToURL:appSupportURL];
@@ -1005,37 +1005,30 @@ fprintf(stderr, "%s\n",                                                    \
     [anAlert addButtonWithTitle:@"Continue"];
     [anAlert addButtonWithTitle:@"Restart"];
 
-    [anAlert beginSheetModalForWindow:self.window
-                        modalDelegate:self
-                       didEndSelector:@selector(autorestoreAlertDidFinish:
-                                                rc:ctx:)
-                          contextInfo:NULL];
-}
+    [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
 
-- (void)autorestoreAlertDidFinish:(id)alert rc:(int)result ctx:(void *)ctx {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSAlert *anAlert = alert;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
+        NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
 
-    NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
-    NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
-
-    if (anAlert.suppressionButton.state == NSControlStateValueOn) {
-        // Suppress this alert from now on
-        [defaults setBool:YES forKey:alertSuppressionKey];
-    }
-
-    if (result == NSAlertSecondButtonReturn) {
-        [self reset:nil];
         if (anAlert.suppressionButton.state == NSControlStateValueOn) {
-            [defaults setBool:NO forKey:alwaysAutorestoreKey];
+            // Suppress this alert from now on
+            [defaults setBool:YES forKey:alertSuppressionKey];
         }
-        return;
-    } else {
-        if (anAlert.suppressionButton.state == NSControlStateValueOn) {
-            [defaults setBool:YES forKey:alwaysAutorestoreKey];
+
+        if (result == NSAlertSecondButtonReturn) {
+            [self reset:nil];
+            if (anAlert.suppressionButton.state == NSControlStateValueOn) {
+                [defaults setBool:NO forKey:alwaysAutorestoreKey];
+            }
+            return;
+        } else {
+            if (anAlert.suppressionButton.state == NSControlStateValueOn) {
+                [defaults setBool:YES forKey:alwaysAutorestoreKey];
+            }
         }
-    }
+    }];
 }
 
 - (IBAction)reset:(id)sender {
@@ -1109,19 +1102,6 @@ fprintf(stderr, "%s\n",                                                    \
     return !dead;
 }
 
-- (void)closeAlertDidFinish:(id)alert rc:(int)rc ctx:(void *)ctx {
-    if (rc == NSAlertFirstButtonReturn) {
-        if (((NSAlert *)alert).suppressionButton.state == NSControlStateValueOn) {
-            // Suppress this alert from now on
-            [[NSUserDefaults standardUserDefaults]
-             setBool:YES
-             forKey:@"closeAlertSuppression"];
-        }
-        [self windowWillClose:nil];
-        [self close];
-    }
-}
-
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     [Preferences changeCurrentGame:_game];
     if (!dead) {
@@ -1130,7 +1110,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (BOOL)windowShouldClose:(id)sender {
-//    NSLog(@"glkctl: windowShouldClose");
+    //    NSLog(@"glkctl: windowShouldClose");
     NSAlert *alert;
 
     if (dead || _supportsAutorestore) {
@@ -1152,10 +1132,18 @@ fprintf(stderr, "%s\n",                                                    \
     [alert addButtonWithTitle:@"Cancel"];
 
     [alert beginSheetModalForWindow:self.window
-                      modalDelegate:self
-                     didEndSelector:@selector(closeAlertDidFinish:rc:ctx:)
-                        contextInfo:NULL];
-
+                  completionHandler:^(NSInteger result) {
+                      if (result == NSAlertFirstButtonReturn) {
+                          if (alert.suppressionButton.state == NSControlStateValueOn) {
+                              // Suppress this alert from now on
+                              [[NSUserDefaults standardUserDefaults]
+                               setBool:YES
+                               forKey:@"closeAlertSuppression"];
+                          }
+                          [self windowWillClose:nil];
+                          [self close];
+                      }
+                  }];
     return NO;
 }
 
@@ -2643,18 +2631,11 @@ static NSString *signalToName(NSTask *task) {
     [task waitUntilExit];
 
     if (task && task.terminationStatus != 0 ) {
-        NSAlert *alert;
-        alert = [NSAlert
-                 alertWithMessageText:@"The game has unexpectedly terminated."
-                 defaultButton:@"Oops"
-                 alternateButton:nil
-                 otherButton:nil
-                 informativeTextWithFormat:@"Error code: %@.", signalToName(task)];
-
-        [alert beginSheetModalForWindow:self.window
-                          modalDelegate:nil
-                         didEndSelector:nil
-                            contextInfo:nil];
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.messageText = @"The game has unexpectedly terminated.";
+        alert.informativeText = [NSString stringWithFormat:@"Error code: %@.", signalToName(task)];
+        [alert addButtonWithTitle:@"Oops"];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {}];
     }
 
     for (GlkWindow *win in [_gwindows allValues])
@@ -3151,7 +3132,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               GlkEvent *gevent = [[GlkEvent alloc]
                                   initArrangeWidth:(NSInteger)localContentView.frame.size.width
                                   height:(NSInteger)localContentView.frame.size.height
-                                  theme:_theme
+                                  theme:weakSelf.theme
                                   force:NO];
 
               [weakSelf queueEvent:gevent];

@@ -429,8 +429,9 @@
     _enteredTextSoFar = restoredWin.enteredTextSoFar;
 
     if (line_request) {
+        GlkTextGridWindow * __unsafe_unretained weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self performSelector:@selector(deferredInitLine:) withObject:_enteredTextSoFar afterDelay:0.5];
+            [self performSelector:@selector(deferredInitLine:) withObject:weakSelf.enteredTextSoFar afterDelay:0.5];
         });
     }
 }
@@ -478,102 +479,105 @@
 
     if (different) {
         styles = newstyles;
-    if (self.glkctl.beyondZork)
-        [self createBeyondZorkStyle];
+        if (self.glkctl.beyondZork)
+            [self createBeyondZorkStyle];
 
-    NSUInteger textstoragelength = textstorage.length;
+        NSUInteger textstoragelength = textstorage.length;
 
-    /* reassign styles to attributedstrings */
-    // We create a copy of the text storage
-    _bufferTextStorage = [textstorage mutableCopy];
+        /* reassign styles to attributedstrings */
+        // We create a copy of the text storage
+        _bufferTextStorage = [textstorage mutableCopy];
 
-    [textstorage
-     enumerateAttributesInRange:NSMakeRange(0, textstoragelength)
-     options:0
-     usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
+        GlkTextGridWindow * __unsafe_unretained weakSelf = self;
 
-         // First, we overwrite all attributes with those in our updated
-         // styles array
-         id styleobject = attrs[@"GlkStyle"];
-         if (styleobject) {
-             NSDictionary *blockattributes = styles[(NSUInteger)[styleobject intValue]];
-             [_bufferTextStorage setAttributes:blockattributes range:range];
-         } else NSLog(@"No GlkStyle for range %@!", NSStringFromRange(range));
+        __block NSArray *blockStyles = styles;
+        [textstorage
+         enumerateAttributesInRange:NSMakeRange(0, textstoragelength)
+         options:0
+         usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
 
-         // Then, we re-add all the "non-Glk" style values we want to keep
-         // (hyperlinks, Z-colors and reverse video)
-         id hyperlink = attrs[NSLinkAttributeName];
-         if (hyperlink) {
-             [_bufferTextStorage addAttribute:NSLinkAttributeName
-                                        value:hyperlink
-                                        range:range];
-         }
+             // First, we overwrite all attributes with those in our updated
+             // styles array
+             id styleobject = attrs[@"GlkStyle"];
+             if (styleobject) {
+                 NSDictionary *blockattributes = blockStyles[(NSUInteger)[styleobject intValue]];
+                 [weakSelf.bufferTextStorage setAttributes:blockattributes range:range];
+             } else NSLog(@"No GlkStyle for range %@!", NSStringFromRange(range));
 
-         id zcolor = attrs[@"ZColor"];
-         if (zcolor) {
-             [_bufferTextStorage addAttribute:@"ZColor"
-                                        value:zcolor
-                                        range:range];
-         }
+             // Then, we re-add all the "non-Glk" style values we want to keep
+             // (hyperlinks, Z-colors and reverse video)
+             id hyperlink = attrs[NSLinkAttributeName];
+             if (hyperlink) {
+                 [weakSelf.bufferTextStorage addAttribute:NSLinkAttributeName
+                                                    value:hyperlink
+                                                    range:range];
+             }
 
-         id reverse = attrs[@"ReverseVideo"];
-         if (reverse) {
-             [_bufferTextStorage addAttribute:@"ReverseVideo"
-                                        value:reverse
-                                        range:range];
-         }
+             id zcolor = attrs[@"ZColor"];
+             if (zcolor) {
+                 [weakSelf.bufferTextStorage addAttribute:@"ZColor"
+                                                    value:zcolor
+                                                    range:range];
+             }
 
-     }];
+             id reverse = attrs[@"ReverseVideo"];
+             if (reverse) {
+                 [weakSelf.bufferTextStorage addAttribute:@"ReverseVideo"
+                                                    value:reverse
+                                                    range:range];
+             }
 
-    if (self.theme.doStyles)
-        _bufferTextStorage = [self applyZColorsAndThenReverse:_bufferTextStorage];
-    else
-        _bufferTextStorage = [self applyReverseOnly:_bufferTextStorage];
+         }];
 
-    [_bufferTextStorage addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(0, _bufferTextStorage.length)];
+        if (self.theme.doStyles)
+            _bufferTextStorage = [self applyZColorsAndThenReverse:_bufferTextStorage];
+        else
+            _bufferTextStorage = [self applyReverseOnly:_bufferTextStorage];
 
-    // Now we can replace the text storager
-    [textstorage setAttributedString:_bufferTextStorage];
+        [_bufferTextStorage addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(0, _bufferTextStorage.length)];
 
-    NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
-    linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-    textview.linkTextAttributes = linkAttributes;
+        // Now we can replace the text storager
+        [textstorage setAttributedString:_bufferTextStorage];
 
-    textview.selectedRange = selectedRange;
-    dirty = NO;
+        NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
+        linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
+        textview.linkTextAttributes = linkAttributes;
 
-    [self recalcBackground];
-    textview.backgroundColor = _pendingBackgroundCol;
+        textview.selectedRange = selectedRange;
+        dirty = NO;
 
-    if (line_request) {
-        if (!_enteredTextSoFar)
-            _enteredTextSoFar = @"";
-        if (_input) {
-            _enteredTextSoFar = [_input.stringValue copy];
-            _input = nil;
+        [self recalcBackground];
+        textview.backgroundColor = _pendingBackgroundCol;
+
+        if (line_request) {
+            if (!_enteredTextSoFar)
+                _enteredTextSoFar = @"";
+            if (_input) {
+                _enteredTextSoFar = [_input.stringValue copy];
+                _input = nil;
+            }
+
+            _fieldEditor = nil;
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self performSelector:@selector(deferredInitLine:) withObject:weakSelf.enteredTextSoFar afterDelay:0];
+            });
         }
 
-        _fieldEditor = nil;
+        if (!self.glkctl.isAlive) {
+            NSRect frame = self.frame;
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self performSelector:@selector(deferredInitLine:) withObject:_enteredTextSoFar afterDelay:0];
-        });
-    }
-
-    if (!self.glkctl.isAlive) {
-        NSRect frame = self.frame;
-
-        if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
-            frame.size.width = self.glkctl.contentView.frame.size.width - frame.origin.x;
+            if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
+                frame.size.width = self.glkctl.contentView.frame.size.width - frame.origin.x;
+            }
+            
+            if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
+                frame.size.height = self.glkctl.contentView.frame.size.height - frame.origin.y;
+            }
+            self.frame = frame;
+            [self checkForUglyBorder];
+            [self flushDisplay];
         }
-
-        if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
-            frame.size.height = self.glkctl.contentView.frame.size.height - frame.origin.y;
-        }
-        self.frame = frame;
-        [self checkForUglyBorder];
-        [self flushDisplay];
-    }
     }
 }
 
@@ -625,20 +629,22 @@
     }
 
     __block NSColor *bgCol;
+    __block NSUInteger blocCols = cols;
+    __block NSAttributedString *blockTextStorage = _bufferTextStorage;
 
-    [_bufferTextStorage
+    [blockTextStorage
      enumerateAttribute:NSBackgroundColorAttributeName
-     inRange:NSMakeRange(0, _bufferTextStorage.length)
+     inRange:NSMakeRange(0, blockTextStorage.length)
      options:0
      usingBlock:^(id value, NSRange range, BOOL *stop) {
 
          bgCol = (NSColor *)value;
-         if (bgCol && range.length + 2 > cols) {
-             if (NSMaxRange(range) > _bufferTextStorage.length - 3)
+         if (bgCol && range.length + 2 > blocCols) {
+             if (NSMaxRange(range) > blockTextStorage.length - 3)
                  *stop = YES;
          } else {
-                 bgCol = nil;
-        }
+             bgCol = nil;
+         }
      }];
 
     if (!bgCol) {
