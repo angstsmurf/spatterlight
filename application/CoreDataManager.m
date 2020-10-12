@@ -160,8 +160,8 @@
 //    NSLog(@"CoreDataManagar saveChanges");
     [_mainManagedObjectContext performBlockAndWait:^{
         NSError *error;
-        if (_mainManagedObjectContext.hasChanges) {
-            if (![_mainManagedObjectContext save:&error]) {
+        if (self.mainManagedObjectContext.hasChanges) {
+            if (![self.mainManagedObjectContext save:&error]) {
                 NSLog(@"Unable to Save Changes of Main Managed Object Context! Error: %@", error);
                 if (error) {
                     [[NSApplication sharedApplication] presentError:error];
@@ -175,9 +175,9 @@
     [privateManagedObjectContext performBlock:^{
         BOOL result;
         NSError *error;
-        if (privateManagedObjectContext.hasChanges) {
+        if (self->privateManagedObjectContext.hasChanges) {
             @try {
-                result = [privateManagedObjectContext save:&error];
+                result = [self->privateManagedObjectContext save:&error];
             }
             @catch (NSException *ex) {
                 // Ususally because we have deleted the core data files
