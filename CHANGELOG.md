@@ -9,6 +9,10 @@
 - Graphics windows in Level 9 and Magnetic Scrolls games now adjust their height to the image
 - The images in Level 9 games are less tiny
 - Fixed a crash that could occur when editing game metadata while mass-downloading or mass-adding games in the background
+- Games could crash when trying to play Infocom beeps
+- Many broken menu items were enabled when showing the theme preview
+- The warning alert about games being autorestored was broken
+- Font license window is less wide
 
 ## Release 0.5.14b
 
