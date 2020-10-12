@@ -1064,22 +1064,6 @@ static Preferences *prefs = nil;
 
     [attstr replaceCharactersInRange:NSMakeRange(0,1) withString:@"\u264B"];
 
-//    CGFloat offset = (NSAppKitVersionNumber <= NSAppKitVersionNumber10_10) * 4; //Need to check this
-
-    NSLog(@"NSAppKitVersionNumber: %f", NSAppKitVersionNumber);
-    NSLog(@"NSAppKitVersionNumber10_10: %f", NSAppKitVersionNumber10_10);
-
-//    [attstr addAttribute:NSBaselineOffsetAttributeName
-//                   value:@(offset)
-//                   range:NSMakeRange(0, attstr.length)];
-
-    NSRect butFrame = _swapBufColBtn.frame;
-//    butFrame.origin.x -= (NSAppKitVersionNumber <= NSAppKitVersionNumber10_10) * 5;
-    _swapBufColBtn.frame = butFrame;
-    butFrame = _swapGridColBtn.frame;
-//    butFrame.origin.x -= (NSAppKitVersionNumber <= NSAppKitVersionNumber10_10) * 5;
-    _swapGridColBtn.frame = butFrame;
-
     _swapBufColBtn.attributedTitle = attstr;
     _swapGridColBtn.attributedTitle = attstr;
 
