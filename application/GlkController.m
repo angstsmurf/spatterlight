@@ -3000,7 +3000,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     NSView __weak *localContentView = _contentView;
     NSView __weak *localBorderView = _borderView;
-    NSWindow __unsafe_unretained *localSnapshot = snapshotWindow;
+    NSWindow *localSnapshot = snapshotWindow;
 
     GlkController * __unsafe_unretained weakSelf = self;
     // Hide contentview
