@@ -1,6 +1,7 @@
 # Change log
 
-## Unreleased
+## Release 0.5.5
+
 - New theme based on the Montserrat font
 - Mouse clicks in Beyond Zork now still work after restarting
 - Fixes to line input in grid text windows, mainly used by My Angel and Beyond Zork. Input length limit is now respected
@@ -159,6 +160,3 @@
 - Open game on double click in table view, edit name on click-and-hold
 - Added Open Recent menu
 - Fixed black "scanlines" on images in Magnetic Scrolls games
-
-
-
