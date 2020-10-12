@@ -1455,7 +1455,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                             char *imgbuf = malloc(imglen);
                             if (imgbuf) {
                                 NSLog(@"Babel found image data in %@!", meta.title);
-                                babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
+                                babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, (int)imglen);
                                 imgdata = [[NSData alloc] initWithBytesNoCopy:imgbuf
                                                                                length:imglen
                                                                          freeWhenDone:YES];
@@ -1901,7 +1901,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                 return nil;
             }
 
-            rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
+            rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, (int)mdlen);
             if (rv > 0) {
                 NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
                 metadata = [self importMetadataFromXML: mdbufData inContext:context];
@@ -1970,7 +1970,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                 if (imgbuf)
                 {
                     //                    rv =
-					babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
+					babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, (int)imglen);
                     metadata.coverArtURL = path;
                     [self addImage:[[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES] toMetadata:metadata inContext:context];
                 }

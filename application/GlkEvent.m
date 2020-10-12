@@ -219,10 +219,10 @@ unsigned chartokeycode(unsigned ch) {
         settings->buffer_cell_width = (float)theme.bufferCellWidth;
         settings->buffer_cell_height = (float)theme.bufferCellHeight;
         settings->leading = (float)theme.gridNormal.lineSpacing;
-        settings->buffer_foreground = [theme.bufferNormal.color integerColor];
-        settings->buffer_background = [theme.bufferBackground integerColor];
-        settings->grid_foreground = [theme.gridNormal.color integerColor];
-        settings->grid_background = [theme.gridBackground integerColor];
+        settings->buffer_foreground = (int)[theme.bufferNormal.color integerColor];
+        settings->buffer_background = (int)[theme.bufferBackground integerColor];
+        settings->grid_foreground = (int)[theme.gridNormal.color integerColor];
+        settings->grid_background = (int)[theme.gridBackground integerColor];
         settings->force_arrange = _forced;
 
         reply.len = sizeof(struct settings_struct);

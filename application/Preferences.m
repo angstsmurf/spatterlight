@@ -1025,7 +1025,7 @@ static Preferences *prefs = nil;
 
 #pragma mark - Instance -- controller for preference panel
 
-NSString *fontToString(NSFont *font) {
+- (NSString *)fontToString:(NSFont *)font {
     if ((int)font.pointSize == font.pointSize)
         return [NSString stringWithFormat:@"%@ %.f", font.displayName,
                 (float)font.pointSize];
@@ -1195,9 +1195,9 @@ NSString *fontToString(NSFont *font) {
 
     txtBorder.intValue = theme.border;
 
-    btnGridFont.title = fontToString(theme.gridNormal.font);
-    btnBufferFont.title = fontToString(theme.bufferNormal.font);
-    btnInputFont.title = fontToString(theme.bufInput.font);
+    btnGridFont.title = [self fontToString:theme.gridNormal.font];
+    btnBufferFont.title = [self fontToString:theme.bufferNormal.font];
+    btnInputFont.title = [self fontToString:theme.bufInput.font];
 
     btnSmartQuotes.state = theme.smartQuotes;
     btnSpaceFormat.state = (theme.spaceFormat == TAG_SPACES_ONE);
@@ -2090,16 +2090,16 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return;
         themeToChange = [self cloneThemeIfNotEditable];
         key = @"GridMargin";
-        themeToChange.gridMarginX = val;
-        themeToChange.gridMarginY = val;
+        themeToChange.gridMarginX = (int)val;
+        themeToChange.gridMarginY = (int)val;
     }
     if (sender == txtBufferMargin) {
         if (theme.bufferMarginX == val)
             return;
         themeToChange = [self cloneThemeIfNotEditable];
         key = @"BufferMargin";
-        themeToChange.bufferMarginX = val;
-        themeToChange.bufferMarginY = val;
+        themeToChange.bufferMarginX = (int)val;
+        themeToChange.bufferMarginY = (int)val;
     }
 
     if (key) {
@@ -2279,7 +2279,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSLog(@"zoomToActualSize");
     zoomDirection = ZOOMRESET;
 
-    CGFloat scale;
+    CGFloat scale = 12;
     Theme *parent = theme.defaultParent;
     while (parent.defaultParent)
         parent = parent.defaultParent;
@@ -2342,9 +2342,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)updatePanelAfterZoom {
-    btnGridFont.title = fontToString(theme.gridNormal.font);
-    btnBufferFont.title = fontToString(theme.bufferNormal.font);
-    btnInputFont.title = fontToString(theme.bufInput.font);
+    btnGridFont.title = [self fontToString:theme.gridNormal.font];
+    btnBufferFont.title = [self fontToString:theme.bufferNormal.font];
+    btnInputFont.title = [self fontToString:theme.bufInput.font];
 }
 
 #pragma mark Font panel
@@ -2406,19 +2406,19 @@ textShouldEndEditing:(NSText *)fieldEditor {
             return;
         theme = [self cloneThemeIfNotEditable];
         theme.gridNormal.font = newFont;
-        btnGridFont.title = fontToString(newFont);
+        btnGridFont.title = [self fontToString:newFont];
     } else if (selectedFontButton == btnBufferFont) {
         if ([theme.bufferNormal.font isEqual:newFont])
             return;
         theme = [self cloneThemeIfNotEditable];
         theme.bufferNormal.font = newFont;
-        btnBufferFont.title = fontToString(newFont);
+        btnBufferFont.title = [self fontToString:newFont];
     } else if (selectedFontButton == btnInputFont) {
         if ([theme.bufInput.font isEqual:newFont])
             return;
         theme = [self cloneThemeIfNotEditable];
         theme.bufInput.font = newFont;
-        btnInputFont.title = fontToString(newFont);
+        btnInputFont.title = [self fontToString:newFont];
     }
 
     [Preferences rebuildTextAttributes];
