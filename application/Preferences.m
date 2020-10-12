@@ -1070,13 +1070,6 @@ NSString *fontToString(NSFont *font) {
                    value:@(offset)
                    range:NSMakeRange(0, attstr.length)];
 
-    NSRect butFrame = _swapBufColBtn.frame;
-    butFrame.origin.x -= (NSAppKitVersionNumber > NSAppKitVersionNumber10_9) * 5;
-    _swapBufColBtn.frame = butFrame;
-    butFrame = _swapGridColBtn.frame;
-    butFrame.origin.x -= (NSAppKitVersionNumber > NSAppKitVersionNumber10_9) * 5;
-    _swapGridColBtn.frame = butFrame;
-
     _swapBufColBtn.attributedTitle = attstr;
     _swapGridColBtn.attributedTitle = attstr;
 
