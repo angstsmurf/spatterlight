@@ -1064,17 +1064,20 @@ NSString *fontToString(NSFont *font) {
 
     [attstr replaceCharactersInRange:NSMakeRange(0,1) withString:@"\u264B"];
 
-    CGFloat offset = 1 + (NSAppKitVersionNumber <= NSAppKitVersionNumber10_10) * 4; //Need to check this
+//    CGFloat offset = (NSAppKitVersionNumber <= NSAppKitVersionNumber10_10) * 4; //Need to check this
 
-    [attstr addAttribute:NSBaselineOffsetAttributeName
-                   value:@(offset)
-                   range:NSMakeRange(0, attstr.length)];
+    NSLog(@"NSAppKitVersionNumber: %f", NSAppKitVersionNumber);
+    NSLog(@"NSAppKitVersionNumber10_10: %f", NSAppKitVersionNumber10_10);
+
+//    [attstr addAttribute:NSBaselineOffsetAttributeName
+//                   value:@(offset)
+//                   range:NSMakeRange(0, attstr.length)];
 
     NSRect butFrame = _swapBufColBtn.frame;
-    butFrame.origin.x -= (NSAppKitVersionNumber <= NSAppKitVersionNumber10_10) * 9;
+//    butFrame.origin.x -= (NSAppKitVersionNumber <= NSAppKitVersionNumber10_10) * 5;
     _swapBufColBtn.frame = butFrame;
     butFrame = _swapGridColBtn.frame;
-    butFrame.origin.x -= (NSAppKitVersionNumber <= NSAppKitVersionNumber10_10) * 9;
+//    butFrame.origin.x -= (NSAppKitVersionNumber <= NSAppKitVersionNumber10_10) * 5;
     _swapGridColBtn.frame = butFrame;
 
     _swapBufColBtn.attributedTitle = attstr;
