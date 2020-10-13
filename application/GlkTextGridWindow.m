@@ -1254,8 +1254,12 @@
 
     terminator = 0;
 
-    if (xpos + maxLength > cols || maxLength == 0)
+    if (xpos > cols || maxLength == 0) {
         return;
+    }
+
+    if (xpos + maxLength > cols + 1)
+        maxLength = cols + 1 - xpos;
 
     line_request = YES;
 
