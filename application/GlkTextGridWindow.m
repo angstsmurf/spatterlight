@@ -13,6 +13,7 @@
 #import "ZColor.h"
 #import "NSColor+integer.h"
 
+#include "glkimp.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -1189,6 +1190,11 @@
     unsigned ch = keycode_Unknown;
     if (str.length)
         ch = chartokeycode([str characterAtIndex:0]);
+
+    NSUInteger flags = evt.modifierFlags;
+
+    if ((flags & NSEventModifierFlagNumericPad) && (ch >= '0' || ch <= '9'))
+        ch = keycode_Pad0 - (ch - '0');
 
     GlkWindow *win;
     // pass on this key press to another GlkWindow if we are not expecting one

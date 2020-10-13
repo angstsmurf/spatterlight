@@ -12,6 +12,8 @@
 #import "ZColor.h"
 #import "main.h"
 
+#include "glkimp.h"
+
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -1778,6 +1780,9 @@
         ch = chartokeycode([str characterAtIndex:0]);
 
     NSUInteger flags = evt.modifierFlags;
+
+    if ((flags & NSEventModifierFlagNumericPad) && (ch >= '0' || ch <= '9'))
+        ch = keycode_Pad0 - (ch - '0');
 
     GlkWindow *win;
 

@@ -1,6 +1,8 @@
 #import "main.h"
 #import "ZColor.h"
 
+#include "glkimp.h"
+
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
 fprintf(stderr, "%s\n",                                                    \
@@ -39,7 +41,18 @@ fprintf(stderr, "%s\n",                                                    \
 //                               @(NO), @keycode_Right,
                                @(NO), @keycode_Up,
                                @(NO), @keycode_Down,
-                               @(NO), @keycode_Escape, nil];
+                               @(NO), @keycode_Escape,
+                               @(NO), @keycode_Pad0,
+                               @(NO), @keycode_Pad1,
+                               @(NO), @keycode_Pad2,
+                               @(NO), @keycode_Pad3,
+                               @(NO), @keycode_Pad4,
+                               @(NO), @keycode_Pad5,
+                               @(NO), @keycode_Pad6,
+                               @(NO), @keycode_Pad7,
+                               @(NO), @keycode_Pad8,
+                               @(NO), @keycode_Pad9,
+                               nil];
 
         _currentTerminators = _pendingTerminators;
         _terminatorsPending = NO;
