@@ -1390,7 +1390,7 @@
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if (self.glkctl.previewDummy)
         return NO;
-    return [super validateMenuItem:menuItem];
+    return YES;
 }
 
 #pragma mark Colors and styles
