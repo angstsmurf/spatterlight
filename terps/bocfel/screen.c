@@ -975,11 +975,17 @@ void term_keys_add(uint8_t key)
     case ZSCII_F11:   insert_key(keycode_Func11); break;
     case ZSCII_F12:   insert_key(keycode_Func12); break;
 
-    /* Keypad 0–9 should be here, but Glk doesn’t support that. */
-    case ZSCII_KEY0: case ZSCII_KEY1: case ZSCII_KEY2: case ZSCII_KEY3:
-    case ZSCII_KEY4: case ZSCII_KEY5: case ZSCII_KEY6: case ZSCII_KEY7:
-    case ZSCII_KEY8: case ZSCII_KEY9:
-      break;
+    /* Keypad 0–9 */
+    case ZSCII_KEY0:  insert_key(keycode_Pad0); break;
+    case ZSCII_KEY1:  insert_key(keycode_Pad1); break;
+    case ZSCII_KEY2:  insert_key(keycode_Pad2); break;
+    case ZSCII_KEY3:  insert_key(keycode_Pad3); break;
+    case ZSCII_KEY4:  insert_key(keycode_Pad4); break;
+    case ZSCII_KEY5:  insert_key(keycode_Pad5); break;
+    case ZSCII_KEY6:  insert_key(keycode_Pad6); break;
+    case ZSCII_KEY7:  insert_key(keycode_Pad7); break;
+    case ZSCII_KEY8:  insert_key(keycode_Pad8); break;
+    case ZSCII_KEY9:  insert_key(keycode_Pad9); break;
 
     /* Mouse clicks would go here if I supported them. */
     case ZSCII_CLICK_MENU: case ZSCII_CLICK_DOUBLE: case ZSCII_CLICK_SINGLE:
@@ -1658,6 +1664,16 @@ static uint8_t zscii_from_glk(glui32 key)
     case keycode_Func10: return ZSCII_F10;
     case keycode_Func11: return ZSCII_F11;
     case keycode_Func12: return ZSCII_F12;
+    case keycode_Pad0: return ZSCII_KEY0;
+    case keycode_Pad1: return ZSCII_KEY1;
+    case keycode_Pad2: return ZSCII_KEY2;
+    case keycode_Pad3: return ZSCII_KEY3;
+    case keycode_Pad4: return ZSCII_KEY4;
+    case keycode_Pad5: return ZSCII_KEY5;
+    case keycode_Pad6: return ZSCII_KEY6;
+    case keycode_Pad7: return ZSCII_KEY7;
+    case keycode_Pad8: return ZSCII_KEY8;
+    case keycode_Pad9: return ZSCII_KEY9;
   }
 
   return ZSCII_NEWLINE;
@@ -1864,7 +1880,16 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
           case keycode_Func10: input->key = ZSCII_F10; break;
           case keycode_Func11: input->key = ZSCII_F11; break;
           case keycode_Func12: input->key = ZSCII_F12; break;
-
+          case keycode_Pad0: input->key = ZSCII_KEY0; break;
+          case keycode_Pad1: input->key = ZSCII_KEY1; break;
+          case keycode_Pad2: input->key = ZSCII_KEY2; break;
+          case keycode_Pad3: input->key = ZSCII_KEY3; break;
+          case keycode_Pad4: input->key = ZSCII_KEY4; break;
+          case keycode_Pad5: input->key = ZSCII_KEY5; break;
+          case keycode_Pad6: input->key = ZSCII_KEY6; break;
+          case keycode_Pad7: input->key = ZSCII_KEY7; break;
+          case keycode_Pad8: input->key = ZSCII_KEY8; break;
+          case keycode_Pad9: input->key = ZSCII_KEY9; break;
           default:
             input->key = ZSCII_QUESTIONMARK;
 

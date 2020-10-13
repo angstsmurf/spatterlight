@@ -62,6 +62,18 @@ void win_delwin(int name);
 void win_sizewin(int name, int x0, int y0, int x1, int y1);
 void win_maketransparent(int name);
 
+// For Beyond Zork
+#define keycode_Pad0   (0xffffffe3)
+#define keycode_Pad1   (0xffffffe2)
+#define keycode_Pad2   (0xffffffe1)
+#define keycode_Pad3   (0xffffffe0)
+#define keycode_Pad4   (0xffffffdf)
+#define keycode_Pad5   (0xffffffde)
+#define keycode_Pad6   (0xffffffdd)
+#define keycode_Pad7   (0xffffffdc)
+#define keycode_Pad8   (0xffffffdb)
+#define keycode_Pad9   (0xffffffda)
+
 void win_initchar(int name);
 void win_cancelchar(int name);
 void win_initline(int name, int cap, int len, void *buf);
