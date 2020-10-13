@@ -20,17 +20,19 @@ Download the latest release [here](https://github.com/angstsmurf/spatterlight/re
 - Sounds, images and text colours
 - Glulxe autosave and autorestore
 
-# Screenshots
-Screenshot gallery: http://ccxvii.net/spatterlight/screens.html
+#
 
 A promotional video for Spatterlight 0.5.13b: https://youtu.be/KXbk_gpLQ8w
 
 And another one for 0.5.12b: https://youtu.be/Y07jFFvjsnE
 
 <img src="readme_images/library.png" width="1000">
-<img src="readme_images/preferences_themes_2.png" width="600">
+<p align="center">
+  <img src="readme_images/preferences_themes_2.png" width="600">
+</p>
 
 # Gameplay videos
+
 Beyond Zork: https://youtu.be/GzYmywCm_24
 
 Guilty Bastards: https://youtu.be/vXjZwwlFqyQ
@@ -49,10 +51,10 @@ Spatterlight supports the [Treaty of Babel][babel] standard for cataloguing bibl
 
 The Spatterlight application is released under the GNU Public License; the interpreters and libraries it uses are freely redistributable and covered by their own specific licenses.
 
-This is beta software! There is no warranty: use it at your own risk. You will need Mac OS X 10.7 or higher. There are separate versions for later operative systems. Make sure to download the right one!
+This is beta software! There is no warranty: use it at your own risk. You will need Mac OS X 10.7 or higher. There are separate versions for later operative systems. Make sure you download the right one for your system.
+
+Spatterlight was originally written by Tor Andersson. Copyright 2007-2020 by Tor Andersson and the respective interpreter authors.
 
 Please provide bug reports as [issues][issues].
-
-Spatterlight was originally written by Tor Andersson. Copyright 2007-2020 Tor Andersson and the respective interpreter authors.
 
 [issues]: https://github.com/angstsmurf/spatterlight/issues "The issues page of this repository"
