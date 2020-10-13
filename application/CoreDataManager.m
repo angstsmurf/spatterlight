@@ -158,10 +158,12 @@
 
 - (void)saveChanges {
 //    NSLog(@"CoreDataManagar saveChanges");
+    CoreDataManager * __unsafe_unretained weakSelf = self;
+
     [_mainManagedObjectContext performBlockAndWait:^{
         NSError *error;
-        if (self.mainManagedObjectContext.hasChanges) {
-            if (![self.mainManagedObjectContext save:&error]) {
+        if (weakSelf.mainManagedObjectContext.hasChanges) {
+            if (![weakSelf.mainManagedObjectContext save:&error]) {
                 NSLog(@"Unable to Save Changes of Main Managed Object Context! Error: %@", error);
                 if (error) {
                     [[NSApplication sharedApplication] presentError:error];
@@ -175,9 +177,9 @@
     [privateManagedObjectContext performBlock:^{
         BOOL result;
         NSError *error;
-        if (self->privateManagedObjectContext.hasChanges) {
+        if (weakSelf->privateManagedObjectContext.hasChanges) {
             @try {
-                result = [self->privateManagedObjectContext save:&error];
+                result = [weakSelf->privateManagedObjectContext save:&error];
             }
             @catch (NSException *ex) {
                 // Ususally because we have deleted the core data files
