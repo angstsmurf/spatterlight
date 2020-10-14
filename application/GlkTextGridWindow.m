@@ -89,7 +89,7 @@
     NSString *str = evt.characters;
     unsigned ch = keycode_Unknown;
     if (str.length)
-        ch = chartokeycode([str characterAtIndex:0]);
+        ch = chartokeycode([str characterAtIndex:str.length - 1]);
     GlkTextGridWindow *gridWin = (GlkTextGridWindow *)((MyGridTextField *)self.delegate).delegate;
     if ([gridWin.currentTerminators[@(ch)] isEqual:@(YES)])
         [gridWin keyDown:evt];
