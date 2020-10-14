@@ -1,5 +1,11 @@
 # Change log
 
+## Unreleased
+
+- Fixed line input in grid text windows for real this time
+- Numeric keypad navigation in Beyond Zork
+- Input would not be read if Enter was pressed after a dead key (such as ~ or ^)
+
 ## Release 0.5.5
 
 - New theme based on the Montserrat font
