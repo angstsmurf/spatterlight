@@ -1783,8 +1783,6 @@
     if ((flags & NSEventModifierFlagNumericPad) && ch >= '0' && ch <= '9')
         ch = keycode_Pad0 - (ch - '0');
 
-    NSLog(@"GlkTextBufferWindow %ld onKeyDown char:%u (%c)", self.name, ch, ch);
-
     GlkWindow *win;
 
     // pass on this key press to another GlkWindow if we are not expecting one
