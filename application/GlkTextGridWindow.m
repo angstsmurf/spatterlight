@@ -1193,7 +1193,7 @@
 
     NSUInteger flags = evt.modifierFlags;
 
-    if ((flags & NSEventModifierFlagNumericPad) && ch >= '0' && ch <= '9')
+    if ((flags & NSEventModifierFlagNumericPad) && !self.glkctl.bureaucracy && ch >= '0' && ch <= '9')
         ch = keycode_Pad0 - (ch - '0');
 
     GlkWindow *win;
