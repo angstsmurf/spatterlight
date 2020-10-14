@@ -1772,17 +1772,18 @@
 #pragma mark Input
 
 - (void)onKeyDown:(NSEvent *)evt {
-    //    NSLog(@"GlkTextBufferWindow %ld onKeyDown", self.name);
     GlkEvent *gev;
     NSString *str = evt.characters;
     unsigned ch = keycode_Unknown;
     if (str.length)
-        ch = chartokeycode([str characterAtIndex:0]);
+        ch = chartokeycode([str characterAtIndex:str.length - 1]);
 
     NSUInteger flags = evt.modifierFlags;
 
     if ((flags & NSEventModifierFlagNumericPad) && ch >= '0' && ch <= '9')
         ch = keycode_Pad0 - (ch - '0');
+
+    NSLog(@"GlkTextBufferWindow %ld onKeyDown char:%u (%c)", self.name, ch, ch);
 
     GlkWindow *win;
 
