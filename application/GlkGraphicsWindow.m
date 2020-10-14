@@ -283,7 +283,7 @@
     NSString *str = evt.characters;
     unsigned ch = keycode_Unknown;
     if (str.length)
-        ch = chartokeycode([str characterAtIndex:0]);
+        ch = chartokeycode([str characterAtIndex:str.length - 1]);
 
     GlkWindow *win;
     // pass on this key press to another GlkWindow if we are not expecting one
