@@ -1195,7 +1195,7 @@
     NSString *str = evt.characters;
     unsigned ch = keycode_Unknown;
     if (str.length)
-        ch = chartokeycode([str characterAtIndex:0]);
+        ch = chartokeycode([str characterAtIndex:str.length-1]);
 
     NSUInteger flags = evt.modifierFlags;
 
