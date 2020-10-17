@@ -10,6 +10,10 @@ Spatterlight is a native Cocoa application that plays most parser-based interact
 
 Download the latest release [here](https://github.com/angstsmurf/spatterlight/releases)!
 
+Then report bugs on the [issues tracker][issues].
+
+[issues]: https://github.com/angstsmurf/spatterlight/issues "The issues page of this repository"
+
 <img src="readme_images/jigsaw.png" width="900">
 
 # Features
@@ -54,7 +58,3 @@ The Spatterlight application is released under the GNU Public License; the inter
 This is beta software! There is no warranty: use it at your own risk. You will need Mac OS X 10.7 or higher. There are separate versions for later operative systems. Make sure you download the right one for your system.
 
 Spatterlight was originally written by Tor Andersson. Copyright 2007-2020 by Tor Andersson and the respective interpreter authors.
-
-Please provide bug reports as [issues][issues].
-
-[issues]: https://github.com/angstsmurf/spatterlight/issues "The issues page of this repository"
