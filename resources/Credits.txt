@@ -1,4 +1,5 @@
-Spatterlight is released under the GNU Public License; the interpreters and libraries it uses under the hood are freely redistributable and covered by their own specific licenses.
+Spatterlight is released under the GNU Public License; the interpreters and libraries it 
+uses under the hood are freely redistributable and covered by their own specific licenses.
 
 AdvSys 1.2 by David Betz.
 Agility 1.1.1 by Robert Masenten.
