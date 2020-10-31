@@ -123,7 +123,7 @@
 //@property BOOL adrianMole;
 @property BOOL deadCities;
 @property BOOL bureaucracy;
-@property BOOL beyondZork;
+@property BOOL usesFont3;
 @property BOOL kerkerkruip;
 
 @property NSInteger autosaveVersion;

@@ -130,7 +130,7 @@
         [self addSubview:scrollview];
         [self recalcBackground];
 
-        if (self.glkctl.beyondZork)
+        if (self.glkctl.usesFont3)
             [self createBeyondZorkStyle];
     }
     return self;
@@ -310,7 +310,7 @@
 
     if (different) {
         styles = newstyles;
-        if (self.glkctl.beyondZork)
+        if (self.glkctl.usesFont3)
             [self createBeyondZorkStyle];
 
         NSUInteger textstoragelength = textstorage.length;

@@ -1102,7 +1102,7 @@
         [self addSubview:scrollview];
     }
 
-    if (self.glkctl.beyondZork)
+    if (self.glkctl.usesFont3)
         [self createBeyondZorkStyle];
 
     return self;
@@ -1472,7 +1472,7 @@
     if (different) {
         styles = newstyles;
 
-        if (self.glkctl.beyondZork) {
+        if (self.glkctl.usesFont3) {
             [self createBeyondZorkStyle];
         }
 
@@ -1678,7 +1678,7 @@
 
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
 
-    if (self.glkctl.beyondZork && str.length == 1 && stylevalue == style_BlockQuote) {
+    if (self.glkctl.usesFont3 && str.length == 1 && stylevalue == style_BlockQuote) {
         NSDictionary *font3 = [self font3ToUnicode];
         NSString *newString = font3[str];
         if (newString) {
