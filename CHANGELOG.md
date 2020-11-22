@@ -1,7 +1,8 @@
 # Change log
 
-## Unreleased
+## Release 0.6b
 
+- Ignore Beyond Zork object out of range error
 - Fixed line input in grid text windows for real this time
 - Numeric keypad navigation in Beyond Zork
 - Input would not be read if Enter was pressed after a dead key (such as ~ or ^)
