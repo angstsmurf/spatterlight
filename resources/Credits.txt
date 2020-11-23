@@ -7,7 +7,7 @@ Alan 2.8.6 / 3.0b6 by Thomas Nilsson.
 Bocfel 1.1 by Chris Spiegel.
 Glulxe 0.5.4 by Andrew Plotkin.
 Hugo 3.3.0 by Kent Tessman.
-Level9 4.1 by Glen Summers, David Kinder, Alan Staniforth, Simon Baldwin and Dieter Baron.
+Level9 5.1 by Glen Summers, David Kinder, Alan Staniforth, Simon Baldwin and Dieter Baron.
 Magnetic 2.2 by Niclas Karlsson, David Kinder, Stefan Meier and Paul David.
 Scare 1.3.9 by Simon Baldwin and Mark J. Tilford.
 TADS 2.5.10 / 3.1.3 by Michael J. Roberts.
