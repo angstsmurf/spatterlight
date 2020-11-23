@@ -1894,10 +1894,16 @@
 
     else {
         if (line_request)
-            [self grabFocus];
+            if ((ch == 'v' || ch == 'V') && commandKeyOnly && _textview.selectedRange.location < fence) {
+                [[self.glkctl window] makeFirstResponder:_textview];                         _textview.selectedRange = NSMakeRange(textstorage.length, 0);
+                [_textview performSelector:@selector(paste:)];
+                return;
+            }
 
         [self stopSpeakingText_10_7];
-        [[self.glkctl window] makeFirstResponder:_textview];
+
+        if (self.window.firstResponder != _textview)
+            [self.window makeFirstResponder:_textview];
         [_textview superKeyDown:evt];
     }
 }
