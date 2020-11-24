@@ -11,8 +11,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@class Game, Theme;
-
 #define MAXWIN 64
 
 @interface GlkHelperView : NSView {

@@ -1,8 +1,10 @@
 /* TextGrid window controller */
 
-@class MyGridTextView;
-@class MyFieldEditor;
-@class MyGridTextField;
+#import "InputTextField.h"
+
+@interface MyGridTextView : NSTextView <NSAccessibilityNavigableStaticText>
+
+@end
 
 @interface GlkTextGridWindow
     : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
@@ -27,8 +29,6 @@
 @property NSUInteger selectedCol;
 @property NSString *selectedString;
 
-@property MyGridTextField *input;
-@property (readonly) MyFieldEditor *fieldEditor;
 @property NSColor *pendingBackgroundCol;
 @property NSMutableAttributedString *bufferTextStorage;
 

@@ -1,5 +1,8 @@
 @class MarginImage;
-@class GlkTextBufferWindow;
+
+#import "GlkWindow.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 // I suppose this is necessary to get rid of that ugly Markup menu on attached
 // images.
@@ -125,7 +128,7 @@
 @property NSAttributedString *restoredInput;
 
 - (void)recalcBackground;
-- (void)onKeyDown:(NSEvent *)evt;
+- (void)myKeyDown:(NSEvent *)evt;
 - (void)echo:(BOOL)val;
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (void)stopSpeakingText_10_7;
@@ -136,11 +139,13 @@
 - (void)storeScrollOffset;
 - (void)restoreTextFinder;
 - (void)restoreScrollBarStyle;
-- (void)restoreScroll:(id)sender;
+- (void)restoreScroll:(nullable id)sender;
 
-- (IBAction)speakMostRecent:(id)sender;
-- (IBAction)speakPrevious:(id)sender;
-- (IBAction)speakNext:(id)sender;
-- (IBAction)speakStatus:(id)sender;
+- (IBAction)speakMostRecent:(nullable id)sender;
+- (IBAction)speakPrevious:(nullable id)sender;
+- (IBAction)speakNext:(nullable id)sender;
+- (IBAction)speakStatus:(nullable id)sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

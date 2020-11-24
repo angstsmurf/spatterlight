@@ -1,5 +1,7 @@
 /* Glk events to stick in the GlkController queue */
 
+@class Theme;
+
 unsigned chartokeycode(unsigned ch);
 
 @interface GlkEvent : NSObject {

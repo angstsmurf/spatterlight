@@ -675,8 +675,12 @@
 
 /*
  * Extend NSTextView to ...
- *   - call onKeyDown on our TextBuffer object
+ *   - call myKeyDown on our TextBuffer object
  *   - draw images with high quality interpolation
+ *   - extend bottom to show images that extend below bottom of text
+ *   - hide text input cursor when desirable
+ *   - use custom search bar
+     - customize contextual menu
  */
 
 @implementation MyTextView
@@ -706,7 +710,7 @@
 }
 
 - (void)keyDown:(NSEvent *)evt {
-    [(GlkTextBufferWindow *)self.delegate onKeyDown:evt];
+    [(GlkTextBufferWindow *)self.delegate myKeyDown:evt];
 }
 
 - (void)drawRect:(NSRect)rect {
@@ -1774,7 +1778,7 @@
 
 #pragma mark Input
 
-- (void)onKeyDown:(NSEvent *)evt {
+- (void)myKeyDown:(NSEvent *)evt {
     GlkEvent *gev;
     NSString *str = evt.characters;
     unsigned ch = keycode_Unknown;
@@ -1795,10 +1799,7 @@
             if (win != self && win.wantsFocus) {
                 NSLog(@"GlkTextBufferWindow: Passing on keypress to window %ld", win.name);
                 [win grabFocus];
-                if ([win isKindOfClass:[GlkTextBufferWindow class]])
-                    [(GlkTextBufferWindow *)win onKeyDown:evt];
-                else
-                    [win keyDown:evt];
+                [win myKeyDown:evt];
                 return;
             }
         }

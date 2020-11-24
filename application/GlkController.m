@@ -1274,10 +1274,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (id)windowWillReturnFieldEditor:(NSWindow *)sender
                          toObject:(id)client {
     for (GlkWindow *win in [_gwindows allValues])
-        if ([win isKindOfClass:[GlkTextGridWindow class]]) {
-            GlkTextGridWindow *gridWin = (GlkTextGridWindow *)win;
-            if (gridWin.input == client)
-                return gridWin.fieldEditor;
+        if (win.input == client) {
+            return win.input.fieldEditor;
         }
     return nil;
 }

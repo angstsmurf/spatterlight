@@ -279,6 +279,10 @@
     char_request = NO;
 }
 
+- (void)myKeyDown:(NSEvent *)evt {
+    [self keyDown:evt];
+}
+
 - (void)keyDown:(NSEvent *)evt {
     NSString *str = evt.characters;
     unsigned ch = keycode_Unknown;
@@ -291,10 +295,7 @@
         for (win in [self.glkctl.gwindows allValues]) {
             if (win != self && win.wantsFocus) {
                 NSLog(@"GlkGraphicsWindow: Passing on keypress");
-                if ([win isKindOfClass:[GlkTextBufferWindow class]])
-                    [(GlkTextBufferWindow *)win onKeyDown:evt];
-                else
-                    [win keyDown:evt];
+                [win myKeyDown:evt];
                 [win grabFocus];
                 return;
             }

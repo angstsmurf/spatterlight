@@ -1,4 +1,6 @@
-@class GlkController, Theme, ZColor;
+@class GlkController, Theme, ZColor, InputTextField;
+
+struct fillrect;
 
 @interface GlkWindow : NSView {
 
@@ -29,6 +31,8 @@
 @property BOOL terminatorsPending;
 @property BOOL framePending;
 @property NSRect pendingFrame;
+
+@property InputTextField *input;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl
                                  name:(NSInteger)name;
@@ -73,5 +77,9 @@
 - (void)terpDidStop;
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array;
 - (void)postRestoreAdjustments:(GlkWindow *)win;
+
+- (void)myKeyDown:(NSEvent *)evt;
+
+- (BOOL)hasCharRequest;
 
 @end
