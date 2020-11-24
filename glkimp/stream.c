@@ -957,7 +957,7 @@ static void gli_unput_buffer(stream_t *str, char *buf, glui32 len)
             return;
             //            }
         }
-        for (lx = 0, cx = buf + len - 1; lx < len; lx++, cx--)
+        for (lx = 0, cx = (unsigned char *)buf + len - 1; lx < len; lx++, cx--)
         {
             str->writecount--;
         }
@@ -968,30 +968,6 @@ static void gli_unput_buffer(stream_t *str, char *buf, glui32 len)
 
 
 #ifdef GLK_MODULE_UNICODE
-
-static void gli_unput_buffer_uni(stream_t *str, glui32 *buf, glui32 len)
-{
-    glui32 lx;
-    glui32 *cx;
-
-    if (!str || !str->writable)
-        return;
-
-    if (str->type == strtype_Window)
-    {
-        if (str->win->line_request || str->win->line_request_uni)
-        {
-            gli_strict_warning("unput_buffer: window has pending line request");
-            return;
-        }
-        for (lx=0, cx=buf+len-1; lx<len; lx++, cx--)
-        {
-            str->writecount--;
-        }
-        if (str->win->echostr)
-            gli_unput_buffer_uni(str->win->echostr, buf, len);
-    }
-}
 
 void gli_stream_echo_line_uni(stream_t *str, glui32 *buf, glui32 len)
 {
