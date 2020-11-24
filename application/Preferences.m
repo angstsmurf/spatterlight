@@ -1766,7 +1766,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     } else {
         _btnOneThemeForAll.state = NSOffState;
     }
-
 }
 
 - (BOOL)oneThemeForAll {
@@ -1832,11 +1831,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (NSString *)themeScopeTitle {
-    if (_oneThemeForAll) return @"Theme setting for all games";
+    if (_oneThemeForAll) return NSLocalizedString(@"Theme setting for all games", nil);
     if ( _currentGame == nil)
-        return @"No game is currently running";
+        return NSLocalizedString(@"No game is currently running", nil);
     else
-        return [@"Theme setting for game " stringByAppendingString:_currentGame.metadata.title];
+        return [NSLocalizedString(@"Theme setting for game ", nil) stringByAppendingString:_currentGame.metadata.title];
 }
 
 - (IBAction)changeAdjustSize:(id)sender {
@@ -1958,7 +1957,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     if (action == @selector(togglePreview:))
     {
-        NSString* title = _previewShown ? @"Hide Preview" : @"Show Preview";
+        NSString* title = _previewShown ? NSLocalizedString(@"Hide Preview", nil) : NSLocalizedString(@"Show Preview", nil);
         ((NSMenuItem*)menuItem).title = title;
     }
 

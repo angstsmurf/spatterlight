@@ -379,13 +379,13 @@ NSDictionary *gFormatMap;
                        restorable];
 
             NSAlert *anAlert = [[NSAlert alloc] init];
-            anAlert.messageText = @"Do you really want to quit?";
+            anAlert.messageText = NSLocalizedString(@"Do you really want to quit?", nil);
 
             anAlert.informativeText = msg;
             anAlert.showsSuppressionButton = YES; // Uses default checkbox title
 
-            [anAlert addButtonWithTitle:@"Quit"];
-            [anAlert addButtonWithTitle:@"Cancel"];
+            [anAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
             NSInteger choice = [anAlert runModal];
 

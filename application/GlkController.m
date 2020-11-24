@@ -1603,7 +1603,7 @@ fprintf(stderr, "%s\n",                                                    \
     waitforfilename = YES; /* don't interrupt */
 
     if (fileusage == fileusage_SavedGame)
-        panel.prompt = @"Restore";
+        panel.prompt = NSLocalizedString(@"Restore", nil);
     panel.directoryURL = directory;
 
     // Display the panel attached to the document's window.
@@ -1612,7 +1612,7 @@ fprintf(stderr, "%s\n",                                                    \
                       const char *s;
                       struct message reply;
 
-                      if (result == NSFileHandlingPanelOKButton) {
+                      if (result == NSModalResponseOK) {
                           NSURL *theDoc = (panel.URLs)[0];
 
                           [[NSUserDefaults standardUserDefaults]

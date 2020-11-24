@@ -1305,7 +1305,7 @@
 
     NSSavePanel *panel = [NSSavePanel savePanel];
     //[panel setNameFieldLabel: @"Save Scrollback: "];
-    panel.nameFieldLabel = @"Save Text: ";
+    panel.nameFieldLabel = NSLocalizedString(@"Save Text: ", nil);
     panel.allowedFileTypes = @[ newExtension ];
     panel.extensionHidden = NO;
     [panel setCanCreateDirectories:YES];
