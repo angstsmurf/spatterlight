@@ -1,0 +1,10 @@
+#include <cgreen/cgreen.h>
+#include <cgreen/mocks.h>
+
+/* DATA */
+char *adventureName; /* The name of the game */
+char *adventureFileName;
+
+/* FUNCTIONS */
+char *gameName(char fullPathName[]) { return (char *)mock(fullPathName); }
+void args(int argc, char *argv[]) { mock(argc, argv); }

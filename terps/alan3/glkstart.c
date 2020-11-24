@@ -77,16 +77,16 @@ static void openResourceFile() {
     giblorb_err_t ecode;
 
 #ifdef HAVE_GARGLK
-    if (strrchr(resourceFileName, '/'))
-        resourceFileName = strrchr(resourceFileName, '/') + 1;
-    else if (strrchr(resourceFileName, '\\'))
-        resourceFileName = strrchr(resourceFileName, '\\') + 1;
-    if (!resourceFileName)
+	if (strrchr(resourceFileName, '/'))
+		resourceFileName = strrchr(resourceFileName, '/') + 1;
+	else if (strrchr(resourceFileName, '\\'))
+		resourceFileName = strrchr(resourceFileName, '\\') + 1;
+	if (!resourceFileName)
 		resourceFileName = originalFileName;
 
 	if (extension)
 		strcpy(extension, ".a3r");
-	else
+	else if (resourceFileName)
 		strcat(resourceFileName, ".a3r");
 #else
     strcpy(extension, ".a3r");
@@ -101,7 +101,10 @@ static void openResourceFile() {
 #endif
 
     free(resourceFileRef->filename);
-    resourceFileRef->filename = malloc(1 + strlen(originalFileName));
+    size_t filename_length = 0;
+    if (originalFileName != NULL)
+        filename_length = strlen(originalFileName);
+    resourceFileRef->filename = malloc(1 + filename_length);
     strcpy(resourceFileRef->filename, originalFileName);
 
     if (glk_fileref_does_file_exist(resourceFileRef)) {
@@ -124,7 +127,15 @@ int glkunix_startup_code(glkunix_startup_t *data)
     openGlkWindows();
 
 #ifdef HAVE_GARGLK
+#if (BUILD+0) != 0
+    {
+        char name[100];
+        sprintf(name, "%s-%d", alan.shortHeader, BUILD);
+        garglk_set_program_name(name);
+    }
+#else
 	garglk_set_program_name(alan.shortHeader);
+#endif
 	char info[80];
 	sprintf(info, "%s Interpreter by Thomas Nilefalk\n", alan.shortHeader);
 	garglk_set_program_info(info);

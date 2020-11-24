@@ -16,6 +16,7 @@
 
 /* PREPROCESSOR */
 #define FORWARD
+#define protected
 #define NEW(type) ((type *)allocate(sizeof(type)))
 
 
@@ -52,7 +53,6 @@ typedef struct LimEntry {	/* LIMIT Type */
   Aword val;			/* And the limiting value */
   Aaddr stms;			/* Statements if fail */
 } LimitEntry;
-
 
 /* Functions: */
 extern Aaddr addressAfterTable(Aaddr adr, int size);

@@ -22,15 +22,8 @@ typedef uint32_t Aid;        /* Type for an ACODE Instance Id value */
 typedef int32_t Abool;       /* Type for an ACODE Boolean value */
 typedef int32_t Aint;        /* Type for an ACODE Integer value */
 typedef int32_t Aset;        /* Type for an ACODE Set value */
+typedef int32_t CodeValue;   /* Definition for the packing process */
 
-// TODO: Make this an int32_t too?
-#if INT_MAX==0x7fffffff
-typedef int CodeValue;       /* Definition for the packing process */
-#elif LONG_MAX==0x7fffffff
-typedef signed long CodeValue;   /* Definition for the packing process */
-#else
-#error "Can't find a 32-bit integer type"
-#endif
 
 #ifndef TRUE
 #define TRUE (0==0)
@@ -481,25 +474,87 @@ typedef struct DictionaryEntry { /* Dictionary */
     Aaddr pronounRefs;          /* Address to reference list */
 } DictionaryEntry;
 
+typedef struct IfidEntry {      /* IFIDs are (name, value) pairs */
+    Aaddr nameAddress;
+    Aaddr valueAddress;
+} IfidEntry;
+
 
 
 /* AMACHINE Header */
 
 typedef struct ACodeHeader {
     /* Important info */
+    char tag[4];                /* "ALAN" */
+    char version[4];            /* Version of compiler */
+    Aword uid;                  /* Unique id of the compiled game */
+    Aword size;                 /* Size of Acode-part of the file in Awords (strings are stored after) */
+    /* Options */
+    Abool pack;                  /* Is the text packed and encoded ? */
+    Aword stringOffset;          /* Offset to string data in game file */
+    Aword pageLength;            /* Length of a displayed page */
+    Aword pageWidth;             /* and width */
+    Aword debug;                 /* Option: debug? */
+    /* Data structures */
+    Aaddr classTableAddress;
+    Aword classMax;             /* 10 */
+    Aword entityClassId;
+    Aword thingClassId;
+    Aword objectClassId;
+    Aword locationClassId;
+    Aword actorClassId;
+    Aword literalClassId;
+    Aword integerClassId;
+    Aword stringClassId;
+    Aaddr instanceTableAddress;	/* Instance table */
+    Aword instanceMax;          /* 20 - Highest number of an instance */
+    Aword theHero;              /* The hero instance code (id) */
+    Aaddr containerTableAddress;
+    Aword containerMax;
+    Aaddr scriptTableAddress;
+    Aword scriptMax;
+    Aaddr eventTableAddress;
+    Aword eventMax;
+    Aaddr syntaxTableAddress;
+    Aaddr parameterMapAddress;
+    Aword syntaxMax;            /* 30 */
+    Aaddr dictionary;
+    Aaddr verbTableAddress;
+    Aaddr ruleTableAddress;
+    Aaddr messageTableAddress;
+    /* Miscellaneous */
+    Aint attributesAreaSize;	/* Size of attribute data area in Awords */
+    Aint maxParameters;         /* Maximum number of parameters in any syntax */
+    Aaddr stringInitTable;      /* String init table address */
+    Aaddr setInitTable;         /* Set init table address */
+    Aaddr start;                /* Address to Start code */
+    Aword maximumScore;         /* 40 - Maximum score */
+    Aaddr scores;               /* Score table */
+    Aint scoreCount;            /* Max index into scores table */
+    Aaddr sourceFileTable;      /* Table of fpos/len for source filenames */
+    Aaddr sourceLineTable;      /* Table of available source lines to break on */
+    Aaddr freq;                 /* Address to Char freq's for coding */
+    Aword acdcrc;               /* 46 - Checksum for acd code (excl. hdr) */
+    Aword txtcrc;               /* Checksum for text data file, not used */
+    Aaddr ifids;                /* 48 - Address to IFIDS */
+    Aaddr prompt;
+} ACodeHeader;
+
+typedef struct Pre3_0beta2Header {
+    /* Important info */
     char tag[4];              /* "ALAN" */
     char version[4];          /* Version of compiler */
     Aword uid;                /* Unique id of the compiled game */
     Aword size;               /* Size of ACD-file in Awords */
     /* Options */
-    Abool pack;               /* Is the text packed and encoded ? */
+    Abool pack;               /* Is the text packed ? */
     Aword stringOffset;       /* Offset to string data in game file */
-    Aword pageLength;         /* Length of a displayed page */
+    Aword pageLength;         /* Length of a page */
     Aword pageWidth;          /* and width */
     Aword debug;              /* Option: debug */
     /* Data structures */
-    Aaddr classTableAddress;
-    Aword classMax;
+    Aaddr classTableAddress;  /* Class table */
+    Aword classMax;           /* Number of classes */
     Aword entityClassId;
     Aword thingClassId;
     Aword objectClassId;
@@ -525,94 +580,37 @@ typedef struct ACodeHeader {
     Aaddr ruleTableAddress;
     Aaddr messageTableAddress;
     /* Miscellaneous */
-    Aint attributesAreaSize;	/* Size of attribute data area in Awords */
-    Aint maxParameters;		/* Maximum number of parameters in any syntax */
-    Aaddr stringInitTable;	/* String init table address */
-    Aaddr setInitTable;		/* Set init table address */
-    Aaddr start;		/* Address to Start code */
-    Aword maximumScore;		/* Maximum score */
-    Aaddr scores;		/* Score table */
-    Aint scoreCount;		/* Max index into scores table */
-    Aaddr sourceFileTable;	/* Table of fpos/len for source filenames */
-    Aaddr sourceLineTable;	/* Table of available source lines to break on */
-    Aaddr freq;			/* Address to Char freq's for coding */
-    Aword acdcrc;		/* Checksum for acd code (excl. hdr) */
-    Aword txtcrc;		/* Checksum for text data file */
-    Aaddr ifids;		/* Address to IFIDS */
-    Aaddr prompt;
-} ACodeHeader;
-
-typedef struct Pre3_0beta2Header {
-    /* Important info */
-    char tag[4];		/* "ALAN" */
-    char version[4];		/* Version of compiler */
-    Aword uid;			/* Unique id of the compiled game */
-    Aword size;			/* Size of ACD-file in Awords */
-    /* Options */
-    Abool pack;			/* Is the text packed ? */
-    Aword stringOffset;		/* Offset to string data in game file */
-    Aword pageLength;		/* Length of a page */
-    Aword pageWidth;		/* and width */
-    Aword debug;		/* Option: debug */
-    /* Data structures */
-    Aaddr classTableAddress;	/* Class table */
-    Aword classMax;		/* Number of classes */
-    Aword entityClassId;
-    Aword thingClassId;
-    Aword objectClassId;
-    Aword locationClassId;
-    Aword actorClassId;
-    Aword literalClassId;
-    Aword integerClassId;
-    Aword stringClassId;
-    Aaddr instanceTableAddress;	/* Instance table */
-    Aword instanceMax;		/* Highest number of an instance */
-    Aword theHero;		/* The hero instance code (id) */
-    Aaddr containerTableAddress;
-    Aword containerMax;
-    Aaddr scriptTableAddress;
-    Aword scriptMax;
-    Aaddr eventTableAddress;
-    Aword eventMax;
-    Aaddr syntaxTableAddress;
-    Aaddr parameterMapAddress;
-    Aword syntaxMax;
-    Aaddr dictionary;
-    Aaddr verbTableAddress;
-    Aaddr ruleTableAddress;
-    Aaddr messageTableAddress;
-    /* Miscellaneous */
-    Aint attributesAreaSize;	/* Size of attribute data area in Awords */
-    Aint maxParameters;		/* Maximum number of parameters in any syntax */
-    Aaddr stringInitTable;	/* String init table address */
-    Aaddr setInitTable;		/* Set init table address */
-    Aaddr start;		/* Address to Start code */
-    Aword maximumScore;		/* Maximum score */
-    Aaddr scores;		/* Score table */
-    Aint scoreCount;		/* Max index into scores table */
-    Aaddr sourceFileTable;	/* Table of fpos/len for source filenames */
-    Aaddr sourceLineTable;	/* Table of available source lines to break on */
-    Aaddr freq;			/* Address to Char freq's for coding */
-    Aword acdcrc;		/* Checksum for acd code (excl. hdr) */
-    Aword txtcrc;		/* Checksum for text data file */
-    Aaddr ifids;		/* Address to IFIDS */
+    Aint attributesAreaSize;    /* Size of attribute data area in Awords */
+    Aint maxParameters;         /* Maximum number of parameters in any syntax */
+    Aaddr stringInitTable;      /* String init table address */
+    Aaddr setInitTable;         /* Set init table address */
+    Aaddr start;                /* Address to Start code */
+    Aword maximumScore;         /* Maximum score */
+    Aaddr scores;               /* Score table */
+    Aint scoreCount;            /* Max index into scores table */
+    Aaddr sourceFileTable;      /* Table of fpos/len for source filenames */
+    Aaddr sourceLineTable;      /* Table of available source lines to break on */
+    Aaddr freq;                 /* Address to Char freq's for coding */
+    Aword acdcrc;               /* Checksum for acd code (excl. hdr) */
+    Aword txtcrc;               /* Checksum for text data file */
+    Aaddr ifids;                /* Address to IFIDS */
 } Pre3_0beta2Header;
 
 typedef struct Pre3_0alpha5Header {
     /* Important info */
-    char tag[4];		/* "ALAN" */
-    char version[4];		/* Version of compiler */
-    Aword uid;			/* Unique id of the compiled game */
-    Aword size;			/* Size of ACD-file in Awords */
+    char tag[4];              /* "ALAN" */
+    char version[4];          /* Version of compiler */
+    Aword uid;                /* Unique id of the compiled game */
+    Aword size;               /* Size of ACD-file in Awords */
     /* Options */
-    Abool pack;			/* Is the text packed ? */
-    Aword stringOffset;		/* Offset to string data in game file */
-    Aword pageLength;		/* Length of a page */
-    Aword pageWidth;		/* and width */
-    Aword debug;		/* Option: debug */
+    Abool pack;               /* Is the text packed ? */
+    Aword stringOffset;       /* Offset to string data in game file */
+    Aword pageLength;         /* Length of a page */
+    Aword pageWidth;          /* and width */
+    Aword debug;              /* Option: debug */
     /* Data structures */
-    Aaddr classTableAddress;	/* Class table */
-    Aword classMax;		/* Number of classes */
+    Aaddr classTableAddress;  /* Class table */
+    Aword classMax;           /* Number of classes */
     Aword entityClassId;
     Aword thingClassId;
     Aword objectClassId;
@@ -622,8 +620,8 @@ typedef struct Pre3_0alpha5Header {
     Aword integerClassId;
     Aword stringClassId;
     Aaddr instanceTableAddress;	/* Instance table */
-    Aword instanceMax;		/* Highest number of an instance */
-    Aword theHero;		/* The hero instance code (id) */
+    Aword instanceMax;          /* Highest number of an instance */
+    Aword theHero;              /* The hero instance code (id) */
     Aaddr containerTableAddress;
     Aword containerMax;
     Aaddr scriptTableAddress;
@@ -638,19 +636,19 @@ typedef struct Pre3_0alpha5Header {
     Aaddr ruleTableAddress;
     Aaddr messageTableAddress;
     /* Miscellaneous */
-    Aint attributesAreaSize;	/* Size of attribute data area in Awords */
-    Aint maxParameters;		/* Maximum number of parameters in any syntax */
-    Aaddr stringInitTable;	/* String init table address */
-    Aaddr setInitTable;		/* Set init table address */
-    Aaddr start;		/* Address to Start code */
-    Aword maximumScore;		/* Maximum score */
-    Aaddr scores;		/* Score table */
-    Aint scoreCount;		/* Max index into scores table */
-    Aaddr sourceFileTable;	/* Table of fpos/len for source filenames */
-    Aaddr sourceLineTable;	/* Table of available source lines to break on */
-    Aaddr freq;			/* Address to Char freq's for coding */
-    Aword acdcrc;		/* Checksum for acd code (excl. hdr) */
-    Aword txtcrc;		/* Checksum for text data file */
+    Aint attributesAreaSize;    /* Size of attribute data area in Awords */
+    Aint maxParameters;         /* Maximum number of parameters in any syntax */
+    Aaddr stringInitTable;      /* String init table address */
+    Aaddr setInitTable;         /* Set init table address */
+    Aaddr start;                /* Address to Start code */
+    Aword maximumScore;         /* Maximum score */
+    Aaddr scores;               /* Score table */
+    Aint scoreCount;            /* Max index into scores table */
+    Aaddr sourceFileTable;      /* Table of fpos/len for source filenames */
+    Aaddr sourceLineTable;      /* Table of available source lines to break on */
+    Aaddr freq;                 /* Address to Char freq's for coding */
+    Aword acdcrc;               /* Checksum for acd code (excl. hdr) */
+    Aword txtcrc;               /* Checksum for text data file */
 } Pre3_0alpha5Header;
 
 /* Error message numbers */

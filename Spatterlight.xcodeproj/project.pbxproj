@@ -1366,7 +1366,6 @@
 		6DE66A032500334400DDBDAA /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
 		6DE66A042500334400DDBDAA /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		6DE66A052500334400DDBDAA /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		6DE66A062500334400DDBDAA /* winargs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = winargs.c; sourceTree = "<group>"; };
 		6DE66A072500334400DDBDAA /* word.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = word.c; sourceTree = "<group>"; };
 		6DE66A082500334400DDBDAA /* word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = word.h; sourceTree = "<group>"; };
 		6DF73C3323B8F46100F76CF9 /* GlkStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkStyle.h; sourceTree = "<group>"; };
@@ -3857,7 +3856,6 @@
 				6DE66A032500334400DDBDAA /* utils.c */,
 				6DE66A042500334400DDBDAA /* utils.h */,
 				6DE66A052500334400DDBDAA /* version.h */,
-				6DE66A062500334400DDBDAA /* winargs.c */,
 				6DE66A072500334400DDBDAA /* word.c */,
 				6DE66A082500334400DDBDAA /* word.h */,
 			);
