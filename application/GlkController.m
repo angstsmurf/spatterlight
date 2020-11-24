@@ -998,44 +998,37 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSAlert *anAlert = [[NSAlert alloc] init];
     anAlert.messageText =
-    @"This game was automatically restored from a previous session.";
-    anAlert.informativeText = @"Would you like to start over instead?";
+    NSLocalizedString(@"This game was automatically restored from a previous session.", nil);
+    anAlert.informativeText = NSLocalizedString(@"Would you like to start over instead?", nil);
     anAlert.showsSuppressionButton = YES;
-    anAlert.suppressionButton.title = @"Remember this choice.";
-    [anAlert addButtonWithTitle:@"Continue"];
-    [anAlert addButtonWithTitle:@"Restart"];
+    anAlert.suppressionButton.title = NSLocalizedString(@"Remember this choice.", nil);
+    [anAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
+    [anAlert addButtonWithTitle:NSLocalizedString(@"Restart", nil)];
 
-    [anAlert beginSheetModalForWindow:self.window
-                        modalDelegate:self
-                       didEndSelector:@selector(autorestoreAlertDidFinish:
-                                                rc:ctx:)
-                          contextInfo:NULL];
-}
+    [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
 
-- (void)autorestoreAlertDidFinish:(id)alert rc:(int)result ctx:(void *)ctx {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    NSAlert *anAlert = alert;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
+        NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
 
-    NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
-    NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
-
-    if (anAlert.suppressionButton.state == NSOnState) {
-        // Suppress this alert from now on
-        [defaults setBool:YES forKey:alertSuppressionKey];
-    }
-
-    if (result == NSAlertSecondButtonReturn) {
-        [self reset:nil];
         if (anAlert.suppressionButton.state == NSOnState) {
-            [defaults setBool:NO forKey:alwaysAutorestoreKey];
+            // Suppress this alert from now on
+            [defaults setBool:YES forKey:alertSuppressionKey];
         }
-        return;
-    } else {
-        if (anAlert.suppressionButton.state == NSOnState) {
-            [defaults setBool:YES forKey:alwaysAutorestoreKey];
+
+        if (result == NSAlertSecondButtonReturn) {
+            [self reset:nil];
+            if (anAlert.suppressionButton.state == NSOnState) {
+                [defaults setBool:NO forKey:alwaysAutorestoreKey];
+            }
+            return;
+        } else {
+            if (anAlert.suppressionButton.state == NSOnState) {
+                [defaults setBool:YES forKey:alwaysAutorestoreKey];
+            }
         }
-    }
+    }];
 }
 
 - (IBAction)reset:(id)sender {
@@ -1109,19 +1102,6 @@ fprintf(stderr, "%s\n",                                                    \
     return !dead;
 }
 
-- (void)closeAlertDidFinish:(id)alert rc:(int)rc ctx:(void *)ctx {
-    if (rc == NSAlertFirstButtonReturn) {
-        if (((NSAlert *)alert).suppressionButton.state == NSOnState) {
-            // Suppress this alert from now on
-            [[NSUserDefaults standardUserDefaults]
-             setBool:YES
-             forKey:@"closeAlertSuppression"];
-        }
-        [self windowWillClose:nil];
-        [self close];
-    }
-}
-
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     [Preferences changeCurrentGame:_game];
     if (!dead) {
@@ -1130,7 +1110,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (BOOL)windowShouldClose:(id)sender {
-//    NSLog(@"glkctl: windowShouldClose");
+    //    NSLog(@"glkctl: windowShouldClose");
     NSAlert *alert;
 
     if (dead || _supportsAutorestore) {
@@ -1144,21 +1124,28 @@ fprintf(stderr, "%s\n",                                                    \
         return YES;
     }
     alert = [[NSAlert alloc] init];
-    alert.messageText = @"Do you want to abandon the game?";
-    alert.informativeText = @"Any unsaved progress will be lost.";
+    alert.messageText = NSLocalizedString(@"Do you want to abandon the game?", nil);
+    alert.informativeText = NSLocalizedString(@"Any unsaved progress will be lost.", nil);
     alert.showsSuppressionButton = YES; // Uses default checkbox title
 
-    [alert addButtonWithTitle:@"Close"];
-    [alert addButtonWithTitle:@"Cancel"];
+    [alert addButtonWithTitle:NSLocalizedString(@"Close", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
     [alert beginSheetModalForWindow:self.window
-                      modalDelegate:self
-                     didEndSelector:@selector(closeAlertDidFinish:rc:ctx:)
-                        contextInfo:NULL];
-
+                  completionHandler:^(NSInteger result) {
+                      if (result == NSAlertFirstButtonReturn) {
+                          if (alert.suppressionButton.state == NSOnState) {
+                              // Suppress this alert from now on
+                              [[NSUserDefaults standardUserDefaults]
+                               setBool:YES
+                               forKey:@"closeAlertSuppression"];
+                          }
+                          [self windowWillClose:nil];
+                          [self close];
+                      }
+                  }];
     return NO;
 }
-
 
 - (void)windowWillClose:(id)sender {
     NSLog(@"glkctl (game %@): windowWillClose", _game ? _game.metadata.title : @"nil");
@@ -2338,8 +2325,8 @@ fprintf(stderr, "%s\n",                                                    \
 
                 reqWin.frame = rect;
 
-                NSInteger hmask = NSViewMaxXMargin;
-                NSInteger vmask = NSViewMaxYMargin;
+                NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
+                NSAutoresizingMaskOptions vmask = NSViewMaxYMargin;
 
                 if (fabs(NSMaxX(rect) - _contentView.frame.size.width) < 2.0 &&
                     rect.size.width > 0) {
@@ -2647,24 +2634,17 @@ static NSString *signalToName(NSTask *task) {
     [task waitUntilExit];
 
     if (task && task.terminationStatus != 0 ) {
-        NSAlert *alert;
-        alert = [NSAlert
-                 alertWithMessageText:@"The game has unexpectedly terminated."
-                 defaultButton:@"Oops"
-                 alternateButton:nil
-                 otherButton:nil
-                 informativeTextWithFormat:@"Error code: %@.", signalToName(task)];
-
-        [alert beginSheetModalForWindow:self.window
-                          modalDelegate:nil
-                         didEndSelector:nil
-                            contextInfo:nil];
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.messageText = NSLocalizedString(@"The game has unexpectedly terminated.", nil);
+        alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", nil), signalToName(task)];
+        [alert addButtonWithTitle:NSLocalizedString(@"Oops", nil)];
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {}];
     }
 
     for (GlkWindow *win in [_gwindows allValues])
         [win terpDidStop];
 
-    self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
+    self.window.title = [self.window.title stringByAppendingString:NSLocalizedString(@" (finished)", nil)];
     [self performScroll];
     task = nil;
 
@@ -3019,7 +2999,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     NSView __weak *localContentView = _contentView;
     NSView __weak *localBorderView = _borderView;
-    NSWindow __unsafe_unretained *localSnapshot = snapshotWindow;
+    NSWindow *localSnapshot = snapshotWindow;
 
     GlkController * __unsafe_unretained weakSelf = self;
     // Hide contentview
@@ -3052,7 +3032,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               NSMakePoint(floor((NSWidth(localBorderView.bounds) -
                                 NSWidth(localContentView.frame)) /
                                2),
-                         floor(NSHeight(localBorderView.bounds) - _theme.border - localContentView.frame.size.height)
+                         floor(NSHeight(localBorderView.bounds) - weakSelf.theme.border - localContentView.frame.size.height)
                          );
               [NSAnimationContext
                runAnimationGroup:^(NSAnimationContext *context) {
@@ -3155,7 +3135,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
               GlkEvent *gevent = [[GlkEvent alloc]
                                   initArrangeWidth:(NSInteger)localContentView.frame.size.width
                                   height:(NSInteger)localContentView.frame.size.height
-                                  theme:_theme
+                                  theme:weakSelf.theme
                                   force:NO];
 
               [weakSelf queueEvent:gevent];

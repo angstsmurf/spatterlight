@@ -759,10 +759,13 @@
     self.editable = NO;
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
 
-    NSLog(@"%@", NSStringFromSelector(menuItem.action));
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
 
     if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuItem.action != @selector(_lookUpDefiniteRangeInDictionaryFromMenu:) && menuItem.action != @selector(_searchWithGoogleFromMenu:))
         return NO;
+
+#pragma clang diagnostic pop
 
     if (menuItem.action == @selector(cut:)) {
         if (self.selectedRange.length &&
