@@ -2109,15 +2109,6 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     wins[curwin].screenwidth_at_creation = screenwidth_in_chars;
     wins[curwin].screenheight_at_creation = screenheight_in_chars;
 
-    // Without this, the red line in Future boy keeps disappearing
-    if (future_boy_line) {
-        if (y1 >= wins[future_boy_line].y0 && bottom == wins[future_boy_line].t) {
-            y1 = wins[future_boy_line].y0;
-        } else if (y0 < wins[future_boy_line].y1 && top == wins[future_boy_line].t) {
-            y0 = wins[future_boy_line].y1;
-        }
-    }
-
 //    LOG("hugo_settextwindow (%d): l:%d t:%d r:%d b:%d was translated to x0:%d y0:%d x1:%d y1:%d\n", curwin, origleft, origtop, origright, origbottom, x0, y0, x1, y1);
 
     heglk_adjust_guilty_bastards_windows();
