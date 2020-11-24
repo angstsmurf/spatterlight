@@ -1063,7 +1063,7 @@ static int print_zcode(uint32_t addr, bool in_abbr, void (*outc)(uint8_t))
         case 2: case 3:
           if(zversion >= 3 || (zversion == 2 && c == 1))
           {
-            ZASSERT(!in_abbr, "abbreviation being used recursively");
+            // ZASSERT(!in_abbr, "abbreviation being used recursively");
             abbrev = c;
             shift = 0;
           }
