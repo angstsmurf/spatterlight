@@ -2744,10 +2744,6 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
         return YES;
     }
 
-//    NSLog(@"scrolledToBottom: _textview.bounds: %@ clipView.bounds %@", NSStringFromRect(_textview.bounds), NSStringFromRect(clipView.bounds));
-//    NSLog(@"_textview.textContainerInset.height:%f _textview.bottomPadding:%f", _textview.textContainerInset.height, _textview.bottomPadding);
-//    NSLog(@"NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) = %f", NSHeight(_textview.bounds) - NSMaxY(clipView.bounds));
-
     return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding);
 }
 
