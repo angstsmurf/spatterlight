@@ -129,7 +129,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSAttributedString *restoredInput;
 
 - (void)recalcBackground;
-- (void)myKeyDown:(NSEvent *)evt;
 - (void)echo:(BOOL)val;
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (void)stopSpeakingText_10_7;

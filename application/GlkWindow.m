@@ -255,10 +255,6 @@ fprintf(stderr, "%s\n",                                                    \
     NSLog(@"postRestoreAdjustments in %@ not implemented", [self class]);
 }
 
-- (void)myKeyDown:(NSEvent *)evt {
-    NSLog(@"myKeyDown in %@ not implemented", [self class]);
-}
-
 - (BOOL)hasCharRequest {
     return char_request;
 }

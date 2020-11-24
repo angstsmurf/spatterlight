@@ -21,7 +21,7 @@
         ch = chartokeycode([str characterAtIndex:str.length - 1]);
     GlkWindow *glkWin = (GlkWindow *)((NSTextField *)self.delegate).delegate;
     if ([glkWin.currentTerminators[@(ch)] isEqual:@(YES)] || [glkWin hasCharRequest] || ((ch == keycode_Up || ch == keycode_Down) && ![glkWin hasCharRequest]))
-        [glkWin myKeyDown:evt];
+        [glkWin keyDown:evt];
     else {
         [super keyDown:evt];
     }

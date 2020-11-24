@@ -33,8 +33,8 @@
 
 @implementation MyGridTextView
 
-- (void)keyDown:(NSEvent *)evt {
-    [(GlkTextGridWindow *)self.delegate keyDown:evt];
+- (void)keyDown:(NSEvent *)theEvent {
+    [(GlkTextGridWindow *)self.delegate keyDown:theEvent];
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
@@ -1021,10 +1021,6 @@
 }
 
 - (void)keyDown:(NSEvent *)evt {
-    [self myKeyDown:evt];
-}
-
-- (void)myKeyDown:(NSEvent *)evt {
     NSString *str = evt.characters;
     unsigned ch = keycode_Unknown;
     if (str.length)
@@ -1042,10 +1038,7 @@
             if (win != self && win.wantsFocus) {
                 [win grabFocus];
                 NSLog(@"GlkTextGridWindow: Passing on keypress");
-                if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-                    [(GlkTextBufferWindow *)win myKeyDown:evt];
-                } else
-                    [win keyDown:evt];
+                [win keyDown:evt];
                 return;
             }
         }

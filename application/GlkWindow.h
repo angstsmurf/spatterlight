@@ -78,8 +78,6 @@ struct fillrect;
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array;
 - (void)postRestoreAdjustments:(GlkWindow *)win;
 
-- (void)myKeyDown:(NSEvent *)evt;
-
 - (BOOL)hasCharRequest;
 
 @end
