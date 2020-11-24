@@ -1392,12 +1392,6 @@
     [self grabFocus];
 }
 
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-    if (self.glkctl.previewDummy)
-        return NO;
-    return [super validateMenuItem:menuItem];
-}
-
 #pragma mark Colors and styles
 
 - (BOOL)allowsDocumentBackgroundColorChange {
