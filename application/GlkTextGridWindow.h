@@ -8,7 +8,6 @@
 
 @interface GlkTextGridWindow
     : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
-    MyGridTextView *textview;
     NSScrollView *scrollview;
     NSTextStorage *textstorage;
     NSLayoutManager *layoutmanager;
@@ -23,6 +22,8 @@
 
     NSInteger terminator;
 }
+
+@property MyGridTextView *textview;
 
 @property NSRange restoredSelection;
 @property NSUInteger selectedRow;

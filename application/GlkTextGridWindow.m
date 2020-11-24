@@ -100,31 +100,31 @@
         container.layoutManager = layoutmanager;
         [layoutmanager addTextContainer:container];
 
-        textview = [[MyGridTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)
+        _textview = [[MyGridTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)
                                            textContainer:container];
 
-        textview.minSize = NSMakeSize(0, 0);
-        textview.maxSize = NSMakeSize(10000000, 10000000);
+        _textview.minSize = NSMakeSize(0, 0);
+        _textview.maxSize = NSMakeSize(10000000, 10000000);
 
-        textview.autoresizingMask = NSViewWidthSizable;
+        _textview.autoresizingMask = NSViewWidthSizable;
 
-        container.textView = textview;
-        scrollview.documentView = textview;
+        container.textView = _textview;
+        scrollview.documentView = _textview;
 
         /* now configure the text stuff */
 
-        textview.delegate = self;
+        _textview.delegate = self;
         textstorage.delegate = self;
-        textview.textContainerInset =
+        _textview.textContainerInset =
             NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
-        textview.backgroundColor = self.theme.gridBackground;
+        _textview.backgroundColor = self.theme.gridBackground;
 
-        NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
+        NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-        textview.linkTextAttributes = linkAttributes;
+        _textview.linkTextAttributes = linkAttributes;
 
-        textview.editable = NO;
-        textview.usesFontPanel = NO;
+        _textview.editable = NO;
+        _textview.usesFontPanel = NO;
         _restoredSelection = NSMakeRange(0, 0);
 
         [self addSubview:scrollview];
@@ -139,20 +139,20 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        textview = [decoder decodeObjectForKey:@"textview"];
+        _textview = [decoder decodeObjectForKey:@"_textview"];
 
-        layoutmanager = textview.layoutManager;
-        textstorage = textview.textStorage;
+        layoutmanager = _textview.layoutManager;
+        textstorage = _textview.textStorage;
         if (!textstorage)
             NSLog(@"Error! textstorage is nil!");
         _bufferTextStorage = [textstorage mutableCopy];
-        container = (MarginContainer *)textview.textContainer;
+        container = (MarginContainer *)_textview.textContainer;
 
-        textview.delegate = self;
-        textview.insertionPointColor = self.theme.gridBackground;
+        _textview.delegate = self;
+        _textview.insertionPointColor = self.theme.gridBackground;
         textstorage.delegate = self;
-        scrollview = textview.enclosingScrollView;
-        scrollview.documentView = textview;
+        scrollview = _textview.enclosingScrollView;
+        scrollview.documentView = _textview;
 
         line_request = [decoder decodeBoolForKey:@"line_request"];
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
@@ -185,7 +185,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeObject:textview forKey:@"textview"];
+    [encoder encodeObject:_textview forKey:@"_textview"];
     [encoder encodeBool:line_request forKey:@"line_request"];
     [encoder encodeBool:hyper_request forKey:@"hyper_request"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
@@ -194,12 +194,12 @@
     [encoder encodeInteger:(NSInteger)xpos forKey:@"xpos"];
     [encoder encodeInteger:(NSInteger)ypos forKey:@"ypos"];
     [encoder encodeBool:transparent forKey:@"transparent"];
-    NSValue *rangeVal = [NSValue valueWithRange:textview.selectedRange];
+    NSValue *rangeVal = [NSValue valueWithRange:_textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
 
-    [encoder encodeInteger:(NSInteger)(textview.selectedRange.location / (cols + 1)) forKey:@"selectedRow"];
-    [encoder encodeInteger:(NSInteger)(textview.selectedRange.location % (cols + 1)) forKey:@"selectedCol"];
-    [encoder encodeObject:[textstorage.string substringWithRange:textview.selectedRange] forKey:@"selectedString"];
+    [encoder encodeInteger:(NSInteger)(_textview.selectedRange.location / (cols + 1)) forKey:@"selectedRow"];
+    [encoder encodeInteger:(NSInteger)(_textview.selectedRange.location % (cols + 1)) forKey:@"selectedCol"];
+    [encoder encodeObject:[textstorage.string substringWithRange:_textview.selectedRange] forKey:@"selectedString"];
 
     MyFieldEditor *fieldEditor = self.input.fieldEditor;
     if (fieldEditor && fieldEditor.textStorage.string.length) {
@@ -249,11 +249,11 @@
     _selectedString = restoredWin.selectedString;
 
     if (NSMaxRange(_restoredSelection) < textstorage.length && [[textstorage.string substringWithRange:_restoredSelection] isEqualToString:_selectedString]) {
-        textview.selectedRange = _restoredSelection;
+        _textview.selectedRange = _restoredSelection;
     } else {
         _restoredSelection = NSMakeRange(_selectedCol + _selectedRow * (cols + 1), _restoredSelection.length);
         if (NSMaxRange(_restoredSelection) < textstorage.length && [[textstorage.string substringWithRange:_restoredSelection] isEqualToString:_selectedString]) {
-            textview.selectedRange = _restoredSelection;
+            _textview.selectedRange = _restoredSelection;
         }
     }
 
@@ -273,7 +273,7 @@
     //    NSLog(@"GlkTextGridWindow %ld prefsDidChange", self.name);
 
     NSDictionary *attributes;
-    NSRange selectedRange = textview.selectedRange;
+    NSRange selectedRange = _textview.selectedRange;
 
     NSUInteger i;
 
@@ -306,7 +306,7 @@
     NSInteger marginX = self.theme.gridMarginX;
     NSInteger marginY = self.theme.gridMarginY;
 
-    textview.textContainerInset = NSMakeSize(marginX, marginY);
+    _textview.textContainerInset = NSMakeSize(marginX, marginY);
 
     if (different) {
         styles = newstyles;
@@ -371,15 +371,15 @@
         // Now we can replace the text storager
         [textstorage setAttributedString:_bufferTextStorage];
 
-        NSMutableDictionary *linkAttributes = [textview.linkTextAttributes mutableCopy];
+        NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-        textview.linkTextAttributes = linkAttributes;
+        _textview.linkTextAttributes = linkAttributes;
 
-        textview.selectedRange = selectedRange;
+        _textview.selectedRange = selectedRange;
         dirty = NO;
 
         [self recalcBackground];
-        textview.backgroundColor = _pendingBackgroundCol;
+        _textview.backgroundColor = _pendingBackgroundCol;
 
         if (line_request) {
             if (!_enteredTextSoFar)
@@ -435,7 +435,7 @@
         [self.glkctl setBorderColor:bgcolor fromWindow:self];
 
     _pendingBackgroundCol = bgcolor;
-    textview.insertionPointColor = bgcolor;
+    _textview.insertionPointColor = bgcolor;
 }
 
 - (void)setBgColor:(NSInteger)bc {
@@ -487,8 +487,8 @@
 }
 
 - (void)flushDisplay {
-    textview.editable = YES;
-    NSRange selectedRange = textview.selectedRange;
+    _textview.editable = YES;
+    NSRange selectedRange = _textview.selectedRange;
     NSString *selectedString = [textstorage.string substringWithRange:selectedRange];
     _selectedRow = selectedRange.location / (cols + 1);
     _selectedCol = selectedRange.location % (cols + 1);
@@ -497,8 +497,8 @@
         if (!NSEqualRects(self.frame, self.pendingFrame)) {
             [super setFrame:self.pendingFrame];
         }
-        if (!NSEqualRects(textview.frame, self.frame)) {
-            textview.frame = self.frame;
+        if (!NSEqualRects(_textview.frame, self.frame)) {
+            _textview.frame = self.frame;
         }
 
         self.framePending = NO;
@@ -507,8 +507,8 @@
     if (!transparent)
         [self checkForUglyBorder];
 
-    if (_pendingBackgroundCol && ![_pendingBackgroundCol isEqualToColor:textview.backgroundColor]) {
-        textview.backgroundColor = _pendingBackgroundCol;
+    if (_pendingBackgroundCol && ![_pendingBackgroundCol isEqualToColor:_textview.backgroundColor]) {
+        _textview.backgroundColor = _pendingBackgroundCol;
     }
     _pendingBackgroundCol = nil;
 
@@ -522,13 +522,13 @@
     if (NSMaxRange(_restoredSelection) <= _bufferTextStorage.length) {
         NSString *newSelectedString = [_bufferTextStorage.string substringWithRange:_restoredSelection];
         if ([newSelectedString isEqualToString:selectedString]) {
-           textview.selectedRange = _restoredSelection;
+           _textview.selectedRange = _restoredSelection;
         }
     }
-    _restoredSelection = textview.selectedRange;
+    _restoredSelection = _textview.selectedRange;
 
     [super flushDisplay];
-    textview.editable = NO;
+    _textview.editable = NO;
 }
 
 
@@ -552,11 +552,11 @@
         frame.size.height = self.glkctl.contentView.frame.size.height;
 
     NSUInteger newcols = (NSUInteger)round((frame.size.width -
-                                            (textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
+                                            (_textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
                                            self.theme.cellWidth);
 
     NSUInteger newrows = (NSUInteger)round((frame.size.height + self.theme.gridNormal.lineSpacing // We cut off the lowest linespaceing gap in order to center text vertically
-                                            - (textview.textContainerInset.height * 2) ) /
+                                            - (_textview.textContainerInset.height * 2) ) /
                                            self.theme.cellHeight);
 
     if ((NSInteger)newcols < 1)
@@ -568,7 +568,7 @@
         return;
 
     if (_restoredSelection.length == 0)
-        _restoredSelection = textview.selectedRange;
+        _restoredSelection = _textview.selectedRange;
 
     _selectedRow = _restoredSelection.location / (cols + 1);
     _selectedCol = _restoredSelection.location % (cols + 1);
@@ -728,7 +728,7 @@
 }
 
 - (void)clear {
-    NSRange selectedRange = textview.selectedRange;
+    NSRange selectedRange = _textview.selectedRange;
     if (!_bufferTextStorage.length)
         return;
     _bufferTextStorage = [[NSMutableAttributedString alloc]
@@ -749,13 +749,13 @@
 //        [self recalcBackground];
 //    }
 
-    if (NSMaxRange(selectedRange) > textview.textStorage.length) {
-        if (textview.textStorage.length)
-            selectedRange = NSMakeRange(textview.textStorage.length - 1, 0);
+    if (NSMaxRange(selectedRange) > _textview.textStorage.length) {
+        if (_textview.textStorage.length)
+            selectedRange = NSMakeRange(_textview.textStorage.length - 1, 0);
         else
             selectedRange = NSMakeRange(0, 0);
     }
-    textview.selectedRange = selectedRange;
+    _textview.selectedRange = selectedRange;
 }
 
 - (void)putString:(NSString *)string style:(NSUInteger)stylevalue {
@@ -928,7 +928,7 @@
     NSLog(@"txtgrid: hyperlink event cancelled");
 }
 
-- (BOOL)textView:textview clickedOnLink:(id)link atIndex:(NSUInteger)charIndex {
+- (BOOL)textView:_textview clickedOnLink:(id)link atIndex:(NSUInteger)charIndex {
     NSLog(@"txtgrid: clicked on link: %@", link);
     if (!hyper_request) {
         NSLog(@"txtgrid: No hyperlink request in window.");
@@ -964,13 +964,13 @@
         NSPoint p;
         p = theEvent.locationInWindow;
 
-        p = [textview convertPoint:p fromView:nil];
+        p = [_textview convertPoint:p fromView:nil];
 
-        p.x -= textview.textContainerInset.width;
-        p.y -= textview.textContainerInset.height;
+        p.x -= _textview.textContainerInset.width;
+        p.y -= _textview.textContainerInset.height;
 
         NSUInteger charIndex =
-        [textview.layoutManager characterIndexForPoint:p
+        [_textview.layoutManager characterIndexForPoint:p
                                        inTextContainer:container
               fractionOfDistanceBetweenInsertionPoints:nil];
         // NSLog(@"Clicked on char index %ld, which is '%@'.", charIndex,
@@ -1109,8 +1109,8 @@
     maxInputLength = maxLength;
 
     NSRect bounds = self.bounds;
-    NSInteger mx = (NSInteger)textview.textContainerInset.width;
-    NSInteger my = (NSInteger)textview.textContainerInset.height;
+    NSInteger mx = (NSInteger)_textview.textContainerInset.width;
+    NSInteger my = (NSInteger)_textview.textContainerInset.height;
 
     NSInteger x0 = (NSInteger)(NSMinX(bounds) + mx + container.lineFragmentPadding / 2);
     NSInteger y0 = (NSInteger)(NSMinY(bounds) + my);
@@ -1154,7 +1154,7 @@
     NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:caret options: (NSTrackingActiveAlways | NSTrackingMouseEnteredAndExited) owner:self.input userInfo:nil];
     [self.input addTrackingArea:trackingArea];
 
-    [textview addSubview:self.input];
+    [_textview addSubview:self.input];
 
     [self performSelector:@selector(deferredGrabFocus:) withObject:self.input afterDelay:0.1];
 }
@@ -1204,7 +1204,7 @@
 }
 
 - (void)deferredInitLine:(id)sender {
-    NSArray *subviews = textview.subviews;
+    NSArray *subviews = _textview.subviews;
     if (subviews) {
         for (NSView *view in subviews) {
             if ([view isKindOfClass:[NSTextField class]]) {
@@ -1479,7 +1479,7 @@
     NSResponder *firstResponder = self.window.firstResponder;
     // NSLog(@"GlkTextGridWindow: accessibilityAttributeValue: %@",attribute);
     if ([attribute isEqualToString:NSAccessibilityContentsAttribute]) {
-        return textview;
+        return _textview;
     } else if ([attribute
                 isEqualToString:NSAccessibilityRoleDescriptionAttribute]) {
         return [NSString
@@ -1488,24 +1488,24 @@
                 line_request ? @", waiting for commands" : @"",
                 char_request ? @", waiting for a key press" : @"",
                 hyper_request ? @", waiting for a hyperlink click" : @"",
-                [textview
+                [_textview
                  accessibilityAttributeValue:NSAccessibilityValueAttribute]];
     } else if ([attribute isEqualToString:NSAccessibilityFocusedAttribute]) {
         // return (id)NO;
         return [NSNumber numberWithBool:firstResponder == self ||
-                firstResponder == textview];
+                firstResponder == _textview];
     } else if ([attribute
                 isEqualToString:NSAccessibilityFocusedUIElementAttribute]) {
         return self.accessibilityFocusedUIElement;
     } else if ([attribute isEqualToString:NSAccessibilityChildrenAttribute]) {
-        return @[ textview ];
+        return @[ _textview ];
     }
 
     return [super accessibilityAttributeValue:attribute];
 }
 
 - (id)accessibilityFocusedUIElement {
-    return textview;
+    return _textview;
 }
 
 - (IBAction)speakStatus:(id)sender {
