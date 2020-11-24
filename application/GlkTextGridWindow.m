@@ -459,21 +459,23 @@
     }
 
     __block NSColor *bgCol;
+    __block NSUInteger blocCols = cols;
+    __block NSAttributedString *blockTextStorage = _bufferTextStorage;
 
-    [_bufferTextStorage
+    [blockTextStorage
      enumerateAttribute:NSBackgroundColorAttributeName
-     inRange:NSMakeRange(0, _bufferTextStorage.length)
+     inRange:NSMakeRange(0, blockTextStorage.length)
      options:0
      usingBlock:^(id value, NSRange range, BOOL *stop) {
 
-         bgCol = (NSColor *)value;
-         if (bgCol && range.length + 2 > cols) {
-             if (NSMaxRange(range) > _bufferTextStorage.length - 3)
-                 *stop = YES;
-         } else {
-                 bgCol = nil;
+        bgCol = (NSColor *)value;
+        if (bgCol && range.length + 2 > blocCols) {
+            if (NSMaxRange(range) > blockTextStorage.length - 3)
+                *stop = YES;
+        } else {
+            bgCol = nil;
         }
-     }];
+    }];
 
     if (!bgCol) {
         if (bgnd < 0 || !self.theme.doStyles) {

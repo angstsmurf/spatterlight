@@ -1485,6 +1485,7 @@
 
         NSRange selectedRange = _textview.selectedRange;
 
+        __block NSArray *blockStyles = styles;
         [textstorage
          enumerateAttributesInRange:NSMakeRange(0, textstorage.length)
          options:0
@@ -1494,7 +1495,7 @@
              // styles array
              id styleobject = attrs[@"GlkStyle"];
              if (styleobject) {
-                 NSDictionary *stylesAtt = styles[(NSUInteger)[styleobject intValue]];
+                 NSDictionary *stylesAtt = blockStyles[(NSUInteger)[styleobject intValue]];
                  [backingStorage setAttributes:stylesAtt range:range];
              }
 
