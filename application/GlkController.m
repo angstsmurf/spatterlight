@@ -805,8 +805,7 @@ fprintf(stderr, "%s\n",                                                    \
         dirstr = [dirstr stringByAppendingPathComponent:@"Autosaves"];
         dirstr = [dirstr
                   stringByAppendingPathComponent:[_gamefile signatureFromFile]];
-        dirstr = [dirstr
-                  stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        dirstr = [dirstr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
 
         appSupportURL = [NSURL URLWithString:dirstr
                                relativeToURL:appSupportURL];
@@ -1707,7 +1706,7 @@ fprintf(stderr, "%s\n",                                                    \
                       struct message reply;
                       const char *s;
 
-                      if (result == NSFileHandlingPanelOKButton) {
+                      if (result == NSModalResponseOK) {
                           NSURL *theFile = panel.URL;
                           [[NSUserDefaults standardUserDefaults]
                            setObject:theFile.path
