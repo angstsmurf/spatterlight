@@ -303,7 +303,7 @@
 - (id)initWithContainerSize:(NSSize)size {
     self = [super initWithContainerSize:size];
 
-    margins = [[NSMutableArray alloc] init];
+    _marginImages = [[NSMutableArray alloc] init];
     flowbreaks = [[NSMutableArray alloc] init];
 
     return self;
@@ -312,8 +312,8 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        margins = [decoder decodeObjectForKey:@"margins"];
-        for (MarginImage *img in margins)
+        _marginImages = [decoder decodeObjectForKey:@"marginImages"];
+        for (MarginImage *img in _marginImages)
             img.container = self;
         flowbreaks = [decoder decodeObjectForKey:@"flowbreaks"];
     }
@@ -323,18 +323,18 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeObject:margins forKey:@"margins"];
+    [encoder encodeObject:_marginImages forKey:@"marginImages"];
     [encoder encodeObject:flowbreaks forKey:@"flowbreaks"];
 }
 
 - (void)clearImages {
-    margins = [[NSMutableArray alloc] init];
+    _marginImages = [[NSMutableArray alloc] init];
     flowbreaks = [[NSMutableArray alloc] init];
     [self.layoutManager textContainerChangedGeometry:self];
 }
 
 - (void)invalidateLayout {
-    for (MarginImage *i in margins)
+    for (MarginImage *i in _marginImages)
         [i uncacheBounds];
 
     for (FlowBreak *f in flowbreaks)
@@ -352,7 +352,7 @@
                                                   linkid:linkid
                                                       at:top
                                                   sender:self];
-    [margins addObject:mi];
+    [_marginImages addObject:mi];
     [self.layoutManager textContainerChangedGeometry:self];
 }
 
@@ -363,7 +363,7 @@
 }
 
 - (BOOL)isSimpleRectangularTextContainer {
-    return margins.count == 0;
+    return _marginImages.count == 0;
 }
 
 - (NSRect)lineFragmentRectForProposedRect:(NSRect)proposed
@@ -380,7 +380,7 @@
                                 movementDirection:movementdir
                                     remainingRect:remaining];
 
-    if (margins.count == 0)
+    if (_marginImages.count == 0)
         return rect;
 
     BOOL overlapped = YES;
@@ -390,7 +390,7 @@
         overlapped = NO;
         lastleft = lastright = nil;
 
-        NSEnumerator *enumerator = [margins reverseObjectEnumerator];
+        NSEnumerator *enumerator = [_marginImages reverseObjectEnumerator];
         while (image = [enumerator nextObject]) {
             // I'm not quite sure why, but this prevents the flowbreaks from
             // jumping to incorrect positions when resizing the window
@@ -478,7 +478,7 @@
 
             CGFloat lowest = 0;
 
-            for (img2 in margins)
+            for (img2 in _marginImages)
                 // Moving below the lowest image drawn before the flowbreak
                 // Flowbreaks are not supposed to affect images drawn after it
                 if (img2.pos < f.pos && NSMaxY(img2.bounds) > lowest &&
@@ -496,7 +496,7 @@
 
 - (void)unoverlap:(MarginImage *)image {
     // Skip if we only have one image, or none, or bounds are empty
-    if (margins.count < 2 || NSIsEmptyRect(image.bounds))
+    if (_marginImages.count < 2 || NSIsEmptyRect(image.bounds))
         return;
 
     NSTextView *textview = self.textView;
@@ -519,8 +519,8 @@
         adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
     }
 
-    for (NSInteger i = (NSInteger)[margins indexOfObject:image] - 1; i >= 0; i--) {
-        MarginImage *img2 = margins[(NSUInteger)i];
+    for (NSInteger i = (NSInteger)[_marginImages indexOfObject:image] - 1; i >= 0; i--) {
+        MarginImage *img2 = _marginImages[(NSUInteger)i];
 
         // If overlapping, shift in opposite alignment direction
         if (NSIntersectsRect(img2.bounds, adjustedBounds)) {
@@ -580,7 +580,7 @@
     CGFloat extendneeded = 0;
 
     MarginImage *image;
-    NSEnumerator *enumerator = [margins reverseObjectEnumerator];
+    NSEnumerator *enumerator = [_marginImages reverseObjectEnumerator];
     while (image = [enumerator nextObject]) {
         [image boundsWithLayout:self.layoutManager];
 
@@ -614,7 +614,7 @@
                 [image.image
                         drawInRect:bounds
                           fromRect:NSMakeRect(0, 0, size.width, size.height)
-                         operation:NSCompositeSourceOver
+                 operation:NSCompositeSourceOver
                           fraction:1.0
                     respectFlipped:YES
                              hints:nil];
@@ -632,10 +632,10 @@
 
 - (NSUInteger)findHyperlinkAt:(NSPoint)p;
 {
-    for (MarginImage *image in margins) {
+    for (MarginImage *image in _marginImages) {
         if ([self.textView mouse:p inRect:image.bounds]) {
             NSLog(@"Clicked on image %ld with linkid %ld",
-                  [margins indexOfObject:image], image.linkid);
+                  [_marginImages indexOfObject:image], image.linkid);
             return image.linkid;
         }
     }
@@ -643,7 +643,7 @@
 }
 
 - (BOOL)hasMarginImages {
-    return (margins.count > 0);
+    return (_marginImages.count > 0);
 }
 
 - (NSMutableAttributedString *)marginsToAttachmentsInString:
@@ -653,10 +653,9 @@
     NSData *tiffdata;
     MarginImage *image;
 
-    NSEnumerator *enumerator = [margins reverseObjectEnumerator];
+    NSEnumerator *enumerator = [_marginImages reverseObjectEnumerator];
     while (image = [enumerator nextObject]) {
         tiffdata = image.image.TIFFRepresentation;
-
         wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:tiffdata];
         wrapper.preferredFilename = @"image.tiff";
         att = [[NSTextAttachment alloc] initWithFileWrapper:wrapper];

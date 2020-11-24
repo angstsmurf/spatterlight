@@ -45,9 +45,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 @interface MarginContainer : NSTextContainer {
-    NSMutableArray *margins;
     NSMutableArray *flowbreaks;
 }
+
+@property NSMutableArray *marginImages;
 
 - (id)initWithContainerSize:(NSSize)size;
 - (void)clearImages;
