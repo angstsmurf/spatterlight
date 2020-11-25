@@ -107,16 +107,16 @@
         return;
 
     NSDictionary *announcementInfo = @{
-                                       NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-                                       NSAccessibilityAnnouncementKey : string
-                                       };
+        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+        NSAccessibilityAnnouncementKey : string
+    };
 
     NSWindow *mainWin = [NSApp mainWindow];
 
     if (mainWin) {
         NSAccessibilityPostNotificationWithUserInfo(
-                                                mainWin,
-                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+                                                    mainWin,
+                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
     }
 }
 

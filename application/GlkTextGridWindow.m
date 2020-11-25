@@ -1273,23 +1273,27 @@
 #pragma mark Command history
 
 - (void)travelBackwardInHistory {
+    if (!self.input)
+        return;
     NSString *cx;
-    if (self.input && self.input.stringValue.length > 0)
+    if (self.input.stringValue.length > 0)
         cx = self.input.stringValue;
     else
         cx = @"";
     cx = [history travelBackwardInHistory:cx];
-    if (cx && self.input) {
+    if (cx) {
         self.input.stringValue = cx;
-        self.input.fieldEditor.selectedRange = NSMakeRange(((NSString *)cx).length, 0);
+        self.input.fieldEditor.selectedRange = NSMakeRange(cx.length, 0);
     }
 }
 
 - (void)travelForwardInHistory {
+    if (!self.input)
+        return;
     NSString *cx = [history travelForwardInHistory];
-    if (cx && self.input) {
+    if (cx) {
         self.input.stringValue = cx;
-        self.input.fieldEditor.selectedRange = NSMakeRange(((NSString *)cx).length, 0);
+        self.input.fieldEditor.selectedRange = NSMakeRange(cx.length, 0);
     }
 }
 

@@ -2031,31 +2031,21 @@
     if (!cx)
         return;
 
-    if (self.input) {
-        self.input.stringValue = cx;
-        self.input.fieldEditor.selectedRange = NSMakeRange(((NSString *)cx).length, 0);
-    } else {
-        [textstorage
-         replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
-         withString:cx];
-        [_textview resetTextFinder];
-    }
+    [textstorage
+     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+     withString:cx];
+    [_textview resetTextFinder];
 }
 
 - (void)travelForwardInHistory {
     NSString *cx = [history travelForwardInHistory];
     if (!cx)
         return;
-    if (self.input) {
-        self.input.stringValue = cx;
-        self.input.fieldEditor.selectedRange = NSMakeRange(((NSString *)cx).length, 0);
-    } else {
-        [self flushDisplay];
-        [_textview resetTextFinder];
-        [textstorage
-         replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
-         withString:cx];
-    }
+    [self flushDisplay];
+    [textstorage
+     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+     withString:cx];
+    [_textview resetTextFinder];
 }
 
 #pragma mark Beyond Zork font
