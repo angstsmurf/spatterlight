@@ -85,7 +85,7 @@
         historypos += HISTORYLEN;
 
     cx = history[historypos];
-    [self speakString:cx];
+    [self performSelector:@selector(speakString:) withObject:cx afterDelay:0];
     return cx;
 }
 
