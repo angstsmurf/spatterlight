@@ -40,6 +40,93 @@ struct patch
 
 static const struct patch patches[] =
 {
+  /* Beyond Zork tries to treat a dictionary word as an object in two
+   * places. This affects all releases and so needs to be patched in two
+   * places each release, resulting in several patch entries.
+   *
+   * The code looks something like:
+   *
+   * [ KillFilm;
+   *   @clear_attr circlet 3
+   *   @call_vn ReplaceSyn "circlet" "film" "zzzp"
+   *   @call_vn ReplaceAdj "circlet" "swirling" "zzzp"
+   *   @rfalse;
+   * ];
+   *
+   * For the calls, "circlet" is the dictionary word, not the object. In
+   * both ReplaceSyn and ReplaceAdj, the first call is @get_prop_addr
+   * with "circlet" as the object, which is invalid. According to
+   * http://ifarchive.org/if-archive/infocom/interpreters/zip/zip_bugs.txt,
+   * interpreters can return 0 in this particular case. Conveniently,
+   * both ReplaceSyn and ReplaceAdj immediately return false if
+   * @get_prop_addr returns 0, so it’s fine to avoid calling them
+   * altogether. Since the two calls to ReplaceSyn and ReplaceAdj are
+   * superfluous, and KillFilm always returns false, the first byte of
+   * the first @call_vn is replaced with @rfalse. This leaves junk
+   * instructions afterward, but they’ll never be reached, so it doesn't
+   * matter.
+   */
+  {
+    .title = "Beyond Zork", .serial = "870915", .release = 47, .checksum = 0x3ff4,
+    .addr = 0x2f8e2, .n = 1,
+    .expected = B(0xf9),
+    .replacement = B(0xb1),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870915", .release = 47, .checksum = 0x3ff4,
+    .addr = 0x2f8fe, .n = 1,
+    .expected = B(0xf9),
+    .replacement = B(0xb1),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870917", .release = 49, .checksum = 0x24d6,
+    .addr = 0x2f8b2, .n = 1,
+    .expected = B(0xf9),
+    .replacement = B(0xb1),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870917", .release = 49, .checksum = 0x24d6,
+    .addr = 0x2f8ce, .n = 1,
+    .expected = B(0xf9),
+    .replacement = B(0xb1),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870923", .release = 51, .checksum = 0x0cbe,
+    .addr = 0x2f75e, .n = 1,
+    .expected = B(0xf9),
+    .replacement = B(0xb1),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870923", .release = 51, .checksum = 0x0cbe,
+    .addr = 0x2f77a, .n = 1,
+    .expected = B(0xf9),
+    .replacement = B(0xb1),
+  },
+  {
+    .title = "Beyond Zork", .serial = "871221", .release = 57, .checksum = 0xc5ad,
+    .addr = 0x2fc6e, .n = 1,
+    .expected = B(0xf9),
+    .replacement = B(0xb1),
+  },
+  {
+    .title = "Beyond Zork", .serial = "871221", .release = 57, .checksum = 0xc5ad,
+    .addr = 0x2fc8a, .n = 1,
+    .expected = B(0xf9),
+    .replacement = B(0xb1),
+  },
+  {
+    .title = "Beyond Zork", .serial = "880610", .release = 60, .checksum = 0xa49d,
+    .addr = 0x2fbfa, .n = 1,
+    .expected = B(0xf9),
+    .replacement = B(0xb1),
+  },
+  {
+    .title = "Beyond Zork", .serial = "880610", .release = 60, .checksum = 0xa49d,
+    .addr = 0x2fc16, .n = 1,
+    .expected = B(0xf9),
+    .replacement = B(0xb1),
+  },
+
   /* This is in a routine which iterates over all attributes of an
    * object, but due to an off-by-one error, attribute 48 (0x30) is
    * included, which is not valid, as the last attribute is 47 (0x2f);
@@ -78,6 +165,27 @@ static const struct patch patches[] =
   {
     .title = "Wishbringer", .serial = "880706", .release = 23, .checksum = 0x4222,
     .addr = 0x1f910, .n = 1, .expected = B(0xbc), .replacement = B(0xb4),
+  },
+
+  /* Robot Finds Kitten attempts to sleep with the following:
+   *
+   * [ Func junk;
+   *   @aread junk 0 10 PauseFunc -> junk;
+   * ];
+   *
+   * However, since “junk” is a local variable with value 0 instead of a
+   * text buffer, this is asking to read from/write to address 0. This
+   * works in some interpreters, but Bocfel is more strict, and aborts
+   * the program. Rewrite this instead to:
+   *
+   * @read_char 1 10 PauseFunc -> junk;
+   * @nop; ! This is for padding.
+   */
+  {
+    .title = "Robot Finds Kitten", .serial = "130320", .release = 7, .checksum = 0x4a18,
+    .addr = 0x4912, .n = 8,
+    .expected = B(0xe4, 0x94, 0x05, 0x00, 0x0a, 0x12, 0x5a, 0x05),
+    .replacement = B(0xf6, 0x53, 0x01, 0x0a, 0x12, 0x5a, 0x05, 0xb4),
   },
 
   { .replacement = NULL },

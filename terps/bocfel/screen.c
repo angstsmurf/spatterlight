@@ -2133,9 +2133,6 @@ static bool read_handler(void)
   uint8_t zscii_string[maxchars];
   uint32_t string[maxchars + 1];
 
-  if (text == 0)
-    maxchars = 0;
-
   struct input input = { .type = INPUT_LINE, .line = string, .maxlen = maxchars };
   uint16_t timer = 0;
   uint16_t routine = zargs[3];
@@ -2150,7 +2147,7 @@ static bool read_handler(void)
 
   if(zversion >= 5)
   {
-    input.preloaded = text > 0 ? user_byte(text + 1) : 0;
+    input.preloaded = user_byte(text + 1);
     ZASSERT(input.preloaded <= maxchars, "too many preloaded characters: %d when max is %d", input.preloaded, maxchars);
 
 #ifdef GARGLK

@@ -46,8 +46,7 @@ static uint16_t find_object(uint16_t n)
     objsize = 14;
   }
 
-  if (addr + objsize >= header.static_start)
-    addr = 0;
+  ZASSERT(addr + objsize < header.static_start, "object %u out of range", (unsigned)n);
 
   return addr;
 }
