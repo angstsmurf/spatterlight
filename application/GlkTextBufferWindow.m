@@ -1035,12 +1035,7 @@
         // after a resize
         lastLineheight = self.theme.bufferCellHeight;
 
-<<<<<<< HEAD
-        for (i = 0; i < HISTORYLEN; i++)
-            history[i] = nil;
-=======
         history = [[InputHistory alloc] init];
->>>>>>> 11edd02 (Make input history its own class)
 
         moveRanges = [[NSMutableArray alloc] init];
         scrollview = [[NSScrollView alloc] initWithFrame:NSZeroRect];

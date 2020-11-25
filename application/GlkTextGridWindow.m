@@ -1080,11 +1080,34 @@
         return;
     }
 
-    if (line_request && (ch == keycode_Return || [self.currentTerminators[@(ch)] isEqual:@(YES)])) {
-        terminator = [self.currentTerminators[@(ch)] isEqual:@(YES)] ? ch : 0;
-        [[self.input window] makeFirstResponder:nil];
-        if (ch != keycode_Return)
-            [self typedEnter:nil];
+    if (line_request) {
+        // Did player type enter or line terminator?
+        if (ch == keycode_Return || [self.currentTerminators[@(ch)] isEqual:@(YES)]) {
+            terminator = [self.currentTerminators[@(ch)] isEqual:@(YES)] ? ch : 0;
+            [self.window makeFirstResponder:nil];
+            if (ch != keycode_Return)
+                [self typedEnter:nil];
+            // Or ar we here because the input field lost focus?
+            // (When the input field has focus, key events won't be sent here)
+            // (unless it passes on line termination events)
+        } else if (ch != keycode_Unknown && line_request) {
+            if (!self.input)
+                [self initLine:_enteredTextSoFar maxLength:maxInputLength];
+            [self.window makeFirstResponder:self.input];
+
+            if (ch == keycode_Up) {
+                [self travelBackwardInHistory];
+                return;
+            }
+
+            if (ch == keycode_Down) {
+                [self travelForwardInHistory];
+                return;
+            }
+
+            NSTextView* textField = (NSTextView*)self.input.fieldEditor;
+            [textField keyDown:evt];
+        }
     }
 }
 
