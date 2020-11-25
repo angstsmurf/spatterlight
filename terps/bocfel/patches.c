@@ -36,13 +36,13 @@ struct patch
   uint8_t *replacement;
 };
 
-#define B(...)	(uint8_t[]){__VA_ARGS__}
+#define B(...)    (uint8_t[]){__VA_ARGS__}
 
 static const struct patch patches[] =
 {
-  /* Beyond Zork tries to treat a dictionary word as an object in two
-   * places. This affects all releases and so needs to be patched in two
-   * places each release, resulting in several patch entries.
+  /* Beyond Zork tries to treat a dictionary word as an object in four
+   * places. This affects all releases and so needs to be patched in
+   * four places each release, resulting in several patch entries.
    *
    * The code looks something like:
    *
@@ -53,78 +53,90 @@ static const struct patch patches[] =
    *   @rfalse;
    * ];
    *
-   * For the calls, "circlet" is the dictionary word, not the object. In
-   * both ReplaceSyn and ReplaceAdj, the first call is @get_prop_addr
-   * with "circlet" as the object, which is invalid. According to
-   * http://ifarchive.org/if-archive/infocom/interpreters/zip/zip_bugs.txt,
-   * interpreters can return 0 in this particular case. Conveniently,
-   * both ReplaceSyn and ReplaceAdj immediately return false if
-   * @get_prop_addr returns 0, so it’s fine to avoid calling them
-   * altogether. Since the two calls to ReplaceSyn and ReplaceAdj are
-   * superfluous, and KillFilm always returns false, the first byte of
-   * the first @call_vn is replaced with @rfalse. This leaves junk
-   * instructions afterward, but they’ll never be reached, so it doesn't
-   * matter.
-   */
+   * For the calls, "circlet" is the dictionary word, not the object.
+   * Given that the object number of the circlet object is easily
+   * discoverable, these calls can be rewritten to use the object number
+   * instead of the incorrect dictionary entry. The following set of
+   * patches does this.*/
   {
     .title = "Beyond Zork", .serial = "870915", .release = 47, .checksum = 0x3ff4,
-    .addr = 0x2f8e2, .n = 1,
-    .expected = B(0xf9),
-    .replacement = B(0xb1),
+    .addr = 0x2f8e6, .n = 2, .expected = B(0xa3, 0x9a), .replacement = B(0x01, 0x86),
   },
   {
     .title = "Beyond Zork", .serial = "870915", .release = 47, .checksum = 0x3ff4,
-    .addr = 0x2f8fe, .n = 1,
-    .expected = B(0xf9),
-    .replacement = B(0xb1),
+    .addr = 0x2f8f0, .n = 2, .expected = B(0xa3, 0x9a), .replacement = B(0x01, 0x86),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870915", .release = 47, .checksum = 0x3ff4,
+    .addr = 0x2f902, .n = 2, .expected = B(0xa3, 0x9a), .replacement = B(0x01, 0x86),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870915", .release = 47, .checksum = 0x3ff4,
+    .addr = 0x2f90c, .n = 2, .expected = B(0xa3, 0x9a), .replacement = B(0x01, 0x86),
   },
   {
     .title = "Beyond Zork", .serial = "870917", .release = 49, .checksum = 0x24d6,
-    .addr = 0x2f8b2, .n = 1,
-    .expected = B(0xf9),
-    .replacement = B(0xb1),
+    .addr = 0x2f8b6, .n = 2, .expected = B(0xa3, 0x9c), .replacement = B(0x01, 0x86),
   },
   {
     .title = "Beyond Zork", .serial = "870917", .release = 49, .checksum = 0x24d6,
-    .addr = 0x2f8ce, .n = 1,
-    .expected = B(0xf9),
-    .replacement = B(0xb1),
+    .addr = 0x2f8c0, .n = 2, .expected = B(0xa3, 0x9c), .replacement = B(0x01, 0x86),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870917", .release = 49, .checksum = 0x24d6,
+    .addr = 0x2f8d2, .n = 2, .expected = B(0xa3, 0x9c), .replacement = B(0x01, 0x86),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870917", .release = 49, .checksum = 0x24d6,
+    .addr = 0x2f8dc, .n = 2, .expected = B(0xa3, 0x9c), .replacement = B(0x01, 0x86),
   },
   {
     .title = "Beyond Zork", .serial = "870923", .release = 51, .checksum = 0x0cbe,
-    .addr = 0x2f75e, .n = 1,
-    .expected = B(0xf9),
-    .replacement = B(0xb1),
+    .addr = 0x2f762, .n = 2, .expected = B(0xa3, 0x8d), .replacement = B(0x01, 0x86),
   },
   {
     .title = "Beyond Zork", .serial = "870923", .release = 51, .checksum = 0x0cbe,
-    .addr = 0x2f77a, .n = 1,
-    .expected = B(0xf9),
-    .replacement = B(0xb1),
+    .addr = 0x2f76c, .n = 2, .expected = B(0xa3, 0x8d), .replacement = B(0x01, 0x86),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870923", .release = 51, .checksum = 0x0cbe,
+    .addr = 0x2f77e, .n = 2, .expected = B(0xa3, 0x8d), .replacement = B(0x01, 0x86),
+  },
+  {
+    .title = "Beyond Zork", .serial = "870923", .release = 51, .checksum = 0x0cbe,
+    .addr = 0x2f788, .n = 2, .expected = B(0xa3, 0x8d), .replacement = B(0x01, 0x86),
   },
   {
     .title = "Beyond Zork", .serial = "871221", .release = 57, .checksum = 0xc5ad,
-    .addr = 0x2fc6e, .n = 1,
-    .expected = B(0xf9),
-    .replacement = B(0xb1),
+    .addr = 0x2fc72, .n = 2, .expected = B(0xa3, 0xba), .replacement = B(0x01, 0x87),
   },
   {
     .title = "Beyond Zork", .serial = "871221", .release = 57, .checksum = 0xc5ad,
-    .addr = 0x2fc8a, .n = 1,
-    .expected = B(0xf9),
-    .replacement = B(0xb1),
+    .addr = 0x2fc7c, .n = 2, .expected = B(0xa3, 0xba), .replacement = B(0x01, 0x87),
+  },
+  {
+    .title = "Beyond Zork", .serial = "871221", .release = 57, .checksum = 0xc5ad,
+   .addr = 0x2fc8e, .n = 2, .expected = B(0xa3, 0xba), .replacement = B(0x01, 0x87),
+  },
+  {
+    .title = "Beyond Zork", .serial = "871221", .release = 57, .checksum = 0xc5ad,
+    .addr = 0x2fc98, .n = 2, .expected = B(0xa3, 0xba), .replacement = B(0x01, 0x87),
   },
   {
     .title = "Beyond Zork", .serial = "880610", .release = 60, .checksum = 0xa49d,
-    .addr = 0x2fbfa, .n = 1,
-    .expected = B(0xf9),
-    .replacement = B(0xb1),
+    .addr = 0x2fbfe, .n = 2, .expected = B(0xa3, 0xc0), .replacement = B(0x01, 0x87),
   },
   {
     .title = "Beyond Zork", .serial = "880610", .release = 60, .checksum = 0xa49d,
-    .addr = 0x2fc16, .n = 1,
-    .expected = B(0xf9),
-    .replacement = B(0xb1),
+    .addr = 0x2fc08, .n = 2, .expected = B(0xa3, 0xc0), .replacement = B(0x01, 0x87),
+  },
+  {
+    .title = "Beyond Zork", .serial = "880610", .release = 60, .checksum = 0xa49d,
+    .addr = 0x2fc1a, .n = 2, .expected = B(0xa3, 0xc0), .replacement = B(0x01, 0x87),
+  },
+  {
+    .title = "Beyond Zork", .serial = "880610", .release = 60, .checksum = 0xa49d,
+    .addr = 0x2fc24, .n = 2, .expected = B(0xa3, 0xc0), .replacement = B(0x01, 0x87),
   },
 
   /* This is in a routine which iterates over all attributes of an
