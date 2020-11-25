@@ -5,7 +5,7 @@
 //  Created by Administrator on 2020-10-24.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 #import "GlkWindow.h"
 

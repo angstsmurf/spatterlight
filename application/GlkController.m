@@ -1,4 +1,5 @@
 #import "InfoController.h"
+#import "InputTextField.h"
 #import "NSString+Categories.h"
 #import "Metadata.h"
 #import "Compatibility.h"

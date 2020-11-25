@@ -1,6 +1,6 @@
 /* TextGrid window controller */
 
-#import "InputTextField.h"
+@class InputTextField, InputHistory;
 
 @interface MyGridTextView : NSTextView <NSAccessibilityNavigableStaticText>
 
@@ -19,6 +19,9 @@
     BOOL hyper_request;
     BOOL mouse_request;
     BOOL transparent;
+
+    /* For command history */
+    InputHistory *history;
 
     NSInteger terminator;
 }

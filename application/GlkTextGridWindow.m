@@ -4,6 +4,7 @@
  */
 
 #import "InputTextField.h"
+#import "InputHistory.h"
 
 #import "Compatibility.h"
 #import "NSString+Categories.h"
@@ -127,6 +128,8 @@
         _textview.usesFontPanel = NO;
         _restoredSelection = NSMakeRange(0, 0);
 
+        history = [[InputHistory alloc] init];
+
         [self addSubview:scrollview];
         [self recalcBackground];
 
@@ -163,6 +166,8 @@
         xpos = (NSUInteger)[decoder decodeIntegerForKey:@"xpos"];
         ypos = (NSUInteger)[decoder decodeIntegerForKey:@"ypos"];
 
+        history = [decoder decodeObjectForKey:@"history"];
+
         _selectedRow = (NSUInteger)[decoder decodeIntegerForKey:@"selectedRow"];
         _selectedCol = (NSUInteger)[decoder decodeIntegerForKey:@"selectedCol"];
         _selectedString = [decoder decodeObjectForKey:@"selectedString"];
@@ -194,6 +199,7 @@
     [encoder encodeInteger:(NSInteger)xpos forKey:@"xpos"];
     [encoder encodeInteger:(NSInteger)ypos forKey:@"ypos"];
     [encoder encodeBool:transparent forKey:@"transparent"];
+    [encoder encodeObject:history forKey:@"history"];
     NSValue *rangeVal = [NSValue valueWithRange:_textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
 
@@ -1100,7 +1106,7 @@
         maxLength = cols + 1 - xpos;
 
     line_request = YES;
-
+    [history reset];
     maxInputLength = maxLength;
 
     NSRect bounds = self.bounds;
@@ -1182,6 +1188,10 @@
         [self printToWindow:str style:style_Input];
         [self moveToColumn:0 row:ypos + 1];
 
+        if (str.length > 0) {
+            [history saveHistory:str];
+        }
+
         str = [str scrubInvalidCharacters];
 
         GlkEvent *gev = [[GlkEvent alloc] initLineEvent:str
@@ -1234,6 +1244,29 @@
         xpos -= buf.length;
     } else {
         NSLog(@"GlkTextGridWindow unputString: string \"%@\" not found!", buf);
+    }
+}
+
+#pragma mark Command history
+
+- (void)travelBackwardInHistory {
+    NSString *cx;
+    if (self.input && self.input.stringValue.length > 0)
+        cx = self.input.stringValue;
+    else
+        cx = @"";
+    cx = [history travelBackwardInHistory:cx];
+    if (cx && self.input) {
+        self.input.stringValue = cx;
+        self.input.fieldEditor.selectedRange = NSMakeRange(((NSString *)cx).length, 0);
+    }
+}
+
+- (void)travelForwardInHistory {
+    NSString *cx = [history travelForwardInHistory];
+    if (cx && self.input) {
+        self.input.stringValue = cx;
+        self.input.fieldEditor.selectedRange = NSMakeRange(((NSString *)cx).length, 0);
     }
 }
 

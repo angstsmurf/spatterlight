@@ -10,6 +10,8 @@
 #import "Metadata.h"
 #import "GlkStyle.h"
 #import "ZColor.h"
+#import "InputTextField.h"
+#import "InputHistory.h"
 #import "main.h"
 
 #include "glkimp.h"
@@ -1033,8 +1035,12 @@
         // after a resize
         lastLineheight = self.theme.bufferCellHeight;
 
+<<<<<<< HEAD
         for (i = 0; i < HISTORYLEN; i++)
             history[i] = nil;
+=======
+        history = [[InputHistory alloc] init];
+>>>>>>> 11edd02 (Make input history its own class)
 
         moveRanges = [[NSMutableArray alloc] init];
         scrollview = [[NSScrollView alloc] initWithFrame:NSZeroRect];
@@ -1144,18 +1150,7 @@
 
         fence = (NSUInteger)[decoder decodeIntegerForKey:@"fence"];
 
-        NSMutableArray *historyarray = [decoder decodeObjectForKey:@"history"];
-
-        for (i = 0; i < historyarray.count; i++) {
-            history[i] = historyarray[i];
-        }
-
-        while (++i < HISTORYLEN) {
-            history[i] = nil;
-        }
-        historypos = [decoder decodeIntegerForKey:@"historypos"];
-        historyfirst = [decoder decodeIntegerForKey:@"historyfirst"];
-        historypresent = [decoder decodeIntegerForKey:@"historypresent"];
+        history = [decoder decodeObjectForKey:@"history"];
         moveRanges = [decoder decodeObjectForKey:@"moveRanges"];
         moveRangeIndex = (NSUInteger)[decoder decodeIntegerForKey:@"moveRangeIndex"];
         _lastchar = [decoder decodeIntegerForKey:@"lastchar"];
@@ -1202,17 +1197,7 @@
     [encoder encodeBool:echo_toggle_pending forKey:@"echo_toggle_pending"];
     [encoder encodeBool:echo forKey:@"echo"];
     [encoder encodeInteger:(NSInteger)fence forKey:@"fence"];
-    NSMutableArray *historyarray = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i < HISTORYLEN; i++) {
-        if (history[i])
-            [historyarray addObject:history[i]];
-        else
-            break;
-    }
-    [encoder encodeObject:historyarray forKey:@"history"];
-    [encoder encodeInteger:historypos forKey:@"historypos"];
-    [encoder encodeInteger:historyfirst forKey:@"historyfirst"];
-    [encoder encodeInteger:historypresent forKey:@"historypresent"];
+    [encoder encodeObject:history forKey:@"history"];
     [encoder encodeObject:moveRanges forKey:@"moveRanges"];
     [encoder encodeInteger:(NSInteger)moveRangeIndex forKey:@"moveRangeIndex"];
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
@@ -1929,7 +1914,7 @@
     // input line
 
     if (line.length > 0) {
-        [self saveHistory:line];
+        [history saveHistory:line];
     }
 
     line = [line scrubInvalidCharacters];
@@ -1973,8 +1958,7 @@
 //    NSLog(@"initLine: %@ in: %ld", str, (long)self.name);
     [self flushDisplay];
 
-    historypos = historypresent;
-
+    [history reset];
     [_textview resetTextFinder];
 
     if (self.terminatorsPending) {
@@ -2039,79 +2023,44 @@
 
 #pragma mark Command history
 
-- (void)saveHistory:(NSString *)line {
-    if (history[historypresent]) {
-        history[historypresent] = nil;
-    }
-
-    history[historypresent] = line;
-
-    historypresent++;
-    if (historypresent >= HISTORYLEN)
-        historypresent -= HISTORYLEN;
-
-    if (historypresent == historyfirst) {
-        historyfirst++;
-        if (historyfirst > HISTORYLEN)
-            historyfirst -= HISTORYLEN;
-    }
-
-    if (history[historypresent]) {
-        history[historypresent] = nil;
-    }
-}
-
 - (void)travelBackwardInHistory {
     [self flushDisplay];
-    [_textview resetTextFinder];
-
     NSString *cx;
-
-    if (historypos == historyfirst)
-        return;
-
-    if (historypos == historypresent) {
-        /* save the edited line */
-        if (textstorage.length - fence > 0)
-            cx = [textstorage.string substringFromIndex:fence];
-        else
-            cx = nil;
-        history[historypos] = cx;
-    }
-
-    historypos--;
-    if (historypos < 0)
-        historypos += HISTORYLEN;
-
-    cx = history[historypos];
-    if (!cx)
+    if (textstorage.length - fence > 0)
+        cx = [textstorage.string substringFromIndex:fence];
+    else
         cx = @"";
 
-    [textstorage
-     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
-     withString:cx];
+    cx = [history travelBackwardInHistory:cx];
+
+    if (!cx)
+        return;
+
+    if (self.input) {
+        self.input.stringValue = cx;
+        self.input.fieldEditor.selectedRange = NSMakeRange(((NSString *)cx).length, 0);
+    } else {
+        [textstorage
+         replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+         withString:cx];
+        [_textview resetTextFinder];
+    }
 }
 
 - (void)travelForwardInHistory {
-    [self flushDisplay];
-    [_textview resetTextFinder];
-
-    NSString *cx;
-
-    if (historypos == historypresent)
-        return;
-
-    historypos++;
-    if (historypos >= HISTORYLEN)
-        historypos -= HISTORYLEN;
-
-    cx = history[historypos];
+    NSString *cx = [history travelForwardInHistory];
     if (!cx)
-        cx = @"";
-
-    [textstorage
-     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
-     withString:cx];
+        return;
+    if (self.input) {
+        self.input.stringValue = cx;
+        self.input.fieldEditor.selectedRange = NSMakeRange(((NSString *)cx).length, 0);
+    } else {
+        [self flushDisplay];
+        [_textview resetTextFinder];
+        [textstorage
+         replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+         withString:cx];
+    }
 }
 
 #pragma mark Beyond Zork font

@@ -568,6 +568,7 @@
 		C358139C1ED83F48001E49C4 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813931ED83DF0001E49C4 /* SDL2_mixer.framework */; };
 		C35813A21ED83F69001E49C4 /* SDL2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C35813941ED83DF8001E49C4 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C35813A31ED83F6C001E49C4 /* SDL2_mixer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C35813931ED83DF0001E49C4 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
 		C381012A1EDA297E00B87B68 /* GlkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38101291EDA297E00B87B68 /* GlkController.m */; };
 		C39DE2601ECB76A100CE5B70 /* glk.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE25F1ECB76A100CE5B70 /* glk.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39DE2621ECB76C400CE5B70 /* bitmap.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2611ECB76C400CE5B70 /* bitmap.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -2502,6 +2503,8 @@
 		C35813981ED83E22001E49C4 /* Vorbis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vorbis.framework; path = Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/Vorbis.framework; sourceTree = "<group>"; };
 		C35813991ED83E28001E49C4 /* modplug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = modplug.framework; path = Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/modplug.framework; sourceTree = "<group>"; };
 		C358139A1ED83E34001E49C4 /* FLAC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLAC.framework; path = Frameworks/SDL2_mixer.framework/Versions/A/Frameworks/FLAC.framework; sourceTree = "<group>"; };
+		C35ED513256DD37A00C14847 /* InputHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputHistory.h; sourceTree = "<group>"; };
+		C35ED514256DD37A00C14847 /* InputHistory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputHistory.m; sourceTree = "<group>"; };
 		C38101291EDA297E00B87B68 /* GlkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkController.m; sourceTree = "<group>"; };
 		C39DE25F1ECB76A100CE5B70 /* glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glk.c; path = terps/level9/Glk/glk.c; sourceTree = SOURCE_ROOT; };
 		C39DE2611ECB76C400CE5B70 /* bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitmap.c; path = terps/level9/bitmap.c; sourceTree = SOURCE_ROOT; };
@@ -3537,6 +3540,8 @@
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
 				C3D8177A256CBA20005DBC1F /* InputTextField.h */,
 				C3D81779256CBA20005DBC1F /* InputTextField.m */,
+				C35ED513256DD37A00C14847 /* InputHistory.h */,
+				C35ED514256DD37A00C14847 /* InputHistory.m */,
 				961CCEE909F239E700528FF9 /* GlkWindow.h */,
 				961CCEEA09F239E700528FF9 /* GlkWindow.m */,
 				961CCEE509F239E700528FF9 /* GlkTextBufferWindow.h */,
@@ -5585,6 +5590,7 @@
 				6D85C897218BD6E10088D849 /* HelpPanelController.m in Sources */,
 				C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */,
 				6D79435A224A2D2E0071EB3D /* NSString+Categories.m in Sources */,
+				C35ED515256DD37A00C14847 /* InputHistory.m in Sources */,
 				6DCFFC2E22BE57790035FA99 /* SideInfoView.m in Sources */,
 				6D73052122BFA9EB00DFC73C /* NSDate+relative.m in Sources */,
 				6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */,

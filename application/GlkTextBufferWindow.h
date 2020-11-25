@@ -1,4 +1,4 @@
-@class MarginImage;
+@class MarginImage, InputHistory;
 
 #import "GlkWindow.h"
 
@@ -70,8 +70,6 @@ NS_ASSUME_NONNULL_BEGIN
  * TextBuffer window controller
  */
 
-#define HISTORYLEN 100
-
 @interface GlkTextBufferWindow
     : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate> {
     NSScrollView *scrollview;
@@ -89,9 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSUInteger fence; /* for input line editing */
 
-    NSString *history[HISTORYLEN];
-    NSInteger historypos;
-    NSInteger historyfirst, historypresent;
+    /* For command history */
+    InputHistory *history;
 
     NSMutableArray *moveRanges;
     NSUInteger moveRangeIndex;
