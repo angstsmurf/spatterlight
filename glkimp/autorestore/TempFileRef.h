@@ -8,7 +8,7 @@
 #include "gi_dispa.h"
 #include "glkimp.h"
 
-@interface TempFileRef : NSObject {
+@interface TempFileRef : NSObject <NSSecureCoding> {
     NSURL *URL;
 }
 

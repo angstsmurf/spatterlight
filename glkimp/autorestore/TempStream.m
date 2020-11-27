@@ -7,6 +7,10 @@
 
 @implementation TempStream
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype) initWithCStruct:(stream_t *)str {
 
     self = [super init];
@@ -136,11 +140,11 @@
         tempbufeof = [decoder decodeInt32ForKey:@"bufeof"];
     }
 
-    NSData *bookmark =  [decoder decodeObjectForKey:@"bookmark"];
+    NSData *bookmark =  [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
 
     URL = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:nil error:nil];
     if (!URL)
-        URL = [decoder decodeObjectForKey:@"URL"];
+        URL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
     lastop = [decoder decodeInt32ForKey:@"lastop"];
 
     offsetinfile = [decoder decodeInt64ForKey:@"offsetinfile"];
@@ -253,8 +257,10 @@
             NSLog(@"Error when encoding bookmark: %@", theError);
     }
 
-    [encoder encodeObject:bookmark forKey:@"bookmark"];
-    [encoder encodeObject:URL forKey:@"URL"];
+    if (bookmark)
+        [encoder encodeObject:bookmark forKey:@"bookmark"];
+    if (URL)
+        [encoder encodeObject:URL forKey:@"URL"];
 
     offsetinfile = 0;
     if (_file)

@@ -11,6 +11,10 @@
 
 @implementation TempSChannel
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype) initWithCStruct:(channel_t *)chan {
 
     self = [super init];
@@ -169,7 +173,7 @@
 
         // This ridiculous calculation seems to be necessary to convert the SDL volume back to the correct GLK volume.
         if (sdl_volume < SDL_MIX_MAXVOLUME)
-           glk_target_volume = expf(logf((float)sdl_volume/SDL_MIX_MAXVOLUME)/logf(4)) * GLK_MAXVOLUME;
+           glk_target_volume = expf(logf((float)sdl_volume / SDL_MIX_MAXVOLUME) / logf(4)) * GLK_MAXVOLUME;
 
         glk_schannel_set_volume_ext(chan, glk_target_volume, duration, chan->volume_notify);
 

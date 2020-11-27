@@ -8,6 +8,10 @@
 
 @implementation TempWindow
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (id) initWithCStruct:(window_t *)win {
 
     self = [super init];
@@ -159,7 +163,7 @@
 
 	echo_line_input = [decoder decodeIntForKey:@"echo_line_input"];
 	style = [decoder decodeInt32ForKey:@"style"];
-    line_terminators = [decoder decodeObjectForKey:@"line_terminators"];
+    line_terminators = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"line_terminators"];
 
 	_streamtag = [decoder decodeInt32ForKey:@"streamtag"];
 	_echostreamtag = [decoder decodeInt32ForKey:@"echostreamtag"];
@@ -215,7 +219,8 @@
 
     //[encoder encodeInt:pending_echo_line_input forKey:@"pending_echo_line_input"];
     [encoder encodeInt32:echo_line_input forKey:@"echo_line_input"];
-    [encoder encodeObject:line_terminators forKey:@"line_terminators"];
+    if (line_terminators)
+        [encoder encodeObject:line_terminators forKey:@"line_terminators"];
     [encoder encodeInt32:style forKey:@"style"];
 
     [encoder encodeInt32:_streamtag forKey:@"streamtag"];

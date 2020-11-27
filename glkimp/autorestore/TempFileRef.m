@@ -33,7 +33,11 @@
 //	return dirname;
 //}
 
-- (id) initWithCStruct:(fileref_t *)ref {
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
+- (instancetype) initWithCStruct:(fileref_t *)ref {
 
     self = [super init];
 
@@ -64,10 +68,10 @@
     _prev = [decoder decodeInt32ForKey:@"prev"];
     _next = [decoder decodeInt32ForKey:@"next"];
 
-    NSData *bookmark = [decoder decodeObjectForKey:@"bookmark"];
+    NSData *bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
     URL = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:nil error:nil];
     if (!URL)
-        URL = [decoder decodeObjectForKey:@"URL"];
+        URL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
     _filetype = [decoder decodeInt32ForKey:@"filetype"];
     _textmode = [decoder decodeInt32ForKey:@"textmode"];
 
@@ -93,8 +97,10 @@
             NSLog(@"Error when encoding bookmark: %@", theError);
     }
 
-    [encoder encodeObject:bookmark forKey:@"bookmark"];
-    [encoder encodeObject:URL forKey:@"URL"];
+    if (bookmark)
+        [encoder encodeObject:bookmark forKey:@"bookmark"];
+    if (URL)
+        [encoder encodeObject:URL forKey:@"URL"];
 	[encoder encodeInt32:_filetype forKey:@"filetype"];
 	[encoder encodeInt32:_textmode forKey:@"textmode"];
 }

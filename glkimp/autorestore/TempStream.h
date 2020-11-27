@@ -8,7 +8,7 @@
 #include "gi_dispa.h"
 #include "glkimp.h"
 
-@interface TempStream : NSObject {
+@interface TempStream : NSObject <NSSecureCoding> {
 
     glui32 readcount, writecount;
     glui32 lastop;

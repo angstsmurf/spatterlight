@@ -18,9 +18,9 @@ static stream_t *temp_streamlist = NULL; /* linked list of all streams */
 static fileref_t *temp_filereflist = NULL;  /* linked list of all filerefs */
 static channel_t *temp_channellist = NULL;  /* linked list of all sound channels */
 
-//+ (TempLibrary *) singleton {
-//	return singleton;
-//}
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
 
 - (instancetype) init {
 
@@ -99,10 +99,10 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     //	_metricschanged = YES;
     //	_everythingchanged = YES;
 
-    program_name = [decoder decodeObjectForKey:@"program_name"];
-    program_info = [decoder decodeObjectForKey:@"program_info"];
-    story_name = [decoder decodeObjectForKey:@"story_name"];
-    story_title = [decoder decodeObjectForKey:@"story_title"];
+    program_name = [decoder decodeObjectOfClass:[NSString class]  forKey:@"program_name"];
+    program_info = [decoder decodeObjectOfClass:[NSString class]  forKey:@"program_info"];
+    story_name = [decoder decodeObjectOfClass:[NSString class]  forKey:@"story_name"];
+    story_title = [decoder decodeObjectOfClass:[NSString class]  forKey:@"story_title"];
     if (program_name)
         garglk_set_program_name([program_name UTF8String]);
     if (program_info)
@@ -112,16 +112,16 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     if (story_title)
         garglk_set_story_title([story_title UTF8String]);
 
-	_windows = [decoder decodeObjectForKey:@"windows"];
+	_windows = [decoder decodeObjectOfClass:[NSMutableArray class]  forKey:@"windows"];
     if (!_windows)
         NSLog(@"TempLibrary initWithCoder: No windows in archive file!");
-	_streams = [decoder decodeObjectForKey:@"streams"];
+	_streams = [decoder decodeObjectOfClass:[NSMutableArray class]  forKey:@"streams"];
     if (!_streams)
         NSLog(@"TempLibrary initWithCoder: No streams in archive file!");
-	_filerefs = [decoder decodeObjectForKey:@"filerefs"];
+	_filerefs = [decoder decodeObjectOfClass:[NSMutableArray class]  forKey:@"filerefs"];
     if (!_filerefs)
         NSLog(@"TempLibrary initWithCoder: No file references in archive file!");
-    _schannels = [decoder decodeObjectForKey:@"schannels"];
+    _schannels = [decoder decodeObjectOfClass:[NSMutableArray class]  forKey:@"schannels"];
     if (!_schannels)
         NSLog(@"TempLibrary initWithCoder: No sound channels in archive file!");
 
@@ -168,12 +168,15 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
 //    NSLog(@"### TempLibrary: encoding with %ld windows, %ld streams, %ld filerefs, %ld sound channels", (unsigned long)_windows.count, (unsigned long)_streams.count, (unsigned long)_filerefs.count, (unsigned long)_schannels.count);
-	[encoder encodeInt:AUTOSAVE_SERIAL_VERSION forKey:@"version"];
+    int serial_version = AUTOSAVE_SERIAL_VERSION;
+	[encoder encodeInt:serial_version forKey:@"version"];
 
     [encoder encodeObject:program_name forKey:@"program_name"];
     [encoder encodeObject:program_info forKey:@"program_info"];
-    [encoder encodeObject:story_name forKey:@"story_name"];
-    [encoder encodeObject:story_title forKey:@"story_title"];
+    if (story_name)
+        [encoder encodeObject:story_name forKey:@"story_name"];
+    if (story_title)
+        [encoder encodeObject:story_title forKey:@"story_title"];
 
 	[encoder encodeObject:_windows forKey:@"windows"];
 	[encoder encodeObject:_streams forKey:@"streams"];
@@ -191,7 +194,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 	// Save any interpreter-specific data.
 	if (extra_archive_hook)
 		extra_archive_hook(self, encoder);
-
 }
 
 /* Locate the window matching a given tag. (Or nil, if no window matches or the tag is nil.) This isn't efficient, but it's not heavily used.

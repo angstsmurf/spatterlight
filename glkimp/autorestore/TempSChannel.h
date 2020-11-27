@@ -42,7 +42,7 @@ implementation of the Glk API by Andrew Plotkin
 //    channel_t *chain_next, *chain_prev;
 //};
 
-@interface TempSChannel : NSObject {
+@interface TempSChannel : NSObject <NSSecureCoding> {
 
     int sdl_channel;
 

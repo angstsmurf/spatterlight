@@ -14,7 +14,7 @@
 #import "TempFileRef.h"
 #import "TempSChannel.h"
 
-@interface TempLibrary : NSObject {
+@interface TempLibrary : NSObject <NSSecureCoding> {
     NSString *program_name;
     NSString *program_info;
     NSString *story_name;

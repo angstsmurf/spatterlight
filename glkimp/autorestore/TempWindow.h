@@ -10,7 +10,7 @@
 
 @class TempLibrary;
 
-@interface TempWindow : NSObject {
+@interface TempWindow : NSObject <NSSecureCoding> {
 
     TempLibrary *library;
 
