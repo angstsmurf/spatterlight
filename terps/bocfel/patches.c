@@ -57,7 +57,8 @@ static const struct patch patches[] =
    * Given that the object number of the circlet object is easily
    * discoverable, these calls can be rewritten to use the object number
    * instead of the incorrect dictionary entry. The following set of
-   * patches does this.*/
+   * patches does this.
+   */
   {
     .title = "Beyond Zork", .serial = "870915", .release = 47, .checksum = 0x3ff4,
     .addr = 0x2f8e6, .n = 2, .expected = B(0xa3, 0x9a), .replacement = B(0x01, 0x86),
