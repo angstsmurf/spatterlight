@@ -1112,7 +1112,6 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        NSUInteger i;
         _textview = [decoder decodeObjectForKey:@"textview"];
         layoutmanager = _textview.layoutManager;
         textstorage = _textview.textStorage;
