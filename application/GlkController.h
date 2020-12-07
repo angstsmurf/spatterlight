@@ -11,6 +11,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu;
+
 #define MAXWIN 64
 
 @interface GlkHelperView : NSView {
@@ -124,11 +126,18 @@
 @property BOOL deadCities;
 @property BOOL bureaucracy;
 @property BOOL usesFont3;
+@property BOOL beyondZork;
 @property BOOL kerkerkruip;
+@property BOOL thaumistry;
 
 @property NSInteger autosaveVersion;
 @property NSInteger autosaveTag;
 @property BOOL hasAutoSaved;
+
+@property ZMenu *zmenu;
+@property BOOL hasSpokenMenuThisTurn;
+@property BOOL shouldCheckForMenu;
+
 
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game

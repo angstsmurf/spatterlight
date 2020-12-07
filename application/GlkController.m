@@ -5,6 +5,7 @@
 #import "Compatibility.h"
 #import "Game.h"
 #import "Theme.h"
+#import "ZMenu.h"
 #import "GlkStyle.h"
 #import "NSColor+integer.h"
 
@@ -179,6 +180,12 @@ fprintf(stderr, "%s\n",                                                    \
     if ([_game.ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"])
         _kerkerkruip = YES;
 
+    if ([_game.ifid isEqualToString:@"ZCODE-47-870915"] || [_game.ifid isEqualToString:@"ZCODE-49-870917"] || [_game.ifid isEqualToString:@"ZCODE-51-870923"] || [_game.ifid isEqualToString:@"ZCODE-57-871221"] || [_game.ifid isEqualToString:@"ZCODE-60-880610"])
+             _beyondZork = YES;
+
+    if ([_game.ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"])
+        _thaumistry = YES;
+
     _gamefile = [_game urlForBookmark].path;
     _terpname = terpname_;
 
@@ -200,6 +207,8 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     /* Setup our own stuff */
+
+    _hasSpokenMenuThisTurn = NO;
 
     _supportsAutorestore = [self.window isRestorable];
     _game.autosaved = _supportsAutorestore;
@@ -1221,6 +1230,8 @@ fprintf(stderr, "%s\n",                                                    \
         [win removeFromSuperview];
     }
 
+    [self checkZMenu];
+
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
 }
 
@@ -2152,6 +2163,8 @@ fprintf(stderr, "%s\n",                                                    \
 
             [self flushDisplay];
 
+            _hasSpokenMenuThisTurn = NO;
+
             if (_queue.count) {
                 GlkEvent *gevent;
                 gevent = _queue[0];
@@ -2224,6 +2237,7 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin) {
                 [_windowsToBeRemoved addObject:reqWin];
                 [_gwindows removeObjectForKey:@(req->a1)];
+                _shouldCheckForMenu = YES;
             } else
                 NSLog(@"delwin: something went wrong.");
 
@@ -2350,6 +2364,7 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin) {
                 // NSLog(@"glkctl: CLRWIN %d.", req->a1);
                 [reqWin clear];
+                _shouldCheckForMenu = YES;
             }
             break;
 
@@ -2456,7 +2471,10 @@ fprintf(stderr, "%s\n",                                                    \
             [self performScroll];
             if (reqWin) {
                 [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)] maxLength:(NSUInteger)req->a2];
-            }
+
+                // Check if we are in Beyond Zork Definitions menu
+                if (_beyondZork && [reqWin isKindOfClass:[GlkTextGridWindow class]])
+                    _shouldCheckForMenu = YES;            }
             break;
 
         case CANCELLINE:
@@ -2475,6 +2493,10 @@ fprintf(stderr, "%s\n",                                                    \
         case INITCHAR:
 //            NSLog(@"glkctl initchar %d", req->a1);
 
+            // Hack to fix the Level 9 Adrian Mole games.
+            // These request and cancel lots of char events every second,
+            // which breaks scrolling, as we normally scroll down
+            // one screen on every char event.
             if (lastRequest == PRINT || lastRequest == SETZCOLOR) {
                 _shouldScrollOnCharEvent = YES;
             }
@@ -2483,8 +2505,10 @@ fprintf(stderr, "%s\n",                                                    \
                 [self performScroll];
             }
 
-            if (reqWin)
+            if (reqWin) {
                 [reqWin initChar];
+                _shouldCheckForMenu = YES;
+            }
             break;
 
         case CANCELCHAR:
@@ -2586,6 +2610,68 @@ fprintf(stderr, "%s\n",                                                    \
 /*
  *
  */
+
+#pragma mark ZMenu
+
+- (void)checkZMenu {
+    if (_shouldCheckForMenu) {
+        _shouldCheckForMenu = NO;
+        BOOL wasInMenu = NO;
+        if (!_zmenu) {
+            _zmenu = [[ZMenu alloc] initWithGlkController:self];
+        } else {
+            wasInMenu = YES;
+        }
+        if (![_zmenu isMenu]) {
+            [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
+            _zmenu = nil;
+            // Hack to make VoiceOver read text after making a menu selection
+            // Not necessary for Hugo
+            if (wasInMenu) {
+                NSString *tads3String = @"";
+                BOOL spokeText = NO;
+                for (GlkWindow *win in _gwindows.allValues) {
+                    if ([win isKindOfClass:[GlkTextBufferWindow class]] && win.frame.size.height > 0) {
+                        GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)win;
+                        if (bufWin.wantsFocus) {
+                            [bufWin setLastMove];
+                            [bufWin speakMostRecent:nil];
+                            spokeText = YES;
+                            break;
+                        } else if ([_game.detectedFormat isEqualToString:@"tads3"]) {
+                            tads3String = [tads3String stringByAppendingString:bufWin.textview.string];
+                        }
+                    }
+                }
+                // The Tads 3 driver currently does lots of weird stuff in its menus.
+                // It hides the main buffer window by setting its height to 0, but it is still receiving
+                // key presses, while the visible windows are not.
+
+                // This hack speaks the first hint, but not the subsequent ones. They should still be
+                // possible to read through standard VoiceOver text navigation,
+                if (!spokeText && tads3String.length) {
+                    NSDictionary *announcementInfo = @{
+                                                       NSAccessibilityPriorityKey : @(NSAccessibilityPriorityLow),
+                                                       NSAccessibilityAnnouncementKey : tads3String
+                                                       };
+
+                    NSWindow *mainWin = [NSApp mainWindow];
+
+                    if (mainWin) {
+                        NSAccessibilityPostNotificationWithUserInfo(
+                                                                mainWin,
+                                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+                    }
+                }
+            }
+        }
+    }
+
+    if (_zmenu && !_hasSpokenMenuThisTurn) {
+        [_zmenu speakSelectedLine];
+        _hasSpokenMenuThisTurn = YES;
+    }
+}
 
 #pragma mark Interpreter glue
 

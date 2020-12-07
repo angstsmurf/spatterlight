@@ -12,6 +12,7 @@
 #import "ZColor.h"
 #import "InputTextField.h"
 #import "InputHistory.h"
+#import "ZMenu.h"
 #import "main.h"
 
 #include "glkimp.h"
@@ -1937,7 +1938,9 @@
     [self hideInsertionPoint];
 
     [self setLastMove];
-    [self speakMostRecent:nil];
+
+    if (!self.glkctl.zmenu)
+        [self speakMostRecent:nil];
 }
 
 - (void)cancelChar {
@@ -2810,12 +2813,16 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 }
 
 - (IBAction)speakMostRecent:(id)sender {
+    if (self.glkctl.zmenu)
+        [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     if (!moveRanges.count)
         return;
     moveRangeIndex = moveRanges.count - 1;
     NSRange lastMove = ((NSValue *)moveRanges.lastObject).rangeValue;
+    NSRange allText = NSMakeRange(0, textstorage.length);
+    lastMove = NSIntersectionRange(allText, lastMove);
 
-    if (lastMove.length <= 0 || NSMaxRange(lastMove) > textstorage.length) {
+    if (!lastMove.length) {
         NSDictionary *announcementInfo = @{
             NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
             NSAccessibilityAnnouncementKey : @"No last move to speak"
@@ -2921,6 +2928,8 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 }
 
 - (void)speakRange:(NSRange)aRange {
+    if (self.glkctl.zmenu)
+        [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
 
         if (NSMaxRange(aRange) >= textstorage.length)
