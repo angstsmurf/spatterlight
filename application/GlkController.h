@@ -134,6 +134,8 @@
 @property NSInteger autosaveTag;
 @property BOOL hasAutoSaved;
 
+@property BOOL voiceOverActive;
+
 @property ZMenu *zmenu;
 @property BOOL hasSpokenMenuThisTurn;
 @property BOOL shouldCheckForMenu;

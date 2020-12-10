@@ -275,6 +275,16 @@ fprintf(stderr, "%s\n",                                                    \
     restoredController = nil;
     inFullScreenResize = NO;
 
+    if (@available(macOS 10.13, *)) {
+        _voiceOverActive = [[NSWorkspace sharedWorkspace] isVoiceOverEnabled];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(noteAccessibilityStatusChanged:)
+                                                     name:@"NSApplicationDidChangeAccessibilityEnhancedUserInterfaceNotification"
+                                                   object:nil];
+    } else {
+        _voiceOverActive = YES;
+    }
+
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(notePreferencesChanged:)
@@ -1115,6 +1125,7 @@ fprintf(stderr, "%s\n",                                                    \
     [Preferences changeCurrentGame:_game];
     if (!dead) {
         [self guessFocus];
+        [self noteAccessibilityStatusChanged:nil];
     }
 }
 
@@ -2614,6 +2625,8 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark ZMenu
 
 - (void)checkZMenu {
+    if (!_voiceOverActive)
+        return;
     if (_shouldCheckForMenu) {
         _shouldCheckForMenu = NO;
         BOOL wasInMenu = NO;
@@ -3373,6 +3386,17 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 #pragma mark Accessibility
+
+- (void)noteAccessibilityStatusChanged:(NSNotification *)notify {
+    if(@available(macOS 10.13, *)) {
+        NSWorkspace * ws = [NSWorkspace sharedWorkspace];
+        _voiceOverActive = ws.voiceOverEnabled;
+        if (_voiceOverActive) {
+            _shouldCheckForMenu = YES;
+            _hasSpokenMenuThisTurn = NO;
+        }
+    }
+}
 
 - (NSString *)accessibilityActionDescription:(NSString *)action {
     return [self.window accessibilityActionDescription:action];
