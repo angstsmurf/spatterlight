@@ -338,7 +338,10 @@
         }
     }
     if (menuLines.count) {
-        _attrStr = ((GlkTextGridWindow *)viewWithCluster).textview.textStorage;
+        NSTextStorage *textStorage = ((GlkTextGridWindow *)viewWithCluster).textview.textStorage;
+        if (!textStorage)
+            textStorage = [[NSTextStorage alloc] init];
+        _attrStr = textStorage;
     }
     return menuLines;
 }
