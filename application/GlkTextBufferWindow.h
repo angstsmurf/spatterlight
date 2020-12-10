@@ -142,6 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)speakPrevious:(nullable id)sender;
 - (IBAction)speakNext:(nullable id)sender;
 - (IBAction)speakStatus:(nullable id)sender;
+- (void)setLastMove;
 
 @end
 

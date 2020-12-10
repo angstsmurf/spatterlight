@@ -491,12 +491,8 @@ void os_set_text_color(os_color_t fg, os_color_t bg)
             break;
     }
 
-
     win_setbgnd(curwin, (glui32)bg);
     garglk_set_zcolors( (glui32)fg, (glui32)bg);
-//    glk_window_set_background_color(mainwin, (glui32)bg);
-//    if (statuswin)
-////        glk_window_set_background_color(statuswin, (glui32)bg);
 }
 
 /*

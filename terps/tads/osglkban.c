@@ -582,7 +582,7 @@ int os_banner_getinfo(void *banner_handle, os_banner_info_t *info)
     if (!banner || !banner->valid || !banner->win)
         return 1;
 
-    winid_t win = banner->win;
+//    winid_t win = banner->win;
     glui32 gwintype = banner->type;
     glui32 gwinmeth = banner->method;
     glui32 gstyletab = banner->status;

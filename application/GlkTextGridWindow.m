@@ -14,6 +14,8 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "ZColor.h"
+#import "ZMenu.h"
+
 #import "NSColor+integer.h"
 
 #include "glkimp.h"
@@ -539,7 +541,6 @@
     _textview.editable = NO;
 }
 
-
 #pragma mark Printing, moving, resizing
 
 - (void)setFrame:(NSRect)frame {
@@ -1010,6 +1011,8 @@
     // NSLog(@"init char in %ld", (long)self.name);
     char_request = YES;
     dirty = YES;
+
+    // Draw Buraucracy intro form cursor
     if (self.glkctl.bureaucracy) {
         self.currentReverseVideo = YES;
         [self putString:@" " style:style_Normal];
@@ -1017,7 +1020,8 @@
         xpos--;
     }
 
-    [self speakStatus:nil];
+    if (!self.glkctl.zmenu)
+        [self speakStatus:nil];
 }
 
 - (void)cancelChar {
@@ -1564,6 +1568,8 @@
 }
 
 - (IBAction)speakStatus:(id)sender {
+    if (self.glkctl.zmenu)
+        [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     NSDictionary *announcementInfo = @{
         NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
         NSAccessibilityAnnouncementKey : textstorage.string
