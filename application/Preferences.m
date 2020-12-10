@@ -2413,9 +2413,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSDictionary *newAttributes = [sender convertAttributes:@{}];
 
     NSLog(@"changeAttributes: Keys in newAttributes:");
-    for (NSString *key in newAttributes.allKeys) {
-        NSLog(@" %@ : %@", key, newAttributes[key]);
-    }
+//    for (NSString *key in newAttributes.allKeys) {
+//        NSLog(@" %@ : %@", key, newAttributes[key]);
+//    }
 
     //	"NSForegroundColorAttributeName"	"NSColor"
     //	"NSUnderlineStyleAttributeName"		"NSUnderline"

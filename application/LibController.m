@@ -2054,7 +2054,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (void) addFiles: (NSArray*)urls inContext:(NSManagedObjectContext *)context {
 
-    NSLog(@"libctl: adding %lu files. First: %@", (unsigned long)urls.count, ((NSURL *)urls[0]).path);
+//    NSLog(@"libctl: adding %lu files. First: %@", (unsigned long)urls.count, ((NSURL *)urls[0]).path);
 
     NSMutableArray *select = [NSMutableArray arrayWithCapacity: urls.count];
 
@@ -2073,9 +2073,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     
     [self beginImporting];
-    NSLog(@"urls.count is%@1", (urls.count == 1) ? @" " : @" not ");
-    for (NSURL *url in urls)
-        NSLog(@"%@", url.path);
+//    NSLog(@"urls.count is%@1", (urls.count == 1) ? @" " : @" not ");
+//    for (NSURL *url in urls)
+//        NSLog(@"%@", url.path);
     [self addFiles: urls select: select inContext:context reportFailure:reportFailure];
     [self endImporting];
 
