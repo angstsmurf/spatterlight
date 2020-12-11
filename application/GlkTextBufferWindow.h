@@ -34,9 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property CGFloat bottomPadding;
 @property(weak, readonly) NSTextFinder *textFinder;
 
-@property BOOL shouldSpeak_10_7;
-@property NSRange rangeToSpeak_10_7;
-
 @end
 
 /*
@@ -128,7 +125,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)recalcBackground;
 - (void)echo:(BOOL)val;
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
-- (void)stopSpeakingText_10_7;
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset;
 - (void)scrollToTop;
 - (void)scrollToBottom;
