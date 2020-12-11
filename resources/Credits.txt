@@ -3,7 +3,7 @@ uses under the hood are freely redistributable and covered by their own specific
 
 AdvSys 1.2 by David Betz.
 Agility 1.1.1 by Robert Masenten.
-Alan 2.8.6 / 3.0b6 by Thomas Nilsson.
+Alan 2.8.6 / 3.0b8 by Thomas Nilsson.
 Bocfel 1.1 by Chris Spiegel.
 Glulxe 0.5.4 by Andrew Plotkin.
 Hugo 3.3.0 by Kent Tessman.
