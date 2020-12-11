@@ -2100,9 +2100,9 @@ fprintf(stderr, "%s\n",                                                    \
     gwindow.terminatorsPending = YES;
 }
 
-- (void)handleChangeTitle:(char *)buf length:(int)len {
+- (void)handleChangeTitle:(char *)buf length:(size_t)len {
     buf[len] = '\0';
-    NSLog(@"HandleChangeTitle: %s length: %d", buf, len);
+    NSLog(@"HandleChangeTitle: %s length: %zu", buf, len);
     NSString *str = @(buf);
     if (str && str.length > (NSUInteger)len - 1)
         [@(buf) substringToIndex:(NSUInteger)len - 1];
@@ -2115,7 +2115,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (void)handleUnprintOnWindow:(GlkWindow *)win string:(unichar *)buf length:(int)len {
+- (void)handleUnprintOnWindow:(GlkWindow *)win string:(unichar *)buf length:(size_t)len {
 
     NSString *str = [NSString stringWithCharacters:buf length:(NSUInteger)len];
 
@@ -2280,8 +2280,8 @@ fprintf(stderr, "%s\n",                                                    \
             if (lastimage) {
                 NSSize size;
                 size = lastimage.size;
-                ans->a1 = (NSUInteger)size.width;
-                ans->a2 = (NSUInteger)size.height;
+                ans->a1 = (int)size.width;
+                ans->a2 = (int)size.height;
             }
             break;
 
@@ -3329,7 +3329,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     [self showWindow:nil];
     CGImageRef windowSnapshot = CGWindowListCreateImage(
                                                         CGRectNull, kCGWindowListOptionIncludingWindow,
-                                                        [self.window windowNumber], kCGWindowImageBoundsIgnoreFraming);
+                                                        (CGWindowID)[self.window windowNumber], kCGWindowImageBoundsIgnoreFraming);
     CALayer *snapshotLayer = [[CALayer alloc] init];
     [snapshotLayer setFrame:NSRectToCGRect([self.window frame])];
     [snapshotLayer setContents:CFBridgingRelease(windowSnapshot)];
