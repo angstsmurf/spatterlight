@@ -87,6 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
     /* For command history */
     InputHistory *history;
 
+    /* For speaking previous moves */
     NSMutableArray *moveRanges;
     NSUInteger moveRangeIndex;
 
