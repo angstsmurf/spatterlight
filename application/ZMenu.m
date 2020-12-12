@@ -89,6 +89,7 @@
             if (_glkctl.beyondZork) {
                 _menuCommands = [self extractMenuCommandsUsingRegex:@"(Function (Key) Definitions)"];
                 if (!_menuCommands.count) {
+                    NSLog(@"Found no menu commands. Not a menu");
                     return NO;
                 } else {
                     // If in the Definitions menu, add the last two lines
@@ -113,8 +114,10 @@
     _selectedLine = [self findSelectedLine];
 
     // If we find no currently selected line, decide this is not a menu
-    if (_selectedLine == NSNotFound)
+    if (_selectedLine == NSNotFound) {
+        NSLog(@"Found no selected line. Not a menu");
         return NO;
+    }
 
     //    NSLog(@"We are in a menu!");
     //    NSLog(@"It has %ld lines:", _lines.count);
@@ -569,7 +572,7 @@
 }
 
 - (void)speakSelectedLine {
-    [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:0.2];
 }
 
 -(void)deferredSpeakSelectedLine:(id)sender {
@@ -606,6 +609,14 @@
         selectedLineString = [titleString stringByAppendingString:selectedLineString];
         _haveSpokenMenu = YES;
     }
+
+    if (_glkctl.beyondZork) {
+        id delegate = ((NSTextStorage *)_attrStr).delegate;
+        if ([delegate isKindOfClass:[GlkTextGridWindow class]] && ((GlkTextGridWindow *)delegate).input) {
+            selectedLineString = [selectedLineString stringByAppendingString:((GlkTextGridWindow *)delegate).enteredTextSoFar];
+        }
+    }
+
     [self speakString:selectedLineString];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];

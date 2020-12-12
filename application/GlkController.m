@@ -181,7 +181,10 @@ fprintf(stderr, "%s\n",                                                    \
         _kerkerkruip = YES;
 
     if ([_game.ifid isEqualToString:@"ZCODE-47-870915"] || [_game.ifid isEqualToString:@"ZCODE-49-870917"] || [_game.ifid isEqualToString:@"ZCODE-51-870923"] || [_game.ifid isEqualToString:@"ZCODE-57-871221"] || [_game.ifid isEqualToString:@"ZCODE-60-880610"])
-             _beyondZork = YES;
+        _beyondZork = YES;
+
+    if ([_game.ifid isEqualToString:@"BFDE398E-C724-4B9B-99EB-18EE4F26932E"])
+        _colderLight = YES;
 
     if ([_game.ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"])
         _thaumistry = YES;
@@ -208,7 +211,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     /* Setup our own stuff */
 
-    _hasSpokenMenuThisTurn = NO;
+    _speechTimeStamp = [NSDate distantPast];
+    _shouldSpeakNewText = YES;
 
     _supportsAutorestore = [self.window isRestorable];
     _game.autosaved = _supportsAutorestore;
@@ -1084,6 +1088,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
     [self guessFocus];
+    NSAccessibilityPostNotificationWithUserInfo(self.window.firstResponder, NSAccessibilityFocusedUIElementChangedNotification, nil);
 }
 
 - (void)handleAutosave:(NSInteger)hash {
@@ -1242,6 +1247,9 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     [self checkZMenu];
+
+    if (_shouldSpeakNewText)
+        [self speakNewText];
 
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
 }
@@ -2174,8 +2182,6 @@ fprintf(stderr, "%s\n",                                                    \
 
             [self flushDisplay];
 
-            _hasSpokenMenuThisTurn = NO;
-
             if (_queue.count) {
                 GlkEvent *gevent;
                 gevent = _queue[0];
@@ -2483,8 +2489,10 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin) {
                 [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)] maxLength:(NSUInteger)req->a2];
 
+                _shouldSpeakNewText = YES;
+
                 // Check if we are in Beyond Zork Definitions menu
-                if (_beyondZork && [reqWin isKindOfClass:[GlkTextGridWindow class]])
+                if (_beyondZork)
                     _shouldCheckForMenu = YES;            }
             break;
 
@@ -2509,7 +2517,10 @@ fprintf(stderr, "%s\n",                                                    \
             // which breaks scrolling, as we normally scroll down
             // one screen on every char event.
             if (lastRequest == PRINT || lastRequest == SETZCOLOR) {
+                // This flag may be set by GlkBufferWindow as well
                 _shouldScrollOnCharEvent = YES;
+                _shouldSpeakNewText = YES;
+                _shouldCheckForMenu = YES;
             }
 
             if (_shouldScrollOnCharEvent) {
@@ -2518,7 +2529,6 @@ fprintf(stderr, "%s\n",                                                    \
 
             if (reqWin) {
                 [reqWin initChar];
-                _shouldCheckForMenu = YES;
             }
             break;
 
@@ -2531,8 +2541,10 @@ fprintf(stderr, "%s\n",                                                    \
         case INITMOUSE:
             //            NSLog(@"glkctl initmouse %d", req->a1);
             [self performScroll];
-            if (reqWin)
+            if (reqWin) {
                 [reqWin initMouse];
+                _shouldSpeakNewText = YES;
+            }
             break;
 
         case CANCELMOUSE:
@@ -2554,6 +2566,7 @@ fprintf(stderr, "%s\n",                                                    \
             [self performScroll];
             if (reqWin) {
                 [reqWin initHyperlink];
+                _shouldSpeakNewText = YES;
             }
             break;
 
@@ -2621,70 +2634,6 @@ fprintf(stderr, "%s\n",                                                    \
 /*
  *
  */
-
-#pragma mark ZMenu
-
-- (void)checkZMenu {
-    if (!_voiceOverActive)
-        return;
-    if (_shouldCheckForMenu) {
-        _shouldCheckForMenu = NO;
-        BOOL wasInMenu = NO;
-        if (!_zmenu) {
-            _zmenu = [[ZMenu alloc] initWithGlkController:self];
-        } else {
-            wasInMenu = YES;
-        }
-        if (![_zmenu isMenu]) {
-            [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
-            _zmenu = nil;
-            // Hack to make VoiceOver read text after making a menu selection
-            // Not necessary for Hugo
-            if (wasInMenu) {
-                NSString *tads3String = @"";
-                BOOL spokeText = NO;
-                for (GlkWindow *win in _gwindows.allValues) {
-                    if ([win isKindOfClass:[GlkTextBufferWindow class]] && win.frame.size.height > 0) {
-                        GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)win;
-                        if (bufWin.wantsFocus) {
-                            [bufWin setLastMove];
-                            [bufWin speakMostRecent:nil];
-                            spokeText = YES;
-                            break;
-                        } else if ([_game.detectedFormat isEqualToString:@"tads3"]) {
-                            tads3String = [tads3String stringByAppendingString:bufWin.textview.string];
-                        }
-                    }
-                }
-                // The Tads 3 driver currently does lots of weird stuff in its menus.
-                // It hides the main buffer window by setting its height to 0, but it is still receiving
-                // key presses, while the visible windows are not.
-
-                // This hack speaks the first hint, but not the subsequent ones. They should still be
-                // possible to read through standard VoiceOver text navigation,
-                if (!spokeText && tads3String.length) {
-                    NSDictionary *announcementInfo = @{
-                                                       NSAccessibilityPriorityKey : @(NSAccessibilityPriorityLow),
-                                                       NSAccessibilityAnnouncementKey : tads3String
-                                                       };
-
-                    NSWindow *mainWin = [NSApp mainWindow];
-
-                    if (mainWin) {
-                        NSAccessibilityPostNotificationWithUserInfo(
-                                                                mainWin,
-                                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-                    }
-                }
-            }
-        }
-    }
-
-    if (_zmenu && !_hasSpokenMenuThisTurn) {
-        [_zmenu speakSelectedLine];
-        _hasSpokenMenuThisTurn = YES;
-    }
-}
 
 #pragma mark Interpreter glue
 
@@ -2909,9 +2858,6 @@ again:
     if (aWindow.framePending)
         windowsize = aWindow.pendingFrame.size;
     CGFloat relativeSize = (windowsize.width * windowsize.height) / (_contentView.bounds.size.width * _contentView.bounds.size.height);
-
-//    NSLog(@"relativeSize aWindow (%f) /  _contentView (%f) == %f", windowsize.width * windowsize.height, _contentView.bounds.size.width * _contentView.bounds.size.height,  relativeSize);
-
     if (relativeSize < 0.70 && ![aWindow isKindOfClass:[GlkTextBufferWindow class]])
         return;
 
@@ -3393,7 +3339,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         _voiceOverActive = ws.voiceOverEnabled;
         if (_voiceOverActive) {
             _shouldCheckForMenu = YES;
-            _hasSpokenMenuThisTurn = NO;
         }
     }
 }
@@ -3482,6 +3427,243 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 - (BOOL)accessibilityIsIgnored {
     return NO;
+}
+
+#pragma mark ZMenu
+
+- (void)checkZMenu {
+    if (!_voiceOverActive)
+        return;
+    if (_shouldCheckForMenu) {
+        _shouldCheckForMenu = NO;
+        BOOL wasInMenu = NO;
+        if (!_zmenu) {
+            _zmenu = [[ZMenu alloc] initWithGlkController:self];
+        } else {
+            wasInMenu = YES;
+        }
+        if (![_zmenu isMenu]) {
+            [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
+            _zmenu = nil;
+        }
+    }
+
+    if (_zmenu) {
+        [_zmenu speakSelectedLine];
+    }
+}
+
+#pragma mark Speak new text
+
+- (void)speakNewText {
+    // Find a "main text window"
+    NSMutableArray *windowsWithText = _gwindows.allValues.mutableCopy;
+    for (GlkWindow *view in _gwindows.allValues) {
+        if ([view isKindOfClass:[GlkGraphicsWindow class]] || ![(GlkTextBufferWindow *)view setLastMove]) {
+            // Remove all Glk window objects with no new text to speak
+           [windowsWithText removeObject:view];
+        }
+    }
+
+    if (!windowsWithText.count) {
+//        NSLog(@"speakNewText: No windows with new text!");
+        return;
+    } else if (windowsWithText.count > 1) {
+        NSMutableArray *bufWinsWithText = [[NSMutableArray alloc] init];
+        for (GlkWindow *view in windowsWithText)
+            if ([view isKindOfClass:[GlkTextBufferWindow class]])
+                [bufWinsWithText addObject:view];
+        if (bufWinsWithText.count == 1) {
+            [self speakLargest:bufWinsWithText];
+            return;
+        }
+    }
+    [self speakLargest:windowsWithText];
+}
+
+- (void)speakLargest:(NSArray *)array {
+    NSLog(@"speakLargest: %ld windows", array.count);
+
+    if (_zmenu || !_voiceOverActive) {
+        return;
+    }
+
+    GlkTextBufferWindow *largest = nil;
+    CGFloat largestSize = 0;
+    for (GlkTextBufferWindow *view in array) {
+        CGFloat size = fabs(view.frame.size.width * view.frame.size.height);
+        if (size > largestSize) {
+            largestSize = size;
+            largest = view;
+        }
+    }
+    if (largest)
+    {
+        if (largest != _spokeLast && [_speechTimeStamp timeIntervalSinceNow]  > -0.5)
+            return;
+        _speechTimeStamp = [NSDate date];
+        _spokeLast = largest;
+        [largest performSelector:@selector(speakMostRecent:) withObject:nil afterDelay:0.1];
+    }
+}
+
+#pragma mark Custom rotors
+
+- (NSAccessibilityCustomRotorItemResult *)rotor:(NSAccessibilityCustomRotor *)rotor
+                      resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
+
+    NSAccessibilityCustomRotorItemResult *searchResult = nil;
+
+    NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
+    NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
+    NSString *filterText = searchParameters.filterString;
+    NSRange currentRange = currentItemResult.targetRange;
+
+    NSMutableArray *children = [[NSMutableArray alloc] init];
+    NSMutableArray *linkTargetViews = [[NSMutableArray alloc] init];
+
+    NSUInteger currentItemIndex;
+
+    if (rotor.type == NSAccessibilityCustomRotorTypeAny) {
+        return [self textSearchResultForString:filterText fromRange: currentRange direction:direction];
+    }
+
+    if (rotor.type == NSAccessibilityCustomRotorTypeLink) {
+        NSArray *allWindows = _gwindows.allValues;
+        if (_colderLight && allWindows.count == 5) {
+            allWindows = @[_gwindows[@(3)], _gwindows[@(4)], _gwindows[@(0)], _gwindows[@(1)]];
+        }
+        for (GlkWindow *view in allWindows) {
+            if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
+                id targetTextView = ((GlkTextBufferWindow *)view).textview;
+                NSArray *links = [view links];
+
+                if (filterText.length && links.count) {
+                    __block NSString *text = ((NSTextView *)targetTextView).string;
+                    links = [links filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
+                        NSRange range = ((NSValue *)object).rangeValue;
+                        NSString *subString = [text substringWithRange:range];
+                        return ([subString localizedCaseInsensitiveContainsString:filterText]);
+                    }]];
+                }
+
+                [children addObjectsFromArray:links];
+
+                while (linkTargetViews.count < children.count)
+                    [linkTargetViews addObject:targetTextView];
+            }
+        }
+
+        currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
+    }
+
+    if (currentItemIndex == NSNotFound) {
+        // Find the start or end element.
+        if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
+            currentItemIndex = 0;
+        } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
+            currentItemIndex = children.count - 1;
+        }
+    } else {
+        if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
+            if (currentItemIndex == 0)
+                currentItemIndex = NSNotFound;
+            else
+                currentItemIndex--;
+        } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
+            if (currentItemIndex == children.count - 1)
+                currentItemIndex = NSNotFound;
+            else
+                currentItemIndex++;
+        }
+    }
+
+    if (currentItemIndex != NSNotFound) {
+        NSRange textRange = ((NSValue *)children[currentItemIndex]).rangeValue;
+        id targetElement = linkTargetViews[currentItemIndex];
+        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:targetElement];
+        unichar firstChar = [((NSTextView *)targetElement).textStorage.string characterAtIndex:textRange.location];
+        if (_colderLight && firstChar == '<' && textRange.length == 1) {
+            searchResult.customLabel = @"Previous Menu";
+        } else if (firstChar == NSAttachmentCharacter) {
+            NSDictionary *attrs = [((NSTextView *)targetElement).textStorage attributesAtIndex:textRange.location effectiveRange:nil];
+            searchResult.customLabel = [NSString stringWithFormat:@"Image with link I.D. %@", attrs[NSLinkAttributeName]];
+        }
+        searchResult.targetRange = textRange;
+    }
+
+    return searchResult;
+}
+
+- (NSAccessibilityCustomRotorItemResult *)textSearchResultForString:(NSString *)searchString fromRange:(NSRange)fromRange direction: (NSAccessibilityCustomRotorSearchDirection)direction  API_AVAILABLE(macos(10.13)){
+
+    NSAccessibilityCustomRotorItemResult *searchResult = nil;
+
+    NSTextView *bestMatch = nil;
+    NSRange bestMatchRange;
+
+    if (searchString.length) {
+        BOOL searchFound = NO;
+        for (GlkWindow *view in _gwindows.allValues) {
+            if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
+                NSString *contentString = ((GlkTextBufferWindow *)view).textview.string;
+
+                NSRange resultRange = [contentString rangeOfString:searchString options:NSCaseInsensitiveSearch range:NSMakeRange(0, contentString.length - 1) locale:nil];
+
+                if (resultRange.location == NSNotFound)
+                    continue;
+
+                NSRange realRange = resultRange;
+
+                NSLog(@"Found string \"%@\" in %@ %ld", searchString, [view class], view.name);
+
+                if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
+                    searchFound = (realRange.location < fromRange.location);
+                } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
+                    searchFound = (realRange.location >= NSMaxRange(fromRange));
+                }
+                if (searchFound) {
+                    searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:((GlkTextBufferWindow *)view).textview];
+                    searchResult.targetRange = realRange;
+                    return searchResult;
+                }
+
+                bestMatchRange = resultRange;
+                bestMatch = ((GlkTextBufferWindow *)view).textview;
+
+            }
+        }
+    }
+    if (bestMatch) {
+        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:bestMatch];
+        searchResult.targetRange = bestMatchRange;
+    }
+    return searchResult;
+}
+
+- (NSArray *)createCustomRotors {
+    if (@available(macOS 10.13, *)) {
+        NSMutableArray *rotorsArray = [[NSMutableArray alloc] init];
+
+        BOOL hasLinks = NO;
+        for (GlkWindow *view in _gwindows.allValues) {
+            if (![view isKindOfClass:[GlkGraphicsWindow class]] && view.links.count) {
+                hasLinks = YES;
+            }
+        }
+
+        // Create the link rotor
+        if (hasLinks) {
+            NSAccessibilityCustomRotor *linkRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeLink itemSearchDelegate:self];
+            [rotorsArray addObject:linkRotor];
+        }
+        // Create the text search rotor.
+        NSAccessibilityCustomRotor *textSearchRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeAny itemSearchDelegate:self];
+        [rotorsArray addObject:textSearchRotor];
+        return rotorsArray;
+    } else {
+        return @[];
+    }
 }
 
 @end

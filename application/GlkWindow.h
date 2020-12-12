@@ -80,4 +80,6 @@ struct fillrect;
 
 - (BOOL)hasCharRequest;
 
+- (NSArray *)links;
+
 @end
