@@ -6755,7 +6755,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.6.1b;
+				MARKETING_VERSION = 0.6.2b;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -6802,7 +6802,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.6.1b;
+				MARKETING_VERSION = 0.6.2b;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
