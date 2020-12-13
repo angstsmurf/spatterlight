@@ -934,6 +934,10 @@
         [super accessibilityPerformAction:action];
 }
 
+- (NSArray *)accessibilityCustomRotors  {
+   return [((GlkTextBufferWindow *)self.delegate).glkctl createCustomRotors];
+}
+
 @end
 
 /* ------------------------------------------------------------ */
@@ -1092,6 +1096,7 @@
         fence = (NSUInteger)[decoder decodeIntegerForKey:@"fence"];
 
         history = [decoder decodeObjectForKey:@"history"];
+        _printPositionOnInput = (NSUInteger)[decoder decodeIntegerForKey:@"printPositionOnInput"];
         moveRanges = [decoder decodeObjectForKey:@"moveRanges"];
         moveRangeIndex = (NSUInteger)[decoder decodeIntegerForKey:@"moveRangeIndex"];
         _lastchar = [decoder decodeIntegerForKey:@"lastchar"];
@@ -1139,6 +1144,7 @@
     [encoder encodeBool:echo forKey:@"echo"];
     [encoder encodeInteger:(NSInteger)fence forKey:@"fence"];
     [encoder encodeObject:history forKey:@"history"];
+    [encoder encodeInteger:(NSInteger)_printPositionOnInput forKey:@"printPositionOnInput"];
     [encoder encodeObject:moveRanges forKey:@"moveRanges"];
     [encoder encodeInteger:(NSInteger)moveRangeIndex forKey:@"moveRangeIndex"];
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
@@ -1519,6 +1525,7 @@
     fence = 0;
     _lastseen = 0;
     _lastchar = '\n';
+    _printPositionOnInput = 0;
     [container clearImages];
 
     moveRanges = nil;
@@ -1575,6 +1582,7 @@
 
     _lastseen = 0;
     _lastchar = '\n';
+    _printPositionOnInput = 0;
     if (textstorage.length < charsAfterFence)
         fence = 0;
     else
@@ -1617,7 +1625,7 @@
 
     // With certain fonts and sizes, strings containing only spaces will "collapse."
     // So if the first character is a space, we replace it with a &nbsp;
-    if (stylevalue == style_Preformatted && [str characterAtIndex:0] == ' ') {
+    if (stylevalue == style_Preformatted && [str hasPrefix:@" "]) {
         const unichar nbsp = 0xa0;
         NSString *nbspstring = [NSString stringWithCharacters:&nbsp length:1];
         str = [str stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:nbspstring];
@@ -1880,11 +1888,6 @@
 
     char_request = YES;
     [self hideInsertionPoint];
-
-    [self setLastMove];
-
-    if (!self.glkctl.zmenu)
-        [self speakMostRecent:nil];
 }
 
 - (void)cancelChar {
@@ -1936,8 +1939,6 @@
     [self showInsertionPoint];
 
     [_textview setSelectedRange:NSMakeRange(textstorage.length, 0)];
-    [self setLastMove];
-    [self speakMostRecent:nil];
 }
 
 - (NSString *)cancelLine {
@@ -2274,6 +2275,10 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
         [container addImage: image align: align at:
          textstorage.length - 1 linkid:(NSUInteger)self.currentHyperlink];
 
+        if (self.currentHyperlink) {
+            [textstorage addAttribute:NSLinkAttributeName value:@(self.currentHyperlink) range:NSMakeRange(textstorage.length - 1, 1)];
+        }
+
     } else {
         //        NSLog(@"adding image to text");
         image = [self scaleImage:image size:NSMakeSize(w, h)];
@@ -2293,11 +2298,11 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
             (NSMutableAttributedString *)[NSMutableAttributedString
                 attributedStringWithAttachment:att];
 
-        if (self.currentHyperlink) {
-            [attstr addAttribute:NSLinkAttributeName value:@(self.currentHyperlink) range:NSMakeRange(0, attstr.length)];
-        }
-
         [textstorage appendAttributedString:attstr];
+
+        if (self.currentHyperlink) {
+            [textstorage addAttribute:NSLinkAttributeName value:@(self.currentHyperlink) range:NSMakeRange(textstorage.length - 1, 1)];
+        }
     }
     [textstorage addAttributes:styles[style] range:NSMakeRange(textstorage.length -1, 1)];
 }
@@ -2351,6 +2356,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
             gev = [[GlkEvent alloc] initLinkEvent:linkid forWindow:self.name];
             [self.glkctl queueEvent:gev];
             hyper_request = NO;
+            [self colderLightHack];
             return YES;
         }
     }
@@ -2367,6 +2373,8 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 //        return NO;
     }
 
+    [self.glkctl markLastSeen];
+
     GlkEvent *gev =
         [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue
                               forWindow:self.name];
@@ -2374,7 +2382,20 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
     hyper_request = NO;
     [_textview setEditable:NO];
+    [self colderLightHack];
     return YES;
+}
+
+- (void)colderLightHack {
+    // Send an arrange event to The Colder Light in order
+    // to make it update its title bar
+    if (self.glkctl.colderLight) {
+        GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)self.glkctl.contentView.frame.size.width
+                                          height:(NSInteger)self.glkctl.contentView.frame.size.height
+                                           theme:self.glkctl.theme
+                                           force:YES];
+        [self.glkctl queueEvent:gev];
+    }
 }
 
 #pragma mark ZColors
@@ -2455,6 +2476,10 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 - (void)markLastSeen {
     NSRange glyphs;
     NSRect line;
+
+    _printPositionOnInput = textstorage.length;
+    if (fence > 0)
+        _printPositionOnInput = fence;
 
     if (textstorage.length == 0) {
         _lastseen = 0;
@@ -2728,35 +2753,61 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
 #pragma mark Speech
 
-- (void)setLastMove {
+- (BOOL)setLastMove {
     NSUInteger maxlength = textstorage.length;
 
     if (!maxlength) {
         moveRanges = [[NSMutableArray alloc] init];
         moveRangeIndex = 0;
-        return;
+        _printPositionOnInput = 0;
+        return NO;
     }
+    NSRange lastMove = NSMakeRange(0, 0);
     NSRange currentMove = NSMakeRange(0, maxlength);
+    NSRange allText = NSMakeRange(0, maxlength);
 
     if (moveRanges.lastObject) {
-        NSRange lastMove = ((NSValue *)moveRanges.lastObject).rangeValue;
-        if (NSMaxRange(lastMove) > maxlength)
+        lastMove = ((NSValue *)moveRanges.lastObject).rangeValue;
+        if (NSMaxRange(lastMove) > maxlength) {
+//            NSLog(@"setLastMove removing last move object (because it goes past the end): \"%@\"", [self stringFromRangeVal:moveRanges.lastObject]);
             [moveRanges removeLastObject];
-        else if (lastMove.length == maxlength)
-            return;
-        else
-            currentMove = NSMakeRange(NSMaxRange(lastMove),
-                                      maxlength - NSMaxRange(lastMove) - 1);
+        } else if (lastMove.length == maxlength) {
+            return NO;
+        } else {
+            if (lastMove.location == _printPositionOnInput && lastMove.length != maxlength - _printPositionOnInput) {
+//                NSLog(@"setLastMove removing last move object (because it does not go all the way to the end): \"%@\"", [self stringFromRangeVal:moveRanges.lastObject]);
+                [moveRanges removeLastObject];
+                currentMove = NSMakeRange(_printPositionOnInput, maxlength);
+            } else {
+                currentMove = NSMakeRange(NSMaxRange(lastMove),
+                                          maxlength);
+            }
+        }
     }
 
-    if (NSMaxRange(currentMove) > maxlength)
-        currentMove =
-            NSMakeRange(currentMove.location, maxlength - currentMove.location);
+    currentMove = NSIntersectionRange(allText, currentMove);
+    if (currentMove.length == 0)
+        return NO;
+    NSString *string = [textstorage.string substringWithRange:currentMove];
+    string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (string.length == 0)
+        return NO;
     moveRangeIndex = moveRanges.count;
     [moveRanges addObject:[NSValue valueWithRange:currentMove]];
+//    NSLog(@"setLastMove adding last move: \"%@\"", [self stringFromRangeVal:moveRanges.lastObject]);
+    return YES;
+}
+
+- (NSString *)stringFromRangeVal:(NSValue *)val {
+    NSRange range = val.rangeValue;
+    NSRange allText = NSMakeRange(0, textstorage.length);
+    range = NSIntersectionRange(allText, range);
+    NSString *string = [textstorage.string substringWithRange:range];
+    return string;
 }
 
 - (IBAction)speakMostRecent:(id)sender {
+//    NSLog(@"GlkTextBufferWindow %ld speakMostRecent:", self.name);
     if (self.glkctl.zmenu)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     if (!moveRanges.count)
@@ -2775,47 +2826,47 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
         NSAccessibilityPostNotificationWithUserInfo(
             [NSApp mainWindow],
             NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-
-        // NSLog(@"No last move to speak");
         return;
     }
 
     NSString *str = [textstorage.string substringWithRange:lastMove];
 
-    NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-        NSAccessibilityAnnouncementKey : str
-    };
-
-    NSWindow *mainWin = [NSApp mainWindow];
-
-    if (mainWin)
-        NSAccessibilityPostNotificationWithUserInfo(
-                                                    mainWin, NSAccessibilityAnnouncementRequestedNotification,
-                                                    announcementInfo);
+    [self speakString:str];
 }
 
 - (IBAction)speakPrevious:(id)sender {
-    if (!moveRanges.count)
-        return;
-    if (moveRangeIndex > 0)
-        moveRangeIndex--;
-    else
-        moveRangeIndex = 0;
-    [self speakRange:((NSValue *)moveRanges[moveRangeIndex])
-                         .rangeValue];
+   if (!moveRanges.count)
+       return;
+   NSString *prefix = @"";
+   if (moveRangeIndex > 0) {
+       moveRangeIndex--;
+   } else {
+       prefix = @"At first move.\n";
+       moveRangeIndex = 0;
+   }
+   [self speakRange:((NSValue *)moveRanges[moveRangeIndex])
+    .rangeValue prefix:prefix];
 }
 
 - (IBAction)speakNext:(id)sender {
-    // NSLog(@"speakNext: moveRangeIndex; %ld", moveRangeIndex);
-    if (!moveRanges.count)
-        return;
-    if (moveRangeIndex < moveRanges.count - 1)
-        moveRangeIndex++;
-    else
-        moveRangeIndex = moveRanges.count - 1;
-    [self speakRange:((NSValue *)moveRanges[moveRangeIndex])
-                         .rangeValue];
+   // NSLog(@"speakNext: moveRangeIndex; %ld", moveRangeIndex);
+   [self setLastMove];
+   if (!moveRanges.count)
+   {
+       return;
+   }
+
+   NSString *prefix = @"";
+
+   if (moveRangeIndex < moveRanges.count - 1) {
+       moveRangeIndex++;
+   } else {
+       prefix = @"At last move.\n";
+       moveRangeIndex = moveRanges.count - 1;
+//       NSLog(@"speakNext:moveRangeIndex = %ld. moveRanges.count = %ld. moveRanges[moveRangeIndex].rangeValue = %@", moveRangeIndex, moveRanges.count, NSStringFromRange(((NSValue *)moveRanges[moveRangeIndex]).rangeValue));
+   }
+   [self speakRange:((NSValue *)moveRanges[moveRangeIndex])
+    .rangeValue prefix:prefix];
 }
 
 - (IBAction)speakStatus:(id)sender {
@@ -2831,25 +2882,41 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     NSLog(@"No status window found");
 }
 
-- (void)speakRange:(NSRange)aRange {
-    if (self.glkctl.zmenu)
-        [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
-    if (NSMaxRange(aRange) >= textstorage.length)
-        aRange = NSMakeRange(0, textstorage.length);
+- (void)speakRange:(NSRange)aRange prefix:(NSString *)prefix {
+        if (aRange.location >= textstorage.length || !textstorage.length)
+            return;
+        if (NSMaxRange(aRange) > textstorage.length)
+            aRange = NSMakeRange(aRange.location, textstorage.length);
 
-    NSString *str = [textstorage.string substringWithRange:aRange];
+        if (prefix == nil)
+            prefix = @"";
+    NSString *str = [prefix stringByAppendingString:[textstorage.string substringWithRange:aRange]];
+
+    [self speakString:str];
+}
+
+- (void)speakString:(NSString *)string {
+    if (!string || string.length == 0)
+        return;
+
+    if ([string hasPrefix:@">"])
+        string = [string substringFromIndex:1];
+
+//    NSLog(@"GlkTextBufferWindow %ld speakString:", self.name);
+//    NSLog(@"\"%@\"", string);
 
     NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-        NSAccessibilityAnnouncementKey : str
-    };
+                                       NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+                                       NSAccessibilityAnnouncementKey : string
+                                       };
 
     NSWindow *mainWin = [NSApp mainWindow];
 
-    if (mainWin)
+    if (mainWin) {
         NSAccessibilityPostNotificationWithUserInfo(
-                                                    mainWin, NSAccessibilityAnnouncementRequestedNotification,
-                                                    announcementInfo);
+                                                mainWin,
+                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+    }
 }
 
 #pragma mark Accessibility
@@ -2940,6 +3007,46 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
 
 - (id)accessibilityFocusedUIElement {
     return _textview;
+}
+
+- (NSArray *)links {
+    NSRange allText = NSMakeRange(0, textstorage.length);
+   if (moveRanges.count < 2)
+       return [self linksInRange:allText];
+    NSMutableArray *links = [[NSMutableArray alloc] init];
+
+    // Make sure that no text after last moveRange slips through
+    NSRange lastMoveRange = ((NSValue *)moveRanges.lastObject).rangeValue;
+    NSRange stubRange = NSMakeRange(NSMaxRange(lastMoveRange), textstorage.length);
+    stubRange = NSIntersectionRange(allText, stubRange);
+    if (stubRange.length) {
+        [links addObjectsFromArray:[self linksInRange:stubRange]];
+        NSLog(@"Found text after lastMoveRange! (%@, %ld links)", NSStringFromRange(stubRange), links.count);
+    }
+
+    for (NSValue *rangeVal in [moveRanges reverseObjectEnumerator])
+    {
+        // print some info
+        [links addObjectsFromArray:[self linksInRange:rangeVal.rangeValue]];
+    }
+    if (links.count > 15)
+        links.array = [links subarrayWithRange:NSMakeRange(0, 15)];
+    return links;
+}
+
+- (NSArray *)linksInRange:(NSRange)range {
+    __block NSMutableArray *links = [[NSMutableArray alloc] init];
+    [textstorage
+     enumerateAttribute:NSLinkAttributeName
+     inRange:range
+     options:0
+     usingBlock:^(id value, NSRange subrange, BOOL *stop) {
+         if (!value) {
+             return;
+         }
+         [links addObject:[NSValue valueWithRange:subrange]];
+     }];
+    return links;
 }
 
 @end

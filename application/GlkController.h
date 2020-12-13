@@ -22,7 +22,7 @@
 
 @end
 
-@interface GlkController : NSWindowController {
+@interface GlkController : NSWindowController <NSAccessibilityCustomRotorItemSearchDelegate> {
     /* for talking to the interpreter */
     NSTask *task;
     NSFileHandle *readfh;
@@ -129,6 +129,7 @@
 @property BOOL beyondZork;
 @property BOOL kerkerkruip;
 @property BOOL thaumistry;
+@property BOOL colderLight;
 
 @property NSInteger autosaveVersion;
 @property NSInteger autosaveTag;
@@ -137,9 +138,10 @@
 @property BOOL voiceOverActive;
 
 @property ZMenu *zmenu;
-@property BOOL hasSpokenMenuThisTurn;
 @property BOOL shouldCheckForMenu;
-
+@property BOOL shouldSpeakNewText;
+@property NSDate *speechTimeStamp;
+@property GlkWindow *spokeLast;
 
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game
@@ -160,5 +162,10 @@
 - (void)storeScrollOffsets;
 - (void)restoreScrollOffsets;
 - (void)adjustContentView;
+
+- (NSArray *)createCustomRotors;
+- (NSAccessibilityCustomRotorItemResult *)rotor:(NSAccessibilityCustomRotor *)rotor
+                      resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters API_AVAILABLE(macos(10.13));
+
 
 @end

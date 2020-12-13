@@ -106,6 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(readonly) NSInteger lastchar; /* for smart formatting */
 @property(readonly) NSInteger lastseen; /* for more paging */
+@property NSUInteger printPositionOnInput; // for keeping track of previous moves
 
 /* For autorestoring scroll position */
 @property NSUInteger restoredLastVisible;
@@ -139,7 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)speakPrevious:(nullable id)sender;
 - (IBAction)speakNext:(nullable id)sender;
 - (IBAction)speakStatus:(nullable id)sender;
-- (void)setLastMove;
+- (BOOL)setLastMove;
 
 @end
 

@@ -259,6 +259,11 @@ fprintf(stderr, "%s\n",                                                    \
     return char_request;
 }
 
+- (NSArray *)links {
+    NSLog(@"links in %@ not implemented", [self class]);
+    return @[];
+}
+
 #pragma mark -
 #pragma mark Windows restoration
 
@@ -270,6 +275,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (BOOL)accessibilityIsIgnored {
     return NO;
+}
+
+- (NSArray *)accessibilityCustomRotors  {
+   return [self.glkctl createCustomRotors];
 }
 
 @end

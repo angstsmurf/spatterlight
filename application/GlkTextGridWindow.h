@@ -39,10 +39,13 @@
 @property NSString *enteredTextSoFar;
 
 @property BOOL usingStyles;
+@property BOOL hasNewText;
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (IBAction)speakStatus:(id)sender;
+- (BOOL)setLastMove;
 - (void)deferredGrabFocus:(id)sender;
 - (void)recalcBackground;
+- (void)speakMostRecent:(id)sender;
 
 @end

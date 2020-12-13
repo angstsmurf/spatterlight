@@ -796,7 +796,7 @@
 
     // With certain fonts and sizes, strings containing only spaces will "collapse."
     // So if the first character is a space, we replace it with a &nbsp;
-    if ([string characterAtIndex:0] == ' ') {
+    if ([string hasPrefix:@" "]) {
         const unichar nbsp = 0xa0;
         NSString *nbspstring = [NSString stringWithCharacters:&nbsp length:1];
         string = [string stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:nbspstring];
@@ -922,6 +922,7 @@
         }
     }
 
+    _hasNewText = YES;
     dirty = YES;
 }
 
@@ -939,12 +940,25 @@
 
 - (BOOL)textView:_textview clickedOnLink:(id)link atIndex:(NSUInteger)charIndex {
     NSLog(@"txtgrid: clicked on link: %@", link);
+    GlkEvent *gev;
     if (!hyper_request) {
         NSLog(@"txtgrid: No hyperlink request in window.");
+        // City of Secrets has hyperlinks but no hyperlink
+        // requests, covered by mouse requests.
+        if(mouse_request) {
+            NSPoint p;
+            p.y = charIndex / (cols + 1);
+            p.x = charIndex % (cols + 1);
+            if (p.x >= 0 && p.y >= 0 && p.x < cols && p.y < rows) {
+               gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
+                [self.glkctl queueEvent:gev];
+                mouse_request = NO;
+            }
+        }
         return NO;
     }
 
-    GlkEvent *gev =
+    gev =
     [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue
                           forWindow:self.name];
     [self.glkctl queueEvent:gev];
@@ -1019,9 +1033,6 @@
         self.currentReverseVideo = NO;
         xpos--;
     }
-
-    if (!self.glkctl.zmenu)
-        [self speakStatus:nil];
 }
 
 - (void)cancelChar {
@@ -1184,12 +1195,13 @@
 
     [_textview addSubview:self.input];
 
-    [self performSelector:@selector(deferredGrabFocus:) withObject:self.input afterDelay:0.1];
+    [self performSelector:@selector(deferredGrabFocus:) withObject:str afterDelay:0.1];
 }
 
-- (void)deferredGrabFocus:(id)sender {
-    if (self.input)
+- (void)deferredGrabFocus:(id)str {
+    if (self.input) {
         [self.window makeFirstResponder:self.input];
+    }
 }
 
 - (NSString *)cancelLine {
@@ -1568,6 +1580,8 @@
 }
 
 - (IBAction)speakStatus:(id)sender {
+    NSLog(@"GlkTextGridWindow %ld speakStatus:", self.name);
+    NSLog(@"\"%@\"", textstorage.string);
     if (self.glkctl.zmenu)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     NSDictionary *announcementInfo = @{
@@ -1577,6 +1591,31 @@
     NSAccessibilityPostNotificationWithUserInfo(
                                                 [NSApp mainWindow],
                                                 NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+}
+
+- (BOOL)setLastMove {
+    BOOL hadNewText = _hasNewText;
+    _hasNewText = NO;
+    return hadNewText;
+}
+
+- (void)speakMostRecent:(id)sender {
+    [self speakStatus:nil];
+}
+
+- (NSArray *)links {
+    __block NSMutableArray *links = [[NSMutableArray alloc] init];
+    [textstorage
+     enumerateAttribute:NSLinkAttributeName
+     inRange:NSMakeRange(0, textstorage.length)
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
+         if (!value) {
+             return;
+         }
+         [links addObject:[NSValue valueWithRange:range]];
+     }];
+    return links;
 }
 
 @end
