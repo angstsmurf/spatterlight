@@ -3015,19 +3015,12 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
        return [self linksInRange:allText];
     NSMutableArray *links = [[NSMutableArray alloc] init];
 
-    // Make sure that no text after last moveRange slips through
-    NSRange lastMoveRange = ((NSValue *)moveRanges.lastObject).rangeValue;
-    NSRange stubRange = NSMakeRange(NSMaxRange(lastMoveRange), textstorage.length);
-    stubRange = NSIntersectionRange(allText, stubRange);
-    if (stubRange.length) {
-        [links addObjectsFromArray:[self linksInRange:stubRange]];
-        NSLog(@"Found text after lastMoveRange! (%@, %ld links)", NSStringFromRange(stubRange), links.count);
-    }
-
     for (NSValue *rangeVal in [moveRanges reverseObjectEnumerator])
     {
         // print some info
         [links addObjectsFromArray:[self linksInRange:rangeVal.rangeValue]];
+        if (links.count > 15)
+            break;
     }
     if (links.count > 15)
         links.array = [links subarrayWithRange:NSMakeRange(0, 15)];
