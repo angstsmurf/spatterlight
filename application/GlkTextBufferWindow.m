@@ -2108,6 +2108,7 @@ replacementString:(id)repl {
 - (NSRange)textView:(NSTextView *)aTextView
 willChangeSelectionFromCharacterRange:(NSRange)oldrange
    toCharacterRange:(NSRange)newrange {
+           NSLog(@"willChangeSelectionFromCharacterRange: %@ toCharacterRange: %@", NSStringFromRange(oldrange), NSStringFromRange(newrange));
     if (line_request) {
         if (newrange.length == 0)
             if (newrange.location < fence)
