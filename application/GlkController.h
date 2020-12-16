@@ -163,6 +163,11 @@
 - (void)restoreScrollOffsets;
 - (void)adjustContentView;
 
+- (IBAction)speakMostRecent:(id)sender;
+- (IBAction)speakPrevious:(id)sender;
+- (IBAction)speakNext:(id)sender;
+- (IBAction)speakStatus:(id)sender;
+
 - (NSArray *)createCustomRotors;
 - (NSAccessibilityCustomRotorItemResult *)rotor:(NSAccessibilityCustomRotor *)rotor
                       resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters API_AVAILABLE(macos(10.13));

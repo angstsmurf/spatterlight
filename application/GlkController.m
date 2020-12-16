@@ -3503,8 +3503,97 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             return;
         _speechTimeStamp = [NSDate date];
         _spokeLast = largest;
-        [largest performSelector:@selector(speakMostRecent:) withObject:nil afterDelay:0.1];
+        [largest performSelector:@selector(deferredSpeakMostRecent:) withObject:nil afterDelay:0.1];
     }
+}
+
+#pragma mark Speak previous moves
+
+- (IBAction)speakMostRecent:(id)sender {
+    NSLog(@"GlkController: speakMostRecent");
+    GlkTextBufferWindow *mainWindow = [self largestWithMoves];
+    if (!mainWindow) {
+        [self speakString:@"No last move to speak!"];
+        return;
+    }
+    [mainWindow speakMostRecent];
+}
+
+- (IBAction)speakPrevious:(id)sender {
+    NSLog(@"GlkController: speakPrevious");
+    GlkTextBufferWindow *mainWindow = [self largestWithMoves];
+    if (!mainWindow) {
+        [self speakString:@"No previous move to speak!"];
+        return;
+    }
+    [mainWindow speakPrevious];
+}
+
+- (IBAction)speakNext:(id)sender {
+    NSLog(@"GlkController: speakNext");
+    GlkTextBufferWindow *mainWindow = [self largestWithMoves];
+    if (!mainWindow) {
+        [self speakString:@"No next move to speak!"];
+        return;
+    }
+    [mainWindow speakNext];
+}
+
+- (IBAction)speakStatus:(id)sender {
+    GlkWindow *win;
+
+    // Try to find status window to pass this on to
+    for (win in _gwindows.allValues) {
+        if ([win isKindOfClass:[GlkTextGridWindow class]]) {
+            [(GlkTextGridWindow *)win speakStatus];
+            return;
+        }
+    }
+    NSLog(@"No status window found");
+}
+
+- (void)speakString:(NSString *)string {
+    if (!string || string.length == 0 || !_voiceOverActive)
+        return;
+
+    NSDictionary *announcementInfo =
+        @{ NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+       NSAccessibilityAnnouncementKey : string };
+
+    NSWindow *mainWin = [NSApp mainWindow];
+
+    if (mainWin) {
+        NSAccessibilityPostNotificationWithUserInfo(
+                                                    mainWin,
+                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+    }
+}
+
+- (GlkTextBufferWindow *)largestWithMoves {
+    // Find a "main text window"
+    GlkTextBufferWindow *largest = nil;
+    NSMutableArray *windowsWithMoves = _gwindows.allValues.mutableCopy;
+    for (GlkWindow *view in _gwindows.allValues) {
+        if (![view isKindOfClass:[GlkTextBufferWindow class]] || !((GlkTextBufferWindow *)view).moveRanges.count) {
+            // Remove all GlkTextBufferWindow objects with no list of previous moves
+            [windowsWithMoves removeObject:view];
+        }
+    }
+
+    if (!windowsWithMoves.count) {
+        NSLog(@"largestWithMoves: No windows with moves history!");
+        return nil;
+    }
+
+    CGFloat largestSize = 0;
+    for (GlkTextBufferWindow *view in windowsWithMoves) {
+        CGFloat size = fabs(view.frame.size.width * view.frame.size.height);
+        if (size > largestSize) {
+            largestSize = size;
+            largest = view;
+        }
+    }
+    return largest;
 }
 
 #pragma mark Custom rotors

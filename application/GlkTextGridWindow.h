@@ -42,10 +42,11 @@
 @property BOOL hasNewText;
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
-- (IBAction)speakStatus:(id)sender;
+
 - (BOOL)setLastMove;
 - (void)deferredGrabFocus:(id)sender;
 - (void)recalcBackground;
-- (void)speakMostRecent:(id)sender;
+- (void)speakStatus;
+- (void)speakMostRecent;
 
 @end
