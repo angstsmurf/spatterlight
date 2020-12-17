@@ -1579,9 +1579,7 @@
     return _textview;
 }
 
-- (IBAction)speakStatus:(id)sender {
-    NSLog(@"GlkTextGridWindow %ld speakStatus:", self.name);
-    NSLog(@"\"%@\"", textstorage.string);
+- (void)speakStatus {
     if (self.glkctl.zmenu)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     NSDictionary *announcementInfo = @{
@@ -1599,8 +1597,8 @@
     return hadNewText;
 }
 
-- (void)speakMostRecent:(id)sender {
-    [self speakStatus:nil];
+- (void)speakMostRecent {
+    [self speakStatus];
 }
 
 - (NSArray *)links {

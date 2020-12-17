@@ -88,7 +88,6 @@ NS_ASSUME_NONNULL_BEGIN
     InputHistory *history;
 
     /* For speaking previous moves */
-    NSMutableArray *moveRanges;
     NSUInteger moveRangeIndex;
 
     CGFloat lastLineheight;
@@ -106,7 +105,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(readonly) NSInteger lastchar; /* for smart formatting */
 @property(readonly) NSInteger lastseen; /* for more paging */
-@property NSUInteger printPositionOnInput; // for keeping track of previous moves
+// for keeping track of previous moves
+@property NSUInteger printPositionOnInput;
+@property NSMutableArray *moveRanges;
 
 /* For autorestoring scroll position */
 @property NSUInteger restoredLastVisible;
@@ -136,10 +137,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)restoreScrollBarStyle;
 - (void)restoreScroll:(nullable id)sender;
 
-- (IBAction)speakMostRecent:(nullable id)sender;
-- (IBAction)speakPrevious:(nullable id)sender;
-- (IBAction)speakNext:(nullable id)sender;
-- (IBAction)speakStatus:(nullable id)sender;
+- (void)speakMostRecent;
+- (void)deferredSpeakMostRecent:(id)sender;
+- (void)speakPrevious;
+- (void)speakNext;
 - (BOOL)setLastMove;
 
 @end

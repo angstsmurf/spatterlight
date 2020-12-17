@@ -3503,8 +3503,97 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             return;
         _speechTimeStamp = [NSDate date];
         _spokeLast = largest;
-        [largest performSelector:@selector(speakMostRecent:) withObject:nil afterDelay:0.1];
+        [largest performSelector:@selector(deferredSpeakMostRecent:) withObject:nil afterDelay:0.1];
     }
+}
+
+#pragma mark Speak previous moves
+
+- (IBAction)speakMostRecent:(id)sender {
+    NSLog(@"GlkController: speakMostRecent");
+    GlkTextBufferWindow *mainWindow = [self largestWithMoves];
+    if (!mainWindow) {
+        [self speakString:@"No last move to speak!"];
+        return;
+    }
+    [mainWindow speakMostRecent];
+}
+
+- (IBAction)speakPrevious:(id)sender {
+    NSLog(@"GlkController: speakPrevious");
+    GlkTextBufferWindow *mainWindow = [self largestWithMoves];
+    if (!mainWindow) {
+        [self speakString:@"No previous move to speak!"];
+        return;
+    }
+    [mainWindow speakPrevious];
+}
+
+- (IBAction)speakNext:(id)sender {
+    NSLog(@"GlkController: speakNext");
+    GlkTextBufferWindow *mainWindow = [self largestWithMoves];
+    if (!mainWindow) {
+        [self speakString:@"No next move to speak!"];
+        return;
+    }
+    [mainWindow speakNext];
+}
+
+- (IBAction)speakStatus:(id)sender {
+    GlkWindow *win;
+
+    // Try to find status window to pass this on to
+    for (win in _gwindows.allValues) {
+        if ([win isKindOfClass:[GlkTextGridWindow class]]) {
+            [(GlkTextGridWindow *)win speakStatus];
+            return;
+        }
+    }
+    NSLog(@"No status window found");
+}
+
+- (void)speakString:(NSString *)string {
+    if (!string || string.length == 0 || !_voiceOverActive)
+        return;
+
+    NSDictionary *announcementInfo =
+        @{ NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+       NSAccessibilityAnnouncementKey : string };
+
+    NSWindow *mainWin = [NSApp mainWindow];
+
+    if (mainWin) {
+        NSAccessibilityPostNotificationWithUserInfo(
+                                                    mainWin,
+                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+    }
+}
+
+- (GlkTextBufferWindow *)largestWithMoves {
+    // Find a "main text window"
+    GlkTextBufferWindow *largest = nil;
+    NSMutableArray *windowsWithMoves = _gwindows.allValues.mutableCopy;
+    for (GlkWindow *view in _gwindows.allValues) {
+        if (![view isKindOfClass:[GlkTextBufferWindow class]] || !((GlkTextBufferWindow *)view).moveRanges.count) {
+            // Remove all GlkTextBufferWindow objects with no list of previous moves
+            [windowsWithMoves removeObject:view];
+        }
+    }
+
+    if (!windowsWithMoves.count) {
+        NSLog(@"largestWithMoves: No windows with moves history!");
+        return nil;
+    }
+
+    CGFloat largestSize = 0;
+    for (GlkTextBufferWindow *view in windowsWithMoves) {
+        CGFloat size = fabs(view.frame.size.width * view.frame.size.height);
+        if (size > largestSize) {
+            largestSize = size;
+            largest = view;
+        }
+    }
+    return largest;
 }
 
 #pragma mark Custom rotors
@@ -3526,9 +3615,11 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     if (rotor.type == NSAccessibilityCustomRotorTypeAny) {
         return [self textSearchResultForString:filterText fromRange: currentRange direction:direction];
-    }
-
-    if (rotor.type == NSAccessibilityCustomRotorTypeLink) {
+    } else if ([rotor.label isEqualToString:NSLocalizedString(@"Command history", nil)]) {
+        return [self commandHistoryRotor:rotor resultForSearchParameters:searchParameters];
+    } else if ([rotor.label isEqualToString:NSLocalizedString(@"Game windows", nil)]) {
+        return [self glkWindowRotor:rotor resultForSearchParameters:searchParameters];
+    } else if (rotor.type == NSAccessibilityCustomRotorTypeLink) {
         NSArray *allWindows = _gwindows.allValues;
         if (_colderLight && allWindows.count == 5) {
             allWindows = @[_gwindows[@(3)], _gwindows[@(4)], _gwindows[@(0)], _gwindows[@(1)]];
@@ -3591,7 +3682,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         }
         searchResult.targetRange = textRange;
     }
-
     return searchResult;
 }
 
@@ -3641,6 +3731,130 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     return searchResult;
 }
 
+- (NSAccessibilityCustomRotorItemResult *)glkWindowRotor:(NSAccessibilityCustomRotor *)rotor
+                     resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
+
+    NSAccessibilityCustomRotorItemResult *searchResult = nil;
+
+    NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
+    NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
+
+    NSArray *children = _gwindows.allValues;
+
+    NSUInteger currentItemIndex = [children indexOfObject:currentItemResult.targetElement];
+
+     if (currentItemIndex == NSNotFound) {
+        // Find the start or end element.
+        if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
+            currentItemIndex = 0;
+        } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
+            currentItemIndex = children.count - 1;
+        }
+    } else {
+        if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
+            if (currentItemIndex == 0) {
+                currentItemIndex = NSNotFound;
+            } else {
+                currentItemIndex--;
+            }
+        } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
+            if (currentItemIndex == children.count - 1) {
+                currentItemIndex = NSNotFound;
+            } else {
+                currentItemIndex++;
+            }
+        }
+    }
+
+    if (currentItemIndex == NSNotFound) {
+        return nil;
+    }
+
+    GlkWindow *targetWindow = children[currentItemIndex];
+
+    NSLog (@"targetWindow = %@", targetWindow);
+
+    if (targetWindow) {
+        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement: targetWindow];
+        NSString *contentString = @"";
+        if (![targetWindow isKindOfClass:[GlkGraphicsWindow class]] && ((GlkTextBufferWindow *)targetWindow).textview) {
+            contentString = ((GlkTextBufferWindow *)targetWindow).textview.string.copy;
+            if (contentString.length > 80)
+                contentString = [contentString substringToIndex:79];
+        }
+        NSString *kindString;
+        if ([targetWindow isKindOfClass:[GlkGraphicsWindow class]]) {
+            kindString = @"Graphics";
+        } else if ([targetWindow isKindOfClass:[GlkTextGridWindow class]]) {
+            kindString = @"Grid text";
+        } else {
+            kindString = @"Buffer text";
+
+        }
+        searchResult.customLabel = [NSString stringWithFormat:@"%@ window%@%@", kindString, (contentString.length) ? @": " : @"", contentString];
+    }
+
+    return searchResult;
+}
+
+- (NSAccessibilityCustomRotorItemResult *)commandHistoryRotor:(NSAccessibilityCustomRotor *)rotor
+                      resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
+
+    NSAccessibilityCustomRotorItemResult *searchResult = nil;
+
+    NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
+    NSRange currentRange = searchParameters.currentItem.targetRange;
+
+    GlkTextBufferWindow *largest = [self largestWithMoves];
+    if (!largest)
+        return nil;
+
+    NSArray *children =  [[largest.moveRanges reverseObjectEnumerator] allObjects];
+
+    NSUInteger currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
+
+     if (currentItemIndex == NSNotFound) {
+        // Find the start or end element.
+        if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
+            currentItemIndex = 0;
+        } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
+            currentItemIndex = children.count - 1;
+        }
+        NSLog(@"found no currentRange in children, setting it to %ld", currentItemIndex);
+    } else {
+        NSLog(@"found currentRange at index %ld", currentItemIndex);
+        if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
+            if (currentItemIndex == 0) {
+                currentItemIndex = NSNotFound;
+            } else {
+                currentItemIndex--;
+            }
+        } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
+            if (currentItemIndex == children.count - 1) {
+                currentItemIndex = NSNotFound;
+            } else {
+                currentItemIndex++;
+            }
+        }
+    }
+
+    if (currentItemIndex == NSNotFound) {
+        return nil;
+    }
+
+    NSValue *targetRangeValue = children[currentItemIndex];
+
+    if (targetRangeValue) {
+        NSRange textRange = targetRangeValue.rangeValue;
+        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:largest.textview];
+        searchResult.targetRange = textRange;
+        // By adding a custom label, all ranges are reliably listed in the rotor
+        searchResult.customLabel = [largest.textview.string substringWithRange:textRange];
+    }
+
+    return searchResult;
+}
+
 - (NSArray *)createCustomRotors {
     if (@available(macOS 10.13, *)) {
         NSMutableArray *rotorsArray = [[NSMutableArray alloc] init];
@@ -3660,6 +3874,16 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         // Create the text search rotor.
         NSAccessibilityCustomRotor *textSearchRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeAny itemSearchDelegate:self];
         [rotorsArray addObject:textSearchRotor];
+//        // Create the command history rotor
+        if ([self largestWithMoves]) {
+            NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", nil) itemSearchDelegate:self];
+            [rotorsArray addObject:commandHistoryRotor];
+        }
+        // Create the Glk windows rotor
+        if (_gwindows.count) {
+            NSAccessibilityCustomRotor *glkWindowRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Game windows", nil) itemSearchDelegate:self];
+            [rotorsArray addObject:glkWindowRotor];
+        }
         return rotorsArray;
     } else {
         return @[];
