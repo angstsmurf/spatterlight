@@ -1,3 +1,5 @@
+#import "GlkWindow.h"
+
 /* TextGrid window controller */
 
 @class InputTextField, InputHistory;

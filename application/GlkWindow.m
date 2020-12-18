@@ -273,10 +273,6 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Accessibility
 
-- (BOOL)accessibilityIsIgnored {
-    return NO;
-}
-
 - (NSArray *)accessibilityCustomRotors  {
    return [self.glkctl createCustomRotors];
 }
