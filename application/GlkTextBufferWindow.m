@@ -2890,8 +2890,9 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     if (!string || string.length == 0)
         return;
 
-    if ([string hasPrefix:@">"])
-        string = [string substringFromIndex:1];
+    NSString *charSetString = @"\u00A0 >\n";
+    NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
+    string = [string stringByTrimmingCharactersInSet:charset];
 
     NSDictionary *announcementInfo = @{
                                        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
