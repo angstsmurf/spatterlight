@@ -1088,7 +1088,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
     [self guessFocus];
-    NSAccessibilityPostNotificationWithUserInfo(self.window.firstResponder, NSAccessibilityFocusedUIElementChangedNotification, nil);
+    NSAccessibilityPostNotification(self.window.firstResponder, NSAccessibilityFocusedUIElementChangedNotification);
 }
 
 - (void)handleAutosave:(NSInteger)hash {
@@ -2773,14 +2773,8 @@ again:
         return;
     }
 
-//    @try {
-        [data getBytes:&request
-                 range:rangeToRead];
-//    } @catch (NSException *ex) {
-//        NSLog(@"glkctl: could not read message header");
-//        [task terminate];
-//        return;
-//    }
+    [data getBytes:&request
+             range:rangeToRead];
 
     rangeToRead = NSMakeRange(NSMaxRange(rangeToRead), request.len);
 
@@ -2806,16 +2800,8 @@ again:
             buf = maxibuf;
         }
 
-//        @try {
-            [data getBytes:buf
-                     range:rangeToRead];
-//        } @catch (NSException *ex) {
-//            NSLog(@"glkctl: could not read message body");
-//            if (maxibuf)
-//                free(maxibuf);
-//            [task terminate];
-//            return;
-//        }
+        [data getBytes:buf
+                 range:rangeToRead];
     }
 
     memset(&reply, 0, sizeof reply);
@@ -3264,7 +3250,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         }
     [self performSelector:@selector(deferredEnterFullscreen:) withObject:nil afterDelay:1];
 }
-//
+
 - (void)deferredEnterFullscreen:(id)sender {
     [self.window toggleFullScreen:nil];
     if (shouldShowAutorestoreAlert)
