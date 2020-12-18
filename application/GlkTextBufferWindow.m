@@ -852,6 +852,20 @@
     return YES;
 }
 
+- (NSArray *)accessibilityChildren {
+   NSArray *children = [super accessibilityChildren];
+    GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)self.delegate;
+   InputTextField *input = bufWin.input;
+   if (input) {
+       MyFieldEditor *fieldEditor = bufWin.input.fieldEditor;
+       if (fieldEditor) {
+           if ([children indexOfObject:fieldEditor] == NSNotFound)
+               children = [children arrayByAddingObject:fieldEditor];
+       }
+   }
+   return children;
+}
+
 - (NSString *)accessibilityActionDescription:(NSString *)action {
     if (@available(macOS 10.13, *)) {
     } else {
@@ -1451,7 +1465,8 @@
 
         [textstorage setAttributedString:backingStorage];
 
-        _textview.selectedRange = selectedRange;
+        if (!NSEqualRanges(_textview.selectedRange, selectedRange))
+             _textview.selectedRange = selectedRange;
     }
 
     if (!self.glkctl.previewDummy && self.glkctl.isAlive) {
@@ -1791,7 +1806,7 @@
         _textview.editable = NO;
 
     } else if (line_request && (ch == keycode_Return ||
-                                [self.currentTerminators[key] isEqual:@(YES)])) {
+        [self.currentTerminators[key] isEqual:@(YES)])) {
         [self sendInputLineWithTerminator:ch == keycode_Return ? 0 : key.integerValue];
     } else if (line_request && ch == keycode_Up) {
         [self travelBackwardInHistory];
@@ -1804,16 +1819,28 @@
     }
 
     else {
-        if (line_request)
+        NSResponder *responder = _textview;
+        if (line_request) {
+            if (self.input)
+                responder = self.input;
             if ((ch == 'v' || ch == 'V') && commandKeyOnly && _textview.selectedRange.location < fence) {
-                [[self.glkctl window] makeFirstResponder:_textview];                         _textview.selectedRange = NSMakeRange(textstorage.length, 0);
-                [_textview performSelector:@selector(paste:)];
+                [[self.glkctl window] makeFirstResponder:responder];
+                if (responder == _textview) {
+                    _textview.selectedRange = NSMakeRange(textstorage.length, 0);
+                    [_textview performSelector:@selector(paste:)];
+                } else {
+                    [self.input.fieldEditor performSelector:@selector(paste:)];
+                }
                 return;
             }
+        }
 
-        if (self.window.firstResponder != _textview)
-            [self.window makeFirstResponder:_textview];
-        [_textview superKeyDown:evt];
+        if (self.window.firstResponder != responder)
+            [self.window makeFirstResponder:responder];
+        if (responder == _textview)
+            [_textview superKeyDown:evt];
+        else
+            [self.input.fieldEditor keyDown:evt];
     }
 }
 
@@ -1867,6 +1894,10 @@
 
     char_request = YES;
     [self hideInsertionPoint];
+    if (self.input) {
+        [self.input removeFromSuperviewWithoutNeedingDisplay];
+        [self performSelector:@selector(deferredGrabFocus:) withObject:_textview afterDelay:0];
+    }
 }
 
 - (void)cancelChar {
@@ -1910,14 +1941,117 @@
         initWithString:str
               attributes:inputStyle];
 
-    [textstorage appendAttributedString:att];
-
-    [_textview setEditable:YES];
-
     line_request = YES;
-    [self showInsertionPoint];
 
-    [_textview setSelectedRange:NSMakeRange(textstorage.length, 0)];
+    if (self.glkctl.voiceOverActive) {
+        [self createInputTextField:att maxLength:maxLength];
+    } else {
+        [textstorage appendAttributedString:att];
+        _textview.editable = YES;
+        [self showInsertionPoint];
+        _textview.selectedRange = NSMakeRange(textstorage.length, 0);
+    }
+}
+
+- (void)createInputTextField:(NSAttributedString *)attStr maxLength:(NSUInteger)maxLength {
+    NSLog(@"createInputTextField");
+    maxInputLength = maxLength;
+
+    NSUInteger count;
+    NSRange matchRange = NSMakeRange(fence, 0);
+    NSRectArray rects = [layoutmanager rectArrayForCharacterRange:matchRange
+                                     withinSelectedCharacterRange:matchRange
+                                                  inTextContainer:container
+                                                        rectCount:&count];
+    NSRect accInputFrame = rects[count - 1];
+    accInputFrame.origin.x += self.theme.bufferMarginX;
+    accInputFrame.size.width = self.frame.size.width - accInputFrame.origin.x - self.theme.bufferMarginX;
+    accInputFrame.origin.y +=  self.theme.bufferMarginY;
+
+    if (!self.input) {
+        self.input = [[InputTextField alloc] initWithFrame:accInputFrame maxLength:maxLength];
+    } else {
+        self.input.frame = accInputFrame;
+    }
+
+    self.input.action = @selector(typedEnter:);
+    self.input.target = self;
+    self.input.delegate = self;
+    self.input.accessibilityParent = _textview;
+
+    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
+    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default )
+        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
+
+    self.input.textColor = inputStyle[NSForegroundColorAttributeName];
+    self.input.font = inputStyle[NSFontAttributeName];
+    if (fence > textstorage.length) {
+        fence = textstorage.length;
+    }
+    if (!attStr) {
+        NSRange inputRange = NSMakeRange(fence, textstorage.length - fence);
+        NSString *str = [textstorage.string substringWithRange:inputRange];
+        [textstorage deleteCharactersInRange:inputRange];
+
+        attStr = [[NSAttributedString alloc]
+                  initWithString:str
+                  attributes:inputStyle];
+    }
+
+    self.input.attributedStringValue = attStr;
+    [_textview addSubview:self.input];
+    [self performSelector:@selector(deferredGrabFocus:) withObject:self.input afterDelay:0.1];
+}
+
+- (void)deferredGrabFocus:(id)sender {
+//    NSLog(@"deferredGrabFocus");
+    if (sender == self.input) {
+        [self scrollToBottom];
+        self.input.accessibilityFrame = NSAccessibilityFrameInView(_textview, self.input.bounds);
+        self.input.cell.accessibilityFrame = NSAccessibilityFrameInView(self.input, self.input.bounds);
+        self.input.fieldEditor.accessibilityFrame = NSAccessibilityFrameInView(self.input, self.input.bounds);
+
+        id responder = self.window.firstResponder;
+        if (responder == self.input || responder == self.input.fieldEditor || responder == self.input.cell)
+            return;
+        NSAccessibilityPostNotification(_textview, NSAccessibilityFocusedUIElementChangedNotification);
+    }
+    if (self.window.firstResponder == sender)
+        return;
+
+    [self.window makeFirstResponder:sender];
+}
+
+- (void)typedEnter:(id)sender {
+    if (self.input) {
+//        NSLog(@"typedEnter");
+
+        NSAttributedString *attStr = self.input.attributedStringValue;
+        [textstorage deleteCharactersInRange:NSMakeRange(fence, textstorage.length - fence)];
+        [textstorage appendAttributedString:attStr];
+        self.input.stringValue = @"";
+        [self sendInputLineWithTerminator:0];
+    } else
+        NSLog(@"typedEnter when no input textfield?");
+}
+
+- (void)destroyInputTextField {
+//    NSLog(@"destroyInputTextField");
+    if (line_request)
+        _textview.editable = YES;
+    if (self.input) {
+        if (self.window.firstResponder == self.input) {
+           [self.window makeFirstResponder:_textview];
+            _textview.selectedRange = NSMakeRange(textstorage.length - 1, 0);
+            [self showInsertionPoint];
+        }
+        NSAttributedString *attStr = self.input.attributedStringValue;
+        [textstorage deleteCharactersInRange:NSMakeRange(fence, textstorage.length - fence)];
+        [textstorage appendAttributedString:attStr];
+        [self.input removeFromSuperview];
+        self.input = nil;
+    }
+    [self performSelector:@selector(deferredGrabFocus:) withObject:_textview afterDelay:0];
 }
 
 - (NSString *)cancelLine {
@@ -1957,21 +2091,37 @@
     if (!cx)
         return;
 
-    [textstorage
-     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
-     withString:cx];
-    [_textview resetTextFinder];
+    if (self.input) {
+        self.input.stringValue = cx;
+        NSRange newRange = NSMakeRange(((NSString *)cx).length, 0);
+        if (!NSEqualRanges(self.input.fieldEditor.selectedRange, newRange))
+            self.input.fieldEditor.selectedRange = newRange;
+        [self speakString:cx];
+    } else {
+        [textstorage
+         replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+         withString:cx];
+        [_textview resetTextFinder];
+    }
 }
 
 - (void)travelForwardInHistory {
     NSString *cx = [history travelForwardInHistory];
     if (!cx)
         return;
-    [self flushDisplay];
-    [textstorage
-     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
-     withString:cx];
-    [_textview resetTextFinder];
+    if (self.input) {
+        self.input.stringValue = cx;
+        NSRange newRange = NSMakeRange(((NSString *)cx).length, 0);
+        if (!NSEqualRanges(self.input.fieldEditor.selectedRange, newRange))
+            self.input.fieldEditor.selectedRange = newRange;
+        [self speakString:cx];
+    } else {
+        [self flushDisplay];
+        [_textview resetTextFinder];
+        [textstorage
+         replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+         withString:cx];
+    }
 }
 
 #pragma mark Beyond Zork font
@@ -2142,7 +2292,11 @@ replacementString:(id)repl {
         if (searchField) {
             searchField.stringValue = _restoredSearch;
             [newFinder cancelFindIndicator];
-            [self.glkctl.window makeFirstResponder:_textview];
+            id responder = _textview;
+            if (self.input)
+                responder = self.input;
+            if (self.window.firstResponder != responder)
+                [self.window makeFirstResponder:responder];
             [searchField sendAction:searchField.action to:searchField.target];
         }
     }
@@ -2580,7 +2734,6 @@ replacementString:(id)repl {
     charbottom = charbottom + offset;
     NSPoint newScrollOrigin = NSMakePoint(0, floor(charbottom - NSHeight(scrollview.frame)));
     [scrollview.contentView scrollToPoint:newScrollOrigin];
-//    [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
 - (void)performScroll {
@@ -2658,14 +2811,16 @@ replacementString:(id)repl {
 }
 
 - (void)postRestoreAdjustments:(GlkWindow *)win {
-    [container invalidateLayout]; // This fixes a bug with margin images on 10.7
-
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
 
     if (line_request && restoredWin.restoredInput) {
         if (textstorage.length > fence)
             [textstorage deleteCharactersInRange:NSMakeRange(fence, textstorage.length - fence)];
-        [textstorage appendAttributedString:restoredWin.restoredInput];
+        if (self.glkctl.voiceOverActive) {
+            [self createInputTextField:restoredWin.restoredInput maxLength:maxInputLength];
+        } else {
+            [textstorage appendAttributedString:restoredWin.restoredInput];
+        }
     }
 
     _restoredSelection = restoredWin.restoredSelection;
@@ -2882,7 +3037,6 @@ replacementString:(id)repl {
         NSAccessibilityPostNotificationWithUserInfo(
                                                 mainWin,
                                                 NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-        NSLog(@"GlkTextBufferWindow %ld: speakString: \"%@\"", self.name, string);
     }
 }
 
@@ -2890,6 +3044,18 @@ replacementString:(id)repl {
 
 - (BOOL)isAccessibilityElement {
     return NO;
+}
+
+- (void)accessibilityStatusChanged:(BOOL)status {
+    if (status) {
+        if (line_request && !self.input) {
+            [self createInputTextField:nil maxLength:maxInputLength];
+            [self.glkctl performSelector:@selector(speakMostRecent:) withObject:nil afterDelay:6];
+        }
+    }
+    else {
+        [self destroyInputTextField];
+    }
 }
 
 - (NSArray *)links {

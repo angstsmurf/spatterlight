@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MyTextView : NSTextView <NSTextFinderClient, NSSecureCoding> {
+@interface MyTextView : NSTextView <NSTextFinderClient, NSSecureCoding, NSAccessibilityNavigableStaticText> {
     NSTextFinder *_textFinder;
 }
 
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 @interface GlkTextBufferWindow
-    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate> {
+    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
     NSScrollView *scrollview;
     NSLayoutManager *layoutmanager;
     MarginContainer *container;
@@ -93,6 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat lastLineheight;
 
     NSAttributedString *storedNewline;
+
+    NSUInteger maxInputLength;
 
     // for temporarily storing scroll position
     NSUInteger lastVisible; 

@@ -49,7 +49,7 @@
    return [((GlkTextGridWindow *)self.delegate).glkctl createCustomRotors];
 }
 
- - (NSArray *)accessibilityChildren {
+- (NSArray *)accessibilityChildren {
     NSArray *children = [super accessibilityChildren];
     InputTextField *input = ((GlkTextGridWindow *)self.delegate).input;
     if (input) {

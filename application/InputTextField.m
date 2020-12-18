@@ -9,6 +9,7 @@
 
 #import "GlkEvent.h"
 #import "GlkTextGridWindow.h"
+#import "GlkController.h"
 
 #import "InputTextField.h"
 
@@ -35,6 +36,12 @@
     return YES;
 }
 
+- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
+    GlkTextGridWindow *delegate = (GlkTextGridWindow *)((InputTextField *)self.delegate).delegate;
+    NSArray *actions = [delegate.glkctl accessibilityCustomActions];
+    return actions;
+}
+
 @end
 
 
@@ -56,11 +63,9 @@
         self.drawsBackground = NO;
         self.selectable = YES;
         self.cell.wraps = YES;
-        self.cell.accessibilityLabel = NSLocalizedString(@"input text field cell", nil);
+        self.cell.accessibilityLabel = NSLocalizedString(@"input", nil);
         self.cell.accessibilityElement = YES;
-
         self.accessibilityLabel = NSLocalizedString(@"input text field", nil);
-
         MyTextFormatter *inputFormatter =
         [[MyTextFormatter alloc] initWithMaxLength:maxLength];
         self.formatter = inputFormatter;
@@ -72,7 +77,6 @@
     }
     return self;
 }
-
 
 @synthesize fieldEditor = _fieldEditor;
 

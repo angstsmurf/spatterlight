@@ -164,8 +164,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)grabFocus {
     // NSLog(@"grab focus in window %ld", self.name);
     [self.window makeFirstResponder:self];
-    NSAccessibilityPostNotification(
-        self, NSAccessibilityFocusedUIElementChangedNotification);
+//    NSAccessibilityPostNotification(
+//        self, NSAccessibilityFocusedUIElementChangedNotification);
 }
 
 - (void)flushDisplay {
@@ -262,11 +262,6 @@ fprintf(stderr, "%s\n",                                                    \
     return char_request;
 }
 
-- (NSArray *)links {
-    NSLog(@"links in %@ not implemented", [self class]);
-    return @[];
-}
-
 #pragma mark -
 #pragma mark Windows restoration
 
@@ -275,6 +270,19 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 #pragma mark Accessibility
+
+- (void)accessibilityStatusChanged:(BOOL)status {
+    NSLog(@"accessibilityStatusChanged in %@ not implemented", [self class]);
+}
+
+- (NSArray *)links {
+    NSLog(@"links in %@ not implemented", [self class]);
+    return @[];
+}
+
+- (BOOL)accessibilityIsIgnored {
+    return NO;
+}
 
 - (NSArray *)accessibilityCustomRotors  {
    return [self.glkctl createCustomRotors];

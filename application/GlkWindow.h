@@ -78,6 +78,8 @@ struct fillrect;
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array;
 - (void)postRestoreAdjustments:(GlkWindow *)win;
 
+- (void)accessibilityStatusChanged:(BOOL)status;
+
 - (BOOL)hasCharRequest;
 
 - (NSArray *)links;

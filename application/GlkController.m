@@ -3350,6 +3350,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     if(@available(macOS 10.13, *)) {
         NSWorkspace * ws = [NSWorkspace sharedWorkspace];
         _voiceOverActive = ws.voiceOverEnabled;
+        for (GlkTextBufferWindow *win in _gwindows.allValues) {
+            [win accessibilityStatusChanged:_voiceOverActive];
+        }
         if (_voiceOverActive) {
             _shouldCheckForMenu = YES;
             [self performSelector:@selector(deferredSpeakLargest:) withObject:nil afterDelay:2];
