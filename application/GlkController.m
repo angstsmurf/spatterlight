@@ -3732,18 +3732,62 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (NSAccessibilityCustomRotorItemResult *)glkWindowRotor:(NSAccessibilityCustomRotor *)rotor
-                     resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
-
+                               resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
     NSAccessibilityCustomRotorItemResult *searchResult = nil;
 
     NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
     NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
+    NSString *filterText = searchParameters.filterString;
 
-    NSArray *children = _gwindows.allValues;
+    NSMutableArray *children = [[NSMutableArray alloc] init];
+    NSMutableArray *strings = [[NSMutableArray alloc] init];
+
+    NSArray *allWindows = _gwindows.allValues;
+    allWindows = [allWindows sortedArrayUsingComparator:
+                  ^NSComparisonResult(id obj1, id obj2){
+        CGFloat y1 = ((NSView *)obj1).frame.origin.y;
+        CGFloat y2 = ((NSView *)obj2).frame.origin.y;
+        if (y1 > y2) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if (y1 < y2) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+
+    for (GlkWindow *win in allWindows) {
+        if (![win isKindOfClass:[GlkGraphicsWindow class]]) {
+            GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)win;
+            NSTextView *textview = bufWin.textview;
+            NSString *string = textview.string;
+            if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+                if (bufWin.moveRanges.count) {
+                    NSRange range = ((NSValue *)bufWin.moveRanges.lastObject).rangeValue;
+                    string = [string substringFromIndex:range.location];
+                }
+            }
+            NSString *kindString;
+            if ([win isKindOfClass:[GlkTextGridWindow class]]) {
+                kindString = @"Grid";
+            } else {
+                kindString = @"Buffer";
+            }
+
+            string = [NSString stringWithFormat:@"%@ text window%@%@", kindString, (string.length) ? @": " : @"", string];
+
+            NSLog(@"String: %@", string);
+
+            if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
+                [children addObject:textview];
+                [strings addObject:string.copy];
+            }
+        }
+    }
 
     NSUInteger currentItemIndex = [children indexOfObject:currentItemResult.targetElement];
 
-     if (currentItemIndex == NSNotFound) {
+    if (currentItemIndex == NSNotFound) {
         // Find the start or end element.
         if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
             currentItemIndex = 0;
@@ -3772,26 +3816,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     GlkWindow *targetWindow = children[currentItemIndex];
 
-    NSLog (@"targetWindow = %@", targetWindow);
-
     if (targetWindow) {
         searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement: targetWindow];
-        NSString *contentString = @"";
-        if (![targetWindow isKindOfClass:[GlkGraphicsWindow class]] && ((GlkTextBufferWindow *)targetWindow).textview) {
-            contentString = ((GlkTextBufferWindow *)targetWindow).textview.string.copy;
-            if (contentString.length > 80)
-                contentString = [contentString substringToIndex:79];
-        }
-        NSString *kindString;
-        if ([targetWindow isKindOfClass:[GlkGraphicsWindow class]]) {
-            kindString = @"Graphics";
-        } else if ([targetWindow isKindOfClass:[GlkTextGridWindow class]]) {
-            kindString = @"Grid text";
-        } else {
-            kindString = @"Buffer text";
-
-        }
-        searchResult.customLabel = [NSString stringWithFormat:@"%@ window%@%@", kindString, (contentString.length) ? @": " : @"", contentString];
+        searchResult.customLabel = strings[currentItemIndex];
     }
 
     return searchResult;
@@ -3805,11 +3832,30 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
     NSRange currentRange = searchParameters.currentItem.targetRange;
 
+    NSString *filterText = searchParameters.filterString;
+
     GlkTextBufferWindow *largest = [self largestWithMoves];
     if (!largest)
         return nil;
 
-    NSArray *children =  [[largest.moveRanges reverseObjectEnumerator] allObjects];
+    NSArray *children = [[largest.moveRanges reverseObjectEnumerator] allObjects];
+
+    if (children.count > 50)
+        children = [children subarrayWithRange:NSMakeRange(0, 50)];
+    NSMutableArray *strings = [[NSMutableArray alloc] initWithCapacity:children.count];
+    NSMutableArray *mutableChildren = [[NSMutableArray alloc] initWithCapacity:children.count];
+
+    for (NSValue *child in children) {
+        NSRange range = child.rangeValue;
+        NSString *string = [largest.textview.string substringWithRange:range];
+
+        if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
+            [strings addObject:string];
+            [mutableChildren addObject:child];
+        }
+    }
+
+    children = mutableChildren;
 
     NSUInteger currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
 
@@ -3820,9 +3866,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
             currentItemIndex = children.count - 1;
         }
-        NSLog(@"found no currentRange in children, setting it to %ld", currentItemIndex);
     } else {
-        NSLog(@"found currentRange at index %ld", currentItemIndex);
         if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
             if (currentItemIndex == 0) {
                 currentItemIndex = NSNotFound;
@@ -3849,7 +3893,12 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:largest.textview];
         searchResult.targetRange = textRange;
         // By adding a custom label, all ranges are reliably listed in the rotor
-        searchResult.customLabel = [largest.textview.string substringWithRange:textRange];
+        NSString *charSetString = @"\u00A0 >\n";
+        NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
+        NSString *string = strings[currentItemIndex];
+        string = [string stringByTrimmingCharactersInSet:charset];
+
+        searchResult.customLabel = string;
     }
 
     return searchResult;
