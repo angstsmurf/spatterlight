@@ -1320,7 +1320,7 @@
 }
 
 - (void)terpDidStop {
-    [_textview setEditable:NO];
+    _textview.editable = NO;
     [self grabFocus];
 }
 
@@ -1809,7 +1809,7 @@
         [self.glkctl queueEvent:gev];
 
         char_request = NO;
-        [_textview setEditable:NO];
+        _textview.editable = NO;
 
     } else if (line_request && (ch == keycode_Return ||
                                 [self.currentTerminators[key] isEqual:@(YES)])) {
@@ -1878,7 +1878,7 @@
     fence = textstorage.length;
     line_request = NO;
     [self hideInsertionPoint];
-    [_textview setEditable:NO];
+    _textview.editable = NO;
 }
 
 - (void)initChar {
@@ -1894,7 +1894,7 @@
     // NSLog(@"cancel char in %d", name);
 
     char_request = NO;
-    [_textview setEditable:NO];
+    _textview.editable = NO;
 }
 
 - (void)initLine:(NSString *)str maxLength:(NSUInteger)maxLength
@@ -1957,7 +1957,7 @@
                                         textstorage.length -
                                             fence)]; // Don't echo input line
 
-    [_textview setEditable:NO];
+    _textview.editable = NO;
     line_request = NO;
     [self hideInsertionPoint];
     return str;
@@ -2382,7 +2382,7 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
     [self.glkctl queueEvent:gev];
 
     hyper_request = NO;
-    [_textview setEditable:NO];
+    _textview.editable = NO;
     [self colderLightHack];
     return YES;
 }
