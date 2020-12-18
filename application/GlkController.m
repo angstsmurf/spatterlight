@@ -772,6 +772,12 @@ fprintf(stderr, "%s\n",                                                    \
     [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
+    if (_voiceOverActive) {
+        GlkTextBufferWindow *largest = [self largestWithMoves];
+        if (largest) {
+            [largest performSelector:@selector(deferredSpeakMostRecent:) withObject:nil afterDelay:2];
+        }
+    }
 }
 
 - (NSString *)appSupportDir {
@@ -3319,101 +3325,25 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 #pragma mark Accessibility
 
+- (BOOL)isAccessibilityElement {
+   return NO;
+}
+
 - (void)noteAccessibilityStatusChanged:(NSNotification *)notify {
     if(@available(macOS 10.13, *)) {
         NSWorkspace * ws = [NSWorkspace sharedWorkspace];
         _voiceOverActive = ws.voiceOverEnabled;
         if (_voiceOverActive) {
             _shouldCheckForMenu = YES;
+            [self performSelector:@selector(deferredSpeakLargest:) withObject:nil afterDelay:2];
         }
     }
 }
 
-- (NSString *)accessibilityActionDescription:(NSString *)action {
-    return [self.window accessibilityActionDescription:action];
+- (void)deferredSpeakLargest:(id)sender {
+    [self speakLargest:_gwindows.allValues];
 }
 
-- (NSArray *)accessibilityActionNames {
-    return [self.window accessibilityActionNames];
-}
-
-- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
-    return [self.window accessibilityIsAttributeSettable:attribute];
-}
-
-- (void)accessibilityPerformAction:(NSString *)action {
-    [self.window accessibilityPerformAction:action];
-}
-
-- (void)accessibilitySetValue:(id)value forAttribute:(NSString *)attribute {
-    [self.window accessibilitySetValue:value forAttribute:attribute];
-}
-
-- (NSArray *)accessibilityAttributeNames {
-    NSMutableArray *result =
-    [[self.window accessibilityAttributeNames] mutableCopy];
-    if (!result)
-        result = [[NSMutableArray alloc] init];
-
-    [result addObjectsFromArray:@[ NSAccessibilityContentsAttribute, NSAccessibilityChildrenAttribute,
-                                   NSAccessibilityHelpAttribute, NSAccessibilityDescriptionAttribute,
-                                   NSAccessibilityTitleAttribute, NSAccessibilityFocusedUIElementAttribute ]];
-    return result;
-}
-
-- (id)accessibilityFocusedUIElement {
-    NSResponder *firstResponder = self.window.firstResponder;
-
-    if (firstResponder == nil)
-        return self;
-
-    if ([firstResponder isKindOfClass:[NSView class]]) {
-        NSView *windowView = (NSView *)firstResponder;
-
-        while (windowView != nil) {
-            if ([windowView isKindOfClass:[GlkWindow class]]) {
-                return windowView;
-            }
-
-            windowView = windowView.superview;
-        }
-    }
-
-    return super.accessibilityFocusedUIElement;
-}
-
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-    if ([attribute isEqualToString:NSAccessibilityChildrenAttribute] ||
-        [attribute isEqualToString:NSAccessibilityContentsAttribute]) {
-        // return [NSArray arrayWithObjects:gwindows count:MAXWIN];
-        // return [NSArray arrayWithObject: rootWindow];
-    } else if ([attribute
-                isEqualToString:NSAccessibilityFocusedUIElementAttribute]) {
-        return self.accessibilityFocusedUIElement;
-    } else if ([attribute isEqualToString:NSAccessibilityHelpAttribute] ||
-               [attribute
-                isEqualToString:NSAccessibilityDescriptionAttribute]) {
-                   NSString *description = @"an interactive fiction game";
-                   return [NSString stringWithFormat:@"%@ %@",
-                           (!dead) ? @"Running" : @"Finished",
-                           description];
-               } else if ([attribute
-                           isEqualToString:NSAccessibilityRoleDescriptionAttribute]) {
-                   return @"GLK view";
-               } else if ([attribute isEqualToString:NSAccessibilityRoleAttribute]) {
-                   return NSAccessibilityGroupRole;
-               } else if ([attribute isEqualToString:NSAccessibilityParentAttribute]) {
-                   return self.window;
-               }
-
-    NSLog(@"%@", attribute);
-
-    return [super accessibilityAttributeValue:attribute];
-}
-
-- (BOOL)accessibilityIsIgnored {
-    return NO;
-}
 
 #pragma mark ZMenu
 
@@ -3468,8 +3398,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)speakLargest:(NSArray *)array {
-    NSLog(@"speakLargest: %ld windows", array.count);
-
     if (_zmenu || !_voiceOverActive) {
         return;
     }
@@ -3496,7 +3424,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 #pragma mark Speak previous moves
 
 - (IBAction)speakMostRecent:(id)sender {
-    NSLog(@"GlkController: speakMostRecent");
+//    NSLog(@"GlkController: speakMostRecent");
     GlkTextBufferWindow *mainWindow = [self largestWithMoves];
     if (!mainWindow) {
         [self speakString:@"No last move to speak!"];
@@ -3506,7 +3434,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (IBAction)speakPrevious:(id)sender {
-    NSLog(@"GlkController: speakPrevious");
+//    NSLog(@"GlkController: speakPrevious");
     GlkTextBufferWindow *mainWindow = [self largestWithMoves];
     if (!mainWindow) {
         [self speakString:@"No previous move to speak!"];
@@ -3516,7 +3444,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (IBAction)speakNext:(id)sender {
-    NSLog(@"GlkController: speakNext");
+//    NSLog(@"GlkController: speakNext");
     GlkTextBufferWindow *mainWindow = [self largestWithMoves];
     if (!mainWindow) {
         [self speakString:@"No next move to speak!"];

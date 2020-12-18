@@ -8,7 +8,7 @@
 #include "glk.h"
 
 #import "GlkEvent.h"
-#import "GlkTextBufferWindow.h"
+#import "GlkTextGridWindow.h"
 
 #import "InputTextField.h"
 
@@ -80,7 +80,7 @@
     if (_fieldEditor == nil) {
         _fieldEditor = [[MyFieldEditor alloc] init];
         _fieldEditor.fieldEditor = YES;
-        _fieldEditor.accessibilityLabel = NSLocalizedString(@"field editor", nil);
+        _fieldEditor.accessibilityLabel = NSLocalizedString(@"input", nil);
     }
     return _fieldEditor;
 }
@@ -95,16 +95,21 @@
         // But let's be paranoid, better show an invisible black-on-black cursor
         // than crash.
         MyFieldEditor* textField = (MyFieldEditor *)[self currentEditor];
+        GlkTextGridWindow *gridWin = (GlkTextGridWindow *)self.delegate;
+        textField.accessibilityParent = gridWin.textview;
+
         textField.delegate = self;
         if( [textField respondsToSelector: @selector(setInsertionPointColor:)] )
             [textField setInsertionPointColor:self.textColor];
-        textField.selectedRange = NSMakeRange(textField.string.length,0);
+        NSRange newRange = NSMakeRange(textField.string.length,0);
+        if (!NSEqualRanges(newRange, textField.selectedRange))
+            textField.selectedRange = newRange;
     }
     return success;
 }
 
 - (BOOL)isAccessibilityElement {
-    return YES;
+    return NO;
 }
 
 @end

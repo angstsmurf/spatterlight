@@ -45,6 +45,23 @@
         [super mouseDown:theEvent];
 }
 
+- (NSArray *)accessibilityCustomRotors  {
+   return [((GlkTextGridWindow *)self.delegate).glkctl createCustomRotors];
+}
+
+ - (NSArray *)accessibilityChildren {
+    NSArray *children = [super accessibilityChildren];
+    InputTextField *input = ((GlkTextGridWindow *)self.delegate).input;
+    if (input) {
+        MyFieldEditor *fieldEditor = (((GlkTextGridWindow *)self.delegate).input.fieldEditor);
+        if (fieldEditor) {
+            if ([children indexOfObject:fieldEditor] == NSNotFound)
+                children = [children arrayByAddingObject:fieldEditor];
+        }
+    }
+    return children;
+}
+
 @end
 
 
@@ -88,6 +105,7 @@
         scrollview.verticalScrollElasticity = NSScrollElasticityNone;
         scrollview.borderType = NSNoBorder;
         scrollview.drawsBackground = NO;
+        scrollview.accessibilityElement = NO;
 
         textstorage = [[NSTextStorage alloc] init];
         _bufferTextStorage = [[NSMutableAttributedString alloc] init];
@@ -1534,49 +1552,8 @@
 
 #pragma mark Accessibility
 
-- (NSArray *)accessibilityAttributeNames {
-    NSMutableArray *result = [[super accessibilityAttributeNames] mutableCopy];
-    if (!result)
-        result = [[NSMutableArray alloc] init];
-
-    [result addObjectsFromArray:@[ NSAccessibilityContentsAttribute ]];
-
-    //    NSLog(@"GlkTextGridWindow: accessibilityAttributeNames: %@ ", result);
-
-    return result;
-}
-
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-    NSResponder *firstResponder = self.window.firstResponder;
-    // NSLog(@"GlkTextGridWindow: accessibilityAttributeValue: %@",attribute);
-    if ([attribute isEqualToString:NSAccessibilityContentsAttribute]) {
-        return _textview;
-    } else if ([attribute
-                isEqualToString:NSAccessibilityRoleDescriptionAttribute]) {
-        return [NSString
-                stringWithFormat:
-                @"Status window%@%@%@. %@",
-                line_request ? @", waiting for commands" : @"",
-                char_request ? @", waiting for a key press" : @"",
-                hyper_request ? @", waiting for a hyperlink click" : @"",
-                [_textview
-                 accessibilityAttributeValue:NSAccessibilityValueAttribute]];
-    } else if ([attribute isEqualToString:NSAccessibilityFocusedAttribute]) {
-        // return (id)NO;
-        return [NSNumber numberWithBool:firstResponder == self ||
-                firstResponder == _textview];
-    } else if ([attribute
-                isEqualToString:NSAccessibilityFocusedUIElementAttribute]) {
-        return self.accessibilityFocusedUIElement;
-    } else if ([attribute isEqualToString:NSAccessibilityChildrenAttribute]) {
-        return @[ _textview ];
-    }
-
-    return [super accessibilityAttributeValue:attribute];
-}
-
-- (id)accessibilityFocusedUIElement {
-    return _textview;
+- (BOOL)isAccessibilityElement {
+    return NO;
 }
 
 - (void)speakStatus {
@@ -1599,6 +1576,10 @@
 
 - (void)speakMostRecent {
     [self speakStatus];
+}
+
+- (void)deferredSpeakMostRecent:(id)sender {
+    [self speakMostRecent];
 }
 
 - (NSArray *)links {

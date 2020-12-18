@@ -828,69 +828,8 @@
 
 #pragma mark Accessibility
 
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-    // NSLog(@"MyTextView: accessibilityAttributeValue: %@",attribute);
-
-    NSResponder *firstResponder = self.window.firstResponder;
-
-    if ([attribute isEqualToString:NSAccessibilityValueAttribute]) {
-        NSString *selectedText = nil;
-
-        if (self.selectedRanges)
-            selectedText = [self.textStorage.string
-                substringWithRange:((NSValue *)(self.selectedRanges)[0])
-                                       .rangeValue];
-
-        return (selectedText && selectedText.length)
-                   ? selectedText
-                   : [self.textStorage.string
-                         substringWithRange:
-                             ((NSValue *)[super
-                                  accessibilityAttributeValue:
-                                      NSAccessibilityVisibleCharacterRangeAttribute])
-                                 .rangeValue];
-    } else if ([attribute isEqualToString:NSAccessibilityFocusedAttribute])
-        return
-            [NSNumber numberWithBool:firstResponder == self ||
-                                     firstResponder ==
-                                         (GlkTextBufferWindow *)self.delegate];
-
-    // NSLog (@"Result: %@",[super accessibilityAttributeValue:attribute]);
-    return [super accessibilityAttributeValue:attribute];
-}
-
-- (id)accessibilityAttributeValue:(NSString *)attribute
-                     forParameter:(id)parameter {
-    // NSLog(@"MyTextView: accessibilityAttributeValue: %@ forParameter:
-    // %@",attribute, parameter);
-
-    if ([attribute isEqualToString:
-                       NSAccessibilityRangeForLineParameterizedAttribute]) {
-        NSLayoutManager *layoutManager = self.layoutManager;
-        unsigned numberOfLines, index;
-        unsigned numberOfGlyphs = [layoutManager numberOfGlyphs];
-        NSRange lineRange;
-
-        for (numberOfLines = 0, index = 0; index < numberOfGlyphs;
-             numberOfLines++) {
-            (void)[layoutManager lineFragmentRectForGlyphAtIndex:index
-                                                  effectiveRange:&lineRange];
-
-            if (((NSNumber *)(parameter)).intValue ==
-                (NSInteger)numberOfLines) {
-                // NSLog(@"Result: %@ (%@)",NSStringFromRange(lineRange),
-                // [self.textStorage.string substringWithRange:lineRange]);
-                return [NSValue valueWithRange:lineRange];
-            }
-
-            index = NSMaxRange(lineRange);
-        }
-        return nil;
-    }
-
-    // NSLog(@"Result: %@",[super accessibilityAttributeValue:attribute
-    // forParameter:parameter]);
-    return [super accessibilityAttributeValue:attribute forParameter:parameter];
+- (BOOL)isAccessibilityElement {
+    return YES;
 }
 
 - (NSString *)accessibilityActionDescription:(NSString *)action {
@@ -1050,6 +989,8 @@
         _textview.linkTextAttributes = linkAttributes;
 
         [_textview enableCaret:nil];
+
+        scrollview.accessibilityLabel = @"buffer scroll view";
 
         [self addSubview:scrollview];
     }
@@ -2105,10 +2046,8 @@ replacementString:(id)repl {
                          range:textstorage.editedRange];
 }
 
-- (NSRange)textView:(NSTextView *)aTextView
-willChangeSelectionFromCharacterRange:(NSRange)oldrange
+- (NSRange)textView:(NSTextView *)aTextView willChangeSelectionFromCharacterRange:(NSRange)oldrange
    toCharacterRange:(NSRange)newrange {
-           NSLog(@"willChangeSelectionFromCharacterRange: %@ toCharacterRange: %@", NSStringFromRange(oldrange), NSStringFromRange(newrange));
     if (line_request) {
         if (newrange.length == 0)
             if (newrange.location < fence)
@@ -2905,95 +2844,14 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
         NSAccessibilityPostNotificationWithUserInfo(
                                                 mainWin,
                                                 NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+        NSLog(@"GlkTextBufferWindow %ld: speakString: \"%@\"", self.name, string);
     }
 }
 
 #pragma mark Accessibility
 
-- (NSString *)accessibilityActionDescription:(NSString *)action {
-    if ([action isEqualToString:@"Repeat last move"])
-        return @"Read the output of the last command entered";
-    if ([action isEqualToString:@"Speak move before"])
-        return @"Read the output of the command before the last one read";
-    if ([action isEqualToString:@"Speak move after"])
-        return @"Read the output of the command after the last one read";
-    if ([action isEqualToString:@"Speak status bar"])
-        return @"Read the text of the status bar";
-
-    return [super accessibilityActionDescription:action];
-}
-
-- (NSArray *)accessibilityActionNames {
-    NSMutableArray *result = [[super accessibilityActionNames] mutableCopy];
-
-    [result addObjectsFromArray:@[
-        @"Repeat last move", @"Speak move before", @"Speak move after",
-        @"Speak status bar"
-    ]];
-
-    return result;
-}
-
-- (void)accessibilityPerformAction:(NSString *)action {
-    // NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@",action);
-
-    if ([action isEqualToString:@"Repeat last move"])
-        [self.glkctl speakMostRecent:nil];
-    else if ([action isEqualToString:@"Speak move before"])
-        [self.glkctl speakPrevious:nil];
-    else if ([action isEqualToString:@"Speak move after"])
-        [self.glkctl speakNext:nil];
-    else if ([action isEqualToString:@"Speak status bar"])
-        [self.glkctl speakStatus:nil];
-    else
-        [super accessibilityPerformAction:action];
-}
-
-- (NSArray *)accessibilityAttributeNames {
-
-    NSMutableArray *result = [[super accessibilityAttributeNames] mutableCopy];
-    if (!result)
-        result = [[NSMutableArray alloc] init];
-
-    [result addObjectsFromArray:@[ NSAccessibilityContentsAttribute ]];
-
-    // NSLog(@"GlkTextBufferWindow: accessibilityAttributeNames: %@ ", result);
-    return result;
-}
-
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-    NSResponder *firstResponder = self.window.firstResponder;
-    // NSLog(@"GlkTextBufferWindow: accessibilityAttributeValue: %@",attribute);
-    if ([attribute isEqualToString:NSAccessibilityRoleAttribute]) {
-        return NSAccessibilityUnknownRole;
-    }
-
-    if ([attribute isEqualToString:NSAccessibilityContentsAttribute]) {
-        return _textview;
-    } else if ([attribute
-                   isEqualToString:NSAccessibilityRoleDescriptionAttribute]) {
-        return [NSString
-            stringWithFormat:
-                @"Text window%@%@%@. %@",
-                line_request ? @", waiting for commands" : @"",
-                char_request ? @", waiting for a key press" : @"",
-                hyper_request ? @", waiting for a hyperlink click" : @"",
-                [_textview
-                    accessibilityAttributeValue:NSAccessibilityValueAttribute]];
-    } else if ([attribute isEqualToString:NSAccessibilityFocusedAttribute]) {
-        return [NSNumber numberWithBool:firstResponder == self ||
-                                        firstResponder == _textview];
-    } else if ([attribute
-                   isEqualToString:NSAccessibilityFocusedUIElementAttribute]) {
-        return self.accessibilityFocusedUIElement;
-    } else if ([attribute isEqualToString:NSAccessibilityChildrenAttribute]) {
-        return @[ _textview ];
-    }
-    return [super accessibilityAttributeValue:attribute];
-}
-
-- (id)accessibilityFocusedUIElement {
-    return _textview;
+- (BOOL)isAccessibilityElement {
+    return NO;
 }
 
 - (NSArray *)links {
@@ -3001,6 +2859,14 @@ willChangeSelectionFromCharacterRange:(NSRange)oldrange
    if (_moveRanges.count < 2)
        return [self linksInRange:allText];
     NSMutableArray *links = [[NSMutableArray alloc] init];
+
+    // Make sure that no text after last moveRange slips through
+     NSRange lastMoveRange = ((NSValue *)_moveRanges.lastObject).rangeValue;
+     NSRange stubRange = NSMakeRange(NSMaxRange(lastMoveRange), textstorage.length);
+     stubRange = NSIntersectionRange(allText, stubRange);
+     if (stubRange.length) {
+         [links addObjectsFromArray:[self linksInRange:stubRange]];
+     }
 
     for (NSValue *rangeVal in [_moveRanges reverseObjectEnumerator])
     {
