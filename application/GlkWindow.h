@@ -2,7 +2,7 @@
 
 struct fillrect;
 
-@interface GlkWindow : NSView {
+@interface GlkWindow : NSView <NSSecureCoding> {
 
     ZColor *currentZColor;
 

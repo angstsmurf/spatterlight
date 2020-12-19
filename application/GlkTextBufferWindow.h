@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 @interface GlkTextBufferWindow
-    : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate> {
+    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate> {
     NSScrollView *scrollview;
     NSLayoutManager *layoutmanager;
     MarginContainer *container;

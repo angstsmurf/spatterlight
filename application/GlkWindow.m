@@ -13,6 +13,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 @implementation GlkWindow
 
++ (BOOL) supportsSecureCoding {
+     return YES;
+ }
+
 - (instancetype)initWithGlkController:(GlkController *)glkctl_
                                  name:(NSInteger)name {
     self = [super initWithFrame:NSZeroRect];
@@ -68,18 +72,17 @@ fprintf(stderr, "%s\n",                                                    \
     if (self) {
         _name = [decoder decodeIntegerForKey:@"name"];
         _currentHyperlink = [decoder decodeIntegerForKey:@"currentHyperlink"];
-        _currentTerminators = [decoder decodeObjectForKey:@"currentTerminators"];
-        _pendingTerminators =
-            [decoder decodeObjectForKey:@"pendingTerminators"];
+        _currentTerminators = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"currentTerminators"];
+        _pendingTerminators = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"pendingTerminators"];
         _terminatorsPending = [decoder decodeBoolForKey:@"terminatorsPending"];
         char_request = [decoder decodeBoolForKey:@"char_request"];
-        _styleHints = [decoder decodeObjectForKey:@"styleHints"];
-        styles = [decoder decodeObjectForKey:@"styles"];
-        currentZColor = [decoder decodeObjectForKey:@"currentZColor"];
+        _styleHints = [decoder decodeObjectOfClass:[NSArray class] forKey:@"styleHints"];
+        styles = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"styles"];
+        currentZColor =  [decoder decodeObjectOfClass:[ZColor class] forKey:@"currentZColor"];
         _currentReverseVideo = [decoder decodeBoolForKey:@"currentReverseVideo"];
         bgnd = [decoder decodeIntegerForKey:@"bgnd"];
         _framePending = [decoder decodeBoolForKey:@"framePending"];
-        _pendingFrame = ((NSValue *)[decoder decodeObjectForKey:@"pendingFrame"]).rectValue;
+        _pendingFrame = ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"pendingFrame"]).rectValue;
     }
     return self;
 }

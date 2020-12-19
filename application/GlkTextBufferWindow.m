@@ -901,6 +901,10 @@
 
 @implementation GlkTextBufferWindow
 
++ (BOOL) supportsSecureCoding {
+     return YES;
+ }
+
 - (id)initWithGlkController:(GlkController *)glkctl_ name:(NSInteger)name_ {
 
     self = [super initWithGlkController:glkctl_ name:name_];
@@ -1018,7 +1022,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        _textview = [decoder decodeObjectForKey:@"textview"];
+        _textview = [decoder decodeObjectOfClass:[MyTextView class] forKey:@"textview"];
         layoutmanager = _textview.layoutManager;
         textstorage = _textview.textStorage;
         container = (MarginContainer *)_textview.textContainer;
@@ -1050,14 +1054,14 @@
 
         fence = (NSUInteger)[decoder decodeIntegerForKey:@"fence"];
 
-        history = [decoder decodeObjectForKey:@"history"];
+        history = [decoder decodeObjectOfClass:[InputHistory class] forKey:@"history"];
         _printPositionOnInput = (NSUInteger)[decoder decodeIntegerForKey:@"printPositionOnInput"];
-        _moveRanges = [decoder decodeObjectForKey:@"_moveRanges"];
+        _moveRanges = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"_moveRanges"];
         moveRangeIndex = (NSUInteger)[decoder decodeIntegerForKey:@"moveRangeIndex"];
         _lastchar = [decoder decodeIntegerForKey:@"lastchar"];
         _lastseen = [decoder decodeIntegerForKey:@"lastseen"];
         _restoredSelection =
-            ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"])
+        ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"selectedRange"])
                 .rangeValue;
         _textview.selectedRange = _restoredSelection;
 
@@ -1067,21 +1071,21 @@
         _restoredScrollOffset = [decoder decodeDoubleForKey:@"scrollOffset"];
 
         _textview.insertionPointColor =
-            [decoder decodeObjectForKey:@"insertionPointColor"];
+        [decoder decodeObjectOfClass:[NSColor class] forKey:@"insertionPointColor"];
         _textview.shouldDrawCaret =
             [decoder decodeBoolForKey:@"shouldDrawCaret"];
-        _restoredSearch = [decoder decodeObjectForKey:@"searchString"];
+        _restoredSearch = [decoder decodeObjectOfClass:[NSString class] forKey:@"searchString"];
         _restoredFindBarVisible = [decoder decodeBoolForKey:@"findBarVisible"];
-        storedNewline = [decoder decodeObjectForKey:@"storedNewline"];
+        storedNewline = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"storedNewline"];
 
         _usingStyles = [decoder decodeBoolForKey:@"usingStyles"];
         _pendingScroll = [decoder decodeBoolForKey:@"pendingScroll"];
         _pendingClear = [decoder decodeBoolForKey:@"pendingClear"];
-        _pendingScrollRestore = NO; //[decoder decodeBoolForKey:@"pendingScrollRestore"];
+        _pendingScrollRestore = NO;
 
-        bufferTextstorage = [decoder decodeObjectForKey:@"bufferTextstorage"];
+        bufferTextstorage = [decoder decodeObjectOfClass:[NSMutableAttributedString class] forKey:@"bufferTextstorage"];
 
-        _restoredInput = [decoder decodeObjectForKey:@"inputString"];
+        _restoredInput = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"inputString"];
 
         [self destroyTextFinder];
     }
