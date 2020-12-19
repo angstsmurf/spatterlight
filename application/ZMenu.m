@@ -495,21 +495,6 @@
                 NSRange keyRange = [match rangeAtIndex:2];
                 NSString *key = [string substringWithRange:keyRange];
                 NSString *value = [string substringWithRange:valueRange];
-                // Remove brackets in result
-                // First the entire word "Enter] "
-                // It might be overkill to use a regex here,
-                // and it would be faster to do this right before speaking.
-                NSRegularExpression *noBrackets =
-                [NSRegularExpression regularExpressionWithPattern:@"\\w+]\\s"
-                                                          options:0
-                                                            error:&error];
-                value =
-                [noBrackets stringByReplacingMatchesInString:value
-                                                     options:0
-                                                       range:NSMakeRange(0, value.length)
-                                                withTemplate:@""];
-                //Then any brackets in things like "N]ext"
-                value = [value stringByReplacingOccurrencesOfString:@"]" withString:@""];
 
                 if (key.length) {
                     menuDict[key] = value;
@@ -534,7 +519,6 @@
                         while ([self rangeIsEmpty:_lines.firstObject inString:string] && _lines.count)
                             [_lines removeObjectAtIndex:0];
                     }
-
                 }
                 break;
             }
@@ -696,7 +680,27 @@
         string = [string stringByAppendingString:@"\n"];
     } else {
         for (NSString *key in _menuKeys) {
-            NSString *command = [NSString stringWithFormat:@"%@: \"%@\".\n", ((NSString *)_menuCommands[key]).capitalizedString, key];
+
+            // Remove brackets in result
+            // First the entire word "Enter] "
+            // It might be overkill to use a regex here,
+            NSString *valueString = (NSString *)_menuCommands[key];
+            NSError *error;
+            NSRegularExpression *noBrackets =
+            [NSRegularExpression regularExpressionWithPattern:@"\\w+]\\s"
+                                                      options:0
+                                                        error:&error];
+            valueString =
+            [noBrackets stringByReplacingMatchesInString:valueString
+                                                 options:0
+                                                   range:NSMakeRange(0, valueString.length)
+                                            withTemplate:@""];
+            //Then any brackets in things like "N]ext"
+            valueString = [valueString stringByReplacingOccurrencesOfString:@"]" withString:@""];
+
+            valueString = valueString.capitalizedString;
+
+            NSString *command = [NSString stringWithFormat:@"%@: \"%@\".\n", valueString, key];
             string = [string stringByAppendingString:command];
         }
     }
