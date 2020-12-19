@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 // I suppose this is necessary to get rid of that ugly Markup menu on attached
 // images.
 
-@interface MyAttachmentCell : NSTextAttachmentCell {
+@interface MyAttachmentCell : NSTextAttachmentCell <NSSecureCoding> {
     NSInteger align;
     NSUInteger pos;
 }
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MyTextView : NSTextView <NSTextFinderClient> {
+@interface MyTextView : NSTextView <NSTextFinderClient, NSSecureCoding> {
     NSTextFinder *_textFinder;
 }
 
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
  * the text flowing around them.
  */
 
-@interface MarginContainer : NSTextContainer {
+@interface MarginContainer : NSTextContainer <NSSecureCoding> {
     NSMutableArray *flowbreaks;
 }
 

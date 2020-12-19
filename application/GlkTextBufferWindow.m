@@ -28,6 +28,10 @@
 
 @implementation MyAttachmentCell
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)analignment
                     andAttStr:(NSAttributedString *)anattrstr
@@ -45,7 +49,7 @@
     self = [super initWithCoder:decoder];
     if (self) {
         align = [decoder decodeIntegerForKey:@"align"];
-        _attrstr = [decoder decodeObjectForKey:@"attstr"];
+        _attrstr = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"attstr"];
         pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
     }
     return self;
@@ -87,7 +91,7 @@
 
 @end
 
-@interface FlowBreak : NSObject {
+@interface FlowBreak : NSObject <NSSecureCoding> {
     BOOL recalc;
 }
 
@@ -100,6 +104,10 @@
 @end
 
 @implementation FlowBreak
+
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
 
 - (instancetype)init {
     return [self initWithPos:0];
@@ -168,7 +176,7 @@
  * with the text flowing around them like in HTML.
  */
 
-@interface MarginImage : NSObject {
+@interface MarginImage : NSObject <NSSecureCoding> {
     BOOL recalc;
 }
 
@@ -190,6 +198,10 @@
 @end
 
 @implementation MarginImage
+
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
 
 - (instancetype)init {
     return [self
@@ -220,7 +232,7 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
-    _image = [decoder decodeObjectForKey:@"image"];
+    _image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
     _alignment = [decoder decodeIntegerForKey:@"alignment"];
     _bounds = [decoder decodeRectForKey:@"bounds"];
     _linkid = (NSUInteger)[decoder decodeIntegerForKey:@"linkid"];
@@ -303,6 +315,10 @@
 
 @implementation MarginContainer
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 - (id)initWithContainerSize:(NSSize)size {
     self = [super initWithContainerSize:size];
 
@@ -315,10 +331,10 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        _marginImages = [decoder decodeObjectForKey:@"marginImages"];
+        _marginImages = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"marginImages"];
         for (MarginImage *img in _marginImages)
             img.container = self;
-        flowbreaks = [decoder decodeObjectForKey:@"flowbreaks"];
+        flowbreaks = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"flowbreaks"];
     }
 
     return self;
@@ -686,6 +702,10 @@
  */
 
 @implementation MyTextView
+
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];

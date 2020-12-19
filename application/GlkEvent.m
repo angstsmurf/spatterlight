@@ -7,12 +7,16 @@
 
 @implementation GlkEvent
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     _type = [decoder decodeIntegerForKey:@"type"];
     win = [decoder decodeIntegerForKey:@"win"];
     _val1 = [decoder decodeIntegerForKey:@"val1"];
     _val2 = [decoder decodeIntegerForKey:@"val2"];
-    ln = [decoder decodeObjectForKey:@"ln"];
+    ln = [decoder decodeObjectOfClass:[NSString class] forKey:@"ln"];
     _forced = [decoder decodeBoolForKey:@"forced"];
     return self;
 }

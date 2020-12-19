@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InputHistory : NSObject {
+@interface InputHistory : NSObject <NSSecureCoding> {
     /* For command history */
     NSMutableArray *history;
     NSUInteger historypos, historyfirst, historypresent;

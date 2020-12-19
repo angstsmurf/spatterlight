@@ -22,7 +22,7 @@
 
 @end
 
-@interface GlkController : NSWindowController <NSAccessibilityCustomRotorItemSearchDelegate> {
+@interface GlkController : NSWindowController <NSSecureCoding, NSAccessibilityCustomRotorItemSearchDelegate> {
     /* for talking to the interpreter */
     NSTask *task;
     NSFileHandle *readfh;

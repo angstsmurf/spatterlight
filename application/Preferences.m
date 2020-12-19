@@ -1722,7 +1722,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
-    NSString *selectedfontString = [state decodeObjectForKey:@"selectedFont"];
+    NSString *selectedfontString = [state decodeObjectOfClass:[NSString class] forKey:@"selectedFont"];
     if (selectedfontString != nil) {
         NSArray *fontsButtons = @[btnBufferFont, btnGridFont, btnInputFont];
         for (NSButton *button in fontsButtons) {

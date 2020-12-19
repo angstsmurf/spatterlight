@@ -11,6 +11,10 @@
 
 @implementation InputHistory
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -22,7 +26,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-        history = [decoder decodeObjectForKey:@"history"];
+        history = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"history"];
         historypos = (NSUInteger)[decoder decodeIntegerForKey:@"historypos"];
         historyfirst = (NSUInteger)[decoder decodeIntegerForKey:@"historyfirst"];
         historypresent = (NSUInteger)[decoder decodeIntegerForKey:@"historypresent"];

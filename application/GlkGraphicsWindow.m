@@ -11,6 +11,10 @@
 
 @implementation GlkGraphicsWindow
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithGlkController:(GlkController *)glkctl_
                                  name:(NSInteger)name_ {
     self = [super initWithGlkController:glkctl_ name:name_];
@@ -29,7 +33,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        image = [decoder decodeObjectForKey:@"image"];
+        image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
         dirty = YES;
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];

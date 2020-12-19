@@ -73,6 +73,10 @@
 
 @implementation GlkTextGridWindow
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithGlkController:(GlkController *)glkctl_
                                  name:(NSInteger)name_ {
     self = [super initWithGlkController:glkctl_ name:name_];
@@ -168,7 +172,7 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        _textview = [decoder decodeObjectForKey:@"_textview"];
+        _textview = [decoder decodeObjectOfClass:[MyTextView class] forKey:@"_textview"];
 
         layoutmanager = _textview.layoutManager;
         textstorage = _textview.textStorage;
@@ -193,23 +197,23 @@
         xpos = (NSUInteger)[decoder decodeIntegerForKey:@"xpos"];
         ypos = (NSUInteger)[decoder decodeIntegerForKey:@"ypos"];
 
-        history = [decoder decodeObjectForKey:@"history"];
+        history = [decoder decodeObjectOfClass:[InputHistory class] forKey:@"history"];
 
         _selectedRow = (NSUInteger)[decoder decodeIntegerForKey:@"selectedRow"];
         _selectedCol = (NSUInteger)[decoder decodeIntegerForKey:@"selectedCol"];
-        _selectedString = [decoder decodeObjectForKey:@"selectedString"];
+        _selectedString = [decoder decodeObjectOfClass:[NSString class] forKey:@"selectedString"];
 
         dirty = YES;
         transparent = [decoder decodeBoolForKey:@"transparent"];
 
         _restoredSelection =
-        ((NSValue *)[decoder decodeObjectForKey:@"selectedRange"])
+        ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"selectedRange"])
         .rangeValue;
 
-        _pendingBackgroundCol = [decoder decodeObjectForKey:@"pendingBackgroundCol"];
-        _bufferTextStorage = [decoder decodeObjectForKey:@"bufferTextStorage"];
+        _pendingBackgroundCol = [decoder decodeObjectOfClass:[NSColor class] forKey:@"pendingBackgroundCol"];
+        _bufferTextStorage = [decoder decodeObjectOfClass:[NSMutableAttributedString class] forKey:@"bufferTextStorage"];
 
-        _enteredTextSoFar = [decoder decodeObjectForKey:@"inputString"];
+        _enteredTextSoFar = [decoder decodeObjectOfClass:[NSString class] forKey:@"inputString"];
         maxInputLength = (NSUInteger)[decoder decodeIntForKey:@"maxInputLength"];
     }
     return self;

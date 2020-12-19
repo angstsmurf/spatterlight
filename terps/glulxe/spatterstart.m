@@ -554,10 +554,10 @@ static void spatterglk_library_unarchive(TempLibrary *library, NSCoder *decoder)
             library_state.iosys_mode = [decoder decodeInt32ForKey:@"glulx_iosys_mode"];
             library_state.iosys_rock = [decoder decodeInt32ForKey:@"glulx_iosys_rock"];
             library_state.stringtable = [decoder decodeInt32ForKey:@"glulx_stringtable"];
-            library_state.accel_params = [decoder decodeObjectForKey:@"glulx_accel_params"];
-            library_state.accel_funcs = [decoder decodeObjectForKey:@"glulx_accel_funcs"];
+            library_state.accel_params = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_accel_params"];
+            library_state.accel_funcs = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_accel_funcs"];
             library_state.gamefiletag = [decoder decodeInt32ForKey:@"glulx_gamefiletag"];
-            library_state.id_map_list = [decoder decodeObjectForKey:@"glulx_id_map_list"];
+            library_state.id_map_list = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_id_map_list"];
             
             library.extraData = library_state;
         }

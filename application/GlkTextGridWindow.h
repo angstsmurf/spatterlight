@@ -9,7 +9,7 @@
 @end
 
 @interface GlkTextGridWindow
-    : GlkWindow <NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
+    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
     NSScrollView *scrollview;
     NSTextStorage *textstorage;
     NSLayoutManager *layoutmanager;

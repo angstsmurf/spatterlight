@@ -4,7 +4,7 @@
 
 unsigned chartokeycode(unsigned ch);
 
-@interface GlkEvent : NSObject {
+@interface GlkEvent : NSObject <NSSecureCoding> {
     NSInteger win;
     NSString *ln;
     Theme *theme;

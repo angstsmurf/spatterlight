@@ -17,7 +17,7 @@ extern void spatterglk_shut_down_process(void) GLK_ATTRIBUTE_NORETURN;
  (The reason it's not stored in a normal save file is that it's useless unless you serialize the entire Glk state along with the VM. Glulx normally doesn't do that, but for an iOS autosave, we do.)
  */
 
-@interface LibraryState : NSObject {}
+@interface LibraryState : NSObject
 
 - (instancetype) initWithLibrary:(TempLibrary*) library;
 
@@ -33,8 +33,7 @@ extern void spatterglk_shut_down_process(void) GLK_ATTRIBUTE_NORETURN;
 @end
 
 
-@interface GlkObjIdEntry  : NSObject {
-}
+@interface GlkObjIdEntry : NSObject
 
 - (id) initWithClass:(int)objclass tag:(glui32)tag id:(glui32)dispid;
 

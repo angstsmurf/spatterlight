@@ -125,6 +125,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 @implementation GlkController
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 /*
  * This is the real initializer.
  */
@@ -946,7 +950,7 @@ fprintf(stderr, "%s\n",                                                    \
         _hasAutoSaved = [decoder decodeBoolForKey:@"hasAutoSaved"];
         _autosaveTag =  [decoder decodeIntegerForKey:@"autosaveTag"];
 
-        _gwindows = [decoder decodeObjectForKey:@"gwindows"];
+        _gwindows = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gwindows"];
 
         _storedWindowFrame = [decoder decodeRectForKey:@"windowFrame"];
         _windowPreFullscreenFrame =
@@ -955,15 +959,15 @@ fprintf(stderr, "%s\n",                                                    \
         _storedContentFrame = [decoder decodeRectForKey:@"contentFrame"];
         _storedBorderFrame = [decoder decodeRectForKey:@"borderFrame"];
 
-        _bgcolor = [decoder decodeObjectForKey:@"backgroundColor"];
+        _bgcolor = [decoder decodeObjectOfClass:[NSColor class] forKey:@"backgroundColor"];
 
-        _bufferStyleHints = [decoder decodeObjectForKey:@"bufferStyleHints"];
-        _gridStyleHints = [decoder decodeObjectForKey:@"gridStyleHints"];
+        _bufferStyleHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"bufferStyleHints"];
+        _gridStyleHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"gridStyleHints"];
 
         lastimage = nil;
         lastimageresno = -1;
 
-        _queue = [decoder decodeObjectForKey:@"queue"];
+        _queue = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"queue"];
         _firstResponderView = [decoder decodeIntegerForKey:@"firstResponder"];
         _inFullscreen = [decoder decodeBoolForKey:@"fullscreen"];
 

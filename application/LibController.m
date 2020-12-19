@@ -2674,14 +2674,14 @@ canCollapseSubview:(NSView *)subview
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
-    NSString *searchText = [state decodeObjectForKey:@"searchText"];
+    NSString *searchText = [state decodeObjectOfClass:[NSString class] forKey:@"searchText"];
     gameTableDirty = YES;
     if (searchText.length) {
         //        NSLog(@"Restored searchbar text %@", searchText);
         _searchField.stringValue = searchText;
         [self searchForGames:_searchField];
     }
-    NSArray *selectedIfids = [state decodeObjectForKey:@"selectedGames"];
+    NSArray *selectedIfids = [state decodeObjectOfClass:[NSArray class] forKey:@"selectedGames"];
     [self updateTableViews];
     [self selectGamesWithIfids:selectedIfids scroll:NO];
 
