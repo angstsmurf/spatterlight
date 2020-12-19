@@ -833,32 +833,45 @@
 }
 
 - (NSString *)accessibilityActionDescription:(NSString *)action {
+    if (@available(macOS 10.13, *)) {
+    } else {
     if ([action isEqualToString:@"Repeat last move"])
-        return @"Read the output of the last command entered";
+        return @"repeat the text output of the last move";
     if ([action isEqualToString:@"Speak move before"])
-        return @"Read the output of the command before the last one read";
+        return @"step backward through moves";
     if ([action isEqualToString:@"Speak move after"])
-        return @"Read the output of the command after the last one read";
+        return @"step forward through moves";
     if ([action isEqualToString:@"Speak status bar"])
-        return @"Read the text of the status bar";
+        return @"read status bar text";
+    }
 
     return [super accessibilityActionDescription:action];
 }
 
+- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
+    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+    NSArray *actions = [delegate.glkctl accessibilityCustomActions];
+    return actions;
+}
+
+
 - (NSArray *)accessibilityActionNames {
     NSMutableArray *result = [[super accessibilityActionNames] mutableCopy];
 
+    if (@available(macOS 10.13, *)) {
+    } else {
     [result addObjectsFromArray:@[
         @"Repeat last move", @"Speak move before", @"Speak move after",
         @"Speak status bar"
     ]];
-
+    }
     return result;
 }
 
 - (void)accessibilityPerformAction:(NSString *)action {
-    NSLog(@"GlkTextBufferWindow: accessibilityPerformAction. %@", action);
-
+    if (@available(macOS 10.13, *)) {
+        [super accessibilityPerformAction:action];
+    } else {
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
 
     if ([action isEqualToString:@"Repeat last move"])
@@ -871,6 +884,7 @@
         [delegate.glkctl speakStatus:nil];
     else
         [super accessibilityPerformAction:action];
+    }
 }
 
 - (NSArray *)accessibilityCustomRotors  {

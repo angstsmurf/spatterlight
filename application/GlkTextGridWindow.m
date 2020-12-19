@@ -62,6 +62,12 @@
     return children;
 }
 
+- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
+    GlkTextGridWindow *delegate = (GlkTextGridWindow *)self.delegate;
+    NSArray *actions = [delegate.glkctl accessibilityCustomActions];
+    return actions;
+}
+
 @end
 
 
@@ -176,6 +182,7 @@
         textstorage.delegate = self;
         scrollview = _textview.enclosingScrollView;
         scrollview.documentView = _textview;
+        scrollview.accessibilityElement = NO;
 
         line_request = [decoder decodeBoolForKey:@"line_request"];
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];

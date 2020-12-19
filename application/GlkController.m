@@ -3329,6 +3329,19 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
    return NO;
 }
 
+- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
+    NSAccessibilityCustomAction *speakMostRecent = [[NSAccessibilityCustomAction alloc]
+                                                    initWithName:@"repeat the text output of the last move" target:self selector:@selector(speakMostRecent:)];
+    NSAccessibilityCustomAction *speakPrevious = [[NSAccessibilityCustomAction alloc]
+                                                    initWithName:@"step backward through moves" target:self selector:@selector(speakPrevious:)];
+    NSAccessibilityCustomAction *speakNext = [[NSAccessibilityCustomAction alloc]
+                                                    initWithName:@"step forward through moves" target:self selector:@selector(speakNext:)];
+    NSAccessibilityCustomAction *speakStatus = [[NSAccessibilityCustomAction alloc]
+                                                initWithName:@"speak status bar text" target:self selector:@selector(speakStatus:)];
+
+    return @[speakStatus, speakNext, speakPrevious, speakMostRecent];
+}
+
 - (void)noteAccessibilityStatusChanged:(NSNotification *)notify {
     if(@available(macOS 10.13, *)) {
         NSWorkspace * ws = [NSWorkspace sharedWorkspace];

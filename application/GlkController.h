@@ -168,6 +168,7 @@
 - (IBAction)speakNext:(id)sender;
 - (IBAction)speakStatus:(id)sender;
 
+- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13));
 - (NSArray *)createCustomRotors;
 - (NSAccessibilityCustomRotorItemResult *)rotor:(NSAccessibilityCustomRotor *)rotor
                       resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters API_AVAILABLE(macos(10.13));
