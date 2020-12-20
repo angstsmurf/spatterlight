@@ -84,20 +84,11 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 - (id) initWithCoder:(NSCoder *)decoder {
 
 	int version = [decoder decodeIntForKey:@"version"];
-    if (version <= 0 || version > AUTOSAVE_SERIAL_VERSION)
+    if (version <= 0 || version != AUTOSAVE_SERIAL_VERSION)
     {
         NSLog(@"Wrong serial version!");
         return nil;
     }
-
-    //	/* If the vm has exited, we shouldn't have saved the state! */
-    //	_vmexited = NO;
-    //	self.specialrequest = nil;
-
-	//_bounds = [decoder decodeRectForKey:@"bounds"];
-    //	_geometrychanged = YES;
-    //	_metricschanged = YES;
-    //	_everythingchanged = YES;
 
     program_name = [decoder decodeObjectOfClass:[NSString class]  forKey:@"program_name"];
     program_info = [decoder decodeObjectOfClass:[NSString class]  forKey:@"program_info"];
