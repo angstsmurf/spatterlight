@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GlkController">
             <connections>
-                <outlet property="borderView" destination="6" id="20"/>
+                <outlet property="borderView" destination="9fZ-gj-Obs" id="fBc-vD-y8W"/>
                 <outlet property="contentView" destination="7" id="13"/>
                 <outlet property="window" destination="5" id="9"/>
             </connections>
@@ -26,18 +26,36 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7" customClass="GlkHelperView">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+                    <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" allowsMagnification="YES" minMagnification="1" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fZ-gj-Obs" customClass="ScalingScrollView">
+                        <rect key="frame" x="-1" y="-1" width="402" height="402"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <connections>
-                            <outlet property="glkctrl" destination="-2" id="21"/>
-                        </connections>
-                    </customView>
+                        <clipView key="contentView" translatesAutoresizingMaskIntoConstraints="NO" id="ItT-0Q-4ur">
+                            <rect key="frame" x="0.0" y="0.0" width="402" height="402"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7" customClass="GlkHelperView">
+                                    <rect key="frame" x="0.0" y="0.0" width="402" height="402"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <connections>
+                                        <outlet property="glkctrl" destination="-2" id="21"/>
+                                    </connections>
+                                </customView>
+                            </subviews>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="nqf-Ka-5Os">
+                            <rect key="frame" x="-100" y="-100" width="400" height="16"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="56B-yx-J0E">
+                            <rect key="frame" x="386" y="0.0" width="16" height="402"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="10"/>
-                <outlet property="initialFirstResponder" destination="7" id="11"/>
+                <outlet property="initialFirstResponder" destination="9fZ-gj-Obs" id="rz5-fw-JyO"/>
             </connections>
             <point key="canvasLocation" x="-142" y="114"/>
         </window>

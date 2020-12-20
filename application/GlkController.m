@@ -14,6 +14,7 @@
 #import "BufferTextView.h"
 #import "GridTextView.h"
 #import "RotorHandler.h"
+#import "ScalingScrollView.h"
 
 #import "main.h"
 #include "glkimp.h"
@@ -1837,23 +1838,23 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Zoom
 
-- (IBAction)zoomIn:(id)sender {
-    [Preferences zoomIn];
-    if (Preferences.instance)
-        [Preferences.instance updatePanelAfterZoom];
-}
-
-- (IBAction)zoomOut:(id)sender {
-    [Preferences zoomOut];
-    if (Preferences.instance)
-        [Preferences.instance updatePanelAfterZoom];
-}
-
-- (IBAction)zoomToActualSize:(id)sender {
-    [Preferences zoomToActualSize];
-    if (Preferences.instance)
-        [Preferences.instance updatePanelAfterZoom];
-}
+//- (IBAction)zoomIn:(id)sender {
+//    [Preferences zoomIn];
+//    if (Preferences.instance)
+//    [Preferences.instance updatePanelAfterZoom];
+//}
+//
+//- (IBAction)zoomOut:(id)sender {
+//    [Preferences zoomOut];
+//    if (Preferences.instance)
+//    [Preferences.instance updatePanelAfterZoom];
+//}
+//
+//- (IBAction)zoomToActualSize:(id)sender {
+//    [Preferences zoomToActualSize];
+//    if (Preferences.instance)
+//    [Preferences.instance updatePanelAfterZoom];
+//}
 
 - (void)noteDefaultSizeChanged:(NSNotification *)notification {
 

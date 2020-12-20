@@ -650,6 +650,7 @@
 		C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EF065E1ECE60D0008EED04 /* cgdate.c */; };
 		C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
+		C3FD3FD525E99572006F457A /* ScalingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FD3FD325E99572006F457A /* ScalingScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2641,6 +2642,8 @@
 		C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BureaucracyForm.m; sourceTree = "<group>"; };
 		C3FE98D8261B2CA900152AB6 /* RotorHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotorHandler.h; sourceTree = "<group>"; };
 		C3FE98D9261B2CA900152AB6 /* RotorHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotorHandler.m; sourceTree = "<group>"; };
+		C3FD3FD325E99572006F457A /* ScalingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScalingScrollView.m; sourceTree = "<group>"; };
+		C3FD3FD425E99572006F457A /* ScalingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScalingScrollView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3671,6 +3674,8 @@
 				C30BCABB25AC979200F8C4E2 /* Input related classes */,
 				6DB8C1E724599DF8002CDCCB /* ZColor.h */,
 				6DB8C1E824599DF8002CDCCB /* ZColor.m */,
+				C3FD3FD425E99572006F457A /* ScalingScrollView.h */,
+				C3FD3FD325E99572006F457A /* ScalingScrollView.m */,
 				6D85C894218BD6E00088D849 /* HelpPanelController.h */,
 				6D85C895218BD6E00088D849 /* HelpPanelController.m */,
 			);
@@ -5996,6 +6001,7 @@
 				6DCFFC2E22BE57790035FA99 /* SideInfoView.m in Sources */,
 				C3C180C825C717F30040AE79 /* IFCoverDescription.m in Sources */,
 				6D73052122BFA9EB00DFC73C /* NSDate+relative.m in Sources */,
+				C3FD3FD525E99572006F457A /* ScalingScrollView.m in Sources */,
 				6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */,
 				C3C1807F25C70F300040AE79 /* BlorbResource.m in Sources */,
 				6D7673E8239FFC6C00FB24C0 /* IFBibliographic.m in Sources */,

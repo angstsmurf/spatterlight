@@ -2574,44 +2574,44 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 #pragma mark Zoom
 
-+ (void)zoomIn {
-    zoomDirection = ZOOMRESET;
-    NSFont *gridroman = theme.gridNormal.font;
-    NSLog(@"zoomIn gridroman.pointSize = %f", gridroman.pointSize);
-
-    if (gridroman.pointSize < 100) {
-        zoomDirection = ZOOMIN;
-        [self scale:(gridroman.pointSize + 1) / gridroman.pointSize];
-    }
-}
-
-+ (void)zoomOut {
-    NSLog(@"zoomOut");
-    zoomDirection = ZOOMRESET;
-    NSFont *gridroman = theme.gridNormal.font;
-    if (gridroman.pointSize > 6) {
-        zoomDirection = ZOOMOUT;
-        [self scale:(gridroman.pointSize - 1) / gridroman.pointSize];
-    }
-}
-
-+ (void)zoomToActualSize {
-    NSLog(@"zoomToActualSize");
-    zoomDirection = ZOOMRESET;
-
-    CGFloat scale;
-    Theme *parent = theme.defaultParent;
-    while (parent.defaultParent)
-        parent = parent.defaultParent;
-
-    if (parent)
-        scale = parent.gridNormal.font.pointSize;
-
-    if (scale < 6)
-        scale = 12;
-
-    [self scale:scale / theme.gridNormal.font.pointSize];
-}
+//+ (void)zoomIn {
+//    zoomDirection = ZOOMRESET;
+//    NSFont *gridroman = theme.gridNormal.font;
+//    NSLog(@"zoomIn gridroman.pointSize = %f", gridroman.pointSize);
+//
+//    if (gridroman.pointSize < 100) {
+//        zoomDirection = ZOOMIN;
+//        [self scale:(gridroman.pointSize + 1) / gridroman.pointSize];
+//    }
+//}
+//
+//+ (void)zoomOut {
+//    NSLog(@"zoomOut");
+//    zoomDirection = ZOOMRESET;
+//    NSFont *gridroman = theme.gridNormal.font;
+//    if (gridroman.pointSize > 6) {
+//        zoomDirection = ZOOMOUT;
+//        [self scale:(gridroman.pointSize - 1) / gridroman.pointSize];
+//    }
+//}
+//
+//+ (void)zoomToActualSize {
+//    NSLog(@"zoomToActualSize");
+//    zoomDirection = ZOOMRESET;
+//
+//    CGFloat scale;
+//    Theme *parent = theme.defaultParent;
+//    while (parent.defaultParent)
+//        parent = parent.defaultParent;
+//
+//    if (parent)
+//        scale = parent.gridNormal.font.pointSize;
+//
+//    if (scale < 6)
+//        scale = 12;
+//
+//    [self scale:scale / theme.gridNormal.font.pointSize];
+//}
 
 + (void)scale:(CGFloat)scalefactor {
     NSLog(@"Preferences scale: %f", scalefactor);
