@@ -3422,6 +3422,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     GlkTextBufferWindow *largest = nil;
     CGFloat largestSize = 0;
     for (GlkTextBufferWindow *view in array) {
+        if (![view isKindOfClass:[GlkTextBufferWindow class]])
+            continue;
         CGFloat size = fabs(view.frame.size.width * view.frame.size.height);
         if (size > largestSize) {
             largestSize = size;
