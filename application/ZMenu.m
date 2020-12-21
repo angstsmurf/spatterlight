@@ -241,7 +241,7 @@
 
         for (NSValue *rangeVal in _lines) {
             NSRange range = rangeVal.rangeValue;
-            NSUInteger spaces = (NSUInteger)[self numberOfInitialSpacesInRange:rangeVal andString:_attrStr.string];
+            NSUInteger spaces = (NSUInteger)[self initialSpacesInRange:rangeVal];
             range = NSMakeRange(range.location + spaces, range.length - spaces);
             range = NSIntersectionRange(allText, range);
             NSDictionary *attrDict = [_attrStr attributesAtIndex:range.location effectiveRange:nil];
@@ -322,8 +322,8 @@
                 // Some games have a blank lines as a dividers in the middle of
                 // the menu, so look for additional clusters and add these if found.
                 if (currentCluster.count && lastCluster.count && [lines indexOfObject:lastCluster.lastObject] == line - 1 &&
-                    ABS([self numberOfInitialSpacesInRange:currentCluster.firstObject andString:viewString] -
-                        [self numberOfInitialSpacesInRange:lastCluster.lastObject andString:viewString]) < 3 ) {
+                    ABS([self leftMarginInRange:currentCluster.firstObject andString:viewString] -
+                        [self leftMarginInRange:lastCluster.lastObject andString:viewString]) < 3 ) {
                     if (![_glkctl.game.detectedFormat isEqualToString:@"hugo"]) {
                         lastCluster = [lastCluster arrayByAddingObject:lines[line]];
                     }
@@ -414,8 +414,22 @@
     return substring;
 }
 
-- (NSInteger)numberOfInitialSpacesInRange:(NSValue *)rangeValue andString:(NSString *)string {
+- (NSInteger)leftMarginInRange:(NSValue *)rangeValue andString:(NSString *)string {
     NSRange range = rangeValue.rangeValue;
+    NSRange allText = NSMakeRange(0, string.length);
+    range = NSIntersectionRange(allText, range);
+    NSUInteger spaces = 0;
+    unichar c = [string characterAtIndex:range.location];
+    while ((c == ' ' || c == 0xa0 || c == '>') && NSLocationInRange(range.location + spaces + 1, range)) {
+        spaces++;
+        c = [string characterAtIndex:range.location + spaces];
+    }
+    return (NSInteger)spaces;
+}
+
+- (NSInteger)initialSpacesInRange:(NSValue *)rangeValue {
+    NSRange range = rangeValue.rangeValue;
+    NSString *string = _attrStr.string;
     NSRange allText = NSMakeRange(0, string.length);
     range = NSIntersectionRange(allText, range);
     NSUInteger spaces = 0;
