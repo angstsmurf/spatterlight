@@ -17,12 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSMutableArray *lines;
 @property NSMutableArray *viewStrings;
 @property NSAttributedString *attrStr;
-@property NSUInteger cols;
-@property NSUInteger rows;
 @property NSDictionary *menuCommands;
 @property NSArray *menuKeys;
 @property NSUInteger selectedLine;
-@property NSUInteger leftMargin;
 @property BOOL haveSpokenMenu;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl;
