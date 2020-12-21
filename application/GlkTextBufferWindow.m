@@ -2888,8 +2888,19 @@ replacementString:(id)repl {
 
 #pragma mark Accessibility
 
-- (BOOL)isAccessibilityElement {
-    return NO;
+- (NSString *)accessibilityRoleDescription {
+        return [NSString
+            stringWithFormat: @"Text window%@%@%@. %@",
+
+                line_request ? @", waiting for input"
+                                           : @"",
+                             char_request ? @", waiting for a key press" : @"",
+                hyper_request ? @", waiting for a hyperlink click" : @"",
+                [_textview.string substringWithRange:_textview.accessibilityVisibleCharacterRange]];
+}
+
+- (NSArray *)accessibilityChildren {
+    return @[scrollview];
 }
 
 - (NSArray *)links {

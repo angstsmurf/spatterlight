@@ -1563,8 +1563,18 @@
 
 #pragma mark Accessibility
 
-- (BOOL)isAccessibilityElement {
-    return NO;
+- (NSString *)accessibilityRoleDescription {
+        return [NSString
+                stringWithFormat:
+                    @"Status window%@%@%@. %@",
+                    line_request ? @", waiting for commands" : @"",
+                    char_request ? @", waiting for a key press" : @"",
+                    hyper_request ? @", waiting for a hyperlink click" : @"",
+                    _textview.string];
+}
+
+- (NSArray *)accessibilityChildren {
+    return @[_textview];
 }
 
 - (void)speakStatus {

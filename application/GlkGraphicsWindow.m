@@ -320,16 +320,6 @@
                              mouse_request ? @", waiting for mouse clicks"
                                            : @"",
                              char_request ? @", waiting for a key press" : @""];
-        ;
-}
-
-- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
-    NSArray *actions = [self.glkctl accessibilityCustomActions];
-    return actions;
-}
-
-- (BOOL)isAccessibilityElement {
-    return YES;
 }
 
 @end

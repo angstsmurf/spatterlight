@@ -3712,7 +3712,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             NSLog(@"String: %@", string);
 
             if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
-                [children addObject:textview];
+                [children addObject:win];
                 [strings addObject:string.copy];
             }
         }
