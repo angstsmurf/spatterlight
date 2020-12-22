@@ -2892,7 +2892,7 @@ replacementString:(id)repl {
         return [NSString
             stringWithFormat: @"Text window%@%@%@. %@",
 
-                line_request ? @", waiting for input"
+                line_request ? @", waiting for a command"
                                            : @"",
                              char_request ? @", waiting for a key press" : @"",
                 hyper_request ? @", waiting for a hyperlink click" : @"",
