@@ -427,6 +427,8 @@
     return (NSInteger)spaces;
 }
 
+// This does the same as the method above but does not
+// count ">" as a space
 - (NSInteger)initialSpacesInRange:(NSValue *)rangeValue {
     NSRange range = rangeValue.rangeValue;
     NSString *string = _attrStr.string;
