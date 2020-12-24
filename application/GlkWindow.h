@@ -34,6 +34,9 @@ struct fillrect;
 
 @property InputTextField *input;
 
+// A list of ranges of previous moves
+@property NSMutableArray *moveRanges;
+
 - (instancetype)initWithGlkController:(GlkController *)glkctl
                                  name:(NSInteger)name;
 

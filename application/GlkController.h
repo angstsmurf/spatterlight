@@ -11,7 +11,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextBufferWindow;
+@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm;
 
 #define MAXWIN 64
 
@@ -170,7 +170,7 @@
 - (IBAction)speakNext:(id)sender;
 - (IBAction)speakStatus:(id)sender;
 
-- (GlkTextBufferWindow *)largestWithMoves;
+- (GlkWindow *)largestWithMoves;
 
 - (void)speakString:(NSString *)string;
 

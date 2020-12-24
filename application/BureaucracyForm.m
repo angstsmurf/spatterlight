@@ -40,6 +40,7 @@
                         NSUInteger currentField = [self findCurrentField];
                         if (currentField != NSNotFound)
                             _selectedField = currentField;
+                        [self addMove];
                         return YES;
                     }
                 }
@@ -65,19 +66,11 @@
 - (NSUInteger)findCurrentField {
     GlkTextGridWindow *view = (GlkTextGridWindow *)((NSTextStorage *)_attrStr).delegate;
     NSUInteger inputIndex = [view indexOfPos];
-    NSUInteger index = 0;
-    for (NSValue *val in _fields) {
-        NSRange range = val.rangeValue;
-        NSRange nextrange;
-        if (val == _fields.lastObject)
-            nextrange = NSMakeRange(_attrStr.string.length, 0);
-        else
-            nextrange = ((NSValue *)_fields[index + 1]).rangeValue;
-
-        if (inputIndex >= NSMaxRange(range) && inputIndex < nextrange.location) {
+    for (NSUInteger index = 0; index < _fields.count; index++) {
+        NSRange range = [self rangeFromIndex:index];
+        if (inputIndex > range.location && inputIndex < NSMaxRange(range)) {
             return index;
         }
-        index++;
     }
     return NSNotFound;
 }
@@ -132,6 +125,12 @@
     NSUInteger index =  [self findCurrentField];
     if (index == NSNotFound)
         return @"";
+    NSRange range = [self rangeFromIndex:index];
+    NSString *string = [NSString stringWithFormat:@" On field %ld of 14: %@", index + 1, [_attrStr.string substringWithRange:range]];
+    return string;
+}
+
+- (NSRange)rangeFromIndex:(NSUInteger)index {
     NSValue *val = _fields[index];
     NSRange range = val.rangeValue;
     NSRange nextrange;
@@ -140,21 +139,33 @@
     else
         nextrange = ((NSValue *)_fields[index + 1]).rangeValue;
     range.length = nextrange.location - range.location;
-
-    NSString *string = [NSString stringWithFormat:@" On field %ld of 14: %@", index + 1, [_attrStr.string substringWithRange:range]];
-    return string;
+    return range;
 }
 
 - (void)movedFromField {
     NSUInteger foundField = [self findCurrentField];
     if (foundField != _selectedField && foundField != NSNotFound) {
         _lastField = _selectedField;
+        _selectedField = foundField;
         _dontSpeakField = NO;
         _glkctl.shouldCheckForMenu = YES;
+        [self addMove];
     }
 }
 
--(void)deferredSpeakString:(id)sender {
+- (void)addMove {
+    GlkTextGridWindow *win = (GlkTextGridWindow *)((NSTextStorage *)_attrStr).delegate;
+    if (win.moveRanges == nil)
+        win.moveRanges = [[NSMutableArray alloc] init];
+    NSValue *val = [NSValue valueWithRange:[self rangeFromIndex:_selectedField]];
+    NSMutableArray *moves = win.moveRanges;
+    NSUInteger index = [moves indexOfObject:val];
+    if (index != NSNotFound)
+        [moves removeObjectAtIndex:index];
+    [moves addObject:val];
+}
+
+- (void)deferredSpeakString:(id)sender {
 
     [self speakString:(NSString *)sender];
 
@@ -186,13 +197,13 @@
     }
 
     [self speakString:selectedFieldString];
-//    [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
+    [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
 }
 
 - (void)speakInstructions:(id)sender {
     NSDictionary *announcementInfo = @{
         NSAccessibilityPriorityKey : @(NSAccessibilityPriorityLow),
-        NSAccessibilityAnnouncementKey : @"Instructions:"
+        NSAccessibilityAnnouncementKey : @"You mave review the form by stepping through previous moves."
     };
 
     NSWindow *mainWin = [NSApp mainWindow];

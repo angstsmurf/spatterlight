@@ -3526,12 +3526,12 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     }
 }
 
-- (GlkTextBufferWindow *)largestWithMoves {
+- (GlkWindow *)largestWithMoves {
     // Find a "main text window"
-    GlkTextBufferWindow *largest = nil;
+    GlkWindow *largest = nil;
     NSMutableArray *windowsWithMoves = _gwindows.allValues.mutableCopy;
     for (GlkWindow *view in _gwindows.allValues) {
-        if (![view isKindOfClass:[GlkTextBufferWindow class]] || !((GlkTextBufferWindow *)view).moveRanges.count) {
+        if (!view.moveRanges || !view.moveRanges.count) {
             // Remove all GlkTextBufferWindow objects with no list of previous moves
             [windowsWithMoves removeObject:view];
         }
@@ -3543,7 +3543,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     }
 
     CGFloat largestSize = 0;
-    for (GlkTextBufferWindow *view in windowsWithMoves) {
+    for (GlkWindow *view in windowsWithMoves) {
         CGFloat size = fabs(view.frame.size.width * view.frame.size.height);
         if (size > largestSize) {
             largestSize = size;
@@ -3733,8 +3733,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
             string = [NSString stringWithFormat:@"%@ text window%@%@", kindString, (string.length) ? @": " : @"", string];
 
-            NSLog(@"String: %@", string);
-
             if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
                 [children addObject:win];
                 [strings addObject:string.copy];
@@ -3791,7 +3789,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     NSString *filterText = searchParameters.filterString;
 
-    GlkTextBufferWindow *largest = [self largestWithMoves];
+    GlkTextBufferWindow *largest = (GlkTextBufferWindow *)[self largestWithMoves];
     if (!largest)
         return nil;
 
@@ -3805,12 +3803,17 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     for (NSValue *child in children) {
         NSRange range = child.rangeValue;
         NSString *string = [largest.textview.string substringWithRange:range];
+        NSLog(@"String: \"%@\"", string);
+
 
         if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
             [strings addObject:string];
             [mutableChildren addObject:child];
         }
     }
+
+    if (!mutableChildren.count)
+        return nil;
 
     children = mutableChildren;
 
