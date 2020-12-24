@@ -18,7 +18,7 @@ struct fillrect;
 }
 
 @property(readonly) NSInteger name;
-@property GlkController *glkctl;
+@property(weak) GlkController *glkctl;
 
 @property BOOL currentReverseVideo;
 @property NSInteger currentHyperlink;

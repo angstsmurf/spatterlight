@@ -6,6 +6,7 @@
 #import "Game.h"
 #import "Theme.h"
 #import "ZMenu.h"
+#import "BureaucracyForm.h"
 #import "GlkStyle.h"
 #import "NSColor+integer.h"
 
@@ -2316,6 +2317,9 @@ fprintf(stderr, "%s\n",                                                    \
                         [sound stop];
                         [sound play];
                     }
+                    //For Bureaucracy form accessibility
+                    if (_form)
+                        [_form speakError];
                 }
             }
 
@@ -3353,6 +3357,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         if (_voiceOverActive) {
             _shouldCheckForMenu = YES;
             [self performSelector:@selector(deferredSpeakLargest:) withObject:nil afterDelay:2];
+        } else {
+            _zmenu = nil;
+            _form = nil;
         }
     }
 }
@@ -3369,18 +3376,28 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         return;
     if (_shouldCheckForMenu) {
         _shouldCheckForMenu = NO;
-        BOOL wasInMenu = NO;
         if (!_zmenu) {
             _zmenu = [[ZMenu alloc] initWithGlkController:self];
-        } else {
-            wasInMenu = YES;
         }
         if (![_zmenu isMenu]) {
             [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
             _zmenu = nil;
         }
-    }
 
+        // Bureaucracy form accessibility
+        if (!_zmenu && _bureaucracy) {
+            if (!_form) {
+                _form = [[BureaucracyForm alloc] initWithGlkController:self];
+            }
+            if (![_form isForm]) {
+                [NSObject cancelPreviousPerformRequestsWithTarget:_form];
+                _form = nil;
+            }
+            if (_form) {
+                [_form speakCurrentField];
+            }
+        }
+    }
     if (_zmenu) {
         [_zmenu speakSelectedLine];
     }
@@ -3486,12 +3503,18 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)speakString:(NSString *)string {
-    if (!string || string.length == 0 || !_voiceOverActive)
+    if (!string || string.length == 0 || !_voiceOverActive) {
         return;
+    }
 
-    NSDictionary *announcementInfo =
-        @{ NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-       NSAccessibilityAnnouncementKey : string };
+    NSString *charSetString = @"\u00A0 >\n";
+    NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
+    string = [string stringByTrimmingCharactersInSet:charset];
+
+    NSDictionary *announcementInfo = @{
+        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
+        NSAccessibilityAnnouncementKey : string
+    };
 
     NSWindow *mainWin = [NSApp mainWindow];
 
@@ -3499,6 +3522,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         NSAccessibilityPostNotificationWithUserInfo(
                                                     mainWin,
                                                     NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+//        NSLog(@"speakString: \"%@\"", string);
     }
 }
 

@@ -15,6 +15,7 @@
 #import "Metadata.h"
 #import "ZColor.h"
 #import "ZMenu.h"
+#import "BureaucracyForm.h"
 
 #import "NSColor+integer.h"
 
@@ -761,6 +762,15 @@
 }
 
 - (void)moveToColumn:(NSUInteger)c row:(NSUInteger)r {
+
+    //For Bureaucracy form accessibility
+    if (self.glkctl.form
+       && (r != ypos || abs((int)c - (int)xpos) > 1)) {
+        xpos = c;
+        ypos = r;
+        [self.glkctl.form movedFromField];
+    }
+
     xpos = c;
     ypos = r;
 }
@@ -829,6 +839,13 @@
         const unichar nbsp = 0xa0;
         NSString *nbspstring = [NSString stringWithCharacters:&nbsp length:1];
         string = [string stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:nbspstring];
+    // Speak each letter when typing in Bureaucracy form
+    } else if (self.glkctl.form
+               && string.length == 1
+               && [_keyPressTimeStamp timeIntervalSinceNow] > -0.5
+               && [_lastKeyPress caseInsensitiveCompare:string] == NSOrderedSame) {
+        [self.glkctl speakString:string];
+        self.glkctl.form.dontSpeakField = YES;
     }
 
     if (xpos > cols) {
@@ -840,7 +857,7 @@
     if (!attrDict)
         NSLog(@"GlkTextGridWindow printToWindow: ERROR! Style dictionary nil!");
 
-    startpos = ypos * (cols + 1) + xpos;
+    startpos = [self indexOfPos];
     if (startpos > textstoragelength) {
         // We are outside window visible range!
         // Do nothing
@@ -912,22 +929,22 @@
             amountToDraw = string.length - pos;
         }
 
-        if ((cols + 1) * ypos + xpos + amountToDraw > textstoragelength)
-            amountToDraw = textstoragelength - ((cols + 1) * ypos + xpos) + 1;
+        if ([self indexOfPos] + amountToDraw > textstoragelength)
+            amountToDraw = textstoragelength - [self indexOfPos] + 1;
 
         if (amountToDraw < 1)
             break;
 
-        NSRange replaceRange = NSMakeRange((cols + 1) * ypos + xpos, amountToDraw);
+        NSRange replaceRange = NSMakeRange([self indexOfPos], amountToDraw);
         if (NSMaxRange(replaceRange) > textstoragelength) {
-            if ((cols + 1) * ypos + xpos > textstoragelength)
+            if ([self indexOfPos] > textstoragelength)
                 return;
             else {
                 NSUInteger diff = NSMaxRange(replaceRange) - textstoragelength;
                 amountToDraw -= diff;
                 if (!amountToDraw)
                     return;
-                replaceRange = NSMakeRange((cols + 1) * ypos + xpos, amountToDraw);
+                replaceRange = NSMakeRange([self indexOfPos], amountToDraw);
             }
         }
 
@@ -953,6 +970,10 @@
 
     _hasNewText = YES;
     dirty = YES;
+}
+
+- (NSUInteger)indexOfPos {
+    return ypos * (cols + 1) + xpos;
 }
 
 #pragma mark Hyperlinks
@@ -1111,6 +1132,11 @@
                 ch = ' ';
             else if (ch == keycode_Escape || (ch >= keycode_Func12 && ch <= keycode_Func1))
                 ch = keycode_Unknown;
+
+            //For speaking input
+            _lastKeyPress = [NSString stringWithCharacters:(unichar *)&ch length:1];
+            _keyPressTimeStamp = [NSDate date];
+
             self.currentReverseVideo = NO;
             [self putString:@" " style:style_Normal];
             xpos--;
@@ -1293,7 +1319,7 @@
 
 - (void)unputString:(NSString *)buf {
 
-    NSUInteger endpos = ypos * (cols + 1) + xpos;
+    NSUInteger endpos = [self indexOfPos];
     NSUInteger startpos = endpos - buf.length;
 
     if (endpos > _bufferTextStorage.length || startpos > endpos) {

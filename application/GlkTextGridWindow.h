@@ -43,6 +43,14 @@
 @property BOOL usingStyles;
 @property BOOL hasNewText;
 
+// For Bureacracy form accessibility
+@property NSDate *keyPressTimeStamp;
+@property NSString *lastKeyPress;
+@property NSMutableArray *moveRanges;
+@property NSUInteger lastForm;
+
+- (NSUInteger)indexOfPos;
+
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 
 - (BOOL)setLastMove;

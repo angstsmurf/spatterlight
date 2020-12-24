@@ -2812,7 +2812,7 @@ replacementString:(id)repl {
 
     NSString *str = [textstorage.string substringWithRange:lastMove];
 
-    [self speakString:str];
+    [self.glkctl speakString:str];
 }
 
 - (void)speakPrevious {
@@ -2860,30 +2860,7 @@ replacementString:(id)repl {
             prefix = @"";
     NSString *str = [prefix stringByAppendingString:[textstorage.string substringWithRange:aRange]];
 
-    [self speakString:str];
-}
-
-- (void)speakString:(NSString *)string {
-    if (!string || string.length == 0)
-        return;
-
-    NSString *charSetString = @"\u00A0 >\n";
-    NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
-    string = [string stringByTrimmingCharactersInSet:charset];
-
-    NSDictionary *announcementInfo = @{
-                                       NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-                                       NSAccessibilityAnnouncementKey : string
-                                       };
-
-    NSWindow *mainWin = [NSApp mainWindow];
-
-    if (mainWin) {
-        NSAccessibilityPostNotificationWithUserInfo(
-                                                mainWin,
-                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-        NSLog(@"GlkTextBufferWindow %ld: speakString: \"%@\"", self.name, string);
-    }
+    [self.glkctl speakString:str];
 }
 
 #pragma mark Accessibility
