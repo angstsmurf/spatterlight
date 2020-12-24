@@ -681,7 +681,6 @@
         NSAccessibilityPostNotificationWithUserInfo(
                                                     mainWin,
                                                     NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-        //        NSLog(@"speakString: \"%@\"", string);
     }
 }
 

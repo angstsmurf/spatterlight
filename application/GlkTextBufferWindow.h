@@ -107,7 +107,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) NSInteger lastseen; /* for more paging */
 // for keeping track of previous moves
 @property NSUInteger printPositionOnInput;
-@property NSMutableArray *moveRanges;
 
 /* For autorestoring scroll position */
 @property NSUInteger restoredLastVisible;

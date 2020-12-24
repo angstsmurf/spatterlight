@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMenu : NSObject
 
-@property GlkController *glkctl;
+@property(weak) GlkController *glkctl;
 @property NSMutableArray *lines;
 @property NSMutableArray *viewStrings;
 @property NSAttributedString *attrStr;

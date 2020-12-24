@@ -11,7 +11,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu;
+@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm;
 
 #define MAXWIN 64
 
@@ -142,6 +142,8 @@
 @property BOOL shouldSpeakNewText;
 @property NSDate *speechTimeStamp;
 @property GlkWindow *spokeLast;
+@property BureaucracyForm *form;
+
 
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game
@@ -167,6 +169,10 @@
 - (IBAction)speakPrevious:(id)sender;
 - (IBAction)speakNext:(id)sender;
 - (IBAction)speakStatus:(id)sender;
+
+- (GlkWindow *)largestWithMoves;
+
+- (void)speakString:(NSString *)string;
 
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13));
 - (NSArray *)createCustomRotors;

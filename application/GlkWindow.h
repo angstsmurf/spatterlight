@@ -18,7 +18,7 @@ struct fillrect;
 }
 
 @property(readonly) NSInteger name;
-@property GlkController *glkctl;
+@property(weak) GlkController *glkctl;
 
 @property BOOL currentReverseVideo;
 @property NSInteger currentHyperlink;
@@ -33,6 +33,9 @@ struct fillrect;
 @property NSRect pendingFrame;
 
 @property InputTextField *input;
+
+// A list of ranges of previous moves
+@property NSMutableArray *moveRanges;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl
                                  name:(NSInteger)name;
