@@ -112,11 +112,13 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 #pragma mark Window controller, menus and file dialogs.
 
 - (NSMutableDictionary *)load_mutable_plist:(NSString *)path {
-    NSMutableDictionary *dict;
+    NSMutableDictionary *dict = nil;
     NSError *error;
 
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    if (data) {
     dict = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:path] options:NSPropertyListMutableContainersAndLeaves format:nil error:&error];
-
+    }
     if (!dict) {
         NSLog(@"libctl: cannot load plist: %@", error);
         dict = [[NSMutableDictionary alloc] init];
