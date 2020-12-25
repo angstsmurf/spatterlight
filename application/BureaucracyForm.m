@@ -197,7 +197,7 @@
     }
 
     [self speakString:selectedFieldString];
-    [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
+    [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:7];
 }
 
 - (void)speakInstructions:(id)sender {
