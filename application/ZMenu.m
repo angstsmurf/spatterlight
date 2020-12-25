@@ -68,7 +68,7 @@
         // Now we look for instructions pattern: " = ", "[N]ext" etc, depending on system
         if ([format isEqualToString:@"glulx"] || [format isEqualToString:@"zcode"]) {
             if (_glkctl.beyondZork) {
-                pattern = @"(Use the (↑ and ↓) keys.+)";
+                pattern = @"(Use the (↑ and ↓) keys.+?(?=>))";
             } else {
                 // First group: word before " = ". Second group: anything after " = "
                 // until two spaces or newline or space + newline
@@ -559,9 +559,12 @@
     NSMutableDictionary *menuDict = [[NSMutableDictionary alloc] init];
     NSMutableArray *keys = [[NSMutableArray alloc] init];
     NSError *error = NULL;
+    NSRegularExpressionOptions option = 0;
+    if (_glkctl.beyondZork)
+        option = NSRegularExpressionDotMatchesLineSeparators;
     NSRegularExpression *regex =
     [NSRegularExpression regularExpressionWithPattern:regexString
-                                              options:0
+                                              options:option
                                                 error:&error];
     for (NSString *string in _viewStrings) {
         if ([string isNotEqualTo:[NSNull null]] && string.length) {
