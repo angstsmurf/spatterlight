@@ -1073,11 +1073,7 @@
         echo = [decoder decodeBoolForKey:@"echo"];
 
         fence = (NSUInteger)[decoder decodeIntegerForKey:@"fence"];
-
-        history = [decoder decodeObjectOfClass:[InputHistory class] forKey:@"history"];
         _printPositionOnInput = (NSUInteger)[decoder decodeIntegerForKey:@"printPositionOnInput"];
-        self.moveRanges = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"self.moveRanges"];
-        moveRangeIndex = (NSUInteger)[decoder decodeIntegerForKey:@"moveRangeIndex"];
         _lastchar = [decoder decodeIntegerForKey:@"lastchar"];
         _lastseen = [decoder decodeIntegerForKey:@"lastseen"];
         _restoredSelection =
@@ -1122,10 +1118,7 @@
     [encoder encodeBool:echo_toggle_pending forKey:@"echo_toggle_pending"];
     [encoder encodeBool:echo forKey:@"echo"];
     [encoder encodeInteger:(NSInteger)fence forKey:@"fence"];
-    [encoder encodeObject:history forKey:@"history"];
     [encoder encodeInteger:(NSInteger)_printPositionOnInput forKey:@"printPositionOnInput"];
-    [encoder encodeObject:self.moveRanges forKey:@"self.moveRanges"];
-    [encoder encodeInteger:(NSInteger)moveRangeIndex forKey:@"moveRangeIndex"];
     [encoder encodeInteger:_lastchar forKey:@"lastchar"];
     [encoder encodeInteger:_lastseen forKey:@"lastseen"];
 
@@ -2788,6 +2781,8 @@ replacementString:(id)repl {
 //    NSLog(@"GlkTextBufferWindow %ld repeatLastMove:", self.name);
     if (self.glkctl.zmenu)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
+    if (self.glkctl.form)
+        [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.form];
     if (!self.moveRanges.count)
         return;
     moveRangeIndex = self.moveRanges.count - 1;

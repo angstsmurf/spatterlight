@@ -71,7 +71,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (id) initWithCoder:(NSCoder *)decoder {
     int version = [decoder decodeIntForKey:@"version"];
-    if (version <= 0 || version > AUTOSAVE_SERIAL_VERSION)
+    if (version <= 0 || version != AUTOSAVE_SERIAL_VERSION)
     {
         NSLog(@"Interpreter autosave file:Wrong serial version!");
         return nil;
@@ -3499,7 +3499,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             return;
         }
     }
-    NSLog(@"No status window found");
+    [self speakString:@"No status window found!"];
 }
 
 - (void)speakString:(NSString *)string {

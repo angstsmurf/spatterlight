@@ -364,7 +364,7 @@ extern void gli_window_set_root(window_t *win);
 
 /* For autorestore */
 
-#define AUTOSAVE_SERIAL_VERSION (3)
+#define AUTOSAVE_SERIAL_VERSION (4)
 
 extern void gli_replace_window_list(window_t *win);
 window_t *gli_window_for_tag(int tag);

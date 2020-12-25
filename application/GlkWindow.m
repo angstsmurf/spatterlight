@@ -1,5 +1,6 @@
 #import "main.h"
 #import "ZColor.h"
+#import "InputHistory.h"
 
 #include "glkimp.h"
 
@@ -83,6 +84,9 @@ fprintf(stderr, "%s\n",                                                    \
         bgnd = [decoder decodeIntegerForKey:@"bgnd"];
         _framePending = [decoder decodeBoolForKey:@"framePending"];
         _pendingFrame = ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"pendingFrame"]).rectValue;
+        _moveRanges = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"moveRanges"];
+        moveRangeIndex = (NSUInteger)[decoder decodeIntegerForKey:@"moveRangeIndex"];
+        history = [decoder decodeObjectOfClass:[InputHistory class] forKey:@"history"];
     }
     return self;
 }
@@ -104,6 +108,9 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeBool:_framePending forKey:@"framePending"];
     NSValue *frameObj = [NSValue valueWithRect:_pendingFrame];
     [encoder encodeObject:frameObj forKey:@"pendingFrame"];
+    [encoder encodeObject:_moveRanges forKey:@"moveRanges"];
+    [encoder encodeInteger:(NSInteger)moveRangeIndex forKey:@"moveRangeIndex"];
+    [encoder encodeObject:history forKey:@"history"];
 }
 
 - (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array {

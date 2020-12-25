@@ -198,8 +198,6 @@
         xpos = (NSUInteger)[decoder decodeIntegerForKey:@"xpos"];
         ypos = (NSUInteger)[decoder decodeIntegerForKey:@"ypos"];
 
-        history = [decoder decodeObjectOfClass:[InputHistory class] forKey:@"history"];
-
         _selectedRow = (NSUInteger)[decoder decodeIntegerForKey:@"selectedRow"];
         _selectedCol = (NSUInteger)[decoder decodeIntegerForKey:@"selectedCol"];
         _selectedString = [decoder decodeObjectOfClass:[NSString class] forKey:@"selectedString"];
@@ -231,7 +229,6 @@
     [encoder encodeInteger:(NSInteger)xpos forKey:@"xpos"];
     [encoder encodeInteger:(NSInteger)ypos forKey:@"ypos"];
     [encoder encodeBool:transparent forKey:@"transparent"];
-    [encoder encodeObject:history forKey:@"history"];
     NSValue *rangeVal = [NSValue valueWithRange:_textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
 
@@ -1607,6 +1604,8 @@
 - (void)speakStatus {
     if (self.glkctl.zmenu)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
+    if (self.glkctl.form)
+        [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.form];
     NSDictionary *announcementInfo = @{
         NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
         NSAccessibilityAnnouncementKey : textstorage.string
