@@ -728,7 +728,7 @@
         return;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     if (_glkctl.beyondZork) {
-        // Delete graphic inidicator
+        // Delete graphic indicator
         NSRegularExpression *trimRegEx =
         [NSRegularExpression regularExpressionWithPattern:@"X[O-W]{13}Y"
                                                   options:0
