@@ -82,6 +82,7 @@
             pattern = @"(\\w+)=(.+?(?=  |\\n| \\n| \\w+=|$))";
         }
 
+        _recheckNeeded = NO;
         _menuCommands = [self extractMenuCommandsUsingRegex:pattern];
 
         if (!_menuCommands.count) {
@@ -104,6 +105,14 @@
                 }
                 // If we don't find the pattern, decide this is not a menu
             } else return NO;
+        }
+
+        if (_recheckNeeded) {
+            _lines.array = [self recheckClusterStartingWithCharacter:initialChar];
+            if (!_lines.count) {
+                //Failed recheck. Give up.
+                return NO;
+            }
         }
 
         //        for (NSString *key in _menuKeys)
@@ -375,6 +384,60 @@
     return menulines;
 }
 
+- (NSArray *)recheckClusterStartingWithCharacter:(unichar)startChar {
+
+    NSString *string = _attrStr.string;
+    NSMutableArray *lines = _lines.mutableCopy;
+
+    NSUInteger startIndex = NSMaxRange(((NSValue *)lines.lastObject).rangeValue);
+
+    NSArray *menuLines = @[];
+
+    // Re-add lines after detected cluster
+    for (NSUInteger index = startIndex; index < string.length;) {
+        NSRange linerange = [string lineRangeForRange:NSMakeRange(index, 0)];
+        index = NSMaxRange(linerange);
+        [lines addObject:[NSValue valueWithRange:linerange]];
+    }
+
+    //Strip trailing blank lines
+    BOOL lastLineBlank;
+    do {
+        lastLineBlank = [self rangeIsEmpty:lines.lastObject inString:string];
+        if (lastLineBlank) {
+            [lines removeLastObject];
+        }
+    } while (lastLineBlank);
+
+    NSUInteger line = 0;
+    NSArray *currentCluster;
+    NSArray *lastCluster = @[];
+
+    do {
+        currentCluster = [self findClusterInString:string andLines:lines startingWithCharacter:startChar atIndex:line];
+
+        // Some games have a blank lines as a dividers in the middle of
+        // the menu, so look for additional clusters and add these if found.
+        if (currentCluster.count && lastCluster.count && [lines indexOfObject:lastCluster.lastObject] == line - 1 &&
+            ABS([self leftMarginInRange:currentCluster.firstObject andString:string] -
+                [self leftMarginInRange:lastCluster.lastObject andString:string]) < 3 ) {
+            if (![_glkctl.game.detectedFormat isEqualToString:@"hugo"]) {
+                lastCluster = [lastCluster arrayByAddingObject:lines[line]];
+            }
+            currentCluster =
+            [lastCluster arrayByAddingObjectsFromArray:currentCluster];
+        }
+
+        if (currentCluster.count > menuLines.count) {
+            menuLines = currentCluster;
+        }
+        line = [lines indexOfObject:currentCluster.lastObject] + 1;
+        lastCluster = currentCluster;
+    } while (currentCluster.count);
+
+    return menuLines;
+}
+
 - (unichar)firstCharacterInArray:(NSArray *)array andIndex:(NSUInteger)index andString:(NSString *)string {
     if (index > array.count - 1)
         return '\0';
@@ -519,6 +582,8 @@
             }
             if (matches.count) {
                 if ([string isEqualToString:_attrStr.string]) {
+                    // Remove the lines with instructions from the
+                    // detected menu cluster
                     NSRange matchRange = ((NSTextCheckingResult *)matches.firstObject).range;
                     matchRange = NSUnionRange(matchRange, ((NSTextCheckingResult *)matches.lastObject).range);
                     NSUInteger lastOverlap = NSNotFound;
@@ -531,6 +596,7 @@
                             break;
                     }
                     if (lastOverlap < _lines.count - 1) {
+                        _recheckNeeded = YES;
                         _lines.array = [_lines subarrayWithRange:NSMakeRange(lastOverlap + 1, _lines.count - lastOverlap - 1)];
                         while ([self rangeIsEmpty:_lines.firstObject inString:string] && _lines.count)
                             [_lines removeObjectAtIndex:0];
