@@ -384,6 +384,7 @@
     return menulines;
 }
 
+// FIXME this is a lot of ugly code duplication
 - (NSArray *)recheckClusterStartingWithCharacter:(unichar)startChar {
 
     NSString *string = _attrStr.string;
