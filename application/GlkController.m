@@ -778,9 +778,9 @@ fprintf(stderr, "%s\n",                                                    \
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
     if (_voiceOverActive) {
-        GlkTextBufferWindow *largest = [self largestWithMoves];
+        GlkWindow *largest = [self largestWithMoves];
         if (largest) {
-            [largest performSelector:@selector(deferredSpeakMostRecent:) withObject:nil afterDelay:2];
+            [largest performSelector:@selector(speakMostRecent:) withObject:nil afterDelay:2];
         }
     }
 }
@@ -3453,7 +3453,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             return;
         _speechTimeStamp = [NSDate date];
         _spokeLast = largest;
-        [largest performSelector:@selector(deferredSpeakMostRecent:) withObject:nil afterDelay:0.1];
+        [largest performSelector:@selector(speakMostRecent:) withObject:nil afterDelay:0.1];
     }
 }
 
@@ -3461,17 +3461,17 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 - (IBAction)speakMostRecent:(id)sender {
 //    NSLog(@"GlkController: speakMostRecent");
-    GlkTextBufferWindow *mainWindow = [self largestWithMoves];
+    GlkWindow *mainWindow = [self largestWithMoves];
     if (!mainWindow) {
         [self speakString:@"No last move to speak!"];
         return;
     }
-    [mainWindow speakMostRecent];
+    [mainWindow speakMostRecent:nil];
 }
 
 - (IBAction)speakPrevious:(id)sender {
 //    NSLog(@"GlkController: speakPrevious");
-    GlkTextBufferWindow *mainWindow = [self largestWithMoves];
+    GlkWindow *mainWindow = [self largestWithMoves];
     if (!mainWindow) {
         [self speakString:@"No previous move to speak!"];
         return;
@@ -3481,7 +3481,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 - (IBAction)speakNext:(id)sender {
 //    NSLog(@"GlkController: speakNext");
-    GlkTextBufferWindow *mainWindow = [self largestWithMoves];
+    GlkWindow *mainWindow = [self largestWithMoves];
     if (!mainWindow) {
         [self speakString:@"No next move to speak!"];
         return;

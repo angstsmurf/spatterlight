@@ -22,9 +22,6 @@
     BOOL mouse_request;
     BOOL transparent;
 
-    /* For command history */
-    InputHistory *history;
-
     NSInteger terminator;
 }
 
@@ -52,10 +49,8 @@
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 
-- (BOOL)setLastMove;
 - (void)deferredGrabFocus:(id)sender;
 - (void)recalcBackground;
 - (void)speakStatus;
-- (void)speakMostRecent;
 
 @end

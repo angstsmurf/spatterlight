@@ -1622,12 +1622,62 @@
     return hadNewText;
 }
 
-- (void)speakMostRecent {
-    [self speakStatus];
+- (void)speakMostRecent:(id)sender {
+    if (!self.moveRanges || !self.moveRanges.count)
+        [self speakStatus];
+
+    moveRangeIndex = self.moveRanges.count - 1;
+    NSString *str = [self stringFromRangeVal:self.moveRanges.lastObject];
+
+    if (!str.length) {
+        [self.glkctl speakString:@"No last move to speak"];
+        return;
+    }
+
+    [self.glkctl speakString:str];
 }
 
-- (void)deferredSpeakMostRecent:(id)sender {
-    [self speakMostRecent];
+- (NSString *)stringFromRangeVal:(NSValue *)val {
+    NSRange range = val.rangeValue;
+    NSRange allText = NSMakeRange(0, textstorage.length);
+    range = NSIntersectionRange(allText, range);
+    NSString *string = [textstorage.string substringWithRange:range];
+    return string;
+}
+
+- (void)speakPrevious {
+//    NSLog(@"GlkTextGridWindow %ld speakPrevious:", self.name);
+    if (!self.moveRanges.count)
+        return;
+    NSString *prefix = @"";
+    if (moveRangeIndex > 0) {
+        moveRangeIndex--;
+    } else {
+        prefix = @"At first move.\n";
+        moveRangeIndex = 0;
+    }
+    NSString *str = [prefix stringByAppendingString:[self stringFromRangeVal:self.moveRanges[moveRangeIndex]]];
+    [self.glkctl speakString:str];
+}
+
+- (void)speakNext {
+//    NSLog(@"GlkTextGridWindow %ld speakNext:", self.name);
+    if (!self.moveRanges.count)
+    {
+        return;
+    }
+
+    NSString *prefix = @"";
+
+    if (moveRangeIndex < self.moveRanges.count - 1) {
+        moveRangeIndex++;
+    } else {
+        prefix = @"At last move.\n";
+        moveRangeIndex = self.moveRanges.count - 1;
+    }
+
+    NSString *str = [prefix stringByAppendingString:[self stringFromRangeVal:self.moveRanges[moveRangeIndex]]];
+    [self.glkctl speakString:str];
 }
 
 - (NSArray *)links {

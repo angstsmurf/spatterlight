@@ -9,7 +9,6 @@
 
 #import "GlkEvent.h"
 #import "GlkTextGridWindow.h"
-
 #import "InputTextField.h"
 
 @implementation MyFieldEditor

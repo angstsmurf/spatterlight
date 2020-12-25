@@ -1,4 +1,4 @@
-@class GlkController, Theme, ZColor, InputTextField;
+@class GlkController, Theme, ZColor, InputTextField, InputHistory;
 
 struct fillrect;
 
@@ -13,6 +13,12 @@ struct fillrect;
 
     BOOL char_request;
     BOOL dirty;
+
+    /* For command history */
+    InputHistory *history;
+
+    /* Keeps track of which previous move to speak */
+    NSUInteger moveRangeIndex;
 
     NSInteger bgnd;
 }
@@ -84,5 +90,10 @@ struct fillrect;
 - (BOOL)hasCharRequest;
 
 - (NSArray *)links;
+
+- (void)speakMostRecent:(id)sender;;
+- (void)speakPrevious;
+- (void)speakNext;
+- (BOOL)setLastMove;
 
 @end

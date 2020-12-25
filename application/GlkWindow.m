@@ -276,6 +276,22 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Accessibility
 
+- (void)speakMostRecent:(id)sender {
+    NSLog(@"speakMostRecent in %@ not implemented", [self class]);
+}
+
+- (void)speakPrevious {
+    NSLog(@"speakPrevious in %@ not implemented", [self class]);
+}
+- (void)speakNext {
+    NSLog(@"speakNext in %@ not implemented", [self class]);
+}
+
+- (BOOL)setLastMove {
+    NSLog(@"setLastMove in %@ not implemented", [self class]);
+    return NO;
+}
+
 - (NSArray *)accessibilityCustomRotors  {
    return [self.glkctl createCustomRotors];
 }

@@ -84,12 +84,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSUInteger fence; /* for input line editing */
 
-    /* For command history */
-    InputHistory *history;
-
-    /* For speaking previous moves */
-    NSUInteger moveRangeIndex;
-
     CGFloat lastLineheight;
 
     NSAttributedString *storedNewline;
@@ -135,12 +129,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)restoreTextFinder;
 - (void)restoreScrollBarStyle;
 - (void)restoreScroll:(nullable id)sender;
-
-- (void)speakMostRecent;
-- (void)deferredSpeakMostRecent:(id)sender;
-- (void)speakPrevious;
-- (void)speakNext;
-- (BOOL)setLastMove;
 
 @end
 

@@ -2740,19 +2740,21 @@ replacementString:(id)repl {
         return NO;
     }
     NSRange lastMove = NSMakeRange(0, 0);
-    NSRange currentMove = NSMakeRange(0, maxlength);
     NSRange allText = NSMakeRange(0, maxlength);
+    NSRange currentMove = allText;
 
     if (self.moveRanges.lastObject) {
         lastMove = ((NSValue *)self.moveRanges.lastObject).rangeValue;
         if (NSMaxRange(lastMove) > maxlength) {
-//          Removing last move object (because it goes past the end)
+            // Removing last move object
+            // (because it goes past the end)
             [self.moveRanges removeLastObject];
         } else if (lastMove.length == maxlength) {
             return NO;
         } else {
             if (lastMove.location == _printPositionOnInput && lastMove.length != maxlength - _printPositionOnInput) {
-//          Removing last move object (because it does not go all the way to the end)
+                // Removing last move object (because it does not go all
+                // the way to the end)
                 [self.moveRanges removeLastObject];
                 currentMove = NSMakeRange(_printPositionOnInput, maxlength);
             } else {
@@ -2782,83 +2784,56 @@ replacementString:(id)repl {
     return string;
 }
 
-- (void)deferredSpeakMostRecent:(id)sender {
-    [self speakMostRecent];
-}
-
-- (void)speakMostRecent {
-    NSLog(@"GlkTextBufferWindow %ld speakMostRecent:", self.name);
+- (void)speakMostRecent:(id)sender {
+//    NSLog(@"GlkTextBufferWindow %ld speakMostRecent:", self.name);
     if (self.glkctl.zmenu)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     if (!self.moveRanges.count)
         return;
     moveRangeIndex = self.moveRanges.count - 1;
-    NSRange lastMove = ((NSValue *)self.moveRanges.lastObject).rangeValue;
-    NSRange allText = NSMakeRange(0, textstorage.length);
-    lastMove = NSIntersectionRange(allText, lastMove);
+    NSString *str = [self stringFromRangeVal:self.moveRanges.lastObject];
 
-    if (!lastMove.length) {
-        NSDictionary *announcementInfo = @{
-            NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-            NSAccessibilityAnnouncementKey : @"No last move to speak"
-        };
-
-        NSAccessibilityPostNotificationWithUserInfo(
-            [NSApp mainWindow],
-            NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+    if (!str.length) {
+        [self.glkctl speakString:@"No last move to speak"];
         return;
     }
-
-    NSString *str = [textstorage.string substringWithRange:lastMove];
 
     [self.glkctl speakString:str];
 }
 
 - (void)speakPrevious {
-    NSLog(@"GlkTextBufferWindow %ld speakPrevious:", self.name);
-   if (!self.moveRanges.count)
-       return;
-   NSString *prefix = @"";
-   if (moveRangeIndex > 0) {
-       moveRangeIndex--;
-   } else {
-       prefix = @"At first move.\n";
-       moveRangeIndex = 0;
-   }
-   [self speakRange:((NSValue *)self.moveRanges[moveRangeIndex])
-    .rangeValue prefix:prefix];
+//    NSLog(@"GlkTextBufferWindow %ld speakPrevious:", self.name);
+    if (!self.moveRanges.count)
+        return;
+    NSString *prefix = @"";
+    if (moveRangeIndex > 0) {
+        moveRangeIndex--;
+    } else {
+        prefix = @"At first move.\n";
+        moveRangeIndex = 0;
+    }
+    NSString *str = [prefix stringByAppendingString:[self stringFromRangeVal:self.moveRanges[moveRangeIndex]]];
+    [self.glkctl speakString:str];
 }
 
 - (void)speakNext {
-    NSLog(@"GlkTextBufferWindow %ld speakNext:", self.name);
-   [self setLastMove];
-   if (!self.moveRanges.count)
-   {
-       return;
-   }
+//    NSLog(@"GlkTextBufferWindow %ld speakNext:", self.name);
+    [self setLastMove];
+    if (!self.moveRanges.count)
+    {
+        return;
+    }
 
-   NSString *prefix = @"";
+    NSString *prefix = @"";
 
-   if (moveRangeIndex < self.moveRanges.count - 1) {
-       moveRangeIndex++;
-   } else {
-       prefix = @"At last move.\n";
-       moveRangeIndex = self.moveRanges.count - 1;
-   }
-   [self speakRange:((NSValue *)self.moveRanges[moveRangeIndex])
-    .rangeValue prefix:prefix];
-}
+    if (moveRangeIndex < self.moveRanges.count - 1) {
+        moveRangeIndex++;
+    } else {
+        prefix = @"At last move.\n";
+        moveRangeIndex = self.moveRanges.count - 1;
+    }
 
-- (void)speakRange:(NSRange)aRange prefix:(NSString *)prefix {
-        if (aRange.location >= textstorage.length || !textstorage.length)
-            return;
-        if (NSMaxRange(aRange) > textstorage.length)
-            aRange = NSMakeRange(aRange.location, textstorage.length);
-
-        if (prefix == nil)
-            prefix = @"";
-    NSString *str = [prefix stringByAppendingString:[textstorage.string substringWithRange:aRange]];
-
+    NSString *str = [prefix stringByAppendingString:[self stringFromRangeVal:self.moveRanges[moveRangeIndex]]];
     [self.glkctl speakString:str];
 }
 
