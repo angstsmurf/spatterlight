@@ -276,8 +276,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Accessibility
 
-- (void)speakMostRecent:(id)sender {
-    NSLog(@"speakMostRecent in %@ not implemented", [self class]);
+- (void)repeatLastMove:(id)sender {
+    NSLog(@"repeatLastMove in %@ not implemented", [self class]);
 }
 
 - (void)speakPrevious {

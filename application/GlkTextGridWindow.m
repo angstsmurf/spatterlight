@@ -1622,7 +1622,7 @@
     return hadNewText;
 }
 
-- (void)speakMostRecent:(id)sender {
+- (void)repeatLastMove:(id)sender {
     if (!self.moveRanges || !self.moveRanges.count)
         [self speakStatus];
 

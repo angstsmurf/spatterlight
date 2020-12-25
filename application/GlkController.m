@@ -780,7 +780,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (_voiceOverActive) {
         GlkWindow *largest = [self largestWithMoves];
         if (largest) {
-            [largest performSelector:@selector(speakMostRecent:) withObject:nil afterDelay:2];
+            [largest performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:2];
         }
     }
 }
@@ -3453,7 +3453,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             return;
         _speechTimeStamp = [NSDate date];
         _spokeLast = largest;
-        [largest performSelector:@selector(speakMostRecent:) withObject:nil afterDelay:0.1];
+        [largest performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:0.1];
     }
 }
 
@@ -3466,7 +3466,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         [self speakString:@"No last move to speak!"];
         return;
     }
-    [mainWindow speakMostRecent:nil];
+    [mainWindow repeatLastMove:nil];
 }
 
 - (IBAction)speakPrevious:(id)sender {

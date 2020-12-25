@@ -91,7 +91,7 @@ struct fillrect;
 
 - (NSArray *)links;
 
-- (void)speakMostRecent:(id)sender;;
+- (void)repeatLastMove:(id)sender;;
 - (void)speakPrevious;
 - (void)speakNext;
 - (BOOL)setLastMove;

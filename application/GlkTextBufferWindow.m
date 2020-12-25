@@ -2784,8 +2784,8 @@ replacementString:(id)repl {
     return string;
 }
 
-- (void)speakMostRecent:(id)sender {
-//    NSLog(@"GlkTextBufferWindow %ld speakMostRecent:", self.name);
+- (void)repeatLastMove:(id)sender {
+//    NSLog(@"GlkTextBufferWindow %ld repeatLastMove:", self.name);
     if (self.glkctl.zmenu)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     if (!self.moveRanges.count)
