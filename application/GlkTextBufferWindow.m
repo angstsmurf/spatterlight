@@ -852,6 +852,15 @@
     return YES;
 }
 
+- (BOOL)becomeFirstResponder {
+    GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)self.delegate;
+    if (!bufWin.glkctl.mustBeQuiet && bufWin.moveRanges.count > 1) {
+        [bufWin setLastMove];
+        [bufWin performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:0.1];
+    }
+    return [super becomeFirstResponder];
+}
+
 - (NSString *)accessibilityActionDescription:(NSString *)action {
     if (@available(macOS 10.13, *)) {
     } else {
@@ -1196,7 +1205,7 @@
     }
 }
 
-- (void)saveAsRTF:(id)sender {
+- (IBAction)saveAsRTF:(id)sender {
     [self flushDisplay];
     NSWindow *window = self.glkctl.window;
     BOOL isRtfd = NO;
@@ -2778,7 +2787,6 @@ replacementString:(id)repl {
 }
 
 - (void)repeatLastMove:(id)sender {
-//    NSLog(@"GlkTextBufferWindow %ld repeatLastMove:", self.name);
     if (self.glkctl.zmenu)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     if (self.glkctl.form)
@@ -2833,21 +2841,6 @@ replacementString:(id)repl {
 }
 
 #pragma mark Accessibility
-
-- (NSString *)accessibilityRoleDescription {
-        return [NSString
-            stringWithFormat: @"Text window%@%@%@. %@",
-
-                line_request ? @", waiting for a command"
-                                           : @"",
-                             char_request ? @", waiting for a key press" : @"",
-                hyper_request ? @", waiting for a hyperlink click" : @"",
-                [_textview.string substringWithRange:_textview.accessibilityVisibleCharacterRange]];
-}
-
-- (NSArray *)accessibilityChildren {
-    return @[scrollview];
-}
 
 - (NSArray *)links {
     NSRange allText = NSMakeRange(0, textstorage.length);

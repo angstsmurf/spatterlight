@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithGlkController:(GlkController *)glkctl;
 - (BOOL)isMenu;
 - (void)speakSelectedLine;
+- (void)deferredSpeakSelectedLine:(id)sender;
 - (NSUInteger)findSelectedLine;
 
 @end

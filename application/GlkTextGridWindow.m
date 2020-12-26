@@ -1640,21 +1640,6 @@
 
 #pragma mark Accessibility
 
-- (NSString *)accessibilityRoleDescription {
-        return [NSString
-                stringWithFormat:
-                @"Status window%@%@%@%@. %@",
-                line_request ? @", waiting for a command" : @"",
-                char_request ? @", waiting for a key press" : @"",
-                mouse_request ? @", waiting for a mouse click" : @"",
-                hyper_request ? @", waiting for a hyperlink click" : @"",
-                    _textview.string];
-}
-
-- (NSArray *)accessibilityChildren {
-    return @[_textview];
-}
-
 - (void)speakStatus {
     if (self.glkctl.zmenu)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];

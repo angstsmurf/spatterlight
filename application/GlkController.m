@@ -217,7 +217,8 @@ fprintf(stderr, "%s\n",                                                    \
     /* Setup our own stuff */
 
     _speechTimeStamp = [NSDate distantPast];
-    _shouldSpeakNewText = YES;
+    _shouldSpeakNewText = NO;
+    _mustBeQuiet = YES;
 
     _supportsAutorestore = [self.window isRestorable];
     _game.autosaved = _supportsAutorestore;
@@ -510,6 +511,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self adjustContentView];
     shouldRestoreUI = YES;
+    _mustBeQuiet = YES;
     [self forkInterpreterTask];
 
     // The game has to run to its third(?) NEXTEVENT
@@ -777,12 +779,6 @@ fprintf(stderr, "%s\n",                                                    \
     [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
-    if (_voiceOverActive) {
-        GlkWindow *largest = [self largestWithMoves];
-        if (largest) {
-            [largest performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:2];
-        }
-    }
 }
 
 - (NSString *)appSupportDir {
@@ -1028,7 +1024,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)showAutorestoreAlert:(id)userInfo {
 
-    shouldShowAutorestoreAlert = NO;
+    _mustBeQuiet = YES;
 
     NSAlert *anAlert = [[NSAlert alloc] init];
     anAlert.messageText =
@@ -1039,7 +1035,11 @@ fprintf(stderr, "%s\n",                                                    \
     [anAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
     [anAlert addButtonWithTitle:NSLocalizedString(@"Restart", nil)];
 
+    GlkController * __unsafe_unretained weakSelf = self;
+
     [anAlert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
+
+        weakSelf.mustBeQuiet = NO;
 
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
@@ -1062,6 +1062,8 @@ fprintf(stderr, "%s\n",                                                    \
                 [defaults setBool:YES forKey:alwaysAutorestoreKey];
             }
         }
+
+        weakSelf->shouldShowAutorestoreAlert = NO;
     }];
 }
 
@@ -1070,6 +1072,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
 
     restartingAlready = YES;
+    _mustBeQuiet = YES;
 
     [self handleSetTimer:0];
 
@@ -1259,8 +1262,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self checkZMenu];
 
-    if (_shouldSpeakNewText)
+    if (_shouldSpeakNewText && !_mustBeQuiet && !_zmenu && !_form) {
         [self speakNewText];
+    }
 
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
 }
@@ -2188,6 +2192,9 @@ fprintf(stderr, "%s\n",                                                    \
                     }
                 }
             }
+
+            if (turns > 1 && !shouldShowAutorestoreAlert)
+                _mustBeQuiet = NO;
 
             turns++;
 
@@ -3354,9 +3361,17 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     if(@available(macOS 10.13, *)) {
         NSWorkspace * ws = [NSWorkspace sharedWorkspace];
         _voiceOverActive = ws.voiceOverEnabled;
-        if (_voiceOverActive) {
-            _shouldCheckForMenu = YES;
-            [self performSelector:@selector(deferredSpeakLargest:) withObject:nil afterDelay:2];
+        if (_voiceOverActive && turns > 3 && !_mustBeQuiet) {
+            [self checkZMenu];
+            if (_zmenu) {
+                [_zmenu performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1];
+            } else {
+                GlkWindow *largest = [self largestWithMoves];
+                if (largest) {
+                    [largest setLastMove];
+                    [largest performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:2];
+                }
+            }
         } else {
             _zmenu = nil;
             _form = nil;
@@ -3412,7 +3427,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 #pragma mark ZMenu
 
 - (void)checkZMenu {
-    if (!_voiceOverActive)
+    if (!_voiceOverActive || _mustBeQuiet)
         return;
     if (_shouldCheckForMenu) {
         _shouldCheckForMenu = NO;
@@ -3472,7 +3487,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)speakLargest:(NSArray *)array {
-    if (_zmenu || !_voiceOverActive) {
+    if (_mustBeQuiet || _zmenu || _form || !_voiceOverActive) {
         return;
     }
 
@@ -3781,7 +3796,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             string = [NSString stringWithFormat:@"%@ text window%@%@", kindString, (string.length) ? @": " : @"", string];
 
             if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
-                [children addObject:win];
+                [children addObject:textview];
                 [strings addObject:string.copy];
             }
         }

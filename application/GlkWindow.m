@@ -309,7 +309,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (BOOL)isAccessibilityElement {
-    return YES;
+    return NO;
 }
 
 @end

@@ -140,6 +140,7 @@
 @property ZMenu *zmenu;
 @property BOOL shouldCheckForMenu;
 @property BOOL shouldSpeakNewText;
+@property BOOL mustBeQuiet;
 @property NSDate *speechTimeStamp;
 @property GlkWindow *spokeLast;
 @property BureaucracyForm *form;
