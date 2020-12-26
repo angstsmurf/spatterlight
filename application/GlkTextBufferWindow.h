@@ -130,6 +130,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)restoreScrollBarStyle;
 - (void)restoreScroll:(nullable id)sender;
 
+- (IBAction)saveAsRTF:(id)sender;
+
 @end
 
 NS_ASSUME_NONNULL_END

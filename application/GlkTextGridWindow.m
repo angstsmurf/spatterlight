@@ -973,6 +973,60 @@
     return ypos * (cols + 1) + xpos;
 }
 
+- (void)saveAsRTF {
+    [self flushDisplay];
+    NSWindow *window = self.glkctl.window;
+    NSString *newExtension = @"rtf";
+    NSString *newName = [window.title.stringByDeletingPathExtension
+                         stringByAppendingPathExtension:newExtension];
+
+    // Set the default name for the file and show the panel.
+
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    //[panel setNameFieldLabel: @"Save Scrollback: "];
+    panel.nameFieldLabel = NSLocalizedString(@"Save Text: ", nil);
+    panel.allowedFileTypes = @[ newExtension ];
+    panel.extensionHidden = NO;
+    [panel setCanCreateDirectories:YES];
+
+    panel.nameFieldStringValue = newName;
+    NSTextView *localTextView = _textview;
+    NSAttributedString *localTextStorage = textstorage;
+    [panel
+     beginSheetModalForWindow:window
+     completionHandler:^(NSInteger result) {
+        if (result == NSModalResponseOK) {
+            NSURL *theFile = panel.URL;
+
+            NSMutableAttributedString *mutattstr =
+            [localTextStorage mutableCopy];
+
+            [mutattstr
+             enumerateAttribute:NSBackgroundColorAttributeName
+             inRange:NSMakeRange(0, mutattstr.length)
+             options:0
+             usingBlock:^(id value, NSRange range, BOOL *stop) {
+                if (!value || [value isEqual:[NSColor textBackgroundColor]]) {
+                    [mutattstr
+                     addAttribute:NSBackgroundColorAttributeName
+                     value:localTextView.backgroundColor
+                     range:range];
+                }
+            }];
+
+            NSData *data;
+            data = [mutattstr
+                    RTFFromRange:NSMakeRange(0,
+                                             mutattstr.length)
+                    documentAttributes:@{
+                        NSDocumentTypeDocumentAttribute :
+                            NSRTFTextDocumentType
+                    }];
+            [data writeToURL:theFile atomically:NO];
+        }
+    }];
+}
+
 #pragma mark Hyperlinks
 
 - (void)initHyperlink {

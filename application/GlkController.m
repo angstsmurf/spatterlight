@@ -3368,6 +3368,46 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     [self speakLargest:_gwindows.allValues];
 }
 
+- (IBAction)saveAsRTF:(id)sender {
+    GlkWindow *largest = [self largestWithMoves];
+    if (largest && [largest isKindOfClass:[GlkTextBufferWindow class]] ) {
+        [(GlkTextBufferWindow *)largest saveAsRTF:self];
+        return;
+    }
+    largest = nil;
+    NSUInteger longestTextLength = 0;
+    for (GlkWindow *win in _gwindows.allValues) {
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)win;
+            NSUInteger length = bufWin.textview.string.length;
+            if (length > longestTextLength) {
+                longestTextLength = length;
+                largest = win;
+            }
+        }
+    }
+
+    if (largest) {
+        [(GlkTextBufferWindow *)largest saveAsRTF:self];
+        return;
+    }
+
+    for (GlkWindow *win in _gwindows.allValues) {
+        if ([win isKindOfClass:[GlkTextGridWindow class]]) {
+            GlkTextGridWindow *gridWin = (GlkTextGridWindow *)win;
+            NSUInteger length = gridWin.textview.string.length;
+            if (length > longestTextLength) {
+                longestTextLength = length;
+                largest = win;
+            }
+        }
+    }
+
+    if (largest) {
+        [(GlkTextGridWindow *)largest saveAsRTF];
+    }
+}
+
 
 #pragma mark ZMenu
 

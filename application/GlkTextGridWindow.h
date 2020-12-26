@@ -53,4 +53,6 @@
 - (void)recalcBackground;
 - (void)speakStatus;
 
+- (void)saveAsRTF;
+
 @end
