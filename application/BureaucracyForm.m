@@ -126,7 +126,7 @@
     if (index == NSNotFound)
         return @"";
     NSRange range = [self rangeFromIndex:index];
-    NSString *string = [NSString stringWithFormat:@" On field %ld of 14: %@", index + 1, [_attrStr.string substringWithRange:range]];
+    NSString *string = [NSString stringWithFormat:@"%@\nField %ld of 14.", [_attrStr.string substringWithRange:range], index + 1];
     return string;
 }
 

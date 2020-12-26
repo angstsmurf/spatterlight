@@ -646,7 +646,7 @@
     _selectedLine = [self findSelectedLine];
     if (_selectedLine == NSNotFound)
         return;
-    NSString *selectedLineString = [NSString stringWithFormat:@"On menu item %ld of %ld:\n", _selectedLine + 1, _lines.count];
+    NSString *selectedLineString = [NSString stringWithFormat:@".\nMenu item %ld of %ld.\n", _selectedLine + 1, _lines.count];
     NSRange selectedLineRange = ((NSValue *)_lines[_selectedLine]).rangeValue;
     NSRange allText = NSMakeRange(0, _attrStr.length);
     selectedLineRange = NSIntersectionRange(allText, selectedLineRange);
@@ -665,7 +665,7 @@
     if (trimmedString.length == 0)
         menuItemString = @"Empty line.";
 
-    selectedLineString = [selectedLineString stringByAppendingString:menuItemString];
+    selectedLineString = [menuItemString stringByAppendingString:selectedLineString];
     if (!_haveSpokenMenu) {
         NSString *titleString = [self constructMenuTitleString];
         if (titleString.length) {
