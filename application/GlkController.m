@@ -3500,7 +3500,14 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 #pragma mark Speak previous moves
 
 - (IBAction)speakMostRecent:(id)sender {
-//    NSLog(@"GlkController: speakMostRecent");
+    if (_zmenu) {
+        [_zmenu speakSelectedLine];
+        return;
+    }
+    if (_form) {
+        [_form speakCurrentField];
+        return;
+    }
     GlkWindow *mainWindow = [self largestWithMoves];
     if (!mainWindow) {
         [self speakString:@"No last move to speak!"];
