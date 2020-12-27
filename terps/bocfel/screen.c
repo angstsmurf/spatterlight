@@ -2066,12 +2066,27 @@ static void status_putc(uint8_t c)
 }
 #endif
 
+/* §8.2.3.2 says the hours can be assumed to be in the range [0, 23] and
+ * can be reduced modulo 12 for 12-hour time. Cutthroats, however, sets
+ * the hours to 111 if the watch is dropped, on the assumption that the
+ * interpreter will convert 24-hour time to 12-hour time simply by
+ * subtracting 12, resulting in an hours of 99 (the minutes are set to
+ * 99 for a final time of 99:99). Perform the calculation as in
+ * Cutthroats, which results in valid times for [0, 23] as well as
+ * allowing the 99:99 hack to work.
+ */
+void screen_format_time(char (*formatted)[64], long hours, long minutes)
+{
+  snprintf(*formatted, sizeof *formatted, "Time: %ld:%02ld%s ", hours <= 12 ? (hours + 11) % 12 + 1 : hours - 12, minutes, hours < 12 ? "am" : "pm");
+}
+
 void zshow_status(void)
 {
 #ifdef ZTERP_GLK
   glui32 width, height;
   char rhs[64];
-  int16_t first = variable(0x11), second = variable(0x12);
+  long first = as_signed(variable(0x11)), second = as_signed(variable(0x12));
+  strid_t stream;
 
   if(statuswin.id == NULL) return;
 
@@ -2095,20 +2110,13 @@ void zshow_status(void)
 
   if(status_is_time())
   {
-    unsigned int hour = first;
-    unsigned int min = second;
-      if (hour == 0) {
-          hour = 12;
-      } else if (hour > 12) {
-          hour -= 12;
-      }
-    snprintf(rhs, sizeof rhs, "Time: %d:%02d%s ", hour, min, hour < 12 ? "am" : "pm");
-    if(strlen(rhs) > width) snprintf(rhs, sizeof rhs, "%02d:%02d", hour, min);
+    screen_format_time(&rhs, first, second);
+    if(strlen(rhs) > width) snprintf(rhs, sizeof rhs, "%02ld:%02ld", first, second);
   }
   else
   {
-    snprintf(rhs, sizeof rhs, "Score: %d  Moves: %d ", first, second);
-    if(strlen(rhs) > width) snprintf(rhs, sizeof rhs, "%d/%d", first, second);
+    snprintf(rhs, sizeof rhs, "Score: %ld  Moves: %ld ", first, second);
+    if(strlen(rhs) > width) snprintf(rhs, sizeof rhs, "%ld/%ld", first, second);
   }
 
   if(strlen(rhs) <= width)

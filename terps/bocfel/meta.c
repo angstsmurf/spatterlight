@@ -750,7 +750,7 @@ const uint32_t *handle_meta_command(const uint32_t *string, const uint8_t len)
     }
     else
     {
-      int first = variable(0x11), second = variable(0x12);
+      long first = as_signed(variable(0x11)), second = as_signed(variable(0x12));
 
       print_object(variable(0x10), meta_status_putc);
 
@@ -758,11 +758,13 @@ const uint32_t *handle_meta_command(const uint32_t *string, const uint8_t len)
 
       if(status_is_time())
       {
-        screen_printf("Time: %d:%02d%s\n", (first + 11) % 12 + 1, second, first < 12 ? "am" : "pm");
+        char fmt[64];
+        screen_format_time(&fmt, first, second);
+        screen_printf("%s\n", fmt);
       }
       else
       {
-        screen_printf("Score: %d\nMoves: %d\n", first, second);
+        screen_printf("Score: %ld\nMoves: %ld\n", first, second);
       }
     }
   }

@@ -83,6 +83,8 @@ int print_handler(uint32_t, void (*)(uint8_t));
 void put_char_u(uint16_t);
 void put_char(uint8_t);
 
+void screen_format_time(char (*)[64], long, long);
+
 void zoutput_stream(void);
 void zinput_stream(void);
 void zprint(void);
