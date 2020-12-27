@@ -11,16 +11,25 @@
 
 @class Game, GlkStyle, Interpreter, Theme;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Theme : NSManagedObject
 
+@property (nullable, nonatomic, copy) NSString *beepHigh;
+@property (nullable, nonatomic, copy) NSString *beepLow;
 @property (nonatomic) int32_t border;
-@property (nonatomic, retain) id bufferBackground;
+@property (nonatomic) int32_t borderBehavior;
+@property (nullable, nonatomic, retain) NSColor *borderColor;
+@property (nullable, nonatomic, retain) NSColor *bufferBackground;
 @property (nonatomic) double bufferCellHeight;
 @property (nonatomic) double bufferCellWidth;
 @property (nonatomic) int32_t bufferMarginX;
 @property (nonatomic) int32_t bufferMarginY;
+@property (nonatomic) int32_t bZAdjustment;
+@property (nonatomic) int32_t bZTerminator;
 @property (nonatomic) double cellHeight;
 @property (nonatomic) double cellWidth;
+@property (nonatomic) int32_t coverArtStyle;
 @property (nonatomic) int32_t dashes;
 @property (nonatomic) int32_t defaultCols;
 @property (nonatomic) int32_t defaultRows;
@@ -28,60 +37,58 @@
 @property (nonatomic) BOOL doSound;
 @property (nonatomic) BOOL doStyles;
 @property (nonatomic) BOOL editable;
-@property (nonatomic, retain) id gridBackground;
+@property (nullable, nonatomic, retain) NSColor *gridBackground;
 @property (nonatomic) int32_t gridMarginX;
 @property (nonatomic) int32_t gridMarginY;
+@property (nonatomic) int32_t imageSizing;
 @property (nonatomic) int32_t justify;
 @property (nonatomic) int32_t maxCols;
 @property (nonatomic) int32_t maxRows;
 @property (nonatomic) int32_t minCols;
 @property (nonatomic) int32_t minRows;
-@property (nonatomic, retain) id morePrompt;
-@property (nonatomic, retain) NSString * name;
+@property (nullable, nonatomic, retain) NSObject *morePrompt;
+@property (nullable, nonatomic, copy) NSString *name;
+@property (nonatomic) BOOL saveOnTimer;
+@property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
 @property (nonatomic) int32_t spaceFormat;
-@property (nonatomic, retain) id spacingColor;
+@property (nullable, nonatomic, retain) NSColor *spacingColor;
 @property (nonatomic) int32_t winSpacingX;
 @property (nonatomic) int32_t winSpacingY;
-@property (nonatomic) int32_t coverArtStyle;
-@property (nonatomic, retain) id borderColor;
-@property (nonatomic, retain) NSString * beepHigh;
-@property (nonatomic, retain) NSString * beepLow;
-@property (nonatomic) BOOL slowDrawing;
-@property (nonatomic) int32_t imageSizing;
-@property (nonatomic) int32_t borderBehavior;
-@property (nonatomic) int32_t bZAdjustment;
 @property (nonatomic) int32_t zMachineTerp;
-@property (nonatomic) BOOL saveOnTimer;
-@property (nonatomic) int32_t bZTerminator;
-@property (nonatomic, retain) GlkStyle *bufAlert;
-@property (nonatomic, retain) GlkStyle *bufBlock;
-@property (nonatomic, retain) GlkStyle *bufEmph;
-@property (nonatomic, retain) GlkStyle *bufferNormal;
-@property (nonatomic, retain) GlkStyle *bufHead;
-@property (nonatomic, retain) GlkStyle *bufInput;
-@property (nonatomic, retain) GlkStyle *bufNote;
-@property (nonatomic, retain) GlkStyle *bufPre;
-@property (nonatomic, retain) GlkStyle *bufSubH;
-@property (nonatomic, retain) GlkStyle *bufUsr1;
-@property (nonatomic, retain) GlkStyle *bufUsr2;
-@property (nonatomic, retain) Theme *darkTheme;
-@property (nonatomic, retain) NSSet *defaultChild;
-@property (nonatomic, retain) Theme *defaultParent;
-@property (nonatomic, retain) NSSet *games;
-@property (nonatomic, retain) GlkStyle *gridAlert;
-@property (nonatomic, retain) GlkStyle *gridBlock;
-@property (nonatomic, retain) GlkStyle *gridEmph;
-@property (nonatomic, retain) GlkStyle *gridHead;
-@property (nonatomic, retain) GlkStyle *gridInput;
-@property (nonatomic, retain) GlkStyle *gridNormal;
-@property (nonatomic, retain) GlkStyle *gridNote;
-@property (nonatomic, retain) GlkStyle *gridPre;
-@property (nonatomic, retain) GlkStyle *gridSubH;
-@property (nonatomic, retain) GlkStyle *gridUsr1;
-@property (nonatomic, retain) GlkStyle *gridUsr2;
-@property (nonatomic, retain) Interpreter *interpreter;
-@property (nonatomic, retain) Theme *lightTheme;
+@property (nonatomic) int32_t vOExtraElements;
+@property (nonatomic) int32_t vOSpeakCommand;
+@property (nonatomic) int32_t vOSpeakInputType;
+@property (nonatomic) int32_t vOSpeakMenu;
+@property (nullable, nonatomic, retain) GlkStyle *bufAlert;
+@property (nullable, nonatomic, retain) GlkStyle *bufBlock;
+@property (nullable, nonatomic, retain) GlkStyle *bufEmph;
+@property (nullable, nonatomic, retain) GlkStyle *bufferNormal;
+@property (nullable, nonatomic, retain) GlkStyle *bufHead;
+@property (nullable, nonatomic, retain) GlkStyle *bufInput;
+@property (nullable, nonatomic, retain) GlkStyle *bufNote;
+@property (nullable, nonatomic, retain) GlkStyle *bufPre;
+@property (nullable, nonatomic, retain) GlkStyle *bufSubH;
+@property (nullable, nonatomic, retain) GlkStyle *bufUsr1;
+@property (nullable, nonatomic, retain) GlkStyle *bufUsr2;
+@property (nullable, nonatomic, retain) Theme *darkTheme;
+@property (nullable, nonatomic, retain) NSSet<Theme *> *defaultChild;
+@property (nullable, nonatomic, retain) Theme *defaultParent;
+@property (nullable, nonatomic, retain) NSSet<Game *> *games;
+@property (nullable, nonatomic, retain) GlkStyle *gridAlert;
+@property (nullable, nonatomic, retain) GlkStyle *gridBlock;
+@property (nullable, nonatomic, retain) GlkStyle *gridEmph;
+@property (nullable, nonatomic, retain) GlkStyle *gridHead;
+@property (nullable, nonatomic, retain) GlkStyle *gridInput;
+@property (nullable, nonatomic, retain) GlkStyle *gridNormal;
+@property (nullable, nonatomic, retain) GlkStyle *gridNote;
+@property (nullable, nonatomic, retain) GlkStyle *gridPre;
+@property (nullable, nonatomic, retain) GlkStyle *gridSubH;
+@property (nullable, nonatomic, retain) GlkStyle *gridUsr1;
+@property (nullable, nonatomic, retain) GlkStyle *gridUsr2;
+@property (nullable, nonatomic, retain) Interpreter *interpreter;
+@property (nullable, nonatomic, retain) Theme *lightTheme;
+@property (nullable, nonatomic, retain) Game *overrides;
 
 - (Theme *)clone;
 - (void)copyAttributesFrom:(Theme *)theme;
@@ -104,3 +111,5 @@
 - (void)removeGames:(NSSet *)values;
 
 @end
+
+NS_ASSUME_NONNULL_END

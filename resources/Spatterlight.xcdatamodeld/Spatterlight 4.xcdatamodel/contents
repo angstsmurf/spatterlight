@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H114" minimumToolsVersion="Xcode 4.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="3">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H114" minimumToolsVersion="Xcode 4.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="4">
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="added" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="autosaved" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
@@ -95,45 +95,49 @@
     <entity name="Theme" representedClassName="Theme" syncable="YES">
         <attribute name="beepHigh" optional="YES" attributeType="String" defaultValueString="Glass" syncable="YES"/>
         <attribute name="beepLow" optional="YES" attributeType="String" defaultValueString="Pop" syncable="YES"/>
-        <attribute name="border" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="borderBehavior" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="border" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="borderBehavior" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="borderColor" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="bufferBackground" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="bufferCellHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="bufferCellWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="bufferMarginX" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="bufferMarginY" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="bZAdjustment" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="bZTerminator" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="cellHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="cellWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="coverArtStyle" optional="YES" attributeType="Integer 32" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="dashes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="defaultCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="defaultRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="doGraphics" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="doSound" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="doStyles" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="editable" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="bufferCellHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="bufferCellWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="bufferMarginX" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="bufferMarginY" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="bZAdjustment" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="bZTerminator" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="cellHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="cellWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="coverArtStyle" optional="YES" attributeType="Integer 32" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dashes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="defaultCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="defaultRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="doGraphics" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="doSound" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="doStyles" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="editable" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="gridBackground" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="gridMarginX" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="gridMarginY" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="imageSizing" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="justify" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="maxCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="maxRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="minCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="minRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="gridMarginX" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="gridMarginY" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="imageSizing" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="justify" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="maxCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="maxRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="minCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="minRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="morePrompt" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>
-        <attribute name="saveOnTimer" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="slowDrawing" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="smartQuotes" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="spaceFormat" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="saveOnTimer" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="slowDrawing" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="smartQuotes" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="spaceFormat" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="spacingColor" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="winSpacingX" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="winSpacingY" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="zMachineTerp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="vOExtraElements" optional="YES" attributeType="Integer 32" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="vOSpeakCommand" optional="YES" attributeType="Integer 32" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="vOSpeakInputType" optional="YES" attributeType="Integer 32" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="vOSpeakMenu" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="winSpacingX" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="winSpacingY" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="zMachineTerp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="bufAlert" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufAlert" inverseEntity="GlkStyle" syncable="YES"/>
         <relationship name="bufBlock" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufBlock" inverseEntity="GlkStyle" syncable="YES"/>
         <relationship name="bufEmph" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="GlkStyle" inverseName="bufEmph" inverseEntity="GlkStyle" syncable="YES"/>
@@ -165,13 +169,13 @@
         <relationship name="overrides" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="override" inverseEntity="Game" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Game" positionX="160" positionY="192" width="128" height="255"/>
+        <element name="Game" positionX="160" positionY="192" width="128" height="253"/>
         <element name="GlkStyle" positionX="160" positionY="192" width="128" height="405"/>
         <element name="Ifid" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Image" positionX="160" positionY="192" width="128" height="105"/>
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Metadata" positionX="160" positionY="192" width="128" height="495"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Theme" positionX="160" positionY="192" width="128" height="1095"/>
+        <element name="Theme" positionX="160" positionY="192" width="128" height="1153"/>
     </elements>
 </model>

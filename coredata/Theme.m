@@ -16,14 +16,21 @@
 
 @implementation Theme
 
+@dynamic beepHigh;
+@dynamic beepLow;
 @dynamic border;
+@dynamic borderBehavior;
+@dynamic borderColor;
 @dynamic bufferBackground;
 @dynamic bufferCellHeight;
 @dynamic bufferCellWidth;
 @dynamic bufferMarginX;
 @dynamic bufferMarginY;
+@dynamic bZAdjustment;
+@dynamic bZTerminator;
 @dynamic cellHeight;
 @dynamic cellWidth;
+@dynamic coverArtStyle;
 @dynamic dashes;
 @dynamic defaultCols;
 @dynamic defaultRows;
@@ -34,6 +41,7 @@
 @dynamic gridBackground;
 @dynamic gridMarginX;
 @dynamic gridMarginY;
+@dynamic imageSizing;
 @dynamic justify;
 @dynamic maxCols;
 @dynamic maxRows;
@@ -41,22 +49,18 @@
 @dynamic minRows;
 @dynamic morePrompt;
 @dynamic name;
+@dynamic saveOnTimer;
+@dynamic slowDrawing;
 @dynamic smartQuotes;
 @dynamic spaceFormat;
 @dynamic spacingColor;
 @dynamic winSpacingX;
 @dynamic winSpacingY;
-@dynamic coverArtStyle;
-@dynamic borderColor;
-@dynamic beepHigh;
-@dynamic beepLow;
-@dynamic slowDrawing;
-@dynamic imageSizing;
-@dynamic borderBehavior;
-@dynamic bZAdjustment;
 @dynamic zMachineTerp;
-@dynamic saveOnTimer;
-@dynamic bZTerminator;
+@dynamic vOExtraElements;
+@dynamic vOSpeakCommand;
+@dynamic vOSpeakInputType;
+@dynamic vOSpeakMenu;
 @dynamic bufAlert;
 @dynamic bufBlock;
 @dynamic bufEmph;
@@ -85,6 +89,7 @@
 @dynamic gridUsr2;
 @dynamic interpreter;
 @dynamic lightTheme;
+@dynamic overrides;
 
 - (Theme *)clone {
 

@@ -2467,6 +2467,7 @@
 		96FE876509F3A12B00D41D78 /* libtads3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtads3.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C300D48223A11786000B2165 /* IFDBDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IFDBDownloader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C300D48323A11786000B2165 /* IFDBDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = IFDBDownloader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
 		C32036B21ED763DB00FF60DF /* audio_convert.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = audio_convert.c; path = support/sdl_sound/audio_convert.c; sourceTree = "<group>"; };
 		C32036B31ED763DB00FF60DF /* extra_rwops.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = extra_rwops.c; path = support/sdl_sound/extra_rwops.c; sourceTree = "<group>"; };
 		C32036B41ED763DB00FF60DF /* SDL_sound.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = SDL_sound.c; path = support/sdl_sound/SDL_sound.c; sourceTree = "<group>"; };
@@ -6460,6 +6461,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					ZTERP_GLK,
 					GARGLK,
@@ -6845,7 +6847,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = frotz;
@@ -6877,6 +6879,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				OTHER_LDFLAGS = "-lz";
@@ -6915,6 +6918,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					NEED_STRICMP_PROTOTYPE,
 					"stricmp=gln_strcasecmp",
@@ -6953,6 +6957,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
 				INSTALL_PATH = "$(HOME)/bin";
@@ -7053,6 +7058,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					GLK,
 					__unix,
@@ -7100,6 +7106,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.c.c;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					"HUGO_INLINE=static\\ inline",
 					GLK,
@@ -7152,6 +7159,7 @@
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					GLK,
 					GARGLK,
@@ -7200,6 +7208,7 @@
 				GCC_CHAR_IS_UNSIGNED_CHAR = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					GLK,
 					"BUILD=0",
@@ -7237,6 +7246,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INSTALL_PATH = "$(HOME)/bin";
@@ -7269,6 +7279,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = agt2agx;
@@ -7884,11 +7895,12 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */,
 				6DC1FAEC252A3DB900540C6E /* Spatterlight 3.xcdatamodel */,
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = 6DC1FAEC252A3DB900540C6E /* Spatterlight 3.xcdatamodel */;
+			currentVersion = C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -23,6 +23,7 @@
                 <outlet property="btnRemove" destination="907" id="910"/>
                 <outlet property="btnSmartQuotes" destination="563" id="760"/>
                 <outlet property="btnSpaceFormat" destination="562" id="761"/>
+                <outlet property="btnVOSpeakCommands" destination="FVA-J4-AB0" id="aBY-gY-aC4"/>
                 <outlet property="clrBufferBg" destination="543" id="753"/>
                 <outlet property="clrBufferFg" destination="542" id="750"/>
                 <outlet property="clrGridBg" destination="541" id="752"/>
@@ -30,6 +31,7 @@
                 <outlet property="clrInputFg" destination="544" id="751"/>
                 <outlet property="detailsHeader" destination="867" id="899"/>
                 <outlet property="divider" destination="926" id="927"/>
+                <outlet property="miscHeader" destination="VZf-FV-aif" id="q2e-sN-bjR"/>
                 <outlet property="sampleTextBorderView" destination="948" id="949"/>
                 <outlet property="sampleTextView" destination="773" id="774"/>
                 <outlet property="scrollView" destination="675" id="864"/>
@@ -43,11 +45,12 @@
                 <outlet property="txtGridMargin" destination="548" id="754"/>
                 <outlet property="txtLeading" destination="551" id="756"/>
                 <outlet property="txtRows" destination="570" id="759"/>
+                <outlet property="vOMenuButton" destination="Fly-sQ-mPk" id="sAo-Ii-Qdm"/>
                 <outlet property="window" destination="407" id="765"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="prefsPanel" animationBehavior="default" id="407" userLabel="Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
@@ -86,9 +89,9 @@
                             <tabViewItem label="Themes" identifier="1" id="410">
                                 <view key="view" id="413">
                                     <rect key="frame" x="10" y="33" width="468" height="240"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="869">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="869">
                                             <rect key="frame" x="18" y="217" width="440" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="left" title="Theme setting for all games" usesSingleLineMode="YES" id="870">
@@ -97,16 +100,16 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="675">
+                                        <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="675">
                                             <rect key="frame" x="17" y="55" width="434" height="152"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="55Y-5M-4dK">
                                                 <rect key="frame" x="0.0" y="0.0" width="434" height="152"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="ThemesTable" rowSizeStyle="automatic" viewBased="YES" id="676">
                                                         <rect key="frame" x="0.0" y="0.0" width="434" height="152"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -164,6 +167,7 @@
                                                         </connections>
                                                     </tableView>
                                                 </subviews>
+                                                <nil key="backgroundColor"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="677">
                                                 <rect key="frame" x="1" y="149" width="411" height="15"/>
@@ -174,15 +178,15 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
-                                        <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="877">
+                                        <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="877">
                                             <rect key="frame" x="78" y="14" width="35" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" preferredEdge="maxY" selectedItem="880" id="878">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="menu"/>
                                                 <menu key="menu" title="OtherViews" id="879">
                                                     <items>
-                                                        <menuItem image="NSActionTemplate" catalog="system" hidden="YES" id="880"/>
+                                                        <menuItem image="NSActionTemplate" hidden="YES" id="880"/>
                                                         <menuItem title="Apply to Selected Games" id="881">
                                                             <connections>
                                                                 <action selector="applyToSelected:" target="-2" id="902"/>
@@ -216,10 +220,10 @@
                                                 </menu>
                                             </popUpButtonCell>
                                         </popUpButton>
-                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="905">
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="905">
                                             <rect key="frame" x="17" y="14" width="27" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" catalog="system" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="906">
+                                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="906">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -227,10 +231,10 @@
                                                 <action selector="addTheme:" target="-2" id="912"/>
                                             </connections>
                                         </button>
-                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="907">
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="907">
                                             <rect key="frame" x="43" y="14" width="27" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" catalog="system" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="908">
+                                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="908">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -238,7 +242,7 @@
                                                 <action selector="removeTheme:" target="-2" id="924"/>
                                             </connections>
                                         </button>
-                                        <button tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="955">
+                                        <button fixedFrame="YES" tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="955">
                                             <rect key="frame" x="128" y="26" width="220" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="check" title="Changes apply to all games in library" bezelStyle="regularSquare" imagePosition="leading" alignment="left" controlSize="small" state="on" tag="40" inset="2" id="956">
@@ -249,7 +253,7 @@
                                                 <action selector="clickedOneThemeForAll:" target="-2" id="963"/>
                                             </connections>
                                         </button>
-                                        <button tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="958">
+                                        <button fixedFrame="YES" tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="958">
                                             <rect key="frame" x="128" y="6" width="126" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="check" title="Adjust window size" bezelStyle="regularSquare" imagePosition="leading" alignment="left" controlSize="small" state="on" tag="40" inset="2" id="959">
@@ -678,11 +682,93 @@
                                     </subviews>
                                 </view>
                             </tabViewItem>
+                            <tabViewItem label="VO" identifier="3" id="b6I-Lb-OzY" userLabel="Misc">
+                                <view key="view" id="W23-9w-g7s">
+                                    <rect key="frame" x="10" y="33" width="468" height="240"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="nyv-0Z-CHw">
+                                            <rect key="frame" x="9" y="170" width="450" height="5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        </box>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zUE-Qq-JjZ">
+                                            <rect key="frame" x="18" y="217" width="440" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="left" title="Settings for theme Default" usesSingleLineMode="YES" id="VZf-FV-aif">
+                                                <font key="font" metaFont="smallSystemBold"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K4o-xa-vAv">
+                                            <rect key="frame" x="159" y="181" width="130" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="VoiceOver settings" usesSingleLineMode="YES" id="d6P-kP-JUO">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVA-J4-AB0">
+                                            <rect key="frame" x="174" y="138" width="130" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Speak commands" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="xxj-M6-Sgq">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="changeVOSpeakCommands:" target="-2" id="C1T-UL-PSh"/>
+                                            </connections>
+                                        </button>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaW-FI-zZe">
+                                            <rect key="frame" x="98" y="99" width="119" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="left" title="Speak menu lines:" usesSingleLineMode="YES" id="wMk-cY-4y9">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fly-sQ-mPk">
+                                            <rect key="frame" x="218" y="94" width="161" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="Text only" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="cU5-z5-fTq" id="BMR-2g-JpV">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="p1B-5d-BdX">
+                                                    <items>
+                                                        <menuItem title="Don't detect menus" id="Lht-T4-ElZ" userLabel="Don't detect menus">
+                                                            <connections>
+                                                                <action selector="vOMenuNone:" target="-2" id="8ug-bc-lF9"/>
+                                                            </connections>
+                                                        </menuItem>
+                                                        <menuItem title="Text only" state="on" id="cU5-z5-fTq" userLabel="Text only">
+                                                            <connections>
+                                                                <action selector="vOMenuText:" target="-2" id="LAH-qK-WaK"/>
+                                                            </connections>
+                                                        </menuItem>
+                                                        <menuItem title="Text and index" id="W9Q-YO-Dgb" userLabel="Index">
+                                                            <connections>
+                                                                <action selector="vOMenuIndex:" target="-2" id="TtF-P7-5EX"/>
+                                                            </connections>
+                                                        </menuItem>
+                                                        <menuItem title="Text, index, and total" id="jug-Mg-OKp" userLabel="Index and total">
+                                                            <connections>
+                                                                <action selector="vOMenuTotal:" target="-2" id="aY6-Ez-KgA"/>
+                                                            </connections>
+                                                        </menuItem>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
                         </tabViewItems>
                     </tabView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="39" y="115"/>
+            <point key="canvasLocation" x="39" y="114.5"/>
         </window>
         <arrayController mode="entity" entityName="Theme" automaticallyPreparesContent="YES" avoidsEmptySelection="NO" id="784" userLabel="Themes" customClass="ThemeArrayController">
             <connections>
@@ -693,9 +779,9 @@
         </arrayController>
     </objects>
     <resources>
-        <image name="NSActionTemplate" catalog="system" width="14" height="14"/>
-        <image name="NSAddTemplate" catalog="system" width="11" height="11"/>
-        <image name="NSRemoveTemplate" catalog="system" width="11" height="11"/>
+        <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="buttonCell:974:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
