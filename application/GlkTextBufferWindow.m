@@ -2783,6 +2783,22 @@ replacementString:(id)repl {
     NSRange allText = NSMakeRange(0, textstorage.length);
     range = NSIntersectionRange(allText, range);
     NSString *string = [textstorage.string substringWithRange:range];
+
+    // Strip command line if the speak command setting is off
+    if (!self.glkctl.theme.vOSpeakCommand && moveRangeIndex != 0)
+    {
+        NSRange range2 = ((NSValue *)self.moveRanges[moveRangeIndex - 1]).rangeValue;
+        range2 = NSIntersectionRange(allText, range2);
+        NSString *str2 = [textstorage.string substringWithRange:range2];
+        if ([str2 characterAtIndex:str2.length - 1] == '>') {
+            NSRange foundRange = [string rangeOfString:@"\n"];
+            if (foundRange.location != NSNotFound)
+            {
+                string = [string substringFromIndex:foundRange.location];
+            }
+        }
+    }
+
     return string;
 }
 

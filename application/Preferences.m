@@ -1202,6 +1202,9 @@ NSString *fontToString(NSFont *font) {
     _btnOneThemeForAll.state = _oneThemeForAll;
     _btnAdjustSize.state = _adjustSize;
 
+    _btnVOSpeakCommands.state = theme.vOSpeakCommand;
+    [_vOMenuButton selectItemAtIndex:theme.vOSpeakMenu];
+
     if ([[NSFontPanel sharedFontPanel] isVisible] && selectedFontButton)
         [self showFontPanel:selectedFontButton];
 }
@@ -1661,6 +1664,7 @@ NSString *fontToString(NSFont *font) {
 - (void)changeThemeName:(NSString *)name {
     [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"themeName"];
     _detailsHeader.stringValue = [NSString stringWithFormat:@"Settings for theme %@", name];
+    _miscHeader.stringValue = _detailsHeader.stringValue;
 }
 
 - (BOOL)notDuplicate:(NSString *)string {
@@ -2133,8 +2137,47 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.doStyles = [sender state] ? YES : NO;
-//    NSLog(@"pref: dostyles for theme %@ changed to %d", theme.name, theme.doStyles);
     [Preferences rebuildTextAttributes];
+}
+
+- (IBAction)changeVOSpeakCommands:(id)sender {
+    if (theme.vOSpeakCommand == [sender state])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.vOSpeakCommand = [sender state];
+   NSLog(@"pref: vOSpeakCommand for theme %@ changed to %d", themeToChange.name, themeToChange.vOSpeakCommand);
+}
+
+- (IBAction)vOMenuNone:(id)sender {
+    NSLog(@"vOMenuNone");
+    if (theme.vOSpeakMenu == kVOMenuNone)
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.vOSpeakMenu = kVOMenuNone;
+}
+
+- (IBAction)vOMenuText:(id)sender {
+    NSLog(@"vOMenuText");
+    if (theme.vOSpeakMenu == kVOMenuTextOnly)
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.vOSpeakMenu = kVOMenuTextOnly;
+}
+
+- (IBAction)vOMenuIndex:(id)sender {
+    NSLog(@"vOMenuIndex");
+    if (theme.vOSpeakMenu == kVOMenuIndex)
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.vOSpeakMenu = kVOMenuIndex;
+}
+
+- (IBAction)vOMenuTotal:(id)sender {
+    NSLog(@"vOMenuTotal");
+    if (theme.vOSpeakMenu == kVOMenuTotal)
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.vOSpeakMenu = kVOMenuTotal;
 }
 
 - (IBAction)changeOverwriteStyles:(id)sender {

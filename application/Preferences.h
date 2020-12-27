@@ -5,13 +5,13 @@
 typedef enum kSpacesFormatType : NSUInteger {
     TAG_SPACES_GAME,
     TAG_SPACES_ONE,
-    TAG_SPACES_TWO,
+    TAG_SPACES_TWO
 } kSpacesFormatType;
 
 typedef enum kZoomDirectionType : NSUInteger {
     ZOOMRESET,
     ZOOMIN,
-    ZOOMOUT,
+    ZOOMOUT
 } kZoomDirectionType;
 
 typedef enum kDefaultPrefWindowSize : NSUInteger {
@@ -19,6 +19,13 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
     kDefaultPrefWindowHeight = 330,
     kDefaultPrefsLowerViewHeight = 311
 } kDefaultPrefWindowSize;
+
+typedef enum kVOMenuPrefsType : int32_t {
+    kVOMenuNone,
+    kVOMenuTextOnly,
+    kVOMenuIndex,
+    kVOMenuTotal
+} kVOMenuPrefsType;
 
 
 @class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController;
@@ -66,6 +73,14 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 - (IBAction)changeEnableSound:(id)sender;
 - (IBAction)changeEnableStyles:(id)sender;
 - (IBAction)changeOverwriteStyles:(id)sender;
+- (IBAction)swapColors:(id)sender;
+- (IBAction)changeVOSpeakCommands:(id)sender;
+
+#pragma mark VoiceOver menu menu
+- (IBAction)vOMenuNone:(id)sender;
+- (IBAction)vOMenuText:(id)sender;
+- (IBAction)vOMenuIndex:(id)sender;
+- (IBAction)vOMenuTotal:(id)sender;
 
 - (IBAction)addTheme:(id)sender;
 - (IBAction)removeTheme:(id)sender;
@@ -137,6 +152,7 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 
 @property (strong) IBOutlet NSTextFieldCell *detailsHeader;
 @property (strong) IBOutlet NSTextFieldCell *themesHeader;
+@property (strong) IBOutlet NSTextFieldCell *miscHeader;
 @property (strong) IBOutlet NSButton *btnOneThemeForAll;
 
 @property (strong) IBOutlet NSPopUpButton *actionButton;
@@ -149,6 +165,7 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
 @property (strong) IBOutlet NSButton *swapGridColBtn;
 @property (strong) IBOutlet NSButton *swapBufColBtn;
 
-- (IBAction)swapColors:(id)sender;
+@property (strong) IBOutlet NSPopUpButton *vOMenuButton;
+@property (strong) IBOutlet NSButton *btnVOSpeakCommands;
 
 @end

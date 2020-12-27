@@ -841,7 +841,10 @@
                && string.length == 1
                && [_keyPressTimeStamp timeIntervalSinceNow] > -0.5
                && [_lastKeyPress caseInsensitiveCompare:string] == NSOrderedSame) {
-        [self.glkctl speakString:string];
+        // Don't echo keys if speak command setting is off
+        if (self.glkctl.theme.vOSpeakCommand) {
+            [self.glkctl speakString:string];
+        }
         self.glkctl.form.dontSpeakField = YES;
     }
 
@@ -1164,6 +1167,10 @@
                 return;
             }
         }
+
+    // Stupid hack for Swedish keyboard
+    if (char_request && self.glkctl.bureaucracy && [evt keyCode] == 30)
+        ch = '^';
 
     if (char_request && ch != keycode_Unknown) {
         [self.glkctl markLastSeen];

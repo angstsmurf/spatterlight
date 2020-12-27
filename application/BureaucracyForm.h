@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isForm;
 - (void)movedFromField;
 - (void)speakCurrentField;
+- (void)deferredSpeakCurrentField:(id)sender;
 - (void)speakError;
 
 @end

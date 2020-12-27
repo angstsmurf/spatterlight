@@ -12,8 +12,9 @@
 #import "GlkTextGridWindow.h"
 #import "GlkTextBufferWindow.h"
 #import "GlkGraphicsWindow.h"
-
+#import "Preferences.h"
 #import "Game.h"
+#import "Theme.h"
 
 #import "NSColor+integer.h"
 #import "NSString+Categories.h"
@@ -93,6 +94,7 @@
                     NSLog(@"Found no menu commands. Not a menu");
                     return NO;
                 } else {
+                    _menuCommands = @{ @"":@"" };
                     // If in the Definitions menu, add the last two lines
                     NSRange range = [_attrStr.string rangeOfString:@"Restore Defaults"];
                     if (range.length) {
@@ -646,7 +648,33 @@
     _selectedLine = [self findSelectedLine];
     if (_selectedLine == NSNotFound)
         return;
-    NSString *selectedLineString = [NSString stringWithFormat:@".\nMenu item %ld of %ld.\n", _selectedLine + 1, _lines.count];
+    
+    NSString *selectedLineString;
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    
+    if (!_haveSpokenMenu) {
+        NSString *titleString = [self constructMenuTitleString];
+        if (titleString.length) {
+            titleString = [NSString stringWithFormat:@"We are in a menu, \"%@.\"\n", titleString];
+        } else {
+            titleString = @"We are in a menu.\n";
+        }
+        selectedLineString = [titleString stringByAppendingString:[self menuLineStringWithIndex:YES total:YES instructions:YES]];
+        _haveSpokenMenu = YES;
+        [self speakString:selectedLineString];
+        return;
+    } else if (sender == self.glkctl) {
+        selectedLineString = [self menuLineStringWithIndex:YES total:YES instructions:YES];
+    } else {
+        selectedLineString = [self menuLineStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex) total:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal) instructions:NO];
+        [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
+    }
+    
+    [self speakString:selectedLineString];
+}
+
+- (NSString *)menuLineStringWithIndex:(BOOL)index total:(BOOL)total instructions:(BOOL)instructions {
     NSRange selectedLineRange = ((NSValue *)_lines[_selectedLine]).rangeValue;
     NSRange allText = NSMakeRange(0, _attrStr.length);
     selectedLineRange = NSIntersectionRange(allText, selectedLineRange);
@@ -660,33 +688,33 @@
                                                          options:0
                                                            range:NSMakeRange(0, menuItemString.length)
                                                     withTemplate:@""];
-
     NSString *trimmedString = [menuItemString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (trimmedString.length == 0)
         menuItemString = @"Empty line.";
 
-    selectedLineString = [menuItemString stringByAppendingString:selectedLineString];
-    if (!_haveSpokenMenu) {
-        NSString *titleString = [self constructMenuTitleString];
-        if (titleString.length) {
-            titleString = [NSString stringWithFormat:@"We are in a menu, \"%@.\"\n", titleString];
-        } else {
-            titleString = @"We are in a menu.\n";
-        }
-        selectedLineString = [titleString stringByAppendingString:selectedLineString];
-        _haveSpokenMenu = YES;
-    }
-
+    // Add pre-loaded input field text to Beyond Zork definitions menu
     if (_glkctl.beyondZork) {
         id delegate = ((NSTextStorage *)_attrStr).delegate;
         if ([delegate isKindOfClass:[GlkTextGridWindow class]] && ((GlkTextGridWindow *)delegate).input) {
-            selectedLineString = [selectedLineString stringByAppendingString:((GlkTextGridWindow *)delegate).enteredTextSoFar];
+            menuItemString = [menuItemString stringByAppendingString:((GlkTextGridWindow *)delegate).enteredTextSoFar];
         }
     }
 
-    [self speakString:selectedLineString];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
+    if (index) {
+        NSString *indexString = [NSString stringWithFormat:@".\nMenu item %ld", _selectedLine + 1];
+        if (total) {
+            indexString = [indexString stringByAppendingString:
+                           [NSString stringWithFormat:@" of %ld", _lines.count]];
+        }
+        indexString = [indexString stringByAppendingString:@".\n"];
+        menuItemString = [menuItemString stringByAppendingString:indexString];
+    }
+
+    if (instructions) {
+        menuItemString = [menuItemString stringByAppendingString:[self constructMenuInstructionString]];
+    }
+
+    return menuItemString;
 }
 
 - (void)speakInstructions:(id)sender {
@@ -755,6 +783,8 @@
     NSString *string = @"";
     if (_glkctl.beyondZork) {
         string = _menuCommands[_menuKeys.firstObject];
+        if (!string.length)
+            return @"";
         string = [string stringByReplacingOccurrencesOfString:@"↑" withString:@"UP ARROW"];
         string = [string stringByReplacingOccurrencesOfString:@"↓" withString:@"DOWN ARROW"];
         string = [string stringByReplacingOccurrencesOfString:@"←" withString:@"LEFT ARROW"];
@@ -816,6 +846,8 @@
         topString = [topString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if ([topString isEqualToString:@"Begin using a preset character"])
             string = @"Character Setup";
+        else if ([topString isEqualToString:@"F1"])
+            string = @"Function Key Definitions";
     }
     return string;
 }

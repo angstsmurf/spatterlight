@@ -1472,9 +1472,23 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
 
+    NSUInteger lastVOSpeakMenu = (NSUInteger)_theme.vOSpeakMenu;
+
     if (_game && !_previewDummy) {
 //        NSLog(@"glkctl notePreferencesChanged called for game %@, currently using theme %@", _game.metadata.title, _game.theme.name);
         _theme = _game.theme;
+        if (!_theme.vOSpeakMenu && lastVOSpeakMenu) { // Check for menu was switched off
+            if (_zmenu) {
+                [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
+                _zmenu = nil;
+            }
+            if (_form) {
+                [NSObject cancelPreviousPerformRequestsWithTarget:_form];
+                _form = nil;
+            }
+        } else if (_theme.vOSpeakMenu && !lastVOSpeakMenu) { // Check for menu was switched on
+            [self checkZMenu];
+        }
     } else {
 //        NSLog(@"notePreferencesChanged: no game.");
         return;
@@ -3340,6 +3354,13 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 #pragma mark Accessibility
 
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    if (!_voiceOverActive && (menuItem.action == @selector(speakMostRecent:) || menuItem.action == @selector(speakPrevious:) || menuItem.action == @selector(speakNext:) || menuItem.action == @selector(speakStatus:))) {
+        return NO;
+    }
+        return YES;
+}
+
 - (BOOL)isAccessibilityElement {
    return NO;
 }
@@ -3427,7 +3448,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 #pragma mark ZMenu
 
 - (void)checkZMenu {
-    if (!_voiceOverActive || _mustBeQuiet)
+    if (!_voiceOverActive || _mustBeQuiet || !_theme.vOSpeakMenu)
         return;
     if (_shouldCheckForMenu) {
         _shouldCheckForMenu = NO;
@@ -3516,11 +3537,11 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 - (IBAction)speakMostRecent:(id)sender {
     if (_zmenu) {
-        [_zmenu speakSelectedLine];
+        [_zmenu deferredSpeakSelectedLine:self];
         return;
     }
     if (_form) {
-        [_form speakCurrentField];
+        [_form deferredSpeakCurrentField:self];
         return;
     }
     GlkWindow *mainWindow = [self largestWithMoves];
@@ -3865,8 +3886,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     for (NSValue *child in children) {
         NSRange range = child.rangeValue;
         NSString *string = [largest.textview.string substringWithRange:range];
-        NSLog(@"String: \"%@\"", string);
-
 
         if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
             [strings addObject:string];

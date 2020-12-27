@@ -8,6 +8,8 @@
 #import "BureaucracyForm.h"
 #import "GlkController.h"
 #import "GlkTextGridWindow.h"
+#import "Theme.h"
+#import "Preferences.h"
 
 @implementation BureaucracyForm
 
@@ -118,15 +120,23 @@
 
 - (NSString *)constructInfoString {
     NSString *infoString = [_attrStr.string substringWithRange:_infoFieldRange];
+    infoString = [infoString stringByReplacingOccurrencesOfString:@"^" withString:@"circumflex"];
     return infoString;
 }
 
-- (NSString *)constructFieldString {
+- (NSString *)constructFieldStringWithIndex:(BOOL)useIndex andTotal:(BOOL)useTotal {
     NSUInteger index =  [self findCurrentField];
     if (index == NSNotFound)
         return @"";
     NSRange range = [self rangeFromIndex:index];
-    NSString *string = [NSString stringWithFormat:@"%@\nField %ld of 14.", [_attrStr.string substringWithRange:range], index + 1];
+    NSString *string = [_attrStr.string substringWithRange:range];
+    if (useIndex) {
+        string = [string stringByAppendingString:[NSString stringWithFormat:@"\nField %ld", index + 1]];
+        if (useTotal) {
+            string = [string stringByAppendingString:@" of 14"];
+        }
+        string = [string stringByAppendingString:@"."];
+    }
     return string;
 }
 
@@ -185,15 +195,23 @@
     if (_selectedField == NSNotFound)
         return;
 
-    NSString *selectedFieldString = [self constructInputString];
+    NSString *selectedFieldString = @"";
 
-    selectedFieldString =
-    [selectedFieldString stringByAppendingString:
-     [self constructFieldString]];
-
-    if (!_haveSpokenForm) {
-        selectedFieldString = [@"SOFTWARE LICENCE APPLICATION: " stringByAppendingString:selectedFieldString];
+    if (!_haveSpokenForm || sender == self.glkctl) {
+        selectedFieldString = [self constructInputString];
+        selectedFieldString =
+        [selectedFieldString stringByAppendingString:
+         [self constructFieldStringWithIndex:YES andTotal:YES]];
+        if (!_haveSpokenForm)
+            selectedFieldString = [@"SOFTWARE LICENCE APPLICATION: " stringByAppendingString:selectedFieldString];
         _haveSpokenForm = YES;
+    } else {
+        if (self.glkctl.theme.vOSpeakCommand)
+            selectedFieldString = [self constructInputString];
+        
+        selectedFieldString =
+        [selectedFieldString stringByAppendingString:
+         [self constructFieldStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex)  andTotal:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal)]];
     }
 
     [self speakString:selectedFieldString];
@@ -218,11 +236,15 @@
 - (void)speakError {
     GlkTextGridWindow *win = (GlkTextGridWindow *)((NSTextStorage *)_attrStr).delegate;
     [win flushDisplay];
-    NSString *errorString = [self constructInfoString];
-    errorString = [errorString stringByAppendingString:[self constructFieldString]];
-    [self speakString:errorString];
+    [self performSelector:@selector(deferredSpeakError:) withObject:nil afterDelay:0.1];
 }
 
+- (void)deferredSpeakError:(id)sender {
+    NSString *errorString = [self constructInfoString];
+    errorString = [errorString stringByAppendingString:
+                   [self constructFieldStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal)]];
+    [self speakString:errorString];
+}
 
 - (void)speakString:(NSString *)string {
     if (!string || string.length == 0)
