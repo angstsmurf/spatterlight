@@ -2129,7 +2129,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.doSound = [sender state] ? YES : NO;
-    NSLog(@"pref: dosound changed to %d", theme.doSound);
+//    NSLog(@"pref: dosound changed to %d", theme.doSound);
 }
 
 - (IBAction)changeEnableStyles:(id)sender {
@@ -2145,11 +2145,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.vOSpeakCommand = [sender state];
-   NSLog(@"pref: vOSpeakCommand for theme %@ changed to %d", themeToChange.name, themeToChange.vOSpeakCommand);
 }
 
 - (IBAction)vOMenuNone:(id)sender {
-    NSLog(@"vOMenuNone");
     if (theme.vOSpeakMenu == kVOMenuNone)
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
@@ -2157,7 +2155,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)vOMenuText:(id)sender {
-    NSLog(@"vOMenuText");
     if (theme.vOSpeakMenu == kVOMenuTextOnly)
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
@@ -2165,7 +2162,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)vOMenuIndex:(id)sender {
-    NSLog(@"vOMenuIndex");
     if (theme.vOSpeakMenu == kVOMenuIndex)
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
@@ -2173,7 +2169,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)vOMenuTotal:(id)sender {
-    NSLog(@"vOMenuTotal");
     if (theme.vOSpeakMenu == kVOMenuTotal)
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
