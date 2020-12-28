@@ -198,13 +198,13 @@
     NSString *selectedFieldString = @"";
 
     if (!_haveSpokenForm || sender == self.glkctl) {
-        selectedFieldString = [self constructInputString];
         selectedFieldString =
-        [selectedFieldString stringByAppendingString:
-         [self constructFieldStringWithIndex:YES andTotal:YES]];
-        if (!_haveSpokenForm)
-            selectedFieldString = [@"SOFTWARE LICENCE APPLICATION: " stringByAppendingString:selectedFieldString];
-        _haveSpokenForm = YES;
+        [self constructFieldStringWithIndex:YES andTotal:YES];
+        if (!_haveSpokenForm) {
+            NSString *titleString = [@"SOFTWARE LICENCE APPLICATION: " stringByAppendingString:[self constructInputString]];
+            selectedFieldString = [titleString stringByAppendingString:selectedFieldString];
+            _haveSpokenForm = YES;
+        }
     } else {
         if (self.glkctl.theme.vOSpeakCommand)
             selectedFieldString = [self constructInputString];
@@ -240,7 +240,11 @@
 }
 
 - (void)deferredSpeakError:(id)sender {
-    NSString *errorString = [self constructInfoString];
+    NSString *errorString = @"";
+    if (self.glkctl.theme.vOSpeakCommand)
+        errorString = [self constructInputString];
+    else
+        errorString = [self constructInfoString];
     errorString = [errorString stringByAppendingString:
                    [self constructFieldStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal)]];
     [self speakString:errorString];
