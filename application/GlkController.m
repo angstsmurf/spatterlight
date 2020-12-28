@@ -3660,10 +3660,10 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSString *filterText = searchParameters.filterString;
     NSRange currentRange = currentItemResult.targetRange;
 
-    NSMutableArray *children = [[NSMutableArray alloc] init];
+    NSMutableArray<NSValue *> *children = [[NSMutableArray alloc] init];
     NSMutableArray *linkTargetViews = [[NSMutableArray alloc] init];
 
-    NSUInteger currentItemIndex;
+    NSUInteger currentItemIndex = NSNotFound;
 
     if (rotor.type == NSAccessibilityCustomRotorTypeAny) {
         return [self textSearchResultForString:filterText fromRange: currentRange direction:direction];
@@ -3722,7 +3722,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     }
 
     if (currentItemIndex != NSNotFound) {
-        NSRange textRange = ((NSValue *)children[currentItemIndex]).rangeValue;
+        NSRange textRange = children[currentItemIndex].rangeValue;
         id targetElement = linkTargetViews[currentItemIndex];
         searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:targetElement];
         unichar firstChar = [((NSTextView *)targetElement).textStorage.string characterAtIndex:textRange.location];
@@ -3815,7 +3815,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             NSString *string = textview.string;
             if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
                 if (bufWin.moveRanges.count) {
-                    NSRange range = ((NSValue *)bufWin.moveRanges.lastObject).rangeValue;
+                    NSRange range = bufWin.moveRanges.lastObject.rangeValue;
                     string = [string substringFromIndex:range.location];
                 }
             }
@@ -3869,11 +3869,11 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     if (targetWindow) {
         searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement: targetWindow];
         searchResult.customLabel = strings[currentItemIndex];
-        NSArray *moveRanges = ((GlkWindow *)targetWindow.delegate).moveRanges;
+        NSArray<NSValue *> *moveRanges = ((GlkWindow *)targetWindow.delegate).moveRanges;
         if (moveRanges.count) {
             if ([targetWindow.delegate isKindOfClass:[GlkTextBufferWindow class]])
                 [(GlkTextBufferWindow *)targetWindow.delegate forceLayout];
-            NSRange range = ((NSValue *)moveRanges.lastObject).rangeValue;
+            NSRange range = moveRanges.lastObject.rangeValue;
             NSRange allText = NSMakeRange(0, targetWindow.string.length);
             searchResult.targetRange = NSIntersectionRange(allText, range);
         }

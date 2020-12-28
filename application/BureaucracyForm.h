@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(weak) GlkController *glkctl;
 @property NSAttributedString *attrStr;
-@property NSArray *fields;
-@property NSArray *fieldstrings;
+@property NSArray<NSValue *> *fields;
+@property NSArray<NSString *> *fieldstrings;
 @property NSUInteger selectedField;
 @property NSUInteger lastField;
 @property NSUInteger lastCharacterPos;

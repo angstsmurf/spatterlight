@@ -197,8 +197,8 @@
 
 - (NSUInteger)findAttributeSelection {
     __block NSUInteger guess = NSNotFound;
-    NSRange lineRange = ((NSValue *)_lines.firstObject).rangeValue;
-    NSRange menuRange = NSUnionRange(lineRange, ((NSValue *)_lines.lastObject).rangeValue);
+    NSRange lineRange = _lines.firstObject.rangeValue;
+    NSRange menuRange = NSUnionRange(lineRange, _lines.lastObject.rangeValue);
     NSRange allText = NSMakeRange(0, _attrStr.length);
     menuRange = NSIntersectionRange(menuRange, allText);
     if (!_attrStr.length)
@@ -217,7 +217,7 @@
             NSRange intersection = NSIntersectionRange(menuRange, range);
             if (intersection.length && intersection.length < menuRange.length) { // Attribute change in menu range
                 for (NSUInteger i = 0; i < _lines.count; i++)  {
-                    NSRange thisLine = ((NSValue *)_lines[i]).rangeValue;
+                    NSRange thisLine = _lines[i].rangeValue;
                     NSRange overlap = NSIntersectionRange(range, thisLine);
                     if (overlap.length && overlap.length < thisLine.length)  { // Attribute change in line i
                         if (guess == NSNotFound || guess == i) {
@@ -390,9 +390,9 @@
 - (NSArray *)recheckClusterStartingWithCharacter:(unichar)startChar {
 
     NSString *string = _attrStr.string;
-    NSMutableArray *lines = _lines.mutableCopy;
+    NSMutableArray<NSValue *> *lines = _lines.mutableCopy;
 
-    NSUInteger startIndex = NSMaxRange(((NSValue *)lines.lastObject).rangeValue);
+    NSUInteger startIndex = NSMaxRange(lines.lastObject.rangeValue);
 
     NSArray *menuLines = @[];
 
@@ -441,10 +441,10 @@
     return menuLines;
 }
 
-- (unichar)firstCharacterInArray:(NSArray *)array andIndex:(NSUInteger)index andString:(NSString *)string {
+- (unichar)firstCharacterInArray:(NSArray<NSValue *> *)array andIndex:(NSUInteger)index andString:(NSString *)string {
     if (index > array.count - 1)
         return '\0';
-    NSRange range = ((NSValue *)array[index]).rangeValue;
+    NSRange range = array[index].rangeValue;
     NSRange allText = NSMakeRange(0, string.length);
     range = NSIntersectionRange(allText, range);
     if (range.length == 0)
@@ -472,7 +472,7 @@
 - (NSString *)trimSpacesFromLine:(NSUInteger)index {
     if (index >= _lines.count)
         return @"";
-    NSRange range = ((NSValue *)_lines[index]).rangeValue;
+    NSRange range = _lines[index].rangeValue;
     NSRange allText = NSMakeRange(0, _attrStr.string.length);
     range = NSIntersectionRange(allText, range);
     NSString *substring = [_attrStr.string substringWithRange:range];
@@ -591,7 +591,7 @@
                     matchRange = NSUnionRange(matchRange, ((NSTextCheckingResult *)matches.lastObject).range);
                     NSUInteger lastOverlap = NSNotFound;
                     for (NSUInteger i = 0; i < _lines.count; i++) {
-                        NSRange range = ((NSValue *)_lines[i]).rangeValue;
+                        NSRange range = _lines[i].rangeValue;
                         NSRange intersect = NSIntersectionRange(range, matchRange);
                         if (intersect.length)
                             lastOverlap = i;
@@ -675,7 +675,7 @@
 }
 
 - (NSString *)menuLineStringWithIndex:(BOOL)index total:(BOOL)total instructions:(BOOL)instructions {
-    NSRange selectedLineRange = ((NSValue *)_lines[_selectedLine]).rangeValue;
+    NSRange selectedLineRange = _lines[_selectedLine].rangeValue;
     NSRange allText = NSMakeRange(0, _attrStr.length);
     selectedLineRange = NSIntersectionRange(allText, selectedLineRange);
     NSString *menuItemString = [_attrStr.string substringWithRange:selectedLineRange];
@@ -841,7 +841,7 @@
     if ([string rangeOfString:@"    "].location != NSNotFound)
         string = @"";
     if (self.glkctl.beyondZork && string.length == 0) {
-        NSRange range = ((NSValue *)_lines.firstObject).rangeValue;
+        NSRange range = _lines.firstObject.rangeValue;
         NSString *topString = [_attrStr.string substringWithRange:range];
         topString = [topString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if ([topString isEqualToString:@"Begin using a preset character"])

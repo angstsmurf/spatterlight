@@ -14,11 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZMenu : NSObject
 
 @property(weak) GlkController *glkctl;
-@property NSMutableArray *lines;
-@property NSMutableArray *viewStrings;
+@property NSMutableArray<NSValue *> *lines;
+@property NSMutableArray<NSString *> *viewStrings;
 @property NSAttributedString *attrStr;
-@property NSDictionary *menuCommands;
-@property NSArray *menuKeys;
+@property NSDictionary<NSString *, NSString *> *menuCommands;
+@property NSArray<NSString *> *menuKeys;
 @property NSUInteger selectedLine;
 @property BOOL haveSpokenMenu;
 @property BOOL recheckNeeded;

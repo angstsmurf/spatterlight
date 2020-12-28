@@ -2745,12 +2745,11 @@ replacementString:(id)repl {
         _printPositionOnInput = 0;
         return NO;
     }
-    NSRange lastMove = NSMakeRange(0, 0);
     NSRange allText = NSMakeRange(0, maxlength);
     NSRange currentMove = allText;
 
     if (self.moveRanges.lastObject) {
-        lastMove = ((NSValue *)self.moveRanges.lastObject).rangeValue;
+        NSRange lastMove = self.moveRanges.lastObject.rangeValue;
         if (NSMaxRange(lastMove) > maxlength) {
             // Removing last move object
             // (because it goes past the end)
@@ -2866,7 +2865,7 @@ replacementString:(id)repl {
     NSMutableArray *links = [[NSMutableArray alloc] init];
 
     // Make sure that no text after last moveRange slips through
-     NSRange lastMoveRange = ((NSValue *)self.moveRanges.lastObject).rangeValue;
+     NSRange lastMoveRange = self.moveRanges.lastObject.rangeValue;
      NSRange stubRange = NSMakeRange(NSMaxRange(lastMoveRange), textstorage.length);
      stubRange = NSIntersectionRange(allText, stubRange);
      if (stubRange.length) {

@@ -101,11 +101,11 @@
 
 - (NSString *)constructInputString {
     NSRange range;
-    range.location = NSMaxRange(((NSValue *)_fields [_lastField]).rangeValue);
+    range.location = NSMaxRange(_fields[_lastField].rangeValue);
     if (_lastField == _fields.count - 1)
         range.length = _attrStr.length - range.location - 1;
     else {
-        range.length = ((NSValue *)_fields [_lastField + 1]).rangeValue.location - range.location;
+        range.length = _fields[_lastField + 1].rangeValue.location - range.location;
     }
     NSString *inputString = [_attrStr.string substringWithRange:range];
     NSString *infoString = [self constructInfoString];
@@ -147,7 +147,7 @@
     if (val == _fields.lastObject)
         nextrange = NSMakeRange(_attrStr.string.length, 0);
     else
-        nextrange = ((NSValue *)_fields[index + 1]).rangeValue;
+        nextrange = _fields[index + 1].rangeValue;
     range.length = nextrange.location - range.location;
     return range;
 }
