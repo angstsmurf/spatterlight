@@ -3376,6 +3376,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
+    if (_previewDummy)
+        return @[];
     NSAccessibilityCustomAction *speakMostRecent = [[NSAccessibilityCustomAction alloc]
                                                     initWithName:@"repeat the text output of the last move" target:self selector:@selector(speakMostRecent:)];
     NSAccessibilityCustomAction *speakPrevious = [[NSAccessibilityCustomAction alloc]
