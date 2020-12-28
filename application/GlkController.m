@@ -1170,19 +1170,22 @@ fprintf(stderr, "%s\n",                                                    \
     [alert addButtonWithTitle:NSLocalizedString(@"Close", nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
+    _mustBeQuiet = YES;
+
     [alert beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-                      if (result == NSAlertFirstButtonReturn) {
-                          if (alert.suppressionButton.state == NSOnState) {
-                              // Suppress this alert from now on
-                              [[NSUserDefaults standardUserDefaults]
-                               setBool:YES
-                               forKey:@"closeAlertSuppression"];
-                          }
-                          [self windowWillClose:nil];
-                          [self close];
-                      }
-                  }];
+        if (result == NSAlertFirstButtonReturn) {
+            if (alert.suppressionButton.state == NSOnState) {
+                // Suppress this alert from now on
+                [[NSUserDefaults standardUserDefaults]
+                 setBool:YES
+                 forKey:@"closeAlertSuppression"];
+            }
+            [self windowWillClose:nil];
+            [self close];
+        }
+        self.mustBeQuiet = NO;
+    }];
     return NO;
 }
 
@@ -1657,6 +1660,8 @@ fprintf(stderr, "%s\n",                                                    \
     // Create and configure the panel.
     NSOpenPanel *panel = [NSOpenPanel openPanel];
 
+    _mustBeQuiet = YES;
+
     waitforfilename = YES; /* don't interrupt */
 
     if (fileusage == fileusage_SavedGame)
@@ -1666,27 +1671,28 @@ fprintf(stderr, "%s\n",                                                    \
     // Display the panel attached to the document's window.
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-                      const char *s;
-                      struct message reply;
+        const char *s;
+        struct message reply;
 
-                      if (result == NSModalResponseOK) {
-                          NSURL *theDoc = (panel.URLs)[0];
+        if (result == NSModalResponseOK) {
+            NSURL *theDoc = (panel.URLs)[0];
 
-                          [[NSUserDefaults standardUserDefaults]
-                           setObject:theDoc.path
-                           .stringByDeletingLastPathComponent
-                           forKey:@"SaveDirectory"];
-                          s = (theDoc.path).UTF8String;
-                      } else
-                          s = "";
+            [[NSUserDefaults standardUserDefaults]
+             setObject:theDoc.path
+             .stringByDeletingLastPathComponent
+             forKey:@"SaveDirectory"];
+            s = (theDoc.path).UTF8String;
+        } else
+            s = "";
 
-                      reply.cmd = OKAY;
-                      reply.len = strlen(s);
+        reply.cmd = OKAY;
+        reply.len = strlen(s);
 
-                      write((int)sendfd, &reply, sizeof(struct message));
-                      if (reply.len)
-                          write((int)sendfd, s, reply.len);
-                  }];
+        write((int)sendfd, &reply, sizeof(struct message));
+        if (reply.len)
+            write((int)sendfd, s, reply.len);
+        self.mustBeQuiet = NO;
+    }];
 
     waitforfilename = NO; /* we're all done, resume normal processing */
 
@@ -1761,28 +1767,31 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSInteger sendfd = sendfh.fileDescriptor;
 
+    _mustBeQuiet = YES;
+
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-                      struct message reply;
-                      const char *s;
+        struct message reply;
+        const char *s;
 
-                      if (result == NSModalResponseOK) {
-                          NSURL *theFile = panel.URL;
-                          [[NSUserDefaults standardUserDefaults]
-                           setObject:theFile.path
-                           .stringByDeletingLastPathComponent
-                           forKey:@"SaveDirectory"];
-                          s = (theFile.path).UTF8String;
-                      } else
-                          s = "";
+        if (result == NSModalResponseOK) {
+            NSURL *theFile = panel.URL;
+            [[NSUserDefaults standardUserDefaults]
+             setObject:theFile.path
+             .stringByDeletingLastPathComponent
+             forKey:@"SaveDirectory"];
+            s = (theFile.path).UTF8String;
+        } else
+            s = "";
 
-                      reply.cmd = OKAY;
-                      reply.len = strlen(s);
+        reply.cmd = OKAY;
+        reply.len = strlen(s);
 
-                      write((int)sendfd, &reply, sizeof(struct message));
-                      if (reply.len)
-                          write((int)sendfd, s, reply.len);
-                  }];
+        write((int)sendfd, &reply, sizeof(struct message));
+        if (reply.len)
+            write((int)sendfd, s, reply.len);
+        self.mustBeQuiet = NO;
+    }];
 
     waitforfilename = NO; /* we're all done, resume normal processing */
 
@@ -2207,7 +2216,7 @@ fprintf(stderr, "%s\n",                                                    \
                 }
             }
 
-            if (turns > 1 && !shouldShowAutorestoreAlert)
+            if (turns > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
                 _mustBeQuiet = NO;
 
             turns++;
@@ -2718,6 +2727,7 @@ static NSString *signalToName(NSTask *task) {
         NSAlert *alert = [[NSAlert alloc] init];
         alert.messageText = NSLocalizedString(@"The game has unexpectedly terminated.", nil);
         alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", nil), signalToName(task)];
+        _mustBeQuiet = YES;
         [alert addButtonWithTitle:NSLocalizedString(@"Oops", nil)];
         [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {}];
     }
