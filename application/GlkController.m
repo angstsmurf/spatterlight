@@ -3862,11 +3862,19 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         return nil;
     }
 
-    GlkWindow *targetWindow = children[currentItemIndex];
+    NSTextView *targetWindow = children[currentItemIndex];
 
     if (targetWindow) {
         searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement: targetWindow];
         searchResult.customLabel = strings[currentItemIndex];
+        NSArray *moveRanges = ((GlkWindow *)targetWindow.delegate).moveRanges;
+        if (moveRanges.count) {
+            if ([targetWindow.delegate isKindOfClass:[GlkTextBufferWindow class]])
+                [(GlkTextBufferWindow *)targetWindow.delegate forceLayout];
+            NSRange range = ((NSValue *)moveRanges.lastObject).rangeValue;
+            NSRange allText = NSMakeRange(0, targetWindow.string.length);
+            searchResult.targetRange = NSIntersectionRange(allText, range);
+        }
     }
 
     return searchResult;
@@ -3942,12 +3950,31 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     if (targetRangeValue) {
         NSRange textRange = targetRangeValue.rangeValue;
         searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:largest.textview];
-        searchResult.targetRange = textRange;
+        NSRange allText = NSMakeRange(0, largest.textview.string.length);
+        if ([largest isKindOfClass:[GlkTextBufferWindow class]])
+            [largest forceLayout];
+        searchResult.targetRange = NSIntersectionRange(allText, textRange);
         // By adding a custom label, all ranges are reliably listed in the rotor
         NSString *charSetString = @"\u00A0 >\n";
         NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
         NSString *string = strings[currentItemIndex];
         string = [string stringByTrimmingCharactersInSet:charset];
+        {
+            // Strip command line if the speak command setting is off
+            if (!_theme.vOSpeakCommand)
+            {
+                NSUInteger promptIndex = searchResult.targetRange.location;
+                if (promptIndex != 0)
+                    promptIndex--;
+                if ([largest.textview.string characterAtIndex:promptIndex] == '>' || (promptIndex > 0 && [largest.textview.string characterAtIndex:promptIndex - 1] == '>')) {
+                    NSRange foundRange = [string rangeOfString:@"\n"];
+                    if (foundRange.location != NSNotFound)
+                    {
+                        string = [string substringFromIndex:foundRange.location];
+                    }
+                }
+            }
+        }
 
         searchResult.customLabel = string;
     }
@@ -3974,7 +4001,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         // Create the text search rotor.
         NSAccessibilityCustomRotor *textSearchRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeAny itemSearchDelegate:self];
         [rotorsArray addObject:textSearchRotor];
-//        // Create the command history rotor
+        // Create the command history rotor
         if ([self largestWithMoves]) {
             NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", nil) itemSearchDelegate:self];
             [rotorsArray addObject:commandHistoryRotor];

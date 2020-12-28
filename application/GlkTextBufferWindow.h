@@ -129,6 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)restoreTextFinder;
 - (void)restoreScrollBarStyle;
 - (void)restoreScroll:(nullable id)sender;
+- (void)forceLayout;
 
 - (IBAction)saveAsRTF:(id)sender;
 
