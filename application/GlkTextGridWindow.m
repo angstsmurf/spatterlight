@@ -311,6 +311,12 @@
     NSDictionary *attributes;
     NSRange selectedRange = _textview.selectedRange;
 
+    // Adjust terminators for Beyond Zork arrow keys hack
+    if (self.glkctl.beyondZork) {
+        [self adjustBZTerminators:self.pendingTerminators];
+        [self adjustBZTerminators:self.currentTerminators];
+    }
+
     NSUInteger i;
 
     NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
@@ -1220,12 +1226,23 @@
         // Did player type enter or line terminator?
         if (ch == keycode_Return || [self.currentTerminators[@(ch)] isEqual:@(YES)]) {
             terminator = [self.currentTerminators[@(ch)] isEqual:@(YES)] ? ch : 0;
+
+            if (self.glkctl.beyondZork) {
+                if (terminator == keycode_Home) {
+                    NSLog(@"Gridwin keyDown changed keycode_Home to keycode_Up");
+                    terminator = keycode_Up;
+                } else if (terminator == keycode_End) {
+                    NSLog(@"Gridwin keyDown changed keycode_End to keycode_Down");
+                    terminator = keycode_Down;
+                }
+            }
+
             [self.window makeFirstResponder:nil];
             if (ch != keycode_Return)
                 [self typedEnter:nil];
             // Or ar we here because the input field lost focus?
             // (When the input field has focus, key events won't be sent here)
-            // (unless it passes on line termination events)
+            // (unless it passes along line termination events)
         } else if (ch != keycode_Unknown && line_request) {
             if (!self.input)
                 [self initLine:_enteredTextSoFar maxLength:maxInputLength];
@@ -1574,7 +1591,7 @@
     // This is where things usually go wrong, i.e. the result is too short or too tall
     NSAffineTransform *transform = [[NSAffineTransform alloc] init];
     [transform scaleBy:zorkFont.pointSize];
-    CGFloat yscale = (self.theme.cellHeight + 0.5) / [zorkFont boundingRectForFont].size.height;
+    CGFloat yscale = (self.theme.cellHeight + 0.5 + 0.1 * self.theme.bZAdjustment) / [zorkFont boundingRectForFont].size.height;
     if (isMonaco)
         yscale *= 1.1;
     [transform scaleXBy:1 yBy:yscale];

@@ -1,6 +1,8 @@
 #import "main.h"
 #import "ZColor.h"
 #import "InputHistory.h"
+#import "Preferences.h"
+#import "Theme.h"
 
 #include "glkimp.h"
 
@@ -18,13 +20,13 @@ fprintf(stderr, "%s\n",                                                    \
      return YES;
  }
 
-- (instancetype)initWithGlkController:(GlkController *)glkctl_
+- (instancetype)initWithGlkController:(GlkController *)glkctl
                                  name:(NSInteger)name {
     self = [super initWithFrame:NSZeroRect];
 
     if (self) {
-        _glkctl = glkctl_;
-        _theme = glkctl_.theme;
+        _glkctl = glkctl;
+        _theme = glkctl.theme;
         _name = name;
         bgnd = -1;
 
@@ -42,8 +44,8 @@ fprintf(stderr, "%s\n",                                                    \
                                @(NO), @keycode_Func10,
                                @(NO), @keycode_Func11,
                                @(NO), @keycode_Func12,
-//                               @(NO), @keycode_Left,
-//                               @(NO), @keycode_Right,
+                               @(NO), @keycode_Left,
+                               @(NO), @keycode_Right,
                                @(NO), @keycode_Up,
                                @(NO), @keycode_Down,
                                @(NO), @keycode_Escape,
@@ -58,6 +60,10 @@ fprintf(stderr, "%s\n",                                                    \
                                @(NO), @keycode_Pad8,
                                @(NO), @keycode_Pad9,
                                nil];
+
+        if (glkctl.beyondZork) {
+            [self adjustBZTerminators:_pendingTerminators];
+        }
 
         _currentTerminators = _pendingTerminators;
         _terminatorsPending = NO;
@@ -272,6 +278,49 @@ fprintf(stderr, "%s\n",                                                    \
 - (NSArray *)links {
     NSLog(@"links in %@ not implemented", [self class]);
     return @[];
+}
+
+// Convert key terminators for Beyond Zork arrow keys hack/setting
+- (void)adjustBZTerminators:(NSMutableDictionary *)terminators {
+    if (_theme.bZTerminator == kBZArrowsOriginal) {
+        if (terminators[@(keycode_Left)] == nil) {
+            terminators[@(keycode_Left)] = terminators[@"storedLeft"];
+            terminators[@"storedLeft"] = nil;
+            
+            terminators[@(keycode_Right)] = terminators[@"storedRight"];
+            terminators[@"storedRight"] = nil;
+        }
+    } else {
+        if (terminators[@(keycode_Left)] != nil) {
+            terminators[@"storedLeft"] = terminators[@(keycode_Left)];
+            terminators[@(keycode_Left)] = nil;
+
+            terminators[@"storedRight"] = terminators[@(keycode_Right)];
+            terminators[@(keycode_Right)] = nil;
+        }
+    }
+
+    // We don't hack the up and down keys for grid windows
+    if ([self isKindOfClass:[GlkTextGridWindow class]])
+        return;
+
+    if (_theme.bZTerminator != kBZArrowsSwapped) {
+        if (terminators[@(keycode_Up)] == nil) {
+            terminators[@(keycode_Up)] = terminators[@(keycode_Home)];
+            terminators[@(keycode_Home)] = nil;
+
+            terminators[@(keycode_Down)] = terminators[@(keycode_End)];
+            terminators[@(keycode_End)] = nil;
+        }
+    } else {
+        if (terminators[@(keycode_Home)] == nil) {
+            terminators[@(keycode_Home)] = terminators[@(keycode_Up)];
+            terminators[@(keycode_Up)] = nil;
+
+            terminators[@(keycode_End)] = terminators[@(keycode_Down)];
+            terminators[@(keycode_Down)] = nil;
+        }
+    }
 }
 
 #pragma mark -

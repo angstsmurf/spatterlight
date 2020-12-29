@@ -27,6 +27,12 @@ typedef enum kVOMenuPrefsType : int32_t {
     kVOMenuTotal
 } kVOMenuPrefsType;
 
+typedef enum kBZArrowsPrefsType : int32_t {
+    kBZArrowsCompromise,
+    kBZArrowsSwapped,
+    kBZArrowsOriginal,
+} kBZArrowsPrefsType;
+
 
 @class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController;
 
@@ -74,14 +80,10 @@ typedef enum kVOMenuPrefsType : int32_t {
 - (IBAction)changeEnableStyles:(id)sender;
 - (IBAction)changeOverwriteStyles:(id)sender;
 - (IBAction)swapColors:(id)sender;
+
 - (IBAction)changeVOSpeakCommands:(id)sender;
 
-#pragma mark VoiceOver menu menu
-- (IBAction)vOMenuNone:(id)sender;
-- (IBAction)vOMenuText:(id)sender;
-- (IBAction)vOMenuIndex:(id)sender;
-- (IBAction)vOMenuTotal:(id)sender;
-
+#pragma mark Themes menu
 - (IBAction)addTheme:(id)sender;
 - (IBAction)removeTheme:(id)sender;
 - (IBAction)clickedOneThemeForAll:(id)sender;
@@ -153,6 +155,8 @@ typedef enum kVOMenuPrefsType : int32_t {
 @property (strong) IBOutlet NSTextFieldCell *detailsHeader;
 @property (strong) IBOutlet NSTextFieldCell *themesHeader;
 @property (strong) IBOutlet NSTextFieldCell *miscHeader;
+@property (strong) IBOutlet NSTextFieldCell *zcodeHeader;
+
 @property (strong) IBOutlet NSButton *btnOneThemeForAll;
 
 @property (strong) IBOutlet NSPopUpButton *actionButton;
@@ -166,6 +170,27 @@ typedef enum kVOMenuPrefsType : int32_t {
 @property (strong) IBOutlet NSButton *swapBufColBtn;
 
 @property (strong) IBOutlet NSPopUpButton *vOMenuButton;
+- (IBAction)changeVOMenuMenu:(id)sender;
+
 @property (strong) IBOutlet NSButton *btnVOSpeakCommands;
+
+@property (strong) IBOutlet NSPopUpButton *beepHighMenu;
+- (IBAction)changeBeepHighMenu:(id)sender;
+@property (strong) IBOutlet NSPopUpButton *beepLowMenu;
+- (IBAction)changeBeepLowMenu:(id)sender;
+
+@property (strong) IBOutlet NSPopUpButton *zterpMenu;
+- (IBAction)changeZterpMenu:(id)sender;
+@property (strong) IBOutlet NSPopUpButton *bZArrowsMenu;
+- (IBAction)changeBZArrowsMenu:(id)sender;
+
+@property (strong) IBOutlet NSTextField *zVersionTextField;
+- (IBAction)changeZVersion:(id)sender;
+
+@property (strong) IBOutlet NSTextField *bZVerticalTextField;
+- (IBAction)changeBZVerticalTextField:(id)sender;
+
+@property (strong) IBOutlet NSStepper *bZVerticalStepper;
+- (IBAction)changeBZVerticalStepper:(id)sender;
 
 @end

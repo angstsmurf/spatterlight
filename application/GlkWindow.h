@@ -95,5 +95,6 @@ struct fillrect;
 - (void)speakPrevious;
 - (void)speakNext;
 - (BOOL)setLastMove;
+- (void)adjustBZTerminators:(NSMutableDictionary *)terminators;
 
 @end

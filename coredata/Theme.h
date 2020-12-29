@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double cellHeight;
 @property (nonatomic) double cellWidth;
 @property (nonatomic) int32_t coverArtStyle;
+@property (nonatomic) int32_t cursorShape;
 @property (nonatomic) int32_t dashes;
 @property (nonatomic) int32_t defaultCols;
 @property (nonatomic) int32_t defaultRows;
@@ -37,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL doSound;
 @property (nonatomic) BOOL doStyles;
 @property (nonatomic) BOOL editable;
+@property (nonatomic) int32_t errorHandling;
 @property (nullable, nonatomic, retain) NSColor *gridBackground;
 @property (nonatomic) int32_t gridMarginX;
 @property (nonatomic) int32_t gridMarginY;
@@ -48,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t minRows;
 @property (nullable, nonatomic, retain) NSObject *morePrompt;
 @property (nullable, nonatomic, copy) NSString *name;
+@property (nonatomic) int32_t nohacks;
 @property (nonatomic) BOOL saveOnTimer;
 @property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
@@ -56,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t winSpacingX;
 @property (nonatomic) int32_t winSpacingY;
 @property (nonatomic) int32_t zMachineTerp;
+@property (nullable, nonatomic, copy) NSString *zMachineLetter;
 @property (nonatomic) int32_t vOExtraElements;
 @property (nonatomic) int32_t vOSpeakCommand;
 @property (nonatomic) int32_t vOSpeakInputType;

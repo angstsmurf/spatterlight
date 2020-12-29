@@ -649,6 +649,13 @@ fprintf(stderr, "%s\n",                                                    \
 
     task.launchPath = terppath;
     task.arguments = @[ _gamefile ];
+    if ([_terpname isEqualToString:@"bocfel"]) {
+        NSArray *extraBocfelOptions =
+        @[@"-n", [NSString stringWithFormat:@"%d", _theme.zMachineTerp],
+          @"-N", _theme.zMachineLetter];
+
+        task.arguments = [extraBocfelOptions arrayByAddingObjectsFromArray:task.arguments];
+    }
 
 #endif // TEE_TERP_OUTPUT
 
@@ -670,7 +677,6 @@ fprintf(stderr, "%s\n",                                                    \
         GlkController *strongSelf = weakSelf;
         if(strongSelf) {
             dispatch_async(dispatch_get_main_queue(), ^{
-
                 [strongSelf noteTaskDidTerminate:aTask];
             });
         }
@@ -801,8 +807,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (NSString *)appSupportDir {
     if (!_appSupportDir) {
-        NSDictionary *gFolderMap = @{
-                                     @"adrift" : @"SCARE",
+        NSDictionary *gFolderMap = @{@"adrift" : @"SCARE",
                                      @"advsys" : @"AdvSys",
                                      @"agt" : @"AGiliTy",
                                      @"glulx" : @"Glulxe",
@@ -814,9 +819,11 @@ fprintf(stderr, "%s\n",                                                    \
                                      @"tads3" : @"TADS",
                                      @"zcode": @"Bocfel",
                                      //@"zcode" : @"Fizmo"
-                                     };
+        };
 
-        NSDictionary *gFolderMapExt = @{@"acd" : @"Alan 2", @"a3c" : @"Alan 3", @"d$$" : @"AGiliTy"};
+        NSDictionary *gFolderMapExt = @{@"acd" : @"Alan 2",
+                                        @"a3c" : @"Alan 3",
+                                        @"d$$" : @"AGiliTy"};
 
         NSError *error;
         NSURL *appSupportURL = [[NSFileManager defaultManager]
@@ -2168,11 +2175,35 @@ fprintf(stderr, "%s\n",                                                    \
 
     for (NSInteger i = 0; i < len; i++) {
         key = @(buf[i]);
+
+        // Convert input terminator keys for Beyond Zork arrow keys hack
+        if (_beyondZork && _theme.bZTerminator == kBZArrowsSwapped && [gwindow isKindOfClass:[GlkTextBufferWindow class]]) {
+            if (buf[i] == keycode_Up) {
+                key = @(keycode_Home);
+            } else if (buf[i] == keycode_Down) {
+                key = @(keycode_End);
+            }
+        }
+
         id terminator_setting = myDict[key];
         if (terminator_setting) {
             myDict[key] = @(YES);
-        } else
-            NSLog(@"Illegal line terminator request: %x", buf[i]);
+        } else {
+            // Convert input terminator keys for Beyond Zork arrow keys hack
+            if (_beyondZork) {
+                if (_theme.bZTerminator != kBZArrowsOriginal) {
+                    if (buf[i] == keycode_Left) {
+                        myDict[@"storedLeft"] = @(YES);
+                    } else if (buf[i] == keycode_Right) {
+                        myDict[@"storedRight"] = @(YES);
+                    } else {
+                        NSLog(@"Illegal line terminator request: %x", buf[i]);
+                    }
+                } else {
+                    NSLog(@"Illegal line terminator request: %x", buf[i]);
+                }
+            } else NSLog(@"Illegal line terminator request: %x", buf[i]);
+        }
     }
     gwindow.terminatorsPending = YES;
 }
@@ -3624,8 +3655,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         return;
     }
     GlkWindow *mainWindow = [self largestWithMoves];
-    if (!mainWindow && sender != self) {
-        [self speakString:@"No last move to speak!"];
+    if (!mainWindow) {
+        if (sender != self)
+            [self speakString:@"No last move to speak!"];
         return;
     }
     [mainWindow repeatLastMove:nil];

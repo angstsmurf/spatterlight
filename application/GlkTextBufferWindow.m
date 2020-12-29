@@ -1352,6 +1352,12 @@
         [self storeScrollOffset];
     }
 
+    // Adjust terminators for Beyond Zork arrow keys hack
+    if (self.glkctl.beyondZork) {
+        [self adjustBZTerminators:self.pendingTerminators];
+        [self adjustBZTerminators:self.currentTerminators];
+    }
+
     // Preferences has changed, so first we must redo the styles library
     NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     BOOL different = NO;
@@ -1687,7 +1693,6 @@
 
 - (void)unputString:(NSString *)buf {
     [self flushDisplay];
-    NSLog(@"GlkTextBufferWindow %ld unputString %@", self.name, buf);
     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
@@ -1866,6 +1871,14 @@
         unichar endChar = [line characterAtIndex:line.length - 1];
         if (endChar == '\n' || endChar == '\r')
             line = [line substringToIndex:line.length - 1];
+    }
+
+    if (self.glkctl.beyondZork) {
+        if (terminator == keycode_Home) {
+            terminator = keycode_Up;
+        } else if (terminator == keycode_End) {
+            terminator = keycode_Down;
+        }
     }
 
     GlkEvent *gev = [[GlkEvent alloc] initLineEvent:line forWindow:self.name terminator:terminator];

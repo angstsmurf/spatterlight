@@ -31,6 +31,7 @@
 @dynamic cellHeight;
 @dynamic cellWidth;
 @dynamic coverArtStyle;
+@dynamic cursorShape;
 @dynamic dashes;
 @dynamic defaultCols;
 @dynamic defaultRows;
@@ -38,6 +39,7 @@
 @dynamic doSound;
 @dynamic doStyles;
 @dynamic editable;
+@dynamic errorHandling;
 @dynamic gridBackground;
 @dynamic gridMarginX;
 @dynamic gridMarginY;
@@ -49,6 +51,7 @@
 @dynamic minRows;
 @dynamic morePrompt;
 @dynamic name;
+@dynamic nohacks;
 @dynamic saveOnTimer;
 @dynamic slowDrawing;
 @dynamic smartQuotes;
@@ -57,6 +60,7 @@
 @dynamic winSpacingX;
 @dynamic winSpacingY;
 @dynamic zMachineTerp;
+@dynamic zMachineLetter;
 @dynamic vOExtraElements;
 @dynamic vOSpeakCommand;
 @dynamic vOSpeakInputType;

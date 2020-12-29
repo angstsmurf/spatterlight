@@ -176,6 +176,11 @@ static Preferences *prefs = nil;
 
     BOOL exists = NO;
     Theme *defaultTheme = [Preferences findOrCreateTheme:@"Default" inContext:context alreadyExists:&exists];
+
+    defaultTheme.zMachineTerp = 4;
+    defaultTheme.vOSpeakCommand = 1;
+    defaultTheme.vOSpeakMenu = kVOMenuTextOnly;
+
     if (exists)
         return defaultTheme;
 
@@ -233,6 +238,11 @@ static Preferences *prefs = nil;
 
     BOOL exists = NO;
     Theme *classicTheme = [Preferences findOrCreateTheme:@"Spatterlight Classic" inContext:context alreadyExists:&exists];
+
+    classicTheme.zMachineTerp = 4;
+    classicTheme.vOSpeakCommand = 1;
+    classicTheme.vOSpeakMenu = kVOMenuTextOnly;
+
     if (exists)
         return classicTheme;
 
@@ -287,6 +297,11 @@ static Preferences *prefs = nil;
 
     BOOL exists = NO;
     Theme *gargoyleTheme = [Preferences findOrCreateTheme:@"Gargoyle" inContext:context alreadyExists:&exists];
+
+    gargoyleTheme.zMachineTerp = 4;
+    gargoyleTheme.vOSpeakCommand = 1;
+    gargoyleTheme.vOSpeakMenu = kVOMenuTextOnly;
+
     if (exists)
         return gargoyleTheme;
 
@@ -354,6 +369,11 @@ static Preferences *prefs = nil;
 + (Theme *)createLectroteThemeInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *lectroteTheme = [Preferences findOrCreateTheme:@"Lectrote" inContext:context alreadyExists:&exists];
+
+    lectroteTheme.zMachineTerp = 4;
+    lectroteTheme.vOSpeakCommand = 1;
+    lectroteTheme.vOSpeakMenu = kVOMenuTextOnly;
+
     if (exists)
         return lectroteTheme;
 
@@ -414,6 +434,11 @@ static Preferences *prefs = nil;
 + (Theme *)createLectroteDarkThemeInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *lectroteDarkTheme = [Preferences findOrCreateTheme:@"Lectrote Dark" inContext:context alreadyExists:&exists];
+
+    lectroteDarkTheme.zMachineTerp = 4;
+    lectroteDarkTheme.vOSpeakCommand = 1;
+    lectroteDarkTheme.vOSpeakMenu = kVOMenuTextOnly;
+
     if (exists)
         return lectroteDarkTheme;
 
@@ -473,6 +498,11 @@ static Preferences *prefs = nil;
 + (Theme *)createZoomThemeInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *zoomTheme = [Preferences findOrCreateTheme:@"Zoom" inContext:context alreadyExists:&exists];
+
+    zoomTheme.zMachineTerp = 4;
+    zoomTheme.vOSpeakCommand = 1;
+    zoomTheme.vOSpeakMenu = kVOMenuTextOnly;
+
     if (exists)
         return zoomTheme;
 
@@ -559,6 +589,11 @@ static Preferences *prefs = nil;
 + (Theme *)createDOSThemeInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *dosTheme = [Preferences findOrCreateTheme:@"MS-DOS" inContext:context alreadyExists:&exists];
+
+    dosTheme.zMachineTerp = 4;
+    dosTheme.vOSpeakCommand = 1;
+    dosTheme.vOSpeakMenu = kVOMenuTextOnly;
+
     if (exists)
         return dosTheme;
 
@@ -628,6 +663,11 @@ static Preferences *prefs = nil;
 + (Theme *)createDOSBoxThemeInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *dosBoxTheme = [Preferences findOrCreateTheme:@"DOSBox" inContext:context alreadyExists:&exists];
+
+    dosBoxTheme.zMachineTerp = 4;
+    dosBoxTheme.vOSpeakCommand = 1;
+    dosBoxTheme.vOSpeakMenu = kVOMenuTextOnly;
+
     if (exists)
         return dosBoxTheme;
 
@@ -766,8 +806,13 @@ static Preferences *prefs = nil;
 + (Theme *)createMontserratThemeInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *montserratTheme = [Preferences findOrCreateTheme:@"Montserrat" inContext:context alreadyExists:&exists];
-    //    if (exists)
-    //        return stTheme;
+
+    montserratTheme.zMachineTerp = 4;
+    montserratTheme.vOSpeakCommand = 1;
+    montserratTheme.vOSpeakMenu = kVOMenuTextOnly;
+
+    if (exists)
+        return montserratTheme;
 
     montserratTheme.dashes = NO;
     montserratTheme.defaultRows = 50;
@@ -1204,6 +1249,15 @@ NSString *fontToString(NSFont *font) {
 
     _btnVOSpeakCommands.state = theme.vOSpeakCommand;
     [_vOMenuButton selectItemAtIndex:theme.vOSpeakMenu];
+    [_beepHighMenu selectItemWithTitle:theme.beepHigh];
+    [_beepLowMenu selectItemWithTitle:theme.beepLow];
+    [_zterpMenu selectItemAtIndex:theme.zMachineTerp];
+    [_bZArrowsMenu selectItemAtIndex:theme.bZTerminator];
+
+    _zVersionTextField.stringValue = theme.zMachineLetter;
+
+    _bZVerticalTextField.integerValue = theme.bZAdjustment;
+    _bZVerticalStepper.integerValue = theme.bZAdjustment;
 
     if ([[NSFontPanel sharedFontPanel] isVisible] && selectedFontButton)
         [self showFontPanel:selectedFontButton];
@@ -1665,6 +1719,7 @@ NSString *fontToString(NSFont *font) {
     [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"themeName"];
     _detailsHeader.stringValue = [NSString stringWithFormat:@"Settings for theme %@", name];
     _miscHeader.stringValue = _detailsHeader.stringValue;
+    _zcodeHeader.stringValue = _detailsHeader.stringValue;
 }
 
 - (BOOL)notDuplicate:(NSString *)string {
@@ -2140,6 +2195,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [Preferences rebuildTextAttributes];
 }
 
+#pragma mark VoiceOver menu
+
 - (IBAction)changeVOSpeakCommands:(id)sender {
     if (theme.vOSpeakCommand == [sender state])
         return;
@@ -2147,32 +2204,80 @@ textShouldEndEditing:(NSText *)fieldEditor {
     themeToChange.vOSpeakCommand = [sender state];
 }
 
-- (IBAction)vOMenuNone:(id)sender {
-    if (theme.vOSpeakMenu == kVOMenuNone)
+- (IBAction)changeVOMenuMenu:(id)sender {
+    if (theme.vOSpeakMenu == (int)[sender selectedTag])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.vOSpeakMenu = kVOMenuNone;
+    themeToChange.vOSpeakMenu = (int)[sender selectedTag];
 }
 
-- (IBAction)vOMenuText:(id)sender {
-    if (theme.vOSpeakMenu == kVOMenuTextOnly)
+- (IBAction)changeBeepHighMenu:(id)sender {
+    NSSound *sound = [NSSound soundNamed:[sender titleOfSelectedItem]];
+    if (sound) {
+        [sound stop];
+        [sound play];
+    }
+    if ([theme.beepHigh isEqualToString:[sender titleOfSelectedItem]])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.vOSpeakMenu = kVOMenuTextOnly;
+    themeToChange.beepHigh = [sender titleOfSelectedItem];
 }
 
-- (IBAction)vOMenuIndex:(id)sender {
-    if (theme.vOSpeakMenu == kVOMenuIndex)
+- (IBAction)changeBeepLowMenu:(id)sender {
+    NSSound *sound = [NSSound soundNamed:[sender titleOfSelectedItem]];
+    if (sound) {
+        [sound stop];
+        [sound play];
+    }
+    if ([theme.beepLow isEqualToString:[sender titleOfSelectedItem]])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.vOSpeakMenu = kVOMenuIndex;
+    themeToChange.beepLow = [sender titleOfSelectedItem];
 }
 
-- (IBAction)vOMenuTotal:(id)sender {
-    if (theme.vOSpeakMenu == kVOMenuTotal)
+- (IBAction)changeZterpMenu:(id)sender {
+    if (theme.zMachineTerp == (int)[sender selectedTag])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.vOSpeakMenu = kVOMenuTotal;
+    themeToChange.zMachineTerp = (int)[sender selectedTag];
+}
+
+- (IBAction)changeBZArrowsMenu:(id)sender {
+    if (theme.bZTerminator == (int)[sender selectedTag]) {
+        return;
+    }
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.bZTerminator = (int)[sender selectedTag];
+}
+
+- (IBAction)changeZVersion:(id)sender {
+    if ([theme.zMachineLetter isEqualToString:[sender stringValue]]) {
+        return;
+    }
+    if ([sender stringValue].length == 0) {
+        _zVersionTextField.stringValue = theme.zMachineLetter;
+        return;
+    }
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.zMachineLetter = [sender stringValue];
+}
+
+- (IBAction)changeBZVerticalStepper:(id)sender {
+    if (theme.bZAdjustment == [sender integerValue]) {
+        return;
+    }
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.bZAdjustment = [sender integerValue];
+    _bZVerticalTextField.integerValue = themeToChange.bZAdjustment;
+}
+
+- (IBAction)changeBZVerticalTextField:(id)sender {
+    if (theme.bZAdjustment == [sender integerValue]) {
+        return;
+    }
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.bZAdjustment = [sender integerValue];
+    _bZVerticalStepper.integerValue = themeToChange.bZAdjustment;
 }
 
 - (IBAction)changeOverwriteStyles:(id)sender {
@@ -2505,6 +2610,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [[NSFontPanel sharedFontPanel] orderOut:self];
     if ([[NSColorPanel sharedColorPanel] isVisible])
         [[NSColorPanel sharedColorPanel] orderOut:self];
+}
+- (IBAction)bZVAdjustStepper:(NSStepper *)sender {
 }
 
 @end

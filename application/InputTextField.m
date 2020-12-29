@@ -165,23 +165,30 @@
     return stringValue;
 }
 
-- (BOOL)getObjectValue:(id __autoreleasing *)object
-             forString:(NSString *)string
-      errorDescription:(NSString * __autoreleasing *)error {
+#pragma mark -
+#pragma mark Object Equivalent to Textual Representation
+
+- (BOOL)getObjectValue:(id *)object forString:(NSString *)string errorDescription:(NSString **)error
+{
     BOOL valid = YES;
 
+    // Be sure to generate a new object here or binding woe ensues
+    // when continuously updating bindings are enabled.
     *object = [NSString stringWithString:string];
 
     return valid;
 }
 
-- (BOOL)isPartialStringValid:(NSString * __autoreleasing *)partialStringPtr
+#pragma mark -
+#pragma mark Dynamic Cell Editing
+
+- (BOOL)isPartialStringValid:(NSString **)partialStringPtr
        proposedSelectedRange:(NSRangePointer)proposedSelRangePtr
               originalString:(NSString *)origString
        originalSelectedRange:(NSRange)origSelRange
-            errorDescription:(NSString * __autoreleasing *)error {
+            errorDescription:(NSString **)error
+{
     BOOL valid = YES;
-
     NSString *proposedString = *partialStringPtr;
     if (proposedString.length > self.maxLength && self.maxLength) {
 
@@ -214,6 +221,12 @@
         valid = NO;
     }
 
+    if ([*partialStringPtr length] > _maxLength) {
+        *partialStringPtr = [origString copy];
+        *proposedSelRangePtr = origSelRange;
+        return NO;
+    }
+    
     return valid;
 }
 
