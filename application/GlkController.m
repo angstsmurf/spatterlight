@@ -2531,7 +2531,7 @@ fprintf(stderr, "%s\n",                                                    \
         case INITLINE:
             // NSLog(@"glkctl INITLINE %d", req->a1);
             [self performScroll];
-            if (reqWin) {
+            if (reqWin && !_colderLight) {
                 [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)] maxLength:(NSUInteger)req->a2];
 
                 _shouldSpeakNewText = YES;
