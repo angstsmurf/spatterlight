@@ -1846,7 +1846,7 @@
 
     line = [line scrubInvalidCharacters];
 
-    if (self.glkctl.deadCities) {
+    if (self.glkctl.deadCities && line.length) {
         unichar endChar = [line characterAtIndex:line.length - 1];
         if (endChar == '\n' || endChar == '\r')
             line = [line substringToIndex:line.length - 1];
