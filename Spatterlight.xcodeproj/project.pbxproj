@@ -5356,13 +5356,14 @@
 			};
 			buildConfigurationList = 961CCE6109F2375A00528FF9 /* Build configuration list for PBXProject "Spatterlight" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				fr,
+				ja,
+				de,
+				en,
+				Base,
 			);
 			mainGroup = 961CCE5E09F2375A00528FF9;
 			productRefGroup = 961CCE7C09F237E700528FF9 /* Products */;
