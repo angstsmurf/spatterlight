@@ -1267,6 +1267,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (_shouldSpeakNewText && !_mustBeQuiet && !_zmenu && !_form) {
         [self speakNewText];
+        _shouldSpeakNewText = NO;
     }
 
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
@@ -2560,7 +2561,7 @@ fprintf(stderr, "%s\n",                                                    \
             // These request and cancel lots of char events every second,
             // which breaks scrolling, as we normally scroll down
             // one screen on every char event.
-            if (lastRequest == PRINT || lastRequest == SETZCOLOR) {
+            if (lastRequest == PRINT || lastRequest == SETZCOLOR || lastRequest == NEXTEVENT) {
                 // This flag may be set by GlkBufferWindow as well
                 _shouldScrollOnCharEvent = YES;
                 _shouldSpeakNewText = YES;
@@ -3524,15 +3525,17 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         return;
     }
 
-    GlkTextBufferWindow *largest = nil;
-    CGFloat largestSize = 0;
-    for (GlkTextBufferWindow *view in array) {
-        if (![view isKindOfClass:[GlkTextBufferWindow class]])
-            continue;
-        CGFloat size = fabs(view.frame.size.width * view.frame.size.height);
-        if (size > largestSize) {
-            largestSize = size;
-            largest = view;
+    GlkWindow *largest = nil;
+    if (array.count == 1) {
+        largest = (GlkWindow *)array.firstObject;
+    } else {
+        CGFloat largestSize = 0;
+        for (GlkWindow *view in array) {
+            CGFloat size = fabs(view.frame.size.width * view.frame.size.height);
+            if (size > largestSize) {
+                largestSize = size;
+                largest = view;
+            }
         }
     }
     if (largest)

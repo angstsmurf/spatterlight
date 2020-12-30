@@ -1652,13 +1652,7 @@
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     if (self.glkctl.form)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.form];
-    NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-        NSAccessibilityAnnouncementKey : textstorage.string
-    };
-    NSAccessibilityPostNotificationWithUserInfo(
-                                                [NSApp mainWindow],
-                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+    [self.glkctl speakString: textstorage.string];
 }
 
 - (BOOL)setLastMove {
@@ -1668,8 +1662,10 @@
 }
 
 - (void)repeatLastMove:(id)sender {
-    if (!self.moveRanges || !self.moveRanges.count)
+    if (!self.moveRanges || !self.moveRanges.count) {
         [self speakStatus];
+        return;
+    }
 
     moveRangeIndex = self.moveRanges.count - 1;
     NSString *str = [self stringFromRangeVal:self.moveRanges.lastObject];
