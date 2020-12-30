@@ -3830,14 +3830,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                     string = [string substringFromIndex:range.location];
                 }
             }
-            NSString *kindString;
-            if ([win isKindOfClass:[GlkTextGridWindow class]]) {
-                kindString = @"Grid";
-            } else {
-                kindString = @"Buffer";
-            }
-
-            string = [NSString stringWithFormat:@"%@ text window%@%@", kindString, (string.length) ? @": " : @"", string];
 
             if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
                 [children addObject:textview];
