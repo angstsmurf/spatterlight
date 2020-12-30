@@ -3703,6 +3703,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
     }
 
+    if (children.count == 0)
+        return nil;
+
     if (currentItemIndex == NSNotFound) {
         // Find the start or end element.
         if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
@@ -3728,12 +3731,17 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         NSRange textRange = children[currentItemIndex].rangeValue;
         id targetElement = linkTargetViews[currentItemIndex];
         searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:targetElement];
-        unichar firstChar = [((NSTextView *)targetElement).textStorage.string characterAtIndex:textRange.location];
+        NSString *string = ((NSTextView *)targetElement).textStorage.string;
+        NSRange allText = NSMakeRange(0, string.length);
+        textRange = NSIntersectionRange(allText, textRange);
+        unichar firstChar = [string characterAtIndex:textRange.location];
         if (_colderLight && firstChar == '<' && textRange.length == 1) {
             searchResult.customLabel = NSLocalizedString(@"Previous Menu", nil);
         } else if (firstChar == NSAttachmentCharacter) {
             NSDictionary *attrs = [((NSTextView *)targetElement).textStorage attributesAtIndex:textRange.location effectiveRange:nil];
             searchResult.customLabel = [NSString stringWithFormat:@"Image with link I.D. %@", attrs[NSLinkAttributeName]];
+        } else {
+            searchResult.customLabel = [string substringWithRange:textRange];
         }
         searchResult.targetRange = textRange;
     }
