@@ -59,7 +59,7 @@
 
     GlkController *restoredController;
     GlkController *restoredControllerLate;
-    NSUInteger turns;
+    NSInteger turns;
     NSMutableData *bufferedData;
 
     LibController *libcontroller;
@@ -132,12 +132,16 @@
 @property BOOL colderLight;
 @property BOOL trinity;
 @property BOOL anchorheadOrig;
+@property BOOL curses;
 
 @property NSInteger autosaveVersion;
 @property NSInteger autosaveTag;
 @property BOOL hasAutoSaved;
 
 @property BOOL voiceOverActive;
+
+@property NSInteger addedQuoteBoxAtTurn;
+@property BOOL showingQuotebox;
 
 @property ZMenu *zmenu;
 @property BOOL shouldCheckForMenu;
@@ -167,6 +171,10 @@
 - (void)storeScrollOffsets;
 - (void)restoreScrollOffsets;
 - (void)adjustContentView;
+
+@property NSMutableArray *quoteBoxes;
+
+- (void)quoteBoxWithWidth:(NSUInteger)width height:(NSUInteger)height verticalOffset:(NSUInteger)offset string:(NSAttributedString *)quoteAttStr;
 
 - (IBAction)speakMostRecent:(id)sender;
 - (IBAction)speakPrevious:(id)sender;

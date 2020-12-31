@@ -98,6 +98,8 @@ enum
 
     SETZCOLOR,
     SETREVERSE,
+
+    QUOTEBOX,
     
     NEXTEVENT,
     EVTARRANGE,

@@ -836,17 +836,35 @@ static void resize_upper_window(long nlines)
 #ifdef ZTERP_GLK
   if(upperwin->id == NULL) return;
 
-    if(nlines == 0) {
-        garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
-        glk_window_clear(upperwin->id);
-    }
+#endif
+#ifdef SPATTERLIGHT
+  /* Hack to fill upper window with background color when its height is set to 0 */
+  if(nlines == 0)
+  {
+    garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
+    glk_window_clear(upperwin->id);
+  }
+#endif
+#ifdef ZTERP_GLK
   long previous_height = upper_window_height;
 
   /* To avoid code duplication, put all window resizing code in
    * update_delayed() and, if necessary, call it from here.
    */
   delayed_window_shrink = nlines;
-  if(upper_window_height <= nlines || saw_input) update_delayed();
+  if(upper_window_height <= nlines || saw_input)
+  {
+    update_delayed();
+#endif
+#ifdef SPATTERLIGHT
+  }
+  else
+  {
+    win_quotebox(upperwin->id->peer, (int)nlines);
+    update_delayed();
+#endif
+#ifdef ZTERP_GLK
+  }
 
   /* If the window is being created, or if it’s shrinking and the cursor
    * is no longer inside the window, move the cursor to the origin.

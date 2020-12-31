@@ -600,6 +600,12 @@ void win_setreverse(int name, int reverse)
     sendmsg(SETREVERSE, name, reverse, 0, 0, 0, 0, NULL);
 }
 
+void win_quotebox(int name, int height)
+{
+    win_flush();
+    sendmsg(QUOTEBOX, name, height, 0, 0, 0, 0, NULL);
+}
+
 void win_reset()
 {
     win_flush();

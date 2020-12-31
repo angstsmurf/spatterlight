@@ -25,21 +25,22 @@ fprintf(stderr, "%s\n",                                                    \
 
 #define MINTIMER 1 /* The game Transparent needs a timer this frequent */
 
-//static const char *msgnames[] = {
-//    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
-//    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
-//    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
-//    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-//    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
-//    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
-//    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
-//    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
-//    "BEEP",            "SETLINK",
-//    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
-//    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
-//    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
-//    "EVTVOLUME",       "EVTPREFS"};
+static const char *msgnames[] = {
+    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
+    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
+    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
+    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
+    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
+    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
+    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
+    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
+    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
+    "BEEP",            "SETLINK",
+    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
+    "QUOTEBOX",
+    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
+    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
+    "EVTVOLUME",       "EVTPREFS"};
 
 //static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 //    "wintype_Blank",    "wintype_TextBuffer",
@@ -177,7 +178,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"])
 //        _adrianMole = YES;
     if ([_game.ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"]) {
-         _deadCities = YES;
+        _deadCities = YES;
     } else if ([_game.ifid isEqualToString:@"ZCODE-86-870212"] ||
                [_game.ifid isEqualToString:@"ZCODE-116-870602"] ||
                [_game.ifid isEqualToString:@"ZCODE-160-880521"]) {
@@ -185,28 +186,31 @@ fprintf(stderr, "%s\n",                                                    \
     } else if ([_game.ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"]) {
         _kerkerkruip = YES;
     } else if ([_game.ifid isEqualToString:@"ZCODE-47-870915"] ||
-        [_game.ifid isEqualToString:@"ZCODE-49-870917"] ||
-        [_game.ifid isEqualToString:@"ZCODE-51-870923"] ||
-        [_game.ifid isEqualToString:@"ZCODE-57-871221"] ||
+               [_game.ifid isEqualToString:@"ZCODE-49-870917"] ||
+               [_game.ifid isEqualToString:@"ZCODE-51-870923"] ||
+               [_game.ifid isEqualToString:@"ZCODE-57-871221"] ||
                [_game.ifid isEqualToString:@"ZCODE-60-880610"]) {
         _beyondZork = YES;
     } else if ([_game.ifid isEqualToString:@"BFDE398E-C724-4B9B-99EB-18EE4F26932E"]) {
         _colderLight = YES;
-    } else if ([_game.ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"])
+    } else if ([_game.ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"]) {
         _thaumistry = YES;
-
-    if ([_game.ifid isEqualToString:@"ZCODE-1-851202"] ||
-        [_game.ifid isEqualToString:@"ZCODE-1-860221"] ||
-        [_game.ifid isEqualToString:@"ZCODE-14-860313"] ||
-        [_game.ifid isEqualToString:@"ZCODE-11-860509"] ||
-        [_game.ifid isEqualToString:@"ZCODE-12-860926"] ||
-        [_game.ifid isEqualToString:@"ZCODE-15-870628"])
+    } else if ([_game.ifid isEqualToString:@"ZCODE-1-851202"] ||
+               [_game.ifid isEqualToString:@"ZCODE-1-860221"] ||
+               [_game.ifid isEqualToString:@"ZCODE-14-860313"] ||
+               [_game.ifid isEqualToString:@"ZCODE-11-860509"] ||
+               [_game.ifid isEqualToString:@"ZCODE-12-860926"] ||
+               [_game.ifid isEqualToString:@"ZCODE-15-870628"]) {
         _trinity = YES;
-
-    if ([_game.ifid isEqualToString:@"ZCODE-5-990206-6B48"])
+    } else if ([_game.ifid isEqualToString:@"ZCODE-5-990206-6B48"]) {
         _anchorheadOrig = YES;
-
-
+    } else if ([_game.ifid isEqualToString:@"ZCODE-7-930428-0000"] ||
+               [_game.ifid isEqualToString:@"ZCODE-8-930603-0000"] ||
+               [_game.ifid isEqualToString:@"ZCODE-10-940120-BD9E"] ||
+               [_game.ifid isEqualToString:@"ZCODE-12-940604-6035"] ||
+               [_game.ifid isEqualToString:@"ZCODE-16-951024-4DE6"]) {
+        _curses = YES;
+    }
 
     _gamefile = [_game urlForBookmark].path;
     _terpname = terpname_;
@@ -1159,7 +1163,14 @@ fprintf(stderr, "%s\n",                                                    \
     if (!dead) {
         [self guessFocus];
         [self noteAccessibilityStatusChanged:nil];
+        [self checkZMenu];
+        if (!_zmenu)
+            [self speakMostRecent:nil];
     }
+}
+
+- (void)windowDidResignKey:(NSNotification *)notification {
+    _mustBeQuiet = YES;
 }
 
 - (BOOL)windowShouldClose:(id)sender {
@@ -1280,6 +1291,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self checkZMenu];
 
     if (_shouldSpeakNewText && !_mustBeQuiet && !_zmenu && !_form) {
+        NSLog(@"flushDisplay _shouldSpeakNewText");
         [self speakNewText];
         _shouldSpeakNewText = NO;
     }
@@ -1493,8 +1505,8 @@ fprintf(stderr, "%s\n",                                                    \
     NSUInteger lastVOSpeakMenu = (NSUInteger)_theme.vOSpeakMenu;
 
     if (_game && !_previewDummy) {
-//        NSLog(@"glkctl notePreferencesChanged called for game %@, currently using theme %@", _game.metadata.title, _game.theme.name);
         _theme = _game.theme;
+
         if (!_theme.vOSpeakMenu && lastVOSpeakMenu) { // Check for menu was switched off
             if (_zmenu) {
                 [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
@@ -1508,18 +1520,14 @@ fprintf(stderr, "%s\n",                                                    \
             [self checkZMenu];
         }
     } else {
-//        NSLog(@"notePreferencesChanged: no game.");
+        // No game
         return;
     }
 
     if (notify.object != _theme && notify.object != nil) {
-//        NSLog(@"glkctl: PreferencesChanged called for a different theme (was %@, listening for %@)", ((Theme *)notify.object).name, _theme.name);
+        //  PreferencesChanged called for a different theme
         return;
-    } else if ( notify.object == nil) {
-//        NSLog(@"glkctl: PreferencesChanged with a nil object.");
     }
-
-//    NSLog(@"GlkController for game %@ notePreferencesChanged", _game.metadata.title);
 
     _shouldStoreScrollOffset = NO;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"]) {
@@ -1531,7 +1539,6 @@ fprintf(stderr, "%s\n",                                                    \
             if (!NSEqualSizes(_borderView.bounds.size, newSizeIncludingBorders)
                 || !NSEqualSizes(_contentView.bounds.size, newContentSize)) {
                 [self zoomContentToSize:newContentSize];
-
 //                NSLog(@"Changed window size to keep size in char cells constant. Previous size in char cells: %@ Current size in char cells: %@", NSStringFromSize(lastSizeInChars), NSStringFromSize([self contentSizeToCharCells:_contentView.frame.size]));
             }
         }
@@ -1571,6 +1578,20 @@ fprintf(stderr, "%s\n",                                                    \
         win.theme = _theme;
         [win prefsDidChange];
     }
+
+    for (GlkTextGridWindow *win in _quoteBoxes)
+    {
+        win.theme = _theme;
+        NSSize boxSize = NSMakeSize(_theme.gridMarginX * 2 + (win.quoteboxSize.width + 1) * _theme.cellWidth, _theme.gridMarginY * 2 + win.quoteboxSize.height * _theme.cellHeight);
+        if (!NSEqualSizes(boxSize, win.frame.size)) {
+            NSRect frame = win.frame;
+            frame.size = boxSize;
+            frame.origin.x = (win.superview.frame.size.width - boxSize.width) / 2;
+            win.frame = frame;
+        }
+        [win prefsDidChange];
+    }
+
     _shouldStoreScrollOffset = YES;
 }
 
@@ -1863,6 +1884,54 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     return -1;
+}
+
+- (void)quoteBoxWithWidth:(NSUInteger)width height:(NSUInteger)height verticalOffset:(NSUInteger)offset string:(NSAttributedString *)quoteAttStr {
+    if (!_quoteBoxes)
+        _quoteBoxes = [[NSMutableArray alloc] init];
+
+    GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:self name:-1];
+    box.quoteboxSize = NSMakeSize(width, height);
+    [box makeTransparent];
+    NSSize boxSize = NSMakeSize(_theme.gridMarginX * 2 + (width + 1) * _theme.cellWidth, _theme.gridMarginY * 2 + height * _theme.cellHeight);
+
+    GlkTextGridWindow *upperView;
+    GlkTextBufferWindow *lowerView;
+
+    for (GlkWindow *win in _gwindows.allValues) {
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            lowerView = (GlkTextBufferWindow *)win;
+        if ([win isKindOfClass:[GlkTextGridWindow class]])
+            upperView = (GlkTextGridWindow *)win;
+    }
+    NSRect frame;
+    frame.size = boxSize;
+    NSTextView *superView = lowerView.textview;
+    [lowerView scrollToBottom];
+    [lowerView flushDisplay];
+
+    NSScrollView *scrollView = superView.enclosingScrollView;
+    // Drop a separate text box into the lower view
+    NSRect visibleRect = scrollView.documentVisibleRect;
+    frame.origin.x = ceil((visibleRect.size.width - boxSize.width) / 2) - _theme.cellWidth * (2 * (!_trinity && _theme.cellWidth == _theme.bufferCellWidth) );
+    frame.origin.y = ceil((offset + 1 + (visibleRect.origin.y > 0)) * _theme.cellHeight + visibleRect.origin.y + _theme.bufferMarginY);
+    box.frame = frame;
+    [box flushDisplay];
+    [box.textview.textStorage setAttributedString:quoteAttStr];
+
+    box.alphaValue = 0;
+    [superView addSubview:box];
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.5;
+        box.animator.alphaValue = 1;
+    }
+    completionHandler:^{
+        box.alphaValue = 1;
+    }];
+
+    [_quoteBoxes addObject:box];
+    _showingQuotebox = YES;
+    _addedQuoteBoxAtTurn = turns;
 }
 
 - (void)handleSetTimer:(NSUInteger)millisecs {
@@ -2190,7 +2259,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-//    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -2233,6 +2302,30 @@ fprintf(stderr, "%s\n",                                                    \
 
             if (turns > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
                 _mustBeQuiet = NO;
+
+            if (_showingQuotebox)
+                NSLog(@"_showingQuotebox == YES");
+            if (_addedQuoteBoxAtTurn)
+                NSLog(@"turns (%ld) - _addedQuoteBoxAtTurn (%ld) = %ld", turns, _addedQuoteBoxAtTurn, turns - _addedQuoteBoxAtTurn);
+
+            if ((_showingQuotebox && turns - _addedQuoteBoxAtTurn > 0 && _shouldSpeakNewText) || _quoteBoxes.count > 1) {
+                NSLog(@"removing quotebox");
+                NSView *view = _quoteBoxes.firstObject;
+                [_quoteBoxes removeObjectAtIndex:0];
+                if (_quoteBoxes.count == 0) {
+                    _showingQuotebox = NO;
+                    _addedQuoteBoxAtTurn = 0;
+                }
+                [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+                    context.duration = 1;
+                    view.animator.alphaValue = 0;
+                }
+                completionHandler:^{
+                    view.hidden = YES;
+                    view.alphaValue = 1;
+                    [view removeFromSuperview];
+                }];
+            }
 
             turns++;
 
@@ -2537,6 +2630,12 @@ fprintf(stderr, "%s\n",                                                    \
         case SETREVERSE:
             if (reqWin) {
                 reqWin.currentReverseVideo = (req->a2 != 0);
+            }
+            break;
+
+        case QUOTEBOX:
+            if (reqWin) {
+                [((GlkTextGridWindow *)reqWin) quoteBox:req->a2];
             }
             break;
 
@@ -3820,6 +3919,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSMutableArray *strings = [[NSMutableArray alloc] init];
 
     NSArray *allWindows = _gwindows.allValues;
+    if (_quoteBoxes && _quoteBoxes.count)
+        allWindows = [allWindows arrayByAddingObject:_quoteBoxes.lastObject];
     allWindows = [allWindows sortedArrayUsingComparator:
                   ^NSComparisonResult(id obj1, id obj2){
         CGFloat y1 = ((NSView *)obj1).frame.origin.y;
@@ -3886,14 +3987,14 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     if (targetWindow) {
         searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement: targetWindow];
         searchResult.customLabel = strings[currentItemIndex];
+        NSRange allText = NSMakeRange(0, targetWindow.string.length);
         NSArray<NSValue *> *moveRanges = ((GlkWindow *)targetWindow.delegate).moveRanges;
-        if (moveRanges.count) {
+        if (moveRanges && moveRanges.count) {
             if ([targetWindow.delegate isKindOfClass:[GlkTextBufferWindow class]])
                 [(GlkTextBufferWindow *)targetWindow.delegate forceLayout];
             NSRange range = moveRanges.lastObject.rangeValue;
-            NSRange allText = NSMakeRange(0, targetWindow.string.length);
             searchResult.targetRange = NSIntersectionRange(allText, range);
-        }
+        } else searchResult.targetRange = allText;
     }
 
     return searchResult;

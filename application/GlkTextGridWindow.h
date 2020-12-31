@@ -45,6 +45,10 @@
 @property NSString *lastKeyPress;
 @property NSUInteger lastForm;
 
+@property NSSize quoteboxSize;
+
+- (void)quoteBox:(NSUInteger)linesToSkip;
+
 - (NSUInteger)indexOfPos;
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent;

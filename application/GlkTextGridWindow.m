@@ -261,6 +261,7 @@
 
 - (void)makeTransparent {
     transparent = YES;
+    [self recalcBackground];
     dirty = YES;
 }
 
@@ -369,7 +370,8 @@
             if (styleobject) {
                 NSDictionary *blockattributes = blockStyles[(NSUInteger)[styleobject intValue]];
                 [weakSelf.bufferTextStorage setAttributes:blockattributes range:range];
-            } else NSLog(@"No GlkStyle for range %@!", NSStringFromRange(range));
+            }
+//            else NSLog(@"No GlkStyle for range %@!", NSStringFromRange(range));
 
             // Then, we re-add all the "non-Glk" style values we want to keep
             // (hyperlinks, Z-colors and reverse video)
@@ -602,6 +604,12 @@
 
     if (self.inLiveResize && newcols < cols)
         return;
+
+    if (newrows == 1 && self.glkctl.curses && self.glkctl.showingQuotebox) {
+        newrows = 2;
+        frame.size.height += self.theme.cellHeight;
+        self.pendingFrame = frame;
+    }
 
     if (_restoredSelection.length == 0)
         _restoredSelection = _textview.selectedRange;
@@ -1644,6 +1652,36 @@
     CGFloat textWidth = [text sizeWithAttributes:dic].width;
     return textWidth;
 }
+
+#pragma mark Quote box
+
+- (void)quoteBox:(NSUInteger)linesToSkip {
+    NSUInteger charactersToSkip = (linesToSkip + 1) * (cols + 1);
+    NSRange quoteBoxRange = NSMakeRange(charactersToSkip,  _bufferTextStorage.string.length - charactersToSkip);
+    __block NSUInteger changes = 0;
+    __block NSUInteger width;
+    __block NSUInteger height = 0;
+    __block NSAttributedString *blockTextStorage = _bufferTextStorage;
+    __block NSMutableAttributedString *quoteAttStr = [[NSMutableAttributedString alloc] init];
+
+    [blockTextStorage
+     enumerateAttribute:NSBackgroundColorAttributeName
+     inRange:quoteBoxRange
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
+        changes++;
+        if ((CGFloat)changes / 2 == changes / 2) {
+            [quoteAttStr appendAttributedString:[blockTextStorage attributedSubstringFromRange:range]];
+            NSAttributedString *newline = [[NSAttributedString alloc] initWithString:@"\n"];
+            [quoteAttStr appendAttributedString:newline];
+            height++;
+            width = range.length;
+        }
+    }];
+
+    [self.glkctl quoteBoxWithWidth:width height:height verticalOffset:linesToSkip string:quoteAttStr];
+}
+
 
 #pragma mark Accessibility
 

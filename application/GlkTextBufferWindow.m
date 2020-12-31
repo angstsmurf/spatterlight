@@ -1508,6 +1508,8 @@
     _lastchar = '\n';
     _printPositionOnInput = 0;
     [container clearImages];
+    for (NSView *view in _textview.subviews)
+        [view removeFromSuperview];
 
     self.moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;
@@ -1571,6 +1573,8 @@
     line_request = save_request;
 
     [container clearImages];
+    for (NSView *view in _textview.subviews)
+        [view removeFromSuperview];
     self.moveRanges = [[NSMutableArray alloc] init];
 }
 
@@ -2817,6 +2821,12 @@ replacementString:(id)repl {
         return;
     }
 
+    if (self.glkctl.showingQuotebox) {
+        GlkTextGridWindow *box = self.glkctl.quoteBoxes.lastObject;
+
+        str = [box.textview.string stringByAppendingString:str];
+        str = [@"QUOTE: \n\n" stringByAppendingString:str];
+    }
     [self.glkctl speakString:str];
 }
 
