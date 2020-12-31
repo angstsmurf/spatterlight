@@ -25,22 +25,22 @@ fprintf(stderr, "%s\n",                                                    \
 
 #define MINTIMER 1 /* The game Transparent needs a timer this frequent */
 
-static const char *msgnames[] = {
-    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
-    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
-    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
-    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
-    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
-    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
-    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
-    "BEEP",            "SETLINK",
-    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
-    "QUOTEBOX",
-    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
-    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
-    "EVTVOLUME",       "EVTPREFS"};
+//static const char *msgnames[] = {
+//    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
+//    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
+//    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
+//    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
+//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
+//    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
+//    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
+//    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
+//    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
+//    "BEEP",            "SETLINK",
+//    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
+//    "QUOTEBOX",
+//    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
+//    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
+//    "EVTVOLUME",       "EVTPREFS"};
 
 //static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 //    "wintype_Blank",    "wintype_TextBuffer",
@@ -1291,7 +1291,6 @@ static const char *msgnames[] = {
     [self checkZMenu];
 
     if (_shouldSpeakNewText && !_mustBeQuiet && !_zmenu && !_form) {
-        NSLog(@"flushDisplay _shouldSpeakNewText");
         [self speakNewText];
         _shouldSpeakNewText = NO;
     }
@@ -2259,7 +2258,7 @@ static const char *msgnames[] = {
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+//    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -2303,13 +2302,7 @@ static const char *msgnames[] = {
             if (turns > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
                 _mustBeQuiet = NO;
 
-            if (_showingQuotebox)
-                NSLog(@"_showingQuotebox == YES");
-            if (_addedQuoteBoxAtTurn)
-                NSLog(@"turns (%ld) - _addedQuoteBoxAtTurn (%ld) = %ld", turns, _addedQuoteBoxAtTurn, turns - _addedQuoteBoxAtTurn);
-
             if ((_showingQuotebox && turns - _addedQuoteBoxAtTurn > 0 && _shouldSpeakNewText) || _quoteBoxes.count > 1) {
-                NSLog(@"removing quotebox");
                 NSView *view = _quoteBoxes.firstObject;
                 [_quoteBoxes removeObjectAtIndex:0];
                 if (_quoteBoxes.count == 0) {
