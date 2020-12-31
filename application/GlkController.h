@@ -130,6 +130,8 @@
 @property BOOL kerkerkruip;
 @property BOOL thaumistry;
 @property BOOL colderLight;
+@property BOOL trinity;
+@property BOOL anchorheadOrig;
 
 @property NSInteger autosaveVersion;
 @property NSInteger autosaveTag;

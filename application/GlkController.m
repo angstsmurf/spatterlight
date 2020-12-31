@@ -176,23 +176,37 @@ fprintf(stderr, "%s\n",                                                    \
 
 //    if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"])
 //        _adrianMole = YES;
-    if ([_game.ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"])
+    if ([_game.ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"]) {
          _deadCities = YES;
-
-    if ([_game.ifid isEqualToString:@"ZCODE-86-870212"] || [_game.ifid isEqualToString:@"ZCODE-116-870602"] || [_game.ifid isEqualToString:@"ZCODE-160-880521"])
+    } else if ([_game.ifid isEqualToString:@"ZCODE-86-870212"] ||
+               [_game.ifid isEqualToString:@"ZCODE-116-870602"] ||
+               [_game.ifid isEqualToString:@"ZCODE-160-880521"]) {
         _bureaucracy = YES;
-
-    if ([_game.ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"])
+    } else if ([_game.ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"]) {
         _kerkerkruip = YES;
-
-    if ([_game.ifid isEqualToString:@"ZCODE-47-870915"] || [_game.ifid isEqualToString:@"ZCODE-49-870917"] || [_game.ifid isEqualToString:@"ZCODE-51-870923"] || [_game.ifid isEqualToString:@"ZCODE-57-871221"] || [_game.ifid isEqualToString:@"ZCODE-60-880610"])
+    } else if ([_game.ifid isEqualToString:@"ZCODE-47-870915"] ||
+        [_game.ifid isEqualToString:@"ZCODE-49-870917"] ||
+        [_game.ifid isEqualToString:@"ZCODE-51-870923"] ||
+        [_game.ifid isEqualToString:@"ZCODE-57-871221"] ||
+               [_game.ifid isEqualToString:@"ZCODE-60-880610"]) {
         _beyondZork = YES;
-
-    if ([_game.ifid isEqualToString:@"BFDE398E-C724-4B9B-99EB-18EE4F26932E"])
+    } else if ([_game.ifid isEqualToString:@"BFDE398E-C724-4B9B-99EB-18EE4F26932E"]) {
         _colderLight = YES;
-
-    if ([_game.ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"])
+    } else if ([_game.ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"])
         _thaumistry = YES;
+
+    if ([_game.ifid isEqualToString:@"ZCODE-1-851202"] ||
+        [_game.ifid isEqualToString:@"ZCODE-1-860221"] ||
+        [_game.ifid isEqualToString:@"ZCODE-14-860313"] ||
+        [_game.ifid isEqualToString:@"ZCODE-11-860509"] ||
+        [_game.ifid isEqualToString:@"ZCODE-12-860926"] ||
+        [_game.ifid isEqualToString:@"ZCODE-15-870628"])
+        _trinity = YES;
+
+    if ([_game.ifid isEqualToString:@"ZCODE-5-990206-6B48"])
+        _anchorheadOrig = YES;
+
+
 
     _gamefile = [_game urlForBookmark].path;
     _terpname = terpname_;

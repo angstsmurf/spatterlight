@@ -70,6 +70,8 @@
         if ([format isEqualToString:@"glulx"] || [format isEqualToString:@"zcode"]) {
             if (_glkctl.beyondZork) {
                 pattern = @"(Use the (↑ and ↓) keys(?s).+?(?=>))";
+            } else if (_glkctl.anchorheadOrig) {
+                    pattern = @"\\[press (BACKSPACE) (to return to game)\\]";
             } else {
                 // First group: word before " = ". Second group: anything after " = "
                 // until two spaces or newline or space + newline
