@@ -2821,7 +2821,7 @@ replacementString:(id)repl {
         return;
     }
 
-    if (self.glkctl.showingQuotebox) {
+    if (self.glkctl.quoteBoxes.count) {
         GlkTextGridWindow *box = self.glkctl.quoteBoxes.lastObject;
 
         str = [box.textview.string stringByAppendingString:str];

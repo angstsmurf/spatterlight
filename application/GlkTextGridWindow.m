@@ -605,7 +605,7 @@
     if (self.inLiveResize && newcols < cols)
         return;
 
-    if (newrows == 1 && self.glkctl.curses && self.glkctl.showingQuotebox) {
+    if (newrows == 1 && self.glkctl.curses && self.glkctl.quoteBoxes.count) {
         newrows = 2;
         frame.size.height += self.theme.cellHeight;
         self.pendingFrame = frame;
@@ -1655,7 +1655,7 @@
 
 #pragma mark Quote box
 
-- (void)quoteBox:(NSUInteger)linesToSkip {
+- (void)quotebox:(NSUInteger)linesToSkip {
     NSUInteger charactersToSkip = (linesToSkip + 1) * (cols + 1);
     NSRange quoteBoxRange = NSMakeRange(charactersToSkip,  _bufferTextStorage.string.length - charactersToSkip);
     __block NSUInteger changes = 0;
@@ -1679,9 +1679,61 @@
         }
     }];
 
-    [self.glkctl quoteBoxWithWidth:width height:height verticalOffset:linesToSkip string:quoteAttStr];
+    if (!self.glkctl.quoteBoxes)
+        self.glkctl.quoteBoxes = [[NSMutableArray alloc] init];
+
+    GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:self.glkctl name:-1];
+    box.quoteboxSize = NSMakeSize(width, height);
+    [box makeTransparent];
+    NSSize boxSize = NSMakeSize(self.theme.gridMarginX * 2 + (width + 1) * self.theme.cellWidth, self.theme.gridMarginY * 2 + height * self.theme.cellHeight);
+
+    GlkTextBufferWindow *lowerView;
+
+    for (GlkWindow *win in self.glkctl.gwindows.allValues) {
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            lowerView = (GlkTextBufferWindow *)win;
+    }
+    NSRect frame;
+    frame.size = boxSize;
+    NSTextView *superView = lowerView.textview;
+    [lowerView scrollToBottom];
+    [lowerView flushDisplay];
+
+    NSScrollView *scrollView = superView.enclosingScrollView;
+    // Drop a separate text box into the lower view
+    NSRect visibleRect = scrollView.documentVisibleRect;
+    frame.origin.x = ceil((visibleRect.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (!self.glkctl.trinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
+    frame.origin.y = ceil((linesToSkip + 1 + (visibleRect.origin.y > 0)) * self.theme.cellHeight + visibleRect.origin.y + self.theme.bufferMarginY);
+    box.frame = frame;
+    [box flushDisplay];
+    [box.textview.textStorage setAttributedString:quoteAttStr];
+
+    box.alphaValue = 0;
+    [superView addSubview:box];
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.5;
+        box.animator.alphaValue = 1;
+    }
+    completionHandler:^{
+        box.alphaValue = 1;
+    }];
+
+    [self.glkctl.quoteBoxes addObject:box];
+    box.quoteboxVerticalOffset = linesToSkip;
+    box.quoteboxAddedAtTurn = self.glkctl.turns;
 }
 
+- (void)quoteboxAdjustSize {
+    NSSize boxSize = NSMakeSize(ceil(self.theme.gridMarginX * 2 + (_quoteboxSize.width + 2) * self.theme.cellWidth), ceil(self.theme.gridMarginY * 2 + _quoteboxSize.height * self.theme.cellHeight));
+    if (!NSEqualSizes(boxSize, self.frame.size)) {
+        NSRect frame = self.frame;
+        frame.size = boxSize;
+        frame.origin.x = ceil((self.superview.frame.size.width - boxSize.width) / 2);
+        frame.origin.y = ceil(self.superview.enclosingScrollView.frame.origin.y + _quoteboxVerticalOffset * self.theme.cellHeight);
+        [self setFrame:frame];
+        [self flushDisplay];
+    }
+}
 
 #pragma mark Accessibility
 

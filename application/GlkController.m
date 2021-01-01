@@ -244,7 +244,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     shouldShowAutorestoreAlert = NO;
     shouldRestoreUI = NO;
-    turns = 0;
+    _turns = 0;
     _hasAutoSaved = NO;
 
     lastArrangeValues = @{
@@ -1581,14 +1581,8 @@ fprintf(stderr, "%s\n",                                                    \
     for (GlkTextGridWindow *win in _quoteBoxes)
     {
         win.theme = _theme;
-        NSSize boxSize = NSMakeSize(_theme.gridMarginX * 2 + (win.quoteboxSize.width + 1) * _theme.cellWidth, _theme.gridMarginY * 2 + win.quoteboxSize.height * _theme.cellHeight);
-        if (!NSEqualSizes(boxSize, win.frame.size)) {
-            NSRect frame = win.frame;
-            frame.size = boxSize;
-            frame.origin.x = (win.superview.frame.size.width - boxSize.width) / 2;
-            win.frame = frame;
-        }
         [win prefsDidChange];
+        [win quoteboxAdjustSize];
     }
 
     _shouldStoreScrollOffset = YES;
@@ -1883,54 +1877,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     return -1;
-}
-
-- (void)quoteBoxWithWidth:(NSUInteger)width height:(NSUInteger)height verticalOffset:(NSUInteger)offset string:(NSAttributedString *)quoteAttStr {
-    if (!_quoteBoxes)
-        _quoteBoxes = [[NSMutableArray alloc] init];
-
-    GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:self name:-1];
-    box.quoteboxSize = NSMakeSize(width, height);
-    [box makeTransparent];
-    NSSize boxSize = NSMakeSize(_theme.gridMarginX * 2 + (width + 1) * _theme.cellWidth, _theme.gridMarginY * 2 + height * _theme.cellHeight);
-
-    GlkTextGridWindow *upperView;
-    GlkTextBufferWindow *lowerView;
-
-    for (GlkWindow *win in _gwindows.allValues) {
-        if ([win isKindOfClass:[GlkTextBufferWindow class]])
-            lowerView = (GlkTextBufferWindow *)win;
-        if ([win isKindOfClass:[GlkTextGridWindow class]])
-            upperView = (GlkTextGridWindow *)win;
-    }
-    NSRect frame;
-    frame.size = boxSize;
-    NSTextView *superView = lowerView.textview;
-    [lowerView scrollToBottom];
-    [lowerView flushDisplay];
-
-    NSScrollView *scrollView = superView.enclosingScrollView;
-    // Drop a separate text box into the lower view
-    NSRect visibleRect = scrollView.documentVisibleRect;
-    frame.origin.x = ceil((visibleRect.size.width - boxSize.width) / 2) - _theme.cellWidth * (2 * (!_trinity && _theme.cellWidth == _theme.bufferCellWidth) );
-    frame.origin.y = ceil((offset + 1 + (visibleRect.origin.y > 0)) * _theme.cellHeight + visibleRect.origin.y + _theme.bufferMarginY);
-    box.frame = frame;
-    [box flushDisplay];
-    [box.textview.textStorage setAttributedString:quoteAttStr];
-
-    box.alphaValue = 0;
-    [superView addSubview:box];
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = 0.5;
-        box.animator.alphaValue = 1;
-    }
-    completionHandler:^{
-        box.alphaValue = 1;
-    }];
-
-    [_quoteBoxes addObject:box];
-    _showingQuotebox = YES;
-    _addedQuoteBoxAtTurn = turns;
 }
 
 - (void)handleSetTimer:(NSUInteger)millisecs {
@@ -2284,7 +2230,7 @@ fprintf(stderr, "%s\n",                                                    \
 
             // If this is the first turn, we try to restore the UI
             // from an autosave file.
-            if (turns == 2) {
+            if (_turns == 2) {
                 if (shouldRestoreUI) {
                     [self restoreUI];
                     if (shouldShowAutorestoreAlert && !_startingInFullscreen)
@@ -2299,15 +2245,14 @@ fprintf(stderr, "%s\n",                                                    \
                 }
             }
 
-            if (turns > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
+            if (_turns > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
                 _mustBeQuiet = NO;
 
-            if ((_showingQuotebox && turns - _addedQuoteBoxAtTurn > 0 && _shouldSpeakNewText) || _quoteBoxes.count > 1) {
+            if ((_quoteBoxes.count && _turns - _quoteBoxes.lastObject.quoteboxAddedAtTurn > 0 && _shouldSpeakNewText) || _quoteBoxes.count > 1) {
                 NSView *view = _quoteBoxes.firstObject;
                 [_quoteBoxes removeObjectAtIndex:0];
                 if (_quoteBoxes.count == 0) {
-                    _showingQuotebox = NO;
-                    _addedQuoteBoxAtTurn = 0;
+                    _quoteBoxes = nil;
                 }
                 [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
                     context.duration = 1;
@@ -2320,7 +2265,7 @@ fprintf(stderr, "%s\n",                                                    \
                 }];
             }
 
-            turns++;
+            _turns++;
 
             [self flushDisplay];
 
@@ -2628,7 +2573,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case QUOTEBOX:
             if (reqWin) {
-                [((GlkTextGridWindow *)reqWin) quoteBox:req->a2];
+                [((GlkTextGridWindow *)reqWin) quotebox:(NSUInteger)req->a2];
             }
             break;
 
@@ -3501,7 +3446,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     if(@available(macOS 10.13, *)) {
         NSWorkspace * ws = [NSWorkspace sharedWorkspace];
         _voiceOverActive = ws.voiceOverEnabled;
-        if (_voiceOverActive && turns > 3 && !_mustBeQuiet) {
+        if (_voiceOverActive && _turns > 3 && !_mustBeQuiet) {
             [self checkZMenu];
             if (_zmenu) {
                 [_zmenu performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1];
@@ -3912,7 +3857,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSMutableArray *strings = [[NSMutableArray alloc] init];
 
     NSArray *allWindows = _gwindows.allValues;
-    if (_quoteBoxes && _quoteBoxes.count)
+    if (_quoteBoxes.count)
         allWindows = [allWindows arrayByAddingObject:_quoteBoxes.lastObject];
     allWindows = [allWindows sortedArrayUsingComparator:
                   ^NSComparisonResult(id obj1, id obj2){

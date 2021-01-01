@@ -46,8 +46,11 @@
 @property NSUInteger lastForm;
 
 @property NSSize quoteboxSize;
+@property NSInteger quoteboxAddedAtTurn;
+@property NSUInteger quoteboxVerticalOffset;
 
-- (void)quoteBox:(NSUInteger)linesToSkip;
+- (void)quotebox:(NSUInteger)linesToSkip;
+- (void)quoteboxAdjustSize;
 
 - (NSUInteger)indexOfPos;
 

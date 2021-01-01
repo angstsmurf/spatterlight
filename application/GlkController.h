@@ -11,7 +11,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm;
+@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow;
 
 #define MAXWIN 64
 
@@ -59,7 +59,6 @@
 
     GlkController *restoredController;
     GlkController *restoredControllerLate;
-    NSInteger turns;
     NSMutableData *bufferedData;
 
     LibController *libcontroller;
@@ -115,6 +114,8 @@
 @property(readonly) BOOL inFullscreen;
 @property NSColor *bgcolor;
 
+@property NSInteger turns;
+
 // To fix scrolling in the Adrian Mole games
 @property BOOL shouldScrollOnCharEvent;
 
@@ -140,9 +141,6 @@
 
 @property BOOL voiceOverActive;
 
-@property NSInteger addedQuoteBoxAtTurn;
-@property BOOL showingQuotebox;
-
 @property ZMenu *zmenu;
 @property BOOL shouldCheckForMenu;
 @property BOOL shouldSpeakNewText;
@@ -151,6 +149,7 @@
 @property GlkWindow *spokeLast;
 @property BureaucracyForm *form;
 
+@property NSMutableArray<GlkTextGridWindow *> *quoteBoxes;
 
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game
@@ -171,10 +170,6 @@
 - (void)storeScrollOffsets;
 - (void)restoreScrollOffsets;
 - (void)adjustContentView;
-
-@property NSMutableArray *quoteBoxes;
-
-- (void)quoteBoxWithWidth:(NSUInteger)width height:(NSUInteger)height verticalOffset:(NSUInteger)offset string:(NSAttributedString *)quoteAttStr;
 
 - (IBAction)speakMostRecent:(id)sender;
 - (IBAction)speakPrevious:(id)sender;
