@@ -1161,6 +1161,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     [Preferences changeCurrentGame:_game];
     if (!dead) {
+        if (_turns > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
+            _mustBeQuiet = NO;
         [self guessFocus];
         [self noteAccessibilityStatusChanged:nil];
         [self checkZMenu];
@@ -2245,8 +2247,9 @@ fprintf(stderr, "%s\n",                                                    \
                 }
             }
 
-            if (_turns > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
+            if (_turns > 1 && !shouldShowAutorestoreAlert && !_previewDummy) {
                 _mustBeQuiet = NO;
+            }
 
             if ((_quoteBoxes.count && _turns - _quoteBoxes.lastObject.quoteboxAddedAtTurn > 0 && _shouldSpeakNewText) || _quoteBoxes.count > 1) {
                 NSView *view = _quoteBoxes.firstObject;
@@ -2612,7 +2615,7 @@ fprintf(stderr, "%s\n",                                                    \
             // These request and cancel lots of char events every second,
             // which breaks scrolling, as we normally scroll down
             // one screen on every char event.
-            if (lastRequest == PRINT || lastRequest == SETZCOLOR || lastRequest == NEXTEVENT) {
+            if (lastRequest == PRINT || lastRequest == SETZCOLOR || lastRequest == NEXTEVENT || lastRequest == MOVETO) {
                 // This flag may be set by GlkBufferWindow as well
                 _shouldScrollOnCharEvent = YES;
                 _shouldSpeakNewText = YES;
@@ -3446,15 +3449,17 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     if(@available(macOS 10.13, *)) {
         NSWorkspace * ws = [NSWorkspace sharedWorkspace];
         _voiceOverActive = ws.voiceOverEnabled;
-        if (_voiceOverActive && _turns > 3 && !_mustBeQuiet) {
-            [self checkZMenu];
-            if (_zmenu) {
-                [_zmenu performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1];
-            } else {
-                GlkWindow *largest = [self largestWithMoves];
-                if (largest) {
-                    [largest setLastMove];
-                    [largest performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:2];
+        if (_voiceOverActive) {
+            if (_turns > 2 && !_mustBeQuiet) {
+                [self checkZMenu];
+                if (_zmenu) {
+                    [_zmenu performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1];
+                } else {
+                    GlkWindow *largest = [self largestWithMoves];
+                    if (largest) {
+                        [largest setLastMove];
+                        [largest performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:2];
+                    }
                 }
             }
         } else {
@@ -3548,6 +3553,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 - (void)speakNewText {
     // Find a "main text window"
     NSMutableArray *windowsWithText = _gwindows.allValues.mutableCopy;
+    if (_quoteBoxes.count)
+        [windowsWithText addObject:_quoteBoxes.lastObject];
     for (GlkWindow *view in _gwindows.allValues) {
         if ([view isKindOfClass:[GlkGraphicsWindow class]] || ![(GlkTextBufferWindow *)view setLastMove]) {
             // Remove all Glk window objects with no new text to speak
@@ -3687,8 +3694,17 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     }
 
     if (!windowsWithMoves.count) {
-        NSLog(@"largestWithMoves: No windows with moves history!");
-        return nil;
+        NSMutableArray *allWindows = _gwindows.allValues.mutableCopy;
+        if (_quoteBoxes.count)
+            [allWindows addObject:_quoteBoxes.lastObject];
+        for (GlkWindow *view in allWindows) {
+            if (![view isKindOfClass:[GlkGraphicsWindow class]] && ((GlkTextGridWindow *)view).textview.string.length > 0)
+                [windowsWithMoves addObject:view];
+        }
+        if (!windowsWithMoves.count) {
+            NSLog(@"largestWithMoves: No windows with text!");
+            return nil;
+        }
     }
 
     CGFloat largestSize = 0;

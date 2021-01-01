@@ -1742,7 +1742,7 @@
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     if (self.glkctl.form)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.form];
-    [self.glkctl speakString: textstorage.string];
+    [self.glkctl speakString:textstorage.string];
 }
 
 - (BOOL)setLastMove {
