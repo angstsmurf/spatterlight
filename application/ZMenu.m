@@ -93,7 +93,6 @@
             if (_glkctl.beyondZork) {
                 _menuCommands = [self extractMenuCommandsUsingRegex:@"(Function (Key) Definitions)"];
                 if (!_menuCommands.count) {
-                    NSLog(@"Found no menu commands. Not a menu");
                     return NO;
                 } else {
                     _menuCommands = @{ @"":@"" };
@@ -652,9 +651,15 @@
         return;
     
     NSString *selectedLineString;
+    NSString *instructionString = [self constructMenuInstructionString];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    
+
+    // We use the instructions string as a proxy to check if the menu has changed
+    if (_lastMenu.length && ![_lastMenu isEqualToString:instructionString])
+        _haveSpokenMenu = NO;
+    _lastMenu = instructionString;
+
     if (!_haveSpokenMenu) {
         NSString *titleString = [self constructMenuTitleString];
         if (titleString.length) {
@@ -671,8 +676,19 @@
     } else {
         selectedLineString = [self menuLineStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex) total:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal) instructions:NO];
         [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
+        if (_glkctl.beyondZork && _lastSpokenString && [selectedLineString isEqualToString:_lastSpokenString]) {
+            for (GlkWindow *view in _glkctl.gwindows.allValues) {
+                if ([view isKindOfClass:[GlkTextBufferWindow class]]) {
+                    GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)view;
+                    NSString *string = bufWin.textview.string;
+                    if ([string rangeOfString:@"Are you sure you want to leave the story now?"].location != NSNotFound) {
+                        [bufWin performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:0.1];
+                    }
+                }
+            }
+        }
+        _lastSpokenString = selectedLineString;
     }
-    
     [self speakString:selectedLineString];
 }
 

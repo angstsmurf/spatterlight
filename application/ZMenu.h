@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSUInteger selectedLine;
 @property BOOL haveSpokenMenu;
 @property BOOL recheckNeeded;
+@property NSString *lastSpokenString;
+@property NSString *lastMenu;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl;
 - (BOOL)isMenu;

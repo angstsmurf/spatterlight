@@ -3546,6 +3546,10 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         }
     }
     if (_zmenu) {
+        for (GlkTextBufferWindow *view in _gwindows.allValues) {
+            if ([view isKindOfClass:[GlkTextBufferWindow class]])
+                [view setLastMove];
+        }
         [_zmenu speakSelectedLine];
     }
 }
