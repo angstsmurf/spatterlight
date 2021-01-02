@@ -2785,6 +2785,8 @@ static NSString *signalToName(NSTask *task) {
         _mustBeQuiet = YES;
         [alert addButtonWithTitle:NSLocalizedString(@"Oops", nil)];
         [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {}];
+    } else {
+        [self performSelector:@selector(speakString:) withObject:[NSString stringWithFormat:@"%@ has finished.", _game.metadata.title] afterDelay:1];
     }
 
     for (GlkWindow *win in [_gwindows allValues])
