@@ -1167,7 +1167,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self noteAccessibilityStatusChanged:nil];
         [self checkZMenu];
         if (!_zmenu)
-            [self speakMostRecent:nil];
+            [self speakMostRecent:self];
     }
 }
 
@@ -3620,7 +3620,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         return;
     }
     GlkWindow *mainWindow = [self largestWithMoves];
-    if (!mainWindow) {
+    if (!mainWindow && sender != self) {
         [self speakString:@"No last move to speak!"];
         return;
     }
