@@ -920,6 +920,19 @@
    return [((GlkTextBufferWindow *)self.delegate).glkctl createCustomRotors];
 }
 
+- (NSArray *)accessibilityChildren {
+   NSArray *children = [super accessibilityChildren];
+   GlkController *glkctl = ((GlkTextBufferWindow *)self.delegate).glkctl;
+   if (glkctl.quoteBoxes.count) {
+       NSTextView *boxView = glkctl.quoteBoxes.lastObject.textview;
+       if (boxView) {
+           if ([children indexOfObject:boxView] == NSNotFound)
+               children = [children arrayByAddingObject:boxView];
+       }
+   }
+   return children;
+}
+
 @end
 
 /* ------------------------------------------------------------ */

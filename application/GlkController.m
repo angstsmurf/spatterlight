@@ -3824,33 +3824,31 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     if (searchString.length) {
         BOOL searchFound = NO;
-        for (GlkWindow *view in _gwindows.allValues) {
+        NSArray<GlkWindow *> *allWindows = _gwindows.allValues;
+        if (_quoteBoxes.count)
+            allWindows = [allWindows arrayByAddingObject:_quoteBoxes.lastObject];
+        for (GlkWindow *view in allWindows) {
             if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
-                NSString *contentString = ((GlkTextBufferWindow *)view).textview.string;
+                NSString *contentString = ((GlkTextGridWindow *)view).textview.string;
 
-                NSRange resultRange = [contentString rangeOfString:searchString options:NSCaseInsensitiveSearch range:NSMakeRange(0, contentString.length - 1) locale:nil];
+                NSRange resultRange = [contentString rangeOfString:searchString options:NSCaseInsensitiveSearch range:NSMakeRange(0, contentString.length) locale:nil];
 
                 if (resultRange.location == NSNotFound)
                     continue;
 
-                NSRange realRange = resultRange;
-
-                NSLog(@"Found string \"%@\" in %@ %ld", searchString, [view class], view.name);
-
                 if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-                    searchFound = (realRange.location < fromRange.location);
+                    searchFound = (resultRange.location < fromRange.location);
                 } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-                    searchFound = (realRange.location >= NSMaxRange(fromRange));
+                    searchFound = (resultRange.location >= NSMaxRange(fromRange));
                 }
                 if (searchFound) {
-                    searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:((GlkTextBufferWindow *)view).textview];
-                    searchResult.targetRange = realRange;
+                    searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:((GlkTextGridWindow *)view).textview];
+                    searchResult.targetRange = resultRange;
                     return searchResult;
                 }
 
                 bestMatchRange = resultRange;
-                bestMatch = ((GlkTextBufferWindow *)view).textview;
-
+                bestMatch = ((GlkTextGridWindow *)view).textview;
             }
         }
     }
