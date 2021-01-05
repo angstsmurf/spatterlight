@@ -2156,6 +2156,9 @@ static bool read_handler(void)
   uint16_t text = zargs[0], parse = zargs[1];
   uint8_t maxchars = zversion >= 5 ? user_byte(text) : user_byte(text) - 1;
 
+  if (maxchars == 0)
+    maxchars = 1;
+
   uint8_t zscii_string[maxchars];
   uint32_t string[maxchars + 1];
 
