@@ -2104,7 +2104,6 @@ void zshow_status(void)
   glui32 width, height;
   char rhs[64];
   long first = as_signed(variable(0x11)), second = as_signed(variable(0x12));
-  strid_t stream;
 
   if(statuswin.id == NULL) return;
 
