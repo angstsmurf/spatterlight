@@ -1275,11 +1275,9 @@ fprintf(stderr, "%s\n",                                                    \
 //    lastFlushTimestamp = [NSDate date];
 
     if (windowdirty) {
-    GlkWindow *largest = [self largestWindow];
-    if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
-        [(GlkTextBufferWindow *)largest recalcBackground];
-    if ([largest isKindOfClass:[GlkTextGridWindow class]])
-        [(GlkTextGridWindow *)largest recalcBackground];
+        GlkWindow *largest = [self largestWindow];
+        if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
+            [(GlkTextBufferWindow *)largest recalcBackground];
         windowdirty = NO;
     }
 
