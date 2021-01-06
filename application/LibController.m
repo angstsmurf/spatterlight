@@ -1749,7 +1749,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 
     gctl = [[GlkController alloc] initWithWindowNibName:@"GameWindow"];
-    if ([terp isEqualToString:@"glulxe"] || [terp isEqualToString:@"fizmo"]) {
+    if ([terp isEqualToString:@"glulxe"] || [terp isEqualToString:@"fizmo"] || [terp isEqualToString:@"bocfel"]) {
         gctl.window.restorable = YES;
         gctl.window.restorationClass = [AppDelegate class];
         gctl.window.identifier = [NSString stringWithFormat:@"gameWin%@", game.ifid];

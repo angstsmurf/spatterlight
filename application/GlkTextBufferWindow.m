@@ -1597,6 +1597,8 @@
 }
 
 - (void)putString:(NSString *)str style:(NSUInteger)stylevalue {
+    NSLog(@"bufwin %ld putString:\"%@\"", self.name, str);
+
     if (line_request)
         NSLog(@"Printing to text buffer window during line request");
 
@@ -1614,7 +1616,6 @@
 }
 
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
-
     if (self.glkctl.usesFont3 && str.length == 1 && stylevalue == style_BlockQuote) {
         NSDictionary *font3 = [self font3ToUnicode];
         NSString *newString = font3[str];
@@ -1854,11 +1855,13 @@
         [self printToWindow:@"\n"
                       style:style_Input]; // XXX arranger lastchar needs to be set
         _lastchar = '\n';
-    } else
+    } else {
+        NSLog(@"No echo, deleting input");
         [textstorage
          deleteCharactersInRange:NSMakeRange(fence,
                                              textstorage.length -
                                              fence)]; // Don't echo
+    }
     // input line
 
     if (line.length > 0) {
@@ -1931,8 +1934,10 @@
     fence = textstorage.length;
 
     NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
-    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default )
-        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
+    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default) {
+//        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
+        inputStyle[@"ZColor"] = currentZColor;
+    }
 
     inputStyle[NSCursorAttributeName] = [NSCursor IBeamCursor];
 
@@ -2144,7 +2149,10 @@ replacementString:(id)repl {
     if (line_request) {
         NSColor *color = styles[style_Normal][NSForegroundColorAttributeName];
         if (textstorage.length) {
-            color = [textstorage attribute:NSForegroundColorAttributeName atIndex:textstorage.length-1 effectiveRange:nil];
+            if (fence < textstorage.length && fence > 0)
+                color = [textstorage attribute:NSForegroundColorAttributeName atIndex:fence - 1 effectiveRange:nil];
+            else
+                color = [textstorage attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:nil];
         }
         if (!color)
             color = self.theme.bufferNormal.color;
@@ -2469,11 +2477,30 @@ replacementString:(id)repl {
 }
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
+    NSString *fgstring, *bgstring;
+    if (fg == zcolor_Current) {
+        fgstring = @"zcolor_Current";
+    } else if (fg == zcolor_Default) {
+        fgstring = @"zcolor_Default";
+    } else {
+        fgstring = [NSString stringWithFormat:@"%lx", (long)fg];
+    }
+
+    if (bg == zcolor_Current) {
+        bgstring = @"zcolor_Current";
+    } else if (bg == zcolor_Default) {
+        bgstring = @"zcolor_Default";
+    } else {
+        bgstring = [NSString stringWithFormat:@"%lx", (long)bg];
+    }
+
+    NSLog(@"bufwin %ld: setZColorText:%@ background:%@", self.name, fgstring, bgstring);
     if (currentZColor && !(currentZColor.fg == fg && currentZColor.bg == bg)) {
         currentZColor = nil;
     }
     if (!currentZColor && !(fg == zcolor_Default && bg == zcolor_Default)) {
         // A run of zcolor started
+        NSLog(@"a new run of ZColor in bufwin %ld: fg:%lx bg:%lx", self.name, (long)fg, (long)bg);
         currentZColor =
         [[ZColor alloc] initWithText:fg background:bg];
     }
@@ -2696,10 +2723,11 @@ replacementString:(id)repl {
 
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
 
-    if (line_request && restoredWin.restoredInput) {
+    if (line_request && restoredWin.restoredInput && restoredWin.restoredInput.length) {
         if (textstorage.length > fence)
             [textstorage deleteCharactersInRange:NSMakeRange(fence, textstorage.length - fence)];
         [textstorage appendAttributedString:restoredWin.restoredInput];
+        [self showInsertionPoint];
     }
 
     _restoredSelection = restoredWin.restoredSelection;

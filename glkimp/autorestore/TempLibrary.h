@@ -29,10 +29,10 @@ Identity of the root window
 Identity of the current selected output stream */
 
 //@property CGRect bounds;
-@property NSMutableArray *windows;
-@property NSMutableArray *streams;
-@property NSMutableArray *filerefs;
-@property NSMutableArray *schannels;
+@property (nonatomic, retain) NSMutableArray *windows;
+@property (nonatomic, retain) NSMutableArray *streams;
+@property (nonatomic, retain) NSMutableArray *filerefs;
+@property (nonatomic, retain) NSMutableArray *schannels;
 
 @property glui32 rootwintag;
 @property glui32 currentstrtag;
@@ -40,7 +40,7 @@ Identity of the current selected output stream */
 @property glui32 timerInterval;
 @property glui32 autosaveTag;
 
-@property id extraData;
+@property (nonatomic, retain) id extraData;
 
 //@property id specialrequest;
 

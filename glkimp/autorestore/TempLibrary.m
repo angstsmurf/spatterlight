@@ -441,7 +441,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 }
 
 - (void)updateFromLibraryLate {
-
     for (TempStream *str in _streams)
         if (str.type == strtype_Resource)
             [str updateResource];

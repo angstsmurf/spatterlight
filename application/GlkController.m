@@ -25,22 +25,22 @@ fprintf(stderr, "%s\n",                                                    \
 
 #define MINTIMER 1 /* The game Transparent needs a timer this frequent */
 
-//static const char *msgnames[] = {
-//    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
-//    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
-//    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
-//    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-//    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
-//    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
-//    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
-//    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
-//    "BEEP",            "SETLINK",
-//    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
-//    "QUOTEBOX",
-//    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
-//    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
-//    "EVTVOLUME",       "EVTPREFS"};
+static const char *msgnames[] = {
+    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
+    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
+    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
+    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
+    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
+    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
+    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
+    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
+    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
+    "BEEP",            "SETLINK",
+    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
+    "QUOTEBOX",
+    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
+    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
+    "EVTVOLUME",       "EVTPREFS"};
 
 //static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 //    "wintype_Blank",    "wintype_TextBuffer",
@@ -2235,7 +2235,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-//    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -2258,7 +2258,12 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case NEXTEVENT:
-
+            if (_windowsToRestore.count) {
+                for (GlkWindow *win in _windowsToRestore) {
+                    [_gwindows[@(win.name)] postRestoreAdjustments:win];
+                }
+                _windowsToRestore = nil;
+            }
             // If this is the first turn, we try to restore the UI
             // from an autosave file.
             if (_turns == 2) {
@@ -2614,14 +2619,22 @@ fprintf(stderr, "%s\n",                                                    \
         case INITLINE:
             // NSLog(@"glkctl INITLINE %d", req->a1);
             [self performScroll];
+
+            if (!_gwindows.count && shouldRestoreUI) {
+                NSLog(@"Restoring UI at INITLINE");
+                NSLog(@"at turn %ld", _turns);
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
             if (reqWin && !_colderLight) {
                 [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)] maxLength:(NSUInteger)req->a2];
-
                 _shouldSpeakNewText = YES;
 
                 // Check if we are in Beyond Zork Definitions menu
                 if (_beyondZork)
-                    _shouldCheckForMenu = YES;            }
+                    _shouldCheckForMenu = YES;
+            }
             break;
 
         case CANCELLINE:
@@ -2639,6 +2652,14 @@ fprintf(stderr, "%s\n",                                                    \
 
         case INITCHAR:
 //            NSLog(@"glkctl initchar %d", req->a1);
+
+            if (!_gwindows.count && shouldRestoreUI) {
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                NSLog(@"Restoring UI at INITCHAR");
+                NSLog(@"at turn %ld", _turns);
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
 
             // Hack to fix the Level 9 Adrian Mole games.
             // These request and cancel lots of char events every second,
@@ -2668,6 +2689,13 @@ fprintf(stderr, "%s\n",                                                    \
 
         case INITMOUSE:
             //            NSLog(@"glkctl initmouse %d", req->a1);
+            if (!_gwindows.count && shouldRestoreUI) {
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                NSLog(@"Restoring UI at INITMOUSE");
+                NSLog(@"at turn %ld", _turns);
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
             [self performScroll];
             if (reqWin) {
                 [reqWin initMouse];
@@ -2691,6 +2719,13 @@ fprintf(stderr, "%s\n",                                                    \
         case INITLINK:
             //            NSLog(@"glkctl request hyperlink event in window %d",
             //            req->a1);
+            if (!_gwindows.count && shouldRestoreUI) {
+                NSLog(@"Restoring UI at INITLINK");
+                NSLog(@"at turn %ld", _turns);
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
             [self performScroll];
             if (reqWin) {
                 [reqWin initHyperlink];
@@ -2755,7 +2790,8 @@ fprintf(stderr, "%s\n",                                                    \
             break;
     }
 
-    lastRequest = req->cmd;
+    if (req->cmd != AUTOSAVE)
+        lastRequest = req->cmd;
     return NO; /* keep reading */
 }
 

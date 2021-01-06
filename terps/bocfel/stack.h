@@ -26,6 +26,9 @@ void do_return(uint16_t);
 bool do_save(bool);
 bool do_restore(bool);
 
+bool save_quetzal(zterp_io *savefile, bool is_meta);
+bool restore_quetzal(zterp_io *savefile, bool is_meta);
+
 enum save_type { SAVE_GAME, SAVE_USER };
 bool push_save(enum save_type, uint32_t, const char *);
 bool pop_save(enum save_type, long);

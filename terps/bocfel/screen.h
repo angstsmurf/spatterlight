@@ -10,6 +10,12 @@
 
 #include "util.h"
 
+#include "library_state.h"
+
+void recover_library_state(library_state_data *dat);
+void stash_library_state(library_state_data *dat);
+
+
 /* Represents a Z-machine color.
  *
  * If mode is ColorModeANSI, value is a color in the range [1, 12],

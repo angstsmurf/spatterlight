@@ -137,7 +137,8 @@
     chan->volume_delta = volume_delta;
 }
 
-/* Restart the sound channel after a deserialize, and also any fade timer. Called from TempLibrary.updateFromLibraryLate. This is currently a primitive implementation
+/* Restart the sound channel after a deserialize, and also any fade timer. Called from
+    TempLibrary.updateFromLibraryLate. This is currently a primitive implementation
     which disregards how much of the sound had played when the game was autosaved
     or killed. Fade timers remember this, however, so a clip halfway through a 10
     second fade out will restart from the beginning but fade out in 10 seconds.

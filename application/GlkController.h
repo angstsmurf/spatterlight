@@ -151,6 +151,8 @@
 
 @property NSMutableArray<GlkTextGridWindow *> *quoteBoxes;
 
+@property NSArray<GlkWindow *> *windowsToRestore;
+
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game
           reset:(BOOL)shouldReset

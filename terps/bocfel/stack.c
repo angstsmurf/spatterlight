@@ -878,7 +878,7 @@ static size_t quetzal_write_stack(zterp_io *savefile)
   return local_written;
 }
 
-static bool save_quetzal(zterp_io *savefile, bool is_meta)
+bool save_quetzal(zterp_io *savefile, bool is_meta)
 {
   if(setjmp(exception) != 0) return false;
 
@@ -1031,7 +1031,7 @@ static bool memory_restore(void)
 #define goto_err(...)	do { show_message("save file error: " __VA_ARGS__); goto err; } while(false)
 #define goto_death(...)	do { show_message("save file error: " __VA_ARGS__); goto death; } while(false)
 
-static bool restore_quetzal(zterp_io *savefile, bool is_meta)
+bool restore_quetzal(zterp_io *savefile, bool is_meta)
 {
   zterp_iff *iff;
   uint32_t size;

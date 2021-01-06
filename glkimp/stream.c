@@ -1873,6 +1873,9 @@ void garglk_unput_string(char *s)
 
 static void gli_set_zcolors(stream_t *str, glui32 fg, glui32 bg)
 {
+    if (fg == zcolor_Default && bg == zcolor_Default) {
+        gli_strict_warning("gli_set_zcolors: fg and bg == zcolor_Default\n");
+    }
     if (!str || !str->writable)
         return;
 
@@ -1889,7 +1892,7 @@ void garglk_set_zcolors_stream(stream_t *str, glui32 fg, glui32 bg)
 {
     if (!str)
     {
-        gli_strict_warning("set_style_stream: invalid ref");
+        gli_strict_warning("garglk_set_zcolors_stream: invalid ref");
         return;
     }
     gli_set_zcolors(str, fg, bg);
@@ -1923,7 +1926,7 @@ void garglk_set_reversevideo_stream(stream_t *str, glui32 reverse)
 {
     if (!str)
     {
-        gli_strict_warning("set_style_stream: invalid ref");
+        gli_strict_warning("garglk_set_reversevideo_stream: invalid ref");
         return;
     }
     gli_set_reversevideo(str, reverse);

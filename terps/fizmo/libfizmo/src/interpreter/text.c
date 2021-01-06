@@ -2336,8 +2336,8 @@ void opcode_read_char(void)
 
   TRACE_LOG("Opcode: READ_CHAR.\n");
 
-  if (save_and_quit_if_required(false) != 0)
-        return;
+//  if (save_and_quit_if_required(false) != 0)
+//        return;
 
   read_z_result_variable();
 
