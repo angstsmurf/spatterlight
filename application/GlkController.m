@@ -3699,7 +3699,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         return;
     }
 
-    NSString *charSetString = @"\u00A0 >\n";
+    NSString *charSetString = @"\u00A0 >\n_";
     NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
     string = [string stringByTrimmingCharactersInSet:charset];
 
@@ -4063,7 +4063,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             [largest forceLayout];
         searchResult.targetRange = NSIntersectionRange(allText, textRange);
         // By adding a custom label, all ranges are reliably listed in the rotor
-        NSString *charSetString = @"\u00A0 >\n";
+        NSString *charSetString = @"\u00A0 >\n_";
         NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
         NSString *string = strings[currentItemIndex];
         string = [string stringByTrimmingCharactersInSet:charset];
