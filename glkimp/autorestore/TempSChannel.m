@@ -31,7 +31,6 @@
         volume = chan->volume;
         loop = chan->loop;
         notify = chan->notify;
-        buffered = chan->buffered;
         paused = chan->paused;
 
         /* for volume fades */
@@ -67,7 +66,6 @@
     volume =  [decoder decodeInt32ForKey:@"volume"];
     loop =  [decoder decodeInt32ForKey:@"loop"];
     notify = [decoder decodeInt32ForKey:@"notify"];
-    buffered = [decoder decodeInt32ForKey:@"buffered"];
     paused = [decoder decodeInt32ForKey:@"paused"];
 
     /* for volume fades */
@@ -95,7 +93,6 @@
     [encoder encodeInt32:volume forKey:@"volume"];
     [encoder encodeInt32:loop forKey:@"loop"];
     [encoder encodeInt32:notify forKey:@"notify"];
-    [encoder encodeInt32:buffered forKey:@"buffered"];
     [encoder encodeInt32:paused forKey:@"paused"];
 
     /* for volume fades */
@@ -110,7 +107,6 @@
 
     chan->sample = NULL; /* Mix_Chunk (or FMOD Sound) */
     chan->music = NULL; /* Mix_Music (or FMOD Music) */
-    chan->decode = NULL; /* Sound_Sample */
 
     chan->sdl_rwops = NULL; /* SDL_RWops */
     chan->sdl_memory = NULL;
@@ -126,7 +122,6 @@
     chan->volume = volume;
     chan->loop = loop;
     chan->notify = notify;
-    chan->buffered = buffered;
     chan->paused = paused;
 
     /* for volume fades */

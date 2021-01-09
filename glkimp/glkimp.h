@@ -424,7 +424,6 @@ struct glk_schannel_struct
 
     void *sample; /* Mix_Chunk (or FMOD Sound) */
     void *music; /* Mix_Music (or FMOD Music) */
-    void *decode; /* Sound_Sample */
 
     void *sdl_rwops; /* SDL_RWops */
     unsigned char *sdl_memory;
@@ -436,7 +435,6 @@ struct glk_schannel_struct
     int volume;
     glui32 loop;
     int notify;
-    int buffered;
     int paused;
 
     /* for volume fades */
