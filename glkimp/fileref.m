@@ -6,12 +6,9 @@
 
 char autosavedir[1024] = "";
 
-void getworkdir()
+void setdefaultworkdir(char *string)
 {
-    /* if we have already set a working dir path, we return right away */
-    if (strcmp(workingdir, ""))
-        return;
-
+    size_t length;
     @autoreleasepool {
 
         NSDictionary *gFolderMap = @{@"scare": @"SCARE",
@@ -45,29 +42,42 @@ void getworkdir()
 
         dirstr = [dirstr stringByAppendingString:@" Files"];
         dirstr = [dirstr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        appSupportDir = [NSURL URLWithString: dirstr relativeToURL:appSupportDir];
+        appSupportDir = [NSURL URLWithString:dirstr relativeToURL:appSupportDir];
 
         [[NSFileManager defaultManager] createDirectoryAtURL:appSupportDir withIntermediateDirectories:YES attributes:nil error:NULL];
 
-        strncpy(workingdir, [appSupportDir.path UTF8String], sizeof workingdir);
+        length = appSupportDir.path.length;
+        strncpy(string, [appSupportDir.path UTF8String], length);
+
     }
 
-	workingdir[sizeof workingdir-1] = 0;
+    string[length] = 0;
+}
+
+void getworkdir()
+{
+    /* if we have already set a working dir path, we return right away */
+    if (strcmp(workingdir, "")) {
+        return;
+    }
+
+    setdefaultworkdir(workingdir);
 }
 
 void getautosavedir(char *file)
 {
     /* if we have already set an autosave dir path, we return right away */
-    if (strcmp(autosavedir, ""))
+    if (strcmp(autosavedir, "")) {
         return;
+    }
 
     @autoreleasepool {
 
         NSError *error = nil;
 
-        getworkdir();
+        setdefaultworkdir(autosavedir);
         NSString *gamepath = [NSString stringWithUTF8String:file];
-        NSString *dirname = [NSString stringWithUTF8String:workingdir];
+        NSString *dirname = [NSString stringWithUTF8String:autosavedir];
         dirname = [dirname stringByAppendingPathComponent:@"Autosaves"];
         dirname = [dirname stringByAppendingPathComponent:[gamepath signatureFromFile]];
 

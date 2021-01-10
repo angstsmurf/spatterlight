@@ -207,3 +207,28 @@ void zsound_effect(void)
         locked = false;
     }
 } /* zsound_effect */
+
+void stash_library_sound_state(library_state_data *dat)
+{
+    if (!dat)
+        return;
+    dat->routine = routine;
+    dat->next_sample = next_sample;
+    dat->next_volume = next_volume;
+    dat->locked = locked;
+    dat->playing = playing;
+    if (sound_loaded())
+        dat->sound_channel_tag = sound_channel->tag;
+}
+
+void recover_library_sound_state(library_state_data *dat)
+{
+    if (!dat)
+        return;
+    routine = dat->routine;
+    next_sample = dat->next_sample;
+    next_volume = dat->next_volume;
+    locked = dat->locked;
+    playing = dat->playing;
+    sound_channel = gli_schan_for_tag(dat->sound_channel_tag);
+}

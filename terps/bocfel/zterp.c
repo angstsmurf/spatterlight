@@ -44,6 +44,9 @@
 #include "glk.h"
 #endif
 
+extern int spatterlight_restore_autosave(void);
+
+
 #define MAX_LINE	2048
 #define MAX_PATH	4096
 
@@ -966,6 +969,9 @@ int main(int argc, char **argv)
     user_store_word(0x10, word(0x10));
 
     setup_opcodes();
+
+    spatterlight_restore_autosave();
+
     process_instructions();
   }
 }

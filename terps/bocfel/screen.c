@@ -29,6 +29,8 @@
 #include "glk.h"
 #include "glkimp.h"
 
+#include "sound.h"
+
 #if defined(ZTERP_WIN32) && !defined(GARGLK)
 /* rpcndr.h, eventually included via WinGlk.h, defines a type “byte”
  * which conflicts with the “byte” from memory.h. Temporarily redefine
@@ -58,6 +60,8 @@
 #include "unicode.h"
 #include "util.h"
 #include "zterp.h"
+
+extern int spatterlight_do_autosave(void);
 
 bool header_fixed_font;
 
@@ -831,6 +835,111 @@ void cancel_all_events(void)
 #endif
 }
 
+/* This is called during an autosave. It exports the
+ Bocfel-specific data which will be needed for the autosave.
+ */
+void stash_library_state(library_state_data *dat)
+{
+    if (dat) {
+        dat->active = true;
+        dat->headerfixedfont = header_fixed_font;
+        if ( windows[0].id)
+            dat->wintag0 = windows[0].id->tag;
+        if ( windows[1].id)
+            dat->wintag1 = windows[1].id->tag;
+        if ( windows[2].id)
+            dat->wintag2 = windows[2].id->tag;
+        if ( windows[3].id)
+            dat->wintag3 = windows[3].id->tag;
+        if ( windows[4].id)
+            dat->wintag4 = windows[4].id->tag;
+        if ( windows[5].id)
+            dat->wintag5 = windows[5].id->tag;
+        if ( windows[6].id)
+            dat->wintag6 = windows[6].id->tag;
+        if ( windows[7].id)
+            dat->wintag7 = windows[7].id->tag;
+
+        if (curwin->id)
+            dat->curwintag = curwin->id->tag;
+        if (mainwin->id)
+            dat->mainwintag = mainwin->id->tag;
+        if (statuswin.id)
+            dat->statuswintag = statuswin.id->tag;
+
+        if (upperwin->id)
+            dat->upperwintag = upperwin->id->tag;
+        dat->upperwinheight = upper_window_height;
+        dat->upperwinwidth = upper_window_width;
+        dat->upperwinx = upperwin->x;
+        dat->upperwiny = upperwin->y;
+        dat->fgcolor = style_window->fg_color.value;
+        dat->bgcolor = style_window->bg_color.value;
+        dat->fgmode = style_window->fg_color.mode;
+        dat->bgmode = style_window->bg_color.mode;
+        dat->style = style_window->style;
+        stash_library_sound_state(dat);
+    }
+}
+
+void recover_library_state(library_state_data *dat)
+{
+    if (dat && dat->active) {
+        header_fixed_font = dat->headerfixedfont;
+        windows[0].id = gli_window_for_tag(dat->wintag0);
+        windows[1].id = gli_window_for_tag(dat->wintag1);
+        windows[2].id = gli_window_for_tag(dat->wintag2);
+        windows[3].id = gli_window_for_tag(dat->wintag3);
+        windows[4].id = gli_window_for_tag(dat->wintag4);
+        windows[5].id = gli_window_for_tag(dat->wintag5);
+        windows[6].id = gli_window_for_tag(dat->wintag6);
+        windows[7].id = gli_window_for_tag(dat->wintag7);
+        statuswin.id = gli_window_for_tag(dat->statuswintag);
+
+        for (int i = 0; i < 8; i++)
+        {
+            if (windows[i].id) {
+                if (windows[i].id->tag == dat->mainwintag) {
+                    mainwin = &windows[i];
+                }
+                if (windows[i].id->tag == dat->curwintag) {
+                    curwin = &windows[i];
+                }
+                if (windows[i].id->tag == dat->upperwintag)
+                {
+                    upperwin = &windows[i];
+                    upperwin->x = dat->upperwinx;
+                    upperwin->y = dat->upperwiny;
+                }
+            }
+        }
+
+        statuswin.id = gli_window_for_tag(dat->statuswintag);
+
+        upper_window_height = dat->upperwinheight;
+        upper_window_width = dat->upperwinwidth;
+
+        have_unicode = true;
+        mouse_request_active = false;
+
+        errorwin = NULL;
+
+        style_window->fg_color.mode = dat->fgmode;
+        style_window->fg_color.value = dat->fgcolor;
+
+        style_window->bg_color.mode = dat->bgmode;
+        style_window->bg_color.value = dat->bgcolor;
+
+        style_window->style = dat->style;
+
+//        glk_set_window(curwin->id);
+//        garglk_set_zcolors(gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
+//        set_current_style();
+        recover_library_sound_state(dat);
+    }
+}
+
+
 static void resize_upper_window(long nlines)
 {
 #ifdef ZTERP_GLK
@@ -841,7 +950,11 @@ static void resize_upper_window(long nlines)
   /* Hack to fill upper window with background color when its height is set to 0 */
   if(nlines == 0)
   {
-    garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
+    glui32 bg = gargoyle_color(&style_window->bg_color);
+    if (bg != zcolor_Default)
+    {
+      garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
+    }
     glk_window_clear(upperwin->id);
   }
 #endif
@@ -1717,6 +1830,8 @@ static size_t line_len(const union line *line)
 }
 #endif
 
+#pragma mark get_input
+
 /* Attempt to read input from the user.  The input type can be either a
  * single character or a full line.  If “timer” is not zero, a timer is
  * started that fires off every “timer” tenths of a second (if the value
@@ -1729,6 +1844,7 @@ static size_t line_len(const union line *line)
  */
 static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
 {
+
   /* If either of these is zero, no timeout should happen. */
   if(timer   == 0) routine = 0;
   if(routine == 0) timer   = 0;
@@ -1751,6 +1867,8 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
   enum { InputWaiting, InputReceived, InputCanceled } status = InputWaiting;
   union line line;
   struct window *saved = NULL;
+
+  spatterlight_do_autosave();
 
   /* In V6, input might be requested on an unsupported window.  If so,
    * switch to the main window temporarily.

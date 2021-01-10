@@ -25,22 +25,22 @@ fprintf(stderr, "%s\n",                                                    \
 
 #define MINTIMER 1 /* The game Transparent needs a timer this frequent */
 
-//static const char *msgnames[] = {
-//    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
-//    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
-//    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
-//    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-//    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
-//    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
-//    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
-//    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
-//    "BEEP",            "SETLINK",
-//    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
-//    "QUOTEBOX",
-//    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
-//    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
-//    "EVTVOLUME",       "EVTPREFS"};
+static const char *msgnames[] = {
+    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
+    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
+    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
+    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
+    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
+    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
+    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
+    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
+    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
+    "BEEP",            "SETLINK",
+    "INITLINK",        "CANCELLINK",       "SETZCOLOR",   "SETREVERSE",
+    "QUOTEBOX",
+    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
+    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
+    "EVTVOLUME",       "EVTPREFS"};
 
 //static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 //    "wintype_Blank",    "wintype_TextBuffer",
@@ -244,6 +244,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     shouldShowAutorestoreAlert = NO;
     shouldRestoreUI = NO;
+    _eventcount = 0;
     _turns = 0;
     _hasAutoSaved = NO;
 
@@ -280,6 +281,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     _ignoreResizes = NO;
     _shouldScrollOnCharEvent = NO;
+
+    _quoteBoxes = nil;
 
     // If we are resetting, there is a bunch of stuff that we have already done
     // and we can skip
@@ -747,6 +750,18 @@ fprintf(stderr, "%s\n",                                                    \
             win = (restoredController.gwindows)[key];
 
             _gwindows[@(win.name)] = win;
+
+            if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+                for (GlkTextGridWindow *quotebox in ((GlkTextBufferWindow *)win).textview.subviews) {
+                    if (_quoteBoxes == nil)
+                        _quoteBoxes = [[NSMutableArray alloc] init];
+                    [_quoteBoxes addObject:quotebox];
+                    quotebox.glkctl = self;
+                    NSInteger diff = _turns - restoredController.turns;
+                    quotebox.quoteboxAddedOnTurn += diff;
+                }
+            }
+
             [win removeFromSuperview];
             [_contentView addSubview:win];
 
@@ -773,8 +788,8 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }
 
-    NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
-    [self notePreferencesChanged:notification];
+//    NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
+//    [self notePreferencesChanged:notification];
 
     if (winToGrabFocus)
         [winToGrabFocus grabFocus];
@@ -786,24 +801,33 @@ fprintf(stderr, "%s\n",                                                    \
     restoredControllerLate = nil;
     restoredUIOnly = NO;
 
+    if (shouldShowAutorestoreAlert && !_startingInFullscreen)
+        [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
+
     // We create a forced arrange event in order to force the interpreter process
     // to re-send us window sizes. The player may have changed settings that affect
     // window size since the autosave was created.,
     [self performSelector:@selector(sendArrangeEvent:) withObject:nil afterDelay:0];
 }
 
+
 - (void)sendArrangeEvent:(id)sender {
+    NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
+    [self notePreferencesChanged:notification];
+
     GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)_contentView.frame.size.width
                                                    height:(NSInteger)_contentView.frame.size.height
                                                     theme:_theme
                                                     force:YES];
     [self queueEvent:gevent];
     _shouldStoreScrollOffset = YES;
+
     // Now we can actually show the window
     [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
 }
+
 
 - (NSString *)appSupportDir {
     if (!_appSupportDir) {
@@ -993,7 +1017,9 @@ fprintf(stderr, "%s\n",                                                    \
         _firstResponderView = [decoder decodeIntegerForKey:@"firstResponder"];
         _inFullscreen = [decoder decodeBoolForKey:@"fullscreen"];
 
-        _previewDummy =[decoder decodeBoolForKey:@"previewDummy"];
+        _previewDummy = [decoder decodeBoolForKey:@"previewDummy"];
+
+        _turns = [decoder decodeIntegerForKey:@"turns"];
 
         restoredController = nil;
     }
@@ -1018,6 +1044,7 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeObject:_gridStyleHints forKey:@"gridStyleHints"];
 
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
+
     [encoder encodeRect:_windowPreFullscreenFrame
                  forKey:@"windowPreFullscreenFrame"];
     [encoder encodeObject:_queue forKey:@"queue"];
@@ -1045,6 +1072,7 @@ fprintf(stderr, "%s\n",                                                    \
                  forKey:@"fullscreen"];
 
     [encoder encodeBool:_previewDummy forKey:@"previewDummy"];
+    [encoder encodeInteger:_turns forKey:@"turns"];
 }
 
 - (void)showAutorestoreAlert:(id)userInfo {
@@ -1168,7 +1196,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     [Preferences changeCurrentGame:_game];
     if (!dead) {
-        if (_turns > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
+        if (_eventcount > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
             _mustBeQuiet = NO;
         [self guessFocus];
         [self noteAccessibilityStatusChanged:nil];
@@ -1299,8 +1327,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (_shouldSpeakNewText && !_mustBeQuiet && !_zmenu && !_form) {
         [self speakNewText];
-        _shouldSpeakNewText = NO;
     }
+    _shouldSpeakNewText = NO;
 
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
 }
@@ -1585,11 +1613,12 @@ fprintf(stderr, "%s\n",                                                    \
         [win prefsDidChange];
     }
 
-    for (GlkTextGridWindow *win in _quoteBoxes)
+    for (GlkTextGridWindow *quotebox in _quoteBoxes)
     {
-        win.theme = _theme;
-        [win prefsDidChange];
-        [win quoteboxAdjustSize];
+        quotebox.theme = _theme;
+        quotebox.alphaValue = 0;
+        [quotebox prefsDidChange];
+        [quotebox performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
     }
 
     _shouldStoreScrollOffset = YES;
@@ -2258,14 +2287,17 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case NEXTEVENT:
-
+            if (_windowsToRestore.count) {
+                for (GlkWindow *win in _windowsToRestore) {
+                    [_gwindows[@(win.name)] postRestoreAdjustments:win];
+                }
+                _windowsToRestore = nil;
+            }
             // If this is the first turn, we try to restore the UI
             // from an autosave file.
-            if (_turns == 2) {
+            if (_eventcount == 2) {
                 if (shouldRestoreUI) {
                     [self restoreUI];
-                    if (shouldShowAutorestoreAlert && !_startingInFullscreen)
-                        [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
                 } else {
                     // If we are not autorestoring, try to guess an input window.
                     for (GlkWindow *win in _gwindows.allValues) {
@@ -2276,11 +2308,21 @@ fprintf(stderr, "%s\n",                                                    \
                 }
             }
 
-            if (_turns > 1 && !shouldShowAutorestoreAlert && !_previewDummy) {
+            if (_eventcount > 1 && !shouldShowAutorestoreAlert && !_previewDummy) {
                 _mustBeQuiet = NO;
             }
 
-            if ((_quoteBoxes.count && _turns - _quoteBoxes.lastObject.quoteboxAddedAtTurn > 0 && _shouldSpeakNewText) || _quoteBoxes.count > 1) {
+            _eventcount++;
+
+            if (_shouldSpeakNewText) {
+                _turns++;
+            }
+
+            if (_quoteBoxes.count && (_turns - _quoteBoxes.lastObject.quoteboxAddedOnTurn > 1 || _quoteBoxes.count > 1)) {
+                if (_quoteBoxes.count > 1)
+                    NSLog(@"Removed a quote box because there are %ld on screen", _quoteBoxes.count);
+                else
+                    NSLog(@"Removed a quote box because it has been visible for one turn. _turns (%ld) - quoteboxAddedOnTurn (%ld) = %ld", _turns, _quoteBoxes.lastObject.quoteboxAddedOnTurn, _turns - _quoteBoxes.lastObject.quoteboxAddedOnTurn);
                 NSView *view = _quoteBoxes.firstObject;
                 [_quoteBoxes removeObjectAtIndex:0];
                 if (_quoteBoxes.count == 0) {
@@ -2289,22 +2331,21 @@ fprintf(stderr, "%s\n",                                                    \
                 [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
                     context.duration = 1;
                     view.animator.alphaValue = 0;
-                }
-                completionHandler:^{
+                } completionHandler:^{
                     view.hidden = YES;
                     view.alphaValue = 1;
                     [view removeFromSuperview];
                 }];
             }
 
-            _turns++;
-
             [self flushDisplay];
+//            for (GlkWindow *win in _gwindows.allValues)
+//                NSLog(@"%@ %ld: %@", [win class], win.name, NSStringFromRect(win.frame));
 
             if (_queue.count) {
                 GlkEvent *gevent;
                 gevent = _queue[0];
-//            NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
+//                NSLog(@"glkctl: writing queued event %s", msgnames[[gevent type]]);
 
                 [gevent writeEvent:sendfh.fileDescriptor];
                 [_queue removeObjectAtIndex:0];
@@ -2614,14 +2655,22 @@ fprintf(stderr, "%s\n",                                                    \
         case INITLINE:
             // NSLog(@"glkctl INITLINE %d", req->a1);
             [self performScroll];
+
+            if (!_gwindows.count && shouldRestoreUI) {
+                NSLog(@"Restoring UI at INITLINE");
+                NSLog(@"at eventcount %ld", _eventcount);
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
             if (reqWin && !_colderLight) {
                 [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)] maxLength:(NSUInteger)req->a2];
-
                 _shouldSpeakNewText = YES;
 
                 // Check if we are in Beyond Zork Definitions menu
                 if (_beyondZork)
-                    _shouldCheckForMenu = YES;            }
+                    _shouldCheckForMenu = YES;
+            }
             break;
 
         case CANCELLINE:
@@ -2639,6 +2688,14 @@ fprintf(stderr, "%s\n",                                                    \
 
         case INITCHAR:
 //            NSLog(@"glkctl initchar %d", req->a1);
+
+            if (!_gwindows.count && shouldRestoreUI) {
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                NSLog(@"Restoring UI at INITCHAR");
+                NSLog(@"at eventcount %ld", _eventcount);
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
 
             // Hack to fix the Level 9 Adrian Mole games.
             // These request and cancel lots of char events every second,
@@ -2668,6 +2725,13 @@ fprintf(stderr, "%s\n",                                                    \
 
         case INITMOUSE:
             //            NSLog(@"glkctl initmouse %d", req->a1);
+            if (!_gwindows.count && shouldRestoreUI) {
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                NSLog(@"Restoring UI at INITMOUSE");
+                NSLog(@"at eventcount %ld", _eventcount);
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
             [self performScroll];
             if (reqWin) {
                 [reqWin initMouse];
@@ -2691,6 +2755,13 @@ fprintf(stderr, "%s\n",                                                    \
         case INITLINK:
             //            NSLog(@"glkctl request hyperlink event in window %d",
             //            req->a1);
+            if (!_gwindows.count && shouldRestoreUI) {
+                NSLog(@"Restoring UI at INITLINK");
+                NSLog(@"at eventcount %ld", _eventcount);
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
             [self performScroll];
             if (reqWin) {
                 [reqWin initHyperlink];
@@ -2755,7 +2826,8 @@ fprintf(stderr, "%s\n",                                                    \
             break;
     }
 
-    lastRequest = req->cmd;
+    if (req->cmd != AUTOSAVE)
+        lastRequest = req->cmd;
     return NO; /* keep reading */
 }
 
@@ -3481,7 +3553,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         NSWorkspace * ws = [NSWorkspace sharedWorkspace];
         _voiceOverActive = ws.voiceOverEnabled;
         if (_voiceOverActive) {
-            if (_turns > 2 && !_mustBeQuiet) {
+            if (_eventcount > 2 && !_mustBeQuiet) {
                 [self checkZMenu];
                 if (_zmenu) {
                     [_zmenu performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1];

@@ -1322,8 +1322,8 @@ void gli_sanity_check_windows()
         fprintf(stderr, "sanity_check: root window but no listed windows\n");
     if (!gli_rootwin && gli_windowlist)
     {
-        fprintf(stderr, "sanity_check: no root window but listed windows. Setting first window in list as root.\n");
-        gli_window_set_root(gli_windowlist);
+        fprintf(stderr, "sanity_check: no root window but listed windows.\n");
+//        gli_window_set_root(gli_windowlist);
     }
     if (gli_rootwin && !gli_window_for_tag(gli_rootwin->tag))
         fprintf(stderr, "sanity_check: root window not listed\n");
@@ -1333,8 +1333,12 @@ void gli_sanity_check_windows()
             fprintf(stderr, "sanity_check: window lacks type\n");
         
         if (!win->parent) {
-            if (win != gli_rootwin)
-                fprintf(stderr, "sanity_check: window has no parent but is not rootwin\n");
+            if (gli_rootwin && win != gli_rootwin) {
+                fprintf(stderr, "sanity_check: window tag %d peer %d has no parent but is not rootwin. (Rootwin has tag %d)\n", win->tag, win->peer, gli_rootwin->tag);
+            } else if (!gli_rootwin) {
+                fprintf(stderr, "sanity_check: setting window tag %d peer %d as rootwin.\n", win->tag, win->peer);
+                gli_window_set_root(win);
+            }
         }
         else {
             if (win->parent && !win->parent->tag)
