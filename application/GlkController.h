@@ -101,10 +101,10 @@
 @property(readonly) NSMutableArray *queue;
 
 /* keep some info around for the about-box and resetting*/
-@property(readonly) Game *game;
+@property(weak, readonly) Game *game;
 @property(readonly) NSString *gamefile;
 @property(readonly) NSString *terpname;
-@property Theme *theme;
+@property (weak) Theme *theme;
 
 @property(strong, nonatomic) NSString *appSupportDir;
 @property(strong, nonatomic) NSString *autosaveFileGUI;
@@ -114,6 +114,7 @@
 @property(readonly) BOOL inFullscreen;
 @property NSColor *bgcolor;
 
+@property NSInteger eventcount;
 @property NSInteger turns;
 
 // To fix scrolling in the Adrian Mole games

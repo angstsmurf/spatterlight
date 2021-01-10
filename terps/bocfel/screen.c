@@ -866,7 +866,7 @@ void stash_library_state(library_state_data *dat)
             dat->mainwintag = mainwin->id->tag;
         if (statuswin.id)
             dat->statuswintag = statuswin.id->tag;
-        
+
         if (upperwin->id)
             dat->upperwintag = upperwin->id->tag;
         dat->upperwinheight = upper_window_height;
@@ -914,6 +914,8 @@ void recover_library_state(library_state_data *dat)
             }
         }
 
+        statuswin.id = gli_window_for_tag(dat->statuswintag);
+
         upper_window_height = dat->upperwinheight;
         upper_window_width = dat->upperwinwidth;
 
@@ -923,19 +925,11 @@ void recover_library_state(library_state_data *dat)
         errorwin = NULL;
 
         style_window->fg_color.mode = dat->fgmode;
-
-        if (style_window->fg_color.value == dat->fgcolor)
-            fprintf(stderr, "style_window->fg_color.value was already set to dat->fgcolor\n");
         style_window->fg_color.value = dat->fgcolor;
 
         style_window->bg_color.mode = dat->bgmode;
-
-        if (style_window->bg_color.value == dat->bgcolor)
-            fprintf(stderr, "style_window->bg_color.value was already set to dat->bgcolor\n");
         style_window->bg_color.value = dat->bgcolor;
 
-        if (style_window->style == dat->style)
-            fprintf(stderr, "style_window->style was already set to dat->style\n");
         style_window->style = dat->style;
 
 //        glk_set_window(curwin->id);
@@ -956,12 +950,11 @@ static void resize_upper_window(long nlines)
   /* Hack to fill upper window with background color when its height is set to 0 */
   if(nlines == 0)
   {
-      fprintf(stderr, "filling upper window with background color (%x) when its height is set to 0\n", gargoyle_color(&style_window->bg_color));
-
-      glui32 bg = gargoyle_color(&style_window->bg_color);
-      if (bg != zcolor_Default) {
-    garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
-      }
+    glui32 bg = gargoyle_color(&style_window->bg_color);
+    if (bg != zcolor_Default)
+    {
+      garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
+    }
     glk_window_clear(upperwin->id);
   }
 #endif

@@ -131,6 +131,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)restoreScroll:(nullable id)sender;
 - (void)forceLayout;
 
+- (void)padWithNewlines:(NSUInteger)lines;
+
 - (IBAction)saveAsRTF:(id)sender;
 
 @end

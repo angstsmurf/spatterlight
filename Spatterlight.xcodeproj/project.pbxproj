@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6D212738246BDC4E00D775A8 /* NSColor+integer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D212737246BDC4E00D775A8 /* NSColor+integer.m */; };
-		6D2BA43924564BCB00FE5B52 /* mpg123.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2BA43824564BCB00FE5B52 /* mpg123.framework */; };
 		6D2C869C225E5291004A5A75 /* filesys.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C8688225E5291004A5A75 /* filesys.c */; };
 		6D2C869D225E5291004A5A75 /* filesys_c.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C868A225E5291004A5A75 /* filesys_c.c */; };
 		6D2C869E225E5291004A5A75 /* i18n.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C868C225E5291004A5A75 /* i18n.c */; };
@@ -548,8 +547,6 @@
 		C343E49D1ECC679D000F15B6 /* t3indlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49C1ECC679D000F15B6 /* t3indlg.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C343E4A01ECC67C8000F15B6 /* t2askf.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E49F1ECC67C8000F15B6 /* t2askf.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C34F1FAA1ED860DB002AB38B /* modplug.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813991ED83E28001E49C4 /* modplug.framework */; };
-		C34F1FAB1ED860E3002AB38B /* Vorbis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813981ED83E22001E49C4 /* Vorbis.framework */; };
 		C358139B1ED83F45001E49C4 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813941ED83DF8001E49C4 /* SDL2.framework */; };
 		C358139C1ED83F48001E49C4 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813931ED83DF0001E49C4 /* SDL2_mixer.framework */; };
 		C35813A21ED83F69001E49C4 /* SDL2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C35813941ED83DF8001E49C4 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -2488,7 +2485,6 @@
 		C39DE2611ECB76C400CE5B70 /* bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitmap.c; path = terps/level9/bitmap.c; sourceTree = SOURCE_ROOT; };
 		C39DE2631ECB799500CE5B70 /* heglk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heglk.c; path = heglk/heglk.c; sourceTree = "<group>"; };
 		C3A2C66421C0D3F6003C4A15 /* SDL */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SDL; path = headers/SDL; sourceTree = SOURCE_ROOT; };
-		C3A2C66521C0D3F6003C4A15 /* vorbis */ = {isa = PBXFileReference; lastKnownFileType = folder; name = vorbis; path = headers/vorbis; sourceTree = SOURCE_ROOT; };
 		C3B2FB131ECEE4B700826C9D /* sndsdl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sndsdl.c; sourceTree = "<group>"; };
 		C3B3773D1ECB99BF006432BE /* osstzprs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstzprs.c; path = tads2/osstzprs.c; sourceTree = "<group>"; };
 		C3B3773F1ECB99D6006432BE /* ostzposix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ostzposix.c; path = tads2/ostzposix.c; sourceTree = "<group>"; };
@@ -2580,11 +2576,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D2BA43924564BCB00FE5B52 /* mpg123.framework in Frameworks */,
 				C358139B1ED83F45001E49C4 /* SDL2.framework in Frameworks */,
 				C358139C1ED83F48001E49C4 /* SDL2_mixer.framework in Frameworks */,
-				C34F1FAB1ED860E3002AB38B /* Vorbis.framework in Frameworks */,
-				C34F1FAA1ED860DB002AB38B /* modplug.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4777,7 +4770,6 @@
 			isa = PBXGroup;
 			children = (
 				C3A2C66421C0D3F6003C4A15 /* SDL */,
-				C3A2C66521C0D3F6003C4A15 /* vorbis */,
 			);
 			path = headers;
 			sourceTree = "<group>";

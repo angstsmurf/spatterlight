@@ -215,8 +215,7 @@ static void load_resources(void)
         if(giblorb_set_resource_map(gamefile) == giblorb_err_None)
             return;
         gamefile = NULL;
-    } else fprintf(stderr, "found no resource map with filename equal to game_file (%s)\n", game_file);
-
+    }
     /* 7 for the worst case of needing to add .blorb to the end plus the
      * null character.
      */
@@ -240,9 +239,6 @@ static void load_resources(void)
                     break;
                 }
             }
-
-            if (blorbfile == NULL)
-                fprintf(stderr, "found no resource map with filename equal to blorbfile (%s)\n", filename);
         }
         free(filename);
     }

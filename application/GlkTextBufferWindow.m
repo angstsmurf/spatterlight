@@ -1317,6 +1317,22 @@
     [self grabFocus];
 }
 
+- (void)padWithNewlines:(NSUInteger)lines {
+    NSString *newlinestring = [[[NSString alloc] init]
+                        stringByPaddingToLength:lines
+                        withString:@"\n"
+                        startingAtIndex:0];
+    NSDictionary *attributes = [textstorage attributesAtIndex:0 effectiveRange:nil];
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:newlinestring attributes:attributes];
+    [textstorage insertAttributedString:attrStr atIndex:0];
+    if (self.moveRanges.count) {
+        NSRange range = self.moveRanges.firstObject.rangeValue;
+        range.location += lines;
+        [self.moveRanges replaceObjectAtIndex:0 withObject:[NSValue valueWithRange:range]];
+    }
+    fence += lines;
+}
+
 #pragma mark Colors and styles
 
 - (BOOL)allowsDocumentBackgroundColorChange {
@@ -1597,7 +1613,7 @@
 }
 
 - (void)putString:(NSString *)str style:(NSUInteger)stylevalue {
-    NSLog(@"bufwin %ld putString:\"%@\"", self.name, str);
+//    NSLog(@"bufwin %ld putString:\"%@\"", self.name, str);
 
     if (line_request)
         NSLog(@"Printing to text buffer window during line request");
@@ -1856,7 +1872,6 @@
                       style:style_Input]; // XXX arranger lastchar needs to be set
         _lastchar = '\n';
     } else {
-        NSLog(@"No echo, deleting input");
         [textstorage
          deleteCharactersInRange:NSMakeRange(fence,
                                              textstorage.length -
@@ -2494,13 +2509,12 @@ replacementString:(id)repl {
         bgstring = [NSString stringWithFormat:@"%lx", (long)bg];
     }
 
-    NSLog(@"bufwin %ld: setZColorText:%@ background:%@", self.name, fgstring, bgstring);
+//    NSLog(@"bufwin %ld: setZColorText:%@ background:%@", self.name, fgstring, bgstring);
     if (currentZColor && !(currentZColor.fg == fg && currentZColor.bg == bg)) {
         currentZColor = nil;
     }
     if (!currentZColor && !(fg == zcolor_Default && bg == zcolor_Default)) {
         // A run of zcolor started
-        NSLog(@"a new run of ZColor in bufwin %ld: fg:%lx bg:%lx", self.name, (long)fg, (long)bg);
         currentZColor =
         [[ZColor alloc] initWithText:fg background:bg];
     }

@@ -46,11 +46,11 @@
 @property NSUInteger lastForm;
 
 @property NSSize quoteboxSize;
-@property NSInteger quoteboxAddedAtTurn;
+@property NSInteger quoteboxAddedOnTurn;
 @property NSUInteger quoteboxVerticalOffset;
 
 - (void)quotebox:(NSUInteger)linesToSkip;
-- (void)quoteboxAdjustSize;
+- (void)quoteboxAdjustSize:(id)sender;
 
 - (NSUInteger)indexOfPos;
 
@@ -59,6 +59,8 @@
 - (void)deferredGrabFocus:(id)sender;
 - (void)recalcBackground;
 - (void)speakStatus;
+
+- (NSSize)currentSizeInChars;
 
 - (void)saveAsRTF;
 

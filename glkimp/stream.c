@@ -1873,9 +1873,9 @@ void garglk_unput_string(char *s)
 
 static void gli_set_zcolors(stream_t *str, glui32 fg, glui32 bg)
 {
-    if (fg == zcolor_Default && bg == zcolor_Default) {
-        gli_strict_warning("gli_set_zcolors: fg and bg == zcolor_Default\n");
-    }
+//    if (fg == zcolor_Default && bg == zcolor_Default) {
+//        gli_strict_warning("gli_set_zcolors: fg and bg == zcolor_Default\n");
+//    }
     if (!str || !str->writable)
         return;
 

@@ -214,6 +214,10 @@
 
         _enteredTextSoFar = [decoder decodeObjectOfClass:[NSString class] forKey:@"inputString"];
         maxInputLength = (NSUInteger)[decoder decodeIntForKey:@"maxInputLength"];
+
+        _quoteboxSize = ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"quoteboxSize"]).sizeValue;
+        _quoteboxAddedOnTurn = [decoder decodeIntegerForKey:@"quoteboxAddedOnTurn"];
+        _quoteboxVerticalOffset = (NSUInteger)[decoder decodeIntegerForKey:@"quoteboxVerticalOffset"];
     }
     return self;
 }
@@ -245,6 +249,10 @@
     [encoder encodeInteger:(NSInteger)maxInputLength forKey:@"maxInputLength"];
     [encoder encodeObject:_pendingBackgroundCol forKey:@"pendingBackgroundCol"];
     [encoder encodeObject: _bufferTextStorage forKey:@"bufferTextStorage"];
+
+    [encoder encodeObject:@(_quoteboxSize) forKey:@"quoteboxSize"];
+    [encoder encodeInteger:_quoteboxAddedOnTurn forKey:@"quoteboxAddedOnTurn"];
+    [encoder encodeInteger:(NSInteger)_quoteboxVerticalOffset forKey:@"quoteboxVerticalOffset"];
 }
 
 - (BOOL)wantsFocus {
@@ -1044,6 +1052,10 @@
     }];
 }
 
+- (NSSize)currentSizeInChars {
+    return NSMakeSize(cols, rows);
+}
+
 #pragma mark Hyperlinks
 
 - (void)initHyperlink {
@@ -1674,11 +1686,15 @@
 
 - (void)quotebox:(NSUInteger)linesToSkip {
     NSUInteger charactersToSkip = (linesToSkip + 1) * (cols + 1);
-    NSRange quoteBoxRange = NSMakeRange(charactersToSkip,  _bufferTextStorage.string.length - charactersToSkip);
+    NSRange quoteBoxRange = NSMakeRange(charactersToSkip, _bufferTextStorage.string.length - charactersToSkip);
     __block NSUInteger changes = 0;
     __block NSUInteger width;
     __block NSUInteger height = 0;
     __block NSAttributedString *blockTextStorage = _bufferTextStorage;
+    if (blockTextStorage.length == 0)
+        blockTextStorage = textstorage;
+    if (blockTextStorage.length == 0)
+        return;
     __block NSMutableAttributedString *quoteAttStr = [[NSMutableAttributedString alloc] init];
 
     [blockTextStorage
@@ -1687,6 +1703,7 @@
      options:0
      usingBlock:^(id value, NSRange range, BOOL *stop) {
         changes++;
+        // Add string between every other background change
         if ((CGFloat)changes / 2 == changes / 2) {
             [quoteAttStr appendAttributedString:[blockTextStorage attributedSubstringFromRange:range]];
             NSAttributedString *newline = [[NSAttributedString alloc] initWithString:@"\n"];
@@ -1702,7 +1719,6 @@
     GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:self.glkctl name:-1];
     box.quoteboxSize = NSMakeSize(width, height);
     [box makeTransparent];
-    NSSize boxSize = NSMakeSize(self.theme.gridMarginX * 2 + (width + 1) * self.theme.cellWidth, self.theme.gridMarginY * 2 + height * self.theme.cellHeight);
 
     GlkTextBufferWindow *lowerView;
 
@@ -1710,46 +1726,57 @@
         if ([win isKindOfClass:[GlkTextBufferWindow class]])
             lowerView = (GlkTextBufferWindow *)win;
     }
-    NSRect frame;
-    frame.size = boxSize;
+
     NSTextView *superView = lowerView.textview;
     [lowerView scrollToBottom];
     [lowerView flushDisplay];
 
-    NSScrollView *scrollView = superView.enclosingScrollView;
-    // Drop a separate text box into the lower view
-    NSRect visibleRect = scrollView.documentVisibleRect;
-    frame.origin.x = ceil((visibleRect.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (!self.glkctl.trinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
-    frame.origin.y = ceil((linesToSkip + 1 + (visibleRect.origin.y > 0)) * self.theme.cellHeight + visibleRect.origin.y + self.theme.bufferMarginY);
-    box.frame = frame;
-    [box flushDisplay];
     [box.textview.textStorage setAttributedString:quoteAttStr];
 
     box.alphaValue = 0;
     [superView addSubview:box];
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = 0.5;
-        box.animator.alphaValue = 1;
-    }
-    completionHandler:^{
-        box.alphaValue = 1;
-    }];
 
     [self.glkctl.quoteBoxes addObject:box];
     box.quoteboxVerticalOffset = linesToSkip;
-    box.quoteboxAddedAtTurn = self.glkctl.turns;
+    box.quoteboxAddedOnTurn = self.glkctl.turns;
+    [box performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
 }
 
-- (void)quoteboxAdjustSize {
-    NSSize boxSize = NSMakeSize(ceil(self.theme.gridMarginX * 2 + (_quoteboxSize.width + 2) * self.theme.cellWidth), ceil(self.theme.gridMarginY * 2 + _quoteboxSize.height * self.theme.cellHeight));
-    if (!NSEqualSizes(boxSize, self.frame.size)) {
-        NSRect frame = self.frame;
-        frame.size = boxSize;
-        frame.origin.x = ceil((self.superview.frame.size.width - boxSize.width) / 2);
-        frame.origin.y = ceil(self.superview.enclosingScrollView.frame.origin.y + _quoteboxVerticalOffset * self.theme.cellHeight);
-        [self setFrame:frame];
-        [self flushDisplay];
+- (void)quoteboxAdjustSize:(id)sender {
+    GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)((NSTextView *)self.superview).delegate;
+    [bufWin flushDisplay];
+    NSSize boxSize = NSMakeSize(ceil(self.theme.gridMarginX * 2 + (_quoteboxSize.width + 1) * self.theme.cellWidth), ceil(self.theme.gridMarginY * 2 + _quoteboxSize.height * self.theme.cellHeight));
+
+    NSRect frame = self.frame;
+    frame.size = boxSize;
+    frame.origin.x = ceil((self.superview.frame.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (!self.glkctl.trinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
+    frame.origin.y = ceil(self.superview.enclosingScrollView.documentVisibleRect.origin.y +
+                          (_quoteboxVerticalOffset + 2 * (self.glkctl.curses == YES)) * self.theme.cellHeight);
+
+    // Push down buffer window text with newlines if the quote box covers text the player has not read yet.
+    if (bufWin.moveRanges.count < 2 && (!bufWin.moveRanges || NSMaxRange(bufWin.moveRanges.lastObject.rangeValue) >= bufWin.textview.string.length)) {
+        NSString *word = bufWin.textview.textStorage.words.firstObject.string;
+        NSRange range = [bufWin.textview.textStorage.string rangeOfString:word];
+        NSLayoutManager *layoutManager = bufWin.textview.layoutManager;
+        NSRect rect = [layoutManager boundingRectForGlyphRange:range inTextContainer:bufWin.textview.textContainer];
+        CGFloat diff = rect.origin.y - NSMaxY(frame);
+        if (diff < 0) {
+            diff = -diff;
+            NSUInteger newlines = 1 + (NSUInteger)ceil(diff / self.theme.bufferCellHeight);
+            [bufWin padWithNewlines:newlines];
+        }
     }
+
+    [self setFrame:frame];
+    self.bufferTextStorage = nil;
+    [self flushDisplay];
+
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.5;
+        self.animator.alphaValue = 1;
+    } completionHandler:^{
+        self.alphaValue = 1;
+    }];
 }
 
 #pragma mark Accessibility
