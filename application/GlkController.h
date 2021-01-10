@@ -122,6 +122,9 @@
 
 @property BOOL shouldStoreScrollOffset;
 
+@property (weak) Theme *stashedTheme;
+@property NSString *oldThemeName;
+
 @property BOOL previewDummy;
 
 //@property BOOL adrianMole;

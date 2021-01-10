@@ -283,6 +283,7 @@ static const char *msgnames[] = {
     _shouldScrollOnCharEvent = NO;
 
     _quoteBoxes = nil;
+    _stashedTheme = nil;
 
     // If we are resetting, there is a bunch of stuff that we have already done
     // and we can skip
@@ -516,6 +517,13 @@ static const char *msgnames[] = {
         return;
     }
 
+    // Temporarily switch to the theme used in the autosaved GUI
+    _stashedTheme = _theme;
+    Theme *restoredTheme = [self findThemeByName:restoredControllerLate.oldThemeName];
+    if (restoredTheme && restoredTheme != _theme) {
+        _theme = restoredTheme;
+    } else _stashedTheme = nil;
+
     // If this is not a window restoration done by the system,
     // we now re-enter fullscreen manually if the game was
     // closed in fullscreen mode.
@@ -731,6 +739,26 @@ static const char *msgnames[] = {
     return findGridWindow(theView);
 }
 
+- (Theme *)findThemeByName:(NSString *)name {
+     if (!name || name.length == 0)
+         return nil;
+     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+     NSManagedObjectContext *context = libcontroller.managedObjectContext;
+     Theme *foundTheme = nil;
+     fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:context];
+     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", name];
+     NSError *error = nil;
+     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+
+      if (fetchedObjects && fetchedObjects.count) {
+         foundTheme = fetchedObjects[0];
+     } else {
+         if (error != nil)
+             NSLog(@"GlkController findThemeByName: %@", error);
+     }
+     return foundTheme;
+ }
+
 - (void)restoreUI {
     // We try to restore the UI here, in order to catch things
     // like entered text and scrolling, that has changed the UI
@@ -821,9 +849,6 @@ static const char *msgnames[] = {
         }
     }
 
-//    NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
-//    [self notePreferencesChanged:notification];
-
     if (winToGrabFocus)
         [winToGrabFocus grabFocus];
 
@@ -834,9 +859,6 @@ static const char *msgnames[] = {
     restoredControllerLate = nil;
     restoredUIOnly = NO;
 
-    if (shouldShowAutorestoreAlert && !_startingInFullscreen)
-        [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
-
     // We create a forced arrange event in order to force the interpreter process
     // to re-send us window sizes. The player may have changed settings that affect
     // window size since the autosave was created.,
@@ -845,6 +867,13 @@ static const char *msgnames[] = {
 
 
 - (void)sendArrangeEvent:(id)sender {
+    if (shouldShowAutorestoreAlert && !_startingInFullscreen)
+        [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
+
+    if (_stashedTheme && _stashedTheme != _theme)
+    {
+        _theme = _stashedTheme;
+    }
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
     [self notePreferencesChanged:notification];
 
@@ -1055,6 +1084,8 @@ static const char *msgnames[] = {
 
         _turns = [decoder decodeIntegerForKey:@"turns"];
 
+        _oldThemeName = [decoder decodeObjectOfClass:[NSString class] forKey:@"oldThemeName"];
+
         restoredController = nil;
     }
     return self;
@@ -1108,6 +1139,7 @@ static const char *msgnames[] = {
 
     [encoder encodeBool:_previewDummy forKey:@"previewDummy"];
     [encoder encodeInteger:_turns forKey:@"turns"];
+    [encoder encodeObject:_theme.name forKey:@"oldThemeName"];
 }
 
 - (void)showAutorestoreAlert:(id)userInfo {
@@ -1594,7 +1626,8 @@ static const char *msgnames[] = {
     NSUInteger lastVOSpeakMenu = (NSUInteger)_theme.vOSpeakMenu;
 
     if (_game && !_previewDummy) {
-        _theme = _game.theme;
+        if (!_stashedTheme)
+            _theme = _game.theme;
 
         if (!_theme.vOSpeakMenu && lastVOSpeakMenu) { // Check for menu was switched off
             if (_zmenu) {

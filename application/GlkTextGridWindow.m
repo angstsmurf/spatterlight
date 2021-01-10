@@ -324,8 +324,6 @@
 #pragma mark Colors and styles
 
 - (void)prefsDidChange {
-    //    NSLog(@"GlkTextGridWindow %ld prefsDidChange", self.name);
-
     NSDictionary *attributes;
     NSRange selectedRange = _textview.selectedRange;
 
@@ -620,6 +618,9 @@
         frame.size.height = self.glkctl.contentView.frame.size.height;
     }
 
+    _textview.textContainerInset =
+        NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
+
     NSUInteger newcols = (NSUInteger)round((frame.size.width -
                                             (_textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
                                            self.theme.cellWidth);
@@ -627,14 +628,6 @@
     NSUInteger newrows = (NSUInteger)round((frame.size.height + self.theme.gridNormal.lineSpacing // We cut off the lowest linespaceing gap in order to center text vertically
                                             - (_textview.textContainerInset.height * 2) ) /
                                            self.theme.cellHeight);
-
-    if ((NSInteger)newcols < 1)
-        newcols = 1;
-    if ((NSInteger)newrows < 1)
-        newrows = 1;
-
-    if (self.inLiveResize && newcols < cols)
-        return;
 
     if (newrows == 1 && self.glkctl.curses && self.glkctl.quoteBoxes.count) {
         newrows = 2;
@@ -645,119 +638,129 @@
     if (_restoredSelection.length == 0)
         _restoredSelection = _textview.selectedRange;
 
-    _selectedRow = _restoredSelection.location / (cols + 1);
-    _selectedCol = _restoredSelection.location % (cols + 1);
+    if ((NSInteger)newcols > 0 && (NSInteger)newrows > 0) {
 
-    if (newcols * self.theme.cellWidth > screensize.width || newrows * self.theme.cellHeight > screensize.height) {
-        NSLog(@"GlkTextGridWindow setFrame error! newcols (%ld) * theme.cellwith (%f) = %f. screensize.width:%f newrows (%ld) * theme.cellheight (%f) = %f. screensize.height:%f Returning.", newcols, self.theme.cellWidth, newcols * self.theme.cellWidth, screensize.width, newrows, self.theme.cellHeight, newrows * self.theme.cellHeight, screensize.height);
-        return;
-    }
+        if (self.inLiveResize && newcols < cols)
+            return;
 
-    NSMutableDictionary *attrDict = [styles[style_Normal] mutableCopy];
+        _selectedRow = _restoredSelection.location / (cols + 1);
+        _selectedCol = _restoredSelection.location % (cols + 1);
 
-    if (!_bufferTextStorage || !_bufferTextStorage.length) {
-        NSString *spaces = [[[NSString alloc] init]
-                            stringByPaddingToLength:(NSUInteger)(rows * (cols + 1) - (cols > 1))
-                            withString:@" "
-                            startingAtIndex:0];
-        _bufferTextStorage = [[NSTextStorage alloc]
-                              initWithString:spaces
-                              attributes:attrDict];
-    }
-    if (newcols < cols) {
-        // Delete characters if the window has become narrower
-        for (r = cols - 1; r < _bufferTextStorage.length; r += cols + 1) {
-            if (r < (cols - newcols))
-                continue;
-            NSRange deleteRange =
-            NSMakeRange(r - (cols - newcols), cols - newcols);
-            if (NSMaxRange(deleteRange) > _bufferTextStorage.length)
-                deleteRange =
-                NSMakeRange(r - (cols - newcols),
-                            _bufferTextStorage.length - (r - (cols - newcols)));
-
-            [_bufferTextStorage deleteCharactersInRange:deleteRange];
-            r -= (cols - newcols);
+        if (newcols * self.theme.cellWidth > screensize.width || newrows * self.theme.cellHeight > screensize.height) {
+            return;
         }
-        // For some reason we must remove a couple of extra characters at the
-        // end to avoid strays
-        if (rows == 1 && cols > 1 &&
-            _bufferTextStorage.length >= (cols - 2))
-            [_bufferTextStorage
-             deleteCharactersInRange:NSMakeRange(cols - 2,
-                                                 _bufferTextStorage.length -
-                                                 (cols - 2))];
-    } else if (newcols > cols) {
-        // Pad with spaces if the window has become wider
-        NSString *spaces =
-        [[[NSString alloc] init] stringByPaddingToLength:newcols - cols
-                                              withString:@" "
-                                         startingAtIndex:0];
-        NSAttributedString *string;
-        NSMutableDictionary *newDict;
 
-        for (r = cols; r < _bufferTextStorage.length - 1; r += (cols + 1)) {
+        NSMutableDictionary *attrDict = [styles[style_Normal] mutableCopy];
 
-            newDict = [attrDict mutableCopy];
+        if (cols == 0 || rows == 0)
+            _bufferTextStorage = nil;
 
-            // Check for the background color attribute of the line.
-            // If we find one, we paint over the very last characters with it
-            if (r > 2) {
-                NSDictionary *bgDict = [self findRowColorOfString:_bufferTextStorage index: r - cols rowLength:cols];
-                if (bgDict) {
-                    [newDict addEntriesFromDictionary:bgDict];
-                }
+        if (!_bufferTextStorage || !_bufferTextStorage.length) {
+            NSString *spaces = [[[NSString alloc] init]
+                                stringByPaddingToLength:(NSUInteger)(rows * (cols + 1) - (cols > 1))
+                                withString:@" "
+                                startingAtIndex:0];
+            _bufferTextStorage = [[NSTextStorage alloc]
+                                  initWithString:spaces
+                                  attributes:attrDict];
+        }
+
+        if (newcols < cols) {
+            // Delete characters if the window has become narrower
+            for (r = cols - 1; r < _bufferTextStorage.length; r += cols + 1) {
+                if (r < (cols - newcols))
+                    continue;
+                NSRange deleteRange =
+                NSMakeRange(r - (cols - newcols), cols - newcols);
+                if (NSMaxRange(deleteRange) > _bufferTextStorage.length)
+                    deleteRange =
+                    NSMakeRange(r - (cols - newcols),
+                                _bufferTextStorage.length - (r - (cols - newcols)));
+
+                [_bufferTextStorage deleteCharactersInRange:deleteRange];
+                r -= (cols - newcols);
             }
+            // For some reason we must remove a couple of extra characters at the
+            // end to avoid strays
+            if (rows == 1 && cols > 1 &&
+                _bufferTextStorage.length >= (cols - 2))
+                [_bufferTextStorage
+                 deleteCharactersInRange:NSMakeRange(cols - 2,
+                                                     _bufferTextStorage.length -
+                                                     (cols - 2))];
+        } else if (newcols > cols) {
+            // Pad with spaces if the window has become wider
+            NSString *spaces =
+            [[[NSString alloc] init] stringByPaddingToLength:newcols - cols
+                                                  withString:@" "
+                                             startingAtIndex:0];
+            NSAttributedString *string;
+            NSMutableDictionary *newDict;
 
-            string = [[NSAttributedString alloc]
-                                          initWithString:spaces
-                                          attributes:newDict];
-            [_bufferTextStorage insertAttributedString:string atIndex:r];
-            r += (newcols - cols);
+            for (r = cols; r < _bufferTextStorage.length - 1; r += (cols + 1)) {
+
+                newDict = [attrDict mutableCopy];
+
+                // Check for the background color attribute of the line.
+                // If we find one, we paint over the very last characters with it
+                if (r > 2) {
+                    NSDictionary *bgDict = [self findRowColorOfString:_bufferTextStorage index: r - cols rowLength:cols];
+                    if (bgDict) {
+                        [newDict addEntriesFromDictionary:bgDict];
+                    }
+                }
+
+                string = [[NSAttributedString alloc]
+                          initWithString:spaces
+                          attributes:newDict];
+                [_bufferTextStorage insertAttributedString:string atIndex:r];
+
+                r += (newcols - cols);
+            }
         }
-    }
-    cols = newcols;
-    rows = newrows;
+        cols = newcols;
+        rows = newrows;
 
-    NSUInteger desiredLength =
-    rows * (cols + 1) - 1; // -1 because we don't want a newline at the very end
-    if (desiredLength < 1 || rows == 1)
-        desiredLength = cols;
-    if (_bufferTextStorage.length < desiredLength) {
-        NSDictionary *bgDict = nil;
-        if ((cols + 1) * (rows - 1) < _bufferTextStorage.length)
-           bgDict = [self findRowColorOfString:_bufferTextStorage index:(cols + 1) * (rows - 1) rowLength:cols];
-        NSString *spaces = [[[NSString alloc] init]
-                            stringByPaddingToLength:desiredLength - _bufferTextStorage.length
-                            withString:@" "
-                            startingAtIndex:0];
-        NSAttributedString *string = [[NSAttributedString alloc]
-                                      initWithString:spaces
-                                      attributes:attrDict];
-        [_bufferTextStorage appendAttributedString:string];
+        NSUInteger desiredLength =
+        rows * (cols + 1) - 1; // -1 because we don't want a newline at the very end
+        if (desiredLength < 1 || rows == 1)
+            desiredLength = cols;
+        if (_bufferTextStorage.length < desiredLength) {
+            NSDictionary *bgDict = nil;
+            if ((cols + 1) * (rows - 1) < _bufferTextStorage.length)
+                bgDict = [self findRowColorOfString:_bufferTextStorage index:(cols + 1) * (rows - 1) rowLength:cols];
+            NSString *spaces = [[[NSString alloc] init]
+                                stringByPaddingToLength:desiredLength - _bufferTextStorage.length
+                                withString:@" "
+                                startingAtIndex:0];
+            NSAttributedString *string = [[NSAttributedString alloc]
+                                          initWithString:spaces
+                                          attributes:attrDict];
+            [_bufferTextStorage appendAttributedString:string];
 
-        if (bgDict)
-            [_bufferTextStorage addAttributes:bgDict range:NSMakeRange(_bufferTextStorage.length-cols, cols)];
+            if (bgDict)
+                [_bufferTextStorage addAttributes:bgDict range:NSMakeRange(_bufferTextStorage.length-cols, cols)];
 
-    } else if (_bufferTextStorage.length > desiredLength)
-        [_bufferTextStorage
-         deleteCharactersInRange:NSMakeRange(desiredLength,
-                                             _bufferTextStorage.length -
-                                             desiredLength)];
+        } else if (_bufferTextStorage.length > desiredLength)
+            [_bufferTextStorage
+             deleteCharactersInRange:NSMakeRange(desiredLength,
+                                                 _bufferTextStorage.length -
+                                                 desiredLength)];
 
-    NSAttributedString *newlinestring = [[NSAttributedString alloc]
-                                         initWithString:@"\n"
-                                         attributes:attrDict];
+        NSAttributedString *newlinestring = [[NSAttributedString alloc]
+                                             initWithString:@"\n"
+                                             attributes:attrDict];
 
-    // Instert a newline character at the end of each line to avoid reflow
-    // during live resize. (We carefully have to print around these in the
-    // printToWindow method)
-    for (r = cols; r < _bufferTextStorage.length; r += cols + 1)
+        // Instert a newline character at the end of each line to avoid reflow
+        // during live resize. (We carefully have to print around these in the
+        // printToWindow method)
+        for (r = cols; r < _bufferTextStorage.length; r += cols + 1)
         [_bufferTextStorage replaceCharactersInRange:NSMakeRange(r, 1)
                                 withAttributedString:newlinestring];
 
-    _restoredSelection = NSMakeRange(_selectedCol + _selectedRow * (cols + 1), _restoredSelection.length);
+        _restoredSelection = NSMakeRange(_selectedCol + _selectedRow * (cols + 1), _restoredSelection.length);
 
+    }
 
     if ([self inLiveResize]) {
         [super setFrame:frame];
