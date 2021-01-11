@@ -1615,6 +1615,9 @@
 - (void)putString:(NSString *)str style:(NSUInteger)stylevalue {
 //    NSLog(@"bufwin %ld putString:\"%@\"", self.name, str);
 
+    if (bufferTextstorage.length > 50000)
+        bufferTextstorage = [bufferTextstorage attributedSubstringFromRange:NSMakeRange(25000, bufferTextstorage.length - 25000)].mutableCopy;
+
     if (line_request)
         NSLog(@"Printing to text buffer window during line request");
 
@@ -2671,8 +2674,9 @@ replacementString:(id)repl {
     if (!textstorage.length)
         return;
 
+    if (textstorage.length < 1000000)
     // first, force a layout so we have the correct textview frame
-    [layoutmanager glyphRangeForTextContainer:container];
+        [layoutmanager glyphRangeForTextContainer:container];
 
     // then, get the bottom
     CGFloat bottom = NSHeight(_textview.frame);
