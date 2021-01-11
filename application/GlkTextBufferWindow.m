@@ -1177,8 +1177,12 @@
     //        NSLog(@"GlkTextBufferWindow %ld: setFrame: %@", self.name,
     //        NSStringFromRect(frame));
 
-        self.framePending = YES;
-        self.pendingFrame = frame;
+    if (self.framePending && NSEqualRects(self.pendingFrame, frame)) {
+        //        NSLog(@"Same frame as last frame, returning");
+        return;
+    }
+    self.framePending = YES;
+    self.pendingFrame = frame;
 
     if ([self inLiveResize] && (!self.glkctl.inFullscreen || [self.glkctl.gwindows count] > 2))
         [self flushDisplay];
