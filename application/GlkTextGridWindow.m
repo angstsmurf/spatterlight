@@ -37,6 +37,11 @@
 
 @implementation MyGridTextView
 
++ (BOOL)isCompatibleWithResponsiveScrolling
+{
+    return YES;
+}
+
 - (void)keyDown:(NSEvent *)theEvent {
     [(GlkTextGridWindow *)self.delegate keyDown:theEvent];
 }
