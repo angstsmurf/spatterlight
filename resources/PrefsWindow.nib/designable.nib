@@ -984,7 +984,7 @@
                                         <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VFA-24-eXW">
                                             <rect key="frame" x="341" y="12" width="19" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <stepperCell key="cell" continuous="YES" alignment="left" minValue="-10" maxValue="10" id="i5s-sq-NcL"/>
+                                            <stepperCell key="cell" continuous="YES" alignment="left" minValue="-20" maxValue="20" id="i5s-sq-NcL"/>
                                             <connections>
                                                 <action selector="changeBZVerticalStepper:" target="-2" id="lc8-oe-Gqj"/>
                                             </connections>
@@ -1092,8 +1092,8 @@
         </arrayController>
         <customFormatter id="B2Q-lK-znP" userLabel="VersionFormatter" customClass="VersionFormatter"/>
         <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="gz3-Xe-cqx">
-            <real key="minimum" value="-10"/>
-            <real key="maximum" value="10"/>
+            <real key="minimum" value="-20"/>
+            <real key="maximum" value="20"/>
         </numberFormatter>
     </objects>
     <resources>
