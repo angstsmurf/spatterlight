@@ -3403,22 +3403,20 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
-         // Make sure the window style mask does not
-         // include full screen bit
-         [window
-          setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
-         [[window animator] setFrame:oldFrame display:YES];
-     }
+        // Make sure the window style mask does not
+        // include full screen bit
+        [window
+         setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
+        [[window animator] setFrame:oldFrame display:YES];
+    }
      completionHandler:^{
-         [weakSelf enableArrangementEvents];
-         localBorderView.frame = ((NSView *)localWindow.contentView).frame;
-         localContentView.frame = [weakSelf contentFrameForWindowed];
+        [weakSelf enableArrangementEvents];
+        localBorderView.frame = ((NSView *)localWindow.contentView).frame;
+        localContentView.frame = [weakSelf contentFrameForWindowed];
 
-         localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-
-         [weakSelf contentDidResize:localContentView.frame];
-         [weakSelf restoreScrollOffsets];
-     }];
+        localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        [weakSelf performSelector:@selector(windowDidExitFullScreen:) withObject:nil afterDelay:0];
+    }];
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
@@ -3431,6 +3429,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     _ignoreResizes = NO;
     _inFullscreen = NO;
     [self contentDidResize:_contentView.frame];
+    [self restoreScrollOffsets];
 }
 
 - (void)startInFullscreen {
