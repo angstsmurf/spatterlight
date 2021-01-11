@@ -173,6 +173,7 @@
 - (void)storeScrollOffsets;
 - (void)restoreScrollOffsets;
 - (void)adjustContentView;
+- (void)cleanup;
 
 - (IBAction)speakMostRecent:(id)sender;
 - (IBAction)speakPrevious:(id)sender;

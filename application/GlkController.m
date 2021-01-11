@@ -1142,11 +1142,7 @@ static const char *msgnames[] = {
 }
 
 - (void)deferredRestart:(id)sender {
-
-    for (GlkWindow *win in _gwindows.allValues) {
-        [win removeFromSuperview];
-    }
-
+    [self cleanup];
     [self runTerp:(NSString *)_terpname
          withGame:(Game *)_game
             reset:YES
@@ -1173,6 +1169,33 @@ static const char *msgnames[] = {
     _hasAutoSaved = YES;
 //     NSLog(@"UI autosaved successfully. Tag: %ld", (long)hash);
 }
+
+-(void)cleanup {
+    for (GlkWindow *win in _gwindows.allValues) {
+        win.glkctl = nil;
+        [win removeFromSuperview];
+    }
+
+    _gwindows = nil;
+
+    for (GlkTextGridWindow *win in _quoteBoxes) {
+        win.glkctl = nil;
+        [win removeFromSuperview];
+    }
+
+    _quoteBoxes = nil;
+
+    if (_form) {
+        _form.glkctl = nil;
+        _form = nil;
+    }
+
+    if (_zmenu) {
+        _zmenu.glkctl = nil;
+        _zmenu = nil;
+    }
+}
+
 
 /*
  *
@@ -1321,6 +1344,7 @@ static const char *msgnames[] = {
 
     for (GlkWindow *win in _windowsToBeRemoved) {
         [win removeFromSuperview];
+        win.glkctl = nil;
     }
 
     [self checkZMenu];
@@ -2319,11 +2343,7 @@ static const char *msgnames[] = {
             }
 
             if (_quoteBoxes.count && (_turns - _quoteBoxes.lastObject.quoteboxAddedOnTurn > 1 || _quoteBoxes.count > 1)) {
-                if (_quoteBoxes.count > 1)
-                    NSLog(@"Removed a quote box because there are %ld on screen", _quoteBoxes.count);
-                else
-                    NSLog(@"Removed a quote box because it has been visible for one turn. _turns (%ld) - quoteboxAddedOnTurn (%ld) = %ld", _turns, _quoteBoxes.lastObject.quoteboxAddedOnTurn, _turns - _quoteBoxes.lastObject.quoteboxAddedOnTurn);
-                NSView *view = _quoteBoxes.firstObject;
+                GlkTextGridWindow *view = _quoteBoxes.firstObject;
                 [_quoteBoxes removeObjectAtIndex:0];
                 if (_quoteBoxes.count == 0) {
                     _quoteBoxes = nil;
@@ -2335,6 +2355,7 @@ static const char *msgnames[] = {
                     view.hidden = YES;
                     view.alphaValue = 1;
                     [view removeFromSuperview];
+                    view.glkctl = nil;
                 }];
             }
 
@@ -3628,6 +3649,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         }
         if (![_zmenu isMenu]) {
             [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
+            _zmenu.glkctl = nil;
             _zmenu = nil;
         }
 
@@ -3638,6 +3660,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             }
             if (![_form isForm]) {
                 [NSObject cancelPreviousPerformRequestsWithTarget:_form];
+                _form.glkctl = nil;
                 _form = nil;
             }
             if (_form) {

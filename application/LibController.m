@@ -1780,6 +1780,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (key) {
         glkctl.window.delegate = nil;
         [_gameSessions removeObjectForKey:key];
+        [glkctl cleanup];
     }
 }
 
