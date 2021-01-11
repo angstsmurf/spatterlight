@@ -1770,20 +1770,17 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 }
 
 - (void)releaseGlkControllerSoon:(GlkController *)glkctl {
+    NSString *key = nil;
     for (GlkController *controller in _gameSessions.allValues)
         if (controller == glkctl) {
             NSArray *temp = [_gameSessions allKeysForObject:controller];
-            NSString *key = [temp objectAtIndex:0];
-            if (key) {
-                glkctl.window.delegate = nil;
-                [_gameSessions removeObjectForKey:key];
-            }
+            key = [temp objectAtIndex:0];
+            break;
         }
-    [self performSelector:@selector(releaseGlkControllerNow:) withObject:glkctl afterDelay:1];
-}
-
-- (void)releaseGlkControllerNow:(GlkController *)glkctl {
-    // do nothing
+    if (key) {
+        glkctl.window.delegate = nil;
+        [_gameSessions removeObjectForKey:key];
+    }
 }
 
 - (void)importAndPlayGame:(NSString *)path {
