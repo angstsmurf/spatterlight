@@ -1,4 +1,4 @@
-@class MarginImage, InputHistory;
+@class MarginImage, InputHistory, GlkTextGridWindow;
 
 #import "GlkWindow.h"
 
@@ -117,6 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL pendingScrollRestore;
 
 @property NSAttributedString *restoredInput;
+@property (nullable) GlkTextGridWindow *quoteBox;
 
 - (void)recalcBackground;
 - (void)echo:(BOOL)val;

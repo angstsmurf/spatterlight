@@ -709,6 +709,28 @@ static const char *msgnames[] = {
 
 #pragma mark Autorestore
 
+- (GlkTextGridWindow *)findGridWindowIn:(NSView *)theView
+{
+    // search the subviews for a view of class GlkTextGridWindow
+    __block __weak GlkTextGridWindow * (^weak_findGridWindow)(NSView *);
+
+    GlkTextGridWindow * (^findGridWindow)(NSView *);
+
+    weak_findGridWindow = findGridWindow = ^(NSView *view) {
+        if ([view isKindOfClass:[GlkTextGridWindow class]])
+            return (GlkTextGridWindow *)view;
+        __block GlkTextGridWindow *foundView = nil;
+        [view.subviews enumerateObjectsUsingBlock:^(NSView *subview, NSUInteger idx, BOOL *stop) {
+            foundView = weak_findGridWindow(subview);
+            if (foundView)
+                *stop = YES;
+        }];
+        return foundView;
+    };
+
+    return findGridWindow(theView);
+}
+
 - (void)restoreUI {
     // We try to restore the UI here, in order to catch things
     // like entered text and scrolling, that has changed the UI
@@ -752,11 +774,22 @@ static const char *msgnames[] = {
             _gwindows[@(win.name)] = win;
 
             if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-                for (GlkTextGridWindow *quotebox in ((GlkTextBufferWindow *)win).textview.subviews) {
+                NSScrollView *scrollview = ((GlkTextBufferWindow *)win).textview.enclosingScrollView;
+
+                GlkTextGridWindow *aView = [self findGridWindowIn:scrollview];
+                while (aView) {
+                    [aView removeFromSuperview];
+                    aView = [self findGridWindowIn:scrollview];
+                }
+
+                GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)win).quoteBox;
+                if (quotebox) {
                     if (_quoteBoxes == nil)
                         _quoteBoxes = [[NSMutableArray alloc] init];
+                    [quotebox removeFromSuperview];
                     [_quoteBoxes addObject:quotebox];
                     quotebox.glkctl = self;
+                    quotebox.quoteboxParent = ((GlkTextBufferWindow *)win).textview.enclosingScrollView;
                     NSInteger diff = _turns - restoredController.turns;
                     quotebox.quoteboxAddedOnTurn += diff;
                 }
@@ -1014,6 +1047,7 @@ static const char *msgnames[] = {
         lastimageresno = -1;
 
         _queue = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"queue"];
+
         _firstResponderView = [decoder decodeIntegerForKey:@"firstResponder"];
         _inFullscreen = [decoder decodeBoolForKey:@"fullscreen"];
 
@@ -1047,6 +1081,7 @@ static const char *msgnames[] = {
 
     [encoder encodeRect:_windowPreFullscreenFrame
                  forKey:@"windowPreFullscreenFrame"];
+
     [encoder encodeObject:_queue forKey:@"queue"];
     _firstResponderView = -1;
 
@@ -1174,16 +1209,14 @@ static const char *msgnames[] = {
     for (GlkWindow *win in _gwindows.allValues) {
         win.glkctl = nil;
         [win removeFromSuperview];
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            [((GlkTextBufferWindow *)win).quoteBox removeFromSuperview];
     }
-
-    _gwindows = nil;
 
     for (GlkTextGridWindow *win in _quoteBoxes) {
         win.glkctl = nil;
         [win removeFromSuperview];
     }
-
-    _quoteBoxes = nil;
 
     if (_form) {
         _form.glkctl = nil;
@@ -1639,6 +1672,7 @@ static const char *msgnames[] = {
 
     for (GlkTextGridWindow *quotebox in _quoteBoxes)
     {
+        NSLog(@"notePreferencesChanges: Adjusting and showing a quotebox");
         quotebox.theme = _theme;
         quotebox.alphaValue = 0;
         [quotebox prefsDidChange];
@@ -2345,6 +2379,7 @@ static const char *msgnames[] = {
             if (_quoteBoxes.count && (_turns - _quoteBoxes.lastObject.quoteboxAddedOnTurn > 1 || _quoteBoxes.count > 1)) {
                 GlkTextGridWindow *view = _quoteBoxes.firstObject;
                 [_quoteBoxes removeObjectAtIndex:0];
+                ((GlkTextBufferWindow *)view.quoteboxParent.superview).quoteBox = nil;
                 if (_quoteBoxes.count == 0) {
                     _quoteBoxes = nil;
                 }

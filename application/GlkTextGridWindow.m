@@ -1744,28 +1744,34 @@
     }
 
     NSTextView *superView = lowerView.textview;
-    if (lowerView.framePending)
-        [lowerView flushDisplay];
+//    if (lowerView.framePending)
+//        [lowerView flushDisplay];
 
     [box.textview.textStorage setAttributedString:quoteAttStr];
 
     box.alphaValue = 0;
-    [superView addSubview:box];
 
     [self.glkctl.quoteBoxes addObject:box];
+    lowerView.quoteBox = box;
     box.quoteboxVerticalOffset = linesToSkip;
     box.quoteboxAddedOnTurn = self.glkctl.turns;
+    box.quoteboxParent = superView.enclosingScrollView;
     [box performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
 }
 
 - (void)quoteboxAdjustSize:(id)sender {
-    GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)((NSTextView *)self.superview).delegate;
+    if (_quoteboxParent == nil) {
+        NSLog(@"_quoteboxParent nil!");
+        return;
+    }
+    NSTextView *textView = _quoteboxParent.documentView;
+    GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)textView.delegate;
     NSSize boxSize = NSMakeSize(ceil(self.theme.gridMarginX * 2 + (_quoteboxSize.width + 1) * self.theme.cellWidth), ceil(self.theme.gridMarginY * 2 + _quoteboxSize.height * self.theme.cellHeight));
 
     NSRect frame = self.frame;
     frame.size = boxSize;
-    frame.origin.x = ceil((self.superview.frame.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (!self.glkctl.trinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
-    frame.origin.y = ceil(self.superview.enclosingScrollView.documentVisibleRect.origin.y +
+    frame.origin.x = ceil((bufWin.frame.size.width - boxSize.width) / 2) - self.theme.cellWidth * (2 * (!self.glkctl.trinity && self.theme.cellWidth == self.theme.bufferCellWidth) );
+    frame.origin.y = ceil(_quoteboxParent.contentView.frame.origin.y +
                           (_quoteboxVerticalOffset + 2 * (self.glkctl.curses == YES)) * self.theme.cellHeight);
 
     // Push down buffer window text with newlines if the quote box covers text the player has not read yet.
@@ -1777,14 +1783,15 @@
         CGFloat diff = rect.origin.y - NSMaxY(frame);
         if (diff < 0) {
             diff = -diff;
-            NSUInteger newlines = 1 + (NSUInteger)ceil(diff / self.theme.bufferCellHeight);
+            NSUInteger newlines = (NSUInteger)ceil(diff / self.theme.bufferCellHeight);
             [bufWin padWithNewlines:newlines];
         }
     }
-
-    [self setFrame:frame];
+    self.frame = frame;
     self.bufferTextStorage = nil;
     [self flushDisplay];
+
+    [_quoteboxParent addFloatingSubview:self forAxis:NSEventGestureAxisVertical];
 
     [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
         context.duration = 0.5;

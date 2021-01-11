@@ -1138,6 +1138,7 @@
         bufferTextstorage = [decoder decodeObjectOfClass:[NSMutableAttributedString class] forKey:@"bufferTextstorage"];
 
         _restoredInput = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"inputString"];
+        _quoteBox = [decoder decodeObjectOfClass:[GlkTextGridWindow class] forKey:@"quoteBox"];
 
         [self destroyTextFinder];
     }
@@ -1186,6 +1187,8 @@
     }
 
     [encoder encodeObject:bufferTextstorage forKey:@"bufferTextstorage"];
+    [encoder encodeObject:_quoteBox forKey:@"quoteBox"];
+
 }
 
 - (void)setFrame:(NSRect)frame {
@@ -1337,10 +1340,12 @@
 }
 
 - (void)padWithNewlines:(NSUInteger)lines {
+    NSLog(@"padWithNewlines:%ld", lines);
     NSString *newlinestring = [[[NSString alloc] init]
                         stringByPaddingToLength:lines
                         withString:@"\n"
                         startingAtIndex:0];
+    [self flushDisplay];
     NSDictionary *attributes = [textstorage attributesAtIndex:0 effectiveRange:nil];
     NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:newlinestring attributes:attributes];
     [textstorage insertAttributedString:attrStr atIndex:0];
@@ -1561,8 +1566,8 @@
     _lastchar = '\n';
     _printPositionOnInput = 0;
     [container clearImages];
-    for (NSView *view in _textview.subviews)
-        [view removeFromSuperview];
+    if (_quoteBox)
+        [_quoteBox removeFromSuperview];
 
     self.moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;
