@@ -20,6 +20,10 @@ fprintf(stderr, "%s\n",                                                    \
      return YES;
  }
 
++ (BOOL)isCompatibleWithResponsiveScrolling {
+    return YES;
+}
+
 - (instancetype)initWithGlkController:(GlkController *)glkctl
                                  name:(NSInteger)name {
     self = [super initWithFrame:NSZeroRect];

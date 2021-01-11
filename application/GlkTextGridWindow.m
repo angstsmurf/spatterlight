@@ -78,6 +78,11 @@
     return YES;
 }
 
++ (BOOL)isCompatibleWithResponsiveScrolling
+{
+    return YES;
+}
+
 - (instancetype)initWithGlkController:(GlkController *)glkctl_
                                  name:(NSInteger)name_ {
     self = [super initWithGlkController:glkctl_ name:name_];
@@ -580,7 +585,7 @@
     }
     _restoredSelection = _textview.selectedRange;
 
-    [super flushDisplay];
+//    [super flushDisplay];
     _textview.editable = NO;
 }
 
@@ -591,6 +596,10 @@
         return;
 
     NSUInteger r;
+
+    if (self.framePending && NSEqualRects(self.pendingFrame, frame) && NSEqualRects(self.frame, frame)) {
+        return;
+    }
 
     self.framePending = YES;
     self.pendingFrame = frame;
@@ -1730,8 +1739,8 @@
     }
 
     NSTextView *superView = lowerView.textview;
-    [lowerView scrollToBottom];
-    [lowerView flushDisplay];
+    if (lowerView.framePending)
+        [lowerView flushDisplay];
 
     [box.textview.textStorage setAttributedString:quoteAttStr];
 
@@ -1746,7 +1755,6 @@
 
 - (void)quoteboxAdjustSize:(id)sender {
     GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)((NSTextView *)self.superview).delegate;
-    [bufWin flushDisplay];
     NSSize boxSize = NSMakeSize(ceil(self.theme.gridMarginX * 2 + (_quoteboxSize.width + 1) * self.theme.cellWidth), ceil(self.theme.gridMarginY * 2 + _quoteboxSize.height * self.theme.cellHeight));
 
     NSRect frame = self.frame;

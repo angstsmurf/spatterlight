@@ -32,6 +32,11 @@
     return YES;
 }
 
++ (BOOL)isCompatibleWithResponsiveScrolling
+{
+    return YES;
+}
+
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)analignment
                     andAttStr:(NSAttributedString *)anattrstr
@@ -316,6 +321,11 @@
 @implementation MarginContainer
 
 + (BOOL) supportsSecureCoding {
+    return YES;
+}
+
++ (BOOL)isCompatibleWithResponsiveScrolling
+{
     return YES;
 }
 
@@ -704,6 +714,11 @@
 @implementation MyTextView
 
 + (BOOL) supportsSecureCoding {
+    return YES;
+}
+
++ (BOOL)isCompatibleWithResponsiveScrolling
+{
     return YES;
 }
 
@@ -2680,7 +2695,7 @@ replacementString:(id)repl {
 
     if (textstorage.length < 1000000)
     // first, force a layout so we have the correct textview frame
-        [layoutmanager glyphRangeForTextContainer:container];
+        [layoutmanager ensureLayoutForTextContainer:container];
 
     // then, get the bottom
     CGFloat bottom = NSHeight(_textview.frame);
