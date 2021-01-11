@@ -1686,15 +1686,17 @@
 
 - (void)quotebox:(NSUInteger)linesToSkip {
     NSUInteger charactersToSkip = (linesToSkip + 1) * (cols + 1);
-    NSRange quoteBoxRange = NSMakeRange(charactersToSkip, _bufferTextStorage.string.length - charactersToSkip);
     __block NSUInteger changes = 0;
     __block NSUInteger width;
     __block NSUInteger height = 0;
     __block NSAttributedString *blockTextStorage = _bufferTextStorage;
-    if (blockTextStorage.length == 0)
+    if (blockTextStorage.length < charactersToSkip)
         blockTextStorage = textstorage;
-    if (blockTextStorage.length == 0)
+    if (blockTextStorage.length < charactersToSkip)
         return;
+
+    NSRange quoteBoxRange = NSMakeRange(charactersToSkip, blockTextStorage.length - charactersToSkip);
+
     __block NSMutableAttributedString *quoteAttStr = [[NSMutableAttributedString alloc] init];
 
     [blockTextStorage
