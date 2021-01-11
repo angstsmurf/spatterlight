@@ -1171,7 +1171,7 @@ static const char *msgnames[] = {
     }
 
     _hasAutoSaved = YES;
-     NSLog(@"UI autosaved successfully. Tag: %ld", (long)hash);
+//     NSLog(@"UI autosaved successfully. Tag: %ld", (long)hash);
 }
 
 /*
@@ -2657,8 +2657,8 @@ static const char *msgnames[] = {
             [self performScroll];
 
             if (!_gwindows.count && shouldRestoreUI) {
-                NSLog(@"Restoring UI at INITLINE");
-                NSLog(@"at eventcount %ld", _eventcount);
+//                NSLog(@"Restoring UI at INITLINE");
+//                NSLog(@"at eventcount %ld", _eventcount);
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
@@ -2691,8 +2691,8 @@ static const char *msgnames[] = {
 
             if (!_gwindows.count && shouldRestoreUI) {
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
-                NSLog(@"Restoring UI at INITCHAR");
-                NSLog(@"at eventcount %ld", _eventcount);
+//                NSLog(@"Restoring UI at INITCHAR");
+//                NSLog(@"at eventcount %ld", _eventcount);
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -2727,8 +2727,8 @@ static const char *msgnames[] = {
             //            NSLog(@"glkctl initmouse %d", req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
-                NSLog(@"Restoring UI at INITMOUSE");
-                NSLog(@"at eventcount %ld", _eventcount);
+//                NSLog(@"Restoring UI at INITMOUSE");
+//                NSLog(@"at eventcount %ld", _eventcount);
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -2756,8 +2756,8 @@ static const char *msgnames[] = {
             //            NSLog(@"glkctl request hyperlink event in window %d",
             //            req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
-                NSLog(@"Restoring UI at INITLINK");
-                NSLog(@"at eventcount %ld", _eventcount);
+//                NSLog(@"Restoring UI at INITLINK");
+//                NSLog(@"at eventcount %ld", _eventcount);
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
