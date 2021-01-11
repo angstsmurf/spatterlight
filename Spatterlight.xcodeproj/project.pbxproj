@@ -3503,18 +3503,10 @@
 				6DCFFC2D22BE57790035FA99 /* SideInfoView.m */,
 				96FBD8F40A0950EA002F6087 /* InfoController.h */,
 				96FBD8F50A0950EA002F6087 /* InfoController.m */,
-				96A9BB7A0A0662FA001B5B9B /* GlkController.h */,
-				C38101291EDA297E00B87B68 /* GlkController.m */,
 				961CCED909F239E700528FF9 /* GlkEvent.h */,
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
-				C33B4503257E84500017EA26 /* ZMenu.h */,
-				C33B4502257E84500017EA26 /* ZMenu.m */,
-				C3F1078B259256AC00C9EC82 /* BureaucracyForm.h */,
-				C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */,
-				C3D8177A256CBA20005DBC1F /* InputTextField.h */,
-				C3D81779256CBA20005DBC1F /* InputTextField.m */,
-				C35ED513256DD37A00C14847 /* InputHistory.h */,
-				C35ED514256DD37A00C14847 /* InputHistory.m */,
+				96A9BB7A0A0662FA001B5B9B /* GlkController.h */,
+				C38101291EDA297E00B87B68 /* GlkController.m */,
 				961CCEE909F239E700528FF9 /* GlkWindow.h */,
 				961CCEEA09F239E700528FF9 /* GlkWindow.m */,
 				961CCEE509F239E700528FF9 /* GlkTextBufferWindow.h */,
@@ -3523,6 +3515,8 @@
 				961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */,
 				961CCEDB09F239E700528FF9 /* GlkGraphicsWindow.h */,
 				961CCEDC09F239E700528FF9 /* GlkGraphicsWindow.m */,
+				C30BCAA425AC976C00F8C4E2 /* VoiceOver menu detection */,
+				C30BCABB25AC979200F8C4E2 /* Input related classes */,
 				6DB8C1E724599DF8002CDCCB /* ZColor.h */,
 				6DB8C1E824599DF8002CDCCB /* ZColor.m */,
 				6D85C894218BD6E00088D849 /* HelpPanelController.h */,
@@ -4764,6 +4758,28 @@
 				96A9BA490A064C9C001B5B9B /* simple-marry.c */,
 			);
 			path = extras;
+			sourceTree = "<group>";
+		};
+		C30BCAA425AC976C00F8C4E2 /* VoiceOver menu detection */ = {
+			isa = PBXGroup;
+			children = (
+				C33B4503257E84500017EA26 /* ZMenu.h */,
+				C33B4502257E84500017EA26 /* ZMenu.m */,
+				C3F1078B259256AC00C9EC82 /* BureaucracyForm.h */,
+				C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */,
+			);
+			path = "VoiceOver menu detection";
+			sourceTree = "<group>";
+		};
+		C30BCABB25AC979200F8C4E2 /* Input related classes */ = {
+			isa = PBXGroup;
+			children = (
+				C3D8177A256CBA20005DBC1F /* InputTextField.h */,
+				C3D81779256CBA20005DBC1F /* InputTextField.m */,
+				C35ED513256DD37A00C14847 /* InputHistory.h */,
+				C35ED514256DD37A00C14847 /* InputHistory.m */,
+			);
+			path = "Input related classes";
 			sourceTree = "<group>";
 		};
 		C3A2C66321C0D3AA003C4A15 /* headers */ = {
