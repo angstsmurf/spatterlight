@@ -1376,6 +1376,11 @@ static const char *msgnames[] = {
     }
 
     for (GlkWindow *win in _windowsToBeRemoved) {
+        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+            GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)win).quoteBox;
+            [quotebox removeFromSuperview];
+            quotebox = nil;
+        }
         [win removeFromSuperview];
         win.glkctl = nil;
     }
@@ -1672,7 +1677,6 @@ static const char *msgnames[] = {
 
     for (GlkTextGridWindow *quotebox in _quoteBoxes)
     {
-        NSLog(@"notePreferencesChanges: Adjusting and showing a quotebox");
         quotebox.theme = _theme;
         quotebox.alphaValue = 0;
         [quotebox prefsDidChange];

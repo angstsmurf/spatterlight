@@ -1340,7 +1340,6 @@
 }
 
 - (void)padWithNewlines:(NSUInteger)lines {
-    NSLog(@"padWithNewlines:%ld", lines);
     NSString *newlinestring = [[[NSString alloc] init]
                         stringByPaddingToLength:lines
                         withString:@"\n"
@@ -1566,8 +1565,10 @@
     _lastchar = '\n';
     _printPositionOnInput = 0;
     [container clearImages];
-    if (_quoteBox)
+    if (_quoteBox) {
         [_quoteBox removeFromSuperview];
+        _quoteBox = nil;
+    }
 
     self.moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;

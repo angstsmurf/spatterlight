@@ -1798,6 +1798,7 @@
         self.animator.alphaValue = 1;
     } completionHandler:^{
         self.alphaValue = 1;
+        self.quoteboxAddedOnTurn = self.glkctl.turns - 1;
     }];
 }
 
