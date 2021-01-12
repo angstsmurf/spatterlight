@@ -613,9 +613,12 @@
         return;
     }
 
-    NSSize screensize = self.glkctl.window.screen.visibleFrame.size;
-    if (frame.size.height > screensize.height)
+    NSSize screensize = NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX);
+    if (self.glkctl) {
+        screensize = self.glkctl.window.screen.visibleFrame.size;
+        if (frame.size.height > screensize.height)
         frame.size.height = self.glkctl.contentView.frame.size.height;
+    }
 
     NSUInteger newcols = (NSUInteger)round((frame.size.width -
                                             (_textview.textContainerInset.width + container.lineFragmentPadding) * 2) /
