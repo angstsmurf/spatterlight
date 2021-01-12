@@ -842,8 +842,10 @@ static const char *msgnames[] = {
 
     // Restore scroll position etc
     for (win in [_gwindows allValues]) {
-        if (![win isKindOfClass:[GlkGraphicsWindow class]])
+        if (![win isKindOfClass:[GlkGraphicsWindow class]] && ![_windowsToRestore count]) {
+            NSLog(@"GlkCtl: calling postRestoreAdjustments from inside restoreUI method, for %@ %ld", win, win.name);
             [win postRestoreAdjustments:(restoredControllerLate.gwindows)[@(win.name)]];
+        }
         if (win.name == _firstResponderView) {
             winToGrabFocus = win;
         }
@@ -908,8 +910,7 @@ static const char *msgnames[] = {
                                      @"quill" : @"UnQuill",
                                      @"tads2" : @"TADS",
                                      @"tads3" : @"TADS",
-                                     @"zcode": @"Bocfel",
-                                     //@"zcode" : @"Fizmo"
+                                     @"zcode": @"Bocfel"
         };
 
         NSDictionary *gFolderMapExt = @{@"acd" : @"Alan 2",
@@ -2378,6 +2379,8 @@ static const char *msgnames[] = {
         case NEXTEVENT:
             if (_windowsToRestore.count) {
                 for (GlkWindow *win in _windowsToRestore) {
+                    NSLog(@"GlkCtl: calling postRestoreAdjustments from inside NEXTEVENT, for %@ %ld", win, win.name);
+//                    [_gwindows[@(win.name)] performSelector:@selector(postRestoreAdjustments:) withObject:win afterDelay:0];
                     [_gwindows[@(win.name)] postRestoreAdjustments:win];
                 }
                 _windowsToRestore = nil;
@@ -2386,6 +2389,7 @@ static const char *msgnames[] = {
             // from an autosave file.
             if (_eventcount == 2) {
                 if (shouldRestoreUI) {
+                    NSLog(@"restoreUI on NEXTEVENT, turn %ld", _turns);
                     [self restoreUI];
                 } else {
                     // If we are not autorestoring, try to guess an input window.
@@ -2814,8 +2818,8 @@ static const char *msgnames[] = {
             //            NSLog(@"glkctl initmouse %d", req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
-//                NSLog(@"Restoring UI at INITMOUSE");
-//                NSLog(@"at eventcount %ld", _eventcount);
+                NSLog(@"Restoring UI at INITMOUSE");
+                NSLog(@"at eventcount %ld", _eventcount);
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -2843,8 +2847,8 @@ static const char *msgnames[] = {
             //            NSLog(@"glkctl request hyperlink event in window %d",
             //            req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
-//                NSLog(@"Restoring UI at INITLINK");
-//                NSLog(@"at eventcount %ld", _eventcount);
+                NSLog(@"Restoring UI at INITLINK");
+                NSLog(@"at eventcount %ld", _eventcount);
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];

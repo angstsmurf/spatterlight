@@ -61,7 +61,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"fg: %@ bg: %@", [NSColor colorFromInteger:_fg], [NSColor colorFromInteger:_bg]];
+    return [NSString stringWithFormat:@"fg: %lx bg: %lx", _fg, _bg];
 }
 
 @end
