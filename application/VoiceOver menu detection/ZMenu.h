@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL haveSpokenMenu;
 @property BOOL recheckNeeded;
 @property NSString *lastSpokenString;
-@property NSString *lastMenu;
+@property NSValue *lastMenu;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl;
 - (BOOL)isMenu;

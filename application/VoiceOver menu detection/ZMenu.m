@@ -91,9 +91,14 @@
         if (!_menuCommands.count) {
             // Extra check and hacks for Beyond Zork Function Key Definitions menu
             if (_glkctl.beyondZork) {
+                // Definitions menu
                 _menuCommands = [self extractMenuCommandsUsingRegex:@"(Function (Key) Definitions)"];
                 if (!_menuCommands.count) {
-                    return NO;
+                    // DecSystem-20 but not VT220
+                    _menuCommands = [self extractMenuCommandsUsingRegex:@"(Use the (UP and DOWN) arrow keys(?s).+?(?=>))"];
+                    if (!_menuCommands.count) {
+                        return NO;
+                    }
                 } else {
                     _menuCommands = @{ @"":@"" };
                     // If in the Definitions menu, add the last two lines
@@ -117,9 +122,6 @@
                 return NO;
             }
         }
-
-        //        for (NSString *key in _menuKeys)
-        //            NSLog(@"\"%@\" : \"%@\"", key, _menuCommands[key]);
     }
 
     // Otherwise, look for >, *, •, change of color or reverse video
@@ -127,22 +129,9 @@
 
     // If we find no currently selected line, decide this is not a menu
     if (_selectedLine == NSNotFound) {
-        NSLog(@"Found no selected line. Not a menu");
         return NO;
     }
 
-    //    NSLog(@"We are in a menu!");
-    //    NSLog(@"It has %ld lines:", _lines.count);
-    //    NSRange allText = NSMakeRange(0, _attrStr.length);
-    //    for (NSValue *rangeValue in _lines) {
-    //        NSRange range = rangeValue.rangeValue;
-    //        range = NSIntersectionRange(allText, range);
-    //        NSString *line = [_attrStr.string substringWithRange:range];
-    //        NSLog(@"%@", line);
-    //    }
-    //    NSRange range = ((NSValue *)_lines[_selectedLine]).rangeValue;
-
-    //    NSLog(@"Currently selected line: %ld (\"%@\")", _selectedLine, [_attrStr.string substringWithRange:range]);
     return YES;
 }
 
@@ -651,14 +640,12 @@
         return;
     
     NSString *selectedLineString;
-    NSString *instructionString = [self constructMenuInstructionString];
-    
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
-    // We use the instructions string as a proxy to check if the menu has changed
-    if (_lastMenu.length && ![_lastMenu isEqualToString:instructionString])
+    // We use the first line range as a proxy to see if we have just switched to a new menu
+    if (_lastMenu && ![_lastMenu isEqual:_lines.firstObject])
         _haveSpokenMenu = NO;
-    _lastMenu = instructionString;
+    _lastMenu = _lines.firstObject;
 
     if (!_haveSpokenMenu) {
         NSString *titleString = [self constructMenuTitleString];
