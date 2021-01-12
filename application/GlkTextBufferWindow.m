@@ -1565,10 +1565,6 @@
     _lastchar = '\n';
     _printPositionOnInput = 0;
     [container clearImages];
-    if (_quoteBox) {
-        [_quoteBox removeFromSuperview];
-        _quoteBox = nil;
-    }
 
     self.moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;

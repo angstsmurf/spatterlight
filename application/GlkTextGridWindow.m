@@ -1784,7 +1784,7 @@
             CGFloat diff = rect.origin.y - NSMaxY(frame);
             if (diff < 0) {
                 diff = -diff;
-                NSUInteger newlines = (NSUInteger)ceil(diff / self.theme.bufferCellHeight);
+                NSUInteger newlines = (NSUInteger)ceil(diff / self.theme.bufferCellHeight) + 1;
                 [bufWin padWithNewlines:newlines];
             }
         }

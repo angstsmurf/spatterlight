@@ -1209,8 +1209,6 @@ static const char *msgnames[] = {
     for (GlkWindow *win in _gwindows.allValues) {
         win.glkctl = nil;
         [win removeFromSuperview];
-        if ([win isKindOfClass:[GlkTextBufferWindow class]])
-            [((GlkTextBufferWindow *)win).quoteBox removeFromSuperview];
     }
 
     for (GlkTextGridWindow *win in _quoteBoxes) {
@@ -1376,11 +1374,6 @@ static const char *msgnames[] = {
     }
 
     for (GlkWindow *win in _windowsToBeRemoved) {
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)win).quoteBox;
-            [quotebox removeFromSuperview];
-            quotebox = nil;
-        }
         [win removeFromSuperview];
         win.glkctl = nil;
     }
