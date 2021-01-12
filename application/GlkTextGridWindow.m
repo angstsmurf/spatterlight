@@ -1777,14 +1777,16 @@
     // Push down buffer window text with newlines if the quote box covers text the player has not read yet.
     if (bufWin.moveRanges.count < 2 && (!bufWin.moveRanges || NSMaxRange(bufWin.moveRanges.lastObject.rangeValue) >= bufWin.textview.string.length)) {
         NSString *word = bufWin.textview.textStorage.words.firstObject.string;
-        NSRange range = [bufWin.textview.textStorage.string rangeOfString:word];
-        NSLayoutManager *layoutManager = bufWin.textview.layoutManager;
-        NSRect rect = [layoutManager boundingRectForGlyphRange:range inTextContainer:bufWin.textview.textContainer];
-        CGFloat diff = rect.origin.y - NSMaxY(frame);
-        if (diff < 0) {
-            diff = -diff;
-            NSUInteger newlines = (NSUInteger)ceil(diff / self.theme.bufferCellHeight);
-            [bufWin padWithNewlines:newlines];
+        if (word) {
+            NSRange range = [bufWin.textview.textStorage.string rangeOfString:word];
+            NSLayoutManager *layoutManager = bufWin.textview.layoutManager;
+            NSRect rect = [layoutManager boundingRectForGlyphRange:range inTextContainer:bufWin.textview.textContainer];
+            CGFloat diff = rect.origin.y - NSMaxY(frame);
+            if (diff < 0) {
+                diff = -diff;
+                NSUInteger newlines = (NSUInteger)ceil(diff / self.theme.bufferCellHeight);
+                [bufWin padWithNewlines:newlines];
+            }
         }
     }
     self.frame = frame;
