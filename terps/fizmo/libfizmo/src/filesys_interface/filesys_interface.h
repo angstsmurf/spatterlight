@@ -83,7 +83,7 @@ struct z_filesys_interface
   int (*get_fileno)(z_file *fileref);
   FILE* (*get_stdio_stream)(z_file *fileref);
 
-  char* (*get_cwd)();
+  char* (*get_cwd)(void);
   int (*ch_dir)(char *dirname);
   z_dir* (*open_dir)(char *dirname);
   int (*close_dir)(z_dir *dirref);

@@ -651,7 +651,7 @@ static giblorb_err_t giblorb_image_get_size_png(unsigned char *arr, glui32 lengt
             auxpict->width = giblorb_native4(arr+pos);
             pos += 4;
             auxpict->height = giblorb_native4(arr+pos);
-            pos += 4;
+//            pos += 4;
             return giblorb_err_None;
         }
         pos += chunklen;

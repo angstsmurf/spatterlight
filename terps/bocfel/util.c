@@ -77,8 +77,9 @@ void die(const char *fmt, ...)
 #endif
   glk_exit();
 #endif
-
+#ifndef ZTERP_GLK
   exit(EXIT_FAILURE);
+#endif
 }
 
 void help(void)

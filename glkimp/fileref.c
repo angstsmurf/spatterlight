@@ -184,7 +184,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
 
     if (len == 0) {
         strcpy(buf, "null");
-        len = strlen(buf);
+//        len = strlen(buf);
     }
 
     getworkdir();
@@ -320,7 +320,7 @@ void glkunix_set_base_file(char *filename)
     }
     else {
         /* No slash, just a filename. */
-        ix = 0;
+//        ix = 0;
     }
 }
 
