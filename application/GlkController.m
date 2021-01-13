@@ -1524,20 +1524,15 @@ static const char *msgnames[] = {
     lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
 
     if (frame.origin.x < 0 || frame.origin.y < 0 || frame.size.width < 0 || frame.size.height < 0) {
-        NSLog(@"contentDidResize: weird new frame: %@", NSStringFromRect(frame));
+        // Negative height happens during the fullscreen animation. We just ignore it
         return;
     }
 
     if (!inFullScreenResize && !dead) {
-        //        NSLog(@"glkctl: contentDidResize: Sending an arrange event with the "
-        //              @"new size (%@)",
-        //              NSStringFromSize(frame.size));
-
-        GlkEvent *gevent;
-        gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)frame.size.width
-                                             height:(NSInteger)frame.size.height
-                                              theme:_theme
-                                              force:NO];
+        GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)frame.size.width
+                      height:(NSInteger)frame.size.height
+                       theme:_theme
+                       force:NO];
         [self queueEvent:gevent];
     }
 }
@@ -3516,7 +3511,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
-    NSLog(@"window Did Enter fullscreen");
     snapshotWindow = nil;
     _ignoreResizes = NO;
     [self contentDidResize:_contentView.frame];
