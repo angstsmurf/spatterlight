@@ -32,9 +32,10 @@
         isbinary = str->isbinary;
         resfilenum = str->resfilenum;
 
-        if (str->win)
+        if (str->win && str->type == strtype_Window) {
             wintag = str->win->tag;
-        else wintag = 0;
+//            NSLog(@"Set wintag for window %d to %u", str->win->peer, wintag);
+        } else wintag = 0;
 
         URL = nil;
         if (str->filename)
@@ -161,7 +162,8 @@
     [encoder encodeInt32:_prev forKey:@"prev"];
     [encoder encodeInt32:_next forKey:@"next"];
 
-    [encoder encodeInt32:wintag forKey:@"wintag"];
+    if (_type == strtype_Window)
+        [encoder encodeInt32:wintag forKey:@"wintag"];
     [encoder encodeInt32:unicode forKey:@"unicode"];
 
 	[encoder encodeInt32:readcount forKey:@"readcount"];
