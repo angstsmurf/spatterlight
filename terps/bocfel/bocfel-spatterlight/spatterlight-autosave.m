@@ -29,13 +29,17 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+
+#include "glk.h"
+#include "fileref.h"
+
 #include "stack.h"
 #include "zterp.h"
 #include "io.h"
-#include "osdep.h"
 #include "process.h"
 #include "screen.h"
-#include "filesys.h"
+
+#import "TempLibrary.h"
 
 #include "library_state.h"
 
@@ -67,9 +71,7 @@ char normal_start_save[1024] = ""; /* Not actually used */
 
 /* Do an auto-save of the game state, to an macOS-appropriate location. This also saves the Glk library state.
  
-	The game goes into $DOCS/autosave.glksave; the library state into $DOCS/autosave.plist. However, we do this as atomically as possible -- we write to temp files and then rename.
- 
-	Returns 0 to indicate that the interpreter should not exit after saving. (If bocfel is invoked from a CGI script, it can exit after every command cycle. But we're not doing that.)
+	The game goes into ~Library/Application Support/Spatterlight/Bocfel Files/Autosaves/(FILE HASH)/autosave.glksave; the library state into autosave.plist. However, we do this as atomically as possible -- we write to temp files and then rename.
  
 	This is called in the VM thread, just before setting up line input and calling glk_select(). (So no window will actually be requesting line input at this time.)
  */
@@ -90,8 +92,9 @@ int spatterlight_do_autosave() {
 
         NSString *dirname = [NSString stringWithUTF8String:autosavedir];
 
-        if (!dirname)
+        if (!dirname) {
             return 0;
+        }
         NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
 
         strncpy(autosavename, [tmpgamepath UTF8String], sizeof autosavename);
@@ -170,29 +173,6 @@ zterp_io *spatterlight_find_autosave() {
 
     zterp_io *save_file = zterp_io_open(autosavename, ZTERP_IO_RDONLY, ZTERP_IO_DATA);
     return save_file;
-}
-
-/* Delete an autosaved game, if one exists.
- */
-void spatterlight_clear_autosave() {
-
-    getautosavedir((char *)game_file);
-
-    @autoreleasepool {
-        NSString *dirname = [NSString stringWithUTF8String:autosavedir];
-        if ((!dirname) || [dirname isEqualToString:@""])
-            return;
-
-        NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-        NSString *finallibpath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
-        NSString *tmpgamepath = [dirname stringByAppendingPathComponent:@"autosave-tmp.glksave"];
-        NSString *tmplibpath = [dirname stringByAppendingPathComponent:@"autosave-tmp.plist"];
-
-        [[NSFileManager defaultManager] removeItemAtPath:tmpgamepath error:nil];
-        [[NSFileManager defaultManager] removeItemAtPath:tmplibpath error:nil];
-        [[NSFileManager defaultManager] removeItemAtPath:finallibpath error:nil];
-        [[NSFileManager defaultManager] removeItemAtPath:finalgamepath error:nil];
-    }
 }
 
 static void load_resources(void)
@@ -340,6 +320,7 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
         [encoder encodeInt32:library_state.mainwintag forKey:@"bocfel_mainwintag"];
         [encoder encodeInt32:library_state.statuswintag forKey:@"bocfel_statuswintag"];
         [encoder encodeInt32:library_state.upperwintag forKey:@"bocfel_upperwintag"];
+        [encoder encodeInt32:library_state.errorwintag forKey:@"bocfel_errorwintag"];
         [encoder encodeInt32:(int32_t)library_state.upperwinheight forKey:@"bocfel_upperwinheight"];
         [encoder encodeInt32:(int32_t)library_state.upperwinwidth forKey:@"bocfel_upperwinwidth"];
         [encoder encodeInt32:(int32_t)library_state.upperwinx forKey:@"bocfel_upperwinx"];
@@ -376,6 +357,7 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
         library_state.mainwintag = [decoder decodeInt32ForKey:@"bocfel_mainwintag"];
         library_state.statuswintag = [decoder decodeInt32ForKey:@"bocfel_statuswintag"];
         library_state.upperwintag = [decoder decodeInt32ForKey:@"bocfel_upperwintag"];
+        library_state.errorwintag = [decoder decodeInt32ForKey:@"bocfel_errorwintag"];
 
 		library_state.upperwinheight = [decoder decodeInt32ForKey:@"bocfel_upperwinheight"];
 		library_state.upperwinwidth = [decoder decodeInt32ForKey:@"bocfel_upperwinwidth"];

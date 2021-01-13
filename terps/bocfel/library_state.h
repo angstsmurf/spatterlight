@@ -25,6 +25,7 @@ typedef struct library_state_data_struct {
     int curwintag;
     int mainwintag;
     int statuswintag;
+    int errorwintag;
     int upperwintag;
     long upperwinheight;
     long upperwinwidth;

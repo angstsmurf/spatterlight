@@ -31,20 +31,5 @@
 
 #import <Foundation/Foundation.h>
 
-#include "glk.h"
-#include "glkimp.h"
-#include "glkstart.h"
-#include "fileref.h"
-
-#import "TempLibrary.h"
-
 extern int spatterlight_do_autosave(void);
 extern int spatterlight_restore_autosave(void);
-extern void spatterlight_clear_autosave(void);
-extern void spatterlight_set_can_restart_flag(int);
-extern int spatterlight_can_restart_cleanly(void);
-extern void spatterlight_shut_down_process(void) GLK_ATTRIBUTE_NORETURN;
-extern zterp_io *spatterlight_find_autosave(void);
-
-extern strid_t gamefilestream;
-extern char *gamefilename;

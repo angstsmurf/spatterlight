@@ -866,6 +866,8 @@ void stash_library_state(library_state_data *dat)
             dat->mainwintag = mainwin->id->tag;
         if (statuswin.id)
             dat->statuswintag = statuswin.id->tag;
+        if (errorwin && errorwin->tag)
+            dat->errorwintag = errorwin->tag;
 
         if (upperwin->id)
             dat->upperwintag = upperwin->id->tag;
@@ -895,7 +897,7 @@ void recover_library_state(library_state_data *dat)
         windows[6].id = gli_window_for_tag(dat->wintag6);
         windows[7].id = gli_window_for_tag(dat->wintag7);
         statuswin.id = gli_window_for_tag(dat->statuswintag);
-
+        errorwin = gli_window_for_tag(dat->errorwintag);
         for (int i = 0; i < 8; i++)
         {
             if (windows[i].id) {
@@ -914,15 +916,11 @@ void recover_library_state(library_state_data *dat)
             }
         }
 
-        statuswin.id = gli_window_for_tag(dat->statuswintag);
-
         upper_window_height = dat->upperwinheight;
         upper_window_width = dat->upperwinwidth;
 
         have_unicode = true;
         mouse_request_active = false;
-
-        errorwin = NULL;
 
         style_window->fg_color.mode = dat->fgmode;
         style_window->fg_color.value = dat->fgcolor;
