@@ -11,12 +11,10 @@
  http://eblong.com/zarf/glulx/index.html
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include "glk.h"
+#import "spatterstart.h"
+
 #include "gi_blorb.h"
 #include "glulxe.h"
-#include "glkstart.h" /* This comes with the Glk library. */
 
 #if VM_DEBUGGER
 /* This header file may come with the Glk library. If it doesn't, comment
@@ -24,7 +22,6 @@
 #include "gi_debug.h"
 #endif /* VM_DEBUGGER */
 
-#import "spatterstart.h"
 
 static void *accel_func_array; /* used by the archive/unarchive hooks */
 
@@ -489,22 +486,6 @@ void spatterglk_do_autosave(glui32 eventaddr)
     }
 }
 
-/* Delete an autosaved game, if one exists.
- */
-void spatterglk_clear_autosave()
-{
-	getautosavedir(gamefile->filename);
-	NSString *dirname = [NSString stringWithUTF8String:autosavedir];
-	if (!dirname)
-		return;
-
-	NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-	NSString *finallibpath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
-
-	[[NSFileManager defaultManager] removeItemAtPath:finallibpath error:nil];
-	[[NSFileManager defaultManager] removeItemAtPath:finalgamepath error:nil];
-}
-
 /* Utility function used by stash_library_state. Assumes that the global accel_func_array points to a valid NSMutableArray. */
 static void stash_one_accel_func(glui32 index, glui32 addr)
 {
@@ -648,18 +629,6 @@ static void recover_library_state(LibraryState *library_state)
 
         }
     }
-}
-
-int spatterglk_can_restart_cleanly()
-{
- 	return vm_exited_cleanly;
-}
-
-void spatterglk_shut_down_process()
-{
-	/* Yes, we really do want to exit the app here. A fatal error has occurred at the interpreter level, so we can't restart it cleanly. The user has either hit a "goodbye" dialog button or the Home button; either way, it's time for suicide. */
-	NSLog(@"spatterglk_shut_down_process: goodbye!");
-	exit(1);
 }
 
 @implementation LibraryState
