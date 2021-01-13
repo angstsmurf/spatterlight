@@ -32,6 +32,25 @@
     [[NSCursor IBeamCursor] set];
 }
 
+- (void)drawInsertionPointInRect:(NSRect)rect color:(NSColor *)color turnedOn:(BOOL)flag
+{
+    //Block Cursor
+    if(flag)
+    {
+        NSPoint aPoint=NSMakePoint( rect.origin.x,rect.origin.y + rect.size.height / 2);
+        NSUInteger glyphIndex = [[self layoutManager] glyphIndexForPoint:aPoint inTextContainer:[self textContainer]];
+        NSRect glyphRect = [[self layoutManager] boundingRectForGlyphRange:NSMakeRange(glyphIndex, 1)  inTextContainer:[self textContainer]];
+        
+        [color set];
+        rect.size.width = rect.size.height / 2;
+        if(glyphRect.size.width > 0 && glyphRect.size.width < rect.size.width)
+            rect.size.width=glyphRect.size.width;
+        NSRectFillUsingOperation( rect, NSCompositePlusDarker);
+    } else {
+        [self setNeedsDisplayInRect:[self visibleRect] avoidAdditionalLayout:NO];
+    }
+}
+
 - (BOOL)isAccessibilityElement {
     return YES;
 }
