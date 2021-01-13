@@ -1245,6 +1245,8 @@ static const char *msgnames[] = {
 -(void)cleanup {
     for (GlkWindow *win in _gwindows.allValues) {
         win.glkctl = nil;
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            ((GlkTextBufferWindow *)win).quoteBox = nil;
         [win removeFromSuperview];
     }
 
