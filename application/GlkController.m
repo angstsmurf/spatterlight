@@ -1205,15 +1205,16 @@ static const char *msgnames[] = {
 //        NSLog(@"glkctl reset: force stop the interpreter");
         task.terminationHandler = nil;
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
+        readfh = nil;
         [task terminate];
         task = nil;
     }
 
-    [self deleteAutosaveFiles];
-    [self performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.3];
 }
 
 - (void)deferredRestart:(id)sender {
+    [self deleteAutosaveFiles];
     [self cleanup];
     [self runTerp:(NSString *)_terpname
          withGame:(Game *)_game
@@ -1265,7 +1266,9 @@ static const char *msgnames[] = {
         _zmenu = nil;
     }
 
-    _contentView.glkctrl = nil;
+    readfh = nil;
+    sendfh = nil;
+    task = nil;
 }
 
 
@@ -1379,8 +1382,8 @@ static const char *msgnames[] = {
         //        NSLog(@"glkctl: force stop the interpreter");
         [task setTerminationHandler:nil];
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
+        readfh = nil;
         [task terminate];
-        task = nil;
     }
 
     [libcontroller releaseGlkControllerSoon:self];

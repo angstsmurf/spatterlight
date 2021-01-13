@@ -1786,6 +1786,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (void)releaseGlkControllerNow:(GlkController *)glkctl {
     [glkctl cleanup];
+    glkctl.contentView.glkctrl = nil;
 }
 
 - (void)importAndPlayGame:(NSString *)path {
