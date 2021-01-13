@@ -3515,6 +3515,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)startInFullscreen {
+    // First we show the game windowed
     [self.window setFrame:restoredControllerLate.windowPreFullscreenFrame
                   display:NO];
     [self showWindow:nil];
@@ -3530,9 +3531,12 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkTextBufferWindow *bufwin = (GlkTextBufferWindow *)win;
             [bufwin restoreScrollBarStyle];
+            // This will prevent storing scroll
+            // positions during fullscreen animation
             bufwin.pendingScrollRestore = YES;
         }
-    [self performSelector:@selector(deferredEnterFullscreen:) withObject:nil afterDelay:1];
+    // The, after a delay, we enter fullscreen
+    [self performSelector:@selector(deferredEnterFullscreen:) withObject:nil afterDelay:0.5];
 }
 
 - (void)deferredEnterFullscreen:(id)sender {
