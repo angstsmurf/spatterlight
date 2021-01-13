@@ -18,7 +18,7 @@
 @interface GlkHelperView : NSView {
 }
 
-@property IBOutlet GlkController *glkctrl;
+@property (weak) IBOutlet GlkController *glkctrl;
 
 @end
 

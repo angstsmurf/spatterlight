@@ -1780,8 +1780,12 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (key) {
         glkctl.window.delegate = nil;
         [_gameSessions removeObjectForKey:key];
-        [glkctl cleanup];
+        [self performSelector:@selector(releaseGlkControllerNow:) withObject:glkctl afterDelay:2];
     }
+}
+
+- (void)releaseGlkControllerNow:(GlkController *)glkctl {
+    [glkctl cleanup];
 }
 
 - (void)importAndPlayGame:(NSString *)path {

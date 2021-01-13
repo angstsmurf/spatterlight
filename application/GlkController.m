@@ -1257,6 +1257,8 @@ static const char *msgnames[] = {
         _zmenu.glkctl = nil;
         _zmenu = nil;
     }
+
+    _contentView.glkctrl = nil;
 }
 
 
@@ -1374,12 +1376,6 @@ static const char *msgnames[] = {
         task = nil;
     }
 
-    for (GlkWindow *win in [_gwindows allValues])
-    {
-        win.glkctl = nil;
-    }
-
-    _contentView.glkctrl = nil;
     [libcontroller releaseGlkControllerSoon:self];
     libcontroller = nil;
     //[self.window setDelegate:nil]; This segfaults
