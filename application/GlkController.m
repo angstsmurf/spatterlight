@@ -529,8 +529,8 @@ static const char *msgnames[] = {
     // closed in fullscreen mode.
     if (!windowRestoredBySystem && _inFullscreen
         && (self.window.styleMask & NSFullScreenWindowMask) != NSFullScreenWindowMask) {
-        [self startInFullscreen];
         _startingInFullscreen = YES;
+        [self startInFullscreen];
     } else {
         _contentView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
@@ -860,15 +860,18 @@ static const char *msgnames[] = {
     restoredUIOnly = NO;
 
     // We create a forced arrange event in order to force the interpreter process
-    // to re-send us window sizes. The player may have changed settings that affect
-    // window size since the autosave was created.,
+    // to re-send us window sizes. The player may have changed settings that
+    // affect window size since the autosave was created.
+
     [self performSelector:@selector(sendArrangeEvent:) withObject:nil afterDelay:0];
 }
 
 
 - (void)sendArrangeEvent:(id)sender {
-    if (shouldShowAutorestoreAlert && !_startingInFullscreen)
+     if (shouldShowAutorestoreAlert && !_startingInFullscreen) {
+        shouldShowAutorestoreAlert = NO;
         [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
+    }
 
     if (_stashedTheme && _stashedTheme != _theme)
     {
@@ -888,6 +891,8 @@ static const char *msgnames[] = {
     [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
     [self.window makeFirstResponder:nil];
+    if (_startingInFullscreen)
+        [self performSelector:@selector(deferredEnterFullscreen:) withObject:nil afterDelay:0.1];
 }
 
 
@@ -3504,6 +3509,10 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
     snapshotWindow = nil;
     _ignoreResizes = NO;
+    for (GlkTextGridWindow *quotebox in _quoteBoxes)
+    {
+        [quotebox performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.1];
+    }
     [self contentDidResize:_contentView.frame];
 }
 
@@ -3535,14 +3544,14 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             // positions during fullscreen animation
             bufwin.pendingScrollRestore = YES;
         }
-    // The, after a delay, we enter fullscreen
-    [self performSelector:@selector(deferredEnterFullscreen:) withObject:nil afterDelay:0.5];
 }
 
 - (void)deferredEnterFullscreen:(id)sender {
     [self.window toggleFullScreen:nil];
-    if (shouldShowAutorestoreAlert)
+    if (self->shouldShowAutorestoreAlert) {
+        self->shouldShowAutorestoreAlert = NO;
         [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:1];
+    }
 }
 
 - (CALayer *)takeSnapshot {
