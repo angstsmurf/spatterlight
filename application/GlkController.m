@@ -3380,21 +3380,25 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                               setFrame:[weakSelf contentFrameForFullscreen]];
                          }
                          completionHandler:^{
-                             // Hide the snapshot window.
-                             ((NSView *)localSnapshot.contentView).hidden = YES;
-                             ((NSView *)localSnapshot.contentView).alphaValue = 1;
+                            // Hide the snapshot window.
+                            ((NSView *)localSnapshot.contentView).hidden = YES;
+                            ((NSView *)localSnapshot.contentView).alphaValue = 1;
 
-                             // Send an arrangement event to fill
-                             // the new extended area
-                             GlkEvent *gevent = [[GlkEvent alloc]
-                                                 initArrangeWidth:(NSInteger)localContentView.frame.size.width
-                                                 height:(NSInteger)localContentView.frame.size.height
-                                                 theme:self.theme
-                                                 force:NO];
+                            // Send an arrangement event to fill
+                            // the new extended area
+                            GlkEvent *gevent = [[GlkEvent alloc]
+                                                initArrangeWidth:(NSInteger)localContentView.frame.size.width
+                                                height:(NSInteger)localContentView.frame.size.height
+                                                theme:self.theme
+                                                force:NO];
 
-                             [weakSelf queueEvent:gevent];
-                             [weakSelf restoreScrollOffsets];
-                         }];
+                            [weakSelf queueEvent:gevent];
+                            [weakSelf restoreScrollOffsets];
+                            for (GlkTextGridWindow *quotebox in weakSelf.quoteBoxes)
+                            {
+                                [quotebox performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.1];
+                            }
+                        }];
                     }];
                }];
           }];
@@ -3509,12 +3513,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
+    NSLog(@"window Did Enter fullscreen");
     snapshotWindow = nil;
     _ignoreResizes = NO;
-    for (GlkTextGridWindow *quotebox in _quoteBoxes)
-    {
-        [quotebox performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.1];
-    }
     [self contentDidResize:_contentView.frame];
 }
 

@@ -1344,7 +1344,6 @@
                         stringByPaddingToLength:lines
                         withString:@"\n"
                         startingAtIndex:0];
-    [self flushDisplay];
     NSDictionary *attributes = [textstorage attributesAtIndex:0 effectiveRange:nil];
     NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:newlinestring attributes:attributes];
     [textstorage insertAttributedString:attrStr atIndex:0];
