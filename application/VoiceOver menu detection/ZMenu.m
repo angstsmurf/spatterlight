@@ -71,7 +71,7 @@
             if (_glkctl.beyondZork) {
                 pattern = @"(Use the (↑ and ↓) keys(?s).+?(?=>))";
             } else if (_glkctl.anchorheadOrig) {
-                    pattern = @"\\[press (BACKSPACE) (to return to game)\\]";
+                    pattern = @"\\[press (BACKSPACE) (to return to .+)\\]";
             } else {
                 // First group: word before " = ". Second group: anything after " = "
                 // until two spaces or newline or space + newline
@@ -641,11 +641,10 @@
     
     NSString *selectedLineString;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-
-    // We use the first line range as a proxy to see if we have just switched to a new menu
-    if (_lastMenu && ![_lastMenu isEqual:_lines.firstObject])
+    // We use the number of menu lines as a proxy to see if we have just switched to a new menu
+    if (_lastNumberOfItems && _lastNumberOfItems != _lines.count)
         _haveSpokenMenu = NO;
-    _lastMenu = _lines.firstObject;
+    _lastNumberOfItems = _lines.count;
 
     if (!_haveSpokenMenu) {
         NSString *titleString = [self constructMenuTitleString];
