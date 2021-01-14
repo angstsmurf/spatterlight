@@ -1,5 +1,32 @@
 # Change log
 
+## Unreleased
+
+- Autosave and autorestore for Z-code games. Previously this was only implemented for Glulx games.
+- New preferences tab with Z-code related settings:
+- A setting for whether the arrow keys in Beyond Zork will navigate windows (as in the original interpreter) or step through previously entered commands (as per usual in Spatterlight.)
+- Setting for vertical adjustment of the graphic font in Beyond Zork. This can be useful to avoid gaps and overlap. No horizontal adjustment is possible yet.
+- Setting to select sound effects for the Z-code "high" and "low" beeps. Only the standard macOS system sounds are available for now.
+- A setting for the interpreter version (number and letter.)
+- New preferences tab with VoiceOver-specific settings:
+- Speak menu lines. On by default. Detect menus and speak currently selected line when VoiceOver is active. The default setting is Text only: only the actual text of the line will be spoken, not its index in the menu or the total number of lines. When a menu is first detected, these numbers will still be read once, along with the title of the menu and instructions for navigation. All of these except the title will also be read when the line is repeated with the Repeat last move action. Menu detection can be switched off entirely here as well.
+- Speak commands. On by default. When this is switched off, VoiceOver will not speak entered commands during normal play. Also, keys and words entered in the *Bureaucracy* form will not be spoken. If the "While typing speak:" setting in VoiceOver Utility is set to Nothing, there will be no VoiceOver feedback at all while typing commands, except that the first character is still spoken sometimes in a randomly annoying way.
+- VoiceOver will now look for new text to speak in all Glk windows.
+- The Repeat Last Move, Speak Previous and Speak Next commands work in all windows.
+- Custom VoiceOver rotors for previous commands, Glk windows, links (VO + U) and free text search (VO + F).
+- The Save Scrollback action (to save window text as RTF) now works in every window. If there is no buffer window with text, the contents of the grid window will be saved instead.
+- Long lines of underscore characters, as seen in *1893: A World’s Fair Mystery*, are trimmed from spoken text (rather than spoken character by character.)
+- Fixes a crash that would occur on startup when there are no previous settings present.
+- Fixes a crash that would sometimes occur when closing *Pytho's Mask*.
+- The bottom menu in *City of Secrets* would become invisible after exiting full screen.
+- All sound code is now using SDL Mixer. SDL Sound is no longer used. Thanks to mstoeckl who wrote this code for Gargoyle.
+- Includes Bocfel patches by Chris Spiegel for *Beyond Zork* and *Robot Finds Kitten*, and fixes for status line display of time and negative numbers.
+- *The Meteor, the Stone and a Long Glass of Sherbet* and *Tristam Island* are now playable (by ignoring errors.)
+- Adds command history to line input in the status window, as seen in *My Angel*.
+- Improved pasting into line input. ⌘C + ⌘V will now directly paste selected text (such as a previous command) into the input line.
+- Updates Alan 3 to beta 8.
+- Updates Bocfel to version 1.2
+
 ## Release 0.6b
 
 - Ignore Beyond Zork object out of range error
