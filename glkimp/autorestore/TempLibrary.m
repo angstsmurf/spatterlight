@@ -327,9 +327,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
             tempCwin = tempCwin->prev;
 
             [tempwin copyToCStruct:tempCwin];
-            if (tempwin.tag == _rootwintag)
-                gli_window_set_root(tempCwin);
-
             tempwin = [self windowForTag:tempwin.prev];
         }
 
@@ -337,6 +334,8 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
         temp_windowlist = tempCwin;
 
         gli_replace_window_list(temp_windowlist);
+        if (_rootwintag)
+            gli_window_set_root(gli_window_for_tag(_rootwintag));
     }
 
     TempStream *tempstream = _streams.lastObject;
@@ -433,7 +432,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     NSMutableArray *failedstreams = [NSMutableArray arrayWithCapacity:4];
     for (TempStream *str in _streams) {
         if (str.type == strtype_File) {
-
             BOOL res = [str reopenInternal];
             if (!res)
                 [failedstreams addObject:str];

@@ -383,7 +383,7 @@ static const char *msgnames[] = {
     }
 
     if (restoredController.autosaveVersion != AUTOSAVE_SERIAL_VERSION) {
-        NSLog(@"GUI autosave file is wrong version! Wanted %ld, got %ld. Deleting!", _autosaveVersion, restoredController.autosaveVersion );
+        NSLog(@"GUI autosave file is wrong version! Wanted %d, got %ld. Deleting!", AUTOSAVE_SERIAL_VERSION, restoredController.autosaveVersion );
         restoredController = nil;
     }
 
@@ -1099,7 +1099,7 @@ static const char *msgnames[] = {
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
 
-    [encoder encodeInteger:_autosaveVersion forKey:@"version"];
+    [encoder encodeInteger:AUTOSAVE_SERIAL_VERSION forKey:@"version"];
     [encoder encodeBool:_hasAutoSaved forKey:@"hasAutoSaved"];
     [encoder encodeInteger:_autosaveTag forKey:@"autosaveTag"];
 
@@ -2503,7 +2503,7 @@ static const char *msgnames[] = {
                 [_gwindows removeObjectForKey:@(req->a1)];
                 _shouldCheckForMenu = YES;
             } else
-                NSLog(@"delwin: something went wrong.");
+                NSLog(@"delwin: No window with name %d", req->a1);
 
             break;
 

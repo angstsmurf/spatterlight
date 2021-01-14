@@ -76,8 +76,6 @@ window_t *gli_new_window(glui32 type, glui32 rock)
     win->rock = rock;
     win->type = type;
 
-    win->str = gli_new_stream(strtype_Window, FALSE, TRUE, 0);
-    win->str->win = win;
     win->echostr = NULL;
 
     win->parent = NULL; /* for now */
@@ -151,8 +149,10 @@ void gli_delete_window(window_t *win)
     win->magicnum = 0;
 
     /* Close window's stream. */
-    gli_delete_stream(win->str);
-    win->str = NULL;
+    if (win->str != NULL) {
+        gli_delete_stream(win->str);
+        win->str = NULL;
+    }
 
     /* The window doesn't own its echostr; closing the window doesn't close
      the echostr. */
@@ -165,8 +165,13 @@ void gli_delete_window(window_t *win)
 
     if (prev)
         prev->next = next;
-    else
+    else {
         gli_windowlist = next;
+        if (gli_windowlist == NULL)
+            fprintf(stderr, "gli_delete_window: set gli_windowlist to NULL\n");
+        else
+            fprintf(stderr, "gli_delete_window: set gli_windowlist to window with tag %d\n", gli_windowlist->tag);
+    }
     if (next)
         next->prev = prev;
 
@@ -600,8 +605,21 @@ window_t *gli_window_get()
 
 winid_t glk_window_get_root()
 {
-    if (!gli_rootwin)
+    if (!gli_rootwin) {
+        for (window_t *win = glk_window_iterate(NULL, NULL); win; win = glk_window_iterate(win, NULL)) {
+            if (win->parent == NULL && win->peer == -1) {
+                gli_rootwin = win;
+                return win;
+            }
+            if (win->parent == NULL) {
+                fprintf(stderr, "glk_window_get_root: found window with no parent, but win->peer was %d\n", win->peer);
+            }
+        }
+        gli_strict_warning("glk_window_get_root: no root window found");
+        if (gli_windowlist == NULL)
+            gli_strict_warning("because there are no windows");
         return NULL;
+    }
     return gli_rootwin;
 }
 
@@ -1296,21 +1314,28 @@ void glk_window_move_cursor(window_t *win, glui32 xpos, glui32 ypos)
 void gli_replace_window_list(window_t *newlist) /* Only used by autorestore */
 {
     window_t *win;
-    
+
     if (!newlist)
     {
         gli_strict_warning("gli_replace_window_list: invalid ref");
         return;
     }
-    
-    /* At the time when this is called, the window list should be empty */
-    while (gli_windowlist)
+
+    if (gli_windowlist)
     {
-        win = gli_windowlist;
-#ifdef DEBUG
-        fprintf(stderr, "gli_replace_window_list: Deleted a window with tag:%d \n",win->tag);
-#endif /*DEBUG*/
-        glk_window_close(win, NULL);
+        win = glk_window_get_root();
+        if (win)
+            glk_window_close(win, NULL);
+
+        /* At the time when this is called, the window list should be empty */
+        while (gli_windowlist)
+        {
+            win = gli_windowlist;
+            //#ifdef DEBUG
+            fprintf(stderr, "gli_replace_window_list: Deleted a window with tag:%d \n",win->tag);
+            //#endif /*DEBUG*/
+            glk_window_close(win, NULL);
+        }
     }
     
     gli_windowlist = newlist;

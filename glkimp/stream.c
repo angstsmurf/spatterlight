@@ -61,18 +61,13 @@ stream_t *gli_new_stream(int type, int readable, int writable,
 
 void gli_delete_stream(stream_t *str)
 {
-    window_t *win;
     stream_t *prev, *next;
 
     if (str == gli_currentstr) {
         gli_currentstr = NULL;
     }
 
-    //gli_windows_unechostream(str);
-    win = gli_window_get();
-    if (win && win->echostr == str) {
-        win->echostr = NULL;
-    }
+    gli_windows_unechostream(str);
 
     str->magicnum = 0;
 
@@ -81,7 +76,6 @@ void gli_delete_stream(stream_t *str)
             /* nothing necessary; the window is already being closed */
             break;
         case strtype_Memory:
-            //fprintf(stderr, "Deleted memory stream %d and its buf of size %d\n", str->tag, str->buflen);
             if (gli_unregister_arr) {
                 /* This could be a char array or a glui32 array. */
                 char *typedesc = (str->unicode ? "&+#!Iu" : "&+#!Cn");
@@ -1824,10 +1818,12 @@ void gli_sanity_check_streams()
                 }
                 else if (str->win->str != str && str->win->echostr != str)
                 {
-                    //fprintf(stderr, "sanity_check: window stream does not match stream of window\n");
-                    //fprintf(stderr, "str(%d)->win(%d)->str: %d\n",str->tag, str->win->tag, str->win->str->tag);
-                    //if (str->win->echostr)
-                        //fprintf(stderr, "str(%d)->win(%d)->echostr: %d\n",str->tag, str->win->tag, //str->win->echostr->tag);
+                    fprintf(stderr, "sanity_check: window stream does not match stream of window\n");
+                    fprintf(stderr, "str(%d)->win(%d)->str(%d)->win(%d)\n",str->tag, str->win->tag, str->win->str->tag, str->win->str->win->tag);
+                    if (str->win->echostr)
+                        fprintf(stderr, "str(%d)->win(%d)->echostr: %d\n",str->tag, str->win->tag, str->win->echostr->tag);
+                    fprintf(stderr, "Deleting.\n");
+                    gli_delete_stream(str);
                 }
             }
                 break;

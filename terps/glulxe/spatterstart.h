@@ -6,6 +6,8 @@
 
 #import "TempLibrary.h"
 
+@class GlulxAccelEntry, GlkObjIdEntry;
+
 extern void spatterglk_do_autosave(glui32 eventaddr);
 
 /* This object contains VM state which is not stored in a normal save file, but which is needed for an autorestore.
@@ -21,10 +23,10 @@ extern void spatterglk_do_autosave(glui32 eventaddr);
 @property glui32 protectstart, protectend;
 @property glui32 iosys_mode, iosys_rock;
 @property glui32 stringtable;
-@property NSMutableArray *accel_params; // array of NSNumber -- manually retained!
-@property NSMutableArray *accel_funcs; // array of GlulxAccelEntry -- manually retained!
+@property NSMutableArray<NSNumber *> *accel_params;
+@property NSMutableArray<GlulxAccelEntry *> *accel_funcs;
 @property glui32 gamefiletag;
-@property NSMutableArray *id_map_list; // array of GlkObjIdEntry -- manually retained!
+@property NSMutableArray<GlkObjIdEntry *> *id_map_list;
 
 @end
 
