@@ -355,16 +355,15 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
             tempCstream = tempCstream->prev;
             [tempstream copyToCStruct:tempCstream];
 
-            /* Restore current output stream */
-            if (tempstream.tag == _currentstrtag)
-                gli_stream_set_current(tempCstream);
-
             tempstream = [self streamForTag:tempstream.prev];
         }
 
         tempCstream->prev = NULL;
         temp_streamlist = tempCstream;
         gli_replace_stream_list(temp_streamlist);
+        /* Restore current output stream */
+        if (_currentstrtag)
+            gli_stream_set_current(gli_stream_for_tag(_currentstrtag));
     }
     else NSLog(@"No streams in library! _streams.count = %lu", (unsigned long)_streams.count);
 
