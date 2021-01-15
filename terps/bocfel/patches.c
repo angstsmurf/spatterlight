@@ -36,7 +36,7 @@ struct patch
   uint8_t *replacement;
 };
 
-#define B(...)    (uint8_t[]){__VA_ARGS__}
+#define B(...)	(uint8_t[]){__VA_ARGS__}
 
 static const struct patch patches[] =
 {
@@ -117,7 +117,7 @@ static const struct patch patches[] =
   },
   {
     .title = "Beyond Zork", .serial = "871221", .release = 57, .checksum = 0xc5ad,
-   .addr = 0x2fc8e, .n = 2, .expected = B(0xa3, 0xba), .replacement = B(0x01, 0x87),
+    .addr = 0x2fc8e, .n = 2, .expected = B(0xa3, 0xba), .replacement = B(0x01, 0x87),
   },
   {
     .title = "Beyond Zork", .serial = "871221", .release = 57, .checksum = 0xc5ad,

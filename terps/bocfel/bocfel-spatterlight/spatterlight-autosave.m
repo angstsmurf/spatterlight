@@ -112,7 +112,7 @@ int spatterlight_do_autosave() {
 
         bool res;
 
-        res = save_quetzal(save_file, true);
+        res = save_quetzal(save_file, false, false);
 
         zterp_io_close(save_file);
         /* save_file is now closed */
@@ -157,22 +157,6 @@ int spatterlight_do_autosave() {
         win_autosave(library.autosaveTag); // Call window server to do its own autosave
     }
 	return 0;
-}
-
-zterp_io *spatterlight_find_autosave() {
-    getautosavedir((char *)game_file);
-
-    @autoreleasepool {
-        NSString *dirname = [NSString stringWithUTF8String:autosavedir];
-        if ((!dirname) || [dirname isEqualToString:@""])
-            return nil;
-        NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-        strncpy(autosavename, [finalgamepath cStringUsingEncoding:NSUTF8StringEncoding], sizeof autosavename);
-        autosavename[sizeof autosavename-1] = 0;
-    }
-
-    zterp_io *save_file = zterp_io_open(autosavename, ZTERP_IO_RDONLY, ZTERP_IO_DATA);
-    return save_file;
 }
 
 static void load_resources(void)
@@ -236,7 +220,34 @@ static void load_resources(void)
 int spatterlight_restore_autosave() {
     @autoreleasepool {
 
-        zterp_io *save_file = spatterlight_find_autosave();
+        getautosavedir((char *)game_file);
+
+        NSString *dirname = [NSString stringWithUTF8String:autosavedir];
+        if ((!dirname) || [dirname isEqualToString:@""])
+            return 0;
+        NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
+        strncpy(autosavename, [finalgamepath cStringUsingEncoding:NSUTF8StringEncoding], sizeof autosavename);
+        autosavename[sizeof autosavename-1] = 0;
+
+        NSString *libsavepath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
+
+        if (![[NSFileManager defaultManager] fileExistsAtPath:libsavepath]) {
+
+            // If there is a glksave but no plist, we delete the glksave
+            // to make sure it does not cause trouble later.
+            NSError *error;
+
+            if ([[NSFileManager defaultManager] isDeletableFileAtPath:finalgamepath]) {
+                BOOL success = [[NSFileManager defaultManager] removeItemAtPath:finalgamepath error:&error];
+                if (!success) {
+                    NSLog(@"Error removing Glk autosave: %@", error);
+                }
+            }
+            return 0;
+        }
+        
+        zterp_io *save_file = zterp_io_open(autosavename, ZTERP_IO_RDONLY, ZTERP_IO_DATA);
+
         if (save_file == NULL) {
             NSLog(@"spatterlight_restore_autosave: no autosave found");
             return 0;
@@ -245,34 +256,13 @@ int spatterlight_restore_autosave() {
         TempLibrary *newlib = nil;
         /* A normal file must be restored with evaluate_result. An autosave file must not be. Fortunately, we've arranged things so that normal files are opened with zfile_from_glk_strid(), and autosave files with fsi->openfile(). */
 
-        int res = restore_quetzal(save_file, true);
+        bool is_bfms;
+
+        int res = restore_quetzal(save_file, false, &is_bfms);
         /* save_file is now closed */
 
         if (!res) {
             NSLog(@"unable to restore autosave file.");
-            return 0;
-        }
-
-        NSString *dirname = [NSString stringWithUTF8String:autosavedir];
-        if (!dirname)
-            return 0;
-        NSString *glksavepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
-        NSString *libsavepath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
-
-        if (![[NSFileManager defaultManager] fileExistsAtPath:glksavepath])
-            return 0;
-        if (![[NSFileManager defaultManager] fileExistsAtPath:libsavepath]) {
-
-            // If there is a glksave but no plist, we delete the glksave
-            // to make sure it does not cause trouble later.
-            NSError *error;
-
-            if ([[NSFileManager defaultManager] isDeletableFileAtPath:glksavepath]) {
-                BOOL success = [[NSFileManager defaultManager] removeItemAtPath:glksavepath error:&error];
-                if (!success) {
-                    NSLog(@"Error removing Glk autosave: %@", error);
-                }
-            }
             return 0;
         }
 

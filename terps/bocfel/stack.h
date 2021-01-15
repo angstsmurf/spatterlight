@@ -1,3 +1,5 @@
+// vim: set ft=c:
+
 #ifndef ZTERP_STACK_H
 #define ZTERP_STACK_H
 
@@ -24,14 +26,14 @@ uint16_t direct_call(uint16_t);
 void do_return(uint16_t);
 
 bool do_save(bool);
-bool do_restore(bool);
+bool do_restore(bool, bool *);
 
-bool save_quetzal(zterp_io *savefile, bool is_meta);
-bool restore_quetzal(zterp_io *savefile, bool is_meta);
+bool save_quetzal(zterp_io *savefile, bool is_meta, bool store_history);
+bool restore_quetzal(zterp_io *savefile, bool is_meta, bool *is_bfms);
 
 enum save_type { SAVE_GAME, SAVE_USER };
-bool push_save(enum save_type, uint32_t, const char *);
-bool pop_save(enum save_type, long);
+bool push_save(enum save_type, bool, const char *);
+bool pop_save(enum save_type, long, bool *);
 bool drop_save(enum save_type, long);
 void list_saves(enum save_type, void (*)(const char *));
 

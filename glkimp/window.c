@@ -167,10 +167,6 @@ void gli_delete_window(window_t *win)
         prev->next = next;
     else {
         gli_windowlist = next;
-        if (gli_windowlist == NULL)
-            fprintf(stderr, "gli_delete_window: set gli_windowlist to NULL\n");
-        else
-            fprintf(stderr, "gli_delete_window: set gli_windowlist to window with tag %d\n", gli_windowlist->tag);
     }
     if (next)
         next->prev = prev;

@@ -1180,7 +1180,7 @@
 		6DB774AB2458B9B300EDC671 /* blorb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blorb.c; sourceTree = "<group>"; };
 		6DB774AC2458B9B300EDC671 /* branch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = branch.c; sourceTree = "<group>"; };
 		6DB774AD2458B9B300EDC671 /* dict.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
-		6DB774AE2458B9B300EDC671 /* glkstart.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = glkstart.c; sourceTree = "<group>"; };
+		6DB774AE2458B9B300EDC671 /* glkstart.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = glkstart.c; sourceTree = "<group>"; tabWidth = 2; };
 		6DB774AF2458B9B300EDC671 /* iff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = iff.c; sourceTree = "<group>"; };
 		6DB774B02458B9B300EDC671 /* io.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = io.c; sourceTree = "<group>"; };
 		6DB774B12458B9B300EDC671 /* math.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = math.c; sourceTree = "<group>"; };
@@ -1189,9 +1189,9 @@
 		6DB774B42458B9B300EDC671 /* objects.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = objects.c; sourceTree = "<group>"; };
 		6DB774B52458B9B300EDC671 /* osdep.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = osdep.c; sourceTree = "<group>"; };
 		6DB774B62458B9B300EDC671 /* patches.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = patches.c; sourceTree = "<group>"; };
-		6DB774B72458B9B300EDC671 /* process.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = process.c; sourceTree = "<group>"; };
+		6DB774B72458B9B300EDC671 /* process.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = process.c; sourceTree = "<group>"; tabWidth = 2; };
 		6DB774B82458B9B300EDC671 /* random.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = random.c; sourceTree = "<group>"; };
-		6DB774B92458B9B300EDC671 /* screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = screen.c; sourceTree = "<group>"; };
+		6DB774B92458B9B300EDC671 /* screen.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = screen.c; sourceTree = "<group>"; tabWidth = 2; };
 		6DB774BA2458B9B300EDC671 /* sound.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
 		6DB774BB2458B9B300EDC671 /* stack.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
 		6DB774BC2458B9B300EDC671 /* unicode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
@@ -1242,7 +1242,7 @@
 		6DD3D27B2512C11300667CA6 /* unicode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unicode.h; sourceTree = "<group>"; };
 		6DD3D27C2512C11300667CA6 /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		6DD3D27D2512C11300667CA6 /* zoom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zoom.h; sourceTree = "<group>"; };
-		6DD3D27E2512C11300667CA6 /* zterp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zterp.h; sourceTree = "<group>"; };
+		6DD3D27E2512C11300667CA6 /* zterp.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = zterp.h; sourceTree = "<group>"; tabWidth = 2; };
 		6DD3D27F2512C18300667CA6 /* blorb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blorb.h; sourceTree = "<group>"; };
 		6DD3D2802512C19200667CA6 /* branch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = branch.h; sourceTree = "<group>"; };
 		6DD7679A23E45FB7003B605C /* ThemeArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeArrayController.h; sourceTree = "<group>"; };

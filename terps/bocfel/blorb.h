@@ -2,7 +2,6 @@
 #define ZTERP_BLORB_H
 
 #include <stdint.h>
-#include <stddef.h>
 
 #include "io.h"
 

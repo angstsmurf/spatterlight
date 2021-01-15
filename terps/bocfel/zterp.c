@@ -22,7 +22,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <ctype.h>
-#include <signal.h>
 #include <limits.h>
 
 #include "zterp.h"
@@ -30,6 +29,7 @@
 #include "branch.h"
 #include "io.h"
 #include "memory.h"
+#include "meta.h"
 #include "osdep.h"
 #include "patches.h"
 #include "process.h"
@@ -64,6 +64,7 @@ struct options options = {
   .assume_fixed = false,
   .disable_graphics_font = false,
   .enable_alt_graphics = false,
+  .disable_history_plaback = false,
   .show_id = false,
   .disable_term_keys = false,
   .username = NULL,
@@ -317,6 +318,7 @@ static void read_config(void)
     BOOL  (assume_fixed);
     BOOL  (disable_graphics_font);
     BOOL  (enable_alt_graphics);
+    BOOL  (disable_history_plaback);
     BOOL  (disable_term_keys);
     STRING(username);
     BOOL  (disable_meta_commands);
@@ -487,7 +489,7 @@ static void process_story(void)
 {
   if(!zterp_io_seek(story.io, story.offset, SEEK_SET)) die("unable to rewind story");
 
-  if(zterp_io_read(story.io, memory, memory_size) != memory_size) die("unable to read from story file");
+  if(!zterp_io_read_exact(story.io, memory, memory_size)) die("unable to read from story file");
 
   zversion =		byte(0x00);
   if(zversion < 1 || zversion > 8) die("only z-code versions 1-8 are supported");
@@ -721,7 +723,7 @@ void zrestart(void)
 
   store_word(0x10, flags2);
 
-  interrupt_reset();
+  interrupt_reset(false);
 }
 
 void zquit(void)
@@ -745,7 +747,7 @@ void zverify(void)
     uint8_t buf[8192];
     uint32_t to_read = remaining < sizeof buf ? remaining : sizeof buf;
 
-    if(zterp_io_read(story.io, buf, to_read) != to_read)
+    if(!zterp_io_read_exact(story.io, buf, to_read))
     {
       branch_if(false);
       return;
@@ -835,6 +837,14 @@ int main(int argc, char **argv)
 #endif
 {
   zterp_blorb *blorb;
+
+  /* It’s too early to properly set up all tables (neither the alphabet
+   * nor Unicode table has been read from the story file), but it’s
+   * possible for messages to be displayed to the user before a story is
+   * even loaded, so at least the basic tables need to be created so
+   * that non-Unicode platforms have proper translations available.
+   */
+  setup_tables();
 
 #ifdef ZTERP_GLK
   if(!create_mainwin()) return;
