@@ -1,9 +1,9 @@
 
 /* spatterlight-autosave.m
  *
- * This file is part of bocfel.
+ * This file is part of Spatterlight.
  *
- * Copyright (c) 2012 Andrew Plotkin.
+ * Copyright (c) 2021 Petter Sjölund, adapted from code by Andrew Plotkin
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -214,8 +214,6 @@ static void load_resources(void)
 /* Restore an autosaved game, if one exists. The file argument is closed in the process.
  
 	Returns 1 if a game was restored successfully, 0 if not.
- 
-	This is called in the VM thread, from inside bocfel_start(). glkint_open_interface() has already happened, so we're going to have to replace the initial library state with the autosaved state.
  */
 int spatterlight_restore_autosave() {
     @autoreleasepool {
@@ -254,7 +252,6 @@ int spatterlight_restore_autosave() {
         }
 
         TempLibrary *newlib = nil;
-        /* A normal file must be restored with evaluate_result. An autosave file must not be. Fortunately, we've arranged things so that normal files are opened with zfile_from_glk_strid(), and autosave files with fsi->openfile(). */
 
         bool is_bfms;
 
@@ -293,7 +290,6 @@ int spatterlight_restore_autosave() {
                                   
 static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder) {
 	if (library_state.active) {
-		//NSLog(@"### archive hook: seenheight %d, maxheight %d, curheight %d", library_state.statusseenheight, library_state.statusmaxheight, library_state.statuscurheight);
 		[encoder encodeBool:YES forKey:@"bocfel_library_state"];
 		[encoder encodeBool:library_state.headerfixedfont forKey:@"bocfel_headerfixedfont"];
 
@@ -365,6 +361,5 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
         library_state.locked = [decoder decodeInt32ForKey:@"bocfel_locked"];
         library_state.playing = [decoder decodeInt32ForKey:@"bocfel_playing"];
         library_state.sound_channel_tag = [decoder decodeInt32ForKey:@"bocfel_sound_channel_tag"];
-//        NSLog(@"### unarchive hook: seenheight %d, maxheight %d, curheight %d", library_state.statusseenheight, library_state.statusmaxheight, library_state.statuscurheight);
 	}
 }
