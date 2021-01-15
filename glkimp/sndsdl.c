@@ -530,19 +530,12 @@ glui32 gli_detect_sound_format(char *buf, size_t len)
     if (len > 20 && !memcmp(buf, "Extended Module: ", 17))
         return giblorb_ID_MOD;
 
-    /* Whatever Dragon Hunt uses */
-    if (len > 11 && !memcmp(buf, "introfronty", 11))
-        return giblorb_ID_MOD;
-
-    /* Whatever Enceladus uses */
-    if (len > 11 && !memcmp(buf, "elysium", 7))
-        return giblorb_ID_MOD;
-
     /* MOD */
     if (len > 1084)
     {
         char resname[4];
         memcpy(resname, (buf) + 1080, 4);
+        fprintf(stderr, "resname:\"%s\"\n", resname);
         if (!strcmp(resname+1, "CHN") ||        /* 4CHN, 6CHN, 8CHN */
             !strcmp(resname+2, "CN") ||         /* 16CN, 32CN */
             !strcmp(resname, "M.K.") || !strcmp(resname, "M!K!") ||
@@ -702,12 +695,8 @@ static glui32 play_mod(schanid_t chan, long len, char *ext)
     /* malloc size of string tempdir + "XXXXXX.' + 3 letter extension + terminator */
     tn = malloc(strlen(tempdir) + strlen("XXXXXX.mod") + 1);
     sprintf(tn, "%sXXXXXX", tempdir);
-#if defined(WIN32) || defined(_WIN32) || defined(WINDOWS)
-    _mktemp_s(tn, strlen(tn));
-#else
     int filehandle = mkstemp(tn);
     close(filehandle);
-#endif
     sprintf(tn, "%s.%s", tn, ext);
     file = fopen(tn, "wb");
     fwrite(chan->sdl_memory, 1, len, file);
@@ -837,9 +826,7 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats, glui32 
         case giblorb_ID_FORM:
         case giblorb_ID_AIFF:
         case giblorb_ID_WAVE:
-
         case giblorb_ID_OGG:
-
         case giblorb_ID_MP3:
             result = play_sound(chan);
             break;
