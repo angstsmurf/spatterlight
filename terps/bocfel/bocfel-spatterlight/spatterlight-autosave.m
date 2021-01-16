@@ -229,6 +229,8 @@ int spatterlight_restore_autosave() {
 
         NSString *libsavepath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
 
+        if (![[NSFileManager defaultManager] fileExistsAtPath:finalgamepath])
+            return 0;
         if (![[NSFileManager defaultManager] fileExistsAtPath:libsavepath]) {
 
             // If there is a glksave but no plist, we delete the glksave
@@ -247,7 +249,7 @@ int spatterlight_restore_autosave() {
         zterp_io *save_file = zterp_io_open(autosavename, ZTERP_IO_RDONLY, ZTERP_IO_DATA);
 
         if (save_file == NULL) {
-            NSLog(@"spatterlight_restore_autosave: no autosave found");
+            NSLog(@"spatterlight_restore_autosave: failed to open autosave file");
             return 0;
         }
 

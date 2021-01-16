@@ -156,7 +156,7 @@ static const char *msgnames[] = {
           reset:(BOOL)shouldReset
      winRestore:(BOOL)windowRestoredBySystem_ {
 
-    NSLog(@"glkctl: runterp %@ %@", terpname_, game_.metadata.title);
+//    NSLog(@"glkctl: runterp %@ %@", terpname_, game_.metadata.title);
 
     // We could use separate versioning for GUI and interpreter autosaves,
     // but it is probably simpler this way
@@ -478,8 +478,6 @@ static const char *msgnames[] = {
                                  [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
             restoredUIOnly = YES;
         } else {
-            NSLog(@"The terp autosave tag: %u GUI autosave tag: %ld", tempLib.autosaveTag, restoredController.autosaveTag);
-
             // Only show the alert about autorestoring if this is not a system
             // window restoration, and the user has not suppressed it.
             if (!windowRestoredBySystem) {
@@ -1036,7 +1034,6 @@ static const char *msgnames[] = {
 }
 
 - (void)autoSaveOnExit {
-    NSLog(@"%@ autoSaveOnExit", _game.metadata.title);
     if (_supportsAutorestore) {
         NSString *autosaveLate = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
@@ -1297,9 +1294,11 @@ static const char *msgnames[] = {
             _mustBeQuiet = NO;
         [self guessFocus];
         [self noteAccessibilityStatusChanged:nil];
-        [self checkZMenu];
-        if (!_zmenu)
-            [self speakMostRecent:self];
+        if (_voiceOverActive) {
+            [self checkZMenu];
+            if (!_zmenu)
+                [self speakMostRecent:self];
+        }
     }
 }
 
@@ -1349,7 +1348,6 @@ static const char *msgnames[] = {
 }
 
 - (void)windowWillClose:(id)sender {
-    NSLog(@"glkctl (game %@): windowWillClose", _game ? _game.metadata.title : @"nil");
     if (windowClosedAlready) {
         NSLog(@"windowWillClose called twice!");
         return;
@@ -2383,7 +2381,6 @@ static const char *msgnames[] = {
             // from an autosave file.
             if (_eventcount == 2) {
                 if (shouldRestoreUI) {
-                    NSLog(@"restoreUI on NEXTEVENT, turn %ld", _turns);
                     [self restoreUI];
                 } else {
                     // If we are not autorestoring, try to guess an input window.
