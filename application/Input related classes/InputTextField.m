@@ -48,6 +48,7 @@
 - (instancetype)initWithFrame:(NSRect)frame maxLength:(NSUInteger)maxLength{
     self = [super initWithFrame:frame];
     if (self) {
+        self.usesSingleLineMode = YES;
         self.editable = YES;
         self.bordered = NO;
         self.allowsEditingTextAttributes = NO;
