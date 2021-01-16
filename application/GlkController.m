@@ -875,6 +875,7 @@ static const char *msgnames[] = {
     if (_stashedTheme && _stashedTheme != _theme)
     {
         _theme = _stashedTheme;
+        _stashedTheme = nil;
     }
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
     [self notePreferencesChanged:notification];
