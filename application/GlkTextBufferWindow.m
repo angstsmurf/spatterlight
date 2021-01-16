@@ -1390,9 +1390,6 @@
 }
 
 - (void)prefsDidChange {
-    NSLog(@"GlkTextBufferWindow %ld prefsDidChange, current theme %@, Preferences currentTheme: %@", self.name, self.theme.name, Preferences.currentTheme.name);
-    if (![self.theme.name isEqualToString:[Preferences currentTheme].name])
-        NSLog(@"Mismatch");
     NSDictionary *attributes;
     if (!_pendingScrollRestore) {
         [self storeScrollOffset];
@@ -1751,7 +1748,6 @@
 }
 
 - (void)unputString:(NSString *)buf {
-    [self flushDisplay];
     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];

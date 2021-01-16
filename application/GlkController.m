@@ -353,7 +353,6 @@ static const char *msgnames[] = {
 }
 
 - (void)runTerpWithAutorestore {
-    NSLog(@"runTerpWithAutorestore");
     @try {
         restoredController =
         [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileGUI];
@@ -466,7 +465,6 @@ static const char *msgnames[] = {
     }
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileTerp]) {
-        NSLog(@"Interpreter autorestore file exists");
         restoredUIOnly = NO;
 
         TempLibrary *tempLib =
@@ -843,7 +841,6 @@ static const char *msgnames[] = {
     // Restore scroll position etc
     for (win in [_gwindows allValues]) {
         if (![win isKindOfClass:[GlkGraphicsWindow class]] && ![_windowsToRestore count]) {
-            NSLog(@"GlkCtl: calling postRestoreAdjustments from inside restoreUI method, for %@ %ld", win, win.name);
             [win postRestoreAdjustments:(restoredControllerLate.gwindows)[@(win.name)]];
         }
         if (win.name == _firstResponderView) {
@@ -1363,14 +1360,12 @@ static const char *msgnames[] = {
         Game *remainingGameSession = nil;
         if (libcontroller.gameSessions.count)
             remainingGameSession = ((GlkController *)(libcontroller.gameSessions.allValues)[0]).game;
-        NSLog(@"GlkController for game %@ closing. Setting preferences current game to %@", _game.metadata.title, remainingGameSession.metadata.title);
         [Preferences changeCurrentGame:remainingGameSession];
     } else {
         if (_game == nil)
             NSLog(@"GlkController windowWillClose called with _game nil!");
         else
             NSLog(@"GlkController for game %@ closing, but preferences currentGame was not the same", _game.metadata.title);
-                  //[Preferences instance].currentGame ? [Preferences instance].currentGame.metadata.title : @"nil");
     }
 
     if (timer) {
@@ -2379,8 +2374,6 @@ static const char *msgnames[] = {
         case NEXTEVENT:
             if (_windowsToRestore.count) {
                 for (GlkWindow *win in _windowsToRestore) {
-                    NSLog(@"GlkCtl: calling postRestoreAdjustments from inside NEXTEVENT, for %@ %ld", win, win.name);
-//                    [_gwindows[@(win.name)] performSelector:@selector(postRestoreAdjustments:) withObject:win afterDelay:0];
                     [_gwindows[@(win.name)] postRestoreAdjustments:win];
                 }
                 _windowsToRestore = nil;
