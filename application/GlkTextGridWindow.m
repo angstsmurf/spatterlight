@@ -315,8 +315,9 @@
 
     if (line_request) {
         GlkTextGridWindow * __unsafe_unretained weakSelf = self;
+        __block NSString *inputString = _enteredTextSoFar;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf performSelector:@selector(deferredInitLine:) withObject:weakSelf.enteredTextSoFar afterDelay:0.5];
+            [weakSelf performSelector:@selector(deferredInitLine:) withObject:inputString afterDelay:0.5];
         });
     }
 }
