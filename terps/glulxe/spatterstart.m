@@ -296,7 +296,7 @@ static void spatterglk_game_autorestore()
         
         [newlib updateFromLibraryLate];
         
-        NSLog(@"autorestore succeeded.");
+//        NSLog(@"autorestore succeeded.");
         newlib.extraData = nil;
     }
 }

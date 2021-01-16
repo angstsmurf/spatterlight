@@ -1778,7 +1778,7 @@
 
     // pass on this key press to another GlkWindow if we are not expecting one
     if (!self.wantsFocus) {
-        NSLog(@"%ld does not want focus", self.name);
+//        NSLog(@"%ld does not want focus", self.name);
         for (win in [self.glkctl.gwindows allValues]) {
             if (win != self && win.wantsFocus) {
                 NSLog(@"GlkTextBufferWindow: Passing on keypress to window %ld", win.name);
@@ -2760,8 +2760,6 @@ replacementString:(id)repl {
 }
 
 - (void)scrollToTop {
-    NSLog(@"GlkTextBufferWindow %ld scrollToTop", self.name);
-
     lastAtTop = YES;
     lastAtBottom = NO;
 
@@ -2777,7 +2775,6 @@ replacementString:(id)repl {
             // Delete any preloaded input
             NSRange rangeToDelete = NSMakeRange(fence, textstorage.length - fence);
             [textstorage deleteCharactersInRange:rangeToDelete];
-            NSLog(@"Deleting old input at range %@", NSStringFromRange(rangeToDelete));
         }
 
         [textstorage appendAttributedString:restoredInput];

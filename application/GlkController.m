@@ -2809,8 +2809,7 @@ static const char *msgnames[] = {
             //            NSLog(@"glkctl initmouse %d", req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
-                NSLog(@"Restoring UI at INITMOUSE");
-                NSLog(@"at eventcount %ld", _eventcount);
+//                NSLog(@"Restoring UI at INITMOUSE");
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -2838,8 +2837,8 @@ static const char *msgnames[] = {
             //            NSLog(@"glkctl request hyperlink event in window %d",
             //            req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
-                NSLog(@"Restoring UI at INITLINK");
-                NSLog(@"at eventcount %ld", _eventcount);
+//                NSLog(@"Restoring UI at INITLINK");
+//                NSLog(@"at eventcount %ld", _eventcount);
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
@@ -2864,13 +2863,12 @@ static const char *msgnames[] = {
             break;
 
         case EVTSOUND:
-            NSLog(@"glkctl EVTSOUND %d, %d. Send it back whence it came.",
-                  req->a2, req->a3);
+//            NSLog(@"glkctl EVTSOUND %d, %d. Send it back whence it came.", req->a2, req->a3);
             [self handleSoundNotification:req->a3 withSound:req->a2];
             break;
 
         case EVTVOLUME:
-            NSLog(@"glkctl EVTVOLUME %d. Send it back whence it came.", req->a3);
+//            NSLog(@"glkctl EVTVOLUME %d. Send it back whence it came.", req->a3);
             [self handleVolumeNotification:req->a3];
             break;
 
