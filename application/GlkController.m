@@ -353,7 +353,6 @@ static const char *msgnames[] = {
 }
 
 - (void)runTerpWithAutorestore {
-    NSLog(@"runTerpWithAutorestore");
     @try {
         restoredController =
         [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileGUI];
@@ -466,7 +465,6 @@ static const char *msgnames[] = {
     }
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileTerp]) {
-        NSLog(@"Interpreter autorestore file exists");
         restoredUIOnly = NO;
 
         TempLibrary *tempLib =
@@ -842,8 +840,9 @@ static const char *msgnames[] = {
 
     // Restore scroll position etc
     for (win in [_gwindows allValues]) {
-        if (![win isKindOfClass:[GlkGraphicsWindow class]])
+        if (![win isKindOfClass:[GlkGraphicsWindow class]] && ![_windowsToRestore count]) {
             [win postRestoreAdjustments:(restoredControllerLate.gwindows)[@(win.name)]];
+        }
         if (win.name == _firstResponderView) {
             winToGrabFocus = win;
         }
@@ -876,6 +875,7 @@ static const char *msgnames[] = {
     if (_stashedTheme && _stashedTheme != _theme)
     {
         _theme = _stashedTheme;
+        _stashedTheme = nil;
     }
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
     [self notePreferencesChanged:notification];
@@ -908,8 +908,7 @@ static const char *msgnames[] = {
                                      @"quill" : @"UnQuill",
                                      @"tads2" : @"TADS",
                                      @"tads3" : @"TADS",
-                                     @"zcode": @"Bocfel",
-                                     //@"zcode" : @"Fizmo"
+                                     @"zcode": @"Bocfel"
         };
 
         NSDictionary *gFolderMapExt = @{@"acd" : @"Alan 2",
@@ -1362,14 +1361,12 @@ static const char *msgnames[] = {
         Game *remainingGameSession = nil;
         if (libcontroller.gameSessions.count)
             remainingGameSession = ((GlkController *)(libcontroller.gameSessions.allValues)[0]).game;
-        NSLog(@"GlkController for game %@ closing. Setting preferences current game to %@", _game.metadata.title, remainingGameSession.metadata.title);
         [Preferences changeCurrentGame:remainingGameSession];
     } else {
         if (_game == nil)
             NSLog(@"GlkController windowWillClose called with _game nil!");
         else
             NSLog(@"GlkController for game %@ closing, but preferences currentGame was not the same", _game.metadata.title);
-                  //[Preferences instance].currentGame ? [Preferences instance].currentGame.metadata.title : @"nil");
     }
 
     if (timer) {
@@ -2386,6 +2383,7 @@ static const char *msgnames[] = {
             // from an autosave file.
             if (_eventcount == 2) {
                 if (shouldRestoreUI) {
+                    NSLog(@"restoreUI on NEXTEVENT, turn %ld", _turns);
                     [self restoreUI];
                 } else {
                     // If we are not autorestoring, try to guess an input window.
@@ -2814,8 +2812,8 @@ static const char *msgnames[] = {
             //            NSLog(@"glkctl initmouse %d", req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
-//                NSLog(@"Restoring UI at INITMOUSE");
-//                NSLog(@"at eventcount %ld", _eventcount);
+                NSLog(@"Restoring UI at INITMOUSE");
+                NSLog(@"at eventcount %ld", _eventcount);
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -2843,8 +2841,8 @@ static const char *msgnames[] = {
             //            NSLog(@"glkctl request hyperlink event in window %d",
             //            req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
-//                NSLog(@"Restoring UI at INITLINK");
-//                NSLog(@"at eventcount %ld", _eventcount);
+                NSLog(@"Restoring UI at INITLINK");
+                NSLog(@"at eventcount %ld", _eventcount);
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];

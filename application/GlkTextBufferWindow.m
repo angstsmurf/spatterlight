@@ -1181,8 +1181,14 @@
     [encoder encodeBool:_pendingClear forKey:@"pendingClear"];
     [encoder encodeBool:_pendingScrollRestore forKey:@"pendingScrollRestore"];
 
-    if (line_request) {
-        NSAttributedString *input = [textstorage attributedSubstringFromRange:NSMakeRange(fence, textstorage.length - fence)];
+    if (line_request && textstorage.length > fence) {
+        NSRange inputRange = NSMakeRange(fence, textstorage.length - fence);
+        NSMutableAttributedString *input = [textstorage attributedSubstringFromRange:inputRange].mutableCopy;
+        inputRange.location = 0;
+        if (currentZColor)
+            [input addAttribute:@"ZColor" value:currentZColor range:inputRange];
+        if (self.currentReverseVideo)
+            [input addAttribute:@"ReverseVideo" value:@(YES) range:inputRange];
         [encoder encodeObject:input forKey:@"inputString"];
     }
 
@@ -1384,7 +1390,6 @@
 }
 
 - (void)prefsDidChange {
-//    NSLog(@"GlkTextBufferWindow %ld prefsDidChange", self.name);
     NSDictionary *attributes;
     if (!_pendingScrollRestore) {
         [self storeScrollOffset];
@@ -1499,6 +1504,18 @@
                                         range:range];
              }
          }];
+
+        // If we have typed unifinished input text and there is an active,
+        // unapplied ZColor or reverseVideo, we apply it here so as not to lose
+        // it in the style change (though reverse video is rarely used on input)
+        if (textstorage.length > fence) {
+            NSRange inputRange;
+            [textstorage attribute:NSForegroundColorAttributeName atIndex:fence effectiveRange:&inputRange];
+            if (currentZColor)
+                [backingStorage addAttribute:@"ZColor" value:currentZColor range:inputRange];
+            if (self.currentReverseVideo)
+                [backingStorage addAttribute:@"ReverseVideo" value:@(YES) range:inputRange];
+        }
 
         backingStorage = [self applyZColorsAndThenReverse:backingStorage];
 
@@ -1634,7 +1651,6 @@
 
 - (void)putString:(NSString *)str style:(NSUInteger)stylevalue {
 //    NSLog(@"bufwin %ld putString:\"%@\"", self.name, str);
-
     if (bufferTextstorage.length > 50000)
         bufferTextstorage = [bufferTextstorage attributedSubstringFromRange:NSMakeRange(25000, bufferTextstorage.length - 25000)].mutableCopy;
 
@@ -1732,7 +1748,6 @@
 }
 
 - (void)unputString:(NSString *)buf {
-    [self flushDisplay];
     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
@@ -1973,8 +1988,7 @@
 
     NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
     if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default) {
-//        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
-        inputStyle[@"ZColor"] = currentZColor;
+        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
     }
 
     inputStyle[NSCursorAttributeName] = [NSCursor IBeamCursor];
@@ -2455,7 +2469,6 @@ replacementString:(id)repl {
 #pragma mark ZColors
 
 - (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
-
     NSUInteger textstoragelength = attStr.length;
 
     GlkTextBufferWindow * __unsafe_unretained weakSelf = self;
@@ -2757,22 +2770,32 @@ replacementString:(id)repl {
 }
 
 - (void)postRestoreAdjustments:(GlkWindow *)win {
-    [container invalidateLayout]; // This fixes a bug with margin images on 10.7
-
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
+    if (line_request && [restoredWin.restoredInput length]) {
+        NSAttributedString *restoredInput = restoredWin.restoredInput;
+        if (textstorage.length > fence) {
+            // Delete any preloaded input
+            NSRange rangeToDelete = NSMakeRange(fence, textstorage.length - fence);
+            [textstorage deleteCharactersInRange:rangeToDelete];
+            NSLog(@"Deleting old input at range %@", NSStringFromRange(rangeToDelete));
+        }
 
-    if (line_request && restoredWin.restoredInput && restoredWin.restoredInput.length) {
-        if (textstorage.length > fence)
-            [textstorage deleteCharactersInRange:NSMakeRange(fence, textstorage.length - fence)];
-        [textstorage appendAttributedString:restoredWin.restoredInput];
-        [self showInsertionPoint];
+        [textstorage appendAttributedString:restoredInput];
+
+        NSDictionary *inputAttributes = [restoredInput attributesAtIndex:restoredInput.length - 1 effectiveRange:nil];
+
+        ZColor *restoredZColor = (ZColor *)inputAttributes[@"ZColor"];
+        BOOL restoredRevVideo = [inputAttributes[@"ReverseVideo"] isEqual:@(YES)];
+
+        if (restoredZColor)
+            currentZColor = restoredZColor;
+        if (restoredRevVideo)
+            self.currentReverseVideo = YES;
     }
 
     _restoredSelection = restoredWin.restoredSelection;
-    if (_restoredSelection.location > textstorage.length)
-        _restoredSelection = NSMakeRange(0, 0);
-    else if (NSMaxRange(_restoredSelection) > textstorage.length)
-        _restoredSelection = NSMakeRange(_restoredSelection.location, textstorage.length - _restoredSelection.location);
+    NSRange allText = NSMakeRange(0, textstorage.length + 1);
+    _restoredSelection = NSIntersectionRange(allText, _restoredSelection);
     _textview.selectedRange = _restoredSelection;
 
     _restoredFindBarVisible = restoredWin.restoredFindBarVisible;
@@ -2791,6 +2814,7 @@ replacementString:(id)repl {
 
     _pendingScrollRestore = YES;
     _pendingScroll = NO;
+
     if (!self.glkctl.inFullscreen || self.glkctl.startingInFullscreen)
         [self performSelector:@selector(deferredScrollPosition:) withObject:nil afterDelay:0.1];
     else
