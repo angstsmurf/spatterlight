@@ -1881,12 +1881,6 @@
 
 -(void)sendInputLineWithTerminator:(NSInteger)terminator {
     // NSLog(@"line event from %ld", (long)self.name);
-    [self flushDisplay];
-
-    [_textview resetTextFinder];
-
-    [self.glkctl markLastSeen];
-
     NSString *line = [textstorage.string substringFromIndex:fence];
     if (echo) {
         [textstorage
@@ -1907,12 +1901,7 @@
     }
 
     line = [line scrubInvalidCharacters];
-
-    if (self.glkctl.deadCities && line.length) {
-        unichar endChar = [line characterAtIndex:line.length - 1];
-        if (endChar == '\n' || endChar == '\r')
-            line = [line substringToIndex:line.length - 1];
-    }
+    line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     if (self.glkctl.beyondZork) {
         if (terminator == keycode_Home) {
@@ -1929,6 +1918,9 @@
     line_request = NO;
     [self hideInsertionPoint];
     _textview.editable = NO;
+    [self flushDisplay];
+    [_textview resetTextFinder];
+    [self.glkctl markLastSeen];
 }
 
 - (void)initChar {
