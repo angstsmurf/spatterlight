@@ -117,6 +117,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL pendingScrollRestore;
 
 @property NSAttributedString *restoredInput;
+@property NSDictionary *inputAttributes;
+
 @property (nullable) GlkTextGridWindow *quoteBox;
 
 - (void)recalcBackground;

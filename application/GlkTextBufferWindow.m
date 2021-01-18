@@ -1183,12 +1183,7 @@
 
     if (line_request && textstorage.length > fence) {
         NSRange inputRange = NSMakeRange(fence, textstorage.length - fence);
-        NSMutableAttributedString *input = [textstorage attributedSubstringFromRange:inputRange].mutableCopy;
-        inputRange.location = 0;
-        if (currentZColor)
-            [input addAttribute:@"ZColor" value:currentZColor range:inputRange];
-        if (self.currentReverseVideo)
-            [input addAttribute:@"ReverseVideo" value:@(YES) range:inputRange];
+        NSAttributedString *input = [textstorage attributedSubstringFromRange:inputRange];
         [encoder encodeObject:input forKey:@"inputString"];
     }
 
@@ -1401,6 +1396,8 @@
         [self adjustBZTerminators:self.currentTerminators];
     }
 
+    [self recalcInputAttributes];
+
     // Preferences has changed, so first we must redo the styles library
     NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     BOOL different = NO;
@@ -1504,18 +1501,6 @@
                                         range:range];
              }
          }];
-
-        // If we have typed unifinished input text and there is an active,
-        // unapplied ZColor or reverseVideo, we apply it here so as not to lose
-        // it in the style change (though reverse video is rarely used on input)
-        if (textstorage.length > fence) {
-            NSRange inputRange;
-            [textstorage attribute:NSForegroundColorAttributeName atIndex:fence effectiveRange:&inputRange];
-            if (currentZColor)
-                [backingStorage addAttribute:@"ZColor" value:currentZColor range:inputRange];
-            if (self.currentReverseVideo)
-                [backingStorage addAttribute:@"ReverseVideo" value:@(YES) range:inputRange];
-        }
 
         backingStorage = [self applyZColorsAndThenReverse:backingStorage];
 
@@ -1986,16 +1971,11 @@
 
     fence = textstorage.length;
 
-    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
-    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default) {
-        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
-    }
-
-    inputStyle[NSCursorAttributeName] = [NSCursor IBeamCursor];
+    [self recalcInputAttributes];
 
     id att = [[NSAttributedString alloc]
         initWithString:str
-              attributes:inputStyle];
+              attributes:_inputAttributes];
 
     [textstorage appendAttributedString:att];
 
@@ -2005,6 +1985,21 @@
     [self showInsertionPoint];
 
     [_textview setSelectedRange:NSMakeRange(textstorage.length, 0)];
+}
+
+- (void)recalcInputAttributes {
+    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
+    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default) {
+        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
+    }
+
+    if (currentZColor)
+        inputStyle[@"ZColor"] = currentZColor;
+    if (self.currentReverseVideo)
+        inputStyle[@"ReverseVideo"] = @(YES);
+
+    inputStyle[NSCursorAttributeName] = [NSCursor IBeamCursor];
+    _inputAttributes = inputStyle;
 }
 
 - (NSString *)cancelLine {
@@ -2163,11 +2158,10 @@ replacementString:(id)repl {
     if (textstorage.editedRange.location < fence)
         return;
 
-    NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
-    if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Default && currentZColor.fg != zcolor_Current)
-        inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
+    if (_inputAttributes)
+        [self recalcInputAttributes];
 
-    [textstorage setAttributes:inputStyle
+    [textstorage setAttributes:_inputAttributes
                          range:textstorage.editedRange];
 }
 
