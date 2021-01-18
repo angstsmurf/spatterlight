@@ -47,8 +47,8 @@
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-    if (![(GlkTextGridWindow *)self.delegate myMouseDown:theEvent])
-        [super mouseDown:theEvent];
+    [(GlkTextGridWindow *)self.delegate myMouseDown:theEvent];
+    [super mouseDown:theEvent];
 }
 
 - (NSArray *)accessibilityCustomRotors  {
