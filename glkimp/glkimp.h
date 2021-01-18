@@ -21,6 +21,7 @@
 extern int gli_enable_graphics;
 extern int gli_enable_sound;
 extern int gli_enable_styles;
+extern int gli_enable_autosave;
 
 extern int gscreenw;
 extern int gscreenh;

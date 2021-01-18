@@ -207,6 +207,7 @@ unsigned chartokeycode(unsigned ch) {
 
     if (_type == EVTPREFS) {
         reply.a4 = (int)theme.doStyles;
+        reply.a5 = (int)theme.autosave;
     }
 
     if (_type == EVTARRANGE) {

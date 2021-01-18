@@ -577,7 +577,8 @@
     if (_bufferTextStorage) {
         NSRange selection = _textview.selectedRange;
         [textstorage setAttributedString:_bufferTextStorage];
-        _textview.selectedRange = selection;
+        if (NSMaxRange(selection) <= _bufferTextStorage.length)
+            _textview.selectedRange = selection;
     } else {
         _bufferTextStorage = [textstorage mutableCopy];
     }

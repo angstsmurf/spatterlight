@@ -52,7 +52,7 @@
 @dynamic morePrompt;
 @dynamic name;
 @dynamic nohacks;
-@dynamic saveOnTimer;
+@dynamic autosave;
 @dynamic slowDrawing;
 @dynamic smartQuotes;
 @dynamic spaceFormat;

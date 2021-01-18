@@ -180,6 +180,7 @@ static Preferences *prefs = nil;
     defaultTheme.zMachineTerp = 4;
     defaultTheme.vOSpeakCommand = 1;
     defaultTheme.vOSpeakMenu = kVOMenuTextOnly;
+    defaultTheme.autosave = YES;
 
     if (exists)
         return defaultTheme;
@@ -242,6 +243,7 @@ static Preferences *prefs = nil;
     classicTheme.zMachineTerp = 4;
     classicTheme.vOSpeakCommand = 1;
     classicTheme.vOSpeakMenu = kVOMenuTextOnly;
+    classicTheme.autosave = YES;
 
     if (exists)
         return classicTheme;
@@ -301,6 +303,7 @@ static Preferences *prefs = nil;
     gargoyleTheme.zMachineTerp = 4;
     gargoyleTheme.vOSpeakCommand = 1;
     gargoyleTheme.vOSpeakMenu = kVOMenuTextOnly;
+    gargoyleTheme.autosave = YES;
 
     if (exists)
         return gargoyleTheme;
@@ -373,6 +376,7 @@ static Preferences *prefs = nil;
     lectroteTheme.zMachineTerp = 4;
     lectroteTheme.vOSpeakCommand = 1;
     lectroteTheme.vOSpeakMenu = kVOMenuTextOnly;
+    lectroteTheme.autosave = YES;
 
     if (exists)
         return lectroteTheme;
@@ -438,6 +442,7 @@ static Preferences *prefs = nil;
     lectroteDarkTheme.zMachineTerp = 4;
     lectroteDarkTheme.vOSpeakCommand = 1;
     lectroteDarkTheme.vOSpeakMenu = kVOMenuTextOnly;
+    lectroteDarkTheme.autosave = YES;
 
     if (exists)
         return lectroteDarkTheme;
@@ -502,6 +507,7 @@ static Preferences *prefs = nil;
     zoomTheme.zMachineTerp = 4;
     zoomTheme.vOSpeakCommand = 1;
     zoomTheme.vOSpeakMenu = kVOMenuTextOnly;
+    zoomTheme.autosave = YES;
 
     if (exists)
         return zoomTheme;
@@ -593,6 +599,7 @@ static Preferences *prefs = nil;
     dosTheme.zMachineTerp = 4;
     dosTheme.vOSpeakCommand = 1;
     dosTheme.vOSpeakMenu = kVOMenuTextOnly;
+    dosTheme.autosave = YES;
 
     if (exists)
         return dosTheme;
@@ -667,6 +674,7 @@ static Preferences *prefs = nil;
     dosBoxTheme.zMachineTerp = 4;
     dosBoxTheme.vOSpeakCommand = 1;
     dosBoxTheme.vOSpeakMenu = kVOMenuTextOnly;
+    dosBoxTheme.autosave = YES;
 
     if (exists)
         return dosBoxTheme;
@@ -810,6 +818,7 @@ static Preferences *prefs = nil;
     montserratTheme.zMachineTerp = 4;
     montserratTheme.vOSpeakCommand = 1;
     montserratTheme.vOSpeakMenu = kVOMenuTextOnly;
+    montserratTheme.autosave = YES;
 
     if (exists)
         return montserratTheme;
@@ -1258,6 +1267,8 @@ NSString *fontToString(NSFont *font) {
 
     _bZVerticalTextField.integerValue = theme.bZAdjustment;
     _bZVerticalStepper.integerValue = theme.bZAdjustment;
+
+    _btnAutosave.state = theme.autosave;
 
     if ([[NSFontPanel sharedFontPanel] isVisible] && selectedFontButton)
         [self showFontPanel:selectedFontButton];
@@ -1720,6 +1731,7 @@ NSString *fontToString(NSFont *font) {
     _detailsHeader.stringValue = [NSString stringWithFormat:@"Settings for theme %@", name];
     _miscHeader.stringValue = _detailsHeader.stringValue;
     _zcodeHeader.stringValue = _detailsHeader.stringValue;
+    _vOHeader.stringValue = _detailsHeader.stringValue;
 }
 
 - (BOOL)notDuplicate:(NSString *)string {
@@ -2211,6 +2223,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     themeToChange.vOSpeakMenu = (int)[sender selectedTag];
 }
 
+#pragma mark ZCode menu
+
 - (IBAction)changeBeepHighMenu:(id)sender {
     NSSound *sound = [NSSound soundNamed:[sender titleOfSelectedItem]];
     if (sound) {
@@ -2278,6 +2292,24 @@ textShouldEndEditing:(NSText *)fieldEditor {
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.bZAdjustment = [sender integerValue];
     _bZVerticalStepper.integerValue = themeToChange.bZAdjustment;
+}
+
+#pragma mark Misc menu
+
+- (IBAction)resetDialogs:(NSButton *)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:NO forKey:@"terminationAlertSuppression"];
+    [defaults setBool:NO forKey:@"UseForAllAlertSuppression"];
+    [defaults setBool:NO forKey:@"OverwriteStylesAlertSuppression"];
+    [defaults setBool:NO forKey:@"AutorestoreAlertSuppression"];
+    [defaults setBool:NO forKey:@"closeAlertSuppression"];
+}
+
+- (IBAction)changeAutosave:(id)sender {
+    if (theme.autosave == [sender state])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.autosave = [sender state] ? YES : NO;
 }
 
 - (IBAction)changeOverwriteStyles:(id)sender {

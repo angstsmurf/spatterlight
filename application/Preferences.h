@@ -155,6 +155,7 @@ typedef enum kBZArrowsPrefsType : int32_t {
 @property (strong) IBOutlet NSTextFieldCell *detailsHeader;
 @property (strong) IBOutlet NSTextFieldCell *themesHeader;
 @property (strong) IBOutlet NSTextFieldCell *miscHeader;
+@property (strong) IBOutlet NSTextFieldCell *vOHeader;
 @property (strong) IBOutlet NSTextFieldCell *zcodeHeader;
 
 @property (strong) IBOutlet NSButton *btnOneThemeForAll;
@@ -184,13 +185,18 @@ typedef enum kBZArrowsPrefsType : int32_t {
 @property (strong) IBOutlet NSPopUpButton *bZArrowsMenu;
 - (IBAction)changeBZArrowsMenu:(id)sender;
 
-@property (strong) IBOutlet NSTextField *zVersionTextField;
+@property (weak) IBOutlet NSTextField *zVersionTextField;
 - (IBAction)changeZVersion:(id)sender;
 
-@property (strong) IBOutlet NSTextField *bZVerticalTextField;
+@property (weak) IBOutlet NSTextField *bZVerticalTextField;
 - (IBAction)changeBZVerticalTextField:(id)sender;
 
-@property (strong) IBOutlet NSStepper *bZVerticalStepper;
+@property (weak) IBOutlet NSStepper *bZVerticalStepper;
 - (IBAction)changeBZVerticalStepper:(id)sender;
+
+@property (weak) IBOutlet NSButton *btnAutosave;
+- (IBAction)changeAutosave:(id)sender;
+
+- (IBAction)resetDialogs:(NSButton *)sender;
 
 @end

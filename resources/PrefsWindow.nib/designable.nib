@@ -17,6 +17,7 @@
                 <outlet property="beepLowMenu" destination="HRf-IU-ZEE" id="EHn-bY-j60"/>
                 <outlet property="btnAdd" destination="905" id="909"/>
                 <outlet property="btnAdjustSize" destination="958" id="962"/>
+                <outlet property="btnAutosave" destination="a1n-Iy-dco" id="hBT-C6-3dY"/>
                 <outlet property="btnBufferFont" destination="546" id="747"/>
                 <outlet property="btnEnableGraphics" destination="580" id="763"/>
                 <outlet property="btnEnableSound" destination="579" id="764"/>
@@ -36,7 +37,7 @@
                 <outlet property="clrInputFg" destination="544" id="751"/>
                 <outlet property="detailsHeader" destination="867" id="899"/>
                 <outlet property="divider" destination="926" id="927"/>
-                <outlet property="miscHeader" destination="VZf-FV-aif" id="q2e-sN-bjR"/>
+                <outlet property="miscHeader" destination="vuA-ft-mAo" id="HWP-xI-lSk"/>
                 <outlet property="sampleTextBorderView" destination="948" id="949"/>
                 <outlet property="sampleTextView" destination="773" id="774"/>
                 <outlet property="scrollView" destination="675" id="864"/>
@@ -50,6 +51,7 @@
                 <outlet property="txtGridMargin" destination="548" id="754"/>
                 <outlet property="txtLeading" destination="551" id="756"/>
                 <outlet property="txtRows" destination="570" id="759"/>
+                <outlet property="vOHeader" destination="VZf-FV-aif" id="hf3-st-alM"/>
                 <outlet property="vOMenuButton" destination="Fly-sQ-mPk" id="sAo-Ii-Qdm"/>
                 <outlet property="window" destination="407" id="765"/>
                 <outlet property="zVersionTextField" destination="SFD-gC-YDQ" id="ulM-y0-Bhy"/>
@@ -1064,7 +1066,7 @@
                                             </connections>
                                         </popUpButton>
                                         <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVA-J4-AB0">
-                                            <rect key="frame" x="159" y="111" width="130" height="18"/>
+                                            <rect key="frame" x="159" y="105" width="130" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="check" title="Speak commands" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="xxj-M6-Sgq">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1072,6 +1074,58 @@
                                             </buttonCell>
                                             <connections>
                                                 <action selector="changeVOSpeakCommands:" target="-2" id="C1T-UL-PSh"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Misc" identifier="3" id="SsA-F0-Py4" userLabel="Misc">
+                                <view key="view" id="e2b-r5-Wxg">
+                                    <rect key="frame" x="10" y="33" width="468" height="240"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5JE-Cx-4fd">
+                                            <rect key="frame" x="9" y="181" width="450" height="5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        </box>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cs0-I0-jxR">
+                                            <rect key="frame" x="18" y="217" width="440" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="left" title="Settings for theme Default" usesSingleLineMode="YES" id="vuA-ft-mAo">
+                                                <font key="font" metaFont="smallSystemBold"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kfk-Iq-kag">
+                                            <rect key="frame" x="152" y="192" width="172" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Miscellaneous settings" usesSingleLineMode="YES" id="1Fd-Ts-w1a">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvQ-u1-9Rf">
+                                            <rect key="frame" x="178" y="88" width="113" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="Reset alerts" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="561-WV-aip">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="resetDialogs:" target="-2" id="T7R-eM-scm"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1n-Iy-dco">
+                                            <rect key="frame" x="139" y="141" width="178" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Autosave and autorestore" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="rok-Vo-ZHA">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="changeAutosave:" target="-2" id="Wdw-RK-mfu"/>
                                             </connections>
                                         </button>
                                     </subviews>

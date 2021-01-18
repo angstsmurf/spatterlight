@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSObject *morePrompt;
 @property (nullable, nonatomic, copy) NSString *name;
 @property (nonatomic) int32_t nohacks;
-@property (nonatomic) BOOL saveOnTimer;
+@property (nonatomic) BOOL autosave;
 @property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
 @property (nonatomic) int32_t spaceFormat;

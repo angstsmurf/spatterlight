@@ -217,6 +217,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
  */
 static void spatterglk_game_autorestore()
 {
+    if (!gli_enable_autosave)
+        return;
+
     @autoreleasepool {
 
         TempLibrary *newlib = nil;
@@ -355,6 +358,9 @@ static int parse_partial_operand(int *opmodes)
 static void spatterglk_game_select(glui32 eventaddr)
 {
 //    NSLog(@"### game called select, last event was %d", lasteventtype);
+
+    if (!gli_enable_autosave)
+        return;
 
 	/* Do not autosave if we've just started up, or if the last event was a rearrange event. (We get rearranges in clusters, and they don't change anything interesting anyhow.) */
 	if (lasteventtype == -1 || lasteventtype == evtype_Arrange)

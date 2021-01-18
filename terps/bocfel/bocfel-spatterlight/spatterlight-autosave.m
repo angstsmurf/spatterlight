@@ -79,6 +79,9 @@ int spatterlight_do_autosave() {
 
     //spatterlight_clear_autosave();
 
+    if (!gli_enable_autosave)
+        return 0;
+
     if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange)
     {
 		return 0;
@@ -211,11 +214,13 @@ static void load_resources(void)
         giblorb_set_resource_map(blorbfile);
 }
 
-/* Restore an autosaved game, if one exists. The file argument is closed in the process.
- 
+/* Restore an autosaved game, if one exists.
 	Returns 1 if a game was restored successfully, 0 if not.
  */
-int spatterlight_restore_autosave() {
+int spatterlight_restore_autosave()
+{
+    if (!gli_enable_autosave)
+        return 0;
     @autoreleasepool {
 
         getautosavedir((char *)game_file);

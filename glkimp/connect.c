@@ -35,6 +35,7 @@ int gli_utf8input = TRUE;
 int gli_enable_graphics = 0;
 int gli_enable_sound = 0;
 int gli_enable_styles = 0;
+int gli_enable_autosave = 0;
 
 int gscreenw = 1;
 int gscreenh = 1;
@@ -636,6 +637,7 @@ again:
                 gli_stop_all_sound_channels();
             gli_enable_sound = wmsg.a3;
             gli_enable_styles = wmsg.a4;
+            gli_enable_autosave = wmsg.a5;
             goto again;
 
         case EVTARRANGE:

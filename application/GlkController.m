@@ -344,7 +344,7 @@ static const char *msgnames[] = {
     NSString *autosaveLatePath = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
 
-    if (_supportsAutorestore &&
+    if (_supportsAutorestore && _theme.autosave && 
         ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI] || [[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath])) {
         [self runTerpWithAutorestore];
     } else {
@@ -481,8 +481,12 @@ static const char *msgnames[] = {
             // Only show the alert about autorestoring if this is not a system
             // window restoration, and the user has not suppressed it.
             if (!windowRestoredBySystem) {
+                if (_theme.autosave == NO) {
+                    _game.autosaved = NO;
+                    [self runTerpNormal];
+                    return;
+                }
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
                 if ([defaults boolForKey:@"AutorestoreAlertSuppression"]) {
                     NSLog(@"Autorestore alert suppressed");
                     if (![defaults boolForKey:@"AlwaysAutorestore"]) {
@@ -1034,7 +1038,7 @@ static const char *msgnames[] = {
 }
 
 - (void)autoSaveOnExit {
-    if (_supportsAutorestore) {
+    if (_supportsAutorestore && _theme.autosave) {
         NSString *autosaveLate = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
         NSInteger res = [NSKeyedArchiver archiveRootObject:self
