@@ -1249,6 +1249,7 @@ static const char *msgnames[] = {
 
     for (GlkTextGridWindow *win in _quoteBoxes) {
         win.glkctl = nil;
+        win.quoteboxParent = nil;
         [win removeFromSuperview];
     }
 
@@ -2406,6 +2407,7 @@ static const char *msgnames[] = {
                 GlkTextGridWindow *view = _quoteBoxes.firstObject;
                 [_quoteBoxes removeObjectAtIndex:0];
                 ((GlkTextBufferWindow *)view.quoteboxParent.superview).quoteBox = nil;
+                view.quoteboxParent = nil;
                 if (_quoteBoxes.count == 0) {
                     _quoteBoxes = nil;
                 }

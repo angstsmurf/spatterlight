@@ -48,7 +48,7 @@
 @property NSSize quoteboxSize;
 @property NSInteger quoteboxAddedOnTurn;
 @property NSUInteger quoteboxVerticalOffset;
-@property NSScrollView *quoteboxParent;
+@property (weak) NSScrollView *quoteboxParent;
 
 - (void)quotebox:(NSUInteger)linesToSkip;
 - (void)quoteboxAdjustSize:(id)sender;
