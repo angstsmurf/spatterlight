@@ -632,6 +632,11 @@
                                             - (_textview.textContainerInset.height * 2) ) /
                                            self.theme.cellHeight);
 
+    if (newrows == 0 && frame.size.height > 0)
+        newrows = 1;
+    if (newcols == 0 && frame.size.width > 0)
+        newcols = 1;
+    
     if (newrows == 1 && self.glkctl.curses && self.glkctl.quoteBoxes.count) {
         newrows = 2;
         frame.size.height += self.theme.cellHeight;
