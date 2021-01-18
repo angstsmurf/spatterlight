@@ -2770,18 +2770,7 @@ replacementString:(id)repl {
             NSRange rangeToDelete = NSMakeRange(fence, textstorage.length - fence);
             [textstorage deleteCharactersInRange:rangeToDelete];
         }
-
         [textstorage appendAttributedString:restoredInput];
-
-        NSDictionary *inputAttributes = [restoredInput attributesAtIndex:restoredInput.length - 1 effectiveRange:nil];
-
-        ZColor *restoredZColor = (ZColor *)inputAttributes[@"ZColor"];
-        BOOL restoredRevVideo = [inputAttributes[@"ReverseVideo"] isEqual:@(YES)];
-
-        if (restoredZColor)
-            currentZColor = restoredZColor;
-        if (restoredRevVideo)
-            self.currentReverseVideo = YES;
     }
 
     _restoredSelection = restoredWin.restoredSelection;
