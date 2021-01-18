@@ -574,9 +574,11 @@
     }
     _pendingBackgroundCol = nil;
 
-    if (_bufferTextStorage)
+    if (_bufferTextStorage) {
+        NSRange selection = _textview.selectedRange;
         [textstorage setAttributedString:_bufferTextStorage];
-    else {
+        _textview.selectedRange = selection;
+    } else {
         _bufferTextStorage = [textstorage mutableCopy];
     }
 
