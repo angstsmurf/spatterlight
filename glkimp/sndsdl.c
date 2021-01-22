@@ -661,7 +661,6 @@ void gli_stop_all_sound_channels()
     {
         glk_schannel_stop(chan);
     }
-
 }
 
 /** Start a mod music channel */
@@ -694,11 +693,9 @@ static glui32 play_mod(schanid_t chan, long len, char *ext)
     tempdir = getenv("TMPDIR");
     /* malloc size of string tempdir + "XXXXXX.' + 3 letter extension + terminator */
     tn = malloc(strlen(tempdir) + strlen("XXXXXX.mod") + 1);
-    sprintf(tn, "%sXXXXXX", tempdir);
-    int filehandle = mkstemp(tn);
-    close(filehandle);
-    sprintf(tn, "%s.%s", tn, ext);
-    file = fopen(tn, "wb");
+    sprintf(tn, "%sXXXXXX.%s", tempdir, ext);
+    int filehandle = mkstemps(tn, 3);
+    file = fdopen(filehandle, "wb");
     fwrite(chan->sdl_memory, 1, len, file);
     fclose(file);
     chan->music = Mix_LoadMUS(tn);
