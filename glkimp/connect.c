@@ -36,6 +36,7 @@ int gli_enable_graphics = 0;
 int gli_enable_sound = 0;
 int gli_enable_styles = 0;
 int gli_enable_autosave = 0;
+int gli_enable_autosave_on_timer = 0;
 
 int gscreenw = 1;
 int gscreenh = 1;
@@ -636,8 +637,8 @@ again:
             if (gli_enable_sound == 1 && wmsg.a3 == 0)
                 gli_stop_all_sound_channels();
             gli_enable_sound = wmsg.a3;
-            gli_enable_styles = wmsg.a4;
-            gli_enable_autosave = wmsg.a5;
+            gli_enable_autosave = wmsg.a4;
+            gli_enable_autosave_on_timer = wmsg.a5;
             goto again;
 
         case EVTARRANGE:
@@ -661,6 +662,7 @@ again:
                 gbgcol == settings->buffer_background &&
                 gsfgcol == settings->grid_foreground &&
                 gsbgcol == settings->grid_background &&
+                gli_enable_styles == settings->do_styles &&
                 settings->force_arrange == 0)
                 goto again;
 
@@ -681,6 +683,7 @@ again:
             gbgcol = settings->buffer_background;
             gsfgcol = settings->grid_foreground;
             gsbgcol = settings->grid_background;
+            gli_enable_styles = settings->do_styles;
 
             gli_windows_rearrange();
             break;

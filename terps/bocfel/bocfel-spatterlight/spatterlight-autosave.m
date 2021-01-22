@@ -82,7 +82,7 @@ int spatterlight_do_autosave() {
     if (!gli_enable_autosave)
         return 0;
 
-    if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange)
+    if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange || (lasteventtype == evtype_Timer && !gli_enable_autosave_on_timer))
     {
 		return 0;
     }

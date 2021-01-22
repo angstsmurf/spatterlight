@@ -363,7 +363,13 @@ static void spatterglk_game_select(glui32 eventaddr)
         return;
 
 	/* Do not autosave if we've just started up, or if the last event was a rearrange event. (We get rearranges in clusters, and they don't change anything interesting anyhow.) */
-	if (lasteventtype == -1 || lasteventtype == evtype_Arrange)
+
+    if (lasteventtype == evtype_Timer && !gli_enable_autosave_on_timer)
+    {
+        return;
+    }
+
+    if ((int)lasteventtype == -1 || lasteventtype == evtype_Arrange)
     {
 		return;
     }

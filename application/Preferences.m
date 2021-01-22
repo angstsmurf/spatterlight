@@ -1269,6 +1269,7 @@ NSString *fontToString(NSFont *font) {
     _bZVerticalStepper.integerValue = theme.bZAdjustment;
 
     _btnAutosave.state = theme.autosave;
+    _btnAutosaveOnTimer.state = theme.autosaveOnTimer;
 
     if ([[NSFontPanel sharedFontPanel] isVisible] && selectedFontButton)
         [self showFontPanel:selectedFontButton];
@@ -2303,6 +2304,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [defaults setBool:NO forKey:@"OverwriteStylesAlertSuppression"];
     [defaults setBool:NO forKey:@"AutorestoreAlertSuppression"];
     [defaults setBool:NO forKey:@"closeAlertSuppression"];
+}
+
+- (IBAction)changeAutosaveOnTimer:(id)sender {
+    if (theme.autosaveOnTimer == [sender state])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.autosaveOnTimer = [sender state] ? YES : NO;
 }
 
 - (IBAction)changeAutosave:(id)sender {

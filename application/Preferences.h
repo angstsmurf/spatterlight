@@ -197,6 +197,9 @@ typedef enum kBZArrowsPrefsType : int32_t {
 @property (weak) IBOutlet NSButton *btnAutosave;
 - (IBAction)changeAutosave:(id)sender;
 
+@property (weak) IBOutlet NSButton *btnAutosaveOnTimer;
+- (IBAction)changeAutosaveOnTimer:(id)sender;
+
 - (IBAction)resetDialogs:(NSButton *)sender;
 
 @end

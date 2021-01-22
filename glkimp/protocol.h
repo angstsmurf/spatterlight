@@ -40,6 +40,7 @@ struct settings_struct
     int grid_foreground;
     int grid_background;
     float leading;
+    int do_styles;
     int force_arrange;
 };
 

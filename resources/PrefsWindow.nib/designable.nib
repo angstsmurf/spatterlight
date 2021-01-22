@@ -18,6 +18,7 @@
                 <outlet property="btnAdd" destination="905" id="909"/>
                 <outlet property="btnAdjustSize" destination="958" id="962"/>
                 <outlet property="btnAutosave" destination="a1n-Iy-dco" id="hBT-C6-3dY"/>
+                <outlet property="btnAutosaveOnTimer" destination="clv-YA-NP0" id="5gv-bA-BnD"/>
                 <outlet property="btnBufferFont" destination="546" id="747"/>
                 <outlet property="btnEnableGraphics" destination="580" id="763"/>
                 <outlet property="btnEnableSound" destination="579" id="764"/>
@@ -1106,17 +1107,6 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvQ-u1-9Rf">
-                                            <rect key="frame" x="178" y="88" width="113" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Reset alerts" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="561-WV-aip">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="resetDialogs:" target="-2" id="T7R-eM-scm"/>
-                                            </connections>
-                                        </button>
                                         <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1n-Iy-dco">
                                             <rect key="frame" x="139" y="141" width="178" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1126,6 +1116,28 @@
                                             </buttonCell>
                                             <connections>
                                                 <action selector="changeAutosave:" target="-2" id="Wdw-RK-mfu"/>
+                                            </connections>
+                                        </button>
+                                        <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="clv-YA-NP0">
+                                            <rect key="frame" x="139" y="118" width="175" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Autosave on timer events" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="JJt-62-HcI">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="changeAutosaveOnTimer:" target="-2" id="zPt-5X-50l"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvQ-u1-9Rf">
+                                            <rect key="frame" x="171" y="60" width="113" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="Reset alerts" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="561-WV-aip">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="resetDialogs:" target="-2" id="T7R-eM-scm"/>
                                             </connections>
                                         </button>
                                     </subviews>

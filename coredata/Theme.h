@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *name;
 @property (nonatomic) int32_t nohacks;
 @property (nonatomic) BOOL autosave;
+@property (nonatomic) BOOL autosaveOnTimer;
 @property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
 @property (nonatomic) int32_t spaceFormat;

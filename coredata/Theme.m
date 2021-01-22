@@ -53,6 +53,7 @@
 @dynamic name;
 @dynamic nohacks;
 @dynamic autosave;
+@dynamic autosaveOnTimer;
 @dynamic slowDrawing;
 @dynamic smartQuotes;
 @dynamic spaceFormat;

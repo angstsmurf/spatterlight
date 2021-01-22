@@ -94,6 +94,7 @@
     </entity>
     <entity name="Theme" representedClassName="Theme" syncable="YES">
         <attribute name="autosave" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="autosaveOnTimer" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="beepHigh" optional="YES" attributeType="String" defaultValueString="Glass" syncable="YES"/>
         <attribute name="beepLow" optional="YES" attributeType="String" defaultValueString="Pop" syncable="YES"/>
         <attribute name="border" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -180,6 +181,6 @@
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Metadata" positionX="160" positionY="192" width="128" height="495"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Theme" positionX="160" positionY="192" width="128" height="1213"/>
+        <element name="Theme" positionX="160" positionY="192" width="128" height="1228"/>
     </elements>
 </model>
