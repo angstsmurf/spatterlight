@@ -2511,24 +2511,6 @@ replacementString:(id)repl {
 }
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
-    NSString *fgstring, *bgstring;
-    if (fg == zcolor_Current) {
-        fgstring = @"zcolor_Current";
-    } else if (fg == zcolor_Default) {
-        fgstring = @"zcolor_Default";
-    } else {
-        fgstring = [NSString stringWithFormat:@"%lx", (long)fg];
-    }
-
-    if (bg == zcolor_Current) {
-        bgstring = @"zcolor_Current";
-    } else if (bg == zcolor_Default) {
-        bgstring = @"zcolor_Default";
-    } else {
-        bgstring = [NSString stringWithFormat:@"%lx", (long)bg];
-    }
-
-//    NSLog(@"bufwin %ld: setZColorText:%@ background:%@", self.name, fgstring, bgstring);
     if (currentZColor && !(currentZColor.fg == fg && currentZColor.bg == bg)) {
         currentZColor = nil;
     }
