@@ -1945,7 +1945,6 @@
     [self flushDisplay];
 
     [history reset];
-    [_textview resetTextFinder];
 
     if (self.terminatorsPending) {
         self.currentTerminators = self.pendingTerminators;
@@ -2304,8 +2303,6 @@ replacementString:(id)repl {
         storedNewline = nil;
         _lastchar = '\n';
     }
-
-    [_textview resetTextFinder];
 
     if (w == 0)
         w = (NSInteger)image.size.width;
