@@ -272,6 +272,9 @@ static const char *msgnames[] = {
     waitforfilename = NO;
     dead = YES; // This should be YES until the interpreter process is running
 
+    _newTimer = NO;
+    _newTimerInterval = 0.2;
+
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     windowdirty = NO;
@@ -672,17 +675,6 @@ static const char *msgnames[] = {
 
     GlkController * __unsafe_unretained weakSelf = self;
 
-    [[readpipe fileHandleForReading]
-     setReadabilityHandler:^(NSFileHandle *file) {
-         NSData *data = [file availableData];
-         GlkController *strongSelf = weakSelf;
-         if(strongSelf) {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [strongSelf noteDataAvailable:data];
-             });
-         }
-     }];
-
     [task setTerminationHandler:^(NSTask *aTask) {
         [aTask.standardOutput fileHandleForReading].readabilityHandler = nil;
         GlkController *strongSelf = weakSelf;
@@ -696,6 +688,37 @@ static const char *msgnames[] = {
     _queue = [[NSMutableArray alloc] init];
 
     [task launch];
+
+    _stopReadingPipe = NO;
+
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^(void){
+        //Background Thread
+        GlkController * strongSelf = weakSelf;
+        NSTimeInterval interval = 0.1;
+        [NSThread sleepForTimeInterval:interval];
+
+        while (strongSelf && !strongSelf.stopReadingPipe) {
+            if (pollMoreData(strongSelf->readfh.fileDescriptor)) {
+                NSData *data = [strongSelf->readfh availableData];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    //Run UI Updates
+                    [strongSelf noteDataAvailable:data];
+                });
+            }
+            [NSThread sleepForTimeInterval:interval];
+            if (strongSelf.newTimer) {
+                NSTimeInterval newinterval = strongSelf.newTimerInterval / 5;
+                if (newinterval != interval)
+                    NSLog(@"Set time interval to %f", newinterval);
+                if (newinterval == 0)
+                    newinterval = 0.1;
+                strongSelf.newTimer = NO;
+                interval = newinterval;
+            }
+            strongSelf = weakSelf;
+        }
+        NSLog(@"Stopped reading pipe");
+    });
     dead = NO;
 
     /* Send a prefs and an arrange event first thing */
@@ -1207,6 +1230,7 @@ static const char *msgnames[] = {
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
         readfh = nil;
         [task terminate];
+        _stopReadingPipe = YES;
         task = nil;
     }
 
@@ -1384,6 +1408,7 @@ static const char *msgnames[] = {
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
         readfh = nil;
         [task terminate];
+        _stopReadingPipe = YES;
     }
 
     [libcontroller releaseGlkControllerSoon:self];
@@ -2025,6 +2050,8 @@ static const char *msgnames[] = {
                                        selector:@selector(noteTimerTick:)
                                        userInfo:0
                                         repeats:YES];
+        _newTimer = YES;
+        _newTimerInterval = timer.timeInterval;
     }
 }
 
@@ -2264,11 +2291,19 @@ static const char *msgnames[] = {
 - (void)handleSoundNotification:(NSInteger)notify withSound:(NSInteger)sound {
     GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:notify withSound:sound];
     [self queueEvent:gev];
+    if (_newTimerInterval > 0.05) {
+        _newTimer = YES;
+        _newTimerInterval = 0.05;
+    }
 }
 
 - (void)handleVolumeNotification:(NSInteger)notify {
     GlkEvent *gev = [[GlkEvent alloc] initVolumeNotify:notify];
     [self queueEvent:gev];
+    if (_newTimerInterval > 0.05) {
+        _newTimer = YES;
+        _newTimerInterval = 0.05;
+    }
 }
 
 - (void)handleSetTerminatorsOnWindow:(GlkWindow *)gwindow
@@ -2948,6 +2983,14 @@ static NSString *signalToName(NSTask *task) {
     }
 }
 
+static BOOL pollMoreData(int fd) {
+    fd_set fdset;
+    struct timeval tmout = { 0, 0 }; // return immediately
+    FD_ZERO(&fdset);
+    FD_SET(fd, &fdset);
+    return (select(fd + 1, &fdset, NULL, NULL, &tmout) > 0);
+}
+
 - (void)noteTaskDidTerminate:(id)sender {
     NSLog(@"glkctl: noteTaskDidTerminate");
 
@@ -3034,6 +3077,7 @@ static NSString *signalToName(NSTask *task) {
     if (!data.length) {
         NSLog(@"Connection closed");
         [task terminate];
+        _stopReadingPipe = YES;
         return;
     }
 
@@ -3079,6 +3123,7 @@ again:
             if (!maxibuf) {
                 NSLog(@"glkctl: out of memory for message (%zu bytes)", request.len);
                 [task terminate];
+                _stopReadingPipe = YES;
                 return;
             }
             buf = maxibuf;

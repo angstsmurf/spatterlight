@@ -96,6 +96,10 @@
 @property BOOL ignoreResizes;
 @property BOOL startingInFullscreen;
 
+@property BOOL stopReadingPipe;
+@property BOOL newTimer;
+@property CGFloat newTimerInterval;
+
 @property(readonly) NSInteger firstResponderView;
 
 @property(readonly) NSMutableArray *queue;
