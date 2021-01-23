@@ -1849,8 +1849,6 @@ static const char *msgnames[] = {
     }];
 
     waitforfilename = NO; /* we're all done, resume normal processing */
-
-    [readfh waitForDataInBackgroundAndNotify];
 }
 
 - (void)handleSavePrompt:(int)fileusage {
@@ -1948,8 +1946,6 @@ static const char *msgnames[] = {
     }];
 
     waitforfilename = NO; /* we're all done, resume normal processing */
-
-    [readfh waitForDataInBackgroundAndNotify];
 }
 
 - (NSInteger)handleNewWindowOfType:(NSInteger)wintype andName:(NSInteger)name {
@@ -3019,7 +3015,6 @@ static NSString *signalToName(NSTask *task) {
     } else if (waitforevent) {
         [gevent writeEvent:sendfh.fileDescriptor];
         waitforevent = NO;
-        [readfh waitForDataInBackgroundAndNotify];
     } else {
         [_queue addObject:gevent];
     }
