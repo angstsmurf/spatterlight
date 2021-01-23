@@ -206,8 +206,8 @@ unsigned chartokeycode(unsigned ch) {
     reply.a3 = (int)_val2;
 
     if (_type == EVTPREFS) {
-        reply.a4 = (int)theme.doStyles;
-        reply.a5 = (int)theme.autosave;
+        reply.a4 = (int)theme.autosave;
+        reply.a5 = (int)theme.autosaveOnTimer;
     }
 
     if (_type == EVTARRANGE) {
@@ -228,6 +228,7 @@ unsigned chartokeycode(unsigned ch) {
         settings->buffer_background = [theme.bufferBackground integerColor];
         settings->grid_foreground = [theme.gridNormal.color integerColor];
         settings->grid_background = [theme.gridBackground integerColor];
+        settings->do_styles = (int)theme.doStyles;
         settings->force_arrange = _forced;
 
         reply.len = sizeof(struct settings_struct);

@@ -1270,6 +1270,7 @@ NSString *fontToString(NSFont *font) {
 
     _btnAutosave.state = theme.autosave;
     _btnAutosaveOnTimer.state = theme.autosaveOnTimer;
+    _btnAutosaveOnTimer.enabled = _btnAutosave.state ? YES : NO;
 
     if ([[NSFontPanel sharedFontPanel] isVisible] && selectedFontButton)
         [self showFontPanel:selectedFontButton];
@@ -2318,6 +2319,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.autosave = [sender state] ? YES : NO;
+    _btnAutosaveOnTimer.enabled = theme.autosave;
 }
 
 - (IBAction)changeOverwriteStyles:(id)sender {
