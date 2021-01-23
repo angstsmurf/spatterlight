@@ -1812,7 +1812,9 @@ void gli_sanity_check_streams()
             case strtype_Window: {
                 if (!str->win) {
                     fprintf(stderr, "sanity_check: window stream %d has no window\n", str->tag);
-                    gli_delete_stream(str);
+                    stream_t *old_stream = str;
+                    str = glk_stream_iterate(str, NULL);
+                    gli_delete_stream(old_stream);
                 } else if (!str->win->str) {
                     fprintf(stderr, "sanity_check: window of window stream has no stream\n");
                 }
@@ -1824,6 +1826,7 @@ void gli_sanity_check_streams()
                         fprintf(stderr, "str(%d)->win(%d)->echostr: %d\n",str->tag, str->win->tag, str->win->echostr->tag);
                     fprintf(stderr, "Deleting.\n");
                     gli_delete_stream(str);
+                    str = NULL;
                 }
             }
                 break;

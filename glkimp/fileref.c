@@ -351,9 +351,9 @@ void gli_replace_fileref_list(fileref_t *newlist) /* Only used by autorestore */
     while (gli_filereflist)
     {
         fref = gli_filereflist;
+        gli_filereflist = gli_filereflist->next;
         glk_fileref_destroy(fref);
     }
-
     gli_filereflist = newlist;
 }
 
