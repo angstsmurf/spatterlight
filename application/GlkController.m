@@ -3887,6 +3887,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     for (GlkWindow *view in _gwindows.allValues) {
         if (!view.moveRanges || !view.moveRanges.count) {
             // Remove all GlkTextBufferWindow objects with no list of previous moves
+            if (!_quoteBoxes && ([view isKindOfClass:[GlkTextBufferWindow class]] && ((GlkTextBufferWindow *)view).quoteBox))
             [windowsWithMoves removeObject:view];
         }
     }

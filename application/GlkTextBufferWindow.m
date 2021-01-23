@@ -2898,14 +2898,12 @@ replacementString:(id)repl {
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
     if (self.glkctl.form)
         [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.form];
-    if (!self.moveRanges.count)
-        return;
-    moveRangeIndex = self.moveRanges.count - 1;
-    NSString *str = [self stringFromRangeVal:self.moveRanges.lastObject];
 
-    if (!str.length) {
-        [self.glkctl speakString:@"No last move to speak"];
-        return;
+    NSString *str = @"";
+
+    if (self.moveRanges.count) {
+        moveRangeIndex = self.moveRanges.count - 1;
+        str = [self stringFromRangeVal:self.moveRanges.lastObject];
     }
 
     if (self.glkctl.quoteBoxes.count) {
@@ -2914,6 +2912,12 @@ replacementString:(id)repl {
         str = [box.textview.string stringByAppendingString:str];
         str = [@"QUOTE: \n\n" stringByAppendingString:str];
     }
+
+    if (!str.length) {
+        [self.glkctl speakString:@"No last move to speak"];
+        return;
+    }
+
     [self.glkctl speakString:str];
 }
 
