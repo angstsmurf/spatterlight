@@ -4090,6 +4090,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)win;
             NSTextView *textview = bufWin.textview;
             NSString *string = textview.string;
+            string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
                 if (bufWin.moveRanges.count) {
                     NSRange range = bufWin.moveRanges.lastObject.rangeValue;
@@ -4097,12 +4098,15 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                 }
             }
 
-            if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
+            if (string.length && (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText])) {
                 [children addObject:textview];
                 [strings addObject:string.copy];
             }
         }
     }
+
+    if (!children.count)
+        return nil;
 
     NSUInteger currentItemIndex = [children indexOfObject:currentItemResult.targetElement];
 
