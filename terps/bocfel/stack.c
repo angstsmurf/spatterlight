@@ -1274,7 +1274,7 @@ static void trim_saves(enum save_type type, long n)
 {
   struct save_stack *s = &save_stacks[type];
 
-  while(n-- > 0 && s->count > 0)
+  while(n-- > 0 && s->count > 0 && s->head)
   {
     struct save_state *tmp = s->head;
 
