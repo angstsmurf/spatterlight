@@ -453,10 +453,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
         if (str.type == strtype_Resource)
             [str updateResource];
 
-    gli_repopulate_sound_channels_array();
-    for (TempSChannel *chan in _schannels)
-        [chan restartInternal];
-
     gli_sanity_check_windows();
     gli_sanity_check_streams();
     gli_sanity_check_filerefs();

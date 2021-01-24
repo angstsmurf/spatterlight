@@ -531,6 +531,11 @@
 		C30F436C25A53DD000B8D74B /* spatterlight-autosave.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F436925A53DD000B8D74B /* spatterlight-autosave.m */; };
 		C30F8E921ED7153B005E6863 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		C30F8E931ED7153E005E6863 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
+		C311866825BD3B1800739D7B /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = C311866725BD3B1800739D7B /* sound.c */; };
+		C31186DB25BD500800739D7B /* GlkSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C31186D925BD500700739D7B /* GlkSoundChannel.m */; };
+		C311873625BD6C7B00739D7B /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813941ED83DF8001E49C4 /* SDL2.framework */; };
+		C311873725BD6C7F00739D7B /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813931ED83DF0001E49C4 /* SDL2_mixer.framework */; };
+		C311875325BD8F1E00739D7B /* AudioResourceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C311875225BD8F1E00739D7B /* AudioResourceHandler.m */; };
 		C32036E51ED7738700FF60DF /* libglkimp.dylib in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C33B4504257E84500017EA26 /* ZMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C33B4502257E84500017EA26 /* ZMenu.m */; };
 		C343E4861ECC5E81000F15B6 /* osportable.cc in Sources */ = {isa = PBXBuildFile; fileRef = C343E4851ECC5E81000F15B6 /* osportable.cc */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -555,7 +560,6 @@
 		C381012A1EDA297E00B87B68 /* GlkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38101291EDA297E00B87B68 /* GlkController.m */; };
 		C39DE2601ECB76A100CE5B70 /* glk.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE25F1ECB76A100CE5B70 /* glk.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39DE2621ECB76C400CE5B70 /* bitmap.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2611ECB76C400CE5B70 /* bitmap.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C3B2FB141ECEE4B700826C9D /* sndsdl.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B2FB131ECEE4B700826C9D /* sndsdl.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3B3773E1ECB99C0006432BE /* osstzprs.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773D1ECB99BF006432BE /* osstzprs.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3B377401ECB99D6006432BE /* ostzposix.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B3773F1ECB99D6006432BE /* ostzposix.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3B3775C1ECBA060006432BE /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3775B1ECBA060006432BE /* md5.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -2451,6 +2455,11 @@
 		C30F436925A53DD000B8D74B /* spatterlight-autosave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "spatterlight-autosave.m"; path = "bocfel-spatterlight/spatterlight-autosave.m"; sourceTree = "<group>"; };
 		C30F436A25A53DD000B8D74B /* spatterlight-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "spatterlight-autosave.h"; path = "bocfel-spatterlight/spatterlight-autosave.h"; sourceTree = "<group>"; };
 		C30F438425A5508100B8D74B /* library_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = library_state.h; sourceTree = "<group>"; };
+		C311866725BD3B1800739D7B /* sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
+		C31186D925BD500700739D7B /* GlkSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkSoundChannel.m; sourceTree = "<group>"; };
+		C31186DA25BD500700739D7B /* GlkSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkSoundChannel.h; sourceTree = "<group>"; };
+		C311875125BD8F1E00739D7B /* AudioResourceHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioResourceHandler.h; sourceTree = "<group>"; };
+		C311875225BD8F1E00739D7B /* AudioResourceHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioResourceHandler.m; sourceTree = "<group>"; };
 		C33B4502257E84500017EA26 /* ZMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMenu.m; sourceTree = "<group>"; };
 		C33B4503257E84500017EA26 /* ZMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMenu.h; sourceTree = "<group>"; };
 		C343E4851ECC5E81000F15B6 /* osportable.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = osportable.cc; sourceTree = "<group>"; };
@@ -2478,7 +2487,6 @@
 		C39DE2611ECB76C400CE5B70 /* bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitmap.c; path = terps/level9/bitmap.c; sourceTree = SOURCE_ROOT; };
 		C39DE2631ECB799500CE5B70 /* heglk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heglk.c; path = heglk/heglk.c; sourceTree = "<group>"; };
 		C3A2C66421C0D3F6003C4A15 /* SDL */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SDL; path = headers/SDL; sourceTree = SOURCE_ROOT; };
-		C3B2FB131ECEE4B700826C9D /* sndsdl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sndsdl.c; sourceTree = "<group>"; };
 		C3B3773D1ECB99BF006432BE /* osstzprs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstzprs.c; path = tads2/osstzprs.c; sourceTree = "<group>"; };
 		C3B3773F1ECB99D6006432BE /* ostzposix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ostzposix.c; path = tads2/ostzposix.c; sourceTree = "<group>"; };
 		C3B3775B1ECBA060006432BE /* md5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = md5.cpp; sourceTree = "<group>"; };
@@ -2588,6 +2596,8 @@
 				96A9BBDA0A066F41001B5B9B /* libbabel.a in Frameworks */,
 				6D76780022B17AB200C80DDE /* QuartzCore.framework in Frameworks */,
 				6D5C1BD222BC2456009E03F2 /* CoreData.framework in Frameworks */,
+				C311873625BD6C7B00739D7B /* SDL2.framework in Frameworks */,
+				C311873725BD6C7F00739D7B /* SDL2_mixer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3463,7 +3473,7 @@
 				961CCE8F09F2381B00528FF9 /* image.c */,
 				961CCE9009F2381B00528FF9 /* main.c */,
 				961CCE9109F2381B00528FF9 /* misc.c */,
-				C3B2FB131ECEE4B700826C9D /* sndsdl.c */,
+				C311866725BD3B1800739D7B /* sound.c */,
 				961CCE9409F2381B00528FF9 /* stream.c */,
 				961CCE9509F2381B00528FF9 /* stylehint.c */,
 				961CCE9609F2381B00528FF9 /* window.c */,
@@ -3482,6 +3492,7 @@
 				6D212739246BDC5B00D775A8 /* Categories */,
 				961CCEDF09F239E700528FF9 /* main.h */,
 				961CCEE009F239E700528FF9 /* main.m */,
+				C31186F225BD514B00739D7B /* Sound */,
 				6DBC471721D270B100A20E28 /* Compatibility.h */,
 				6DBC471821D2752000A20E28 /* Compatibility.m */,
 				961CCEDD09F239E700528FF9 /* AppDelegate.h */,
@@ -4768,6 +4779,17 @@
 			path = "Input related classes";
 			sourceTree = "<group>";
 		};
+		C31186F225BD514B00739D7B /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				C311875125BD8F1E00739D7B /* AudioResourceHandler.h */,
+				C311875225BD8F1E00739D7B /* AudioResourceHandler.m */,
+				C31186DA25BD500700739D7B /* GlkSoundChannel.h */,
+				C31186D925BD500700739D7B /* GlkSoundChannel.m */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
 		C3A2C66321C0D3AA003C4A15 /* headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -5467,13 +5489,13 @@
 				961CCE9D09F2383F00528FF9 /* gi_dispa.c in Sources */,
 				961CCE9F09F2383F00528FF9 /* image.c in Sources */,
 				C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */,
+				C311866825BD3B1800739D7B /* sound.c in Sources */,
 				961CCEA109F2383F00528FF9 /* misc.c in Sources */,
 				961CCEA309F2383F00528FF9 /* stream.c in Sources */,
 				961CCEA409F2383F00528FF9 /* stylehint.c in Sources */,
 				961CCEA509F2383F00528FF9 /* window.c in Sources */,
 				96264AC50A494A5E0093569C /* cgunicod.c in Sources */,
 				C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */,
-				C3B2FB141ECEE4B700826C9D /* sndsdl.c in Sources */,
 				6DB6B51A219E31BF0039D2D7 /* fileref.m in Sources */,
 				6D79CFD3222A86A600363B08 /* TempLibrary.m in Sources */,
 				6D79CFD7222AA71100363B08 /* TempFileRef.m in Sources */,
@@ -5503,7 +5525,9 @@
 				96A9C0F00A07AE17001B5B9B /* LibController.m in Sources */,
 				96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */,
 				961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */,
+				C31186DB25BD500800739D7B /* GlkSoundChannel.m in Sources */,
 				961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */,
+				C311875325BD8F1E00739D7B /* AudioResourceHandler.m in Sources */,
 				C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */,
 				C381012A1EDA297E00B87B68 /* GlkController.m in Sources */,
 				961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */,
@@ -6631,6 +6655,11 @@
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks",
+					"\"$(SRCROOT)/Frameworks/SDL2_mixer.framework/Frameworks\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
@@ -6680,6 +6709,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/SDL2_mixer.framework/Versions/A/Frameworks",
+					"\"$(SRCROOT)/Frameworks/SDL2_mixer.framework/Frameworks\"",
+				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_OPTIMIZATION_LEVEL = 3;

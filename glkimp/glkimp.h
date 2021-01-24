@@ -109,6 +109,16 @@ void win_stylehint(int type, int styl, int hint, int val);
 void win_clearhint(int type, int styl, int hint);
 int win_style_measure(int name, int styl, int hint, glui32 *result);
 
+int win_newchan(glui32 volume);
+void win_delchan(int chan);
+void win_setvolume(int chan, int vol, int duration, int notify);
+int  win_findsound(int resno);
+void win_loadsound(int resno, char *filename, int offset, int reslen);
+void win_playsound(int chan, int repeats, int notify);
+void win_stopsound(int chan);
+void win_pause(int chan);
+void win_unpause(int chan);
+
 void win_sound_notify(int snd, int notify);
 void win_volume_notify(int notify);
 void win_autosave(int hash);
@@ -116,9 +126,6 @@ void win_setzcolor(int name, glsi32 fg, glsi32 bg);
 void win_setreverse(int name, int reverse);
 void win_quotebox(int name, int height);
 void win_reset(void);
-
-
-
 
 
 /* unicode case mapping */
@@ -381,9 +388,6 @@ fileref_t *gli_fileref_for_tag(int tag);
 extern void gli_replace_schan_list(channel_t *chan);
 channel_t *gli_schan_for_tag(int tag);
 
-extern void gli_initialize_sound(void);
-extern void gli_repopulate_sound_channels_array(void);
-
 extern void gli_sanity_check_windows(void);
 extern void gli_sanity_check_streams(void);
 extern void gli_sanity_check_filerefs(void);
@@ -411,8 +415,6 @@ extern glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen,
 
 extern glui32 generate_tag(void);
 
-extern void gli_set_sound_resource(glui32 snd, int type, void *data, size_t length, char *filename, size_t offset);
-extern glui32 gli_detect_sound_format(char *buf, size_t len);
 extern void gli_stop_all_sound_channels(void);
 
 
@@ -424,28 +426,7 @@ struct glk_schannel_struct
     glui32 magicnum;
     glui32 rock;
 
-    void *sample; /* Mix_Chunk (or FMOD Sound) */
-    void *music; /* Mix_Music (or FMOD Music) */
-
-    void *sdl_rwops; /* SDL_RWops */
-    unsigned char *sdl_memory;
-    int sdl_channel;
-
-    int resid; /* for notifies */
-    int status;
-    int channel;
-    int volume;
-    glui32 loop;
-    int notify;
-    int paused;
-
-    /* for volume fades */
-    int volume_notify;
-    int volume_timeout;
-    int target_volume;
-    double float_volume;
-    double volume_delta;
-    SDL_TimerID timer;
+    int peer;
 
     int tag; /* for serialization */
     

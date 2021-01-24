@@ -368,6 +368,7 @@ void win_beep(int type)
     sendmsg(BEEP, type, 0, 0, 0, 0, 0, NULL);
 }
 
+
 void win_timer(int millisecs)
 {
     win_flush();
@@ -536,6 +537,83 @@ void win_drawimage(int name, glui32 val1, glui32 val2, glui32 width, glui32 heig
     }
 }
 
+int win_newchan(glui32 volume)
+{
+    win_flush();
+    if (!gli_enable_sound)
+    return 0;
+    sendmsg(NEWCHAN, volume, 0, 0, 0, 0, 0, NULL);
+    readmsg(&wmsg, wbuf);
+    return wmsg.a1;
+}
+
+void win_delchan(int chan)
+{
+    win_flush();
+    sendmsg(DELCHAN, chan, 0, 0, 0, 0, 0, NULL);
+}
+
+int win_findsound(int resno)
+{
+    win_flush();
+    if (!gli_enable_sound)
+    return 0;
+    sendmsg(FINDSOUND, resno, 0, 0, 0, 0, 0, NULL);
+    readmsg(&wmsg, wbuf);
+    return wmsg.a1;
+}
+
+void win_loadsound(int resno, char *filename, int offset, int reslen)
+{
+    fprintf(stderr, "win_loadsound resno %d filename %s\n", resno, filename);
+    win_flush();
+    if (gli_enable_sound)
+
+    {
+        int len = strlen(filename);
+        if (len)
+        {
+            char *buf = malloc(len + 1);
+            strcpy(buf, filename);
+            sendmsg(LOADSOUND, resno, offset, reslen, 0, 0, len, buf);
+            free(buf);
+        }
+    }
+}
+
+void win_setvolume(int chan, int vol, int duration, int notify)
+{
+    win_flush();
+    sendmsg(SETVOLUME, chan, vol, duration, notify, 0, 0, NULL);
+}
+
+void win_playsound(int chan, int repeats, int notify)
+{
+    fprintf(stderr, "win_playsound chan %d\n", chan);
+
+    win_flush();
+    if (gli_enable_sound)
+    sendmsg(PLAYSOUND, chan, repeats, notify, 0, 0, 0, NULL);
+}
+
+void win_stopsound(int chan)
+{
+    win_flush();
+    sendmsg(STOPSOUND, chan, 0, 0, 0, 0, 0, NULL);
+}
+
+void win_pause(int chan)
+{
+    win_flush();
+    sendmsg(PAUSE, chan, 0, 0, 0, 0, 0, NULL);
+}
+
+void win_unpause(int chan)
+{
+    win_flush();
+    sendmsg(UNPAUSE, chan, 0, 0, 0, 0, 0, NULL);
+}
+
 void win_stylehint(int wintype, int styl, int hint, int val)
 {
     win_flush();
@@ -569,6 +647,7 @@ void win_setbgnd(int name, glui32 color)
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
 
+//void win_sound_notify(glui32 snd, glui32 notify)
 void win_sound_notify(int snd, int notify)
 {
 #ifdef DEBUG

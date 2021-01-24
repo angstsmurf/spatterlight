@@ -4,16 +4,19 @@
  * An NSWindowController that controls the game window,
  * talks with the interpreter process,
  * handles global glk commands,
- * dispatches window commands,
+ * dispatches sound channel and window commands,
  * queues events for sending to the interpreter.
  *
+ * TODO: cache resources (in raw format) so findimage/findsound
+ *       will succeed for more than just the last one uploaded.
  */
 
 #import <QuartzCore/QuartzCore.h>
 
-@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow;
+@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, AudioResourceHandler;
 
 #define MAXWIN 64
+#define MAXSND 32
 
 @interface GlkHelperView : NSView {
 }
@@ -52,9 +55,11 @@
     /* the glk objects */
     BOOL windowdirty; /* the contentView needs to repaint */
 
-    /* image resource uploading protocol */
+    /* image/sound resource uploading protocol */
     NSInteger lastimageresno;
+    NSInteger lastsoundresno;
     NSCache *imageCache;
+
     NSImage *lastimage;
 
     GlkController *restoredController;
@@ -73,6 +78,8 @@
 }
 
 @property NSMutableDictionary *gwindows;
+@property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *gchannels;
+@property AudioResourceHandler *audioResourceHandler;
 @property NSMutableArray *windowsToBeAdded;
 @property NSMutableArray *windowsToBeRemoved;
 @property IBOutlet NSView *borderView;
@@ -181,6 +188,9 @@
 - (void)restoreScrollOffsets;
 - (void)adjustContentView;
 - (void)cleanup;
+
+- (void)handleSoundNotification:(NSInteger)notify withSound:(NSInteger)sound;
+- (void)handleVolumeNotification:(NSInteger)notify;
 
 - (IBAction)speakMostRecent:(id)sender;
 - (IBAction)speakPrevious:(id)sender;
