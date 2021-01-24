@@ -390,8 +390,8 @@ static const char *msgnames[] = {
     }
 
     if ([terpAutosaveDate compare:GUIAutosaveDate] == NSOrderedDescending) {
-        NSLog(@"GUI autosave file is created before terp autosave file! Bailing autorestore!");
-        restoredController = nil;
+        NSLog(@"GUI autosave file is created before terp autosave file!");
+//        restoredController = nil;
     }
 
     restoredControllerLate = restoredController;
@@ -475,11 +475,11 @@ static const char *msgnames[] = {
         if (tempLib.autosaveTag != restoredController.autosaveTag) {
             NSLog(@"The terp autosave and the GUI autosave have non-matching tags.");
             NSLog(@"The terp autosave tag: %u GUI autosave tag: %ld", tempLib.autosaveTag, restoredController.autosaveTag);
-
-            NSLog(@"Only restore UI state at first turn");
-            [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
-                                 [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
-            restoredUIOnly = YES;
+            NSLog(@"Trying to autorestore anyway");
+//            NSLog(@"Only restore UI state at first turn");
+//            [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
+//                                 [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
+//            restoredUIOnly = YES;
         } else {
             // Only show the alert about autorestoring if this is not a system
             // window restoration, and the user has not suppressed it.
@@ -1048,6 +1048,7 @@ static const char *msgnames[] = {
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-tmp.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-late.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }
@@ -1255,11 +1256,25 @@ static const char *msgnames[] = {
 
     _autosaveTag = hash;
 
+    NSString *tmplibpath =
+    [self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-tmp.plist"];
+
     NSInteger res = [NSKeyedArchiver archiveRootObject:self
-                                                toFile:self.autosaveFileGUI];
+                                                toFile:tmplibpath];
 
     if (!res) {
         NSLog(@"Window serialize failed!");
+        return;
+    }
+
+    /* This is not really atomic, but we're already past the serious failure modes. */
+    [[NSFileManager defaultManager] removeItemAtPath:self.autosaveFileGUI error:nil];
+
+    NSError *error;
+    res = [[NSFileManager defaultManager] moveItemAtPath:tmplibpath
+                                                  toPath:self.autosaveFileGUI error:&error];
+    if (!res) {
+        NSLog(@"could not move window autosave to final position! %@", error);
         return;
     }
 
@@ -3029,6 +3044,8 @@ static BOOL pollMoreData(int fd) {
     [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileTerp],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"]],
+                         [NSURL fileURLWithPath:[self.appSupportDir
+                             stringByAppendingPathComponent:@"autosave-GUI-tmp.plist"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]],
                          [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]] ]];
 }
