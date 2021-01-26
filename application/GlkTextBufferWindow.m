@@ -2215,7 +2215,8 @@ replacementString:(id)repl {
         [newFinder performAction:NSTextFinderActionShowFindInterface];
         NSSearchField *searchField = [self findSearchFieldIn:self];
         if (searchField) {
-            searchField.stringValue = _restoredSearch;
+            if (_restoredSearch)
+                searchField.stringValue = _restoredSearch;
             [newFinder cancelFindIndicator];
             [self.glkctl.window makeFirstResponder:_textview];
             [searchField sendAction:searchField.action to:searchField.target];
@@ -2225,7 +2226,6 @@ replacementString:(id)repl {
 }
 
 - (void)destroyTextFinder {
-
     NSView *aView = [self findSearchFieldIn:scrollview];
     if (aView) {
         while (aView.superview != scrollview)
