@@ -48,6 +48,30 @@
 
 - (void)mouseDown:(NSEvent *)theEvent {
     [(GlkTextGridWindow *)self.delegate myMouseDown:theEvent];
+    mouseTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                                   target:self
+                                                 selector:@selector(mouseWasHeld:)
+                                                 userInfo:theEvent
+                                                  repeats:NO];
+    mouseDownSelection = self.selectedRange;
+}
+
+- (void)mouseUp: (NSEvent *)theEvent {
+    if (mouseTimer)
+        self.selectedRange = NSMakeRange(mouseDownSelection.location, 0);
+    [mouseTimer invalidate];
+    mouseTimer = nil;
+}
+
+- (void)mouseWasHeld: (NSTimer *)tim {
+    NSEvent * mouseDownEvent = [tim userInfo];
+    mouseTimer = nil;
+    [super mouseDown:mouseDownEvent];
+}
+
+- (void)superMouseDown:(NSEvent *)theEvent {
+    [mouseTimer invalidate];
+    mouseTimer = nil;
     [super mouseDown:theEvent];
 }
 
@@ -604,10 +628,6 @@
 
     NSUInteger r;
 
-    if (self.framePending && NSEqualRects(self.pendingFrame, frame) && NSEqualRects(self.frame, frame)) {
-        return;
-    }
-
     self.framePending = YES;
     self.pendingFrame = frame;
 
@@ -1112,6 +1132,7 @@
                gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
                 [self.glkctl queueEvent:gev];
                 mouse_request = NO;
+                return YES;
             }
         }
         return NO;
@@ -1173,7 +1194,7 @@
         }
     } else {
         //                NSLog(@"No hyperlink request or mouse request in grid window %ld", self.name);
-        [super mouseDown:theEvent];
+        [_textview superMouseDown:theEvent];
     }
     return NO;
 }

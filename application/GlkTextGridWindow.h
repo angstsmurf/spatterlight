@@ -4,7 +4,12 @@
 
 @class InputTextField, InputHistory;
 
-@interface MyGridTextView : NSTextView <NSAccessibilityNavigableStaticText>
+@interface MyGridTextView : NSTextView <NSAccessibilityNavigableStaticText> {
+    NSTimer *mouseTimer;
+    NSRange mouseDownSelection;
+}
+
+- (void)superMouseDown:(NSEvent *)theEvent;
 
 @end
 
