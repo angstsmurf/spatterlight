@@ -174,8 +174,9 @@
                 NSLog(@"Could not read sound resource from file %@, length %ld, offset %ld\n",resource.filename.path, resource.length, resource.offset);
                 return 0;
             }
-        }
-    }
+        } else return 0;
+    } else if (*buf == nil || *len == 0)
+        return 0;
 
     [self setSoundResource:(NSInteger)snd type:type data:[NSData dataWithBytes:*buf length:*len] length:*len filename:nil offset:0];
 

@@ -2633,8 +2633,10 @@ static const char *msgnames[] = {
         case FINDSOUND:
             ans->cmd = OKAY;
             ans->a1 = [self handleFindSoundNumber:req->a1];
-            if (ans->a1 == 1)
+            if (ans->a1 == 1) {
                 lastsoundresno = req->a1;
+            } else { lastsoundresno = -1;
+            }
             break;
 
         case LOADIMAGE:
@@ -3222,6 +3224,8 @@ again:
     buf = minibuf;
     maxibuf = NULL;
 
+    if (!pollMoreData(readfd))
+        return;
     n = read(readfd, &request, sizeof(struct message));
     if (n < (ssize_t)sizeof(struct message))
     {
