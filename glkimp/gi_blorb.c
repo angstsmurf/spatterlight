@@ -262,6 +262,9 @@ static giblorb_err_t giblorb_initialize_map(giblorb_map_t *map)
                 ptr = chunkres.data.ptr;
                 len = chunkres.length;
                 numres = giblorb_native4(ptr+0);
+
+                if (numres & 0xF0000000)
+                    return giblorb_err_Format; /* that can't be right */
                 
                 if (numres) {
                     int ix2;

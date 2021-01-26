@@ -290,12 +290,6 @@ static void spatterglk_game_autorestore()
 
         [newlib updateFromLibrary];
         recover_library_state((LibraryState *)newlib.extraData);
-
-        giblorb_err_t err;
-        err = giblorb_set_resource_map(gamefile);
-        if (err) {
-             NSLog(@"Could not set resource map from gamefile.");
-        }
         
         [newlib updateFromLibraryLate];
         
@@ -656,6 +650,16 @@ static void recover_library_state(LibraryState *library_state)
                 gamefile = gli_stream_for_tag(library_state.gamefiletag);
                 if (!gamefile)
                     NSLog(@"### Could not find game file stream, tag %d",library_state.gamefiletag);
+                if (giblorb_get_resource_map()) {
+                             /* It's inefficient to throw away the blorb chunk map, which we just loaded, and then recreate it. Oh well. */
+                             giblorb_err_t err;
+                             err = giblorb_unset_resource_map();
+                             if (err)
+                                 fatal_error("Unable to clear blorb map");
+                             err = giblorb_set_resource_map(gamefile);
+                             if (err)
+                                 fatal_error("Unable to reset blorb map");
+                         }
             }
             else NSLog(@"spatterglk_library_unarchive: no gamefiletag!");
 

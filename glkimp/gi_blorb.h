@@ -93,6 +93,7 @@ extern giblorb_err_t giblorb_load_image_info(giblorb_map_t *map,
  are necessarily implemented in platform-dependent code. 
  */
 extern giblorb_err_t giblorb_set_resource_map(strid_t file);
+extern giblorb_err_t giblorb_unset_resource_map(void);
 extern giblorb_map_t *giblorb_get_resource_map(void);
 
 #endif /* _GI_BLORB_H */

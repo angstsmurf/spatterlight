@@ -28,6 +28,20 @@ giblorb_err_t giblorb_set_resource_map(strid_t file)
 	return giblorb_err_None;
 }
 
+giblorb_err_t giblorb_unset_resource_map()
+{
+    if (blorbmap) {
+        giblorb_err_t err;
+        err = giblorb_destroy_map(blorbmap);
+        if (err) {
+            return err;
+        }
+        blorbmap = 0; /* NULL */
+    }
+    
+    return giblorb_err_None;
+}
+
 giblorb_map_t *giblorb_get_resource_map()
 {
 	return blorbmap;

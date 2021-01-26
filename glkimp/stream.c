@@ -312,6 +312,8 @@ strid_t glk_stream_open_file_uni(fileref_t *fref, glui32 fmode,
                                  glui32 rock)
 {
     strid_t str = glk_stream_open_file(fref, fmode, rock);
+    if (!str)
+        return NULL;
     /* Unlovely, but it works in this library */
     str->unicode = TRUE;
     return str;
