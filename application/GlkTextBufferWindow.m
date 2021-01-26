@@ -2374,13 +2374,11 @@ replacementString:(id)repl {
 
 - (void)initHyperlink {
     hyper_request = YES;
-    _textview.editable = YES;
     //    NSLog(@"txtbuf: hyperlink event requested");
 }
 
 - (void)cancelHyperlink {
     hyper_request = NO;
-    _textview.editable = NO;
     //    NSLog(@"txtbuf: hyperlink event cancelled");
 }
 
@@ -2432,7 +2430,6 @@ replacementString:(id)repl {
     [self.glkctl queueEvent:gev];
 
     hyper_request = NO;
-    _textview.editable = NO;
     [self colderLightHack];
     return YES;
 }
