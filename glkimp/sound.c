@@ -89,7 +89,6 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
     
     chan->rock = rock;
     chan->peer = win_newchan(volume);
-    fprintf(stderr, "new sound channel with peer number %d\n", chan->peer);
     if (chan->peer == -1)
     {
         free(chan);
