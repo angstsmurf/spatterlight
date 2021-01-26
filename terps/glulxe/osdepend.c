@@ -14,7 +14,7 @@
    symbol. Code contributions welcome. 
 */
 
-/*#ifdef OS_UNIX*/
+#ifdef OS_UNIX
 
 #include <time.h>
 #include <stdlib.h>
@@ -54,7 +54,7 @@ glui32 glulx_random()
   return (random() << 16) ^ random();
 }
 
-/*#endif*/ /* OS_UNIX */
+#endif /* OS_UNIX */
 
 #ifdef OS_MAC
 

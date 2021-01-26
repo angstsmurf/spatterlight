@@ -424,7 +424,7 @@ glui32 perform_save(strid_t str)
  
    If fromshell is true, the restore is being invoked by the library
    shell (an autorestore of some kind). This currently happens only in
-   iosglk.
+   iosglk and remglk.
 */
 glui32 perform_restore(strid_t str, int fromshell)
 {

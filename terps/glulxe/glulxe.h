@@ -100,9 +100,11 @@ typedef int16_t glsi16;
 #if VERIFY_MEMORY_ACCESS
 #define Verify(adr, ln) verify_address(adr, ln)
 #define VerifyW(adr, ln) verify_address_write(adr, ln)
+#define VerifyStk(adr, ln) verify_address_stack(adr, ln)
 #else
 #define Verify(adr, ln) (0)
 #define VerifyW(adr, ln) (0)
+#define VerifyStk(adr, ln) (0)
 #endif /* VERIFY_MEMORY_ACCESS */
 
 #define Mem1(adr)  (Verify(adr, 1), Read1(memmap+(adr)))
@@ -119,18 +121,18 @@ typedef int16_t glsi16;
    degradation or even crashes, depending on the machine CPU. */
 
 #define Stk1(adr)   \
-  (*((unsigned char *)(stack+(adr))))
+  (VerifyStk(adr, 1), *((unsigned char *)(stack+(adr))))
 #define Stk2(adr)   \
-  (*((glui16 *)(stack+(adr))))
+  (VerifyStk(adr, 2), *((glui16 *)(stack+(adr))))
 #define Stk4(adr)   \
-  (*((glui32 *)(stack+(adr))))
+  (VerifyStk(adr, 4), *((glui32 *)(stack+(adr))))
 
 #define StkW1(adr, vl)   \
-  (*((unsigned char *)(stack+(adr))) = (unsigned char)(vl))
+  (VerifyStk(adr, 1), *((unsigned char *)(stack+(adr))) = (unsigned char)(vl))
 #define StkW2(adr, vl)   \
-  (*((glui16 *)(stack+(adr))) = (glui16)(vl))
+  (VerifyStk(adr, 2), *((glui16 *)(stack+(adr))) = (glui16)(vl))
 #define StkW4(adr, vl)   \
-  (*((glui32 *)(stack+(adr))) = (glui32)(vl))
+  (VerifyStk(adr, 4), *((glui32 *)(stack+(adr))) = (glui32)(vl))
 
 /* Some useful structures. */
 
@@ -195,9 +197,12 @@ extern void nonfatal_warning_handler(char *str, char *arg, int useval, glsi32 va
 #define fatal_error(s)  (fatal_error_handler((s), NULL, FALSE, 0))
 #define fatal_error_2(s1, s2)  (fatal_error_handler((s1), (s2), FALSE, 0))
 #define fatal_error_i(s, v)  (fatal_error_handler((s), NULL, TRUE, (v)))
-#define nonfatal_warning(s) (nonfatal_warning_handler((s), NULL, FALSE, 0))
-#define nonfatal_warning_2(s1, s2) (nonfatal_warning_handler((s1), (s2), FALSE, 0))
-#define nonfatal_warning_i(s, v) (nonfatal_warning_handler((s), NULL, TRUE, (v)))
+//#define nonfatal_warning(s) (nonfatal_warning_handler((s), NULL, FALSE, 0))
+//#define nonfatal_warning_2(s1, s2) (nonfatal_warning_handler((s1), (s2), FALSE, 0))
+//#define nonfatal_warning_i(s, v) (nonfatal_warning_handler((s), NULL, TRUE, (v)))
+#define nonfatal_warning(s)
+#define nonfatal_warning_2(s1, s2)
+#define nonfatal_warning_i(s, v)
 
 /* files.c */
 extern int is_gamefile_valid(void);
@@ -211,6 +216,7 @@ extern glui32 change_memsize(glui32 newlen, int internal);
 extern glui32 *pop_arguments(glui32 count, glui32 addr);
 extern void verify_address(glui32 addr, glui32 count);
 extern void verify_address_write(glui32 addr, glui32 count);
+extern void verify_address_stack(glui32 stackpos, glui32 count);
 extern void verify_array_addresses(glui32 addr, glui32 count, glui32 size);
 
 /* exec.c */
@@ -288,7 +294,7 @@ extern void glulx_sort(void *addr, int count, int size,
 extern glui32 do_gestalt(glui32 val, glui32 val2);
 
 /* glkop.c */
-extern void set_library_select_hook(void (*func)(glui32));
+extern void set_library_select_hook(void (*func)(glui32, glui32, glui32, glui32));
 extern int init_dispatch(void);
 extern glui32 perform_glk(glui32 funcnum, glui32 numargs, glui32 *arglist);
 extern strid_t find_stream_by_id(glui32 objid);

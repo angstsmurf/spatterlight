@@ -8,7 +8,7 @@
 
 @class GlulxAccelEntry, GlkObjIdEntry;
 
-extern void spatterglk_do_autosave(glui32 eventaddr);
+extern void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2);
 
 /* This object contains VM state which is not stored in a normal save file, but which is needed for an autorestore.
 

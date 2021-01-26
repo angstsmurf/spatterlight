@@ -22,7 +22,7 @@ static void (*library_start_hook)(void) = NULL;
 /* The library_autorestore_hook is called right after the VM's initial
    setup. This is an appropriate time to autorestore an initial game
    state, if the library has that capability. (Currently, only iosglk
-   does.) */
+   and remglk do.) */
 static void (*library_autorestore_hook)(void) = NULL;
 
 static winid_t get_error_win(void);

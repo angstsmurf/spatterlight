@@ -27,7 +27,7 @@ static void *accel_func_array; /* used by the archive/unarchive hooks */
 
 //static void spatterglk_game_start(void);
 static void spatterglk_game_autorestore(void);
-static void spatterglk_game_select(glui32 eventaddr);
+static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2);
 static void spatterglk_library_archive(TempLibrary *library, NSCoder *encoder);
 static void spatterglk_library_unarchive(TempLibrary *library, NSCoder *decoder);
 static void recover_library_state(LibraryState *library_state);
@@ -64,10 +64,10 @@ int glkunix_startup_code(glkunix_startup_t *data)
     char *filename = NULL;
     //char *gameinfofilename = NULL;
     //int gameinfoloaded = FALSE;
-    unsigned char buf[12];
+    unsigned char buf[64];
     int res;
 
-    garglk_set_program_name("Glulxe 0.5.4");
+    garglk_set_program_name("Glulxe 0.5.4.147");
     garglk_set_program_info("Glulxe 0.5.4 by Andrew Plotkin");
 
     /* Parse out the arguments. They've already been checked for validity,
@@ -162,8 +162,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
     /* Now we have to check to see if it's a Blorb file. */
 
-    glk_stream_set_position(gamefile, 0, seekmode_Start);
-    res = glk_get_buffer_stream(gamefile, (char *)buf, 12);
+    glk_stream_set_position(gamefile, gamefile_start, seekmode_Start);
+    res = glk_get_buffer_stream(gamefile, (char *)buf, 64);
     if (!res) {
         init_err = "The data in this stand-alone game is too short to read.";
         return TRUE;
@@ -355,12 +355,16 @@ static int parse_partial_operand(int *opmodes)
 
 /* This is the library_select_hook, which will be called every time glk_select() is invoked. (VM thread)
  */
-static void spatterglk_game_select(glui32 eventaddr)
+static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2)
 {
 //    NSLog(@"### game called select, last event was %d", lasteventtype);
 
     if (!gli_enable_autosave)
         return;
+
+    if (lasteventtype == 0xFFFFFFFF
+      || lasteventtype == 0xFFFFFFFE)
+      return;
 
 	/* Do not autosave if we've just started up, or if the last event was a rearrange event. (We get rearranges in clusters, and they don't change anything interesting anyhow.) */
 
@@ -374,18 +378,16 @@ static void spatterglk_game_select(glui32 eventaddr)
 		return;
     }
 
-	spatterglk_do_autosave(eventaddr);
+    spatterglk_do_autosave(selector, arg0, arg1, arg2);
 }
 
-void spatterglk_do_autosave(glui32 eventaddr)
+void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2)
 {
     @autoreleasepool {
         TempLibrary *library = [[TempLibrary alloc] init];
         // NSLog(@"### attempting autosave (pc = %x, eventaddr = %x, stack = %d before stub)", prevpc, eventaddr, stackptr);
 
         /* When the save file is autorestored, the VM will restart the @glk opcode. That means that the Glk argument (the event structure address) must be waiting on the stack. Possibly also the @glk opcode's operands -- these might or might not have come off the stack. */
-
-        glui32 oldmode, oldrock;
 
         int res;
         int opmodes[3];
@@ -408,12 +410,37 @@ void spatterglk_do_autosave(glui32 eventaddr)
         /* Push all the necessary arguments for the @glk opcode. */
         glui32 origstackptr = stackptr;
         int stackvals = 0;
-        /* The event structure address: */
-        stackvals++;
-        if (stackptr+4 > stacksize)
-            fatal_error("Stack overflow in autosave callstub.");
-        StkW4(stackptr, eventaddr);
-        stackptr += 4;
+
+        if (selector == 0x00C0) {
+            /* The event structure address: */
+            stackvals++;
+            if (stackptr+4 > stacksize)
+                fatal_error("Stack overflow in autosave callstub.");
+            StkW4(stackptr, arg0); /* eventaddr */
+            stackptr += 4;
+        }
+        else if (selector == 0x0062) {
+            /* The three arguments: */
+            stackvals++;
+            if (stackptr+4 > stacksize)
+                fatal_error("Stack overflow in autosave callstub.");
+            StkW4(stackptr, arg2); /* rock */
+            stackptr += 4;
+            stackvals++;
+            if (stackptr+4 > stacksize)
+                fatal_error("Stack overflow in autosave callstub.");
+            StkW4(stackptr, arg1); /* fmode */
+            stackptr += 4;
+            stackvals++;
+            if (stackptr+4 > stacksize)
+                fatal_error("Stack overflow in autosave callstub.");
+            StkW4(stackptr, arg0); /* usage */
+            stackptr += 4;
+        }
+        else {
+            fatal_error("Autosave with unrecognized glk selector.");
+        }
+
         if (opmodes[1] == 8) {
             /* The number of Glk arguments (1): */
             stackvals++;
@@ -423,11 +450,11 @@ void spatterglk_do_autosave(glui32 eventaddr)
             stackptr += 4;
         }
         if (opmodes[0] == 8) {
-            /* The Glk call selector (0x00C0): */
+            /* The Glk call selector (0x00C0 or 0x0062): */
             stackvals++;
             if (stackptr+4 > stacksize)
                 fatal_error("Stack overflow in autosave callstub.");
-            StkW4(stackptr, 0x00C0); /* glk_select */
+            StkW4(stackptr, selector);
             stackptr += 4;
         }
 
@@ -440,14 +467,7 @@ void spatterglk_do_autosave(glui32 eventaddr)
         StkW4(stackptr+12, frameptr);
         stackptr += 16;
 
-        /* temporarily set I/O system to GLK, which perform_save() needs */
-
-        stream_get_iosys(&oldmode, &oldrock);
-        stream_set_iosys(2, 0); 
-
         res = perform_save(savefile);
-
-        stream_set_iosys(oldmode, oldrock);
 
         stackptr -= 16; // discard the temporary callstub
         stackptr -= 4 * stackvals; // discard the temporary arguments

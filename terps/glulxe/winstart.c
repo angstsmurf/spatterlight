@@ -3,9 +3,14 @@
 */
 
 #include <windows.h>
+#include <stdlib.h>
 
 #include "glk.h"
 #include "gi_blorb.h"
+#if VM_DEBUGGER
+#include "gi_debug.h" 
+#endif
+#include "glulxe.h"
 #include "WinGlk.h"
 
 #include "resource.h"
@@ -16,13 +21,16 @@ int InitGlk(unsigned int iVersion);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
   /* Attempt to initialise Glk */
-  if (InitGlk(0x00000700) == 0)
+  if (InitGlk(0x00000704) == 0)
     exit(0);
 
   /* Call the Windows specific initialization routine */
   if (winglk_startup_code(lpCmdLine) != 0)
   {
     /* Run the application */
+#if VM_DEBUGGER
+    gidebug_announce_cycle(gidebug_cycle_Start);
+#endif
     glk_main();
 
     /* There is no return from this routine */
@@ -32,11 +40,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
   return 0;
 }
 
-/* These are defined in glulxe.h */
-extern int locate_gamefile(int isblorb);
-extern strid_t gamefile;
-extern char *init_err;
-
 #define IDS_GLULXE_TITLE  31000
 #define IDS_GLULXE_OPEN   31001
 #define IDS_GLULXE_FILTER 31002
@@ -44,14 +47,16 @@ extern char *init_err;
 int winglk_startup_code(const char* cmdline)
 {
   const char* pszFileName = 0;
+  const char *pszGameInfoName = 0;
   char* pszSeparator;
   char sExeName[_MAX_PATH];
   char sFileName[_MAX_PATH];
   char sWindowTitle[256];
   char sBuffer[12];
-  int iBufferCount, iExtLoop;
+  int iBufferCount, iExtLoop, i;
   HINSTANCE hResources;
   frefid_t GameRef;
+  int bGotGameInfo = 0;
 
   winglk_set_gui(IDI_GLULX);
   winglk_app_set_name("Glulxe");
@@ -61,7 +66,7 @@ int winglk_startup_code(const char* cmdline)
   hResources = winglk_get_resource_handle();
   LoadString(hResources,IDS_GLULXE_TITLE,sWindowTitle,256);
   winglk_window_set_title(sWindowTitle);
-  winglk_set_about_text("Windows Glulxe 0.4.7.139");
+  winglk_set_about_text("Windows Glulxe 0.5.4.147");
 
   /* Set up the help file */
   if (GetModuleFileName(0,sExeName,_MAX_PATH) == 0)
@@ -70,7 +75,18 @@ int winglk_startup_code(const char* cmdline)
   if (pszSeparator != 0)
   {
     strcpy(pszSeparator,".chm");
-    winglk_set_help_file(sExeName);
+    if (GetFileAttributes(sExeName) != INVALID_FILE_ATTRIBUTES)
+      winglk_set_help_file(sExeName);
+    else
+    {
+      pszSeparator = strrchr(sExeName,'(');
+      if (pszSeparator > sExeName)
+      {
+        strcpy(pszSeparator-1,".chm");
+        if (GetFileAttributes(sExeName) != INVALID_FILE_ATTRIBUTES)
+          winglk_set_help_file(sExeName);
+      }
+    }
   }
 
   /* First look for a Blorb file with the same name as the executable. */
@@ -92,15 +108,51 @@ int winglk_startup_code(const char* cmdline)
     }
   }
 
+  /* Read the command line. */
+  for (i = 1; i < __argc; i++)
+  {
+#if VM_DEBUGGER
+    if (strcmp(__argv[i],"--gameinfo") == 0)
+    {
+      i++;
+      if (i < __argc)
+        pszGameInfoName = __argv[i];
+      continue;
+    }
+    if (strcmp(__argv[i],"--cpu") == 0)
+    {
+      debugger_track_cpu(TRUE);
+      continue;
+    }
+    if (strcmp(__argv[i],"--starttrap") == 0)
+    {
+      debugger_set_start_trap(TRUE);
+      continue;
+    }
+    if (strcmp(__argv[i],"--quittrap") == 0)
+    {
+      debugger_set_quit_trap(TRUE);
+      continue;
+    }
+    if (strcmp(__argv[i],"--crashtrap") == 0)
+    {
+      debugger_set_crash_trap(TRUE);
+      continue;
+    }
+#endif /* VM_DEBUGGER */
+    if (pszFileName == 0)
+      pszFileName = __argv[i];
+  }
+
   if (pszFileName == 0)
   {
     char sOpenTitle[256];
     char sOpenFilter[256];
 
-    /* Check the command line for a file, or prompt the user. */
+    /* Prompt the user for a file. */
     LoadString(hResources,IDS_GLULXE_OPEN,sOpenTitle,256);
     LoadString(hResources,IDS_GLULXE_FILTER,sOpenFilter,256);
-    pszFileName = winglk_get_initial_filename(cmdline,sOpenTitle,sOpenFilter);
+    pszFileName = winglk_get_initial_filename(0,sOpenTitle,sOpenFilter);
   }
   if (pszFileName == 0)
     return 0;
@@ -113,6 +165,28 @@ int winglk_startup_code(const char* cmdline)
     return 0;
   gamefile = glk_stream_open_file(GameRef,filemode_Read,0);
   glk_fileref_destroy(GameRef);
+
+#if VM_DEBUGGER
+  if (pszGameInfoName)
+  {
+    char sGameInfoName[_MAX_PATH];
+    frefid_t GameInfoRef;
+
+    strcpy(sGameInfoName,pszGameInfoName);
+    GameInfoRef = winglk_fileref_create_by_name(
+      fileusage_BinaryMode|fileusage_Data,sGameInfoName,0,0);
+    if (GameInfoRef != 0)
+    {
+      strid_t GameInfoStream = glk_stream_open_file(GameInfoRef,filemode_Read,0);
+      if (GameInfoStream != 0)
+      {
+        if (debugger_load_info_stream(GameInfoStream))
+          bGotGameInfo = 1;
+      }
+    }
+  }
+  gidebug_debugging_available(debugger_cmd_handler,debugger_cycle_handler);
+#endif
 
   /* Examine the loaded file to see what type it is. */
   glk_stream_set_position(gamefile,0,seekmode_Start);
@@ -160,6 +234,23 @@ int winglk_startup_code(const char* cmdline)
         MessageBox(0,init_err,"Glulxe",MB_OK|MB_ICONERROR);
       return 0;
     }
+
+#if VM_DEBUGGER
+    /* Load the debug info from the Blorb, if it wasn't loaded from a file. */
+    if (bGotGameInfo == 0)
+    {
+      glui32 giblorb_ID_Dbug = giblorb_make_id('D','b','u','g');
+      giblorb_err_t GameInfoErr;
+      giblorb_result_t GameInfoRes;
+      GameInfoErr = giblorb_load_chunk_by_type(giblorb_get_resource_map(),
+        giblorb_method_FilePos,&GameInfoRes,giblorb_ID_Dbug,0);
+      if (GameInfoErr != 0)
+      {
+        if (debugger_load_info_chunk(gamefile,GameInfoRes.data.startpos,GameInfoRes.length))
+          bGotGameInfo = 1;
+      }
+    }
+#endif
   }
   else
   {
