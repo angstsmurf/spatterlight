@@ -3519,7 +3519,15 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
             [NSAnimationContext
              runAnimationGroup:^(NSAnimationContext *context) {
                 context.duration = duration / 10;
-                [[localContentView animator] setFrame:newContentFrame];
+                [localContentView setFrame:newContentFrame];
+                GlkEvent *gevent = [[GlkEvent alloc]
+                                    initArrangeWidth:(NSInteger)localContentView.frame.size.width
+                                    height:(NSInteger)localContentView.frame.size.height
+                                    theme:self.theme
+                                    force:NO];
+
+                [weakSelf queueEvent:gevent];
+                [weakSelf flushDisplay];
             }
              completionHandler:^{
                 // Now we can fade out the snapshot window
@@ -3532,8 +3540,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                 }
                  completionHandler:^{
                     // Finally, we extend the content view vertically if needed.
-                    [weakSelf enableArrangementEvents];
-
                     [NSAnimationContext
                      runAnimationGroup:^(NSAnimationContext *context) {
                         context.duration = duration / 7;
