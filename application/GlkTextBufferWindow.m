@@ -1855,9 +1855,14 @@
     } else if (line_request && (ch == keycode_Return ||
                                 [self.currentTerminators[key] isEqual:@(YES)])) {
         [self sendInputLineWithTerminator:ch == keycode_Return ? 0 : key.integerValue];
-    } else if (line_request && ch == keycode_Up) {
+        return;
+    } else if (line_request && (ch == keycode_Up ||
+        // Use Home to travel backward in history when Beyond Zork eats up arrow
+        (self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_Home))) {
         [self travelBackwardInHistory];
-    } else if (line_request && ch == keycode_Down) {
+    } else if (line_request && (ch == keycode_Down ||
+        // Use End to travel forward in history when Beyond Zork eats down arrow
+        (self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
         [self travelForwardInHistory];
     } else if (line_request && ch == keycode_PageUp &&
                fence == textstorage.length) {
@@ -1936,7 +1941,6 @@
     // NSLog(@"cancel char in %d", name);
 
     char_request = NO;
-    _textview.editable = NO;
 }
 
 - (void)initLine:(NSString *)str maxLength:(NSUInteger)maxLength
@@ -1958,6 +1962,7 @@
 
     if (_lastchar == '>' && self.theme.spaceFormat) {
         [self printToWindow:@" " style:style_Normal];
+        _lastchar = ' ';
     }
 
     fence = textstorage.length;
@@ -1970,12 +1975,12 @@
 
     [textstorage appendAttributedString:att];
 
-    [_textview setEditable:YES];
+    _textview.editable = YES;
 
     line_request = YES;
     [self showInsertionPoint];
 
-    [_textview setSelectedRange:NSMakeRange(textstorage.length, 0)];
+    _textview.selectedRange = NSMakeRange(textstorage.length, 0);
 }
 
 - (void)recalcInputAttributes {
@@ -2020,10 +2025,11 @@
 - (void)travelBackwardInHistory {
     [self flushDisplay];
     NSString *cx;
-    if (textstorage.length - fence > 0)
+    if (textstorage.length > fence) {
         cx = [textstorage.string substringFromIndex:fence];
-    else
+    } else {
         cx = @"";
+    }
 
     cx = [history travelBackwardInHistory:cx];
 
