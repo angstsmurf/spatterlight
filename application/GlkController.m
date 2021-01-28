@@ -2438,12 +2438,9 @@ static const char *msgnames[] = {
 }
 
 - (void)handleUnprintOnWindow:(GlkWindow *)win string:(unichar *)buf length:(size_t)len {
-
     NSString *str = [NSString stringWithCharacters:buf length:(NSUInteger)len];
-
-    if (str == nil || str.length < 2)
+    if (str == nil || len == 0)
         return;
-
     [win unputString:str];
 }
 
