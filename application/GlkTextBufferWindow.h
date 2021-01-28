@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property MyTextView *textview;
 
-@property(readonly) NSInteger lastchar; /* for smart formatting */
+@property(readonly) unichar lastchar; /* for smart formatting */
 @property(readonly) NSInteger lastseen; /* for more paging */
 // for keeping track of previous moves
 @property NSUInteger printPositionOnInput;

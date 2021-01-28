@@ -1110,7 +1110,7 @@
 
         fence = (NSUInteger)[decoder decodeIntegerForKey:@"fence"];
         _printPositionOnInput = (NSUInteger)[decoder decodeIntegerForKey:@"printPositionOnInput"];
-        _lastchar = [decoder decodeIntegerForKey:@"lastchar"];
+        _lastchar = (unichar)[decoder decodeIntegerForKey:@"lastchar"];
         _lastseen = [decoder decodeIntegerForKey:@"lastseen"];
         _restoredSelection =
         ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"selectedRange"])
@@ -1709,8 +1709,8 @@
     }
 
     if (str.length > 1) {
-        _lastchar = [str characterAtIndex:str.length - 1];
-        if (_lastchar == '\n') {
+        unichar c = [str characterAtIndex:str.length - 1];
+        if (c == '\n') {
             storedNewline = [[NSAttributedString alloc]
                              initWithString:@"\n"
                              attributes:attributes];
@@ -1718,7 +1718,7 @@
             str = [str substringWithRange:NSMakeRange(0, str.length - 1)];
         }
     }
-
+    _lastchar = [str characterAtIndex:str.length - 1];
 
     NSAttributedString *attstr = [[NSAttributedString alloc]
                                   initWithString:str
@@ -1930,16 +1930,12 @@
 
 - (void)initChar {
 //    NSLog(@"GlkTextbufferWindow %ld initChar", (long)self.name);
-
-    fence = textstorage.length;
-
     char_request = YES;
     [self hideInsertionPoint];
 }
 
 - (void)cancelChar {
     // NSLog(@"cancel char in %d", name);
-
     char_request = NO;
 }
 
