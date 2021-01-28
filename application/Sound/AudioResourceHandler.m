@@ -23,7 +23,10 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
-    _filename = [decoder decodeObjectOfClass:[NSURL class] forKey:@"filename"];
+    NSData *bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
+    _filename = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:nil error:nil];
+    if (!_filename)
+        _filename = [decoder decodeObjectOfClass:[NSURL class] forKey:@"_filename"];
     _length = (size_t)[decoder decodeIntForKey:@"length"];
     _offset = [decoder decodeIntForKey:@"offset"];
     _type = [decoder decodeIntForKey:@"type"];
@@ -35,7 +38,22 @@
     [encoder encodeInt:_length forKey:@"length"];
     [encoder encodeInt:_offset forKey:@"offset"];
     [encoder encodeInt:_type forKey:@"type"];
-    [encoder encodeObject:_filename forKey:@"filename"];
+    NSData *bookmark = nil;
+    if (_filename)
+    {
+        NSError* theError = nil;
+        bookmark = [_filename bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
+                 includingResourceValuesForKeys:nil
+                                  relativeToURL:nil
+                                          error:&theError];
+        if (theError || !bookmark)
+            NSLog(@"Error when encoding bookmark: %@", theError);
+    }
+
+    if (bookmark)
+        [encoder encodeObject:bookmark forKey:@"bookmark"];
+    if (_filename)
+        [encoder encodeObject:_filename forKey:@"filename"];
 }
 
 @end
