@@ -46,6 +46,8 @@
                 <outlet property="swapGridColBtn" destination="973" id="979"/>
                 <outlet property="themesHeader" destination="870" id="898"/>
                 <outlet property="themesTableView" destination="676" id="688"/>
+                <outlet property="timerSlider" destination="k43-6L-rYq" id="ikx-v7-jes"/>
+                <outlet property="timerTextField" destination="aXw-Vw-tGV" id="Mqh-QH-cgY"/>
                 <outlet property="txtBorder" destination="557" id="757"/>
                 <outlet property="txtBufferMargin" destination="549" id="755"/>
                 <outlet property="txtCols" destination="571" id="758"/>
@@ -264,7 +266,7 @@
                                                 <action selector="clickedOneThemeForAll:" target="-2" id="963"/>
                                             </connections>
                                         </button>
-                                        <button fixedFrame="YES" tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="958">
+                                        <button toolTip="Adapt the window size when changing settings to keep the width in characters constant." fixedFrame="YES" tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="958">
                                             <rect key="frame" x="128" y="6" width="126" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="check" title="Adjust window size" bezelStyle="regularSquare" imagePosition="leading" alignment="left" controlSize="small" state="on" tag="40" inset="2" id="959">
@@ -732,6 +734,7 @@
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0g5-lC-Zw4">
                                             <rect key="frame" x="180" y="46" width="235" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <string key="toolTip">Sets the interpreter type reported to the game. Most modern games ignore this setting, but this can change the behaviour of many Infocom games.</string>
                                             <popUpButtonCell key="cell" type="push" title="4. Amiga" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="4" imageScaling="proportionallyDown" inset="2" selectedItem="54H-tw-KQJ" id="Zkt-jU-7kg">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
@@ -963,7 +966,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="56G-id-IQy">
+                                        <textField toolTip="Adjust the graphic font height to avoid gaps. Mainly useful in Beyond Zork." verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="56G-id-IQy">
                                             <rect key="frame" x="315" y="17" width="27" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="15" drawsBackground="YES" id="lR2-gA-Xi2">
@@ -992,7 +995,7 @@
                                                 <action selector="changeBZVerticalStepper:" target="-2" id="lc8-oe-Gqj"/>
                                             </connections>
                                         </stepper>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFD-gC-YDQ">
+                                        <textField toolTip="Version letter used by Z-code interpreters. Games will sometimes print this, otherwise it has no effect." verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFD-gC-YDQ">
                                             <rect key="frame" x="420" y="49" width="25" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="Z" drawsBackground="YES" usesSingleLineMode="YES" id="rQW-W9-KDl">
@@ -1066,7 +1069,7 @@
                                                 <action selector="changeVOMenuMenu:" target="-2" id="ZwV-ch-41T"/>
                                             </connections>
                                         </popUpButton>
-                                        <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVA-J4-AB0">
+                                        <button toolTip="Speak the command entered by the player when pressing enter." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVA-J4-AB0">
                                             <rect key="frame" x="159" y="105" width="130" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="check" title="Speak commands" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="xxj-M6-Sgq">
@@ -1099,7 +1102,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kfk-Iq-kag">
-                                            <rect key="frame" x="152" y="192" width="172" height="17"/>
+                                            <rect key="frame" x="142" y="192" width="172" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Miscellaneous settings" usesSingleLineMode="YES" id="1Fd-Ts-w1a">
                                                 <font key="font" metaFont="system"/>
@@ -1107,30 +1110,8 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1n-Iy-dco">
-                                            <rect key="frame" x="139" y="141" width="178" height="18"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <buttonCell key="cell" type="check" title="Autosave and autorestore" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="rok-Vo-ZHA">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="changeAutosave:" target="-2" id="Wdw-RK-mfu"/>
-                                            </connections>
-                                        </button>
-                                        <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="clv-YA-NP0">
-                                            <rect key="frame" x="139" y="118" width="175" height="18"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <buttonCell key="cell" type="check" title="Autosave on timer events" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="JJt-62-HcI">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="changeAutosaveOnTimer:" target="-2" id="zPt-5X-50l"/>
-                                            </connections>
-                                        </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvQ-u1-9Rf">
-                                            <rect key="frame" x="171" y="60" width="113" height="32"/>
+                                        <button toolTip="Clear all &quot;Remember this choice&quot; check boxes in alert dialogs." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvQ-u1-9Rf">
+                                            <rect key="frame" x="177" y="16" width="113" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="Reset alerts" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="561-WV-aip">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1140,6 +1121,70 @@
                                                 <action selector="resetDialogs:" target="-2" id="T7R-eM-scm"/>
                                             </connections>
                                         </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zY-JQ-KBc">
+                                            <rect key="frame" x="278" y="83" width="72" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="per second" id="enO-J8-uVD">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField toolTip="Setting this to a low value may improve performance and autosave reliability in some games, but can cause glitches." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aXw-Vw-tGV">
+                                            <rect key="frame" x="230" y="80" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="200" drawsBackground="YES" id="pq3-ZL-OXQ">
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="T7I-oX-YXL"/>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="changeTimerTextField:" target="-2" id="4YK-mn-egr"/>
+                                                <outlet property="formatter" destination="kCS-IG-LvB" id="Kvk-sd-o3d"/>
+                                            </connections>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d6Z-uy-hma">
+                                            <rect key="frame" x="93" y="83" width="133" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title=" Max timer frequency" id="9w9-2I-gIw">
+                                                <font key="font" usesAppearanceFont="YES"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1n-Iy-dco">
+                                            <rect key="frame" x="141" y="148" width="178" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <string key="toolTip">Autosave on every turn, so that you can close a game and resume it without having to save it manually. Can sometimes affect performance. Only available for Glulx and Z-code games.</string>
+                                            <buttonCell key="cell" type="check" title="Autosave and autorestore" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="rok-Vo-ZHA">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="changeAutosave:" target="-2" id="Wdw-RK-mfu"/>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Turning this off may improve performance and autosave reliability in games with high timer frequency, but can cause glitches." fixedFrame="YES" allowsExpansionToolTips="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="clv-YA-NP0">
+                                            <rect key="frame" x="141" y="125" width="175" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <buttonCell key="cell" type="check" title="Autosave on timer events" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="JJt-62-HcI">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="changeAutosaveOnTimer:" target="-2" id="zPt-5X-50l"/>
+                                            </connections>
+                                        </button>
+                                        <slider toolTip="Setting this to a low value may improve performance and autosave reliability in some games, but can cause glitches." horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k43-6L-rYq">
+                                            <rect key="frame" x="378" y="48" width="19" height="84"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <sliderCell key="cell" continuous="YES" alignment="left" minValue="5" maxValue="1000" doubleValue="200" tickMarkPosition="right" sliderType="linear" id="EeW-cF-5k4">
+                                                <connections>
+                                                    <action selector="changeTimerSlider:" target="-2" id="Xot-nf-LOF"/>
+                                                </connections>
+                                            </sliderCell>
+                                        </slider>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1157,9 +1202,13 @@
             </connections>
         </arrayController>
         <customFormatter id="B2Q-lK-znP" userLabel="VersionFormatter" customClass="VersionFormatter"/>
-        <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="gz3-Xe-cqx">
+        <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" lenient="YES" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="gz3-Xe-cqx" userLabel="Vertical adjustment formatter">
             <real key="minimum" value="-20"/>
             <real key="maximum" value="20"/>
+        </numberFormatter>
+        <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" lenient="YES" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="kCS-IG-LvB" userLabel="Timer formatter">
+            <real key="minimum" value="5"/>
+            <real key="maximum" value="1000"/>
         </numberFormatter>
     </objects>
     <resources>

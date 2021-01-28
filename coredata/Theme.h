@@ -48,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t maxRows;
 @property (nonatomic) int32_t minCols;
 @property (nonatomic) int32_t minRows;
+@property (nonatomic) double minTimer;
 @property (nullable, nonatomic, retain) NSObject *morePrompt;
 @property (nullable, nonatomic, copy) NSString *name;
 @property (nonatomic) int32_t nohacks;

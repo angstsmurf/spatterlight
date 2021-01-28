@@ -25,8 +25,6 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
-#define MINTIMER 1 /* The game Transparent needs a timer this frequent */
-
 static const char *msgnames[] = {
     "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
     "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
@@ -2059,7 +2057,7 @@ static const char *msgnames[] = {
             return -1;
 
         _gchannels[@(i)] = [[GlkSoundChannel alloc] initWithGlkController:self
-        name:i volume:volume];
+        name:i volume:(NSUInteger)volume];
 
     return i;
 }
@@ -2071,11 +2069,13 @@ static const char *msgnames[] = {
         timer = nil;
     }
 
+    NSUInteger minTimer = (NSUInteger)_theme.minTimer;
+
     if (millisecs > 0) {
-        if (millisecs < MINTIMER) {
-            NSLog(@"glkctl: too small timer interval (%ld); increasing to %d",
-                  (unsigned long)millisecs, MINTIMER);
-            millisecs = MINTIMER;
+        if (millisecs < minTimer) {
+            NSLog(@"glkctl: too small timer interval (%ld); increasing to %lu",
+                  (unsigned long)millisecs, (unsigned long)minTimer);
+            millisecs = minTimer;
         }
         if (_kerkerkruip && millisecs == 10) {
             [timer invalidate];

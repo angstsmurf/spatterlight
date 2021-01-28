@@ -128,6 +128,7 @@
         <attribute name="maxRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="minCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="minRows" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="minTimer" optional="YES" attributeType="Double" defaultValueString="100" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="morePrompt" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="nohacks" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -181,6 +182,6 @@
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Metadata" positionX="160" positionY="192" width="128" height="495"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Theme" positionX="160" positionY="192" width="128" height="1228"/>
+        <element name="Theme" positionX="160" positionY="192" width="128" height="1243"/>
     </elements>
 </model>

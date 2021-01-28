@@ -1272,6 +1272,15 @@ NSString *fontToString(NSFont *font) {
     _btnAutosaveOnTimer.state = theme.autosaveOnTimer;
     _btnAutosaveOnTimer.enabled = _btnAutosave.state ? YES : NO;
 
+    if (theme.minTimer != 0) {
+        if (_timerSlider.integerValue != 1000.0 / theme.minTimer) {
+            _timerSlider.integerValue = (long)(1000.0 / theme.minTimer);
+        }
+        if (_timerTextField.integerValue != (1000.0 / theme.minTimer)) {
+            _timerTextField.integerValue = (long)(1000.0 / theme.minTimer);
+        }
+    }
+
     if ([[NSFontPanel sharedFontPanel] isVisible] && selectedFontButton)
         [self showFontPanel:selectedFontButton];
 }
@@ -2319,8 +2328,28 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.autosave = [sender state] ? YES : NO;
-    _btnAutosaveOnTimer.enabled = theme.autosave;
+    _btnAutosaveOnTimer.enabled = themeToChange.autosave;
 }
+
+
+- (IBAction)changeTimerSlider:(id)sender {
+    _timerTextField.integerValue = [sender integerValue];
+    if ([sender integerValue] == 0 || theme.minTimer == 1000.0 / [sender integerValue]) {
+        return;
+    }
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.minTimer = (1000.0 / [sender integerValue]);
+}
+
+- (IBAction)changeTimerTextField:(id)sender {
+    _timerSlider.integerValue = [sender integerValue];
+    if ([sender integerValue] == 0 || theme.minTimer == 1000.0 / [sender integerValue])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.minTimer = (1000.0 / [sender integerValue]);
+}
+
+#pragma mark End of Misc menu
 
 - (IBAction)changeOverwriteStyles:(id)sender {
     if ([sender state] == 1) {
@@ -2652,8 +2681,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [[NSFontPanel sharedFontPanel] orderOut:self];
     if ([[NSColorPanel sharedColorPanel] isVisible])
         [[NSColorPanel sharedColorPanel] orderOut:self];
-}
-- (IBAction)bZVAdjustStepper:(NSStepper *)sender {
 }
 
 @end

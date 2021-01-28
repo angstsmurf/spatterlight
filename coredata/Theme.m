@@ -49,6 +49,7 @@
 @dynamic maxRows;
 @dynamic minCols;
 @dynamic minRows;
+@dynamic minTimer;
 @dynamic morePrompt;
 @dynamic name;
 @dynamic nohacks;

@@ -202,4 +202,10 @@ typedef enum kBZArrowsPrefsType : int32_t {
 
 - (IBAction)resetDialogs:(NSButton *)sender;
 
+@property (weak) IBOutlet NSSlider *timerSlider;
+- (IBAction)changeTimerSlider:(id)sender;
+
+@property (weak) IBOutlet NSTextField *timerTextField;
+- (IBAction)changeTimerTextField:(id)sender;
+
 @end
