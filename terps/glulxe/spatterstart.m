@@ -379,8 +379,6 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
 {
     @autoreleasepool {
         TempLibrary *library = [[TempLibrary alloc] init];
-        // NSLog(@"### attempting autosave (pc = %x, eventaddr = %x, stack = %d before stub)", prevpc, eventaddr, stackptr);
-
         /* When the save file is autorestored, the VM will restart the @glk opcode. That means that the Glk argument (the event structure address) must be waiting on the stack. Possibly also the @glk opcode's operands -- these might or might not have come off the stack. */
 
         int res;
