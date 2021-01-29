@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## Release 0.7.4
 
 - Autosave and autorestore for Z-code games. (Previously this was only implemented for Glulx games.)
 - Quote boxes in Z-code games are now nicer-looking separate text views, floating over the main scroll view.
