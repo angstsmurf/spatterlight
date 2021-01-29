@@ -600,11 +600,11 @@ static int v3_recognition_phase (int phase,unsigned char *sf, int32 extent, int3
 static char *get_l9_ifid(int32 length, unsigned char chk)
 {
  int i;
-    
+
  for(i=0;l9_patch_registry[i].length;i++)
   if (length==l9_patch_registry[i].length && chk==l9_patch_registry[i].patchchk)
   { chk = l9_patch_registry[i].origchk; break; }
-    
+
  for(i=0;l9_registry[i].length;i++)
   if (length==l9_registry[i].length && chk==l9_registry[i].chk) return l9_registry[i].ifid;
  return NULL;

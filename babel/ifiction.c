@@ -3,12 +3,12 @@
  *
  * This code is freely usable for all purposes.
  *
- * This work is licensed under the Creative Commons Attribution2.5 License.
+ * This work is licensed under the Creative Commons Attribution 4.0 License.
  * To view a copy of this license, visit
- * http://creativecommons.org/licenses/by/2.5/ or send a letter to
+ * https://creativecommons.org/licenses/by/4.0/ or send a letter to
  * Creative Commons,
- * 543 Howard Street, 5th Floor,
- * San Francisco, California, 94105, USA.
+ * PO Box 1866,
+ * Mountain View, CA 94042, USA.
  *
  * This file depends on treaty.h
  *
@@ -164,24 +164,30 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
  struct XMLTag *parent=xtg->next;
  if (parent)
  {
- for(i=0;leaf_tags[i];i++)
-  if (strcmp(parent->tag,leaf_tags[i])==0)
+  for(i=0;leaf_tags[i];i++) {
+   if (strcmp(parent->tag,leaf_tags[i])==0)
    {
     sprintf(ebuf, "Error: (line %d) Tag <%s> is not permitted within tag <%s>",
         xtg->beginl,xtg->tag,parent->tag);
     err_h(ebuf,ectx);
+   }
+  }
+  for(i=0;required[i];i+=2) {
+   if (strcmp(required[i],parent->tag)==0 && strcmp(required[i+1],xtg->tag)==0)
+    parent->rocurrences[i]=1;
+  }
+  for(i=0;one_per[i];i++) {
+   if (strcmp(one_per[i],xtg->tag)==0) {
+    if (parent->occurences[i]) { 
+     sprintf(ebuf,"Error: (line %d) Found more than one <%s> within <%s>",xtg->beginl,xtg->tag,
+         parent->tag);
+     err_h(ebuf,ectx);
     }
- for(i=0;required[i];i+=2)
- if (strcmp(required[i],parent->tag)==0 && strcmp(required[i+1],xtg->tag)==0)
-  parent->rocurrences[i]=1;
- for(i=0;one_per[i];i++)
-     if (strcmp(one_per[i],xtg->tag)==0){
-  if (parent->occurences[i]) { 
-                               sprintf(ebuf,"Error: (line %d) Found more than one <%s> within <%s>",xtg->beginl,xtg->tag,
-                                        parent->tag);
-                               err_h(ebuf,ectx);
-                             }
-         else parent->occurences[i]=1;}
+    else {
+     parent->occurences[i]=1;
+    }
+   }
+  }
  }
  for(i=0;required[i];i+=2)
  if (strcmp(required[i],xtg->tag)==0 && !xtg->rocurrences[i])
@@ -478,6 +484,8 @@ while(xml && *xml)
  while (parse)
  {
       xtg=parse;
+      /* TODO: aep is NULL here because it is never set to anything else.
+         That can't be right. What should xtg->end be set to? */
       xtg->end=aep-1;
       parse=xtg->next;
       sprintf(ebuffer,"Error: (line %d) Unclosed tag <%s>",xtg->beginl,xtg->tag);

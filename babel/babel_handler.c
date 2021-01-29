@@ -3,12 +3,12 @@
  *
  * This code is freely usable for all purposes.
  *
- * This work is licensed under the Creative Commons Attribution2.5 License.
+ * This work is licensed under the Creative Commons Attribution 4.0 License.
  * To view a copy of this license, visit
- * http://creativecommons.org/licenses/by/2.5/ or send a letter to
+ * https://creativecommons.org/licenses/by/4.0/ or send a letter to
  * Creative Commons,
- * 543 Howard Street, 5th Floor,
- * San Francisco, California, 94105, USA.
+ * PO Box 1866,
+ * Mountain View, CA 94042, USA.
  *
  * This file depends upon register.c, misc.c, babel.h, and treaty.h
  * and L. Peter Deutsch's md5.c
@@ -159,9 +159,10 @@ static char *deeper_babel_init(char *story_name, void *bhp)
     else if (l==NO_REPLY_RV && best_candidate < 0) best_candidate=i;
     }
   }
-    if (!treaty_registry[i]) {
+  if (!treaty_registry[i]) {
    if (best_candidate>0) { i=best_candidate; bh->auth=0; }
-        else return NULL;}
+   else return NULL;
+  }
   bh->treaty_handler=treaty_registry[i];
 
   if (bh->treaty_handler(GET_FORMAT_NAME_SEL,NULL,0,buffer,TREATY_MINIMUM_EXTENT)>=0)
