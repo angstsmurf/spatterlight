@@ -3500,7 +3500,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                         );
             [NSAnimationContext
              runAnimationGroup:^(NSAnimationContext *context) {
-                context.duration = duration / 10;
+                context.duration = duration / 5;
                 [localContentView setFrame:newContentFrame];
                 GlkEvent *gevent = [[GlkEvent alloc]
                                     initArrangeWidth:(NSInteger)localContentView.frame.size.width
