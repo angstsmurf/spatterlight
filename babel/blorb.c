@@ -3,12 +3,12 @@
  *
  * This code is freely usable for all purposes.
  *
- * This work is licensed under the Creative Commons Attribution2.5 License.
+ * This work is licensed under the Creative Commons Attribution 4.0 License.
  * To view a copy of this license, visit
- * http://creativecommons.org/licenses/by/2.5/ or send a letter to
+ * https://creativecommons.org/licenses/by/4.0/ or send a letter to
  * Creative Commons,
- * 543 Howard Street, 5th Floor,
- * San Francisco, California, 94105, USA.
+ * PO Box 1866,
+ * Mountain View, CA 94042, USA.
  *
  * This file depends upon treaty_builder.h, misc.c and ifiction.c
  *
@@ -28,8 +28,6 @@
 #define HOME_PAGE "http://eblong.com/zarf/blorb"
 #define FORMAT_EXT ".blorb,.blb,.zblorb,.zlb,.gblorb,.glb"
 #define CONTAINER_FORMAT
-#define MAX_RESOURCE_SIZE 10000000
-
 #include "treaty_builder.h"
 #include <stdlib.h>
 #include <ctype.h>
@@ -121,8 +119,7 @@ static int32 get_story_file(void *blorb_file, int32 extent, void *output, int32 
  int32 i,j;
  if (blorb_get_resource(blorb_file, extent, "Exec", 0, &i, &j))
  {
-  if (output_extent < j || j > MAX_RESOURCE_SIZE)
-      return INVALID_USAGE_RV;
+  ASSERT_OUTPUT_SIZE(j);
   memcpy(output,(char *)blorb_file+i,j);
   return j;
  }

@@ -3,12 +3,12 @@
  *
  * This code is freely usable for all purposes.
  *
- * This work is licensed under the Creative Commons Attribution2.5 License.
+ * This work is licensed under the Creative Commons Attribution 4.0 License.
  * To view a copy of this license, visit
- * http://creativecommons.org/licenses/by/2.5/ or send a letter to
+ * https://creativecommons.org/licenses/by/4.0/ or send a letter to
  * Creative Commons,
- * 543 Howard Street, 5th Floor,
- * San Francisco, California, 94105, USA.
+ * PO Box 1866,
+ * Mountain View, CA 94042, USA.
  *
  * This file depends upon treaty.h and all the references treaty modules
  *
@@ -63,7 +63,7 @@ REGISTER_TREATY(level9)
 REGISTER_TREATY(agt)
 REGISTER_TREATY(magscrolls)
 REGISTER_TREATY(advsys)
-REGISTER_TREATY(quill)
+REGISTER_TREATY(twine)
 REGISTER_TREATY(executable)
 
 

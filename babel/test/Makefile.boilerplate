@@ -1,0 +1,15 @@
+.SILENT:
+
+# OK and FAIL messages
+OK = echo "Tests in '$(CURDIR)': Ok"
+FAIL = echo "Tests in '$(CURDIR)': Failed"
+
+VERIFY = cmp output expected ; \
+	if [ $$? -ne 0 ] ; then \
+		$(FAIL) ; \
+		diff output expected ; \
+		exit 1 ; \
+	else \
+		$(OK) ; \
+		exit 0 ; \
+	fi
