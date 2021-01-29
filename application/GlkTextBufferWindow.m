@@ -1356,6 +1356,10 @@
     fence += lines;
 }
 
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    return [_textview validateMenuItem:menuItem];
+}
+
 #pragma mark Colors and styles
 
 - (BOOL)allowsDocumentBackgroundColorChange {
