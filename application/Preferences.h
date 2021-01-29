@@ -208,4 +208,8 @@ typedef enum kBZArrowsPrefsType : int32_t {
 @property (weak) IBOutlet NSTextField *timerTextField;
 - (IBAction)changeTimerTextField:(id)sender;
 
+@property (weak) IBOutlet NSMenuItem *standardZArrowsMenuItem;
+@property (weak) IBOutlet NSMenuItem *compromiseZArrowsMenuItem;
+@property (weak) IBOutlet NSMenuItem *strictZArrowsMenuItem;
+
 @end

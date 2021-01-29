@@ -36,12 +36,15 @@
                 <outlet property="clrGridBg" destination="541" id="752"/>
                 <outlet property="clrGridFg" destination="540" id="749"/>
                 <outlet property="clrInputFg" destination="544" id="751"/>
+                <outlet property="compromiseZArrowsMenuItem" destination="gS7-RK-TYK" id="jPZ-cn-EcR"/>
                 <outlet property="detailsHeader" destination="867" id="899"/>
                 <outlet property="divider" destination="926" id="927"/>
                 <outlet property="miscHeader" destination="vuA-ft-mAo" id="HWP-xI-lSk"/>
                 <outlet property="sampleTextBorderView" destination="948" id="949"/>
                 <outlet property="sampleTextView" destination="773" id="774"/>
                 <outlet property="scrollView" destination="675" id="864"/>
+                <outlet property="standardZArrowsMenuItem" destination="WZI-rz-izk" id="4jt-JQ-A1F"/>
+                <outlet property="strictZArrowsMenuItem" destination="ct7-O5-tVm" id="EYi-G3-cxO"/>
                 <outlet property="swapBufColBtn" destination="976" id="980"/>
                 <outlet property="swapGridColBtn" destination="973" id="979"/>
                 <outlet property="themesHeader" destination="870" id="898"/>
@@ -379,7 +382,7 @@
                                                 <action selector="changeColor:" target="-2" id="618"/>
                                             </connections>
                                         </colorWell>
-                                        <button fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="545">
+                                        <button toolTip="Font used in status bar and other grid windows." fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="545">
                                             <rect key="frame" x="93" y="168" width="170" height="24"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <buttonCell key="cell" type="smallSquare" title="Monaco 10.0" alternateTitle="Set Grid Font" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" tag="14" inset="2" id="594">
@@ -390,7 +393,7 @@
                                                 <action selector="showFontPanel:" target="-2" id="615"/>
                                             </connections>
                                         </button>
-                                        <button fixedFrame="YES" tag="24" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="546">
+                                        <button toolTip="Font used in the main scroll view and other text buffer windows." fixedFrame="YES" tag="24" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="546">
                                             <rect key="frame" x="93" y="138" width="170" height="24"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <buttonCell key="cell" type="smallSquare" title="Times 12.0" alternateTitle="Set Buffer Font" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" tag="24" inset="2" id="593">
@@ -412,7 +415,7 @@
                                                 <action selector="showFontPanel:" target="-2" id="603"/>
                                             </connections>
                                         </button>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="548">
+                                        <textField toolTip="Margin inside grid windows." verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="548">
                                             <rect key="frame" x="405" y="172" width="50" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="15" drawsBackground="YES" id="590">
@@ -432,7 +435,7 @@
                                                 <action selector="changeMargin:" target="-2" id="605"/>
                                             </connections>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" fixedFrame="YES" tag="23" translatesAutoresizingMaskIntoConstraints="NO" id="549">
+                                        <textField toolTip="Margin inside buffer windows." verticalHuggingPriority="750" fixedFrame="YES" tag="23" translatesAutoresizingMaskIntoConstraints="NO" id="549">
                                             <rect key="frame" x="405" y="141" width="50" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="23" title="10" drawsBackground="YES" id="588">
@@ -473,6 +476,7 @@
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <accessibility description="Line spacing."/>
                                             <connections>
                                                 <action selector="changeLeading:" target="-2" id="617"/>
                                             </connections>
@@ -536,7 +540,7 @@
                                                 <rect key="frame" x="3" y="3" width="138" height="84"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="571">
+                                                    <textField toolTip="Default width in characters." verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="571">
                                                         <rect key="frame" x="71" y="59" width="50" height="18"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="80" drawsBackground="YES" id="572">
@@ -556,7 +560,7 @@
                                                             <action selector="changeDefaultSize:" target="-2" id="612"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="570">
+                                                    <textField toolTip="Default height in characters." verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="570">
                                                         <rect key="frame" x="71" y="35" width="50" height="18"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="24" drawsBackground="YES" id="574">
@@ -594,7 +598,7 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="557">
+                                                    <textField toolTip="Main window margin." verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="557">
                                                         <rect key="frame" x="71" y="11" width="50" height="18"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="24" drawsBackground="YES" id="560">
@@ -634,7 +638,7 @@
                                                 <rect key="frame" x="3" y="3" width="140" height="84"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <button fixedFrame="YES" tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="563">
+                                                    <button toolTip="Convert straight quotes to curly in output text." fixedFrame="YES" tag="40" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="563">
                                                         <rect key="frame" x="13" y="56" width="120" height="18"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <buttonCell key="cell" type="check" title="Smart quotes" bezelStyle="regularSquare" imagePosition="leading" alignment="left" controlSize="small" tag="40" inset="2" id="564">
@@ -645,7 +649,7 @@
                                                             <action selector="changeSmartQuotes:" target="-2" id="610"/>
                                                         </connections>
                                                     </button>
-                                                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="562">
+                                                    <button toolTip="Remove double spaces." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="562">
                                                         <rect key="frame" x="13" y="36" width="120" height="18"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <buttonCell key="cell" type="check" title="Clean up spaces" bezelStyle="regularSquare" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="565">
@@ -656,7 +660,7 @@
                                                             <action selector="changeSpaceFormatting:" target="-2" id="606"/>
                                                         </connections>
                                                     </button>
-                                                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="929">
+                                                    <button toolTip="Some themes use special style settings that can't be changed here. Checking this removes them." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="929">
                                                         <rect key="frame" x="13" y="16" width="120" height="18"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <buttonCell key="cell" type="check" title="Overwrite styles" bezelStyle="regularSquare" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="930">
@@ -670,10 +674,10 @@
                                                 </subviews>
                                             </view>
                                         </box>
-                                        <button fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="973" userLabel="Swap Mono Colors Button">
+                                        <button toolTip="Switch ink and paper colors." fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="973" userLabel="Swap Mono Colors Button">
                                             <rect key="frame" x="325" y="173" width="20" height="19"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <buttonCell key="cell" type="recessed" title="♋" bezelStyle="recessed" image="buttonCell:974:image" alignment="left" tag="14" inset="2" id="974">
+                                            <buttonCell key="cell" type="recessed" title="♋" bezelStyle="recessed" image="NSSynchronize" imagePosition="overlaps" alignment="left" tag="14" inset="2" id="974">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system" size="17"/>
                                             </buttonCell>
@@ -681,7 +685,7 @@
                                                 <action selector="swapColors:" target="-2" id="981"/>
                                             </connections>
                                         </button>
-                                        <button fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="976" userLabel="Swap Prop Colors Button">
+                                        <button toolTip="Switch ink and paper colors." fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="976" userLabel="Swap Prop Colors Button">
                                             <rect key="frame" x="325" y="141" width="20" height="19"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <buttonCell key="cell" type="recessed" title="♋" bezelStyle="recessed" image="buttonCell:977:image" imagePosition="overlaps" alignment="left" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="977">
@@ -792,7 +796,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xkA-iq-2mP">
+                                        <popUpButton toolTip="This sound is used in some Infocom games when the score increases." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xkA-iq-2mP">
                                             <rect key="frame" x="180" y="106" width="235" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Basso" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="TK6-dR-kj2" id="UaZ-i2-bNA">
@@ -863,7 +867,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HRf-IU-ZEE">
+                                        <popUpButton toolTip="This sound is used in some Infocom games to emphasize warnings or errors." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HRf-IU-ZEE">
                                             <rect key="frame" x="180" y="79" width="235" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Basso" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Pbz-BR-DMZ" id="GoR-3l-PSP">
@@ -924,7 +928,7 @@
                                                 <action selector="changeBeepLowMenu:" target="-2" id="zzV-Yp-CeO"/>
                                             </connections>
                                         </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YnP-Bi-3m9">
+                                        <popUpButton toolTip="Resolve the conflict between Beyond Zork's usage of arrow keys and the standard behavior to step through command history. " verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YnP-Bi-3m9">
                                             <rect key="frame" x="180" y="139" width="235" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="􀄨 and 􀄩 work as in original" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="WZI-rz-izk" id="NPi-iW-9sz">
@@ -932,13 +936,13 @@
                                                 <font key="font" metaFont="menu"/>
                                                 <menu key="menu" id="3z8-D8-e4M">
                                                     <items>
-                                                        <menuItem title="􀄨 and 􀄩 work as in original" state="on" id="WZI-rz-izk" userLabel="Standard">
+                                                        <menuItem title="􀄨 and 􀄩 work as in original" state="on" toolTip="􀄨 and 􀄩 navigate menus and status windows.  􀆔􀄨 and 􀆔􀄩 step through command history." id="WZI-rz-izk" userLabel="Standard">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="Replaced by 􀆔􀄨 and 􀆔􀄩" tag="1" id="gS7-RK-TYK" userLabel="Swapped">
+                                                        <menuItem title="Replaced by 􀆔􀄨 and 􀆔􀄩" tag="1" toolTip="􀆔􀄨 and 􀆔􀄩 are used where the original uses 􀄨 and 􀄩. 􀄨 and 􀄩 step through command history like in other games." id="gS7-RK-TYK" userLabel="Swapped">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="􀄨􀄩 and 􀄪􀄫 work as in original" tag="2" id="ct7-O5-tVm" userLabel="Strict">
+                                                        <menuItem title="􀄨􀄩 and 􀄪􀄫 work as in original" tag="2" toolTip="􀄨 and 􀄩 navigate menus and status windows.  􀆔􀄨 and 􀆔􀄩 step through command history. 􀄪 and 􀄫 don't do anytthting." id="ct7-O5-tVm" userLabel="Strict">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
                                                     </items>
@@ -1053,15 +1057,16 @@
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fly-sQ-mPk">
                                             <rect key="frame" x="214" y="140" width="161" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <string key="toolTip">When VoiceOver is active, Spatterlight tries to detect some types of menus. This setting determines how detected menu lines are spoken.</string>
                                             <popUpButtonCell key="cell" type="push" title="Text only" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="cU5-z5-fTq" id="BMR-2g-JpV">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
                                                 <menu key="menu" id="p1B-5d-BdX">
                                                     <items>
-                                                        <menuItem title="Don't detect menus" id="Lht-T4-ElZ" userLabel="Don't detect menus"/>
-                                                        <menuItem title="Text only" state="on" tag="1" id="cU5-z5-fTq" userLabel="Text only"/>
-                                                        <menuItem title="Text and index" tag="2" id="W9Q-YO-Dgb" userLabel="Index"/>
-                                                        <menuItem title="Text, index, and total" tag="2" id="jug-Mg-OKp" userLabel="Index and total"/>
+                                                        <menuItem title="Don't detect menus" toolTip="Don't try to detect menus at all." id="Lht-T4-ElZ" userLabel="Don't detect menus"/>
+                                                        <menuItem title="Text only" state="on" tag="1" toolTip="Only speak the text of the menu line." id="cU5-z5-fTq" userLabel="Text only"/>
+                                                        <menuItem title="Text and index" tag="2" toolTip="Speak the index of the line in the menu." id="W9Q-YO-Dgb" userLabel="Index"/>
+                                                        <menuItem title="Text, index, and total" tag="2" toolTip="Speak the index of the line in the menu and the total number of lines." id="jug-Mg-OKp" userLabel="Index and total"/>
                                                     </items>
                                                 </menu>
                                             </popUpButtonCell>
@@ -1069,8 +1074,8 @@
                                                 <action selector="changeVOMenuMenu:" target="-2" id="ZwV-ch-41T"/>
                                             </connections>
                                         </popUpButton>
-                                        <button toolTip="Speak the command entered by the player when pressing enter." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVA-J4-AB0">
-                                            <rect key="frame" x="159" y="105" width="130" height="18"/>
+                                        <button toolTip="Speak the command entered by the player when pressing enter, when VoiceOver is active." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVA-J4-AB0">
+                                            <rect key="frame" x="159" y="105" width="143" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="check" title="Speak commands" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="xxj-M6-Sgq">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1130,9 +1135,10 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField toolTip="Setting this to a low value may improve performance and autosave reliability in some games, but can cause glitches." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aXw-Vw-tGV">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aXw-Vw-tGV">
                                             <rect key="frame" x="230" y="80" width="42" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <string key="toolTip">Some games use timers for real-time effects. Setting this to a low value may improve performance and autosave reliability in some games, but can cause glitches.</string>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="200" drawsBackground="YES" id="pq3-ZL-OXQ">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="T7I-oX-YXL"/>
                                                 <font key="font" metaFont="system"/>
@@ -1154,9 +1160,9 @@
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1n-Iy-dco">
-                                            <rect key="frame" x="141" y="148" width="178" height="18"/>
+                                            <rect key="frame" x="141" y="148" width="199" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <string key="toolTip">Autosave on every turn, so that you can close a game and resume it without having to save it manually. Can sometimes affect performance. Only available for Glulx and Z-code games.</string>
+                                            <string key="toolTip">Autosave on every turn. Removes the need to save manually. Can sometimes affect performance. Only available for Glulx and Z-code games.</string>
                                             <buttonCell key="cell" type="check" title="Autosave and autorestore" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="rok-Vo-ZHA">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1166,7 +1172,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Turning this off may improve performance and autosave reliability in games with high timer frequency, but can cause glitches." fixedFrame="YES" allowsExpansionToolTips="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="clv-YA-NP0">
-                                            <rect key="frame" x="141" y="125" width="175" height="18"/>
+                                            <rect key="frame" x="141" y="125" width="209" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="check" title="Autosave on timer events" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="JJt-62-HcI">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1176,9 +1182,10 @@
                                                 <action selector="changeAutosaveOnTimer:" target="-2" id="zPt-5X-50l"/>
                                             </connections>
                                         </button>
-                                        <slider toolTip="Setting this to a low value may improve performance and autosave reliability in some games, but can cause glitches." horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k43-6L-rYq">
+                                        <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k43-6L-rYq">
                                             <rect key="frame" x="378" y="48" width="19" height="84"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <string key="toolTip">Some games use timers for real-time effects. Setting this to a low value may improve performance and autosave reliability in some games, but can cause glitches.</string>
                                             <sliderCell key="cell" continuous="YES" alignment="left" minValue="5" maxValue="1000" doubleValue="200" tickMarkPosition="right" sliderType="linear" id="EeW-cF-5k4">
                                                 <connections>
                                                     <action selector="changeTimerSlider:" target="-2" id="Xot-nf-LOF"/>
@@ -1215,57 +1222,7 @@
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
-        <image name="buttonCell:974:image" width="1" height="1">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
-S2V5ZWRBcmNoaXZlctEICVRyb290gAGuCwwZGh8UJCgpMDM2PD9VJG51bGzWDQ4PEBESExQVFhcYVk5T
-U2l6ZV5OU1Jlc2l6aW5nTW9kZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0NvbG9ygAIQAIAN
-EiDDAACAA4ALVnsxLCAxfdIbDxweWk5TLm9iamVjdHOhHYAEgArSGw8gI6IhIoAFgAaACdIlDyYnXxAU
-TlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxEIiE1NACoAAAAKAAAAEAEAAAMAAAABAAEAAAEBAAMAAAAB
-AAEAAAECAAMAAAACAAgACAEDAAMAAAABAAEAAAEGAAMAAAABAAEAAAEKAAMAAAABAAEAAAERAAQAAAAB
-AAAACAESAAMAAAABAAEAAAEVAAMAAAABAAIAAAEWAAMAAAABAAEAAAEXAAQAAAABAAAAAgEcAAMAAAAB
-AAEAAAEoAAMAAAABAAIAAAFSAAMAAAABAAEAAAFTAAMAAAACAAEAAYdzAAcAAAe4AAAA0AAAAAAAAAe4
-YXBwbAIgAABtbnRyR1JBWVhZWiAH0AACAA4ADAAAAABhY3NwQVBQTAAAAABub25lAAAAAAAAAAAAAAAA
-AAAAAAAA9tYAAQAAAADTLWFwcGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAVkZXNjAAAAwAAAAG9kc2NtAAABMAAABixjcHJ0AAAHXAAAADh3dHB0AAAHlAAAABRrVFJD
-AAAHqAAAAA5kZXNjAAAAAAAAABVHZW5lcmljIEdyYXkgUHJvZmlsZQAAAAAAAAAAAAAAFUdlbmVyaWMg
-R3JheSBQcm9maWxlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-bWx1YwAAAAAAAAAeAAAADHNrU0sAAAAqAAABeGhySFIAAAA6AAABomNhRVMAAAAsAAAB3HB0QlIAAAAq
-AAACCHVrVUEAAAAsAAACMmZyRlUAAAAqAAACXnpoVFcAAAAQAAACiGl0SVQAAAAuAAACmG5iTk8AAAAs
-AAACxmtvS1IAAAAYAAAC8mNzQ1oAAAAkAAADCmhlSUwAAAAgAAADLmRlREUAAAA6AAADTmh1SFUAAAAu
-AAADiHN2U0UAAAAuAAADtnpoQ04AAAAQAAAD5GphSlAAAAAWAAAD9HJvUk8AAAAiAAAECmVsR1IAAAAk
-AAAELHB0UE8AAAA4AAAEUG5sTkwAAAAqAAAEiGVzRVMAAAAoAAAEsnRoVEgAAAAkAAAE2nRyVFIAAAAi
-AAAE/mZpRkkAAAAsAAAFIHBsUEwAAAA2AAAFTHJ1UlUAAAAmAAAFgmFyRUcAAAAoAAAFqGVuVVMAAAAo
-AAAF0GRhREsAAAA0AAAF+ABWAWEAZQBvAGIAZQBjAG4A/QAgAHMAaQB2AP0AIABwAHIAbwBmAGkAbABH
-AGUAbgBlAHIAaQENAGsAaQAgAHAAcgBvAGYAaQBsACAAcwBpAHYAaQBoACAAdABvAG4AbwB2AGEAUABl
-AHIAZgBpAGwAIABkAGUAIABnAHIAaQBzACAAZwBlAG4A6AByAGkAYwBQAGUAcgBmAGkAbAAgAEMAaQBu
-AHoAYQAgAEcAZQBuAOkAcgBpAGMAbwQXBDAEMwQwBDsETAQ9BDgEOQAgBD8EQAQ+BEQEMAQ5BDsAIABH
-AHIAYQB5AFAAcgBvAGYAaQBsACAAZwDpAG4A6QByAGkAcQB1AGUAIABnAHIAaQBzkBp1KHBwlo6Ccl9p
-Y8+P8ABQAHIAbwBmAGkAbABvACAAZwByAGkAZwBpAG8AIABnAGUAbgBlAHIAaQBjAG8ARwBlAG4AZQBy
-AGkAcwBrACAAZwByAOUAdABvAG4AZQBwAHIAbwBmAGkAbMd8vBgAIABHAHIAYQB5ACDVBLhc0wzHfABP
-AGIAZQBjAG4A/QAgAWEAZQBkAP0AIABwAHIAbwBmAGkAbAXkBegF1QXkBdkF3AAgAEcAcgBhAHkAIAXb
-BdwF3AXZAEEAbABsAGcAZQBtAGUAaQBuAGUAcwAgAEcAcgBhAHUAcwB0AHUAZgBlAG4ALQBQAHIAbwBm
-AGkAbADBAGwAdABhAGwA4QBuAG8AcwAgAHMAegD8AHIAawBlACAAcAByAG8AZgBpAGwARwBlAG4AZQBy
-AGkAcwBrACAAZwByAOUAcwBrAGEAbABlAHAAcgBvAGYAaQBsZm6QGnBwXqZjz4/wZYdO9k4AgiwwsDDs
-MKQw1zDtMNUwoTCkMOsAUAByAG8AZgBpAGwAIABnAHIAaQAgAGcAZQBuAGUAcgBpA5MDtQO9A7kDugPM
-ACADwAPBA78DxgOvA7sAIAOzA7oDwQO5AFAAZQByAGYAaQBsACAAZwBlAG4A6QByAGkAYwBvACAAZABl
-ACAAYwBpAG4AegBlAG4AdABvAHMAQQBsAGcAZQBtAGUAZQBuACAAZwByAGkAagBzAHAAcgBvAGYAaQBl
-AGwAUABlAHIAZgBpAGwAIABnAHIAaQBzACAAZwBlAG4A6QByAGkAYwBvDkIOGw4jDkQOHw4lDkwOKg41
-DkAOFw4yDhcOMQ5IDicORA4bAEcAZQBuAGUAbAAgAEcAcgBpACAAUAByAG8AZgBpAGwAaQBZAGwAZQBp
-AG4AZQBuACAAaABhAHIAbQBhAGEAcAByAG8AZgBpAGkAbABpAFUAbgBpAHcAZQByAHMAYQBsAG4AeQAg
-AHAAcgBvAGYAaQBsACAAcwB6AGEAcgBvAVsAYwBpBB4EMQRJBDgEOQAgBEEENQRABEsEOQAgBD8EQAQ+
-BEQEOAQ7BEwGRQZEBkEAIAYqBjkGMQZKBkEAIABHAHIAYQB5ACAGJwZEBjkGJwZFAEcAZQBuAGUAcgBp
-AGMAIABHAHIAYQB5ACAAUAByAG8AZgBpAGwAZQBHAGUAbgBlAHIAZQBsACAAZwByAOUAdABvAG4AZQBi
-AGUAcwBrAHIAaQB2AGUAbABzAGV0ZXh0AAAAAENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCBy
-aWdodHMgcmVzZXJ2ZWQuAFhZWiAAAAAAAADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AANIqKywtWiRj
-bGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdlUmVwoywuL1pOU0ltYWdlUmVwWE5TT2JqZWN0
-0iorMTJXTlNBcnJheaIxL9IqKzQ1Xk5TTXV0YWJsZUFycmF5ozQxL9M3OA85OjtXTlNXaGl0ZVxOU0Nv
-bG9yU3BhY2VEMCAwABADgAzSKis9PldOU0NvbG9yoj0v0iorQEFXTlNJbWFnZaJALwAIABEAGgAkACkA
-MgA3AEkATABRAFMAYgBoAHUAfACLAJIAnwCmAK4AsACyALQAuQC7AL0AxADJANQA1gDYANoA3wDiAOQA
-5gDoAO0BBAEGAQgJlAmZCaQJrQnACcQJzwnYCd0J5QnoCe0J/AoACgcKDwocCiEKIwolCioKMgo1CjoK
-QgAAAAAAAAIBAAAAAAAAAEIAAAAAAAAAAAAAAAAAAApFA
-</mutableData>
-        </image>
+        <image name="NSSynchronize" width="128" height="128"/>
         <image name="buttonCell:977:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T

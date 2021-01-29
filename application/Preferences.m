@@ -1127,6 +1127,13 @@ NSString *fontToString(NSFont *font) {
     _swapBufColBtn.attributedTitle = attstr;
     _swapGridColBtn.attributedTitle = attstr;
 
+    _standardZArrowsMenuItem.title = @"↑ and ↓ work as in original";
+    _standardZArrowsMenuItem.toolTip = @"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history.";
+    _compromiseZArrowsMenuItem.title = @"Replaced by \u2318↑ and \u2318↓";
+    _compromiseZArrowsMenuItem.toolTip = @"\u2318↑ and \u2318↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history as in other games.";
+    _strictZArrowsMenuItem.title = @"↑↓ and ←→ work as in original";
+    _strictZArrowsMenuItem.toolTip = @"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history. ← and → don't do anything.";
+
     if (!theme)
         theme = self.defaultTheme;
 
