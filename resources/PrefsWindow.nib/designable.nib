@@ -674,7 +674,7 @@
                                                 </subviews>
                                             </view>
                                         </box>
-                                        <button toolTip="Switch ink and paper colors." fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="973" userLabel="Swap Mono Colors Button">
+                                        <button toolTip="Swap ink and paper colors." fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="973" userLabel="Swap Mono Colors Button">
                                             <rect key="frame" x="325" y="173" width="20" height="19"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <buttonCell key="cell" type="recessed" title="♋" bezelStyle="recessed" image="NSSynchronize" imagePosition="overlaps" alignment="left" tag="14" inset="2" id="974">
@@ -685,7 +685,7 @@
                                                 <action selector="swapColors:" target="-2" id="981"/>
                                             </connections>
                                         </button>
-                                        <button toolTip="Switch ink and paper colors." fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="976" userLabel="Swap Prop Colors Button">
+                                        <button toolTip="Swap ink and paper colors." fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="976" userLabel="Swap Prop Colors Button">
                                             <rect key="frame" x="325" y="141" width="20" height="19"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <buttonCell key="cell" type="recessed" title="♋" bezelStyle="recessed" image="buttonCell:977:image" imagePosition="overlaps" alignment="left" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="977">
@@ -1222,7 +1222,7 @@
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
-        <image name="NSSynchronize" width="128" height="128"/>
+        <image name="NSSynchronize" width="150" height="150"/>
         <image name="buttonCell:977:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
