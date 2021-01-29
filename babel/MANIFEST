@@ -1,7 +1,7 @@
 adrift.c                        Treaty of Babel module for Adrift
 advsys.c                        Treaty of Babel module for AdvSys
-alan.c                          Treaty of Babel module for Alan
 agt.c                           Treaty of Babel module for AGT
+alan.c                          Treaty of Babel module for Alan
 babel.h                         babel program header
 md5.h                           L. Peter Deutsch's md5 header
 modules.h                       babel module registry
@@ -21,7 +21,7 @@ ifiction.h                      babel ifiction header
 ifiction.c                      babel ifiction api
 level9.c                        Treaty of Babel module for level9
 magscrolls.c                    Magnetic Scrolls treaty module
-makefile                        Provisional makefile
+Makefile                        Provisional makefile
 md5.c                           L. Peter Deutsch's md5 implementation
 misc.c                          babel memory allocator
 register.c                      babel module registry
@@ -31,8 +31,9 @@ tads.c                          Common functions for TADS modules
 tads2.c                         Treaty of Babel module for tads2
 tads3.c                         Treaty of Babel module for tads3
 zcode.c                         Treaty of Babel module for zcode
-README                          documentation
+README.md                       documentation
 MANIFEST                        this file
+LICENSE                         CC license note
 extras/babel-cache.pl           Perl demo of babel interaction
 extras/babel-infocom.pl         Special bundler for the infocom corpus
 extras/babel-list.c             Babel API demo
@@ -48,4 +49,17 @@ babel-get/get_dir.c             Directory source
 babel-get/get_ifiction.c        ifiction source
 babel-get/get_story.c           story file source
 babel-get/get_url.c             URL source
-babel-get/makefile              Makefile for babel-get
+babel-get/Makefile              Makefile for babel-get
+test/Makefile                   Makefile for test suite
+test/Makefile.boilerplate       Common definitions for test Makefiles
+test/alan/Makefile              Makefile for alan test
+test/alan/expected              Expected alan test output
+test/alan/invalid.a3c           Alan test file
+test/alan/valid.a3c             Alan test file
+test/alan/valid.a3r             Alan test file
+test/bronze/Makefile            Makefile for Bronze test
+test/bronze/expected            Expected Bronze test output
+test/bronze/expected.iFiction   Expected Bronze iFiction file
+test/bronze/expected.jpg        Expected Bronze cover art
+test/bronze/Bronze.zblorb       Bronze by Emily Short
+

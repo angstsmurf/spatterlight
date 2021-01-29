@@ -31,7 +31,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
  if (!(ser[0]=='8' || ser[0]=='9' ||
      (ser[0]=='0' && ser[1]>='0' && ser[1]<='5')))
  {
-  for(i=0;i<extent-7;i++) if (memcmp((char *)story_file+i,"UUID://",7)==0) break;
+  for(i=0;i<extent;i++) if (memcmp((char *)story_file+i,"UUID://",7)==0) break;
   if (i<extent) /* Found explicit IFID */
   {
    for(j=i+7;j<extent && ((char *)story_file)[j]!='/';j++);
