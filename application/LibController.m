@@ -1949,7 +1949,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     if (!metadata.format)
         metadata.format = @(format);
-    if (!metadata.title)
+    if (!metadata.title || metadata.title.length == 0)
     {
         metadata.title = path.lastPathComponent;
     }
