@@ -1338,6 +1338,8 @@
 - (void)terpDidStop {
     _textview.editable = NO;
     [self grabFocus];
+    [self performScroll];
+    [self flushDisplay];
 }
 
 - (void)padWithNewlines:(NSUInteger)lines {
