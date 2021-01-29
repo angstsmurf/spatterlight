@@ -5,6 +5,8 @@
 - Autosave and autorestore for Z-code games. (Previously this was only implemented for Glulx games.)
 - Quote boxes in Z-code games are now nicer-looking separate text views, floating over the main scroll view.
 - Setting to turn off autosave.
+- Setting to turn off autosave on timer events.
+- Setting for maximum timer frequency.
 - Preferences button to reset alert suppression.
 - New preferences tab with Z-code related settings.
 - Setting to select sound effects for the Z-code "high" and "low" beeps. Only the standard macOS system sounds are available for now.
@@ -23,12 +25,15 @@
 - Fixes a crash that would sometimes occur when closing *Pytho's Mask*.
 - The bottom menu in *City of Secrets* would become invisible after exiting full screen.
 - All sound code is now using SDL Mixer. SDL Sound is no longer used. Thanks to mstoeckl who wrote this code for Gargoyle.
+- Reworked sound code to improve performance and fix a bug that could cause crashes or leave CPU-heavy orphan processes running when a game window was closed.
 - Includes Bocfel patches by Chris Spiegel for *Beyond Zork* and *Robot Finds Kitten* (which would previously crash), and fixes for status line display of time and negative numbers.
 - *The Meteor, the Stone and a Long Glass of Sherbet* and *Tristam Island* are now playable (by ignoring errors.)
 - Adds command history to line input in the status window.
 - Improved pasting into line input. ⌘C + ⌘V will now directly paste selected text (such as a previous command) into the input line.
 - Updates Alan 3 to beta 8.
 - Updates Bocfel to version 1.2
+- Updates Glulxe to version 0.5.4.147
+- Updates Babel to version 0.3
 
 ## Release 0.6b
 
