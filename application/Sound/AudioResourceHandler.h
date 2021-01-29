@@ -25,13 +25,28 @@ typedef enum kBlorbSoundFormatType : NSInteger {
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface SoundFile : NSObject
+
+- (instancetype)initWithPath:(NSString *)path;
+- (void)resolveBookmark;
+
+@property (nullable) NSData *bookmark;
+@property (nullable) NSURL *URL;
+
+@end;
+
+
 @interface SoundResource : NSObject
 
+- (instancetype)initWithFilename:(NSString *)filename offset:(NSUInteger)offset length:(NSUInteger)length;
+
+-(BOOL)load;
+
 @property (nullable) NSData *data;
-@property size_t length;
-@property (nullable) NSURL *filename;
-@property NSInteger offset;
-@property BOOL loadedflag;
+@property (nullable) SoundFile *soundFile;
+@property NSString *filename;
+@property NSUInteger offset;
+@property NSUInteger length;
 @property kBlorbSoundFormatType type;
 
 @end
@@ -39,20 +54,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AudioResourceHandler : NSObject
 
-@property NSMutableDictionary <NSNumber *, SoundResource *> *my_resources;
+@property NSMutableDictionary <NSNumber *, SoundResource *> *resources;
 @property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sound_channels;
+@property NSMutableDictionary <NSString *, SoundFile *> *files;
 @property (nullable) GlkSoundChannel *music_channel;
 @property NSUInteger restored_music_channel_id;
 
 
 - (void)initializeSound;
 
-- (void)setSoundResource:(NSInteger)snd type:(kBlorbSoundFormatType)type data:(NSData *)data length:(NSUInteger)length filename:(nullable NSString *)filename offset:(NSInteger)offset;
+- (void)setSoundID:(NSInteger)snd filename:(nullable NSString *)filename length:(NSUInteger)length offset:(NSUInteger)offset;
 
 -(NSInteger)load_sound_resource:(NSInteger)snd length:(NSUInteger *)len data:(char * _Nonnull * _Nonnull)buf;
 
 - (void)stopAllAndCleanUp:(NSArray *)channels;
-
 - (BOOL)soundIsLoaded:(NSInteger)soundId;
 
 @end

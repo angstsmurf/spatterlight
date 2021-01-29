@@ -565,10 +565,8 @@ int win_findsound(int resno)
 
 void win_loadsound(int resno, char *filename, int offset, int reslen)
 {
-    fprintf(stderr, "win_loadsound resno %d filename %s\n", resno, filename);
     win_flush();
     if (gli_enable_sound)
-
     {
         int len = strlen(filename);
         if (len)
@@ -589,8 +587,6 @@ void win_setvolume(int chan, int vol, int duration, int notify)
 
 void win_playsound(int chan, int repeats, int notify)
 {
-    fprintf(stderr, "win_playsound chan %d\n", chan);
-
     win_flush();
     if (gli_enable_sound)
     sendmsg(PLAYSOUND, chan, repeats, notify, 0, 0, 0, NULL);

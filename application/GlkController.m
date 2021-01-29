@@ -2107,36 +2107,21 @@ static const char *msgnames[] = {
 
 - (void)handleLoadSoundNumber:(int)resno
                          from:(NSString *)path
-                       offset:(NSInteger)offset
+                       offset:(NSUInteger)offset
                        length:(NSUInteger)length {
 
     if (lastsoundresno == resno && [_audioResourceHandler soundIsLoaded:resno])
         return;
 
-    lastsoundresno = -1;
-
-    NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
-
-    [fileHandle seekToFileOffset:(unsigned long long)offset];
-    NSData *data = [fileHandle readDataOfLength:length];
-
-    if (!data) {
-        NSLog(@"Could not load data of length %ld from file at path %@", length, path);
-        return;
-    }
+    [_audioResourceHandler setSoundID:resno filename:path length:length offset:offset];
 
     lastsoundresno = resno;
-
-    [_audioResourceHandler setSoundResource:resno type:NONE data:data length:length filename:path offset:offset];
 }
 
 - (BOOL)handleFindSoundNumber:(int)resno {
     if ([_audioResourceHandler soundIsLoaded:resno])
         return YES;
-
-    size_t len = 0;
-    char *buf = nil;
-    [_audioResourceHandler load_sound_resource:resno length:&len data:&buf];
+    [_audioResourceHandler.resources[@(resno)] load];
     return [_audioResourceHandler soundIsLoaded:resno];
 }
 
@@ -2660,7 +2645,7 @@ static const char *msgnames[] = {
             buf[req->len] = 0;
             [self handleLoadSoundNumber:req->a1
                                    from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
-                                 offset:req->a2
+                                 offset:(NSUInteger)req->a2
                                  length:(NSUInteger)req->a3];
             break;
 

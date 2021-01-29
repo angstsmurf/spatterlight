@@ -1,7 +1,6 @@
 @class GlkController, SoundResource, AudioResourceHandler;
 
 @interface GlkSoundChannel : NSObject {
-
     void *channel;
     void *sound;
     NSInteger loop;
@@ -27,7 +26,7 @@
     CGFloat volume_delta;
     NSTimer *timer;
     NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sound_channels;
-    NSMutableDictionary <NSNumber *, SoundResource *> *my_resources;
+    NSMutableDictionary <NSNumber *, SoundResource *> *resources;
 }
 
 @property NSUInteger name;

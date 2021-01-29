@@ -13,7 +13,7 @@ static int loadsound(int sound)
     glui32 chunktype;
     FILE *file;
     char *buf;
-    long pos;
+    long pos = 0;
     long len;
     char filename[PATH_MAX];
     

@@ -51,8 +51,10 @@ static void *glk_controller;
 
 - (void)postInit {
     _handler = _glkctl.audioResourceHandler;
+    if (!_handler.sound_channels)
+        _handler.sound_channels = [[NSMutableDictionary alloc] init];
     sound_channels = _handler.sound_channels;
-    my_resources = _handler.my_resources;
+    resources = _handler.resources;
     glk_controller = (__bridge void *)_glkctl;
 }
 
@@ -99,7 +101,7 @@ static void *glk_controller;
             break;
             
         default:
-            NSLog(@"schannel_play_ext: unknown resource type.");
+            NSLog(@"schannel_play_ext: unknown resource type (%ld).", type);
     }
     
     /* if channel was paused it should be paused again */
@@ -200,19 +202,6 @@ static void *glk_controller;
     if (timer)
         [timer invalidate];
     timer = nil;
-    
-    if (resid >= 0)
-    {
-        SoundResource *res = my_resources[@(resid)];
-        
-        if (res && res.loadedflag)
-        {
-            if (res.data)
-                res.data = nil;
-            
-            res.loadedflag = NO;
-        }
-    }
     resid = -1;
 }
 
