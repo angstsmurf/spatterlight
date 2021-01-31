@@ -1,5 +1,11 @@
 # Change log
 
+## Release 0.7.5
+- Fixes to Bureaucracy forms.
+- Some invalid files could slip through the detection code.
+- Added games could get a blank title.
+- Always scroll down when a game quits so that the final text is visible.
+
 ## Release 0.7.4
 
 - Autosave and autorestore for Z-code games. (Previously this was only implemented for Glulx games.)
