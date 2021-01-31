@@ -16,27 +16,50 @@
 - (instancetype)initWithGlkController:(GlkController *)glkctl {
     self = [super init];
     if (self) {
+        _haveSpokenForm = NO;
         _glkctl = glkctl;
-        _fieldstrings = @[@"Last name:", @"First name:", @"Middle initial:", @"Your sex (M/F):", @"House number:", @"Street name:", @"City:", @"State:", @"Zip:", @"Phone:", @"Last employer but one:", @"Least favourite colour:", @"Name of girl/boy friend:", @"Previous girl/boy friend:"];
     }
     return self;
 }
 
+- (BOOL)detectForm {
+    NSRange titleRange = [self findTitleRange];
+    if (titleRange.location == NSNotFound)
+        return NO;
+
+    _titlestring = [_attrStr.string substringWithRange:titleRange];
+
+    _titlestring = [_titlestring stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    if ([_titlestring isEqualToString:@"SOFTWARE LICENCE APPLICATION"]) {
+        _fieldstrings = @[@"Last name:", @"First name:", @"Middle initial:", @"Your sex (M/F):", @"House number:", @"Street name:", @"City:", @"State:", @"Zip:", @"Phone:", @"Last employer but one:", @"Least favourite colour:", @"Name of girl/boy friend:", @"Previous girl/boy friend:"];
+
+    } else if ([_titlestring isEqualToString:@"DEPOSIT SLIP"]) {
+        _fieldstrings = @[@"Last name:", @"First name:", @"Middle initial:", @"Amount of deposit: $", @"From illegal activity? (y/n):", @"If yes, which one:"];
+
+    } else if ([_titlestring isEqualToString:@"WITHDRAWAL SLIP"]) {
+        _fieldstrings = @[@"Last name:", @"First name:", @"Middle initial:", @"Amount of withdrawal: $", @"For illegal activity? (y/n):", @"If yes, which one:"];
+
+    } else if ([_titlestring isEqualToString:@"ZALAGASAN IMMIGRATION FORM"]) {
+        _fieldstrings = @[@"Last name:", @"First name:", @"Middle initial:", @"Home planet:", @"Mother's maiden name:", @"Date of last Chinese meal:", @"Ring size:", @"Age of first-born ancestor:", @"Visa number:", @"Stars in universe:", @"Reason for leaving:"];
+
+    } else {
+        return NO;
+    }
+
+    return YES;
+}
+
 - (BOOL)isForm {
     // If the current game is Bureaucracy and the initial text
-    // in the grid window is "SOFTWARE LICENCE APPLICATION"
+    // in the grid window is one of the four form titles, then
     // we can be be pretty sure that this is it
     if (_glkctl.bureaucracy) {
         for (GlkTextGridWindow *win in _glkctl.gwindows.allValues) {
             if ([win isKindOfClass:[GlkTextGridWindow class]]) {
                 _attrStr = win.textview.textStorage;
                 if (_attrStr && _attrStr.length < 4000) {
-                    NSString *string = _attrStr.string;
-                    string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                    if (string.length < 29)
-                        return NO;
-                    string = [string substringToIndex:28];
-                    if ([string isEqualToString:@"SOFTWARE LICENCE APPLICATION"]) {
+                    if ([self detectForm]) {
                         _fields = [self extractFieldRanges];
                         _infoFieldRange = [self findInfoFieldRange];
                         NSUInteger currentField = [self findCurrentField];
@@ -68,18 +91,12 @@
 - (NSUInteger)findCurrentField {
     GlkTextGridWindow *view = (GlkTextGridWindow *)((NSTextStorage *)_attrStr).delegate;
     NSUInteger inputIndex = [view indexOfPos];
-    for (NSUInteger index = 0; index < _fields.count; index++) {
-        NSRange range = [self rangeFromIndex:index];
-        if (inputIndex > range.location && inputIndex < NSMaxRange(range)) {
-            return index;
-        }
-    }
-    return NSNotFound;
+    return [self fieldFromPos:inputIndex];
 }
 
 - (NSRange)findInfoFieldRange {
     NSString *string = _attrStr.string;
-    NSUInteger startpos = NSMaxRange([string rangeOfString:@"SOFTWARE LICENCE APPLICATION"]);
+    NSUInteger startpos = NSMaxRange([string rangeOfString:_titlestring]);
     NSUInteger endpos = [string rangeOfString:@"Last name:"].location;
     __block NSRange fieldrange;
     __block NSUInteger counter = 0;
@@ -99,6 +116,30 @@
     return fieldrange;
 }
 
+- (NSRange)findTitleRange {
+    NSString *string = _attrStr.string;
+    NSUInteger endpos = [string rangeOfString:@"Last name:"].location;
+
+    __block NSRange fieldrange = NSMakeRange(NSNotFound, 0);
+    if (endpos == NSNotFound)
+        return fieldrange;
+    __block NSUInteger counter = 0;
+
+    [_attrStr
+     enumerateAttribute:NSBackgroundColorAttributeName
+     inRange:NSMakeRange(0, endpos)
+     options:0
+     usingBlock:^(id value, NSRange range, BOOL *stop) {
+        if (counter == 3) {
+            fieldrange = range;
+            *stop = YES;
+            return;
+        }
+        counter++;
+    }];
+    return fieldrange;
+}
+
 - (NSString *)constructInputString {
     NSRange range;
     range.location = NSMaxRange(_fields[_lastField].rangeValue);
@@ -107,9 +148,9 @@
     else {
         range.length = _fields[_lastField + 1].rangeValue.location - range.location;
     }
-    NSString *inputString = [_attrStr.string substringWithRange:range];
+    NSString *inputString = [[_attrStr.string substringWithRange:range] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *infoString = [self constructInfoString];
-    if ([infoString isEqualToString:_lastInfoString])
+    if ([infoString isEqualToString:_lastInfoString] && !_speakingError)
         infoString = @"";
     else
         _lastInfoString = infoString;
@@ -125,7 +166,7 @@
 }
 
 - (NSString *)constructFieldStringWithIndex:(BOOL)useIndex andTotal:(BOOL)useTotal {
-    NSUInteger index =  [self findCurrentField];
+    NSUInteger index = [self findCurrentField];
     if (index == NSNotFound)
         return @"";
     NSRange range = [self rangeFromIndex:index];
@@ -133,7 +174,7 @@
     if (useIndex) {
         string = [string stringByAppendingString:[NSString stringWithFormat:@"\nField %ld", index + 1]];
         if (useTotal) {
-            string = [string stringByAppendingString:@" of 14"];
+            string = [string stringByAppendingString:[NSString stringWithFormat:@" of %ld", _fields.count]];
         }
         string = [string stringByAppendingString:@"."];
     }
@@ -195,27 +236,37 @@
     if (_selectedField == NSNotFound)
         return;
 
+    [self checkIfMoved];
+
+    if (_didNotMove)
+        _lastField = _selectedField;
+
     NSString *selectedFieldString = @"";
 
     if (!_haveSpokenForm || sender == self.glkctl) {
         selectedFieldString =
         [self constructFieldStringWithIndex:YES andTotal:YES];
         if (!_haveSpokenForm) {
-            NSString *titleString = [@"SOFTWARE LICENCE APPLICATION: " stringByAppendingString:[self constructInputString]];
+            NSString *titleString = [_titlestring stringByAppendingString:@": "];
+            titleString = [_titlestring stringByAppendingString:[self constructInputString]];
             selectedFieldString = [titleString stringByAppendingString:selectedFieldString];
             _haveSpokenForm = YES;
         }
     } else {
         if (self.glkctl.theme.vOSpeakCommand)
             selectedFieldString = [self constructInputString];
-        
-        selectedFieldString =
-        [selectedFieldString stringByAppendingString:
-         [self constructFieldStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex)  andTotal:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal)]];
+
+        if (!_didNotMove)
+            selectedFieldString =
+            [selectedFieldString stringByAppendingString:
+             [self constructFieldStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex)  andTotal:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal)]];
     }
 
     [self speakString:selectedFieldString];
-    [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:7];
+    if (!_haveSpokenInstructions) {
+        [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:7];
+        _haveSpokenInstructions = YES;
+    }
 }
 
 - (void)speakInstructions:(id)sender {
@@ -234,20 +285,23 @@
 }
 
 - (void)speakError {
+    _speakingError = YES;
     GlkTextGridWindow *win = (GlkTextGridWindow *)((NSTextStorage *)_attrStr).delegate;
     [win flushDisplay];
     [self performSelector:@selector(deferredSpeakError:) withObject:nil afterDelay:0.1];
 }
 
 - (void)deferredSpeakError:(id)sender {
+    [self checkIfMoved];
     NSString *errorString = @"";
-    if (self.glkctl.theme.vOSpeakCommand)
+    if (self.glkctl.theme.vOSpeakCommand && !_didNotMove)
         errorString = [self constructInputString];
     else
         errorString = [self constructInfoString];
     errorString = [errorString stringByAppendingString:
                    [self constructFieldStringWithIndex:(self.glkctl.theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(self.glkctl.theme.vOSpeakMenu == kVOMenuTotal)]];
     [self speakString:errorString];
+    _speakingError = NO;
 }
 
 - (void)speakString:(NSString *)string {
@@ -266,6 +320,23 @@
                                                     mainWin,
                                                     NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
     }
+}
+
+- (void)checkIfMoved {
+    GlkTextGridWindow *view = (GlkTextGridWindow *)((NSTextStorage *)_attrStr).delegate;
+    NSUInteger currentPos = [view indexOfPos];
+    _didNotMove = ([self fieldFromPos:(NSUInteger)currentPos] == [self fieldFromPos:_lastCharacterPos] );
+    _lastCharacterPos = currentPos;
+}
+
+- (NSUInteger)fieldFromPos:(NSUInteger)pos {
+    for (NSUInteger index = 0; index < _fields.count; index++) {
+        NSRange range = [self rangeFromIndex:index];
+        if (pos > range.location && pos < NSMaxRange(range)) {
+            return index;
+        }
+    }
+    return NSNotFound;
 }
 
 @end

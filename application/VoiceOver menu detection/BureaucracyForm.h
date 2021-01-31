@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSAttributedString *attrStr;
 @property NSArray<NSValue *> *fields;
 @property NSArray<NSString *> *fieldstrings;
+@property NSString *titlestring;
 @property NSUInteger selectedField;
 @property NSUInteger lastField;
 @property NSUInteger lastCharacterPos;
@@ -25,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property BOOL haveSpokenForm;
 @property BOOL dontSpeakField;
+@property BOOL haveSpokenInstructions;
+@property BOOL speakingError;
+@property BOOL didNotMove;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl;
 
