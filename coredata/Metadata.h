@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * bafn;
 @property (nonatomic, retain) NSString * blurb;
 @property (nonatomic, retain) NSString * coverArtURL;
+@property (nonatomic, retain) NSString * coverArtDescription;
 @property (nonatomic, retain) NSDate * dateEdited;
 @property (nonatomic, retain) NSString * firstpublished;
 @property (nonatomic, retain) NSDate * firstpublishedDate;

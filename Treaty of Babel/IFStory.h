@@ -9,12 +9,14 @@
 
 @class IFIdentification;
 @class IFBibliographic;
+@class IFCoverDescription;
 @class IFDB;
 
 @interface IFStory : NSObject
 
 @property(readonly) IFIdentification *identification;
 @property(readonly) IFBibliographic *bibliographic;
+@property(readonly) IFCoverDescription *coverDescription;
 @property(readonly) IFDB *ifdb;
 
 - (instancetype)initWithXMLElement:(NSXMLElement *)element andContext:(NSManagedObjectContext *)context;

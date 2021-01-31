@@ -184,6 +184,7 @@
 - (void)updateImage {
     if (_meta.cover) {
         imageView.image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
+        imageView.accessibilityLabel = _meta.coverArtDescription;
     }
     [self sizeToFitImageAnimate:NO];
 }

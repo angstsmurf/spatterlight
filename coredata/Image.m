@@ -14,7 +14,7 @@
 
 @dynamic data;
 @dynamic originalURL;
-@dynamic type;
+@dynamic imageDescription;
 @dynamic metadata;
 
 @end

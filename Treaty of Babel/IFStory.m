@@ -8,6 +8,7 @@
 #import "IFStory.h"
 #import "IFIdentification.h"
 #import "IFBibliographic.h"
+#import "IFCoverDescription.h"
 #import "IFDB.h"
 #import "Metadata.h"
 #import "Image.h"
@@ -28,6 +29,7 @@
         _identification = [[IFIdentification alloc] initWithXMLElement:idElement andContext:context];
 
         Metadata *metadata = _identification.metadata;
+
         NSXMLElement *biblioElement = [element elementsForName:@"bibliographic"][0];
         _bibliographic = [[IFBibliographic alloc] initWithXMLElement:biblioElement andMetadata:metadata];
 
@@ -40,6 +42,10 @@
                 [downLoader downloadImageFor:metadata];
             }
         }
+
+        NSArray<NSXMLElement *> *coverElements = [element elementsForName:@"cover"];
+        if (coverElements.count)
+            _coverDescription = [[IFCoverDescription alloc] initWithXMLElement:coverElements[0] andMetadata:metadata];
     }
     return self;
 }

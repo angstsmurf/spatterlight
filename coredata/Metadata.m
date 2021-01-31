@@ -20,6 +20,7 @@
 @dynamic bafn;
 @dynamic blurb;
 @dynamic coverArtURL;
+@dynamic coverArtDescription;
 @dynamic dateEdited;
 @dynamic firstpublished;
 @dynamic firstpublishedDate;

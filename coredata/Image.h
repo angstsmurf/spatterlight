@@ -15,7 +15,7 @@
 
 @property (nonatomic, retain) id data;
 @property (nonatomic, retain) NSString * originalURL;
-@property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSString * imageDescription;
 @property (nonatomic, retain) NSSet *metadata;
 @end
 

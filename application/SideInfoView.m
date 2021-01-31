@@ -258,6 +258,8 @@ fprintf(stderr, "%s\n",                                                    \
 
         imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0,0,theImage.size.width,theImage.size.height)];
 
+        imageView.accessibilityLabel = somedata.coverArtDescription;
+
         [self addSubview:imageView];
 
         imageView.imageScaling = NSImageScaleProportionallyUpOrDown;

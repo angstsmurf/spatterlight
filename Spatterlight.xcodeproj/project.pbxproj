@@ -597,6 +597,10 @@
 		C3B3779F1ECBA3DD006432BE /* vmtz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3779E1ECBA3DD006432BE /* vmtz.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3B377A11ECBA3E8006432BE /* vmtzobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3B377A71ECBA4D5006432BE /* vmconnom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A61ECBA4D5006432BE /* vmconnom.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3C1807E25C70F300040AE79 /* Blorb.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C1807B25C70F2F0040AE79 /* Blorb.m */; };
+		C3C1807F25C70F300040AE79 /* BlorbResource.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C1807D25C70F2F0040AE79 /* BlorbResource.m */; };
+		C3C180AF25C70FD80040AE79 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C180AE25C70FD80040AE79 /* iff.c */; };
+		C3C180C825C717F30040AE79 /* IFCoverDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C180C725C717F30040AE79 /* IFCoverDescription.m */; };
 		C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3D6AD721ECF381A00ADB69C /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D81779256CBA20005DBC1F /* InputTextField.m */; };
@@ -2528,6 +2532,14 @@
 		C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmtzobj.cpp; sourceTree = "<group>"; };
 		C3B377A21ECBA41B006432BE /* vmconhtm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmconhtm.cpp; sourceTree = "<group>"; };
 		C3B377A61ECBA4D5006432BE /* vmconnom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmconnom.cpp; sourceTree = "<group>"; };
+		C3C1807A25C70F2F0040AE79 /* BlorbResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlorbResource.h; sourceTree = "<group>"; };
+		C3C1807B25C70F2F0040AE79 /* Blorb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Blorb.m; sourceTree = "<group>"; };
+		C3C1807C25C70F2F0040AE79 /* Blorb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Blorb.h; sourceTree = "<group>"; };
+		C3C1807D25C70F2F0040AE79 /* BlorbResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlorbResource.m; sourceTree = "<group>"; };
+		C3C180AD25C70FD80040AE79 /* iff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iff.h; sourceTree = "<group>"; };
+		C3C180AE25C70FD80040AE79 /* iff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iff.c; sourceTree = "<group>"; };
+		C3C180C625C717F30040AE79 /* IFCoverDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFCoverDescription.h; sourceTree = "<group>"; };
+		C3C180C725C717F30040AE79 /* IFCoverDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFCoverDescription.m; sourceTree = "<group>"; };
 		C3CDF24925A3C26000FA3451 /* Spatterlight 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 5.xcdatamodel"; sourceTree = "<group>"; };
 		C3D155671EDC4C820072D259 /* defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defs.h; path = Generic/defs.h; sourceTree = "<group>"; };
 		C3D81779256CBA20005DBC1F /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
@@ -2872,6 +2884,8 @@
 				6D7673E2239FFB0900FB24C0 /* IFIdentification.m */,
 				6D7673D7239FFB0900FB24C0 /* IFBibliographic.h */,
 				6D7673D8239FFB0900FB24C0 /* IFBibliographic.m */,
+				C3C180C625C717F30040AE79 /* IFCoverDescription.h */,
+				C3C180C725C717F30040AE79 /* IFCoverDescription.m */,
 				6D7673DB239FFB0900FB24C0 /* IFDB.h */,
 				6D7673DC239FFB0900FB24C0 /* IFDB.m */,
 				C300D48223A11786000B2165 /* IFDBDownloader.h */,
@@ -3496,6 +3510,7 @@
 				C31186F225BD514B00739D7B /* Sound */,
 				6DBC471721D270B100A20E28 /* Compatibility.h */,
 				6DBC471821D2752000A20E28 /* Compatibility.m */,
+				C3C1809625C70F3A0040AE79 /* Blorb */,
 				961CCEDD09F239E700528FF9 /* AppDelegate.h */,
 				961CCEDE09F239E700528FF9 /* AppDelegate.m */,
 				961CCEE309F239E700528FF9 /* Preferences.h */,
@@ -4799,6 +4814,19 @@
 			path = headers;
 			sourceTree = "<group>";
 		};
+		C3C1809625C70F3A0040AE79 /* Blorb */ = {
+			isa = PBXGroup;
+			children = (
+				C3C180AE25C70FD80040AE79 /* iff.c */,
+				C3C180AD25C70FD80040AE79 /* iff.h */,
+				C3C1807C25C70F2F0040AE79 /* Blorb.h */,
+				C3C1807B25C70F2F0040AE79 /* Blorb.m */,
+				C3C1807A25C70F2F0040AE79 /* BlorbResource.h */,
+				C3C1807D25C70F2F0040AE79 /* BlorbResource.m */,
+			);
+			path = Blorb;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -5519,6 +5547,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3C1807E25C70F300040AE79 /* Blorb.m in Sources */,
 				6DBC471A21D27E9C00A20E28 /* Compatibility.m in Sources */,
 				961CCEF209F23A0000528FF9 /* main.m in Sources */,
 				961CCEF409F23A0000528FF9 /* Preferences.m in Sources */,
@@ -5539,14 +5568,17 @@
 				6D79435A224A2D2E0071EB3D /* NSString+Categories.m in Sources */,
 				C35ED515256DD37A00C14847 /* InputHistory.m in Sources */,
 				6DCFFC2E22BE57790035FA99 /* SideInfoView.m in Sources */,
+				C3C180C825C717F30040AE79 /* IFCoverDescription.m in Sources */,
 				6D73052122BFA9EB00DFC73C /* NSDate+relative.m in Sources */,
 				6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */,
+				C3C1807F25C70F300040AE79 /* BlorbResource.m in Sources */,
 				6D7673E8239FFC6C00FB24C0 /* IFBibliographic.m in Sources */,
 				6D7673EA239FFC6C00FB24C0 /* IFDB.m in Sources */,
 				6D7673EC239FFC6C00FB24C0 /* IFictionMetadata.m in Sources */,
 				C3074B8825A1F461003E80C6 /* VersionFormatter.m in Sources */,
 				6D7673ED239FFC6C00FB24C0 /* IFIdentification.m in Sources */,
 				6D7673EE239FFC6C00FB24C0 /* IFStory.m in Sources */,
+				C3C180AF25C70FD80040AE79 /* iff.c in Sources */,
 				6DC6213D23A26078002DEF3B /* Ifid.m in Sources */,
 				6DC6214023A26078002DEF3B /* Image.m in Sources */,
 				6DC6214323A26078002DEF3B /* Tag.m in Sources */,
