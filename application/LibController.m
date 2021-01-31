@@ -1797,6 +1797,27 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 }
 
+-(BOOL) checkZcode:(NSString *)file {
+    NSData *mem = [NSData dataWithContentsOfFile:file];
+
+    int dictionary = word(mem, 0x08);
+    int static_start = word(mem, 0x0e);
+
+    if(dictionary != 0 && dictionary < static_start)
+    {   // corrupted story: dictionary is not in static memory
+        return NO;
+    }
+    return YES;
+}
+
+static inline uint16_t word(NSData *mem, uint32_t addr)
+{
+    uint8_t *memory = (uint8_t *)mem.bytes;
+
+    return (uint16_t)((memory[addr] << 8) | memory[addr + 1]);
+}
+
+
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report {
     char buf[TREATY_MINIMUM_EXTENT];
     Metadata *metadata;
@@ -1807,13 +1828,15 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     size_t mdlen;
     int rv;
 
-    if ([path.pathExtension.lowercaseString isEqualToString: @"ifiction"])
+    NSString *extension = path.pathExtension.lowercaseString;
+
+    if ([extension isEqualToString: @"ifiction"])
     {
         [self addIfidFile:path];
         return nil;
     }
 
-    if ([path.pathExtension.lowercaseString isEqualToString: @"d$$"])
+    if ([extension isEqualToString: @"d$$"])
     {
         path = [self convertAGTFile: path];
         if (!path)
@@ -1830,7 +1853,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         }
     }
 
-    if (![gGameFileTypes containsObject: path.pathExtension.lowercaseString])
+    if (![gGameFileTypes containsObject: extension])
     {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1879,6 +1902,22 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     s = strchr(buf, ',');
     if (s) *s = 0;
     ifid = @(buf);
+
+    if ([extension isEqualToString: @"dat"] &&
+        !(([@(format) isEqualToString:@"zcode"] &&
+           [self checkZcode:path]) ||
+          [@(format) isEqualToString:@"level9"])) {
+        if (report) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSAlert *alert = [[NSAlert alloc] init];
+                alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
+                alert.informativeText = NSLocalizedString(@"Not a supported format.", nil);
+                [alert runModal];
+            });
+        }
+        babel_release();
+        return nil;
+    }
 
     //NSLog(@"libctl: import game %@ (%s)", path, format);
 

@@ -52,6 +52,10 @@ static int32 get_story_file_IFID(void *s_file, int32 extent, char *output, int32
  sprintf(buffer,"HUGO-%d-%02X-%02X-%s",story_file[0],story_file[1], story_file[2],ser);
 
  ASSERT_OUTPUT_SIZE((signed) strlen(buffer)+1);
+
+ if (!strncmp(buffer, "HUGO-117-6E-73-igned-ch", 23))
+  return INVALID_STORY_FILE_RV;
+
  strcpy((char *)output,buffer);
  return 1;
 }
