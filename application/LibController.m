@@ -1903,10 +1903,10 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
     if (s) *s = 0;
     ifid = @(buf);
 
-    if ([extension isEqualToString: @"dat"] &&
-        !(([@(format) isEqualToString:@"zcode"] &&
-           [self checkZcode:path]) ||
-          [@(format) isEqualToString:@"level9"])) {
+    if (([extension isEqualToString:@"dat"] &&
+        !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
+          [@(format) isEqualToString:@"level9"])) ||
+        ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"])) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
