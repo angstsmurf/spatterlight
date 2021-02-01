@@ -262,7 +262,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                                                object:_managedObjectContext];
 
     // Add metadata and games from plists to Core Data store if we have just created a new one
-    _gameTableModel = [[self fetchObjects:@"Game" inContext:_managedObjectContext] mutableCopy];
+    _gameTableModel = [[self fetchObjects:@"Game" predicate:nil inContext:_managedObjectContext] mutableCopy];
 
     [self rebuildThemesSubmenu];
     [self performSelector:@selector(restoreSideViewSelection:) withObject:nil afterDelay:0.1];
@@ -563,22 +563,22 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.prompt = NSLocalizedString(@"Import", nil);
 
-    panel.allowedFileTypes = @[ @"iFiction" ];
+    panel.allowedFileTypes = @[ @"iFiction", @"ifiction" ];
 
     LibController * __unsafe_unretained weakSelf = self; 
 
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-                      if (result == NSModalResponseOK) {
-                          NSURL *url = panel.URL;
-//                          [_managedObjectContext performBlock:^{
-                              [weakSelf beginImporting];
-                              [weakSelf importMetadataFromFile:url.path];
-                              [weakSelf.coreDataManager saveChanges];
-                              [weakSelf endImporting];
-//                          }];
-                      }
-                  }];
+        if (result == NSModalResponseOK) {
+            NSURL *url = panel.URL;
+            [weakSelf.managedObjectContext performBlock:^{
+                [weakSelf beginImporting];
+                [weakSelf importMetadataFromFile:url.path];
+                [weakSelf.coreDataManager saveChanges];
+                [weakSelf endImporting];
+            }];
+        }
+    }];
 }
 
 - (IBAction)exportMetadata:(id)sender {
@@ -602,7 +602,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                   }];
 }
 
-- (void)addIfidFile:(NSString *)file {
+- (void)addIfictionFile:(NSString *)file {
     if (!_iFictionFiles)
         _iFictionFiles = [NSMutableArray arrayWithObject:file];
     else
@@ -1312,7 +1312,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     }
     else if (fetchedObjects.count == 0)
     {
-//        NSLog(@"fetchMetadataForIFID: Found no Ifid object with ifidString %@ in %@", ifid, (context == _managedObjectContext)?@"_managedObjectContext":@"childContext");
         return nil;
     }
 
@@ -1346,11 +1345,12 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     return fetchedObjects[0];
 }
 
-- (NSArray *) fetchObjects:(NSString *)entityName inContext:(NSManagedObjectContext *)context {
+- (NSArray *) fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context {
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:context];
     fetchRequest.entity = entity;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:predicate];
 
     NSError *error = nil;
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
@@ -1409,7 +1409,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 // the Metadata.plist but not the Games.plist file, or if the Metadata and Games plists
                 // have gone out of sync somehow.
                 game = [weakSelf importGame: [games valueForKey:ifid] inContext:private reportFailure: NO];
-                meta = game.metadata;
+                if (game)
+                    meta = game.metadata;
             } else {
                 // Otherwise we simply use the Metadata entity we created
                 game = (Game *) [NSEntityDescription
@@ -1824,10 +1825,7 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
 
     if ([extension isEqualToString: @"ifiction"])
     {
-        // We don't handle iFication files when mass-importing
-        // as that tends to cause lots of games with blank titles
-        if (report)
-            [self addIfidFile:path];
+        [self addIfictionFile:path];
         return nil;
     }
 
@@ -1948,7 +1946,6 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
                 babel_release();
                 return nil;
             }
-            
             free(mdbuf);
         }
     }
@@ -2027,8 +2024,6 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
     game.ifid = ifid;
     game.detectedFormat = @(format);
 
-//    game.theme = [self findTheme:[Preferences currentTheme].name inContext:context];
-
     return game;
 }
 
@@ -2091,8 +2086,6 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
 
 - (void) addFiles: (NSArray*)urls inContext:(NSManagedObjectContext *)context {
 
-//    NSLog(@"libctl: adding %lu files. First: %@", (unsigned long)urls.count, ((NSURL *)urls[0]).path);
-
     NSMutableArray *select = [NSMutableArray arrayWithCapacity: urls.count];
 
     LibController * __unsafe_unretained weakSelf = self;
@@ -2107,12 +2100,8 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
         if (!isDir)
             reportFailure = YES;
     }
-
     
     [self beginImporting];
-//    NSLog(@"urls.count is%@1", (urls.count == 1) ? @" " : @" not ");
-//    for (NSURL *url in urls)
-//        NSLog(@"%@", url.path);
     [self addFiles: urls select: select inContext:context reportFailure:reportFailure];
     [self endImporting];
 
@@ -2126,13 +2115,26 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
     }
 
     [_managedObjectContext performBlock:^{
-        [weakSelf.coreDataManager saveChanges];
         weakSelf.currentlyAddingGames = NO;
         [weakSelf selectGamesWithIfids:select scroll:YES];
         for (NSString *path in weakSelf.iFictionFiles) {
             [weakSelf importMetadataFromFile:path];
         }
         weakSelf.iFictionFiles = nil;
+        // Fix metadata entities with no ifids
+        NSArray *noIfids = [self fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:weakSelf.managedObjectContext];
+        for (Metadata *meta in noIfids) {
+            [weakSelf.managedObjectContext deleteObject:meta];
+        }
+        // Fix metadata entities with empty titles
+        NSArray *noTitles = [self fetchObjects:@"Metadata" predicate:@"title = nil OR title = ''" inContext:weakSelf.managedObjectContext];
+        for (Metadata *meta in noTitles) {
+            Game *game = meta.games.anyObject;
+            if (game) {
+                meta.title = [game urlForBookmark].path.lastPathComponent;
+            }
+        }
+        [weakSelf.coreDataManager saveChanges];
     }];
 }
 
