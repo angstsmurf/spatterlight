@@ -68,7 +68,6 @@ enum  {
 
 // NSResponder (super)
 -(BOOL)becomeFirstResponder {
-    //    NSLog(@"becomeFirstResponder");
     BOOL flag = [super becomeFirstResponder];
     if (flag) {
         [(LibController *)self.delegate enableClickToRenameAfterDelay];
@@ -127,24 +126,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     return dict;
 }
 
-//static BOOL save_plist(NSString *path, NSDictionary *plist) {
-//    NSData *plistData;
-//    NSString *error;
-//
-//    plistData = [NSPropertyListSerialization
-//        dataFromPropertyList:plist
-//                      format:NSPropertyListBinaryFormat_v1_0
-//            errorDescription:&error];
-//    if (plistData) {
-//        return [plistData writeToFile:path atomically:YES];
-//    } else {
-//        NSLog(@"%@", error);
-//        return NO;
-//    }
-//}
-
 - (instancetype)init {
-//    NSLog(@"LibController: init");
     self = [super initWithWindowNibName:@"LibraryWindow"];
     if (self) {
         NSError *error;
@@ -266,8 +248,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     [self rebuildThemesSubmenu];
     [self performSelector:@selector(restoreSideViewSelection:) withObject:nil afterDelay:0.1];
-
-//    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"HasConvertedLibrary"];
 
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"]) {
         [self convertLibraryToCoreData];
@@ -731,7 +711,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         if (path) {
             infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", path];
             _infoWindows[path] = infoctl;
-        } // else return;
+        }
     }
 
     [infoctl showWindow:nil];
@@ -775,7 +755,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     [rows
      enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
          game = weakSelf.gameTableModel[idx];
-//         NSLog(@"libctl: delete game %@", game.metadata.title);
          if (weakSelf.gameSessions[game.ifid] == nil)
              [weakSelf.managedObjectContext deleteObject:game];
      }];
@@ -877,84 +856,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         }];
     }
 }
-
-//- (void) extractMetadataFromFile:(Game *)game
-//{
-//    size_t mdlen;
-//
-//    BOOL report = YES;
-//    currentIfid = nil;
-//
-//    NSString *path = game.urlForBookmark.path;
-//
-//    char *format = babel_init((char*)path.UTF8String);
-//    if (format)
-//    {
-//        char buf[TREATY_MINIMUM_EXTENT];
-//        char *s;
-//        NSString *ifid;
-//        int rv;
-//
-//        rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
-//        if (rv > 0)
-//        {
-//            s = strchr(buf, ',');
-//            if (s) *s = 0;
-//            ifid = @(buf);
-//
-//            if (!ifid || [ifid isEqualToString:@""])
-//                ifid = game.ifid;
-//
-//            mdlen = (size_t)babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
-//            if (mdlen > 0)
-//            {
-//                char *mdbuf = malloc(mdlen);
-//                if (!mdbuf)
-//                {
-//                    if (report)
-//                        NSRunAlertPanel(@"Out of memory.",
-//                                        @"Can not allocate memory for the metadata text.",
-//                                        @"Okay", NULL, NULL);
-//                    babel_release();
-//                    return;
-//                }
-//
-//                rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, mdlen);
-//                if (rv > 0)
-//                {
-//                    NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
-//                    [self importMetadataFromXML:mdbufData inContext:_managedObjectContext];
-//                }
-//
-//                free(mdbuf);
-//            }
-//
-//            NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:_imageDir];
-//            NSData *img = [[NSData alloc] initWithContentsOfURL:imgpath];
-//            if (!img)
-//            {
-//                size_t imglen = (size_t)babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
-//                if (imglen > 0)
-//                {
-//                    char *imgbuf = malloc(imglen);
-//                    if (imgbuf)
-//                    {
-//                        babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, imglen);
-//                        NSData *imgdata = [[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES];
-//                        img = [[NSData alloc] initWithData: imgdata];
-//                    }
-//                }
-//
-//            }
-//            if (img)
-//            {
-//                [self addImage: img toMetadata:game.metadata inContext:_managedObjectContext];
-//            }
-//            
-//        }
-//    }
-//    babel_release();
-//}
 
 - (void)rebuildThemesSubmenu {
 
@@ -1195,7 +1096,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         entry = (Metadata *) [NSEntityDescription
                               insertNewObjectForEntityForName:@"Metadata"
                               inManagedObjectContext:context];
-        // NSLog(@"addMetaData:forIFIDs: Created new Metadata object with ifid %@", ifid);
         Ifid *ifidObj = (Ifid *) [NSEntityDescription
                                               insertNewObjectForEntityForName:@"Ifid"
                                               inManagedObjectContext:context];
@@ -1260,7 +1160,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         else
         {
             [entry setValue:keyVal forKey:key];
-            //              NSLog(@"Set key %@ to value %@ in metadata with ifid %@ title %@", key, [dict valueForKey:key], entry.ifid, entry.title)
         }
     }
 }
@@ -1338,7 +1237,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     }
     else if (fetchedObjects.count == 0)
     {
-//        NSLog(@"fetchGameForIFID: Found no Metadata object with ifid %@ in %@", ifid, (context == _managedObjectContext)?@"_managedObjectContext":@"childContext");
         return nil;
     }
 
@@ -1425,12 +1323,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                     continue;
                 }
 
-//                Theme *theme = [self findTheme:@"Old settings" inContext:private];
-//                if (theme)
-//                    game.theme = theme;
-//                else
-//                    NSLog(@"No theme?");
-
                 game.ifid = ifid;
                 game.metadata = meta;
                 game.added = [NSDate date];
@@ -1448,7 +1340,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 if (imgdata) {
                     game.metadata.coverArtURL = imgpath.path;
 
-                // If that fails, we try Babel
+                    // If that fails, we try Babel
                 } else {
                     const char *format = babel_init((char *)((NSString *)[games valueForKey:ifid]).UTF8String);
                     if (format) {
@@ -1459,8 +1351,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                                 NSLog(@"Babel found image data in %@!", meta.title);
                                 babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, (int)imglen);
                                 imgdata = [[NSData alloc] initWithBytesNoCopy:imgbuf
-                                                                               length:imglen
-                                                                         freeWhenDone:YES];
+                                                                       length:imglen
+                                                                 freeWhenDone:YES];
                                 game.metadata.coverArtURL = [games valueForKey:ifid];
                             }
                         }
@@ -2087,7 +1979,7 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
     }
 }
 
-- (void) addFiles: (NSArray*)urls inContext:(NSManagedObjectContext *)context {
+- (void)addFiles: (NSArray*)urls inContext:(NSManagedObjectContext *)context {
 
     NSMutableArray *select = [NSMutableArray arrayWithCapacity: urls.count];
 
@@ -2767,7 +2659,6 @@ ofDividerAtIndex:0];
 #pragma mark Open game on double click, edit on click and wait
 
 - (void)doClick:(id)sender {
-    //    NSLog(@"doClick:");
     if (canEdit) {
         NSInteger row = _gameTableView.clickedRow;
         if (row >= 0) {
@@ -2779,7 +2670,6 @@ ofDividerAtIndex:0];
 
 // DoubleAction
 - (void)doDoubleClick:(id)sender {
-    //    NSLog(@"doDoubleClick:");
     [self enableClickToRenameAfterDelay];
     [self play:sender];
 }
@@ -2791,7 +2681,6 @@ ofDividerAtIndex:0];
 }
 
 - (void)enableClickToRenameByTimer:(id)sender {
-    // NSLog(@"enableClickToRenameByTimer:");
     canEdit = YES;
 }
 
