@@ -23,7 +23,7 @@
             idElement = [element elementsForName:@"identification"][0];
         } else {
             NSLog(@"Unsupported iFiction file!");
-            return self;
+            return nil;
         }
         _identification = [[IFIdentification alloc] initWithXMLElement:idElement andContext:context];
 

@@ -1507,7 +1507,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 - (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context {
     IFictionMetadata *metadata = [[IFictionMetadata alloc] initWithData:mdbuf andContext:context];
-    if (metadata.stories.count == 0)
+    if (!metadata || metadata.stories.count == 0)
         return nil;
     return ((IFStory *)(metadata.stories)[0]).identification.metadata;
 }
@@ -1520,17 +1520,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         return NO;
 
     Metadata *metadata = [self importMetadataFromXML:data inContext:_managedObjectContext];
+    if (!metadata)
+        return NO;
     metadata.source = @(kExternal);
-
-    if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
-
-        [_coreDataManager saveChanges];
-
-        for (Game *game in _gameTableModel) {
-            [_managedObjectContext refreshObject:game.metadata
-                                    mergeChanges:YES];
-        }
-    }
     return YES;
 }
 
@@ -1832,7 +1824,10 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
 
     if ([extension isEqualToString: @"ifiction"])
     {
-        [self addIfidFile:path];
+        // We don't handle iFication files when mass-importing
+        // as that tends to cause lots of games with blank titles
+        if (report)
+            [self addIfidFile:path];
         return nil;
     }
 
@@ -2527,10 +2522,8 @@ objectValueForTableColumn: (NSTableColumn*)column
             break;
         }
     }
-    if ([updatedObjects containsObject:currentSideView.metadata]) // && [updatedObjects containsObject:currentSideView])
+    if ([updatedObjects containsObject:currentSideView.metadata])
     {
-//        NSLog(@"Metadata for game currently on display in side view (%@) did change", currentSideView.metadata.title);
-
         [self updateSideViewForce:YES];
     }
 }

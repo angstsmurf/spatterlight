@@ -69,7 +69,7 @@ enum  {
 
                     } else if ([key isEqualToString:@"language"]) {
                         // In IFDB xml data, "language" is usually a language code such as "en"
-                        // but may also be a locale code such as "en-US" or adescriptive string
+                        // but may also be a locale code such as "en-US" or a descriptive string
                         // like "English, French (en, fr)." We try to deal with all of them here.
                         NSString *languageCode = keyVal;
                         if (languageCode.length > 1) {
@@ -92,8 +92,11 @@ enum  {
                         [metadata setValue:keyVal forKey:key];
                         if ([key isEqualToString:@"forgiveness"])
                             metadata.forgivenessNumeric = forgiveness[keyVal];
-                        if ([key isEqualToString:@"title"])
-                            metadata.title = [metadata.title stringByDecodingXMLEntities];
+                        if ([key isEqualToString:@"title"]) {
+                            NSString *title = [metadata.title stringByDecodingXMLEntities];
+                            if (title && title.length)
+                                metadata.title = title;
+                        }
                     }
 
                 } else if ([node.name compare:@"description"] == 0) {

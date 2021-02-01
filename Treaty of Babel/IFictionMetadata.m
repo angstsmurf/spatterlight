@@ -24,8 +24,11 @@
     NSXMLElement *child;
     while ((child = [enumerator nextObject])) {
         IFStory *story = [[IFStory alloc] initWithXMLElement:child andContext:context];
-      [stories addObject:story];
+        if (story)
+            [stories addObject:story];
     }
+    if (stories.count == 0)
+        return nil;
     _stories = stories;
   }
   return self;
