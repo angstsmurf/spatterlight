@@ -64,7 +64,7 @@
 extern int spatterlight_do_autosave(void);
 
 /* Flag describing whether the header bit meaning “fixed font” is set. */
- static bool header_fixed_font;
+static bool header_fixed_font;
 
 /* This variable stores whether Unicode is supported by the current Glk
  * implementation, which determines whether Unicode or Latin-1 Glk
@@ -74,13 +74,13 @@ extern int spatterlight_do_autosave(void);
  */
 static bool have_unicode;
 
-#define ANSI_COLOR(c)    ((struct color) { .mode = ColorModeANSI, .value = (c) })
-#define TRUE_COLOR(c)    ((struct color) { .mode = ColorModeTrue, .value = (c) })
-#define DEFAULT_COLOR()    ANSI_COLOR(1)
+#define ANSI_COLOR(c)	((struct color) { .mode = ColorModeANSI, .value = (c) })
+#define TRUE_COLOR(c)	((struct color) { .mode = ColorModeTrue, .value = (c) })
+#define DEFAULT_COLOR()	ANSI_COLOR(1)
 
 static struct window
 {
-    uint8_t style;
+  uint8_t style;
   struct color fg_color, bg_color;
 
   enum font { FONT_QUERY, FONT_NORMAL, FONT_PICTURE, FONT_CHARACTER, FONT_FIXED } font;
@@ -292,9 +292,9 @@ static void set_window_style(struct window *win)
 }
 
 static void set_current_style(void)
- {
-   set_window_style(style_window);
- }
+{
+  set_window_style(style_window);
+}
 
 #ifdef ZTERP_GLK
 /* Both the upper and lower windows have their own issues to deal with
@@ -367,7 +367,7 @@ static void cancel_read_events(struct window *window)
       for(int i = 0; i < input.len; i++)
       {
         if(have_unicode) line[i] = window->line->unicode[i];
-        else             line[i] = (unsigned char)window->line->latin1 [i];
+        else             line[i] = (unsigned char)window->line->latin1[i];
       }
 
       cleanup_screen(&input);
@@ -544,7 +544,6 @@ static void put_char_base(uint16_t c, bool unicode)
         c = zscii_to_font3[zscii];
 #endif
       }
-
 #ifdef ZTERP_GLK
       if((streams & STREAM_SCREEN) && curwin->id != NULL)
       {
@@ -1071,7 +1070,6 @@ void recover_library_state(library_state_data *dat)
     }
 }
 
-
 static void resize_upper_window(long nlines, bool from_game)
 {
 #ifdef ZTERP_GLK
@@ -1113,6 +1111,10 @@ static void resize_upper_window(long nlines, bool from_game)
 
     /* §8.6.1.1.2 */
     if(zversion == 3) clear_window(upperwin);
+  }
+  else
+  {
+    perform_upper_window_resize(nlines);
   }
 
   /* If the window is being created, or if it’s shrinking and the cursor
@@ -1435,12 +1437,12 @@ void zerase_window(void)
 void zerase_line(void)
 {
 #ifdef ZTERP_GLK
-    /* XXX V6 does pixel handling here. */
+  /* XXX V6 does pixel handling here. */
   if(zargs[0] != 1 || curwin != upperwin || upperwin->id == NULL) return;
 
   for(long i = upperwin->x; i < upper_window_width; i++) GLK_PUT_CHAR(UNICODE_SPACE);
 
-    glk_window_move_cursor(upperwin->id, upperwin->x, upperwin->y);
+  glk_window_move_cursor(upperwin->id, upperwin->x, upperwin->y);
 #endif
 }
 
@@ -1560,7 +1562,7 @@ void zset_true_colour(void)
 void zset_text_style(void)
 {
   /* A style of 0 means all others go off. */
-  if(zargs[0] == 0) style_window->style = STYLE_NONE;
+  if     (zargs[0] == 0) style_window->style = STYLE_NONE;
   else if(zargs[0] < 16) style_window->style |= zargs[0];
 
   history_add_style();
@@ -1936,8 +1938,6 @@ static size_t line_len(const union line *line)
 }
 #endif
 
-#pragma mark get_input
-
 /* Attempt to read input from the user.  The input type can be either a
  * single character or a full line.  If “timer” is not zero, a timer is
  * started that fires off every “timer” tenths of a second (if the value
@@ -1950,7 +1950,6 @@ static size_t line_len(const union line *line)
  */
 static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
 {
-
   /* If either of these is zero, no timeout should happen. */
   if(timer   == 0) routine = 0;
   if(routine == 0) timer   = 0;
@@ -2373,7 +2372,7 @@ void zshow_status(void)
     glk_put_string_stream(stream, rhs);
   }
 #endif
-  }
+}
 
 #ifdef ZTERP_GLK
 /* These track the position of the cursor in the upper window at the
@@ -2399,7 +2398,6 @@ static bool read_handler(void)
    */
   uint8_t zscii_string[maxchars + 1];
   uint32_t string[maxchars + 1];
-
   struct input input = { .type = INPUT_LINE, .line = string, .maxlen = maxchars };
   uint16_t timer = 0;
   uint16_t routine = zargs[3];
@@ -2494,7 +2492,7 @@ static bool read_handler(void)
         if (curwin != upperwin)
 #endif
         {
-        screen_print("\n>");
+          screen_print("\n>");
         }
 
         /* Any preloaded text is probably going to have been printed by
@@ -2675,7 +2673,7 @@ void zpicture_data(void)
 
 void zget_wind_prop(void)
 {
-  uint8_t font_width = 10, font_height = 10;
+  uint8_t font_width = 1, font_height = 1;
   uint16_t val;
   struct window *win;
 

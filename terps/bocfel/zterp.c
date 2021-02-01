@@ -64,12 +64,12 @@ struct options options = {
   .assume_fixed = false,
   .disable_graphics_font = false,
   .enable_alt_graphics = false,
-  .disable_history_plaback = false,
+  .disable_history_playback = false,
   .show_id = false,
   .disable_term_keys = false,
   .username = NULL,
   .disable_meta_commands = false,
-  .int_number = 4, /* Amiga */
+  .int_number = 1, /* DEC */
   .int_version = 'C',
   .disable_patches = false,
   .replay_on = false,
@@ -318,7 +318,7 @@ static void read_config(void)
     BOOL  (assume_fixed);
     BOOL  (disable_graphics_font);
     BOOL  (enable_alt_graphics);
-    BOOL  (disable_history_plaback);
+    BOOL  (disable_history_playback);
     BOOL  (disable_term_keys);
     STRING(username);
     BOOL  (disable_meta_commands);
@@ -444,7 +444,6 @@ void write_header(void)
 
     /* Interpreter number & version. */
     if(options.int_number < 1 || options.int_number > 11) options.int_number = 1; /* DEC */
-
     store_byte(0x1e, options.int_number);
     store_byte(0x1f, options.int_version);
 
@@ -923,7 +922,7 @@ int main(int argc, char **argv)
       die("unknown story type: %s", chunk->name);
     }
 
-    if(chunk->offset > UINT32_MAX) die("zcode offset too large");
+    if(chunk->offset > LONG_MAX) die("zcode offset too large");
 
     memory_size = chunk->size;
     story.offset = chunk->offset;
@@ -942,7 +941,7 @@ int main(int argc, char **argv)
   }
 
   if(memory_size < 64) die("story file too small");
-  if(memory_size > UINT_MAX - 22) die("story file too large");
+  if(memory_size > SIZE_MAX - 22) die("story file too large");
 
   /* It’s possible for a story to be cut short in the middle of an
    * instruction.  If so, the processing loop will run past the end of

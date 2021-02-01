@@ -330,17 +330,18 @@ void process_instructions(void)
 
   switch(setjmp(jumps[ilevel]))
   {
-      /* Normal break from interrupt. */
+    /* Normal break from interrupt. */
     case 1:
       return;
-      /* Special break: interrupt_reset(true) called, so keep interpreting
-       * after re-executing a @read due to an interpreter restore.
-       */
+    /* Special break: interrupt_reset(true) called, so keep interpreting
+     * after re-executing a @read due to an interpreter restore.
+     */
     case 2:
       zread();
       break;
-      /* Special break: interrupt_reset(false) called, so keep interpreting. */
-    case 3:      break;
+    /* Special break: interrupt_reset(false) called, so keep interpreting. */
+    case 3:
+      break;
   }
 
   while(true)
