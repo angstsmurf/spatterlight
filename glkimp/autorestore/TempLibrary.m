@@ -5,6 +5,14 @@
 
 #import "TempLibrary.h"
 
+@interface TempLibrary () <NSSecureCoding> {
+    NSString *program_name;
+    NSString *program_info;
+    NSString *story_name;
+    NSString *story_title;
+}
+@end
+
 @implementation TempLibrary
 
 //static TempLibrary *singleton = nil;

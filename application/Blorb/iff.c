@@ -22,6 +22,11 @@ unsigned int unpackLong(const void *data) {
          (((const unsigned char *)data)[3]);
 }
 
+unsigned int unpackShort(const void *data) {
+  return (((const unsigned char *)data)[0] << 8) |
+         (((const unsigned char *)data)[1]);
+}
+
 void packLong(const void *data, unsigned long value) {
   ((unsigned char *)data)[0] = (unsigned char)(value >> 24);
   ((unsigned char *)data)[1] = (unsigned char)(value >> 16);

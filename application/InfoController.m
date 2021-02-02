@@ -8,9 +8,6 @@
 #import "IFDBDownloader.h"
 #import "main.h"
 
-#include "babel_handler.h"
-#include "treaty.h"
-
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
     fprintf(stderr, "%s\n",                                                    \
@@ -18,6 +15,20 @@
 #else
 #define NSLog(...)
 #endif
+
+@interface InfoController () <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
+{
+    IBOutlet NSTextField *titleField;
+    IBOutlet NSTextField *authorField;
+    IBOutlet NSTextField *headlineField;
+    IBOutlet NSTextField *ifidField;
+    IBOutlet NSTextView *descriptionText;
+    IBOutlet NSImageView *imageView;
+
+    CoreDataManager *coreDataManager;
+    NSManagedObjectContext *managedObjectContext;
+}
+@end
 
 @implementation InfoController
 

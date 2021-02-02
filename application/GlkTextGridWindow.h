@@ -4,31 +4,14 @@
 
 @class InputTextField, InputHistory;
 
-@interface MyGridTextView : NSTextView <NSAccessibilityNavigableStaticText> {
-    NSTimer *mouseTimer;
-    NSRange mouseDownSelection;
-}
+@interface MyGridTextView : NSTextView <NSAccessibilityNavigableStaticText>
 
 - (void)superMouseDown:(NSEvent *)theEvent;
 
 @end
 
 @interface GlkTextGridWindow
-    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
-    NSScrollView *scrollview;
-    NSTextStorage *textstorage;
-    NSLayoutManager *layoutmanager;
-    NSTextContainer *container;
-    NSUInteger rows, cols;
-    NSUInteger xpos, ypos;
-    NSUInteger maxInputLength;
-    BOOL line_request;
-    BOOL hyper_request;
-    BOOL mouse_request;
-    BOOL transparent;
-
-    NSInteger terminator;
-}
+    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate>
 
 @property MyGridTextView *textview;
 

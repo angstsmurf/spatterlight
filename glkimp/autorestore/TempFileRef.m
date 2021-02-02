@@ -5,6 +5,11 @@
 
 #import "TempFileRef.h"
 
+@interface TempFileRef () <NSSecureCoding> {
+    NSURL *URL;
+}
+@end
+
 @implementation TempFileRef
 
 /* Work out the directory for a given type of file, based on the base directory, the usage, and the game identity.

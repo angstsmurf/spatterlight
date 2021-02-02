@@ -48,21 +48,21 @@ static const char *msgnames[] = {
 //    "wintype_Blank",    "wintype_TextBuffer",
 //    "wintype_TextGrid", "wintype_Graphics"};
 
-// static const char *stylenames[] =
-//{
-//    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
-//    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
-//    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
-//};
+ static const char *stylenames[] =
+{
+    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
+    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
+    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
+};
 //
-// static const char *stylehintnames[] =
-//{
-//    "stylehint_Indentation", "stylehint_ParaIndentation",
-//    "stylehint_Justification", "stylehint_Size",
-//    "stylehint_Weight","stylehint_Oblique", "stylehint_Proportional",
-//    "stylehint_TextColor", "stylehint_BackColor", "stylehint_ReverseColor",
-//    "stylehint_NUMHINTS"
-//};
+ static const char *stylehintnames[] =
+{
+    "stylehint_Indentation", "stylehint_ParaIndentation",
+    "stylehint_Justification", "stylehint_Size",
+    "stylehint_Weight","stylehint_Oblique", "stylehint_Proportional",
+    "stylehint_TextColor", "stylehint_BackColor", "stylehint_ReverseColor",
+    "stylehint_NUMHINTS"
+};
 
 @interface TempLibrary : NSObject {
 }
@@ -127,6 +127,59 @@ static const char *msgnames[] = {
 
 @end
 
+@interface GlkController () <NSSecureCoding, NSAccessibilityCustomRotorItemSearchDelegate> {
+    /* for talking to the interpreter */
+    NSTask *task;
+    NSFileHandle *readfh;
+    NSFileHandle *sendfh;
+
+    /* current state of the protocol */
+    NSTimer *timer;
+    BOOL waitforevent;    /* terp wants an event */
+    BOOL waitforfilename; /* terp wants a filename from a file dialog */
+    BOOL dead;            /* le roi est mort! vive le roi! */
+    NSDictionary *lastArrangeValues;
+    NSRect lastContentResize;
+
+    BOOL inFullScreenResize;
+
+    BOOL windowRestoredBySystem;
+    BOOL shouldRestoreUI;
+    BOOL restoredUIOnly;
+    BOOL shouldShowAutorestoreAlert;
+
+    NSSize borderFullScreenSize;
+    NSWindow *snapshotWindow;
+
+    BOOL windowClosedAlready;
+    BOOL restartingAlready;
+
+    /* the glk objects */
+    BOOL windowdirty; /* the contentView needs to repaint */
+
+    /* image/sound resource uploading protocol */
+    NSInteger lastimageresno;
+    NSInteger lastsoundresno;
+    NSCache *imageCache;
+
+    NSImage *lastimage;
+
+    GlkController *restoredController;
+    GlkController *restoredControllerLate;
+    NSMutableData *bufferedData;
+
+    LibController *libcontroller;
+
+    NSSize lastSizeInChars;
+    Theme *lastTheme;
+
+    // To fix scrolling in the Adrian Mole games
+    NSInteger lastRequest;
+
+//    NSDate *lastFlushTimestamp;
+}
+@end
+
 @implementation GlkController
 
 + (BOOL) supportsSecureCoding {
@@ -170,54 +223,58 @@ static const char *msgnames[] = {
     _ignoreResizes = YES;
 
     _game = game_;
-    _theme = _game.theme;
+
+    Game *game = _game;
+    _theme = game.theme;
 
     libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
 
     if (!_theme.name) {
         NSLog(@"GlkController runTerp called with theme without name!");
-        _game.theme = [Preferences currentTheme];
-        _theme = _game.theme;
+        game.theme = [Preferences currentTheme];
+        _theme = game.theme;
     }
 
     //    if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"])
     //        _adrianMole = YES;
-    if ([_game.ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"]) {
+
+    NSString *ifid = game.ifid;
+    if ([ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"]) {
         _deadCities = YES;
-    } else if ([_game.ifid isEqualToString:@"ZCODE-86-870212"] ||
-               [_game.ifid isEqualToString:@"ZCODE-116-870602"] ||
-               [_game.ifid isEqualToString:@"ZCODE-160-880521"]) {
+    } else if ([ifid isEqualToString:@"ZCODE-86-870212"] ||
+               [ifid isEqualToString:@"ZCODE-116-870602"] ||
+               [ifid isEqualToString:@"ZCODE-160-880521"]) {
         _bureaucracy = YES;
-    } else if ([_game.ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"]) {
+    } else if ([ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"]) {
         _kerkerkruip = YES;
-    } else if ([_game.ifid isEqualToString:@"ZCODE-47-870915"] ||
-               [_game.ifid isEqualToString:@"ZCODE-49-870917"] ||
-               [_game.ifid isEqualToString:@"ZCODE-51-870923"] ||
-               [_game.ifid isEqualToString:@"ZCODE-57-871221"] ||
-               [_game.ifid isEqualToString:@"ZCODE-60-880610"]) {
+    } else if ([ifid isEqualToString:@"ZCODE-47-870915"] ||
+               [ifid isEqualToString:@"ZCODE-49-870917"] ||
+               [ifid isEqualToString:@"ZCODE-51-870923"] ||
+               [ifid isEqualToString:@"ZCODE-57-871221"] ||
+               [ifid isEqualToString:@"ZCODE-60-880610"]) {
         _beyondZork = YES;
-    } else if ([_game.ifid isEqualToString:@"BFDE398E-C724-4B9B-99EB-18EE4F26932E"]) {
+    } else if ([ifid isEqualToString:@"BFDE398E-C724-4B9B-99EB-18EE4F26932E"]) {
         _colderLight = YES;
-    } else if ([_game.ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"]) {
+    } else if ([ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"]) {
         _thaumistry = YES;
-    } else if ([_game.ifid isEqualToString:@"ZCODE-1-851202"] ||
-               [_game.ifid isEqualToString:@"ZCODE-1-860221"] ||
-               [_game.ifid isEqualToString:@"ZCODE-14-860313"] ||
-               [_game.ifid isEqualToString:@"ZCODE-11-860509"] ||
-               [_game.ifid isEqualToString:@"ZCODE-12-860926"] ||
-               [_game.ifid isEqualToString:@"ZCODE-15-870628"]) {
+    } else if ([ifid isEqualToString:@"ZCODE-1-851202"] ||
+               [ifid isEqualToString:@"ZCODE-1-860221"] ||
+               [ifid isEqualToString:@"ZCODE-14-860313"] ||
+               [ifid isEqualToString:@"ZCODE-11-860509"] ||
+               [ifid isEqualToString:@"ZCODE-12-860926"] ||
+               [ifid isEqualToString:@"ZCODE-15-870628"]) {
         _trinity = YES;
-    } else if ([_game.ifid isEqualToString:@"ZCODE-5-990206-6B48"]) {
+    } else if ([ifid isEqualToString:@"ZCODE-5-990206-6B48"]) {
         _anchorheadOrig = YES;
-    } else if ([_game.ifid isEqualToString:@"ZCODE-7-930428-0000"] ||
-               [_game.ifid isEqualToString:@"ZCODE-8-930603-0000"] ||
-               [_game.ifid isEqualToString:@"ZCODE-10-940120-BD9E"] ||
-               [_game.ifid isEqualToString:@"ZCODE-12-940604-6035"] ||
-               [_game.ifid isEqualToString:@"ZCODE-16-951024-4DE6"]) {
+    } else if ([ifid isEqualToString:@"ZCODE-7-930428-0000"] ||
+               [ifid isEqualToString:@"ZCODE-8-930603-0000"] ||
+               [ifid isEqualToString:@"ZCODE-10-940120-BD9E"] ||
+               [ifid isEqualToString:@"ZCODE-12-940604-6035"] ||
+               [ifid isEqualToString:@"ZCODE-16-951024-4DE6"]) {
         _curses = YES;
     }
 
-    _gamefile = [_game urlForBookmark].path;
+    _gamefile = [game urlForBookmark].path;
     _terpname = terpname_;
 
     if ([_terpname isEqualToString:@"bocfel"])
@@ -244,7 +301,7 @@ static const char *msgnames[] = {
     _mustBeQuiet = YES;
 
     _supportsAutorestore = [self.window isRestorable];
-    _game.autosaved = _supportsAutorestore;
+    game.autosaved = _supportsAutorestore;
     windowRestoredBySystem = windowRestoredBySystem_;
 
     shouldShowAutorestoreAlert = NO;
@@ -268,7 +325,7 @@ static const char *msgnames[] = {
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
     bufferedData = nil;
 
-    self.window.title = _game.metadata.title;
+    self.window.title = game.metadata.title;
     if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
         [self.window setValue:@2 forKey:@"tabbingMode"];
     }
@@ -436,6 +493,8 @@ static const char *msgnames[] = {
             restoredController = restoredControllerLate;
     }
 
+    Game *game = _game;
+
     if (!restoredController) {
         if (restoredControllerLate) {
             restoredController = restoredControllerLate;
@@ -444,7 +503,7 @@ static const char *msgnames[] = {
             // (and also no "GUI-late" autosave)
             // delete it and run game without autorestoring
             [self deleteAutosaveFiles];
-            _game.autosaved = NO;
+            game.autosaved = NO;
             [self runTerpNormal];
             return;
         }
@@ -464,7 +523,7 @@ static const char *msgnames[] = {
             // Otherwise we delete any autorestore files and
             // restart the game
             [self deleteAutosaveFiles];
-            _game.autosaved = NO;
+            game.autosaved = NO;
             // If we die in fullscreen and close the game,
             // the game should not open in fullscreen the next time
             _inFullscreen = NO;
@@ -491,7 +550,7 @@ static const char *msgnames[] = {
             // window restoration, and the user has not suppressed it.
             if (!windowRestoredBySystem) {
                 if (_theme.autosave == NO) {
-                    _game.autosaved = NO;
+                    game.autosaved = NO;
                     [self runTerpNormal];
                     return;
                 }
@@ -502,7 +561,7 @@ static const char *msgnames[] = {
                         // The user has checked "Remember this choice" when
                         // choosing to not autorestore
                         [self deleteAutosaveFiles];
-                        _game.autosaved = NO;
+                        game.autosaved = NO;
                         [self runTerpNormal];
                         return;
                     }
@@ -887,9 +946,10 @@ static const char *msgnames[] = {
         [self performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
     }
 
-    if (_stashedTheme && _stashedTheme != _theme)
+    Theme *stashedTheme = _stashedTheme;
+    if (stashedTheme && stashedTheme != _theme)
     {
-        _theme = _stashedTheme;
+        _theme = stashedTheme;
         _stashedTheme = nil;
     }
     NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:_theme];
@@ -942,13 +1002,16 @@ static const char *msgnames[] = {
             NSLog(@"Could not find Application Support folder. Error: %@",
                   error);
 
-        if (!_game.detectedFormat) {
-            NSLog(@"GlkController appSupportDir: Game %@ has no specified format!", _game.metadata.title);
+        Game *game = _game;
+        NSString *detectedFormat = game.detectedFormat;
+
+        if (!detectedFormat) {
+            NSLog(@"GlkController appSupportDir: Game %@ has no specified format!", game.metadata.title);
             return nil;
         }
 
         NSString *terpFolder =
-        [gFolderMap[_game.detectedFormat]
+        [gFolderMap[detectedFormat]
          stringByAppendingString:@" Files"];
 
         if (!terpFolder) {
@@ -957,7 +1020,7 @@ static const char *msgnames[] = {
         }
 
         if (!terpFolder) {
-            NSLog(@"GlkController appSupportDir: Could not map game format %@ to a folder name!", _game.detectedFormat);
+            NSLog(@"GlkController appSupportDir: Could not map game format %@ to a folder name!", detectedFormat);
             return nil;
         }
 
@@ -977,7 +1040,7 @@ static const char *msgnames[] = {
                                                       attributes:nil
                                                            error:NULL];
 
-            NSString *dummyfilename = [_game.metadata.title
+            NSString *dummyfilename = [game.metadata.title
                                        stringByAppendingPathExtension:@"txt"];
 
             NSString *dummytext = [NSString
@@ -986,7 +1049,7 @@ static const char *msgnames[] = {
                                    @"it easier for humans to guess what game these autosave files belong "
                                    @"to. Any files in this folder are for the game %@, or possibly "
                                    @"a game with a different name but identical contents.",
-                                   dummyfilename, _game.metadata.title];
+                                   dummyfilename, game.metadata.title];
 
             NSString *dummyfilepath =
             [appSupportURL.path stringByAppendingPathComponent:dummyfilename];
@@ -1551,8 +1614,9 @@ static const char *msgnames[] = {
 - (NSSize)defaultContentSize {
     // Actually the size of the content view, not including window title bar
     NSSize size;
-    size.width = round(_theme.cellWidth * _theme.defaultCols + (_theme.gridMarginX + _theme.border + 5.0) * 2.0);
-    size.height = round(_theme.cellHeight * _theme.defaultRows + (_theme.gridMarginY + _theme.border) * 2.0);
+    Theme *theme = _theme;
+    size.width = round(theme.cellWidth * theme.defaultCols + (theme.gridMarginX + theme.border + 5.0) * 2.0);
+    size.height = round(theme.cellHeight * theme.defaultRows + (theme.gridMarginY + theme.border) * 2.0);
     return size;
 }
 
@@ -1667,13 +1731,16 @@ static const char *msgnames[] = {
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
 
-    NSUInteger lastVOSpeakMenu = (NSUInteger)_theme.vOSpeakMenu;
+    Theme *theme = _theme;
+    NSUInteger lastVOSpeakMenu = (NSUInteger)theme.vOSpeakMenu;
 
     if (_game && !_previewDummy) {
-        if (!_stashedTheme)
+        if (!_stashedTheme) {
             _theme = _game.theme;
+            theme = _theme;
+        }
 
-        if (!_theme.vOSpeakMenu && lastVOSpeakMenu) { // Check for menu was switched off
+        if (!theme.vOSpeakMenu && lastVOSpeakMenu) { // Check for menu was switched off
             if (_zmenu) {
                 [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
                 _zmenu = nil;
@@ -1682,7 +1749,7 @@ static const char *msgnames[] = {
                 [NSObject cancelPreviousPerformRequestsWithTarget:_form];
                 _form = nil;
             }
-        } else if (_theme.vOSpeakMenu && !lastVOSpeakMenu) { // Check for menu was switched on
+        } else if (theme.vOSpeakMenu && !lastVOSpeakMenu) { // Check for menu was switched on
             [self checkZMenu];
         }
     } else {
@@ -1690,16 +1757,16 @@ static const char *msgnames[] = {
         return;
     }
 
-    if (notify.object != _theme && notify.object != nil) {
+    if (notify.object != theme && notify.object != nil) {
         //  PreferencesChanged called for a different theme
         return;
     }
 
     _shouldStoreScrollOffset = NO;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"]) {
-        if (lastTheme != _theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
+        if (lastTheme != theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
             NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
-            NSUInteger borders = (NSUInteger)_theme.border * 2;
+            NSUInteger borders = (NSUInteger)theme.border * 2;
             NSSize newSizeIncludingBorders = NSMakeSize(newContentSize.width + borders, newContentSize.height + borders);
 
             if (!NSEqualSizes(_borderView.bounds.size, newSizeIncludingBorders)
@@ -1710,7 +1777,7 @@ static const char *msgnames[] = {
         }
     }
 
-    lastTheme = _theme;
+    lastTheme = theme;
     lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
 
     [self adjustContentView];
@@ -1732,22 +1799,22 @@ static const char *msgnames[] = {
 
     gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)width
                                          height:(NSInteger)height
-                                          theme:_theme
+                                          theme:theme
                                           force:YES];
     [self queueEvent:gevent];
 
-    gevent = [[GlkEvent alloc] initPrefsEventForTheme:_theme];
+    gevent = [[GlkEvent alloc] initPrefsEventForTheme:theme];
     [self queueEvent:gevent];
 
     for (GlkWindow *win in [_gwindows allValues])
     {
-        win.theme = _theme;
+        win.theme = theme;
         [win prefsDidChange];
     }
 
     for (GlkTextGridWindow *quotebox in _quoteBoxes)
     {
-        quotebox.theme = _theme;
+        quotebox.theme = theme;
         quotebox.alphaValue = 0;
         [quotebox prefsDidChange];
         [quotebox performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
@@ -2275,7 +2342,7 @@ static const char *msgnames[] = {
     NSString *str;
 
     if ([gwindow isKindOfClass:[GlkTextBufferWindow class]] &&
-        (style & 0xff) != style_Preformatted && style != style_BlockQuote) {
+        (style & 0xff) != style_Preformatted && style != style_BlockQuote && !_bufferStyleHints[style][stylehint_Proportional]) {
         GlkTextBufferWindow *textwin = (GlkTextBufferWindow *)gwindow;
         NSInteger smartquotes = _theme.smartQuotes;
         NSInteger spaceformat = _theme.spaceFormat;
@@ -2444,6 +2511,8 @@ static const char *msgnames[] = {
     //        [self flushDisplay];
     //        NSLog(@"Autoscroll (performScroll + flushDisplay) triggered by timer");
     //    }
+
+    Theme *theme = _theme;
 
     if (req->a1 >= 0 && req->a1 < MAXWIN && _gwindows[@(req->a1)])
         reqWin = _gwindows[@(req->a1)];
@@ -2692,16 +2761,16 @@ static const char *msgnames[] = {
             break;
 
         case BEEP:
-            if (_theme.doSound) {
-                if (req->a1 == 1 && _theme.beepHigh) {
-                    NSSound *sound = [NSSound soundNamed:_theme.beepHigh];
+            if (theme.doSound) {
+                if (req->a1 == 1 && theme.beepHigh) {
+                    NSSound *sound = [NSSound soundNamed:theme.beepHigh];
                     if (sound) {
                         [sound stop];
                         [sound play];
                     }
                 }
-                if (req->a1 == 2 && _theme.beepLow) {
-                    NSSound *sound = [NSSound soundNamed:_theme.beepLow];
+                if (req->a1 == 2 && theme.beepLow) {
+                    NSSound *sound = [NSSound soundNamed:theme.beepLow];
                     if (sound) {
                         [sound stop];
                         [sound play];
@@ -2791,7 +2860,7 @@ static const char *msgnames[] = {
         case SETBGND:
             //            NSLog(@"glkctl: SETBGND %d, color %x (%d).", req->a1, req->a2, req->a2);
             if (req->a2 < 0)
-                bg = _theme.bufferBackground;
+                bg = theme.bufferBackground;
             else
                 bg = [NSColor colorFromInteger:req->a2];
             if (req->a1 == -1) {
@@ -3159,14 +3228,15 @@ static BOOL pollMoreData(int fd) {
 
 - (void)queueEvent:(GlkEvent *)gevent {
     if (gevent.type == EVTARRANGE) {
+        Theme *theme = _theme;
         NSDictionary *newArrangeValues = @{
             @"width" : @(gevent.val1),
             @"height" : @(gevent.val2),
-            @"bufferMargin" : @(_theme.bufferMarginX),
-            @"gridMargin" : @(_theme.gridMarginX),
-            @"charWidth" : @(_theme.cellWidth),
-            @"lineHeight" : @(_theme.cellHeight),
-            @"leading" : @(((NSParagraphStyle *)(_theme.gridNormal.attributeDict)[NSParagraphStyleAttributeName]).lineSpacing)
+            @"bufferMargin" : @(theme.bufferMarginX),
+            @"gridMargin" : @(theme.gridMarginX),
+            @"charWidth" : @(theme.cellWidth),
+            @"lineHeight" : @(theme.cellHeight),
+            @"leading" : @(((NSParagraphStyle *)(theme.gridNormal.attributeDict)[NSParagraphStyleAttributeName]).lineSpacing)
         };
 
         //        NSLog(@"GlkController queueEvent: %@",newArrangeValues);

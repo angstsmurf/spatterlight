@@ -8,9 +8,7 @@
 #include "gi_dispa.h"
 #include "glkimp.h"
 
-@interface TempFileRef : NSObject <NSSecureCoding> {
-    NSURL *URL;
-}
+@interface TempFileRef : NSObject <NSSecureCoding>
 
 @property int tag;
 @property glui32 rock;

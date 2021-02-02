@@ -26,6 +26,8 @@ typedef struct {
 unsigned int IFFID(char c1, char c2, char c3, char c4);
 
 unsigned int unpackLong(const void *data);
+unsigned int unpackShort(const void *data);
+
 
 void packLong(const void *data, unsigned long value);
 

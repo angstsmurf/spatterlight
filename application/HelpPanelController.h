@@ -6,9 +6,7 @@
 //
 //
 
-@interface HelpTextView : NSTextView <NSTextFinderClient> {
-    NSTextFinder *_textFinder; // define your own text finder
-}
+@interface HelpTextView : NSTextView <NSTextFinderClient>
 
 @property(readonly) NSTextFinder *textFinder;
 @end

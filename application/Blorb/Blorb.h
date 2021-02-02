@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nullable) NSData *pictureData;
 @property(readonly, nullable) NSData *metaData;
 
+@property(readonly, nullable) NSString *zcodeifid;
+
+
 + (BOOL)isBlorbURL:(NSURL *)url;
 + (BOOL)isBlorbData:(NSData *)data;
 
@@ -29,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<BlorbResource *> *)resourcesForUsage:(unsigned int)usage;
 
 - (nullable NSData *)coverImageData;
+
+- (nullable NSString *)ifidFromIFhd;
 
 @end
 

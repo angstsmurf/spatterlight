@@ -11,12 +11,15 @@
 
 @class Metadata;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Image : NSManagedObject
 
-@property (nonatomic, retain) id data;
-@property (nonatomic, retain) NSString * originalURL;
-@property (nonatomic, retain) NSString * imageDescription;
-@property (nonatomic, retain) NSSet *metadata;
+@property (nullable, nonatomic, retain) NSObject *data;
+@property (nullable, nonatomic, copy) NSString *imageDescription;
+@property (nullable, nonatomic, copy) NSString *originalURL;
+@property (nullable, nonatomic, retain) NSSet<Metadata *> *metadata;
+
 @end
 
 @interface Image (CoreDataGeneratedAccessors)
@@ -27,3 +30,5 @@
 - (void)removeMetadata:(NSSet *)values;
 
 @end
+
+NS_ASSUME_NONNULL_END

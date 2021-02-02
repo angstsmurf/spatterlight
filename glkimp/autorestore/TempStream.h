@@ -8,42 +8,7 @@
 #include "gi_dispa.h"
 #include "glkimp.h"
 
-@interface TempStream : NSObject <NSSecureCoding> {
-
-    glui32 readcount, writecount;
-    glui32 lastop;
-
-	glui32 wintag;
-
-    int unicode;
-    int readable;
-    int writable;
-    int append;
-
-    /* The pointers needed for stream operation. We keep separate sets for the one-byte and four-byte cases. */
-    unsigned char *buf;
-	unsigned char *bufptr;
-	unsigned char *bufend;
-	unsigned char *bufeof;
-    glui32 *ubuf;
-	glui32 *ubufptr;
-	glui32 *ubufend;
-	glui32 *ubufeof;
-	glui32 buflen;
-	gidispatch_rock_t arrayrock;
-
-    NSURL *URL;
-
-    int isbinary;
-    glui32 resfilenum;
-
-	uint8_t *tempbufdata;
-	NSUInteger tempbufdatalen;
-	long tempbufkey;
-	glui32 tempbufptr, tempbufend, tempbufeof;
-
-    unsigned long long offsetinfile; // (in bytes) only used during deserialization; zero normally
-}
+@interface TempStream : NSObject <NSSecureCoding>
 
 @property glui32 tag;
 //@property gidispatch_rock_t disprock;

@@ -83,6 +83,20 @@
           frontispiece  = unpackLong(ptr + 8);
           NSLog(@"Found frontispiece chunk with a value of %ld", frontispiece);
         }
+        if (chunkID == IFFID('I', 'F', 'h', 'd')) {
+          // Game Identifier Chunk
+          NSUInteger releaseNumber  = unpackShort(ptr + 8);
+
+          NSData *serialData = [NSData dataWithBytes:ptr + 10 length:6];
+
+          NSString *serialNum = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
+
+//          NSUInteger checksum  = unpackShort(ptr + 16);
+
+          _zcodeifid = [NSString stringWithFormat:@"ZCODE-%ld-%@", releaseNumber, serialNum];
+
+//          NSLog(@"Game Identifier Chunk with release number %ld, serial number %@, checksum %ld", releaseNumber, serialNum, checksum);
+        }
         ptr += len + 8;
       }
     }
@@ -166,6 +180,10 @@
       return [self dataForResource:res];
     }
   return nil;
+}
+
+- (NSString *)ifidFromIFhd {
+  return _zcodeifid;
 }
 
 

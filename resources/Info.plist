@@ -9,16 +9,40 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>Glk Data File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.glkdata</string>
+			</array>
+		</dict>
+		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>taf</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Adrift Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.adrift</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -30,11 +54,19 @@
 				<string>dat</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>DAT Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.dat</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -44,14 +76,21 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>agx</string>
-				<string>d$$</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>AGT Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.agt</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -64,11 +103,19 @@
 				<string>a3c</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Alan Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.alan</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -80,11 +127,15 @@
 				<string>hex</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Hugo Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.hugo</string>
@@ -98,14 +149,21 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>l9</string>
-				<string>sna</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Level 9 Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.level9</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -117,11 +175,19 @@
 				<string>mag</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Magnetic Scrolls Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.magscrolls</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -133,15 +199,19 @@
 				<string>ulx</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>application/x-glulx</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Glulx Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.glulx</string>
@@ -157,18 +227,22 @@
 				<string>gam</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>application/x-tads</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>TADS 2 Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.tads.tads2-game</string>
+				<string>public.tads2</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -181,18 +255,22 @@
 				<string>t3</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>application/x-t3vm-image</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>TADS 3 Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.tads.tads3-game</string>
+				<string>public.tads3</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -202,6 +280,7 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
+				<string>Z5</string>
 				<string>z3</string>
 				<string>z4</string>
 				<string>z5</string>
@@ -209,15 +288,19 @@
 				<string>z8</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>application/x-zmachine</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Z-code Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.zcode</string>
@@ -234,15 +317,19 @@
 				<string>blorb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>application/x-blorb</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Blorbed IF Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.blorb</string>
@@ -259,11 +346,15 @@
 				<string>zblorb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Blorbed Z-code Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.blorb.zcode</string>
@@ -280,11 +371,15 @@
 				<string>gblorb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Blorbed Glulx Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.blorb.glulx</string>
@@ -301,11 +396,19 @@
 				<string>advsys</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGame.icns</string>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Interactive Fiction</string>
+			<string>Quill Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.quill</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
@@ -316,20 +419,68 @@
 			<array>
 				<string>iFiction</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
 			<string>iFiction Metadata</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.ifiction</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
 			<string>XML</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>Glk Save File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.glksave</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>d$$$$</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>AGT dollar Story</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.ddollardollar</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIconFile</key>
-	<string>IconApp</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -355,25 +506,246 @@
 	<string>NSApplication</string>
 	<key>NSRequiresAquaSystemAppearance</key>
 	<false/>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Glk Save File</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>SAVE</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.glksave</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://eblong.com/zarf/glk/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>glksave</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/x-glksave</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Glk Data File</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconText</key>
+				<string>DATA</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.glkdata</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://eblong.com/zarf/glk/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>glkdata</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/x-glkdata</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>iFiction Metadata</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconText</key>
+				<string>iFiction</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.ifiction</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://babel.ifarchive.org/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ifiction</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>ZCode story</string>
+			<string>Alan Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGame</string>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconText</key>
+				<string>ALAN</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
-			<string>public.zcode</string>
+			<string>public.alan</string>
+			<key>UTTypeReferenceURL</key>
+			<string>https://www.alanif.se</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>com.apple.ostype</key>
+				<key>public.filename-extension</key>
 				<array>
-					<string>IFRS</string>
+					<string>a3c</string>
+					<string>acd</string>
 				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Magnetic Scrolls Story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>MAGNETIC</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.magscrolls</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>mag</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>AGT Story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>AGT</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.agt</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>agx</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Adrift Story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>ADRIFT</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.adrift</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>taf</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Z-code Story File</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>ZCODE</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.zcode</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://inform-fiction.org/zmachine/standards/z1point1/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
 				<key>public.filename-extension</key>
 				<array>
 					<string>z3</string>
@@ -392,20 +764,28 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Blorb resource file</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGame</string>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>BLORB</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.blorb</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://eblong.com/zarf/blorb/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>com.apple.ostype</key>
-				<array>
-					<string>ZCOD</string>
-				</array>
 				<key>public.filename-extension</key>
 				<array>
 					<string>blb</string>
@@ -420,14 +800,26 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>ZCode story</string>
+			<string>Blorbed Z-code Story File</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGame</string>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>ZBLORB</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.blorb.zcode</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://inform-fiction.org/zmachine/standards/z1point1/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -440,14 +832,26 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Glulx Story</string>
+			<string>Blorbed Glulx Story File</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGame</string>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>GBLORB</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.blorb.glulx</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://eblong.com/zarf/glulx/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -462,14 +866,26 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Glulx Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGame</string>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>ULX</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.glulx</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://eblong.com/zarf/glulx/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -485,14 +901,26 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Hugo Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGame</string>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>HUGO</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.hugo</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.generalcoffee.com/hugo/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -504,36 +932,28 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.content</string>
 				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>TADS Executable</string>
-			<key>UTTypeIconFile</key>
-			<string>IconGame</string>
-			<key>UTTypeIdentifier</key>
-			<string>org.tads.tads-game</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://www.tads.org/howto/mediatypes.htm</string>
-			<key>UTTypeTagSpecification</key>
-			<dict/>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>org.tads.tads-game</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TADS 2 Game</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGame</string>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>TADS 2</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
-			<string>org.tads.tads2-game</string>
+			<string>public.tads2</string>
 			<key>UTTypeReferenceURL</key>
 			<string>http://www.tads.org/howto/mediatypes.htm</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>com.apple.ostype</key>
-				<string>TADG</string>
 				<key>public.filename-extension</key>
 				<array>
 					<string>gam</string>
@@ -547,20 +967,28 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>org.tads.tads-game</string>
+				<string>public.content</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TADS 3 Executable</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGame</string>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>TADS 3</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
-			<string>org.tads.tads3-game</string>
+			<string>public.tads3</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://www.tads.org/howto/mediatypes.htm</string>
+			<string>http://www.tads.org/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>com.apple.ostype</key>
-				<string>.T3X</string>
 				<key>public.filename-extension</key>
 				<array>
 					<string>t3x</string>
@@ -569,6 +997,93 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>application/x-t3vm-image</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DAT Story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>DAT</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.dat</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>dat</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>SNA Story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>SNA</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.sna</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>sna</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>AGT Dollar Story</string>
+			<key>UTTypeIconFile</key>
+			<string>IconGameHires</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>AGT</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.ddollardollar</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>d$$$$</string>
 				</array>
 			</dict>
 		</dict>

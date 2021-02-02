@@ -15,20 +15,25 @@
 
 @dynamic added;
 @dynamic autosaved;
+@dynamic checksum;
+@dynamic compiler;
 @dynamic detectedFormat;
 @dynamic fileLocation;
+@dynamic fileName;
 @dynamic found;
 @dynamic group;
 @dynamic hashTag;
 @dynamic ifid;
-@dynamic path;
 @dynamic lastPlayed;
+@dynamic path;
+@dynamic releaseString;
+@dynamic serial;
 @dynamic version;
 @dynamic metadata;
 @dynamic override;
 @dynamic theme;
 
-- (NSURL *)urlForBookmark {
+- (nullable NSURL *)urlForBookmark {
     BOOL bookmarkIsStale = NO;
     NSError* theError = nil;
     if (!self.fileLocation) {
@@ -53,6 +58,7 @@
         return nil;
     }
     self.path = bookmarkURL.path;
+    self.fileName = bookmarkURL.path.lastPathComponent;
     return bookmarkURL;
 }
 
@@ -74,6 +80,7 @@
     }
 
     self.path = path;
+    self.fileName = path.lastPathComponent;
     self.fileLocation = bookmark;
 }
 

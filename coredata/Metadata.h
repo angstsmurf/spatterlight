@@ -11,39 +11,42 @@
 
 @class Game, Ifid, Image, Tag;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Metadata : NSManagedObject
 
-@property (nonatomic, retain) NSString * author;
-@property (nonatomic, retain) NSString * averageRating;
-@property (nonatomic, retain) NSString * bafn;
-@property (nonatomic, retain) NSString * blurb;
-@property (nonatomic, retain) NSString * coverArtURL;
-@property (nonatomic, retain) NSString * coverArtDescription;
-@property (nonatomic, retain) NSDate * dateEdited;
-@property (nonatomic, retain) NSString * firstpublished;
-@property (nonatomic, retain) NSDate * firstpublishedDate;
-@property (nonatomic, retain) NSString * forgiveness;
-@property (nonatomic, retain) NSNumber * forgivenessNumeric;
-@property (nonatomic, retain) NSString * format;
-@property (nonatomic, retain) NSString * genre;
-@property (nonatomic, retain) NSString * group;
-@property (nonatomic, retain) NSString * headline;
-@property (nonatomic, retain) NSString * language;
-@property (nonatomic, retain) NSString * languageAsWord;
-@property (nonatomic, retain) NSDate * lastModified;
-@property (nonatomic, retain) NSString * myRating;
-@property (nonatomic, retain) NSString * ratingCountTot;
-@property (nonatomic, retain) NSString * series;
-@property (nonatomic, retain) NSString * seriesnumber;
-@property (nonatomic, retain) NSNumber * source;
-@property (nonatomic, retain) NSString * starRating;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * tuid;
-@property (nonatomic, retain) NSNumber * userEdited;
-@property (nonatomic, retain) Image *cover;
-@property (nonatomic, retain) NSSet *games;
-@property (nonatomic, retain) NSSet *ifids;
-@property (nonatomic, retain) Tag *tag;
+@property (nullable, nonatomic, copy) NSString *author;
+@property (nullable, nonatomic, copy) NSString *averageRating;
+@property (nullable, nonatomic, copy) NSString *bafn;
+@property (nullable, nonatomic, copy) NSString *blurb;
+@property (nullable, nonatomic, copy) NSString *coverArtDescription;
+@property (nullable, nonatomic, copy) NSNumber *coverArtIndex;
+@property (nullable, nonatomic, copy) NSString *coverArtURL;
+@property (nullable, nonatomic, copy) NSDate *dateEdited;
+@property (nullable, nonatomic, copy) NSString *firstpublished;
+@property (nullable, nonatomic, copy) NSDate *firstpublishedDate;
+@property (nullable, nonatomic, copy) NSString *forgiveness;
+@property (nullable, nonatomic, copy) NSNumber *forgivenessNumeric;
+@property (nullable, nonatomic, copy) NSString *format;
+@property (nullable, nonatomic, copy) NSString *genre;
+@property (nullable, nonatomic, copy) NSString *group;
+@property (nullable, nonatomic, copy) NSString *headline;
+@property (nullable, nonatomic, copy) NSString *language;
+@property (nullable, nonatomic, copy) NSString *languageAsWord;
+@property (nullable, nonatomic, copy) NSDate *lastModified;
+@property (nullable, nonatomic, copy) NSString *myRating;
+@property (nullable, nonatomic, copy) NSString *ratingCountTot;
+@property (nullable, nonatomic, copy) NSString *series;
+@property (nullable, nonatomic, copy) NSString *seriesnumber;
+@property (nullable, nonatomic, copy) NSNumber *source;
+@property (nullable, nonatomic, copy) NSString *starRating;
+@property (nullable, nonatomic, copy) NSString *title;
+@property (nullable, nonatomic, copy) NSString *tuid;
+@property (nullable, nonatomic, copy) NSNumber *userEdited;
+@property (nullable, nonatomic, retain) Image *cover;
+@property (nullable, nonatomic, retain) NSSet<Game *> *games;
+@property (nullable, nonatomic, retain) NSSet<Ifid *> *ifids;
+@property (nullable, nonatomic, retain) Tag *tag;
 
 - (Ifid *)findOrCreateIfid:(NSString *)ifidstring;
 
@@ -62,3 +65,5 @@
 - (void)removeIfids:(NSSet *)values;
 
 @end
+
+NS_ASSUME_NONNULL_END

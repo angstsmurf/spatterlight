@@ -48,8 +48,8 @@
     </entity>
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="imageDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="originalURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="metadata" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Metadata" inverseName="cover" inverseEntity="Metadata" syncable="YES"/>
     </entity>
     <entity name="Interpreter" representedClassName="Interpreter" syncable="YES">
@@ -61,7 +61,6 @@
         <attribute name="averageRating" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bafn" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="blurb" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="coverArtDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="coverArtURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateEdited" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="firstpublished" optional="YES" attributeType="String" syncable="YES"/>
@@ -181,7 +180,7 @@
         <element name="Ifid" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Image" positionX="160" positionY="192" width="128" height="103"/>
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Metadata" positionX="160" positionY="192" width="128" height="508"/>
+        <element name="Metadata" positionX="160" positionY="192" width="128" height="493"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Theme" positionX="160" positionY="192" width="128" height="1243"/>
     </elements>

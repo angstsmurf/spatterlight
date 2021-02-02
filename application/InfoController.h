@@ -14,17 +14,6 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 @class LibController, CoreDataManager;
 
 @interface InfoController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
-{
-    IBOutlet NSTextField *titleField;
-    IBOutlet NSTextField *authorField;
-    IBOutlet NSTextField *headlineField;
-    IBOutlet NSTextField *ifidField;
-    IBOutlet NSTextView *descriptionText;
-    IBOutlet NSImageView *imageView;
-
-    CoreDataManager *coreDataManager;
-    NSManagedObjectContext *managedObjectContext;
-}
 
 @property (strong) Game *game;
 

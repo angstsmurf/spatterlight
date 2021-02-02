@@ -107,6 +107,41 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 @end
 
+@interface LibController () <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate> {
+
+    IBOutlet NSButton *infoButton;
+    IBOutlet NSButton *playButton;
+    IBOutlet NSPanel *importProgressPanel;
+    IBOutlet NSView *exportTypeView;
+    IBOutlet NSPopUpButton *exportTypeControl;
+
+    IBOutlet NSMenu *headerMenu;
+
+    BOOL gameTableDirty;
+
+    BOOL canEdit;
+    NSTimer *timer;
+
+    NSArray *searchStrings;
+    CGFloat lastSideviewWidth;
+    CGFloat lastSideviewPercentage;
+
+    Game *currentSideView;
+
+    /* for the importing */
+    NSInteger cursrc;
+    NSString *currentIfid;
+    NSMutableArray *ifidbuf;
+    NSMutableDictionary *metabuf;
+    NSInteger errorflag;
+
+    NSLocale *englishUSLocale;
+    NSDictionary *languageCodes;
+
+    NSManagedObjectContext *importContext;
+}
+@end
+
 @implementation LibController
 
 #pragma mark Window controller, menus and file dialogs.
@@ -284,10 +319,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         NSSet *ifidsToKeep = [[NSSet alloc] init];
 
         for (GlkController *ctl in [_gameSessions allValues]) {
-            [gamesToKeep addObject:ctl.game];
-            [metadataToKeep addObject:ctl.game.metadata];
-            [imagesToKeep addObject:ctl.game.metadata.cover];
-            ifidsToKeep  = [ifidsToKeep setByAddingObjectsFromSet:ctl.game.metadata.ifids];
+            Game *game = ctl.game;
+            [gamesToKeep addObject:game];
+            [metadataToKeep addObject:game.metadata];
+            [imagesToKeep addObject:game.metadata.cover];
+            ifidsToKeep  = [ifidsToKeep setByAddingObjectsFromSet:game.metadata.ifids];
         }
 
         for (NSString *entity in entitiesToDelete) {
@@ -368,7 +404,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         panel.prompt = NSLocalizedString(@"Open", nil);
 
         NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
-                                           fromBookmarkData:game.fileLocation];
+                                           fromBookmarkData:(NSData *)game.fileLocation];
 
         NSString *path = [values objectForKey:NSURLPathKey];
 
@@ -420,31 +456,32 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 - (NSString *)ifidFromFile:(NSString *)path {
 
-    char *format = babel_init((char*)path.UTF8String);
-    if (!format || !babel_get_authoritative())
+    void *context = get_babel_ctx();
+    char *format = babel_init_ctx((char*)path.UTF8String, context);
+    if (!format || !babel_get_authoritative_ctx(context))
     {
         NSAlert *anAlert = [[NSAlert alloc] init];
         anAlert.messageText = NSLocalizedString(@"Unknown file format.", nil);
         anAlert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
         [anAlert runModal];
-        babel_release();
+        babel_release_ctx(context);
         return nil;
     }
 
     char buf[TREATY_MINIMUM_EXTENT];
 
-    int rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
+    int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
     if (rv <= 0)
     {
         NSAlert *anAlert = [[NSAlert alloc] init];
         anAlert.messageText = NSLocalizedString(@"Fatal error.", nil);
         anAlert.informativeText = NSLocalizedString(@"Can not compute IFID from the file.", nil);
         [anAlert runModal];
-        babel_release();
+        babel_release_ctx(context);
         return nil;
     }
 
-    babel_release();
+    babel_release_ctx(context);
     return @(buf);
 }
 
@@ -471,7 +508,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     NSString *filename;
     for (Game *game in fetchedObjects) {
         values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
-                             fromBookmarkData:game.fileLocation];
+                             fromBookmarkData:(NSData *)game.fileLocation];
         filename = [values objectForKey:NSURLPathKey];
         if (!filename)
             filename = game.path;
@@ -952,11 +989,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (action == @selector(addGamesToLibrary:))
         return !_currentlyAddingGames;
 
-    if (action == @selector(importMetadata:))
-         return !_currentlyAddingGames;
+//    if (action == @selector(importMetadata:))
+//         return !_currentlyAddingGames;
 
-    if (action == @selector(download:))
-        return !_currentlyAddingGames;
+//    if (action == @selector(download:))
+//        return !_currentlyAddingGames;
 
     if (action == @selector(delete:) || action == @selector(deleteGame:)) {
         if (count == 0)
@@ -1329,6 +1366,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 game.added = [NSDate date];
                 [game bookmarkForPath:[games valueForKey:ifid]];
                 game.path = [games valueForKey:ifid];
+                game.fileName = game.path.lastPathComponent;
 
                 // First, we look for a cover image file in Spatterlight Application Support folder
                 NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:weakSelf.imageDir];
@@ -1344,14 +1382,15 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                     // If that fails, we try Babel
                 } else {
                     NSString *path = (NSString *)[games valueForKey:ifid];
-                    const char *format = babel_init((char *)path.UTF8String);
+                    void *context = get_babel_ctx();
+                    const char *format = babel_init_ctx((char *)path.UTF8String, context);
                     if (format) {
                         if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
                             Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
                             imgdata = [blorb coverImageData];
                         }
                     }
-                    babel_release();
+                    babel_release_ctx(context);
                 }
 
                 if (imgdata)
@@ -1745,8 +1784,9 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
         return nil;
     }
 
-    format = babel_init((char*)path.UTF8String);
-    if (!format || !babel_get_authoritative())
+    void *ctx = get_babel_ctx();
+    format = babel_init_ctx((char*)path.UTF8String, ctx);
+    if (!format || !babel_get_authoritative_ctx(ctx))
     {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1756,14 +1796,14 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
                 [alert runModal];
             });
         }
-        babel_release();
+        babel_release_ctx(ctx);
         return nil;
     }
 
     s = strchr(format, ' ');
     if (s) format = s+1;
 
-    rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
+    rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
     if (rv <= 0)
     {
         if (report) {
@@ -1774,7 +1814,7 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
                 [alert runModal];
             });
         }
-        babel_release();
+        babel_release_ctx(ctx);
         return nil;
     }
 
@@ -1787,7 +1827,8 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
 
     if (([extension isEqualToString:@"dat"] &&
         !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
-          [@(format) isEqualToString:@"level9"])) ||
+          [@(format) isEqualToString:@"level9"] ||
+          [@(format) isEqualToString:@"advsys"])) ||
         ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"])) {
         if (report) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1797,7 +1838,7 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
                 [alert runModal];
             });
         }
-        babel_release();
+        babel_release_ctx(ctx);
         return nil;
     }
 
@@ -1878,7 +1919,7 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
         }
     }
 
-    babel_release();
+    babel_release_ctx(ctx);
 
     game = (Game *) [NSEntityDescription
                            insertNewObjectForEntityForName:@"Game"
@@ -2409,7 +2450,9 @@ objectValueForTableColumn: (NSTableColumn*)column
 
         string = (_selectedGames.count > 1) ? @"Multiple selections" : @"No selection";
 
-    } else game = _selectedGames[0];
+    } else {
+        game = _selectedGames[0];
+    }
 
     if (force == NO && game && game == currentSideView) {
         //NSLog(@"updateSideView: %@ is already shown and force is NO", game.metadata.title);
@@ -2472,7 +2515,7 @@ canCollapseSubview:(NSView *)subview
     return result;
 }
 
--(IBAction)toggleSidebar:(id)sender;
+-(IBAction)toggleSidebar:(id)sender
 {
     if ([_splitView isSubviewCollapsed:_leftView]) {
         [self uncollapseLeftView];
@@ -2713,10 +2756,12 @@ ofDividerAtIndex:0];
         return nil;
     }
 
-    format = babel_init(rapeme);
+    void *ctx = get_babel_ctx();
+
+    format = babel_init_ctx(rapeme, ctx);
     if (!strcmp(format, "agt")) {
         char buf[TREATY_MINIMUM_EXTENT];
-        int rv = babel_treaty(GET_STORY_FILE_IFID_SEL, buf, sizeof buf);
+        int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
         if (rv == 1) {
             dirpath =
                 [_homepath.path stringByAppendingPathComponent:@"Converted"];
@@ -2732,7 +2777,7 @@ ofDividerAtIndex:0];
                 [dirpath stringByAppendingPathComponent:
                              [@(buf) stringByAppendingPathExtension:@"agx"]];
 
-            babel_release();
+            babel_release_ctx(ctx);
 
             NSURL *url = [NSURL fileURLWithPath:cvtpath];
 
@@ -2752,7 +2797,7 @@ ofDividerAtIndex:0];
     } else {
         NSLog(@"libctl: babel did not like the converted file");
     }
-    babel_release();
+    babel_release_ctx(ctx);
     return nil;
 }
 

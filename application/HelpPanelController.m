@@ -16,6 +16,11 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
+@interface HelpTextView () <NSTextFinderClient> {
+    NSTextFinder *_textFinder; // define your own text finder
+}
+@end
+
 @implementation HelpTextView
 
 // Text finder command validation (could also be done in method

@@ -17,6 +17,14 @@
 #define NSLog(...)
 #endif
 
+@interface AppDelegate () <NSWindowDelegate, NSWindowRestoration> {
+    HelpPanelController *_helpLicenseWindow;
+    NSPanel *filePanel;
+    NSDocumentController *theDocCont;
+    BOOL addToRecents;
+}
+@end
+
 @implementation AppDelegate
 
 NSArray *gGameFileTypes;

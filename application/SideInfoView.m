@@ -43,6 +43,19 @@ fprintf(stderr, "%s\n",                                                    \
 
 @end
 
+@interface SideInfoView () <NSTextFieldDelegate>
+{
+    NSBox *topSpacer;
+    NSImageView *imageView;
+    NSTextField *titleField;
+    NSTextField *headlineField;
+    NSTextField *authorField;
+    NSTextField *blurbField;
+    NSTextField *ifidField;
+
+    CGFloat totalHeight;
+}
+@end
 
 @implementation SideInfoView
 

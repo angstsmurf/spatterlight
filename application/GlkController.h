@@ -25,57 +25,7 @@
 
 @end
 
-@interface GlkController : NSWindowController <NSSecureCoding, NSAccessibilityCustomRotorItemSearchDelegate> {
-    /* for talking to the interpreter */
-    NSTask *task;
-    NSFileHandle *readfh;
-    NSFileHandle *sendfh;
-
-    /* current state of the protocol */
-    NSTimer *timer;
-    BOOL waitforevent;    /* terp wants an event */
-    BOOL waitforfilename; /* terp wants a filename from a file dialog */
-    BOOL dead;            /* le roi est mort! vive le roi! */
-    NSDictionary *lastArrangeValues;
-    NSRect lastContentResize;
-
-    BOOL inFullScreenResize;
-
-    BOOL windowRestoredBySystem;
-    BOOL shouldRestoreUI;
-    BOOL restoredUIOnly;
-    BOOL shouldShowAutorestoreAlert;
-
-    NSSize borderFullScreenSize;
-    NSWindow *snapshotWindow;
-
-    BOOL windowClosedAlready;
-    BOOL restartingAlready;
-
-    /* the glk objects */
-    BOOL windowdirty; /* the contentView needs to repaint */
-
-    /* image/sound resource uploading protocol */
-    NSInteger lastimageresno;
-    NSInteger lastsoundresno;
-    NSCache *imageCache;
-
-    NSImage *lastimage;
-
-    GlkController *restoredController;
-    GlkController *restoredControllerLate;
-    NSMutableData *bufferedData;
-
-    LibController *libcontroller;
-
-    NSSize lastSizeInChars;
-    Theme *lastTheme;
-
-    // To fix scrolling in the Adrian Mole games
-    NSInteger lastRequest;
-
-//    NSDate *lastFlushTimestamp;
-}
+@interface GlkController : NSWindowController <NSSecureCoding, NSAccessibilityCustomRotorItemSearchDelegate>
 
 @property NSMutableDictionary *gwindows;
 @property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *gchannels;

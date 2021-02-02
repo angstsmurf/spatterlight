@@ -27,7 +27,7 @@ enum  {
 
 @implementation IFBibliographic
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element andMetadata:(Metadata *)metadata;{
+- (instancetype)initWithXMLElement:(NSXMLElement *)element andMetadata:(Metadata *)metadata {
     self = [super init];
     if (self) {
 
