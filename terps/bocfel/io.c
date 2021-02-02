@@ -319,26 +319,14 @@ bool zterp_io_close_memory(zterp_io *io, uint8_t **buf, long *n)
   return true;
 }
 
-/* Turn on “exception handling” for this I/O object. After calling this
- * function, all future I/O calls which return a bool will now instead
- * cause this function to return false in case of error. Simple usage:
- *
- * if(!zterp_io_try(io)) return ERROR;
- * // call I/O functions here
- *
- * This *only* affects boolean functions. Those which return non-boolean
- * values, such as zterp_io_write() and zterp_io_getc() are unaffected.
- * This may be inconsistent, at least for zterp_io_getc(), which can
- * return a failure condition, but non-boolean functions are not
- * currently used with exception handling, so it’s not relevant.
- */
-bool zterp_io_try(zterp_io *io)
+void zterp_io_set_exception_mode(zterp_io *io, bool mode)
 {
-  io->exception_mode = true;
+  io->exception_mode = mode;
+}
 
-  if(setjmp(io->exception) != 0) return false;
-
-  return true;
+jmp_buf *zterp_io_get_exception(zterp_io *io)
+{
+  return &io->exception;
 }
 
 static bool wrap(zterp_io *io, bool b)

@@ -747,8 +747,10 @@ static void write_chunk(zterp_io *io, char (*(*writefunc)(zterp_io *))[5])
 bool save_quetzal(zterp_io *savefile, bool is_meta, bool store_history)
 {
   long file_size;
+  bool ok;
 
-  if(!zterp_io_try(savefile)) return false;
+  zterp_io_try(savefile, ok);
+  if (!ok) return false;
 
   zterp_io_write_exact(savefile, "FORM", 4);
   zterp_io_write32(savefile, 0); /* to be filled in */
