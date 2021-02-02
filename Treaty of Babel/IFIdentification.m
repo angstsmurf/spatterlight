@@ -47,8 +47,9 @@
                                   insertNewObjectForEntityForName:@"Ifid"
                                   inManagedObjectContext:context];
               ifidObj.ifidString = ifid;
-              NSLog(@"Created new Ifid object with ifid %@", ifid);
-          } else NSLog(@"Ifid object with ifid %@ already exists", ifid);
+//              NSLog(@"Created new Ifid object with ifid %@", ifid);
+          }
+//          else NSLog(@"Ifid object with ifid %@ already exists", ifid);
 
           [ifidObjs addObject:ifidObj];
           if (!_metadata)

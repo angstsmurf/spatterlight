@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSData *)dataForResource:(BlorbResource *)resource;
 - (NSArray<BlorbResource *> *)resourcesForUsage:(unsigned int)usage;
 
+- (nullable NSData *)coverImageData;
+
 @end
 
 NS_ASSUME_NONNULL_END

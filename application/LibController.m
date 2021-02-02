@@ -18,6 +18,7 @@
 #import "IFIdentification.h"
 #import "IFDBDownloader.h"
 #import "main.h"
+#import "Blorb.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -1342,19 +1343,12 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
                     // If that fails, we try Babel
                 } else {
-                    const char *format = babel_init((char *)((NSString *)[games valueForKey:ifid]).UTF8String);
+                    NSString *path = (NSString *)[games valueForKey:ifid];
+                    const char *format = babel_init((char *)path.UTF8String);
                     if (format) {
-                        size_t imglen = (size_t)babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
-                        if (imglen > 0) {
-                            char *imgbuf = malloc(imglen);
-                            if (imgbuf) {
-                                NSLog(@"Babel found image data in %@!", meta.title);
-                                babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, (int)imglen);
-                                imgdata = [[NSData alloc] initWithBytesNoCopy:imgbuf
-                                                                       length:imglen
-                                                                 freeWhenDone:YES];
-                                game.metadata.coverArtURL = [games valueForKey:ifid];
-                            }
+                        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
+                            Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+                            imgdata = [blorb coverImageData];
                         }
                     }
                     babel_release();
@@ -1710,7 +1704,7 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
     NSString *ifid;
     char *format;
     char *s;
-    size_t mdlen;
+    Blorb *blorb = nil;
     int rv;
 
     NSString *extension = path.pathExtension.lowercaseString;
@@ -1813,35 +1807,15 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
 
     if (!metadata)
     {
-        mdlen = (size_t)babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL, NULL, 0);
-        if (mdlen > 0)
-        {
-            char *mdbuf = malloc(mdlen);
-            if (!mdbuf) {
-                if (report) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        NSAlert *alert = [[NSAlert alloc] init];
-                        alert.messageText = NSLocalizedString(@"Out of memory.", nil);
-                        alert.informativeText = NSLocalizedString(@"Can not allocate memory for the metadata text.", nil);
-                        [alert runModal];
-                    });
-                }
-                babel_release();
-                return nil;
-            }
-
-            rv = babel_treaty(GET_STORY_FILE_METADATA_SEL, mdbuf, (int)mdlen);
-            if (rv > 0) {
-                NSData *mdbufData = [NSData dataWithBytes:mdbuf length:mdlen];
+        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
+            blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+            NSData *mdbufData = [blorb metaData];
+            if (mdbufData) {
                 metadata = [self importMetadataFromXML: mdbufData inContext:context];
                 metadata.source = @(kInternal);
-            } else {
-                NSLog(@"Error! Babel could not extract metadata from file");
-                free(mdbuf);
-                babel_release();
-                return nil;
+                NSLog(@"Extracted metadata from blorb. Title: %@", metadata.title);
             }
-            free(mdbuf);
+            else NSLog(@"Found no metadata in blorb file %@", path);
         }
     }
     else
@@ -1886,22 +1860,20 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
         NSData *img = [[NSData alloc] initWithContentsOfURL:imgpath];
         if (img)
         {
+            NSLog(@"Found cover image in image directory for game %@", metadata.title);
             metadata.coverArtURL = imgpath.path;
             [self addImage:img toMetadata:metadata inContext:context];
         }
         else
         {
-            size_t imglen = (size_t)babel_treaty(GET_STORY_FILE_COVER_EXTENT_SEL, NULL, 0);
-            if (imglen > 0)
-            {
-                char *imgbuf = malloc(imglen);
-                if (imgbuf)
-                {
-                    //                    rv =
-                    babel_treaty(GET_STORY_FILE_COVER_SEL, imgbuf, (int)imglen);
+            if (blorb) {
+                NSData *imageData = blorb.coverImageData;
+                if (imageData) {
                     metadata.coverArtURL = path;
-                    [self addImage:[[NSData alloc] initWithBytesNoCopy: imgbuf length: imglen freeWhenDone: YES] toMetadata:metadata inContext:context];
+                    [self addImage:imageData toMetadata:metadata inContext:context];
+                    NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
                 }
+                else NSLog(@"Found no image in blorb file %@", path);
             }
         }
     }

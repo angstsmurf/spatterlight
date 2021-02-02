@@ -145,7 +145,6 @@
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
-//    NSLog(@"noteManagedObjectContextDidChange");
     NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
     NSArray *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
     NSArray *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];

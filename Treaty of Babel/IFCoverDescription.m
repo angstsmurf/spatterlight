@@ -20,7 +20,7 @@
         NSXMLNode *node;
         while ((node = [enumChildren nextObject])) {
             if ([node.name compare:@"description"] == 0) {
-                NSString *description = node.objectValue;
+                NSString *description = node.stringValue;
                 if (description.length) {
                     metadata.coverArtDescription = description;
                     if (metadata.cover != nil)

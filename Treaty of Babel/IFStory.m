@@ -46,6 +46,22 @@
         NSArray<NSXMLElement *> *coverElements = [element elementsForName:@"cover"];
         if (coverElements.count)
             _coverDescription = [[IFCoverDescription alloc] initWithXMLElement:coverElements[0] andMetadata:metadata];
+
+        NSArray<NSXMLElement *> *formatElements = [element elementsForName:metadata.format];
+        if (formatElements.count) {
+            NSLog(@"Found %@ element", metadata.format);
+            NSEnumerator *enumChildren = [formatElements[0].children objectEnumerator];
+            NSXMLNode *node;
+            while ((node = [enumChildren nextObject])) {
+                if ([node.name compare:@"coverpicture"] == 0) {
+                    NSString *coverArtIndex = node.stringValue;
+                    if (coverArtIndex && coverArtIndex.length) {
+                        NSLog(@"Found coverArtIndex %@", coverArtIndex);
+                    }
+                }
+            }
+        }
+
     }
     return self;
 }
