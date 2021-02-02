@@ -1824,7 +1824,7 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
         if (game)
         {
             NSLog(@"Game %@ already exists in library!", game.metadata.title);
-            if (![path isEqualToString:[game urlForBookmark].path])
+            if (![path isEqualToString:game.path])
             {
                 NSLog(@"File location did not match. Updating library with new file location.");
                 [game bookmarkForPath:path];
