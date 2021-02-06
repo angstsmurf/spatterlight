@@ -1896,6 +1896,9 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
     if (s) *s = 0;
     ifid = @(buf);
 
+    if ([ifid isEqualToString:@"ZCODE-5-------"] && [[path signatureFromFile] isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"])
+        ifid = @"ZCODE-5-830222";
+
     if (([extension isEqualToString:@"dat"] &&
         !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
           [@(format) isEqualToString:@"level9"])) ||
