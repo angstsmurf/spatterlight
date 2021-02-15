@@ -209,12 +209,12 @@
             metadata[@"lastPlayed"] = game.lastPlayed;
         }
 
-    }];
-
     if (metadata == nil || metadata.count == 0) {
         [weakSelf noPreviewForURL:url handler:handler];
         return;
     }
+    }];
+
 
     dispatch_async(dispatch_get_main_queue(), ^{
         if (metadata[@"cover"]) {
@@ -257,17 +257,8 @@
 }
 
 - (void)printFinalLayout{
-    //    if (self.view.frame.size.height > 296) {
-    //        //        double delayInSeconds = 1;
-    //        //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    //        //        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-    //        self.preferredContentSize = NSMakeSize(self.view.frame.size.width, 296);
-    //        //        });
-    //    }
     NSLog(@"Final layout: view size: %@ image view frame %@ scroll view frame:%@", NSStringFromSize(self.view.frame.size), NSStringFromRect(_imageView.frame), NSStringFromRect(_textview.enclosingScrollView.frame));
 }
-
-
 
 - (void)sizeImageToFitWidth:(CGFloat)maxWidth height:(CGFloat)maxHeight {
 
@@ -379,15 +370,12 @@
     //    [self.view addSubview:_imageView];
 }
 
-
 - (void)sizeText {
     NSSize viewSize = self.view.frame.size;
     if (viewSize.width - viewSize.height > 20 ) {
         [self sizeTextHorizontally];
     } else [self sizeTextVertically];
 }
-
-
 
 - (void)tryToStretchWindow {
     CGFloat preferredWindowWidth = 612;
@@ -444,9 +432,6 @@
     frame = _textview.frame;
     frame.size.width = scrollView.frame.size.width;
     _textview.frame = frame;
-
-    //    NSLog(@"New scrollview frame: %@", NSStringFromRect(frame));
-    //    NSLog(@"Superview frame: %@", NSStringFromRect(self.view.frame));
 
     [scrollView.contentView scrollToPoint:NSZeroPoint];
 }
@@ -640,6 +625,7 @@
 }
 
 - (void)noPreviewForURL:(NSURL *)url handler:(void (^)(NSError *))handler {
+    NSLog(@"noPreviewForURL");
     _showingIcon = YES;
     _imageView.image = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
     NSFont *systemFont = [NSFont systemFontOfSize:20 weight:NSFontWeightBold];
@@ -718,6 +704,7 @@
             break;
         }
     } else {
+        NSLog(@"No metadata in Blorb file");
         metaDict[@"IFhd"] = [blorb ifidFromIFhd];
         if (metaDict[@"IFhd"]) {
             metaDict[@"IFhdTitle"] = [self titleFromIfid:metaDict[@"IFhd"]];

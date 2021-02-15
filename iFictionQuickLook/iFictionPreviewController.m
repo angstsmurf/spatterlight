@@ -4,10 +4,9 @@
 //
 //  Created by Administrator on 2021-02-15.
 //
-
-#import "iFictionPreviewController.h"
 #import <Quartz/Quartz.h>
 
+#import "iFictionPreviewController.h"
 #import "UKSyntaxColor.h"
 
 @interface iFictionPreviewController () <QLPreviewingController>
@@ -41,7 +40,6 @@
 */
 
 - (void)preparePreviewOfFileAtURL:(NSURL *)url completionHandler:(void (^)(NSError * _Nullable))handler {
-    NSLog(@"preparePreviewOfFileAtURL");
 
     // Add the supported content types to the QLSupportedContentTypes array in the Info.plist of the extension.
     
@@ -61,11 +59,12 @@
 
     NSBundle *main = [NSBundle mainBundle];
     NSString *resourcePath = [main pathForResource:@"iFiction" ofType:@"plist"];
-    NSLog(@"resourcePath: %@", resourcePath);
 
     NSURL *plisturl = [NSURL fileURLWithPath:resourcePath];
 
     _syntaxColorer = [[UKSyntaxColor alloc] initWithString:contents];
+
+    error = nil;
 
     if (@available(macOS 10.13, *)) {
         _syntaxColorer.syntaxDefinitionDictionary = [NSDictionary dictionaryWithContentsOfURL:plisturl error:&error];

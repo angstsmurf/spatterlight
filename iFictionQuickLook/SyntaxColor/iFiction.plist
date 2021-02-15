@@ -63,7 +63,7 @@
 		</dict>
 		<dict>
 			<key>Color</key>
-			<string>storyColor</string>
+			<string>stringColor</string>
 			<key>Keywords</key>
 			<array>
 				<string>&lt;story&gt;</string>
