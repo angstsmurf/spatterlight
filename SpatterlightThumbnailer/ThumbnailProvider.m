@@ -27,7 +27,7 @@
         if (_persistentContainer == nil) {
             _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"Spatterlight"];
 
-            NSURL *directory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.net.ccxvii.spatterlight"];
+            NSURL *directory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"6U7YY3724Y.group.net.ccxvii.spatterlight"];
 
             NSURL *url = [NSURL fileURLWithPath:[directory.path stringByAppendingPathComponent:@"Spatterlight.storedata"]];
 
@@ -88,11 +88,6 @@
             NSLog(@"ThumbnailProvider: %@",error);
             handler(nil, error);
             return;
-        }
-
-        if (fetchedObjects.count == 0) {
-            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"fileName like[c] %@", url.path.lastPathComponent];
-            fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
         }
 
         if (fetchedObjects.count) {

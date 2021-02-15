@@ -92,7 +92,7 @@
         if (_persistentContainer == nil) {
             _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"Spatterlight"];
 
-            NSURL *directory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.net.ccxvii.spatterlight"];
+            NSURL *directory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"6U7YY3724Y.group.net.ccxvii.spatterlight"];
 
             NSURL *url = [NSURL fileURLWithPath:[directory.path stringByAppendingPathComponent:@"Spatterlight.storedata"]];
 
@@ -136,7 +136,6 @@
     NSLog(@"preparePreviewOfFileAtURL");
     NSLog(@"self.view.frame %@", NSStringFromRect(self.view.frame));
 
-
     _ifid = nil;
     _addedFileInfo = NO;
     _showingIcon = NO;
@@ -164,7 +163,7 @@
         NSFetchRequest *fetchRequest = [NSFetchRequest new];
 
         fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"fileName like[c] %@", url.path.lastPathComponent];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path like[c] %@", url.path];
 
         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
         if (fetchedObjects == nil) {
@@ -172,37 +171,20 @@
             [weakSelf noPreviewForURL:url handler:handler];
             return;
         }
-
         if (fetchedObjects.count == 0) {
-            NSLog(@"QuickLook: Found no Game object with fileName %@", url.path.lastPathComponent);
-
-            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path like[c] %@", url.path];
-
-            fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-            if (fetchedObjects == nil) {
-                NSLog(@"QuickLook: %@",error);
-                [weakSelf noPreviewForURL:url handler:handler];
-                return;
+            NSLog(@"QuickLook: Found no Game object with path %@", url.path);
+            weakSelf.ifid = [weakSelf ifidFromFile:url.path];
+            if (weakSelf.ifid) {
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", weakSelf.ifid];
+                fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
             }
             if (fetchedObjects.count == 0) {
-                NSLog(@"QuickLook: Found no Game object with path %@", url.path);
-                weakSelf.ifid = [weakSelf ifidFromFile:url.path];
-                if (weakSelf.ifid) {
-                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", weakSelf.ifid];
-                    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-                }
-                if (fetchedObjects.count == 0) {
-                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"fileName like[c] %@", url.path.lastPathComponent];
-                    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-                }
-                if (fetchedObjects.count == 0) {
-                    NSLog(@"QuickLook: Found no Game object with file name  %@", url.path.lastPathComponent);
-                    metadata = [weakSelf metadataFromURL:url];
-                    if (metadata == nil || metadata.count == 0) {
-                        [weakSelf noPreviewForURL:url handler:handler];
-                        return;
-                    } else NSLog(@"Found metadata in blorb");
-                }
+                NSLog(@"QuickLook: Found no Game object with file name  %@", url.path.lastPathComponent);
+                metadata = [weakSelf metadataFromURL:url];
+                if (metadata == nil || metadata.count == 0) {
+                    [weakSelf noPreviewForURL:url handler:handler];
+                    return;
+                } else NSLog(@"Found metadata in blorb");
             }
         }
 

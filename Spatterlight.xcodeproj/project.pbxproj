@@ -5663,115 +5663,115 @@
 				TargetAttributes = {
 					6D8BCAD5225E4ACF00696057 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					6DB774A12458B95E00EDC671 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9611535E0A4F35EE00BB7FF2 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9611541F0A4F3F8B00BB7FF2 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					961CCE7A09F237E700528FF9 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					961CCEB609F2396500528FF9 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					961CCEC309F239C100528FF9 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					965036FF09F29F020083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650376609F2A2CE0083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					965037AF09F2A4120083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					965037D009F2A41F0083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					965037F109F2A4430083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650384809F2AF280083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650386F09F2CC450083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650387D09F2CC4E0083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					965038E809F2D3DC0083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650391209F2D4A10083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9650396509F2D6C40083E64E = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					96A9B9F00A064A4E001B5B9B = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					96A9BA780A06558F001B5B9B = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					96FE866509F38BF600D41D78 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					96FE875F09F3A11900D41D78 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					96FE876409F3A12B00D41D78 = {
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					C311DECB25C472C000484639 = {
 						CreatedOnToolsVersion = 12.3;
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					C311DEF425C472E500484639 = {
 						CreatedOnToolsVersion = 12.3;
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					C322714925CC214A0083BD5B = {
 						CreatedOnToolsVersion = 12.3;
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					C35978BF25DA14A6004B1448 = {
 						CreatedOnToolsVersion = 12.4;
 						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -6918,7 +6918,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6953,7 +6953,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -6983,7 +6983,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -7017,7 +7017,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7081,7 +7081,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7105,7 +7105,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7144,8 +7144,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -7195,8 +7196,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -7319,7 +7321,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpatterlightDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -7364,6 +7366,7 @@
 				PRODUCT_NAME = Spatterlight;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
+				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7378,7 +7381,7 @@
 				CODE_SIGN_ENTITLEMENTS = Spatterlight.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "";
@@ -7423,6 +7426,7 @@
 				PRODUCT_NAME = Spatterlight;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
+				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -7433,7 +7437,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7454,7 +7458,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7474,7 +7478,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7496,7 +7500,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7517,7 +7521,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7545,7 +7549,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7572,7 +7576,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7594,7 +7598,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7615,7 +7619,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7636,7 +7640,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7655,7 +7659,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7681,7 +7685,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7706,7 +7710,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7733,7 +7737,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7759,7 +7763,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7790,7 +7794,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7820,7 +7824,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7852,7 +7856,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7883,7 +7887,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7911,7 +7915,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7938,7 +7942,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7961,7 +7965,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -7983,7 +7987,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -8004,7 +8008,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -8053,7 +8057,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -8101,7 +8105,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -8313,7 +8317,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpatterlightMetadataImporter/SpatterlightMetadataImporter.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -8356,7 +8360,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpatterlightMetadataImporter/SpatterlightMetadataImporter.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -8394,8 +8398,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightQuickLook/SpatterlightQuickLook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -8438,8 +8442,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightQuickLook/SpatterlightQuickLook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -8478,8 +8482,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightThumbnailer/SpatterlightThumbnailer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -8500,6 +8504,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.SpatterlightThumbnailer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -8520,8 +8525,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SpatterlightThumbnailer/SpatterlightThumbnailer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -8538,6 +8543,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.SpatterlightThumbnailer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -8558,11 +8564,11 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = iFictionQuickLook/iFictionQuickLook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -8601,12 +8607,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = iFictionQuickLook/iFictionQuickLook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

@@ -68,7 +68,7 @@
 
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier: @"group.net.ccxvii.spatterlight"];
+    NSURL *applicationFilesDirectory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier: @"6U7YY3724Y.group.net.ccxvii.spatterlight"];
     NSError *error = nil;
 
     NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
@@ -101,7 +101,7 @@
 //    NSString *storeFileName = [modelName stringByAppendingString:@".storedata"];
 
 
-    NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier: @"group.net.ccxvii.spatterlight"];
+    NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier: @"6U7YY3724Y.group.net.ccxvii.spatterlight"];
 
     NSString *storeFileName =  [url.path stringByAppendingPathComponent:@"Spatterlight.storedata"];
     NSURL *url2 = [NSURL fileURLWithPath:storeFileName];

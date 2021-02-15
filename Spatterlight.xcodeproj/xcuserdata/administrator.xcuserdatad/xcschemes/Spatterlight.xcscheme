@@ -95,6 +95,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "Spatterlight"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
