@@ -63,7 +63,8 @@
       ![_storyMetadata.bibliographic.title isEqualToString:@""])
     return _storyMetadata.bibliographic.title;
   else
-    return self.fileURL.path.lastPathComponent;
+//  return self.fileURL.path.lastPathComponent;
+    return nil;
 }
 
 - (NSString *)sortTitle {
