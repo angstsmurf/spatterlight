@@ -10,7 +10,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -30,7 +30,7 @@
 				<string>taf</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -54,7 +54,7 @@
 				<string>dat</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -78,7 +78,7 @@
 				<string>agx</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -103,7 +103,7 @@
 				<string>a3c</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -127,7 +127,7 @@
 				<string>hex</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -151,7 +151,7 @@
 				<string>l9</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -175,7 +175,7 @@
 				<string>mag</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -199,7 +199,7 @@
 				<string>ulx</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
@@ -227,7 +227,7 @@
 				<string>gam</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
@@ -255,7 +255,7 @@
 				<string>t3</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
@@ -288,7 +288,7 @@
 				<string>z8</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
@@ -317,7 +317,7 @@
 				<string>blorb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeMIMETypes</key>
@@ -346,7 +346,7 @@
 				<string>zblorb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -371,7 +371,7 @@
 				<string>gblorb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -396,7 +396,7 @@
 				<string>advsys</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -420,7 +420,7 @@
 				<string>iFiction</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -440,7 +440,7 @@
 		</dict>
 		<dict>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -460,7 +460,7 @@
 				<string>d$$$$</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -517,7 +517,7 @@
 			<key>UTTypeDescription</key>
 			<string>Glk Save File</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -550,7 +550,7 @@
 			<key>UTTypeDescription</key>
 			<string>Glk Data File</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -581,7 +581,7 @@
 			<key>UTTypeDescription</key>
 			<string>iFiction Metadata</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -613,7 +613,7 @@
 			<key>UTTypeDescription</key>
 			<string>Alan Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -643,7 +643,7 @@
 			<key>UTTypeDescription</key>
 			<string>Magnetic Scrolls Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -672,7 +672,7 @@
 			<key>UTTypeDescription</key>
 			<string>AGT Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -701,7 +701,7 @@
 			<key>UTTypeDescription</key>
 			<string>Adrift Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -730,7 +730,7 @@
 			<key>UTTypeDescription</key>
 			<string>Z-code Story File</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -770,7 +770,7 @@
 			<key>UTTypeDescription</key>
 			<string>Blorb resource file</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -806,7 +806,7 @@
 			<key>UTTypeDescription</key>
 			<string>Blorbed Z-code Story File</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -838,7 +838,7 @@
 			<key>UTTypeDescription</key>
 			<string>Blorbed Glulx Story File</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -872,7 +872,7 @@
 			<key>UTTypeDescription</key>
 			<string>Glulx Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -880,7 +880,7 @@
 				<key>UTTypeIconBadgeName</key>
 				<string></string>
 				<key>UTTypeIconText</key>
-				<string>ULX</string>
+				<string>GLULX</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.glulx</string>
@@ -907,7 +907,7 @@
 			<key>UTTypeDescription</key>
 			<string>Hugo Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -938,7 +938,7 @@
 			<key>UTTypeDescription</key>
 			<string>TADS 2 Game</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -973,7 +973,7 @@
 			<key>UTTypeDescription</key>
 			<string>TADS 3 Executable</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -1009,7 +1009,7 @@
 			<key>UTTypeDescription</key>
 			<string>DAT Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -1038,7 +1038,7 @@
 			<key>UTTypeDescription</key>
 			<string>SNA Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
@@ -1046,7 +1046,7 @@
 				<key>UTTypeIconBadgeName</key>
 				<string></string>
 				<key>UTTypeIconText</key>
-				<string>SNA</string>
+				<string>SNAPSHOT</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.sna</string>
@@ -1067,11 +1067,11 @@
 			<key>UTTypeDescription</key>
 			<string>AGT Dollar Story</string>
 			<key>UTTypeIconFile</key>
-			<string>IconGameHires</string>
+			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>LegacyIcon</string>
 				<key>UTTypeIconBadgeName</key>
 				<string></string>
 				<key>UTTypeIconText</key>
