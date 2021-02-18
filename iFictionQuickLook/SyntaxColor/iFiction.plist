@@ -18,20 +18,6 @@
 		</dict>
 		<dict>
 			<key>Color</key>
-			<string>stringColor</string>
-			<key>End</key>
-			<string>&quot;</string>
-			<key>EscapeChar</key>
-			<string></string>
-			<key>Name</key>
-			<string>Strings</string>
-			<key>Start</key>
-			<string>&quot;</string>
-			<key>Type</key>
-			<string>String</string>
-		</dict>
-		<dict>
-			<key>Color</key>
 			<string>tagColor</string>
 			<key>End</key>
 			<string>&gt;</string>
@@ -41,6 +27,20 @@
 			<string>&lt;</string>
 			<key>Type</key>
 			<string>Tag</string>
+		</dict>
+		<dict>
+			<key>Color</key>
+			<string>stringColor</string>
+			<key>End</key>
+			<string>&quot;</string>
+			<key>EscapeChar</key>
+			<string>\</string>
+			<key>Name</key>
+			<string>Strings</string>
+			<key>Start</key>
+			<string>&quot;</string>
+			<key>Type</key>
+			<string>String</string>
 		</dict>
 		<dict>
 			<key>Color</key>
@@ -70,7 +70,20 @@
 				<string>&lt;/story&gt;</string>
 			</array>
 			<key>Name</key>
-			<string>Identifiers</string>
+			<string>Story</string>
+			<key>Type</key>
+			<string>Keywords</string>
+		</dict>
+		<dict>
+			<key>Color</key>
+			<string>tagColor</string>
+			<key>Keywords</key>
+			<array>
+				<string>&lt;br&gt;</string>
+				<string>&lt;/br&gt;</string>
+			</array>
+			<key>Name</key>
+			<string>Break</string>
 			<key>Type</key>
 			<string>Keywords</string>
 		</dict>

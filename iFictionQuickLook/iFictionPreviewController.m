@@ -22,7 +22,10 @@
 - (void)loadView {
     [super loadView];
     // Do any additional setup after loading the view.
-//    self.preferredContentSize = NSMakeSize(820, 846);
+    NSLog(@"Initial view frame: %@", NSStringFromRect(self.view.frame));
+    NSLog(@"Initial window frame: %@", NSStringFromRect(self.view.window.frame));
+
+    //    self.preferredContentSize = NSMakeSize(820, 846);
 }
 
 /*
@@ -96,6 +99,12 @@
     // Quick Look will display a loading spinner while the completion handler is not called.
     
     handler(nil);
+    [self printFinalLayout];
+}
+
+- (void)printFinalLayout{
+    NSScrollView *scrollview = _textview.enclosingScrollView;
+    NSLog(@"Final layout: window frame: %@ view frame: %@ scroll view frame %@ content view frame:%@ text view frame:%@", NSStringFromRect(self.view.window.frame), NSStringFromRect(self.view.frame), NSStringFromRect(scrollview.frame), NSStringFromRect(scrollview.contentView.frame),  NSStringFromRect(_textview.frame));
 }
 
 @end
