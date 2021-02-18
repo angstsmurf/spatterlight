@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *compiler;
 @property (nullable, nonatomic, copy) NSString *detectedFormat;
 @property (nullable, nonatomic, retain) NSObject *fileLocation;
-@property (nullable, nonatomic, copy) NSString *fileName;
 @property (nonatomic) BOOL found;
 @property (nullable, nonatomic, copy) NSString *group;
 @property (nullable, nonatomic, copy) NSString *hashTag;

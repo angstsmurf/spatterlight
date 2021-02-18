@@ -19,7 +19,6 @@
 @dynamic compiler;
 @dynamic detectedFormat;
 @dynamic fileLocation;
-@dynamic fileName;
 @dynamic found;
 @dynamic group;
 @dynamic hashTag;
@@ -58,7 +57,6 @@
         return nil;
     }
     self.path = bookmarkURL.path;
-    self.fileName = bookmarkURL.path.lastPathComponent;
     return bookmarkURL;
 }
 
@@ -80,7 +78,6 @@
     }
 
     self.path = path;
-    self.fileName = path.lastPathComponent;
     self.fileLocation = bookmark;
 }
 

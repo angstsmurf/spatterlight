@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H114" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="4">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H524" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="4">
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="added" optional="YES" attributeType="Transformable"/>
         <attribute name="autosaved" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="checksum" optional="YES" attributeType="String"/>
         <attribute name="compiler" optional="YES" attributeType="String"/>
-        <attribute name="detectedFormat" optional="YES" attributeType="String"/>
+        <attribute name="detectedFormat" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="fileLocation" optional="YES" attributeType="Transformable" valueTransformerName=""/>
-        <attribute name="fileName" optional="YES" attributeType="String"/>
         <attribute name="found" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
-        <attribute name="group" optional="YES" attributeType="String"/>
+        <attribute name="group" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="hashTag" optional="YES" attributeType="String"/>
-        <attribute name="ifid" optional="YES" attributeType="String"/>
+        <attribute name="ifid" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="lastPlayed" optional="YES" attributeType="Transformable"/>
         <attribute name="path" optional="YES" attributeType="String"/>
         <attribute name="releaseString" optional="YES" attributeType="String"/>
@@ -65,7 +64,7 @@
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="averageRating" optional="YES" attributeType="String"/>
         <attribute name="bafn" optional="YES" attributeType="String"/>
-        <attribute name="blurb" optional="YES" attributeType="String"/>
+        <attribute name="blurb" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="coverArtDescription" optional="YES" attributeType="String"/>
         <attribute name="coverArtIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="coverArtURL" optional="YES" attributeType="String"/>
@@ -182,7 +181,7 @@
         <relationship name="overrides" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="override" inverseEntity="Game"/>
     </entity>
     <elements>
-        <element name="Game" positionX="160" positionY="192" width="128" height="328"/>
+        <element name="Game" positionX="160" positionY="192" width="128" height="313"/>
         <element name="GlkStyle" positionX="160" positionY="192" width="128" height="403"/>
         <element name="Ifid" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Image" positionX="160" positionY="192" width="128" height="103"/>

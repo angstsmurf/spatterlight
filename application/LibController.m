@@ -1367,7 +1367,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 game.added = [NSDate date];
                 [game bookmarkForPath:[games valueForKey:ifid]];
                 game.path = [games valueForKey:ifid];
-                game.fileName = game.path.lastPathComponent;
 
                 // First, we look for a cover image file in Spatterlight Application Support folder
                 NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:weakSelf.imageDir];
