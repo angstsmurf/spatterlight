@@ -19,6 +19,7 @@
 #import "IFDBDownloader.h"
 #import "main.h"
 #import "Blorb.h"
+#import "BlorbResource.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -1784,6 +1785,54 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
         return nil;
     }
 
+    if (report && ([extension isEqualToString:@"blorb"] || [extension isEqualToString:@"blb"])) {
+        blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+        if (![blorb resourcesForUsage:ExecutableResource].count) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSAlert *alert = [[NSAlert alloc] init];
+                alert.messageText = NSLocalizedString(@"Not a game.", nil);
+                alert.informativeText = NSLocalizedString(@"No executable chunk found in Blorb file.", nil);
+                [alert runModal];
+            });
+            return nil;
+        }
+
+        NSData *data = blorb.metaData;
+        //        NSString *newPath = [path stringByDeletingLastPathComponent];
+        //        NSString *noExtension = [path.lastPathComponent stringByDeletingPathExtension];
+        //        newPath = [newPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.iFiction", noExtension]];
+        //        [[NSFileManager defaultManager] createFileAtPath: newPath contents: data attributes: nil];
+
+        NSError *error;
+        NSXMLDocument *xml =
+        [[NSXMLDocument alloc] initWithData:data
+                                    options:NSXMLDocumentTidyXML
+                                      error:&error];
+        NSEnumerator *enumerator =
+        [[[xml rootElement] elementsForName:@"story"] objectEnumerator];
+        NSXMLElement *child;
+        while ((child = [enumerator nextObject])) {
+            NSXMLElement *idElement = [child elementsForName:@"identification"][0];
+            NSEnumerator *enumChildren = [idElement.children objectEnumerator];
+            NSXMLNode *node;
+            while ((node = [enumChildren nextObject])) {
+                if ([node.name compare:@"format"] == 0) {
+                    NSString *formatstring = node.stringValue;
+                    if ([formatstring isEqualToString:@"adrift"]) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            NSAlert *alert = [[NSAlert alloc] init];
+                            alert.messageText = NSLocalizedString(@"Unsupported format.", nil);
+                            alert.informativeText = NSLocalizedString(@"Adrift 5 games are not supported.", nil);
+                            [alert runModal];
+                        });
+                        return nil;
+                    }
+                }
+            }
+        }
+    }
+
+
     void *ctx = get_babel_ctx();
     format = babel_init_ctx((char*)path.UTF8String, ctx);
     if (!format || !babel_get_authoritative_ctx(ctx))
@@ -1937,10 +1986,10 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
 
 - (void) addFile: (NSURL*)url select: (NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure
 {
-    Game *game = [self importGame: url.path inContext:context reportFailure:reportFailure];
+    Game *game = [self importGame:url.path inContext:context reportFailure:reportFailure];
     if (game) {
         [self beginImporting];
-        [select addObject: game.ifid];
+        [select addObject:game.ifid];
     } else {
         //NSLog(@"libctl: addFile: File %@ not added!", url.path);
     }
