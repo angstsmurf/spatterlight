@@ -20,7 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nullable) NSData *metaData;
 
 @property(readonly, nullable) NSString *zcodeifid;
+@property(readonly, nullable) NSString *snam;
 
+@property(nullable) NSMutableDictionary *optionalChunks;
 
 + (BOOL)isBlorbURL:(NSURL *)url;
 + (BOOL)isBlorbData:(NSData *)data;

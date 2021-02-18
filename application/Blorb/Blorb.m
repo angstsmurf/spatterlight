@@ -50,6 +50,9 @@
     frontispiece = 0;
     NSMutableArray<BlorbResource *> *resources = [[NSMutableArray alloc] init];
 
+    NSArray *optionalChunksIDs = @[@"ANNO", @"AUTH", @"(c) ", @"SNam"];
+    _optionalChunks = [NSMutableDictionary new];
+
     const unsigned char *ptr = data.bytes;
     ptr += 12;
     unsigned int chunkID;
@@ -72,23 +75,65 @@
       // Look through the rest of the file
       while (ptr < (const unsigned char *)data.bytes + data.length) {
         unsigned int len = chunkIDAndLength(ptr, &chunkID);
+        NSString *chunkString = [self stringFromChunkWithPtr:ptr];
         if (chunkID == IFFID('I', 'F', 'm', 'd')) {
           // Treaty of Babel Metadata
           NSRange range =
               NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes + 8), len);
           metaData = [data subdataWithRange:range];
+          NSLog(@"Found metadata. len:%d", len);
+
         }
+
         if (chunkID == IFFID('F', 's', 'p', 'c')) {
           // Frontispiece - Cover picture index
           frontispiece  = unpackLong(ptr + 8);
           NSLog(@"Found frontispiece chunk with a value of %ld", frontispiece);
         }
+
+        if ([optionalChunksIDs indexOfObject:chunkString] != NSNotFound) {
+          NSRange range =
+              NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes + 8), len);
+
+          NSStringEncoding encoding = NSASCIIStringEncoding;
+          if ([chunkString isEqualToString:@"Snam"])
+            encoding = NSUTF16BigEndianStringEncoding;
+
+          _optionalChunks[chunkString] = [[NSString alloc] initWithData:[data subdataWithRange:range] encoding:encoding];
+          NSLog(@"Found %@ chunk with value \"%@\"", chunkString, _optionalChunks[chunkString]);
+        }
+
+        if (chunkID == IFFID('R', 'D', 'e', 's')) {
+          NSLog(@"Found Resource Description Chunk!");
+          ptr += 8;
+          count = unpackLong(ptr);
+          ptr += 4;
+          for (i = 0; i < count; ++i) {
+            unsigned int usage = unpackLong(ptr);
+            unsigned int number = unpackLong(ptr + 4);
+            unsigned int length = unpackLong(ptr + 8);
+            NSRange range =
+            NSMakeRange((NSUInteger)(ptr + 12 - (const unsigned char *)data.bytes + 8), length);
+            NSString *description = [[NSString alloc] initWithData:[data subdataWithRange:range] encoding:NSUTF8StringEncoding];
+            ptr += 12;
+            for (BlorbResource *resource in _resources) {
+              BOOL found = NO;
+              if (resource.usage == usage && resource.number == number) {
+                resource.descriptiontext = description;
+                found = YES;
+                break;
+              }
+              if (!found)
+                NSLog(@"Error! Found no resource with usage %d and number %d", usage, number);
+            }
+          }
+        }
+
         if (chunkID == IFFID('I', 'F', 'h', 'd')) {
           // Game Identifier Chunk
           NSUInteger releaseNumber  = unpackShort(ptr + 8);
 
           NSData *serialData = [NSData dataWithBytes:ptr + 10 length:6];
-
           NSString *serialNum = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
 
 //          NSUInteger checksum  = unpackShort(ptr + 16);
@@ -97,12 +142,19 @@
 
 //          NSLog(@"Game Identifier Chunk with release number %ld, serial number %@, checksum %ld", releaseNumber, serialNum, checksum);
         }
-        ptr += len + 8;
+        ptr += paddedLength(len) + 8;
       }
     }
     _resources = resources;
   }
   return self;
+}
+
+- (NSString *)stringFromChunkWithPtr:(const unsigned char *)ptr {
+  NSRange range =
+      NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes), 4);
+  NSData *subData = [data subdataWithRange:range];
+  return [[NSString alloc] initWithData:subData encoding:NSASCIIStringEncoding];
 }
 
 - (NSData *)dataForResource:(BlorbResource *)resource {
@@ -177,6 +229,7 @@
 
   for (BlorbResource *res in images)
     if (res.number == frontispiece) {
+      NSLog(@"Length: %ld", [self dataForResource:res].length);
       return [self dataForResource:res];
     }
   return nil;

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) unsigned int usage;
 @property(readonly) unsigned int number;
 @property(readonly) unsigned int start;
+@property(nullable) NSString *descriptiontext;
 
 - (instancetype)initWithUsage:(unsigned int)usage
                        number:(unsigned int)number
