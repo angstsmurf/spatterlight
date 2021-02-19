@@ -61,8 +61,7 @@
       ptr += 8;
       unsigned int count = unpackLong(ptr);
       ptr += 4;
-      unsigned int i;
-      for (i = 0; i < count; ++i) {
+      while (count--) {
         unsigned int usage = unpackLong(ptr);
         unsigned int number = unpackLong(ptr + 4);
         unsigned int start = unpackLong(ptr + 8);
@@ -70,6 +69,7 @@
         [resources addObject:[[BlorbResource alloc] initWithUsage:usage
                                                            number:number
                                                             start:start]];
+        resources.lastObject.chunkType = [self stringFromChunkWithPtr:data.bytes + start];
       }
 
       // Look through the rest of the file
@@ -81,14 +81,13 @@
           NSRange range =
               NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes + 8), len);
           metaData = [data subdataWithRange:range];
-          NSLog(@"Found metadata. len:%d", len);
-
+//          NSLog(@"Found metadata. len:%d", len);
         }
 
         if (chunkID == IFFID('F', 's', 'p', 'c')) {
           // Frontispiece - Cover picture index
           frontispiece  = unpackLong(ptr + 8);
-          NSLog(@"Found frontispiece chunk with a value of %ld", frontispiece);
+//          NSLog(@"Found frontispiece chunk with a value of %ld", frontispiece);
         }
 
         if ([optionalChunksIDs indexOfObject:chunkString] != NSNotFound) {
@@ -100,7 +99,7 @@
             encoding = NSUTF16BigEndianStringEncoding;
 
           _optionalChunks[chunkString] = [[NSString alloc] initWithData:[data subdataWithRange:range] encoding:encoding];
-          NSLog(@"Found %@ chunk with value \"%@\"", chunkString, _optionalChunks[chunkString]);
+//          NSLog(@"Found %@ chunk with value \"%@\"", chunkString, _optionalChunks[chunkString]);
         }
 
         if (chunkID == IFFID('R', 'D', 'e', 's')) {
@@ -108,14 +107,14 @@
           ptr += 8;
           count = unpackLong(ptr);
           ptr += 4;
-          for (i = 0; i < count; ++i) {
+          while (count--) {
             unsigned int usage = unpackLong(ptr);
             unsigned int number = unpackLong(ptr + 4);
             unsigned int length = unpackLong(ptr + 8);
             NSRange range =
-            NSMakeRange((NSUInteger)(ptr + 12 - (const unsigned char *)data.bytes + 8), length);
+            NSMakeRange((NSUInteger)(ptr + 12 - (const unsigned char *)data.bytes), length);
             NSString *description = [[NSString alloc] initWithData:[data subdataWithRange:range] encoding:NSUTF8StringEncoding];
-            ptr += 12;
+            ptr += 12 + length;
             for (BlorbResource *resource in _resources) {
               BOOL found = NO;
               if (resource.usage == usage && resource.number == number) {
@@ -229,7 +228,6 @@
 
   for (BlorbResource *res in images)
     if (res.number == frontispiece) {
-      NSLog(@"Length: %ld", [self dataForResource:res].length);
       return [self dataForResource:res];
     }
   return nil;
