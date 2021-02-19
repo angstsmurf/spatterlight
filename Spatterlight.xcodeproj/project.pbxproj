@@ -542,8 +542,6 @@
 		C31186DB25BD500800739D7B /* GlkSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C31186D925BD500700739D7B /* GlkSoundChannel.m */; };
 		C311875325BD8F1E00739D7B /* AudioResourceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C311875225BD8F1E00739D7B /* AudioResourceHandler.m */; };
 		C311DE2A25C4383100484639 /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = C311DE2925C4383100484639 /* twine.c */; };
-		C311DED025C472C000484639 /* IndexRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C311DECF25C472C000484639 /* IndexRequestHandler.m */; };
-		C311DED525C472C000484639 /* SpatterlightMetadataImporter.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C311DECC25C472C000484639 /* SpatterlightMetadataImporter.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C311DEF725C472E500484639 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C311DEFB25C472E500484639 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C311DEFA25C472E500484639 /* PreviewViewController.m */; };
 		C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311DEFC25C472E500484639 /* PreviewViewController.xib */; };
@@ -976,13 +974,6 @@
 			remoteGlobalIDString = 96FE875F09F3A11900D41D78;
 			remoteInfo = tads2;
 		};
-		C311DED325C472C000484639 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C311DECB25C472C000484639;
-			remoteInfo = SpatterlightMetadataImporter;
-		};
 		C311DF0125C472E500484639 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
@@ -1077,7 +1068,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				C311DF0325C472E500484639 /* SpatterlightQuickLook.appex in Embed App Extensions */,
-				C311DED525C472C000484639 /* SpatterlightMetadataImporter.appex in Embed App Extensions */,
 				C35978CD25DA14A6004B1448 /* iFictionQuickLook.appex in Embed App Extensions */,
 				C322715525CC214A0083BD5B /* SpatterlightThumbnailer.appex in Embed App Extensions */,
 			);
@@ -2546,11 +2536,6 @@
 		C311875125BD8F1E00739D7B /* AudioResourceHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioResourceHandler.h; sourceTree = "<group>"; };
 		C311875225BD8F1E00739D7B /* AudioResourceHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioResourceHandler.m; sourceTree = "<group>"; };
 		C311DE2925C4383100484639 /* twine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = twine.c; sourceTree = "<group>"; };
-		C311DECC25C472C000484639 /* SpatterlightMetadataImporter.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpatterlightMetadataImporter.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		C311DECE25C472C000484639 /* IndexRequestHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexRequestHandler.h; sourceTree = "<group>"; };
-		C311DECF25C472C000484639 /* IndexRequestHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexRequestHandler.m; sourceTree = "<group>"; };
-		C311DED125C472C000484639 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C311DED225C472C000484639 /* SpatterlightMetadataImporter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpatterlightMetadataImporter.entitlements; sourceTree = "<group>"; };
 		C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpatterlightQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C311DEF625C472E500484639 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		C311DEF925C472E500484639 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
@@ -2859,13 +2844,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		96FE876309F3A12B00D41D78 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C311DEC925C472C000484639 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3576,7 +3554,6 @@
 				965031AC09F29EE10083E64E /* terps */,
 				96A9BA2A0A064C9C001B5B9B /* babel */,
 				961CCF2109F2940F00528FF9 /* resources */,
-				C311DECD25C472C000484639 /* SpatterlightMetadataImporter */,
 				C311DEF825C472E500484639 /* SpatterlightQuickLook */,
 				C322714D25CC214A0083BD5B /* SpatterlightThumbnailer */,
 				C35978C225DA14A6004B1448 /* iFictionQuickLook */,
@@ -3612,7 +3589,6 @@
 				9650381009F2A4430083E64E /* unquill */,
 				6D8BCAD6225E4ACF00696057 /* fizmo */,
 				6DB774A22458B95E00EDC671 /* bocfel */,
-				C311DECC25C472C000484639 /* SpatterlightMetadataImporter.appex */,
 				C311DEF525C472E500484639 /* SpatterlightQuickLook.appex */,
 				C322714A25CC214A0083BD5B /* SpatterlightThumbnailer.appex */,
 				C35978C025DA14A6004B1448 /* iFictionQuickLook.appex */,
@@ -4966,17 +4942,6 @@
 			path = Sound;
 			sourceTree = "<group>";
 		};
-		C311DECD25C472C000484639 /* SpatterlightMetadataImporter */ = {
-			isa = PBXGroup;
-			children = (
-				C311DECE25C472C000484639 /* IndexRequestHandler.h */,
-				C311DECF25C472C000484639 /* IndexRequestHandler.m */,
-				C311DED125C472C000484639 /* Info.plist */,
-				C311DED225C472C000484639 /* SpatterlightMetadataImporter.entitlements */,
-			);
-			path = SpatterlightMetadataImporter;
-			sourceTree = "<group>";
-		};
 		C311DEF825C472E500484639 /* SpatterlightQuickLook */ = {
 			isa = PBXGroup;
 			children = (
@@ -5236,7 +5201,6 @@
 				9650379F09F2A2FA0083E64E /* PBXTargetDependency */,
 				966EFA4309F62D4C00FA7F19 /* PBXTargetDependency */,
 				C3D6AD701ECF372000ADB69C /* PBXTargetDependency */,
-				C311DED425C472C000484639 /* PBXTargetDependency */,
 				C311DF0225C472E500484639 /* PBXTargetDependency */,
 				C322715425CC214A0083BD5B /* PBXTargetDependency */,
 				C35978CC25DA14A6004B1448 /* PBXTargetDependency */,
@@ -5531,23 +5495,6 @@
 			productReference = 96FE876509F3A12B00D41D78 /* libtads3.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		C311DECB25C472C000484639 /* SpatterlightMetadataImporter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C311DED925C472C000484639 /* Build configuration list for PBXNativeTarget "SpatterlightMetadataImporter" */;
-			buildPhases = (
-				C311DEC825C472C000484639 /* Sources */,
-				C311DEC925C472C000484639 /* Frameworks */,
-				C311DECA25C472C000484639 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SpatterlightMetadataImporter;
-			productName = SpatterlightMetadataImporter;
-			productReference = C311DECC25C472C000484639 /* SpatterlightMetadataImporter.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		C311DEF425C472E500484639 /* SpatterlightQuickLook */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C311DF0425C472E500484639 /* Build configuration list for PBXNativeTarget "SpatterlightQuickLook" */;
@@ -5699,11 +5646,6 @@
 						DevelopmentTeam = 6U7YY3724Y;
 						ProvisioningStyle = Automatic;
 					};
-					C311DECB25C472C000484639 = {
-						CreatedOnToolsVersion = 12.3;
-						DevelopmentTeam = 6U7YY3724Y;
-						ProvisioningStyle = Automatic;
-					};
 					C311DEF425C472E500484639 = {
 						CreatedOnToolsVersion = 12.3;
 						DevelopmentTeam = 6U7YY3724Y;
@@ -5760,7 +5702,6 @@
 				9611541F0A4F3F8B00BB7FF2 /* htmltadsr */,
 				965037F109F2A4430083E64E /* unquill */,
 				6D8BCAD5225E4ACF00696057 /* fizmo */,
-				C311DECB25C472C000484639 /* SpatterlightMetadataImporter */,
 				C311DEF425C472E500484639 /* SpatterlightQuickLook */,
 				C322714925CC214A0083BD5B /* SpatterlightThumbnailer */,
 				C35978BF25DA14A6004B1448 /* iFictionQuickLook */,
@@ -5790,13 +5731,6 @@
 				6D73E55721873509009CD59A /* LibraryWindow.xib in Resources */,
 				6D85C898218BD6E10088D849 /* HelpPanelController.xib in Resources */,
 				6DCFFC2122BCD1730035FA99 /* Fonts License.rtf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C311DECA25C472C000484639 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6506,14 +6440,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C311DEC825C472C000484639 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C311DED025C472C000484639 /* IndexRequestHandler.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C311DEF125C472E500484639 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -6793,11 +6719,6 @@
 			isa = PBXTargetDependency;
 			target = 96FE875F09F3A11900D41D78 /* tads2 */;
 			targetProxy = 96FE87D809F3A1BC00D41D78 /* PBXContainerItemProxy */;
-		};
-		C311DED425C472C000484639 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C311DECB25C472C000484639 /* SpatterlightMetadataImporter */;
-			targetProxy = C311DED325C472C000484639 /* PBXContainerItemProxy */;
 		};
 		C311DF0225C472E500484639 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8236,88 +8157,6 @@
 			};
 			name = Release;
 		};
-		C311DED725C472C000484639 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = SpatterlightMetadataImporter/SpatterlightMetadataImporter.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = SpatterlightMetadataImporter/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.SpatterlightMetadataImporter;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		C311DED825C472C000484639 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = SpatterlightMetadataImporter/SpatterlightMetadataImporter.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 6U7YY3724Y;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = SpatterlightMetadataImporter/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.ccxvii.spatterlight.SpatterlightMetadataImporter;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		C311DF0525C472E500484639 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -8781,15 +8620,6 @@
 			buildConfigurations = (
 				96FE876A09F3A18700D41D78 /* Debug */,
 				96FE876B09F3A18700D41D78 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C311DED925C472C000484639 /* Build configuration list for PBXNativeTarget "SpatterlightMetadataImporter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C311DED725C472C000484639 /* Debug */,
-				C311DED825C472C000484639 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

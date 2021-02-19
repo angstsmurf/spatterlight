@@ -64,11 +64,6 @@
     NSString *groupIdentifier =
         [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
 
-//    NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.spatterlight.core.data"];
-//    NSURL *persistentStoreURL = [groupURL URLByAppendingPathComponent:@"spatterlight.sqlite"];
-
-//    container.persistentStoreDescriptions = @[ [[NSPersistentStoreDescription alloc] initWithURL: [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier: [groupIdentifier stringByAppendingPathComponent:@".storedata"]]] ];
-
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *applicationFilesDirectory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
     NSError *error = nil;
