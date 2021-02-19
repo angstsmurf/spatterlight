@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GroupIdentifier</key>
+	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -28,6 +30,7 @@
 		<dict>
 			<key>QLSupportedContentTypes</key>
 			<array>
+				<string>public.quill</string>
 				<string>public.zcode</string>
 				<string>public.blorb</string>
 				<string>public.blorb.zcode</string>

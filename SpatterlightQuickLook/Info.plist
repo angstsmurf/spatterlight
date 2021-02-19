@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GroupIdentifier</key>
+	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -29,6 +31,7 @@
 			<key>QLSupportedContentTypes</key>
 			<array>
 				<string>public.zcode</string>
+				<string>public.quill</string>
 				<string>public.blorb</string>
 				<string>public.blorb.zcode</string>
 				<string>public.blorb.glulx</string>
@@ -46,7 +49,7 @@
 				<string>public.ddollardollar</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
-			<true/>
+			<false/>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.quicklook.preview</string>

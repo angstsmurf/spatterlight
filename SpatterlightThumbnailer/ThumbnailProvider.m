@@ -27,7 +27,10 @@
         if (_persistentContainer == nil) {
             _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"Spatterlight"];
 
-            NSURL *directory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"6U7YY3724Y.group.net.ccxvii.spatterlight"];
+            NSString *groupIdentifier =
+                [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
+
+            NSURL *directory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
 
             NSURL *url = [NSURL fileURLWithPath:[directory.path stringByAppendingPathComponent:@"Spatterlight.storedata"]];
 

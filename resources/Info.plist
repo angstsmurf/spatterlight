@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GroupIdentifier</key>
+	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
 	<key>ATSApplicationFontsPath</key>
 	<string>fonts</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -478,6 +480,30 @@
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>sna</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>Spectrum Snapshot</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.sna</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -827,6 +853,10 @@
 					<string>zlb</string>
 					<string>zblorb</string>
 				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -860,7 +890,9 @@
 					<string>gblorb</string>
 				</array>
 				<key>public.mime-type</key>
-				<array/>
+				<array>
+					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -1036,7 +1068,7 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>SNA Story</string>
+			<string>Spectrum Snapshot</string>
 			<key>UTTypeIconFile</key>
 			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>

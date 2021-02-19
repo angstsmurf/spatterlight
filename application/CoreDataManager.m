@@ -61,14 +61,16 @@
         return nil;
     }
 
+    NSString *groupIdentifier =
+        [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
+
 //    NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.spatterlight.core.data"];
 //    NSURL *persistentStoreURL = [groupURL URLByAppendingPathComponent:@"spatterlight.sqlite"];
 
-//    container.persistentStoreDescriptions = @[ [[NSPersistentStoreDescription alloc] initWithURL: [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier: [@"6U7YY3724Y.net.ccxvii.spatterlight.container" stringByAppendingPathComponent:@".storedata"]]] ];
-
+//    container.persistentStoreDescriptions = @[ [[NSPersistentStoreDescription alloc] initWithURL: [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier: [groupIdentifier stringByAppendingPathComponent:@".storedata"]]] ];
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier: @"6U7YY3724Y.group.net.ccxvii.spatterlight"];
+    NSURL *applicationFilesDirectory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
     NSError *error = nil;
 
     NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
@@ -98,10 +100,7 @@
         }
     }
 
-//    NSString *storeFileName = [modelName stringByAppendingString:@".storedata"];
-
-
-    NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier: @"6U7YY3724Y.group.net.ccxvii.spatterlight"];
+    NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
 
     NSString *storeFileName =  [url.path stringByAppendingPathComponent:@"Spatterlight.storedata"];
     NSURL *url2 = [NSURL fileURLWithPath:storeFileName];
