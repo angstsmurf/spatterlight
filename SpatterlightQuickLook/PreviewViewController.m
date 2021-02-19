@@ -112,19 +112,19 @@
 /*
  * Implement this method and set QLSupportsSearchableItems to YES in the Info.plist of the extension if you support CoreSpotlight.
  */
-- (void)preparePreviewOfSearchableItemWithIdentifier:(NSString *)identifier queryString:(NSString *)queryString completionHandler:(void (^)(NSError * _Nullable))handler {
-    NSLog(@"preparePreviewOfSearchableItemWithIdentifier");
-    NSLog(@"Identifier: %@", identifier );
-    NSLog(@"queryString: %@", queryString );
-
-
-    // Perform any setup necessary in order to prepare the view.
-    
-    // Call the completion handler so Quick Look knows that the preview is fully loaded.
-    // Quick Look will display a loading spinner while the completion handler is not called.
-
-    handler(nil);
-}
+//- (void)preparePreviewOfSearchableItemWithIdentifier:(NSString *)identifier queryString:(NSString *)queryString completionHandler:(void (^)(NSError * _Nullable))handler {
+//    NSLog(@"preparePreviewOfSearchableItemWithIdentifier");
+//    NSLog(@"Identifier: %@", identifier );
+//    NSLog(@"queryString: %@", queryString );
+//
+//
+//    // Perform any setup necessary in order to prepare the view.
+//    
+//    // Call the completion handler so Quick Look knows that the preview is fully loaded.
+//    // Quick Look will display a loading spinner while the completion handler is not called.
+//
+//    handler(nil);
+//}
 
 - (void)preparePreviewOfFileAtURL:(NSURL *)url completionHandler:(void (^)(NSError * _Nullable))handler {
     NSLog(@"preparePreviewOfFileAtURL");
@@ -166,19 +166,19 @@
             return;
         }
         if (fetchedObjects.count == 0) {
-            NSLog(@"QuickLook: Found no Game object with path %@", url.path);
+//            NSLog(@"QuickLook: Found no Game object with path %@", url.path);
             weakSelf.ifid = [weakSelf ifidFromFile:url.path];
             if (weakSelf.ifid) {
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", weakSelf.ifid];
                 fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
             }
             if (fetchedObjects.count == 0) {
-                NSLog(@"QuickLook: Found no Game object with file name  %@", url.path.lastPathComponent);
+//                NSLog(@"QuickLook: Found no Game object with ifid  %@", weakSelf.ifid);
                 metadata = [weakSelf metadataFromURL:url];
                 if (metadata == nil || metadata.count == 0) {
                     [weakSelf noPreviewForURL:url handler:handler];
                     return;
-                } else NSLog(@"Found metadata in blorb");
+                } // else NSLog(@"Found metadata in blorb");
             }
         }
 
@@ -209,7 +209,6 @@
     }
     }];
 
-
     dispatch_async(dispatch_get_main_queue(), ^{
         if (metadata[@"cover"]) {
             weakSelf.imageView.image = [[NSImage alloc] initWithData:(NSData *)metadata[@"cover"]];
@@ -220,17 +219,17 @@
         }
 
         NSSize viewSize = self.view.frame.size;
-        if (viewSize.width - viewSize.height > 20 ) {
+        self.vertical = (viewSize.width - viewSize.height <= 20);
+        if (!self.vertical) {
             [self tryToStretchWindow];
         }
 
         [weakSelf sizeImage];
         weakSelf.textview.hidden = YES;
         [weakSelf updateWithMetadata:metadata url:url];
-        if (metadata.count <= 2)
+        if (metadata.count <= 2) {
             [self addFileInfo:url];
-        else
-            NSLog(@"Metadata count: %ld", metadata.count);
+        }
         [self sizeText];
         double delayInSeconds = 0.1;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -252,6 +251,7 @@
 
 - (void)printFinalLayout{
     NSLog(@"Final layout: view size: %@ image view frame %@ scroll view frame:%@", NSStringFromSize(self.view.frame.size), NSStringFromRect(_imageView.frame), NSStringFromRect(_textview.enclosingScrollView.frame));
+    NSLog(@"Layout is %@", _vertical ? @"vertical" : @"horizontal");
 }
 
 - (void)sizeImageToFitWidth:(CGFloat)maxWidth height:(CGFloat)maxHeight {
@@ -277,20 +277,55 @@
         imgsize.height =  imgsize.width / ratio;
     }
 
-    _imageView.image.size = imgsize;
+//    if (_originalImageSize.width < 128 && _originalImageSize.width > 0)
+//    {
+//        _imageView.wantsLayer = YES;
+//        _imageView.layer.magnificationFilter = kCAFilterNearest; //Nearest neighbor texture filtering
+//
+//        [_imageView setFrameSize:imgsize];
+//        [self nearestNeighbor: imgsize.width / _originalImageSize.width];
+//
+////        _imageView.image.size = imgsize;
+//    } else {
+        _imageView.image.size = imgsize;
+//    }
 
     //    imgsize.height = self.view.frame.size.height;
     [_imageView setFrameSize:imgsize];
+}
+
+- (void)nearestNeighbor:(CGFloat)magnification {
+    NSImage *image = _imageView.image;
+    _imageView.image = nil;
+
+    image.size = NSMakeSize(16, 16);
+
+    CALayer *layer = [CALayer layer];
+    layer.magnificationFilter = kCAFilterNearest;
+    layer.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    layer.contents = (__bridge id _Nullable)[image CGImageForProposedRect:NULL context:nil hints:nil];
+
+    [_imageView setLayer:[CALayer layer]];
+    [_imageView setWantsLayer:YES];
+    [_imageView.layer addSublayer:layer];
+
+    CGFloat scale = floor(magnification * _originalImageSize.width / 16);
+    if (scale / 2 != floor(scale / 2))
+        scale = scale + 1;
+    NSLog(@"PIXEL SCALE = %f", scale);
+    _imageView.layer.magnificationFilter = kCAFilterNearest; //Nearest neighbor texture filtering
+    _imageView.layer.sublayerTransform = CATransform3DMakeScale(scale, scale, 1); //Scale layer up
+    //Rasterize w/ sufficient resolution to show sharp pixels
+    _imageView.layer.shouldRasterize = YES;
+    _imageView.layer.rasterizationScale = scale;
 }
 
 
 - (void)sizeImage {
     if (!_imageView.image)
         return;
-    _imageView.imageScaling = NSImageScaleProportionallyUpOrDown
-    ;
-    NSSize viewSize = self.view.frame.size;
-    if (viewSize.width - viewSize.height > 20 ) {
+    _imageView.imageScaling = NSImageScaleProportionallyUpOrDown;
+    if (!_vertical) {
         [self sizeImageHorizontally];
     } else [self sizeImageVertically];
 
@@ -365,8 +400,7 @@
 }
 
 - (void)sizeText {
-    NSSize viewSize = self.view.frame.size;
-    if (viewSize.width - viewSize.height > 20 ) {
+    if (!_vertical) {
         [self sizeTextHorizontally];
     } else [self sizeTextVertically];
 }
@@ -490,9 +524,18 @@
 
         if (!metadict[@"title"]) {
             [self addInfoLine:url.path.lastPathComponent attributes:attrDict linebreak:YES];
+
+            if (metadict[@"SNam"]) {
+                NSMutableDictionary *metamuta = metadict.mutableCopy;
+                metamuta[@"IFhd"] = @"dummyIFID";
+                metamuta[@"IFhdTitle"] = metadict[@"SNam"];
+                metadict = metamuta;
+                NSLog(@"Set IFhdTitle to %@", metadict[@"SNam"]);
+            }
+
             if (metadict[@"IFhd"]) {
                 attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
-                NSString *resBlorbStr = @"Resource associated with game ";
+                NSString *resBlorbStr = @"Resource associated with game\n";
                 if (metadict[@"IFhdTitle"])
                     resBlorbStr = [resBlorbStr stringByAppendingString:metadict[@"IFhdTitle"]];
                 else
@@ -501,13 +544,19 @@
             }
         }
 
-        BOOL noMeta = (metadict[@"headline"] == nil && metadict[@"author"] == nil && metadict[@"blurb"] == nil);
+        BOOL noMeta = (!((NSString *)metadict[@"headline"]).length && !((NSString *)metadict[@"author"]).length && !((NSString *)metadict[@"blurb"]).length);
 
         [self addStarRating:metadict];
         attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
         [self addInfoLine:metadict[@"headline"] attributes:attrDict linebreak:YES];
         [self addInfoLine:metadict[@"author"] attributes:attrDict linebreak:YES];
+        [self addInfoLine:metadict[@"AUTH"] attributes:attrDict linebreak:YES];
         [self addInfoLine:metadict[@"blurb"] attributes:attrDict linebreak:YES];
+
+        [self addInfoLine:metadict[@"ANNO"] attributes:attrDict linebreak:YES];
+        if (metadict[@"(c) "])
+            [self addInfoLine:[NSString stringWithFormat:@"© %@", metadict[@"(c) "]] attributes:attrDict linebreak:YES];
+
         NSDate * lastPlayed = metadict[@"lastPlayed"];
         NSDateFormatter *formatter = [NSDateFormatter new];
         formatter.dateFormat = @"dd MMM yyyy HH.mm";

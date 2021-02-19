@@ -20,7 +20,7 @@ API_AVAILABLE(macos(10.12))
 @property BOOL showingIcon;
 @property BOOL dontResize;
 @property BOOL addedFileInfo;
-
+@property BOOL vertical;
 
 @property NSString *ifid;
 
