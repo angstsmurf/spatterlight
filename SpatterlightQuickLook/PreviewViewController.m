@@ -15,15 +15,6 @@
 #import "Image.h"
 
 #import "PreviewViewController.h"
-
-#import "YazIFBibliographic.h"
-#import "YazIFIdentification.h"
-#import "YazIFStory.h"
-#import "YazIFictionMetadata.h"
-#import "LibraryEntry.h"
-
-#import "NSDate+relative.h"
-
 #import "Blorb.h"
 
 /* the treaty of babel headers */
@@ -695,34 +686,58 @@
     Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:url.path]];
     metaDict[@"cover"] = [blorb coverImageData];
 
-    NSData *data = blorb.metaData;
+    metaDict[@"IFhd"] = [blorb ifidFromIFhd];
+    if (metaDict[@"IFhd"]) {
+        metaDict[@"IFhdTitle"] = [self titleFromIfid:metaDict[@"IFhd"]];
+    } else NSLog(@"No IFdh resource in Blorb file");
 
-    LibraryEntry *entry = nil;
-
-    IFictionMetadata *metadata = nil;
-    if (data) {
-        metadata = [[IFictionMetadata alloc] initWithData:data];
-        for (IFStory *storyMetadata in metadata.stories) {
-            entry = [[LibraryEntry alloc] initWithStoryMetadata:storyMetadata];
-            break;
-        }
-    } else {
-        NSLog(@"No metadata in Blorb file");
-        metaDict[@"IFhd"] = [blorb ifidFromIFhd];
-        if (metaDict[@"IFhd"]) {
-            metaDict[@"IFhdTitle"] = [self titleFromIfid:metaDict[@"IFhd"]];
-        } else NSLog(@"No IFdh resource in Blorb file");
+    for (NSString *chunkName in blorb.optionalChunks.allKeys) {
+        metaDict[chunkName] = blorb.optionalChunks[chunkName];
+        NSLog(@"metaDict[%@] = \"%@\"", chunkName, metaDict[chunkName]);
     }
+    
+    NSData *data = blorb.metaData;
+    if (data) {
+        NSError *error = nil;
+        NSXMLDocument *xml =
+        [[NSXMLDocument alloc] initWithData:data
+                                    options:NSXMLDocumentTidyXML
+                                      error:&error];
+        if (error)
+            NSLog(@"Error: %@", error);
 
-    metaDict[@"title"] = entry.title;
-    metaDict[@"blurb"] = entry.storyMetadata.bibliographic.storyDescription;
-    metaDict[@"author"] = entry.storyMetadata.bibliographic.author;
-    metaDict[@"headline"] = entry.storyMetadata.bibliographic.headline;
-    if (_ifid)
-        metaDict[@"ifid"] = _ifid;
-    else
-        metaDict[@"ifid"] = entry.storyMetadata.identification.ifids.firstObject;
+        NSArray *nodeNames = @[@"title", @"author", @"headline", @"description"];
 
+        NSXMLElement *story =
+        [[xml rootElement] elementsForName:@"story"].firstObject;
+        if (story) {
+            NSXMLElement *idElement = [story elementsForName:@"bibliographic"].firstObject;
+            for (NSXMLNode *node in idElement.children) {
+                if (node.stringValue.length) {
+                    for (NSString *nodeName in nodeNames) {
+                        if ([node.name compare:nodeName] == 0) {
+                            if ([nodeName isEqualToString:@"description"])
+                                metaDict[@"blurb"] = node.stringValue;
+                            else
+                                metaDict[nodeName] = node.stringValue;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (_ifid) {
+                metaDict[@"ifid"] = _ifid;
+            } else {
+                NSXMLElement *idElement = [story elementsForName:@"identification"].firstObject;
+                for (NSXMLNode *node in idElement.children) {
+                    if ([node.name compare:@"ifid"] == 0 && node.stringValue.length) {
+                        metaDict[@"ifid"] = node.stringValue;
+                        break;
+                    }
+                }
+            }
+        }
+    }
     return metaDict;
 }
 
@@ -732,7 +747,6 @@
         NSLog(@"context is nil!");
         return @"";;
     }
-
     __block Game *game;
 
     [context performBlockAndWait:^{
