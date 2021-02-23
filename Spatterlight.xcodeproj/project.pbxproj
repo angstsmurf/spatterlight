@@ -6795,9 +6795,11 @@
 					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
 					"$(HEADER_SEARCH_PATHS)",
 				);
+				INSTALL_PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/terps/fizmo/libfizmo/src $(PROJECT_DIR)/terps/fizmo/libglkif/src";
 			};
 			name = Debug;
@@ -6824,9 +6826,11 @@
 					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
 					"$(HEADER_SEARCH_PATHS)",
 				);
+				INSTALL_PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/terps/fizmo/libfizmo/src $(PROJECT_DIR)/terps/fizmo/libglkif/src";
 			};
 			name = Release;
@@ -6862,6 +6866,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -6891,6 +6896,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -6908,7 +6914,7 @@
 					VMGLOB_VARS,
 					T3_COMPILING_FOR_HTML,
 				);
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "";
 				PRODUCT_NAME = htmltads;
 				SDKROOT = "";
 			};
@@ -6926,7 +6932,7 @@
 					VMGLOB_VARS,
 					T3_COMPILING_FOR_HTML,
 				);
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "";
 				PRODUCT_NAME = htmltads;
 				SDKROOT = "";
 			};
@@ -6949,7 +6955,7 @@
 					COCO,
 					VMGLOB_VARS,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = htmltadsr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -6971,7 +6977,7 @@
 					COCO,
 					VMGLOB_VARS,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = htmltadsr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7100,7 +7106,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
-				INSTALL_PATH = "@executable_path";
+				INSTALL_PATH = "";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				PRODUCT_NAME = glkimp;
@@ -7128,7 +7134,7 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
-				INSTALL_PATH = "@executable_path";
+				INSTALL_PATH = "";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				PRODUCT_NAME = glkimp;
@@ -7148,7 +7154,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "";
 				PRODUCT_NAME = glkmain;
 				SDKROOT = "";
 			};
@@ -7162,7 +7168,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "";
 				PRODUCT_NAME = glkmain;
 				SDKROOT = "";
 			};
@@ -7302,7 +7308,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = frotz;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7322,7 +7328,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = frotz;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7343,7 +7349,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = scare;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7364,7 +7370,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = scare;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7393,7 +7399,7 @@
 					SPATTERLIGHT,
 					GARGLK,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = level9;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7420,7 +7426,7 @@
 					SPATTERLIGHT,
 					GARGLK,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = level9;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7442,7 +7448,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = magnetic;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7463,7 +7469,7 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = magnetic;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7484,7 +7490,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = unquill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7503,7 +7509,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = unquill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7529,7 +7535,7 @@
 					GLKUNIX_AUTOSAVE_FEATURES,
 					OS_UNIX,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = glulxe;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7554,7 +7560,7 @@
 					GLKUNIX_AUTOSAVE_FEATURES,
 					OS_UNIX,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = glulxe;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7580,7 +7586,7 @@
 					GARGLK,
 				);
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = agility;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7606,7 +7612,7 @@
 					GARGLK,
 				);
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = agility;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7636,7 +7642,7 @@
 					SPATTERLIGHT,
 					PROMPTMORE_REPLACED,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7666,7 +7672,7 @@
 					SPATTERLIGHT,
 					PROMPTMORE_REPLACED,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7694,7 +7700,7 @@
 					GLK,
 					GARGLK,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_CFLAGS = (
 					"-funsigned-char",
 					"-Wno-parentheses",
@@ -7725,7 +7731,7 @@
 					GLK,
 					GARGLK,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_CFLAGS = (
 					"-funsigned-char",
 					"-Wno-parentheses",
@@ -7758,7 +7764,7 @@
 					"BUILD=0",
 					HAVE_GARGLK,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = alan3;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7785,7 +7791,7 @@
 					"BUILD=0",
 					HAVE_GARGLK,
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = alan3;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7808,7 +7814,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_CFLAGS = "-w";
 				PRODUCT_NAME = advsys;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7830,7 +7836,7 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				OTHER_CFLAGS = "-w";
 				PRODUCT_NAME = advsys;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7852,7 +7858,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = agt2agx;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7872,7 +7878,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				PRODUCT_NAME = agt2agx;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -7888,7 +7894,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "";
 				PRODUCT_NAME = babel;
 				SDKROOT = "";
 			};
@@ -7901,7 +7907,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "";
 				PRODUCT_NAME = babel;
 				SDKROOT = "";
 			};
@@ -7939,7 +7945,7 @@
 					"$PROJECT_DIR/terps/tads/tads3/**",
 					"$(HEADER_SEARCH_PATHS)",
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$PROJECT_DIR/terps/tads/**",
 					$PROJECT_DIR/terps/tads/tads2,
@@ -7985,7 +7991,7 @@
 					"$PROJECT_DIR/terps/tads/tads3/**",
 					"$(HEADER_SEARCH_PATHS)",
 				);
-				INSTALL_PATH = "$(HOME)/bin";
+				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$PROJECT_DIR/terps/tads/**",
 					$PROJECT_DIR/terps/tads/tads2,
@@ -8025,7 +8031,7 @@
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads2,
 				);
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
@@ -8061,7 +8067,7 @@
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads2,
 				);
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
@@ -8102,7 +8108,7 @@
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads3,
 				);
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
@@ -8142,7 +8148,7 @@
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads3,
 				);
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,

@@ -12,12 +12,12 @@
 		<key>SpatterlightQuickLook.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>23</integer>
+			<integer>22</integer>
 		</dict>
 		<key>SpatterlightThumbnailer.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>22</integer>
+			<integer>21</integer>
 		</dict>
 		<key>advsys.xcscheme</key>
 		<dict>
@@ -52,7 +52,7 @@
 		<key>bocfel.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>26</integer>
+			<integer>23</integer>
 		</dict>
 		<key>fizmo.xcscheme_^#shared#^_</key>
 		<dict>
