@@ -47,6 +47,10 @@ Cryptozookeeper: https://youtu.be/1MkdVnhZRl8
 
 Hugo Tetris: https://youtu.be/G-tTzXso6AA
 
+# Compiling
+
+You need macOS 10.15 Catalina and Xcode 12. Clone or download the source. Open the file `Spatterlight.xcodeproj` in Xcode. Make sure that the target is set to `Spatterlight > My Mac`. Press the Build & Run button. 
+
 #
 
 Spatterlight supports the [Treaty of Babel][babel] standard for cataloguing bibliographic information about interactive fiction.
