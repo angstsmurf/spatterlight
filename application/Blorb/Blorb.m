@@ -45,6 +45,8 @@
 - (instancetype)initWithData:(NSData *)aData {
   self = [super init];
   if (self) {
+    if (aData.length < 13)
+      return nil;
     data = aData;
     metaData = nil;
     frontispiece = 0;
