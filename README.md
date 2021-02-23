@@ -49,7 +49,7 @@ Hugo Tetris: https://youtu.be/G-tTzXso6AA
 
 # Compiling
 
-You need macOS 10.15 Catalina and Xcode 12. Clone or download the source. Open the file `Spatterlight.xcodeproj` in Xcode. Make sure that the target is set to `Spatterlight > My Mac`. Press the Build & Run button. 
+You need macOS 10.15 Catalina or later and Xcode 12. Clone or download the source. Open the file `Spatterlight.xcodeproj` in Xcode. Make sure that the target is set to `Spatterlight > My Mac`. Press the Build & Run button. 
 
 #
 
