@@ -1,1 +1,1 @@
-/Users/administrator/spatterlight/Frameworks/SDL2.framework/Versions/A/Headers/SDL_locale.h
+../../Frameworks/SDL2.framework/Versions/A/Headers/SDL_locale.h
