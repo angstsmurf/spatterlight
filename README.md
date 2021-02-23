@@ -59,6 +59,6 @@ Spatterlight supports the [Treaty of Babel][babel] standard for cataloguing bibl
 
 The Spatterlight application is released under the GNU Public License; the interpreters and libraries it uses are freely redistributable and covered by their own specific licenses.
 
-This is beta software! There is no warranty: use it at your own risk. You will need Mac OS X 10.7 or higher. There are separate versions for later operative systems. Make sure you download the right one for your system.
+This is beta software! There is no warranty: use it at your own risk. You will need macOS 10.10 or higher for the latest version, but there are older versions compatible with older systems.
 
 Spatterlight was originally written by Tor Andersson. Copyright 2007-2020 by Tor Andersson and the respective interpreter authors.
