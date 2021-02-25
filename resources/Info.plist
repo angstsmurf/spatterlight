@@ -886,7 +886,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
+					<string>application/x-blorb;profile="zcode"</string>
 				</array>
 			</dict>
 		</dict>
@@ -922,7 +922,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
+					<string>application/x-blorb;profile="glulx"</string>
 				</array>
 			</dict>
 		</dict>
