@@ -6795,7 +6795,7 @@
 					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
 					"$(HEADER_SEARCH_PATHS)",
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -6826,7 +6826,7 @@
 					"$(PROJECT_DIR)/terps/fizmo/libfizmo/src",
 					"$(HEADER_SEARCH_PATHS)",
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
@@ -6864,6 +6864,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -6894,6 +6895,7 @@
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -6914,9 +6916,10 @@
 					VMGLOB_VARS,
 					T3_COMPILING_FOR_HTML,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = htmltads;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -6932,9 +6935,10 @@
 					VMGLOB_VARS,
 					T3_COMPILING_FOR_HTML,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = htmltads;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -6955,10 +6959,11 @@
 					COCO,
 					VMGLOB_VARS,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = htmltadsr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -6977,10 +6982,11 @@
 					COCO,
 					VMGLOB_VARS,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = htmltadsr;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7106,7 +7112,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
-				INSTALL_PATH = "";
+				INSTALL_PATH = "@executable_path";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				PRODUCT_NAME = glkimp;
@@ -7134,7 +7140,7 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/headers";
-				INSTALL_PATH = "";
+				INSTALL_PATH = "@executable_path";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SDL2_mixer.framework/Versions/A/Frameworks @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				PRODUCT_NAME = glkimp;
@@ -7154,9 +7160,10 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glkmain;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7168,9 +7175,10 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glkmain;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7308,10 +7316,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = frotz;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7328,10 +7337,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = SPATTERLIGHT;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = frotz;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7349,11 +7359,12 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = scare;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7370,11 +7381,12 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = scare;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7399,10 +7411,11 @@
 					SPATTERLIGHT,
 					GARGLK,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = level9;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7426,10 +7439,11 @@
 					SPATTERLIGHT,
 					GARGLK,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = level9;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7448,10 +7462,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = magnetic;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7469,10 +7484,11 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = magnetic;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7490,10 +7506,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = unquill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7509,10 +7526,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = unquill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7535,10 +7553,11 @@
 					GLKUNIX_AUTOSAVE_FEATURES,
 					OS_UNIX,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glulxe;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7560,10 +7579,11 @@
 					GLKUNIX_AUTOSAVE_FEATURES,
 					OS_UNIX,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = glulxe;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7586,11 +7606,12 @@
 					GARGLK,
 				);
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = agility;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7612,11 +7633,12 @@
 					GARGLK,
 				);
 				GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = agility;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7642,11 +7664,12 @@
 					SPATTERLIGHT,
 					PROMPTMORE_REPLACED,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 				WARNING_CFLAGS = "-Wmost";
 			};
 			name = Debug;
@@ -7672,11 +7695,12 @@
 					SPATTERLIGHT,
 					PROMPTMORE_REPLACED,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = hugo;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 				WARNING_CFLAGS = "-Wmost";
 			};
 			name = Release;
@@ -7700,7 +7724,7 @@
 					GLK,
 					GARGLK,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = (
 					"-funsigned-char",
 					"-Wno-parentheses",
@@ -7710,6 +7734,7 @@
 				PRODUCT_NAME = alan2;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7731,7 +7756,7 @@
 					GLK,
 					GARGLK,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = (
 					"-funsigned-char",
 					"-Wno-parentheses",
@@ -7741,6 +7766,7 @@
 				PRODUCT_NAME = alan2;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7764,11 +7790,12 @@
 					"BUILD=0",
 					HAVE_GARGLK,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = alan3;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7791,11 +7818,12 @@
 					"BUILD=0",
 					HAVE_GARGLK,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = alan3;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7814,11 +7842,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "-w";
 				PRODUCT_NAME = advsys;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7836,11 +7865,12 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GARGLK;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "-w";
 				PRODUCT_NAME = advsys;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7858,10 +7888,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = agt2agx;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7878,10 +7909,11 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = GLK;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = agt2agx;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7894,9 +7926,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = babel;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7907,9 +7940,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = babel;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7945,7 +7979,7 @@
 					"$PROJECT_DIR/terps/tads/tads3/**",
 					"$(HEADER_SEARCH_PATHS)",
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$PROJECT_DIR/terps/tads/**",
 					$PROJECT_DIR/terps/tads/tads2,
@@ -7958,6 +7992,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -7991,7 +8026,7 @@
 					"$PROJECT_DIR/terps/tads/tads3/**",
 					"$(HEADER_SEARCH_PATHS)",
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$PROJECT_DIR/terps/tads/**",
 					$PROJECT_DIR/terps/tads/tads2,
@@ -8004,6 +8039,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -8031,7 +8067,7 @@
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads2,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
@@ -8042,6 +8078,7 @@
 				PRODUCT_NAME = tads2;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -8067,7 +8104,7 @@
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads2,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
@@ -8078,6 +8115,7 @@
 				PRODUCT_NAME = tads2;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -8108,7 +8146,7 @@
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads3,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
@@ -8120,6 +8158,7 @@
 				PRODUCT_NAME = tads3;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -8148,7 +8187,7 @@
 					$PROJECT_DIR/terps/tads,
 					$PROJECT_DIR/terps/tads/tads3,
 				);
-				INSTALL_PATH = "";
+				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					$PROJECT_DIR/fmod/api/lib,
 					$PROJECT_DIR/terps/tads,
@@ -8160,6 +8199,7 @@
 				PRODUCT_NAME = tads3;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
