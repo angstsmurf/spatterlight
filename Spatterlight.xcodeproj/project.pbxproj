@@ -7226,7 +7226,7 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.5;
+				MARKETING_VERSION = 0.7.6;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -7286,7 +7286,7 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.5;
+				MARKETING_VERSION = 0.7.6;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
