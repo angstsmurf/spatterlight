@@ -34,7 +34,7 @@
         _bibliographic = [[IFBibliographic alloc] initWithXMLElement:biblioElement andMetadata:metadata];
 
         NSArray *elements = [element elementsForLocalName:@"ifdb"
-                                                      URI:@"http://ifdb.tads.org/api/xmlns"];
+                                                      URI:@"http://ifdb.org/api/xmlns"];
         if (elements.count > 0) {
             _ifdb = [[IFDB alloc] initWithXMLElement:elements[0] andMetadata:metadata];
             if (metadata.coverArtURL && ![metadata.cover.originalURL isEqualToString:metadata.coverArtURL]) {
