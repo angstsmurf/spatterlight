@@ -55,7 +55,7 @@
         return _persistentStoreCoordinator;
     }
 
-    BOOL needMigrate = false;
+//    BOOL needMigrate = false;
     //    BOOL needDeleteOld  = false;
 
     NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata"];
@@ -99,26 +99,26 @@
         }
     }
 
-    NSURL *groupURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+//    NSURL *groupURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
 
-    NSString *storeFileName =  [groupURL.path stringByAppendingPathComponent:@"Spatterlight.storedata"];
-    groupURL = [NSURL fileURLWithPath:storeFileName];
+//    NSString *storeFileName =  [groupURL.path stringByAppendingPathComponent:@"Spatterlight.storedata"];
+//    groupURL = [NSURL fileURLWithPath:storeFileName];
 
     NSURL *targetURL =  nil;
 
-    if ([fileManager fileExistsAtPath:[groupURL path]]) {
-        NSLog(@"group db exist");
-        needMigrate = NO;
-        targetURL = groupURL;
-
-        //        if ([fileManager fileExistsAtPath:[oldURL path]]) {
-        //            needDeleteOld = YES;
-        //        }
-    } else if ([fileManager fileExistsAtPath:[oldURL path]]) {
-        NSLog(@"old single app db exist.");
+//    if ([fileManager fileExistsAtPath:[groupURL path]]) {
+//        NSLog(@"group db exist");
+//        needMigrate = NO;
+//        targetURL = groupURL;
+//
+//        //        if ([fileManager fileExistsAtPath:[oldURL path]]) {
+//        //            needDeleteOld = YES;
+//        //        }
+//    } else if ([fileManager fileExistsAtPath:[oldURL path]]) {
+//        NSLog(@"old single app db exist.");
         targetURL = oldURL;
-        needMigrate = YES;
-    }
+//        needMigrate = YES;
+//    }
 
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
 
@@ -133,16 +133,16 @@
     }
 
     // do the migrate job from local store to a group store.
-    if (needMigrate) {
-        error = nil;
-        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        [context setPersistentStoreCoordinator:coordinator];
-        [coordinator migratePersistentStore:store toURL:groupURL options:options withType:NSSQLiteStoreType error:&error];
-        if (error != nil) {
-            NSLog(@"Error during Core Data migration to group folder: %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
+//    if (needMigrate) {
+//        error = nil;
+//        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+//        [context setPersistentStoreCoordinator:coordinator];
+//        [coordinator migratePersistentStore:store toURL:groupURL options:options withType:NSSQLiteStoreType error:&error];
+//        if (error != nil) {
+//            NSLog(@"Error during Core Data migration to group folder: %@, %@", error, [error userInfo]);
+//            abort();
+//        }
+//    }
 
     _persistentStoreCoordinator = coordinator;
 
