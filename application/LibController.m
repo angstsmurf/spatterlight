@@ -1009,7 +1009,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     if (action == @selector(showGameInfo:)
         || action == @selector(reset:))
-        return count > 0;
+        return (count > 0 && count < 20);
 
     if (action == @selector(revealGameInFinder:))
         return count > 0 && count < 10;
