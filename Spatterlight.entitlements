@@ -4,5 +4,9 @@
 <dict>
 	<key>com.apple.security.cs.disable-library-validation</key>
 	<true/>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
+	</array>
 </dict>
 </plist>
