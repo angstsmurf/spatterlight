@@ -80,8 +80,12 @@ static void expandBufferIfNeeded(IFFHandle *handle,
                                  unsigned long additionalLen) {
   if (handle->pos + additionalLen > handle->bufferSize) {
     // Double the size of the current buffer
+    unsigned char *buf = malloc(handle->bufferSize * 2);
+    if (buf == NULL)
+    {
+      return;
+    }
     handle->bufferSize *= 2;
-    unsigned char *buf = malloc(handle->bufferSize);
     memcpy(buf, handle->data, handle->pos);
     free(handle->data);
     handle->data = buf;
