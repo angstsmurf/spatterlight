@@ -1014,7 +1014,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     if (action == @selector(revealGameInFinder:))
         return count > 0 && count < 10;
 
-    if (action == @selector(playGame:))
+    if (action == @selector(play:))
         return count == 1;
 
     if (action == @selector(selectSameTheme:)) {
@@ -1888,7 +1888,11 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
         game = [self fetchGameForIFID:ifid inContext:context];
         if (game)
         {
-            NSLog(@"Game %@ already exists in library!", game.metadata.title);
+            if ([game.detectedFormat isEqualToString:@"glulx"])
+                game.hashTag = [path signatureFromFile];
+            else if ([game.detectedFormat isEqualToString:@"zcode"]) {
+                [self addZCodeIDfromFile:path blorb:blorb toGame:game];
+            }
             if (![path isEqualToString:game.path])
             {
                 NSLog(@"File location did not match. Updating library with new file location.");
