@@ -18,8 +18,10 @@
 #import "IFIdentification.h"
 #import "IFDBDownloader.h"
 #import "main.h"
+
 #import "Blorb.h"
 #import "BlorbResource.h"
+#include "iff.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -1959,8 +1961,44 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
     game.metadata = metadata;
     game.ifid = ifid;
     game.detectedFormat = @(format);
+    if ([game.detectedFormat isEqualToString:@"glulx"]) {
+        game.hashTag = [path signatureFromFile];
+    }
+    if ([game.detectedFormat isEqualToString:@"zcode"]) {
+        [self addZCodeIDfromFile:path blorb:blorb toGame:game];
+    }
 
     return game;
+}
+
+- (void)addZCodeIDfromFile:(NSString *)path blorb:(nullable Blorb *)blorb toGame:(Game *)game {
+    BOOL found = NO;
+    NSData *data = nil;
+    if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
+        if (!blorb)
+            blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+        if (blorb.checkSum && blorb.serialNumber && blorb.releaseNumber) {
+            found = YES;
+            game.checksum = blorb.checkSum;
+            game.serialString = blorb.serialNumber;
+            game.releaseNumber = blorb.releaseNumber;
+        }
+        if (!found) {
+            BlorbResource *zcode = [blorb resourcesForUsage:ExecutableResource].firstObject;
+            if (zcode)
+                data = [blorb dataForResource:zcode];
+        }
+    }
+    if (!found) {
+        if (!data)
+            data = [NSData dataWithContentsOfFile:path];
+        const unsigned char *ptr = data.bytes;
+        game.releaseNumber = (int32_t)unpackShort(ptr + 2);
+        NSData *serialData = [NSData dataWithBytes:ptr + 18 length:6];
+        game.serialString = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
+        game.checksum = (int32_t)unpackShort(ptr + 28);
+    }
+    NSLog(@"Title: %@ release Number:%d serial date:%@ checksum: %d", game.metadata.title, game.releaseNumber, game.serialString, game.checksum);
 }
 
 - (void) addFile: (NSURL*)url select: (NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure

@@ -25,8 +25,8 @@
 @dynamic ifid;
 @dynamic lastPlayed;
 @dynamic path;
-@dynamic releaseString;
-@dynamic serial;
+@dynamic releaseNumber;
+@dynamic serialString;
 @dynamic version;
 @dynamic metadata;
 @dynamic override;

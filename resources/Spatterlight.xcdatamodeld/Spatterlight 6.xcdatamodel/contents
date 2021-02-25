@@ -3,7 +3,7 @@
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="added" optional="YES" attributeType="Transformable"/>
         <attribute name="autosaved" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="checksum" optional="YES" attributeType="String"/>
+        <attribute name="checksum" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="compiler" optional="YES" attributeType="String"/>
         <attribute name="detectedFormat" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="fileLocation" optional="YES" attributeType="Transformable" valueTransformerName=""/>
@@ -13,8 +13,8 @@
         <attribute name="ifid" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="lastPlayed" optional="YES" attributeType="Transformable"/>
         <attribute name="path" optional="YES" attributeType="String"/>
-        <attribute name="releaseString" optional="YES" attributeType="String"/>
-        <attribute name="serial" optional="YES" attributeType="String"/>
+        <attribute name="releaseNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="serialString" optional="YES" attributeType="String"/>
         <attribute name="version" optional="YES" attributeType="String"/>
         <relationship name="metadata" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Metadata" inverseName="games" inverseEntity="Metadata"/>
         <relationship name="override" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Theme" inverseName="overrides" inverseEntity="Theme"/>

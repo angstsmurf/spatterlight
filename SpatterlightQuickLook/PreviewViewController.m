@@ -16,6 +16,7 @@
 
 #import "PreviewViewController.h"
 #import "Blorb.h"
+#include "iff.h"
 
 /* the treaty of babel headers */
 #include "babel_handler.h"
@@ -99,6 +100,7 @@
     _ifid = nil;
     _addedFileInfo = NO;
     _showingIcon = NO;
+    _showingView = NO;
     // Add the supported content types to the QLSupportedContentTypes array in the Info.plist of the extension.
     
     // Perform any setup necessary in order to prepare the view.
@@ -106,9 +108,15 @@
     // Call the completion handler so Quick Look knows that the preview is fully loaded.
     // Quick Look will display a loading spinner while the completion handler is not called.
 
+    NSString *extension = url.pathExtension.lowercaseString;
+    if ([extension isEqualToString:@"glkdata"] || [extension isEqualToString:@"glksave"] || [extension isEqualToString:@"qut"] || [extension isEqualToString:@"d$$"]) {
+        [self noPreviewForURL:url handler:handler];
+        return;
+    }
+
     NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
     if (!context) {
-        NSLog(@"context is nil!");
+        NSLog(@"Could not create new context!");
         [self noPreviewForURL:url handler:handler];
         return;
     }
@@ -133,19 +141,17 @@
             return;
         }
         if (fetchedObjects.count == 0) {
-            //            NSLog(@"QuickLook: Found no Game object with path %@", url.path);
             weakSelf.ifid = [weakSelf ifidFromFile:url.path];
             if (weakSelf.ifid) {
                 fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", weakSelf.ifid];
                 fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
             }
             if (fetchedObjects.count == 0) {
-                //                NSLog(@"QuickLook: Found no Game object with ifid  %@", weakSelf.ifid);
                 metadata = [weakSelf metadataFromURL:url];
                 if (metadata == nil || metadata.count == 0) {
                     [weakSelf noPreviewForURL:url handler:handler];
                     return;
-                } // else NSLog(@"Found metadata in blorb");
+                }
             }
         }
 
@@ -162,7 +168,6 @@
             metadata = [[NSMutableDictionary alloc] initWithCapacity:attributes.count];
 
             for (NSString *attr in attributes) {
-                //NSLog(@"Setting my %@ to %@", attr, [theme valueForKey:attr]);
                 [metadata setValue:[meta valueForKey:attr] forKey:attr];
             }
             metadata[@"ifid"] = game.ifid;
@@ -191,12 +196,8 @@
 
         NSSize viewSize = self.view.frame.size;
         self.vertical = (viewSize.width - viewSize.height <= 20);
-//        if (!self.vertical) {
-//            [self tryToStretchWindow];
-//        }
 
         [weakSelf sizeImage];
-//        weakSelf.textview.hidden = NO;
         [weakSelf updateWithMetadata:metadata url:url];
         if (metadata.count <= 2) {
             [self addFileInfo:url];
@@ -205,8 +206,8 @@
         double delayInSeconds = 0.1;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//            [weakSelf sizeImage];
             [self sizeText];
+            [self.textview.enclosingScrollView.contentView scrollToPoint:NSZeroPoint];
             self.textview.hidden = NO;
             [self printFinalLayout];
         });
@@ -224,17 +225,11 @@
 -(void)viewWillLayout {
     if (!_showingView)
         return;
-    NSLog(@"viewWillLayout");
-    NSLog(@"self.view.frame %@", NSStringFromRect(self.view.frame));
+//    NSLog(@"viewWillLayout");
     NSSize viewSize = self.view.frame.size;
     _vertical = (viewSize.width - viewSize.height <= 20);
-    if (_vertical) {
-        [self sizeImageVertically];
-        [self sizeTextVertically];
-    } else {
-        [self sizeImageHorizontally];
-        [self sizeTextHorizontally];
-    }
+    [self sizeImage];
+    [self sizeText];
 }
 
 - (void)printFinalLayout{
@@ -247,9 +242,7 @@
 
 - (void)sizeImageToFitWidth:(CGFloat)maxWidth height:(CGFloat)maxHeight {
 
-    NSSize imgsize;
-
-    imgsize = _originalImageSize;
+    NSSize imgsize = _originalImageSize;
     if (imgsize.width == 0 || imgsize.height == 0) {
         imgsize = _imageView.image.size;
         _originalImageSize = imgsize;
@@ -268,21 +261,8 @@
         imgsize.height =  imgsize.width / ratio;
     }
 
-//    if (_originalImageSize.width < 128 && _originalImageSize.width > 0)
-//    {
-//        _imageView.wantsLayer = YES;
-//        _imageView.layer.magnificationFilter = kCAFilterNearest; //Nearest neighbor texture filtering
-//
-//        [_imageView setFrameSize:imgsize];
-//        [self nearestNeighbor: imgsize.width / _originalImageSize.width];
-//
-////        _imageView.image.size = imgsize;
-//    } else {
+    if (!NSEqualSizes(imgsize, _imageView.image.size))
         _imageView.image.size = imgsize;
-//    }
-
-    //    imgsize.height = self.view.frame.size.height;
-//    [_imageView setFrameSize:imgsize];
 }
 
 - (void)nearestNeighbor:(CGFloat)magnification {
@@ -315,12 +295,21 @@
 - (void)sizeImage {
     if (!_imageView.image)
         return;
+    if (!_showingView) {
+    _hasSized++;
+    NSLog(@"_hasSizedImage: %ld", _hasSized);
+    if (_hasSized > 10)
+        return;
+    }
+    BOOL wasShowingView = _showingView;
+    _showingView = NO;
     _imageView.imageScaling = NSImageScaleProportionallyUpOrDown;
     if (!_vertical) {
         [self sizeImageHorizontally];
     } else [self sizeImageVertically];
 
     [self imageShadow];
+    _showingView = wasShowingView;
 }
 
 - (void)imageShadow {
@@ -335,16 +324,13 @@
 
 - (void)sizeImageHorizontally {
     NSLog(@"sizeImageHorizontally");
-
     NSSize viewSize = self.view.frame.size;
 
-//    [self sizeImageToFitWidth:round(2 * viewSize.width / 3 - 40) height:256];
     [self sizeImageToFitWidth:round(viewSize.width / 2 - 40) height:viewSize.height - 40];
     NSRect frame = _imageView.frame;
     frame.size = _imageView.image.size;
-//    frame.size.width = _imageView.image.size.width;
     CGFloat textHeight = _textview.enclosingScrollView.frame.size.height;
-    if (frame.size.height < textHeight) {
+    if (textHeight && frame.size.height < textHeight) {
         frame.size.height = textHeight;
         _imageView.imageAlignment = NSImageAlignTop;
         frame.origin.y = _textview.enclosingScrollView.frame.origin.y;
@@ -355,9 +341,16 @@
         _imageView.imageAlignment =  NSImageAlignLeft;
     }
     frame.origin.x = 20;
-    _imageView.frame = frame;
-    NSLog(@"sizeImageVertically: image view frame : %@", NSStringFromRect(_imageView.frame));
-    // 256 is the default height of Finder file previews minus margins
+    if (frame.origin.y < 0)
+        if (frame.origin.y == 0)
+    if (frame.size.width < 1)
+        frame.size.width = 40;
+    if (frame.size.height < 1)
+        frame.size.width = 40;
+
+    if (!NSEqualRects(frame, _imageView.frame))
+        _imageView.frame = frame;
+//    NSLog(@"sizeImageHorizontally: image view frame : %@", NSStringFromRect(_imageView.frame));
 }
 
 - (void)sizeImageVertically {
@@ -374,57 +367,40 @@
     frame.size.width = viewSize.width - 40;
     frame.origin.y = viewSize.height - frame.size.height - 20;
     frame.origin.x = 20;
-    _imageView.frame = frame;
+    if (!NSEqualRects(frame, _imageView.frame))
+        _imageView.frame = frame;
     _imageView.imageAlignment =  NSImageAlignTop;
-    NSLog(@"sizeImageVertically: image view frame : %@", NSStringFromRect(_imageView.frame));
-
-    //    [self.view addSubview:_imageView];
+//    NSLog(@"sizeImageVertically: image view frame : %@", NSStringFromRect(_imageView.frame));
 }
 
 - (void)sizeText {
+    if (!_showingView) {
+        _hasSized++;
+        if (_hasSized > 10)
+            return;
+    }
+    NSRect frame = _textview.enclosingScrollView.frame;
+    BOOL wasShowingView = _showingView;
+    _showingView = NO;
     if (!_vertical) {
         [self sizeTextHorizontally];
     } else [self sizeTextVertically];
-    [_textview.layoutManager ensureLayoutForTextContainer:_textview.textContainer];
+    if (!NSEqualRects(frame, _textview.enclosingScrollView.frame))
+        [_textview.layoutManager ensureLayoutForTextContainer:_textview.textContainer];
+    _showingView = wasShowingView;
 }
-
-//- (void)tryToStretchWindow {
-//    CGFloat preferredWindowWidth = 612;
-//    CGFloat preferredWindowHeight = 296;
-//    CGFloat preferredImageWidth = 408;
-//    CGFloat preferredImageHeight = 256;
-//
-//    NSSize imgsize;
-//
-//    imgsize = _originalImageSize;
-//    if (imgsize.width == 0 || imgsize.height == 0) {
-//        imgsize = _imageView.image.size;
-//        _originalImageSize = imgsize;
-//    }
-//
-//    if (imgsize.height == 0)
-//        return;
-//
-//    CGFloat ratio = imgsize.width / imgsize.height;
-//    if (preferredImageHeight * ratio > preferredImageWidth && !self.showingIcon) {
-//        preferredWindowWidth = round(preferredWindowHeight * ratio * 1.5);
-//        NSLog(@"Image too wide! 256 * ratio (%f) = %f > 408. Trying to stretch window to width %f", ratio, 256 * ratio, preferredWindowWidth);
-//    }
-//
-//    if (preferredWindowWidth > self.view.window.screen.visibleFrame.size.width / 3)
-//        preferredWindowWidth = self.view.window.screen.visibleFrame.size.width / 3;
-//
-//    self.preferredContentSize = NSMakeSize(preferredWindowWidth, preferredWindowHeight);
-//}
 
 - (void)sizeTextHorizontally {
     NSLog(@"sizeTextHorizontally");
     NSScrollView *scrollView = _textview.enclosingScrollView;
     NSRect frame = scrollView.frame;
     NSSize viewSize = self.view.frame.size;
+    NSLog(@"viewSize: %@", NSStringFromSize(viewSize));
+    NSLog(@"_imageView.frame: %@", NSStringFromRect(_imageView.frame));
+
 
     // The icon image usually has horizontal padding built-in
-    frame.origin.x = NSMaxX(_imageView.frame) + (_showingIcon ? 10 : 20);
+    frame.origin.x = floor(NSMaxX(_imageView.frame) + (_showingIcon ? 10 : 20));
     frame.size.width = viewSize.width - frame.origin.x - 20;
 
     CGFloat textHeight = [self heightForString:_textview.textStorage andWidth:frame.size.width];
@@ -440,7 +416,7 @@
         frame.origin.y = 20;
     }
 
-    NSLog(@"Final textHeight: %f", frame.size.height);
+//    NSLog(@"Final textHeight: %f", frame.size.height);
 
     scrollView.frame = frame;
     frame = _textview.frame;
@@ -448,21 +424,19 @@
     _textview.frame = frame;
 
     if (_imageView.image.size.height < textHeight && NSMaxY(_imageView.frame) < NSMaxY(scrollView.frame)) {
-        _showingView = NO;
         frame = _imageView.frame;
-//        frame.size = _imageView.image.size;
         frame.origin.y = NSMaxY(scrollView.frame) - frame.size.height;
-        _imageView.frame = frame;
-        _imageView.imageAlignment = NSImageAlignTop;
-        _showingView = YES;
+        if (!NSEqualRects(frame, _imageView.frame)) {
+            _imageView.frame = frame;
+            _imageView.imageAlignment = NSImageAlignTop;
+        }
     }
 
-    //    [scrollView.contentView scrollToPoint:NSZeroPoint];
-    NSLog(@"scrollView frame:%@", NSStringFromRect(scrollView.frame));
+//    NSLog(@"scrollView frame:%@", NSStringFromRect(scrollView.frame));
 }
 
 - (void)sizeTextVertically {
-    NSLog(@"sizeTextVertically");
+//    NSLog(@"sizeTextVertically");
 
     NSScrollView *scrollView = _textview.enclosingScrollView;
     NSRect frame = scrollView.frame;
@@ -472,41 +446,15 @@
     frame.size.height = viewSize.height - _imageView.frame.size.height - 60;
 
     frame.size.width = viewSize.width - 40;
-
-//    if (frame.size.height < viewSize.height / 2 - 40)
-//    {
-//        NSLog(@"That is too small! Trying to resize image height to %f", round (viewSize.height / 2));
-//        [self sizeImageToFitWidth:viewSize.width height:round (viewSize.height / 2 - 40)];
-//        frame.size.height = viewSize.height - _imageView.frame.size.height - 40;
-//        NSLog(@"New height %f", frame.size.height);
-//    }
-
     frame.origin = NSMakePoint(20, 20);
-//    frame.size.height = viewSize.height - _imageView.frame.origin.y - 20;
-//    if (NSMaxY(frame) > _imageView.frame.origin.y) {
-//        NSLog(@"Shrinking image!");
-////        [self sizeImageToFitWidth:viewSize.width - 40 height:round(viewSize.height - NSMaxY(frame) - 80)];
-//        NSRect imgFrame = _imageView.frame;
-//        imgFrame.size.height = round(viewSize.height - NSMaxY(frame) - 40);
-//        imgFrame.origin.y = NSMaxY(frame) + 20;
-//        _imageView.frame = imgFrame;
-//    } else {
-//        NSLog(@"NSMaxY(frame): %f _imageView.frame.origin.y: %f", NSMaxY(frame), _imageView.frame.origin.y);
-//    }
 
-
-//    CGFloat textHeight = [self heightForString:_textview.textStorage andWidth:frame.size.width];
-//
-//    frame.size.height = textHeight;
-//    frame.origin.y = _imageView.frame.origin.y - 20 - textHeight;
     scrollView.frame = frame;
 
     frame = _textview.frame;
     frame.size.width = scrollView.frame.size.width;
     _textview.frame = frame;
 
-//    [scrollView.contentView scrollToPoint:NSZeroPoint];
-    NSLog(@"scrollView frame:%@", NSStringFromRect(scrollView.frame));
+//    NSLog(@"scrollView frame:%@", NSStringFromRect(scrollView.frame));
 }
 
 - (CGFloat)heightForString:(NSAttributedString *)attString andWidth:(CGFloat)textWidth {
@@ -565,7 +513,8 @@
         attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
         [self addInfoLine:metadict[@"headline"] attributes:attrDict linebreak:YES];
         [self addInfoLine:metadict[@"author"] attributes:attrDict linebreak:YES];
-        [self addInfoLine:metadict[@"AUTH"] attributes:attrDict linebreak:YES];
+        if (!metadict[@"author"])
+            [self addInfoLine:metadict[@"AUTH"] attributes:attrDict linebreak:YES];
         [self addInfoLine:metadict[@"blurb"] attributes:attrDict linebreak:YES];
 
         [self addInfoLine:metadict[@"ANNO"] attributes:attrDict linebreak:YES];
@@ -606,7 +555,6 @@
     NSAttributedString *attString = [[NSAttributedString alloc] initWithString:string attributes:attrDict];
     [textstorage appendAttributedString:attString];
 }
-
 
 - (void)addStarRating:(NSDictionary *)dict {
     NSInteger rating = NSNotFound;
@@ -681,39 +629,50 @@
 
 - (void)noPreviewForURL:(NSURL *)url handler:(void (^)(NSError *))handler {
     NSLog(@"noPreviewForURL");
-    _showingIcon = YES;
-    _imageView.image = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
     NSFont *systemFont = [NSFont systemFontOfSize:20 weight:NSFontWeightBold];
     NSMutableDictionary *attrDict = [NSMutableDictionary new];
     attrDict[NSFontAttributeName] = systemFont;
     attrDict[NSForegroundColorAttributeName] = [NSColor controlTextColor];
     [self addInfoLine:url.path.lastPathComponent attributes:attrDict linebreak:NO];
 
-    if ([url.path.pathExtension.lowercaseString isEqualToString:@"d$$"]){
-        attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
+    attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
+
+    if ([url.path.pathExtension.lowercaseString isEqualToString:@"d$$"]) {
         [self addInfoLine:@"Possibly an AGT game. Try opening in Spatterlight to convert to AGX format." attributes:attrDict linebreak:YES];
+    } else if ([url.path.pathExtension.lowercaseString isEqualToString:@"glksave"] || [url.path.pathExtension.lowercaseString isEqualToString:@"qut"]) {
+        NSString *saveTitle = [self titleFromSave:url.path];
+        if (saveTitle.length)
+            [self addInfoLine:[NSString stringWithFormat:@"Save file associated with game %@.", saveTitle] attributes:attrDict linebreak:YES];
+        else
+            [self addInfoLine:@"Interactive fiction save file." attributes:attrDict linebreak:YES];
+    } else if ([url.path.pathExtension.lowercaseString isEqualToString:@"glkdata"]) {
+        NSString *dataTitle = [self titleFromDataFile:url.path];
+        if (dataTitle.length)
+            [self addInfoLine:[NSString stringWithFormat:@"Data file associated with game %@.", dataTitle] attributes:attrDict linebreak:YES];
+        else
+            [self addInfoLine:@"Interactive fiction data file." attributes:attrDict linebreak:YES];
     }
-    if (_ifid && _ifid.length) {
-        attrDict[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize]];
+
+    if (_ifid.length) {
         [self addInfoLine:[@"IFID: " stringByAppendingString:_ifid] attributes:attrDict linebreak:YES];
     }
 
     [self addFileInfo:url];
 
-//    NSSize viewSize = self.view.frame.size;
+    if (!_imageView.image) {
+        _showingIcon = YES;
+        _imageView.image = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
+    }
 
-//    if (viewSize.width - viewSize.height > 20 ) {
-//        [self tryToStretchWindow];
-//    }
     [self sizeImage];
     [self sizeText];
     _showingView = YES;
     handler(nil);
     double delayInSeconds = 0.1;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         [self sizeText];
-//        self.textview.hidden = NO;
+        [self.textview.enclosingScrollView.contentView scrollToPoint:NSZeroPoint];
         [self printFinalLayout];
     });
 }
@@ -804,12 +763,14 @@
 }
 
 - (NSString *)titleFromIfid:(NSString *)ifid {
+    if (!ifid)
+        return nil;
     NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
     if (!context) {
-        NSLog(@"context is nil!");
-        return @"";;
+        NSLog(@"Could not create new context!");
+        return nil;
     }
-    __block Game *game;
+    __block Game *game = nil;
 
     [context performBlockAndWait:^{
         NSError *error = nil;
@@ -822,11 +783,61 @@
 
         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
         if (fetchedObjects && fetchedObjects.count) {
-            game = fetchedObjects[0];
+            if (fetchedObjects.count > 1)
+                NSLog(@"Found %ld games with ifid %@", fetchedObjects.count, ifid);
+            game = fetchedObjects.firstObject;
         }
     }];
 
-    return game.metadata.title;
+    if (game) {
+        if (game.metadata.cover.data) {
+            NSImage *image = [[NSImage alloc] initWithData:(NSData *)game.metadata.cover.data];
+            if (image) {
+                _imageView.image = image;
+                _imageView.accessibilityLabel = game.metadata.cover.imageDescription;
+            }
+        }
+        return game.metadata.title;
+    } else {
+        return nil;
+    }
+}
+
+- (NSString *)titleFromHash:(NSString *)hash {
+    NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
+    if (!context) {
+        NSLog(@"context is nil!");
+        return nil;
+    }
+    __block Game *game = nil;
+
+    [context performBlockAndWait:^{
+        NSError *error = nil;
+        NSArray *fetchedObjects;
+
+        NSFetchRequest *fetchRequest = [NSFetchRequest new];
+        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@", hash];
+
+        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        if (fetchedObjects && fetchedObjects.count) {
+            if (fetchedObjects.count > 1)
+                NSLog(@"Found %ld games with requested hash", fetchedObjects.count);
+            game = fetchedObjects.firstObject;
+        }
+    }];
+    if (game) {
+        if (game.metadata.cover.data) {
+            NSImage *image = [[NSImage alloc] initWithData:(NSData *)game.metadata.cover.data];
+            if (image) {
+                _imageView.image = image;
+                _imageView.accessibilityLabel = game.metadata.cover.imageDescription;
+            }
+        }
+        return game.metadata.title;
+    } else {
+        return nil;
+    }
 }
 
 - (NSString *)ifidFromFile:(NSString *)path {
@@ -849,6 +860,150 @@
 
     babel_release_ctx(context);
     return @(buf);
+}
+
+- (NSString *)titleFromSave:(NSString *)path {
+    NSString *title = nil;
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    if (data) {
+        title = [self titleFromQuetzalSave:data];
+        if (!title.length) {
+            NSString *hash = [self hashFromQuetzalSave:data];
+            if (hash.length) {
+                title = [self titleFromHash:hash];
+            }
+        }
+    }
+    return title;
+}
+
+- (NSString *)titleFromDataFile:(NSString *)path {
+    NSString *title = nil;
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    if (data) {
+        NSString *ifid = [self ifidFromData:data];
+        if (ifid.length) {
+            title = [self titleFromIfid:ifid];
+        }
+        if (!title.length) {
+            title = [self titleFromQuetzalSave:data];
+        }
+        if (!title.length) {
+            title = ifid;
+        }
+    }
+    return title;
+}
+
+- (NSString *)titleFromQuetzalSave:(NSData *)data {
+    NSString *title = nil;
+    NSString *ifid = nil;
+    if (data) {
+        const void *ptr = data.bytes;
+        if (isForm(ptr, 'I', 'F', 'Z', 'S') || isForm(ptr, 'B', 'F', 'Z', 'S')) {
+            ptr += 12;
+            unsigned int chunkID;
+            chunkIDAndLength(ptr, &chunkID);
+            if (chunkID == IFFID('I', 'F', 'h', 'd')) {
+                // Game Identifier Chunk
+                NSUInteger releaseNumber = unpackShort(ptr + 8);
+
+                NSData *serialData = [NSData dataWithBytes:ptr + 10 length:6];
+                NSUInteger checksum  = unpackShort(ptr + 16);
+                NSString *serialNum = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
+
+                NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
+
+                if (!context) {
+                    NSLog(@"context is nil!");
+                    return nil;
+                }
+                __block Game *game = nil;
+
+                [context performBlockAndWait:^{
+                    NSError *error = nil;
+                    NSArray *fetchedObjects;
+
+                    NSFetchRequest *fetchRequest = [NSFetchRequest new];
+                    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
+                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"checksum == %d", checksum];
+                    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+                    for (Game *match in fetchedObjects) {
+                        if (match.releaseNumber == releaseNumber && [match.serialString isEqualToString:serialNum]) {
+                            game = match;
+                            break;
+                        }
+                    }
+                }];
+
+                if (game) {
+                    title = game.metadata.title;
+                    NSImage *image = [[NSImage alloc] initWithData:(NSData *)game.metadata.cover.data];
+                    if (image)
+                        _imageView.image = image;
+                }
+                if (!title) {
+//                    serialNum = [serialNum stringByReplacingOccurrencesOfString:@"[^0-9]" withString:@"-" options:NSRegularExpressionSearch range:NSMakeRange(0, serialNum.length)];
+
+                    NSInteger date = serialNum.intValue;
+
+                    if ((date < 700000 || date > 900000) && date != 0 && date != 999999) {
+//                        if (date < 60413 || date > 900000)
+                            ifid = [NSString stringWithFormat:@"ZCODE-%ld-%@-%04lX", releaseNumber, serialNum, (unsigned long)checksum];
+                    } else {
+                        ifid = [NSString stringWithFormat:@"ZCODE-%ld-%@", releaseNumber, serialNum];
+                    }
+                    title = [self titleFromIfid:ifid];
+                }
+            }
+        }
+    }
+    if (!title.length && ![ifid hasPrefix:@"ZCODE-18284-ul"]) {
+        title = ifid;
+    }
+    return title;
+}
+
+- (NSString *)hashFromQuetzalSave:(NSData *)data {
+    NSMutableString *hexString = nil;
+    if (data.length >= 84) {
+        const void *ptr = data.bytes;
+        if (isForm(ptr, 'I', 'F', 'Z', 'S')) {
+            ptr += 12;
+            unsigned int chunkID;
+            chunkIDAndLength(ptr, &chunkID);
+            if (chunkID == IFFID('I', 'F', 'h', 'd')) {
+              // Game Identifier Chunk
+                Byte *bytes64 = (Byte *)malloc(64);
+                [data getBytes:bytes64
+                            range:NSMakeRange(20, 64)];
+
+                 hexString = [NSMutableString stringWithCapacity:(64 * 2)];
+
+                for (int i = 0; i < 64; ++i) {
+                    [hexString appendFormat:@"%02x", (unsigned int)bytes64[i]];
+                }
+                free(bytes64);
+            }
+        }
+    }
+    return hexString;
+}
+
+- (NSString *)ifidFromData:(NSData *)data {
+    NSString *ifid = nil;
+    if (data.length > 12) {
+        NSRange headerRange = NSMakeRange(0, MIN(data.length, 69));
+        NSString *header = [[NSString alloc] initWithData:[data subdataWithRange:headerRange] encoding:NSASCIIStringEncoding];
+        if ([header hasPrefix:@"* //"]) {
+            header = [header substringFromIndex:4];
+            NSRange firstSlash = [header rangeOfString:@"//"];
+            if (firstSlash.location != NSNotFound) {
+                ifid = [header substringToIndex:firstSlash.location];
+            }
+        }
+    }
+    return ifid;
 }
 
 @end

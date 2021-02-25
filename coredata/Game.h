@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) NSDate *added;
 @property (nonatomic) BOOL autosaved;
-@property (nullable, nonatomic, copy) NSString *checksum;
+@property (nonatomic) int32_t checksum;
 @property (nullable, nonatomic, copy) NSString *compiler;
 @property (nullable, nonatomic, copy) NSString *detectedFormat;
 @property (nullable, nonatomic, retain) NSObject *fileLocation;
@@ -27,8 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *ifid;
 @property (nullable, nonatomic, retain) NSDate *lastPlayed;
 @property (nullable, nonatomic, copy) NSString *path;
-@property (nullable, nonatomic, copy) NSString *releaseString;
-@property (nullable, nonatomic, copy) NSString *serial;
+@property (nullable, nonatomic, copy) NSString *serialString;
+@property (nonatomic) int32_t releaseNumber;
 @property (nullable, nonatomic, copy) NSString *version;
 @property (nullable, nonatomic, retain) Metadata *metadata;
 @property (nullable, nonatomic, retain) Theme *override;

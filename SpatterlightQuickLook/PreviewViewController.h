@@ -18,11 +18,11 @@ API_AVAILABLE(macos(10.12))
 @property NSSize originalImageSize;
 @property CGFloat preferredWidth;
 @property BOOL showingIcon;
-@property BOOL dontResize;
 @property BOOL addedFileInfo;
 @property BOOL vertical;
 @property BOOL showingView;
 
+@property NSUInteger hasSized;
 @property NSString *ifid;
 
 @property (readonly) NSPersistentContainer *persistentContainer;
