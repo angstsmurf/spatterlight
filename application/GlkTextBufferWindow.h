@@ -7,10 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 // I suppose this is necessary to get rid of that ugly Markup menu on attached
 // images.
 
-@interface MyAttachmentCell : NSTextAttachmentCell <NSSecureCoding> {
-    NSInteger align;
-    NSUInteger pos;
-}
+@interface MyAttachmentCell : NSTextAttachmentCell <NSSecureCoding>
 
 @property (weak) NSAttributedString *attrstr;
 
@@ -21,9 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MyTextView : NSTextView <NSTextFinderClient, NSSecureCoding> {
-    NSTextFinder *_textFinder;
-}
+@interface MyTextView : NSTextView <NSTextFinderClient, NSSecureCoding>
 
 - (void)superKeyDown:(NSEvent *)evt;
 - (void)temporarilyHideCaret;
@@ -41,9 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  * the text flowing around them.
  */
 
-@interface MarginContainer : NSTextContainer <NSSecureCoding> {
-    NSMutableArray *flowbreaks;
-}
+@interface MarginContainer : NSTextContainer <NSSecureCoding>
 
 @property NSMutableArray *marginImages;
 
@@ -68,32 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 @interface GlkTextBufferWindow
-    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate> {
-    NSScrollView *scrollview;
-    NSLayoutManager *layoutmanager;
-    MarginContainer *container;
-    NSTextStorage *textstorage;
-    NSMutableAttributedString *bufferTextstorage;
-
-    BOOL line_request;
-    BOOL hyper_request;
-
-    BOOL echo_toggle_pending; /* if YES, line echo behavior will be inverted,
-                                 starting from the next line event*/
-    BOOL echo; /* if NO, line input text will be deleted when entered */
-
-    NSUInteger fence; /* for input line editing */
-
-    CGFloat lastLineheight;
-
-    NSAttributedString *storedNewline;
-
-    // for temporarily storing scroll position
-    NSUInteger lastVisible; 
-    CGFloat lastScrollOffset;
-    BOOL lastAtBottom;
-    BOOL lastAtTop;
-}
+    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate>
 
 @property MyTextView *textview;
 

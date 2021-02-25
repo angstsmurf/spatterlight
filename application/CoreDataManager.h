@@ -10,11 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface CoreDataManager : NSObject {
-    NSString *modelName;
-    NSManagedObjectContext *privateManagedObjectContext;
-}
-
+@interface CoreDataManager : NSObject
 
 @property (strong, nonatomic) NSManagedObjectModel
 *managedObjectModel;

@@ -17,6 +17,14 @@
 #define NSLog(...)
 #endif
 
+@interface AppDelegate () <NSWindowDelegate, NSWindowRestoration> {
+    HelpPanelController *_helpLicenseWindow;
+    NSPanel *filePanel;
+    NSDocumentController *theDocCont;
+    BOOL addToRecents;
+}
+@end
+
 @implementation AppDelegate
 
 NSArray *gGameFileTypes;
@@ -31,10 +39,11 @@ NSDictionary *gFormatMap;
     // NSLog(@"appdel: awakeFromNib");
 
     gGameFileTypes = @[
-        @"d$$",   @"dat", @"sna",    @"advsys", @"quill", @"l9",  @"mag",
-        @"a3c",   @"acd", @"agx",    @"gam",    @"t3",    @"hex", @"taf",
-        @"z3",    @"z4",  @"z5",     @"z6",    @"z7",     @"z8",    @"ulx",
-        @"blb",   @"blorb", @"glb", @"gblorb", @"zlb",    @"zblorb"
+        @"d$$", @"dat", @"sna", @"advsys", @"quill", @"l9",     @"mag",
+        @"a3c", @"acd", @"agx", @"gam",    @"t3",    @"hex",    @"taf",
+        @"z1",  @"z2",  @"z3",  @"z4",     @"z5",    @"z6",     @"z7",
+        @"z8",  @"ulx", @"blb", @"blorb",  @"glb",   @"gblorb", @"zlb",
+        @"zblorb"
     ];
 
     // To map the Glk style indices onto our Core Data relation names

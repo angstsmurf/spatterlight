@@ -26,6 +26,12 @@
 #define NSLog(...)
 #endif // DEBUG
 
+@interface MyAttachmentCell () <NSSecureCoding> {
+    NSInteger align;
+    NSUInteger pos;
+}
+@end
+
 @implementation MyAttachmentCell
 
 + (BOOL) supportsSecureCoding {
@@ -96,9 +102,7 @@
 
 @end
 
-@interface FlowBreak : NSObject <NSSecureCoding> {
-    BOOL recalc;
-}
+@interface FlowBreak : NSObject <NSSecureCoding>
 
 - (instancetype)initWithPos:(NSUInteger)pos;
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout;
@@ -106,6 +110,11 @@
 @property NSRect bounds;
 @property NSUInteger pos;
 
+@end
+
+@interface FlowBreak () <NSSecureCoding> {
+    BOOL recalc;
+}
 @end
 
 @implementation FlowBreak
@@ -181,9 +190,7 @@
  * with the text flowing around them like in HTML.
  */
 
-@interface MarginImage : NSObject <NSSecureCoding> {
-    BOOL recalc;
-}
+@interface MarginImage : NSObject <NSSecureCoding>
 
 @property(strong) NSImage *image;
 @property(readonly) NSInteger alignment;
@@ -200,6 +207,11 @@
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout;
 
+@end
+
+@interface MarginImage () <NSSecureCoding> {
+    BOOL recalc;
+}
 @end
 
 @implementation MarginImage
@@ -317,6 +329,11 @@
 @end
 
 /* ------------------------------------------------------------ */
+
+@interface MarginContainer () <NSSecureCoding> {
+    NSMutableArray *flowbreaks;
+}
+@end
 
 @implementation MarginContainer
 
@@ -659,7 +676,7 @@
     textview.bottomPadding = extendneeded;
 }
 
-- (NSUInteger)findHyperlinkAt:(NSPoint)p;
+- (NSUInteger)findHyperlinkAt:(NSPoint)p
 {
     for (MarginImage *image in _marginImages) {
         if ([self.textView mouse:p inRect:image.bounds]) {
@@ -710,6 +727,11 @@
  *   - use custom search bar
      - customize contextual menu
  */
+
+@interface MyTextView () <NSTextFinderClient, NSSecureCoding> {
+    NSTextFinder *_textFinder;
+}
+@end
 
 @implementation MyTextView
 
@@ -954,6 +976,34 @@
 /*
  * Controller for the various objects required in the NSText* mess.
  */
+
+@interface GlkTextBufferWindow () <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate> {
+    NSScrollView *scrollview;
+    NSLayoutManager *layoutmanager;
+    MarginContainer *container;
+    NSTextStorage *textstorage;
+    NSMutableAttributedString *bufferTextstorage;
+
+    BOOL line_request;
+    BOOL hyper_request;
+
+    BOOL echo_toggle_pending; /* if YES, line echo behavior will be inverted,
+                                 starting from the next line event*/
+    BOOL echo; /* if NO, line input text will be deleted when entered */
+
+    NSUInteger fence; /* for input line editing */
+
+    CGFloat lastLineheight;
+
+    NSAttributedString *storedNewline;
+
+    // for temporarily storing scroll position
+    NSUInteger lastVisible;
+    CGFloat lastScrollOffset;
+    BOOL lastAtBottom;
+    BOOL lastAtTop;
+}
+@end
 
 @implementation GlkTextBufferWindow
 
@@ -1396,8 +1446,10 @@
         [self storeScrollOffset];
     }
 
+    GlkController *glkctl = self.glkctl;
+
     // Adjust terminators for Beyond Zork arrow keys hack
-    if (self.glkctl.beyondZork) {
+    if (glkctl.beyondZork) {
         [self adjustBZTerminators:self.pendingTerminators];
         [self adjustBZTerminators:self.currentTerminators];
     }
@@ -1431,7 +1483,7 @@
             [newstyles addObject:[NSNull null]];
     }
 
-    if (!self.glkctl.previewDummy) {
+    if (!glkctl.previewDummy) {
         NSInteger marginX = self.theme.bufferMarginX;
         NSInteger marginY = self.theme.bufferMarginY;
 
@@ -1449,7 +1501,7 @@
     if (different) {
         styles = newstyles;
 
-        if (self.glkctl.usesFont3) {
+        if (glkctl.usesFont3) {
             [self createBeyondZorkStyle];
         }
 
@@ -1520,7 +1572,7 @@
         _textview.selectedRange = selectedRange;
     }
 
-    if (!self.glkctl.previewDummy && self.glkctl.isAlive) {
+    if (!glkctl.previewDummy && self.glkctl.isAlive) {
 
         if (different) {
             // Set style for hyperlinks
@@ -1539,15 +1591,15 @@
             [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
         }
     } else {
-        if (!self.glkctl.isAlive) {
+        if (!glkctl.isAlive) {
             NSRect frame = self.frame;
 
             if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
-                frame.size.width = self.glkctl.contentView.frame.size.width - frame.origin.x;
+                frame.size.width = glkctl.contentView.frame.size.width - frame.origin.x;
             }
 
             if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
-                frame.size.height = self.glkctl.contentView.frame.size.height - frame.origin.y;
+                frame.size.height = glkctl.contentView.frame.size.height - frame.origin.y;
             }
             self.frame = frame;
         }
@@ -1767,10 +1819,11 @@
 
     GlkWindow *win;
 
+    GlkController *glkctl = self.glkctl;
     // pass on this key press to another GlkWindow if we are not expecting one
     if (!self.wantsFocus) {
 //        NSLog(@"%ld does not want focus", self.name);
-        for (win in [self.glkctl.gwindows allValues]) {
+        for (win in [glkctl.gwindows allValues]) {
             if (win != self && win.wantsFocus) {
                 NSLog(@"GlkTextBufferWindow: Passing on keypress to window %ld", win.name);
                 [win grabFocus];
@@ -1848,12 +1901,12 @@
     if (char_request && ch != keycode_Unknown) {
         // To fix scrolling in the Adrian Mole games
         if (!scrolled)
-            self.glkctl.shouldScrollOnCharEvent = YES;
+            glkctl.shouldScrollOnCharEvent = YES;
 
-        [self.glkctl markLastSeen];
+        [glkctl markLastSeen];
 
         gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
-        [self.glkctl queueEvent:gev];
+        [glkctl queueEvent:gev];
 
         char_request = NO;
         _textview.editable = NO;
@@ -1879,7 +1932,7 @@
     else {
         if (line_request)
             if ((ch == 'v' || ch == 'V') && commandKeyOnly && _textview.selectedRange.location < fence) {
-                [[self.glkctl window] makeFirstResponder:_textview];                         _textview.selectedRange = NSMakeRange(textstorage.length, 0);
+                [[glkctl window] makeFirstResponder:_textview];                         _textview.selectedRange = NSMakeRange(textstorage.length, 0);
                 [_textview performSelector:@selector(paste:)];
                 return;
             }
@@ -2443,14 +2496,16 @@ replacementString:(id)repl {
 }
 
 - (void)colderLightHack {
+
+    GlkController *glkctl = self.glkctl;
     // Send an arrange event to The Colder Light in order
     // to make it update its title bar
-    if (self.glkctl.colderLight) {
-        GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)self.glkctl.contentView.frame.size.width
-                                          height:(NSInteger)self.glkctl.contentView.frame.size.height
-                                           theme:self.glkctl.theme
+    if (glkctl.colderLight) {
+        GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)glkctl.contentView.frame.size.width
+                                          height:(NSInteger)glkctl.contentView.frame.size.height
+                                           theme:glkctl.theme
                                            force:YES];
-        [self.glkctl queueEvent:gev];
+        [glkctl queueEvent:gev];
     }
 }
 
@@ -2878,10 +2933,11 @@ replacementString:(id)repl {
 }
 
 - (void)repeatLastMove:(id)sender {
-    if (self.glkctl.zmenu)
-        [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
-    if (self.glkctl.form)
-        [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.form];
+    GlkController *glkctl = self.glkctl;
+    if (glkctl.zmenu)
+        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
+    if (glkctl.form)
+        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
 
     NSString *str = @"";
 
@@ -2890,19 +2946,19 @@ replacementString:(id)repl {
         str = [self stringFromRangeVal:self.moveRanges.lastObject];
     }
 
-    if (self.glkctl.quoteBoxes.count) {
-        GlkTextGridWindow *box = self.glkctl.quoteBoxes.lastObject;
+    if (glkctl.quoteBoxes.count) {
+        GlkTextGridWindow *box = glkctl.quoteBoxes.lastObject;
 
         str = [box.textview.string stringByAppendingString:str];
         str = [@"QUOTE: \n\n" stringByAppendingString:str];
     }
 
     if (!str.length) {
-        [self.glkctl speakString:@"No last move to speak"];
+        [glkctl speakString:@"No last move to speak"];
         return;
     }
 
-    [self.glkctl speakString:str];
+    [glkctl speakString:str];
 }
 
 - (void)speakPrevious {

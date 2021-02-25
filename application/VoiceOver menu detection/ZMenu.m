@@ -30,7 +30,8 @@
 }
 
 - (BOOL)isMenu {
-    NSString *format = _glkctl.game.detectedFormat;
+    GlkController *glkctl = _glkctl;
+    NSString *format = glkctl.game.detectedFormat;
     unichar initialChar;
 
     if ([format isEqualToString:@"glulx"] || [format isEqualToString:@"zcode"] || [format isEqualToString:@"hugo"]) {
@@ -38,7 +39,7 @@
     } else if ([format isEqualToString:@"tads3"]) {
         // If Tads 3: look for a cluster of lines where all start with a '>'.
         // '•' is only used in Thaumistry: Charm's Way.
-        if (_glkctl.thaumistry)
+        if (glkctl.thaumistry)
             initialChar = u'•';
         else
             initialChar = '>';
@@ -62,15 +63,15 @@
     NSString *pattern = nil;
 
     // Thaumistry has no pattern and uses bullets instead of greater than. Check window setup: Two buffer windows, one with only one line
-    if (_glkctl.thaumistry) {
+    if (glkctl.thaumistry) {
         if (![self checkForThaumistryMenu])
             return NO;
     } else {
         // Now we look for instructions pattern: " = ", "[N]ext" etc, depending on system
         if ([format isEqualToString:@"glulx"] || [format isEqualToString:@"zcode"]) {
-            if (_glkctl.beyondZork) {
+            if (glkctl.beyondZork) {
                 pattern = @"(Use the (↑ and ↓) keys(?s).+?(?=>))";
-            } else if (_glkctl.anchorheadOrig) {
+            } else if (glkctl.anchorheadOrig) {
                     pattern = @"\\[press (BACKSPACE) (to return to .+)\\]";
             } else {
                 // First group: word before " = ". Second group: anything after " = "
@@ -90,7 +91,7 @@
 
         if (!_menuCommands.count) {
             // Extra check and hacks for Beyond Zork Function Key Definitions menu
-            if (_glkctl.beyondZork) {
+            if (glkctl.beyondZork) {
                 // Definitions menu
                 _menuCommands = [self extractMenuCommandsUsingRegex:@"(Function (Key) Definitions)"];
                 if (!_menuCommands.count) {

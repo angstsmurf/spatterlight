@@ -35,39 +35,7 @@
 @class InfoController;
 
 @interface LibController
-    : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate> {
-
-    IBOutlet NSButton *infoButton;
-    IBOutlet NSButton *playButton;
-    IBOutlet NSPanel *importProgressPanel;
-    IBOutlet NSView *exportTypeView;
-    IBOutlet NSPopUpButton *exportTypeControl;
-
-    IBOutlet NSMenu *headerMenu;
-
-    BOOL gameTableDirty;
-
-    BOOL canEdit;
-    NSTimer *timer;
-
-    NSArray *searchStrings;
-    CGFloat lastSideviewWidth;
-    CGFloat lastSideviewPercentage;
-
-    Game *currentSideView;
-
-    /* for the importing */
-    NSInteger cursrc;
-    NSString *currentIfid;
-    NSMutableArray *ifidbuf;
-    NSMutableDictionary *metabuf;
-    NSInteger errorflag;
-
-    NSLocale *englishUSLocale;
-    NSDictionary *languageCodes;
-
-    NSManagedObjectContext *importContext;
-}
+    : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate>
 
 @property NSMutableArray *iFictionFiles;
 

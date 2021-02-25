@@ -26,7 +26,7 @@
 #pragma mark -
 #pragma mark Object Equivalent to Textual Representation
 
-- (BOOL)getObjectValue:(id *)object forString:(NSString *)string errorDescription:(NSString **)error
+- (BOOL)getObjectValue:(__autoreleasing id * _Nullable)object forString:(NSString *)string errorDescription:(NSString * __autoreleasing *)error
 {
     BOOL valid = YES;
 
@@ -40,11 +40,11 @@
 #pragma mark -
 #pragma mark Dynamic Cell Editing
 
-- (BOOL)isPartialStringValid:(NSString **)partialStringPtr
+- (BOOL)isPartialStringValid:(NSString * __autoreleasing *)partialStringPtr
        proposedSelectedRange:(NSRangePointer)proposedSelRangePtr
               originalString:(NSString *)origString
        originalSelectedRange:(NSRange)origSelRange
-            errorDescription:(NSString **)error
+            errorDescription:(NSString * __autoreleasing *)error
 {
     BOOL valid = YES;
 

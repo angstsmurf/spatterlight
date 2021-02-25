@@ -9,20 +9,8 @@
 #import <CoreData/CoreData.h>
 
 @class Game;
-@class Preferences;
 
 @interface SideInfoView : NSView <NSTextFieldDelegate>
-{
-    NSBox *topSpacer;
-    NSImageView *imageView;
-	NSTextField *titleField;
-	NSTextField *headlineField;
-	NSTextField *authorField;
-	NSTextField *blurbField;
-	NSTextField *ifidField;
-
-    CGFloat totalHeight;
-}
 
 @property (weak) Game *game;
 @property (weak) NSString *string;

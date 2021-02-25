@@ -15,20 +15,24 @@
 
 @dynamic added;
 @dynamic autosaved;
+@dynamic checksum;
+@dynamic compiler;
 @dynamic detectedFormat;
 @dynamic fileLocation;
 @dynamic found;
 @dynamic group;
 @dynamic hashTag;
 @dynamic ifid;
-@dynamic path;
 @dynamic lastPlayed;
+@dynamic path;
+@dynamic releaseNumber;
+@dynamic serialString;
 @dynamic version;
 @dynamic metadata;
 @dynamic override;
 @dynamic theme;
 
-- (NSURL *)urlForBookmark {
+- (nullable NSURL *)urlForBookmark {
     BOOL bookmarkIsStale = NO;
     NSError* theError = nil;
     if (!self.fileLocation) {
@@ -45,23 +49,18 @@
     if (bookmarkIsStale) {
         NSLog(@"Bookmark is stale! New location: %@", bookmarkURL.path);
         [self bookmarkForPath:bookmarkURL.path];
-        self.path = bookmarkURL.path;
-        // Handle any errors
-        return bookmarkURL;
     }
     if (theError != nil) {
 
         NSLog(@"Game urlForBookmark: Error! %@", theError);
-        // Handle any errors
         self.found = NO;
         return nil;
     }
-
+    self.path = bookmarkURL.path;
     return bookmarkURL;
 }
 
 - (void)bookmarkForPath:(NSString *)path {
-
 
     NSError* theError = nil;
     NSURL* theURL = [NSURL fileURLWithPath:path];
@@ -78,7 +77,8 @@
         return;
     }
 
-    self.fileLocation=bookmark;
+    self.path = path;
+    self.fileLocation = bookmark;
 }
 
 @end

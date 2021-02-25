@@ -9,6 +9,14 @@
 #define NSLog(...)
 #endif
 
+@interface GlkGraphicsWindow () <NSSecureCoding> {
+    NSImage *image;
+
+    BOOL mouse_request;
+    BOOL transparent;
+}
+@end
+
 @implementation GlkGraphicsWindow
 
 + (BOOL) supportsSecureCoding {

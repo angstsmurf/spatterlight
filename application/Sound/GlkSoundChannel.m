@@ -12,6 +12,36 @@
 
 enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
 
+@interface GlkSoundChannel () {
+    void *channel;
+    void *sound;
+    NSInteger loop;
+    NSInteger notify;
+    NSUInteger paused;
+
+    NSInteger resid; /* for notifies */
+    int status;
+
+    void *sample; /* Mix_Chunk */
+    void *music; /* Mix_Music */
+
+    void *sdl_rwops; /* SDL_RWops */
+    unsigned char *sdl_memory;
+    int sdl_channel;
+
+    /* for volume fades */
+    NSUInteger volume;
+    NSInteger volume_notify;
+    NSUInteger volume_timeout;
+    NSUInteger target_volume;
+    CGFloat float_volume;
+    CGFloat volume_delta;
+    NSTimer *timer;
+    NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sound_channels;
+    NSMutableDictionary <NSNumber *, SoundResource *> *resources;
+}
+@end
+
 @implementation GlkSoundChannel
 
 static void *glk_controller;
@@ -50,12 +80,14 @@ static void *glk_controller;
 }
 
 - (void)postInit {
-    _handler = _glkctl.audioResourceHandler;
-    if (!_handler.sound_channels)
-        _handler.sound_channels = [[NSMutableDictionary alloc] init];
-    sound_channels = _handler.sound_channels;
-    resources = _handler.resources;
-    glk_controller = (__bridge void *)_glkctl;
+    GlkController *glkctl = _glkctl;
+    _handler = glkctl.audioResourceHandler;
+    AudioResourceHandler *handler = _handler;
+    if (!handler.sound_channels)
+        handler.sound_channels = [[NSMutableDictionary alloc] init];
+    sound_channels = handler.sound_channels;
+    resources = handler.resources;
+    glk_controller = (__bridge void *)glkctl;
 }
 
 

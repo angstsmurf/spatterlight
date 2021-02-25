@@ -35,6 +35,12 @@
  *   - call keyDown and mouseDown on our GlkTextGridWindow object
  */
 
+@interface MyGridTextView () <NSAccessibilityNavigableStaticText> {
+    NSTimer *mouseTimer;
+    NSRange mouseDownSelection;
+}
+@end
+
 @implementation MyGridTextView
 
 + (BOOL)isCompatibleWithResponsiveScrolling
@@ -100,6 +106,22 @@
 
 @end
 
+@interface GlkTextGridWindow () <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
+    NSScrollView *scrollview;
+    NSTextStorage *textstorage;
+    NSLayoutManager *layoutmanager;
+    NSTextContainer *container;
+    NSUInteger rows, cols;
+    NSUInteger xpos, ypos;
+    NSUInteger maxInputLength;
+    BOOL line_request;
+    BOOL hyper_request;
+    BOOL mouse_request;
+    BOOL transparent;
+
+    NSInteger terminator;
+}
+@end
 
 @implementation GlkTextGridWindow
 
@@ -352,8 +374,10 @@
     NSDictionary *attributes;
     NSRange selectedRange = _textview.selectedRange;
 
+    GlkController *glkctl = self.glkctl;
+
     // Adjust terminators for Beyond Zork arrow keys hack
-    if (self.glkctl.beyondZork) {
+    if (glkctl.beyondZork) {
         [self adjustBZTerminators:self.pendingTerminators];
         [self adjustBZTerminators:self.currentTerminators];
     }
@@ -393,7 +417,7 @@
 
     if (different) {
         styles = newstyles;
-        if (self.glkctl.usesFont3)
+        if (glkctl.usesFont3)
             [self createBeyondZorkStyle];
 
         NSUInteger textstoragelength = textstorage.length;
@@ -478,15 +502,15 @@
             });
         }
 
-        if (!self.glkctl.isAlive) {
+        if (!glkctl.isAlive) {
             NSRect frame = self.frame;
 
             if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
-                frame.size.width = self.glkctl.contentView.frame.size.width - frame.origin.x;
+                frame.size.width = glkctl.contentView.frame.size.width - frame.origin.x;
             }
 
             if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
-                frame.size.height = self.glkctl.contentView.frame.size.height - frame.origin.y;
+                frame.size.height = glkctl.contentView.frame.size.height - frame.origin.y;
             }
             self.frame = frame;
             [self checkForUglyBorder];
@@ -623,7 +647,10 @@
 #pragma mark Printing, moving, resizing
 
 - (void)setFrame:(NSRect)frame {
-    if (self.glkctl.ignoreResizes)
+
+    GlkController *glkctl = self.glkctl;
+
+    if (glkctl.ignoreResizes)
         return;
 
     NSUInteger r;
@@ -636,10 +663,10 @@
     }
 
     NSSize screensize = NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX);
-    if (self.glkctl) {
-        screensize = self.glkctl.window.screen.visibleFrame.size;
+    if (glkctl) {
+        screensize = glkctl.window.screen.visibleFrame.size;
         if (frame.size.height > screensize.height)
-        frame.size.height = self.glkctl.contentView.frame.size.height;
+        frame.size.height = glkctl.contentView.frame.size.height;
     }
 
     _textview.textContainerInset =
@@ -658,7 +685,7 @@
     if (newcols == 0 && frame.size.width > 0)
         newcols = 1;
     
-    if (newrows == 1 && self.glkctl.curses && self.glkctl.quoteBoxes.count) {
+    if (newrows == 1 && glkctl.curses && glkctl.quoteBoxes.count) {
         newrows = 2;
         frame.size.height += self.theme.cellHeight;
         self.pendingFrame = frame;
@@ -1229,13 +1256,15 @@
 
     NSUInteger flags = evt.modifierFlags;
 
-    if ((flags & NSEventModifierFlagNumericPad) && !self.glkctl.bureaucracy && ch >= '0' && ch <= '9')
+    GlkController *glkctl = self.glkctl;
+
+    if ((flags & NSEventModifierFlagNumericPad) && !glkctl.bureaucracy && ch >= '0' && ch <= '9')
         ch = keycode_Pad0 - (ch - '0');
 
     GlkWindow *win;
     // pass on this key press to another GlkWindow if we are not expecting one
     if (!self.wantsFocus)
-        for (win in [self.glkctl.gwindows allValues]) {
+        for (win in [glkctl.gwindows allValues]) {
             if (win != self && win.wantsFocus) {
                 [win grabFocus];
                 NSLog(@"GlkTextGridWindow: Passing on keypress");
@@ -1245,13 +1274,13 @@
         }
 
     // Stupid hack for Swedish keyboard
-    if (char_request && self.glkctl.bureaucracy && [evt keyCode] == 30)
+    if (char_request && glkctl.bureaucracy && [evt keyCode] == 30)
         ch = '^';
 
     if (char_request && ch != keycode_Unknown) {
-        [self.glkctl markLastSeen];
+        [glkctl markLastSeen];
 
-        if (self.glkctl.bureaucracy) {
+        if (glkctl.bureaucracy) {
             // Bureacracy on Bocfel will try to convert these keycodes
             // to characters and then error out with
             // "fatal error: @print_char called with invalid character"
@@ -1278,7 +1307,7 @@
 
         // NSLog(@"char event from %ld", self.name);
         GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
-        [self.glkctl queueEvent:gev];
+        [glkctl queueEvent:gev];
         char_request = NO;
         dirty = YES;
         return;
@@ -1289,7 +1318,7 @@
         if (ch == keycode_Return || [self.currentTerminators[@(ch)] isEqual:@(YES)]) {
             terminator = [self.currentTerminators[@(ch)] isEqual:@(YES)] ? ch : 0;
 
-            if (self.glkctl.beyondZork) {
+            if (glkctl.beyondZork) {
                 if (terminator == keycode_Home) {
                     NSLog(@"Gridwin keyDown changed keycode_Home to keycode_Up");
                     terminator = keycode_Up;
@@ -1765,16 +1794,17 @@
         }
     }];
 
-    if (!self.glkctl.quoteBoxes)
-        self.glkctl.quoteBoxes = [[NSMutableArray alloc] init];
+    GlkController *glkctl = self.glkctl;
+    if (!glkctl.quoteBoxes)
+        glkctl.quoteBoxes = [[NSMutableArray alloc] init];
 
-    GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:self.glkctl name:-1];
+    GlkTextGridWindow *box = [[GlkTextGridWindow alloc] initWithGlkController:glkctl name:-1];
     box.quoteboxSize = NSMakeSize(width, height);
     [box makeTransparent];
 
     GlkTextBufferWindow *lowerView;
 
-    for (GlkWindow *win in self.glkctl.gwindows.allValues) {
+    for (GlkWindow *win in glkctl.gwindows.allValues) {
         if ([win isKindOfClass:[GlkTextBufferWindow class]])
             lowerView = (GlkTextBufferWindow *)win;
     }
@@ -1787,10 +1817,10 @@
 
     box.alphaValue = 0;
 
-    [self.glkctl.quoteBoxes addObject:box];
+    [glkctl.quoteBoxes addObject:box];
     lowerView.quoteBox = box;
     box.quoteboxVerticalOffset = linesToSkip;
-    box.quoteboxAddedOnTurn = self.glkctl.turns;
+    box.quoteboxAddedOnTurn = glkctl.turns;
     box.quoteboxParent = superView.enclosingScrollView;
     [box performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
 }
@@ -1843,11 +1873,12 @@
 #pragma mark Accessibility
 
 - (void)speakStatus {
-    if (self.glkctl.zmenu)
-        [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.zmenu];
-    if (self.glkctl.form)
-        [NSObject cancelPreviousPerformRequestsWithTarget:self.glkctl.form];
-    [self.glkctl speakString:textstorage.string];
+    GlkController *glkctl = self.glkctl;
+    if (glkctl.zmenu)
+        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
+    if (glkctl.form)
+        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
+    [glkctl speakString:textstorage.string];
 }
 
 - (BOOL)setLastMove {

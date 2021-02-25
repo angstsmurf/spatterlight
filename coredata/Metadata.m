@@ -19,6 +19,8 @@
 @dynamic averageRating;
 @dynamic bafn;
 @dynamic blurb;
+@dynamic coverArtDescription;
+@dynamic coverArtIndex;
 @dynamic coverArtURL;
 @dynamic dateEdited;
 @dynamic firstpublished;

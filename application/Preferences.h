@@ -36,33 +36,7 @@ typedef enum kBZArrowsPrefsType : int32_t {
 
 @class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController;
 
-@interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate> {
-    IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
-    IBOutlet NSColorWell *clrInputFg, *clrBufferFg, *clrGridFg;
-    IBOutlet NSColorWell *clrBufferBg, *clrGridBg;
-    IBOutlet NSTextField *txtBufferMargin, *txtGridMargin, *txtLeading;
-    IBOutlet NSTextField *txtRows, *txtCols;
-    IBOutlet NSTextField *txtBorder;
-    IBOutlet NSButton *btnSmartQuotes;
-    IBOutlet NSButton *btnSpaceFormat;
-    IBOutlet NSButton *btnEnableGraphics;
-    IBOutlet NSButton *btnEnableSound;
-    IBOutlet NSButton *btnEnableStyles;
-    IBOutlet NSTableView *themesTableView;
-    IBOutlet GlkHelperView *sampleTextView;
-
-    GlkController *glkcntrl;
-
-    NSButton *selectedFontButton;
-
-    BOOL disregardTableSelection;
-    BOOL zooming;
-    CGFloat previewTextHeight;
-    NSString *lastSelectedTheme;
-
-    NSDate *themeDuplicationTimestamp;
-    Theme *lastDuplicatedTheme;
-}
+@interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate>
 
 + (void)rebuildTextAttributes;
 

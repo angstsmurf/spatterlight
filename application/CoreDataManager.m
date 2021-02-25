@@ -8,6 +8,12 @@
 
 #import "CoreDataManager.h"
 
+@interface CoreDataManager () {
+    NSString *modelName;
+    NSManagedObjectContext *privateManagedObjectContext;
+}
+@end
+
 @implementation CoreDataManager
 
 - (instancetype)initWithModelName:(NSString *)aModelName {
@@ -49,14 +55,22 @@
         return _persistentStoreCoordinator;
     }
 
+//    BOOL needMigrate = false;
+    //    BOOL needDeleteOld  = false;
+
+    NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata"];
+
     NSManagedObjectModel *mom = [self managedObjectModel];
     if (!mom) {
-        NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
+        NSLog(@"%@:%@ ERROR! No model to generate a store from!", [self class], NSStringFromSelector(_cmd));
         return nil;
     }
 
+    NSString *groupIdentifier =
+    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
+    NSURL *applicationFilesDirectory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
     NSError *error = nil;
 
     NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
@@ -68,6 +82,7 @@
         }
         if (!ok) {
             [[NSApplication sharedApplication] presentError:error];
+            NSLog(@"Error: %@", error);
             return nil;
         }
     } else {
@@ -84,19 +99,51 @@
         }
     }
 
-    NSString *storeFileName = [modelName stringByAppendingString:@".storedata"];
+//    NSURL *groupURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
 
-    NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:storeFileName];
+//    NSString *storeFileName =  [groupURL.path stringByAppendingPathComponent:@"Spatterlight.storedata"];
+//    groupURL = [NSURL fileURLWithPath:storeFileName];
+
+    NSURL *targetURL =  nil;
+
+//    if ([fileManager fileExistsAtPath:[groupURL path]]) {
+//        NSLog(@"group db exist");
+//        needMigrate = NO;
+//        targetURL = groupURL;
+//
+//        //        if ([fileManager fileExistsAtPath:[oldURL path]]) {
+//        //            needDeleteOld = YES;
+//        //        }
+//    } else if ([fileManager fileExistsAtPath:[oldURL path]]) {
+//        NSLog(@"old single app db exist.");
+        targetURL = oldURL;
+//        needMigrate = YES;
+//    }
+
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
 
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+    NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption: @(YES),
+                               NSInferMappingModelAutomaticallyOption: @(YES) };
 
-    if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
+    NSPersistentStore *store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:targetURL options:options error:&error];
+
+    if (!store) {
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
+
+    // do the migrate job from local store to a group store.
+//    if (needMigrate) {
+//        error = nil;
+//        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+//        [context setPersistentStoreCoordinator:coordinator];
+//        [coordinator migratePersistentStore:store toURL:groupURL options:options withType:NSSQLiteStoreType error:&error];
+//        if (error != nil) {
+//            NSLog(@"Error during Core Data migration to group folder: %@, %@", error, [error userInfo]);
+//            abort();
+//        }
+//    }
+
     _persistentStoreCoordinator = coordinator;
 
     return _persistentStoreCoordinator;
@@ -157,7 +204,7 @@
 }
 
 - (void)saveChanges {
-//    NSLog(@"CoreDataManagar saveChanges");
+    //    NSLog(@"CoreDataManagar saveChanges");
     CoreDataManager * __unsafe_unretained weakSelf = self;
 
     [_mainManagedObjectContext performBlockAndWait:^{
@@ -203,7 +250,7 @@
     // Initialize Managed Object Context
     NSManagedObjectContext *managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     // Configure Managed Object Context
-    [managedObjectContext setParentContext:_mainManagedObjectContext];
+    [managedObjectContext setParentContext:self.mainManagedObjectContext];
     
     return managedObjectContext;
 }

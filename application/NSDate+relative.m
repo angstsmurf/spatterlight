@@ -2,6 +2,8 @@
 // by Erica Sadun, http://ericasadun.com
 // https://github.com/erica/NSDate-Extensions
 
+#import <Foundation/Foundation.h>
+
 #define D_WEEK        604800
 
 // Thanks, AshFurrow

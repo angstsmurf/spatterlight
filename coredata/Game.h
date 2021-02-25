@@ -11,24 +11,32 @@
 
 @class Metadata, Theme;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Game : NSManagedObject
 
-@property (nonatomic) NSDate *added;
+@property (nullable, nonatomic, retain) NSDate *added;
 @property (nonatomic) BOOL autosaved;
-@property (nonatomic, retain) NSString * detectedFormat;
-@property (nonatomic, retain) id fileLocation;
+@property (nonatomic) int32_t checksum;
+@property (nullable, nonatomic, copy) NSString *compiler;
+@property (nullable, nonatomic, copy) NSString *detectedFormat;
+@property (nullable, nonatomic, retain) NSObject *fileLocation;
 @property (nonatomic) BOOL found;
-@property (nonatomic, retain) NSString * group;
-@property (nonatomic, retain) NSString * hashTag;
-@property (nonatomic, retain) NSString * ifid;
-@property (nonatomic, retain) NSString * path;
-@property (nonatomic) NSDate *lastPlayed;
-@property (nonatomic, retain) NSString * version;
-@property (nonatomic, retain) Metadata *metadata;
-@property (nonatomic, retain) Theme *override;
-@property (nonatomic, retain) Theme *theme;
+@property (nullable, nonatomic, copy) NSString *group;
+@property (nullable, nonatomic, copy) NSString *hashTag;
+@property (nullable, nonatomic, copy) NSString *ifid;
+@property (nullable, nonatomic, retain) NSDate *lastPlayed;
+@property (nullable, nonatomic, copy) NSString *path;
+@property (nullable, nonatomic, copy) NSString *serialString;
+@property (nonatomic) int32_t releaseNumber;
+@property (nullable, nonatomic, copy) NSString *version;
+@property (nullable, nonatomic, retain) Metadata *metadata;
+@property (nullable, nonatomic, retain) Theme *override;
+@property (nullable, nonatomic, retain) Theme *theme;
 
-@property (readonly, copy) NSURL *urlForBookmark;
+@property (readonly, copy, nullable) NSURL *urlForBookmark;
 - (void) bookmarkForPath: (NSString *)path;
 
 @end
+
+NS_ASSUME_NONNULL_END

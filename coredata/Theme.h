@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Game, GlkStyle, Interpreter, Theme;
+@class Game, GlkStyle, Interpreter, Theme, NSColor;
 
 NS_ASSUME_NONNULL_BEGIN
 

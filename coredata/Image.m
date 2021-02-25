@@ -13,8 +13,8 @@
 @implementation Image
 
 @dynamic data;
+@dynamic imageDescription;
 @dynamic originalURL;
-@dynamic type;
 @dynamic metadata;
 
 @end

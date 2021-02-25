@@ -4,15 +4,20 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>SDL_sound_static.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>21</integer>
-		</dict>
 		<key>Spatterlight.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>SpatterlightQuickLook.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>22</integer>
+		</dict>
+		<key>SpatterlightThumbnailer.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
 		</dict>
 		<key>advsys.xcscheme</key>
 		<dict>
@@ -47,12 +52,12 @@
 		<key>bocfel.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>22</integer>
+			<integer>23</integer>
 		</dict>
 		<key>fizmo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>23</integer>
+			<integer>25</integer>
 		</dict>
 		<key>frotz.xcscheme</key>
 		<dict>
@@ -88,6 +93,11 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>11</integer>
+		</dict>
+		<key>iFictionQuickLook.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>24</integer>
 		</dict>
 		<key>level9.xcscheme</key>
 		<dict>
@@ -228,6 +238,21 @@
 			<true/>
 		</dict>
 		<key>96FE876409F3A12B00D41D78</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C311DECB25C472C000484639</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C311DEF425C472E500484639</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C322714925CC214A0083BD5B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

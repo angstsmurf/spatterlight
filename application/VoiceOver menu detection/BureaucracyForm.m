@@ -248,7 +248,7 @@
         [self constructFieldStringWithIndex:YES andTotal:YES];
         if (!_haveSpokenForm) {
             NSString *titleString = [_titlestring stringByAppendingString:@": "];
-            titleString = [_titlestring stringByAppendingString:[self constructInputString]];
+            titleString = [titleString stringByAppendingString:[self constructInputString]];
             selectedFieldString = [titleString stringByAppendingString:selectedFieldString];
             _haveSpokenForm = YES;
         }

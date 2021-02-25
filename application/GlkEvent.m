@@ -5,6 +5,13 @@
 
 #include <unistd.h>
 
+@interface GlkEvent () <NSSecureCoding> {
+    NSInteger win;
+    NSString *ln;
+    Theme *theme;
+}
+@end
+
 @implementation GlkEvent
 
 + (BOOL) supportsSecureCoding {
@@ -142,7 +149,7 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
-- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah theme:(Theme *)aTheme force:(BOOL)forceFlag;
+- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah theme:(Theme *)aTheme force:(BOOL)forceFlag
 {
 //    NSLog(@"GlkEvent initArrangeWidth: %ld height: %ld", (long)aw, (long)ah);
     self = [super init];

@@ -9,6 +9,13 @@
 
 #define HISTORYLEN 100
 
+@interface InputHistory () <NSSecureCoding> {
+    /* For command history */
+    NSMutableArray *history;
+    NSUInteger historypos, historyfirst, historypresent;
+}
+@end
+
 @implementation InputHistory
 
 + (BOOL) supportsSecureCoding {

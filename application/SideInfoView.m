@@ -43,6 +43,19 @@ fprintf(stderr, "%s\n",                                                    \
 
 @end
 
+@interface SideInfoView () <NSTextFieldDelegate>
+{
+    NSBox *topSpacer;
+    NSImageView *imageView;
+    NSTextField *titleField;
+    NSTextField *headlineField;
+    NSTextField *authorField;
+    NSTextField *blurbField;
+    NSTextField *ifidField;
+
+    CGFloat totalHeight;
+}
+@end
 
 @implementation SideInfoView
 
@@ -257,6 +270,8 @@ fprintf(stderr, "%s\n",                                                    \
         theImage.size = NSMakeSize(superViewWidth * 2, superViewWidth * 2 / ratio );
 
         imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0,0,theImage.size.width,theImage.size.height)];
+
+        imageView.accessibilityLabel = somedata.coverArtDescription;
 
         [self addSubview:imageView];
 
