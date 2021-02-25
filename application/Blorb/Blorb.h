@@ -19,8 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nullable) NSData *pictureData;
 @property(readonly, nullable) NSData *metaData;
 
-@property(readonly, nullable) NSString *zcodeifid;
 @property(readonly, nullable) NSString *snam;
+
+@property NSUInteger releaseNumber;
+@property NSUInteger checkSum;
+@property(nullable) NSString *serialNumber;
 
 @property(nullable) NSMutableDictionary *optionalChunks;
 

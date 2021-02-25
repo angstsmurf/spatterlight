@@ -81,30 +81,44 @@
         if (chunkID == IFFID('I', 'F', 'm', 'd')) {
           // Treaty of Babel Metadata
           NSRange range =
-              NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes + 8), len);
+          NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes + 8), len);
           metaData = [data subdataWithRange:range];
-//          NSLog(@"Found metadata. len:%d", len);
+          //          NSLog(@"Found metadata. len:%d", len);
         }
 
-        if (chunkID == IFFID('F', 's', 'p', 'c')) {
+        else if (chunkID == IFFID('F', 's', 'p', 'c')) {
           // Frontispiece - Cover picture index
           frontispiece  = unpackLong(ptr + 8);
-//          NSLog(@"Found frontispiece chunk with a value of %ld", frontispiece);
+          //          NSLog(@"Found frontispiece chunk with a value of %ld", frontispiece);
         }
 
-        if ([optionalChunksIDs indexOfObject:chunkString] != NSNotFound) {
+        else if ([optionalChunksIDs indexOfObject:chunkString] != NSNotFound) {
           NSRange range =
-              NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes + 8), len);
+          NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes + 8), len);
 
           NSStringEncoding encoding = NSASCIIStringEncoding;
           if ([chunkString isEqualToString:@"Snam"])
             encoding = NSUTF16BigEndianStringEncoding;
 
           _optionalChunks[chunkString] = [[NSString alloc] initWithData:[data subdataWithRange:range] encoding:encoding];
-//          NSLog(@"Found %@ chunk with value \"%@\"", chunkString, _optionalChunks[chunkString]);
+          //          NSLog(@"Found %@ chunk with value \"%@\"", chunkString, _optionalChunks[chunkString]);
         }
+        else if (chunkID == IFFID('I', 'F', 'h', 'd')) {
+          // Game Identifier Chunk
 
-        if (chunkID == IFFID('R', 'D', 'e', 's')) {
+          // These values only make sense in a ZCode game
+          // Glulx uses the first 128 bytes, but we don't
+          // handle that here (yet)
+          BlorbResource *resource = [self findResourceOfUsage:ExecutableResource];
+          if (!resource || [resource.chunkType isEqualToString:@"ZCOD"]) {
+            _releaseNumber  = unpackShort(ptr + 8);
+            NSData *serialData = [NSData dataWithBytes:ptr + 10 length:6];
+            _serialNumber = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
+            _checkSum = unpackShort(ptr + 16);
+          }
+        }
+  
+        else if (chunkID == IFFID('R', 'D', 'e', 's')) {
           NSLog(@"Found Resource Description Chunk!");
           ptr += 8;
           count = unpackLong(ptr);
@@ -130,19 +144,6 @@
           }
         }
 
-        if (chunkID == IFFID('I', 'F', 'h', 'd')) {
-          // Game Identifier Chunk
-          NSUInteger releaseNumber  = unpackShort(ptr + 8);
-
-          NSData *serialData = [NSData dataWithBytes:ptr + 10 length:6];
-          NSString *serialNum = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
-
-//          NSUInteger checksum  = unpackShort(ptr + 16);
-
-          _zcodeifid = [NSString stringWithFormat:@"ZCODE-%ld-%@", releaseNumber, serialNum];
-
-//          NSLog(@"Game Identifier Chunk with release number %ld, serial number %@, checksum %ld", releaseNumber, serialNum, checksum);
-        }
         ptr += paddedLength(len) + 8;
       }
     }
@@ -153,7 +154,7 @@
 
 - (NSString *)stringFromChunkWithPtr:(const unsigned char *)ptr {
   NSRange range =
-      NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes), 4);
+  NSMakeRange((NSUInteger)(ptr - (const unsigned char *)data.bytes), 4);
   NSData *subData = [data subdataWithRange:range];
   return [[NSString alloc] initWithData:subData encoding:NSASCIIStringEncoding];
 }
@@ -236,7 +237,18 @@
 }
 
 - (NSString *)ifidFromIFhd {
-  return _zcodeifid;
+  NSString *zcodeifid = nil;
+  NSInteger date = _serialNumber.intValue;
+
+  if (!_serialNumber && _releaseNumber == 0 && _checkSum == 0)
+    return nil;
+
+  if ((date < 700000 || date > 900000) && date != 0 && date != 999999) {
+    zcodeifid = [NSString stringWithFormat:@"ZCODE-%ld-%@-%04lX", _releaseNumber, _serialNumber, (unsigned long)_checkSum];
+  } else {
+    zcodeifid = [NSString stringWithFormat:@"ZCODE-%ld-%@", _releaseNumber, _serialNumber];
+  }
+  return zcodeifid;
 }
 
 
