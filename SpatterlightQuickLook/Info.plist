@@ -47,6 +47,9 @@
 				<string>public.sna</string>
 				<string>public.level9</string>
 				<string>public.ddollardollar</string>
+				<string>public.glkdata</string>
+				<string>public.glksave</string>
+				<string>public.qut</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<false/>

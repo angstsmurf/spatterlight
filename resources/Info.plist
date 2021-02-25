@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>GroupIdentifier</key>
-	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
 	<key>ATSApplicationFontsPath</key>
 	<string>fonts</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -11,63 +9,24 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>1</integer>
-			<key>CFBundleTypeName</key>
-			<string>Glk Data File</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.glkdata</string>
-			</array>
-		</dict>
-		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>taf</string>
+				<string>acd</string>
+				<string>a3c</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Adrift Story File</string>
+			<string>Alan Story File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.adrift</string>
-			</array>
-			<key>LSTypeIsPackage</key>
-			<false/>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>dat</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>1</integer>
-			<key>CFBundleTypeName</key>
-			<string>DAT Story File</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.dat</string>
+				<string>public.alan</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -101,22 +60,85 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>acd</string>
-				<string>a3c</string>
+				<string>d$$$$</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>Alan Story File</string>
+			<string>AGT dollar Story</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.alan</string>
+				<string>public.ddollardollar</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>taf</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>Adrift Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.adrift</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>Glk Data File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.glkdata</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>dat</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeName</key>
+			<string>DAT Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.dat</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -282,7 +304,8 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>Z5</string>
+				<string>z1</string>
+				<string>z2</string>
 				<string>z3</string>
 				<string>z4</string>
 				<string>z5</string>
@@ -441,6 +464,10 @@
 			<string>XML</string>
 		</dict>
 		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>glksave</string>
+			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
@@ -459,26 +486,22 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>d$$$$</string>
+				<string>qut</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>LegacyIcon</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>AGT dollar Story</string>
+			<string>Quetzal saved game</string>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.ddollardollar</string>
+				<string>public.qut</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<false/>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -517,6 +540,8 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>Spat</string>
+	<key>GroupIdentifier</key>
+	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.adventure-games</string>
 	<key>NSAppTransportSecurity</key>
@@ -564,7 +589,9 @@
 					<string>glksave</string>
 				</array>
 				<key>public.mime-type</key>
-				<string>application/x-glksave</string>
+				<array>
+					<string>application/x-glksave</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -595,7 +622,9 @@
 					<string>glkdata</string>
 				</array>
 				<key>public.mime-type</key>
-				<string>application/x-glkdata</string>
+				<array>
+					<string>application/x-glkdata</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -774,6 +803,8 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>z1</string>
+					<string>z2</string>
 					<string>z3</string>
 					<string>z4</string>
 					<string>z5</string>
@@ -1116,6 +1147,35 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>d$$$$</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Quetzal saved game</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>LegacyIcon</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>AGT</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.qut</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>qut</string>
 				</array>
 			</dict>
 		</dict>
