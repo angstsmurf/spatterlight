@@ -91,7 +91,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
         if (current)
             _currentstrtag = current->tag;
         else
-            _currentstrtag = -1;
+            _currentstrtag = 0;
 
         _autosaveTag = generate_tag();
 	}
