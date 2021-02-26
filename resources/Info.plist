@@ -304,8 +304,6 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>z1</string>
-				<string>z2</string>
 				<string>z3</string>
 				<string>z4</string>
 				<string>z5</string>
@@ -329,6 +327,35 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.zcode</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>z1</string>
+				<string>z2</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/x-zmachine</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Z-code Story File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.zcode.old</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<false/>
@@ -803,14 +830,48 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>z1</string>
-					<string>z2</string>
 					<string>z3</string>
 					<string>z4</string>
 					<string>z5</string>
 					<string>z6</string>
 					<string>z7</string>
 					<string>z8</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-zmachine</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.content</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Z-code Story File</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+				<key>UTTypeIconText</key>
+				<string>ZCODE</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>public.zcode.old</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://inform-fiction.org/zmachine/standards/z1point1/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>z1</string>
+					<string>z2</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -886,7 +947,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="zcode"</string>
+					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
 				</array>
 			</dict>
 		</dict>
@@ -922,7 +983,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile="glulx"</string>
+					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
 				</array>
 			</dict>
 		</dict>
@@ -1034,7 +1095,7 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>TADS 3 Executable</string>
+			<string>TADS 3 Game</string>
 			<key>UTTypeIconFile</key>
 			<string>LegacyIcon</string>
 			<key>UTTypeIcons</key>

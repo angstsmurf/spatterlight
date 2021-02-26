@@ -31,6 +31,7 @@
 			<key>QLSupportedContentTypes</key>
 			<array>
 				<string>public.zcode</string>
+				<string>public.zcode.old</string>
 				<string>public.quill</string>
 				<string>public.blorb</string>
 				<string>public.blorb.zcode</string>
