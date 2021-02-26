@@ -107,8 +107,8 @@
           // Game Identifier Chunk
 
           // These values only make sense in a ZCode game
-          // Glulx uses the first 128 bytes, but we don't
-          // handle that here (yet)
+          // Glulx uses the first 128 bytes of th file,
+          // but we don't handle that here (yet)
           BlorbResource *resource = [self findResourceOfUsage:ExecutableResource];
           if (!resource || [resource.chunkType isEqualToString:@"ZCOD"]) {
             _releaseNumber  = unpackShort(ptr + 8);
@@ -117,7 +117,7 @@
             _checkSum = unpackShort(ptr + 16);
           }
         }
-  
+
         else if (chunkID == IFFID('R', 'D', 'e', 's')) {
           NSLog(@"Found Resource Description Chunk!");
           ptr += 8;
@@ -238,15 +238,17 @@
 
 - (NSString *)ifidFromIFhd {
   NSString *zcodeifid = nil;
-  NSInteger date = _serialNumber.intValue;
-
   if (!_serialNumber && _releaseNumber == 0 && _checkSum == 0)
     return nil;
 
+  NSInteger date = _serialNumber.intValue;
+  
+  NSString *serialString = [_serialNumber stringByReplacingOccurrencesOfString:@"[^0-Z]" withString:@"-" options:NSRegularExpressionSearch range:NSMakeRange(0, 6)];
+
   if ((date < 700000 || date > 900000) && date != 0 && date != 999999) {
-    zcodeifid = [NSString stringWithFormat:@"ZCODE-%ld-%@-%04lX", _releaseNumber, _serialNumber, (unsigned long)_checkSum];
+    zcodeifid = [NSString stringWithFormat:@"ZCODE-%ld-%@-%04lX", _releaseNumber, serialString, (unsigned long)_checkSum];
   } else {
-    zcodeifid = [NSString stringWithFormat:@"ZCODE-%ld-%@", _releaseNumber, _serialNumber];
+    zcodeifid = [NSString stringWithFormat:@"ZCODE-%ld-%@", _releaseNumber, serialString];
   }
   return zcodeifid;
 }
