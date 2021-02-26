@@ -25,7 +25,6 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.doesRelativeDateFormatting = YES;
-    [dateFormatter setDoesRelativeDateFormatting:YES];
 
     if([self isToday]) {
         dateFormatter.timeStyle = NSDateFormatterShortStyle;
