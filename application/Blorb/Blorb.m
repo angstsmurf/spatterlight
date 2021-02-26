@@ -106,9 +106,9 @@
         else if (chunkID == IFFID('I', 'F', 'h', 'd')) {
           // Game Identifier Chunk
 
-          // These values only make sense in a ZCode game
-          // Glulx uses the first 128 bytes of th file,
-          // but we don't handle that here (yet)
+          // These values only make sense in a ZCode game.
+          // Glulx uses the first 128 bytes of the file,
+          // but we don't handle that here (yet.)
           BlorbResource *resource = [self findResourceOfUsage:ExecutableResource];
           if (!resource || [resource.chunkType isEqualToString:@"ZCOD"]) {
             _releaseNumber  = unpackShort(ptr + 8);
