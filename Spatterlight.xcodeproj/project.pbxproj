@@ -527,6 +527,7 @@
 		96FE87DA09F3A1D100D41D78 /* libtads2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876009F3A11900D41D78 /* libtads2.a */; };
 		96FE87DB09F3A1D100D41D78 /* libtads3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96FE876509F3A12B00D41D78 /* libtads3.a */; };
 		C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C300D48323A11786000B2165 /* IFDBDownloader.m */; };
+		C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */; };
 		C301D30D25D35E9300DC4A2B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C301D30C25D35E9300DC4A2B /* Media.xcassets */; };
 		C301D30E25D35E9300DC4A2B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C301D30C25D35E9300DC4A2B /* Media.xcassets */; };
 		C3074B8825A1F461003E80C6 /* VersionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3074B8725A1F461003E80C6 /* VersionFormatter.m */; };
@@ -6409,6 +6410,7 @@
 				C309884825CB1AD300750F72 /* Game.m in Sources */,
 				C309886225CB1ADF00750F72 /* Image.m in Sources */,
 				C311DEFB25C472E500484639 /* PreviewViewController.m in Sources */,
+				C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */,
 				C309881425CB1AB500750F72 /* Spatterlight.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
