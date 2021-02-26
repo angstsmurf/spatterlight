@@ -253,5 +253,30 @@
   return zcodeifid;
 }
 
+//(NSUInteger)zChecksumFromData:(NSData *)data {
+////      The checksum is the unsigned sum mod 65536 of the bytes in the
+////      story file from 0x0040 (first byte after header) to the end.
+//
+//   NSInteger zversion = ((const unsigned char *)(data.bytes))[0];
+//
+//   NSUInteger file_length = word(data, 0x1a) * (zversion <= 3 ? 2UL : zversion <= 5 ? 4UL : 8UL);
+//   if(file_length > data.length) {
+//       NSLog(@"story's reported size (%lu) greater than file size (%lu)", file_length, data.length);
+//       file_length = data.length;
+//   }
+//
+//   if(file_length < 100) {
+//       NSLog(@"story's reported size too small (%lu)", file_length);
+//       file_length = data.length;
+//   }
+//
+//   NSUInteger checksum = 0;
+//   for (NSUInteger i = 0x40; i < file_length; i++) {
+//       checksum += (NSUInteger)((const unsigned char *)(data.bytes))[i];
+//   }
+//
+//   checksum = checksum % 65536;
+//   return checksum;
+//}
 
 @end

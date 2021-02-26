@@ -1998,10 +1998,9 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
         game.serialString = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
         game.checksum = (int32_t)unpackShort(ptr + 28);
     }
-    NSLog(@"Title: %@ release Number:%d serial date:%@ checksum: %d", game.metadata.title, game.releaseNumber, game.serialString, game.checksum);
 }
 
-- (void) addFile: (NSURL*)url select: (NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure
+- (void)addFile: (NSURL*)url select: (NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure
 {
     Game *game = [self importGame:url.path inContext:context reportFailure:reportFailure];
     if (game) {
