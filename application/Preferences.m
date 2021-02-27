@@ -1216,7 +1216,7 @@ NSString *fontToString(NSFont *font) {
     glkcntrl.theme = theme;
     glkcntrl.previewDummy = YES;
     glkcntrl.borderView = _sampleTextBorderView;
-    glkcntrl.contentView = sampleTextView;
+    glkcntrl.gameView = sampleTextView;
     glkcntrl.ignoreResizes = YES;
     sampleTextView.glkctrl = glkcntrl;
 
@@ -2661,11 +2661,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
      object:theme];
 }
 
-- (void)updatePanelAfterZoom {
-    btnGridFont.title = fontToString(theme.gridNormal.font);
-    btnBufferFont.title = fontToString(theme.bufferNormal.font);
-    btnInputFont.title = fontToString(theme.bufInput.font);
-}
+//- (void)updatePanelAfterZoom {
+//    btnGridFont.title = fontToString(theme.gridNormal.font);
+//    btnBufferFont.title = fontToString(theme.bufferNormal.font);
+//    btnInputFont.title = fontToString(theme.bufInput.font);
+//}
 
 #pragma mark Font panel
 

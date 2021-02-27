@@ -210,8 +210,8 @@ fprintf(stderr, "%s\n",                                                    \
             if ([container hasMarginImages])
                 [container invalidateLayout];
 
-            if (NSMaxX(self.pendingFrame) > NSWidth(self.glkctl.contentView.bounds) && NSWidth(self.pendingFrame) > 10) {
-                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(self.glkctl.contentView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
+            if (NSMaxX(self.pendingFrame) > NSWidth(self.glkctl.gameView.bounds) && NSWidth(self.pendingFrame) > 10) {
+                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(self.glkctl.gameView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
             }
 
             super.frame = self.pendingFrame;
@@ -468,13 +468,13 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)postRestoreAdjustments:(GlkWindow *)win {
-    GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
-    if (line_request && [restoredWin.restoredInput length]) {
-        NSAttributedString *restoredInput = restoredWin.restoredInput;
-        if (textstorage.length > fence) {
-            // Delete any preloaded input
-            NSRange rangeToDelete = NSMakeRange(fence, textstorage.length - fence);
-            [textstorage deleteCharactersInRange:rangeToDelete];
+                GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
+                if (line_request && [restoredWin.restoredInput length]) {
+                    NSAttributedString *restoredInput = restoredWin.restoredInput;
+                    if (textstorage.length > fence) {
+                        // Delete any preloaded input
+                        NSRange rangeToDelete = NSMakeRange(fence, textstorage.length - fence);
+                        [textstorage deleteCharactersInRange:rangeToDelete];
         }
         [textstorage appendAttributedString:restoredInput];
     }
@@ -734,11 +734,11 @@ fprintf(stderr, "%s\n",                                                    \
             NSRect frame = self.frame;
 
             if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
-                frame.size.width = glkctl.contentView.frame.size.width - frame.origin.x;
+                frame.size.width = glkctl.gameView.frame.size.width - frame.origin.x;
             }
 
             if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
-                frame.size.height = glkctl.contentView.frame.size.height - frame.origin.y;
+                frame.size.height = glkctl.gameView.frame.size.height - frame.origin.y;
             }
             self.frame = frame;
         }
@@ -1622,8 +1622,8 @@ replacementString:(id)repl {
     // Send an arrange event to The Colder Light in order
     // to make it update its title bar
     if (glkctl.colderLight) {
-        GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)glkctl.contentView.frame.size.width
-                                                    height:(NSInteger)glkctl.contentView.frame.size.height
+        GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)glkctl.gameView.frame.size.width
+                                                    height:(NSInteger)glkctl.gameView.frame.size.height
                                                      theme:glkctl.theme
                                                      force:YES];
         [glkctl queueEvent:gev];

@@ -33,8 +33,9 @@
 
 @property NSMutableArray *windowsToBeAdded;
 @property NSMutableArray *windowsToBeRemoved;
-@property IBOutlet NSScrollView *borderView;
-@property IBOutlet GlkHelperView *contentView;
+@property NSView *borderView;
+@property GlkHelperView *gameView;
+@property ScalingScrollView *fullWindowScrollView;
 
 // stylehints need to be copied to new windows, so we keep the values around
 
@@ -47,16 +48,13 @@
 @property(readonly) NSTimeInterval storedTimerInterval;
 @property(readonly) NSRect storedWindowFrame;
 @property(readonly) NSRect storedContentFrame;
-@property(readonly) NSRect storedBorderFrame;
+@property(readonly) NSRect storedBorderBounds;
+@property(readonly) CGFloat storedMagnification;
 
 @property(readonly) NSRect windowPreFullscreenFrame;
 
 @property BOOL ignoreResizes;
 @property BOOL startingInFullscreen;
-
-@property BOOL stopReadingPipe;
-@property BOOL newTimer;
-@property CGFloat newTimerInterval;
 
 @property(readonly) NSInteger firstResponderView;
 

@@ -430,11 +430,11 @@
             NSRect frame = self.frame;
 
             if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
-                frame.size.width = glkctl.contentView.frame.size.width - frame.origin.x;
+                frame.size.width = glkctl.gameView.frame.size.width - frame.origin.x;
             }
 
             if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
-                frame.size.height = glkctl.contentView.frame.size.height - frame.origin.y;
+                frame.size.height = glkctl.gameView.frame.size.height - frame.origin.y;
             }
             self.frame = frame;
             [self checkForUglyBorder];
@@ -586,7 +586,7 @@
     if (glkctl) {
         screensize = glkctl.window.screen.visibleFrame.size;
         if (frame.size.height > screensize.height)
-        frame.size.height = glkctl.contentView.frame.size.height;
+        frame.size.height = glkctl.gameView.frame.size.height;
     }
 
     _textview.textContainerInset =

@@ -82,7 +82,7 @@ typedef enum kBZArrowsPrefsType : int32_t {
 - (void)restoreThemeSelection:(id)sender;
 
 + (void)scale:(CGFloat)scalefactor;
-- (void)updatePanelAfterZoom;
+//- (void)updatePanelAfterZoom;
 
 #pragma mark Global accessors
 

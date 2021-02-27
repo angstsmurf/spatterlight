@@ -19,8 +19,7 @@
 
 - (IBAction)zoomToActualSize:(id)sender {
     [[self animator] setMagnification:1.0];
-//    [self magnifyToFitRect:self.documentView.bounds];
-    [self.window setContentSize:self.documentView.bounds.size];
+//    [self.window setContentSize:self.documentView.bounds.size];
 }
 
 - (IBAction)zoomIn:(id)sender {
