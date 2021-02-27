@@ -17,6 +17,7 @@
 #import "ZColor.h"
 #import "ZMenu.h"
 #import "BureaucracyForm.h"
+#import "NonScalingScrollView.h"
 
 #import "NSColor+integer.h"
 
@@ -31,7 +32,7 @@
 #endif
 
 @interface GlkTextGridWindow () <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
-    NSScrollView *scrollview;
+    NonScalingScrollView *scrollview;
     NSTextStorage *textstorage;
     NSLayoutManager *layoutmanager;
     NSTextContainer *container;
@@ -88,7 +89,7 @@
 
         /* construct text system manually */
 
-        scrollview = [[NSScrollView alloc] initWithFrame:NSZeroRect];
+        scrollview = [[NonScalingScrollView alloc] initWithFrame:NSZeroRect];
         scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         scrollview.hasHorizontalScroller = NO;
         scrollview.hasVerticalScroller = NO;
@@ -163,7 +164,7 @@
         _textview.delegate = self;
         _textview.insertionPointColor = self.theme.gridBackground;
         textstorage.delegate = self;
-        scrollview = _textview.enclosingScrollView;
+        scrollview = (NonScalingScrollView *)_textview.enclosingScrollView;
         scrollview.documentView = _textview;
         scrollview.accessibilityElement = NO;
         container = _textview.textContainer;

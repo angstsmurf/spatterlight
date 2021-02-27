@@ -1,3 +1,6 @@
+/*
+ * NSTextView associated with a glk window
+ */
 
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
@@ -14,6 +17,8 @@
 #import "BufferTextView.h"
 #import "GridTextView.h"
 #import "main.h"
+#import "ScalingScrollView.h"
+#import "NonScalingScrollView.h"
 
 #include "glkimp.h"
 
@@ -31,7 +36,7 @@ fprintf(stderr, "%s\n",                                                    \
  */
 
 @interface GlkTextBufferWindow () <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate> {
-    NSScrollView *scrollview;
+    NonScalingScrollView *scrollview;
     NSLayoutManager *layoutmanager;
     MarginContainer *container;
     NSTextStorage *textstorage;
@@ -105,7 +110,7 @@ fprintf(stderr, "%s\n",                                                    \
         history = [[InputHistory alloc] init];
 
         self.moveRanges = [[NSMutableArray alloc] init];
-        scrollview = [[NSScrollView alloc] initWithFrame:NSZeroRect];
+        scrollview = [[NonScalingScrollView alloc] initWithFrame:NSZeroRect];
 
         [self restoreScrollBarStyle];
 
@@ -358,7 +363,7 @@ fprintf(stderr, "%s\n",                                                    \
             NSLog(@"textstorage nil!");
         if (!container)
             NSLog(@"container nil!");
-        scrollview = _textview.enclosingScrollView;
+        scrollview = (NonScalingScrollView *)_textview.enclosingScrollView;
         if (!scrollview)
             NSLog(@"scrollview nil!");
         scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);

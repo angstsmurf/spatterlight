@@ -639,6 +639,7 @@
 		C3C183D225F160C90050A2EF /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
+		C3C4AA5825EA5B2600938AB6 /* NonScalingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C4AA5725EA5B2600938AB6 /* NonScalingScrollView.m */; };
 		C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3D6AD721ECF381A00ADB69C /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D81779256CBA20005DBC1F /* InputTextField.m */; };
@@ -2625,6 +2626,8 @@
 		C3C180C725C717F30040AE79 /* IFCoverDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFCoverDescription.m; sourceTree = "<group>"; };
 		C3C684E026137DC6002F1436 /* ImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHandler.h; sourceTree = "<group>"; };
 		C3C684E126137DC6002F1436 /* ImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHandler.m; sourceTree = "<group>"; };
+		C3C4AA5625EA5B2600938AB6 /* NonScalingScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NonScalingScrollView.h; sourceTree = "<group>"; };
+		C3C4AA5725EA5B2600938AB6 /* NonScalingScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NonScalingScrollView.m; sourceTree = "<group>"; };
 		C3CDF24925A3C26000FA3451 /* Spatterlight 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 5.xcdatamodel"; sourceTree = "<group>"; };
 		C3D155671EDC4C820072D259 /* defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defs.h; path = Generic/defs.h; sourceTree = "<group>"; };
 		C3D219E125FAD0820066AC4E /* InsecureValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsecureValueTransformer.h; sourceTree = "<group>"; };
@@ -3676,6 +3679,8 @@
 				6DB8C1E824599DF8002CDCCB /* ZColor.m */,
 				C3FD3FD425E99572006F457A /* ScalingScrollView.h */,
 				C3FD3FD325E99572006F457A /* ScalingScrollView.m */,
+				C3C4AA5625EA5B2600938AB6 /* NonScalingScrollView.h */,
+				C3C4AA5725EA5B2600938AB6 /* NonScalingScrollView.m */,
 				6D85C894218BD6E00088D849 /* HelpPanelController.h */,
 				6D85C895218BD6E00088D849 /* HelpPanelController.m */,
 			);
@@ -6022,6 +6027,7 @@
 				C33B4504257E84500017EA26 /* ZMenu.m in Sources */,
 				C3AD642526176737008614C5 /* BufferTextView.m in Sources */,
 				6DF73C3523B8F46100F76CF9 /* GlkStyle.m in Sources */,
+				C3C4AA5825EA5B2600938AB6 /* NonScalingScrollView.m in Sources */,
 				C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */,
 				6DC520AA23BAD54B0004923A /* Game.m in Sources */,
 				6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */,

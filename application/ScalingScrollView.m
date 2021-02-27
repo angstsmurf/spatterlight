@@ -6,7 +6,7 @@
     [super awakeFromNib];
     [self setAllowsMagnification:YES];
     [self setMaxMagnification:8.0];
-    [self setMinMagnification:1];
+    [self setMinMagnification:1.0];
 }
 
 - (CGFloat)scaleFactor {
@@ -19,6 +19,8 @@
 
 - (IBAction)zoomToActualSize:(id)sender {
     [[self animator] setMagnification:1.0];
+//    [self magnifyToFitRect:self.documentView.bounds];
+    [self.window setContentSize:self.documentView.bounds.size];
 }
 
 - (IBAction)zoomIn:(id)sender {
@@ -37,6 +39,10 @@
 */
 - (BOOL)preservesContentDuringLiveResize {
     return [self drawsBackground];
+}
+
+-(BOOL)isCompatibleWithResponsiveScrolling {
+    return YES;
 }
 
 @end
