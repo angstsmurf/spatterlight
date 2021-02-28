@@ -23,7 +23,9 @@
 /* the treaty of babel headers */
 #include "babel_handler.h"
 
-@interface PreviewViewController () <QLPreviewingController>
+@interface PreviewViewController () <QLPreviewingController> {
+    NSMutableDictionary<NSURL *, NSData *> *globalBookmarks;
+}
 
 @end
 
@@ -39,6 +41,7 @@
     NSLog(@"self.view.frame %@", NSStringFromRect(self.view.frame));
     //        self.preferredContentSize = NSMakeSize(582, 256);
 
+    [self loadBookmarks];
     // Do any additional setup after loading the view.
 }
 
@@ -54,9 +57,9 @@
             NSString *groupIdentifier =
             [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
 
-            NSURL *directory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+            NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
 
-            NSURL *url = [NSURL fileURLWithPath:[directory.path stringByAppendingPathComponent:@"Spatterlight.storedata"]];
+            url = [url URLByAppendingPathComponent:@"Spatterlight.storedata"];
 
             NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:url];
 
@@ -428,7 +431,7 @@
 }
 
 - (void)sizeTextHorizontally {
-//    NSLog(@"sizeTextHorizontally");
+    //    NSLog(@"sizeTextHorizontally");
     NSScrollView *scrollView = _textview.enclosingScrollView;
     NSRect frame = scrollView.frame;
     NSSize viewSize = self.view.frame.size;
@@ -914,7 +917,7 @@
         if (isForm(ptr, 'I', 'F', 'Z', 'S') || isForm(ptr, 'B', 'F', 'Z', 'S')) {
             ptr += 12;
             unsigned int chunkID;
-            chunkIDAndLength(ptr, &chunkID);
+            NSUInteger length = chunkIDAndLength(ptr, &chunkID);
             if (chunkID == IFFID('I', 'F', 'h', 'd')) {
                 // Game Identifier Chunk
                 NSUInteger releaseNumber = unpackShort(ptr + 8);
@@ -922,6 +925,17 @@
                 NSData *serialData = [NSData dataWithBytes:ptr + 10 length:6];
                 NSUInteger checksum  = unpackShort(ptr + 16);
                 NSString *serialNum = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
+
+                // See if we can find a path to the game file as well
+                __block NSString *path = nil;
+                ptr += paddedLength(length) + 8;
+                length = chunkIDAndLength(ptr, &chunkID);
+                if (chunkID == IFFID('I', 'n', 't', 'D')) {
+                    // Found IntD chunk!
+                    NSData *pathData = [NSData dataWithBytes:ptr + 20 length:length - 12];
+                    path = [[NSString alloc] initWithData:pathData encoding:NSASCIIStringEncoding];
+                }
+
                 NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
                 if (context) {
                     __block Game *game = nil;
@@ -934,9 +948,17 @@
                         fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:context];
                         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"serialString LIKE[c] %@ AND releaseNumber == %d AND checksum == %d", serialNum, releaseNumber, checksum];
                         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+
+                        //If no match, look for path
+                        if (!fetchedObjects.count && path.length) {
+                            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path LIKE[c] %@", path];
+                            fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+                        }
+
                         if (fetchedObjects.count > 1)
-                            NSLog(@"Found %ld games with matching checksum (%ld)!", fetchedObjects.count, checksum);
+                            NSLog(@"Found %ld matching games!", fetchedObjects.count);
                         game = fetchedObjects.firstObject;
+
                     }];
 
                     if (game) {
@@ -946,19 +968,45 @@
                             _imageView.image = image;
                             _imageView.accessibilityLabel = game.metadata.cover.imageDescription;
                         }
+                    } else {
+
+                        // If we have a game file path, try to guess title from it
+                        if (path.length) {
+                            NSURL *url = [self askForAccessToFolder:path];
+                            NSMutableDictionary *metadata = [self metadataFromURL:url];
+                            if (url) {
+                                [self releaseBookmark:path];
+                                if (metadata[@"cover"]) {
+                                    NSImage *image = [[NSImage alloc] initWithData:metadata[@"cover"]];
+                                    _imageView.image = image;
+                                    _imageView.accessibilityLabel = game.metadata.cover.imageDescription;
+                                }
+                            }
+                            if (!([metadata[@"title"] length])) {
+                                ifid = [self ifidFromFile:path];
+                                if (ifid.length) {
+                                    title = [self titleFromIfid:ifid];
+                                }
+                            }
+                        }
                     }
                 }
+
                 if (!title) {
-                    serialNum = [serialNum stringByReplacingOccurrencesOfString:@"[^0-Z]" withString:@"-" options:NSRegularExpressionSearch range:NSMakeRange(0, 6)];
+                    if (path.length) {
+                        title = path.lastPathComponent;
+                    } else if (!ifid) {
+                        serialNum = [serialNum stringByReplacingOccurrencesOfString:@"[^0-Z]" withString:@"-" options:NSRegularExpressionSearch range:NSMakeRange(0, 6)];
 
-                    NSInteger date = serialNum.intValue;
+                        NSInteger date = serialNum.intValue;
 
-                    if ((date < 700000 || date > 900000) && date != 0 && date != 999999) {
-                        ifid = [NSString stringWithFormat:@"ZCODE-%ld-%@-%04lX", releaseNumber, serialNum, (unsigned long)checksum];
-                    } else {
-                        ifid = [NSString stringWithFormat:@"ZCODE-%ld-%@", releaseNumber, serialNum];
+                        if ((date < 700000 || date > 900000) && date != 0 && date != 999999) {
+                            ifid = [NSString stringWithFormat:@"ZCODE-%ld-%@-%04lX", releaseNumber, serialNum, (unsigned long)checksum];
+                        } else {
+                            ifid = [NSString stringWithFormat:@"ZCODE-%ld-%@", releaseNumber, serialNum];
+                        }
+                        title = [self titleFromIfid:ifid];
                     }
-                    title = [self titleFromIfid:ifid];
                 }
             }
         }
@@ -1009,6 +1057,92 @@
         }
     }
     return ifid;
+}
+
+- (NSURL *)askForAccessToFolder:(NSString *)path {
+    NSString *folderPath = [path stringByDeletingLastPathComponent];
+    NSURL *folderURL = [NSURL fileURLWithPath:folderPath isDirectory:YES];
+    NSData *bookmark = globalBookmarks[folderURL];
+    if (bookmark) {
+        [self restoreBookmark:bookmark];
+    }
+
+    if ([[NSFileManager defaultManager] isReadableFileAtPath:path])
+        return [NSURL fileURLWithPath:path];
+
+    __block NSURL *url = nil;
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    openPanel.message = @"Spatterlight QuickLook extension would like read-only access to files in this folder";
+    openPanel.prompt = @"Authorize";
+    openPanel.canChooseFiles = NO;
+    openPanel.canChooseDirectories = YES;
+    openPanel.canCreateDirectories = NO;
+    openPanel.directoryURL = folderURL;
+
+    [openPanel beginWithCompletionHandler:^(NSInteger result) {
+        if (result == NSModalResponseOK) {
+            url = openPanel.URL;
+            [self storeBookmark:url];
+            [self saveBookmarks];
+        }
+    }];
+    return nil; // This will always be reached before the user has responded
+}
+
+- (NSString *)bookmarkPath {
+    // bookmarks saved in group directory
+    NSString *groupIdentifier =
+    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
+
+    NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+
+    url = [url URLByAppendingPathComponent:@"Bookmarks.dict"];
+    return url.path;
+}
+
+- (void)loadBookmarks {
+    NSString *path = [self bookmarkPath];
+    globalBookmarks = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+}
+
+- (void)saveBookmarks {
+    NSString *path = [self bookmarkPath];
+    [NSKeyedArchiver archiveRootObject:globalBookmarks toFile:path];
+}
+
+- (void)storeBookmark:(NSURL *)url {
+    NSError *error = nil;
+    NSData *data = [url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope  | NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error];
+    if (error)
+        NSLog(@"PreviewViewController storeBookmark error: %@", error);
+    if (!globalBookmarks)
+        globalBookmarks = [NSMutableDictionary new];
+    globalBookmarks[url] = data;
+}
+
+- (void)restoreBookmark:(NSData *)bookmark {
+    NSError *error = nil;
+    BOOL isStale = NO;
+    NSURL *restoredUrl = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithSecurityScope | NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess relativeToURL:nil bookmarkDataIsStale:&isStale error:&error];
+
+    if  (restoredUrl) {
+        if (isStale) {
+            [self storeBookmark:restoredUrl];
+            [self saveBookmarks];
+        }
+        if (![restoredUrl startAccessingSecurityScopedResource]) {
+            NSLog(@"Couldn't access: %@", restoredUrl.path);
+        }
+    }
+    if (error)
+        NSLog(@"PreviewViewController restoreBookmark error: %@", error);
+}
+
+
+- (void)releaseBookmark:(NSString *)path {
+    NSString *folderPath = [path stringByDeletingLastPathComponent];
+    NSURL *folderURL = [NSURL fileURLWithPath:folderPath isDirectory:YES];
+    [folderURL stopAccessingSecurityScopedResource];
 }
 
 @end
