@@ -2798,20 +2798,34 @@ ofDividerAtIndex:0];
 
 - (NSString *)convertAGTFile:(NSString *)origpath {
     NSLog(@"libctl: converting agt to agx");
-    char rapeme[] = "/tmp/cugelcvtout.agx"; /* babel will clobber this, so we
-                                               can't send a const string */
+
+    NSURL *desktopURL = [NSURL fileURLWithPath:origpath
+                                   isDirectory:YES];
+    NSError *error = nil;
+
+    NSURL *temporaryDirectoryURL = [[NSFileManager defaultManager]
+                                    URLForDirectory:NSItemReplacementDirectory
+                                    inDomain:NSUserDomainMask
+                                    appropriateForURL:desktopURL
+                                    create:YES
+                                    error:&error];
+
+    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+
+    tempFilePath = [tempFilePath stringByAppendingPathExtension:@"agx"];
 
     NSString *exepath =
         [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"agt2agx"];
-    NSString *dirpath;
-    NSString *cvtpath;
+    NSURL *dirURL;
+    NSURL *cvtURL;
+
     NSTask *task;
     char *format;
     int status;
 
     task = [[NSTask alloc] init];
     task.launchPath = exepath;
-    task.arguments = @[ @"-o", @"/tmp/cugelcvtout.agx", origpath ];
+    task.arguments = @[ @"-o", tempFilePath, origpath ];
     [task launch];
     [task waitUntilExit];
     status = task.terminationStatus;
@@ -2823,41 +2837,43 @@ ofDividerAtIndex:0];
 
     void *ctx = get_babel_ctx();
 
-    format = babel_init_ctx(rapeme, ctx);
+
+    format = babel_init_ctx((char *)tempFilePath.UTF8String, ctx);
     if (!strcmp(format, "agt")) {
         char buf[TREATY_MINIMUM_EXTENT];
         int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
         if (rv == 1) {
-            dirpath =
-                [_homepath.path stringByAppendingPathComponent:@"Converted"];
+            dirURL =
+                [_homepath URLByAppendingPathComponent:@"Converted"];
 
             [[NSFileManager defaultManager]
-                       createDirectoryAtURL:[NSURL fileURLWithPath:dirpath
-                                                       isDirectory:YES]
+                       createDirectoryAtURL:dirURL
                 withIntermediateDirectories:YES
                                  attributes:nil
                                       error:NULL];
 
-            cvtpath =
-                [dirpath stringByAppendingPathComponent:
+            cvtURL =
+                [dirURL URLByAppendingPathComponent:
                              [@(buf) stringByAppendingPathExtension:@"agx"]];
 
             babel_release_ctx(ctx);
 
-            NSURL *url = [NSURL fileURLWithPath:cvtpath];
 
-            [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+            [[NSFileManager defaultManager] removeItemAtURL:cvtURL error:nil];
 
+            NSURL *tmp = [NSURL fileURLWithPath:tempFilePath];
+
+            error = nil;
             status = [[NSFileManager defaultManager]
-                moveItemAtPath:@"/tmp/cugelcvtout.agx"
-                        toPath:cvtpath
-                         error:nil];
+                moveItemAtURL:tmp
+                        toURL:cvtURL
+                         error:&error];
 
             if (!status) {
-                NSLog(@"libctl: could not move converted file");
+                NSLog(@"libctl: could not move converted file: %@", error);
                 return nil;
             }
-            return cvtpath;
+            return cvtURL.path;
         }
     } else {
         NSLog(@"libctl: babel did not like the converted file");
