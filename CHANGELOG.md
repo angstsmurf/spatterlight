@@ -2,11 +2,11 @@
 
 ## Unreleased
 - Fixes crash when autorestoring saves made when there was no current Glk stream.
-- QuickLook extension for many related file types. Shows useful information and cover images. Tries to guess which games save files and data belong to. macOS 10.15 Catalina and later only.
-- QuickLookThumbnailing extension. Creates icons for game files from cover images. macOS 10.15 Catalina and later only.
-- Accepts Z-code files with .z1 and .z2 extensions. These have always been working, but previously had to be renamed.
+- QuickLook extension for many related file types. Shows useful information and cover images. For save files and data, it tries to guess which game they belong to. Available on macOS 10.15 Catalina and later only.
+- QuickLookThumbnailing extension. Creates icons for game files from cover images. Catalina and later only.
+- Accepts Z-code files with .z1 and .z2 extensions. These have always worked, but previously had to be renamed.
 - Reads cover image descriptions from Blorb resources and adds them as accessibility labels.
-- Fixes to file detection and indentification. No longer thinks that serial-number-less *Suspended* is *Zork I*.
+- Fixes to file detection and identification. No longer misidentifies the serial-number-less *Suspended* as *Zork I*.
 - Once again possible to build source without modification on other computers than mine.
 - Updated URLs to support image downloads from new IFDB site.
 - High resolution icons.
