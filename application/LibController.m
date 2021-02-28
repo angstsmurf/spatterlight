@@ -1642,12 +1642,17 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         return nil;
     } else game.found = YES;
 
-
     if (![[NSFileManager defaultManager] isReadableFileAtPath:path]) {
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = NSLocalizedString(@"Cannot read the file.", nil);
-        alert.informativeText = NSLocalizedString(@"The file exists but can not be read.", nil);
-        [alert runModal];
+        if (!restoreflag) { // Everything will break if we throw up a dialog during system window restoration
+            NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+            openPanel.message = @"An error has occurred. Spatterlight is no longer allowed to open this file!";
+            openPanel.prompt = @"Re-authorize";
+            openPanel.canChooseFiles = YES;
+            openPanel.canChooseDirectories = NO;
+            openPanel.canCreateDirectories = NO;
+            openPanel.directoryURL = url;
+            [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {}];
+        }
         return nil;
     }
 
