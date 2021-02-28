@@ -105,16 +105,13 @@
     NSURL *targetURL =  nil;
 
 //    if ([fileManager fileExistsAtPath:[groupURL path]]) {
-//        NSLog(@"group db exist");
-//        needMigrate = NO;
-//        targetURL = groupURL;
-//
-//        //        if ([fileManager fileExistsAtPath:[oldURL path]]) {
+//      needMigrate = NO;
+//      targetURL = groupURL;
+///        //        if ([fileManager fileExistsAtPath:[oldURL path]]) {
 //        //            needDeleteOld = YES;
 //        //        }
 //    } else if ([fileManager fileExistsAtPath:[oldURL path]]) {
-//        NSLog(@"old single app db exist.");
-        targetURL = oldURL;
+          targetURL = oldURL;
 //        needMigrate = YES;
 //    }
 
