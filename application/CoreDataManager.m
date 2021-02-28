@@ -70,7 +70,7 @@
     [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+    NSURL *applicationFilesDirectory = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
     NSError *error = nil;
 
     NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
@@ -100,9 +100,7 @@
     }
 
 //    NSURL *groupURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
-
-//    NSString *storeFileName =  [groupURL.path stringByAppendingPathComponent:@"Spatterlight.storedata"];
-//    groupURL = [NSURL fileURLWithPath:storeFileName];
+//    groupURL = [groupURL URLByAppendingPathComponent:@"Spatterlight.storedata"];
 
     NSURL *targetURL =  nil;
 
