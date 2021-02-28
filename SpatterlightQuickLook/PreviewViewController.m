@@ -41,7 +41,6 @@
     NSLog(@"self.view.frame %@", NSStringFromRect(self.view.frame));
     //        self.preferredContentSize = NSMakeSize(582, 256);
 
-    [self loadBookmarks];
     // Do any additional setup after loading the view.
 }
 
@@ -968,27 +967,6 @@
                             _imageView.image = image;
                             _imageView.accessibilityLabel = game.metadata.cover.imageDescription;
                         }
-                    } else {
-
-                        // If we have a game file path, try to guess title from it
-                        if (path.length) {
-                            NSURL *url = [self askForAccessToFolder:path];
-                            NSMutableDictionary *metadata = [self metadataFromURL:url];
-                            if (url) {
-                                [self releaseBookmark:path];
-                                if (metadata[@"cover"]) {
-                                    NSImage *image = [[NSImage alloc] initWithData:metadata[@"cover"]];
-                                    _imageView.image = image;
-                                    _imageView.accessibilityLabel = game.metadata.cover.imageDescription;
-                                }
-                            }
-                            if (!([metadata[@"title"] length])) {
-                                ifid = [self ifidFromFile:path];
-                                if (ifid.length) {
-                                    title = [self titleFromIfid:ifid];
-                                }
-                            }
-                        }
                     }
                 }
 
@@ -1057,92 +1035,6 @@
         }
     }
     return ifid;
-}
-
-- (NSURL *)askForAccessToFolder:(NSString *)path {
-    NSString *folderPath = [path stringByDeletingLastPathComponent];
-    NSURL *folderURL = [NSURL fileURLWithPath:folderPath isDirectory:YES];
-    NSData *bookmark = globalBookmarks[folderURL];
-    if (bookmark) {
-        [self restoreBookmark:bookmark];
-    }
-
-    if ([[NSFileManager defaultManager] isReadableFileAtPath:path])
-        return [NSURL fileURLWithPath:path];
-
-    __block NSURL *url = nil;
-    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    openPanel.message = @"Spatterlight QuickLook extension would like read-only access to files in this folder";
-    openPanel.prompt = @"Authorize";
-    openPanel.canChooseFiles = NO;
-    openPanel.canChooseDirectories = YES;
-    openPanel.canCreateDirectories = NO;
-    openPanel.directoryURL = folderURL;
-
-    [openPanel beginWithCompletionHandler:^(NSInteger result) {
-        if (result == NSModalResponseOK) {
-            url = openPanel.URL;
-            [self storeBookmark:url];
-            [self saveBookmarks];
-        }
-    }];
-    return nil; // This will always be reached before the user has responded
-}
-
-- (NSString *)bookmarkPath {
-    // bookmarks saved in group directory
-    NSString *groupIdentifier =
-    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
-
-    NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
-
-    url = [url URLByAppendingPathComponent:@"Bookmarks.dict"];
-    return url.path;
-}
-
-- (void)loadBookmarks {
-    NSString *path = [self bookmarkPath];
-    globalBookmarks = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-}
-
-- (void)saveBookmarks {
-    NSString *path = [self bookmarkPath];
-    [NSKeyedArchiver archiveRootObject:globalBookmarks toFile:path];
-}
-
-- (void)storeBookmark:(NSURL *)url {
-    NSError *error = nil;
-    NSData *data = [url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope  | NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error];
-    if (error)
-        NSLog(@"PreviewViewController storeBookmark error: %@", error);
-    if (!globalBookmarks)
-        globalBookmarks = [NSMutableDictionary new];
-    globalBookmarks[url] = data;
-}
-
-- (void)restoreBookmark:(NSData *)bookmark {
-    NSError *error = nil;
-    BOOL isStale = NO;
-    NSURL *restoredUrl = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithSecurityScope | NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess relativeToURL:nil bookmarkDataIsStale:&isStale error:&error];
-
-    if  (restoredUrl) {
-        if (isStale) {
-            [self storeBookmark:restoredUrl];
-            [self saveBookmarks];
-        }
-        if (![restoredUrl startAccessingSecurityScopedResource]) {
-            NSLog(@"Couldn't access: %@", restoredUrl.path);
-        }
-    }
-    if (error)
-        NSLog(@"PreviewViewController restoreBookmark error: %@", error);
-}
-
-
-- (void)releaseBookmark:(NSString *)path {
-    NSString *folderPath = [path stringByDeletingLastPathComponent];
-    NSURL *folderURL = [NSURL fileURLWithPath:folderPath isDirectory:YES];
-    [folderURL stopAccessingSecurityScopedResource];
 }
 
 @end
