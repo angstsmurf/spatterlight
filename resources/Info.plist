@@ -514,6 +514,7 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>qut</string>
+				<string>qzl</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>LegacyIcon</string>
@@ -1237,6 +1238,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>qut</string>
+					<string>qzl</string>
 				</array>
 			</dict>
 		</dict>
