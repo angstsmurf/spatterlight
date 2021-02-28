@@ -28,11 +28,11 @@
             _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"Spatterlight"];
 
             NSString *groupIdentifier =
-                [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
+            [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
 
-            NSURL *directory = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+            NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
 
-            NSURL *url = [NSURL fileURLWithPath:[directory.path stringByAppendingPathComponent:@"Spatterlight.storedata"]];
+            url = [url URLByAppendingPathComponent:@"Spatterlight.storedata"];
 
             NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:url];
 
