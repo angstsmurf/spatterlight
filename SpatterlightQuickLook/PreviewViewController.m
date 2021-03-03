@@ -39,7 +39,9 @@
     [super loadView];
     NSLog(@"loadView");
     NSLog(@"self.view.frame %@", NSStringFromRect(self.view.frame));
-    //        self.preferredContentSize = NSMakeSize(582, 256);
+    if (@available(macOS 11, *)) {
+        self.preferredContentSize = NSMakeSize(575, 285);
+    }
 
     // Do any additional setup after loading the view.
 }
@@ -400,16 +402,16 @@
     NSSize viewSize = _imageView.superview.frame.size;
 
     //We want the image to be at most two thirds of the view height
-    [self sizeImageToFitWidth:viewSize.width - 40 height:round(2 * viewSize.height / 3 - 40)];
+    [self sizeImageToFitWidth:viewSize.width - 40 height:round(viewSize.height - 40)];
 
     NSRect frame = _imageView.frame;
     frame.size.height = _imageView.image.size.height;
     frame.size.width = viewSize.width - 40;
-    frame.origin.y = viewSize.height - frame.size.height - 20;
+    frame.origin.y = round((viewSize.height - frame.size.height) / 2);
     frame.origin.x = 20;
     if (!NSEqualRects(frame, _imageView.frame))
         _imageView.frame = frame;
-    _imageView.imageAlignment =  NSImageAlignTop;
+    _imageView.imageAlignment =  NSImageAlignCenter;
 }
 
 - (void)sizeText {
@@ -470,29 +472,12 @@
             _imageView.imageAlignment = NSImageAlignTop;
         }
     }
+    _textview.hidden = NO;
 }
 
 - (void)sizeTextVertically {
     //    NSLog(@"sizeTextVertically");
-
-    NSScrollView *scrollView = _textview.enclosingScrollView;
-    NSRect frame = scrollView.frame;
-
-    NSSize viewSize = scrollView.superview.frame.size;
-
-    frame.size.height = round(viewSize.height - _imageView.frame.size.height - 60);
-    if (frame.size.height < 0)
-        frame.size.height = 5;
-
-    frame.size.width = round(viewSize.width - 40);
-    frame.origin = NSMakePoint(20, 20);
-
-    if (!NSEqualRects(scrollView.frame, frame))
-        scrollView.frame = frame;
-
-    frame = _textview.frame;
-    frame.size.width = scrollView.frame.size.width;
-    _textview.frame = frame;
+    _textview.hidden = YES;
 }
 
 - (CGFloat)heightForString:(NSAttributedString *)attString andWidth:(CGFloat)textWidth {
