@@ -362,9 +362,9 @@
 
 - (void)imageShadow {
     NSShadow *shadow = [NSShadow new];
-    shadow.shadowOffset = NSMakeSize(1, -1);
+    shadow.shadowOffset = NSMakeSize(2, -2);
     shadow.shadowColor = [NSColor controlShadowColor];
-    shadow.shadowBlurRadius = 1;
+    shadow.shadowBlurRadius = 2;
     _imageView.wantsLayer = YES;
     _imageView.superview.wantsLayer = YES;
     _imageView.shadow = shadow;
