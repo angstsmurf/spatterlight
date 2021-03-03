@@ -106,22 +106,6 @@
 			<string>Binary</string>
 		</dict>
 		<dict>
-			<key>CFBundleTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>1</integer>
-			<key>CFBundleTypeName</key>
-			<string>Glk Data File</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.glkdata</string>
-			</array>
-		</dict>
-		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>dat</string>
@@ -493,47 +477,6 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>glksave</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>1</integer>
-			<key>CFBundleTypeName</key>
-			<string>Glk Save File</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.glksave</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>qut</string>
-				<string>qzl</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>1</integer>
-			<key>CFBundleTypeName</key>
-			<string>Quetzal saved game</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.qut</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
 				<string>sna</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
@@ -585,7 +528,7 @@
 	<string>NSApplication</string>
 	<key>NSRequiresAquaSystemAppearance</key>
 	<false/>
-	<key>UTExportedTypeDeclarations</key>
+	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -600,7 +543,7 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>Bookmark</string>
 				<key>UTTypeIconBadgeName</key>
 				<string></string>
 				<key>UTTypeIconText</key>
@@ -658,6 +601,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.xml</string>
 				<string>public.content</string>
 				<string>public.data</string>
 			</array>
@@ -669,6 +613,8 @@
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
 				<string>IconGameHires</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>I</string>
 				<key>UTTypeIconText</key>
 				<string>iFiction</string>
 			</dict>
@@ -684,9 +630,6 @@
 				</array>
 			</dict>
 		</dict>
-	</array>
-	<key>UTImportedTypeDeclarations</key>
-	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
@@ -700,7 +643,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>A</string>
 				<key>UTTypeIconText</key>
 				<string>ALAN</string>
 			</dict>
@@ -730,9 +675,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>M</string>
 				<key>UTTypeIconText</key>
 				<string>MAGNETIC</string>
 			</dict>
@@ -759,9 +704,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>A</string>
 				<key>UTTypeIconText</key>
 				<string>AGT</string>
 			</dict>
@@ -788,9 +733,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>A</string>
 				<key>UTTypeIconText</key>
 				<string>ADRIFT</string>
 			</dict>
@@ -817,9 +762,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>Z</string>
 				<key>UTTypeIconText</key>
 				<string>ZCODE</string>
 			</dict>
@@ -857,9 +802,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>Z</string>
 				<key>UTTypeIconText</key>
 				<string>ZCODE</string>
 			</dict>
@@ -929,9 +874,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>Z</string>
 				<key>UTTypeIconText</key>
 				<string>ZBLORB</string>
 			</dict>
@@ -965,9 +910,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>G</string>
 				<key>UTTypeIconText</key>
 				<string>GBLORB</string>
 			</dict>
@@ -1001,9 +946,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>G</string>
 				<key>UTTypeIconText</key>
 				<string>GLULX</string>
 			</dict>
@@ -1036,9 +981,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>H</string>
 				<key>UTTypeIconText</key>
 				<string>HUGO</string>
 			</dict>
@@ -1067,9 +1012,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>T</string>
 				<key>UTTypeIconText</key>
 				<string>TADS 2</string>
 			</dict>
@@ -1102,9 +1047,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>IconGameHires</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>T</string>
 				<key>UTTypeIconText</key>
 				<string>TADS 3</string>
 			</dict>
@@ -1184,6 +1129,34 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeDescription</key>
+			<string>Level 9 game</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBadgeName</key>
+				<string>L</string>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconText</key>
+				<string>LEVEL 9</string>
+			</dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.level9</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>public.level9</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>l9</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.content</string>
@@ -1196,9 +1169,9 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>LegacyIcon</string>
+				<string>BackgroundNew</string>
 				<key>UTTypeIconBadgeName</key>
-				<string></string>
+				<string>A</string>
 				<key>UTTypeIconText</key>
 				<string>AGT</string>
 			</dict>
@@ -1225,11 +1198,11 @@
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBackgroundName</key>
-				<string>LegacyIcon</string>
+				<string>Bookmark</string>
 				<key>UTTypeIconBadgeName</key>
 				<string></string>
 				<key>UTTypeIconText</key>
-				<string>AGT</string>
+				<string>SAVE</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.qut</string>
