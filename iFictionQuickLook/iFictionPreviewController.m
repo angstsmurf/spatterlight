@@ -25,7 +25,10 @@
 //    NSLog(@"Initial view frame: %@", NSStringFromRect(self.view.frame));
 //    NSLog(@"Initial window frame: %@", NSStringFromRect(self.view.window.frame));
 
-    //    self.preferredContentSize = NSMakeSize(820, 846);
+    if (@available(macOS 11, *)) {
+        self.preferredContentSize = NSMakeSize(820, 846);
+    }
+
 }
 
 /*

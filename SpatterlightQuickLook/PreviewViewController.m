@@ -42,8 +42,6 @@
     if (@available(macOS 11, *)) {
         self.preferredContentSize = NSMakeSize(575, 285);
     }
-
-    // Do any additional setup after loading the view.
 }
 
 #pragma mark - Core Data stack
