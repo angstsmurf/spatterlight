@@ -48,56 +48,53 @@
     
     // Perform any setup necessary in order to prepare the view.
 
-    NSError *error = nil;
-    NSXMLDocument *xml =
-    [[NSXMLDocument alloc] initWithContentsOfURL:url options: NSXMLDocumentTidyXML error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    NSString *contents = [xml XMLStringWithOptions:NSXMLNodePrettyPrint];
-    if (!contents || !contents.length) {
-        contents = @"<No iFiction data found in file>";
-    }
-
-    NSBundle *main = [NSBundle mainBundle];
-    NSString *resourcePath = [main pathForResource:@"iFiction" ofType:@"plist"];
-
-    NSURL *plisturl = [NSURL fileURLWithPath:resourcePath];
-
-    _syntaxColorer = [[UKSyntaxColor alloc] initWithString:contents];
-
-    error = nil;
-
-    if (@available(macOS 10.13, *)) {
-        _syntaxColorer.syntaxDefinitionDictionary = [NSDictionary dictionaryWithContentsOfURL:plisturl error:&error];
-    }
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    NSMutableDictionary *defaultText = [NSMutableDictionary new];
-
-    NSMutableParagraphStyle *style;
-
     if (@available(macOS 10.15, *)) {
+        NSError *error = nil;
+        NSXMLDocument *xml =
+        [[NSXMLDocument alloc] initWithContentsOfURL:url options: NSXMLDocumentTidyXML error:&error];
+
+        if (error)
+            NSLog(@"Error: %@", error);
+
+        NSString *contents = [xml XMLStringWithOptions:NSXMLNodePrettyPrint];
+        if (!contents || !contents.length) {
+            contents = @"<No iFiction data found in file>";
+        }
+
+        NSBundle *main = [NSBundle mainBundle];
+        NSString *resourcePath = [main pathForResource:@"iFiction" ofType:@"plist"];
+
+        NSURL *plisturl = [NSURL fileURLWithPath:resourcePath];
+
+        _syntaxColorer = [[UKSyntaxColor alloc] initWithString:contents];
+
+        error = nil;
+
+        _syntaxColorer.syntaxDefinitionDictionary = [NSDictionary dictionaryWithContentsOfURL:plisturl error:&error];
+
+
+        if (error)
+            NSLog(@"Error: %@", error);
+
+        NSMutableDictionary *defaultText = [NSMutableDictionary new];
+
+        NSMutableParagraphStyle *style;
+
         defaultText[NSFontAttributeName] = [NSFont systemFontOfSize:[NSFont systemFontSize] weight:NSFontWeightRegular];
         style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
         style.firstLineHeadIndent = 0;
         style.headIndent = 60;
         defaultText[NSParagraphStyleAttributeName] = style;
+
+        _syntaxColorer.defaultTextAttributes = defaultText;
+
+        [_syntaxColorer recolorCompleteFile:nil];
+
+        [_textview.textStorage setAttributedString:_syntaxColorer.coloredString];
+
+        // Call the completion handler so Quick Look knows that the preview is fully loaded.
+        // Quick Look will display a loading spinner while the completion handler is not called.
     }
-
-    _syntaxColorer.defaultTextAttributes = defaultText;
-
-    [_syntaxColorer recolorCompleteFile:nil];
-
-    [_textview.textStorage setAttributedString:_syntaxColorer.coloredString];
-
-    
-    // Call the completion handler so Quick Look knows that the preview is fully loaded.
-    // Quick Look will display a loading spinner while the completion handler is not called.
-    
     handler(nil);
 //    [self printFinalLayout];
 }
