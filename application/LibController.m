@@ -79,6 +79,15 @@ enum  {
     return flag;
 }
 
+//- (void)keyDown:(NSEvent *)event {
+//    NSLog(@"keyDown");
+//    NSString *pressed = event.characters;
+//    if ([pressed isEqualToString:@" "])
+//        [(LibController *)self.delegate showGameInfo:nil];
+//    else
+//        [super keyDown:event];
+//}
+
 // NSTableView delegate
 -(BOOL)tableView:(NSTableView *)tableView
 shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
