@@ -753,8 +753,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", path];
             _infoWindows[path] = infoctl;
         }
+        infoWindow.animationBehavior = NSWindowAnimationBehaviorDocumentWindow;
     }
-
     [infoctl showWindow:nil];
 }
 
