@@ -15,6 +15,7 @@
 
 #import "Blorb.h"
 
+#include "babel_handler.h"
 
 @implementation ThumbnailProvider
 
@@ -93,6 +94,14 @@
             return;
         }
 
+        if (!fetchedObjects.count) {
+            NSString *ifid = [self ifidFromFile:url.path];
+            if (ifid.length) {
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", ifid];
+                fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+            }
+        }
+
         if (fetchedObjects.count) {
             Game *game = fetchedObjects[0];
             imgdata = (NSData *)game.metadata.cover.data;
@@ -162,6 +171,28 @@
      handler([QLThumbnailReply replyWithImageFileURL:[NSBundle.mainBundle URLForResource:@"fileThumbnail" withExtension:@"jpg"]], nil);
 
      */
+}
+
+- (NSString *)ifidFromFile:(NSString *)path {
+    void *context = get_babel_ctx();
+    char *format = babel_init_ctx((char*)path.UTF8String, context);
+    if (!format || !babel_get_authoritative_ctx(context))
+    {
+        babel_release_ctx(context);
+        return nil;
+    }
+
+    char buf[TREATY_MINIMUM_EXTENT];
+
+    int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
+    if (rv <= 0)
+    {
+        babel_release_ctx(context);
+        return nil;
+    }
+
+    babel_release_ctx(context);
+    return @(buf);
 }
 
 @end
