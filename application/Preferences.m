@@ -44,6 +44,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSDate *themeDuplicationTimestamp;
     Theme *lastDuplicatedTheme;
+
+    NSDictionary *catalinaSoundsToBigSur;
+    NSDictionary *bigSurSoundsToCatalina;
 }
 @end
 
@@ -1163,6 +1166,48 @@ NSString *fontToString(NSFont *font) {
     _strictZArrowsMenuItem.title = @"↑↓ and ←→ work as in original";
     _strictZArrowsMenuItem.toolTip = @"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history. ← and → don't do anything.";
 
+    if (@available(macOS 11, *)) {
+
+        catalinaSoundsToBigSur = @{ @"Purr" : @"Pluck",
+                                    @"Tink" : @"Boop",
+                                    @"Blow" : @"Breeze",
+                                    @"Pop" : @"Bubble",
+                                    @"Glass" : @"Crystal",
+                                    @"Funk" : @"Funky",
+                                    @"Hero" : @"Heroine",
+                                    @"Frog" : @"Jump",
+                                    @"Basso" : @"Mezzo",
+                                    @"Bottle" : @"Pebble",
+                                    @"Morse" : @"Pong",
+                                    @"Ping" : @"Sonar",
+                                    @"Sosumi" : @"Sonumi",
+                                    @"Submarine" : @"Submerge" };
+
+        bigSurSoundsToCatalina = @{ @"Pluck" : @"Purr",
+                                    @"Boop" : @"Tink",
+                                    @"Breeze" : @"Blow",
+                                    @"Bubble" : @"Pop",
+                                    @"Crystal": @"Glass",
+                                    @"Funky" : @"Funk",
+                                    @"Heroine" : @"Hero",
+                                    @"Jump" : @"Frog",
+                                    @"Mezzo" : @"Basso",
+                                    @"Pebble" : @"Bottle",
+                                    @"Pong" : @"Morse",
+                                    @"Sonar" : @"Ping",
+                                    @"Sonumi" : @"Sosumi",
+                                    @"Submerge" : @"Submarine" };
+
+        for (NSString *key in catalinaSoundsToBigSur.allKeys) {
+            NSMenuItem *menuItem = [_beepHighMenu itemWithTitle:key];
+            menuItem.title = catalinaSoundsToBigSur[key];
+            menuItem = [_beepLowMenu itemWithTitle:key];
+            menuItem.title = catalinaSoundsToBigSur[key];
+        }
+    }
+
+
+
     if (!theme)
         theme = self.defaultTheme;
 
@@ -1294,8 +1339,21 @@ NSString *fontToString(NSFont *font) {
 
     _btnVOSpeakCommands.state = theme.vOSpeakCommand;
     [_vOMenuButton selectItemAtIndex:theme.vOSpeakMenu];
-    [_beepHighMenu selectItemWithTitle:theme.beepHigh];
-    [_beepLowMenu selectItemWithTitle:theme.beepLow];
+
+    NSString *beepHigh = theme.beepHigh;
+    NSString *beepLow = theme.beepLow;
+
+    if (@available(macOS 11, *)) {
+        NSString *newHigh = catalinaSoundsToBigSur[beepHigh];
+        if (newHigh)
+            beepHigh = newHigh;
+        NSString *newLow = catalinaSoundsToBigSur[beepLow];
+        if (newLow)
+            beepLow = newLow;
+    }
+
+    [_beepHighMenu selectItemWithTitle:beepHigh];
+    [_beepLowMenu selectItemWithTitle:beepLow];
     [_zterpMenu selectItemAtIndex:theme.zMachineTerp];
     [_bZArrowsMenu selectItemAtIndex:theme.bZTerminator];
 
@@ -2273,27 +2331,42 @@ textShouldEndEditing:(NSText *)fieldEditor {
 #pragma mark ZCode menu
 
 - (IBAction)changeBeepHighMenu:(id)sender {
-    NSSound *sound = [NSSound soundNamed:[sender titleOfSelectedItem]];
+    NSString *title = [sender titleOfSelectedItem];
+    NSSound *sound = [NSSound soundNamed:title];
+    if (@available(macOS 11, *)) {
+        if (!sound) {
+            title = bigSurSoundsToCatalina[title];
+            sound = [NSSound soundNamed:title];
+        }
+    }
     if (sound) {
         [sound stop];
         [sound play];
     }
-    if ([theme.beepHigh isEqualToString:[sender titleOfSelectedItem]])
+    if ([theme.beepHigh isEqualToString:title])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.beepHigh = [sender titleOfSelectedItem];
+    themeToChange.beepHigh = title;
 }
 
 - (IBAction)changeBeepLowMenu:(id)sender {
-    NSSound *sound = [NSSound soundNamed:[sender titleOfSelectedItem]];
+    NSString *title = [sender titleOfSelectedItem];
+    NSSound *sound = [NSSound soundNamed:title];
+    if (@available(macOS 11, *)) {
+        if (!sound) {
+            title = bigSurSoundsToCatalina[title];
+            sound = [NSSound soundNamed:title];
+        }
+    }
     if (sound) {
         [sound stop];
         [sound play];
     }
-    if ([theme.beepLow isEqualToString:[sender titleOfSelectedItem]])
+
+    if ([theme.beepLow isEqualToString:title])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.beepLow = [sender titleOfSelectedItem];
+    themeToChange.beepLow = title;
 }
 
 - (IBAction)changeZterpMenu:(id)sender {

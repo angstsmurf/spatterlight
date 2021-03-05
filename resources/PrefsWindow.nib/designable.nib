@@ -71,7 +71,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="155" y="449" width="516" height="437"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="516" height="308"/>
             <value key="maxSize" type="size" width="516" height="500"/>
             <view key="contentView" id="408">
@@ -130,7 +130,7 @@
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
-                                                            <tableColumn editable="NO" width="411" minWidth="40" maxWidth="1000" id="680">
+                                                            <tableColumn editable="NO" width="382" minWidth="40" maxWidth="1000" id="680">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -143,11 +143,11 @@
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                 <prototypeCellViews>
                                                                     <tableCellView id="812">
-                                                                        <rect key="frame" x="1" y="1" width="411" height="17"/>
+                                                                        <rect key="frame" x="11" y="1" width="391" height="17"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="813">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="411" height="17"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="391" height="17"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="814">
                                                                                     <font key="font" metaFont="smallSystem"/>
@@ -796,7 +796,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton toolTip="This sound is used in some Infocom games when the score increases." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xkA-iq-2mP">
+                                        <popUpButton toolTip="This sound is used in some Infocom games when the score goes up." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xkA-iq-2mP">
                                             <rect key="frame" x="180" y="106" width="235" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Basso" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="TK6-dR-kj2" id="UaZ-i2-bNA">
@@ -867,7 +867,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton toolTip="This sound is used in some Infocom games to emphasize warnings or errors." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HRf-IU-ZEE">
+                                        <popUpButton toolTip="This sound is used in some Infocom games to announce warnings or errors." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HRf-IU-ZEE">
                                             <rect key="frame" x="180" y="79" width="235" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Basso" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Pbz-BR-DMZ" id="GoR-3l-PSP">
@@ -1219,59 +1219,60 @@
         </numberFormatter>
     </objects>
     <resources>
-        <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="NSActionTemplate" width="15" height="15"/>
+        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="NSRemoveTemplate" width="14" height="4"/>
         <image name="NSSynchronize" width="150" height="150"/>
         <image name="buttonCell:977:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
-S2V5ZWRBcmNoaXZlctEICVRyb290gAGuCwwZGh8UJCgpMDM2PD9VJG51bGzWDQ4PEBESExQVFhcYVk5T
+S2V5ZWRBcmNoaXZlctEICVRyb290gAGuCwwZGh8UJCkqMTQ3PUBVJG51bGzWDQ4PEBESExQVFhcYVk5T
 U2l6ZV5OU1Jlc2l6aW5nTW9kZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVwc1dOU0NvbG9ygAIQAIAN
-EiDDAACAA4ALVnsxLCAxfdIbDxweWk5TLm9iamVjdHOhHYAEgArSGw8gI6IhIoAFgAaACdIlDyYnXxAU
-TlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxEIiE1NACoAAAAKAAAAEAEAAAMAAAABAAEAAAEBAAMAAAAB
-AAEAAAECAAMAAAACAAgACAEDAAMAAAABAAEAAAEGAAMAAAABAAEAAAEKAAMAAAABAAEAAAERAAQAAAAB
-AAAACAESAAMAAAABAAEAAAEVAAMAAAABAAIAAAEWAAMAAAABAAEAAAEXAAQAAAABAAAAAgEcAAMAAAAB
-AAEAAAEoAAMAAAABAAIAAAFSAAMAAAABAAEAAAFTAAMAAAACAAEAAYdzAAcAAAe4AAAA0AAAAAAAAAe4
-YXBwbAIgAABtbnRyR1JBWVhZWiAH0AACAA4ADAAAAABhY3NwQVBQTAAAAABub25lAAAAAAAAAAAAAAAA
-AAAAAAAA9tYAAQAAAADTLWFwcGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAVkZXNjAAAAwAAAAG9kc2NtAAABMAAABixjcHJ0AAAHXAAAADh3dHB0AAAHlAAAABRrVFJD
-AAAHqAAAAA5kZXNjAAAAAAAAABVHZW5lcmljIEdyYXkgUHJvZmlsZQAAAAAAAAAAAAAAFUdlbmVyaWMg
-R3JheSBQcm9maWxlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-bWx1YwAAAAAAAAAeAAAADHNrU0sAAAAqAAABeGhySFIAAAA6AAABomNhRVMAAAAsAAAB3HB0QlIAAAAq
-AAACCHVrVUEAAAAsAAACMmZyRlUAAAAqAAACXnpoVFcAAAAQAAACiGl0SVQAAAAuAAACmG5iTk8AAAAs
-AAACxmtvS1IAAAAYAAAC8mNzQ1oAAAAkAAADCmhlSUwAAAAgAAADLmRlREUAAAA6AAADTmh1SFUAAAAu
-AAADiHN2U0UAAAAuAAADtnpoQ04AAAAQAAAD5GphSlAAAAAWAAAD9HJvUk8AAAAiAAAECmVsR1IAAAAk
-AAAELHB0UE8AAAA4AAAEUG5sTkwAAAAqAAAEiGVzRVMAAAAoAAAEsnRoVEgAAAAkAAAE2nRyVFIAAAAi
-AAAE/mZpRkkAAAAsAAAFIHBsUEwAAAA2AAAFTHJ1UlUAAAAmAAAFgmFyRUcAAAAoAAAFqGVuVVMAAAAo
-AAAF0GRhREsAAAA0AAAF+ABWAWEAZQBvAGIAZQBjAG4A/QAgAHMAaQB2AP0AIABwAHIAbwBmAGkAbABH
-AGUAbgBlAHIAaQENAGsAaQAgAHAAcgBvAGYAaQBsACAAcwBpAHYAaQBoACAAdABvAG4AbwB2AGEAUABl
-AHIAZgBpAGwAIABkAGUAIABnAHIAaQBzACAAZwBlAG4A6AByAGkAYwBQAGUAcgBmAGkAbAAgAEMAaQBu
-AHoAYQAgAEcAZQBuAOkAcgBpAGMAbwQXBDAEMwQwBDsETAQ9BDgEOQAgBD8EQAQ+BEQEMAQ5BDsAIABH
-AHIAYQB5AFAAcgBvAGYAaQBsACAAZwDpAG4A6QByAGkAcQB1AGUAIABnAHIAaQBzkBp1KHBwlo6Ccl9p
-Y8+P8ABQAHIAbwBmAGkAbABvACAAZwByAGkAZwBpAG8AIABnAGUAbgBlAHIAaQBjAG8ARwBlAG4AZQBy
-AGkAcwBrACAAZwByAOUAdABvAG4AZQBwAHIAbwBmAGkAbMd8vBgAIABHAHIAYQB5ACDVBLhc0wzHfABP
-AGIAZQBjAG4A/QAgAWEAZQBkAP0AIABwAHIAbwBmAGkAbAXkBegF1QXkBdkF3AAgAEcAcgBhAHkAIAXb
-BdwF3AXZAEEAbABsAGcAZQBtAGUAaQBuAGUAcwAgAEcAcgBhAHUAcwB0AHUAZgBlAG4ALQBQAHIAbwBm
-AGkAbADBAGwAdABhAGwA4QBuAG8AcwAgAHMAegD8AHIAawBlACAAcAByAG8AZgBpAGwARwBlAG4AZQBy
-AGkAcwBrACAAZwByAOUAcwBrAGEAbABlAHAAcgBvAGYAaQBsZm6QGnBwXqZjz4/wZYdO9k4AgiwwsDDs
-MKQw1zDtMNUwoTCkMOsAUAByAG8AZgBpAGwAIABnAHIAaQAgAGcAZQBuAGUAcgBpA5MDtQO9A7kDugPM
-ACADwAPBA78DxgOvA7sAIAOzA7oDwQO5AFAAZQByAGYAaQBsACAAZwBlAG4A6QByAGkAYwBvACAAZABl
-ACAAYwBpAG4AegBlAG4AdABvAHMAQQBsAGcAZQBtAGUAZQBuACAAZwByAGkAagBzAHAAcgBvAGYAaQBl
-AGwAUABlAHIAZgBpAGwAIABnAHIAaQBzACAAZwBlAG4A6QByAGkAYwBvDkIOGw4jDkQOHw4lDkwOKg41
-DkAOFw4yDhcOMQ5IDicORA4bAEcAZQBuAGUAbAAgAEcAcgBpACAAUAByAG8AZgBpAGwAaQBZAGwAZQBp
-AG4AZQBuACAAaABhAHIAbQBhAGEAcAByAG8AZgBpAGkAbABpAFUAbgBpAHcAZQByAHMAYQBsAG4AeQAg
-AHAAcgBvAGYAaQBsACAAcwB6AGEAcgBvAVsAYwBpBB4EMQRJBDgEOQAgBEEENQRABEsEOQAgBD8EQAQ+
-BEQEOAQ7BEwGRQZEBkEAIAYqBjkGMQZKBkEAIABHAHIAYQB5ACAGJwZEBjkGJwZFAEcAZQBuAGUAcgBp
-AGMAIABHAHIAYQB5ACAAUAByAG8AZgBpAGwAZQBHAGUAbgBlAHIAZQBsACAAZwByAOUAdABvAG4AZQBi
-AGUAcwBrAHIAaQB2AGUAbABzAGV0ZXh0AAAAAENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCBy
-aWdodHMgcmVzZXJ2ZWQuAFhZWiAAAAAAAADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AANIqKywtWiRj
-bGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdlUmVwoywuL1pOU0ltYWdlUmVwWE5TT2JqZWN0
-0iorMTJXTlNBcnJheaIxL9IqKzQ1Xk5TTXV0YWJsZUFycmF5ozQxL9M3OA85OjtXTlNXaGl0ZVxOU0Nv
-bG9yU3BhY2VEMCAwABADgAzSKis9PldOU0NvbG9yoj0v0iorQEFXTlNJbWFnZaJALwAIABEAGgAkACkA
-MgA3AEkATABRAFMAYgBoAHUAfACLAJIAnwCmAK4AsACyALQAuQC7AL0AxADJANQA1gDYANoA3wDiAOQA
-5gDoAO0BBAEGAQgJlAmZCaQJrQnACcQJzwnYCd0J5QnoCe0J/AoACgcKDwocCiEKIwolCioKMgo1CjoK
-QgAAAAAAAAIBAAAAAAAAAEIAAAAAAAAAAAAAAAAAAApFA
+EiDDAACAA4ALVnsxLCAxfdIbDxweWk5TLm9iamVjdHOhHYAEgArSGw8gI6IhIoAFgAaACdMPJSYnKBRf
+EBROU1RJRkZSZXByZXNlbnRhdGlvbl8QGU5TSW50ZXJuYWxMYXlvdXREaXJlY3Rpb26ACIAHTxEIiE1N
+ACoAAAAKAAAAEAEAAAMAAAABAAEAAAEBAAMAAAABAAEAAAECAAMAAAACAAgACAEDAAMAAAABAAEAAAEG
+AAMAAAABAAEAAAEKAAMAAAABAAEAAAERAAQAAAABAAAACAESAAMAAAABAAEAAAEVAAMAAAABAAIAAAEW
+AAMAAAABAAEAAAEXAAQAAAABAAAAAgEcAAMAAAABAAEAAAEoAAMAAAABAAIAAAFSAAMAAAABAAEAAAFT
+AAMAAAACAAEAAYdzAAcAAAe4AAAA0AAAAAAAAAe4YXBwbAIgAABtbnRyR1JBWVhZWiAH0AACAA4ADAAA
+AABhY3NwQVBQTAAAAABub25lAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWFwcGwAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVkZXNjAAAAwAAAAG9kc2NtAAABMAAA
+BixjcHJ0AAAHXAAAADh3dHB0AAAHlAAAABRrVFJDAAAHqAAAAA5kZXNjAAAAAAAAABVHZW5lcmljIEdy
+YXkgUHJvZmlsZQAAAAAAAAAAAAAAFUdlbmVyaWMgR3JheSBQcm9maWxlAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbWx1YwAAAAAAAAAeAAAADHNrU0sAAAAqAAABeGhy
+SFIAAAA6AAABomNhRVMAAAAsAAAB3HB0QlIAAAAqAAACCHVrVUEAAAAsAAACMmZyRlUAAAAqAAACXnpo
+VFcAAAAQAAACiGl0SVQAAAAuAAACmG5iTk8AAAAsAAACxmtvS1IAAAAYAAAC8mNzQ1oAAAAkAAADCmhl
+SUwAAAAgAAADLmRlREUAAAA6AAADTmh1SFUAAAAuAAADiHN2U0UAAAAuAAADtnpoQ04AAAAQAAAD5Gph
+SlAAAAAWAAAD9HJvUk8AAAAiAAAECmVsR1IAAAAkAAAELHB0UE8AAAA4AAAEUG5sTkwAAAAqAAAEiGVz
+RVMAAAAoAAAEsnRoVEgAAAAkAAAE2nRyVFIAAAAiAAAE/mZpRkkAAAAsAAAFIHBsUEwAAAA2AAAFTHJ1
+UlUAAAAmAAAFgmFyRUcAAAAoAAAFqGVuVVMAAAAoAAAF0GRhREsAAAA0AAAF+ABWAWEAZQBvAGIAZQBj
+AG4A/QAgAHMAaQB2AP0AIABwAHIAbwBmAGkAbABHAGUAbgBlAHIAaQENAGsAaQAgAHAAcgBvAGYAaQBs
+ACAAcwBpAHYAaQBoACAAdABvAG4AbwB2AGEAUABlAHIAZgBpAGwAIABkAGUAIABnAHIAaQBzACAAZwBl
+AG4A6AByAGkAYwBQAGUAcgBmAGkAbAAgAEMAaQBuAHoAYQAgAEcAZQBuAOkAcgBpAGMAbwQXBDAEMwQw
+BDsETAQ9BDgEOQAgBD8EQAQ+BEQEMAQ5BDsAIABHAHIAYQB5AFAAcgBvAGYAaQBsACAAZwDpAG4A6QBy
+AGkAcQB1AGUAIABnAHIAaQBzkBp1KHBwlo6Ccl9pY8+P8ABQAHIAbwBmAGkAbABvACAAZwByAGkAZwBp
+AG8AIABnAGUAbgBlAHIAaQBjAG8ARwBlAG4AZQByAGkAcwBrACAAZwByAOUAdABvAG4AZQBwAHIAbwBm
+AGkAbMd8vBgAIABHAHIAYQB5ACDVBLhc0wzHfABPAGIAZQBjAG4A/QAgAWEAZQBkAP0AIABwAHIAbwBm
+AGkAbAXkBegF1QXkBdkF3AAgAEcAcgBhAHkAIAXbBdwF3AXZAEEAbABsAGcAZQBtAGUAaQBuAGUAcwAg
+AEcAcgBhAHUAcwB0AHUAZgBlAG4ALQBQAHIAbwBmAGkAbADBAGwAdABhAGwA4QBuAG8AcwAgAHMAegD8
+AHIAawBlACAAcAByAG8AZgBpAGwARwBlAG4AZQByAGkAcwBrACAAZwByAOUAcwBrAGEAbABlAHAAcgBv
+AGYAaQBsZm6QGnBwXqZjz4/wZYdO9k4AgiwwsDDsMKQw1zDtMNUwoTCkMOsAUAByAG8AZgBpAGwAIABn
+AHIAaQAgAGcAZQBuAGUAcgBpA5MDtQO9A7kDugPMACADwAPBA78DxgOvA7sAIAOzA7oDwQO5AFAAZQBy
+AGYAaQBsACAAZwBlAG4A6QByAGkAYwBvACAAZABlACAAYwBpAG4AegBlAG4AdABvAHMAQQBsAGcAZQBt
+AGUAZQBuACAAZwByAGkAagBzAHAAcgBvAGYAaQBlAGwAUABlAHIAZgBpAGwAIABnAHIAaQBzACAAZwBl
+AG4A6QByAGkAYwBvDkIOGw4jDkQOHw4lDkwOKg41DkAOFw4yDhcOMQ5IDicORA4bAEcAZQBuAGUAbAAg
+AEcAcgBpACAAUAByAG8AZgBpAGwAaQBZAGwAZQBpAG4AZQBuACAAaABhAHIAbQBhAGEAcAByAG8AZgBp
+AGkAbABpAFUAbgBpAHcAZQByAHMAYQBsAG4AeQAgAHAAcgBvAGYAaQBsACAAcwB6AGEAcgBvAVsAYwBp
+BB4EMQRJBDgEOQAgBEEENQRABEsEOQAgBD8EQAQ+BEQEOAQ7BEwGRQZEBkEAIAYqBjkGMQZKBkEAIABH
+AHIAYQB5ACAGJwZEBjkGJwZFAEcAZQBuAGUAcgBpAGMAIABHAHIAYQB5ACAAUAByAG8AZgBpAGwAZQBH
+AGUAbgBlAHIAZQBsACAAZwByAOUAdABvAG4AZQBiAGUAcwBrAHIAaQB2AGUAbABzAGV0ZXh0AAAAAENv
+cHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQuAFhZWiAAAAAAAADzUQAB
+AAAAARbMY3VydgAAAAAAAAABAc0AANIrLC0uWiRjbGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcElt
+YWdlUmVwoy0vMFpOU0ltYWdlUmVwWE5TT2JqZWN00issMjNXTlNBcnJheaIyMNIrLDU2Xk5TTXV0YWJs
+ZUFycmF5ozUyMNM4OQ86OzxXTlNXaGl0ZVxOU0NvbG9yU3BhY2VEMCAwABADgAzSKyw+P1dOU0NvbG9y
+oj4w0issQUJXTlNJbWFnZaJBMAAIABEAGgAkACkAMgA3AEkATABRAFMAYgBoAHUAfACLAJIAnwCmAK4A
+sACyALQAuQC7AL0AxADJANQA1gDYANoA3wDiAOQA5gDoAO8BBgEiASQBJgmyCbcJwgnLCd4J4gntCfYJ
++woDCgYKCwoaCh4KJQotCjoKPwpBCkMKSApQClMKWApgAAAAAAAAAgEAAAAAAAAAQwAAAAAAAAAAAAAA
+AAAACmM
 </mutableData>
         </image>
     </resources>
