@@ -417,8 +417,6 @@
 		96A9BBA40A0668EB001B5B9B /* GameWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = 96A9BBA30A0668EB001B5B9B /* GameWindow.nib */; };
 		96A9BBDA0A066F41001B5B9B /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
 		96A9C0F00A07AE17001B5B9B /* LibController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A9C0EF0A07AE17001B5B9B /* LibController.m */; };
-		96B6FCA80A0D478400E62E4D /* IconApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2409F2940F00528FF9 /* IconApp.icns */; };
-		96B6FCA90A0D478400E62E4D /* IconGame.icns in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2509F2940F00528FF9 /* IconGame.icns */; };
 		96B6FE6F0A0E4E0200E62E4D /* Question.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B6FE6E0A0E4E0200E62E4D /* Question.png */; };
 		96BE643F0E0AEAA40050667D /* sclocale.c in Sources */ = {isa = PBXBuildFile; fileRef = 96BE643E0E0AEAA40050667D /* sclocale.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		96E6B9430AC4081600DCBE8B /* glulxe in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 9650385409F2AF280083E64E /* glulxe */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -529,7 +527,6 @@
 		C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C300D48323A11786000B2165 /* IFDBDownloader.m */; };
 		C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */; };
 		C301D30D25D35E9300DC4A2B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C301D30C25D35E9300DC4A2B /* Media.xcassets */; };
-		C301D30E25D35E9300DC4A2B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C301D30C25D35E9300DC4A2B /* Media.xcassets */; };
 		C3074B8825A1F461003E80C6 /* VersionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3074B8725A1F461003E80C6 /* VersionFormatter.m */; };
 		C309881425CB1AB500750F72 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C309882E25CB1ACD00750F72 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAEE252A5A5900540C6E /* Metadata.m */; };
@@ -579,7 +576,6 @@
 		C359791F25DA19B7004B1448 /* UKSyntaxColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */; };
 		C359795525DA19BF004B1448 /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */; };
 		C359797025DA19DA004B1448 /* iFiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3E2EAB325D08EEC0012B7FB /* iFiction.plist */; };
-		C35979BF25DA1DE2004B1448 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C301D30C25D35E9300DC4A2B /* Media.xcassets */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
 		C360FAFF25DAFD020050AA10 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813931ED83DF0001E49C4 /* SDL2_mixer.framework */; };
 		C360FB0225DAFD040050AA10 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813941ED83DF8001E49C4 /* SDL2.framework */; };
@@ -638,6 +634,8 @@
 		C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D81779256CBA20005DBC1F /* InputTextField.m */; };
 		C3E2EAB525D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */; };
 		C3E2EAB625D08EEC0012B7FB /* UKSyntaxColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */; };
+		C3EEF5C025F2D8F000FA19CE /* Quicklook.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */; };
+		C3EEF5C125F2D8F000FA19CE /* Quicklook.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */; };
 		C3EF065D1ECE5FF2008EED04 /* vmvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036DC09F29EE60083E64E /* vmvec.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EF065E1ECE60D0008EED04 /* cgdate.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */; };
@@ -2606,6 +2604,7 @@
 		C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKSyntaxColor.m; sourceTree = "<group>"; };
 		C3E2EAB225D08EEC0012B7FB /* NSScanner+SkipUpToCharset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+SkipUpToCharset.h"; sourceTree = "<group>"; };
 		C3E2EAB325D08EEC0012B7FB /* iFiction.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iFiction.plist; sourceTree = "<group>"; };
+		C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Quicklook.xcassets; sourceTree = "<group>"; };
 		C3EF065E1ECE60D0008EED04 /* cgdate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cgdate.c; sourceTree = "<group>"; };
 		C3F1078B259256AC00C9EC82 /* BureaucracyForm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BureaucracyForm.h; sourceTree = "<group>"; };
 		C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BureaucracyForm.m; sourceTree = "<group>"; };
@@ -3645,6 +3644,7 @@
 			isa = PBXGroup;
 			children = (
 				C301D30C25D35E9300DC4A2B /* Media.xcassets */,
+				C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */,
 				6DCDD44B23104AC4006715DD /* fonts */,
 				961CCF2809F2940F00528FF9 /* docs */,
 				961CCF2309F2940F00528FF9 /* Credits.rtf */,
@@ -5678,8 +5678,6 @@
 				96A80EFD09F5821400CC75F4 /* InfoPlist.strings in Resources */,
 				C301D30D25D35E9300DC4A2B /* Media.xcassets in Resources */,
 				966EFA7809F635D400FA7F19 /* Defaults.plist in Resources */,
-				96B6FCA80A0D478400E62E4D /* IconApp.icns in Resources */,
-				96B6FCA90A0D478400E62E4D /* IconGame.icns in Resources */,
 				96B6FE6F0A0E4E0200E62E4D /* Question.png in Resources */,
 				961CCF3D09F2946700528FF9 /* MainMenu.nib in Resources */,
 				961CCF3E09F2946700528FF9 /* PrefsWindow.nib in Resources */,
@@ -5697,8 +5695,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3EEF5C025F2D8F000FA19CE /* Quicklook.xcassets in Resources */,
 				C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */,
-				C301D30E25D35E9300DC4A2B /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5713,7 +5711,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C35979BF25DA1DE2004B1448 /* Media.xcassets in Resources */,
+				C3EEF5C125F2D8F000FA19CE /* Quicklook.xcassets in Resources */,
 				C35978C825DA14A6004B1448 /* iFictionPreviewController.xib in Resources */,
 				C359797025DA19DA004B1448 /* iFiction.plist in Resources */,
 			);
@@ -7207,6 +7205,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
+				STRIP_PNG_TEXT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7224,6 +7223,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -7267,6 +7267,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
+				STRIP_PNG_TEXT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -8214,6 +8215,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -8237,6 +8240,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = all;
 			};
 			name = Debug;
 		};
@@ -8258,7 +8262,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
@@ -8277,6 +8282,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = all;
 			};
 			name = Release;
 		};
@@ -8298,6 +8304,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -8320,6 +8328,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = all;
 			};
 			name = Debug;
 		};
@@ -8341,7 +8350,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -8359,6 +8369,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = all;
 			};
 			name = Release;
 		};
@@ -8380,6 +8391,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -8402,6 +8415,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = all;
 			};
 			name = Debug;
 		};
@@ -8423,7 +8437,8 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6U7YY3724Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -8441,6 +8456,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = all;
 			};
 			name = Release;
 		};
