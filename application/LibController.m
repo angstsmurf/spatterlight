@@ -1654,8 +1654,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     if (![[NSFileManager defaultManager] isReadableFileAtPath:path]) {
         if (!restoreflag) { // Everything will break if we throw up a dialog during system window restoration
             NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-            openPanel.message = @"An error has occurred. Spatterlight is no longer allowed to open this file!";
-            openPanel.prompt = @"Re-authorize";
+            openPanel.message = NSLocalizedString(@"An error has occurred. Spatterlight is no longer allowed to open this file!", nil);
+            openPanel.prompt = NSLocalizedString(@"Re-authorize", nil);
             openPanel.canChooseFiles = YES;
             openPanel.canChooseDirectories = NO;
             openPanel.canCreateDirectories = NO;

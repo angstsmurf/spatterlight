@@ -609,17 +609,17 @@
             //Full star
             if (rating >= i+1) {
                 [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:@"􀋃 " attributes:activeStarFormat]];
+                                                    initWithString:NSLocalizedString(@"􀋃 ", nil) attributes:activeStarFormat]];
             }
             //Half star
             else if (rating > i) {
                 [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:@"􀋄 " attributes:activeStarFormat]];
+                                                    initWithString:NSLocalizedString(@"􀋄 ", nil) attributes:activeStarFormat]];
             }
             // Grey star
             else {
                 [starString appendAttributedString:[[NSAttributedString alloc]
-                                                    initWithString:@"􀋂 " attributes:inactiveStarFormat]];
+                                                    initWithString:NSLocalizedString(@"􀋂 ", nil) attributes:inactiveStarFormat]];
             }
         }
         [_textview.textStorage appendAttributedString:starString];
