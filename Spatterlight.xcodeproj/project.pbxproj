@@ -1233,7 +1233,7 @@
 		6DB774B82458B9B300EDC671 /* random.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = random.c; sourceTree = "<group>"; };
 		6DB774B92458B9B300EDC671 /* screen.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = screen.c; sourceTree = "<group>"; tabWidth = 2; };
 		6DB774BA2458B9B300EDC671 /* sound.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
-		6DB774BB2458B9B300EDC671 /* stack.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
+		6DB774BB2458B9B300EDC671 /* stack.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; tabWidth = 2; };
 		6DB774BC2458B9B300EDC671 /* unicode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = unicode.c; sourceTree = "<group>"; };
 		6DB774BD2458B9B300EDC671 /* util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
 		6DB774BE2458B9B300EDC671 /* zoom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zoom.c; sourceTree = "<group>"; };
