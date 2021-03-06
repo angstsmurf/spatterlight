@@ -665,7 +665,7 @@ void win_autosave(int hash)
     sendmsg(AUTOSAVE, 0, hash, 0, 0, 0, 0, NULL);
 }
 
-void win_setzcolor(int name, glsi32 fg, glsi32 bg)
+void win_setzcolor(int name, glui32 fg, glui32 bg)
 {
     win_flush();
     sendmsg(SETZCOLOR, name, fg, bg, 0, 0, 0, NULL);

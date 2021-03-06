@@ -2943,7 +2943,7 @@ static const char *msgnames[] = {
 
         case SETZCOLOR:
             if (reqWin) {
-                [reqWin setZColorText:req->a2 background:req->a3];
+                [reqWin setZColorText:(glui32)req->a2 background:(glui32)req->a3];
             }
             break;
 

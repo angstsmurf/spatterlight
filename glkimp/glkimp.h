@@ -122,7 +122,7 @@ void win_unpause(int chan);
 void win_sound_notify(int snd, int notify);
 void win_volume_notify(int notify);
 void win_autosave(int hash);
-void win_setzcolor(int name, glsi32 fg, glsi32 bg);
+void win_setzcolor(int name, glui32 fg, glui32 bg);
 void win_setreverse(int name, int reverse);
 void win_quotebox(int name, int height);
 void win_reset(void);
