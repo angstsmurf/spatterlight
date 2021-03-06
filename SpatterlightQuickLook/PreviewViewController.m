@@ -278,7 +278,6 @@
                     frame.origin.y -= diff;
                     scrollView.frame = frame;
                     scrollView.contentView.frame = scrollView.bounds;
-                    scrollheight = textheight;
                 }
             }
         }
