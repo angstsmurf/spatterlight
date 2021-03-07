@@ -8,6 +8,8 @@
 
 #import "HelpPanelController.h"
 
+#import "ScalingScrollView.h"
+
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
 fprintf(stderr, "%s\n",                                                    \
@@ -111,6 +113,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         // Scroll the vertical scroller to top
         _scrollView.verticalScroller.floatValue = 0;
+        _scrollView.magnification = 1.0;
 
         // Scroll the contentView to top
         [_scrollView.contentView scrollToPoint:NSZeroPoint];

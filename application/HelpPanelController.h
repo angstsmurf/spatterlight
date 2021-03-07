@@ -6,6 +6,9 @@
 //
 //
 
+
+@class ScalingScrollView;
+
 @interface HelpTextView : NSTextView <NSTextFinderClient>
 
 @property(readonly) NSTextFinder *textFinder;
@@ -14,7 +17,7 @@
 @interface HelpPanelController : NSWindowController
 
 @property IBOutlet HelpTextView *textView;
-@property IBOutlet NSScrollView *scrollView;
+@property IBOutlet ScalingScrollView *scrollView;
 
 - (void)showHelpFile:(NSAttributedString *)text withTitle:(NSString *)title;
 
