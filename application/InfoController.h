@@ -23,6 +23,9 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 - (instancetype)initWithGame:(Game *)game;
 - (instancetype)initWithpath:(NSString *)path;
 
+- (void)animateIn:(NSRect)frame;
+- (void)hideWindow;
+
 //- (void)updateBlurb;
 
 - (IBAction)saveImage:sender;

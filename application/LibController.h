@@ -117,4 +117,6 @@
 
 - (NSString *)convertAGTFile:(NSString *)origpath;
 
+- (NSRect)rectForLineWithIfid:(NSString*)ifid;
+
 @end
