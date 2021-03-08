@@ -79,14 +79,14 @@ enum  {
     return flag;
 }
 
-//- (void)keyDown:(NSEvent *)event {
-//    NSLog(@"keyDown");
-//    NSString *pressed = event.characters;
-//    if ([pressed isEqualToString:@" "])
-//        [(LibController *)self.delegate showGameInfo:nil];
-//    else
-//        [super keyDown:event];
-//}
+- (void)keyDown:(NSEvent *)event {
+    NSLog(@"keyDown");
+    NSString *pressed = event.characters;
+    if ([pressed isEqualToString:@" "])
+        [(LibController *)self.delegate showGameInfo:nil];
+    else
+        [super keyDown:event];
+}
 
 // NSTableView delegate
 -(BOOL)tableView:(NSTableView *)tableView
@@ -737,10 +737,14 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
     NSUInteger i;
+    NSUInteger counter = 0;
     for (i = rows.firstIndex; i != NSNotFound;
          i = [rows indexGreaterThanIndex:i]) {
         Game *game = _gameTableModel[i];
         [self showInfoForGame:game];
+        // Don't open more than 20 info windows at once
+        if (counter++ > 20)
+            break;
     }
 }
 
@@ -762,9 +766,15 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", path];
             _infoWindows[path] = infoctl;
         }
-        infoWindow.animationBehavior = NSWindowAnimationBehaviorDocumentWindow;
     }
-    [infoctl showWindow:nil];
+
+    NSRect targetFrame = infoctl.window.frame;
+
+    [infoctl hideWindow];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [infoctl animateIn:targetFrame];
+    });
 }
 
 - (IBAction)revealGameInFinder:(id)sender {
@@ -2157,6 +2167,22 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
         item.state = YES;
     }
 }
+
+- (NSRect)rectForLineWithIfid:(NSString*)ifid {
+    Game *game;
+    NSRect frame = NSZeroRect;
+    if (ifid.length) {
+        game = [self fetchGameForIFID:ifid inContext:_managedObjectContext];
+        if ([_gameTableModel containsObject:game]) {
+            NSUInteger index = [_gameTableModel indexOfObject:game];
+            frame = [_gameTableView rectOfRow:(NSInteger)index];
+            frame = [_gameTableView convertRect:frame toView:nil];
+            frame = [[self window] convertRectToScreen:frame];
+        }
+    }
+    return frame;
+}
+
 
 - (void) selectGamesWithIfids:(NSArray*)ifids scroll:(BOOL)shouldscroll
 {

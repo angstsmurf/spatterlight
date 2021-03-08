@@ -10,11 +10,41 @@
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
-    fprintf(stderr, "%s\n",                                                    \
-            [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+fprintf(stderr, "%s\n",                                                    \
+[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 #else
 #define NSLog(...)
 #endif
+
+@interface InfoPanel : NSPanel
+
+@property BOOL disableConstrainedWindow;
+
+@end
+
+@implementation InfoPanel
+
+- (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)screen {
+    return (_disableConstrainedWindow ? frameRect : [super constrainFrameRect:frameRect toScreen:screen]);
+}
+
+@end
+
+@interface HelperView : NSView
+
+@end
+
+@implementation HelperView
+
+- (void)keyDown:(NSEvent *)event {
+    NSString *pressed = event.characters;
+    if ([pressed isEqualToString:@" "])
+        [[self window] performClose:nil];
+    else
+        [super keyDown:event];
+}
+
+@end
 
 @interface InfoController () <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
 {
@@ -24,6 +54,8 @@
     IBOutlet NSTextField *ifidField;
     IBOutlet NSTextView *descriptionText;
     IBOutlet NSImageView *imageView;
+
+    NSWindow *snapshotWindow;
 
     CoreDataManager *coreDataManager;
     NSManagedObjectContext *managedObjectContext;
@@ -150,9 +182,11 @@
     frame.size.width = setsize.width;
     frame.size.height = setsize.height;
     frame.origin.y -= setsize.height;
-    if (NSMaxY(frame) > NSMaxY(self.window.screen.frame))
-        frame.origin.y = NSMaxY(self.window.screen.frame) - frame.size.height;
-    [self.window setFrame:frame display:YES animate:animate];
+    if (NSMaxY(frame) > NSMaxY(self.window.screen.visibleFrame))
+        frame.origin.y = NSMaxY(self.window.screen.visibleFrame) - frame.size.height;
+    if (frame.origin.y < 0)
+        frame.origin.y = 0;
+    [self.window setFrame:frame display:YES animate:NO];
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
@@ -175,9 +209,15 @@
         _path = _game.urlForBookmark.path;
     if (!_path)
         _path = _game.path;
-    self.window.representedFilename = _path;
-    self.window.title =
-    [NSString stringWithFormat:@"%@ Info", _meta.title];
+    if (_path)
+        self.window.representedFilename = _path;
+    if (_meta.title.length) {
+        self.window.title =
+        [NSString stringWithFormat:@"%@ Info", _meta.title];
+    } else if (_path) {
+        self.window.title =
+        [NSString stringWithFormat:@"%@ Info", _path.lastPathComponent];
+    } else self.window.title = @"Game Info";
 
     if (_meta) {
         titleField.stringValue = _meta.title;
@@ -201,8 +241,8 @@
 
 
 - (void)windowDidLoad {
-//    NSLog(@"infoctl: windowDidLoad");
-     [[NSNotificationCenter defaultCenter]
+    //    NSLog(@"infoctl: windowDidLoad");
+    [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(noteManagedObjectContextDidChange:)
      name:NSManagedObjectContextObjectsDidChangeNotification
@@ -223,8 +263,8 @@
     headlineField.editable = YES;
     headlineField.delegate = self;
 
-//    ifidField.editable = YES;
-//    ifidField.delegate = self;
+    //    ifidField.editable = YES;
+    //    ifidField.delegate = self;
 
     descriptionText.editable = YES;
     descriptionText.delegate = self;
@@ -232,17 +272,20 @@
     [self.window makeFirstResponder:imageView];
 
     self.window.delegate = self;
-    
 }
+
 
 + (NSArray *)restorableStateKeyPaths {
     return @[
-             @"path", @"titleField.stringValue", @"authorField.stringValue",
-             @"headlineField.stringValue", @"descriptionText.string"
-             ];
+        @"path", @"titleField.stringValue", @"authorField.stringValue",
+        @"headlineField.stringValue", @"descriptionText.string"
+    ];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
+
+    [self animateOut];
+
     LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
     // It seems we have to do it in this cumbersome way because the game.path used for key may have changed.
     // Probably a good reason to use something else as key.
@@ -252,9 +295,14 @@
             NSString *key = [temp objectAtIndex:0];
             if (key) {
                 [libcontroller.infoWindows removeObjectForKey:key];
+                NSArray <InfoController *> *windowArray = libcontroller.infoWindows.allValues;
+                if (windowArray.count) {
+                    [((InfoController *)windowArray.firstObject).window makeKeyAndOrderFront:nil];
+                }
                 return;
             }
         }
+    snapshotWindow = nil;
 }
 
 - (void)saveImage:sender {
@@ -311,30 +359,30 @@
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification
 {
-	if ([notification.object isKindOfClass:[NSTextField class]])
-	{
-		NSTextField *textfield = notification.object;
+    if ([notification.object isKindOfClass:[NSTextField class]])
+    {
+        NSTextField *textfield = notification.object;
 
-		if (textfield == titleField)
-		{
-			_meta.title = titleField.stringValue;
-		}
-		else if (textfield == headlineField)
-		{
-			_meta.headline = headlineField.stringValue;
-		}
-		else if (textfield == authorField)
-		{
-			_meta.author = authorField.stringValue;
-		}
-//		else if (textfield == ifidField)
-//		{
-//			_game.ifid = [ifidField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//		}
+        if (textfield == titleField)
+        {
+            _meta.title = titleField.stringValue;
+        }
+        else if (textfield == headlineField)
+        {
+            _meta.headline = headlineField.stringValue;
+        }
+        else if (textfield == authorField)
+        {
+            _meta.author = authorField.stringValue;
+        }
+        //		else if (textfield == ifidField)
+        //		{
+        //			_game.ifid = [ifidField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        //		}
 
         dispatch_async(dispatch_get_main_queue(), ^{[textfield.window makeFirstResponder:nil];});
 
-	}
+    }
 }
 
 - (void)textDidEndEditing:(NSNotification *)notification {
@@ -346,6 +394,117 @@
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
     return managedObjectContext.undoManager;
+}
+
+#pragma mark animation
+
+- (void)makeAndPrepareSnapshotWindow:(NSRect)startingframe {
+    CALayer *snapshotLayer = [self takeSnapshot];
+    snapshotWindow = ([[NSWindow alloc]
+                       initWithContentRect:startingframe
+                       styleMask:0
+                       backing:NSBackingStoreBuffered
+                       defer:NO]);
+    [[snapshotWindow contentView] setWantsLayer:YES];
+    [snapshotWindow setOpaque:NO];
+    [snapshotWindow setBackgroundColor:[NSColor clearColor]];
+    [snapshotWindow setFrame:startingframe display:NO];
+    [[[snapshotWindow contentView] layer] addSublayer:snapshotLayer];
+    // Compute the frame of the snapshot layer such that the snapshot is
+    // positioned on startingframe.
+    NSRect snapshotLayerFrame =
+    [snapshotWindow convertRectFromScreen:startingframe];
+    [snapshotLayer setFrame:snapshotLayerFrame];
+    [snapshotWindow orderFront:nil];
+}
+
+- (CALayer *)takeSnapshot {
+    CGImageRef windowSnapshot = CGWindowListCreateImage(
+                                                        CGRectNull, kCGWindowListOptionIncludingWindow,
+                                                        (CGWindowID)[self.window windowNumber], kCGWindowImageBoundsIgnoreFraming);
+    CALayer *snapshotLayer = [[CALayer alloc] init];
+    [snapshotLayer setFrame:NSRectToCGRect([self.window frame])];
+    [snapshotLayer setContents:CFBridgingRelease(windowSnapshot)];
+    [snapshotLayer setAnchorPoint:CGPointMake(0, 0)];
+    return snapshotLayer;
+}
+
+- (void)animateIn:(NSRect)finalframe {
+    LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+    NSRect targetFrame = [libcontroller rectForLineWithIfid:_game.ifid];
+
+    [self makeAndPrepareSnapshotWindow:targetFrame];
+    NSWindow *localSnapshot = snapshotWindow;
+    NSView *snapshotView = snapshotWindow.contentView;
+    CALayer *snapshotLayer = snapshotWindow.contentView.layer.sublayers.firstObject;
+
+    snapshotLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
+    snapshotLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+    snapshotView.wantsLayer = YES;
+
+    [snapshotWindow setFrame:targetFrame display:YES];
+
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.2;
+        context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+        [[localSnapshot animator] setFrame:finalframe display:YES];
+    }
+     completionHandler:^{
+        self.window.alphaValue = 1.f;
+        [self.window setFrame:finalframe display:YES];
+        [self showWindow:nil];
+        snapshotView.hidden = YES;
+    }];
+}
+
+- (void)animateOut {
+    LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+
+    [self makeAndPrepareSnapshotWindow:self.window.frame];
+    NSWindow *localSnapshot = snapshotWindow;
+    NSView *snapshotView = snapshotWindow.contentView;
+    CALayer *snapshotLayer = snapshotWindow.contentView.layer.sublayers.firstObject;
+
+    snapshotLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
+    snapshotLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+    snapshotView.wantsLayer = YES;
+    NSRect targetFrame = [libcontroller rectForLineWithIfid:_game.ifid];
+
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.3;
+        context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        [[localSnapshot animator] setFrame:targetFrame display:YES];
+    }
+     completionHandler:^{
+        snapshotView.hidden = YES;
+    }];
+}
+
+-(void)hideWindow {
+    // So we need to get a screenshot of the window without flashing.
+    // First, we find the frame that covers all the connected screens.
+    CGRect allWindowsFrame = CGRectZero;
+
+    for(NSScreen *screen in [NSScreen screens]) {
+        allWindowsFrame = NSUnionRect(allWindowsFrame, screen.frame);
+    }
+
+    // Position our window to the very right-most corner out of visible range, plus padding for the shadow.
+    CGRect frame = (CGRect){
+        .origin = CGPointMake(CGRectGetWidth(allWindowsFrame) + 2 * 19.f, 0),
+        .size = self.window.frame.size
+    };
+
+    // This is where things get nasty. Against what the documentation states, windows seem to be constrained
+    // to the screen, so we override "constrainFrameRect:toScreen:" to return the original frame, which allows
+    // us to put the window off-screen.
+    ((InfoPanel *)self.window).disableConstrainedWindow = YES;
+
+    [self.window setFrame:frame display:YES];
+    [self showWindow:nil];
 }
 
 @end
