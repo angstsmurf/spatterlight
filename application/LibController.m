@@ -751,30 +751,30 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 - (void)showInfoForGame:(Game *)game {
     InfoController *infoctl;
 
-    NSString *path = [game urlForBookmark].path;
+    NSString *path = game.path;
     if (!path)
-        path = game.path;
+        path = [game urlForBookmark].path;
+    if (!path)
+        return;
     // First, we check if we have created this info window already
-    infoctl = _infoWindows[[game urlForBookmark].path];
+    infoctl = _infoWindows[path];
 
     if (!infoctl) {
         infoctl = [[InfoController alloc] initWithGame:game];
+        _infoWindows[path] = infoctl;
         NSWindow *infoWindow = infoctl.window;
         infoWindow.restorable = YES;
         infoWindow.restorationClass = [AppDelegate class];
-        if (path) {
-            infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", path];
-            _infoWindows[path] = infoctl;
-        }
+        infoWindow.identifier = [NSString stringWithFormat:@"infoWin%@", path];
+
+        NSRect targetFrame = infoctl.window.frame;
+
+        [infoctl hideWindow];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [infoctl animateIn:targetFrame];
+        });
     }
-
-    NSRect targetFrame = infoctl.window.frame;
-
-    [infoctl hideWindow];
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [infoctl animateIn:targetFrame];
-    });
 }
 
 - (IBAction)revealGameInFinder:(id)sender {
@@ -2182,6 +2182,25 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
     }
     return frame;
 }
+
+- (void)closeAndOpenNextAbove:(InfoController *)infocontroller {
+    NSUInteger index = [_gameTableModel indexOfObject:infocontroller.game];
+    if (index != NSNotFound && index > 0) {
+        [infocontroller.window performClose:nil];
+        [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index - 1] byExtendingSelection:NO];
+        [self showInfoForGame:_gameTableModel[index - 1]];
+    }
+}
+
+- (void)closeAndOpenNextBelow:(InfoController *)infocontroller {
+    NSUInteger index = [_gameTableModel indexOfObject:infocontroller.game];
+    if (index != NSNotFound && index < _gameTableModel.count - 1) {
+        [infocontroller.window performClose:nil];
+        [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index + 1] byExtendingSelection:NO];
+        [self showInfoForGame:_gameTableModel[index + 1]];
+    }
+}
+
 
 
 - (void) selectGamesWithIfids:(NSArray*)ifids scroll:(BOOL)shouldscroll

@@ -16,7 +16,7 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
-@interface InfoPanel : NSPanel
+@interface InfoPanel : NSWindow
 
 @property BOOL disableConstrainedWindow;
 
@@ -37,25 +37,47 @@ fprintf(stderr, "%s\n",                                                    \
 @implementation HelperView
 
 - (void)keyDown:(NSEvent *)event {
-    NSString *pressed = event.characters;
-    if ([pressed isEqualToString:@" "])
-        [[self window] performClose:nil];
-    else
+    InfoController *infocontroller = (InfoController *)self.window.delegate;
+
+    if (infocontroller.inAnimation) {
         [super keyDown:event];
+        return;
+    }
+    
+    unichar code = [event.characters characterAtIndex:0];
+    LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+
+    switch (code) {
+        case ' ': {
+            [[self window] performClose:nil];
+            break;
+        }
+        case NSUpArrowFunctionKey: {
+            [libcontroller closeAndOpenNextAbove:infocontroller];
+            break;
+        }
+        case NSDownArrowFunctionKey: {
+            [libcontroller closeAndOpenNextBelow:infocontroller];
+            break;
+        }
+        default: {
+            [super keyDown:event];
+            break;
+        }
+    }
 }
 
 @end
 
 @interface InfoController () <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
 {
-    IBOutlet NSTextField *titleField;
     IBOutlet NSTextField *authorField;
     IBOutlet NSTextField *headlineField;
     IBOutlet NSTextField *ifidField;
     IBOutlet NSTextView *descriptionText;
     IBOutlet NSImageView *imageView;
 
-    NSWindow *snapshotWindow;
+    NSWindowController *snapshotController;
 
     CoreDataManager *coreDataManager;
     NSManagedObjectContext *managedObjectContext;
@@ -220,7 +242,7 @@ fprintf(stderr, "%s\n",                                                    \
     } else self.window.title = @"Game Info";
 
     if (_meta) {
-        titleField.stringValue = _meta.title;
+        _titleField.stringValue = _meta.title;
         if (_meta.author)
             authorField.stringValue = _meta.author;
         if (_meta.headline)
@@ -254,8 +276,8 @@ fprintf(stderr, "%s\n",                                                    \
     [self update];
     [self updateImage];
 
-    titleField.editable = YES;
-    titleField.delegate = self;
+    _titleField.editable = YES;
+    _titleField.delegate = self;
 
     authorField.editable = YES;
     authorField.delegate = self;
@@ -284,25 +306,31 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowWillClose:(NSNotification *)notification {
 
-    [self animateOut];
-
+    // Crazy stuff to make stacks of windows close in a pretty way
     LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
-    // It seems we have to do it in this cumbersome way because the game.path used for key may have changed.
-    // Probably a good reason to use something else as key.
-    for (InfoController *controller in [libcontroller.infoWindows allValues])
-        if (controller == self) {
-            NSArray *temp = [libcontroller.infoWindows allKeysForObject:controller];
-            NSString *key = [temp objectAtIndex:0];
-            if (key) {
-                [libcontroller.infoWindows removeObjectForKey:key];
-                NSArray <InfoController *> *windowArray = libcontroller.infoWindows.allValues;
-                if (windowArray.count) {
-                    [((InfoController *)windowArray.firstObject).window makeKeyAndOrderFront:nil];
-                }
-                return;
-            }
+    NSArray <InfoController *> *windowArray = libcontroller.infoWindows.allValues;
+    if (windowArray.count > 1) {
+        // We look at the title fields of the array of open info window controllers
+        // and sort them alphabetically
+        windowArray =
+        [windowArray sortedArrayUsingComparator:
+                      ^NSComparisonResult(id obj1, id obj2){
+            NSString *title1 = ((InfoController *)obj1).titleField.stringValue;
+            NSString *title2 = ((InfoController *)obj2).titleField.stringValue;
+            return [title1 localizedCaseInsensitiveCompare:title2];
+        }];
+        NSUInteger index = [windowArray indexOfObject:self];
+        if (index != NSNotFound) {
+            InfoController *next;
+            if (index == 0)
+                next = libcontroller.infoWindows[windowArray.lastObject];
+            else
+                next = libcontroller.infoWindows[windowArray[index - 1]];
+            [next.window makeKeyAndOrderFront:nil];
         }
-    snapshotWindow = nil;
+    }
+
+    [self animateOut];
 }
 
 - (void)saveImage:sender {
@@ -363,9 +391,9 @@ fprintf(stderr, "%s\n",                                                    \
     {
         NSTextField *textfield = notification.object;
 
-        if (textfield == titleField)
+        if (textfield == _titleField)
         {
-            _meta.title = titleField.stringValue;
+            _meta.title = _titleField.stringValue;
         }
         else if (textfield == headlineField)
         {
@@ -400,21 +428,25 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)makeAndPrepareSnapshotWindow:(NSRect)startingframe {
     CALayer *snapshotLayer = [self takeSnapshot];
-    snapshotWindow = ([[NSWindow alloc]
+    NSWindow *snapshotWindow = ([[NSWindow alloc]
                        initWithContentRect:startingframe
                        styleMask:0
                        backing:NSBackingStoreBuffered
                        defer:NO]);
-    [[snapshotWindow contentView] setWantsLayer:YES];
-    [snapshotWindow setOpaque:NO];
-    [snapshotWindow setBackgroundColor:[NSColor clearColor]];
+
+    snapshotWindow.contentView.wantsLayer = YES;
+    snapshotWindow.opaque = NO;
+    snapshotWindow.releasedWhenClosed = YES;
+    snapshotWindow.backgroundColor = [NSColor clearColor];
     [snapshotWindow setFrame:startingframe display:NO];
     [[[snapshotWindow contentView] layer] addSublayer:snapshotLayer];
+
+    snapshotController = [[NSWindowController alloc] initWithWindow:snapshotWindow];
     // Compute the frame of the snapshot layer such that the snapshot is
     // positioned on startingframe.
     NSRect snapshotLayerFrame =
     [snapshotWindow convertRectFromScreen:startingframe];
-    [snapshotLayer setFrame:snapshotLayerFrame];
+    snapshotLayer.frame = snapshotLayerFrame;
     [snapshotWindow orderFront:nil];
 }
 
@@ -430,19 +462,20 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)animateIn:(NSRect)finalframe {
+
     LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
     NSRect targetFrame = [libcontroller rectForLineWithIfid:_game.ifid];
 
     [self makeAndPrepareSnapshotWindow:targetFrame];
-    NSWindow *localSnapshot = snapshotWindow;
-    NSView *snapshotView = snapshotWindow.contentView;
-    CALayer *snapshotLayer = snapshotWindow.contentView.layer.sublayers.firstObject;
+    NSWindow *localSnapshot = snapshotController.window;
+    NSView *snapshotView = localSnapshot.contentView;
+    CALayer *snapshotLayer = localSnapshot.contentView.layer.sublayers.firstObject;
 
     snapshotLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
     snapshotLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
     snapshotView.wantsLayer = YES;
 
-    [snapshotWindow setFrame:targetFrame display:YES];
+    [localSnapshot setFrame:targetFrame display:YES];
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
@@ -456,16 +489,20 @@ fprintf(stderr, "%s\n",                                                    \
         [self.window setFrame:finalframe display:YES];
         [self showWindow:nil];
         snapshotView.hidden = YES;
+        [self->snapshotController close];
+        self.inAnimation = NO;
     }];
 }
 
 - (void)animateOut {
+    _inAnimation = YES;
+
     LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
 
     [self makeAndPrepareSnapshotWindow:self.window.frame];
-    NSWindow *localSnapshot = snapshotWindow;
-    NSView *snapshotView = snapshotWindow.contentView;
-    CALayer *snapshotLayer = snapshotWindow.contentView.layer.sublayers.firstObject;
+    NSWindow *localSnapshot = snapshotController.window;
+    NSView *snapshotView = localSnapshot.contentView;
+    CALayer *snapshotLayer = localSnapshot.contentView.layer.sublayers.firstObject;
 
     snapshotLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
     snapshotLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
@@ -479,11 +516,27 @@ fprintf(stderr, "%s\n",                                                    \
         [[localSnapshot animator] setFrame:targetFrame display:YES];
     }
      completionHandler:^{
+        self.inAnimation = NO;
         snapshotView.hidden = YES;
+        [self->snapshotController close];
+        self->snapshotController = nil;
+
+        // It seems we have to do it in this cumbersome way because the game.path used for key may have changed.
+        // Probably a good reason to use something else as key.
+        for (InfoController *controller in [libcontroller.infoWindows allValues])
+            if (controller == self) {
+                NSArray *temp = [libcontroller.infoWindows allKeysForObject:controller];
+                NSString *key = [temp objectAtIndex:0];
+                if (key) {
+                    [libcontroller.infoWindows removeObjectForKey:key];
+                    return;
+                }
+            }
     }];
 }
 
 -(void)hideWindow {
+    _inAnimation = YES;
     // So we need to get a screenshot of the window without flashing.
     // First, we find the frame that covers all the connected screens.
     CGRect allWindowsFrame = CGRectZero;

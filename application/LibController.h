@@ -22,17 +22,13 @@
 #define kUser 4
 #define kIfdb 5
 
-@class CoreDataManager;
-@class Metadata;
-@class GlkController;
+@class CoreDataManager, Metadata, GlkController, InfoController;
 
 @interface LibHelperWindow : NSWindow <NSDraggingDestination>
 @end
 
 @interface LibHelperTableView : NSTableView
 @end
-
-@class InfoController;
 
 @interface LibController
     : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSSplitViewDelegate>
@@ -118,5 +114,8 @@
 - (NSString *)convertAGTFile:(NSString *)origpath;
 
 - (NSRect)rectForLineWithIfid:(NSString*)ifid;
+- (void)closeAndOpenNextAbove:(InfoController *)infocontroller;
+- (void)closeAndOpenNextBelow:(InfoController *)infocontroller;
+
 
 @end

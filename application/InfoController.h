@@ -20,6 +20,10 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 @property NSString *path;
 @property Metadata *meta;
 
+@property BOOL inAnimation;
+
+@property IBOutlet NSTextField *titleField;
+
 - (instancetype)initWithGame:(Game *)game;
 - (instancetype)initWithpath:(NSString *)path;
 
