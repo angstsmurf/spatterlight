@@ -41,20 +41,20 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (NSMutableDictionary *)coloredAttributes:(NSMutableDictionary *)dict {
-    if (_fg >= 0) {
+    if (_fg != zcolor_Default && _fg != zcolor_Current) {
         dict[NSForegroundColorAttributeName] = [NSColor colorFromInteger:_fg];
     }
-    if (_bg >= 0) {
+    if (_bg != zcolor_Default && _bg != zcolor_Current) {
         dict[NSBackgroundColorAttributeName] = [NSColor colorFromInteger:_bg];
     }
     return dict;
 }
 
 - (NSMutableDictionary *)reversedAttributes:(NSMutableDictionary *)dict {
-    if (_fg >= 0) {
+    if (_fg != zcolor_Default && _fg != zcolor_Current) {
         dict[NSBackgroundColorAttributeName] = [NSColor colorFromInteger:_fg];
     }
-    if (_bg >= 0) {
+    if (_bg != zcolor_Default && _bg != zcolor_Current) {
         dict[NSForegroundColorAttributeName] = [NSColor colorFromInteger:_bg];
     }
     return dict;
