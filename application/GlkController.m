@@ -369,6 +369,9 @@ fprintf(stderr, "%s\n",                                                    \
     _fullWindowScrollView.contentView.frame = frame;
     _borderView.frame = frame;
     _gameView.frame = frame;
+    NSRect bounds = frame;
+    bounds.origin = NSZeroPoint;
+    _borderView.bounds = bounds;
 
     _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     _borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -573,6 +576,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     _inFullscreen = restoredControllerLate.inFullscreen;
     _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
+    _windowPreFullscreenBounds = restoredController.windowPreFullscreenBounds;
     _shouldStoreScrollOffset = NO;
 
     // If the process is dead, restore the dead window if this
@@ -911,6 +915,8 @@ fprintf(stderr, "%s\n",                                                    \
     // Copy values from autorestored GlkController object
     _firstResponderView = restoredControllerLate.firstResponderView;
     _windowPreFullscreenFrame = restoredControllerLate.windowPreFullscreenFrame;
+    _windowPreFullscreenBounds = restoredControllerLate.windowPreFullscreenBounds;
+
     _autosaveTag = restoredController.autosaveTag;
 
     _bufferStyleHints = restoredController.bufferStyleHints;
@@ -1228,6 +1234,8 @@ fprintf(stderr, "%s\n",                                                    \
         _storedWindowFrame = [decoder decodeRectForKey:@"windowFrame"];
         _windowPreFullscreenFrame =
         [decoder decodeRectForKey:@"windowPreFullscreenFrame"];
+        _windowPreFullscreenBounds =
+        [decoder decodeRectForKey:@"windowPreFullscreenBoundss"];
 
         _storedContentFrame = [decoder decodeRectForKey:@"contentFrame"];
         _storedBorderBounds = [decoder decodeRectForKey:@"borderBounds"];
@@ -1278,6 +1286,9 @@ fprintf(stderr, "%s\n",                                                    \
 
     [encoder encodeRect:_windowPreFullscreenFrame
                  forKey:@"windowPreFullscreenFrame"];
+
+    [encoder encodeRect:_windowPreFullscreenBounds
+                 forKey:@"windowPreFullscreenBounds"];
 
     [encoder encodeObject:_queue forKey:@"queue"];
     _firstResponderView = -1;
@@ -1854,9 +1865,11 @@ fprintf(stderr, "%s\n",                                                    \
 
         NSLog(@"_gameView frame:%@", NSStringFromRect(_gameView.frame));
         NSLog(@"_borderView frame:%@", NSStringFromRect(_borderView.frame));
+        NSLog(@"_borderView bounds:%@", NSStringFromRect(_borderView.bounds));
+
         NSLog(@"_fullWindowScrollView frame:%@", NSStringFromRect(_fullWindowScrollView.frame));
-        NSLog(@"_fullWindowScrollView contentView frame:%@", NSStringFromRect(_fullWindowScrollView.contentView.frame));
-        _borderView.frame = _fullWindowScrollView.contentView.frame;
+        NSLog(@"_fullWindowScrollView magnification:%f", _fullWindowScrollView.magnification);
+
 
         if (lastTheme != theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
             NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
@@ -3409,6 +3422,7 @@ again:
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
     // Save the window frame so that it can be restored later
     _windowPreFullscreenFrame = self.window.frame;
+    _windowPreFullscreenBounds = _borderView.bounds;
     _inFullscreen = YES;
     [self storeScrollOffsets];
     _ignoreResizes = YES;
@@ -3423,6 +3437,7 @@ again:
     _gameView.alphaValue = 1;
     [snapshotController close];
     [window setFrame:_windowPreFullscreenFrame display:YES];
+    _borderView.bounds = _windowPreFullscreenBounds;
     _gameView.frame = [self contentFrameForWindowed];
 }
 
@@ -3679,8 +3694,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
 
     NSWindow __unsafe_unretained *localWindow = self.window;
-    NSView __weak *localBorderView = _borderView;
-    NSView __weak *localContentView =_gameView;
+    ScalingScrollView __weak *localScrollView = _fullWindowScrollView;
+    GlkHelperView __weak *localContentView =_gameView;
     GlkController * __unsafe_unretained weakSelf = self;
 
     [NSAnimationContext
@@ -3693,7 +3708,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     }
      completionHandler:^{
         [weakSelf enableArrangementEvents];
-        localBorderView.frame = ((NSView *)localWindow.contentView).frame;
+        localScrollView.frame = ((NSView *)localWindow.contentView).frame;
+        localScrollView.contentView.bounds = weakSelf.windowPreFullscreenBounds;
         localContentView.frame = [weakSelf contentFrameForWindowed];
 
         localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -3715,14 +3731,18 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 - (void)startInFullscreen {
     // First we show the game windowed
+    NSLog(@"startInFullscreen: windowPreFullscreenFrame: %@", NSStringFromRect(restoredControllerLate.windowPreFullscreenFrame));
     [self.window setFrame:restoredControllerLate.windowPreFullscreenFrame
                   display:NO];
     [self showWindow:nil];
     [self.window makeKeyAndOrderFront:nil];
 
     _gameView.frame = [self contentFrameForWindowed];
-    _borderView.bounds = restoredControllerLate.storedBorderBounds;
+    NSLog(@"startInFullscreen: _gameView.frame: %@", NSStringFromRect(_gameView.frame));
+    _borderView.bounds = restoredControllerLate.windowPreFullscreenBounds;
+    NSLog(@"startInFullscreen: _borderView.bounds: %@", NSStringFromRect(restoredControllerLate.windowPreFullscreenBounds));
     _fullWindowScrollView.magnification = restoredControllerLate.storedMagnification;
+    NSLog(@"startInFullscreen: _fullWindowScrollView.magnification: %f", restoredControllerLate.storedMagnification);
 
     _gameView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
