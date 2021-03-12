@@ -8,6 +8,9 @@
 #import "InfoController.h"
 #import "main.h"
 #import "NSString+Categories.h"
+#import "AttributeDictionaryTransformer.h"
+#import "InsecureValueTransformer.h"
+#import "ColorTransformer.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -37,6 +40,26 @@ NSDictionary *gFormatMap;
 
 - (void)awakeFromNib {
     // NSLog(@"appdel: awakeFromNib");
+
+    InsecureValueTransformer *insecureValueTransformer = nil;
+
+    if (@available(macOS 10.14, *)) {
+        AttributeDictionaryTransformer *dicTransformer = [AttributeDictionaryTransformer new];
+        [NSValueTransformer setValueTransformer:dicTransformer
+                                        forName:@"AttributeDictionaryTransformer"];
+
+        ColorTransformer *colorTransformer = [[ColorTransformer alloc] init];
+        [NSValueTransformer setValueTransformer:colorTransformer
+                                        forName:@"ColorTransformer"];
+    } else {
+        insecureValueTransformer = [InsecureValueTransformer new];
+        [NSValueTransformer setValueTransformer:insecureValueTransformer
+                                        forName:@"AttributeDictionaryTransformer"];
+        [NSValueTransformer setValueTransformer:insecureValueTransformer
+                                        forName:@"ColorTransformer"];
+        [NSValueTransformer setValueTransformer:insecureValueTransformer
+                                        forName:@"NSSecureUnarchiveFromData"];
+    }
 
     gGameFileTypes = @[
         @"d$$", @"dat", @"sna", @"advsys", @"quill", @"l9",     @"mag",

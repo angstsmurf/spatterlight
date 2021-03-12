@@ -624,11 +624,14 @@
 		C3B3779F1ECBA3DD006432BE /* vmtz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3779E1ECBA3DD006432BE /* vmtz.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3B377A11ECBA3E8006432BE /* vmtzobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3B377A71ECBA4D5006432BE /* vmconnom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A61ECBA4D5006432BE /* vmconnom.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */; };
+		C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */; };
 		C3C1807E25C70F300040AE79 /* Blorb.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C1807B25C70F2F0040AE79 /* Blorb.m */; };
 		C3C1807F25C70F300040AE79 /* BlorbResource.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C1807D25C70F2F0040AE79 /* BlorbResource.m */; };
 		C3C180AF25C70FD80040AE79 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C180AE25C70FD80040AE79 /* iff.c */; };
 		C3C180C825C717F30040AE79 /* IFCoverDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C180C725C717F30040AE79 /* IFCoverDescription.m */; };
 		C3C183D225F160C90050A2EF /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
+		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
 		C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3D6AD721ECF381A00ADB69C /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D81779256CBA20005DBC1F /* InputTextField.m */; };
@@ -2587,6 +2590,10 @@
 		C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmtzobj.cpp; sourceTree = "<group>"; };
 		C3B377A21ECBA41B006432BE /* vmconhtm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmconhtm.cpp; sourceTree = "<group>"; };
 		C3B377A61ECBA4D5006432BE /* vmconnom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vmconnom.cpp; sourceTree = "<group>"; };
+		C3B9EB4925FA29F4002A406E /* AttributeDictionaryTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttributeDictionaryTransformer.h; sourceTree = "<group>"; };
+		C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttributeDictionaryTransformer.m; sourceTree = "<group>"; };
+		C3B9EB6625FA3AEF002A406E /* ColorTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTransformer.h; sourceTree = "<group>"; };
+		C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTransformer.m; sourceTree = "<group>"; };
 		C3C1807A25C70F2F0040AE79 /* BlorbResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlorbResource.h; sourceTree = "<group>"; };
 		C3C1807B25C70F2F0040AE79 /* Blorb.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = Blorb.m; sourceTree = "<group>"; tabWidth = 2; };
 		C3C1807C25C70F2F0040AE79 /* Blorb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Blorb.h; sourceTree = "<group>"; };
@@ -2597,6 +2604,8 @@
 		C3C180C725C717F30040AE79 /* IFCoverDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFCoverDescription.m; sourceTree = "<group>"; };
 		C3CDF24925A3C26000FA3451 /* Spatterlight 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 5.xcdatamodel"; sourceTree = "<group>"; };
 		C3D155671EDC4C820072D259 /* defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defs.h; path = Generic/defs.h; sourceTree = "<group>"; };
+		C3D219E125FAD0820066AC4E /* InsecureValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsecureValueTransformer.h; sourceTree = "<group>"; };
+		C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsecureValueTransformer.m; sourceTree = "<group>"; };
 		C3D81779256CBA20005DBC1F /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
 		C3D8177A256CBA20005DBC1F /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
 		C3E2EAAE25D08EEC0012B7FB /* UKSyntaxColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKSyntaxColor.h; sourceTree = "<group>"; };
@@ -3157,6 +3166,12 @@
 		6DCFFC1622BCCF600035FA99 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
+				C3B9EB4925FA29F4002A406E /* AttributeDictionaryTransformer.h */,
+				C3B9EB4A25FA29F4002A406E /* AttributeDictionaryTransformer.m */,
+				C3B9EB6625FA3AEF002A406E /* ColorTransformer.h */,
+				C3B9EB6725FA3AEF002A406E /* ColorTransformer.m */,
+				C3D219E125FAD0820066AC4E /* InsecureValueTransformer.h */,
+				C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */,
 				6DC1FAF3252A5C8A00540C6E /* Theme.h */,
 				6DC1FAF4252A5C8A00540C6E /* Theme.m */,
 				6DC1FAED252A5A5900540C6E /* Metadata.h */,
@@ -5885,6 +5900,7 @@
 				C3C1807E25C70F300040AE79 /* Blorb.m in Sources */,
 				6DBC471A21D27E9C00A20E28 /* Compatibility.m in Sources */,
 				961CCEF209F23A0000528FF9 /* main.m in Sources */,
+				C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */,
 				961CCEF409F23A0000528FF9 /* Preferences.m in Sources */,
 				961CCEF109F23A0000528FF9 /* AppDelegate.m in Sources */,
 				96A9C0F00A07AE17001B5B9B /* LibController.m in Sources */,
@@ -5908,6 +5924,7 @@
 				6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */,
 				C3C1807F25C70F300040AE79 /* BlorbResource.m in Sources */,
 				6D7673E8239FFC6C00FB24C0 /* IFBibliographic.m in Sources */,
+				C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */,
 				6D7673EA239FFC6C00FB24C0 /* IFDB.m in Sources */,
 				6D7673EC239FFC6C00FB24C0 /* IFictionMetadata.m in Sources */,
 				C3074B8825A1F461003E80C6 /* VersionFormatter.m in Sources */,
@@ -5918,6 +5935,7 @@
 				6DC6214023A26078002DEF3B /* Image.m in Sources */,
 				6DC6214323A26078002DEF3B /* Tag.m in Sources */,
 				6DC6214623A26078002DEF3B /* Interpreter.m in Sources */,
+				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
 				C33B4504257E84500017EA26 /* ZMenu.m in Sources */,
 				6DF73C3523B8F46100F76CF9 /* GlkStyle.m in Sources */,
 				C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */,

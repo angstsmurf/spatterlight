@@ -217,8 +217,8 @@
     }];
 
     [privateManagedObjectContext performBlock:^{
-        BOOL result;
-        NSError *error;
+        BOOL result = NO;
+        NSError *error = nil;
         if (weakSelf.privateManagedObjectContext.hasChanges) {
             @try {
                 result = [weakSelf.privateManagedObjectContext save:&error];
@@ -233,7 +233,8 @@
             if (!result) {
                 NSLog(@"Unable to Save Changes of Private Managed Object Context! Error:%@", error);
                 if (error) {
-                    [[NSApplication sharedApplication] presentError:error];
+//                    [[NSApplication sharedApplication] presentError:error];
+                    NSLog(@"Error: %@", error);
                 } //else NSLog(@"Changes in privateManagedObjectContext were saved");
             }
 
