@@ -76,8 +76,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 @end
 
-@interface TempLibrary : NSObject {
-}
+@interface TempLibrary : NSObject
 
 @property glui32 autosaveTag;
 @end
