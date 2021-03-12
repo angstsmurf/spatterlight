@@ -1118,12 +1118,29 @@ static const char *msgnames[] = {
     if (_supportsAutorestore && _theme.autosave) {
         NSString *autosaveLate = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
-        NSInteger res = [NSKeyedArchiver archiveRootObject:self
-                                                    toFile:autosaveLate];
-        if (!res) {
-            NSLog(@"GUI autosave on exit failed!");
-            return;
-        } else _game.autosaved = YES;
+
+
+        if (@available(macOS 10.13, *)) {
+            NSError *error = nil;
+
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
+            [data writeToFile:autosaveLate options:NSDataWritingAtomic error:&error];
+
+            if (error) {
+                NSLog(@"Write returned error: %@", [error localizedDescription]);
+                return;
+            }
+
+        } else {
+            // Fallback on earlier version
+            NSInteger res = [NSKeyedArchiver archiveRootObject:self
+                                                        toFile:autosaveLate];
+            if (!res) {
+                NSLog(@"GUI autosave on exit failed!");
+                return;
+            }
+        }
+     _game.autosaved = YES;
     }
 }
 
@@ -1323,12 +1340,24 @@ static const char *msgnames[] = {
     NSString *tmplibpath =
     [self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-tmp.plist"];
 
-    NSInteger res = [NSKeyedArchiver archiveRootObject:self
-                                                toFile:tmplibpath];
+    NSInteger res;
 
-    if (!res) {
-        NSLog(@"Window serialize failed!");
-        return;
+    if (@available(macOS 10.13, *)) {
+        NSError *error = nil;
+
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
+        [data writeToFile:tmplibpath options:NSDataWritingAtomic error:&error];
+        NSLog(@"Write returned error: %@", [error localizedDescription]);
+
+    } else {
+        // Fallback on earlier versions
+         res = [NSKeyedArchiver archiveRootObject:self
+                                                    toFile:tmplibpath];
+
+        if (!res) {
+            NSLog(@"Window serialize failed!");
+            return;
+        }
     }
 
     /* This is not really atomic, but we're already past the serious failure modes. */
