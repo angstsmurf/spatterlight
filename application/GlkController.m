@@ -1554,9 +1554,6 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"windowWillClose called twice!");
         return;
     } else windowClosedAlready = YES;
-    if (snapshotController) {
-        [snapshotController close];
-    }
 
     [self autoSaveOnExit];
     [_soundHandler stopAllAndCleanUp];
@@ -3403,9 +3400,9 @@ again:
             return @[ window ];
         } else {
             [self makeAndPrepareSnapshotWindow];
-            NSWindow *snapshotWindow = snapshotController.window;
-            if (snapshotWindow)
-                return @[ window, snapshotWindow ];
+            NSWindow *snapshot = snapshotController.window;
+            if (snapshot)
+                return @[ window, snapshot ];
         }
     }
     return nil;
@@ -3434,7 +3431,6 @@ again:
     _ignoreResizes = NO;
     inFullScreenResize = NO;
     _gameView.alphaValue = 1;
-    [snapshotController close];
     [window setFrame:_windowPreFullscreenFrame display:YES];
     _borderView.bounds = _windowPreFullscreenBounds;
     _gameView.frame = [self contentFrameForWindowed];
@@ -3515,8 +3511,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     _gameView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
 
-    NSView __weak *localContentView = _gameView;
-    NSView __weak *localBorderView = _borderView;
+    NSView *localContentView = _gameView;
+    NSView *localBorderView = _borderView;
     NSWindow *localSnapshot = snapshotWindow;
 
     GlkController * __unsafe_unretained weakSelf = self;
