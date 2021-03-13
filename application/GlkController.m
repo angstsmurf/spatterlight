@@ -149,7 +149,7 @@ static const char *msgnames[] = {
     BOOL shouldShowAutorestoreAlert;
 
     NSSize borderFullScreenSize;
-    NSWindow *snapshotWindow;
+    NSWindowController *snapshotController;
 
     BOOL windowClosedAlready;
     BOOL restartingAlready;
@@ -3455,9 +3455,12 @@ again:
             return @[ window ];
         } else {
             [self makeAndPrepareSnapshotWindow];
-            return @[ window, snapshotWindow ];
+            NSWindow *snapshotWindow = snapshotController.window;
+            if (snapshotWindow)
+                return @[ window, snapshotWindow ];
         }
-    } else return nil;
+    }
+    return nil;
 }
 
 - (NSArray *)customWindowsToExitFullScreenForWindow:(NSWindow *)window {
@@ -3482,7 +3485,6 @@ again:
     _ignoreResizes = NO;
     inFullScreenResize = NO;
     _contentView.alphaValue = 1;
-    snapshotWindow = nil;
     [window setFrame:_windowPreFullscreenFrame display:YES];
     _contentView.frame = [self contentFrameForWindowed];
 }
@@ -3529,6 +3531,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     // Make sure the snapshot window style mask includes the
     // full screen bit
+    NSWindow *snapshotWindow = snapshotController.window;
     snapshotWindow.styleMask = (snapshotWindow.styleMask | NSFullScreenWindowMask);
     [snapshotWindow setFrame:window.frame display:YES];
 
@@ -3561,9 +3564,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
 
-    NSView __weak *localContentView = _contentView;
-    NSView __weak *localBorderView = _borderView;
-    NSWindow *localSnapshot = snapshotWindow;
+    NSView *localContentView = _contentView;
+    NSView *localBorderView = _borderView;
+    NSWindow *localSnapshot = snapshotController.window;
 
     GlkController * __unsafe_unretained weakSelf = self;
     // Hide contentview
@@ -3703,20 +3706,21 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
              display:YES];
         }
          completionHandler:^{
+            GlkController *strongSelf = weakSelf;
             // Finally, we get the content view into position ...
-            [weakSelf enableArrangementEvents];
-            localContentView.frame = [weakSelf contentFrameForFullscreen];
+            [strongSelf enableArrangementEvents];
+            localContentView.frame = [strongSelf contentFrameForFullscreen];
             GlkEvent *gevent = [[GlkEvent alloc]
                                 initArrangeWidth:(NSInteger)localContentView.frame.size.width
                                 height:(NSInteger)localContentView.frame.size.height
-                                theme:weakSelf.theme
+                                theme:strongSelf.theme
                                 force:NO];
 
-            [weakSelf queueEvent:gevent];
+            [strongSelf queueEvent:gevent];
 
-            if (stashShouldShowAlert)
-                [weakSelf performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
-            [weakSelf restoreScrollOffsets];
+            if (stashShouldShowAlert && strongSelf)
+                [strongSelf performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
+            [strongSelf restoreScrollOffsets];
         }];
     }];
 }
@@ -3762,7 +3766,6 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
-    snapshotWindow = nil;
     _ignoreResizes = NO;
     [self contentDidResize:_contentView.frame];
 }
@@ -3818,15 +3821,27 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)makeAndPrepareSnapshotWindow {
+    NSWindow *snapshotWindow;
+    if (snapshotController.window) {
+        snapshotWindow = snapshotController.window;
+        snapshotWindow.contentView.hidden = NO;
+        for (CALayer *layer in snapshotWindow.contentView.layer.sublayers)
+            [layer removeFromSuperlayer];
+    } else {
+        snapshotWindow = ([[NSWindow alloc]
+                           initWithContentRect:self.window.frame
+                           styleMask:0
+                           backing:NSBackingStoreBuffered
+                           defer:NO]);
+        snapshotController = [[NSWindowController alloc] initWithWindow:snapshotWindow];
+        [[snapshotWindow contentView] setWantsLayer:YES];
+        [snapshotWindow setOpaque:NO];
+        snapshotWindow.releasedWhenClosed = YES;
+        [snapshotWindow setBackgroundColor:[NSColor clearColor]];
+    }
+
     CALayer *snapshotLayer = [self takeSnapshot];
-    snapshotWindow = ([[NSWindow alloc]
-                       initWithContentRect:self.window.frame
-                       styleMask:0
-                       backing:NSBackingStoreBuffered
-                       defer:NO]);
-    [[snapshotWindow contentView] setWantsLayer:YES];
-    [snapshotWindow setOpaque:NO];
-    [snapshotWindow setBackgroundColor:[NSColor clearColor]];
+
     [snapshotWindow setFrame:self.window.frame display:NO];
     [[[snapshotWindow contentView] layer] addSublayer:snapshotLayer];
     // Compute the frame of the snapshot layer such that the snapshot is
