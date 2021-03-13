@@ -35,12 +35,6 @@
  *   - call keyDown and mouseDown on our GlkTextGridWindow object
  */
 
-@interface MyGridTextView () <NSAccessibilityNavigableStaticText> {
-    NSTimer *mouseTimer;
-    NSRange mouseDownSelection;
-}
-@end
-
 @implementation MyGridTextView
 
 + (BOOL)isCompatibleWithResponsiveScrolling
@@ -53,31 +47,7 @@
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-    [(GlkTextGridWindow *)self.delegate myMouseDown:theEvent];
-    mouseTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                   target:self
-                                                 selector:@selector(mouseWasHeld:)
-                                                 userInfo:theEvent
-                                                  repeats:NO];
-    mouseDownSelection = self.selectedRange;
-}
-
-- (void)mouseUp: (NSEvent *)theEvent {
-    if (mouseTimer)
-        self.selectedRange = NSMakeRange(mouseDownSelection.location, 0);
-    [mouseTimer invalidate];
-    mouseTimer = nil;
-}
-
-- (void)mouseWasHeld: (NSTimer *)tim {
-    NSEvent * mouseDownEvent = [tim userInfo];
-    mouseTimer = nil;
-    [super mouseDown:mouseDownEvent];
-}
-
-- (void)superMouseDown:(NSEvent *)theEvent {
-    [mouseTimer invalidate];
-    mouseTimer = nil;
+    if (![(GlkTextGridWindow *)self.delegate myMouseDown:theEvent] || ((GlkTextGridWindow *)self.delegate).glkctl.beyondZork)
     [super mouseDown:theEvent];
 }
 
@@ -1221,7 +1191,6 @@
         }
     } else {
         //                NSLog(@"No hyperlink request or mouse request in grid window %ld", self.name);
-        [_textview superMouseDown:theEvent];
     }
     return NO;
 }

@@ -6,8 +6,6 @@
 
 @interface MyGridTextView : NSTextView <NSAccessibilityNavigableStaticText>
 
-- (void)superMouseDown:(NSEvent *)theEvent;
-
 @end
 
 @interface GlkTextGridWindow
