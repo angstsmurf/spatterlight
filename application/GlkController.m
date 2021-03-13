@@ -1347,7 +1347,8 @@ static const char *msgnames[] = {
 
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
         [data writeToFile:tmplibpath options:NSDataWritingAtomic error:&error];
-        NSLog(@"Write returned error: %@", [error localizedDescription]);
+        if (error)
+            NSLog(@"Write returned error: %@", [error localizedDescription]);
 
     } else {
         // Fallback on earlier versions
