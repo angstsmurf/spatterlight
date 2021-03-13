@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class GlkController;
+
 @interface ScalingScrollView : NSScrollView
 
 @property CGFloat scaleFactor;
+@property (weak, readonly) GlkController *glkctl;
+
 
 - (IBAction)zoomToActualSize:(id)sender;
 - (IBAction)zoomIn:(id)sender;

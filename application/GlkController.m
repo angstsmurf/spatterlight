@@ -68,14 +68,6 @@ fprintf(stderr, "%s\n",                                                    \
 //    "stylehint_NUMHINTS"
 //};
 
-@interface BorderView : NSView
-
-@end
-
-@implementation BorderView
-
-@end
-
 @interface TempLibrary : NSObject
 
 @property glui32 autosaveTag;
@@ -923,7 +915,14 @@ fprintf(stderr, "%s\n",                                                    \
 
     // Restore frame size
     _gameView.frame = restoredControllerLate.storedContentFrame;
-    _borderView.bounds = restoredControllerLate.storedBorderBounds;
+    _borderView.bounds = restoredControllerLate.windowPreFullscreenBounds;
+    if (NSEqualRects(_borderView.bounds, NSZeroRect)) {
+        NSRect bounds = _borderView.frame;
+        bounds.origin = NSZeroPoint;
+        _borderView.bounds = bounds;
+    }
+    if (_borderView.bounds.size.width > _borderView.frame.size.width)
+        NSLog(@"Zoomed out!");
     _fullWindowScrollView.magnification = restoredControllerLate.storedMagnification;
 
     // Copy all views and GlkWindow objects from restored Controller
@@ -1737,65 +1736,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (void)zoomContentToSize:(NSSize)newSize {
-//    _ignoreResizes = YES;
-//    NSRect oldframe = _gameView.frame;
-//
-//    NSUInteger borders = (NSUInteger)_theme.border * 2;
-//
-//    if ((self.window.styleMask & NSFullScreenWindowMask) !=
-//        NSFullScreenWindowMask) { // We are not in fullscreen
-//
-//        newSize.width += borders;
-//        newSize.height += borders;
-//
-//        NSRect screenframe = [NSScreen mainScreen].visibleFrame;
-//
-//        NSRect contentRect = NSMakeRect(0, 0, newSize.width, newSize.height);
-//
-//        NSRect winrect = [self.window frameRectForContentRect:contentRect];
-//        winrect.origin = self.window.frame.origin;
-//
-//        // If the new size is too big to fit on screen, clip at screen size
-//        if (NSHeight(winrect) > NSHeight(screenframe))
-//            winrect.size.height = NSHeight(screenframe);
-//        if (NSWidth(winrect) > NSWidth(screenframe))
-//            winrect.size.width = NSWidth(screenframe);
-//
-//        CGFloat offset = NSHeight(winrect) - NSHeight(self.window.frame);
-//
-//        winrect.origin.y -= offset;
-//
-//        // If window is partly off the screen, move it (just) inside
-//        if (NSMaxX(winrect) > NSMaxX(screenframe))
-//            winrect.origin.x = NSMaxX(screenframe) - NSWidth(winrect);
-//
-//        NSSize minSize = self.window.minSize;
-//        if (winrect.size.width < minSize.width)
-//            winrect.size.width = minSize.width;
-//        if (winrect.size.height < minSize.height)
-//            winrect.size.height = minSize.height;
-//
-//        [self.window setFrame:winrect display:YES];
-//        _gameView.frame = [self contentFrameForWindowed];
-//    } else {
-//        //        NSLog(@"zoomContentToSize: we are in fullscreen");
-//        NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
-//                                     newSize.width,
-//                                     NSHeight(_borderView.frame));
-//
-//        if (NSWidth(newframe) > NSWidth(_borderView.frame) - borders)
-//            newframe.size.width = NSWidth(_borderView.frame) - borders;
-//
-//        newframe.origin.x += (NSWidth(oldframe) - NSWidth(newframe)) / 2;
-//
-//        CGFloat offset = NSHeight(newframe) - NSHeight(oldframe);
-//        newframe.origin.y -= offset;
-//
-//        _gameView.frame = newframe;
-//    }
-//    _ignoreResizes = NO;
-}
+
 
 
 - (NSSize)charCellsToContentSize:(NSSize)cells {
@@ -1862,6 +1803,8 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"_gameView frame:%@", NSStringFromRect(_gameView.frame));
         NSLog(@"_borderView frame:%@", NSStringFromRect(_borderView.frame));
         NSLog(@"_borderView bounds:%@", NSStringFromRect(_borderView.bounds));
+        if (_borderView.bounds.size.width > _borderView.frame.size.width)
+            NSLog(@"Zoomed out!");
 
         NSLog(@"_fullWindowScrollView frame:%@", NSStringFromRect(_fullWindowScrollView.frame));
         NSLog(@"_fullWindowScrollView magnification:%f", _fullWindowScrollView.magnification);
@@ -1930,23 +1873,95 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Zoom
 
-//- (IBAction)zoomIn:(id)sender {
-//    [Preferences zoomIn];
-//    if (Preferences.instance)
-//    [Preferences.instance updatePanelAfterZoom];
-//}
-//
-//- (IBAction)zoomOut:(id)sender {
-//    [Preferences zoomOut];
-//    if (Preferences.instance)
-//    [Preferences.instance updatePanelAfterZoom];
-//}
-//
-//- (IBAction)zoomToActualSize:(id)sender {
-//    [Preferences zoomToActualSize];
-//    if (Preferences.instance)
-//    [Preferences.instance updatePanelAfterZoom];
-//}
+
+- (void)myZoomIn:(CGFloat)scaleFactor {
+    NSLog(@"zoomIn");
+}
+- (void)myZoomOut:(CGFloat)scaleFactor {
+    NSLog(@"zoomOut");
+}
+
+- (void)myZoomToActualSize {
+    NSLog(@"zoomToActualSize");
+}
+
+-(void)zoomToSizeInChars:(NSSize)size {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"]) {
+        _ignoreResizes = YES;
+
+        Theme *theme = _game.theme;
+        NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
+        NSUInteger borders = (NSUInteger)theme.border * 2;
+        NSSize newSizeIncludingBorders = NSMakeSize(newContentSize.width + borders, newContentSize.height + borders);
+
+        if (!NSEqualSizes(_borderView.frame.size, newSizeIncludingBorders)
+            || !NSEqualSizes(_gameView.frame.size, newContentSize)) {
+            [self zoomContentToSize:newContentSize];
+            //                NSLog(@"Changed window size to keep size in char cells constant. Previous size in char cells: %@ Current size in char cells: %@", NSStringFromSize(lastSizeInChars), NSStringFromSize([self contentSizeToCharCells:_gameView.frame.size]));
+        }
+        _ignoreResizes = NO;
+    }
+}
+
+- (void)zoomContentToSize:(NSSize)newSize {
+    _ignoreResizes = YES;
+    NSRect oldframe = _gameView.frame;
+
+    NSUInteger borders = (NSUInteger)_theme.border * 2;
+
+    if ((self.window.styleMask & NSFullScreenWindowMask) !=
+        NSFullScreenWindowMask) { // We are not in fullscreen
+
+        newSize.width += borders;
+        newSize.height += borders;
+
+        NSRect screenframe = [NSScreen mainScreen].visibleFrame;
+
+        NSRect contentRect = NSMakeRect(0, 0, newSize.width, newSize.height);
+
+        NSRect winrect = [self.window frameRectForContentRect:contentRect];
+        winrect.origin = self.window.frame.origin;
+
+        // If the new size is too big to fit on screen, clip at screen size
+        if (NSHeight(winrect) > NSHeight(screenframe))
+            winrect.size.height = NSHeight(screenframe);
+        if (NSWidth(winrect) > NSWidth(screenframe))
+            winrect.size.width = NSWidth(screenframe);
+
+        CGFloat offset = NSHeight(winrect) - NSHeight(self.window.frame);
+
+        winrect.origin.y -= offset;
+
+        // If window is partly off the screen, move it (just) inside
+        if (NSMaxX(winrect) > NSMaxX(screenframe))
+            winrect.origin.x = NSMaxX(screenframe) - NSWidth(winrect);
+
+        NSSize minSize = self.window.minSize;
+        if (winrect.size.width < minSize.width)
+            winrect.size.width = minSize.width;
+        if (winrect.size.height < minSize.height)
+            winrect.size.height = minSize.height;
+
+        [self.window setFrame:winrect display:YES];
+        _gameView.frame = [self contentFrameForWindowed];
+    } else {
+        //        NSLog(@"zoomContentToSize: we are in fullscreen");
+        NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
+                                     newSize.width,
+                                     NSHeight(_borderView.frame));
+
+        if (NSWidth(newframe) > NSWidth(_borderView.frame) - borders)
+            newframe.size.width = NSWidth(_borderView.frame) - borders;
+
+        newframe.origin.x += (NSWidth(oldframe) - NSWidth(newframe)) / 2;
+
+        CGFloat offset = NSHeight(newframe) - NSHeight(oldframe);
+        newframe.origin.y -= offset;
+
+        _gameView.frame = newframe;
+    }
+    _ignoreResizes = NO;
+}
 
 - (void)noteDefaultSizeChanged:(NSNotification *)notification {
 
@@ -1956,12 +1971,12 @@ fprintf(stderr, "%s\n",                                                    \
     NSSize sizeAfterZoom = [self defaultContentSize];
     NSRect oldframe = _gameView.frame;
 
-    // Prevent the window from shrinking when zooming in or growing when
-    // zooming out, which might otherwise happen at edge cases
-    if ((sizeAfterZoom.width < oldframe.size.width && Preferences.zoomDirection == ZOOMIN) ||
-        (sizeAfterZoom.width > oldframe.size.width && Preferences.zoomDirection == ZOOMOUT)) {
-        return;
-    }
+//    // Prevent the window from shrinking when zooming in or growing when
+//    // zooming out, which might otherwise happen at edge cases
+//    if ((sizeAfterZoom.width < oldframe.size.width && Preferences.zoomDirection == ZOOMIN) ||
+//        (sizeAfterZoom.width > oldframe.size.width && Preferences.zoomDirection == ZOOMOUT)) {
+//        return;
+//    }
 
     if ((self.window.styleMask & NSFullScreenWindowMask) !=
         NSFullScreenWindowMask) {
@@ -3735,7 +3750,13 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     _gameView.frame = [self contentFrameForWindowed];
     NSLog(@"startInFullscreen: _gameView.frame: %@", NSStringFromRect(_gameView.frame));
     _borderView.bounds = restoredControllerLate.windowPreFullscreenBounds;
-    NSLog(@"startInFullscreen: _borderView.bounds: %@", NSStringFromRect(restoredControllerLate.windowPreFullscreenBounds));
+    NSLog(@"startInFullscreen: _borderView.bounds: %@", NSStringFromRect(_borderView.bounds));
+
+    if (NSEqualRects(_borderView.bounds, NSZeroRect)) {
+        NSRect bounds =  _fullWindowScrollView.contentView.frame;
+        bounds.origin = NSZeroPoint;
+        _borderView.bounds = bounds;
+    }
     _fullWindowScrollView.magnification = restoredControllerLate.storedMagnification;
     NSLog(@"startInFullscreen: _fullWindowScrollView.magnification: %f", restoredControllerLate.storedMagnification);
 
@@ -3816,6 +3837,8 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         // We are not in fullscreen
         _gameView.frame = [self contentFrameForWindowed];
     }
+    if (_borderView.bounds.size.width > _borderView.frame.size.width)
+        NSLog(@"Zoomed out!");
 }
 
 - (NSRect)contentFrameForWindowed {

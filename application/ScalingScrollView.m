@@ -1,4 +1,5 @@
 #import "ScalingScrollView.h"
+#import "GlkController.h"
 
 @implementation ScalingScrollView
 
@@ -11,7 +12,7 @@
 
 - (IBAction)zoomToActualSize:(id)sender {
     [[self animator] setMagnification:1.0];
-//    [self.window setContentSize:self.documentView.bounds.size];
+    [self.glkctl myZoomToActualSize];
 }
 
 - (IBAction)zoomIn:(id)sender {
@@ -29,6 +30,8 @@
     } completionHandler:^{
 //        [self printDiff:scaleFactor];
     }];
+
+    [self.glkctl myZoomIn:scaleFactor];
 }
 
 - (IBAction)zoomOut:(id)sender {
@@ -47,6 +50,7 @@
     } completionHandler:^{
 //        [self printDiff:scaleFactor];
     }];
+    [self.glkctl myZoomOut:scaleFactor];
 }
 
 - (BOOL)scrolledToBottom {
@@ -65,6 +69,18 @@
 
     return origin;
 }
+
+@synthesize glkctl = _glkctl;
+
+- (GlkController *)glkctl {
+        if (_glkctl == nil) {
+            if (self.documentView) {
+                _glkctl = (GlkController *)((GlkHelperView *)self.documentView.subviews.firstObject).glkctrl;
+            }
+        }
+    return _glkctl;
+}
+
 
 /* Reassure AppKit that ScalingScrollView supports live resize content preservation, even though it's a subclass that could have modified NSScrollView in such a way as to make NSScrollView's live resize content preservation support inoperative. By default this is disabled for NSScrollView subclasses.
 */
