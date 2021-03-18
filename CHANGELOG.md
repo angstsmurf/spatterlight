@@ -1,5 +1,14 @@
 # Change log
 
+## Release 0.7.7
+- Fixes starting up when no old library is present.
+- Fix regression with text background colors, apparent in at least Bronze.
+- Animate opening and closing info windows.
+- Open and close info windows using space bar, in an attempt to approximate the behavior of QuickLook in Finder.
+- Fix buggy mouse behavior in grid (status) windows.
+- Make Core Data value transformers secure.
+- Don't leak two windows every time we enter and exit full screen.
+
 ## Release 0.7.6
 - Fixes crash when autorestoring saves made when there was no current Glk stream.
 - QuickLook extension for many related file types. Shows useful information and cover images. For save files and data, it tries to guess which game created them. Available on macOS 10.15 Catalina and later only.
