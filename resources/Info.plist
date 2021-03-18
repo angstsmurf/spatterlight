@@ -507,12 +507,12 @@
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleVersion</key>
-	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>Spat</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>GroupIdentifier</key>
 	<string>$(TeamIdentifierPrefix)group.net.ccxvii.spatterlight</string>
 	<key>LSApplicationCategoryType</key>
@@ -895,7 +895,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;zcode&quot;</string>
+					<string>application/x-blorb;profile="zcode"</string>
 				</array>
 			</dict>
 		</dict>
@@ -931,7 +931,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/x-blorb;profile=&quot;glulx&quot;</string>
+					<string>application/x-blorb;profile="glulx"</string>
 				</array>
 			</dict>
 		</dict>
@@ -1131,23 +1131,23 @@
 			</dict>
 		</dict>
 		<dict>
-			<key>UTTypeIconFile</key>
-			<string>LegacyIcon</string>
-			<key>UTTypeDescription</key>
-			<string>Level 9 game</string>
-			<key>UTTypeIcons</key>
-			<dict>
-				<key>UTTypeIconBadgeName</key>
-				<string>L</string>
-				<key>UTTypeIconBackgroundName</key>
-				<string>BackgroundNew</string>
-				<key>UTTypeIconText</key>
-				<string>LEVEL 9</string>
-			</dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.level9</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>Level 9 game</string>
+			<key>UTTypeIconFile</key>
+			<string>LegacyIcon</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBackgroundName</key>
+				<string>BackgroundNew</string>
+				<key>UTTypeIconBadgeName</key>
+				<string>L</string>
+				<key>UTTypeIconText</key>
+				<string>LEVEL 9</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>public.level9</string>
 			<key>UTTypeTagSpecification</key>
