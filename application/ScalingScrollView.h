@@ -14,6 +14,8 @@
 
 @property CGFloat scaleFactor;
 @property (weak, readonly) GlkController *glkctl;
+@property NSWindowController *snapshotController;
+
 
 
 - (IBAction)zoomToActualSize:(id)sender;

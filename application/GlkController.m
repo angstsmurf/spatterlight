@@ -459,16 +459,20 @@ fprintf(stderr, "%s\n",                                                    \
     _fullWindowScrollView.allowsMagnification = YES;
     _fullWindowScrollView.maxMagnification = 8.0;
     _fullWindowScrollView.minMagnification = 1.0;
+    _fullWindowScrollView.translatesAutoresizingMaskIntoConstraints = NO;
     _fullWindowScrollView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
 
     _borderView = [[NSView alloc] initWithFrame:NSZeroRect];
+    _borderView.translatesAutoresizingMaskIntoConstraints = NO;
     _borderView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
 
     _gameView = [[GlkHelperView alloc] initWithFrame:NSZeroRect];
+    _gameView.translatesAutoresizingMaskIntoConstraints = NO;
     _gameView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
     _gameView.glkctrl = self;
     
     [_borderView addSubview:_gameView];
+    
     _fullWindowScrollView.documentView = _borderView;
     [self.window.contentView addSubview:_fullWindowScrollView];
 }
@@ -1875,10 +1879,35 @@ fprintf(stderr, "%s\n",                                                    \
 
 
 - (void)myZoomIn:(CGFloat)scaleFactor {
-    NSLog(@"zoomIn");
+    NSLog(@"GlkCtl myZoomIn");
+    _fullWindowScrollView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
+    _fullWindowScrollView.superview.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
+
+
+    _borderView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
+    _borderView.superview.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
+
+    _gameView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
+//    NSRect frame = self.window.frame;
+//    NSRect screenFrame = self.window.screen.visibleFrame;
+//    frame.size.width *= 1.2;
+//    frame.size.height *= 1.2;
+//    frame = NSIntersectionRect(frame, screenFrame);
+//
+//    [self.window setFrame:frame display:YES animate:YES];
 }
 - (void)myZoomOut:(CGFloat)scaleFactor {
-    NSLog(@"zoomOut");
+//    NSLog(@"zoomOut");
+//    NSRect frame = self.window.frame;
+//    scaleFactor = scaleFactor * 0.8;
+//    if (scaleFactor < 1.0)
+//        scaleFactor = 1.0;
+//    frame.size.width *= scaleFactor;
+//    frame.size.height *= scaleFactor;
+//    NSRect screenFrame = self.window.screen.visibleFrame;
+//    frame = NSIntersectionRect(frame, screenFrame);
+//
+//    [self.window setFrame:frame display:YES animate:YES];
 }
 
 - (void)myZoomToActualSize {
