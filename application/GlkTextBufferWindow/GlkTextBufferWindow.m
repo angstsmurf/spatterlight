@@ -150,7 +150,8 @@ fprintf(stderr, "%s\n",                                                    \
         _textview.horizontallyResizable = NO;
         _textview.verticallyResizable = YES;
 
-        _textview.autoresizingMask = NSViewWidthSizable;
+        _textview.translatesAutoresizingMaskIntoConstraints = NO;
+        _textview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
         _textview.allowsImageEditing = NO;
         _textview.allowsUndo = NO;

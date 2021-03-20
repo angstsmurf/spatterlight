@@ -640,6 +640,7 @@
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
 		C3C4AA5825EA5B2600938AB6 /* NonScalingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C4AA5725EA5B2600938AB6 /* NonScalingScrollView.m */; };
+		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
 		C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3D6AD721ECF381A00ADB69C /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D81779256CBA20005DBC1F /* InputTextField.m */; };
@@ -651,6 +652,7 @@
 		C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EF065E1ECE60D0008EED04 /* cgdate.c */; };
 		C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
+		C3F23DA32604B79900ACB0D8 /* HelpScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F23DA12604B79900ACB0D8 /* HelpScrollView.m */; };
 		C3FD3FD525E99572006F457A /* ScalingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FD3FD325E99572006F457A /* ScalingScrollView.m */; };
 /* End PBXBuildFile section */
 
@@ -2645,6 +2647,8 @@
 		C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BureaucracyForm.m; sourceTree = "<group>"; };
 		C3FE98D8261B2CA900152AB6 /* RotorHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotorHandler.h; sourceTree = "<group>"; };
 		C3FE98D9261B2CA900152AB6 /* RotorHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotorHandler.m; sourceTree = "<group>"; };
+		C3F23DA12604B79900ACB0D8 /* HelpScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpScrollView.m; sourceTree = "<group>"; };
+		C3F23DA22604B79900ACB0D8 /* HelpScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpScrollView.h; sourceTree = "<group>"; };
 		C3FD3FD325E99572006F457A /* ScalingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScalingScrollView.m; sourceTree = "<group>"; };
 		C3FD3FD425E99572006F457A /* ScalingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScalingScrollView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3681,6 +3685,8 @@
 				C3FD3FD325E99572006F457A /* ScalingScrollView.m */,
 				C3C4AA5625EA5B2600938AB6 /* NonScalingScrollView.h */,
 				C3C4AA5725EA5B2600938AB6 /* NonScalingScrollView.m */,
+				C3F23DA22604B79900ACB0D8 /* HelpScrollView.h */,
+				C3F23DA12604B79900ACB0D8 /* HelpScrollView.m */,
 				6D85C894218BD6E00088D849 /* HelpPanelController.h */,
 				6D85C895218BD6E00088D849 /* HelpPanelController.m */,
 			);
@@ -6012,6 +6018,7 @@
 				6D7673E8239FFC6C00FB24C0 /* IFBibliographic.m in Sources */,
 				C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */,
 				6D7673EA239FFC6C00FB24C0 /* IFDB.m in Sources */,
+				C3F23DA32604B79900ACB0D8 /* HelpScrollView.m in Sources */,
 				6D7673EC239FFC6C00FB24C0 /* IFictionMetadata.m in Sources */,
 				C3074B8825A1F461003E80C6 /* VersionFormatter.m in Sources */,
 				6D7673ED239FFC6C00FB24C0 /* IFIdentification.m in Sources */,

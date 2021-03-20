@@ -13,7 +13,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, ScalingScrollView;
+@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, ScalingScrollView, BorderView;
 
 #define MAXWIN 64
 
@@ -32,7 +32,7 @@
 
 @property NSMutableArray *windowsToBeAdded;
 @property NSMutableArray *windowsToBeRemoved;
-@property NSView *borderView;
+@property BorderView *borderView;
 @property GlkHelperView *gameView;
 @property ScalingScrollView *fullWindowScrollView;
 

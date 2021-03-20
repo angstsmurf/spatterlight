@@ -68,6 +68,13 @@ fprintf(stderr, "%s\n",                                                    \
 //    "stylehint_NUMHINTS"
 //};
 
+
+@interface BorderView : NSView
+@end
+
+@implementation BorderView
+@end
+
 @interface TempLibrary : NSObject
 
 @property glui32 autosaveTag;
@@ -459,16 +466,16 @@ fprintf(stderr, "%s\n",                                                    \
     _fullWindowScrollView.allowsMagnification = YES;
     _fullWindowScrollView.maxMagnification = 8.0;
     _fullWindowScrollView.minMagnification = 1.0;
-    _fullWindowScrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    _fullWindowScrollView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
+//    _fullWindowScrollView.translatesAutoresizingMaskIntoConstraints = YES;
+    _fullWindowScrollView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-    _borderView = [[NSView alloc] initWithFrame:NSZeroRect];
+    _borderView = [[BorderView alloc] initWithFrame:NSZeroRect];
     _borderView.translatesAutoresizingMaskIntoConstraints = NO;
-    _borderView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
+    _borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     _gameView = [[GlkHelperView alloc] initWithFrame:NSZeroRect];
-    _gameView.translatesAutoresizingMaskIntoConstraints = NO;
-    _gameView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
+//    _gameView.translatesAutoresizingMaskIntoConstraints = NO;
+    _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     _gameView.glkctrl = self;
     
     [_borderView addSubview:_gameView];
@@ -1880,14 +1887,34 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)myZoomIn:(CGFloat)scaleFactor {
     NSLog(@"GlkCtl myZoomIn");
-    _fullWindowScrollView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
-    _fullWindowScrollView.superview.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
 
+    for (GlkWindow *view in _gwindows.allValues) {
+        if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
+            for (NSLayoutConstraint *con in [((GlkTextBufferWindow *)view).textview constraints]) {
+                NSLog(@"Glk window %ld: %@", view.name, con);
+            }
+            NSClipView *clipview = [((GlkTextBufferWindow *)view).textview enclosingScrollView].contentView;
+            for (NSLayoutConstraint *con in clipview.constraints) {
+                NSLog(@"clipview: %@", con);
+            }
 
-    _borderView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
-    _borderView.superview.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
+        }
+    }
 
-    _gameView.autoresizingMask = NSViewWidthSizable | NSViewWidthSizable;
+//    _fullWindowScrollView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+//    _fullWindowScrollView.superview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+//
+//
+//    [_borderView removeFromSuperview];
+//    _borderView.translatesAutoresizingMaskIntoConstraints = YES;
+//    _borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+//    _fullWindowScrollView.documentView = _borderView;
+//    _borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+//
+//
+////    _borderView.superview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+//
+//    _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 //    NSRect frame = self.window.frame;
 //    NSRect screenFrame = self.window.screen.visibleFrame;
 //    frame.size.width *= 1.2;
@@ -1897,7 +1924,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    [self.window setFrame:frame display:YES animate:YES];
 }
 - (void)myZoomOut:(CGFloat)scaleFactor {
-//    NSLog(@"zoomOut");
+    NSLog(@"GlkCtl myZoomOut");
 //    NSRect frame = self.window.frame;
 //    scaleFactor = scaleFactor * 0.8;
 //    if (scaleFactor < 1.0)
@@ -2859,6 +2886,9 @@ fprintf(stderr, "%s\n",                                                    \
                 if (fabs(NSMaxX(rect) - _gameView.frame.size.width) < 2.0 &&
                     rect.size.width > 0) {
                     // If window is at right edge, attach to that edge
+                    hmask = NSViewWidthSizable;
+                } else {
+                    NSLog(@"Glk window %ld is not at right edge!", reqWin.name);
                     hmask = NSViewWidthSizable;
                 }
 
