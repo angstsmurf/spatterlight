@@ -2720,7 +2720,6 @@ replacementString:(id)repl {
     charbottom = charbottom + offset;
     NSPoint newScrollOrigin = NSMakePoint(0, floor(charbottom - NSHeight(scrollview.frame)));
     [scrollview.contentView scrollToPoint:newScrollOrigin];
-//    [scrollview reflectScrolledClipView:scrollview.contentView];
 }
 
 - (void)performScroll {
@@ -2743,11 +2742,8 @@ replacementString:(id)repl {
     // then, get the bottom
     CGFloat bottom = NSHeight(_textview.frame);
 
-    NSRect targetFrame = NSMakeRect(0, _lastseen, 0,
-                                    NSHeight(scrollview.frame));
-
-    if (bottom - _lastseen > NSHeight(scrollview.frame)) {
-        [_textview scrollRectToVisible:targetFrame];
+       if (bottom - _lastseen > NSHeight(scrollview.frame)) {
+        [self smoothScrollToPosition:_lastseen];
     } else {
         [self scrollToBottom];
     }
@@ -2774,8 +2770,19 @@ replacementString:(id)repl {
     // first, force a layout so we have the correct textview frame
     [layoutmanager glyphRangeForTextContainer:container];
     NSPoint newScrollOrigin = NSMakePoint(0, NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds));
-    [scrollview.contentView scrollToPoint:newScrollOrigin];
-    [scrollview reflectScrolledClipView:scrollview.contentView];
+
+    [self smoothScrollToPosition:newScrollOrigin.y];
+}
+
+- (void)smoothScrollToPosition:(CGFloat)position {
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:0.3];
+    NSClipView* clipView = [scrollview contentView];
+    NSPoint newOrigin = [clipView bounds].origin;
+    newOrigin.y = position;
+    [[clipView animator] setBoundsOrigin:newOrigin];
+    [scrollview reflectScrolledClipView: [scrollview contentView]]; // may not bee necessary
+    [NSAnimationContext endGrouping];
 }
 
 - (BOOL)scrolledToTop {
