@@ -404,6 +404,7 @@ static const char *msgnames[] = {
     self.window.representedFilename = _gamefile;
 
     _borderView.wantsLayer = YES;
+    _borderView.canDrawSubviewsIntoLayer = YES;
     _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     [self setBorderColor:_theme.bufferBackground];
 

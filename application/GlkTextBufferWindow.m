@@ -739,8 +739,11 @@
     return YES;
 }
 
-+ (BOOL)isCompatibleWithResponsiveScrolling
-{
++ (BOOL)isCompatibleWithResponsiveScrolling {
+    return YES;
+}
+
+- (BOOL)isOpaque {
     return YES;
 }
 
@@ -1082,6 +1085,7 @@
         container.textView = _textview;
 
         scrollview.documentView = _textview;
+        scrollview.contentView.copiesOnScroll = YES;
 
         /* now configure the text stuff */
 

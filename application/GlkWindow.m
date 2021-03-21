@@ -191,6 +191,10 @@ fprintf(stderr, "%s\n",                                                    \
     dirty = NO;
 }
 
+- (BOOL)wantsDefaultClipping {
+    return NO;
+}
+
 - (void)setBgColor:(NSInteger)bc {
     NSLog(@"set background color in %@ not allowed", [self class]);
 }
