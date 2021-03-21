@@ -80,7 +80,6 @@ enum  {
 }
 
 - (void)keyDown:(NSEvent *)event {
-    NSLog(@"keyDown");
     NSString *pressed = event.characters;
     if ([pressed isEqualToString:@" "])
         [(LibController *)self.delegate showGameInfo:nil];
