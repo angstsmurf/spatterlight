@@ -2713,13 +2713,12 @@ replacementString:(id)repl {
 
     CGFloat charbottom = NSMaxY(line); // bottom of the line
     if (fabs(charbottom - NSHeight(scrollview.frame)) < self.theme.bufferCellHeight) {
-        NSLog(@"scrollToCharacter: too close to the top!");
+//        NSLog(@"scrollToCharacter: too close to the top!");
         [self scrollToTop];
         return;
     }
     charbottom = charbottom + offset;
-    NSPoint newScrollOrigin = NSMakePoint(0, floor(charbottom - NSHeight(scrollview.frame)));
-    [scrollview.contentView scrollToPoint:newScrollOrigin];
+    [self smoothScrollToPosition:floor(charbottom - NSHeight(scrollview.frame))];
 }
 
 - (void)performScroll {
@@ -2775,14 +2774,13 @@ replacementString:(id)repl {
 }
 
 - (void)smoothScrollToPosition:(CGFloat)position {
-    [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:0.3];
-    NSClipView* clipView = [scrollview contentView];
-    NSPoint newOrigin = [clipView bounds].origin;
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
+    context.duration = 0.3;
+    NSClipView* clipView = scrollview.contentView;
+    NSPoint newOrigin = clipView.bounds.origin;
     newOrigin.y = position;
-    [[clipView animator] setBoundsOrigin:newOrigin];
-    [scrollview reflectScrolledClipView: [scrollview contentView]]; // may not bee necessary
-    [NSAnimationContext endGrouping];
+    clipView.animator.boundsOrigin = newOrigin;
+    } completionHandler:nil];
 }
 
 - (BOOL)scrolledToTop {
