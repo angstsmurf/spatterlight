@@ -1450,7 +1450,6 @@ static const char *msgnames[] = {
     NSAlert *alert;
 
     if (dead || _supportsAutorestore) {
-//        [self windowWillClose:nil];
         return YES;
     }
 
@@ -1478,7 +1477,6 @@ static const char *msgnames[] = {
                  setBool:YES
                  forKey:@"closeAlertSuppression"];
             }
-//            [self windowWillClose:nil];
             [self close];
         }
         self.mustBeQuiet = NO;
