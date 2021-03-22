@@ -3813,9 +3813,9 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                                                         CGRectNull, kCGWindowListOptionIncludingWindow,
                                                         (CGWindowID)[self.window windowNumber], kCGWindowImageBoundsIgnoreFraming);
     CALayer *snapshotLayer = [[CALayer alloc] init];
-    [snapshotLayer setFrame:NSRectToCGRect([self.window frame])];
-    [snapshotLayer setContents:CFBridgingRelease(windowSnapshot)];
-    [snapshotLayer setAnchorPoint:CGPointMake(0, 0)];
+    snapshotLayer.frame = NSRectToCGRect(self.window.frame);
+    snapshotLayer.contents = CFBridgingRelease(windowSnapshot);
+    snapshotLayer.anchorPoint = CGPointMake(0, 0);
     return snapshotLayer;
 }
 
@@ -3833,22 +3833,22 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
                            backing:NSBackingStoreBuffered
                            defer:NO]);
         snapshotController = [[NSWindowController alloc] initWithWindow:snapshotWindow];
-        [[snapshotWindow contentView] setWantsLayer:YES];
-        [snapshotWindow setOpaque:NO];
+        snapshotWindow.contentView.wantsLayer = YES;
+        snapshotWindow.opaque = NO;
         snapshotWindow.releasedWhenClosed = YES;
-        [snapshotWindow setBackgroundColor:[NSColor clearColor]];
+        snapshotWindow.backgroundColor = NSColor.clearColor;
     }
 
     CALayer *snapshotLayer = [self takeSnapshot];
 
     [snapshotWindow setFrame:self.window.frame display:NO];
-    [[[snapshotWindow contentView] layer] addSublayer:snapshotLayer];
+    [snapshotWindow.contentView.layer addSublayer:snapshotLayer];
     // Compute the frame of the snapshot layer such that the snapshot is
     // positioned exactly on top of the original position of the game window.
     NSRect snapshotLayerFrame =
     [snapshotWindow convertRectFromScreen:self.window.frame];
-    [snapshotLayer setFrame:snapshotLayerFrame];
-    [(NSWindowController *)[snapshotWindow delegate] showWindow:nil];
+    snapshotLayer.frame = snapshotLayerFrame;
+    [(NSWindowController *)snapshotWindow.delegate showWindow:nil];
     [snapshotWindow orderFront:nil];
 }
 
