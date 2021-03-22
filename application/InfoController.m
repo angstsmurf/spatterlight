@@ -437,9 +437,9 @@ fprintf(stderr, "%s\n",                                                    \
     snapshotWindow.contentView.wantsLayer = YES;
     snapshotWindow.opaque = NO;
     snapshotWindow.releasedWhenClosed = YES;
-    snapshotWindow.backgroundColor = [NSColor clearColor];
+    snapshotWindow.backgroundColor = NSColor.clearColor;
     [snapshotWindow setFrame:startingframe display:NO];
-    [[[snapshotWindow contentView] layer] addSublayer:snapshotLayer];
+    [snapshotWindow.contentView.layer addSublayer:snapshotLayer];
 
     snapshotController = [[NSWindowController alloc] initWithWindow:snapshotWindow];
     // Compute the frame of the snapshot layer such that the snapshot is
@@ -455,9 +455,9 @@ fprintf(stderr, "%s\n",                                                    \
                                                         CGRectNull, kCGWindowListOptionIncludingWindow,
                                                         (CGWindowID)[self.window windowNumber], kCGWindowImageBoundsIgnoreFraming);
     CALayer *snapshotLayer = [[CALayer alloc] init];
-    [snapshotLayer setFrame:NSRectToCGRect([self.window frame])];
-    [snapshotLayer setContents:CFBridgingRelease(windowSnapshot)];
-    [snapshotLayer setAnchorPoint:CGPointMake(0, 0)];
+    snapshotLayer.frame = NSRectToCGRect(self.window.frame);
+    snapshotLayer.contents = CFBridgingRelease(windowSnapshot);
+    snapshotLayer.anchorPoint = CGPointMake(0, 0);
     return snapshotLayer;
 }
 
