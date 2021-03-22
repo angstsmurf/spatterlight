@@ -748,6 +748,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 }
 
 - (void)showInfoForGame:(Game *)game {
+//    NSLog(@"showInfoForGame: %@", game.metadata.title);
+
     InfoController *infoctl;
 
     NSString *path = game.path;
@@ -2185,8 +2187,8 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
 - (void)closeAndOpenNextAbove:(InfoController *)infocontroller {
     NSUInteger index = [_gameTableModel indexOfObject:infocontroller.game];
     if (index != NSNotFound && index > 0) {
-        [infocontroller.window performClose:nil];
         [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index - 1] byExtendingSelection:NO];
+        [infocontroller.window performClose:nil];
         [self showInfoForGame:_gameTableModel[index - 1]];
     }
 }
@@ -2194,8 +2196,8 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
 - (void)closeAndOpenNextBelow:(InfoController *)infocontroller {
     NSUInteger index = [_gameTableModel indexOfObject:infocontroller.game];
     if (index != NSNotFound && index < _gameTableModel.count - 1) {
-        [infocontroller.window performClose:nil];
         [_gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index + 1] byExtendingSelection:NO];
+        [infocontroller.window performClose:nil];
         [self showInfoForGame:_gameTableModel[index + 1]];
     }
 }

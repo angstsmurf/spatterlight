@@ -305,7 +305,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
-
     // Crazy stuff to make stacks of windows close in a pretty way
     LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
     NSArray <InfoController *> *windowArray = libcontroller.infoWindows.allValues;
@@ -461,6 +460,42 @@ fprintf(stderr, "%s\n",                                                    \
     return snapshotLayer;
 }
 
+- (CALayer *)takeRowSnapshotFocused:(BOOL)focused {
+    LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+    NSRect rowrect = [libcontroller rectForLineWithIfid:_game.ifid];
+
+    NSWindow *keyWindow = libcontroller.window;
+    if (focused) {
+        for (NSWindow *win in NSApplication.sharedApplication.windows) {
+            if (win.isKeyWindow) {
+                keyWindow = win;
+                break;
+            }
+        }
+        [libcontroller.window makeKeyWindow];
+    }
+
+    NSView *view = libcontroller.window.contentView;
+    NSRect winrect = [libcontroller.window convertRectFromScreen:rowrect];
+
+    winrect = NSIntersectionRect(winrect, view.visibleRect);
+
+    NSBitmapImageRep *bitmap = [view bitmapImageRepForCachingDisplayInRect:winrect];
+    [view cacheDisplayInRect:winrect toBitmapImageRep:bitmap];
+
+    NSImage *result = [[NSImage alloc] initWithSize:winrect.size];
+    [result addRepresentation:bitmap];
+
+    CALayer *snapshotLayer = [[CALayer alloc] init];
+    snapshotLayer.contents = result;
+    snapshotLayer.anchorPoint = CGPointMake(0, 0);
+
+    if (focused)
+        [keyWindow makeKeyWindow];
+
+    return snapshotLayer;
+}
+
 - (void)animateIn:(NSRect)finalframe {
 
     LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
@@ -469,13 +504,29 @@ fprintf(stderr, "%s\n",                                                    \
     [self makeAndPrepareSnapshotWindow:targetFrame];
     NSWindow *localSnapshot = snapshotController.window;
     NSView *snapshotView = localSnapshot.contentView;
-    CALayer *snapshotLayer = localSnapshot.contentView.layer.sublayers.firstObject;
+    CALayer *snapshotLayer = snapshotView.layer.sublayers.firstObject;
+
+    CALayer *rowLayer = [self takeRowSnapshotFocused:NO];
+    [snapshotLayer addSublayer:rowLayer];
+    rowLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
+    rowLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+    rowLayer.frame = snapshotLayer.frame;
+
+    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+    fadeOutAnimation.toValue = [NSNumber numberWithFloat:0.0];
+    fadeOutAnimation.additive = NO;
+    fadeOutAnimation.removedOnCompletion = NO;
+    fadeOutAnimation.beginTime = 0.0;
+    fadeOutAnimation.duration = .2;
+    fadeOutAnimation.fillMode = kCAFillModeForwards;
 
     snapshotLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
     snapshotLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
-    snapshotView.wantsLayer = YES;
 
     [localSnapshot setFrame:targetFrame display:YES];
+
+    [rowLayer addAnimation:fadeOutAnimation forKey:nil];
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
@@ -485,6 +536,7 @@ fprintf(stderr, "%s\n",                                                    \
         [[localSnapshot animator] setFrame:finalframe display:YES];
     }
      completionHandler:^{
+        [rowLayer removeFromSuperlayer];
         self.window.alphaValue = 1.f;
         [self.window setFrame:finalframe display:YES];
         [self showWindow:nil];
@@ -506,16 +558,35 @@ fprintf(stderr, "%s\n",                                                    \
 
     snapshotLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
     snapshotLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
-    snapshotView.wantsLayer = YES;
     NSRect targetFrame = [libcontroller rectForLineWithIfid:_game.ifid];
+    NSArray <InfoController *> *windowArray = libcontroller.infoWindows.allValues;
+    CALayer *rowLayer = [self takeRowSnapshotFocused:(windowArray.count < 2)];
+    [snapshotLayer addSublayer:rowLayer];
+    rowLayer.opacity = 0.0;
+    rowLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
+    rowLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+    rowLayer.frame = snapshotLayer.frame;
+
+    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeInAnimation.fromValue = [NSNumber numberWithFloat:0.0];
+    fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    fadeInAnimation.additive = NO;
+    fadeInAnimation.removedOnCompletion = NO;
+    fadeInAnimation.beginTime = 0.0;
+    fadeInAnimation.duration = .3;
+    fadeInAnimation.fillMode = kCAFillModeForwards;
+
+    [rowLayer addAnimation:fadeInAnimation forKey:nil];
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
         context.duration = 0.3;
         context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        NSLog(@"animateOut: starting at frame: %@", NSStringFromRect(localSnapshot.frame));
         [[localSnapshot animator] setFrame:targetFrame display:YES];
     }
      completionHandler:^{
+//        NSLog(@"animateOut: ending at frame: %@", NSStringFromRect(localSnapshot.frame));
         self.inAnimation = NO;
         snapshotView.hidden = YES;
         [self->snapshotController close];
