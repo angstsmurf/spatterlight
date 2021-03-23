@@ -392,7 +392,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         //error handling goes here
         NSLog(@"Pruning %ld metadata entities", metadataEntriesToDelete.count);
         for (Metadata *meta in metadataEntriesToDelete) {
-            NSLog(@"Pruning metadata for %@", meta.title)
+            NSLog(@"Pruning metadata for %@", meta.title);
             [_managedObjectContext deleteObject:meta];
         }
         [_coreDataManager saveChanges];
@@ -1813,6 +1813,8 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
                     alert.informativeText = NSLocalizedString(@"This old style AGT file could not be converted to the new AGX format.", nil);
                     [alert runModal];
                 });
+            } else {
+                NSLog(@"This old style AGT file could not be converted to the new AGX format.");
             }
             return nil;
         }
@@ -1827,30 +1829,40 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
                 alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Can not recognize the file extension \"%@.\"", nil), path.pathExtension];
                 [alert runModal];
             });
+        } else {
+            NSLog(@"Unrecognized file extension \"%@.\"", path.pathExtension);
         }
         return nil;
     }
 
-    if (report && ([extension isEqualToString:@"blorb"] || [extension isEqualToString:@"blb"])) {
+    if ([extension isEqualToString:@"blorb"] || [extension isEqualToString:@"blb"]) {
         blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
         BlorbResource *executable = [blorb resourcesForUsage:ExecutableResource].firstObject;
         if (!executable) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSAlert *alert = [[NSAlert alloc] init];
-                alert.messageText = NSLocalizedString(@"Not a game.", nil);
-                alert.informativeText = NSLocalizedString(@"No executable chunk found in Blorb file.", nil);
-                [alert runModal];
-            });
+            if (report) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSAlert *alert = [[NSAlert alloc] init];
+                    alert.messageText = NSLocalizedString(@"Not a game.", nil);
+                    alert.informativeText = NSLocalizedString(@"No executable chunk found in Blorb file.", nil);
+                    [alert runModal];
+                });
+            } else {
+                NSLog(@"No executable chunk found in Blorb file.");
+            }
             return nil;
         }
 
         if ([executable.chunkType isEqualToString:@"ADRI"]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSAlert *alert = [[NSAlert alloc] init];
-                alert.messageText = NSLocalizedString(@"Unsupported format.", nil);
-                alert.informativeText = NSLocalizedString(@"Adrift 5 games are not supported.", nil);
-                [alert runModal];
-            });
+            if (report) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSAlert *alert = [[NSAlert alloc] init];
+                    alert.messageText = NSLocalizedString(@"Unsupported format.", nil);
+                    alert.informativeText = NSLocalizedString(@"Adrift 5 games are not supported.", nil);
+                    [alert runModal];
+                });
+            } else {
+               NSLog(@"Adrift 5 games are not supported.");
+            }
             return nil;
         }
     }
@@ -1866,6 +1878,8 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
                 alert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
                 [alert runModal];
             });
+        } else {
+            NSLog(@"Babel can not identify the file format.");
         }
         babel_release_ctx(ctx);
         return nil;
@@ -1884,6 +1898,8 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
                 alert.informativeText = NSLocalizedString(@"Can not compute IFID from the file.", nil);
                 [alert runModal];
             });
+        } else {
+            NSLog(@"Babel can not compute IFID from the file.");
         }
         babel_release_ctx(ctx);
         return nil;
@@ -1908,6 +1924,8 @@ static inline uint16_t word(NSData *mem, uint32_t addr)
                 alert.informativeText = NSLocalizedString(@"Not a supported format.", nil);
                 [alert runModal];
             });
+        } else {
+            NSLog(@"Recognized extension (%@) but unknown file format.", extension);
         }
         babel_release_ctx(ctx);
         return nil;
