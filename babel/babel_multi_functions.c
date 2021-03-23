@@ -13,9 +13,9 @@ char *getcwd(char *, int);
 #ifdef __cplusplus
 }
 #endif
-
+static int guess_ifiction(char *fn);
 void deep_ifiction_verify(char *md, int f);
-void * my_malloc(int32, char *);
+void * my_malloc(uint32, char *);
 char *blorb_chunk_for_name(char *name);
 #ifndef THREE_LETTER_EXTENSIONS
 static char *ext_table[] = { "zcode", ".zblorb",
@@ -29,6 +29,23 @@ static char *ext_table[] = { "zcode", ".zlb",
                              };
 
 #endif
+static void assert_ifiction(char *fn)
+{
+ if (!guess_ifiction(fn))
+ {
+  printf("File <%s> does not appear to be an iFiction file\n",fn);
+  exit(1);
+ }
+}
+static void assert_story(char *fn)
+{
+ if (guess_ifiction(fn))
+ {
+  printf("File <%s> appears to be an iFiction file, not a story file\n",fn);
+  exit(1);
+ }
+}
+
 char *blorb_ext_for_name(char *fmt)
 {
  int i;
@@ -118,13 +135,13 @@ char *deep_complete_ifiction(char *fn, char *ifid, char *format)
  return md;
 }
 
-void write_int(int32 i, FILE *f)
+void write_int(uint32 i, FILE *f)
 {
  char bf[4];
- bf[0]=(((unsigned) i) >> 24) & 0xFF;
- bf[1]=(((unsigned) i) >> 16) & 0xFF;
- bf[2]=(((unsigned) i) >> 8) & 0xFF;
- bf[3]=(((unsigned) i)) & 0xFF;
+ bf[0]=(i >> 24) & 0xFF;
+ bf[1]=(i >> 16) & 0xFF;
+ bf[2]=(i >> 8) & 0xFF;
+ bf[3]=(i) & 0xFF;
  fwrite(bf,1,4,f);
 }
 static void _babel_multi_blorb(char *outfile, char **args, char *todir , int argc)
@@ -142,6 +159,9 @@ static void _babel_multi_blorb(char *outfile, char **args, char *todir , int arg
   fprintf(stderr,"Invalid usage\n");
   return;
  }
+ assert_ifiction(args[1]);
+ assert_story(args[0]);
+
  if (!babel_init(args[0]))
  {
   fprintf(stderr,"Error: Could not determine the format of file %s\n",args[0]);
@@ -264,6 +284,8 @@ void babel_multi_complete(char **args, char *todir, int argc)
   fprintf(stderr,"Invalid usage\n");
   return;
  }
+ assert_ifiction(args[1]);
+ assert_story(args[0]);
  if (!babel_init(args[0]))
  {
   fprintf(stderr,"Error: Could not determine the format of file %s\n",args[0]);
@@ -309,4 +331,19 @@ void babel_multi_blorb1(char **args, char *todir , int argc)
  free(buf);
  
 
+}
+
+static int guess_ifiction(char *fn)
+{
+ FILE *f; char buf[1024];
+ int i;
+ if (strcmp(fn,"-")==0) return 1;
+ f=fopen(fn,"r");
+ if (!f) return 0;
+ i=fread(buf,1,1023,f);
+ fclose(f);
+ if (i<1) return 0;
+ buf[i]=0;
+ if (strstr(buf,"<?xml version=") && strstr(buf,"<ifindex")) return 1;
+ return 0;
 }

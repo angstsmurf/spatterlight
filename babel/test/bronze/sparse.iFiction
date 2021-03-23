@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ifindex version="1.0" xmlns="http://babel.ifarchive.org/protocol/iFiction/">
+    <story>
+        <bibliographic>
+            <title>Bronze</title>
+            <author>Emily Short</author>
+            <headline>A fractured fairy tale</headline>
+            <genre>Fairy Tale</genre>
+            <firstpublished>2006</firstpublished>
+            <description>When the seventh day comes and it is time for you to return to the castle in the forest, your sisters cling to your sleeves.<br/>'Don't go back,' they say, and 'When will we ever see you again?' But you imagine they will find consolation somewhere.<br/>Your father hangs back, silent and moody. He has spent the week as far from you as possible, working until late at night. Now he speaks only to ask whether the Beast treated you 'properly.' Since he obviously has his own ideas about what must have taken place over the past few years, you do not reply beyond a shrug.<br/>You breathe more easily once you're back in the forest, alone.<br/>Bronze is a puzzle-oriented adaptation of Beauty and the Beast with an expansive geography for the inveterate explorer.<br/>Features help for novice players, a detailed adaptive hint system to assist players who get lost, and a number of features to make navigating a large space more pleasant.</description>
+            <language>en</language>
+            <group>Inform</group>
+        </bibliographic>
+        <resources>
+            <auxiliary>
+                <leafname>Bronze Manual.pdf</leafname>
+                <description>Manual</description>
+            </auxiliary>
+            <auxiliary>
+                <leafname>map.pdf</leafname>
+                <description>Complete (Spoilerful) Map</description>
+            </auxiliary>
+            <auxiliary>
+                <leafname>solution.txt</leafname>
+                <description>Walkthrough</description>
+            </auxiliary>
+            <auxiliary>
+                <leafname>Overview.html</leafname>
+                <description>Making of...</description>
+            </auxiliary>
+        </resources>
+        <cover>
+            <format>jpg</format>
+            <height>960</height>
+            <width>960</width>
+        </cover>
+        <releases>
+            <attached>
+                <release>
+                    <releasedate>2006-05-03</releasedate>
+                    <version>11</version>
+                    <compiler>Inform 7</compiler>
+                    <compilerversion>3K27</compilerversion>
+                </release>
+            </attached>
+        </releases>
+        <colophon>
+            <generator>Inform 7</generator>
+            <generatorversion>3K27</generatorversion>
+            <originated>2006-05-03</originated>
+        </colophon>
+        <zcode>
+            <serial>060503</serial>
+            <release>11</release>
+            <compiler>Inform 7 build 3K27</compiler>
+            <coverpicture>1</coverpicture>
+        </zcode>
+    </story>
+</ifindex>

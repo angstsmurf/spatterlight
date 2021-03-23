@@ -21,14 +21,14 @@
 
 typedef unsigned char byte;
 
-static int32 read_alan_int_at(byte *from)
+static uint32 read_alan_int_at(byte *from)
 {
-  return ((unsigned long int) from[3])| ((unsigned long int)from[2] << 8) |
-    ((unsigned long int) from[1]<<16)| ((unsigned long int)from[0] << 24);
+  return ((uint32) from[3])| ((uint32)from[2] << 8) |
+    ((uint32) from[1]<<16)| ((uint32)from[0] << 24);
 }
 
 static bool magic_word_found(byte *story_file) {
-  if (story_file == NULL)
+  if(story_file == NULL)
     return false;
   return memcmp(story_file,"ALAN",4) == 0;
 }
@@ -94,7 +94,7 @@ static bool crc_is_correct(byte *story_file, int32 size_in_awords) {
 static int32 claim_story_file(void *story_file, int32 extent_in_bytes)
 {
   byte *sf = (byte *) story_file;
-  int32 size_in_awords, i;
+  uint32 size_in_awords, i;
 
   if (extent_in_bytes < 160)
     /* File is shorter than any Alan file header */
@@ -104,7 +104,7 @@ static int32 claim_story_file(void *story_file, int32 extent_in_bytes)
 
   if (!magic_word_found(sf))
     { /* Identify Alan 2.x */
-      int32 crc = 0;
+      uint32 crc = 0;
 
       if (size_in_awords > extent_in_bytes/4) return INVALID_STORY_FILE_RV;
       for (i=24;i<81;i+=4)

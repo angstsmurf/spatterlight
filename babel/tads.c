@@ -32,7 +32,6 @@
 #ifndef TRUE
 #define TRUE 1
 #endif
-
 /* ------------------------------------------------------------------------ */
 /*
  *   private structures 
@@ -75,8 +74,10 @@ struct valinfo
 /*
  *   forward declarations 
  */
-static valinfo *parse_game_info(const void *story_file, int32 story_len,
-                                int *version);
+
+static valinfo *parse_sf_game_info(const void *story_file, int32 story_len,
+                                   int *version);
+static valinfo *parse_game_info(const char *gi_file, int32 gi_len);
 static int find_resource(const void *story_file, int32 story_len,
                          const char *resname, resinfo *info);
 static int find_cover_art(const void *story_file, int32 story_len,
@@ -110,7 +111,7 @@ int32 tads_get_story_file_IFID(void *story_file, int32 extent,
     valinfo *vals;
     
     /* if we have GameInfo, try looking for an IFID there */
-    if ((vals = parse_game_info(story_file, extent, 0)) != 0)
+    if ((vals = parse_sf_game_info(story_file, extent, 0)) != 0)
     {
         valinfo *val;
         int found = 0;
@@ -165,7 +166,7 @@ int32 tads_get_story_file_metadata_extent(void *story_file, int32 extent)
      *   First, make sure we have a GameInfo record.  If we don't, simply
      *   indicate that there's no metadata to fetch.  
      */
-    if ((vals = parse_game_info(story_file, extent, &ver)) == 0)
+    if ((vals = parse_sf_game_info(story_file, extent, &ver)) == 0)
         return NO_REPLY_RV;
 
     /*
@@ -192,7 +193,7 @@ int32 tads_get_story_file_metadata(void *story_file, int32 extent,
     int ver;
 
     /* make sure we have metadata to fetch */
-    if ((vals = parse_game_info(story_file, extent, &ver)) == 0)
+    if ((vals = parse_sf_game_info(story_file, extent, &ver)) == 0)
         return NO_REPLY_RV;
 
     /* synthesize the ifiction data into the output buffer */
@@ -200,6 +201,36 @@ int32 tads_get_story_file_metadata(void *story_file, int32 extent,
 
     /* if that required more space than we had available, return an error */
     if (ret > bufsize)
+        ret = INVALID_USAGE_RV;
+
+    /* delete the value list */
+    delete_valinfo_list(vals);
+
+    /* return the result */
+    return ret;
+}
+
+/*
+ *   Extended interface: turn a GameInfo record into an iFiction record.
+ *   Call with a null buffer and zero buffer len to figure the size of the
+ *   output buffer required.  
+ */
+int32 xtads_gameinfo_to_ifiction(int tads_version,
+                                 const char *gi_txt, int32 gi_len,
+                                 char *buf, int32 bufsize)
+{
+    valinfo *vals;
+    int32 ret;
+
+    /* make sure we have metadata to fetch */
+    if ((vals = parse_game_info(gi_txt, gi_len)) == 0)
+        return NO_REPLY_RV;
+
+    /* synthesize the ifiction data into the output buffer */
+    ret = synth_ifiction(vals, tads_version, buf, bufsize, 0, 0);
+
+    /* if that required more space than we had available, return an error */
+    if (bufsize != 0 && ret > bufsize)
         ret = INVALID_USAGE_RV;
 
     /* delete the value list */
@@ -326,7 +357,6 @@ static void nextc(const char **p, int32 *len)
         ++*p;
         --*len;
     }
-
     /* skip continuation bytes */
     while (*len != 0 && (**p & 0xC0) == 0x80)
     {
@@ -339,8 +369,7 @@ static void nextc(const char **p, int32 *len)
 static void prevc(const char **p, int32 *len)
 {
     /* move back one byte */
-    --*p;
-    ++*len;
+    --*p; ++*len;
 
     /* keep skipping as long as we're looking at continuation characters */
     while ((**p & 0xC0) == 0x80)
@@ -482,8 +511,12 @@ static void write_ifiction_z(synthctx *ctx, const char *src)
  *   particular, we rewrite '<', '>', and '&' as '&lt;', '&gt;', and '&amp;',
  *   respectively; we trim off leading and trailing spaces; and we compress
  *   each run of whitespace down to a single \u0020 (' ') character.
+ *   
+ *   If 'desc' is TRUE, it means that we're writing Description contents, in
+ *   which case we convert \n to <br/>.  
  */
-static void write_ifiction_pcdata(synthctx *ctx, const char *p, size_t len)
+static void write_ifiction_pcdata(synthctx *ctx, const char *p, size_t len,
+                                  int desc)
 {
     /* first, skip any leading whitespace */
     for ( ; len != 0 && u_ishspace(*p) ; ++p, --len) ;
@@ -496,7 +529,8 @@ static void write_ifiction_pcdata(synthctx *ctx, const char *p, size_t len)
         /* scan to the next whitespace or markup-significant character */
         for (start = p ;
              len != 0 && !u_ishspace(*p)
-             && *p != '<' && *p != '>' && *p != '&' ; ++p, --len) ;
+                 && *p != '<' && *p != '>' && *p != '&' && *p != '\\' ;
+             ++p, --len) ;
 
         /* write the part up to here */
         if (p != start)
@@ -525,6 +559,37 @@ static void write_ifiction_pcdata(synthctx *ctx, const char *p, size_t len)
             write_ifiction_z(ctx, "&amp;");
             ++p;
             --len;
+            break;
+
+        case '\\':
+            /* skip the '\\' */
+            ++p;
+            --len;
+
+            /* in Description fields, \n becomes <br/> */
+            if (len > 0 && *p == 'n')
+            {
+                /* write the translation */
+                write_ifiction_z(ctx, "<br/>");
+
+                /* skip the 'n' */
+                ++p;
+                --len;
+            }
+            else if (len > 1 && *(p+1) == '\\')
+            {
+                /* '\\' is just a single '\' */
+                write_ifiction_z(ctx, "\\");
+
+                /* skip the second '\' */
+                ++p;
+                --len;
+            }
+            else
+            {
+                /* no 'n' after the '\', so it's just a backslash */
+                write_ifiction_z(ctx, "\\");
+            }
             break;
 
         default:
@@ -564,7 +629,7 @@ static void write_ifiction_pcdata(synthctx *ctx, const char *p, size_t len)
 static void write_ifiction_xlat_base(synthctx *ctx, int indent,
                                      const char *gameinfo_key,
                                      const char *ifiction_tag,
-                                     const char *dflt, int html)
+                                     const char *dflt, int html, int desc)
 {
     valinfo *val;
     const char *valstr;
@@ -616,7 +681,7 @@ static void write_ifiction_xlat_base(synthctx *ctx, int indent,
     if (html)
         write_ifiction(ctx, valstr, vallen);
     else
-        write_ifiction_pcdata(ctx, valstr, vallen);
+        write_ifiction_pcdata(ctx, valstr, vallen, desc);
 
     /* write the close tag */
     write_ifiction_z(ctx, "</");
@@ -625,10 +690,13 @@ static void write_ifiction_xlat_base(synthctx *ctx, int indent,
 }
 
 #define write_ifiction_xlat(ctx, indent, gikey, iftag, dflt) \
-    write_ifiction_xlat_base(ctx, indent, gikey, iftag, dflt, FALSE)
+    write_ifiction_xlat_base(ctx, indent, gikey, iftag, dflt, FALSE, FALSE)
 
 #define write_ifiction_xlat_html(ctx, indent, gikey, iftag, dflt) \
-    write_ifiction_xlat_base(ctx, indent, gikey, iftag, dflt, TRUE)
+    write_ifiction_xlat_base(ctx, indent, gikey, iftag, dflt, TRUE, FALSE)
+
+#define write_ifiction_xlat_desc(ctx, indent, gikey, iftag, dflt) \
+    write_ifiction_xlat_base(ctx, indent, gikey, iftag, dflt, FALSE, TRUE)
 
 
 /*
@@ -674,9 +742,8 @@ static int scan_author_name(const char **p, size_t *len,
             if (*len != 0)
             {
                 ++*p;
-               --*len;
+                --*len;
             }
-
             /* skip whitespace */
             for ( ; *len != 0 && u_ishspace(**p) ; ++*p, --*len) ;
 
@@ -697,7 +764,6 @@ static int scan_author_name(const char **p, size_t *len,
             ++*p;
             --*len;
         }
-
         /* 
          *   if we found a non-empty name, return it; otherwise, continue on
          *   to the next semicolon section 
@@ -731,12 +797,17 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
     size_t rem;
     int32 art_fmt;
     int32 art_wid, art_ht;
+    const char *format_id = 0;
 
     /* initialize the output content */
     init_synthctx(&ctx, buf, bufsize, vals);
 
     /* make sure the tads version is one we know how to handle */
-    if (tads_version != 2 && tads_version != 3)
+    if (tads_version == 2)
+        format_id = "tads2";
+    else if (tads_version == 3)
+        format_id = "tads3";
+    else
         return NO_REPLY_RV;
 
     /* 
@@ -750,7 +821,7 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
         ifid_val = ifid->val;
         ifid_len = ifid->val_len;
     }
-    else
+    else if (story_file != 0)
     {
         /* generate the default IFID */
         generate_md5_ifid(story_file, extent,
@@ -759,6 +830,10 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
         /* use this as the IFID */
         ifid_val = default_ifid;
         ifid_len = strlen(default_ifid);
+    }
+    else
+    {
+        return NO_REPLY_RV;
     }
 
     /* write the header, and start the <identification> section */
@@ -808,10 +883,9 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
     }
 
     /* add the format information */
-    write_ifiction_z(&ctx,
-                     tads_version == 2
-                     ? "      <format>tads2</format>\n"
-                     : "      <format>tads3</format>\n");
+    write_ifiction_z(&ctx, "      <format>");
+    write_ifiction_z(&ctx, format_id);
+    write_ifiction_z(&ctx, "</format>\n");
 
     /* close the <identification> section and start the <bibliographic> */
     write_ifiction_z(&ctx,
@@ -821,7 +895,7 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
     /* write the various bibliographic data */
     write_ifiction_xlat(&ctx, 6, "Name", "title", "An Interactive Fiction");
     write_ifiction_xlat(&ctx, 6, "Headline", "headline", 0);
-    write_ifiction_xlat(&ctx, 6, "Desc", "description", 0);
+    write_ifiction_xlat_desc(&ctx, 6, "Desc", "description", 0);
     write_ifiction_xlat(&ctx, 6, "Genre", "genre", 0);
     write_ifiction_xlat(&ctx, 6, "Forgiveness", "forgiveness", 0);
     write_ifiction_xlat(&ctx, 6, "Series", "series", 0);
@@ -858,7 +932,7 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
                 break;
             
             /* write out this author name */
-            write_ifiction_pcdata(&ctx, start, end - start);
+            write_ifiction_pcdata(&ctx, start, end - start, FALSE);
 
             /* if there's another name to come, write a separator */
             if (i + 1 < cnt)
@@ -877,12 +951,15 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
         /* end the <author> tag */
         write_ifiction_z(&ctx, "</author>\n");
     }
+    else
+        write_ifiction_z(&ctx, "      <author>Anonymous</author>\n");
 
     /* end the biblio section */
     write_ifiction_z(&ctx, "    </bibliographic>\n");
 
     /* if there's cover art, add its information */
-    if (find_cover_art(story_file, extent, 0, &art_fmt, &art_wid, &art_ht)
+    if (story_file != 0
+        && find_cover_art(story_file, extent, 0, &art_fmt, &art_wid, &art_ht)
         && (art_fmt == PNG_COVER_FORMAT || art_fmt == JPEG_COVER_FORMAT))
     {
         char buf[200];
@@ -971,7 +1048,9 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
     }
 
     /* add the tads-specific section */
-    write_ifiction_z(&ctx, "    <tads>\n");
+    write_ifiction_z(&ctx, "    <");
+    write_ifiction_z(&ctx, format_id);
+    write_ifiction_z(&ctx, ">\n");
     
     write_ifiction_xlat(&ctx, 6, "Version", "version", 0);
     write_ifiction_xlat(&ctx, 6, "ReleaseDate", "releasedate", 0);
@@ -979,7 +1058,9 @@ static int32 synth_ifiction(valinfo *vals, int tads_version,
                         "presentationprofile", 0);
     write_ifiction_xlat(&ctx, 6, "Byline", "byline", 0);
 
-    write_ifiction_z(&ctx, "    </tads>\n");
+    write_ifiction_z(&ctx, "    </");
+    write_ifiction_z(&ctx, format_id);
+    write_ifiction_z(&ctx, ">\n");
 
     /* close the story section and the main body */
     write_ifiction_z(&ctx, "  </story>\n</ifindex>\n");
@@ -1028,16 +1109,13 @@ int tads_match_sig(const void *buf, int32 len, const char *sig)
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Parse a game file and retrieve the GameInfo data.  Returns the head of a
- *   linked list of valinfo entries.
+ *   Parse a story file and retrieve the GameInfo data.  Returns the head of
+ *   a linked list of valinfo entries.  
  */
-static valinfo *parse_game_info(const void *story_file, int32 story_len,
-                                int *tads_version)
+static valinfo *parse_sf_game_info(const void *story_file, int32 story_len,
+                                   int *tads_version)
 {
     resinfo res;
-    const char *p;
-    int32 rem;
-    valinfo *val_head = 0;
 
     /* 
      *   first, find the GameInfo resource - if it's not there, there's no
@@ -1050,8 +1128,22 @@ static valinfo *parse_game_info(const void *story_file, int32 story_len,
     if (tads_version != 0)
         *tads_version = res.tads_version;
 
+    /* parse the GameInfo record */
+    return parse_game_info(res.ptr, res.len);
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Parse a GameInfo text record 
+ */
+static valinfo *parse_game_info(const char *ptr, int32 len)
+{
+    const char *p;
+    int32 rem;
+    valinfo *val_head = 0;
+
     /* parse the data */
-    for (p = res.ptr, rem = res.len ; rem != 0 ; )
+    for (p = ptr, rem = len ; rem != 0 ; )
     {
         const char *name_start;
         size_t name_len;
@@ -1227,14 +1319,29 @@ static valinfo *parse_game_info(const void *story_file, int32 story_len,
     /* return the head of the linked list of value entries */
     return val_head;
 }
-static int my_memicmp(const void *aa, const void *bb, int l)
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Portable memicmp implementation 
+ */
+static int tmemicmp(const char *a, const char *b, size_t len)
 {
- int s=0,i;
- char *a=(char *) aa;
- char *b=(char *) bb;
- for(i=0;i<l && !s;i++)
-  s=tolower(a[i])-tolower(b[i]);
- return s;
+    /* scan each character */
+    for ( ; len != 0 ; ++a, ++b, --len)
+    {
+        /* get the lower-case version of each current character */
+        char ca = isupper(*a) ? tolower(*a) : *a;
+        char cb = isupper(*b) ? tolower(*b) : *b;
+
+        /* check for mismatch */
+        if (ca < cb)
+            return -1;
+        else if (ca > cb)
+            return 1;
+    }
+
+    /* all bytes match */
+    return 0;
 }
 
 /* ------------------------------------------------------------------------ */
@@ -1251,7 +1358,7 @@ static valinfo *find_by_key(valinfo *list_head, const char *key)
     for (p = list_head ; p != 0 ; p = p->nxt)
     {
         /* if this one matches the key we're looking for, return it */
-        if (p->name_len == key_len && my_memicmp(p->name, key, key_len) == 0)
+        if (p->name_len == key_len && tmemicmp(p->name, key, key_len) == 0)
             return p;
     }
 
@@ -1281,8 +1388,8 @@ static void delete_valinfo_list(valinfo *head)
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Find the cover art resource.  We'll look for CoverArt.jpg and
- *   CoverArt.png, in that order. 
+ *   Find the cover art resource.  We'll look for .system/CoverArt.jpg and
+ *   .system/CoverArt.png, in that order. 
  */
 static int find_cover_art(const void *story_file, int32 story_len,
                           resinfo *resp, int32 *image_format,
@@ -1295,8 +1402,8 @@ static int find_cover_art(const void *story_file, int32 story_len,
     if (resp == 0)
         resp = &res;
 
-    /* look for CoverArt.jpg first */
-    if (find_resource(story_file, story_len, "CoverArt.jpg", resp))
+    /* look for .system/CoverArt.jpg first */
+    if (find_resource(story_file, story_len, ".system/CoverArt.jpg", resp))
     {
         /* get the width and height */
         if (!get_jpeg_dim(resp->ptr, resp->len, &x, &y))
@@ -1316,8 +1423,8 @@ static int find_cover_art(const void *story_file, int32 story_len,
         return TRUE;
     }
 
-    /* look for CoverArt.png second */
-    if (find_resource(story_file, story_len, "CoverArt.png", resp))
+    /* look for .system/CoverArt.png second */
+    if (find_resource(story_file, story_len, ".system/CoverArt.png", resp))
     {
         /* get the width and height */
         if (!get_png_dim(resp->ptr, resp->len, &x, &y))
@@ -1457,7 +1564,7 @@ static int t2_find_res(const void *story_file, int32 story_len,
 
                 /* check for a match to the name we're looking for */
                 if (name_len == resname_len
-                    && my_memicmp(resname, p, name_len) == 0)
+                    && tmemicmp(resname, p, name_len) == 0)
                 {
                     /* 
                      *   it's the one we want - note its resource location
@@ -1596,7 +1703,7 @@ static int t3_find_res(const void *story_file, int32 story_len,
 
                 /* if this is the one we're looking for, return it */
                 if (entry_name_len == resname_len
-                    && my_memicmp(resname, namebuf, resname_len) == 0)
+                    && tmemicmp(resname, namebuf, resname_len) == 0)
                 {
                     /* 
                      *   fill in the return information - note that the entry
@@ -1793,10 +1900,10 @@ void main(int argc, char **argv)
 
 
 
-    /* ===== test 1 - basic parse_game_info() test ===== */
+    /* ===== test 1 - basic parse_sf_game_info() test ===== */
 
     /* parse the gameinfo record and print the results */
-    if ((head = parse_game_info(buf, siz, &tadsver)) != 0)
+    if ((head = parse_sf_game_info(buf, siz, &tadsver)) != 0)
     {
         valinfo *val;
 

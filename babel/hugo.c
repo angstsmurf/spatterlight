@@ -28,7 +28,7 @@ static int32 get_story_file_IFID(void *s_file, int32 extent, char *output, int32
 
  if (extent<0x0B) return INVALID_STORY_FILE_RV;
 
- for(i=0;i<extent;i++) if (memcmp((char *)story_file+i,"UUID://",7)==0) break;
+ for(i=0;i<extent-7;i++) if (memcmp((char *)story_file+i,"UUID://",7)==0) break;
  if (i<extent) /* Found explicit IFID */
   {
    for(j=i+7;j<extent && ((char *)story_file)[j]!='/';j++);
@@ -52,27 +52,29 @@ static int32 get_story_file_IFID(void *s_file, int32 extent, char *output, int32
  sprintf(buffer,"HUGO-%d-%02X-%02X-%s",story_file[0],story_file[1], story_file[2],ser);
 
  ASSERT_OUTPUT_SIZE((signed) strlen(buffer)+1);
-
-// if (!strncmp(buffer, "HUGO-117-6E-73-igned-ch", 23))
-//  return INVALID_STORY_FILE_RV;
-
  strcpy((char *)output,buffer);
  return 1;
 }
 
-static int32 read_hugo_addx(unsigned char *from)
+static uint32 read_hugo_addx(unsigned char *from)
 {
- return ((unsigned int) from[0])| ((unsigned int)from[1] << 8);
+ return ((uint32) from[0])| ((uint32)from[1] << 8);
 }
 
-static int32 claim_story_file(void *story_file, int32 extent)
+static int32 claim_story_file(void *story_file, int32 exten)
 {
  unsigned char *sf=(unsigned char *)story_file;
  int32 i;
  int32 scale;
+ uint32 extent=(uint32) exten;
 
  if (!story_file || extent < 0x28) return  INVALID_STORY_FILE_RV;
 
+ /* 39 is the largest version currently accepted by the Hugo interpreter:
+    https://github.com/garglk/garglk/blob/master/terps/hugo/source/hemisc.c#L1310-L1362
+ */
+ if (sf[0] > 39) return INVALID_STORY_FILE_RV;
+ 
  if (sf[0]<34) scale=4;
  else scale=16;
  for(i=3;i<0x0B;i++) if (sf[i]<0x20 || sf[i]>0x7e) return INVALID_STORY_FILE_RV;

@@ -17,6 +17,10 @@
 
 #include "treaty.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Functions from babel_handler.c */
 char *babel_init(char *filename);
  /* initialize the babel handler */
@@ -30,9 +34,9 @@ char *babel_get_format(void);
  /* return the format of the loaded file */
 int32 babel_md5_ifid(char *buffer, int32 extent);
  /* IFID generator of last resort */
-int32 babel_get_length(void);
+uint32 babel_get_length(void);
  /* Fetch file length */
-int32 babel_get_story_length(void);
+uint32 babel_get_story_length(void);
  /* Fetch file length */
 int32 babel_get_authoritative(void);
  /* Determine if babel handler has a good grasp on the format */
@@ -52,8 +56,8 @@ char *babel_get_format_ctx(void *);
  /* return the format of the loaded file */
 int32 babel_md5_ifid_ctx(char *buffer, int extent, void *);
  /* IFID generator of last resort */
-int32 babel_get_length_ctx(void *);
-int32 babel_get_story_length_ctx(void *);
+uint32 babel_get_length_ctx(void *);
+uint32 babel_get_story_length_ctx(void *);
 void *babel_get_file_ctx(void *bhp);
 void *babel_get_story_ctx(void *bhp);
 int32 babel_get_authoritative_ctx(void *bhp);
@@ -61,5 +65,9 @@ char *babel_init_raw_ctx(void *sf, int32 extent, void *bhp);
 void *get_babel_ctx(void);
 void release_babel_ctx(void *);
  /* get and release babel contexts */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

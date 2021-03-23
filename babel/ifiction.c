@@ -268,13 +268,14 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
  if (parent && strcmp(parent->tag,"bibliographic")==0)
  {
   char *p;
+  if (strcmp(xtg->tag,"description")) {
   if (isspace(*xtg->begin)|| isspace(*(xtg->end-1)))
    {
     sprintf(ebuf,"Warning: (line %d) Extraneous spaces at beginning or end of tag <%s>.",xtg->beginl,xtg->tag);
     err_h(ebuf,ectx);
    }
   for(p=xtg->begin;p<xtg->end-1;p++)
-/* Obsoleted by Revision 6
+
   if (isspace(*p) && isspace(*(p+1)))
   {
   sprintf(ebuf,"Warning: (line %d) Extraneous spaces found in tag <%s>.",xtg->beginl, xtg->tag);
@@ -286,7 +287,7 @@ static void ifiction_validate_tag(struct XMLTag *xtg, struct ifiction_info *xti,
   err_h(ebuf,ectx);
 
   }
-*/
+ }
  if (strcmp(xtg->tag, "description") && xtg->end-xtg->begin > 240)
  { 
   sprintf(ebuf,"Warning: (line %d) Tag <%s> length exceeds treaty guidelines",xtg->beginl, xtg->tag);
@@ -405,6 +406,11 @@ while(xml && *xml)
  while(*xml&&*xml!='<') xml++;
  if (!*xml) break;
  bp=xml;
+ if (strlen(bp)>4 && bp[1]=='!' && bp[2]=='-' && bp[3]=='-')
+ { bp=strstr(bp+1,"-->");
+   if (bp) xml=bp+3; else xml=0;
+   continue;
+}
  tp=strchr(bp+1,'<');
  ep=strchr(bp+1,'>');
  if (!ep) break;

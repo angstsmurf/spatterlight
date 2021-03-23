@@ -59,15 +59,26 @@ $ifid =~ s/IFID: .+//;
 $ifid =~ s/\n//;
 chomp($ifid);
 
-# find ifiction
+# find .iFiction or .ifiction. (We check for both because the
+# filesystem might be case-sensitive.)
+
 if (-e "$fromdir$ifid.iFiction")
 {
  $ifiction="$fromdir$ifid.iFiction";
 }
+elsif (-e "$fromdir$ifid.ifiction")
+{
+ $ifiction="$fromdir$ifid.ifiction";
+}
 elsif (-e "$fromdir"."babel.iFiction")
 {
  $str="$BABELGET -ifiction $ifid -ifiction $fromdir"."babel.iFiction > temp.iFiction";
-
+ system($str);
+ $ifiction="temp.iFiction";
+}
+elsif (-e "$fromdir"."babel.ifiction")
+{
+ $str="$BABELGET -ifiction $ifid -ifiction $fromdir"."babel.ifiction > temp.iFiction";
  system($str);
  $ifiction="temp.iFiction";
 }

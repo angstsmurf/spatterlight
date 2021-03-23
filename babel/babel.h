@@ -15,11 +15,16 @@
  *
  */
 
-#define BABEL_VERSION "0.3"
+#define BABEL_VERSION "0.5"
 
 #include "treaty.h"
 #include "babel_handler.h"
 #include "ifiction.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Functions from babel_story_functions.c
  *
  * Each of these assumes that the story file has been loaded by babel_handler
@@ -54,3 +59,7 @@ void babel_multi_complete(char **, char *, int);
 
 /* uncomment this line on platforms which limit extensions to 3 characters */
 /* #define THREE_LETTER_EXTENSIONS */
+
+#ifdef __cplusplus
+}
+#endif

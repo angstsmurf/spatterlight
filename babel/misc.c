@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void *my_malloc(int size, char *rs)
+void *my_malloc(unsigned int size, char *rs)
 {
  void *buf=calloc(size,1);
  if (size && !buf)

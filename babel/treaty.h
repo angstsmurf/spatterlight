@@ -1,6 +1,6 @@
 /*  treaty.h    Header file for Treaty of Babel compliant format modules
  *  By L. Ross Raszewski
- *  Version 3b
+ *  Version 0.5
  *
  *  This file is public domain, but please note that derived versions
  *  may not not be compliant with the Treaty of Babel.
@@ -13,8 +13,8 @@
 
 #define TREATY_H
 
-#define TREATY_COMPLIANCE "Treaty of Babel revision 7"
-#define TREATY_VERSION "r7"
+#define TREATY_COMPLIANCE "Treaty of Babel revision 10"
+#define TREATY_VERSION "r10"
 
 /* return codes */
 #define NO_REPLY_RV                    0
@@ -67,25 +67,37 @@
 #ifndef VAX
 #if   SCHAR_MAX >= 0x7FFFFFFFL && SCHAR_MIN <= -0x7FFFFFFFL
       typedef signed char       int32;
+      typedef unsigned char       uint32;
 #elif SHRT_MAX >= 0x7FFFFFFFL  && SHRT_MIN <= -0x7FFFFFFFL
       typedef signed short int  int32;
+      typedef unsigned short int  uint32;
 #elif INT_MAX >= 0x7FFFFFFFL   && INT_MIN <= -0x7FFFFFFFL
       typedef signed int        int32;
+      typedef unsigned int        uint32;
 #elif LONG_MAX >= 0x7FFFFFFFL  && LONG_MIN <= -0x7FFFFFFFL
       typedef signed long int   int32;
+      typedef unsigned long int  uint32;
 #else
 #error No type large enough to support 32-bit integers.
 #endif
 #else
       /*  VAX C does not provide these limit constants, contrary to ANSI  */
       typedef int int32;
+      typedef unsigned int uint32;
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 /* Pointer to treaty function.  Treaty functions must follow this prototype */
 
 typedef int32 (*TREATY)(int32 selector, void *, int32, void *, int32);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

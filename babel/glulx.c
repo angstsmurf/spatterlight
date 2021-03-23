@@ -17,9 +17,9 @@
 #include <ctype.h>
 #include <stdio.h>
 
-static int32 read_int(unsigned char  *mem)
+static uint32 read_int(unsigned char  *mem)
 {
-  int32 i4 = mem[0],
+  uint32 i4 = mem[0],
                     i3 = mem[1],
                     i2 = mem[2],
                     i1 = mem[3];
@@ -36,7 +36,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
 
 
  if (extent<256) return INVALID_STORY_FILE_RV;
- for(i=0;i<extent;i++) if (memcmp((char *)story_file+i,"UUID://",7)==0) break;
+ for(i=0;i<extent-7;i++) if (memcmp((char *)story_file+i,"UUID://",7)==0) break;
  if (i<extent) /* Found explicit IFID */
   {
    for(j=i+7;j<extent && ((char *)story_file)[j]!='/';j++);

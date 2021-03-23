@@ -28,7 +28,6 @@
 #define HOME_PAGE "http://eblong.com/zarf/blorb"
 #define FORMAT_EXT ".blorb,.blb,.zblorb,.zlb,.gblorb,.glb"
 #define CONTAINER_FORMAT
-
 #include "treaty_builder.h"
 #include <stdlib.h>
 #include <ctype.h>
@@ -45,10 +44,10 @@ static char *TranslateExec[] = { "ZCOD", "zcode",
 void *my_malloc(int32, char *);
 int32 ifiction_get_IFID(char *, char *, int32);
 
-static int32 read_int(void *inp)
+static uint32 read_int(void *inp)
 {
   unsigned char *mem=(unsigned char *)inp;
-  int32 i4 = mem[0],
+  uint32 i4 = mem[0],
                     i3 = mem[1],
                     i2 = mem[2],
                     i1 = mem[3];
@@ -56,15 +55,15 @@ static int32 read_int(void *inp)
 }
 
 
-static int32 blorb_get_chunk(void *blorb_file, int32 extent, char *id, int32 *begin, int32 *output_extent)
+static int32 blorb_get_chunk(void *blorb_file, int32 extent, char *id, uint32 *begin, uint32 *output_extent)
 {
- int32 i=12, j;
- while(i<extent-8)
+ uint32 i=12, j;
+ while(i<(uint32) extent-8)
  {
   if (memcmp(((char *)blorb_file)+i,id,4)==0)
   {
    *output_extent=read_int((char *)blorb_file+i+4);
-   if (*output_extent > extent) return NO_REPLY_RV;
+   if (*output_extent > (uint32) extent) return NO_REPLY_RV;
    *begin=i+8;
    return 1;
   }
@@ -76,10 +75,11 @@ static int32 blorb_get_chunk(void *blorb_file, int32 extent, char *id, int32 *be
  }
  return NO_REPLY_RV;
 }
-static int32 blorb_get_resource(void *blorb_file, int32 extent, char *rid, int32 number, int32 *begin, int32 *output_extent)
+static int32 blorb_get_resource(void *blorb_file, int32 extent, char *rid, int32 nnumber, uint32 *begin, uint32 *output_extent)
 {
- int32 ridx_len;
- int32 i,j;
+ uint32 ridx_len;
+ uint32 i,j;
+ uint32 number=(uint32) nnumber;
  void *ridx;
  if (blorb_get_chunk(blorb_file, extent,"RIdx",&i,&ridx_len)==NO_REPLY_RV)
   return NO_REPLY_RV;
@@ -88,28 +88,31 @@ static int32 blorb_get_resource(void *blorb_file, int32 extent, char *rid, int32
  ridx_len=read_int((char *)blorb_file+i);
  for(i=0;i<ridx_len;i++)
  { 
-  if(memcmp((char *)ridx+(i*12),rid,4)==0 && read_int((char *)ridx+(i*12)+4)==number)
+  if (memcmp((char *)ridx+(i*12),rid,4)==0 && read_int((char *)ridx+(i*12)+4)==number)
   {
    j=i;
    i=read_int((char *)ridx+(j*12)+8);
    *begin=i+8;
    *output_extent=read_int((char *)blorb_file+i+4);
    if (*begin > extent || *begin + *output_extent > extent)
-    return NO_REPLY_RV;
+     return NO_REPLY_RV;
    return 1;
   }
  }
  return NO_REPLY_RV;
 }
-static int32 blorb_get_story_file(void *blorb_file, int32 extent, int32 *begin, int32 *output_extent)
+
+#if 0  /* blorb_get_story_file is not currently used */
+static int32 blorb_get_story_file(void *blorb_file, int32 extent, uint32 *begin, uint32 *output_extent)
 {
  return blorb_get_resource(blorb_file, extent, "Exec", 0, begin, output_extent);
 
 }
+#endif /* 0 */
 
 static int32 get_story_extent(void *blorb_file, int32 extent)
 {
- int32 i,j;
+ uint32 i,j;
  if (blorb_get_resource(blorb_file, extent, "Exec", 0, &i, &j))
  {
   return j;
@@ -119,7 +122,7 @@ static int32 get_story_extent(void *blorb_file, int32 extent)
 }
 static int32 get_story_file(void *blorb_file, int32 extent, void *output, int32 output_extent)
 {
- int32 i,j;
+ uint32 i,j;
  if (blorb_get_resource(blorb_file, extent, "Exec", 0, &i, &j))
  {
   ASSERT_OUTPUT_SIZE((int32) j);
@@ -144,7 +147,7 @@ char *blorb_chunk_for_name(char *name)
 }
 static char *blorb_get_story_format(void *blorb_file, int32 extent)
 {
- int32 i, j;
+ uint32 i, j;
 
  for(j=0;treaty_registry[j];j++)
  {
@@ -166,13 +169,13 @@ static int32 get_story_format(void *blorb_file, int32 extent, char *output, int3
 }
 static int32 get_story_file_metadata_extent(void *blorb_file, int32 extent)
 {
- int32 i,j;
+ uint32 i,j;
  if (blorb_get_chunk(blorb_file,extent,"IFmd",&i,&j)) return j+1;
  return NO_REPLY_RV;
 }
-static int32 blorb_get_cover(void *blorb_file, int32 extent, int32 *begin, int32 *output_extent)
+static int32 blorb_get_cover(void *blorb_file, int32 extent, uint32 *begin, uint32 *output_extent)
 {
- int i,j;
+ uint32 i,j;
  if (blorb_get_chunk(blorb_file,extent,"Fspc",&i,&j))
  {
   if (j<4) return NO_REPLY_RV;
@@ -189,14 +192,14 @@ static int32 blorb_get_cover(void *blorb_file, int32 extent, int32 *begin, int32
 
 static int32 get_story_file_cover_extent(void *blorb_file, int32 extent)
 {
- int32 i,j;
+ uint32 i,j;
  if (blorb_get_cover(blorb_file,extent,&i,&j)) return j;
  return NO_REPLY_RV;
 }
 
 static int32 get_story_file_cover_format(void *blorb_file, int32 extent)
 {
- int32 i,j;
+ uint32 i,j;
  return blorb_get_cover(blorb_file, extent, &i,&j);
 }
 
@@ -217,18 +220,18 @@ static int32 get_story_file_IFID(void *b, int32 e, char *output, int32 output_ex
 
 static int32 get_story_file_metadata(void *blorb_file, int32 extent, char *output, int32 output_extent)
 {
- int32 i,j;
+ uint32 i,j;
  if (!blorb_get_chunk(blorb_file, extent,"IFmd",&i,&j)) return NO_REPLY_RV;
- ASSERT_OUTPUT_SIZE(j+1);
+ ASSERT_OUTPUT_SIZE((int32) j+1);
  memcpy(output,(char *)blorb_file+i,j);
  output[j]=0;
  return j+1;
 }
 static int32 get_story_file_cover(void *blorb_file, int32 extent, void *output, int32 output_extent)
 {
- int32 i,j;
+ uint32 i,j;
  if (!blorb_get_cover(blorb_file, extent,&i,&j)) return NO_REPLY_RV;
- ASSERT_OUTPUT_SIZE(j);
+ ASSERT_OUTPUT_SIZE((int32) j);
  memcpy(output,(char *)blorb_file+i,j);
  return j;
 }

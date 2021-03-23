@@ -30,6 +30,7 @@ tads.h                          Prototypes for tads2.c and tads3.c
 tads.c                          Common functions for TADS modules
 tads2.c                         Treaty of Babel module for tads2
 tads3.c                         Treaty of Babel module for tads3
+twine.c                         Treaty of Babel module for Twine
 zcode.c                         Treaty of Babel module for zcode
 README.md                       documentation
 MANIFEST                        this file
@@ -57,9 +58,19 @@ test/alan/expected              Expected alan test output
 test/alan/invalid.a3c           Alan test file
 test/alan/valid.a3c             Alan test file
 test/alan/valid.a3r             Alan test file
+test/alan/withoutUUID.a3c       Alan test file
+test/twine/Makefile             Makefile for Twine test
+test/twine/Test-Game.html       Twine test file
+test/twine/expected             Expected Twine test output
 test/bronze/Makefile            Makefile for Bronze test
 test/bronze/expected            Expected Bronze test output
 test/bronze/expected.iFiction   Expected Bronze iFiction file
+test/bronze/expected-c.iFiction Expected Bronze iFiction file (for -complete)
 test/bronze/expected.jpg        Expected Bronze cover art
 test/bronze/Bronze.zblorb       Bronze by Emily Short
+test/bronze/sparse.iFiction     Sparse Bronze iFiction file
+test/sensory/Makefile           Makefile for Sensory Jam test
+test/sensory/expected           Expected Sensory Jam test output
+test/sensory/sensory.blb        Sensory Jam by Andrew Plotkin
+test/sensory/sensory.ulx        Expected Sensory Jam story file
 

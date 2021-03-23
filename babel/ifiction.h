@@ -16,6 +16,9 @@
 #define IFICTION_H
 
 #include "treaty.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Babel's notion of an XML tag */
 struct XMLTag
@@ -42,4 +45,8 @@ typedef void (*IFErrorHandler)(char *, void *);
 void ifiction_parse(char *md, IFCloseTag close_tag, void *close_ctx, IFErrorHandler error_handler, void *error_ctx);
 int32 ifiction_get_IFID(char *metadata, char *output, int32 output_extent);
 char *ifiction_get_tag(char *md, char *p, char *t, char *from);
+#ifdef __cplusplus
+}
+#endif
+
 #endif

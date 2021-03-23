@@ -62,9 +62,9 @@ struct babel_handler
  TREATY treaty_handler;
  TREATY treaty_backup;
  void *story_file;
- int32 story_file_extent;
+ uint32 story_file_extent;
  void *story_file_blorbed;
- int32 story_file_blorbed_extent;
+ uint32 story_file_blorbed_extent;
  char blorb_mode;
  char *format_name;
  char auth;
@@ -315,12 +315,12 @@ void release_babel_ctx(void *b)
  free(b);
 }
 
-int32 babel_get_length_ctx(void *bhp)
+uint32 babel_get_length_ctx(void *bhp)
 {
  struct babel_handler *bh=(struct babel_handler *) bhp;
  return bh->story_file_extent;
 }
-int32 babel_get_length()
+uint32 babel_get_length()
 {
  return babel_get_length_ctx(&default_ctx);
 }
@@ -344,13 +344,13 @@ void *babel_get_file()
  return babel_get_file_ctx(&default_ctx);
 }
 
-int32 babel_get_story_length_ctx(void *ctx)
+uint32 babel_get_story_length_ctx(void *ctx)
 {
   struct babel_handler *bh=(struct babel_handler *) ctx;
   if (bh->blorb_mode) return bh->story_file_blorbed_extent;
   return bh->story_file_extent;
 }
-int32 babel_get_story_length()
+uint32 babel_get_story_length()
 {
 
  return babel_get_story_length_ctx(&default_ctx);

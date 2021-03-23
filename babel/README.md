@@ -1,10 +1,10 @@
-## Version 0.3, Treaty of Babel Revision 10
+## Version 0.5, Treaty of Babel Revision 10
 
 This is the source code for babel, the [Treaty of Babel][babel] analysis tool.
 
 [babel]: https://babel.ifarchive.org/
 
-Most of this code is (c) 2006 by L. Ross Raszewski
+Most of this code is (c) 2006-2010 by L. Ross Raszewski
 
 The following files are public domain:
 

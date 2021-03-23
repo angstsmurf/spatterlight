@@ -23,7 +23,7 @@
 #else
 #define IFICTION_EXT ".ifi"
 #endif
-void *my_malloc(int32, char *);
+void *my_malloc(uint32, char *);
 
 void babel_story_ifid()
 {
@@ -165,9 +165,9 @@ static char *get_jpeg_dim(void *img, int32 extent)
   return "(invalid)";
 }
 
-static int32 read_int(unsigned char  *mem)
+static uint32 read_int(unsigned char  *mem)
 {
-  int32 i4 = mem[0],
+  uint32 i4 = mem[0],
                     i3 = mem[1],
                     i2 = mem[2],
                     i1 = mem[3];
@@ -179,7 +179,7 @@ static char *get_png_dim(void *img, int32 extent)
 {
  unsigned char *dp=(unsigned char *)img;
  static char buffer[256];
- int32 w, h;
+ uint32 w, h;
  if (extent<33 ||
  !(dp[0]==137 && dp[1]==80 && dp[2]==78 && dp[3]==71 &&
         dp[4]==13 && dp[5] == 10 && dp[6] == 26 && dp[7]==10)||
