@@ -25,44 +25,44 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
-static const char *msgnames[] = {
-    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
-    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
-    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
-    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
-    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
-    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
-    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
-    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
-    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
-    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
-    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",    "PAUSE",
-    "UNPAUSE",         "BEEP",
-    "SETLINK",         "INITLINK",         "CANCELLINK",
-    "SETZCOLOR",       "SETREVERSE",       "QUOTEBOX",
-    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
-    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
-    "EVTVOLUME",       "EVTPREFS"};
-
-//static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
-//    "wintype_Blank",    "wintype_TextBuffer",
-//    "wintype_TextGrid", "wintype_Graphics"};
-
- static const char *stylenames[] =
-{
-    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
-    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
-    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
-};
+//static const char *msgnames[] = {
+//    "NOREPLY",         "OKAY",             "ERROR",       "HELLO",
+//    "PROMPTOPEN",      "PROMPTSAVE",       "NEWWIN",      "DELWIN",
+//    "SIZWIN",          "CLRWIN",           "MOVETO",      "PRINT",
+//    "UNPRINT",         "MAKETRANSPARENT",  "STYLEHINT",   "CLEARHINT",
+//    "STYLEMEASURE",    "SETBGND",          "SETTITLE",    "AUTOSAVE",
+//    "RESET",           "TIMER",            "INITCHAR",    "CANCELCHAR",
+//    "INITLINE",        "CANCELLINE",       "SETECHO",     "TERMINATORS",
+//    "INITMOUSE",       "CANCELMOUSE",      "FILLRECT",    "FINDIMAGE",
+//    "LOADIMAGE",       "SIZEIMAGE",        "DRAWIMAGE",   "FLOWBREAK",
+//    "NEWCHAN",         "DELCHAN",          "FINDSOUND",   "LOADSOUND",
+//    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",    "PAUSE",
+//    "UNPAUSE",         "BEEP",
+//    "SETLINK",         "INITLINK",         "CANCELLINK",
+//    "SETZCOLOR",       "SETREVERSE",       "QUOTEBOX",
+//    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
+//    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
+//    "EVTVOLUME",       "EVTPREFS"};
 //
- static const char *stylehintnames[] =
-{
-    "stylehint_Indentation", "stylehint_ParaIndentation",
-    "stylehint_Justification", "stylehint_Size",
-    "stylehint_Weight","stylehint_Oblique", "stylehint_Proportional",
-    "stylehint_TextColor", "stylehint_BackColor", "stylehint_ReverseColor",
-    "stylehint_NUMHINTS"
-};
+////static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
+////    "wintype_Blank",    "wintype_TextBuffer",
+////    "wintype_TextGrid", "wintype_Graphics"};
+//
+// static const char *stylenames[] =
+//{
+//    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
+//    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
+//    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
+//};
+////
+// static const char *stylehintnames[] =
+//{
+//    "stylehint_Indentation", "stylehint_ParaIndentation",
+//    "stylehint_Justification", "stylehint_Size",
+//    "stylehint_Weight","stylehint_Oblique", "stylehint_Proportional",
+//    "stylehint_TextColor", "stylehint_BackColor", "stylehint_ReverseColor",
+//    "stylehint_NUMHINTS"
+//};
 
 @interface TempLibrary : NSObject {
 }

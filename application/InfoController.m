@@ -239,7 +239,7 @@ fprintf(stderr, "%s\n",                                                    \
     } else if (_path) {
         self.window.title =
         [NSString stringWithFormat:@"%@ Info", _path.lastPathComponent];
-    } else self.window.title = @"Game Info";
+    } else self.window.title = NSLocalizedString(@"Game Info", nil);
 
     if (_meta) {
         _titleField.stringValue = _meta.title;

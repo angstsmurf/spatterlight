@@ -10,7 +10,7 @@
 @implementation InsecureValueTransformer
 
 + (Class)transformedValueClass {
-    return nil;
+    return [super transformedValueClass];
 }
 
 -(id)description {
