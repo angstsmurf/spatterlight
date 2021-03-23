@@ -1762,26 +1762,35 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }
 }
 
--(BOOL) checkZcode:(NSString *)file {
+- (BOOL)checkZcode:(NSString *)file {
     NSData *mem = [NSData dataWithContentsOfFile:file];
+    uint8_t *memory = (uint8_t *)mem.bytes;
 
-    int dictionary = word(mem, 0x08);
-    int static_start = word(mem, 0x0e);
+    int dictionary = word(memory, 0x08);
+    int static_start = word(memory, 0x0e);
 
     if(dictionary != 0 && dictionary < static_start)
     {   // corrupted story: dictionary is not in static memory
         return NO;
     }
+
+    int objects = word(memory, 0x0a);
+    int zversion = memory[0x00];
+    int propsize = (zversion <= 3 ? 62UL : 126UL);
+
+    if(objects < 64 ||
+       objects + propsize > static_start)
+    {
+        // corrupted story: object table is not in dynamic memory
+            return NO;
+    }
     return YES;
 }
 
-static inline uint16_t word(NSData *mem, uint32_t addr)
+static inline uint16_t word(uint8_t *memory, uint32_t addr)
 {
-    uint8_t *memory = (uint8_t *)mem.bytes;
-
     return (uint16_t)((memory[addr] << 8) | memory[addr + 1]);
 }
-
 
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report {
     char buf[TREATY_MINIMUM_EXTENT];
