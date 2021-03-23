@@ -20,7 +20,8 @@ struct sizewinrect
 
 struct drawrect
 {
-    glui32 x, y, width, height, style;
+    glsi32 x, y;
+    glui32 width, height, style;
 };
 
 struct settings_struct

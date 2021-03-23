@@ -2907,8 +2907,8 @@ static const char *msgnames[] = {
                     struct drawrect *drawstruct = (void *)buf;
 
                     [reqWin drawImage:lastimage
-                                 val1:drawstruct->x
-                                 val2:drawstruct->y
+                                 val1:(glsi32)drawstruct->x
+                                 val2:(glsi32)drawstruct->y
                                 width:drawstruct->width
                                height:drawstruct->height
                                 style:drawstruct->style];
