@@ -1835,11 +1835,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert *alert = [[NSAlert alloc] init];
                 alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
-                alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Can not recognize the file extension \"%@.\"", nil), path.pathExtension];
+                alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Can not recognize the file extension \".%@\"", nil), path.pathExtension];
                 [alert runModal];
             });
-        } else {
-            NSLog(@"Unrecognized file extension \"%@.\"", path.pathExtension);
         }
         return nil;
     }
@@ -1887,8 +1885,6 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                 alert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
                 [alert runModal];
             });
-        } else {
-            NSLog(@"Babel can not identify the file format.");
         }
         babel_release_ctx(ctx);
         return nil;
