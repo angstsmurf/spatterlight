@@ -152,8 +152,15 @@ void *rmalloc(long size)
   }
   assert(size>=0);
   if (size==0) return NULL;
-  p=malloc((size_t)size);
-  if (p==NULL && rm_trap && size>0) 
+
+//  posix_memalign(p, 8, (size_t)size);
+    if (__builtin_available(macOS 10.15, *)) {
+        size = size + (8 - (size % 8)) % 8;
+        p=aligned_alloc(8, (size_t)size);
+    } else {
+        p=malloc((size_t)size);
+    }
+  if (p==NULL && rm_trap && size>0)
     {
       printf("Memory allocation error: Out of memory.\n");
       exit(EXIT_FAILURE);
@@ -1022,7 +1029,7 @@ static void read_filerec(const file_info *rec_desc, const uchar *filedata)
 
 
 #define v(t) (*(t*)(rec_desc->ptr))
-/* Here is the corresponding routien for _writing_ to files */
+/* Here is the corresponding routine for _writing_ to files */
 /* This copies the contents of a record into a buffer */
 
 static void write_filerec(const file_info *rec_desc, uchar *filedata)
@@ -1053,7 +1060,9 @@ static void write_filerec(const file_info *rec_desc, uchar *filedata)
       case FT_CMDPTR: /* cmd ptr */        
       case FT_INT32:
       case FT_UINT32:
-	filedata[0]=v(long)&0xFF;
+//              =(*(t*)(rec_desc->ptr))
+    filedata[0] = (*(long *)(rec_desc->ptr))&0xFF;
+//	filedata[0]=v(long)&0xFF;
 	filedata[1]=(v(long)>>8)&0xFF;
 	filedata[2]=(v(long)>>16)&0xFF;
 	filedata[3]=(v(long)>>24)&0xFF;

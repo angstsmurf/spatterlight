@@ -1930,7 +1930,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                 [alert runModal];
             });
         } else {
-            NSLog(@"Recognized extension (%@) but unknown file format.", extension);
+//            NSLog(@"Recognized extension (%@) but unknown file format.", extension);
         }
         babel_release_ctx(ctx);
         return nil;
@@ -1965,7 +1965,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             }
             if (![path isEqualToString:game.path])
             {
-                NSLog(@"File location did not match. Updating library with new file location.");
+//                NSLog(@"File location did not match. Updating library with new file location.");
                 [game bookmarkForPath:path];
             }
             if (![game.detectedFormat isEqualToString:@(format)]) {
