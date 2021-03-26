@@ -16,6 +16,9 @@ unsigned int IFFID(char c1, char c2, char c3, char c4) {
 }
 
 unsigned int unpackLong(const void *data) {
+  if (((const unsigned char *)data)[0] > 127) {
+    return UINT32_MAX;
+  }
   return (unsigned int)((((const unsigned char *)data)[0] << 24) |
          (((const unsigned char *)data)[1] << 16) |
          (((const unsigned char *)data)[2] << 8) |

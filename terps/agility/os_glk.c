@@ -6473,7 +6473,9 @@ gagt_finalizer (void)
    */
   if (gagt_agility_running && !gagt_event_in_glk_select ())
     {
+#if !(defined(GARGLK) || defined(GLK_CLEAN_EXIT))
       event_t event;
+#endif
 
       /*
        * If we have a main window, try to update status (which may go to the
@@ -6496,16 +6498,14 @@ gagt_finalizer (void)
 
 #ifdef GARGLK
       return;
-#endif /* GARGLK */
 
-#ifndef GLK_CLEAN_EXIT
+#elif !defined(GLK_CLEAN_EXIT)
       if (!getenv ("GLKAGIL_CLEAN_EXIT"))
         {
           glk_exit ();
           return;
         }
-#endif
-
+#else
       /*
        * We've decided not to take the dangerous route.
        *
@@ -6525,6 +6525,7 @@ gagt_finalizer (void)
           glk_request_char_event (gagt_main_window);
           gagt_event_wait (evtype_CharInput, &event);
         }
+#endif /* GARGLK */
     }
 }
 
