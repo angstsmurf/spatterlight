@@ -39,7 +39,7 @@ static unsigned char taf_translate (unsigned char c)
 {
  int32 r;
 
- vbr_state = (vbr_state*VB_RAND1+VB_RAND2) & VB_RAND3;
+ vbr_state = ((uint64_t)vbr_state*VB_RAND1+VB_RAND2) & VB_RAND3;
  r=UCHAR_MAX * (unsigned) vbr_state;
  r/=((unsigned) VB_RAND3)+1;
  return r^c;

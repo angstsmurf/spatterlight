@@ -17,6 +17,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 
 typedef unsigned char byte;
@@ -70,11 +71,17 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
 }
 
 
-static bool crc_is_correct(byte *story_file, int32 size_in_awords) {
+static bool crc_is_correct(byte *story_file, int32 size_in_awords)
+{
   /* Size of AcodeHeader is 50 Awords = 200 bytes */
   int32 crc = 0;
 
-  for (int i=50*4;i<(size_in_awords*4);i++)
+  if ((uint64_t)size_in_awords * 4 > INT_MAX)
+  {
+    return false;
+  }
+
+  for (int i=50*4; i < (size_in_awords*4);i++)
     crc+=story_file[i];
 
   return (crc == read_alan_int_at(story_file+46*4));
