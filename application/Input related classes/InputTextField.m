@@ -26,9 +26,9 @@
     }
 }
 
-- (void)mouseMoved:(NSEvent *)event {
-    [[NSCursor IBeamCursor] set];
-}
+//- (void)mouseMoved:(NSEvent *)event {
+//    [[NSCursor IBeamCursor] set];
+//}
 
 - (BOOL)isAccessibilityElement {
     return YES;

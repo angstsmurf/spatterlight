@@ -1951,8 +1951,8 @@
     // NSLog(@"line event from %ld", (long)self.name);
     NSString *line = [textstorage.string substringFromIndex:fence];
     if (echo) {
-        [textstorage
-         addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(fence, textstorage.length - fence)];
+//        [textstorage
+//         addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(fence, textstorage.length - fence)];
         [self printToWindow:@"\n"
                       style:style_Input]; // XXX arranger lastchar needs to be set
         _lastchar = '\n';
@@ -2053,7 +2053,7 @@
     if (self.currentReverseVideo)
         inputStyle[@"ReverseVideo"] = @(YES);
 
-    inputStyle[NSCursorAttributeName] = [NSCursor IBeamCursor];
+//    inputStyle[NSCursorAttributeName] = [NSCursor IBeamCursor];
     _inputAttributes = inputStyle;
 }
 

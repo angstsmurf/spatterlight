@@ -444,7 +444,7 @@
         else
             _bufferTextStorage = [self applyReverseOnly:_bufferTextStorage];
 
-        [_bufferTextStorage addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(0, _bufferTextStorage.length)];
+//        [_bufferTextStorage addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(0, _bufferTextStorage.length)];
 
         // Now we can replace the text storager
         [textstorage setAttributedString:_bufferTextStorage];

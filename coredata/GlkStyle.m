@@ -98,7 +98,7 @@
     dict[NSParagraphStyleAttributeName] = para;
     dict[NSForegroundColorAttributeName] = [NSColor blackColor];
 
-    dict[NSCursorAttributeName] = [NSCursor arrowCursor];
+//    dict[NSCursorAttributeName] = [NSCursor arrowCursor];
 
     dict[@"GlkStyle"] = @(self.index);
 
