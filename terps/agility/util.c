@@ -1053,10 +1053,10 @@ static void write_filerec(const file_info *rec_desc, uchar *filedata)
       case FT_CMDPTR: /* cmd ptr */        
       case FT_INT32:
       case FT_UINT32:
-    filedata[0]=v(int32)&0xFF;
-    filedata[1]=(v(int32)>>8)&0xFF;
-    filedata[2]=(v(int32)>>16)&0xFF;
-    filedata[3]=(v(int32)>>24)&0xFF;
+      filedata[0]=v(int32)&0xFF;
+      filedata[1]=(v(int32)>>8)&0xFF;
+      filedata[2]=(v(int32)>>16)&0xFF;
+      filedata[3]=(v(int32)>>24)&0xFF;
 	break;
       case FT_BYTE: filedata[0]=v(uchar);break;
       case FT_CFG: filedata[0]=v(uchar);break;
