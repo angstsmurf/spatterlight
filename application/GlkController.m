@@ -1,7 +1,8 @@
 #import "InfoController.h"
 #import "InputTextField.h"
 #import "GlkSoundChannel.h"
-#import "AudioResourceHandler.h"
+#import "ImageHandler.h"
+#import "SoundHandler.h"
 #import "NSString+Categories.h"
 #import "Metadata.h"
 #import "Game.h"
@@ -174,7 +175,7 @@ fprintf(stderr, "%s\n",                                                    \
     // To fix scrolling in the Adrian Mole games
     NSInteger lastRequest;
 
-//    NSDate *lastFlushTimestamp;
+    //    NSDate *lastFlushTimestamp;
 }
 @end
 
@@ -209,8 +210,9 @@ fprintf(stderr, "%s\n",                                                    \
           reset:(BOOL)shouldReset
      winRestore:(BOOL)windowRestoredBySystem_ {
 
-    _audioResourceHandler = [[AudioResourceHandler alloc] init];
-    _audioResourceHandler.glkctl = self;
+    _soundHandler = [SoundHandler new];
+    _soundHandler.glkctl = self;
+    _imageHandler = [ImageHandler new];
 
     //    NSLog(@"glkctl: runterp %@ %@", terpname_, game_.metadata.title);
 
@@ -751,10 +753,10 @@ fprintf(stderr, "%s\n",                                                    \
     _queue = [[NSMutableArray alloc] init];
 
     [[NSNotificationCenter defaultCenter]
-                addObserver: self
-                   selector: @selector(noteDataAvailable:)
-               name: NSFileHandleDataAvailableNotification
-             object: readfh];
+     addObserver: self
+     selector: @selector(noteDataAvailable:)
+     name: NSFileHandleDataAvailableNotification
+     object: readfh];
 
     dead = NO;
 
@@ -836,9 +838,9 @@ fprintf(stderr, "%s\n",                                                    \
     shouldRestoreUI = NO;
     _shouldStoreScrollOffset = NO;
 
-    _audioResourceHandler = restoredControllerLate.audioResourceHandler;
-    _audioResourceHandler.glkctl = self;
-    [_audioResourceHandler restartAll];
+    _soundHandler = restoredControllerLate.soundHandler;
+    _soundHandler.glkctl = self;
+    [_soundHandler restartAll];
 
     GlkWindow *win;
 
@@ -1135,7 +1137,7 @@ fprintf(stderr, "%s\n",                                                    \
                 return;
             }
         }
-     _game.autosaved = YES;
+        _game.autosaved = YES;
     }
 }
 
@@ -1154,7 +1156,8 @@ fprintf(stderr, "%s\n",                                                    \
 
         _gwindows = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gwindows"];
 
-        _audioResourceHandler = [decoder decodeObjectOfClass:[AudioResourceHandler class] forKey:@"audioResourceHandler"];
+        _soundHandler = [decoder decodeObjectOfClass:[SoundHandler class] forKey:@"soundHandler"];
+        _imageHandler = [decoder decodeObjectOfClass:[ImageHandler class] forKey:@"imageHandler"];
 
         _storedWindowFrame = [decoder decodeRectForKey:@"windowFrame"];
         _windowPreFullscreenFrame =
@@ -1205,7 +1208,8 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeObject:_gridStyleHints forKey:@"gridStyleHints"];
 
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
-    [encoder encodeObject:_audioResourceHandler forKey:@"audioResourceHandler"];
+    [encoder encodeObject:_soundHandler forKey:@"soundHandler"];
+    [encoder encodeObject:_imageHandler forKey:@"imageHandler"];
 
     [encoder encodeRect:_windowPreFullscreenFrame
                  forKey:@"windowPreFullscreenFrame"];
@@ -1288,7 +1292,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (restartingAlready)
         return;
 
-    [_audioResourceHandler stopAllAndCleanUp];
+    [_soundHandler stopAllAndCleanUp];
 
     restartingAlready = YES;
     _mustBeQuiet = YES;
@@ -1333,7 +1337,6 @@ fprintf(stderr, "%s\n",                                                    \
     @autoreleasepool {
         if (@available(macOS 10.13, *)) {
             NSError *error = nil;
-
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
             [data writeToFile:tmplibpath options:NSDataWritingAtomic error:&error];
             if (error)
@@ -1478,7 +1481,7 @@ fprintf(stderr, "%s\n",                                                    \
     } else windowClosedAlready = YES;
 
     [self autoSaveOnExit];
-    [_audioResourceHandler stopAllAndCleanUp];
+    [_soundHandler stopAllAndCleanUp];
 
     if (_game && [Preferences instance].currentGame == _game) {
         Game *remainingGameSession = nil;
@@ -2471,7 +2474,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-//    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+    //    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -2619,7 +2622,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case NEWCHAN:
             ans->cmd = OKAY;
-            ans->a1 = [_audioResourceHandler handleNewSoundChannel:req->a1];
+            ans->a1 = [_soundHandler handleNewSoundChannel:req->a1];
             break;
 
         case DELWIN:
@@ -2634,7 +2637,7 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case DELCHAN:
-            [_audioResourceHandler handleDeleteChannel:req->a1];
+            [_soundHandler handleDeleteChannel:req->a1];
             break;
 
             /*
@@ -2645,23 +2648,19 @@ fprintf(stderr, "%s\n",                                                    \
 
         case FINDIMAGE:
             ans->cmd = OKAY;
-            ans->a1 = [imageCache objectForKey:@(req->a1)] != nil;
-            break;
-
-        case FINDSOUND:
-            ans->cmd = OKAY;
-            ans->a1 = [_audioResourceHandler handleFindSoundNumber:req->a1];
+            ans->a1 = [_imageHandler handleFindImageNumber:req->a1];
             break;
 
         case LOADIMAGE:
             buf[req->len] = 0;
-            [self handleLoadImageNumber:req->a1
-                                   from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
-                                 offset:req->a2
-                                 length:(NSUInteger)req->a3];
+            [_imageHandler handleLoadImageNumber:req->a1
+                                            from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
+                                          offset:(NSUInteger)req->a2
+                                          length:(NSUInteger)req->a3];
             break;
 
         case SIZEIMAGE:
+        {
             ans->cmd = OKAY;
             ans->a1 = 0;
             ans->a2 = 0;
@@ -2671,37 +2670,43 @@ fprintf(stderr, "%s\n",                                                    \
                 ans->a1 = (int)size.width;
                 ans->a2 = (int)size.height;
             }
+        }
+        break;
+
+        case FINDSOUND:
+            ans->cmd = OKAY;
+            ans->a1 = [_soundHandler handleFindSoundNumber:req->a1];
             break;
 
         case LOADSOUND:
             buf[req->len] = 0;
-            [_audioResourceHandler handleLoadSoundNumber:req->a1
-                                   from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
-                                 offset:(NSUInteger)req->a2
-                                 length:(NSUInteger)req->a3];
+            [_soundHandler handleLoadSoundNumber:req->a1
+                                                    from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
+                                                  offset:(NSUInteger)req->a2
+                                                  length:(NSUInteger)req->a3];
             break;
 
         case SETVOLUME:
-            [_audioResourceHandler handleSetVolume:req->a2
-                                   channel:req->a1
-                                 duration:req->a3
-                                 notify:req->a4];
+            [_soundHandler handleSetVolume:req->a2
+                                           channel:req->a1
+                                          duration:req->a3
+                                            notify:req->a4];
             break;
 
         case PLAYSOUND:
-            [_audioResourceHandler handlePlaySoundOnChannel:req->a1 repeats:req->a2 notify:req->a3];
+            [_soundHandler handlePlaySoundOnChannel:req->a1 repeats:req->a2 notify:req->a3];
             break;
 
         case STOPSOUND:
-            [_audioResourceHandler handleStopSoundOnChannel:req->a1];
+            [_soundHandler handleStopSoundOnChannel:req->a1];
             break;
 
         case PAUSE:
-            [_audioResourceHandler handlePauseOnChannel:req->a1];
+            [_soundHandler handlePauseOnChannel:req->a1];
             break;
 
         case UNPAUSE:
-            [_audioResourceHandler handleUnpauseOnChannel:req->a1];
+            [_soundHandler handleUnpauseOnChannel:req->a1];
             break;
 
         case BEEP:
@@ -3217,40 +3222,40 @@ again:
     n = read(readfd, &request, sizeof(struct message));
     if (n < (ssize_t)sizeof(struct message))
     {
-    if (n < 0)
-        NSLog(@"glkctl: could not read message header");
-    else
-        NSLog(@"glkctl: connection closed");
-    return;
+        if (n < 0)
+            NSLog(@"glkctl: could not read message header");
+        else
+            NSLog(@"glkctl: connection closed");
+        return;
     }
 
     /* this should only happen when sending resources */
     if (request.len > GLKBUFSIZE)
     {
-    maxibuf = malloc(request.len);
-    if (!maxibuf)
-    {
-        NSLog(@"glkctl: out of memory for message (%zu bytes)", request.len);
-        return;
-    }
-    buf = maxibuf;
+        maxibuf = malloc(request.len);
+        if (!maxibuf)
+        {
+            NSLog(@"glkctl: out of memory for message (%zu bytes)", request.len);
+            return;
+        }
+        buf = maxibuf;
     }
 
     if (request.len)
     {
-    n = 0;
-    while (n < (ssize_t)request.len)
-    {
-        t = read(readfd, buf + n, request.len - (size_t)n);
-        if (t <= 0)
+        n = 0;
+        while (n < (ssize_t)request.len)
         {
-        NSLog(@"glkctl: could not read message body");
-        if (maxibuf)
-            free(maxibuf);
-        return;
+            t = read(readfd, buf + n, request.len - (size_t)n);
+            if (t <= 0)
+            {
+                NSLog(@"glkctl: could not read message body");
+                if (maxibuf)
+                    free(maxibuf);
+                return;
+            }
+            n += t;
         }
-        n += t;
-    }
     }
 
     memset(&reply, 0, sizeof reply);
@@ -3259,22 +3264,22 @@ again:
 
     if (reply.cmd > NOREPLY)
     {
-    write(sendfd, &reply, sizeof(struct message));
-    if (reply.len)
-        write(sendfd, buf, reply.len);
+        write(sendfd, &reply, sizeof(struct message));
+        if (reply.len)
+            write(sendfd, buf, reply.len);
     }
 
     if (maxibuf)
-    free(maxibuf);
+        free(maxibuf);
 
     /* if stop, don't read or wait for more data */
     if (stop)
-    return;
+        return;
 
     if (pollMoreData(readfd))
-    goto again;
+        goto again;
     else
-    [readfh waitForDataInBackgroundAndNotify];
+        [readfh waitForDataInBackgroundAndNotify];
 }
 
 

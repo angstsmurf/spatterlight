@@ -1,6 +1,6 @@
 #import "main.h"
 #import "GlkSoundChannel.h"
-#import "AudioResourceHandler.h"
+#import "SoundHandler.h"
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
@@ -37,7 +37,7 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
     CGFloat float_volume;
     CGFloat volume_delta;
     NSTimer *timer;
-    NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sdl_channels;
+    NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sdlchannels;
     NSMutableDictionary <NSNumber *, SoundResource *> *resources;
 }
 @end
@@ -47,7 +47,7 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
 //Needed for callbacks to call method on
 static void *static_handler;
 
-- (instancetype)initWithHandler:(AudioResourceHandler*)handler name:(NSUInteger)channelname volume:(NSUInteger)vol
+- (instancetype)initWithHandler:(SoundHandler*)handler name:(NSUInteger)channelname volume:(NSUInteger)vol
 {
     _handler = handler;
     
@@ -81,9 +81,9 @@ static void *static_handler;
 }
 
 - (void)postInit {
-    if (!_handler.sdl_channels)
-        _handler.sdl_channels = [[NSMutableDictionary alloc] init];
-    sdl_channels = _handler.sdl_channels;
+    if (!_handler.sdlchannels)
+        _handler.sdlchannels = [NSMutableDictionary new];
+    sdlchannels = _handler.sdlchannels;
     resources = _handler.resources;
     static_handler = (__bridge void *)_handler;
 }
@@ -214,7 +214,7 @@ static void *static_handler;
             if (sdl_channel >= 0)
             {
                 Mix_GroupChannel(sdl_channel, FREE);
-                [sdl_channels removeObjectForKey:@(sdl_channel)];
+                [sdlchannels removeObjectForKey:@(sdl_channel)];
             }
             break;
         case CHANNEL_MUSIC:
@@ -278,7 +278,7 @@ static void *static_handler;
         if (volume_notify)
         {
             NSInteger notification = volume_notify;
-            AudioResourceHandler *handler = _handler;
+            SoundHandler *handler = _handler;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [handler handleVolumeNotification:notification];
             });
@@ -401,7 +401,7 @@ static void *static_handler;
     if (sdl_channel >= 0 && sample)
     {
         SDL_LockAudio();
-        sdl_channels[@(sdl_channel)] = self;
+        sdlchannels[@(sdl_channel)] = self;
         SDL_UnlockAudio();
         Mix_Volume(sdl_channel, volume);
         Mix_ChannelFinished(&sound_completion_callback);
@@ -424,17 +424,17 @@ static void *static_handler;
 /* Notify the sound channel completion */
 static void sound_completion_callback(int chan)
 {
-    AudioResourceHandler *handler;
-    NSMutableDictionary *sdl_channels;
+    SoundHandler *handler;
+    NSMutableDictionary *sdlchannels;
     @try {
-        handler = (__bridge AudioResourceHandler *)static_handler;
-        sdl_channels = handler.sdl_channels;
+        handler = (__bridge SoundHandler *)static_handler;
+        sdlchannels = handler.sdlchannels;
     } @catch (NSException *ex) {
         NSLog(@"sound_completion_callback failed: %@", ex);
         return;
     }
 
-    GlkSoundChannel *sound_channel = sdl_channels[@(chan)];
+    GlkSoundChannel *sound_channel = sdlchannels[@(chan)];
 
     if (!sound_channel)
     {
@@ -450,16 +450,16 @@ static void sound_completion_callback(int chan)
         });
     }
     [sound_channel cleanup];
-    [sdl_channels removeObjectForKey:@(chan)];
+    [sdlchannels removeObjectForKey:@(chan)];
     return;
 }
 
 /* Notify the music channel completion */
 static void music_completion_callback()
 {
-    AudioResourceHandler *handler;
+    SoundHandler *handler;
     @try {
-        handler = (__bridge AudioResourceHandler *)static_handler;
+        handler = (__bridge SoundHandler *)static_handler;
     } @catch (NSException *ex) {
         NSLog(@"music_completion_callback failed: %@", ex);
         return;
@@ -497,7 +497,7 @@ static void music_completion_callback()
     }
 
     if (sdl_channel != -1)
-        sdl_channels[@(sdl_channel)] = self;
+        sdlchannels[@(sdl_channel)] = self;
     
     if (status == CHANNEL_IDLE) {
         return;

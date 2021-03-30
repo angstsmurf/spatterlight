@@ -13,7 +13,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, AudioResourceHandler;
+@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler;
 
 #define MAXWIN 64
 
@@ -27,7 +27,10 @@
 @interface GlkController : NSWindowController <NSSecureCoding, NSAccessibilityCustomRotorItemSearchDelegate>
 
 @property NSMutableDictionary *gwindows;
-@property AudioResourceHandler *audioResourceHandler;
+@property SoundHandler *soundHandler;
+@property ImageHandler *imageHandler;
+@property NSMutableArray *imagesToSpeak;
+
 @property NSMutableArray *windowsToBeAdded;
 @property NSMutableArray *windowsToBeRemoved;
 @property IBOutlet NSView *borderView;

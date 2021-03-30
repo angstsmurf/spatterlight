@@ -1,5 +1,5 @@
 //
-//  AudioResourceHandler.h
+//  SoundHandler.h
 //  Spatterlight
 //
 //  Created by Administrator on 2021-01-24.
@@ -54,10 +54,10 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface AudioResourceHandler : NSObject
+@interface SoundHandler : NSObject
 
 @property NSMutableDictionary <NSNumber *, SoundResource *> *resources;
-@property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sdl_channels;
+@property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sdlchannels;
 @property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *glkchannels;
 @property NSMutableDictionary <NSString *, SoundFile *> *files;
 @property (nullable) GlkSoundChannel *music_channel;
@@ -70,7 +70,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)restartAll;
 - (void)stopAllAndCleanUp;
-- (BOOL)soundIsLoaded:(NSInteger)soundId;
 
 - (int)handleNewSoundChannel:(int)volume;
 - (void)handleDeleteChannel:(int)channel;
