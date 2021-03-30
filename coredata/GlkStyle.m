@@ -11,7 +11,6 @@
 #import "GlkStyle.h"
 #import "Theme.h"
 #import "main.h"
-#import "Compatibility.h"
 #import "NSColor+integer.h"
 
 

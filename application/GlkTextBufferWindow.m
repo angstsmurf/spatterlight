@@ -2,7 +2,6 @@
  * NSTextView associated with a glk window
  */
 
-#import "Compatibility.h"
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 #import "Theme.h"

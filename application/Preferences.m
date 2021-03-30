@@ -1,4 +1,3 @@
-#import "Compatibility.h"
 #import "CoreDataManager.h"
 #import "Game.h"
 #import "Metadata.h"

@@ -2,7 +2,6 @@
  *
  */
 
-#import "Compatibility.h"
 #import "NSString+Categories.h"
 #import "NSDate+relative.h"
 #import "CoreDataManager.h"

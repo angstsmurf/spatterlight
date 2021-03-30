@@ -2,7 +2,6 @@
  * Application -- the main application controller
  */
 
-#import "Compatibility.h"
 #import "CoreDataManager.h"
 #import "HelpPanelController.h"
 #import "InfoController.h"

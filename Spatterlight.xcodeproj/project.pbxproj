@@ -124,7 +124,6 @@
 		6DB774D62458BAE400EDC671 /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		6DB774D72458DD4900EDC671 /* bocfel in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 6DB774A22458B95E00EDC671 /* bocfel */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6DB8C1E924599DF9002CDCCB /* ZColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB8C1E824599DF8002CDCCB /* ZColor.m */; };
-		6DBC471A21D27E9C00A20E28 /* Compatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC471821D2752000A20E28 /* Compatibility.m */; };
 		6DC1FAEF252A5A5900540C6E /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAEE252A5A5900540C6E /* Metadata.m */; };
 		6DC1FAF5252A5C8A00540C6E /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAF4252A5C8A00540C6E /* Theme.m */; };
 		6DC520AA23BAD54B0004923A /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
@@ -1243,8 +1242,6 @@
 		6DB774BF2458B9B300EDC671 /* zterp.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = zterp.c; sourceTree = "<group>"; tabWidth = 2; };
 		6DB8C1E724599DF8002CDCCB /* ZColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZColor.h; sourceTree = "<group>"; };
 		6DB8C1E824599DF8002CDCCB /* ZColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZColor.m; sourceTree = "<group>"; };
-		6DBC471721D270B100A20E28 /* Compatibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Compatibility.h; sourceTree = "<group>"; };
-		6DBC471821D2752000A20E28 /* Compatibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Compatibility.m; sourceTree = "<group>"; };
 		6DC144972215D3F6007C0A6B /* spatterstart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spatterstart.h; sourceTree = "<group>"; };
 		6DC1FAEC252A3DB900540C6E /* Spatterlight 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 3.xcdatamodel"; sourceTree = "<group>"; };
 		6DC1FAED252A5A5900540C6E /* Metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metadata.h; sourceTree = "<group>"; };
@@ -3618,8 +3615,6 @@
 				961CCEDF09F239E700528FF9 /* main.h */,
 				961CCEE009F239E700528FF9 /* main.m */,
 				C31186F225BD514B00739D7B /* Sound */,
-				6DBC471721D270B100A20E28 /* Compatibility.h */,
-				6DBC471821D2752000A20E28 /* Compatibility.m */,
 				C3C1809625C70F3A0040AE79 /* Blorb */,
 				961CCEDD09F239E700528FF9 /* AppDelegate.h */,
 				961CCEDE09F239E700528FF9 /* AppDelegate.m */,
@@ -5898,7 +5893,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3C1807E25C70F300040AE79 /* Blorb.m in Sources */,
-				6DBC471A21D27E9C00A20E28 /* Compatibility.m in Sources */,
 				961CCEF209F23A0000528FF9 /* main.m in Sources */,
 				C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */,
 				961CCEF409F23A0000528FF9 /* Preferences.m in Sources */,

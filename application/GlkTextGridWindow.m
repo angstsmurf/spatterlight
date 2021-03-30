@@ -6,7 +6,6 @@
 #import "InputTextField.h"
 #import "InputHistory.h"
 
-#import "Compatibility.h"
 #import "NSString+Categories.h"
 #import "Theme.h"
 #import "GlkStyle.h"
