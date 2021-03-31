@@ -1,5 +1,5 @@
 //
-//  AudioPlayer.m
+//  AudioResourceHandler.m
 //  Spatterlight
 //
 //  Created by Administrator on 2021-01-24.
@@ -241,6 +241,14 @@
     Mix_ChannelFinished(NULL);
 }
 
+- (BOOL)soundIsLoaded:(NSInteger)soundId {
+    SoundResource *resource = _resources[@(soundId)];
+    if (resource)
+        return (resource.data != nil);
+    return NO;
+}
+
+#pragma mark Glk request calls from GlkController
 
 - (BOOL)handleFindSoundNumber:(int)resno {
     BOOL result = [self soundIsLoaded:resno];
@@ -270,11 +278,29 @@
     [self setSoundID:resno filename:path length:length offset:offset];
 }
 
-- (BOOL)soundIsLoaded:(NSInteger)soundId {
-    SoundResource *resource = _resources[@(soundId)];
-    if (resource)
-        return (resource.data != nil);
-    return NO;
+- (void)setSoundID:(NSInteger)snd filename:(nullable NSString *)filename length:(NSUInteger)length offset:(NSUInteger)offset {
+
+    SoundResource *res = _resources[@(snd)];
+
+    if (res == nil) {
+        res = [[SoundResource alloc] initWithFilename:filename  offset:offset length:length];
+        _resources[@(snd)] = res;
+    } else if (res.data) {
+        return;
+    }
+
+    res.length = length;
+
+    if (filename != nil)
+    {
+        res.soundFile = _files[filename];
+        if (!res.soundFile) {
+            res.soundFile = [[SoundFile alloc] initWithPath:filename];
+            _files[filename] = res.soundFile;
+        }
+    } else return;
+    res.offset = offset;
+    [res load];
 }
 
 - (int)handleNewSoundChannel:(int)volume {
@@ -284,34 +310,30 @@
         break;
 
     if (i == MAXSND)
-            return -1;
+        return -1;
 
-        _glkchannels[@(i)] = [[GlkSoundChannel alloc] initWithHandler:self
-        name:i volume:(NSUInteger)volume];
-
+    _glkchannels[@(i)] = [[GlkSoundChannel alloc] initWithHandler:self
+                                                             name:i volume:(NSUInteger)volume];
     return i;
 }
 
 - (void)handleDeleteChannel:(int)channel {
     if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)])
-    {
+        _glkchannels[@(channel)]) {
         _glkchannels[@(channel)] = nil;
     }
 }
 
 - (void)handleSetVolume:(int)volume channel:(int)channel duration:(int)duration notify:(int)notify {
     if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)])
-    {
+        _glkchannels[@(channel)]) {
         [_glkchannels[@(channel)] setVolume:(NSUInteger)volume duration:(NSUInteger)duration notify:notify];
     }
 }
 
 - (void)handlePlaySoundOnChannel:(int)channel repeats:(int)repeats notify:(int)notify {
     if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)])
-    {
+        _glkchannels[@(channel)]) {
         if (_lastsoundresno != -1)
             [_glkchannels[@(channel)] play:_lastsoundresno repeats:
              repeats notify:notify];
@@ -320,34 +342,49 @@
 
 - (void)handleStopSoundOnChannel:(int)channel {
     if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)])
-    {
+        _glkchannels[@(channel)]) {
         [_glkchannels[@(channel)] stop];
     }
 }
 
 - (void)handlePauseOnChannel:(int)channel {
     if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)])
-    {
+        _glkchannels[@(channel)]) {
         [_glkchannels[@(channel)] pause];
     }
 }
 
 - (void)handleUnpauseOnChannel:(int)channel {
     if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)])
-    {
+        _glkchannels[@(channel)]) {
         [_glkchannels[@(channel)] unpause];
     }
 }
 
+- (void)restartAll {
+    for (GlkSoundChannel *chan in _glkchannels.allValues) {
+        chan.handler = self;
+        [chan restartInternal];
+    }
+}
+
+- (void)stopAllAndCleanUp {
+    if (!_glkchannels.count)
+        return;
+    Mix_ChannelFinished(NULL);
+    Mix_HookMusicFinished(NULL);
+    for (GlkSoundChannel* chan in _glkchannels.allValues) {
+        [chan stop];
+    }
+    Mix_CloseAudio();
+}
+
+#pragma mark Called from GlkSoundChannel
 
 - (void)handleVolumeNotification:(NSInteger)notify {
     GlkEvent *gev = [[GlkEvent alloc] initVolumeNotify:notify];
     [_glkctl queueEvent:gev];
 }
-
 
 - (void)handleSoundNotification:(NSInteger)notify withSound:(NSInteger)sound {
     GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:notify withSound:sound];
@@ -373,52 +410,6 @@
     }
 
     return type;
-}
-
-- (void)setSoundID:(NSInteger)snd filename:(nullable NSString *)filename length:(NSUInteger)length offset:(NSUInteger)offset {
-
-    SoundResource *res = _resources[@(snd)];
-
-    if (res == nil)
-    {
-        res = [[SoundResource alloc] initWithFilename:filename  offset:offset length:length];
-        _resources[@(snd)] = res;
-    }
-    else if (res.data)
-    {
-        return;
-    }
-
-    res.length = length;
-
-    if (filename != nil)
-    {
-        res.soundFile = _files[filename];
-        if (!res.soundFile) {
-            res.soundFile = [[SoundFile alloc] initWithPath:filename];
-            _files[filename] = res.soundFile;
-        }
-    } else return;
-    res.offset = offset;
-    [res load];
-}
-
-- (void)restartAll {
-    for (GlkSoundChannel *chan in _glkchannels.allValues) {
-        chan.handler = self;
-        [chan restartInternal];
-    }
-}
-
-- (void)stopAllAndCleanUp {
-    if (!_glkchannels.count)
-        return;
-    Mix_ChannelFinished(NULL);
-    Mix_HookMusicFinished(NULL);
-    for (GlkSoundChannel* chan in _glkchannels.allValues) {
-        [chan stop];
-    }
-    Mix_CloseAudio();
 }
 
 @end

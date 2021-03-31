@@ -66,10 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak) GlkController *glkctl;
 
-- (void)initializeSound;
-
-- (void)setSoundID:(NSInteger)snd filename:(nullable NSString *)filename length:(NSUInteger)length offset:(NSUInteger)offset;
-
 - (NSInteger)load_sound_resource:(NSInteger)snd length:(NSUInteger *)len data:(char * _Nonnull * _Nonnull)buf;
 
 - (void)restartAll;
