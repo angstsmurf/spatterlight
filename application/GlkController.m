@@ -158,7 +158,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     /* image/sound resource uploading protocol */
     NSInteger lastimageresno;
-    NSInteger lastsoundresno;
     NSCache *imageCache;
 
     NSImage *lastimage;
@@ -210,8 +209,8 @@ fprintf(stderr, "%s\n",                                                    \
           reset:(BOOL)shouldReset
      winRestore:(BOOL)windowRestoredBySystem_ {
 
-    _gchannels = [[NSMutableDictionary alloc] init];
     _audioResourceHandler = [[AudioResourceHandler alloc] init];
+    _audioResourceHandler.glkctl = self;
 
     //    NSLog(@"glkctl: runterp %@ %@", terpname_, game_.metadata.title);
 
@@ -341,7 +340,6 @@ fprintf(stderr, "%s\n",                                                    \
     windowdirty = NO;
 
     lastimageresno = -1;
-    lastsoundresno = -1;
     lastimage = nil;
 
     _ignoreResizes = NO;
@@ -838,12 +836,9 @@ fprintf(stderr, "%s\n",                                                    \
     shouldRestoreUI = NO;
     _shouldStoreScrollOffset = NO;
 
-    _gchannels = restoredControllerLate.gchannels;
     _audioResourceHandler = restoredControllerLate.audioResourceHandler;
-    for (GlkSoundChannel *chan in _gchannels.allValues) {
-        chan.glkctl = self;
-        [chan restartInternal];
-    }
+    _audioResourceHandler.glkctl = self;
+    [_audioResourceHandler restartAll];
 
     GlkWindow *win;
 
@@ -1158,7 +1153,6 @@ fprintf(stderr, "%s\n",                                                    \
         _autosaveTag =  [decoder decodeIntegerForKey:@"autosaveTag"];
 
         _gwindows = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gwindows"];
-        _gchannels = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"gchannels"];
 
         _audioResourceHandler = [decoder decodeObjectOfClass:[AudioResourceHandler class] forKey:@"audioResourceHandler"];
 
@@ -1176,8 +1170,6 @@ fprintf(stderr, "%s\n",                                                    \
 
         lastimage = nil;
         lastimageresno = -1;
-
-        lastsoundresno = [decoder decodeIntForKey:@"lastsoundresno"];
 
         _queue = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"queue"];
 
@@ -1213,10 +1205,6 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeObject:_gridStyleHints forKey:@"gridStyleHints"];
 
     [encoder encodeObject:_gwindows forKey:@"gwindows"];
-    [encoder encodeObject:_gchannels forKey:@"gchannels"];
-
-    [encoder encodeInt:lastsoundresno forKey:@"lastsoundresno"];
-
     [encoder encodeObject:_audioResourceHandler forKey:@"audioResourceHandler"];
 
     [encoder encodeRect:_windowPreFullscreenFrame
@@ -1300,7 +1288,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (restartingAlready)
         return;
 
-    [_audioResourceHandler stopAllAndCleanUp:_gchannels.allValues];
+    [_audioResourceHandler stopAllAndCleanUp];
 
     restartingAlready = YES;
     _mustBeQuiet = YES;
@@ -1490,7 +1478,7 @@ fprintf(stderr, "%s\n",                                                    \
     } else windowClosedAlready = YES;
 
     [self autoSaveOnExit];
-    [_audioResourceHandler stopAllAndCleanUp:_gchannels.allValues];
+    [_audioResourceHandler stopAllAndCleanUp];
 
     if (_game && [Preferences instance].currentGame == _game) {
         Game *remainingGameSession = nil;
@@ -2142,21 +2130,6 @@ fprintf(stderr, "%s\n",                                                    \
     return -1;
 }
 
-- (int)handleNewSoundChannel:(int)volume {
-    NSUInteger i;
-    for (i = 0; i < MAXSND; i++)
-    if (_gchannels[@(i)] == nil)
-        break;
-
-    if (i == MAXSND)
-            return -1;
-
-        _gchannels[@(i)] = [[GlkSoundChannel alloc] initWithGlkController:self
-        name:i volume:(NSUInteger)volume];
-
-    return i;
-}
-
 - (void)handleSetTimer:(NSUInteger)millisecs {
     //    NSLog(@"handleSetTimer: %ld millisecs", millisecs);
     if (timer) {
@@ -2198,26 +2171,6 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)restartTimer:(id)sender {
     [self handleSetTimer:(NSUInteger)(_storedTimerInterval * 1000)];
-}
-
-- (void)handleLoadSoundNumber:(int)resno
-                         from:(NSString *)path
-                       offset:(NSUInteger)offset
-                       length:(NSUInteger)length {
-
-    if (lastsoundresno == resno && [_audioResourceHandler soundIsLoaded:resno])
-        return;
-
-    [_audioResourceHandler setSoundID:resno filename:path length:length offset:offset];
-
-    lastsoundresno = resno;
-}
-
-- (BOOL)handleFindSoundNumber:(int)resno {
-    if ([_audioResourceHandler soundIsLoaded:resno])
-        return YES;
-    [_audioResourceHandler.resources[@(resno)] load];
-    return [_audioResourceHandler soundIsLoaded:resno];
 }
 
 - (void)handleLoadImageNumber:(int)resno
@@ -2443,16 +2396,6 @@ fprintf(stderr, "%s\n",                                                    \
     windowdirty = YES;
 }
 
-- (void)handleSoundNotification:(NSInteger)notify withSound:(NSInteger)sound {
-    GlkEvent *gev = [[GlkEvent alloc] initSoundNotify:notify withSound:sound];
-    [self queueEvent:gev];
-}
-
-- (void)handleVolumeNotification:(NSInteger)notify {
-    GlkEvent *gev = [[GlkEvent alloc] initVolumeNotify:notify];
-    [self queueEvent:gev];
-}
-
 - (void)handleSetTerminatorsOnWindow:(GlkWindow *)gwindow
                               buffer:(glui32 *)buf
                               length:(glui32)len {
@@ -2676,7 +2619,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case NEWCHAN:
             ans->cmd = OKAY;
-            ans->a1 = [self handleNewSoundChannel:req->a1];
+            ans->a1 = [_audioResourceHandler handleNewSoundChannel:req->a1];
             break;
 
         case DELWIN:
@@ -2691,11 +2634,7 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case DELCHAN:
-            if (req->a1 >= 0 && req->a1 < MAXSND &&
-                _gchannels[@(req->a1)])
-            {
-                _gchannels[@(req->a1)] = nil;
-            }
+            [_audioResourceHandler handleDeleteChannel:req->a1];
             break;
 
             /*
@@ -2711,11 +2650,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         case FINDSOUND:
             ans->cmd = OKAY;
-            ans->a1 = [self handleFindSoundNumber:req->a1];
-            if (ans->a1 == 1) {
-                lastsoundresno = req->a1;
-            } else { lastsoundresno = -1;
-            }
+            ans->a1 = [_audioResourceHandler handleFindSoundNumber:req->a1];
             break;
 
         case LOADIMAGE:
@@ -2740,52 +2675,33 @@ fprintf(stderr, "%s\n",                                                    \
 
         case LOADSOUND:
             buf[req->len] = 0;
-            [self handleLoadSoundNumber:req->a1
+            [_audioResourceHandler handleLoadSoundNumber:req->a1
                                    from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
                                  offset:(NSUInteger)req->a2
                                  length:(NSUInteger)req->a3];
             break;
 
         case SETVOLUME:
-            if (req->a1 >= 0 && req->a1 < MAXSND &&
-                _gchannels[@(req->a1)])
-            {
-                [_gchannels[@(req->a1)] setVolume:(glui32)req->a2 duration:(glui32)req->a3 notify:(glui32)req->a4];
-            }
+            [_audioResourceHandler handleSetVolume:req->a2
+                                   channel:req->a1
+                                 duration:req->a3
+                                 notify:req->a4];
             break;
 
         case PLAYSOUND:
-            if (req->a1 >= 0 && req->a1 < MAXSND &&
-                _gchannels[@(req->a1)])
-            {
-                if (lastsoundresno != -1)
-                    [_gchannels[@(req->a1)] play:lastsoundresno repeats:
-                     req->a2 notify:(glui32)req->a3];
-            }
+            [_audioResourceHandler handlePlaySoundOnChannel:req->a1 repeats:req->a2 notify:req->a3];
             break;
 
         case STOPSOUND:
-            if (req->a1 >= 0 && req->a1 < MAXSND &&
-                _gchannels[@(req->a1)])
-            {
-                [_gchannels[@(req->a1)] stop];
-            }
+            [_audioResourceHandler handleStopSoundOnChannel:req->a1];
             break;
 
         case PAUSE:
-            if (req->a1 >= 0 && req->a1 < MAXSND &&
-                _gchannels[@(req->a1)])
-            {
-                [_gchannels[@(req->a1)] pause];
-            }
+            [_audioResourceHandler handlePauseOnChannel:req->a1];
             break;
 
         case UNPAUSE:
-            if (req->a1 >= 0 && req->a1 < MAXSND &&
-                _gchannels[@(req->a1)])
-            {
-                [_gchannels[@(req->a1)] unpause];
-            }
+            [_audioResourceHandler handleUnpauseOnChannel:req->a1];
             break;
 
         case BEEP:
@@ -3115,17 +3031,6 @@ fprintf(stderr, "%s\n",                                                    \
 
         case TIMER:
             [self handleSetTimer:(NSUInteger)req->a1];
-            break;
-
-        case EVTSOUND:
-            NSLog(@"glkctl EVTSOUND %d, %d. Send it back to where it came from.",
-                  req->a2, req->a3);
-            [self handleSoundNotification:req->a3 withSound:req->a2];
-            break;
-
-        case EVTVOLUME:
-            NSLog(@"glkctl EVTVOLUME %d. Send it back where it came.", req->a3);
-            [self handleVolumeNotification:req->a3];
             break;
 
             /*

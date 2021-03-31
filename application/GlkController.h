@@ -16,7 +16,6 @@
 @class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, AudioResourceHandler;
 
 #define MAXWIN 64
-#define MAXSND 32
 
 @interface GlkHelperView : NSView {
 }
@@ -28,7 +27,6 @@
 @interface GlkController : NSWindowController <NSSecureCoding, NSAccessibilityCustomRotorItemSearchDelegate>
 
 @property NSMutableDictionary *gwindows;
-@property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *gchannels;
 @property AudioResourceHandler *audioResourceHandler;
 @property NSMutableArray *windowsToBeAdded;
 @property NSMutableArray *windowsToBeRemoved;
@@ -138,9 +136,6 @@
 - (void)restoreScrollOffsets;
 - (void)adjustContentView;
 - (void)cleanup;
-
-- (void)handleSoundNotification:(NSInteger)notify withSound:(NSInteger)sound;
-- (void)handleVolumeNotification:(NSInteger)notify;
 
 - (IBAction)speakMostRecent:(id)sender;
 - (IBAction)speakPrevious:(id)sender;

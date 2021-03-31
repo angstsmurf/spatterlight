@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class GlkSoundChannel;
+@class GlkSoundChannel, GlkController;
 
 typedef enum kBlorbSoundFormatType : NSInteger {
     NONE,
@@ -22,6 +22,8 @@ typedef enum kBlorbSoundFormatType : NSInteger {
 
 #define FREE 1
 #define BUSY 2
+
+#define MAXSND 32
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -55,20 +57,43 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AudioResourceHandler : NSObject
 
 @property NSMutableDictionary <NSNumber *, SoundResource *> *resources;
-@property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sound_channels;
+@property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sdl_channels;
+@property NSMutableDictionary <NSNumber *, GlkSoundChannel *> *glkchannels;
 @property NSMutableDictionary <NSString *, SoundFile *> *files;
 @property (nullable) GlkSoundChannel *music_channel;
 @property NSUInteger restored_music_channel_id;
+@property NSInteger lastsoundresno;
 
+@property (weak) GlkController *glkctl;
 
 - (void)initializeSound;
 
 - (void)setSoundID:(NSInteger)snd filename:(nullable NSString *)filename length:(NSUInteger)length offset:(NSUInteger)offset;
 
--(NSInteger)load_sound_resource:(NSInteger)snd length:(NSUInteger *)len data:(char * _Nonnull * _Nonnull)buf;
+- (NSInteger)load_sound_resource:(NSInteger)snd length:(NSUInteger *)len data:(char * _Nonnull * _Nonnull)buf;
 
-- (void)stopAllAndCleanUp:(NSArray *)channels;
+- (void)restartAll;
+- (void)stopAllAndCleanUp;
 - (BOOL)soundIsLoaded:(NSInteger)soundId;
+
+- (int)handleNewSoundChannel:(int)volume;
+- (void)handleDeleteChannel:(int)channel;
+- (BOOL)handleFindSoundNumber:(int)resno;
+- (void)handleLoadSoundNumber:(int)resno
+                         from:(NSString *)path
+                       offset:(NSUInteger)offset
+                       length:(NSUInteger)length;
+- (void)handleSetVolume:(int)volume
+                channel:(int)channel
+               duration:(int)duration
+                 notify:(int)notify;
+- (void)handlePlaySoundOnChannel:(int)channel repeats:(int)repeats notify:(int)notify;
+- (void)handleStopSoundOnChannel:(int)channel;
+- (void)handlePauseOnChannel:(int)channel;
+- (void)handleUnpauseOnChannel:(int)channel;
+
+- (void)handleVolumeNotification:(NSInteger)notify;
+- (void)handleSoundNotification:(NSInteger)notify withSound:(NSInteger)sound;
 
 @end
 

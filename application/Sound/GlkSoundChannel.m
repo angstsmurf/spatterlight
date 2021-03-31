@@ -37,18 +37,19 @@ enum { CHANNEL_IDLE, CHANNEL_SOUND, CHANNEL_MUSIC };
     CGFloat float_volume;
     CGFloat volume_delta;
     NSTimer *timer;
-    NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sound_channels;
+    NSMutableDictionary <NSNumber *, GlkSoundChannel *> *sdl_channels;
     NSMutableDictionary <NSNumber *, SoundResource *> *resources;
 }
 @end
 
 @implementation GlkSoundChannel
 
-static void *glk_controller;
+//Needed for callbacks to call method on
+static void *static_handler;
 
-- (instancetype)initWithGlkController:(GlkController*)glkctl name:(NSUInteger)channelname volume:(NSUInteger)vol
+- (instancetype)initWithHandler:(AudioResourceHandler*)handler name:(NSUInteger)channelname volume:(NSUInteger)vol
 {
-    _glkctl = glkctl;
+    _handler = handler;
     
     sound = nil;
     volume = vol;
@@ -80,14 +81,11 @@ static void *glk_controller;
 }
 
 - (void)postInit {
-    GlkController *glkctl = _glkctl;
-    _handler = glkctl.audioResourceHandler;
-    AudioResourceHandler *handler = _handler;
-    if (!handler.sound_channels)
-        handler.sound_channels = [[NSMutableDictionary alloc] init];
-    sound_channels = handler.sound_channels;
-    resources = handler.resources;
-    glk_controller = (__bridge void *)glkctl;
+    if (!_handler.sdl_channels)
+        _handler.sdl_channels = [[NSMutableDictionary alloc] init];
+    sdl_channels = _handler.sdl_channels;
+    resources = _handler.resources;
+    static_handler = (__bridge void *)_handler;
 }
 
 
@@ -109,7 +107,7 @@ static void *glk_controller;
         return;
     
     /* load sound resource into memory */
-    type = [_glkctl.audioResourceHandler load_sound_resource:snd length:&len data:&buf];
+    type = [_handler load_sound_resource:snd length:&len data:&buf];
     
     sdl_memory = (unsigned char*)buf;
     sdl_rwops = SDL_RWFromConstMem(buf, (int)len);
@@ -135,7 +133,7 @@ static void *glk_controller;
         default:
             NSLog(@"schannel_play_ext: unknown resource type (%ld).", type);
     }
-    
+
     /* if channel was paused it should be paused again */
     if (result && temppaused)
     {
@@ -216,7 +214,7 @@ static void *glk_controller;
             if (sdl_channel >= 0)
             {
                 Mix_GroupChannel(sdl_channel, FREE);
-                [sound_channels removeObjectForKey:@(sdl_channel)];
+                [sdl_channels removeObjectForKey:@(sdl_channel)];
             }
             break;
         case CHANNEL_MUSIC:
@@ -280,9 +278,9 @@ static void *glk_controller;
         if (volume_notify)
         {
             NSInteger notification = volume_notify;
-            GlkController *glkController = _glkctl;
+            AudioResourceHandler *handler = _handler;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [glkController handleVolumeNotification:notification];
+                [handler handleVolumeNotification:notification];
             });
         }
 
@@ -403,7 +401,7 @@ static void *glk_controller;
     if (sdl_channel >= 0 && sample)
     {
         SDL_LockAudio();
-        sound_channels[@(sdl_channel)] = self;
+        sdl_channels[@(sdl_channel)] = self;
         SDL_UnlockAudio();
         Mix_Volume(sdl_channel, volume);
         Mix_ChannelFinished(&sound_completion_callback);
@@ -426,21 +424,21 @@ static void *glk_controller;
 /* Notify the sound channel completion */
 static void sound_completion_callback(int chan)
 {
-    GlkController *controller;
-    NSMutableDictionary *sound_channels;
+    AudioResourceHandler *handler;
+    NSMutableDictionary *sdl_channels;
     @try {
-        controller = (__bridge GlkController *)glk_controller;
-        sound_channels = controller.audioResourceHandler.sound_channels;
+        handler = (__bridge AudioResourceHandler *)static_handler;
+        sdl_channels = handler.sdl_channels;
     } @catch (NSException *ex) {
         NSLog(@"sound_completion_callback failed: %@", ex);
         return;
     }
 
-    GlkSoundChannel *sound_channel = sound_channels[@(chan)];
+    GlkSoundChannel *sound_channel = sdl_channels[@(chan)];
 
     if (!sound_channel)
     {
-        NSLog(@"sound completion callback called with invalid channel");
+        NSLog(@"sound completion callback called with invalid channel (%d)", chan);
         return;
     }
     
@@ -448,25 +446,25 @@ static void sound_completion_callback(int chan)
     {
         NSInteger snd = sound_channel->resid;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [controller handleSoundNotification:sound_channel->notify withSound:snd];
+            [handler handleSoundNotification:sound_channel->notify withSound:snd];
         });
     }
     [sound_channel cleanup];
-    [sound_channels removeObjectForKey:@(chan)];
+    [sdl_channels removeObjectForKey:@(chan)];
     return;
 }
 
 /* Notify the music channel completion */
 static void music_completion_callback()
 {
-    GlkController *controller;
+    AudioResourceHandler *handler;
     @try {
-        controller = (__bridge GlkController *)glk_controller;
+        handler = (__bridge AudioResourceHandler *)static_handler;
     } @catch (NSException *ex) {
         NSLog(@"music_completion_callback failed: %@", ex);
         return;
     }
-    GlkSoundChannel *music_channel = controller.audioResourceHandler.music_channel;
+    GlkSoundChannel *music_channel = handler.music_channel;
     if (!music_channel || music_channel->resid < 0)
     {
         NSLog(@"music callback failed");
@@ -476,7 +474,7 @@ static void music_completion_callback()
     {
         NSInteger snd = music_channel->resid;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [controller handleSoundNotification:music_channel->notify withSound:snd];
+            [handler handleSoundNotification:music_channel->notify withSound:snd];
         });
     }
     [music_channel cleanup];
@@ -499,7 +497,7 @@ static void music_completion_callback()
     }
 
     if (sdl_channel != -1)
-        sound_channels[@(sdl_channel)] = self;
+        sdl_channels[@(sdl_channel)] = self;
     
     if (status == CHANNEL_IDLE) {
         return;
@@ -508,8 +506,6 @@ static void music_completion_callback()
     if (paused == TRUE) {
         [self pause];
     }
-
-    NSLog(@"RestartInternal: chan %lu (sdl channel %d): loop: %ld notify: %ld resid:%ld", (unsigned long)_name, sdl_channel, (long)loop, (long)notify, (long)resid);
 
     [self play:resid repeats:loop notify:notify];
 
