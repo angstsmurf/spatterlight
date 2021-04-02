@@ -11,6 +11,9 @@
 #import "BureaucracyForm.h"
 #import "GlkStyle.h"
 #import "NSColor+integer.h"
+#import "BufferTextView.h"
+#import "GridTextView.h"
+#import "RotorHandler.h"
 
 #import "main.h"
 #include "glkimp.h"
@@ -2611,7 +2614,7 @@ fprintf(stderr, "%s\n",                                                    \
                 ans->a2 = (int)size.height;
             }
         }
-        break;
+            break;
 
         case FINDSOUND:
             ans->cmd = OKAY;
@@ -2621,16 +2624,16 @@ fprintf(stderr, "%s\n",                                                    \
         case LOADSOUND:
             buf[req->len] = 0;
             [_soundHandler handleLoadSoundNumber:req->a1
-                                                    from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
-                                                  offset:(NSUInteger)req->a2
-                                                  length:(NSUInteger)req->a3];
+                                            from:[NSString stringWithCString:buf encoding:NSUTF8StringEncoding]
+                                          offset:(NSUInteger)req->a2
+                                          length:(NSUInteger)req->a3];
             break;
 
         case SETVOLUME:
             [_soundHandler handleSetVolume:req->a2
-                                           channel:req->a1
-                                          duration:req->a3
-                                            notify:req->a4];
+                                   channel:req->a1
+                                  duration:req->a3
+                                    notify:req->a4];
             break;
 
         case PLAYSOUND:
@@ -4042,377 +4045,12 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 #pragma mark Custom rotors
 
-- (NSAccessibilityCustomRotorItemResult *)rotor:(NSAccessibilityCustomRotor *)rotor
-                      resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
-
-    NSAccessibilityCustomRotorItemResult *searchResult = nil;
-
-    NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
-    NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
-    NSString *filterText = searchParameters.filterString;
-    NSRange currentRange = currentItemResult.targetRange;
-
-    NSMutableArray<NSValue *> *children = [[NSMutableArray alloc] init];
-    NSMutableArray *linkTargetViews = [[NSMutableArray alloc] init];
-
-    NSUInteger currentItemIndex = NSNotFound;
-
-    if (rotor.type == NSAccessibilityCustomRotorTypeAny) {
-        return [self textSearchResultForString:filterText fromRange: currentRange direction:direction];
-    } else if ([rotor.label isEqualToString:NSLocalizedString(@"Command history", nil)]) {
-        return [self commandHistoryRotor:rotor resultForSearchParameters:searchParameters];
-    } else if ([rotor.label isEqualToString:NSLocalizedString(@"Game windows", nil)]) {
-        return [self glkWindowRotor:rotor resultForSearchParameters:searchParameters];
-    } else if (rotor.type == NSAccessibilityCustomRotorTypeLink) {
-        NSArray *allWindows = _gwindows.allValues;
-        if (_colderLight && allWindows.count == 5) {
-            allWindows = @[_gwindows[@(3)], _gwindows[@(4)], _gwindows[@(0)], _gwindows[@(1)]];
-        }
-        for (GlkWindow *view in allWindows) {
-            if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
-                id targetTextView = ((GlkTextBufferWindow *)view).textview;
-                NSArray *links = [view links];
-
-                if (filterText.length && links.count) {
-                    __block NSString *text = ((NSTextView *)targetTextView).string;
-                    links = [links filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
-                        NSRange range = ((NSValue *)object).rangeValue;
-                        NSString *subString = [text substringWithRange:range];
-                        return ([subString localizedCaseInsensitiveContainsString:filterText]);
-                    }]];
-                }
-
-                [children addObjectsFromArray:links];
-
-                while (linkTargetViews.count < children.count)
-                    [linkTargetViews addObject:targetTextView];
-            }
-        }
-
-        currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
-    }
-
-    if (children.count == 0)
-        return nil;
-
-    if (currentItemIndex == NSNotFound) {
-        // Find the start or end element.
-        if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            currentItemIndex = 0;
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            currentItemIndex = children.count - 1;
-        }
-    } else {
-        if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            if (currentItemIndex == 0)
-                currentItemIndex = NSNotFound;
-            else
-                currentItemIndex--;
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            if (currentItemIndex == children.count - 1)
-                currentItemIndex = NSNotFound;
-            else
-                currentItemIndex++;
-        }
-    }
-
-    if (currentItemIndex != NSNotFound) {
-        NSRange textRange = children[currentItemIndex].rangeValue;
-        id targetElement = linkTargetViews[currentItemIndex];
-        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:targetElement];
-        NSString *string = ((NSTextView *)targetElement).textStorage.string;
-        NSRange allText = NSMakeRange(0, string.length);
-        textRange = NSIntersectionRange(allText, textRange);
-        unichar firstChar = [string characterAtIndex:textRange.location];
-        if (_colderLight && firstChar == '<' && textRange.length == 1) {
-            searchResult.customLabel = NSLocalizedString(@"Previous Menu", nil);
-        } else if (firstChar == NSAttachmentCharacter) {
-            NSDictionary *attrs = [((NSTextView *)targetElement).textStorage attributesAtIndex:textRange.location effectiveRange:nil];
-            searchResult.customLabel = [NSString stringWithFormat:@"Image with link I.D. %@", attrs[NSLinkAttributeName]];
-        } else {
-            searchResult.customLabel = [string substringWithRange:textRange];
-        }
-        searchResult.targetRange = textRange;
-    }
-    return searchResult;
-}
-
-- (NSAccessibilityCustomRotorItemResult *)textSearchResultForString:(NSString *)searchString fromRange:(NSRange)fromRange direction: (NSAccessibilityCustomRotorSearchDirection)direction  API_AVAILABLE(macos(10.13)){
-
-    NSAccessibilityCustomRotorItemResult *searchResult = nil;
-
-    NSTextView *bestMatch = nil;
-    NSRange bestMatchRange;
-
-    if (searchString.length) {
-        BOOL searchFound = NO;
-        NSArray<GlkWindow *> *allWindows = _gwindows.allValues;
-        if (_quoteBoxes.count)
-            allWindows = [allWindows arrayByAddingObject:_quoteBoxes.lastObject];
-        for (GlkWindow *view in allWindows) {
-            if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
-                NSString *contentString = ((GlkTextGridWindow *)view).textview.string;
-
-                NSRange resultRange = [contentString rangeOfString:searchString options:NSCaseInsensitiveSearch range:NSMakeRange(0, contentString.length) locale:nil];
-
-                if (resultRange.location == NSNotFound)
-                    continue;
-
-                if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-                    searchFound = (resultRange.location < fromRange.location);
-                } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-                    searchFound = (resultRange.location >= NSMaxRange(fromRange));
-                }
-                if (searchFound) {
-                    searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:((GlkTextGridWindow *)view).textview];
-                    searchResult.targetRange = resultRange;
-                    return searchResult;
-                }
-
-                bestMatchRange = resultRange;
-                bestMatch = ((GlkTextGridWindow *)view).textview;
-            }
-        }
-    }
-    if (bestMatch) {
-        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:bestMatch];
-        searchResult.targetRange = bestMatchRange;
-    }
-    return searchResult;
-}
-
-- (NSAccessibilityCustomRotorItemResult *)glkWindowRotor:(NSAccessibilityCustomRotor *)rotor
-                               resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
-    NSAccessibilityCustomRotorItemResult *searchResult = nil;
-
-    NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
-    NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
-    NSString *filterText = searchParameters.filterString;
-
-    NSMutableArray *children = [[NSMutableArray alloc] init];
-    NSMutableArray *strings = [[NSMutableArray alloc] init];
-
-    NSArray *allWindows = _gwindows.allValues;
-    if (_quoteBoxes.count)
-        allWindows = [allWindows arrayByAddingObject:_quoteBoxes.lastObject];
-    allWindows = [allWindows sortedArrayUsingComparator:
-                  ^NSComparisonResult(id obj1, id obj2){
-        CGFloat y1 = ((NSView *)obj1).frame.origin.y;
-        CGFloat y2 = ((NSView *)obj2).frame.origin.y;
-        if (y1 > y2) {
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        if (y1 < y2) {
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        return (NSComparisonResult)NSOrderedSame;
-    }];
-
-    for (GlkWindow *win in allWindows) {
-        if (![win isKindOfClass:[GlkGraphicsWindow class]]) {
-            GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)win;
-            NSTextView *textview = bufWin.textview;
-            NSString *string = textview.string;
-            string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-                if (bufWin.moveRanges.count) {
-                    NSRange range = bufWin.moveRanges.lastObject.rangeValue;
-                    string = [string substringFromIndex:range.location];
-                }
-            }
-
-            if (string.length && (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText])) {
-                [children addObject:textview];
-                [strings addObject:string.copy];
-            }
-        }
-    }
-
-    if (!children.count)
-        return nil;
-
-    NSUInteger currentItemIndex = [children indexOfObject:currentItemResult.targetElement];
-
-    if (currentItemIndex == NSNotFound) {
-        // Find the start or end element.
-        if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            currentItemIndex = 0;
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            currentItemIndex = children.count - 1;
-        }
-    } else {
-        if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            if (currentItemIndex == 0) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex--;
-            }
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            if (currentItemIndex == children.count - 1) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex++;
-            }
-        }
-    }
-
-    if (currentItemIndex == NSNotFound) {
-        return nil;
-    }
-
-    NSTextView *targetWindow = children[currentItemIndex];
-
-    if (targetWindow) {
-        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement: targetWindow];
-        searchResult.customLabel = strings[currentItemIndex];
-        NSRange allText = NSMakeRange(0, targetWindow.string.length);
-        NSArray<NSValue *> *moveRanges = ((GlkWindow *)targetWindow.delegate).moveRanges;
-        if (moveRanges && moveRanges.count) {
-            if ([targetWindow.delegate isKindOfClass:[GlkTextBufferWindow class]])
-                [(GlkTextBufferWindow *)targetWindow.delegate forceLayout];
-            NSRange range = moveRanges.lastObject.rangeValue;
-            searchResult.targetRange = NSIntersectionRange(allText, range);
-        } else searchResult.targetRange = allText;
-    }
-
-    return searchResult;
-}
-
-- (NSAccessibilityCustomRotorItemResult *)commandHistoryRotor:(NSAccessibilityCustomRotor *)rotor
-                                    resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
-
-    NSAccessibilityCustomRotorItemResult *searchResult = nil;
-
-    NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
-    NSRange currentRange = searchParameters.currentItem.targetRange;
-
-    NSString *filterText = searchParameters.filterString;
-
-    GlkTextBufferWindow *largest = (GlkTextBufferWindow *)[self largestWithMoves];
-    if (!largest)
-        return nil;
-
-    NSArray *children = [[largest.moveRanges reverseObjectEnumerator] allObjects];
-
-    if (children.count > 50)
-        children = [children subarrayWithRange:NSMakeRange(0, 50)];
-    NSMutableArray *strings = [[NSMutableArray alloc] initWithCapacity:children.count];
-    NSMutableArray *mutableChildren = [[NSMutableArray alloc] initWithCapacity:children.count];
-
-    for (NSValue *child in children) {
-        NSRange range = child.rangeValue;
-        NSString *string = [largest.textview.string substringWithRange:range];
-
-        if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
-            [strings addObject:string];
-            [mutableChildren addObject:child];
-        }
-    }
-
-    if (!mutableChildren.count)
-        return nil;
-
-    children = mutableChildren;
-
-    NSUInteger currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
-
-    if (currentItemIndex == NSNotFound) {
-        // Find the start or end element.
-        if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            currentItemIndex = 0;
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            currentItemIndex = children.count - 1;
-        }
-    } else {
-        if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            if (currentItemIndex == 0) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex--;
-            }
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            if (currentItemIndex == children.count - 1) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex++;
-            }
-        }
-    }
-
-    if (currentItemIndex == NSNotFound) {
-        return nil;
-    }
-
-    NSValue *targetRangeValue = children[currentItemIndex];
-
-    if (targetRangeValue) {
-        NSRange textRange = targetRangeValue.rangeValue;
-        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:largest.textview];
-        NSRange allText = NSMakeRange(0, largest.textview.string.length);
-        if ([largest isKindOfClass:[GlkTextBufferWindow class]])
-            [largest forceLayout];
-        searchResult.targetRange = NSIntersectionRange(allText, textRange);
-        // By adding a custom label, all ranges are reliably listed in the rotor
-        NSString *charSetString = @"\u00A0 >\n_";
-        NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
-        NSString *string = strings[currentItemIndex];
-        string = [string stringByTrimmingCharactersInSet:charset];
-        {
-            // Strip command line if the speak command setting is off
-            if (!_theme.vOSpeakCommand)
-            {
-                NSUInteger promptIndex = searchResult.targetRange.location;
-                if (promptIndex != 0)
-                    promptIndex--;
-                if ([largest.textview.string characterAtIndex:promptIndex] == '>' || (promptIndex > 0 && [largest.textview.string characterAtIndex:promptIndex - 1] == '>')) {
-                    NSRange foundRange = [string rangeOfString:@"\n"];
-                    if (foundRange.location != NSNotFound)
-                    {
-                        string = [string substringFromIndex:foundRange.location];
-                    }
-                }
-            }
-        }
-
-        searchResult.customLabel = string;
-    }
-
-    return searchResult;
-}
-
 - (NSArray *)createCustomRotors {
-    if (@available(macOS 10.13, *)) {
-        NSMutableArray *rotorsArray = [[NSMutableArray alloc] init];
-
-        BOOL hasLinks = NO;
-        for (GlkWindow *view in _gwindows.allValues) {
-            if (![view isKindOfClass:[GlkGraphicsWindow class]] && view.links.count) {
-                hasLinks = YES;
-            }
-        }
-
-        // Create the link rotor
-        if (hasLinks) {
-            NSAccessibilityCustomRotor *linkRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeLink itemSearchDelegate:self];
-            [rotorsArray addObject:linkRotor];
-        }
-        // Create the text search rotor.
-        NSAccessibilityCustomRotor *textSearchRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeAny itemSearchDelegate:self];
-        [rotorsArray addObject:textSearchRotor];
-        // Create the command history rotor
-        if ([self largestWithMoves]) {
-            NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", nil) itemSearchDelegate:self];
-            [rotorsArray addObject:commandHistoryRotor];
-        }
-        // Create the Glk windows rotor
-        if (_gwindows.count) {
-            NSAccessibilityCustomRotor *glkWindowRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Game windows", nil) itemSearchDelegate:self];
-            [rotorsArray addObject:glkWindowRotor];
-        }
-        return rotorsArray;
-    } else {
-        return @[];
+    if (!_rotorHandler) {
+        _rotorHandler = [RotorHandler new];
+        _rotorHandler.glkctl = self;
     }
+    return _rotorHandler.createCustomRotors;
 }
 
 @end

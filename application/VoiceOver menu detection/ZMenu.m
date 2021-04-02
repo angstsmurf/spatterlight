@@ -8,9 +8,9 @@
 #import "ZMenu.h"
 
 #import "GlkController.h"
-#import "GlkWindow.h"
 #import "GlkTextGridWindow.h"
 #import "GlkTextBufferWindow.h"
+#import "BufferTextView.h"
 #import "GlkGraphicsWindow.h"
 #import "Preferences.h"
 #import "Game.h"
@@ -305,9 +305,7 @@
     NSString *viewString;
     GlkWindow *viewWithCluster;
     for (GlkWindow *view in _glkctl.gwindows.allValues) {
-        if ([view isKindOfClass:[GlkTextGridWindow class]]) {
-            viewString = ((GlkTextGridWindow *)view).textview.string;
-        } else if ([view isKindOfClass:[GlkTextBufferWindow class]]) {
+        if ([view isKindOfClass:[GlkTextGridWindow class]] || [view isKindOfClass:[GlkTextBufferWindow class]]) {
             viewString = ((GlkTextBufferWindow *)view).textview.string;
         } else {
             viewString = nil;
@@ -343,7 +341,7 @@
         }
     }
     if (menuLines.count) {
-        NSTextStorage *textStorage = ((GlkTextGridWindow *)viewWithCluster).textview.textStorage;
+        NSTextStorage *textStorage = ((GlkTextBufferWindow *)viewWithCluster).textview.textStorage;
         if (!textStorage)
             textStorage = [[NSTextStorage alloc] init];
         _attrStr = textStorage;

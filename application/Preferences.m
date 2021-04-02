@@ -7,6 +7,7 @@
 #import "LibController.h"
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
+#import "BufferTextView.h"
 #import "main.h"
 
 #ifdef DEBUG
