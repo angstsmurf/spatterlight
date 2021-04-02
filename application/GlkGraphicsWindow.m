@@ -14,6 +14,7 @@
 
     BOOL mouse_request;
     BOOL transparent;
+    NSMutableArray *dirtyRects;
 }
 @end
 
@@ -33,6 +34,7 @@
 
         mouse_request = NO;
         transparent = NO;
+        dirtyRects = [NSMutableArray new];
     }
 
     return self;
@@ -45,6 +47,7 @@
         dirty = YES;
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
+        dirtyRects = [NSMutableArray new];
     }
     return self;
 }
@@ -75,15 +78,14 @@
 }
 
 - (void)drawRect:(NSRect)rect {
-    NSRect bounds = self.bounds;
 
     if (!transparent) {
         [[NSColor colorFromInteger:bgnd] set];
         NSRectFill(rect);
     }
 
-    [image drawAtPoint:bounds.origin
-              fromRect:NSMakeRect(0, 0, bounds.size.width, bounds.size.height)
+    [image drawInRect:rect
+              fromRect:rect
              operation:NSCompositeSourceOver
               fraction:1.0];
 }
@@ -210,7 +212,20 @@
         [image unlockFocus];
     }
 
+    [dirtyRects addObject:@(NSMakeRect(0, 0, size.width, size.height))];
     dirty = YES;
+}
+
+- (void)flushDisplay {
+    if (dirty)
+   {
+       for (NSValue *val in dirtyRects) {
+           NSRect rect = val.rectValue;
+           [self setNeedsDisplayInRect:rect];
+       }
+   }
+    dirtyRects = [NSMutableArray new];
+    dirty = NO;
 }
 
 - (NSRect)florpCoords:(NSRect)r {
@@ -256,6 +271,10 @@
     }
 
     dirty = YES;
+    [dirtyRects addObject:@(florpedRect)];
+
+    if (src.accessibilityDescription.length)
+        self.accessibilityLabel = src.accessibilityDescription;
 }
 
 - (void)initMouse {
