@@ -157,12 +157,6 @@ fprintf(stderr, "%s\n",                                                    \
     /* the glk objects */
     BOOL windowdirty; /* the contentView needs to repaint */
 
-    /* image/sound resource uploading protocol */
-    NSInteger lastimageresno;
-    NSCache *imageCache;
-
-    NSImage *lastimage;
-
     GlkController *restoredController;
     GlkController *restoredControllerLate;
     NSMutableData *bufferedData;
@@ -274,7 +268,10 @@ fprintf(stderr, "%s\n",                                                    \
         _curses = YES;
     }
 
-    _gamefile = [game urlForBookmark].path;
+    NSURL *url = [game urlForBookmark];
+    _gamefile = url.path;
+    [_imageHandler cacheImagesFromBlorb:url];
+
     _terpname = terpname_;
 
     if ([_terpname isEqualToString:@"bocfel"])
@@ -341,9 +338,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     windowdirty = NO;
 
-    lastimageresno = -1;
-    lastimage = nil;
-
     _ignoreResizes = NO;
     _shouldScrollOnCharEvent = NO;
 
@@ -360,9 +354,6 @@ fprintf(stderr, "%s\n",                                                    \
         [self forkInterpreterTask];
         return;
     }
-
-    if (!imageCache)
-        imageCache = [[NSCache alloc] init];
 
     lastContentResize = NSZeroRect;
     _inFullscreen = NO;
@@ -1170,9 +1161,6 @@ fprintf(stderr, "%s\n",                                                    \
 
         _bufferStyleHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"bufferStyleHints"];
         _gridStyleHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"gridStyleHints"];
-
-        lastimage = nil;
-        lastimageresno = -1;
 
         _queue = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"queue"];
 
@@ -2176,55 +2164,6 @@ fprintf(stderr, "%s\n",                                                    \
     [self handleSetTimer:(NSUInteger)(_storedTimerInterval * 1000)];
 }
 
-- (void)handleLoadImageNumber:(int)resno
-                         from:(NSString *)path
-                       offset:(NSInteger)offset
-                       length:(NSUInteger)length {
-
-    if (lastimageresno == resno && lastimage)
-        return;
-
-    lastimage = [imageCache objectForKey:@(resno)];
-    if (lastimage) {
-        lastimageresno = resno;
-        return;
-    }
-
-    lastimageresno = -1;
-
-    if (lastimage) {
-        lastimage = nil;
-    }
-
-    NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
-
-    [fileHandle seekToFileOffset:(unsigned long long)offset];
-    NSData *data = [fileHandle readDataOfLength:length];
-
-    if (!data)
-        return;
-
-    NSArray *reps = [NSBitmapImageRep imageRepsWithData:data];
-    NSImageRep *rep = reps[0];
-    NSSize size = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
-
-    if (size.height == 0 || size.width == 0) {
-        NSLog(@"glkctl: image size is zero!");
-        return;
-    }
-
-    lastimage = [[NSImage alloc] initWithSize:size];
-
-    if (!lastimage) {
-        NSLog(@"glkctl: failed to decode image");
-        return;
-    }
-
-    [lastimage addRepresentations:reps];
-    lastimageresno = resno;
-    [imageCache setObject:lastimage forKey:@(lastimageresno)];
-}
-
 - (void)handleStyleHintOnWindowType:(int)wintype
                               style:(NSUInteger)style
                                hint:(NSUInteger)hint
@@ -2664,6 +2603,7 @@ fprintf(stderr, "%s\n",                                                    \
             ans->cmd = OKAY;
             ans->a1 = 0;
             ans->a2 = 0;
+            NSImage *lastimage = _imageHandler.lastimage;
             if (lastimage) {
                 NSSize size;
                 size = lastimage.size;
@@ -2823,9 +2763,9 @@ fprintf(stderr, "%s\n",                                                    \
 
         case DRAWIMAGE:
             if (reqWin) {
-                if (lastimage && !NSEqualSizes(lastimage.size, NSZeroSize)) {
+                NSImage *lastimage = _imageHandler.lastimage;
+                if (lastimage && lastimage.size.width > 0 && lastimage.size.height > 0) {
                     struct drawrect *drawstruct = (void *)buf;
-
                     [reqWin drawImage:lastimage
                                  val1:(glsi32)drawstruct->x
                                  val2:(glsi32)drawstruct->y

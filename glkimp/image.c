@@ -15,6 +15,9 @@ static int loadimage(int image)
     long len;
     char filename[PATH_MAX];
 
+    if (win_findimage(image))
+        return TRUE;
+
     if (!giblorb_is_resource_map())
     {
         sprintf(filename, "%s/PIC%d", gli_workdir, image);
