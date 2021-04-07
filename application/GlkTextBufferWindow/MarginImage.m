@@ -7,7 +7,6 @@
 
 #import "MarginImage.h"
 #import "MarginContainer.h"
-#import "BufferTextView.h"
 #include "glk.h"
 
 @interface MarginImage () <NSSecureCoding> {
@@ -46,26 +45,9 @@
         recalc = YES;
         _container = sender;
 
-        NSTextView *textview = _container.textView;
+        self.accessibilityParent = _container.textView;
 
-        NSRect bounds = [self boundsWithLayout:textview.layoutManager];
-        bounds = NSAccessibilityFrameInView(textview, bounds);
-        bounds.origin.x += textview.textContainerInset.width;
-        bounds.origin.y -= textview.textContainerInset.height;
-        self.accessibilityFrame = bounds;
-        self.accessibilityParent = textview;
-
-        NSString *label = _image.accessibilityDescription;
-
-        if (!label.length) {
-            label = [NSString stringWithFormat: @"%@ margin image", _alignment == imagealign_MarginLeft ? @"Left" : @"Right"];
-            if (_linkid) {
-                label = [label stringByAppendingFormat:@" with link I.D. %ld", _linkid];
-            }
-        }
-
-        self.accessibilityRole = NSAccessibilityImageRole;
-        self.accessibilityRoleDescription = label;
+        self.accessibilityRoleDescription = [self customA11yLabel];
     }
     return self;
 }
@@ -77,7 +59,7 @@
     _linkid = (NSUInteger)[decoder decodeIntegerForKey:@"linkid"];
     _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
     recalc = [decoder decodeBoolForKey:@"recalc"];
-
+    self.accessibilityRoleDescription = [decoder decodeObjectOfClass:[NSString class] forKey:@"accessibilityRoleDescription"];
     return self;
 }
 
@@ -88,6 +70,11 @@
     [encoder encodeInteger:(NSInteger)_linkid forKey:@"linkid"];
     [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
     [encoder encodeBool:recalc forKey:@"recalc"];
+    [encoder encodeObject:self.accessibilityRoleDescription forKey:@"accessibilityRoleDescription"];
+}
+
+- (NSString *)accessibilityRole {
+    return NSAccessibilityImageRole;
 }
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout {
@@ -148,14 +135,32 @@
 }
 
 - (void)setAccessibilityFocused:(BOOL)accessibilityFocused {
-    NSLog(@"setAccessibilityFocused %@", accessibilityFocused ? @"YES" : @"NO");
     if (accessibilityFocused) {
-        BufferTextView *parent = (BufferTextView *)self.accessibilityParent;
+        NSRect bounds = [self boundsWithLayout:_container.layoutManager];
+        bounds = NSAccessibilityFrameInView(_container.textView, bounds);
+        bounds.origin.x += _container.textView.textContainerInset.width;
+        bounds.origin.y -= _container.textView.textContainerInset.height;
+        self.accessibilityFrame = bounds;
+        NSTextView *parent = (NSTextView *)self.accessibilityParent;
         if (parent) {
-            NSLog(@"[parent becomeFirstResponder]");
             [parent becomeFirstResponder];
         }
     }
+}
+
+- (NSString *)customA11yLabel {
+    NSString *label = _image.accessibilityDescription;
+    if (!label.length) {
+        label = [NSString stringWithFormat: @"%@ margin image", _alignment == imagealign_MarginLeft ? @"Left" : @"Right"];
+        if (_linkid) {
+            label = [label stringByAppendingFormat:@" with link I.D. %ld", _linkid];
+        }
+    }
+    return label;
+}
+
+- (BOOL)isAccessibilityElement {
+    return YES;
 }
 
 @end

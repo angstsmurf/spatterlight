@@ -15,12 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MyAttachmentCell : NSTextAttachmentCell <NSSecureCoding>
 
 @property (weak) NSAttributedString *attrstr;
+@property NSUInteger pos;
 
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)analignment
                     andAttStr:(NSAttributedString *)anattrstr
                            at:(NSUInteger)apos;
-
+- (NSString *)customA11yLabel;
 @end
 
 NS_ASSUME_NONNULL_END

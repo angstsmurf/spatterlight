@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout;
 - (void)uncacheBounds;
+- (NSString *)customA11yLabel;
 
 @end
 

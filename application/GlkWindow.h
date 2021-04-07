@@ -90,6 +90,7 @@ struct fillrect;
 - (BOOL)hasCharRequest;
 
 - (NSArray *)links;
+- (NSArray *)images;
 
 - (void)repeatLastMove:(id)sender;;
 - (void)speakPrevious;

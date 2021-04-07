@@ -41,8 +41,9 @@
     self = [super initWithCoder:decoder];
     if (self) {
         _marginImages = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"marginImages"];
-        for (MarginImage *img in _marginImages)
+        for (MarginImage *img in _marginImages) {
             img.container = self;
+        }
         flowbreaks = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"flowbreaks"];
     }
 
@@ -353,8 +354,13 @@
     }
     // If we were at the bottom before, scroll to bottom of extended area so
     // that we are still at bottom
-    if (extendflag && bufwin.scrolledToBottom)
-        [bufwin scrollToBottom];
+    if (extendflag && bufwin.scrolledToBottom) {
+        NSScrollView *scrollview = textview.enclosingScrollView;
+        CGFloat newY = NSMaxY(textview.frame) - NSHeight(scrollview.contentView.bounds);
+        NSRect newbounds = scrollview.contentView.bounds;
+        newbounds.origin.y = newY;
+        scrollview.contentView.bounds = newbounds;
+    }
 
     // Remove bottom padding if it is not needed any more
     textview.bottomPadding = extendneeded;

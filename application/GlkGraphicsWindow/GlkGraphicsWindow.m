@@ -1,5 +1,7 @@
 #import "main.h"
 #import "NSColor+integer.h"
+#import "NSColor+integer.h"
+#import "SubImage.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -357,9 +359,47 @@
                              char_request ? @", waiting for a key press" : @""];
 }
 
+- (NSArray *)images {
+    NSLog(@"images in %@ not implemented", [self class]);
+    return @[];
+}
+
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
-    NSArray *actions = [self.glkctl accessibilityCustomActions];
+    NSMutableArray *mutable = [NSMutableArray new];
+
+    if (mouse_request) {
+        NSAccessibilityCustomAction *mouseClick = [[NSAccessibilityCustomAction alloc]
+                                                    initWithName:NSLocalizedString(@"click on image", nil) target:self selector:@selector(accessibilityClick:)];
+        [mutable addObject:mouseClick];
+    }
+
+    if (char_request) {
+        NSAccessibilityCustomAction *keyPress = [[NSAccessibilityCustomAction alloc]
+                                             initWithName:NSLocalizedString(@"press key", nil) target:self selector:@selector(accessibilityClick:)];
+        [mutable addObject:keyPress];
+    }
+
+    NSArray *actions = mutable;
+    actions = [actions arrayByAddingObjectsFromArray:[self.glkctl accessibilityCustomActions]];
+
     return actions;
+}
+
+- (void)accessibilityClick:(id)sender {
+    if (mouse_request) {
+        NSPoint p;
+        p.x = self.frame.size.width / 2;
+        p.y = self.frame.size.height / 2;
+        GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
+        [self.glkctl queueEvent:gev];
+        mouse_request = NO;
+    } else if (char_request) {
+        [self.glkctl markLastSeen];
+        GlkEvent *gev = [[GlkEvent alloc] initCharEvent:' ' forWindow:self.name];
+        [self.glkctl queueEvent:gev];
+        char_request = NO;
+        return;
+    }
 }
 
 - (BOOL)isAccessibilityElement {

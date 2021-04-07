@@ -243,6 +243,77 @@
    return [((GlkTextBufferWindow *)self.delegate).glkctl createCustomRotors];
 }
 
+- (NSAttributedString *)accessibilityAttributedStringForRange:(NSRange)range {
+//    NSLog(@"accessibilityAttributedStringForRange %@", NSStringFromRange(range));
+    NSAttributedString *result = [super accessibilityAttributedStringForRange:range];
+    NSUInteger location = range.location;
+    NSArray *marginImages = ((MarginContainer *)self.textContainer).marginImages;
+    if (marginImages && marginImages.count) {
+        NSMutableArray <MarginImage *> *imagesInRange = marginImages.mutableCopy;
+        for (MarginImage *mi in marginImages) {
+            if (mi.pos < location || mi.pos >= NSMaxRange(range))
+                [imagesInRange removeObject:mi];
+        }
+        if (imagesInRange.count) {
+            NSString *string = result.string;
+            NSString *attachmentCharacter = @"\uFFFC";
+            NSArray <NSString *> *attachmentRanges = [string componentsSeparatedByString:attachmentCharacter];
+            if (attachmentRanges.count)
+            {
+                NSUInteger relativeLocation = 0;
+                NSUInteger index = 0;
+                NSMutableAttributedString *newResult = [NSMutableAttributedString new];
+//                NSLog(@"Range: %@ First attachment character at pos %ld, attachmentRanges.count:%ld", NSStringFromRange(range), posOfAtt, attachmentRanges.count);
+                for (NSString *substring in attachmentRanges) {
+//                    NSLog(@"Attachment %ld: %@ (%ld characters)", index, substring, substring.length);
+                    NSMutableAttributedString *attSubstring = [result attributedSubstringFromRange:NSMakeRange(relativeLocation, substring.length)].mutableCopy;
+//                    NSLog(@"Attachment found at pos %ld", location + relativeLocation + 1);
+                    relativeLocation += substring.length + 1;
+                    if (!attSubstring)
+                        NSLog(@"attSubstring nil!");
+                    if (!attSubstring.length)
+                        NSLog(@"attSubstring empty!");
+                    if (index < imagesInRange.count) {
+                        NSAttributedString *label = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"(Image: %@.) ", imagesInRange[index].customA11yLabel]];
+                        [attSubstring appendAttributedString:label];
+                        index++;
+                    }
+                    [newResult appendAttributedString: attSubstring];
+                }
+                result = newResult;
+            }
+        }
+    }
+    return result;
+}
+
+//- (void)setAccessibilitySelectedTextRange:(NSRange)range {
+//    NSLog(@"setAccessibilitySelectedTextRange: %@", NSStringFromRange(range));
+//    if (range.length < 2) {
+//        if (self.string.length > range.location && [self.string characterAtIndex:range.location] == NSAttachmentCharacter ) { //&& range.length < 2
+//            for (MarginImage *mi in ((MarginContainer *)self.textContainer).marginImages) {
+//                if (mi.pos == range.location) {
+//                    NSLog(@"Margin image spotted!");
+//                    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+//                                    [delegate.glkctl speakString:mi.accessibilityRoleDescription];
+//                    break;
+//                }
+//            }
+//        }
+//        else if (self.string.length > range.location - 1 && [self.string characterAtIndex:range.location - 1] == NSAttachmentCharacter ) { //&& range.length < 2
+//            for (MarginImage *mi in ((MarginContainer *)self.textContainer).marginImages) {
+//                if (mi.pos == range.location - 1) {
+//                    NSLog(@"Margin image spotted!");
+//                    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+//                                   [delegate.glkctl speakString:mi.accessibilityRoleDescription];
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//    [super setAccessibilitySelectedTextRange:range];
+//}
+
 - (NSArray *)accessibilityChildren {
     NSArray *children = [super accessibilityChildren];
 

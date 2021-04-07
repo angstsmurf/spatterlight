@@ -37,10 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable) GlkTextGridWindow *quoteBox;
 
-// A dictionary of arrays of inline image descriptions, keyed by range
-@property NSMutableDictionary <NSValue *, NSArray *> *imageDescriptionRanges;
-@property NSMutableArray <NSString *> *imageDescriptionsToSpeak;
-
 - (void)recalcBackground;
 - (void)echo:(BOOL)val;
 - (BOOL)myMouseDown:(NSEvent *)theEvent;

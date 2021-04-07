@@ -10,7 +10,6 @@
 
 @interface MyAttachmentCell () <NSSecureCoding> {
     NSInteger align;
-    NSUInteger pos;
 }
 @end
 
@@ -33,7 +32,9 @@
     if (self) {
         align = analignment;
         _attrstr = anattrstr;
-        pos = apos;
+        _pos = apos;
+        if (image.accessibilityDescription.length)
+            self.accessibilityLabel = image.accessibilityDescription;
     }
     return self;
 }
@@ -43,7 +44,8 @@
     if (self) {
         align = [decoder decodeIntegerForKey:@"align"];
         _attrstr = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"attstr"];
-        pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
+        _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
+        self.accessibilityLabel = (NSString *)[decoder decodeObjectOfClass:[NSString class] forKey:@"label"];
     }
     return self;
 }
@@ -52,7 +54,8 @@
     [super encodeWithCoder:encoder];
     [encoder encodeInteger:align forKey:@"align"];
     [encoder encodeObject:_attrstr forKey:@"attrstr"];
-    [encoder encodeInteger:(NSInteger)pos forKey:@"pos"];
+    [encoder encodeObject:self.accessibilityLabel forKey:@"label"];
+    [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
 }
 
 - (BOOL)wantsToTrackMouse {
@@ -61,7 +64,7 @@
 
 - (NSPoint)cellBaselineOffset {
 
-    NSUInteger lastCharPos = pos - 1;
+    NSUInteger lastCharPos = _pos - 1;
 
     if (lastCharPos > _attrstr.length)
         lastCharPos = 0;
@@ -80,5 +83,25 @@
 
     return [super cellBaselineOffset];
 }
+
+- (NSString *)customA11yLabel {
+    NSString *label = self.image.accessibilityDescription;
+    NSUInteger lastCharPos = _pos - 1;
+
+    if (lastCharPos > _attrstr.length)
+        lastCharPos = 0;
+
+   NSNumber *linkVal = (NSNumber *)[_attrstr attribute:NSLinkAttributeName
+                               atIndex:lastCharPos
+                        effectiveRange:nil];
+
+    NSUInteger linkid = linkVal.unsignedIntegerValue;
+
+    if (!label.length) {
+        label = [NSString stringWithFormat: @"%@attached image", linkid ? @"Clickable " : @""];
+    }
+    return label;
+}
+
 
 @end

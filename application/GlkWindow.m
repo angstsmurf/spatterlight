@@ -289,6 +289,11 @@ fprintf(stderr, "%s\n",                                                    \
     return @[];
 }
 
+- (NSArray *)images {
+    NSLog(@"images in %@ not implemented", [self class]);
+    return @[];
+}
+
 // Convert key terminators for Beyond Zork arrow keys hack/setting
 - (void)adjustBZTerminators:(NSMutableDictionary *)terminators {
     if (_theme.bZTerminator == kBZArrowsOriginal) {
