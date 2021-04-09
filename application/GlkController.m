@@ -1330,22 +1330,22 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSInteger res;
 
-    if (@available(macOS 10.13, *)) {
-        NSError *error = nil;
+    @autoreleasepool {
+        if (@available(macOS 10.13, *)) {
+            NSError *error = nil;
 
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
-        [data writeToFile:tmplibpath options:NSDataWritingAtomic error:&error];
-        if (error)
-            NSLog(@"Write returned error: %@", [error localizedDescription]);
-
-    } else {
-        // Fallback on earlier versions
-         res = [NSKeyedArchiver archiveRootObject:self
-                                                    toFile:tmplibpath];
-
-        if (!res) {
-            NSLog(@"Window serialize failed!");
-            return;
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
+            [data writeToFile:tmplibpath options:NSDataWritingAtomic error:&error];
+            if (error)
+                NSLog(@"Write returned error: %@", [error localizedDescription]);
+        } else {
+            // Fallback on earlier versions
+            res = [NSKeyedArchiver archiveRootObject:self
+                                              toFile:tmplibpath];
+            if (!res) {
+                NSLog(@"Window serialize failed!");
+                return;
+            }
         }
     }
 

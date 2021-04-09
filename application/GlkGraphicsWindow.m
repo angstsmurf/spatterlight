@@ -136,77 +136,79 @@
     if (size.width == 0 || size.height == 0 || size.height > INT_MAX)
         return;
 
-    bitmap = [[NSBitmapImageRep alloc]
-        initWithBitmapDataPlanes:NULL
-                      pixelsWide:(NSInteger)size.width
-                      pixelsHigh:(NSInteger)size.height
-                   bitsPerSample:8
-                 samplesPerPixel:4
-                        hasAlpha:YES
-                        isPlanar:NO
+    @autoreleasepool {
+        bitmap = [[NSBitmapImageRep alloc]
+                  initWithBitmapDataPlanes:NULL
+                  pixelsWide:(NSInteger)size.width
+                  pixelsHigh:(NSInteger)size.height
+                  bitsPerSample:8
+                  samplesPerPixel:4
+                  hasAlpha:YES
+                  isPlanar:NO
                   colorSpaceName:NSCalibratedRGBColorSpace
-                     bytesPerRow:0
-                    bitsPerPixel:32];
+                  bytesPerRow:0
+                  bitsPerPixel:32];
 
-    bitmap.size = size;
+        bitmap.size = size;
 
-    unsigned char *pd = bitmap.bitmapData;
-    NSInteger ps = bitmap.bytesPerRow;
-    NSInteger pw = bitmap.pixelsWide;
-    NSInteger ph = bitmap.pixelsHigh;
+        unsigned char *pd = bitmap.bitmapData;
+        NSInteger ps = bitmap.bytesPerRow;
+        NSInteger pw = bitmap.pixelsWide;
+        NSInteger ph = bitmap.pixelsHigh;
 
-    memset(pd, 0x00, ps * ph);
+        memset(pd, 0x00, ps * ph);
 
-    for (i = 0; i < count; i++) {
-        unsigned char ca = 0xff; //((rects[i].color >> 24) & 0xff);
-        unsigned char cr = ((rects[i].color >> 16) & 0xff);
-        unsigned char cg = ((rects[i].color >> 8) & 0xff);
-        unsigned char cb = ((rects[i].color >> 0) & 0xff);
+        for (i = 0; i < count; i++) {
+            unsigned char ca = 0xff; //((rects[i].color >> 24) & 0xff);
+            unsigned char cr = ((rects[i].color >> 16) & 0xff);
+            unsigned char cg = ((rects[i].color >> 8) & 0xff);
+            unsigned char cb = ((rects[i].color >> 0) & 0xff);
 
-        NSInteger rx0 = rects[i].x;
-        NSInteger ry0 = rects[i].y;
-        NSInteger rx1 = rx0 + rects[i].w;
-        NSInteger ry1 = ry0 + rects[i].h;
+            NSInteger rx0 = rects[i].x;
+            NSInteger ry0 = rects[i].y;
+            NSInteger rx1 = rx0 + rects[i].w;
+            NSInteger ry1 = ry0 + rects[i].h;
 
-        if (ry0 < 0)
-            ry0 = 0;
-        if (ry1 < 0)
-            ry1 = 0;
-        if (rx0 < 0)
-            rx0 = 0;
-        if (rx1 < 0)
-            rx1 = 0;
+            if (ry0 < 0)
+                ry0 = 0;
+            if (ry1 < 0)
+                ry1 = 0;
+            if (rx0 < 0)
+                rx0 = 0;
+            if (rx1 < 0)
+                rx1 = 0;
 
-        if (ry0 > ph)
-            ry0 = ph;
-        if (ry1 > ph)
-            ry1 = ph;
-        if (rx0 > pw)
-            rx0 = pw;
-        if (rx1 > pw)
-            rx1 = pw;
+            if (ry0 > ph)
+                ry0 = ph;
+            if (ry1 > ph)
+                ry1 = ph;
+            if (rx0 > pw)
+                rx0 = pw;
+            if (rx1 > pw)
+                rx1 = pw;
 
-        for (y = ry0; y < ry1; y++) {
-            unsigned char *p = pd + (y * ps) + (rx0 * 4);
-            for (x = rx0; x < rx1; x++) {
-                *p++ = cr;
-                *p++ = cg;
-                *p++ = cb;
-                *p++ = ca;
+            for (y = ry0; y < ry1; y++) {
+                unsigned char *p = pd + (y * ps) + (rx0 * 4);
+                for (x = rx0; x < rx1; x++) {
+                    *p++ = cr;
+                    *p++ = cg;
+                    *p++ = cb;
+                    *p++ = ca;
+                }
             }
         }
-    }
 
-    [image lockFocus];
-    {
-        NSImage *tmp = [[NSImage alloc] initWithSize:size];
-        [tmp addRepresentation:bitmap];
-        [tmp drawAtPoint:NSZeroPoint
-                fromRect:NSMakeRect(0, 0, size.width, size.height)
-               operation:NSCompositeSourceOver
-                fraction:1.0];
+        [image lockFocus];
+        {
+            NSImage *tmp = [[NSImage alloc] initWithSize:size];
+            [tmp addRepresentation:bitmap];
+            [tmp drawAtPoint:NSZeroPoint
+                    fromRect:NSMakeRect(0, 0, size.width, size.height)
+                   operation:NSCompositeSourceOver
+                    fraction:1.0];
+        }
+        [image unlockFocus];
     }
-    [image unlockFocus];
 
     dirty = YES;
 }
@@ -235,17 +237,23 @@
     if (h == 0)
         h = (NSInteger)srcsize.height;
 
-    [image lockFocus];
+    NSRect florpedRect;
 
-    [NSGraphicsContext currentContext].imageInterpolation =
+    @autoreleasepool {
+        [image lockFocus];
+
+        [NSGraphicsContext currentContext].imageInterpolation =
         NSImageInterpolationHigh;
 
-    [src drawInRect:[self florpCoords:NSMakeRect(x, y, w, h)]
-           fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
-          operation:NSCompositeSourceOver
-           fraction:1.0];
+        florpedRect = [self florpCoords:NSMakeRect(x, y, w, h)];
 
-    [image unlockFocus];
+        [src drawInRect:florpedRect
+               fromRect:NSMakeRect(0, 0, srcsize.width, srcsize.height)
+              operation:NSCompositeSourceOver
+               fraction:1.0];
+
+        [image unlockFocus];
+    }
 
     dirty = YES;
 }

@@ -210,6 +210,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
     set_library_select_hook(&spatterglk_game_select);
     max_undo_level = 32; // allow 32 undo steps
 
+    lastAutosaveTimestamp = [NSDate distantPast];
+
     return TRUE;
 }
 
@@ -356,6 +358,9 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
     if (!gli_enable_autosave)
         return;
 
+    if ([lastAutosaveTimestamp timeIntervalSinceNow] > -0.25)
+        return;
+
     if (lasteventtype == 0xFFFFFFFF
       || lasteventtype == 0xFFFFFFFE)
       return;
@@ -371,6 +376,8 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
     {
 		return;
     }
+
+    lastAutosaveTimestamp = [NSDate date];
 
     spatterglk_do_autosave(selector, arg0, arg1, arg2);
 }

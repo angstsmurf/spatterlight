@@ -10,6 +10,8 @@
 
 extern void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2);
 
+NSDate *lastAutosaveTimestamp;
+
 /* This object contains VM state which is not stored in a normal save file, but which is needed for an autorestore.
 
  (The reason it's not stored in a normal save file is that it's useless unless you serialize the entire Glk state along with the VM. Glulx normally doesn't do that, but for an autosave, we do.)
