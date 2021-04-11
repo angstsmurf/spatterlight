@@ -34,8 +34,10 @@
         align = analignment;
         _attrstr = anattrstr;
         _pos = apos;
-        if (image.accessibilityDescription.length)
+        if (image.accessibilityDescription.length) {
             self.accessibilityLabel = image.accessibilityDescription;
+            _hasDescription = YES;
+        }
     }
     return self;
 }
@@ -46,6 +48,7 @@
         align = [decoder decodeIntegerForKey:@"align"];
         _attrstr = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"attstr"];
         _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
+        _hasDescription = [decoder decodeBoolForKey:@"hasDescription"];
         self.accessibilityLabel = (NSString *)[decoder decodeObjectOfClass:[NSString class] forKey:@"label"];
     }
     return self;
@@ -57,6 +60,7 @@
     [encoder encodeObject:_attrstr forKey:@"attrstr"];
     [encoder encodeObject:self.accessibilityLabel forKey:@"label"];
     [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
+    [encoder encodeBool:_hasDescription forKey:@"hasDescription"];
 }
 
 - (BOOL)wantsToTrackMouse {
@@ -89,7 +93,6 @@
     if (_marginImage) {
         return _marginImage.customA11yLabel;
     }
-    
     NSString *label = self.image.accessibilityDescription;
     NSUInteger lastCharPos = _pos - 1;
 

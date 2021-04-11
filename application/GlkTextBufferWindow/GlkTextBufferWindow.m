@@ -924,15 +924,11 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (NSUInteger)unputString:(NSString *)buf {
-    NSUInteger result = 0;
-    NSUInteger initialLength = textstorage.length;
+- (void)unputString:(NSString *)buf {
     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
-        result = initialLength - textstorage.length;
     }
-    return result;
 }
 
 
@@ -989,7 +985,7 @@ fprintf(stderr, "%s\n",                                                    \
         else if (commandKeyOnly)
             ch = keycode_End;
     }
-    
+
     else if (([str isEqualToString:@"f"] || [str isEqualToString:@"F"]) &&
              commandKeyOnly) {
         if (!scrollview.findBarVisible) {
@@ -1005,7 +1001,6 @@ fprintf(stderr, "%s\n",                                                    \
         //        NSLog(@"Not scrolled to the bottom, pagedown or navigate scrolling on each key instead");
         switch (ch) {
             case keycode_PageUp:
-//
                 [_textview scrollPageUp:nil];
                 return;
             case keycode_PageDown:
@@ -1876,7 +1871,7 @@ replacementString:(id)repl {
 }
 
 - (void)scrollToBottom {
-//    NSLog(@"GlkTextBufferWindow %ld scrollToBottom", self.name);
+    //    NSLog(@"GlkTextBufferWindow %ld scrollToBottom", self.name);
     lastAtTop = NO;
     lastAtBottom = YES;
 
@@ -1972,17 +1967,22 @@ replacementString:(id)repl {
     NSAttributedString *attStr = [_textview accessibilityAttributedStringForRange:range];
     NSMutableString *string = attStr.string.mutableCopy;
 
-    // Look for image attachments and add their descriptions
-    NSArray *keys;
-    NSDictionary *attachments = [self attachmentsInRange:range withKeys:&keys];
-    NSUInteger offset = 0;
-    for (NSNumber *num in keys) {
-        NSUInteger index = (NSUInteger)num.intValue - range.location + offset;
-        MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)attachments[num]).attachmentCell;
-        NSString *label = cell.customA11yLabel;
-        label = [NSString stringWithFormat:@"(%@)", label];
-        [string insertString:label atIndex:index];
-        offset += label.length;
+    if (self.theme.vOSpeakImages != kVOImageNone) {
+        // Look for image attachments and add their descriptions
+        // according to settings.
+        NSArray *keys;
+        NSDictionary *attachments = [self attachmentsInRange:range withKeys:&keys];
+        NSUInteger offset = 0;
+        for (NSNumber *num in keys) {
+            NSUInteger index = (NSUInteger)num.intValue - range.location + offset;
+            MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)attachments[num]).attachmentCell;
+            NSString *label = cell.customA11yLabel;
+            if (self.theme.vOSpeakImages != kVOImageWithDescriptionOnly || cell.hasDescription) {
+                label = [NSString stringWithFormat:@"(%@)", label];
+                [string insertString:label atIndex:index];
+                offset += label.length;
+            }
+        }
     }
 
     // Strip command line if the speak command setting is off
@@ -2113,25 +2113,32 @@ replacementString:(id)repl {
 }
 
 - (NSArray<NSValue *> *)images {
+    if (self.theme.vOSpeakImages == kVOImageNone)
+        return @[];
     NSArray<NSValue *> *images = [self imagesInRange:_textview.accessibilityVisibleCharacterRange];
+    NSLog(@"GlkTextBufferWindow images: returning %ld images", images.count);
     return images;
 }
 
 - (NSArray<NSValue *> *)imagesInRange:(NSRange)range {
-   __block NSMutableArray<NSValue *> *images = [NSMutableArray new];
-   [textstorage
-    enumerateAttribute:NSAttachmentAttributeName
-    inRange:range
-    options:0
-    usingBlock:^(id value, NSRange subrange, BOOL *stop) {
-       if (!value) {
-           return;
-       }
-       [images addObject:[NSValue valueWithRange:subrange]];
-   }];
-   return images;
-}
+    __block NSMutableArray<NSValue *> *images = [NSMutableArray new];
+    BOOL withDescOnly = (self.theme.vOSpeakImages == kVOImageWithDescriptionOnly);
 
+    [textstorage
+     enumerateAttribute:NSAttachmentAttributeName
+     inRange:range
+     options:0
+     usingBlock:^(id value, NSRange subrange, BOOL *stop) {
+        if (!value) {
+            return;
+        }
+        if (withDescOnly && !((MyAttachmentCell *)((NSTextAttachment *)value).attachmentCell).hasDescription)
+            return;
+        [images addObject:[NSValue valueWithRange:subrange]];
+    }];
+
+    return images;
+}
 
 - (NSDictionary <NSNumber *, NSTextAttachment *> *)attachmentsInRange:(NSRange)range withKeys:(NSArray **)keys {
     __block NSMutableDictionary <NSNumber *, NSTextAttachment *> *attachments = [NSMutableDictionary new];
@@ -2145,43 +2152,11 @@ replacementString:(id)repl {
             return;
         }
 
-        //        NSLog(@"Found attachement at range:%@", NSStringFromRange(subrange));
-        //        MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)value).attachmentCell;
-        //        NSLog(@"attachmentsInRange: cell.pos: %ld", cell.pos);
-        //        if (cell.pos == 0)
-        //            cell.pos = subrange.location;
         [mutKeys addObject:@(subrange.location)];
         attachments[mutKeys.lastObject] = value;
     }];
     *keys = mutKeys;
     return attachments;
 }
-//
-//- (NSArray *)addMarginImagesInRange:(NSRange)range toDictionary:(NSDictionary <NSNumber *, NSTextAttachment *> *)dictionary {
-//    NSMutableDictionary *mutable = dictionary.mutableCopy;
-//    for (MarginImage *img in container.marginImages) {
-//        if (img.pos >= range.location && img.pos < NSMaxRange(range))
-//            mutable[@(img.pos)] = img;
-//    }
-//
-//    NSArray *keys = [mutable.allKeys sortedArrayUsingComparator:
-//                     ^NSComparisonResult(id obj1, id obj2){
-//        NSInteger key1 = ((NSNumber *)obj1).integerValue;
-//        NSInteger key2 = ((NSNumber *)obj2).integerValue;
-//        if (key1 > key2) {
-//            return (NSComparisonResult)NSOrderedDescending;
-//        }
-//        if (key1 < key2) {
-//            return (NSComparisonResult)NSOrderedAscending;
-//        }
-//        return (NSComparisonResult)NSOrderedSame;
-//    }];
-//
-//    NSMutableArray *result = [NSMutableArray new];
-//    for (NSNumber *key in keys)
-//        [result addObject:mutable[key]];
-//
-//    return result;
-//}
 
 @end

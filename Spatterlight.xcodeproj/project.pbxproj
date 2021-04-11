@@ -569,6 +569,7 @@
 		C343E49D1ECC679D000F15B6 /* t3indlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49C1ECC679D000F15B6 /* t3indlg.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C343E4A01ECC67C8000F15B6 /* t2askf.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E49F1ECC67C8000F15B6 /* t2askf.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; };
+		C353F04626264242006D17E3 /* SubImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C353EFAD26263D85006D17E3 /* SubImage.m */; };
 		C35978C125DA14A6004B1448 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C35978C525DA14A6004B1448 /* iFictionPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35978C425DA14A6004B1448 /* iFictionPreviewController.m */; };
 		C35978C825DA14A6004B1448 /* iFictionPreviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35978C625DA14A6004B1448 /* iFictionPreviewController.xib */; };
@@ -637,7 +638,6 @@
 		C3C180C825C717F30040AE79 /* IFCoverDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C180C725C717F30040AE79 /* IFCoverDescription.m */; };
 		C3C183D225F160C90050A2EF /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
-		C3CB8CF2261DCD280039DA31 /* SubImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB8CF1261DCD280039DA31 /* SubImage.m */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
 		C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3D6AD721ECF381A00ADB69C /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -2539,6 +2539,8 @@
 		C343E49F1ECC67C8000F15B6 /* t2askf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = t2askf.c; sourceTree = "<group>"; };
 		C34F1FA61ED85E06002AB38B /* gi_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gi_debug.c; sourceTree = "<group>"; };
 		C34F1FA71ED85E06002AB38B /* gi_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gi_debug.h; sourceTree = "<group>"; };
+		C353EFAD26263D85006D17E3 /* SubImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubImage.m; sourceTree = "<group>"; };
+		C353EFE126263DD7006D17E3 /* SubImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubImage.h; sourceTree = "<group>"; };
 		C35813931ED83DF0001E49C4 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 		C35813941ED83DF8001E49C4 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		C35978C025DA14A6004B1448 /* iFictionQuickLook.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = iFictionQuickLook.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2622,8 +2624,6 @@
 		C3C180C725C717F30040AE79 /* IFCoverDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFCoverDescription.m; sourceTree = "<group>"; };
 		C3C684E026137DC6002F1436 /* ImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHandler.h; sourceTree = "<group>"; };
 		C3C684E126137DC6002F1436 /* ImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHandler.m; sourceTree = "<group>"; };
-		C3CB8CF0261DCD280039DA31 /* SubImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubImage.h; sourceTree = "<group>"; };
-		C3CB8CF1261DCD280039DA31 /* SubImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubImage.m; sourceTree = "<group>"; };
 		C3CDF24925A3C26000FA3451 /* Spatterlight 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 5.xcdatamodel"; sourceTree = "<group>"; };
 		C3D155671EDC4C820072D259 /* defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defs.h; path = Generic/defs.h; sourceTree = "<group>"; };
 		C3D219E125FAD0820066AC4E /* InsecureValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsecureValueTransformer.h; sourceTree = "<group>"; };
@@ -3664,9 +3664,9 @@
 				C3FE98D9261B2CA900152AB6 /* RotorHandler.m */,
 				961CCEE909F239E700528FF9 /* GlkWindow.h */,
 				961CCEEA09F239E700528FF9 /* GlkWindow.m */,
-				C3AD639F2617642F008614C5 /* GlkTextBufferWindow */,
 				C3AD64DB26176D9F008614C5 /* GlkTextGridWindow */,
-				C3CB8CA4261DCCF30039DA31 /* GlkGraphicsWindow */,
+				C3AD639F2617642F008614C5 /* GlkTextBufferWindow */,
+				C353F0AB26264615006D17E3 /* GlkGraphicsWindow */,
 				C30BCAA425AC976C00F8C4E2 /* VoiceOver menu detection */,
 				C30BCABB25AC979200F8C4E2 /* Input related classes */,
 				6DB8C1E724599DF8002CDCCB /* ZColor.h */,
@@ -4966,6 +4966,17 @@
 			path = SpatterlightThumbnailer;
 			sourceTree = "<group>";
 		};
+		C353F0AB26264615006D17E3 /* GlkGraphicsWindow */ = {
+			isa = PBXGroup;
+			children = (
+				961CCEDB09F239E700528FF9 /* GlkGraphicsWindow.h */,
+				961CCEDC09F239E700528FF9 /* GlkGraphicsWindow.m */,
+				C353EFE126263DD7006D17E3 /* SubImage.h */,
+				C353EFAD26263D85006D17E3 /* SubImage.m */,
+			);
+			path = GlkGraphicsWindow;
+			sourceTree = "<group>";
+		};
 		C35978C225DA14A6004B1448 /* iFictionQuickLook */ = {
 			isa = PBXGroup;
 			children = (
@@ -5037,17 +5048,6 @@
 				C3C684E126137DC6002F1436 /* ImageHandler.m */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		C3CB8CA4261DCCF30039DA31 /* GlkGraphicsWindow */ = {
-			isa = PBXGroup;
-			children = (
-				C3CB8CF0261DCD280039DA31 /* SubImage.h */,
-				C3CB8CF1261DCD280039DA31 /* SubImage.m */,
-				961CCEDB09F239E700528FF9 /* GlkGraphicsWindow.h */,
-				961CCEDC09F239E700528FF9 /* GlkGraphicsWindow.m */,
-			);
-			path = GlkGraphicsWindow;
 			sourceTree = "<group>";
 		};
 		C3E2EAAC25D08EEC0012B7FB /* SyntaxColor */ = {
@@ -5984,8 +5984,8 @@
 				C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */,
 				C381012A1EDA297E00B87B68 /* GlkController.m in Sources */,
 				961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */,
-				C3CB8CF2261DCD280039DA31 /* SubImage.m in Sources */,
 				C3AD640926176589008614C5 /* MarginContainer.m in Sources */,
+				C353F04626264242006D17E3 /* SubImage.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
 				C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */,
 				961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */,

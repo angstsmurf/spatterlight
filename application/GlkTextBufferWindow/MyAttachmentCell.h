@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) NSAttributedString *attrstr;
 @property (weak) MarginImage *marginImage;
 @property NSUInteger pos;
+@property BOOL hasDescription;
 
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)analignment

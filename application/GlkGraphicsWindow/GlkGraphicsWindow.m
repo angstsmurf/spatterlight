@@ -1,7 +1,7 @@
 #import "main.h"
 #import "NSColor+integer.h"
-#import "NSColor+integer.h"
 #import "SubImage.h"
+#import "Theme.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -16,6 +16,7 @@
 
     BOOL mouse_request;
     BOOL transparent;
+    BOOL showingImage;
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
 }
@@ -37,6 +38,7 @@
 
         mouse_request = NO;
         transparent = NO;
+        showingImage = NO;
         subImages = [NSMutableArray new];
         dirtyRects = [NSMutableArray new];
     }
@@ -51,6 +53,7 @@
         dirty = YES;
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
+        showingImage = [decoder decodeBoolForKey:@"showingImage"];
         subImages =  [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"subImages"];
         dirtyRects = [NSMutableArray new];
     }
@@ -63,6 +66,7 @@
     [encoder encodeObject:subImages forKey:@"subImages"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeBool:transparent forKey:@"transparent"];
+    [encoder encodeBool:showingImage forKey:@"showingImage"];
 }
 
 - (BOOL)isOpaque {
@@ -230,6 +234,7 @@
     [dirtyRects addObject:@(florpedRect)];
     [self pruneSubimagesInRect:florpedRect];
     dirty = YES;
+    showingImage = YES;
 }
 
 - (void)flushDisplay {
@@ -286,6 +291,7 @@
         [image unlockFocus];
     }
 
+    showingImage = YES;
     dirty = YES;
     [dirtyRects addObject:@(florpedRect)];
 
@@ -382,11 +388,38 @@
                              char_request ? @", waiting for a key press" : @""];
 }
 
-- (NSArray *)images {
+- (NSArray <SubImage *> *)images {
+    if (self.theme.vOSpeakImages == kVOImageNone)
+        return @[];
     if (subImages.count) {
-        return subImages;
+        if (subImages.count == 1 && self.theme.vOSpeakImages != kVOImageAll && [subImages.firstObject.accessibilityLabel isEqualToString:@"Image"]) {
+            [subImages removeAllObjects];
+            return @[];
+        }
+        if (self.theme.vOSpeakImages == kVOImageWithDescriptionOnly) {
+            return [subImages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
+                return ((SubImage *)object).accessibilityLabel.length > 0;
+            }]];
+        } else {
+            NSLog(@"GlkGraphicsWindow images: returning %ld subimages", subImages.count);
+            return subImages;
+        }
+    } else if (self.theme.vOSpeakImages == kVOImageAll && showingImage) {
+        return @[ [self createDummySubImage] ];
     }
+
     return @[];
+}
+
+- (SubImage *)createDummySubImage {
+    SubImage *dummy = [SubImage new];
+    dummy.accessibilityLabel = @"Image";
+    dummy.accessibilityParent = self;
+    dummy.accessibilityRole = NSAccessibilityImageRole;
+    dummy.frameRect = self.bounds;
+    self.accessibilityLabel = dummy.accessibilityLabel;
+    [subImages addObject:dummy];
+    return dummy;
 }
 
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
@@ -434,23 +467,20 @@
 - (NSArray *)accessibilityChildren {
     NSArray *children = [super accessibilityChildren];
 
-//    NSEnumerator *enumerator = [subImages reverseObjectEnumerator];
-//    SubImage *img;
-//    while ((img = [enumerator nextObject]))
-//    {
-//        [self pruneSubimagesFrom:img];
-//    }
+    if (subImages.count == 0 && self.theme.vOSpeakImages == kVOImageAll && showingImage) {
+        [self createDummySubImage];
+    }
 
     for (SubImage *si in subImages) {
         children = [children arrayByAddingObject:si];
         NSRect bounds = NSAccessibilityFrameInView(self, si.frameRect);
         si.accessibilityFrame = bounds;
     }
+
     return children;
 }
 
 - (void)pruneSubimagesInRect:(NSRect)rect {
-//    NSEnumerator *enumerator = [subImages.copy objectEnumerator];
     NSEnumerator *enumerator = [subImages.copy reverseObjectEnumerator];
     SubImage *img;
     while (img = [enumerator nextObject]) {
@@ -472,9 +502,6 @@
 
     if ((oldrectarea - intersectionarea) / oldrectarea > 0.5)
         return NO;
-
-//    if (intersection.size.height * intersection.size.width / oldrect.size.height * oldrect.size.width < 0.7)
-//        return NO;
 
     return YES;
 }

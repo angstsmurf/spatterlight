@@ -18,6 +18,7 @@
 #import "MyAttachmentCell.h"
 #import "Theme.h"
 #import "SubImage.h"
+#import "Preferences.h"
 
 #include "glk.h"
 
@@ -37,7 +38,7 @@
         return [self commandHistoryRotor:rotor resultForSearchParameters:searchParameters];
     } else if ([rotor.label isEqualToString:NSLocalizedString(@"Game windows", nil)]) {
         return [self glkWindowRotor:rotor resultForSearchParameters:searchParameters];
-    } else if (rotor.type == NSAccessibilityCustomRotorTypeImage) {
+    } else if (rotor.type == NSAccessibilityCustomRotorTypeImage && _glkctl.theme.vOSpeakImages != kVOImageNone) {
         return [self imagesRotor:rotor resultForSearchParameters:searchParameters];
     } else if (rotor.type == NSAccessibilityCustomRotorTypeLink) {
         return [self linksRotor:rotor resultForSearchParameters:searchParameters];
@@ -226,6 +227,12 @@
                 string = [string stringByTrimmingCharactersInSet:charset];
                 [strings addObject:string.copy];
             }
+        } else {
+            NSString *string = win.accessibilityRoleDescription;
+            if (string.length && win.images.count && (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText])) {
+                [children addObject:win];
+                [strings addObject:string.copy];
+            }
         }
     }
 
@@ -266,22 +273,28 @@
     if (targetWindow) {
         searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement: targetWindow];
         searchResult.customLabel = strings[currentItemIndex];
-        NSRange allText = NSMakeRange(0, targetWindow.string.length);
-        NSArray<NSValue *> *moveRanges = ((GlkWindow *)targetWindow.delegate).moveRanges;
-        if (moveRanges && moveRanges.count) {
-            if ([targetWindow.delegate isKindOfClass:[GlkTextBufferWindow class]])
-                [(GlkTextBufferWindow *)targetWindow.delegate forceLayout];
-            NSRange range = moveRanges.lastObject.rangeValue;
-            searchResult.targetRange = NSIntersectionRange(allText, range);
-        } else searchResult.targetRange = allText;
+        if (![targetWindow isKindOfClass:[GlkGraphicsWindow class]]) {
+            NSRange allText = NSMakeRange(0, targetWindow.string.length);
+            NSArray<NSValue *> *moveRanges = ((GlkWindow *)targetWindow.delegate).moveRanges;
+            if (moveRanges && moveRanges.count) {
+                if ([targetWindow.delegate isKindOfClass:[GlkTextBufferWindow class]])
+                    [(GlkTextBufferWindow *)targetWindow.delegate forceLayout];
+                NSRange range = moveRanges.lastObject.rangeValue;
+                searchResult.targetRange = NSIntersectionRange(allText, range);
+            } else searchResult.targetRange = allText;
+        }
     }
-
     return searchResult;
 }
 
 
 - (NSAccessibilityCustomRotorItemResult *)imagesRotor:(NSAccessibilityCustomRotor *)rotor
                             resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters  API_AVAILABLE(macos(10.13)){
+
+    if (_glkctl.theme.vOSpeakImages == kVOImageNone) {
+        return nil;
+    }
+
     NSAccessibilityCustomRotorItemResult *searchResult = nil;
 
     NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
@@ -323,7 +336,6 @@
     }
 
     if (!children.count) {
-        NSLog(@"imagesRotor: No images found!");
         return nil;
     }
 
@@ -332,8 +344,6 @@
     NSAccessibilityElement *targetElement = (NSAccessibilityElement *)currentItemResult.targetElement;
 
     if ([targetElement isKindOfClass:[BufferTextView class]]) {
-        NSLog(@"currentItemResult isKindOfClass:[BufferTextView class]");
-
         NSUInteger pos = currentItemResult.targetRange.location;
         NSUInteger index = 0;
         for (id child in children) {
@@ -377,7 +387,6 @@
     }
 
     if (currentItemIndex == NSNotFound) { // Reached end of list
-        NSLog(@"Reached end, returned nil");
         return nil;
     }
 
@@ -401,7 +410,7 @@
             label = ((SubImage *)targetImage).accessibilityLabel;
             searchResult.targetRange = NSMakeRange(0, 0);
         }
-        searchResult.customLabel = [NSString stringWithFormat:@"%ld. %@", currentItemIndex + 1, label];
+        searchResult.customLabel = label;
     }
     return searchResult;
 }
@@ -530,7 +539,7 @@
         }
 
         // Create the images rotor
-        if (hasImages) {
+        if (hasImages && _glkctl.theme.vOSpeakImages != kVOImageNone) {
             NSAccessibilityCustomRotor *imagesRotor = [[NSAccessibilityCustomRotor alloc] initWithRotorType:NSAccessibilityCustomRotorTypeImage itemSearchDelegate:self];
             [rotorsArray addObject:imagesRotor];
         }

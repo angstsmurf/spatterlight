@@ -1056,7 +1056,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fly-sQ-mPk">
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fly-sQ-mPk" userLabel="Menu lines pop-up">
                                             <rect key="frame" x="216" y="130" width="161" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <string key="toolTip">When VoiceOver is active, Spatterlight tries to detect some types of menus. This setting determines how detected menu lines are spoken.</string>
@@ -1093,9 +1093,9 @@
                                                 <font key="font" metaFont="menu"/>
                                                 <menu key="menu" id="qSr-Dr-2uN">
                                                     <items>
-                                                        <menuItem title="With descriptions" state="on" toolTip="Only speak the custom descriptions of images that have them." id="iRL-81-Ras" userLabel="With descriptions"/>
+                                                        <menuItem title="With descriptions" state="on" toolTip="Only speak custom descriptions of images that have them." id="iRL-81-Ras" userLabel="With descriptions"/>
                                                         <menuItem title="None" tag="1" toolTip="Don't mention images at all." id="zRS-Du-hQD" userLabel="None"/>
-                                                        <menuItem title="All" tag="2" toolTip="Mention all images, with descriptions and without." id="715-CL-Wkj" userLabel="All"/>
+                                                        <menuItem title="All" tag="2" toolTip="Mention all images, even those without descriptions." id="715-CL-Wkj" userLabel="All"/>
                                                     </items>
                                                 </menu>
                                             </popUpButtonCell>

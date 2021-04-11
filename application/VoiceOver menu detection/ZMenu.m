@@ -637,7 +637,6 @@
     _selectedLine = [self findSelectedLine];
     if (_selectedLine == NSNotFound)
         return;
-    
     NSString *selectedLineString;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     // We use the number of menu lines as a proxy to see if we have just switched to a new menu

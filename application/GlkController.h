@@ -24,7 +24,7 @@
 
 @end
 
-@interface GlkController : NSWindowController <NSSecureCoding, NSAccessibilityCustomRotorItemSearchDelegate>
+@interface GlkController : NSWindowController <NSSecureCoding>
 
 @property NSMutableDictionary *gwindows;
 @property SoundHandler *soundHandler;
