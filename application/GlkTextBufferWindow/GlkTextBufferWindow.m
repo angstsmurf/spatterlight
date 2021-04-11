@@ -251,7 +251,6 @@ fprintf(stderr, "%s\n",                                                    \
     panel.nameFieldStringValue = newName;
     NSTextView *localTextView = _textview;
     NSAttributedString *localTextStorage = textstorage;
-    MarginContainer *localTextContainer = container;
     [panel
      beginSheetModalForWindow:window
      completionHandler:^(NSInteger result) {
@@ -260,9 +259,6 @@ fprintf(stderr, "%s\n",                                                    \
 
             NSMutableAttributedString *mutattstr =
             [localTextStorage mutableCopy];
-
-            mutattstr = [localTextContainer
-                         marginsToAttachmentsInString:mutattstr];
 
             [mutattstr
              enumerateAttribute:NSBackgroundColorAttributeName
@@ -281,11 +277,9 @@ fprintf(stderr, "%s\n",                                                    \
             if (isRtfd) {
                 NSFileWrapper *wrapper;
                 wrapper = [mutattstr
-                           RTFDFileWrapperFromRange:NSMakeRange(
-                                                                0, mutattstr.length)
+                           RTFDFileWrapperFromRange:NSMakeRange(0, mutattstr.length)
                            documentAttributes:@{
-                               NSDocumentTypeDocumentAttribute :
-                                   NSRTFDTextDocumentType
+                               NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType
                            }];
 
                 [wrapper writeToURL:theFile
@@ -502,12 +496,14 @@ fprintf(stderr, "%s\n",                                                    \
     _pendingScrollRestore = YES;
     _pendingScroll = NO;
 
-    NSArray *marginimgscopy = [container.marginImages copy];
-
-    for (MarginImage *img in marginimgscopy) {
+    for (MarginImage *img in container.marginImages) {
         img.container = container;
         img.accessibilityParent = _textview;
         img.bounds = [img boundsWithLayout:layoutmanager];
+        NSTextAttachment *attachment = [textstorage attribute:NSAttachmentAttributeName atIndex:img.pos + 1 effectiveRange:nil];
+        MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
+        cell.marginImage = img;
+        cell.accessibilityLabel = cell.customA11yLabel;
     }
 
     if (!self.glkctl.inFullscreen || self.glkctl.startingInFullscreen)
@@ -585,8 +581,6 @@ fprintf(stderr, "%s\n",                                                    \
         [self storeScrollOffset];
     }
 
-    //    [self recalcInputAttributes];
-
     GlkController *glkctl = self.glkctl;
 
     // Adjust terminators for Beyond Zork arrow keys hack
@@ -638,7 +632,6 @@ fprintf(stderr, "%s\n",                                                    \
     // get lost when we update the Glk Styles.
 
     if (different) {
-        NSLog(@"Different");
         styles = newstyles;
         [self recalcInputAttributes];
 
@@ -1175,7 +1168,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)recalcInputAttributes {
-    NSLog(@"recalcInputAttributes");
     NSMutableDictionary *inputStyle = [styles[style_Input] mutableCopy];
     if (currentZColor && self.theme.doStyles && currentZColor.fg != zcolor_Current && currentZColor.fg != zcolor_Default) {
         inputStyle[NSForegroundColorAttributeName] = [NSColor colorFromInteger: currentZColor.fg];
@@ -1493,7 +1485,6 @@ replacementString:(id)repl {
     NSTextAttachment *att;
     NSFileWrapper *wrapper;
     NSData *tiffdata;
-    // NSAttributedString *attstr;
 
     [self flushDisplay];
 
@@ -1508,51 +1499,41 @@ replacementString:(id)repl {
     if (h == 0)
         h = (NSInteger)image.size.height;
 
+    image = [self scaleImage:image size:NSMakeSize(w, h)];
+
+    tiffdata = image.TIFFRepresentation;
+
+    wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:tiffdata];
+    wrapper.preferredFilename = @"image.tiff";
+    att = [[NSTextAttachment alloc] initWithFileWrapper:wrapper];
+
+    MyAttachmentCell *cell =
+    [[MyAttachmentCell alloc] initImageCell:image
+                               andAlignment:align
+                                  andAttStr:textstorage
+                                         at:textstorage.length - 1];
+
     if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
         if (_lastchar != '\n' && textstorage.length) {
             NSLog(@"lastchar is not line break. Do not add margin image.");
             return;
-        }
-        //        NSLog(@"adding image to margins");
-        unichar uc[1];
-        uc[0] = NSAttachmentCharacter;
-
-        [textstorage.mutableString
-         appendString:[NSString stringWithCharacters:uc length:1]];
-
-        image = [self scaleImage:image size:NSMakeSize(w, h)];
-
-        [container addImage:image align: align at:
-         textstorage.length - 1 linkid:(NSUInteger)self.currentHyperlink];
-
-        if (self.currentHyperlink) {
-            [textstorage addAttribute:NSLinkAttributeName value:@(self.currentHyperlink) range:NSMakeRange(textstorage.length - 1, 1)];
-        }
-    } else {
-        //        NSLog(@"adding image to text");
-        image = [self scaleImage:image size:NSMakeSize(w, h)];
-
-        tiffdata = image.TIFFRepresentation;
-
-        wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:tiffdata];
-        wrapper.preferredFilename = @"image.tiff";
-        att = [[NSTextAttachment alloc] initWithFileWrapper:wrapper];
-        MyAttachmentCell *cell =
-        [[MyAttachmentCell alloc] initImageCell:image
-                                   andAlignment:align
-                                      andAttStr:textstorage
-                                             at:textstorage.length - 1];
-        att.attachmentCell = cell;
-        NSMutableAttributedString *attstr =
-        (NSMutableAttributedString *)[NSMutableAttributedString
-                                      attributedStringWithAttachment:att];
-
-        [textstorage appendAttributedString:attstr];
-
-        if (self.currentHyperlink) {
-            [textstorage addAttribute:NSLinkAttributeName value:@(self.currentHyperlink) range:NSMakeRange(textstorage.length - 1, 1)];
+        } else {
+            [container addImage:image align: align at:
+             textstorage.length - 1 linkid:(NSUInteger)self.currentHyperlink];
+            cell.marginImage = container.marginImages.lastObject;
         }
     }
+
+    att.attachmentCell = cell;
+    NSAttributedString *attstr = [NSAttributedString
+                                  attributedStringWithAttachment:att];
+
+    [textstorage appendAttributedString:attstr];
+
+    if (self.currentHyperlink) {
+        [textstorage addAttribute:NSLinkAttributeName value:@(self.currentHyperlink) range:NSMakeRange(textstorage.length - 1, 1)];
+    }
+
     [textstorage addAttributes:styles[style] range:NSMakeRange(textstorage.length -1, 1)];
 }
 
@@ -1895,7 +1876,7 @@ replacementString:(id)repl {
 }
 
 - (void)scrollToBottom {
-    NSLog(@"GlkTextBufferWindow %ld scrollToBottom", self.name);
+//    NSLog(@"GlkTextBufferWindow %ld scrollToBottom", self.name);
     lastAtTop = NO;
     lastAtBottom = YES;
 
@@ -1987,17 +1968,15 @@ replacementString:(id)repl {
     NSAttributedString *attStr = [_textview accessibilityAttributedStringForRange:range];
     NSMutableString *string = attStr.string.mutableCopy;
 
-    // Look for image attachments (margin image descriptions are already added)
+    // Look for image attachments and add their descriptions
     NSArray *keys;
     NSDictionary *attachments = [self attachmentsInRange:range withKeys:&keys];
     NSUInteger offset = 0;
     for (NSNumber *num in keys) {
         NSUInteger index = (NSUInteger)num.intValue - range.location + offset;
         MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)attachments[num]).attachmentCell;
-        NSString *label = cell.accessibilityLabel;
-        if (!label)
-            label = cell.accessibilityRoleDescription;
-        label = [NSString stringWithFormat:@"(Image: %@.)", label];
+        NSString *label = cell.customA11yLabel;
+        label = [NSString stringWithFormat:@"(%@)", label];
         [string insertString:label atIndex:index];
         offset += label.length;
     }
@@ -2129,38 +2108,26 @@ replacementString:(id)repl {
     return links;
 }
 
-- (NSArray *)images {
-    NSRange allText = NSMakeRange(0, textstorage.length);
-    if (self.moveRanges.count < 2)
-        return [self imagesInRange:allText];
-    NSMutableArray <NSValue *> *images = [[NSMutableArray alloc] init];
-
-    // Make sure that no text after last moveRange slips through
-    NSRange lastMoveRange = self.moveRanges.lastObject.rangeValue;
-    NSRange stubRange = NSMakeRange(NSMaxRange(lastMoveRange), textstorage.length);
-    stubRange = NSIntersectionRange(allText, stubRange);
-    if (stubRange.length) {
-        [images addObjectsFromArray:[self imagesInRange:stubRange]];
-    }
-
-    for (NSValue *rangeVal in self.moveRanges)
-    {
-        // Print some info
-        [images addObjectsFromArray:[self imagesInRange:rangeVal.rangeValue]];
-    }
-    if (images.count > 15)
-        images.array = [images subarrayWithRange:NSMakeRange(images.count - 15, 15)];
-
-    //    NSLog(@"images: found %ld images", images.count);
+- (NSArray<NSValue *> *)images {
+    NSArray<NSValue *> *images = [self imagesInRange:_textview.accessibilityVisibleCharacterRange];
     return images;
 }
 
-- (NSArray *)imagesInRange:(NSRange)range {
-    NSArray *keys;
-    NSDictionary *attachments = [self attachmentsInRange:range withKeys:&keys];
-    NSArray *images = [self addMarginImagesInRange:range toDictionary:attachments];
-    return images;
+- (NSArray<NSValue *> *)imagesInRange:(NSRange)range {
+   __block NSMutableArray<NSValue *> *images = [NSMutableArray new];
+   [textstorage
+    enumerateAttribute:NSAttachmentAttributeName
+    inRange:range
+    options:0
+    usingBlock:^(id value, NSRange subrange, BOOL *stop) {
+       if (!value) {
+           return;
+       }
+       [images addObject:[NSValue valueWithRange:subrange]];
+   }];
+   return images;
 }
+
 
 - (NSDictionary <NSNumber *, NSTextAttachment *> *)attachmentsInRange:(NSRange)range withKeys:(NSArray **)keys {
     __block NSMutableDictionary <NSNumber *, NSTextAttachment *> *attachments = [NSMutableDictionary new];
@@ -2185,32 +2152,32 @@ replacementString:(id)repl {
     *keys = mutKeys;
     return attachments;
 }
-
-- (NSArray *)addMarginImagesInRange:(NSRange)range toDictionary:(NSDictionary <NSNumber *, NSTextAttachment *> *)dictionary {
-    NSMutableDictionary *mutable = dictionary.mutableCopy;
-    for (MarginImage *img in container.marginImages) {
-        if (img.pos >= range.location && img.pos < NSMaxRange(range))
-            mutable[@(img.pos)] = img;
-    }
-
-    NSArray *keys = [mutable.allKeys sortedArrayUsingComparator:
-                     ^NSComparisonResult(id obj1, id obj2){
-        NSInteger key1 = ((NSNumber *)obj1).integerValue;
-        NSInteger key2 = ((NSNumber *)obj2).integerValue;
-        if (key1 > key2) {
-            return (NSComparisonResult)NSOrderedDescending;
-        }
-        if (key1 < key2) {
-            return (NSComparisonResult)NSOrderedAscending;
-        }
-        return (NSComparisonResult)NSOrderedSame;
-    }];
-
-    NSMutableArray *result = [NSMutableArray new];
-    for (NSNumber *key in keys)
-        [result addObject:mutable[key]];
-
-    return result;
-}
+//
+//- (NSArray *)addMarginImagesInRange:(NSRange)range toDictionary:(NSDictionary <NSNumber *, NSTextAttachment *> *)dictionary {
+//    NSMutableDictionary *mutable = dictionary.mutableCopy;
+//    for (MarginImage *img in container.marginImages) {
+//        if (img.pos >= range.location && img.pos < NSMaxRange(range))
+//            mutable[@(img.pos)] = img;
+//    }
+//
+//    NSArray *keys = [mutable.allKeys sortedArrayUsingComparator:
+//                     ^NSComparisonResult(id obj1, id obj2){
+//        NSInteger key1 = ((NSNumber *)obj1).integerValue;
+//        NSInteger key2 = ((NSNumber *)obj2).integerValue;
+//        if (key1 > key2) {
+//            return (NSComparisonResult)NSOrderedDescending;
+//        }
+//        if (key1 < key2) {
+//            return (NSComparisonResult)NSOrderedAscending;
+//        }
+//        return (NSComparisonResult)NSOrderedSame;
+//    }];
+//
+//    NSMutableArray *result = [NSMutableArray new];
+//    for (NSNumber *key in keys)
+//        [result addObject:mutable[key]];
+//
+//    return result;
+//}
 
 @end

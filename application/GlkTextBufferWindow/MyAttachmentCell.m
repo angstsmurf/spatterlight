@@ -6,6 +6,7 @@
 //
 
 #import "MyAttachmentCell.h"
+#import "MarginImage.h"
 #include "glk.h"
 
 @interface MyAttachmentCell () <NSSecureCoding> {
@@ -85,22 +86,112 @@
 }
 
 - (NSString *)customA11yLabel {
+    if (_marginImage) {
+        return _marginImage.customA11yLabel;
+    }
+    
     NSString *label = self.image.accessibilityDescription;
     NSUInteger lastCharPos = _pos - 1;
 
     if (lastCharPos > _attrstr.length)
         lastCharPos = 0;
 
-   NSNumber *linkVal = (NSNumber *)[_attrstr attribute:NSLinkAttributeName
-                               atIndex:lastCharPos
-                        effectiveRange:nil];
+    NSNumber *linkVal = (NSNumber *)[_attrstr
+                                     attribute:NSLinkAttributeName
+                                     atIndex:lastCharPos
+                                     effectiveRange:nil];
 
     NSUInteger linkid = linkVal.unsignedIntegerValue;
 
     if (!label.length) {
-        label = [NSString stringWithFormat: @"%@attached image", linkid ? @"Clickable " : @""];
+        if (linkid)
+            label = @"Clickable attached image";
+        else
+            label = @"Attached image";
     }
     return label;
+}
+
+- (NSSize)cellSize {
+    if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
+        return NSZeroSize;
+    }
+    return [super cellSize];
+}
+
+- (NSRect)cellFrameForTextContainer:(NSTextContainer *)textContainer
+               proposedLineFragment:(NSRect)lineFrag
+                      glyphPosition:(NSPoint)position
+                     characterIndex:(NSUInteger)charIndex {
+    if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
+        return NSZeroRect;
+    }
+    return [super cellFrameForTextContainer:textContainer
+                       proposedLineFragment:lineFrag
+                              glyphPosition:position
+                             characterIndex:charIndex];
+}
+
+- (void)drawWithFrame:(NSRect)cellFrame
+               inView:(NSView *)controlView {
+    switch (align) {
+        case imagealign_MarginLeft:
+        case imagealign_MarginRight:
+            break;
+        default:
+            [super drawWithFrame:cellFrame
+                          inView:controlView];
+            break;
+    }
+}
+
+- (void)drawWithFrame:(NSRect)cellFrame
+               inView:(NSView *)controlView
+       characterIndex:(NSUInteger)charIndex {
+    switch (align) {
+        case imagealign_MarginLeft:
+        case imagealign_MarginRight:
+            break;
+        default:
+            [super drawWithFrame:cellFrame
+                          inView:controlView
+                  characterIndex:charIndex];
+            break;
+    }
+
+}
+
+- (void)drawWithFrame:(NSRect)cellFrame
+               inView:(NSView *)controlView
+       characterIndex:(NSUInteger)charIndex
+        layoutManager:(NSLayoutManager *)layoutManager  {
+    switch (align) {
+        case imagealign_MarginLeft:
+        case imagealign_MarginRight:
+            break;
+        default:
+            [super drawWithFrame:cellFrame
+                          inView:controlView
+                  characterIndex:charIndex
+                   layoutManager:layoutManager];
+            break;
+    }
+
+}
+
+- (void)highlight:(BOOL)flag
+        withFrame:(NSRect)cellFrame
+           inView:(NSView *)controlView {
+    switch (align) {
+        case imagealign_MarginLeft:
+        case imagealign_MarginRight:
+            break;
+        default:
+            [super highlight:flag
+                   withFrame:cellFrame
+                      inView:controlView];
+            break;
+    }
 }
 
 

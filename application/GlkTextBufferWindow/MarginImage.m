@@ -22,8 +22,7 @@
 
 - (instancetype)init {
     return [self
-        initWithImage:[[NSImage alloc]
-                          initWithContentsOfFile:@"../Resources/Question.png"]
+        initWithImage:[[NSImage alloc] initWithContentsOfFile:@"../Resources/Question.png"]
                 align:kAlignLeft
                linkid:0
                    at:0
@@ -46,7 +45,6 @@
         _container = sender;
 
         self.accessibilityParent = _container.textView;
-
         self.accessibilityRoleDescription = [self customA11yLabel];
     }
     return self;
@@ -151,9 +149,10 @@
 - (NSString *)customA11yLabel {
     NSString *label = _image.accessibilityDescription;
     if (!label.length) {
-        label = [NSString stringWithFormat: @"%@ margin image", _alignment == imagealign_MarginLeft ? @"Left" : @"Right"];
         if (_linkid) {
-            label = [label stringByAppendingFormat:@" with link I.D. %ld", _linkid];
+            label = [NSString stringWithFormat: @"Clickable %@ margin image", _alignment == imagealign_MarginLeft ? @"left" : @"right"];
+        } else {
+            label = [NSString stringWithFormat: @"%@ margin image", _alignment == imagealign_MarginLeft ? @"Left" : @"Right"];
         }
     }
     return label;

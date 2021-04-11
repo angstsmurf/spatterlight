@@ -7,6 +7,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class MarginImage;
+
 NS_ASSUME_NONNULL_BEGIN
 
 // I suppose this is necessary to get rid of that ugly Markup menu on attached
@@ -15,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MyAttachmentCell : NSTextAttachmentCell <NSSecureCoding>
 
 @property (weak) NSAttributedString *attrstr;
+@property (weak) MarginImage *marginImage;
 @property NSUInteger pos;
 
 - (instancetype)initImageCell:(NSImage *)image
