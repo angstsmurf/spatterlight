@@ -17,6 +17,7 @@
 #import "MarginImage.h"
 #import "MyAttachmentCell.h"
 #import "Theme.h"
+#import "SubImage.h"
 
 #include "glk.h"
 
@@ -292,18 +293,19 @@
 
     NSArray *allWindows = _glkctl.gwindows.allValues;
     for (GlkWindow *view in allWindows) {
-        if ([view isKindOfClass:[GlkTextBufferWindow class]]) {
+        if (![view isKindOfClass:[GlkTextGridWindow class]]) {
             NSArray *viewimages = [view images];
             __block NSString *label;
             if (filterText.length && viewimages.count) {
                 viewimages = [viewimages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
-                    if ([object isKindOfClass:[MarginImage class]]) {
-                        MarginImage *marginImage = (MarginImage *)object;
-                        label = marginImage.customA11yLabel;
-                    } else if ([object isKindOfClass:[NSTextAttachment class]]) {
-                        MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)object).attachmentCell;
+                    if ([object isKindOfClass:[SubImage class]]) {
+                        label = ((SubImage *)object).accessibilityLabel;
+                    } else if ([object isKindOfClass:[NSValue class]]) {
+                        NSTextStorage *txtstorage = ((GlkTextBufferWindow *)view).textview.textStorage;
+                        NSTextAttachment *attachment = [txtstorage attribute:NSAttachmentAttributeName atIndex:((NSValue *)object).rangeValue.location effectiveRange:nil];
+                        MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
                         label = cell.customA11yLabel;
-                    } NSLog(@"Unknown class!");
+                    } else NSLog(@"Unknown class! %@", [object class]);
                     BOOL result = [label localizedCaseInsensitiveContainsString:filterText];
                     return result;
                 }]];
@@ -311,8 +313,12 @@
 
             [children addObjectsFromArray:viewimages];
 
-            while (targetViews.count < children.count)
-                [targetViews addObject:((GlkTextBufferWindow *)view).textview];
+            id object = [NSNull null];
+            while (targetViews.count < children.count) {
+                if ([view isKindOfClass:[GlkTextBufferWindow class]])
+                    object = ((GlkTextBufferWindow *)view).textview;
+                [targetViews addObject:object];
+            }
         }
     }
 
@@ -331,12 +337,13 @@
         NSUInteger pos = currentItemResult.targetRange.location;
         NSUInteger index = 0;
         for (id child in children) {
-            if ([child isKindOfClass:[NSTextAttachment class]]) {
-                MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)child).attachmentCell;
-                NSLog(@"pos: %ld cell.pos: %ld", pos, cell.pos);
+            if ([child isKindOfClass:[NSValue class]]) {
+                BufferTextView *view = targetViews[index];
+                NSTextStorage *txtstorage = view.textStorage;
+                NSTextAttachment *attachment = [txtstorage attribute:NSAttachmentAttributeName atIndex:((NSValue *)child).rangeValue.location effectiveRange:nil];
+                MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
                 if (pos == cell.pos + 1) {
                     currentItemIndex = index;
-                    NSLog(@"Attached image found at index %ld", index);
                     break;
                 }
             }
@@ -379,17 +386,20 @@
     NSString *label = @"image";
 
     if (targetImage) {
-        if ([targetImage isKindOfClass:[NSTextAttachment class]]) {
-            MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)targetImage).attachmentCell;
-            targetImage = targetViews[currentItemIndex];
-            NSRange allText = NSMakeRange(0, ((BufferTextView *)targetImage).string.length);
-            NSRange range = NSIntersectionRange(NSMakeRange(cell.pos + 1, 1), allText);
-            searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:targetImage];
+        if ([targetImage isKindOfClass:[NSValue class]]) {
+            NSRange range = ((NSValue *)targetImage).rangeValue;
+            BufferTextView *view = targetViews[currentItemIndex];
+            NSTextAttachment *attachment = [view.textStorage attribute:NSAttachmentAttributeName atIndex:range.location effectiveRange:nil];
+            MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
+            NSRange allText = NSMakeRange(0, view.string.length);
+            range = NSIntersectionRange(range, allText);
+            searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:view];
             searchResult.targetRange = range;
             label = cell.customA11yLabel;
         } else {
             searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:targetImage];
-            label = ((MarginImage *)targetImage).customA11yLabel;
+            label = ((SubImage *)targetImage).accessibilityLabel;
+            searchResult.targetRange = NSMakeRange(0, 0);
         }
         searchResult.customLabel = [NSString stringWithFormat:@"%ld. %@", currentItemIndex + 1, label];
     }
@@ -508,7 +518,7 @@
             if (![view isKindOfClass:[GlkGraphicsWindow class]] && view.links.count) {
                 hasLinks = YES;
             }
-            if ([view isKindOfClass:[GlkTextBufferWindow class]] && view.images.count) {
+            if (![view isKindOfClass:[GlkTextGridWindow class]] && view.images.count) {
                 hasImages = YES;
             }
         }

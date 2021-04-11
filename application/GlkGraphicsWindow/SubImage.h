@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SubImage : NSAccessibilityElement
 
+@property NSRect frameRect;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -25,22 +25,22 @@
 		6D2C86EC225E8671004A5A75 /* spatterlight-restart.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C86EA225E8671004A5A75 /* spatterlight-restart.m */; };
 		6D2C86ED225E8671004A5A75 /* spatterlight-trace.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C86EB225E8671004A5A75 /* spatterlight-trace.m */; };
 		6D2C870C225EA75C004A5A75 /* tracelog.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C8695225E5291004A5A75 /* tracelog.c */; };
-		6D395C021EAD095E0070886C /* accel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941B1EAC1BC4003DA5C4 /* accel.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C041EAD095E0070886C /* exec.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941D1EAC1BC4003DA5C4 /* exec.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C051EAD095E0070886C /* files.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941E1EAC1BC4003DA5C4 /* files.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C061EAD095E0070886C /* float.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941F1EAC1BC4003DA5C4 /* float.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C071EAD095E0070886C /* funcs.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494201EAC1BC4003DA5C4 /* funcs.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C081EAD095E0070886C /* gestalt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494211EAC1BC4003DA5C4 /* gestalt.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C0A1EAD095E0070886C /* glkop.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494231EAC1BC4003DA5C4 /* glkop.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C0C1EAD095E0070886C /* heap.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494261EAC1BC4003DA5C4 /* heap.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C0E1EAD095E0070886C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54942B1EAC1BC4003DA5C4 /* main.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C101EAD095E0070886C /* operand.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54942E1EAC1BC4003DA5C4 /* operand.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C111EAD095E0070886C /* osdepend.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54942F1EAC1BC4003DA5C4 /* osdepend.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C131EAD095E0070886C /* profile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494311EAC1BC4003DA5C4 /* profile.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C151EAD095E0070886C /* search.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494331EAC1BC4003DA5C4 /* search.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C161EAD095E0070886C /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494341EAC1BC4003DA5C4 /* serial.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C171EAD095E0070886C /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494351EAC1BC4003DA5C4 /* string.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D395C191EAD095E0070886C /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494371EAC1BC4003DA5C4 /* vm.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6D395C021EAD095E0070886C /* accel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941B1EAC1BC4003DA5C4 /* accel.c */; };
+		6D395C041EAD095E0070886C /* exec.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941D1EAC1BC4003DA5C4 /* exec.c */; };
+		6D395C051EAD095E0070886C /* files.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941E1EAC1BC4003DA5C4 /* files.c */; };
+		6D395C061EAD095E0070886C /* float.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54941F1EAC1BC4003DA5C4 /* float.c */; };
+		6D395C071EAD095E0070886C /* funcs.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494201EAC1BC4003DA5C4 /* funcs.c */; };
+		6D395C081EAD095E0070886C /* gestalt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494211EAC1BC4003DA5C4 /* gestalt.c */; };
+		6D395C0A1EAD095E0070886C /* glkop.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494231EAC1BC4003DA5C4 /* glkop.c */; };
+		6D395C0C1EAD095E0070886C /* heap.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494261EAC1BC4003DA5C4 /* heap.c */; };
+		6D395C0E1EAD095E0070886C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54942B1EAC1BC4003DA5C4 /* main.c */; };
+		6D395C101EAD095E0070886C /* operand.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54942E1EAC1BC4003DA5C4 /* operand.c */; };
+		6D395C111EAD095E0070886C /* osdepend.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D54942F1EAC1BC4003DA5C4 /* osdepend.c */; };
+		6D395C131EAD095E0070886C /* profile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494311EAC1BC4003DA5C4 /* profile.c */; };
+		6D395C151EAD095E0070886C /* search.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494331EAC1BC4003DA5C4 /* search.c */; };
+		6D395C161EAD095E0070886C /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494341EAC1BC4003DA5C4 /* serial.c */; };
+		6D395C171EAD095E0070886C /* string.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494351EAC1BC4003DA5C4 /* string.c */; };
+		6D395C191EAD095E0070886C /* vm.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D5494371EAC1BC4003DA5C4 /* vm.c */; };
 		6D5494441EAC1BC4003DA5C4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494291EAC1BC4003DA5C4 /* LICENSE */; };
 		6D54944C1EAC1BC4003DA5C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6D5494321EAC1BC4003DA5C4 /* README.md */; };
 		6D5C1BD222BC2456009E03F2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
@@ -220,19 +220,19 @@
 		9611545B0A4F413200BB7FF2 /* cocoimage.cc in Sources */ = {isa = PBXBuildFile; fileRef = 961153A00A4F389700BB7FF2 /* cocoimage.cc */; };
 		9611545C0A4F413200BB7FF2 /* cocosound.cc in Sources */ = {isa = PBXBuildFile; fileRef = 961153A10A4F389700BB7FF2 /* cocosound.cc */; };
 		9611545D0A4F413200BB7FF2 /* mainhtml.cc in Sources */ = {isa = PBXBuildFile; fileRef = 961153A30A4F389700BB7FF2 /* mainhtml.cc */; };
-		961CCE9709F2383F00528FF9 /* blorb.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8209F2381B00528FF9 /* blorb.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCE9809F2383F00528FF9 /* connect.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8309F2381B00528FF9 /* connect.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCE9909F2383F00528FF9 /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8409F2381B00528FF9 /* event.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCE9A09F2383F00528FF9 /* fileref.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8509F2381B00528FF9 /* fileref.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCE9B09F2383F00528FF9 /* gestalt.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8609F2381B00528FF9 /* gestalt.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCE9C09F2383F00528FF9 /* gi_blorb.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8709F2381B00528FF9 /* gi_blorb.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCE9D09F2383F00528FF9 /* gi_dispa.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8909F2381B00528FF9 /* gi_dispa.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCE9F09F2383F00528FF9 /* image.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8F09F2381B00528FF9 /* image.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCEA109F2383F00528FF9 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9109F2381B00528FF9 /* misc.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCEA309F2383F00528FF9 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9409F2381B00528FF9 /* stream.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCEA409F2383F00528FF9 /* stylehint.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9509F2381B00528FF9 /* stylehint.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCEA509F2383F00528FF9 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9609F2381B00528FF9 /* window.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		961CCEB809F2397D00528FF9 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9009F2381B00528FF9 /* main.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		961CCE9709F2383F00528FF9 /* blorb.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8209F2381B00528FF9 /* blorb.c */; };
+		961CCE9809F2383F00528FF9 /* connect.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8309F2381B00528FF9 /* connect.c */; };
+		961CCE9909F2383F00528FF9 /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8409F2381B00528FF9 /* event.c */; };
+		961CCE9A09F2383F00528FF9 /* fileref.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8509F2381B00528FF9 /* fileref.c */; };
+		961CCE9B09F2383F00528FF9 /* gestalt.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8609F2381B00528FF9 /* gestalt.c */; };
+		961CCE9C09F2383F00528FF9 /* gi_blorb.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8709F2381B00528FF9 /* gi_blorb.c */; };
+		961CCE9D09F2383F00528FF9 /* gi_dispa.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8909F2381B00528FF9 /* gi_dispa.c */; };
+		961CCE9F09F2383F00528FF9 /* image.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE8F09F2381B00528FF9 /* image.c */; };
+		961CCEA109F2383F00528FF9 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9109F2381B00528FF9 /* misc.c */; };
+		961CCEA309F2383F00528FF9 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9409F2381B00528FF9 /* stream.c */; };
+		961CCEA409F2383F00528FF9 /* stylehint.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9509F2381B00528FF9 /* stylehint.c */; };
+		961CCEA509F2383F00528FF9 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9609F2381B00528FF9 /* window.c */; };
+		961CCEB809F2397D00528FF9 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 961CCE9009F2381B00528FF9 /* main.c */; };
 		961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEDA09F239E700528FF9 /* GlkEvent.m */; };
 		961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEDC09F239E700528FF9 /* GlkGraphicsWindow.m */; };
 		961CCEF109F23A0000528FF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEDE09F239E700528FF9 /* AppDelegate.m */; };
@@ -248,7 +248,7 @@
 		961CCF4609F2947700528FF9 /* HUGO License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2A09F2940F00528FF9 /* HUGO License.rtf */; };
 		961CCF4709F2947700528FF9 /* SDL License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 961CCF2B09F2940F00528FF9 /* SDL License.rtf */; };
 		961DC9370A108DE10044A0D4 /* quill.c in Sources */ = {isa = PBXBuildFile; fileRef = 961DC9360A108DE10044A0D4 /* quill.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		96264AC50A494A5E0093569C /* cgunicod.c in Sources */ = {isa = PBXBuildFile; fileRef = 96264AC30A494A5D0093569C /* cgunicod.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		96264AC50A494A5E0093569C /* cgunicod.c in Sources */ = {isa = PBXBuildFile; fileRef = 96264AC30A494A5D0093569C /* cgunicod.c */; };
 		9650370909F29F520083E64E /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650327709F29EE20083E64E /* buffer.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9650370A09F29F520083E64E /* err.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650327909F29EE20083E64E /* err.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9650370B09F29F520083E64E /* fastmem.c in Sources */ = {isa = PBXBuildFile; fileRef = 9650327A09F29EE20083E64E /* fastmem.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -568,7 +568,7 @@
 		C343E49B1ECC6796000F15B6 /* t3askf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49A1ECC6796000F15B6 /* t3askf.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C343E49D1ECC679D000F15B6 /* t3indlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49C1ECC679D000F15B6 /* t3indlg.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C343E4A01ECC67C8000F15B6 /* t2askf.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E49F1ECC67C8000F15B6 /* t2askf.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; };
 		C35978C125DA14A6004B1448 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C35978C525DA14A6004B1448 /* iFictionPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35978C425DA14A6004B1448 /* iFictionPreviewController.m */; };
 		C35978C825DA14A6004B1448 /* iFictionPreviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C35978C625DA14A6004B1448 /* iFictionPreviewController.xib */; };
@@ -647,7 +647,7 @@
 		C3EEF5C025F2D8F000FA19CE /* Quicklook.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */; };
 		C3EEF5C125F2D8F000FA19CE /* Quicklook.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3EEF5BF25F2D8F000FA19CE /* Quicklook.xcassets */; };
 		C3EF065D1ECE5FF2008EED04 /* vmvec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965036DC09F29EE60083E64E /* vmvec.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EF065E1ECE60D0008EED04 /* cgdate.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C3EF065F1ECE60D1008EED04 /* cgdate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EF065E1ECE60D0008EED04 /* cgdate.c */; };
 		C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
 /* End PBXBuildFile section */
@@ -5042,10 +5042,10 @@
 		C3CB8CA4261DCCF30039DA31 /* GlkGraphicsWindow */ = {
 			isa = PBXGroup;
 			children = (
-				961CCEDB09F239E700528FF9 /* GlkGraphicsWindow.h */,
-				961CCEDC09F239E700528FF9 /* GlkGraphicsWindow.m */,
 				C3CB8CF0261DCD280039DA31 /* SubImage.h */,
 				C3CB8CF1261DCD280039DA31 /* SubImage.m */,
+				961CCEDB09F239E700528FF9 /* GlkGraphicsWindow.h */,
+				961CCEDC09F239E700528FF9 /* GlkGraphicsWindow.m */,
 			);
 			path = GlkGraphicsWindow;
 			sourceTree = "<group>";

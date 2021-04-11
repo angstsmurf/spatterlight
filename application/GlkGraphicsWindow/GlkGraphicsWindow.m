@@ -16,7 +16,8 @@
 
     BOOL mouse_request;
     BOOL transparent;
-    NSMutableArray *dirtyRects;
+    NSMutableArray <NSValue *> *dirtyRects;
+    NSMutableArray <SubImage *> *subImages;
 }
 @end
 
@@ -36,6 +37,7 @@
 
         mouse_request = NO;
         transparent = NO;
+        subImages = [NSMutableArray new];
         dirtyRects = [NSMutableArray new];
     }
 
@@ -49,6 +51,7 @@
         dirty = YES;
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
+        subImages =  [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"subImages"];
         dirtyRects = [NSMutableArray new];
     }
     return self;
@@ -57,6 +60,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     [encoder encodeObject:image forKey:@"image"];
+    [encoder encodeObject:subImages forKey:@"subImages"];
     [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeBool:transparent forKey:@"transparent"];
 }
@@ -140,6 +144,12 @@
     if (size.width == 0 || size.height == 0 || size.height > INT_MAX)
         return;
 
+    NSRect unionRect = NSZeroRect;
+    if (count) {
+        unionRect.origin.x = rects[0].x;
+        unionRect.origin.y = rects[0].y;
+    }
+
     @autoreleasepool {
         bitmap = [[NSBitmapImageRep alloc]
                   initWithBitmapDataPlanes:NULL
@@ -172,6 +182,8 @@
             NSInteger ry0 = rects[i].y;
             NSInteger rx1 = rx0 + rects[i].w;
             NSInteger ry1 = ry0 + rects[i].h;
+
+            unionRect = NSUnionRect(unionRect, NSMakeRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h));
 
             if (ry0 < 0)
                 ry0 = 0;
@@ -214,18 +226,20 @@
         [image unlockFocus];
     }
 
-    [dirtyRects addObject:@(NSMakeRect(0, 0, size.width, size.height))];
+    NSRect florpedRect = [self florpCoords:unionRect];
+    [dirtyRects addObject:@(florpedRect)];
+    [self pruneSubimagesInRect:florpedRect];
     dirty = YES;
 }
 
 - (void)flushDisplay {
     if (dirty)
-   {
-       for (NSValue *val in dirtyRects) {
-           NSRect rect = val.rectValue;
-           [self setNeedsDisplayInRect:rect];
-       }
-   }
+    {
+        for (NSValue *val in dirtyRects) {
+            NSRect rect = val.rectValue;
+            [self setNeedsDisplayInRect:rect];
+        }
+    }
     dirtyRects = [NSMutableArray new];
     dirty = NO;
 }
@@ -275,8 +289,18 @@
     dirty = YES;
     [dirtyRects addObject:@(florpedRect)];
 
-    if (src.accessibilityDescription.length)
-        self.accessibilityLabel = src.accessibilityDescription;
+    [self pruneSubimagesInRect:florpedRect];
+
+    if (src.accessibilityDescription.length) {
+        SubImage *subImage = [SubImage new];
+        subImage.accessibilityLabel = src.accessibilityDescription;
+        subImage.accessibilityParent = self;
+        subImage.accessibilityRole = NSAccessibilityImageRole;
+        subImage.frameRect = florpedRect;
+
+        [subImages addObject:subImage];
+        self.accessibilityLabel = subImages.firstObject.accessibilityLabel;
+    }
 }
 
 - (void)initMouse {
@@ -354,13 +378,14 @@
 - (NSString *)accessibilityRoleDescription {
         return [NSString
             stringWithFormat:@"Graphics window%@%@",
-                             mouse_request ? @", waiting for mouse clicks"
-                                           : @"",
+                             mouse_request ? @", waiting for mouse clicks" : @"",
                              char_request ? @", waiting for a key press" : @""];
 }
 
 - (NSArray *)images {
-    NSLog(@"images in %@ not implemented", [self class]);
+    if (subImages.count) {
+        return subImages;
+    }
     return @[];
 }
 
@@ -403,6 +428,54 @@
 }
 
 - (BOOL)isAccessibilityElement {
+    return YES;
+}
+
+- (NSArray *)accessibilityChildren {
+    NSArray *children = [super accessibilityChildren];
+
+//    NSEnumerator *enumerator = [subImages reverseObjectEnumerator];
+//    SubImage *img;
+//    while ((img = [enumerator nextObject]))
+//    {
+//        [self pruneSubimagesFrom:img];
+//    }
+
+    for (SubImage *si in subImages) {
+        children = [children arrayByAddingObject:si];
+        NSRect bounds = NSAccessibilityFrameInView(self, si.frameRect);
+        si.accessibilityFrame = bounds;
+    }
+    return children;
+}
+
+- (void)pruneSubimagesInRect:(NSRect)rect {
+//    NSEnumerator *enumerator = [subImages.copy objectEnumerator];
+    NSEnumerator *enumerator = [subImages.copy reverseObjectEnumerator];
+    SubImage *img;
+    while (img = [enumerator nextObject]) {
+        if ([self rect:rect coversRect:img.frameRect]) {
+            [subImages removeObject:img];
+        }
+    }
+}
+
+- (BOOL)rect:(NSRect)newrect coversRect:(NSRect)oldrect {
+    NSRect intersection = NSIntersectionRect(newrect, oldrect);
+
+    if (NSEqualRects(intersection, NSZeroRect))
+        return NO;
+
+    CGFloat intersectionarea = intersection.size.height * intersection.size.width;
+
+    CGFloat oldrectarea = oldrect.size.height * oldrect.size.width;
+
+    if ((oldrectarea - intersectionarea) / oldrectarea > 0.5)
+        return NO;
+
+//    if (intersection.size.height * intersection.size.width / oldrect.size.height * oldrect.size.width < 0.7)
+//        return NO;
+
     return YES;
 }
 
