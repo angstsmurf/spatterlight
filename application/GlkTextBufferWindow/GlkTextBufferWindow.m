@@ -1888,13 +1888,17 @@ replacementString:(id)repl {
 }
 
 - (void)smoothScrollToPosition:(CGFloat)position {
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
-        context.duration = 0.3;
-        NSClipView* clipView = scrollview.contentView;
-        NSPoint newOrigin = clipView.bounds.origin;
-        newOrigin.y = position;
-        clipView.animator.boundsOrigin = newOrigin;
-    } completionHandler:nil];
+    NSClipView* clipView = scrollview.contentView;
+    NSRect newBounds = clipView.bounds;
+    newBounds.origin.y = position;
+    if (self.theme.smoothScroll) {
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
+            context.duration = 0.3;
+            clipView.animator.boundsOrigin = newBounds.origin;
+        } completionHandler:nil];
+    } else {
+        clipView.bounds = newBounds;
+    }
 }
 
 - (BOOL)scrolledToTop {

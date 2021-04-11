@@ -1339,6 +1339,7 @@ NSString *fontToString(NSFont *font) {
 
     _btnVOSpeakCommands.state = theme.vOSpeakCommand;
     [_vOMenuButton selectItemAtIndex:theme.vOSpeakMenu];
+    [_vOImagesButton selectItemAtIndex:theme.vOSpeakImages];
 
     NSString *beepHigh = theme.beepHigh;
     NSString *beepLow = theme.beepLow;
@@ -1362,6 +1363,7 @@ NSString *fontToString(NSFont *font) {
     _bZVerticalTextField.integerValue = theme.bZAdjustment;
     _bZVerticalStepper.integerValue = theme.bZAdjustment;
 
+    _btnSmoothScroll.state = theme.smoothScroll;
     _btnAutosave.state = theme.autosave;
     _btnAutosaveOnTimer.state = theme.autosaveOnTimer;
     _btnAutosaveOnTimer.enabled = _btnAutosave.state ? YES : NO;
@@ -2328,6 +2330,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
     themeToChange.vOSpeakMenu = (int)[sender selectedTag];
 }
 
+- (IBAction)changeVOImageMenu:(id)sender {
+    if (theme.vOSpeakImages == (int)[sender selectedTag])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.vOSpeakImages = (int)[sender selectedTag];
+}
+
 #pragma mark ZCode menu
 
 - (IBAction)changeBeepHighMenu:(id)sender {
@@ -2423,6 +2432,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [defaults setBool:NO forKey:@"OverwriteStylesAlertSuppression"];
     [defaults setBool:NO forKey:@"AutorestoreAlertSuppression"];
     [defaults setBool:NO forKey:@"closeAlertSuppression"];
+}
+
+- (IBAction)changeSmoothScroll:(id)sender {
+    if (theme.smoothScroll == [sender state])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.smoothScroll = [sender state] ? YES : NO;
 }
 
 - (IBAction)changeAutosaveOnTimer:(id)sender {
