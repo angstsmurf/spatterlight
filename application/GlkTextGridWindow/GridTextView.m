@@ -48,6 +48,12 @@
     return children;
 }
 
+- (void)mouseMoved:(NSEvent *)event {
+    [super mouseMoved:event];
+    if ([[NSCursor currentCursor] isEqualTo:[NSCursor IBeamCursor]])
+        [[NSCursor arrowCursor] set];
+}
+
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
     GlkTextGridWindow *delegate = (GlkTextGridWindow *)self.delegate;
     NSArray *actions = [delegate.glkctl accessibilityCustomActions];

@@ -520,7 +520,6 @@
 }
 
 - (void)flushDisplay {
-    _textview.editable = YES;
     NSRange selectedRange = _textview.selectedRange;
     NSString *selectedString = [textstorage.string substringWithRange:selectedRange];
     _selectedRow = selectedRange.location / (cols + 1);
@@ -562,9 +561,6 @@
         }
     }
     _restoredSelection = _textview.selectedRange;
-
-//    [super flushDisplay];
-    _textview.editable = NO;
 }
 
 #pragma mark Printing, moving, resizing
@@ -1340,9 +1336,6 @@
     MyTextFormatter *inputFormatter =
     [[MyTextFormatter alloc] initWithMaxLength:maxLength];
     self.input.formatter = inputFormatter;
-
-    NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:caret options: (NSTrackingActiveAlways | NSTrackingMouseEnteredAndExited) owner:self.input userInfo:nil];
-    [self.input addTrackingArea:trackingArea];
 
     [_textview addSubview:self.input];
 
