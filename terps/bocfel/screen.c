@@ -456,6 +456,11 @@ static void put_char_base(uint16_t c, bool unicode)
             // newline, and this makes the most sense, so don’t do any
             // translation in that case.
             if (curwin->font == FONT_CHARACTER && !options.disable_graphics_font && c != UNICODE_LINEFEED) {
+#ifdef SPATTERLIGHT
+                // Spatterlight uses a real Font 3 and does not need any conversion.
+                // We use the BlockQuote style to mark Font 3 because it has no other special use.
+                glk_set_style(style_BlockQuote);
+#else
                 zscii = unicode_to_zscii[c];
 
                 // These four characters have a “built-in” reverse video (see §16).
@@ -465,6 +470,7 @@ static void put_char_base(uint16_t c, bool unicode)
                 }
 
                 c = zscii_to_font3[zscii];
+#endif
             }
 #ifdef ZTERP_GLK
             if ((streams & STREAM_SCREEN) && curwin->id != NULL) {
