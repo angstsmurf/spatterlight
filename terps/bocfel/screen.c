@@ -25,6 +25,9 @@
 
 #ifdef ZTERP_GLK
 #include "glk.h"
+#ifdef SPATTERLIGHT
+#include "glkimp.h"
+#endif
 
 #if defined(ZTERP_WIN32) && !defined(GARGLK)
 // rpcndr.h, eventually included via WinGlk.h, defines a type “byte”
@@ -978,11 +981,25 @@ void term_keys_add(uint8_t key)
     case ZSCII_F11:   insert_key(keycode_Func11); break;
     case ZSCII_F12:   insert_key(keycode_Func12); break;
 
+#ifdef SPATTERLIGHT
+    // Spatterlight supports keypad 0–9
+    case ZSCII_KEY0:  insert_key(keycode_Pad0); break;
+    case ZSCII_KEY1:  insert_key(keycode_Pad1); break;
+    case ZSCII_KEY2:  insert_key(keycode_Pad2); break;
+    case ZSCII_KEY3:  insert_key(keycode_Pad3); break;
+    case ZSCII_KEY4:  insert_key(keycode_Pad4); break;
+    case ZSCII_KEY5:  insert_key(keycode_Pad5); break;
+    case ZSCII_KEY6:  insert_key(keycode_Pad6); break;
+    case ZSCII_KEY7:  insert_key(keycode_Pad7); break;
+    case ZSCII_KEY8:  insert_key(keycode_Pad8); break;
+    case ZSCII_KEY9:  insert_key(keycode_Pad9); break;
+#else
     // Keypad 0–9 should be here, but Glk doesn’t support that.
     case ZSCII_KEY0: case ZSCII_KEY1: case ZSCII_KEY2: case ZSCII_KEY3:
     case ZSCII_KEY4: case ZSCII_KEY5: case ZSCII_KEY6: case ZSCII_KEY7:
     case ZSCII_KEY8: case ZSCII_KEY9:
         break;
+#endif
 
     case ZSCII_CLICK_SINGLE:
         term_mouse = true;
