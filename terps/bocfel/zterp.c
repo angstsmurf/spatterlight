@@ -39,7 +39,7 @@
 #include "util.h"
 
 #ifdef ZTERP_GLK
-#include <glk.h>
+#include "glk.h"
 #endif
 
 #define MAX_LINE	2048

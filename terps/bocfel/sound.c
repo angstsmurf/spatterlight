@@ -23,7 +23,7 @@
 #include "zterp.h"
 
 #ifdef ZTERP_GLK
-#include <glk.h>
+#include "glk.h"
 #endif
 
 #ifdef GLK_MODULE_SOUND

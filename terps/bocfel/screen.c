@@ -24,7 +24,7 @@
 #include <inttypes.h>
 
 #ifdef ZTERP_GLK
-#include <glk.h>
+#include "glk.h"
 
 #if defined(ZTERP_WIN32) && !defined(GARGLK)
 // rpcndr.h, eventually included via WinGlk.h, defines a type “byte”

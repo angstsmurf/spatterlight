@@ -27,7 +27,7 @@
 #include "zterp.h"
 
 #ifdef ZTERP_GLK
-#include <glk.h>
+#include "glk.h"
 #endif
 
 #ifndef ZTERP_NO_SAFETY_CHECKS
