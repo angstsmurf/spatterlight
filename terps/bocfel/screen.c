@@ -844,6 +844,12 @@ static void resize_upper_window(long nlines, bool from_game)
         if (upper_window_height <= nlines || saw_input) {
             update_delayed();
         }
+#ifdef SPATTERLIGHT
+        else {
+            win_quotebox(upperwin->id->peer, (int)nlines);
+              update_delayed();
+        }
+#endif
         saw_input = false;
 
         // §8.6.1.1.2
