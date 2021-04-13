@@ -2460,11 +2460,11 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (void)handleUnprintOnWindow:(GlkWindow *)win string:(unichar *)buf length:(size_t)len {
+- (NSUInteger)handleUnprintOnWindow:(GlkWindow *)win string:(unichar *)buf length:(size_t)len {
     NSString *str = [NSString stringWithCharacters:buf length:(NSUInteger)len];
     if (str == nil || len == 0)
-        return;
-    [win unputString:str];
+        return 0;
+    return [win unputString:str];
 }
 
 
@@ -2850,8 +2850,11 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case UNPRINT:
+            ans->cmd = OKAY;
+            ans->a1 = 0;
+            ans->a2 = 0;
             if (reqWin && req->len) {
-                [self handleUnprintOnWindow:reqWin string:(unichar *)buf length:req->len / sizeof(unichar)];
+                ans->a1 = [self handleUnprintOnWindow:reqWin string:(unichar *)buf length:req->len / sizeof(unichar)];
             }
             break;
 

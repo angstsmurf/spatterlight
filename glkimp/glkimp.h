@@ -96,7 +96,7 @@ void win_timer(int millisecs);
 void win_select(event_t *event, int block);
 void win_flush(void);
 void win_print(int name, int ch, int at);
-void win_unprint(int name, glui32 *s, int len);
+glui32 win_unprint(int name, glui32 *s, int len);
 
 void win_fillrect(int name, glui32 color, int left, int top, int width, int height);
 void win_flowbreak(int name);

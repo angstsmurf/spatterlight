@@ -461,6 +461,8 @@ extern void garglk_set_config(const char *name);
  * indeed it is there. */
 extern void garglk_unput_string(char *str);
 extern void garglk_unput_string_uni(glui32 *str);
+extern glui32 garglk_unput_string_count(char *str);
+extern glui32 garglk_unput_string_count_uni(glui32 *str);
 
 #define zcolor_Transparent   ((glui32)0xfffffffc)
 #define zcolor_Cursor        ((glui32)0xfffffffd)

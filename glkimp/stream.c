@@ -930,39 +930,6 @@ void gli_stream_echo_line(stream_t *str, char *buf, glui32 len)
     gli_put_char(str, '\n');
 }
 
-static void gli_unput_buffer(stream_t *str, char *buf, glui32 len)
-{
-    glui32 lx;
-    unsigned char *cx;
-
-    if (!str || !str->writable)
-        return;
-
-    if (str->type == strtype_Window)
-    {
-        if (str->win->line_request || str->win->line_request_uni)
-        {
-            //            if (gli_conf_safeclicks && gli_forceclick)
-            //            {
-            //                glk_cancel_line_event(str->win, NULL);
-            //                gli_forceclick = 0;
-            //            }
-            //            else
-            //            {
-            gli_strict_warning("unput_buffer: window has pending line request");
-            return;
-            //            }
-        }
-        for (lx = 0, cx = (unsigned char *)buf + len - 1; lx < len; lx++, cx--)
-        {
-            str->writecount--;
-        }
-        if (str->win->echostr)
-            gli_unput_buffer(str->win->echostr, buf, len);
-    }
-}
-
-
 #ifdef GLK_MODULE_UNICODE
 
 void gli_stream_echo_line_uni(stream_t *str, glui32 *buf, glui32 len)
@@ -1858,22 +1825,50 @@ void gli_sanity_check_streams()
     }
 }
 
-void garglk_unput_string_uni(glui32 *s)
+glui32 garglk_unput_string_count_uni(glui32 *s)
 {
     if (gli_currentstr == NULL)
-        return;
+        return 0;
     int len = strlen_uni(s);
-    win_unprint(gli_currentstr->win->peer, (glui32 *)s,  len);
-    gli_currentstr->win->str->writecount -= len;
-    if (gli_currentstr->win->echostr)
-        gli_currentstr->win->echostr->writecount -= len;
+    glui32 result = win_unprint(gli_currentstr->win->peer, (glui32 *)s,  len);
+    if (result)
+    {
+        gli_currentstr->win->str->writecount -= len;
+        if (gli_currentstr->win->echostr)
+            gli_currentstr->win->echostr->writecount -= len;
+    }
+    return result;
+}
+
+glui32 garglk_unput_string_count(char *s)
+{
+    if (gli_currentstr == NULL)
+        return 0;
+    // Stub until we have win_unprint_latin1
+
+//    int len = strlen(s);
+//    glui32 result = win_unprint_latin1(gli_currentstr->win->peer, (glui32 *)s,  len);
+//    if (result)
+//    {
+//        gli_currentstr->win->str->writecount -= len;
+//        if (gli_currentstr->win->echostr)
+//            gli_currentstr->win->echostr->writecount -= len;
+//    }
+//    return result;
+    return 0;
 }
 
 void garglk_unput_string(char *s)
-{
-    gli_unput_buffer(gli_currentstr, s, strlen(s));
-}
+ {
+     garglk_unput_string_count((char *)s);
+     return;
+ }
 
+void garglk_unput_string_uni(glui32 *s)
+{
+    garglk_unput_string_count_uni((glui32 *)s);
+    return;
+}
 
 static void gli_set_zcolors(stream_t *str, glui32 fg, glui32 bg)
 {

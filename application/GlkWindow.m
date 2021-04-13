@@ -233,8 +233,9 @@ fprintf(stderr, "%s\n",                                                    \
     NSLog(@"print in %@ not implemented", [self class]);
 }
 
-- (void)unputString:(NSString *)buf {
+- (NSUInteger)unputString:(NSString *)buf {
     NSLog(@"unprint in %@ not implemented", [self class]);
+    return 0;
 }
 
 - (void)moveToColumn:(NSUInteger)x row:(NSUInteger)y {

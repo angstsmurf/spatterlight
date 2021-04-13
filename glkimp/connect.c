@@ -192,10 +192,10 @@ void win_print(int name, int ch, int at)
 
 /* Gargoyle glue */
 
-void win_unprint(int name, glui32 *s, int len)
+glui32 win_unprint(int name, glui32 *s, int len)
 {
     if (!len)
-        return;
+        return 0;
     
     win_flush();
 
@@ -207,7 +207,12 @@ void win_unprint(int name, glui32 *s, int len)
     sendmsg(UNPRINT, name, 0, 0, 0, 0,
             len * sizeof(unsigned short),
             (char *)pbuf);
+
+    readmsg(&wmsg, wbuf);
+    fprintf(stderr, "win_unprint count result:%d\n", wmsg.a1);
+    return wmsg.a1;  /* Length */
 }
+
 
 void wintitle(void)
 {

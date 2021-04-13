@@ -59,7 +59,7 @@ struct fillrect;
 - (void)setBgColor:(NSInteger)bc;
 - (void)clear;
 - (void)putString:(NSString *)buf style:(NSUInteger)style;
-- (void)unputString:(NSString *)buf;
+- (NSUInteger)unputString:(NSString *)buf;
 - (void)moveToColumn:(NSUInteger)x row:(NSUInteger)y;
 - (void)initLine:(NSString *)buf maxLength:(NSUInteger)maxLength;
 - (void)initChar;

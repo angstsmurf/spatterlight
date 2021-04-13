@@ -1793,11 +1793,15 @@
     }
 }
 
-- (void)unputString:(NSString *)buf {
+- (NSUInteger)unputString:(NSString *)buf {
+    NSUInteger result = 0;
+    NSUInteger initialLength = textstorage.length;
     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
+        result = initialLength - textstorage.length;
     }
+    return result;
 }
 
 
