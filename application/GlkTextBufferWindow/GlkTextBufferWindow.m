@@ -317,7 +317,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)terpDidStop {
-    _textview.editable = NO;
+    line_request = NO;
     [self grabFocus];
     [self performScroll];
     [self flushDisplay];
@@ -372,7 +372,6 @@ fprintf(stderr, "%s\n",                                                    \
         [self restoreScrollBarStyle];
 
         line_request = [decoder decodeBoolForKey:@"line_request"];
-        _textview.editable = line_request;
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
 
         echo_toggle_pending = [decoder decodeBoolForKey:@"echo_toggle_pending"];
@@ -942,6 +941,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Input
 
+- (BOOL)hasLineRequest {
+    return line_request;
+}
+
 - (void)keyDown:(NSEvent *)evt {
     GlkEvent *gev;
     NSString *str = evt.characters;
@@ -1036,8 +1039,6 @@ fprintf(stderr, "%s\n",                                                    \
         [glkctl queueEvent:gev];
 
         char_request = NO;
-        _textview.editable = NO;
-
     } else if (line_request && (ch == keycode_Return ||
                                 [self.currentTerminators[key] isEqual:@(YES)])) {
         [self sendInputLineWithTerminator:ch == keycode_Return ? 0 : key.integerValue];
@@ -1108,7 +1109,6 @@ fprintf(stderr, "%s\n",                                                    \
     fence = textstorage.length;
     line_request = NO;
     [self hideInsertionPoint];
-    _textview.editable = NO;
     [self flushDisplay];
     [_textview resetTextFinder];
     [self.glkctl markLastSeen];
@@ -1157,8 +1157,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     [textstorage appendAttributedString:att];
 
-    _textview.editable = YES;
-
     line_request = YES;
     [self showInsertionPoint];
 
@@ -1196,7 +1194,6 @@ fprintf(stderr, "%s\n",                                                    \
                                              textstorage.length -
                                              fence)]; // Don't echo input line
 
-    _textview.editable = NO;
     line_request = NO;
     [self hideInsertionPoint];
     return str;
@@ -1389,8 +1386,8 @@ replacementString:(id)repl {
 #pragma mark Text finder
 
 - (void)restoreTextFinder {
-    BOOL waseditable = _textview.editable;
-    _textview.editable = NO;
+    BOOL waseditable = line_request;
+    line_request = NO;
     _textview.usesFindBar = YES;
 
     NSTextFinder *newFinder = _textview.textFinder;
@@ -1411,7 +1408,7 @@ replacementString:(id)repl {
             [searchField sendAction:searchField.action to:searchField.target];
         }
     }
-    _textview.editable = waseditable;
+    line_request = waseditable;
 }
 
 - (void)destroyTextFinder {

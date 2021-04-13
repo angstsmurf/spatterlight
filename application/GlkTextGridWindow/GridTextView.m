@@ -22,6 +22,10 @@
     return YES;
 }
 
+- (BOOL)isEditable {
+    return NO;
+}
+
 - (void)keyDown:(NSEvent *)theEvent {
     [(GlkTextGridWindow *)self.delegate keyDown:theEvent];
 }

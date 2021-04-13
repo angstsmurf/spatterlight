@@ -135,7 +135,6 @@
         linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
         _textview.linkTextAttributes = linkAttributes;
 
-        _textview.editable = NO;
         _textview.usesFontPanel = NO;
         _restoredSelection = NSMakeRange(0, 0);
 
