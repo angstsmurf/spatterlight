@@ -130,7 +130,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 @end
 
-@interface GlkController () <NSSecureCoding, NSAccessibilityCustomRotorItemSearchDelegate> {
+@interface GlkController () <NSSecureCoding> {
     /* for talking to the interpreter */
     NSTask *task;
     NSFileHandle *readfh;

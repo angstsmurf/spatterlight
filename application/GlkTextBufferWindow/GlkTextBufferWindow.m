@@ -361,7 +361,7 @@ fprintf(stderr, "%s\n",                                                    \
         scrollview = _textview.enclosingScrollView;
         if (!scrollview)
             NSLog(@"scrollview nil!");
-        scrollview.accessibilityLabel = @"buffer scroll view";
+        scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
         scrollview.documentView = _textview;
         _textview.delegate = self;
         textstorage.delegate = self;
@@ -924,13 +924,16 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (void)unputString:(NSString *)buf {
-    NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
-    if ([stringToRemove isEqualToString:buf.uppercaseString]) {
-        [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
-    }
+- (NSUInteger)unputString:(NSString *)buf {
+     NSUInteger result = 0;
+     NSUInteger initialLength = textstorage.length;
+     NSString *stringToRemove = [textstorage.string substringFromIndex:textstorage.length - buf.length].uppercaseString;
+     if ([stringToRemove isEqualToString:buf.uppercaseString]) {
+         [textstorage deleteCharactersInRange:NSMakeRange(textstorage.length - buf.length, buf.length)];
+         result = initialLength - textstorage.length;
+     }
+     return result;
 }
-
 
 - (void)echo:(BOOL)val {
     if ((!(val) && echo) || (val && !(echo))) // Do we need to toggle echo?

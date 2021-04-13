@@ -1406,13 +1406,13 @@
     [self initLine:(NSString *)sender maxLength:maxInputLength];
 }
 
-- (void)unputString:(NSString *)buf {
+- (NSUInteger)unputString:(NSString *)buf {
 
     NSUInteger endpos = [self indexOfPos];
     NSUInteger startpos = endpos - buf.length;
 
     if (endpos > _bufferTextStorage.length || startpos > endpos) {
-        return;
+        return 0;
     }
 
     NSString *stringToRemove = [_bufferTextStorage.string substringWithRange:NSMakeRange(startpos, buf.length)].uppercaseString;
@@ -1427,7 +1427,9 @@
         xpos -= buf.length;
     } else {
         NSLog(@"GlkTextGridWindow unputString: string \"%@\" not found!", buf);
+        return 0;
     }
+    return buf.length;
 }
 
 #pragma mark Command history
