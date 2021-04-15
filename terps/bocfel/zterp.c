@@ -1029,7 +1029,7 @@ int main(int argc, char **argv)
             die("unknown story type: %s (0x%08lx)", chunk->name, (unsigned long)chunk->type);
         }
 
-        if (chunk->offset > LONG_MAX) {
+        if ((uint64_t)chunk->offset > LONG_MAX) {
             die("zcode offset too large");
         }
 
@@ -1054,7 +1054,7 @@ int main(int argc, char **argv)
     if (memory_size < 64) {
         die("story file too small");
     }
-    if (memory_size > SIZE_MAX - 22) {
+    if ((uint64_t)memory_size > SIZE_MAX - 22) {
         die("story file too large");
     }
 
