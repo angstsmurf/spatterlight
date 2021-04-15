@@ -13,7 +13,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, AudioResourceHandler;
+@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler;
 
 #define MAXWIN 64
 
@@ -24,10 +24,13 @@
 
 @end
 
-@interface GlkController : NSWindowController <NSSecureCoding, NSAccessibilityCustomRotorItemSearchDelegate>
+@interface GlkController : NSWindowController <NSSecureCoding>
 
 @property NSMutableDictionary *gwindows;
-@property AudioResourceHandler *audioResourceHandler;
+@property SoundHandler *soundHandler;
+@property ImageHandler *imageHandler;
+@property NSMutableArray *imagesToSpeak;
+
 @property NSMutableArray *windowsToBeAdded;
 @property NSMutableArray *windowsToBeRemoved;
 @property IBOutlet NSView *borderView;
@@ -116,6 +119,8 @@
 
 @property NSArray<GlkWindow *> *windowsToRestore;
 
+@property RotorHandler *rotorHandler;
+
 - (void)runTerp:(NSString *)terpname
        withGame:(Game *)game
           reset:(BOOL)shouldReset
@@ -148,8 +153,5 @@
 
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13));
 - (NSArray *)createCustomRotors;
-- (NSAccessibilityCustomRotorItemResult *)rotor:(NSAccessibilityCustomRotor *)rotor
-                      resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters API_AVAILABLE(macos(10.13));
-
 
 @end

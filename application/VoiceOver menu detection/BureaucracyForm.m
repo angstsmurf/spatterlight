@@ -8,6 +8,7 @@
 #import "BureaucracyForm.h"
 #import "GlkController.h"
 #import "GlkTextGridWindow.h"
+#import "GridTextView.h"
 #import "Theme.h"
 #import "Preferences.h"
 

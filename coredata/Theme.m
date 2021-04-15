@@ -57,6 +57,7 @@
 @dynamic autosaveOnTimer;
 @dynamic slowDrawing;
 @dynamic smartQuotes;
+@dynamic smoothScroll;
 @dynamic spaceFormat;
 @dynamic spacingColor;
 @dynamic winSpacingX;
@@ -65,6 +66,7 @@
 @dynamic zMachineLetter;
 @dynamic vOExtraElements;
 @dynamic vOSpeakCommand;
+@dynamic vOSpeakImages;
 @dynamic vOSpeakInputType;
 @dynamic vOSpeakMenu;
 @dynamic bufAlert;

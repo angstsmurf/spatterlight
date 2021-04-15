@@ -7,7 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class NSPersistentContainer, MyTextView;
+@class NSPersistentContainer;
 
 API_AVAILABLE(macos(10.12))
 @interface PreviewViewController : NSViewController {

@@ -132,15 +132,16 @@
             NSString *description = [[NSString alloc] initWithData:[data subdataWithRange:range] encoding:NSUTF8StringEncoding];
             ptr += 12 + length;
             BOOL found = NO;
-            for (BlorbResource *resource in _resources) {
+            for (BlorbResource *resource in resources) {
               if (resource.usage == usage && resource.number == number) {
                 resource.descriptiontext = description;
                 found = YES;
                 break;
               }
             }
-            if (!found)
-              NSLog(@"Error! Found no resource with usage %d and number %d", usage, number);
+            if (!found) {
+              NSLog(@"Error! Found no resource with usage %d and number %d for description %@", usage, number, description);
+            }
           }
         }
 

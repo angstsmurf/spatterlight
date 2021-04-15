@@ -1,11 +1,11 @@
 //
-//  AudioResourceHandler.m
+//  SoundHandler.m
 //  Spatterlight
 //
 //  Created by Administrator on 2021-01-24.
 //
 
-#import "AudioResourceHandler.h"
+#import "SoundHandler.h"
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
@@ -33,7 +33,7 @@
                                          relativeToURL:nil
                                                  error:&theError];
         if (theError || !_bookmark)
-            NSLog(@"Error when encoding bookmark: %@", theError);
+            NSLog(@"Soundfile error when encoding bookmark: %@", theError);
     }
     return self;
 }
@@ -109,7 +109,7 @@
     [fileHandle seekToFileOffset:_offset];
     _data = [fileHandle readDataOfLength:_length];
     if (!_data) {
-        NSLog(@"Could not read sound resource from file %@, length %ld, offset %ld\n",_soundFile.URL.path, _length, _offset);
+        NSLog(@"Could not read sound resource from file %@, length %ld, offset %ld\n", _soundFile.URL.path, _length, _offset);
         return NO;
     }
 
@@ -181,15 +181,15 @@
 
 @end
 
-@implementation AudioResourceHandler
+@implementation SoundHandler
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _resources = [[NSMutableDictionary alloc] init];
-        _sdl_channels = [[NSMutableDictionary alloc] init];
-        _glkchannels = [[NSMutableDictionary alloc] init];
-        _files = [[NSMutableDictionary alloc] init];
+        _resources = [NSMutableDictionary new];
+        _sdlchannels = [NSMutableDictionary new];
+        _glkchannels = [NSMutableDictionary new];
+        _files = [NSMutableDictionary new];
         _lastsoundresno = -1;
         [self initializeSound];
     }
@@ -283,7 +283,7 @@
     SoundResource *res = _resources[@(snd)];
 
     if (res == nil) {
-        res = [[SoundResource alloc] initWithFilename:filename  offset:offset length:length];
+        res = [[SoundResource alloc] initWithFilename:filename offset:offset length:length];
         _resources[@(snd)] = res;
     } else if (res.data) {
         return;
@@ -318,46 +318,45 @@
 }
 
 - (void)handleDeleteChannel:(int)channel {
-    if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)]) {
+    if (_glkchannels[@(channel)]) {
         _glkchannels[@(channel)] = nil;
     }
 }
 
 - (void)handleSetVolume:(int)volume channel:(int)channel duration:(int)duration notify:(int)notify {
-    if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)]) {
-        [_glkchannels[@(channel)] setVolume:(NSUInteger)volume duration:(NSUInteger)duration notify:notify];
+    GlkSoundChannel *glkchan = _glkchannels[@(channel)];
+    if (glkchan) {
+        [glkchan setVolume:(NSUInteger)volume duration:(NSUInteger)duration notify:notify];
     }
 }
 
 - (void)handlePlaySoundOnChannel:(int)channel repeats:(int)repeats notify:(int)notify {
-    if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)]) {
-        if (_lastsoundresno != -1)
-            [_glkchannels[@(channel)] play:_lastsoundresno repeats:
-             repeats notify:notify];
+    if (_lastsoundresno != -1) {
+        GlkSoundChannel *glkchan = _glkchannels[@(channel)];
+        if (glkchan) {
+            [glkchan play:_lastsoundresno repeats:repeats notify:notify];
+        }
     }
 }
 
 - (void)handleStopSoundOnChannel:(int)channel {
-    if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)]) {
-        [_glkchannels[@(channel)] stop];
+    GlkSoundChannel *glkchan = _glkchannels[@(channel)];
+    if (glkchan) {
+        [glkchan stop];
     }
 }
 
 - (void)handlePauseOnChannel:(int)channel {
-    if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)]) {
-        [_glkchannels[@(channel)] pause];
+    GlkSoundChannel *glkchan = _glkchannels[@(channel)];
+    if (glkchan) {
+        [glkchan pause];
     }
 }
 
 - (void)handleUnpauseOnChannel:(int)channel {
-    if (channel >= 0 && channel < MAXSND &&
-        _glkchannels[@(channel)]) {
-        [_glkchannels[@(channel)] unpause];
+    GlkSoundChannel *glkchan = _glkchannels[@(channel)];
+    if (glkchan) {
+        [glkchan unpause];
     }
 }
 

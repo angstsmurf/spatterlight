@@ -27,6 +27,12 @@ typedef enum kVOMenuPrefsType : int32_t {
     kVOMenuTotal
 } kVOMenuPrefsType;
 
+typedef enum kVOImagePrefsType : int32_t {
+    kVOImageWithDescriptionOnly,
+    kVOImageNone,
+    kVOImageAll
+} kVOImagePrefsType;
+
 typedef enum kBZArrowsPrefsType : int32_t {
     kBZArrowsCompromise,
     kBZArrowsSwapped,
@@ -147,6 +153,10 @@ typedef enum kBZArrowsPrefsType : int32_t {
 @property (strong) IBOutlet NSPopUpButton *vOMenuButton;
 - (IBAction)changeVOMenuMenu:(id)sender;
 
+@property (weak) IBOutlet NSPopUpButton *vOImagesButton;
+- (IBAction)changeVOImageMenu:(id)sender;
+
+
 @property (strong) IBOutlet NSButton *btnVOSpeakCommands;
 
 @property (strong) IBOutlet NSPopUpButton *beepHighMenu;
@@ -170,6 +180,9 @@ typedef enum kBZArrowsPrefsType : int32_t {
 
 @property (weak) IBOutlet NSButton *btnAutosave;
 - (IBAction)changeAutosave:(id)sender;
+
+@property (weak) IBOutlet NSButton *btnSmoothScroll;
+- (IBAction)changeSmoothScroll:(id)sender;
 
 @property (weak) IBOutlet NSButton *btnAutosaveOnTimer;
 - (IBAction)changeAutosaveOnTimer:(id)sender;

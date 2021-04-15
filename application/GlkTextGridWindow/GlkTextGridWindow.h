@@ -1,17 +1,15 @@
 #import "GlkWindow.h"
 
+@class GridTextView;
+
 /* TextGrid window controller */
 
 @class InputTextField, InputHistory;
 
-@interface MyGridTextView : NSTextView <NSAccessibilityNavigableStaticText>
-
-@end
-
 @interface GlkTextGridWindow
     : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate>
 
-@property MyGridTextView *textview;
+@property GridTextView *textview;
 
 @property NSRange restoredSelection;
 @property NSUInteger selectedRow;

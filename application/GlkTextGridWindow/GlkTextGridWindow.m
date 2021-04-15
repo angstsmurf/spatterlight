@@ -5,6 +5,8 @@
 
 #import "InputTextField.h"
 #import "InputHistory.h"
+#import "GridTextView.h"
+#import "BufferTextView.h"
 
 #import "NSString+Categories.h"
 #import "Theme.h"
@@ -27,53 +29,6 @@
 #else
 #define NSLog(...)
 #endif
-
-
-/*
- * Extend NSTextView to ...
- *   - call keyDown and mouseDown on our GlkTextGridWindow object
- */
-
-@implementation MyGridTextView
-
-+ (BOOL)isCompatibleWithResponsiveScrolling
-{
-    return YES;
-}
-
-- (void)keyDown:(NSEvent *)theEvent {
-    [(GlkTextGridWindow *)self.delegate keyDown:theEvent];
-}
-
-- (void)mouseDown:(NSEvent *)theEvent {
-    if (![(GlkTextGridWindow *)self.delegate myMouseDown:theEvent] || ((GlkTextGridWindow *)self.delegate).glkctl.beyondZork)
-    [super mouseDown:theEvent];
-}
-
-- (NSArray *)accessibilityCustomRotors  {
-   return [((GlkTextGridWindow *)self.delegate).glkctl createCustomRotors];
-}
-
- - (NSArray *)accessibilityChildren {
-    NSArray *children = [super accessibilityChildren];
-    InputTextField *input = ((GlkTextGridWindow *)self.delegate).input;
-    if (input) {
-        MyFieldEditor *fieldEditor = (((GlkTextGridWindow *)self.delegate).input.fieldEditor);
-        if (fieldEditor) {
-            if ([children indexOfObject:fieldEditor] == NSNotFound)
-                children = [children arrayByAddingObject:fieldEditor];
-        }
-    }
-    return children;
-}
-
-- (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
-    GlkTextGridWindow *delegate = (GlkTextGridWindow *)self.delegate;
-    NSArray *actions = [delegate.glkctl accessibilityCustomActions];
-    return actions;
-}
-
-@end
 
 @interface GlkTextGridWindow () <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate> {
     NSScrollView *scrollview;
@@ -157,7 +112,7 @@
         container.layoutManager = layoutmanager;
         [layoutmanager addTextContainer:container];
 
-        _textview = [[MyGridTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)
+        _textview = [[GridTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 0)
                                            textContainer:container];
 
         _textview.minSize = NSMakeSize(0, 0);
@@ -198,21 +153,20 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        _textview = [decoder decodeObjectOfClass:[MyTextView class] forKey:@"_textview"];
+        _textview = [decoder decodeObjectOfClass:[GridTextView class] forKey:@"_textview"];
 
         layoutmanager = _textview.layoutManager;
         textstorage = _textview.textStorage;
         if (!textstorage)
             NSLog(@"Error! textstorage is nil!");
         _bufferTextStorage = [textstorage mutableCopy];
-        container = (MarginContainer *)_textview.textContainer;
-
         _textview.delegate = self;
         _textview.insertionPointColor = self.theme.gridBackground;
         textstorage.delegate = self;
         scrollview = _textview.enclosingScrollView;
         scrollview.documentView = _textview;
         scrollview.accessibilityElement = NO;
+        container = _textview.textContainer;
 
         line_request = [decoder decodeBoolForKey:@"line_request"];
         hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
@@ -566,7 +520,6 @@
 }
 
 - (void)flushDisplay {
-    _textview.editable = YES;
     NSRange selectedRange = _textview.selectedRange;
     NSString *selectedString = [textstorage.string substringWithRange:selectedRange];
     _selectedRow = selectedRange.location / (cols + 1);
@@ -608,9 +561,6 @@
         }
     }
     _restoredSelection = _textview.selectedRange;
-
-//    [super flushDisplay];
-    _textview.editable = NO;
 }
 
 #pragma mark Printing, moving, resizing
@@ -1387,9 +1337,6 @@
     [[MyTextFormatter alloc] initWithMaxLength:maxLength];
     self.input.formatter = inputFormatter;
 
-    NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:caret options: (NSTrackingActiveAlways | NSTrackingMouseEnteredAndExited) owner:self.input userInfo:nil];
-    [self.input addTrackingArea:trackingArea];
-
     [_textview addSubview:self.input];
 
     [self performSelector:@selector(deferredGrabFocus:) withObject:str afterDelay:0.1];
@@ -1459,13 +1406,13 @@
     [self initLine:(NSString *)sender maxLength:maxInputLength];
 }
 
-- (void)unputString:(NSString *)buf {
+- (NSUInteger)unputString:(NSString *)buf {
 
     NSUInteger endpos = [self indexOfPos];
     NSUInteger startpos = endpos - buf.length;
 
     if (endpos > _bufferTextStorage.length || startpos > endpos) {
-        return;
+        return 0;
     }
 
     NSString *stringToRemove = [_bufferTextStorage.string substringWithRange:NSMakeRange(startpos, buf.length)].uppercaseString;
@@ -1480,7 +1427,9 @@
         xpos -= buf.length;
     } else {
         NSLog(@"GlkTextGridWindow unputString: string \"%@\" not found!", buf);
+        return 0;
     }
+    return buf.length;
 }
 
 #pragma mark Command history

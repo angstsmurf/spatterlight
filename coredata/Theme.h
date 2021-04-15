@@ -56,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL autosaveOnTimer;
 @property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
+@property (nonatomic) BOOL smoothScroll;
 @property (nonatomic) int32_t spaceFormat;
 @property (nullable, nonatomic, retain) NSColor *spacingColor;
 @property (nonatomic) int32_t winSpacingX;
@@ -65,6 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t vOExtraElements;
 @property (nonatomic) int32_t vOSpeakCommand;
 @property (nonatomic) int32_t vOSpeakInputType;
+@property (nonatomic) int32_t vOSpeakImages;
 @property (nonatomic) int32_t vOSpeakMenu;
 @property (nullable, nonatomic, retain) GlkStyle *bufAlert;
 @property (nullable, nonatomic, retain) GlkStyle *bufBlock;
