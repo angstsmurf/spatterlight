@@ -27,6 +27,7 @@
 #include "glk.h"
 #ifdef SPATTERLIGHT
 #include "glkimp.h"
+#include "spatterlight-autosave.h"
 #endif
 
 #if defined(ZTERP_WIN32) && !defined(GARGLK)
@@ -836,7 +837,6 @@ static void resize_upper_window(long nlines, bool from_game)
     if (upperwin->id == NULL) {
         return;
     }
-
     long previous_height = upper_window_height;
 
     if (from_game) {
@@ -2165,7 +2165,11 @@ void zread_char(void)
     struct input input = { .type = INPUT_CHAR };
 
     if (options.autosave && !in_interrupt()) {
+#ifdef SPATTERLIGHT
+        spatterlight_do_autosave(SaveOpcodeReadChar);
+#else
         do_save(SaveTypeAutosave, SaveOpcodeReadChar);
+#endif
     }
 
     if (zversion >= 4 && znargs > 1) {
@@ -2523,7 +2527,12 @@ static bool read_handler(void)
 void zread(void)
 {
     if (options.autosave && !in_interrupt()) {
+
+#ifdef SPATTERLIGHT
+        spatterlight_do_autosave(SaveOpcodeRead);
+#else
         do_save(SaveTypeAutosave, SaveOpcodeRead);
+#endif
     }
 
     while (!read_handler()) {
@@ -3178,3 +3187,80 @@ end:
     *mainwin = saved;
     set_window_style(mainwin);
 }
+
+#ifdef SPATTERLIGHT
+// This is called during an autosave. It saves the relations
+// between Bocfel specific structures and Glk objects, and also
+// any active sound commands.
+void stash_library_state(library_state_data *dat)
+{
+    if (dat) {
+        if ( windows[0].id)
+            dat->wintag0 = windows[0].id->tag;
+        if ( windows[1].id)
+            dat->wintag1 = windows[1].id->tag;
+        if ( windows[2].id)
+            dat->wintag2 = windows[2].id->tag;
+        if ( windows[3].id)
+            dat->wintag3 = windows[3].id->tag;
+        if ( windows[4].id)
+            dat->wintag4 = windows[4].id->tag;
+        if ( windows[5].id)
+            dat->wintag5 = windows[5].id->tag;
+        if ( windows[6].id)
+            dat->wintag6 = windows[6].id->tag;
+        if ( windows[7].id)
+            dat->wintag7 = windows[7].id->tag;
+
+        if (curwin->id)
+            dat->curwintag = curwin->id->tag;
+        if (mainwin->id)
+            dat->mainwintag = mainwin->id->tag;
+        if (statuswin.id)
+            dat->statuswintag = statuswin.id->tag;
+        if (errorwin && errorwin->tag)
+            dat->errorwintag = errorwin->tag;
+        if (upperwin->id)
+            dat->upperwintag = upperwin->id->tag;
+
+        stash_library_sound_state(dat);
+    }
+}
+
+// This is called during an autorestore. It recreatets the relations
+// between Bocfel specific structures and Glk objects, and any
+// active sound commands.
+void recover_library_state(library_state_data *dat)
+{
+    if (dat) {
+        windows[0].id = gli_window_for_tag(dat->wintag0);
+        windows[1].id = gli_window_for_tag(dat->wintag1);
+        windows[2].id = gli_window_for_tag(dat->wintag2);
+        windows[3].id = gli_window_for_tag(dat->wintag3);
+        windows[4].id = gli_window_for_tag(dat->wintag4);
+        windows[5].id = gli_window_for_tag(dat->wintag5);
+        windows[6].id = gli_window_for_tag(dat->wintag6);
+        windows[7].id = gli_window_for_tag(dat->wintag7);
+        statuswin.id = gli_window_for_tag(dat->statuswintag);
+        errorwin = gli_window_for_tag(dat->errorwintag);
+        for (int i = 0; i < 8; i++)
+        {
+            if (windows[i].id) {
+                if (windows[i].id->tag == dat->mainwintag) {
+                    mainwin = &windows[i];
+                }
+                if (windows[i].id->tag == dat->curwintag) {
+                    curwin = &windows[i];
+                }
+                if (windows[i].id->tag == dat->upperwintag)
+                {
+                    upperwin = &windows[i];
+                    if (mouse_available())
+                        glk_request_mouse_event(upperwin->id);
+                }
+            }
+        }
+        recover_library_sound_state(dat);
+    }
+}
+#endif

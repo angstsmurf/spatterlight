@@ -27,6 +27,11 @@
 #include "screen.h"
 #include "zterp.h"
 
+#ifdef SPATTERLIGHT
+#include "glk.h"
+#include "fileref.h"
+#endif
+
 // OS-specific functions should all be collected in this file for
 // convenience.  A sort of poor-man’s “reverse” inheritance is used: for
 // each function that a particular operating system provides, it should
@@ -482,6 +487,21 @@ void zterp_os_set_style(int style, const struct color *fg, const struct color *b
 }
 #define zterp_os_set_style
 #endif
+
+#endif
+
+// ╔══════════════════════════════════════════════════════════════════════════════╗
+// ║ SPATTERLIGHT functions                                                       ║
+// ╚══════════════════════════════════════════════════════════════════════════════╝
+#ifdef SPATTERLIGHT
+
+bool zterp_os_autosave_name(char *name, size_t n)
+{
+    getautosavedir((char *)game_file);
+    checked_snprintf(name, n, "%s/autosave.glksave", autosavedir);
+    return true;
+}
+#define zterp_os_autosave_name
 
 #endif
 

@@ -38,6 +38,10 @@
 #include "zoom.h"
 #include "zterp.h"
 
+#ifdef SPATTERLIGHT
+#include "spatterlight-autosave.h"
+#endif
+
 unsigned long pc;
 unsigned long current_instruction;
 
@@ -365,8 +369,11 @@ void process_instructions(void)
         enum SaveOpcode saveopcode;
 
         handled_autosave = true;
-
+#ifdef SPATTERLIGHT
+        if (spatterlight_restore_autosave(&saveopcode)) {
+#else
         if (do_restore(SaveTypeAutosave, &saveopcode)) {
+#endif
             interrupt_restore(saveopcode);
         }
     }

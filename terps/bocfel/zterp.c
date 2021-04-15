@@ -83,8 +83,11 @@ struct options options = {
     .override_undo = false,
     .random_seed = -1,
     .random_device = NULL,
-
+#ifdef SPATTERLIGHT
+    .autosave = true,
+#else
     .autosave = false,
+#endif
 };
 
 static char story_id[64];
