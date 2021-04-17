@@ -1350,10 +1350,11 @@ static void trim_saves(enum SaveStackType type, long n)
 
     while (n-- > 0 && s->count > 0) {
         struct save_state *tmp = s->head;
-
-        s->head = s->head->next;
+        if (s->head != NULL) {
+            s->head = s->head->next;
+            free_save_state(tmp);
+        }
         s->count--;
-        free_save_state(tmp);
         if (s->head != NULL) {
             s->head->prev = NULL;
         }
