@@ -837,6 +837,17 @@ static void resize_upper_window(long nlines, bool from_game)
     if (upperwin->id == NULL) {
         return;
     }
+
+#ifdef SPATTERLIGHT
+// Hack to clear upper window when its height is set to 0.
+// This probably shouldn't be here, but there is currently an incompatibility
+// with Hugo when this is implemented in the GUI code.
+    if(nlines == 0)
+    {
+        glk_window_clear(upperwin->id);
+    }
+#endif
+
     long previous_height = upper_window_height;
 
     if (from_game) {
@@ -1208,6 +1219,10 @@ void zerase_window(void)
     }
 
     // glk_window_clear() kills reverse video in Gargoyle.  Reapply style.
+#ifdef SPATTERLIGHT
+    // Hack to set upper window background to current background color.
+    win_setbgnd(upperwin->id->peer, gargoyle_color(&style_window->bg_color));
+#endif
     set_current_style();
 #endif
 }
