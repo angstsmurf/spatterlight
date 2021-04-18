@@ -856,9 +856,9 @@ static void resize_upper_window(long nlines, bool from_game)
             update_delayed();
         }
 #ifdef SPATTERLIGHT
-        else {
+        else if (!is_mad_bomber()) {
             win_quotebox(upperwin->id->peer, (int)nlines);
-              update_delayed();
+            update_delayed();
         }
 #endif
         saw_input = false;

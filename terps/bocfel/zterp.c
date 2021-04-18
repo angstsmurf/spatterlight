@@ -162,7 +162,15 @@ bool is_lurking_horror(void)
 
 bool is_journey(void)
 {
-    return is_story("83-890706");
+    return is_story("46-880603") ||
+    is_story("26-890316") || is_story("30-890322") ||
+    is_story("54-890526") || is_story("77-890616") ||
+    is_story("79-890627") || is_story("83-890706");
+}
+
+bool is_mad_bomber(void)
+{
+    return is_story("3-971123-caad");
 }
 
 bool is_infocom_v1234;
