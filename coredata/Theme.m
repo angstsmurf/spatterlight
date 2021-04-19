@@ -12,6 +12,7 @@
 #import "GlkStyle.h"
 #import "Interpreter.h"
 #import "Theme.h"
+#import "Preferences.h"
 
 
 @implementation Theme
@@ -295,6 +296,46 @@
               self.gridSubH,
               self.gridUsr1,
               self.gridUsr2 ];
+}
+
+// These are values that should be the same in all
+// the built-in themes, but may be off due to upgrading
+// from and older version with themes that were created
+// with different Core Data models and defaults.
+
+// We update them here in all built-in themes every time
+// Spatterlight is started.
+- (void)resetCommonValues {
+    self.autosave = YES;
+    self.autosaveOnTimer = YES;
+    self.bZTerminator = kBZArrowsCompromise;
+    self.doGraphics = YES;
+    self.doSound = YES;
+    self.editable = NO;
+
+    self.minTimer = 5;
+    self.smoothScroll = YES;
+    self.vOSpeakCommand = YES;
+    self.vOSpeakImages = kVOImageWithDescriptionOnly;
+    self.vOSpeakMenu = kVOMenuTextOnly;
+    self.zMachineLetter = @"S";
+    self.zMachineTerp = 4; // Amiga
+
+// These values are not currently used
+
+//    self.maxCols = 1000;
+//    self.maxRows = 1000;
+//    self.minCols = 32;
+//    self.minRows = 5;
+//    self.borderBehavior = 0;
+//    self.cursorShape = 0;
+//    self.errorHandling = NO;
+//    self.imageSizing = NO;
+//    self.justify = NO;
+//    self.nohacks = NO;
+//    self.vOExtraElements = NO;
+//    self.vOSpeakInputType = 0;
+
 }
 
 - (BOOL)hasCustomStyles {

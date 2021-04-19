@@ -117,6 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeGamesObject:(Game *)value;
 - (void)addGames:(NSSet *)values;
 - (void)removeGames:(NSSet *)values;
+- (void)resetCommonValues;
 
 @end
 
