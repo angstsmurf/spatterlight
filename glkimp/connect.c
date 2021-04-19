@@ -209,7 +209,6 @@ glui32 win_unprint(int name, glui32 *s, int len)
             (char *)pbuf);
 
     readmsg(&wmsg, wbuf);
-    fprintf(stderr, "win_unprint count result:%d\n", wmsg.a1);
     return wmsg.a1;  /* Length */
 }
 

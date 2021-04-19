@@ -70,8 +70,6 @@ fprintf(stderr, "%s\n",                                                    \
         }
 
         _currentTerminators = _pendingTerminators;
-        _terminatorsPending = NO;
-        
         self.canDrawConcurrently = YES;
     }
 

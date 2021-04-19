@@ -728,9 +728,10 @@
         // Instert a newline character at the end of each line to avoid reflow
         // during live resize. (We carefully have to print around these in the
         // printToWindow method)
-        for (r = cols; r < _bufferTextStorage.length; r += cols + 1)
-        [_bufferTextStorage replaceCharactersInRange:NSMakeRange(r, 1)
-                                withAttributedString:newlinestring];
+        for (r = cols; r < _bufferTextStorage.length; r += cols + 1) {
+            [_bufferTextStorage replaceCharactersInRange:NSMakeRange(r, 1)
+                                    withAttributedString:newlinestring];
+        }
 
         _restoredSelection = NSMakeRange(_selectedCol + _selectedRow * (cols + 1), _restoredSelection.length);
 

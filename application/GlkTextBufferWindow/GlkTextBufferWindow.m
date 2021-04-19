@@ -573,8 +573,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)prefsDidChange {
-
-    NSLog(@"prefsDidChange");
     NSDictionary *attributes;
     if (!_pendingScrollRestore) {
         [self storeScrollOffset];
@@ -826,7 +824,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)putString:(NSString *)str style:(NSUInteger)stylevalue {
-    //    NSLog(@"bufwin %ld putString:\"%@\"", self.name, str);
     if (bufferTextstorage.length > 50000)
         bufferTextstorage = [bufferTextstorage attributedSubstringFromRange:NSMakeRange(25000, bufferTextstorage.length - 25000)].mutableCopy;
 
@@ -2116,7 +2113,6 @@ replacementString:(id)repl {
     if (self.theme.vOSpeakImages == kVOImageNone)
         return @[];
     NSArray<NSValue *> *images = [self imagesInRange:_textview.accessibilityVisibleCharacterRange];
-    NSLog(@"GlkTextBufferWindow images: returning %ld images", images.count);
     return images;
 }
 
