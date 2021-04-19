@@ -74,9 +74,9 @@ void die(const char *fmt, ...)
     fprintf(stderr, "Fatal error: %s\n", str);
 #endif
     glk_exit();
-#endif
-
+#else
     exit(EXIT_FAILURE);
+#endif
 }
 
 void help(void)
