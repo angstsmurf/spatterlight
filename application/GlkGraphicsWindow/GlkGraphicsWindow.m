@@ -413,7 +413,7 @@
 
 - (SubImage *)createDummySubImage {
     SubImage *dummy = [SubImage new];
-    dummy.accessibilityLabel = @"Image";
+    dummy.accessibilityLabel = NSLocalizedString(@"Image", nil);
     dummy.accessibilityParent = self;
     dummy.accessibilityRole = NSAccessibilityImageRole;
     dummy.frameRect = self.bounds;
