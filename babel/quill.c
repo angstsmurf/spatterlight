@@ -31,11 +31,11 @@ static int32 claim_story_file(void *storyvp, int32 extent)
     char *zxmemory = storyvp;
     int mem_base;          /* Minimum address loaded from snapshot     */
     int mem_size;          /* Size of memory loaded from snapshot      */
-    int mem_offset;        /* Load address of snapshot in physical RAM */
-    int zxptr;
+//    int mem_offset;        /* Load address of snapshot in physical RAM */
+//    int zxptr;
     int n, seekpos;
     int found;
-    int dbver = 0;
+//    int dbver = 0;
     int arch;
     
 #define zmem(addr) ( \
@@ -47,7 +47,7 @@ static int32 claim_story_file(void *storyvp, int32 extent)
      seekpos    = 0x1C1B;	/* Number of bytes to skip in the file */
      mem_base   = 0x5C00;	/* First address loaded */
      mem_size   = 0xA400;	/* Number of bytes to load from it */
-     mem_offset = 0x3FE5;	/* Load address of snapshot in host system memory */
+//     mem_offset = 0x3FE5;	/* Load address of snapshot in host system memory */
      
      if (extent < 20)
 	 return INVALID_STORY_FILE_RV;
@@ -58,8 +58,8 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 	 seekpos    = 0x1C00;
 	 mem_base   = 0x1B00;
 	 mem_size   = 0xA500;
-	 mem_offset = -0x100;
-	 dbver = 10;	/* CPC engine is equivalent to the "later" Spectrum one. */
+//	 mem_offset = -0x100;
+//	 dbver = 10;	/* CPC engine is equivalent to the "later" Spectrum one. */
      }
      
      if (!memcmp(zxmemory, "VICE Snapshot File\032", 19))
@@ -68,8 +68,8 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 	 seekpos    =  0x874;
 	 mem_base   =  0x800;
 	 mem_size   = 0xA500;
-	 mem_offset =  -0x74;
-	 dbver = 5;	/* C64 engine is between the two Spectrum ones. */
+//	 mem_offset =  -0x74;
+//	 dbver = 5;	/* C64 engine is between the two Spectrum ones. */
      }
      
      if (extent < seekpos + mem_size)
@@ -92,7 +92,7 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 		     (zmem(n+8) == 0x14) && (zmem(n+10) == 0x15))
 		 {
 		     found = 1;
-		     zxptr = n + 13;
+//		     zxptr = n + 13;
 		     break;
 		 }
 	     }
@@ -100,12 +100,12 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 	     
 	 case ARCH_CPC: 
 	     found = 1;
-	     zxptr = 0x1BD1;	/* From guesswork: CPC Quill files always seem to start at 0x1BD1 */
+//	     zxptr = 0x1BD1;	/* From guesswork: CPC Quill files always seem to start at 0x1BD1 */
 	     break;
 	     
 	 case ARCH_C64: 
 	     found = 1;
-	     zxptr = 0x804;	/* From guesswork: C64 Quill files always seem to start at 0x804 */
+//	     zxptr = 0x804;	/* From guesswork: C64 Quill files always seem to start at 0x804 */
 	     break;
      }
      
