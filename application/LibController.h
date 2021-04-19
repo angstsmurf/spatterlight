@@ -117,5 +117,7 @@
 - (void)closeAndOpenNextAbove:(InfoController *)infocontroller;
 - (void)closeAndOpenNextBelow:(InfoController *)infocontroller;
 
+@property (strong) IBOutlet NSView *forceQuitView;
+@property (weak) IBOutlet NSButton *forceQuitCheckBox;
 
 @end

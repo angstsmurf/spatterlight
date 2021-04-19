@@ -11,6 +11,8 @@
                 <outlet property="addButton" destination="130" id="453"/>
                 <outlet property="exportTypeControl" destination="49" id="56"/>
                 <outlet property="exportTypeView" destination="47" id="55"/>
+                <outlet property="forceQuitCheckBox" destination="KYK-i7-soe" id="IW0-7L-TmR"/>
+                <outlet property="forceQuitView" destination="kXo-gL-wb8" id="sg2-ah-Zd0"/>
                 <outlet property="foundIndicatorCell" destination="443" id="449"/>
                 <outlet property="gameTableView" destination="136" id="175"/>
                 <outlet property="headerMenu" destination="102" id="109"/>
@@ -512,6 +514,7 @@
                 <constraint firstItem="49" firstAttribute="centerX" secondItem="47" secondAttribute="centerX" id="331"/>
                 <constraint firstItem="48" firstAttribute="leading" secondItem="47" secondAttribute="leading" constant="14" id="332"/>
             </constraints>
+            <point key="canvasLocation" x="-75" y="-145"/>
         </customView>
         <menu id="84" userLabel="Contextual Menu">
             <items>
@@ -705,5 +708,20 @@ CA
                 <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="459"/>
             </connections>
         </arrayController>
+        <customView id="kXo-gL-wb8" userLabel="Force Quit View">
+            <rect key="frame" x="0.0" y="0.0" width="301" height="45"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" id="KYK-i7-soe">
+                    <rect key="frame" x="8" y="9" width="286" height="27"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Force quit running games and delete them." bezelStyle="regularSquare" imagePosition="left" inset="2" id="jKY-04-VDs">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="-90.5" y="-237.5"/>
+        </customView>
     </objects>
 </document>

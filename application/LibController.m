@@ -311,13 +311,19 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 - (IBAction)deleteLibrary:(id)sender {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert setMessageText:NSLocalizedString(@"Do you really want to delete the library?", nil)];
-    [alert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"This will empty your game list and delete all metadata. %@\nThe original game files will not be affected.", nil),
-                               (_gameSessions.count) ? NSLocalizedString(@"Currently running games will be skipped. ", nil) : @""]];
-    [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
+    [alert setInformativeText:NSLocalizedString(@"This will empty your game list and delete all metadata.\nThe original game files will not be affected.", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Delete Library", nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    if (_gameSessions.count) {
+        alert.accessoryView = _forceQuitView;
+        _forceQuitCheckBox.state = NSOffState;
+    }
+
     NSModalResponse choice = [alert runModal];
 
     if (choice == NSAlertFirstButtonReturn) {
+
+        BOOL forceQuit = _forceQuitCheckBox.state == NSOnState;
 
         NSArray *entitiesToDelete = @[@"Metadata", @"Game", @"Ifid", @"Image"];
 
@@ -327,10 +333,16 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         NSSet *ifidsToKeep = [[NSSet alloc] init];
 
         for (GlkController *ctl in [_gameSessions allValues]) {
+            if (forceQuit) {
+                [ctl.window close];
+                continue;
+            }
+
             Game *game = ctl.game;
             [gamesToKeep addObject:game];
             [metadataToKeep addObject:game.metadata];
-            [imagesToKeep addObject:game.metadata.cover];
+            if (game.metadata.cover)
+                [imagesToKeep addObject:game.metadata.cover];
             ifidsToKeep  = [ifidsToKeep setByAddingObjectsFromSet:game.metadata.ifids];
         }
 
