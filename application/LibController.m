@@ -335,15 +335,18 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         for (GlkController *ctl in [_gameSessions allValues]) {
             if (forceQuit) {
                 [ctl.window close];
-                continue;
+            } else {
+                Game *game = ctl.game;
+                [gamesToKeep addObject:game];
+                [metadataToKeep addObject:game.metadata];
+                if (game.metadata.cover)
+                    [imagesToKeep addObject:game.metadata.cover];
+                ifidsToKeep  = [ifidsToKeep setByAddingObjectsFromSet:game.metadata.ifids];
             }
+        }
 
-            Game *game = ctl.game;
-            [gamesToKeep addObject:game];
-            [metadataToKeep addObject:game.metadata];
-            if (game.metadata.cover)
-                [imagesToKeep addObject:game.metadata.cover];
-            ifidsToKeep  = [ifidsToKeep setByAddingObjectsFromSet:game.metadata.ifids];
+        if (forceQuit) {
+            _gameSessions = [NSMutableDictionary new];
         }
 
         for (NSString *entity in entitiesToDelete) {
