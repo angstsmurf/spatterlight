@@ -1886,7 +1886,7 @@ run_restore_common (sc_gameref_t game,
           game->is_running = FALSE;
           game->do_restore = TRUE;
           longjmp (game->quitter, 1);
-          sc_fatal ("run_restore_common: unable to restart cleanly\n");
+//          sc_fatal ("run_restore_common: unable to restart cleanly\n");
         }
     }
 

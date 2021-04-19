@@ -75,10 +75,10 @@ typedef enum kBZArrowsPrefsType : int32_t {
 - (IBAction)applyToSelected:(id)sender;
 - (IBAction)selectUsingTheme:(id)sender;
 - (IBAction)deleteUserThemes:(id)sender;
+- (IBAction)rebuildDefaultThemes:(id)sender;
 - (IBAction)togglePreview:(id)sender;
 - (IBAction)editNewEntry:(id)sender;
 
-- (void)createDefaultThemes;
 - (void)restoreThemeSelection:(id)sender;
 
 + (void)zoomIn;

@@ -72,23 +72,23 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="prefsPanel" animationBehavior="default" id="407" userLabel="Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="155" y="449" width="1113" height="437"/>
+            <rect key="contentRect" x="155" y="449" width="516" height="437"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="516" height="308"/>
             <value key="maxSize" type="size" width="516" height="500"/>
             <view key="contentView" id="408">
-                <rect key="frame" x="0.0" y="0.0" width="1113" height="437"/>
+                <rect key="frame" x="0.0" y="0.0" width="516" height="437"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="948">
-                        <rect key="frame" x="0.0" y="306" width="1113" height="136"/>
+                        <rect key="frame" x="0.0" y="306" width="516" height="136"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="contentView" id="zxo-go-so3">
-                            <rect key="frame" x="0.0" y="0.0" width="1113" height="136"/>
+                            <rect key="frame" x="0.0" y="0.0" width="516" height="136"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="773" customClass="GlkHelperView">
-                                    <rect key="frame" x="20" y="-162" width="1073" height="146"/>
+                                    <rect key="frame" x="20" y="-162" width="476" height="146"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </customView>
                             </subviews>
@@ -199,7 +199,7 @@
                                         <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="877">
                                             <rect key="frame" x="78" y="14" width="35" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" preferredEdge="maxY" selectedItem="880" id="878">
+                                            <popUpButtonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" preferredEdge="maxY" id="878">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
                                                 <menu key="menu" title="OtherViews" id="879">
@@ -219,6 +219,11 @@
                                                         <menuItem title="Delete All User Themes" id="882">
                                                             <connections>
                                                                 <action selector="deleteUserThemes:" target="-2" id="891"/>
+                                                            </connections>
+                                                        </menuItem>
+                                                        <menuItem title="Rebuild Default Themes" id="WHK-Pf-gJM" userLabel="Rebuild Default Themes">
+                                                            <connections>
+                                                                <action selector="rebuildDefaultThemes:" target="-2" id="5w4-NU-eho"/>
                                                             </connections>
                                                         </menuItem>
                                                         <menuItem title="Rename" id="886" userLabel="Menu Item - Rename">
@@ -1240,7 +1245,7 @@
                     </tabView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-259.5" y="114.5"/>
+            <point key="canvasLocation" x="-558" y="114.5"/>
         </window>
         <arrayController mode="entity" entityName="Theme" automaticallyPreparesContent="YES" avoidsEmptySelection="NO" id="784" userLabel="Themes" customClass="ThemeArrayController">
             <connections>

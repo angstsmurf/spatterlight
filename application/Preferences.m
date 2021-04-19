@@ -97,36 +97,38 @@ static Preferences *prefs = nil;
 
     if (fetchedObjects == nil || fetchedObjects.count == 0) {
         NSLog(@"Preference readDefaults: Error! Saved theme %@ not found. Creating new default theme!", name);
-        theme = [Preferences createThemeFromDefaultsPlistInContext:managedObjectContext];
+        theme = [Preferences createThemeFromDefaultsPlistInContext:managedObjectContext forceRebuild:NO];
         if (!theme)
-            theme = [Preferences createDefaultThemeInContext:managedObjectContext];
+            theme = [Preferences createDefaultThemeInContext:managedObjectContext forceRebuild:NO];
         if (!theme) {
             NSLog(@"Preference readDefaults: Error! Could not create default theme!");
         }
     } else theme = fetchedObjects[0];
 
-    // We may or may not have created these two already above.
-    // Then these two calls will do nothing.
-    [Preferences createThemeFromDefaultsPlistInContext:managedObjectContext];
-    [Preferences createDefaultThemeInContext:managedObjectContext];
-
-    [Preferences createZoomThemeInContext:managedObjectContext];
-    [Preferences createClassicSpatterlightThemeInContext:managedObjectContext];
-    [Preferences createDOSThemeInContext:managedObjectContext];
-    [Preferences createDOSBoxThemeInContext:managedObjectContext];
-    [Preferences createLectroteThemeInContext:managedObjectContext];
-    [Preferences createLectroteDarkThemeInContext:managedObjectContext];
-    [Preferences createGargoyleThemeInContext:managedObjectContext];
-    [Preferences createMontserratThemeInContext:managedObjectContext];
-
-//    [Preferences createSTThemeInContext:managedObjectContext];
+    // We may or may not have created the Default and Old themes already above.
+    // Then these won't be recreated below.
+    [Preferences createBuiltInThemesInContext:managedObjectContext forceRebuild:NO];
 }
 
-+ (Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context {
++ (void)createBuiltInThemesInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
+    [Preferences createThemeFromDefaultsPlistInContext:context forceRebuild:force];
+    [Preferences createDefaultThemeInContext:context forceRebuild:force];
+    [Preferences createZoomThemeInContext:context forceRebuild:force];
+    [Preferences createClassicSpatterlightThemeInContext:context forceRebuild:force];
+    [Preferences createDOSThemeInContext:context forceRebuild:force];
+    [Preferences createDOSBoxThemeInContext:context forceRebuild:force];
+    [Preferences createLectroteThemeInContext:context forceRebuild:force];
+    [Preferences createLectroteDarkThemeInContext:context forceRebuild:force];
+    [Preferences createGargoyleThemeInContext:context forceRebuild:force];
+    [Preferences createMontserratThemeInContext:context forceRebuild:force];
+    //    [Preferences createSTThemeInContext:managedObjectContext forceRebuild:force];
+}
+
++ (Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force{
 
     BOOL exists = NO;
     Theme *oldTheme = [Preferences findOrCreateTheme:@"Old settings" inContext:context alreadyExists:&exists];
-    if (exists)
+    if (exists && !force)
         return oldTheme;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -142,8 +144,6 @@ static Preferences *prefs = nil;
     oldTheme.doGraphics = [[defaults objectForKey:@"EnableGraphics"] boolValue];
     oldTheme.doSound = [[defaults objectForKey:@"EnableSound"] boolValue];
     oldTheme.doStyles = [[defaults objectForKey:@"EnableStyles"] boolValue];
-//    oldTheme.usescreenfonts = [[defaults objectForKey:@"ScreenFonts"] boolValue];
-
 
     oldTheme.gridMarginX = (int32_t)[[defaults objectForKey:@"GridMargin"] doubleValue];
     oldTheme.gridMarginY = oldTheme.gridMarginX;
@@ -199,23 +199,26 @@ static Preferences *prefs = nil;
 
     [oldTheme populateStyles];
 
-    oldTheme.defaultParent = [Preferences createDefaultThemeInContext:context];
+    oldTheme.defaultParent = [Preferences createDefaultThemeInContext:context forceRebuild:NO];
 
     return oldTheme;
 }
 
-+ (Theme *)createDefaultThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createDefaultThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force{
 
     BOOL exists = NO;
     Theme *defaultTheme = [Preferences findOrCreateTheme:@"Default" inContext:context alreadyExists:&exists];
 
+    if (exists && !force)
+        return defaultTheme;
+
     defaultTheme.zMachineTerp = 4;
     defaultTheme.vOSpeakCommand = 1;
     defaultTheme.vOSpeakMenu = kVOMenuTextOnly;
-    defaultTheme.autosave = YES;
+    defaultTheme.vOSpeakImages = kVOImageWithDescriptionOnly;
+    defaultTheme.smoothScroll = YES;
 
-    if (exists)
-        return defaultTheme;
+    defaultTheme.autosave = YES;
 
     defaultTheme.dashes = YES;
     defaultTheme.defaultRows = 50;
@@ -267,18 +270,20 @@ static Preferences *prefs = nil;
     return defaultTheme;
 }
 
-+ (Theme *)createClassicSpatterlightThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createClassicSpatterlightThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force{
 
     BOOL exists = NO;
     Theme *classicTheme = [Preferences findOrCreateTheme:@"Spatterlight Classic" inContext:context alreadyExists:&exists];
+
+    if (exists && !force)
+        return classicTheme;
 
     classicTheme.zMachineTerp = 4;
     classicTheme.vOSpeakCommand = 1;
     classicTheme.vOSpeakMenu = kVOMenuTextOnly;
     classicTheme.autosave = YES;
-
-    if (exists)
-        return classicTheme;
+    classicTheme.vOSpeakImages = kVOImageWithDescriptionOnly;
+    classicTheme.smoothScroll = YES;
 
     classicTheme.dashes = YES;
     classicTheme.defaultRows = 30;
@@ -327,18 +332,20 @@ static Preferences *prefs = nil;
     return classicTheme;
 }
 
-+ (Theme *)createGargoyleThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createGargoyleThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force{
 
     BOOL exists = NO;
     Theme *gargoyleTheme = [Preferences findOrCreateTheme:@"Gargoyle" inContext:context alreadyExists:&exists];
+
+    if (exists && !force)
+        return gargoyleTheme;
 
     gargoyleTheme.zMachineTerp = 4;
     gargoyleTheme.vOSpeakCommand = 1;
     gargoyleTheme.vOSpeakMenu = kVOMenuTextOnly;
     gargoyleTheme.autosave = YES;
-
-    if (exists)
-        return gargoyleTheme;
+    gargoyleTheme.vOSpeakImages = kVOImageWithDescriptionOnly;
+    gargoyleTheme.smoothScroll = YES;
 
     gargoyleTheme.dashes = YES;
     gargoyleTheme.defaultRows = 30;
@@ -401,17 +408,19 @@ static Preferences *prefs = nil;
 
     return gargoyleTheme;
 }
-+ (Theme *)createLectroteThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createLectroteThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force{
     BOOL exists = NO;
     Theme *lectroteTheme = [Preferences findOrCreateTheme:@"Lectrote" inContext:context alreadyExists:&exists];
+
+    if (exists && !force)
+        return lectroteTheme;
 
     lectroteTheme.zMachineTerp = 4;
     lectroteTheme.vOSpeakCommand = 1;
     lectroteTheme.vOSpeakMenu = kVOMenuTextOnly;
     lectroteTheme.autosave = YES;
-
-    if (exists)
-        return lectroteTheme;
+    lectroteTheme.vOSpeakImages = kVOImageWithDescriptionOnly;
+    lectroteTheme.smoothScroll = YES;
 
     lectroteTheme.dashes = YES;
     lectroteTheme.defaultRows = 40;
@@ -467,17 +476,19 @@ static Preferences *prefs = nil;
     return lectroteTheme;
 }
 
-+ (Theme *)createLectroteDarkThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createLectroteDarkThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
     BOOL exists = NO;
     Theme *lectroteDarkTheme = [Preferences findOrCreateTheme:@"Lectrote Dark" inContext:context alreadyExists:&exists];
+
+    if (exists && !force)
+        return lectroteDarkTheme;
 
     lectroteDarkTheme.zMachineTerp = 4;
     lectroteDarkTheme.vOSpeakCommand = 1;
     lectroteDarkTheme.vOSpeakMenu = kVOMenuTextOnly;
     lectroteDarkTheme.autosave = YES;
-
-    if (exists)
-        return lectroteDarkTheme;
+    lectroteDarkTheme.vOSpeakImages = kVOImageWithDescriptionOnly;
+    lectroteDarkTheme.smoothScroll = YES;
 
     lectroteDarkTheme.dashes = YES;
     lectroteDarkTheme.defaultRows = 40;
@@ -532,17 +543,19 @@ static Preferences *prefs = nil;
 
     return lectroteDarkTheme;
 }
-+ (Theme *)createZoomThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createZoomThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
     BOOL exists = NO;
     Theme *zoomTheme = [Preferences findOrCreateTheme:@"Zoom" inContext:context alreadyExists:&exists];
+
+    if (exists && !force)
+        return zoomTheme;
 
     zoomTheme.zMachineTerp = 4;
     zoomTheme.vOSpeakCommand = 1;
     zoomTheme.vOSpeakMenu = kVOMenuTextOnly;
     zoomTheme.autosave = YES;
-
-    if (exists)
-        return zoomTheme;
+    zoomTheme.vOSpeakImages = kVOImageWithDescriptionOnly;
+    zoomTheme.smoothScroll = YES;
 
     zoomTheme.dashes = YES;
     zoomTheme.defaultRows = 50;
@@ -624,17 +637,19 @@ static Preferences *prefs = nil;
     return zoomTheme;
 }
 
-+ (Theme *)createDOSThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createDOSThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
     BOOL exists = NO;
     Theme *dosTheme = [Preferences findOrCreateTheme:@"MS-DOS" inContext:context alreadyExists:&exists];
+
+    if (exists && !force)
+        return dosTheme;
 
     dosTheme.zMachineTerp = 4;
     dosTheme.vOSpeakCommand = 1;
     dosTheme.vOSpeakMenu = kVOMenuTextOnly;
     dosTheme.autosave = YES;
-
-    if (exists)
-        return dosTheme;
+    dosTheme.vOSpeakImages = kVOImageWithDescriptionOnly;
+    dosTheme.smoothScroll = YES;
 
     dosTheme.dashes = NO;
     dosTheme.defaultRows = 24;
@@ -699,17 +714,19 @@ static Preferences *prefs = nil;
     return dosTheme;
 }
 
-+ (Theme *)createDOSBoxThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createDOSBoxThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
     BOOL exists = NO;
     Theme *dosBoxTheme = [Preferences findOrCreateTheme:@"DOSBox" inContext:context alreadyExists:&exists];
+
+    if (exists && !force)
+        return dosBoxTheme;
 
     dosBoxTheme.zMachineTerp = 4;
     dosBoxTheme.vOSpeakCommand = 1;
     dosBoxTheme.vOSpeakMenu = kVOMenuTextOnly;
     dosBoxTheme.autosave = YES;
-
-    if (exists)
-        return dosBoxTheme;
+    dosBoxTheme.vOSpeakImages = kVOImageWithDescriptionOnly;
+    dosBoxTheme.smoothScroll = YES;
 
     dosBoxTheme.dashes = NO;
     dosBoxTheme.defaultRows = 24;
@@ -776,7 +793,7 @@ static Preferences *prefs = nil;
     return dosBoxTheme;
 }
 
-+ (Theme *)createSTThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createSTThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
     BOOL exists = NO;
     Theme *stTheme = [Preferences findOrCreateTheme:@"Atari ST" inContext:context alreadyExists:&exists];
 //    if (exists)
@@ -843,17 +860,19 @@ static Preferences *prefs = nil;
     return stTheme;
 }
 
-+ (Theme *)createMontserratThemeInContext:(NSManagedObjectContext *)context {
++ (Theme *)createMontserratThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
     BOOL exists = NO;
     Theme *montserratTheme = [Preferences findOrCreateTheme:@"Montserrat" inContext:context alreadyExists:&exists];
+
+    if (exists && !force)
+        return montserratTheme;
 
     montserratTheme.zMachineTerp = 4;
     montserratTheme.vOSpeakCommand = 1;
     montserratTheme.vOSpeakMenu = kVOMenuTextOnly;
     montserratTheme.autosave = YES;
-
-    if (exists)
-        return montserratTheme;
+    montserratTheme.vOSpeakImages = kVOImageWithDescriptionOnly;
+    montserratTheme.smoothScroll = YES;
 
     montserratTheme.dashes = NO;
     montserratTheme.defaultRows = 50;
@@ -965,7 +984,6 @@ static Preferences *prefs = nil;
     fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
 
     if (fetchedObjects && fetchedObjects.count) {
-//        NSLog(@"Theme %@ already exists. Returning old theme with this name.", themeName);
         *existsFlagPointer = YES;
         return fetchedObjects[0];
     } else if (error != nil) {
@@ -1414,7 +1432,7 @@ NSString *fontToString(NSFont *font) {
         } else {
             if (error != nil)
                 NSLog(@"Preferences defaultTheme: %@", error);
-            _defaultTheme = [Preferences createDefaultThemeInContext:_managedObjectContext];
+            _defaultTheme = [Preferences createDefaultThemeInContext:_managedObjectContext forceRebuild:NO];
         }
     }
     return _defaultTheme;
@@ -1438,69 +1456,8 @@ NSString *fontToString(NSFont *font) {
     return _managedObjectContext;
 }
 
-- (void)createDefaultThemes {
-
-    Theme *darkTheme;
-    NSArray *fetchedObjects;
-    NSError *error;
-
-    // First, check if they already exist
-
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:self.managedObjectContext];
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", @"Dark"];
-
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects && fetchedObjects.count) {
-        NSLog(@"Dark theme already exists!");
-        return;
-    } else {
-        darkTheme = [self.defaultTheme clone];
-        darkTheme.name = @"Dark";
-    }
-
-    darkTheme.gridBackground = [NSColor blackColor];
-    darkTheme.bufferBackground = [NSColor blackColor];
-    if (!darkTheme.bufferNormal.attributeDict)
-        [darkTheme populateStyles];
-    [darkTheme.bufferNormal setColor:[NSColor whiteColor]];
-    [darkTheme.gridNormal setColor:[NSColor whiteColor]];
-    [darkTheme.bufInput setColor:[NSColor redColor]];
-    [darkTheme populateStyles];
-    darkTheme.editable = NO;
-
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
-
-    fetchRequest.predicate = nil;
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    for (Game *game in fetchedObjects)
-        game.theme = self.defaultTheme;
-
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:_managedObjectContext];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", @"Default"];
-
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"createDefaultThemes: %@",error);
-    }
-
-    if (fetchedObjects.count > 1)
-    {
-        NSLog(@"createDefaultThemes: Found more than one Theme object with name Default (total %ld)", fetchedObjects.count);
-    }
-    else if (fetchedObjects.count == 0)
-    {
-        NSLog(@"createDefaultThemes: Found no Ifid object with with name Default");
-    }
-
-    if (fetchedObjects[0] != self.defaultTheme) {
-        NSLog(@"createDefaultThemes: something went wrong");
-    } else
-        NSLog(@"createDefaultThemes successful");
+- (IBAction)rebuildDefaultThemes:(id)sender {
+    [Preferences createBuiltInThemesInContext:_managedObjectContext forceRebuild:YES];
 }
 
 #pragma mark Preview

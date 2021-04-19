@@ -282,8 +282,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     languageCodes = mutablelanguageCodes;
 
-    [[Preferences instance] createDefaultThemes];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
