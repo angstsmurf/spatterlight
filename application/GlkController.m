@@ -2267,10 +2267,16 @@ fprintf(stderr, "%s\n",                                                    \
                      length:(size_t)len {
     NSString *str;
 
-    if ([gwindow isKindOfClass:[GlkTextBufferWindow class]] &&
-        (style & 0xff) != style_Preformatted && style != style_BlockQuote && !_bufferStyleHints[style][stylehint_Proportional]) {
+    NSNumber *styleHintProportional = _bufferStyleHints[style][stylehint_Proportional];
+    BOOL proportional = ([gwindow isKindOfClass:[GlkTextBufferWindow class]] &&
+                         (style & 0xff) != style_Preformatted &&
+                         style != style_BlockQuote &&
+                         ([styleHintProportional isEqualTo:[NSNull null]] ||
+                         styleHintProportional.integerValue == 1));
+
+    if (proportional) {
         GlkTextBufferWindow *textwin = (GlkTextBufferWindow *)gwindow;
-        NSInteger smartquotes = _theme.smartQuotes;
+        BOOL smartquotes = _theme.smartQuotes;
         NSInteger spaceformat = _theme.spaceFormat;
         NSInteger lastchar = textwin.lastchar;
         NSInteger spaced = 0;
