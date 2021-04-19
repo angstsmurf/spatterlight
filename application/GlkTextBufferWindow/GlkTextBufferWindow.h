@@ -42,9 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)recalcBackground;
 - (void)echo:(BOOL)val;
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
-- (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset;
+- (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate;
 - (void)scrollToTop;
-- (void)scrollToBottom;
+- (void)scrollToBottomAnimated:(BOOL)animate;
 - (BOOL)scrolledToBottom;
 - (void)storeScrollOffset;
 - (void)restoreTextFinder;

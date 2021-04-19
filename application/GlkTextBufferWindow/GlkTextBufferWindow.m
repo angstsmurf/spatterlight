@@ -514,14 +514,14 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)deferredScrollPosition:(id)sender {
     [self restoreScrollBarStyle];
     if (_restoredAtBottom) {
-        [self scrollToBottom];
+        [self scrollToBottomAnimated:NO];
     } else if (_restoredAtTop) {
         [self scrollToTop];
     } else {
         if (_restoredLastVisible == 0)
-            [self scrollToBottom];
+            [self scrollToBottomAnimated:NO];
         else
-            [self scrollToCharacter:_restoredLastVisible withOffset:_restoredScrollOffset];
+            [self scrollToCharacter:_restoredLastVisible withOffset:_restoredScrollOffset animate:NO];
     }
     _pendingScrollRestore = NO;
 }
@@ -1784,7 +1784,7 @@ replacementString:(id)repl {
     }
 
     if (lastAtBottom) {
-        [self scrollToBottom];
+        [self scrollToBottomAnimated:NO];
         return;
     }
 
@@ -1797,11 +1797,11 @@ replacementString:(id)repl {
         return;
     }
 
-    [self scrollToCharacter:lastVisible withOffset:lastScrollOffset];
+    [self scrollToCharacter:lastVisible withOffset:lastScrollOffset animate:NO];
     return;
 }
 
-- (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset {
+- (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate {
     NSLog(@"GlkTextBufferWindow %ld: scrollToCharacter %ld withOffset: %f", self.name, character, offset);
 
     NSRect line;
@@ -1824,7 +1824,7 @@ replacementString:(id)repl {
         return;
     }
     charbottom = charbottom + offset;
-    [self smoothScrollToPosition:floor(charbottom - NSHeight(scrollview.frame))];
+    [self scrollToPosition:floor(charbottom - NSHeight(scrollview.frame)) animate:animate];
 }
 
 - (void)performScroll {
@@ -1848,9 +1848,9 @@ replacementString:(id)repl {
     CGFloat bottom = NSHeight(_textview.frame);
 
     if (bottom - _lastseen > NSHeight(scrollview.frame)) {
-        [self smoothScrollToPosition:_lastseen];
+        [self scrollToPosition:_lastseen animate:YES];
     } else {
-        [self scrollToBottom];
+        [self scrollToBottomAnimated:YES];
     }
 }
 
@@ -1867,7 +1867,7 @@ replacementString:(id)repl {
     return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding);
 }
 
-- (void)scrollToBottom {
+- (void)scrollToBottomAnimated:(BOOL)animate {
     //    NSLog(@"GlkTextBufferWindow %ld scrollToBottom", self.name);
     lastAtTop = NO;
     lastAtBottom = YES;
@@ -1876,14 +1876,14 @@ replacementString:(id)repl {
     [layoutmanager glyphRangeForTextContainer:container];
     NSPoint newScrollOrigin = NSMakePoint(0, NSMaxY(_textview.frame) - NSHeight(scrollview.contentView.bounds));
 
-    [self smoothScrollToPosition:newScrollOrigin.y];
+    [self scrollToPosition:newScrollOrigin.y animate:animate];
 }
 
-- (void)smoothScrollToPosition:(CGFloat)position {
+- (void)scrollToPosition:(CGFloat)position animate:(BOOL)animate {
     NSClipView* clipView = scrollview.contentView;
     NSRect newBounds = clipView.bounds;
     newBounds.origin.y = position;
-    if (self.theme.smoothScroll) {
+    if (animate && self.theme.smoothScroll) {
         [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
             context.duration = 0.3;
             clipView.animator.boundsOrigin = newBounds.origin;
