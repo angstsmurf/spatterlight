@@ -1136,6 +1136,9 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
+    [NSKeyedUnarchiver setClass:[BufferTextView class] forClassName:@"MyTextView"];
+    [NSKeyedUnarchiver setClass:[GridTextView class] forClassName:@"MyGridTextView"];
+
     self = [super initWithCoder:decoder];
     if (self) {
         dead = [decoder decodeBoolForKey:@"dead"];
