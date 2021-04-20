@@ -1513,6 +1513,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)flushDisplay {
     //    lastFlushTimestamp = [NSDate date];
 
+    _zooming = NO;
+
     if (windowdirty) {
         GlkWindow *largest = [self largestWindow];
         if ([largest isKindOfClass:[GlkTextBufferWindow class]] || [largest isKindOfClass:[GlkTextGridWindow class]])
@@ -1635,8 +1637,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)contentDidResize:(NSRect)frame {
     if (NSEqualRects(frame, lastContentResize)) {
-        //        NSLog(
-        //            @"contentDidResize called with same frame as last time. Skipping.");
+//        NSLog(@"contentDidResize called with same frame as last time. Skipping.");
         return;
     }
 
@@ -1841,18 +1842,21 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Zoom
 
 - (IBAction)zoomIn:(id)sender {
+    _zooming = YES;
     [Preferences zoomIn];
     if (Preferences.instance)
         [Preferences.instance updatePanelAfterZoom];
 }
 
 - (IBAction)zoomOut:(id)sender {
+    _zooming = YES;
     [Preferences zoomOut];
     if (Preferences.instance)
         [Preferences.instance updatePanelAfterZoom];
 }
 
 - (IBAction)zoomToActualSize:(id)sender {
+    _zooming = YES;
     [Preferences zoomToActualSize];
     if (Preferences.instance)
         [Preferences.instance updatePanelAfterZoom];

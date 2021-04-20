@@ -609,6 +609,10 @@
         self.pendingFrame = frame;
     }
 
+    // Don't cut off lines while zooming
+    if (self.glkctl.zooming && newrows < rows)
+        return;
+
     if (_restoredSelection.length == 0)
         _restoredSelection = _textview.selectedRange;
 
