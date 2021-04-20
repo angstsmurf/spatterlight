@@ -48,8 +48,8 @@
 @property (strong) CoreDataManager *coreDataManager;
 @property (strong) NSManagedObjectContext *managedObjectContext;
 
-@property NSMutableDictionary *infoWindows;
-@property NSMutableDictionary *gameSessions;
+@property NSMutableDictionary <NSString *, InfoController *> *infoWindows;
+@property NSMutableDictionary <NSString *, GlkController *> *gameSessions;
 
 @property IBOutlet NSTableView *gameTableView;
 @property IBOutlet NSSearchField *searchField;

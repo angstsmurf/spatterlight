@@ -15,7 +15,7 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 
 @interface InfoController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
 
-@property (strong) Game *game;
+@property (weak) Game *game;
 
 @property NSString *path;
 @property Metadata *meta;

@@ -770,6 +770,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         ![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])
         rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
 
+    __block NSMutableArray *running = [NSMutableArray new];
     __block Game *game;
 
     LibController * __unsafe_unretained weakSelf = self;
@@ -779,7 +780,27 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
          game = weakSelf.gameTableModel[idx];
          if (weakSelf.gameSessions[game.ifid] == nil)
              [weakSelf.managedObjectContext deleteObject:game];
+        else
+            [running addObject:game];
      }];
+
+    NSUInteger count = running.count;
+    if (count) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:NSLocalizedString(@"Are you sure?", nil)];
+        [alert setInformativeText:[NSString stringWithFormat:@"%@ %@ currently in use. Do you want to close and delete %@?", [NSString stringWithSummaryOf:running], (count == 1) ? @"is" : @"are", (count == 1) ? @"it" : @"them"]];
+        [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
+        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+
+        NSInteger choice = [alert runModal];
+
+        if (choice == NSAlertFirstButtonReturn) {
+            for (Game *toDelete in running) {
+                [_gameSessions[toDelete.ifid].window close];
+                [_managedObjectContext deleteObject:toDelete];
+            }
+        }
+    }
 }
 
 - (IBAction)delete:(id)sender {
@@ -980,14 +1001,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 //        return !_currentlyAddingGames;
 
     if (action == @selector(delete:) || action == @selector(deleteGame:)) {
-        if (count == 0)
-            return NO;
-        NSArray *selection = [_gameTableModel objectsAtIndexes:rows];
-        for (Game *game in selection) {
-            if (_gameSessions[game.ifid] == nil)
-                return YES;
-        }
-        return NO;
+        return (count != 0);
     }
 
     if (action == @selector(showGameInfo:)
@@ -2227,6 +2241,10 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 - (NSRect)rectForLineWithIfid:(NSString*)ifid {
     Game *game;
     NSRect frame = NSZeroRect;
+    NSRect myFrame = self.window.frame;
+    frame.origin.x = myFrame.origin.x + myFrame.size.width / 2;
+    frame.origin.y = myFrame.origin.y + myFrame.size.height / 2;
+
     if (ifid.length) {
         game = [self fetchGameForIFID:ifid inContext:_managedObjectContext];
         if ([_gameTableModel containsObject:game]) {

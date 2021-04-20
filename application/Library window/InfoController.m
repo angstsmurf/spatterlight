@@ -215,7 +215,9 @@ fprintf(stderr, "%s\n",                                                    \
     NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
     NSArray *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
     NSArray *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];
-
+    NSArray *deletedObjectts =  (notification.userInfo)[NSDeletedObjectsKey];
+    if ([deletedObjectts containsObject:_game])
+        [[self window] performClose:nil];
     if ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game])
     {
         [self update];
@@ -322,9 +324,9 @@ fprintf(stderr, "%s\n",                                                    \
         if (index != NSNotFound) {
             InfoController *next;
             if (index == 0)
-                next = libcontroller.infoWindows[windowArray.lastObject];
+                next = windowArray.lastObject;
             else
-                next = libcontroller.infoWindows[windowArray[index - 1]];
+                next = windowArray[index - 1];
             [next.window makeKeyAndOrderFront:nil];
         }
     }

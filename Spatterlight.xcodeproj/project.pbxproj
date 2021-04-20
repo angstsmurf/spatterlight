@@ -3653,12 +3653,7 @@
 				961CCEDD09F239E700528FF9 /* AppDelegate.h */,
 				961CCEDE09F239E700528FF9 /* AppDelegate.m */,
 				C3241A00262E029800366AAE /* Preferences */,
-				96A9C0F10A07AE31001B5B9B /* LibController.h */,
-				96A9C0EF0A07AE17001B5B9B /* LibController.m */,
-				6DCFFC2C22BE57790035FA99 /* SideInfoView.h */,
-				6DCFFC2D22BE57790035FA99 /* SideInfoView.m */,
-				96FBD8F40A0950EA002F6087 /* InfoController.h */,
-				96FBD8F50A0950EA002F6087 /* InfoController.m */,
+				C3241A1B262E256A00366AAE /* Library window */,
 				961CCED909F239E700528FF9 /* GlkEvent.h */,
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
 				96A9BB7A0A0662FA001B5B9B /* GlkController.h */,
@@ -4980,6 +4975,19 @@
 				961CCEE409F239E700528FF9 /* Preferences.m */,
 			);
 			path = Preferences;
+			sourceTree = "<group>";
+		};
+		C3241A1B262E256A00366AAE /* Library window */ = {
+			isa = PBXGroup;
+			children = (
+				96A9C0F10A07AE31001B5B9B /* LibController.h */,
+				96A9C0EF0A07AE17001B5B9B /* LibController.m */,
+				6DCFFC2C22BE57790035FA99 /* SideInfoView.h */,
+				6DCFFC2D22BE57790035FA99 /* SideInfoView.m */,
+				96FBD8F40A0950EA002F6087 /* InfoController.h */,
+				96FBD8F50A0950EA002F6087 /* InfoController.m */,
+			);
+			path = "Library window";
 			sourceTree = "<group>";
 		};
 		C353F0AB26264615006D17E3 /* GlkGraphicsWindow */ = {
