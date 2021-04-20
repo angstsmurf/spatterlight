@@ -138,6 +138,7 @@
         <attribute name="morePrompt" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="name" optional="YES" attributeType="String" minValueString="1"/>
         <attribute name="nohacks" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="quoteBox" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="slowDrawing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="smartQuotes" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="smoothScroll" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
@@ -190,6 +191,6 @@
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Metadata" positionX="160" positionY="192" width="128" height="523"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Theme" positionX="160" positionY="192" width="128" height="1259"/>
+        <element name="Theme" positionX="160" positionY="192" width="128" height="1274"/>
     </elements>
 </model>

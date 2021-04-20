@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Theme : NSManagedObject
 
+@property (nonatomic) BOOL autosave;
+@property (nonatomic) BOOL autosaveOnTimer;
 @property (nullable, nonatomic, copy) NSString *beepHigh;
 @property (nullable, nonatomic, copy) NSString *beepLow;
 @property (nonatomic) int32_t border;
@@ -52,8 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSObject *morePrompt;
 @property (nullable, nonatomic, copy) NSString *name;
 @property (nonatomic) int32_t nohacks;
-@property (nonatomic) BOOL autosave;
-@property (nonatomic) BOOL autosaveOnTimer;
+@property (nonatomic) int32_t quoteBox;
 @property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
 @property (nonatomic) BOOL smoothScroll;

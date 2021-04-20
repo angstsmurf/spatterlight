@@ -17,6 +17,8 @@
 
 @implementation Theme
 
+@dynamic autosave;
+@dynamic autosaveOnTimer;
 @dynamic beepHigh;
 @dynamic beepLow;
 @dynamic border;
@@ -54,8 +56,7 @@
 @dynamic morePrompt;
 @dynamic name;
 @dynamic nohacks;
-@dynamic autosave;
-@dynamic autosaveOnTimer;
+@dynamic quoteBox;
 @dynamic slowDrawing;
 @dynamic smartQuotes;
 @dynamic smoothScroll;
