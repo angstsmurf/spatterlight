@@ -1,5 +1,23 @@
 # Change log
 
+## Unreleased
+
+- VoiceOver describes images
+- Reads image descriptions from blorb files
+- Running games can be deleted from library
+- Info windows are closed when their game is deleted
+- Bocfel updated to 1.3.2
+- Improved The Lurking Horror sound support
+- Babel updated to 0.5
+- Fixes a potential crash when importing games
+- Fixes hard-to-read preferences text in dark mode
+- Smooth scrolling
+- Menu action to reset built-in themes
+- Zooming zooms all styles
+- Fixes smart quotes and smart dashes
+- Fixes map in Vain Empires
+- Fixes Mad Bomber glitch
+
 ## Release 0.7.7
 - Fixes starting up when no old library is present.
 - Fix regression with text background colors, apparent in at least Bronze.
