@@ -1,7 +1,6 @@
 # Change log
 
-## Unreleased
-
+##  Release 0.7.8
 - VoiceOver describes images
 - Reads image descriptions from blorb files
 - Running games can be deleted from library
