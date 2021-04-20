@@ -138,7 +138,7 @@
         <attribute name="morePrompt" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="name" optional="YES" attributeType="String" minValueString="1"/>
         <attribute name="nohacks" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="quoteBox" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="quoteBox" optional="YES" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="slowDrawing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="smartQuotes" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="smoothScroll" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
