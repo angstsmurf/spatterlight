@@ -21,7 +21,6 @@
     return YES;
 }
 
-
 - (id)reverseTransformedValue: (id)value {
     NSData *data = (NSData *)value;
     if (!data)
@@ -30,8 +29,8 @@
     id result = nil;
 
     if ([value isKindOfClass:[NSData class]]) {
-            result = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        }
+        result = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }
     if (error || !result)
         NSLog(@"Error! %@", error);
     return result;
