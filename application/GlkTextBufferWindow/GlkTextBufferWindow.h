@@ -32,8 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL pendingClear;
 @property BOOL pendingScrollRestore;
 
-- (BOOL)hasLineRequest;
-
 @property NSAttributedString *restoredInput;
 @property NSDictionary *inputAttributes;
 

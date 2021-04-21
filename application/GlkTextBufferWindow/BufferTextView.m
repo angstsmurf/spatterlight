@@ -30,10 +30,6 @@
     return YES;
 }
 
-- (BOOL)isEditable {
-    return [(GlkTextBufferWindow *)self.delegate hasLineRequest];
-}
-
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
@@ -93,7 +89,7 @@
 }
 
 - (void)setFrameSize:(NSSize)newSize {
-    // NSLog(@"BufferTextView setFrameSize: %@ Old size: %@",
+    // NSLog(@"MyTextView setFrameSize: %@ Old size: %@",
     // NSStringFromSize(newSize), NSStringFromSize(self.frame.size));
 
     newSize.height += _bottomPadding;
