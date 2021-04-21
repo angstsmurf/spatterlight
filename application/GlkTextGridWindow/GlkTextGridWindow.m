@@ -610,7 +610,7 @@
     }
 
     // Don't cut off lines while zooming
-    if ([Preferences instance].zooming && newrows < rows)
+    if ([Preferences instance].inMagnification && newrows < rows)
         return;
 
     if (_restoredSelection.length == 0)

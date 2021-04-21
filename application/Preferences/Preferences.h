@@ -129,7 +129,7 @@ typedef enum kBZArrowsPrefsType : int32_t {
 @property BOOL adjustSize;
 @property (weak) LibController *libcontroller;
 
-@property BOOL zooming;
+@property BOOL inMagnification;
 
 @property (strong) IBOutlet ThemeArrayController *arrayController;
 @property (strong) IBOutlet NSScrollView *scrollView;

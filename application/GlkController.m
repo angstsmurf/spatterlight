@@ -1513,7 +1513,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)flushDisplay {
     //    lastFlushTimestamp = [NSDate date];
 
-    [Preferences instance].zooming = NO;
+    [Preferences instance].inMagnification = NO;
 
     if (windowdirty) {
         GlkWindow *largest = [self largestWindow];
@@ -1842,21 +1842,21 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Zoom
 
 - (IBAction)zoomIn:(id)sender {
-    [Preferences instance].zooming = YES;
+    [Preferences instance].inMagnification = YES;
     [Preferences zoomIn];
     if (Preferences.instance)
         [Preferences.instance updatePanelAfterZoom];
 }
 
 - (IBAction)zoomOut:(id)sender {
-    [Preferences instance].zooming = YES;
+    [Preferences instance].inMagnification = YES;
     [Preferences zoomOut];
     if (Preferences.instance)
         [Preferences.instance updatePanelAfterZoom];
 }
 
 - (IBAction)zoomToActualSize:(id)sender {
-    [Preferences instance].zooming = YES;
+    [Preferences instance].inMagnification = YES;
     [Preferences zoomToActualSize];
     if (Preferences.instance)
         [Preferences.instance updatePanelAfterZoom];
@@ -1868,7 +1868,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
 
     NSSize sizeAfterZoom;
-    if ([Preferences instance].zooming) {
+    if ([Preferences instance].inMagnification) {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"] == NO)
             return;
         if (lastSizeInChars.width == 0) {
