@@ -311,7 +311,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 - (IBAction)deleteLibrary:(id)sender {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert setMessageText:NSLocalizedString(@"Do you really want to delete the library?", nil)];
-    [alert setInformativeText:NSLocalizedString(@"This will empty your game list and delete all metadata.\nThe original game files will not be affected.", nil)];
+    [alert setInformativeText:NSLocalizedString(@"This will empty your game list\nand delete all metadata.\nThe original game files will not be affected.", nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"Delete Library", nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     if (_gameSessions.count) {
