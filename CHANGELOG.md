@@ -1,6 +1,7 @@
 # Change log
 
 ##  Release 0.7.8
+- Breaks autosave backward compatibility
 - VoiceOver describes images
 - Reads image descriptions from blorb files
 - Running games can be deleted from library
@@ -14,7 +15,7 @@
 - Menu action to reset built-in themes
 - Zooming zooms all styles in theme
 - Bottom line in grid window was sometimes cut off while zooming
-- Maintains window aspect when zooming
+- Maintains window aspect ratio when zooming
 - Fixes smart quotes and smart dashes
 - Fixes map in Vain Empires
 - Fixes Mad Bomber glitch
