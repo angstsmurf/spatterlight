@@ -1193,10 +1193,9 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXQ-kH-vl0">
+                                        <button toolTip="Turn on and off smooth text scrolling." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXQ-kH-vl0">
                                             <rect key="frame" x="142" y="152" width="199" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <string key="toolTip">Autosave on every turn. Removes the need to save manually. Can sometimes affect performance. Only available for Glulx and Z-code games.</string>
                                             <buttonCell key="cell" type="check" title="Animate scrolling" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="5jQ-wj-4JH">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>

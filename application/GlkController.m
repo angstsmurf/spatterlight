@@ -1513,7 +1513,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)flushDisplay {
     //    lastFlushTimestamp = [NSDate date];
 
-    _zooming = NO;
+    [Preferences instance].zooming = NO;
 
     if (windowdirty) {
         GlkWindow *largest = [self largestWindow];
@@ -1842,21 +1842,21 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Zoom
 
 - (IBAction)zoomIn:(id)sender {
-    _zooming = YES;
+    [Preferences instance].zooming = YES;
     [Preferences zoomIn];
     if (Preferences.instance)
         [Preferences.instance updatePanelAfterZoom];
 }
 
 - (IBAction)zoomOut:(id)sender {
-    _zooming = YES;
+    [Preferences instance].zooming = YES;
     [Preferences zoomOut];
     if (Preferences.instance)
         [Preferences.instance updatePanelAfterZoom];
 }
 
 - (IBAction)zoomToActualSize:(id)sender {
-    _zooming = YES;
+    [Preferences instance].zooming = YES;
     [Preferences zoomToActualSize];
     if (Preferences.instance)
         [Preferences.instance updatePanelAfterZoom];
@@ -1867,7 +1867,20 @@ fprintf(stderr, "%s\n",                                                    \
     if (notification.object != _game.theme)
         return;
 
-    NSSize sizeAfterZoom = [self defaultContentSize];
+    NSSize sizeAfterZoom;
+    if ([Preferences instance].zooming) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"] == NO)
+            return;
+        if (lastSizeInChars.width == 0) {
+            sizeAfterZoom = [self defaultContentSize];
+        } else {
+            sizeAfterZoom = [self charCellsToContentSize:lastSizeInChars];
+            sizeAfterZoom.width += _theme.border * 2;
+            sizeAfterZoom.height += _theme.border * 2;
+        }
+    } else {
+        sizeAfterZoom = [self defaultContentSize];
+    }
     NSRect oldframe = _contentView.frame;
 
     // Prevent the window from shrinking when zooming in or growing when

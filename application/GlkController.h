@@ -101,8 +101,6 @@
 @property BOOL anchorheadOrig;
 @property BOOL curses;
 
-@property BOOL zooming;
-
 @property NSInteger autosaveVersion;
 @property NSInteger autosaveTag;
 @property BOOL hasAutoSaved;

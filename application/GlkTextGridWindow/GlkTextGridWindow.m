@@ -610,7 +610,7 @@
     }
 
     // Don't cut off lines while zooming
-    if (self.glkctl.zooming && newrows < rows)
+    if ([Preferences instance].zooming && newrows < rows)
         return;
 
     if (_restoredSelection.length == 0)

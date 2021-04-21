@@ -12,7 +12,9 @@
 - Fixes hard-to-read preferences text in dark mode
 - Smooth scrolling
 - Menu action to reset built-in themes
-- Zooming zooms all styles
+- Zooming zooms all styles in theme
+- Bottom line in grid window was sometimes cut off while zooming
+- Maintains window aspect when zooming
 - Fixes smart quotes and smart dashes
 - Fixes map in Vain Empires
 - Fixes Mad Bomber glitch

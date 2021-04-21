@@ -222,20 +222,6 @@ static Preferences *prefs = nil;
     theme.bufferCellWidth = cellsize.width;
     theme.bufferCellHeight = cellsize.height;
 
-#if 0
-        if (style == style_BlockQuote)
-        {
-            NSMutableParagraphStyle *mpara;
-            float indent = [bufroman defaultLineHeightForFont] * 1.0;
-            mpara = [[NSMutableParagraphStyle alloc] init];
-            [mpara setParagraphStyle: para];
-            [mpara setFirstLineHeadIndent: indent];
-            [mpara setHeadIndent: indent];
-            [mpara setTailIndent: -indent];
-            [dict setObject: mpara forKey: NSParagraphStyleAttributeName];
-            [mpara release];
-        }
-#endif
 }
 
 #pragma mark - Instance -- controller for preference panel
@@ -1647,7 +1633,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSFont *gridroman = theme.gridNormal.font;
     NSLog(@"zoomIn gridroman.pointSize = %f", gridroman.pointSize);
 
-    if (gridroman.pointSize < 100) {
+    if (gridroman.pointSize < 200) {
         zoomDirection = ZOOMIN;
         [self scale:(gridroman.pointSize + 1) / gridroman.pointSize];
     }
@@ -1692,16 +1678,17 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (scalefactor < 0)
         scalefactor = fabs(scalefactor);
 
-    if ((scalefactor < 1.01 && scalefactor > 0.99) || scalefactor == 0.0)
-//        scalefactor = 1.0;
-        return;
+//    if ((scalefactor < 1.01 && scalefactor > 0.99) || scalefactor == 0.0)
+////        scalefactor = 1.0;
+//        return;
 
     [prefs cloneThemeIfNotEditable];
 
-    CGFloat fontSize;
-
-    fontSize = gridroman.pointSize;
+    CGFloat fontSize = gridroman.pointSize;
+    NSLog(@"fontSize before zoom: %f", fontSize);
     fontSize *= scalefactor;
+    NSLog(@"fontSize after zoom: %f", fontSize);
+
     if (fontSize > 0) {
         theme.gridNormal.font = [NSFont fontWithDescriptor:gridroman.fontDescriptor
                                                       size:fontSize];

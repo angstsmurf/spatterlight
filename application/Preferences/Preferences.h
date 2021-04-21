@@ -117,17 +117,19 @@ typedef enum kBZArrowsPrefsType : int32_t {
 + (void)changeCurrentGame:(Game *)game;
 
 @property BOOL previewShown;
-@property GlkTextBufferWindow *glktxtbuf;
-@property IBOutlet NSBox *sampleTextBorderView;
+@property (weak) GlkTextBufferWindow *glktxtbuf;
+@property (strong) IBOutlet NSBox *sampleTextBorderView;
 
 @property (readonly) Theme *defaultTheme;
 @property (readonly) CoreDataManager *coreDataManager;
 @property (readonly) NSArray *sortDescriptors;
 @property (readonly) NSManagedObjectContext *managedObjectContext;
-@property Game *currentGame;
+@property (weak) Game *currentGame;
 @property BOOL oneThemeForAll;
 @property BOOL adjustSize;
-@property LibController *libcontroller;
+@property (weak) LibController *libcontroller;
+
+@property BOOL zooming;
 
 @property (strong) IBOutlet ThemeArrayController *arrayController;
 @property (strong) IBOutlet NSScrollView *scrollView;
