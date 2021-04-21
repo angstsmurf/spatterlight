@@ -227,7 +227,7 @@ static void spatterglk_game_autorestore()
         TempLibrary *newlib = nil;
         getautosavedir(gamefile->filename);
         NSString *dirname = [NSString stringWithUTF8String:autosavedir];
-        if (!dirname)
+        if (!dirname || dirname.length == 0)
             return;
         NSString *glksavepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
         NSString *libsavepath = [dirname stringByAppendingPathComponent:@"autosave.plist"];

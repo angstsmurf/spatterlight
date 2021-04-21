@@ -165,7 +165,7 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
         getautosavedir((char *)game_file);
         
         NSString *dirname = [NSString stringWithUTF8String:autosavedir];
-        if ((!dirname) || [dirname isEqualToString:@""])
+        if (!dirname || dirname.length == 0)
             return 0;
         NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
         
