@@ -230,3 +230,7 @@ fastlane/screenshots
 #
 
 .gdb_history
+
+# Xcode creates these whenever nib files are opened or edited.
+# It seems to be a backup copy of keyedobjects.nib
+*keyedobjects-110000.nib
