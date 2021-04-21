@@ -1631,7 +1631,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 + (void)zoomIn {
     zoomDirection = ZOOMRESET;
     NSFont *gridroman = theme.gridNormal.font;
-    NSLog(@"zoomIn gridroman.pointSize = %f", gridroman.pointSize);
+//    NSLog(@"zoomIn gridroman.pointSize = %f", gridroman.pointSize);
 
     if (gridroman.pointSize < 200) {
         zoomDirection = ZOOMIN;
@@ -1640,7 +1640,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 + (void)zoomOut {
-    NSLog(@"zoomOut");
+//    NSLog(@"zoomOut");
     zoomDirection = ZOOMRESET;
     NSFont *gridroman = theme.gridNormal.font;
     if (gridroman.pointSize > 6) {
@@ -1650,7 +1650,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 + (void)zoomToActualSize {
-    NSLog(@"zoomToActualSize");
+//    NSLog(@"zoomToActualSize");
     zoomDirection = ZOOMRESET;
 
     CGFloat scale;
@@ -1668,7 +1668,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 + (void)scale:(CGFloat)scalefactor {
-    NSLog(@"Preferences scale: %f", scalefactor);
+//    NSLog(@"Preferences scale: %f", scalefactor);
 
     NSFont *gridroman = theme.gridNormal.font;
     NSFont *bufroman = theme.bufferNormal.font;
@@ -1685,9 +1685,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [prefs cloneThemeIfNotEditable];
 
     CGFloat fontSize = gridroman.pointSize;
-    NSLog(@"fontSize before zoom: %f", fontSize);
     fontSize *= scalefactor;
-    NSLog(@"fontSize after zoom: %f", fontSize);
 
     if (fontSize > 0) {
         theme.gridNormal.font = [NSFont fontWithDescriptor:gridroman.fontDescriptor
