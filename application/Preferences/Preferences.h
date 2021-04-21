@@ -117,7 +117,7 @@ typedef enum kBZArrowsPrefsType : int32_t {
 + (void)changeCurrentGame:(Game *)game;
 
 @property BOOL previewShown;
-@property (weak) GlkTextBufferWindow *glktxtbuf;
+@property (strong) GlkTextBufferWindow *glktxtbuf;
 @property (strong) IBOutlet NSBox *sampleTextBorderView;
 
 @property (readonly) Theme *defaultTheme;
