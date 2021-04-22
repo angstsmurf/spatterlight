@@ -89,7 +89,7 @@
 }
 
 - (void)setFrameSize:(NSSize)newSize {
-    // NSLog(@"MyTextView setFrameSize: %@ Old size: %@",
+    // NSLog(@"BufferTextView setFrameSize: %@ Old size: %@",
     // NSStringFromSize(newSize), NSStringFromSize(self.frame.size));
 
     newSize.height += _bottomPadding;
