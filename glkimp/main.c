@@ -41,7 +41,7 @@ int main(int argc, char **argv)
     memcpy(startdata.argv, argv, argc * sizeof(char*));
     
     win_hello();
-        
+
     inittime = TRUE;
     if (!glkunix_startup_code(&startdata))
 	return 1;
