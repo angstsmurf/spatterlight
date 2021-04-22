@@ -17,8 +17,12 @@
 
 #define MAXWIN 64
 
-@interface GlkHelperView : NSView {
-}
+typedef enum kMinimumWindowSize : NSUInteger {
+    kMinimumWindowWidth = 213,
+    kMinimumWindowHeight = 107,
+} kkMinimumWindowSize;
+
+@interface GlkHelperView : NSView
 
 @property (weak) IBOutlet GlkController *glkctrl;
 

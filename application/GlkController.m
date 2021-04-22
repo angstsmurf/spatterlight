@@ -3740,14 +3740,29 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 // Some convenience methods
 - (void)adjustContentView {
+    NSRect frame;
     if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
         NSEqualRects(_borderView.frame, self.window.screen.frame) || (dead && _inFullscreen && windowRestoredBySystem)) {
         // We are in fullscreen
-        _contentView.frame = [self contentFrameForFullscreen];
+        frame = [self contentFrameForFullscreen];
     } else {
         // We are not in fullscreen
-        _contentView.frame = [self contentFrameForWindowed];
+        frame = [self contentFrameForWindowed];
     }
+    if (frame.size.width < kMinimumWindowWidth)
+        frame.size.width = kMinimumWindowWidth;
+    if (frame.size.height < kMinimumWindowHeight)
+        frame.size.width = kMinimumWindowHeight;
+
+    NSRect windowframe = self.window.frame;
+    if (windowframe.size.width < kMinimumWindowWidth)
+        windowframe.size.width = kMinimumWindowWidth;
+    if (windowframe.size.height < kMinimumWindowHeight)
+        windowframe.size.width = kMinimumWindowHeight;
+    if (!NSEqualRects(self.window.frame, windowframe))
+        [self.window setFrame:windowframe display:YES];
+
+    _contentView.frame = frame;
 }
 
 - (NSRect)contentFrameForWindowed {
