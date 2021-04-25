@@ -201,6 +201,29 @@ static const struct patch patches[] =
     .replacement = B(0xf6, 0x53, 0x01, 0x0a, 0x12, 0x5a, 0x05, 0xb4),
   },
 
+    // The Blorb demo “The Spy Who Came In From The Garden” seems to
+    // always be in a state of disrepair. One particular version appears
+    // to work better than most, but for a bad call to @sound_effect:
+    //
+    // [Routine number;
+    //     @sound_effect number 2 255 4;
+    // ];
+    //
+    // The “4” above is a routine to call, which is clearly invalid.
+    // The easiest way to work around this is to just rewrite it to not
+    // include the routine call; this becomes:
+    //
+    // @sound_effect number 2 255;
+    // @nop; ! This is for padding.
+    {
+        .title = "The Spy Who Came In From The Garden",
+        .serial = "980124", .release = 1, .checksum = 0x260,
+        .addr = 0xb6c2, .n = 5,
+        .expected = B(0x95, 0x01, 0x02, 0xff, 0x01),
+        .replacement= B(0x97, 0x01, 0x02, 0xff, 0xb4),
+    },
+
+
   { .replacement = NULL },
 };
 
