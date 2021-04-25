@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "io.h"
 
 #define DEFAULT_STACK_SIZE	0x4000
 #define DEFAULT_CALL_DEPTH	0x400
@@ -34,6 +35,9 @@ enum SaveOpcode {
     SaveOpcodeRead = 0,
     SaveOpcodeReadChar = 1,
 };
+
+bool save_quetzal(zterp_io *savefile, enum SaveType savetype, enum SaveOpcode saveopcode, bool store_history);
+bool restore_quetzal(zterp_io *savefile, enum SaveType savetype, enum SaveOpcode *saveopcode);
 
 bool do_save(enum SaveType savetype, enum SaveOpcode saveopcode);
 bool do_restore(enum SaveType savetype, enum SaveOpcode *saveopcode);

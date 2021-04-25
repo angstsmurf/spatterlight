@@ -3210,6 +3210,8 @@ end:
 void stash_library_state(library_state_data *dat)
 {
     if (dat) {
+        dat->active = true;
+        dat->headerfixedfont = header_fixed_font;
         if ( windows[0].id)
             dat->wintag0 = windows[0].id->tag;
         if ( windows[1].id)
@@ -3235,9 +3237,18 @@ void stash_library_state(library_state_data *dat)
             dat->statuswintag = statuswin.id->tag;
         if (errorwin && errorwin->tag)
             dat->errorwintag = errorwin->tag;
+
         if (upperwin->id)
             dat->upperwintag = upperwin->id->tag;
-
+        dat->upperwinheight = upper_window_height;
+        dat->upperwinwidth = upper_window_width;
+        dat->upperwinx = upperwin->x;
+        dat->upperwiny = upperwin->y;
+        dat->fgcolor = style_window->fg_color.value;
+        dat->bgcolor = style_window->bg_color.value;
+        dat->fgmode = style_window->fg_color.mode;
+        dat->bgmode = style_window->bg_color.mode;
+        dat->style = style_window->style;
         stash_library_sound_state(dat);
     }
 }
@@ -3247,7 +3258,8 @@ void stash_library_state(library_state_data *dat)
 // active sound commands.
 void recover_library_state(library_state_data *dat)
 {
-    if (dat) {
+    if (dat && dat->active) {
+        header_fixed_font = dat->headerfixedfont;
         windows[0].id = gli_window_for_tag(dat->wintag0);
         windows[1].id = gli_window_for_tag(dat->wintag1);
         windows[2].id = gli_window_for_tag(dat->wintag2);
@@ -3270,11 +3282,27 @@ void recover_library_state(library_state_data *dat)
                 if (windows[i].id->tag == dat->upperwintag)
                 {
                     upperwin = &windows[i];
+                    upperwin->x = dat->upperwinx;
+                    upperwin->y = dat->upperwiny;
                     if (mouse_available())
                         glk_request_mouse_event(upperwin->id);
                 }
             }
         }
+
+        upper_window_height = dat->upperwinheight;
+        upper_window_width = dat->upperwinwidth;
+
+        have_unicode = true;
+
+        style_window->fg_color.mode = dat->fgmode;
+        style_window->fg_color.value = dat->fgcolor;
+
+        style_window->bg_color.mode = dat->bgmode;
+        style_window->bg_color.value = dat->bgcolor;
+
+        style_window->style = dat->style;
+
         recover_library_sound_state(dat);
     }
 }

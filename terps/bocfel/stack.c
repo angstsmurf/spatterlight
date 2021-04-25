@@ -691,7 +691,7 @@ static void write_chunk(zterp_io *io, TypeID (*writefunc)(zterp_io *savefile, vo
 // BFZS instead of IFZS to prevent the files from being used by a normal
 // @restore (as they are not compatible). See `Quetzal.md` for a
 // description of how BFZS differs from IFZS.
-static bool save_quetzal(zterp_io *savefile, enum SaveType savetype, enum SaveOpcode saveopcode, bool store_history)
+bool save_quetzal(zterp_io *savefile, enum SaveType savetype, enum SaveOpcode saveopcode, bool store_history)
 {
     long file_size;
     bool is_bfzs = savetype == SaveTypeMeta || savetype == SaveTypeAutosave;
@@ -1072,7 +1072,7 @@ static bool instruction_has_stack_argument(uint32_t addr)
     return false;
 }
 
-static bool restore_quetzal(zterp_io *savefile, enum SaveType savetype, enum SaveOpcode *saveopcode)
+bool restore_quetzal(zterp_io *savefile, enum SaveType savetype, enum SaveOpcode *saveopcode)
 {
     zterp_iff *iff;
     uint32_t size;
