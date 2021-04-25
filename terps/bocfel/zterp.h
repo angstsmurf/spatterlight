@@ -107,6 +107,7 @@ extern bool is_infocom_v1234;
 bool is_beyond_zork(void);
 bool is_journey(void);
 bool is_lurking_horror(void);
+bool is_mad_bomber(void);
 
 void write_header(void);
 
