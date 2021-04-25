@@ -1,5 +1,9 @@
 # Change log
 
+##  Release 0.7.9
+- Bocfel 1.3 made autorestoring unstable, so we revert to 1.2 for now. This breaks autosave backward compatibility again
+- Backports sound and other fixes from Bocfel 1.3 to 1.2.
+
 ##  Release 0.7.8
 - Breaks autosave backward compatibility
 - VoiceOver describes images
