@@ -2431,6 +2431,22 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+- (void)handleShowError:(char *)buf length:(size_t)len {
+    buf[len] = '\0';
+    NSLog(@"handleShowError: %s length: %zu", buf, len);
+    NSString *str = @(buf);
+    if (str && str.length > (NSUInteger)len - 1)
+        [@(buf) substringToIndex:(NSUInteger)len - 1];
+    if (str == nil || str.length < 2)
+        return;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.messageText = NSLocalizedString(@"ERROR", nil);
+        alert.informativeText = str;
+        [alert runModal];
+    });
+}
+
 - (NSUInteger)handleUnprintOnWindow:(GlkWindow *)win string:(unichar *)buf length:(size_t)len {
     NSString *str = [NSString stringWithCharacters:buf length:(NSUInteger)len];
     if (str == nil || len == 0)
@@ -2705,7 +2721,8 @@ fprintf(stderr, "%s\n",                                                    \
              */
 
 #pragma mark Window sizing, printing, drawing …
-
+        case SHOWERROR:
+            [self handleShowError:(char *)buf length:req->len];
         case SIZWIN:
             if (reqWin) {
                 uint x0, y0, x1, y1, checksumWidth, checksumHeight;
@@ -2827,11 +2844,11 @@ fprintf(stderr, "%s\n",                                                    \
             ans->cmd = OKAY;
             ans->a1 = 0;
             ans->a2 = 0;
-            if (reqWin == nil && !_gwindows.count && shouldRestoreUI) {
-                _windowsToRestore = restoredControllerLate.gwindows.allValues;
-                [self restoreUI];
-                reqWin = _gwindows[@(req->a1)];
-            }
+//            if (reqWin == nil && !_gwindows.count && shouldRestoreUI) {
+//                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+//                [self restoreUI];
+//                reqWin = _gwindows[@(req->a1)];
+//            }
             if (reqWin && req->len) {
                 ans->a1 = [self handleUnprintOnWindow:reqWin string:(unichar *)buf length:req->len / sizeof(unichar)];
             }

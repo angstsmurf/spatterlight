@@ -687,6 +687,23 @@ void win_quotebox(int name, int height)
     sendmsg(QUOTEBOX, name, height, 0, 0, 0, 0, NULL);
 }
 
+void win_showerror(char *str)
+{
+    size_t len = strlen(str);
+    if (len) {
+        char *buf = malloc(len + 1);
+        strcpy(buf, str);
+
+        if (strlen(buf))
+        {
+            sendmsg(SHOWERROR, 0, 0, 0, 0, 0,
+                    (int)len,
+                    buf);
+        }
+        free(buf);
+    }
+}
+
 void win_reset()
 {
     win_flush();

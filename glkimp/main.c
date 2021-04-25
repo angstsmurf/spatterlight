@@ -39,13 +39,6 @@ int main(int argc, char **argv)
     startdata.argc = argc;
     startdata.argv = malloc(argc * sizeof(char*));
     memcpy(startdata.argv, argv, argc * sizeof(char*));
-    
-    win_hello();
-
-    inittime = TRUE;
-    if (!glkunix_startup_code(&startdata))
-	return 1;
-    inittime = FALSE;
 
     /* sleep to give us time to attach a gdb process */
     char *cugelwait = getenv("CUGELWAIT");
@@ -55,7 +48,13 @@ int main(int argc, char **argv)
         if (cugelwaittime && cugelwaittime < 60)
             sleep(cugelwaittime);
     }
+    
+    win_hello();
 
+    inittime = TRUE;
+    if (!glkunix_startup_code(&startdata))
+	return 1;
+    inittime = FALSE;
     
     glk_main();
     glk_exit();

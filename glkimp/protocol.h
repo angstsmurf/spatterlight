@@ -112,6 +112,7 @@ enum
     SETREVERSE,
 
     QUOTEBOX,
+    SHOWERROR,
     
     NEXTEVENT,
     EVTARRANGE,
