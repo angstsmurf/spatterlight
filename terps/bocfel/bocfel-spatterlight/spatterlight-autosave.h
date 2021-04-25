@@ -1,9 +1,9 @@
 
 /* spatterlight-autosave.h
  *
- * This file is part of bocfel.
+ * This file is part of Spatterlight.
  *
- * Copyright (c) 2012 Andrew Plotkin.
+ * Copyright (c) 2021 Petter Sjölund, adapted from code by Andrew Plotkin
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -16,7 +16,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -29,7 +29,46 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
 
-extern int spatterlight_do_autosave(void);
-extern int spatterlight_restore_autosave(void);
+#ifndef SPATTERLIGHT_AUTOSAVE_H
+#define SPATTERLIGHT_AUTOSAVE_H
+
+#include "stack.h"
+
+int spatterlight_do_autosave(void);
+int spatterlight_restore_autosave(void);
+
+typedef struct library_state_data_struct {
+    int active; /* does this structure contain meaningful data? */
+    int headerfixedfont;
+    int wintag0;
+    int wintag1;
+    int wintag2;
+    int wintag3;
+    int wintag4;
+    int wintag5;
+    int wintag6;
+    int wintag7;
+    int curwintag;
+    int mainwintag;
+    int statuswintag;
+    int errorwintag;
+    int upperwintag;
+    long upperwinheight;
+    long upperwinwidth;
+    long upperwinx;
+    long upperwiny;
+    uint16_t fgcolor;
+    int fgmode;
+    uint16_t bgcolor;
+    int bgmode;
+    int style;
+    uint16_t routine;
+    int queued_sound;
+    int sound_channel_tag;
+} library_state_data;
+
+void recover_library_state(library_state_data *dat);
+void stash_library_state(library_state_data *dat);
+
+#endif

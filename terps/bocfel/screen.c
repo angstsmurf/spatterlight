@@ -2067,7 +2067,7 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
        case evtype_SoundNotify:
         {
             struct window *saved3 = curwin;
-            end_of_sound();
+            sound_stopped();
 
             /* It’s possible for an interrupt to switch windows; if it
              * does, simply switch back.  This is the easiest way to deal

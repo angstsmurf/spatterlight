@@ -13,7 +13,7 @@
 #include "io.h"
 #include "util.h"
 
-#include "library_state.h"
+#include "spatterlight-autosave.h"
 
 void recover_library_state(library_state_data *dat);
 void stash_library_state(library_state_data *dat);

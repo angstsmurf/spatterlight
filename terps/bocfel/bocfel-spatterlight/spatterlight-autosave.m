@@ -29,6 +29,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#import <Foundation/Foundation.h>
 
 #include "glk.h"
 #include "fileref.h"
@@ -40,8 +41,6 @@
 #include "screen.h"
 
 #import "TempLibrary.h"
-
-#include "library_state.h"
 
 #import "spatterlight-autosave.h"
 
@@ -324,10 +323,7 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
         [encoder encodeInt32:(int32_t)library_state.bgmode forKey:@"bocfel_bgmode"];
         [encoder encodeInt32:(int32_t)library_state.style forKey:@"bocfel_style"];
         [encoder encodeInt32:(int32_t)library_state.routine forKey:@"bocfel_routine"];
-        [encoder encodeInt32:(int32_t)library_state.next_sample forKey:@"bocfel_next_sample"];
-        [encoder encodeInt32:(int32_t)library_state.next_volume forKey:@"bocfel_next_volume"];
-        [encoder encodeInt32:(int32_t)library_state.locked forKey:@"bocfel_locked"];
-        [encoder encodeInt32:(int32_t)library_state.playing forKey:@"bocfel_playing"];
+        [encoder encodeInt32:(int32_t)library_state.queued_sound forKey:@"bocfel_next_sample"];
         [encoder encodeInt32:(int32_t)library_state.sound_channel_tag forKey:@"bocfel_sound_channel_tag"];
 	}
 }
@@ -363,10 +359,7 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
         library_state.style = [decoder decodeInt32ForKey:@"bocfel_style"];
 
         library_state.routine = [decoder decodeInt32ForKey:@"bocfel_routine"];
-        library_state.next_sample = [decoder decodeInt32ForKey:@"bocfel_next_sample"];
-        library_state.next_volume = [decoder decodeInt32ForKey:@"bocfel_next_volume"];
-        library_state.locked = [decoder decodeInt32ForKey:@"bocfel_locked"];
-        library_state.playing = [decoder decodeInt32ForKey:@"bocfel_playing"];
+        library_state.queued_sound = [decoder decodeInt32ForKey:@"bocfel_next_sample"];
         library_state.sound_channel_tag = [decoder decodeInt32ForKey:@"bocfel_sound_channel_tag"];
 	}
 }
