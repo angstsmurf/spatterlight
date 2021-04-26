@@ -66,7 +66,6 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
 static library_state_data library_state; /* used by the archive/unarchive hooks */
 
 char autosavename[1024] = "";
-char normal_start_save[1024] = ""; /* Not actually used */
 
 /* Do an auto-save of the game state, to an macOS-appropriate location. This also saves the Glk library state.
  
@@ -105,6 +104,7 @@ int spatterlight_do_autosave() {
 
         if(save_file == NULL)
         {
+          win_showerror("Could not open autosave file.");
           warning("unable to open save file");
           return 0;
         }
@@ -122,6 +122,7 @@ int spatterlight_do_autosave() {
         pc = orig_pc;
 
         if (!res) {
+            win_showerror("Failed to autosave.");
             NSLog(@"save_game_to_stream failed!");
             return 0;
         }
@@ -135,6 +136,7 @@ int spatterlight_do_autosave() {
         [TempLibrary setExtraArchiveHook:nil];
 
         if (!res) {
+            win_showerror("Could not autosave Glk objects.");
             NSLog(@"library serialize failed!");
             return 0;
         }
@@ -148,12 +150,14 @@ int spatterlight_do_autosave() {
 
         res = [[NSFileManager defaultManager] moveItemAtPath:tmpgamepath toPath:finalgamepath error:nil];
         if (!res) {
+            win_showerror("Could not move autosave file to final position.");
             NSLog(@"could not move game autosave to final position!");
             return 0;
         }
         res = [[NSFileManager defaultManager] moveItemAtPath:tmplibpath toPath:finallibpath error:nil];
         if (!res) {
             /* We don't abort out in this case; we leave the game autosave in place by itself, which is not ideal but better than data loss. */
+            win_showerror("Could not move autosave plist to final position.");
             NSLog(@"could not move library autosave to final position (continuing)");
         }
         win_autosave(library.autosaveTag); // Call window server to do its own autosave
@@ -221,22 +225,24 @@ int spatterlight_restore_autosave()
     if (!gli_enable_autosave)
         return 0;
     @autoreleasepool {
-
         getautosavedir((char *)game_file);
 
         NSString *dirname = [NSString stringWithUTF8String:autosavedir];
-        if ((!dirname) || [dirname isEqualToString:@""])
+        if (!dirname.length) {
+            win_showerror("Could not create autosave folder name.");
             return 0;
+        }
         NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
         strncpy(autosavename, [finalgamepath cStringUsingEncoding:NSUTF8StringEncoding], sizeof autosavename);
         autosavename[sizeof autosavename-1] = 0;
 
         NSString *libsavepath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
 
-        if (![[NSFileManager defaultManager] fileExistsAtPath:finalgamepath])
+        if (![[NSFileManager defaultManager] fileExistsAtPath:finalgamepath]) {
+            // No autosave.glksave exists. Do nothing.
             return 0;
+        }
         if (![[NSFileManager defaultManager] fileExistsAtPath:libsavepath]) {
-
             // If there is a glksave but no plist, we delete the glksave
             // to make sure it does not cause trouble later.
             NSError *error;
@@ -244,7 +250,7 @@ int spatterlight_restore_autosave()
             if ([[NSFileManager defaultManager] isDeletableFileAtPath:finalgamepath]) {
                 BOOL success = [[NSFileManager defaultManager] removeItemAtPath:finalgamepath error:&error];
                 if (!success) {
-                    NSLog(@"Error removing Glk autosave: %@", error);
+                    NSLog(@"Error deleting glksave: %@", error);
                 }
             }
             return 0;
@@ -253,6 +259,7 @@ int spatterlight_restore_autosave()
         zterp_io *save_file = zterp_io_open(autosavename, ZTERP_IO_RDONLY, ZTERP_IO_DATA);
 
         if (save_file == NULL) {
+            win_showerror("Autosave file could not be read.");
             NSLog(@"spatterlight_restore_autosave: failed to open autosave file");
             return 0;
         }
@@ -265,6 +272,7 @@ int spatterlight_restore_autosave()
         /* save_file is now closed */
 
         if (!res) {
+            win_showerror("Failed to restore from autosave file.");
             NSLog(@"unable to restore autosave file.");
             return 0;
         }
@@ -276,6 +284,7 @@ int spatterlight_restore_autosave()
 		}
 		@catch (NSException *ex) {
 			// leave newlib as nil
+            win_showerror("Failed to restore autosaved Glk objects.");
 			NSLog(@"Unable to restore autosave library: %@", ex);
 		}
 
