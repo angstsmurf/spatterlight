@@ -2844,11 +2844,6 @@ fprintf(stderr, "%s\n",                                                    \
             ans->cmd = OKAY;
             ans->a1 = 0;
             ans->a2 = 0;
-//            if (reqWin == nil && !_gwindows.count && shouldRestoreUI) {
-//                _windowsToRestore = restoredControllerLate.gwindows.allValues;
-//                [self restoreUI];
-//                reqWin = _gwindows[@(req->a1)];
-//            }
             if (reqWin && req->len) {
                 ans->a1 = [self handleUnprintOnWindow:reqWin string:(unichar *)buf length:req->len / sizeof(unichar)];
             }
