@@ -391,14 +391,14 @@ static int loadres(HUGO_FILE infile, int reslen)
     return id;
 }
 
-void initsound()
+void initsound(void)
 {
     if (!glk_gestalt(gestalt_Sound, 0))
         return;
     schannel = glk_schannel_create(0);
 }
 
-void initmusic()
+void initmusic(void)
 {
     if (!glk_gestalt(gestalt_Sound, 0) || !glk_gestalt(gestalt_SoundMusic, 0))
         return;
