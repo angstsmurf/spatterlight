@@ -1270,7 +1270,7 @@ fprintf(stderr, "%s\n",                                                    \
     para.lineSpacing = 0;
     para.paragraphSpacing = 0;
     para.paragraphSpacingBefore = 0;
-    para.maximumLineHeight = [layoutmanager defaultLineHeightForFont:self.theme.bufferNormal.font];;
+    para.maximumLineHeight = [layoutmanager defaultLineHeightForFont:self.theme.bufferNormal.font];
     beyondZorkStyle[NSParagraphStyleAttributeName] = para;
     beyondZorkStyle[NSKernAttributeName] = @(-2);
 
