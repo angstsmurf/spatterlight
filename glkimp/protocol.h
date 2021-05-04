@@ -42,6 +42,7 @@ struct settings_struct
     int grid_background;
     float leading;
     int do_styles;
+    int quote_boxes;
     int force_arrange;
 };
 

@@ -396,7 +396,7 @@
                                         <button toolTip="Font used in status bar and other grid windows." fixedFrame="YES" tag="14" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="545">
                                             <rect key="frame" x="93" y="168" width="170" height="24"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <buttonCell key="cell" type="smallSquare" title="Monaco 10.0" alternateTitle="Set Grid Font" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" tag="14" inset="2" id="594">
+                                            <buttonCell key="cell" type="smallSquare" title="Monaco 10.0" alternateTitle="Set Grid Font" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingMiddle" borderStyle="border" tag="14" inset="2" id="594">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" usesAppearanceFont="YES"/>
                                             </buttonCell>
@@ -407,7 +407,7 @@
                                         <button toolTip="Font used in the main scroll view and other text buffer windows." fixedFrame="YES" tag="24" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="546">
                                             <rect key="frame" x="93" y="140" width="170" height="24"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <buttonCell key="cell" type="smallSquare" title="Times 12.0" alternateTitle="Set Buffer Font" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" tag="24" inset="2" id="593">
+                                            <buttonCell key="cell" type="smallSquare" title="Times 12.0" alternateTitle="Set Buffer Font" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingMiddle" borderStyle="border" tag="24" inset="2" id="593">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" usesAppearanceFont="YES"/>
                                             </buttonCell>
@@ -425,7 +425,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField toolTip="Margin inside grid windows." verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="548">
-                                            <rect key="frame" x="405" y="172" width="30" height="18"/>
+                                            <rect key="frame" x="405" y="172" width="35" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="15" drawsBackground="YES" id="590">
                                                 <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="591">
@@ -445,7 +445,7 @@
                                             </connections>
                                         </textField>
                                         <textField toolTip="Margin inside buffer windows." verticalHuggingPriority="750" fixedFrame="YES" tag="23" translatesAutoresizingMaskIntoConstraints="NO" id="549">
-                                            <rect key="frame" x="405" y="143" width="30" height="18"/>
+                                            <rect key="frame" x="405" y="143" width="35" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="23" title="10" drawsBackground="YES" id="588">
                                                 <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="589">
@@ -497,7 +497,7 @@
                                         <button tag="34" imageHugsTitle="YES" id="547">
                                             <rect key="frame" x="174" y="103" width="165" height="24"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <buttonCell key="cell" type="smallSquare" title="Times Bold 12.0" alternateTitle="Set Input Font" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" tag="34" inset="2" id="592">
+                                            <buttonCell key="cell" type="smallSquare" title="Times Bold 12.0" alternateTitle="Set Input Font" bezelStyle="smallSquare" alignment="center" controlSize="small" lineBreakMode="truncatingMiddle" borderStyle="border" tag="34" inset="2" id="592">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" usesAppearanceFont="YES"/>
                                             </buttonCell>
@@ -568,7 +568,7 @@
                                             </connections>
                                         </button>
                                         <button toolTip="Show more margin settings." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e8q-Zi-yu2" userLabel="Show Margin Popover Button">
-                                            <rect key="frame" x="441" y="166" width="18" height="28.5"/>
+                                            <rect key="frame" x="444" y="166" width="18" height="28.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSActionTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" id="xvQ-Jb-wZA">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -999,7 +999,7 @@
                                                         <menuItem title="Replaced by ⌘↑ and ⌘↓" tag="1" toolTip="⌘↑ and ⌘↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history like in other games." id="gS7-RK-TYK" userLabel="Swapped">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
-                                                        <menuItem title="↑↓ and ←→ work as in original" tag="2" toolTip="↑ and ↓ navigate menus and status windows.  ⌘↑ and ⌘↓ step through command history. 􀄪 and → don't do anytthting." id="ct7-O5-tVm" userLabel="Strict">
+                                                        <menuItem title="↑↓ and ←→ work as in original" tag="2" toolTip="↑ and ↓ navigate menus and status windows.  ⌘↑ and ⌘↓ step through command history. ← and → don't do anything." id="ct7-O5-tVm" userLabel="Strict">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
                                                     </items>
@@ -1019,7 +1019,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E7y-oX-rcR">
-                                            <rect key="frame" x="110" y="38" width="203" height="17"/>
+                                            <rect key="frame" x="110" y="40" width="203" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Graphic font vertical adjustment:" usesSingleLineMode="YES" id="xCW-dd-EqN">
                                                 <font key="font" metaFont="system"/>
@@ -1028,7 +1028,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField toolTip="Adjust the graphic font height to avoid gaps. Mainly useful in Beyond Zork." verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="56G-id-IQy">
-                                            <rect key="frame" x="315" y="37" width="27" height="18"/>
+                                            <rect key="frame" x="315" y="39" width="27" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="15" drawsBackground="YES" id="lR2-gA-Xi2">
                                                 <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="Nct-of-Yd4">
@@ -1049,7 +1049,7 @@
                                             </connections>
                                         </textField>
                                         <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VFA-24-eXW">
-                                            <rect key="frame" x="341" y="32" width="19" height="28"/>
+                                            <rect key="frame" x="341" y="34" width="19" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <stepperCell key="cell" continuous="YES" alignment="left" minValue="-20" maxValue="20" id="i5s-sq-NcL"/>
                                             <connections>
@@ -1073,7 +1073,7 @@
                                             </connections>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xo0-td-lWm">
-                                            <rect key="frame" x="163" y="10" width="140" height="18"/>
+                                            <rect key="frame" x="163" y="13" width="140" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Fancy quote boxes" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ElX-fJ-VZh">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

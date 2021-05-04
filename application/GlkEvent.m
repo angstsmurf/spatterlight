@@ -236,6 +236,7 @@ unsigned chartokeycode(unsigned ch) {
         settings->grid_foreground = [theme.gridNormal.color integerColor];
         settings->grid_background = [theme.gridBackground integerColor];
         settings->do_styles = (int)theme.doStyles;
+        settings->quote_boxes = (int)theme.quoteBox;
         settings->force_arrange = _forced;
 
         reply.len = sizeof(struct settings_struct);
