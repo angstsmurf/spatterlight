@@ -1,5 +1,15 @@
 # Change log
 
+##  Unreleased
+- Fix margin image y position regression
+- Fix *The Unfinished*
+- Support VoiceOver for *The Unfinished* main menu
+- Don't count instruction line in *Vespers* menu
+- Many new character and paragraph settings.
+- Most settings on the system font panel (underline, strikethrough, shadow) and on the typography panel should now be functional
+- All Glk styles can be customized
+- Setting to turn off quote box fading in Z-code games
+
 ##  Release 0.7.9
 - Bocfel 1.3 made autorestoring unstable, so we revert to 1.2 for now. This breaks autosave backward compatibility again
 - Backports sound and other fixes from Bocfel 1.3 to 1.2.
