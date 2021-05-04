@@ -34,7 +34,7 @@
     NSDictionary *result = nil;
     
     if ([value isKindOfClass:[NSData class]]) {
-        result = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[ [NSDictionary class], [NSParagraphStyle class], [NSFont class], [NSColor class], [NSValue class], [NSImage class] ]] fromData:data error:&error];
+        result = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[ [NSDictionary class], [NSParagraphStyle class], [NSFont class], [NSColor class], [NSValue class], [NSNumber class], [NSImage class] ]] fromData:data error:&error];
         NSImage *cursorImage = result[@"cursorImage"];
         if (cursorImage) {
             NSMutableDictionary *mutDict = result.mutableCopy;
@@ -42,6 +42,27 @@
             mutDict[NSCursorAttributeName] = [[NSCursor alloc]initWithImage:cursorImage hotSpot:hotspot] ;
             mutDict[@"cursorImage"] = nil;
             mutDict[@"cursorHotspot"] = nil;
+            result = mutDict;
+        }
+        NSSize shadowOffset = NSZeroSize;
+        if (result[@"shadowOffset"])
+            shadowOffset = ((NSValue *)result[@"shadowOffset"]).sizeValue;
+        CGFloat shadowRadius = 0;
+        if (result[@"shadowRadius"])
+            shadowRadius = ((NSNumber *)result[@"shadowRadius"]).doubleValue;
+        NSColor *shadowColor = result[@"shadowColor"];
+        if (!NSEqualSizes(shadowOffset, NSZeroSize) || shadowRadius > 0 || shadowColor) {
+            NSShadow *shadow = [NSShadow new];
+            if (!NSEqualSizes(shadowOffset, NSZeroSize))
+                shadow.shadowOffset = shadowOffset;
+            shadow.shadowBlurRadius = shadowRadius;
+            if (shadowColor)
+                shadow.shadowColor = shadowColor;
+            NSMutableDictionary *mutDict = result.mutableCopy;
+            mutDict[NSShadowAttributeName] = shadow;
+            mutDict[@"shadowOffset"] = nil;
+            mutDict[@"shadowRadius"] = nil;
+            mutDict[@"shadowColor"] = nil;
             result = mutDict;
         }
     }
@@ -63,6 +84,16 @@
             mutDict[NSCursorAttributeName] = nil;
             mutDict[@"cursorImage"] = cursor.image;
             mutDict[@"cursorHotspot"] = @(cursor.hotSpot);
+            dict = mutDict;
+            value = dict;
+        }
+        NSShadow *shadow = dict[NSShadowAttributeName];
+        if (shadow) {
+            NSMutableDictionary *mutDict = dict.mutableCopy;
+            mutDict[NSShadowAttributeName] = nil;
+            mutDict[@"shadowOffset"] = @(shadow.shadowOffset);
+            mutDict[@"shadowRadius"] = @(shadow.shadowBlurRadius);
+            mutDict[@"shadowColor"] = shadow.shadowColor;
             dict = mutDict;
             value = dict;
         }

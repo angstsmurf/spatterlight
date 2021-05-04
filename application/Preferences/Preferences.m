@@ -10,6 +10,8 @@
 #import "BufferTextView.h"
 #import "main.h"
 #import "BuiltInThemes.h"
+#import "ParagraphPopOver.h"
+
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -19,9 +21,45 @@ fprintf(stderr, "%s\n",                                                    \
 #define NSLog(...)
 #endif
 
+@interface DummyTextView : NSTextView <NSWindowDelegate>
+
+- (void)updateTextWithAttributes:(NSDictionary *)attributes;
+
+@end
+
+@implementation DummyTextView
+
+- (void)updateTextWithAttributes:(NSDictionary *)attributes {
+    NSAttributedString *attStr = [[NSAttributedString alloc] initWithString:@"ABCabc1234fiffiflffl" attributes:attributes];
+    [self.textStorage setAttributedString:attStr];
+    self.selectedRange = NSMakeRange(0, self.string.length);
+}
+
+// These three are sent from the font panel
+
+- (void)changeFont:(id)fontManager {
+        NSLog(@"DummyTextView: changeFont: %@", fontManager);
+    [super changeFont:fontManager];
+    [[Preferences instance] changeFont:fontManager];
+}
+
+- (void)changeAttributes:(id)sender {
+        NSLog(@"DummyTextView: changeAttributes:%@", sender);
+    [super changeAttributes:sender];
+    [[Preferences instance] changeAttributes:sender];
+}
+
+- (void)changeDocumentBackgroundColor:(id)sender {
+    NSLog(@"DummyTextView: changeDocumentBackgroundColor:%@", sender);
+    [super changeDocumentBackgroundColor:sender];
+    [[Preferences instance] changeDocumentBackgroundColor:sender];
+}
+
+@end
+
 @interface Preferences () <NSWindowDelegate, NSControlTextEditingDelegate> {
-    IBOutlet NSButton *btnInputFont, *btnBufferFont, *btnGridFont;
-    IBOutlet NSColorWell *clrInputFg, *clrBufferFg, *clrGridFg;
+    IBOutlet NSButton *btnAnyFont, *btnBufferFont, *btnGridFont;
+    IBOutlet NSColorWell *clrAnyFg, *clrBufferFg, *clrGridFg;
     IBOutlet NSColorWell *clrBufferBg, *clrGridBg;
     IBOutlet NSTextField *txtBufferMargin, *txtGridMargin, *txtLeading;
     IBOutlet NSTextField *txtRows, *txtCols;
@@ -213,7 +251,6 @@ static Preferences *prefs = nil;
 #pragma mark GlkStyle and attributed-string magic
 
 + (void)rebuildTextAttributes {
-
     [theme populateStyles];
     NSSize cellsize = [theme.gridNormal cellSize];
     theme.cellWidth = cellsize.width;
@@ -221,7 +258,6 @@ static Preferences *prefs = nil;
     cellsize = [theme.bufferNormal cellSize];
     theme.bufferCellWidth = cellsize.width;
     theme.bufferCellHeight = cellsize.height;
-
 }
 
 #pragma mark - Instance -- controller for preference panel
@@ -255,24 +291,6 @@ NSString *fontToString(NSFont *font) {
     }
 
     _previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
-
-     NSMutableAttributedString *attstr = _swapBufColBtn.attributedStringValue.mutableCopy;
-     NSFont *font = [NSFont fontWithName:@"Exclamation Circle New" size:17];
-
-    [attstr addAttribute:NSFontAttributeName
-                   value:font
-                   range:NSMakeRange(0, attstr.length)];
-
-    [attstr replaceCharactersInRange:NSMakeRange(0,1) withString:@"\u264B"];
-
-    CGFloat offset = (NSAppKitVersionNumber < NSAppKitVersionNumber10_9); //Need to check this
-
-    [attstr addAttribute:NSBaselineOffsetAttributeName
-                   value:@(offset)
-                   range:NSMakeRange(0, attstr.length)];
-
-    _swapBufColBtn.attributedTitle = attstr;
-    _swapGridColBtn.attributedTitle = attstr;
 
     _standardZArrowsMenuItem.title = NSLocalizedString(@"↑ and ↓ work as in original", nil);
     _standardZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history.", nil);
@@ -363,7 +381,6 @@ NSString *fontToString(NSFont *font) {
     [_glktxtbuf putString:@"Palace Gate" style:style_Subheader];
     [_glktxtbuf putString:@" A tide of perambulators surges north along the crowded Broad Walk. "
                    style:style_Normal];
-
     [_glktxtbuf putString:@"(Trinity, Brian Moriarty, Infocom 1986)" style:style_Emphasized];
 
     previewTextHeight = [self textHeight];
@@ -424,7 +441,6 @@ NSString *fontToString(NSFont *font) {
     clrGridBg.color = theme.gridBackground;
     clrBufferFg.color = theme.bufferNormal.color;
     clrBufferBg.color = theme.bufferBackground;
-    clrInputFg.color = theme.bufInput.color;
 
     txtGridMargin.floatValue = theme.gridMarginX;
     txtBufferMargin.floatValue = theme.bufferMarginX;
@@ -437,7 +453,6 @@ NSString *fontToString(NSFont *font) {
 
     btnGridFont.title = fontToString(theme.gridNormal.font);
     btnBufferFont.title = fontToString(theme.bufferNormal.font);
-    btnInputFont.title = fontToString(theme.bufInput.font);
 
     btnSmartQuotes.state = theme.smartQuotes;
     btnSpaceFormat.state = (theme.spaceFormat == TAG_SPACES_ONE);
@@ -451,6 +466,16 @@ NSString *fontToString(NSFont *font) {
 
     _btnOneThemeForAll.state = _oneThemeForAll;
     _btnAdjustSize.state = _adjustSize;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [_windowTypePopup selectItemWithTag:
+     [defaults integerForKey:@"SelectedGlkWindowType"]];
+    [_styleNamePopup selectItemWithTag:
+     [defaults integerForKey:@"SelectedStyle"]];
+
+    GlkStyle *selectedStyle = [self selectedStyle];
+    clrAnyFg.color = selectedStyle.color;
+    btnAnyFont.title = fontToString(selectedStyle.font);
 
     _btnVOSpeakCommands.state = theme.vOSpeakCommand;
     [_vOMenuButton selectItemAtIndex:theme.vOSpeakMenu];
@@ -494,6 +519,17 @@ NSString *fontToString(NSFont *font) {
 
     if ([[NSFontPanel sharedFontPanel] isVisible] && selectedFontButton)
         [self showFontPanel:selectedFontButton];
+}
+
+- (GlkStyle *)selectedStyle {
+    NSString *styleName = [self selectedStyleName];
+    return [theme valueForKey:styleName];
+}
+
+- (NSString *)selectedStyleName {
+    NSUInteger windowType = (NSUInteger)_windowTypePopup.selectedTag;
+    NSUInteger styleValue = (NSUInteger)_styleNamePopup.selectedTag;
+    return (windowType == wintype_TextGrid) ? gGridStyleNames[styleValue] : gBufferStyleNames[styleValue];
 }
 
 @synthesize currentGame = _currentGame;
@@ -584,6 +620,7 @@ NSString *fontToString(NSFont *font) {
     }
     [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.1];
 }
+
 - (void)adjustPreview:(id)sender {
     NSRect previewFrame = [self.window.contentView frame];
     previewFrame.origin.y = kDefaultPrefsLowerViewHeight + 1; // Plus one to allow for divider line
@@ -956,7 +993,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
     NSString *selectedfontString = [state decodeObjectOfClass:[NSString class] forKey:@"selectedFont"];
     if (selectedfontString != nil) {
-        NSArray *fontsButtons = @[btnBufferFont, btnGridFont, btnInputFont];
+        NSArray *fontsButtons = @[btnBufferFont, btnGridFont, btnAnyFont];
         for (NSButton *button in fontsButtons) {
             if ([button.identifier isEqualToString:selectedfontString]) {
                 selectedFontButton = button;
@@ -1005,7 +1042,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)clickedOneThemeForAll:(id)sender {
-    if ([sender state] == 1) {
+    if ([sender state] == NSOnState) {
         if (![[NSUserDefaults standardUserDefaults] valueForKey:@"UseForAllAlertSuppression"]) {
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
             NSError *error = nil;
@@ -1031,7 +1068,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
         }
     }
-    self.oneThemeForAll = (BOOL)[sender state];
+    self.oneThemeForAll = ([sender state] == NSOnState);
 }
 
 - (void)showUseForAllAlert:(NSArray *)games {
@@ -1233,12 +1270,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
     Theme *themeToChange;
     NSColor *color = [sender color];
     if (!color) {
-        NSLog(@"Preferences changeColor called with invalid color!");
+        NSLog(@"Preferences changeColor called with invalid color! %@ %@", sender, [sender color]);
         return;
     }
 
     if (sender == clrGridFg) {
         key = @"gridNormal";
+        if ([self selectedStyle] == theme.gridNormal)
+            clrAnyFg.color = color;
     } else if (sender == clrGridBg) {
         if ([theme.gridBackground isEqualToColor:color])
             return;
@@ -1246,13 +1285,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
         themeToChange.gridBackground = color;
     } else if (sender == clrBufferFg) {
         key = @"bufferNormal";
+        if ([self selectedStyle] == theme.bufferNormal)
+            clrAnyFg.color = color;
     } else if (sender == clrBufferBg) {
         if ([theme.bufferBackground isEqualToColor:color])
             return;
         themeToChange = [self cloneThemeIfNotEditable];
         themeToChange.bufferBackground = color;
-    } else if (sender == clrInputFg) {
-        key = @"bufInput";
+    } else if (sender == clrAnyFg) {
+        key = [self selectedStyleName];
     } else return;
 
     if (key) {
@@ -1368,6 +1409,88 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [Preferences rebuildTextAttributes];
 }
 
+- (IBAction)changeStylePopup:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger windowType = [_windowTypePopup selectedTag];
+    [defaults setInteger:windowType forKey:@"SelectedGlkWindowType"];
+    [defaults setInteger:[_styleNamePopup selectedTag] forKey:@"SelectedStyle"];
+    GlkStyle *selectedStyle = [self selectedStyle];
+    clrAnyFg.color = selectedStyle.color;
+    btnAnyFont.title = fontToString(selectedStyle.font);
+    if (selectedFontButton == btnAnyFont) {
+        NSFontManager *fontManager = [NSFontManager sharedFontManager];
+        [self.dummyTextView updateTextWithAttributes:selectedStyle.attributeDict];
+        NSMutableDictionary *convertedAttributes = selectedStyle.attributeDict.mutableCopy;
+
+        convertedAttributes[@"NSDocumentBackgroundColor"] = (windowType == wintype_TextGrid) ?
+            theme.gridBackground : theme.bufferBackground;
+        [fontManager setSelectedFont:selectedStyle.font isMultiple:NO];
+        [fontManager setSelectedAttributes:convertedAttributes isMultiple:NO];
+    }
+}
+
+#pragma mark Margin Popover
+
+- (IBAction)showMarginPopover:(id)sender {
+    _marginHorizontalGridTextField.integerValue = theme.gridMarginX;
+    _marginHorizontalGridStepper.integerValue = theme.gridMarginX;
+    
+    _marginVerticalGridTextField.integerValue = theme.gridMarginY;
+    _marginVerticalGridStepper.integerValue = theme.gridMarginY;
+
+    _marginHorizontalBufferTextField.integerValue = theme.bufferMarginX;
+    _marginHorizontalBufferStepper.integerValue = theme.bufferMarginX;
+
+    _marginVerticalBufferTextField.integerValue = theme.bufferMarginY;
+    _marginVerticalBufferStepper.integerValue = theme.bufferMarginY;
+
+    [_marginsPopover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
+}
+
+- (IBAction)changeGridHorizontalMargin:(id)sender {
+    if (theme.gridMarginX == [sender integerValue])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.gridMarginX = [sender integerValue];
+    _marginHorizontalGridTextField.integerValue = themeToChange.gridMarginX;
+    _marginHorizontalGridStepper.integerValue = themeToChange.gridMarginX;
+}
+
+- (IBAction)changeGridVerticalMargin:(id)sender {
+    if (theme.gridMarginY == [sender integerValue])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.gridMarginY = [sender integerValue];
+    _marginVerticalGridTextField.integerValue = themeToChange.gridMarginY;
+    _marginVerticalGridStepper.integerValue = themeToChange.gridMarginY;
+}
+
+- (IBAction)changeBufferHorizontalMargin:(id)sender {
+    if (theme.bufferMarginX == [sender integerValue])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.bufferMarginX = [sender integerValue];
+    _marginHorizontalBufferTextField.integerValue = themeToChange.bufferMarginX;
+    _marginHorizontalBufferStepper.integerValue = themeToChange.bufferMarginX;
+}
+- (IBAction)changeBufferVerticalMargin:(id)sender {
+    if (theme.bufferMarginY == [sender integerValue])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.bufferMarginY = [sender integerValue];
+    _marginVerticalBufferTextField.integerValue = themeToChange.bufferMarginY;
+    _marginVerticalBufferStepper.integerValue = themeToChange.bufferMarginY;
+}
+
+- (IBAction)showParagraphPopOver:(id)sender {
+    if (!_paragraphPopover)
+        _paragraphPopover = [[ParagraphPopOver alloc] initWithNibName:@"ParagraphPopOver" bundle:nil];
+
+    [_paragraphPopover presentViewController:_paragraphPopover asPopoverRelativeToRect:[sender frame] ofView:[sender superview] preferredEdge:NSMaxYEdge behavior:NSPopoverBehaviorTransient];
+    [_paragraphPopover refreshForStyle:[self selectedStyle]];
+}
+
+
 #pragma mark VoiceOver menu
 
 - (IBAction)changeVOSpeakCommands:(id)sender {
@@ -1459,22 +1582,23 @@ textShouldEndEditing:(NSText *)fieldEditor {
     themeToChange.zMachineLetter = [sender stringValue];
 }
 
-- (IBAction)changeBZVerticalStepper:(id)sender {
-    if (theme.bZAdjustment == [sender integerValue]) {
-        return;
-    }
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.bZAdjustment = [sender integerValue];
-    _bZVerticalTextField.integerValue = themeToChange.bZAdjustment;
-}
 
-- (IBAction)changeBZVerticalTextField:(id)sender {
+- (IBAction)changeBZVerticalAdjustment:(id)sender {
     if (theme.bZAdjustment == [sender integerValue]) {
         return;
     }
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.bZAdjustment = [sender integerValue];
     _bZVerticalStepper.integerValue = themeToChange.bZAdjustment;
+    _bZVerticalTextField.integerValue = themeToChange.bZAdjustment;
+}
+
+- (IBAction)changeQuoteBoxCheckBox:(id)sender {
+    if (theme.quoteBox == [sender state]) {
+        return;
+    }
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.quoteBox = [sender state];
 }
 
 #pragma mark Misc menu
@@ -1728,7 +1852,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (void)updatePanelAfterZoom {
     btnGridFont.title = fontToString(theme.gridNormal.font);
     btnBufferFont.title = fontToString(theme.bufferNormal.font);
-    btnInputFont.title = fontToString(theme.bufInput.font);
+    btnAnyFont.title = fontToString(theme.bufInput.font);
 }
 
 #pragma mark Font panel
@@ -1739,44 +1863,71 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSFont *selectedFont = nil;
     NSColor *selectedFontColor = nil;
     NSColor *selectedDocumentColor = nil;
+    GlkStyle *selectedStyle = nil;
 
 
     if (sender == btnGridFont) {
         selectedFont = theme.gridNormal.font;
         selectedFontColor = theme.gridNormal.color;
         selectedDocumentColor = theme.gridBackground;
+        selectedStyle = theme.gridNormal;
     }
     if (sender == btnBufferFont) {
         selectedFont = theme.bufferNormal.font;
         selectedFontColor = theme.bufferNormal.color;
         selectedDocumentColor = theme.bufferBackground;
+        selectedStyle = theme.bufferNormal;
     }
-    if (sender == btnInputFont) {
-        selectedFont = theme.bufInput.font;
-        selectedFontColor = theme.bufInput.color;
-        selectedDocumentColor = theme.bufferBackground;
+    if (sender == btnAnyFont) {
+        selectedStyle = [self selectedStyle];
+        selectedFont = selectedStyle.font;
+        selectedFontColor = selectedStyle.color;
+        NSInteger windowType = _windowTypePopup.selectedTag;
+        selectedDocumentColor = (windowType == wintype_TextGrid) ?
+            theme.gridBackground : theme.bufferBackground;
     }
 
+    NSDictionary *attConvDict = @{NSForegroundColorAttributeName: @"NSColor",
+                                  NSUnderlineStyleAttributeName: @"NSUnderline",
+                                  NSUnderlineColorAttributeName: @"NSUnderlineColor",
+                                  NSStrikethroughStyleAttributeName: @"NSStrikethrough",
+                                  NSStrikethroughColorAttributeName: @"NSStrikethroughColor",
+                                  NSShadowAttributeName: @"NSShadow",
+                                  NSLigatureAttributeName: @"NSLigature",
+                                  NSFontAttributeName: @"NSFont"
+    };
+
     if (selectedFont) {
-        NSDictionary *attr =
-        @{@"NSColor" : selectedFontColor, @"NSDocumentBackgroundColor" : selectedDocumentColor};
+        NSMutableDictionary *attr = [NSMutableDictionary new];
+        NSDictionary *oldAttr = selectedStyle.attributeDict;
+        for (NSString *key in oldAttr.allKeys) {
+            NSString *newKey = attConvDict[key];
+            if (!newKey)
+                newKey = key;
+            attr[newKey] = oldAttr[key];
+        }
+        attr[@"NSColor"] = selectedFontColor;
+        attr[@"Font"] = selectedFont;
+        attr[@"NSDocumentBackgroundColor"] = selectedDocumentColor;
 
         [self.window makeFirstResponder:self.window];
 
-        [NSFontManager sharedFontManager].target = self;
-        [NSFontPanel sharedFontPanel].delegate = self;
+        [self.dummyTextView updateTextWithAttributes:selectedStyle.attributeDict];
+
+        [NSFontManager sharedFontManager].target = self.dummyTextView;
+        [NSFontPanel sharedFontPanel].delegate = self.dummyTextView;
         [[NSFontPanel sharedFontPanel] makeKeyAndOrderFront:self];
 
-        [[NSFontManager sharedFontManager] setSelectedAttributes:attr
-                                                      isMultiple:NO];
         [[NSFontManager sharedFontManager] setSelectedFont:selectedFont
                                                 isMultiple:NO];
+        [[NSFontManager sharedFontManager] setSelectedAttributes:attr
+                                                      isMultiple:NO];
     }
 }
 
 
-
 - (IBAction)changeFont:(id)fontManager {
+    NSLog(@"changeFont: %@", fontManager);
     NSFont *newFont = nil;
     if (selectedFontButton) {
         newFont = [fontManager convertFont:[fontManager selectedFont]];
@@ -1785,24 +1936,27 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     }
 
+    Theme *themeToChange;
     if (selectedFontButton == btnGridFont) {
         if ([theme.gridNormal.font isEqual:newFont])
             return;
-        theme = [self cloneThemeIfNotEditable];
-        theme.gridNormal.font = newFont;
+        themeToChange = [self cloneThemeIfNotEditable];
+        themeToChange.gridNormal.font = newFont;
         btnGridFont.title = fontToString(newFont);
     } else if (selectedFontButton == btnBufferFont) {
-        if ([theme.bufferNormal.font isEqual:newFont])
+        if ([themeToChange.bufferNormal.font isEqual:newFont])
             return;
-        theme = [self cloneThemeIfNotEditable];
-        theme.bufferNormal.font = newFont;
+        themeToChange = [self cloneThemeIfNotEditable];
+        themeToChange.bufferNormal.font = newFont;
         btnBufferFont.title = fontToString(newFont);
-    } else if (selectedFontButton == btnInputFont) {
-        if ([theme.bufInput.font isEqual:newFont])
+    } else if (selectedFontButton == btnAnyFont) {
+        themeToChange = [self cloneThemeIfNotEditable];
+        GlkStyle *selectedStyle = [themeToChange valueForKey:[self selectedStyleName]];
+        if ([selectedStyle.font isEqual:newFont])
             return;
-        theme = [self cloneThemeIfNotEditable];
-        theme.bufInput.font = newFont;
-        btnInputFont.title = fontToString(newFont);
+        selectedStyle.autogenerated = NO;
+        selectedStyle.font = newFont;
+        btnAnyFont.title = fontToString(newFont);
     }
 
     [Preferences rebuildTextAttributes];
@@ -1813,19 +1967,36 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (void)changeAttributes:(id)sender {
     NSLog(@"changeAttributes:%@", sender);
 
+    NSFontManager *fontManager = [NSFontManager sharedFontManager];
+
+    GlkStyle *style = nil;
+    if (selectedFontButton == btnBufferFont)
+        style = theme.bufferNormal;
+    else if (selectedFontButton == btnGridFont)
+        style = theme.gridNormal;
+    else if (selectedFontButton == btnAnyFont)
+        style = [self selectedStyle];
+    else selectedFontButton = btnBufferFont;
+
+    if (style) {
+        NSDictionary *attDict = [self.dummyTextView.textStorage attributesAtIndex:0 effectiveRange:nil];
+
+        [fontManager setSelectedFont:attDict[NSFontAttributeName] isMultiple:NO];
+        [fontManager setSelectedAttributes:attDict isMultiple:NO];
+
+        Theme *themeToChange = [self cloneThemeIfNotEditable];
+        if (selectedFontButton == btnBufferFont)
+            style = themeToChange.bufferNormal;
+        else if (selectedFontButton == btnGridFont)
+            style = themeToChange.gridNormal;
+        else if (selectedFontButton == btnAnyFont) {
+            style = [themeToChange valueForKey:[self selectedStyleName]];
+        }
+        style.attributeDict = attDict;
+        style.autogenerated = NO;
+    }
+
     NSDictionary *newAttributes = [sender convertAttributes:@{}];
-
-    NSLog(@"changeAttributes: Keys in newAttributes:");
-//    for (NSString *key in newAttributes.allKeys) {
-//        NSLog(@" %@ : %@", key, newAttributes[key]);
-//    }
-
-    //	"NSForegroundColorAttributeName"	"NSColor"
-    //	"NSUnderlineStyleAttributeName"		"NSUnderline"
-    //	"NSStrikethroughStyleAttributeName"	"NSStrikethrough"
-    //	"NSUnderlineColorAttributeName"		"NSUnderlineColor"
-    //	"NSStrikethroughColorAttributeName"	"NSStrikethroughColor"
-    //	"NSShadowAttributeName"				"NSShadow"
 
     if (newAttributes[@"NSColor"]) {
         NSColorWell *colorWell = nil;
@@ -1834,11 +2005,16 @@ textShouldEndEditing:(NSText *)fieldEditor {
             colorWell = clrGridFg;
         else if (currentFont == theme.bufferNormal.font)
             colorWell = clrBufferFg;
-        else if (currentFont == theme.bufInput.font)
-            colorWell = clrInputFg;
-        colorWell.color = newAttributes[@"NSColor"];
-        [self changeColor:colorWell];
-    }
+        else if (currentFont == [self selectedStyle].font)
+            colorWell = clrAnyFg;
+        if (colorWell) {
+            colorWell.color = newAttributes[@"NSColor"];
+            [self changeColor:colorWell];
+        }
+    } //else if (newAttributes.count)
+        // Send notification that theme has changed -- trigger configure events
+        [[NSNotificationCenter defaultCenter]
+         postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
 }
 
 // This is sent from the font panel when changing background color there
@@ -1852,8 +2028,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
         colorWell = clrGridBg;
     else if (currentFont == theme.bufferNormal.font)
         colorWell = clrBufferBg;
-    else if (currentFont == theme.bufInput.font)
-        colorWell = clrBufferBg;
+    else if (currentFont == [self selectedStyle].font) {
+        NSInteger windowType = _windowTypePopup.selectedTag;
+        colorWell = (windowType == wintype_TextGrid) ? clrGridBg : clrBufferBg;
+    }
     colorWell.color = [sender color];
     [self changeColor:colorWell];
 }
@@ -1870,6 +2048,19 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [[NSFontPanel sharedFontPanel] orderOut:self];
     if ([[NSColorPanel sharedColorPanel] isVisible])
         [[NSColorPanel sharedColorPanel] orderOut:self];
+}
+
+@synthesize dummyTextView = _dummyTextView;
+
+- (DummyTextView *)dummyTextView {
+    if (!_dummyTextView) {
+        _dummyTextView = [[DummyTextView alloc] initWithFrame:NSMakeRect(0,0,200,500)];
+    }
+    return _dummyTextView;
+}
+
+- (void)setDummyTextView:(DummyTextView *)dummyTextView {
+    _dummyTextView = dummyTextView;
 }
 
 @end

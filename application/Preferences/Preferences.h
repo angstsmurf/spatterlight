@@ -40,44 +40,19 @@ typedef enum kBZArrowsPrefsType : int32_t {
 } kBZArrowsPrefsType;
 
 
-@class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController;
+@class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController, DummyTextView, ParagraphPopOver;
 
 @interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate>
 
 + (void)rebuildTextAttributes;
 
-- (IBAction)changeColor:(id)sender;
-- (IBAction)showFontPanel:(id)sender;
-- (IBAction)changeFont:(id)sender;
-- (IBAction)changeMargin:(id)sender;
-- (IBAction)changeLeading:(id)sender;
-- (IBAction)changeSmartQuotes:(id)sender;
-- (IBAction)changeSpaceFormatting:(id)sender;
-- (IBAction)changeDefaultSize:(id)sender;
-- (IBAction)changeBorderSize:(id)sender;
-- (IBAction)changeEnableGraphics:(id)sender;
-- (IBAction)changeEnableSound:(id)sender;
-- (IBAction)changeEnableStyles:(id)sender;
-- (IBAction)changeOverwriteStyles:(id)sender;
-- (IBAction)swapColors:(id)sender;
-
-- (IBAction)changeVOSpeakCommands:(id)sender;
+- (Theme *)cloneThemeIfNotEditable;
 
 #pragma mark Themes menu
-- (IBAction)addTheme:(id)sender;
-- (IBAction)removeTheme:(id)sender;
-- (IBAction)clickedOneThemeForAll:(id)sender;
 
 @property (strong) IBOutlet NSButton *btnAdjustSize;
-- (IBAction)changeAdjustSize:(id)sender;
 
 #pragma mark Action menu
-- (IBAction)applyToSelected:(id)sender;
-- (IBAction)selectUsingTheme:(id)sender;
-- (IBAction)deleteUserThemes:(id)sender;
-- (IBAction)rebuildDefaultThemes:(id)sender;
-- (IBAction)togglePreview:(id)sender;
-- (IBAction)editNewEntry:(id)sender;
 
 - (void)restoreThemeSelection:(id)sender;
 
@@ -131,74 +106,69 @@ typedef enum kBZArrowsPrefsType : int32_t {
 
 @property BOOL inMagnification;
 
-@property (strong) IBOutlet ThemeArrayController *arrayController;
-@property (strong) IBOutlet NSScrollView *scrollView;
+@property (weak) IBOutlet ThemeArrayController *arrayController;
+@property (weak) IBOutlet NSScrollView *scrollView;
 
-@property (strong) IBOutlet NSTextFieldCell *detailsHeader;
-@property (strong) IBOutlet NSTextFieldCell *themesHeader;
-@property (strong) IBOutlet NSTextFieldCell *miscHeader;
-@property (strong) IBOutlet NSTextFieldCell *vOHeader;
-@property (strong) IBOutlet NSTextFieldCell *zcodeHeader;
+@property (weak) IBOutlet NSTextFieldCell *detailsHeader;
+@property (weak) IBOutlet NSTextFieldCell *themesHeader;
+@property (weak) IBOutlet NSTextFieldCell *miscHeader;
+@property (weak) IBOutlet NSTextFieldCell *vOHeader;
+@property (weak) IBOutlet NSTextFieldCell *zcodeHeader;
 
-@property (strong) IBOutlet NSButton *btnOneThemeForAll;
+@property (weak) IBOutlet NSButton *btnOneThemeForAll;
 
-@property (strong) IBOutlet NSPopUpButton *actionButton;
+@property (weak) IBOutlet NSPopUpButton *actionButton;
 
-@property (strong) IBOutlet NSButton *btnAdd;
-@property (strong) IBOutlet NSButton *btnRemove;
-@property (strong) IBOutlet NSBox *divider;
+@property (weak) IBOutlet NSButton *btnAdd;
+@property (weak) IBOutlet NSButton *btnRemove;
+@property (weak) IBOutlet NSBox *divider;
 
-@property (strong) IBOutlet NSButton *btnOverwriteStyles;
-@property (strong) IBOutlet NSButton *swapGridColBtn;
-@property (strong) IBOutlet NSButton *swapBufColBtn;
+@property (weak) IBOutlet NSButton *btnOverwriteStyles;
+@property (weak) IBOutlet NSButton *swapGridColBtn;
+@property (weak) IBOutlet NSButton *swapBufColBtn;
 
-@property (strong) IBOutlet NSPopUpButton *vOMenuButton;
-- (IBAction)changeVOMenuMenu:(id)sender;
-
+@property (weak) IBOutlet NSPopUpButton *vOMenuButton;
 @property (weak) IBOutlet NSPopUpButton *vOImagesButton;
-- (IBAction)changeVOImageMenu:(id)sender;
+@property (weak) IBOutlet NSButton *btnVOSpeakCommands;
 
-
-@property (strong) IBOutlet NSButton *btnVOSpeakCommands;
-
-@property (strong) IBOutlet NSPopUpButton *beepHighMenu;
-- (IBAction)changeBeepHighMenu:(id)sender;
-@property (strong) IBOutlet NSPopUpButton *beepLowMenu;
-- (IBAction)changeBeepLowMenu:(id)sender;
-
-@property (strong) IBOutlet NSPopUpButton *zterpMenu;
-- (IBAction)changeZterpMenu:(id)sender;
-@property (strong) IBOutlet NSPopUpButton *bZArrowsMenu;
-- (IBAction)changeBZArrowsMenu:(id)sender;
-
+@property (weak) IBOutlet NSPopUpButton *beepHighMenu;
+@property (weak) IBOutlet NSPopUpButton *beepLowMenu;
+@property (weak) IBOutlet NSPopUpButton *zterpMenu;
+@property (weak) IBOutlet NSPopUpButton *bZArrowsMenu;
 @property (weak) IBOutlet NSTextField *zVersionTextField;
-- (IBAction)changeZVersion:(id)sender;
-
 @property (weak) IBOutlet NSTextField *bZVerticalTextField;
-- (IBAction)changeBZVerticalTextField:(id)sender;
-
 @property (weak) IBOutlet NSStepper *bZVerticalStepper;
-- (IBAction)changeBZVerticalStepper:(id)sender;
 
 @property (weak) IBOutlet NSButton *btnAutosave;
-- (IBAction)changeAutosave:(id)sender;
-
 @property (weak) IBOutlet NSButton *btnSmoothScroll;
-- (IBAction)changeSmoothScroll:(id)sender;
-
 @property (weak) IBOutlet NSButton *btnAutosaveOnTimer;
-- (IBAction)changeAutosaveOnTimer:(id)sender;
-
-- (IBAction)resetDialogs:(NSButton *)sender;
 
 @property (weak) IBOutlet NSSlider *timerSlider;
-- (IBAction)changeTimerSlider:(id)sender;
-
 @property (weak) IBOutlet NSTextField *timerTextField;
-- (IBAction)changeTimerTextField:(id)sender;
 
 @property (weak) IBOutlet NSMenuItem *standardZArrowsMenuItem;
 @property (weak) IBOutlet NSMenuItem *compromiseZArrowsMenuItem;
 @property (weak) IBOutlet NSMenuItem *strictZArrowsMenuItem;
+@property (weak) IBOutlet NSPopUpButton *windowTypePopup;
+@property (weak) IBOutlet NSPopUpButton *styleNamePopup;
+@property (weak) IBOutlet NSButton *quoteBoxCheckBox;
+
+@property DummyTextView *dummyTextView;
+
+- (void)changeAttributes:(id)sender;
+- (void)changeDocumentBackgroundColor:(id)sender;
+
+@property (strong) IBOutlet NSPopover *marginsPopover;
+
+@property (weak) IBOutlet NSTextField *marginHorizontalGridTextField;
+@property (weak) IBOutlet NSStepper *marginHorizontalGridStepper;
+@property (weak) IBOutlet NSTextField *marginVerticalGridTextField;
+@property (weak) IBOutlet NSStepper *marginVerticalGridStepper;
+@property (weak) IBOutlet NSTextField *marginHorizontalBufferTextField;
+@property (weak) IBOutlet NSStepper *marginHorizontalBufferStepper;
+@property (weak) IBOutlet NSTextField *marginVerticalBufferTextField;
+@property (weak) IBOutlet NSStepper *marginVerticalBufferStepper;
+
+@property ParagraphPopOver *paragraphPopover;
 
 @end

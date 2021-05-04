@@ -8,14 +8,14 @@
 	DefaultWidth = 80;
 	DefaultHeight = 50;
 	GridForeground = <000000>;
-	GridBackground = <d8d8d8>;
+	GridBackground = <D8D8D8>;
 	GridFontName = Monaco;
 	GridFontSize = 12;
 	BufferForeground = <000000>;
-	BufferBackground = <ffffff>;
+	BufferBackground = <FFFFFF>;
 	BufferFontName = Helvetica;
 	BufferFontSize = 13;
-	InputColor = <236e25>;
+	InputColor = <236E25>;
 	InputFontName = "Helvetica-Bold";
 	InputFontSize = 13;
 	GridMargin = 5;
@@ -28,4 +28,6 @@
 	EnableSound = 1;
 	EnableMusic = 0;
 	AntialiasFonts = 1;
+	"SelectedGlkWindowType" = 3;
+	SelectedStyle = 8;
 }
