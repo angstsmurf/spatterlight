@@ -62,7 +62,7 @@
     [self.layoutManager textContainerChangedGeometry:self];
 }
 
-- (void)invalidateLayout {
+- (void)invalidateLayout:(id)sender {
     for (MarginImage *i in _marginImages)
         [i uncacheBounds];
 

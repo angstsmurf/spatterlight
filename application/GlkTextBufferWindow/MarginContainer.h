@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
               at:(NSUInteger)top
           linkid:(NSUInteger)linkid;
 - (void)drawRect:(NSRect)rect;
-- (void)invalidateLayout;
+- (void)invalidateLayout:(nullable id)sender;
 - (void)unoverlap:(MarginImage *)image;
 - (BOOL)hasMarginImages;
 - (NSMutableAttributedString *)marginsToAttachmentsInString:

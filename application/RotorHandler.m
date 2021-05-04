@@ -352,7 +352,7 @@
                 NSTextStorage *txtstorage = view.textStorage;
                 NSTextAttachment *attachment = [txtstorage attribute:NSAttachmentAttributeName atIndex:((NSValue *)child).rangeValue.location effectiveRange:nil];
                 MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
-                if (pos == cell.pos + 1) {
+                if (pos == cell.pos) {
                     currentItemIndex = index;
                     break;
                 }

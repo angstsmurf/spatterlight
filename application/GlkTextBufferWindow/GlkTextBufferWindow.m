@@ -203,7 +203,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (!NSEqualRects(self.pendingFrame, self.frame)) {
 
             if ([container hasMarginImages])
-                [container invalidateLayout];
+                [container invalidateLayout:nil];
 
             if (NSMaxX(self.pendingFrame) > NSWidth(self.glkctl.contentView.bounds) && NSWidth(self.pendingFrame) > 10) {
                 self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(self.glkctl.contentView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
@@ -715,7 +715,8 @@ fprintf(stderr, "%s\n",                                                    \
             [self showInsertionPoint];
             lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
             [self recalcBackground];
-            [container invalidateLayout];
+            if ([container hasMarginImages])
+                [container performSelector:@selector(invalidateLayout:) withObject:nil afterDelay:0.2];
         }
         if (!_pendingScrollRestore) {
             _pendingScrollRestore = YES;
@@ -764,7 +765,7 @@ fprintf(stderr, "%s\n",                                                    \
         bgnd = currentZColor.bg;
 
     [self recalcBackground];
-    [container invalidateLayout];
+    [container invalidateLayout:nil];
     _pendingClear = NO;
 }
 
@@ -1506,7 +1507,7 @@ replacementString:(id)repl {
     [[MyAttachmentCell alloc] initImageCell:image
                                andAlignment:align
                                   andAttStr:textstorage
-                                         at:textstorage.length - 1];
+                                         at:textstorage.length];
 
     if (align == imagealign_MarginLeft || align == imagealign_MarginRight) {
         if (_lastchar != '\n' && textstorage.length) {
@@ -1514,7 +1515,7 @@ replacementString:(id)repl {
             return;
         } else {
             [container addImage:image align: align at:
-             textstorage.length - 1 linkid:(NSUInteger)self.currentHyperlink];
+             textstorage.length linkid:(NSUInteger)self.currentHyperlink];
             cell.marginImage = container.marginImages.lastObject;
         }
     }
@@ -1529,7 +1530,7 @@ replacementString:(id)repl {
         [textstorage addAttribute:NSLinkAttributeName value:@(self.currentHyperlink) range:NSMakeRange(textstorage.length - 1, 1)];
     }
 
-    [textstorage addAttributes:styles[style] range:NSMakeRange(textstorage.length -1, 1)];
+    [textstorage addAttributes:styles[style] range:NSMakeRange(textstorage.length - 1, 1)];
 }
 
 - (void)flowBreak {

@@ -93,6 +93,9 @@
         theline = [layout lineFragmentRectForGlyphAtIndex:ourglyph.location
                                            effectiveRange:nil];
 
+        NSParagraphStyle *para = [textview.textStorage attribute:NSParagraphStyleAttributeName atIndex:_pos effectiveRange:nil];
+        theline.origin.y += para.paragraphSpacingBefore;
+
         /* set bounds to be at the same line as anchor but in left/right margin
          */
         if (_alignment == imagealign_MarginRight) {
