@@ -112,8 +112,19 @@
                         }
                     }
                 }
-                // If we don't find the pattern, decide this is not a menu
-            } else return NO;
+            } else {
+                // The Unforgotten has no instructions, so check for title
+                if ([format isEqualToString:@"zcode"]) {
+                    _menuCommands = [self extractMenuCommandsUsingRegex:@"(Unforgotten)\\s+(By Quintin Pan)"];
+                }
+                if (!_menuCommands.count) {
+                    // If we didn't find a pattern, decide this is not a menu
+                    return NO;
+                } else {
+                    // Hack to remove the empty line in The Unforgotten
+                    [_lines removeObjectAtIndex:3];
+                }
+            }
         }
 
         if (_recheckNeeded) {
@@ -319,7 +330,7 @@
             do {
                 currentCluster = [self findClusterInString:viewString andLines:lines startingWithCharacter:startChar atIndex:line];
 
-                // Some games have a blank lines as a dividers in the middle of
+                // Some games have a blank line as a divider in the middle of
                 // the menu, so look for additional clusters and add these if found.
                 if (currentCluster.count && lastCluster.count && [lines indexOfObject:lastCluster.lastObject] == line - 1 &&
                     ABS([self leftMarginInRange:currentCluster.firstObject andString:viewString] -
@@ -509,6 +520,7 @@
     return (trimmedString.length == 0);
 }
 
+// Returns an NSArray of range values, including leading and trailing spaces
 - (NSArray *)convertToLines:(NSString *)string {
     NSUInteger stringLength = string.length;
     NSRange linerange;
