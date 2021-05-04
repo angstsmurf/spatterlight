@@ -74,7 +74,7 @@ void os_put_buffer (unsigned char *buf, size_t len)
     if (outlen)
         glk_put_buffer_uni(out, outlen);
     else
-        glk_put_buffer(buf, len);
+        glk_put_buffer((char *)buf, len);
 
     free(out);
 }
@@ -92,7 +92,7 @@ void os_get_buffer (unsigned char *buf, size_t len, size_t init)
 
 unsigned char *os_fill_buffer (unsigned char *buf, size_t len)
 {
-    glui32 res = os_prepare_chars(input, len, buf, max);
+    glui32 res = os_prepare_chars(input, len, (char *)buf, max);
     buf[res] = '\0';
 
     free(input);

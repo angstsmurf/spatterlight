@@ -395,7 +395,7 @@ void banner_contents_display(contentid_t contents)
     if (contents->newline)
     {
         char ch = '\n';
-        os_put_buffer(&ch, 1);
+        os_put_buffer((unsigned char *)&ch, 1);
     }
     
     if (len && (contents->chars[len-1] == '\n'))
@@ -417,7 +417,7 @@ void banner_contents_display(contentid_t contents)
     }
 
     glk_set_style(contents->style);
-    os_put_buffer(contents->chars, len);
+    os_put_buffer((unsigned char *)contents->chars, len);
     glk_set_window(mainwin);
     banner_contents_display(contents->next);
 }
