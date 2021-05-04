@@ -2418,7 +2418,9 @@ static bool read_handler(void)
     int i;
 
     input.preloaded = user_byte(text + 1);
-    ZASSERT(input.preloaded <= maxchars, "too many preloaded characters: %d when max is %d", input.preloaded, maxchars);
+    if (input.preloaded > maxchars)
+        input.preloaded = 0;
+//    ZASSERT(input.preloaded <= maxchars, "too many preloaded characters: %d when max is %d", input.preloaded, maxchars);
 
     for(i = 0; i < input.preloaded; i++) string[i] = zscii_to_unicode[user_byte(text + i + 2)];
     /* Under garglk, preloaded input works as it’s supposed to.
