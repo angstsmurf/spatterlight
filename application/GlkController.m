@@ -207,6 +207,11 @@ fprintf(stderr, "%s\n",                                                    \
           reset:(BOOL)shouldReset
      winRestore:(BOOL)windowRestoredBySystem_ {
 
+    if (!game_) {
+        NSLog(@"GlkController runTerp called with nil game!");
+        return;
+    }
+
     _soundHandler = [SoundHandler new];
     _soundHandler.glkctl = self;
     _imageHandler = [ImageHandler new];
