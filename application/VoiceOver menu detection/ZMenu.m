@@ -136,6 +136,15 @@
         }
     }
 
+    // Now we check if the initial line is actually not part of the menu,
+    // as seen in Vespers.
+    // We assume this to be the case if the first has no leading spaces
+    // but the next line has.
+    if (_lines.count > 2 && ![self leftMarginInRange:_lines.firstObject andString:_attrStr.string] &&
+        [self leftMarginInRange:_lines[1] andString:_attrStr.string]) {
+        [_lines removeObjectAtIndex:0];
+    }
+
     // Otherwise, look for >, *, •, change of color or reverse video
     _selectedLine = [self findSelectedLine];
 
