@@ -383,8 +383,6 @@ static int loadres(HUGO_FILE infile, int reslen)
         }
     }
 
-    buf += suboffset;
-
     win_loadsound(id, infile->filename, offset + suboffset, reslen);
 
     free(origbuf);
