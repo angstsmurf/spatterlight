@@ -30,7 +30,7 @@ fprintf(stderr, "%s\n",                                                    \
 @implementation DummyTextView
 
 - (void)updateTextWithAttributes:(NSDictionary *)attributes {
-    NSAttributedString *attStr = [[NSAttributedString alloc] initWithString:@"ABCabc1234fiffiflffl" attributes:attributes];
+    NSAttributedString *attStr = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"ABCabc1234fiffiflfflct", nil) attributes:attributes];
     [self.textStorage setAttributedString:attStr];
     self.selectedRange = NSMakeRange(0, self.string.length);
 }

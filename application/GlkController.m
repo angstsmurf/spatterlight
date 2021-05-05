@@ -67,9 +67,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "stylehint_NUMHINTS"
 //};
 
-@interface TempLibrary : NSObject {
-}
-
+@interface TempLibrary : NSObject
 @property glui32 autosaveTag;
 @end
 
