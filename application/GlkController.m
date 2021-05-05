@@ -128,6 +128,59 @@ fprintf(stderr, "%s\n",                                                    \
 
 @end
 
+@interface DrawOperation : NSObject
+
+@property NSRect rect;
+@property GlkWindow *window;
+
+
+- (instancetype)initWithImage:(NSImage *)anImage x:(NSInteger)x y:(NSInteger)y width:(NSUInteger)width height:(NSUInteger)height style:(NSUInteger)aStyle window:(GlkWindow *)win;
+
+- (void)drawToWindow;
+
+- (BOOL)transparent;
+
+@end
+
+@interface DrawOperation () {
+    NSImage *image;
+    NSUInteger style;
+}
+@end
+
+@implementation DrawOperation
+
+- (instancetype)initWithImage:(NSImage *)anImage x:(NSInteger)x y:(NSInteger)y width:(NSUInteger)width height:(NSUInteger)height style:(NSUInteger)aStyle window:(GlkWindow *)win {
+    self = super.init;
+    if (self) {
+        image = anImage;
+        NSSize srcsize = image.size;
+        if (width == 0)
+            width = (NSUInteger)srcsize.width;
+        if (height == 0)
+            height = (NSUInteger)srcsize.height;
+
+        _rect = NSMakeRect(x, y, width, height);
+        style = aStyle;
+        _window = win;
+        NSLog(@"draw operation created with rect %@", NSStringFromRect(_rect));
+    }
+    return self;
+}
+
+- (void)drawToWindow {
+    [_window drawImage:image val1:(NSInteger)_rect.origin.x val2:(NSInteger)_rect.origin.y width:(NSInteger)_rect.size.width height:(NSInteger)_rect.size.height style:style];
+}
+
+- (BOOL)transparent {
+    NSImageRep *rep = image.representations.firstObject;
+    return rep.hasAlpha;
+}
+
+@end
+
+
+
 @interface GlkController () <NSSecureCoding> {
     /* for talking to the interpreter */
     NSTask *task;
@@ -169,6 +222,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     // To fix scrolling in the Adrian Mole games
     NSInteger lastRequest;
+
+    NSMutableArray *drawlist;
 
     //    NSDate *lastFlushTimestamp;
 }
@@ -1514,9 +1569,37 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)flushDisplay {
+    NSLog(@"flushDisplay");
     //    lastFlushTimestamp = [NSDate date];
 
     [Preferences instance].inMagnification = NO;
+
+    if (drawlist.count) {
+        DrawOperation *op = nil;
+        NSRect largestRect = NSZeroRect;
+        NSMutableArray *opsToDraw = [NSMutableArray new];
+        GlkWindow *drawwin = nil;
+
+        NSEnumerator *enumerator = [drawlist reverseObjectEnumerator];
+        while (op = [enumerator nextObject]) {
+            if (!drawwin)
+                drawwin = op.window;
+            NSRect unionRect = NSUnionRect(op.rect, largestRect);
+            if (drawwin != op.window || !NSEqualRects(unionRect, largestRect)) {
+                [opsToDraw addObject:op];
+                if (!op.transparent)
+                    largestRect = unionRect;
+            } else {
+                NSLog(@"Skipping image %ld", [drawlist indexOfObject:op]);
+            }
+        }
+        enumerator = [opsToDraw reverseObjectEnumerator];
+        while (op = [enumerator nextObject]) {
+            [op drawToWindow];
+        }
+
+        drawlist = nil;
+    }
 
     if (windowdirty) {
         GlkWindow *largest = [self largestWindow];
@@ -2815,12 +2898,17 @@ fprintf(stderr, "%s\n",                                                    \
                 NSImage *lastimage = _imageHandler.lastimage;
                 if (lastimage && lastimage.size.width > 0 && lastimage.size.height > 0) {
                     struct drawrect *drawstruct = (void *)buf;
-                    [reqWin drawImage:lastimage
-                                 val1:(glsi32)drawstruct->x
-                                 val2:(glsi32)drawstruct->y
-                                width:drawstruct->width
-                               height:drawstruct->height
-                                style:drawstruct->style];
+                    NSLog(@"drawImage x:%d y:%d width:%d height:%d", drawstruct->x, drawstruct->y, drawstruct->width, drawstruct->height);
+                    if (!drawlist)
+                        drawlist = [NSMutableArray new];
+                    DrawOperation *drawop = [[DrawOperation alloc] initWithImage:lastimage x:drawstruct->x y:drawstruct->y width:drawstruct->width height:drawstruct->height style:drawstruct->style window:reqWin];
+//                    [reqWin drawImage:lastimage
+//                                 val1:(glsi32)drawstruct->x
+//                                 val2:(glsi32)drawstruct->y
+//                                width:drawstruct->width
+//                               height:drawstruct->height
+//                                style:drawstruct->style];
+                    [drawlist addObject:drawop];
                 }
             }
             break;

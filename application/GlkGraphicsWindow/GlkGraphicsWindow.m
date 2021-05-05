@@ -19,6 +19,7 @@
     BOOL showingImage;
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
+    __unsafe_unretained NSImage *previousImage;
 }
 @end
 
@@ -89,10 +90,12 @@
 
 - (void)drawRect:(NSRect)rect {
 
-    if (!transparent) {
-        [[NSColor colorFromInteger:bgnd] set];
-        NSRectFill(rect);
-    }
+   NSLog(@"drawRect %@", NSStringFromRect(rect));
+
+//    if (!transparent) {
+//        [[NSColor colorFromInteger:bgnd] set];
+//        NSRectFill(rect);
+//    }
 
     [image drawInRect:rect
               fromRect:rect
@@ -264,9 +267,15 @@
             style:(NSUInteger)style {
     NSSize srcsize = src.size;
 
-    if (NSEqualSizes(image.size, NSZeroSize)) {
+    if (NSEqualSizes(srcsize, NSZeroSize)) {
         return;
     }
+
+//    NSLog(@"drawImage call");
+
+    if (previousImage == src)
+        NSLog(@"previousImage == src");
+
 
     if (w == 0)
         w = (NSInteger)srcsize.width;
@@ -278,8 +287,8 @@
     @autoreleasepool {
         [image lockFocus];
 
-        [NSGraphicsContext currentContext].imageInterpolation =
-        NSImageInterpolationHigh;
+//        [NSGraphicsContext currentContext].imageInterpolation =
+//        NSImageInterpolationHigh;
 
         florpedRect = [self florpCoords:NSMakeRect(x, y, w, h)];
 
@@ -292,7 +301,7 @@
     }
 
     showingImage = YES;
-    dirty = YES;
+//    dirty = YES;
     [dirtyRects addObject:@(florpedRect)];
 
     [self pruneSubimagesInRect:florpedRect];
