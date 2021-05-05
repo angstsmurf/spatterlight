@@ -520,6 +520,7 @@
 }
 
 - (void)flushDisplay {
+    _textview.editable = YES;
     NSRange selectedRange = _textview.selectedRange;
     NSString *selectedString = [textstorage.string substringWithRange:selectedRange];
     _selectedRow = selectedRange.location / (cols + 1);
@@ -561,6 +562,7 @@
         }
     }
     _restoredSelection = _textview.selectedRange;
+    _textview.editable = NO;
 }
 
 #pragma mark Printing, moving, resizing
