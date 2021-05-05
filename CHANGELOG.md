@@ -1,14 +1,16 @@
 # Change log
 
 ##  Unreleased
-- Fix margin image y position regression
-- Fix *The Unfinished*
-- Support VoiceOver for *The Unfinished* main menu
-- Don't count instruction line in *Vespers* menu
-- Many new character and paragraph settings.
-- Most settings on the system font panel (underline, strikethrough, shadow) and on the typography panel should now be functional
 - All Glk styles can be customized
-- Setting to turn off quote box fading in Z-code games
+- Many new character and paragraph settings. Some of these may be overridden by style hints issued by certain games, unless the Colors and styles option is off
+- Most settings on the system font panel (underline, strikethrough, shadow) should now be functional
+- Most setting on the typography panel (available through the font panel) should be functional. These are font-specific Open Type settings and many fonts don't have any at all
+- Separate settings for horizontal and vertical margin spacing
+- Setting to turn off quote box special handling in Z-code games
+- Fixes margin image y position regression
+- Makes *Unforgotten* work
+- Supports VoiceOver for *Unforgotten* main menu
+- VoiceOver longer counts the instruction line in the *Vespers* help menu as a menu item
 
 ##  Release 0.7.9
 - Bocfel 1.3 made autorestoring unstable, so we revert to 1.2 for now. This breaks autosave backward compatibility again

@@ -556,7 +556,7 @@
                                                 <action selector="changeColor:" target="-2" id="618"/>
                                             </connections>
                                         </colorWell>
-                                        <button toolTip="Show more paragraph settings. Only works for buffer styles." verticalHuggingPriority="750" fixedFrame="YES" tag="14" translatesAutoresizingMaskIntoConstraints="NO" id="gKd-OR-Adp" userLabel="Show Paragraph Popover">
+                                        <button toolTip="Show more paragraph settings. Some of these may be overridden by game style hints unless the Colors and styles option is off." verticalHuggingPriority="750" fixedFrame="YES" tag="14" translatesAutoresizingMaskIntoConstraints="NO" id="gKd-OR-Adp" userLabel="Show Paragraph Popover">
                                             <rect key="frame" x="403" y="99" width="20" height="31.5"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSActionTemplate" imagePosition="only" alignment="center" tag="14" imageScaling="proportionallyUpOrDown" inset="2" id="1lI-6F-dkA">
