@@ -304,7 +304,7 @@
                         <action selector="changeTrailingIndent:" target="-2" id="gFV-VQ-Sap"/>
                     </connections>
                 </stepper>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gcM-ks-WFb">
+                <textField toolTip="Can be negative. Any value other than 0 will disable ligatures." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gcM-ks-WFb">
                     <rect key="frame" x="156" y="333" width="58" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="0" drawsBackground="YES" id="KHQ-Tn-Qpx">
@@ -329,7 +329,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pFF-ib-dZn">
+                <stepper toolTip="Can be negative. Any value other than 0 will disable ligatures." horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pFF-ib-dZn">
                     <rect key="frame" x="211" y="329" width="19" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" increment="0.10000000000000001" minValue="-100" maxValue="100" id="mh1-Ec-9SQ"/>
@@ -345,7 +345,7 @@
                         <action selector="changeParagraphSpacingAfter:" target="-2" id="wqo-cI-z6K"/>
                     </connections>
                 </stepper>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wW9-Yr-4ko">
+                <textField toolTip="Line spacing expressed as number of lines. Double spacing = 2 etc." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wW9-Yr-4ko">
                     <rect key="frame" x="156" y="72" width="58" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="0" drawsBackground="YES" id="Uua-CD-YUt">
@@ -433,7 +433,7 @@
                         <action selector="changeMinLineHeight:" target="-2" id="h9L-9b-dAn"/>
                     </connections>
                 </stepper>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nGC-Ii-aoc">
+                <textField toolTip="The closer this is to 1, the more words will be hyphenated. Will always use system language." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nGC-Ii-aoc">
                     <rect key="frame" x="47" y="283" width="167" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="0" drawsBackground="YES" id="CcL-je-sl9">
@@ -449,7 +449,7 @@
                         </connections>
                     </textFieldCell>
                 </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a9f-CP-Nae">
+                <stepper toolTip="The closer this is to 1, the more words will be hyphenated. Will always use system language." horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a9f-CP-Nae">
                     <rect key="frame" x="211" y="280" width="19" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" increment="0.10000000000000001" maxValue="1" id="e6D-Ig-Xdo"/>
