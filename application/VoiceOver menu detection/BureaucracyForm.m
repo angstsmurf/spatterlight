@@ -29,7 +29,6 @@
         return NO;
 
     _titlestring = [_attrStr.string substringWithRange:titleRange];
-
     _titlestring = [_titlestring stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     if ([_titlestring isEqualToString:@"SOFTWARE LICENCE APPLICATION"]) {

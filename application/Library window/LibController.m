@@ -2,6 +2,7 @@
  *
  */
 
+#import "main.h"
 #import "NSString+Categories.h"
 #import "NSDate+relative.h"
 #import "CoreDataManager.h"
@@ -16,7 +17,8 @@
 #import "IFStory.h"
 #import "IFIdentification.h"
 #import "IFDBDownloader.h"
-#import "main.h"
+
+#import "CommandScriptHandler.h"
 
 #import "Blorb.h"
 #import "BlorbResource.h"
@@ -722,6 +724,45 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
          }
          [gctl deleteAutosaveFilesForGame:game];
      }];
+}
+
+- (void)runCommandsFromFile:(NSString *)filename {
+    GlkController *gctl = [self activeGlkController];
+    if (gctl) {
+        [gctl.commandScriptHandler runCommandsFromFile:filename];
+    }
+}
+
+- (void)restoreFromSaveFile:(NSString *)filename {
+    GlkController *gctl = [self activeGlkController];
+    if (gctl) {
+        [gctl.commandScriptHandler restoreFromSaveFile:filename];
+    }
+}
+
+- (nullable GlkController *)activeGlkController {
+    Game *game = [[Preferences instance] currentGame];
+    if (!game)
+        return nil;
+    GlkController *gctl = _gameSessions[game.ifid];
+    if (!gctl.alive) {
+        // If the current game is finished, look for another
+        gctl = nil;
+        for (GlkController *g in  _gameSessions.allValues) {
+            if (g.alive) {
+                gctl = g;
+                break;
+            }
+        }
+    }
+    return gctl;
+}
+
+- (BOOL)hasActiveGames {
+    for (GlkController *gctl in _gameSessions.allValues)
+        if (gctl.alive)
+            return YES;
+    return NO;
 }
 
 #pragma mark Contextual menu
@@ -1778,14 +1819,15 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 - (void)releaseGlkControllerNow:(GlkController *)glkctl {
 }
 
-- (void)importAndPlayGame:(NSString *)path {
+- (NSWindow *)importAndPlayGame:(NSString *)path {
 
     Game *game = [self importGame: path inContext:_managedObjectContext reportFailure: YES];
     if (game)
     {
         [self selectGames:[NSSet setWithArray:@[game]]];
-        [self playGame:game];
+        return [self playGame:game];
     }
+    return nil;
 }
 
 - (BOOL)checkZcode:(NSString *)file {

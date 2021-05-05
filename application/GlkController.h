@@ -7,20 +7,18 @@
  * dispatches sound channel and window commands,
  * queues events for sending to the interpreter.
  *
- * TODO: cache resources (in raw format) so findimage/findsound
- *       will succeed for more than just the last one uploaded.
  */
 
 #import <QuartzCore/QuartzCore.h>
 
-@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler;
+@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, CommandScriptHandler;
 
 #define MAXWIN 64
 
 typedef enum kMinimumWindowSize : NSUInteger {
     kMinimumWindowWidth = 213,
     kMinimumWindowHeight = 107,
-} kkMinimumWindowSize;
+} kMinimumWindowSize;
 
 @interface GlkHelperView : NSView
 
@@ -28,7 +26,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 @end
 
-@interface GlkController : NSWindowController <NSSecureCoding>
+@interface GlkController : NSWindowController <NSSecureCoding, NSDraggingDestination>
 
 @property NSMutableDictionary *gwindows;
 @property SoundHandler *soundHandler;
@@ -150,6 +148,11 @@ typedef enum kMinimumWindowSize : NSUInteger {
 // when adjusting content size and position after
 // border change
 @property BOOL movingBorder;
+
+// Command scripts
+@property CommandScriptHandler *commandScriptHandler;
+@property BOOL commandScriptRunning;
+@property NSString *pendingSaveFilePath;
 
 // VoiceOver
 - (IBAction)speakMostRecent:(id)sender;

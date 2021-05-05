@@ -255,7 +255,7 @@
 - (void)postRestoreAdjustments:(GlkWindow *)win {
 
     GlkTextGridWindow *restoredWin = (GlkTextGridWindow *)win;
-
+    line_request = [restoredWin hasLineRequest];
     if (restoredWin.framePending)
         self.frame = restoredWin.pendingFrame;
     else
@@ -1158,7 +1158,7 @@
     char_request = YES;
     dirty = YES;
 
-    // Draw Buraucracy intro form cursor
+    // Draw Bureaucracy form cursor
     if (self.glkctl.bureaucracy) {
         self.currentReverseVideo = YES;
         [self putString:@" " style:style_Normal];
@@ -1171,6 +1171,15 @@
     // NSLog(@"cancel char in %ld", self.name);
     char_request = NO;
     dirty = YES;
+
+    // Remove leftover "cursors"
+    // when running command scripts in
+    // Bureaucracy form
+    if (self.glkctl.bureaucracy && self.glkctl.commandScriptRunning) {
+        self.currentReverseVideo = NO;
+        [self putString:@" " style:style_Normal];
+        xpos--;
+    }
 }
 
 - (void)keyDown:(NSEvent *)evt {
@@ -1278,6 +1287,14 @@
             [textField keyDown:evt];
         }
     }
+}
+
+- (void)sendKeypress:(unsigned)ch {
+    NSLog(@"gridWin sendKeypress \"%c\" (%d, %x)", ch, ch, ch);
+    GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
+    [self.glkctl queueEvent:gev];
+    char_request = NO;
+    _textview.editable = NO;
 }
 
 #pragma mark Line input
@@ -1392,6 +1409,12 @@
     }
 }
 
+- (void)sendInputLine:(NSString *)command withTerminator:(NSUInteger)terminator {
+    self.input.stringValue = command;
+    [self typedEnter:nil];
+}
+
+
 - (void)controlTextDidChange:(NSNotification *)obj {
     NSDictionary *dict = obj.userInfo;
     MyFieldEditor *fieldEditor = dict[@"NSFieldEditor"];
@@ -1437,6 +1460,10 @@
         return 0;
     }
     return buf.length;
+}
+
+- (BOOL)hasLineRequest {
+    return line_request;
 }
 
 #pragma mark Command history
@@ -1818,7 +1845,7 @@
     }
 
     moveRangeIndex = self.moveRanges.count - 1;
-    NSString *str = [self stringFromRangeVal:self.moveRanges.lastObject];
+    NSString *str = [textstorage.string substringWithRangeValue:self.moveRanges.lastObject];
 
     if (!str.length) {
         [self.glkctl speakString:@"No last move to speak"];
@@ -1826,14 +1853,6 @@
     }
 
     [self.glkctl speakString:str];
-}
-
-- (NSString *)stringFromRangeVal:(NSValue *)val {
-    NSRange range = val.rangeValue;
-    NSRange allText = NSMakeRange(0, textstorage.length);
-    range = NSIntersectionRange(allText, range);
-    NSString *string = [textstorage.string substringWithRange:range];
-    return string;
 }
 
 - (void)speakPrevious {
@@ -1847,7 +1866,7 @@
         prefix = @"At first move.\n";
         moveRangeIndex = 0;
     }
-    NSString *str = [prefix stringByAppendingString:[self stringFromRangeVal:self.moveRanges[moveRangeIndex]]];
+    NSString *str = [prefix stringByAppendingString:[textstorage.string substringWithRangeValue:self.moveRanges[moveRangeIndex]]];
     [self.glkctl speakString:str];
 }
 
@@ -1867,7 +1886,7 @@
         moveRangeIndex = self.moveRanges.count - 1;
     }
 
-    NSString *str = [prefix stringByAppendingString:[self stringFromRangeVal:self.moveRanges[moveRangeIndex]]];
+    NSString *str = [prefix stringByAppendingString:[textstorage.string substringWithRangeValue:self.moveRanges[moveRangeIndex]]];
     [self.glkctl speakString:str];
 }
 

@@ -14,6 +14,7 @@
 #import "BufferTextView.h"
 #import "GridTextView.h"
 #import "RotorHandler.h"
+#import "CommandScriptHandler.h"
 
 #import "main.h"
 #include "glkimp.h"
@@ -46,7 +47,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
 //    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
 //    "EVTVOLUME",       "EVTPREFS"};
-//
+
 ////static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
 ////    "wintype_Blank",    "wintype_TextBuffer",
 ////    "wintype_TextGrid", "wintype_Graphics"};
@@ -170,6 +171,7 @@ fprintf(stderr, "%s\n",                                                    \
     // To fix scrolling in the Adrian Mole games
     NSInteger lastRequest;
 
+    BOOL skipNextScriptCommand;
     //    NSDate *lastFlushTimestamp;
 }
 @end
@@ -222,12 +224,16 @@ fprintf(stderr, "%s\n",                                                    \
 
     _ignoreResizes = YES;
 
+    skipNextScriptCommand = NO;
+
     _game = game_;
 
     Game *game = _game;
     _theme = game.theme;
 
     libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+
+    [self.window registerForDraggedTypes:@[ NSURLPboardType, NSStringPboardType]];
 
     if (!_theme.name) {
         NSLog(@"GlkController runTerp called with theme without name!");
@@ -457,43 +463,63 @@ fprintf(stderr, "%s\n",                                                    \
 
     if ([terpAutosaveDate compare:GUIAutosaveDate] == NSOrderedDescending) {
         NSLog(@"GUI autosave file is created before terp autosave file!");
-        //        restoredController = nil;
     }
 
     restoredControllerLate = restoredController;
 
-    NSString *autosaveLatePath = [self.appSupportDir
-                                  stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
-
-    if ([[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath]) {
-        @try {
-            restoredControllerLate =
-            [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
-        } @catch (NSException *ex) {
-            NSLog(@"Unable to restore late GUI autosave: %@", ex);
+    if (!restoredController.commandScriptRunning) {
+        NSString *autosaveLatePath = [self.appSupportDir
+                                      stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
+        
+        if ([fileManager fileExistsAtPath:autosaveLatePath]) {
+            @try {
+                restoredControllerLate =
+                [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
+            } @catch (NSException *ex) {
+                NSLog(@"Unable to restore late GUI autosave: %@", ex);
+                restoredControllerLate = restoredController;
+            }
+        } else {
+            NSLog(@"No late autosave exists (%@)", autosaveLatePath);
+        }
+        
+        attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
+        if (attrs) {
+            GUILateAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
+        } else {
+            NSLog(@"Error: %@", error);
+        }
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath]) {
+            @try {
+                restoredControllerLate =
+                [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
+            } @catch (NSException *ex) {
+                NSLog(@"Unable to restore late GUI autosave: %@", ex);
+                restoredControllerLate = restoredController;
+            }
+        }
+        
+        attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
+        if (attrs) {
+            GUILateAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
+        } else {
+            NSLog(@"Error: %@", error);
+        }
+        
+        if ([GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
+            NSLog(@"GUI autosave late file is created before GUI autosave file!");
             restoredControllerLate = restoredController;
         }
-    }
-
-    attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
-    if (attrs) {
-        GUILateAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
-    } else {
-        NSLog(@"Error: %@", error);
-    }
-
-    if ([GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
-        NSLog(@"GUI autosave late file is created before GUI autosave file!");
-        restoredControllerLate = restoredController;
-    }
-
-    if (restoredController.autosaveTag != restoredControllerLate.autosaveTag) {
-        NSLog(@"GUI autosave late tag does not match GUI autosave file tag!");
-        NSLog(@"restoredController.autosaveTag %ld restoredControllerLate.autosaveTag: %ld", restoredController.autosaveTag, restoredControllerLate.autosaveTag);
-        if (restoredControllerLate.autosaveTag == 0)
-            restoredControllerLate = restoredController;
-        else
-            restoredController = restoredControllerLate;
+        
+        if (restoredController.autosaveTag != restoredControllerLate.autosaveTag) {
+            NSLog(@"GUI autosave late tag does not match GUI autosave file tag!");
+            NSLog(@"restoredController.autosaveTag %ld restoredControllerLate.autosaveTag: %ld", restoredController.autosaveTag, restoredControllerLate.autosaveTag);
+            if (restoredControllerLate.autosaveTag == 0)
+                restoredControllerLate = restoredController;
+            else
+                restoredController = restoredControllerLate;
+        }
     }
 
     Game *game = _game;
@@ -535,7 +561,7 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }
 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileTerp]) {
+    if ([fileManager fileExistsAtPath:self.autosaveFileTerp]) {
         restoredUIOnly = NO;
 
         TempLibrary *tempLib =
@@ -543,11 +569,33 @@ fprintf(stderr, "%s\n",                                                    \
         if (tempLib.autosaveTag != restoredController.autosaveTag) {
             NSLog(@"The terp autosave and the GUI autosave have non-matching tags.");
             NSLog(@"The terp autosave tag: %u GUI autosave tag: %ld", tempLib.autosaveTag, restoredController.autosaveTag);
-            NSLog(@"Trying to autorestore anyway");
+            NSLog(@"Trying to use previous terp save");
+
+            NSString *oldAutosaveFileTerp =
+            [self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.plist"];
+            tempLib = [NSKeyedUnarchiver unarchiveObjectWithFile:oldAutosaveFileTerp];
+            if (tempLib.autosaveTag == restoredController.autosaveTag) {
+                [fileManager removeItemAtPath:self.autosaveFileTerp error:nil];
+                [fileManager moveItemAtPath:oldAutosaveFileTerp toPath:self.autosaveFileTerp error:nil];
+                NSString *glkSaveTerp = [self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"];
+
+                NSString *oldGlkSaveTerp = [self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.glksave"];
+                [fileManager removeItemAtPath:glkSaveTerp error:nil];
+                [fileManager moveItemAtPath:oldGlkSaveTerp toPath:glkSaveTerp error:nil];
+                NSLog(@"Successfully used previous terp save");
+            } else {
+                [self deleteAutosaveFiles];
+                _game.autosaved = NO;
+                [self runTerpNormal];
+                return;
+            }
+
+
             //            NSLog(@"Only restore UI state at first turn");
             //            [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI],
             //                                 [NSURL fileURLWithPath:self.autosaveFileTerp] ]];
             //            restoredUIOnly = YES;
+
         } else {
             // Only show the alert about autorestoring if this is not a system
             // window restoration, and the user has not suppressed it.
@@ -912,6 +960,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     GlkWindow *winToGrabFocus = nil;
 
+    if (restoredControllerLate.commandScriptRunning) {
+        [self.commandScriptHandler copyPropertiesFrom:restoredControllerLate.commandScriptHandler];
+    }
+
     // Restore scroll position etc
     for (win in [_gwindows allValues]) {
         if (![win isKindOfClass:[GlkGraphicsWindow class]] && ![_windowsToRestore count]) {
@@ -919,6 +971,13 @@ fprintf(stderr, "%s\n",                                                    \
         }
         if (win.name == _firstResponderView) {
             winToGrabFocus = win;
+        }
+        if (_commandScriptRunning && win.name == _commandScriptHandler.lastCommandWindow) {
+            if (self.commandScriptHandler.lastCommandType == kCommandTypeLine) {
+                [self.commandScriptHandler sendCommandLineToWindow:win];
+            } else {
+                [self.commandScriptHandler sendCommandKeyPressToWindow:win];
+            }
         }
     }
 
@@ -1140,6 +1199,7 @@ fprintf(stderr, "%s\n",                                                    \
                 return;
             }
         }
+        // NSLog(@"UI autosaved on exit, turn %ld, event count %ld. Tag: %ld", _turns, _eventcount, _autosaveTag);
         _game.autosaved = YES;
     }
 }
@@ -1187,6 +1247,10 @@ fprintf(stderr, "%s\n",                                                    \
         _turns = [decoder decodeIntegerForKey:@"turns"];
 
         _oldThemeName = [decoder decodeObjectOfClass:[NSString class] forKey:@"oldThemeName"];
+
+        _commandScriptRunning = [decoder decodeBoolForKey:@"commandScriptRunning"];
+        if (_commandScriptRunning)
+            _commandScriptHandler = [decoder decodeObjectOfClass:[CommandScriptHandler class] forKey:@"commandScriptHandler"];
 
         restoredController = nil;
     }
@@ -1244,6 +1308,10 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeBool:_previewDummy forKey:@"previewDummy"];
     [encoder encodeInteger:_turns forKey:@"turns"];
     [encoder encodeObject:_theme.name forKey:@"oldThemeName"];
+
+    [encoder encodeBool:_commandScriptRunning forKey:@"commandScriptRunning"];
+    if (_commandScriptRunning)
+        [encoder encodeObject:_commandScriptHandler forKey:@"commandScriptHandler"];
 }
 
 - (void)showAutorestoreAlert:(id)userInfo {
@@ -1294,6 +1362,8 @@ fprintf(stderr, "%s\n",                                                    \
 - (IBAction)reset:(id)sender {
     if (restartingAlready)
         return;
+
+    _commandScriptHandler = nil;
 
     [_soundHandler stopAllAndCleanUp];
 
@@ -1367,7 +1437,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     _hasAutoSaved = YES;
-    //     NSLog(@"UI autosaved successfully. Tag: %ld", (long)hash);
+//    NSLog(@"UI autosaved successfully on turn %ld, event count %ld. Tag: %ld", _turns, _eventcount, _autosaveTag);
 }
 
 -(void)cleanup {
@@ -1447,7 +1517,7 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     if ([[NSUserDefaults standardUserDefaults]
-         boolForKey:@"closeAlertSuppression"]) {
+         boolForKey:@"CloseAlertSuppression"]) {
         NSLog(@"Window close alert suppressed");
         return YES;
     }
@@ -1468,7 +1538,7 @@ fprintf(stderr, "%s\n",                                                    \
                 // Suppress this alert from now on
                 [[NSUserDefaults standardUserDefaults]
                  setBool:YES
-                 forKey:@"closeAlertSuppression"];
+                 forKey:@"CloseAlertSuppression"];
             }
             [self close];
         }
@@ -1483,6 +1553,9 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     } else windowClosedAlready = YES;
 
+    // Make sure any new Glk events are queued
+    waitforfilename = YES;
+
     [self autoSaveOnExit];
     [_soundHandler stopAllAndCleanUp];
 
@@ -1491,11 +1564,6 @@ fprintf(stderr, "%s\n",                                                    \
         if (libcontroller.gameSessions.count)
             remainingGameSession = ((GlkController *)(libcontroller.gameSessions.allValues)[0]).game;
         [Preferences changeCurrentGame:remainingGameSession];
-    } else {
-        if (_game == nil)
-            NSLog(@"GlkController windowWillClose called with _game nil!");
-        else
-            NSLog(@"GlkController for game %@ closing, but preferences currentGame was not the same", _game.metadata.title);
     }
 
     if (timer) {
@@ -1516,7 +1584,6 @@ fprintf(stderr, "%s\n",                                                    \
     [libcontroller releaseGlkControllerSoon:self];
 
     libcontroller = nil;
-    //[self.window setDelegate:nil]; This segfaults
 }
 
 - (void)flushDisplay {
@@ -1956,9 +2023,57 @@ fprintf(stderr, "%s\n",                                                    \
  *
  */
 
+#pragma mark Command script
+
+@synthesize commandScriptHandler = _commandScriptHandler;
+
+- (CommandScriptHandler *)commandScriptHandler {
+    if (_commandScriptHandler == nil) {
+        _commandScriptHandler = [CommandScriptHandler new];
+        _commandScriptHandler.glkctl = self;
+    }
+    return _commandScriptHandler;
+}
+
+- (void)setCommandScriptHandler:(CommandScriptHandler *)commandScriptHandler {
+    _commandScriptHandler = commandScriptHandler;
+}
+
+- (IBAction)cancel:(id)sender
+{
+    _commandScriptRunning = NO;
+    _commandScriptHandler = nil;
+}
+
+#pragma mark Dragging and dropping
+
+- (NSDragOperation)draggingEntered:sender {
+    NSPasteboard *pboard = [sender draggingPasteboard];
+
+    if ( [[pboard types] containsObject:NSStringPboardType] ||
+         [[pboard types] containsObject:NSURLPboardType] ) {
+        return NSDragOperationCopy;
+    }
+
+    return NSDragOperationNone;
+}
+
+- (BOOL)performDragOperation:sender {
+    NSPasteboard *pboard = [sender draggingPasteboard];
+    return [self.commandScriptHandler commandScriptInPasteboard:pboard fromWindow:nil];
+}
+
+
 #pragma mark Glk requests
 
 - (void)handleOpenPrompt:(int)fileusage {
+    if (_pendingSaveFilePath) {
+        [self feedSaveFileToPrompt];
+        _pendingSaveFilePath = nil;
+        return;
+    }
+
+    _commandScriptHandler = nil;
     NSURL *directory =
     [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
                             objectForKey:@"SaveDirectory"]
@@ -2008,7 +2123,26 @@ fprintf(stderr, "%s\n",                                                    \
     [readfh waitForDataInBackgroundAndNotify];
 }
 
+- (void)feedSaveFileToPrompt {
+    NSInteger sendfd = sendfh.fileDescriptor;
+    waitforfilename = YES; /* don't interrupt */
+
+    struct message reply;
+    reply.cmd = OKAY;
+    reply.len = _pendingSaveFilePath.length;
+
+    write((int)sendfd, &reply, sizeof(struct message));
+    if (reply.len)
+        write((int)sendfd, [_pendingSaveFilePath cStringUsingEncoding:NSUTF8StringEncoding], reply.len);
+
+    waitforfilename = NO; /* we're all done, resume normal processing */
+
+    [readfh waitForDataInBackgroundAndNotify];
+}
+
 - (void)handleSavePrompt:(int)fileusage {
+    _commandScriptRunning = NO;
+    _commandScriptHandler = nil;
     NSURL *directory =
     [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
                             objectForKey:@"SaveDirectory"]
@@ -2473,7 +2607,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    //    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
+//    NSLog(@"glkctl: incoming request %s", msgnames[req->cmd]);
 
     NSInteger result;
     GlkWindow *reqWin = nil;
@@ -2508,6 +2642,11 @@ fprintf(stderr, "%s\n",                                                    \
             // from an autosave file.
             if (_eventcount == 2) {
                 if (shouldRestoreUI) {
+//                    CommandScriptHandler *handler = restoredController.commandScriptHandler;
+//                    if (handler.commandIndex > 0) {
+//                        handler.commandIndex--;
+//                        handler.lastCommandType = handler.nextToLastCommandType;
+//                    }
                     [self restoreUI];
                 } else {
                     // If we are not autorestoring, try to guess an input window.
@@ -2847,6 +2986,13 @@ fprintf(stderr, "%s\n",                                                    \
             break;
 
         case PRINT:
+            if (!_gwindows.count && shouldRestoreUI) {
+                NSLog(@"Restoring UI at PRINT");
+                NSLog(@"at eventcount %ld", _eventcount);
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                [self restoreUI];
+                reqWin = _gwindows[@(req->a1)];
+            }
             if (reqWin) {
                 [self handlePrintOnWindow:reqWin
                                     style:(NSUInteger)req->a2
@@ -2919,20 +3065,39 @@ fprintf(stderr, "%s\n",                                                    \
             [self performScroll];
 
             if (!_gwindows.count && shouldRestoreUI) {
-                //                NSLog(@"Restoring UI at INITLINE");
-                //                NSLog(@"at eventcount %ld", _eventcount);
+//              NSLog(@"Restoring UI at INITLINE");
+//              NSLog(@"at eventcount %ld", _eventcount);
+                if (restoredController.commandScriptRunning) {
+                    CommandScriptHandler *handler = restoredController.commandScriptHandler;
+                    if (handler.commandIndex >= handler.commandArray.count - 2) {
+                        restoredController.commandScriptHandler = nil;
+                        restoredController.commandScriptRunning = NO;
+                    } else {
+                        handler.commandIndex++;
+                        //                            handler.lastCommandType = handler.nextToLastCommandType;
+                        skipNextScriptCommand = YES;
+                        restoredControllerLate = restoredController;
+                    }
+                }
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
-            if (reqWin && !_colderLight) {
+            if (reqWin && !_colderLight && !skipNextScriptCommand) {
+
                 [reqWin initLine:[NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)] maxLength:(NSUInteger)req->a2];
+
+                if (_commandScriptRunning) {
+                    [self.commandScriptHandler sendCommandLineToWindow:reqWin];
+                }
+
                 _shouldSpeakNewText = YES;
 
                 // Check if we are in Beyond Zork Definitions menu
                 if (_beyondZork)
                     _shouldCheckForMenu = YES;
             }
+            skipNextScriptCommand = NO;
             break;
 
         case CANCELLINE:
@@ -2952,9 +3117,19 @@ fprintf(stderr, "%s\n",                                                    \
             //            NSLog(@"glkctl initchar %d", req->a1);
 
             if (!_gwindows.count && shouldRestoreUI) {
-                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                GlkController *g = restoredController;
+                _windowsToRestore = g.gwindows.allValues;
                 //                NSLog(@"Restoring UI at INITCHAR");
                 //                NSLog(@"at eventcount %ld", _eventcount);
+                if (g.commandScriptRunning) {
+                    CommandScriptHandler *handler = g.commandScriptHandler;
+                    if (handler.commandIndex >= handler.commandArray.count - 1) {
+                        g.commandScriptHandler = nil;
+                    } else {
+                        skipNextScriptCommand = YES;
+                    }
+                    restoredControllerLate = restoredController;
+                }
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -2974,9 +3149,13 @@ fprintf(stderr, "%s\n",                                                    \
                 [self performScroll];
             }
 
-            if (reqWin) {
+            if (reqWin && !skipNextScriptCommand) {
                 [reqWin initChar];
+                if (_commandScriptRunning) {
+                    [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
+                }
             }
+            skipNextScriptCommand = NO;
             break;
 
         case CANCELCHAR:

@@ -332,7 +332,7 @@
         }
         if (viewString && view.frame.size.height > 0 && viewString.length < 4000) {
             [_viewStrings addObject:viewString];
-            NSArray *lines = [self convertToLines:viewString];
+            NSArray *lines = [viewString lineRanges];
             NSUInteger line = 0;
             NSArray *currentCluster;
             NSArray *lastCluster = @[];
@@ -382,8 +382,8 @@
             menulines = [[NSMutableArray alloc] init];
             do {
                 index++;
-            } while (index < lines.count && ![self rangeIsEmpty:lines[index] inString:string]);
-        } else if ([self rangeIsEmpty:lines[index] inString:string]) {
+            } while (index < lines.count && ![string rangeIsEmpty:lines[index]]);
+        } else if ([string rangeIsEmpty:lines[index]]) {
             if (menulines.count) {
                 //Found empty line. Return results.
                 return menulines;
@@ -415,7 +415,7 @@
     //Strip trailing blank lines
     BOOL lastLineBlank;
     do {
-        lastLineBlank = [self rangeIsEmpty:lines.lastObject inString:string];
+        lastLineBlank = [string rangeIsEmpty:lines.lastObject];
         if (lastLineBlank) {
             [lines removeLastObject];
         }
@@ -518,55 +518,6 @@
     return (NSInteger)spaces;
 }
 
-- (BOOL)rangeIsEmpty:(NSValue *)rangeValue inString:(NSString *)string {
-    if (!string || !string.length)
-        return YES;
-    NSRange range = rangeValue.rangeValue;
-    NSRange allText = NSMakeRange(0, string.length);
-    range = NSIntersectionRange(allText, range);
-    NSString *trimmedString = [string substringWithRange:range];
-    trimmedString = [trimmedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    return (trimmedString.length == 0);
-}
-
-// Returns an NSArray of range values, including leading and trailing spaces
-- (NSArray *)convertToLines:(NSString *)string {
-    NSUInteger stringLength = string.length;
-    NSRange linerange;
-    NSMutableArray *lines = [[NSMutableArray alloc] init];
-    for (NSUInteger index = 0; index < stringLength;) {
-        // This includes newlines
-        linerange = [string lineRangeForRange:NSMakeRange(index, 0)];
-        index = NSMaxRange(linerange);
-        [lines addObject:[NSValue valueWithRange:linerange]];
-    }
-
-    if (lines.count) {
-        //Strip leading blank lines
-        BOOL firstLineBlank;
-        do {
-            firstLineBlank = [self rangeIsEmpty:lines.firstObject inString:string];
-            if (firstLineBlank) {
-                [lines removeObjectAtIndex:0];
-                // If all lines are blank, we are not in a menu
-                if (!lines.count)
-                    return lines;
-            }
-        } while (firstLineBlank);
-
-        //Strip trailing blank lines
-        BOOL lastLineBlank;
-        do {
-            lastLineBlank = [self rangeIsEmpty:lines.lastObject inString:string];
-            if (lastLineBlank) {
-                [lines removeLastObject];
-            }
-        } while (lastLineBlank);
-    }
-    return lines;
-}
-
-
 - (NSDictionary *)extractMenuCommandsUsingRegex:(NSString *)regexString {
     NSMutableDictionary *menuDict = [[NSMutableDictionary alloc] init];
     NSMutableArray *keys = [[NSMutableArray alloc] init];
@@ -611,7 +562,7 @@
                     if (lastOverlap < _lines.count - 1) {
                         _recheckNeeded = YES;
                         _lines.array = [_lines subarrayWithRange:NSMakeRange(lastOverlap + 1, _lines.count - lastOverlap - 1)];
-                        while ([self rangeIsEmpty:_lines.firstObject inString:string] && _lines.count)
+                        while ([string rangeIsEmpty:_lines.firstObject] && _lines.count)
                             [_lines removeObjectAtIndex:0];
                     }
                 }

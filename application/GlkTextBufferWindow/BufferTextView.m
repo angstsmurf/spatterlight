@@ -10,6 +10,8 @@
 #import "GlkController.h"
 #import "MarginContainer.h"
 #import "MarginImage.h"
+#import "CommandScriptHandler.h"
+
 
 @interface BufferTextView () <NSTextFinderClient, NSSecureCoding> {
     NSTextFinder *_textFinder;
@@ -110,6 +112,14 @@
 
 #pragma clang diagnostic pop
 
+    if (menuItem.action == @selector(cut:) || menuItem.action == @selector(delete:) || menuItem.action == @selector(paste:)) {
+        NSRange editableRange = [delegate editableRange];
+        if (editableRange.location != NSNotFound && NSMaxRange(self.selectedRange) > editableRange.location) {
+            self.editable = waseditable;
+            return YES;
+        }
+    }
+
     if (menuItem.action == @selector(cut:)) {
         if (self.selectedRange.length &&
             [delegate textView:self
@@ -138,6 +148,70 @@
     self.editable = waseditable;
 
     return isValidItem;
+}
+
+- (void)cut:(id)sender {
+    self.selectedRange = [self adjustedRange];
+    [super cut:sender];
+}
+
+- (void)delete:(id)sender {
+    self.selectedRange = [self adjustedRange];
+    [super delete:sender];
+}
+
+- (void)deleteBackward:(id)sender {
+    self.selectedRange = [self adjustedRange];
+    [super deleteBackward:sender];
+}
+
+- (void)paste:(id)sender {
+    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+
+    NSString* string = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
+
+    if ([string rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]].location != NSNotFound) {
+        [delegate.glkctl.commandScriptHandler startCommandScript:string inWindow:delegate];
+        return;
+    }
+    self.selectedRange = [self adjustedRange];
+    [super paste:sender];
+}
+
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
+    NSPasteboard *pboard = [sender draggingPasteboard];
+
+    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+    if ([delegate.glkctl.commandScriptHandler commandScriptInPasteboard:pboard fromWindow:delegate])
+        return YES;
+    else {
+        BOOL result = [super performDragOperation:sender];
+        NSRange editableRange = [delegate editableRange];
+        if (self.selectedRange.location < editableRange.location)
+            self.selectedRange = NSMakeRange(editableRange.location, self.selectedRange.length);
+        return result;
+    }
+}
+
+- (NSRange)adjustedRange {
+    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+    NSRange selectedRange = self.selectedRange;
+    if (![delegate hasLineRequest])
+        return selectedRange;
+
+    NSRange editableRange = [delegate editableRange];
+
+    if (selectedRange.location < editableRange.location && NSMaxRange(selectedRange) > editableRange.location) {
+        return NSIntersectionRange(selectedRange, editableRange);
+    } else {
+        return selectedRange;
+    }
+}
+
+- (void)scrollWheel:(NSEvent *)event {
+    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+    [delegate scrollWheelchanged:(NSEvent *)event];
+    [super scrollWheel:event];
 }
 
 #pragma mark Text Finder

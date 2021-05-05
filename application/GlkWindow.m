@@ -282,6 +282,20 @@ fprintf(stderr, "%s\n",                                                    \
     return char_request;
 }
 
+- (BOOL)hasLineRequest {
+    NSLog(@"hasLineRequest in %@ not implemented", [self class]);
+    return NO;
+}
+
+- (void)sendInputLine:(NSString *)command withTerminator:(NSUInteger)terminator {
+    NSLog(@"sendInputLine in %@ not implemented", [self class]);
+}
+
+- (void)sendKeypress:(unsigned)ch {
+    NSLog(@"sendKeypress in %@ not implemented", [self class]);
+}
+
+
 - (NSArray *)links {
     NSLog(@"links in %@ not implemented", [self class]);
     return @[];

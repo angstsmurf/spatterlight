@@ -10,6 +10,8 @@
 #import "GlkEvent.h"
 #import "GlkTextGridWindow.h"
 #import "InputTextField.h"
+#import "GlkController.h"
+#import "CommandScriptHandler.h"
 
 @implementation MyFieldEditor
 
@@ -32,6 +34,29 @@
 
 - (BOOL)isAccessibilityElement {
     return YES;
+}
+
+- (void)paste:(id)sender {
+    NSString* string = [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
+
+    if ([string rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet]].location != NSNotFound) {
+        GlkTextGridWindow *delegate = (GlkTextGridWindow *)((NSTextField *)self.delegate).delegate;
+        [delegate.glkctl.commandScriptHandler startCommandScript:string inWindow:delegate];
+        return;
+    }
+
+    [super paste:sender];
+}
+
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
+{
+    NSPasteboard *pboard = [sender draggingPasteboard];
+
+    GlkTextGridWindow *delegate = (GlkTextGridWindow *)((NSTextField *)self.delegate).delegate;
+   if ([delegate.glkctl.commandScriptHandler commandScriptInPasteboard:pboard fromWindow:delegate])
+        return YES;
+    else
+        return [super performDragOperation:sender];
 }
 
 @end

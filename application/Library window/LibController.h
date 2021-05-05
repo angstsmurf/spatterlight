@@ -80,7 +80,11 @@
 - (NSWindow *)playGameWithIFID:(NSString *)ifid;
 - (void)releaseGlkControllerSoon:(GlkController *)glkctl;
 
-- (void)importAndPlayGame:(NSString *)path;
+- (NSWindow *)importAndPlayGame:(NSString *)path;
+
+- (BOOL)hasActiveGames;
+- (void)runCommandsFromFile:(NSString *)filename;
+- (void)restoreFromSaveFile:(NSString *)filename;
 
 - (IBAction)toggleSidebar:(id)sender;
 - (IBAction)toggleColumn:(id)sender;

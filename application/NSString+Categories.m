@@ -262,5 +262,69 @@ finish:
     return [NSString stringWithFormat:@"%@ and %@ other games", gameString, numberString];
 }
 
+// Returns an NSArray of range values, including leading and trailing spaces (but strips leading and traling blank lines)
+- (NSArray *)lineRanges {
+    return [self lineRangesKeepEmptyLines:NO];
+
+}
+
+- (NSArray *)lineRangesKeepEmptyLines:(BOOL)keepEmpty {
+    NSUInteger stringLength = self.length;
+    NSRange linerange;
+    NSMutableArray *lines = [[NSMutableArray alloc] init];
+    for (NSUInteger index = 0; index < stringLength;) {
+        // This includes newlines
+        linerange = [self lineRangeForRange:NSMakeRange(index, 0)];
+        index = NSMaxRange(linerange);
+        [lines addObject:[NSValue valueWithRange:linerange]];
+    }
+
+    if (lines.count && !keepEmpty) {
+        //Strip leading blank lines
+        BOOL firstLineBlank;
+        do {
+            firstLineBlank = [self rangeIsEmpty:lines.firstObject];
+            if (firstLineBlank) {
+                [lines removeObjectAtIndex:0];
+                // If all lines are blank, we are not in a menu
+                if (!lines.count)
+                    return lines;
+            }
+        } while (firstLineBlank);
+
+        //Strip trailing blank lines
+        BOOL lastLineBlank;
+        do {
+            lastLineBlank = [self rangeIsEmpty:lines.lastObject];
+            if (lastLineBlank) {
+                [lines removeLastObject];
+            }
+        } while (lastLineBlank);
+    }
+    return lines;
+}
+
+
+// Returns yes if range only consists of white space or new lines
+- (BOOL)rangeIsEmpty:(NSValue *)rangeValue {
+    if (!self.length)
+        return YES;
+    NSRange range = rangeValue.rangeValue;
+    NSRange allText = NSMakeRange(0, self.length);
+    range = NSIntersectionRange(allText, range);
+    NSString *trimmedString = [self substringWithRange:range];
+    trimmedString = [trimmedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return (trimmedString.length == 0);
+}
+
+- (NSString *)substringWithRangeValue:(NSValue *)val {
+    NSRange range = val.rangeValue;
+    NSRange allText = NSMakeRange(0, self.length);
+    range = NSIntersectionRange(allText, range);
+    NSString *string = [self substringWithRange:range];
+    string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return string;
+}
+
 
 @end

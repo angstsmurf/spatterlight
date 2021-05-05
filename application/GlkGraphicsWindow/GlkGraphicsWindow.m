@@ -379,6 +379,12 @@
     }
 }
 
+- (void)sendKeypress:(unsigned)ch {
+    GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
+    [self.glkctl queueEvent:gev];
+    char_request = NO;
+}
+
 #pragma mark Accessibility
 
 - (NSString *)accessibilityRoleDescription {

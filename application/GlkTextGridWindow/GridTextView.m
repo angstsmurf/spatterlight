@@ -69,6 +69,10 @@
         [[NSCursor arrowCursor] set];
 }
 
+- (NSTouchBar *)makeTouchBar {
+  return nil;
+}
+
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
     GlkTextGridWindow *delegate = (GlkTextGridWindow *)self.delegate;
     NSArray *actions = [delegate.glkctl accessibilityCustomActions];

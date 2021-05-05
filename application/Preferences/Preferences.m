@@ -1609,7 +1609,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [defaults setBool:NO forKey:@"UseForAllAlertSuppression"];
     [defaults setBool:NO forKey:@"OverwriteStylesAlertSuppression"];
     [defaults setBool:NO forKey:@"AutorestoreAlertSuppression"];
-    [defaults setBool:NO forKey:@"closeAlertSuppression"];
+    [defaults setBool:NO forKey:@"CloseAlertSuppression"];
+    [defaults setBool:NO forKey:@"CommandScriptAlertSuppression"];
+    [defaults setBool:NO forKey:@"SaveFileAlertSuppression"];
 }
 
 - (IBAction)changeSmoothScroll:(id)sender {

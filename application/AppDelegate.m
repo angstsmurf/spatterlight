@@ -2,14 +2,14 @@
  * Application -- the main application controller
  */
 
-#import "CoreDataManager.h"
-#import "HelpPanelController.h"
-#import "InfoController.h"
 #import "main.h"
+#import "CoreDataManager.h"
 #import "NSString+Categories.h"
 #import "AttributeDictionaryTransformer.h"
 #import "InsecureValueTransformer.h"
 #import "ColorTransformer.h"
+#import "HelpPanelController.h"
+#import "InfoController.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -30,6 +30,8 @@
 @implementation AppDelegate
 
 NSArray *gGameFileTypes;
+NSArray *gDocFileTypes;
+NSArray *gSaveFileTypes;
 
 NSArray *gBufferStyleNames;
 NSArray *gGridStyleNames;
@@ -67,6 +69,10 @@ NSDictionary *gFormatMap;
         @"z8",  @"ulx", @"blb", @"blorb",  @"glb",   @"gblorb", @"zlb",
         @"zblorb"
     ];
+
+    gDocFileTypes = @[@"rtf", @"rtfd", @"html", @"doc", @"docx", @"odt", @"xml", @"webarchive", @"txt"];
+
+    gSaveFileTypes = @[@"glksave", @"sav", @"qut", @"qzl"];
 
     // To map the Glk style indices onto our Core Data relation names
     gBufferStyleNames = @[
@@ -266,8 +272,12 @@ NSDictionary *gFormatMap;
         [filePanel makeKeyAndOrderFront:nil];
     } else {
         panel = [NSOpenPanel openPanel];
-
-        panel.allowedFileTypes = gGameFileTypes;
+        NSMutableArray *allowedTypes = gGameFileTypes.mutableCopy;
+        if ([_libctl hasActiveGames]) {
+            [allowedTypes addObjectsFromArray:gDocFileTypes];
+            [allowedTypes addObjectsFromArray:gSaveFileTypes];
+        }
+        panel.allowedFileTypes = allowedTypes;
         panel.directoryURL = directory;
         NSLog(@"directory = %@", directory);
         [panel beginWithCompletionHandler:^(NSInteger result) {
@@ -276,8 +286,7 @@ NSDictionary *gFormatMap;
                 if (theDoc) {
                     NSString *pathString =
                     theDoc.path.stringByDeletingLastPathComponent;
-                    NSLog(@"directory = %@", directory);
-                    if ([theDoc.path.pathExtension isEqualToString:@"sav"])
+                    if ([gSaveFileTypes indexOfObject:theDoc.path.pathExtension] != NSNotFound)
                         [[NSUserDefaults standardUserDefaults]
                          setObject:pathString
                          forKey:@"SaveDirectory"];
@@ -297,15 +306,23 @@ NSDictionary *gFormatMap;
 - (BOOL)application:(NSApplication *)theApp openFile:(NSString *)path {
     NSLog(@"appdel: openFile '%@'", path);
 
-    if ([path.pathExtension.lowercaseString isEqualToString:@"ifiction"]) {
+    NSString *extension = path.pathExtension.lowercaseString;
+
+    if ([extension isEqualToString:@"ifiction"]) {
         [_libctl importMetadataFromFile:path];
+    } else  if ([gDocFileTypes indexOfObject:extension] != NSNotFound) {
+        [_libctl runCommandsFromFile:path];
+    } else  if ([gSaveFileTypes indexOfObject:extension] != NSNotFound) {
+        [_libctl restoreFromSaveFile:path];
     } else {
-        [_libctl importAndPlayGame:path];
-        double delayInSeconds = 1;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.libctl importAndPlayGame:path];
-        });
+        __block NSWindow *win = [_libctl importAndPlayGame:path];
+        if (win) {
+            double delayInSeconds = 1;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [win orderFront:nil];
+            });
+        }
     }
 
     return YES;
@@ -380,7 +397,7 @@ NSDictionary *gFormatMap;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *games = [[NSMutableArray alloc] initWithCapacity:count];
 
-    if ([defaults boolForKey:@"terminationAlertSuppression"]) {
+    if ([defaults boolForKey:@"TerminationAlertSuppression"]) {
         NSLog(@"Termination alert suppressed");
     } else {
         while (count--) {
@@ -427,7 +444,7 @@ NSDictionary *gFormatMap;
 
             if (anAlert.suppressionButton.state == NSOnState) {
                 // Suppress this alert from now on
-                [defaults setBool:YES forKey:@"terminationAlertSuppression"];
+                [defaults setBool:YES forKey:@"TerminationAlertSuppression"];
             }
             if (choice == NSAlertSecondButtonReturn) {
                 return NSTerminateCancel;

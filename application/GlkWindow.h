@@ -88,6 +88,10 @@ struct fillrect;
 - (void)postRestoreAdjustments:(GlkWindow *)win;
 
 - (BOOL)hasCharRequest;
+- (BOOL)hasLineRequest;
+
+- (void)sendInputLine:(NSString *)command withTerminator:(NSUInteger)terminator;
+- (void)sendKeypress:(unsigned)ch;
 
 - (NSArray *)links;
 - (NSArray *)images;

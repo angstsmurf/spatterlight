@@ -464,6 +464,9 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)postRestoreAdjustments:(GlkWindow *)win {
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
+
+    line_request = [restoredWin hasLineRequest];
+
     if (line_request && [restoredWin.restoredInput length]) {
         NSAttributedString *restoredInput = restoredWin.restoredInput;
         if (textstorage.length > fence) {
@@ -840,8 +843,9 @@ fprintf(stderr, "%s\n",                                                    \
     if (self.glkctl.deadCities && line_request && [[str substringFromIndex:str.length - 1] isEqualToString:@"\n"]) {
         // This is against the Glk spec but makes
         // hyperlinks in Dead Cities work.
-        // There should be some kind of switch for this.
-        [self sendInputLineWithTerminator:0];
+        // There should be a setting to turn this on or off.
+        NSString *line = [textstorage.string substringFromIndex:fence];
+        [self sendInputLine:line withTerminator:0];
     }
 }
 
@@ -941,7 +945,6 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Input
 
 - (void)keyDown:(NSEvent *)evt {
-    GlkEvent *gev;
     NSString *str = evt.characters;
     unsigned ch = keycode_Unknown;
     if (str.length)
@@ -1028,17 +1031,16 @@ fprintf(stderr, "%s\n",                                                    \
         if (!scrolled)
             glkctl.shouldScrollOnCharEvent = YES;
 
-        [glkctl markLastSeen];
-
-        gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
-        [glkctl queueEvent:gev];
-
-        char_request = NO;
-        _textview.editable = NO;
+        if ((ch == 'v' || ch == 'V') && commandKeyOnly) {
+            [_textview performSelector:@selector(paste:)];
+        } else {
+            [self sendKeypress:ch];
+        }
 
     } else if (line_request && (ch == keycode_Return ||
                                 [self.currentTerminators[key] isEqual:@(YES)])) {
-        [self sendInputLineWithTerminator:ch == keycode_Return ? 0 : key.integerValue];
+        NSString *line = [textstorage.string substringFromIndex:fence];
+        [self sendInputLine:line withTerminator:ch == keycode_Return ? 0 : key.integerValue];
         return;
     } else if (line_request && (ch == keycode_Up ||
                                 // Use Home to travel backward in history when Beyond Zork eats up arrow
@@ -1068,9 +1070,8 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
--(void)sendInputLineWithTerminator:(NSInteger)terminator {
+- (void)sendInputLine:(NSString *)line withTerminator:(NSInteger)terminator {
     // NSLog(@"line event from %ld", (long)self.name);
-    NSString *line = [textstorage.string substringFromIndex:fence];
     if (echo) {
         //        [textstorage
         //         addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(fence, textstorage.length - fence)];
@@ -1121,6 +1122,16 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)cancelChar {
     // NSLog(@"cancel char in %d", name);
     char_request = NO;
+}
+
+- (void)sendKeypress:(unsigned)ch {
+    [self.glkctl markLastSeen];
+
+    GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
+    [self.glkctl queueEvent:gev];
+
+    char_request = NO;
+    _textview.editable = NO;
 }
 
 - (void)initLine:(NSString *)str maxLength:(NSUInteger)maxLength
@@ -1198,6 +1209,10 @@ fprintf(stderr, "%s\n",                                                    \
     line_request = NO;
     [self hideInsertionPoint];
     return str;
+}
+
+- (BOOL)hasLineRequest {
+    return line_request;
 }
 
 #pragma mark Command history
