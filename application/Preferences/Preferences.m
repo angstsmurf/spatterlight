@@ -1720,7 +1720,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (theme.border == [sender intValue])
         return;
     theme = [self cloneThemeIfNotEditable];
+    NSInteger oldBorder = theme.border;
     theme.border = [sender intValue];
+    NSInteger diff = theme.border - oldBorder;
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName:@"BorderChanged"
+                      object:theme
+     userInfo:@{@"diff":@(diff)}];
 }
 
 - (Theme *)cloneThemeIfNotEditable {

@@ -146,6 +146,12 @@ typedef enum kMinimumWindowSize : NSUInteger {
 - (void)adjustContentView;
 - (void)cleanup;
 
+// Flag to prevent things from moving around
+// when adjusting content size and position after
+// border change
+@property BOOL movingBorder;
+
+// VoiceOver
 - (IBAction)speakMostRecent:(id)sender;
 - (IBAction)speakPrevious:(id)sender;
 - (IBAction)speakNext:(id)sender;

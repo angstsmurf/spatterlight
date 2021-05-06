@@ -395,9 +395,15 @@ fprintf(stderr, "%s\n",                                                    \
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self
-     selector:@selector(noteManagedObjectContextDidChange:)
-     name:NSManagedObjectContextObjectsDidChangeNotification
-     object:libcontroller.managedObjectContext];
+     selector:@selector(noteDefaultSizeChanged:)
+     name:@"DefaultSizeChanged"
+     object:nil];
+
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(noteBorderChanged:)
+     name:@"BorderChanged"
+     object:nil];
 
     self.window.representedFilename = _gamefile;
 
@@ -1742,6 +1748,29 @@ fprintf(stderr, "%s\n",                                                    \
     return size;
 }
 
+- (void)noteBorderChanged:(NSNotification *)notify {
+    if (notify.object != _theme || (self.window.styleMask & NSFullScreenWindowMask) ==
+        NSFullScreenWindowMask || ![[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"])
+        return;
+    [Preferences instance].inMagnification = YES;
+    _movingBorder = YES;
+    NSInteger diff = ((NSNumber *)notify.userInfo[@"diff"]).integerValue;
+    NSLog(@"noteBorderChanged: diff: %ld", diff);
+    _contentView.autoresizingMask = NSViewMaxXMargin | NSViewMaxYMargin | NSViewMinXMargin | NSViewMinYMargin;
+    NSRect frame = self.window.frame;
+    frame.origin = NSMakePoint(frame.origin.x - diff, frame.origin.y - diff);
+    frame.size = NSMakeSize(frame.size.width + (diff * 2), frame.size.height + (diff * 2));
+    NSRect contentframe = _contentView.frame;
+    contentframe.origin = NSMakePoint(contentframe.origin.x + diff, contentframe.origin.y + diff);
+    [self.window setFrame:frame display:NO];
+    [_contentView setFrame:contentframe];
+    _movingBorder = NO;
+    _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    NSNotification *notification = [[NSNotification alloc] initWithName:@"PreferencesChanged" object:_theme userInfo:nil];
+    [self notePreferencesChanged:notification];
+}
+
+
 /*
  *
  */
@@ -1749,7 +1778,9 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Preference and style hint glue
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
-
+    NSLog(@"notePreferencesChanged");
+    if (_movingBorder)
+        return;
     Theme *theme = _theme;
     NSUInteger lastVOSpeakMenu = (NSUInteger)theme.vOSpeakMenu;
 
