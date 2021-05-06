@@ -136,6 +136,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (instancetype)initWithImage:(NSImage *)anImage x:(NSInteger)x y:(NSInteger)y width:(NSUInteger)width height:(NSUInteger)height style:(NSUInteger)aStyle window:(GlkWindow *)win;
 
+- (instancetype)initWithColor:(NSUInteger)color x:(NSInteger)x y:(NSInteger)y width:(NSInteger)w height:(NSInteger)h window:(GlkWindow *)win;
+
 - (void)drawToWindow;
 
 - (BOOL)transparent;
@@ -168,11 +170,36 @@ fprintf(stderr, "%s\n",                                                    \
     return self;
 }
 
+- (instancetype)initWithColor:(NSUInteger)color x:(NSInteger)x y:(NSInteger)y width:(NSInteger)w height:(NSInteger)h window:(GlkWindow *)win {
+    self = super.init;
+    if (self) {
+        image = nil;
+                _rect = NSMakeRect(x, y, w, h);
+        style = color;
+        _window = win;
+        NSLog(@"draw operation created with rect %@", NSStringFromRect(_rect));
+    }
+    return self;
+
+}
+
 - (void)drawToWindow {
-    [_window drawImage:image val1:(NSInteger)_rect.origin.x val2:(NSInteger)_rect.origin.y width:(NSInteger)_rect.size.width height:(NSInteger)_rect.size.height style:style];
+    if (image == nil) {
+        struct fillrect rect;
+        rect.x = (short)_rect.origin.x;
+        rect.y = (short)_rect.origin.y;
+        rect.w = (short)_rect.size.width;
+        rect.h = (short)_rect.size.height;
+        rect.color = style;
+        [_window fillRects:&rect count:1];
+    } else {
+        [_window drawImage:image val1:(NSInteger)_rect.origin.x val2:(NSInteger)_rect.origin.y width:(NSInteger)_rect.size.width height:(NSInteger)_rect.size.height style:style];
+    }
 }
 
 - (BOOL)transparent {
+    if (image == nil)
+        return NO;
     NSImageRep *rep = image.representations.firstObject;
     return rep.hasAlpha;
 }
@@ -1568,6 +1595,7 @@ fprintf(stderr, "%s\n",                                                    \
     //[self.window setDelegate:nil]; This segfaults
 }
 
+
 - (void)flushDisplay {
     NSLog(@"flushDisplay");
     //    lastFlushTimestamp = [NSDate date];
@@ -1576,22 +1604,36 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (drawlist.count) {
         DrawOperation *op = nil;
-        NSRect largestRect = NSZeroRect;
         NSMutableArray *opsToDraw = [NSMutableArray new];
         GlkWindow *drawwin = nil;
 
         NSEnumerator *enumerator = [drawlist reverseObjectEnumerator];
+        NSInteger index = (NSInteger)drawlist.count - 1;
         while (op = [enumerator nextObject]) {
             if (!drawwin)
                 drawwin = op.window;
-            NSRect unionRect = NSUnionRect(op.rect, largestRect);
-            if (drawwin != op.window || !NSEqualRects(unionRect, largestRect)) {
+            if (drawwin != op.window || index <= 0) {
                 [opsToDraw addObject:op];
-                if (!op.transparent)
-                    largestRect = unionRect;
+                index--;
+                continue;
+            }
+            BOOL covered = NO;
+            for (NSInteger i = index + 1; i < (NSInteger)drawlist.count; i++) {
+                if (NSContainsRect([drawlist[i] rect], op.rect)) {
+                    NSLog(@"image %ld (%@) is covered by image %ld (%@)", index, NSStringFromRect(op.rect), i, NSStringFromRect([drawlist[i] rect]));
+                    covered = YES;
+                    break;
+                }
+            }
+
+            if (!covered) {
+                [opsToDraw addObject:op];
+//                if (!op.transparent)
+//                    largestRect = unionRect;
             } else {
                 NSLog(@"Skipping image %ld", [drawlist indexOfObject:op]);
             }
+            index--;
         }
         enumerator = [opsToDraw reverseObjectEnumerator];
         while (op = [enumerator nextObject]) {
@@ -2917,7 +2959,15 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin) {
                 int realcount = req->len / sizeof(struct fillrect);
                 if (realcount == req->a2) {
-                    [reqWin fillRects:(struct fillrect *)buf count:req->a2];
+                    if (realcount == 1) {
+                        if (!drawlist)
+                            drawlist = [NSMutableArray new];
+                        struct fillrect *rect = (struct fillrect *)buf;
+                        DrawOperation *drawop = [[DrawOperation alloc] initWithColor:rect->color x:rect->x y:rect->y width:rect->w height:rect->h window:reqWin];
+                        [drawlist addObject:drawop];
+                    } else {
+                        [reqWin fillRects:(struct fillrect *)buf count:req->a2];
+                    }
                 }
             }
             break;
