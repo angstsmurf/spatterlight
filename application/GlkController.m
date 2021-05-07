@@ -1698,16 +1698,6 @@ fprintf(stderr, "%s\n",                                                    \
 
         winrect.origin.y -= offset;
 
-        // If window is partly off the screen, move it (just) inside
-        if (NSMaxX(winrect) > NSMaxX(screenframe))
-            winrect.origin.x = NSMaxX(screenframe) - NSWidth(winrect);
-
-        NSSize minSize = self.window.minSize;
-        if (winrect.size.width < minSize.width)
-            winrect.size.width = minSize.width;
-        if (winrect.size.height < minSize.height)
-            winrect.size.height = minSize.height;
-
         [self.window setFrame:winrect display:YES];
         _contentView.frame = [self contentFrameForWindowed];
     } else {
@@ -1755,7 +1745,6 @@ fprintf(stderr, "%s\n",                                                    \
     [Preferences instance].inMagnification = YES;
     _movingBorder = YES;
     NSInteger diff = ((NSNumber *)notify.userInfo[@"diff"]).integerValue;
-    NSLog(@"noteBorderChanged: diff: %ld", diff);
     _contentView.autoresizingMask = NSViewMaxXMargin | NSViewMaxYMargin | NSViewMinXMargin | NSViewMinYMargin;
     NSRect frame = self.window.frame;
     frame.origin = NSMakePoint(frame.origin.x - diff, frame.origin.y - diff);
@@ -1778,7 +1767,6 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Preference and style hint glue
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
-    NSLog(@"notePreferencesChanged");
     if (_movingBorder)
         return;
     Theme *theme = _theme;
@@ -1944,13 +1932,6 @@ fprintf(stderr, "%s\n",                                                    \
         CGFloat offset = NSHeight(winrect) - NSHeight(self.window.frame);
 
         winrect.origin.y -= offset;
-
-        // If window is partly off the screen, move it (just) inside
-        if (NSMaxX(winrect) > NSMaxX(screenframe))
-            winrect.origin.x = NSMaxX(screenframe) - NSWidth(winrect);
-
-        if (NSMinY(winrect) < 0)
-            winrect.origin.y = NSMinY(screenframe);
 
         [self.window setFrame:winrect display:NO animate:NO];
     } else {
