@@ -200,8 +200,8 @@
         imgres.data = data;
         imgres.a11yDescription = res.descriptiontext;
         _resources[@(resno)] = imgres;
-        if (res.descriptiontext)
-            NSLog(@"Cached image %ld with path: %@ offset: %u length: %ld text:%@", resno, file.path, res.start, data.length, res.descriptiontext);
+//        if (res.descriptiontext)
+//            NSLog(@"Cached image %ld with path: %@ offset: %u length: %ld text:%@", resno, file.path, res.start, data.length, res.descriptiontext);
     }
 }
 
