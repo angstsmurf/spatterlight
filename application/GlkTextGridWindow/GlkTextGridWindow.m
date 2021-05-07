@@ -529,8 +529,8 @@
         if (!NSEqualRects(self.frame, self.pendingFrame)) {
             [super setFrame:self.pendingFrame];
         }
-        if (!NSEqualRects(_textview.frame, self.frame)) {
-            _textview.frame = self.frame;
+        if (!NSEqualRects(_textview.frame, self.bounds)) {
+            _textview.frame = self.bounds;
         }
 
         self.framePending = NO;

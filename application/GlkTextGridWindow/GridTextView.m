@@ -9,6 +9,7 @@
 #import "GlkTextGridWindow.h"
 #import "GlkController.h"
 #import "InputTextField.h"
+#import "Theme.h"
 
 /*
  * Extend NSTextView to ...
@@ -20,6 +21,20 @@
 + (BOOL)isCompatibleWithResponsiveScrolling
 {
     return YES;
+}
+
+- (void)setFrame:(NSRect)frame {
+    // For some reason, this text view sometimes wants to shrink a lot
+    // when the user resizes the window vertically, so we check for those
+    // calls and skip them.
+    if (self.inLiveResize && frame.size.height < self.frame.size.height)
+        return;
+    if (frame.size.height < self.frame.size.height && frame.size.height > 0) {
+        Theme *theme = ((GlkTextGridWindow *)self.delegate).theme;
+        if (frame.size.height < theme.cellHeight + 2 * theme.gridMarginY)
+            return;
+    }
+    [super setFrame:frame];
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
