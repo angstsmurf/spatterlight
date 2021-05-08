@@ -3,14 +3,19 @@
 ##  Unreleased
 - All Glk styles can be customized
 - Many new character and paragraph settings. Some of these may be overridden by style hints issued by certain games, unless the Colors and styles option is off
-- Most settings on the system font panel (underline, strikethrough, shadow) should now be functional
-- Most setting on the typography panel (available through the font panel) should be functional. These are font-specific Open Type settings and many fonts don't have any at all
+- Most settings on the system font panel (underline, strikethrough, shadow) should be functional
+- Most setting on the typography panel (available through the font panel) should be functional. These are font-specific OpenType settings which many fonts don't support at all
 - Separate settings for horizontal and vertical margin spacing
 - Setting to turn off quote box special handling in Z-code games
+- Setting for reproducible random numbers, implemented in Bocfel, Glulxe and Level 9 
+- Setting to hide error messages or quit on errors, implemented for errors in the common Glk API, Bocfel and Glulxe
+- Support for command scripts, text files of newline-separated commands, which will be entered at the game prompt sequentially if copied or dragged to the game window
+- Support for Narcolepsy "thought balloon" window mask
+- Lengthy import and metadata download operations for multiple games can be cancelled
 - Fixes margin image y position regression
-- Makes *Unforgotten* work
-- Supports VoiceOver for *Unforgotten* main menu
-- VoiceOver longer counts the instruction line in the *Vespers* help menu as a menu item
+- VoiceOver support for *Unforgotten* main menu
+- VoiceOver no longer counts the instruction line in the *Vespers* help menu as a menu item
+- Size and position of window content are preserved when border size is changed, if the Adjust window size option is active
 
 ##  Release 0.7.9
 - Bocfel 1.3 made autorestoring unstable, so we revert to 1.2 for now. This breaks autosave backward compatibility again
