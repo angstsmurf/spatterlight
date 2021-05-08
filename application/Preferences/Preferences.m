@@ -1605,7 +1605,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)resetDialogs:(NSButton *)sender {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:NO forKey:@"terminationAlertSuppression"];
+    [defaults setBool:NO forKey:@"TerminationAlertSuppression"];
     [defaults setBool:NO forKey:@"UseForAllAlertSuppression"];
     [defaults setBool:NO forKey:@"OverwriteStylesAlertSuppression"];
     [defaults setBool:NO forKey:@"AutorestoreAlertSuppression"];
