@@ -362,7 +362,6 @@ fprintf(stderr, "%s\n",                                                    \
         if (!_inFullscreen) {
             _windowPreFullscreenFrame = self.window.frame;
         }
-        [self adjustContentView];
         [self forkInterpreterTask];
         return;
     }
