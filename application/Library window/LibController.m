@@ -54,21 +54,6 @@ enum  {
 #include "ifiction.h"
 #include "treaty.h"
 
-@implementation LibHelperWindow
-- (NSDragOperation)draggingEntered:sender {
-    return [(LibController *)self.delegate draggingEntered:sender];
-}
-- (void)draggingExited:sender {
-    [(LibController *)self.delegate draggingEntered:sender];
-}
-- (BOOL)prepareForDragOperation:sender {
-    return [(LibController *)self.delegate prepareForDragOperation:sender];
-}
-- (BOOL)performDragOperation:sender {
-    return [(LibController *)self.delegate performDragOperation:sender];
-}
-@end
-
 @implementation LibHelperTableView
 
 // NSResponder (super)

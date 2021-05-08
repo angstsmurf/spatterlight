@@ -24,9 +24,6 @@
 
 @class CoreDataManager, Metadata, GlkController, InfoController;
 
-@interface LibHelperWindow : NSWindow <NSDraggingDestination>
-@end
-
 @interface LibHelperTableView : NSTableView
 @end
 
