@@ -64,26 +64,7 @@ typedef enum kBZArrowsPrefsType : int32_t {
 
 #pragma mark Global accessors
 
-+ (NSColor *)gridBackground;
-+ (NSColor *)gridForeground;
-+ (NSColor *)bufferBackground;
-+ (NSColor *)bufferForeground;
-+ (NSColor *)inputColor;
-
-+ (double)lineHeight;
-+ (double)charWidth;
-+ (CGFloat)gridMargins;
-+ (CGFloat)bufferMargins;
-+ (CGFloat)border;
-+ (CGFloat)leading;
-
-+ (BOOL)stylesEnabled;
-+ (BOOL)smartQuotes;
-+ (kSpacesFormatType)spaceFormat;
 + (kZoomDirectionType)zoomDirection;
-
-+ (BOOL)graphicsEnabled;
-+ (BOOL)soundEnabled;
 
 + (Theme *)currentTheme;
 
@@ -152,6 +133,10 @@ typedef enum kBZArrowsPrefsType : int32_t {
 @property (weak) IBOutlet NSPopUpButton *windowTypePopup;
 @property (weak) IBOutlet NSPopUpButton *styleNamePopup;
 @property (weak) IBOutlet NSButton *quoteBoxCheckBox;
+
+@property (weak) IBOutlet NSButton *btnNoHacks;
+@property (weak) IBOutlet NSButton *btnDeterminism;
+@property (weak) IBOutlet NSPopUpButton *errorHandlingPopup;
 
 @property DummyTextView *dummyTextView;
 

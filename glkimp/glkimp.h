@@ -18,10 +18,21 @@
 #define TRUE 1
 #define FALSE 0
 
+enum
+{
+    IGNORE_ERRORS,
+    DISPLAY_ERRORS,
+    ERRORS_ARE_FATAL
+};
+
 extern int gli_enable_graphics;
 extern int gli_enable_sound;
 extern int gli_enable_styles;
 extern int gli_enable_quoteboxes;
+
+extern int gli_determinism;
+extern int gli_error_handling;
+
 extern int gli_enable_autosave;
 extern int gli_enable_autosave_on_timer;
 

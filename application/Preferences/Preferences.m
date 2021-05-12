@@ -171,72 +171,8 @@ static Preferences *prefs = nil;
 
 #pragma mark Global accessors
 
-+ (BOOL)graphicsEnabled {
-    return theme.doGraphics;
-}
-
-+ (BOOL)soundEnabled {
-    return theme.doSound;
-}
-
-+ (BOOL)stylesEnabled {
-    return theme.doStyles;
-}
-
-+ (BOOL)smartQuotes {
-    return theme.smartQuotes;
-}
-
-+ (kSpacesFormatType)spaceFormat {
-    return (kSpacesFormatType)theme.spaceFormat;
-}
-
 + (kZoomDirectionType)zoomDirection {
     return zoomDirection;
-}
-
-+ (double)lineHeight {
-    return theme.cellHeight;
-}
-
-+ (double)charWidth {
-    return theme.cellWidth;;
-}
-
-+ (CGFloat)gridMargins {
-    return theme.gridMarginX;
-}
-
-+ (CGFloat)bufferMargins {
-    return theme.bufferMarginX;
-}
-
-+ (CGFloat)border {
-    return theme.border;
-}
-
-+ (CGFloat)leading {
-    return theme.bufferNormal.lineSpacing;
-}
-
-+ (NSColor *)gridBackground {
-    return theme.gridBackground;
-}
-
-+ (NSColor *)gridForeground {
-    return theme.gridNormal.color;
-}
-
-+ (NSColor *)bufferBackground {
-    return theme.bufferBackground;
-}
-
-+ (NSColor *)bufferForeground {
-    return theme.bufferNormal.color;
-}
-
-+ (NSColor *)inputColor {
-    return theme.bufInput.color;
 }
 
 + (Theme *)currentTheme {
@@ -507,6 +443,10 @@ NSString *fontToString(NSFont *font) {
     _btnAutosave.state = theme.autosave;
     _btnAutosaveOnTimer.state = theme.autosaveOnTimer;
     _btnAutosaveOnTimer.enabled = _btnAutosave.state ? YES : NO;
+    [_errorHandlingPopup selectItemAtIndex:theme.errorHandling];
+
+    _btnDeterminism.state = theme.determinism;
+    _btnNoHacks.state = theme.nohacks ? NSOffState : NSOnState;
 
     if (theme.minTimer != 0) {
         if (_timerSlider.integerValue != 1000.0 / theme.minTimer) {
@@ -1235,6 +1175,20 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 #pragma mark User actions
 
+- (void)changeBooleanAttribute:(NSString *)attribute fromButton:(NSButton *)button {
+    if (((NSNumber *)[theme valueForKey:attribute]).intValue == button.state)
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    [themeToChange setValue:@(button.state) forKey:attribute];
+}
+
+- (void)changeMenuAttribute:(NSString *)attribute fromPopUp:(NSPopUpButton *)button {
+    if (((NSNumber *)[theme valueForKey:attribute]).intValue == button.selectedTag)
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    [themeToChange setValue:@(button.selectedTag) forKey:attribute];
+}
+
 - (IBAction)changeDefaultSize:(id)sender {
     if (sender == txtCols) {
         if (theme.defaultCols == [sender intValue])
@@ -1361,51 +1315,24 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 }
 
-- (IBAction)changeLeading:(id)sender {
-    if (theme.bufferNormal.lineSpacing == [sender floatValue])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.bufferNormal.lineSpacing = [sender floatValue];
-    [Preferences rebuildTextAttributes];
-}
-
 - (IBAction)changeSmartQuotes:(id)sender {
-    if (theme.smartQuotes  == [sender state])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.smartQuotes = [sender state] ? YES : NO;
-//    NSLog(@"pref: smart quotes changed to %d", theme.smartQuotes);
+    [self changeBooleanAttribute:@"smartQuotes" fromButton:sender];
 }
 
 - (IBAction)changeSpaceFormatting:(id)sender {
-    if (theme.spaceFormat == [sender state])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.spaceFormat = ([sender state] == 1);
-//    NSLog(@"pref: space format changed to %d", theme.spaceFormat);
+    [self changeBooleanAttribute:@"spaceFormat" fromButton:sender];
 }
 
 - (IBAction)changeEnableGraphics:(id)sender {
-    if (theme.doGraphics  == [sender state])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.doGraphics = [sender state] ? YES : NO;
-//    NSLog(@"pref: dographics changed to %d", theme.doGraphics);
+    [self changeBooleanAttribute:@"doGraphics" fromButton:sender];
 }
 
 - (IBAction)changeEnableSound:(id)sender {
-    if (theme.doSound  == [sender state])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.doSound = [sender state] ? YES : NO;
-//    NSLog(@"pref: dosound changed to %d", theme.doSound);
+    [self changeBooleanAttribute:@"doSound" fromButton:sender];
 }
 
 - (IBAction)changeEnableStyles:(id)sender {
-    if (theme.doStyles == [sender state])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.doStyles = [sender state] ? YES : NO;
+    [self changeBooleanAttribute:@"doStyles" fromButton:sender];
     [Preferences rebuildTextAttributes];
 }
 
@@ -1494,10 +1421,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 #pragma mark VoiceOver menu
 
 - (IBAction)changeVOSpeakCommands:(id)sender {
-    if (theme.vOSpeakCommand == [sender state])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.vOSpeakCommand = [sender state];
+    [self changeBooleanAttribute:@"vOSpeakCommand" fromButton:sender];
 }
 
 - (IBAction)changeVOMenuMenu:(id)sender {
@@ -1556,18 +1480,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeZterpMenu:(id)sender {
-    if (theme.zMachineTerp == (int)[sender selectedTag])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.zMachineTerp = (int)[sender selectedTag];
+    [self changeMenuAttribute:@"zMachineTerp" fromPopUp:sender];
 }
 
 - (IBAction)changeBZArrowsMenu:(id)sender {
-    if (theme.bZTerminator == (int)[sender selectedTag]) {
-        return;
-    }
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.bZTerminator = (int)[sender selectedTag];
+    [self changeMenuAttribute:@"bZTerminator" fromPopUp:sender];
 }
 
 - (IBAction)changeZVersion:(id)sender {
@@ -1594,11 +1511,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeQuoteBoxCheckBox:(id)sender {
-    if (theme.quoteBox == [sender state]) {
-        return;
-    }
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.quoteBox = [sender state];
+    [self changeBooleanAttribute:@"quoteBox" fromButton:sender];
 }
 
 #pragma mark Misc menu
@@ -1615,43 +1528,41 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeSmoothScroll:(id)sender {
-    if (theme.smoothScroll == [sender state])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.smoothScroll = [sender state] ? YES : NO;
+    [self changeBooleanAttribute:@"smoothScroll" fromButton:sender];
 }
 
 - (IBAction)changeAutosaveOnTimer:(id)sender {
-    if (theme.autosaveOnTimer == [sender state])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.autosaveOnTimer = [sender state] ? YES : NO;
+    [self changeBooleanAttribute:@"autosaveOnTimer" fromButton:sender];
 }
 
 - (IBAction)changeAutosave:(id)sender {
-    if (theme.autosave == [sender state])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.autosave = [sender state] ? YES : NO;
-    _btnAutosaveOnTimer.enabled = themeToChange.autosave;
+    [self changeBooleanAttribute:@"autosave" fromButton:sender];
+    _btnAutosaveOnTimer.enabled = ([sender state] == NSOnState);
 }
 
-
 - (IBAction)changeTimerSlider:(id)sender {
-    _timerTextField.integerValue = [sender integerValue];
     if ([sender integerValue] == 0 || theme.minTimer == 1000.0 / [sender integerValue]) {
         return;
     }
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.minTimer = (1000.0 / [sender integerValue]);
+    _timerTextField.integerValue = [sender integerValue];
+    _timerSlider.integerValue = [sender integerValue];
 }
 
-- (IBAction)changeTimerTextField:(id)sender {
-    _timerSlider.integerValue = [sender integerValue];
-    if ([sender integerValue] == 0 || theme.minTimer == 1000.0 / [sender integerValue])
+- (IBAction)changeDeterminism:(id)sender {
+    [self changeBooleanAttribute:@"determinism" fromButton:sender];
+}
+
+- (IBAction)changeNoHacks:(id)sender {
+    if (theme.nohacks == ([sender state] == NSOffState))
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.minTimer = (1000.0 / [sender integerValue]);
+    themeToChange.nohacks = ([sender state] == NSOffState);
+}
+
+- (IBAction)changeErrorHandlingPopup:(id)sender {
+    [self changeMenuAttribute:@"errorHandling" fromPopUp:sender];
 }
 
 #pragma mark End of Misc menu

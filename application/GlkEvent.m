@@ -102,8 +102,8 @@ unsigned chartokeycode(unsigned ch) {
     self = [super init];
     if (self) {
         _type = EVTPREFS;
-        _val1 = [Preferences graphicsEnabled];
-        _val2 = [Preferences soundEnabled];
+        _val1 = aTheme.doGraphics;
+        _val2 = aTheme.doSound;
         theme = aTheme;
     }
     return self;
@@ -238,6 +238,9 @@ unsigned chartokeycode(unsigned ch) {
         settings->grid_background = [theme.gridBackground integerColor];
         settings->do_styles = (int)theme.doStyles;
         settings->quote_boxes = (int)theme.quoteBox;
+        settings->determinism = (int)theme.determinism;
+        settings->error_handling = (int)theme.errorHandling;
+
         settings->force_arrange = _forced;
 
         reply.len = sizeof(struct settings_struct);

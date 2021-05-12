@@ -90,6 +90,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 @end
 
+
 @implementation GlkHelperView
 
 - (BOOL)isFlipped {
@@ -241,43 +242,10 @@ fprintf(stderr, "%s\n",                                                    \
         _theme = game.theme;
     }
 
-    //    if ([[_game.ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"])
-    //        _adrianMole = YES;
-
-    NSString *ifid = game.ifid;
-    if ([ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"]) {
-        _deadCities = YES;
-    } else if ([ifid isEqualToString:@"ZCODE-86-870212"] ||
-               [ifid isEqualToString:@"ZCODE-116-870602"] ||
-               [ifid isEqualToString:@"ZCODE-160-880521"]) {
-        _bureaucracy = YES;
-    } else if ([ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"]) {
-        _kerkerkruip = YES;
-    } else if ([ifid isEqualToString:@"ZCODE-47-870915"] ||
-               [ifid isEqualToString:@"ZCODE-49-870917"] ||
-               [ifid isEqualToString:@"ZCODE-51-870923"] ||
-               [ifid isEqualToString:@"ZCODE-57-871221"] ||
-               [ifid isEqualToString:@"ZCODE-60-880610"]) {
-        _beyondZork = YES;
-    } else if ([ifid isEqualToString:@"BFDE398E-C724-4B9B-99EB-18EE4F26932E"]) {
-        _colderLight = YES;
-    } else if ([ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"]) {
-        _thaumistry = YES;
-    } else if ([ifid isEqualToString:@"ZCODE-1-851202"] ||
-               [ifid isEqualToString:@"ZCODE-1-860221"] ||
-               [ifid isEqualToString:@"ZCODE-14-860313"] ||
-               [ifid isEqualToString:@"ZCODE-11-860509"] ||
-               [ifid isEqualToString:@"ZCODE-12-860926"] ||
-               [ifid isEqualToString:@"ZCODE-15-870628"]) {
-        _trinity = YES;
-    } else if ([ifid isEqualToString:@"ZCODE-5-990206-6B48"]) {
-        _anchorheadOrig = YES;
-    } else if ([ifid isEqualToString:@"ZCODE-7-930428-0000"] ||
-               [ifid isEqualToString:@"ZCODE-8-930603-0000"] ||
-               [ifid isEqualToString:@"ZCODE-10-940120-BD9E"] ||
-               [ifid isEqualToString:@"ZCODE-12-940604-6035"] ||
-               [ifid isEqualToString:@"ZCODE-16-951024-4DE6"]) {
-        _curses = YES;
+    if (_theme.nohacks) {
+        [self resetGameDetection];
+    } else {
+        [self detectGame:game.ifid];
     }
 
     NSURL *url = [game urlForBookmark];
@@ -732,6 +700,58 @@ fprintf(stderr, "%s\n",                                                    \
     self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
 
     restoredController = nil;
+}
+
+- (void)detectGame:(NSString *)ifid {
+    if ([ifid isEqualToString:@"ZCODE-5-990206-6B48"]) {
+        _anchorheadOrig = YES;
+    } else if ([ifid isEqualToString:@"ZCODE-47-870915"] ||
+               [ifid isEqualToString:@"ZCODE-49-870917"] ||
+               [ifid isEqualToString:@"ZCODE-51-870923"] ||
+               [ifid isEqualToString:@"ZCODE-57-871221"] ||
+               [ifid isEqualToString:@"ZCODE-60-880610"]) {
+        _beyondZork = YES;
+    } else if ([ifid isEqualToString:@"ZCODE-86-870212"] ||
+               [ifid isEqualToString:@"ZCODE-116-870602"] ||
+               [ifid isEqualToString:@"ZCODE-160-880521"]) {
+        _bureaucracy = YES;
+    } else if ([ifid isEqualToString:@"BFDE398E-C724-4B9B-99EB-18EE4F26932E"]) {
+        _colderLight = YES;
+    } else if ([ifid isEqualToString:@"ZCODE-7-930428-0000"] ||
+               [ifid isEqualToString:@"ZCODE-8-930603-0000"] ||
+               [ifid isEqualToString:@"ZCODE-10-940120-BD9E"] ||
+               [ifid isEqualToString:@"ZCODE-12-940604-6035"] ||
+               [ifid isEqualToString:@"ZCODE-16-951024-4DE6"]) {
+        _curses = YES;
+    } else if ([ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"]) {
+        _deadCities = YES;
+    } else if ([ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"]) {
+        _kerkerkruip = YES;
+    } else if ([ifid isEqualToString:@"GLULX-1-040108-D8D78266"]) {
+        _narcolepsy = YES;
+    } else if ([ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"]) {
+        _thaumistry = YES;
+    } else if ([ifid isEqualToString:@"ZCODE-1-851202"] ||
+               [ifid isEqualToString:@"ZCODE-1-860221"] ||
+               [ifid isEqualToString:@"ZCODE-14-860313"] ||
+               [ifid isEqualToString:@"ZCODE-11-860509"] ||
+               [ifid isEqualToString:@"ZCODE-12-860926"] ||
+               [ifid isEqualToString:@"ZCODE-15-870628"]) {
+        _trinity = YES;
+    }
+}
+
+- (void)resetGameDetection {
+    _anchorheadOrig = NO;
+    _beyondZork = NO;
+    _bureaucracy = NO;
+    _colderLight = NO;
+    _curses = NO;
+    _deadCities = NO;
+    _kerkerkruip = NO;
+    _narcolepsy = NO;
+    _thaumistry = NO;
+    _trinity = NO;
 }
 
 - (void)forkInterpreterTask {
@@ -1845,19 +1865,6 @@ fprintf(stderr, "%s\n",                                                    \
             _theme = _game.theme;
             theme = _theme;
         }
-
-        if (!theme.vOSpeakMenu && lastVOSpeakMenu) { // Check for menu was switched off
-            if (_zmenu) {
-                [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
-                _zmenu = nil;
-            }
-            if (_form) {
-                [NSObject cancelPreviousPerformRequestsWithTarget:_form];
-                _form = nil;
-            }
-        } else if (theme.vOSpeakMenu && !lastVOSpeakMenu) { // Check for menu was switched on
-            [self checkZMenu];
-        }
     } else {
         // No game
         return;
@@ -1866,6 +1873,25 @@ fprintf(stderr, "%s\n",                                                    \
     if (notify.object != theme && notify.object != nil) {
         //  PreferencesChanged called for a different theme
         return;
+    }
+
+    if (_theme.nohacks) {
+        [self resetGameDetection];
+    } else {
+        [self detectGame:_game.ifid];
+    }
+
+    if (!theme.vOSpeakMenu && lastVOSpeakMenu) { // Check for menu was switched off
+        if (_zmenu) {
+            [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
+            _zmenu = nil;
+        }
+        if (_form) {
+            [NSObject cancelPreviousPerformRequestsWithTarget:_form];
+            _form = nil;
+        }
+    } else if (theme.vOSpeakMenu && !lastVOSpeakMenu) { // Check for menu was switched on
+        [self checkZMenu];
     }
 
     _shouldStoreScrollOffset = NO;
@@ -2591,6 +2617,11 @@ fprintf(stderr, "%s\n",                                                    \
         [@(buf) substringToIndex:(NSUInteger)len - 1];
     if (str == nil || str.length < 2)
         return;
+    if (_theme.errorHandling == IGNORE_ERRORS) {
+        _pendingErrorMessage = str;
+        return;
+    }
+    _pendingErrorMessage = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         NSAlert *alert = [[NSAlert alloc] init];
         alert.messageText = NSLocalizedString(@"ERROR", nil);
@@ -2630,8 +2661,8 @@ fprintf(stderr, "%s\n",                                                    \
     switch (req->cmd) {
         case HELLO:
             ans->cmd = OKAY;
-            ans->a1 = (int)[Preferences graphicsEnabled];
-            ans->a2 = (int)[Preferences soundEnabled];
+            ans->a1 = _theme.doGraphics;
+            ans->a2 = _theme.doSound;
             break;
 
         case NEXTEVENT:
@@ -3323,6 +3354,9 @@ static BOOL pollMoreData(int fd) {
         NSAlert *alert = [[NSAlert alloc] init];
         alert.messageText = NSLocalizedString(@"The game has unexpectedly terminated.", nil);
         alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", nil), signalToName(task)];
+        if (_pendingErrorMessage)
+            alert.informativeText = _pendingErrorMessage;
+        _pendingErrorMessage = nil;
         _mustBeQuiet = YES;
         [alert addButtonWithTitle:NSLocalizedString(@"Oops", nil)];
         [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {}];

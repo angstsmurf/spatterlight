@@ -36,6 +36,8 @@ int gli_enable_graphics = 0;
 int gli_enable_sound = 0;
 int gli_enable_styles = 0;
 int gli_enable_quoteboxes = 0;
+int gli_determinism = 0;
+int gli_error_handling = IGNORE_ERRORS;
 int gli_enable_autosave = 0;
 int gli_enable_autosave_on_timer = 0;
 
@@ -760,6 +762,8 @@ again:
                 gsfgcol == settings->grid_foreground &&
                 gsbgcol == settings->grid_background &&
                 gli_enable_quoteboxes == settings->quote_boxes &&
+                gli_determinism == settings->determinism &&
+                gli_error_handling == settings->error_handling &&
                 gli_enable_styles == settings->do_styles &&
                 settings->force_arrange == 0)
                 goto again;
@@ -782,6 +786,8 @@ again:
             gsfgcol = settings->grid_foreground;
             gsbgcol = settings->grid_background;
             gli_enable_quoteboxes = settings->quote_boxes;
+            gli_determinism = settings->determinism;
+            gli_error_handling = settings->error_handling;
             gli_enable_styles = settings->do_styles;
 
             gli_windows_rearrange();

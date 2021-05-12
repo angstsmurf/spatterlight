@@ -92,16 +92,18 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property BOOL previewDummy;
 
 //@property BOOL adrianMole;
-@property BOOL deadCities;
-@property BOOL bureaucracy;
-@property BOOL usesFont3;
-@property BOOL beyondZork;
-@property BOOL kerkerkruip;
-@property BOOL thaumistry;
-@property BOOL colderLight;
-@property BOOL trinity;
 @property BOOL anchorheadOrig;
+@property BOOL beyondZork;
+@property BOOL bureaucracy;
+@property BOOL colderLight;
 @property BOOL curses;
+@property BOOL deadCities;
+@property BOOL kerkerkruip;
+@property BOOL narcolepsy;
+@property BOOL thaumistry;
+@property BOOL trinity;
+@property BOOL usesFont3;
+
 
 @property NSInteger autosaveVersion;
 @property NSInteger autosaveTag;
@@ -116,6 +118,8 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property NSDate *speechTimeStamp;
 @property GlkWindow *spokeLast;
 @property BureaucracyForm *form;
+
+@property NSString *pendingErrorMessage;
 
 @property NSMutableArray<GlkTextGridWindow *> *quoteBoxes;
 

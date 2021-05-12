@@ -43,6 +43,8 @@ struct settings_struct
     float leading;
     int do_styles;
     int quote_boxes;
+    int determinism;
+    int error_handling;
     int force_arrange;
 };
 
