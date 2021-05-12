@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSObject *fileLocation;
 @property (nonatomic) BOOL found;
 @property (nullable, nonatomic, copy) NSString *group;
+@property (nonatomic) BOOL hasDownloaded;
 @property (nullable, nonatomic, copy) NSString *hashTag;
 @property (nullable, nonatomic, copy) NSString *ifid;
 @property (nullable, nonatomic, retain) NSDate *lastPlayed;

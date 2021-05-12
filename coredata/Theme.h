@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t dashes;
 @property (nonatomic) int32_t defaultCols;
 @property (nonatomic) int32_t defaultRows;
+@property (nonatomic) BOOL determinism;
 @property (nonatomic) BOOL doGraphics;
 @property (nonatomic) BOOL doSound;
 @property (nonatomic) BOOL doStyles;

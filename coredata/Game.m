@@ -21,6 +21,7 @@
 @dynamic fileLocation;
 @dynamic found;
 @dynamic group;
+@dynamic hasDownloaded;
 @dynamic hashTag;
 @dynamic ifid;
 @dynamic lastPlayed;

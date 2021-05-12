@@ -38,6 +38,7 @@
 @dynamic dashes;
 @dynamic defaultCols;
 @dynamic defaultRows;
+@dynamic determinism;
 @dynamic doGraphics;
 @dynamic doSound;
 @dynamic doStyles;
