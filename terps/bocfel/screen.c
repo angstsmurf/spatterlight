@@ -60,8 +60,11 @@
 #include "unicode.h"
 #include "util.h"
 #include "zterp.h"
+#include "random.h"
 
-extern int spatterlight_do_autosave(void);
+#include "spatterlight-autosave.h"
+
+extern int random_calls_count;
 
 /* Flag describing whether the header bit meaning “fixed font” is set. */
 static bool header_fixed_font;
@@ -1013,6 +1016,8 @@ void stash_library_state(library_state_data *dat)
         dat->fgmode = style_window->fg_color.mode;
         dat->bgmode = style_window->bg_color.mode;
         dat->style = style_window->style;
+        dat->random_calls_count = random_calls_count;
+        
         stash_library_sound_state(dat);
     }
 }
@@ -1063,9 +1068,12 @@ void recover_library_state(library_state_data *dat)
 
         style_window->style = dat->style;
 
-//        glk_set_window(curwin->id);
-//        garglk_set_zcolors(gargoyle_color(&style_window->fg_color), gargoyle_color(&style_window->bg_color));
-//        set_current_style();
+        if (options.random_seed > -1) {
+            random_calls_count = dat->random_calls_count;
+            for (int i = 0; i < dat->random_calls_count; i++)
+                zterp_rand();
+        }
+
         recover_library_sound_state(dat);
     }
 }
@@ -1328,7 +1336,7 @@ static int print_zcode(uint32_t addr, bool in_abbr, void (*outc)(uint8_t))
         case 2: case 3:
           if(zversion >= 3 || (zversion == 2 && c == 1))
           {
-            // ZASSERT(!in_abbr, "abbreviation being used recursively");
+            ZASSERT(!in_abbr, "abbreviation being used recursively");
             abbrev = c;
             shift = 0;
           }
@@ -2420,7 +2428,7 @@ static bool read_handler(void)
     input.preloaded = user_byte(text + 1);
     if (input.preloaded > maxchars)
         input.preloaded = 0;
-//    ZASSERT(input.preloaded <= maxchars, "too many preloaded characters: %d when max is %d", input.preloaded, maxchars);
+    ZASSERT(input.preloaded <= maxchars, "too many preloaded characters: %d when max is %d", input.preloaded, maxchars);
 
     for(i = 0; i < input.preloaded; i++) string[i] = zscii_to_unicode[user_byte(text + i + 2)];
     /* Under garglk, preloaded input works as it’s supposed to.

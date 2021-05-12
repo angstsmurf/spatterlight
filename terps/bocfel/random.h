@@ -7,4 +7,7 @@ void seed_random(long);
 
 void zrandom(void);
 
+uint32_t zterp_rand(void);
+
+
 #endif

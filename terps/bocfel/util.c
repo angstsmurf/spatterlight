@@ -30,6 +30,7 @@
 
 #ifdef ZTERP_GLK
 #include "glk.h"
+#include "glkimp.h"
 #endif
 
 #ifndef ZTERP_NO_SAFETY_CHECKS
@@ -44,7 +45,10 @@ void assert_fail(const char *fmt, ...)
 
   snprintf(str + strlen(str), sizeof str - strlen(str), " (pc = 0x%lx)", current_instruction);
 
-  die("%s", str);
+    win_showerror(str);
+    if (gli_error_handling == ERRORS_ARE_FATAL)
+        glk_exit();
+//          die("%s", str);
 }
 #endif
 
@@ -87,7 +91,8 @@ void help(void)
   const struct
   {
     const char *flag;
-    enum { glkunix_arg_NoValue, glkunix_arg_NumberValue, glkunix_arg_ValueFollows } arg;
+//    enum { glkunix_arg_NoValue, glkunix_arg_NumberValue, glkunix_arg_ValueFollows } arg;
+    int arg;
     const char *description;
   }
   flags[] = {

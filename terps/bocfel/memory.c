@@ -99,9 +99,7 @@ void user_store_byte(uint16_t addr, uint8_t v)
 
   else
   {
-//    ZASSERT(addr >= 0x40 && addr < header.static_start, "attempt to write to read-only address 0x%lx", (unsigned long)addr);
-      if (addr < 0x40 || addr >= header.static_start)
-          return;
+    ZASSERT(addr >= 0x40 && addr < header.static_start, "attempt to write to read-only address 0x%lx", (unsigned long)addr);
   }
 
   store_byte(addr, v);

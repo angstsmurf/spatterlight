@@ -26,6 +26,8 @@
 #include "util.h"
 #include "zterp.h"
 
+int random_calls_count = 0;
+
 /* Mersenne Twister. */
 static uint32_t mt[624];
 static uint32_t mt_idx = 0;
@@ -55,7 +57,7 @@ static void mt_gen_num(void)
   }
 }
 
-static uint32_t zterp_rand(void)
+uint32_t zterp_rand(void)
 {
   uint32_t y;
 
@@ -68,6 +70,8 @@ static uint32_t zterp_rand(void)
   y ^= (y >> 18);
 
   mt_idx = (mt_idx + 1) % 624;
+
+  random_calls_count++;
 
   return y;
 }
@@ -89,6 +93,8 @@ static int rng_counter  = 0;
  */
 void seed_random(long value)
 {
+  random_calls_count = 0;
+
   if(value == 0)
   {
     if(options.random_seed == -1)

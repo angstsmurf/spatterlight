@@ -782,6 +782,10 @@ fprintf(stderr, "%s\n",                                                    \
         NSArray *extraBocfelOptions =
         @[@"-n", [NSString stringWithFormat:@"%d", _theme.zMachineTerp],
           @"-N", _theme.zMachineLetter];
+        if (_theme.determinism )
+            extraBocfelOptions = [extraBocfelOptions arrayByAddingObjectsFromArray:@[@"-z", @"1234"]];
+        if (_theme.nohacks )
+            extraBocfelOptions = [extraBocfelOptions arrayByAddingObject:@"-p"];
 
         task.arguments = [extraBocfelOptions arrayByAddingObjectsFromArray:task.arguments];
     }

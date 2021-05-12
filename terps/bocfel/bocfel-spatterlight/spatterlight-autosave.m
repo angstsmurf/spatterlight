@@ -376,6 +376,7 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
         library_state.fgmode = [decoder decodeInt32ForKey:@"bocfel_fgmode"];
         library_state.bgmode = [decoder decodeInt32ForKey:@"bocfel_bgmode"];
         library_state.style = [decoder decodeInt32ForKey:@"bocfel_style"];
+        library_state.random_calls_count = [decoder decodeInt32ForKey:@"bocfel_random_calls_count"];
 
         library_state.routine = [decoder decodeInt32ForKey:@"bocfel_routine"];
         library_state.queued_sound = [decoder decodeInt32ForKey:@"bocfel_next_sample"];
