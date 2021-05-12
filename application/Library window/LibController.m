@@ -880,6 +880,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
             BOOL result = NO;
             for (Game *game in [weakSelf.gameTableModel objectsAtIndexes:rows]) {
+                if (!weakSelf.currentlyAddingGames)
+                    break;
                 [weakSelf beginImporting];
                 
                 //It makes some kind of sense to also check if the game file still exists while downloading metadata
@@ -2132,7 +2134,11 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     }
 }
 
-- (void) addFiles:(NSArray*)urls select:(NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure {
+- (IBAction)cancel:(id)sender {
+    _currentlyAddingGames = NO;
+}
+
+- (void)addFiles:(NSArray*)urls select:(NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure {
     NSFileManager *filemgr = [NSFileManager defaultManager];
     BOOL isdir;
     NSUInteger count;
@@ -2143,6 +2149,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     count = urls.count;
     for (i = 0; i < count; i++)
     {
+        if (!_currentlyAddingGames) {
+            return;
+        }
         NSString *path = [urls[i] path];
 
         if (![filemgr fileExistsAtPath: path isDirectory: &isdir])
@@ -2207,6 +2216,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             }
         }
     }
+
+    if (!_currentlyAddingGames)
+        return;
 
     [_managedObjectContext performBlock:^{
         weakSelf.currentlyAddingGames = NO;
