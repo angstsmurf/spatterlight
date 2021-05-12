@@ -54,6 +54,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (IBAction)saveAsRTF:(id)sender;
 
+- (void)scrollWheelchanged:(NSEvent *)event;
+
+- (NSRange)editableRange;
+
 @end
 
 NS_ASSUME_NONNULL_END

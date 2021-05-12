@@ -496,12 +496,18 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
             return;
         }
 
-        NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
         NSString *finallibpath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
+        NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
 
+        NSString *oldlibpath = [dirname stringByAppendingPathComponent:@"autosave-bak.plist"];
+        NSString *oldgamepath = [dirname stringByAppendingPathComponent:@"autosave-bak.glksave"];
+
+        NSError *error = nil;
         /* This is not really atomic, but we're already past the serious failure modes. */
-        [[NSFileManager defaultManager] removeItemAtPath:finallibpath error:nil];
-        [[NSFileManager defaultManager] removeItemAtPath:finalgamepath error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:oldlibpath error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:oldgamepath error:&error];
+        [[NSFileManager defaultManager] moveItemAtPath:finallibpath toPath:oldlibpath error:&error];
+        [[NSFileManager defaultManager] moveItemAtPath:finalgamepath toPath:oldgamepath error:&error];
 
         res = [[NSFileManager defaultManager] moveItemAtPath:tmpgamepath toPath:finalgamepath error:nil];
         if (!res) {
@@ -513,6 +519,7 @@ void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 ar
             NSLog(@"could not move library autosave to final position");
             return;
         }
+//        NSLog(@"Glulxe created an autosave with tag %u", library.autosaveTag);
         win_autosave(library.autosaveTag); // Call window server to do its own autosave
     }
 }

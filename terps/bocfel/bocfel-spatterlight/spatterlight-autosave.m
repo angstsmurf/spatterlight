@@ -141,14 +141,22 @@ int spatterlight_do_autosave() {
             return 0;
         }
 
-        NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
         NSString *finallibpath = [dirname stringByAppendingPathComponent:@"autosave.plist"];
+        NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
 
+        NSString *oldlibpath = [dirname stringByAppendingPathComponent:@"autosave-bak.plist"];
+        NSString *oldgamepath = [dirname stringByAppendingPathComponent:@"autosave-bak.glksave"];
+
+        NSError *error = nil;
         /* This is not really atomic, but we're already past the serious failure modes. */
-        [[NSFileManager defaultManager] removeItemAtPath:finallibpath error:nil];
-        [[NSFileManager defaultManager] removeItemAtPath:finalgamepath error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:oldlibpath error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:oldgamepath error:&error];
+        [[NSFileManager defaultManager] moveItemAtPath:finallibpath toPath:oldlibpath error:&error];
+        [[NSFileManager defaultManager] moveItemAtPath:finalgamepath toPath:oldgamepath error:&error];
 
-        res = [[NSFileManager defaultManager] moveItemAtPath:tmpgamepath toPath:finalgamepath error:nil];
+        error = nil;
+        res = [[NSFileManager defaultManager] moveItemAtPath:tmpgamepath toPath:finalgamepath error:&error];
+        if (error) NSLog(@"%@", error);
         if (!res) {
             win_showerror("Could not move autosave file to final position.");
             NSLog(@"could not move game autosave to final position!");
@@ -160,6 +168,7 @@ int spatterlight_do_autosave() {
             win_showerror("Could not move autosave plist to final position.");
             NSLog(@"could not move library autosave to final position (continuing)");
         }
+//        NSLog(@"Bocfel created an autosave with tag %u", library.autosaveTag);
         win_autosave(library.autosaveTag); // Call window server to do its own autosave
     }
 	return 0;
@@ -331,6 +340,7 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
         [encoder encodeInt32:(int32_t)library_state.fgmode forKey:@"bocfel_fgmode"];
         [encoder encodeInt32:(int32_t)library_state.bgmode forKey:@"bocfel_bgmode"];
         [encoder encodeInt32:(int32_t)library_state.style forKey:@"bocfel_style"];
+        [encoder encodeInt32:(int32_t)library_state.random_calls_count forKey:@"bocfel_random_calls_count"];
         [encoder encodeInt32:(int32_t)library_state.routine forKey:@"bocfel_routine"];
         [encoder encodeInt32:(int32_t)library_state.queued_sound forKey:@"bocfel_next_sample"];
         [encoder encodeInt32:(int32_t)library_state.sound_channel_tag forKey:@"bocfel_sound_channel_tag"];

@@ -1,4 +1,4 @@
-
+#import "main.h"
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 #import "Theme.h"
@@ -13,8 +13,6 @@
 #import "MarginImage.h"
 #import "BufferTextView.h"
 #import "GridTextView.h"
-#import "main.h"
-
 #include "glkimp.h"
 
 
@@ -55,8 +53,12 @@ fprintf(stderr, "%s\n",                                                    \
     CGFloat lastScrollOffset;
     BOOL lastAtBottom;
     BOOL lastAtTop;
+
+    BOOL pauseScrolling;
+    BOOL commandScriptWasRunning;
 }
 @end
+
 
 @implementation GlkTextBufferWindow
 
@@ -223,7 +225,41 @@ fprintf(stderr, "%s\n",                                                    \
     bufferTextstorage = [[NSMutableAttributedString alloc] init];
 
     if (_pendingScroll) {
+        if (self.glkctl.commandScriptRunning) {
+            if (!commandScriptWasRunning) {
+                // A command script just started
+                pauseScrolling = NO;
+                commandScriptWasRunning = YES;
+            }
+
+            if (pauseScrolling) {
+                _pendingScroll = NO;
+                return;
+            }
+        } else if (commandScriptWasRunning) {
+            // A command script was just switched off
+            pauseScrolling = NO;
+            commandScriptWasRunning = NO;
+        }
+
         [self reallyPerformScroll];
+    }
+}
+
+- (void)scrollWheelchanged:(NSEvent *)event {
+     if (self.glkctl.commandScriptRunning) {
+        if (pauseScrolling && event.scrollingDeltaY < 0) {
+            if (NSHeight(_textview.bounds) - NSMaxY(scrollview.contentView.bounds) < NSHeight(scrollview.contentView.bounds)) {
+                // Scrollbar moved down close enough to bottom. Resume scrolling.
+                pauseScrolling = NO;
+                return;
+            }
+        }
+
+        if (event.scrollingDeltaY > 0 ) {
+            // Scrollbar moved up. Pause scrolling.
+            pauseScrolling = YES;
+        }
     }
 }
 
@@ -232,7 +268,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSWindow *window = self.glkctl.window;
     BOOL isRtfd = NO;
     NSString *newExtension = @"rtf";
-    if (textstorage.containsAttachments || [container hasMarginImages]) {
+    if (textstorage.containsAttachments) {
         newExtension = @"rtfd";
         isRtfd = YES;
     }
@@ -411,6 +447,9 @@ fprintf(stderr, "%s\n",                                                    \
         _quoteBox = [decoder decodeObjectOfClass:[GlkTextGridWindow class] forKey:@"quoteBox"];
 
         [self destroyTextFinder];
+
+        pauseScrolling = NO;
+        commandScriptWasRunning = NO;
     }
     return self;
 }
@@ -452,27 +491,24 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeBool:_pendingScrollRestore forKey:@"pendingScrollRestore"];
 
     if (line_request && textstorage.length > fence) {
-        NSRange inputRange = NSMakeRange(fence, textstorage.length - fence);
-        NSAttributedString *input = [textstorage attributedSubstringFromRange:inputRange];
+        NSAttributedString *input = [textstorage attributedSubstringFromRange:[self editableRange]];
         [encoder encodeObject:input forKey:@"inputString"];
     }
 
     [encoder encodeObject:bufferTextstorage forKey:@"bufferTextstorage"];
     [encoder encodeObject:_quoteBox forKey:@"quoteBox"];
-
 }
 
 - (void)postRestoreAdjustments:(GlkWindow *)win {
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
 
-    line_request = [restoredWin hasLineRequest];
+//    line_request = [restoredWin hasLineRequest];
 
     if (line_request && [restoredWin.restoredInput length]) {
         NSAttributedString *restoredInput = restoredWin.restoredInput;
         if (textstorage.length > fence) {
             // Delete any preloaded input
-            NSRange rangeToDelete = NSMakeRange(fence, textstorage.length - fence);
-            [textstorage deleteCharactersInRange:rangeToDelete];
+            [textstorage deleteCharactersInRange:[self editableRange]];
         }
         [textstorage appendAttributedString:restoredInput];
     }
@@ -519,8 +555,8 @@ fprintf(stderr, "%s\n",                                                    \
     [self restoreScrollBarStyle];
     if (_restoredAtBottom) {
         [self scrollToBottomAnimated:NO];
-    } else if (_restoredAtTop) {
-        [self scrollToTop];
+//    } else if (_restoredAtTop) {
+//        [self scrollToTop];
     } else {
         if (_restoredLastVisible == 0)
             [self scrollToBottomAnimated:NO];
@@ -835,9 +871,6 @@ fprintf(stderr, "%s\n",                                                    \
     if (line_request)
         NSLog(@"Printing to text buffer window during line request");
 
-    //    if (char_request)
-    //        NSLog(@"Printing to text buffer window during character request");
-
     [self printToWindow:str style:stylevalue];
 
     if (self.glkctl.deadCities && line_request && [[str substringFromIndex:str.length - 1] isEqualToString:@"\n"]) {
@@ -849,7 +882,16 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+// static const char *stylenames[] =
+//{
+//    "style_Normal", "style_Emphasized", "style_Preformatted", "style_Header",
+//    "style_Subheader", "style_Alert", "style_Note", "style_BlockQuote",
+//    "style_Input", "style_User1", "style_User2", "style_NUMSTYLES"
+//};
+
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
+//    NSLog(@"printToWindow:\"%@\" style:%s", str, stylenames[stylevalue]);
+
     if (self.glkctl.usesFont3 && str.length == 1 && stylevalue == style_BlockQuote) {
         NSDictionary *font3 = [self font3ToUnicode];
         NSString *newString = font3[str];
@@ -1018,6 +1060,12 @@ fprintf(stderr, "%s\n",                                                    \
             case keycode_Return:
                 [_textview scrollLineDown:nil];
                 return;
+            case keycode_Home:
+                [self scrollToTop];
+                return;
+            case keycode_End:
+                [self scrollToBottomAnimated:YES];
+                return;
             default:
                 [self performScroll];
                 // To fix scrolling in the Adrian Mole games
@@ -1040,15 +1088,15 @@ fprintf(stderr, "%s\n",                                                    \
     } else if (line_request && (ch == keycode_Return ||
                                 [self.currentTerminators[key] isEqual:@(YES)])) {
         NSString *line = [textstorage.string substringFromIndex:fence];
-        [self sendInputLine:line withTerminator:ch == keycode_Return ? 0 : key.integerValue];
+        [self sendInputLine:line withTerminator:ch == keycode_Return ? 0 : key.unsignedIntegerValue];
         return;
     } else if (line_request && (ch == keycode_Up ||
                                 // Use Home to travel backward in history when Beyond Zork eats up arrow
-                                (self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_Home))) {
+                                (self.glkctl.beyondZork && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_Home))) {
         [self travelBackwardInHistory];
     } else if (line_request && (ch == keycode_Down ||
                                 // Use End to travel forward in history when Beyond Zork eats down arrow
-                                (self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
+                                (self.glkctl.beyondZork && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
         [self travelForwardInHistory];
     } else if (line_request && ch == keycode_PageUp &&
                fence == textstorage.length) {
@@ -1070,13 +1118,13 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
-- (void)sendInputLine:(NSString *)line withTerminator:(NSInteger)terminator {
+- (void)sendInputLine:(NSString *)line withTerminator:(NSUInteger)terminator {
     // NSLog(@"line event from %ld", (long)self.name);
     if (echo) {
         //        [textstorage
-        //         addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:NSMakeRange(fence, textstorage.length - fence)];
+        //         addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:[self editableRange]];
         [self printToWindow:@"\n"
-                      style:style_Input]; // XXX arranger lastchar needs to be set
+                      style:style_Normal]; // XXX arranger lastchar needs to be set
         _lastchar = '\n';
     } else {
         [textstorage
@@ -1101,7 +1149,7 @@ fprintf(stderr, "%s\n",                                                    \
         }
     }
 
-    GlkEvent *gev = [[GlkEvent alloc] initLineEvent:line forWindow:self.name terminator:terminator];
+    GlkEvent *gev = [[GlkEvent alloc] initLineEvent:line forWindow:self.name terminator:(NSInteger)terminator];
     [self.glkctl queueEvent:gev];
 
     fence = textstorage.length;
@@ -1232,7 +1280,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
 
     [textstorage
-     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+     replaceCharactersInRange:[self editableRange]
      withString:cx];
     [_textview resetTextFinder];
 }
@@ -1243,7 +1291,7 @@ fprintf(stderr, "%s\n",                                                    \
         return;
     [self flushDisplay];
     [textstorage
-     replaceCharactersInRange:NSMakeRange(fence, textstorage.length - fence)
+     replaceCharactersInRange:[self editableRange]
      withString:cx];
     [_textview resetTextFinder];
 }
@@ -1398,6 +1446,11 @@ replacementString:(id)repl {
         _textview.insertionPointColor = color;
     }
 }
+
+- (NSRange)editableRange {
+    return NSMakeRange(fence, textstorage.length - fence);
+}
+
 
 #pragma mark Text finder
 
@@ -1823,6 +1876,9 @@ replacementString:(id)repl {
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate {
     NSLog(@"GlkTextBufferWindow %ld: scrollToCharacter %ld withOffset: %f", self.name, character, offset);
 
+    if (pauseScrolling)
+        return;
+
     NSRect line;
 
     if (character >= textstorage.length - 1 || !textstorage.length) {
@@ -1856,6 +1912,9 @@ replacementString:(id)repl {
     _pendingScroll = NO;
     self.glkctl.shouldScrollOnCharEvent = NO;
 
+    if (pauseScrolling)
+        return;
+
     if (!textstorage.length)
         return;
 
@@ -1866,10 +1925,11 @@ replacementString:(id)repl {
     // then, get the bottom
     CGFloat bottom = NSHeight(_textview.frame);
 
+    BOOL animate = !self.glkctl.commandScriptRunning;
     if (bottom - _lastseen > NSHeight(scrollview.frame)) {
-        [self scrollToPosition:_lastseen animate:YES];
+        [self scrollToPosition:_lastseen animate:animate];
     } else {
-        [self scrollToBottomAnimated:YES];
+        [self scrollToBottomAnimated:animate];
     }
 }
 
@@ -1883,7 +1943,10 @@ replacementString:(id)repl {
         return YES;
     }
 
-    return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding);
+    BOOL result = (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding);
+//    if (result)
+//        pauseScrolling = NO;
+    return result;
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animate {
@@ -1899,6 +1962,8 @@ replacementString:(id)repl {
 }
 
 - (void)scrollToPosition:(CGFloat)position animate:(BOOL)animate {
+    if (pauseScrolling)
+        return;
     NSClipView* clipView = scrollview.contentView;
     NSRect newBounds = clipView.bounds;
     newBounds.origin.y = position;
@@ -1923,6 +1988,8 @@ replacementString:(id)repl {
 }
 
 - (void)scrollToTop {
+    if (pauseScrolling)
+        return;
     NSLog(@"scrollToTop");
     lastAtTop = YES;
     lastAtBottom = NO;
@@ -2166,7 +2233,6 @@ replacementString:(id)repl {
         if (!value) {
             return;
         }
-
         [mutKeys addObject:@(subrange.location)];
         attachments[mutKeys.lastObject] = value;
     }];

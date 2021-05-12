@@ -469,7 +469,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (!restoredController.commandScriptRunning) {
         NSString *autosaveLatePath = [self.appSupportDir
                                       stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
-        
+
         if ([fileManager fileExistsAtPath:autosaveLatePath]) {
             @try {
                 restoredControllerLate =
@@ -481,14 +481,14 @@ fprintf(stderr, "%s\n",                                                    \
         } else {
             NSLog(@"No late autosave exists (%@)", autosaveLatePath);
         }
-        
+
         attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
         if (attrs) {
             GUILateAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
         } else {
             NSLog(@"Error: %@", error);
         }
-        
+
         if ([[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath]) {
             @try {
                 restoredControllerLate =
@@ -505,12 +505,12 @@ fprintf(stderr, "%s\n",                                                    \
         } else {
             NSLog(@"Error: %@", error);
         }
-        
+
         if ([GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
             NSLog(@"GUI autosave late file is created before GUI autosave file!");
             restoredControllerLate = restoredController;
         }
-        
+
         if (restoredController.autosaveTag != restoredControllerLate.autosaveTag) {
             NSLog(@"GUI autosave late tag does not match GUI autosave file tag!");
             NSLog(@"restoredController.autosaveTag %ld restoredControllerLate.autosaveTag: %ld", restoredController.autosaveTag, restoredControllerLate.autosaveTag);
