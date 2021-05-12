@@ -96,6 +96,8 @@
 
     historypos--;
 
+    if (historypos > history.count - 1)
+        historypos = history.count - 1;
     cx = history[historypos];
     [self performSelector:@selector(speakString:) withObject:cx afterDelay:0];
     return cx;
@@ -109,6 +111,8 @@
     if (historypos >= HISTORYLEN)
         historypos -= HISTORYLEN;
 
+    if (historypos > history.count - 1)
+        historypos = history.count - 1;
     NSString *string = history[historypos];
     [self speakString:string];
     return string;
