@@ -1060,9 +1060,6 @@ fprintf(stderr, "%s\n",                                                    \
             case keycode_Return:
                 [_textview scrollLineDown:nil];
                 return;
-            case keycode_Home:
-                [self scrollToTop];
-                return;
             case keycode_End:
                 [self scrollToBottomAnimated:YES];
                 return;
@@ -1943,10 +1940,8 @@ replacementString:(id)repl {
         return YES;
     }
 
-    BOOL result = (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2 + _textview.textContainerInset.height + _textview.bottomPadding);
-//    if (result)
-//        pauseScrolling = NO;
-    return result;
+    return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) <
+            2 + _textview.textContainerInset.height + _textview.bottomPadding);
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animate {
