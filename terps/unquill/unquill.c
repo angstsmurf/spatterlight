@@ -109,6 +109,8 @@ in the snapshots I have examined.
 #include <setjmp.h>
 #include <getopt.h>
 
+extern glui32 gli_determinism;
+
 static ushort ucptr;
 
 void die(char *fmt, ...)
@@ -351,8 +353,9 @@ void glk_main(void)
     
     while (running)
     {
-	estop = 0;   
-	srand(1);
+	estop = 0;
+    if (!gli_determinism)
+        srand(1);
 	oopt  = 'T';        /* Outputs in plain text */
 	initgame(zxptr); /* Initialise the game */
 	playgame(zxptr); /* Play it */ 

@@ -45,6 +45,11 @@
 
 #include "level9.h"
 
+extern int gli_determinism;
+
+extern L9UINT16 random_array[];
+int random_counter = 0;
+
 /* #define L9DEBUG */
 /* #define CODEFOLLOW */
 /* #define FULLSCAN */
@@ -1979,7 +1984,15 @@ void L9Random(void)
 #ifdef CODEFOLLOW
 	fprintf(f," %d",randomseed);
 #endif
-	randomseed=(((randomseed<<8) + 0x0a - randomseed) <<2) + randomseed + 1;
+    if (gli_determinism) {
+        randomseed = random_array[random_counter];
+        random_counter++;
+        if (random_counter > 99)
+            random_counter = 0;
+    } else {
+        randomseed=(((randomseed<<8) + 0x0a - randomseed) <<2) + randomseed + 1;
+    }
+
 	*getvar()=randomseed & 0xff;
 #ifdef CODEFOLLOW
 	fprintf(f," %d",randomseed);

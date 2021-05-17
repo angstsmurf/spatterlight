@@ -49,6 +49,11 @@
 
 #include "glk.h"
 
+L9UINT16 random_array[100];
+
+extern glui32 gli_determinism;
+
+
 /*
  * True and false definitions -- usually defined in glkstart.h, but we need
  * them early, so we'll define them here too.  We also need NULL, but that's
@@ -6483,7 +6488,17 @@ gln_main (void)
    * better with a little less, so here, we'll seed the random number
    * generator ourselves.
    */
-  srand (time (NULL));
+  if (!gli_determinism)
+      srand (time (NULL));
+  else {
+      /* When implementing predictable random number generation, I found that at least The Growing Pains of Adrian Mole breaks if a) the randomseed global never changes and b) it is set to certain values. So we generate a set array of 100  values here that are known to work */
+      srand (1234);
+      L9UINT16 seed = 2;
+      for (int i = 0; i < 99; i++) {
+          seed=(((seed<<8) + 0x0a - seed) <<2) + seed + 1;
+          random_array[i] = seed;
+      }
+  }
 
   /* Repeat this game until no more restarts requested. */
   do
