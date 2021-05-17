@@ -85,6 +85,8 @@
 
 #include "glk.h"
 
+extern glui32 gli_determinism;
+
 /*
  * True and false definitions -- usually defined in glkstart.h, but we need
  * them early, so we'll define them here too.  We also need NULL, but that's
@@ -333,7 +335,7 @@ agt_rand (int a, int b)
 
   if (!is_initialized)
     {
-      srand (stable_random ? 6 : time (0));
+      srand ((stable_random || gli_determinism) ? 6 : time (0));
 
       is_initialized = TRUE;
       gagt_debug ("agt_rand", "[initialized]");
