@@ -1,3 +1,5 @@
+#import "main.h"
+#include "glkimp.h"
 #import "InfoController.h"
 #import "InputTextField.h"
 #import "GlkSoundChannel.h"
@@ -16,10 +18,8 @@
 #import "RotorHandler.h"
 #import "CommandScriptHandler.h"
 
-#import "main.h"
-#include "glkimp.h"
-
 #include <sys/time.h>
+#import <QuartzCore/QuartzCore.h>
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -43,7 +43,7 @@ fprintf(stderr, "%s\n",                                                    \
 //    "SETVOLUME",       "PLAYSOUND",        "STOPSOUND",    "PAUSE",
 //    "UNPAUSE",         "BEEP",
 //    "SETLINK",         "INITLINK",         "CANCELLINK",
-//    "SETZCOLOR",       "SETREVERSE",       "QUOTEBOX",
+//    "SETZCOLOR",       "SETREVERSE",       "QUOTEBOX",    "SHOWERROR",
 //    "NEXTEVENT",       "EVTARRANGE",       "EVTLINE",     "EVTKEY",
 //    "EVTMOUSE",        "EVTTIMER",         "EVTHYPER",    "EVTSOUND",
 //    "EVTVOLUME",       "EVTPREFS"};
@@ -94,10 +94,6 @@ fprintf(stderr, "%s\n",                                                    \
 @implementation GlkHelperView
 
 - (BOOL)isFlipped {
-    return YES;
-}
-
-- (BOOL)isOpaque {
     return YES;
 }
 
@@ -1625,7 +1621,11 @@ fprintf(stderr, "%s\n",                                                    \
         [_contentView addSubview:win];
     }
 
-    _windowsToBeAdded = [[NSMutableArray alloc] init];
+    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
+        [self adjustMaskLayer:nil];
+    }
+
+    _windowsToBeAdded = [NSMutableArray new];
 
     for (GlkWindow *win in [_gwindows allValues]) {
         [win flushDisplay];
@@ -1645,6 +1645,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     _windowsToBeRemoved = [[NSMutableArray alloc] init];
 }
+
 
 - (void)guessFocus {
     id focuswin;
@@ -1700,6 +1701,55 @@ fprintf(stderr, "%s\n",                                                    \
             return win.input.fieldEditor;
         }
     return nil;
+}
+
+#pragma mark Narcolepsy window mask
+
+- (void)adjustMaskLayer:(id)sender {
+    CALayer *maskLayer = nil;
+    if (!_contentView.layer.mask) {
+        _contentView.layer.mask = [self createMaskLayer];
+        maskLayer = _contentView.layer.mask;
+        maskLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
+        maskLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
+
+        self.window.opaque = NO;
+        self.window.backgroundColor = [NSColor clearColor];
+    }
+
+    if (maskLayer) {
+        maskLayer.frame = _contentView.bounds;
+    }
+}
+
+- (CALayer *)createMaskLayer {
+    CALayer *layer = [CALayer layer];
+
+    if (![_imageHandler handleFindImageNumber:3]) {
+        NSLog(@"Failed to load image 3!");
+        return nil;
+    } else {
+
+        CIContext *context = [CIContext contextWithOptions:nil];
+        CIImage *inputImage = [CIImage imageWithData:_imageHandler.resources[@(3)].data];
+
+        CIFilter *invert = [CIFilter filterWithName:@"CIColorInvert"];
+
+        [invert setValue: inputImage forKey:kCIInputImageKey];
+
+        CIImage *imageWithFirstFilter = [invert valueForKey:kCIOutputImageKey];
+
+        CIFilter *mask = [CIFilter filterWithName:@"CIMaskToAlpha"];
+        [mask setValue: imageWithFirstFilter forKey:kCIInputImageKey];
+
+        CIImage *result = [mask valueForKey:kCIOutputImageKey];
+
+        CGRect extent = [result extent];
+        CGImageRef cgImage = [context createCGImage:result fromRect:extent];
+
+        layer.contents = (id)CFBridgingRelease(cgImage);
+    }
+    return layer;
 }
 
 #pragma mark Window resizing
@@ -1951,6 +2001,9 @@ fprintf(stderr, "%s\n",                                                    \
         [quotebox prefsDidChange];
         [quotebox performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.2];
     }
+
+    // Reset any Narcolepsy window mask
+    _contentView.layer.mask = nil;
 
     _shouldStoreScrollOffset = YES;
 }
@@ -3517,6 +3570,12 @@ again:
 
 - (void)setBorderColor:(NSColor *)color {
     self.bgcolor = color;
+    // The Narcolepsy window mask overrides all border colors
+    if (_narcolepsy && _theme.doStyles && _theme.doGraphics) {
+        self.bgcolor = [NSColor clearColor];
+        _borderView.layer.backgroundColor = CGColorGetConstantColor(kCGColorClear);
+        return;
+    }
     //    NSLog(@"GlkController setBorderColor: %@", color);
     if (_theme.doStyles || [color isEqualToColor:_theme.bufferBackground] || [color isEqualToColor:_theme.gridBackground]) {
         CGFloat components[[color numberOfComponents]];
