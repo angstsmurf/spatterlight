@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable) NSString *commandString;
 @property (nullable) NSString *untypedCharacters;
-@property NSArray <NSValue *> *commandArray;
+@property (nullable) NSArray <NSValue *> *commandArray;
 @property NSUInteger commandIndex;
 @property NSInteger lastCommandWindow;
 @property kLastCommandType lastCommandType;
