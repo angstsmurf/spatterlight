@@ -1879,7 +1879,7 @@ replacementString:(id)repl {
 }
 
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate {
-    NSLog(@"GlkTextBufferWindow %ld: scrollToCharacter %ld withOffset: %f", self.name, character, offset);
+//    NSLog(@"GlkTextBufferWindow %ld: scrollToCharacter %ld withOffset: %f", self.name, character, offset);
 
     if (pauseScrolling)
         return;
@@ -1993,7 +1993,7 @@ replacementString:(id)repl {
 - (void)scrollToTop {
     if (pauseScrolling)
         return;
-    NSLog(@"scrollToTop");
+//    NSLog(@"scrollToTop");
     lastAtTop = YES;
     lastAtBottom = NO;
 
