@@ -102,8 +102,9 @@ static void openResourceFile() {
 
     free(resourceFileRef->filename);
     size_t filename_length = 0;
-    if (originalFileName != NULL)
-        filename_length = strlen(originalFileName);
+    if (originalFileName == NULL)
+        return;
+    filename_length = strlen(originalFileName);
     resourceFileRef->filename = malloc(1 + filename_length);
     strcpy(resourceFileRef->filename, originalFileName);
 
