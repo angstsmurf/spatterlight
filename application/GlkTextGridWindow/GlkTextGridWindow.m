@@ -1409,7 +1409,7 @@
     }
 }
 
-- (void)sendInputLine:(NSString *)command withTerminator:(NSUInteger)terminator {
+- (void)sendCommandLine:(NSString *)command {
     self.input.stringValue = command;
     [self typedEnter:nil];
 }

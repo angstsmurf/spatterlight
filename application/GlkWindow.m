@@ -287,8 +287,8 @@ fprintf(stderr, "%s\n",                                                    \
     return NO;
 }
 
-- (void)sendInputLine:(NSString *)command withTerminator:(NSUInteger)terminator {
-    NSLog(@"sendInputLine in %@ not implemented", [self class]);
+- (void)sendCommandLine:(NSString *)command {
+    NSLog(@"sendCommandLine in %@ not implemented", [self class]);
 }
 
 - (void)sendKeypress:(unsigned)ch {

@@ -84,10 +84,14 @@ extern NSArray *gSaveFileTypes;
 }
 
 - (void)sendCommandLineToWindow:(GlkWindow *)win {
+    if (_untypedCharacters.length > 1) {
+        _commandIndex--;
+    }
+
     _untypedCharacters = nil;
     NSString *command = [self nextCommandScriptLine];
     if (command) {
-        [win sendInputLine:command withTerminator:0];
+        [win sendCommandLine:command];
         _lastCommandWindow = win.name;
         _lastCommandType = kCommandTypeLine;
     }
@@ -267,7 +271,7 @@ extern NSArray *gSaveFileTypes;
         }
     }
     _glkctl.pendingSaveFilePath = filename;
-    [win sendInputLine:@"restore" withTerminator:0];
+    [win sendCommandLine:@"restore"];
 }
 
 - (void)copyPropertiesFrom:(CommandScriptHandler *)handler {

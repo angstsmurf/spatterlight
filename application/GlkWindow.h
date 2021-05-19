@@ -90,7 +90,7 @@ struct fillrect;
 - (BOOL)hasCharRequest;
 - (BOOL)hasLineRequest;
 
-- (void)sendInputLine:(NSString *)command withTerminator:(NSUInteger)terminator;
+- (void)sendCommandLine:(NSString *)command;
 - (void)sendKeypress:(unsigned)ch;
 
 - (NSArray *)links;

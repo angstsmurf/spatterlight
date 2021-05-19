@@ -110,6 +110,7 @@ unsigned chartokeycode(unsigned ch) {
 }
 
 - (instancetype)initCharEvent:(unsigned)v forWindow:(NSInteger)name {
+//    NSLog(@"initCharEvent for win %ld: \"%c\"", name, v);
     self = [super init];
     if (self) {
         _type = EVTKEY;
@@ -133,7 +134,7 @@ unsigned chartokeycode(unsigned ch) {
 - (instancetype)initLineEvent:(NSString *)v forWindow:(NSInteger)name terminator:(NSInteger)terminator {
     self = [super init];
     if (self) {
-        NSLog(@"initLineEvent for win %ld: \"%@\"", name, v);
+//        NSLog(@"initLineEvent for win %ld: \"%@\"", name, v);
         _type = EVTLINE;
         ln = [v copy];
         win = name;

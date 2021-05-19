@@ -1123,6 +1123,17 @@ fprintf(stderr, "%s\n",                                                    \
     }
 }
 
+- (void)sendCommandLine:(NSString *)line {
+    if (echo) {
+        NSAttributedString *att = [[NSAttributedString alloc]
+                  initWithString:line
+                  attributes:_inputAttributes];
+        [textstorage appendAttributedString:att];
+    }
+    [self sendInputLine:line withTerminator:0];
+}
+
+
 - (void)sendInputLine:(NSString *)line withTerminator:(NSUInteger)terminator {
     // NSLog(@"line event from %ld", (long)self.name);
     if (echo) {
@@ -1213,7 +1224,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self recalcInputAttributes];
 
-    id att = [[NSAttributedString alloc]
+    NSAttributedString *att = [[NSAttributedString alloc]
               initWithString:str
               attributes:_inputAttributes];
 
