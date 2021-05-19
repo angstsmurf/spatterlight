@@ -2577,7 +2577,7 @@ void hugo_font(int f)
         mono = true;
 
         // Hack to avoid extra line breaks in Captain Speedo intro boxes
-        if (inwindow && wins[curwin].l > 2 && wins[curwin].t > 2)
+        if (inwindow && wins[curwin].l > 2 && wins[curwin].t > 2 && wins[curwin].win->type == wintype_TextGrid)
         {
             glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
         }
