@@ -197,6 +197,13 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)flushDisplay {
+    NSString *language = self.glkctl.game.metadata.language;
+    if (!language.length)
+        language = @"en";
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    NSString *hyphenationLanguage = [defaults valueForKey:@"NSHyphenationLanguage"];
+    [NSUserDefaults.standardUserDefaults setValue:language forKey:@"NSHyphenationLanguage"];
+
     if (!bufferTextstorage)
         bufferTextstorage = [[NSMutableAttributedString alloc] init];
 
@@ -244,6 +251,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         [self reallyPerformScroll];
     }
+    [NSUserDefaults.standardUserDefaults setValue:hyphenationLanguage forKey:@"NSHyphenationLanguage"];
 }
 
 - (void)scrollWheelchanged:(NSEvent *)event {
