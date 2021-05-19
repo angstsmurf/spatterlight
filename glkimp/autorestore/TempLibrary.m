@@ -496,12 +496,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 #endif // DEBUG
 }
 
-/* Display a warning. Really this should be a fatal error. Eventually it will be visible on the screen somehow, but at the moment it's just a console log message.
- */
-- (void) strictWarning:(NSString *)msg {
-	NSLog(@"STRICT WARNING: %@", msg);
-}
-
 /* Set the global hook which is called whenever TempLibrary is serialized.
  */
 + (void) setExtraArchiveHook:(void (*)(TempLibrary *, NSCoder *))hook {

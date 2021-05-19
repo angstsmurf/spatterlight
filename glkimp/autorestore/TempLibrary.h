@@ -42,8 +42,6 @@ Identity of the current selected output stream */
 + (void) setExtraArchiveHook:(void (*)(TempLibrary *, NSCoder *))hook;
 + (void) setExtraUnarchiveHook:(void (*)(TempLibrary *, NSCoder *))hook;
 
-- (void) strictWarning:(NSString *)msg;
-
 - (TempWindow *) windowForTag:(glui32)tag;
 - (TempStream *) streamForTag:(glui32)tag;
 - (TempFileRef *) filerefForTag:(glui32)tag;

@@ -178,7 +178,9 @@ extern gidispatch_rock_t (*gli_restore_arr)(long bufkey, glui32 len, char *typec
 /* This macro is called whenever the library code catches an error
  or illegal operation from the game program. */
 
-#define gli_strict_warning(msg) do { fprintf(stderr, "glk: %s\n", msg); } while (0)
+//#define gli_strict_warning(msg) do { fprintf(stderr, "glk: %s\n", msg); } while (0)
+
+#define gli_strict_warning(msg) { win_showerror(msg); if (gli_error_handling == ERRORS_ARE_FATAL) { exit(0); } }
 
 /* The overall screen size, as set by command-line options. A
  better implementation would check the real screen size

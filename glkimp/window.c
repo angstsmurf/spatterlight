@@ -453,10 +453,11 @@ void glk_window_set_arrangement(window_t *win, glui32 method, glui32 size, winid
 
     if ((newvertical && !win->pair.vertical) || (!newvertical && win->pair.vertical))
     {
-        if (!win->pair.vertical)
+        if (!win->pair.vertical) {
             gli_strict_warning("window_set_arrangement: split must stay horizontal");
-        else
+        } else {
             gli_strict_warning("window_set_arrangement: split must stay vertical");
+        }
         return;
     }
 

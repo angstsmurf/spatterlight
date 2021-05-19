@@ -1290,7 +1290,7 @@
                                                 </connections>
                                             </sliderCell>
                                         </slider>
-                                        <button toolTip="Make random functions always return the same numbers in the same order. Useful for debugging." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k0h-Aw-qLS">
+                                        <button toolTip="Make random functions always return the same numbers in the same order. Useful for debugging. Only works on some game formats." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k0h-Aw-qLS">
                                             <rect key="frame" x="286" y="80" width="98" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <buttonCell key="cell" type="check" title="Determinism" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="cGJ-GR-t8a">
@@ -1313,7 +1313,7 @@
                                                 <action selector="changeNoHacks:" target="-2" id="x4H-gt-T7K"/>
                                             </connections>
                                         </button>
-                                        <popUpButton toolTip="Errors can be switched on for debugging purposes." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KHT-r6-CgA">
+                                        <popUpButton toolTip="Errors can be switched on for debugging purposes. Only implemented for Z-code and Glulx games." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KHT-r6-CgA">
                                             <rect key="frame" x="68" y="14" width="176" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Ignore errors" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="M5i-PH-YLg" id="5Kh-KN-IIp">
