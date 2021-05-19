@@ -19,6 +19,10 @@
 #include <time.h>
 #include <stdlib.h>
 
+glui32 randomcallscount;
+
+extern glui32 gli_determinism;
+
 /* Allocate a chunk of memory. */
 void *glulx_malloc(glui32 len)
 {
@@ -43,14 +47,18 @@ void glulx_free(void *ptr)
    possible. */
 void glulx_setrandom(glui32 seed)
 {
-  if (seed == 0)
-    seed = time(NULL);
-  srandom(seed);
+    if (!gli_determinism) {
+        if (seed == 0)
+            seed = time(NULL);
+        srandom(seed);
+    }
+  randomcallscount = 0;
 }
 
 /* Return a random number in the range 0 to 2^32-1. */
 glui32 glulx_random()
 {
+  randomcallscount++;
   return (random() << 16) ^ random();
 }
 

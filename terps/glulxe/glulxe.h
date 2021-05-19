@@ -185,6 +185,7 @@ extern glui32 localsbase;
 extern glui32 endmem;
 extern glui32 protectstart, protectend;
 extern glui32 prevpc;
+extern glui32 randomcallscount;
 
 extern void (*stream_char_handler)(unsigned char ch);
 extern void (*stream_unichar_handler)(glui32 ch);
@@ -192,17 +193,14 @@ extern void (*stream_unichar_handler)(glui32 ch);
 /* main.c */
 extern void set_library_start_hook(void (*)(void));
 extern void set_library_autorestore_hook(void (*)(void));
-extern void fatal_error_handler(char *str, char *arg, int useval, glsi32 val) GLK_ATTRIBUTE_NORETURN;
+extern void fatal_error_handler(char *str, char *arg, int useval, glsi32 val); // GLK_ATTRIBUTE_NORETURN;
 extern void nonfatal_warning_handler(char *str, char *arg, int useval, glsi32 val);
 #define fatal_error(s)  (fatal_error_handler((s), NULL, FALSE, 0))
 #define fatal_error_2(s1, s2)  (fatal_error_handler((s1), (s2), FALSE, 0))
 #define fatal_error_i(s, v)  (fatal_error_handler((s), NULL, TRUE, (v)))
-//#define nonfatal_warning(s) (nonfatal_warning_handler((s), NULL, FALSE, 0))
-//#define nonfatal_warning_2(s1, s2) (nonfatal_warning_handler((s1), (s2), FALSE, 0))
-//#define nonfatal_warning_i(s, v) (nonfatal_warning_handler((s), NULL, TRUE, (v)))
-#define nonfatal_warning(s)
-#define nonfatal_warning_2(s1, s2)
-#define nonfatal_warning_i(s, v)
+#define nonfatal_warning(s) (nonfatal_warning_handler((s), NULL, FALSE, 0))
+#define nonfatal_warning_2(s1, s2) (nonfatal_warning_handler((s1), (s2), FALSE, 0))
+#define nonfatal_warning_i(s, v) (nonfatal_warning_handler((s), NULL, TRUE, (v)))
 
 /* files.c */
 extern int is_gamefile_valid(void);

@@ -212,6 +212,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
     lastAutosaveTimestamp = [NSDate distantPast];
 
+    glulx_setrandom(1234);
+
     return TRUE;
 }
 
@@ -539,24 +541,26 @@ static void spatterglk_library_archive(TempLibrary *library, NSCoder *encoder)
     @autoreleasepool {
         LibraryState *library_state = [[LibraryState alloc] initWithLibrary:library];
 
-        //if (library_state.active) {
-        [encoder encodeBool:YES forKey:@"glulx_library_state"];
-        [encoder encodeInt32:library_state.protectstart forKey:@"glulx_protectstart"];
-        [encoder encodeInt32:library_state.protectend forKey:@"glulx_protectend"];
-        [encoder encodeInt32:library_state.iosys_mode forKey:@"glulx_iosys_mode"];
-        [encoder encodeInt32:library_state.iosys_rock forKey:@"glulx_iosys_rock"];
-        [encoder encodeInt32:library_state.stringtable forKey:@"glulx_stringtable"];
-        if (library_state.accel_params)
-            [encoder encodeObject:library_state.accel_params forKey:@"glulx_accel_params"];
-        else NSLog(@"spatterglk_library_archive: no accelerated parameters?");
-        if (library_state.accel_funcs)
-            [encoder encodeObject:library_state.accel_funcs forKey:@"glulx_accel_funcs"];
-        else NSLog(@"spatterglk_library_archive: no accelerated functions?");
-        [encoder encodeInt32:library_state.gamefiletag forKey:@"glulx_gamefiletag"];
-        if (library_state.id_map_list)
-            [encoder encodeObject:library_state.id_map_list forKey:@"glulx_id_map_list"];
-        //}
-        // else NSLog(@"spatterglk_library_archive: library_state not active?");
+        if (library_state.active) {
+            [encoder encodeBool:YES forKey:@"glulx_library_state"];
+            [encoder encodeInt32:library_state.protectstart forKey:@"glulx_protectstart"];
+            [encoder encodeInt32:library_state.protectend forKey:@"glulx_protectend"];
+            [encoder encodeInt32:library_state.iosys_mode forKey:@"glulx_iosys_mode"];
+            [encoder encodeInt32:library_state.iosys_rock forKey:@"glulx_iosys_rock"];
+            [encoder encodeInt32:library_state.stringtable forKey:@"glulx_stringtable"];
+            [encoder encodeInt32:library_state.randomcallscount forKey:@"glulx_randomcallscount"];
+
+            if (library_state.accel_params)
+                [encoder encodeObject:library_state.accel_params forKey:@"glulx_accel_params"];
+            else NSLog(@"spatterglk_library_archive: no accelerated parameters?");
+            if (library_state.accel_funcs)
+                [encoder encodeObject:library_state.accel_funcs forKey:@"glulx_accel_funcs"];
+            else NSLog(@"spatterglk_library_archive: no accelerated functions?");
+            [encoder encodeInt32:library_state.gamefiletag forKey:@"glulx_gamefiletag"];
+            if (library_state.id_map_list)
+                [encoder encodeObject:library_state.id_map_list forKey:@"glulx_id_map_list"];
+        }
+        else NSLog(@"spatterglk_library_archive: library_state not active?");
     }
 }
 
@@ -573,6 +577,7 @@ static void spatterglk_library_unarchive(TempLibrary *library, NSCoder *decoder)
             library_state.iosys_mode = [decoder decodeInt32ForKey:@"glulx_iosys_mode"];
             library_state.iosys_rock = [decoder decodeInt32ForKey:@"glulx_iosys_rock"];
             library_state.stringtable = [decoder decodeInt32ForKey:@"glulx_stringtable"];
+            library_state.randomcallscount = [decoder decodeInt32ForKey:@"glulx_randomcallscount"];
             library_state.accel_params = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_accel_params"];
             library_state.accel_funcs = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_accel_funcs"];
             library_state.gamefiletag = [decoder decodeInt32ForKey:@"glulx_gamefiletag"];
@@ -595,6 +600,8 @@ static void recover_library_state(LibraryState *library_state)
             protectend = library_state.protectend;
             stream_set_iosys(library_state.iosys_mode, library_state.iosys_rock);
             stream_set_table(library_state.stringtable);
+
+            randomcallscount = library_state.randomcallscount;
 
             if (library_state.accel_params) {
                 for (int ix=0; ix<library_state.accel_params.count; ix++) {

@@ -5,6 +5,7 @@
 
 #include "glk.h"
 #include "glulxe.h"
+#include "glkimp.h"
 
 int vm_exited_cleanly = TRUE;
 strid_t gamefile = NULL; /* The stream containing the Glulx file. */
@@ -125,24 +126,29 @@ void fatal_error_handler(char *str, char *arg, int useval, glsi32 val)
      preferences. */
   debugger_handle_crash(str);
 
-  win = get_error_win();
-  if (win) {
-    glk_set_window(win);
-    glk_put_string("Glulxe fatal error: ");
-    glk_put_string(str);
-    if (arg || useval) {
-      glk_put_string(" (");
-      if (arg)
-        glk_put_string(arg);
-      if (arg && useval)
-        glk_put_string(" ");
-      if (useval)
-        stream_hexnum(val);
-      glk_put_string(")");
-    }
-    glk_put_string("\n");
-  }
-  glk_exit();
+    (win_showerror(str));
+
+    if (gli_error_handling == ERRORS_ARE_FATAL)
+        glk_exit();
+
+//  win = get_error_win();
+//  if (win) {
+//    glk_set_window(win);
+//    glk_put_string("Glulxe fatal error: ");
+//    glk_put_string(str);
+//    if (arg || useval) {
+//      glk_put_string(" (");
+//      if (arg)
+//        glk_put_string(arg);
+//      if (arg && useval)
+//        glk_put_string(" ");
+//      if (useval)
+//        stream_hexnum(val);
+//      glk_put_string(")");
+//    }
+//    glk_put_string("\n");
+//  }
+//  glk_exit();
 }
 
 /* nonfatal_warning_handler():
@@ -150,25 +156,31 @@ void fatal_error_handler(char *str, char *arg, int useval, glsi32 val)
 */
 void nonfatal_warning_handler(char *str, char *arg, int useval, glsi32 val)
 {
-  winid_t win = get_error_win();
-  if (win) {
-    strid_t oldstr = glk_stream_get_current();
-    glk_set_window(win);
-    glk_put_string("Glulxe warning: ");
-    glk_put_string(str);
-    if (arg || useval) {
-      glk_put_string(" (");
-      if (arg)
-        glk_put_string(arg);
-      if (arg && useval)
-        glk_put_string(" ");
-      if (useval)
-        stream_hexnum(val);
-      glk_put_string(")");
-    }
-    glk_put_string("\n");
-    glk_stream_set_current(oldstr);
-  }
+    (win_showerror(str));
+
+    if (gli_error_handling == ERRORS_ARE_FATAL)
+        glk_exit();
+
+//
+//  winid_t win = get_error_win();
+//  if (win) {
+//    strid_t oldstr = glk_stream_get_current();
+//    glk_set_window(win);
+//    glk_put_string("Glulxe warning: ");
+//    glk_put_string(str);
+//    if (arg || useval) {
+//      glk_put_string(" (");
+//      if (arg)
+//        glk_put_string(arg);
+//      if (arg && useval)
+//        glk_put_string(" ");
+//      if (useval)
+//        stream_hexnum(val);
+//      glk_put_string(")");
+//    }
+//    glk_put_string("\n");
+//    glk_stream_set_current(oldstr);
+//  }
 }
 
 /* stream_hexnum():

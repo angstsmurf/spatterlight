@@ -4,6 +4,7 @@
 */
 
 #include "glk.h"
+#include "glkimp.h"
 #include "glulxe.h"
 #include "opcodes.h"
 
@@ -361,7 +362,7 @@ void execute_loop()
       case op_copy:
         value = inst[0].value;
 #ifdef TOLERATE_SUPERGLUS_BUG
-        if (inst[1].desttype == 1 && inst[1].value == 0)
+        if (gli_error_handling == IGNORE_ERRORS && inst[1].desttype == 1 && inst[1].value == 0)
             inst[1].desttype = 0;
 #endif /* TOLERATE_SUPERGLUS_BUG */
         store_operand(inst[1].desttype, inst[1].value, value);
@@ -637,7 +638,7 @@ void execute_loop()
         arglist = pop_arguments(value, 0);
         val0 = perform_glk(inst[0].value, value, arglist);
 #ifdef TOLERATE_SUPERGLUS_BUG
-        if (inst[2].desttype == 1 && inst[2].value == 0)
+        if (gli_error_handling == IGNORE_ERRORS && inst[2].desttype == 1 && inst[2].value == 0)
             inst[2].desttype = 0;
 #endif /* TOLERATE_SUPERGLUS_BUG */
         store_operand(inst[2].desttype, inst[2].value, val0);
