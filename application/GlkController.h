@@ -91,7 +91,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 @property BOOL previewDummy;
 
-//@property BOOL adrianMole;
+@property BOOL adrianMole;
 @property BOOL anchorheadOrig;
 @property BOOL beyondZork;
 @property BOOL bureaucracy;

@@ -170,6 +170,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     BOOL skipNextScriptCommand;
     //    NSDate *lastFlushTimestamp;
+    NSDate *lastKeyTimestamp;
 }
 @end
 
@@ -381,6 +382,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSString *autosaveLatePath = [self.appSupportDir
                                   stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
+
+    lastKeyTimestamp = [NSDate distantPast];
 
     if (_supportsAutorestore && _theme.autosave &&
         ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI] || [[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath])) {
@@ -699,7 +702,9 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)detectGame:(NSString *)ifid {
-    if ([ifid isEqualToString:@"ZCODE-5-990206-6B48"]) {
+    if ([[ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"]) {
+        _adrianMole = YES;
+    } else if ([ifid isEqualToString:@"ZCODE-5-990206-6B48"]) {
         _anchorheadOrig = YES;
     } else if ([ifid isEqualToString:@"ZCODE-47-870915"] ||
                [ifid isEqualToString:@"ZCODE-49-870917"] ||
@@ -738,6 +743,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)resetGameDetection {
+    _adrianMole = NO;
     _anchorheadOrig = NO;
     _beyondZork = NO;
     _bureaucracy = NO;
@@ -1729,7 +1735,6 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"Failed to load image 3!");
         return nil;
     } else {
-
         CIContext *context = [CIContext contextWithOptions:nil];
         CIImage *inputImage = [CIImage imageWithData:_imageHandler.resources[@(3)].data];
 
@@ -3214,6 +3219,7 @@ fprintf(stderr, "%s\n",                                                    \
                         g.commandScriptHandler = nil;
                     } else {
                         skipNextScriptCommand = YES;
+                        lastKeyTimestamp = [NSDate date];
                     }
                     restoredControllerLate = restoredController;
                 }
@@ -3239,7 +3245,10 @@ fprintf(stderr, "%s\n",                                                    \
             if (reqWin && !skipNextScriptCommand) {
                 [reqWin initChar];
                 if (_commandScriptRunning) {
-                    [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
+                    if (!_adrianMole || [lastKeyTimestamp timeIntervalSinceNow]  < -0.5) {
+                       [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
+                        lastKeyTimestamp = [NSDate date];
+                    }
                 }
             }
             skipNextScriptCommand = NO;
