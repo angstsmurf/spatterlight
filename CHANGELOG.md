@@ -1,6 +1,6 @@
 # Change log
 
-##  Unreleased
+##  Release 0.8.0
 - All Glk styles can be customized
 - Many new character and paragraph settings. Some of these may be overridden by style hints issued by certain games, unless the Colors and styles option is off
 - Most settings on the system font panel (underline, strikethrough, shadow) should be functional
@@ -16,6 +16,7 @@
 - VoiceOver support for *Unforgotten* main menu
 - VoiceOver no longer counts the instruction line in the *Vespers* help menu as a menu item
 - Size and position of window content are preserved when border size is changed, if the Adjust window size option is active
+- Preserves window position when resetting
 
 ##  Release 0.7.9
 - Bocfel 1.3 made autorestoring unstable, so we revert to 1.2 for now. This breaks autosave backward compatibility again
