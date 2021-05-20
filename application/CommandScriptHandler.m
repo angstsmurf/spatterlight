@@ -26,7 +26,6 @@ extern NSArray *gSaveFileTypes;
     _commandString = [decoder decodeObjectOfClass:[NSString class] forKey:@"commandString"];
     _commandArray = [decoder decodeObjectOfClass:[NSArray<NSValue *> class] forKey:@"commandArray"];
     _commandIndex = (NSUInteger)[decoder decodeIntegerForKey:@"commandIndex"];
-    NSLog(@"decoded _commandIndex %ld",  _commandIndex);
     _lastCommandWindow = [decoder decodeIntegerForKey:@"lastCommandWindow"];
     _lastCommandType = (kLastCommandType)[decoder decodeIntegerForKey:@"lastCommandType"];
     _untypedCharacters = [decoder decodeObjectOfClass:[NSString class] forKey:@"untypedCharacters"];
@@ -219,11 +218,11 @@ extern NSArray *gSaveFileTypes;
         }
     }
     if (!foundWin) {
-        NSLog(@"findGlkWindowWithInput: found no window with line input");
+//        NSLog(@"findGlkWindowWithInput: found no window with line input");
         for (GlkWindow *win in _glkctl.gwindows.allValues) {
             if ([win hasCharRequest]) {
                 foundWin = win;
-                NSLog(@"findGlkWindowWithInput: found window with char input");
+//                NSLog(@"findGlkWindowWithInput: found window with char input");
                 break;
             }
         }

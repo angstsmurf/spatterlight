@@ -1290,7 +1290,7 @@
 }
 
 - (void)sendKeypress:(unsigned)ch {
-    NSLog(@"gridWin sendKeypress \"%c\" (%d, %x)", ch, ch, ch);
+//    NSLog(@"gridWin sendKeypress \"%c\" (%d, %x)", ch, ch, ch);
     GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
     [self.glkctl queueEvent:gev];
     char_request = NO;
