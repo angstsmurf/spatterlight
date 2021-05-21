@@ -1228,6 +1228,19 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     }
 
+    if ([sender isKindOfClass:[NSColorPanel class]]) {
+        if (clrGridFg.active)
+            sender = clrGridFg;
+        else if (clrGridBg.active)
+            sender = clrGridBg;
+        else if (clrBufferFg.active)
+            sender = clrBufferFg;
+        else if (clrBufferBg.active)
+            sender = clrBufferBg;
+        else if (clrAnyFg.active)
+            sender = clrAnyFg;
+    }
+
     if (sender == clrGridFg) {
         key = @"gridNormal";
         if ([self selectedStyle] == theme.gridNormal)
