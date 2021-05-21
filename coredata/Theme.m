@@ -246,6 +246,16 @@
     bufbolditalic = [mgr convertFont:bufbold toHaveTrait:NSItalicFontMask];
     bufheader = [mgr convertFont:bufbold toSize:bufbold.pointSize + 2];
     bufFixed = [mgr convertFont:gridroman toHaveTrait:NSFixedPitchFontMask];
+
+    // If this does not work, we hack it to use Monaco
+    if (([mgr traitsOfFont:bufFixed] & NSFixedPitchFontMask) != NSFixedPitchFontMask) {
+        bufFixed = [NSFont fontWithName:@"Monaco" size:bufroman.pointSize];
+        NSFontTraitMask mask = [mgr traitsOfFont:bufroman];
+        if (mask & NSItalicFontMask)
+            bufFixed = [mgr convertFont:bufFixed toHaveTrait:NSItalicFontMask];
+        if (mask & NSBoldFontMask)
+            bufFixed = [mgr convertFont:bufFixed toHaveTrait:NSBoldFontMask];
+    }
     bufFixed = [mgr convertFont:bufFixed toSize:bufroman.pointSize];
 
     // Do not replace input style if there was an old one
