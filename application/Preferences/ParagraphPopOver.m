@@ -131,6 +131,7 @@
     _spacingBeforeStepper.doubleValue = _para.paragraphSpacingBefore;
     [self saveChange];
 }
+
 - (IBAction)changeParagraphSpacingAfter:(id)sender {
     if (_para.paragraphSpacing == [sender doubleValue]) {
         return;
@@ -140,6 +141,7 @@
     _spacingAfterStepper.doubleValue = _para.paragraphSpacing;
     [self saveChange];
 }
+
 - (IBAction)changeLeadingIndent:(id)sender {
     if (_para.headIndent == [sender doubleValue]) {
         return;
@@ -179,6 +181,7 @@
     _lineMultipleStepper.doubleValue = _para.lineHeightMultiple;
     [self saveChange];
 }
+
 - (IBAction)changeBaselineOffset:(id)sender {
     NSMutableDictionary *attDict =_style.attributeDict.mutableCopy;
     if ([attDict[NSBaselineOffsetAttributeName] doubleValue] == [sender doubleValue]) {
@@ -201,6 +204,7 @@
     _maxLineHeightStepper.doubleValue = _para.maximumLineHeight;
     [self saveChange];
 }
+
 - (IBAction)changeMinLineHeight:(id)sender {
     if (_para.minimumLineHeight == [sender doubleValue]) {
         return;
@@ -210,6 +214,7 @@
     _minLineHeightStepper.doubleValue = _para.minimumLineHeight;
     [self saveChange];
 }
+
 - (IBAction)changeHyphenation:(id)sender {
     if (_para.hyphenationFactor == [sender floatValue]) {
         return;
