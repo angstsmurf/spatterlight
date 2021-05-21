@@ -11,6 +11,7 @@
 #import "MarginContainer.h"
 #import "MarginImage.h"
 #import "CommandScriptHandler.h"
+#import "Preferences.h"
 
 
 @interface BufferTextView () <NSTextFinderClient, NSSecureCoding> {
@@ -212,6 +213,10 @@
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
     [delegate scrollWheelchanged:(NSEvent *)event];
     [super scrollWheel:event];
+}
+
+- (void)changeAttributes:(id)sender {
+    [(NSTextView *)[Preferences instance].dummyTextView changeAttributes:sender];
 }
 
 #pragma mark Text Finder

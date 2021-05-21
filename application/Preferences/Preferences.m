@@ -25,6 +25,8 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)updateTextWithAttributes:(NSDictionary *)attributes;
 
+@property id sender;
+
 @end
 
 @implementation DummyTextView
@@ -40,19 +42,22 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)changeFont:(id)fontManager {
 //    NSLog(@"DummyTextView: changeFont: %@", fontManager);
     [super changeFont:fontManager];
-    [[Preferences instance] changeFont:fontManager];
+    _sender = fontManager;
+    [[Preferences instance] changeFont:self];
 }
 
 - (void)changeAttributes:(id)sender {
 //    NSLog(@"DummyTextView: changeAttributes:%@", sender);
     [super changeAttributes:sender];
-    [[Preferences instance] changeAttributes:sender];
+    _sender = sender;
+    [[Preferences instance] changeAttributes:self];
 }
 
 - (void)changeDocumentBackgroundColor:(id)sender {
 //    NSLog(@"DummyTextView: changeDocumentBackgroundColor:%@", sender);
     [super changeDocumentBackgroundColor:sender];
-    [[Preferences instance] changeDocumentBackgroundColor:sender];
+    _sender = sender;
+    [[Preferences instance] changeDocumentBackgroundColor:self];
 }
 
 @end
@@ -1865,7 +1870,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 
 - (IBAction)changeFont:(id)fontManager {
-//    NSLog(@"changeFont: %@", fontManager);
+//    NSLog(@"Prefs: changeFont: %@", fontManager);
+    if (fontManager != self.dummyTextView) {
+        [self.dummyTextView changeFont:fontManager];
+        return;
+    } else {
+        fontManager = self.dummyTextView.sender;
+    }
     NSFont *newFont = nil;
     if (selectedFontButton) {
         newFont = [fontManager convertFont:[fontManager selectedFont]];
@@ -1903,7 +1914,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
 // This is sent from the font panel when changing font style there
 
 - (void)changeAttributes:(id)sender {
-//    NSLog(@"changeAttributes:%@", sender);
+    NSLog(@"Prefs: changeAttributes:%@", sender);
+
+    if (sender != self.dummyTextView) {
+        [self.dummyTextView changeAttributes:sender];
+        return;
+    } else {
+        sender = self.dummyTextView.sender;
+    }
 
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
 
@@ -1955,6 +1973,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (void)changeDocumentBackgroundColor:(id)sender {
     //    NSLog(@"changeDocumentBackgroundColor");
+
+    if (sender != self.dummyTextView) {
+        [self.dummyTextView changeDocumentBackgroundColor:sender];
+        return;
+    } else {
+        sender = self.dummyTextView.sender;
+    }
 
     GlkStyle *style = theme.bufferNormal;
     if (selectedFontButton == btnGridFont)

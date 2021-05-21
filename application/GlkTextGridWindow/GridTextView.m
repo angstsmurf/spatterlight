@@ -10,6 +10,7 @@
 #import "GlkController.h"
 #import "InputTextField.h"
 #import "Theme.h"
+#import "Preferences.h"
 
 /*
  * Extend NSTextView to ...
@@ -71,6 +72,10 @@
 
 - (NSTouchBar *)makeTouchBar {
   return nil;
+}
+
+- (void)changeAttributes:(id)sender {
+    [(NSTextView *)[Preferences instance].dummyTextView changeAttributes:sender];
 }
 
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
