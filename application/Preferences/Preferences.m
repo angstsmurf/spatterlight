@@ -110,8 +110,11 @@ static Preferences *prefs = nil;
     NSMutableDictionary *defaults =
     [NSMutableDictionary dictionaryWithContentsOfFile:filename];
 
-    defaults[@"GameDirectory"] = (@"~/Documents").stringByExpandingTildeInPath;
-    defaults[@"SaveDirectory"] = (@"~/Documents").stringByExpandingTildeInPath;
+    // Find user's Documents directory
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+
+    defaults[@"GameDirectory"] = paths.firstObject;
+    defaults[@"SaveDirectory"] = paths.firstObject;
 
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
