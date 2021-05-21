@@ -1344,16 +1344,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
     GlkStyle *selectedStyle = [self selectedStyle];
     clrAnyFg.color = selectedStyle.color;
     btnAnyFont.title = fontToString(selectedStyle.font);
-    if (selectedFontButton == btnAnyFont) {
-        NSFontManager *fontManager = [NSFontManager sharedFontManager];
-        [self.dummyTextView updateTextWithAttributes:selectedStyle.attributeDict];
-        NSMutableDictionary *convertedAttributes = selectedStyle.attributeDict.mutableCopy;
+    selectedFontButton = btnAnyFont;
+    NSFontManager *fontManager = [NSFontManager sharedFontManager];
+    [self.dummyTextView updateTextWithAttributes:selectedStyle.attributeDict];
+    NSMutableDictionary *convertedAttributes = selectedStyle.attributeDict.mutableCopy;
 
-        convertedAttributes[@"NSDocumentBackgroundColor"] = (windowType == wintype_TextGrid) ?
-            theme.gridBackground : theme.bufferBackground;
-        [fontManager setSelectedFont:selectedStyle.font isMultiple:NO];
-        [fontManager setSelectedAttributes:convertedAttributes isMultiple:NO];
-    }
+    convertedAttributes[@"NSDocumentBackgroundColor"] = (windowType == wintype_TextGrid) ?
+    theme.gridBackground : theme.bufferBackground;
+    [fontManager setSelectedFont:selectedStyle.font isMultiple:NO];
+    [fontManager setSelectedAttributes:convertedAttributes isMultiple:NO];
 }
 
 #pragma mark Margin Popover
