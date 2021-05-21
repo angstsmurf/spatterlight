@@ -475,6 +475,7 @@ fprintf(stderr, "%s\n",                                                    \
 
         if ([GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
             NSLog(@"GUI autosave late file is created before GUI autosave file!");
+            NSLog(@"Do not use it.");
             restoredControllerLate = restoredController;
         }
 
