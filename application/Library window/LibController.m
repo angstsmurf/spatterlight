@@ -1721,6 +1721,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     NSString *terp;
     GlkController *gctl = _gameSessions[game.ifid];
 
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
 //    NSLog(@"LibController playGame: %@ winRestore: %@", game.metadata.title, restoreflag ? @"YES" : @"NO");
 
     if (gctl) {
@@ -1729,15 +1731,27 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         return gctl.window;
     }
 
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+    if (![fileManager fileExistsAtPath:path]) {
         game.found = NO;
         if (!restoreflag) // Everything will break if we throw up a dialog during system window restoration
             [self lookForMissingFile:game];
         return nil;
     } else game.found = YES;
 
-    if (![[NSFileManager defaultManager] isReadableFileAtPath:path]) {
+    if (![fileManager isReadableFileAtPath:path]) {
         if (!restoreflag) { // Everything will break if we throw up a dialog during system window restoration
+            NSError *error = nil;
+            //Check if the file is in trash
+            NSURL *trashUrl = [fileManager URLForDirectory:NSTrashDirectory inDomain:NSUserDomainMask appropriateForURL:[NSURL fileURLWithPath:path] create:NO error:&error];
+            NSString *fileInTrash = [trashUrl.path stringByAppendingPathComponent:path.lastPathComponent];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:fileInTrash]) {
+                NSAlert *alert = [[NSAlert alloc] init];
+                alert.messageText = NSLocalizedString(@"This game is in Trash.", nil);
+                alert.informativeText = NSLocalizedString(@"You won't be able to play the game until you move the file out of there.", nil);
+                [alert runModal];
+                return nil;
+            }
+
             NSOpenPanel *openPanel = [NSOpenPanel openPanel];
             openPanel.message = NSLocalizedString(@"An error has occurred. Spatterlight is no longer allowed to open this file!", nil);
             openPanel.prompt = NSLocalizedString(@"Re-authorize", nil);
