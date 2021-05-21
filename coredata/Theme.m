@@ -164,7 +164,6 @@
     NSSize size;
 
     if (!self.bufferNormal) {
-
         self.bufferNormal = (GlkStyle *) [NSEntityDescription
                                           insertNewObjectForEntityForName:@"GlkStyle"
                                           inManagedObjectContext:self.managedObjectContext];

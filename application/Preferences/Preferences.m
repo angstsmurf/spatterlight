@@ -1846,7 +1846,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 
 - (IBAction)changeFont:(id)fontManager {
-    NSLog(@"changeFont: %@", fontManager);
+//    NSLog(@"changeFont: %@", fontManager);
     NSFont *newFont = nil;
     if (selectedFontButton) {
         newFont = [fontManager convertFont:[fontManager selectedFont]];
@@ -1930,10 +1930,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
             colorWell.color = newAttributes[@"NSColor"];
             [self changeColor:colorWell];
         }
-    } //else if (newAttributes.count)
-        // Send notification that theme has changed -- trigger configure events
-        [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+    }
+    // Send notification that theme has changed -- trigger configure events
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
 }
 
 // This is sent from the font panel when changing background color there
