@@ -38,19 +38,19 @@ fprintf(stderr, "%s\n",                                                    \
 // These three are sent from the font panel
 
 - (void)changeFont:(id)fontManager {
-        NSLog(@"DummyTextView: changeFont: %@", fontManager);
+//    NSLog(@"DummyTextView: changeFont: %@", fontManager);
     [super changeFont:fontManager];
     [[Preferences instance] changeFont:fontManager];
 }
 
 - (void)changeAttributes:(id)sender {
-        NSLog(@"DummyTextView: changeAttributes:%@", sender);
+//    NSLog(@"DummyTextView: changeAttributes:%@", sender);
     [super changeAttributes:sender];
     [[Preferences instance] changeAttributes:sender];
 }
 
 - (void)changeDocumentBackgroundColor:(id)sender {
-    NSLog(@"DummyTextView: changeDocumentBackgroundColor:%@", sender);
+//    NSLog(@"DummyTextView: changeDocumentBackgroundColor:%@", sender);
     [super changeDocumentBackgroundColor:sender];
     [[Preferences instance] changeDocumentBackgroundColor:sender];
 }
