@@ -1,5 +1,11 @@
 # Change log
 
+##  Unreleased
+- Many bugfixes related to changing Glk style attributes using the font and color panels
+- Typography panel now works even if Preferences panel is not at front
+- "Overwrite styles" will also overwrite input style.
+- After zooming, an incorrect font name was sometimes displayed in the preferences panel
+
 ##  Release 0.8.0
 - All Glk styles can be customized
 - Many new character and paragraph settings. Some of these may be overridden by style hints issued by certain games, unless the Colors and styles option is off
@@ -7,10 +13,10 @@
 - Most setting on the typography panel (available through the font panel) should be functional. These are font-specific OpenType settings which many fonts don't support at all
 - Separate settings for horizontal and vertical margin spacing
 - Setting to turn off quote box special handling in Z-code games
-- Setting for reproducible random numbers, implemented in Bocfel, Glulxe and Level 9 
-- Setting to hide error messages or quit on errors, implemented for errors in the common Glk API, Bocfel and Glulxe
+- Setting for reproducible random numbers, implemented in Bocfel, Glulxe, and Level 9
+- Setting to hide error messages or quit on errors, implemented for errors in the common Glk API, Bocfel, and Glulxe
 - Support for command scripts, text files of newline-separated commands, which will be entered at the game prompt sequentially if copied or dragged to the game window
-- Support for Narcolepsy "thought balloon" window mask
+- Support for *Narcolepsy* "thought balloon" window mask
 - Lengthy import and metadata download operations for multiple games can be cancelled
 - Fixes margin image y position regression
 - VoiceOver support for *Unforgotten* main menu
