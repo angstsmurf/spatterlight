@@ -1884,18 +1884,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
 // This is sent from the font panel when changing font style there
 
 - (void)changeAttributes:(id)sender {
-    NSLog(@"changeAttributes:%@", sender);
+//    NSLog(@"changeAttributes:%@", sender);
 
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
 
-    GlkStyle *style = nil;
-    if (selectedFontButton == btnBufferFont)
-        style = theme.bufferNormal;
-    else if (selectedFontButton == btnGridFont)
+    GlkStyle *style = theme.bufferNormal;
+    if (selectedFontButton == btnGridFont)
         style = theme.gridNormal;
     else if (selectedFontButton == btnAnyFont)
         style = [self selectedStyle];
-    else selectedFontButton = btnBufferFont;
 
     if (style) {
         NSDictionary *attDict = [self.dummyTextView.textStorage attributesAtIndex:0 effectiveRange:nil];
@@ -1919,12 +1916,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     if (newAttributes[@"NSColor"]) {
         NSColorWell *colorWell = nil;
-        NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
-        if (currentFont == theme.gridNormal.font)
+        if (style == theme.gridNormal)
             colorWell = clrGridFg;
-        else if (currentFont == theme.bufferNormal.font)
+        else if (style == theme.bufferNormal)
             colorWell = clrBufferFg;
-        else if (currentFont == [self selectedStyle].font)
+        else if (style == [self selectedStyle])
             colorWell = clrAnyFg;
         if (colorWell) {
             colorWell.color = newAttributes[@"NSColor"];
@@ -1941,13 +1937,18 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (void)changeDocumentBackgroundColor:(id)sender {
     //    NSLog(@"changeDocumentBackgroundColor");
 
+    GlkStyle *style = theme.bufferNormal;
+    if (selectedFontButton == btnGridFont)
+        style = theme.gridNormal;
+    else if (selectedFontButton == btnAnyFont)
+        style = [self selectedStyle];
+
     NSColorWell *colorWell = nil;
-    NSFont *currentFont = [NSFontManager sharedFontManager].selectedFont;
-    if (currentFont == theme.gridNormal.font)
+    if (style == theme.gridNormal)
         colorWell = clrGridBg;
-    else if (currentFont == theme.bufferNormal.font)
+    else if (style == theme.bufferNormal)
         colorWell = clrBufferBg;
-    else if (currentFont == [self selectedStyle].font) {
+    else if (style == [self selectedStyle]) {
         NSInteger windowType = _windowTypePopup.selectedTag;
         colorWell = (windowType == wintype_TextGrid) ? clrGridBg : clrBufferBg;
     }
