@@ -119,7 +119,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     BOOL canEdit;
     NSTimer *timer;
 
-    NSArray *searchStrings;
+    NSString *searchString;
     CGFloat lastSideviewWidth;
     CGFloat lastSideviewPercentage;
 
@@ -2262,11 +2262,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 #pragma mark Table magic
 
 - (IBAction)searchForGames:(id)sender {
-    NSString *value = [sender stringValue];
-    searchStrings = nil;
+    searchString = [sender stringValue];
 
-    if (value.length)
-        searchStrings = [value componentsSeparatedByString:@" "];
+    searchString = [searchString stringByReplacingOccurrencesOfString:@"\"" withString:@""];
 
     gameTableDirty = YES;
     [self updateTableViews];
@@ -2380,42 +2378,59 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     return [ael compare:bel];
 }
 
+
+- (NSPredicate *)searchPredicateForWord:(NSString *)word {
+    return [NSPredicate predicateWithFormat: @"(detectedFormat contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
+}
+
 - (void) updateTableViews
 {
-    NSFetchRequest *fetchRequest;
-    NSEntityDescription *entity;
-
-    NSUInteger searchcount;
-
     if (!gameTableDirty)
         return;
 
     //NSLog(@"Updating table view");
-    
-    fetchRequest = [[NSFetchRequest alloc] init];
-    entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
-    fetchRequest.entity = entity;
-
-    if (searchStrings)
-    {
-        searchcount = searchStrings.count;
-
-        NSPredicate *predicate;
-        NSMutableArray *predicateArr = [NSMutableArray arrayWithCapacity:searchcount];
-
-        for (NSString *word in searchStrings) {
-            predicate = [NSPredicate predicateWithFormat: @"(detectedFormat contains [c] %@) OR (metadata.title contains [c] %@) OR (metadata.author contains [c] %@) OR (metadata.group contains [c] %@) OR (metadata.genre contains [c] %@) OR (metadata.series contains [c] %@) OR (metadata.seriesnumber contains [c] %@) OR (metadata.forgiveness contains [c] %@) OR (metadata.languageAsWord contains [c] %@) OR (metadata.firstpublished contains %@)", word, word, word, word, word, word, word, word, word, word, word];
-            [predicateArr addObject:predicate];
-        }
-
-
-        NSCompoundPredicate *comp = (NSCompoundPredicate *)[NSCompoundPredicate orPredicateWithSubpredicates: predicateArr];
-
-        fetchRequest.predicate = comp;
-    }
 
     NSError *error = nil;
-    _gameTableModel = [[_managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
+    NSArray *searchResult = nil;
+
+    NSFetchRequest *fetchRequest = [NSFetchRequest new];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
+
+    if (searchString.length)
+    {
+        // First we search using the entire search string as a phrase
+        // such as "beyond Zork"
+
+        fetchRequest.predicate = [self searchPredicateForWord:searchString];
+        searchResult = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+        // If this gives zero results, search for each word
+        // separately, all matches for "beyond" AND "zork"
+        if (searchResult.count == 0) {
+
+            NSArray *searchStrings = [searchString componentsSeparatedByString:@" "];
+            NSUInteger searchcount = searchStrings.count;
+
+            NSMutableArray *predicateArr = [NSMutableArray arrayWithCapacity:searchcount];
+
+            for (NSString *word in searchStrings) {
+                if (word.length)
+                [predicateArr addObject:
+                 [self searchPredicateForWord:word]];
+            }
+
+            NSCompoundPredicate *comp = (NSCompoundPredicate *)[NSCompoundPredicate andPredicateWithSubpredicates: predicateArr];
+
+            fetchRequest.predicate = comp;
+            error = nil;
+
+            searchResult = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        }
+    } else {
+        searchResult = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    }
+
+    _gameTableModel = searchResult.mutableCopy;
     if (_gameTableModel == nil)
         NSLog(@"Problem! %@",error);
 
