@@ -381,7 +381,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     NSModalResponse choice = [alert runModal];
 
     if (choice == NSAlertFirstButtonReturn) {
-        NSFetchRequest *orphanedMetadata = [[NSFetchRequest alloc] init];
+        NSFetchRequest *orphanedMetadata = [NSFetchRequest new];
         [orphanedMetadata setEntity:[NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:_managedObjectContext]];
 
         orphanedMetadata.predicate = [NSPredicate predicateWithFormat: @"ANY games == NIL"];
@@ -394,6 +394,21 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             NSLog(@"Pruning metadata for %@", meta.title);
             [_managedObjectContext deleteObject:meta];
         }
+
+        // Now we removed any orphaned images
+        NSFetchRequest *orphanedImages = [NSFetchRequest new];
+        [orphanedImages setEntity:[NSEntityDescription entityForName:@"Image" inManagedObjectContext:_managedObjectContext]];
+
+        orphanedImages.predicate = [NSPredicate predicateWithFormat: @"ANY metadata == NIL"];
+
+        error = nil;
+        NSArray *imageEntriesToDelete = [_managedObjectContext executeFetchRequest:orphanedImages error:&error];
+        //error handling goes here
+        NSLog(@"Pruning %ld image entities", imageEntriesToDelete.count);
+        for (Image *img in imageEntriesToDelete) {
+            [_managedObjectContext deleteObject:img];
+        }
+
         [_coreDataManager saveChanges];
     }
 }
