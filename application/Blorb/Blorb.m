@@ -8,6 +8,7 @@
 
 #import "Blorb.h"
 #import "BlorbResource.h"
+#import "NSData+MD5.h"
 #include "iff.h"
 
 @interface Blorb () {
@@ -225,14 +226,30 @@
 - (NSData *)coverImageData {
   NSArray<BlorbResource *> *images = [self resourcesForUsage:PictureResource];
 
+  BOOL fake = NO;
   if (!frontispiece && images.count) {
     frontispiece = images.firstObject.number;
+    fake = YES;
     NSLog(@"Providing a fake frontispiece index of %ld", frontispiece);
   }
 
   for (BlorbResource *res in images)
     if (res.number == frontispiece) {
-      return [self dataForResource:res];
+      NSData *imageData = [self dataForResource:res];
+      NSString *md5 = imageData.md5String;
+      // The images extracted this way from Narcolepsy, Dracula and
+      // Pytho's mask are really boring, so we skip them
+      if (fake &&
+           // Dracula
+           ([md5 isEqualToString:@"26BFA026324DC9C5B3080EA9769B29DE"] ||
+           // Narcolepsy
+            [md5 isEqualToString:@"46AA4B34AFEBB6A80416E3CD6E0A17DF"] ||
+           // Pytho's Mask
+            [md5 isEqualToString:@"D3546F7E2977FCB9283039AF71B5ED64"] ||
+            // Mysterious Adventures
+            [md5 isEqualToString:@"7A65D493358966E90474E0B58D769334"]))
+        frontispiece++;
+      else return [self dataForResource:res];
     }
   return nil;
 }
