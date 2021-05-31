@@ -528,6 +528,7 @@
 		C301D30D25D35E9300DC4A2B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C301D30C25D35E9300DC4A2B /* Media.xcassets */; };
 		C305EA1E264B014D009DC78C /* CommandScriptHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C305EA1D264B014D009DC78C /* CommandScriptHandler.m */; };
 		C3074B8825A1F461003E80C6 /* VersionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3074B8725A1F461003E80C6 /* VersionFormatter.m */; };
+		C3075513265C2D2E00931D5B /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+MD5.m */; };
 		C309881425CB1AB500750F72 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C309882E25CB1ACD00750F72 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAEE252A5A5900540C6E /* Metadata.m */; };
 		C309884825CB1AD300750F72 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
@@ -585,6 +586,8 @@
 		C360FB3B25DAFE7D0050AA10 /* SDL2_mixer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C35813931ED83DF0001E49C4 /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C381012A1EDA297E00B87B68 /* GlkController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38101291EDA297E00B87B68 /* GlkController.m */; };
 		C386D530263F55930066BF5B /* ParagraphPopOver.m in Sources */ = {isa = PBXBuildFile; fileRef = C386D52E263F55920066BF5B /* ParagraphPopOver.m */; };
+		C38784F626582AE200B4D886 /* ImageCompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38784F426582AE200B4D886 /* ImageCompareViewController.xib */; };
+		C38784F826582BE300B4D886 /* ImageCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C38784F326582AE200B4D886 /* ImageCompareViewController.m */; };
 		C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */; };
 		C39DE2601ECB76A100CE5B70 /* glk.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE25F1ECB76A100CE5B70 /* glk.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C39DE2621ECB76C400CE5B70 /* bitmap.c in Sources */ = {isa = PBXBuildFile; fileRef = C39DE2611ECB76C400CE5B70 /* bitmap.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -641,7 +644,13 @@
 		C3C180AF25C70FD80040AE79 /* iff.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C180AE25C70FD80040AE79 /* iff.c */; };
 		C3C180C825C717F30040AE79 /* IFCoverDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C180C725C717F30040AE79 /* IFCoverDescription.m */; };
 		C3C183D225F160C90050A2EF /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
+		C3C2863D26596A9400D83926 /* spat-mg1.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C2863B26596A9400D83926 /* spat-mg1.c */; };
+		C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C506E426590E4B00763D3E /* MissingFilesFinder.m */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
+		C3CB504C2662606600A95BE2 /* CoverImageWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB504B2662606600A95BE2 /* CoverImageWindowController.m */; };
+		C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3693265FA461004D0F7B /* CoverImageView.m */; };
+		C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3697265FB2FA004D0F7B /* GameImporter.m */; };
+		C3CF369B2660207E004D0F7B /* neo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CF36992660207E004D0F7B /* neo.c */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
 		C3D6AD711ECF373000ADB69C /* tadsr in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 96FE867109F38BF600D41D78 /* tadsr */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C3D6AD721ECF381A00ADB69C /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E49E1ECC67AC000F15B6 /* vmuni_cs.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1110,17 +1119,17 @@
 		6D2C8708225E9EA7004A5A75 /* FizmoLocales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FizmoLocales; path = fizmo/FizmoLocales; sourceTree = "<group>"; };
 		6D2C870A225EA1A2004A5A75 /* fizmo-config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "fizmo-config.h"; path = "fizmo/fizmo-config.h"; sourceTree = "<group>"; };
 		6D2C870B225EA1A2004A5A75 /* fizmo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "fizmo-Prefix.pch"; path = "fizmo/fizmo-Prefix.pch"; sourceTree = "<group>"; };
-		6D54941B1EAC1BC4003DA5C4 /* accel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accel.c; sourceTree = "<group>"; };
+		6D54941B1EAC1BC4003DA5C4 /* accel.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = accel.c; sourceTree = "<group>"; tabWidth = 2; };
 		6D54941C1EAC1BC4003DA5C4 /* debugger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debugger.c; sourceTree = "<group>"; };
-		6D54941D1EAC1BC4003DA5C4 /* exec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = exec.c; sourceTree = "<group>"; };
+		6D54941D1EAC1BC4003DA5C4 /* exec.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = exec.c; sourceTree = "<group>"; tabWidth = 2; };
 		6D54941E1EAC1BC4003DA5C4 /* files.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = files.c; sourceTree = "<group>"; };
 		6D54941F1EAC1BC4003DA5C4 /* float.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = float.c; sourceTree = "<group>"; };
 		6D5494201EAC1BC4003DA5C4 /* funcs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = funcs.c; sourceTree = "<group>"; };
 		6D5494211EAC1BC4003DA5C4 /* gestalt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gestalt.c; sourceTree = "<group>"; };
 		6D5494221EAC1BC4003DA5C4 /* gestalt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gestalt.h; sourceTree = "<group>"; };
-		6D5494231EAC1BC4003DA5C4 /* glkop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glkop.c; sourceTree = "<group>"; };
+		6D5494231EAC1BC4003DA5C4 /* glkop.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = glkop.c; sourceTree = "<group>"; tabWidth = 2; };
 		6D5494251EAC1BC4003DA5C4 /* glulxe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glulxe.h; sourceTree = "<group>"; };
-		6D5494261EAC1BC4003DA5C4 /* heap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = heap.c; sourceTree = "<group>"; };
+		6D5494261EAC1BC4003DA5C4 /* heap.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = heap.c; sourceTree = "<group>"; tabWidth = 2; };
 		6D5494291EAC1BC4003DA5C4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6D54942B1EAC1BC4003DA5C4 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		6D54942D1EAC1BC4003DA5C4 /* opcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opcodes.h; sourceTree = "<group>"; };
@@ -1131,9 +1140,9 @@
 		6D5494321EAC1BC4003DA5C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		6D5494331EAC1BC4003DA5C4 /* search.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = search.c; sourceTree = "<group>"; };
 		6D5494341EAC1BC4003DA5C4 /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = serial.c; sourceTree = "<group>"; };
-		6D5494351EAC1BC4003DA5C4 /* string.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = string.c; sourceTree = "<group>"; };
+		6D5494351EAC1BC4003DA5C4 /* string.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = string.c; sourceTree = "<group>"; tabWidth = 2; };
 		6D5494361EAC1BC4003DA5C4 /* spatterstart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spatterstart.m; sourceTree = "<group>"; };
-		6D5494371EAC1BC4003DA5C4 /* vm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vm.c; sourceTree = "<group>"; };
+		6D5494371EAC1BC4003DA5C4 /* vm.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = vm.c; sourceTree = "<group>"; tabWidth = 2; };
 		6D70DA7C218B3EFC0022E13B /* Alan License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Alan License.rtf"; sourceTree = "<group>"; };
 		6D70DA7E218B3EFC0022E13B /* Glulxe License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Glulxe License.rtf"; sourceTree = "<group>"; };
 		6D73051D22BFA9EB00DFC73C /* NSDate+relative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+relative.h"; sourceTree = "<group>"; };
@@ -1766,7 +1775,7 @@
 		965031D509F29EE10083E64E /* object.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = object.c; sourceTree = "<group>"; };
 		965031D609F29EE10083E64E /* os_curses.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_curses.c; sourceTree = "<group>"; };
 		965031D709F29EE10083E64E /* os_dos.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_dos.c; sourceTree = "<group>"; };
-		965031D809F29EE10083E64E /* os_glk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_glk.c; sourceTree = "<group>"; };
+		965031D809F29EE10083E64E /* os_glk.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = os_glk.c; sourceTree = "<group>"; tabWidth = 2; };
 		965031DA09F29EE10083E64E /* os_none.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_none.c; sourceTree = "<group>"; };
 		965031DB09F29EE10083E64E /* os_termcap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os_termcap.c; sourceTree = "<group>"; };
 		965031DC09F29EE10083E64E /* parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; };
@@ -1778,7 +1787,7 @@
 		965031E209F29EE10083E64E /* runverb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = runverb.c; sourceTree = "<group>"; };
 		965031E309F29EE10083E64E /* savegame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = savegame.c; sourceTree = "<group>"; };
 		965031E409F29EE10083E64E /* token.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = token.c; sourceTree = "<group>"; };
-		965031E509F29EE10083E64E /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		965031E509F29EE10083E64E /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; tabWidth = 2; };
 		965031E709F29EE10083E64E /* acode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = acode.h; sourceTree = "<group>"; };
 		965031E809F29EE10083E64E /* alan.version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = alan.version.c; sourceTree = "<group>"; };
 		965031E909F29EE10083E64E /* alan.version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alan.version.h; sourceTree = "<group>"; };
@@ -2503,6 +2512,8 @@
 		C305EA1D264B014D009DC78C /* CommandScriptHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommandScriptHandler.m; sourceTree = "<group>"; };
 		C3074B8625A1F461003E80C6 /* VersionFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionFormatter.h; sourceTree = "<group>"; };
 		C3074B8725A1F461003E80C6 /* VersionFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionFormatter.m; sourceTree = "<group>"; };
+		C3075511265C2D2E00931D5B /* NSData+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+MD5.h"; sourceTree = "<group>"; };
+		C3075512265C2D2E00931D5B /* NSData+MD5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+MD5.m"; sourceTree = "<group>"; };
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
 		C30F436925A53DD000B8D74B /* spatterlight-autosave.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; name = "spatterlight-autosave.m"; path = "bocfel-spatterlight/spatterlight-autosave.m"; sourceTree = "<group>"; tabWidth = 4; };
@@ -2561,6 +2572,9 @@
 		C38101291EDA297E00B87B68 /* GlkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkController.m; sourceTree = "<group>"; };
 		C386D52E263F55920066BF5B /* ParagraphPopOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParagraphPopOver.m; sourceTree = "<group>"; };
 		C386D52F263F55930066BF5B /* ParagraphPopOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParagraphPopOver.h; sourceTree = "<group>"; };
+		C38784F226582AE200B4D886 /* ImageCompareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCompareViewController.h; sourceTree = "<group>"; };
+		C38784F326582AE200B4D886 /* ImageCompareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCompareViewController.m; sourceTree = "<group>"; };
+		C38784F426582AE200B4D886 /* ImageCompareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCompareViewController.xib; sourceTree = "<group>"; };
 		C38BE432263AEAA60091B17A /* ParagraphPopOver.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParagraphPopOver.xib; sourceTree = "<group>"; };
 		C38C226025CC7EB3004C4D68 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		C399292E25C99F2C0069E73A /* Spatterlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spatterlight.entitlements; sourceTree = "<group>"; };
@@ -2633,10 +2647,24 @@
 		C3C180AE25C70FD80040AE79 /* iff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iff.c; sourceTree = "<group>"; };
 		C3C180C625C717F30040AE79 /* IFCoverDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFCoverDescription.h; sourceTree = "<group>"; };
 		C3C180C725C717F30040AE79 /* IFCoverDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFCoverDescription.m; sourceTree = "<group>"; };
+		C3C2863B26596A9400D83926 /* spat-mg1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "spat-mg1.c"; sourceTree = "<group>"; };
+		C3C2863C26596A9400D83926 /* spat-mg1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "spat-mg1.h"; sourceTree = "<group>"; };
 		C3C4D295264C6F7A0042C616 /* Spatterlight 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 8.xcdatamodel"; sourceTree = "<group>"; };
+		C3C506E326590E4B00763D3E /* MissingFilesFinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MissingFilesFinder.h; sourceTree = "<group>"; };
+		C3C506E426590E4B00763D3E /* MissingFilesFinder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MissingFilesFinder.m; sourceTree = "<group>"; };
 		C3C684E026137DC6002F1436 /* ImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHandler.h; sourceTree = "<group>"; };
 		C3C684E126137DC6002F1436 /* ImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHandler.m; sourceTree = "<group>"; };
+		C3CB504A2662606600A95BE2 /* CoverImageWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageWindowController.h; sourceTree = "<group>"; };
+		C3CB504B2662606600A95BE2 /* CoverImageWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageWindowController.m; sourceTree = "<group>"; };
+		C3CB504D26627B1A00A95BE2 /* Spatterlight 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 9.xcdatamodel"; sourceTree = "<group>"; };
 		C3CDF24925A3C26000FA3451 /* Spatterlight 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 5.xcdatamodel"; sourceTree = "<group>"; };
+		C3CF3693265FA461004D0F7B /* CoverImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoverImageView.m; sourceTree = "<group>"; };
+		C3CF3694265FA461004D0F7B /* CoverImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoverImageView.h; sourceTree = "<group>"; };
+		C3CF3696265FB2FA004D0F7B /* GameImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameImporter.h; sourceTree = "<group>"; };
+		C3CF3697265FB2FA004D0F7B /* GameImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameImporter.m; sourceTree = "<group>"; };
+		C3CF36992660207E004D0F7B /* neo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = neo.c; sourceTree = "<group>"; };
+		C3CF369A2660207E004D0F7B /* neo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = neo.h; sourceTree = "<group>"; };
+		C3CF369C26605E4A004D0F7B /* zimage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zimage.h; sourceTree = "<group>"; };
 		C3D155671EDC4C820072D259 /* defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = defs.h; path = Generic/defs.h; sourceTree = "<group>"; };
 		C3D219E125FAD0820066AC4E /* InsecureValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsecureValueTransformer.h; sourceTree = "<group>"; };
 		C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsecureValueTransformer.m; sourceTree = "<group>"; };
@@ -2899,6 +2927,8 @@
 				6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */,
 				6D794357224A2D2E0071EB3D /* NSString+Categories.h */,
 				6D794358224A2D2E0071EB3D /* NSString+Categories.m */,
+				C3075511265C2D2E00931D5B /* NSData+MD5.h */,
+				C3075512265C2D2E00931D5B /* NSData+MD5.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -3663,6 +3693,10 @@
 				961CCEDA09F239E700528FF9 /* GlkEvent.m */,
 				96A9BB7A0A0662FA001B5B9B /* GlkController.h */,
 				C38101291EDA297E00B87B68 /* GlkController.m */,
+				C3CF3694265FA461004D0F7B /* CoverImageView.h */,
+				C3CF3693265FA461004D0F7B /* CoverImageView.m */,
+				C3CB504A2662606600A95BE2 /* CoverImageWindowController.h */,
+				C3CB504B2662606600A95BE2 /* CoverImageWindowController.m */,
 				C305EA1C264B014D009DC78C /* CommandScriptHandler.h */,
 				C305EA1D264B014D009DC78C /* CommandScriptHandler.m */,
 				C3FE98D8261B2CA900152AB6 /* RotorHandler.h */,
@@ -4990,12 +5024,20 @@
 		C3241A1B262E256A00366AAE /* Library window */ = {
 			isa = PBXGroup;
 			children = (
+				C3C2863A26596A9400D83926 /* Retro image formats */,
 				96A9C0F10A07AE31001B5B9B /* LibController.h */,
 				96A9C0EF0A07AE17001B5B9B /* LibController.m */,
+				C3CF3696265FB2FA004D0F7B /* GameImporter.h */,
+				C3CF3697265FB2FA004D0F7B /* GameImporter.m */,
+				C3C506E326590E4B00763D3E /* MissingFilesFinder.h */,
+				C3C506E426590E4B00763D3E /* MissingFilesFinder.m */,
 				6DCFFC2C22BE57790035FA99 /* SideInfoView.h */,
 				6DCFFC2D22BE57790035FA99 /* SideInfoView.m */,
 				96FBD8F40A0950EA002F6087 /* InfoController.h */,
 				96FBD8F50A0950EA002F6087 /* InfoController.m */,
+				C38784F226582AE200B4D886 /* ImageCompareViewController.h */,
+				C38784F326582AE200B4D886 /* ImageCompareViewController.m */,
+				C38784F426582AE200B4D886 /* ImageCompareViewController.xib */,
 			);
 			path = "Library window";
 			sourceTree = "<group>";
@@ -5073,6 +5115,18 @@
 				C3C1807D25C70F2F0040AE79 /* BlorbResource.m */,
 			);
 			path = Blorb;
+			sourceTree = "<group>";
+		};
+		C3C2863A26596A9400D83926 /* Retro image formats */ = {
+			isa = PBXGroup;
+			children = (
+				C3CF369C26605E4A004D0F7B /* zimage.h */,
+				C3C2863C26596A9400D83926 /* spat-mg1.h */,
+				C3C2863B26596A9400D83926 /* spat-mg1.c */,
+				C3CF369A2660207E004D0F7B /* neo.h */,
+				C3CF36992660207E004D0F7B /* neo.c */,
+			);
+			path = "Retro image formats";
 			sourceTree = "<group>";
 		};
 		C3C684DF26137B44002F1436 /* Images */ = {
@@ -5801,6 +5855,7 @@
 				966EFA7809F635D400FA7F19 /* Defaults.plist in Resources */,
 				96B6FE6F0A0E4E0200E62E4D /* Question.png in Resources */,
 				C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */,
+				C38784F626582AE200B4D886 /* ImageCompareViewController.xib in Resources */,
 				961CCF3D09F2946700528FF9 /* MainMenu.nib in Resources */,
 				961CCF3E09F2946700528FF9 /* PrefsWindow.nib in Resources */,
 				96A9BBA40A0668EB001B5B9B /* GameWindow.nib in Resources */,
@@ -6005,11 +6060,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3C1807E25C70F300040AE79 /* Blorb.m in Sources */,
+				C3CB504C2662606600A95BE2 /* CoverImageWindowController.m in Sources */,
 				961CCEF209F23A0000528FF9 /* main.m in Sources */,
 				C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */,
+				C38784F826582BE300B4D886 /* ImageCompareViewController.m in Sources */,
 				961CCEF409F23A0000528FF9 /* Preferences.m in Sources */,
 				961CCEF109F23A0000528FF9 /* AppDelegate.m in Sources */,
 				96A9C0F00A07AE17001B5B9B /* LibController.m in Sources */,
+				C3CF369B2660207E004D0F7B /* neo.c in Sources */,
+				C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */,
 				C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */,
 				96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */,
 				961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */,
@@ -6023,8 +6082,11 @@
 				C353F04626264242006D17E3 /* SubImage.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
 				C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */,
+				C3C2863D26596A9400D83926 /* spat-mg1.c in Sources */,
 				C386D530263F55930066BF5B /* ParagraphPopOver.m in Sources */,
+				C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */,
 				961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */,
+				C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */,
 				6D85C897218BD6E10088D849 /* HelpPanelController.m in Sources */,
 				C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */,
 				6D79435A224A2D2E0071EB3D /* NSString+Categories.m in Sources */,
@@ -6052,6 +6114,7 @@
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
 				C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */,
 				C33B4504257E84500017EA26 /* ZMenu.m in Sources */,
+				C3075513265C2D2E00931D5B /* NSData+MD5.m in Sources */,
 				C3AD642526176737008614C5 /* BufferTextView.m in Sources */,
 				6DF73C3523B8F46100F76CF9 /* GlkStyle.m in Sources */,
 				C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */,
@@ -8901,6 +8964,7 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C3CB504D26627B1A00A95BE2 /* Spatterlight 9.xcdatamodel */,
 				C3C4D295264C6F7A0042C616 /* Spatterlight 8.xcdatamodel */,
 				C3BD71E32630E3350061E55C /* Spatterlight 7.xcdatamodel */,
 				C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */,
@@ -8910,7 +8974,7 @@
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = C3C4D295264C6F7A0042C616 /* Spatterlight 8.xcdatamodel */;
+			currentVersion = C3CB504D26627B1A00A95BE2 /* Spatterlight 9.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

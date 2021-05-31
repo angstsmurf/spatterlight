@@ -9,6 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="LibController">
             <connections>
                 <outlet property="addButton" destination="130" id="453"/>
+                <outlet property="downloadCheckboxView" destination="C4i-U8-esv" id="1P0-yJ-9V4"/>
+                <outlet property="downloadGameInfoCheckBox" destination="UAu-31-ibL" id="b93-K7-aQQ"/>
                 <outlet property="exportTypeControl" destination="49" id="56"/>
                 <outlet property="exportTypeView" destination="47" id="55"/>
                 <outlet property="forceQuitCheckBox" destination="KYK-i7-soe" id="IW0-7L-TmR"/>
@@ -21,6 +23,7 @@
                 <outlet property="leftScrollView" destination="165" id="172"/>
                 <outlet property="leftView" destination="125" id="169"/>
                 <outlet property="leftViewConstraint" destination="510" id="523"/>
+                <outlet property="lookForCoverImagesCheckBox" destination="o2b-1B-MTS" id="t5R-bR-eZP"/>
                 <outlet property="playButton" destination="128" id="174"/>
                 <outlet property="progressCircle" destination="445" id="448"/>
                 <outlet property="rightView" destination="127" id="356"/>
@@ -41,7 +44,7 @@
             <value key="minSize" type="size" width="350" height="200"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="739" height="285"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <splitView identifier="SplitViewTotal" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="124">
                         <rect key="frame" x="0.0" y="0.0" width="739" height="285"/>
@@ -709,11 +712,11 @@ CA
             </connections>
         </arrayController>
         <customView id="kXo-gL-wb8" userLabel="Force Quit View">
-            <rect key="frame" x="0.0" y="0.0" width="284" height="30"/>
+            <rect key="frame" x="0.0" y="0.0" width="284" height="21"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" id="KYK-i7-soe">
-                    <rect key="frame" x="-2" y="4" width="286" height="27"/>
+                    <rect key="frame" x="-2" y="4" width="286" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Force quit running games and delete them." bezelStyle="regularSquare" imagePosition="left" inset="2" id="jKY-04-VDs">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -721,7 +724,30 @@ CA
                     </buttonCell>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="-107" y="-241"/>
+            <point key="canvasLocation" x="-135" y="-219"/>
+        </customView>
+        <customView id="C4i-U8-esv" userLabel="Download view">
+            <rect key="frame" x="0.0" y="0.0" width="458" height="35"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" id="o2b-1B-MTS">
+                    <rect key="frame" x="-2" y="-2" width="223" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Look for cover image files (slow)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="cBJ-mC-h3Z">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button verticalHuggingPriority="750" id="UAu-31-ibL">
+                    <rect key="frame" x="256" y="-2" width="202" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Download game info (slower)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Qqu-br-SBk">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="-49" y="-330.5"/>
         </customView>
     </objects>
 </document>

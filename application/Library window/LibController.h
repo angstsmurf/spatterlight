@@ -78,6 +78,7 @@
 - (void)releaseGlkControllerSoon:(GlkController *)glkctl;
 
 - (NSWindow *)importAndPlayGame:(NSString *)path;
+- (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report;
 
 - (BOOL)hasActiveGames;
 - (void)runCommandsFromFile:(NSString *)filename;
@@ -112,13 +113,19 @@
 
 - (void)enableClickToRenameAfterDelay;
 
-- (NSString *)convertAGTFile:(NSString *)origpath;
-
 - (NSRect)rectForLineWithIfid:(NSString*)ifid;
 - (void)closeAndOpenNextAbove:(InfoController *)infocontroller;
 - (void)closeAndOpenNextBelow:(InfoController *)infocontroller;
 
+- (Game *)fetchGameForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
+- (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
+- (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context;
+
 @property (strong) IBOutlet NSView *forceQuitView;
 @property (weak) IBOutlet NSButton *forceQuitCheckBox;
+
+@property (strong) IBOutlet NSView *downloadCheckboxView;
+@property (weak) IBOutlet NSButton *lookForCoverImagesCheckBox;
+@property (weak) IBOutlet NSButton *downloadGameInfoCheckBox;
 
 @end

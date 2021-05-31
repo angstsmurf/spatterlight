@@ -361,6 +361,34 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSLog(@"infoctl: save image %@", imgURL);
 
+    if (imageView.image == nil) {
+        if (!_meta.cover) {
+            imageView.image = [NSImage imageNamed:@"Question"];
+            return;
+        }
+        imageView.image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.messageText = NSLocalizedString(@"Are you sure?", nil);
+        alert.informativeText = NSLocalizedString(@"Do you want to delete this cover image?", nil);
+        alert.icon = imageView.image;
+        [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
+        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+
+        NSInteger choice = [alert runModal];
+
+
+        if (choice == NSAlertFirstButtonReturn) {
+            Image *image = _meta.cover;
+            _meta.cover = nil;
+            if (image.metadata.count == 0)
+                [managedObjectContext deleteObject:image];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:imgURL.path])
+                [[NSWorkspace sharedWorkspace] recycleURLs:@[imgURL] completionHandler:^(NSDictionary *newURLs, NSError *Err) {}];
+            imageView.image = [NSImage imageNamed:@"Question"];
+        }
+        [self sizeToFitImageAnimate:YES];
+        return;
+    }
 
     imgdata =
     [imageView.image TIFFRepresentationUsingCompression:NSTIFFCompressionLZW

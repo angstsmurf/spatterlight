@@ -3,26 +3,31 @@
  */
 
 #import "main.h"
+
 #import "NSString+Categories.h"
 #import "NSDate+relative.h"
+
 #import "CoreDataManager.h"
 #import "Game.h"
-#import "Image.h"
 #import "Metadata.h"
 #import "Ifid.h"
 #import "Theme.h"
+#import "Image.h"
+
 #import "SideInfoView.h"
 #import "InfoController.h"
+
 #import "IFictionMetadata.h"
 #import "IFStory.h"
 #import "IFIdentification.h"
 #import "IFDBDownloader.h"
 
+#import "MissingFilesFinder.h"
+#import "GameImporter.h"
+
 #import "CommandScriptHandler.h"
 
 #import "Blorb.h"
-#import "BlorbResource.h"
-#include "iff.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -381,14 +386,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     NSModalResponse choice = [alert runModal];
 
     if (choice == NSAlertFirstButtonReturn) {
-        NSFetchRequest *orphanedMetadata = [NSFetchRequest new];
-        [orphanedMetadata setEntity:[NSEntityDescription entityForName:@"Metadata" inManagedObjectContext:_managedObjectContext]];
 
-        orphanedMetadata.predicate = [NSPredicate predicateWithFormat: @"ANY games == NIL"];
-
-        NSError *error = nil;
-        NSArray *metadataEntriesToDelete = [_managedObjectContext executeFetchRequest:orphanedMetadata error:&error];
-        //error handling goes here
+        NSArray *metadataEntriesToDelete =
+        [self fetchObjects:@"Metadata" predicate:@"ANY games == NIL" inContext:_managedObjectContext];
         NSLog(@"Pruning %ld metadata entities", metadataEntriesToDelete.count);
         for (Metadata *meta in metadataEntriesToDelete) {
             NSLog(@"Pruning metadata for %@", meta.title);
@@ -396,14 +396,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         }
 
         // Now we removed any orphaned images
-        NSFetchRequest *orphanedImages = [NSFetchRequest new];
-        [orphanedImages setEntity:[NSEntityDescription entityForName:@"Image" inManagedObjectContext:_managedObjectContext]];
+        NSArray *imageEntriesToDelete = [self fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:_managedObjectContext];
 
-        orphanedImages.predicate = [NSPredicate predicateWithFormat: @"ANY metadata == NIL"];
-
-        error = nil;
-        NSArray *imageEntriesToDelete = [_managedObjectContext executeFetchRequest:orphanedImages error:&error];
-        //error handling goes here
         NSLog(@"Pruning %ld image entities", imageEntriesToDelete.count);
         for (Image *img in imageEntriesToDelete) {
             [_managedObjectContext deleteObject:img];
@@ -413,166 +407,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     }
 }
 
-- (BOOL)lookForMissingFile:(Game *)game {
-    NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = NSLocalizedString(@"Cannot find the file.", nil);
-    alert.informativeText = [NSString stringWithFormat: NSLocalizedString(@"The game file for \"%@\" could not be found at its original location. Do you want to look for it?", nil), game.metadata.title];
-    [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-
-    NSModalResponse choice = [alert runModal];
-
-    if (choice == NSAlertFirstButtonReturn) {
-        NSOpenPanel *panel = [NSOpenPanel openPanel];
-        [panel setAllowsMultipleSelection:NO];
-        [panel setCanChooseDirectories:NO];
-        panel.prompt = NSLocalizedString(@"Open", nil);
-
-        NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
-                                           fromBookmarkData:(NSData *)game.fileLocation];
-
-        NSString *path = [values objectForKey:NSURLPathKey];
-
-        if (!path)
-            path = game.path;
-
-        NSString *extension = path.pathExtension;
-        if (extension)
-            panel.allowedFileTypes = @[extension];
-
-        LibController * __unsafe_unretained weakSelf = self;
-
-        [panel beginSheetModalForWindow:self.window
-                      completionHandler:^(NSInteger result) {
-                          if (result == NSModalResponseOK) {
-                              NSString *newPath = ((NSURL *)panel.URLs[0]).path;
-                              NSString *ifid = [weakSelf ifidFromFile:newPath];
-                              if (ifid && [ifid isEqualToString:game.ifid]) {
-                                  [game bookmarkForPath:newPath];
-                                  game.found = YES;
-                                  [self lookForMoreMissingFilesInFolder:newPath.stringByDeletingLastPathComponent];
-                              } else {
-                                  if (ifid) {
-                                      NSAlert *anAlert = [[NSAlert alloc] init];
-                                      anAlert.alertStyle = NSInformationalAlertStyle;
-                                      anAlert.messageText = NSLocalizedString(@"Not a match.", nil);
-                                      anAlert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", nil), game.metadata.title];
-                                      [anAlert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
-                                      [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                                      NSInteger response = [anAlert runModal];
-                                      if (response == NSAlertFirstButtonReturn) {
-                                          if ([weakSelf importGame:newPath inContext:weakSelf.managedObjectContext reportFailure:YES]) {
-                                              [weakSelf.managedObjectContext deleteObject:game];
-                                          }
-                                      }
-
-                                  } else {
-                                      NSAlert *anAlert = [[NSAlert alloc] init];
-                                      anAlert.messageText = NSLocalizedString(@"Not a match.", nil);
-                                      anAlert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"This file does not match the game \"%@.", nil), game.metadata.title];
-                                      [anAlert runModal];
-                                  }
-                              }
-                          }
-                      }];
-    }
-    return NO;
-}
-
-- (NSString *)ifidFromFile:(NSString *)path {
-
-    void *context = get_babel_ctx();
-    char *format = babel_init_ctx((char*)path.UTF8String, context);
-    if (!format || !babel_get_authoritative_ctx(context))
-    {
-        NSAlert *anAlert = [[NSAlert alloc] init];
-        anAlert.messageText = NSLocalizedString(@"Unknown file format.", nil);
-        anAlert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
-        [anAlert runModal];
-        babel_release_ctx(context);
-        return nil;
-    }
-
-    char buf[TREATY_MINIMUM_EXTENT];
-
-    int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
-    if (rv <= 0)
-    {
-        NSAlert *anAlert = [[NSAlert alloc] init];
-        anAlert.messageText = NSLocalizedString(@"Fatal error.", nil);
-        anAlert.informativeText = NSLocalizedString(@"Can not compute IFID from the file.", nil);
-        [anAlert runModal];
-        babel_release_ctx(context);
-        return nil;
-    }
-
-    babel_release_ctx(context);
-    return @(buf);
-}
-
-- (void)lookForMoreMissingFilesInFolder:(NSString *)directory {
-    NSError *error = nil;
-    NSArray *fetchedObjects;
-
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"found == NO"];
-
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"lookForMoreMissingFilesInFolder: %@",error);
-    }
-
-    if (fetchedObjects.count == 0) {
-        return; //Found no missing files in library.
-    }
-    NSMutableDictionary *filenames = [[NSMutableDictionary alloc] initWithCapacity:fetchedObjects.count];
-    NSDictionary *values;
-
-    NSString *filename;
-    for (Game *game in fetchedObjects) {
-        values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
-                             fromBookmarkData:(NSData *)game.fileLocation];
-        filename = [values objectForKey:NSURLPathKey];
-        if (!filename)
-            filename = game.path;
-
-        NSString *dirname = [filename stringByDeletingLastPathComponent];
-        dirname = dirname.lastPathComponent;
-
-        NSString *searchPath = [directory stringByAppendingPathComponent:filename.lastPathComponent];
-        if ([[NSFileManager defaultManager] fileExistsAtPath:searchPath] && [[self ifidFromFile:searchPath] isEqualToString:game.ifid]) {
-            [filenames setObject:game forKey:searchPath];
-        } else {
-            //Check inside folders as well, one level down, for good measure
-            searchPath = [directory stringByAppendingPathComponent:dirname];
-            searchPath = [searchPath stringByAppendingPathComponent:filename.lastPathComponent];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:searchPath] && [[self ifidFromFile:searchPath] isEqualToString:game.ifid])
-                [filenames setObject:game forKey:searchPath];
-        }
-    }
-
-    fetchedObjects = [filenames allValues];
-
-    if (filenames.count > 0) {
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.alertStyle = NSInformationalAlertStyle;
-        alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"%@ %@ also in this folder.", nil), [NSString stringWithSummaryOf:fetchedObjects], (fetchedObjects.count > 1) ? NSLocalizedString(@"are", nil) : NSLocalizedString(@"is", nil)];
-        alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Do you want to update %@ as well?", nil), (fetchedObjects.count > 1) ? @"them" : @"it"];
-        [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
-        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-
-        NSModalResponse choice = [alert runModal];
-        if (choice == NSAlertFirstButtonReturn) {
-            for (filename in filenames) {
-                Game *game = [filenames objectForKey:filename];
-                NSLog(@"Updating game %@ with new path %@", game.metadata.title, filename);
-                [game bookmarkForPath:filename];
-                game.found = YES;
-            }
-        }
-    }
+- (void)lookForMissingFile:(Game *)game {
+    MissingFilesFinder *look = [MissingFilesFinder new];
+    [look lookForMissingFile:game libController:self];
 }
 
 - (void)beginImporting {
@@ -645,38 +482,31 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                   }];
 }
 
-- (void)addIfictionFile:(NSString *)file {
-    if (!_iFictionFiles)
-        _iFictionFiles = [NSMutableArray arrayWithObject:file];
-    else
-        [_iFictionFiles addObject:file];
-}
-
 - (IBAction)addGamesToLibrary:(id)sender {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setAllowsMultipleSelection:YES];
     [panel setCanChooseDirectories:YES];
-    panel.prompt =NSLocalizedString(@"Add", nil);
-
+    panel.prompt = NSLocalizedString(@"Add", nil);
+    panel.accessoryView = _downloadCheckboxView;
     panel.allowedFileTypes = gGameFileTypes;
 
     LibController * __unsafe_unretained weakSelf = self;
 
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-                      if (result == NSModalResponseOK) {
-                          NSArray *urls = panel.URLs;
-                          [weakSelf addInBackground:urls];
-                      }
-                  }];
+        if (result == NSModalResponseOK) {
+            NSArray *urls = panel.URLs;
+            [weakSelf addInBackground:urls lookForImages:weakSelf.lookForCoverImagesCheckBox.state ? YES : NO downloadInfo:weakSelf.downloadGameInfoCheckBox.state ? YES : NO];
+        }
+    }];
 }
 
-- (void)addInBackground:(NSArray *)files {
+- (void)addInBackground:(NSArray *)files lookForImages:(BOOL)lookForImages downloadInfo:(BOOL)downloadInfo {
+    NSLog(@"addInBackground %ld files lookForImages:%@ downloadInfo:%@", files.count, lookForImages ? @"YES" : @"NO", downloadInfo ? @"YES" : @"NO");
 
     if (_currentlyAddingGames)
         return;
 
-    LibController * __unsafe_unretained weakSelf = self;
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     childContext.undoManager = nil;
     
@@ -690,40 +520,28 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     _currentlyAddingGames = YES;
     _addButton.enabled = NO;
 
-    [childContext performBlock:^{
-        [weakSelf addFiles:files inContext:childContext];
-        [weakSelf endImporting];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.addButton.enabled = YES;
-            weakSelf.currentlyAddingGames = NO;
-        });
+    NSDictionary *options = @{ @"context":childContext,
+                               @"lookForImages":@(lookForImages),
+                               @"downloadInfo":@(downloadInfo)
+    };
 
+    LibController * __unsafe_unretained weakSelf = self;
+
+    [childContext performBlock:^{
+        LibController *strongSelf = weakSelf;
+        if (strongSelf) {
+            [strongSelf addFiles:files options:options];
+            [strongSelf endImporting];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                strongSelf.addButton.enabled = YES;
+                strongSelf.currentlyAddingGames = NO;
+            });
+        }
     }];
 }
 
 - (void)performFindPanelAction:(id<NSValidatedUserInterfaceItem>)sender {
     [_searchField selectText:self];
-}
-
-- (IBAction)deleteSaves:(id)sender {
-    NSIndexSet *rows = _gameTableView.selectedRowIndexes;
-    LibController * __unsafe_unretained weakSelf = self;
-
-    // If we clicked outside selected rows, only show info for clicked row
-    if (_gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
-
-    [rows
-     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-         Game *game = weakSelf.gameTableModel[idx];
-         GlkController *gctl = weakSelf.gameSessions[game.ifid];
-
-         if (!gctl) {
-             gctl = [[GlkController alloc] init];
-         }
-         [gctl deleteAutosaveFilesForGame:game];
-     }];
 }
 
 - (void)runCommandsFromFile:(NSString *)filename {
@@ -903,15 +721,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 if (![[NSFileManager defaultManager] isReadableFileAtPath:[game urlForBookmark].path])
                     game.found = NO;
 
-                if (game.metadata.tuid) {
-                    result = [downloader downloadMetadataForTUID:game.metadata.tuid];
-                } else {
-                    for (Ifid *ifidObj in game.metadata.ifids) {
-                        result = [downloader downloadMetadataForIFID:ifidObj.ifidString];
-                        if (result)
-                            break;
-                    }
-                }
+                result = [downloader downloadMetadataFor:game];
+
                 if (result) {
                     NSError *error = nil;
                     if (childContext.hasChanges) {
@@ -1013,6 +824,27 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     }];
 
     [_gameTableView selectRowIndexes:matchingIndexes byExtendingSelection:NO];
+}
+
+- (IBAction)deleteSaves:(id)sender {
+    NSIndexSet *rows = _gameTableView.selectedRowIndexes;
+    LibController * __unsafe_unretained weakSelf = self;
+
+    // If we clicked outside selected rows, only show info for clicked row
+    if (_gameTableView.clickedRow != -1 &&
+        ![rows containsIndex:(NSUInteger)_gameTableView.clickedRow])
+        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)_gameTableView.clickedRow];
+
+    [rows
+     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+         Game *game = weakSelf.gameTableModel[idx];
+         GlkController *gctl = weakSelf.gameSessions[game.ifid];
+
+         if (!gctl) {
+             gctl = [[GlkController alloc] init];
+         }
+         [gctl deleteAutosaveFilesForGame:game];
+     }];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
@@ -1211,7 +1043,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         for (id tempObject in files) {
             [urls addObject:[NSURL fileURLWithPath:tempObject]];
         }
-        [self addInBackground:urls];
+        [self addInBackground:urls lookForImages:NO downloadInfo:NO];
         return YES;
     }
     return NO;
@@ -1319,14 +1151,13 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 - (Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context {
 
     NSError *error = nil;
-    NSArray *fetchedObjects;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
     fetchRequest.entity = [NSEntityDescription entityForName:@"Theme" inManagedObjectContext:context];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", name];
 
-    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
         NSLog(@"findTheme: inContext: %@",error);
     }
@@ -1395,7 +1226,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     return fetchedObjects[0];
 }
 
-- (NSArray *) fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context {
+- (NSArray *)fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context {
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:context];
@@ -1411,7 +1242,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     return fetchedObjects;
 }
 
-- (void) convertLibraryToCoreData {
+- (void)convertLibraryToCoreData {
 
     // Add games from plist files to Core Data store if we have just created a new one
 
@@ -1458,7 +1289,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 // import it again, creating new metadata. This could happen if the user has deleted
                 // the Metadata.plist but not the Games.plist file, or if the Metadata and Games plists
                 // have gone out of sync somehow.
-                game = [weakSelf importGame: [games valueForKey:ifid] inContext:private reportFailure: NO];
+                game = [weakSelf importGame:[games valueForKey:ifid] inContext:private reportFailure: NO];
                 if (game)
                     meta = game.metadata;
             } else {
@@ -1506,8 +1337,10 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                     babel_release_ctx(context);
                 }
 
-                if (imgdata)
-                    [weakSelf addImage:imgdata toMetadata:game.metadata inContext:private];
+                if (imgdata) {
+                    IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:private];
+                    [downloader insertImage:imgdata inMetadata:meta];
+                }
 
             } else NSLog (@"Error! Could not create Game entity for game with ifid %@ and path %@", ifid, [games valueForKey:ifid]);
 
@@ -1563,16 +1396,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         return NO;
     metadata.source = @(kExternal);
     return YES;
-}
-
-- (void) addImage:(NSData *)rawImageData toMetadata:(Metadata *)metadata inContext:(NSManagedObjectContext *)context {
-
-    Image *img = (Image *) [NSEntityDescription
-                     insertNewObjectForEntityForName:@"Image"
-                     inManagedObjectContext:context];
-    img.data = rawImageData;
-    img.originalURL = metadata.coverArtURL;
-    metadata.cover = img;
 }
 
 static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
@@ -1740,8 +1563,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
-//    NSLog(@"LibController playGame: %@ winRestore: %@", game.metadata.title, restoreflag ? @"YES" : @"NO");
-
     if (gctl) {
         NSLog(@"A game with this ifid is already in session");
         [gctl.window makeKeyAndOrderFront:nil];
@@ -1839,7 +1660,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (NSWindow *)importAndPlayGame:(NSString *)path {
 
-    Game *game = [self importGame: path inContext:_managedObjectContext reportFailure: YES];
+    Game *game = [self importGame:path inContext:_managedObjectContext reportFailure: YES];
     if (game)
     {
         [self selectGames:[NSSet setWithArray:@[game]]];
@@ -1848,395 +1669,40 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     return nil;
 }
 
-- (BOOL)checkZcode:(NSString *)file {
-    NSData *mem = [NSData dataWithContentsOfFile:file];
-    uint8_t *memory = (uint8_t *)mem.bytes;
-
-    int dictionary = word(memory, 0x08);
-    int static_start = word(memory, 0x0e);
-
-    if(dictionary != 0 && dictionary < static_start)
-    {   // corrupted story: dictionary is not in static memory
-        return NO;
-    }
-
-    int objects = word(memory, 0x0a);
-    int zversion = memory[0x00];
-    int propsize = (zversion <= 3 ? 62UL : 126UL);
-
-    if(objects < 64 ||
-       objects + propsize > static_start)
-    {
-        // corrupted story: object table is not in dynamic memory
-            return NO;
-    }
-    return YES;
-}
-
-static inline uint16_t word(uint8_t *memory, uint32_t addr)
-{
-    return (uint16_t)((memory[addr] << 8) | memory[addr + 1]);
-}
-
 - (Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report {
-    char buf[TREATY_MINIMUM_EXTENT];
-    Metadata *metadata;
-    Game *game;
-    NSString *ifid;
-    char *format;
-    char *s;
-    Blorb *blorb = nil;
-    int rv;
-
-    NSString *extension = path.pathExtension.lowercaseString;
-
-    if ([extension isEqualToString: @"ifiction"])
-    {
-        [self addIfictionFile:path];
-        return nil;
-    }
-
-    if ([extension isEqualToString: @"d$$"])
-    {
-        path = [self convertAGTFile: path];
-        if (!path)
-        {
-            if (report) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSAlert *alert = [[NSAlert alloc] init];
-                    alert.messageText = NSLocalizedString(@"Conversion failed.", nil);
-                    alert.informativeText = NSLocalizedString(@"This old style AGT file could not be converted to the new AGX format.", nil);
-                    [alert runModal];
-                });
-            } else {
-                NSLog(@"This old style AGT file could not be converted to the new AGX format.");
-            }
-            return nil;
-        }
-    }
-
-    if (![gGameFileTypes containsObject: extension])
-    {
-        if (report) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSAlert *alert = [[NSAlert alloc] init];
-                alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
-                alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Can not recognize the file extension \".%@\"", nil), path.pathExtension];
-                [alert runModal];
-            });
-        }
-        return nil;
-    }
-
-    if ([extension isEqualToString:@"blorb"] || [extension isEqualToString:@"blb"]) {
-        blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
-        BlorbResource *executable = [blorb resourcesForUsage:ExecutableResource].firstObject;
-        if (!executable) {
-            if (report) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSAlert *alert = [[NSAlert alloc] init];
-                    alert.messageText = NSLocalizedString(@"Not a game.", nil);
-                    alert.informativeText = NSLocalizedString(@"No executable chunk found in Blorb file.", nil);
-                    [alert runModal];
-                });
-            } else {
-                NSLog(@"No executable chunk found in Blorb file.");
-            }
-            return nil;
-        }
-
-        if ([executable.chunkType isEqualToString:@"ADRI"]) {
-            if (report) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSAlert *alert = [[NSAlert alloc] init];
-                    alert.messageText = NSLocalizedString(@"Unsupported format.", nil);
-                    alert.informativeText = NSLocalizedString(@"Adrift 5 games are not supported.", nil);
-                    [alert runModal];
-                });
-            } else {
-               NSLog(@"Adrift 5 games are not supported.");
-            }
-            return nil;
-        }
-    }
-
-    void *ctx = get_babel_ctx();
-    format = babel_init_ctx((char*)path.UTF8String, ctx);
-    if (!format || !babel_get_authoritative_ctx(ctx))
-    {
-        if (report) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSAlert *alert = [[NSAlert alloc] init];
-                alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
-                alert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
-                [alert runModal];
-            });
-        }
-        babel_release_ctx(ctx);
-        return nil;
-    }
-
-    s = strchr(format, ' ');
-    if (s) format = s+1;
-
-    rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
-    if (rv <= 0)
-    {
-        if (report) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSAlert *alert = [[NSAlert alloc] init];
-                alert.messageText = NSLocalizedString(@"Fatal error.", nil);
-                alert.informativeText = NSLocalizedString(@"Can not compute IFID from the file.", nil);
-                [alert runModal];
-            });
-        } else {
-            NSLog(@"Babel can not compute IFID from the file.");
-        }
-        babel_release_ctx(ctx);
-        return nil;
-    }
-
-    s = strchr(buf, ',');
-    if (s) *s = 0;
-    ifid = @(buf);
-
-    if ([ifid isEqualToString:@"ZCODE-5-------"] && [[path signatureFromFile] isEqualToString:@"0304000545ff60e931b802ea1e6026860000c4cacbd2c1cb022acde526d400000000000000000000000000000000000000000000000000000000000000000000"])
-        ifid = @"ZCODE-5-830222";
-
-    if (([extension isEqualToString:@"dat"] &&
-        !(([@(format) isEqualToString:@"zcode"] && [self checkZcode:path]) ||
-          [@(format) isEqualToString:@"level9"] ||
-          [@(format) isEqualToString:@"advsys"])) ||
-        ([extension isEqualToString:@"gam"] && ![@(format) isEqualToString:@"tads2"])) {
-        if (report) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSAlert *alert = [[NSAlert alloc] init];
-                alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
-                alert.informativeText = NSLocalizedString(@"Not a supported format.", nil);
-                [alert runModal];
-            });
-        } else {
-            NSLog(@"%@: Recognized extension (%@) but unknown file format.", [path lastPathComponent], extension);
-        }
-        babel_release_ctx(ctx);
-        return nil;
-    }
-
-    //NSLog(@"libctl: import game %@ (%s)", path, format);
-
-    metadata = [self fetchMetadataForIFID:ifid inContext:context];
-
-    if (!metadata)
-    {
-        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
-            blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
-            NSData *mdbufData = [blorb metaData];
-            if (mdbufData) {
-                metadata = [self importMetadataFromXML: mdbufData inContext:context];
-                metadata.source = @(kInternal);
-                NSLog(@"Extracted metadata from blorb. Title: %@", metadata.title);
-            }
-            else NSLog(@"Found no metadata in blorb file %@", path);
-        }
-    }
-    else
-    {
-        game = [self fetchGameForIFID:ifid inContext:context];
-        if (game)
-        {
-            if ([game.detectedFormat isEqualToString:@"glulx"])
-                game.hashTag = [path signatureFromFile];
-            else if ([game.detectedFormat isEqualToString:@"zcode"]) {
-                [self addZCodeIDfromFile:path blorb:blorb toGame:game];
-            }
-            if (![path isEqualToString:game.path])
-            {
-                NSLog(@"File location did not match for %@. Updating library with new file location (%@).", [path lastPathComponent], path);
-                [game bookmarkForPath:path];
-            }
-            if (![game.detectedFormat isEqualToString:@(format)]) {
-                NSLog(@"Game format did not match for %@. Updating library with new detected format (%s).", [path lastPathComponent], format);
-                game.detectedFormat = @(format);
-            }
-            game.found = YES;
-            return game;
-        }
-    }
-
-    if (!metadata)
-    {
-        metadata = (Metadata *) [NSEntityDescription
-                                 insertNewObjectForEntityForName:@"Metadata"
-                                 inManagedObjectContext:context];
-    }
-    
-    [metadata findOrCreateIfid:ifid];
-
-    if (!metadata.format)
-        metadata.format = @(format);
-    if (!metadata.title || metadata.title.length == 0)
-    {
-        metadata.title = path.lastPathComponent;
-    }
-
-    if (!metadata.cover)
-    {
-        NSURL *imgpath = [NSURL URLWithString:[ifid stringByAppendingPathExtension:@"tiff"] relativeToURL:_imageDir];
-        NSData *img = [[NSData alloc] initWithContentsOfURL:imgpath];
-        if (img)
-        {
-            NSLog(@"Found cover image in image directory for game %@", metadata.title);
-            metadata.coverArtURL = imgpath.path;
-            [self addImage:img toMetadata:metadata inContext:context];
-        }
-        else
-        {
-            if (blorb) {
-                NSData *imageData = blorb.coverImageData;
-                if (imageData) {
-                    metadata.coverArtURL = path;
-                    [self addImage:imageData toMetadata:metadata inContext:context];
-                    NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
-                }
-                else NSLog(@"Found no image in blorb file %@", path);
-            }
-        }
-    }
-
-    babel_release_ctx(ctx);
-
-    game = (Game *) [NSEntityDescription
-                           insertNewObjectForEntityForName:@"Game"
-                           inManagedObjectContext:context];
-
-    [game bookmarkForPath:path];
-
-    game.added = [NSDate date];
-    game.metadata = metadata;
-    game.ifid = ifid;
-    game.detectedFormat = @(format);
-    if ([game.detectedFormat isEqualToString:@"glulx"]) {
-        game.hashTag = [path signatureFromFile];
-    }
-    if ([game.detectedFormat isEqualToString:@"zcode"]) {
-        [self addZCodeIDfromFile:path blorb:blorb toGame:game];
-    }
-
-    return game;
-}
-
-- (void)addZCodeIDfromFile:(NSString *)path blorb:(nullable Blorb *)blorb toGame:(Game *)game {
-    BOOL found = NO;
-    NSData *data = nil;
-    if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path]]) {
-        if (!blorb)
-            blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
-        if (blorb.checkSum && blorb.serialNumber && blorb.releaseNumber) {
-            found = YES;
-            game.checksum = blorb.checkSum;
-            game.serialString = blorb.serialNumber;
-            game.releaseNumber = blorb.releaseNumber;
-        }
-        if (!found) {
-            BlorbResource *zcode = [blorb resourcesForUsage:ExecutableResource].firstObject;
-            if (zcode)
-                data = [blorb dataForResource:zcode];
-        }
-    }
-    if (!found) {
-        if (!data)
-            data = [NSData dataWithContentsOfFile:path];
-        const unsigned char *ptr = data.bytes;
-        game.releaseNumber = (int32_t)unpackShort(ptr + 2);
-        NSData *serialData = [NSData dataWithBytes:ptr + 18 length:6];
-        game.serialString = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
-        game.checksum = (int32_t)unpackShort(ptr + 28);
-    }
-}
-
-- (void)addFile: (NSURL*)url select: (NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure
-{
-    Game *game = [self importGame:url.path inContext:context reportFailure:reportFailure];
-    if (game) {
-        [self beginImporting];
-        [select addObject:game.ifid];
-    } else {
-        //NSLog(@"libctl: addFile: File %@ not added!", url.path);
-    }
+    GameImporter *importer = [GameImporter new];
+    importer.libController = self;
+    return [importer importGame:path inContext:context reportFailure:report];
 }
 
 - (IBAction)cancel:(id)sender {
     _currentlyAddingGames = NO;
 }
 
-- (void)addFiles:(NSArray*)urls select:(NSMutableArray*)select inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)reportFailure {
-    NSFileManager *filemgr = [NSFileManager defaultManager];
-    BOOL isdir;
-    NSUInteger count;
-    NSUInteger i;
+- (void)addFiles:(NSArray*)urls options:(NSDictionary *)options {
 
-    NSDate *timestamp = [NSDate date];
-    
-    count = urls.count;
-    for (i = 0; i < count; i++)
-    {
-        if (!_currentlyAddingGames) {
-            return;
-        }
-        NSString *path = [urls[i] path];
-
-        if (![filemgr fileExistsAtPath: path isDirectory: &isdir])
-            continue;
-
-        if (isdir)
-        {
-            NSArray *contents = [filemgr contentsOfDirectoryAtURL:urls[i]
-                                       includingPropertiesForKeys:@[NSURLNameKey]
-                                                          options:NSDirectoryEnumerationSkipsHiddenFiles
-                                                            error:nil];
-            [self addFiles: contents select: select inContext:context reportFailure:reportFailure];
-        }
-        else
-        {
-            [self addFile:urls[i] select:select inContext:context reportFailure:reportFailure];
-        }
-
-        if ([timestamp timeIntervalSinceNow] < -0.5) {
-
-            NSError *error = nil;
-            if (context.hasChanges) {
-                if (![context save:&error]) {
-                    if (error) {
-                        [[NSApplication sharedApplication] presentError:error];
-                    }
-                }
-            }
-
-            timestamp = [NSDate date];
-        }
-
-    }
-}
-
-- (void)addFiles: (NSArray*)urls inContext:(NSManagedObjectContext *)context {
-
+    NSManagedObjectContext *context = options[@"context"];
     NSMutableArray *select = [NSMutableArray arrayWithCapacity: urls.count];
-
-    LibController * __unsafe_unretained weakSelf = self;
 
     BOOL reportFailure = NO;
 
     if (urls.count == 1) {
-        // If the user only selects one file, and it is invalid
-        // (and not a directory) we should report the failure.
+        // If the user only selects one file, and it is
+        // not a directory, we should report any failures.
         BOOL isDir;
         [[NSFileManager defaultManager] fileExistsAtPath:((NSURL *)urls[0]).path isDirectory: &isDir];
         if (!isDir)
             reportFailure = YES;
     }
+
+    NSMutableDictionary *newOptions = options.mutableCopy;
+    newOptions[@"reportFailure"] = @(reportFailure);
+    newOptions[@"select"] = select;
     
     [self beginImporting];
-    [self addFiles: urls select: select inContext:context reportFailure:reportFailure];
+    GameImporter *importer = [GameImporter new];
+    importer.libController = self;
+    [importer addFiles:urls options:newOptions];
     [self endImporting];
 
     NSError *error = nil;
@@ -2251,27 +1717,32 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     if (!_currentlyAddingGames)
         return;
 
+    LibController * __unsafe_unretained weakSelf = self;
+
     [_managedObjectContext performBlock:^{
-        weakSelf.currentlyAddingGames = NO;
-        [weakSelf selectGamesWithIfids:select scroll:YES];
-        for (NSString *path in weakSelf.iFictionFiles) {
-            [weakSelf importMetadataFromFile:path];
+        LibController *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        strongSelf.currentlyAddingGames = NO;
+        [strongSelf selectGamesWithIfids:select scroll:YES];
+        for (NSString *path in strongSelf.iFictionFiles) {
+            [strongSelf importMetadataFromFile:path];
         }
-        weakSelf.iFictionFiles = nil;
+        strongSelf.iFictionFiles = nil;
         // Fix metadata entities with no ifids
-        NSArray *noIfids = [self fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:weakSelf.managedObjectContext];
+        NSArray *noIfids = [self fetchObjects:@"Metadata" predicate:@"ifids.@count == 0" inContext:strongSelf.managedObjectContext];
         for (Metadata *meta in noIfids) {
-            [weakSelf.managedObjectContext deleteObject:meta];
+            [strongSelf.managedObjectContext deleteObject:meta];
         }
         // Fix metadata entities with empty titles
-        NSArray *noTitles = [self fetchObjects:@"Metadata" predicate:@"title = nil OR title = ''" inContext:weakSelf.managedObjectContext];
+        NSArray *noTitles = [self fetchObjects:@"Metadata" predicate:@"title = nil OR title = ''" inContext:strongSelf.managedObjectContext];
         for (Metadata *meta in noTitles) {
             Game *game = meta.games.anyObject;
             if (game) {
                 meta.title = [game urlForBookmark].path.lastPathComponent;
             }
         }
-        [weakSelf.coreDataManager saveChanges];
+        [strongSelf.coreDataManager saveChanges];
     }];
 }
 
@@ -2989,95 +2460,6 @@ ofDividerAtIndex:0];
             [timer invalidate];
         }
     }
-}
-
-#pragma mark -
-#pragma mark Some stuff that doesn't really fit anywhere else.
-
-- (NSString *)convertAGTFile:(NSString *)origpath {
-    NSLog(@"libctl: converting agt to agx");
-
-    NSURL *desktopURL = [NSURL fileURLWithPath:origpath
-                                   isDirectory:YES];
-    NSError *error = nil;
-
-    NSURL *temporaryDirectoryURL = [[NSFileManager defaultManager]
-                                    URLForDirectory:NSItemReplacementDirectory
-                                    inDomain:NSUserDomainMask
-                                    appropriateForURL:desktopURL
-                                    create:YES
-                                    error:&error];
-
-    NSString *tempFilePath = [temporaryDirectoryURL.path stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
-
-    tempFilePath = [tempFilePath stringByAppendingPathExtension:@"agx"];
-
-    NSString *exepath =
-        [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"agt2agx"];
-    NSURL *dirURL;
-    NSURL *cvtURL;
-
-    NSTask *task;
-    char *format;
-    int status;
-
-    task = [[NSTask alloc] init];
-    task.launchPath = exepath;
-    task.arguments = @[ @"-o", tempFilePath, origpath ];
-    [task launch];
-    [task waitUntilExit];
-    status = task.terminationStatus;
-
-    if (status != 0) {
-        NSLog(@"libctl: agt2agx failed");
-        return nil;
-    }
-
-    void *ctx = get_babel_ctx();
-
-
-    format = babel_init_ctx((char *)tempFilePath.UTF8String, ctx);
-    if (!strcmp(format, "agt")) {
-        char buf[TREATY_MINIMUM_EXTENT];
-        int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
-        if (rv == 1) {
-            dirURL =
-                [_homepath URLByAppendingPathComponent:@"Converted"];
-
-            [[NSFileManager defaultManager]
-                       createDirectoryAtURL:dirURL
-                withIntermediateDirectories:YES
-                                 attributes:nil
-                                      error:NULL];
-
-            cvtURL =
-                [dirURL URLByAppendingPathComponent:
-                             [@(buf) stringByAppendingPathExtension:@"agx"]];
-
-            babel_release_ctx(ctx);
-
-
-            [[NSFileManager defaultManager] removeItemAtURL:cvtURL error:nil];
-
-            NSURL *tmp = [NSURL fileURLWithPath:tempFilePath];
-
-            error = nil;
-            status = [[NSFileManager defaultManager]
-                moveItemAtURL:tmp
-                        toURL:cvtURL
-                         error:&error];
-
-            if (!status) {
-                NSLog(@"libctl: could not move converted file: %@", error);
-                return nil;
-            }
-            return cvtURL.path;
-        }
-    } else {
-        NSLog(@"libctl: babel did not like the converted file");
-    }
-    babel_release_ctx(ctx);
-    return nil;
 }
 
 @end

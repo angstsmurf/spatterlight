@@ -9,6 +9,10 @@
 #import "IFictionMetadata.h"
 #import "Metadata.h"
 #import "Image.h"
+#import "Game.h"
+#import "Ifid.h"
+#import "NSData+MD5.h"
+#import "ImageCompareViewController.h"
 
 
 @implementation IFDBDownloader
@@ -35,6 +39,23 @@
 
     NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
     return [self downloadMetadataFromURL:url];
+}
+
+- (BOOL)downloadMetadataFor:(Game*)game {
+    BOOL result = NO;
+    if (game.metadata.tuid) {
+        result = [self downloadMetadataForTUID:game.metadata.tuid];
+    } else {
+        result = [self downloadMetadataForIFID:game.ifid];
+        if (!result) {
+            for (Ifid *ifidObj in game.metadata.ifids) {
+                result = [self downloadMetadataForIFID:ifidObj.ifidString];
+                if (result)
+                    return YES;
+            }
+        }
+    }
+    return result;
 }
 
 - (BOOL)downloadMetadataFromURL:(NSURL*)url {
@@ -72,9 +93,22 @@
 
     Image *img = [self fetchImageForURL:metadata.coverArtURL];
 
+    __block BOOL accepted = NO;
+
     if (img) {
-        metadata.cover = img;
-        return YES;
+
+        dispatch_sync(dispatch_get_main_queue(), ^{
+
+            ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+
+            if ([imageCompare userWantsImage:(NSData *)img.data ratherThanImage:(NSData *)metadata.cover.data]) {
+                metadata.cover = img;
+                metadata.coverArtDescription = img.imageDescription;
+                accepted = YES;
+            }
+        });
+
+        return accepted;
     }
 
     NSURL *url = [NSURL URLWithString:metadata.coverArtURL];
@@ -95,20 +129,48 @@
     {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200 && data) {
-            [self insertImage:data inMetadata:metadata];
-        } else return NO;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+
+                if ([imageCompare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data]) {
+                    [self insertImage:data inMetadata:metadata];
+                    accepted = YES;
+                }
+            });
+
+        }
     }
-    return YES;
+    return accepted;
 }
 
 - (Image *)insertImage:(NSData *)data inMetadata:(Metadata *)metadata {
+    if ([data isPlaceHolderImage]) {
+        NSLog(@"insertImage: image is placeholder!");
+        return [self findPlaceHolderInMetadata:metadata imageData:data];
+    }
+
    Image *img = (Image *) [NSEntityDescription
                      insertNewObjectForEntityForName:@"Image"
-                     inManagedObjectContext:_context];
+                     inManagedObjectContext:metadata.managedObjectContext];
     img.data = [data copy];
     img.originalURL = metadata.coverArtURL;
     metadata.cover = img;
     return img;
+}
+
+- (Image *)findPlaceHolderInMetadata:(Metadata *)metadata imageData:(NSData *)data {
+    Image *placeholder = [self fetchImageForURL:@"Placeholder"];
+    if (!placeholder) {
+        placeholder = (Image *) [NSEntityDescription
+                          insertNewObjectForEntityForName:@"Image"
+                          inManagedObjectContext:metadata.managedObjectContext];
+        placeholder.data = [data copy];
+        placeholder.originalURL = @"Placeholder";
+        placeholder.imageDescription = @"Inform 7 placeholder cover image: The worn spine of an old book, laying open on top of another open book. Caption: \"Interactive fiction by Inform. Photograph: Scot Campbell\".";
+        metadata.cover = placeholder;
+        metadata.coverArtDescription = placeholder.imageDescription;
+    }
+    return placeholder;
 }
 
 - (Image *)fetchImageForURL:(NSString *)imgurl {
