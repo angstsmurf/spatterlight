@@ -1,3 +1,7 @@
+//  Extracted from NSDate-Extensions
+// by Erica Sadun, http://ericasadun.com
+// https://github.com/erica/NSDate-Extensions
+
 #import <Foundation/Foundation.h>
 
 @interface NSDate (relative)

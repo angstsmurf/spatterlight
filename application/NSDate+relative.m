@@ -4,6 +4,7 @@
 
 #import <Foundation/Foundation.h>
 
+// The number of seconds in a week
 #define D_WEEK        604800
 
 // Thanks, AshFurrow
