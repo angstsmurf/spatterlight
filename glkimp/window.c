@@ -612,9 +612,9 @@ winid_t glk_window_get_root()
                 fprintf(stderr, "glk_window_get_root: found window with no parent, but win->peer was %d\n", win->peer);
             }
         }
-        gli_strict_warning("glk_window_get_root: no root window found");
+        fprintf(stderr, "glk_window_get_root: no root window found\n");
         if (gli_windowlist == NULL)
-            gli_strict_warning("because there are no windows");
+            fprintf(stderr, "because there are no windows\n");
         return NULL;
     }
     return gli_rootwin;
