@@ -201,7 +201,7 @@ NSDictionary *gFormatMap;
         window = appDelegate.prefctl.window;
     } else {
         NSString *firstLetters =
-        [identifier substringWithRange:NSMakeRange(0, 7)];
+        [identifier substringToIndex:7];
 
         if ([firstLetters isEqualToString:@"infoWin"]) {
             NSString *path = [identifier substringFromIndex:7];
