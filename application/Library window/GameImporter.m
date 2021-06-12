@@ -14,21 +14,16 @@
 
 #import "Blorb.h"
 #import "BlorbResource.h"
-#include "iff.h"
 
 #import "NSString+Categories.h"
-#import "NSData+MD5.h"
-
-#include "spat-mg1.h"
-#include "neo.h"
+#import "NSData+Categories.h"
 
 // Treaty of babel headers
 #include "babel_handler.h"
 #include "ifiction.h"
 #include "treaty.h"
 
-#include "LibController.h"
-
+#import "LibController.h"
 #import "GameImporter.h"
 
 extern NSArray *gGameFileTypes;
@@ -380,11 +375,16 @@ extern NSArray *gGameFileTypes;
         if (!data)
             data = [NSData dataWithContentsOfFile:path];
         const unsigned char *ptr = data.bytes;
-        game.releaseNumber = (int32_t)unpackShort(ptr + 2);
+        game.releaseNumber = shortAtPointer(ptr + 2);
         NSData *serialData = [NSData dataWithBytes:ptr + 18 length:6];
         game.serialString = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
-        game.checksum = (int32_t)unpackShort(ptr + 28);
+        game.checksum = shortAtPointer(ptr + 28);
     }
+}
+
+int32_t shortAtPointer(const void *data) {
+    return (((const unsigned char *)data)[0] << 8) |
+    (((const unsigned char *)data)[1]);
 }
 
 static inline uint16_t word(uint8_t *memory, uint32_t addr)
@@ -515,13 +515,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             NSString *imgExtension = url.path.pathExtension.lowercaseString;
 
             if ([imgExtension isEqualToString:@"mg1"]) {
-                NSBitmapImageRep *rep = [self bitmapImageRepresentationFromMG1File:imageFiles.firstObject];
-                imageData = [rep representationUsingType:NSBitmapImageFileTypeBMP properties:@{}];
-
+                imageData = [NSData imageDataFromMG1URL:imageFiles.firstObject];
             } else if ([imgExtension isEqualToString:@"neo"]) {
-                NSBitmapImageRep *rep = [self bitmapImageRepresentationFromNEOFile:imageFiles.firstObject];
-                imageData = [rep representationUsingType:NSBitmapImageFileTypeBMP properties:@{}];
-
+                imageData = [NSData imageDataFromNeoURL:imageFiles.firstObject];
             } else if ([imgExtension isEqualToString:@"blb"] || [imgExtension isEqualToString:@"blorb"]) {
                 Blorb *blorb = [[Blorb alloc] initWithData:imageData];
                 imageData = blorb.coverImageData;
@@ -538,6 +534,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
     // If the game already has an image, ask the user if they want to replace it
         ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+            NSLog(@"Comparing images for game %@", game.metadata.title);
             result = [imageCompare userWantsImage:(NSData *)imageData ratherThanImage:(NSData *)game.metadata.cover.data];
         });
 
@@ -547,104 +544,6 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
     }
 }
 
-- (NSBitmapImageRep *)bitmapImageRepresentationFromMG1File:(NSURL *)file {
-    char *filename = (char *)[file.path UTF8String];
-    init_mg1_graphics(filename);
-    uint16_t numImages = get_number_of_mg1_images();
-    if (numImages < 1) {
-        end_mg1_graphics();
-        return nil;
-    }
-
-    uint16_t *pictureNumberArray = get_all_picture_numbers();
-
-    z_image *zimg = get_picture(pictureNumberArray[0]);
-
-    if (zimg == NULL) {
-        end_mg1_graphics();
-        return nil;
-    }
-
-    if(zimg->width < 1 || zimg->height < 1) {
-        end_mg1_graphics();
-        return nil;
-    }
-
-    // 3 bytes (rgb, no alpha) for each pixel
-    NSUInteger bytesPerPixel = 3;
-    NSUInteger bitsPerComponent = (NSUInteger)zimg->bits_per_sample;
-    NSUInteger bitsPerPixel = bytesPerPixel * bitsPerComponent;
-
-    NSUInteger bytesPerRow = (NSUInteger)(zimg->width * bytesPerPixel);
-
-    CGColorSpaceRef deviceColorSpace = CGColorSpaceCreateDeviceRGB();
-    CFDataRef cfData =
-        CFDataCreate(nil, zimg->data, (CFIndex)(zimg->width * zimg->height * bytesPerPixel));
-    CGDataProviderRef cgDataProvider = CGDataProviderCreateWithCFData(cfData);
-
-    CGImageRef img = CGImageCreate(zimg->width, zimg->height, bitsPerComponent, bitsPerPixel, bytesPerRow, deviceColorSpace, kCGBitmapByteOrderDefault, cgDataProvider, nil, NO, kCGRenderingIntentDefault);
-
-    NSBitmapImageRep *rep = nil;
-    if (img) {
-        rep = [[NSBitmapImageRep alloc]
-               initWithCGImage:img];
-        CFRelease(img);
-    }
-
-    CFRelease(cfData);
-    CFRelease(deviceColorSpace);
-    CFRelease(cgDataProvider);
-
-    end_mg1_graphics();
-
-    return rep;
-}
-
-- (NSBitmapImageRep *)bitmapImageRepresentationFromNEOFile:(NSURL *)file {
-    char *filename = (char *)[file.path UTF8String];
-
-    z_image *zimg = get_neo_picture(filename);
-
-    if (zimg == NULL) {
-        end_neo_graphics();
-        return nil;
-    }
-
-    if(zimg->width < 1 || zimg->height < 1) {
-        end_neo_graphics();
-        return nil;
-    }
-
-    // 3 bytes (rgb, no alpha) for each pixel
-    NSUInteger bytesPerPixel = 3;
-    NSUInteger bitsPerComponent = (NSUInteger)zimg->bits_per_sample;
-    NSUInteger bitsPerPixel = bytesPerPixel * bitsPerComponent;
-
-    NSUInteger bytesPerRow = (NSUInteger)(zimg->width * bytesPerPixel);
-
-    CGColorSpaceRef deviceColorSpace = CGColorSpaceCreateDeviceRGB();
-
-    CFDataRef cfData = CFDataCreate(nil, zimg->data, (CFIndex)(zimg->width * zimg->height * bytesPerPixel));
-
-    CGDataProviderRef cgDataProvider = CGDataProviderCreateWithCFData(cfData);
-
-    CGImageRef img = CGImageCreate(zimg->width, zimg->height, bitsPerComponent, bitsPerPixel, bytesPerRow, deviceColorSpace, kCGBitmapByteOrderDefault, cgDataProvider, nil, NO, kCGRenderingIntentDefault);
-
-    NSBitmapImageRep *rep = nil;
-    if (img) {
-        rep = [[NSBitmapImageRep alloc]
-               initWithCGImage:img];
-        CFRelease(img);
-    }
-
-    CFRelease(cfData);
-    CFRelease(deviceColorSpace);
-    CFRelease(cgDataProvider);
-
-    end_neo_graphics();
-
-    return rep;
-}
 
 // Creates a renamed copy of SCREEN.DAT in a temporary directory
 // and returns an array containing its URL so the cover image
@@ -692,8 +591,8 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 // Converts AGT D$$ files to the AGX format
 // that AGiliTy can play. The resulting file is kept in
 // a special Application Support directory.
-// Also copies any icon files here for the cover image
-// importer to find.
+// Also copies any icon files to the same directory
+// for the cover image importer to find.
 
 - (NSString *)convertAGTFile:(NSString *)origpath {
     NSLog(@"GameImporter: converting agt to agx");
