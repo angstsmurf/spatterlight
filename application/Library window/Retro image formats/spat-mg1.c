@@ -207,14 +207,20 @@ int end_mg1_graphics()
     if (mg1_file != NULL)
         fclose(mg1_file);
 
-    if (image_data != NULL)
+    if (image_data != NULL) {
         free(image_data);
+        image_data = NULL;
+    }
 
-    if (mg1_image_entries != NULL)
+    if (mg1_image_entries != NULL) {
         free(mg1_image_entries);
+        mg1_image_entries = NULL;
+    }
     
-    if (zimage != NULL)
+    if (zimage != NULL) {
         free(zimage);
+        zimage = NULL;
+    }
 
     return 0;
 }

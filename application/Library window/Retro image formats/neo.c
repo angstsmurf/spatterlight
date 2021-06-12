@@ -165,11 +165,15 @@ int end_neo_graphics()
     if (neo_file != NULL)
         fclose(neo_file);
 
-    if (imgPic != NULL)
+    if (imgPic != NULL) {
         free(imgPic);
+        imgPic = NULL;
+    }
 
-    if (neo_zimage != NULL)
+    if (neo_zimage != NULL) {
         free(neo_zimage);
+        neo_zimage = NULL;
+    }
 
     return 0;
 }
