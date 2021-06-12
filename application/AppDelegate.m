@@ -208,6 +208,7 @@ NSDictionary *gFormatMap;
             if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
                 InfoController *infoctl =
                 [[InfoController alloc] initWithpath:path];
+                infoctl.libcontroller = appDelegate.libctl;
                 NSWindow *infoWindow = infoctl.window;
                 infoWindow.restorable = YES;
                 infoWindow.restorationClass = [AppDelegate class];
