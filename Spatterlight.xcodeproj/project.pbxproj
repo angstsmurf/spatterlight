@@ -528,7 +528,7 @@
 		C301D30D25D35E9300DC4A2B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C301D30C25D35E9300DC4A2B /* Media.xcassets */; };
 		C305EA1E264B014D009DC78C /* CommandScriptHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C305EA1D264B014D009DC78C /* CommandScriptHandler.m */; };
 		C3074B8825A1F461003E80C6 /* VersionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3074B8725A1F461003E80C6 /* VersionFormatter.m */; };
-		C3075513265C2D2E00931D5B /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+MD5.m */; };
+		C3075513265C2D2E00931D5B /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
 		C309881425CB1AB500750F72 /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C309882E25CB1ACD00750F72 /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAEE252A5A5900540C6E /* Metadata.m */; };
 		C309884825CB1AD300750F72 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
@@ -2512,8 +2512,8 @@
 		C305EA1D264B014D009DC78C /* CommandScriptHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommandScriptHandler.m; sourceTree = "<group>"; };
 		C3074B8625A1F461003E80C6 /* VersionFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionFormatter.h; sourceTree = "<group>"; };
 		C3074B8725A1F461003E80C6 /* VersionFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionFormatter.m; sourceTree = "<group>"; };
-		C3075511265C2D2E00931D5B /* NSData+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+MD5.h"; sourceTree = "<group>"; };
-		C3075512265C2D2E00931D5B /* NSData+MD5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+MD5.m"; sourceTree = "<group>"; };
+		C3075511265C2D2E00931D5B /* NSData+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Categories.h"; sourceTree = "<group>"; };
+		C3075512265C2D2E00931D5B /* NSData+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Categories.m"; sourceTree = "<group>"; };
 		C309873F25CAF17200750F72 /* Spatterlight 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 6.xcdatamodel"; sourceTree = "<group>"; };
 		C30BB94B2598B22D000F34F0 /* Spatterlight 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 4.xcdatamodel"; sourceTree = "<group>"; };
 		C30F436925A53DD000B8D74B /* spatterlight-autosave.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; name = "spatterlight-autosave.m"; path = "bocfel-spatterlight/spatterlight-autosave.m"; sourceTree = "<group>"; tabWidth = 4; };
@@ -6114,7 +6114,7 @@
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
 				C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */,
 				C33B4504257E84500017EA26 /* ZMenu.m in Sources */,
-				C3075513265C2D2E00931D5B /* NSData+MD5.m in Sources */,
+				C3075513265C2D2E00931D5B /* NSData+Categories.m in Sources */,
 				C3AD642526176737008614C5 /* BufferTextView.m in Sources */,
 				6DF73C3523B8F46100F76CF9 /* GlkStyle.m in Sources */,
 				C3F1078D259256AC00C9EC82 /* BureaucracyForm.m in Sources */,

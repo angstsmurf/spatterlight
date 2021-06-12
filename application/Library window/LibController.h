@@ -98,6 +98,7 @@
 
 - (IBAction)searchForGames:(id)sender;
 - (IBAction)play:(id)sender;
+- (IBAction) download:(id)sender;
 - (IBAction)showGameInfo:(id)sender;
 - (IBAction)revealGameInFinder:(id)sender;
 - (IBAction)deleteGame:(id)sender;
@@ -120,6 +121,8 @@
 - (Game *)fetchGameForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 - (Metadata *)fetchMetadataForIFID:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 - (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context;
+
+- (void)lateStartupChecks;
 
 @property (strong) IBOutlet NSView *forceQuitView;
 @property (weak) IBOutlet NSButton *forceQuitCheckBox;
