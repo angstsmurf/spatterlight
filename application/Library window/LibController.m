@@ -956,6 +956,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     if (!infoctl) {
         infoctl = [[InfoController alloc] initWithGame:game];
+        infoctl.libcontroller = self;
         _infoWindows[path] = infoctl;
         NSWindow *infoWindow = infoctl.window;
         infoWindow.restorable = YES;

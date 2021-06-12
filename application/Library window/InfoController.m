@@ -8,6 +8,8 @@
 #import "IFDBDownloader.h"
 #import "main.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
 fprintf(stderr, "%s\n",                                                    \
@@ -45,7 +47,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
     
     unichar code = [event.characters characterAtIndex:0];
-    LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
 
     switch (code) {
         case ' ': {
@@ -53,11 +54,11 @@ fprintf(stderr, "%s\n",                                                    \
             break;
         }
         case NSUpArrowFunctionKey: {
-            [libcontroller closeAndOpenNextAbove:infocontroller];
+            [infocontroller.libcontroller closeAndOpenNextAbove:infocontroller];
             break;
         }
         case NSDownArrowFunctionKey: {
-            [libcontroller closeAndOpenNextBelow:infocontroller];
+            [infocontroller.libcontroller closeAndOpenNextBelow:infocontroller];
             break;
         }
         default: {
@@ -215,8 +216,8 @@ fprintf(stderr, "%s\n",                                                    \
     NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
     NSArray *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
     NSArray *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];
-    NSArray *deletedObjectts =  (notification.userInfo)[NSDeletedObjectsKey];
-    if ([deletedObjectts containsObject:_game])
+    NSArray *deletedObjects =  (notification.userInfo)[NSDeletedObjectsKey];
+    if ([deletedObjects containsObject:_game])
         [[self window] performClose:nil];
     if ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game])
     {
@@ -308,8 +309,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (void)windowWillClose:(NSNotification *)notification {
     // Crazy stuff to make stacks of windows close in a pretty way
-    LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
-    NSArray <InfoController *> *windowArray = libcontroller.infoWindows.allValues;
+    NSArray <InfoController *> *windowArray = _libcontroller.infoWindows.allValues;
     if (windowArray.count > 1) {
         // We look at the title fields of the array of open info window controllers
         // and sort them alphabetically
@@ -484,17 +484,16 @@ fprintf(stderr, "%s\n",                                                    \
                                                         CGRectNull, kCGWindowListOptionIncludingWindow,
                                                         (CGWindowID)[self.window windowNumber], kCGWindowImageBoundsIgnoreFraming);
     CALayer *snapshotLayer = [[CALayer alloc] init];
-    snapshotLayer.frame = NSRectToCGRect(self.window.frame);
+    snapshotLayer.frame = self.window.frame;
     snapshotLayer.contents = CFBridgingRelease(windowSnapshot);
     snapshotLayer.anchorPoint = CGPointMake(0, 0);
     return snapshotLayer;
 }
 
 - (CALayer *)takeRowSnapshotFocused:(BOOL)focused {
-    LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
-    NSRect rowrect = [libcontroller rectForLineWithIfid:_game.ifid];
+    NSRect rowrect = [_libcontroller rectForLineWithIfid:_game.ifid];
 
-    NSWindow *keyWindow = libcontroller.window;
+    NSWindow *keyWindow = _libcontroller.window;
     if (focused) {
         for (NSWindow *win in NSApplication.sharedApplication.windows) {
             if (win.isKeyWindow) {
@@ -502,13 +501,11 @@ fprintf(stderr, "%s\n",                                                    \
                 break;
             }
         }
-        [libcontroller.window makeKeyWindow];
+        [_libcontroller.window makeKeyWindow];
     }
 
-    NSView *view = libcontroller.window.contentView;
-    NSRect winrect = [libcontroller.window convertRectFromScreen:rowrect];
-
-    winrect = NSIntersectionRect(winrect, view.visibleRect);
+    NSView *view = _libcontroller.window.contentView;
+    NSRect winrect = [_libcontroller.window convertRectFromScreen:rowrect];
 
     NSBitmapImageRep *bitmap = [view bitmapImageRepForCachingDisplayInRect:winrect];
     [view cacheDisplayInRect:winrect toBitmapImageRep:bitmap];
@@ -518,7 +515,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     CALayer *snapshotLayer = [[CALayer alloc] init];
     snapshotLayer.contents = result;
-    snapshotLayer.anchorPoint = CGPointMake(0, 0);
 
     if (focused)
         [keyWindow makeKeyWindow];
@@ -527,9 +523,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)animateIn:(NSRect)finalframe {
-
-    LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
-    NSRect targetFrame = [libcontroller rectForLineWithIfid:_game.ifid];
+    NSRect targetFrame = [_libcontroller rectForLineWithIfid:_game.ifid];
 
     [self makeAndPrepareSnapshotWindow:targetFrame];
     NSWindow *localSnapshot = snapshotController.window;
@@ -579,17 +573,17 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)animateOut {
     _inAnimation = YES;
 
-    LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
-
     [self makeAndPrepareSnapshotWindow:self.window.frame];
     NSWindow *localSnapshot = snapshotController.window;
     NSView *snapshotView = localSnapshot.contentView;
     CALayer *snapshotLayer = localSnapshot.contentView.layer.sublayers.firstObject;
 
+    LibController *libctrl = _libcontroller;
+
     snapshotLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
     snapshotLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
-    NSRect targetFrame = [libcontroller rectForLineWithIfid:_game.ifid];
-    NSArray <InfoController *> *windowArray = libcontroller.infoWindows.allValues;
+    NSRect targetFrame = [libctrl rectForLineWithIfid:_game.ifid];
+    NSArray <InfoController *> *windowArray = libctrl.infoWindows.allValues;
     CALayer *rowLayer = [self takeRowSnapshotFocused:(windowArray.count < 2)];
     [snapshotLayer addSublayer:rowLayer];
     rowLayer.opacity = 0.0;
@@ -612,11 +606,9 @@ fprintf(stderr, "%s\n",                                                    \
      runAnimationGroup:^(NSAnimationContext *context) {
         context.duration = 0.3;
         context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//        NSLog(@"animateOut: starting at frame: %@", NSStringFromRect(localSnapshot.frame));
         [[localSnapshot animator] setFrame:targetFrame display:YES];
     }
      completionHandler:^{
-//        NSLog(@"animateOut: ending at frame: %@", NSStringFromRect(localSnapshot.frame));
         self.inAnimation = NO;
         snapshotView.hidden = YES;
         [self->snapshotController close];
@@ -624,12 +616,12 @@ fprintf(stderr, "%s\n",                                                    \
 
         // It seems we have to do it in this cumbersome way because the game.path used for key may have changed.
         // Probably a good reason to use something else as key.
-        for (InfoController *controller in [libcontroller.infoWindows allValues])
+        for (InfoController *controller in [libctrl.infoWindows allValues])
             if (controller == self) {
-                NSArray *temp = [libcontroller.infoWindows allKeysForObject:controller];
+                NSArray *temp = [libctrl.infoWindows allKeysForObject:controller];
                 NSString *key = [temp objectAtIndex:0];
                 if (key) {
-                    [libcontroller.infoWindows removeObjectForKey:key];
+                    [libctrl.infoWindows removeObjectForKey:key];
                     return;
                 }
             }
