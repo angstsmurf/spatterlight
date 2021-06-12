@@ -340,7 +340,7 @@
                     extendneeded = bottom;
             }
 
-            if (NSIntersectsRect(bounds, rect)) {
+            if ([textview needsToDrawRect:bounds]) {
                 size = image.image.size;
                 [image.image
                         drawInRect:bounds
