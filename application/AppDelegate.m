@@ -133,10 +133,6 @@ NSDictionary *gFormatMap;
     _prefctl.window.restorationClass = [self class];
     _prefctl.window.identifier = @"preferences";
     _prefctl.libcontroller = _libctl;
-
-    if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
-        [_libctl.window setValue:@2 forKey:@"tabbingMode"];
-    }
 }
 
 #pragma mark -
