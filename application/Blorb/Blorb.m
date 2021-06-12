@@ -8,7 +8,7 @@
 
 #import "Blorb.h"
 #import "BlorbResource.h"
-#import "NSData+MD5.h"
+#import "NSData+Categories.h"
 #include "iff.h"
 
 @interface Blorb () {
