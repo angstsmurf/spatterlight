@@ -11,7 +11,7 @@
 #import "Image.h"
 #import "Game.h"
 #import "Ifid.h"
-#import "NSData+MD5.h"
+#import "NSData+Categories.h"
 #import "ImageCompareViewController.h"
 
 
