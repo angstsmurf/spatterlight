@@ -128,9 +128,6 @@ void fatal_error_handler(char *str, char *arg, int useval, glsi32 val)
 
     (win_showerror(str));
 
-    if (gli_error_handling == ERRORS_ARE_FATAL)
-        glk_exit();
-
 //  win = get_error_win();
 //  if (win) {
 //    glk_set_window(win);
@@ -148,7 +145,7 @@ void fatal_error_handler(char *str, char *arg, int useval, glsi32 val)
 //    }
 //    glk_put_string("\n");
 //  }
-//  glk_exit();
+    glk_exit();
 }
 
 /* nonfatal_warning_handler():
