@@ -109,6 +109,8 @@ fprintf(stderr, "%s\n",                                                    \
     return self;
 }
 
+// Used for window restoration
+
 - (instancetype)initWithpath:(NSString *)path {
     self = [self init];
     if (self) {

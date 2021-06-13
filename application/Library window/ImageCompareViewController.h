@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) IBOutlet NSImageView *leftImage;
 @property (weak) IBOutlet NSImageView *rightImage;
 
+@property (weak) IBOutlet NSButton *imageSelectDialogSuppressionButton;
+
 - (BOOL)userWantsImage:(NSData *)imageA ratherThanImage:(NSData *)imageB;
 
 @end

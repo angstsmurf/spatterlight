@@ -5,6 +5,8 @@
 //  Created by Administrator on 2018-09-09.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "SideInfoView.h"
 
 #import "Game.h"
@@ -12,6 +14,12 @@
 #import "Image.h"
 #import "LibController.h"
 #import "AppDelegate.h"
+#import "NSImage+Categories.h"
+#import "NSData+Categories.h"
+#import "ImageView.h"
+#import "ImageCompareViewController.h"
+#import "IFDBDownloader.h"
+
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
@@ -26,7 +34,6 @@ fprintf(stderr, "%s\n",                                                    \
 @end
 
 @implementation VerticallyCenteredTextFieldCell
-
 - (NSRect) titleRectForBounds:(NSRect)frame {
 
     CGFloat stringHeight = self.attributedStringValue.size.height;
@@ -43,10 +50,11 @@ fprintf(stderr, "%s\n",                                                    \
 
 @end
 
-@interface SideInfoView () <NSTextFieldDelegate>
+@interface SideInfoView ()
 {
     NSBox *topSpacer;
-    NSImageView *imageView;
+    ImageView *imageView;
+
     NSTextField *titleField;
     NSTextField *headlineField;
     NSTextField *authorField;
@@ -54,10 +62,29 @@ fprintf(stderr, "%s\n",                                                    \
     NSTextField *ifidField;
 
     CGFloat totalHeight;
+
+    NSSet<NSPasteboardType> *acceptableTypes;
+    NSSet<NSPasteboardType> *nonURLTypes;
+    BOOL isReceivingDrag;
 }
 @end
 
 @implementation SideInfoView
+
++ (BOOL)isCompatibleWithResponsiveScrolling {
+    return YES;
+}
+
+- (instancetype)initWithFrame:(NSRect)frameRect {
+    self = [super initWithFrame:frameRect];
+    if (self) {
+        nonURLTypes = [NSSet setWithObjects:NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil];
+        acceptableTypes = [NSSet setWithObject:NSURLPboardType];
+        acceptableTypes = [acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
+        [self registerForDraggedTypes:acceptableTypes.allObjects];
+    }
+    return self;
+}
 
 - (BOOL) isFlipped { return YES; }
 
@@ -71,7 +98,7 @@ fprintf(stderr, "%s\n",                                                    \
     return NO;
 }
 
-- (NSTextField *) addSubViewWithtext:(NSString *)text andFont:(NSFont *)font andSpaceBefore:(CGFloat)space andLastView:(id)lastView
+- (NSTextField *)addSubViewWithtext:(NSString *)text andFont:(NSFont *)font andSpaceBefore:(CGFloat)space andLastView:(id)lastView
 {
     NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
 
@@ -112,7 +139,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSTextField *textField = [[NSTextField alloc] initWithFrame:contentRect];
 
-    textField.delegate = self;
+//    textField.delegate = self;
 
     textField.translatesAutoresizingMaskIntoConstraints = NO;
 
@@ -187,6 +214,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self addConstraint:widthConstraint];
     [self addConstraint:rightMarginConstraint];
 
+    if (space != 23) {
     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:textField
                                                                         attribute:NSLayoutAttributeHeight
                                                                         relatedBy:NSLayoutRelationGreaterThanOrEqual
@@ -196,19 +224,34 @@ fprintf(stderr, "%s\n",                                                    \
                                                                          constant: contentRect.size.height + 1];
 
     [self addConstraint:heightConstraint];
+    }
 
     totalHeight += NSHeight(textField.bounds) + space;
 
     return textField;
 }
 
+- (void)scrollWheel:(NSEvent *)event {
+    [super scrollWheel:event];
 
-- (void) updateSideViewWithGame:(Game *)somegame scroll:(BOOL)shouldScroll
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    if (_animatingScroll) {
+        [self cancelScrollAnimation];
+    }
+}
+
+- (void)updateSideViewWithGame:(Game *)somegame
 {
+    NSClipView *clipView = (NSClipView *)self.superview;
+    [clipView scrollToPoint: NSMakePoint(0, 0)];
+
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
     Metadata *somedata = somegame.metadata;
 
     if (somedata.blurb == nil && somedata.author == nil && somedata.headline == nil && somedata.cover == nil) {
         ifidField.stringValue = somegame.ifid;
+        _game = somegame;
         [self updateSideViewWithString:somedata.title];
         return;
     }
@@ -228,8 +271,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     self.translatesAutoresizingMaskIntoConstraints = NO;
 
-    NSClipView *clipView = (NSClipView *)self.superview;
-    NSScrollView *scrollView = (NSScrollView *)clipView.superview;
     CGFloat superViewWidth = clipView.frame.size.width;
 
     if (superViewWidth < 24)
@@ -266,19 +307,13 @@ fprintf(stderr, "%s\n",                                                    \
 
         CGFloat ratio = theImage.size.width / theImage.size.height;
 
-        // We make the image double size to make enlarging when draggin divider to the right work
-        theImage.size = NSMakeSize(superViewWidth * 2, superViewWidth * 2 / ratio );
+        imageView = [[ImageView alloc] initWithGame:somegame image:theImage];
 
-        imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0,0,theImage.size.width,theImage.size.height)];
-
-        imageView.accessibilityLabel = somedata.coverArtDescription;
-
-        [self addSubview:imageView];
-
-        imageView.imageScaling = NSImageScaleProportionallyUpOrDown;
         imageView.translatesAutoresizingMaskIntoConstraints = NO;
 
-        imageView.imageScaling = NSImageScaleProportionallyUpOrDown;
+        imageView.frame = NSMakeRect(0,0, superViewWidth * 2, superViewWidth * 2 / ratio);
+
+        [self addSubview:imageView];
 
         xPosConstraint = [NSLayoutConstraint constraintWithItem:imageView
                                                       attribute:NSLayoutAttributeLeft
@@ -326,8 +361,6 @@ fprintf(stderr, "%s\n",                                                    \
         [self addConstraint:heightConstraint];
         rightMarginConstraint.priority = 999;
         [self addConstraint:rightMarginConstraint];
-
-        imageView.image = theImage;
 
         lastView = imageView;
     } else {
@@ -468,10 +501,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self addSubview:divider];
 
-    [self addConstraint:xPosConstraint];
-    [self addConstraint:yPosConstraint];
-    [self addConstraint:widthConstraint];
-    [self addConstraint:heightConstraint];
+    [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
 
     lastView = divider;
 
@@ -550,7 +580,7 @@ fprintf(stderr, "%s\n",                                                    \
                                                             attribute:NSLayoutAttributeTop
                                                            multiplier:1.0
                                                              constant:topConstraintConstant];
-        topSpacerYConstraint.priority = 999;
+//        topSpacerYConstraint.priority = 999;
 
         if (clipView.frame.size.height < self.frame.size.height) {
             topSpacerYConstraint.constant = 0;
@@ -561,57 +591,83 @@ fprintf(stderr, "%s\n",                                                    \
 
     }
 
-    if (_game != somegame && shouldScroll) {
+    [self performSelector:@selector(scrollToTop:) withObject:nil afterDelay:0.05];
 
-        [clipView scrollToPoint: NSMakePoint(0.0, 0.0)];
-        [scrollView reflectScrolledClipView:clipView];
+    if (_game != somegame) {
+
+//        [scrollView reflectScrolledClipView:clipView];
 
         [self performSelector:@selector(fixScroll:) withObject:@(clipView.bounds.origin.y) afterDelay:2];
+    } else {
+        NSLog(@"_game == somegame. Don't scroll");
     }
 
     _game = somegame;
 }
 
+- (void)scrollToTop:(id)sender {
+    NSClipView *clipView = (NSClipView *)self.superview;
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
+        context.duration = 0.2;
+        clipView.animator.boundsOrigin = NSZeroPoint;
+    } completionHandler:nil];
+}
+
 - (void)fixScroll:(id)sender {
 
     NSClipView *clipView = (NSClipView *)self.superview;
-    NSScrollView *scrollView = (NSScrollView *)clipView.superview;
 
     if ([sender floatValue] != clipView.bounds.origin.y)
         return;
 
     if (clipView.frame.size.height >= self.frame.size.height) {
-        //        NSLog(@"fixScroll: Sideview fits within scrollview");
+        return;
+    }
+
+    if (clipView.frame.size.height >= NSMaxY(titleField.frame)) {
         return;
     }
 
     CGFloat titleYpos;
     if (imageView)
-        titleYpos = NSHeight(imageView.frame) + NSHeight(titleField.frame);
+        titleYpos = NSMaxY(imageView.frame);
     else
-        titleYpos = clipView.frame.size.height / 2;
-    CGFloat yPoint = titleYpos - (clipView.frame.size.height / 2);
-    if (yPoint < 0) {
-        yPoint = 0;
+        titleYpos = 0;
+
+    if (titleYpos < 0) {
+        titleYpos = 0;
     }
-    if (yPoint > NSMaxY(self.frame) - clipView.frame.size.height) {
-        yPoint = NSMaxY(self.frame) - clipView.frame.size.height;
+    if (titleYpos > NSMaxY(self.frame) - clipView.frame.size.height) {
+        titleYpos = NSMaxY(self.frame) - clipView.frame.size.height;
     }
 
     NSPoint newOrigin = [clipView bounds].origin;
-    if (fabs(newOrigin.y - yPoint) < NSHeight(self.frame) / 10)
-        return;
-    newOrigin.y = yPoint;
+//    if (fabs(newOrigin.y - titleYpos) < NSHeight(self.frame) / 10)
+//        return;
+    newOrigin.y = titleYpos;
 
+    _animatingScroll = YES;
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 4;
+
+        [[clipView animator] setBoundsOrigin:newOrigin];
+    }
+     completionHandler:^{
+        self.animatingScroll = NO;
+    }];
+}
+
+- (void)cancelScrollAnimation {
+    _animatingScroll = NO;
+    NSClipView *clipView = (NSClipView *)self.superview;
     [NSAnimationContext beginGrouping];
-    [[NSAnimationContext currentContext] setDuration:4];
-
-    [[clipView animator] setBoundsOrigin:newOrigin];
-    [scrollView reflectScrolledClipView: [scrollView contentView]]; // may not bee necessary
+    [[NSAnimationContext currentContext] setDuration:0.001];
+    [[clipView animator] setBoundsOrigin:clipView.bounds.origin];
     [NSAnimationContext endGrouping];
 }
 
-- (void) updateSideViewWithString:(NSString *)aString {
+- (void)updateSideViewWithString:(NSString *)aString {
     NSFont *font;
     NSClipView *clipView = (NSClipView *)self.superview;
     if (!aString)
@@ -645,6 +701,185 @@ fprintf(stderr, "%s\n",                                                    \
 
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:aString attributes:attr];
     titleField.attributedStringValue = attrString;
+
+    if (_game && !_game.hasDownloaded) {
+        if (!_downloadButton)
+            _downloadButton = [self createDownloadButtonInView:titleField];
+        _downloadButton.alphaValue = 0.4;
+        if (_downloadButton.superview != titleField) {
+            [titleField addSubview:_downloadButton];
+
+            // We need to add these constraints in order to make the button
+            // stay in position when resizing the side view
+            _downloadButton.translatesAutoresizingMaskIntoConstraints = NO;
+
+            NSLayoutConstraint *xPosConstraint = [NSLayoutConstraint constraintWithItem:_downloadButton attribute:NSLayoutAttributeCenterX
+                                                   relatedBy:NSLayoutRelationEqual
+                                                      toItem:self
+                                                   attribute:NSLayoutAttributeCenterX
+                                                  multiplier:1
+                                                    constant:0];
+
+            NSLayoutConstraint *yPosConstraint = [NSLayoutConstraint constraintWithItem:_downloadButton attribute:NSLayoutAttributeCenterY
+                                                   relatedBy:NSLayoutRelationEqual
+                                                      toItem:self
+                                                   attribute:NSLayoutAttributeCenterY
+                                                  multiplier:1
+                                                    constant:65];
+
+            NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_downloadButton attribute:NSLayoutAttributeWidth
+                                                   relatedBy:NSLayoutRelationEqual
+                                                      toItem:nil
+                                                   attribute:NSLayoutAttributeNotAnAttribute
+                                                  multiplier:1.0
+                                                    constant:40];
+
+            NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_downloadButton attribute:NSLayoutAttributeHeight
+                                                   relatedBy:NSLayoutRelationEqual
+                                                      toItem:nil
+                                                   attribute:NSLayoutAttributeNotAnAttribute
+                                                  multiplier:1.0
+                                                    constant:40];
+
+
+            [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
+            if (clipView.bounds.size.height < 200)
+                [self scrollToTop:nil];
+        }
+    } else {
+        [_downloadButton removeFromSuperview];
+    }
+}
+
+#pragma mark Download button
+- (NSButton *)createDownloadButtonInView:(NSView *)view {
+    // The actual size and position of the button is taken care of
+    // by the constraints added in the caller above
+    NSButton *button = [[NSButton alloc] initWithFrame:NSZeroRect];
+    button.buttonType = NSPushOnPushOffButton;
+    NSImage *image = [NSImage imageNamed:@"Download"];
+    NSImage *tintedimage = [image imageWithTint:[NSColor disabledControlTextColor]];
+    button.image = tintedimage;
+    button.imageScaling = NSImageScaleProportionallyUpOrDown;
+    button.imagePosition = NSImageOnly;
+    button.alignment = NSCenterTextAlignment;
+    button.bordered = NO;
+    button.bezelStyle = NSShadowlessSquareBezelStyle;
+    button.toolTip = NSLocalizedString(@"Download game info", nil);
+    button.accessibilityLabel = NSLocalizedString(@"download info", nil);
+
+    button.target = self;
+    button.action = @selector(download:);
+    return button;
+}
+
+- (void)download:(id)sender {
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.3;
+        [[_downloadButton animator] setAlphaValue:0];
+    } completionHandler:^{
+        LibController *libcontroller = ((AppDelegate *)[NSApplication sharedApplication].delegate).libctl;
+        [libcontroller download:self.downloadButton];
+    }];
+}
+
+#pragma mark Drag destination
+
+- (BOOL)shouldAllowDrag:(id<NSDraggingInfo>)draggingInfo {
+
+    if (imageView.numberForSelfSourcedDrag == draggingInfo.draggingSequenceNumber)
+        return NO;
+
+    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:[NSImage imageTypes]};
+
+    BOOL canAccept = NO;
+
+    NSPasteboard *pasteBoard = draggingInfo.draggingPasteboard;
+
+    if ([pasteBoard canReadObjectForClasses:@[[NSURL class]] options:filteringOptions]) {
+        canAccept = YES;
+    } else {
+        NSMutableSet *types = [NSMutableSet setWithArray:pasteBoard.types];
+        [types intersectSet:acceptableTypes];
+        if (types.count)
+            canAccept = YES;
+    }
+    return canAccept;
+}
+
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
+    BOOL allow = [self shouldAllowDrag:sender];
+    isReceivingDrag = allow;
+    return allow ? NSDragOperationCopy : NSDragOperationNone;
+}
+
+- (void)draggingExited:(id<NSDraggingInfo>)sender {
+    isReceivingDrag = NO;
+}
+
+- (BOOL)prepareForDragOperation:(id<NSDraggingInfo>)sender {
+    BOOL allow = [self shouldAllowDrag:sender];
+    return allow;
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)draggingInfo {
+    NSArray *types = [NSImage imageTypes];
+    types = [types arrayByAddingObjectsFromArray:@[@"public.neochrome", @"public.mcga", @"public.dat"]];
+    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:types};
+
+    isReceivingDrag = NO;
+    NSPasteboard *pasteBoard = draggingInfo.draggingPasteboard;
+
+    NSArray<NSURL *> *urls = [pasteBoard readObjectsForClasses:@[[NSURL class]] options:filteringOptions];
+
+    NSImage *image;
+    if (urls.count == 1) {
+        NSURL *url = urls.firstObject;
+        image = [[NSImage alloc] initWithContentsOfURL:url];
+        if (image) {
+            [self processImage:image];
+            return YES;
+        } else {
+            NSData *data = [NSData imageDataFromRetroURL:url];
+            if (data) {
+                [self processImageData:data];
+                return YES;
+            }
+        }
+    } else {
+        image = [[NSImage alloc] initWithPasteboard:pasteBoard];
+        if (image) {
+            [self processImage:image];
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+-(void)processImage:(NSImage *)image {
+    NSData *data = image.TIFFRepresentation;
+    [self processImageData:data];
+}
+
+-(void)processImageData:(NSData *)image {
+    double delayInSeconds = 0.1;
+    Metadata *metadata = _game.metadata;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        ImageCompareViewController *compare = [ImageCompareViewController new];
+        if ([compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data]) {
+            IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
+            [downloader insertImage:image inMetadata:metadata];
+        }
+    });
+}
+
+- (void)deselectImage {
+    if (imageView) {
+        [imageView resignFirstResponder];
+    }
 }
 
 @end

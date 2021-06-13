@@ -44,6 +44,7 @@
                 <outlet property="detailsHeader" destination="867" id="899"/>
                 <outlet property="divider" destination="926" id="927"/>
                 <outlet property="errorHandlingPopup" destination="KHT-r6-CgA" id="fER-hD-rGE"/>
+                <outlet property="imageReplacePopup" destination="c9J-1h-Raa" id="pKi-gv-HAZ"/>
                 <outlet property="marginHorizontalBufferStepper" destination="Ga3-o5-Ocm" id="hvu-sd-KQ8"/>
                 <outlet property="marginHorizontalBufferTextField" destination="yB9-OX-32B" id="1gw-Ra-aue"/>
                 <outlet property="marginHorizontalGridStepper" destination="dCc-8W-ciK" id="am9-M7-Bjg"/>
@@ -1342,6 +1343,24 @@
                                                 <action selector="resetDialogs:" target="-2" id="T7R-eM-scm"/>
                                             </connections>
                                         </button>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c9J-1h-Raa" userLabel="Image replacement popup">
+                                            <rect key="frame" x="283" y="112" width="159" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="Don't replace" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="bmY-pg-Bhf" id="Kc8-cm-DiO">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="Cte-jk-UVF">
+                                                    <items>
+                                                        <menuItem title="Don't replace" state="on" id="bmY-pg-Bhf" userLabel="Don't replace"/>
+                                                        <menuItem title="Always replace" tag="1" id="LfT-Jm-YdF" userLabel="Always replace"/>
+                                                        <menuItem title="Ask" tag="2" id="cbV-Ai-FlI" userLabel="Ask"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                            <connections>
+                                                <action selector="changeImageReplacePopup:" target="-2" id="Ywq-FC-9uv"/>
+                                            </connections>
+                                        </popUpButton>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1494,7 +1513,7 @@
                     </connections>
                 </stepper>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dCc-8W-ciK">
-                    <rect key="frame" x="93" y="34" width="19" height="30"/>
+                    <rect key="frame" x="96" y="34" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="tqI-nu-LAN"/>
                     <connections>
@@ -1502,7 +1521,7 @@
                     </connections>
                 </stepper>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ga3-o5-Ocm">
-                    <rect key="frame" x="93" y="5" width="19" height="30"/>
+                    <rect key="frame" x="96" y="5" width="19" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="kFL-J0-zbi"/>
                     <connections>

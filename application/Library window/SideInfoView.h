@@ -10,13 +10,17 @@
 
 @class Game;
 
-@interface SideInfoView : NSView <NSTextFieldDelegate>
+@interface SideInfoView : NSView <NSDraggingDestination>
 
 @property (weak) Game *game;
 @property (weak) NSString *string;
+@property NSButton *downloadButton;
 
+@property BOOL animatingScroll;
 
-- (void) updateSideViewWithGame:(Game *)somegame scroll:(BOOL)shouldScroll;
-- (void) updateSideViewWithString:(NSString *)string;
+- (instancetype)initWithFrame:(NSRect)frameRect;
+- (void)updateSideViewWithGame:(Game *)somegame;
+- (void)updateSideViewWithString:(NSString *)string;
+- (void)deselectImage;
 
 @end

@@ -18,7 +18,6 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 @property (weak) Game *game;
 @property (weak) LibController *libcontroller;
 
-
 @property NSString *path;
 @property Metadata *meta;
 
@@ -27,6 +26,8 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 @property IBOutlet NSTextField *titleField;
 
 - (instancetype)initWithGame:(Game *)game;
+
+// Used for window restoration
 - (instancetype)initWithpath:(NSString *)path;
 
 - (void)animateIn:(NSRect)frame;

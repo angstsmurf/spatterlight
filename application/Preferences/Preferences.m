@@ -456,6 +456,8 @@ NSString *fontToString(NSFont *font) {
     _btnDeterminism.state = theme.determinism;
     _btnNoHacks.state = theme.nohacks ? NSOffState : NSOnState;
 
+    [_imageReplacePopup selectItemWithTag:[defaults integerForKey:@"ImageReplacement"]];
+
     if (theme.minTimer != 0) {
         if (_timerSlider.integerValue != 1000.0 / theme.minTimer) {
             _timerSlider.integerValue = (long)(1000.0 / theme.minTimer);
@@ -1592,6 +1594,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeErrorHandlingPopup:(id)sender {
     [self changeMenuAttribute:@"errorHandling" fromPopUp:sender];
+}
+- (IBAction)changeImageReplacePopup:(NSPopUpButton *)sender {
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"ImageReplacement"] == sender.selectedTag)
+        return;
+
+    [[NSUserDefaults standardUserDefaults]  setInteger:sender.selectedTag forKey:@"ImageReplacement"];
 }
 
 #pragma mark End of Misc menu

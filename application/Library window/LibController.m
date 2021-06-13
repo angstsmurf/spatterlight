@@ -2190,7 +2190,8 @@ objectValueForTableColumn: (NSTableColumn*)column
     }
 
     if (force == NO && game && game == currentSideView) {
-        //NSLog(@"updateSideView: %@ is already shown and force is NO", game.metadata.title);
+        // If game is already shown and force is NO,
+        // don't recreate the side view
         return;
     }
 
@@ -2202,12 +2203,12 @@ objectValueForTableColumn: (NSTableColumn*)column
     SideInfoView *infoView = [[SideInfoView alloc] initWithFrame:_leftScrollView.frame];
     
     _leftScrollView.documentView = infoView;
-    _sideIfid.delegate = infoView;
+//    _sideIfid.delegate = infoView;
 
     _sideIfid.stringValue = @"";
 
     if (game) {
-        [infoView updateSideViewWithGame:game scroll:(game != currentSideView)];
+        [infoView updateSideViewWithGame:game];
         //NSLog(@"\nUpdating info pane for %@ with ifid %@", game.metadata.title, game.ifid);
         //NSLog(@"Side view width: %f", NSWidth(_leftView.frame));
 
@@ -2223,6 +2224,16 @@ objectValueForTableColumn: (NSTableColumn*)column
 #pragma mark -
 #pragma mark SplitView stuff
 
+- (void)restoreSideViewSelection:(id)sender {
+    [self updateSideViewForce:YES];
+}
+
+- (void)windowDidResignKey:(NSNotification *)notification {
+    if ([_leftScrollView.documentView isKindOfClass:[SideInfoView class]]) {
+        SideInfoView *sideView = (SideInfoView *)_leftScrollView.documentView;
+        [sideView deselectImage];
+    }
+}
 
 - (BOOL)splitView:(NSSplitView *)splitView
 canCollapseSubview:(NSView *)subview

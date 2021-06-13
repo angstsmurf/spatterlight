@@ -39,6 +39,12 @@ typedef enum kBZArrowsPrefsType : int32_t {
     kBZArrowsOriginal,
 } kBZArrowsPrefsType;
 
+typedef enum kImageReplacementPrefsType : int32_t {
+    kNeverReplace,
+    kAlwaysReplace,
+    kAskIfReplace,
+} kImageReplacementPrefsType;
+
 
 @class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, LibController, DummyTextView, ParagraphPopOver;
 
@@ -71,6 +77,7 @@ typedef enum kBZArrowsPrefsType : int32_t {
 + (Preferences *)instance;
 
 + (void)changeCurrentGame:(Game *)game;
+- (void)updatePrefsPanel;
 
 @property BOOL previewShown;
 @property (strong) GlkTextBufferWindow *glktxtbuf;
@@ -137,6 +144,7 @@ typedef enum kBZArrowsPrefsType : int32_t {
 @property (weak) IBOutlet NSButton *btnNoHacks;
 @property (weak) IBOutlet NSButton *btnDeterminism;
 @property (weak) IBOutlet NSPopUpButton *errorHandlingPopup;
+@property (weak) IBOutlet NSPopUpButton *imageReplacePopup;
 
 @property DummyTextView *dummyTextView;
 
