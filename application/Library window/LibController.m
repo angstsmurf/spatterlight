@@ -274,24 +274,31 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     languageCodes = mutablelanguageCodes;
 
+    // Add metadata and games from plists to Core Data store if we have just created a new one
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"] == NO) {
+        [self convertLibraryToCoreData];
+    }
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:_managedObjectContext];
 
-    // Add metadata and games from plists to Core Data store if we have just created a new one
+
     _gameTableModel = [[self fetchObjects:@"Game" predicate:nil inContext:_managedObjectContext] mutableCopy];
 
     [self rebuildThemesSubmenu];
     [self performSelector:@selector(restoreSideViewSelection:) withObject:nil afterDelay:0.1];
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"]) {
-        [self convertLibraryToCoreData];
+    if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_12) {
+        [self.window setValue:@2 forKey:@"tabbingMode"];
     }
 }
 
-- (void)restoreSideViewSelection:(id)sender {
-    [self updateSideViewForce:YES];
+- (void)windowDidBecomeKey:(NSNotification *)notification {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasAskedToDownload"] == NO) {
+        [self askToDownload];
+    }
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
@@ -325,7 +332,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         NSSet *ifidsToKeep = [[NSSet alloc] init];
 
         for (GlkController *ctl in [_gameSessions allValues]) {
-            if (forceQuit) {
+            if (forceQuit || !ctl.alive) {
                 [ctl.window close];
             } else {
                 Game *game = ctl.game;
@@ -689,8 +696,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
      }];
 }
 
-- (IBAction) download:(id)sender
-{
+- (IBAction)download:(id)sender {
     NSIndexSet *rows = _gameTableView.selectedRowIndexes;
 
     if ((_gameTableView.clickedRow != -1) && ![_gameTableView isRowSelected:_gameTableView.clickedRow])
@@ -698,60 +704,66 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     if (rows.count > 0)
     {
-        LibController * __unsafe_unretained weakSelf = self;
-        NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
-        childContext.undoManager = nil;
+        [self downloadGames:[_gameTableModel objectsAtIndexes:rows]];
+    }
+}
 
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(backgroundManagedObjectContextDidChange:)
-                                                     name:NSManagedObjectContextObjectsDidChangeNotification
-                                                   object:childContext];
-        _currentlyAddingGames = YES;
-        _addButton.enabled = NO;
+- (void)downloadGames:(NSArray<Game *> *)games {
+    LibController * __unsafe_unretained weakSelf = self;
+    NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
+    childContext.undoManager = nil;
 
-        [childContext performBlock:^{
-            IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
-            BOOL result = NO;
-            for (Game *game in [weakSelf.gameTableModel objectsAtIndexes:rows]) {
-                if (!weakSelf.currentlyAddingGames)
-                    break;
-                [weakSelf beginImporting];
-                
-                //It makes some kind of sense to also check if the game file still exists while downloading metadata
-                if (![[NSFileManager defaultManager] isReadableFileAtPath:[game urlForBookmark].path])
-                    game.found = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(backgroundManagedObjectContextDidChange:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:childContext];
+    _currentlyAddingGames = YES;
+    _addButton.enabled = NO;
 
-                result = [downloader downloadMetadataFor:game];
+    [childContext performBlock:^{
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
+        BOOL result = NO;
+        for (Game *game in games) {
+            if (!weakSelf.currentlyAddingGames)
+                break;
+            [weakSelf beginImporting];
 
-                if (result) {
-                    NSError *error = nil;
-                    if (childContext.hasChanges) {
-                        if (![childContext save:&error]) {
-                            if (error) {
-                                [[NSApplication sharedApplication] presentError:error];
-                            }
-                            game.metadata.source = @(kIfdb);
+            game.hasDownloaded = YES;
+
+            //It makes some kind of sense to also check if the game file still exists while downloading metadata
+            if (![[NSFileManager defaultManager] isReadableFileAtPath:[game urlForBookmark].path])
+                game.found = NO;
+
+            result = [downloader downloadMetadataFor:game];
+
+            if (result) {
+                NSError *error = nil;
+                if (childContext.hasChanges) {
+                    if (![childContext save:&error]) {
+                        if (error) {
+                            [[NSApplication sharedApplication] presentError:error];
                         }
+                        game.metadata.source = @(kIfdb);
                     }
                 }
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.currentlyAddingGames = NO;
-                weakSelf.addButton.enabled = YES;
-                if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.currentlyAddingGames = NO;
+            weakSelf.addButton.enabled = YES;
+            if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
 
-                    [weakSelf.coreDataManager saveChanges];
-                    for (Game *aGame in [weakSelf.gameTableModel objectsAtIndexes:rows]) {
-                        [weakSelf.managedObjectContext refreshObject:aGame.metadata
-                                                mergeChanges:YES];
-                    }
-                    [weakSelf updateSideViewForce:YES];
+                [weakSelf.coreDataManager saveChanges];
+                for (Game *aGame in games) {
+                    [weakSelf.managedObjectContext refreshObject:aGame.metadata
+                                                    mergeChanges:YES];
                 }
-            });
+                [weakSelf updateSideViewForce:YES];
+            }
+        });
 
-            [weakSelf endImporting];
-        }];
-    }
+        [weakSelf endImporting];
+    }];
 }
 
 - (void)rebuildThemesSubmenu {
@@ -1373,9 +1385,55 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             [weakSelf endImporting];
             weakSelf.addButton.enabled = YES;
             weakSelf.currentlyAddingGames = NO;
+            [weakSelf askToDownload];
         });
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasConvertedLibrary"];
     }];
+}
+
+- (void)askToDownload {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasAskedToDownload"])
+        return;
+
+    NSError *error = nil;
+    NSArray *fetchedObjects;
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+    fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hasDownloaded = YES"];
+
+    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"fetchMetadataForIFID: %@",error);
+    }
+
+    if (fetchedObjects.count == 0)
+    {
+        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:_managedObjectContext];
+        fetchRequest.predicate = nil;
+        fetchRequest.includesPropertyValues = NO;
+        fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+        if (fetchedObjects.count == 0)
+            return;
+
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasAskedToDownload"];
+
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.messageText = NSLocalizedString(@"Do you want to download game info from IFDB in the background?", nil);
+        alert.informativeText = NSLocalizedString(@"This will only be done once. You can do this later by selecting games in the library and choosing Download Info from the contextual menu.", nil);
+        [alert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
+        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+
+
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+
+            if (result == NSAlertFirstButtonReturn) {
+                [self downloadGames:fetchedObjects];
+            }
+        }];
+    }
 }
 
 - (Metadata *)importMetadataFromXML:(NSData *)mdbuf inContext:(NSManagedObjectContext *)context {
