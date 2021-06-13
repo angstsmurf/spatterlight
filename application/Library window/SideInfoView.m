@@ -19,6 +19,7 @@
 #import "ImageView.h"
 #import "ImageCompareViewController.h"
 #import "IFDBDownloader.h"
+#import "NSFont+Categories.h"
 
 
 #ifdef DEBUG
@@ -110,6 +111,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (font.pointSize > 25)
         para.maximumLineHeight = para.maximumLineHeight + 3;
+
+    para.hyphenationFactor = 0.2f;
 
     para.alignment = NSCenterTextAlignment;
     para.lineSpacing = 1;
@@ -209,22 +212,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self addSubview:textField];
 
-    [self addConstraint:xPosConstraint];
-    [self addConstraint:yPosConstraint];
-    [self addConstraint:widthConstraint];
-    [self addConstraint:rightMarginConstraint];
-
-    if (space != 23) {
-    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:textField
-                                                                        attribute:NSLayoutAttributeHeight
-                                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                                           toItem:nil
-                                                                        attribute:NSLayoutAttributeNotAnAttribute
-                                                                       multiplier:1.0
-                                                                         constant: contentRect.size.height + 1];
-
-    [self addConstraint:heightConstraint];
-    }
+    [self addConstraints:@[ xPosConstraint, yPosConstraint ,widthConstraint, rightMarginConstraint ]];
 
     totalHeight += NSHeight(textField.bounds) + space;
 
@@ -249,7 +237,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     Metadata *somedata = somegame.metadata;
 
-    if (somedata.blurb == nil && somedata.author == nil && somedata.headline == nil && somedata.cover == nil) {
+    if (somedata.blurb.length == 0 && somedata.author.length == 0 && somedata.headline.length == 0 && somedata.cover == nil) {
         ifidField.stringValue = somegame.ifid;
         _game = somegame;
         [self updateSideViewWithString:somedata.title];
@@ -359,6 +347,7 @@ fprintf(stderr, "%s\n",                                                    \
         [self addConstraint:yPosConstraint];
         [self addConstraint:widthConstraint];
         [self addConstraint:heightConstraint];
+
         rightMarginConstraint.priority = 999;
         [self addConstraint:rightMarginConstraint];
 
@@ -442,10 +431,10 @@ fprintf(stderr, "%s\n",                                                    \
         //NSLog (@"Longest word: %@", longestWord);
 
         // The magic number -24 means 10 points of margin and two points of textfield border on each side.
-        while ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > superViewWidth - 24)
+        if ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > superViewWidth - 24)
         {
             //            NSLog(@"Font too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
-            font = [[NSFontManager sharedFontManager] convertFont:font toSize:font.pointSize - 2];
+            font = [font fontToFitWidth:superViewWidth - 24 sampleText:longestWord];
         }
         //        NSLog(@"Font not too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
 
@@ -749,6 +738,50 @@ fprintf(stderr, "%s\n",                                                    \
     } else {
         [_downloadButton removeFromSuperview];
     }
+}
+
+- (void)updateTitle {
+
+    Metadata *somedata = _game.metadata;
+
+    if (somedata.blurb.length == 0 && somedata.author.length == 0 && somedata.headline.length == 0 && somedata.cover == nil) {
+        return;
+    }
+
+    NSMutableAttributedString *titleString = titleField.attributedStringValue.mutableCopy;
+
+    NSFont *font = [titleString attribute:NSFontAttributeName atIndex:0 effectiveRange:nil];
+
+    if (somedata.title.length > 9)
+    {
+        font = [[NSFontManager sharedFontManager] convertFont:font toSize:30];
+    }
+    else
+    {
+        font = [[NSFontManager sharedFontManager] convertFont:font toSize:50];
+    }
+
+    NSString *longestWord = @"";
+
+    for (NSString *word in [somedata.title componentsSeparatedByString:@" "])
+    {
+        if (word.length > longestWord.length) longestWord = word;
+    }
+
+    // The magic number -24 means 10 points of margin and two points of textfield border on each side.
+    CGFloat width = self.frame.size.width - 24;
+
+    if ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > width)
+    {
+
+        font = [font fontToFitWidth:width sampleText:longestWord];
+    }
+
+    [titleString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, titleString.length)];
+
+    titleField.attributedStringValue = titleString;
+
+//    [titleField sizeToFit];
 }
 
 #pragma mark Download button

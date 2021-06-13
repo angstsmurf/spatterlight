@@ -583,6 +583,7 @@
 		C359791F25DA19B7004B1448 /* UKSyntaxColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */; };
 		C359795525DA19BF004B1448 /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */; };
 		C359797025DA19DA004B1448 /* iFiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3E2EAB325D08EEC0012B7FB /* iFiction.plist */; };
+		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
 		C360FAFF25DAFD020050AA10 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813931ED83DF0001E49C4 /* SDL2_mixer.framework */; };
 		C360FB0225DAFD040050AA10 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C35813941ED83DF8001E49C4 /* SDL2.framework */; };
@@ -2583,6 +2584,8 @@
 		C35978C725DA14A6004B1448 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/iFictionPreviewController.xib; sourceTree = "<group>"; };
 		C35978C925DA14A6004B1448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C35978CA25DA14A6004B1448 /* iFictionQuickLook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iFictionQuickLook.entitlements; sourceTree = "<group>"; };
+		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
+		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
 		C35ED513256DD37A00C14847 /* InputHistory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputHistory.h; sourceTree = "<group>"; };
 		C35ED514256DD37A00C14847 /* InputHistory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputHistory.m; sourceTree = "<group>"; };
 		C38101291EDA297E00B87B68 /* GlkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkController.m; sourceTree = "<group>"; };
@@ -2959,6 +2962,8 @@
 				C3191AA0266CDD1200528F6E /* NSView+snapshot.m */,
 				C3191AA2266D3A1F00528F6E /* NSBitmapImageRep+retro.h */,
 				C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */,
+				C35C54022676613800294FE7 /* NSFont+Categories.h */,
+				C35C54032676613800294FE7 /* NSFont+Categories.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -6167,6 +6172,7 @@
 				6DC6214323A26078002DEF3B /* Tag.m in Sources */,
 				6DC6214623A26078002DEF3B /* Interpreter.m in Sources */,
 				C3AD647326176982008614C5 /* FlowBreak.m in Sources */,
+				C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */,
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
 				C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */,
 				C33B4504257E84500017EA26 /* ZMenu.m in Sources */,

@@ -19,6 +19,7 @@
 #import "BureaucracyForm.h"
 
 #import "NSColor+integer.h"
+#import "NSFont+Categories.h"
 
 #include "glkimp.h"
 
@@ -1612,8 +1613,8 @@
     NSString *normalTextSample = [self sampleStringWithString:@"The horizon is lost in the glare of morning upon the Great Sea. "];
     NSString *zorkTextSample = [self sampleStringWithString:@"/''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''0 "];
 
-    CGFloat desiredWidth = [self widthForPointSize:pointSize baseFont:self.theme.gridNormal.font sampleText:normalTextSample];
-    zorkFont = [self fontToFitWidth:desiredWidth baseFont:zorkFont sampleText:zorkTextSample];
+    CGFloat desiredWidth = [self.theme.gridNormal.font widthForPointSize:pointSize sampleText:normalTextSample];
+    zorkFont = [zorkFont fontToFitWidth:desiredWidth sampleText:zorkTextSample];
     // Then we switch off anything that may cause gaps in the default BlockQuote style font
     NSMutableDictionary *beyondZorkStyle = [styles[style_Normal] mutableCopy];
     NSString *normalFontName = self.theme.gridNormal.font.fontName;
@@ -1668,49 +1669,49 @@
 // Find a font size to match a certain width in points.
 // This is really only necessary on 10.7, which can't give exact character width for fonts,
 // but I think it give slightly better results (less gaps) on recent systems as well.
-
-- (NSFont *)fontToFitWidth:(CGFloat)desiredWidth baseFont:(NSFont *)font sampleText:(NSString *)text {
-    {
-        if (!text.length || desiredWidth < 2) {
-            return font;
-        }
-
-        CGFloat guess;
-        CGFloat guessWidth;
-
-        guess = font.pointSize;
-        if (guess > 1 && guess < 1000) { guess = 50; }
-
-        guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
-
-        if (guessWidth == desiredWidth) {
-            return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-        }
-
-        NSInteger iterations = 4;
-
-        while(iterations > 0) {
-            guess = guess * ( desiredWidth / guessWidth );
-            guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
-
-            if (guessWidth == desiredWidth)
-            {
-                return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-            }
-
-            iterations -= 1;
-        }
-        return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-    }
-}
-
-- (CGFloat)widthForPointSize:(CGFloat)guess baseFont:(NSFont *)font sampleText:(NSString *)text {
-    NSFont *newFont = [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:newFont forKey:NSFontAttributeName];
-    CGFloat textWidth = [text sizeWithAttributes:dic].width;
-    return textWidth;
-}
+//
+//- (NSFont *)fontToFitWidth:(CGFloat)desiredWidth baseFont:(NSFont *)font sampleText:(NSString *)text {
+//    {
+//        if (!text.length || desiredWidth < 2) {
+//            return font;
+//        }
+//
+//        CGFloat guess;
+//        CGFloat guessWidth;
+//
+//        guess = font.pointSize;
+//        if (guess > 1 && guess < 1000) { guess = 50; }
+//
+//        guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
+//
+//        if (guessWidth == desiredWidth) {
+//            return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+//        }
+//
+//        NSInteger iterations = 4;
+//
+//        while(iterations > 0) {
+//            guess = guess * ( desiredWidth / guessWidth );
+//            guessWidth = [self widthForPointSize:guess baseFont:font sampleText:text];
+//
+//            if (guessWidth == desiredWidth)
+//            {
+//                return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+//            }
+//
+//            iterations -= 1;
+//        }
+//        return [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+//    }
+//}
+//
+//- (CGFloat)widthForPointSize:(CGFloat)guess baseFont:(NSFont *)font sampleText:(NSString *)text {
+//    NSFont *newFont = [NSFont fontWithDescriptor:font.fontDescriptor size:guess];
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setObject:newFont forKey:NSFontAttributeName];
+//    CGFloat textWidth = [text sizeWithAttributes:dic].width;
+//    return textWidth;
+//}
 
 #pragma mark Quote box
 

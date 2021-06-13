@@ -2387,8 +2387,6 @@ canCollapseSubview:(NSView *)subview
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification
 {
-    // TODO: This should call a faster update method rather than rebuilding the view from scratch every time, but everything I've tried makes word wrap wonky
-
     if (NSWidth(_splitView.frame) < ACTUAL_LEFT_VIEW_MIN_WIDTH + RIGHT_VIEW_MIN_WIDTH && ![_splitView isSubviewCollapsed:_leftView]) {
         NSRect frame = self.window.frame;
         frame.size.width = PREFERRED_LEFT_VIEW_MIN_WIDTH + RIGHT_VIEW_MIN_WIDTH + 10;
@@ -2396,7 +2394,14 @@ canCollapseSubview:(NSView *)subview
                ofDividerAtIndex:0];
         [self.window setFrame:frame display:NO animate:YES];
     }
-    [self updateSideViewForce:YES];
+    [self updateSideViewForce:NO];
+
+    if ([_leftScrollView.documentView isKindOfClass:[SideInfoView class]]) {
+        SideInfoView *sideView = (SideInfoView *)_leftScrollView.documentView;
+        [sideView updateTitle];
+        [sideView deselectImage];
+    }
+        
 }
 
 #pragma mark -
