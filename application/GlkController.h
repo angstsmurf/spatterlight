@@ -57,7 +57,6 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property(readonly) BOOL inFullscreen;
 @property BOOL shouldStoreScrollOffset;
 
-@property BOOL stopReadingPipe;
 @property BOOL newTimer;
 @property CGFloat newTimerInterval;
 
