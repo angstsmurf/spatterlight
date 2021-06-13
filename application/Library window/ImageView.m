@@ -106,7 +106,7 @@
 
     layer.magnificationFilter = sizeInPixels.width < 350 ? kCAFilterNearest : kCAFilterTrilinear;
 
-    NSLog(@"sizeInPixels: %@ magnificationFilter: %@", NSStringFromSize(sizeInPixels), sizeInPixels.width < 350 ? @"kCAFilterNearest" : @"kCAFilterTrilinear");
+//    NSLog(@"sizeInPixels: %@ magnificationFilter: %@", NSStringFromSize(sizeInPixels), sizeInPixels.width < 350 ? @"kCAFilterNearest" : @"kCAFilterTrilinear");
 
     layer.drawsAsynchronously = YES;
     layer.contentsGravity = kCAGravityResize;
