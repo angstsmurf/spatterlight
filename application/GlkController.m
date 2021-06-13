@@ -9,6 +9,7 @@
 #import "Metadata.h"
 #import "Game.h"
 #import "Theme.h"
+#import "Image.h"
 #import "ZMenu.h"
 #import "BureaucracyForm.h"
 #import "GlkStyle.h"
@@ -17,6 +18,8 @@
 #import "GridTextView.h"
 #import "RotorHandler.h"
 #import "CommandScriptHandler.h"
+#import "CoverImageHandler.h"
+#import "CoverImageView.h"
 
 #include <sys/time.h>
 #import <QuartzCore/QuartzCore.h>
@@ -126,7 +129,7 @@ fprintf(stderr, "%s\n",                                                    \
 
 @end
 
-@interface GlkController () <NSSecureCoding> {
+@interface GlkController () {
     /* for talking to the interpreter */
     NSTask *task;
     NSFileHandle *readfh;
@@ -147,7 +150,6 @@ fprintf(stderr, "%s\n",                                                    \
     BOOL restoredUIOnly;
     BOOL shouldShowAutorestoreAlert;
 
-    NSSize borderFullScreenSize;
     NSWindowController *snapshotController;
 
     BOOL windowClosedAlready;
@@ -334,7 +336,7 @@ fprintf(stderr, "%s\n",                                                    \
     lastContentResize = NSZeroRect;
     _inFullscreen = NO;
     _windowPreFullscreenFrame = self.window.frame;
-    borderFullScreenSize = NSZeroSize;
+    _borderFullScreenSize = NSZeroSize;
 
     restoredController = nil;
     inFullScreenResize = NO;
@@ -363,12 +365,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self
-     selector:@selector(noteDefaultSizeChanged:)
-     name:@"DefaultSizeChanged"
-     object:nil];
-
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
      selector:@selector(noteBorderChanged:)
      name:@"BorderChanged"
      object:nil];
@@ -376,7 +372,7 @@ fprintf(stderr, "%s\n",                                                    \
     self.window.representedFilename = _gamefile;
 
     _borderView.wantsLayer = YES;
-    _borderView.canDrawSubviewsIntoLayer = YES;
+//    _borderView.canDrawSubviewsIntoLayer = YES;
     _borderView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     [self setBorderColor:_theme.bufferBackground];
 
@@ -422,7 +418,7 @@ fprintf(stderr, "%s\n",                                                    \
         NSLog(@"Error: %@", error);
     }
 
-    if (restoredController.autosaveVersion != AUTOSAVE_SERIAL_VERSION) {
+    if (restoredController && restoredController.autosaveVersion != AUTOSAVE_SERIAL_VERSION) {
         NSLog(@"GUI autosave file is wrong version! Wanted %d, got %ld. Deleting!", AUTOSAVE_SERIAL_VERSION, restoredController.autosaveVersion );
         restoredController = nil;
     }
@@ -679,11 +675,25 @@ fprintf(stderr, "%s\n",                                                    \
     [self.window setFrame:newWindowFrame display:NO];
     [self adjustContentView];
     lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
-    [self forkInterpreterTask];
     [self showWindow:nil];
+    if (_game.metadata.cover.data) {
+        [self deleteAutosaveFiles];
+        _contentView.autoresizingMask =
+        NSViewMinXMargin | NSViewMaxXMargin | NSViewHeightSizable;
+        restoredController = nil;
+         _coverController = [[CoverImageHandler alloc] initWithController:self];
+        [_coverController showLogoWindow];
+    } else
+        [self forkInterpreterTask];
 }
 
 - (void)restoreWindowWhenDead {
+    if (restoredController.showingCoverImage) {
+        dead = NO;
+        [self runTerpNormal];
+        return;
+    }
+
     dead = YES;
 
     [self.window setFrame:restoredController.storedWindowFrame display:NO];
@@ -703,7 +713,12 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)detectGame:(NSString *)ifid {
-    if ([[ifid substringToIndex:9] isEqualToString:@"LEVEL9-00"]) {
+    NSString *l9Substring = nil;
+    if (ifid.length >= 10)
+         l9Substring = [ifid substringToIndex:10];
+    if ([l9Substring isEqualToString:@"LEVEL9-001"] || // The Secret Diary of Adrian Mole
+        [l9Substring isEqualToString:@"LEVEL9-002"] || // The Growing Pains of Adrian Mole
+        [l9Substring isEqualToString:@"LEVEL9-019"]) { // The Archers
         _adrianMole = YES;
     } else if ([ifid isEqualToString:@"ZCODE-5-990206-6B48"]) {
         _anchorheadOrig = YES;
@@ -1010,6 +1025,8 @@ fprintf(stderr, "%s\n",                                                    \
     if (winToGrabFocus)
         [winToGrabFocus grabFocus];
 
+    windowRestoredBySystem = NO;
+
     if (!restoredUIOnly)
         _hasAutoSaved = YES;
 
@@ -1273,6 +1290,8 @@ fprintf(stderr, "%s\n",                                                    \
         _turns = [decoder decodeIntegerForKey:@"turns"];
 
         _oldThemeName = [decoder decodeObjectOfClass:[NSString class] forKey:@"oldThemeName"];
+
+        _showingCoverImage = [decoder decodeBoolForKey:@"showingCoverImage"];
 
         _commandScriptRunning = [decoder decodeBoolForKey:@"commandScriptRunning"];
         if (_commandScriptRunning)
@@ -1604,7 +1623,6 @@ fprintf(stderr, "%s\n",                                                    \
         [task.standardOutput fileHandleForReading].readabilityHandler = nil;
         readfh = nil;
         [task terminate];
-        _stopReadingPipe = YES;
     }
 
     [libcontroller releaseGlkControllerSoon:self];
@@ -1753,7 +1771,7 @@ fprintf(stderr, "%s\n",                                                    \
         CGRect extent = [result extent];
         CGImageRef cgImage = [context createCGImage:result fromRect:extent];
 
-        layer.contents = (id)CFBridgingRelease(cgImage);
+        layer.contents = CFBridgingRelease(cgImage);
     }
     return layer;
 }
@@ -1911,8 +1929,10 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Preference and style hint glue
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
-    if (_movingBorder)
+
+    if (_movingBorder) {
         return;
+    }
     Theme *theme = _theme;
     NSUInteger lastVOSpeakMenu = (NSUInteger)theme.vOSpeakMenu;
 
@@ -2019,6 +2039,8 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Zoom
 
 - (IBAction)zoomIn:(id)sender {
+     if (_coverController.imageView && _inFullscreen)
+         return;
     [Preferences instance].inMagnification = YES;
     [Preferences zoomIn];
     if (Preferences.instance)
@@ -2026,6 +2048,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (IBAction)zoomOut:(id)sender {
+    if (_coverController.imageView && _inFullscreen)
+        return;
     [Preferences instance].inMagnification = YES;
     [Preferences zoomOut];
     if (Preferences.instance)
@@ -2033,6 +2057,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (IBAction)zoomToActualSize:(id)sender {
+    if (_coverController.imageView && _inFullscreen)
+        return;
     [Preferences instance].inMagnification = YES;
     [Preferences zoomToActualSize];
     if (Preferences.instance)
@@ -2101,6 +2127,7 @@ fprintf(stderr, "%s\n",                                                    \
         CGFloat offset = NSHeight(newframe) - NSHeight(oldframe);
         newframe.origin.y -= offset;
 
+//        [self contentDidResize:newframe];
         _contentView.frame = newframe;
         [self contentDidResize:newframe];
     }
@@ -2334,6 +2361,11 @@ fprintf(stderr, "%s\n",                                                    \
 
     //    NSLog(@"GlkController handleNewWindowOfType: %s",
     //    wintypenames[wintype]);
+
+    if (_theme == nil) {
+        NSLog(@"Theme nil?");
+        _theme = [Preferences currentTheme];
+    }
 
     for (i = 0; i < MAXWIN; i++)
     if (_gwindows[@(i)] == nil)
@@ -3594,7 +3626,7 @@ again:
         CGColorRef cgcol = CGColorCreate(colorSpace, components);
 
         _borderView.layer.backgroundColor = cgcol;
-        self.window.backgroundColor = color;
+//        self.window.backgroundColor = color;
         CFRelease(cgcol);
     }
 }
@@ -3642,15 +3674,18 @@ again:
 #pragma mark Full screen
 
 - (NSSize)window:(NSWindow *)window willUseFullScreenContentSize:(NSSize)proposedSize {
-    borderFullScreenSize = proposedSize;
+    _borderFullScreenSize = proposedSize;
     return proposedSize;
 }
 
 - (NSArray *)customWindowsToEnterFullScreenForWindow:(NSWindow *)window {
-    if (window == self.window){
+    if (window == self.window) {
         if (restoredController && restoredController.inFullscreen) {
             return @[ window ];
         } else {
+            if (_coverController.imageView) {
+                return [_coverController customWindowsToEnterFullScreenForWindow:window];
+            }
             [self makeAndPrepareSnapshotWindow];
             NSWindow *snapshotWindow = snapshotController.window;
             if (snapshotWindow)
@@ -3661,15 +3696,20 @@ again:
 }
 
 - (NSArray *)customWindowsToExitFullScreenForWindow:(NSWindow *)window {
-    if (window == self.window)
+    if (window == self.window) {
+        if (_coverController.imageView) {
+            return [_coverController customWindowsToExitFullScreenForWindow:window];
+        }
         return @[ window ];
-    else
+    } else
         return nil;
 }
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
     // Save the window frame so that it can be restored later
-    _windowPreFullscreenFrame = self.window.frame;
+    if (!windowRestoredBySystem) {
+        _windowPreFullscreenFrame = self.window.frame;
+    }
     _inFullscreen = YES;
     [self storeScrollOffsets];
     _ignoreResizes = YES;
@@ -3709,6 +3749,8 @@ again:
 
 - (void)window:(NSWindow *)window
 startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
+    if (window != self.window)
+        return;
 
     inFullScreenResize = YES;
 
@@ -3717,15 +3759,19 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     window.styleMask = (window.styleMask | NSFullScreenWindowMask);
 
     if (restoredController && restoredController.inFullscreen) {
-        [self window:window startGameInFullScreenAnimationWithDuration:duration];
+        [self startGameInFullScreenAnimationWithDuration:duration];
     } else {
-        [self window:window enterFullScreenAnimationWithDuration:duration];
+        if (_coverController.imageView) {
+            [_coverController enterFullScreenWithDuration:duration];
+            return;
+        }
+
+        [self enterFullScreenAnimationWithDuration:duration];
     }
 }
 
-- (void)window:(NSWindow *)window
-enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
-
+- (void)enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
+    NSWindow *window = self.window;
     // Make sure the snapshot window style mask includes the
     // full screen bit
     NSWindow *snapshotWindow = snapshotController.window;
@@ -3734,12 +3780,12 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     NSScreen *screen = window.screen;
 
-    if (NSEqualSizes(borderFullScreenSize, NSZeroSize))
-        borderFullScreenSize = screen.frame.size;
+    if (NSEqualSizes(_borderFullScreenSize, NSZeroSize))
+        _borderFullScreenSize = screen.frame.size;
 
     // The final, full screen frame
     NSRect border_finalFrame = screen.frame;
-    border_finalFrame.size = borderFullScreenSize;
+    border_finalFrame.size = _borderFullScreenSize;
 
     // The center frame for the window is used during
     // the 1st half of the fullscreen animation and is
@@ -3748,7 +3794,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     NSRect centerBorderFrame = NSMakeRect(floor((screen.frame.size.width -
                                                  _borderView.frame.size.width) /
-                                                2), borderFullScreenSize.height
+                                                2), _borderFullScreenSize.height
                                           - _borderView.frame.size.height,
                                           _borderView.frame.size.width,
                                           _borderView.frame.size.height);
@@ -3758,6 +3804,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     centerWindowFrame.origin.x += screen.frame.origin.x;
     centerWindowFrame.origin.y += screen.frame.origin.y;
 
+    _borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     _contentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
 
@@ -3854,16 +3901,17 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     }];
 }
 
-- (void)window:(NSWindow *)window startGameInFullScreenAnimationWithDuration:(NSTimeInterval)duration {
+- (void)startGameInFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
+    NSWindow *window = self.window;
     NSScreen *screen = window.screen;
 
-    if (NSEqualSizes(borderFullScreenSize, NSZeroSize))
-        borderFullScreenSize = screen.frame.size;
+    if (NSEqualSizes(_borderFullScreenSize, NSZeroSize))
+        _borderFullScreenSize = screen.frame.size;
 
     // The final, full screen frame
     NSRect border_finalFrame = screen.frame;
-    border_finalFrame.size = borderFullScreenSize;
+    border_finalFrame.size = _borderFullScreenSize;
 
     // The center frame for the window is used during
     // the 1st half of the fullscreen animation and is
@@ -3873,7 +3921,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSRect centerWindowFrame = _windowPreFullscreenFrame;
     centerWindowFrame.origin = NSMakePoint(screen.frame.origin.x + floor((screen.frame.size.width -
                                                                           _borderView.frame.size.width) /
-                                                                         2), screen.frame.origin.x + borderFullScreenSize.height
+                                                                         2), screen.frame.origin.x + _borderFullScreenSize.height
                                            - centerWindowFrame.size.height);
 
     centerWindowFrame.origin.x += screen.frame.origin.x;
@@ -3927,6 +3975,10 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)window:window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
+    if (_coverController.imageView) {
+        [_coverController exitFullscreenWithDuration:duration];
+        return;
+    }
     [self storeScrollOffsets];
     _ignoreResizes = YES;
     NSRect oldFrame = _windowPreFullscreenFrame;
@@ -3948,6 +4000,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
      runAnimationGroup:^(NSAnimationContext *context) {
         // Make sure the window style mask does not
         // include full screen bit
+        context.duration = duration;
         [window
          setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
         [[window animator] setFrame:oldFrame display:YES];
@@ -3956,20 +4009,25 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
         [weakSelf enableArrangementEvents];
         localBorderView.frame = ((NSView *)localWindow.contentView).frame;
         localContentView.frame = [weakSelf contentFrameForWindowed];
-
         localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [weakSelf performSelector:@selector(windowDidExitFullScreen:) withObject:nil afterDelay:0];
     }];
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
+    windowRestoredBySystem = NO;
     _ignoreResizes = NO;
+    inFullScreenResize = NO;
+    if (_contentView.frame.size.width < 200)
+        [self adjustContentView];
     [self contentDidResize:_contentView.frame];
+    lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
     _ignoreResizes = NO;
     _inFullscreen = NO;
+    inFullScreenResize = NO;
     [self contentDidResize:_contentView.frame];
     [self restoreScrollOffsets];
 }
@@ -4007,13 +4065,14 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
 - (CALayer *)takeSnapshot {
     [self showWindow:nil];
-    CGImageRef windowSnapshot = CGWindowListCreateImage(
-                                                        CGRectNull, kCGWindowListOptionIncludingWindow,
-                                                        (CGWindowID)[self.window windowNumber], kCGWindowImageBoundsIgnoreFraming);
-    CALayer *snapshotLayer = [[CALayer alloc] init];
-    snapshotLayer.frame = NSRectToCGRect(self.window.frame);
-    snapshotLayer.contents = CFBridgingRelease(windowSnapshot);
+    CGImageRef windowSnapshot = CGWindowListCreateImage(CGRectNull,
+                                                        kCGWindowListOptionIncludingWindow,
+                                                        (CGWindowID)[self.window windowNumber],
+                                                        kCGWindowImageBoundsIgnoreFraming);
+    CALayer *snapshotLayer = [CALayer layer];
+    snapshotLayer.frame = self.window.frame;
     snapshotLayer.anchorPoint = CGPointMake(0, 0);
+    snapshotLayer.contents = CFBridgingRelease(windowSnapshot);
     return snapshotLayer;
 }
 
@@ -4054,7 +4113,7 @@ enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 - (void)adjustContentView {
     NSRect frame;
     if ((self.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
-        NSEqualRects(_borderView.frame, self.window.screen.frame) || (dead && _inFullscreen && windowRestoredBySystem)) {
+        _borderView.frame.size.width == self.window.screen.frame.size.width || (dead && _inFullscreen && windowRestoredBySystem)) {
         // We are in fullscreen
         frame = [self contentFrameForFullscreen];
     } else {

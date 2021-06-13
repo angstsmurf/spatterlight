@@ -2654,8 +2654,8 @@
 		C3C506E426590E4B00763D3E /* MissingFilesFinder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MissingFilesFinder.m; sourceTree = "<group>"; };
 		C3C684E026137DC6002F1436 /* ImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHandler.h; sourceTree = "<group>"; };
 		C3C684E126137DC6002F1436 /* ImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHandler.m; sourceTree = "<group>"; };
-		C3CB504A2662606600A95BE2 /* CoverImageWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageWindowController.h; sourceTree = "<group>"; };
-		C3CB504B2662606600A95BE2 /* CoverImageWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageWindowController.m; sourceTree = "<group>"; };
+		C3CB504A2662606600A95BE2 /* CoverImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageHandler.h; sourceTree = "<group>"; };
+		C3CB504B2662606600A95BE2 /* CoverImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageHandler.m; sourceTree = "<group>"; };
 		C3CB504D26627B1A00A95BE2 /* Spatterlight 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 9.xcdatamodel"; sourceTree = "<group>"; };
 		C3CDF24925A3C26000FA3451 /* Spatterlight 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 5.xcdatamodel"; sourceTree = "<group>"; };
 		C3CF3693265FA461004D0F7B /* CoverImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoverImageView.m; sourceTree = "<group>"; };
@@ -3695,8 +3695,8 @@
 				C38101291EDA297E00B87B68 /* GlkController.m */,
 				C3CF3694265FA461004D0F7B /* CoverImageView.h */,
 				C3CF3693265FA461004D0F7B /* CoverImageView.m */,
-				C3CB504A2662606600A95BE2 /* CoverImageWindowController.h */,
-				C3CB504B2662606600A95BE2 /* CoverImageWindowController.m */,
+				C3CB504A2662606600A95BE2 /* CoverImageHandler.h */,
+				C3CB504B2662606600A95BE2 /* CoverImageHandler.m */,
 				C305EA1C264B014D009DC78C /* CommandScriptHandler.h */,
 				C305EA1D264B014D009DC78C /* CommandScriptHandler.m */,
 				C3FE98D8261B2CA900152AB6 /* RotorHandler.h */,
@@ -6060,7 +6060,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3C1807E25C70F300040AE79 /* Blorb.m in Sources */,
-				C3CB504C2662606600A95BE2 /* CoverImageWindowController.m in Sources */,
+				C3CB504C2662606600A95BE2 /* CoverImageHandler.m in Sources */,
+				C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */,
+				C3191AA4266D3A1F00528F6E /* NSBitmapImageRep+retro.m in Sources */,
 				961CCEF209F23A0000528FF9 /* main.m in Sources */,
 				C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */,
 				C38784F826582BE300B4D886 /* ImageCompareViewController.m in Sources */,

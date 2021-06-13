@@ -9,9 +9,7 @@
  *
  */
 
-#import <QuartzCore/QuartzCore.h>
-
-@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, CommandScriptHandler;
+@class Game, Theme, LibController, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, CommandScriptHandler, CoverImageHandler;
 
 #define MAXWIN 64
 
@@ -55,6 +53,9 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 @property BOOL ignoreResizes;
 @property BOOL startingInFullscreen;
+@property NSSize borderFullScreenSize;
+@property(readonly) BOOL inFullscreen;
+@property BOOL shouldStoreScrollOffset;
 
 @property BOOL stopReadingPipe;
 @property BOOL newTimer;
@@ -75,7 +76,7 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property(strong, nonatomic) NSString *autosaveFileTerp;
 
 @property(readonly) BOOL supportsAutorestore;
-@property(readonly) BOOL inFullscreen;
+
 @property NSColor *bgcolor;
 
 @property NSInteger eventcount;
@@ -83,8 +84,6 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 // To fix scrolling in the Adrian Mole games
 @property BOOL shouldScrollOnCharEvent;
-
-@property BOOL shouldStoreScrollOffset;
 
 @property (weak) Theme *stashedTheme;
 @property NSString *oldThemeName;
@@ -108,6 +107,8 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property NSInteger autosaveVersion;
 @property NSInteger autosaveTag;
 @property BOOL hasAutoSaved;
+
+@property BOOL showingCoverImage;
 
 @property BOOL voiceOverActive;
 
@@ -158,6 +159,8 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property BOOL commandScriptRunning;
 @property NSString *pendingSaveFilePath;
 
+@property CoverImageHandler *coverController;
+
 // VoiceOver
 - (IBAction)speakMostRecent:(id)sender;
 - (IBAction)speakPrevious:(id)sender;
@@ -170,5 +173,8 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13));
 - (NSArray *)createCustomRotors;
+
+- (void)forkInterpreterTask;
+- (void)deferredRestart:(id)sender;
 
 @end
