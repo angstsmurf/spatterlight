@@ -60,6 +60,9 @@
 
 - (BOOL)downloadMetadataFromURL:(NSURL*)url {
 
+    if (!url)
+        return NO;
+
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     NSURLResponse *response = nil;
     NSError *error = nil;
@@ -68,7 +71,7 @@
                                                      error:&error];
     if (error) {
         if (!data) {
-            NSLog(@"Error connecting: %@", [error localizedDescription]);
+            NSLog(@"Error connecting to url %@: %@", url, [error localizedDescription]);
             return NO;
         }
     }
@@ -79,7 +82,7 @@
 
             IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:_context];
             if (!result || result.stories.count == 0) {
-                NSLog(@"Could not convert downloaded iFiction XML data to Metadata!");
+//                NSLog(@"Could not convert downloaded iFiction XML data to Metadata!");
                 return NO;
             }
         } else return NO;
@@ -90,6 +93,9 @@
 - (BOOL)downloadImageFor:(Metadata *)metadata
 {
 //    NSLog(@"libctl: download image from url %@", metadata.coverArtURL);
+
+    if (!metadata.coverArtURL)
+        return NO;
 
     Image *img = [self fetchImageForURL:metadata.coverArtURL];
 
@@ -113,6 +119,11 @@
 
     NSURL *url = [NSURL URLWithString:metadata.coverArtURL];
 
+    if (!url) {
+        NSLog(@"Could not create url from %@", metadata.coverArtURL);
+        return NO;
+    }
+
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     NSURLResponse *response = nil;
     NSError *error = nil;
@@ -121,7 +132,7 @@
                                                      error:&error];
     if (error) {
         if (!data) {
-            NSLog(@"Error connecting: %@", [error localizedDescription]);
+            NSLog(@"Error connecting to url %@: %@", url, [error localizedDescription]);
             return NO;
         }
     }
