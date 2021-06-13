@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="4">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="9">
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="added" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="autosaved" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="blorbFile" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="checksum" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="compiler" optional="YES" attributeType="String"/>
         <attribute name="detectedFormat" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
@@ -54,6 +55,7 @@
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
         <attribute name="imageDescription" optional="YES" attributeType="String"/>
+        <attribute name="interpolation" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="originalURL" optional="YES" attributeType="String"/>
         <relationship name="metadata" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Metadata" inverseName="cover" inverseEntity="Metadata"/>
     </entity>
@@ -116,7 +118,7 @@
         <attribute name="bZTerminator" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="cellHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="cellWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="coverArtStyle" optional="YES" attributeType="Integer 32" usesScalarValueType="YES"/>
+        <attribute name="coverArtStyle" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="cursorShape" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="dashes" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="defaultCols" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -186,10 +188,10 @@
         <relationship name="overrides" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="override" inverseEntity="Game"/>
     </entity>
     <elements>
-        <element name="Game" positionX="160" positionY="192" width="128" height="314"/>
+        <element name="Game" positionX="160" positionY="192" width="128" height="329"/>
         <element name="GlkStyle" positionX="160" positionY="192" width="128" height="389"/>
         <element name="Ifid" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="Image" positionX="160" positionY="192" width="128" height="89"/>
+        <element name="Image" positionX="160" positionY="192" width="128" height="104"/>
         <element name="Interpreter" positionX="160" positionY="192" width="128" height="75"/>
         <element name="Metadata" positionX="160" positionY="192" width="128" height="523"/>
         <element name="Tag" positionX="160" positionY="192" width="128" height="75"/>

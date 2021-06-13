@@ -14,6 +14,7 @@
 
 @dynamic data;
 @dynamic imageDescription;
+@dynamic interpolation;
 @dynamic originalURL;
 @dynamic metadata;
 

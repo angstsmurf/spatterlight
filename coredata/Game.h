@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) NSDate *added;
 @property (nonatomic) BOOL autosaved;
+@property (nullable, nonatomic, retain) NSObject *blorbFile;
 @property (nonatomic) int32_t checksum;
 @property (nullable, nonatomic, copy) NSString *compiler;
 @property (nullable, nonatomic, copy) NSString *detectedFormat;

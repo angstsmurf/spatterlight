@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) NSObject *data;
 @property (nullable, nonatomic, copy) NSString *imageDescription;
+@property (nonatomic) int32_t interpolation;
 @property (nullable, nonatomic, copy) NSString *originalURL;
 @property (nullable, nonatomic, retain) NSSet<Metadata *> *metadata;
 

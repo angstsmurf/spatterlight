@@ -15,6 +15,7 @@
 
 @dynamic added;
 @dynamic autosaved;
+@dynamic blorbFile;
 @dynamic checksum;
 @dynamic compiler;
 @dynamic detectedFormat;
