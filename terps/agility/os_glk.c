@@ -2237,7 +2237,8 @@ gagt_paragraph_page (void)
           line->paragraph = paragraph;
           paragraph->line_count++;
         }
-      end->paragraph = paragraph;
+      if (end)
+        end->paragraph = paragraph;
 
       /*
        * If there's another line, look for the next paragraph there,

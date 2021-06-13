@@ -462,7 +462,10 @@ char *readln(genfile f, char *buff, int n)
 
   if (buffsize>=0) {  /* Shrink buffer to appropriate size */
     buffsize=i+1;
+    char *oldbuff = buff;
     buff=rrealloc(buff,buffsize);
+    if (buff == NULL)
+      free(oldbuff);
   }
 
   return buff;
@@ -499,6 +502,8 @@ static void buff_setrecsize(long recsize)
   char *errstr;
 
   record_size=recsize;
+  if (record_size == 0)
+    return;
   real_buff_fcnt=buff_fcnt=buffsize/record_size;
   buff_frame=0;
     
@@ -734,6 +739,8 @@ static void bw_setblock(long fofs, long recnum, long rsize)
   buffsize=BUFF_SIZE;
   if (buffsize>block_size) buffsize=block_size;
   if (buffsize<rsize) buffsize=rsize;
+  if (rsize==0)
+    return;
   buff_fcnt=buffsize/rsize;
   buffsize=buff_fcnt*rsize;
   buffer=rmalloc(buffsize);

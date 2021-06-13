@@ -93,6 +93,8 @@ static void print_nlist(parse_rec *n)
   int c;
   char buff[100];
 
+  if (!n)
+      return;
   if (n->info==D_END)
     writestr("----");
   if (n->info==D_ALL) {

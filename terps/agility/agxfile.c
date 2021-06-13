@@ -617,8 +617,11 @@ descr_line *agx_read_descr(long start,long size)
   if (mem_descr==NULL && descr_ofs!=-1)
     buff=read_recblock(NULL,FT_CHAR,size,
 		       descr_ofs+start, size*ft_leng[FT_CHAR]);
-  else 
+  else {
+    if (mem_descr == NULL)
+        return NULL;
     buff=mem_descr+start;
+  }
 
   len=0;
   for(i=0;i<size;i++)   /* Count the number of lines */
