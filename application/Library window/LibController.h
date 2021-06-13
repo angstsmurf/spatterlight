@@ -84,7 +84,7 @@
 - (void)runCommandsFromFile:(NSString *)filename;
 - (void)restoreFromSaveFile:(NSString *)filename;
 
-- (IBAction)toggleSidebar:(id)sender;
+- (IBAction)myToggleSidebar:(id)sender;
 - (IBAction)toggleColumn:(id)sender;
 
 - (IBAction)addGamesToLibrary:(id)sender;
@@ -98,7 +98,7 @@
 
 - (IBAction)searchForGames:(id)sender;
 - (IBAction)play:(id)sender;
-- (IBAction) download:(id)sender;
+- (IBAction)download:(id)sender;
 - (IBAction)showGameInfo:(id)sender;
 - (IBAction)revealGameInFinder:(id)sender;
 - (IBAction)deleteGame:(id)sender;

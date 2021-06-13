@@ -924,7 +924,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         return NO;
     }
 
-    if (action == @selector(toggleSidebar:))
+    if (action == @selector(myToggleSidebar:))
     {
         NSString* title = [_leftView isHidden] ? NSLocalizedString(@"Show Sidebar", nil) : NSLocalizedString(@"Hide Sidebar", nil);
         ((NSMenuItem*)menuItem).title = title;
@@ -2319,7 +2319,7 @@ canCollapseSubview:(NSView *)subview
     return result;
 }
 
--(IBAction)toggleSidebar:(id)sender
+-(IBAction)myToggleSidebar:(id)sender
 {
     if ([_splitView isSubviewCollapsed:_leftView]) {
         [self uncollapseLeftView];
