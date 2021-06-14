@@ -507,6 +507,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
     if (imageFiles.count > 0) {
         NSData *imageData = nil;
+        NSURL *chosenURL = nil;
         for (NSURL *url in imageFiles) {
             NSError *error = nil;
 
@@ -522,8 +523,10 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
                 Blorb *blorb = [[Blorb alloc] initWithData:imageData];
                 imageData = blorb.coverImageData;
             }
-            if (imageData.length)
+            if (imageData.length) {
+                chosenURL = url;
                 break;
+            }
         }
 
         if (!imageData)
@@ -539,6 +542,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         });
 
         if (result) {
+            game.metadata.coverArtURL = chosenURL.path;
             [self addImage:imageData toMetadata:game.metadata];
         }
     }
@@ -585,7 +589,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
 - (void)addImage:(NSData *)rawImageData toMetadata:(Metadata *)metadata {
     IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
-    [downloader insertImage:rawImageData inMetadata:metadata];
+    [downloader insertImageData:rawImageData inMetadata:metadata];
 }
 
 // Converts AGT D$$ files to the AGX format

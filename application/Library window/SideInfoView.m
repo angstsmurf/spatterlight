@@ -62,6 +62,8 @@ fprintf(stderr, "%s\n",                                                    \
     NSTextField *blurbField;
     NSTextField *ifidField;
 
+    NSString *longestWord;
+
     CGFloat totalHeight;
 
     NSSet<NSPasteboardType> *acceptableTypes;
@@ -111,8 +113,6 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (font.pointSize > 25)
         para.maximumLineHeight = para.maximumLineHeight + 3;
-
-    para.hyphenationFactor = 0.2f;
 
     para.alignment = NSCenterTextAlignment;
     para.lineSpacing = 1;
@@ -231,7 +231,6 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)updateSideViewWithGame:(Game *)somegame
 {
     NSClipView *clipView = (NSClipView *)self.superview;
-    [clipView scrollToPoint: NSMakePoint(0, 0)];
 
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
@@ -422,7 +421,7 @@ fprintf(stderr, "%s\n",                                                    \
             font = [NSFont fontWithDescriptor:descriptor size:50];
         }
 
-        NSString *longestWord = @"";
+        longestWord = @"";
 
         for (NSString *word in [somedata.title componentsSeparatedByString:@" "])
         {
@@ -580,26 +579,31 @@ fprintf(stderr, "%s\n",                                                    \
 
     }
 
-    [self performSelector:@selector(scrollToTop:) withObject:nil afterDelay:0.05];
-
     if (_game != somegame) {
-
-//        [scrollView reflectScrolledClipView:clipView];
-
         [self performSelector:@selector(fixScroll:) withObject:@(clipView.bounds.origin.y) afterDelay:2];
-    } else {
-        NSLog(@"_game == somegame. Don't scroll");
     }
 
     _game = somegame;
 }
 
-- (void)scrollToTop:(id)sender {
+- (void)updateTitle {
+    NSMutableAttributedString *titleString = titleField.attributedStringValue.mutableCopy;
+    NSDictionary *attributes = [titleString attributesAtIndex:0 effectiveRange:nil];
     NSClipView *clipView = (NSClipView *)self.superview;
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context){
-        context.duration = 0.2;
-        clipView.animator.boundsOrigin = NSZeroPoint;
-    } completionHandler:nil];
+
+    NSUInteger superViewWidth = (NSUInteger)clipView.frame.size.width - 24;
+
+    NSFont *font = attributes[NSFontAttributeName];
+
+    if ([longestWord sizeWithAttributes:attributes].width > superViewWidth)
+    {
+        font = [font fontToFitWidth:superViewWidth sampleText:longestWord];
+    } else {
+        return;
+    }
+
+    [titleString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, titleString.length)];
+    titleField.attributedStringValue = titleString;
 }
 
 - (void)fixScroll:(id)sender {
@@ -667,7 +671,6 @@ fprintf(stderr, "%s\n",                                                    \
     self.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     titleField.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
-
     titleField.cell = [[VerticallyCenteredTextFieldCell alloc] initTextCell:aString];
 
     [self addSubview:titleField];
@@ -732,56 +735,10 @@ fprintf(stderr, "%s\n",                                                    \
 
 
             [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
-            if (clipView.bounds.size.height < 200)
-                [self scrollToTop:nil];
         }
     } else {
         [_downloadButton removeFromSuperview];
     }
-}
-
-- (void)updateTitle {
-
-    Metadata *somedata = _game.metadata;
-
-    if (somedata.blurb.length == 0 && somedata.author.length == 0 && somedata.headline.length == 0 && somedata.cover == nil) {
-        return;
-    }
-
-    NSMutableAttributedString *titleString = titleField.attributedStringValue.mutableCopy;
-
-    NSFont *font = [titleString attribute:NSFontAttributeName atIndex:0 effectiveRange:nil];
-
-    if (somedata.title.length > 9)
-    {
-        font = [[NSFontManager sharedFontManager] convertFont:font toSize:30];
-    }
-    else
-    {
-        font = [[NSFontManager sharedFontManager] convertFont:font toSize:50];
-    }
-
-    NSString *longestWord = @"";
-
-    for (NSString *word in [somedata.title componentsSeparatedByString:@" "])
-    {
-        if (word.length > longestWord.length) longestWord = word;
-    }
-
-    // The magic number -24 means 10 points of margin and two points of textfield border on each side.
-    CGFloat width = self.frame.size.width - 24;
-
-    if ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > width)
-    {
-
-        font = [font fontToFitWidth:width sampleText:longestWord];
-    }
-
-    [titleString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, titleString.length)];
-
-    titleField.attributedStringValue = titleString;
-
-//    [titleField sizeToFit];
 }
 
 #pragma mark Download button
