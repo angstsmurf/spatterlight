@@ -144,7 +144,7 @@
                 ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
 
                 if ([imageCompare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data]) {
-                    [self insertImage:data inMetadata:metadata];
+                    [self insertImageData:data inMetadata:metadata];
                     accepted = YES;
                 }
             });
@@ -154,7 +154,7 @@
     return accepted;
 }
 
-- (Image *)insertImage:(NSData *)data inMetadata:(Metadata *)metadata {
+- (Image *)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata {
     if ([data isPlaceHolderImage]) {
         NSLog(@"insertImage: image is placeholder!");
         return [self findPlaceHolderInMetadata:metadata imageData:data];
@@ -166,6 +166,7 @@
     img.data = [data copy];
     img.originalURL = metadata.coverArtURL;
     metadata.cover = img;
+    [metadata.managedObjectContext save:nil];
     return img;
 }
 

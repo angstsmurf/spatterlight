@@ -17,7 +17,7 @@
 - (BOOL)downloadMetadataFor:(Game*)game;
 - (BOOL)downloadImageFor:(Metadata *)metadata;
 - (Image *)fetchImageForURL:(NSString *)imgurl;
-- (Image *)insertImage:(NSData *)data inMetadata:(Metadata *)metadata;
+- (Image *)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata;
 
 @property (strong) NSManagedObjectContext *context;
 

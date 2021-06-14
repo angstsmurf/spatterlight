@@ -828,11 +828,13 @@ fprintf(stderr, "%s\n",                                                    \
         NSURL *url = urls.firstObject;
         image = [[NSImage alloc] initWithContentsOfURL:url];
         if (image) {
+            _game.metadata.coverArtURL = url.path;
             [self processImage:image];
             return YES;
         } else {
             NSData *data = [NSData imageDataFromRetroURL:url];
             if (data) {
+                _game.metadata.coverArtURL = url.path;
                 [self processImageData:data];
                 return YES;
             }
@@ -840,6 +842,7 @@ fprintf(stderr, "%s\n",                                                    \
     } else {
         image = [[NSImage alloc] initWithPasteboard:pasteBoard];
         if (image) {
+            _game.metadata.coverArtURL = @"pasteboard";
             [self processImage:image];
             return YES;
         }
@@ -861,7 +864,7 @@ fprintf(stderr, "%s\n",                                                    \
         ImageCompareViewController *compare = [ImageCompareViewController new];
         if ([compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data]) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
-            [downloader insertImage:image inMetadata:metadata];
+            [downloader insertImageData:image inMetadata:metadata];
         }
     });
 }

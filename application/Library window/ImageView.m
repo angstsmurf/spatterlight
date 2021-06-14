@@ -289,7 +289,7 @@
         ImageCompareViewController *compare = [ImageCompareViewController new];
         if ([compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data]) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
-            [downloader insertImage:image inMetadata:metadata];
+            [downloader insertImageData:image inMetadata:metadata];
         }
     });
 }
