@@ -6,7 +6,6 @@
 //
 
 #import "NSData+Categories.h"
-#import "NSView+snapshot.h"
 #import "NSImage+Categories.h"
 
 #import "ImageCompareViewController.h"

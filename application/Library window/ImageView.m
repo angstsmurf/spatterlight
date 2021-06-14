@@ -13,7 +13,6 @@
 #import "Metadata.h"
 #import "Image.h"
 
-#import "NSView+snapshot.h"
 #import "NSImage+Categories.h"
 #import "NSData+Categories.h"
 #import "ImageCompareViewController.h"
