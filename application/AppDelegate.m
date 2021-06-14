@@ -252,6 +252,10 @@ NSDictionary *gFormatMap;
     [_libctl deleteLibrary:sender];
 }
 
+- (IBAction)pruneLibrary:(id)sender {
+    [_libctl pruneLibrary:sender];
+}
+
 /*
  * Open and play game directly.
  */
