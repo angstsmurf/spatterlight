@@ -102,38 +102,48 @@
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     BOOL isValidItem = NO;
     BOOL waseditable = self.editable;
-    self.editable = NO;
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wundeclared-selector"
 
-    if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuItem.action != @selector(_lookUpDefiniteRangeInDictionaryFromMenu:) && menuItem.action != @selector(_searchWithGoogleFromMenu:))
+//    if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuItem.action != @selector(_lookUpDefiniteRangeInDictionaryFromMenu:) && menuItem.action != @selector(_searchWithGoogleFromMenu:))
+//        return NO;
+if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuItem.action != NSSelectorFromString(@"_lookUpDefiniteRangeInDictionaryFromMenu:") && menuItem.action != NSSelectorFromString(@"_searchWithGoogleFromMenu:"))
         return NO;
 
-#pragma clang diagnostic pop
+//#pragma clang diagnostic pop
+
 
     if (menuItem.action == @selector(cut:) || menuItem.action == @selector(delete:) || menuItem.action == @selector(paste:)) {
         NSRange editableRange = [delegate editableRange];
-        if (editableRange.location != NSNotFound && NSMaxRange(self.selectedRange) > editableRange.location) {
-            self.editable = waseditable;
-            return YES;
+
+        // If no line request, return NO
+        if (editableRange.location == NSNotFound) {
+            return NO;
         }
-    }
 
-    if (menuItem.action == @selector(cut:)) {
-        if (self.selectedRange.length &&
-            [delegate textView:self
-                shouldChangeTextInRange:self.selectedRange
-                      replacementString:nil])
-            self.editable = waseditable;
-    }
+        // Allow paste if no selection
+        if (menuItem.action == @selector(paste:) && editableRange.location != NSNotFound && editableRange.length == 0 && self.selectedRange.length == 0) {
+            return waseditable;
+        }
 
-    else if (menuItem.action == @selector(paste:)) {
-        if ([delegate textView:self
-                shouldChangeTextInRange:self.selectedRange
-                      replacementString:nil])
-            self.editable = waseditable;
+        // Allow all if selection partially inside editable range
+        if (NSMaxRange(self.selectedRange) > editableRange.location) {
+            return waseditable;
+        }
+
+        // Allow all if selection completely inside editable range
+        if (self.selectedRange.location >= editableRange.location) {
+            // Allow cut or delete only if selection has length
+            if (menuItem.action == @selector(paste:)) {
+                return waseditable;
+            } else if (self.selectedRange.length) {
+                return waseditable;
+            }
+        }
+
+        return NO;
     }
 
     if (menuItem.action == @selector(performTextFinderAction:))
@@ -145,8 +155,6 @@
     else {
         isValidItem = [super validateMenuItem:menuItem];
     }
-
-    self.editable = waseditable;
 
     return isValidItem;
 }

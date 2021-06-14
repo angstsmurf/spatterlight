@@ -1084,11 +1084,7 @@ fprintf(stderr, "%s\n",                                                    \
         if (!scrolled)
             glkctl.shouldScrollOnCharEvent = YES;
 
-        if ((ch == 'v' || ch == 'V') && commandKeyOnly) {
-            [_textview performSelector:@selector(paste:)];
-        } else {
-            [self sendKeypress:ch];
-        }
+        [self sendKeypress:ch];
 
     } else if (line_request && (ch == keycode_Return ||
                                 [self.currentTerminators[key] isEqual:@(YES)])) {
@@ -1110,12 +1106,23 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     else {
-        if (line_request)
+        if (line_request) {
             if ((ch == 'v' || ch == 'V') && commandKeyOnly && _textview.selectedRange.location < fence) {
-                [[glkctl window] makeFirstResponder:_textview];                         _textview.selectedRange = NSMakeRange(textstorage.length, 0);
-                [_textview performSelector:@selector(paste:)];
+                [[glkctl window] makeFirstResponder:_textview];
+                NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, [self editableRange]);
+                if (selectedRange.location == NSNotFound || selectedRange.length == 0)
+                    selectedRange = NSMakeRange(textstorage.length, 0);
+                _textview.selectedRange = selectedRange;
+                [_textview paste:nil];
                 return;
+            } else if (_textview.selectedRange.length != 0 && ch != keycode_Unknown && (flags & NSCommandKeyMask) != NSCommandKeyMask) {
+                // Deselect text and move cursor to end to facilitate typing
+                NSRange selectedRange = NSIntersectionRange(_textview.selectedRange, [self editableRange]);
+                if (selectedRange.location == NSNotFound || (selectedRange.length == 0))
+                    selectedRange = NSMakeRange(textstorage.length, 0);
+                _textview.selectedRange = selectedRange;
             }
+        }
 
         if (self.window.firstResponder != _textview)
             [self.window makeFirstResponder:_textview];
@@ -1464,6 +1471,8 @@ replacementString:(id)repl {
 }
 
 - (NSRange)editableRange {
+    if (!line_request)
+        return NSMakeRange(NSNotFound, 0);
     return NSMakeRange(fence, textstorage.length - fence);
 }
 
