@@ -11,10 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ImageView : NSControl <NSDraggingDestination, NSDraggingSource, NSPasteboardItemDataProvider, NSFilePromiseProviderDelegate, NSPasteboardTypeOwner>
+@interface ImageView : NSControl <NSDraggingDestination, NSDraggingSource, NSFilePromiseProviderDelegate, NSPasteboardTypeOwner>
 
 @property BOOL isSelected;
 @property BOOL isReceivingDrag;
+@property BOOL isPlaceholder;
+
 @property NSInteger numberForSelfSourcedDrag;
 @property Game *game;
 @property (readonly) NSImage *image;
@@ -23,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithGame:(Game *)game image:(nullable NSImage *)anImage;
 - (NSData *)pngData;
+- (void)processImage:(NSImage *)image;
 
 @end
 

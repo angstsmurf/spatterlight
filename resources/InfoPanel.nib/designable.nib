@@ -12,7 +12,7 @@
                 <outlet property="descriptionText" destination="26" id="35"/>
                 <outlet property="headlineField" destination="29" id="39"/>
                 <outlet property="ifidField" destination="32" id="34"/>
-                <outlet property="imageView" destination="7" id="36"/>
+                <outlet property="imageView" destination="hoT-k4-Wir" id="uyh-Mz-0Vr"/>
                 <outlet property="titleField" destination="28" id="37"/>
                 <outlet property="window" destination="5" id="33"/>
             </connections>
@@ -28,14 +28,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="564" height="216"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="356" y="8" width="200" height="200"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyDown" image="Question" id="66"/>
-                        <connections>
-                            <action selector="saveImage:" target="-2" id="64"/>
-                        </connections>
-                    </imageView>
                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25">
                         <rect key="frame" x="8" y="30" width="340" height="114"/>
                         <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
@@ -108,6 +100,10 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hoT-k4-Wir" customClass="ImageView">
+                        <rect key="frame" x="356" y="8" width="200" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </customView>
                 </subviews>
             </view>
             <connections>
@@ -117,7 +113,4 @@
             <point key="canvasLocation" x="39" y="114"/>
         </window>
     </objects>
-    <resources>
-        <image name="Question" width="200" height="200"/>
-    </resources>
 </document>

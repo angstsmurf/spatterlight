@@ -6,8 +6,7 @@
 
 #import <CoreData/CoreData.h>
 
-@class Game;
-@class Metadata;
+@class Game, Metadata;
 
 void showInfoForFile(NSString *path, NSDictionary *info);
 
@@ -33,8 +32,6 @@ void showInfoForFile(NSString *path, NSDictionary *info);
 - (void)animateIn:(NSRect)frame;
 - (void)hideWindow;
 
-//- (void)updateBlurb;
-
-- (IBAction)saveImage:sender;
+- (void)updateImage;
 
 @end

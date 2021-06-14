@@ -6,6 +6,8 @@
 #import "CoreDataManager.h"
 #import "Image.h"
 #import "IFDBDownloader.h"
+#import "ImageView.h"
+
 #import "main.h"
 
 #import <QuartzCore/QuartzCore.h>
@@ -37,6 +39,14 @@ fprintf(stderr, "%s\n",                                                    \
 @end
 
 @implementation HelperView
+
+- (BOOL)acceptsFirstResponder {
+    return YES;
+}
+
+- (BOOL)acceptsFirstMouse:(NSEvent *)event {
+    return YES;
+}
 
 - (void)keyDown:(NSEvent *)event {
     InfoController *infocontroller = (InfoController *)self.window.delegate;
@@ -76,7 +86,7 @@ fprintf(stderr, "%s\n",                                                    \
     IBOutlet NSTextField *headlineField;
     IBOutlet NSTextField *ifidField;
     IBOutlet NSTextView *descriptionText;
-    IBOutlet NSImageView *imageView;
+    IBOutlet ImageView *imageView;
 
     NSWindowController *snapshotController;
 
@@ -122,6 +132,59 @@ fprintf(stderr, "%s\n",                                                    \
     return self;
 }
 
+- (void)windowDidLoad {
+    //    NSLog(@"infoctl: windowDidLoad");
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(noteManagedObjectContextDidChange:)
+     name:NSManagedObjectContextObjectsDidChangeNotification
+     object:managedObjectContext];
+
+    descriptionText.drawsBackground = NO;
+    ((NSScrollView *)descriptionText.superview).drawsBackground = NO;
+
+    if (imageView) {
+        imageView.game = _game;
+
+        NSImage *image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
+        if (!image) {
+            image = [NSImage imageNamed:@"Question"];
+            imageView.isPlaceholder = YES;
+        }
+        [imageView processImage:image];
+    } else NSLog(@"Error! No imageView!");
+
+    [self update];
+    [self sizeToFitImageAnimate:NO];
+
+    _titleField.editable = YES;
+    _titleField.delegate = self;
+
+    authorField.editable = YES;
+    authorField.delegate = self;
+
+    headlineField.editable = YES;
+    headlineField.delegate = self;
+
+    //    ifidField.editable = YES;
+    //    ifidField.delegate = self;
+
+    descriptionText.editable = YES;
+    descriptionText.delegate = self;
+
+    [self.window makeFirstResponder:imageView];
+
+    self.window.delegate = self;
+}
+
+
++ (NSArray *)restorableStateKeyPaths {
+    return @[
+        @"path", @"titleField.stringValue", @"authorField.stringValue",
+        @"headlineField.stringValue", @"descriptionText.string"
+    ];
+}
+
 - (Game *)fetchGameWithPath:(NSString *)path {
     NSError *error = nil;
     NSArray *fetchedObjects;
@@ -150,6 +213,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)sizeToFitImageAnimate:(BOOL)animate {
+    if (_inAnimation)
+        return;
     NSRect frame;
     NSSize wellsize;
     NSSize imgsize;
@@ -177,10 +242,7 @@ fprintf(stderr, "%s\n",                                                    \
             height = imageRep.pixelsHigh;
     }
 
-    imgsize.width = width;
-    imgsize.height = height;
-
-    imageView.image.size = imgsize; /* no steenkin' dpi here */
+    imgsize = NSMakeSize(width, height);
 
     if (imgsize.width > maxsize.width) {
         scale = maxsize.width / imgsize.width;
@@ -211,23 +273,20 @@ fprintf(stderr, "%s\n",                                                    \
         frame.origin.y = NSMaxY(self.window.screen.visibleFrame) - frame.size.height;
     if (frame.origin.y < 0)
         frame.origin.y = 0;
-    [self.window setFrame:frame display:YES animate:NO];
+    [self.window setFrame:frame display:YES animate:animate];
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
+    if (_inAnimation)
+        return;
     NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
-    NSArray *insertedObjects = (notification.userInfo)[NSInsertedObjectsKey];
-    NSArray *refreshedObjects = (notification.userInfo)[NSRefreshedObjectsKey];
     NSArray *deletedObjects =  (notification.userInfo)[NSDeletedObjectsKey];
     if ([deletedObjects containsObject:_game])
         [[self window] performClose:nil];
     if ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game])
     {
         [self update];
-
-        if (_meta.cover && ([insertedObjects containsObject:_meta.cover] || [refreshedObjects containsObject:_meta.cover] || [updatedObjects containsObject:_meta.cover])) {
-            [self updateImage];
-        }
+        [self updateImage];
     }
 }
 
@@ -259,54 +318,16 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)updateImage {
+    NSImage *image;
     if (_meta.cover) {
-        imageView.image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
-        imageView.accessibilityLabel = _meta.coverArtDescription;
+        image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
+        imageView.isPlaceholder = NO;
+    } else {
+        image = [NSImage imageNamed:@"Question"];
+        imageView.isPlaceholder = YES;
     }
-    [self sizeToFitImageAnimate:NO];
-}
-
-
-- (void)windowDidLoad {
-    //    NSLog(@"infoctl: windowDidLoad");
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(noteManagedObjectContextDidChange:)
-     name:NSManagedObjectContextObjectsDidChangeNotification
-     object:managedObjectContext];
-
-    descriptionText.drawsBackground = NO;
-    ((NSScrollView *)descriptionText.superview).drawsBackground = NO;
-    
-    [self update];
-    [self updateImage];
-
-    _titleField.editable = YES;
-    _titleField.delegate = self;
-
-    authorField.editable = YES;
-    authorField.delegate = self;
-    
-    headlineField.editable = YES;
-    headlineField.delegate = self;
-
-    //    ifidField.editable = YES;
-    //    ifidField.delegate = self;
-
-    descriptionText.editable = YES;
-    descriptionText.delegate = self;
-
-    [self.window makeFirstResponder:imageView];
-
-    self.window.delegate = self;
-}
-
-
-+ (NSArray *)restorableStateKeyPaths {
-    return @[
-        @"path", @"titleField.stringValue", @"authorField.stringValue",
-        @"headlineField.stringValue", @"descriptionText.string"
-    ];
+    [imageView processImage:image];
+    [self sizeToFitImageAnimate:YES];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
@@ -334,86 +355,6 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     [self animateOut];
-}
-
-- (void)saveImage:sender {
-    NSURL *dirURL, *imgURL;
-    NSData *imgdata;
-
-    NSError *error;
-    dirURL = [[NSFileManager defaultManager]
-              URLForDirectory:NSApplicationSupportDirectory
-              inDomain:NSUserDomainMask
-              appropriateForURL:nil
-              create:YES
-              error:&error];
-
-    dirURL = [NSURL URLWithString:@"Spatterlight/Cover%20Art"
-                    relativeToURL:dirURL];
-
-    imgURL = [NSURL
-              fileURLWithPath:[[dirURL.path stringByAppendingPathComponent:_game.ifid]
-                               stringByAppendingPathExtension:@"tiff"]
-              isDirectory:NO];
-
-    [[NSFileManager defaultManager] createDirectoryAtURL:dirURL
-                             withIntermediateDirectories:YES
-                                              attributes:nil
-                                                   error:NULL];
-
-    NSLog(@"infoctl: save image %@", imgURL);
-
-    if (imageView.image == nil) {
-        if (!_meta.cover) {
-            imageView.image = [NSImage imageNamed:@"Question"];
-            return;
-        }
-        imageView.image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = NSLocalizedString(@"Are you sure?", nil);
-        alert.informativeText = NSLocalizedString(@"Do you want to delete this cover image?", nil);
-        alert.icon = imageView.image;
-        [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
-        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-
-        NSInteger choice = [alert runModal];
-
-
-        if (choice == NSAlertFirstButtonReturn) {
-            Image *image = _meta.cover;
-            _meta.cover = nil;
-            if (image.metadata.count == 0)
-                [managedObjectContext deleteObject:image];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:imgURL.path])
-                [[NSWorkspace sharedWorkspace] recycleURLs:@[imgURL] completionHandler:^(NSDictionary *newURLs, NSError *Err) {}];
-            imageView.image = [NSImage imageNamed:@"Question"];
-        }
-        [self sizeToFitImageAnimate:YES];
-        return;
-    }
-
-    imgdata =
-    [imageView.image TIFFRepresentationUsingCompression:NSTIFFCompressionLZW
-                                                 factor:0];
-    if (imgdata) {
-        [imgdata writeToURL:imgURL atomically:YES];
-        _meta.coverArtURL = imgURL.path;
-        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:managedObjectContext];
-        // Check if we already have created an image object for this game
-        // with a file in Application Support as its originalURL
-        Image *image = [downloader fetchImageForURL:imgURL.path];
-        if (image) {
-            _meta.cover = image;
-            image.data = imgdata;
-        } else {
-            // If not, create a new one
-            [downloader insertImage:imgdata inMetadata:_meta];
-        }
-        _meta.userEdited = @(YES);
-        _meta.source = @(kUser);
-    }
-
-    [self sizeToFitImageAnimate:YES];
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification
@@ -477,6 +418,30 @@ fprintf(stderr, "%s\n",                                                    \
     // positioned on startingframe.
     NSRect snapshotLayerFrame =
     [snapshotWindow convertRectFromScreen:startingframe];
+    snapshotLayer.frame = snapshotLayerFrame;
+    [snapshotWindow orderFront:nil];
+}
+
+- (void)showDebugWindow:(NSRect)finalFrame {
+    CALayer *snapshotLayer = [self takeSnapshot];
+    NSWindow *snapshotWindow = ([[NSWindow alloc]
+                                 initWithContentRect:finalFrame
+                                 styleMask:0
+                                 backing:NSBackingStoreBuffered
+                                 defer:NO]);
+
+    snapshotWindow.contentView.wantsLayer = YES;
+    snapshotWindow.opaque = NO;
+    snapshotWindow.releasedWhenClosed = YES;
+    snapshotWindow.backgroundColor = NSColor.clearColor;
+
+    NSRect debugFrame = finalFrame;
+    debugFrame.origin = NSMakePoint(0,finalFrame.size.height);
+
+    [snapshotWindow setFrame:debugFrame display:YES];
+    [snapshotWindow.contentView.layer addSublayer:snapshotLayer];
+
+    NSRect snapshotLayerFrame = snapshotWindow.contentView.bounds;
     snapshotLayer.frame = snapshotLayerFrame;
     [snapshotWindow orderFront:nil];
 }
@@ -552,12 +517,12 @@ fprintf(stderr, "%s\n",                                                    \
 
     [localSnapshot setFrame:targetFrame display:YES];
 
-    [rowLayer addAnimation:fadeOutAnimation forKey:nil];
-
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
         context.duration = 0.2;
         context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+        [rowLayer addAnimation:fadeOutAnimation forKey:nil];
 
         [[localSnapshot animator] setFrame:finalframe display:YES];
     }

@@ -795,6 +795,13 @@ fprintf(stderr, "%s\n",                                                    \
         if (types.count)
             canAccept = YES;
     }
+
+    if ([draggingInfo.draggingSource isKindOfClass:[ImageView class]]) {
+        ImageView *source = (ImageView *)draggingInfo.draggingSource;
+        if ([source.game.ifid isEqualToString:_game.ifid])
+            canAccept = NO;
+    }
+
     return canAccept;
 }
 
