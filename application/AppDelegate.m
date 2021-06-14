@@ -40,6 +40,7 @@ NSDictionary *gExtMap;
 NSDictionary *gFormatMap;
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // NSLog(@"appdel: awakeFromNib");
 
     InsecureValueTransformer *insecureValueTransformer = nil;
