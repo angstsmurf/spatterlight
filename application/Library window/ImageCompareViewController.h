@@ -7,6 +7,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef enum kImageComparisonType : NSUInteger {
+    DOWNLOADED,
+    LOCAL,
+} kImageComparisonType;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ImageCompareViewController : NSViewController
@@ -16,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak) IBOutlet NSButton *imageSelectDialogSuppressionButton;
 
-- (BOOL)userWantsImage:(NSData *)imageA ratherThanImage:(NSData *)imageB;
+- (BOOL)userWantsImage:(NSData *)imageA ratherThanImage:(NSData *)imageB type:(kImageComparisonType)type;
 
 @end
 

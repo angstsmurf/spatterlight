@@ -336,7 +336,7 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         ImageCompareViewController *compare = [ImageCompareViewController new];
-        if ([compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data]) {
+        if ([compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
             [downloader insertImageData:image inMetadata:metadata];
         }

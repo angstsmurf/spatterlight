@@ -49,15 +49,15 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" id="feX-La-Ftr">
-                    <rect key="frame" x="132" y="7" width="148" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <rect key="frame" x="131" y="-2" width="151" height="25"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <buttonCell key="cell" type="check" title="Always use this choice." bezelStyle="regularSquare" imagePosition="left" inset="2" id="mFI-TC-7hZ">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="-63" y="163.5"/>
+            <point key="canvasLocation" x="-63.5" y="163.5"/>
         </customView>
     </objects>
     <resources>

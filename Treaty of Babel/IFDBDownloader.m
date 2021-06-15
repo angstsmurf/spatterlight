@@ -107,7 +107,7 @@
 
             ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
 
-            if ([imageCompare userWantsImage:(NSData *)img.data ratherThanImage:(NSData *)metadata.cover.data]) {
+            if ([imageCompare userWantsImage:(NSData *)img.data ratherThanImage:(NSData *)metadata.cover.data type:DOWNLOADED]) {
                 metadata.cover = img;
                 metadata.coverArtDescription = img.imageDescription;
                 accepted = YES;
@@ -143,7 +143,7 @@
             dispatch_sync(dispatch_get_main_queue(), ^{
                 ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
 
-                if ([imageCompare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data]) {
+                if ([imageCompare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data type:DOWNLOADED]) {
                     [self insertImageData:data inMetadata:metadata];
                     accepted = YES;
                 }

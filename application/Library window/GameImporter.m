@@ -537,8 +537,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
     // If the game already has an image, ask the user if they want to replace it
         ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-            NSLog(@"Comparing images for game %@", game.metadata.title);
-            result = [imageCompare userWantsImage:(NSData *)imageData ratherThanImage:(NSData *)game.metadata.cover.data];
+            result = [imageCompare userWantsImage:(NSData *)imageData ratherThanImage:(NSData *)game.metadata.cover.data type:DOWNLOADED];
         });
 
         if (result) {
