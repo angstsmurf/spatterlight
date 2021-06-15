@@ -143,8 +143,8 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if (menuItem.action == @selector(paste:)) {
-        NSPasteboard *pasteBoard = [NSPasteboard  generalPasteboard];
-        if ([pasteBoard canReadObjectForClasses:@[[NSURL class]] options:@{ NSPasteboardURLReadingContentsConformToTypesKey:[NSImage imageTypes]}]) {
+        NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
+        if ([pasteBoard canReadObjectForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingContentsConformToTypesKey:[NSImage imageTypes]}]) {
             return YES;
         } else {
             NSMutableSet *types = [NSMutableSet setWithArray:pasteBoard.types];
@@ -163,48 +163,45 @@
 }
 
 - (void)cut:(id)sender {
-    if (_isPlaceholder)
-        return;
-    NSLog(@"cut:");
     [self copy:nil];
     //Delete the cover relation of the Metadata object
     Image *image = _game.metadata.cover;
     _game.metadata.cover = nil;
     //If the Image object becomes an orphan, delete it from the Core Data store
-    if (image.metadata.count == 0)
+    if (image && image.metadata.count == 0)
         [_game.managedObjectContext deleteObject:image];
 }
 
 - (void)copy:(id)sender {
-    if (_isPlaceholder)
-        return;
-    NSLog(@"copy:");
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
     [pb clearContents];
     [pb writeObjects:@[_image]];
 }
 
 - (void)delete:(id)sender {
-    if (_isPlaceholder)
+    if (_isPlaceholder) {
+        NSBeep();
         return;
-    NSLog(@"delete:");
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = NSLocalizedString(@"Are you sure?", nil);
-        alert.informativeText = NSLocalizedString(@"Do you want to delete this cover image?", nil);
-        alert.icon = _image;
-        [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
-        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    }
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = NSLocalizedString(@"Are you sure?", nil);
+    alert.informativeText = NSLocalizedString(@"Do you want to delete this cover image?", nil);
+    alert.icon = _image;
+    [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
-        NSInteger choice = [alert runModal];
+    NSInteger choice = [alert runModal];
 
-        if (choice == NSAlertFirstButtonReturn) {
-            //Delete the cover relation of the Metadata object
-            Image *image = _game.metadata.cover;
-            _game.metadata.cover = nil;
-            //If the Image object becomes an orphan, delete it from the Core Data store
-            if (image.metadata.count == 0)
-                [_game.managedObjectContext deleteObject:image];
-        }
+    if (choice == NSAlertFirstButtonReturn) {
+        //Delete the cover relation of the Metadata object
+        Image *image = _game.metadata.cover;
+        if (!image)
+            return;
+        _game.metadata.cover = nil;
+        //If the Image object becomes an orphan, delete it from the Core Data store
+        if (image.metadata.count == 0)
+            [_game.managedObjectContext deleteObject:image];
+    }
 }
 
 - (void)paste:(id)sender {
@@ -220,18 +217,30 @@
                 NSBeep();
                 return;
             }
-            _game.metadata.coverArtURL = @"pasteboard";
-            [self replaceCoverImage:(NSImage *)item];
+            [self replaceCoverImage:(NSImage *)item sourceUrl:@"pasteboard"];
             break;
         } else if ([item isKindOfClass:[NSURL class]]) {
-            if ([_game.metadata.coverArtURL isEqualToString:((NSURL *)item).path]) {
+            NSURL *url = (NSURL *)item;
+            if ([_game.metadata.coverArtURL isEqualToString:url.path]) {
                 NSBeep();
                 return;
             }
+            if (![url.scheme isEqualToString:@"file"]) {
+                NSArray *objects2 = [pb readObjectsForClasses:@[[NSImage class]] options:nil];
+                if ([objects2.firstObject isKindOfClass:[NSImage class]]) {
+                    NSImage *image = (NSImage *)objects2.firstObject;
+                    NSData *imgData2 = image.TIFFRepresentation;
+                    if ([imgData1 isEqual:imgData2]) {
+                        NSBeep();
+                        return;
+                    }
+                    [self replaceCoverImage:image sourceUrl:url.path];
+                    break;
+                }
+            }
             NSImage *image = [[NSImage alloc] initWithContentsOfURL:(NSURL *)item];
             if (image) {
-                _game.metadata.coverArtURL = ((NSURL *)item).path;
-                [self replaceCoverImage:image];
+                [self replaceCoverImage:image sourceUrl:((NSURL *)item).path];
                 break;
             }
         }
@@ -318,35 +327,31 @@
         }
         image = [[NSImage alloc] initWithContentsOfURL:url];
         if (image) {
-            _game.metadata.coverArtURL = url.path;
-            [self replaceCoverImage:image];
+            [self replaceCoverImage:image sourceUrl:url.path];
             return YES;
         } else {
             NSData *data = [NSData imageDataFromRetroURL:url];
             if (data) {
-                _game.metadata.coverArtURL = url.path;
-                [self processImageData:data];
+                [self processImageData:data sourceUrl:url.path];
                 return YES;
             }
         }
     } else {
         image = [[NSImage alloc] initWithPasteboard:pasteBoard];
         if (image) {
-            _game.metadata.coverArtURL = @"pasteboard";
-            [self replaceCoverImage:image];
+            [self replaceCoverImage:image sourceUrl:@"pasteboard"];
             return YES;
         }
     }
-
     return NO;
 }
 
--(void)replaceCoverImage:(NSImage *)image {
+-(void)replaceCoverImage:(NSImage *)image sourceUrl:(NSString *)URLPath {
     NSData *data = image.TIFFRepresentation;
-    [self processImageData:data];
+    [self processImageData:data sourceUrl:URLPath];
 }
 
--(void)processImageData:(NSData *)image {
+-(void)processImageData:(NSData *)image sourceUrl:(NSString *)URLPath {
     double delayInSeconds = 0.1;
     Metadata *metadata = _game.metadata;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -354,6 +359,7 @@
         ImageCompareViewController *compare = [ImageCompareViewController new];
         if ([compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
+            metadata.coverArtURL = URLPath;
             [downloader insertImageData:image inMetadata:metadata];
         }
     });
@@ -406,7 +412,7 @@
     NSData *bitmapData = [self pngData];
 
 
-//    NSError *error = nil;
+    NSError *error = nil;
 
     if (![bitmapData writeToFile:url.path atomically:YES]) {
         NSLog(@"Error: Could not write PNG data to url %@", url.path);
