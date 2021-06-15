@@ -18,6 +18,9 @@
 #import "ImageCompareViewController.h"
 #import "IFDBDownloader.h"
 #import "MyFilePromiseProvider.h"
+#import "Blorb.h"
+#import "BlorbResource.h"
+
 
 @interface ImageView ()
 {
@@ -289,8 +292,8 @@
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)draggingInfo {
     NSArray *types = [NSImage imageTypes];
-    types = [types arrayByAddingObjectsFromArray:@[@"public.neochrome", @"public.mcga", @"public.dat"]];
-    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:types};
+    types = [types arrayByAddingObjectsFromArray:@[ @"public.neochrome", @"public.mcga", @"public.dat", @"public.blorb" ]];
+    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:types };
 
     _isReceivingDrag = NO;
     NSPasteboard *pasteBoard = draggingInfo.draggingPasteboard;
@@ -300,6 +303,19 @@
     NSImage *image;
     if (urls.count == 1) {
         NSURL *url = urls.firstObject;
+        if ([Blorb isBlorbURL:url]) {
+            // Only accept blorbs with image data but no executable chunk
+            // (because it would be confusing to treat game files as image files)
+            Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
+            if ([blorb findResourceOfUsage:ExecutableResource] == nil) {
+                NSData *data = [blorb coverImageData];
+                if (data) {
+                    image = [[NSImage alloc] initWithData:data];
+                    [self replaceCoverImage:image sourceUrl:url.path];
+                    return YES;
+                }
+            }
+        }
         image = [[NSImage alloc] initWithContentsOfURL:url];
         if (image) {
             _game.metadata.coverArtURL = url.path;
@@ -348,19 +364,7 @@
 
 - (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
 {
-    /*------------------------------------------------------
-     NSDraggingSource protocol method.  Returns the types of operations allowed in a certain context.
-     --------------------------------------------------------*/
-    switch (context) {
-        case NSDraggingContextOutsideApplication:
-            return NSDragOperationCopy;
-
-            //by using this fall through pattern, we will remain compatible if the contexts get more precise in the future.
-        case NSDraggingContextWithinApplication:
-        default:
-            return NSDragOperationCopy;
-            break;
-    }
+    return NSDragOperationCopy;
 }
 
 - (void)mouseDown:(NSEvent*)event {
