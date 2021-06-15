@@ -8,11 +8,14 @@
 #import <Cocoa/Cocoa.h>
 #import <CoreData/CoreData.h>
 
-@class Game;
+@class Game, ImageView;
 
 @interface SideInfoView : NSView <NSDraggingDestination>
 
 @property (weak) Game *game;
+
+@property (readonly) ImageView *imageView;
+
 @property (weak) NSString *string;
 @property NSButton *downloadButton;
 

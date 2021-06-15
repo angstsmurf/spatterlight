@@ -54,7 +54,6 @@ fprintf(stderr, "%s\n",                                                    \
 @interface SideInfoView ()
 {
     NSBox *topSpacer;
-    ImageView *imageView;
 
     NSTextField *titleField;
     NSTextField *headlineField;
@@ -99,6 +98,16 @@ fprintf(stderr, "%s\n",                                                    \
 {
 //    return textField != _yourReadOnlyTextField;
     return NO;
+}
+
+@synthesize imageView = _imageView;
+
+- (ImageView *)imageView {
+        if (_imageView == nil) {
+            _imageView = [[ImageView alloc] initWithGame:_game image:nil];
+        }
+
+    return _imageView;
 }
 
 - (NSTextField *)addSubViewWithtext:(NSString *)text andFont:(NSFont *)font andSpaceBefore:(CGFloat)space andLastView:(id)lastView
@@ -294,15 +303,15 @@ fprintf(stderr, "%s\n",                                                    \
 
         CGFloat ratio = theImage.size.width / theImage.size.height;
 
-        imageView = [[ImageView alloc] initWithGame:somegame image:theImage];
+        _imageView = [[ImageView alloc] initWithGame:somegame image:theImage];
 
-        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        _imageView.translatesAutoresizingMaskIntoConstraints = NO;
 
-        imageView.frame = NSMakeRect(0,0, superViewWidth * 2, superViewWidth * 2 / ratio);
+        _imageView.frame = NSMakeRect(0,0, superViewWidth * 2, superViewWidth * 2 / ratio);
 
-        [self addSubview:imageView];
+        [self addSubview:_imageView];
 
-        xPosConstraint = [NSLayoutConstraint constraintWithItem:imageView
+        xPosConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                       attribute:NSLayoutAttributeLeft
                                                       relatedBy:NSLayoutRelationEqual
                                                          toItem:self
@@ -310,7 +319,7 @@ fprintf(stderr, "%s\n",                                                    \
                                                      multiplier:1.0
                                                        constant:0];
 
-        yPosConstraint = [NSLayoutConstraint constraintWithItem:imageView
+        yPosConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                       attribute:NSLayoutAttributeTop
                                                       relatedBy:NSLayoutRelationEqual
                                                          toItem:self
@@ -318,7 +327,7 @@ fprintf(stderr, "%s\n",                                                    \
                                                      multiplier:1.0
                                                        constant:0];
 
-        widthConstraint = [NSLayoutConstraint constraintWithItem:imageView
+        widthConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                        attribute:NSLayoutAttributeWidth
                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                           toItem:self
@@ -326,15 +335,15 @@ fprintf(stderr, "%s\n",                                                    \
                                                       multiplier:1.0
                                                         constant:0];
 
-        heightConstraint = [NSLayoutConstraint constraintWithItem:imageView
+        heightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                         attribute:NSLayoutAttributeHeight
                                                         relatedBy:NSLayoutRelationLessThanOrEqual
-                                                           toItem:imageView
+                                                           toItem:_imageView
                                                         attribute:NSLayoutAttributeWidth
                                                        multiplier:( 1 / ratio)
                                                          constant:0];
 
-        rightMarginConstraint = [NSLayoutConstraint constraintWithItem:imageView
+        rightMarginConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                              attribute:NSLayoutAttributeRight
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self
@@ -350,9 +359,9 @@ fprintf(stderr, "%s\n",                                                    \
         rightMarginConstraint.priority = 999;
         [self addConstraint:rightMarginConstraint];
 
-        lastView = imageView;
+        lastView = _imageView;
     } else {
-        imageView = nil;
+        _imageView = nil;
         //NSLog(@"No image");
         topSpacer = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 0)];
         topSpacer.boxType = NSBoxSeparator;
@@ -554,7 +563,7 @@ fprintf(stderr, "%s\n",                                                    \
                                                                             constant:0];
     [self addConstraint:bottomPinConstraint];
 
-    if (imageView == nil) {
+    if (somedata.cover.data == nil) {
         CGFloat windowHeight = ((NSView *)self.window.contentView).frame.size.height;
 
         CGFloat topConstraintConstant = (windowHeight - totalHeight - 60) / 2;
@@ -622,8 +631,8 @@ fprintf(stderr, "%s\n",                                                    \
     }
 
     CGFloat titleYpos;
-    if (imageView)
-        titleYpos = NSMaxY(imageView.frame);
+    if (_game.metadata.cover.data)
+        titleYpos = NSMaxY(_imageView.frame);
     else
         titleYpos = 0;
 
@@ -776,109 +785,34 @@ fprintf(stderr, "%s\n",                                                    \
 
 #pragma mark Drag destination
 
-- (BOOL)shouldAllowDrag:(id<NSDraggingInfo>)draggingInfo {
-
-    if (imageView.numberForSelfSourcedDrag == draggingInfo.draggingSequenceNumber)
-        return NO;
-
-    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:[NSImage imageTypes]};
-
-    BOOL canAccept = NO;
-
-    NSPasteboard *pasteBoard = draggingInfo.draggingPasteboard;
-
-    if ([pasteBoard canReadObjectForClasses:@[[NSURL class]] options:filteringOptions]) {
-        canAccept = YES;
-    } else {
-        NSMutableSet *types = [NSMutableSet setWithArray:pasteBoard.types];
-        [types intersectSet:acceptableTypes];
-        if (types.count)
-            canAccept = YES;
-    }
-
-    if ([draggingInfo.draggingSource isKindOfClass:[ImageView class]]) {
-        ImageView *source = (ImageView *)draggingInfo.draggingSource;
-        if ([source.game.ifid isEqualToString:_game.ifid])
-            canAccept = NO;
-    }
-
-    return canAccept;
-}
-
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
-    BOOL allow = [self shouldAllowDrag:sender];
-    isReceivingDrag = allow;
-    return allow ? NSDragOperationCopy : NSDragOperationNone;
+    if (_game)
+        return [self.imageView draggingEntered:sender];
+    else
+        return NSDragOperationNone;
 }
 
 - (void)draggingExited:(id<NSDraggingInfo>)sender {
-    isReceivingDrag = NO;
+    if (_game)
+        [self.imageView draggingExited:sender];
 }
 
 - (BOOL)prepareForDragOperation:(id<NSDraggingInfo>)sender {
-    BOOL allow = [self shouldAllowDrag:sender];
-    return allow;
+    if (_game)
+        return [self.imageView prepareForDragOperation:sender];
+    else
+        return NO;
 }
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)draggingInfo {
-    NSArray *types = [NSImage imageTypes];
-    types = [types arrayByAddingObjectsFromArray:@[@"public.neochrome", @"public.mcga", @"public.dat"]];
-    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:types};
-
-    isReceivingDrag = NO;
-    NSPasteboard *pasteBoard = draggingInfo.draggingPasteboard;
-
-    NSArray<NSURL *> *urls = [pasteBoard readObjectsForClasses:@[[NSURL class]] options:filteringOptions];
-
-    NSImage *image;
-    if (urls.count == 1) {
-        NSURL *url = urls.firstObject;
-        image = [[NSImage alloc] initWithContentsOfURL:url];
-        if (image) {
-            _game.metadata.coverArtURL = url.path;
-            [self processImage:image];
-            return YES;
-        } else {
-            NSData *data = [NSData imageDataFromRetroURL:url];
-            if (data) {
-                _game.metadata.coverArtURL = url.path;
-                [self processImageData:data];
-                return YES;
-            }
-        }
-    } else {
-        image = [[NSImage alloc] initWithPasteboard:pasteBoard];
-        if (image) {
-            _game.metadata.coverArtURL = @"pasteboard";
-            [self processImage:image];
-            return YES;
-        }
-    }
-
-    return NO;
-}
-
--(void)processImage:(NSImage *)image {
-    NSData *data = image.TIFFRepresentation;
-    [self processImageData:data];
-}
-
--(void)processImageData:(NSData *)image {
-    double delayInSeconds = 0.1;
-    Metadata *metadata = _game.metadata;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        ImageCompareViewController *compare = [ImageCompareViewController new];
-        if ([compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data]) {
-            IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
-            [downloader insertImageData:image inMetadata:metadata];
-        }
-    });
+    if (_game)
+        return [self.imageView performDragOperation:draggingInfo];
+    else return NO;
 }
 
 - (void)deselectImage {
-    if (imageView) {
-        [imageView resignFirstResponder];
+    if (_imageView) {
+        [_imageView resignFirstResponder];
     }
 }
 
