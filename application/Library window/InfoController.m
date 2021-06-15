@@ -133,7 +133,6 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)windowDidLoad {
-    //    NSLog(@"infoctl: windowDidLoad");
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(noteManagedObjectContextDidChange:)
@@ -422,34 +421,12 @@ fprintf(stderr, "%s\n",                                                    \
     [snapshotWindow orderFront:nil];
 }
 
-- (void)showDebugWindow:(NSRect)finalFrame {
-    CALayer *snapshotLayer = [self takeSnapshot];
-    NSWindow *snapshotWindow = ([[NSWindow alloc]
-                                 initWithContentRect:finalFrame
-                                 styleMask:0
-                                 backing:NSBackingStoreBuffered
-                                 defer:NO]);
-
-    snapshotWindow.contentView.wantsLayer = YES;
-    snapshotWindow.opaque = NO;
-    snapshotWindow.releasedWhenClosed = YES;
-    snapshotWindow.backgroundColor = NSColor.clearColor;
-
-    NSRect debugFrame = finalFrame;
-    debugFrame.origin = NSMakePoint(0,finalFrame.size.height);
-
-    [snapshotWindow setFrame:debugFrame display:YES];
-    [snapshotWindow.contentView.layer addSublayer:snapshotLayer];
-
-    NSRect snapshotLayerFrame = snapshotWindow.contentView.bounds;
-    snapshotLayer.frame = snapshotLayerFrame;
-    [snapshotWindow orderFront:nil];
-}
-
 - (CALayer *)takeSnapshot {
-    CGImageRef windowSnapshot = CGWindowListCreateImage(
-                                                        CGRectNull, kCGWindowListOptionIncludingWindow,
-                                                        (CGWindowID)[self.window windowNumber], kCGWindowImageBoundsIgnoreFraming);
+    CGImageRef windowSnapshot =
+    CGWindowListCreateImage(CGRectNull,
+                            kCGWindowListOptionIncludingWindow,
+                            (CGWindowID)[self.window windowNumber],
+                            kCGWindowImageBoundsIgnoreFraming);
     CALayer *snapshotLayer = [[CALayer alloc] init];
     snapshotLayer.frame = self.window.frame;
     snapshotLayer.contents = CFBridgingRelease(windowSnapshot);
