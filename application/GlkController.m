@@ -1023,8 +1023,6 @@ fprintf(stderr, "%s\n",                                                    \
     if (winToGrabFocus)
         [winToGrabFocus grabFocus];
 
-    windowRestoredBySystem = NO;
-
     if (!restoredUIOnly)
         _hasAutoSaved = YES;
 
@@ -2128,7 +2126,6 @@ fprintf(stderr, "%s\n",                                                    \
         CGFloat offset = NSHeight(newframe) - NSHeight(oldframe);
         newframe.origin.y -= offset;
 
-//        [self contentDidResize:newframe];
         _contentView.frame = newframe;
     }
 }
@@ -3706,10 +3703,14 @@ again:
 }
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
-    // Save the window frame so that it can be restored later
-    if (!windowRestoredBySystem) {
+    // Save the window frame so that it can be restored later.
+
+    // If we are starting up in fullscreen, we should use the
+    // autosaved windowPreFullscreenFrame instead
+    if (!(windowRestoredBySystem && _inFullscreen)) {
         _windowPreFullscreenFrame = self.window.frame;
     }
+    windowRestoredBySystem = NO;
     _inFullscreen = YES;
     [self storeScrollOffsets];
     _ignoreResizes = YES;
@@ -4015,7 +4016,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
-    windowRestoredBySystem = NO;
     _ignoreResizes = NO;
     inFullScreenResize = NO;
     if (_contentView.frame.size.width < 200)
