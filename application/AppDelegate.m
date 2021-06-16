@@ -217,6 +217,20 @@ NSDictionary *gFormatMap;
         } else if ([firstLetters isEqualToString:@"gameWin"]) {
             NSString *ifid = [identifier substringFromIndex:7];
             window = [appDelegate.libctl playGameWithIFID:ifid];
+
+            // We delay the restoration of game windows
+            // here in order to make it less likely
+            // that a game opens in fullscreen and then
+            // switches to the library window
+            double delayInSeconds = 0.5;
+            void(^completionHandlerCopy)(NSWindow *, NSError *);
+            completionHandlerCopy = completionHandler;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                completionHandlerCopy(window, nil);
+            });
+
+            return;
         }
     }
     completionHandler(window, nil);
