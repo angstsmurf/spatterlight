@@ -92,7 +92,9 @@ extern NSArray *gGameFileTypes;
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
             [downloader downloadMetadataFor:game];
         }
-        if (lookForImages || game.metadata.cover.data == nil || [(NSData *)game.metadata.cover.data isPlaceHolderImage])
+        // We only look for images on the HDD if the game has
+        // no cover image or the Inform 7 placeholder image.
+        if (lookForImages && (game.metadata.cover.data == nil || [(NSData *)game.metadata.cover.data isPlaceHolderImage]))
             [self lookForImagesForGame:game];
     } else {
         //NSLog(@"libctl: addFile: File %@ not added!", url.path);
@@ -418,7 +420,7 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 }
 
 - (void)lookForImagesForGame:(Game *)game {
-    NSLog(@"lookForImagesForGame %@", game.metadata.title);
+//    NSLog(@"lookForImagesForGame %@", game.metadata.title);
     NSFileManager *filemgr = [NSFileManager defaultManager];
     NSURL *dirUrl = [NSURL fileURLWithPath:[game.path stringByDeletingLastPathComponent] isDirectory:YES];
     // First check if there are other games in this folder
@@ -458,8 +460,6 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 
     NSArray<NSURL *> *imageFiles = [contentsOfDir filteredArrayUsingPredicate:imageFilesFilter];
 
-    NSLog(@"%ld image files in folder", imageFiles.count);
-
     // If there is more than one game in folder, and they don't share the same
     // file name without extension, i.e. "enchanter.z3" and "zork.z5" rather than
     // "zork.z3" and "zork.z5", we only look for image files containing the game file
@@ -476,8 +476,8 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             }]];
         } else if ([gameNames containsObject:@"screen"] && [gameNames containsObject:@"story"]) {
             // The original Beyond Zork cover image is named SCREEN.DAT, but is in fact
-            // a Neochrome image. We cheat and create a renamed copy with .neo extension in
-            // a temp file.
+            // a Neochrome image. We cheat and create a renamed copy with a .neo file extension
+            // (SCREEN.neo) in a temp folder.
             imageFiles = [self moveScreenDatFrom:game.path];
         }
     } else if (imageFiles.count == 0) {
@@ -532,18 +532,8 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
         if (!imageData)
             return;
 
-        __block BOOL result = NO;
-        dispatch_sync(dispatch_get_main_queue(), ^{
-
-    // If the game already has an image, ask the user if they want to replace it
-        ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
-            result = [imageCompare userWantsImage:(NSData *)imageData ratherThanImage:(NSData *)game.metadata.cover.data type:DOWNLOADED];
-        });
-
-        if (result) {
-            game.metadata.coverArtURL = chosenURL.path;
-            [self addImage:imageData toMetadata:game.metadata];
-        }
+        game.metadata.coverArtURL = chosenURL.path;
+        [self addImage:imageData toMetadata:game.metadata];
     }
 }
 
@@ -598,7 +588,6 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 // for the cover image importer to find.
 
 - (NSString *)convertAGTFile:(NSString *)origpath {
-    NSLog(@"GameImporter: converting agt to agx");
 
     NSError *error = nil;
 
@@ -678,18 +667,16 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             // finds them.
             NSString *iconPath = [origpath.stringByDeletingPathExtension
                                   stringByAppendingPathExtension:@"ICO"];
-            NSLog(@"iconPath: %@", iconPath);
             NSString *icon2Path =
             [[origpath.stringByDeletingPathExtension
               stringByAppendingString:@"2"] stringByAppendingPathExtension:@"ICO"];
-            NSLog(@"icon2Path: %@", icon2Path);
-
 
             if ([filemanager fileExistsAtPath:icon2Path]) {
                 iconPath = icon2Path;
             }
 
             if ([filemanager fileExistsAtPath:iconPath]) {
+                NSLog(@"Found icon file at: %@", iconPath);
                 NSURL *oldIconURL = [NSURL fileURLWithPath:iconPath];
                 NSString *newIconPath = [cvtURL.path.stringByDeletingPathExtension stringByAppendingPathExtension:@"ico"];
                 NSURL *newIconURL = [NSURL fileURLWithPath:newIconPath];
