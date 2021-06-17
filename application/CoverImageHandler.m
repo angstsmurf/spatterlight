@@ -61,7 +61,7 @@
     newWin.opaque = YES;
     newWin.backgroundColor = _glkctl.theme.bufferBackground;
 
-    [newWin setFrame:_glkctl.window.frame display:YES];
+    [newWin setFrame:[_glkctl.window convertRectToScreen:_glkctl.window.contentView.frame] display:YES];
     return newWin;
 }
 
@@ -84,11 +84,7 @@
 }
 
 - (void)forkInterpreterTask {
-    NSLog(@"forkInterpreterTask");
-    if (!_waitingforkey)
-        NSLog(@"Not waiting for key");
     if (_waitingforkey) {
-        NSLog(@"Waiting for key");
         _waitingforkey = NO;
 
         if (_enterFullscreenWindow) {
@@ -141,7 +137,7 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [NSAnimationContext
              runAnimationGroup:^(NSAnimationContext *context) {
-                context.duration = 1;
+                context.duration = 0.3;
                 [[backgroundColorWin animator] setAlphaValue:0];
             } completionHandler:^{
                 [backgroundColorWin orderOut:nil];
@@ -153,7 +149,6 @@
             context.duration = 0.5;
             context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
             [imageWindow.contentView.layer addAnimation:fadeOutAnimation forKey:nil];
-
         } completionHandler:^{
             [imageWindow orderOut:nil];
         }];
