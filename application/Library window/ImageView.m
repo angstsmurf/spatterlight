@@ -47,9 +47,11 @@
         CGFloat lineWidth = 4;
         shapelayer.lineWidth = lineWidth;
         CGRect borderRect = NSMakeRect(lineWidth / 2, lineWidth / 2, self.bounds.size.width - lineWidth, self.bounds.size.height - lineWidth);
-        shapelayer.path = CGPathCreateWithRoundedRect(borderRect, 2.5, 2.5, NULL);
+        CGPathRef roundedRectPath = CGPathCreateWithRoundedRect(borderRect, 2.5, 2.5, NULL);
+        shapelayer.path = roundedRectPath;
         [self.layer addSublayer:shapelayer];
         shapelayer.drawsAsynchronously = YES;
+        CFRelease(roundedRectPath);
 
         // Use a mask layer to hide the sharp corners of the image
         // that stick out from the rounded corners of the selection border
@@ -59,9 +61,11 @@
         masklayer.lineJoin = kCALineJoinRound;
         masklayer.lineWidth = 0;
         borderRect = NSMakeRect(0, 0, masklayer.frame.size.width,  masklayer.frame.size.height);
-        masklayer.path = CGPathCreateWithRoundedRect(borderRect, 5, 5, NULL);
-        [self.layer addSublayer:masklayer];
+        roundedRectPath = CGPathCreateWithRoundedRect(borderRect, 5, 5, NULL);
+        masklayer.path = roundedRectPath;
+//        [self.layer addSublayer:masklayer];
         self.layer.mask = masklayer;
+        CFRelease(roundedRectPath);
     }
 }
 
@@ -90,7 +94,9 @@
 - (instancetype)initWithFrame:(NSRect)frameRect {
     self = [super initWithFrame:frameRect];
     if (self) {
+        self.wantsLayer = YES;
         self.enabled = YES;
+
         nonURLTypes = [NSSet setWithObjects:NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil];
         _acceptableTypes = [NSSet setWithObject:NSURLPboardType];
         _acceptableTypes = [_acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
