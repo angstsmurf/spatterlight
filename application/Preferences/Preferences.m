@@ -84,6 +84,7 @@ fprintf(stderr, "%s\n",                                                    \
     BOOL disregardTableSelection;
     BOOL zooming;
     CGFloat previewTextHeight;
+    BOOL previewUpdatePending;
     NSString *lastSelectedTheme;
 
     NSDate *themeDuplicationTimestamp;
@@ -234,7 +235,8 @@ NSString *fontToString(NSFont *font) {
         self.window.minSize = minSize;
     }
 
-    _previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _previewShown = [defaults boolForKey:@"ShowThemePreview"];
 
     _standardZArrowsMenuItem.title = NSLocalizedString(@"↑ and ↓ work as in original", nil);
     _standardZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history.", nil);
@@ -283,8 +285,6 @@ NSString *fontToString(NSFont *font) {
         }
     }
 
-
-
     if (!theme)
         theme = self.defaultTheme;
 
@@ -298,11 +298,12 @@ NSString *fontToString(NSFont *font) {
     sampleTextView.glkctrl = glkcntrl;
 
     _sampleTextBorderView.fillColor = theme.bufferBackground;
-    NSRect newSampleFrame = NSMakeRect(20, 312, self.window.frame.size.width - 40, ((NSView *)self.window.contentView).frame.size.height - 312);
+    CGFloat sampleY = kDefaultPrefsLowerViewHeight + 1;
+    NSRect newSampleFrame = NSMakeRect(20, sampleY, self.window.frame.size.width - 40, ((NSView *)self.window.contentView).frame.size.height - sampleY);
     sampleTextView.frame = newSampleFrame;
     _sampleTextBorderView.frame = newSampleFrame;
 
-    _divider.frame = NSMakeRect(0, 311, self.window.frame.size.width, 1);
+    _divider.frame = NSMakeRect(0, kDefaultPrefsLowerViewHeight, self.window.frame.size.width, 1);
     _divider.autoresizingMask = NSViewMaxYMargin;
 
     NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
@@ -340,10 +341,10 @@ NSString *fontToString(NSFont *font) {
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:_managedObjectContext];
 
-    _oneThemeForAll = [[NSUserDefaults standardUserDefaults] boolForKey:@"OneThemeForAll"];
+    _oneThemeForAll = [defaults boolForKey:@"OneThemeForAll"];
     _themesHeader.stringValue = [self themeScopeTitle];
 
-    _adjustSize = [[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"];
+    _adjustSize = [defaults boolForKey:@"AdjustSize"];
 
     prefs = self;
     [self updatePrefsPanel];
@@ -376,6 +377,8 @@ NSString *fontToString(NSFont *font) {
     }
 }
 
+#pragma mark Update panels
+
 - (void)updatePrefsPanel {
     if (!theme)
         theme = self.defaultTheme;
@@ -406,7 +409,7 @@ NSString *fontToString(NSFont *font) {
     btnEnableStyles.state = theme.doStyles;
 
     _btnOverwriteStyles.enabled = theme.hasCustomStyles;
-    _btnOverwriteStyles.state = ([_btnOverwriteStyles isEnabled] == NO);
+//    _btnOverwriteStyles.state = ([_btnOverwriteStyles isEnabled] == NO);
 
     _btnOneThemeForAll.state = _oneThemeForAll;
     _btnAdjustSize.state = _adjustSize;
@@ -455,6 +458,11 @@ NSString *fontToString(NSFont *font) {
 
     _btnDeterminism.state = theme.determinism;
     _btnNoHacks.state = theme.nohacks ? NSOffState : NSOnState;
+
+    _btnShowCoverImage.state = theme.coverArtStyle;
+
+    _btnAutoBorderColor.hidden = YES;
+    _borderColorWell.hidden = YES;
 
     [_imageReplacePopup selectItemWithTag:[defaults integerForKey:@"ImageReplacement"]];
 
@@ -571,6 +579,7 @@ NSString *fontToString(NSFont *font) {
     if (sampleTextView.frame.size.height < _sampleTextBorderView.frame.size.height) {
         [self adjustPreview:nil];
     }
+
     [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.1];
 }
 
@@ -620,8 +629,10 @@ NSString *fontToString(NSFont *font) {
 - (NSSize)windowWillResize:(NSWindow *)window
                     toSize:(NSSize)frameSize {
 
-    if (window != self.window)
+    if (window != self.window) {
+        NSLog(@"Wrong window");
         return frameSize;
+    }
 
     if (frameSize.height > self.window.frame.size.height) { // We are enlarging
         NSRect previewFrame = _sampleTextBorderView.frame;
@@ -660,6 +671,16 @@ NSString *fontToString(NSFont *font) {
 
     [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 
+    if (!previewUpdatePending) {
+        previewUpdatePending = YES;
+        double delayInSeconds = 0.2;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            self->previewUpdatePending = NO;
+            [self adjustPreview:nil];
+        });
+    }
+
     return frameSize;
 }
 
@@ -692,8 +713,11 @@ NSString *fontToString(NSFont *font) {
         return YES;
     if (!_previewShown && newFrame.size.height > kDefaultPrefWindowHeight)
         return NO;
-    if (_previewShown)
-        [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.1];
+    if (_previewShown) {
+        if (newFrame.size.height > self.window.frame.size.height)
+            sampleTextView.autoresizingMask = NSViewHeightSizable;
+        [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.2];
+    }
     return YES;
 }
 
@@ -881,6 +905,7 @@ NSString *fontToString(NSFont *font) {
     [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"themeName"];
     _detailsHeader.stringValue = [NSString stringWithFormat:@"Settings for theme %@", name];
     _miscHeader.stringValue = _detailsHeader.stringValue;
+    _stylesHeader.stringValue = _detailsHeader.stringValue;
     _zcodeHeader.stringValue = _detailsHeader.stringValue;
     _vOHeader.stringValue = _detailsHeader.stringValue;
 }
@@ -996,7 +1021,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)clickedOneThemeForAll:(id)sender {
     if ([sender state] == NSOnState) {
-        if (![[NSUserDefaults standardUserDefaults] valueForKey:@"UseForAllAlertSuppression"]) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"UseForAllAlertSuppression"]) {
             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
             NSError *error = nil;
             fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:self.managedObjectContext];
@@ -1133,7 +1158,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         _previewShown = YES;
         [self resizeWindowToHeight:[self previewHeight]];
     }
-    [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.2];
     [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 }
 
@@ -1556,6 +1581,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [defaults setBool:NO forKey:@"CloseAlertSuppression"];
     [defaults setBool:NO forKey:@"CommandScriptAlertSuppression"];
     [defaults setBool:NO forKey:@"SaveFileAlertSuppression"];
+    [defaults setBool:NO forKey:@"ImageComparisonSuppression"];
 }
 
 - (IBAction)changeSmoothScroll:(id)sender {
@@ -1596,17 +1622,22 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [self changeMenuAttribute:@"errorHandling" fromPopUp:sender];
 }
 - (IBAction)changeImageReplacePopup:(NSPopUpButton *)sender {
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"ImageReplacement"] == sender.selectedTag)
-        return;
+        [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedTag forKey:@"ImageReplacement"];
+}
 
-    [[NSUserDefaults standardUserDefaults]  setInteger:sender.selectedTag forKey:@"ImageReplacement"];
+- (IBAction)changeShowCoverImage:(id)sender {
+    if (theme.coverArtStyle == [sender state])
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.coverArtStyle = [sender state];
 }
 
 #pragma mark End of Misc menu
 
 - (IBAction)changeOverwriteStyles:(id)sender {
-    if ([sender state] == 1) {
-        if (![[NSUserDefaults standardUserDefaults] valueForKey:@"OverwriteStylesAlertSuppression"]) {
+    if ([sender state] == NSOnState) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"OverwriteStylesAlertSuppression"]) {
+            NSLog(@"OverwriteStylesAlertSuppression off");
             NSMutableArray *customStyles = [[NSMutableArray alloc] initWithCapacity:style_NUMSTYLES * 2];
             for (GlkStyle *style in theme.allStyles) {
                 if (!style.autogenerated && style != theme.bufferNormal && style != theme.gridNormal) {
@@ -1651,8 +1682,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
         if (result == NSAlertFirstButtonReturn) {
             [weakSelf overWriteStyles];
-        } else {
-            weakSelf.btnOverwriteStyles.state = NSOffState;
+//        } else {
+//            weakSelf.btnOverwriteStyles.state = NSOffState;
         }
     }];
 }

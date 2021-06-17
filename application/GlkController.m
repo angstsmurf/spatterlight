@@ -674,7 +674,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self adjustContentView];
     lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
     [self showWindow:nil];
-    if (_game.metadata.cover.data) {
+    if (_theme.coverArtStyle == 1 && _game.metadata.cover.data) {
         [self deleteAutosaveFiles];
         _contentView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewHeightSizable;

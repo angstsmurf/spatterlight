@@ -16,8 +16,10 @@ typedef enum kZoomDirectionType : NSUInteger {
 
 typedef enum kDefaultPrefWindowSize : NSUInteger {
     kDefaultPrefWindowWidth = 516,
-    kDefaultPrefWindowHeight = 330,
-    kDefaultPrefsLowerViewHeight = 311
+    // Height with preview pane closed
+    kDefaultPrefWindowHeight = 379,
+    // Window height minus window top border
+    kDefaultPrefsLowerViewHeight = 350
 } kDefaultPrefWindowSize;
 
 typedef enum kVOMenuPrefsType : int32_t {
@@ -40,8 +42,8 @@ typedef enum kBZArrowsPrefsType : int32_t {
 } kBZArrowsPrefsType;
 
 typedef enum kImageReplacementPrefsType : int32_t {
-    kNeverReplace,
     kAlwaysReplace,
+    kNeverReplace,
     kAskIfReplace,
 } kImageReplacementPrefsType;
 
@@ -102,6 +104,7 @@ typedef enum kImageReplacementPrefsType : int32_t {
 @property (weak) IBOutlet NSTextFieldCell *miscHeader;
 @property (weak) IBOutlet NSTextFieldCell *vOHeader;
 @property (weak) IBOutlet NSTextFieldCell *zcodeHeader;
+@property (weak) IBOutlet NSTextFieldCell *stylesHeader;
 
 @property (weak) IBOutlet NSButton *btnOneThemeForAll;
 
@@ -145,6 +148,10 @@ typedef enum kImageReplacementPrefsType : int32_t {
 @property (weak) IBOutlet NSButton *btnDeterminism;
 @property (weak) IBOutlet NSPopUpButton *errorHandlingPopup;
 @property (weak) IBOutlet NSPopUpButton *imageReplacePopup;
+
+@property (weak) IBOutlet NSButton *btnAutoBorderColor;
+@property (weak) IBOutlet NSColorWell *borderColorWell;
+@property (weak) IBOutlet NSButton *btnShowCoverImage;
 
 @property DummyTextView *dummyTextView;
 
