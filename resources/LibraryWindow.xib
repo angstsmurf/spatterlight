@@ -477,6 +477,7 @@
                     <constraint firstItem="43" firstAttribute="leading" secondItem="42" secondAttribute="leading" constant="20" symbolic="YES" id="327"/>
                 </constraints>
             </view>
+            <point key="canvasLocation" x="-263" y="469"/>
         </window>
         <customView id="47" userLabel="Export View">
             <rect key="frame" x="0.0" y="0.0" width="404" height="42"/>
@@ -575,6 +576,7 @@ CA
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="262" y="470"/>
         </menu>
         <menu id="102" userLabel="Header Menu">
             <items>
@@ -705,6 +707,7 @@ CA
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="39" y="564"/>
         </menu>
         <arrayController id="457" userLabel="Themes">
             <connections>
@@ -727,19 +730,19 @@ CA
             <point key="canvasLocation" x="-135" y="-219"/>
         </customView>
         <customView id="C4i-U8-esv" userLabel="Download view">
-            <rect key="frame" x="0.0" y="0.0" width="458" height="35"/>
+            <rect key="frame" x="0.0" y="0.0" width="430" height="28"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" id="o2b-1B-MTS">
-                    <rect key="frame" x="-2" y="-2" width="223" height="18"/>
+                    <rect key="frame" x="-2" y="0.0" width="229" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Look for cover image files (slow)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="cBJ-mC-h3Z">
+                    <buttonCell key="cell" type="check" title="Look for cover image files (slow)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cBJ-mC-h3Z">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" id="UAu-31-ibL">
-                    <rect key="frame" x="256" y="-2" width="202" height="18"/>
+                    <rect key="frame" x="226" y="0.0" width="204" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Download game info (slower)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Qqu-br-SBk">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -747,7 +750,7 @@ CA
                     </buttonCell>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="-49" y="-330.5"/>
+            <point key="canvasLocation" x="-63" y="-325"/>
         </customView>
     </objects>
 </document>
