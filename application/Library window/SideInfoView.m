@@ -15,10 +15,7 @@
 #import "LibController.h"
 #import "AppDelegate.h"
 #import "NSImage+Categories.h"
-#import "NSData+Categories.h"
 #import "ImageView.h"
-#import "ImageCompareViewController.h"
-#import "IFDBDownloader.h"
 #import "NSFont+Categories.h"
 
 
@@ -223,6 +220,16 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self addConstraints:@[ xPosConstraint, yPosConstraint ,widthConstraint, rightMarginConstraint ]];
 
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:textField
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                           toItem:nil
+                                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                                       multiplier:1.0
+                                                                         constant: contentRect.size.height + 1];
+
+    [self addConstraint:heightConstraint];
+
     totalHeight += NSHeight(textField.bounds) + space;
 
     return textField;
@@ -308,6 +315,7 @@ fprintf(stderr, "%s\n",                                                    \
         _imageView.translatesAutoresizingMaskIntoConstraints = NO;
 
         _imageView.frame = NSMakeRect(0,0, superViewWidth * 2, superViewWidth * 2 / ratio);
+        _imageView.intrinsic = _imageView.frame.size;
 
         [self addSubview:_imageView];
 
@@ -705,8 +713,7 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (_game && !_game.hasDownloaded) {
         if (!_downloadButton)
-            _downloadButton = [self createDownloadButtonInView:titleField];
-        _downloadButton.alphaValue = 0.4;
+            _downloadButton = [self createDownloadButton];
         if (_downloadButton.superview != titleField) {
             [titleField addSubview:_downloadButton];
 
@@ -751,14 +758,20 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 #pragma mark Download button
-- (NSButton *)createDownloadButtonInView:(NSView *)view {
+- (NSButton *)createDownloadButton {
     // The actual size and position of the button is taken care of
     // by the constraints added in the caller above
-    NSButton *button = [[NSButton alloc] initWithFrame:NSZeroRect];
+    NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0,0, 40, 40)];
     button.buttonType = NSPushOnPushOffButton;
     NSImage *image = [NSImage imageNamed:@"Download"];
-    NSImage *tintedimage = [image imageWithTint:[NSColor disabledControlTextColor]];
-    button.image = tintedimage;
+    if (@available(macOS 10.14, *)) {
+        button.image = image;
+        button.contentTintColor = NSColor.disabledControlTextColor;
+    } else {
+        NSImage *tintedimage = [image imageWithTint:NSColor.disabledControlTextColor];
+        button.image = tintedimage;
+        button.alphaValue = 0.5;
+    }
     button.imageScaling = NSImageScaleProportionallyUpOrDown;
     button.imagePosition = NSImageOnly;
     button.alignment = NSCenterTextAlignment;

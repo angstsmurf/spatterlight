@@ -146,6 +146,9 @@
     return YES;
 }
 
+- (NSSize) intrinsicContentSize {
+    return _intrinsic;
+}
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if (menuItem.action == @selector(paste:)) {
@@ -420,10 +423,9 @@
 
     NSError *error = nil;
 
-    if (![bitmapData writeToFile:url.path atomically:YES]) {
+    if (![bitmapData writeToURL:url options:NSDataWritingAtomic error:&error]) {
         NSLog(@"Error: Could not write PNG data to url %@", url.path);
-//        completionHandler(error);
-        // TODO handle the error
+        completionHandler(error);
     }
 
     completionHandler(nil);

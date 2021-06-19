@@ -19,9 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property NSInteger numberForSelfSourcedDrag;
 @property Game *game;
-@property (readonly) NSImage *image;
+@property (nullable, readonly) NSImage *image;
 @property NSSet<NSPasteboardType> *acceptableTypes;
 
+@property NSSize intrinsic;
 
 - (instancetype)initWithGame:(Game *)game image:(nullable NSImage *)anImage;
 - (NSData *)pngData;
