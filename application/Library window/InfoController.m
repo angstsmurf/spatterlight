@@ -243,6 +243,11 @@ fprintf(stderr, "%s\n",                                                    \
 
     imgsize = NSMakeSize(width, height);
 
+    if (height == 0)
+        return;
+    
+    CGFloat ratio = width / height;
+
     if (imgsize.width > maxsize.width) {
         scale = maxsize.width / imgsize.width;
         imgsize.width *= scale;
@@ -255,10 +260,14 @@ fprintf(stderr, "%s\n",                                                    \
         imgsize.height *= scale;
     }
 
-    if (imgsize.width < 100)
+    if (imgsize.width < 100) {
         imgsize.width = 100;
-    if (imgsize.height < 150)
+        imgsize.height = 100 / ratio;
+    }
+    if (imgsize.height < 150) {
         imgsize.height = 150;
+        imgsize.width = 150 * ratio;
+    }
 
     setsize.width = cursize.width - wellsize.width + imgsize.width;
     setsize.height = cursize.height - wellsize.height + imgsize.height;
@@ -317,11 +326,13 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)updateImage {
-    NSImage *image;
+    NSImage *image = nil;
     if (_meta.cover) {
         image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
         imageView.isPlaceholder = NO;
-    } else {
+    }
+
+    if (!image) {
         image = [NSImage imageNamed:@"Question"];
         imageView.isPlaceholder = YES;
     }
