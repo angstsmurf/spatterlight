@@ -21,6 +21,7 @@
 #import "Blorb.h"
 #import "BlorbResource.h"
 
+#import "OSImageHashing.h"
 
 @interface ImageView ()
 {
@@ -120,6 +121,7 @@
 
     NSImageRep *rep = [[image representations] objectAtIndex:0];
     NSSize sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+    image.size = sizeInPixels;
 
     layer.magnificationFilter = sizeInPixels.width < 350 ? kCAFilterNearest : kCAFilterTrilinear;
 
@@ -370,12 +372,19 @@
 -(void)processImageData:(NSData *)image sourceUrl:(NSString *)URLPath {
     if (!image)
         return;
+    BOOL dontAsk = NO;
+    if ([URLPath isEqualToString:@"pasteboard"] ||
+        [self compareByFileNames:URLPath data:image]) {
+        dontAsk = YES;
+    }
     double delayInSeconds = 0.1;
     Metadata *metadata = _game.metadata;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         ImageCompareViewController *compare = [ImageCompareViewController new];
-        if ([compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
+        // We always replace when pasting
+        if (dontAsk ||
+            [compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
             metadata.coverArtURL = URLPath;
             [downloader insertImageData:image inMetadata:metadata];
@@ -383,6 +392,32 @@
     });
 }
 
+- (BOOL)compareByFileNames:(NSString *)path data:(NSData *)data {
+
+    if (!_game.metadata.cover.data) {
+        return NO;
+    }
+
+    NSString *gameBaseName = _game.path.lastPathComponent.stringByDeletingPathExtension;
+
+    NSString *fileBaseName = path.lastPathComponent.stringByDeletingPathExtension;
+
+    // The fileBaseName may have been given a suffix, such as "image 2.png"
+    // if there already was a file named "image.png" on the HDD.
+    if (fileBaseName.length > gameBaseName.length && gameBaseName.length > 1) {
+        fileBaseName = [fileBaseName substringToIndex:gameBaseName.length];
+    }
+
+    if ([gameBaseName isEqualToString:fileBaseName]) {
+        SInt64 distance = [[OSImageHashing sharedInstance] hashDistance:(NSData *)_game.metadata.cover.data to:data];
+        NSLog(@"distance: %lld", distance);
+        if (distance < 11) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
 
 #pragma mark Source stuff
 

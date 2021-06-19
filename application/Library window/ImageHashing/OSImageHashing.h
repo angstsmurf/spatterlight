@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)compareImageData:(NSData *)leftHandImageData
                       to:(NSData *)rightHandImageData;
 
+- (SInt64)hashDistance:(NSData *)leftHandImageData
+                    to:(NSData *)rightHandImageData;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -61,5 +61,18 @@ static const NSUInteger OSPHashImageSideInPixels = 32;
     return leftHandImageDataHash == rightHandImageDataHash;
 }
 
+- (SInt64)hashDistance:(NSData *)leftHandImageData
+                    to:(NSData *)rightHandImageData {
+    NSAssert(leftHandImageData, @"Left hand image data must not be null");
+    NSAssert(rightHandImageData, @"Right hand image data must not be null");
+    SInt64 leftHandImageDataHash = [self hashImageData:leftHandImageData];
+    SInt64 rightHandImageDataHash = [self hashImageData:rightHandImageData];
+    return OSHammingDistance(leftHandImageDataHash, rightHandImageDataHash);
+}
+
+OS_INLINE SInt64 OSHammingDistance(SInt64 leftHand, SInt64 rightHand)
+{
+    return (SInt64)__builtin_popcountll((UInt64)leftHand ^ (UInt64)rightHand);
+}
 
 @end

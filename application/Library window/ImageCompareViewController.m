@@ -31,7 +31,7 @@
         return NO;
     }
 
-    if([[OSImageHashing sharedInstance] compareImageData:imageA to:imageB]) {
+    if ([[OSImageHashing sharedInstance] compareImageData:imageA to:imageB]) {
         NSLog(@"The images are the same according to OSImageHashing");
         return NO;
     }
