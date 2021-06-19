@@ -84,6 +84,7 @@ fprintf(stderr, "%s\n",                                                    \
     BOOL disregardTableSelection;
     BOOL zooming;
     CGFloat previewTextHeight;
+    CGFloat defaultWindowHeight;
     BOOL previewUpdatePending;
     NSString *lastSelectedTheme;
 
@@ -228,9 +229,13 @@ NSString *fontToString(NSFont *font) {
 
     disregardTableSelection = YES;
 
-    if (self.window.minSize.height != kDefaultPrefWindowHeight || self.window.minSize.width != kDefaultPrefWindowWidth) {
+    NSRect winRect = [self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, kDefaultPrefsLowerViewHeight)];
+
+    defaultWindowHeight = winRect.size.height;
+
+    if (self.window.minSize.height != defaultWindowHeight || self.window.minSize.width != kDefaultPrefWindowWidth) {
         NSSize minSize = self.window.minSize;
-        minSize.height = kDefaultPrefWindowHeight;
+        minSize.height = defaultWindowHeight;
         minSize.width = kDefaultPrefWindowWidth;
         self.window.minSize = minSize;
     }
@@ -372,7 +377,7 @@ NSString *fontToString(NSFont *font) {
     if (NSWidth(self.window.frame) != kDefaultPrefWindowWidth || !_previewShown) {
         _previewShown = NO;
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowThemePreview"];
-        [self resizeWindowToHeight:kDefaultPrefWindowHeight];
+        [self resizeWindowToHeight:defaultWindowHeight];
         sampleTextView.autoresizingMask = NSViewHeightSizable;
     }
 }
@@ -665,19 +670,20 @@ NSString *fontToString(NSFont *font) {
         return frameSize;
     }
 
-    if (frameSize.height <= kDefaultPrefWindowHeight) {
+    if (frameSize.height <= defaultWindowHeight) {
         _previewShown = NO;
     } else _previewShown = YES;
 
     [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 
     if (!previewUpdatePending) {
+        Preferences * __unsafe_unretained weakSelf = self;
         previewUpdatePending = YES;
         double delayInSeconds = 0.2;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            self->previewUpdatePending = NO;
-            [self adjustPreview:nil];
+            weakSelf->previewUpdatePending = NO;
+            [weakSelf adjustPreview:nil];
         });
     }
 
@@ -693,7 +699,7 @@ NSString *fontToString(NSFont *font) {
     CGFloat newHeight;
 
     if (!_previewShown) {
-        newHeight = kDefaultPrefWindowHeight;
+        newHeight = defaultWindowHeight;
         zooming = YES;
     } else {
         newHeight = [self previewHeight];
@@ -711,7 +717,7 @@ NSString *fontToString(NSFont *font) {
 - (BOOL)windowShouldZoom:(NSWindow *)window toFrame:(NSRect)newFrame {
     if (window != self.window)
         return YES;
-    if (!_previewShown && newFrame.size.height > kDefaultPrefWindowHeight)
+    if (!_previewShown && newFrame.size.height > defaultWindowHeight)
         return NO;
     if (_previewShown) {
         if (newFrame.size.height > self.window.frame.size.height)
@@ -771,13 +777,14 @@ NSString *fontToString(NSFont *font) {
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.3;
          [[prefsPanel animator]
           setFrame:winrect
           display:YES];
      } completionHandler:^{
          //We need to reset the _sampleTextBorderView here, otherwise some of it will still show when hiding the preview.
          NSRect newFrame = weakSelf.window.frame;
-         weakSelf.sampleTextBorderView.frame = NSMakeRect(0, kDefaultPrefWindowHeight, newFrame.size.width, newFrame.size.height - kDefaultPrefWindowHeight);
+         weakSelf.sampleTextBorderView.frame = NSMakeRect(0, weakSelf->defaultWindowHeight, newFrame.size.width, newFrame.size.height - weakSelf->defaultWindowHeight);
 
          if (weakSelf.previewShown) {
              [weakSelf adjustPreview:nil];
@@ -798,7 +805,7 @@ NSString *fontToString(NSFont *font) {
 
     CGFloat proposedHeight = [self textHeight];
 
-    CGFloat totalHeight = kDefaultPrefWindowHeight + proposedHeight + 40; //2 * (theme.border + theme.bufferMarginY);
+    CGFloat totalHeight = defaultWindowHeight + proposedHeight + 40; //2 * (theme.border + theme.bufferMarginY);
     CGRect screenframe = [NSScreen mainScreen].visibleFrame;
 
     if (totalHeight > screenframe.size.height) {
@@ -980,10 +987,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
     _previewShown = [state decodeBoolForKey:@"_previewShown"];
     if (!_previewShown) {
-        [self resizeWindowToHeight:kDefaultPrefWindowHeight];
+        [self resizeWindowToHeight:defaultWindowHeight];
     } else {
         CGFloat storedHeight = [state decodeDoubleForKey:@"windowHeight"];
-        if (storedHeight > kDefaultPrefWindowHeight)
+        if (storedHeight > defaultWindowHeight)
             [self resizeWindowToHeight:storedHeight];
         else
             [self resizeWindowToHeight:[self previewHeight]];
@@ -1152,13 +1159,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)togglePreview:(id)sender {
     if (_previewShown) {
-        [self resizeWindowToHeight:kDefaultPrefWindowHeight];
+        [self resizeWindowToHeight:defaultWindowHeight];
         _previewShown = NO;
     } else {
         _previewShown = YES;
         [self resizeWindowToHeight:[self previewHeight]];
+        [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.2];
+        [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.5];
     }
-    [self performSelector:@selector(adjustPreview:) withObject:nil afterDelay:0.2];
     [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
 }
 
