@@ -204,10 +204,10 @@
 
     [window makeFirstResponder:_imageView];
 
-    CGFloat delay = 0.5;
-    if ((_glkctl.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
-        NSEqualRects(_glkctl.borderView.frame, window.screen.frame))
-        delay = 1;
+//    CGFloat delay = 0.5;
+//    if ((_glkctl.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
+//        NSEqualRects(_glkctl.borderView.frame, window.screen.frame))
+//        delay = 1;
 
     CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fadeInAnimation.fromValue = [NSNumber numberWithFloat:0.0];
