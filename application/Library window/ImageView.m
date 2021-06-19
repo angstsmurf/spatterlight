@@ -69,7 +69,7 @@
     }
 }
 
-- (BOOL) wantsUpdateLayer {
+- (BOOL)wantsUpdateLayer {
     return YES;
 }
 
