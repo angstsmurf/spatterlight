@@ -361,6 +361,8 @@
 }
 
 -(void)processImageData:(NSData *)image sourceUrl:(NSString *)URLPath {
+    if (!image)
+        return;
     double delayInSeconds = 0.1;
     Metadata *metadata = _game.metadata;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
