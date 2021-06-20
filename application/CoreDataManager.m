@@ -66,11 +66,14 @@
         return nil;
     }
 
-    NSString *groupIdentifier =
+//    NSString *groupIdentifier =
     [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+//    NSURL *applicationFilesDirectory = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+
+    NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
+
     NSError *error = nil;
 
     NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
