@@ -41,6 +41,10 @@
         [sub removeFromSuperlayer];
     self.layer.mask = nil;
     if (_isSelected || _isReceivingDrag) {
+
+        if (self.frame.size.width * self.frame.size.height == 0)
+            return;
+
         // Create a selection border
         CAShapeLayer *shapelayer = [CAShapeLayer layer];
 
