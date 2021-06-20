@@ -2,9 +2,34 @@
 
 ##  Unreleased
 - Many bugfixes related to changing Glk style attributes using the font and color panels
-- Typography panel now works even if Preferences panel is not at front
-- "Overwrite styles" will also overwrite input style.
+- Typography panel now works even if the preferences panel is not at the front
+- The preferences panel has been reorganized and enlarged
+- The Styles preference tab has been split into two. The new one is titled "Details".
+- "Overwrite styles" will now overwrite custom input styles
+- "Overwrite styles" is now a button titled "Un-customize styles"
 - After zooming, an incorrect font name was sometimes displayed in the preferences panel
+- The 10.10 Yosemite version would not start if there was no Spatterlight directory in Application Support
+- Fixes a crash that would occur when pasting during a character request
+- When using the contextual menu on a buffer window, text input could stop working
+- The initial quote box in An Act of Murder would reappear erroneously after autorestoring at turn 0
+- Spatterlight will offer to download metadata from IFDB at start if the user has no downloaded metadata
+- Games with no metadata will have a download button in the side view
+- When adding games, there are options to look for cover images and download metadata. When the former is active, Spatterlight will look for image files in the game directory, and in subdirectories named "Cover."
+- There is a new option for policy when downloading cover images with three settings: always replace existing images (the old behaviour), never replace, or ask the user each time
+- Cover images can be added to games by dragging image files to the side view or info window, or by pasting into an image view
+- Cover images can be dragged from Spatterlight to the desktop or other applications
+- Cover images can be copied and pasted
+- There is an option to show the cover image before a game starts
+- Support for MG1, the MCGA image format used by the DOS Z-machine version 6 games
+- Support for NEOchrome, the original Atari ST Beyond Zork title image format (only the original Atari ST release had a title picture)
+- The original windowed size is now retained when starting Spatterlight in fullscreen
+- When starting in fullscreen, Spatterlight is less prone to immediately switch to the library window non-fullscreen space
+- The toggle sidebar action was broken
+- "Prune library" was only available when the library window had focus
+- Pruning the library will also prune orphaned images
+- Glulxe will quit on fatal errors instead of crashing when the "Ignore errors" option is active
+- An appropriate error dialog is shown when trying to start a game that has been moved to Trash
+- Library search will only match if every word in the search string is present. Searching for "The Pawn" will no longer list every game that contains the word "The."
 
 ##  Release 0.8.0
 - All Glk styles can be customized
