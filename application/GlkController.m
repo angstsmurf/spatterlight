@@ -2790,7 +2790,7 @@ fprintf(stderr, "%s\n",                                                    \
                 _turns++;
             }
 
-            if (_quoteBoxes.count && (_turns - _quoteBoxes.lastObject.quoteboxAddedOnTurn > 1 || _quoteBoxes.count > 1)) {
+            if (_quoteBoxes.count && (_turns - _quoteBoxes.lastObject.quoteboxAddedOnTurn > 1 || (_turns == 0 && _quoteBoxes.lastObject.quoteboxAddedOnTurn == -1) || _quoteBoxes.count > 1)) {
                 GlkTextGridWindow *view = _quoteBoxes.firstObject;
                 [_quoteBoxes removeObjectAtIndex:0];
                 ((GlkTextBufferWindow *)view.quoteboxParent.superview).quoteBox = nil;
