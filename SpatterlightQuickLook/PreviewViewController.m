@@ -23,9 +23,7 @@
 /* the treaty of babel headers */
 #include "babel_handler.h"
 
-@interface PreviewViewController () <QLPreviewingController> {
-    NSMutableDictionary<NSURL *, NSData *> *globalBookmarks;
-}
+@interface PreviewViewController () <QLPreviewingController>
 
 @end
 
@@ -37,8 +35,6 @@
 
 - (void)loadView {
     [super loadView];
-    NSLog(@"loadView");
-    NSLog(@"self.view.frame %@", NSStringFromRect(self.view.frame));
     if (@available(macOS 11, *)) {
         self.preferredContentSize = NSMakeSize(575, 285);
     }
@@ -66,8 +62,6 @@
             description.shouldMigrateStoreAutomatically = NO;
 
             _persistentContainer.persistentStoreDescriptions = @[ description ];
-
-            NSLog(@"persistentContainer url path:%@", url.path);
 
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *description, NSError *error) {
                 if (error != nil) {
@@ -97,8 +91,6 @@
 //}
 
 - (void)preparePreviewOfFileAtURL:(NSURL *)url completionHandler:(void (^)(NSError * _Nullable))handler {
-    NSLog(@"preparePreviewOfFileAtURL");
-    NSLog(@"self.view.frame %@", NSStringFromRect(self.view.frame));
 
     _ifid = nil;
     _addedFileInfo = NO;
@@ -209,7 +201,6 @@
 }
 
 - (void)noPreviewForURL:(NSURL *)url handler:(void (^)(NSError *))handler {
-    NSLog(@"noPreviewForURL");
     NSFont *systemFont = [NSFont systemFontOfSize:20 weight:NSFontWeightBold];
     NSMutableDictionary *attrDict = [NSMutableDictionary new];
     attrDict[NSFontAttributeName] = systemFont;
