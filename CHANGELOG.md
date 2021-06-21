@@ -1,6 +1,6 @@
 # Change log
 
-##  Unreleased
+## Release 0.8.1
 - Many bugfixes related to changing Glk style attributes using the font and color panels
 - Typography panel now works even if the preferences panel is not at the front
 - The preferences panel has been reorganized and enlarged
@@ -20,7 +20,7 @@
 - Cover images can be dragged from Spatterlight to the desktop or other applications
 - Cover images can be copied and pasted
 - There is an option to show the cover image before a game starts
-- Support for MG1, the MCGA image format used by the DOS Z-machine version 6 games
+- Support for MG1, the MCGA image format used by the MS-DOS Z-machine version 6 games
 - Support for NEOchrome, the original Atari ST Beyond Zork title image format (only the original Atari ST release had a title picture)
 - The original windowed size is now retained when starting Spatterlight in fullscreen
 - When starting in fullscreen, Spatterlight is less prone to immediately switch to the library window non-fullscreen space
@@ -31,7 +31,7 @@
 - An appropriate error dialog is shown when trying to start a game that has been moved to Trash
 - Library search will only match if every word in the search string is present. Searching for "The Pawn" will no longer list every game that contains the word "The."
 
-##  Release 0.8.0
+## Release 0.8.0
 - All Glk styles can be customized
 - Many new character and paragraph settings. Some of these may be overridden by style hints issued by certain games, unless the Colors and styles option is off
 - Most settings on the system font panel (underline, strikethrough, shadow) should be functional
@@ -49,11 +49,11 @@
 - Size and position of window content are preserved when border size is changed, if the Adjust window size option is active
 - Preserves window position when resetting
 
-##  Release 0.7.9
+## Release 0.7.9
 - Bocfel 1.3 made autorestoring unstable, so we revert to 1.2 for now. This breaks autosave backward compatibility again
 - Backports sound and other fixes from Bocfel 1.3 to 1.2.
 
-##  Release 0.7.8
+## Release 0.7.8
 - Breaks autosave backward compatibility
 - VoiceOver describes images
 - Reads image descriptions from blorb files
