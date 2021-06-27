@@ -1420,7 +1420,8 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
-        NSLog(@"fetchMetadataForIFID: %@",error);
+        NSLog(@"Error: %@",error);
+        return;
     }
 
     if (fetchedObjects.count == 0)
