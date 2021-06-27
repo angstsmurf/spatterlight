@@ -379,6 +379,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     lastKeyTimestamp = [NSDate distantPast];
 
+    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
+        [self adjustMaskLayer:nil];
+    }
+
     if (_supportsAutorestore && _theme.autosave &&
         ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI] || [[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath])) {
         [self runTerpWithAutorestore];
@@ -2029,6 +2033,10 @@ fprintf(stderr, "%s\n",                                                    \
 
     // Reset any Narcolepsy window mask
     _contentView.layer.mask = nil;
+
+    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
+        [self adjustMaskLayer:nil];
+    }
 
     _shouldStoreScrollOffset = YES;
 }
@@ -4030,6 +4038,17 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     inFullScreenResize = NO;
     [self contentDidResize:_contentView.frame];
     [self restoreScrollOffsets];
+    if (self.narcolepsy && _theme.doGraphics && _theme.doStyles) {
+        // FIXME: Very ugly hack to fix the Narcolepsy mask layer
+        // It breaks when exiting fullscreen after the player
+        // manually has resized the window in windowed mode.
+        NSRect newFrame = self.window.frame;
+        newFrame.size.width += 1;
+        [self.window setFrame:newFrame display:YES];
+        newFrame.size.width -= 1;
+        [self.window setFrame:newFrame display:YES];
+        [self adjustMaskLayer:nil];
+    }
 }
 
 - (void)startInFullscreen {
