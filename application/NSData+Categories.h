@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)md5String;
 - (BOOL)isPlaceHolderImage;
+- (BOOL)isPNG;
+- (BOOL)isJPEG;
 
 + (nullable NSData *)imageDataFromRetroURL:(NSURL *)url;
 + (nullable NSData *)imageDataFromNeoURL:(NSURL *)url;

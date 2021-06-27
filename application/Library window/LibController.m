@@ -1591,6 +1591,30 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         write_xml_text(fp, meta, @"blurb");
 
         fprintf(fp, "</bibliographic>\n");
+
+        if (meta.cover) {
+            NSData *data = (NSData *)meta.cover.data;
+            NSString *type = @"png";
+            if ([data isJPEG])
+                type = @"jpg";
+            else if (![data isPNG])
+                NSLog(@"Illegal image type!");
+
+            NSImage *image = [[NSImage alloc] initWithData:data];
+            NSString *description = meta.coverArtDescription;
+            if (!description.length) {
+                description = meta.cover.imageDescription;
+            }
+            if (!description.length) {
+                description = @"";
+            }
+            fprintf(fp, "<cover>\n");
+            fprintf(fp, "<format>%s</format>\n", type.UTF8String);
+            fprintf(fp, "<height>%ld</height>\n", (NSInteger)image.size.height);
+            fprintf(fp, "<width>%ld</width>\n", (NSInteger)image.size.width);
+            fprintf(fp, "<description>%s</description>\n", description.UTF8String);
+            fprintf(fp, "</cover>\n");
+        }
         fprintf(fp, "</story>\n\n");
     }
 

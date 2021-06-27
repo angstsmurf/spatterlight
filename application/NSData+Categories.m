@@ -30,6 +30,29 @@
     return [self.md5String isEqualToString:@"1855A829466C301CD8113475E8E643BC"];
 }
 
+- (BOOL)isPNG {
+    BOOL result = NO;
+    if (self.length > 4) {
+        Byte *bytes4 = (Byte *)malloc(4);
+        [self getBytes:bytes4 length:4];
+
+        result = (bytes4[1] == 'P' && bytes4[2] == 'N' && bytes4[3] == 'G');
+        free(bytes4);
+    }
+    return result;
+}
+
+- (BOOL)isJPEG {
+    BOOL result = NO;
+    if (self.length > 10) {
+        Byte *bytes10 = (Byte *)malloc(10);
+        [self getBytes:bytes10 length:10];
+        result = (bytes10[6] == 'J' && bytes10[7] == 'F' && bytes10[8] == 'I' && bytes10[9] == 'F');
+        free(bytes10);
+    }
+    return result;
+}
+
 
 #pragma mark Retro image data
 
