@@ -483,11 +483,9 @@
             <rect key="frame" x="0.0" y="0.0" width="404" height="42"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <popUpButton toolTip="All entries in the database, regardless of whether the game is in the library or not." verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49">
-                    <rect key="frame" x="74" y="6" width="257" height="25"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="250" id="328"/>
-                    </constraints>
+                <popUpButton toolTip="All entries in the database, regardless of whether the game is in the library or not." verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49">
+                    <rect key="frame" x="123" y="6" width="159" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Edited Entries" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="53" id="74">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -500,11 +498,9 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="59" translatesAutoresizingMaskIntoConstraints="NO" id="48">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="59" translatesAutoresizingMaskIntoConstraints="NO" id="48">
                     <rect key="frame" x="12" y="13" width="61" height="16"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="57" id="333"/>
-                    </constraints>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Export:" id="73">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -512,12 +508,6 @@
                     </textFieldCell>
                 </textField>
             </subviews>
-            <constraints>
-                <constraint firstItem="48" firstAttribute="centerY" secondItem="47" secondAttribute="centerY" id="329"/>
-                <constraint firstItem="48" firstAttribute="baseline" secondItem="49" secondAttribute="baseline" id="330"/>
-                <constraint firstItem="49" firstAttribute="centerX" secondItem="47" secondAttribute="centerX" id="331"/>
-                <constraint firstItem="48" firstAttribute="leading" secondItem="47" secondAttribute="leading" constant="14" id="332"/>
-            </constraints>
             <point key="canvasLocation" x="-75" y="-145"/>
         </customView>
         <menu id="84" userLabel="Contextual Menu">
@@ -576,7 +566,7 @@ CA
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="262" y="470"/>
+            <point key="canvasLocation" x="262" y="469.5"/>
         </menu>
         <menu id="102" userLabel="Header Menu">
             <items>
