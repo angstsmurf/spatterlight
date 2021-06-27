@@ -6,6 +6,7 @@
 
 #import "NSString+Categories.h"
 #import "NSDate+relative.h"
+#import "NSData+Categories.h"
 
 #import "CoreDataManager.h"
 #import "Game.h"
@@ -482,7 +483,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                   completionHandler:^(NSInteger result) {
                       if (result == NSModalResponseOK) {
                           NSURL *url = panel.URL;
-
                           [self exportMetadataToFile:url.path
                                                 what:localExportTypeControl
                                                          .indexOfSelectedItem];
@@ -748,7 +748,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             if (![[NSFileManager defaultManager] isReadableFileAtPath:[game urlForBookmark].path])
                 game.found = NO;
 
-            result = [downloader downloadMetadataFor:game];
+            result = [downloader downloadMetadataFor:game imageOnly:NO];
 
             if (result) {
                 NSError *error = nil;
@@ -1516,8 +1516,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 - (BOOL)exportMetadataToFile:(NSString *)filename what:(NSInteger)what {
     NSEnumerator *enumerator;
     Metadata *meta;
-//    NSDictionary *info;
-//    int src;
 
     NSLog(@"libctl: exportMetadataToFile %@", filename);
 
@@ -1550,7 +1548,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             break;
     }
 
-
     NSError *error = nil;
     NSArray *metadata = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
@@ -1558,11 +1555,17 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         NSLog(@"exportMetadataToFile: Could not fetch metadata list. Error: %@", error);
     }
 
+    if (metadata.count == 0) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = NSLocalizedString(@"No metadata found", nil);
+        alert.informativeText = NSLocalizedString(@"No matching metadata to export was found in the library.", nil);
+        [alert runModal];
+        return NO;
+    }
+
     enumerator = [metadata objectEnumerator];
     while ((meta = [enumerator nextObject]))
     {
-        //src = [[info objectForKey:kSource] intValue];
-
         fprintf(fp, "<story>\n");
 
         fprintf(fp, "<identification>\n");
@@ -2240,7 +2243,7 @@ objectValueForTableColumn: (NSTableColumn*)column
             break;
         }
     }
-    if ([updatedObjects containsObject:currentSideView.metadata])
+    if ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView.metadata.cover])
     {
         [self updateSideViewForce:YES];
     }

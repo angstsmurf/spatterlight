@@ -23,7 +23,7 @@
       if ([node.name compare:@"tuid"] == 0) {
         metadata.tuid = node.stringValue;
       } else if ([node.name compare:@"coverart"] == 0) {
-          metadata.coverArtURL = [self pathFromCoverArtElement:(NSXMLElement *)node];
+          metadata.coverArtURL = [IFDB pathFromCoverArtElement:(NSXMLElement *)node];
       } else if ([node.name compare:@"starRating"] == 0) {
           metadata.starRating = node.stringValue;
 //      } else if ([node.name compare:@"link"] == 0) {
@@ -40,7 +40,7 @@
   return self;
 }
 
-- (NSString *)pathFromCoverArtElement:(NSXMLElement *)element {
++ (NSString *)pathFromCoverArtElement:(NSXMLElement *)element {
   NSEnumerator *enumChildren = [element.children objectEnumerator];
   NSXMLNode *node;
   while ((node = [enumChildren nextObject])) {

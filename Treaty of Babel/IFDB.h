@@ -11,6 +11,8 @@
 
 @interface IFDB : NSObject
 
++ (NSString *)pathFromCoverArtElement:(NSXMLElement *)element;
+
 - (instancetype)initWithXMLElement:(NSXMLElement *)element andMetadata:(Metadata *)metadata;
 
 @end

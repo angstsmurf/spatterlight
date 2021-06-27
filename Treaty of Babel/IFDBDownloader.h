@@ -12,9 +12,7 @@
 @interface IFDBDownloader : NSObject
 
 - (instancetype)initWithContext:(NSManagedObjectContext *)context;
-- (BOOL)downloadMetadataForIFID:(NSString*)ifid;
-- (BOOL)downloadMetadataForTUID:(NSString*)tuid;
-- (BOOL)downloadMetadataFor:(Game*)game;
+- (BOOL)downloadMetadataFor:(Game*)game imageOnly:(BOOL)imageOnly;
 - (BOOL)downloadImageFor:(Metadata *)metadata;
 - (Image *)fetchImageForURL:(NSString *)imgurl;
 - (Image *)insertImageData:(NSData *)data inMetadata:(Metadata *)metadata;

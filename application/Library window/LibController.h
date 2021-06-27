@@ -15,13 +15,6 @@
 
 #import <CoreData/CoreData.h>
 
-#define kSource @".source"
-#define kDefault 1
-#define kInternal 2
-#define kExternal 3
-#define kUser 4
-#define kIfdb 5
-
 @class CoreDataManager, Metadata, GlkController, InfoController;
 
 @interface LibHelperTableView : NSTableView

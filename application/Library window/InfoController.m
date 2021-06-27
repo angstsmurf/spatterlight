@@ -291,7 +291,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSArray *deletedObjects =  (notification.userInfo)[NSDeletedObjectsKey];
     if ([deletedObjects containsObject:_game])
         [[self window] performClose:nil];
-    if ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game])
+    if ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game] || [updatedObjects containsObject:_meta.cover])
     {
         [self update];
         [self updateImage];

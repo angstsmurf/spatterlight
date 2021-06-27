@@ -10,14 +10,14 @@
 #import "NSString+Categories.h"
 #import "main.h"
 
-enum  {
+typedef enum kForgiveness : NSInteger {
     FORGIVENESS_NONE,
     FORGIVENESS_CRUEL,
     FORGIVENESS_NASTY,
     FORGIVENESS_TOUGH,
     FORGIVENESS_POLITE,
     FORGIVENESS_MERCIFUL
-};
+} kForgiveness;
 
 @interface IFBibliographic ()
 
@@ -96,6 +96,9 @@ enum  {
                             NSString *title = [metadata.title stringByDecodingXMLEntities];
                             if (title && title.length)
                                 metadata.title = title;
+                        }
+                        if ([key isEqualToString:@"headline"]) {
+                            metadata.headline = [metadata.headline stringByReplacingOccurrencesOfString:@"[em dash]" withString:@"-"];
                         }
                     }
 

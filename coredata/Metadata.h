@@ -11,6 +11,16 @@
 
 @class Game, Ifid, Image, Tag;
 
+#define kSource @".source"
+
+typedef enum kMetadataSourceType : int32_t {
+    kDefault = 1,
+    kInternal = 2,
+    kExternal = 3,
+    kUser = 4,
+    kIfdb = 5
+} kMetadataSourceType;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Metadata : NSManagedObject

@@ -11,13 +11,19 @@
 
 @class Metadata;
 
+typedef enum kImageInterpolationType : int32_t {
+    kUnset,
+    kNearestNeighbor,
+    kTrilinear,
+} kImageInterpolationType;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Image : NSManagedObject
 
 @property (nullable, nonatomic, retain) NSObject *data;
 @property (nullable, nonatomic, copy) NSString *imageDescription;
-@property (nonatomic) int32_t interpolation;
+@property (nonatomic) kImageInterpolationType interpolation;
 @property (nullable, nonatomic, copy) NSString *originalURL;
 @property (nullable, nonatomic, retain) NSSet<Metadata *> *metadata;
 

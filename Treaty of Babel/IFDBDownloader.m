@@ -13,7 +13,12 @@
 #import "Ifid.h"
 #import "NSData+Categories.h"
 #import "ImageCompareViewController.h"
+#import "IFDB.h"
 
+@interface IFDBDownloader () {
+    NSString *coverArtUrl;
+}
+@end
 
 @implementation IFDBDownloader
 
@@ -25,40 +30,43 @@
     return self;
 }
 
-- (BOOL)downloadMetadataForTUID:(NSString*)tuid {
+- (BOOL)downloadMetadataForTUID:(NSString*)tuid imageOnly:(BOOL)imageOnly {
     if (!tuid || tuid.length == 0)
         return NO;
 
-    NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&id=" stringByAppendingString:tuid]];
-    return [self downloadMetadataFromURL:url];
+    NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&id=" stringByAppendingString:tuid]];
+    return [self downloadMetadataFromURL:url imageOnly:imageOnly];
 }
 
-- (BOOL)downloadMetadataForIFID:(NSString*)ifid {
+- (BOOL)downloadMetadataForIFID:(NSString*)ifid imageOnly:(BOOL)imageOnly {
     if (!ifid || ifid.length == 0)
         return NO;
 
-    NSURL *url = [NSURL URLWithString:[@"https://ifdb.tads.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
-    return [self downloadMetadataFromURL:url];
+    NSURL *url = [NSURL URLWithString:[@"https://ifdb.org/viewgame?ifiction&ifid=" stringByAppendingString:ifid]];
+    return [self downloadMetadataFromURL:url imageOnly:imageOnly];
 }
 
-- (BOOL)downloadMetadataFor:(Game*)game {
+- (BOOL)downloadMetadataFor:(Game*)game imageOnly:(BOOL)imageOnly {
     BOOL result = NO;
     if (game.metadata.tuid) {
-        result = [self downloadMetadataForTUID:game.metadata.tuid];
+        result = [self downloadMetadataForTUID:game.metadata.tuid  imageOnly:imageOnly];
     } else {
-        result = [self downloadMetadataForIFID:game.ifid];
+        result = [self downloadMetadataForIFID:game.ifid imageOnly:imageOnly];
         if (!result) {
             for (Ifid *ifidObj in game.metadata.ifids) {
-                result = [self downloadMetadataForIFID:ifidObj.ifidString];
-                if (result)
-                    return YES;
+                result = [self downloadMetadataForIFID:ifidObj.ifidString  imageOnly:imageOnly];
+               if (result)
+                   break;
             }
         }
+    }
+    if (result && imageOnly) {
+        game.metadata.coverArtURL = coverArtUrl;
     }
     return result;
 }
 
-- (BOOL)downloadMetadataFromURL:(NSURL*)url {
+- (BOOL)downloadMetadataFromURL:(NSURL*)url imageOnly:(BOOL)imageOnly {
 
     if (!url)
         return NO;
@@ -80,14 +88,39 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200 && data) {
 
-            IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:_context];
-            if (!result || result.stories.count == 0) {
-//                NSLog(@"Could not convert downloaded iFiction XML data to Metadata!");
-                return NO;
+            if (imageOnly) {
+                coverArtUrl = [IFDBDownloader coverArtUrlFromXMLData:data];
+                if (!coverArtUrl.length) {
+                    return NO;
+                }
+            } else {
+                IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:_context];
+                if (!result || result.stories.count == 0) {
+                    //                NSLog(@"Could not convert downloaded iFiction XML data to Metadata!");
+                    return NO;
+                }
             }
         } else return NO;
     }
     return YES;
+}
+
++ (NSString *)coverArtUrlFromXMLData:(NSData *)data {
+    NSString *result = @"";
+    NSError *error = nil;
+    NSXMLDocument *xml =
+    [[NSXMLDocument alloc] initWithData:data
+                                options:NSXMLDocumentTidyXML
+                                  error:&error];
+    NSXMLElement *root = xml.rootElement;
+    NSXMLElement *namespace = [NSXMLElement namespaceWithName:@"ns" stringValue:@"http://ifdb.org/api/xmlns"];
+    [root addNamespace:namespace];
+    NSArray *urls = [root nodesForXPath:@"//ns:url" error:&error];
+    if (urls.count) {
+        NSXMLElement *url = urls.firstObject;
+        result = url.stringValue;
+    }
+    return result;
 }
 
 - (BOOL)downloadImageFor:(Metadata *)metadata
@@ -165,6 +198,7 @@
                      inManagedObjectContext:metadata.managedObjectContext];
     img.data = [data copy];
     img.originalURL = metadata.coverArtURL;
+    img.imageDescription = metadata.coverArtDescription;
     metadata.cover = img;
     [metadata.managedObjectContext save:nil];
     return img;

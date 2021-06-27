@@ -23,6 +23,9 @@
 
 #import "OSImageHashing.h"
 
+#define FILTERTAG ((NSInteger) 100)
+#define DESCRIPTIONTAG ((NSInteger) 200)
+
 @interface ImageView ()
 {
     NSSet<NSPasteboardType> *nonURLTypes;
@@ -30,10 +33,89 @@
     NSPasteboardType PasteboardFileURLPromise,
     PasteboardFilePromiseContent,
     PasteboardFilePasteLocation;
+
+    NSArray<NSString *> *imageTypes;
 }
 @end
 
 @implementation ImageView
+
+// This is called when loaded from InfoPanel.nib
+- (instancetype)initWithFrame:(NSRect)frameRect {
+    self = [super initWithFrame:frameRect];
+    if (self) {
+        self.wantsLayer = YES;
+        self.enabled = YES;
+
+        nonURLTypes = [NSSet setWithObjects:NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil];
+        _acceptableTypes = [NSSet setWithObject:NSURLPboardType];
+        _acceptableTypes = [_acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
+        [self registerForDraggedTypes:_acceptableTypes.allObjects];
+        _numberForSelfSourcedDrag = NSNotFound;
+
+        PasteboardFileURLPromise = (NSPasteboardType)kPasteboardTypeFileURLPromise;
+        PasteboardFilePromiseContent = (NSPasteboardType)kPasteboardTypeFilePromiseContent;
+        PasteboardFilePasteLocation = (NSPasteboardType)@"com.apple.pastelocation";
+
+        imageTypes = NSImage.imageTypes;
+        imageTypes = [imageTypes arrayByAddingObjectsFromArray:@[ @"public.neochrome", @"public.mcga", @"public.dat", @"public.blorb" ]];
+    }
+    return self;
+}
+
+- (instancetype)initWithGame:(Game *)game image:(nullable NSImage *)anImage {
+    if (!anImage && game.metadata.cover.data)
+        anImage = [[NSImage alloc] initWithData:(NSData *)game.metadata.cover.data];
+    if (anImage)
+        self = [self initWithFrame:NSMakeRect(0, 0, anImage.size.width, anImage.size.height)];
+    else
+        self = [self initWithFrame:NSZeroRect];
+    if (self) {
+        _image = anImage;
+        _game = game;
+
+        if (_image)
+            [self processImage:_image];
+    }
+    return self;
+}
+
++ (NSMenu *)defaultMenu {
+    NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
+    menu.autoenablesItems = YES;
+    menu.showsStateColumn = YES;
+
+    NSMenuItem *reload = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reload from Blorb" , nil) action:@selector(reloadFromBlorb:) keyEquivalent:@""];
+    NSMenuItem *open = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Select image file", nil) action:@selector(selectImageFile:) keyEquivalent:@""];
+    NSMenuItem *filter = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Filter", nil) action:@selector(toggleFilter:) keyEquivalent:@""];
+    NSMenuItem *download = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Download image", nil) action:@selector(downloadImage:) keyEquivalent:@""];
+    NSMenuItem *cut = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Cut", nil) action:@selector(cut:) keyEquivalent:@""];
+    NSMenuItem *copy = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", nil) action:@selector(copy:) keyEquivalent:@""];
+    NSMenuItem *paste = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Paste", nil) action:@selector(paste:) keyEquivalent:@""];
+    NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", nil) action:@selector(delete:) keyEquivalent:@""];
+    NSMenuItem *save = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save image", nil) action:@selector(saveImage:) keyEquivalent:@""];
+    NSMenuItem *addDescription = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Add description", nil) action:@selector(addDescription:) keyEquivalent:@""];
+
+    [menu addItem:open];
+    [menu addItem:download];
+    [menu addItem:reload];
+    [menu addItem:[NSMenuItem separatorItem]];
+    [menu addItem:save];
+    [menu addItem:[NSMenuItem separatorItem]];
+    addDescription.tag = DESCRIPTIONTAG;
+    [menu addItem:addDescription];
+    [menu addItem:[NSMenuItem separatorItem]];
+    [menu addItem:cut];
+    [menu addItem:copy];
+    [menu addItem:paste];
+    [menu addItem:delete];
+    [menu addItem:[NSMenuItem separatorItem]];
+    filter.state = NSOffState;
+    filter.tag = FILTERTAG;
+    [menu addItem:filter];
+
+    return menu;
+}
 
 - (void)updateLayer {
     NSArray *layers = self.layer.sublayers.copy;
@@ -81,44 +163,6 @@
     return YES;
 }
 
-- (instancetype)initWithGame:(Game *)game image:(nullable NSImage *)anImage {
-    if (!anImage && game.metadata.cover.data)
-        anImage = [[NSImage alloc] initWithData:(NSData *)game.metadata.cover.data];
-    if (anImage)
-        self = [self initWithFrame:NSMakeRect(0, 0, anImage.size.width, anImage.size.height)];
-    else
-        self = [self initWithFrame:NSZeroRect];
-    if (self) {
-        _image = anImage;
-        _game = game;
-
-        if (_image)
-            [self processImage:_image];
-    }
-    return self;
-}
-
-// This is called when loaded from InfoPanel.nib
-- (instancetype)initWithFrame:(NSRect)frameRect {
-    self = [super initWithFrame:frameRect];
-    if (self) {
-        self.wantsLayer = YES;
-        self.enabled = YES;
-
-        nonURLTypes = [NSSet setWithObjects:NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil];
-        _acceptableTypes = [NSSet setWithObject:NSURLPboardType];
-        _acceptableTypes = [_acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
-        [self registerForDraggedTypes:_acceptableTypes.allObjects];
-        _numberForSelfSourcedDrag = NSNotFound;
-
-        PasteboardFileURLPromise = (NSPasteboardType)kPasteboardTypeFileURLPromise;
-        PasteboardFilePromiseContent = (NSPasteboardType)kPasteboardTypeFilePromiseContent;
-        PasteboardFilePasteLocation = (NSPasteboardType)@"com.apple.pastelocation";
-    }
-    return self;
-}
-
-
 - (void)processImage:(NSImage *)image {
     _image = image;
     CALayer *layer = [CALayer layer];
@@ -127,9 +171,11 @@
     NSSize sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
     image.size = sizeInPixels;
 
-    layer.magnificationFilter = sizeInPixels.width < 350 ? kCAFilterNearest : kCAFilterTrilinear;
+    if (_game.metadata.cover.interpolation == kUnset) {
+        _game.metadata.cover.interpolation = sizeInPixels.width < 350 ? kNearestNeighbor : kTrilinear;
+    }
 
-//    NSLog(@"sizeInPixels: %@ magnificationFilter: %@", NSStringFromSize(sizeInPixels), sizeInPixels.width < 350 ? @"kCAFilterNearest" : @"kCAFilterTrilinear");
+    layer.magnificationFilter = (_game.metadata.cover.interpolation == kNearestNeighbor) ? kCAFilterNearest : kCAFilterTrilinear;
 
     layer.drawsAsynchronously = YES;
     layer.contentsGravity = kCAGravityResize;
@@ -163,6 +209,8 @@
     return _intrinsic;
 }
 
+#pragma mark Actions
+
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if (menuItem.action == @selector(paste:)) {
         NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
@@ -177,8 +225,38 @@
         return NO;
     }
     
-    if (menuItem.action == @selector(cut:) || menuItem.action == @selector(copy:) || menuItem.action == @selector(delete:)) {
+    else if (menuItem.action == @selector(cut:) || menuItem.action == @selector(copy:) || menuItem.action == @selector(delete:)) {
         return !_isPlaceholder;
+    }
+
+    else if (menuItem.action == @selector(reloadFromBlorb:)) {
+        return [Blorb isBlorbURL:[NSURL fileURLWithPath:_game.path]];
+    }
+
+    else if (menuItem.action == @selector(saveImage:)) {
+        return (!_isPlaceholder);
+    }
+
+    else if (menuItem.action == @selector(toggleFilter:)) {
+        NSMenuItem *filter = [self.menu itemWithTag:FILTERTAG];
+        if (!_isPlaceholder) {
+            filter.state = (_game.metadata.cover.interpolation == kNearestNeighbor) ? NSOffState : NSOnState;
+            return YES;
+        } else {
+            filter.state = NSOffState;
+            return NO;
+        }
+    }
+
+    else if (menuItem.action == @selector(addDescription:)) {
+        NSMenuItem *description = [self.menu itemWithTag:DESCRIPTIONTAG];
+        if (!_isPlaceholder) {
+            description.title = (_game.metadata.coverArtDescription.length || _game.metadata.cover.imageDescription.length) ? NSLocalizedString(@"Edit description", nil) : NSLocalizedString(@"Add description", nil);
+            return YES;
+        } else {
+            description.title = NSLocalizedString(@"Add description", nil);
+            return NO;
+        }
     }
 
     return YES;
@@ -186,9 +264,12 @@
 
 - (void)cut:(id)sender {
     [self copy:nil];
+
     //Delete the cover relation of the Metadata object
     Image *image = _game.metadata.cover;
     _game.metadata.cover = nil;
+    _game.metadata.coverArtDescription = nil;
+
     //If the Image object becomes an orphan, delete it from the Core Data store
     if (image && image.metadata.count == 0)
         [_game.managedObjectContext deleteObject:image];
@@ -220,6 +301,8 @@
         if (!image)
             return;
         _game.metadata.cover = nil;
+        _game.metadata.coverArtDescription = nil;
+
         //If the Image object becomes an orphan, delete it from the Core Data store
         if (image.metadata.count == 0)
             [_game.managedObjectContext deleteObject:image];
@@ -260,11 +343,8 @@
                     break;
                 }
             }
-            NSImage *image = [[NSImage alloc] initWithContentsOfURL:(NSURL *)item];
-            if (image) {
-                [self replaceCoverImage:image sourceUrl:((NSURL *)item).path];
+            if ([self imageFromURL:url dontAsk:YES])
                 break;
-            }
         }
     }
 }
@@ -277,10 +357,135 @@
         [super keyDown:event];
 }
 
+- (IBAction)selectImageFile:(id)sender {
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    panel.allowsMultipleSelection = NO;
+    panel.canChooseDirectories = NO;
+    panel.prompt = NSLocalizedString(@"Select an image", nil);
+
+    panel.allowedFileTypes = imageTypes;
+
+    [panel beginSheetModalForWindow:self.window
+                  completionHandler:^(NSInteger result) {
+        if (result == NSModalResponseOK) {
+            double delayInSeconds = 0.3;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self imageFromURL:panel.URL dontAsk:YES];
+            });
+        }
+    }];
+}
+
+- (IBAction)reloadFromBlorb:(id)sender {
+    Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:_game.path]];
+    NSData *data = [blorb coverImageData];
+
+    if (data) {
+        [self processImageData:data sourceUrl:_game.path dontAsk:YES];
+        NSData *metadata = [blorb metaData];
+        NSString *imageDescription = [ImageView coverArtDescriptionFromXMLData:metadata];
+        if (imageDescription.length)
+            _game.metadata.coverArtDescription = imageDescription;
+    }
+}
+
++ (NSString *)coverArtDescriptionFromXMLData:(NSData *)data {
+    NSString *result = @"";
+    NSError *error = nil;
+    NSXMLDocument *xml =
+    [[NSXMLDocument alloc] initWithData:data
+                                options:NSXMLDocumentTidyXML
+                                  error:&error];
+    NSArray *descriptions = [xml.rootElement nodesForXPath:@"story/cover/description" error:&error];
+    if (descriptions.count) {
+        NSXMLElement *description = descriptions.firstObject;
+        result = description.stringValue;
+    } else {
+        NSLog(@"No cover image description found in metadata!");
+    }
+    return result;
+}
+
+- (IBAction)downloadImage:(id)sender {
+    IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:_game.managedObjectContext];
+    Game *game = _game;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [downloader downloadMetadataFor:game imageOnly:YES];
+        [downloader downloadImageFor:game.metadata];
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            [game.metadata.managedObjectContext save:nil];
+        });
+    });
+}
+
+- (IBAction)toggleFilter:(id)sender {
+    _game.metadata.cover.interpolation = (_game.metadata.cover.interpolation == kTrilinear) ? kNearestNeighbor : kTrilinear;
+    self.layer.magnificationFilter = (_game.metadata.cover.interpolation == kNearestNeighbor) ? kCAFilterNearest : kCAFilterTrilinear;
+}
+
+- (IBAction)saveImage:(id)sender {
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    panel.nameFieldLabel = NSLocalizedString(@"Save image: ", nil);
+    panel.allowedFileTypes = @[ @"png" ];
+    panel.extensionHidden = NO;
+    [panel setCanCreateDirectories:YES];
+    NSString *fileName = [_game.path.lastPathComponent.stringByDeletingPathExtension stringByAppendingPathExtension:@"png"];
+    if (!fileName.length)
+        fileName = @"image.png";
+    panel.nameFieldStringValue = NSLocalizedString(fileName, nil);
+
+    [panel beginSheetModalForWindow:self.window
+                  completionHandler:^(NSInteger result) {
+        if (result == NSModalResponseOK) {
+            NSURL *url = panel.URL;
+
+            NSData *bitmapData = [self pngData];
+
+            NSError *error = nil;
+
+            if (![bitmapData writeToURL:url options:NSDataWritingAtomic error:&error]) {
+                NSLog(@"Error: Could not write PNG data to url %@: %@", url.path, error);
+            }
+        }
+    }];
+}
+
+- (IBAction)addDescription:(id)sender {
+
+    NSAlert *alert = [[NSAlert alloc] init];
+    Metadata *metadata = _game.metadata;
+    NSTextField *entryField = [[NSTextField alloc] initWithFrame:NSMakeRect(0,0, 300, 150)];
+    entryField.editable = YES;
+    if (metadata.coverArtDescription.length)
+        entryField.stringValue = metadata.coverArtDescription;
+    else if (metadata.cover.imageDescription.length)
+        entryField.stringValue = metadata.cover.imageDescription;
+
+    alert.accessoryView = entryField;
+    alert.window.initialFirstResponder = entryField;
+
+    [alert setMessageText:NSLocalizedString(@"Image description", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+
+    NSModalResponse choice = [alert runModal];
+
+    if (choice == NSAlertFirstButtonReturn && ![entryField.stringValue isEqualToString:metadata.coverArtDescription]) {
+        metadata.coverArtDescription = entryField.stringValue;
+        metadata.cover.imageDescription = entryField.stringValue;
+        metadata.userEdited = @YES;
+        metadata.source = @(kUser);
+    }
+
+}
+
+#pragma mark Dragging target stuff
+
 - (BOOL)shouldAllowDrag:(id<NSDraggingInfo>)draggingInfo {
     if (draggingInfo.draggingSequenceNumber == _numberForSelfSourcedDrag)
         return NO;
-    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:[NSImage imageTypes]};
+    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:NSImage.imageTypes};
 
     BOOL canAccept = NO;
 
@@ -322,9 +527,7 @@
 }
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)draggingInfo {
-    NSArray *types = [NSImage imageTypes];
-    types = [types arrayByAddingObjectsFromArray:@[ @"public.neochrome", @"public.mcga", @"public.dat", @"public.blorb" ]];
-    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:types };
+    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:imageTypes };
 
     _isReceivingDrag = NO;
     NSPasteboard *pasteBoard = draggingInfo.draggingPasteboard;
@@ -334,30 +537,7 @@
     NSImage *image;
     if (urls.count == 1) {
         NSURL *url = urls.firstObject;
-        if ([Blorb isBlorbURL:url]) {
-            // Only accept blorbs with image data but no executable chunk
-            // (because it would be confusing to treat game files as image files)
-            Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
-            if ([blorb findResourceOfUsage:ExecutableResource] == nil) {
-                NSData *data = [blorb coverImageData];
-                if (data) {
-                    image = [[NSImage alloc] initWithData:data];
-                    [self replaceCoverImage:image sourceUrl:url.path];
-                    return YES;
-                }
-            }
-        }
-        image = [[NSImage alloc] initWithContentsOfURL:url];
-        if (image) {
-            [self replaceCoverImage:image sourceUrl:url.path];
-            return YES;
-        } else {
-            NSData *data = [NSData imageDataFromRetroURL:url];
-            if (data) {
-                [self processImageData:data sourceUrl:url.path];
-                return YES;
-            }
-        }
+        return [self imageFromURL:url dontAsk:NO];
     } else {
         image = [[NSImage alloc] initWithPasteboard:pasteBoard];
         if (image) {
@@ -368,30 +548,71 @@
     return NO;
 }
 
--(void)replaceCoverImage:(NSImage *)image sourceUrl:(NSString *)URLPath {
-    NSData *data = image.TIFFRepresentation;
-    [self processImageData:data sourceUrl:URLPath];
+- (BOOL)imageFromURL:(NSURL *)url dontAsk:(BOOL)dontAsk {
+    NSData *data = nil;
+    if ([Blorb isBlorbURL:url]) {
+        // Only accept blorbs with image data but no executable chunk
+        // (because it would be confusing to treat game files as image files)
+        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
+        if ([blorb findResourceOfUsage:ExecutableResource] == nil) {
+            data = [blorb coverImageData];
+            if (data) {
+                [self processImageData:data sourceUrl:url.path dontAsk:dontAsk];
+                return YES;
+            }
+        }
+    }
+    data = [NSData dataWithContentsOfURL:url];
+    NSImage *image = [[NSImage alloc] initWithData:data];
+    if (image) {
+        [self processImageData:data sourceUrl:url.path dontAsk:dontAsk];
+        return YES;
+    } else {
+        data = [NSData imageDataFromRetroURL:url];
+        if (data) {
+            [self processImageData:data sourceUrl:url.path dontAsk:dontAsk];
+            return YES;
+        }
+    }
+    return NO;
 }
 
--(void)processImageData:(NSData *)image sourceUrl:(NSString *)URLPath {
+
+-(void)replaceCoverImage:(NSImage *)image sourceUrl:(NSString *)URLPath {
+    NSData *data = image.TIFFRepresentation;
+    [self processImageData:data sourceUrl:URLPath dontAsk:NO];
+}
+
+-(void)processImageData:(NSData *)image sourceUrl:(NSString *)URLPath dontAsk:(BOOL)dontAsk {
     if (!image)
         return;
-    BOOL dontAsk = NO;
     if ([URLPath isEqualToString:@"pasteboard"] ||
         [self compareByFileNames:URLPath data:image]) {
         dontAsk = YES;
     }
-    double delayInSeconds = 0.1;
     Metadata *metadata = _game.metadata;
+    IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
+
+    if (dontAsk) {
+        metadata.coverArtURL = URLPath;
+        metadata.coverArtDescription = nil;
+        [downloader insertImageData:image inMetadata:metadata];
+        metadata.userEdited = @YES;
+        metadata.source = @(kUser);
+        return;
+    }
+
+    double delayInSeconds = 0.1;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         ImageCompareViewController *compare = [ImageCompareViewController new];
         // We always replace when pasting
-        if (dontAsk ||
-            [compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
-            IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
+        if ([compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
             metadata.coverArtURL = URLPath;
+            metadata.coverArtDescription = nil;
             [downloader insertImageData:image inMetadata:metadata];
+            metadata.userEdited = @YES;
+            metadata.source = @(kUser);
         }
     });
 }
@@ -423,7 +644,7 @@
     return NO;
 }
 
-#pragma mark Source stuff
+#pragma mark Dragging source stuff
 
 - (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
 {

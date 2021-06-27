@@ -90,7 +90,7 @@ extern NSArray *gGameFileTypes;
         [select addObject:game.ifid];
         if (downloadInfo) {
             IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:context];
-            [downloader downloadMetadataFor:game];
+            [downloader downloadMetadataFor:game imageOnly:NO];
         }
         // We only look for images on the HDD if the game has
         // no cover image or the Inform 7 placeholder image.
