@@ -276,11 +276,6 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     languageCodes = mutablelanguageCodes;
 
-    // Add metadata and games from plists to Core Data store if we have just created a new one
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"] == NO) {
-        [self convertLibraryToCoreData];
-    }
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
@@ -288,6 +283,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
 
     _gameTableModel = [[self fetchObjects:@"Game" predicate:nil inContext:_managedObjectContext] mutableCopy];
+
+    // Add metadata and games from plists to Core Data store if we have just created a new one
+    if (_gameTableModel.count == 0 && [[NSUserDefaults standardUserDefaults] boolForKey:@"HasConvertedLibrary"] == NO) {
+        [self convertLibraryToCoreData];
+    }
 
     [self rebuildThemesSubmenu];
     [self performSelector:@selector(restoreSideViewSelection:) withObject:nil afterDelay:0.1];
