@@ -11,6 +11,44 @@
 
 @class Game, GlkStyle, Interpreter, Theme, NSColor;
 
+typedef enum kSpacesFormatType : int32_t {
+    TAG_SPACES_GAME,
+    TAG_SPACES_ONE,
+    TAG_SPACES_TWO
+} kSpacesFormatType;
+
+typedef enum kCoverImagePrefsType : int32_t {
+    kDontShow,
+    kShowAndWait,
+    kShowAndFade,
+    kShowDramatic
+} kCoverImagePrefsType;
+
+typedef enum kBorderColorPrefsType : int32_t {
+    kAutomatic,
+    kUserOverride
+} kBorderColorPrefsType;
+
+typedef enum kVOMenuPrefsType : int32_t {
+    kVOMenuNone,
+    kVOMenuTextOnly,
+    kVOMenuIndex,
+    kVOMenuTotal
+} kVOMenuPrefsType;
+
+typedef enum kVOImagePrefsType : int32_t {
+    kVOImageWithDescriptionOnly,
+    kVOImageNone,
+    kVOImageAll
+} kVOImagePrefsType;
+
+typedef enum kBZArrowsPrefsType : int32_t {
+    kBZArrowsCompromise,
+    kBZArrowsSwapped,
+    kBZArrowsOriginal,
+} kBZArrowsPrefsType;
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Theme : NSManagedObject
@@ -20,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *beepHigh;
 @property (nullable, nonatomic, copy) NSString *beepLow;
 @property (nonatomic) int32_t border;
-@property (nonatomic) int32_t borderBehavior;
+@property (nonatomic) kBorderColorPrefsType borderBehavior;
 @property (nullable, nonatomic, retain) NSColor *borderColor;
 @property (nullable, nonatomic, retain) NSColor *bufferBackground;
 @property (nonatomic) double bufferCellHeight;
@@ -28,10 +66,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t bufferMarginX;
 @property (nonatomic) int32_t bufferMarginY;
 @property (nonatomic) int32_t bZAdjustment;
-@property (nonatomic) int32_t bZTerminator;
+@property (nonatomic) kBZArrowsPrefsType bZTerminator;
 @property (nonatomic) double cellHeight;
 @property (nonatomic) double cellWidth;
-@property (nonatomic) int32_t coverArtStyle;
+@property (nonatomic) kCoverImagePrefsType coverArtStyle;
 @property (nonatomic) int32_t cursorShape;
 @property (nonatomic) int32_t dashes;
 @property (nonatomic) int32_t defaultCols;
@@ -59,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL slowDrawing;
 @property (nonatomic) BOOL smartQuotes;
 @property (nonatomic) BOOL smoothScroll;
-@property (nonatomic) int32_t spaceFormat;
+@property (nonatomic) kSpacesFormatType spaceFormat;
 @property (nullable, nonatomic, retain) NSColor *spacingColor;
 @property (nonatomic) int32_t winSpacingX;
 @property (nonatomic) int32_t winSpacingY;
@@ -68,8 +106,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t vOExtraElements;
 @property (nonatomic) int32_t vOSpeakCommand;
 @property (nonatomic) int32_t vOSpeakInputType;
-@property (nonatomic) int32_t vOSpeakImages;
-@property (nonatomic) int32_t vOSpeakMenu;
+@property (nonatomic) kVOImagePrefsType vOSpeakImages;
+@property (nonatomic) kVOMenuPrefsType vOSpeakMenu;
 @property (nullable, nonatomic, retain) GlkStyle *bufAlert;
 @property (nullable, nonatomic, retain) GlkStyle *bufBlock;
 @property (nullable, nonatomic, retain) GlkStyle *bufEmph;

@@ -80,7 +80,7 @@
     oldTheme.defaultRows = [[defaults objectForKey:@"DefaultHeight"] intValue];
 
     oldTheme.smartQuotes = [[defaults objectForKey:@"SmartQuotes"] boolValue];
-    oldTheme.spaceFormat = [[defaults objectForKey:@"SpaceFormat"] intValue];
+    oldTheme.spaceFormat = (kSpacesFormatType)[[defaults objectForKey:@"SpaceFormat"] intValue];
 
     oldTheme.doGraphics = [[defaults objectForKey:@"EnableGraphics"] boolValue];
     oldTheme.doSound = [[defaults objectForKey:@"EnableSound"] boolValue];

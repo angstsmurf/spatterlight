@@ -12,7 +12,6 @@
 #import "GlkStyle.h"
 #import "Interpreter.h"
 #import "Theme.h"
-#import "Preferences.h"
 
 
 @implementation Theme

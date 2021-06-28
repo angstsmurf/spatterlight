@@ -10,7 +10,6 @@
 #import "GlkTextGridWindow.h"
 #import "GridTextView.h"
 #import "Theme.h"
-#import "Preferences.h"
 
 @implementation BureaucracyForm
 

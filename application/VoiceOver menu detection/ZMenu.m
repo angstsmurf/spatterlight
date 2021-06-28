@@ -12,7 +12,6 @@
 #import "GlkTextBufferWindow.h"
 #import "BufferTextView.h"
 #import "GlkGraphicsWindow.h"
-#import "Preferences.h"
 #import "Game.h"
 #import "Theme.h"
 

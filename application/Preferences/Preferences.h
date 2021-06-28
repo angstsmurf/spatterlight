@@ -2,12 +2,6 @@
  * Preferences is a combined singleton / window controller.
  */
 
-typedef enum kSpacesFormatType : NSUInteger {
-    TAG_SPACES_GAME,
-    TAG_SPACES_ONE,
-    TAG_SPACES_TWO
-} kSpacesFormatType;
-
 typedef enum kZoomDirectionType : NSUInteger {
     ZOOMRESET,
     ZOOMIN,
@@ -19,25 +13,6 @@ typedef enum kDefaultPrefWindowSize : NSUInteger {
     // Window height minus window top border
     kDefaultPrefsLowerViewHeight = 350
 } kDefaultPrefWindowSize;
-
-typedef enum kVOMenuPrefsType : int32_t {
-    kVOMenuNone,
-    kVOMenuTextOnly,
-    kVOMenuIndex,
-    kVOMenuTotal
-} kVOMenuPrefsType;
-
-typedef enum kVOImagePrefsType : int32_t {
-    kVOImageWithDescriptionOnly,
-    kVOImageNone,
-    kVOImageAll
-} kVOImagePrefsType;
-
-typedef enum kBZArrowsPrefsType : int32_t {
-    kBZArrowsCompromise,
-    kBZArrowsSwapped,
-    kBZArrowsOriginal,
-} kBZArrowsPrefsType;
 
 typedef enum kImageReplacementPrefsType : int32_t {
     kAlwaysReplace,

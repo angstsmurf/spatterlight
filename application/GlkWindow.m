@@ -1,7 +1,6 @@
 #import "main.h"
 #import "ZColor.h"
 #import "InputHistory.h"
-#import "Preferences.h"
 #import "Theme.h"
 
 #include "glkimp.h"

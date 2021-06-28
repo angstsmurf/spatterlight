@@ -18,7 +18,6 @@
 #import "MyAttachmentCell.h"
 #import "Theme.h"
 #import "SubImage.h"
-#import "Preferences.h"
 
 #include "glk.h"
 

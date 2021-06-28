@@ -2571,7 +2571,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (proportional) {
         GlkTextBufferWindow *textwin = (GlkTextBufferWindow *)gwindow;
         BOOL smartquotes = _theme.smartQuotes;
-        NSInteger spaceformat = _theme.spaceFormat;
+        NSUInteger spaceformat = (NSUInteger)_theme.spaceFormat;
         NSInteger lastchar = textwin.lastchar;
         NSInteger spaced = 0;
         NSUInteger i;
