@@ -414,7 +414,6 @@ NSString *fontToString(NSFont *font) {
     btnEnableStyles.state = theme.doStyles;
 
     _btnOverwriteStyles.enabled = theme.hasCustomStyles;
-//    _btnOverwriteStyles.state = ([_btnOverwriteStyles isEnabled] == NO);
 
     _btnOneThemeForAll.state = _oneThemeForAll;
     _btnAdjustSize.state = _adjustSize;
@@ -428,6 +427,11 @@ NSString *fontToString(NSFont *font) {
     GlkStyle *selectedStyle = [self selectedStyle];
     clrAnyFg.color = selectedStyle.color;
     btnAnyFont.title = fontToString(selectedStyle.font);
+
+    _btnAutoBorderColor.state = theme.borderBehavior == kAutomatic ? NSOnState : NSOffState;
+    _borderColorWell.enabled = (theme.borderBehavior == kUserOverride);
+    if (theme.borderColor == nil)
+        theme.borderColor = theme.bufferBackground;
 
     _btnVOSpeakCommands.state = theme.vOSpeakCommand;
     [_vOMenuButton selectItemAtIndex:theme.vOSpeakMenu];
@@ -464,10 +468,7 @@ NSString *fontToString(NSFont *font) {
     _btnDeterminism.state = theme.determinism;
     _btnNoHacks.state = theme.nohacks ? NSOffState : NSOnState;
 
-    _btnShowCoverImage.state = theme.coverArtStyle;
-
-    _btnAutoBorderColor.hidden = YES;
-    _borderColorWell.hidden = YES;
+    [_coverImagePopup selectItemAtIndex:theme.coverArtStyle];
 
     [_imageReplacePopup selectItemWithTag:[defaults integerForKey:@"ImageReplacement"]];
 
@@ -1285,6 +1286,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
             sender = clrBufferBg;
         else if (clrAnyFg.active)
             sender = clrAnyFg;
+        else if (_borderColorWell.active)
+            sender = _borderColorWell;
     }
 
     if (sender == clrGridFg) {
@@ -1307,6 +1310,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
         themeToChange.bufferBackground = color;
     } else if (sender == clrAnyFg) {
         key = [self selectedStyleName];
+    } else if (sender == _borderColorWell) {
+        [self changeBorderColor:color];
+        return;
     } else return;
 
     GlkStyle *style = nil;
@@ -1332,7 +1338,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [Preferences rebuildTextAttributes];
     else
         [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+         postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:themeToChange]];
+}
+
+- (void)changeBorderColor:(NSColor *)color {
+    if ([color isEqualToColor:theme.borderColor])
+        return;
+
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.borderColor = color;
 }
 
 - (IBAction)swapColors:(id)sender {
@@ -1690,8 +1704,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
         if (result == NSAlertFirstButtonReturn) {
             [weakSelf overWriteStyles];
-//        } else {
-//            weakSelf.btnOverwriteStyles.state = NSOffState;
         }
     }];
 }
@@ -1716,6 +1728,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
         postNotificationName:@"BorderChanged"
                       object:theme
      userInfo:@{@"diff":@(diff)}];
+}
+- (IBAction)changeAutomaticBorderColor:(id)sender {
+    if (theme.borderBehavior == ([sender state] == NSOffState))
+        return;
+    Theme *themeToChange = [self cloneThemeIfNotEditable];
+    themeToChange.borderBehavior = ([sender state] == NSOffState);
 }
 
 - (Theme *)cloneThemeIfNotEditable {

@@ -3600,6 +3600,8 @@ again:
 }
 
 
+#pragma mark Border color
+
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
     //         NSLog(@"setBorderColor %@ fromWindow %ld", color, aWindow.name);
 
@@ -3616,6 +3618,8 @@ again:
 }
 
 - (void)setBorderColor:(NSColor *)color {
+    if (_theme.borderBehavior == kUserOverride)
+        color = _theme.borderColor;
     self.bgcolor = color;
     // The Narcolepsy window mask overrides all border colors
     if (_narcolepsy && _theme.doStyles && _theme.doGraphics) {
@@ -3624,7 +3628,7 @@ again:
         return;
     }
     //    NSLog(@"GlkController setBorderColor: %@", color);
-    if (_theme.doStyles || [color isEqualToColor:_theme.bufferBackground] || [color isEqualToColor:_theme.gridBackground]) {
+    if (_theme.doStyles || [color isEqualToColor:_theme.bufferBackground] || [color isEqualToColor:_theme.gridBackground] || _theme.borderBehavior == kUserOverride) {
         CGFloat components[[color numberOfComponents]];
         CGColorSpaceRef colorSpace = [[color colorSpace] CGColorSpace];
         [color getComponents:(CGFloat *)&components];
@@ -3633,6 +3637,8 @@ again:
         _borderView.layer.backgroundColor = cgcol;
 //        self.window.backgroundColor = color;
         CFRelease(cgcol);
+
+        [Preferences instance].borderColorWell.color = color;
     }
 }
 
