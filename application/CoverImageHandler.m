@@ -65,6 +65,18 @@
     return newWin;
 }
 
+- (NSWindow *)fadeWindow {
+    NSWindow *newWin = [[NSWindow alloc] initWithContentRect:_glkctl.window.contentView.frame
+                                                   styleMask: NSBorderlessWindowMask
+                                                     backing: NSBackingStoreBuffered
+                                                       defer: YES];
+    newWin.opaque = NO;
+    newWin.backgroundColor = NSColor.clearColor;
+
+    [newWin setFrame:[_glkctl.window convertRectToScreen:_glkctl.window.contentView.frame] display:YES];
+    return newWin;
+}
+
 - (void)adjustFullScreenWindow:(NSWindow *)newWin {
     NSRect frame = [_glkctl.window.contentView convertRect:_imageView.frame toView:nil];
     NSRect windowFrame = [_glkctl.window convertRectToScreen:frame];
@@ -97,8 +109,9 @@
 
         NSWindow *backgroundColorWin  = [self backgroundColorWindow];
 
-        [_glkctl.window addChildWindow: backgroundColorWin
-                            ordered: NSWindowAbove];
+        if (!(_glkctl.narcolepsy && _glkctl.theme.doStyles && _glkctl.theme.doGraphics))
+            [_glkctl.window addChildWindow: backgroundColorWin
+                                   ordered: NSWindowAbove];
 
         NSWindow *imageWindow = [self takeSnapshot];
         [_glkctl.window addChildWindow: imageWindow
@@ -129,6 +142,8 @@
         fadeOutAnimation.duration = 0.5;
         fadeOutAnimation.fillMode = kCAFillModeForwards;
 
+        _glkctl.showingCoverImage = NO;
+        // FIXME: Just fork the interpreter NSTask here instead
         [_glkctl performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.0];
 
         double delayInSeconds = 0.3;
@@ -156,8 +171,9 @@
 }
 
 - (void)positionImage {
+    NSView *superview = [_imageView superview];
     NSSize imageSize = _imageView.sizeInPixels;
-    NSSize windowSize = _contentView.frame.size;
+    NSSize windowSize = superview.frame.size;
 
     CGFloat ratio = imageSize.width / imageSize.height;
     NSRect imageFrame = NSMakeRect(0,0, windowSize.width, windowSize.width / ratio);
@@ -166,12 +182,11 @@
         imageFrame.origin.x = (windowSize.width - imageFrame.size.width) / 2;
     } else {
         imageFrame.origin.y = (windowSize.height - imageFrame.size.height) / 2;
-        if (NSMaxY(imageFrame) > NSMaxY(_contentView.frame))
-            imageFrame.origin.y = NSMaxY(_contentView.frame) - imageFrame.size.height;
+        if (NSMaxY(imageFrame) > NSMaxY(superview.frame))
+            imageFrame.origin.y = NSMaxY(superview.frame) - imageFrame.size.height;
     }
 
     _imageView.frame = imageFrame;
-
 }
 
 - (void)showLogoWindow {
@@ -180,10 +195,27 @@
         return;
     }
 
-    NSWindow *window = _glkctl.window;
-
     // Don't show this if this view is not on the screen
-    if (window == nil) return;
+    if (_glkctl.window == nil) return;
+
+    switch (_glkctl.theme.coverArtStyle) {
+        case kShowAndWait:
+            [self showLogoAndWaitForKey];
+            break;
+        case kShowAndFade:
+            [self showLogoAndFade];
+            break;
+        case kShowDramatic:
+            [self showLogoDramatic];
+            break;
+        default:
+            return;
+    }
+}
+
+- (void)showLogoAndWaitForKey {
+    _glkctl.showingCoverImage = YES;
+    NSWindow *window = _glkctl.window;
 
     // We need one view that covers the game window, to catch all mouse clicks
     _contentView = [[CoverImageView alloc] initWithFrame:window.contentView.frame];
@@ -204,11 +236,6 @@
 
     [window makeFirstResponder:_imageView];
 
-//    CGFloat delay = 0.5;
-//    if ((_glkctl.window.styleMask & NSFullScreenWindowMask) == NSFullScreenWindowMask ||
-//        NSEqualRects(_glkctl.borderView.frame, window.screen.frame))
-//        delay = 1;
-
     CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fadeInAnimation.fromValue = [NSNumber numberWithFloat:0.0];
     fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];
@@ -219,6 +246,194 @@
     fadeInAnimation.fillMode = kCAFillModeForwards;
 
     [_imageView.layer addAnimation:fadeInAnimation forKey:nil];
+}
+
+- (void)showLogoAndFade {
+    NSWindow *fadeWindow = [self fadeWindow];
+
+    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.frame];
+    _imageView.delegate = self;
+    [fadeWindow.contentView addSubview:_imageView];
+    [_imageView createImage];
+    [self positionImage];
+
+    _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+
+    NSRect newFrame = fadeWindow.frame;
+    CGFloat factor = 0.8;
+    CGFloat newWidth = newFrame.size.width * factor;
+    CGFloat newHeight = newFrame.size.height * factor;
+    CGFloat offsetX = (newFrame.size.width - newWidth) / 2;
+    CGFloat offsetY = (newFrame.size.height - newHeight) / 2;
+    newFrame = NSMakeRect(newFrame.origin.x + offsetX, newFrame.origin.y + offsetY, newWidth, newHeight);
+
+    [fadeWindow setFrame:newFrame display:YES];
+
+    CALayer *layer = _imageView.layer;
+    layer.opacity = 0;
+    [_glkctl.window addChildWindow:fadeWindow ordered:NSWindowAbove];
+    [_glkctl forkInterpreterTask];
+
+    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeInAnimation.fromValue = [NSNumber numberWithFloat:0.0];
+    fadeInAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    fadeInAnimation.additive = NO;
+    fadeInAnimation.removedOnCompletion = NO;
+    fadeInAnimation.beginTime = 0.2;
+    fadeInAnimation.duration = 0.2;
+    fadeInAnimation.fillMode = kCAFillModeForwards;
+
+    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+    fadeOutAnimation.toValue = [NSNumber numberWithFloat:0.0];
+    fadeOutAnimation.additive = NO;
+    fadeOutAnimation.removedOnCompletion = NO;
+    fadeOutAnimation.beginTime = 1.5;
+    fadeOutAnimation.duration = 0.5;
+    fadeOutAnimation.fillMode = kCAFillModeForwards;
+
+
+    CFTimeInterval addTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    CAAnimationGroup *group = [CAAnimationGroup animation];
+    group.animations = @[fadeInAnimation, fadeOutAnimation];
+    group.beginTime = addTime;
+    group.duration = 3;
+    group.removedOnCompletion = NO;
+
+    [layer addAnimation:group forKey:nil];
+
+    GlkController *blockController = _glkctl;
+
+    double delayInSeconds = 4;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [fadeWindow orderOut:nil];
+        // Why do these need to be reset here?
+        blockController.contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        blockController.borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    });
+}
+
+- (void)showLogoDramatic {
+    NSWindow *fadeWindow = [self fadeWindow];
+
+
+    Metadata *meta = _glkctl.game.metadata;
+
+    NSView *imageView = [[NSView alloc] initWithFrame:fadeWindow.contentView.frame];
+    [fadeWindow.contentView addSubview:imageView];
+
+    imageView.wantsLayer = YES;
+
+    [_glkctl.window addChildWindow:fadeWindow ordered:NSWindowAbove];
+    [_glkctl forkInterpreterTask];
+
+    NSView *view = _glkctl.window.contentView;
+
+    CALayer *layer = [CALayer layer];
+
+    NSImage *image = [[NSImage alloc] initWithData:(NSData *)meta.cover.data];
+
+    NSImageRep *rep = image.representations.firstObject;
+
+    if (meta.cover.interpolation == kUnset) {
+        meta.cover.interpolation = rep.pixelsWide < 350 ? kNearestNeighbor : kTrilinear;
+    }
+
+    layer.magnificationFilter = (meta.cover.interpolation == kNearestNeighbor) ? kCAFilterNearest : kCAFilterTrilinear;
+
+
+    CGFloat ratio = image.size.width / image.size.height;
+
+    NSRect bounds = fadeWindow.contentView.bounds;
+
+    NSSize newsize = NSMakeSize(bounds.size.width, bounds.size.width / ratio);
+    if (newsize.height > bounds.size.height)
+        newsize = NSMakeSize(bounds.size.height * ratio, bounds.size.height);
+    image.size = newsize;
+
+    layer.contents = image;
+
+    NSRect newFrame = imageView.frame;
+    newFrame.size = newsize;
+    imageView.frame = newFrame;
+
+    [imageView.layer addSublayer:layer];
+    layer.frame = imageView.bounds;
+
+    layer.anchorPoint = CGPointMake(.5,.5);
+    layer.contentsGravity = @"center";
+
+    bounds.origin.x = -bounds.size.width / 2.0;
+    bounds.origin.y = -bounds.size.height / 2.0;
+
+
+    layer.bounds = bounds;
+    layer.opacity = 0;
+
+
+    /* Zoom in and out */
+    //set to zoom
+    CABasicAnimation  * animation = [CABasicAnimation  animationWithKeyPath : @"transform.scale" ];
+    //Animation options settings
+    CATransform3D tr = CATransform3DIdentity;
+    tr = CATransform3DTranslate(tr, view.bounds.size.width/2, view.bounds.size.height/2, 0);
+    tr = CATransform3DScale(tr, 20, 20, 1);
+    tr = CATransform3DTranslate(tr, -view.bounds.size.width/2, -view.bounds.size.height/2, 0);
+    animation.toValue = [NSValue valueWithCATransform3D:tr];
+
+
+    animation.beginTime = 0.0;
+    animation.duration = 3.0 ;  //duration of the animation
+//    animation.repeatCount = 1 ;  //repeat count
+//    animation.autoreverses = YES ;  //Perform reverse animation at the end of the animation
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeBackwards;
+
+//    CAMediaTimingFunction *bezier = [CAMediaTimingFunction functionWithControlPoints:.49f :.16f :.96f :.05f];
+//    CAMediaTimingFunction *bezier = [CAMediaTimingFunction functionWithControlPoints:.83f :.11f :.58f :.33f];
+    CAMediaTimingFunction *bezier = [CAMediaTimingFunction functionWithControlPoints:1 :0 :.91f :.31f];
+    animation.timingFunction = bezier;
+
+
+//    [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+
+                                       //Zoom factor
+    animation.fromValue  = [NSNumber  numberWithDouble : 0.7f];  //The magnification at the beginning
+//    animation.toValue  = [NSNumber  numberWithFloat : 5.0];  //multiplier at the end
+                                                                //Add animation
+    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeInAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
+    fadeInAnimation.toValue = [NSNumber numberWithFloat:0.8f];
+    fadeInAnimation.additive = NO;
+    fadeInAnimation.removedOnCompletion = NO;
+    fadeInAnimation.beginTime = 0.0;
+    fadeInAnimation.duration = 0.2;
+    fadeInAnimation.fillMode = kCAFillModeForwards;
+
+    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeOutAnimation.fromValue = [NSNumber numberWithFloat:0.8f];
+    fadeOutAnimation.toValue = [NSNumber numberWithFloat:0.0];
+    fadeOutAnimation.additive = NO;
+    fadeOutAnimation.removedOnCompletion = NO;
+    fadeOutAnimation.beginTime = 2.0;
+    fadeOutAnimation.duration = 1.0;
+    fadeOutAnimation.fillMode = kCAFillModeForwards;
+
+
+    CFTimeInterval addTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    CAAnimationGroup *group = [CAAnimationGroup animation];
+    group.animations = @[fadeInAnimation, fadeOutAnimation, animation];
+//    group.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    group.timingFunction = bezier;
+
+    group.beginTime = addTime + 0.1;
+    group.duration = 6;
+    group.removedOnCompletion = NO;
+
+    [layer addAnimation:group forKey:nil];
+
+//    [layer  addAnimation : animation  forKey : nil];
 }
 
 - (void)enterFullScreenWithDuration:(NSTimeInterval)duration {
@@ -286,6 +501,7 @@
         [imageWindow orderOut:nil];
     }];
 }
+
 
 - (void)exitFullscreenWithDuration:(NSTimeInterval)duration {
     [self.enterFullscreenWindow orderOut:nil];

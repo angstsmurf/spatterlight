@@ -55,7 +55,7 @@
 
     _image = [[NSImage alloc] initWithData:(NSData *)meta.cover.data];
 
-    NSImageRep *rep = [[_image representations] objectAtIndex:0];
+    NSImageRep *rep = _image.representations.firstObject;
     _sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
 
     self.frame = NSMakeRect(0,0, _image.size.width, _image.size.height);
@@ -64,13 +64,16 @@
     self.accessibilityLabel = meta.coverArtDescription;
 
     CALayer *layer = [CALayer layer];
-    layer.magnificationFilter = _sizeInPixels.height < 350 ? kCAFilterNearest : kCAFilterTrilinear;
+
+    if (meta.cover.interpolation == kUnset) {
+        meta.cover.interpolation = _sizeInPixels.width < 350 ? kNearestNeighbor : kTrilinear;
+    }
+
+    layer.magnificationFilter = (meta.cover.interpolation == kNearestNeighbor) ? kCAFilterNearest : kCAFilterTrilinear;
+
     layer.contents = _image;
 
     [self setLayer:layer];
 }
-
-
-
 
 @end

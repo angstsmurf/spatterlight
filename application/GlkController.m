@@ -678,7 +678,7 @@ fprintf(stderr, "%s\n",                                                    \
     [self adjustContentView];
     lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
     [self showWindow:nil];
-    if (_theme.coverArtStyle == 1 && _game.metadata.cover.data) {
+    if (_theme.coverArtStyle != kDontShow && _game.metadata.cover.data) {
         [self deleteAutosaveFiles];
         _contentView.autoresizingMask =
         NSViewMinXMargin | NSViewMaxXMargin | NSViewHeightSizable;
@@ -1354,7 +1354,6 @@ fprintf(stderr, "%s\n",                                                    \
     [encoder encodeInteger:_turns forKey:@"turns"];
     [encoder encodeObject:_theme.name forKey:@"oldThemeName"];
 
-    _showingCoverImage = (_coverController.imageView != nil);
     [encoder encodeBool:_showingCoverImage forKey:@"showingCoverImage"];
 
     [encoder encodeBool:_commandScriptRunning forKey:@"commandScriptRunning"];
@@ -2046,7 +2045,7 @@ fprintf(stderr, "%s\n",                                                    \
 #pragma mark Zoom
 
 - (IBAction)zoomIn:(id)sender {
-     if (_coverController.imageView && _inFullscreen)
+     if (_showingCoverImage && _inFullscreen)
          return;
     [Preferences instance].inMagnification = YES;
     [Preferences zoomIn];
@@ -2055,7 +2054,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (IBAction)zoomOut:(id)sender {
-    if (_coverController.imageView && _inFullscreen)
+    if (_showingCoverImage && _inFullscreen)
         return;
     [Preferences instance].inMagnification = YES;
     [Preferences zoomOut];
@@ -2064,7 +2063,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (IBAction)zoomToActualSize:(id)sender {
-    if (_coverController.imageView && _inFullscreen)
+    if (_showingCoverImage && _inFullscreen)
         return;
     [Preferences instance].inMagnification = YES;
     [Preferences zoomToActualSize];
@@ -3694,7 +3693,7 @@ again:
         if (restoredController && restoredController.inFullscreen) {
             return @[ window ];
         } else {
-            if (_coverController.imageView) {
+            if (_showingCoverImage) {
                 return [_coverController customWindowsToEnterFullScreenForWindow:window];
             }
             [self makeAndPrepareSnapshotWindow];
@@ -3708,7 +3707,7 @@ again:
 
 - (NSArray *)customWindowsToExitFullScreenForWindow:(NSWindow *)window {
     if (window == self.window) {
-        if (_coverController.imageView) {
+        if (_showingCoverImage) {
             return [_coverController customWindowsToExitFullScreenForWindow:window];
         }
         return @[ window ];
@@ -3776,7 +3775,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     if (restoredController && restoredController.inFullscreen) {
         [self startGameInFullScreenAnimationWithDuration:duration];
     } else {
-        if (_coverController.imageView) {
+        if (_showingCoverImage) {
             [_coverController enterFullScreenWithDuration:duration];
             return;
         }
@@ -3990,7 +3989,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)window:window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
-    if (_coverController.imageView) {
+    if (_showingCoverImage) {
         [_coverController exitFullscreenWithDuration:duration];
         return;
     }

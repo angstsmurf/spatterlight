@@ -1648,10 +1648,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeShowCoverImage:(id)sender {
-    if (theme.coverArtStyle == [sender state])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.coverArtStyle = [sender state];
+    [self changeMenuAttribute:@"coverArtStyle" fromPopUp:sender];
 }
 
 #pragma mark End of Misc menu
