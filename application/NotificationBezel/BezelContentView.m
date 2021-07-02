@@ -112,13 +112,15 @@
 
     NSSize textSize = NSMakeSize(selfSize.width * 0.8, selfSize.height * 0.8);
 
-    font = [font fontToFitWidth:textSize.width sampleText:@"GAME"];
+    NSString *over = @"OVER";
 
-    NSRect textRect = [self boundingBoxForText:@"GAME" font:font bottomMargin:30];
+    font = [font fontToFitWidth:textSize.width sampleText:over];
+
+    NSRect textRect = [self boundingBoxForText:over font:font bottomMargin:30];
 
     CGContextSetTextDrawingMode(context, kCGTextFill);
 
-    [@"OVER" drawInRect:textRect withAttributes:
+    [over drawInRect:textRect withAttributes:
      @{ NSForegroundColorAttributeName: color,
         NSFontAttributeName: font }];
 
