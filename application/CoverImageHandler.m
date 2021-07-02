@@ -12,6 +12,7 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
+#import "NotificationBezel.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -206,6 +207,9 @@
         case kShowAndFade:
             [self showLogoAndFade];
             break;
+        case kShowAsBezel:
+            [self showLogoAsBezel];
+            break;
         default:
             return;
     }
@@ -310,6 +314,13 @@
         blockController.contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         blockController.borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     });
+}
+
+- (void)showLogoAsBezel {
+    NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:_glkctl.window.screen];
+
+    [notification showCoverImage:(NSData *)_glkctl.game.metadata.cover.data interpolation:_glkctl.game.metadata.cover.interpolation];
+    [_glkctl forkInterpreterTask];
 }
 
 - (void)enterFullScreenWithDuration:(NSTimeInterval)duration {

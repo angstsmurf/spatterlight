@@ -14,6 +14,7 @@
 #import "NSData+Categories.h"
 #import "ImageCompareViewController.h"
 #import "IFDB.h"
+#import "NotificationBezel.h"
 
 @interface IFDBDownloader () {
     NSString *coverArtUrl;
@@ -63,6 +64,9 @@
     if (result && imageOnly) {
         game.metadata.coverArtURL = coverArtUrl;
     }
+
+    if (!result)
+        [IFDBDownloader showNoDataFoundBezel];
     return result;
 }
 
@@ -96,13 +100,19 @@
             } else {
                 IFictionMetadata *result = [[IFictionMetadata alloc] initWithData:data andContext:_context];
                 if (!result || result.stories.count == 0) {
-                    //                NSLog(@"Could not convert downloaded iFiction XML data to Metadata!");
                     return NO;
                 }
             }
         } else return NO;
     }
     return YES;
+}
+
++ (void)showNoDataFoundBezel {
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:NSScreen.screens.firstObject];
+        [bezel showStandardWithText:@"? No data found"];
+    });
 }
 
 + (NSString *)coverArtUrlFromXMLData:(NSData *)data {

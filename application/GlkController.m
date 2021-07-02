@@ -20,6 +20,7 @@
 #import "CommandScriptHandler.h"
 #import "CoverImageHandler.h"
 #import "CoverImageView.h"
+#import "NotificationBezel.h"
 
 #include <sys/time.h>
 #import <QuartzCore/QuartzCore.h>
@@ -710,6 +711,17 @@ fprintf(stderr, "%s\n",                                                    \
 
     [self restoreUI];
     self.window.title = [self.window.title stringByAppendingString:@" (finished)"];
+
+    GlkController * __unsafe_unretained weakSelf = self;
+    NSScreen *screen = self.window.screen;
+    NSString *title = [NSString stringWithFormat:@"%@ has finished.", _game.metadata.title];
+    double delayInSeconds = 1.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+        NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:screen];
+        [bezel showGameOver];
+        [weakSelf speakString:title];
+    });
 
     restoredController = nil;
 }
@@ -3465,6 +3477,8 @@ static BOOL pollMoreData(int fd) {
         [alert addButtonWithTitle:NSLocalizedString(@"Oops", nil)];
         [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {}];
     } else {
+        NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];
+        [bezel showGameOver];
         [self performSelector:@selector(speakString:) withObject:[NSString stringWithFormat:@"%@ has finished.", _game.metadata.title] afterDelay:1];
     }
 

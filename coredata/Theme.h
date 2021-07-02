@@ -21,7 +21,7 @@ typedef enum kCoverImagePrefsType : int32_t {
     kDontShow,
     kShowAndWait,
     kShowAndFade,
-    kShowDramatic
+    kShowAsBezel
 } kCoverImagePrefsType;
 
 typedef enum kBorderColorPrefsType : int32_t {
