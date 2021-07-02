@@ -1,5 +1,5 @@
 //
-//  IFictionMetadata.h
+//  IFBibliographic.m
 //  Adapted from Yazmin by David Schweinsberg
 //  See https://github.com/dcsch/yazmin
 //
