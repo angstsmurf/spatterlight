@@ -67,8 +67,12 @@
 
     CGFloat ratio = (CGFloat)rep.pixelsHigh / (CGFloat)rep.pixelsWide;
     if (rep.pixelsWide > rep.pixelsHigh) {
-        size.height = 200;
-        size.width = 200 / ratio;
+        size.height = 300;
+        size.width = 300 / ratio;
+        if (size.width > NSWidth(_screen.visibleFrame) / 2) {
+            size.height = 200;
+            size.width = 200 / ratio;
+        }
     } else {
         size.width = 300;
         size.height = 300 * ratio;
