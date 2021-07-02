@@ -85,7 +85,7 @@ fprintf(stderr, "%s\n",                                                    \
     IBOutlet NSTextField *authorField;
     IBOutlet NSTextField *headlineField;
     IBOutlet NSTextField *ifidField;
-    IBOutlet NSTextView *descriptionText;
+    IBOutlet NSTextField *descriptionText;
     IBOutlet ImageView *imageView;
 
     NSWindowController *snapshotController;
@@ -138,9 +138,6 @@ fprintf(stderr, "%s\n",                                                    \
      selector:@selector(noteManagedObjectContextDidChange:)
      name:NSManagedObjectContextObjectsDidChangeNotification
      object:managedObjectContext];
-
-    descriptionText.drawsBackground = NO;
-    ((NSScrollView *)descriptionText.superview).drawsBackground = NO;
 
     if (imageView) {
         imageView.game = _game;
@@ -315,12 +312,13 @@ fprintf(stderr, "%s\n",                                                    \
 
     if (_meta) {
         _titleField.stringValue = _meta.title;
-        if (_meta.author)
+        if (_meta.author.length)
             authorField.stringValue = _meta.author;
-        if (_meta.headline)
+        if (_meta.headline.length)
             headlineField.stringValue = _meta.headline;
-        if (_meta.blurb)
-            descriptionText.string = _meta.blurb;
+        if (_meta.blurb.length)
+            descriptionText.stringValue = _meta.blurb;
+        
         ifidField.stringValue = _game.ifid;
     }
 }
@@ -341,6 +339,17 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
+
+    // Make sure that all edits are saved
+    if (![_meta.title isEqualToString:_titleField.stringValue])
+        _meta.title = _titleField.stringValue;
+    if (![_meta.headline isEqualToString:headlineField.stringValue])
+        _meta.headline = headlineField.stringValue;
+    if (![_meta.author isEqualToString:authorField.stringValue])
+        _meta.author = authorField.stringValue;
+    if (![_meta.blurb isEqualToString:descriptionText.stringValue])
+        _meta.blurb = descriptionText.stringValue;
+
     // Crazy stuff to make stacks of windows close in a pretty way
     NSArray <InfoController *> *windowArray = _libcontroller.infoWindows.allValues;
     if (windowArray.count > 1) {
@@ -384,6 +393,10 @@ fprintf(stderr, "%s\n",                                                    \
         else if (textfield == authorField)
         {
             _meta.author = authorField.stringValue;
+        }  else if (textfield == descriptionText)
+        {
+            _meta.blurb = descriptionText.stringValue;
+            NSLog(@"changed blurb to %@", _meta.blurb);
         }
         //		else if (textfield == ifidField)
         //		{
@@ -391,16 +404,8 @@ fprintf(stderr, "%s\n",                                                    \
         //		}
 
         dispatch_async(dispatch_get_main_queue(), ^{[textfield.window makeFirstResponder:nil];});
-
     }
 }
-
-- (void)textDidEndEditing:(NSNotification *)notification {
-    if (notification.object == descriptionText) {
-        _meta.blurb = descriptionText.textStorage.string;
-    }
-}
-
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
     return managedObjectContext.undoManager;
