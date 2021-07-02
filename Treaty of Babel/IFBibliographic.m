@@ -34,13 +34,13 @@ typedef enum kForgiveness : NSInteger {
         NSLocale *englishUSLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 
         NSDictionary *forgiveness = @{
-                                      @"" : @(FORGIVENESS_NONE),
-                                      @"Cruel" : @(FORGIVENESS_CRUEL),
-                                      @"Nasty" : @(FORGIVENESS_NASTY),
-                                      @"Tough" : @(FORGIVENESS_TOUGH),
-                                      @"Polite" : @(FORGIVENESS_POLITE),
-                                      @"Merciful" : @(FORGIVENESS_MERCIFUL)
-                                      };
+            @"" : @(FORGIVENESS_NONE),
+            @"Cruel" : @(FORGIVENESS_CRUEL),
+            @"Nasty" : @(FORGIVENESS_NASTY),
+            @"Tough" : @(FORGIVENESS_TOUGH),
+            @"Polite" : @(FORGIVENESS_POLITE),
+            @"Merciful" : @(FORGIVENESS_MERCIFUL)
+        };
 
         NSDateFormatter *dateFormatter;
 
@@ -51,7 +51,7 @@ typedef enum kForgiveness : NSInteger {
         while ((node = [enumChildren nextObject])) {
             keyVal = node.stringValue;
             for (NSString *key in allKeys) {
-    
+
                 if ([node.name compare:key] == 0) {
                     if ([key isEqualToString:@"firstpublished"])
                     {
@@ -117,26 +117,26 @@ typedef enum kForgiveness : NSInteger {
 }
 
 - (instancetype)init {
-  self = [super init];
-  if (self) {
-  }
-  return self;
+    self = [super init];
+    if (self) {
+    }
+    return self;
 }
 
 - (NSString *)renderDescriptionElement:(NSXMLElement *)element {
-  NSMutableString *string = [NSMutableString string];
-  NSEnumerator *enumChildren = [element.children objectEnumerator];
-  NSXMLNode *node;
-  NSUInteger count = 0;
-  while ((node = [enumChildren nextObject])) {
-    if (node.kind == NSXMLTextKind) {
-      if (count > 0)
-        [string appendString:@"\n\n"];
-      [string appendString:node.stringValue];
-      ++count;
+    NSMutableString *string = [NSMutableString string];
+    NSEnumerator *enumChildren = [element.children objectEnumerator];
+    NSXMLNode *node;
+    NSUInteger count = 0;
+    while ((node = [enumChildren nextObject])) {
+        if (node.kind == NSXMLTextKind) {
+            if (count > 0)
+                [string appendString:@"\n\n"];
+            [string appendString:node.stringValue];
+            ++count;
+        }
     }
-  }
-  return string;
+    return string;
 }
 
 @end

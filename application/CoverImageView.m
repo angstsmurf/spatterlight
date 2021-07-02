@@ -20,6 +20,10 @@
     return YES;
 }
 
+- (BOOL)acceptsFirstMouse:(NSEvent *)event {
+    return YES;
+}
+
 - (BOOL)canBecomeKeyView {
     return YES;
 }
@@ -49,13 +53,12 @@
     return [super hitTest:point];
 }
 
-
 - (void)createImage {
     Metadata *meta = _delegate.glkctl.game.metadata;
 
     _image = [[NSImage alloc] initWithData:(NSData *)meta.cover.data];
 
-    NSImageRep *rep = _image.representations.firstObject;
+    NSImageRep *rep = _image.representations.lastObject;
     _sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
 
     self.frame = NSMakeRect(0,0, _image.size.width, _image.size.height);

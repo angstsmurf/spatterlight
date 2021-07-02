@@ -1873,7 +1873,12 @@ fprintf(stderr, "%s\n",                                                    \
         if (NSWidth(newframe) > NSWidth(_borderView.frame) - borders)
             newframe.size.width = NSWidth(_borderView.frame) - borders;
 
-        newframe.origin.x += (NSWidth(oldframe) - NSWidth(newframe)) / 2;
+        CGFloat widthDiff = NSWidth(oldframe) - NSWidth(newframe);
+
+        newframe.origin.x += widthDiff / 2;
+
+        _windowPreFullscreenFrame.origin.x += widthDiff / 2;
+        _windowPreFullscreenFrame.size.width += widthDiff;
 
         CGFloat offset = NSHeight(newframe) - NSHeight(oldframe);
         newframe.origin.y -= offset;
@@ -3684,6 +3689,30 @@ again:
 #pragma mark Full screen
 
 - (NSSize)window:(NSWindow *)window willUseFullScreenContentSize:(NSSize)proposedSize {
+    if (window != self.window)
+        return proposedSize;
+    if (_showingCoverImage) {
+        [_coverController positionImage];
+    }
+
+    _contentView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
+    _borderView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+
+    if (!inFullScreenResize) {
+        NSSize borderSize = _borderView.frame.size;
+        NSRect contentFrame = _contentView.frame;
+        CGFloat midWidth = borderSize.width / 2;
+        if (contentFrame.origin.x > midWidth ||  NSMaxX(contentFrame) < midWidth) {
+            contentFrame.origin.x = round(borderSize.width - NSWidth(contentFrame) / 2);
+            _contentView.frame = contentFrame;
+        }
+        if (NSWidth(contentFrame) > borderSize.width - 2 * _theme.border || borderSize.width < borderSize.height) {
+            contentFrame.size.width = ceil(borderSize.width - 2 * _theme.border);
+            contentFrame.origin.x = _theme.border;
+            _contentView.frame = contentFrame;
+        }
+    }
+
     _borderFullScreenSize = proposedSize;
     return proposedSize;
 }
@@ -3738,6 +3767,9 @@ again:
     _contentView.alphaValue = 1;
     [window setFrame:_windowPreFullscreenFrame display:YES];
     _contentView.frame = [self contentFrameForWindowed];
+    [self restoreScrollOffsets];
+    _contentView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+    _borderView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
 }
 
 - (void)storeScrollOffsets {
@@ -4035,6 +4067,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [self adjustContentView];
     [self contentDidResize:_contentView.frame];
     lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
+    _contentView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
+    [self restoreScrollOffsets];
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
@@ -4054,6 +4088,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [self.window setFrame:newFrame display:YES];
         [self adjustMaskLayer:nil];
     }
+    _contentView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
 }
 
 - (void)startInFullscreen {
@@ -4443,7 +4478,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         NSAccessibilityPostNotificationWithUserInfo(
                                                     mainWin,
                                                     NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-        //        NSLog(@"speakString: \"%@\"", string);
     }
 }
 
