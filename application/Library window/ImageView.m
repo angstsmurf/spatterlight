@@ -167,7 +167,7 @@
     _image = image;
     CALayer *layer = [CALayer layer];
 
-    NSImageRep *rep = [[image representations] objectAtIndex:0];
+    NSImageRep *rep = image.representations.lastObject;
     NSSize sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
     image.size = sizeInPixels;
 
@@ -411,11 +411,12 @@
     IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:_game.managedObjectContext];
     Game *game = _game;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [downloader downloadMetadataFor:game imageOnly:YES];
-        [downloader downloadImageFor:game.metadata];
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            [game.metadata.managedObjectContext save:nil];
-        });
+        if ([downloader downloadMetadataFor:game imageOnly:YES]) {
+            [downloader downloadImageFor:game.metadata];
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [game.metadata.managedObjectContext save:nil];
+            });
+        }
     });
 }
 
