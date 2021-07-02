@@ -1446,7 +1446,7 @@
                                                         <menuItem title="Don't show" state="on" id="dRl-4v-mav"/>
                                                         <menuItem title="Show and wait for key" tag="1" id="Gb3-Qc-3IC"/>
                                                         <menuItem title="Show and fade" tag="2" id="hVG-r6-Nwd"/>
-                                                        <menuItem title="Show and zoom" tag="3" id="244-Sn-9xg"/>
+                                                        <menuItem title="Show as bezel" tag="3" id="244-Sn-9xg"/>
                                                     </items>
                                                 </menu>
                                             </popUpButtonCell>
