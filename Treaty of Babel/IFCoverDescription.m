@@ -9,7 +9,6 @@
 #import "Metadata.h"
 #import "Image.h"
 #import "NSString+Categories.h"
-#import "main.h"
 
 @implementation IFCoverDescription
 

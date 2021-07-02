@@ -1,7 +1,10 @@
-#import "main.h"
+#import "GlkEvent.h"
 #import "Theme.h"
 #import "GlkStyle.h"
 #import "NSColor+integer.h"
+
+#include "glk.h"
+#include "protocol.h"
 
 #include <unistd.h>
 

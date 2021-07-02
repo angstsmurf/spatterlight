@@ -1,4 +1,3 @@
-#import "main.h"
 #import "GlkSoundChannel.h"
 #import "SoundHandler.h"
 

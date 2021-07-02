@@ -8,7 +8,6 @@
 #import "IFBibliographic.h"
 #import "Metadata.h"
 #import "NSString+Categories.h"
-#import "main.h"
 
 typedef enum kForgiveness : NSInteger {
     FORGIVENESS_NONE,

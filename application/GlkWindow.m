@@ -1,4 +1,7 @@
-#import "main.h"
+#import "GlkWindow.h"
+#import "GlkController.h"
+#import "GlkTextGridWindow.h"
+
 #import "ZColor.h"
 #import "InputHistory.h"
 #import "Theme.h"
