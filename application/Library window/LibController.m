@@ -718,11 +718,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
 
     if (rows.count > 0)
     {
-        [self downloadGames:[_gameTableModel objectsAtIndexes:rows]];
+        [self downloadMetadataForGames:[_gameTableModel objectsAtIndexes:rows]];
     }
 }
 
-- (void)downloadGames:(NSArray<Game *> *)games {
+- (void)downloadMetadataForGames:(NSArray<Game *> *)games {
     LibController * __unsafe_unretained weakSelf = self;
     NSManagedObjectContext *childContext = [_coreDataManager privateChildManagedObjectContext];
     childContext.undoManager = nil;
@@ -748,6 +748,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             if (![[NSFileManager defaultManager] isReadableFileAtPath:[game urlForBookmark].path])
                 game.found = NO;
 
+            NSLog(@"downloadGames: downloading metadata for game %@", game.metadata.title);
             result = [downloader downloadMetadataFor:game imageOnly:NO];
 
             if (result) {
@@ -1446,7 +1447,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         [alert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
 
             if (result == NSAlertFirstButtonReturn) {
-                [self downloadGames:fetchedObjects];
+                [self downloadMetadataForGames:fetchedObjects];
             }
         }];
     }
