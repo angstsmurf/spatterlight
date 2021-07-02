@@ -1549,6 +1549,8 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
+    if (_previewDummy)
+        return;
     [Preferences changeCurrentGame:_game];
     if (!dead) {
         if (_eventcount > 1 && !shouldShowAutorestoreAlert && !_previewDummy)
@@ -4422,6 +4424,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 #pragma mark Speak previous moves
 
 - (IBAction)speakMostRecent:(id)sender {
+    if (_previewDummy)
+        return;
     if (_zmenu) {
         [_zmenu deferredSpeakSelectedLine:self];
         return;
@@ -4473,6 +4477,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)speakString:(NSString *)string {
+    if (_previewDummy)
+        return;
     if (!string || string.length == 0 || !_voiceOverActive) {
         return;
     }
