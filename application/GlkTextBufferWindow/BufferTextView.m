@@ -274,14 +274,14 @@ if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuI
 - (NSString *)accessibilityActionDescription:(NSString *)action {
     if (@available(macOS 10.13, *)) {
     } else {
-    if ([action isEqualToString:@"Repeat last move"])
-        return @"repeat the text output of the last move";
-    if ([action isEqualToString:@"Speak move before"])
-        return @"step backward through moves";
-    if ([action isEqualToString:@"Speak move after"])
-        return @"step forward through moves";
-    if ([action isEqualToString:@"Speak status bar"])
-        return @"read status bar text";
+        if ([action isEqualToString:@"Repeat last move"])
+            return @"repeat the text output of the last move";
+        if ([action isEqualToString:@"Speak move before"])
+            return @"step backward through moves";
+        if ([action isEqualToString:@"Speak move after"])
+            return @"step forward through moves";
+        if ([action isEqualToString:@"Speak status bar"])
+            return @"read status bar text";
     }
 
     return [super accessibilityActionDescription:action];
@@ -299,10 +299,12 @@ if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuI
 
     if (@available(macOS 10.13, *)) {
     } else {
-    [result addObjectsFromArray:@[
-        @"Repeat last move", @"Speak move before", @"Speak move after",
-        @"Speak status bar"
-    ]];
+        [result addObjectsFromArray:@[
+            @"Repeat last move",
+            @"Speak move before",
+            @"Speak move after",
+            @"Speak status bar"
+        ]];
     }
     return result;
 }
@@ -311,18 +313,18 @@ if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuI
     if (@available(macOS 10.13, *)) {
         [super accessibilityPerformAction:action];
     } else {
-    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+        GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
 
-    if ([action isEqualToString:@"Repeat last move"])
-        [delegate.glkctl speakMostRecent:nil];
-    else if ([action isEqualToString:@"Speak move before"])
-        [delegate.glkctl speakPrevious:nil];
-    else if ([action isEqualToString:@"Speak move after"])
-        [delegate.glkctl speakNext:nil];
-    else if ([action isEqualToString:@"Speak status bar"])
-        [delegate.glkctl speakStatus:nil];
-    else
-        [super accessibilityPerformAction:action];
+        if ([action isEqualToString:@"Repeat last move"])
+            [delegate.glkctl speakMostRecent:nil];
+        else if ([action isEqualToString:@"Speak move before"])
+            [delegate.glkctl speakPrevious:nil];
+        else if ([action isEqualToString:@"Speak move after"])
+            [delegate.glkctl speakNext:nil];
+        else if ([action isEqualToString:@"Speak status bar"])
+            [delegate.glkctl speakStatus:nil];
+        else
+            [super accessibilityPerformAction:action];
     }
 }
 
