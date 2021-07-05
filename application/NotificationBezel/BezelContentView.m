@@ -55,10 +55,10 @@
         [icon drawInRect:NSMakeRect(iconBottomLeftCorner.x, iconBottomLeftCorner.y, iconSize.width, iconSize.height) fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1 respectFlipped:YES hints:@{NSImageHintInterpolation : @(NSImageInterpolationHigh)}];
 
     } else if (_topText.length) {
-        NSSize topTextSize = NSMakeSize(selfSize.width * 0.5, selfSize.height * 0.5 - messageLabelTop);
+        NSSize topTextSize = NSMakeSize(selfSize.width * 0.4, selfSize.height * 0.5 - messageLabelTop);
 
         NSPoint topTextBottomLeftCorner = NSMakePoint(bezelCenterX - (topTextSize.width / 2),
-                                                      messageLabelTop - 20);
+                                                      messageLabelTop - 10);
 
         CGContextSetTextDrawingMode(context, kCGTextFill);
 
@@ -67,7 +67,8 @@
         if (@available(macOS 10.15, *)) {
             topFont = [NSFont monospacedSystemFontOfSize:18 weight:NSFontWeightMedium];
         } else {
-            topFont = [NSFont monospacedDigitSystemFontOfSize:18 weight:NSFontWeightMedium];
+            topFont = [NSFont userFixedPitchFontOfSize:18];
+            [[NSFontManager sharedFontManager] convertFont:topFont toHaveTrait:NSBoldFontMask];
         }
 
         topFont = [topFont fontToFitWidth:topTextSize.width sampleText:_topText];
@@ -98,7 +99,6 @@
 }
 
 - (void) drawGameOver {
-
     NSImage *icon = [NSImage imageNamed:@"Game Over"];
 
     NSSize selfSize = self.frame.size;
@@ -122,7 +122,6 @@
     [icon drawInRect:NSMakeRect(iconBottomLeftCorner.x, iconBottomLeftCorner.y, iconSize.width, iconSize.height) fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:0.8 respectFlipped:YES hints:@{}];
 }
 
-
 - (void)updateLayer {
     [super updateLayer];
 
@@ -137,6 +136,20 @@
         _imageLayer.contents = _image;
 
         [self.layer addSublayer:_imageLayer];
+
+        if (@available(macOS 10.15, *)) {
+        } else {
+            CAShapeLayer *masklayer = [CAShapeLayer layer];
+            masklayer.fillColor = NSColor.blackColor.CGColor;
+            masklayer.strokeColor = NSColor.blackColor.CGColor;
+            masklayer.frame = self.bounds;
+            masklayer.lineJoin = kCALineJoinRound;
+            masklayer.lineWidth = 1;
+            CGPathRef roundedRectPath = CGPathCreateWithRoundedRect(self.bounds, 18, 18, NULL);
+            masklayer.path = roundedRectPath;
+            _imageLayer.mask = masklayer;
+            CFRelease(roundedRectPath);
+        }
     }
 }
 

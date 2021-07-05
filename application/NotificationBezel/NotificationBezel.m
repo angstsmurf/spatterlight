@@ -31,6 +31,13 @@
     bezelContentView.type = kStandard;
     bezelContentView.topText = words.firstObject;
     NSUInteger firstWordLength = words.firstObject.length;
+
+    if (@available(macOS 10.15, *)) {
+    } else {
+        if ([bezelContentView.topText isEqualToString:@"?"])
+            bezelContentView.image = [NSImage imageNamed:@"Question"];
+    }
+
     if (text.length > firstWordLength)
     bezelContentView.bottomText = [text substringFromIndex:firstWordLength];
 

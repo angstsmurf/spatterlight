@@ -41,7 +41,7 @@
     if (@available(macOS 10.14, *)) {
         visualEffectView.material = NSVisualEffectMaterialHUDWindow;
     } else {
-        visualEffectView.material = NSVisualEffectMaterialDark;
+        visualEffectView.material = NSVisualEffectMaterialLight;
     }
     visualEffectView.emphasized = YES;
     visualEffectView.state = NSVisualEffectStateActive;
