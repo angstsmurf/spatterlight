@@ -60,7 +60,7 @@
                                                      backing: NSBackingStoreBuffered
                                                        defer: YES];
     newWin.opaque = YES;
-    newWin.backgroundColor = _glkctl.theme.bufferBackground;
+    newWin.backgroundColor = _glkctl.bgcolor;
 
     [newWin setFrame:[_glkctl.window convertRectToScreen:_glkctl.window.contentView.frame] display:YES];
     return newWin;
