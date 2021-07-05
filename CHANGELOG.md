@@ -1,5 +1,22 @@
 # Change log
 
+## Release 0.8.2
+- Adds a contextual menu to the cover image views in info windows and the library sidebar
+- Using this contextual menu, a new image can be downloaded or loaded from disk
+- Image filering can be toggled on or off
+- Cover image descriptions can be added and edited
+- Cover image descriptions are included when exporting metadata 
+- Image views are once again accessibility elements and will speak their description
+- New option for setting the border color manually
+- New bezel-style notifications for feedback when downloads fail, when games end, and when resetting alerts and custom styles
+- Alternative modes for showing the cover image at game start: show and fade, and show as bezel notification
+- Cover images in the library sidebar would sometimes lose their aspect ratio after restart
+- Cover images will retain their aspect ratio in "Show and wait for key" mode when resizing the window on 10.10
+- Placeholder text now works as expected in info window text fields
+- The description field in info windows no longer scrolls, but will show full text when editing
+- Improved support for split screen mode
+- The Narcolepsy window mask would sometimes break when exiting fullscreen
+
 ## Release 0.8.1
 - Many bugfixes related to changing Glk style attributes using the font and color panels
 - Typography panel now works even if the preferences panel is not at the front
