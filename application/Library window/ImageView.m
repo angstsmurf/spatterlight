@@ -394,7 +394,7 @@
     }
     if (!success) {
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];
-        [bezel showStandardWithText:@"? No data found"];
+        [bezel showStandardWithText:@"? No image found"];
     }
 }
 
