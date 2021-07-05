@@ -1425,7 +1425,7 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (IBAction)reset:(id)sender {
-    if (restartingAlready)
+    if (restartingAlready || _showingCoverImage)
         return;
 
     _commandScriptHandler = nil;
@@ -3705,6 +3705,11 @@ again:
         if (![_game.metadata.title isEqualToString:_gamefile.lastPathComponent])
             self.window.title =_game.metadata.title;
     }
+    if (_showingCoverImage && [updatedObjects containsObject:_game.metadata.cover])
+    {
+        [_coverController imageDidChange];
+    }
+
 }
 
 
@@ -3714,7 +3719,7 @@ again:
     if (window != self.window)
         return proposedSize;
     if (_showingCoverImage) {
-        [_coverController positionImage];
+        [_coverController.imageView positionImage];
     }
 
     _contentView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;

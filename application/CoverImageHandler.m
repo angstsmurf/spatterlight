@@ -45,6 +45,7 @@
                                                  defer: YES];
     newWin.opaque = NO;
     newWin.backgroundColor = NSColor.clearColor;
+    newWin.contentView.wantsLayer = YES;
 
     snapshotLayer.frame = newWin.frame;
     snapshotLayer.contents = CFBridgingRelease(windowSnapshot);
@@ -74,7 +75,8 @@
     newWin.opaque = NO;
     newWin.backgroundColor = NSColor.clearColor;
 
-    [newWin setFrame:[_glkctl.window convertRectToScreen:_glkctl.window.contentView.frame] display:YES];
+    [newWin setFrame:_glkctl.window.frame display:YES];
+
     return newWin;
 }
 
@@ -109,6 +111,7 @@
         }
 
         NSWindow *backgroundColorWin  = [self backgroundColorWindow];
+        backgroundColorWin.alphaValue = 0;
 
         if (!(_glkctl.narcolepsy && _glkctl.theme.doStyles && _glkctl.theme.doGraphics))
             [_glkctl.window addChildWindow: backgroundColorWin
@@ -120,6 +123,7 @@
 
 
         [imageWindow orderFront:nil];
+        backgroundColorWin.alphaValue = 1;
 
         [_contentView removeFromSuperview];
         [_imageView removeFromSuperview];
@@ -172,40 +176,33 @@
     }
 }
 
-- (void)positionImage {
-    NSView *superview = [_imageView superview];
-    NSSize imageSize = _imageView.sizeInPixels;
-    NSSize windowSize = superview.frame.size;
-
-    CGFloat ratio = imageSize.width / imageSize.height;
-    NSRect imageFrame = NSMakeRect(0,0, windowSize.width, windowSize.width / ratio);
-    if (imageFrame.size.height > windowSize.height) {
-        imageFrame = NSMakeRect(0,0, windowSize.height * ratio, windowSize.height);
-        imageFrame.origin.x = (windowSize.width - imageFrame.size.width) / 2;
-    } else {
-        imageFrame.origin.y = (windowSize.height - imageFrame.size.height) / 2;
-        if (NSMaxY(imageFrame) > NSMaxY(superview.frame))
-            imageFrame.origin.y = NSMaxY(superview.frame) - imageFrame.size.height;
+- (void)imageDidChange {
+    if (_imageView) {
+        if (@available(macOS 10.15, *)) {
+            [_imageView createAndPositionImage];
+        } else {
+            [_imageView createImage];
+        }
     }
-
-    _imageView.frame = imageFrame;
 }
 
 - (void)showLogoWindow {
-    if (!_glkctl) {
+    // Don't show this if this view is not on the screen
+    if (!_glkctl || !_glkctl.window) {
         NSLog(@"CoverImageWindowController: Error!");
         return;
     }
-
-    // Don't show this if this view is not on the screen
-    if (_glkctl.window == nil) return;
 
     switch (_glkctl.theme.coverArtStyle) {
         case kShowAndWait:
             [self showLogoAndWaitForKey];
             break;
         case kShowAndFade:
-            [self showLogoAndFade];
+            if (@available(macOS 10.15, *)) {
+                [self showLogoAndFade];
+            } else {
+                [self showLogoAndFadeLegacy];
+            }
             break;
         case kShowAsBezel:
             [self showLogoAsBezel];
@@ -227,8 +224,13 @@
     // And a (probably) smaller one for the image
     _imageView = [[CoverImageView alloc] initWithFrame:window.contentView.frame];
     _imageView.delegate = self;
-    [_imageView createImage];
-    [self positionImage];
+
+    if (@available(macOS 10.15, *)) {
+        [_imageView createAndPositionImage];
+    } else {
+        [_imageView createImage];
+    }
+
     _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     _waitingforkey = YES;
@@ -253,11 +255,10 @@
 - (void)showLogoAndFade {
     NSWindow *fadeWindow = [self fadeWindow];
 
-    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.frame];
+    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds];
     _imageView.delegate = self;
     [fadeWindow.contentView addSubview:_imageView];
-    [_imageView createImage];
-    [self positionImage];
+    [_imageView createAndPositionImage];
 
     _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
@@ -316,6 +317,50 @@
     });
 }
 
+- (void)showLogoAndFadeLegacy {
+    NSWindow *fadeWindow = [self fadeWindow];
+
+    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds];
+    _imageView.delegate = self;
+    [fadeWindow.contentView addSubview:_imageView];
+
+    [_imageView createImage];
+
+    _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    _imageView.frame = fadeWindow.contentView.bounds;
+
+    NSRect newFrame = fadeWindow.frame;
+
+    CGFloat factor = 0.8;
+    CGFloat newWidth = newFrame.size.width * factor;
+    CGFloat newHeight = newFrame.size.height * factor;
+    CGFloat offsetX = (newFrame.size.width - newWidth) / 2;
+    CGFloat offsetY = (newFrame.size.height - newHeight) / 2;
+    newFrame = NSMakeRect(newFrame.origin.x + offsetX, newFrame.origin.y + offsetY, newWidth, newHeight);
+    [fadeWindow setFrame:newFrame display:NO];
+
+    [_glkctl.window addChildWindow:fadeWindow ordered:NSWindowAbove];
+    [_glkctl forkInterpreterTask];
+
+    _imageView.needsDisplay = YES;
+
+    CoverImageHandler __unsafe_unretained *weakSelf = self;
+
+    double delayInSeconds = 1.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [NSAnimationContext
+         runAnimationGroup:^(NSAnimationContext *context) {
+            // We enlarge the window to fill the screen
+            context.duration = 0.5;
+            context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+            weakSelf.imageView.animator.alphaValue = 0;
+        } completionHandler:^{
+            [fadeWindow orderOut:nil];
+        }];
+    });
+}
+
 - (void)showLogoAsBezel {
     NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:_glkctl.window.screen];
 
@@ -324,12 +369,79 @@
 }
 
 - (void)enterFullScreenWithDuration:(NSTimeInterval)duration {
+    if (@available(macOS 10.15, *)) {
+        NSWindow *window = _glkctl.window;
+        NSScreen *screen = window.screen;
+        NSInteger border = _glkctl.theme.border;
+
+        NSWindow *imageWindow = self.enterFullscreenWindow;
+
+        // The final, full screen frame
+        NSRect borderFinalFrame = screen.frame;
+
+        if (!NSEqualSizes(_glkctl.borderFullScreenSize, NSZeroSize))
+            borderFinalFrame.size = _glkctl.borderFullScreenSize;
+
+        CGFloat fullScreenWidth = borderFinalFrame.size.width;
+        CGFloat fullScreenHeight = borderFinalFrame.size.height;
+
+        NSView *borderview = _glkctl.borderView;
+        NSView *gameContentView = _glkctl.contentView;
+        borderview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        gameContentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
+        NSViewMinYMargin; // Attached at top but not bottom or sides
+
+        _contentView.hidden = YES;
+
+        NSSize imageSize = _imageView.sizeInPixels;
+
+        CGFloat ratio = imageSize.width / imageSize.height;
+        NSRect imageFrame = NSMakeRect(0,0, fullScreenHeight * ratio, fullScreenHeight);
+        imageFrame.origin.x = (fullScreenWidth - imageFrame.size.width) / 2;
+
+        if (imageFrame.size.width > fullScreenWidth) {
+            imageFrame = NSMakeRect(0,0, floor(fullScreenWidth), floor(fullScreenWidth / ratio));
+            imageFrame.origin.y = floor((fullScreenHeight - imageFrame.size.height) / 2);
+        }
+
+        NSRect contentRect = _glkctl.windowPreFullscreenFrame;
+        contentRect.origin.x = floor((fullScreenWidth - _glkctl.windowPreFullscreenFrame.size.width) / 2);
+        contentRect.origin.y = border;
+        contentRect.size.height = fullScreenHeight - 2 * border;
+
+        gameContentView.frame = contentRect;
+
+        [window makeFirstResponder:_imageView];
+
+        CoverImageHandler __unsafe_unretained *weakSelf = self;
+
+        // Our animation will be broken into two steps.
+        [NSAnimationContext
+         runAnimationGroup:^(NSAnimationContext *context) {
+            // We enlarge the window to fill the screen
+            context.duration = duration;
+            context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            [[window animator]
+             setFrame:[window frameRectForContentRect:borderFinalFrame]
+             display:YES];
+            [[imageWindow animator] setFrame:imageFrame display:YES];
+        } completionHandler:^{
+            borderview.frame = borderFinalFrame;
+            gameContentView.frame = contentRect;
+            weakSelf.imageView.frame = imageFrame;
+            weakSelf.contentView.frame = borderFinalFrame;
+            weakSelf.contentView.hidden = NO;
+            [imageWindow orderOut:nil];
+        }];
+    } else {
+        [self enterFullScreenLegacyWithDuration:duration];
+    }
+}
+
+- (void)enterFullScreenLegacyWithDuration:(NSTimeInterval)duration {
     NSWindow *window = _glkctl.window;
     NSScreen *screen = window.screen;
     NSInteger border = _glkctl.theme.border;
-
-    NSWindow *imageWindow = self.enterFullscreenWindow;
-
     // The final, full screen frame
     NSRect borderFinalFrame = screen.frame;
 
@@ -344,19 +456,6 @@
     borderview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     gameContentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
     NSViewMinYMargin; // Attached at top but not bottom or sides
-
-    _contentView.hidden = YES;
-
-    NSSize imageSize = _imageView.sizeInPixels;
-
-    CGFloat ratio = imageSize.width / imageSize.height;
-    NSRect imageFrame = NSMakeRect(0,0, fullScreenHeight * ratio, fullScreenHeight);
-        imageFrame.origin.x = (fullScreenWidth - imageFrame.size.width) / 2;
-
-    if (imageFrame.size.width > fullScreenWidth) {
-        imageFrame = NSMakeRect(0,0, floor(fullScreenWidth), floor(fullScreenWidth / ratio));
-        imageFrame.origin.y = floor((fullScreenHeight - imageFrame.size.height) / 2);
-    }
 
     NSRect contentRect = _glkctl.windowPreFullscreenFrame;
     contentRect.origin.x = floor((fullScreenWidth - _glkctl.windowPreFullscreenFrame.size.width) / 2);
@@ -378,97 +477,114 @@
         [[window animator]
          setFrame:[window frameRectForContentRect:borderFinalFrame]
          display:YES];
-        [[imageWindow animator] setFrame:imageFrame display:YES];
     } completionHandler:^{
         borderview.frame = borderFinalFrame;
         gameContentView.frame = contentRect;
-        weakSelf.imageView.frame = imageFrame;
+        weakSelf.imageView.frame = borderFinalFrame;
         weakSelf.contentView.frame = borderFinalFrame;
-        weakSelf.contentView.hidden = NO;
-        [imageWindow orderOut:nil];
     }];
 }
+
 
 
 - (void)exitFullscreenWithDuration:(NSTimeInterval)duration {
-    [self.enterFullscreenWindow orderOut:nil];
+    if (@available(macOS 10.15, *)) {
 
-    NSSize imageSize = _imageView.sizeInPixels;
+        [self.enterFullscreenWindow orderOut:nil];
 
-    if (imageSize.width < imageSize.height) {
-        [self exitFullscreenSimple:duration];
-        return;
-    }
+        NSSize imageSize = _imageView.sizeInPixels;
 
-    NSWindow *window = _glkctl.window;
-    NSView *borderView = _glkctl.borderView;
-    NSView *gameContentView = _glkctl.contentView;
+        if (imageSize.width < imageSize.height) {
+            [self exitFullscreenSimple:duration];
+            return;
+        }
 
-    NSRect oldFrame = _glkctl.windowPreFullscreenFrame;
+        NSWindow *window = _glkctl.window;
+        NSView *borderView = _glkctl.borderView;
+        NSView *gameContentView = _glkctl.contentView;
 
-    NSRect imageFrame = NSZeroRect;
+        NSRect oldFrame = _glkctl.windowPreFullscreenFrame;
 
-    NSWindow *imageWindow = self.exitFullscreenWindow;
-    NSSize windowSize = oldFrame.size;
+        NSRect imageFrame = NSZeroRect;
 
-    CGFloat ratio = imageSize.width / imageSize.height;
-    imageFrame = NSMakeRect(0,0, windowSize.width, windowSize.width / ratio);
+        NSWindow *imageWindow = self.exitFullscreenWindow;
+        NSSize windowSize = oldFrame.size;
 
-    if (imageFrame.size.height > windowSize.height) {
-        [self exitFullscreenSimple:duration];
-        return;
-    }
+        CGFloat ratio = imageSize.width / imageSize.height;
+        imageFrame = NSMakeRect(0,0, windowSize.width, windowSize.width / ratio);
 
-    CGFloat heightDiff = 14;
+        if (imageFrame.size.height > windowSize.height) {
+            [self exitFullscreenSimple:duration];
+            return;
+        }
 
-    imageFrame.origin.y = (windowSize.height - imageFrame.size.height) / 2 - heightDiff;
-    if (NSMaxY(imageFrame) > NSMaxY(_contentView.frame))
-        imageFrame.origin.y = NSMaxY(_contentView.frame) - imageFrame.size.height;
+        CGFloat heightDiff = 14;
 
-    _imageView.frame = imageFrame;
-    imageFrame.origin.x += oldFrame.origin.x;
-    imageFrame.origin.y += oldFrame.origin.y;
+        imageFrame.origin.y = (windowSize.height - imageFrame.size.height) / 2 - heightDiff;
+        if (NSMaxY(imageFrame) > NSMaxY(_contentView.frame))
+            imageFrame.origin.y = NSMaxY(_contentView.frame) - imageFrame.size.height;
 
-    gameContentView.hidden = YES;
-    _contentView.hidden = YES;
-    [window makeFirstResponder:_imageView];
+        _imageView.frame = imageFrame;
+        imageFrame.origin.x += oldFrame.origin.x;
+        imageFrame.origin.y += oldFrame.origin.y;
 
-    CoverImageHandler * __unsafe_unretained weakSelf = self;
+        gameContentView.hidden = YES;
+        _contentView.hidden = YES;
+        [window makeFirstResponder:_imageView];
 
-    [NSAnimationContext
-     runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = duration;
-        context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        // Make sure the window style mask does not
-        // include full screen bit
-        [window
-         setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
-        [[window animator] setFrame:oldFrame display:YES];
-        [[imageWindow animator] setFrame:imageFrame display:YES];
-    } completionHandler:^{
-        borderView.frame = window.contentView.frame;
-        weakSelf.contentView.frame = borderView.frame;
-        [weakSelf positionImage];
-        weakSelf.contentView.hidden = NO;
-        gameContentView.hidden = NO;
-        double delayInSeconds = 0.3;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [weakSelf.glkctl.window makeKeyAndOrderFront:nil];
+        CoverImageHandler * __unsafe_unretained weakSelf = self;
+
+        [NSAnimationContext
+         runAnimationGroup:^(NSAnimationContext *context) {
+            context.duration = duration;
+            context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            // Make sure the window style mask does not
+            // include full screen bit
+            [window
+             setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
+            [[window animator] setFrame:oldFrame display:YES];
+            [[imageWindow animator] setFrame:imageFrame display:YES];
+        } completionHandler:^{
+            borderView.frame = window.contentView.frame;
+            weakSelf.contentView.frame = borderView.frame;
+            [weakSelf.imageView positionImage];
+            weakSelf.contentView.hidden = NO;
+            gameContentView.hidden = NO;
+
             weakSelf.contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
             gameContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-            [imageWindow orderOut:nil];
-        });
-    }];
+
+            [NSAnimationContext
+             runAnimationGroup:^(NSAnimationContext *context) {
+                context.duration = 0.4;
+                imageWindow.animator.alphaValue = 0;
+            } completionHandler:^{
+                [imageWindow orderOut:nil];
+                imageWindow.alphaValue = 1;
+            }];
+
+        }];
+    } else {
+        [self exitFullscreenSimple:duration];
+    }
 }
 
 - (void)exitFullscreenSimple:(NSTimeInterval)duration {
-    [self.exitFullscreenWindow orderOut:nil];
+    if (self.exitFullscreenWindow)
+        [self.exitFullscreenWindow orderOut:nil];
     NSWindow *window = _glkctl.window;
     NSRect oldFrame = _glkctl.windowPreFullscreenFrame;
     NSView *gameContentView = _glkctl.contentView;
 
-    CoverImageHandler * __unsafe_unretained weakSelf = self;
+    if (@available(macOS 10.15, *)) {
+    } else {
+        _contentView.frame = window.contentView.frame;
+        _imageView.frame = _contentView.frame;
+        _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    }
+
+    CoverImageView *imageView = _imageView;
     [window makeFirstResponder:_contentView];
 
     [NSAnimationContext
@@ -481,7 +597,9 @@
          setStyleMask:(NSUInteger)([window styleMask] & ~(NSUInteger)NSFullScreenWindowMask)];
         [[window animator] setFrame:oldFrame display:YES];
     } completionHandler:^{
-        [weakSelf positionImage];
+        if (@available(macOS 10.15, *)) {
+            [imageView positionImage];
+        }
         gameContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     }];
 }
@@ -512,13 +630,22 @@
 }
 
 - (NSArray *)customWindowsToEnterFullScreenForWindow:(NSWindow *)window {
-   [self adjustFullScreenWindow:self.enterFullscreenWindow];
-    return @[window, self.enterFullscreenWindow];
+    if (@available(macOS 10.15, *)) {
+        [self adjustFullScreenWindow:self.enterFullscreenWindow];
+        return @[window, self.enterFullscreenWindow];
+    } else {
+        return @[window];
+    }
 }
 
 - (NSArray *)customWindowsToExitFullScreenForWindow:(NSWindow *)window {
-   [self adjustFullScreenWindow:self.exitFullscreenWindow];
-    return @[window, self.exitFullscreenWindow];
+    if (@available(macOS 10.15, *)) {
+        [self adjustFullScreenWindow:self.exitFullscreenWindow];
+        return @[window, self.exitFullscreenWindow];
+    } else {
+        return @[window];
+    }
+
 }
 
 @end
