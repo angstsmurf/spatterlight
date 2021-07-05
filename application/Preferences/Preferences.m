@@ -231,7 +231,7 @@ NSString *fontToString(NSFont *font) {
 
     NSRect winRect = [self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, kDefaultPrefsLowerViewHeight)];
 
-    defaultWindowHeight = winRect.size.height;
+    defaultWindowHeight = NSHeight(winRect);
 
     if (self.window.minSize.height != defaultWindowHeight || self.window.minSize.width != kDefaultPrefWindowWidth) {
         NSSize minSize = self.window.minSize;
@@ -973,7 +973,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         selectedfontString = selectedFontButton.identifier;
     [state encodeObject:selectedfontString forKey:@"selectedFont"];
     [state encodeBool:_previewShown forKey:@"_previewShown"];
-    [state encodeDouble:self.window.frame.size.height forKey:@"windowHeight"];
+    [state encodeDouble:NSHeight(self.window.frame) forKey:@"windowHeight"];
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
@@ -991,7 +991,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [self resizeWindowToHeight:defaultWindowHeight];
     } else {
         CGFloat storedHeight = [state decodeDoubleForKey:@"windowHeight"];
-        if (storedHeight > defaultWindowHeight)
+        if (storedHeight > defaultWindowHeight + 5)
             [self resizeWindowToHeight:storedHeight];
         else
             [self resizeWindowToHeight:[self previewHeight]];
