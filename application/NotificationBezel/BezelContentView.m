@@ -7,7 +7,7 @@
 
 #import "BezelContentView.h"
 #import "NSFont+Categories.h"
-
+#import <QuartzCore/QuartzCore.h>
 
 @implementation BezelContentView
 
@@ -20,7 +20,7 @@
     }
 
     if (_type == kGameOver) {
-        [self drawGameOver:(CGContextRef)context];
+        [self drawGameOver];
         return;
     }
 
@@ -97,38 +97,29 @@
     [_bottomText drawAtPoint:textBounds.origin withAttributes:@{ NSForegroundColorAttributeName : color , NSFontAttributeName : font } ];
 }
 
-- (void) drawGameOver:(CGContextRef)context {
+- (void) drawGameOver {
 
-    NSColor *color = [NSColor.grayColor colorWithAlphaComponent:NSColor.grayColor.alphaComponent * 0.8];
-    NSFont *font;
+    NSImage *icon = [NSImage imageNamed:@"Game Over"];
 
-    if (@available(macOS 10.15, *)) {
-        font = [NSFont fontWithName:@"SF Mono Bold" size:18];
-    } else {
-        font = [NSFont monospacedDigitSystemFontOfSize:18 weight:NSFontWeightBold];
-    }
+    NSSize selfSize = self.frame.size;
 
-    NSSize selfSize = self.bounds.size;
+    NSSize iconSize = NSMakeSize(selfSize.width * 0.6, selfSize.height * 0.6);
+    icon.size = iconSize;
 
-    NSSize textSize = NSMakeSize(selfSize.width * 0.8, selfSize.height * 0.8);
+    // Tint the image
+    [icon lockFocus];
 
-    NSString *over = @"OVER";
+    [NSColor.grayColor set];
+    NSRect imageRect = NSMakeRect(0, 0, iconSize.width, iconSize.height);
+    NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceAtop);
 
-    font = [font fontToFitWidth:textSize.width sampleText:over];
+    [icon unlockFocus];
 
-    NSRect textRect = [self boundingBoxForText:over font:font bottomMargin:30];
+    CGFloat offset = (selfSize.width - iconSize.width) / 2;
 
-    CGContextSetTextDrawingMode(context, kCGTextFill);
+    NSPoint iconBottomLeftCorner = NSMakePoint(offset, offset);
 
-    [over drawInRect:textRect withAttributes:
-     @{ NSForegroundColorAttributeName: color,
-        NSFontAttributeName: font }];
-
-    textRect.origin.y += textRect.size.height - 35;
-
-    [@"GAME" drawInRect:textRect withAttributes:
-     @{ NSForegroundColorAttributeName: color,
-        NSFontAttributeName: font }];
+    [icon drawInRect:NSMakeRect(iconBottomLeftCorner.x, iconBottomLeftCorner.y, iconSize.width, iconSize.height) fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:0.8 respectFlipped:YES hints:@{}];
 }
 
 
