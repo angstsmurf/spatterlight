@@ -368,6 +368,12 @@ fprintf(stderr, "%s\n",                                                    \
      name:@"BorderChanged"
      object:nil];
 
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(noteManagedObjectContextDidChange:)
+     name:NSManagedObjectContextObjectsDidChangeNotification
+     object:_game.managedObjectContext];
+
     self.window.representedFilename = _gamefile;
 
     _borderView.wantsLayer = YES;
