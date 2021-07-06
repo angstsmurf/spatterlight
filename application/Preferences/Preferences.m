@@ -972,7 +972,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (selectedFontButton)
         selectedfontString = selectedFontButton.identifier;
     [state encodeObject:selectedfontString forKey:@"selectedFont"];
-    [state encodeBool:_previewShown forKey:@"_previewShown"];
     [state encodeDouble:NSHeight(self.window.frame) forKey:@"windowHeight"];
 }
 
@@ -986,12 +985,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
         }
     }
-    _previewShown = [state decodeBoolForKey:@"_previewShown"];
+    _previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
     if (!_previewShown) {
         [self resizeWindowToHeight:defaultWindowHeight];
     } else {
         CGFloat storedHeight = [state decodeDoubleForKey:@"windowHeight"];
-        if (storedHeight > defaultWindowHeight + 5)
+        if (storedHeight > defaultWindowHeight)
             [self resizeWindowToHeight:storedHeight];
         else
             [self resizeWindowToHeight:[self previewHeight]];
