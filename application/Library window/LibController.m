@@ -737,6 +737,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     [childContext performBlock:^{
         IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:childContext];
         BOOL result = NO;
+        BOOL reportFailure = (games.count == 1);
         for (Game *game in games) {
             if (!weakSelf.currentlyAddingGames)
                 break;
@@ -749,7 +750,7 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                 game.found = NO;
 
             NSLog(@"downloadGames: downloading metadata for game %@", game.metadata.title);
-            result = [downloader downloadMetadataFor:game imageOnly:NO];
+            result = [downloader downloadMetadataFor:game reportFailure:reportFailure imageOnly:NO];
 
             if (result) {
                 NSError *error = nil;

@@ -47,7 +47,7 @@
     return [self downloadMetadataFromURL:url imageOnly:imageOnly];
 }
 
-- (BOOL)downloadMetadataFor:(Game*)game imageOnly:(BOOL)imageOnly {
+- (BOOL)downloadMetadataFor:(Game*)game reportFailure:(BOOL)reportFailure imageOnly:(BOOL)imageOnly {
     BOOL result = NO;
     if (game.metadata.tuid) {
         result = [self downloadMetadataForTUID:game.metadata.tuid  imageOnly:imageOnly];
@@ -65,7 +65,7 @@
         game.metadata.coverArtURL = coverArtUrl;
     }
 
-    if (!result)
+    if (reportFailure && !result)
         [IFDBDownloader showNoDataFoundBezel];
     return result;
 }

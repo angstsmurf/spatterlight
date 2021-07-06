@@ -419,7 +419,7 @@
     IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:_game.managedObjectContext];
     Game *game = _game;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if ([downloader downloadMetadataFor:game imageOnly:YES]) {
+        if ([downloader downloadMetadataFor:game reportFailure:YES imageOnly:YES]) {
             [downloader downloadImageFor:game.metadata];
             dispatch_async(dispatch_get_main_queue(), ^(void) {
                 [game.metadata.managedObjectContext save:nil];
