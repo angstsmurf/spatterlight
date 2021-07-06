@@ -48,7 +48,7 @@ extern NSArray *gGameFileTypes;
         NSModalResponse result = [panel runModal];
         if (result == NSModalResponseOK) {
             NSString *newPath = ((NSURL *)panel.URLs[0]).path;
-            NSString *ifid = [self ifidFromFile:newPath];
+            NSString *ifid = [self ifidFromFile:newPath reportFailure:YES];
             if (ifid && [ifid isEqualToString:game.ifid]) {
                 [game bookmarkForPath:newPath];
                 game.found = YES;
@@ -81,14 +81,20 @@ extern NSArray *gGameFileTypes;
 }
 
 - (NSString *)ifidFromFile:(NSString *)path {
+    return [self ifidFromFile:path reportFailure:NO];
+}
+
+- (NSString *)ifidFromFile:(NSString *)path reportFailure:(BOOL)reportFailure {
     void *context = get_babel_ctx();
     char *format = babel_init_ctx((char*)path.UTF8String, context);
     if (!format || !babel_get_authoritative_ctx(context))
     {
-        NSAlert *anAlert = [[NSAlert alloc] init];
-        anAlert.messageText = NSLocalizedString(@"Unknown file format.", nil);
-        anAlert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
-        [anAlert runModal];
+        if (reportFailure) {
+            NSAlert *anAlert = [[NSAlert alloc] init];
+            anAlert.messageText = NSLocalizedString(@"Unknown file format.", nil);
+            anAlert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
+            [anAlert runModal];
+        }
         babel_release_ctx(context);
         return nil;
     }
