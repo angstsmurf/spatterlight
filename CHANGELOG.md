@@ -10,12 +10,14 @@
 - New option for setting the border color manually
 - New bezel-style notifications for feedback when downloads fail, when games end, and when resetting alerts and custom styles
 - Alternative modes for showing the cover image at game start: show and fade, and show as bezel notification
+- Improved support for split screen mode
 - Cover images in the library sidebar would sometimes lose their aspect ratio after restart
+- The Preferences panel would erroneously show part of the theme preview after restart
 - Cover images will retain their aspect ratio in "Show and wait for key" mode when resizing the window on 10.10
 - Placeholder text now works as expected in info window text fields
 - The description field in info windows no longer scrolls, but will show full text when editing
-- Improved support for split screen mode
 - The Narcolepsy window mask would sometimes break when exiting fullscreen
+- Mass adds would be cancelled after a single parallel download
 
 ## Release 0.8.1
 - Many bugfixes related to changing Glk style attributes using the font and color panels
