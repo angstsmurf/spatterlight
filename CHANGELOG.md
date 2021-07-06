@@ -18,6 +18,7 @@
 - The description field in info windows no longer scrolls, but will show full text when editing
 - The Narcolepsy window mask would sometimes break when exiting fullscreen
 - Mass adds would be cancelled after a single parallel download
+- Multiple "Unknown format" alerts would sometimes be shown when looking for missing files
 
 ## Release 0.8.1
 - Many bugfixes related to changing Glk style attributes using the font and color panels
