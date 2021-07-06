@@ -5,6 +5,15 @@
 //  Created by Administrator on 2021-05-21.
 //
 
+#ifdef DEBUG
+#define NSLog(FORMAT, ...)                                                     \
+fprintf(stderr, "%s\n",                                                    \
+[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(...)
+#endif
+
+
 #import "NSData+Categories.h"
 #import "NSImage+Categories.h"
 

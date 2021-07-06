@@ -5,6 +5,15 @@
 //  Created by Administrator on 2019-12-11.
 //
 
+#ifdef DEBUG
+#define NSLog(FORMAT, ...)                                                     \
+fprintf(stderr, "%s\n",                                                    \
+[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(...)
+#endif
+
+
 #import "IFDBDownloader.h"
 #import "IFictionMetadata.h"
 #import "Metadata.h"

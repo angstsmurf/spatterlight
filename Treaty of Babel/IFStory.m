@@ -4,6 +4,14 @@
 //  See https://github.com/dcsch/yazmin
 //
 
+#ifdef DEBUG
+#define NSLog(FORMAT, ...)                                                     \
+fprintf(stderr, "%s\n",                                                    \
+[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(...)
+#endif
+
 
 #import "IFStory.h"
 #import "IFIdentification.h"
