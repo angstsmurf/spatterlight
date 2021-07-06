@@ -731,6 +731,9 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
                                              selector:@selector(backgroundManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
                                                object:childContext];
+
+    _nestedDownload = _currentlyAddingGames;
+
     _currentlyAddingGames = YES;
     _addButton.enabled = NO;
 
@@ -765,8 +768,12 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.currentlyAddingGames = NO;
-            weakSelf.addButton.enabled = YES;
+            if (weakSelf.nestedDownload) {
+                weakSelf.nestedDownload = NO;
+            } else {
+                weakSelf.currentlyAddingGames = NO;
+                weakSelf.addButton.enabled = YES;
+            }
             if (NSAppKitVersionNumber < NSAppKitVersionNumber10_9) {
 
                 [weakSelf.coreDataManager saveChanges];
@@ -1781,6 +1788,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
 - (IBAction)cancel:(id)sender {
     _currentlyAddingGames = NO;
+    _nestedDownload = NO;
 }
 
 - (void)addFiles:(NSArray*)urls options:(NSDictionary *)options {

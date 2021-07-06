@@ -31,6 +31,7 @@
 @property NSMutableArray *gameTableModel;
 
 @property BOOL currentlyAddingGames;
+@property BOOL nestedDownload;
 @property BOOL spinnerSpinning;
 @property BOOL sortAscending;
 @property NSString *gameSortColumn;
