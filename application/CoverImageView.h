@@ -5,24 +5,26 @@
 //  Created by Administrator on 2021-01-05.
 //
 
-#import <Foundation/Foundation.h>
+#import "ImageView.h"
 
-@class GlkController, MyImageWindow, CoverImageHandler;
+@class GlkController, CoverImageHandler;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CoverImageView : NSView
+@interface CoverImageView : ImageView
 
-@property NSImage *image;
+- (instancetype)initWithFrame:(NSRect)frame delegate:(CoverImageHandler *)delegate;
+
+//@property (nullable, readonly) NSImage *image;
 @property NSSize sizeInPixels;
 @property CGFloat ratio;
 @property NSImageInterpolation interpolation;
 
 @property (weak) CoverImageHandler *delegate;
 
-- (void)createImage;
+//- (void)createImage;
 - (void)positionImage;
-- (void)createAndPositionImage;
+//- (void)createAndPositionImage;
 
 
 @end

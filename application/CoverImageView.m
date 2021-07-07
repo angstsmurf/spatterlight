@@ -18,6 +18,19 @@
 
 @implementation CoverImageView
 
+- (instancetype)initWithFrame:(NSRect)frame delegate:(CoverImageHandler *)delegate {
+    Game *game = delegate.glkctl.game;
+    self = [super initWithGame:game image:nil];
+    if (self) {
+        _delegate = delegate;
+        self.frame = frame;
+        NSImageRep *rep = self.image.representations.lastObject;
+        _sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+        _ratio = _sizeInPixels.width / _sizeInPixels.height;
+    }
+    return self;
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
 
@@ -39,19 +52,10 @@
         if (NSMaxY(imageFrame) > NSMaxY(self.frame))
             imageFrame.origin.y = NSMaxY(self.frame) - imageFrame.size.height;
     }
-    [_image drawInRect:imageFrame fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1 respectFlipped:YES hints:@{NSImageHintInterpolation : @(_interpolation)}];
-}
-
-
-- (BOOL)acceptsFirstResponder {
-    return YES;
+    [self.image drawInRect:imageFrame fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1 respectFlipped:YES hints:@{NSImageHintInterpolation : @(_interpolation)}];
 }
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)event {
-    return YES;
-}
-
-- (BOOL)canBecomeKeyView {
     return YES;
 }
 
@@ -59,13 +63,17 @@
     [_delegate forkInterpreterTask];
 }
 
-- (void)mouseDown:(NSEvent *)theEvent {
+- (void)mouseUp:(NSEvent *)theEvent {
     [_delegate forkInterpreterTask];
-    [super mouseDown:theEvent];
+    [super mouseUp:theEvent];
+}
+
+- (void)mouseDown:(NSEvent *)theEvent {
+    [self superMouseDown:theEvent];
 }
 
 - (void)layout {
-        if (_image && !_delegate.glkctl.ignoreResizes) {
+        if (self.image && !_delegate.glkctl.ignoreResizes) {
             if (@available(macOS 10.15, *)) {
                 [self positionImage];
             }
@@ -77,46 +85,46 @@
 // We ignore mouse clicks if this is an image view in a content view.
 // In this way, clicks on the image will work the same as clicks in the
 // content view outside it.
-- (NSView *)hitTest:(NSPoint)point {
-    if ([self.superview isKindOfClass:[CoverImageView class]])
-        return nil;
-    return [super hitTest:point];
-}
+//- (NSView *)hitTest:(NSPoint)point {
+//    if ([self.superview isKindOfClass:[CoverImageView class]])
+//        return nil;
+//    return [super hitTest:point];
+//}
 
-- (void)createAndPositionImage {
-    [self createImage];
+//- (void)createAndPositionImage {
+//    [self createImage];
+//
+//    Metadata *meta = _delegate.glkctl.game.metadata;
+//
+//    CALayer *layer = [CALayer layer];
+//
+//    layer.magnificationFilter = (meta.cover.interpolation == kNearestNeighbor) ? kCAFilterNearest : kCAFilterTrilinear;
+//
+//    layer.contents = self.image;
+//
+//    [self setLayer:layer];
+//
+//    layer.bounds = self.bounds;
+//    layer.frame = self.frame;
+//    [self positionImage];
+//}
 
-    Metadata *meta = _delegate.glkctl.game.metadata;
-
-    CALayer *layer = [CALayer layer];
-
-    layer.magnificationFilter = (meta.cover.interpolation == kNearestNeighbor) ? kCAFilterNearest : kCAFilterTrilinear;
-
-    layer.contents = _image;
-
-    [self setLayer:layer];
-
-    layer.bounds = self.bounds;
-    layer.frame = self.frame;
-    [self positionImage];
-}
-
-- (void)createImage {
-    Metadata *meta = _delegate.glkctl.game.metadata;
-
-    _image = [[NSImage alloc] initWithData:(NSData *)meta.cover.data];
-
-    NSImageRep *rep = _image.representations.lastObject;
-    _sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
-
-    _ratio = _sizeInPixels.width / _sizeInPixels.height;
-
-    self.accessibilityLabel = meta.coverArtDescription;
-
-    if (meta.cover.interpolation == kUnset) {
-        meta.cover.interpolation = _sizeInPixels.width < 350 ? kNearestNeighbor : kTrilinear;
-    }
-}
+//- (void)createImage {
+//    Metadata *meta = _delegate.glkctl.game.metadata;
+//
+//    self.image = [[NSImage alloc] initWithData:(NSData *)meta.cover.data];
+//
+//    NSImageRep *rep = self.image.representations.lastObject;
+//    _sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+//
+//    _ratio = _sizeInPixels.width / _sizeInPixels.height;
+//
+//    self.accessibilityLabel = meta.coverArtDescription;
+//
+//    if (meta.cover.interpolation == kUnset) {
+//        meta.cover.interpolation = _sizeInPixels.width < 350 ? kNearestNeighbor : kTrilinear;
+//    }
+//}
 
 - (void)positionImage {
     if (_ratio == 0)
@@ -139,7 +147,7 @@
 
 
 - (BOOL)isAccessibilityElement {
-    return (_image != nil);
+    return (self.image != nil);
 }
 
 - (NSString *)accessibilityRole {

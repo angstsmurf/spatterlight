@@ -178,10 +178,13 @@
 
 - (void)imageDidChange {
     if (_imageView) {
+        NSImage *image = [[NSImage alloc] initWithData:(NSData *)_glkctl.game.metadata.cover.data];
+        if (image)
+            [_imageView processImage:image];
         if (@available(macOS 10.15, *)) {
-            [_imageView createAndPositionImage];
+            [_imageView positionImage];
         } else {
-            [_imageView createImage];
+
         }
     }
 }
@@ -217,26 +220,44 @@
     NSWindow *window = _glkctl.window;
 
     // We need one view that covers the game window, to catch all mouse clicks
-    _contentView = [[CoverImageView alloc] initWithFrame:window.contentView.frame];
-    _contentView.delegate = self;
+//    _contentView = [[CoverImageView alloc] initWithFrame:window.contentView.frame];
+//
+//    _contentView.delegate = self;
+//    _contentView.game = _glkctl.game;
+    _contentView = [[CoverImageView alloc] initWithFrame:window.contentView.bounds delegate:self];
+
     _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     // And a (probably) smaller one for the image
-    _imageView = [[CoverImageView alloc] initWithFrame:window.contentView.frame];
-    _imageView.delegate = self;
-
-    if (@available(macOS 10.15, *)) {
-        [_imageView createAndPositionImage];
-    } else {
-        [_imageView createImage];
-    }
+//    _imageView = [[CoverImageView alloc] initWithFrame:window.contentView.frame];
+    _imageView = [[CoverImageView alloc] initWithFrame:_contentView.bounds delegate:self];
 
     _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     _waitingforkey = YES;
 
     [_contentView addSubview:_imageView];
+//    _imageView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
+
     [window.contentView addSubview:_contentView];
+
+    if (@available(macOS 10.15, *)) {
+        [_imageView positionImage];
+    } else {
+        //        [_imageView createImage];
+    }
+    NSLog(@"_imageView frame: %@", NSStringFromRect(_imageView.frame));
+    NSLog(@"_imageView alphaValue: %f", _imageView.alphaValue);
+
+    NSLog(@"_imageView.layer frame: %@", NSStringFromRect(_imageView.layer.frame));
+    NSLog(@"_imageView.layer bounds: %@", NSStringFromRect(_imageView.layer.bounds));
+    NSLog(@"_imageView layer opacity: %f", _imageView.layer.opacity);
+
+
+    NSLog(@"_contentView frame: %@", NSStringFromRect(_contentView.frame));
+
+//    window.viewsNeedDisplay = YES;
+////    _contentView.needsDisplay = YES;
 
     [window makeFirstResponder:_imageView];
 
@@ -255,10 +276,11 @@
 - (void)showLogoAndFade {
     NSWindow *fadeWindow = [self fadeWindow];
 
-    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds];
-    _imageView.delegate = self;
+//    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds];
+    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds delegate:self];
+
     [fadeWindow.contentView addSubview:_imageView];
-    [_imageView createAndPositionImage];
+    [_imageView positionImage];
 
     _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
@@ -320,11 +342,11 @@
 - (void)showLogoAndFadeLegacy {
     NSWindow *fadeWindow = [self fadeWindow];
 
-    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds];
-    _imageView.delegate = self;
+//    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds];
+    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds delegate:self];
     [fadeWindow.contentView addSubview:_imageView];
 
-    [_imageView createImage];
+//    [_imageView createImage];
 
     _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     _imageView.frame = fadeWindow.contentView.bounds;

@@ -667,6 +667,10 @@
     [self updateLayer];
 }
 
+- (void)superMouseDown:(NSEvent*)event {
+    [super mouseDown:event];
+}
+
 - (void)mouseDragged:(NSEvent*)event
 {
     if (_isPlaceholder)

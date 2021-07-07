@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithGame:(Game *)game image:(nullable NSImage *)anImage;
 - (NSData *)pngData;
 - (void)processImage:(NSImage *)image;
+- (void)superMouseDown:(NSEvent*)event;
 
 @end
 
