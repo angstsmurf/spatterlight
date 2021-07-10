@@ -16,6 +16,25 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+@interface KeyPressView : NSView
+
+@property (weak) CoverImageHandler *delegate;
+
+@end
+
+@implementation KeyPressView
+
+- (void)keyDown:(NSEvent *)theEvent {
+    [_delegate forkInterpreterTask];
+}
+
+- (void)mouseUp:(NSEvent *)theEvent {
+    [_delegate forkInterpreterTask];
+}
+
+@end
+
+
 @interface CoverImageHandler ()
 
 @end
@@ -125,9 +144,9 @@
         [imageWindow orderFront:nil];
         backgroundColorWin.alphaValue = 1;
 
-        [_contentView removeFromSuperview];
+        [_backgroundView removeFromSuperview];
         [_imageView removeFromSuperview];
-        _contentView = nil;
+        _backgroundView = nil;
         _imageView = nil;
 
         NSArray<NSView *> *subviews = _glkctl.borderView.subviews.copy;
@@ -220,26 +239,26 @@
     NSWindow *window = _glkctl.window;
 
     // We need one view that covers the game window, to catch all mouse clicks
-//    _contentView = [[CoverImageView alloc] initWithFrame:window.contentView.frame];
+//    _backgroundView = [[CoverImageView alloc] initWithFrame:window.contentView.frame];
 //
-//    _contentView.delegate = self;
-//    _contentView.game = _glkctl.game;
-    _contentView = [[CoverImageView alloc] initWithFrame:window.contentView.bounds delegate:self];
-
-    _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+//    _backgroundView.delegate = self;
+//    _backgroundView.game = _glkctl.game;
+    _backgroundView = [[KeyPressView alloc] initWithFrame:window.contentView.bounds];
+    _backgroundView.delegate = self;
+    _backgroundView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     // And a (probably) smaller one for the image
 //    _imageView = [[CoverImageView alloc] initWithFrame:window.contentView.frame];
-    _imageView = [[CoverImageView alloc] initWithFrame:_contentView.bounds delegate:self];
+    _imageView = [[CoverImageView alloc] initWithFrame:_backgroundView.bounds delegate:self];
 
     _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
     _waitingforkey = YES;
 
-    [_contentView addSubview:_imageView];
+    [_backgroundView addSubview:_imageView];
 //    _imageView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
 
-    [window.contentView addSubview:_contentView];
+    [window.contentView addSubview:_backgroundView];
 
     if (@available(macOS 10.15, *)) {
         [_imageView positionImage];
@@ -257,7 +276,7 @@
     NSLog(@"_contentView frame: %@", NSStringFromRect(_contentView.frame));
 
 //    window.viewsNeedDisplay = YES;
-////    _contentView.needsDisplay = YES;
+////    _backgroundView.needsDisplay = YES;
 
     [window makeFirstResponder:_imageView];
 
@@ -276,7 +295,6 @@
 - (void)showLogoAndFade {
     NSWindow *fadeWindow = [self fadeWindow];
 
-//    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds];
     _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds delegate:self];
 
     [fadeWindow.contentView addSubview:_imageView];
@@ -342,11 +360,8 @@
 - (void)showLogoAndFadeLegacy {
     NSWindow *fadeWindow = [self fadeWindow];
 
-//    _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds];
     _imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds delegate:self];
     [fadeWindow.contentView addSubview:_imageView];
-
-//    [_imageView createImage];
 
     _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     _imageView.frame = fadeWindow.contentView.bounds;
@@ -413,7 +428,7 @@
         gameContentView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
         NSViewMinYMargin; // Attached at top but not bottom or sides
 
-        _contentView.hidden = YES;
+        _backgroundView.hidden = YES;
 
         NSSize imageSize = _imageView.sizeInPixels;
 
@@ -451,8 +466,8 @@
             borderview.frame = borderFinalFrame;
             gameContentView.frame = contentRect;
             weakSelf.imageView.frame = imageFrame;
-            weakSelf.contentView.frame = borderFinalFrame;
-            weakSelf.contentView.hidden = NO;
+            weakSelf.backgroundView.frame = borderFinalFrame;
+            weakSelf.backgroundView.hidden = NO;
             [imageWindow orderOut:nil];
         }];
     } else {
@@ -503,7 +518,7 @@
         borderview.frame = borderFinalFrame;
         gameContentView.frame = contentRect;
         weakSelf.imageView.frame = borderFinalFrame;
-        weakSelf.contentView.frame = borderFinalFrame;
+        weakSelf.backgroundView.frame = borderFinalFrame;
     }];
 }
 
@@ -543,15 +558,15 @@
         CGFloat heightDiff = 14;
 
         imageFrame.origin.y = (windowSize.height - imageFrame.size.height) / 2 - heightDiff;
-        if (NSMaxY(imageFrame) > NSMaxY(_contentView.frame))
-            imageFrame.origin.y = NSMaxY(_contentView.frame) - imageFrame.size.height;
+        if (NSMaxY(imageFrame) > NSMaxY(_backgroundView.frame))
+            imageFrame.origin.y = NSMaxY(_backgroundView.frame) - imageFrame.size.height;
 
         _imageView.frame = imageFrame;
         imageFrame.origin.x += oldFrame.origin.x;
         imageFrame.origin.y += oldFrame.origin.y;
 
         gameContentView.hidden = YES;
-        _contentView.hidden = YES;
+        _backgroundView.hidden = YES;
         [window makeFirstResponder:_imageView];
 
         CoverImageHandler * __unsafe_unretained weakSelf = self;
@@ -568,12 +583,12 @@
             [[imageWindow animator] setFrame:imageFrame display:YES];
         } completionHandler:^{
             borderView.frame = window.contentView.frame;
-            weakSelf.contentView.frame = borderView.frame;
+            weakSelf.backgroundView.frame = borderView.frame;
             [weakSelf.imageView positionImage];
-            weakSelf.contentView.hidden = NO;
+            weakSelf.backgroundView.hidden = NO;
             gameContentView.hidden = NO;
 
-            weakSelf.contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+            weakSelf.backgroundView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
             gameContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
             [NSAnimationContext
@@ -600,14 +615,14 @@
 
     if (@available(macOS 10.15, *)) {
     } else {
-        _contentView.frame = window.contentView.frame;
-        _imageView.frame = _contentView.frame;
-        _contentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        _backgroundView.frame = window.contentView.frame;
+        _imageView.frame = _backgroundView.frame;
+        _backgroundView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         _imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     }
 
     CoverImageView *imageView = _imageView;
-    [window makeFirstResponder:_contentView];
+    [window makeFirstResponder:_backgroundView];
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {

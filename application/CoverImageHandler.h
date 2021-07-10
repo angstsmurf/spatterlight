@@ -7,7 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class GlkController, CoverImageView;
+@class GlkController, CoverImageView, KeyPressView;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) GlkController* glkctl;
 
 @property (nullable) CoverImageView *imageView;
-@property (nullable) CoverImageView *contentView;
+@property (nullable) KeyPressView *backgroundView;
 
 @property (readonly) NSWindow *enterFullscreenWindow;
 @property (readonly) NSWindow *exitFullscreenWindow;
