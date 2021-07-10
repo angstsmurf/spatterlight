@@ -2124,6 +2124,7 @@ objectValueForTableColumn: (NSTableColumn*)column
              row:(NSInteger)row
 {
     if (tableView == _gameTableView) {
+        if ((NSUInteger)row >= _gameTableModel.count) return nil;
         Game *game = _gameTableModel[(NSUInteger)row];
         Metadata *meta = game.metadata;
         if ([column.identifier isEqual: @"found"]) {
