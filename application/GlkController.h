@@ -176,4 +176,6 @@ typedef enum kMinimumWindowSize : NSUInteger {
 - (void)forkInterpreterTask;
 - (void)deferredRestart:(id)sender;
 
+- (void)setBorderColor:(NSColor *)color;
+
 @end

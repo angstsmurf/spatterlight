@@ -238,6 +238,12 @@
     _glkctl.showingCoverImage = YES;
     NSWindow *window = _glkctl.window;
 
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(notePreferencesChanged:)
+     name:@"PreferencesChanged"
+     object:nil];
+
     // We need one view that covers the game window, to catch all mouse clicks
 //    _backgroundView = [[CoverImageView alloc] initWithFrame:window.contentView.frame];
 //
@@ -403,6 +409,13 @@
 
     [notification showCoverImage:(NSData *)_glkctl.game.metadata.cover.data interpolation:_glkctl.game.metadata.cover.interpolation];
     [_glkctl forkInterpreterTask];
+}
+
+- (void)notePreferencesChanged:(NSNotification *)notify {
+    if (_glkctl.theme.borderBehavior == kUserOverride)
+        [_glkctl setBorderColor:_glkctl.theme.borderColor];
+    else
+        [_glkctl setBorderColor:_glkctl.theme.bufferBackground];
 }
 
 - (void)enterFullScreenWithDuration:(NSTimeInterval)duration {
