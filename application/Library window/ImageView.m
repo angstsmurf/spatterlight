@@ -578,17 +578,6 @@
     return YES;
 }
 
-- (NSImage *)draggingImage {
-    NSRect targetRect = self.frame;
-    NSImage *image = [[NSImage alloc] initWithSize:targetRect.size];
-    NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:targetRect];
-    if (imageRep) {
-        [self cacheDisplayInRect:targetRect toBitmapImageRep:imageRep];
-        [image addRepresentation:imageRep];
-    }
-    return image;
-}
-
 - (BOOL)imageFromURL:(NSURL *)url dontAsk:(BOOL)dontAsk {
     NSData *data = nil;
     if ([Blorb isBlorbURL:url]) {
@@ -772,7 +761,7 @@
         dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteboardItem];
     }
 
-    [dragItem setDraggingFrame:self.bounds contents:[self draggingImage]];
+    [dragItem setDraggingFrame:self.bounds contents:_image];
     NSDraggingSession *session = [self beginDraggingSessionWithItems:@[dragItem] event:event source:self];
     _numberForSelfSourcedDrag = session.draggingSequenceNumber;
 
