@@ -545,9 +545,12 @@
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)draggingInfo {
 
     NSArray<Class> *supportedClasses = @[
-        [NSFilePromiseReceiver class],
         [NSURL class], [NSImage class]
     ];
+
+    if (@available(macOS 10.14, *)) {
+        supportedClasses = [supportedClasses arrayByAddingObject:[NSFilePromiseReceiver class]];
+    }
 
     NSDictionary<NSPasteboardReadingOptionKey, id> *searchOptions = @{ NSPasteboardURLReadingFileURLsOnlyKey: @YES,
                                                                        NSPasteboardURLReadingContentsConformToTypesKey:imageTypes };
