@@ -655,6 +655,8 @@
 		C3C2863D26596A9400D83926 /* spat-mg1.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C2863B26596A9400D83926 /* spat-mg1.c */; };
 		C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C506E426590E4B00763D3E /* MissingFilesFinder.m */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
+		C3CAC15C2699C72600FCB7BF /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
+		C3CAC15D2699C73200FCB7BF /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
 		C3CB504C2662606600A95BE2 /* CoverImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CB504B2662606600A95BE2 /* CoverImageHandler.m */; };
 		C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3693265FA461004D0F7B /* CoverImageView.m */; };
 		C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3697265FB2FA004D0F7B /* GameImporter.m */; };
@@ -6692,6 +6694,7 @@
 				C309886225CB1ADF00750F72 /* Image.m in Sources */,
 				C311DEFB25C472E500484639 /* PreviewViewController.m in Sources */,
 				C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */,
+				C3CAC15C2699C72600FCB7BF /* NSData+Categories.m in Sources */,
 				C309881425CB1AB500750F72 /* Spatterlight.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6702,6 +6705,7 @@
 			files = (
 				C322720D25CC23980083BD5B /* iff.c in Sources */,
 				C322722725CC239C0083BD5B /* Blorb.m in Sources */,
+				C3CAC15D2699C73200FCB7BF /* NSData+Categories.m in Sources */,
 				C322724125CC23A00083BD5B /* BlorbResource.m in Sources */,
 				C32271C025CC22590083BD5B /* Image.m in Sources */,
 				C32271A625CC22530083BD5B /* Metadata.m in Sources */,
