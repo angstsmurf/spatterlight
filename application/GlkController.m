@@ -642,47 +642,49 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)runTerpNormal {
     // Just start the game with no autorestore or fullscreen or resetting
     NSRect newContentFrame = [self.window.contentView frame];
-    newContentFrame.size = [self defaultContentSize];
-    NSRect newWindowFrame = [self.window frameRectForContentRect:newContentFrame];
-    NSRect screenFrame = self.window.screen.visibleFrame;
-    // Make sure that the window is shorter than the screen
-    if (NSHeight(newWindowFrame) > NSHeight(screenFrame))
-        newWindowFrame.size.height = NSHeight(screenFrame);
+    if (!(windowRestoredBySystem || _showingCoverImage)) {
+        newContentFrame.size = [self defaultContentSize];
+        NSRect newWindowFrame = [self.window frameRectForContentRect:newContentFrame];
+        NSRect screenFrame = self.window.screen.visibleFrame;
+        // Make sure that the window is shorter than the screen
+        if (NSHeight(newWindowFrame) > NSHeight(screenFrame))
+            newWindowFrame.size.height = NSHeight(screenFrame);
 
-    newWindowFrame.origin.x = round((NSWidth(screenFrame) - NSWidth(newWindowFrame)) / 2);
-    // Place the window just above center by default
-    newWindowFrame.origin.y = round(screenFrame.origin.y + (NSHeight(screenFrame) - NSHeight(newWindowFrame)) / 2) + 40;
+        newWindowFrame.origin.x = round((NSWidth(screenFrame) - NSWidth(newWindowFrame)) / 2);
+        // Place the window just above center by default
+        newWindowFrame.origin.y = round(screenFrame.origin.y + (NSHeight(screenFrame) - NSHeight(newWindowFrame)) / 2) + 40;
 
-    //Very lazy cascading
-    if (libcontroller.gameSessions.count > 1) {
-        NSPoint thisPoint, thatPoint;
-        NSInteger repeats = 0;
-        BOOL overlapping;
-        thisPoint = newWindowFrame.origin;
-        thisPoint.y += NSHeight(newWindowFrame);
-        do {
-            overlapping = NO;
-            for (GlkController *ctrl in libcontroller.gameSessions.allValues) {
-                if (ctrl != self && ctrl.window) {
-                    thatPoint = ctrl.window.frame.origin;
-                    thatPoint.y += NSHeight(ctrl.window.frame);
-                    if (fabs(thisPoint.x - thatPoint.x) < 3 || fabs(thisPoint.y - thatPoint.y) < 3) {
-                        thisPoint.x = thatPoint.x + 20;
-                        thisPoint.y = thatPoint.y - 20;
-                        overlapping = YES;
-                        repeats++;
+        //Very lazy cascading
+        if (libcontroller.gameSessions.count > 1) {
+            NSPoint thisPoint, thatPoint;
+            NSInteger repeats = 0;
+            BOOL overlapping;
+            thisPoint = newWindowFrame.origin;
+            thisPoint.y += NSHeight(newWindowFrame);
+            do {
+                overlapping = NO;
+                for (GlkController *ctrl in libcontroller.gameSessions.allValues) {
+                    if (ctrl != self && ctrl.window) {
+                        thatPoint = ctrl.window.frame.origin;
+                        thatPoint.y += NSHeight(ctrl.window.frame);
+                        if (fabs(thisPoint.x - thatPoint.x) < 3 || fabs(thisPoint.y - thatPoint.y) < 3) {
+                            thisPoint.x = thatPoint.x + 20;
+                            thisPoint.y = thatPoint.y - 20;
+                            overlapping = YES;
+                            repeats++;
+                        }
                     }
                 }
-            }
-        } while (overlapping == YES && repeats < 100);
-        if (repeats >= 100)
-            NSLog(@"Got caught in a cascading infinite loop");
-        newWindowFrame.origin = thisPoint;
-        newWindowFrame.origin.y -= NSHeight(newWindowFrame);
-    }
+            } while (overlapping == YES && repeats < 100);
+            if (repeats >= 100)
+                NSLog(@"Got caught in a cascading infinite loop");
+            newWindowFrame.origin = thisPoint;
+            newWindowFrame.origin.y -= NSHeight(newWindowFrame);
+        }
 
-    [self.window setFrame:newWindowFrame display:NO];
-    [self adjustContentView];
+        [self.window setFrame:newWindowFrame display:NO];
+        [self adjustContentView];
+    }
     lastSizeInChars = [self contentSizeToCharCells:_contentView.frame.size];
     [self showWindow:nil];
     if (_theme.coverArtStyle != kDontShow && _game.metadata.cover.data) {
@@ -699,6 +701,7 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)restoreWindowWhenDead {
     if (restoredController.showingCoverImage) {
         dead = NO;
+        _showingCoverImage = YES;
         [self runTerpNormal];
         return;
     }
