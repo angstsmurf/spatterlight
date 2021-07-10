@@ -2085,11 +2085,14 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }];
 
     [_gameTableModel sortUsingDescriptors:@[sort]];
-    [_gameTableView reloadData];
 
-    [self selectGames:[NSSet setWithArray:_selectedGames]];
+    dispatch_async(dispatch_get_main_queue(), ^{
 
-    gameTableDirty = NO;
+        [self.gameTableView reloadData];
+        [self selectGames:[NSSet setWithArray:self->_selectedGames]];
+        self->gameTableDirty = NO;
+
+    });
 }
 
 - (void)tableView:(NSTableView *)tableView
@@ -2280,7 +2283,9 @@ objectValueForTableColumn: (NSTableColumn*)column
     }
     if ([updatedObjects containsObject:currentSideView.metadata] || [updatedObjects containsObject:currentSideView.metadata.cover])
     {
-        [self updateSideViewForce:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateSideViewForce:YES];
+        });
     }
 }
 

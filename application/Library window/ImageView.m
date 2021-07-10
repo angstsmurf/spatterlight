@@ -37,7 +37,12 @@
 
     NSArray<NSString *> *imageTypes;
 }
+
+@property NSOperationQueue *workQueue;
+@property NSURL *destinationURL;
+
 @end
+
 
 @implementation ImageView
 
@@ -536,25 +541,47 @@
 }
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)draggingInfo {
-    NSDictionary *filteringOptions = @{ NSPasteboardURLReadingContentsConformToTypesKey:imageTypes };
 
-    _isReceivingDrag = NO;
-    NSPasteboard *pasteBoard = draggingInfo.draggingPasteboard;
+    NSArray<Class> *supportedClasses = @[
+        [NSFilePromiseReceiver class],
+        [NSURL class], [NSImage class]
+    ];
 
-    NSArray<NSURL *> *urls = [pasteBoard readObjectsForClasses:@[[NSURL class]] options:filteringOptions];
+    NSDictionary<NSPasteboardReadingOptionKey, id> *searchOptions = @{ NSPasteboardURLReadingFileURLsOnlyKey: @YES,
+                                                                       NSPasteboardURLReadingContentsConformToTypesKey:imageTypes };
 
-    NSImage *image;
-    if (urls.count == 1) {
-        NSURL *url = urls.firstObject;
-        return [self imageFromURL:url dontAsk:NO];
-    } else {
-        image = [[NSImage alloc] initWithPasteboard:pasteBoard];
-        if (image) {
+    NSDraggingItemEnumerationOptions options = NSDraggingItemEnumerationClearNonenumeratedImages | NSDraggingItemEnumerationConcurrent;
+    [draggingInfo enumerateDraggingItemsWithOptions:options forView:nil classes:supportedClasses searchOptions:searchOptions usingBlock:^(NSDraggingItem * _Nonnull draggingItem, NSInteger idx, BOOL * _Nonnull stop) {
+        if ([draggingItem.item isKindOfClass:[NSFilePromiseReceiver class]] ) {
+            NSFilePromiseReceiver *filePromiseReceiver = (NSFilePromiseReceiver *)draggingItem.item;
+            [filePromiseReceiver receivePromisedFilesAtDestination:self.destinationURL options:@{} operationQueue:self.workQueue reader:^(NSURL * _Nonnull fileURL, NSError * _Nullable errorOrNil) {
+                if (errorOrNil) {
+                    NSLog(@"Error: %@", errorOrNil);
+                } else {
+                    [self imageFromURL:fileURL dontAsk:NO];
+                }
+            }];
+        } else if ([draggingItem.item isKindOfClass:[NSURL class]] ) {
+            NSURL *fileURL = (NSURL *)draggingItem.item;
+            [self imageFromURL:fileURL dontAsk:NO];
+        } else if ([draggingItem.item isKindOfClass:[NSImage class]] ) {
+            NSImage *image = (NSImage *)draggingItem.item;
             [self replaceCoverImage:image sourceUrl:@"pasteboard"];
-            return YES;
         }
+    }];
+
+    return YES;
+}
+
+- (NSImage *)draggingImage {
+    NSRect targetRect = self.frame;
+    NSImage *image = [[NSImage alloc] initWithSize:targetRect.size];
+    NSBitmapImageRep *imageRep = [self bitmapImageRepForCachingDisplayInRect:targetRect];
+    if (imageRep) {
+        [self cacheDisplayInRect:targetRect toBitmapImageRep:imageRep];
+        [image addRepresentation:imageRep];
     }
-    return NO;
+    return image;
 }
 
 - (BOOL)imageFromURL:(NSURL *)url dontAsk:(BOOL)dontAsk {
@@ -569,6 +596,8 @@
                 [self processImageData:data sourceUrl:url.path dontAsk:dontAsk];
                 return YES;
             }
+        } else {
+            return NO;
         }
     }
     data = [NSData dataWithContentsOfURL:url];
@@ -653,6 +682,38 @@
     return NO;
 }
 
+@synthesize workQueue = _workQueue;
+
+- (NSOperationQueue *)workQueue {
+    if (_workQueue == nil) {
+        _workQueue = [NSOperationQueue new];
+        _workQueue.qualityOfService = NSQualityOfServiceUserInitiated;
+    }
+    return _workQueue;
+}
+
+- (void)setWorkQueue:(NSOperationQueue *)workQueue {
+    _workQueue = workQueue;
+}
+
+@synthesize destinationURL = _destinationURL;
+
+- (NSURL *)destinationURL {
+    if (_destinationURL == nil) {
+        _destinationURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"Drops"]];
+        NSError *error = nil;
+        if (![[NSFileManager defaultManager] createDirectoryAtURL:_destinationURL withIntermediateDirectories:YES attributes:nil error:&error]) {
+            NSLog(@"Could not create temporary directory at %@: error: %@", _destinationURL.path, error);
+            _destinationURL = nil;
+        }
+    }
+    return _destinationURL;
+}
+
+- (void)setDestinationURL:(NSURL *)destinationURL {
+    _destinationURL = destinationURL;
+}
+
 #pragma mark Dragging source stuff
 
 - (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
@@ -693,7 +754,7 @@
         dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteboardItem];
     }
 
-    [dragItem setDraggingFrame:self.bounds contents:self.image];
+    [dragItem setDraggingFrame:self.bounds contents:[self draggingImage]];
     NSDraggingSession *session = [self beginDraggingSessionWithItems:@[dragItem] event:event source:self];
     _numberForSelfSourcedDrag = session.draggingSequenceNumber;
 
@@ -773,7 +834,6 @@
 
     NSData *bitmapData = [self pngData];
 
-
     NSError *error = nil;
 
     if (![bitmapData writeToURL:url options:NSDataWritingAtomic error:&error]) {
@@ -785,6 +845,9 @@
     NSLog(@"Your image has been saved to %@", url.path);
 }
 
+- (NSOperationQueue *)operationQueueForFilePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider {
+    return self.workQueue;
+}
 
 - (NSData *)pngData {
     if (!self.image)
