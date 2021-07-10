@@ -17,7 +17,6 @@
         return [NSBitmapImageRep repFromNeoURL:url];
 
     NSString *extension = url.pathExtension.lowercaseString;
-    NSLog(@"url.path %@", url.path);
     if ([extension isEqualToString:@"neo"]) {
         return [NSBitmapImageRep repFromNeoURL:url];
     } else if ([extension isEqualToString:@"mg1"]) {

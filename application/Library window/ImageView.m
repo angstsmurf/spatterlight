@@ -26,6 +26,8 @@
 
 #define FILTERTAG ((NSInteger) 100)
 #define DESCRIPTIONTAG ((NSInteger) 200)
+#define MAX_SPATTERLIGHT_IMAGE_FILE_SIZE ((NSInteger) 200000000)
+
 
 @interface ImageView ()
 {
@@ -621,38 +623,51 @@
     [self processImageData:data sourceUrl:URLPath dontAsk:NO];
 }
 
--(void)processImageData:(NSData *)image sourceUrl:(NSString *)URLPath dontAsk:(BOOL)dontAsk {
-    if (!image)
+-(void)processImageData:(NSData *)imageData sourceUrl:(NSString *)URLPath dontAsk:(BOOL)dontAsk {
+    if (!imageData)
         return;
+
     if ([URLPath isEqualToString:@"pasteboard"] ||
-        [self compareByFileNames:URLPath data:image]) {
+        [self compareByFileNames:URLPath data:imageData]) {
         dontAsk = YES;
     }
+
     Metadata *metadata = _game.metadata;
-    IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
+    __block NSData *data = imageData;
+    __block BOOL askFlag = dontAsk;
+    [self.workQueue addOperationWithBlock:^{
+        if (data.length > MAX_SPATTERLIGHT_IMAGE_FILE_SIZE)
+            data = [data reduceImageDimensionsTo:NSMakeSize(2048, 2048)];
 
-    if (dontAsk) {
-        metadata.coverArtURL = URLPath;
-        metadata.coverArtDescription = nil;
-        [downloader insertImageData:image inMetadata:metadata];
-        metadata.userEdited = @YES;
-        metadata.source = @(kUser);
-        return;
-    }
+        if ([URLPath isEqualToString:@"pasteboard"] ||
+            [self compareByFileNames:URLPath data:imageData]) {
+            askFlag = YES;
+        }
+        IFDBDownloader *downloader = [[IFDBDownloader alloc] initWithContext:metadata.managedObjectContext];
 
-    double delayInSeconds = 0.1;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        ImageCompareViewController *compare = [ImageCompareViewController new];
-        // We always replace when pasting
-        if ([compare userWantsImage:image ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
+        if (askFlag) {
             metadata.coverArtURL = URLPath;
             metadata.coverArtDescription = nil;
-            [downloader insertImageData:image inMetadata:metadata];
+            [downloader insertImageData:data inMetadata:metadata];
             metadata.userEdited = @YES;
             metadata.source = @(kUser);
+            return;
         }
-    });
+
+        double delayInSeconds = 0.1;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+            ImageCompareViewController *compare = [ImageCompareViewController new];
+            // We always replace when pasting
+            if ([compare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data type:LOCAL]) {
+                metadata.coverArtURL = URLPath;
+                metadata.coverArtDescription = nil;
+                [downloader insertImageData:data inMetadata:metadata];
+                metadata.userEdited = @YES;
+                metadata.source = @(kUser);
+            }
+        });
+    }];
 }
 
 - (BOOL)compareByFileNames:(NSString *)path data:(NSData *)data {

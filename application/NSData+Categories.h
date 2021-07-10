@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isPlaceHolderImage;
 - (BOOL)isPNG;
 - (BOOL)isJPEG;
+- (nullable NSData *)reduceImageDimensionsTo:(NSSize)size;
 
 + (nullable NSData *)imageDataFromRetroURL:(NSURL *)url;
 + (nullable NSData *)imageDataFromNeoURL:(NSURL *)url;

@@ -7,9 +7,10 @@
 
 #import <CommonCrypto/CommonDigest.h>
 
-#import "NSBitmapImageRep+retro.h"
-
 #import "NSData+Categories.h"
+
+#import "NSBitmapImageRep+retro.h"
+#import "NSImage+Categories.h"
 
 @implementation NSData (MD5)
 
@@ -70,6 +71,33 @@
     NSBitmapImageRep *rep = [NSBitmapImageRep repFromMG1URL:url];
     NSData *data = [rep representationUsingType:NSBitmapImageFileTypeBMP properties:@{}];
     return data;
+}
+
+- (nullable NSData *)reduceImageDimensionsTo:(NSSize)size {
+    NSImage *image = [[NSImage alloc] initWithData:self];
+    if (!image.isValid)
+        return nil;
+    NSImageRep *imageRep = image.representations.firstObject;
+    if (!imageRep)
+        return nil;
+
+    NSSize pixelSize = NSMakeSize(imageRep.pixelsWide,  imageRep.pixelsHigh);
+    if (pixelSize.width <= size.width && pixelSize.height <= size.height)
+        return self;
+
+    CGFloat ratio = pixelSize.height / pixelSize.width;
+    NSSize newImageSize = NSMakeSize(size.width, size.width * ratio);
+    if (newImageSize.height > size.height) {
+        newImageSize = NSMakeSize(size.height / ratio, size.height);
+    }
+
+    image = [image resizedToPixelDimensions:newImageSize];
+    image.size = newImageSize;
+
+    NSBitmapImageRep *bitmaprep = [image bitmapImageRepresentation];
+
+    NSDictionary *props = @{ NSImageCompressionFactor: @(0.5) };
+    return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypeJPEG properties:props];
 }
 
 @end
