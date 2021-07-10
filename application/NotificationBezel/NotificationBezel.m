@@ -103,9 +103,10 @@
 
     CGFloat lowerCenterRectBottomOffset = 140;
 
-    return NSMakeRect(NSMidX(_screen.visibleFrame) - (size.width / 2),
+    NSRect result = NSMakeRect(NSMidX(_screen.visibleFrame) - (size.width / 2),
                       NSMinY(_screen.visibleFrame) + lowerCenterRectBottomOffset,
                       size.width, size.height);
+    return [_screen backingAlignedRect:result options:NSAlignAllEdgesNearest];
 }
 
 - (void)speakString:(NSString *)string {
