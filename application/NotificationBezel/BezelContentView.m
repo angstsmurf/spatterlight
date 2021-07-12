@@ -103,7 +103,8 @@
 
     NSSize selfSize = self.frame.size;
 
-    NSSize iconSize = NSMakeSize(selfSize.width * 0.6, selfSize.height * 0.6);
+    NSSize iconSize = NSMakeSize(selfSize.width * 0.9, selfSize.height * 0.9);
+    iconSize = [self scaleOriginal:icon.size toFitWithinParent:iconSize];
     icon.size = iconSize;
 
     // Tint the image
@@ -115,9 +116,11 @@
 
     [icon unlockFocus];
 
-    CGFloat offset = (selfSize.width - iconSize.width) / 2;
+    CGFloat xoffset = (selfSize.width - iconSize.width) / 2;
+    CGFloat yoffset = (selfSize.height - iconSize.height) / 2;
 
-    NSPoint iconBottomLeftCorner = NSMakePoint(offset, offset);
+
+    NSPoint iconBottomLeftCorner = NSMakePoint(xoffset, yoffset);
 
     [icon drawInRect:NSMakeRect(iconBottomLeftCorner.x, iconBottomLeftCorner.y, iconSize.width, iconSize.height) fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:0.8 respectFlipped:YES hints:@{}];
 }
