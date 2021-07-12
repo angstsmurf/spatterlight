@@ -28,6 +28,9 @@
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
 }
+
+@property NSOperationQueue *workQueue;
+
 @end
 
 @implementation GlkGraphicsWindow
@@ -326,18 +329,61 @@
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-    if (mouse_request && theEvent.clickCount == 1) {
-        [self.glkctl markLastSeen];
 
-        NSPoint p;
-        p = theEvent.locationInWindow;
-        p = [self convertPoint:p fromView:nil];
-        p.y = self.frame.size.height - p.y;
-        // NSLog(@"mousedown in gfx at %g,%g", p.x, p.y);
-        GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
-        [self.glkctl queueEvent:gev];
-        mouse_request = NO;
-    }
+    NSDate *mouseTime = [NSDate date];
+    
+    __block NSPoint location = [self convertPoint:theEvent.locationInWindow fromView: nil];
+    
+    NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
+    NSTimeInterval timeout = NSEventDurationForever;
+    
+    CGFloat dragThreshold = 0.3;
+    
+    [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
+        
+        BOOL noDrag = YES;
+        
+        if (!event) { return; }
+        
+        if (event.type == NSEventTypeLeftMouseUp) {
+            *stop = YES;
+            if (noDrag || [mouseTime timeIntervalSinceNow] > -0.5) {
+                if (mouse_request && theEvent.clickCount == 1) {
+                    [self.glkctl markLastSeen];
+                    location.y = self.frame.size.height - location.y;
+                    GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:location forWindow:self.name];
+                    [self.glkctl queueEvent:gev];
+                    mouse_request = NO;
+                }
+            }
+        } else if (event.type == NSEventTypeLeftMouseDragged) {
+            noDrag = NO;
+            NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
+            if (ABS(movedLocation.x - location.x) >dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
+                *stop = YES;
+                
+                NSDraggingItem *dragItem;
+                
+                if (@available(macOS 10.14, *)) {
+                    
+                    MyFilePromiseProvider *provider = [[MyFilePromiseProvider alloc] initWithFileType: NSPasteboardTypePNG delegate:self];
+                    
+                    dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:provider];
+                    
+                } else {
+                    NSPasteboardItem *pasteboardItem = [NSPasteboardItem new];
+                    
+                    [pasteboardItem setDataProvider:self forTypes:@[NSPasteboardTypePNG, PasteboardFileURLPromise, PasteboardFilePromiseContent]];
+                    
+                    // Create the dragging item for the drag operation
+                    dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteboardItem];
+                }
+                
+                [dragItem setDraggingFrame:self.bounds contents:image];
+                [self beginDraggingSessionWithItems:@[dragItem] event:event source:self];
+            }
+        }
+    }];
 }
 
 - (BOOL)wantsFocus {
@@ -518,6 +564,124 @@
         return NO;
 
     return YES;
+}
+
+#pragma mark Dragging source stuff
+
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
+{
+    return NSDragOperationCopy;
+}
+
+// For pre-10.14
+- (void)pasteboard:(NSPasteboard *)sender item:(NSPasteboardItem *)item provideDataForType:(NSString *)type
+{
+    //sender has accepted the drag and now we need to send the data for the type we promised
+    if ( [type isEqual:NSPasteboardTypePNG]) {
+        //set data for PNG type on the pasteboard as requested
+        [sender setData:[self pngData] forType:NSPasteboardTypePNG];
+    } else if ([type isEqualTo:PasteboardFilePromiseContent]) {
+        // The receiver will send this asking for the content type for the drop, to figure out
+        // whether it wants to/is able to accept the file type.
+
+        [sender setString:@"public.png" forType: PasteboardFilePromiseContent];
+    }
+    else if ([type isEqualTo: PasteboardFileURLPromise]) {
+        // The receiver is interested in our data, and is happy with the format that we told it
+        // about during the PasteboardFilePromiseContent request.
+        // The receiver has passed us a URL where we are to write our data to.
+
+        NSString *str = [sender stringForType:PasteboardFilePasteLocation];
+        NSURL *destinationFolderURL = [NSURL fileURLWithPath:str];
+        if (!destinationFolderURL) {
+            NSLog(@"ERROR:- Receiver didn't tell us where to put the file?");
+            return;
+        }
+
+        // Here, we build the file destination using the receivers destination URL
+        NSString *baseFileName = self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
+
+        if (!baseFileName.length)
+            baseFileName = @"image";
+
+        NSString *fileName = [baseFileName stringByAppendingPathExtension:@"png"];
+
+        NSURL *destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:fileName];
+
+        NSUInteger index = 2;
+
+        // Handle duplicate file names
+        // by slapping on a number at the end.
+        while ([[NSFileManager defaultManager] fileExistsAtPath:destinationFileURL.path]) {
+            NSString *newFileName = [NSString stringWithFormat:@"%@ %ld", baseFileName, index];
+            newFileName = [newFileName stringByAppendingPathExtension:@"png"];
+            destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:newFileName];
+            index++;
+        }
+
+        NSData *bitmapData = [self pngData];
+
+        NSError *error = nil;
+
+        if (![bitmapData writeToURL:destinationFileURL options:NSDataWritingAtomic error:&error]) {
+            NSLog(@"Error: Could not write PNG data to url %@: %@", destinationFileURL.path, error);
+        }
+
+        // And finally, tell the receiver where we wrote our file
+        [sender setString:destinationFileURL.path forType:PasteboardFileURLPromise];
+    }
+}
+
+- (NSString *)filePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider
+                  fileNameForType:(NSString *)fileType {
+    NSString *fileName = [self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension stringByAppendingPathExtension:@"png"];
+    if (!fileName.length)
+        fileName = @"image.png";
+
+    return fileName;
+}
+
+- (void)filePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider
+          writePromiseToURL:(NSURL *)url
+          completionHandler:(void (^)(NSError *errorOrNil))completionHandler {
+
+    NSData *bitmapData = [self pngData];
+
+    NSError *error = nil;
+
+    if (![bitmapData writeToURL:url options:NSDataWritingAtomic error:&error]) {
+        NSLog(@"Error: Could not write PNG data to url %@: %@", url.path, error);
+        completionHandler(error);
+    }
+
+    completionHandler(nil);
+}
+
+- (NSOperationQueue *)operationQueueForFilePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider {
+    return self.workQueue;
+}
+
+- (NSData *)pngData {
+    if (!image)
+        NSLog(@"No image?");
+    NSBitmapImageRep *bitmaprep = [image bitmapImageRepresentation];
+
+    NSDictionary *props = @{ NSImageInterlaced: @(NO) };
+    return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypePNG properties:props];
+}
+
+@synthesize workQueue = _workQueue;
+
+- (NSOperationQueue *)workQueue {
+    if (_workQueue == nil) {
+        _workQueue = [NSOperationQueue new];
+        _workQueue.qualityOfService = NSQualityOfServiceUserInitiated;
+    }
+    return _workQueue;
+}
+
+- (void)setWorkQueue:(NSOperationQueue *)workQueue {
+    _workQueue = workQueue;
 }
 
 @end
