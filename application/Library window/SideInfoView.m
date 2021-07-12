@@ -87,6 +87,25 @@ fprintf(stderr, "%s\n",                                                    \
 
 - (BOOL) isFlipped { return YES; }
 
+
++ (NSMenu *)defaultMenu {
+    NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
+
+    NSMenuItem *paste = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Paste image", nil) action:@selector(paste:) keyEquivalent:@""];
+
+    [menu addItem:paste];
+
+    return menu;
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    return [self.imageView validateMenuItem:menuItem];
+}
+
+- (IBAction)paste:(id)sender {
+    [self.imageView paste:sender];
+}
+
 - (BOOL)textFieldShouldBeginEditing:(NSTextField *)textField{
     return NO;
 }
