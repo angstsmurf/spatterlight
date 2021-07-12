@@ -366,10 +366,9 @@
     textview.bottomPadding = extendneeded;
 }
 
-- (NSUInteger)findHyperlinkAt:(NSPoint)p
-{
+- (NSUInteger)findHyperlinkAt:(NSPoint)point {
     for (MarginImage *image in _marginImages) {
-        if ([self.textView mouse:p inRect:image.bounds]) {
+        if ([self.textView mouse:point inRect:image.bounds]) {
             NSLog(@"Clicked on image %ld with linkid %ld",
                   [_marginImages indexOfObject:image], image.linkid);
             return image.linkid;
@@ -378,30 +377,17 @@
     return 0;
 }
 
-- (BOOL)hasMarginImages {
-    return (_marginImages.count > 0);
+- (nullable MarginImage *)marginImageAt:(NSPoint)p {
+    for (MarginImage *image in _marginImages) {
+        if ([self.textView mouse:p inRect:image.bounds]) {
+            return image;
+        }
+    }
+    return nil;
 }
 
-- (NSMutableAttributedString *)marginsToAttachmentsInString:
-    (NSMutableAttributedString *)string {
-    NSTextAttachment *att;
-    NSFileWrapper *wrapper;
-    NSData *tiffdata;
-    MarginImage *image;
-
-    NSEnumerator *enumerator = [_marginImages reverseObjectEnumerator];
-    while (image = [enumerator nextObject]) {
-        tiffdata = image.image.TIFFRepresentation;
-        wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:tiffdata];
-        wrapper.preferredFilename = @"image.tiff";
-        att = [[NSTextAttachment alloc] initWithFileWrapper:wrapper];
-        NSMutableAttributedString *attstr =
-            (NSMutableAttributedString *)[NSMutableAttributedString
-                attributedStringWithAttachment:att];
-
-        [string insertAttributedString:attstr atIndex:(NSUInteger)image.pos];
-    }
-    return string;
+- (BOOL)hasMarginImages {
+    return (_marginImages.count > 0);
 }
 
 @end

@@ -63,9 +63,73 @@
     [(MarginContainer *)self.textContainer drawRect:rect];
 }
 
+- (BOOL)acceptsFirstMouse:(NSEvent *)event {
+    return YES;
+}
+
 - (void)mouseDown:(NSEvent *)theEvent {
-    if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
-        [super mouseDown:theEvent];
+    NSDate *mouseTime = [NSDate date];
+
+    [self temporarilyHideCaret];
+    __block NSPoint location = [self convertPoint:theEvent.locationInWindow fromView:nil];
+    NSPoint adjustedPoint = location;
+    adjustedPoint.x -= self.textContainerInset.width;
+    adjustedPoint.y -= self.textContainerInset.height;
+
+    MarginImage *marginImage = [(MarginContainer *)self.textContainer marginImageAt:adjustedPoint];
+    if (!marginImage) {
+        if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
+            [super mouseDown:theEvent];
+    } else {
+
+        NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
+        NSTimeInterval timeout = NSEventDurationForever;
+
+        CGFloat dragThreshold = 0.3;
+
+        [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
+
+            BOOL noDrag = YES;
+
+            if (!event) { return; }
+
+            if (event.type == NSEventTypeLeftMouseUp) {
+                *stop = YES;
+                if (noDrag || [mouseTime timeIntervalSinceNow] > -0.5) {
+                    if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
+                        [super mouseDown:theEvent];
+                }
+            } else if (event.type == NSEventTypeLeftMouseDragged) {
+                noDrag = NO;
+                NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
+                if (ABS(movedLocation.x - location.x) > dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
+                    *stop = YES;
+
+                    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+                    NSString *filename = delegate.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
+
+                    NSRect bounds = marginImage.bounds;
+                    bounds.origin.x += self.textContainerInset.width;
+                    bounds.origin.y += self.textContainerInset.height;
+
+                    [marginImage dragMarginImageFrom:self event:event filename:filename rect:bounds];
+                }
+            }
+        }];
+    }
+}
+
+// Change mouse cursor when over margin images
+- (void)mouseMoved:(NSEvent *)event {
+    NSPoint point = [self convertPoint:event.locationInWindow fromView:nil];
+    point.x -= self.textContainerInset.width;
+    point.y -= self.textContainerInset.height;
+    MarginImage *marginImage = [(MarginContainer *)self.textContainer marginImageAt:point];
+    if (marginImage) {
+        [marginImage cursorUpdate];
+        return;
+    }
+    [super mouseMoved:event];
 }
 
 - (BOOL)shouldDrawInsertionPoint {
@@ -105,16 +169,8 @@
     BOOL waseditable = self.editable;
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
 
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Wundeclared-selector"
-
-//    if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuItem.action != @selector(_lookUpDefiniteRangeInDictionaryFromMenu:) && menuItem.action != @selector(_searchWithGoogleFromMenu:))
-//        return NO;
 if (delegate.glkctl.previewDummy && menuItem.action != @selector(copy:) && menuItem.action != NSSelectorFromString(@"_lookUpDefiniteRangeInDictionaryFromMenu:") && menuItem.action != NSSelectorFromString(@"_searchWithGoogleFromMenu:"))
         return NO;
-
-//#pragma clang diagnostic pop
-
 
     if (menuItem.action == @selector(cut:) || menuItem.action == @selector(delete:) || menuItem.action == @selector(paste:)) {
         NSRange editableRange = [delegate editableRange];

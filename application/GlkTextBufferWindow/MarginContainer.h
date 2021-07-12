@@ -30,10 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)invalidateLayout:(nullable id)sender;
 - (void)unoverlap:(MarginImage *)image;
 - (BOOL)hasMarginImages;
-- (NSMutableAttributedString *)marginsToAttachmentsInString:
-    (NSMutableAttributedString *)string;
 - (NSUInteger)findHyperlinkAt:(NSPoint)p;
 - (void)flowBreakAt:(NSUInteger)pos;
+- (nullable MarginImage *)marginImageAt:(NSPoint)p;
 
 @end
 

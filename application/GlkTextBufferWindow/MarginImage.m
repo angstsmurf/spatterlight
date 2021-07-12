@@ -15,6 +15,7 @@
 
 @interface MarginImage () <NSSecureCoding> {
     BOOL recalc;
+    NSString *baseFilename;
 }
 @end
 

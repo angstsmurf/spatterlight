@@ -1643,6 +1643,19 @@ replacementString:(id)repl {
     [container flowBreakAt:textstorage.length - 1];
 }
 
+- (void)textView:(NSTextView *)view
+     draggedCell:(id<NSTextAttachmentCell>)cell
+          inRect:(NSRect)rect
+           event:(NSEvent *)event
+         atIndex:(NSUInteger)charIndex {
+    _textview.selectedRange = NSMakeRange(0, 0);
+    if ([cell isKindOfClass:[MyAttachmentCell class]]) {
+        MyAttachmentCell *attachment = (MyAttachmentCell *)cell;
+        NSString *filename = self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
+        [attachment dragTextAttachmentFrom:view event:event filename:filename inRect:rect];
+    }
+}
+
 #pragma mark Hyperlinks
 
 - (void)initHyperlink {
@@ -2256,7 +2269,7 @@ replacementString:(id)repl {
     [textstorage
      enumerateAttribute:NSAttachmentAttributeName
      inRange:range
-     options:0
+     options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
      usingBlock:^(id value, NSRange subrange, BOOL *stop) {
         if (!value) {
             return;

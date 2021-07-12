@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  * with the text flowing around them like in HTML.
  */
 
-@interface MarginImage : NSAccessibilityElement <NSSecureCoding>
+@interface MarginImage : NSAccessibilityElement <NSSecureCoding, NSFilePromiseProviderDelegate, NSDraggingSource, NSPasteboardItemDataProvider>
 
 @property(strong) NSImage *image;
 @property(readonly) NSInteger alignment;
@@ -34,6 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout;
 - (void)uncacheBounds;
 - (NSString *)customA11yLabel;
+
+- (void)dragMarginImageFrom:(NSTextView *)source event:(NSEvent *)event filename:(NSString *)filename rect:(NSRect)rect;
+
+-(void)cursorUpdate;
+
 
 @end
 
