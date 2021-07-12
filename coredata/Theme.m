@@ -6,7 +6,8 @@
 //
 //
 
-#import "main.h"
+#import "Constants.h"
+#import "Glk.h"
 #import "Theme.h"
 #import "Game.h"
 #import "GlkStyle.h"

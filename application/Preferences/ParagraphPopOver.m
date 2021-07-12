@@ -6,9 +6,10 @@
 //
 
 #import "ParagraphPopOver.h"
+#import "Preferences.h"
 #import "Theme.h"
 #import "GlkStyle.h"
-#import "main.h"
+#import "Constants.h"
 
 @interface ParagraphPopOver ()
 

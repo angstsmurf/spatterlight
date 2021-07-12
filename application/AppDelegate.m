@@ -3,6 +3,7 @@
  */
 
 #import "main.h"
+#import "Constants.h"
 #import "CoreDataManager.h"
 #import "NSString+Categories.h"
 #import "AttributeDictionaryTransformer.h"
@@ -38,6 +39,10 @@ NSArray *gGridStyleNames;
 
 NSDictionary *gExtMap;
 NSDictionary *gFormatMap;
+
+NSPasteboardType PasteboardFileURLPromise,
+PasteboardFilePromiseContent,
+PasteboardFilePasteLocation;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -121,6 +126,10 @@ NSDictionary *gFormatMap;
 //                   @"zcode" : @"frotz"
 //                   @"zcode": @"fizmo"
                    };
+
+    PasteboardFileURLPromise = (NSPasteboardType)kPasteboardTypeFileURLPromise;
+    PasteboardFilePromiseContent = (NSPasteboardType)kPasteboardTypeFilePromiseContent;
+    PasteboardFilePasteLocation = (NSPasteboardType)@"com.apple.pastelocation";
 
     addToRecents = YES;
 

@@ -10,7 +10,7 @@
 
 #import "GlkStyle.h"
 #import "Theme.h"
-#import "main.h"
+#import "Constants.h"
 #import "NSColor+integer.h"
 
 

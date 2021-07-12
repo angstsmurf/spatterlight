@@ -1,3 +1,8 @@
+#import "Preferences.h"
+#import "AppDelegate.h"
+#import "GlkController.h"
+#import "GlkTextBufferWindow.h"
+
 #import "CoreDataManager.h"
 #import "Game.h"
 #import "Metadata.h"
@@ -8,10 +13,12 @@
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 #import "BufferTextView.h"
-#import "main.h"
+#import "Constants.h"
 #import "BuiltInThemes.h"
 #import "ParagraphPopOver.h"
 #import "NotificationBezel.h"
+
+#include "glk.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \

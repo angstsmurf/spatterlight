@@ -2,13 +2,14 @@
 
 #import "Game.h"
 #import "Metadata.h"
+#import "AppDelegate.h"
 #import "LibController.h"
 #import "CoreDataManager.h"
 #import "Image.h"
 #import "IFDBDownloader.h"
 #import "ImageView.h"
 
-#import "main.h"
+#import "Constants.h"
 
 #import <QuartzCore/QuartzCore.h>
 

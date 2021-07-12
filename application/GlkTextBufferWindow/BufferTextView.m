@@ -12,6 +12,7 @@
 #import "MarginImage.h"
 #import "CommandScriptHandler.h"
 #import "Preferences.h"
+#import "Game.h"
 
 
 @interface BufferTextView () <NSTextFinderClient, NSSecureCoding> {

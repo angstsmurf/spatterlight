@@ -1,7 +1,15 @@
-#import "main.h"
+#import "Constants.h"
+#import "glk.h"
+#import "protocol.h"
+#import "GlkEvent.h"
+#import "GlkGraphicsWindow.h"
+#import "GlkController.h"
 #import "NSColor+integer.h"
 #import "SubImage.h"
 #import "Theme.h"
+#import "Game.h"
+#import "MyFilePromiseProvider.h"
+#import "NSImage+Categories.h"
 
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \

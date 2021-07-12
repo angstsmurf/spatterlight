@@ -15,7 +15,7 @@
 
 #import <CoreData/CoreData.h>
 
-@class CoreDataManager, Metadata, GlkController, InfoController;
+@class CoreDataManager, Metadata, GlkController, InfoController, Game;
 
 @interface LibHelperTableView : NSTableView
 @end

@@ -1,4 +1,9 @@
-#import "main.h"
+#import "GlkTextBufferWindow.h"
+#import "GlkTextGridWindow.h"
+#import "GlkEvent.h"
+
+#import "Constants.h"
+#import "GlkController.h"
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 #import "Theme.h"

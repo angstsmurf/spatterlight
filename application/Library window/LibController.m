@@ -2,7 +2,12 @@
  *
  */
 
-#import "main.h"
+#import "LibController.h"
+#import "AppDelegate.h"
+#import "GlkController.h"
+#import "Preferences.h"
+
+#import "Constants.h"
 
 #import "NSString+Categories.h"
 #import "NSDate+relative.h"

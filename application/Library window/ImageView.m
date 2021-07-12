@@ -9,6 +9,8 @@
 
 #import "ImageView.h"
 
+#import "Constants.h"
+
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
@@ -33,10 +35,6 @@
 {
     NSSet<NSPasteboardType> *nonURLTypes;
 
-    NSPasteboardType PasteboardFileURLPromise,
-    PasteboardFilePromiseContent,
-    PasteboardFilePasteLocation;
-
     NSArray<NSString *> *imageTypes;
 }
 
@@ -60,10 +58,6 @@
         _acceptableTypes = [_acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
         [self registerForDraggedTypes:_acceptableTypes.allObjects];
         _numberForSelfSourcedDrag = NSNotFound;
-
-        PasteboardFileURLPromise = (NSPasteboardType)kPasteboardTypeFileURLPromise;
-        PasteboardFilePromiseContent = (NSPasteboardType)kPasteboardTypeFilePromiseContent;
-        PasteboardFilePasteLocation = (NSPasteboardType)@"com.apple.pastelocation";
 
         imageTypes = NSImage.imageTypes;
         imageTypes = [imageTypes arrayByAddingObjectsFromArray:@[ @"public.neochrome", @"public.mcga", @"public.dat", @"public.blorb" ]];

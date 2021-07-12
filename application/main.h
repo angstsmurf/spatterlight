@@ -14,12 +14,3 @@
 
 #import "LibController.h"
 #import "AppDelegate.h"
-
-extern NSArray *gGameFileTypes;
-extern NSArray *gDocFileTypes;
-extern NSArray *gSaveFileTypes;
-extern NSArray *gGridStyleNames;
-extern NSArray *gBufferStyleNames;
-
-extern NSDictionary *gExtMap;
-extern NSDictionary *gFormatMap;

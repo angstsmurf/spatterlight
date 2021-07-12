@@ -7,6 +7,9 @@
 
 #import "MyAttachmentCell.h"
 #import "MarginImage.h"
+#import "MyFilePromiseProvider.h"
+#import "NSImage+Categories.h"
+#import "Constants.h"
 #include "glk.h"
 
 @interface MyAttachmentCell () <NSSecureCoding> {

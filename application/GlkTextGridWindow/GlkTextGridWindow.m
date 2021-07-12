@@ -3,6 +3,12 @@
  * GlkTextGridWindow
  */
 
+#import "GlkTextGridWindow.h"
+#import "GlkTextBufferWindow.h"
+#import "GlkController.h"
+#import "Preferences.h"
+#import "GlkEvent.h"
+
 #import "InputTextField.h"
 #import "InputHistory.h"
 #import "GridTextView.h"
@@ -11,7 +17,7 @@
 #import "NSString+Categories.h"
 #import "Theme.h"
 #import "GlkStyle.h"
-#import "main.h"
+#import "Constants.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "ZColor.h"

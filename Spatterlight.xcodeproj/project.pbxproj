@@ -2558,6 +2558,7 @@
 		C32419CC262DFFA300366AAE /* BuiltInThemes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuiltInThemes.m; sourceTree = "<group>"; };
 		C32DBFA426714EFE00AB5704 /* MyFilePromiseProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFilePromiseProvider.h; sourceTree = "<group>"; };
 		C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFilePromiseProvider.m; sourceTree = "<group>"; };
+		C334C47A269C708700B00A2F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C33B4502257E84500017EA26 /* ZMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMenu.m; sourceTree = "<group>"; };
 		C33B4503257E84500017EA26 /* ZMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMenu.h; sourceTree = "<group>"; };
 		C343E4851ECC5E81000F15B6 /* osportable.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = osportable.cc; sourceTree = "<group>"; };
@@ -3721,6 +3722,7 @@
 				6DCFFC1622BCCF600035FA99 /* coredata */,
 				6D7673D3239FFB0900FB24C0 /* IFiction XML parsing */,
 				6D212739246BDC5B00D775A8 /* Categories */,
+				C334C47A269C708700B00A2F /* Constants.h */,
 				961CCEDF09F239E700528FF9 /* main.h */,
 				961CCEE009F239E700528FF9 /* main.m */,
 				C3C684DF26137B44002F1436 /* Images */,
