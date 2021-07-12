@@ -846,7 +846,6 @@ NSString *fontToString(NSFont *font) {
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notify {
-//    NSLog(@"noteManagedObjectContextDidChange: %@", theme.name);
     NSArray *updatedObjects = (notify.userInfo)[NSUpdatedObjectsKey];
 
     if ([updatedObjects containsObject:theme]) {

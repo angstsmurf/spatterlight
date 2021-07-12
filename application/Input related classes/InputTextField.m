@@ -90,9 +90,6 @@
         [[MyTextFormatter alloc] initWithMaxLength:maxLength];
         self.formatter = inputFormatter;
 
-        NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:frame options: (NSTrackingActiveAlways | NSTrackingMouseEnteredAndExited) owner:self userInfo:nil];
-        [self addTrackingArea:trackingArea];
-
         _fieldEditor = nil;
     }
     return self;
