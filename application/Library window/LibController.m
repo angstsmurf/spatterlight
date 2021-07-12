@@ -2092,11 +2092,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     [_gameTableModel sortUsingDescriptors:@[sort]];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-
         [self.gameTableView reloadData];
         [self selectGames:[NSSet setWithArray:self->_selectedGames]];
         self->gameTableDirty = NO;
-
     });
 }
 

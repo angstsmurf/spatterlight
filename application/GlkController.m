@@ -3721,12 +3721,17 @@ again:
 
     if ([updatedObjects containsObject:_game.metadata])
     {
-        if (![_game.metadata.title isEqualToString:_gamefile.lastPathComponent])
-            self.window.title =_game.metadata.title;
+        if (![_game.metadata.title isEqualToString:_gamefile.lastPathComponent]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.window.title = self.game.metadata.title;
+            });
+        }
     }
     if (_showingCoverImage && [updatedObjects containsObject:_game.metadata.cover])
     {
-        [_coverController imageDidChange];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.coverController imageDidChange];
+        });
     }
 
 }

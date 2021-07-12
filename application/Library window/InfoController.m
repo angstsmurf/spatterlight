@@ -288,11 +288,15 @@ fprintf(stderr, "%s\n",                                                    \
     NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
     NSArray *deletedObjects =  (notification.userInfo)[NSDeletedObjectsKey];
     if ([deletedObjects containsObject:_game])
-        [[self window] performClose:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.window performClose:nil];
+        });
     if ([updatedObjects containsObject:_meta] || [updatedObjects containsObject:_game] || [updatedObjects containsObject:_meta.cover])
     {
-        [self update];
-        [self updateImage];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self update];
+            [self updateImage];
+        });
     }
 }
 
