@@ -389,19 +389,25 @@ fprintf(stderr, "%s\n",                                                    \
 
         if (textfield == _titleField)
         {
-            _meta.title = _titleField.stringValue;
+            if (![_meta.title isEqualToString:_titleField.stringValue])
+                _meta.title = _titleField.stringValue;
         }
         else if (textfield == headlineField)
         {
-            _meta.headline = headlineField.stringValue;
+            if (![_meta.headline isEqualToString:headlineField.stringValue])
+                _meta.headline = headlineField.stringValue;
         }
         else if (textfield == authorField)
         {
-            _meta.author = authorField.stringValue;
+            if (![_meta.author isEqualToString:authorField.stringValue])
+                _meta.author = authorField.stringValue;
+
         }  else if (textfield == descriptionText)
         {
-            _meta.blurb = descriptionText.stringValue;
-            NSLog(@"changed blurb to %@", _meta.blurb);
+            if (![_meta.blurb isEqualToString:descriptionText.stringValue]) {
+                _meta.blurb = descriptionText.stringValue;
+                NSLog(@"changed blurb to %@", _meta.blurb);
+            }
         }
         //		else if (textfield == ifidField)
         //		{
