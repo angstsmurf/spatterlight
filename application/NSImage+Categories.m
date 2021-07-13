@@ -56,7 +56,7 @@
     return rep;
 }
 
-- (NSImage *)resizedToPixelDimensions:(NSSize)newSize
+- (nullable NSImage *)resizedToPixelDimensions:(NSSize)newSize
 {
     if (!self.isValid) return nil;
 

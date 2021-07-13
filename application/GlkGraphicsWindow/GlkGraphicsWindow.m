@@ -658,9 +658,10 @@
     return self.workQueue;
 }
 
-- (NSData *)pngData {
-    if (!image)
-        NSLog(@"No image?");
+- (nullable NSData *)pngData {
+    if (!image) {
+        return nil;
+    }
     NSBitmapImageRep *bitmaprep = [image bitmapImageRepresentation];
     if (!bitmaprep)
         return nil;

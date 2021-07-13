@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSImage *)imageWithTint:(NSColor *)tint;
 - (nullable NSBitmapImageRep *)bitmapImageRepresentation;
-- (NSImage *)resizedToPixelDimensions:(NSSize)newSize;
+- (nullable NSImage *)resizedToPixelDimensions:(NSSize)newSize;
 
 @end
 
