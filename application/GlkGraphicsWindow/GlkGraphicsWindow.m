@@ -338,16 +338,14 @@
     NSTimeInterval timeout = NSEventDurationForever;
     
     CGFloat dragThreshold = 0.3;
-    
+
     [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
-        
-        BOOL noDrag = YES;
-        
+
         if (!event) { return; }
         
         if (event.type == NSEventTypeLeftMouseUp) {
             *stop = YES;
-            if (noDrag || [mouseTime timeIntervalSinceNow] > -0.5) {
+            if ([mouseTime timeIntervalSinceNow] > -0.5) {
                 if (mouse_request && theEvent.clickCount == 1) {
                     [self.glkctl markLastSeen];
                     location.y = self.frame.size.height - location.y;
@@ -357,7 +355,6 @@
                 }
             }
         } else if (event.type == NSEventTypeLeftMouseDragged) {
-            noDrag = NO;
             NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
             if (ABS(movedLocation.x - location.x) >dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
                 *stop = YES;
@@ -665,6 +662,8 @@
     if (!image)
         NSLog(@"No image?");
     NSBitmapImageRep *bitmaprep = [image bitmapImageRepresentation];
+    if (!bitmaprep)
+        return nil;
 
     NSDictionary *props = @{ NSImageInterlaced: @(NO) };
     return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypePNG properties:props];

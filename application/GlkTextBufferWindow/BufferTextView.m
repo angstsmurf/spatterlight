@@ -89,18 +89,15 @@
 
         [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
 
-            BOOL noDrag = YES;
-
             if (!event) { return; }
 
             if (event.type == NSEventTypeLeftMouseUp) {
                 *stop = YES;
-                if (noDrag || [mouseTime timeIntervalSinceNow] > -0.5) {
+                if ([mouseTime timeIntervalSinceNow] > -0.5) {
                     if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
                         [super mouseDown:theEvent];
                 }
             } else if (event.type == NSEventTypeLeftMouseDragged) {
-                noDrag = NO;
                 NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
                 if (ABS(movedLocation.x - location.x) > dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
                     *stop = YES;
