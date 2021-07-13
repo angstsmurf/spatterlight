@@ -34,8 +34,8 @@
 @interface ImageView ()
 {
     NSSet<NSPasteboardType> *nonURLTypes;
-
     NSArray<NSString *> *imageTypes;
+    CALayer *imageLayer;
 }
 
 @property NSOperationQueue *workQueue;
@@ -121,8 +121,14 @@
 
 - (void)updateLayer {
     NSArray *layers = self.layer.sublayers.copy;
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue
+                     forKey:kCATransactionDisableActions];
     for (CALayer *sub in layers)
-        [sub removeFromSuperlayer];
+        if (sub != imageLayer)
+            [sub removeFromSuperlayer];
+    [CATransaction commit];
+
     self.layer.mask = nil;
     if (_isSelected || _isReceivingDrag) {
 
@@ -161,30 +167,75 @@
     }
 }
 
+- (void)positionLayer {
+    if (_ratio == 0)
+        return;
+    NSView *superview = [self superview];
+    NSSize windowSize = superview.frame.size;
+
+    NSRect imageFrame = NSMakeRect(0,0, windowSize.width, windowSize.width / _ratio);
+    if (imageFrame.size.height > windowSize.height) {
+        imageFrame = NSMakeRect(0,0, windowSize.height * _ratio, windowSize.height);
+        imageFrame.origin.x = (windowSize.width - imageFrame.size.width) / 2;
+    } else {
+        imageFrame.origin.y = (windowSize.height - imageFrame.size.height) / 2;
+        if (NSMaxY(imageFrame) > NSMaxY(superview.frame))
+            imageFrame.origin.y = NSMaxY(superview.frame) - imageFrame.size.height;
+    }
+
+    self.frame = imageFrame;
+
+
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue
+                     forKey:kCATransactionDisableActions];
+    self.layer.frame = imageFrame;
+    imageFrame.origin = NSZeroPoint;
+    for (CALayer *layer in self.layer.sublayers)
+        layer.frame = imageFrame;
+    [CATransaction commit];
+}
+
 - (BOOL)wantsUpdateLayer {
     return YES;
 }
 
 - (void)processImage:(NSImage *)image {
     _image = image;
-    CALayer *layer = [CALayer layer];
+    if (imageLayer)
+        [imageLayer removeFromSuperlayer];
+
+    imageLayer = [CALayer layer];
 
     NSImageRep *rep = image.representations.lastObject;
     NSSize sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
     image.size = sizeInPixels;
 
+    _ratio = sizeInPixels.width / sizeInPixels.height;
+
     if (_game.metadata.cover.interpolation == kUnset) {
         _game.metadata.cover.interpolation = sizeInPixels.width < 350 ? kNearestNeighbor : kTrilinear;
     }
 
-    layer.magnificationFilter = (_game.metadata.cover.interpolation == kNearestNeighbor) ? kCAFilterNearest : kCAFilterTrilinear;
+    imageLayer.magnificationFilter = (_game.metadata.cover.interpolation == kNearestNeighbor) ? kCAFilterNearest : kCAFilterTrilinear;
 
-    layer.drawsAsynchronously = YES;
-    layer.contentsGravity = kCAGravityResize;
+    imageLayer.drawsAsynchronously = YES;
+    imageLayer.contentsGravity = kCAGravityResize;
 
-    layer.contents = image;
+    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
 
-    self.layer = layer;
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue
+                     forKey:kCATransactionDisableActions];
+
+    imageLayer.contents = image;
+    imageLayer.frame = self.bounds;
+    imageLayer.bounds = self.bounds;
+
+    [self.layer addSublayer:imageLayer];
+
+    [CATransaction commit];
+
 
     self.accessibilityLabel = _game.metadata.coverArtDescription;
     if (!self.accessibilityLabel.length)
@@ -209,6 +260,30 @@
 
 - (NSSize) intrinsicContentSize {
     return _intrinsic;
+}
+
+- (void)layout {
+    [super layout];
+    [self positionImagelayer];
+}
+
+- (void)positionImagelayer {
+    if (self.ratio == 0)
+        return;
+
+    NSSize superSize = self.frame.size;
+
+    NSRect imageFrame = NSMakeRect(0,0, superSize.width, superSize.width / self.ratio);
+        if (NSMaxY(imageFrame) > NSMaxY(self.frame))
+            imageFrame.origin.y = NSMaxY(self.frame) - imageFrame.size.height;
+
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue
+                     forKey:kCATransactionDisableActions];
+    self.layer.frame = self.frame;
+    for (CALayer *layer in self.layer.sublayers)
+        layer.frame = imageFrame;
+    [CATransaction commit];
 }
 
 #pragma mark Actions
@@ -722,43 +797,70 @@
     return NSDragOperationCopy;
 }
 
-- (void)mouseDown:(NSEvent*)event {
+- (void)myMouseDown {
     _isSelected = YES;
     [self.window makeFirstResponder:self];
-    [super mouseDown:event];
     [self updateLayer];
+}
+
+- (void)mouseDown:(NSEvent *)theEvent {
+
+    NSDate *mouseTime = [NSDate date];
+
+    __block NSPoint location = [self convertPoint:theEvent.locationInWindow fromView: nil];
+
+    NSEventMask eventMask = NSLeftMouseDownMask | NSLeftMouseDraggedMask | NSLeftMouseUpMask;
+    NSTimeInterval timeout = NSEventDurationForever;
+
+    CGFloat dragThreshold = 0.3;
+
+    [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
+
+        BOOL noDrag = YES;
+
+        if (!event) { return; }
+
+        if (event.type == NSEventTypeLeftMouseUp) {
+            *stop = YES;
+            if (noDrag || [mouseTime timeIntervalSinceNow] > -0.5) {
+                [self myMouseDown];
+            }
+        } else if (event.type == NSEventTypeLeftMouseDragged) {
+            noDrag = NO;
+            NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
+            if (ABS(movedLocation.x - location.x) >dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
+                *stop = YES;
+
+                if (_isPlaceholder)
+                    return;
+
+                NSDraggingItem *dragItem;
+
+                if (@available(macOS 10.14, *)) {
+
+                    MyFilePromiseProvider *provider = [[MyFilePromiseProvider alloc] initWithFileType: NSPasteboardTypePNG delegate:self];
+
+                    dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:provider];
+
+                } else {
+                    NSPasteboardItem *pasteboardItem = [NSPasteboardItem new];
+
+                    [pasteboardItem setDataProvider:self forTypes:@[NSPasteboardTypePNG, PasteboardFileURLPromise, PasteboardFilePromiseContent]];
+
+                    // Create the dragging item for the drag operation
+                    dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteboardItem];
+                }
+
+                [dragItem setDraggingFrame:self.bounds contents:_image];
+                NSDraggingSession *session = [self beginDraggingSessionWithItems:@[dragItem] event:event source:self];
+                _numberForSelfSourcedDrag = session.draggingSequenceNumber;
+            }
+        }
+    }];
 }
 
 - (void)superMouseDown:(NSEvent*)event {
     [super mouseDown:event];
-}
-
-- (void)mouseDragged:(NSEvent*)event
-{
-    if (_isPlaceholder)
-        return;
-
-    NSDraggingItem *dragItem;
-
-    if (@available(macOS 10.14, *)) {
-
-        MyFilePromiseProvider *provider = [[MyFilePromiseProvider alloc] initWithFileType: NSPasteboardTypePNG delegate:self];
-
-        dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:provider];
-
-    } else {
-        NSPasteboardItem *pasteboardItem = [NSPasteboardItem new];
-
-        [pasteboardItem setDataProvider:self forTypes:@[NSPasteboardTypePNG, PasteboardFileURLPromise, PasteboardFilePromiseContent]];
-
-        // Create the dragging item for the drag operation
-        dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteboardItem];
-    }
-
-    [dragItem setDraggingFrame:self.bounds contents:_image];
-    NSDraggingSession *session = [self beginDraggingSessionWithItems:@[dragItem] event:event source:self];
-    _numberForSelfSourcedDrag = session.draggingSequenceNumber;
-
 }
 
 // For pre-10.14
