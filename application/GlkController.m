@@ -1642,6 +1642,11 @@ fprintf(stderr, "%s\n",                                                    \
     // Make sure any new Glk events are queued
     waitforfilename = YES;
 
+    if (_showingCoverImage) {
+        [[NSNotificationCenter defaultCenter]
+         removeObserver:_coverController];
+        _coverController = nil;
+    }
     [self autoSaveOnExit];
     [_soundHandler stopAllAndCleanUp];
 

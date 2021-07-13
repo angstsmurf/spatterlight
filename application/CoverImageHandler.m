@@ -197,6 +197,8 @@
             [imageWindow.contentView.layer addAnimation:fadeOutAnimation forKey:nil];
         } completionHandler:^{
             [imageWindow orderOut:nil];
+            [[NSNotificationCenter defaultCenter]
+             removeObserver:self];
         }];
     }
 }
