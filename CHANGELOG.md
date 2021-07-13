@@ -1,5 +1,15 @@
 # Change log
 
+## Release 0.8.3
+- QuickLook plugin blorb support was broken
+- Drag support for all image views, including inline images
+- Drag, drop and contextual menu for cover image in "Show and wait for key" mode
+- "Show and wait for key" background color changes according to the border color
+- Huge images are shrunk when imported
+- Improved look of Game Over bezel
+- Turning off automatic border color keeps the automatically-set color until the user changes it
+- Option to switch off bezel notifications (cover image bezels will still show)
+
 ## Release 0.8.2
 - Adds a contextual menu to the cover image views in info windows and the library sidebar
 - Using this contextual menu, a new image can be downloaded or loaded from disk
