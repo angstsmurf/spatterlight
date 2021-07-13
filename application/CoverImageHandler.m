@@ -351,6 +351,11 @@
 }
 
 - (void)notePreferencesChanged:(NSNotification *)notify {
+    if (_glkctl.theme.coverArtStyle != kShowAndWait) {
+        if (_waitingforkey)
+            [self forkInterpreterTask];
+        return;
+    }
     if (_glkctl.theme.borderBehavior == kUserOverride)
         [_glkctl setBorderColor:_glkctl.theme.borderColor];
     else
