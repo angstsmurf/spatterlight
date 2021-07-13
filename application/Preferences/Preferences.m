@@ -1746,6 +1746,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.borderBehavior = ([sender state] == NSOffState);
+    if (themeToChange.borderBehavior == kUserOverride)
+        themeToChange.borderColor = _borderColorWell.color;
 }
 
 - (Theme *)cloneThemeIfNotEditable {
