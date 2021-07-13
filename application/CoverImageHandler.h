@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable) KeyPressView *backgroundView;
 
 @property (readonly) NSWindow *enterFullscreenWindow;
-@property (readonly) NSWindow *exitFullscreenWindow;
 
 - (instancetype)initWithController:(GlkController *)controller;
 
