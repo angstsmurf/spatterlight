@@ -441,8 +441,8 @@ NSString *fontToString(NSFont *font) {
         theme.borderColor = theme.bufferBackground;
 
     _btnVOSpeakCommands.state = theme.vOSpeakCommand;
-    [_vOMenuButton selectItemAtIndex:theme.vOSpeakMenu];
-    [_vOImagesButton selectItemAtIndex:theme.vOSpeakImages];
+    [_vOMenuButton selectItemWithTag:theme.vOSpeakMenu];
+    [_vOImagesButton selectItemWithTag:theme.vOSpeakImages];
 
     NSString *beepHigh = theme.beepHigh;
     NSString *beepLow = theme.beepLow;
@@ -459,7 +459,7 @@ NSString *fontToString(NSFont *font) {
     [_beepHighMenu selectItemWithTitle:beepHigh];
     [_beepLowMenu selectItemWithTitle:beepLow];
     [_zterpMenu selectItemAtIndex:theme.zMachineTerp];
-    [_bZArrowsMenu selectItemAtIndex:theme.bZTerminator];
+    [_bZArrowsMenu selectItemWithTag:theme.bZTerminator];
 
     _zVersionTextField.stringValue = theme.zMachineLetter;
 
@@ -470,12 +470,12 @@ NSString *fontToString(NSFont *font) {
     _btnAutosave.state = theme.autosave;
     _btnAutosaveOnTimer.state = theme.autosaveOnTimer;
     _btnAutosaveOnTimer.enabled = _btnAutosave.state ? YES : NO;
-    [_errorHandlingPopup selectItemAtIndex:theme.errorHandling];
+    [_errorHandlingPopup selectItemWithTag:theme.errorHandling];
 
     _btnDeterminism.state = theme.determinism;
     _btnNoHacks.state = theme.nohacks ? NSOffState : NSOnState;
 
-    [_coverImagePopup selectItemAtIndex:theme.coverArtStyle];
+    [_coverImagePopup selectItemWithTag:theme.coverArtStyle];
 
     [_imageReplacePopup selectItemWithTag:[defaults integerForKey:@"ImageReplacement"]];
 
