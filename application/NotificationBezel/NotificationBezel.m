@@ -20,6 +20,9 @@
 
 - (void)showStandardWithText:(NSString *)text {
 
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"ShowBezels"])
+        return;
+
     NSRect contentRect = [self lowerCenterRectOfSize: NSMakeSize(200, 200)];
 
     BezelWindow *bezelWindow = [[BezelWindow alloc] initWithContentRect:contentRect];
@@ -51,6 +54,10 @@
 }
 
 - (void)showGameOver {
+
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"ShowBezels"])
+        return;
+
     NSRect contentRect = [self lowerCenterRectOfSize: NSMakeSize(200, 200)];
 
     BezelWindow *bezelWindow = [[BezelWindow alloc] initWithContentRect:contentRect];

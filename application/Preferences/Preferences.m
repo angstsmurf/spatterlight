@@ -479,6 +479,8 @@ NSString *fontToString(NSFont *font) {
 
     [_imageReplacePopup selectItemWithTag:[defaults integerForKey:@"ImageReplacement"]];
 
+    _btnShowBezels.state = [defaults boolForKey:@"ShowBezels"] ? NSOnState : NSOffState;
+
     if (theme.minTimer != 0) {
         if (_timerSlider.integerValue != 1000.0 / theme.minTimer) {
             _timerSlider.integerValue = (long)(1000.0 / theme.minTimer);
@@ -1664,6 +1666,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeShowCoverImage:(id)sender {
     [self changeMenuAttribute:@"coverArtStyle" fromPopUp:sender];
+}
+
+- (IBAction)changeShowBezel:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSOnState) forKey:@"ShowBezels"];
 }
 
 #pragma mark End of Misc menu

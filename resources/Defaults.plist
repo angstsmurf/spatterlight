@@ -30,4 +30,5 @@
 	AntialiasFonts = 1;
 	"SelectedGlkWindowType" = 3;
 	SelectedStyle = 8;
+	ShowBezels = YES;
 }
