@@ -978,7 +978,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (selectedFontButton)
         selectedfontString = selectedFontButton.identifier;
     [state encodeObject:selectedfontString forKey:@"selectedFont"];
-    [state encodeDouble:NSHeight(self.window.frame) forKey:@"windowHeight"];
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
@@ -991,15 +990,23 @@ textShouldEndEditing:(NSText *)fieldEditor {
             }
         }
     }
+
     _previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
     if (!_previewShown) {
         [self resizeWindowToHeight:defaultWindowHeight];
     } else {
-        CGFloat storedHeight = [state decodeDoubleForKey:@"windowHeight"];
-        if (storedHeight > defaultWindowHeight)
-            [self resizeWindowToHeight:storedHeight];
-        else
+        CGFloat restoredHeight = NSHeight(self.window.frame);
+
+        // Hack to fix weird bug where a sliver of the preview window
+        // keeps showing on restart
+        if (restoredHeight < defaultWindowHeight + 10) {
+            [self togglePreview:nil];
+            return;
+        }
+
+        if (restoredHeight <= defaultWindowHeight)
             [self resizeWindowToHeight:[self previewHeight]];
+        [self adjustPreview:nil];
     }
 }
 
