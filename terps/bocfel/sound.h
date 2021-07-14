@@ -16,7 +16,7 @@ void recover_library_sound_state(library_state_data *dat);
 #endif
 
 #ifdef GLK_MODULE_SOUND
-extern uint16_t routine;
+extern uint16_t sound_routine;
 void sound_stopped(void);
 #endif
 

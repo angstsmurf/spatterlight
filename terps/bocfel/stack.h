@@ -6,8 +6,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "io.h"
-
 #define DEFAULT_STACK_SIZE	0x4000
 #define DEFAULT_CALL_DEPTH	0x400
 
@@ -15,27 +13,40 @@ extern bool seen_save_undo;
 
 void init_stack(void);
 
-uint16_t variable(uint16_t);
-void store_variable(uint16_t, uint16_t);
+uint16_t variable(uint16_t var);
+void store_variable(uint16_t var, uint16_t n);
 uint16_t *stack_top_element(void);
 
 void start_v6(void);
 #ifdef ZTERP_GLK
-uint16_t direct_call(uint16_t);
+uint16_t internal_call(uint16_t routine);
 #endif
-void do_return(uint16_t);
+void do_return(uint16_t retval);
 
-bool do_save(bool);
-bool do_restore(bool, bool *);
+enum SaveType {
+    SaveTypeNormal,
+    SaveTypeMeta,
+    SaveTypeAutosave,
+};
 
-bool save_quetzal(zterp_io *savefile, bool is_meta, bool store_history);
-bool restore_quetzal(zterp_io *savefile, bool is_meta, bool *is_bfms);
+enum SaveOpcode {
+    SaveOpcodeNone = -1,
+    SaveOpcodeRead = 0,
+    SaveOpcodeReadChar = 1,
+};
 
-enum save_type { SAVE_GAME, SAVE_USER };
-bool push_save(enum save_type, bool, const char *);
-bool pop_save(enum save_type, long, bool *);
-bool drop_save(enum save_type, long);
-void list_saves(enum save_type, void (*)(const char *));
+bool do_save(enum SaveType savetype, enum SaveOpcode saveopcode);
+bool do_restore(enum SaveType savetype, enum SaveOpcode *saveopcode);
+
+enum SaveStackType {
+    SaveStackGame,
+    SaveStackUser
+};
+
+bool push_save(enum SaveStackType type, enum SaveType savetype, enum SaveOpcode saveopcode, const char *desc);
+bool pop_save(enum SaveStackType type, long saveno, enum SaveOpcode *saveopcode);
+bool drop_save(enum SaveStackType type, long i);
+void list_saves(enum SaveStackType type, void (*printer)(const char *));
 
 void zpush(void);
 void zpull(void);

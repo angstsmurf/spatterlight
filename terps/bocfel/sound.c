@@ -32,9 +32,8 @@
 
 #ifdef GLK_MODULE_SOUND
 static schanid_t sound_channel = NULL;
-uint16_t routine;
+uint16_t sound_routine;
 static uint16_t queued_sound = 0;
-static bool locked = false;
 #endif
 
 void init_sound(void)
@@ -62,9 +61,7 @@ bool sound_loaded(void)
 #ifdef GLK_MODULE_SOUND
 void sound_stopped(void)
 {
-    if (!locked && routine > 0) {
-        direct_call(routine);
-    } else if (queued_sound) {
+    if (queued_sound) {
         glk_schannel_set_volume(sound_channel, 0x10000);
         glk_schannel_play_ext(sound_channel, queued_sound, 1, 0);
         queued_sound = 0;
@@ -75,10 +72,10 @@ void sound_stopped(void)
 void zsound_effect(void)
 {
 #ifdef GLK_MODULE_SOUND
-#define SOUND_EFFECT_PREPARE    1
-#define SOUND_EFFECT_START    2
-#define SOUND_EFFECT_STOP    3
-#define SOUND_EFFECT_FINISH    4
+#define SOUND_EFFECT_PREPARE	1
+#define SOUND_EFFECT_START	2
+#define SOUND_EFFECT_STOP	3
+#define SOUND_EFFECT_FINISH	4
 
     uint16_t number, effect;
 
@@ -99,8 +96,6 @@ void zsound_effect(void)
     if (number == 0 && effect != SOUND_EFFECT_STOP) {
         return;
     }
-
-    locked = true;
 
     switch (effect) {
     case SOUND_EFFECT_PREPARE:
@@ -160,17 +155,16 @@ void zsound_effect(void)
             }
             if (number == 9 || number == 16) {
                 queued_sound = number;
-                locked = false;
                 return;
             }
         }
 
         glk_schannel_set_volume(sound_channel, vols[volume - 1]);
 
-        routine = znargs >= 4 ? zargs[3] : 0;
+        sound_routine = znargs >= 4 ? zargs[3] : 0;
 
         if (!glk_schannel_play_ext(sound_channel, number, repeats == 255 ? -1 : repeats, 1)) {
-            routine = 0;
+            sound_routine = 0;
         }
 
         break;
@@ -202,14 +196,13 @@ void zsound_effect(void)
 
         if (queued_sound == 0) {
             glk_schannel_stop(sound_channel);
-            routine = 0;
+            sound_routine = 0;
         }
         break;
     case SOUND_EFFECT_FINISH:
         glk_sound_load_hint(number, 0);
         break;
     }
-    locked = false;
 #endif
 }
 
@@ -218,7 +211,7 @@ void stash_library_sound_state(library_state_data *dat)
 {
     if (!dat)
         return;
-    dat->routine = routine;
+    dat->routine = sound_routine;
     dat->queued_sound = queued_sound;
     if (sound_loaded())
         dat->sound_channel_tag = sound_channel->tag;
@@ -228,7 +221,7 @@ void recover_library_sound_state(library_state_data *dat)
 {
     if (!dat)
         return;
-    routine = dat->routine;
+    sound_routine = dat->routine;
     queued_sound = dat->queued_sound;
     sound_channel = gli_schan_for_tag(dat->sound_channel_tag);
 }

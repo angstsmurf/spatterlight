@@ -675,6 +675,7 @@
 		C3F9D8872675FCE00076EAFB /* OSFastGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8822675FCDF0076EAFB /* OSFastGraphics.m */; };
 		C3F9D8882675FCE00076EAFB /* OSCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8832675FCE00076EAFB /* OSCategories.m */; };
 		C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F9D8892675FCF70076EAFB /* OSImageHashing.m */; };
+		C3FB3287269F5BEE00A1B09C /* stash.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FB3286269F5BEE00A1B09C /* stash.c */; };
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
 /* End PBXBuildFile section */
 
@@ -2715,6 +2716,8 @@
 		C3F9D8862675FCE00076EAFB /* OSCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCategories.h; sourceTree = "<group>"; };
 		C3F9D8892675FCF70076EAFB /* OSImageHashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSImageHashing.m; sourceTree = "<group>"; };
 		C3F9D88A2675FCF70076EAFB /* OSImageHashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSImageHashing.h; sourceTree = "<group>"; };
+		C3FB3285269F5BEE00A1B09C /* stash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stash.h; sourceTree = "<group>"; };
+		C3FB3286269F5BEE00A1B09C /* stash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stash.c; sourceTree = "<group>"; };
 		C3FE98D8261B2CA900152AB6 /* RotorHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotorHandler.h; sourceTree = "<group>"; };
 		C3FE98D9261B2CA900152AB6 /* RotorHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotorHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3258,6 +3261,8 @@
 				6DB774BA2458B9B300EDC671 /* sound.c */,
 				6DD3D27A2512C11300667CA6 /* stack.h */,
 				6DB774BB2458B9B300EDC671 /* stack.c */,
+				C3FB3285269F5BEE00A1B09C /* stash.h */,
+				C3FB3286269F5BEE00A1B09C /* stash.c */,
 				6DD3D27B2512C11300667CA6 /* unicode.h */,
 				6DB774BC2458B9B300EDC671 /* unicode.c */,
 				6DD3D27C2512C11300667CA6 /* util.h */,
@@ -6035,6 +6040,7 @@
 				6DB774C42458B9B300EDC671 /* iff.c in Sources */,
 				6DB774C52458B9B300EDC671 /* io.c in Sources */,
 				6DB774C62458B9B300EDC671 /* math.c in Sources */,
+				C3FB3287269F5BEE00A1B09C /* stash.c in Sources */,
 				6DB774C72458B9B300EDC671 /* memory.c in Sources */,
 				6DB774C82458B9B300EDC671 /* meta.c in Sources */,
 				6DB774C92458B9B300EDC671 /* objects.c in Sources */,

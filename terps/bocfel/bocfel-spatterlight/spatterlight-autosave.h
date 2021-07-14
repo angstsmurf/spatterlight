@@ -16,7 +16,7 @@
  *    documentation and/or other materials provided with the distribution.
  * 3. The name of the author may not be used to endorse or promote products
  *    derived from this software without specific prior written permission.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -35,12 +35,10 @@
 
 #include "stack.h"
 
-int spatterlight_do_autosave(void);
-int spatterlight_restore_autosave(void);
+void spatterlight_do_autosave(enum SaveOpcode saveopcode);
+bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode);
 
 typedef struct library_state_data_struct {
-    int active; /* does this structure contain meaningful data? */
-    int headerfixedfont;
     int wintag0;
     int wintag1;
     int wintag2;
@@ -54,20 +52,9 @@ typedef struct library_state_data_struct {
     int statuswintag;
     int errorwintag;
     int upperwintag;
-    long upperwinheight;
-    long upperwinwidth;
-    long upperwinx;
-    long upperwiny;
-    uint16_t fgcolor;
-    int fgmode;
-    uint16_t bgcolor;
-    int bgmode;
-    int style;
     uint16_t routine;
     int queued_sound;
     int sound_channel_tag;
-    int random_calls_count;
-
 } library_state_data;
 
 void recover_library_state(library_state_data *dat);
