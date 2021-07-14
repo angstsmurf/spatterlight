@@ -188,6 +188,7 @@ fprintf(stderr, "%s\n",                                                    \
     BOOL skipNextScriptCommand;
     //    NSDate *lastFlushTimestamp;
     NSDate *lastKeyTimestamp;
+    NSDate *lastResetTimestamp;
 }
 @end
 
@@ -1444,6 +1445,10 @@ fprintf(stderr, "%s\n",                                                    \
 }
 
 - (IBAction)reset:(id)sender {
+    if (lastResetTimestamp && [lastResetTimestamp timeIntervalSinceNow] < -1) {
+        restartingAlready = NO;
+    }
+
     if (restartingAlready || _showingCoverImage)
         return;
 
@@ -1452,6 +1457,7 @@ fprintf(stderr, "%s\n",                                                    \
     [_soundHandler stopAllAndCleanUp];
 
     restartingAlready = YES;
+    lastResetTimestamp = [NSDate date];
     _mustBeQuiet = YES;
 
     [self handleSetTimer:0];
@@ -3489,6 +3495,7 @@ static BOOL pollMoreData(int fd) {
     NSLog(@"glkctl: noteTaskDidTerminate");
 
     dead = YES;
+    restartingAlready = NO;
 
     if (timer) {
         [timer invalidate];
