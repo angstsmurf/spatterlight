@@ -414,8 +414,29 @@ fprintf(stderr, "%s\n",                                                    \
         //			_game.ifid = [ifidField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         //		}
 
-        dispatch_async(dispatch_get_main_queue(), ^{[textfield.window makeFirstResponder:nil];});
+        // When the user has edited text and pressed enter, we want the field to be deselected,
+        // but we must check that the user did not end editing by selecting a different field,
+        // because then the edited field is already deselected and we don't want to deselect
+        // the new one.
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.window.firstResponder == textfield.currentEditor) {
+                [self.window makeFirstResponder:nil];
+            }
+        });
     }
+}
+
+- (BOOL)control:(NSControl*)control textView:(NSTextView*)textView doCommandBySelector:(SEL)commandSelector
+{
+    if (textView == descriptionText.currentEditor && commandSelector == @selector(insertNewline:))
+    {
+        // Insert a line-break character and don't cause the receiver
+        // to end editing
+        [textView insertNewlineIgnoringFieldEditor:self];
+        return YES;
+    }
+
+    return NO;
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
