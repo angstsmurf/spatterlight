@@ -349,7 +349,7 @@
                 win->line_terminators[i]=(glui32)((NSNumber *)[line_terminators objectAtIndex:i]).intValue;
             win->line_terminators[win->termct] = 0;
         }
-    }
+    } else win->line_terminators = NULL;
 
     win->style = style;
     win->attr.fgset = fgset;
