@@ -70,6 +70,7 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSError *error = nil;
 
+        // Rename any existing autosave file
         NSString *finalgamepath = [dirname stringByAppendingPathComponent:@"autosave.glksave"];
         NSString *oldgamepath = [dirname stringByAppendingPathComponent:@"autosave-bak.glksave"];
         
@@ -81,7 +82,11 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
         
         if (!res) {
             win_showerror("Failed to autosave.");
-            NSLog(@"save_game_to_stream failed!");
+            NSLog(@"do_save() failed!");
+
+            // Re-instate the old renamed save file back to where it was
+            [fileManager removeItemAtPath:finalgamepath error:&error];
+            [fileManager moveItemAtPath:oldgamepath toPath:finalgamepath error:&error];
             return;
         }
         
@@ -112,7 +117,7 @@ void spatterlight_do_autosave(enum SaveOpcode saveopcode) {
         if (!res) {
             /* We don't abort out in this case; we leave the game autosave in place by itself, which is not ideal but better than data loss. */
             win_showerror("Could not move autosave plist to final position.");
-            NSLog(@"could not move library autosave to final position (continuing)");
+            NSLog(@"Could not move library autosave to final position (continuing)");
         }
         win_autosave(library.autosaveTag); // Call window server to do its own autosave
     }
