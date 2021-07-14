@@ -484,7 +484,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <popUpButton toolTip="All entries in the database, regardless of whether the game is in the library or not." verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49">
-                    <rect key="frame" x="123" y="6" width="159" height="25"/>
+                    <rect key="frame" x="123" y="6" width="162" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Edited Entries" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="53" id="74">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
