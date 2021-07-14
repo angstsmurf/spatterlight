@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)processImage:(NSImage *)image;
 - (void)superMouseDown:(NSEvent*)event;
 - (void)paste:(id)sender;
+- (void)positionImagelayer;
 
 @end
 

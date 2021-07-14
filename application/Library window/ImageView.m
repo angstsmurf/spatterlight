@@ -36,6 +36,7 @@
     NSSet<NSPasteboardType> *nonURLTypes;
     NSArray<NSString *> *imageTypes;
     CALayer *imageLayer;
+    CAShapeLayer *shapeLayer;
 }
 
 @property NSOperationQueue *workQueue;
@@ -120,36 +121,43 @@
 }
 
 - (void)updateLayer {
-    NSArray *layers = self.layer.sublayers.copy;
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue
-                     forKey:kCATransactionDisableActions];
-    for (CALayer *sub in layers)
-        if (sub != imageLayer)
-            [sub removeFromSuperlayer];
-    [CATransaction commit];
+    if (shapeLayer) {
+        // We delete the focus border if we are not selected or
+        // it is the wrong size
+        if ((!_isSelected && !_isReceivingDrag) ||
+            !NSEqualRects(shapeLayer.frame, self.bounds)) {
+            [CATransaction begin];
+            [CATransaction setValue:(id)kCFBooleanTrue
+                             forKey:kCATransactionDisableActions];
+            [shapeLayer removeFromSuperlayer];
+            shapeLayer = nil;
+            self.layer.mask = nil;
+            [CATransaction commit];
+        }
+    }
 
-    self.layer.mask = nil;
     if (_isSelected || _isReceivingDrag) {
 
+        if (shapeLayer && NSEqualRects(shapeLayer.frame, self.bounds))
+            return;
         if (self.frame.size.width * self.frame.size.height == 0)
             return;
 
         // Create a selection border
-        CAShapeLayer *shapelayer = [CAShapeLayer layer];
+        shapeLayer = [CAShapeLayer layer];
 
-        shapelayer.fillColor = NSColor.clearColor.CGColor;
-        shapelayer.frame = self.bounds;
+        shapeLayer.fillColor = NSColor.clearColor.CGColor;
+        shapeLayer.frame = self.bounds;
 
-        shapelayer.lineJoin = kCALineJoinRound;
-        shapelayer.strokeColor = NSColor.selectedControlColor.CGColor;
+        shapeLayer.lineJoin = kCALineJoinRound;
+        shapeLayer.strokeColor = NSColor.selectedControlColor.CGColor;
         CGFloat lineWidth = 4;
-        shapelayer.lineWidth = lineWidth;
+        shapeLayer.lineWidth = lineWidth;
         CGRect borderRect = NSMakeRect(lineWidth / 2, lineWidth / 2, self.bounds.size.width - lineWidth, self.bounds.size.height - lineWidth);
         CGPathRef roundedRectPath = CGPathCreateWithRoundedRect(borderRect, 2.5, 2.5, NULL);
-        shapelayer.path = roundedRectPath;
-        [self.layer addSublayer:shapelayer];
-        shapelayer.drawsAsynchronously = YES;
+        shapeLayer.path = roundedRectPath;
+        shapeLayer.drawsAsynchronously = YES;
+        [self.layer addSublayer:shapeLayer];
         CFRelease(roundedRectPath);
 
         // Use a mask layer to hide the sharp corners of the image
@@ -184,7 +192,6 @@
     }
 
     self.frame = imageFrame;
-
 
     [CATransaction begin];
     [CATransaction setValue:(id)kCFBooleanTrue
@@ -233,9 +240,16 @@
     imageLayer.bounds = self.bounds;
 
     [self.layer addSublayer:imageLayer];
+    // Put any focus border on top
+    if (shapeLayer) {
+        [shapeLayer removeFromSuperlayer];
+        [self.layer addSublayer:shapeLayer];
+    }
+
+    imageLayer.layoutManager  = [CAConstraintLayoutManager layoutManager];
+    imageLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
 
     [CATransaction commit];
-
 
     self.accessibilityLabel = _game.metadata.coverArtDescription;
     if (!self.accessibilityLabel.length)
@@ -268,21 +282,24 @@
 }
 
 - (void)positionImagelayer {
-    if (self.ratio == 0)
+    if (self.ratio == 0 || !imageLayer) {
         return;
+    }
 
     NSSize superSize = self.frame.size;
 
     NSRect imageFrame = NSMakeRect(0,0, superSize.width, superSize.width / self.ratio);
-        if (NSMaxY(imageFrame) > NSMaxY(self.frame))
-            imageFrame.origin.y = NSMaxY(self.frame) - imageFrame.size.height;
+    if (NSMaxY(imageFrame) > NSMaxY(self.frame))
+        imageFrame.origin.y = NSMaxY(self.frame) - imageFrame.size.height;
 
     [CATransaction begin];
     [CATransaction setValue:(id)kCFBooleanTrue
                      forKey:kCATransactionDisableActions];
-    self.layer.frame = self.frame;
-    for (CALayer *layer in self.layer.sublayers)
-        layer.frame = imageFrame;
+    imageLayer.frame = imageFrame;
+    if (shapeLayer) {
+        [self updateLayer];
+    }
+
     [CATransaction commit];
 }
 
@@ -613,6 +630,8 @@
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)draggingInfo {
 
+    _isReceivingDrag = NO;
+
     NSArray<Class> *supportedClasses = @[
         [NSURL class], [NSImage class]
     ];
@@ -797,9 +816,10 @@
     return NSDragOperationCopy;
 }
 
-- (void)myMouseDown {
+- (void)myMouseDown:(NSEvent *)event {
     _isSelected = YES;
     [self.window makeFirstResponder:self];
+    [super mouseDown:event];
     [self updateLayer];
 }
 
@@ -821,7 +841,7 @@
         if (event.type == NSEventTypeLeftMouseUp) {
             *stop = YES;
             if ([mouseTime timeIntervalSinceNow] > -0.5) {
-                [self myMouseDown];
+                [self myMouseDown:event];
             }
         } else if (event.type == NSEventTypeLeftMouseDragged) {
             NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
