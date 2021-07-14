@@ -24,9 +24,6 @@
     if (self) {
         _delegate = delegate;
         self.frame = frame;
-        NSImageRep *rep = self.image.representations.lastObject;
-        _sizeInPixels = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
-        self.ratio = _sizeInPixels.width / _sizeInPixels.height;
     }
     return self;
 }
@@ -39,7 +36,7 @@
     [_delegate forkInterpreterTask];
 }
 
-- (void)myMouseDown {
+- (void)myMouseDown:(NSEvent *)event {
     [_delegate forkInterpreterTask];
 }
 
@@ -68,15 +65,7 @@
 
     self.frame = imageFrame;
 
-
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue
-                     forKey:kCATransactionDisableActions];
-    self.layer.frame = imageFrame;
-    imageFrame.origin = NSZeroPoint;
-    for (CALayer *layer in self.layer.sublayers)
-        layer.frame = imageFrame;
-    [CATransaction commit];
+    [self positionImagelayer];
 }
 
 

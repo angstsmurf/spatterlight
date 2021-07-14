@@ -3732,13 +3732,6 @@ again:
             });
         }
     }
-    if (_showingCoverImage && [updatedObjects containsObject:_game.metadata.cover])
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.coverController imageDidChange];
-        });
-    }
-
 }
 
 

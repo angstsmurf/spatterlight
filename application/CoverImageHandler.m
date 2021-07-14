@@ -118,8 +118,7 @@
     [newWin.contentView.layer addSublayer:imagelayer];
     imagelayer.layoutManager = [CAConstraintLayoutManager layoutManager];
     imagelayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
-    imagelayer.frame = newWin.contentView.frame;
-    imagelayer.bounds = newWin.contentView.bounds;
+    imagelayer.frame = _imageView.bounds;
     [CATransaction commit];
 
     [newWin.windowController showWindow:nil];
@@ -203,15 +202,19 @@
     }
 }
 
-- (void)imageDidChange {
-    if (_imageView) {
+- (void)noteManagedObjectContextDidChange:(NSNotification *)notification {
+    NSArray *updatedObjects = (notification.userInfo)[NSUpdatedObjectsKey];
+    if ([updatedObjects containsObject:_glkctl.game.metadata] ||
+        [updatedObjects containsObject:_glkctl.game.metadata.cover])
+    {
         NSImage *image = [[NSImage alloc] initWithData:(NSData *)_glkctl.game.metadata.cover.data];
-        if (image)
-            [_imageView processImage:image];
-        if (@available(macOS 10.15, *)) {
-            [_imageView positionImage];
-        } else {
+        if (image) {
+            CoverImageHandler __unsafe_unretained *weakSelf = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
 
+            [weakSelf.imageView processImage:image];
+            [weakSelf.imageView positionImage];
+            });
         }
     }
 }
@@ -247,6 +250,12 @@
      selector:@selector(notePreferencesChanged:)
      name:@"PreferencesChanged"
      object:nil];
+
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(noteManagedObjectContextDidChange:)
+     name:NSManagedObjectContextObjectsDidChangeNotification
+     object:_glkctl.game.managedObjectContext];
 
     // We need one view that covers the game window, to catch all mouse clicks
     _backgroundView = [[KeyPressView alloc] initWithFrame:window.contentView.bounds];
@@ -387,7 +396,8 @@
 
     _backgroundView.hidden = YES;
 
-    NSSize imageSize = _imageView.sizeInPixels;
+    NSImageRep *rep = _imageView.image.representations.lastObject;
+    NSSize imageSize = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
 
     CGFloat ratio = imageSize.width / imageSize.height;
     NSRect imageFrame = NSMakeRect(0,0, fullScreenHeight * ratio, fullScreenHeight);

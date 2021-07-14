@@ -15,9 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFrame:(NSRect)frame delegate:(CoverImageHandler *)delegate;
 
-@property NSSize sizeInPixels;
-@property NSImageInterpolation interpolation;
-
 @property (weak) CoverImageHandler *delegate;
 
 @property BOOL inFullscreenResize;
