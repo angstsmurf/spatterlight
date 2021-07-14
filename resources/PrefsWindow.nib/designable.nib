@@ -144,7 +144,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="55Y-5M-4dK">
                                                 <rect key="frame" x="0.0" y="0.0" width="434" height="209"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="ThemesTable" rowSizeStyle="automatic" viewBased="YES" id="676">
                                                         <rect key="frame" x="0.0" y="0.0" width="434" height="209"/>
@@ -1451,7 +1451,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z06-U7-Bqt">
-                                            <rect key="frame" x="47" y="42" width="169" height="16"/>
+                                            <rect key="frame" x="47" y="42" width="169" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Show bezel notifications" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="nKf-rB-8cV">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1461,19 +1461,8 @@
                                                 <action selector="changeShowBezel:" target="-2" id="rBS-co-QvE"/>
                                             </connections>
                                         </button>
-                                        <button toolTip="Turn on and off smooth text scrolling." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXQ-kH-vl0">
-                                            <rect key="frame" x="258" y="63" width="141" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Animate scrolling" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="5jQ-wj-4JH">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="changeSmoothScroll:" target="-2" id="gd3-Sq-S9r"/>
-                                            </connections>
-                                        </button>
                                         <button toolTip="Make random functions always return the same numbers in the same order. Useful for debugging. Only works on some game formats." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k0h-Aw-qLS">
-                                            <rect key="frame" x="258" y="42" width="98" height="18"/>
+                                            <rect key="frame" x="258" y="63" width="98" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Determinism" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="cGJ-GR-t8a">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1516,6 +1505,17 @@
                                             </buttonCell>
                                             <connections>
                                                 <action selector="changeAutosaveOnTimer:" target="-2" id="zPt-5X-50l"/>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Turn on and off smooth text scrolling." fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bXQ-kH-vl0">
+                                            <rect key="frame" x="258" y="42" width="141" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Animate scrolling" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="5jQ-wj-4JH">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="changeSmoothScroll:" target="-2" id="gd3-Sq-S9r"/>
                                             </connections>
                                         </button>
                                     </subviews>
