@@ -220,7 +220,7 @@ fprintf(stderr, "%s\n",                                                    \
     NSSize maxsize;
     double scale;
 
-    maxsize = self.window.screen.frame.size;
+    maxsize = self.window.screen.visibleFrame.size;
     wellsize = imageView.frame.size;
     cursize = self.window.frame.size;
 
@@ -244,7 +244,7 @@ fprintf(stderr, "%s\n",                                                    \
     if (height == 0)
         return;
     
-    CGFloat ratio = width / height;
+    CGFloat ratio = (CGFloat)width / (CGFloat)height;
 
     if (imgsize.width > maxsize.width) {
         scale = maxsize.width / imgsize.width;
