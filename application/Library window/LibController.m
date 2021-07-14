@@ -32,6 +32,7 @@
 #import "GameImporter.h"
 
 #import "CommandScriptHandler.h"
+#import "NotificationBezel.h"
 
 #import "Blorb.h"
 
@@ -400,10 +401,11 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
     NSModalResponse choice = [alert runModal];
 
     if (choice == NSAlertFirstButtonReturn) {
-
         NSArray *metadataEntriesToDelete =
         [self fetchObjects:@"Metadata" predicate:@"ANY games == NIL" inContext:_managedObjectContext];
         NSLog(@"Pruning %ld metadata entities", metadataEntriesToDelete.count);
+        NSUInteger counter = metadataEntriesToDelete.count;
+
         for (Metadata *meta in metadataEntriesToDelete) {
             NSLog(@"Pruning metadata for %@", meta.title);
             [_managedObjectContext deleteObject:meta];
@@ -413,9 +415,13 @@ shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)rowIndex {
         NSArray *imageEntriesToDelete = [self fetchObjects:@"Image" predicate:@"ANY metadata == NIL" inContext:_managedObjectContext];
 
         NSLog(@"Pruning %ld image entities", imageEntriesToDelete.count);
+        counter += imageEntriesToDelete.count;
         for (Image *img in imageEntriesToDelete) {
             [_managedObjectContext deleteObject:img];
         }
+
+        NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.window.screen];
+        [notification showStandardWithText:[NSString stringWithFormat:@"%ld entit%@ pruned", counter, counter == 1 ? @"y" : @"ies"]];
 
         [_coreDataManager saveChanges];
     }
