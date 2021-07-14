@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)forkInterpreterTask;
 - (void)showLogoWindow;
-- (void)imageDidChange;
 
 - (void)enterFullScreenWithDuration:(NSTimeInterval)duration;
 - (void)exitFullscreenWithDuration:(NSTimeInterval)duration;
