@@ -207,6 +207,11 @@
     if ([updatedObjects containsObject:_glkctl.game.metadata] ||
         [updatedObjects containsObject:_glkctl.game.metadata.cover])
     {
+        if (_glkctl.game.metadata.cover == nil) {
+            [self forkInterpreterTask];
+            return;
+        }
+
         NSImage *image = [[NSImage alloc] initWithData:(NSData *)_glkctl.game.metadata.cover.data];
         if (image) {
             CoverImageHandler __unsafe_unretained *weakSelf = self;
