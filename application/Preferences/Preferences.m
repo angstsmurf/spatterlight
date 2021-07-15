@@ -250,6 +250,22 @@ NSString *fontToString(NSFont *font) {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _previewShown = [defaults boolForKey:@"ShowThemePreview"];
 
+    if (!_previewShown) {
+        [self resizeWindowToHeight:defaultWindowHeight];
+    } else {
+        CGFloat restoredHeight = NSHeight(self.window.frame);
+
+        // Hack to fix weird bug where a sliver of the preview window
+        // keeps showing on restart
+        if (restoredHeight < defaultWindowHeight + 10) {
+            [self togglePreview:nil];
+        } else {
+            if (restoredHeight <= defaultWindowHeight)
+                [self resizeWindowToHeight:[self previewHeight]];
+            [self adjustPreview:nil];
+        }
+    }
+
     _standardZArrowsMenuItem.title = NSLocalizedString(@"↑ and ↓ work as in original", nil);
     _standardZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history.", nil);
     _compromiseZArrowsMenuItem.title = NSLocalizedString(@"Replaced by \u2318↑ and \u2318↓", nil);
@@ -991,24 +1007,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
                 selectedFontButton = button;
             }
         }
-    }
-
-    _previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
-    if (!_previewShown) {
-        [self resizeWindowToHeight:defaultWindowHeight];
-    } else {
-        CGFloat restoredHeight = NSHeight(self.window.frame);
-
-        // Hack to fix weird bug where a sliver of the preview window
-        // keeps showing on restart
-        if (restoredHeight < defaultWindowHeight + 10) {
-            [self togglePreview:nil];
-            return;
-        }
-
-        if (restoredHeight <= defaultWindowHeight)
-            [self resizeWindowToHeight:[self previewHeight]];
-        [self adjustPreview:nil];
     }
 }
 
