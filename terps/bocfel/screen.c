@@ -1967,6 +1967,17 @@ static bool get_input(uint16_t timer, uint16_t routine, struct input *input)
                 default:
                     if (ev.val1 >= 32 && ev.val1 <= 126) {
                         input->key = ev.val1;
+
+#ifdef SPATTERLIGHT
+// I want to retain the ability to enter my name
+// in the Bureaucracy forms
+                    } else if (ev.val1 <= UINT16_MAX) {
+                        uint8_t c = unicode_to_zscii[ev.val1];
+
+                        if (c != 0) {
+                            input->key = c;
+                        }
+#endif
                     } else {
                         status = InputWaiting;
                         request_char();
