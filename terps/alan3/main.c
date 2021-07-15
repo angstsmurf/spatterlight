@@ -44,6 +44,7 @@
 #ifdef HAVE_GLK
 #include "glk.h"
 #include "glkio.h"
+#include "glkimp.h"
 #ifdef HAVE_WINGLK
 #include "WinGlk.h"
 #endif
@@ -433,7 +434,7 @@ static void checkDebug(void)
         tracePushOption = FALSE;
     }
 
-    if (debugOption || regressionTestOption) /* If debugging or regression testing... */
+    if (debugOption || regressionTestOption || gli_determinism) /* If debugging or regression testing... */
         srand(1);               /* ... use no randomization */
     else
         srand(time(0));         /* Else seed random generator */

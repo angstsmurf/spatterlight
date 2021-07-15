@@ -8,6 +8,7 @@
 #include "header.h"
 #include "advint.h"
 #include "advdbs.h"
+#include "glkimp.h"
 
 /* external variables */
 extern char line[];
@@ -348,6 +349,9 @@ int getrand(int n)
 /* setrand - set the random number seed */
 void setrand(long n)
 {
-    rseed = n;
+    if (gli_determinism)
+        rseed = 1234;
+    else
+        rseed = n;
 }
 

@@ -356,6 +356,8 @@ void glk_main(void)
 	estop = 0;
     if (!gli_determinism)
         srand(time(NULL));
+    else
+        srand(1234);
 	oopt  = 'T';        /* Outputs in plain text */
 	initgame(zxptr); /* Initialise the game */
 	playgame(zxptr); /* Play it */ 

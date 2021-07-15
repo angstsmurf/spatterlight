@@ -39,6 +39,7 @@
 #ifdef GLK
 #include "glk.h"
 #include "glkio.h"
+#include "glkimp.h"
 #endif
 
 /* PUBLIC DATA */
@@ -1589,6 +1590,8 @@ static void checkdebug()
 
   if (dbgflg)			/* If debugging */
     srand(0);			/* use no randomization */
+  else if (gli_determinism)
+    srand(1234);
   else
     srand(time(0));		/* seed random generator */
 }
