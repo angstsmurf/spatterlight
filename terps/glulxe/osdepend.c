@@ -20,6 +20,7 @@
 #include <stdlib.h>
 
 glui32 randomcallscount;
+glui32 lastrandomseed;
 
 extern glui32 gli_determinism;
 
@@ -47,15 +48,17 @@ void glulx_free(void *ptr)
    possible. */
 void glulx_setrandom(glui32 seed)
 {
-    if (!gli_determinism) {
-        if (seed == 0)
-            seed = time(NULL);
-        srandom(seed);
-    }
+  if (seed == 0)
+    seed = time(NULL);
+  if (gli_determinism)
+    seed = 1234;
+  lastrandomseed = seed;
+  srandom(seed);
   randomcallscount = 0;
 }
 
 /* Return a random number in the range 0 to 2^32-1. */
+#include <stdio.h>
 glui32 glulx_random()
 {
   randomcallscount++;

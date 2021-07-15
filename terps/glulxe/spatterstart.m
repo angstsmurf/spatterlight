@@ -548,6 +548,7 @@ static void spatterglk_library_archive(TempLibrary *library, NSCoder *encoder)
             [encoder encodeInt32:library_state.iosys_mode forKey:@"glulx_iosys_mode"];
             [encoder encodeInt32:library_state.iosys_rock forKey:@"glulx_iosys_rock"];
             [encoder encodeInt32:library_state.stringtable forKey:@"glulx_stringtable"];
+            [encoder encodeInt32:library_state.lastrandomseed forKey:@"glulx_lastrandomseed"];
             [encoder encodeInt32:library_state.randomcallscount forKey:@"glulx_randomcallscount"];
 
             if (library_state.accel_params)
@@ -577,6 +578,7 @@ static void spatterglk_library_unarchive(TempLibrary *library, NSCoder *decoder)
             library_state.iosys_mode = [decoder decodeInt32ForKey:@"glulx_iosys_mode"];
             library_state.iosys_rock = [decoder decodeInt32ForKey:@"glulx_iosys_rock"];
             library_state.stringtable = [decoder decodeInt32ForKey:@"glulx_stringtable"];
+            library_state.lastrandomseed = [decoder decodeInt32ForKey:@"glulx_lastrandomseed"];
             library_state.randomcallscount = [decoder decodeInt32ForKey:@"glulx_randomcallscount"];
             library_state.accel_params = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_accel_params"];
             library_state.accel_funcs = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"glulx_accel_funcs"];
@@ -601,7 +603,15 @@ static void recover_library_state(LibraryState *library_state)
             stream_set_iosys(library_state.iosys_mode, library_state.iosys_rock);
             stream_set_table(library_state.stringtable);
 
-            randomcallscount = library_state.randomcallscount;
+
+            // Restore random number generator state
+            randomcallscount = 0;
+            glulx_setrandom(library_state.lastrandomseed);
+
+            for (int i = 0; i < library_state.randomcallscount; i++)
+                glulx_random();
+
+            NSLog(@"Result: library_state.randomcallscount: %u randomcallscount:%ld", library_state.randomcallscount, randomcallscount);
 
             if (library_state.accel_params) {
                 for (int ix=0; ix<library_state.accel_params.count; ix++) {
@@ -719,6 +729,9 @@ static void recover_library_state(LibraryState *library_state)
         else { _gamefiletag = 0;
             NSLog(@"LibraryState initWithLibrary: No gamefile?");
         }
+
+        _lastrandomseed = lastrandomseed;
+        _randomcallscount = randomcallscount;
 
         _id_map_list = [NSMutableArray arrayWithCapacity:4];
 

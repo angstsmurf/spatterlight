@@ -29,6 +29,7 @@ NSDate *lastAutosaveTimestamp;
 @property NSMutableArray<GlulxAccelEntry *> *accel_funcs;
 @property glui32 gamefiletag;
 @property glui32 randomcallscount;
+@property glui32 lastrandomseed;
 @property NSMutableArray<GlkObjIdEntry *> *id_map_list;
 
 @end

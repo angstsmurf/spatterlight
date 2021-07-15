@@ -186,6 +186,7 @@ extern glui32 endmem;
 extern glui32 protectstart, protectend;
 extern glui32 prevpc;
 extern glui32 randomcallscount;
+extern glui32 lastrandomseed;
 
 extern void (*stream_char_handler)(unsigned char ch);
 extern void (*stream_unichar_handler)(glui32 ch);
