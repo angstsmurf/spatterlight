@@ -90,6 +90,7 @@ extern NSArray *gSaveFileTypes;
     _untypedCharacters = nil;
     NSString *command = [self nextCommandScriptLine];
     if (command) {
+//        NSLog(@"sendCommandLineToWindow: \"%@\"", command);
         [win sendCommandLine:command];
         _lastCommandWindow = win.name;
         _lastCommandType = kCommandTypeLine;
@@ -117,9 +118,15 @@ extern NSArray *gSaveFileTypes;
     // or just put a blank line after it, which will be sent at a single
     // newline character.
 
-    unsigned keyPress = '\n';
+    unsigned keyPress = keycode_Return;
     if (_untypedCharacters.length)
         keyPress = [_untypedCharacters characterAtIndex:0];
+    if (keyPress == '\n' || keyPress == '\r') {
+        keyPress = keycode_Return;
+        if (_untypedCharacters.length)
+            _untypedCharacters = @"";
+    }
+
     [win sendKeypress:keyPress];
     if (_untypedCharacters.length > 1)
         _untypedCharacters = [_untypedCharacters substringFromIndex:1];

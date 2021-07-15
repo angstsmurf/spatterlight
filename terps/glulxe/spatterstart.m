@@ -611,8 +611,6 @@ static void recover_library_state(LibraryState *library_state)
             for (int i = 0; i < library_state.randomcallscount; i++)
                 glulx_random();
 
-            NSLog(@"Result: library_state.randomcallscount: %u randomcallscount:%ld", library_state.randomcallscount, randomcallscount);
-
             if (library_state.accel_params) {
                 for (int ix=0; ix<library_state.accel_params.count; ix++) {
                     NSNumber *num = [library_state.accel_params objectAtIndex:ix];

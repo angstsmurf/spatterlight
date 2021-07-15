@@ -455,60 +455,58 @@ fprintf(stderr, "%s\n",                                                    \
 
     restoredControllerLate = restoredController;
 
-    if (!restoredController.commandScriptRunning) {
-        NSString *autosaveLatePath = [self.appSupportDir
-                                      stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
+    NSString *autosaveLatePath = [self.appSupportDir
+                                  stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
 
-        if ([fileManager fileExistsAtPath:autosaveLatePath]) {
-            @try {
-                restoredControllerLate =
-                [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
-            } @catch (NSException *ex) {
-                NSLog(@"Unable to restore late GUI autosave: %@", ex);
-                restoredControllerLate = restoredController;
-            }
-        } else {
-            NSLog(@"No late autosave exists (%@)", autosaveLatePath);
-        }
-
-        attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
-        if (attrs) {
-            GUILateAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
-        } else {
-            NSLog(@"Error: %@", error);
-        }
-
-        if ([[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath]) {
-            @try {
-                restoredControllerLate =
-                [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
-            } @catch (NSException *ex) {
-                NSLog(@"Unable to restore late GUI autosave: %@", ex);
-                restoredControllerLate = restoredController;
-            }
-        }
-        
-        attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
-        if (attrs) {
-            GUILateAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
-        } else {
-            NSLog(@"Error: %@", error);
-        }
-
-        if ([GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
-            NSLog(@"GUI autosave late file is created before GUI autosave file!");
-            NSLog(@"Do not use it.");
+    if ([fileManager fileExistsAtPath:autosaveLatePath]) {
+        @try {
+            restoredControllerLate =
+            [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
+        } @catch (NSException *ex) {
+            NSLog(@"Unable to restore late GUI autosave: %@", ex);
             restoredControllerLate = restoredController;
         }
+    } else {
+        NSLog(@"No late autosave exists (%@)", autosaveLatePath);
+    }
 
-        if (restoredController.autosaveTag != restoredControllerLate.autosaveTag) {
-            NSLog(@"GUI autosave late tag does not match GUI autosave file tag!");
-            NSLog(@"restoredController.autosaveTag %ld restoredControllerLate.autosaveTag: %ld", restoredController.autosaveTag, restoredControllerLate.autosaveTag);
-            if (restoredControllerLate.autosaveTag == 0)
-                restoredControllerLate = restoredController;
-            else
-                restoredController = restoredControllerLate;
+    attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
+    if (attrs) {
+        GUILateAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
+    } else {
+        NSLog(@"Error: %@", error);
+    }
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath]) {
+        @try {
+            restoredControllerLate =
+            [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
+        } @catch (NSException *ex) {
+            NSLog(@"Unable to restore late GUI autosave: %@", ex);
+            restoredControllerLate = restoredController;
         }
+    }
+
+    attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
+    if (attrs) {
+        GUILateAutosaveDate = (NSDate*)[attrs objectForKey: NSFileCreationDate];
+    } else {
+        NSLog(@"Error: %@", error);
+    }
+
+    if ([GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
+        NSLog(@"GUI autosave late file is created before GUI autosave file!");
+        NSLog(@"Do not use it.");
+        restoredControllerLate = restoredController;
+    }
+
+    if (restoredController.autosaveTag != restoredControllerLate.autosaveTag) {
+        NSLog(@"GUI autosave late tag does not match GUI autosave file tag!");
+        NSLog(@"restoredController.autosaveTag %ld restoredControllerLate.autosaveTag: %ld", restoredController.autosaveTag, restoredControllerLate.autosaveTag);
+        if (restoredControllerLate.autosaveTag == 0)
+            restoredControllerLate = restoredController;
+        else
+            restoredController = restoredControllerLate;
     }
 
     Game *game = _game;
@@ -1041,8 +1039,8 @@ fprintf(stderr, "%s\n",                                                    \
 
     GlkWindow *winToGrabFocus = nil;
 
-    if (restoredControllerLate.commandScriptRunning) {
-        [self.commandScriptHandler copyPropertiesFrom:restoredControllerLate.commandScriptHandler];
+    if (restoredController.commandScriptRunning) {
+        [self.commandScriptHandler copyPropertiesFrom:restoredController.commandScriptHandler];
     }
 
     // Restore scroll position etc
@@ -3252,18 +3250,16 @@ fprintf(stderr, "%s\n",                                                    \
 //              NSLog(@"Restoring UI at INITLINE");
 //              NSLog(@"at eventcount %ld", _eventcount);
                 if (restoredController.commandScriptRunning) {
-                    CommandScriptHandler *handler = restoredController.commandScriptHandler;
-                    if (handler.commandIndex >= handler.commandArray.count - 2) {
+                    CommandScriptHandler *handler = restoredControllerLate.commandScriptHandler;
+                    if (handler.commandIndex >= handler.commandArray.count - 1) {
                         restoredController.commandScriptHandler = nil;
                         restoredController.commandScriptRunning = NO;
                     } else {
-                        handler.commandIndex++;
-                        //                            handler.lastCommandType = handler.nextToLastCommandType;
                         skipNextScriptCommand = YES;
-                        restoredControllerLate = restoredController;
+                        restoredController = restoredControllerLate;
                     }
                 }
-                _windowsToRestore = restoredControllerLate.gwindows.allValues;
+                _windowsToRestore = restoredController.gwindows.allValues;
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
@@ -3301,19 +3297,23 @@ fprintf(stderr, "%s\n",                                                    \
             //            NSLog(@"glkctl initchar %d", req->a1);
 
             if (!_gwindows.count && shouldRestoreUI) {
-                GlkController *g = restoredController;
-                _windowsToRestore = g.gwindows.allValues;
+                GlkController *g = restoredControllerLate;
+                _windowsToRestore = restoredControllerLate.gwindows.allValues;
                 //                NSLog(@"Restoring UI at INITCHAR");
                 //                NSLog(@"at eventcount %ld", _eventcount);
                 if (g.commandScriptRunning) {
-                    CommandScriptHandler *handler = g.commandScriptHandler;
-                    if (handler.commandIndex >= handler.commandArray.count - 1) {
-                        g.commandScriptHandler = nil;
+                    CommandScriptHandler *handler = restoredController.commandScriptHandler;
+                    handler.commandIndex++;
+                    if (handler.commandIndex >= handler.commandArray.count) {
+                        restoredController.commandScriptHandler = nil;
+                        restoredControllerLate.commandScriptHandler = nil;
                     } else {
+                        restoredControllerLate.commandScriptHandler = handler;
+
                         skipNextScriptCommand = YES;
                         lastKeyTimestamp = [NSDate date];
                     }
-                    restoredControllerLate = restoredController;
+                    restoredController = restoredControllerLate;
                 }
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
@@ -3356,7 +3356,7 @@ fprintf(stderr, "%s\n",                                                    \
             //            NSLog(@"glkctl initmouse %d", req->a1);
             if (!_gwindows.count && shouldRestoreUI) {
                 _windowsToRestore = restoredControllerLate.gwindows.allValues;
-                //                NSLog(@"Restoring UI at INITMOUSE");
+//                NSLog(@"Restoring UI at INITMOUSE");
                 [self restoreUI];
                 reqWin = _gwindows[@(req->a1)];
             }
