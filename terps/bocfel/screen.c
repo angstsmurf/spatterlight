@@ -1123,9 +1123,7 @@ static int print_zcode(uint32_t addr, bool in_abbr, void (*outc)(uint8_t))
                     // fallthrough
                 case 2: case 3:
                     if (zversion >= 3 || (zversion == 2 && c == 1)) {
-#ifndef SPATTERLIGHT
                         ZASSERT(!in_abbr, "abbreviation being used recursively");
-#endif
                         abbrev = c;
                         shift = 0;
                     } else {

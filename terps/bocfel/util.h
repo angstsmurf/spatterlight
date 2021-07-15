@@ -43,9 +43,10 @@ static inline int16_t as_signed(uint16_t n)
 
 #ifndef ZTERP_NO_SAFETY_CHECKS
 zprintflike(1, 2)
-znoreturn
+//znoreturn
 void assert_fail(const char *fmt, ...);
-#define ZASSERT(expr, ...)	do { if (!(expr)) assert_fail(__VA_ARGS__); } while (false)
+//#define ZASSERT(expr, ...)	do { if (!(expr)) assert_fail(__VA_ARGS__); } while (false)
+#define ZASSERT(expr, ...) if(!(expr)) assert_fail(__VA_ARGS__);
 #else
 #define ZASSERT(expr, ...)	((void)0)
 #endif
