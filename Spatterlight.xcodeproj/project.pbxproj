@@ -1148,7 +1148,7 @@
 		6D54942B1EAC1BC4003DA5C4 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		6D54942D1EAC1BC4003DA5C4 /* opcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opcodes.h; sourceTree = "<group>"; };
 		6D54942E1EAC1BC4003DA5C4 /* operand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = operand.c; sourceTree = "<group>"; };
-		6D54942F1EAC1BC4003DA5C4 /* osdepend.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osdepend.c; sourceTree = "<group>"; };
+		6D54942F1EAC1BC4003DA5C4 /* osdepend.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = osdepend.c; sourceTree = "<group>"; tabWidth = 2; };
 		6D5494301EAC1BC4003DA5C4 /* profile-analyze.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = "profile-analyze.py"; sourceTree = "<group>"; };
 		6D5494311EAC1BC4003DA5C4 /* profile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = profile.c; sourceTree = "<group>"; };
 		6D5494321EAC1BC4003DA5C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
