@@ -26,8 +26,13 @@
 #ifdef ZTERP_GLK
 #include "glk.h"
 #ifdef SPATTERLIGHT
+#include "random.h"
 #include "glkimp.h"
 #include "spatterlight-autosave.h"
+
+extern long last_random_seed;
+extern int random_calls_count;
+
 #endif
 
 #if defined(ZTERP_WIN32) && !defined(GARGLK)
@@ -3238,6 +3243,9 @@ void stash_library_state(library_state_data *dat)
         if (upperwin->id)
             dat->upperwintag = upperwin->id->tag;
 
+        dat->last_random_seed = last_random_seed;
+        dat->random_calls_count = random_calls_count;
+
         stash_library_sound_state(dat);
     }
 }
@@ -3275,6 +3283,12 @@ void recover_library_state(library_state_data *dat)
                 }
             }
         }
+
+        seed_random((uint32_t)last_random_seed);
+        random_calls_count = 0;
+        for (int i = 0; i < dat->random_calls_count; i++)
+            zterp_rand();
+
         recover_library_sound_state(dat);
     }
 }

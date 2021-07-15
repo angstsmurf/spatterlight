@@ -264,6 +264,8 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:(int32_t)library_state.routine forKey:@"bocfel_routine"];
     [encoder encodeInt32:(int32_t)library_state.queued_sound forKey:@"bocfel_next_sample"];
     [encoder encodeInt32:(int32_t)library_state.sound_channel_tag forKey:@"bocfel_sound_channel_tag"];
+    [encoder encodeInt64:(int64_t)library_state.last_random_seed forKey:@"bocfel_last_random_seed"];
+    [encoder encodeInt32:(int32_t)library_state.random_calls_count forKey:@"bocfel_random_calls_count"];
 }
 
 static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decoder) {
@@ -284,4 +286,6 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.routine = [decoder decodeInt32ForKey:@"bocfel_routine"];
     library_state.queued_sound = [decoder decodeInt32ForKey:@"bocfel_next_sample"];
     library_state.sound_channel_tag = [decoder decodeInt32ForKey:@"bocfel_sound_channel_tag"];
+    library_state.last_random_seed = [decoder decodeInt64ForKey:@"bocfel_last_random_seed"];
+    library_state.random_calls_count = [decoder decodeInt32ForKey:@"bocfel_random_calls_count"];
 }
