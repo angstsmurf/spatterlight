@@ -515,7 +515,9 @@ fprintf(stderr, "%s\n",                                                    \
 - (void)postRestoreAdjustments:(GlkWindow *)win {
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
 
-//    line_request = [restoredWin hasLineRequest];
+    // No idea where these spurious storedNewlines come from
+    if (line_request || self.glkctl.commandScriptRunning)
+        storedNewline = nil;
 
     if (line_request && [restoredWin.restoredInput length]) {
         NSAttributedString *restoredInput = restoredWin.restoredInput;
