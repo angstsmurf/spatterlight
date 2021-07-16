@@ -1,11 +1,19 @@
 # Change log
 
+## Unreleased
+- Reinstates Bocfel 1.3.2
+- Fixes broken determinism in Bocfel and Glulxe
+- Fixes broken command script handling in Bocfel and Glulxe
+- Fixes the autorestore bug that made Bocfel 1.3.2 unstable
+- Improves determinism in AdvSys, Alan 2, Alan 3 and UnQuill
+- Reset should work more reliably after a game crashes
+
 ## Release 0.8.3
 - QuickLook plugin blorb support was broken
 - Drag support for all image views, including inline images
 - Mouse cursor changes appropriately over margin images
 - Drag, drop and contextual menu for cover image in "Show and wait for key" mode
-- "Show and wait for key" background color changes if border color changes
+- "Show and wait for key" background color changes when border color does
 - Huge images are shrunk when imported
 - Improved look for Game Over bezel
 - Turning off automatic border color keeps the last automatic color
