@@ -56,9 +56,11 @@
 
     } else if (_topText.length) {
         NSSize topTextSize = NSMakeSize(selfSize.width * 0.4, selfSize.height * 0.5 - messageLabelTop);
-
-        NSPoint topTextBottomLeftCorner = NSMakePoint(bezelCenterX - (topTextSize.width / 2),
-                                                      messageLabelTop - 10);
+        
+        if (_topText.length == 2)
+            topTextSize.width = selfSize.width * 0.85;
+        else if (_topText.length == 3)
+            topTextSize.width = selfSize.width * 0.9;
 
         CGContextSetTextDrawingMode(context, kCGTextFill);
 
@@ -73,20 +75,23 @@
 
         topFont = [topFont fontToFitWidth:topTextSize.width sampleText:_topText];
 
+        CGFloat kerning = topFont.pointSize * -0.1;
+
+        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:_topText attributes:@{NSFontAttributeName : topFont, NSKernAttributeName : @(kerning) }];
+        NSRect topTextBounds = [attributedString boundingRectWithSize:topTextSize options: 0];
+
+        NSPoint topTextBottomLeftCorner = NSMakePoint(bezelCenterX - ((topTextBounds.size.width - kerning) / 2),
+                                                      messageLabelTop - 10);
         NSRect topTextRect;
         topTextRect.origin = topTextBottomLeftCorner;
-        topTextRect.size = topTextSize;
-
-        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:_topText attributes:@{NSFontAttributeName : topFont}];
-        NSRect topTextBounds = [attributedString boundingRectWithSize:topTextSize options: 0];
+        topTextRect.size = topTextBounds.size;
 
         topTextRect.size.height = topTextBounds.size.height;
 
         [_topText drawInRect:topTextRect withAttributes:
                       @{ NSForegroundColorAttributeName: color,
-                                    NSFontAttributeName: topFont }];
-
-
+                                    NSFontAttributeName: topFont,
+                                    NSKernAttributeName: @(kerning) }];
     }
 
     CGContextSetTextDrawingMode(context, kCGTextFill);
