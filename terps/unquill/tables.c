@@ -26,7 +26,7 @@ void oneitem(ushort table, uchar item)
 	uchar  term;
 
 	if (arch == ARCH_SPECTRUM) term = 0x1F; else term = 0;
-	cch = ~term;
+//	cch = ~term;
     
     n=zword(table+2*item);
     xpos=0;

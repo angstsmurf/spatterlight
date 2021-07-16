@@ -153,7 +153,7 @@ void usage(char *title)
 
 int glkunix_startup_code(glkunix_startup_t *data)
 {
-    char *restorefile;
+//    char *restorefile;
     int c;
     
     while ((c = getopt(data->argc, data->argv, "lr:")) != -1)
@@ -161,7 +161,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
 	switch (c)
 	{
 	    case 'l': dbver = 10; break;
-	    case 'r': restorefile = optarg; break;
+	    case 'r':
+//            restorefile = optarg;
+            break;
 	    default: usage(data->argv[0]); break;
 	}
     }
